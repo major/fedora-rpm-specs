@@ -1,5 +1,5 @@
 Name:           openscap
-Version:        1.4.0
+Version:        1.4.1
 Release:        1%{?dist}
 Epoch:          1
 Summary:        Set of open source libraries enabling integration of the SCAP line of standards
@@ -319,6 +319,9 @@ pathfix.py -i %{__python3} -p -n %{buildroot}%{_bindir}/scap-as-rpm
 %{_mandir}/man8/oscap-podman.8*
 
 %changelog
+* Wed Jan 08 2025 Jan Černý <jcerny@redhat.com> - 1:1.4.1-1
+- upgrade to the latest upstream release
+
 * Tue Aug 13 2024 Jan Černý <jcerny@redhat.com> - 1:1.4.0-1
 - upgrade to the latest upstream release
 

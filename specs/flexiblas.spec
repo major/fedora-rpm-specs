@@ -22,7 +22,7 @@
 
 Name:           flexiblas
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        A BLAS/LAPACK wrapper library with runtime exchangeable backends
 
 # LGPL-3.0-or-later
@@ -309,6 +309,10 @@ find %{buildroot}%{_sysconfdir}/%{name}*.d/* -type f \
     -exec sed -i 's PThread -threads gI' {} \;
 
 %check
+# limit the number of threads < 12 for now, see:
+# https://github.com/OpenMathLib/OpenBLAS/issues/5050
+MAX_CORES=10; CORES=$(nproc)
+export OMP_NUM_THREADS=$((CORES > MAX_CORES ? MAX_CORES : CORES))
 export CTEST_OUTPUT_ON_FAILURE=1
 export FLEXIBLAS_TEST=%{buildroot}%{_libdir}/%{name}/lib%{name}_%{default_backend}.so
 make -C build test
@@ -444,6 +448,9 @@ make -C build64 test
 %endif
 
 %changelog
+* Wed Jan 08 2025 Iñaki Úcar <iucar@fedoraproject.org> - 3.4.4-5
+- Limit the number of threads for testing
+
 * Sun Dec 22 2024 Orion Poplawski <orion@nwra.com> - 3.4.4-4
 - Drop atlas support in Fedora 42+
 

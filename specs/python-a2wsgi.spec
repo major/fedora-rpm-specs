@@ -1,5 +1,5 @@
 Name:           python-a2wsgi
-Version:        1.7.0
+Version:        1.10.8
 Release:        %autorelease
 Summary:        Convert WSGI app to ASGI app or ASGI app to WSGI app
 License:        Apache-2.0
@@ -11,6 +11,10 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-asyncio
 BuildRequires:  python3-httpx
+%if %{undefined rhel}
+# starlette is not yet packaged in EPEL
+BuildRequires:  python3-starlette
+%endif
 
 %global _description %{expand:
 Convert WSGI app to ASGI app or ASGI app to WSGI app.  Pure Python.  Only
@@ -53,9 +57,20 @@ sed -e '/LICENSE/ s/^/%%license /' -i %{pyproject_files}
 
 
 %check
+# baize is not yet packaged in Fedora or EPEL
+SKIPS='not test_baize_stream_response'
+
+%if %{defined rhel}
+# starlette is not yet packaged in EPEL
+SKIPS+=' and not test_starlette_stream_response and not test_starlette_base_http_middleware'
+%endif
+
+# this test fails with httpx older than 0.28
+SKIPS+=' and not test_wsgi_post'
+
 # This project doesn't use the src layout.  Set the import mode during tests to
 # ensure we tests the installed Python module, not the local directory.
-%pytest --import-mode append --verbose
+%pytest --import-mode append --verbose -k "$SKIPS"
 
 
 %files -n python3-a2wsgi -f %{pyproject_files}

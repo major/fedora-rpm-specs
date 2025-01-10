@@ -1,7 +1,7 @@
 Summary:        Generic Programming for Computer Vision
 Name:           vigra
 Version:        1.11.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        MIT
 # The "Lenna" files are non-free, we need to remove them from the source tarball.
 # wget https://github.com/ukoethe/vigra/archive/refs/tags/Version-1-11-2.tar.gz
@@ -14,6 +14,11 @@ Source1:        vigra-config.sh
 # Avoid attempt to install non-free 'lenna' files
 Patch1:         vigra-1.10.0-no-lenna.patch
 Patch2:         vigra-1.11.1.docdir.patch
+# Switch from nose to pytest:
+#  https://github.com/ukoethe/vigra/commit/7db3841c7e
+#  https://github.com/ukoethe/vigra/commit/e32c60b621
+#  https://github.com/ukoethe/vigra/commit/3729909b98
+Patch3:         vigra-1.11.2-nose-to-pytest.patch
 URL:            http://ukoethe.github.io/vigra/
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -33,7 +38,7 @@ BuildRequires:  python3-sphinx
 BuildRequires:  cmake(OpenEXR)
 BuildRequires:  cmake(Imath)
 BuildRequires:  python3-numpy-f2py
-BuildRequires:  python3-nose
+BuildRequires:  python3-pytest
 BuildRequires:  boost-python3
 BuildRequires:  boost-python3-devel
 %else
@@ -144,6 +149,10 @@ install -p -m755 -D %{SOURCE1} %{buildroot}%{_bindir}/vigra-config
 %endif
 
 %changelog
+* Thu Jan 02 2025 Miro Hrončok <mhroncok@redhat.com> - 1.11.2-3
+- Drop a test dependency on deprecated python3-nose
+- https://fedoraproject.org/wiki/Changes/DeprecateNose
+
 * Tue Dec 24 2024 Orion Poplawski <orion@nwra.com> - 1.11.2-2
 - Rebuild with numpy 2.x (rhbz#2333964)
 

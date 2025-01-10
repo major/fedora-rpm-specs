@@ -16,7 +16,7 @@
 Summary: Qt6 - QtDeclarative component
 Name:    qt6-%{qt_module}
 Version: 6.8.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -151,10 +151,6 @@ for prl_file in libQt6*.prl ; do
   sed -i -e "/^QMAKE_PRL_LIBS/d" ${prl_file}
 done
 popd
-
-# Copied from OpenSUSE packages
-# CMake modules for plugins are not useful
-rm %{buildroot}%{_qt6_libdir}/cmake/*/*Plugin{Config,ConfigVersion,Targets*}.cmake
 
 %check
 %if 0%{?tests}
@@ -627,6 +623,9 @@ make check -k -C tests ||:
 %endif
 
 %changelog
+* Wed Jan 08 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.1-6
+- Install CMake modules for plugins
+
 * Sat Dec 07 2024 Jan Grulich <jgrulich@redhat.com> - 6.8.1-5
 - Make -devel subpkg to require qtbase-private-devel for cmake >= 3.31.0
   Workaround for rhbz#2330219

@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.1.0
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: OpenBSD's bcrypt_pdkfd (a variant of PBKDF2 with bcrypt-based PRF)
 # BSD license in files:
 #   ext/mri/hash_sha512.c
@@ -82,6 +82,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Wed Jan 08 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.1.0-14
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.4
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1.0-13
 - convert license to SPDX
 

@@ -39,13 +39,16 @@ Patch:          0001-Fix-test_exiv2.c-for-exiv2-0.28.0.patch
 BuildRequires:  gcc
 ## exiv2 config check uses g++
 BuildRequires:  gcc-c++
-BuildRequires:  gettext
+BuildRequires:  gettext-devel
 BuildRequires:  gnupg2
 BuildRequires:  libtool-ltdl-devel
 BuildRequires:  make
 BuildRequires:  pkgconfig(bzip2)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  zzuf
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  libtool
 
 %description
 libextractor is a simple library for keyword extraction.  libextractor
@@ -151,6 +154,7 @@ rm -rfv README.debian
 sed -i 's!\(-L\(/usr\|\$with_qt\)/lib\|-I/usr/include\) !!g' configure
 
 %build
+autoreconf -fi
 export ac_cv_lib_mpeg2_mpeg2_init=no
 export lt_cv_sys_dlsearch_path='/%{_lib}:%{_prefix}/%{_lib}:%{plugindir}'
 %configure --disable-static    \

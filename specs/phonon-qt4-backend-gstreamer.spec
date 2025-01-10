@@ -5,7 +5,7 @@
 Summary: Gstreamer phonon backend for Qt4
 Name:    phonon-qt4-backend-gstreamer
 Version: 4.9.1
-Release: 23%{?dist}
+Release: 24%{?dist}
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
@@ -29,6 +29,7 @@ BuildRequires: pkgconfig(gstreamer-app-1.0) pkgconfig(gstreamer-audio-1.0) pkgco
 
 Requires: gstreamer1-plugins-good%{?_isa}
 
+BuildRequires: kde4-macros(api)
 BuildRequires: automoc4
 BuildRequires: cmake >= 2.8.9
 BuildRequires: extra-cmake-modules
@@ -74,6 +75,9 @@ make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
 
 
 %changelog
+* Wed Jan 08 2025 Alessandro Astone <ales.astone@gmail.com> - 4.9.1-24
+- Add missing build dependency on kde4 macros
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 4.9.1-23
 - convert license to SPDX
 

@@ -7,7 +7,7 @@
 
 Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
@@ -901,6 +901,9 @@ popd
 %ldconfig_scriptlets
 
 %changelog
+* Wed Jan 08 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.2.8.1-3
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.4
+
 * Fri Dec 06 2024 Miro Hrončok <mhroncok@redhat.com> - 5.2.8.1-2
 - python3-libdnf5: Remove superfluous provides for python-libdnf
 

@@ -1,6 +1,6 @@
 Name:    kpkpass
 Version: 24.12.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Library to deal with Apple Wallet pass files
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later
@@ -27,6 +27,7 @@ BuildRequires:  pkgconfig(shared-mime-info)
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       cmake(KF6Archive)
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
@@ -69,6 +70,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 
 %changelog
+* Wed Jan 08 2025 Alessandro Astone <ales.astone@gmail.com> - 24.12.1-2
+- devel subpackage requires KF6Archive
+
 * Tue Jan 07 2025 Steve Cossette <farchord@gmail.com> - 24.12.1-1
 - 24.12.1
 

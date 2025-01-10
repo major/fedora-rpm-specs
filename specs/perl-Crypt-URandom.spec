@@ -2,7 +2,7 @@
 %bcond_without perl_Crypt_URandom_enables_optional_test
 
 Name:           perl-Crypt-URandom
-Version:        0.48
+Version:        0.49
 Release:        1%{?dist}
 Summary:        Non-blocking randomness for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -130,6 +130,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jan 08 2025 Petr Pisar <ppisar@redhat.com> - 0.49-1
+- 0.49 bump
+
 * Tue Jan 07 2025 Petr Pisar <ppisar@redhat.com> - 0.48-1
 - 0.48 bump
 

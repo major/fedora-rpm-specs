@@ -15,7 +15,7 @@
 
 Name:		linhpsdr
 Version:	0
-Release:	0.13.%{git_suffix}%{?dist}
+Release:	0.14.%{git_suffix}%{?dist}
 Summary:	An HPSDR application for Linux
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -69,13 +69,16 @@ install -Dpm 0644 %{SOURCE1} %{buildroot}%{_metainfodir}/io.github.g0orx.LinHPSD
 %{_bindir}/%{name}
 %{_datadir}/%{name}
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/icons/hicolor/*/*
+%{_datadir}/icons/hicolor/*/*/*
 %{_metainfodir}/io.github.g0orx.LinHPSDR.metainfo.xml
 
 %files doc
 %doc documentation/*.pdf
 
 %changelog
+* Tue Jan  7 2025 Daniel Rusek <mail@asciiwolf.com> - 0-0.14.20210710git742658a9
+- Fixed desktop icon installation path
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0-0.13.20210710git742658a9
 - convert license to SPDX
 

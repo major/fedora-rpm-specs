@@ -32,6 +32,9 @@
 # Build from git main
 %bcond upstream  0
 
+# Build with OBS-specific quirks
+%bcond obs       0
+
 # When bootstrap, libcryptsetup is disabled
 # but auto-features causes many options to be turned on
 # that depend on libcryptsetup (e.g. libcryptsetup-plugins, homed)
@@ -45,9 +48,15 @@
 
 Name:           systemd
 Url:            https://systemd.io
-# Allow users to specify the version and release when building the rpm by 
+# Allow users to specify the version and release when building the rpm by
 # setting the %%version_override and %%release_override macros.
-Version:        %{?version_override}%{!?version_override:257.1}
+# But don't do that on OBS, otherwise the version subst fails, and will be
+# like 257-123-gabcd257.1 instead of 257-123-gabcd
+%if %{without obs}
+Version:        %{?version_override}%{!?version_override:257.2}
+%else
+Version:        %{?version_override}%{!?version_override:%(cat meson.version)}
+%endif
 Release:        %autorelease
 
 %global stable %(c="%version"; [ "$c" = "${c#*.*}" ]; echo $?)
@@ -1126,7 +1135,7 @@ if [ -f %{_localstatedir}/lib/systemd/clock ]; then
     mv %{_localstatedir}/lib/systemd/clock %{_localstatedir}/lib/systemd/timesync/.
 fi
 
-udevadm hwdb --update &>/dev/null
+systemd-hwdb update &>/dev/null
 
 %systemd_post %udev_services
 

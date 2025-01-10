@@ -12,7 +12,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        127
+Version:        128
 
 %gometa
 
@@ -276,15 +276,15 @@ Provides: bundled(golang(go.opentelemetry.io/otel/metric)) = 1.29.0
 Provides: bundled(golang(go.opentelemetry.io/otel/sdk)) = 1.29.0
 Provides: bundled(golang(go.opentelemetry.io/otel/sdk/metric)) = 1.29.0
 Provides: bundled(golang(go.opentelemetry.io/otel/trace)) = 1.29.0
-Provides: bundled(golang(golang.org/x/crypto)) = 0.28.0
+Provides: bundled(golang(golang.org/x/crypto)) = 0.31.0
 Provides: bundled(golang(golang.org/x/exp)) = 8a7402a
 Provides: bundled(golang(golang.org/x/mod)) = 0.20.0
 Provides: bundled(golang(golang.org/x/net)) = 0.30.0
 Provides: bundled(golang(golang.org/x/oauth2)) = 0.23.0
-Provides: bundled(golang(golang.org/x/sync)) = 0.8.0
-Provides: bundled(golang(golang.org/x/sys)) = 0.26.0
-Provides: bundled(golang(golang.org/x/term)) = 0.25.0
-Provides: bundled(golang(golang.org/x/text)) = 0.19.0
+Provides: bundled(golang(golang.org/x/sync)) = 0.10.0
+Provides: bundled(golang(golang.org/x/sys)) = 0.28.0
+Provides: bundled(golang(golang.org/x/term)) = 0.27.0
+Provides: bundled(golang(golang.org/x/text)) = 0.21.0
 Provides: bundled(golang(golang.org/x/time)) = 0.7.0
 Provides: bundled(golang(golang.org/x/tools)) = 0.24.0
 Provides: bundled(golang(google.golang.org/api)) = 0.201.0
@@ -698,6 +698,23 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Jan 08 2025 Packit <hello@packit.dev> - 128-1
+Changes with 128
+----------------
+  * Exclude vendor directory ci: do not perform linting on vendor/from linting (#4547)
+    * Author: Lukáš Zapletal, Reviewers: Brian C. Lane, Michael Vogt
+  * github/actions: Enable /jira-epic slash commands (HMS-5161) (#4529)
+    * Author: Simon Steinbeiß, Reviewers: Ondřej Budai
+  * go.mod: upgrade golang.org/x/crypto (#4526)
+    * Author: Florian Schüller, Reviewers: Ondřej Budai
+  * schutzbot: update Achilleas' ssh keys (#4538)
+    * Author: Achilleas Koutsou, Reviewers: Tomáš Hozza
+  * upgrade_verify.sh: update el10 repo URLs to non-Beta (#4534)
+    * Author: Tomáš Hozza, Reviewers: Tomáš Koscielniak
+
+— Somewhere on the Internet, 2025-01-08
+
+
 * Wed Dec 11 2024 Packit <hello@packit.dev> - 127-1
 Changes with 127
 ----------------

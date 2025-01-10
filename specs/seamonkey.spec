@@ -35,7 +35,7 @@
 Name:           seamonkey
 Summary:        Web browser, e-mail, news, IRC client, HTML editor
 Version:        2.53.20
-Release:        1%{?dist}
+Release:        2%{?dist}
 URL:            http://www.seamonkey-project.org
 License:        MPL-2.0
 
@@ -49,6 +49,7 @@ Source3:	seamonkey-2.53.20-GNUmakefile
 Source4:	seamonkey.desktop
 Source5:	seamonkey-mail.desktop
 Source6:	seamonkey-ua-update.json.in
+Source7:	seamonkey.metainfo.xml
 
 Patch2:		seamonkey-2.53.20-mozilla-1894423.patch
 Patch3:		seamonkey-2.53.17-mozilla-1516803.patch
@@ -84,6 +85,7 @@ Patch39:	seamonkey-2.53.8.1-dateformat.patch
 Patch40:	seamonkey-2.53.10-slowscript.patch
 Patch42:	seamonkey-2.53.10-postmessage-event.patch
 Patch43:	seamonkey-2.53.20-mozilla-1502802.patch
+Patch44:	seamonkey-2.53.20-mozilla-1940204.patch
 
 Patch60:	seamonkey-2.53.11-ua-update.patch
 Patch61:	seamonkey-2.53.13-ua-update-preload.patch
@@ -124,6 +126,7 @@ BuildRequires:  mesa-libGL-devel
 BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  startup-notification-devel
 BuildRequires:  nasm >= 2.14
+BuildRequires:  libappstream-glib
 
 BuildRequires:  make
 BuildRequires:  m4
@@ -215,6 +218,7 @@ cp %{SOURCE3} GNUmakefile
 %patch 40 -p0 -b .slowscript
 %patch 42 -p1 -b .postmessage-event
 %patch 43 -p1 -b .1502802
+%patch 44 -p1 -b .1940204
 
 %patch 60 -p1 -b .ua-update
 %patch 61 -p1 -b .ua-update-preload
@@ -447,6 +451,11 @@ mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications/
 desktop-file-install --dir $RPM_BUILD_ROOT%{_datadir}/applications %{SOURCE4}
 desktop-file-install --dir $RPM_BUILD_ROOT%{_datadir}/applications %{SOURCE5}
 
+# install and check metainfo appdata file
+appdata=$RPM_BUILD_ROOT%{_metainfodir}/org.seamonkey_project.seamonkey.metainfo.xml
+install -p -m 644 -D %{SOURCE7} $appdata
+appstream-util validate-relax --nonet $appdata
+
 
 # install icons
 icons=$RPM_BUILD_ROOT%{_datadir}/icons/hicolor
@@ -491,14 +500,20 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}/mozilla/extensions/%{seamonkey_app_id}
 %{_mandir}/*/*
 %{_datadir}/icons/hicolor/*/apps/*
 %{_datadir}/applications/*.desktop
+%{_metainfodir}/*.metainfo.xml
 
 %dir %{_datadir}/mozilla/extensions/%{seamonkey_app_id}
 %dir %{_libdir}/mozilla/extensions/%{seamonkey_app_id}
 
 
 %changelog
+* Wed Jan  8 2025 Dmitry Butskoy <Dmitry@Butskoy.name> 2.53.20-2
+- add fix for mozbz 1894423 and 1940204
+- add appstream metadata file (#2336121)
+
 * Mon Jan  6 2025 Dmitry Butskoy <Dmitry@Butskoy.name> 2.53.20-1
 - update to 2.53.20
+- build without system icu 
 
 * Sat Aug 31 2024 Dmitry Butskoy <Dmitry@Butskoy.name> 2.53.19-1
 - update to 2.53.19

@@ -1,15 +1,25 @@
+%global _hardened_build 1
+%global snapshot 1
+%global OWNER hannob
+%global PROJECT uudeview
+%global commit 7ef9e26532b39bdcedd319c07b6b77fc70e270dd
+%global commitdate 20241111
+#global gittag 0.5.20
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+
 Name:           uudeview
-Version:        0.5.20
-Release:        56%{?dist}
+Version:        0.5.20%{?snapshot:^%{commitdate}git%{shortcommit}}
+Release:        1%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
-Source:         http://www.fpx.de/fp/Software/UUDeview/download/uudeview-0.5.20.tar.gz
+%if 0%{?snapshot}
+Source0:        https://github.com/%{OWNER}/%{PROJECT}/archive/%{commit}/%{name}-%{commit}.tar.gz
+BuildRequires:  autoconf
+%else
+Source0:        http://www.fpx.de/fp/Software/UUDeview/download/uudeview-%{version}.tar.gz
+%endif
 Source1:        xdeview.desktop
-Patch0:         uudeview-debian-patches.patch
-Patch1:         uudeview-format-security.patch
-Patch2:         matherr.patch
-Patch3: uudeview-configure-c99.patch
 URL:            http://www.fpx.de/fp/Software/UUDeview/
 Summary:        Applications for uuencoding, uudecoding, ...
 BuildRequires: make
@@ -41,12 +51,12 @@ This package contains header files and static libraries for uulib.
 
 
 %prep
-%setup -q
-%patch -P0 -p1
-%patch -P1 -p1
-%patch -P2 -p2
-%patch -P3 -p1
-%{__sed} -i -e "s,psfig,epsfig,g" doc/library.ltx
+%if 0%{?snapshot}
+%autosetup -p1 -n %{name}-%{commit}
+autoreconf -i
+%else
+%autosetup -p1
+%endif
 %{__sed} -i -e "s,for ff_subdir in lib,for ff_subdir in %{_lib},g" configure
 
 %build
@@ -85,6 +95,9 @@ install -p -m 0644 uulib/libuu.a $RPM_BUILD_ROOT/%{_libdir}/
 %{_libdir}/*.a
 
 %changelog
+* Fri Jan 03 2025 Charles R. Anderson <cra@alum.wpi.edu> - 0.5.20^20241111git7ef9e26-1
+- Update to git snapshot to resolve FTBFS with Tcl_CreateCommand
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5.20-56
 - convert license to SPDX
 

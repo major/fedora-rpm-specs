@@ -1,7 +1,7 @@
 # -*-Mode: rpm-spec-mode; -*-
 
 Name:     wob
-Version:  0.14.2
+Version:  0.15.1
 Release:  6%{?dist}
 Summary:  A lightweight overlay volume/backlight/progress/anything bar for Wayland
 License:  ISC
@@ -20,6 +20,7 @@ BuildRequires: gnupg2
 BuildRequires: meson
 BuildRequires: pkgconfig(libseccomp)
 BuildRequires: scdoc
+BuildRequires: libcmocka-devel
 BuildRequires: wayland-devel
 BuildRequires: wayland-protocols-devel
 BuildRequires: inih-devel

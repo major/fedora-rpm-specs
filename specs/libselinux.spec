@@ -4,7 +4,7 @@
 Summary: SELinux library and simple utilities
 Name: libselinux
 Version: 3.8
-Release: 0.rc3.1%{?dist}
+Release: 0.rc3.1%{?dist}.1
 License: LicenseRef-Fedora-Public-Domain
 # https://github.com/SELinuxProject/selinux/wiki/Releases
 Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}-rc3/libselinux-%{version}-rc3.tar.gz
@@ -219,5 +219,8 @@ rm -f %{buildroot}%{_mandir}/man8/togglesebool*
 %{ruby_vendorarchdir}/selinux.so
 
 %changelog
+* Wed Jan 08 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.8-0.rc3.1.1
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.4
+
 
 %autochangelog

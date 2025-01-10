@@ -1,6 +1,6 @@
 Name:           perl-Config-General
-Version:        2.65
-Release:        9%{?dist}
+Version:        2.67
+Release:        1%{?dist}
 Summary:        Generic configuration module for Perl
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Config-General
@@ -27,13 +27,13 @@ BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(FileHandle)
 BuildRequires:  perl(IO::File)
 BuildRequires:  perl(strict)
-BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 # Test Suite:
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Tie::IxHash)
 # Dependencies:
+# (none)
 
 %description
 This module opens a config file and parses its contents for you. After parsing
@@ -84,6 +84,17 @@ make test
 
 
 %changelog
+* Wed Jan  8 2025 Paul Howarth <paul@city-fan.org> - 2.67-1
+- Update to 2.67
+  - Fix tests (add missing file to dist tarball) (GH#5, GH#6)
+
+* Wed Jan  8 2025 Paul Howarth <paul@city-fan.org> - 2.66-1
+- Update to 2.66 (rhbz#2336204)
+  - Add support for quoting values containing whitespace using the new flag
+    -AlwaysQuoteOutput (GH#1)
+  - Fix exporter setup, use "our" where appropriate (GH#2)
+- Add upstream test file missing from release tarball (GH#5)
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.65-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

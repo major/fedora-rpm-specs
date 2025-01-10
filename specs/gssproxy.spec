@@ -18,6 +18,7 @@ Source2:        gssproxy.sock.compat.conf
 ### Patches ###
 Patch0001: 0001-Fix-various-issues-detected-by-static-analysis.patch
 Patch0002: 0002-Make-systemd-use-0700-mode-on-cache-folders.patch
+Patch0003: 0003-gssproxy-Change-daemon-to-Type-notify-with-systemd.patch
 
 ### Dependencies ###
 Requires: krb5-libs >= 1.12.0
@@ -54,6 +55,7 @@ BuildRequires: m4
 BuildRequires: pkgconfig
 BuildRequires: popt-devel
 BuildRequires: systemd-units
+BuildRequires: systemd-devel
 
 %description
 A proxy for GSSAPI credential handling

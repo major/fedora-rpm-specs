@@ -2,17 +2,14 @@
 %global realname console_bridge
 %global libversion 1.0
 
-Name:       console-bridge
-Version:    1.0.1
-Release:    11%{?dist}
-Summary:    Lightweight set of macros used for reporting information in libraries
+Name:           console-bridge
+Version:        1.0.2
+Release:        1%{?dist}
+Summary:        Lightweight set of macros used for reporting information in libraries
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:    LicenseRef-Callaway-BSD
-URL:        http://ros.org/wiki/console_bridge
-Source0:    https://github.com/ros/%{realname}/archive/%{version}/%{name}-%{version}.tar.gz
-# Install the generated export header to the same location as the rest of the package's headers.
-Patch0:     console-bridge-1.0.1-exportheader.patch
+License:        BSD-3-Clause
+URL:            http://ros.org/wiki/console_bridge
+Source0:        https://github.com/ros/%{realname}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -23,16 +20,15 @@ A very lightweight set of macros that can be used for reporting information
 in libraries. The logged information can be forwarded to other systems.
 
 %package devel
-Summary:	Development files for %{name}
-Requires:	%{name}%{?_isa} = %{version}-%{release}
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%setup -qn %{realname}-%{version}
-%patch -P0 -p0 -b .exportheader
+%autosetup -p1 -n %{realname}-%{version}
 
 %build
 %cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=ON
@@ -45,6 +41,8 @@ developing applications that use %{name}.
 %ctest || /bin/true
 
 %files
+%license LICENSE
+%doc README.md
 %{_libdir}/*.so.%{libversion}
 
 %files devel
@@ -54,6 +52,12 @@ developing applications that use %{name}.
 %{_libdir}/%{realname}
 
 %changelog
+* Wed Jan 08 2025 Scott K Logan <logans@cottsay.net> - 1.0.2-1
+- Update to 1.0.2
+- Review SPDX license identifier
+- Include LICENSE and README.md in base package
+- Use consistent indentation in spec file
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.1-11
 - convert license to SPDX
 

@@ -4,15 +4,13 @@
 
 Summary:       Compiler and toolchain infrastructure library for WebAssembly
 Name:          binaryen
-Version:       120
+Version:       121
 Release:       1%{?dist}
 
 URL:           https://github.com/WebAssembly/binaryen
 Source0:       %{url}/archive/version_%{version}/%{name}-version_%{version}.tar.gz
 Source1:       https://github.com/WebAssembly/testsuite/archive/%{wats_commit}/testsuite-%{wats_shortcommit}.tar.gz
 Patch0:        %{name}-use-system-gtest.patch
-# https://github.com/WebAssembly/binaryen/issues/7046
-Patch1:        https://github.com/WebAssembly/binaryen/pull/7048.patch#/%{name}-pr-7048.patch
 # third_party/FP16: MIT
 # third_party/llvm-project/MD5.cpp: bcrypt-Solar-Designer
 # third_party/llvm-project/include/llvm/Support/MD5.h: bcrypt-Solar-Designer
@@ -21,10 +19,10 @@ License:       Apache-2.0 AND MIT AND bcrypt-Solar-Designer
 # tests fail on big-endian
 # https://github.com/WebAssembly/binaryen/issues/2983
 ExcludeArch:   ppc64 s390x
-BuildRequires: cmake3
+BuildRequires: cmake
 BuildRequires: gcc-c++
 %if %{with check}
-BuildRequires: gtest-devel
+BuildRequires: cmake(GTest)
 BuildRequires: nodejs
 BuildRequires: python3dist(filecheck)
 BuildRequires: python3dist(lit)
@@ -81,12 +79,10 @@ rm -v %{buildroot}%{_bindir}/binaryen-unittests
 
 %if %{with check}
 %check
-install -pm755 %{__cmake_builddir}/bin/binaryen-{lit,unittests} %{buildroot}%{_bindir}
 ./check.py \
-    --binaryen-bin %{buildroot}%{_bindir} \
-    --binaryen-lib %{buildroot}%{_libdir}/%{name} \
+    --binaryen-bin %{__cmake_builddir}/bin \
+    --binaryen-lib %{__cmake_builddir}/lib \
 
-rm -v %{buildroot}%{_bindir}/binaryen-{lit,unittests}
 %endif
 
 %files
@@ -110,6 +106,11 @@ rm -v %{buildroot}%{_bindir}/binaryen-{lit,unittests}
 %{_libdir}/%{name}/libbinaryen.so
 
 %changelog
+* Tue Jan 07 2025 Dominik Mierzejewski <dominik@greysector.net> - 121-1
+- update to 121 (rhbz#2332707)
+- drop obsolete patch
+- avoid copying in and deleting test tools for tests (based on a PR by Zephyr Lykos)
+
 * Sun Oct 27 2024 Dominik Mierzejewski <dominik@greysector.net> - 120-1
 - update to 120 (#2310544)
 - review and correct License tag

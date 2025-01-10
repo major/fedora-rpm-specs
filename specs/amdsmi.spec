@@ -19,7 +19,7 @@
 
 Name:       amdsmi
 Version:    %{rocm_version}
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    AMD System Management Interface
 
 License:    NCSA AND MIT AND BSD-3-Clause
@@ -34,6 +34,7 @@ Source1:    https://github.com/amd/esmi_ib_library/archive/refs/tags/esmi_pkg_ve
 # https://github.com/ROCm/amdsmi/pull/48
 Patch0:     0001-Do-not-automatically-download-kernel-header-amd_hsmp.patch
 Patch1:     0001-Fix-empty-return.patch
+Patch2:     0001-Include-cstdint-for-gcc-15.patch
 
 ExclusiveArch: x86_64
 
@@ -156,6 +157,9 @@ rm %{buildroot}%{_libdir}/cmake/amd_smi/amd_smi-config.cmake
 %endif
 
 %changelog
+* Wed Jan 8 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-3
+- Include cstdint for gcc 15
+
 * Tue Dec 31 2024 Tom Rix <Tom.Rix@amd.com> - 6.3.1-2
 - Require pyyaml
 

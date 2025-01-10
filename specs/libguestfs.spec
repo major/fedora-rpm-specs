@@ -41,7 +41,7 @@ ExcludeArch: %{ix86}
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
-Version:       1.55.2
+Version:       1.55.3
 Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 
@@ -141,7 +141,7 @@ BuildRequires: gnupg2
 %endif
 
 # For language bindings.
-BuildRequires: ocaml
+BuildRequires: ocaml >= 4.08
 BuildRequires: ocaml-ocamldoc
 BuildRequires: ocaml-findlib-devel
 %if !0%{?rhel}
@@ -1104,6 +1104,13 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Wed Jan 08 2025 Richard W.M. Jones <rjones@redhat.com> - 1:1.55.3-1
+- New upstream development version 1.55.3
+- Baseline version of OCaml moved to 4.08
+
+* Wed Jan 08 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:1.55.2-2
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.4
+
 * Mon Nov 18 2024 Richard W.M. Jones <rjones@redhat.com> - 1:1.55.2-1
 - New upstream development version 1.55.2
 

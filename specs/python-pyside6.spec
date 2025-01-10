@@ -25,18 +25,29 @@ BuildRequires:  cmake
 BuildRequires:  ninja-build
 BuildRequires:  gcc
 BuildRequires:  git
-BuildRequires:  graphviz
-BuildRequires:  python3-sphinx
 BuildRequires:  clang-devel
 BuildRequires:  clang-tools-extra
 BuildRequires:  llvm-devel
-BuildRequires:  libxml2-devel
-BuildRequires:  libxslt-devel
 BuildRequires:  python3-numpy
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-wheel
 BuildRequires:  python3-packaging
+
+%if 0%{?fedora} >= 41
+# for generating the documentation, see requirements-doc.txt
+BuildRequires:  graphviz
+BuildRequires:  python3-sphinx >= 7.4.7
+BuildRequires:  python3-sphinx-design >= 0.6.0
+BuildRequires:  python3-sphinx-copybutton >= 0.5.2
+#BuildRequires:  python3-sphinx-tags >= 0.4
+#BuildRequires:  python3-sphinx-toolbox >= 3.7.0
+BuildRequires:  python3-sphinx-reredirects >= 0.1.5
+BuildRequires:  python3-myst-parser >= 3.0.1
+BuildRequires:  python3-furo
+BuildRequires:  libxml2-devel
+BuildRequires:  libxslt-devel
+%endif
 
 # essential modules
 BuildRequires:  cmake(Qt6Core) >= %{qt6ver}

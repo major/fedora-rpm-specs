@@ -1,7 +1,7 @@
 %global short_version 1.0
 Name:           freedroidrpg
 Version:        %{short_version}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Role playing game with Freedroid theme and Tux as the hero
 
 License:        GPL-2.0-or-later
@@ -19,10 +19,11 @@ BuildRequires:  ImageMagick
 BuildRequires:  libvorbis-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  libGLU-devel
-BuildRequires:  gettext
+BuildRequires:  gettext-devel
 BuildRequires:  lua-devel
 BuildRequires:  glew-devel
 BuildRequires:  make
+BuildRequires:  autoconf automake
 
 Requires:       freedroidrpg-data = %{version}-%{release}
 
@@ -48,6 +49,7 @@ touch -r configure.ac aclocal.m4
 
 
 %build
+autoreconf -fi
 export CPPFLAGS="$CPPFLAGS -fcommon -fPIE"
 %configure --disable-dependency-tracking
 %make_build
@@ -87,6 +89,9 @@ rm -f freedroidrpg-dialogs.lang
 
 
 %changelog
+* Wed Jan 08 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.0-7
+- Fix FTBFS
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

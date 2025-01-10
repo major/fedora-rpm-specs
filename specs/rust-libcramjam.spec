@@ -437,7 +437,14 @@ rm '%{buildroot}%{_libdir}/%{crate}.a'
 
 %if %{with check}
 %check
-%cargo_test -a
+# * Segmentation fault if blosc2 is updated to version 2.15.2:
+#   https://github.com/cramjam/libcramjam/issues/21
+%{cargo_test -a -- -- %{shrink:
+    --skip roundtrip_compress_via_slice_decompress_via_slice
+    --skip roundtrip_compress_via_slice_decompress_via_vector
+    --skip roundtrip_compress_via_vector_decompress_via_slice
+    --skip roundtrip_compress_via_vector_decompress_via_vector
+}}
 %endif
 
 %changelog

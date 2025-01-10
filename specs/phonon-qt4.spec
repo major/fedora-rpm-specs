@@ -5,7 +5,7 @@
 Summary: Multimedia framework api for Qt4
 Name:    phonon-qt4
 Version: 4.10.3
-Release: 24%{?dist}
+Release: 25%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
 URL:     https://community.kde.org/Phonon
@@ -33,7 +33,7 @@ BuildRequires: make
 BuildRequires: automoc4 >= 0.9.86
 BuildRequires: cmake >= 2.8.9
 BuildRequires: extra-cmake-modules
-BuildRequires: kde-filesystem
+BuildRequires: kde4-macros(api)
 BuildRequires: pkgconfig
 BuildRequires: pkgconfig(glib-2.0)
 BuildRequires: pkgconfig(libpulse-mainloop-glib) > 0.9.15
@@ -138,6 +138,9 @@ end
 
 
 %changelog
+* Wed Jan 08 2025 Alessandro Astone <ales.astone@gmail.com> - 4.10.3-25
+- Fix build dependency on kde4 macros
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 4.10.3-24
 - convert license to SPDX
 

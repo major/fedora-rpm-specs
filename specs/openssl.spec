@@ -29,7 +29,7 @@ print(string.sub(hash, 0, 16))
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
 Version: 3.2.2
-Release: 10%{?dist}
+Release: 11%{?dist}
 Epoch: 1
 Source: openssl-%{version}.tar.gz
 Source2: Makefile.certificate
@@ -378,6 +378,10 @@ export OPENSSL_ENABLE_SHA1_SIGNATURES
 OPENSSL_SYSTEM_CIPHERS_OVERRIDE=xyz_nonexistent_file
 export OPENSSL_SYSTEM_CIPHERS_OVERRIDE
 #embed HMAC into fips provider for test run
+dd if=/dev/zero bs=1 count=32 of=tmp.mac
+objcopy --update-section .rodata1=tmp.mac providers/fips.so providers/fips.so.zeromac
+mv providers/fips.so.zeromac providers/fips.so
+rm tmp.mac
 LD_LIBRARY_PATH=. apps/openssl dgst -binary -sha256 -mac HMAC -macopt hexkey:f4556650ac31d35461610bac4ed81b1a181b2d8a43ea2854cbae22ca74560813 < providers/fips.so > providers/fips.so.hmac
 objcopy --update-section .rodata1=providers/fips.so.hmac providers/fips.so providers/fips.so.mac
 mv providers/fips.so.mac providers/fips.so
@@ -399,6 +403,10 @@ make test HARNESS_JOBS=8
     %{?__debug_package:%{__debug_install_post}} \
     %{__arch_install_post} \
     %{__os_install_post} \
+    dd if=/dev/zero bs=1 count=32 of=$RPM_BUILD_ROOT%{_libdir}/ossl-modules/tmp.mac \
+    objcopy --update-section .rodata1=$RPM_BUILD_ROOT%{_libdir}/ossl-modules/tmp.mac $RPM_BUILD_ROOT%{_libdir}/ossl-modules/fips.so $RPM_BUILD_ROOT%{_libdir}/ossl-modules/fips.so.zeromac \
+    mv $RPM_BUILD_ROOT%{_libdir}/ossl-modules/fips.so.zeromac $RPM_BUILD_ROOT%{_libdir}/ossl-modules/fips.so \
+    rm $RPM_BUILD_ROOT%{_libdir}/ossl-modules/tmp.mac \
     OPENSSL_CONF=/dev/null LD_LIBRARY_PATH=. apps/openssl dgst -binary -sha256 -mac HMAC -macopt hexkey:f4556650ac31d35461610bac4ed81b1a181b2d8a43ea2854cbae22ca74560813 < $RPM_BUILD_ROOT%{_libdir}/ossl-modules/fips.so > $RPM_BUILD_ROOT%{_libdir}/ossl-modules/fips.so.hmac \
     objcopy --update-section .rodata1=$RPM_BUILD_ROOT%{_libdir}/ossl-modules/fips.so.hmac $RPM_BUILD_ROOT%{_libdir}/ossl-modules/fips.so $RPM_BUILD_ROOT%{_libdir}/ossl-modules/fips.so.mac \
     mv $RPM_BUILD_ROOT%{_libdir}/ossl-modules/fips.so.mac $RPM_BUILD_ROOT%{_libdir}/ossl-modules/fips.so \
@@ -549,6 +557,10 @@ ln -s /etc/crypto-policies/back-ends/openssl_fips.config $RPM_BUILD_ROOT%{_sysco
 %ldconfig_scriptlets libs
 
 %changelog
+* Wed Jan 08 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.2.2-11
+- Ensure that the checksum of the fips provider is calculated correctly
+  Resolves: rhbz#2335414
+
 * Thu Jan 02 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.2.2-10
 - Fix provider no_cache behaviour
 

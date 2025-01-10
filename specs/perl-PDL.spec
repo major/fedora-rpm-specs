@@ -1,35 +1,19 @@
-# Proj has proved not beeing compatible all the time, bug #839651
-%{bcond_without perl_PDL_enables_proj}
-
-# Slatec does not work on PPC64 since 2.4.something
-# could be a big endian related issue
-%ifarch ppc64 s390 s390x
-%{bcond_with perl_PDL_enables_slatec}
-%else
-%{bcond_without perl_PDL_enables_slatec}
-%endif
-
 # Run optional test
 %{bcond_without perl_PDL_enables_optional_test}
 
 Name:           perl-PDL
-%global cpan_version 2.095
-Version:        2.95.0
+%global cpan_version 2.098
+Version:        2.98.0
 Release:        1%{?dist}
 Summary:        The Perl Data Language
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:            http://pdl.perl.org/
 Source0:        https://cpan.metacpan.org/modules/by-module/PDL/PDL-%{cpan_version}.tar.gz
-# Uncomment to enable PDL::IO::Browser
-# Patch0:         perl-PDL-2.4.10-settings.patch
-# Disable Proj support when it's not compatible, bug #839651
-Patch1:         PDL-2.4.10-Disable-PDL-GIS-Proj.patch
-# Compile Slatec as PIC, needed for ARM
-Patch2:         PDL-2.6.0.90-Compile-Slatec-code-as-PIC.patch
-# Disable Slatec code crashing on PPC64, bug #1041304
-Patch3:         PDL-2.51.0-Disable-PDL-Slatec.patch
 # Fix numbering of line in test when shebang is added
-Patch4:         PDL-2.72.0-Fix-numbering-of-line-in-test.patch
+Patch1:         PDL-2.72.0-Fix-numbering-of-line-in-test.patch
+# Fix test that assumed acosh(0)->byte, i.e. nan()->byte, was always 0
+# in upstream after 2.098
+Patch2:         PDL-2.098-fix-test-that-assumed-acosh-0-byte-i.e.-nan-byte-was.patch
 BuildRequires:  coreutils
 BuildRequires:  fftw2-devel
 BuildRequires:  findutils
@@ -48,23 +32,18 @@ BuildRequires:  perl-interpreter
 # perl(Astro::FITS::Header) not packaged yet
 BuildRequires:  perl(blib)
 # Modified perl(Carp) bundled
-# Modified perl(Carp::Heavy) bundled
 BuildRequires:  perl(Config)
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(Data::Dumper) >= 2.121
 BuildRequires:  perl(Devel::CheckLib)
-BuildRequires:  perl(Devel::REPL)
 BuildRequires:  perl(ExtUtils::Depends)
 BuildRequires:  perl(ExtUtils::F77)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(ExtUtils::MakeMaker::Config)
 BuildRequires:  perl(File::Spec) >= 0.6
 BuildRequires:  perl(File::Which)
 BuildRequires:  perl(IO::File)
 BuildRequires:  perl(lib)
-BuildRequires:  perl(OpenGL) >= 0.70
-BuildRequires:  perl(OpenGL::GLUT) >= 0.72
-# OpenGL::Config is private OpenGL hash
-BuildRequires:  perl(Pod::Parser)
 BuildRequires:  perl(Pod::Select)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Text::ParseWords)
@@ -74,16 +53,15 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(autodie)
 BuildRequires:  perl(base)
 BuildRequires:  perl(constant)
-BuildRequires:  perl(Devel::REPL::Plugin)
+BuildRequires:  perl(Devel::Peek)
 BuildRequires:  perl(DynaLoader)
-BuildRequires:  perl(English)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(ExtUtils::Manifest)
 BuildRequires:  perl(ExtUtils::Typemaps)
 BuildRequires:  perl(Fcntl)
-BuildRequires:  perl(fields)
 BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Copy)
+BuildRequires:  perl(File::Find)
 BuildRequires:  perl(FileHandle)
 BuildRequires:  perl(File::Map) >= 0.57
 BuildRequires:  perl(File::Path)
@@ -96,8 +74,7 @@ BuildRequires:  perl(Inline) >= 0.43
 BuildRequires:  perl(Inline::C)
 BuildRequires:  perl(List::Util)
 BuildRequires:  perl(Math::Complex)
-BuildRequires:  perl(Moose)
-BuildRequires:  perl(namespace::clean)
+BuildRequires:  perl(Module::Compile)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(parent)
 BuildRequires:  perl(Pod::PlainText)
@@ -107,33 +84,34 @@ BuildRequires:  perl(SelfLoader)
 BuildRequires:  perl(Symbol)
 BuildRequires:  perl(Term::ReadKey)
 BuildRequires:  perl(Text::Balanced) >= 2.05
-BuildRequires:  perl(version)
 # Tests:
 BuildRequires:  perl(Benchmark)
 BuildRequires:  perl(ExtUtils::MakeMaker::Config)
 BuildRequires:  perl(ExtUtils::testlib)
+BuildRequires:  perl(feature)
+BuildRequires:  perl(FindBin)
 BuildRequires:  perl(IO::String)
 BuildRequires:  perl(IPC::Cmd)
 BuildRequires:  perl(Parse::RecDescent)
+BuildRequires:  perl(Storable) >= 1.03
 BuildRequires:  perl(Test)
+BuildRequires:  perl(Test::Builder::Tester)
 BuildRequires:  perl(Test::Deep)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Warn)
+BuildRequires:  perl(threads)
+BuildRequires:  perl(threads::shared)
 %if %{with perl_PDL_enables_optional_test}
 # Optional tests:
 # netpbm-progs for jpegtopnm
 BuildRequires:  netpbm-progs
-BuildRequires:  perl(Convert::UU)
-BuildRequires:  perl(Storable) >= 1.03
 %endif
 
 %if %{with perl_PDL_enables_proj}
 # Needed by PDL::GIS::Proj
 BuildRequires:  proj-devel
 %endif
-# Need by PDL::IO::Browser, currently disabled
-# BuildRequires:  ncurses-devel
 BuildRequires:  sharutils
 Requires:       perl(ExtUtils::Liblist)
 Requires:       perl(ExtUtils::MakeMaker)
@@ -145,14 +123,8 @@ Requires:       perl(File::Spec) >= 0.6
 Requires:       perl(Filter::Simple) >= 0.88
 Requires:       perl(Graph)
 Requires:       perl(Inline) >= 0.43
-Requires:       perl(OpenGL) >= 0.70
-Requires:       perl(OpenGL::GLUT) >= 0.72
-Requires:       perl(Prima::Application)
-Requires:       perl(Prima::Buttons)
-Requires:       perl(Prima::Edit)
-Requires:       perl(Prima::Label)
-Requires:       perl(Prima::PodView)
-Requires:       perl(Prima::Utils)
+#Requires:       perl(OpenGL) >= 0.70
+#Requires:       perl(OpenGL::GLUT) >= 0.72
 Requires:       perl(Text::Balanced) >= 2.05
 Provides:       perl(PDL::AutoLoader) = %{version}
 Provides:       perl(PDL::Config) = %{version}
@@ -163,18 +135,14 @@ Provides:       perl(PDL::PP::Dims) = %{version}
 Provides:       perl(PDL::PP::PDLCode) = %{version}
 Provides:       perl(PDL::PP::SymTab) = %{version}
 Provides:       perl(PDL::PP::XS) = %{version}
-Provides:       perl(PDL::Graphics::TriD::Objects) = %{version}
 
 %{?perl_default_filter}
-%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\((OpenGL::Config|PDL::Demos::Screen|PDL::Graphics::PGPLOT|PDL::Graphics::PGPLOT::Window|Tk|Win32::DDE::Client)\\)$
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\((OpenGL::Config|PDL::Demos::Screen|Tk|Win32::DDE::Client)\\)$
 %global __requires_exclude %{__requires_exclude}|^perl\\(PDL::Graphics::Simple\\)$
 %global __provides_exclude %{?__provides_exclude:%__provides_exclude|}^perl\\(Inline\\)$
 %global __provides_exclude %__provides_exclude|^perl\\(Win32.*\\)$
 # Remove under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\((Data::Dumper|File::Spec|Filter::Simple|Inline|Module::Compile|OpenGL|Text::Balanced)\\)$
-# Remove modules not compiled
-%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\((PDL::GIS::Proj|PDL::IO::HDF.*|PDL::GSL::INTEG)\\)$
-%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\((PDL::GSL::INTEG|PDL::Transform::Proj4)\\)$
 # Filter modules bundled for tests
 %global __requires_exclude %{__requires_exclude}|^perl\\(My::Test::Primitive\\)
 
@@ -197,22 +165,11 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n PDL-%{cpan_version}
-# Uncomment to enable PDL::IO::Browser
-# %%patch -P0 -p1 -b .settings
-%if %{without perl_PDL_enables_proj}
-%patch -P1 -p1 -b .proj
-%endif
-%patch -P2 -p1 -b .slatecpic
-%if %{without perl_PDL_enables_slatec}
-%patch -P3 -p1 -b .slatec
-%endif
-%patch -P4 -p1
-
-# Fix shellbang
-perl -MConfig -pi -e 's|^#!/usr/bin/env perl|$Config{startperl}|' Perldl2/pdl2
+%patch -P1 -p1
+%patch -P2 -p1
 
 # Help file to recognise the Perl scripts
-for F in Basic/t/*.t; do
+for F in t/*.t; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
     chmod +x "$F"
 done
@@ -220,27 +177,23 @@ done
 %build
 # Suppress numerous warnings about unused variables
 CFLAGS="%{optflags} -Wno-unused"
-# Fused multiply-add instructions cause segfaults on 64-bit PowerPC if GSL
-# support is enabled (the same option is in gsl.spec), bug #1410162
-%ifarch ppc64 ppc64le s390 s390x
-CFLAGS="$CFLAGS -ffp-contract=off"
-%endif
-# Uncomment to enable PDL::IO::Browser
-# CFLAGS="$CFLAGS -DNCURSES"
 CFLAGS="$CFLAGS" perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 OPTIMIZE="$CFLAGS"
 make OPTIMIZE="$CFLAGS" %{?_smp_mflags}
 
 %install
 make pure_install DESTDIR=%{buildroot}
-perl -Mblib Basic/Doc/scantree.pl %{buildroot}%{perl_vendorarch}
+perl -Mblib utils/scantree.pl %{buildroot}%{perl_vendorarch}
 perl -pi -e "s|%{buildroot}/|/|g" %{buildroot}%{perl_vendorarch}/PDL/pdldoc.db
 find %{buildroot}%{perl_vendorarch} -type f -name "*.pm" | xargs chmod -x
 find %{buildroot} -type f -name '*.bs' -empty -delete
 
 # Install tests
 mkdir -p %{buildroot}/%{_libexecdir}/%{name}/t
-cp -a Basic/m51.fits %{buildroot}/%{_libexecdir}/%{name}
-cp -a Basic/t/* %{buildroot}/%{_libexecdir}/%{name}/t/
+cp -a t/* %{buildroot}/%{_libexecdir}/%{name}/t/
+for F in compression.t fft.t image2d.t; do
+    perl -i -pe 's{lib/PDL}{%{perl_vendorarch}/PDL}' %{buildroot}%{_libexecdir}/%{name}/t/$F
+done
+
 cat > %{buildroot}/%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/bash
 set -e
@@ -266,7 +219,7 @@ make test
 
 %files
 %license COPYING
-%doc Changes INTERNATIONALIZATION README.md
+%doc Changes README.md
 %{_bindir}/pdl*
 %{_bindir}/perldl*
 %{_bindir}/pptemplate*
@@ -274,17 +227,33 @@ make test
 %{perl_vendorarch}/PDL*
 %{perl_vendorarch}/Test*
 %{perl_vendorarch}/auto/PDL/
-%{_mandir}/man1/PDL*.1*
 %{_mandir}/man1/pdl*.1*
 %{_mandir}/man1/perldl*.1*
 %{_mandir}/man1/pptemplate*.1*
+%{_mandir}/man3/Inline::Pdlpp.3*
 %{_mandir}/man3/PDL*.3*
-%{_mandir}/man3/Pdlpp*.3*
+%{_mandir}/man3/Test*.3*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jan 06 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.98.0-1
+- 2.098 bump (rhbz#2335323)
+- PDL::Graphics2D removed - use PDL::Graphics::Simple or PDL::Graphics::TriD
+- move PDL::Graphics::State to PGPLOT distro
+- split PDL::Complex out to separate distro
+- split PDL::Graphics::Limits out to separate distro
+- split PDL::Graphics::TriD out to separate distro
+- split PDL::IO::Browser out to separate distro
+- split PDL::IO::Dicom out to separate distro
+- split PDL::IO::ENVI out to separate distro
+- split PDL::IO::GD out to separate distro
+- split PDL::IO::HDF out to separate distro
+- split PDL::IO::IDL out to separate distro
+- split PDL::Perldl2 out to separate distro
+- split PDL::Transform::Proj4 out to separate distro
+
 * Tue Nov 05 2024 Jitka Plesnikova <jplesnik@redhat.com> - 2.95.0-1
 - 2.095 bump (rhbz#2323379)
 

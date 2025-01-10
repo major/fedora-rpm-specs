@@ -2,7 +2,7 @@
 
 Name:           python-repoze-lru
 Version:        0.7
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        A tiny LRU cache implementation and decorator
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -12,7 +12,7 @@ Source0:        %pypi_source %{modname}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
+BuildRequires:  python3-pytest
 
 %global _description\
 repoze.lru is a LRU (least recently used) cache implementation. Keys and values\
@@ -24,7 +24,6 @@ and values that are used frequently.\
 
 %package -n python3-repoze-lru
 Summary:        A tiny LRU cache implementation and decorator
-%{?python_provide:%python_provide python3-repoze-lru}
 
 %description -n python3-repoze-lru
 repoze.lru is a LRU (least recently used) cache implementation. Keys and values
@@ -37,21 +36,28 @@ and values that are used frequently.
 rm -rf %{modname}.egg-info
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files repoze
 
 %check
-%{__python3} setup.py test
+%pytest repoze/lru/tests.py
 
-%files -n python3-repoze-lru
+%files -n python3-repoze-lru -f %{pyproject_files}
 %doc README.rst LICENSE.txt COPYRIGHT.txt CONTRIBUTORS.txt
-%{python3_sitelib}/repoze/lru
-%{python3_sitelib}/%{modname}-%{version}*
+%{python3_sitelib}/repoze.lru-%{version}-py%{python3_version}-nspkg.pth
 
 %changelog
+* Wed Jan 08 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.7-24
+- Fix FTBFS with modern setuptools.
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.7-23
 - convert license to SPDX
 

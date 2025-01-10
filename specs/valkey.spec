@@ -8,8 +8,8 @@
 %bcond_with tests
 
 Name:              valkey
-Version:           8.0.1
-Release:           3%{?dist}
+Version:           8.0.2
+Release:           1%{?dist}
 Summary:           A persistent key-value database
 # valkey: BSD-3-Clause
 # hiredis: BSD-3-Clause
@@ -399,6 +399,11 @@ fi
 
 
 %changelog
+* Wed Jan 08 2025 Jonathan Wright <jonathan@almalinux.org> - 8.0.2-1
+- update to 8.0.2 rhbz#2336259
+  fixes CVE-2024-46981
+  fixes CVE-2024-51741
+
 * Wed Nov 13 2024 Jonathan Wright <jonathan@almalinux.org> - 8.0.1-3
 - include license with doc sub-package
 - include systemd symlinks for redis in compat package

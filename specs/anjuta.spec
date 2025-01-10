@@ -10,7 +10,7 @@
 Name:           anjuta
 Epoch:          1
 Version:        3.34.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        GNOME IDE for various programming languages (including C/C++, Python, Vala and JavaScript)
 
 License:        GPL-2.0-or-later
@@ -55,6 +55,9 @@ BuildRequires:  libappstream-glib
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  gnome-common
+BuildRequires:  automake
+BuildRequires:  autoconf
+BuildRequires:  gtk-doc
 
 Requires:       autogen
 Requires:       gdb >= 7.0
@@ -95,6 +98,7 @@ This package contains library files for %{name}.
 %patch -P 3 -p0 -b .pointer
 
 %build
+autoreconf -fi
 %if 0%{?with_python3}
 export PYTHON=%{__python3}
 %endif
@@ -189,6 +193,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/anjuta.desktop
 %{_libdir}/libanjuta-3.so.*
 
 %changelog
+* Wed Jan 08 2025 Gwyn Ciesla <gwync@protonmail.com> - 1:3.34.0-25
+- Fix FTBFS
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.34.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

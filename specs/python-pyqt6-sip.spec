@@ -1,11 +1,11 @@
 %global pkg_name pyqt6-sip
-%global pypi_name PyQt6_sip
+%global pypi_name pyqt6_sip
 %global _sip_api_major 13
 %global _sip_api_minor 4
 %global _sip_api %{_sip_api_major}.%{_sip_api_minor}
 
 Name:           python-%{pkg_name}
-Version:        13.8.0
+Version:        13.9.1
 Release:        1%{?dist}
 Summary:        The sip module support for PyQt6
 
@@ -51,6 +51,9 @@ Provides: python3-pyqt6-sip-api(%{_sip_api_major})%{?_isa} = %{_sip_api}
 
 
 %changelog
+* Wed Jan 08 2025 Jan Grulich <jgrulich@redhat.com> - 13.9.1-1
+- 13.9.1
+
 * Sun Jul 21 2024 Kevin Fenzi <kevin@scrye.com> - 13.8.0-1
 - Update to 13.8.0
 

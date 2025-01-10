@@ -1,6 +1,6 @@
 Name:           noggin
 Version:        1.9.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Self-service user portal for FreeIPA for communities
 
 License:        MIT
@@ -54,6 +54,9 @@ Provides a theme for Noggin used for openSUSE Accounts.
 
 %prep
 %autosetup -n %{name}-%{version} -p1
+
+# Allow markupsafe 3 and newer
+sed -i "/^markupsafe/s/\^/>=/" pyproject.toml
 
 # Install README.Fedora file
 install -pm 0644 %{SOURCE10} README.Fedora
@@ -122,6 +125,9 @@ touch %{buildroot}%{_localstatedir}/log/nginx/noggin.error.log
 
 
 %changelog
+* Thu Oct 10 2024 Lumír Balhar <lbalhar@redhat.com> - 1.9.0-4
+- Allow markupsafe 3 and newer
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

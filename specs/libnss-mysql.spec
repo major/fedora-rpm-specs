@@ -1,7 +1,7 @@
 Summary:   NSS library for MySQL
 Name:      libnss-mysql
 Version:   1.5
-Release:   51%{?dist}
+Release:   52%{?dist}
 Source0:   http://prdownloads.sourceforge.net/libnss-mysql/libnss-mysql-%{version}.tar.gz
 Source1:   README
 Source2:   nsswitch.conf
@@ -58,9 +58,15 @@ mkdir -p $RPM_BUILD_ROOT%{authselect_vendor}
 if [ -d %{_datadir}/authselect/default/nis ]; then
   cp -ar %{_datadir}/authselect/default/nis/* \
     $RPM_BUILD_ROOT%{authselect_vendor}/
-else
+elif [ -d %{_datadir}/authselect/default/minimal ]; then
   cp -ar %{_datadir}/authselect/default/minimal/* \
     $RPM_BUILD_ROOT%{authselect_vendor}/
+elif [ -d %{_datadir}/authselect/default/local ]; then
+  cp -ar %{_datadir}/authselect/default/local/* \
+    $RPM_BUILD_ROOT%{authselect_vendor}/
+else
+  echo "Missing authselect default profile!"
+  exit 1
 fi
 cp -af %{SOURCE1} %{SOURCE2} $RPM_BUILD_ROOT%{authselect_vendor}/
 
@@ -78,6 +84,9 @@ cp -af %{SOURCE1} %{SOURCE2} $RPM_BUILD_ROOT%{authselect_vendor}/
 %{_datadir}/authselect/vendor/%{name}/*
 
 %changelog
+* Wed Jan 08 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 1.5-52
+- Allow local authselect profile for EPEL10
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.5-51
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:    kmime
 Version: 24.12.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The KMime Library
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later
@@ -24,6 +24,7 @@ Conflicts: kde-l10n < 17.03
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       cmake(KF6Codecs)
 Requires:       boost-devel
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -66,6 +67,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Jan 08 2025 Alessandro Astone <ales.astone@gmail.com> - 24.12.1-2
+- devel subpackage requires KF6Codecs
+
 * Tue Jan 07 2025 Steve Cossette <farchord@gmail.com> - 24.12.1-1
 - 24.12.1
 

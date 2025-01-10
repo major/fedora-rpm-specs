@@ -46,7 +46,7 @@ BuildRequires: pkgconfig(libsystemd)
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
 Version: 6.8.1
-Release: 7%{?dist}
+Release: 8%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -493,8 +493,6 @@ mkdir -p %{buildroot}%{_qt6_headerdir}/QtXcb
 install -m 644 src/plugins/platforms/xcb/*.h %{buildroot}%{_qt6_headerdir}/QtXcb/
 
 # Copied from OpenSUSE packages
-# CMake modules for plugins are not useful
-rm %{buildroot}%{_qt6_libdir}/cmake/*/*Plugin{Config,ConfigVersion,Targets*}.cmake
 
 # These files are only useful for the Qt continuous integration
 rm %{buildroot}%{_qt6_libexecdir}/ensure_pro_file.cmake
@@ -894,6 +892,9 @@ make check -k ||:
 
 
 %changelog
+* Wed Jan 08 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.1-8
+- Install CMake modules for plugins
+
 * Tue Dec 17 2024 Jan Grulich <jgrulich@redhat.com> - 6.8.1-7
 - Fix QGnomePlatform obsolets
 

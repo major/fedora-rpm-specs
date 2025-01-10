@@ -3,7 +3,7 @@ Summary: Gstreamer phonon backend
 Name:    phonon-backend-gstreamer
 Epoch:   2
 Version: 4.10.0
-Release: 14%{?dist}
+Release: 15%{?dist}
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
@@ -29,6 +29,7 @@ BuildRequires: extra-cmake-modules
 BuildRequires: gcc-c++
 BuildRequires: kf5-rpm-macros
 BuildRequires: cmake(Phonon4Qt5) >= 4.11
+BuildRequires: cmake(Qt5LinguistTools)
 BuildRequires: pkgconfig
 BuildRequires: pkgconfig(Qt5OpenGL)
 BuildRequires: pkgconfig(Qt5X11Extras)
@@ -72,6 +73,9 @@ Requires: gstreamer1-plugins-good%{?_isa}
 
 
 %changelog
+* Wed Jan 08 2025 Alessandro Astone <ales.astone@gmail.com> - 2:4.10.0-15
+- Add build dependency on Qt5LinguistTools
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2:4.10.0-14
 - convert license to SPDX
 

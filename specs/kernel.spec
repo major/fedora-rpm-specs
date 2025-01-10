@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.13.0
 %define specversion 6.13.0
 %define patchversion 6.13
-%define pkgrelease 0.rc6.20250107gitfbfd64d25c7a.49
+%define pkgrelease 0.rc6.20250108git09a0fa92e5b4.50
 %define kversion 6
-%define tarfile_release 6.13-rc6-36-gfbfd64d25c7a
+%define tarfile_release 6.13-rc6-38-g09a0fa92e5b4
 # This is needed to do merge window version magic
 %define patchlevel 13
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc6.20250107gitfbfd64d25c7a.49%{?buildid}%{?dist}
+%define specrelease 0.rc6.20250108git09a0fa92e5b4.50%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.13.0
 
@@ -1293,6 +1293,9 @@ Epoch: %{gemini}
 Summary: Real-Time Linux Analysis tools
 Requires: libtraceevent
 Requires: libtracefs
+%ifarch %{cpupowerarchs}
+Requires: %{package_name}-tools-libs = %{version}-%{release}
+%endif
 %description -n rtla
 The rtla meta-tool includes a set of commands that aims to analyze
 the real-time properties of Linux. Instead of testing Linux as a black box,
@@ -1598,7 +1601,7 @@ Requires: kernel-%{?1:%{1}-}-modules-core-uname-r = %{KVERREL}%{uname_variant %{
 %package %{?1:%{1}-}uki-virt\
 Summary: %{variant_summary} unified kernel image for virtual machines\
 Provides: installonlypkg(kernel)\
-Provides: kernel-%{?1:%{1}-}uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
+Provides: kernel-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
 Requires: kernel%{?1:-%{1}}-modules-core-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
 Requires(pre): %{kernel_prereq}\
 Requires(pre): systemd >= 254-1\
@@ -4171,9 +4174,16 @@ fi\
 #
 #
 %changelog
-* Tue Jan 07 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.13.0-0.rc6.fbfd64d25c7a.49]
+* Wed Jan 08 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.13.0-0.rc6.09a0fa92e5b4.50]
 - x86/insn_decoder_test: allow longer symbol-names (David Rheinsberg)
 - kernel.spec: update license field (Scott Weaver)
+
+* Wed Jan 08 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.13.0-0.rc6.09a0fa92e5b4.49]
+- redhat/kernel.spec.template: Require kernel-tools-libs in rtla (Tomas Glozar)
+- redhat: make kernel-debug-uki-virt installable without kernel-debug-core (Vitaly Kuznetsov)
+- redhat/configs: enable CONFIG_USB_XHCI_PCI_RENESAS on RHEL (Desnes Nunes) [RHEL-72093]
+- redhat/configs: Re-enable ZRAM backends and unify configuration (Neal Gompa)
+- Linux v6.13.0-0.rc6.09a0fa92e5b4
 
 * Tue Jan 07 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.13.0-0.rc6.fbfd64d25c7a.48]
 - Linux v6.13.0-0.rc6.fbfd64d25c7a

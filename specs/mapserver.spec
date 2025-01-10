@@ -24,7 +24,7 @@
 
 Name:           mapserver
 Version:        8.2.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Environment for building spatially-enabled internet applications
 %global dashver %(echo %version | sed 's|\\.|-|g')
 
@@ -339,6 +339,9 @@ rm %{buildroot}%{_usr}/%{_sysconfdir}/mapserver-sample.conf
 %{ruby_sitearchdir}/mapscript.so
 
 %changelog
+* Wed Jan 08 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.2.2-5
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.4
+
 * Sat Nov 09 2024 Sandro Mani <manisandro@gmail.com> - 8.2.2-4
 - Rebuild (GDAL)
 

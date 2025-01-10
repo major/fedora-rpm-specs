@@ -1,17 +1,14 @@
 %global srcname pytaglib
 
 Name:           python-%{srcname}
-Version:        1.4.5
-Release:        20%{?dist}
+Version:        2.1.0
+Release:        1%{?dist}
 Summary:        Python audio metadata ("tagging") library based on TagLib
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            https://github.com/supermihi/pytaglib
 Source:         %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
-
-Patch0001:      0001-Remove-unnecessary-py_modules-line-in-setup.py.patch
-Patch0002:      0002-Fix-62-add-pyprinttags-to-py_modules.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  taglib-devel
@@ -33,7 +30,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-Cython
 BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-runner
 
 %description -n python3-%{srcname} %{_description}
 
@@ -41,24 +37,20 @@ Python 3 version.
 
 %prep
 %autosetup -n %{srcname}-%{version} -p1
-# Remove pre-generated source
-rm -vf src/taglib.cpp
 # remove useless shebang
 sed -i -e '1{\@^#!/usr/bin/env python@d}' src/pyprinttags.py
 
 %build
-%py3_build -- --cython
+%py3_build
 
 %install
 %py3_install
-# Not interested in having 2 binaries doing same thing
-mv -f %{buildroot}%{_bindir}/pyprinttags{3,}
 
 %check
-%{__python3} setup.py ptr
+%pytest
 
 %files -n python3-%{srcname}
-%license COPYING
+%license LICENSE.txt
 %doc README.md CHANGELOG.md
 %{_bindir}/pyprinttags
 %{python3_sitearch}/%{srcname}-*.egg-info/
@@ -67,6 +59,9 @@ mv -f %{buildroot}%{_bindir}/pyprinttags{3,}
 %{python3_sitearch}/__pycache__/pyprinttags.*
 
 %changelog
+* Wed Jan 08 2025 Vojtech Trefny <vtrefny@redhat.com> - 2.1.0-1
+- Update to 2.1.0
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.4.5-20
 - convert license to SPDX
 

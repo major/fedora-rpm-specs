@@ -1,7 +1,7 @@
 %global pypi_name hstspreload
 
 Name:           python-%{pypi_name}
-Version:        2024.12.1
+Version:        2025.1.1
 Release:        %autorelease
 Summary:        Chromium HSTS Preload list
 
@@ -48,4 +48,3 @@ rm -rf %{pypi_name}.egg-info
 
 %changelog
 %autochangelog
-

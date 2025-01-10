@@ -1,6 +1,6 @@
 Name:           stfl
 Version:        0.22
-Release:        49%{?dist}
+Release:        50%{?dist}
 Summary:        The Structured Terminal Forms Language/Library
 
 License:        LGPL-3.0-or-later
@@ -123,6 +123,9 @@ rm -f %{buildroot}%{perl_archlib}/perllocal.pod
 
 
 %changelog
+* Wed Jan 08 2025 Vít Ondruch <vondruch@redhat.com> - 0.22-50
+- Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.4
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

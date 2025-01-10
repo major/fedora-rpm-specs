@@ -1,11 +1,11 @@
 #global snapshot 0
-%global commit 72139d86ea1e90a4256c78c5eab6827ed58215b1
-%global commitdate 20241223
-%global gittag v3.0.0
+%global commit afbb1dfc61a83b9e87666d4504ee063dcd90f2be
+%global commitdate 20241229
+%global gittag v3.0.1
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:		ocp
-Version:	3.0.0%{?snapshot:^%{commitdate}git%{shortcommit}}
+Version:	3.0.1%{?snapshot:^%{commitdate}git%{shortcommit}}
 Release:	1%{?dist}
 Summary:	Open Cubic Player for MOD/S3M/XM/IT/MIDI music files
 
@@ -176,6 +176,10 @@ rm -f %{buildroot}%{_pkgdocdir}/COPYING
 
 
 %changelog
+* Wed Jan 08 2025 Charles R. Anderson <cra@alum.wpi.edu> - 3.0.1-1
+- Update to 3.0.1
+- Bugfix release, with the exception of adplug adding support for "Palladix" files.
+
 * Tue Dec 24 2024 Charles R. Anderson <cra@alum.wpi.edu> - 3.0.0-1
 - Update to 3.0.0
 - Adds modland.com support directly from the file browser

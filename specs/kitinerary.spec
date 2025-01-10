@@ -1,6 +1,6 @@
 Name:    kitinerary
 Version: 24.12.1
-Release: 1%{?dist}
+Release: 3%{?dist}
 Summary: A library containing itinerary data model and itinerary extraction code
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND ODbL-1.0
@@ -55,6 +55,10 @@ BuildRequires:  osmctools
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       cmake(KPim6Mime)
+Requires:       cmake(KPim6PkPass)
+Requires:       cmake(KF6CalendarCore)
+Requires:       cmake(KF6Contacts)
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
@@ -99,6 +103,12 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 
 %changelog
+* Wed Jan 08 2025 Alessandro Astone <ales.astone@gmail.com> - 24.12.1-3
+- devel subpackage requires KPim6PkPass, KF6CalendarCore, KF6Contacts
+
+* Wed Jan 08 2025 Alessandro Astone <ales.astone@gmail.com> - 24.12.1-2
+- devel subpackage requires KPim6Mime
+
 * Tue Jan 07 2025 Steve Cossette <farchord@gmail.com> - 24.12.1-1
 - 24.12.1
 

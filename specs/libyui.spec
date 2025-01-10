@@ -32,7 +32,7 @@
 
 Name:     %{libname}
 Version:  4.2.16
-Release:  19%{?dist}
+Release:  20%{?dist}
 Summary:  GUI-abstraction library
 
 License:  (LGPLv2 or LGPLv3) and MIT
@@ -349,6 +349,9 @@ install -m0755 -d %{buildroot}%{_libdir}/yui
 
 
 %changelog
+* Wed Jan 08 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.16-20
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.4
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 4.2.16-19
 - convert license to SPDX
 

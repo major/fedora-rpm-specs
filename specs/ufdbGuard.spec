@@ -1,6 +1,6 @@
 Name:		ufdbGuard
 Version:	1.35.8
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A URL filter for squid
 URL:		https://www.urlfilterdb.com/
 License:	GPL-2.0-only
@@ -44,7 +44,7 @@ You can also make your own URL database for ufdbGuard.
 %prep
 %setup -q
 
-iconv -c --to-code=UTF-8 CHANGELOG > CHANGELOG.new
+iconv -c --from-code=ISO-8859-1 --to-code=UTF-8 -o CHANGELOG.new CHANGELOG
 mv CHANGELOG.new CHANGELOG
 
 %build
@@ -132,6 +132,9 @@ exit 0
 %endif
 
 %changelog
+* Wed Jan 08 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.35.8-3
+- Fix FTBFS
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.35.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

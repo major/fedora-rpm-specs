@@ -5,7 +5,7 @@
 
 Name:           lxqt-wayland-session
 Version:        0.1.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Wayland session files for LXQt
 # See "LICENSE" for a breakdown of license usage
 License:        LGPL-2.1-only AND GPL-3.0-only AND MIT AND GPL-2.0-only AND BSD-3-Clause
@@ -13,10 +13,12 @@ URL:            https://lxqt-project.org/
 
 Source0:        https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
+Patch0:         0001-adjust-labwc-pointer-speed.patch
 BuildArch:      noarch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
+BuildRequires:  git-core
 BuildRequires:  perl
 
 BuildRequires:  cmake(Qt6Core)
@@ -167,7 +169,7 @@ labwc as the Wayland compositor with LXQt.
 %dnl ------------------------------------------------------------------
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -n %{name}-%{version} -S git_am
 
 %build
 %cmake
@@ -188,6 +190,9 @@ rm -v %{buildroot}%{_datadir}/lxqt/wayland/lxqt-niri.kdl
 
 
 %changelog
+* Wed Jan 08 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 0.1.1-4
+- Add patch to adjust default pointer speed in labwc session
+
 * Sun Dec 22 2024 Neal Gompa <ngompa@fedoraproject.org> - 0.1.1-3
 - Disable hyprland session option
 

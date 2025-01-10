@@ -1,6 +1,6 @@
 Name: astromenace
 Version:  1.4.2
-Release:  10%{?dist}
+Release:  11%{?dist}
 Summary: Hardcore 3D space shooter with spaceship upgrade possibilities  
 
 License: GPL-3.0-only
@@ -10,6 +10,7 @@ Source1: astromenace.desktop
 Source2: astromenace.png
 Patch0: includes.patch
 Patch1: astromenace-gcc13.patch
+Patch2: 39.patch
 ExcludeArch: ppc64 s390x
 
 BuildRequires: gcc
@@ -40,6 +41,7 @@ Go ahead and make alien aggressors regret their insolence.
 
 %patch -P0 -p0
 %patch -P1 -p1
+%patch -P2 -p1
 
 %build
 %cmake %_vpath_srcdir -G Ninja -DDATADIR="%{_prefix}/share/astromenace"
@@ -111,6 +113,9 @@ EOF
 %{_datadir}/astromenace/
 
 %changelog
+* Wed Jan 08 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.4.2-11
+- Patch for GCC 15
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

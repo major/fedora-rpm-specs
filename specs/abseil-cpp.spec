@@ -3,7 +3,7 @@
 
 Name:           abseil-cpp
 Version:        20240722.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        C++ Common Libraries
 
 # The entire source is Apache-2.0, except:
@@ -110,7 +110,16 @@ Development headers for %{name}
 %cmake_install
 
 %check
-%ctest
+skips='^($.'
+%ifarch ppc64le
+# [Bug]: Flaky test failures in absl_failure_signal_handler_test on ppc64le in
+# Fedora
+# https://github.com/abseil/abseil-cpp/issues/1804
+skips="${skips}|absl_failure_signal_handler_test"
+%endif
+skips="${skips})$"
+
+%ctest --exclude-regex "${skips}"
 
 %files
 %license LICENSE
@@ -240,6 +249,9 @@ Development headers for %{name}
 %{_libdir}/pkgconfig/absl_*.pc
 
 %changelog
+* Wed Jan 08 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 20240722.0-2
+- Report and skip a test regression on ppc64le
+
 * Sat Aug 03 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 20240722.0-1
 - Update to 20240722.0 (close RHBZ#2302537)
 

@@ -23,6 +23,9 @@ License:        BSD-3-Clause
 URL:            https://babel.pocoo.org/
 Source:         %{pypi_source}
 
+# https://github.com/python-babel/babel/pull/1155
+Patch:          0001-Adjust-docs-conf.py-to-add-compatibility-with-sphinx.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

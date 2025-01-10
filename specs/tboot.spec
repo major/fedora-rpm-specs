@@ -1,12 +1,12 @@
 Summary:       Performs a verified launch using Intel TXT
 Name:          tboot
-Version:       1.11.3
-Release:       9%{?dist}
+Version:       1.11.7
+Release:       10%{?dist}
 Epoch:         1
 
 License:       BSD-3-Clause
 URL:           http://sourceforge.net/projects/tboot/
-Source0:       http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+source0:       https://sourceforge.net/projects/tboot/files/%{name}/%{name}-%{version}.tar.gz
 Patch0: tboot-gcc14.patch
 Patch1: openssl-no-engine.patch
 
@@ -75,6 +75,9 @@ grub2-mkconfig -o /etc/grub2.cfg
 /boot/tboot-syms
 
 %changelog
+* Wed Jan 08 2025 Jun Miao <jun.miao@intel.com> - 1:1.11.3-10
+- Update to v1.11.6 release
+
 * Sun Jul 28 2024 Jun Miao <jun.miao@intel.com> - 1:1.11.3-9
 - Update to v1.11.3 release
 

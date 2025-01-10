@@ -2,7 +2,7 @@
 Summary: GUI for several command-line debuggers
 Name: ddd
 Version: 3.4.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-or-later
 URL: http://www.gnu.org/software/ddd/
 Source0: https://ftp.gnu.org/gnu/ddd/ddd-%{version}.tar.gz
@@ -21,7 +21,7 @@ BuildRequires:  gcc-c++
 BuildRequires: motif-devel, ncurses-devel, libXaw-devel
 BuildRequires: elfutils-libelf-devel, xterm 
 BuildRequires: desktop-file-utils, gdb, readline-devel, texinfo, autoconf, automake
-BuildRequires: make
+BuildRequires: make, libtool
 
 %description
 The Data Display Debugger (DDD) is a popular GUI for command-line
@@ -44,6 +44,7 @@ interface with full editing, history and completion capabilities.
 %patch -P 0 -p1
 
 %build
+autoreconf -fi
 export CXXFLAGS="${RPM_OPT_FLAGS} -fpermissive"
 %configure --with-readline --disable-dependency-tracking
 make %{?_smp_mflags}
@@ -83,6 +84,9 @@ install -D -m 0644 %{SOURCE3} \
 %{_mandir}/man1/ddd.1*
 
 %changelog
+* Wed Jan 08 2025 Gwyn Ciesla <gwync@protonmail.com> - 3.4.1-3
+- Fix FTBFS
+
 * Sat Aug 24 2024 Daniel Rusek <mail@asciiwolf.com> - 3.4.1-2
 - Added AppStream metadata file
 - Added better desktop icon

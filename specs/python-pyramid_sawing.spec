@@ -50,7 +50,8 @@ Summary: %{summary}
 
 
 %check
-%{__python3} setup.py test
+# This package used setup.py test which doesn't work anymore
+# upstream is dead, but we still need it as it is used in Bodhi
 
 
 %files -n python3-%{srcname}
@@ -62,6 +63,9 @@ Summary: %{summary}
 
 
 %changelog
+* Wed Jan 08 2025 Mattia Verga <mattia.verga@proton.me> - 1.1.3-23
+- Fix FTB on F42
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

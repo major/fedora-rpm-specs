@@ -2,11 +2,11 @@
 %global debug_package %{nil}
 
 Name:           pybind11-json
-Version:        0.2.13
+Version:        0.2.15
 Release:        1%{?dist}
 Summary:        Using nlohmann::json with pybind11
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/pybind/pybind11_json
 Source0:        https://github.com/pybind/pybind11_json/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -63,6 +63,10 @@ Simply include the header, and the automatic conversion will be enabled.
 
 
 %changelog
+* Wed Jan 08 2025 Scott K Logan <logans@cottsay.net> - 0.2.15-1
+- Update to 0.2.15
+- Switch to SPDX license identifier
+
 * Wed Mar 06 2024 Scott K Logan <logans@cottsay.net> - 0.2.13-1
 - Update to 0.2.13
 

@@ -1,17 +1,12 @@
 %global srcname jinja2
 
 Name:           python-jinja2
-Version:        3.1.4
-Release:        5%{?dist}
+Version:        3.1.5
+Release:        1%{?dist}
 Summary:        General purpose template engine
 License:        BSD-3-Clause
 URL:            https://palletsprojects.com/p/jinja/
 Source0:        %{pypi_source %srcname}
-
-# Python 3.13 fixes
-# https://github.com/pallets/jinja/pull/1960
-# https://github.com/pallets/jinja/pull/1977
-Patch:          python3.13.patch
 
 # Enable building without docs to avoid a circular dependency between this
 # and python-sphinx:
@@ -94,6 +89,12 @@ rm -rvf docs/_build/html/.buildinfo
 
 
 %changelog
+* Wed Jan 08 2025 Miro Hrončok <mhroncok@redhat.com> - 3.1.5-1
+- Update to 3.1.5
+- Security fix for CVE-2024-56201
+- Fixes: rhzb#2333688
+- Fixes: rhzb#2336377
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

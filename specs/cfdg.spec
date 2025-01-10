@@ -1,17 +1,17 @@
 Name: cfdg
-Version:  3.3
-Release:  20%{?dist}
+Version:  3.4.1
+Release:  1%{?dist}
 Summary: Context Free Design Grammar
 
 License: GPL-2.0-or-later
 URL: http://www.contextfreeart.org/
 
 Source0: http://www.contextfreeart.org/download/ContextFreeSource%{version}.tgz
+Patch0:  cfdg-nostrip.patch
 BuildRequires: gcc-c++ libatomic libicu-devel
 BuildRequires: libpng-devel bison flex
 BuildRequires: make
 BuildRequires: sed
-Patch0:  cfdg-nostrip.patch
 
 %description
 Context Free is a program that generates images from written instructions 
@@ -21,25 +21,30 @@ create images that can contain millions of shapes.
 %prep
 %setup -qcn ContextFreeSource%{version}
 
+%patch -P0 -p0
+
 # Remove -march=native everywhere.
 find -type f -print0 | xargs -0 sed -i 's/-march=native//g'
 
-%patch -P0 -p0
-
 %build
-
+pushd context-free%{version}
 OPTFLAGS=$RPM_OPT_FLAGS make %{?_smp_mflags}
+popd
 
 %install
+pushd context-free%{version}
 install -D -m 755 cfdg %{buildroot}%{_bindir}/cfdg
-
+popd
 
 %files
 %{_bindir}/cfdg
-%license LICENSE.txt
-%doc input/* README
+%license context-free%{version}/LICENSE.txt
+%doc context-free%{version}/input/* context-free%{version}/README* context-free%{version}/ChangeLog
 
 %changelog
+* Wed Jan 08 2025 Gwyn Ciesla <gwync@protonmail.com> - 3.4.1-1
+- 3.4.1
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 
