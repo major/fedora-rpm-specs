@@ -33,7 +33,7 @@
 %constrain_build -m 4096
 
 Name:           uv
-Version:        0.5.14
+Version:        0.5.16
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -211,6 +211,19 @@ Patch:          0001-Downstream-only-do-not-override-the-default-allocato.patch
 #   Should uv.find_uv_bin() be able to find /usr/bin/uv?
 #   https://github.com/astral-sh/uv/issues/4451
 Patch:          0001-Downstream-patch-always-find-the-system-wide-uv-exec.patch
+
+# Downstream-only: unpin libz-ng-sys
+#
+# It was pinned to an old version due to a Windows-specific issue, but it turns
+# out that the pin cannot be made Windows-specific in Cargo.toml; see
+# https://github.com/astral-sh/uv/pull/10375#issuecomment-2578982370.
+Patch:          0001-Downstream-only-unpin-libz-ng-sys.patch
+# Downstream-only: Use zlib-ng on all architectures
+#
+# We do not have trouble building it on ppc64le or s390x.
+#
+# (Also, this helps with weird maturin-related dependency-resolution issues.)
+Patch:          0002-Downstream-only-Use-zlib-ng-on-all-architectures.patch
 
 # These patches are for the forked, bundled async_zip crate.
 #
@@ -556,6 +569,7 @@ sed -r -i "s@mod (${mods});@// ${comment}\n#[cfg(any())]\n&@" \
 # hack. See further commentary in %%generate_buildrequires.
 tomcli set crates/uv/Cargo.toml del dependencies.axoupdater
 tomcli set crates/uv/Cargo.toml del features.self-update
+tomcli set crates/uv/Cargo.toml del features.tracing-durations-export
 tomcli set crates/uv/Cargo.toml del dependencies.tracing-durations-export
 
 # Loosen some version bounds that were aggressively updated upstream by the
@@ -581,6 +595,17 @@ tomcli set crates/uv/Cargo.toml del dependencies.tracing-durations-export
 tomcli set Cargo.toml str \
     workspace.dependencies.unicode-width.version '0.1.12'
 
+# itertools
+#   wanted: 0.14.0
+#   currently packaged: 0.13.0
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2335056
+tomcli set Cargo.toml str \
+    workspace.dependencies.itertools.version '>=0.13.0, <0.15.0'
+tomcli set crates/uv-python/Cargo.toml str \
+    dev-dependencies.itertools.version '>=0.13.0, <0.15.0'
+tomcli set crates/uv-requirements-txt/Cargo.toml str \
+    dev-dependencies.itertools.version '>=0.13.0, <0.15.0'
+
 %cargo_prep
 
 
@@ -599,8 +624,8 @@ tomcli set Cargo.toml str \
 # These crates are excluded from the workspace – upstream writes:
 #   Only used to pull in features, allocators, etc. — we specifically don't
 #   want them to be part of a workspace-wide cargo check, cargo clippy, etc.
-# – but they are still needed to support features, and the build will fail if
-# we do not generate their dependencies, too:
+#   – but they are still needed to support features, and the build will fail if
+#   we do not generate their dependencies, too:
 for cratedir in \
     crates/uv-performance-memory-allocator \
     crates/uv-performance-flate2-backend

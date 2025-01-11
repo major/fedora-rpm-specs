@@ -1,5 +1,5 @@
 Name:           stomppy
-Version:        8.1.2
+Version:        8.2.0
 Release:        %autorelease
 Summary:        Python stomp client for messaging
 

@@ -1,13 +1,13 @@
 # remirepo/fedora spec file for php-yoast-phpunit-polyfills
 #
-# Copyright (c) 2020-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2020-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please preserve changelog entries
 #
 # Github
-%global gh_commit    19e6d5fb8aad31f731f774f9646a10c64a8843d2
+%global gh_commit    59b3f8ffa2eab9c8258e8638d97c3e37fac9a80e
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     Yoast
 %global gh_project   PHPUnit-Polyfills
@@ -23,7 +23,7 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-%{pk_vendor}-%{pk_project}
-Version:        3.0.0
+Version:        3.1.0
 Release:        1%{?dist}
 Summary:        Set of polyfills for changed PHPUnit functionality, version %{major}
 
@@ -125,6 +125,10 @@ exit $ret
 
 
 %changelog
+* Thu Jan  9 2025 Remi Collet <remi@remirepo.net> - 3.1.0-1
+- update to 3.1.0
+- re-license spec file to CECILL-2.1
+
 * Mon Sep  9 2024 Remi Collet <remi@remirepo.net> - 3.0.0-1
 - update to 3.0.0
 - move to /usr/share/php/Yoast/PHPUnitPolyfills3

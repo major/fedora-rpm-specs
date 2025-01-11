@@ -320,6 +320,8 @@ Patch0: 0001-don-t-suppress-crashes.patch
 Patch1: 0001-disble-tip-of-the-day-dialog-by-default.patch
 # rhbz#1736810 disable opencl by default again
 Patch2: 0001-Resolves-rhbz-1432468-disable-opencl-by-default.patch
+# Fix CppunitTest_xmlsecurity_xmlsec
+Patch3: f0efcb9.patch
 # not upstreamed
 # fix FTB in ppc64le from sharkcz
 # https://lists.freedesktop.org/archives/libreoffice/2023-August/090870.html
@@ -1154,8 +1156,6 @@ sed -i -e /CppunitTest_sw_layoutwriter4/d sw/Module_sw.mk
 # started to fail in 25.2.0.0
 sed -i -e /CppunitTest_sw_tiledrendering2/d sw/Module_sw.mk
 sed -i -e /CppunitTest_sc_pdf_export/d sc/Module_sc.mk
-# started to fail in 25.2.0.0
-sed -i -e /CppunitTest_xmlsecurity_xmlsec/d xmlsecurity/Module_xmlsecurity.mk
 
 
 %build

@@ -3,8 +3,7 @@ Version:        0.92.0
 Release:        29%{?dist}
 Summary:        Solar desktop backgrounds
 
-# Automatically converted from old format: CC-BY-SA - review is highly recommended.
-License:        LicenseRef-Callaway-CC-BY-SA
+License:        CC-BY-SA-4.0
 URL:            https://fedoraproject.org/wiki/Artwork/F10Themes/Solar
 Source0:        solar-%{version}.tar.gz
 

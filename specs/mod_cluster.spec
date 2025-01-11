@@ -9,8 +9,8 @@
 %global namedversion %{version}%{?namedreltag}
 
 Name:          mod_cluster
-Version:       1.3.20
-Release:       3%{?dist}
+Version:       1.3.21
+Release:       1%{?dist}
 Summary:       Apache HTTP Server dynamic load balancer with Wildfly and Tomcat libraries
 # Automatically converted from old format: LGPLv3 - review is highly recommended.
 License:       LGPL-3.0-only
@@ -84,6 +84,9 @@ install -pm 0644 %{SOURCE2} README
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/*.conf
 
 %changelog
+* Wed Jan 8 2025 Vladimir Chlup <vchlup@redhat.com> - 1.3.21-1
+- Update to upstream 1.3.21.Final release
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3.20-3
 - convert license to SPDX
 

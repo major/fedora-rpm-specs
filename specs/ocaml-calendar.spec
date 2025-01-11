@@ -15,13 +15,15 @@ ExcludeArch: %{ix86}
 Name:           ocaml-calendar
 Epoch:          1
 Version:        3.0.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Objective Caml library for managing dates and times
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
 URL:            https://ocaml-community.github.io/calendar/
 VCS:            git:%{giturl}.git
 Source0:        %{giturl}/archive/v%{version}/calendar-%{version}.tar.gz
+# Work around https://github.com/ocaml-community/calendar/issues/43
+Patch:          %{name}-timezone-test.patch
 
 BuildRequires:  ocaml >= 4.03
 BuildRequires:  ocaml-dune >= 1.0
@@ -75,6 +77,10 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Jan 10 2025 Jerry James <loganjerry@gmail.com> - 1:3.0.0-15
+- OCaml 5.3.0 rebuild for Fedora 42
+- Add patch for a test failure
+
 * Thu Oct 03 2024 Richard W.M. Jones <rjones@redhat.com> - 1:3.0.0-14
 - Rebuild against ocaml-re 1.13.3 (RHBZ#2316105)
 

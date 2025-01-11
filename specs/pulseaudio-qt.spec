@@ -1,6 +1,6 @@
 Name:    pulseaudio-qt
 Summary: Qt bindings for PulseAudio
-Version: 1.6.1
+Version: 1.7.0
 Release: 1%{?dist}
 
 License: CC0-1.0 AND LGPL-2.1-only AND LGPL-3.0-only
@@ -16,38 +16,19 @@ BuildRequires:  cmake(Qt6Gui)
 BuildRequires:  cmake(Qt6Qml)
 BuildRequires:  cmake(Qt6Test)
 BuildRequires:  cmake(Qt6DBus)
-BuildRequires:  cmake(Qt5Gui)
-BuildRequires:  cmake(Qt5Qml)
-BuildRequires:  cmake(Qt5Test)
-BuildRequires:  cmake(Qt5DBus)
 
 %description
 Pulseaudio-Qt is a library providing Qt bindings to PulseAudio.
 
-%package qt5-devel
-Summary: Development files for %{name} (Qt5)
-Requires: %{name}-qt5%{?_isa} = %{version}-%{release}
-Provides: %{name}-devel = %{?epoch:%{epoch}:}%{version}-%{release}
-Obsoletes: %{name}-devel < %{?epoch:%{epoch}:}%{version}-%{release}
-%description qt5-devel
-%{summary}.
-
-%package qt5
-Summary: Qt5 bindings for PulseAudio
-Provides: %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Obsoletes: %{name} < %{?epoch:%{epoch}:}%{version}-%{release}
-%description qt5
+%package qt6
+Summary: Qt6 bindings for PulseAudio
+%description qt6
 %{summary}.
 
 %package qt6-devel
 Summary: Development files for %{name} (Qt6)
 Requires: %{name}-qt6%{?_isa} = %{version}-%{release}
 %description qt6-devel
-%{summary}.  
-
-%package qt6
-Summary: Qt6 bindings for PulseAudio
-%description qt6
 %{summary}.
 
 %package qt6-doc
@@ -57,41 +38,15 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
-mkdir %{name}_qt5
-pushd %{name}_qt5
-%cmake_kf5 -DQT_MAJOR_VERSION=5 -S../
+%cmake_kf6
 %cmake_build
-popd
-mkdir %{name}_qt6
-pushd %{name}_qt6
-%cmake_kf6 -DQT_MAJOR_VERSION=6 -S../
-%cmake_build
-popd
 
 %install
-pushd %{name}_qt5
 %cmake_install
-popd
-pushd %{name}_qt6
-%cmake_install
-popd
 rm %{buildroot}%{_kf6_includedir}/pulseaudioqt_version.h
-rm %{buildroot}%{_kf5_includedir}/pulseaudioqt_version.h
-
-%files qt5
-%license LICENSES/*.txt
-%doc README.md
-%{_kf5_libdir}/libKF5PulseAudioQt.so.5
-%{_kf5_libdir}/libKF5PulseAudioQt.so.%{version}
-
-%files qt5-devel
-%{_kf5_includedir}/KF5PulseAudioQt/
-%{_kf5_libdir}/libKF5PulseAudioQt.so
-%{_kf5_libdir}/cmake/KF5PulseAudioQt/
-%{_kf5_libdir}/pkgconfig/KF5PulseAudioQt.pc
 
 %files qt6
 %license LICENSES/*.txt
@@ -110,6 +65,10 @@ rm %{buildroot}%{_kf5_includedir}/pulseaudioqt_version.h
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Thu Jan 09 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1.7.0-1
+- 1.7.0
+- Drop qt5 subpackages as upstream dropped support for it
+
 * Mon Nov 18 2024 Alessandro Astone <ales.astone@gmail.com> - 1.6.1-1
 - new version
 

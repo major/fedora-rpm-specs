@@ -1,16 +1,11 @@
 Name:           python-pypandoc
-Version:        1.14
+Version:        1.15
 Release:        %autorelease
 Summary:        Thin wrapper for pandoc
 
 License:        MIT
 URL:            https://github.com/bebraw/pypandoc
 Source:         https://github.com/JessicaTegner/pypandoc/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
-
-# Remove the upper bound of Python version
-# That's the upstream's apporach: https://github.com/JessicaTegner/pypandoc/pull/379
-# Not yet in the released version.
-Patch:          Dont-set-Python-upper-bound.patch
 
 BuildArch:      noarch
 

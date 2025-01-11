@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-uutf
 Version:        1.0.3
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Non-blocking streaming Unicode codec for OCaml
 
 License:        ISC
@@ -79,6 +79,9 @@ ocaml pkg/pkg.ml test
 %doc html/*
 
 %changelog
+* Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 1.0.3-18
+- OCaml 5.3.0 rebuild for Fedora 42
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

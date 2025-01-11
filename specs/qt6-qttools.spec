@@ -12,7 +12,7 @@
 Summary: Qt6 - QtTool components
 Name:    qt6-qttools
 Version: 6.8.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -332,7 +332,9 @@ popd
 %{_qt6_libdir}/libQt6UiTools.so
 %{_qt6_libdir}/cmake/Qt6/FindWrapLibClang.cmake
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtToolsTestsConfig.cmake
+%dir %{_qt6_libdir}/cmake/Qt6Designer
 %{_qt6_libdir}/cmake/Qt6Designer/*.cmake
+%dir %{_qt6_libdir}/cmake/Qt6DesignerComponentsPrivate
 %{_qt6_libdir}/cmake/Qt6DesignerComponentsPrivate/*.cmake
 %dir %{_qt6_libdir}/cmake/Qt6QDocCatchPrivate
 %{_qt6_libdir}/cmake/Qt6QDocCatchPrivate/*.cmake
@@ -383,6 +385,9 @@ popd
 
 
 %changelog
+* Thu Jan 09 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.1-3
+- Fix directory ownership
+
 * Thu Dec 05 2024 Jan Grulich <jgrulich@redhat.com> - 6.8.1-2
 - Move Software Bill of Materials from -devel
 

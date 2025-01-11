@@ -1,5 +1,12 @@
+%global use_gcc_toolset 0%{?el8}
+%global use_system_tbb  0%{?fedora} >= 40 || 0%{?rhel} >= 10
+
+# 32-bit x86 is supported by RHEL < 10 and Fedora (the latter is implicitly
+# covered by the conditional expression)
+%global has_32bit_support 0%{?rhel} < 10
+
 Name:           mold
-Version:        2.35.1
+Version:        2.36.0
 Release:        %autorelease
 Summary:        A Modern Linker
 
@@ -13,13 +20,9 @@ Patch0:         0001-Use-system-compatible-include-path-for-xxhash.h.patch
 # Possibly https://sourceware.org/bugzilla/show_bug.cgi?id=29655
 Patch1:         0002-ELF-S390X-Skip-another-test-that-fails-with-GCC-14.patch
 
-# Fix linking against shared `libmimalloc`:
-# https://github.com/rui314/mold/pull/1380
-Patch2:         0003-Add-missing-include-common.h.patch
-
 BuildRequires:  blake3-devel
 BuildRequires:  cmake
-%if 0%{?el8}
+%if %{use_gcc_toolset}
 BuildRequires:  gcc-toolset-13
 %else
 BuildRequires:  gcc
@@ -30,7 +33,7 @@ BuildRequires:  mimalloc-devel
 BuildRequires:  xxhash-static
 BuildRequires:  zlib-devel
 
-%if 0%{?fedora} >= 40
+%if %{use_system_tbb}
 BuildRequires:  tbb-devel >= 2021.9
 %else
 # API-incompatible with older tbb 2020.3 shipped by Fedora < 40:
@@ -46,9 +49,11 @@ BuildRequires:  gdb
 BuildRequires:  glibc-static
 %if ! 0%{?el8}
 %ifarch x86_64
+%if %{has_32bit_support}
 # Koji 64-bit buildroots do not contain packages from 32-bit builds, therefore
 # the 'glibc-devel.i686' variant is provided as 'glibc32'.
 BuildRequires: (glibc32 or glibc-devel(%__isa_name-32))
+%endif
 %endif
 BuildRequires:  libdwarf-tools
 %endif
@@ -68,15 +73,15 @@ build time, especially in rapid debug-edit-rebuild cycles.
 %prep
 %autosetup -p1
 rm -r third-party/{blake3,mimalloc,xxhash,zlib,zstd}
-%if 0%{?fedora} >= 40
+%if %{use_system_tbb}
 rm -r third-party/tbb
 %endif
 
 %build
-%if 0%{?el8}
+%if %{use_gcc_toolset}
 . /opt/rh/gcc-toolset-13/enable
 %endif
-%if 0%{?fedora} >= 40
+%if %{use_system_tbb}
 %define tbb_flags -DMOLD_USE_SYSTEM_TBB=ON
 %endif
 %cmake -DMOLD_USE_SYSTEM_MIMALLOC=ON %{?tbb_flags}
@@ -96,7 +101,7 @@ if [ "$1" = 0 ]; then
 fi
 
 %check
-%if 0%{?el8}
+%if %{use_gcc_toolset}
 . /opt/rh/gcc-toolset-13/enable
 %endif
 %ctest

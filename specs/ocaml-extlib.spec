@@ -87,7 +87,8 @@ make -C test all run
 
 
 %changelog
-* Fri Dec 27 2024 Jerry James <loganjerry@gmail.com> - 1.8.0-1
+* Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 1.8.0-1
+- OCaml 5.3.0 rebuild for Fedora 42
 - Version 1.8.0
 - Build with dune
 

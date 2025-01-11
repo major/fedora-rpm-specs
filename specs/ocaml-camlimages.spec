@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-camlimages
 Version:        5.0.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        OCaml image processing library
 License:        LGPL-2.0-only WITH OCaml-LGPL-linking-exception
 
@@ -80,6 +80,9 @@ Includes documentation provided by odoc.
 %files devel -f .ofiles-devel
 
 %changelog
+* Fri Jan 10 2025 Jerry James <loganjerry@gmail.com> - 5.0.5-5
+- OCaml 5.3.0 rebuild for Fedora 42
+
 * Wed Jul 24 2024 Jerry James <loganjerry@gmail.com> - 5.0.5-4
 - Add patch to fix FTBFS with recent dune versions
 - Add VCS field

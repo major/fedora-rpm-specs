@@ -26,8 +26,8 @@ Source31:       poweredby-black.png
 
 # downstream only patch to disable commands that can alter the binary
 Patch1:         0001-Disable-commands-that-can-alter-the-binary.patch
-# downstream only patch to skip ACME integration tests
-Patch2:         0002-Skip-ACME-integration-tests-that-fail-in-an-RPM-build-environment.patch
+# downstream only patch to skip certain tests
+Patch2:         0002-Skip-tests-that-fail-in-an-RPM-build-environment.patch
 
 %if %{defined el8}
 ExclusiveArch:  %{golang_arches}

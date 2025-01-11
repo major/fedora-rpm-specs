@@ -1,5 +1,5 @@
 Name:           rust
-Version:        1.83.0
+Version:        1.84.0
 Release:        %autorelease
 Summary:        The Rust Programming Language
 License:        (Apache-2.0 OR MIT) AND (Artistic-2.0 AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0 AND Unicode-DFS-2016)
@@ -14,9 +14,9 @@ ExclusiveArch:  %{rust_arches}
 # To bootstrap from scratch, set the channel and date from src/stage0.json
 # e.g. 1.59.0 wants rustc: 1.58.0-2022-01-13
 # or nightly wants some beta-YYYY-MM-DD
-%global bootstrap_version 1.82.0
-%global bootstrap_channel 1.82.0
-%global bootstrap_date 2024-10-17
+%global bootstrap_version 1.83.0
+%global bootstrap_channel 1.83.0
+%global bootstrap_date 2024-11-28
 
 # Only the specified arches will use bootstrap binaries.
 # NOTE: Those binaries used to be uploaded with every new release, but that was
@@ -28,7 +28,7 @@ ExclusiveArch:  %{rust_arches}
 # We need CRT files for *-wasi targets, at least as new as the commit in
 # src/ci/docker/host-x86_64/dist-various-2/build-wasi-toolchain.sh
 %global wasi_libc_url https://github.com/WebAssembly/wasi-libc
-%global wasi_libc_ref wasi-sdk-24
+%global wasi_libc_ref wasi-sdk-25
 %global wasi_libc_name wasi-libc-%{wasi_libc_ref}
 %global wasi_libc_source %{wasi_libc_url}/archive/%{wasi_libc_ref}/%{wasi_libc_name}.tar.gz
 %global wasi_libc_dir %{_builddir}/%{wasi_libc_name}
@@ -44,7 +44,7 @@ ExclusiveArch:  %{rust_arches}
 # We can also choose to just use Rust's bundled LLVM, in case the system LLVM
 # is insufficient.  Rust currently requires LLVM 18.0+.
 %global min_llvm_version 18.0.0
-%global bundled_llvm_version 19.1.1
+%global bundled_llvm_version 19.1.5
 #global llvm_compat_version 17
 %global llvm llvm%{?llvm_compat_version}
 %bcond_with bundled_llvm
@@ -128,10 +128,10 @@ Patch4:         0001-bootstrap-allow-disabling-target-self-contained.patch
 Patch5:         0002-set-an-external-library-path-for-wasm32-wasi.patch
 
 # We don't want to use the bundled library in libsqlite3-sys
-Patch6:         rustc-1.82.0-unbundle-sqlite.patch
+Patch6:         rustc-1.84.0-unbundle-sqlite.patch
 
-# https://github.com/rust-lang/rust/pull/131838
-Patch7:         0001-bootstrap-allow-setting-jobs-in-config.toml.patch
+# https://github.com/rust-lang/rust/pull/134240
+Patch7:         0001-Only-dist-llvm-objcopy-if-llvm-tools-are-enabled.patch
 
 ### RHEL-specific patches below ###
 
@@ -142,7 +142,7 @@ Source102:      cargo_vendor.attr
 Source103:      cargo_vendor.prov
 
 # Disable cargo->libgit2->libssh2 on RHEL, as it's not approved for FIPS (rhbz1732949)
-Patch100:       rustc-1.82.0-disable-libssh2.patch
+Patch100:       rustc-1.84.0-disable-libssh2.patch
 
 # Get the Rust triple for any architecture and ABI.
 %{lua: function rust_triple(arch, abi)
@@ -175,9 +175,7 @@ end}
 %if 0%{?fedora}
 %global mingw_targets i686-pc-windows-gnu x86_64-pc-windows-gnu
 %endif
-# NB: wasm32-wasi is being gradually replaced by wasm32-wasip1
-# https://blog.rust-lang.org/2024/04/09/updates-to-rusts-wasi-targets.html
-%global wasm_targets wasm32-unknown-unknown wasm32-wasi wasm32-wasip1
+%global wasm_targets wasm32-unknown-unknown wasm32-wasip1
 %if 0%{?fedora}
 %global extra_targets x86_64-unknown-none x86_64-unknown-uefi
 %endif
@@ -234,9 +232,11 @@ BuildRequires:  (%{name} >= %{bootstrap_version} with %{name} <= %{version})
 %global local_rust_root %{_prefix}
 %endif
 
+%global toolchain clang
+
 BuildRequires:  make
-BuildRequires:  gcc
-BuildRequires:  gcc-c++
+BuildRequires:  clang
+BuildRequires:  lld
 BuildRequires:  ncurses-devel
 # explicit curl-devel to avoid httpd24-curl (rhbz1540167)
 BuildRequires:  curl-devel
@@ -429,18 +429,6 @@ BuildArch:      noarch
 %target_description wasm32-unknown-unknown WebAssembly
 %endif
 
-%if %target_enabled wasm32-wasi
-%target_package wasm32-wasi
-Requires:       lld >= 8.0
-%if %with bundled_wasi_libc
-Provides:       bundled(wasi-libc)
-%else
-Requires:       wasi-libc-static
-%endif
-BuildArch:      noarch
-%target_description wasm32-wasi WebAssembly
-%endif
-
 %if %target_enabled wasm32-wasip1
 %target_package wasm32-wasip1
 Requires:       lld >= 8.0
@@ -450,6 +438,8 @@ Provides:       bundled(wasi-libc)
 Requires:       wasi-libc-static
 %endif
 BuildArch:      noarch
+# https://blog.rust-lang.org/2024/04/09/updates-to-rusts-wasi-targets.html
+Obsoletes:      %{name}-std-static-wasm32-wasi < 1.84.0~
 %target_description wasm32-wasip1 WebAssembly
 %endif
 
@@ -743,6 +733,9 @@ find -name '*.rs' -type f -perm /111 -exec chmod -v -x '{}' '+'
 %global build_rustflags %{nil}
 %endif
 
+# This is mostly needed for lld < 19 which defaulted to a short --build-id=fast.
+%global rustflags -Clink-arg=%{?_build_id_flags}%{!?_build_id_flags:-Wl,--build-id=sha1}
+
 # These are similar to __cflags_arch_* in /usr/lib/rpm/redhat/macros
 %global rustc_target_cpus %{lua: do
   local fedora = tonumber(rpm.expand("0%{?fedora}"))
@@ -806,16 +799,12 @@ end}
 %if %defined wasm_targets
 %if %with bundled_wasi_libc
 %define wasi_libc_flags MALLOC_IMPL=emmalloc CC=clang AR=llvm-ar NM=llvm-nm
-%make_build --quiet -C %{wasi_libc_dir} %{wasi_libc_flags} TARGET_TRIPLE=wasm32-wasi
 %make_build --quiet -C %{wasi_libc_dir} %{wasi_libc_flags} TARGET_TRIPLE=wasm32-wasip1
 %define wasm_target_config %{shrink:
-  --set target.wasm32-wasi.wasi-root=%{wasi_libc_dir}/sysroot
   --set target.wasm32-wasip1.wasi-root=%{wasi_libc_dir}/sysroot
 }
 %else
 %define wasm_target_config %{shrink:
-  --set target.wasm32-wasi.wasi-root=%{_prefix}/wasm32-wasi
-  --set target.wasm32-wasi.self-contained=false
   --set target.wasm32-wasip1.wasi-root=%{_prefix}/wasm32-wasi
   --set target.wasm32-wasip1.self-contained=false
 }
@@ -856,7 +845,7 @@ test -r "%{profiler}"
     %{!?with_llvm_static: --enable-llvm-link-shared } } \
   --disable-llvm-static-stdcpp \
   --disable-llvm-bitcode-linker \
-  --disable-lld \
+  --disable-lld --set rust.use-lld=true \
   --disable-rpath \
   %{enable_debuginfo} \
   %{enable_rust_opts} \
@@ -866,6 +855,7 @@ test -r "%{profiler}"
   --set build.install-stage=2 \
   --set build.test-stage=2 \
   --set build.optimized-compiler-builtins=false \
+  --set rust.llvm-tools=false \
   --enable-extended \
   --tools=cargo,clippy,rls,rust-analyzer,rustfmt,src \
   --enable-vendor \
@@ -1072,15 +1062,6 @@ rm -rf "./build/%{rust_triple}/stage2-tools/%{rust_triple}/cit/"
 
 %if %target_enabled wasm32-unknown-unknown
 %target_files wasm32-unknown-unknown
-%endif
-
-%if %target_enabled wasm32-wasi
-%target_files wasm32-wasi
-%if %with bundled_wasi_libc
-%dir %{rustlibdir}/wasm32-wasi/lib/self-contained
-%{rustlibdir}/wasm32-wasi/lib/self-contained/crt*.o
-%{rustlibdir}/wasm32-wasi/lib/self-contained/libc.a
-%endif
 %endif
 
 %if %target_enabled wasm32-wasip1

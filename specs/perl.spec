@@ -117,7 +117,7 @@ License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          %{perl_epoch}
 Version:        %{perl_version}
 # release number must be even higher, because dual-lived modules will be broken otherwise
-Release:        512%{?dist}
+Release:        513%{?dist}
 Summary:        Practical Extraction and Report Language
 Url:            https://www.perl.org/
 Source0:        https://www.cpan.org/src/5.0/perl-%{perl_version}.tar.xz
@@ -136,6 +136,8 @@ Source7:        gendep.macros
 %if %{defined perl_bootstrap}
 %include %{SOURCE7}
 %endif
+# Use config.over to make build of perl reproducible
+Source8:        config.over
 
 # Removes date check, Fedora/RHEL specific
 Patch1:         perl-perlbug-tag.patch
@@ -4269,6 +4271,9 @@ install -m 0644 %{SOURCE5} .
 #copy Pod-Html license clarification
 cp %{SOURCE6} .
 
+# Copy config.over to override Configure's guesses.
+cp %{SOURCE8} .
+
 #
 # Candidates for doc recoding (need case by case review):
 # find . -name "*.pod" -o -name "README*" -o -name "*.pm" | xargs file -i | grep charset= | grep -v '\(us-ascii\|utf-8\)'
@@ -7281,6 +7286,9 @@ ln -s /app/bin/perl %{buildroot}/usr/bin/perl
 
 # Old changelog entries are preserved in CVS.
 %changelog
+* Thu Jan 09 2025 Jitka Plesnikova <jplesnik@redhat.com> - 4:5.40.0-513
+- Add config.over to make build od perl reproducible (rhbz#2321494)
+
 * Tue Oct 15 2024 Jitka Plesnikova <jplesnik@redhat.com> - 4:5.40.0-512
 - Removed unnecessary conversion (rhbz#2318488)
 

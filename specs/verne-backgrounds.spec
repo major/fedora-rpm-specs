@@ -3,8 +3,7 @@ Version:        15.92.1
 Release:        27%{?dist}
 Summary:        Verne desktop backgrounds
 
-# Automatically converted from old format: CC-BY-SA - review is highly recommended.
-License:        LicenseRef-Callaway-CC-BY-SA
+License:        CC-BY-SA-4.0
 URL:            https://fedoraproject.org/wiki/F16_Artwork
 Source0:        https://fedorahosted.org/released/design-team/%{name}-%{version}.tar.xz
 
@@ -23,8 +22,7 @@ Gnome and KDE themes.
 
 %package        single
 Summary:        Single screen images for Verne Backgrounds
-# Automatically converted from old format: CC-BY-SA - review is highly recommended.
-License:        LicenseRef-Callaway-CC-BY-SA
+License:        CC-BY-SA-4.0
 
 %description    single
 This package contains single screen images for Verne Backgrounds
@@ -32,7 +30,6 @@ This package contains single screen images for Verne Backgrounds
 #%package        animated
 #Summary:        Images for Time of Day animation for Verne Backgrounds
 #Group:          Applications/Multimedia
-#License:        CC-BY-SA
 #Requires:       %{name}-single = %{version}-%{release}
 
 #%description    animated
@@ -42,7 +39,6 @@ This package contains single screen images for Verne Backgrounds
 #%package        animated-gnome
 #Summary:        Time of Day animation for Verne Backgrounds for Gnome
 #Group:          Applications/Multimedia
-#License:        CC-BY-SA
 #Requires:       %{name}-animated = %{version}-%{release}
 
 #%description    animated-gnome
@@ -77,15 +73,14 @@ This package contains XFCE4 desktop wallpapers for the Verne theme.
 
 %package        extras-single
 Summary:        Single screen images for Verne Extras Backrounds
-# Automatically converted from old format: CC-BY and CC-BY-SA - review is highly recommended.
-License:        LicenseRef-Callaway-CC-BY AND LicenseRef-Callaway-CC-BY-SA
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 
 %description    extras-single
 This package contains single screen images for Verne supplemental wallpapers
 
 %package        extras-gnome
 Summary:        Extra Verne Wallpapers for Gnome
-
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 Requires:       %{name}-extras-single
 
 %description    extras-gnome
@@ -93,7 +88,7 @@ This package contains Verne supplemental wallpapers for Gnome
 
 %package        extras-kde
 Summary:        Extra Verne Wallpapers for KDE
-
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 Requires:       %{name}-extras-single
 
 %description    extras-kde
@@ -101,7 +96,7 @@ This package contains Verne supplemental wallpapers for Gnome
 
 %package        extras-xfce
 Summary:        Extra Verne Wallpapers for XFCE
-
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 Requires:       %{name}-extras-single
 
 %description    extras-xfce

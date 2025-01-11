@@ -1,9 +1,9 @@
 %bcond_without check
 
-%global so_version 2
+%global so_version 3
 
 Name:           rubberband
-Version:        3.3.0
+Version:        4.0.0
 Release:        %autorelease
 Summary:        Audio time-stretching and pitch-shifting library
 

@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-SDL3
-Version:        3.1.6
+Version:        3.1.8
 Release:        1%{?dist}
 Summary:        MinGW Windows port of SDL3 cross-platform multimedia library
 
@@ -130,6 +130,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/licenses
 
 
 %changelog
+* Thu Jan 09 2025 Neal Gompa <ngompa@fedoraproject.org> - 3.1.8-1
+- Update to 3.1.8
+
 * Mon Dec 02 2024 Neal Gompa <ngompa@fedoraproject.org> - 3.1.6-1
 - Initial package
 

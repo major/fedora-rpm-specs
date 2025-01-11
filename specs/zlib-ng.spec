@@ -18,7 +18,7 @@
 %global supported_abi_test aarch64 ppc64le x86_64
 
 Name:		zlib-ng
-Version:	2.2.2
+Version:	2.2.3
 Release:	1%{?dist}
 Summary:	Zlib replacement with optimizations
 License:	Zlib
@@ -215,6 +215,9 @@ CHOST=%{target_cpu}-%{cpu_vendor}-linux-gnu sh test/abicheck.sh --zlib-compat
 
 
 %changelog
+* Wed Jan 08 2025 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 2.2.3-1
+- Update to version 2.2.3
+
 * Wed Sep 25 2024 Lukas Javorsky <ljavorsk@redhat.com> - 2.2.2-1
 - Rebase to new major version 2.2.2
 

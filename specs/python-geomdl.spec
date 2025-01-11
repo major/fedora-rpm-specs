@@ -1,13 +1,11 @@
 # Currently unavailable in EPEL
 %bcond plotly %{expr:!0%{?rhel}}
-# Currently unavailable in EPEL10
-%bcond matplotlib %{expr:!0%{?el10}}
 
 # Sphinx-generated HTML documentation is not suitable for packaging; see
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as a substitute.
-%bcond doc %{expr:%{with matplotlib}}
+%bcond doc 1
 
 Name:           python-geomdl
 Version:        5.3.1
@@ -120,11 +118,6 @@ sed -r -i 's/==/>=/' requirements.txt
 # unavailable.
 sed -r -i 's/^(plotly)\b/# &/' requirements.txt
 %endif
-%if %{without matplotlib}
-# Omit matplotlib; functionality in geomdl.visualization.VisMPL will be
-# unavailable.
-sed -r -i 's/^(matplotlib)\b/# &/' requirements.txt
-%endif
 
 
 %generate_buildrequires
@@ -147,9 +140,6 @@ PYTHONPATH="${PWD}" %make_build -C docs latex \
 
 
 %check
-%if %{without matplotlib}
-ignore="${ignore-} --ignore=tests/test_visualization.py"
-%endif
 %pytest ${ignore-}
 
 

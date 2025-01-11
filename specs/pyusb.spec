@@ -1,5 +1,5 @@
 Name: pyusb
-Version: 1.3.0
+Version: 1.3.1
 Release: 1%{?dist}
 Summary: Python bindings for libusb
 License: BSD-3-Clause
@@ -46,6 +46,9 @@ cd tests
 %{python3_sitelib}/*
 
 %changelog
+* Thu Jan 09 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.3.1-1
+- 1.3.1
+
 * Thu Jan 02 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.3.0-1
 - 1.3.0
 

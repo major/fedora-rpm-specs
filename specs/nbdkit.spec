@@ -55,7 +55,7 @@
 
 Name:           nbdkit
 Version:        1.41.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -1516,6 +1516,9 @@ fi
 
 
 %changelog
+* Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 1.41.9-2
+- OCaml 5.3.0 rebuild for Fedora 42
+
 * Wed Jan 08 2025 Richard W.M. Jones <rjones@redhat.com> - 1.41.9-1
 - New upstream development branch version 1.41.9
 

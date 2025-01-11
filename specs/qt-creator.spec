@@ -163,7 +163,9 @@ rm -rf src/libs/3rdparty/yaml-cpp
 
 %check
 desktop-file-validate %{buildroot}/%{_datadir}/applications/org.qt-project.qtcreator.desktop
+%if 0%{?fedora} || 0%{?rhel} > 9
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.qt-project.qtcreator.appdata.xml
+%endif
 chrpath -l %{buildroot}%{_bindir}/qtcreator
 
 # Output an up-to-date list of Provides/Requires exclude statements.

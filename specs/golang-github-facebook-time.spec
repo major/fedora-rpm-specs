@@ -127,11 +127,12 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %if %{with check}
 %check
 # Disable test that requires network access
-rm calnex/verify/checks/checks_test.go
-rm ntp/responder/server/server_test.go
+rm -f calnex/verify/checks/checks_test.go
+rm -f calnex/verify/checks/ping_test.go
+rm -f ntp/responder/server/server_test.go
 # https://github.com/facebook/time/issues/100
 %ifarch s390x
-rm timestamp/timestamp_linux_test.go
+rm -f timestamp/timestamp_linux_test.go
 %endif
 %gocheck
 %endif

@@ -95,7 +95,8 @@ cmp Makefile Makefile.uncompressed
 
 
 %changelog
-* Thu Dec 26 2024 Jerry James <loganjerry@gmail.com> - 1.13-1
+* Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 1.13-1
+- OCaml 5.3.0 rebuild for Fedora 42
 - Version 1.13
 - Add patch to use zlib-ng instead of zlib
 

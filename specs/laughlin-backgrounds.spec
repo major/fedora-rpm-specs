@@ -3,8 +3,7 @@ Version:        14.1.0
 Release:        30%{?dist}
 Summary:        Laughlin desktop backgrounds
 
-# Automatically converted from old format: CC-BY-SA - review is highly recommended.
-License:        LicenseRef-Callaway-CC-BY-SA
+License:        CC-BY-SA-4.0
 URL:            https://fedoraproject.org/wiki/F14_Artwork
 Source0:        https://fedorahosted.org/released/design-team/%{name}-%{version}.tar.lzma
 
@@ -23,16 +22,14 @@ Gnome and KDE themes.
 
 %package        single
 Summary:        Single screen images for Laughlin Backgrounds
-# Automatically converted from old format: CC-BY-SA - review is highly recommended.
-License:        LicenseRef-Callaway-CC-BY-SA
+License:        CC-BY-SA-4.0
 
 %description    single
 This package contains single screen images for Laughlin Backgrounds
 
 %package        animated
 Summary:        Images for Time of Day animation for Laughlin Backgrounds
-# Automatically converted from old format: CC-BY-SA - review is highly recommended.
-License:        LicenseRef-Callaway-CC-BY-SA
+License:        CC-BY-SA-4.0
 Requires:       %{name}-single = %{version}-%{release}
 
 %description    animated
@@ -41,8 +38,7 @@ Laughlin Backgrounds
 
 %package        animated-gnome
 Summary:        Time of Day animation for Laughlin Backgrounds for Gnome
-# Automatically converted from old format: CC-BY-SA - review is highly recommended.
-License:        LicenseRef-Callaway-CC-BY-SA
+License:        CC-BY-SA-4.0
 Requires:       %{name}-animated = %{version}-%{release}
 
 %description    animated-gnome
@@ -74,15 +70,14 @@ This package contains Gnome desktop wallpapers for the Laughlin theme.
 
 %package        extras-single
 Summary:        Single screen images for Laughlin Extras Backrounds
-# Automatically converted from old format: CC-BY and CC-BY-SA - review is highly recommended.
-License:        LicenseRef-Callaway-CC-BY AND LicenseRef-Callaway-CC-BY-SA
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 
 %description    extras-single
 This package contains single screen images for Laughlin supplemental wallpapers
 
 %package        extras-gnome
 Summary:        Extra Laughlin Wallpapers for Gnome
-
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 Requires:       %{name}-extras-single
 
 %description    extras-gnome
@@ -90,7 +85,7 @@ This package contains Laughlin supplemental wallpapers for Gnome
 
 %package        extras-kde
 Summary:        Extra Laughlin Wallpapers for KDE
-
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 Requires:       %{name}-extras-single
 
 %description    extras-kde

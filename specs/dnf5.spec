@@ -7,13 +7,23 @@
 
 Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
 Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
 Patch0:         0001-python3-libdnf5-Remove-superfluous-provides-for-pyth.patch
 Patch1:         0002-Remove-redundant-python_provide-statements.patch
+Patch2:         0003-Fix-plural-typo.patch
+Patch3:         0004-Fix-reporting-disk-space-to-be-freed-on-a-pure-packa.patch
+Patch4:         0005-Incorrect-library-name-in-libdnf5-cli.pc.patch
+Patch5:         0006-automatic-Substitute-variables-in-command_format.patch
+Patch6:         0007-Display-remaining-time-as-nonnegative-number.patch
+Patch7:         0008-doc-dnf-history-userinstalled-replaced-with-dnf-repo.patch
+Patch8:         0009-Own-var-lib-dnf-by-libdnf5.patch
+Patch9:         0010-Copr-plugin-Fix-resource-leak-in-load_all_configurat.patch
+Patch10:        0011-repo-Fix-logging-metadata-download-errors-handling.patch
+Patch11:        0012-automatic-Fix-end-of-lines-in-messages-sent-by-email.patch
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
@@ -395,6 +405,7 @@ Package management library.
 %{_libdir}/libdnf5.so.2*
 %license lgpl-2.1.txt
 %ghost %attr(0755, root, root) %dir %{_var}/cache/libdnf5
+%ghost %attr(0755, root, root) %dir %{_sharedstatedir}/dnf
 
 # ========== libdnf5-cli ==========
 
@@ -901,6 +912,20 @@ popd
 %ldconfig_scriptlets
 
 %changelog
+* Thu Jan 09 2025 Petr Pisar <ppisar@redhat.com> - 5.2.8.1-4
+- Fix plural form in "Replacing N packages" message
+- Fix reporting disk space to be freed on a pure package removal (GH #1938)
+- Fix a library name in libdnf5-cli pkg-config file
+- Fix expanding "{body}" in command_format option of automatic plugin
+  (GH #1951)
+- Display remaining time as nonnegative number (bug #2332931)
+- Document removal of "userinstalled" subcommand (bug #2335257)
+- Own /var/lib/dnf by libdnf5 (bug #2332856)
+- Fix a memory leak in copr plugin
+- Fix a crash when reporting metadata download errors (GH #1919)
+- Fix end-of-lines in messages sent by email emitter of automatic plugin
+  (bug #2335508)
+
 * Wed Jan 08 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.2.8.1-3
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.4
 

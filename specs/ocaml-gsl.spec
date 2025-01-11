@@ -70,7 +70,8 @@ export GSL_CBLAS_LIB="-lflexiblas"
 
 
 %changelog
-* Sat Dec 21 2024 Jerry James <loganjerry@gmail.com> - 1.25.1-1
+* Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 1.25.1-1
+- OCaml 5.3.0 rebuild for Fedora 42
 - Version 1.52.1
 - Drop upstreamed patch to link with flexiblas after gsl
 - Add VCS field

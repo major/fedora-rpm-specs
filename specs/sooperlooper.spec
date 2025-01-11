@@ -1,7 +1,7 @@
 Summary: Realtime software looping sampler
 Name: sooperlooper
 Version: 1.7.3
-Release: 26%{?dist}
+Release: 27%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: http://essej.net/sooperlooper/
@@ -75,6 +75,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Thu Jan 09 2025 Michel Lind <salimma@fedoraproject.org> - 1.7.3-27
+- Rebuilt for rubberband 4
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.7.3-26
 - convert license to SPDX
 

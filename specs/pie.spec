@@ -9,14 +9,14 @@
 
 %bcond_with              generators
 
-%global gh_commit        883447d3f2f0de086e2569cbfe6a0e07c50c7560
+%global gh_commit        b6e014bdbe790a6cbb83ea0582ac9b6eb8ab31c1
 %global gh_short         %(c=%{gh_commit}; echo ${c:0:7})
 #global gh_date		     20241003
 %global gh_branch        main
 %global gh_owner         php
 %global gh_project       pie
 
-%global upstream_version 0.4.0
+%global upstream_version 0.5.0
 #global upstream_prever  dev
 #global upstream_lower   DEV
 
@@ -78,7 +78,7 @@ Requires:       php-phar
 %if %{without generators}
 # Bundled libraries
 # License MIT
-Provides:       bundled(php-composer(composer/ca-bundle)) = 1.5.4
+Provides:       bundled(php-composer(composer/ca-bundle)) = 1.5.5
 Provides:       bundled(php-composer(composer/class-map-generator)) = 1.5.0
 Provides:       bundled(php-composer(composer/composer)) = 2.8.4
 Provides:       bundled(php-composer(composer/metadata-minifier)) = 1.0.0
@@ -198,6 +198,9 @@ done
 
 
 %changelog
+* Thu Jan  9 2025 Remi Collet <remi@remirepo.net> - 0.5.0-1
+- update to 0.5.0
+
 * Wed Jan  1 2025 Remi Collet <remi@remirepo.net> - 0.4.0-1
 - update to 0.4.0
 

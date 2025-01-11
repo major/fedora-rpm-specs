@@ -8,7 +8,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-menhir
 Version:        20240715
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        LR(1) parser generator for OCaml
 
 # The generator is GPL-2.0-only
@@ -106,6 +106,9 @@ rm -rf %{buildroot}%{ocamldir}/coq-menhirlib/
 %{ocamldir}/menhirLib/menhirLib.ml
 
 %changelog
+* Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 20240715-2
+- OCaml 5.3.0 rebuild for Fedora 42
+
 * Mon Aug  5 2024 Jerry James <loganjerry@gmail.com> - 20240715-1
 - Version 20240715
 

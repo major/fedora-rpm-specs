@@ -5,13 +5,16 @@
 %global crate gengo
 
 Name:           rust-gengo
-Version:        0.11.5
+Version:        0.12.0
 Release:        %autorelease
 Summary:        Get the language distribution stats of your repository
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gengo
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Allow an older version of rstest
+Patch:          gengo-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  tomcli

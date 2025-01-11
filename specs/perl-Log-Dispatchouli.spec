@@ -1,5 +1,5 @@
 Name:           perl-Log-Dispatchouli
-Version:        3.008
+Version:        3.009
 Release:        1%{?dist}
 Summary:        Simple wrapper around Log::Dispatch
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -110,6 +110,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 09 2025 Jitka Plesnikova <jplesnik@redhat.com> - 3.009-1
+- 3.009 bump (rhbz#2336328)
+
 * Wed Nov 06 2024 Jitka Plesnikova <jplesnik@redhat.com> - 3.008-1
 - 3.008 bump (rhbz#2323382)
 

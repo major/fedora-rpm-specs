@@ -18,6 +18,15 @@
 %bcond_with mlir
 
 %bcond_without bundled_llvm
+%bcond_without compat_gcc
+%if %{with compat_gcc}
+%global compat_gcc_major 13
+%global gcc_major_str -13
+%else
+%global compat_gcc_major %{nil}
+%global gcc_major_str %{nil}
+%endif
+
 
 %if %{with bundled_llvm}
 %global toolchain gcc
@@ -53,7 +62,7 @@
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}
-Release:        31.rocm%{rocm_version}%{?dist}
+Release:        32.rocm%{rocm_version}%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 
 Url:            https://github.com/ROCm/llvm-project
@@ -84,7 +93,7 @@ BuildRequires:  clang-devel(major) = %{llvm_maj_ver}
 BuildRequires:  lld-devel(major) = %{llvm_maj_ver}
 %else
 BuildRequires:  binutils-devel
-BuildRequires:  gcc-c++
+BuildRequires:  gcc%{compat_gcc_major}-c++
 Provides:       bundled(llvm-project) = %{llvm_maj_ver}
 %endif
 
@@ -222,7 +231,7 @@ Summary: The ROCm LLVM lib
 %package -n rocm-llvm
 Summary:       The ROCm LLVM
 Requires:      rocm-llvm-libs%{?_isa} = %{version}-%{release}
-Requires:      gcc-c++
+Requires:      gcc%{compat_gcc_major}-c++
 
 %description -n rocm-llvm
 %{summary}
@@ -259,7 +268,7 @@ Summary:       The ROCm compiler runtime
 Summary:       The ROCm compiler
 Requires:      rocm-clang-libs%{?_isa} = %{version}-%{release}
 Requires:      rocm-clang-runtime-devel%{?_isa} = %{version}-%{release}
-Requires:      gcc-c++
+Requires:      gcc%{compat_gcc_major}-c++
 
 %description -n rocm-clang
 %{summary}
@@ -529,8 +538,8 @@ pushd .
 export LD_LIBRARY_PATH=$PWD/build-llvm/lib
 
 %cmake %{llvmrocm_cmake_config} \
-       -DCMAKE_CXX_COMPILER=g++ \
-       -DCMAKE_C_COMPILER=gcc \
+       -DCMAKE_CXX_COMPILER=/usr/bin/g++%{gcc_major_str} \
+       -DCMAKE_C_COMPILER=/usr/bin/gcc%{gcc_major_str} \
        -DCMAKE_INSTALL_PREFIX=%{bundle_prefix} \
        -DCMAKE_INSTALL_LIBDIR=lib \
        -DLLVM_ENABLE_PROJECTS=%{llvm_projects}
@@ -1018,6 +1027,9 @@ mv %{buildroot}%{_bindir}/hip*.pm %{buildroot}%{perl_vendorlib}
 %endif
 
 %changelog
+* Thu Jan 9 2025 Tom Rix <Tom.Rix@amd.com> - 18-32.rocm6.3.1
+- Use compat gcc, gcc 15 breaks us.
+
 * Sun Dec 29 2024 Tom Rix <Tom.Rix@amd.com> - 18-31.rocm6.3.1
 - Remove excludes,provides filter for rocm-omp
 - Fix packaging of clang extra tools

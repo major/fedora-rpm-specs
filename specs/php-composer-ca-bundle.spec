@@ -1,22 +1,22 @@
 # remirepo/fedora spec file for php-composer-ca-bundle
 #
-# Copyright (c) 2016-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2016-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 
 %bcond_without       tests
 
-%global gh_commit    bc0593537a463e55cadf45fd938d23b75095b7e1
+%global gh_commit    08c50d5ec4c6ced7d0271d2862dec8c1033283e6
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     composer
 %global gh_project   ca-bundle
 %global php_home     %{_datadir}/php
 
 Name:           php-composer-ca-bundle
-Version:        1.5.4
+Version:        1.5.5
 Release:        1%{?dist}
 Summary:        Lets you find a path to the system CA
 
@@ -127,6 +127,10 @@ exit $ret
 
 
 %changelog
+* Thu Jan  9 2025 Remi Collet <remi@remirepo.net> - 1.5.5-1
+- update to 1.5.5 (no change)
+- re-license spec file to CECILL-2.1
+
 * Thu Nov 28 2024 Remi Collet <remi@remirepo.net> - 1.5.4-1
 - update to 1.5.4 (no change)
 

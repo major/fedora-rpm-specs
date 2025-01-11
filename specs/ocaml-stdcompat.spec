@@ -104,7 +104,8 @@ LD_LIBRARY_PATH=$PWD make test
 %files devel -f .ofiles-devel
 
 %changelog
-* Thu Dec 26 2024 Jerry James <loganjerry@gmail.com> - 19^20240529.d53390d-1
+* Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 19^20240529.d53390d-1
+- OCaml 5.3.0 rebuild for Fedora 42
 - Update to git HEAD for OCaml 5.x compatibility
 - Add patch for OCaml 5.3.0 compatibility
 

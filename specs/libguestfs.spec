@@ -42,7 +42,7 @@ Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
 Version:       1.55.3
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -1104,6 +1104,9 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Thu Jan 09 2025 Richard W.M. Jones <rjones@redhat.com> - 1:1.55.3-2
+- Rebuild for Ruby 3.4 again (RHBZ#2336525)
+
 * Wed Jan 08 2025 Richard W.M. Jones <rjones@redhat.com> - 1:1.55.3-1
 - New upstream development version 1.55.3
 - Baseline version of OCaml moved to 4.08

@@ -45,6 +45,7 @@ Main Features
 %package devel
 Summary: Development files for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: libedit-devel
 
 %description devel
 This package contains development files for %{name}.

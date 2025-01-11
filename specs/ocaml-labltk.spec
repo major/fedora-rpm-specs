@@ -10,7 +10,7 @@ ExcludeArch: %{ix86}
 
 Name:          ocaml-labltk
 Version:       8.06.14
-Release:       1%{?dist}
+Release:       2%{?dist}
 
 Summary:       Tcl/Tk interface for OCaml
 
@@ -134,6 +134,9 @@ sed 's/8\.06\.6/%{version}/' support/META > \
 
 
 %changelog
+* Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 8.06.14-2
+- OCaml 5.3.0 rebuild for Fedora 42
+
 * Thu Aug  1 2024 Jerry James <loganjerry@gmail.com> - 8.06.14-1
 - Version 8.06.14
 - Drop upstreamed patch to avoid implicit int in configure

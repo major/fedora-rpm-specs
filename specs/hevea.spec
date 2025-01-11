@@ -98,7 +98,8 @@ ln -s %{_texmf_main}/tex/latex/hevea/hevea.sty examples
 
 
 %changelog
-* Thu Dec 26 2024 Jerry James <loganjerry@gmail.com> - 2.36-15
+* Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 2.36-15
+- OCaml 5.3.0 rebuild for Fedora 42
 - Install into _texmf_main instead of _texmf
 
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.36-15

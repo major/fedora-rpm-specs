@@ -11,7 +11,7 @@
 
 # https://github.com/gdamore/tcell
 %global goipath         github.com/gdamore/tcell/v2
-Version:                2.7.4
+Version:                2.8.0
 
 %gometa
 
@@ -53,12 +53,23 @@ ls -R terminfo/?/ > terminfo-files
 # Use existing sources for:
 # * sun, which is hand-coded, not generated
 # * xterm-direct, which is hand-coded, not generated
-%if %{with system_foot}
-find terminfo/?/ \! -path '*sun/term.go' -a \! -path '*xterm/direct.go' -a -type f -delete
-%else
+# * ghostty is not yet packaged
+skipped=(
+    \! -path '*sun/term.go'
+)
+skipped+=(
+    -a \! -path '*xterm/direct.go'
+)
+skipped+=(
+    -a \! -path '*xterm_ghostty/term.go'
+)
+%if %{without system_foot}
 # also use existing source for foot
-find terminfo/?/ \! -path '*foot/foot.go' -a \! -path '*sun/term.go' -a \! -path '*xterm/direct.go' -a -type f -delete
+skipped+=(
+    -a \! -path '*foot/foot.go'
+)
 %endif
+find terminfo/?/ "${skipped[@]}" -a -type f -delete
 sed -i 's/go run mkinfo.go/$1/g' terminfo/gen.sh
 sed -i 's/^alacritty$/alacritty,alacritty-direct|alacritty/g' terminfo/models.txt
 %if %{with system_foot}

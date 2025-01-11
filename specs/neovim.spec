@@ -60,6 +60,8 @@ Source3:        %{name}-%{version}-vendor.tar.gz
 Source4:        neovim-bundled-licenses.txt
 Source5:        %{name}-%{version}-vendor-treesitter.tar.gz
 
+Patch0:         https://github.com/neovim/neovim/pull/31676.patch
+
 Patch1000:      neovim-lua-bit32.patch
 
 BuildRequires:  gcc-c++
@@ -133,6 +135,7 @@ mv ../%{name}-%{version}-vendor-treesitter/* \
 
 cp %{SOURCE4} .
 
+%patch -P 0 -p1
 %if %{without luajit}
 %patch -P 1000 -p1
 %endif

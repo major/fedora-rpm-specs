@@ -2,7 +2,7 @@
 %global         dracutlibdir %{_prefix}/lib/dracut
 
 Name:           google-compute-engine-guest-configs
-Version:        20241205.00
+Version:        20250107.00
 Release:        %autorelease
 Summary:        Google Compute Engine guest environment tools
 License:        Apache-2.0

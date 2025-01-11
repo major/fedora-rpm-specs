@@ -1,7 +1,7 @@
 %global pypi_name ramalama
 %global forgeurl  https://github.com/containers/%{pypi_name}
 # see ramalama/version.py
-%global version0  0.2.0
+%global version0  0.5.0
 %forgemeta
 
 %global summary   RamaLama is a command line tool for working with AI LLM models
@@ -35,9 +35,6 @@ BuildRequires:    python%{python3_pkgversion}-devel
 BuildRequires:    python%{python3_pkgversion}-pip
 BuildRequires:    python%{python3_pkgversion}-setuptools
 BuildRequires:    python%{python3_pkgversion}-wheel
-%if 0%{?fedora} >= 40
-BuildRequires:    python%{python3_pkgversion}-tqdm
-%endif
 
 %description
 %summary
@@ -51,14 +48,6 @@ will run the AI Models within a container based on the OCI image.
 
 %package -n python%{python3_pkgversion}-%{pypi_name}
 Requires: podman
-%if 0%{?fedora} >= 40
-Requires: python%{python3_pkgversion}-tqdm
-# Needed as seen by BZ: 2327515
-Requires: python%{python3_pkgversion}-omlmd
-%else
-Recommends: python%{python3_pkgversion}-tqdm
-Recommends: python%{python3_pkgversion}-omlmd
-%endif
 Summary: %{summary}
 Provides: %{pypi_name} = %{version}-%{release}
 

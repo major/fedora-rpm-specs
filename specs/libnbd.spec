@@ -21,7 +21,7 @@
 
 Name:           libnbd
 Version:        1.21.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -376,6 +376,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 1.21.6-2
+- OCaml 5.3.0 rebuild for Fedora 42
+
 * Mon Oct 14 2024 Richard W.M. Jones <rjones@redhat.com> - 1.21.6-1
 - New upstream development version 1.21.6
 

@@ -1,12 +1,12 @@
-%global DATE 20241104
-%global gitrev b84ce6a258e01f6559a1855b5f1d1ba4e69a927b
-%global gcc_version 14.2.1
-%global gcc_major 14
+%global DATE 20250109
+%global gitrev f890bd2c90be240213d8f1023aed4ad9647a293c
+%global gcc_version 15.0.0
+%global gcc_major 15
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
-%global gcc_release 6
+%global gcc_release 0
 %global nvptx_tools_gitrev 87ce9dc5999e5fca2e1d3478a30888d9864c9804
-%global newlib_cygwin_gitrev d45261f62a15f8abd94a1031020b9a9f455e4eed
+%global newlib_cygwin_gitrev 2e4db338ac125579d555aeee516e48588a628a16
 %global _unpackaged_files_terminate_build 0
 %if 0%{?fedora:1}
 %global _performance_build 1
@@ -143,7 +143,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}%{?dist}
+Release: %{gcc_release}.3%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -191,11 +191,8 @@ URL: http://gcc.gnu.org
 # Need binutils which support -plugin
 # Need binutils which support .loc view >= 2.30
 # Need binutils which support --generate-missing-build-notes=yes >= 2.31
-%if 0%{?fedora} >= 29 || 0%{?rhel} > 7
-BuildRequires: binutils >= 2.31
-%else
-BuildRequires: binutils >= 2.24
-%endif
+# Need binutils which support .base64 >= 2.43
+BuildRequires: binutils >= 2.43
 # While gcc doesn't include statically linked binaries, during testing
 # -static is used several times.
 BuildRequires: glibc-static
@@ -262,11 +259,8 @@ Requires: cpp = %{version}-%{release}
 # Need binutils that support -plugin
 # Need binutils that support .loc view >= 2.30
 # Need binutils which support --generate-missing-build-notes=yes >= 2.31
-%if 0%{?fedora} >= 29 || 0%{?rhel} > 7
-Requires: binutils >= 2.31
-%else
-Requires: binutils >= 2.24
-%endif
+# Need binutils that support .base64 >= 2.43
+Requires: binutils >= 2.43
 # Make sure gdb will understand DW_FORM_strp
 Conflicts: gdb < 5.1-2
 Requires: glibc-devel >= 2.2.90-12
@@ -293,22 +287,23 @@ Provides: bundled(libbacktrace)
 Provides: bundled(libffi)
 Provides: gcc(major) = %{gcc_major}
 
-Patch0: gcc14-hack.patch
-Patch2: gcc14-sparc-config-detection.patch
-Patch3: gcc14-libgomp-omp_h-multilib.patch
-Patch4: gcc14-libtool-no-rpath.patch
-Patch5: gcc14-isl-dl.patch
-Patch6: gcc14-isl-dl2.patch
-Patch7: gcc14-libstdc++-docs.patch
-Patch8: gcc14-no-add-needed.patch
-Patch9: gcc14-Wno-format-security.patch
-Patch10: gcc14-rh1574936.patch
-Patch11: gcc14-d-shared-libphobos.patch
-Patch12: gcc14-pr101523.patch
+Patch0: gcc15-hack.patch
+Patch2: gcc15-sparc-config-detection.patch
+Patch3: gcc15-libgomp-omp_h-multilib.patch
+Patch4: gcc15-libtool-no-rpath.patch
+Patch5: gcc15-isl-dl.patch
+Patch6: gcc15-isl-dl2.patch
+Patch7: gcc15-libstdc++-docs.patch
+Patch8: gcc15-no-add-needed.patch
+Patch9: gcc15-Wno-format-security.patch
+Patch10: gcc15-rh1574936.patch
+Patch11: gcc15-d-shared-libphobos.patch
+Patch12: gcc15-pr118206.patch
+Patch13: gcc15-pr118362.patch
 
 Patch50: isl-rh2155127.patch
 
-Patch100: gcc14-fortran-fdec-duplicates.patch
+Patch100: gcc15-fortran-fdec-duplicates.patch
 
 # On ARM EABI systems, we do want -gnueabi to be part of the
 # target triple.
@@ -605,6 +600,20 @@ Requires: libgccjit = %{version}-%{release}
 
 %description -n libgccjit-devel
 This package contains header files and documentation for GCC JIT front-end.
+
+%package -n libgdiagnostics
+Summary: Library for emitting diagnostics
+
+%description -n libgdiagnostics
+This package contains libgdiagnostics shared library and sarif-replay program.
+
+%package -n libgdiagnostics-devel
+Summary: Support for emitting diagnostics
+Requires: libgdiagnostics = %{version}-%{release}
+
+%description -n libgdiagnostics-devel
+This package contains header files and documentation for the libgdiagnostics
+library.
 
 %package -n libquadmath
 Summary: GCC __float128 shared support library
@@ -905,7 +914,8 @@ so that there cannot be any synchronization problems.
 %patch -P10 -p0 -b .rh1574936~
 %endif
 %patch -P11 -p0 -b .d-shared-libphobos~
-%patch -P12 -p1 -b .pr101523~
+%patch -P12 -p0 -b .pr118206~
+%patch -P13 -p0 -b .pr118362~
 
 %patch -P50 -p0 -b .rh2155127~
 touch -r isl-0.24/m4/ax_prog_cxx_for_build.m4 isl-0.24/m4/ax_prog_cc_for_build.m4
@@ -1304,7 +1314,7 @@ CC="$CC" CXX="$CXX" CFLAGS="$OPT_FLAGS" \
 		  | sed 's/ -Wformat-security / -Wformat -Wformat-security /'`" \
 	XCFLAGS="$OPT_FLAGS" TCFLAGS="$OPT_FLAGS" \
 	../../configure --disable-bootstrap --enable-host-shared \
-	--enable-languages=jit $CONFIGURE_OPTS
+	--enable-languages=jit --enable-libgdiagnostics $CONFIGURE_OPTS
 make %{?_smp_mflags} BOOT_CFLAGS="$OPT_FLAGS" all-gcc
 cp -a gcc/libgccjit.so* ../gcc/
 cd ../gcc/
@@ -1339,7 +1349,7 @@ cd ../..
 
 # Copy various doc files here and there
 cd ..
-mkdir -p rpm.doc/{gfortran,objc,gdc,libphobos,gm2,libgm2}
+mkdir -p rpm.doc/{gfortran,objc,gdc,libphobos,gm2,libgm2,libgdiagnostics-devel}
 mkdir -p rpm.doc/go rpm.doc/libgo rpm.doc/libquadmath rpm.doc/libitm
 mkdir -p rpm.doc/changelogs/{gcc/cp,gcc/ada,gcc/jit,libstdc++-v3,libobjc,libgomp,libcc1,libatomic,libsanitizer}
 
@@ -1393,6 +1403,8 @@ done)
 	cp -p $i ../rpm.doc/libgo/$i.libgo
 done)
 %endif
+(cd gcc/doc/libgdiagnostics; make html; \
+mv _build/html ../../../rpm.doc/libgdiagnostics-devel/html )
 
 rm -f rpm.doc/changelogs/gcc/ChangeLog.[1-9]
 find rpm.doc -name \*ChangeLog\* | xargs bzip2 -9
@@ -1445,6 +1457,7 @@ cd obj-offload-nvptx-none
 make prefix=%{buildroot}%{_prefix} mandir=%{buildroot}%{_mandir} \
   infodir=%{buildroot}%{_infodir} install
 rm -rf %{buildroot}%{_prefix}/libexec/gcc/nvptx-none/%{gcc_major}/install-tools
+rm -rf %{buildroot}%{_prefix}/libexec/gcc/nvptx-none/%{gcc_major}/g++-mapper-server
 rm -rf %{buildroot}%{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}/accel/nvptx-none/{install-tools,plugin,cc1,cc1plus,f951}
 rm -rf %{buildroot}%{_infodir} %{buildroot}%{_mandir}/man7 %{buildroot}%{_prefix}/share/locale
 rm -rf %{buildroot}%{_prefix}/lib/gcc/nvptx-none/%{gcc_major}/{install-tools,plugin}
@@ -1452,12 +1465,8 @@ rm -rf %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/
 rm -rf %{buildroot}%{_prefix}/%{_lib}/libc[cp]1*
 mv -f %{buildroot}%{_prefix}/nvptx-none/lib/*.{a,spec} %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/nvptx-none/
 mv -f %{buildroot}%{_prefix}/nvptx-none/lib/mgomp/*.{a,spec} %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/nvptx-none/mgomp/
-mv -f %{buildroot}%{_prefix}/nvptx-none/lib/mptx-3.1/*.{a,spec} %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/nvptx-none/mptx-3.1/
-mv -f %{buildroot}%{_prefix}/nvptx-none/lib/mgomp/mptx-3.1/*.{a,spec} %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/nvptx-none/mgomp/mptx-3.1/
 mv -f %{buildroot}%{_prefix}/lib/gcc/nvptx-none/%{gcc_major}/*.a %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/nvptx-none/
 mv -f %{buildroot}%{_prefix}/lib/gcc/nvptx-none/%{gcc_major}/mgomp/*.a %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/nvptx-none/mgomp/
-mv -f %{buildroot}%{_prefix}/lib/gcc/nvptx-none/%{gcc_major}/mptx-3.1/*.a %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/nvptx-none/mptx-3.1/
-mv -f %{buildroot}%{_prefix}/lib/gcc/nvptx-none/%{gcc_major}/mgomp/mptx-3.1/*.a %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/nvptx-none/mgomp/mptx-3.1/
 find %{buildroot}%{_prefix}/lib/gcc/nvptx-none %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/nvptx-none \
      %{buildroot}%{_prefix}/nvptx-none/lib -name \*.la | xargs rm
 cd ..
@@ -1482,6 +1491,7 @@ cd obj-offload-amdgcn-amdhsa
 make prefix=%{buildroot}%{_prefix} mandir=%{buildroot}%{_mandir} \
   infodir=%{buildroot}%{_infodir} install
 rm -rf %{buildroot}%{_prefix}/libexec/gcc/amdgcn-amdhsa/%{gcc_major}/install-tools
+rm -rf %{buildroot}%{_prefix}/libexec/gcc/amdgcn-amdhsa/%{gcc_major}/g++-mapper-server
 rm -rf %{buildroot}%{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}/accel/amdgcn-amdhsa/{install-tools,plugin,cc1,cc1plus,f951}
 rm -rf %{buildroot}%{_infodir} %{buildroot}%{_mandir}/man7 %{buildroot}%{_prefix}/share/locale
 rm -rf %{buildroot}%{_prefix}/lib/gcc/amdgcn-amdhsa/%{gcc_major}/{install-tools,plugin}
@@ -1693,6 +1703,15 @@ cp -a ../gcc/jit/libgccjit*.h %{buildroot}%{_prefix}/include/
 /usr/bin/install -c -m 644 objlibgccjit/gcc/doc/libgccjit.info %{buildroot}/%{_infodir}/
 gzip -9 %{buildroot}/%{_infodir}/libgccjit.info
 
+rm -f $FULLEPATH/libgdiagnostics.so
+cp -a objlibgccjit/gcc/libgdiagnostics.so* %{buildroot}%{_prefix}/%{_lib}/
+cp -a ../gcc/libgdiagnostics*.h %{buildroot}%{_prefix}/include/
+cp -a objlibgccjit/gcc/sarif-replay %{buildroot}%{_prefix}/bin/
+
+sed -e 's,\.\./include/,../../../../include,' \
+  %{buildroot}%{_prefix}/%{_lib}/libstdc++.modules.json \
+  > $FULLPATH/libstdc++.modules.json
+
 pushd $FULLPATH
 if [ "%{_lib}" = "lib" ]; then
 %if %{build_objc}
@@ -1713,7 +1732,7 @@ ln -sf ../../../libgphobos.so.5.* libgphobos.so
 %endif
 %if %{build_m2}
 for i in cor iso log min pim; do
-  ln -sf ../../../libm2$i.so.19.* libm2$i.so
+  ln -sf ../../../libm2$i.so.20.* libm2$i.so
 done
 %endif
 %if %{build_libitm}
@@ -1748,7 +1767,7 @@ ln -sf ../../../../%{_lib}/libgphobos.so.5.* libgphobos.so
 %endif
 %if %{build_m2}
 for i in cor iso log min pim; do
-  ln -sf ../../../../%{_lib}/libm2$i.so.19.* libm2$i.so
+  ln -sf ../../../../%{_lib}/libm2$i.so.20.* libm2$i.so
 done
 %endif
 %if %{build_libitm}
@@ -1897,8 +1916,8 @@ echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib/libgphobos.so.5.* | sed 's
 %if %{build_m2}
 for i in cor iso log min pim; do
   rm -f libm2$i.so
-  echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib/libm2$i.so.19.* | sed 's,^.*libm,libm,'`' )' > libm2$i.so
-  echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib/libm2$i.so.19.* | sed 's,^.*libm,libm,'`' )' > 64/libm2$i.so
+  echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib/libm2$i.so.20.* | sed 's,^.*libm,libm,'`' )' > libm2$i.so
+  echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib/libm2$i.so.20.* | sed 's,^.*libm,libm,'`' )' > 64/libm2$i.so
   rm -f 64/m2/m2$i/*.{a,la}
   ln -sf ../../libm2$i.so 64/m2/m2$i/
   ln -sf ../../libm2$i.a 64/m2/m2$i/
@@ -2014,8 +2033,8 @@ echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib64/libgphobos.so.5.* | sed 's
 %if %{build_m2}
 for i in cor iso log min pim; do
   rm -f libm2$i.so
-  echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib64/libm2$i.so.19.* | sed 's,^.*libm,libm,'`' )' > libm2$i.so
-  echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib64/libm2$i.so.19.* | sed 's,^.*libm,libm,'`' )' > 32/libm2$i.so
+  echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib64/libm2$i.so.20.* | sed 's,^.*libm,libm,'`' )' > libm2$i.so
+  echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib64/libm2$i.so.20.* | sed 's,^.*libm,libm,'`' )' > 32/libm2$i.so
   rm -f 32/m2/m2$i/*.{a,la}
   ln -sf ../../libm2$i.so 32/m2/m2$i/
   ln -sf ../../libm2$i.a 32/m2/m2$i/
@@ -2191,7 +2210,7 @@ chmod 755 %{buildroot}%{_prefix}/%{_lib}/libgphobos.so.5.*
 %endif
 %if %{build_m2}
 for i in cor iso log min pim; do
-  chmod 755 %{buildroot}%{_prefix}/%{_lib}/libm2$i.so.19.*
+  chmod 755 %{buildroot}%{_prefix}/%{_lib}/libm2$i.so.20.*
 done
 %endif
 %if %{build_libitm}
@@ -2310,7 +2329,13 @@ rm -rf %{buildroot}%{_prefix}/lib64/go/%{gcc_major}/%{gcc_target_platform}
 %endif
 %endif
 
-rm -f %{buildroot}%{mandir}/man3/ffi*
+%if %{build_offload_nvptx}
+rm -f %{buildroot}%{_mandir}/man1/*-accel-*nvptx*
+%endif
+%if %{build_offload_amdgcn}
+rm -f %{buildroot}%{_mandir}/man1/*-accel-*amdgcn*
+%endif
+rm -f %{buildroot}%{_mandir}/man7/{gpl,gfdl,fsf-funding}.7*
 
 # Help plugins find out nvra.
 echo gcc-%{version}-%{release}.%{_arch} > $FULLPATH/rpmver
@@ -2436,6 +2461,8 @@ end
 
 %ldconfig_scriptlets -n libgccjit
 
+%ldconfig_scriptlets -n libgdiagnostics
+
 %ldconfig_scriptlets -n libquadmath
 
 %ldconfig_scriptlets -n libitm
@@ -2548,9 +2575,7 @@ end
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/xsaveintrin.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/xsaveoptintrin.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx512cdintrin.h
-%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx512erintrin.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx512fintrin.h
-%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx512pfintrin.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/shaintrin.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/mm_malloc.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/mm3dnow.h
@@ -2572,8 +2597,6 @@ end
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/xsavesintrin.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/clzerointrin.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/pkuintrin.h
-%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx5124fmapsintrin.h
-%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx5124vnniwintrin.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx512vpopcntdqintrin.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/sgxintrin.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/gfniintrin.h
@@ -2624,6 +2647,24 @@ end
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/sm3intrin.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/sm4intrin.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/usermsrintrin.h
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/amxavx512intrin.h
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/amxfp8intrin.h
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/amxmovrsintrin.h
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/amxtf32intrin.h
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/amxtransposeintrin.h
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx10_2-512bf16intrin.h
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx10_2-512convertintrin.h
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx10_2-512mediaintrin.h
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx10_2-512minmaxintrin.h
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx10_2-512satcvtintrin.h
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx10_2bf16intrin.h
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx10_2convertintrin.h
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx10_2copyintrin.h
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx10_2mediaintrin.h
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx10_2minmaxintrin.h
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx10_2roundingintrin.h
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/avx10_2satcvtintrin.h
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/movrsintrin.h
 %endif
 %ifarch ia64
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/ia64intrin.h
@@ -2668,6 +2709,10 @@ end
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/arm_fp16.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/arm_bf16.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/arm_sve.h
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/arm_sme.h
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/arm_neon_sve_bridge.h
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/arm_private_fp8.h
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/arm_private_neon_types.h
 %endif
 %ifarch sparc sparcv9 sparc64
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/visintrin.h
@@ -2683,6 +2728,7 @@ end
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/riscv_crypto.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/riscv_bitmanip.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/riscv_th_vector.h
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/riscv_cmo.h
 %endif
 %if %{build_libasan}
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/sanitizer
@@ -2814,7 +2860,7 @@ end
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/liblsan_preinit.o
 %endif
 %{_prefix}/libexec/getconf/default
-%doc gcc/README* rpm.doc/changelogs/gcc/ChangeLog* 
+%doc gcc/README* rpm.doc/changelogs/gcc/ChangeLog*
 %{!?_licensedir:%global license %%doc}
 %license gcc/COPYING* COPYING.RUNTIME
 
@@ -2899,6 +2945,7 @@ end
 %ifnarch sparcv9 ppc %{multilib_64_archs}
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libstdc++.so
 %endif
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libstdc++.modules.json
 %ifarch sparcv9 ppc
 %dir %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/lib32
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/lib32/libstdc++fs.a
@@ -3110,6 +3157,7 @@ end
 %files gm2
 %{_prefix}/bin/gm2
 %{_mandir}/man1/gm2.1*
+%{_infodir}/m2*
 %dir %{_prefix}/lib/gcc
 %dir %{_prefix}/lib/gcc/%{gcc_target_platform}
 %dir %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}
@@ -3139,7 +3187,7 @@ end
 %doc rpm.doc/gm2/*
 
 %files -n libgm2
-%{_prefix}/%{_lib}/libm2*.so.19*
+%{_prefix}/%{_lib}/libm2*.so.20*
 %doc rpm.doc/libgm2/*
 
 %files -n libgm2-static
@@ -3536,6 +3584,15 @@ end
 %doc rpm.doc/libgccjit-devel/*
 %doc gcc/jit/docs/examples
 
+%files -n libgdiagnostics
+%{_prefix}/bin/sarif-replay
+%{_prefix}/%{_lib}/libgdiagnostics.so.*
+
+%files -n libgdiagnostics-devel
+%{_prefix}/%{_lib}/libgdiagnostics.so
+%{_prefix}/include/libgdiagnostics*.h
+%doc rpm.doc/libgdiagnostics-devel/*
+
 %files plugin-devel
 %dir %{_prefix}/lib/gcc
 %dir %{_prefix}/lib/gcc/%{gcc_target_platform}
@@ -3618,499 +3675,5 @@ end
 %endif
 
 %changelog
-- fix up -freport-bug default (#2330362)
-- revert -mearly-ldp-fusion and -mlate-ldp-fusion default to enabled on
-  aarch64 to match upstream
-
-* Mon Nov  4 2024 Jakub Jelinek <jakub@redhat.com> 14.2.1-6
-- update from releases/gcc-14 branch
-  - PRs fortran/79685, jit/117275, libstdc++/117321, libstdc++/117406,
-	middle-end/117354, rtl-optimization/116783, rtl-optimization/117327,
-	target/116415, target/117296, target/117318, tree-optimization/107467,
-	tree-optimization/117287
-
-* Fri Oct 25 2024 Jakub Jelinek <jakub@redhat.com> 14.2.1-5
-- update from releases/gcc-14 branch
-  - PRs ada/114593, ada/114636, ada/114640, ada/115535, ada/116190,
-	ada/116430, ada/116551, c/116726, c/117230, c++/96097, c++/115361,
-	c++/115987, c++/116369, c++/116418, c++/116424, c++/116476,
-	c++/116492, c++/116534, c++/116676, c++/116678, c++/116929,
-	c++/117054, c++/117107, c++/117259, c++/117274, fortran/84868,
-	fortran/100273, ipa/109985, ipa/115815, libstdc++/37475,
-	libstdc++/108619, libstdc++/116529, libstdc++/116754,
-	libstdc++/116755, libstdc++/116777, libstdc++/116857,
-	libstdc++/117085, libstdc++/117094, libstdc++/117135,
-	middle-end/115110, middle-end/115426, middle-end/115641,
-	middle-end/116258, middle-end/116259, middle-end/116454,
-	middle-end/116891, middle-end/116898, middle-end/116899,
-	middle-end/117086, middle-end/117249, sanitizer/117209, target/115860,
-	target/116237, target/116627, target/116738, target/116839,
-	target/116883, target/116921, target/116953, target/116962,
-	target/117116, target/117159, target/117240, testsuite/116238,
-	tree-optimization/116166, tree-optimization/116258,
-	tree-optimization/116274, tree-optimization/116290,
-	tree-optimization/116380, tree-optimization/116460,
-	tree-optimization/116481, tree-optimization/116585,
-	tree-optimization/116610, tree-optimization/116768,
-	tree-optimization/116850, tree-optimization/116879,
-	tree-optimization/116907, tree-optimization/116982,
-	tree-optimization/116990, tree-optimization/117041,
-	tree-optimization/117104
-
-* Wed Sep 25 2024 Siddhesh Poyarekar <siddhesh@redhat.com> 14.2.1-4
-- default tuning to power 10 for RHEL10 and later
-
-* Thu Sep 12 2024 Jakub Jelinek <jakub@redhat.com> 14.2.1-3
-- update from releases/gcc-14 branch
-  - PRs c++/116276, c++/116320, c++/116449, c++/116567, c++/116606,
-	c++/116636, ipa/116410, libstdc++/116159, libstdc++/116641,
-	lto/116614, target/116617
-- backport x86_64 va_arg fix (PR target/116621)
-
-* Thu Sep  5 2024 Jakub Jelinek <jakub@redhat.com> 14.2.1-2
-- update from releases/gcc-14 branch
-  - PRs c++/88313, c++/112288, c++/115296, c++/115656, c++/116071, c++/116219,
-	c++/116223, c++/116327, c++/116384, fortran/108889, fortran/116530,
-	libstdc++/113663, libstdc++/116038, libstdc++/116381,
-	libstdc++/116549, lto/116361, target/85624, target/112108,
-	target/113384, target/115464, target/116007, target/116033,
-	target/116043, target/116174, target/116189, target/116287,
-	target/116295, target/116390, target/116407, target/116512,
-	testsuite/70150, tree-optimization/113281, tree-optimization/116156,
-	tree-optimization/116224, tree-optimization/116501
-  - add hint #34 to aarch64 sanitizer asm stubs if -mbranch-protection=standard
-    (#2306353)
-
-* Thu Aug  1 2024 Jakub Jelinek <jakub@redhat.com> 14.2.1-1
-- update from releases/gcc-14 branch
-  - GCC 14.2 release
-  - PRs analyzer/114899, c++/99241, c++/99242, c++/104981, c++/106760,
-	c++/111890, c++/115165, c++/115476, c++/115550, c++/115561,
-	c++/115583, c++/115623, c++/115754, c++/115783, c++/115865,
-	c++/115897, c++/115900, c++/115986, fortran/59104, fortran/84006,
-	fortran/93635, fortran/98534, fortran/99798, fortran/100027,
-	fortran/103115, fortran/103312, fortran/113363, fortran/115700,
-	ipa/111613, ipa/113291, ipa/113787, ipa/114207, ipa/115033,
-	ipa/115277, ipa/116055, libstdc++/113376, libstdc++/114387,
-	libstdc++/115399, libstdc++/115482, libstdc++/115522,
-	libstdc++/115585, libstdc++/115807, libstdc++/115854,
-	libstdc++/116070, middle-end/115527, middle-end/115836,
-	middle-end/115887, pch/115312, rtl-optimization/115049,
-	rtl-optimization/115565, target/87376, target/88236, target/97367,
-	target/98762, target/105090, target/113715, target/114759,
-	target/114890, target/114936, target/114988, target/115068,
-	target/115153, target/115188, target/115351, target/115389,
-	target/115456, target/115457, target/115459, target/115475,
-	target/115526, target/115554, target/115562, target/115591,
-	target/115611, target/115691, target/115725, target/115726,
-	target/115752, target/115763, target/115840, target/115872,
-	target/115978, target/115981, target/115988, target/116035,
-	testsuite/115826, testsuite/116061, tree-optimization/113673,
-	tree-optimization/115382, tree-optimization/115646,
-	tree-optimization/115669, tree-optimization/115694,
-	tree-optimization/115701, tree-optimization/115723,
-	tree-optimization/115841, tree-optimization/115843,
-	tree-optimization/115867, tree-optimization/115868,
-	tree-optimization/116034, tree-optimization/116057
-
-* Mon Jul  1 2024 Jakub Jelinek <jakub@redhat.com> 14.1.1-7
-- update from releases/gcc-14 branch
-  - PRs c/114930, c/115502, c/115587, c++/115198, c++/115358, c++/115504,
-	c++/115624, fortran/114019, fortran/115390, libstdc++/115454,
-	libstdc++/115575, libstdc++/115668, target/106069, target/114846,
-	target/115342, target/115355, target/115608, tree-optimization/115278,
-	tree-optimization/115508
-- revert the August 2016 workaround for python bytecode compilation (#2294381)
-
-* Thu Jun 20 2024 Jakub Jelinek <jakub@redhat.com> 14.1.1-6
-- update from releases/gcc-14 branch
-  - PRs ada/114398, ada/114708, c/115290, c++/99678, c++/115239, c++/115283,
-	c++/115378, c++/115511, driver/115440, fortran/83865, jit/115442,
-	libstdc++/114958, libstdc++/115247, libstdc++/115308,
-	rtl-optimization/115281, target/109549, target/111343, target/115253,
-	target/115353, target/115360, tree-optimization/115544
-  - fix s390x ICEs with vector permutations from memory (#2293207, #2292501)
-
-* Fri Jun  7 2024 Jakub Jelinek <jakub@redhat.com> 14.1.1-5
-- update from releases/gcc-14 branch
-  - PRs ada/115270, c/114493, c++/105320, c++/114275, c++/114868, c++/114983,
-	c++/115187, fortran/86100, fortran/115150, libstdc++/109849,
-	libstdc++/111641, libstdc++/114940, libstdc++/115099,
-	libstdc++/115269, libstdc++/115335, middle-end/108789,
-	middle-end/115352, modula2/114886, rtl-optimization/114902,
-	rtl-optimization/115038, rtl-optimization/115092, target/113719,
-	target/115169, target/115297, target/115317, target/115324,
-	tree-optimization/115149, tree-optimization/115192,
-	tree-optimization/115197, tree-optimization/115232,
-	tree-optimization/115307, tree-optimization/115337
-
-* Wed May 22 2024 Jakub Jelinek <jakub@redhat.com> 14.1.1-4
-- update from releases/gcc-14 branch
-  - PRs c++/114901, c++/114903, c++/114974, c++/114994, c++/115114,
-	c++/115139, driver/114980, fortran/114827, fortran/114874,
-	fortran/115039, libstdc++/107800, libstdc++/114866, libstdc++/114891,
-	libstdc++/115015, libstdc++/115063, libstdc++/115119,
-	middle-end/114931, sanitizer/115172, target/69374, target/112959,
-	target/114968, target/114975, target/114981, target/115065,
-	target/115069, tree-optimization/114998, tree-optimization/115143,
-	tree-optimization/115152, tree-optimization/115154
-
-* Tue May 21 2024 Siddhesh Poyarekar <siddhesh@redhat.com> 14.1.1-3
-- update new SPDX identifiers from all outstanding issues
-
-* Thu May 16 2024 Marek Polacek <polacek@redhat.com> 14.1.1-2
-- fix a combinatorial explosion in combine (PR rtl-optimization/101523)
-
-* Wed May  8 2024 Jakub Jelinek <jakub@redhat.com> 14.1.1-1
-- update from releases/gcc-14 branch
-  - GCC 14.1.0 release
-  - PRs analyzer/111475, c++/89224, c++/114856, c++/114889, c++/114935,
-	ipa/92606, middle-end/114734, middle-end/114907, modula2/113768,
-	modula2/114133, modula2/114929, rtl-optimization/114924,
-	sanitizer/114956, tree-optimization/114876,
-	tree-optimization/114921, tree-optimization/114965
-
-* Fri May  3 2024 Marek Polacek <polacek@redhat.com>
-- enable hardening and configure with --enable-host-pie --enable-host-bind-now
-  on RHEL
-- don't require rocm-runtime on RHEL
-
-* Tue Apr 30 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.16
-- update from trunk and releases/gcc-14 branch
-  - GCC 14.1.0-rc1
-  - PRs c++/93595, c++/99426, c++/106820, c++/107457, c++/109966, c++/111284,
-	c++/113141, c++/114078, c++/114393, c++/114426, c++/114600,
-	c++/114634, c++/114691, c++/114706, c++/114709, c++/114784,
-	c++/114795, c++/114888, c/92880, c/114780, d/111650, fortran/89462,
-	fortran/93678, fortran/102597, fortran/103471, fortran/103496,
-	fortran/113793, fortran/114739, fortran/114825, fortran/114959,
-	gcov-profile/114715, gcov-profile/114720, libgcc/114689,
-	libgcc/114755, libgcc/114762, libstdc++/93672, libstdc++/113386,
-	libstdc++/114750, libstdc++/114770, libstdc++/114803,
-	libstdc++/114863, lto/113208, lto/114574, middle-end/112938,
-	middle-end/114753, modula2/112893, modula2/114745, modula2/114807,
-	modula2/114811, modula2/114836, other/114738, preprocessor/114748,
-	rtl-optimization/114768, sanitizer/114687, sanitizer/114743,
-	target/110621, target/112431, target/112432, target/114416,
-	target/114668, target/114676, target/114696, target/114714,
-	target/114741, target/114752, target/114783, target/114794,
-	target/114810, target/114837, target/114861, target/114885,
-	testsuite/113706, testsuite/114744, testsuite/114768,
-	tree-optimization/114403, tree-optimization/114666,
-	tree-optimization/114733, tree-optimization/114736,
-	tree-optimization/114749, tree-optimization/114769,
-	tree-optimization/114787, tree-optimization/114792,
-	tree-optimization/114799, tree-optimization/114832,
-	tree-optimization/114883
-- switch to --with-arch_64=x86-64-v3 for latest RHEL
-- remove obsolete reason for not shipping *.gch* files
-
-* Thu Apr 11 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.15
-- update from trunk
-  - PRs analyzer/114472, c++/114303, c++/114409, debug/112878,
-	fortran/106500, middle-end/110027, middle-end/114681, target/114639,
-	tree-optimization/109596, tree-optimization/114672
-  - fix symbol version of std::__basic_file<char>::native_handle() const
-    (PR libstdc++/114692)
-  - emit -Whardened warning even for -fhardened -fcf-protection=none
-    (#2273610, PR target/114606)
-
-* Wed Apr 10 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.14
-- update from trunk
-  - PRs analyzer/114588, bootstrap/106472, c++/91079, c++/99377, c++/100667,
-	c++/103825, c++/104040, c++/111132, c++/114377, c++/114462,
-	c++/114479, c++/114537, c++/114561, c++/114562, c++/114572,
-	c++/114580, c/114361, debug/114608, fortran/36337, fortran/50410,
-	fortran/106999, fortran/110987, fortran/112407, fortran/113885,
-	fortran/113956, fortran/114474, fortran/114535, gcov-profile/113765,
-	gcov-profile/114115, gcov-profile/114601, ipa/111571, ipa/113359,
-	ipa/113907, ipa/113964, libquadmath/114533, libquadmath/114623,
-	libstdc++/104606, libstdc++/114519, libstdc++/114633, lto/114655,
-	middle-end/114552, middle-end/114599, middle-end/114604,
-	middle-end/114627, middle-end/114628, modula2/114517,
-	modula2/114520, modula2/114548, modula2/114565, modula2/114617,
-	modula2/114648, rtl-optimization/112560, rtl-optimization/114415,
-	target/88309, target/101865, target/112919, target/113233,
-	target/113986, target/114577, target/114587, target/114590,
-	target/114603, target/114607, testsuite/114034, testsuite/114036,
-	testsuite/114307, testsuite/114614, testsuite/114642,
-	testsuite/114662, tree-optimization/112303,
-	tree-optimization/114115, tree-optimization/114480,
-	tree-optimization/114485, tree-optimization/114551,
-	tree-optimization/114555, tree-optimization/114557,
-	tree-optimization/114566, tree-optimization/114624
-  - don't emit VEX encoded AES-NI instructions when just -maes and not -mavx
-    is enabled (#2272758, PR target/114576)
-  - fix s390* peephole2 to check mode of constant pool entries and for
-    64-bit extraction from 128-bit constant pool entry extract the correct
-    half of the value (#2273618, PR target/114605)
-
-* Thu Mar 28 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.13
-- update from trunk
-  - PRs analyzer/109251, analyzer/110902, analyzer/110928, analyzer/111305,
-	analyzer/111441, analyzer/112974, analyzer/112975, analyzer/113505,
-	analyzer/113619, analyzer/114286, analyzer/114408, analyzer/114473,
-	bootstrap/114369, c++/59465, c++/100557, c++/110323, c++/111918,
-	c++/112631, c++/112724, c++/114349, c++/114439, c/109619, c/114364,
-	fortran/30802, fortran/55978, fortran/101135, fortran/103715,
-	fortran/107426, fortran/111781, fortran/114475, ipa/108802,
-	ipa/114254, libfortran/107031, libgcc/111731, libgcc/114397,
-	libstdc++/101228, libstdc++/113841, libstdc++/114316,
-	libstdc++/114359, libstdc++/114367, libstdc++/114394,
-	libstdc++/114400, libstdc++/114401, middle-end/111151,
-	middle-end/111632, middle-end/111683, middle-end/113396,
-	middle-end/114347, middle-end/114348, middle-end/114480,
-	modula2/113836, modula2/114296, modula2/114380, modula2/114418,
-	modula2/114422, modula2/114443, modula2/114444, modula2/114478,
-	rtl-optimization/101523, rtl-optimization/112415, sanitizer/111736,
-	target/99829, target/111822, target/112651, target/114049,
-	target/114150, target/114175, target/114194, target/114272,
-	target/114323, target/114334, target/114352, target/114407,
-	target/114431, testsuite/114320, testsuite/114486,
-	tree-optimization/96147, tree-optimization/109925,
-	tree-optimization/111736, tree-optimization/113727,
-	tree-optimization/114057, tree-optimization/114151,
-	tree-optimization/114322, tree-optimization/114329,
-	tree-optimization/114365, tree-optimization/114375,
-	tree-optimization/114396, tree-optimization/114405,
-	tree-optimization/114425, tree-optimization/114433,
-	tree-optimization/114464, tree-optimization/114469,
-	tree-optimization/114471
-
-* Sat Mar 16 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.12
-- update from trunk
-  - PRs ada/113979, analyzer/114159, c++/92687, c++/98356, c++/98645,
-	c++/98688, c++/98881, c++/103994, c++/104919, c++/105512,
-	c++/106009, c++/110025, c++/110031, c++/110347, c++/110730,
-	c++/111224, c++/111710, c++/113629, c++/113802, c++/113976,
-	c++/113987, c++/114005, c++/114114, c++/114138, c++/114170,
-	c++/114229, d/112285, d/112290, d/114171, debug/113519,
-	debug/113777, debug/113918, debug/114015, debug/114186,
-	driver/114314, fortran/82943, fortran/86148, fortran/86268,
-	fortran/87477, fortran/89645, fortran/99065, fortran/103707,
-	fortran/104819, fortran/106987, fortran/110826, fortran/114001,
-	fortran/114141, fortran/114280, fortran/114283, ipa/113757,
-	libbacktrace/114201, libcc1/113977, libfortran/105437,
-	libfortran/114304, libgcc/114327, libgomp/114216, libstdc++/66146,
-	libstdc++/113960, libstdc++/114103, libstdc++/114147,
-	libstdc++/114152, libstdc++/114240, libstdc++/114244,
-	libstdc++/114279, libstdc++/114325, middle-end/95351,
-	middle-end/105533, middle-end/113907, middle-end/114108,
-	middle-end/114136, middle-end/114156, middle-end/114157,
-	middle-end/114196, middle-end/114209, middle-end/114299,
-	middle-end/114313, middle-end/114319, middle-end/114332,
-	modula2/102344, modula2/109969, modula2/114227, modula2/114294,
-	modula2/114295, modula2/114333, preprocessor/80755,
-	preprocessor/110558, rtl-optimization/110079,
-	rtl-optimization/113010, rtl-optimization/114190,
-	rtl-optimization/114211, sanitizer/97696, sanitizer/112709,
-	target/92729, target/101737, target/102250, target/108174,
-	target/111362, target/112337, target/112817, target/112871,
-	target/113001, target/113453, target/113510, target/113542,
-	target/113618, target/113720, target/113790, target/113915,
-	target/113950, target/114100, target/114116, target/114130,
-	target/114132, target/114184, target/114187, target/114200,
-	target/114202, target/114232, target/114233, target/114264,
-	target/114284, target/114288, target/114310, target/114339,
-	testsuite/96109, testsuite/108355, testsuite/113418,
-	testsuite/113428, tree-optimization/98238, tree-optimization/110199,
-	tree-optimization/113466, tree-optimization/113557,
-	tree-optimization/114009, tree-optimization/114071,
-	tree-optimization/114121, tree-optimization/114164,
-	tree-optimization/114192, tree-optimization/114197,
-	tree-optimization/114203, tree-optimization/114231,
-	tree-optimization/114239, tree-optimization/114246,
-	tree-optimization/114249, tree-optimization/114269,
-	tree-optimization/114278, tree-optimization/114293,
-	tree-optimization/114297
-
-* Thu Mar  7 2024 Siddhesh Poyarekar <siddhesh@redhat.com>
-- update License identifier in the spec file
-
-* Mon Mar  4 2024 Jakub Jelinek <jakub@redhat.com>
-- add --without-clang-plugin --without-llvm-plugin to annobin configure
-  options
-
-* Thu Feb 29 2024 David Abdurachmanov <davidlt@rivosinc.com>
-- enable support for riscv64
-
-* Wed Feb 28 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.8
-- update from trunk
-  - PRs ada/113893, analyzer/110483, analyzer/110520, analyzer/111289,
-	analyzer/111802, analyzer/111881, analyzer/113983, analyzer/113998,
-	analyzer/113999, c++/113083, c++/113966, c++/113970, c/114007,
-	c/114042, fortran/105658, fortran/107071, fortran/114012,
-	fortran/114024, ipa/61159, ipa/70582, ipa/111960, ipa/113476,
-	libfortran/105456, libfortran/105473, middle-end/112344,
-	middle-end/114070, middle-end/114073, middle-end/114084,
-	modula2/113749, modula2/113889, modula2/114026, modula2/114055,
-	other/109668, other/113957, rtl-optimization/54052,
-	rtl-optimization/114044, rtl-optimization/114054, target/90785,
-	target/108120, target/109987, target/112103, target/112375,
-	target/112397, target/113220, target/113295, target/113613,
-	target/113696, target/113805, target/113912, target/113971,
-	target/113995, target/114017, target/114028, target/114094,
-	target/114097, target/114098, testsuite/111462,
-	tree-optimization/91567, tree-optimization/109804,
-	tree-optimization/113205, tree-optimization/113967,
-	tree-optimization/113988, tree-optimization/113993,
-	tree-optimization/114027, tree-optimization/114038,
-	tree-optimization/114040, tree-optimization/114041,
-	tree-optimization/114048, tree-optimization/114068,
-	tree-optimization/114074, tree-optimization/114081,
-	tree-optimization/114090, tree-optimization/114099
-  - fix up handling of C++ inline var specializations
-    (#2264986, PR c++/114013)
-  - punt on vectorization of +- with non-integral emulated vectors
-    (#2265489, PR tree-optimization/114075)
-  - fix up handling of references of comdat local symbols forced into
-    memory (#2260416, PR rtl-optimization/113617)
-
-* Sat Feb 17 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.7
-- update from trunk
-  - PRs analyzer/111266, c++/97202, c++/97990, c++/98388, c++/99573,
-	c++/107126, c++/111682, c++/112436, c++/112580, c++/113158,
-	c++/113332, c++/113545, c++/113612, c++/113649, c++/113658,
-	c++/113674, c++/113706, c++/113708, c++/113760, c++/113789,
-	c++/113834, c++/113853, c++/113908, c++/113929, d/104739, d/113125,
-	d/113667, d/113758, d/113772, fortran/99210, fortran/105847,
-	fortran/113799, fortran/113866, fortran/113883, fortran/113911,
-	ipa/98237, libfortran/107068, libgcc/113850, libgomp/113843,
-	libstdc++/87744, libstdc++/99117, libstdc++/100147,
-	libstdc++/113294, libstdc++/113806, libstdc++/113807,
-	libstdc++/113811, libstdc++/113931, libstdc++/113961,
-	middle-end/107385, middle-end/110754, middle-end/113415,
-	middle-end/113508, middle-end/113576, middle-end/113904,
-	middle-end/113921, modula2/113848, modula2/113888, other/113336,
-	sanitizer/113785, target/106543, target/109349, target/113742,
-	target/113780, target/113855, target/113871, target/113876,
-	target/113909, target/113927, testsuite/113278, testsuite/113448,
-	testsuite/113861, testsuite/113899, tree-optimization/108355,
-	tree-optimization/111054, tree-optimization/111156,
-	tree-optimization/113567, tree-optimization/113734,
-	tree-optimization/113774, tree-optimization/113783,
-	tree-optimization/113818, tree-optimization/113831,
-	tree-optimization/113849, tree-optimization/113863,
-	tree-optimization/113895, tree-optimization/113896,
-	tree-optimization/113898, tree-optimization/113902,
-	tree-optimization/113910
-  - fix bugs in Fortran allocatable character component assignments
-    (#2261826, PR fortran/113503)
-
-* Thu Feb  8 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.6
-- update from trunk
-  - PRs c++/113814, c/113776, target/113711, target/113733, target/113824,
-	testsuite/113710, tree-optimization/113735, tree-optimization/113808
-
-* Wed Feb  7 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.5
-- update from trunk
-  - PRs analyzer/113253, analyzer/113509, analyzer/113654, c++/94231,
-	c++/107291, c++/107594, c++/109359, c++/110006, c++/110084,
-	c++/110358, c++/111286, c++/112437, c++/112439, c++/112737,
-	c++/112769, c++/112846, c++/113451, c++/113531, c++/113544,
-	c++/113638, c++/113640, c++/113644, c++/113788, c/111059, c/111911,
-	c/112571, c/113438, c/113740, debug/103047, debug/113394,
-	debug/113637, fortran/104908, libfortran/111022, libgcc/113337,
-	libgcc/113402, libgcc/113403, libgcc/113604, libstdc++/109203,
-	libstdc++/113309, libstdc++/113335, libstdc++/90276,
-	middle-end/101195, middle-end/110176, middle-end/112917,
-	middle-end/113100, middle-end/113607, middle-end/113622,
-	middle-end/113699, middle-end/113705, middle-end/113722,
-	modula2/111627, modula2/112506, modula2/113730,
-	rtl-optimization/113656, sanitizer/110676, sanitizer/112644,
-	target/38534, target/59778, target/103503, target/105576,
-	target/108933, target/111677, target/112577, target/112861,
-	target/112862, target/112863, target/112864, target/112950,
-	target/113059, target/113249, target/113255, target/113312,
-	target/113560, target/113615, target/113616, target/113623,
-	target/113636, target/113655, target/113657, target/113689,
-	target/113690, target/113697, target/113700, target/113701,
-	target/113763, target/113766, testsuite/113502,
-	tree-optimization/110603, tree-optimization/111268,
-	tree-optimization/111444, tree-optimization/113467,
-	tree-optimization/113568, tree-optimization/113588,
-	tree-optimization/113603, tree-optimization/113614,
-	tree-optimization/113630, tree-optimization/113639,
-	tree-optimization/113659, tree-optimization/113670,
-	tree-optimization/113691, tree-optimization/113692,
-	tree-optimization/113693, tree-optimization/113707,
-	tree-optimization/113731, tree-optimization/113736,
-	tree-optimization/113737, tree-optimization/113750,
-	tree-optimization/113753, tree-optimization/113756,
-	tree-optimization/113759, tree-optimization/113796
-  - fix PCH writing assertion (#2259912)
-
-* Sat Jan 27 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.4
-- update from trunk
-  - PRs analyzer/112969, c++/109227, c++/112899, c++/113580, c++/113598,
-	c++/113599, middle-end/112971, other/113575, preprocessor/105608,
-	target/100204, target/100212, target/112987, target/113469,
-	target/113526, target/113538, target/113601, testsuite/113558,
-	tree-optimization/113602
-- temporarily disable -mearly-ldp-fusion -mlate-ldp-fusion on aarch64 again
-  (#2260449, #2260560, #2260562)
-- use gcc_major macro in the spec some more
-- require llvm >= 15 and lld >= 15 for the amdgcn offloading
-  where they are used as assembler and linker
-
-* Thu Jan 25 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.3
-- update from trunk
-  - PRs analyzer/111361, analyzer/112705, analyzer/112811, analyzer/112927,
-	analyzer/112977, bootstrap/113554, c++/67898, c++/90463, c++/90464,
-	c++/100707, c++/102607, c++/104594, c++/109640, c++/109642,
-	c++/111357, c++/111410, c++/111607, c++/112594, c++/112632,
-	c++/112820, c++/113256, c++/113347, c++/113405, c++/113498,
-	c++/113529, c/102998, c/107942, c/109708, c/110029, c/113492,
-	c/113518, debug/107058, debug/112718, debug/113382, debug/113488,
-	fortran/48776, fortran/111291, fortran/113377, fortran/113471,
-	ipa/108007, ipa/108470, ipa/110705, ipa/112616, ipa/113490,
-	libstdc++/113500, libstdc++/113512, middle-end/88345,
-	middle-end/112684, middle-end/113574, modula2/113559, other/111966,
-	rtl-optimization/111267, rtl-optimization/113255, target/82420,
-	target/100942, target/108521, target/108640, target/109092,
-	target/109636, target/110934, target/111279, target/112989,
-	target/113030, target/113070, target/113089, target/113095,
-	target/113114, target/113356, target/113420, target/113485,
-	target/113486, target/113495, target/113550, target/113556,
-	target/113572, testsuite/113437, testsuite/113548,
-	tree-optimization/69807, tree-optimization/113364,
-	tree-optimization/113373, tree-optimization/113459,
-	tree-optimization/113462, tree-optimization/113463,
-	tree-optimization/113464, tree-optimization/113491,
-	tree-optimization/113494, tree-optimization/113552,
-	tree-optimization/113576
-- add offloading support for AMD GCN ROCm capable devices
-
-* Thu Jan 18 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.2
-- update from trunk
-  - PRs ada/113397, analyzer/106229, analyzer/113150, analyzer/113333,
-	bootstrap/113445, c++/99493, c++/104634, c++/109899, c++/110065,
-	c++/112588, c++/113242, c++/113292, c++/113307, c++/113340,
-	c++/113389, c/111693, fortran/67277, fortran/113305, libstdc++/108822,
-	libstdc++/108827, libstdc++/109536, libstdc++/111327,
-	libstdc++/113318, libstdc++/113450, middle-end/90348,
-	middle-end/110115, middle-end/110847, middle-end/111422,
-	middle-end/111659, middle-end/113354, middle-end/113406,
-	middle-end/113409, middle-end/113410, modula2/111956, other/113399,
-	rtl-optimization/96388, rtl-optimization/111554,
-	rtl-optimization/113048, rust/108111, target/105522, target/107201,
-	target/112573, target/112944, target/112973, target/113122,
-	target/113156, target/113221, target/113247, target/113281,
-	target/113393, target/113404, target/113429, testsuite/109705,
-	testsuite/111850, testsuite/113366, testsuite/113369,
-	testsuite/113446, testsuite/113452, translation/108890,
-	tree-optimization/91624, tree-optimization/107823,
-	tree-optimization/110251, tree-optimization/110422,
-	tree-optimization/110450, tree-optimization/110768,
-	tree-optimization/110794, tree-optimization/110841,
-	tree-optimization/110852, tree-optimization/110941,
-	tree-optimization/112774, tree-optimization/113091,
-	tree-optimization/113287, tree-optimization/113361,
-	tree-optimization/113370, tree-optimization/113371,
-	tree-optimization/113372, tree-optimization/113374,
-	tree-optimization/113385, tree-optimization/113408,
-	tree-optimization/113421, tree-optimization/113431,
-	tree-optimization/113475
-
-* Sat Jan 13 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.1
+* Thu Jan  9 2025 Jakub Jelinek <jakub@redhat.com> 15.0.0-0.3
 - new package

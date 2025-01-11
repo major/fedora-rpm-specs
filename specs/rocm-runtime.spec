@@ -12,9 +12,18 @@
 %bcond_without kfdtest
 %endif
 
+%bcond_without compat_gcc
+%if %{with compat_gcc}
+%global compat_gcc_major 13
+%global gcc_major_str -13
+%else
+%global compat_gcc_major %{nil}
+%global gcc_major_str %{nil}
+%endif
+
 Name:       rocm-runtime
 Version:    %{rocm_version}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    ROCm Runtime Library
 
 License:    NCSA
@@ -24,7 +33,7 @@ Source0:    %{url}/archive/rocm-%{version}.tar.gz#/%{name}-%{version}.tar.gz
 ExclusiveArch:  x86_64
 
 BuildRequires:  cmake
-BuildRequires:  gcc-c++
+BuildRequires:  gcc%{compat_gcc_major}-c++
 BuildRequires:  libdrm-devel
 BuildRequires:  libffi-devel
 BuildRequires:  rocm-llvm-static
@@ -77,6 +86,9 @@ sed -i -e 's@LLVM_LINK_LLVM_DYLIB@0@' libhsakmt/tests/kfdtest/CMakeLists.txt
 %build
 
 export PATH=%{rocmllvm_bindir}:$PATH
+
+export CC=/usr/bin/gcc%{gcc_major_str}
+export CXX=/usr/bin/g++%{gcc_major_str}
 
 %cmake \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
@@ -146,6 +158,9 @@ fi
 %endif
 
 %changelog
+* Thu Jan 9 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-2
+- Use compat gcc
+
 * Sun Dec 22 2024 Tom Rix <Tom.Rix@amc.com> - 6.3.1-1
 - Update to 6.3.1
 

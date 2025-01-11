@@ -1,8 +1,8 @@
 %global	project_name	idxd-config
 
 Name:		accel-config
-Version:	4.1.7
-Release:	8%{?dist}
+Version:	4.1.8
+Release:	9%{?dist}
 Summary:	Configure accelerator subsystem devices
 License:	GPL-2.0-only
 URL:		https://github.com/intel/%{project_name}
@@ -84,6 +84,9 @@ make check
 %{_libdir}/pkgconfig/lib%{name}.pc
 
 %changelog
+* Thu Jan 09 2025 Jun Miao <jun.miao@intel.com> - 4.1.8-9
+- Update to v4.1.8 release
+
 * Sun Jul 28 2024 Jun Miao <jun.miao@intel.com> - 4.1.6-8
 - Update to v4.1.7 release
 

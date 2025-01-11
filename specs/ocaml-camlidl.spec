@@ -108,7 +108,8 @@ sed '/version/adirectory = "^"' %{SOURCE1} > \
 
 
 %changelog
-* Thu Dec 26 2024 Jerry James <loganjerry@gmail.com> - 1.12-10
+* Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 1.12-10
+- OCaml 5.3.0 rebuild for Fedora 42
 - Add upstream patch to fix segfaults in OCaml GC with OCaml 5.3.0
 
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-9

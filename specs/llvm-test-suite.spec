@@ -9,8 +9,7 @@ Version:	%{llvm_test_suite_version}%{?rc_ver:~rc%{rc_ver}}
 Release:	1%{?dist}
 Summary:	C/C++ Compiler Test Suite
 
-# Automatically converted from old format: NCSA and BSD and GPLv1 and GPLv2+ and GPLv2 and MIT and Python and Public Domain and CRC32 and AML and Rdisc and ASL 2.0 and LGPLv3 - review is highly recommended.
-License:	NCSA AND LicenseRef-Callaway-BSD AND GPL-1.0-only AND GPL-2.0-or-later AND GPL-2.0-only AND LicenseRef-Callaway-MIT AND LicenseRef-Callaway-Python AND LicenseRef-Callaway-Public-Domain AND LicenseRef-CRC32 AND AML AND Rdisc AND Apache-2.0 AND LGPL-3.0-only
+License:	NCSA AND BSD-3-Clause-LBNL AND BSD-4.3TAHOE AND dtoa AND GPL-1.0-only AND GPL-2.0-or-later AND GPL-2.0-only AND MIT AND PSF-2.0 AND LicenseRef-Fedora-Public-Domain AND LicenseRef-CRC32 AND AML AND Rdisc AND Apache-2.0 AND LGPL-3.0-only
 URL:		http://llvm.org
 # The LLVM Test Suite contains programs with "BAD" or unknown licenses which should
 # be removed.  Some of the unknown licenses may be OK, but until they are reviewed,

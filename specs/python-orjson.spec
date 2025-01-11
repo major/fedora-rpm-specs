@@ -8,38 +8,13 @@
 %bcond tests 1
 
 Name:           python-orjson
-Version:        3.10.13
+Version:        3.10.14
 Release:        %autorelease
 Summary:        Fast, correct Python JSON library
 
 License:        Apache-2.0 OR MIT
 URL:            https://github.com/ijl/orjson
 Source:         %{pypi_source orjson}
-
-# To fix compatibility with maturin 1.8.0 and later *in the GitHub source
-# archive*, we would need:
-#
-#   pyproject.toml: Specify version metadata as dynamic
-#   https://github.com/ijl/orjson/pull/542
-#
-#   Fixes:
-#
-#   Build error with maturin 1.8.0
-#   https://github.com/ijl/orjson/issues/541
-#
-#   See also:
-#
-#   https://github.com/PyO3/maturin/issues/2390
-#
-# Upstream rejected this PR and decided to pin an old version of maturin
-# instead, but we cannot respect this; we must use the system version.  As long
-# as we are using the *PyPI sdist* as our source, pyproject.toml has a static
-# version field, and we don’t need to patch in the rejected PR. However, we
-# must still unpin maturin via a partial revert – just the part that matters to
-# us, in pyproject.toml – of:
-#
-#    https://github.com/ijl/orjson/commit/9a4ef46991ad205b9a92cb6fdcb123c7ff72b640
-Patch:          orjson-3.10.13-unpin-maturin.patch
 
 BuildRequires:  tomcli
 BuildRequires:  python3-devel
@@ -90,12 +65,10 @@ License:        %{shrink:
 # “You are welcome to work to upstream the diff if you find the vendoring
 # unsuitable for your organization's own preferences.”
 #
-# Note that the vendored crates are actually *forked* from a snapshot,
-# https://github.com/PyO3/pyo3/commit/dc415fae9f5eaa8ac0f6d0ea769b9ab28860898f;
-# see https://github.com/ijl/orjson/issues/524#issuecomment-2424170405 for
-# details.
-Provides:       bundled(crate(pyo3-build-config)) = 0.23.0~dev^20241018gitdc415fa
-Provides:       bundled(crate(pyo3-ffi)) = 0.23.0~dev^20241018gitdc415fa
+# Note that these crates are actually forked, not only bundled/vendored; see
+# https://github.com/ijl/orjson/issues/524#issuecomment-2424170405 for details.
+Provides:       bundled(crate(pyo3-build-config)) = 0.23.3
+Provides:       bundled(crate(pyo3-ffi)) = 0.23.3
 
 %description -n python3-orjson %{_description}
 

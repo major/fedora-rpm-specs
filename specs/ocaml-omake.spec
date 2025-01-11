@@ -137,7 +137,8 @@ chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man1/omake.1
 
 
 %changelog
-* Thu Dec 26 2024 Jerry James <loganjerry@gmail.com> - 0.10.7-1
+* Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 0.10.7-1
+- OCaml 5.3.0 rebuild for Fedora 42
 - Version 0.10.7
 - Adapt to changed hevea path
 - Work around a broken test for cmxs support

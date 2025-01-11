@@ -3,8 +3,7 @@ Version:        16.91.0
 Release:        27%{?dist}
 Summary:        Beefy Miracle desktop backgrounds
 
-# Automatically converted from old format: CC-BY-SA - review is highly recommended.
-License:        LicenseRef-Callaway-CC-BY-SA
+License:        CC-BY-SA-4.0
 URL:            https://fedoraproject.org/wiki/F17_Artwork
 Source0:        https://fedorahosted.org/released/design-team/%{name}-%{version}.tar.xz
 
@@ -23,8 +22,7 @@ Pulls in both Gnome and KDE themes.
 
 %package        single
 Summary:        Single screen images for Beefy Miracle Backgrounds
-# Automatically converted from old format: CC-BY-SA - review is highly recommended.
-License:        LicenseRef-Callaway-CC-BY-SA
+License:        CC-BY-SA-4.0
 
 %description    single
 This package contains single screen images for Beefy Miracle

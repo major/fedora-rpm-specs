@@ -4,7 +4,7 @@
 %bcond_with signed
 
 Name:      pykickstart
-Version:   3.60
+Version:   3.61
 Release:   1%{?dist}
 License:   GPL-2.0-only
 Summary:   Python utilities for manipulating kickstart files.
@@ -75,6 +75,11 @@ LC_ALL=C make PYTHON=%{__python3} test-no-coverage
 %{python3_sitelib}/pykickstart*.egg-info
 
 %changelog
+* Thu Jan 09 2025 Brian C. Lane <bcl@redhat.com> - 3.61-1
+- runpylint: Log astroid version (bcl)
+- tests: Limit the python versions used in testing (bcl)
+- Add support for inline certificates with `%certificate` section (k.koukiou)
+
 * Thu Oct 03 2024 Brian C. Lane <bcl@redhat.com> - 3.60-1
 - module: Remove unused warnings import (bcl)
 - tox: Add py313 to tox and 3.12.7 to workflow (bcl)

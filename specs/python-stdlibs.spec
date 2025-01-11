@@ -1,5 +1,5 @@
 Name:           python-stdlibs
-Version:        2024.10.25
+Version:        2024.12.3
 Release:        %autorelease
 Summary:        List of packages in the stdlib
 

@@ -5,7 +5,7 @@
 # primitive function declarations, all with "void" for their parameter
 # list.  This does not match the real definitions, leading to lots of
 # -Wlto-type-mismatch warnings.  These change the output of the tests,
-# leading to many failed tests.  This is still a problem in 5.2.
+# leading to many failed tests.  This is still a problem in 5.3.
 %global _lto_cflags %{nil}
 
 # OCaml has a bytecode backend that works on anything with a C
@@ -45,8 +45,8 @@ ExcludeArch: %{ix86}
 %global rcver %{nil}
 
 Name:           ocaml
-Version:        5.2.0
-Release:        3%{?dist}
+Version:        5.3.0
+Release:        1%{?dist}
 
 Summary:        OCaml compiler and programming environment
 
@@ -74,30 +74,12 @@ Source2:        ocaml_files.py
 # existing patches unchanged) adding a comment to note that it should
 # be incorporated into the git repo at a later time.
 
-# Upstream after 5.2.0:
-Patch:          0001-Changes-synchronisation-and-consistency-with-trunk.patch
-Patch:          0002-Changes-copy-editing.patch
-
 # Fedora-specific patches
-Patch:          0003-Don-t-add-rpaths-to-libraries.patch
-Patch:          0004-configure-Allow-user-defined-C-compiler-flags.patch
-
-# Improve performance of flambda optimizer in some cases.  Required to
-# compiler blow-up in coccinelle package.  Upstream, but not included
-# in 5.2 branch.
-# https://github.com/ocaml/ocaml/pull/13150
-Patch:          0005-flambda-Improve-transitive-closure-in-invariant_para.patch
-
-# Upstream after 5.2.0:
-Patch:          0006-Reload-exception-pointer-register-in-caml_c_call.patch
-
-# Fix for ppc64le code generation issue found after 5.2.0 was released.
-# https://github.com/ocaml/ocaml/issues/13220
-# https://github.com/ocaml/ocaml/commit/114ddae2d4c85391a4f939dc6623424ae35a07aa
-Patch:          0007-Compute-more-accurate-instruction-sizes-for-branch-r.patch
+Patch:          0001-Don-t-add-rpaths-to-libraries.patch
+Patch:          0002-configure-Allow-user-defined-C-compiler-flags.patch
 
 BuildRequires:  make
-BuildRequires:  git
+BuildRequires:  git-core
 BuildRequires:  gcc
 BuildRequires:  autoconf
 BuildRequires:  gawk
@@ -135,12 +117,11 @@ Provides:       bundled(md5-plumb)
 Provides:       ocaml(compiler) = %{version}
 
 %if %{native_compiler}
-%global __ocaml_requires_opts -c -f '%{buildroot}%{_bindir}/ocamlrun %{buildroot}%{_bindir}/ocamlobjinfo.byte'
+%global __ocaml_requires_opts -c -f '%{buildroot}%{_bindir}/ocamlrun %{buildroot}%{_bindir}/ocamlobjinfo.byte' -i Dynlink_cmo_format -i Dynlink_cmxs_format
 %else
 %global __ocaml_requires_opts -c -f '%{buildroot}%{_bindir}/ocamlrun %{buildroot}%{_bindir}/ocamlobjinfo.byte' -i Backend_intf -i Inlining_decision_intf -i Simplify_boxed_integer_ops_intf
 %endif
 %global __ocaml_provides_opts -f '%{buildroot}%{_bindir}/ocamlrun %{buildroot}%{_bindir}/ocamlobjinfo.byte'
-
 
 %description
 OCaml is a high-level, strongly-typed, functional and object-oriented
@@ -482,6 +463,11 @@ hardlink -t $RPM_BUILD_ROOT%{_libdir}/ocaml/stublibs
 
 
 %changelog
+* Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 5.3.0-1
+- New upstream version 5.3.0
+- Drop upstreamed patches
+- BR git-core instead of git
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

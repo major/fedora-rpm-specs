@@ -3,8 +3,7 @@ Version:        0.0.1
 Release:        31%{?dist}
 Summary:        Neon desktop backgrounds
 
-# Automatically converted from old format: CC-BY-SA - review is highly recommended.
-License:        LicenseRef-Callaway-CC-BY-SA
+License:        CC-BY-SA-4.0
 URL:            https://fedoraproject.org/wiki/Artwork/F10Themes/Neon
 Source0:        neon-%{version}.tar.gz
 

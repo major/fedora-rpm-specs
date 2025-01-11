@@ -117,6 +117,8 @@ Requires:       %{name}-luks%{?_isa} = %{version}-%{release}
 Requires:       %{name}-dracut%{?_isa} = %{version}-%{release}
 Requires:       pcsc-lite
 Requires:       opensc
+Requires:       socat
+Requires:       openssl
 
 %description pin-pkcs11
 Automatically unlocks LUKS block devices through a PKCS#11 device.

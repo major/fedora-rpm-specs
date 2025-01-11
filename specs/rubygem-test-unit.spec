@@ -8,8 +8,8 @@ Name:		rubygem-%{gem_name}
 # 3.6.0 and above is for F-39+ only as 3.5.8 and above
 # changes default progress style
 # (For 3.5.8 and 3.5.9, F-38 and below reverted this change)
-Version:	3.6.2
-Release:	202%{?dist}
+Version:	3.6.7
+Release:	100%{?dist}
 # SPDX confirmed
 # lib/test/unit/diff.rb is under (BSD-2-Clause OR Ruby) AND Python-2.0.1
 # lib/test-unit.rb changed to BSD-2-Clause or Ruby (from 3.3.7)
@@ -102,6 +102,9 @@ popd
 %{gem_docdir}/
 
 %changelog
+* Thu Jan 09 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.6.7-100
+- 3.6.7
+
 * Fri Nov 01 2024 Vít Ondruch <vondruch@redhat.com> - 3.6.2-202
 - Add `rubygem(csv)` build dependency needed by Ruby 3.4
 

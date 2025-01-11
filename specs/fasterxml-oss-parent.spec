@@ -1,7 +1,7 @@
 %global srcname oss-parent
 
 Name:          fasterxml-oss-parent
-Version:       61
+Version:       62
 Release:       1%{?dist}
 Summary:       FasterXML parent pom
 License:       Apache-2.0
@@ -52,6 +52,10 @@ This package contains the parent pom file for FasterXML.com projects.
 %license LICENSE NOTICE
 
 %changelog
+* Thu Jan 09 2025 Packit <hello@packit.dev> - 62-1
+- Update to version 62
+- Resolves: rhbz#2336494
+
 * Tue Aug 27 2024 Chris Kelley <ckelley@redhat.com> - 61-1
 - Remove %pom_remove_plugin of taglist-maven-plugin
 

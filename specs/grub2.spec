@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -602,6 +602,9 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg
 %endif
 
 %changelog
+* Thu Jan 9 2025 Nicolas Frayer <nfrayer@redhat.com> - 2.12-18
+- fs/xfs: fix large extent counters incompat feature support
+
 * Wed Nov 27 2024 Marta Lewandowska <mlewando@redhat.com> - 2.12-17
 - 99-grub-mkconfig.install: on PPC systems, remove petiboot's version checks
 

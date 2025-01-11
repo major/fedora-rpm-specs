@@ -3,8 +3,7 @@ Version:        18.0.0
 Release:        23%{?dist}
 Summary:        Spherical Cow desktop backgrounds
 
-# Automatically converted from old format: CC-BY-SA - review is highly recommended.
-License:        LicenseRef-Callaway-CC-BY-SA
+License:        CC-BY-SA-4.0
 URL:            https://fedoraproject.org/wiki/F18_Artwork
 Source0:        https://fedorahosted.org/released/design-team/%{name}-%{version}.tar.xz
 
@@ -23,8 +22,7 @@ Pulls in both Gnome and KDE themes.
 
 %package        single
 Summary:        Single screen images for Spherical Cow Backgrounds
-# Automatically converted from old format: CC-BY-SA - review is highly recommended.
-License:        LicenseRef-Callaway-CC-BY-SA
+License:        CC-BY-SA-4.0
 
 %description    single
 This package contains single screen images for Spherical Cow
@@ -61,8 +59,7 @@ theme.
 
 %package        extras-single
 Summary:        Single screen images for Spherical Cow Extras Backrounds
-# Automatically converted from old format: CC-BY and CC-BY-SA - review is highly recommended.
-License:        LicenseRef-Callaway-CC-BY AND LicenseRef-Callaway-CC-BY-SA
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 
 %description    extras-single
 This package contains single screen images for Spherical Cow supplemental
@@ -70,7 +67,7 @@ wallpapers.
 
 %package        extras-gnome
 Summary:        Extra Spherical Cow Wallpapers for Gnome
-
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 Requires:       %{name}-extras-single
 
 %description    extras-gnome
@@ -78,7 +75,7 @@ This package contains Spherical Cow supplemental wallpapers for Gnome
 
 %package        extras-kde
 Summary:        Extra Spherical Cow Wallpapers for KDE
-
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 Requires:       %{name}-extras-single
 
 %description    extras-kde
@@ -86,7 +83,7 @@ This package contains Spherical Cow supplemental wallpapers for Gnome
 
 %package        extras-xfce
 Summary:        Extra Spherical Cow Wallpapers for XFCE
-
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 Requires:       %{name}-extras-single
 
 %description    extras-xfce

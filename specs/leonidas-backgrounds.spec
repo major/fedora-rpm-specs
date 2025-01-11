@@ -3,8 +3,7 @@ Version:        11.0.0
 Release:        29%{?dist}
 Summary:        Leonidas desktop backgrounds
 
-# Automatically converted from old format: CC-BY-SA - review is highly recommended.
-License:        LicenseRef-Callaway-CC-BY-SA
+License:        CC-BY-SA-4.0
 URL:            https://fedoraproject.org/wiki/F11_Artwork
 
 # This is a Fedora maintained package which is specific to our distribution. 

@@ -1,19 +1,17 @@
-%global pypi_name pickleshare
-
-Name:           python-%{pypi_name}
+Name:           python-pickleshare
 Version:        0.7.5
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Tiny 'shelve'-like database with concurrency support
 
 License:        MIT
-URL:            https://github.com/pickleshare/pickleshare
-Source0:        https://files.pythonhosted.org/packages/source/p/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
+URL:            https://github.com/ipython/pickleshare
+Source:         %{pypi_source pickleshare}
+
 BuildArch:      noarch
  
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-devel
 
-%description
+%global _description %{expand:
 PickleShare - a small ‘shelve’ like data store with concurrency support.
 
 Like shelve, a PickleShareDB object acts like a normal dictionary. 
@@ -23,50 +21,50 @@ accessing the same database.
 
 Concurrency is possible because the values are stored in separate files. 
 Hence the “database” is a directory where all files are governed 
-by PickleShare.
+by PickleShare.}
 
-%package -n     python3-%{pypi_name}
-Summary:        Tiny 'shelve'-like database with concurrency support
-%{?python_provide:%python_provide python3-%{pypi_name}}
+%description %_description
 
-%description -n python3-%{pypi_name}
+%package -n     python3-pickleshare
+Summary:        %{summary}
 
-PickleShare - a small ‘shelve’ like data store with concurrency support.
-
-Like shelve, a PickleShareDB object acts like a normal dictionary. 
-Unlike shelve, many processes can access the database simultaneously. 
-Changing a value in database is immediately visible to other processes 
-accessing the same database.
-
-Concurrency is possible because the values are stored in separate files. 
-Hence the “database” is a directory where all files are governed 
-by PickleShare.
+%description -n python3-pickleshare %_description
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+%autosetup -n pickleshare-%{version}
 
 # fix interpreter
 sed -i 's/\/usr\/bin\/env python/\/usr\/bin\/python/' pickleshare.py
 
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
 # Must do the subpackages' install first because the scripts in /usr/bin are
 # overwritten with every setup.py install.
-%py3_install
+%pyproject_install
+%pyproject_save_files -l pickleshare
 
-%files -n python3-%{pypi_name} 
-%license LICENSE
 
-%{python3_sitelib}/__pycache__/*
-%{python3_sitelib}/%{pypi_name}.py
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
+%check
+%pyproject_check_import
+
+
+%files -n python3-pickleshare -f %{pyproject_files}
+
 
 %changelog
+* Mon Dec 09 2024 Michel Lind <salimma@fedoraproject.org> - 0.7.5-18
+- Modernize spec to follow latest packaging guidelines
+- Update URL
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.5-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

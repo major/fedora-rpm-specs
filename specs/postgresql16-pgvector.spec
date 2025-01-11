@@ -12,7 +12,7 @@
 
 Name:		postgresql%{pgversion}-%{sname}
 Version:	0.6.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Open-source vector similarity search for Postgres
 License:	PostgreSQL
 URL:		https://github.com/%{sname}/%{sname}/
@@ -63,7 +63,7 @@ This packages provides JIT support for pgvector
 %setup -q -n %{sname}-%{version}
 
 %build
-%make_build %{?_smp_mflags}
+%make_build %{?_smp_mflags} OPTFLAGS=""
 
 %install
 %make_install
@@ -84,6 +84,10 @@ This packages provides JIT support for pgvector
 %endif
 
 %changelog
+* Thu Jan 09 2025 Filip Janus <fjanus@redhat.com> - 0.6.2-3
+- Portable build 
+- Resolves: rhbz2329849
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

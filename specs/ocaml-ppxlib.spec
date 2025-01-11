@@ -1,11 +1,8 @@
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-ExcludeArch: %{ix86}
-
 %global giturl  https://github.com/ocaml-ppx/ppxlib
 
 Name:           ocaml-ppxlib
 Epoch:          1
-Version:        0.33.0
+Version:        0.34.0
 Release:        1%{?dist}
 Summary:        Base library and tools for ppx rewriters
 
@@ -16,14 +13,18 @@ Source:         %{giturl}/archive/%{version}/ppxlib-%{version}.tar.gz
 # Fedora does not have, and does not need, stdlib-shims
 Patch:          %{name}-stdlib-shims.patch
 
-BuildRequires:  ocaml >= 4.04.1
+BuildRequires:  ocaml >= 4.08.0
 BuildRequires:  ocaml-cinaps-devel >= 0.12.1
+BuildRequires:  ocaml-cmdliner-devel >= 1.3.0
 BuildRequires:  ocaml-compiler-libs-janestreet-devel >= 0.11.0
-BuildRequires:  ocaml-dune >= 2.7
+BuildRequires:  ocaml-dune >= 3.8
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ppx-derivers-devel >= 1.0
 BuildRequires:  ocaml-re-devel >= 1.9.0
 BuildRequires:  ocaml-sexplib0-devel >= 0.15
+
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch:    %{ix86}
 
 # This can be removed when F40 reaches EOL
 Obsoletes:      %{name}-doc < 1:0.26.0-3
@@ -42,9 +43,18 @@ projects.  It features:
   OCaml syntax;
 - a generator of open recursion classes from type definitions.
 
+%package        tools
+Summary:        Command line tools for %{name}
+Requires:       %{name}%{?_isa} = 1:%{version}-%{release}
+
+%description    tools
+The %{name}-tools package contains command line tools for
+%{name}.
+
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = 1:%{version}-%{release}
+Requires:       %{name}-tools%{?_isa} = 1:%{version}-%{release}
 Requires:       ocaml-compiler-libs-janestreet-devel%{?_isa}
 Requires:       ocaml-ppx-derivers-devel%{?_isa}
 Requires:       ocaml-sexplib0-devel%{?_isa}
@@ -58,21 +68,34 @@ signature files for developing applications that use
 %autosetup -n ppxlib-%{version} -p1
 
 %build
-%dune_build
+# Do not build the benchmark suite
+%dune_build -p ppxlib,ppxlib-tools
 
 %install
-%dune_install
+# Do not install the benchmark suite
+%dune_install -s ppxlib ppxlib-tools
+
+# Merge the tools devel package into the tools package
+cat .ofiles-ppxlib-tools-devel >> .ofiles-ppxlib-tools
 
 %check
-%dune_check
+# Do not run the benchmark suite
+%dune_check -p ppxlib,ppxlib-tools
 
-%files -f .ofiles
+%files -f .ofiles-ppxlib
 %doc CHANGES.md HISTORY.md README.md
 %license LICENSE.md
 
-%files devel -f .ofiles-devel
+%files tools -f .ofiles-ppxlib-tools
+
+%files devel -f .ofiles-ppxlib-devel
 
 %changelog
+* Wed Jan  8 2025 Jerry James <loganjerry@gmail.com> - 1:0.34.0-1
+- OCaml 5.3.0 rebuild for Fedora 42
+- Version 0.34.0
+- New tools subpackage
+
 * Mon Aug  5 2024 Jerry James <loganjerry@gmail.com> - 1:0.33.0-1
 - Version 0.33.0
 

@@ -1,20 +1,20 @@
 %global glib2_version 2.62
 %global fribidi_version 1.0.6
 %global libthai_version 0.1.9
-%global harfbuzz_version 2.6.0
-%global fontconfig_version 2.13.0
+%global harfbuzz_version 8.4.0
+%global fontconfig_version 2.15.0
 %global libXft_version 2.0.0
 %global cairo_version 1.12.10
 %global freetype_version 2.1.5
 
 Name:    pango
-Version: 1.54.0
-Release: 2%{?dist}
+Version: 1.55.0
+Release: 1%{?dist}
 Summary: System for layout and rendering of internationalized text
 
 License: LGPL-2.0-or-later
 URL:     https://pango.gnome.org/
-Source0: https://download.gnome.org/sources/%{name}/1.54/%{name}-%{version}.tar.xz
+Source0: https://download.gnome.org/sources/%{name}/1.55/%{name}-%{version}.tar.xz
 
 BuildRequires: pkgconfig(cairo) >= %{cairo_version}
 BuildRequires: pkgconfig(cairo-gobject) >= %{cairo_version}
@@ -138,6 +138,9 @@ fi
 
 
 %changelog
+* Thu Jan 09 2025 Nieves Montero <nmontero@redhat.com> - 1.55.0-1
+- Update to 1.55.0
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.54.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

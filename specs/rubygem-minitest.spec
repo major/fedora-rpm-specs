@@ -2,17 +2,14 @@
 %global gem_name minitest
 
 Name: rubygem-%{gem_name}
-Version: 5.25.1
-Release: 101%{?dist}
+Version: 5.25.4
+Release: 100%{?dist}
 Summary: minitest provides a complete suite of testing facilities
 # README.rdoc
 # SPDX confirmed
 License: MIT
 URL: https://github.com/seattlerb/minitest
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# https://github.com/minitest/minitest/commit/321442995516605d752efe11a0eb4f7470ad7248
-# suppress warning when redefining object_id in ruby34
-Patch0:  minitest-5.25.1-ruby34-object_id-redefining-warning.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: rubygem(hoe)
@@ -63,8 +60,6 @@ Documentation for %{name}.
 %setup -q -n %{gem_name}-%{version}
 mv ../%{gem_name}-%{version}.gemspec .
 
-%patch -P0 -p1
-
 %build
 gem build %{gem_name}-%{version}.gemspec
 %gem_install
@@ -105,6 +100,9 @@ popd
 %{gem_instdir}/design_rationale.rb
 
 %changelog
+* Thu Jan 09 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.25.4-100
+- 5.25.4
+
 * Wed Nov 20 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.25.1-101
 - Upstream patch to suppress warning when redefining object_id in ruby34
 

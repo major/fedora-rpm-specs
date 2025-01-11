@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 Name:    plasma-wayland-protocols
-Version: 1.15.0
+Version: 1.16.0
 Release: 1%{?dist}
 Summary: Plasma Specific Protocols for Wayland
 
@@ -50,6 +50,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jan 09 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1.16.0-1
+- 1.16.0
+
 * Sat Dec 07 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1.15.0-1
 - 1.15.0
 

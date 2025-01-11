@@ -4,7 +4,7 @@
 %global         srcname     oci
 
 Name:           python-%{srcname}
-Version:        2.139.0
+Version:        2.141.1
 Release:        %autorelease
 Summary:        Oracle Cloud Infrastructure SDK for Python
 

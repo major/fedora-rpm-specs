@@ -6,7 +6,8 @@ License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH GCC-exception-3.1) AND GPL-
 URL: https://sourceware.org/dwz/
 Source: https://sourceware.org/ftp/dwz/releases/%{name}-%{version}.tar.xz
 BuildRequires: gcc, gcc-c++, gdb, elfutils-libelf-devel, dejagnu
-BuildRequires: make elfutils xxhash-devel
+# dwz builds with XXH_INLINE_ALL, so depend on (virtual) xxhash-static
+BuildRequires: make elfutils xxhash-devel xxhash-static
 
 # Patches
 Patch1: dwz-0.15-index9.patch

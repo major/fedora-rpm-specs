@@ -2,7 +2,7 @@
 
 %global         srcname     google-disk-expand
 %global         forgeurl    https://github.com/GoogleCloudPlatform/guest-diskexpand
-Version:        20241011.00
+Version:        20241214.00
 %global         tag         %{version}
 %forgemeta
 

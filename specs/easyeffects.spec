@@ -1,5 +1,5 @@
 Name:           easyeffects
-Version:        7.1.9
+Version:        7.2.3
 Release:        2%{?dist}
 Summary:        Audio effects for PipeWire applications
 
@@ -44,16 +44,11 @@ BuildRequires:  ladspa-devel
 
 Requires:       hicolor-icon-theme
 Requires:       dbus-common
-#Requires:       ladspa-swh-plugins >= 0.4
-Requires:       ladspa-calf-plugins
-Requires:       lv2-mdala-plugins
-Requires:       lsp-plugins-lv2
 
 Recommends:     lv2-calf-plugins
-Recommends:     zam-plugins
+Recommends:     lv2-mdala-plugins
+Recommends:     lsp-plugins-lv2
 Recommends:     lv2-zam-plugins
-Recommends:     ladspa-zam-plugins
-Recommends:     rubberband
 
 
 %description
@@ -99,6 +94,15 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/com.githu
 
 
 %changelog
+* Thu Jan 09 2025 Michel Lind <salimma@fedoraproject.org> - 7.2.3-2
+- Rebuilt for rubberband 4
+
+* Thu Jan 09 2025 Vasiliy N. Glazov <vascom2@gmail.com> - 7.2.3-1
+- Update to 7.2.3
+
+* Wed Jan 08 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 7.1.9-3
+- Update plugin dependencies
+
 * Mon Oct 07 2024 Vasiliy N. Glazov <vascom2@gmail.com> - 7.1.9-2
 - Update to 7.1.9
 - Make lv2-calf-plugins weak dependency (#2313553)

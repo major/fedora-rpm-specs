@@ -3,7 +3,7 @@
 Name:           dolphin
 Summary:        KDE File Manager
 Version:        24.12.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        BSD-2-Clause AND BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:            https://invent.kde.org/system/dolphin
@@ -64,6 +64,10 @@ Recommends:     konsole-part%{?_isa}
 Recommends:     kio-fuse%{?_isa}
 Recommends:     kio-extras%{?_isa}
 Recommends:     %{name}-plugins
+# Image Previews
+Recommends:     kf6-kimageformats%{?_isa}
+Recommends:     qt6-qtimageformats%{?_isa}
+Recommends:     ffmpegthumbs%{?_isa}
 
 %description
 %{summary}.
@@ -151,6 +155,9 @@ xvfb-run -a bash -c "%ctest" || :
 
 
 %changelog
+* Thu Jan 09 2025 Steve Cossette <farchord@gmail.com> - 24.12.1-2
+- Added recommends for image thumbnails
+
 * Tue Jan 07 2025 Steve Cossette <farchord@gmail.com> - 24.12.1-1
 - 24.12.1
 

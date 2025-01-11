@@ -8,9 +8,8 @@
 
 Name:           qemu-sanity-check
 Version:        1.1.6
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Simple qemu and Linux kernel sanity checker
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 
 ExclusiveArch:  %{kernel_arches}
@@ -40,6 +39,7 @@ Patch:          0010-Error-out-if-any-kernel-panic-is-seen.patch
 Patch:          0011-src-Add-more-information-about-kernel-and-qemu-searc.patch
 Patch:          0012-docs-Use-F-around-file-references-in-the-manual.patch
 Patch:          0013-src-Look-for-kernels-in-lib-modules-vmlinuz.patch
+Patch:          0014-Choose-cpu-max-by-default.patch
 
 # To verify the tarball signature.
 BuildRequires:  gnupg2
@@ -174,6 +174,9 @@ make DESTDIR=$RPM_BUILD_ROOT install
 
 
 %changelog
+* Thu Jan 09 2025 Richard W.M. Jones <rjones@redhat.com> - 1.1.6-17
+- Use -cpu max by default
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1.6-16
 - convert license to SPDX
 

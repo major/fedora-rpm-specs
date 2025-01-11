@@ -1,8 +1,8 @@
 %undefine __cmake_in_source_build
 
 Name:           mimalloc
-Version:        2.1.7
-Release:        2%{?dist}
+Version:        2.1.9
+Release:        1%{?dist}
 Summary:        A general purpose allocator with excellent performance
 
 License:        MIT
@@ -61,6 +61,9 @@ rm -rf bin
 
 
 %changelog
+* Thu Jan 09 2025 Vasiliy Glazov <vascom2@gmail.com> - 2.1.9-1
+- Update to 2.1.9
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

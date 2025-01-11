@@ -46,7 +46,7 @@ BuildRequires: pkgconfig(libsystemd)
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
 Version: 6.8.1
-Release: 8%{?dist}
+Release: 9%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -551,6 +551,7 @@ make check -k ||:
 %dir %{_qt6_plugindir}/generic/
 %dir %{_qt6_plugindir}/iconengines/
 %dir %{_qt6_plugindir}/imageformats/
+%dir %{_qt6_plugindir}/networkinformation/
 %dir %{_qt6_plugindir}/platforminputcontexts/
 %dir %{_qt6_plugindir}/platforms/
 %dir %{_qt6_plugindir}/platformthemes/
@@ -558,6 +559,7 @@ make check -k ||:
 %dir %{_qt6_plugindir}/script/
 %dir %{_qt6_plugindir}/sqldrivers/
 %dir %{_qt6_plugindir}/styles/
+%dir %{_qt6_plugindir}/tls/
 %{_qt6_plugindir}/networkinformation/libqglib.so
 %{_qt6_plugindir}/networkinformation/libqnetworkmanager.so
 %{_qt6_plugindir}/sqldrivers/libqsqlite.so
@@ -572,13 +574,17 @@ make check -k ||:
 
 %files devel
 %dir %{_qt6_libdir}/cmake/Qt6
+%dir %{_qt6_libdir}/cmake/Qt6/libexec
 %dir %{_qt6_libdir}/cmake/Qt6/platforms
 %dir %{_qt6_libdir}/cmake/Qt6/platforms/Platform
 %dir %{_qt6_libdir}/cmake/Qt6/config.tests
 %dir %{_qt6_libdir}/cmake/Qt6/3rdparty/extra-cmake-modules
+%dir %{_qt6_libdir}/cmake/Qt6/3rdparty/extra-cmake-modules/find-modules
+%dir %{_qt6_libdir}/cmake/Qt6/3rdparty/extra-cmake-modules/modules
 %dir %{_qt6_libdir}/cmake/Qt6/3rdparty/kwin
 %dir %{_qt6_libdir}/cmake/Qt6BuildInternals
 %dir %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests
+%dir %{_qt6_libdir}/cmake/Qt6BuildInternals/QtStandaloneTestTemplateProject
 %dir %{_qt6_libdir}/cmake/Qt6Concurrent
 %dir %{_qt6_libdir}/cmake/Qt6Core
 %dir %{_qt6_libdir}/cmake/Qt6CoreTools
@@ -750,6 +756,7 @@ make check -k ||:
 %dir %{_qt6_libdir}/cmake/Qt6EglFSDeviceIntegrationPrivate
 %dir %{_qt6_libdir}/cmake/Qt6EglFsKmsGbmSupportPrivate
 %dir %{_qt6_libdir}/cmake/Qt6EglFsKmsSupportPrivate
+%dir %{_qt6_libdir}/cmake/Qt6XcbQpaPrivate
 %{_qt6_libdir}/cmake/Qt6EglFSDeviceIntegrationPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6EglFsKmsGbmSupportPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6EglFsKmsSupportPrivate/*.cmake
@@ -875,6 +882,7 @@ make check -k ||:
 %{_qt6_plugindir}/egldeviceintegrations/libqeglfs-x11-integration.so
 %{_qt6_plugindir}/egldeviceintegrations/libqeglfs-kms-egldevice-integration.so
 %{_qt6_plugindir}/egldeviceintegrations/libqeglfs-emu-integration.so
+%dir %{_qt6_plugindir}/xcbglintegrations/
 %{_qt6_plugindir}/xcbglintegrations/libqxcb-egl-integration.so
 %endif
 # Platforms
@@ -892,6 +900,10 @@ make check -k ||:
 
 
 %changelog
+* Thu Jan 09 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.1-9
+- Fix directory ownership
+  Resolves: rhbz#2292582
+
 * Wed Jan 08 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.1-8
 - Install CMake modules for plugins
 

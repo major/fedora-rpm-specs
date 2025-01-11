@@ -1,8 +1,10 @@
 Name: abook
 Version: 0.6.1
-Release: 27%{?dist}
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
-License: GPL-2.0-or-later
+Release: 28%{?dist}
+# GPL-2.0-or-later, except:
+# getopt.[ch]: LGPL-2.0-or-later
+# getopt1.c: LGPL-2.0-or-later
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: http://abook.sourceforge.net/
 Summary: Text-based addressbook program for mutt
 Source0: http://abook.sourceforge.net/devel/abook-%{version}.tar.gz
@@ -12,8 +14,10 @@ Patch0: %{name}-preserve.patch
 Patch1: 0001-fixed-bug-6.patch
 # 02ac0ce doc: manpage mention of the -f option + fix for bug #8 (https://sourceforge.net/p/abook/bugs/8/)
 Patch2: 0002-doc-manpage-mention-of-the-f-option-fix-for-bug-8.patch
-# 54f8e4a build: fix compilation when used with GCC -std=gnu99 or -std=gnu11 
-Patch3: 0003-build-fix-compilation-when-used-with-GCC-std-gnu99-o.patch
+# fix compilation when used with GCC -std=gnu99 or -std=gnu11
+Patch3: abook-extern-inline.patch
+# Fix detection of wcwidth()
+Patch4: abook-wcwidth.patch
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: gettext-devel
@@ -28,11 +32,7 @@ Abook is a small and powerful text-based addressbook program
 designed for use with the mutt mail client.
 
 %prep
-%setup -q
-%patch -P0 -p1 -b .p
-%patch -P1 -p1
-%patch -P2 -p1
-%patch -P3 -p1
+%autosetup -p1
 autoreconf -vif
 
 %build
@@ -52,6 +52,11 @@ autoreconf -vif
 %{_mandir}/man5/abookrc.*
 
 %changelog
+* Thu Jan 09 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.6.1-28
+- fix FTBFS with GCC15 (resolves: rhbz#2336029)
+- switch to autosetup macro
+- correct license tag
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.6.1-27
 - convert license to SPDX
 

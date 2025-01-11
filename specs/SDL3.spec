@@ -9,7 +9,7 @@
 %global libdecor_majver 0
 
 Name:           SDL3
-Version:        3.1.6
+Version:        3.1.8
 Release:        1%{?dist}
 Summary:        Cross-platform multimedia library
 License:        Zlib AND MIT AND Apache-2.0 AND (Apache-2.0 OR MIT)
@@ -43,6 +43,8 @@ BuildRequires:  libXrender-devel
 BuildRequires:  libXinerama-devel
 BuildRequires:  libXcursor-devel
 BuildRequires:  systemd-devel
+# For building man pages
+BuildRequires:  perl-interpreter
 BuildRequires:  pkgconfig(libusb-1.0)
 # PulseAudio
 BuildRequires:  pkgconfig(libpulse-simple)
@@ -122,6 +124,7 @@ sed -e 's/\r//g' -i README.md WhatsNew.txt BUGS.txt LICENSE.txt CREDITS.md READM
 export LDFLAGS="%{shrink:%{build_ldflags}}"
 
 %cmake \
+    -DSDL_DISABLE_INSTALL_DOCS=NO \
     -DSDL_DLOPEN=ON \
     -DSDL_VIDEO_KMSDRM=ON \
     -DSDL_ARTS=OFF \
@@ -154,6 +157,8 @@ export LDFLAGS="%{shrink:%{build_ldflags}}"
 mv %{buildroot}%{_includedir}/SDL3/SDL_revision.h %{buildroot}%{_includedir}/SDL3/SDL_revision-%{_arch}.h
 install -p -m 644 %{SOURCE1} %{buildroot}%{_includedir}/SDL3/SDL_revision.h
 
+# Delete conflicting man pages
+rm -v %{buildroot}%{_mandir}/man3/{S,U}int*.3type*
 
 %files
 %license LICENSE.txt
@@ -169,6 +174,7 @@ install -p -m 644 %{SOURCE1} %{buildroot}%{_includedir}/SDL3/SDL_revision.h
 %{_libdir}/cmake/SDL3/SDL3headersTargets*.cmake
 %{_libdir}/cmake/SDL3/SDL3sharedTargets*.cmake
 %{_includedir}/SDL3
+%{_mandir}/man3/SDL*.3*
 
 %files static
 %license LICENSE.txt
@@ -182,6 +188,10 @@ install -p -m 644 %{SOURCE1} %{buildroot}%{_includedir}/SDL3/SDL_revision.h
 
 
 %changelog
+* Thu Jan 09 2025 Neal Gompa <ngompa@fedoraproject.org> - 3.1.8-1
+- Update to 3.1.8
+- Enable man pages
+
 * Mon Dec 02 2024 Neal Gompa <ngompa@fedoraproject.org> - 3.1.6-1
 - Update to 3.1.6
 - Split testing library into subpackage

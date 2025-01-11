@@ -8,7 +8,7 @@
 
 Name:		bluez-tools
 Version:	0.2.0
-Release:	0.25%{?git_rel}%{?dist}
+Release:	0.26%{?git_rel}%{?dist}
 Summary:	A set of tools to manage Bluetooth devices for Linux
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -16,6 +16,7 @@ License:	GPL-2.0-or-later
 URL:		https://github.com/khvzak/%{name}
 Source0:	%{url}/archive/%{commit}/%{name}-%{version}%{?git_ver}.tar.gz
 Patch0:		%{url}/pull/34.patch#/fix_gcc-10_compile.patch
+Patch1:		%{name}-exit-if-no-adapter.patch
 
 BuildRequires:	gcc
 BuildRequires:	autoconf
@@ -62,6 +63,9 @@ pedometers and other specific APIs have not been ported to bluez-tools.
 
 
 %changelog
+* Thu Jan 09 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.2.0-0.26.git20170912.7cb788c
+- fix crash if no adapter found (resolves rhbz#2321335)
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.0-0.25.git20170912.7cb788c
 - convert license to SPDX
 

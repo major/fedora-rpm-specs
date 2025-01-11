@@ -1,5 +1,5 @@
 Name:    libcamera
-Version: 0.3.2
+Version: 0.4.0
 Release: 1%{?dist}
 Summary: A library to support complex camera ISPs
 # see .reuse/dep5 and COPYING for details
@@ -164,7 +164,7 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 %files
 %license COPYING.rst LICENSES/LGPL-2.1-or-later.txt
 # We leave the version here explicitly to know when it bumps
-%{_libdir}/libcamera*.so.0.3
+%{_libdir}/libcamera*.so.0.4
 %{_libdir}/libcamera*.so.%{version}
 %{_udevrulesdir}/70-libcamera.rules
 
@@ -204,6 +204,10 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 %{python3_sitearch}/*
 
 %changelog
+* Thu Jan 09 2025 Milan Zamazal <mzamazal@redhat.com> - 0.4.0-1
+- Update to version 0.4.0
+- Resolves: rhbz#2333913
+
 * Wed Sep 25 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 0.3.2-1
 - Update to 0.3.2
 

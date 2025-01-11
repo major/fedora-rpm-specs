@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           python-humanize
-Version:        4.9.0
+Version:        4.11.0
 Release:        %autorelease
 Summary:        Turns dates in to human readable format, e.g '3 minutes ago'
 
@@ -41,6 +41,7 @@ find -name '*.po' -delete
 
 # Don't run coverage report during %%check
 sed -i '/pytest-cov/d' pyproject.toml
+sed -i '/core:coverage.exceptions.CoverageWarning/d' pyproject.toml
 sed -Ei 's/ ?--cov(-[^ ]+)? +[^ ]+//g' tox.ini
 
 %generate_buildrequires

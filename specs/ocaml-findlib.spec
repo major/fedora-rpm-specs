@@ -104,7 +104,8 @@ sed -i '/etc/d' .ofiles
 
 
 %changelog
-* Thu Dec 19 2024 Jerry James <loganjerry@gmail.com> - 1.9.8-1
+* Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 1.9.8-1
+- OCaml 5.3.0 rebuild for Fedora 42
 - Version 1.9.8
 - Drop workaround for upstream dynlink_subdir bug
 - Change config name to findlib.conf to match upstream

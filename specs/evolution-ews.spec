@@ -6,18 +6,20 @@
 
 Name: evolution-ews
 Version: 3.55.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Evolution extension for Exchange Web Services
 License: LGPL-2.1-or-later
 URL: https://gitlab.gnome.org/GNOME/evolution/-/wikis/home
 Source: http://download.gnome.org/sources/%{name}/3.55/%{name}-%{version}.tar.xz
 
+Patch01: 0001-run-without-evolution.patch
+
 %global eds_evo_version %{version}
 
 Requires: evolution >= %{eds_evo_version}
 Requires: evolution-data-server >= %{eds_evo_version}
+Requires: %{name}-core = %{version}-%{release}
 Requires: %{name}-langpacks = %{version}-%{release}
-Requires: libmspack >= %{libmspack_version}
 
 BuildRequires: cmake
 BuildRequires: gcc
@@ -44,10 +46,21 @@ BuildRequires: pkgconfig(libsoup-3.0) >= %{libsoup_version}
 This package allows Evolution to interact with Microsoft Exchange servers,
 versions 2007 and later, through its Exchange Web Services (EWS) interface.
 
+%package core
+Summary: Core files for %{name}
+Requires: %{name}-langpacks = %{version}-%{release}
+Requires: evolution-data-server >= %{eds_evo_version}
+Requires: libmspack >= %{libmspack_version}
+
+%description core
+This package contains core files for %{name}, which do not depend on the evolution package.
+These files add the functionality for the address books, calendars, task lists and memo lists
+without bringing in the evolution package.
+
 %package langpacks
 Summary: Translations for %{name}
 BuildArch: noarch
-Requires: %{name} = %{version}-%{release}
+Requires: %{name}-core = %{version}-%{release}
 
 %description langpacks
 This package contains translations for %{name}.
@@ -72,6 +85,10 @@ export CFLAGS="$RPM_OPT_FLAGS -Wno-deprecated-declarations"
 %doc NEWS README
 %{_libdir}/evolution/modules/module-ews-configuration.so
 %{_libdir}/evolution/modules/module-microsoft365-configuration.so
+%{_datadir}/evolution/errors/module-ews-configuration.error
+%{_datadir}/metainfo/org.gnome.Evolution-ews.metainfo.xml
+
+%files core
 %{_libdir}/evolution-data-server/camel-providers/libcamelews.so
 %{_libdir}/evolution-data-server/camel-providers/libcamelews.urls
 %{_libdir}/evolution-data-server/camel-providers/libcamelmicrosoft365.so
@@ -86,13 +103,15 @@ export CFLAGS="$RPM_OPT_FLAGS -Wno-deprecated-declarations"
 %{_libdir}/evolution-ews/libevolution-ews.so
 %{_libdir}/evolution-ews/libevolution-ews-common.so
 %{_libdir}/evolution-ews/libevolution-microsoft365.so
-%{_datadir}/metainfo/org.gnome.Evolution-ews.metainfo.xml
-%{_datadir}/evolution/errors/module-ews-configuration.error
 %{_datadir}/evolution-data-server/ews/windowsZones.xml
 
 %files langpacks -f %{name}.lang
 
 %changelog
+* Thu Jan 09 2025 Milan Crha <mcrha@redhat.com> - 3.55.1-2
+- Split files which do not need the 'evolution' package into a 'core' subpackage,
+  which can be installed separately
+
 * Tue Jan 07 2025 Milan Crha <mcrha@redhat.com> - 3.55.1-1
 - Update to 3.55.1
 

@@ -48,7 +48,7 @@ to access DWARF debug information.
 
 
 %build
-%meson --default-library=both
+%meson -Ddwarfgen=true --default-library=both
 %meson_build
 
 
@@ -65,24 +65,30 @@ to access DWARF debug information.
 %license src/lib/libdwarf/COPYING src/lib/libdwarf/LIBDWARFCOPYRIGHT src/lib/libdwarf/LGPL.txt
 %{_libdir}/libdwarf.so.0
 %{_libdir}/libdwarf.so.0.*
+%{_libdir}/libdwarfp.so.0
+%{_libdir}/libdwarfp.so.0.*
 
 
 %files static
 %{_libdir}/libdwarf.a
+%{_libdir}/libdwarfp.a
 
 
 %files devel
 %doc doc/*.pdf
 %{_includedir}/libdwarf-0
 %{_libdir}/libdwarf.so
+%{_libdir}/libdwarfp.so
 %{_libdir}/pkgconfig/libdwarf.pc
 
 
 %files tools
 %license src/bin/dwarfdump/COPYING src/bin/dwarfdump/DWARFDUMPCOPYRIGHT src/bin/dwarfdump/GPL.txt
 %{_bindir}/dwarfdump
+%{_bindir}/dwarfgen
 %{_datadir}/dwarfdump/dwarfdump.conf
 %{_mandir}/man1/dwarfdump.1.gz
+%{_mandir}/man1/dwarfgen.1.gz
 
 
 %changelog

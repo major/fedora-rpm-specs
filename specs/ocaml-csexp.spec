@@ -152,7 +152,8 @@ EOF
 %files devel -f .ofiles-devel
 
 %changelog
-* Thu Dec 26 2024 Jerry James <loganjerry@gmail.com> - 1.5.2-13
+* Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 1.5.2-13
+- OCaml 5.3.0 rebuild for Fedora 42
 - Bump the dune lang up to 3.17
 
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-13

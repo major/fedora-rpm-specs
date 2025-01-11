@@ -8,7 +8,7 @@
 %global libbpf_version 1.6.0~^%{libbpf_date}git%{libbpf_shortcommit}
 
 Name:           veristat
-Version:        0.4
+Version:        0.4.1
 Release:        %autorelease
 Summary:        Tool for loading, verifying, and debugging BPF object files
 

@@ -38,7 +38,7 @@ ExcludeArch: %{ix86}
 Summary:       Tool for creating supermin appliances
 Name:          supermin
 Version:       5.3.5
-Release:       2%{?dist}
+Release:       3%{?dist}
 License:       GPL-2.0-or-later
 
 ExclusiveArch: %{kernel_arches}
@@ -211,6 +211,9 @@ make check || {
 
 
 %changelog
+* Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 5.3.5-3
+- OCaml 5.3.0 rebuild for Fedora 42
+
 * Mon Oct 21 2024 Richard W.M. Jones <rjones@redhat.com> - 5.3.5-2
 - Use stable owner, group and mtime in base.tar.gz (RHBZ#2320025)
 

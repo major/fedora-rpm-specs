@@ -2,7 +2,7 @@
 ExcludeArch: %{ix86}
 
 Name:           ocaml-pcre
-Version:        8.0.1
+Version:        8.0.2
 Release:        1%{?dist}
 Summary:        Perl compatibility regular expressions (PCRE) for OCaml
 
@@ -11,7 +11,7 @@ URL:            https://github.com/mmottl/pcre-ocaml
 VCS:            git:%{url}.git
 Source0:        %{url}/releases/download/%{version}/pcre-%{version}.tbz
 
-BuildRequires:  ocaml >= 4.12
+BuildRequires:  ocaml >= 4.08
 BuildRequires:  ocaml-dune >= 2.7
 BuildRequires:  ocaml-dune-configurator-devel
 BuildRequires:  pcre-devel
@@ -57,8 +57,9 @@ developing applications that use %{name}.
 
 
 %changelog
-* Thu Dec 26 2024 Jerry James <loganjerry@gmail.com> - 8.0.1-1
-- Version 8.0.1
+* Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 8.0.2-1
+- OCaml 5.3.0 rebuild for Fedora 42
+- Version 8.0.2
 - Add VCS field
 
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.5.0-21

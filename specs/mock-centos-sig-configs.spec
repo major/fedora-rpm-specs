@@ -1,5 +1,5 @@
 Name:           mock-centos-sig-configs
-Version:        0.6
+Version:        0.6.1
 Release:        %autorelease
 Summary:        Mock configs for CentOS SIGs
 

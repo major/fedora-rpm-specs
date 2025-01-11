@@ -3,7 +3,7 @@
 
 # https://github.com/opentofu/opentofu
 %global goipath         github.com/opentofu/opentofu
-Version:                1.8.7
+Version:                1.9.0
 
 %gometa -L -f
 
@@ -35,7 +35,8 @@ BuildRequires:  go-vendor-tools
 %go_vendor_license_buildrequires -c %{S:2}
 
 %build
-export LDFLAGS="-X github.com/opentofu/opentofu/version.dev=no"
+export LDFLAGS="-X github.com/opentofu/opentofu/version.dev=no \
+                -X main.version=v%{version} "
 %gobuild -o %{gobuilddir}/bin/tofu %{goipath}/cmd/tofu
 
 %install

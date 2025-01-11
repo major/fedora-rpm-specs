@@ -28,19 +28,19 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-%global jspspec 2.3
-%global major_version 9
-%global minor_version 0
-%global micro_version 98
+%global jspspec 3.1
+%global major_version 10
+%global minor_version 1
+%global micro_version 34
 %global packdname apache-tomcat-%{version}-src
-%global servletspec 4.0
-%global elspec 3.0
+%global servletspec 6.0
+%global elspec 5.0
 %global tcuid 53
 # Recommended version is specified in java/org/apache/catalina/core/AprLifecycleListener.java
-%global native_version 1.2.21
+%global native_version 2.0.8
 
 
-# FHS 2.3 compliant tree structure - http://www.pathname.com/fhs/2.3/
+# FHS 3.0 compliant tree structure - http://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html
 %global basedir %{_var}/lib/%{name}
 %global appdir %{basedir}/webapps
 %global homedir %{_datadir}/%{name}
@@ -51,7 +51,6 @@
 %global cachedir %{_var}/cache/%{name}
 %global tempdir %{cachedir}/temp
 %global workdir %{cachedir}/work
-%global _systemddir /lib/systemd/system
 
 Name:          tomcat
 Epoch:         1
@@ -64,38 +63,40 @@ License:       Apache-2.0
 URL:           http://tomcat.apache.org/
 Source0:       http://www.apache.org/dist/tomcat/tomcat-%{major_version}/v%{version}/src/%{packdname}.tar.gz
 Source1:       %{name}-%{major_version}.%{minor_version}.conf
-Source3:       %{name}-%{major_version}.%{minor_version}.sysconfig
-Source4:       %{name}-%{major_version}.%{minor_version}.wrapper
-Source5:       %{name}-%{major_version}.%{minor_version}.logrotate
-Source6:       %{name}-%{major_version}.%{minor_version}-digest.script
-Source7:       %{name}-%{major_version}.%{minor_version}-tool-wrapper.script
-Source11:      %{name}-%{major_version}.%{minor_version}.service
-Source21:      tomcat-functions
-Source30:      tomcat-preamble
-Source31:      tomcat-server
-Source32:      tomcat-named.service
-Source33:      java-9-start-up-parameters.conf
+Source2:       %{name}-%{major_version}.%{minor_version}.sysconfig
+Source3:       %{name}-%{major_version}.%{minor_version}.wrapper
+Source4:       %{name}-%{major_version}.%{minor_version}.logrotate
+Source5:       %{name}-%{major_version}.%{minor_version}-digest.script
+Source6:       %{name}-%{major_version}.%{minor_version}-tool-wrapper.script
+Source7:       %{name}-%{major_version}.%{minor_version}.service
+Source8:       %{name}-functions
+Source9:       %{name}-preamble
+Source10:      %{name}-server
+Source11:      %{name}-named.service
+Source12:      module-start-up-parameters.conf
 
 Patch0:        %{name}-%{major_version}.%{minor_version}-bootstrap-MANIFEST.MF.patch
 Patch1:        %{name}-%{major_version}.%{minor_version}-tomcat-users-webapp.patch
 Patch2:        %{name}-build.patch
 Patch3:        %{name}-%{major_version}.%{minor_version}-catalina-policy.patch
-Patch4:        rhbz-1857043.patch
-Patch6:        %{name}-%{major_version}.%{minor_version}-bnd-annotation.patch
+Patch4:        %{name}-%{major_version}.%{minor_version}-bnd-annotation.patch
+Patch5:        %{name}-%{major_version}.%{minor_version}-JDTCompiler.patch
+Patch6:        rhbz-1857043.patch
 
 BuildArch:     noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires: ant
-BuildRequires: ecj >= 1:4.10
+BuildRequires: ant >= 1.10.2
+BuildRequires: ecj >= 4.20
 BuildRequires: findutils
-BuildRequires: java-devel >= 1:1.8.0
+BuildRequires: java-devel >= 17
 BuildRequires: javapackages-local
 BuildRequires: aqute-bnd
 BuildRequires: aqute-bndlib
 BuildRequires: systemd
+BuildRequires: tomcat-jakartaee-migration
 
-Requires:      (java-headless >= 1:1.8 or java-1.8.0-headless or java-11-headless or java-17-headless or java-21-headless or java >= 1:1.8)
+Requires:      (java-headless >= 11 or java >= 11)
 Requires:      javapackages-tools
 Requires:      %{name}-lib = %{epoch}:%{version}-%{release}
 %if 0%{?fedora} || 0%{?rhel} > 7
@@ -136,7 +137,7 @@ The docs web application for Apache Tomcat.
 %package jsp-%{jspspec}-api
 Summary: Apache Tomcat JavaServer Pages v%{jspspec} API Implementation Classes
 Provides: jsp = %{jspspec}
-Obsoletes: %{name}-jsp-2.2-api
+Obsoletes: %{name}-jsp-api < %{jspspec}
 Requires: %{name}-servlet-%{servletspec}-api = %{epoch}:%{version}-%{release}
 Requires: %{name}-el-%{elspec}-api = %{epoch}:%{version}-%{release}
 
@@ -148,7 +149,8 @@ Summary: Libraries needed to run the Tomcat Web container
 Requires: %{name}-jsp-%{jspspec}-api = %{epoch}:%{version}-%{release}
 Requires: %{name}-servlet-%{servletspec}-api = %{epoch}:%{version}-%{release}
 Requires: %{name}-el-%{elspec}-api = %{epoch}:%{version}-%{release}
-Requires: ecj >= 1:4.10
+Requires: ecj >= 4.20
+Recommends: tomcat-jakartaee-migration
 Requires(preun): coreutils
 
 %description lib
@@ -157,9 +159,7 @@ Libraries needed to run the Tomcat Web container.
 %package servlet-%{servletspec}-api
 Summary: Apache Tomcat Java Servlet v%{servletspec} API Implementation Classes
 Provides: servlet = %{servletspec}
-Provides: servlet6
-Provides: servlet3
-Obsoletes: %{name}-servlet-3.1-api
+Obsoletes: %{name}-servlet-api < %{servletspec}
 
 %description servlet-%{servletspec}-api
 Apache Tomcat Servlet API Implementation Classes.
@@ -167,7 +167,7 @@ Apache Tomcat Servlet API Implementation Classes.
 %package el-%{elspec}-api
 Summary: Apache Tomcat Expression Language v%{elspec} API Implementation Classes
 Provides: el_api = %{elspec}
-Obsoletes: %{name}-el-2.2-api
+Obsoletes: %{name}-el-api < %{elspec}
 
 %description el-%{elspec}-api
 Apache Tomcat EL API Implementation Classes.
@@ -190,6 +190,7 @@ find . -type f \( -name "*.bat" -o -name "*.class" -o -name Thumbs.db -o -name "
 %patch 2 -p0
 %patch 3 -p0
 %patch 4 -p0
+%patch 5 -p0
 %patch 6 -p0
 
 # Remove webservices naming resources as it's generally unused
@@ -197,16 +198,14 @@ find . -type f \( -name "*.bat" -o -name "*.class" -o -name Thumbs.db -o -name "
 
 # Configure maven files
 %mvn_package ":tomcat-el-api" tomcat-el-api
-%mvn_alias "org.apache.tomcat:tomcat-el-api" "org.eclipse.jetty.orbit:javax.el"
+%mvn_alias "org.apache.tomcat:tomcat-el-api" "jakarta.servlet:jakarta.servlet-api"
 %mvn_package ":tomcat-jsp-api" tomcat-jsp-api
-%mvn_alias "org.apache.tomcat:tomcat-jsp-api" "org.eclipse.jetty.orbit:javax.servlet.jsp"
+%mvn_alias "org.apache.tomcat:tomcat-jsp-api" "jakarta.servlet:jakarta.servlet.jsp"
 %mvn_package ":tomcat-servlet-api" tomcat-servlet-api
 
 
 %build
-export OPT_JAR_LIST="xalan-j2-serializer"
-# we don't care about the tarballs and we're going to replace
-# tomcat-dbcp.jar with apache-commons-{collections,dbcp,pool}-tomcat5.jar
+# we don't care about the tarballs and we're going to replace jars
 # so just create a dummy file for later removal
 touch HACK
 
@@ -226,12 +225,13 @@ touch HACK
   -Dbnd-annotation.jar="$(build-classpath aqute-bnd/biz.aQute.bnd.annotation)" \
   -Dversion="%{version}" \
   -Dversion.build="%{micro_version}" \
+  -Dmigration-lib.jar="$(build-classpath tomcat-jakartaee-migration/jakartaee-migration.jar)" \
   deploy
 
 # remove some jars that we'll replace with symlinks later
-%{__rm} output/build/bin/commons-daemon.jar output/build/lib/ecj.jar
+%{__rm} output/build/bin/commons-daemon.jar output/build/lib/ecj.jar output/build/lib/jakartaee-migration.jar
 # Remove the example webapps per Apache Tomcat Security Considerations
-# see https://tomcat.apache.org/tomcat-9.0-doc/security-howto.html
+# see https://tomcat.apache.org/tomcat-10.1-doc/security-howto.html
 %{__rm} -rf output/build/webapps/examples
 
 
@@ -239,7 +239,6 @@ touch HACK
 # build initial path structure
 %{__install} -d -m 0755 ${RPM_BUILD_ROOT}%{_bindir}
 %{__install} -d -m 0755 ${RPM_BUILD_ROOT}%{_sbindir}
-%{__install} -d -m 0755 ${RPM_BUILD_ROOT}%{_systemddir}
 %{__install} -d -m 0755 ${RPM_BUILD_ROOT}%{_sysconfdir}/logrotate.d
 %{__install} -d -m 0755 ${RPM_BUILD_ROOT}%{_sysconfdir}/sysconfig
 %{__install} -d -m 0755 ${RPM_BUILD_ROOT}%{appdir}
@@ -272,33 +271,33 @@ popd
     > ${RPM_BUILD_ROOT}%{confdir}/%{name}.conf
 %{__sed} -e "s|\@\@\@TCHOME\@\@\@|%{homedir}|g" \
    -e "s|\@\@\@TCTEMP\@\@\@|%{tempdir}|g" \
-   -e "s|\@\@\@LIBDIR\@\@\@|%{_libdir}|g" %{SOURCE3} \
+   -e "s|\@\@\@LIBDIR\@\@\@|%{_libdir}|g" %{SOURCE2} \
     > ${RPM_BUILD_ROOT}%{_sysconfdir}/sysconfig/%{name}
-%{__install} -m 0644 %{SOURCE4} \
+%{__install} -m 0755 %{SOURCE3} \
     ${RPM_BUILD_ROOT}%{_sbindir}/%{name}
-%{__install} -m 0644 %{SOURCE11} \
+%{__install} -m 0644 %{SOURCE7} \
     ${RPM_BUILD_ROOT}%{_unitdir}/%{name}.service
-%{__sed} -e "s|\@\@\@TCLOG\@\@\@|%{logdir}|g" %{SOURCE5} \
+%{__sed} -e "s|\@\@\@TCLOG\@\@\@|%{logdir}|g" %{SOURCE4} \
     > ${RPM_BUILD_ROOT}%{_sysconfdir}/logrotate.d/%{name}.disabled
 %{__sed} -e "s|\@\@\@TCHOME\@\@\@|%{homedir}|g" \
    -e "s|\@\@\@TCTEMP\@\@\@|%{tempdir}|g" \
-   -e "s|\@\@\@LIBDIR\@\@\@|%{_libdir}|g" %{SOURCE6} \
+   -e "s|\@\@\@LIBDIR\@\@\@|%{_libdir}|g" %{SOURCE5} \
     > ${RPM_BUILD_ROOT}%{_bindir}/%{name}-digest
 %{__sed} -e "s|\@\@\@TCHOME\@\@\@|%{homedir}|g" \
    -e "s|\@\@\@TCTEMP\@\@\@|%{tempdir}|g" \
-   -e "s|\@\@\@LIBDIR\@\@\@|%{_libdir}|g" %{SOURCE7} \
+   -e "s|\@\@\@LIBDIR\@\@\@|%{_libdir}|g" %{SOURCE6} \
     > ${RPM_BUILD_ROOT}%{_bindir}/%{name}-tool-wrapper
 
-%{__install} -m 0644 %{SOURCE21} \
+%{__install} -m 0644 %{SOURCE8} \
     ${RPM_BUILD_ROOT}%{_libexecdir}/%{name}/functions
-%{__install} -m 0755 %{SOURCE30} \
+%{__install} -m 0755 %{SOURCE9} \
     ${RPM_BUILD_ROOT}%{_libexecdir}/%{name}/preamble
-%{__install} -m 0755 %{SOURCE31} \
+%{__install} -m 0755 %{SOURCE10} \
     ${RPM_BUILD_ROOT}%{_libexecdir}/%{name}/server
-%{__install} -m 0644 %{SOURCE32} \
+%{__install} -m 0644 %{SOURCE11} \
     ${RPM_BUILD_ROOT}%{_unitdir}/%{name}@.service
 
-%{__install} -m 0644 %{SOURCE33} ${RPM_BUILD_ROOT}%{confdir}/conf.d/
+%{__install} -m 0644 %{SOURCE12} ${RPM_BUILD_ROOT}%{confdir}/conf.d/
 
 # Substitute libnames in catalina-tasks.xml
 sed -i \
@@ -319,6 +318,7 @@ popd
 
 pushd output/build
     %{_bindir}/build-jar-repository lib ecj 2>&1
+    %{_bindir}/build-jar-repository lib tomcat-jakartaee-migration 2>&1
 popd
 
 pushd ${RPM_BUILD_ROOT}%{libdir}
@@ -327,6 +327,7 @@ pushd ${RPM_BUILD_ROOT}%{libdir}
     %{__ln_s} ../../java/%{name}-servlet-%{servletspec}-api.jar .
     %{__ln_s} ../../java/%{name}-el-%{elspec}-api.jar .
     %{__ln_s} $(build-classpath ecj/ecj) jasper-jdt.jar
+    %{__ln_s} $(build-classpath tomcat-jakartaee-migration/jakartaee-migration) jakartaee-migration.jar
     
     cp ../../%{name}/bin/tomcat-juli.jar .
 popd
@@ -395,6 +396,7 @@ popd
 %mvn_file org.apache.tomcat:tomcat-websocket-api tomcat/websocket-api
 %mvn_artifact res/maven/tomcat-websocket-api.pom ${RPM_BUILD_ROOT}%{libdir}/websocket-api.jar
 %mvn_artifact res/maven/tomcat-websocket.pom ${RPM_BUILD_ROOT}%{libdir}/tomcat-websocket.jar
+%mvn_artifact res/maven/tomcat-websocket-client-api.pom ${RPM_BUILD_ROOT}%{libdir}/websocket-client-api.jar
 %mvn_artifact res/maven/tomcat.pom
 
 %mvn_install
@@ -414,43 +416,13 @@ exit 0
 # install but don't activate
 %systemd_post %{name}.service
 
-%post jsp-%{jspspec}-api
-%{_sbindir}/update-alternatives --install %{_javadir}/jsp.jar jsp \
-    %{_javadir}/%{name}-jsp-%{jspspec}-api.jar 20200
-
-%post servlet-%{servletspec}-api
-%{_sbindir}/update-alternatives --install %{_javadir}/servlet.jar servlet \
-    %{_javadir}/%{name}-servlet-%{servletspec}-api.jar 30000
-
-%post el-%{elspec}-api
-%{_sbindir}/update-alternatives --install %{_javadir}/elspec.jar elspec \
-   %{_javadir}/%{name}-el-%{elspec}-api.jar 20300
-
 %preun
 # clean tempdir and workdir on removal or upgrade
 %{__rm} -rf %{workdir}/* %{tempdir}/*
 %systemd_preun %{name}.service
 
 %postun
-%systemd_postun_with_restart %{name}.service 
-
-%postun jsp-%{jspspec}-api
-if [ "$1" = "0" ]; then
-    %{_sbindir}/update-alternatives --remove jsp \
-        %{_javadir}/%{name}-jsp-%{jspspec}-api.jar
-fi
-
-%postun servlet-%{servletspec}-api
-if [ "$1" = "0" ]; then
-    %{_sbindir}/update-alternatives --remove servlet \
-        %{_javadir}/%{name}-servlet-%{servletspec}-api.jar
-fi
-
-%postun el-%{elspec}-api
-if [ "$1" = "0" ]; then
-    %{_sbindir}/update-alternatives --remove elspec \
-        %{_javadir}/%{name}-el-%{elspec}-api.jar
-fi
+%systemd_postun_with_restart %{name}.service
 
 %files 
 %defattr(0664,root,tomcat,0755)
@@ -484,7 +456,7 @@ fi
 %attr(0775,root,tomcat) %dir %{confdir}/Catalina/localhost
 %attr(0755,root,tomcat) %dir %{confdir}/conf.d
 %{confdir}/conf.d/README
-%{confdir}/conf.d/java-9-start-up-parameters.conf
+%{confdir}/conf.d/module-start-up-parameters.conf
 %config(noreplace) %{confdir}/%{name}.conf
 %config(noreplace) %{confdir}/*.policy
 %config(noreplace) %{confdir}/*.properties
@@ -551,13 +523,16 @@ fi
 %{appdir}/ROOT
 
 %changelog
+* Tue Jan 07 2025 Dimitris Soumis <dsoumis@redhat.com> - 1:10.1.28-1
+- Update to version 10.1.28
+
 * Mon Dec 09 2024 Packit <hello@packit.dev> - 1:9.0.98-1
 - Update to version 9.0.98
 - Resolves: rhbz#2331168
 
 * Mon Dec 02 2024 Dimitris Soumis <dsoumis@redhat.com> - 1:9.0.97-1
 - Update to version 9.0.97
-- Resolves: rhbz#2327090 
+- Resolves: rhbz#2327090
 
 * Tue Oct 08 2024 Packit <hello@packit.dev> - 1:9.0.96-1
 - Update to version 9.0.96

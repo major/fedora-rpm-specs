@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.13.0
 %define specversion 6.13.0
 %define patchversion 6.13
-%define pkgrelease 0.rc6.20250108git09a0fa92e5b4.50
+%define pkgrelease 0.rc6.20250109giteea6e4b4dfb8.51
 %define kversion 6
-%define tarfile_release 6.13-rc6-38-g09a0fa92e5b4
+%define tarfile_release 6.13-rc6-51-geea6e4b4dfb8
 # This is needed to do merge window version magic
 %define patchlevel 13
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc6.20250108git09a0fa92e5b4.50%{?buildid}%{?dist}
+%define specrelease 0.rc6.20250109giteea6e4b4dfb8.51%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.13.0
 
@@ -4174,9 +4174,12 @@ fi\
 #
 #
 %changelog
-* Wed Jan 08 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.13.0-0.rc6.09a0fa92e5b4.50]
+* Thu Jan 09 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.13.0-0.rc6.eea6e4b4dfb8.51]
 - x86/insn_decoder_test: allow longer symbol-names (David Rheinsberg)
 - kernel.spec: update license field (Scott Weaver)
+
+* Thu Jan 09 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.13.0-0.rc6.eea6e4b4dfb8.50]
+- Linux v6.13.0-0.rc6.eea6e4b4dfb8
 
 * Wed Jan 08 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.13.0-0.rc6.09a0fa92e5b4.49]
 - redhat/kernel.spec.template: Require kernel-tools-libs in rtla (Tomas Glozar)

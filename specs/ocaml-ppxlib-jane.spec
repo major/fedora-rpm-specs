@@ -3,7 +3,7 @@
 %endif
 
 Name:           ocaml-ppxlib-jane
-Version:        0.17.0
+Version:        0.17.2
 Release:        %autorelease
 Summary:        Utilities for working with Jane Street AST constructs
 
@@ -15,7 +15,7 @@ Source:         %{url}/archive/v%{version}/ppxlib_jane-%{version}.tar.gz
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
 
-BuildRequires:  ocaml >= 5.1.0
+BuildRequires:  ocaml >= 5.3.0
 BuildRequires:  ocaml-dune >= 3.11.0
 BuildRequires:  ocaml-ppxlib-devel >= 0.28.0
 

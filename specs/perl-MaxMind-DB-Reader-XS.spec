@@ -11,8 +11,8 @@ Summary:        Fast XS implementation of MaxMind DB reader
 # c/ppport.h:               GPL-1.0-or-later OR Artistic-1.0-Perl
 # LICENSE:                  Artistic-2.0 text
 # lib/MaxMind/DB/Reader/XS.pm:  Artistic-2.0
-# maxmind-db/LICENSE:       CC-BY-SA
-# maxmind-db/MaxMind-DB-spec.md:    CC-BY-SA
+# maxmind-db/LICENSE:       CC-BY-SA-3.0
+# maxmind-db/MaxMind-DB-spec.md:    CC-BY-SA-3.0
 # README.md:                Artistic-2.0
 ## Unbundled
 # inc/Capture/Tiny.pm:      Apache-2.0
@@ -83,7 +83,7 @@ security vulnerabilities. New features and functionality will not be added.
 
 %package tests
 Summary:        Tests for %{name}
-License:        Artistic 2.0 and CC-BY-SA
+License:        Artistic-2.0 AND CC-BY-SA-3.0
 BuildArch:      noarch
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness

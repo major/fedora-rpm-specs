@@ -1,14 +1,11 @@
 Name:		isa-l
-Version:	2.31.0
-Release:	3%{?dist}
+Version:	2.31.1
+Release:	1%{?dist}
 Summary:	Intel(R) Intelligent Storage Acceleration Library
 
 License:	BSD-3-Clause
 URL:		https://github.com/intel/isa-l
 Source0:	%{url}/archive/v%{version}/isa-l-%{version}.tar.gz
-
-#		https://github.com/intel/isa-l/pull/271
-Patch0:		0001-Fix-wrong-return-type.patch
 
 ExcludeArch:	%{ix86}
 
@@ -57,7 +54,6 @@ This package contains CLI tools.
 
 %prep
 %setup -q
-%patch -P 0 -p1
 
 %build
 autoreconf -v -f -i
@@ -89,6 +85,9 @@ rm %{buildroot}%{_libdir}/*.la
 %{_mandir}/man1/igzip.1*
 
 %changelog
+* Tue Jan 07 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.31.1-1
+- Update to version 2.31.1
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.31.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -196,6 +196,10 @@ Patch: fix-riscv64-compile-uintptr.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2278402
 Patch:          %{url}/pull/1559.patch
 
+# Fix root-cause of CVE-2021-45340 : dereference of NULL ptr.
+# https://github.com/nothings/stb/pull/1736
+Patch:          %{url}/pull/1736.patch
+
 %global stb_c_lexer_version 0.12
 %global stb_connected_components_version 0.96
 %global stb_divide_version 0.94

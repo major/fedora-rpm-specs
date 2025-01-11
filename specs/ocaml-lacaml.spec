@@ -69,7 +69,8 @@ export LACAML_LIBS=-lflexiblas
 
 
 %changelog
-* Thu Dec 26 2024 Jerry James <loganjerry@gmail.com> - 11.1.1-1
+* Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 11.1.1-1
+- OCaml 5.3.0 rebuild for Fedora 42
 - Version 11.1.1
 - Munging build flags is no longer needed
 - Add VCS field

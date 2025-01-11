@@ -12,7 +12,7 @@ ExcludeArch:    %{ix86}
 
 Name:           unison
 Version:        2.53.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        File Synchronizer
 
 %global         forgeurl https://github.com/bcpierce00/%{name}/
@@ -151,6 +151,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %endif
 
 %changelog
+* Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 2.53.5-4
+- OCaml 5.3.0 rebuild for Fedora 42
+
 * Fri Sep 20 2024 Matthew Krupcale <mkrupcale@gmail.com> - 2.53.5-3
 - Add package Requires for GDK Pixbuf XPM image loader module
 

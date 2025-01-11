@@ -177,7 +177,7 @@
 Summary: An interpreter of object-oriented scripting language
 Name: ruby
 Version: %{ruby_version}%{?development_release}
-Release: 19%{?dist}
+Release: 20%{?dist}
 # Licenses, which are likely not included in binary RPMs:
 # Apache-2.0:
 #   benchmark/gc/redblack.rb
@@ -1209,15 +1209,9 @@ MSPECOPTS=""
   make -C %{_vpath_builddir} check TESTS="-v --show-skip $DISABLE_TESTS" MSPECOPT="-fs $MSPECOPTS"
 
 # Run Ruby OpenSSL tests in OpenSSL FIPS.
-# Temporary disable some test cases. OpenSSL currently looks to be broken by
-# debugedit.
-# https://bugzilla.redhat.com/show_bug.cgi?id=2335414
 make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
   -I%{_builddir}/%{buildsubdir}/tool/lib --enable-gems \
-  %{SOURCE15} %{_builddir}/%{buildsubdir} --verbose \
-  -n '!/OpenSSL::TestFIPS#test_fips_mode_get_is_true_on_fips_mode_enabled/' \
-  -n '!/OpenSSL::TestFIPS#test_fips_mode_is_reentrant/' \
-  -n '!/OpenSSL::TestFIPS#test_fips_mode_get_with_fips_mode_set/'"
+  %{SOURCE15} %{_builddir}/%{buildsubdir} --verbose"
 
 %{?with_bundler_tests:make -C %{_vpath_builddir} test-bundler-parallel}
 
@@ -1880,6 +1874,9 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 
 
 %changelog
+* Wed Jan 08 2025 Vít Ondruch <vondruch@redhat.com> - 3.4.1-20
+- Re-enable FIPS test cases.
+
 * Thu Jan 02 2025 Vít Ondruch <vondruch@redhat.com> - 3.4.1-19
 - Upgrade to Ruby 3.4.1.
   Resolves: rhbz#2334047

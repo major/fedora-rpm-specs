@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ppx-derivers
 Version:        1.2.1
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Deriving plugin registry
 
 License:        BSD-3-Clause
@@ -61,7 +61,8 @@ developing applications that use %{name}.
 
 
 %changelog
-* Thu Dec 26 2024 Jerry James <loganjerry@gmail.com> - 1.2.1-39
+* Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 1.2.1-39
+- OCaml 5.3.0 rebuild for Fedora 42
 - Add VCS field
 
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-38

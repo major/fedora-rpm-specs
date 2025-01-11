@@ -19,6 +19,8 @@ BuildRequires: dwz
 
 # For debugedit build-id recomputation
 BuildRequires: xxhash-devel
+# debugedit builds with XXH_INLINE_ALL, so depend on (virtual) xxhash-static
+BuildRequires: xxhash-static
 
 # For the testsuite.
 BuildRequires: autoconf

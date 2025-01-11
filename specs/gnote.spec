@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnote
-Version:        47.0
+Version:        47.2
 Release:        1%{?dist}
 Summary:        Note-taking application
 
@@ -70,6 +70,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Gnot
 %{_metainfodir}/org.gnome.Gnote.appdata.xml
 
 %changelog
+* Wed Jan 08 2025 nmontero <nmontero@redhat.com> - 47.2-1
+- Update to 47.2
+
 * Mon Sep 23 2024 David King <amigadave@amigadave.com> - 47.0-1
 - Update to 47.0
 

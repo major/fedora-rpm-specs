@@ -1,6 +1,6 @@
 Name:           mpv
 Version:        0.39.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 Summary:        Movie player playing most video formats and DVDs
@@ -217,6 +217,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jan 09 2025 Michel Lind <salimma@fedoraproject.org> - 0.39.0-2
+- Rebuilt for rubberband 4
+
 * Tue Sep 24 2024 Sérgio Basto <sergio@serjux.com> - 0.39.0-1
 - Update mpv to 0.39.0
 

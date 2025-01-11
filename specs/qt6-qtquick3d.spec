@@ -11,7 +11,7 @@
 Summary: Qt6 - Quick3D Libraries and utilities
 Name:    qt6-%{qt_module}
 Version: 6.8.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -140,6 +140,7 @@ popd
 %{_qt6_libdir}/libQt6Quick3DXr.so.6*
 %dir %{_qt6_qmldir}/QtQuick3D/
 %{_qt6_qmldir}/QtQuick3D/
+%dir %{_qt6_plugindir}/assetimporters
 %{_qt6_plugindir}/assetimporters/*.so
 
 %files devel
@@ -251,6 +252,10 @@ popd
 %endif
 
 %changelog
+* Thu Jan 09 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.1-3
+- Fix directory ownership
+  Resolves: rhbz#2292578
+
 * Thu Dec 05 2024 Jan Grulich <jgrulich@redhat.com> - 6.8.1-2
 - Move Software Bill of Materials from -devel
 

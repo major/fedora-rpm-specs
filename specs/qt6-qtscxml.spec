@@ -11,7 +11,7 @@
 Summary: Qt6 - ScXml component
 Name:    qt6-%{qt_module}
 Version: 6.8.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -82,7 +82,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_qt6_libexecdir}/qscxmlc
 %{_qt6_qmldir}/QtScxml/
 %{_qt6_qmldir}/QtQml/
-
+%dir %{_qt6_plugindir}/scxmldatamodel
 %{_qt6_plugindir}/scxmldatamodel/libqscxmlecmascriptdatamodel.so
 
 %files devel
@@ -101,9 +101,13 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_qt6_libdir}/cmake/Qt6Scxml
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtScxmlTestsConfig.cmake
 %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/*.cmake
+%dir %{_qt6_libdir}/cmake/Qt6ScxmlQml
 %{_qt6_libdir}/cmake/Qt6ScxmlQml/*.cmake
+%dir %{_qt6_libdir}/cmake/Qt6ScxmlTools
 %{_qt6_libdir}/cmake/Qt6ScxmlTools/*.cmake
+%dir %{_qt6_libdir}/cmake/Qt6StateMachine
 %{_qt6_libdir}/cmake/Qt6StateMachine/*.cmake
+%dir %{_qt6_libdir}/cmake/Qt6StateMachineQml/
 %{_qt6_libdir}/cmake/Qt6StateMachineQml/*.cmake
 %{_qt6_archdatadir}/mkspecs/features/qscxmlc.prf
 %{_qt6_archdatadir}/mkspecs/modules/*
@@ -118,6 +122,10 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Thu Jan 09 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.1-3
+- Fix directory ownership
+  Resolves: rhbz#2292577
+
 * Thu Dec 05 2024 Jan Grulich <jgrulich@redhat.com> - 6.8.1-2
 - Move Software Bill of Materials from -devel
 

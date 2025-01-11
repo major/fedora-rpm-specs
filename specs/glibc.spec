@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.40.9000-665-gcc74583f23
+%global glibcsrcdir glibc-2.40.9000-719-g502a71c578
 %global glibcversion 2.40.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 26
+%global baserelease 27
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -341,8 +341,7 @@ Patch8: glibc-fedora-manual-dircategory.patch
 Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
-Patch24: glibc-nolink-libc.patch
-Patch25: glibc-clone-reset-tid.patch
+Patch24: glibc-benchtests-extra-pi-inputs.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2368,6 +2367,36 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Thu Jan 09 2025 Florian Weimer <fweimer@redhat.com> - 2.40.9000-27
+- Drop glibc-nolink-libc.patch, applied upstream.
+- Drop glibc-clone-reset-tid.patch, unnecessary due to upstream reverts.
+- Add glibc-benchtests-extra-pi-inputs.patch to fix aarch64 build failure.
+- Auto-sync with upstream branch master,
+  commit 502a71c5785f21ef4e3bad59949fdf86df73d385:
+- i686: Regenerate multiarch ulps
+- Revert "configure: default to --prefix=/usr on GNU/Linux"
+- elf: Minimize library dependencies of tst-nolink-libc.c
+- elf: Second ld.so relocation only if libc.so has been loaded
+- Revert "x86_64: Remove unused padding from tcbhead_t"
+- Revert "nptl: More useful padding in struct pthread"
+- LoongArch: Regenerate preconfigure. [bug 32521]
+- loongarch: Drop __GI_XXX for strcpy/stpcpy IFUNC implementations
+- AArch64: Improve codegen in SVE expm1f and users
+- AArch64: Add vector tanpi routines
+- AArch64: Add vector cospi routines
+- AArch64: Add vector sinpi to libmvec
+- math: Remove no-mathvec flag
+- AArch64: Improve codegen for SVE log1pf users
+- AArch64: Improve codegen for SVE logs
+- AArch64: Improve codegen in SVE tans
+- AArch64: Improve codegen in AdvSIMD asinh
+- math: Add a reference to Clang's <tgmath.h> C23 issue
+- Redirect mempcpy and stpcpy only in libc.a
+- mlock, mlock2, munlock: Use __attr_access_none macro
+- stdlib: random_r: fix unaligned access in initstate and initstate_r [BZ #30584]
+- assert: Remove the use of %n from __assert_fail_base (#2318508)
+- Translations: Regenerate libc.pot
+
 * Fri Jan  3 2025 Florian Weimer <fweimer@redhat.com> - 2.40.9000-26
 - x86_64: Reset TID during clone if !CLONE_VM (#2335406)
 

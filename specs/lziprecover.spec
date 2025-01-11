@@ -1,12 +1,12 @@
 Name:           lziprecover
-Version:        1.24
-Release:        3%{?dist}
+Version:        1.25
+Release:        1%{?dist}
 Summary:        Data recovery tool and decompressor for files in the lzip compressed format
 
 License:        GPL-3.0-or-later
-URL:            http://www.nongnu.org/lzip/lziprecover.html
-Source0:        http://download.savannah.gnu.org/releases/lzip/lziprecover/lziprecover-%{version}.tar.lz
-Source1:        http://download.savannah.gnu.org/releases/lzip/lziprecover/lziprecover-%{version}.tar.lz.sig
+URL:            https://www.nongnu.org/lzip/lziprecover.html
+Source0:        https://download-mirror.savannah.gnu.org/releases/lzip/lziprecover/lziprecover-%{version}.tar.lz
+Source1:        https://download-mirror.savannah.gnu.org/releases/lzip/lziprecover/lziprecover-%{version}.tar.lz.sig
 BuildRequires: make
 BuildRequires:  lzip gcc-c++
 
@@ -55,6 +55,9 @@ make check
 
 
 %changelog
+* Thu Jan 09 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.25-1
+- 1.25
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.24-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

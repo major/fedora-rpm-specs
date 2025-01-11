@@ -20,8 +20,8 @@
 
 %define	radicale_major	3
 
-%define	radicale_version	3.3.3
-%define	radicale_release	1
+%define	radicale_version	3.4.0
+%define	radicale_release	2
 #define gitcommit 8e9fdf391acb79d3fb1cb6e6b8f882f8999192cf
 
 %define	radicale_name	radicale
@@ -443,6 +443,9 @@ fi
 
 
 %changelog
+* Thu Jan 09 2025 Peter Bieringer <pb@bieringer.de> - 3.4.0-2
+- Update to 3.4.0
+
 * Sat Dec 28 2024 Peter Bieringer <pb@bieringer.de> - 3.3.3-1
 - Update to 3.3.3
 - New subpackage logwatch with files from from contrib/logwatch

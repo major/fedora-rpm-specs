@@ -8,8 +8,7 @@ Version:        22.1.1
 Release:        19%{?dist}
 Summary:        Fedora 22 default desktop background
 
-# Automatically converted from old format: CC-BY-SA - review is highly recommended.
-License:        LicenseRef-Callaway-CC-BY-SA
+License:        CC-BY-SA-4.0
 URL:            https://fedoraproject.org/wiki/F22_Artwork
 Source0:        https://fedorahosted.org/released/design-team/%{name}-%{version}.tar.xz
 
@@ -30,8 +29,7 @@ Pulls in themes for GNOME, KDE, Mate and Xfce desktops.
 
 %package        base
 Summary:        Base images for Fedora 22 default background
-# Automatically converted from old format: CC-BY-SA - review is highly recommended.
-License:        LicenseRef-Callaway-CC-BY-SA
+License:        CC-BY-SA-4.0
 
 %description    base
 This package contains base images for Fedora 22 default background.
@@ -78,8 +76,7 @@ default theme.
 %if %{with_extras}
 %package        extras-base
 Summary:        Base images for F22 Extras Backrounds
-# Automatically converted from old format: CC-BY and CC-BY-SA - review is highly recommended.
-License:        LicenseRef-Callaway-CC-BY AND LicenseRef-Callaway-CC-BY-SA
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 
 %description    extras-base
 This package contains base images for F22 supplemental
@@ -87,7 +84,7 @@ wallpapers.
 
 %package        extras-gnome
 Summary:        Extra F22 Wallpapers for Gnome and Cinnamon
-
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 Requires:       %{name}-extras-base
 
 %description    extras-gnome
@@ -96,7 +93,7 @@ and Cinnamon
 
 %package        extras-mate
 Summary:        Extra F22 Wallpapers for Mate
-
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 Requires:       %{name}-extras-base
 
 %description    extras-mate
@@ -104,7 +101,7 @@ This package contains F22 supplemental wallpapers for Mate
 
 %package        extras-kde
 Summary:        Extra F22 Wallpapers for KDE
-
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 Requires:       %{name}-extras-base
 
 %description    extras-kde
@@ -112,7 +109,7 @@ This package contains F22 supplemental wallpapers for Gnome
 
 %package        extras-xfce
 Summary:        Extra F22 Wallpapers for XFCE
-
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 Requires:       %{name}-extras-base
 
 %description    extras-xfce

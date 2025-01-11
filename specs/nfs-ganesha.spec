@@ -122,7 +122,7 @@ Requires: openSUSE-release
 #%%global dev rc6
 
 Name:		nfs-ganesha
-Version:	6.4
+Version:	6.5
 Release:	1%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
@@ -962,11 +962,15 @@ exit 0
 %{_bindir}/ganesha_stats
 %{_bindir}/sm_notify.ganesha
 %{_bindir}/ganesha_mgr
+%{_bindir}/ganesha_logrotate_mgr
 %{_bindir}/ganesha_conf
 %{_mandir}/*/ganesha_conf.8.gz
 %endif
 
 %changelog
+* Thu Jan 9 2025 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 6.5-1
+- NFS-Ganesha 6.5 GA
+
 * Mon Dec 16 2024 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 6.4-1
 - NFS-Ganesha 6.4 GA
 
@@ -984,148 +988,3 @@ exit 0
 
 * Mon Aug 26 2024 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 6.0-1
 - NFS-Ganesha 6.0 GA, rhbz#2307961
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.9-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Thu Jul 11 2024 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 5.9-3
-- Rebuilt for ceph-19.1.0
-
-* Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 5.9-2
-- Rebuilt for Python 3.13
-
-* Fri May 24 2024 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 5.9-1
-- NFS-Ganesha 5.9 GA
-
-* Tue May 21 2024 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 5.8-2
-- NFS-Ganesha 5.8, enable ceph again
-
-* Mon May 20 2024 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 5.8-1
-- NFS-Ganesha 5.8 GA
-- temporarily disable ceph until there is an updated build
-
-* Fri May 10 2024 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 5.7-9
-- enable VFS_POSIX_ACL, for real this time
-
-* Wed May 1 2024 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 5.7-8
-- enable VFS_POSIX_ACL, which has been available since 4.x
-
-* Fri Mar 15 2024 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 5.7-7
-- rebuild with (lib)prometheus-cpp-1.2.4
-
-* Thu Feb 8 2024 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 5.7-6
-- rebuild with (lib)prometheus-cpp-1.2.3
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.7-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 5.7-4
-- rebuild with (lib)prometheus-cpp-1.2.1, gcc-14, etc.
-
-* Tue Jan 2 2024 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 5.7-3
-- rebuild with (lib)prometheus-cpp-1.2.0
-
-* Tue Nov 21 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 5.7-2
-- use python pep517 installer and build
-
-* Fri Nov 3 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 5.7-1
-- NFS-Ganesha 5.7 GA
-
-* Mon Oct 23 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 5.6-1
-- NFS-Ganesha 5.6 GA
-
-* Mon Aug 7 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 5.5-2
-- NFS-Ganesha 5.5 GA, w/ zlib-ng
-
-* Mon Aug 7 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 5.5-1
-- NFS-Ganesha 5.5 GA
-
-* Mon Jul 24 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 5.4-1
-- NFS-Ganesha 5.4 GA
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jun 13 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 5.3-1
-- NFS-Ganesha 5.3 GA
-
-* Mon May 22 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 5.2-1
-- NFS-Ganesha 5.2 GA
-
-* Tue May 2 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 5.1-2
-- NFS-Ganesha 5.1 GA, again (fix minor version)
-
-* Tue May 2 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 5.1-1
-- NFS-Ganesha 5.1 GA
-
-* Wed Apr 26 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 5.0-2
-- NFS-Ganesha 5.0, fix GANESHA_MINOR_VERSION everywhere
-
-* Fri Apr 21 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 5.0-1
-- NFS-Ganesha 5.0 GA
-
-* Tue Feb 28 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 4.4-2
-- enable Prometheus monitoring
-
-* Thu Feb 23 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 4.4-1
-- NFS-Ganesha 4.4 GA
-- including revert python3-setuptools in 4.0-5, rhbz#2165546
-
-* Mon Feb 20 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com>
-- glusterfs-api-devel -> libgfapi-devel
-
-* Fri Jan 20 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 4.3-1
-- NFS-Ganesha 4.3 GA
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Nov 30 2022 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 4.2-1
-- NFS-Ganesha 4.2 GA
-
-* Fri Nov 18 2022 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 4.1-1
-- NFS-Ganesha 4.1 GA
-
-* Fri Nov 11 2022 Kaleb S. KEITHLEY <kkeithle at redhat.com>
-- SPDX migration
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jul 19 2022 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 4.0-8
-- Rebuilt for pyparsing-3.0.9, ceph w/ fmt-9
-
-* Tue Jul 19 2022 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.0-7
-- Rebuilt for pyparsing-3.0.9
-
-* Wed Jun 15 2022 Python Maint <python-maint@redhat.com> - 4.0-6
-- Rebuilt for Python 3.11
-
-* Fri Mar 04 2022 Karolina Surma <ksurma@redhat.com> - 4.0-5
-- Don't BR setuptools, use Python's bundled distutils
-- Fix build with cmake 3.23.0rc2
-- Related: rhbz#2059201, rhbz#2059188, rhbz#2057738
-
-* Fri Jan 28 2022 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 4.0-4
-- NFS-Ganesha 4.1, w/ modern linker (mold), this time for real
-
-* Wed Jan 26 2022 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 4.0-3
-- NFS-Ganesha 4.0, w/ modern linker (mold)
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Dec 21 2021 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 4.0-1
-- NFS-Ganesha 4.0 GA
-
-* Fri Dec 17 2021 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 4.0-0.4rc6
-- NFS-Ganesha 4.0 RC6
-
-* Wed Nov 17 2021 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 4.0-0.3rc4
-- NFS-Ganesha 4.0 RC4, w/ utils and gui_utils (python)
-
-* Wed Nov 17 2021 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 4.0-0.2rc4
-- NFS-Ganesha 4.0 RC4
-
-* Mon Nov 8 2021 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 4.0-0.1rc3
-- NFS-Ganesha 4.0 RC3

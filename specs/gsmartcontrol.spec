@@ -1,5 +1,5 @@
 Name:       gsmartcontrol
-Version:    2.0.0
+Version:    2.0.1
 Release:    1%{?dist}
 Summary:    Graphical user interface for smartctl
 
@@ -55,6 +55,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/metainfo/gsmartcontrol.appdata.xml
 
 %changelog
+* Thu Jan 09 2025 Vasiliy Glazov <vascom2@gmail.com> - 2.0.1-1
+- Update to 2.0.1
+
 * Mon Nov 18 2024 Vasiliy Glazov <vascom2@gmail.com> - 2.0.0-1
 - Update to 2.0.0
 

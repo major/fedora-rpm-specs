@@ -8,14 +8,14 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/ocurrent/ocaml-version
 
 Name:           ocaml-version
-Version:        3.6.9
+Version:        3.7.3
 Release:        %autorelease
 Summary:        Manipulate, parse and generate OCaml compiler version strings
 
 License:        ISC
 URL:            https://ocurrent.github.io/ocaml-version/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/releases/download/v%{version}/%{name}-%{version}.tbz
+Source:         %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  ocaml >= 4.07.0
 BuildRequires:  ocaml-alcotest-devel

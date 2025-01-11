@@ -3,8 +3,7 @@ Version:        14.91.1
 Release:        28%{?dist}
 Summary:        Lovelock desktop backgrounds
 
-# Automatically converted from old format: CC-BY-SA - review is highly recommended.
-License:        LicenseRef-Callaway-CC-BY-SA
+License:        CC-BY-SA-4.0
 URL:            https://fedoraproject.org/wiki/F14_Artwork
 Source0:        https://fedorahosted.org/released/design-team/%{name}-%{version}.tar.xz
 
@@ -23,8 +22,7 @@ Gnome and KDE themes.
 
 %package        single
 Summary:        Single screen images for Lovelock Backgrounds
-# Automatically converted from old format: CC-BY-SA - review is highly recommended.
-License:        LicenseRef-Callaway-CC-BY-SA
+License:        CC-BY-SA-4.0
 
 %description    single
 This package contains single screen images for Lovelock Backgrounds
@@ -32,7 +30,7 @@ This package contains single screen images for Lovelock Backgrounds
 #%package        animated
 #Summary:        Images for Time of Day animation for Lovelock Backgrounds
 #Group:          Applications/Multimedia
-#License:        CC-BY-SA
+#License:        CC-BY-SA-4.0
 #Requires:       %{name}-single = %{version}-%{release}
 
 #%description    animated
@@ -42,7 +40,7 @@ This package contains single screen images for Lovelock Backgrounds
 #%package        animated-gnome
 #Summary:        Time of Day animation for Lovelock Backgrounds for Gnome
 #Group:          Applications/Multimedia
-#License:        CC-BY-SA
+#License:        CC-BY-SA-4.0
 #Requires:       %{name}-animated = %{version}-%{release}
 
 #%description    animated-gnome
@@ -77,8 +75,7 @@ This package contains XFCE4 desktop wallpapers for the Lovelock theme.
 
 %package        stripes-single
 Summary:        Single screen images for Lovelock Stripes Backgrounds
-# Automatically converted from old format: CC-BY-SA - review is highly recommended.
-License:        LicenseRef-Callaway-CC-BY-SA
+License:        CC-BY-SA-4.0
 
 %description    stripes-single
 This package contains single screen images for Lovelock Stripes Backgrounds
@@ -86,7 +83,6 @@ This package contains single screen images for Lovelock Stripes Backgrounds
 #%package        stripes-animated
 #Summary:        Images for Time of Day animation for Lovelock Stripes Backgrounds
 #Group:          Applications/Multimedia
-#License:        CC-BY-SA
 #Requires:       %{name}-stripes-single = %{version}-%{release}
 
 #%description    stripes-animated
@@ -96,7 +92,6 @@ This package contains single screen images for Lovelock Stripes Backgrounds
 #%package        stripes-animated-gnome
 #Summary:        Time of Day animation for Lovelock Stripes Backgrounds for Gnome
 #Group:          Applications/Multimedia
-#License:        CC-BY-SA
 #Requires:       %{name}-stripes-animated = %{version}-%{release}
 
 #%description    stripes-animated-gnome
@@ -135,7 +130,7 @@ theme.
 #%package        extras-single
 #Summary:        Single screen images for Lovelock Extras Backrounds
 #Group:          Applications/Multimedia
-#License:        CC-BY and CC-BY-SA
+#License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 
 #%description    extras-single
 #This package contains single screen images for Lovelock supplemental wallpapers

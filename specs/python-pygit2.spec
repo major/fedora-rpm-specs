@@ -15,6 +15,9 @@ Patch:          python-pygit2-network-tests.patch
 # Patch from Debian.
 # Revert const correctness change from libgit2 1.8.1
 Patch:          0006-Revert-const-correctness-change-from-libgit2-1.8.1.patch
+# Patch from upstream.
+# Properly implement the iterator protocol.
+Patch:          0001-Fix-tests-with-Python-3.13.patch
 
 BuildRequires:  make
 BuildRequires:  gcc

@@ -381,7 +381,7 @@ Obsoletes: sgabios-bin <= 1:0.20180715git-10.fc38
 %endif
 
 # To prevent rpmdev-bumpspec breakage
-%global baserelease 2
+%global baserelease 3
 
 Summary: QEMU is a FAST! processor emulator
 Name: qemu
@@ -436,6 +436,8 @@ Source36: README.tests
 Patch: 0001-Disable-9p-local-tests-that-fail-on-copr-aarch64.patch
 # Fix compat with new glibc (not upstream yet)
 Patch: schedattr.patch
+# https://lists.nongnu.org/archive/html/qemu-devel/2025-01/msg01222.html
+Patch: 0001-crypto-fix-bogus-error-benchmarking-pbkdf-on-fast-ma.patch
 
 BuildRequires: gnupg2
 BuildRequires: meson >= %{meson_version}
@@ -3163,6 +3165,9 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 
 
 %changelog
+* Thu Jan  9 2025 Daniel P. Berrangé <berrange@redhat.com> - 9.2.0-3
+- Fix pbkdf benchmarking on fast machines
+
 * Fri Dec 13 2024 Richard W.M. Jones <rjones@redhat.com> - 2:9.2.0-2
 - Rebuild for libnfs 6 (soname changed from 14 to 16)
 

@@ -3,7 +3,7 @@
 
 %global         srcname     javaproperties
 %global         forgeurl    https://github.com/jwodder/javaproperties
-Version:        0.8.1
+Version:        0.8.2
 %global         tag         v%{version}
 %forgemeta
 

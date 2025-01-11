@@ -3,7 +3,7 @@
 %global release_build 1
 
 # Set new source-code build version for Fedora and, not necessarily, for upstream too
-%global redhat_ver rh2
+%global redhat_ver rh1
 
 ExcludeArch: %{ix86} %{arm}
 
@@ -28,10 +28,11 @@ ExcludeArch: %{ix86} %{arm}
 # on other arches.
 %ifarch x86_64
 %if 0%{?release_build}
-%global build_with_pgo 0
-%global pgo_wayland    0
+%global build_with_pgo 1
+%global pgo_wayland    1
 %else
 %global build_with_pgo 0
+%global pgo_wayland    0
 %endif
 %endif
 
@@ -45,7 +46,11 @@ ExcludeArch: %{ix86} %{arm}
 ####################
 
 # Active/Deactive language files handling
-%global build_langpacks 1
+%bcond_without langpacks
+
+%if %{with langpacks}
+%bcond_without langpacks_subpkg
+%endif
 
 # Define installation directories
 %global icecatappdir %{_libdir}/%{name}
@@ -105,7 +110,7 @@ ExcludeArch: %{ix86} %{arm}
 
 Name:    icecat
 Epoch:   2
-Version: 115.18.0
+Version: 115.19.0
 Release: %autorelease -e %{redhat_ver}
 Summary: GNU version of Firefox browser
 
@@ -122,7 +127,7 @@ Source2: %{name}.png
 Source3: %{name}-mozconfig-common
 
 # Language files downloaded by source7 script
-%if 0%{?build_langpacks}
+%if %{with langpacks}
 Source4:  %{name}-%{version}-langpacks.tar.gz
 %endif
 
@@ -135,13 +140,9 @@ Source5: %{name}-COPYING-licensefiles.tar.gz
 Source7: %{name}-lang_download.sh
 
 # Desktop files
-Source9:  %{name}-wayland.desktop
 Source10: %{name}.appdata.xml
-Source12: %{name}-wayland.sh.in
 Source13: %{name}.sh.in
 Source14: %{name}.desktop
-Source15: %{name}-x11.sh.in
-Source16: %{name}-x11.desktop
 
 # cbingen
 Source17: cbindgen-vendor.tar.xz
@@ -311,6 +312,11 @@ Requires: fedora-bookmarks
 Suggests: mozilla-ublock-origin
 Provides: webclient
 
+%if 0%{?fedora} >= 40
+Obsoletes:  icecat-wayland < 2:115.19.0-1
+Obsoletes:  icecat-x11 < 2:115.19.0-1
+%endif
+
 %description
 GNU IceCat is the GNU version of the Firefox ESR browser.
 Extensions included to this version of IceCat:
@@ -336,20 +342,16 @@ Extensions included to this version of IceCat:
    requested. This implies not downloading feeds, updates, blacklists or any
    other similar data needed during startup.
 
-%package x11
-Summary: GNU IceCat X11 launcher
-Requires: %{name}%{?_isa}
-%description x11
-The %{name}-x11 package contains launcher and desktop file
-to run GNU IceCat native on X11.
-
-%package wayland
-Summary: GNU IceCat Wayland launcher
-Requires: %{name}%{?_isa}
-Obsoletes: %{name} < 0:78.6.1-1
-%description wayland
-The icecat-wayland package contains launcher and desktop file
-to run GNU IceCat native on Wayland.
+%if %{with langpacks_subpkg}
+%package langpacks
+Summary: IceCat langpacks
+Requires: %{name} = 2:%{version}-%{release}
+%description langpacks
+The icecat-langpacks package contains all the localization
+and translations langpack add-ons.
+%files langpacks -f %{name}.lang
+%dir %{langpackdir}
+%endif
 
 %prep
 %autosetup -N -n %{name}-%{version}
@@ -471,7 +473,7 @@ echo "ac_add_options --disable-tests" >> .mozconfig
 echo "ac_add_options --disable-crashreporter" >> .mozconfig
 
 # Localization
-%if 0%{?build_langpacks}
+%if %{with langpacks}
 echo "ac_add_options --with-l10n-base=$PWD/l10n" >> .mozconfig
 %endif
 
@@ -677,23 +679,10 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE14}
 rm -rf %{buildroot}%{_bindir}/%{name}
 %{__sed} -e 's,/__PREFIX__,%{_prefix},g' %{SOURCE13} > %{buildroot}%{_bindir}/%{name}
 chmod 755 %{buildroot}%{_bindir}/%{name}
-
-%{__sed} -e 's,/__PREFIX__,%{_prefix},g' %{SOURCE15} > %{buildroot}%{_bindir}/%{name}-x11
-chmod 755 %{buildroot}%{_bindir}/%{name}-x11
-desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE16}
-
-%{__sed} -e 's,/__PREFIX__,%{_prefix},g' %{SOURCE12} > %{buildroot}%{_bindir}/%{name}-wayland
-chmod 755 %{buildroot}%{_bindir}/%{name}-wayland
-desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE9}
-
 #
 
-# Install man page
-#mkdir -p %%{buildroot}%%{_mandir}/man1
-#install -p -m 644 %%{name}.1 %%{buildroot}%%{_mandir}/man1/
-
 ##Extract langpacks, make any mods needed, repack the langpack, and install it.
-%if 0%{?build_langpacks}
+%if %{with langpacks}
 echo > %{name}.lang
 mkdir -p %{buildroot}%{langpackdir}
 tar xf %{SOURCE4}
@@ -793,10 +782,10 @@ end
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
-%if 0%{?build_langpacks}
-%files -f %{name}.lang
-%else
+%if %{with langpacks_subpkg}
 %files
+%else
+%files -f %{name}.lang
 %endif
 %doc README.* AUTHORS
 %license LICENSE COPYING-*
@@ -820,17 +809,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{icecatappdir}/plugin-container
 %{icecatappdir}/pingsender
 %{icecatappdir}/gmp-clearkey/
-%if 0%{?build_langpacks}
+%if %{without langpacks_subpkg}
+%if %{with langpacks}
 %dir %{langpackdir}
 %endif
-
-%files x11
-%{_bindir}/%{name}-x11
-%{_datadir}/applications/%{name}-x11.desktop
-
-%files wayland
-%{_bindir}/%{name}-wayland
-%{_datadir}/applications/%{name}-wayland.desktop
+%endif
 
 %changelog
 %autochangelog
