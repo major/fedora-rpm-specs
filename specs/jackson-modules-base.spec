@@ -1,13 +1,13 @@
 %bcond_with     jp_minimal
 
 Name:           jackson-modules-base
-Version:        2.17.2
-Release:        2%{?dist}
+Version:        2.18.2
+Release:        1%{?dist}
 Summary:        Jackson modules: Base
 License:        Apache-2.0
 
 URL:            https://github.com/FasterXML/jackson-modules-base
-Source0:        %{url}/archive/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/%{name}-%{version}-take-2.tar.gz
 Patch1:         0001-Expose-javax.security.auth-from-JDK-internals.patch
 Patch2:         0001-Replace-javax.activation-imports-with-jakarta.activa.patch
 Patch3:         0001-Use-jakarta.activation-namespace-in-jaxb-api.patch
@@ -84,6 +84,10 @@ cp -p mrbean/src/main/resources/META-INF/{LICENSE,NOTICE} .
   </instructions>
 </configuration>"
 
+# Revert jaxb annotation dependency to 2.17 mode
+%pom_remove_dep javax.xml.bind:jaxb-api jaxb
+%pom_add_dep jakarta.xml.bind:jakarta.xml.bind-api jaxb
+
 # This test fails since mockito was upgraded to 2.x
 rm osgi/src/test/java/com/fasterxml/jackson/module/osgi/InjectOsgiServiceTest.java
 
@@ -104,6 +108,14 @@ rm osgi/src/test/java/com/fasterxml/jackson/module/osgi/InjectOsgiServiceTest.ja
 %license LICENSE NOTICE
 
 %changelog
+* Fri Jan 10 2025 Packit <hello@packit.dev> - 2.18.2-1
+- Update to version 2.18.2
+- Resolves: rhbz#2315071
+
+* Fri Nov 01 2024 Packit <hello@packit.dev> - 2.18.1-1
+- Update to version 2.18.1
+- Resolves: rhbz#2315071
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.17.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

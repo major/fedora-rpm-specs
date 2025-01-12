@@ -7,8 +7,8 @@ ExcludeArch: %{ix86}
 %bcond docs 0
 
 Name:           ocaml-sedlex
-Version:        3.2
-Release:        14%{?dist}
+Version:        3.3
+Release:        1%{?dist}
 Summary:        Unicode-friendly lexer generator
 
 License:        MIT
@@ -51,12 +51,12 @@ files for developing applications that use %{name}.
 %prep
 %autosetup -p1 -n sedlex-%{version}
 
-# Upstream's regression test is written for Unicode 14.0.0 through 15.0.0.  Our
+# Upstream's regression test is written for Unicode 15.0.0 through 16.0.0.  Our
 # Unicode files may be from a more recent version of the standard.  The test has
 # a good chance of succeeding anyway, so we cross our fingers and give it a try.
 # If the regression test fails, we'll have to try another approach.
 univer=$(sed -n 's/.*PropList-\([.[:digit:]]*\)\.txt/\1/p' %{_datadir}/unicode/ucd/PropList.txt)
-sed -i "s/15\\.0\\.0/$univer/" examples/regressions.ml \
+sed -i "s/15\\.0\\.0/$univer/" examples/regressions.ml examples/unicode_old.ml \
   src/generator/data/base_url src/syntax/unicode.ml
 
 %build
@@ -85,6 +85,10 @@ sed -i "s/15\\.0\\.0/$univer/" examples/regressions.ml \
 
 
 %changelog
+* Fri Jan 10 2025 Jerry James <loganjerry@gmail.com> - 3.3-1
+- OCaml 5.3.0 rebuild for Fedora 42
+- Version 3.3
+
 * Mon Aug  5 2024 Jerry James <loganjerry@gmail.com> - 3.2-14
 - Rebuild for ocaml-ppxlib 0.33.0
 - Do not build odoc documentation by default

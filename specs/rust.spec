@@ -133,6 +133,9 @@ Patch6:         rustc-1.84.0-unbundle-sqlite.patch
 # https://github.com/rust-lang/rust/pull/134240
 Patch7:         0001-Only-dist-llvm-objcopy-if-llvm-tools-are-enabled.patch
 
+# https://github.com/rust-lang/cc-rs/issues/1354
+Patch8:         0001-Only-translate-profile-flags-for-Clang.patch
+
 ### RHEL-specific patches below ###
 
 # Simple rpm macros for rust-toolset (as opposed to full rust-packaging)
@@ -232,11 +235,9 @@ BuildRequires:  (%{name} >= %{bootstrap_version} with %{name} <= %{version})
 %global local_rust_root %{_prefix}
 %endif
 
-%global toolchain clang
-
 BuildRequires:  make
-BuildRequires:  clang
-BuildRequires:  lld
+BuildRequires:  gcc
+BuildRequires:  gcc-c++
 BuildRequires:  ncurses-devel
 # explicit curl-devel to avoid httpd24-curl (rhbz1540167)
 BuildRequires:  curl-devel
@@ -661,6 +662,7 @@ rm -rf %{wasi_libc_dir}/dlmalloc/
 %patch -P6 -p1
 %endif
 %patch -P7 -p1
+%patch -P8 -p1 -d vendor/cc-1.2.5
 
 %if %with disabled_libssh2
 %patch -P100 -p1
@@ -732,9 +734,6 @@ find -name '*.rs' -type f -perm /111 -exec chmod -v -x '{}' '+'
 %if %defined build_rustflags
 %global build_rustflags %{nil}
 %endif
-
-# This is mostly needed for lld < 19 which defaulted to a short --build-id=fast.
-%global rustflags -Clink-arg=%{?_build_id_flags}%{!?_build_id_flags:-Wl,--build-id=sha1}
 
 # These are similar to __cflags_arch_* in /usr/lib/rpm/redhat/macros
 %global rustc_target_cpus %{lua: do
@@ -816,12 +815,7 @@ end}
 # clang_resource_dir is not defined for compat builds.
 %define profiler /usr/lib/clang/%{llvm_compat_version}/lib/%{_arch}-redhat-linux-gnu/libclang_rt.profile.a
 %else
-%if 0%{?clang_major_version} >= 17
 %define profiler %{clang_resource_dir}/lib/%{_arch}-redhat-linux-gnu/libclang_rt.profile.a
-%else
-# The exact profiler path is version dependent..
-%define profiler %(echo %{_libdir}/clang/??/lib/libclang_rt.profile-*.a)
-%endif
 %endif
 test -r "%{profiler}"
 
@@ -845,7 +839,7 @@ test -r "%{profiler}"
     %{!?with_llvm_static: --enable-llvm-link-shared } } \
   --disable-llvm-static-stdcpp \
   --disable-llvm-bitcode-linker \
-  --disable-lld --set rust.use-lld=true \
+  --disable-lld \
   --disable-rpath \
   %{enable_debuginfo} \
   %{enable_rust_opts} \

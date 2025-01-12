@@ -55,7 +55,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.19.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and BSD - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD
 URL:     http://xen.org/
@@ -931,6 +931,9 @@ fi
 %endif
 
 %changelog
+* Fri Jan 10 2025 Jerry James <loganjerry@gmail.com> - 4.19.1-4
+- OCaml 5.3.0 rebuild for Fedora 42
+
 * Thu Jan 09 2025 Michael Young <m.a.young@durham.ac.uk> - 4.19.1-3
 - work around debugedit bug to fix aarch64 builds
 

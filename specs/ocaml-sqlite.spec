@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/mmottl/sqlite3-ocaml
 
 Name:           ocaml-sqlite
-Version:        5.1.0
-Release:        16%{?dist}
+Version:        5.2.0
+Release:        1%{?dist}
 Summary:        OCaml library for accessing SQLite3 databases
 License:        MIT
 
@@ -61,6 +61,10 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Jan 10 2025 Jerry James <loganjerry@gmail.com> - 5.2.0-1
+- OCaml 5.3.0 rebuild for Fedora 42
+- Version 5.2.0
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

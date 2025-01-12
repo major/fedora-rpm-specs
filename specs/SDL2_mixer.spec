@@ -1,6 +1,6 @@
 Name:           SDL2_mixer
 Version:        2.8.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Simple DirectMedia Layer - Sample Mixer Library
 
 License:        Zlib
@@ -13,11 +13,11 @@ BuildRequires:  flac-devel
 BuildRequires:  chrpath
 BuildRequires:  pkgconfig(libmodplug) >= 0.8.8
 BuildRequires:  fluidsynth-devel
-BuildRequires:  libmikmod-devel
 BuildRequires:  make
 BuildRequires:  mpg123-devel
 BuildRequires:  opusfile-devel
 BuildRequires:  libxmp-devel
+BuildRequires:  wavpack-devel
 
 Provides: bundled(timidity)
 
@@ -72,6 +72,11 @@ find %{buildroot} -name '*.la' -print -delete
 %{_includedir}/SDL2/SDL_mixer.h
 
 %changelog
+* Fri Jan 10 2025 Sérgio Basto <sergio@serjux.com> - 2.8.0-4
+- Remove libmikmod dependency and add support to wavpack, because version 2.6.0
+  removed support for libmikmod as a MOD music backend and version 2.8.0 added
+  support for loading wavpack sound files
+
 * Sun Dec 22 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.8.0-3
 - Enable XM support
 

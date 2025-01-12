@@ -1,17 +1,17 @@
 Name:           ocaml-pcre2
-Version:        7.5.2
+Version:        8.0.2
 Release:        %autorelease
 Summary:        OCaml bindings to the pcre2 library
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 URL:            https://github.com/camlp5/pcre2-ocaml
 VCS:            git:%{url}.git
-Source:         %{url}/releases/download/%{version}/pcre2-%{version}.tbz
+Source:         %{url}/archive/%{version}/pcre2-%{version}.tar.gz
 
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
 
-BuildRequires:  ocaml >= 4.12
+BuildRequires:  ocaml >= 4.08
 BuildRequires:  ocaml-dune >= 2.7
 BuildRequires:  ocaml-dune-configurator-devel
 BuildRequires:  ocaml-ounit-devel
@@ -31,7 +31,7 @@ The %{name}-devel package contains libraries and signature
 files for developing applications that use %{name}.
 
 %prep
-%autosetup -n pcre2-%{version}
+%autosetup -n pcre2-ocaml-%{version}
 
 %build
 %dune_build

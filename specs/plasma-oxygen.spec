@@ -6,7 +6,7 @@
 %endif
 
 Name:    plasma-%{base_name}
-Version: 6.2.5
+Version: 6.2.90
 Release: 1%{?dist}
 Summary: Plasma and Qt widget style and window decorations for Plasma
 
@@ -44,7 +44,7 @@ Requires:       (%{name}-qt5 if qt5-qtbase-gui)
 
 # Qt6
 BuildRequires:  kf6-rpm-macros
-BuildRequires:  cmake(KDecoration2)
+BuildRequires:  cmake(KDecoration3)
 BuildRequires:  cmake(KF6ColorScheme)
 BuildRequires:  cmake(KF6Completion)
 BuildRequires:  cmake(KF6Config)
@@ -145,8 +145,8 @@ popd
 %{_kf6_datadir}/plasma/desktoptheme/oxygen/
 %{_kf6_metainfodir}/org.kde.oxygen.appdata.xml
 %{_kf6_qtplugindir}/kstyle_config/kstyle_oxygen_config.so
-%{_kf6_qtplugindir}/org.kde.kdecoration2.kcm/kcm_oxygendecoration.so
-%{_kf6_qtplugindir}/org.kde.kdecoration2/org.kde.oxygen.so
+%{_kf6_qtplugindir}/org.kde.kdecoration3.kcm/kcm_oxygendecoration.so
+%{_kf6_qtplugindir}/org.kde.kdecoration3/org.kde.oxygen.so
 
 %if %{with kf5}
 %files qt5
@@ -172,6 +172,9 @@ popd
 
 
 %changelog
+* Thu Jan 09 2025 Steve Cossette <farchord@gmail.com> - 6.2.90-1
+- Beta 6.2.90
+
 * Tue Dec 31 2024 Steve Cossette <farchord@gmail.com> - 6.2.5-1
 - 6.2.5
 

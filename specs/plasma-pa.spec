@@ -1,5 +1,5 @@
 Name:    plasma-pa
-Version: 6.2.5
+Version: 6.2.90
 Release: 1%{?dist}
 Summary: Plasma applet for audio volume management using PulseAudio
 
@@ -70,9 +70,12 @@ rm -fv %{buildroot}%{_kf6_libdir}/libplasma-volume.so
 %{_kf6_metainfodir}/org.kde.plasma.volume.appdata.xml
 %{_kf6_libdir}/libplasma-volume.so.6
 %{_kf6_libdir}/libplasma-volume.so.%{version}
-
+%{_kf6_datadir}/qlogging-categories6/plasmapa.categories
 
 %changelog
+* Thu Jan 09 2025 Steve Cossette <farchord@gmail.com> - 6.2.90-1
+- Beta 6.2.90
+
 * Tue Dec 31 2024 Steve Cossette <farchord@gmail.com> - 6.2.5-1
 - 6.2.5
 

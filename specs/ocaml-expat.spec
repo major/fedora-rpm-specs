@@ -3,11 +3,12 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-expat
 Version:        1.3.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        OCaml wrapper for the Expat XML parsing library
 License:        MIT
 
 URL:            https://github.com/whitequark/ocaml-expat
+VCS:            git:%{url}.git
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  make
@@ -77,6 +78,9 @@ mkdir -p $OCAMLFIND_DESTDIR/stublibs
 
 
 %changelog
+* Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 1.3.0-12
+- OCaml 5.3.0 rebuild for Fedora 42
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

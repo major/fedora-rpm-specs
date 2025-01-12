@@ -3,8 +3,7 @@ Name:       hw-probe
 Version:    1.6.5
 Release:    6%{?dist}
 BuildArch:  noarch
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:    LicenseRef-Callaway-LGPLv2+
+License:    LGPL-2.1-or-later OR BSD-4-Clause
 URL:        https://github.com/linuxhw/hw-probe
 Source0:    %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Requires:   perl-libwww-perl

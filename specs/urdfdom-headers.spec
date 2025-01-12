@@ -1,22 +1,21 @@
 %global realname urdfdom_headers
 
 Name:		urdfdom-headers
-Version:	1.1.1
-Release:	3%{?dist}
+Version:	1.1.2
+Release:	1%{?dist}
 Summary:	The URDF (U-Robot Description Format) headers
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:	LicenseRef-Callaway-BSD
+License:	BSD-3-Clause
 URL:		http://ros.org/wiki/urdf
 Source0:	https://github.com/ros/%{realname}/archive/%{version}/%{realname}-%{version}.tar.gz
 BuildArch:	noarch
 
 # Install configs to arch independent paths
 # https://github.com/ros/urdfdom_headers/issues/27
-Patch0:         urdfdom-headers-1.1.1-fedora.patch
+Patch0:		urdfdom-headers-1.1.2-fedora.patch
 
-BuildRequires:  gcc
-BuildRequires:  gcc-c++
+BuildRequires:	gcc
+BuildRequires:	gcc-c++
 BuildRequires:	cmake
 
 %description
@@ -53,6 +52,10 @@ http://ros.org/wiki/urdf
 %{_datadir}/%{realname}
 
 %changelog
+* Fri Jan 10 2025 Scott K Logan <logans@cottsay.net> - 1.1.2-1
+- Update to release 1.1.2
+- Review SPDX license identifier
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1.1-3
 - convert license to SPDX
 

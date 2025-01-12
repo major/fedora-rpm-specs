@@ -1,30 +1,26 @@
+%global build_type_safety_c 0
+
 Summary: Realtime software looping sampler
 Name: sooperlooper
-Version: 1.7.3
-Release: 27%{?dist}
+Version: 1.7.9
+Release: 1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
-URL: http://essej.net/sooperlooper/
-Source0: http://essej.net/sooperlooper/sooperlooper-%{version}.tar.gz
+URL: https://sonosaurus.com/sooperlooper/
+Source0: https://github.com/essej/sooperlooper/archive/v1.7.9/%{name}-%{version}.tar.gz
 Source1: sooperlooper.png
 Source2: sooperlooper.desktop
 Source3: sooperlooper.appdata.xml
-Patch0:  sooperlooper-sigc++-inc.patch
-# Upstream fix for std::bind vs sigc::bind conflict:
-# https://github.com/essej/sooperlooper/commit/0cb1e65166
-Patch1: sooperlooper-sigc_bind.diff
-# Patch for wxWidgets 3.0 support from Debian:
-# https://salsa.debian.org/multimedia-team/sooperlooper/blob/master/debian/patches/04-build_with_wx_30.patch
-Patch2: sooperlooper-wxwidgets3.0.patch
-Patch3: sooperlooper-wxwidgets3.2.patch
 Requires: hicolor-icon-theme
 
 BuildRequires: make
+BuildRequires: gcc-c++
+BuildRequires: libtool
 BuildRequires: gettext-devel ncurses-devel wxGTK-devel rubberband-devel
 BuildRequires: desktop-file-utils jack-audio-connection-kit-devel
 BuildRequires: libsigc++20-devel libsndfile-devel liblo-devel fftw-devel
 BuildRequires: libsamplerate-devel alsa-lib-devel libxml2-devel
-BuildRequires: libappstream-glib gcc-c++
+BuildRequires: libappstream-glib
 
 %description
 SooperLooper is a realtime software looping sampler in the spirit of
@@ -35,17 +31,14 @@ live looping performance.
 
 %prep
 %setup -q
-%patch -P0 -p1
-%patch -P1 -p1
-%patch -P2 -p1
-%patch -P3 -p1
+
+
+%build
+./autogen.sh
 # kill the stubborn overriding of CXXFLAGS
 sed -i 's|OPT_FLAGS="$OPT_FLAGS -pipe"|OPT_FLAGS=""|g' configure
 sed -i 's|OPT_FLAGS="$OPT_FLAGS -pipe"|OPT_FLAGS="%{optflags}"|g' \
   libs/pbd/configure libs/midi++/configure
-
-
-%build
 export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS"
 %configure
 make %{?_smp_mflags}
@@ -65,7 +58,7 @@ appstream-util validate-relax --nonet \
   %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
 
 %files
-%doc README OSC
+%doc README.md OSC
 %license COPYING
 %{_bindir}/*
 %{_datadir}/sooperlooper
@@ -75,6 +68,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Fri Jan 10 2025 Sérgio Basto <sergio@serjux.com> - 1.7.9-1
+- Update sooperlooper to 1.7.9
+
 * Thu Jan 09 2025 Michel Lind <salimma@fedoraproject.org> - 1.7.3-27
 - Rebuilt for rubberband 4
 

@@ -8,24 +8,18 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/gildor478/ocaml-fileutils
 
 Name:           ocaml-fileutils
-Version:        0.6.4
-Release:        11%{?dist}
+Version:        0.6.6
+Release:        1%{?dist}
 Summary:        OCaml library for common file and filename operations
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 URL:            https://gildor478.github.io/ocaml-fileutils/
 VCS:            git:%{giturl}.git
 Source0:        %{giturl}/releases/download/v%{version}/fileutils-%{version}.tbz
-# Fedora does not need the stdlib-shims or seq forward compatibility packages
-Patch0:         ocaml-fileutils-0.6.4-forward-compat.patch
-# Given two distinct files with identical contents, the cmp function evaluates
-# to "Some x", where x is the size of each file, instead of None.  This breaks
-# the ocaml-gettext tests, which expect None in that case.
-Patch1:         ocaml-fileutils-0.6.4-cmp.patch
 
-BuildRequires:  ocaml >= 4.03.0
-BuildRequires:  ocaml-dune >= 1.11.0
-%if 0%{?fedora} || 0%{?rhel} <= 6
+BuildRequires:  ocaml >= 4.14
+BuildRequires:  ocaml-dune >= 2.9
+%if 0%{?fedora}
 BuildRequires:  ocaml-ounit-devel >= 2.0.0
 %endif
 
@@ -80,6 +74,11 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 0.6.6-1
+- OCaml 5.3.0 rebuild for Fedora 42
+- Version 0.6.6
+- All patches have been upstreamed
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.4-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

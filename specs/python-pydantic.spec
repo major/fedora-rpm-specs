@@ -85,7 +85,7 @@ tomcli-set pyproject.toml append 'tool.pytest.ini_options.filterwarnings' \
 %check
 %pyproject_check_import -e pydantic.mypy -e pydantic.v1.mypy
 %if %{with tests}
-%if %{defined fc40}
+%if %{defined fc40} || %{defined el10}
 # An error message has different text than the test expects, but the expected
 # error occurs and the message is semantically equivalent, so we can safely
 # skip this test.

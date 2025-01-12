@@ -1,16 +1,16 @@
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch: %{ix86}
 
-%global ocamlver 502
+%global ocamlver 503
 %global giturl  https://github.com/ocaml/merlin
 
 Name:           ocaml-merlin
-Version:        5.2.1
+Version:        5.4
 Release:        %autorelease
 Summary:        Context sensitive completion for OCaml
 
 # The entire source is MIT except:
-# QPL:
+# QPL-1.0:
 # - src/ocaml/driver/pparse.ml{,i}
 # - src/ocaml/preprocess/lexer_ident.mll
 # - src/ocaml/preprocess/lexer_raw.ml{i,l}
@@ -33,8 +33,8 @@ BuildRequires:  emacs-auto-complete
 BuildRequires:  emacs-company-mode
 BuildRequires:  emacs-iedit
 BuildRequires:  jq
-BuildRequires:  ocaml >= 5.2
-BuildRequires:  ocaml-alcotest-devel
+BuildRequires:  ocaml >= 5.3
+BuildRequires:  ocaml-alcotest-devel >= 1.3.0
 BuildRequires:  ocaml-caml-mode
 BuildRequires:  ocaml-csexp-devel >= 1.5.1
 BuildRequires:  ocaml-dune >= 3.0.0

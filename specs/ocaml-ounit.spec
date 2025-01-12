@@ -7,11 +7,12 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ounit
 Version:        2.2.7
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Unit test framework for OCaml
 
 License:        MIT
 URL:            https://github.com/gildor478/ounit
+VCS:            git:%{url}.git
 Source0:        %{url}/releases/download/v%{version}/ounit-%{version}.tbz
 
 # Remove seq and stdlib-shims downstream.  Not needed in Fedora.
@@ -106,6 +107,9 @@ files for developing applications that use %{name}-lwt.
 
 
 %changelog
+* Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 2.2.7-13
+- OCaml 5.3.0 rebuild for Fedora 42
+
 * Tue Oct 08 2024 Richard W.M. Jones <rjones@redhat.com> - 2.2.7-12
 - Rebuild for ocaml-lwt 5.8.0
 

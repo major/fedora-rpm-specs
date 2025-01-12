@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/realworldocaml/mdx
 
 Name:           ocaml-mdx
-Version:        2.4.1
-Release:        7%{?dist}
+Version:        2.5.0
+Release:        1%{?dist}
 Summary:        Executable code blocks inside markdown files
 
 License:        ISC
@@ -85,6 +85,10 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 2.5.0-1
+- OCaml 5.3.0 rebuild for Fedora 42
+- Version 2.5.0
+
 * Tue Oct 08 2024 Richard W.M. Jones <rjones@redhat.com> - 2.4.1-7
 - Rebuild for ocaml-lwt 5.8.0
 

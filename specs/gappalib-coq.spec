@@ -10,13 +10,13 @@ ExclusiveArch: %{ocaml_native_compiler}
 # install the package and run "remake check" manually before committing.
 
 %global gappadir %{ocamldir}/coq/user-contrib/Gappa
-%global coqver  8.18.0
+%global coqver  8.20.0
 %global commit  32cf6128ef2c57c3daee75945b46aa5ae2225b80
 %global giturl  https://gitlab.inria.fr/gappa/coq
 
 Name:           gappalib-coq
 Version:        1.5.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Coq support library for gappa
 
 License:        LGPL-3.0-or-later
@@ -99,6 +99,9 @@ remake check
 %{gappadir}/*.v
 
 %changelog
+* Fri Jan 10 2025 Jerry James <loganjerry@gmail.com> - 1.5.5-6
+- OCaml 5.3.0 rebuild for Fedora 42
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

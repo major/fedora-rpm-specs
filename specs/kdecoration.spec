@@ -1,10 +1,9 @@
 Name:    kdecoration
 Summary: A plugin-based library to create window decorations
-Version: 6.2.5
+Version: 6.2.90
 Release: 1%{?dist}
 
-# Automatically converted from old format: LGPLv2 - review is highly recommended.
-License: LicenseRef-Callaway-LGPLv2
+License: LGPL-3.0-only AND LGPL-2.1-only AND CC0-1.0
 URL:     https://invent.kde.org/plasma/kdecoration
 
 Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
@@ -44,19 +43,21 @@ mkdir -p %{buildroot}%{_kf6_qtplugindir}/org.kde.kdecoration2/
 
 %files
 %license LICENSES/*.txt
-%{_kf6_libdir}/libkdecorations2.so.*
-%{_kf6_libdir}/libkdecorations2private.so.*
+%{_kf6_libdir}/libkdecorations3.so.*
+%{_kf6_libdir}/libkdecorations3private.so.*
 %{_datadir}/locale/*/LC_MESSAGES/kdecoration.mo
-%dir %{_kf6_qtplugindir}/org.kde.kdecoration2/
 
 %files devel
-%{_kf6_libdir}/libkdecorations2.so
-%{_kf6_libdir}/libkdecorations2private.so
-%{_kf6_libdir}/cmake/KDecoration2/
-%{_kf6_includedir}/kdecoration2_version.h
-%{_includedir}/KDecoration2
+%{_kf6_libdir}/libkdecorations3.so
+%{_kf6_libdir}/libkdecorations3private.so
+%{_kf6_libdir}/cmake/KDecoration3/
+%{_kf6_includedir}/kdecoration3_version.h
+%{_includedir}/KDecoration3
 
 %changelog
+* Thu Jan 09 2025 Steve Cossette <farchord@gmail.com> - 6.2.90-1
+- Beta 6.2.90
+
 * Tue Dec 31 2024 Steve Cossette <farchord@gmail.com> - 6.2.5-1
 - 6.2.5
 

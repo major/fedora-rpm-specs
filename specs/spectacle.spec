@@ -1,7 +1,8 @@
 Name:    spectacle
 Summary: Screenshot capture utility
-Version: 24.12.1
-Release: 1%{?dist}
+Epoch:   1
+Version: 6.2.90
+Release: 2%{?dist}
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -13,7 +14,7 @@ URL:     https://www.kde.org/applications/graphics/spectacle/
 %else
 %global stable stable
 %endif
-Source0: https://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 ## upstream patches
 
@@ -69,6 +70,9 @@ BuildRequires: pkgconfig(xcb-xfixes)
 # for systemd-related macros
 BuildRequires:  systemd-devel
 
+# Animated tray icon: https://pagure.io/fedora-kde/SIG/issue/601
+Recommends:     qt6-qtimageformats%{?_isa}
+
 # f26+ upgrade path
 %if 0%{?fedora} > 25
 Obsoletes: ksnapshot <= 15.08.3
@@ -119,6 +123,12 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.spectacle
 
 
 %changelog
+* Fri Jan 10 2025 Timothée Ravier <tim@siosm.fr> - 6.2.90-2
+- Add qt6-qtimageformats recommends for animated tray icon
+
+* Thu Jan 09 2025 Steve Cossette <farchord@gmail.com> - 6.2.90-1
+- Beta 6.2.90
+
 * Thu Jan 09 2025 Steve Cossette <farchord@gmail.com> - 24.12.1-1
 - 24.12.1
 

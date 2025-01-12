@@ -26,13 +26,17 @@
 %endif
 
 Name:           python-hypothesis
-Version:        6.104.2
+Version:        6.123.0
 Release:        %autorelease
 Summary:        Library for property based testing
 
 License:        MPL-2.0
 URL:            https://github.com/HypothesisWorks/hypothesis
-Source0:        %{url}/archive/hypothesis-python-%{version}/hypothesis-%{version}.tar.gz
+Source:         %{url}/archive/hypothesis-python-%{version}/hypothesis-%{version}.tar.gz
+# Patch to use the version of attrs that works with Python 3.14
+# see https://github.com/python-attrs/attrs/pull/1329
+#     https://github.com/python-attrs/attrs/commit/7373d88f9bef8a2ff70972f81e8d8b9dfb7c5653
+Patch:          hypothesis-attrs-py314.diff
 
 BuildArch:      noarch
 
@@ -82,7 +86,11 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n hypothesis-hypothesis-python-%{version}/hypothesis-python -p2
+%autosetup -n hypothesis-hypothesis-python-%{version}/hypothesis-python -N
+# make it possible to patch files outside hypothesis-python
+pushd ..
+%autopatch -p1
+popd
 # disable Sphinx extensions that require Internet access
 sed -i -e '/sphinx.ext.intersphinx/d' docs/conf.py
 # disable Sphinx non-available extensions

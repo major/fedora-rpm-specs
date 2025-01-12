@@ -1,5 +1,5 @@
 Name:    plasma-sdk
-Version: 6.2.5
+Version: 6.2.90
 Release: 1%{?dist}
 Summary: Development tools for Plasma 6
 
@@ -47,6 +47,7 @@ BuildRequires:  libappstream-glib
 # lookandfeelexplorer deps
 BuildRequires:  cmake(KF6Kirigami2)
 Requires:       kf6-filesystem
+Requires:       hicolor-icon-theme
 
 # Little lie: this package does not provide the actual plasmate tool yet (but
 # eventually it will), but it still has some tools that were part of the KDE4
@@ -104,8 +105,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.plasmoidviewe
 %{_mandir}/man1/plasmaengineexplorer.1*
 %{_mandir}/man1/plasmoidviewer.1*
 %{_mandir}/man1/kqml.1.gz
+%{_datadir}/icons/hicolor/scalable/apps/org.kde.iconexplorer.svg
 
 %changelog
+* Thu Jan 09 2025 Steve Cossette <farchord@gmail.com> - 6.2.90-1
+- Beta 6.2.90
+
 * Tue Dec 31 2024 Steve Cossette <farchord@gmail.com> - 6.2.5-1
 - 6.2.5
 

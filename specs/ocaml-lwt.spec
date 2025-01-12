@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/ocsigen/lwt
 
 Name:           ocaml-lwt
-Version:        5.8.0
+Version:        5.9.0
 Release:        1%{?dist}
 Summary:        OCaml lightweight thread library
 
@@ -17,9 +17,11 @@ License:        MIT AND BSD-2-Clause
 URL:            https://ocsigen.org/lwt
 VCS:            git:%{giturl}.git
 Source0:        %{giturl}/archive/%{version}/lwt-%{version}.tar.gz
+# Expose a dependency on the math library so rpm can see it
+Patch:          %{name}-mathlib.patch
 
 BuildRequires:  ocaml >= 4.08
-BuildRequires:  ocaml-dune >= 1.8.0
+BuildRequires:  ocaml-dune >= 2.7
 BuildRequires:  ocaml-dune-configurator-devel
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-cppo >= 1.1.0
@@ -92,6 +94,23 @@ Requires:       ocaml-ppxlib-devel%{?_isa}
 The %{name}-ppx-devel package contains libraries and signature files for
 developing applications that use %{name}-ppx.
 
+%package        retry
+Summary:        Utilities for retrying Lwt computations
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description    retry
+Utilities for retrying Lwt computations.
+
+%package        retry-devel
+Summary:        Development files for ocaml-lwt-retry
+
+Requires:       %{name}-retry%{?_isa} = %{version}-%{release}
+Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
+
+%description    retry-devel
+The %{name}-retry-devel package contains libraries and signature files for
+developing applications that use %{name}-retry.
+
 %prep
 %autosetup -n lwt-%{version} -p1
 
@@ -143,8 +162,19 @@ rm -rf %{buildroot}%{ocamldir}/lwt_ppx_let
 %files ppx-devel -f .ofiles-lwt_ppx-devel
 %doc CHANGES README.md
 
+%files retry -f .ofiles-lwt_retry
+%doc CHANGES README.md
+
+%files retry-devel -f .ofiles-lwt_retry-devel
+%doc CHANGES README.md
+
 
 %changelog
+* Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 5.9.0-1
+- OCaml 5.3.0 rebuild for Fedora 42
+- New upstream version 5.9.0 (RHBZ#2326159)
+- New retry and retry-devel subpackages
+
 * Tue Oct 08 2024 Richard W.M. Jones <rjones@redhat.com> - 5.8.0-1
 - New upstream version 5.8.0 (RHBZ#2229326)
 - Remove GCC patch, merged upstream.

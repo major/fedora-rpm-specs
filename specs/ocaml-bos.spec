@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-bos
 Version:        0.2.1
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Basic OS interaction for OCaml
 
 License:        ISC
@@ -29,7 +29,7 @@ BuildRequires:  ocaml-rresult-devel >= 0.7.0
 BuildRequires:  ocaml-topkg-devel >= 1.0.3
 
 # Do not require ocaml-compiler-libs at runtime
-%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Warnings
+%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Format_doc -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Oprint -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Unit_info -i Warnings
 
 %description
 Bos provides support for basic and robust interaction with the operating
@@ -73,6 +73,9 @@ ocaml pkg/pkg.ml test
 %endif
 
 %changelog
+* Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 0.2.1-24
+- OCaml 5.3.0 rebuild for Fedora 42
+
 * Tue Oct 08 2024 Richard W.M. Jones <rjones@redhat.com> - 0.2.1-23
 - Rebuild for ocaml-lwt 5.8.0
 

@@ -17,7 +17,7 @@
 
 Name:           mingw-qt6-%{qt_module}
 Version:        6.8.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Qt6 for Windows - QtTranslations component
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -89,25 +89,26 @@ Fedora Windows cross-compiler.
 %install
 %mingw_ninja_install
 
-# This package contains translations for multiple Qt components hence
-# the --all-name argument must be used when searching for translations
-%mingw_find_lang qt6 --with-qt --all-name
-
 
 # Win32
-%files -n mingw32-qt6-%{qt_module} -f mingw32-qt6.lang
+%files -n mingw32-qt6-%{qt_module}
 %license LICENSES/*GPL*
 %dir %{mingw32_datadir}/qt6/translations/
 %{mingw32_datadir}/qt6/translations/catalogs.json
+%{mingw32_datadir}/qt6/translations/*.qm
 
 # Win64
-%files -n mingw64-qt6-%{qt_module} -f mingw64-qt6.lang
+%files -n mingw64-qt6-%{qt_module}
 %license LICENSES/*GPL*
 %dir %{mingw64_datadir}/qt6/translations/
 %{mingw64_datadir}/qt6/translations/catalogs.json
+%{mingw64_datadir}/qt6/translations/*.qm
 
 
 %changelog
+* Fri Jan 10 2025 Sandro Mani <manisandro@gmail.com> - 6.8.1-2
+- Explicitly mark *.qm as %%files
+
 * Sat Dec 07 2024 Sandro Mani <manisandro@gmail.com> - 6.8.1-1
 - Update to 6.8.1
 

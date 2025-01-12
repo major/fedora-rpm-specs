@@ -1,6 +1,6 @@
 Name:    plasma5support
 Summary: Support components for porting from KF5/Qt5 to KF6/Qt6
-Version: 6.2.5
+Version: 6.2.90
 Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -27,14 +27,24 @@ BuildRequires:  cmake(KF6KIO)
 BuildRequires:  cmake(KF6Notifications)
 BuildRequires:  cmake(KF6Service)
 BuildRequires:  cmake(KF6Solid)
+BuildRequires:  cmake(KF6IdleTime)
+BuildRequires:  cmake(KF6NetworkManagerQt)
+BuildRequires:  cmake(PlasmaActivities)
 BuildRequires:  cmake(KSysGuard)
 BuildRequires:  cmake(Plasma)
 BuildRequires:  pkgconfig(xkbcommon)
+BuildRequires:  pkgconfig(xfixes)
+BuildRequires:  pkgconfig(libgps)
 Requires:  kf6-filesystem
 
 # Renamed from kf6-plasma5support
 Obsoletes:      kf6-plasma5support < 1:%{version}-%{release}
 Provides:       kf6-plasma5support = 1:%{version}-%{release}
+# Geolocation libs got split off from plasma-workspace
+Obsoletes: plasma-workspace-geolocation < 6.2.90-1
+Provides:  plasma-workspace-geolocation = %{version}-%{release}
+Obsoletes: plasma-workspace-geolocation-libs < 6.2.90-1
+Provides:  plasma-workspace-geolocation-libs = %{version}-%{release}
 
 %description
 %{summary}.
@@ -45,6 +55,8 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       qt6-qtbase-devel
 Obsoletes:      kf6-plasma5support-devel < 1:%{version}-%{release}
 Provides:       kf6-plasma5support-devel = 1:%{version}-%{release}
+# Geolocation devel components were part of plasma-workspace-devel
+Conflicts: plasma-workspace-devel < 6.2.90-1
 %description    devel
 %{summary}.
 
@@ -74,21 +86,25 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_datadir}/qlogging-categories6/plasma5support.renamecategories
 %{_kf6_libdir}/libPlasma5Support.so.6
 %{_kf6_libdir}/libPlasma5Support.so.%{version}
+%{_kf6_qtplugindir}/plasma5support/
+%{_libdir}/libplasma-geolocation-interface.so.6
+%{_libdir}/libplasma-geolocation-interface.so.%{version}
 
 %files devel
 %{_includedir}/Plasma5Support/
 %{_kf6_libdir}/cmake/Plasma5Support/
 %{_qt6_docdir}/*.tags
 %{_kf6_libdir}/libPlasma5Support.so
-%{_kf6_qtplugindir}/plasma5support/dataengine/plasma_engine_devicenotifications.so
-%{_kf6_qtplugindir}/plasma5support/dataengine/plasma_engine_keystate.so
-%{_kf6_qtplugindir}/plasma5support/dataengine/plasma_engine_hotplug.so
-%{_kf6_qtplugindir}/plasma5support/dataengine/plasma_engine_soliddevice.so
+%{_libdir}/libplasma-geolocation-interface.so
+%{_includedir}/plasma/geolocation/
 
 %files doc
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Thu Jan 09 2025 Steve Cossette <farchord@gmail.com> - 6.2.90-1
+- Beta 6.2.90
+
 * Tue Dec 31 2024 Steve Cossette <farchord@gmail.com> - 6.2.5-1
 - 6.2.5
 

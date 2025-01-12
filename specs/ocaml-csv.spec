@@ -3,12 +3,13 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-csv
 Version:        2.4
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        OCaml library for reading and writing CSV files
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 
-URL:            https://github.com/Chris00/ocaml-csv/
-Source0:        https://github.com/Chris00/ocaml-csv/archive/%{version}/%{name}-%{version}.tar.gz
+URL:            https://github.com/Chris00/ocaml-csv
+VCS:            git:%{url}.git
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # Remove references to a bytes library for OCaml 5.0 support
 Patch0:         %{name}-bytes.patch
 
@@ -91,6 +92,9 @@ rm -r %{buildroot}%{ocamldir}/csvtool
 
 
 %changelog
+* Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 2.4-24
+- OCaml 5.3.0 rebuild for Fedora 42
+
 * Tue Oct 08 2024 Richard W.M. Jones <rjones@redhat.com> - 2.4-23
 - Rebuild for ocaml-lwt 5.8.0
 

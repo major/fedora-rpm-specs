@@ -1,5 +1,5 @@
 Name:           jackson-annotations
-Version:        2.18.0
+Version:        2.18.2
 Release:        1%{?dist}
 Summary:        Core annotations for Jackson data processor
 License:        Apache-2.0
@@ -56,6 +56,10 @@ sed -i 's/\r//' LICENSE
 %license LICENSE
 
 %changelog
+* Thu Nov 28 2024 Packit <hello@packit.dev> - 2.18.2-1
+- Update to version 2.18.2
+- Resolves: rhbz#2322287
+
 * Fri Sep 27 2024 Packit <hello@packit.dev> - 2.18.0-1
 - Update to version 2.18.0
 - Resolves: rhbz#2315057

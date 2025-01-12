@@ -1,5 +1,5 @@
-%global commit 5c26eb4413bd446a521023f55d543c44c4b68220
-%global date 20241122
+%global commit 2dd813432d5c832704077c4555f3d0e459e438c9
+%global date 20250110
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           rpmdistro-repoquery
@@ -14,7 +14,11 @@ Source:         %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz#/%{name}-
 BuildArch:      noarch
 
 Requires:       distribution-gpg-keys
-Requires:       dnf4
+%if 0%{?fedora} >= 41 || 0%{?rhel} >= 11
+Requires:       dnf5
+%else
+Requires:       dnf
+%endif
 
 %description
 This tool utilizes DNF to let you query across several RPM-based Linux

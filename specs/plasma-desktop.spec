@@ -5,7 +5,7 @@
 
 Name:    plasma-desktop
 Summary: Plasma Desktop shell
-Version: 6.2.5
+Version: 6.2.90
 Release: 1%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -104,6 +104,7 @@ BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  SDL2-devel
 BuildRequires:  chrpath
 BuildRequires:  desktop-file-utils
+BuildRequires:  pkgconfig(libwacom)
 
 BuildRequires:  xdg-user-dirs
 
@@ -310,7 +311,6 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 %{_kf6_datadir}/dbus-1/interfaces/org.kde.touchpad.xml
 %{_kf6_datadir}/kcmkeys
 %{_kf6_datadir}/knsrcfiles/
-%{_kf6_datadir}/kcm_recentFiles/workspace/settings/qml/recentFiles/BlacklistApplicationView.qml
 %{_kf6_datadir}/kcmsolidactions/
 %{_kf6_datadir}/solid/devices/*.desktop
 %{_kf6_datadir}/dbus-1/system.d/*.conf
@@ -323,7 +323,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 %{_sysconfdir}/xdg/autostart/*.desktop
 %{_kf6_datadir}/accounts/providers/kde/*.provider
 %{_kf6_datadir}/accounts/services/kde/*.service
-
+%{_kf6_datadir}/kcm_recentFiles/workspace/settings/qml/recentFiles/ExcludedApplicationView.qml
 # How to include these in the .lang file?
 %{_kf6_datadir}/locale/sr/LC_SCRIPTS/kfontinst/kfontinst.js
 %{_kf6_datadir}/locale/sr@ijekavian/LC_SCRIPTS/kfontinst/kfontinst.js
@@ -346,6 +346,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 
 
 %changelog
+* Thu Jan 09 2025 Steve Cossette <farchord@gmail.com> - 6.2.90-1
+- Beta 6.2.90
+
 * Tue Dec 31 2024 Steve Cossette <farchord@gmail.com> - 6.2.5-1
 - 6.2.5
 

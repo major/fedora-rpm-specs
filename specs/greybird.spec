@@ -1,7 +1,7 @@
 %global theme_name     Greybird
 
 Name:           greybird
-Version:        3.23.1
+Version:        3.23.4
 Release:        %autorelease
 Summary:        A clean minimalistic theme for Xfce, GTK+ 2 and 3
 
@@ -10,7 +10,6 @@ License:        GPL-2.0-or-later OR LicenseRef-Callaway-CC-BY-SA
 URL:            http://shimmerproject.org/project/%{name}/ 
 Source0:        https://github.com/shimmerproject/%{theme_name}/archive/v%{version}.tar.gz
 
-Patch0:          disable-unity_v%{version}.patch
 
 BuildRequires:  gdk-pixbuf2-devel
 BuildRequires:  librsvg2-devel
@@ -109,10 +108,11 @@ Themes for plank as part of the Greybird theme.
 
 # Cleanup
 # Remove Unity theme
+sed -i '/unity/d' light/meson.build
+sed -i '/unity/d' dark/meson.build
 rm -fr light/unity
 rm -fr dark/unity
 
-%patch -P0 -p1
 
 %build
 %meson
@@ -131,6 +131,7 @@ rm -fr dark/unity
 %{_datadir}/themes/%{theme_name}/gtk-2.0/
 %{_datadir}/themes/%{theme_name}/gtk-3.0/
 %{_datadir}/themes/%{theme_name}/gtk-4.0/
+%{_datadir}/themes/%{theme_name}/openbox-3/
 
 
 %files dark-theme
@@ -140,6 +141,7 @@ rm -fr dark/unity
 %{_datadir}/themes/%{theme_name}-dark/gnome-shell/
 %{_datadir}/themes/%{theme_name}-dark/gtk-2.0/
 %{_datadir}/themes/%{theme_name}-dark/gtk-3.0/
+%{_datadir}/themes/%{theme_name}-dark/openbox-3/
 
 
 %files metacity-theme

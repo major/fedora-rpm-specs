@@ -87,10 +87,6 @@ BuildRequires: pkgconfig(xkeyboard-config)
 # Add-On modules
 BuildRequires:  cmake(Qt6Multimedia) >= %{qt6ver}
 BuildRequires:  cmake(Qt6MultimediaWidgets) >= %{qt6ver}
-%ifarch %{qt6_qtwebengine_arches}
-BuildRequires:  cmake(Qt6Pdf) >= %{qt6ver}
-BuildRequires:  cmake(Qt6PdfWidgets) >= %{qt6ver}
-%endif
 BuildRequires:  cmake(Qt6Positioning) >= %{qt6ver}
 BuildRequires:  cmake(Qt6Location) >= %{qt6ver}
 BuildRequires:  cmake(Qt6NetworkAuth) >= %{qt6ver}
@@ -114,6 +110,8 @@ BuildRequires:  cmake(Qt6WebChannel) >= %{qt6ver}
 BuildRequires:  cmake(Qt6WebEngineCore) >= %{qt6ver}
 BuildRequires:  cmake(Qt6WebEngineWidgets) >= %{qt6ver}
 BuildRequires:  cmake(Qt6WebEngineQuick) >= %{qt6ver}
+BuildRequires:  cmake(Qt6Pdf) >= %{qt6ver}
+BuildRequires:  cmake(Qt6PdfWidgets) >= %{qt6ver}
 BuildRequires:  cmake(Qt6WebView) >= %{qt6ver}
 %endif
 BuildRequires:  cmake(Qt6WebSockets) >= %{qt6ver}

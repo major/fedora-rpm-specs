@@ -12,6 +12,7 @@ Summary:        Base64 library for OCaml
 
 License:        ISC
 URL:            https://github.com/mirage/ocaml-base64
+VCS:            git:%{url}.git
 Source0:        %{url}/releases/download/v%{version}/base64-%{version}.tbz
 
 BuildRequires:  ocaml

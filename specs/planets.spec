@@ -4,7 +4,7 @@
 
 Name: planets
 Version:  0.1.13
-Release:  45%{?dist}
+Release:  46%{?dist}
 Summary: A celestial simulator  
 
 License: GPL-2.0-or-later
@@ -81,6 +81,9 @@ install -p -m 644 planets.png \
 %{_mandir}/man1/planets.1.gz
 
 %changelog
+* Fri Jan 10 2025 Jerry James <loganjerry@gmail.com> - 0.1.13-46
+- OCaml 5.3.0 rebuild for Fedora 42
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.13-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

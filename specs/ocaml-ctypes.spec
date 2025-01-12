@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ctypes
 Version:        0.23.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Combinators for binding to C libraries without writing any C
 
 License:        MIT
@@ -14,9 +14,12 @@ VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/%{version}/%{name}-%{version}.tar.gz
 # Fedora does not need the forward compatibility stdlib-shims package
 Patch:          %{name}-stdlib-shims.patch
+# Fix FTBFS in a test: https://github.com/yallop/ocaml-ctypes/pull/785
+Patch:          %{name}-test.patch
+# Fedora does not need the forward compatibility bigarray-compat package
+Patch:          %{name}-bigarray-compat.patch
 
 BuildRequires:  ocaml >= 4.03.0
-BuildRequires:  ocaml-bigarray-compat-devel
 BuildRequires:  ocaml-bisect-ppx-devel
 BuildRequires:  ocaml-dune >= 2.9
 BuildRequires:  ocaml-dune-configurator-devel
@@ -32,7 +35,7 @@ Obsoletes:      %{name}-doc < 0.21.0
 Provides:       %{name}-doc = %{version}-%{release}
 
 # Do not require ocaml-compiler-libs at runtime
-%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Warnings
+%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Format_doc -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Oprint -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Unit_info -i Warnings
 
 %description
 Ctypes is a library for binding to C libraries using pure OCaml.  The
@@ -48,7 +51,6 @@ all without writing or generating any C!
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       ocaml-bigarray-compat-devel%{?_isa}
 Requires:       ocaml-integers-devel%{?_isa}
 
 %description    devel
@@ -67,10 +69,8 @@ sed -i 's/ "-cclib"; "-Wl,--no-as-needed";//' src/ctypes-foreign/config/discover
 %install
 %dune_install
 
-# Temporarily disabled due to an incompatible pointer type error
-# https://github.com/yallop/ocaml-ctypes/issues/784
-#%%check
-#%%dune_check
+%check
+%dune_check
 
 %files -f .ofiles
 %license LICENSE
@@ -79,6 +79,12 @@ sed -i 's/ "-cclib"; "-Wl,--no-as-needed";//' src/ctypes-foreign/config/discover
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 0.23.0-3
+- OCaml 5.3.0 rebuild
+- Add patch to fix FTBFS in a test
+- Add patch to remove dependency on bigarray-compat
+- Update __ocaml_requires_opts for OCaml 5.3.0
+
 * Tue Oct 08 2024 Richard W.M. Jones <rjones@redhat.com> - 0.23.0-2
 - Rebuild for ocaml-lwt 5.8.0
 

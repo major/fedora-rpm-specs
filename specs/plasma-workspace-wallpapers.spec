@@ -1,5 +1,5 @@
 Name:    plasma-workspace-wallpapers
-Version: 6.2.5
+Version: 6.2.90
 Release: 1%{?dist}
 Summary: Additional wallpapers for Plasma workspace
 # Automatically converted from old format: LGPLv3 - review is highly recommended.
@@ -73,8 +73,12 @@ Obsoletes:      plasma-workspace-wallpapers < 5.2.0-2
 %{_datadir}/wallpapers/Shell/
 %{_datadir}/wallpapers/summer_1am/
 %{_datadir}/wallpapers/Volna/
+%{_datadir}/wallpapers/Nexus/
 
 %changelog
+* Thu Jan 09 2025 Steve Cossette <farchord@gmail.com> - 6.2.90-1
+- Beta 6.2.90
+
 * Tue Dec 31 2024 Steve Cossette <farchord@gmail.com> - 6.2.5-1
 - 6.2.5
 

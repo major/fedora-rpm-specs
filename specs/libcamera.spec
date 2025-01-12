@@ -1,6 +1,6 @@
 Name:    libcamera
 Version: 0.4.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A library to support complex camera ISPs
 # see .reuse/dep5 and COPYING for details
 License: LGPL-2.1-or-later
@@ -204,6 +204,9 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 %{python3_sitearch}/*
 
 %changelog
+* Fri Jan 10 2025 Milan Zamazal <mzamazal@redhat.com> - 0.4.0-2
+- Rebuilt with a side tag, to rebuilt pipewire against the new .so version.
+
 * Thu Jan 09 2025 Milan Zamazal <mzamazal@redhat.com> - 0.4.0-1
 - Update to version 0.4.0
 - Resolves: rhbz#2333913

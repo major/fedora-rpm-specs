@@ -1,5 +1,5 @@
 Name:    kinfocenter
-Version: 6.2.5
+Version: 6.2.90
 Release: 1%{?dist}
 Summary: KDE Info Center
 
@@ -95,12 +95,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_energyinfo.deskto
 %{_kf6_qtplugindir}/plasma/kcms/*.so
 %{_kf6_qtplugindir}/plasma/kcms/kinfocenter/*.so
 %{_datadir}/metainfo/org.kde.kinfocenter.appdata.xml
-%{_sysconfdir}/xdg/menus/kinfocenter.menu
 %{_datadir}/applications/org.kde.kinfocenter.desktop
 %{_datadir}/applications/kcm_about-distro.desktop
 %{_kf6_datadir}/dbus-1/system-services/org.kde.kinfocenter.dmidecode.service
 %{_kf6_datadir}/dbus-1/system.d/org.kde.kinfocenter.dmidecode.conf
-%{_datadir}/desktop-directories/kinfocenter.directory
+%{_libexecdir}/kinfocenter-opengl-helper
 %{_kf6_datadir}/kinfocenter/
 %{_kf6_datadir}/polkit-1/actions/org.kde.kinfocenter.dmidecode.policy
 %{_qt6_archdatadir}/qml/org/kde/kinfocenter/
@@ -108,6 +107,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_energyinfo.deskto
 
 
 %changelog
+* Thu Jan 09 2025 Steve Cossette <farchord@gmail.com> - 6.2.90-1
+- Beta 6.2.90
+
 * Tue Dec 31 2024 Steve Cossette <farchord@gmail.com> - 6.2.5-1
 - 6.2.5
 

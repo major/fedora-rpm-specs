@@ -7,8 +7,8 @@ ExclusiveArch: %{ocaml_native_compiler}
 # release.
 
 Name:           why3
-Version:        1.7.2
-Release:        10%{?dist}
+Version:        1.8.0
+Release:        %autorelease
 Summary:        Software verification platform
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -19,12 +19,15 @@ Source0:        https://why3.gitlabpages.inria.fr/releases/%{name}-%{version}.ta
 Source1:        fr.lri.%{name}.desktop
 # AppData file written by Jerry James
 Source2:        fr.lri.%{name}.metainfo.xml
+# Fix a link order issue
+Patch:          %{name}-link-order.patch
 
 BuildRequires:  coq
 BuildRequires:  emacs-nw
 BuildRequires:  emacs-proofgeneral
 BuildRequires:  flocq
 BuildRequires:  graphviz
+BuildRequires:  java-devel
 BuildRequires:  latexmk
 BuildRequires:  libappstream-glib
 BuildRequires:  make
@@ -69,10 +72,7 @@ Recommends:     flocq
 Provides:       bundled(js-jquery)
 
 # The corresponding Provides is not generated, so filter this out
-%global __requires_exclude ocaml\\\((Driver_ast|Why3)\\\)
-
-# This can be removed when F39 reaches EOL
-Obsoletes:      %{name}-xemacs < 1.4.0-4
+%global __requires_exclude ocaml\\\(Driver_ast\\\)
 
 %description
 Why3 is the next generation of the Why software verification platform.
@@ -141,6 +141,7 @@ This package provides a why3 plugin for ProofGeneral.
 %prep
 %autosetup -p1
 
+%conf
 fixtimestamp() {
   touch -r $1.orig $1
   rm $1.orig
@@ -149,20 +150,26 @@ fixtimestamp() {
 # Use the correct compiler flags, keep timestamps, and harden the build due to
 # network use.  Link the binaries with runtime compiled with -fPIC.
 # This avoids many link-time errors.
-sed -e "s|-Wall|%{build_cflags}|;s/ -O -g//" \
-    -e "s/cp /cp -p /" \
-    -e "s|^OLINKFLAGS =.*|& -runtime-variant _pic -ccopt \"%{build_ldflags}\"|" \
+sed -e 's|-Wall|%{build_cflags} %{build_ldflags}|;s/ -O -g//' \
+    -e 's/cp /cp -p /' \
+    -e 's|^OLINKFLAGS =.*|& -runtime-variant _pic -ccopt "%{build_ldflags}"|' \
     -i Makefile.in
 
 # Update the ProofGeneral integration instructions
 sed -i.orig 's,(MY_PATH_TO_WHY3)/share/whyitp,%{_emacs_sitelispdir},' share/whyitp/README
 fixtimestamp share/whyitp/README
 
+# Fix a configure script typo
+sed -i 's/\$(OCAMLC/$(ocamlc/' configure
+
 %build
 %configure --enable-verbose-make --enable-bddinfer
+# Work around a Makefile bug in version 1.8.0
+ln -s why3.opt bin/why3
 # FIXME: Parallel make sometimes fails
 make
-make doc
+# The documentation build is broken in the 1.8.0 release
+# make doc
 rm -f doc/html/.buildinfo examples/use_api/.merlin.in
 
 %install
@@ -232,7 +239,7 @@ chmod 0755 %{buildroot}%{_bindir}/* \
            %{buildroot}%{ocamldir}/%{name}/*.cmxs
 
 %files
-%doc AUTHORS CHANGES.md README.md doc/html doc/latex/manual.pdf
+%doc AUTHORS CHANGES.md README.md
 %license LICENSE
 %{_bindir}/%{name}
 %{_bindir}/isabelle_client
@@ -240,6 +247,7 @@ chmod 0755 %{buildroot}%{_bindir}/* \
 %{zsh_completions_dir}/_why3
 %{_datadir}/%{name}/
 %{_datadir}/applications/fr.lri.%{name}.desktop
+%{_datadir}/gtksourceview-3.0/language-specs/coma.lang
 %{_datadir}/gtksourceview-3.0/language-specs/%{name}.lang
 %{_datadir}/gtksourceview-3.0/language-specs/%{name}c.lang
 %{_datadir}/gtksourceview-3.0/language-specs/%{name}py.lang
@@ -283,537 +291,4 @@ chmod 0755 %{buildroot}%{_bindir}/* \
 %files all
 
 %changelog
-* Mon Oct 14 2024 Jerry James <loganjerry@gmail.com> - 1.7.2-10
-- Fix the location of the icon
-
-* Sun Oct  6 2024 Jerry James <loganjerry@gmail.com> - 1.7.2-9
-- Rebuild for ocaml-re 1.13.3
-
-* Mon Aug  5 2024 Jerry James <loganjerry@gmail.com> - 1.7.2-8
-- Rebuild for ocaml-menhir 20240715, ocaml-ppxlib 0.33.0, and ocaml-zip 1.1.2
-
-* Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Tue Jul 16 2024 Jerry James <loganjerry@gmail.com> - 1.7.2-6
-- Rebuild for ocaml-zarith 1.14
-
-* Wed Jul  3 2024 Jerry James <loganjerry@gmail.com> - 1.7.2-5
-- Rebuild for ocaml-ppx-sexp-conv 0.17.0
-
-* Wed Jun 19 2024 Richard W.M. Jones <rjones@redhat.com> - 1.7.2-4
-- OCaml 5.2.0 ppc64le fix
-
-* Thu Jun 13 2024 Jerry James <loganjerry@gmail.com> - 1.7.2-3
-- Rebuild for apron 0.9.15
-- New upstream URL
-
-* Thu May 30 2024 Richard W.M. Jones <rjones@redhat.com> - 1.7.2-2
-- OCaml 5.2.0 for Fedora 41
-
-* Thu Apr 18 2024 Jerry James <loganjerry@gmail.com> - 1.7.2-1
-- Version 1.7.2
-
-* Mon Mar 25 2024 Richard W.M. Jones <rjones@redhat.com> - 1.7.1-3
-- Use %%{bash_completions_dir} macro
-
-* Fri Feb  2 2024 Jerry James <loganjerry@gmail.com> - 1.7.1-2
-- Build again because koji ran out of disk space
-
-* Fri Feb  2 2024 Jerry James <loganjerry@gmail.com> - 1.7.1-1
-- Version 1.7.1
-
-* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Tue Jan  2 2024 Jerry James <loganjerry@gmail.com> - 1.7.0-1
-- Version 1.7.0
-- Drop upstreamed coq patch
-
-* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.6.0-9
-- OCaml 5.1.1 + s390x code gen fix for Fedora 40
-
-* Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.6.0-8
-- OCaml 5.1.1 rebuild for Fedora 40
-
-* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.6.0-7
-- OCaml 5.1 rebuild for Fedora 40
-
-* Sat Sep  9 2023 Jerry James <loganjerry@gmail.com> - 1.6.0-6
-- Rebuild for ocaml-ocamlgraph 2.1.0
-
-* Sat Jul 29 2023 Jerry James <loganjerry@gmail.com> - 1.6.0-5
-- Require cvc5 instead of cvc4
-
-* Thu Jul 27 2023 Jerry James <loganjerry@gmail.com> - 1.6.0-4
-- Rebuild for ocaml-zarith 1.13
-
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jul 18 2023 Jerry James <loganjerry@gmail.com> - 1.6.0-2
-- Validate metadata with appstream-util
-
-* Thu Jul 13 2023 Jerry James <loganjerry@gmail.com> - 1.6.0-2
-- Rebuild for mpfr 4.2.0
-
-* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.6.0-1
-- Version 1.6.0
-- Enable inference with BDDs
-- Add patch for coq 8.17 support
-
-* Sat Apr  1 2023 Jerry James <loganjerry@gmail.com> - 1.5.1-7
-- Rebuild for coq 8.17.0
-
-* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.5.1-6
-- Rebuild OCaml packages for F38
-
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jan  6 2023 Jerry James <loganjerry@gmail.com> - 1.5.1-4
-- BR tex(tgtermes.sty) to fix FTBFS with TeXLive 2022
-
-* Sat Nov 26 2022 Jerry James <loganjerry@gmail.com> - 1.5.1-3
-- Rebuild for coq 8.16.1
-
-* Tue Nov  1 2022 Jerry James <loganjerry@gmail.com> - 1.5.1-2
-- Rebuild for ocaml-ppxlib 0.28.0
-
-* Fri Sep 16 2022 Jerry James <loganjerry@gmail.com> - 1.5.1-1
-- Version 1.5.1
-
-* Thu Aug 18 2022 Jerry James <loganjerry@gmail.com> - 1.5.0-3
-- Rebuild to fix coq dependency
-- Convert License tag to SPDX
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jul 19 2022 Jerry James <loganjerry@gmail.com> - 1.5.0-1
-- Remove i686 support
-
-* Thu Jul  7 2022 Jerry James <loganjerry@gmail.com> - 1.5.0-1
-- Version 1.5.0
-- Add ocaml-mlmpfr support
-- Drop unmaintained man pages
-- Use new OCaml macros
-
-* Sun Jun 19 2022 Richard W.M. Jones <rjones@redhat.com> - 1.4.1-3
-- OCaml 4.14.0 rebuild
-
-* Fri Mar 25 2022 Jerry James <loganjerry@gmail.com> - 1.4.1-2
-- Rebuild for coq 8.15.1
-
-* Mon Feb 28 2022 Jerry James <loganjerry@gmail.com> - 1.4.1-1
-- Version 1.4.1
-
-* Fri Feb 04 2022 Richard W.M. Jones <rjones@redhat.com> - 1.4.0-11
-- OCaml 4.13.1 rebuild to remove package notes
-
-* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Mon Jan 17 2022 Jerry James <loganjerry@gmail.com> - 1.4.0-9
-- Rebuild for menhir 20211230
-
-* Mon Dec 27 2021 Jerry James <loganjerry@gmail.com> - 1.4.0-8
-- Rebuild for alt-ergo 2.3.0 and ocaml-zip 1.11
-
-* Tue Nov 30 2021 Jerry James <loganjerry@gmail.com> - 1.4.0-7
-- Rebuild for coq 8.14.1, sexplib0 0.15.0 and menhir 20211128
-
-* Thu Oct 21 2021 Jerry James <loganjerry@gmail.com> - 1.4.0-6
-- Rebuild for coq 8.14.0 and menhir 20211012
-- Add -coq8.14 patch
-- Drop XEmacs support
-
-* Tue Oct 05 2021 Richard W.M. Jones <rjones@redhat.com> - 1.4.0-5
-- OCaml 4.13.1 build
-
-* Mon Oct 04 2021 Richard W.M. Jones <rjones@redhat.com> - 1.4.0-4
-- Try to build on s390x with OCaml 4.13
-
-* Fri Jul 30 2021 Jerry James <loganjerry@gmail.com> - 1.4.0-3
-- Rebuild for rebuilt coq
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jul 14 2021 Jerry James <loganjerry@gmail.com> - 1.4.0-1
-- Version 1.4.0
-- Drop all patches
-- Validate with appstreamcli instead of appstream-util
-
-* Tue Jun  8 2021 Jerry James <loganjerry@gmail.com> - 1.3.3-9
-- Rebuild for ocaml-menhir 20210419
-
-* Wed Mar  3 2021 Jerry James <loganjerry@gmail.com> - 1.3.3-8
-- Rebuild for coq 8.13.1 and ocaml-zarith 1.12
-
-* Tue Mar  2 11:18:12 GMT 2021 Richard W.M. Jones <rjones@redhat.com> - 1.3.3-7
-- OCaml 4.12.0 build
-
-* Sat Feb 20 2021 Jerry James <loganjerry@gmail.com> - 1.3.3-6
-- Rebuild for coq 8.13.0
-- Update metainfo and install in metainfodir
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sat Jan  2 2021 Jerry James <loganjerry@gmail.com> - 1.3.3-4
-- Rebuild for flocq 3.4.0
-
-* Wed Dec 23 2020 Jerry James <loganjerry@gmail.com> - 1.3.3-3
-- Rebuild for coq 8.12.2
-
-* Wed Dec  2 2020 Jerry James <loganjerry@gmail.com> - 1.3.3-2
-- Rebuild for coq 8.12.1 and menhir 20201201
-
-* Fri Sep 25 2020 Jerry James <loganjerry@gmail.com> - 1.3.3-1
-- Version 1.3.3
-
-* Wed Sep 02 2020 Richard W.M. Jones <rjones@redhat.com> - 1.3.1-14
-- OCaml 4.11.1 rebuild
-
-* Tue Sep  1 2020  Jerry James <loganjerry@gmail.com> - 1.3.1-13
-- Rebuild for coq 8.12.0
-
-* Mon Aug 24 2020 Richard W.M. Jones <rjones@redhat.com> - 1.3.1-13
-- OCaml 4.11.0 rebuild
-
-* Thu Aug  6 2020 Jerry James <loganjerry@gmail.com> - 1.3.1-12
-- Rebuild for ocaml-lablgtk3 3.1.1 and ocaml-menhir 20200624
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jun 15 2020 Jerry James <loganjerry@gmail.com> - 1.3.1-10
-- Rebuild for coq 8.11.2
-
-* Sat Jun 13 2020 Jerry James <loganjerry@gmail.com> - 1.3.1-9
-- Rebuild for flocq 3.3.1
-- Build the coq files with the native compiler when possible
-
-* Wed May 20 2020 Jerry James <loganjerry@gmail.com> - 1.3.1-8
-- Rebuild for coq 8.11.1
-
-* Tue May 05 2020 Richard W.M. Jones <rjones@redhat.com> - 1.3.1-7
-- OCaml 4.11.0+dev2-2020-04-22 rebuild
-
-* Sun Apr 12 2020 Jerry James <loganjerry@gmail.com> - 1.3.1-6
-- Make the dependencies on ocaml-num and ocaml-zip explicit (bz 1795083)
-
-* Wed Apr  8 2020 Jerry James <loganjerry@gmail.com> - 1.3.1-5
-- Rebuild for flocq 3.2.1
-
-* Sun Apr 05 2020 Richard W.M. Jones <rjones@redhat.com> - 1.3.1-4
-- Update all OCaml dependencies for RPM 4.16.
-
-* Wed Apr  1 2020 Jerry James <loganjerry@gmail.com> - 1.3.1-3
-- Do not build with mlmpfr; symbols clash with mlgmpidl, causing frama-c to
-  fail to start
-- Obsolete the why2 packages
-
-* Sat Mar 28 2020 Jerry James <loganjerry@gmail.com> - 1.3.1-2
-- Remove useless BRs and Rs (bz 1817878)
-
-* Wed Mar 25 2020 Jerry James <loganjerry@gmail.com> - 1.3.1-1
-- Version 1.3.1
-
-* Fri Jan 31 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Jan 22 2020 Jerry James <loganjerry@gmail.com> - 1.2.1-3
-- OCaml 4.10.0+beta1 rebuild.
-
-* Fri Dec 06 2019 Richard W.M. Jones <rjones@redhat.com> - 1.2.1-2
-- OCaml 4.09.0 (final) rebuild.
-
-* Tue Oct 29 2019 Jerry James <loganjerry@gmail.com> - 1.2.1-1
-- New upstream release
-- Add -proofgeneral subpackage
-- Add desktop and AppData files
-
-* Fri Oct 11 2019 Jerry James <loganjerry@gmail.com> - 1.2.0-6
-- Rebuild for ocaml-menhir 20190924
-
-* Fri Sep  6 2019 Jerry James <loganjerry@gmail.com> - 1.2.0-5
-- Rebuild for ocaml-zarith 1.9
-
-* Thu Aug  1 2019 Jerry James <loganjerry@gmail.com> - 1.2.0-4
-- Also install the library, for consumption by frama-c
-
-* Thu Aug  1 2019 Jerry James <loganjerry@gmail.com> - 1.2.0-3
-- Rebuild for flocq 3.2.0
-
-* Sat Jul 27 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Wed Jun  5 2019 Jerry James <loganjerry@gmail.com> - 1.2.0-1
-- New upstream release
-
-* Sun Feb 03 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Sat Jan 26 2019 Jerry James <loganjerry@gmail.com> - 1.1.1-1
-- New upstream release
-
-* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.88.3-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Thu Jul 12 2018 Richard W.M. Jones <rjones@redhat.com> - 0.88.3-4
-- OCaml 4.07.0 (final) rebuild.
-
-* Wed Jun 20 2018 Richard W.M. Jones <rjones@redhat.com> - 0.88.3-3
-- Bump release and rebuild.
-
-* Wed Jun 20 2018 Richard W.M. Jones <rjones@redhat.com> - 0.88.3-2
-- OCaml 4.07.0-rc1 rebuild.
-
-* Mon Feb 12 2018 Jerry James <loganjerry@gmail.com> - 0.88.3-1
-- New upstream release
-
-* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.88.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Sat Dec  9 2017 Jerry James <loganjerry@gmail.com> - 0.88.2-1
-- New upstream release
-
-* Fri Nov 17 2017 Richard W.M. Jones <rjones@redhat.com> - 0.88.1-1
-- New upstream version 0.88.1.
-- OCaml 4.06.0 rebuild.
-
-* Sat Oct  7 2017 Jerry James <loganjerry@gmail.com> - 0.88.0-1
-- New usptream release
-
-* Thu Oct  5 2017 Jerry James <loganjerry@gmail.com> - 0.87.3-12
-- Rebuild for flocq 2.6.0
-
-* Wed Sep 06 2017 Richard W.M. Jones <rjones@redhat.com> - 0.87.3-11
-- OCaml 4.05.0 rebuild.
-
-* Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.87.3-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.87.3-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Tue Jun 27 2017 Richard W.M. Jones <rjones@redhat.com> - 0.87.3-8
-- Bump release and rebuild.
-
-* Tue Jun 27 2017 Richard W.M. Jones <rjones@redhat.com> - 0.87.3-7
-- Bump release and rebuild.
-
-* Tue Jun 27 2017 Richard W.M. Jones <rjones@redhat.com> - 0.87.3-6
-- Bump release and rebuild.
-
-* Tue Jun 27 2017 Richard W.M. Jones <rjones@redhat.com> - 0.87.3-5
-- OCaml 4.04.2 rebuild.
-
-* Fri May 12 2017 Richard W.M. Jones <rjones@redhat.com> - 0.87.3-4
-- OCaml 4.04.1 rebuild.
-
-* Fri Mar 24 2017 Jerry James <loganjerry@gmail.com> - 0.87.3-3
-- Rebuild to fix coq consistency issue
-
-* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.87.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Thu Jan 12 2017 Jerry James <loganjerry@gmail.com> - 0.87.3-1
-- New upstream release
-
-* Mon Nov 07 2016 Richard W.M. Jones <rjones@redhat.com> - 0.87.2-4
-- Rebuild for OCaml 4.04.0.
-
-* Fri Oct 28 2016 Jerry James <loganjerry@gmail.com> - 0.87.2-3
-- Rebuild for coq 8.5pl3
-- Remove obsolete scriptlets
-- Fix install location of why3lang.sty
-
-* Thu Sep 29 2016 Jerry James <loganjerry@gmail.com> - 0.87.2-2
-- Rebuild for flocq 2.5.2 and gappalib-coq 1.3.1
-
-* Fri Sep  2 2016 Jerry James <loganjerry@gmail.com> - 0.87.2-1
-- New upstream release
-
-* Wed Jul 13 2016 Jerry James <loganjerry@gmail.com> - 0.87.1-2
-- Rebuild for coq 8.5pl2
-
-* Wed Jun  1 2016 Jerry James <loganjerry@gmail.com> - 0.87.1-1
-- New upstream release
-
-* Fri Apr 22 2016 Jerry James <loganjerry@gmail.com> - 0.87.0-3
-- Rebuild for coq 8.5pl1
-
-* Sat Apr 16 2016 Jerry James <loganjerry@gmail.com> - 0.87.0-2
-- Rebuild for ocaml-ocamlgraph 1.8.7
-
-* Fri Mar 18 2016 Jerry James <loganjerry@gmail.com> - 0.87.0-1
-- New upstream release
-- Drop boomy icon removal; upstream no longer ships them
-
-* Fri Feb 12 2016 Jerry James <loganjerry@gmail.com> - 0.86.3-1
-- New upstream release
-- Use camlp4 in preference to camlp5
-
-* Fri Feb 05 2016 Fedora Release Engineering <releng@fedoraproject.org> - 0.86.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Wed Nov 25 2015 Jerry James <loganjerry@gmail.com> - 0.86.2-2
-- Rebuild for ocaml-zarith 1.4.1 and ocaml-menhir 20151112
-
-* Wed Oct 14 2015 Jerry James <loganjerry@gmail.com> - 0.86.2-1
-- New upstream release
-- Do not ship the nonfree boomy icons
-
-* Wed Jun 24 2015 Richard W.M. Jones <rjones@redhat.com> - 0.86.1-2
-- ocaml-4.02.2 final rebuild.
-
-* Mon Jun 22 2015 Jerry James <loganjerry@gmail.com> - 0.86.1-1
-- New upstream release
-
-* Wed Jun 17 2015 Richard W.M. Jones <rjones@redhat.com> - 0.86-2
-- ocaml-4.02.2 rebuild.
-
-* Sat May 16 2015 Jerry James <loganjerry@gmail.com> - 0.86-1
-- New upstream release
-
-* Sat Apr 11 2015 Jerry James <loganjerry@gmail.com> - 0.85-9
-- Rebuild for coq 8.4pl6
-
-* Wed Mar 18 2015 Jerry James <loganjerry@gmail.com> - 0.85-8
-- Rebuild for ocaml-ocamlgraph 1.8.6
-
-* Sat Feb 21 2015 Jerry James <loganjerry@gmail.com> - 0.85-7
-- Note bundled jquery
-- Fix sed expression separators for new RPM_OPT_FLAGS and RPM_LD_FLAGS
-
-* Wed Feb 18 2015 Richard W.M. Jones <rjones@redhat.com> - 0.85-6
-- ocaml-4.02.1 rebuild.
-
-* Thu Nov  6 2014 Jerry James <loganjerry@gmail.com> - 0.85-5
-- Rebuild for ocaml-camlp5 6.12
-
-* Thu Oct 30 2014 Jerry James <loganjerry@gmail.com> - 0.85-4
-- Rebuild for coq 8.4pl5
-
-* Tue Oct 14 2014 Jerry James <loganjerry@gmail.com> - 0.85-3
-- Rebuild for ocaml-zarith 1.3
-
-* Thu Sep 18 2014 Jerry James <loganjerry@gmail.com> - 0.85-2
-- Bump and rebuild
-
-* Wed Sep 17 2014 Jerry James <loganjerry@gmail.com> - 0.85-1
-- New upstream release
-- New source URL
-
-* Tue Sep  2 2014 Jerry James <loganjerry@gmail.com> - 0.84-1
-- New upstream release
-- Fix license handling
-
-* Mon Aug 25 2014 Jerry James <loganjerry@gmail.com> - 0.83-14
-- Rebuild for new gappalib-coq build
-
-* Sun Aug 24 2014 Richard W.M. Jones <rjones@redhat.com> - 0.83-13
-- ocaml-4.02.0+rc1 rebuild.
-
-* Mon Aug 18 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.83-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
-
-* Mon Aug  4 2014 Jerry James <loganjerry@gmail.com> - 0.83-11
-- Rebuild for new gappalib-coq build
-
-* Sat Aug 02 2014 Richard W.M. Jones <rjones@redhat.com> - 0.83-10
-- ocaml-4.02.0-0.8.git10e45753.fc22 rebuild.
-
-* Fri Aug 01 2014 Richard W.M. Jones <rjones@redhat.com> - 0.83-9
-- OCaml 4.02.0 beta rebuild.
-
-* Thu Jun 26 2014 Jerry James <loganjerry@gmail.com> - 0.83-8
-- Linking with -z relro -z now breaks plugins; omit "-z now"
-
-* Sun Jun 08 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.83-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
-
-* Tue May 13 2014 Jerry James <loganjerry@gmail.com> - 0.83-6
-- Rebuild for coq 8.4pl4
-
-* Mon Apr 21 2014 Jerry James <loganjerry@gmail.com> - 0.83-5
-- Rebuild for flocq 2.3.0 and ocamlgraph 1.8.5
-- Drop unnecessary sqlite-devel BR
-
-* Tue Apr 15 2014 Richard W.M. Jones <rjones@redhat.com> - 0.83-4
-- Remove ocaml_arches macro (RHBZ#1087794).
-
-* Mon Mar 24 2014 Jerry James <loganjerry@gmail.com> - 0.83-3
-- Apply upstream fix for building with ocaml-zarith
-- Fix file encodings
-- Fix permission bits
-
-* Tue Mar 18 2014 Jerry James <loganjerry@gmail.com> - 0.83-2
-- Back out the post-release fix to the Coq printer, which breaks Frama-C
-
-* Fri Mar 14 2014 Jerry James <loganjerry@gmail.com> - 0.83-1
-- New upstream release
-- Use cvc4 instead of cvc3
-
-* Wed Feb 26 2014 Jerry James <loganjerry@gmail.com> - 0.82-2
-- Rebuild for ocamlgraph 1.8.4
-- BR ocaml-findlib instead of ocaml-findlib-devel
-
-* Fri Dec 13 2013 Jerry James <loganjerry@gmail.com> - 0.82-1
-- New upstream release
-- Drop upstreamed patches
-- Add -examples subpackage
-- Install LaTeX style
-- Turn off frama-c support at upstream's request
-
-* Mon Sep 30 2013 Jerry James <loganjerry@gmail.com> - 0.81-6
-- Apply upstream fix for change in the alt-ergo timelimit option
-
-* Tue Sep 17 2013 Jerry James <loganjerry@gmail.com> - 0.81-5
-- Rebuild for OCaml 4.01.0
-- Enable debuginfo for the ocaml sources
-
-* Sun Aug 04 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.81-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
-
-* Fri Jun 21 2013 Jerry James <loganjerry@gmail.com> - 0.81-3
-- Rebuild for frama-c Fluorine 20130601
-
-* Thu May 23 2013 Jerry James <loganjerry@gmail.com> - 0.81-2
-- Rebuild for frama-c Fluorine 20130501
-
-* Fri May 10 2013 Jerry James <loganjerry@gmail.com> - 0.81-1
-- New upstream release
-- Disable PVS support for now; it requires the NASA libraries
-- Fix the conflict between the why and why3 Emacs packages (bz 913522)
-- Disable parallel builds due to intermittent build failures
-
-* Fri Feb 15 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.73-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
-
-* Mon Jan  7 2013 Jerry James <loganjerry@gmail.com> - 0.73-4
-- Rebuild for coq 8.4pl1
-
-* Fri Dec 14 2012 Richard W.M. Jones <rjones@redhat.com> - 0.73-3
-- Rebuild for OCaml 4.00.1.
-
-* Thu Aug 23 2012 Jerry James <loganjerry@gmail.com> - 0.73-2
-- Rebuild for coq 8.4
-
-* Thu Aug  2 2012 Jerry James <loganjerry@gmail.com> - 0.73-1
-- New upstream release
-
-* Sun Jul 22 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.71-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
-
-* Thu Apr 19 2012 Jerry James <loganjerry@gmail.com> - 0.71-2
-- Add missing sqlite-devel BR
-- Do not move the coq plugin
-- Generate debuginfo for the sole C program
-- Add man pages
-
-* Fri Dec 16 2011 Jerry James <loganjerry@gmail.com> - 0.71-1
-- Initial RPM
+%autochangelog

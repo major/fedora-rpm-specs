@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/ocaml/opam
 
 Name:           opam
-Version:        2.2.1
+Version:        2.3.0
 Release:        %autorelease
 Summary:        Source-based package manager for OCaml
 
@@ -26,12 +26,12 @@ BuildRequires:  ocaml-base64-devel >= 3.1.0
 BuildRequires:  ocaml-cmdliner-devel >= 1.1.0
 BuildRequires:  ocaml-cudf-devel >= 0.7
 BuildRequires:  ocaml-dose3-devel >= 6.1
-BuildRequires:  ocaml-dune >= 2.0.0
+BuildRequires:  ocaml-dune >= 2.8.0
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-jsonm-devel
 BuildRequires:  ocaml-mccs-devel
 BuildRequires:  ocaml-ocamlgraph-devel
-BuildRequires:  ocaml-opam-0install-cudf-devel >= 0.4
+BuildRequires:  ocaml-opam-0install-cudf-devel >= 0.5.0
 BuildRequires:  ocaml-opam-file-format-devel >= 2.1.4
 BuildRequires:  ocaml-re-devel >= 1.10.0
 BuildRequires:  ocaml-sha-devel >= 1.13

@@ -1,5 +1,5 @@
 Name:    ksystemstats
-Version: 6.2.5
+Version: 6.2.90
 Release: 1%{?dist}
 Summary: KSystemStats is a daemon that collects statistics about the running system.
 
@@ -66,8 +66,12 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_datadir}/dbus-1/services/org.kde.ksystemstats1.service
 %{_userunitdir}/plasma-ksystemstats.service
 %{_qt6_plugindir}/ksystemstats/
+%{_kf6_datadir}/qlogging-categories6/ksystemstats.categories
 
 %changelog
+* Thu Jan 09 2025 Steve Cossette <farchord@gmail.com> - 6.2.90-1
+- Beta 6.2.90
+
 * Tue Dec 31 2024 Steve Cossette <farchord@gmail.com> - 6.2.5-1
 - 6.2.5
 

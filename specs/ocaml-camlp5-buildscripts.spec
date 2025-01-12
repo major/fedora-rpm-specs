@@ -3,7 +3,7 @@
 %endif
 
 Name:           ocaml-camlp5-buildscripts
-Version:        0.03
+Version:        0.04
 Release:        %autorelease
 Summary:        Sysadmin scripts for camlp5 projects
 

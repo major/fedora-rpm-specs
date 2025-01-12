@@ -16,8 +16,8 @@
 %global __brp_remove_la_files %nil
 
 Name: openldap
-Version: 2.6.8
-Release: 6%{?dist}
+Version: 2.6.9
+Release: 1%{?dist}
 Summary: LDAP support libraries
 License: OLDAP-2.8
 URL: http://www.openldap.org/
@@ -552,6 +552,9 @@ exit 0
 %endif
 
 %changelog
+* Thu Jan 9 2025 Simon Pichugin <spichugi@redhat.com> - 2.6.9-1
+- Rebase to version 2.6.9 (rhbz#2329002)
+
 * Tue Dec 3 2024 Simon Pichugin <spichugi@redhat.com> - 2.6.8-6
 - Avoid SSL context cleanup during library destruction
 

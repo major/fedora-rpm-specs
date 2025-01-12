@@ -1,5 +1,5 @@
 Name:    kwin-x11
-Version: 6.2.5
+Version: 6.2.90
 Release: 1%{?dist}
 Summary: KDE Window manager with X11 support
 
@@ -98,7 +98,7 @@ BuildRequires:  cmake(KF6Kirigami2)
 BuildRequires:  cmake(KF6Runner)
 BuildRequires:  cmake(KF6Svg)
 
-BuildRequires:  cmake(KDecoration2)
+BuildRequires:  cmake(KDecoration3)
 BuildRequires:  kscreenlocker-devel
 BuildRequires:  plasma-breeze-devel
 BuildRequires:  plasma-wayland-protocols-devel
@@ -176,6 +176,10 @@ sed -i \
 
 
 %changelog
+* Fri Jan 10 2025 Kevin Kofler <Kevin@tigcc.ticalc.org> - 6.2.90-1
+- 6.2.90
+- BuildRequires: cmake(KDecoration3) instead of cmake(KDecoration2)
+
 * Wed Jan 01 2025 Kevin Kofler <Kevin@tigcc.ticalc.org> - 6.2.5-1
 - 6.2.5
 

@@ -1,7 +1,7 @@
 Name:    palapeli
 Summary: A jigsaw puzzle game
 Version: 24.12.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Automatically converted from old format: GPLv2+ and GFDL - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-GFDL
@@ -118,16 +118,18 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %files libs
 %{_kf6_libdir}/libpala.so.*
 %{_qt6_plugindir}/palapelislicers/
+%{_kf6_plugindir}/thumbcreator/palathumbcreator.so
 
 %files devel
 %{_includedir}/Pala/
 %{_kf6_libdir}/libpala.so
 %{_kf6_libdir}/cmake/Pala/
-%dir %{_kf6_plugindir}/thumbcreator
-%{_kf6_plugindir}/thumbcreator/palathumbcreator.so
 
 
 %changelog
+* Fri Jan 10 2025 Pavel Solovev <daron439@gmail.com> - 24.12.1-2
+- Move palathumbcreator out of devel
+
 * Tue Jan 07 2025 Steve Cossette <farchord@gmail.com> - 24.12.1-1
 - 24.12.1
 

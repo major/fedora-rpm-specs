@@ -1,7 +1,7 @@
 %global         base_name breeze-plymouth
 
 Name:    plymouth-theme-breeze
-Version: 6.2.5
+Version: 6.2.90
 Release: 1%{?dist}
 Summary: Breeze theme for Plymouth
 
@@ -51,6 +51,9 @@ install -D -m644 -p %{SOURCE10} \
 
 
 %changelog
+* Thu Jan 09 2025 Steve Cossette <farchord@gmail.com> - 6.2.90-1
+- Beta 6.2.90
+
 * Tue Dec 31 2024 Steve Cossette <farchord@gmail.com> - 6.2.5-1
 - 6.2.5
 

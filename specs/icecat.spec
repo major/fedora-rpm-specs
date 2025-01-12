@@ -28,8 +28,8 @@ ExcludeArch: %{ix86} %{arm}
 # on other arches.
 %ifarch x86_64
 %if 0%{?release_build}
-%global build_with_pgo 1
-%global pgo_wayland    1
+%global build_with_pgo 0
+%global pgo_wayland    0
 %else
 %global build_with_pgo 0
 %global pgo_wayland    0
@@ -54,16 +54,16 @@ ExcludeArch: %{ix86} %{arm}
 
 # Define installation directories
 %global icecatappdir %{_libdir}/%{name}
-%global icecat_ver   %{name}-%{version}
-%global icecat_devel %{name}-devel-%{version}
-
 # Define language files directory
 %global langpackdir  %{icecatappdir}/langpacks
+
+%global icecat_ver   %{name}-%{version}
+%global icecat_devel %{name}-devel-%{version}
 
 %global toolkit_gtk3  1
 
 # Big endian platforms
-%ifarch %{power64} s390x
+%ifarch s390x
 # Javascript Intl API is not supported on big endian platforms right now:
 # https://bugzilla.mozilla.org/show_bug.cgi?id=1322212
 %global big_endian    1
@@ -77,11 +77,7 @@ ExcludeArch: %{ix86} %{arm}
 %if %{?system_nss}
 %global nspr_version 4.32
 %global nspr_build_version %{nspr_version}
-%if 0%{?fedora} > 39
 %global nss_version 3.100
-%else
-%global nss_version 3.99
-%endif
 %global nss_build_version %{nss_version}
 %endif
 
@@ -97,11 +93,7 @@ ExcludeArch: %{ix86} %{arm}
 %global disable_elfhack 1
 
 # Use clang?
-%if 0%{?fedora} > 39
 %global build_with_clang  1
-%else
-%global build_with_clang  0
-%endif
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1908792
 # https://bugzilla.redhat.com/show_bug.cgi?id=2255254
@@ -194,6 +186,7 @@ Patch423: mozilla-1512162.patch
 # PGO/LTO patches
 Patch600: %{name}-pgo.patch
 Patch602: mozilla-1516803.patch
+Patch603: %{name}-gcc-always-inline.patch
 
 BuildRequires: alsa-lib-devel
 BuildRequires: autoconf213
@@ -253,6 +246,7 @@ BuildRequires: nss-static >= %{nss_version}
 %endif
 
 BuildRequires: pango-devel
+BuildRequires: pciutils-libs
 BuildRequires: pipewire-devel
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
@@ -396,6 +390,7 @@ tar -xf %{SOURCE5}
 %patch -P 602 -p 1 -b .1516803
 %endif
 %endif
+%patch -P 603 -p1 -b .inline
 
 # Remove default configuration and copy the customized one
 rm -f .mozconfig
@@ -682,8 +677,8 @@ chmod 755 %{buildroot}%{_bindir}/%{name}
 #
 
 ##Extract langpacks, make any mods needed, repack the langpack, and install it.
-%if %{with langpacks}
 echo > %{name}.lang
+%if %{with langpacks}
 mkdir -p %{buildroot}%{langpackdir}
 tar xf %{SOURCE4}
  for langpack in `ls langpacks/*.xpi`; do
@@ -811,7 +806,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{icecatappdir}/gmp-clearkey/
 %if %{without langpacks_subpkg}
 %if %{with langpacks}
-%dir %{langpackdir}
+%dir %{icecatappdir}/langpacks
 %endif
 %endif
 

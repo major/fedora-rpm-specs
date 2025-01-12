@@ -17,7 +17,7 @@
 
 Name:           mingw-qt5-%{qt_module}
 Version:        5.15.15
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Qt5 for Windows - QtTranslations component
 
 # Automatically converted from old format: GPLv3 with exceptions or LGPLv2 with exceptions - review is highly recommended.
@@ -93,23 +93,24 @@ mkdir .git
 %install
 %mingw_make install INSTALL_ROOT=%{buildroot}
 
-# This package contains translations for multiple Qt components hence
-# the --all-name argument must be used when searching for translations
-%mingw_find_lang qt5 --with-qt --all-name
-
 
 # Win32
-%files -n mingw32-qt5-%{qt_module} -f mingw32-qt5.lang
+%files -n mingw32-qt5-%{qt_module}
 %license LICENSE.GPL3-EXCEPT
 %dir %{mingw32_datadir}/qt5/translations/
+%{mingw32_datadir}/qt5/translations/*.qm
 
 # Win64
-%files -n mingw64-qt5-%{qt_module} -f mingw64-qt5.lang
+%files -n mingw64-qt5-%{qt_module}
 %license LICENSE.GPL3-EXCEPT
 %dir %{mingw64_datadir}/qt5/translations/
+%{mingw64_datadir}/qt5/translations/*.qm
 
 
 %changelog
+* Fri Jan 10 2025 Sandro Mani <manisandro@gmail.com> - 5.15.15-2
+- Explicitly mark *.ts as %%files
+
 * Fri Sep 06 2024 Sandro Mani <manisandro@gmail.com> - 5.15.15-1
 - Update to 5.15.15
 

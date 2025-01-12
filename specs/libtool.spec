@@ -8,7 +8,7 @@
 Summary: The GNU Portable Library Tool
 Name:    libtool
 Version: 2.5.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # To help future rebase, the following licenses were seen in the following files/folders:
 # '*' is anything that was not explicitly listed earlier in the folder
@@ -62,6 +62,12 @@ Patch: libtool-2.4.7-hardening.patch
 # Please refer to the following ticket regarding PIC support on ARM:
 # https://bugs.launchpad.net/ubuntu/+source/gcc-4.4/+bug/503448
 Patch: libtool-2.4.6-disable_non-pic_arm.patch
+
+# Discussion re-opened upstream:
+# https://lists.gnu.org/archive/html/bug-libtool/2025-01/msg00004.html
+# Patch was already sent in 2022:
+# https://lists.gnu.org/archive/html/libtool-patches/2022-02/msg00000.html
+Patch: libtool-2.4.6-keep-compiler-deps.patch
 
 %if ! 0%{?_module_build}
 Patch: libtool-nodocs.patch
@@ -189,6 +195,9 @@ rm -f %{buildroot}%{_libdir}/libltdl.{a,la}
 
 
 %changelog
+* Thu Jan 09 2025 Frédéric Bérat <fberat@redhat.com> - 2.5.4-2
+- Re-introduce patch to keep compiler dependency ordering (RHBZ#2331361)
+
 * Thu Nov 21 2024 Frédéric Bérat <fberat@redhat.com> - 2.5.4-1
 - New upstream release
 

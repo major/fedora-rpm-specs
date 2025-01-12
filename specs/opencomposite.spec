@@ -5,8 +5,8 @@
 %global _lto_cflags %nil
 
 %global forgeurl0  https://gitlab.com/znixian/OpenOVR
-%global commit0    34311dabf430d6051d7e97f6081842a5394d2a67
-%global date       20241111
+%global commit0    effe0a8783937c5a3cfe7a72cf6f81152150b6cb
+%global date       20241226
 
 # Bundled openxr 1.0.x for the bubblewraped environments (i.e. steam)
 # https://gitlab.com/znixian/OpenOVR/-/issues/416

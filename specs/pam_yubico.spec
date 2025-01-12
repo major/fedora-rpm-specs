@@ -1,13 +1,12 @@
 Name:           pam_yubico
 Version:        2.27
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A Pluggable Authentication Module for yubikeys
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://developers.yubico.com/yubico-pam/
 Source0:        https://developers.yubico.com/yubico-pam/Releases/pam_yubico-%{version}.tar.gz
-Patch99:	pam_yubico-2.26-fedora-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -21,8 +20,7 @@ This is pam_yubico, a pluggable authentication module that can be used with
 Linux-PAM and yubikeys. This module supports yubikey OTP checking.
 
 %prep
-%setup -q 
-%patch -P99 -p1
+%autosetup
 
 %build
 autoconf
@@ -44,6 +42,9 @@ rm $RPM_BUILD_ROOT/%{_lib}/security/pam_yubico.la
 %{_mandir}/man8/pam_yubico.8.gz
 
 %changelog
+* Tue Jan 07 2025 Stephen Gallagher <sgallagh@redhat.com> - 2.27-7
+- Drop upstreamed patch to fix FTBFS
+
 * Mon Sep  2 2024 Miroslav Suchý <msuchy@redhat.com> - 2.27-6
 - convert license to SPDX
 

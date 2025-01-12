@@ -38,7 +38,7 @@ may give different results from other packages.}
 
 Name:           python-%{pname}
 Version:        1.6.1
-Release:        11%{date}%{shortcommit}%{?dist}
+Release:        12%{date}%{shortcommit}%{?dist}
 Summary:        Extensible periodic table of the elements
 
 # periodictable/cromermann.py: BSD 3-clause "New" or "Revised" License
@@ -53,6 +53,9 @@ Source0:        https://github.com/pkienzle/%{pname}/archive/v%{version}/%{pname
 %endif
 BuildArch:      noarch
 Patch0:         %{name}-remove_unrecognized_flag.patch
+# s/np.NaN/np.nan for NumPy 2.x
+# https://github.com/pkienzle/periodictable/commit/d72a009ae42c13501fc158142fc40912edef7f7d
+Patch1:         numpy-nan.patch
 
 %description
 %{_description}.
@@ -90,6 +93,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version} -v
 %{python3_sitelib}/%{pname}/
 
 %changelog
+* Thu Oct 24 2024 Sandro <devel@penguinpee.nl> - 1.6.1-12
+- Apply patch for NumPy 2.x
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.6.1-11
 - convert license to SPDX
 

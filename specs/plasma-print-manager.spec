@@ -2,8 +2,8 @@
 
 Name:    plasma-print-manager
 Summary: Printer management for KDE
-Version: 6.2.5
-Release: 2%{?dist}
+Version: 6.2.90
+Release: 1%{?dist}
 
 License: BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/%{base_name}
@@ -116,6 +116,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.PrintQueu
 
 
 %changelog
+* Thu Jan 09 2025 Steve Cossette <farchord@gmail.com> - 6.2.90-1
+- Beta 6.2.90
+
 * Wed Jan 01 2025 Marie Loise Nolden <loise@kde.org> - 6.2.5-2
 - Added PackageKitQt6 for enabling optional automatic installation of
   system-config-printer

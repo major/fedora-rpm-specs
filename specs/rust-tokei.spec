@@ -20,6 +20,7 @@ Source10:       tokei.1
 #   there is almost no exposure to future API changes, and this keeps us from
 #   having to adjust the patch for every new git2 release.
 # * Remove reference to readme file that is not included in published crates.
+# * Allow dirs 4 and 5; downstream-only since tokei 13 will not depend on dirs.
 Patch:          tokei-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -38,10 +39,12 @@ Summary:        %{summary}
 # BSD-3-Clause
 # MIT
 # MIT OR Apache-2.0
+# MPL-2.0
 # Unlicense OR MIT
 License:        %{shrink:
                 BSD-3-Clause AND
                 MIT AND
+                MPL-2.0 AND
                 Unicode-DFS-2016 AND
                 (Apache-2.0 OR BSL-1.0) AND
                 (Apache-2.0 OR MIT) AND

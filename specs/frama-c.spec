@@ -41,6 +41,9 @@ Patch:          %{name}-bytes.patch
 # Expose use of math library symbols to RPM
 Patch:          %{name}-mathlib.patch
 
+# Adapt to changes in why3 1.8.0
+Patch:          %{name}-why3.1.8.0.patch
+
 BuildRequires:  alt-ergo
 BuildRequires:  clang
 BuildRequires:  desktop-file-utils

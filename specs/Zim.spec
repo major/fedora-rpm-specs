@@ -1,5 +1,5 @@
 Name:           Zim
-Version:        0.75.2
+Version:        0.76.0
 Release:        %autorelease
 Summary:        Desktop wiki & notekeeper
 
@@ -9,16 +9,6 @@ Summary:        Desktop wiki & notekeeper
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:            http://zim-wiki.org/
 Source0:        http://www.zim-wiki.org/downloads/zim-%{version}.tar.gz
-# Prevent ABRT from triggering on expected errors (rhbz#2213835)
-Patch:          https://github.com/zim-desktop-wiki/zim-desktop-wiki/pull/2482.patch
-# Improve screenshot on Wayland
-Patch:          https://github.com/zim-desktop-wiki/zim-desktop-wiki/pull/2431.patch
-# Avoid unhandled exception (and thus crash report) when cancelling template copy
-Patch:          https://github.com/zim-desktop-wiki/zim-desktop-wiki/pull/2505.patch
-# Skip favicon.ico in tests/attachmentbrowser
-Patch:          https://github.com/zim-desktop-wiki/zim-desktop-wiki/pull/2625.patch
-# Not needed for multilib
-ExcludeArch:    %{ix86}
 BuildArch:      noarch
 
 BuildRequires:  desktop-file-utils
@@ -55,30 +45,10 @@ rm -rf %{buildroot}
 
 %find_lang zim
 
-desktop-file-validate %{buildroot}%{_datadir}/applications/zim.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.zim_wiki.Zim.desktop
 
 %check
 LANG=en_US.UTF-8 xvfb-run ./test.py
-
-%if 0%{?rhel} && 0%{?rhel} <= 7
-%post
-update-desktop-database &> /dev/null || :
-touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
-touch --no-create %{_datadir}/mime/packages &> /dev/null || :
-
-%postun
-update-desktop-database &> /dev/null || :
-if [ $1 -eq 0 ] ; then
-    touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
-    gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-    touch --no-create %{_datadir}/mime/packages &> /dev/null || :
-    update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
-fi
-
-%posttrans
-gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
-%endif
 
 %files -f zim.lang
 %license LICENSE
@@ -87,7 +57,7 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 %{_bindir}/*
 %{_datadir}/zim/
 %{_datadir}/applications/*
-%{_datadir}/mime/packages/zim.xml
+%{_datadir}/mime/packages/org.zim_wiki.Zim.xml
 %{_datadir}/icons/hicolor/*/apps/*
 %{_datadir}/icons/hicolor/*/mimetypes/*
 # No package in Fedora provides such directories

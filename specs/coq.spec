@@ -28,8 +28,8 @@ ExclusiveArch: %{ocaml_native_compiler}
 %global giturl  https://github.com/coq/coq
 
 Name:           coq
-Version:        8.18.0
-Release:        10%{?dist}
+Version:        8.20.0
+Release:        1%{?dist}
 Summary:        Proof management system
 
 # The project as a whole is LGPL-2.1-only.  Exceptions:
@@ -42,10 +42,12 @@ Source0:        %{giturl}/archive/V%{version}/%{name}-%{version}.tar.gz
 Source1:        fr.inria.coqide.desktop
 Source2:        coq.xml
 Source3:        fr.inria.coqide.metainfo.xml
+# Expose a dependency on the math library so rpm can see it
+Patch:          %{name}-mathlib.patch
 
 BuildRequires:  ocaml >= 4.09.0
 BuildRequires:  ocaml-cairo-devel >= 0.6.4
-BuildRequires:  ocaml-dune >= 2.9
+BuildRequires:  ocaml-dune >= 3.6.1
 BuildRequires:  ocaml-findlib-devel >= 1.8.1
 BuildRequires:  ocaml-lablgtk3-sourceview3-devel >= 3.1.2
 BuildRequires:  ocaml-ocamldoc
@@ -56,7 +58,9 @@ BuildRequires:  antlr4 >= 4.7.1
 BuildRequires:  libappstream-glib
 BuildRequires:  csdp-tools
 BuildRequires:  desktop-file-utils
+BuildRequires:  findutils
 BuildRequires:  git-core
+BuildRequires:  java
 BuildRequires:  libicns-utils
 BuildRequires:  make
 BuildRequires:  python3-devel
@@ -267,14 +271,6 @@ mkdir -p %{buildroot}%{_sysconfdir}/xdg/%{name}
 find doc/sphinx/_build/html -name .buildinfo -delete
 %endif
 
-# Use links rather than copying binaries
-%ifarch %{ocaml_native_compiler}
-for fil in coqtop coqidetop; do
-  rm -f %{buildroot}%{_bindir}/$fil
-  ln %{buildroot}%{_bindir}/$fil.%{camlsuffix} %{buildroot}%{_bindir}/$fil
-done
-%endif
-
 # Install desktop and file type icons
 pushd ide/coqide/MacOS
 icns2png -x coqide.icns
@@ -325,6 +321,7 @@ ln -s ../../coq/coq_style.xml %{buildroot}%{_datadir}/gtksourceview-3.0/styles
 %doc README.md
 %license LICENSE
 %{ocamldir}/coq-core/
+%{ocamldir}/stublibs/dllcoqperf_stubs.so
 %{ocamldir}/stublibs/dllcoqrun_stubs.so
 %{_bindir}/coqc*
 %{_bindir}/coqdep
@@ -350,9 +347,6 @@ ln -s ../../coq/coq_style.xml %{buildroot}%{_datadir}/gtksourceview-3.0/styles
 %{_mandir}/man1/coq-tex.1*
 %{_mandir}/man1/coqtop.1*
 %{_mandir}/man1/coqtop.byte.1*
-%ifarch %{ocaml_native_compiler}
-%{_mandir}/man1/coqtop.opt.1*
-%endif
 %{_mandir}/man1/coqwc.1*
 %{_texmf_main}/tex/latex/misc/
 %if %{with doc}
@@ -394,6 +388,10 @@ ln -s ../../coq/coq_style.xml %{buildroot}%{_datadir}/gtksourceview-3.0/styles
 %endif
 
 %changelog
+* Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 8.20.0-1
+- OCaml 5.3.0 rebuild for Fedora 42
+- Version 8.20.0
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.18.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

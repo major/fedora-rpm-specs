@@ -15,6 +15,12 @@
 # disabled due to various issues
 %bcond projectm 0
 
+# some dependencies are not yet in EPEL 10
+%bcond daala %{undefined el10}
+%bcond lirc %{undefined el10}
+%bcond schro %{undefined el10}
+%bcond sdl %{undefined el10}
+
 %ifnarch s390x
 %bcond crystalhd %[0%{?fedora} || 0%{?rhel} < 9]
 %bcond ieee1394 1
@@ -37,18 +43,22 @@ Source:		macros.vlc
 ## upstream patches
 # opus_header: fix channel mapping family 1 parsing (rhbz#2307919)
 Patch:		https://code.videolan.org/videolan/vlc/-/merge_requests/5590.patch
+# add support for ffmpeg 7.0 (without VAAPI)
+Patch:		https://code.videolan.org/videolan/vlc/-/merge_requests/5574.patch
+# mux: avformat: fix avio callbacks signature with ffmpeg 6.1
+Patch:		https://code.videolan.org/videolan/vlc/-/merge_requests/6168.patch
+# ffmpeg: backport more channel checks
+Patch:		https://code.videolan.org/videolan/vlc/-/merge_requests/6273.patch
+# avcodec: vaapi: support VAAPI with latest FFmpeg
+Patch:		https://code.videolan.org/videolan/vlc/-/merge_requests/6606.patch
 
 ## upstreamable patches
-# add support for ffmpeg 7.0
-Patch:		https://code.videolan.org/videolan/vlc/-/merge_requests/5574.patch
 
 ## downstream patches
 # https://fedoraproject.org/wiki/Changes/CryptoPolicy
 Patch:		0001-Use-SYSTEM-wide-ciphers-for-gnutls.patch
 # Fix building with fdk-aac-2.0; backport for 3.0 from flathub
 Patch:		fdk-aac2.patch
-# separate avcodec-vaapi conditional from other vaapi modules
-Patch:		vaapi-without-ffmepg4.patch
 # port from intel-mediasdk to oneVPL
 Patch:		oneVPL.patch
 # fix appstreamcli validate to show in Software (rhbz#2258611)
@@ -61,6 +71,8 @@ Patch:		lua-math.patch
 Patch:		freerdp2.patch
 # fix build with live555-2024.11.28
 Patch:		live555.patch
+# avoid "stale plugin cache" warnings in flatpaks
+Patch:		flatpak-cache.patch
 
 %{load:%{S:1}}
 %global __provides_exclude_from ^%{vlc_plugindir}/.*$
@@ -88,7 +100,9 @@ BuildRequires:	libjpeg-devel
 BuildRequires:	libmad-devel
 BuildRequires:	libmpcdec-devel
 BuildRequires:	libpng-devel
+%if %{with lirc}
 BuildRequires:	lirc-devel
+%endif
 BuildRequires:	live555-devel
 BuildRequires:	lua-devel
 BuildRequires:	pkgconfig(alsa) >= 1.0.24
@@ -101,8 +115,10 @@ BuildRequires:	pkgconfig(asdcplib)
 BuildRequires:	pkgconfig(avahi-client) >= 0.6
 #BuildRequires:	pkgconfig(breakpad-client)
 BuildRequires:	pkgconfig(caca) >= 0.99.beta14
+%if %{with daala}
 BuildRequires:	pkgconfig(daaladec)
 BuildRequires:	pkgconfig(daalaenc)
+%endif
 BuildRequires:	pkgconfig(dav1d)
 BuildRequires:	pkgconfig(dbus-1)
 BuildRequires:	pkgconfig(dvdnav) > 4.9.0
@@ -192,8 +208,12 @@ BuildRequires:	pkgconfig(Qt5Svg) >= 5.5
 BuildRequires:	pkgconfig(Qt5Widgets) >= 5.5
 BuildRequires:	pkgconfig(Qt5X11Extras) >= 5.5
 BuildRequires:	pkgconfig(samplerate)
+%if %{with schro}
 BuildRequires:	pkgconfig(schroedinger-1.0) >= 1.0.10
+%endif
+%if %{with sdl}
 BuildRequires:	pkgconfig(SDL_image) >= 1.2.10
+%endif
 #BuildRequires:	pkgconfig(shine) >= 3.0.0
 BuildRequires:	pkgconfig(shout) >= 2.1
 BuildRequires:	pkgconfig(smbclient)
@@ -639,8 +659,8 @@ export LIVE555_PREFIX=%{_prefix}
 	--enable-spatialaudio					\
 	--enable-theora						\
 	--enable-oggspots					\
-	--enable-daala						\
-	--enable-schroedinger					\
+	--enable-daala%{!?with_daala:=no}			\
+	--enable-schroedinger%{!?with_schro:=no}		\
 	--enable-png						\
 	--enable-jpeg						\
 	--disable-bpg						\
@@ -665,7 +685,7 @@ export LIVE555_PREFIX=%{_prefix}
 	--enable-xvideo						\
 	--enable-vdpau						\
 	--enable-wayland					\
-	--enable-sdl-image					\
+	--enable-sdl-image%{!?with_sdl:=no}			\
 	--enable-freetype					\
 	--enable-fribidi					\
 	--enable-harfbuzz					\
@@ -690,7 +710,7 @@ export LIVE555_PREFIX=%{_prefix}
 	--enable-qt						\
 	--enable-skins2						\
 	--disable-libtar					\
-	--enable-lirc						\
+	--enable-lirc%{!?with_lirc:=no}				\
 	--enable-srt						\
 								\
 	--disable-goom						\
@@ -1110,7 +1130,9 @@ make check
 %{vlc_plugindir}/audio_filter/libspeex_resampler_plugin.so
 %{vlc_plugindir}/codec/libaom_plugin.so
 %{vlc_plugindir}/codec/libaribsub_plugin.so
+%if %{with daala}
 %{vlc_plugindir}/codec/libdaala_plugin.so
+%endif
 %{vlc_plugindir}/codec/libdca_plugin.so
 %{vlc_plugindir}/codec/libkate_plugin.so
 %{vlc_plugindir}/codec/liblibass_plugin.so
@@ -1118,10 +1140,16 @@ make check
 %if %{with vpl}
 %{vlc_plugindir}/codec/libqsv_plugin.so
 %endif
+%if %{with schro}
 %{vlc_plugindir}/codec/libschroedinger_plugin.so
+%endif
+%if %{with sdl}
 %{vlc_plugindir}/codec/libsdl_image_plugin.so
+%endif
 %{vlc_plugindir}/codec/libzvbi_plugin.so
+%if %{with lirc}
 %{vlc_plugindir}/control/liblirc_plugin.so
+%endif
 %{vlc_plugindir}/demux/libgme_plugin.so
 %{vlc_plugindir}/demux/libmpc_plugin.so
 %{vlc_plugindir}/demux/libmkv_plugin.so
@@ -1148,6 +1176,8 @@ make check
 %files plugin-ffmpeg
 %{vlc_plugindir}/access/libavio_plugin.so
 %{vlc_plugindir}/codec/libavcodec_plugin.so
+%{vlc_plugindir}/codec/libvaapi_drm_plugin.so
+%{vlc_plugindir}/codec/libvaapi_plugin.so
 %{vlc_plugindir}/demux/libavformat_plugin.so
 %{vlc_plugindir}/packetizer/libpacketizer_avparser_plugin.so
 %{vlc_plugindir}/stream_out/libstream_out_chromaprint_plugin.so

@@ -49,8 +49,8 @@
 
 Summary: Lightning fast webserver with light system requirements
 Name: lighttpd
-Version: 1.4.76
-Release: 4%{?dist}
+Version: 1.4.77
+Release: 1%{?dist}
 License: BSD-3-Clause
 URL: http://www.lighttpd.net/
 Source0: http://download.lighttpd.net/lighttpd/releases-1.4.x/lighttpd-%{version}.tar.xz
@@ -62,8 +62,7 @@ Source11: http://www.lighttpd.net/favicon.ico
 Source12: http://www.lighttpd.net/light_button.png
 Source13: http://www.lighttpd.net/light_logo.png
 Source14: lighttpd-empty.png
-Patch0: lighttpd-1.4.75-defaultconf.patch
-Patch1: lighttpd-configure-c99.patch
+Patch0: lighttpd-1.4.77-defaultconf.patch
 Requires: system-logos
 Requires: %{name}-filesystem
 Requires(post): systemd
@@ -326,7 +325,6 @@ for the directories.
 %prep
 %setup -q
 %patch -P 0 -p0 -b .defaultconf
-#%%patch -P 1 -p1
 
 %build
 autoreconf -if
@@ -468,7 +466,7 @@ mkdir -p %{buildroot}%{_var}/lib/lighttpd/
 %config %{webroot}/index.html
 
 %files fastcgi
-%doc doc/outdated/fastcgi*.txt doc/scripts/spawn-php.sh
+%doc doc/outdated/fastcgi*.txt
 %config(noreplace) %{_sysconfdir}/php.d/lighttpd.ini
 %config(noreplace) %{_sysconfdir}/lighttpd/conf.d/fastcgi.conf
 
@@ -592,6 +590,9 @@ mkdir -p %{buildroot}%{_var}/lib/lighttpd/
 %attr(0700, lighttpd, lighttpd) %dir %{webroot}/
 
 %changelog
+* Fri Jan 10 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.4.77-1
+- 1.4.77
+
 * Tue Sep 03 2024 Morten Stevens <mstevens@fedoraproject.org> - 1.4.76-4
 - Rebuilt for mbedTLS 3.6.1
 

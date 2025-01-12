@@ -3,7 +3,7 @@
 
 Name:           perl-MaxMind-DB-Reader-XS
 Version:        1.000009
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Fast XS implementation of MaxMind DB reader
 # Build.PL:                 Artistic-2.0
 # c/perl_math_int128.c:     LicenseRef-Fedora-Public-Domain
@@ -22,6 +22,9 @@ URL:            https://metacpan.org/release/MaxMind-DB-Reader-XS
 Source0:        https://cpan.metacpan.org/authors/id/M/MA/MAXMIND/MaxMind-DB-Reader-XS-%{version}.tar.gz
 # Do not hardcore debugging
 Patch0:         MaxMind-DB-Reader-XS-1.000008-Do-not-hardcode-debugging.patch
+# Adapt to changes in libmaxminddb-1.12.0, bug #2336619, proposed upstream
+# <https://github.com/maxmind/MaxMind-DB-Reader-XS/pull/39>.
+Patch1:         MaxMind-DB-Reader-XS-1.000009-Do-not-call-MMDB_free_entry_data_list-on-libmaxmindd.patch
 # Math::Int128 is not supported on 32-bit platforms, bugs #1871719, #1871720
 ExcludeArch:    %{arm} %{ix86}
 BuildRequires:  coreutils
@@ -97,8 +100,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n MaxMind-DB-Reader-XS-%{version}
-%patch -P0 -p1
+%autosetup -p1 -n MaxMind-DB-Reader-XS-%{version}
 # Remove bundled modules
 rm -r ./inc
 perl -i -ne 'print $_ unless m{\Ainc/}' MANIFEST
@@ -106,7 +108,6 @@ perl -i -ne 'print $_ unless m{\Ainc/}' MANIFEST
 # are not available
 rm maxmind-db/test-data/write-test-data.pl
 perl -i -ne 'print $_ unless m{\Amaxmind-db/test-data/write-test-data.pl}' MANIFEST
-# FIXME: remove compiler flag -g from Build.PL
 # Help generators to recognize Perl scripts
 for F in $(find -name '*.t'); do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
@@ -137,14 +138,23 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %files
 %license LICENSE
 %doc Changes CONTRIBUTING.md README.md valgrind.supp
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/MaxMind*
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/auto/MaxMind
+%dir %{perl_vendorarch}/auto/MaxMind/DB
+%dir %{perl_vendorarch}/auto/MaxMind/DB/Reader
+%{perl_vendorarch}/auto/MaxMind/DB/Reader/XS
+%dir %{perl_vendorarch}/MaxMind
+%dir %{perl_vendorarch}/MaxMind/DB
+%dir %{perl_vendorarch}/MaxMind/DB/Reader
+%{perl_vendorarch}/MaxMind/DB/Reader/XS.pm
+%{_mandir}/man3/MaxMind::DB::Reader::XS.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 10 2025 Petr Pisar <ppisar@redhat.com> - 1.000009-12
+- Adapt to changes in libmaxminddb-1.12.0 (bug #2336619)
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.000009-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

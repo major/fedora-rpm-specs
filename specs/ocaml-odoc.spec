@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/ocaml/odoc
 
 Name:           ocaml-odoc
-Version:        2.4.3
+Version:        2.4.4
 Release:        %autorelease
 Summary:        Documentation compiler for OCaml and Reason
 
@@ -23,7 +23,7 @@ BuildRequires:  ocaml-bos-devel
 BuildRequires:  ocaml-camlp-streams-devel
 BuildRequires:  ocaml-cmdliner-devel >= 1.0.0
 BuildRequires:  ocaml-cppo >= 1.1.0
-BuildRequires:  ocaml-crunch-devel > 1.1.0
+BuildRequires:  ocaml-crunch-devel > 2.0.0
 BuildRequires:  ocaml-dune >= 3.7.0
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-fmt-devel

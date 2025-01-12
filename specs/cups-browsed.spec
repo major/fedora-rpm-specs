@@ -9,7 +9,7 @@
 
 Name: cups-browsed
 Epoch: 1
-Version: 2.1.0
+Version: 2.1.1
 Release: 1%{?dist}
 Summary: Daemon for local auto-installation of remote printers
 # the CUPS exception text is the same as LLVM exception, so using that name with
@@ -211,6 +211,9 @@ fi
 
 
 %changelog
+* Fri Jan 10 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.1.1-1
+- 2.1.1 (fedora#2336480)
+
 * Thu Dec 19 2024 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.1.0-1
 - 2.1.0 (fedora#2319904)
 

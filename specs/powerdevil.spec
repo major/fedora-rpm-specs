@@ -1,5 +1,5 @@
 Name:    powerdevil
-Version: 6.2.5
+Version: 6.2.90
 Release: 1%{?dist}
 Summary: Manages the power consumption settings of a Plasma Shell
 
@@ -114,7 +114,6 @@ rm -fv %{buildroot}/%{_libdir}/libpowerdevil{configcommonprivate,core,ui}.so
 %{_kf6_libexecdir}/kauth/chargethresholdhelper
 %{_sysconfdir}/xdg/autostart/powerdevil.desktop
 %{_libexecdir}/org_kde_powerdevil
-%{_kf6_libdir}/libpowerdevilconfigcommonprivate.so.*
 %{_kf6_libdir}/libpowerdevilcore.so.*
 %{_kf6_qtplugindir}/powerdevil/
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_powerdevilprofilesconfig.so
@@ -137,7 +136,7 @@ rm -fv %{buildroot}/%{_libdir}/libpowerdevil{configcommonprivate,core,ui}.so
 %{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.battery/contents/ui/CompactRepresentation.qml
 %{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.battery/contents/ui/InhibitionHint.qml
 %{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.battery/contents/ui/PopupDialog.qml
-%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.battery/contents/ui/PowerManagementItem.qml
+%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.battery/contents/ui/InhibitionItem.qml
 %{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.battery/contents/ui/PowerProfileItem.qml
 %{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.battery/contents/ui/main.qml
 %{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.battery/metadata.json
@@ -149,8 +148,12 @@ rm -fv %{buildroot}/%{_libdir}/libpowerdevil{configcommonprivate,core,ui}.so
 %{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.brightness/contents/ui/main.qml
 %{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.brightness/metadata.json
 %{_kf6_datadir}/qlogging-categories6/batterymonitor.categories
+%{_kf6_datadir}/qlogging-categories6/brightness.categories
 
 %changelog
+* Thu Jan 09 2025 Steve Cossette <farchord@gmail.com> - 6.2.90-1
+- Beta 6.2.90
+
 * Tue Dec 31 2024 Steve Cossette <farchord@gmail.com> - 6.2.5-1
 - 6.2.5
 

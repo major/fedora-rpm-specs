@@ -1,11 +1,15 @@
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch: %{ix86}
 
-%global extraver 18
+# Upstream uses a + character in the version, which RPM does not support.
+# We transform the + into a period.  See
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/#_upstream_uses_invalid_characters_in_the_version
+%global basever  1.1
+%global extraver 19
 
 Name:           ocaml-mccs
-Version:        1.1
-Release:        53.%{extraver}%{?dist}
+Version:        %{basever}.%{extraver}
+Release:        1%{?dist}
 Summary:        Multi Criteria CUDF Solver with OCaml bindings
 
 %global libname %(echo %{name} | sed -e 's/^ocaml-//')
@@ -18,7 +22,7 @@ URL:            https://github.com/AltGr/ocaml-mccs
 VCS:            git:%{url}.git
 
 # Upstream's use of a '+' instead of a '.' makes this hard to use a macro.
-Source:         https://github.com/AltGr/ocaml-mccs/archive/%{version}+%{extraver}/%{name}-%{version}-%{extraver}.tar.gz
+Source:         https://github.com/AltGr/ocaml-mccs/archive/%{basever}+%{extraver}/%{name}-%{basever}-%{extraver}.tar.gz
 
 # Link against the system glpk library
 Patch:          ocaml-mccs-1.1-glpk.patch
@@ -51,7 +55,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -n %{name}-%{version}-%{extraver} -p1
+%autosetup -n %{name}-%{basever}-%{extraver} -p1
 
 # Choose the build method that uses an installed glpk
 cp -p src/glpk/dune-shared src/glpk/dune
@@ -75,7 +79,12 @@ sed -i 's,clibs,../clibs,' src/glpk/dune
 %files devel -f .ofiles-devel
 
 %changelog
-* Thu Aug 22 2024 Jerry James <loganjerry@gmail.com> - 1.1-53.18%{?dist}
+* Fri Jan 10 2025 Jerry James <loganjerry@gmail.com> - 1.1.19-1
+- OCaml 5.3.0 rebuild for Fedora 42
+- New version 1.1+19
+- New versioning scheme
+
+* Thu Aug 22 2024 Jerry James <loganjerry@gmail.com> - 1.1-53.18
 - New version 1.1+18
 
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-52.17

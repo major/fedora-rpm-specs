@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:           ocaml-ppx-deriving-yaml
-Version:        0.3.0
+Version:        0.4.0
 Release:        %autorelease
 Summary:        Derive conversion functions between OCaml types and YAML
 
@@ -17,8 +17,8 @@ Source:         %{url}/releases/download/v%{version}/ppx_deriving_yaml-%{version
 
 BuildRequires:  ocaml >= 4.08.1
 BuildRequires:  ocaml-alcotest-devel
-BuildRequires:  ocaml-dune >= 3.0
-BuildRequires:  ocaml-mdx-devel >= 2.0.0
+BuildRequires:  ocaml-dune >= 3.14
+BuildRequires:  ocaml-mdx-devel >= 2.4.1
 BuildRequires:  ocaml-ppx-deriving-devel
 BuildRequires:  ocaml-ppxlib-devel >= 0.25.0
 BuildRequires:  ocaml-yaml-devel
@@ -48,13 +48,13 @@ files for developing applications that use %{name}.
 %autosetup -n ppx_deriving_yaml-%{version}
 
 %build
-%dune_build
+%dune_build -p ppx_deriving_yaml
 
 %install
-%dune_install
+%dune_install ppx_deriving_yaml
 
 %check
-%dune_check
+%dune_check -p ppx_deriving_yaml
 
 %files -f .ofiles
 %license LICENSE.md

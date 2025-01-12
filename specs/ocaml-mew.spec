@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-mew
 Version:        0.1.0
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Modal Editing Witch
 
 License:        MIT
@@ -61,6 +61,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Fri Jan 10 2025 Jerry James <loganjerry@gmail.com> - 0.1.0-29
+- OCaml 5.3.0 rebuild for Fedora 42
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 %undefine   __brp_mangle_shebangs
 
 Name:		magic
-Version:	8.3.508
-Release:	1%{?dist}
+Version:	8.3.512
+Release:	2%{?dist}
 Summary:	A very capable VLSI layout tool
 
 # LICENSE: HPND-UC-export-US: https://gitlab.com/fedora/legal/fedora-license-data/-/issues/504
@@ -18,6 +18,8 @@ Source:	http://opencircuitdesign.com/%{name}/archive/%{name}-%{version}.tgz
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 Patch1:	%{name}-7.4.35-64bit.patch
+# https://github.com/RTimothyEdwards/magic/pull/364
+Patch2:	%{name}-pr364-gcc-support-Werror-format-security.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -85,6 +87,7 @@ sed -i "s|package require -exact|package require|" tcltk/tkcon.tcl
 %if "x%{?__isa_bits}" == "x64"
 %patch -P 1 -p0 -b .64bit
 %endif
+%patch -P 2 -p1 -b .format
 
 # Doesn't seem to need these.
 sed -i scripts/configure \
@@ -92,6 +95,10 @@ sed -i scripts/configure \
 
 %global __global_cflags_orig %__global_cflags
 %global __global_cflags %__global_cflags_orig -Werror=implicit-function-declaration -Werror=implicit-int
+
+# Not C23 compliant yet
+%global optflags_orig %optflags
+%global optflags %optflags_orig -std=gnu17
 
 %build
 cd %{name}-%{version}
@@ -106,6 +113,7 @@ export WISH_EXE=%{_bindir}/wish
 
 #%make %%{?_smp_mflags}
 # Parallel make _silently_ fails
+unlink commands/readline || :
 make -j1 -k \
     UNUSED_MODULES=""
 
@@ -171,6 +179,12 @@ rm -f %{buildroot}%{_mandir}/man1/extcheck.1*
 %doc	scmos/
 
 %changelog
+* Fri Jan 10 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.512-2
+- Use -std=gnu17 (instead of c11)
+
+* Fri Jan 10 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.512-1
+- 8.3.512
+
 * Sat Dec 28 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.508-1
 - 8.3.508
 

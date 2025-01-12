@@ -1,8 +1,8 @@
 %{!?configure_options: %global configure_options %{nil}}
 
 Name: libvma
-Version: 9.8.40
-Release: 5%{?dist}
+Version: 9.8.60
+Release: 1%{?dist}
 Summary: A library for boosting TCP and UDP traffic (over RDMA hardware)
 
 # Automatically converted from old format: GPLv2 or BSD - review is highly recommended.
@@ -11,6 +11,7 @@ Url: https://github.com/Mellanox/libvma
 Source0: https://github.com/Mellanox/libvma/archive/%{version}/%{name}-%{version}.tar.gz
 # https://github.com/Mellanox/libvma/pull/1076
 Patch0: 0001-Fix-gcc14-compilation-issue.patch
+Patch1: 0002-kernel-6-10-netlink-issue.patch
 
 # libvma currently supports only the following architectures
 ExclusiveArch: x86_64 ppc64le ppc64 aarch64
@@ -102,6 +103,10 @@ rm -f $RPM_BUILD_ROOT/%{_sysconfdir}/init.d/vma
 %{_mandir}/man8/vma_stats.*
 
 %changelog
+* Sat Jan 11 2025 Honggang Li <honggangli@163.com> - 9.8.60-1
+- Bump version to 9.8.60
+- VMA support for kernel 6.10
+
 * Mon Sep  2 2024 Miroslav Suchý <msuchy@redhat.com> - 9.8.40-5
 - convert license to SPDX
 

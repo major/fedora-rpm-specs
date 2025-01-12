@@ -1,5 +1,5 @@
 Name:          jackson-parent
-Version:       2.18
+Version:       2.18.1
 Release:       1%{?dist}
 Summary:       Parent pom for all Jackson components
 License:       Apache-2.0
@@ -38,6 +38,10 @@ sed -i 's/\r//' LICENSE
 %license LICENSE
 
 %changelog
+* Mon Oct 28 2024 Packit <hello@packit.dev> - 2.18.1-1
+- Update to version 2.18.1
+- Resolves: rhbz#2322288
+
 * Fri Sep 27 2024 Packit <hello@packit.dev> - 2.18-1
 - Update to version 2.18
 - Resolves: rhbz#2315058

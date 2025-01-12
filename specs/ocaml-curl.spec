@@ -5,11 +5,11 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-curl
 Version:        0.9.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        OCaml Curl library (ocurl)
 License:        MIT
 
-URL:            https://ygrek.org/p/ocurl/
+URL:            https://ygrek.org/p/ocurl
 VCS:            git:%{giturl}.git
 Source0:        %{giturl}/archive/%{version}/ocurl-%{version}.tar.gz
 
@@ -91,6 +91,9 @@ make -C examples clean
 
 
 %changelog
+* Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 0.9.2-19
+- OCaml 5.3.0 rebuild for Fedora 42
+
 * Tue Oct 08 2024 Richard W.M. Jones <rjones@redhat.com> - 0.9.2-18
 - Rebuild for ocaml-lwt 5.8.0
 

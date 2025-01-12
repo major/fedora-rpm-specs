@@ -10,12 +10,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 87a0644435145b009ea4c159d3992ff279292424
-%global commitdatestring 2024-12-04 16:51:50 +0100
-%global cosmic_minver 1.0.0~alpha.4
+%global commit 998cf3fba71d8f1cef3507577d2c27ad2c22b740
+%global commitdatestring 2025-01-02 09:34:01 -0700
+%global cosmic_minver 1.0.0~alpha.5
 
 Name:           cosmic-session
-Version:        1.0.0~alpha.4
+Version:        1.0.0~alpha.5
 Release:        %autorelease
 Summary:        Session manager for the COSMIC desktop environment
 
@@ -33,10 +33,6 @@ Source1:        vendor-%{version_no_tilde}.tar.gz
 Source2:        vendor-config-%{version_no_tilde}.toml
 # COSMIC's dconf profile
 Source3:        cosmic-dconf-profile.txt
-
-# Fixes cursor themes in COSMIC
-# See: https://github.com/pop-os/cosmic-session/pull/87
-Patch0: https://patch-diff.githubusercontent.com/raw/pop-os/cosmic-session/pull/87.patch
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  rustc
@@ -69,6 +65,10 @@ Requires:       mozilla-fira-mono-fonts
 Requires:       mozilla-fira-sans-fonts
 Requires:       xorg-x11-server-Xwayland
 Recommends:     cosmic-wallpapers >= %{cosmic_minver}
+
+# Include the distribution extra desktop configuration
+#   while not a hard requirement, this ensures users have a fedora-like experience.
+Recommends:     system-cosmic-config 
 
 %global _description %{expand:
 The session manager for the COSMIC desktop environment.}

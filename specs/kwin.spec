@@ -2,7 +2,7 @@
 %bcond x11 0
 
 Name:    kwin
-Version: 6.2.5
+Version: 6.2.90
 Release: 1%{?dist}
 Summary: KDE Window manager
 
@@ -14,14 +14,6 @@ URL:     https://userbase.kde.org/KWin
 Source0: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz
 
 ## upstream patches
-### From: https://invent.kde.org/plasma/kwin/-/commit/1830494db118d0493937a2e442c6a0a986ae3d51
-### Drop with 6.3.0
-Patch: 0001-backends-drm-if-no-cursor-plane-is-available-fall-ba.patch
-
-# https://invent.kde.org/plasma/kwin/-/merge_requests/6401
-# https://bugs.kde.org/show_bug.cgi?id=495844
-# https://bugs.kde.org/show_bug.cgi?id=491398
-Patch1: 0001-Drop-InternalWindowEventFilter-keyEvent.patch
 
 ## proposed patches
 
@@ -102,7 +94,7 @@ BuildRequires:  cmake(KF6Kirigami2)
 BuildRequires:  cmake(KF6Runner)
 BuildRequires:  cmake(KF6Svg)
 
-BuildRequires:  cmake(KDecoration2)
+BuildRequires:  cmake(KDecoration3)
 BuildRequires:  kscreenlocker-devel
 BuildRequires:  plasma-breeze-devel
 BuildRequires:  plasma-wayland-protocols-devel
@@ -261,8 +253,8 @@ rm -v %{buildroot}%{_kf6_bindir}/kwin_x11 %{buildroot}%{_userunitdir}/plasma-kwi
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings_qwidgets/*.so
 %{_kf6_qtplugindir}/kwin/
 %{_kf6_qtplugindir}/kf6/packagestructure/kwin_*.so
-%{_qt6_plugindir}/org.kde.kdecoration2.kcm/kcm_auroraedecoration.so
-%{_kf6_qtplugindir}/org.kde.kdecoration2/*.so
+%{_qt6_plugindir}/org.kde.kdecoration3.kcm/kcm_auroraedecoration.so
+%{_kf6_qtplugindir}/org.kde.kdecoration3/*.so
 %{_qt6_qmldir}/org/kde/kwin
 %{_kf6_libdir}/kconf_update_bin/kwin5_update_default_rules
 %{_kf6_libdir}/kconf_update_bin/kwin-6.0-delete-desktop-switching-shortcuts
@@ -311,6 +303,9 @@ rm -v %{buildroot}%{_kf6_bindir}/kwin_x11 %{buildroot}%{_userunitdir}/plasma-kwi
 
 
 %changelog
+* Thu Jan 09 2025 Steve Cossette <farchord@gmail.com> - 6.2.90-1
+- Beta 6.2.90
+
 * Tue Dec 31 2024 Steve Cossette <farchord@gmail.com> - 6.2.5-1
 - 6.2.5
 

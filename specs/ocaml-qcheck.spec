@@ -8,8 +8,8 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/c-cube/qcheck
 
 Name:           ocaml-qcheck
-Version:        0.22
-Release:        4%{?dist}
+Version:        0.23
+Release:        1%{?dist}
 Summary:        QuickCheck inspired property-based testing for OCaml
 
 License:        BSD-2-Clause
@@ -197,6 +197,10 @@ asciidoc README.adoc
 %files -n ocaml-ppx-deriving-qcheck-devel -f .ofiles-ppx_deriving_qcheck-devel
 
 %changelog
+* Fri Jan 10 2025 Jerry James <loganjerry@gmail.com> - 0.23-1
+- OCaml 5.3.0 rebuild for Fedora 42
+- Version 0.23
+
 * Mon Aug  5 2024 Jerry James <loganjerry@gmail.com> - 0.22-4
 - Rebuild for ocaml-ppxlib 0.33.0
 

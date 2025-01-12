@@ -46,7 +46,7 @@ Name: boost
 %global real_name boost
 Summary: The free peer-reviewed portable C++ source libraries
 Version: 1.83.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: BSL-1.0 AND MIT AND Python-2.0.1
 
 # Replace each . with _ in %%{version}
@@ -171,6 +171,10 @@ Patch10: boost-1.83-math-Correct-float_next-INF-and-float_prior-INF.patch
 
 # https://github.com/boostorg/context/pull/234
 Patch11: boost-1.83-Fix-ABI-detection-for-empty-os-platform.patch
+
+# https://github.com/boostorg/python/pull/432
+# https://github.com/boostorg/python/pull/443
+Patch12: boost-1.83-NumPy-2.x-dtype.patch
 
 %bcond_with tests
 %bcond_with docs_generated
@@ -1312,6 +1316,9 @@ fi
 %{_mandir}/man1/b2.1*
 
 %changelog
+* Tue Dec 24 2024 Sandro <devel@penguinpee.nl> - 1.83.0-10
+- Backport patches for NumPy 2.x
+
 * Fri Dec 06 2024 Pete Walter <pwalter@fedoraproject.org> - 1.83.0-9
 - Rebuild for ICU 76
 

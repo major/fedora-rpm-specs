@@ -1,14 +1,14 @@
 %global snapshot 0
 
 Name:       ibus-libpinyin
-Version:    1.15.92
+Version:    1.15.94
 Release:    1%{?dist}
 Summary:    Intelligent Pinyin engine based on libpinyin for IBus
 License:    GPL-3.0-or-later
 URL:        https://github.com/libpinyin/ibus-libpinyin
 Source0:    http://downloads.sourceforge.net/libpinyin/ibus-libpinyin/%{name}-%{version}.tar.gz
 %if %snapshot
-Patch0:     ibus-libpinyin-1.15.x-head.patch
+Patch0:     ibus-libpinyin-1.16.x-head.patch
 %endif
 
 Requires:       python3-gobject
@@ -24,6 +24,7 @@ BuildRequires:  python3-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  ibus-devel >= 1.5.11
 BuildRequires:  libpinyin-devel >= 2.1.0
+BuildRequires:  libnotify-devel
 BuildRequires:  make
 
 # Requires(post): sqlite
@@ -79,8 +80,15 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/ibus-setup-libbopo
 %dir %{_datadir}/ibus-libpinyin
 %dir %{_datadir}/ibus-libpinyin/db
 %{_datadir}/ibus/component/*
+%{_datadir}/ibus-libpinyin/default.xml
 
 %changelog
+* Fri Jan 10 2025 Peng Wu <pwu@redhat.com> - 1.15.94-1
+- Update to 1.15.94
+- notify user when import file finished
+- display lua converters in ibus panel
+- support square bracket page option
+
 * Mon Oct 21 2024 Peng Wu <pwu@redhat.com> - 1.15.92-1
 - Update to 1.15.92
 - support punctuation candidate

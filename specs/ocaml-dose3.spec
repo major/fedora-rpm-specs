@@ -41,8 +41,6 @@ BuildRequires:  ocaml-parmap-devel
 BuildRequires:  ocaml-re-devel
 BuildRequires:  ocaml-zip-devel
 
-BuildRequires:  zlib-devel
-
 BuildRequires:  perl, perl-generators
 
 # Test dependencies

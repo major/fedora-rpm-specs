@@ -1,5 +1,5 @@
-#%%global prever pre2
-#%%global ver %%{version}-%%{prever}
+%global prever pre1
+%global ver %{version}-%{prever}
 
 # change with every change of major or minor version number
 #%%global majminver 5.3
@@ -22,24 +22,23 @@
 %{!?_cups_datadir:%global _cups_datadir %(/usr/bin/pkg-config --variable=cups_datadir cups)}
 %{!?_cups_serverroot:%global _cups_serverroot %(/usr/bin/pkg-config --variable=cups_serverroot cups)}
 
-Name:           gutenprint
-Summary:        Printer Drivers Package
-Version:        5.3.4
-Release:        18%{?dist}
-URL:            http://gimp-print.sourceforge.net/
-Source0:        http://downloads.sourceforge.net/gimp-print/%{name}-%{version}.tar.xz
+Name: gutenprint
+Summary: Printer Drivers Package
+Version: 5.3.5
+Release: 0.1%{prever}%{?dist}
+URL: http://gimp-print.sourceforge.net/
+Source0: http://downloads.sourceforge.net/gimp-print/%{name}-%{ver}.tar.xz
 # Post-install script to update CUPS native PPDs.
-Source1:        cups-genppdupdate.py.in
+Source1: cups-genppdupdate.py.in
 # ported from old gimp-print package - fix for a menu in gimp gutenprint plugin
-Patch0:         gutenprint-menu.patch
-Patch1:         gutenprint-postscriptdriver.patch
-Patch2:         gutenprint-yyin.patch
-Patch3:         gutenprint-manpage.patch
-Patch4:         gutenprint-python36syntax.patch
-Patch5:         gutenprint-xmlfixes.patch
-Patch6:         gutenprint-libusb-crash.patch
-Patch7:         gutenprint-c99.patch
-License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT AND GPL-3.0-or-later WITH Bison-exception-2.2
+Patch0: gutenprint-menu.patch
+Patch1: gutenprint-postscriptdriver.patch
+Patch2: gutenprint-yyin.patch
+Patch3: gutenprint-manpage.patch
+Patch4: gutenprint-python36syntax.patch
+# from upstream
+Patch5: 0001-configure.ac-Fix-up-a-mistake-in-the-shared-library-.patch
+License: GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT AND GPL-3.0-or-later WITH Bison-exception-2.2
 
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
@@ -168,7 +167,7 @@ This package contains native CUPS support for a wide range of Canon,
 Epson, HP and compatible printers.
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q -n %{name}-%{ver}
 # Fix menu placement of GIMP plugin.
 %patch -P 0 -p1 -b .menu
 # Allow the CUPS dynamic driver to run inside a build root.
@@ -185,14 +184,13 @@ sed -i -e 's,^#!/usr/bin/python3,#!%{__python3},' src/cups/cups-genppdupdate.in
 
 # Python 3.6 invalid escape sequence deprecation fixes, COPYING as license (bug #1448303)
 %patch -P 4 -p1 -b .python36syntax
-# fix xml error reported by rpminspect, sent upstream via email
-%patch -P 5 -p1 -b .xmlfixes
-# 2055504 - Set gutenprint53+usb backend to use the default USB context
-%patch -P 6 -p1 -b .crash
+%patch -P 5 -p1 -b .soname-ver
 
-%patch -P 7 -p1 -b .c99
 
 %build
+# run after patch for configure.ac
+./autogen.sh
+
 # Don't run the weave test as it takes a very long time.
 sed -i -e 's,^\(TESTS *=.*\) run-weavetest,\1,' test/Makefile.in
 
@@ -260,6 +258,7 @@ done
 
 %post cups
 %{_sbindir}/cups-genppdupdate >/dev/null 2>&1 || :
+%{_sbindir}/restorecon -vRF /etc/cups/printers.conf 2>&1 || :
 %{_bindir}/systemctl restart cups >/dev/null 2>&1 || :
 exit 0
 
@@ -277,12 +276,12 @@ exit 0
 
 %files libs
 %{_libdir}/libgutenprint.so.9
-%{_libdir}/libgutenprint.so.9.5.0
+%{_libdir}/libgutenprint.so.9.*
 
 %if %{with gtk2}
 %files libs-ui
 %{_libdir}/libgutenprintui2.so.2
-%{_libdir}/libgutenprintui2.so.2.5.0
+%{_libdir}/libgutenprintui2.so.2.*
 %endif
 
 %files devel
@@ -312,15 +311,22 @@ exit 0
 %doc
 %{_cups_datadir}/calibrate.ppm
 %{_cups_datadir}/usb/net.sf.gimp-print.usb-quirks
-%{_cups_serverbin}/filter/*
-%{_cups_serverbin}/driver/*
-%{_cups_serverbin}/backend/*
+%{_cups_serverbin}/filter/commandtocanon
+%{_cups_serverbin}/filter/commandtodyesub
+%{_cups_serverbin}/filter/commandtoepson
+%{_cups_serverbin}/filter/rastertogutenprint.5.3
+%{_cups_serverbin}/driver/gutenprint.5.3
+%{_cups_serverbin}/backend/gutenprint53+usb
 %{_bindir}/cups-calibrate
-%{_sbindir}/cups-genppd*
+%{_sbindir}/cups-genppd.5.3
+%{_sbindir}/cups-genppdupdate
 %{_mandir}/man8/cups-calibrate.8*
 %{_mandir}/man8/cups-genppd*8*.gz
 
 %changelog
+* Thu Dec 19 2024 Zdenek Dohnal <zdohnal@redhat.com> - 5.3.5-0.1pre1
+- 5.3.5pre1
+
 * Tue Aug 20 2024 Zdenek Dohnal <zdohnal@redhat.com> - 5.3.4-18
 - 2305688 - disable gimp plugin for F41+ because it depends on GIMP 2
 

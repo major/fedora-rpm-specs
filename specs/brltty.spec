@@ -37,7 +37,7 @@
 
 Name: brltty
 Version: 6.7
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: LGPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later
 URL: http://brltty.app/
 Source0: http://brltty.app/archive/%{name}-%{version}.tar.xz
@@ -676,6 +676,9 @@ fi
 %config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/brltty/Initramfs/cmdline
 
 %changelog
+* Fri Jan 10 2025 Jerry James <loganjerry@gmail.com> - 6.7-4
+- OCaml 5.3.0 rebuild for Fedora 42
+
 * Tue Dec 10 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 6.7-3
 - Switched to upstream patch
   Related: rhbz#2328699

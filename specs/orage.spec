@@ -1,7 +1,7 @@
-%global xfceversion 4.18
+%global xfceversion 4.20
 
 Name:           orage
-Version:        4.18.0
+Version:        %{xfceversion}.0
 Release:        %autorelease
 Summary:        A calendar application
 
@@ -58,6 +58,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %{_datadir}/dbus-1/services/org.xfce.%{name}.service
 %{_datadir}/icons/hicolor/*/*/*
 %{_datadir}/%{name}/
+%{_datadir}/themes/Default/orage-4.0/
 %{_metainfodir}/org.xfce.%{name}.appdata.xml
 
 

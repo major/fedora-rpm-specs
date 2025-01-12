@@ -390,6 +390,10 @@ Installing this package causes %{name}-*-prof packages corresponding to
 
 %prep
 %setup -q -n ghc-%{version} %{?with_testsuite:-b1}
+(
+cd hadrian
+cabal-tweak-dep-ver Cabal '< 3.9' '< 3.11'
+)
 
 %patch -P1 -p1 -b .orig
 %patch -P3 -p1 -b .orig
@@ -427,6 +431,9 @@ rm libffi-tarballs/libffi-*.tar.gz
 #GHCi support
 %patch -P41 -p1 -b .orig
 %endif
+
+# https://github.com/haskell/directory/pull/184
+rm libraries/directory/directory.buildinfo
 
 
 %build

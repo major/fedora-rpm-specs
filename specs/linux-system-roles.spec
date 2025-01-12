@@ -23,7 +23,7 @@ Name: linux-system-roles
 %endif
 Url: https://github.com/linux-system-roles
 Summary: Set of interfaces for unified system management
-Version: 1.94.0
+Version: 1.94.1
 Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv3+ and MIT and BSD and Python - review is highly recommended.
@@ -95,43 +95,43 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 1 1.6.0
 
 %global rolename2 selinux
-%deftag 2 1.8.1
+%deftag 2 1.8.2
 
 %global rolename3 timesync
-%deftag 3 1.9.1
+%deftag 3 1.9.2
 
 %global rolename4 kdump
-%deftag 4 1.4.8
+%deftag 4 1.4.9
 
 %global rolename5 network
-%deftag 5 1.17.0
+%deftag 5 1.17.1
 
 %global rolename6 storage
 %deftag 6 1.18.10
 
 %global rolename7 metrics
-%deftag 7 1.10.8
+%deftag 7 1.10.9
 
 %global rolename8 tlog
-%deftag 8 1.3.7
+%deftag 8 1.3.8
 
 %global rolename9 kernel_settings
 %deftag 9 1.3.3
 
 %global rolename10 logging
-%deftag 10 1.14.0
+%deftag 10 1.14.1
 
 %global rolename11 nbde_server
-%deftag 11 1.4.8
+%deftag 11 1.4.9
 
 %global rolename12 nbde_client
-%deftag 12 1.3.1
+%deftag 12 1.3.2
 
 %global rolename13 certificate
 %deftag 13 1.3.8
 
 %global rolename14 crypto_policies
-%deftag 14 1.4.1
+%deftag 14 1.4.2
 
 %global forgeorg15 https://github.com/willshersystems
 %global repo15 ansible-sshd
@@ -139,58 +139,58 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 15 v0.26.0
 
 %global rolename16 ssh
-%deftag 16 1.5.1
+%deftag 16 1.5.2
 
 %global rolename17 ha_cluster
-%deftag 17 1.22.0
+%deftag 17 1.22.1
 
 %global rolename18 vpn
-%deftag 18 1.6.8
+%deftag 18 1.6.9
 
 %global rolename19 firewall
-%deftag 19 1.8.1
+%deftag 19 1.8.2
 
 %global rolename20 cockpit
 %deftag 20 1.5.14
 
 %global rolename21 podman
-%deftag 21 1.7.1
+%deftag 21 1.7.2
 
 %global rolename22 ad_integration
-%deftag 22 1.4.7
+%deftag 22 1.4.8
 
 %global rolename23 rhc
-%deftag 23 1.6.7
+%deftag 23 1.6.8
 
 %global rolename24 journald
-%deftag 24 1.3.4
+%deftag 24 1.3.5
 
 %global rolename25 postgresql
-%deftag 25 1.3.9
+%deftag 25 1.3.10
 
 %global rolename26 systemd
 %deftag 26 1.3.1
 
 %global rolename27 keylime_server
-%deftag 27 1.1.6
+%deftag 27 1.1.7
 
 %global rolename28 fapolicyd
-%deftag 28 1.1.8
+%deftag 28 1.1.9
 
 %global rolename29 bootloader
 %deftag 29 1.0.8
 
 %global rolename30 snapshot
-%deftag 30 1.4.2
+%deftag 30 1.4.3
 
 %global rolename31 gfs2
-%deftag 31 1.0.2
+%deftag 31 1.0.3
 
 %global rolename32 sudo
-%deftag 32 1.2.1
+%deftag 32 1.2.2
 
 %global rolename33 aide
-%deftag 33 0.0.1
+%deftag 33 1.0.0
 
 Source1: %{archiveurl1}
 Source2: %{archiveurl2}
@@ -703,6 +703,9 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Thu Jan  9 2025 Packit <hello@packit.dev> - 1.94.1-1
+- Update to upstream version 1.94.1
+
 * Tue Jan  7 2025 Packit <hello@packit.dev> - 1.94.0-1
 - Update to upstream version 1.94.0
 

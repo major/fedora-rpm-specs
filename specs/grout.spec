@@ -5,7 +5,7 @@
 %global forgeurl https://github.com/DPDK/grout
 
 Name: grout
-Version: 0.4
+Version: 0.5
 Summary: Graph router based on DPDK
 License: BSD-3-Clause
 Group: System Environment/Daemons
@@ -30,6 +30,11 @@ BuildRequires: pkgconf
 BuildRequires: scdoc
 BuildRequires: socat
 BuildRequires: systemd
+
+# No point in running a DPDK application on 32 bit x86: see fedora#2336884
+ExcludeArch: i686
+# DPDK does not build on s390x: see fedora#2336876
+ExcludeArch: s390x
 
 %description
 grout stands for Graph Router. In English, "grout" refers to thin mortar that

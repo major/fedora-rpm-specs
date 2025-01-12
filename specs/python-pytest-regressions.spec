@@ -1,15 +1,15 @@
 %global giturl  https://github.com/ESSS/pytest-regressions
 
 Name:           python-pytest-regressions
-Version:        2.5.0
-Release:        5%{?dist}
+Version:        2.7.0
+Release:        %autorelease
 Summary:        Pytest fixtures for writing regression tests
 
 License:        MIT
 BuildArch:      noarch
 URL:            https://pytest-regressions.readthedocs.io/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/archive/%{version}/pytest-regressions-%{version}.tar.gz
+Source:         %{giturl}/archive/v%{version}/pytest-regressions-%{version}.tar.gz
 
 BuildRequires:  make
 BuildRequires:  python3-devel
@@ -63,9 +63,6 @@ Documentation for %{name}.
 sed -e 's/\(version = \).*/\1"%{version}"/' \
     -e 's/\(release = \).*/\1"%{version}"/' \
     -i doc/conf.py
-# Remove unnecessary dependencies
-sed -e '/"mypy",/d' -e '/"pre-commit",/d' -e '/"restructuredtext-lint",/d' \
-    -i setup.py
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
@@ -83,7 +80,7 @@ rm doc/_build/html/.buildinfo
 
 %install
 %pyproject_install
-%pyproject_save_files pytest_regressions
+%pyproject_save_files -l pytest_regressions
 
 %check
 # Adapt the expected ndarray type on s390x
@@ -99,63 +96,4 @@ fi
 %doc doc/_build/html
 
 %changelog
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sat Jun 08 2024 Python Maint <python-maint@redhat.com> - 2.5.0-4
-- Rebuilt for Python 3.13
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Aug 31 2023 Jerry James <loganjerry@gmail.com> - 2.5.0-1
-- Version 2.5.0
-
-* Wed Aug 30 2023 Jerry James <loganjerry@gmail.com> - 2.4.3-1
-- Version 2.4.3
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 2.4.2-4
-- Rebuilt for Python 3.12
-
-* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 2.4.2-3
-- Generate extras subpackages
-- Dynamically generate BuildRequires
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jan 13 2023 Jerry James <loganjerry@gmail.com> - 2.4.2-1
-- Version 2.4.2
-
-* Sat Sep 17 2022 Jerry James <loganjerry@gmail.com> - 2.4.1-1
-- Version 2.4.1
-
-* Fri Sep 16 2022 Jerry James <loganjerry@gmail.com> - 2.4.0-1
-- Version 2.4.0
-- Drop obsolete -numexpr patch
-- Clarify license of the -doc subpackage
-- Fix tests on s390x
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jun 15 2022 Python Maint <python-maint@redhat.com> - 2.3.1-3
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jan 19 2022 Jerry James <loganjerry@gmail.com> - 2.3.1-1
-- Version 2.3.1
-
-* Tue Jan  4 2022 Jerry James <loganjerry@gmail.com> - 2.3.0-1
-- Version 2.3.0
-
-* Tue Jul 13 2021 Jerry James <loganjerry@gmail.com> - 2.2.0-1
-- Initial RPM
+%autochangelog

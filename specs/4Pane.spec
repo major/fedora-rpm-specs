@@ -8,7 +8,7 @@
 
 Name:			4Pane
 Version:		8.0
-Release:		9%{?dist}
+Release:		10%{?dist}
 Summary:		Multi-pane, detailed-list file manager
 
 # Overall		GPL-3.0-only
@@ -19,8 +19,10 @@ Summary:		Multi-pane, detailed-list file manager
 License:		GPL-3.0-only AND LGPL-2.0-or-later AND CC0-1.0
 URL:			http://www.4pane.co.uk/
 Source0:		http://downloads.sourceforge.net/fourpane/4pane-%{version}.tar.gz
-# https://sourceforge.net/p/fourpane/git4pane/ci/66ae9a6f2ac526d80559967cda428cd48e5859ee/
-Patch0:		4Pane-7.0-wx3.2.patch
+# https://sourceforge.net/p/fourpane/bugs/22/
+# https://sourceforge.net/p/fourpane/git4pane/ci/d8b74e4df86fb526ee9caad284b9eb3efe528ac5/
+# Make files under /tmp unpredictable
+Patch0:		4Pane-d8b74e4-tmp-file-name.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	bzip2-devel
@@ -44,6 +46,7 @@ tools.
 
 %prep
 %setup -q -n 4pane-%{version}
+%patch -P0 -p1 -b .tmpfile
 
 %if 0
 cat > .gitignore <<EOF
@@ -116,6 +119,9 @@ appstream-util validate-relax --nonet \
 %{_datadir}/icons/hicolor/*/apps/%{name}*
 
 %changelog
+* Fri Jan 10 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.0-10
+- Upstream fix to make files under /tmp unpredictable
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

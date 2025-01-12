@@ -7,15 +7,15 @@
 #   current tooling, nor is there a well-defined place where a nupkg should be
 #   installed.
 
-%if 0%{?rhel}
-%bcond_with swift
-%else
-%bcond_without swift
-%endif
-
 %global giturl      https://github.com/antlr/antlr4
 %global swiftarches x86_64 aarch64
 %global swiftdir    %{_prefix}/lib/swift/linux
+
+%ifarch %{swiftarches}
+%bcond swift %{undefined rhel}
+%else
+%bcond swift 0
+%endif
 
 Name:           antlr4-project
 Version:        4.13.2
@@ -91,6 +91,7 @@ This package provides the runtime library used by Java ANTLR parsers.
 Summary:        Parser generator (ANother Tool for Language Recognition)
 BuildArch:      noarch
 Requires:       antlr4-runtime = %{version}-%{release}
+Requires:       java-headless
 Requires:       javapackages-tools
 
 %description -n antlr4 %_desc
@@ -182,7 +183,6 @@ BuildArch:      noarch
 This package provides the runtime library used by Python 3 ANTLR parsers.
 
 %if %{with swift}
-%ifarch %swiftarches
 %package     -n swift-antlr4-runtime
 Summary:        ANTLR runtime for swift
 BuildRequires:  chrpath
@@ -192,10 +192,11 @@ BuildRequires:  swift-lang
 
 This package provides the runtime library used by swift ANTLR parsers.
 %endif
-%endif
 
 %prep
 %autosetup -n antlr4-%{version} -p1
+
+%conf
 find -name \*.jar -delete
 
 # sonatype-oss-parent is deprecated in Fedora
@@ -259,7 +260,6 @@ cd runtime/Python3
 cd -
 
 %if %{with swift}
-%ifarch %swiftarches
 # Build the Swift runtime
 cd runtime/Swift
 # Swift insists on a space between -j and the number, so cannot use _smp_mflags
@@ -267,7 +267,6 @@ swift build -c release %{?_smp_build_ncpus:-j %_smp_build_ncpus} \
   -Xlinker --build-id -Xlinker --as-needed -Xlinker -z -Xlinker relro \
   -Xlinker -z -Xlinker now
 cd -
-%endif
 %endif
 
 %install
@@ -308,22 +307,20 @@ cp -a runtime/JavaScript/src/antlr4 %{buildroot}%{nodejs_sitelib}
 # Install the Python 3 runtime
 cd runtime/Python3
 %pyproject_install
-%pyproject_save_files antlr4
+%pyproject_save_files -L antlr4
 cd -
 
 %if %{with swift}
-%ifarch %swiftarches
 # Install the Swift runtime
 mkdir -p %{buildroot}%{swiftdir}/%{_arch}
 cp -p .build/release/libAntlr4Dynamic.so %{buildroot}%{swiftdir}
 cp -p .build/release/libAntlr4Static.a %{buildroot}%{swiftdir}
-cp -p .build/release/Antlr4.swift{doc,module,sourceinfo} %{buildroot}%{swiftdir}/%{_arch}
+cp -p .build/*/release/Modules/Antlr4.swift{doc,module,sourceinfo} %{buildroot}%{swiftdir}/%{_arch}
 cp -p .build/release/description.json %{buildroot}%{swiftdir}/%{_arch}
 
 # Fix the rpath to have $ORIGIN first
 oldrunpath=$(chrpath %{buildroot}%{swiftdir}/libAntlr4Dynamic.so | cut -d= -f2 | cut -d: -f1)
 chrpath -r "\$ORIGIN:$oldrunpath" %{buildroot}%{swiftdir}/libAntlr4Dynamic.so
-%endif
 %endif
 
 # Create man pages
@@ -396,11 +393,9 @@ rm -fr %{buildroot}%{_docdir}/libantlr4
 %{_mandir}/man1/pygrun.1*
 
 %if %{with swift}
-%ifarch %swiftarches
 %files -n swift-antlr4-runtime
 %license LICENSE.txt
 %{swiftdir}/
-%endif
 %endif
 
 %changelog

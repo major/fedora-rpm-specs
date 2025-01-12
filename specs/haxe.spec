@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 
 Name:           haxe
 Version:        4.3.4
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Multi-target universal programming language
 
 # As described in https://haxe.org/foundation/open-source.html:
@@ -27,6 +27,8 @@ URL:            https://haxe.org/
 Source0:        https://github.com/HaxeFoundation/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        https://github.com/HaxeFoundation/haxelib/archive/%{commit_haxelib}.tar.gz#/haxelib-%{commit_haxelib}.tar.gz
 Source2:        https://github.com/HaxeFoundation/hx3compat/archive/%{commit_hx3compat}.tar.gz#/hx3compat-%{commit_hx3compat}.tar.gz
+# Updates needed for OCaml 5.3.0
+Patch:          %{name}-ocaml5.3.patch
 
 BuildRequires:  make
 BuildRequires:  nekovm-devel >= 2.3.0
@@ -68,6 +70,7 @@ by the Haxe compiler.
 %setup -q
 pushd extra/haxelib_src && tar -xf %{SOURCE1} --strip-components=1 && popd
 pushd extra/haxelib_src/hx3compat && tar -xf %{SOURCE2} --strip-components=1 && popd
+%autopatch -p1
 
 %build
 # note that the Makefile does not support parallel building
@@ -124,6 +127,10 @@ popd
 %{_datadir}/%{name}/
 
 %changelog
+* Fri Jan 10 2025 Jerry James <loganjerry@gmail.com> - 4.3.4-7
+- OCaml 5.3.0 rebuild for Fedora 42
+- Add patch for OCaml 5.3.0 compatibility
+
 * Tue Sep 03 2024 Morten Stevens <mstevens@fedoraproject.org> - 4.3.4-6
 - Rebuilt for mbedTLS 3.6.1
 

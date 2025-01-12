@@ -3,11 +3,12 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-sha
 Version:        1.15.4
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Binding to the SHA cryptographic functions
 
 License:        ISC
-URL:            https://github.com/djs55/ocaml-sha/
+URL:            https://github.com/djs55/ocaml-sha
+VCS:            git:%{url}.git
 Source0:        %{url}/releases/download/v%{version}/sha-%{version}.tbz
 
 # The OCaml version packaged in Fedora is recent enough, no need to shim stdlib.
@@ -60,6 +61,9 @@ files for developing applications that use %{name}.
 
 
 %changelog
+* Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 1.15.4-12
+- OCaml 5.3.0 rebuild for Fedora 42
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.4-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

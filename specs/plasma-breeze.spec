@@ -7,7 +7,7 @@
 %endif
 
 Name:    plasma-breeze
-Version: 6.2.5
+Version: 6.2.90
 Release: 1%{?dist}
 Summary: Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 
@@ -40,7 +40,7 @@ Requires:       (%{name}-qt5 if qt5-qtbase-gui)
 
 # Qt6
 BuildRequires:  kf6-rpm-macros
-BuildRequires:  cmake(KDecoration2)
+BuildRequires:  cmake(KDecoration3)
 BuildRequires:  cmake(KF6ColorScheme)
 BuildRequires:  cmake(KF6Config)
 BuildRequires:  cmake(KF6CoreAddons)
@@ -55,6 +55,7 @@ BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt6DBus)
 BuildRequires:  cmake(Qt6Quick)
 BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Svg)
 
 Requires:       %{name}-qt6
 
@@ -131,11 +132,12 @@ popd
 %files -f breeze.lang
 %license LICENSES/*.txt
 %{_bindir}/breeze-settings6
+%{_bindir}/kcursorgen
 %{_kf6_datadir}/applications/breezestyleconfig.desktop
 %{_kf6_datadir}/applications/kcm_breezedecoration.desktop
 %{_kf6_qtplugindir}/kstyle_config/breezestyleconfig.so
-%{_kf6_qtplugindir}/org.kde.kdecoration2.kcm/kcm_breezedecoration.so
-%{_kf6_qtplugindir}/org.kde.kdecoration2/org.kde.breeze.so
+%{_kf6_qtplugindir}/org.kde.kdecoration3.kcm/kcm_breezedecoration.so
+%{_kf6_qtplugindir}/org.kde.kdecoration3/org.kde.breeze.so
 %{_libdir}/cmake/Breeze/
 
 %if %{with kf5}
@@ -165,6 +167,9 @@ popd
 %{_kf6_datadir}/icons/breeze_cursors/index.theme
 
 %changelog
+* Thu Jan 09 2025 Steve Cossette <farchord@gmail.com> - 6.2.90-1
+- Beta 6.2.90
+
 * Tue Dec 31 2024 Steve Cossette <farchord@gmail.com> - 6.2.5-1
 - 6.2.5
 

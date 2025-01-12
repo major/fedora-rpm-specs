@@ -83,6 +83,12 @@ MinGW Windows %{name} library.
 chmod -x examples/*.c
 mkdir -p m4
 sed -i '/AM_LDFLAGS = -static/d' tests/Makefile.am
+%if 0%{fedora} >= 42
+autoscan
+aclocal
+autoconf
+automake --add-missing
+%endif
 
 
 %build

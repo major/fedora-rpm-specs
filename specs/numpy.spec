@@ -20,7 +20,7 @@
 
 Name:           numpy
 Version:        2.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        A fast multidimensional array facility for Python
 
@@ -153,11 +153,13 @@ sed -i '/libdivide\.h/i#define LIBDIVIDE_NEON' numpy/_core/src/umath/loops.c.src
 %endif
 
 #fix flags for ELN ppc64le
-%ifarch ppc64le && 0%{?rhel} >= 10
+%if 0%{?rhel} >= 10
+%ifarch ppc64le
 find . -type f -print0 | xargs -0 sed -i s/mcpu=power8/mcpu=power9/
 %endif
+%endif
 
-%pyproject_wheel -Csetup-args=-Dblas=flexiblas -Csetup-args=-Dlapack=lapack
+%pyproject_wheel -Csetup-args=-Dblas=flexiblas -Csetup-args=-Dlapack=lapack -Ccompile-args=-v
 
 %install
 mkdir docs
@@ -254,6 +256,9 @@ python3 runtests.py --no-build -- -ra -k 'not test_ppc64_ibm_double_double128 %{
 
 
 %changelog
+* Wed Jan 08 2025 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 1:2.2.1-2
+- Stop running RHEL code on Fedora (rhbz#2336127)
+
 * Sat Dec 21 2024 Gwyn Ciesla <gwync@protonmail.com> - 1:2.2.1-1
 - 2.2.1
 

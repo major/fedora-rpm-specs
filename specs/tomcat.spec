@@ -523,8 +523,8 @@ exit 0
 %{appdir}/ROOT
 
 %changelog
-* Tue Jan 07 2025 Dimitris Soumis <dsoumis@redhat.com> - 1:10.1.28-1
-- Update to version 10.1.28
+* Fri Jan 10 2025 Dimitris Soumis <dsoumis@redhat.com> - 1:10.1.34-1
+- Update to version 10.1.34
 
 * Mon Dec 09 2024 Packit <hello@packit.dev> - 1:9.0.98-1
 - Update to version 9.0.98

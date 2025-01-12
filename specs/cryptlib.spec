@@ -5,10 +5,10 @@
 
 Name:       cryptlib
 Version:    3.4.8  
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Security library and toolkit for encryption and authentication services    
 
-License:    Sleepycat and OpenSSL     
+License:    Sleepycat and OpenSSL and BSD-3-Clause   
 URL:        https://www.cs.auckland.ac.nz/~pgut001/cryptlib      
 Source0:    https://senderek.ie/fedora/cl348_fedora.zip      
 Source1:    https://senderek.ie/fedora/cl348_fedora.zip.sig
@@ -355,6 +355,9 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/clsmime.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Fri Jan 10 2025 Ralf Senderek <innovation@senderek.ie>  3.4.8-3
+- add BSD-3-Clause to License tag 
+
 * Thu Dec 19 2024 Ralf Senderek <innovation@senderek.ie>  3.4.8-2
 - add test programs for claes, clkeys and clsmime and riscv64 support
 

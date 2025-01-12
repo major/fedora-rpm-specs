@@ -1,5 +1,5 @@
 Name:           jackson-databind
-Version:        2.18.0
+Version:        2.18.2
 Release:        1%{?dist}
 Summary:        General data-binding package for Jackson (2.x)
 License:        Apache-2.0 and LGPL-2.0-or-later
@@ -37,7 +37,7 @@ Jackson Annotations for configuration.
 %pom_xpath_set "//pom:javac.src.version" "11"
 %pom_xpath_set "//pom:javac.target.version" "11"
 %pom_xpath_inject "//pom:properties" " <maven.compiler.source>11</maven.compiler.source>"
-%pom_xpath_inject "//pom:properties" " <maven.compiler.target>1.6</maven.compiler.target>"
+%pom_xpath_inject "//pom:properties" " <maven.compiler.target>11</maven.compiler.target>"
 
 cp -p src/main/resources/META-INF/NOTICE .
 sed -i 's/\r//' LICENSE NOTICE
@@ -46,7 +46,6 @@ sed -i 's/\r//' LICENSE NOTICE
 %pom_remove_dep javax.measure:jsr-275
 rm src/test/java/com/fasterxml/jackson/databind/introspect/NoClassDefFoundWorkaroundTest.java
 %pom_xpath_remove pom:classpathDependencyExcludes
-%pom_xpath_remove '//pom:compilerArgs/pom:arg[contains(text(),"enable-preview")]'
 
 # TestTypeFactoryWithClassLoader fails to compile
 # - mockito is only transitively pulled in by powermock, so add it back
@@ -65,6 +64,10 @@ rm src/test/java/com/fasterxml/jackson/databind/introspect/NoClassDefFoundWorkar
 %license LICENSE NOTICE
 
 %changelog
+* Thu Nov 28 2024 Packit <hello@packit.dev> - 2.18.2-1
+- Update to version 2.18.2
+- Resolves: rhbz#2322329
+
 * Fri Sep 27 2024 Packit <hello@packit.dev> - 2.18.0-1
 - Update to version 2.18.0
 - Resolves: rhbz#2315070

@@ -8,7 +8,7 @@
 
 Name:           podofo
 Version:        0.10.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tools and libraries to work with the PDF file format
 
 License:        LGPL-2.0-or-later
@@ -210,6 +210,9 @@ rmdir %{buildroot}%{_datadir}/podofo/
 
 
 %changelog
+* Fri Jan 10 2025 Sandro Mani <manisandro@gmail.com> - 0.10.4-3
+- Rebuild (icu)
+
 * Sun Sep 15 2024 Sandro Mani <manisandro@gmail.com> - 0.10.4-2
 - Refresh tarball
 

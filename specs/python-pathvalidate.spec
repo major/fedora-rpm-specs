@@ -1,5 +1,5 @@
 Name:      python-pathvalidate
-Version:   3.2.1
+Version:   3.2.3
 Release:   %autorelease
 Summary:   Library to sanitize/validate a string such as file-names/file-paths/etc
 

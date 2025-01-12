@@ -8,8 +8,8 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/camlp5/camlp5
 
 Name:           ocaml-camlp5
-Version:        8.03.00
-Release:        4%{?dist}
+Version:        8.03.01
+Release:        1%{?dist}
 Summary:        Preprocessor and pretty printer for OCaml
 
 License:        BSD-3-Clause
@@ -40,8 +40,9 @@ BuildRequires:  perl(String::ShellQuote)
 BuildRequires:  ocaml-ocamldoc
 
 # Do not provide symbols already provided by the OCaml compiler
-%global __ocaml_provides_opts -i Dynlink -i Dynlink_common -i Dynlink_compilerlibs -i Dynlink_platform_intf -i Dynlink_types
-
+%global __ocaml_provides_opts -i Dynlink -i Dynlink_common -i Dynlink_config -i Dynlink_platform_intf -i Dynlink_symtable -i Dynlink_types
+# Do not require symbols that we don't provide
+%global __ocaml_requires_opts -i Dynlink_cmo_format -i MLast
 
 %description
 Camlp5 is a preprocessor-pretty-printer of OCaml.
@@ -49,7 +50,7 @@ Camlp5 is a preprocessor-pretty-printer of OCaml.
 It is compatible with all versions of OCaml from 4.05.0 thru 4.14.0.
 Previous versions of Camlp5 have supported OCaml versions down to 1.07
 and jocaml 3.12.0 to 3.12.1, but this version cuts off support at
-4.05.0.  Camlp5 is heavily tested with OCaml versions from 4.10.0
+4.10.0.  Camlp5 is heavily tested with OCaml versions from 4.10.0
 forward, with an extensive and ever-growing testsuite.
 
 
@@ -115,6 +116,10 @@ make -C test all
 
 
 %changelog
+* Fri Jan 10 2025 Jerry James <loganjerry@gmail.com> - 8.03.01-1
+- OCaml 5.3.0 rebuild for Fedora 42
+- Version 8.03.01
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.03.00-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

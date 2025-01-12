@@ -1,6 +1,6 @@
 Name:    plasma-workspace-x11
 Summary: Xorg support for Plasma
-Version: 6.2.5
+Version: 6.2.90
 Release: 1%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -41,6 +41,7 @@ BuildRequires:  libXcursor-devel
 BuildRequires:  libXtst-devel
 BuildRequires:  libXft-devel
 BuildRequires:  libxcb-devel
+BuildRequires:  xcb-util-cursor-devel
 BuildRequires:  xcb-util-keysyms-devel
 BuildRequires:  xcb-util-image-devel
 BuildRequires:  xcb-util-renderutil-devel
@@ -59,7 +60,6 @@ BuildRequires:  unity-gtk3-module
 %ifnarch s390 s390x
 BuildRequires:  libraw1394-devel
 %endif
-BuildRequires:  gpsd-devel
 BuildRequires:  libqalculate-devel
 %global kf6_pim 1
 BuildRequires:  libicu-devel
@@ -215,6 +215,11 @@ sed -i \
 
 
 %changelog
+* Fri Jan 10 2025 Kevin Kofler <Kevin@tigcc.ticalc.org> - 6.2.90-1
+- 6.2.90
+- Remove BuildRequires: gpsd-devel
+- BuildRequires: xcb-util-cursor-devel
+
 * Wed Jan 01 2025 Kevin Kofler <Kevin@tigcc.ticalc.org> - 6.2.5-1
 - 6.2.5
 

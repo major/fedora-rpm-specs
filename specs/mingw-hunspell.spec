@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       1.7.2
-Release:       7%{?dist}
+Release:       8%{?dist}
 Summary:       MinGW Windows spell checker and morphological analyzer library
 
 URL:           http://hunspell.github.io/
@@ -179,6 +179,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/man
 
 
 %changelog
+* Fri Jan 10 2025 Sandro Mani <manisandro@gmail.com> - 1.7.2-8
+- Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.7.2-7
 - convert license to SPDX
 

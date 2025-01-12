@@ -1,7 +1,7 @@
 Summary:        A MOD music file player library
 Name:           libmikmod
-Version:        3.3.11.1
-Release:        20%{?dist}
+Version:        3.3.12
+Release:        1%{?dist}
 # Automatically converted from old format: GPLv2 and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-only AND LicenseRef-Callaway-LGPLv2+
 URL:            http://mikmod.sourceforge.net/
@@ -9,7 +9,6 @@ Source0:        http://downloads.sourceforge.net/mikmod/libmikmod-%{version}.tar
 Patch0:         libmikmod-64bit.patch
 Patch1:         libmikmod-multilib.patch
 Patch2:         libmikmod-cflags.patch
-Patch3:         libmikmod-autoconf.patch
 BuildRequires:  gcc
 BuildRequires:  alsa-lib-devel pulseaudio-libs-devel
 BuildRequires:  autoconf automake libtool make
@@ -59,6 +58,12 @@ find %{buildroot} -name '*.la' -print -delete
 %{_mandir}/man1/%{name}-config*
 
 %changelog
+* Thu Jan 09 2025 Charles R. Anderson <cra@alum.wpi.edu> - 3.3.12-1
+- Update to 3.3.12
+- Regenerate patches
+- Also patch configure.ac to remove non standard CFLAGS so changes
+  are effective after autoreconf.
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 3.3.11.1-20
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           spacebar
 Epoch:          1
-Version:        6.2.5
+Version:        6.2.90
 Release:        1%{?dist}
 License:        GPLv2+ and GPLv3 and GPLv2
 Summary:        Messaging app for Plasma Mobile
@@ -76,6 +76,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %doc README.md
 %license LICENSES/{GPL-2.0-or-later,LicenseRef-KDE-Accepted-GPL}.txt
 %{_kf6_bindir}/%{name}
+%{_kf6_bindir}/spacebar-fakeserver
 %{_kf6_datadir}/applications/org.kde.%{name}.desktop
 %{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
 %{_kf6_datadir}/knotifications6/%{name}.notifyrc
@@ -85,6 +86,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_sysconfdir}/xdg/autostart/org.kde.%{name}.daemon.desktop
 
 %changelog
+* Thu Jan 09 2025 Steve Cossette <farchord@gmail.com> - 1:6.2.90-1
+- Beta 6.2.90
+
 * Tue Dec 31 2024 Steve Cossette <farchord@gmail.com> - 1:6.2.5-1
 - 6.2.5
 
