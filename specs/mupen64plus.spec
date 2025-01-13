@@ -3,7 +3,7 @@
 
 Name:		mupen64plus
 Version:	2.6.0
-Release:	1%{?dist}
+Release:	3%{?dist}
 
 Summary:	Nintendo 64 Emulator
 # Automatically converted from old format: GPLv2+ and CC-BY-SA - review is highly recommended.
@@ -11,6 +11,8 @@ License:	GPL-2.0-or-later AND LicenseRef-Callaway-CC-BY-SA
 URL:		http://www.mupen64plus.org/
 Source:		https://github.com/mupen64plus/mupen64plus-core/releases/download/%{version}/mupen64plus-bundle-src-%{version}.tar.gz
 
+# https://github.com/mupen64plus/mupen64plus-core/issues/1104
+Patch1:		search-lib64.patch
 
 BuildRequires:	pkgconfig(SDL_ttf)
 BuildRequires:	pkgconfig(lirc)
@@ -19,6 +21,7 @@ BuildRequires:	pkgconfig(glu)
 BuildRequires:	pkgconfig(samplerate)
 BuildRequires:	pkgconfig(libpng)
 BuildRequires:	pkgconfig(sdl2)
+BuildRequires:  pkgconfig(speexdsp)
 BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	pkgconfig(vulkan)
 BuildRequires:	gzip
@@ -46,7 +49,7 @@ Requires:	%{name}%{?_isa} = %{version}-%{release}
 Development files for mupen64plus
 
 %prep
-%setup -q -n %{name}-bundle-src-%{version}
+%autosetup -p1 -n %{name}-bundle-src-%{version}
 
 # Need to avoid filename conflicts so they can be included in the package
 cp -a source/mupen64plus-rsp-hle/LICENSES LICENSE-rsp-hle
@@ -79,11 +82,11 @@ sh m64p_build.sh LIRC=1 $ADDITIONAL_FLAGS
 %install
 
 # NOTE: set LDCONFIG to true so it's not run during this script
-./m64p_install.sh DESTDIR=%{buildroot} PREFIX=%{_prefix} MANDIR=%{_mandir} LIBDIR=%{_libdir} DEBUG=1 LDCONFIG='true'
+./m64p_install.sh DESTDIR=%{buildroot} PREFIX=%{_prefix} MANDIR=%{_mandir} LIBDIR=%{_libdir} PIC=1 LDCONFIG='true'
 find %{buildroot}%{_libdir} -type f -name "*.so*" -exec chmod 0755 "{}" \;
 
 # NOTE: The build system should probably create this...
-ln -sf %{_libdir}/libmupen64plus.so.2.0.0 %{buildroot}%{_libdir}/libmupen64plus.so
+ln -sf libmupen64plus.so.2.0.0 %{buildroot}%{_libdir}/libmupen64plus.so
 
 desktop-file-validate %{buildroot}/%{_datadir}/applications/mupen64plus.desktop
 
@@ -109,6 +112,15 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/mupen64plus.desktop
 %{_libdir}/libmupen64plus.so
 
 %changelog
+* Wed Jan 08 2025 David Auer <dreua@posteo.de> - 2.6.0-3
+- Add patch for the plugin search path
+
+* Fri Dec 20 2024 David Auer <dreua@posteo.de> - 2.6.0-2
+- Disable debug build
+- Enable pic build
+- Add optional build requirment speexdsp
+- Lib symlink is now relative
+
 * Sun Nov 24 2024 David Auer <dreua@posteo.de> - 2.6.0-1
 - Updated to 2.6.0
 

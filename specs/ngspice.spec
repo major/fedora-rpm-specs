@@ -14,7 +14,7 @@
 %endif
 
 %global	majorver	44
-#%%global	minorver	3
+%global	minorver	2
 %global	docver	44
 %undefine	prever
 %global	prerpmver	%(echo "%{?prever}" | sed -e 's|-||g')
@@ -60,7 +60,7 @@ License:		LicenseRef-Callaway-BSD
 URL:			http://ngspice.sourceforge.net
 
 %if 0%{?userelease} >= 1
-Source0:		https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/%{majorver}/ngspice-%{majorver}.tar.gz
+Source0:		https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/%{majorver}%{?minorver:.%minorver}/ngspice-%{majorver}%{?minorver:.%minorver}.tar.gz
 %endif
 %if 0%{?usegitbare} >= 1
 Source0:       	ngspice-%{tarballdate}T%{tarballtime}.tar.gz
@@ -173,7 +173,7 @@ developing applications that use libngspice.
 
 %prep
 %if 0%{?userelease} >= 1
-%setup -q -n %{name}-%{majorver}
+%setup -q -n %{name}-%{majorver}%{?minorver:.%minorver}
 git init
 git config user.name "%{name} maintainer"
 git config user.email "%{name}-maintainers@fedoraproject.org"
@@ -429,7 +429,7 @@ cp -pr ./src/spicelib/devices/adms/ %{buildroot}%{_libdir}/%{name}
 # Ensuring that all docs are under %%{_pkgdocdir}
 mkdir -p %{buildroot}%{_pkgdocdir}
 cp -pr examples/ %{buildroot}%{_pkgdocdir}
-install -cpm 0644 %{SOURCE1} %{buildroot}%{_pkgdocdir}/%{name}-%{version}.pdf
+install -cpm 0644 %{SOURCE1} %{buildroot}%{_pkgdocdir}/%{name}-%{majorver}.pdf
 
 cp -a \
 	Stuarts_Poly_Notes \
@@ -501,6 +501,9 @@ popd
 %{_includedir}/ngspice/
 
 %changelog
+* Sun Jan 12 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 44.2-1
+- Update to 44.2
+
 * Mon Dec 30 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 44-1
 - Update to 44
 

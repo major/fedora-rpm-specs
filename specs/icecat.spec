@@ -20,10 +20,6 @@ ExcludeArch: %{ix86} %{arm}
 # Downgrade optimization
 %global less_optbuild 0
 
-# Use mozilla hardening option?
-%global hardened_build 1
-####################
-
 # Build PGO+LTO on x86_64 and aarch64 only due to build issues
 # on other arches.
 %ifarch x86_64
@@ -63,7 +59,7 @@ ExcludeArch: %{ix86} %{arm}
 %global toolkit_gtk3  1
 
 # Big endian platforms
-%ifarch s390x
+%ifarch s390x %{power64}
 # Javascript Intl API is not supported on big endian platforms right now:
 # https://bugzilla.mozilla.org/show_bug.cgi?id=1322212
 %global big_endian    1
@@ -452,7 +448,6 @@ echo "ac_add_options --enable-rust-debug" >> .mozconfig
 %else
 %global optimize_flags "none"
 %ifarch s390x
-# ARMv7 need that (rhbz#1426850)
 %define optimize_flags " -fno-schedule-insns"
 %endif
 %if %{?optimize_flags} != "none"
@@ -551,11 +546,6 @@ MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | %{__sed} -e 's/-O2/-O0/')
 # Workaround for mozbz#1531309
 MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | %{__sed} -e 's/-Werror=format-security//')
 
-# Use hardened build?
-%if %{?hardened_build}
-MOZ_OPT_FLAGS="$MOZ_OPT_FLAGS -fPIC -Wl,-z,relro -Wl,-z,now"
-%endif
-
 %ifarch s390x
 MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | %{__sed} -e 's/-g/-g1/')
 # If MOZ_DEBUG_FLAGS is empty, firefox's build will default it to "-g" which
@@ -611,7 +601,7 @@ MOZ_SMP_FLAGS=-j1
      RPM_BUILD_NCPUS="`/usr/bin/getconf _NPROCESSORS_ONLN`"
 [ "$RPM_BUILD_NCPUS" -ge 2 ] && MOZ_SMP_FLAGS=-j2
 %endif
-%ifarch x86_64 ppc ppc64 ppc64le
+%ifarch x86_64 %{power64}
 [ -z "$RPM_BUILD_NCPUS" ] && \
      RPM_BUILD_NCPUS="`/usr/bin/getconf _NPROCESSORS_ONLN`"
 [ "$RPM_BUILD_NCPUS" -ge 2 ] && MOZ_SMP_FLAGS=-j2
@@ -789,6 +779,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*x*/apps/%{name}*.png
 %{_metainfodir}/*.appdata.xml
 %dir %{icecatappdir}
+%if %{with langpacks}
+%dir %{langpackdir}
+%endif
 %{icecatappdir}/glxtest
 %{icecatappdir}/vaapitest
 %{icecatappdir}/browser/
@@ -804,11 +797,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{icecatappdir}/plugin-container
 %{icecatappdir}/pingsender
 %{icecatappdir}/gmp-clearkey/
-%if %{without langpacks_subpkg}
-%if %{with langpacks}
-%dir %{icecatappdir}/langpacks
-%endif
-%endif
 
 %changelog
 %autochangelog

@@ -3,23 +3,20 @@
 %bcond bson 0
 
 # Not currently in EPEL10:
-%bcond cbor2 %{expr:!0%{?el10}}
+%bcond cbor2 %{expr:%{undefined el10}}
 
 # Not currently in EPEL10:
-%bcond msgpack %{expr:!0%{?el10}}
+%bcond msgpack %{expr:%{undefined el10}}
 
 # Not currently in EPEL10:
-%bcond msgspec %{expr:!0%{?el10}}
+%bcond msgspec %{expr:%{undefined el10}}
 
 # Not currently in EPEL10:
-%bcond orjson %{expr:!0%{?el10}}
+%bcond orjson %{expr:%{undefined el10}}
 
-# Sphinx-generated HTML documentation is not suitable for packaging; see
-# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
-#
-# We can generate PDF documentation as a substitute. EPEL10 does not have the
-# necessary dependencies, and this will probably remain true of EPELs.
-%bcond doc_pdf %{expr:!0%{?rhel}}
+# Beginning with Fedora 42, we no longer bother with building Sphinx-generated
+# PDF documentation.
+%bcond doc_pdf %{expr:%{defined fc41}}
 
 %global commit ae806749f02502be1a8c073fd81050c04aa56c96
 %global snapdate 20241004
@@ -121,10 +118,14 @@ Summary:        %{summary}
 BuildArch:      noarch
 
 Obsoletes:      python3-cattrs+bson < 23.2.3-1
+%if %{defined fedora} && %{without doc_pdf}
+Obsoletes:      python-cattrs-doc < 24.1.2^20241004gitae80674-6
+%endif
 
 %description -n python3-cattrs %_description
 
 
+%if %{with doc_pdf}
 %package        doc
 Summary:        Documentation for python-cattrs
 
@@ -136,6 +137,7 @@ BuildArch:      noarch
 %endif
 
 %description    doc %{_description}
+%endif
 
 
 # Most extras metapackages are noarch:
@@ -237,13 +239,17 @@ k="${k-}${k+ and }not test_simple_roundtrip_defaults"
 
 
 %files -n python3-cattrs -f %{pyproject_files}
+%if %{without doc_pdf}
+%doc HISTORY.md
+%doc README.md
+%endif
 
 
+%if %{with doc_pdf}
 %files doc
 %license LICENSE
 %doc HISTORY.md
 %doc README.md
-%if %{with doc_pdf}
 %doc docs/_build/latex/cattrs.pdf
 %endif
 

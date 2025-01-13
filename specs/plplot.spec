@@ -64,7 +64,7 @@
 
 Name:           plplot
 Version:        5.15.0
-Release:        74%{?dist}
+Release:        75%{?dist}
 Summary:        Library of functions for making scientific plots
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -83,6 +83,10 @@ Patch2:         plplot-multiarch.patch
 Patch3:         plplot-ocaml-rpath.patch
 # Python 3.13 support
 Patch4:         plplot-python3.13.patch
+# Fix example for numpy 2.X
+# https://bugzilla.redhat.com/show_bug.cgi?id=2336933
+# https://sourceforge.net/p/plplot/plplot/merge-requests/7/
+Patch5:         plplot-numpy.patch
 # Don't use -custom with ocamlc
 Patch7:         plplot-ocaml.patch
 # Fix safe-string new default in OCaml 4.06.
@@ -413,6 +417,7 @@ Requires:       wxGTK-devel%{?_isa}
 %patch -P2 -p1 -b .multiarch
 %patch -P3 -p1 -b .ocaml-rpath
 %patch -P4 -p1 -b .python3.13
+%patch -P5 -p1 -b .numpy
 %patch -P7 -p1 -b .ocaml
 %patch -P9 -p1 -b .safestring
 %patch -P10 -p1 -b .sip-path
@@ -777,6 +782,9 @@ export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/bindings/ocaml:$RPM_BUILD_ROOT%{_
 
 
 %changelog
+* Sat Jan 11 2025 Orion Poplawski <orion@nwra.com> - 5.15.0-75
+- Add patch to fix example with numpy 2.X (FTBFS rhbz#2336933)
+
 * Fri Jan 10 2025 Jerry James <loganjerry@gmail.com> - 5.15.0-74
 - OCaml 5.3.0 rebuild for Fedora 42
 

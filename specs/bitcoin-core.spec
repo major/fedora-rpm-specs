@@ -5,8 +5,8 @@
 %bcond_with extended_tests
 
 Name:       bitcoin-core
-Version:    28.0
-Release:    3%{?dist}
+Version:    28.1
+Release:    1%{?dist}
 Summary:    Peer to Peer Cryptographic Currency
 License:    MIT
 URL:        https://bitcoincore.org/
@@ -74,6 +74,7 @@ BuildRequires:  pkgconfig(sqlite3) >= 3.7.17
 BuildRequires:  qt5-linguist
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  systemd
+BuildRequires:  systemtap-sdt-devel
 
 %description
 Bitcoin is a digital cryptographic currency that uses peer-to-peer technology to
@@ -192,6 +193,7 @@ autoreconf -vif
     --disable-static \
     --enable-reduce-exports \
     --enable-threadlocal \
+    --enable-usdt \
     --with-daemon \
     --with-gui=qt5 \
     --with-libs \
@@ -320,6 +322,12 @@ exit 0
 %{_userunitdir}/%{project_name}.service
 
 %changelog
+* Sat Jan 11 2025 Simone Caronni <negativo17@gmail.com> - 28.1-1
+- Update to 28.1.
+
+* Sat Jan 11 2025 Simone Caronni <negativo17@gmail.com> - 28.0-4
+- Enable Statically Defined Tracing (USDT).
+
 * Wed Oct 16 2024 Simone Caronni <negativo17@gmail.com> - 28.0-3
 - Remove leftover of bitcoin-libs being erroneusly required by the devel
   subpackage.

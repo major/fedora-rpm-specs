@@ -1,5 +1,5 @@
-%global DATE 20250109
-%global gitrev f890bd2c90be240213d8f1023aed4ad9647a293c
+%global DATE 20250111
+%global gitrev 20e73534b5a3aeac8624799d31783f12f24e29cb
 %global gcc_version 15.0.0
 %global gcc_major 15
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -143,7 +143,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.3%{?dist}
+Release: %{gcc_release}.4%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -299,7 +299,6 @@ Patch9: gcc15-Wno-format-security.patch
 Patch10: gcc15-rh1574936.patch
 Patch11: gcc15-d-shared-libphobos.patch
 Patch12: gcc15-pr118206.patch
-Patch13: gcc15-pr118362.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -915,7 +914,6 @@ so that there cannot be any synchronization problems.
 %endif
 %patch -P11 -p0 -b .d-shared-libphobos~
 %patch -P12 -p0 -b .pr118206~
-%patch -P13 -p0 -b .pr118362~
 
 %patch -P50 -p0 -b .rh2155127~
 touch -r isl-0.24/m4/ax_prog_cxx_for_build.m4 isl-0.24/m4/ax_prog_cc_for_build.m4
@@ -3675,5 +3673,18 @@ end
 %endif
 
 %changelog
+* Sat Jan 11 2025 Jakub Jelinek <jakub@redhat.com> 15.0.0-0.4
+- update from trunk
+  - PRs ada/18765, ada/118274, c/116060, c/117866, c/118376, c++/117792,
+	c++/117887, c++/117925, c++/117937, c++/117993, c++/118060,
+	c++/118277, c++/118387, c++/118391, fortran/108434, fortran/118337,
+	ipa/118138, rtl-optimization/117186, rtl-optimization/117467,
+	rtl-optimization/117934, rtl-optimization/118266, target/65181,
+	target/118017, target/118131, target/118188, target/118332,
+	target/118362, testsuite/118025, tree-optimization/88575,
+	tree-optimization/116126, tree-optimization/117927,
+	tree-optimization/118206, tree-optimization/118211,
+	tree-optimization/118344
+
 * Thu Jan  9 2025 Jakub Jelinek <jakub@redhat.com> 15.0.0-0.3
 - new package

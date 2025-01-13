@@ -5,14 +5,14 @@
 %global __requires_exclude_from ^(%{_privatelibs}|%{_priv_debuginfo})$
 
 %global latestversion 1.6.1
-%global commit r12871
-%global commitdate 20240131
-%global postrelease .p4
+%global commit r12890
+%global commitdate 20250110
+%global postrelease .p5
 %global namesuffix src
 
 Name:           aubit4gl
 Version:        %{latestversion}%{postrelease} 
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        IBM Informix 4GL compatible compiler
 
 # The entire source code is GPL-2.0-or-later except
@@ -36,7 +36,7 @@ Source1:        https://downloads.sourceforge.net/aubit4gl/Aubit4gl-manual/aubit
 #Source3:        https://aubit.com/aubit4gl/manuals/aubitqref.pdf
 # Patch the latest release to the post release
 # Changes made by the patch are listed in the commit log
-# https://sourceforge.net/p/aubit4gl/aubit4gl_code/12844/log/?path=
+# https://sourceforge.net/p/aubit4gl/aubit4gl_code/12890/log/?path=
 # https://sourceforge.net/p/aubit4gl/aubit4gl_code/commit_browser
 Patch0:         https://downloads.sourceforge.net/aubit4gl/SRPM/%{name}-%{version}.patch
 
@@ -183,8 +183,8 @@ make -C tools/test
 
 
 %changelog
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1.p4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
+* Fri Jan 10 2025 Chad Lemmen <rpm@stansoft.org> - 1.6.1.p5-1
+- updated to 1.6.1.p5
 
 * Wed Jan 31 2024 Chad Lemmen <rpm@stansoft.org> - 1.6.1.p4-1 
 - added BuildRequires: rpcgen libtirpc-devel

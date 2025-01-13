@@ -1,6 +1,6 @@
 Summary:        C library for reading MaxMind DB files
 Name:           libmaxminddb
-Version:        1.12.1
+Version:        1.12.2
 Release:        1%{?dist}
 # BSD-3-Clause (src/maxminddb-compat-util.h) and Apache-2.0 (the rest)
 License:        Apache-2.0 AND BSD-3-Clause
@@ -79,6 +79,9 @@ LD_PRELOAD=$RPM_BUILD_ROOT%{_libdir}/%{name}.so make check
 %{_mandir}/man3/MMDB_*.3*
 
 %changelog
+* Sun Jan 12 2025 Robert Scheck <robert@fedoraproject.org> 1.12.2-1
+- Upgrade to 1.12.2 (#2337039)
+
 * Thu Jan 09 2025 Robert Scheck <robert@fedoraproject.org> 1.12.1-1
 - Upgrade to 1.12.1 (#2336410)
 

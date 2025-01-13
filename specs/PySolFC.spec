@@ -1,7 +1,7 @@
 %global cardsets_minimal_ver 3.0.0
 
 Name:           PySolFC
-Version:        3.1.0
+Version:        3.2.0
 Release:        1%{?dist}
 Summary:        A collection of solitaire card games
 License:        GPL-2.0-or-later
@@ -88,6 +88,10 @@ find "$RPM_BUILD_ROOT%{python3_sitelib}/pysollib" -name '*.py' | xargs -L1 perl 
 
 
 %changelog
+* Sat Jan 11 2025 Packit <hello@packit.dev> - 3.2.0-1
+- Update to version 3.2.0
+- Resolves: rhbz#2337163
+
 * Mon Oct 21 2024 Packit <hello@packit.dev> - 3.1.0-1
 - Update to version 3.1.0
 - Resolves: rhbz#2319948

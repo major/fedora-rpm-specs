@@ -1,6 +1,6 @@
 Name:           stellarium
 Version:        24.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Photo-realistic nightsky renderer
 
 License:        GPL-2.0-or-later
@@ -103,6 +103,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.stellarium.Ste
 %{_datadir}/stellarium
 
 %changelog
+* Sat Jan 11 2025 Mattia Verga <mattia.verga@proton.me> - 24.4-2
+- Rebuilt for libnova v0.16
+
 * Sun Dec 22 2024 Gwyn Ciesla <gwync@protonmail.com> - 24.4-1
 - 24.4
 

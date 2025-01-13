@@ -10,7 +10,7 @@ official list is enabled but doing emoji.emojize(use_aliases=True)
 enables both the full list and aliases.}
 
 Name: python-%{pypi_name}
-Version: 2.12.1
+Version: 2.14.0
 Release: 1%{?dist}
 
 License: BSD-3-Clause
@@ -50,6 +50,9 @@ Summary: %{summary}
 %doc README.rst CHANGES.md
 
 %changelog
+* Sat Jan 11 2025 Matthieu Saulnier <fantom@fedoraproject.org> - 2.14.0-1
+- Update to 2.14.0
+
 * Mon Jul 29 2024 Matthieu Saulnier <fantom@fedoraproject.org> - 2.12.1-1
 - Update to 2.12.1
 

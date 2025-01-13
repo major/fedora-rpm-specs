@@ -1,8 +1,8 @@
 Name:          colorful
 %global rtld pl.suve.colorful
 
-Version:       2.1
-Release:       2%{?dist}
+Version:       2.2
+Release:       1%{?dist}
 Summary:       Side-view shooter game
 
 # The game itself is GPLv3.
@@ -49,7 +49,7 @@ Data files (graphics, maps, sounds) required to play Colorful.
 
 
 %prep
-%setup -q
+%autosetup -p1 -n %{name}-%{version}-source
 
 
 %build 
@@ -84,6 +84,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rtld}.m
 
 
 %changelog
+* Sat Jan 11 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.2-1
+- Update to v2.2
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -10,8 +10,8 @@
 %bcond_without wx
 %endif
 
-# the default backend; one of GTK3Agg GTK3Cairo MacOSX Qt4Agg Qt5Agg TkAgg
-# WXAgg Agg Cairo PS PDF SVG
+# The default backend; one of GTK3Agg GTK3Cairo GTK4Agg GTK4Cairo MacOSX QtAgg
+# TkAgg WXAgg Agg Cairo PS PDF SVG
 %global backend                 TkAgg
 
 %if "%{backend}" == "TkAgg"
@@ -32,13 +32,13 @@
 %global _docdir_fmt %{name}
 
 # Updated test images for new FreeType.
-%global mpl_images_version 3.9.3
+%global mpl_images_version 3.10.0
 
 # The version of FreeType in this Fedora branch.
 %global ftver 2.13.1
 
 Name:           python-matplotlib
-Version:        3.9.4
+Version:        3.10.0
 %global Version %{version_no_tilde %{quote:%nil}}
 Release:        %autorelease
 Summary:        Python 2D plotting library
@@ -54,15 +54,16 @@ Source0:        %pypi_source matplotlib %{Version}
 Source1000:     https://github.com/QuLogic/mpl-images/archive/v%{mpl_images_version}-with-freetype-%{ftver}/matplotlib-%{mpl_images_version}-with-freetype-%{ftver}.tar.gz
 # Search in /etc/matplotlibrc:
 Patch1001:      0001-matplotlibrc-path-search-fix.patch
-# We don't need to use NumPy 1.25.
-Patch1002:      0002-Unpin-NumPy-build-requirement.patch
 # Increase tolerances for new FreeType everywhere:
-Patch1003:      0003-Set-FreeType-version-to-%{ftver}-and-update-tolerances.patch
+Patch1002:      0002-Set-FreeType-version-to-%{ftver}-and-update-tolerances.patch
 # We don't need to use older meson-python.
-Patch1004:      0004-Unpin-meson-python-build-requirement.patch
+Patch1003:      0003-Unpin-meson-python-build-requirement.patch
 
 # https://github.com/matplotlib/matplotlib/pull/21190#issuecomment-1223271888
-Patch0001:      0005-Use-old-stride_windows-implementation-on-32-bit-x86.patch
+Patch0001:      0004-Use-old-stride_windows-implementation-on-32-bit-x86.patch
+
+# Temporary fix for some tests.
+Patch0002:      0005-Partially-revert-TST-Fix-minor-issues-in-interactive.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -70,7 +71,7 @@ BuildRequires:  glibc-langpack-en
 BuildRequires:  freetype-devel
 BuildRequires:  libpng-devel
 BuildRequires:  qhull-devel
-BuildRequires:  xorg-x11-server-Xvfb
+BuildRequires:  xwayland-run
 BuildRequires:  zlib-devel
 
 BuildRequires:  ghostscript
@@ -180,7 +181,7 @@ Recommends:     texlive-dvipng
 Requires:       (texlive-dvipng if texlive-base)
 Requires:       python3-matplotlib-data = %{version}-%{release}
 Requires:       python3dist(pycairo)
-Requires:       python3-matplotlib-%{?backend_subpackage}%{!?backend_subpackage:tk}%{?_isa} = %{version}-%{release}
+Recommends:     python3-matplotlib-%{?backend_subpackage}%{!?backend_subpackage:tk}%{?_isa} = %{version}-%{release}
 %if %{with check}
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-rerunfailures)
@@ -209,6 +210,7 @@ errorcharts, scatterplots, etc, with just a few lines of code.
 Summary:        Qt5 backend for python3-matplotlib
 BuildRequires:  python3dist(cairocffi)
 BuildRequires:  python3dist(pyqt5)
+BuildRequires:  qt5-qtwayland
 Requires:       python3-matplotlib%{?_isa} = %{version}-%{release}
 Requires:       python3dist(cairocffi)
 Requires:       python3dist(pyqt5)
@@ -222,6 +224,7 @@ Summary:        Qt6 backend for python3-matplotlib
 BuildRequires:  python3dist(cairocffi)
 BuildRequires:  python3dist(pyqt6)
 BuildRequires:  python3-pyqt6
+BuildRequires:  qt6-qtwayland
 Requires:       python3-matplotlib%{?_isa} = %{version}-%{release}
 Requires:       python3dist(cairocffi)
 Requires:       python3dist(pyqt6)
@@ -368,20 +371,24 @@ export http_proxy=http://127.0.0.1/
 k="${k-}${k+ and }not test_invisible_Line_rendering"
 # This test is flaky.
 k="${k-}${k+ and }not test_form_widget_get_with_datetime_and_date_fields"
-%ifarch %{ix86}
-# This test won't work due to Xvfb not existing.
-k="${k-}${k+ and }not test_cross_Qt_imports"
-%endif
 
-# This fixes GTK4 which is missing a dependency for its current default renderer.
-GSK_RENDERER=cairo \
-MPLCONFIGDIR=$PWD \
-%ifnarch %{ix86}
-     xvfb-run -a -s "-screen 0 640x480x24" \
-%endif
-         env %{pytest} -ra -n auto \
-             -m 'not network' -k "${k-}" \
-             --pyargs matplotlib mpl_toolkits.axes_grid1 mpl_toolkits.axisartist mpl_toolkits.mplot3d
+env MPLCONFIGDIR=$PWD \
+    %{pytest} -ra -n auto \
+         -m 'not network' -k "${k-}" \
+         --pyargs matplotlib mpl_toolkits.axes_grid1 mpl_toolkits.axisartist mpl_toolkits.mplot3d
+# Skip GTK3Cairo tests that are broken in virtual display.
+k="${k-}${k+ and }not (test_interactive_thread_safety and gtk3cairo)"
+k="${k-}${k+ and }not (test_interactive_timers and gtk3cairo)"
+# Run backend tests with Wayland.
+wlheadless-run -- env MPLCONFIGDIR=$PWD GDK_BACKEND=wayland QT_QPA_PLATFORM=wayland \
+    %{pytest} -vra -n auto \
+         -m 'not network' -k "${k-}" \
+         --pyargs matplotlib.tests.test_backend_gtk3 matplotlib.tests.test_backend_qt matplotlib.tests.test_backend_tk matplotlib.tests.test_backends_interactive
+# Run backend tests with XWayland.
+xwfb-run -- env MPLCONFIGDIR=$PWD \
+    %{pytest} -ra -n auto \
+        -m 'not network' -k "${k-}" \
+        --pyargs matplotlib.tests.test_backend_gtk3 matplotlib.tests.test_backend_qt matplotlib.tests.test_backend_tk matplotlib.tests.test_backends_interactive
 %endif
 
 

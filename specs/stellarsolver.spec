@@ -45,7 +45,7 @@ BuildRequires:  desktop-file-utils
 # Libraries
 BuildRequires:  cfitsio-devel
 BuildRequires:  gsl-devel
-BuildRequires:  qt5-qtbase-devel
+BuildRequires:  qt6-qtbase-devel
 BuildRequires:  wcslib-devel
 
 # The source code bundles modified code from astrometry.net and SEP
@@ -86,7 +86,8 @@ developing applications that use %{name}.
 
 %build
 %cmake -DBUILD_TESTER=ON \
-       -DBUILD_BATCH_SOLVER=ON
+       -DBUILD_BATCH_SOLVER=ON \
+       -DUSE_QT5=OFF
 %cmake_build
 
 

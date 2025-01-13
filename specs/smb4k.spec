@@ -10,8 +10,8 @@
 %global _kf5_iconsdir %{_datadir}/icons
 
 Name:       smb4k
-Version:    3.2.5
-Release:    3%{?dist}
+Version:    3.2.92
+Release:    1%{?dist}
 Summary:    The SMB/CIFS Share Browser for KDE
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -24,40 +24,47 @@ BuildRequires:  extra-cmake-modules
 BuildRequires:  gettext
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
-BuildRequires:  kf5-rpm-macros
-BuildRequires:  cmake(KF5Config)
-BuildRequires:  cmake(KF5Auth)
-BuildRequires:  cmake(KF5DocTools)
-BuildRequires:  cmake(KF5IconThemes)
-BuildRequires:  cmake(KF5WidgetsAddons)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5Completion)
-BuildRequires:  cmake(KF5CoreAddons)
-BuildRequires:  cmake(KF5Solid)
-BuildRequires:  cmake(KF5KIO)
-BuildRequires:  cmake(KF5Notifications)
-BuildRequires:  cmake(KF5XmlGui)
-BuildRequires:  cmake(KF5JobWidgets)
-BuildRequires:  cmake(KF5Wallet)
-BuildRequires:  cmake(KF5DBusAddons)
-BuildRequires:  cmake(KF5Parts)
-BuildRequires:  cmake(KF5ConfigWidgets)
-BuildRequires:  cmake(KF5WindowSystem)
-BuildRequires:  cmake(KF5Plasma)
-BuildRequires:  cmake(KF5Crash)
-BuildRequires:  cmake(KF5DNSSD)
-BuildRequires:  pkgconfig(Qt5Core)
-BuildRequires:  pkgconfig(Qt5Gui)
-BuildRequires:  pkgconfig(Qt5Network)
-BuildRequires:  pkgconfig(Qt5PrintSupport)
-BuildRequires:  pkgconfig(Qt5Qml)
-BuildRequires:  pkgconfig(Qt5Test)
-BuildRequires:  pkgconfig(Qt5Widgets)
-BuildRequires:  libsmbclient-devel
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6Auth)
+BuildRequires:  cmake(KF6DocTools)
+BuildRequires:  cmake(KF6IconThemes)
+BuildRequires:  cmake(KF6WidgetsAddons)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6Completion)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6Solid)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6Notifications)
+BuildRequires:  cmake(KF6XmlGui)
+BuildRequires:  cmake(KF6JobWidgets)
+BuildRequires:  cmake(KF6Wallet)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6Parts)
+BuildRequires:  cmake(KF6ConfigWidgets)
+BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(KF6StatusNotifierItem)
+BuildRequires:  cmake(Plasma)
+BuildRequires:  cmake(KF6Crash)
+BuildRequires:  cmake(KF6DNSSD)
+BuildRequires:  cmake(KF6Kirigami)
+
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6PrintSupport)
+BuildRequires:  cmake(Qt6Qml)
+BuildRequires:  cmake(Qt6Test)
+BuildRequires:  cmake(Qt6Widgets)
+
+BuildRequires:  cmake(Qt6Keychain)
+BuildRequires:  pkgconfig(smbclient)
+
+Requires:   kf6-kirigami
 Requires:   samba-client
 Requires:   cifs-utils
 
-%{?_qt5_version:Requires: qt5-qtbase%{?_isa} >= %{_qt5_version}}
+%{?_qt6_version:Requires: qt6-qtbase%{?_isa} >= %{_qt6_version}}
 
 # on F15 we need remove old smb4k-devel
 Obsoletes: smb4k-devel < 1.0.0
@@ -74,7 +81,7 @@ provide a program that's easy to use and has as many features as possible.
 %autosetup -p1
 
 %build
-%{cmake_kf5} -Wno-dev
+%{cmake_kf6} -Wno-dev
 
 %cmake_build
 
@@ -86,12 +93,12 @@ provide a program that's easy to use and has as many features as possible.
 desktop-file-install \
     --add-category Network \
     --delete-original \
-    %{buildroot}%{_kf5_datadir}/applications/org.kde.smb4k.desktop
+    %{buildroot}%{_kf6_datadir}/applications/org.kde.smb4k.desktop
 
 #workaround for bug https://bugzilla.redhat.com/show_bug.cgi?id=1584944
-sed -i  %{buildroot}/%{_kf5_metainfodir}/*.appdata.xml -e 's/type="stock"//'
+sed -i  %{buildroot}/%{_kf6_metainfodir}/*.appdata.xml -e 's/type="stock"//'
 
-appstream-util validate-relax --nonet %{buildroot}/%{_kf5_metainfodir}/*.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}/%{_kf6_metainfodir}/*.appdata.xml
 
 # please look into kdenlive.spec to add --with-html on epel7
 %find_lang %{name} --with-html --all-name
@@ -106,26 +113,26 @@ appstream-util validate-relax --nonet %{buildroot}/%{_kf5_metainfodir}/*.appdata
 %files -f %{name}.lang
 %doc AUTHORS BUGS ChangeLog README.md
 %license LICENSES/*
-%{_kf5_bindir}/%{name}*
-%{_kf5_libdir}/libsmb4kcore.so
-%{_kf5_datadir}/kconf_update/*
-%{_kf5_datadir}/dbus-1/system-services/org.kde.%{name}.mounthelper.service
-%{_kf5_datadir}/dbus-1/system.d/org.kde.%{name}.mounthelper.conf
-%{_kf5_datadir}/polkit-1/actions/org.kde.%{name}.mounthelper.policy
-%{_qt5_plugindir}/*.so
-%{_kf5_libexecdir}/kauth/mounthelper
-%{_kf5_datadir}/applications/org.kde.smb4k.desktop
-%{_kf5_datadir}/plasma/plasmoids/org.kde.smb4kqml/
-%{_kf5_datadir}/config.kcfg/%{name}.kcfg
-%{_kf5_datadir}/kxmlgui5/%{name}/
-%{_kf5_datadir}/knotifications5/%{name}.notifyrc
-%{_kf5_datadir}/kservices5/plasma-applet-org.kde.%{name}qml.desktop
-%{_kf5_iconsdir}/hicolor/*/apps/smb4k.png
-%{_kf5_iconsdir}/oxygen/*/apps/smb4k.png
-%{_kf5_metainfodir}/*.appdata.xml
-%{_kf5_qmldir}/org/kde/smb4k/
+%{_kf6_bindir}/%{name}*
+%{_kf6_libdir}/libsmb4kcore.so
+%{_kf6_libdir}/libsmb4kdialogs.so
+%{_kf6_datadir}/dbus-1/system-services/org.kde.%{name}.mounthelper.service
+%{_kf6_datadir}/dbus-1/system.d/org.kde.%{name}.mounthelper.conf
+%{_kf6_datadir}/polkit-1/actions/org.kde.%{name}.mounthelper.policy
+%{_qt6_plugindir}/*.so
+%{_kf6_libexecdir}/kauth/mounthelper
+%{_kf6_datadir}/applications/org.kde.smb4k.desktop
+%{_kf6_datadir}/plasma/plasmoids/org.kde.smb4kqml/
+%{_kf6_datadir}/config.kcfg/%{name}.kcfg
+%{_kf6_datadir}/knotifications6/%{name}.notifyrc
+%{_kf6_datadir}/icons/*/*/*/*
+%{_kf6_metainfodir}/*.appdata.xml
+%{_kf6_qmldir}/org/kde/smb4k/
 
 %changelog
+* Sat Jan 11 2025 Marie Loise Nolden <loise@kde.org> - 3.2.92-1
+- update to 3.2.92 using Qt6/KF6
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 3.2.5-3
 - convert license to SPDX
 

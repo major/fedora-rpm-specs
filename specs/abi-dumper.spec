@@ -1,6 +1,6 @@
 Name:           abi-dumper
-Version:        1.2
-Release:        13%{?dist}
+Version:        1.4
+Release:        1%{?dist}
 Summary:        Tool to dump ABI of an ELF object containing DWARF debug info
 
 License:        GPL-2.0-only AND LGPL-2.1-or-later
@@ -65,6 +65,9 @@ mkdir -p %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Sat Jan 11 2025 Richard Shaw <hobbes1069@gmail.com> - 1.4-1
+- Update to 1.4.
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

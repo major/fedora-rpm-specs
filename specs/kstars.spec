@@ -1,9 +1,13 @@
 %undefine __cmake_in_source_build
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+# kstars FTB on i686
+ExcludeArch:    %{ix86}
+
 Name:    kstars
 Summary: Desktop Planetarium
-Version: 3.7.1
-Release: 1%{?dist}
+Version: 3.7.4
+Release: 2%{?dist}
 
 # We have to use epoch now, KStars is no longer part of KDE Applications and
 # uses its own (lower) version now
@@ -21,68 +25,75 @@ Source0: https://download.kde.org/%{stable_kf5}/%{name}/%{version}/%{name}-%{ver
 Patch101: kstars-2.9.6-fix-compilerflag-exceptions.patch
 
 BuildRequires: desktop-file-utils
+BuildRequires: kf6-rpm-macros
 BuildRequires: extra-cmake-modules
 BuildRequires: gettext
-BuildRequires: kf5-karchive-devel
-BuildRequires: kf5-kbookmarks-devel
-BuildRequires: kf5-kcodecs-devel
-BuildRequires: kf5-kcompletion-devel
-BuildRequires: kf5-kconfig-devel
-BuildRequires: kf5-kconfigwidgets-devel
-BuildRequires: kf5-kcoreaddons-devel
-BuildRequires: kf5-kcrash-devel
-BuildRequires: kf5-kdbusaddons-devel
-BuildRequires: kf5-kdeclarative-devel
-BuildRequires: kf5-kdnssd-devel
-BuildRequires: kf5-kdoctools-devel
-BuildRequires: kf5-kglobalaccel-devel
-BuildRequires: kf5-kguiaddons-devel
-BuildRequires: kf5-khtml-devel
-BuildRequires: kf5-ki18n-devel
-BuildRequires: kf5-kiconthemes-devel
-BuildRequires: kf5-kinit-devel >= 5.10.0-3
-BuildRequires: kf5-kio-devel
-BuildRequires: kf5-kitemviews-devel
-BuildRequires: kf5-kjobwidgets-devel
-BuildRequires: kf5-knewstuff-devel
-BuildRequires: kf5-knotifications-devel
-BuildRequires: kf5-knotifyconfig-devel
-BuildRequires: kf5-kplotting-devel
-BuildRequires: kf5-kservice-devel
-BuildRequires: kf5-ktexteditor-devel
-BuildRequires: kf5-ktextwidgets-devel
-BuildRequires: kf5-kwidgetsaddons-devel
-BuildRequires: kf5-kwindowsystem-devel
-BuildRequires: kf5-kxmlgui-devel
-BuildRequires: kf5-rpm-macros
+
+BuildRequires: cmake(Qt6Gui)
+BuildRequires: cmake(Qt6Qml)
+BuildRequires: cmake(Qt6Xml)
+BuildRequires: cmake(Qt6Sql)
+BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6OpenGL)
+BuildRequires: cmake(Qt6Multimedia)
+BuildRequires: cmake(Qt6Test)
+BuildRequires: cmake(Qt6DataVisualization)
+BuildRequires: cmake(Qt6WebSockets)
+BuildRequires: cmake(Qt6Keychain)
+
+BuildRequires: cmake(KF6Archive)
+BuildRequires: cmake(KF6Bookmarks)
+BuildRequires: cmake(KF6Codecs)
+BuildRequires: cmake(KF6Completion)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6ConfigWidgets)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6Declarative)
+BuildRequires: cmake(KF6DNSSD)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6GlobalAccel)
+BuildRequires: cmake(KF6GuiAddons)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6IconThemes)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6ItemViews)
+BuildRequires: cmake(KF6JobWidgets)
+BuildRequires: cmake(KF6NewStuff)
+BuildRequires: cmake(KF6Notifications)
+BuildRequires: cmake(KF6NotifyConfig)
+BuildRequires: cmake(KF6Plotting)
+BuildRequires: cmake(KF6Service)
+BuildRequires: cmake(KF6TextEditor)
+BuildRequires: cmake(KF6TextWidgets)
+BuildRequires: cmake(KF6WidgetsAddons)
+BuildRequires: cmake(KF6WindowSystem)
+BuildRequires: cmake(KF6XmlGui)
+
 BuildRequires: libappstream-glib
 BuildRequires: libnova-devel
 BuildRequires: LibRaw-devel
+BuildRequires: libcurl-devel
 BuildRequires: pkgconfig(cfitsio)
 BuildRequires: pkgconfig(eigen3)
 BuildRequires: pkgconfig(gsl)
-BuildRequires: pkgconfig(Qt5Gui) pkgconfig(Qt5Qml) pkgconfig(Qt5Quick) pkgconfig(Qt5Xml) pkgconfig(Qt5Sql) 
-BuildRequires: pkgconfig(Qt5Svg) pkgconfig(Qt5OpenGL) pkgconfig(Qt5Multimedia) pkgconfig(Qt5Test)
-BuildRequires: pkgconfig(Qt5DataVisualization)
-BuildRequires: pkgconfig(Qt5WebSockets)
-BuildRequires: qtkeychain-qt5-devel
 BuildRequires: pkgconfig(wcslib)
 BuildRequires: zlib-devel
 BuildRequires: pkgconfig(libindi) >= 1.5.0
+BuildRequires: pkgconfig(libxisf)
+BuildRequires: pkgconfig(opencv)
 BuildRequires: stellarsolver-devel >= 1.9
+
 %if 0%{?fedora}
 BuildRequires: xplanet
 %endif
-
-%{?kf5_kinit_requires}
 
 # Require libindi to enable Ekos properly
 Requires:  libindi 
 # astrometry is useful for astrophotography with KStars, not required for
 # usage as planetarium
 Suggests:  astrometry
-#  https://bugzilla.redhat.com/show_bug.cgi?id=1557673
-Requires:  qt5-qtquickcontrols%{?_isa}
 %if 0%{?fedora}
 Requires:  xplanet
 %endif
@@ -105,8 +116,13 @@ all 8 planets, the Sun and Moon, and thousands of comets and asteroids.
 
 %patch -P101 -p1 -b .fix_cflag_exception
 
+# installs into the wrong location
+sed -i 's/${DATA_INSTALL_DIR}/${KSTARS_DATADIR}/'  kstars/data/fr/CMakeLists.txt
+sed -i 's/${DATA_INSTALL_DIR}/${KSTARS_DATADIR}/'  kstars/data/nds/CMakeLists.txt
+
 %build
-%{cmake_kf5}
+%{cmake_kf6} \
+   -DBUILD_QT5:BOOL=OFF
 %cmake_build
 
 
@@ -116,46 +132,53 @@ all 8 planets, the Sun and Moon, and thousands of comets and asteroids.
 %find_lang %{name} --all-name --with-html
 
 ## unpackaged files
-rm -fv %{buildroot}%{_kf5_libdir}/libhtmesh.a
-
+rm -fv %{buildroot}%{_kf6_libdir}/libhtmesh.a
 
 %check
 # primarily care about validation on fedora only
 # (ie, generally, if fedora is ok, then so is epel7)
 %if 0%{?fedora}
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.kstars.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kstars.appdata.xml
 %endif
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.kstars.desktop
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.kstars.desktop
 
 
 %if 0%{?rhel} && 0%{?rhel} < 8
 %post
-touch --no-create %{_kf5_datadir}/icons/hicolor  &> /dev/null || :
+touch --no-create %{_kf6_datadir}/icons/hicolor  &> /dev/null || :
 
 %posttrans
-gtk-update-icon-cache %{_kf5_datadir}/icons/hicolor &> /dev/null || :
+gtk-update-icon-cache %{_kf6_datadir}/icons/hicolor &> /dev/null || :
 
 %postun
 if [ $1 -eq 0 ] ; then
-touch --no-create %{_kf5_datadir}/icons/hicolor &> /dev/null || :
-gtk-update-icon-cache %{_kf5_datadir}/icons/hicolor &> /dev/null || :
+touch --no-create %{_kf6_datadir}/icons/hicolor &> /dev/null || :
+gtk-update-icon-cache %{_kf6_datadir}/icons/hicolor &> /dev/null || :
 fi
 %endif
 
 %files -f %{name}.lang
 %license LICENSES/*
 %doc AUTHORS ChangeLog README.* TODO
-%{_kf5_bindir}/kstars
-%{_kf5_metainfodir}/org.kde.kstars.appdata.xml
-%{_kf5_datadir}/applications/org.kde.kstars.desktop
-%{_kf5_datadir}/config.kcfg/kstars.kcfg
-%{_kf5_datadir}/knotifications5/kstars.notifyrc
-%{_kf5_datadir}/sounds/KDE-KStars-*
-%{_kf5_datadir}/kstars/
-%{_kf5_datadir}/icons/hicolor/*/*/*
+%{_kf6_bindir}/kstars
+%{_kf6_metainfodir}/org.kde.kstars.appdata.xml
+%{_kf6_datadir}/applications/org.kde.kstars.desktop
+%{_kf6_datadir}/config.kcfg/kstars.kcfg
+%{_kf6_datadir}/knotifications6/kstars.notifyrc
+%{_kf6_datadir}/sounds/KDE-KStars-*
+%{_kf6_datadir}/kstars/
+%{_kf6_datadir}/icons/hicolor/*/*/*
 
 
 %changelog
+* Sat Jan 10 2025 Mattia Verga <mattia.verga@proton.me> - 1:3.7.4-2
+- Drop i686 builds due to build failure
+
+* Fri Jan 10 2025 Marie Loise Nolden <loise@kde.org> - 1:3.7.4-1
+- 3.7.4
+- Switch to QT6
+- Rebuilt for libnova v0.16
+
 * Mon Jul 29 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 1:3.7.1-1
 - 3.7.1
 

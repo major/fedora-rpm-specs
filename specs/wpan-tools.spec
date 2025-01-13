@@ -1,11 +1,11 @@
 Name:          wpan-tools
-Version:       0.9
-Release:       13%{?dist}
+Version:       0.10
+Release:       1%{?dist}
 Summary:       Userspace tools for the Linux IEEE 802.15.4 stack
 License:       ISC
-URL:           https://github.com/linux-wpan/
+URL:           https://github.com/linux-wpan/wpan-tools/
 
-Source0:       https://github.com/linux-wpan/wpan-tools/releases/download/%{name}-%{version}/%{name}-%{version}.tar.xz
+Source0:       %{url}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires: make
 BuildRequires: gcc
@@ -36,6 +36,9 @@ make %{?_smp_mflags} check
 %{_bindir}/wpan-hwsim
 
 %changelog
+* Sat Jan 11 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 0.10-1
+- Update to 0.10
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

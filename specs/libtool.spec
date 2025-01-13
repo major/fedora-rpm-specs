@@ -8,7 +8,7 @@
 Summary: The GNU Portable Library Tool
 Name:    libtool
 Version: 2.5.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # To help future rebase, the following licenses were seen in the following files/folders:
 # '*' is anything that was not explicitly listed earlier in the folder
@@ -195,6 +195,9 @@ rm -f %{buildroot}%{_libdir}/libltdl.{a,la}
 
 
 %changelog
+* Sat Jan 11 2025 Jakub Jelinek <jakub@redhat.com> - 2.5.4-3
+- bump: for gcc 15.* in rawhide
+
 * Thu Jan 09 2025 Frédéric Bérat <fberat@redhat.com> - 2.5.4-2
 - Re-introduce patch to keep compiler dependency ordering (RHBZ#2331361)
 

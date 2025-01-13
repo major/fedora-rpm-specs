@@ -1,6 +1,6 @@
 Name:          lxqt-runner
 Summary:       Application runner agent for LXQt desktop suite
-Version:       2.1.0
+Version:       2.1.1
 Release:       1%{?dist}
 License:       LGPL-2.1-only
 URL:           https://lxqt-project.org/
@@ -56,6 +56,9 @@ This package provides translations for the lxqt-runner package.
 %dir %{_datadir}/lxqt/translations/%{name}
 
 %changelog
+* Sat Jan 11 2025 Steve Cossette <farchord@gmail.com> - 2.1.1-1
+- 2.1.1
+
 * Sun Nov 10 2024 Steve Cossette <farchord@gmail.com> - 2.1.0-1
 - 2.1.0
 

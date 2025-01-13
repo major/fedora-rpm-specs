@@ -11,19 +11,19 @@
 ##########################################
 # Defined by upsteam
 #
-%define         main_ver      0.12.0
+%define         main_ver      0.13.0
 #%%define         strtag        20200118
-#%%define         pre_ver       beta
+%dnl %define         pre_ver       beta
 ##########################################
 #
 %global         reponame      JDim
-%global         gitdate       20240706
-%global         gitcommit     15db3a9077847b5688db67dcdfa7f7bd38f92128
-#%%global         gitcommit     JDim-v%{main_ver}
+%global         gitdate       20250111
+%global         gitcommit     afa6968bb0196ada6f2e8bdacc0184815c13e5b2
+%dnl %global         gitcommit     JDim-v%{main_ver}
 %global         shortcommit   %(c=%{gitcommit}; echo ${c:0:7})
 
-%global         tarballdate   20240707
-%global         tarballtime   1109
+%global         tarballdate   20250111
+%global         tarballtime   2245
 
 ##########################################
 # Defined by vendor
@@ -33,7 +33,6 @@
 # Tag name changed from vendor to vendorname so as not to
 # overwrite Vendor entry in Summary
 %define         vendorname    fedora
-%define         gtkmmdevel    pkgconfig(gtkmm-3.0)
 %define         fontpackage   mona-fonts-VLGothic
 ##########################################
 
@@ -77,19 +76,19 @@
 Name:           jd
 Epoch:          1
 Version:        %{main_ver}%{?strtag:.%{strtag}}%{?pre_ver:~%{pre_ver}}%{gitver_rpm}
-Release:        3%{?dist}%{flagrel}
+Release:        1%{?dist}%{flagrel}
 Summary:        A 2ch browser
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 URL:            https://github.com/JDimproved/JDim
 
-#Source0:        http://dl.sourceforge.jp/jd4linux/%{repoid}/%{name}-%{main_ver}-%{strtag}.tgz
+%dnl Source0:        http://dl.sourceforge.jp/jd4linux/%{repoid}/%{name}-%{main_ver}-%{strtag}.tgz
 Source0:        JDim-%{tarballdate}T%{tarballtime}.tar.gz
 Source1:        create-JD-git-bare-tarball.sh
 
 BuildRequires:  gcc-c++
-BuildRequires:  %{gtkmmdevel}
+BuildRequires:  pkgconfig(gtkmm-3.0)
 BuildRequires:  libgcrypt-devel
 BuildRequires:  libxcrypt-devel
 BuildRequires:  pkgconfig(alsa)
@@ -163,12 +162,6 @@ export LDFLAGS="$LDFLAGS -Wl,--push-state,--no-as-needed -lcrypt -Wl,--pop-state
 export CC="${CC} -fsanitize=address -fsanitize=undefined"
 export CXX="${CXX} -fsanitize=address -fsanitize=undefined"
 export LDFLAGS="${LDFLAGS} -pthread"
-
-# Currently -fPIE binary cannot work with ASAN on kernel 4.12
-# https://github.com/google/sanitizers/issues/837
-export CFLAGS="$(echo $CFLAGS     | sed -e 's|-specs=[^ \t][^ \t]*hardened[^ \t][^ \t]*||g')"
-export CXXFLAGS="$(echo $CXXFLAGS | sed -e 's|-specs=[^ \t][^ \t]*hardened[^ \t][^ \t]*||g')"
-export LDFLAGS="$(echo $LDFLAGS   | sed -e 's|-specs=[^ \t][^ \t]*hardened[^ \t][^ \t]*||g')"
 %endif
 
 %meson \
@@ -218,6 +211,9 @@ export ASAN_OPTIONS=detect_leaks=0
 %{_datadir}/icons/hicolor/*/apps/jdim.*
 
 %changelog
+* Sat Jan 11 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:0.13.0-1
+- 0.13.0
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1:0.12.0-3
 - convert license to SPDX
 

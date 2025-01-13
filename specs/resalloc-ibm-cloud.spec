@@ -4,7 +4,7 @@ for maintaining VMs in IBM Cloud (starting, stopping, cleaning orphans, etc.).
 }
 
 Name:           resalloc-ibm-cloud
-Version:        2.3
+Version:        3.0
 Release:        1%{?dist}
 Summary:        Resource allocator scripts for IBM cloud
 
@@ -52,6 +52,11 @@ BuildRequires:  pyproject-rpm-macros
 
 
 %changelog
+* Sat Jan 11 2025 Pavel Raiskup <praiskup@redhat.com> 3.0-1
+- Log the instance create request content
+- Allow specifying a list of Floating IPs
+- Drop executable bits from PYTHONPATH scripts
+
 * Tue Dec 17 2024 Jiri Kyjovsky <j1.kyjovsky@gmail.com> 2.3-1
 - Add functionality for tagging resource by its crn (j1.kyjovsky@gmail.com)
 - Add option for specifying resource group (j1.kyjovsky@gmail.com)

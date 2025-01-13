@@ -6,6 +6,13 @@
 %global srcname  %{modname}_stream
 
 %bcond_without tests
+# Change the build backend in EPEL9 because `setuptools>=61.2`
+# is needed for PEP621
+%if 0%{?epel} == 9
+%bcond_without hatch
+%else
+%bcond_with    hatch
+%endif
 
 Name:           python-%{pkgname}
 Version:        3.0.4
@@ -19,6 +26,9 @@ Source0:        %{pypi_source %{srcname}}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+%if %{with hatch}
+BuildRequires:  tomcli
+%endif
 
 %global _description %{expand:
 Routines for handling streaming data, including a set of generators for
@@ -28,24 +38,22 @@ loading gzip data on the fly.}
 
 %package     -n python3-%{pkgname}
 Summary:        %{summary}
-Requires:       python3-jaraco
 
 %description -n python3-%{pkgname} %_description
 
 %prep
 %autosetup -n %{srcname}-%{version}
 
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-sed -E -i '/\t"pytest-/d' pyproject.toml
-
-%if 0%{?rhel}
-# relax setuptools requirement in EPEL
-sed -i 's/setuptools>=61.2/setuptools/' pyproject.toml
+%if %{with hatch}
+tomcli set pyproject.toml lists str "build-system.requires" "hatchling" "hatch-vcs"
+tomcli set pyproject.toml str "build-system.build-backend" "hatchling.build"
+tomcli set pyproject.toml str "tool.hatch.version.source" "vcs"
+tomcli set pyproject.toml lists str "tool.hatch.build.targets.wheel.packages" %{modname}
 %endif
 
 %generate_buildrequires
 %if %{with tests}
-%pyproject_buildrequires -t
+%pyproject_buildrequires -x test
 %else
 %pyproject_buildrequires
 %endif
@@ -55,20 +63,17 @@ sed -i 's/setuptools>=61.2/setuptools/' pyproject.toml
 
 %install
 %pyproject_install
-%pyproject_save_files %{modname}
+%pyproject_save_files -l %{modname}
 
 %check
 %if %{with tests}
-%tox
+%pytest
 %else
 %pyproject_check_import -e jaraco.stream.test_gzip
 %endif
 
 %files -n python3-%{pkgname} -f %{pyproject_files}
-%license LICENSE
 %doc README.rst NEWS.rst
-# Owned by python3dist(jaraco)
-%exclude %dir %{python3_sitelib}/jaraco
 
 %changelog
 %autochangelog

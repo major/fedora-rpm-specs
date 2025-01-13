@@ -1,17 +1,14 @@
 Name:           tiled
 Summary:        Tiled Map Editor
 
-Version:        1.11.0
-Release:        4%{?dist}
+Version:        1.11.1
+Release:        1%{?dist}
 
 # tiled itself is GPLv2+, libtiled and tmxviewer are BSD
 License:        GPL-2.0-or-later AND BSD-2-Clause
 
 URL:            http://www.mapeditor.org
 Source0:        https://github.com/mapeditor/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# https://github.com/mapeditor/tiled/pull/4077
-Patch1:         tiled-fix-build-against-qt6.8.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
@@ -281,6 +278,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.mape
 %{_libdir}/%{name}/plugins/libtscn.so
 
 %changelog
+* Sat Jan 11 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.11.1-1
+- Update to v1.11.1
+- Drop Patch0 (Qt6 issues - backport from this release)
+
 * Mon Oct 14 2024 Jan Grulich <jgrulich@redhat.com> - 1.11.0-4
 - Rebuild (qt6)
 

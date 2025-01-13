@@ -1,6 +1,6 @@
 Name:           pkgdiff
-Version:        1.7.2
-Release:        20%{?dist}
+Version:        1.8
+Release:        1%{?dist}
 Summary:        A tool for analyzing changes in Linux software packages
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -39,7 +39,7 @@ compatibility of old and new versions of packages.
 
 %prep
 %setup -q
-chmod 0644 LICENSE README
+chmod 0644 LICENSE README.md
 chmod 0755 %{name}.pl
 
 
@@ -66,13 +66,16 @@ install -m 0644 %{name}.1 %{buildroot}%{_mandir}/man1
 
 %files
 %license LICENSE
-%doc README doc/*
+%doc README.md doc/*
 %{_bindir}/%{name}
 %{_datadir}/%{name}
 %{_mandir}/man1/*
 
 
 %changelog
+* Sat Jan 11 2025 Richard Shaw <hobbes1069@gmail.com> - 1.8-1
+- Update to 1.8.
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.7.2-20
 - convert license to SPDX
 

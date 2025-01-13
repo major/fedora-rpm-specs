@@ -1,17 +1,12 @@
 Name:           meld
-Version:        3.22.2
-Release:        5%{?dist}
+Version:        3.22.3
+Release:        1%{?dist}
 Summary:        Visual diff and merge tool
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://meldmerge.org/
 Source0:        https://download.gnome.org/sources/meld/3.22/meld-%{version}.tar.xz
-
-# Fix running with Python 3.13
-# Don't use deprecated pipes module
-# https://gitlab.gnome.org/GNOME/meld/-/commit/aa817dce6bb0667fc6ef38163c213803dc8b37b3.patch
-Patch:          0001-Dont-use-deprecated-pipes-module.patch
 
 BuildRequires:  meson >= 0.47.0
 BuildRequires:  python3-devel
@@ -87,6 +82,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.gnome
 %{python3_sitelib}/meld/
 
 %changelog
+* Sat Jan 11 2025 Dominic Hopf <dmaphy@fedoraproject.org> - 3.22.3-1
+- New upstream release 3.22.3 (RHBZ#2336252)
+
 * Thu Aug 15 2024 Zephyr Lykos <fedora@mochaa.ws> - 3.22.2-5
 - Fix running with Python 3.13
 
