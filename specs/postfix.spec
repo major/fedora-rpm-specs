@@ -57,7 +57,7 @@
 Name: postfix
 Summary: Postfix Mail Transport Agent
 Version: 3.9.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 2
 URL: http://www.postfix.org
 License: (IPL-1.0 OR EPL-2.0) AND GPL-2.0-or-later AND BSD-4-Clause-UC
@@ -849,6 +849,9 @@ fi
 %endif
 
 %changelog
+* Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2:3.9.1-3
+- Rebuilt for the bin-sbin merge (2nd attempt)
+
 * Sun Dec 08 2024 Pete Walter <pwalter@fedoraproject.org> - 2:3.9.1-2
 - Rebuild for ICU 76
 

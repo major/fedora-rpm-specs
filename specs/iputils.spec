@@ -3,7 +3,7 @@
 Summary: Network monitoring tools including ping
 Name: iputils
 Version: 20240905
-Release: 1%{?dist}
+Release: 2%{?dist}
 # some parts are under the original BSD (ping.c)
 # some are under GPLv2+ (tracepath.c)
 License: BSD-4-Clause-UC AND GPL-2.0-or-later
@@ -90,6 +90,9 @@ install -cp ifenslave.8 ${RPM_BUILD_ROOT}%{_mandir}/man8/
 %attr(644,root,root) %{_mandir}/man8/ifenslave.8*
 
 %changelog
+* Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 20240905-2
+- Rebuilt for the bin-sbin merge (2nd attempt)
+
 * Sat Sep 07 2024 Kevin Fenzi <kevin@scrye.com> - 20240905-1
 - Update to 20240905. Fixes rhbz#2310191
 

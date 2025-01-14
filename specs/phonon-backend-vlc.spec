@@ -43,6 +43,9 @@ Summary:        VLC backend for PhononQt5
 Provides:       phonon-qt5-backend%{?_isa} = %{phonon_ver}
 Requires:       %{name}-common = %{version}-%{release}
 Requires:       vlc-plugins-base%{?_isa} >= %{vlc_ver}
+Requires:       vlc-plugin-pulseaudio%{?_isa} >= %{vlc_ver}
+Recommends:     vlc-plugin-ffmpeg%{?_isa} >= %{vlc_ver}
+Recommends:     vlc-plugins-video-out%{?_isa} >= %{vlc_ver}
 Requires:       phonon-qt5%{?_isa} >= %{phonon_ver}
 %description -n phonon-qt5-backend-vlc
 %{summary}.
@@ -54,6 +57,9 @@ Summary:        VLC backend for PhononQt6
 Provides:       phonon-qt6-backend%{?_isa} = %{phonon_ver}
 Requires:       %{name}-common = %{version}-%{release}
 Requires:       vlc-plugins-base%{?_isa} >= %{vlc_ver}
+Requires:       vlc-plugin-pulseaudio%{?_isa} >= %{vlc_ver}
+Recommends:     vlc-plugin-ffmpeg%{?_isa} >= %{vlc_ver}
+Recommends:     vlc-plugins-video-out%{?_isa} >= %{vlc_ver}
 Requires:       phonon-qt6%{?_isa} >= %{phonon_ver}
 %description -n phonon-qt6-backend-vlc
 %{summary}.

@@ -3,10 +3,10 @@
 
 Name:		python-%{pypi_name}
 Version:	3.2.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Python module for writing files in the Excel 2007+ XLSX file format
 # Automatically converted from old format: BSD - review is highly recommended.
-License:	LicenseRef-Callaway-BSD
+License:	BSD-2-Clause
 URL:		https://pypi.python.org/pypi/XlsxWriter
 Source0:	https://files.pythonhosted.org/packages/source/X/%{src_name}/%{src_name}-%{version}.tar.gz
 
@@ -68,6 +68,9 @@ rm -rf %{src_name}.egg-info
 %{_bindir}/vba_extract.py
 
 %changelog
+* Sun Jan 12 2024 Rajeesh K V < rajeeshknambiar@gmail.com> - 3.2.0-5
+- correct SPDX license identifier to BSD-2-Clause
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 3.2.0-4
 - convert license to SPDX
 

@@ -5,7 +5,7 @@
 %global crate notify
 
 Name:           rust-notify
-Version:        7.0.0
+Version:        8.0.0
 Release:        %autorelease
 Summary:        Cross-platform filesystem notification library
 

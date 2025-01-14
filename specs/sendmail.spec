@@ -41,7 +41,7 @@
 Summary: A widely used Mail Transport Agent (MTA)
 Name: sendmail
 Version: 8.18.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: sendmail-8.23 AND MIT AND MIT-CMU AND BSD-3-Clause AND CDDL-1.0 AND BSD-4-Clause AND BSD-4-Clause-UC AND PostgreSQL AND ISC AND HPND-sell-variant AND mailprio
 URL: http://www.sendmail.org/
 
@@ -747,6 +747,9 @@ exit 0
 
 
 %changelog
+* Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 8.18.1-5
+- Rebuilt for the bin-sbin merge (2nd attempt)
+
 * Tue Jul 23 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 8.18.1-4
 - Fixed missing binaries after the postponed bin-sbin merge
   Resolves: rhbz#2299457

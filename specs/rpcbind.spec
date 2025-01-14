@@ -4,7 +4,7 @@
 
 Name:           rpcbind
 Version:        1.2.7
-Release:        1.rc1%{?dist}
+Release:        1.rc1%{?dist}.1
 Summary:        Universal Addresses to RPC Program Number Mapper
 License:        BSD-3-Clause
 URL:            http://nfsv4.bullopensource.org
@@ -125,6 +125,9 @@ fi
 %attr(0700, %{rpcbind_user_group}, %{rpcbind_user_group}) %dir %{rpcbind_state_dir}
 
 %changelog
+* Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.2.7-1.rc1.1
+- Rebuilt for the bin-sbin merge (2nd attempt)
+
 * Mon Sep 9 2024 Steve Dickson <steved@redhat.com> 1.2.8-rc1
 - Updated to latest upstream RC release: rpcbind-1_2_8-rc1
 

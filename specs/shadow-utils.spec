@@ -1,7 +1,7 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
 Version: 4.17.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 2
 License: BSD-3-Clause AND GPL-2.0-or-later
 URL: https://github.com/shadow-maint/shadow
@@ -280,6 +280,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
+* Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2:4.17.0-3
+- Rebuilt for the bin-sbin merge (2nd attempt)
+
 * Thu Dec 26 2024 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.17.0
 - Rebase to version 4.17.0. Resolves: #2293678
 

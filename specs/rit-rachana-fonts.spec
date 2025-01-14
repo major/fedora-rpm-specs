@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-Version:    1.5.1
+Version:    1.5.2
 Release:    1%{?dist}
 URL:        https://gitlab.com/rit-fonts/%{fontsource}
 
@@ -22,7 +22,7 @@ It covers Unicode 13.0 and entire character set in 'definitive character set' of
 }
 
 # https://gitlab.com/rit-fonts/%%{fontsource}/-/jobs/artifacts/%%{version}/download?job=build-tag
-Source0:    %{fontsource}-%{version}.zip
+Source0:    %{fontsource}-%{version}.tar.bz2
 
 %fontpkg
 
@@ -42,6 +42,9 @@ Source0:    %{fontsource}-%{version}.zip
 
 
 %changelog
+* Sun Jan 12 2025 Rajeesh KV <rajeeshknambiar@gmail.com> - 1.5.2-1
+- Bugfix update, version 1.5.2
+
 * Sun Aug 25 2024 Rajeesh K V <rajeeshknambiar@gmail.com> - 1.5.1-1
 - New release 1.5.1
 

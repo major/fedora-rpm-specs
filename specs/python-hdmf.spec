@@ -27,13 +27,17 @@ Documentation of HDMF can be found at https://hdmf.readthedocs.io}
 %global schema_version 1.8.0
 
 Name:           python-hdmf
-Version:        3.14.5
+Version:        3.14.6
 Release:        %autorelease
 Summary:        A package for standardizing hierarchical object data
 
+%global forgeurl https://github.com/hdmf-dev/hdmf
+%global tag %{version}
+%forgemeta
+
 License:        BSD-3-Clause-LBNL
-URL:            https://github.com/hdmf-dev/hdmf
-Source0:        %{url}/releases/download/%{version}/hdmf-%{version}.tar.gz
+URL:            %forgeurl
+Source0:        %forgesource
 # Man page hand-written for Fedora in groff_man(7) format based on help output
 Source1:        validate_hdmf_spec.1
 
@@ -93,7 +97,7 @@ if st and st.type == "directory" then
 end
 
 %prep
-%autosetup -n hdmf-%{version} -p1
+%forgeautosetup -p1
 rm -vrf src/hdmf/common/hdmf-common-schema/
 
 %if 0%{?fc40}

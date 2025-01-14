@@ -1,8 +1,7 @@
 Name:           perl-Workflow
-Version:        1.62
-Release:        6%{?dist}
+Version:        2.02
+Release:        1%{?dist}
 Summary:        Simple, flexible system to implement work-flows
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Workflow
 Source0:        https://cpan.metacpan.org/authors/id/J/JO/JONASBN/Workflow-%{version}.tar.gz
@@ -16,34 +15,37 @@ BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
-BuildRequires:  perl(Module::Build)
-BuildRequires:  perl(strict)
-BuildRequires:  perl(warnings)
-
 # runtime
-BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Class::Accessor) >= 0.18
 BuildRequires:  perl(Class::Factory) >= 1
-BuildRequires:  perl(Class::Observable) >= 1.04
 BuildRequires:  perl(constant)
 BuildRequires:  perl(DateTime) >= 0.15
 BuildRequires:  perl(DateTime::Format::Strptime) >= 1
 BuildRequires:  perl(Data::Dumper)
+BuildRequires:  perl(Data::UUID)
 BuildRequires:  perl(DBD::Mock) >= 0.1
 BuildRequires:  perl(DBI)
 BuildRequires:  perl(English)
 BuildRequires:  perl(Exception::Class) >= 1.1
 BuildRequires:  perl(File::Slurp)
 BuildRequires:  perl(File::Spec::Functions)
-BuildRequires:  perl(Log::Log4perl) >= 0.34
-BuildRequires:  perl(Safe)
+BuildRequires:  perl(Log::Any) >= 1.050
+BuildRequires:  perl(Module::Runtime)
 BuildRequires:  perl(Readonly)
+BuildRequires:  perl(Safe)
+BuildRequires:  perl(Syntax::Keyword::Try)
 BuildRequires:  perl(XML::Simple) >= 2
+BuildRequires:  perl(YAML) >= 1.30
+BuildRequires:  perl(constant)
+BuildRequires:  perl(overload)
+BuildRequires:  perl(parent)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
 
 # tests
+BuildRequires:  perl(base)
 BuildRequires:  perl(blib)
-BuildRequires:  perl(Cwd)
 BuildRequires:  perl(DBD::SQLite)
 BuildRequires:  perl(Env)
 BuildRequires:  perl(File::Path)
@@ -56,25 +58,9 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(List::MoreUtils)
 BuildRequires:  perl(Mock::MonkeyPatch)
 BuildRequires:  perl(Test::Exception)
+BuildRequires:  perl(Test::Kwalitee)
+BuildRequires:  perl(Test::Without::Module) >= 0.20
 BuildRequires:  perl(Test::More)
-
-# optional test #1
-BuildRequires:  perl(Data::UUID)
-# optional test #2 -- not in Fedora yet
-#BuildRequires:  perl(SPOPS)
-
-#Requires:       perl(Class::Accessor) >= 0.18
-#Requires:       perl(Class::Factory) >= 1
-#Requires:       perl(Class::Observable) >= 1.04
-#Requires:       perl(DateTime) >= 0.15
-#Requires:       perl(DateTime::Format::Strptime) >= 1
-#Requires:       perl(DBD::Mock) >= 0.1
-#Requires:       perl(Exception::Class) >= 1.1
-#Requires:       perl(Log::Dispatch) >= 2
-#Requires:       perl(Log::Log4perl) >= 0.34
-#Requires:       perl(Test::Exception)
-#Requires:       perl(XML::Simple) >= 2
-
 
 %{?perl_default_filter}
 %global __requires_exclude %{?__requires_exclude}|perl\\(DBI\\)
@@ -93,6 +79,7 @@ systems.
 
 %build
 /usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+/usr/bin/perl -pi -e 's/^#!\/usr\/bin\/env\ perl$/#!\/usr\/bin\/perl/' t/*.t
 %{make_build}
 
 %install
@@ -100,8 +87,8 @@ systems.
 %{_fixperms} %{buildroot}/*
 
 %check
-# note: these are a little noisy.
 %{make_build} test
+
 
 %files
 %doc Changes.md README eg/ struct/
@@ -110,6 +97,9 @@ systems.
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 12 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 2.02-1
+- Update to 2.02
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 1.62-6
 - convert license to SPDX
 

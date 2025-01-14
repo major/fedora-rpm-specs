@@ -19,7 +19,7 @@ Requires:         gawk                       \
 Name:             initscripts
 Summary:          Basic support for legacy System V init scripts
 Version:          10.26
-Release:          1%{?dist}
+Release:          2%{?dist}
 
 License:          GPL-2.0-only
 
@@ -301,6 +301,9 @@ mv -v %{buildroot}/usr/sbin/* %{buildroot}%{_bindir}/
 # =============================================================================
 
 %changelog
+* Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 10.26-2
+- Rebuilt for the bin-sbin merge (2nd attempt)
+
 * Tue Aug 27 2024 Jan Macku <jamacku@redhat.com> - 10.26-1
 - Translated using Weblate (Turkish)
 - netconsole: var/lock -> run/lock

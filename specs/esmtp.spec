@@ -2,7 +2,7 @@ Summary:        User configurable send-only Mail Transfer Agent
 Summary(de):    Benutzerkonfigurierbarer nur versendender Mail Transfer Agent (MTA)
 Name:           esmtp
 Version:        1.2
-Release:        27%{?dist}
+Release:        28%{?dist}
 Source:         http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
 Source1:        esmtp-0.4.1-mutt
 # esmtp system config file configuring procmail as mda, for the local-delivery
@@ -121,6 +121,9 @@ fi
 %config(noreplace) %{_sysconfdir}/esmtprc
 
 %changelog
+* Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.2-28
+- Rebuilt for the bin-sbin merge (2nd attempt)
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2-27
 - convert license to SPDX
 

@@ -7,6 +7,11 @@ Summary: Command-line tool to control the zswap options
 URL: https://github.com/xvitaly/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+%if 0%{?fedora} && 0%{?fedora} >= 42
+ExcludeArch: %{ix86}
+%endif
+
 BuildRequires: boost-devel
 BuildRequires: glibc-headers
 BuildRequires: kernel-headers

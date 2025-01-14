@@ -1,8 +1,8 @@
 %undefine __cmake_in_source_build
 
 Name:           seadrive-gui
-Version:        2.0.28
-Release:        3%{?dist}
+Version:        3.0.12
+Release:        1%{?dist}
 Summary:        GUI part of Seafile Drive client
 
 # main source:  Apache-2.0
@@ -13,7 +13,7 @@ URL:            https://seafile.com
 Source0:        https://github.com/haiwen/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        seadrive.appdata.xml
 
-ExclusiveArch:  %{qt5_qtwebengine_arches}
+ExclusiveArch:  %{qt6_qtwebengine_arches}
 
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -21,16 +21,16 @@ BuildRequires:  gcc-c++
 BuildRequires:  libappstream-glib
 BuildRequires:  make
 
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5DBus)
-BuildRequires:  cmake(Qt5Gui)
-BuildRequires:  cmake(Qt5LinguistTools)
-BuildRequires:  cmake(Qt5Network)
-BuildRequires:  cmake(Qt5Test)
-BuildRequires:  cmake(Qt5WebEngine)
-BuildRequires:  cmake(Qt5WebEngineCore)
-BuildRequires:  cmake(Qt5WebEngineWidgets)
-BuildRequires:  cmake(Qt5Widgets)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Core5Compat)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6LinguistTools)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6Test)
+BuildRequires:  cmake(Qt6WebEngineCore)
+BuildRequires:  cmake(Qt6WebEngineWidgets)
+BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(jansson)
 BuildRequires:  pkgconfig(libsearpc)
@@ -60,7 +60,7 @@ enables you to access files on the server without syncing to local disk.
 %prep
 %autosetup -p1
 # ensure that these don't affect the build
-rm -rf third_party/{CrawlScopeCommandLine,macfuse.fs,MPMessagePack.framework,WinSparkle-0.5.3}
+rm -rf third_party/{CrawlScopeCommandLine,MPMessagePack.framework,WinSparkle-0.5.3}
 
 
 %build
@@ -89,6 +89,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/seadrive.appda
 %{_metainfodir}/seadrive.appdata.xml
 
 %changelog
+* Sun Jan 12 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 3.0.12-1
+- Update to 3.0.12 (#2336493)
+- Build with Qt6
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.28-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

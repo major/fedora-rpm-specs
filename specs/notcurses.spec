@@ -1,11 +1,11 @@
 Name:          notcurses
-Version:       3.0.12
+Version:       3.0.13
 Release:       %autorelease
 Summary:       Character graphics and TUI library
 License:       Apache-2.0
 URL:           https://nick-black.com/dankwiki/index.php/Notcurses
-Source0:       https://github.com/dankamongmen/%{name}/releases/download/v%{version}/notcurses_%{version}+dfsg.1.orig.tar.xz
-Source1:       https://github.com/dankamongmen/%{name}/releases/download/v%{version}/notcurses_%{version}+dfsg.1.orig.tar.xz.asc
+Source0:       https://github.com/dankamongmen/%{name}/releases/download/v%{version}/notcurses_%{version}+dfsg.orig.tar.xz
+Source1:       https://github.com/dankamongmen/%{name}/releases/download/v%{version}/notcurses_%{version}+dfsg.orig.tar.xz.asc
 Source2:       https://nick-black.com/dankamongmen.gpg
 
 BuildRequires: gnupg2

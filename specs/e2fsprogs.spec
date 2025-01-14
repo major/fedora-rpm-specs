@@ -1,7 +1,7 @@
 Summary: Utilities for managing ext2, ext3, and ext4 file systems
 Name: e2fsprogs
 Version: 1.47.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # License tags based on COPYING file distinctions for various components
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -350,6 +350,9 @@ make PRINT_FAILED=yes fullcheck
 %{_udevdir}/96-e2scrub.rules
 
 %changelog
+* Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.47.2-2
+- Rebuilt for the bin-sbin merge (2nd attempt)
+
 * Mon Jan 06 2025 Pavel Reichl <preichl@redhat.com> - 1.47.2-1
 - Update to the latest upstream version
 - Drop patch added in 1.47.1-6 release because it is already in 1.47.2

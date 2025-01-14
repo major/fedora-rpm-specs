@@ -7,8 +7,8 @@ international postal products like post cards and letters of all weight\
 classes and service classes (normal, registered, ...).
 
 Name:           python-%{srcname}
-Version:        0.8.10
-Release:        4%{?dist}
+Version:        0.8.11
+Release:        1%{?dist}
 Summary:        A Python interface to the Deutsche Post Internetmarke Online Franking
 
 License:        LGPL-3.0-or-later
@@ -57,6 +57,9 @@ sed -i '1,1s@^#!.*$@@' inema/frank.py inema/inema.py
 
 
 %changelog
+* Sun Jan 12 2025 Georg Sauthoff <mail@gms.tf> - 0.8.11-1
+- Bump to upstream release (includes January, 2025 product updates, fixes fedora#2337215)
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.10-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

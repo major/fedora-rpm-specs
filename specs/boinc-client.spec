@@ -17,14 +17,14 @@
 
 Summary:       The BOINC client
 Name:          boinc-client
-Version:       7.20.2
-Release:       12%{?dist}
+Version:       8.0.2
+Release:       1%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:       LicenseRef-Callaway-LGPLv2+
 URL:           http://boinc.berkeley.edu/
 
-%global major_version %(v=%{version}; echo ${v:0:4})
-%global commit 5222682feca5506f6168ed5883581a0320c13f8b
+%global major_version %(v=%{version}; echo ${v:0:3})
+%global commit c0b8b6fd37687aa1b93102129a054837b84cc032
 %global gittag client_release/%{major_version}/%{version}
 # gittag_custom is needed in %%setup process because tar.gz unpacks a folder
 # named for example boinc-client_release-7.14-7.14.2
@@ -39,19 +39,8 @@ SOURCE4:       config.properties
 SOURCE5:       edu.berkeley.BOINC.metainfo.xml
 %if 0%{?fedora} > 35
 #Patch0:        openssl3.patch
-
-# Concerning this patch, read devel mailing list thread "boinc-client build failure on non x86 architectures F>35"
-#Patch1:        boinc-client-7.18-AC_CHECK_DECLS-change.patch
 %endif
-Patch2:        disable_idle_time_detection.patch
-# disabled systemd_hardening.patch because its tests are still in early stage
-# on upstream development process
-#Patch2:        systemd_hardening.patch
-# prevents manager close action from stopping client service
-# 2025-01-05 news: this patch can be removed in future boinc-client updates because of:
-# https://github.com/BOINC/boinc/issues/3639#event-12049525792
-# https://github.com/BOINC/boinc/pull/5530
-Patch3:        manager_close_no_service_stop.patch
+Patch1:        disable_idle_time_detection.patch
 # On Linux distributions, BOINC runs as a service. Users must not be able to
 # try stopping the service from exit menu entry.
 # This leads to unexpected behaviour, like:
@@ -63,20 +52,8 @@ Patch3:        manager_close_no_service_stop.patch
 # show any frame asking the user if he wants to stop the service.
 # upstream pull request https://github.com/BOINC/boinc/pull/3094 has ben merged
 # and unmerged later
-Patch4:        manager_exit_menu_entry_removal.patch
-# removes menu entry "Shut down the currently connected BOINC client"
-# upstream pull request https://github.com/BOINC/boinc/pull/3094 has ben merged
-# and unmerged later
-Patch5:        manager_shut_down_connected_client.patch
-# if user starts manager while client service is not running, manager will
-# start a client process running it in user session. This patch prevents
-# the manager from starting the client because on Linux the client should
-# run as a service only
-Patch6:        prevent_manager_from_starting_client.patch
-# Fedora / EPEL, the folder /etc/boinc-client does not exist, so it should be removed
-#Patch7:        remove_etc_boinc-client_from_systemd_unit_file.patch
+#Patch4:        manager_exit_menu_entry_removal.patch
 
-Patch8:	       boinc-client-c99.patch
 
 Requires:         logrotate
 Requires(post):   systemd
@@ -323,7 +300,7 @@ fi
 %{_bindir}/boinc
 %{_bindir}/boinc_client
 %{_bindir}/boinccmd
-%{_bindir}/switcher
+#%{_bindir}/switcher
 %{_unitdir}/%{name}.service
 %{_mandir}/man1/boinccmd.1.gz
 %{_mandir}/man1/boinc.1.gz
@@ -368,6 +345,10 @@ fi
 %{_libdir}/pkgconfig/libboinc_opencl.pc
 
 %changelog
+* Fri Jan 10 2025 Germano Massullo <germano.massullo@gmail.com> - 8.0.2-1
+- 8.0.2 release
+- Erased obsolete patches
+
 * Sun Jan 05 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 7.20.2-12
 - Fix FTBFS in F41+ due to OpenSSL ENGINE API deprecation; fixes RHBZ#2300580.
 

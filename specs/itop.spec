@@ -1,9 +1,9 @@
-%global commit      6dbb3c421af11972eba90ef71f2279567730fcc9
+%global commit      fb22eff1cde008dc009e738736d844bfd6c594f2
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:       itop
 Version:    0.1
-Release:    21.20150225git6dbb3c42%{?dist}
+Release:    22.20220502gitfb22eff1%{?dist}
 Summary:    Interactive interrupt viewer
 
 License:    MIT
@@ -34,6 +34,9 @@ install -pm 0755 %{name} %{buildroot}%{_bindir}/%{name}
 
 
 %changelog
+* Sun Jan 12 2025 Florian Lehner <dev@der-flo.net> 0.1-22.20220502gitfb22eff1
+- Update package to commit fb22eff1cde008dc009e738736d844bfd6c594f2
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-21.20150225git6dbb3c42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: Tools for reading and writing Macintosh HFS volumes
 Name: hfsutils
 Version: 3.2.6
-Release: 51%{?dist}
+Release: 52%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 Source: ftp://ftp.mars.org/pub/hfs/%{name}-%{version}.tar.gz
@@ -111,6 +111,9 @@ install -p -m 0755 hfsck/hfsck $RPM_BUILD_ROOT/%{_bindir}
 %{_includedir}/rsrc.h
 
 %changelog
+* Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.2.6-52
+- Rebuilt for the bin-sbin merge (2nd attempt)
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 3.2.6-51
 - convert license to SPDX
 

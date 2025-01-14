@@ -5,14 +5,13 @@
 
 Name:           wingpanel-indicator-bluetooth
 Summary:        Bluetooth Indicator for wingpanel
-Version:        7.0.1
+Version:        8.0.0
 Release:        %autorelease
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later
 
 URL:            https://github.com/elementary/%{name}
 Source0:        %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
-BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
 BuildRequires:  libappstream-glib
 BuildRequires:  meson
@@ -53,12 +52,6 @@ sed -i '/icon type="stock"/d' %{buildroot}/%{_datadir}/metainfo/%{appname}.metai
 
 
 %check
-desktop-file-validate \
-    %{buildroot}/%{_datadir}/applications/io.elementary.bluetooth.desktop
-
-desktop-file-validate \
-    %{buildroot}/%{_sysconfdir}/xdg/autostart/io.elementary.bluetooth-daemon.desktop
-
 appstream-util validate-relax --nonet \
     %{buildroot}/%{_datadir}/metainfo/%{appname}.metainfo.xml
 
@@ -67,11 +60,8 @@ appstream-util validate-relax --nonet \
 %license COPYING
 %doc README.md
 
-%config(noreplace) %{_sysconfdir}/xdg/autostart/io.elementary.bluetooth-daemon.desktop
-%{_bindir}/io.elementary.bluetooth
 %{_libdir}/wingpanel/libbluetooth.so
 
-%{_datadir}/applications/io.elementary.bluetooth.desktop
 %{_datadir}/glib-2.0/schemas/io.elementary.desktop.wingpanel.bluetooth.gschema.xml
 %{_datadir}/metainfo/%{appname}.metainfo.xml
 

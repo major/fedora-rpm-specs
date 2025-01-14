@@ -1,6 +1,6 @@
 Name:    device-mapper-multipath
 Version: 0.10.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Tools to manage multipath devices using device-mapper
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -233,6 +233,9 @@ fi
 %{_pkgconfdir}/libdmmp.pc
 
 %changelog
+* Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.10.0-3
+- Rebuilt for the bin-sbin merge (2nd attempt)
+
 * Thu Aug 29 2024 Benjamin Marzinski <bmarzins@redhat.com> - 0.10.0-2
 - update CI tests.
 

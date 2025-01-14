@@ -1,9 +1,9 @@
-Name:		sddm-conf
-Version:	0.2.0
+Name:           sddm-conf
+Version:	0.3.0
 Release:	1%{?dist}
 License:	MIT
 URL:		https://github.com/qtilities/%{name}
-Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Summary:	Qt-based configuration editor for SDDM
 
 BuildRequires:  cmake
@@ -55,5 +55,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml 
 %license COPYING
 
 %changelog
+* Sun Jan 12 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 0.3.0-1
+- 0.3.0
+
 * Tue Jul 30 2024 Steve Cossette <farchord@gmail.com> - 0.2.0-1
 - 0.2.0

@@ -1,7 +1,7 @@
 Summary:	Utilities for managing the XFS filesystem
 Name:		xfsprogs
 Version:	6.12.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL-1.0-or-later AND LGPL-2.1-or-later
 URL:		https://xfs.wiki.kernel.org
 Source0:	http://kernel.org/pub/linux/utils/fs/xfs/xfsprogs/%{name}-%{version}.tar.xz
@@ -69,6 +69,11 @@ interface could change at any time!
 %prep
 xzcat '%{SOURCE0}' | %{gpgverify} --keyring='%{SOURCE3}' --signature='%{SOURCE1}' --data=-
 %autosetup -p1
+
+# Inject libicuuc to fix link error:
+# /usr/bin/ld: /tmp/ccRHx17I.ltrans1.ltrans.o: undefined reference to symbol 'uiter_setString_76'
+# /usr/bin/ld: /usr/lib64/libicuuc.so.76: error adding symbols: DSO missing from command line
+sed -r -i 's/\$\(LIBICU_LIBS\)/\0 -licuuc/' scrub/Makefile
 
 %build
 export tagname=CC
@@ -141,6 +146,9 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/xfsprogs/
 %{_libdir}/*.so
 
 %changelog
+* Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 6.12.0-2
+- Rebuilt for the bin-sbin merge (2nd attempt)
+
 * Wed Dec 04 2024 Pavel Reichl <preichl@redhat.com> - 6.12.0-1
 - Rebase to upstream version 6.12.0
 - Related: rhbz#2330151

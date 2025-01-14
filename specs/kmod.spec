@@ -16,7 +16,7 @@
 
 Name:		kmod
 Version:	33
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Linux kernel module management utilities
 
 # https://docs.fedoraproject.org/en-US/legal/license-field/#_no_effective_license_analysis
@@ -203,6 +203,9 @@ install -m 0644 %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/depmod.d/dist.conf
 %{_libdir}/libkmod.so
 
 %changelog
+* Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 33-2
+- Rebuilt for the bin-sbin merge (2nd attempt)
+
 * Thu Aug 15 2024 Eugene Syromiatnikov <esyr@redhat.com> - 33-1
 - New upstream v33
 - Resolves: rhbz#2268030

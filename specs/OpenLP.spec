@@ -1,8 +1,8 @@
-%global modname 3.1.3
+%global modname 3.1.6
 
 Summary: Open source Church presentation and lyrics projection application
 Name: OpenLP
-Version: 3.1.3
+Version: 3.1.6
 Release: 1%{?dist}
 Source0: https://get.openlp.org/%{version}/OpenLP-%{version}.tar.gz
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -92,6 +92,12 @@ cp -p resources/openlp.xml %{buildroot}%{_datadir}/mime/packages
 
 
 %changelog
+* Sun Jan 12 2025 Tim Bentley <Tim.Bentley@openlp.org> - 3.1.6-1
+- Release 3.1.6
+
+* Sun Nov 17 2024 Tim Bentley <Tim.Bentley@openlp.org> - 3.1.5-1
+- Release 3.1.5 
+
 * Fri Aug 23 2024 Tim Bentley <Tim.Bentley@openlp.org> - 3.1.3-1
 - Release 3.1.3 
 

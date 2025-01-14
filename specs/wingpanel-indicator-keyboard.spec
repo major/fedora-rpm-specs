@@ -5,7 +5,7 @@
 
 Name:           wingpanel-indicator-keyboard
 Summary:        Keyboard Indicator for wingpanel
-Version:        2.4.1
+Version:        2.4.2
 Release:        %autorelease
 License:        LGPL-2.1-or-later AND GPL-2.0-or-later
 
@@ -50,7 +50,7 @@ A keyboard indicator for wingpanel.
 
 %check
 appstream-util validate-relax --nonet \
-    %{buildroot}/%{_datadir}/metainfo/%{appname}.appdata.xml
+    %{buildroot}/%{_datadir}/metainfo/%{appname}.metainfo.xml
 
 
 %files -f keyboard-indicator.lang
@@ -60,7 +60,7 @@ appstream-util validate-relax --nonet \
 %{_libdir}/wingpanel/libkeyboard.so
 
 %{_datadir}/glib-2.0/schemas/%{appname}.gschema.xml
-%{_datadir}/metainfo/%{appname}.appdata.xml
+%{_datadir}/metainfo/%{appname}.metainfo.xml
 
 
 %changelog

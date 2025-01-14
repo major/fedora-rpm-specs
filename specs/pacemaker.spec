@@ -41,10 +41,10 @@
 ## can be incremented to build packages reliably considered "newer"
 ## than previously built packages with the same pcmkversion)
 %global pcmkversion 3.0.0
-%global specversion 4.rc3
+%global specversion 5
 
 ## Upstream commit (full commit ID, abbreviated commit ID, or tag) to build
-%global commit 2587987be9f440c1f292233a8adea785f16641c5
+%global commit d8340737c46ccb265bd82c5493b58e9c14ba67e5
 
 ## Since git v2.11, the extent of abbreviation is autoscaled by default
 ## (used to be constant of 7), so we need to convey it for non-tags, too.
@@ -88,7 +88,7 @@
 
 ## Add option to prefix package version with "0."
 ## (so later "official" packages will be considered updates)
-%bcond_without pre_release
+%bcond_with pre_release
 
 ## NOTE: skip --with upstart_job
 
@@ -192,6 +192,7 @@ Url:           https://www.clusterlabs.org/
 Source0:       https://codeload.github.com/%{github_owner}/%{name}/tar.gz/%{archive_github_url}
 Source1:       pacemaker.sysusers
 # upstream commits
+Patch0:        001-reset-error-warning-flags.patch
 
 Requires:      resource-agents
 Requires:      %{pkgname_pcmk_libs}%{?_isa} = %{version}-%{release}
@@ -769,6 +770,16 @@ exit 0
 %{_datadir}/pkgconfig/pacemaker-schemas.pc
 
 %changelog
+* Fri Jan 10 2025 Klaus Wenninger <kwenning@redhat.com> - 3.0.0-5
+- Update for new upstream release tarball: Pacemaker-3.0.0,
+  for full details, see included ChangeLog.md file or
+  https://github.com/ClusterLabs/pacemaker/releases/tag/Pacemaker-3.0.0
+- Regarding noteworthy changes coming with the bump of the major version see
+  https://projects.clusterlabs.org/w/projects/pacemaker/pacemaker_3.0_changes/
+- add patch to when resetting scheduler as well reset error and warning flags
+  lacking pcmk_reset_scheduler in 3.0.0 branch pcmk__set_scheduler_defaults
+  seems to be the most reasonable alternative for now
+
 * Tue Jan 7 2025 Klaus Wenninger <kwenning@redhat.com> - 3.0.0-0.4.rc3
 - Update for new upstream release tarball: Pacemaker-3.0.0-rc3,
   for full details, see included ChangeLog.md file or

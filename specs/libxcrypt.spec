@@ -168,7 +168,7 @@ fi                                          \
 
 Name:           libxcrypt
 Version:        4.4.37
-Release:        4%{?dist}
+Release:        6%{?dist}
 Summary:        Extended crypt library for descrypt, md5crypt, bcrypt, and others
 
 # For explicit license breakdown, see the
@@ -182,6 +182,7 @@ Source3:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.xz.s
 
 # Patch 0000 - 2999: Backported patches from upstream.
 Patch0000:      %{url}/commit/819352f1cac6.patch#/%{name}-%{version}-util-base64-Fix-Wunterminated-string-initialization.patch
+Patch0001:      %{url}/commit/22c2a515641b.patch#/%{name}-%{version}-test-Fix-Wunterminated-string-initialization.patch
 # Patch 3000 - 5999: Backported patches from pull requests.
 Patch3000:      %{name}-Make-crypt-and-crypt_gensalt-use-thread-local-output.patch
 # Patch 6000 - 9999: Downstream patches.
@@ -403,7 +404,6 @@ pushd %{_vpath_builddir}
   --enable-obsolete-api-enosys=%{enosys_stubs}
 %endif
 %make_build
-%make_build test-programs
 popd
 
 %if %{with compat_pkg}
@@ -417,51 +417,8 @@ pushd %{_vpath_builddir}-compat
   --enable-obsolete-api=%{compat_api}            \
   --enable-obsolete-api-enosys=%{enosys_stubs}
 %make_build
-%make_build test-programs
 popd
 %endif
-
-mkdir -p %{_vpath_builddir}-all_possible_tests
-
-# The configure scripts want to use -Wl,--wrap to run some
-# special tests, which is not compatible with LTO.
-%global system_lto_cflags_bak %{_lto_cflags}
-%define _lto_cflags %{nil}
-
-# Reset compiler flags in env.
-unset CFLAGS
-unset CXXFLAGS
-unset FFLAGS
-unset FCFLAGS
-unset LDFLAGS
-unset LT_SYS_LIBRARY_PATH
-
-# Build a library suitable for all possible tests.
-pushd %{_vpath_builddir}-all_possible_tests
-
-# Disable arc4random_buf on purpose, so we are able
-# to run test/getrandom-fallback from testsuite.
-%configure                                       \
-ac_cv_func_arc4random_buf=no                     \
-%if %{with compat_pkg}
-  %{common_configure_options}                    \
-  --enable-hashes=all                            \
-  --enable-obsolete-api=%{compat_api}            \
-  --enable-obsolete-api-enosys=%{enosys_stubs}
-%else
-  %{common_configure_options}                    \
-  --enable-hashes=%{hash_methods}                \
-  --enable-obsolete-api=%{obsolete_api}          \
-%if %{with new_api}
-  --enable-obsolete-api-enosys=%{obsolete_api}
-%else
-  --enable-obsolete-api-enosys=%{enosys_stubs}
-%endif
-%endif
-%define _lto_cflags %{system_lto_cflags_bak}
-%make_build
-%make_build test-programs
-popd
 
 
 %install
@@ -493,7 +450,6 @@ build_dirs="%{_vpath_builddir}"
 %if %{with compat_pkg}
 build_dirs="${build_dirs} %{_vpath_builddir}-compat"
 %endif
-build_dirs="${build_dirs} %{_vpath_builddir}-all_possible_tests"
 for dir in ${build_dirs}; do
   %make_build -C ${dir} check || \
     {
@@ -585,6 +541,13 @@ done
 
 
 %changelog
+* Sun Jan 12 2025 Björn Esser <besser82@fedoraproject.org> - 4.4.37-6
+- Drop all_possible_tests configuration
+- Build test-programs during %%check stage
+
+* Sun Jan 12 2025 Björn Esser <besser82@fedoraproject.org> - 4.4.37-5
+- Backport upstream patch to fix testsuite with upcoming GCC-15
+
 * Sun Jan 05 2025 Björn Esser <besser82@fedoraproject.org> - 4.4.37-4
 - Update patch for MT-Safeness in crypt and crypt_gensalt
 

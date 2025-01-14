@@ -9,11 +9,16 @@ License:        MIT
 URL:            https://github.com/samuelcolvin/watchfiles
 Source:         %{pypi_source watchfiles}
 
-# Use notify 7.0.0 instead of a fork of 6.1.1
-# https://github.com/samuelcolvin/watchfiles/pull/322
+# Update notify from a 6.1.1 fork to 8.0.0
+#
+# Includes:
+#   Use notify 7.0.0 instead of a fork of 6.1.1
+#   https://github.com/samuelcolvin/watchfiles/pull/322
 # (We take only the commit changing Cargo.toml, not the one updating
-# Cargo.lock.)
-Patch:          %{url}/pull/322/commits/318442aa2bfb38cf2fa81165ee1e3fe5aa70494b.patch
+# Cargo.lock.) Further updated for notify 8.0.0; see:
+#   Update notify dependency to 8.0.0, bumping MSRV to 1.77
+#   https://github.com/samuelcolvin/watchfiles/pull/327
+Patch:          0001-Update-notify-from-a-6.1.1-fork-to-8.0.0.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  cargo-rpm-macros >= 24
@@ -32,9 +37,7 @@ Summary:        %{summary}
 # the licenses of statically linked rust dependencies, based on the output of
 # %%{cargo_license_summary}:
 #
-# (MIT OR Apache-2.0) AND CC0-1.0
 # Apache-2.0 OR MIT
-# BSD-3-Clause
 # CC0-1.0
 # ISC
 # MIT
@@ -43,7 +46,6 @@ Summary:        %{summary}
 License:        %{shrink:
                 MIT AND
                 Apache-2.0 AND
-                BSD-3-Clause AND
                 CC0-1.0 AND
                 ISC AND
                 (MIT OR Apache-2.0) AND

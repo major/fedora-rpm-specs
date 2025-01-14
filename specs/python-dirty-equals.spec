@@ -2,7 +2,7 @@
 %bcond bootstrap 0
 
 Name:           python-dirty-equals
-Version:        0.8.0
+Version:        0.9.0
 Release:        %autorelease
 Summary:        Doing dirty (but extremely useful) things with equals
 

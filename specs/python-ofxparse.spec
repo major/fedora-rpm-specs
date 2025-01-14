@@ -3,7 +3,7 @@
 
 Name:           python-%{upstream_name}
 Version:        0.21
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python library for working with the OFX (Open Financial Exchange) file format
 License:        MIT
 URL:            https://pypi.org/project/ofxparse/
@@ -21,7 +21,7 @@ Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{upstream_name}}
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
-BuildRequires:  python3-nose
+BuildRequires:  python3-pytest
 BuildRequires:  python3-beautifulsoup4
 BuildRequires:  python3-six
 BuildRequires:  python3-lxml
@@ -54,6 +54,9 @@ accounts also provide account statements in OFX files.
 %{python3_sitelib}/%{upstream_name}*.egg-info
 
 %changelog
+* Sun Jan 12 2025 Rajeesh K V <rajeeshknambiar@gmail.com> - 0.21-8
+- Port from deprecated python-nose to python-pytest
+
 * Sun Sep 01 2024 Rajeesh K V <rajeeshknambiar@gmail.com> - 0.21-7
 - Port from deprecated `setup.py test` to `pytest`
 

@@ -1,15 +1,13 @@
 %global __provides_exclude_from ^%{_libdir}/gala/.*\\.so$
 
 Name:           gala
-Version:        8.0.4
+Version:        8.1.0
 Release:        %autorelease
 Summary:        Gala window manager
 License:        GPL-3.0-or-later AND LGPL-3.0-or-later
 
 URL:            https://github.com/elementary/gala
 Source:         %{url}/archive/%{version}/gala-%{version}.tar.gz
-
-Patch:          0001-Modify-default-settings-for-Fedora.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc

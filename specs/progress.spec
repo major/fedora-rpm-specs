@@ -1,6 +1,6 @@
 Name:		progress
-Version:	0.14
-Release:	16%{?dist}
+Version:	0.17
+Release:	1%{?dist}
 Summary:	Coreutils Viewer
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -48,6 +48,9 @@ install -pm 0644 *.1 %{buildroot}%{_mandir}/man1
 %{_mandir}/man1/*.1*
 
 %changelog
+* Sun Jan 12 2025 Florian Lehner <dev@der-flo.net> - 0.17-1
+- Update to new Version
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.14-16
 - convert license to SPDX
 

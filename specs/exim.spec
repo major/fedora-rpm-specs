@@ -12,7 +12,7 @@
 Summary: The exim mail transfer agent
 Name: exim
 Version: 4.98
-Release: 3%{?dist}
+Release: 4%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 Url: https://www.exim.org/
@@ -496,6 +496,9 @@ fi
 %{_sysconfdir}/cron.daily/greylist-tidy.sh
 
 %changelog
+* Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.98-4
+- Rebuilt for the bin-sbin merge (2nd attempt)
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 4.98-3
 - convert license to SPDX
 

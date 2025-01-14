@@ -4,7 +4,7 @@
 Summary: System and process monitoring utilities
 Name: procps-ng
 Version: 4.0.4
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL: https://sourceforge.net/projects/procps-ng/
 
@@ -156,6 +156,9 @@ ln -s %{_bindir}/pidof %{buildroot}%{_sbindir}/pidof
 %files i18n -f %{name}.lang
 
 %changelog
+* Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.0.4-5
+- Rebuilt for the bin-sbin merge (2nd attempt)
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

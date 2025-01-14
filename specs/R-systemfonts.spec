@@ -1,31 +1,35 @@
 %global packname systemfonts
-%global packver  1.0.4
+%global packver  1.1.0
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          8%{?dist}
+Release:          %autorelease
 Summary:          System Native Font Finding
 
 License:          MIT
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.tar.gz
+# Add a missing #include to fix GCC 15 build.
+Patch:            https://github.com/r-lib/systemfonts/commit/5f14aef17d13d28d0c039f13e73bb78639ae8674.patch
 
 # Here's the R view of the dependencies world:
 # Depends:
-# Imports:
-# Suggests:  R-testthat >= 2.1.0, R-covr, R-knitr, R-rmarkdown, R-tools
+# Imports:   R-lifecycle
+# Suggests:  R-covr, R-knitr, R-rmarkdown, R-testthat >= 2.1.0, R-tools
 # LinkingTo: R-cpp11 >= 0.2.1
 # Enhances:
 
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
+BuildRequires:    R-lifecycle
 BuildRequires:    R-cpp11-devel >= 0.2.1
-BuildRequires:    R-testthat >= 2.1.0
 BuildRequires:    R-knitr
 BuildRequires:    R-rmarkdown
+BuildRequires:    R-testthat >= 2.1.0
 BuildRequires:    R-tools
 BuildRequires:    pkgconfig(fontconfig)
+BuildRequires:    pkgconfig(freetype2)
 
 %description
 Provides system native access to the font catalogue. As font handling
@@ -49,6 +53,8 @@ Development files for %{name}.
 %setup -q -c -n %{packname}
 
 pushd %{packname}
+%autopatch -p1
+
 # Don't need coverage; it's not packaged either.
 sed -i 's/covr, //g' DESCRIPTION
 
@@ -91,74 +97,4 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Thu Apr 25 2024 Iñaki Úcar <iucar@fedoraproject.org> - 1.0.4-7
-- R-maint-sig mass rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.0.4-3
-- R-maint-sig mass rebuild
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Sep  1 2022 Tom Callaway <spot@fedoraproject.org> - 1.0.4-1
-- update to 1.0.4
-- rebuild for R 4.2.1
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jun 15 2021 Tom Callaway <spot@fedoraproject.org> - 1.0.2-1
-- update to 1.0.2
-- Rebuilt for R 4.1.0
-
-* Tue Feb 23 2021 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.0.1-1
-- Update to latest version (#1923756)
-
-* Mon Jan 25 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Sep 30 2020 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.3.2-1
-- Update to latest version (#1883682)
-
-* Wed Sep 09 2020 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.3.1-1
-- Update to latest version (#1876947)
-
-* Thu Sep 03 2020 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.3.0-1
-- Update to latest version (#1874447)
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-4
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Fri Jun  5 2020 Tom Callaway <spot@fedoraproject.org> - 0.2.2-2
-- rebuild for R 4
-
-* Thu May 21 2020 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.2.2-1
-- Update to latest version
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Sun Sep 08 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.1.1-1
-- initial package for Fedora
+%autochangelog

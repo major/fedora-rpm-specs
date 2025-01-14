@@ -5,7 +5,7 @@
 
 Name:           wingpanel-indicator-datetime
 Summary:        Datetime Indicator for wingpanel
-Version:        2.4.1
+Version:        2.4.2
 Release:        %autorelease
 License:        GPL-3.0-or-later AND GPL-2.0-or-later
 
@@ -48,12 +48,12 @@ A datetime indicator for wingpanel.
 %find_lang datetime-indicator
 
 # remove the specified stock icon from appdata (invalid in libappstream-glib)
-sed -i '/icon type="stock"/d' %{buildroot}/%{_datadir}/metainfo/%{appname}.appdata.xml
+sed -i '/icon type="stock"/d' %{buildroot}/%{_datadir}/metainfo/%{appname}.metainfo.xml
 
 
 %check
 appstream-util validate-relax --nonet \
-    %{buildroot}/%{_datadir}/metainfo/%{appname}.appdata.xml
+    %{buildroot}/%{_datadir}/metainfo/%{appname}.metainfo.xml
 
 
 %files -f datetime-indicator.lang
@@ -63,7 +63,7 @@ appstream-util validate-relax --nonet \
 %{_libdir}/wingpanel/libdatetime.so
 
 %{_datadir}/glib-2.0/schemas/io.elementary.desktop.wingpanel.datetime.gschema.xml
-%{_datadir}/metainfo/%{appname}.appdata.xml
+%{_datadir}/metainfo/%{appname}.metainfo.xml
 
 
 %changelog

@@ -1,5 +1,5 @@
 Name:           python-ogr
-Version:        0.50.2
+Version:        0.50.3
 Release:        1%{?dist}
 Summary:        One API for multiple git forges
 
@@ -47,6 +47,10 @@ One Git library to Rule!
 
 
 %changelog
+* Fri Jan 10 2025 Packit <hello@packit.dev> - 0.50.3-1
+- We have improved wrapping of the forge-specific exceptions, string representation of the original exception is now included. (#884)
+- The test suite for parsing git URLs has been extended and also the handling of GitHub repository with changed owner or name has been improved. (#874)
+
 * Sat Oct 26 2024 Packit <hello@packit.dev> - 0.50.2-1
 - There is a new method for getting a single commit comment, supporting also retrieval and adding reactions in GitHub. (#865)
 - Resolves: rhbz#2321974

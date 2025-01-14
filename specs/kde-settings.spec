@@ -7,7 +7,7 @@
 Summary: Config files for KDE
 Name:    kde-settings
 Version: 41.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: MIT
 URL:     https://pagure.io/fedora-kde/kde-settings
@@ -37,8 +37,6 @@ Obsoletes: kde-settings-ksplash < 24-2
 Obsoletes: kde-settings-minimal < 24-3
 
 Requires: kde-filesystem
-# /etc/pam.d/ ownership
-Requires: pam
 Requires: xdg-user-dirs
 ## add breeze deps here? probably, need more too -- rex
 Requires: breeze-icon-theme
@@ -199,6 +197,7 @@ test -f %{_datadir}/wallpapers/F%{version_maj} || ls -l %{_datadir}/wallpapers
 %endif
 %config(noreplace) %{_sysconfdir}/xdg/kcm-about-distrorc
 %config(noreplace) %{_sysconfdir}/xdg/kdebugrc
+%dir %{_sysconfdir}/pam.d
 %config(noreplace) %{_sysconfdir}/pam.d/kcheckpass
 %config(noreplace) %{_sysconfdir}/pam.d/kscreensaver
 # drop noreplace, so we can be sure to get the new kiosk bits
@@ -243,6 +242,9 @@ test -f %{_datadir}/wallpapers/F%{version_maj} || ls -l %{_datadir}/wallpapers
 
 
 %changelog
+* Fri Jan 03 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 41.2-2
+- Avoid pam dependency
+
 * Wed Sep 25 2024 Neal Gompa <ngompa@fedoraproject.org> - 41.2-1
 - Drop AT-SPI Xwayland property script as it's now handled by KWin
 

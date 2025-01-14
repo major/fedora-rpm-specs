@@ -2,8 +2,8 @@
 
 %global gh_name seadrive-fuse
 Name:           seadrive-daemon
-Version:        2.0.28
-Release:        4%{?dist}
+Version:        3.0.12
+Release:        1%{?dist}
 Summary:        Daemon part of Seafile Drive client
 
 License:        GPL-3.0-only
@@ -21,6 +21,7 @@ BuildRequires:  pkgconfig(fuse)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(jansson)
+BuildRequires:  pkgconfig(libargon2)
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libevent)
 BuildRequires:  pkgconfig(libsearpc)
@@ -73,6 +74,9 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %{python3_sitearch}/seadrive/
 
 %changelog
+* Sun Jan 12 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 3.0.12-1
+- Update to 3.0.12 (#2336493)
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.28-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

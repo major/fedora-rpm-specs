@@ -1,7 +1,7 @@
 Summary: A set of basic GNU tools commonly used in shell scripts
 Name:    coreutils
 Version: 9.5
-Release: 11%{?dist}
+Release: 12%{?dist}
 # some used parts of gnulib are under various variants of LGPL
 License: GPL-3.0-or-later AND GFDL-1.3-no-invariants-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later
 Url:     https://www.gnu.org/software/coreutils/
@@ -282,6 +282,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %license COPYING
 
 %changelog
+* Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 9.5-12
+- Rebuilt for the bin-sbin merge (2nd attempt)
+
 * Wed Nov 13 2024 Florian Weimer <fweimer@redhat.com> - 9.5-11
 - Affinity mask handling in nproc for large CPU counts (rhbz#2325167)
 

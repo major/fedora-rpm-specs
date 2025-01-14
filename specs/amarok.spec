@@ -2,7 +2,7 @@
 
 Name:    amarok
 Summary: Media player
-Version: 3.2.0
+Version: 3.2.1
 Release: 1%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
@@ -248,6 +248,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}*.
 
 
 %changelog
+* Sun Jan 12 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 3.2.1-1
+- 3.2.1
+
 * Mon Dec 30 2024 Steve Cossette <farchord@gmail.com> - 3.2.0-1
 - 3.2.0
 

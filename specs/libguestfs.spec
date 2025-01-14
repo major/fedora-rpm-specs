@@ -42,7 +42,7 @@ Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
 Version:       1.55.3
-Release:       3%{?dist}
+Release:       4%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -1104,6 +1104,9 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:1.55.3-4
+- Rebuilt for the bin-sbin merge (2nd attempt)
+
 * Fri Jan 10 2025 Jerry James <loganjerry@gmail.com> - 1:1.55.3-3
 - OCaml 5.3.0 rebuild for Fedora 42
 

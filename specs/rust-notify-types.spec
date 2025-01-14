@@ -5,42 +5,16 @@
 %global crate notify-types
 
 Name:           rust-notify-types
-Version:        1.0.1
+Version:        2.0.0
 Release:        %autorelease
 Summary:        Types used by the notify crate
 
-# The entire source is (MIT OR Apache-2.0), except for src/events.rs, which
-# (per the comment at the beginning of the file, and considering that it was
-# moved from the notify crate in 08e74dae8e96fbd25704cdaa530ffc02f6d33039) has
-# the same CC0-1.0 license as rust-notify. See
-# https://github.com/notify-rs/notify/issues/514 for further discussion,
-# including why the Artistic-2.0 option implied by the comment is not
-# necessarily usable.
-#
-# Note that the CC0-1.0 license is *not allowed* in Fedora for code, but
-# rust-notify falls under the following blanket exception:
-#
-#   Existing uses of CC0-1.0 on code files in Fedora packages prior to
-#   2022-08-01, and subsequent upstream versions of those files in those
-#   packages, continue to be allowed. We encourage Fedora package maintainers
-#   to ask upstreams to relicense such files.
-#
-#   https://gitlab.com/fedora/legal/fedora-license-data/-/issues/91#note_1151947383
-# 
-# …and since this package is split off from rust-notify and src/events.rs is
-# simply moved here from the notify crate, we consider that the use of CC0-1.0
-# for that file remains under the same exception.
-License:        (MIT OR Apache-2.0) AND CC0-1.0
+License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/notify-types
 Source:         %{crates_source}
-# * Add a CC0-1.0 term to the license for notify-types:
-#   https://github.com/notify-rs/notify/pull/661
-Source10:       https://github.com/notify-rs/notify/raw/refs/tags/notify-7.0.0/notify/LICENSE-CC0
 # Manually created patch for downstream crate metadata changes
-# * Add a CC0-1.0 term to the license for notify-types:
-#   https://github.com/notify-rs/notify/pull/661
-# * Update rstest to 0.23.0; see “Update dependencies,”
-#   https://github.com/notify-rs/notify/commit/e641fe42a64cb21dbc1ef5937528ee9b481fe952
+# * Allow a slightly older version of rstest
+# * omit web-time feature, not needed in non-WASM environments
 Patch:          notify-types-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -62,7 +36,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%license %{crate_instdir}/LICENSE-CC0
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -104,7 +77,6 @@ use the "serialization-compat-6" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-cp -p '%{SOURCE10}' .
 %cargo_prep
 
 %generate_buildrequires

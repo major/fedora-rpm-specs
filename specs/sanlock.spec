@@ -1,6 +1,6 @@
 Name:           sanlock
 Version:        3.9.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A shared storage lock manager
 License:	GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:            https://pagure.io/sanlock/
@@ -149,6 +149,9 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/libsanlock_client.pc
 
 %changelog
+* Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.9.4-2
+- Rebuilt for the bin-sbin merge (2nd attempt)
+
 * Wed Aug 09 2024 David Teigland <teigland@redhat.com> - 3.9.4-1
 - new upstream release, adopt sysusers
 

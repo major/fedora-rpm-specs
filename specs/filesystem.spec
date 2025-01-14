@@ -1,4 +1,4 @@
-%bcond merged_sbin 0
+%bcond merged_sbin 1
 
 Summary: The basic directory layout for a Linux system
 Name: filesystem

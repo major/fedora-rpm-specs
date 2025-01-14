@@ -22,13 +22,13 @@
 %bcond_without bdb_ro
 
 # https://fedoraproject.org/wiki/Changes/Unify_bin_and_sbin
-%bcond merged_sbin 0
+%bcond merged_sbin 1
 
 %define rpmhome /usr/lib/rpm
 
 %global rpmver 4.20.0
 #global snapver rc1
-%global baserelease 3
+%global baserelease 4
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}

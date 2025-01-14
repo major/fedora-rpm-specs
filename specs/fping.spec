@@ -9,7 +9,7 @@
 
 Name: fping
 Version: 5.3%{?snapshot:^%{commitdate}git%{shortcommit}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Scriptable, parallelized ping-like utility
 License: BSD-4.3TAHOE
 URL: http://www.fping.org/
@@ -59,6 +59,9 @@ use in scripting in mind.
 %{_mandir}/man8/*
 
 %changelog
+* Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 5.3-2
+- Rebuilt for the bin-sbin merge (2nd attempt)
+
 * Fri Jan 03 2025 Charles R. Anderson <cra@alum.wpi.edu> - 5.3-1
 - Update to 5.3
 

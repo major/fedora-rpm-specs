@@ -1,7 +1,7 @@
 Summary:        Collection of tools for reading/writing CPU model specific registers
 Name:           msr-tools
 Version:        1.3
-Release:        27%{dist}
+Release:        28%{dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Source0:        https://github.com/intel/msr-tools/archive/msr-tools-%{version}/%{name}-%{version}.tar.gz
@@ -37,6 +37,9 @@ install -D cpuid %{buildroot}%{_sbindir}/msr-cpuid
 %{_sbindir}/msr-cpuid
 
 %changelog
+* Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.3-28
+- Rebuilt for the bin-sbin merge (2nd attempt)
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3-27
 - convert license to SPDX
 

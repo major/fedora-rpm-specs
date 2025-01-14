@@ -20,13 +20,20 @@
 %global pandas 0
 %endif
 
+%if %{?rhel}%{!?rhel:0} == 10
+# R not yet available in EPEL 10
+%global rrr 0
+%else
+%global rrr 1
+%endif
+
 # Do not generate autoprovides for Python modules
 %global __provides_exclude_from ^%{python3_sitearch}/lib.*\\.so$
 
 Name:		root
 Version:	6.34.02
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -73,6 +80,9 @@ Patch6:		%{name}-Make-DCLAD_SOURCE_DIR-option-work.patch
 #		Fix segmentation fault during testing on ix86
 #		https://github.com/root-project/root/pull/17314
 Patch7:		%{name}-tmva-sofie-Fix-Tile-operator.patch
+#		Adjust test/stressGraphics.ref
+#		https://github.com/root-project/root/pull/17398
+Patch8:		%{name}-Adjust-test-stressGraphics.ref.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
@@ -134,8 +144,10 @@ BuildRequires:	xrootd-client-devel >= 1:5.0.0
 BuildRequires:	cfitsio-devel
 #		Davix version >= 0.6.4, but not between 0.6.8 and 0.7.0
 BuildRequires:	davix-devel >= 0.7.1
+%if %{rrr}
 BuildRequires:	R-Rcpp-devel
 BuildRequires:	R-RInside-devel
+%endif
 BuildRequires:	readline-devel
 BuildRequires:	tbb-devel >= 2020
 BuildRequires:	libuuid-devel
@@ -146,9 +158,10 @@ BuildRequires:	flexiblas-devel
 %if ! %{bundlejson}
 BuildRequires:	json-devel >= 3.9
 %endif
-%if %{?fedora}%{!?fedora:0}
-#		Disable uring in EPEL 8 and 9 (liburing is available,
-#		but uring not supported by the kernel)
+%if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 9
+#		Disable uring in EPEL 8 (liburing is available,
+#		but uring not supported by the RHEL 8 kernel)
+#		Supported by the RHEL kernel since RHEL 9.3
 BuildRequires:	liburing-devel
 %endif
 %if %{tmvasofieparser}
@@ -425,6 +438,7 @@ A layer on top of RDataFrame to enable distributed computations. It is
 a port of the previously known PyRDF python package.
 %endif
 
+%if %{rrr}
 %package r
 Summary:	R interface for ROOT
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
@@ -451,6 +465,7 @@ Requires:	%{name}-r%{?_isa} = %{version}-%{release}
 %description r-tools
 This package contains a minimizer module for ROOT that uses the ROOT
 R interface.
+%endif
 
 %package genetic
 Summary:	Genetic algorithms for ROOT
@@ -476,6 +491,7 @@ This package contains a library for defining geometries in ROOT.
 Summary:	Geometry builder library for ROOT
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
 Requires:	%{name}-geom%{?_isa} = %{version}-%{release}
+Requires:	%{name}-graf-gpad%{?_isa} = %{version}-%{release}
 Requires:	%{name}-gui%{?_isa} = %{version}-%{release}
 Requires:	%{name}-gui-ged%{?_isa} = %{version}-%{release}
 #		Package split (geom-builder and geom-painter from geom)
@@ -524,6 +540,8 @@ This package contains the 2-dimensional graphics library for ROOT.
 Summary:	AfterImage graphics renderer for ROOT
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
 Requires:	%{name}-graf%{?_isa} = %{version}-%{release}
+Requires:	%{name}-graf-gpad%{?_isa} = %{version}-%{release}
+Requires:	%{name}-graf-postscript%{?_isa} = %{version}-%{release}
 Requires:	%{name}-gui%{?_isa} = %{version}-%{release}
 Requires:	%{name}-hist%{?_isa} = %{version}-%{release}
 Requires:	%{name}-io%{?_isa} = %{version}-%{release}
@@ -630,6 +648,7 @@ This package contains a library for defining event displays in ROOT.
 Summary:	GL renderer for ROOT
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
 Requires:	%{name}-graf%{?_isa} = %{version}-%{release}
+Requires:	%{name}-graf-asimage%{?_isa} = %{version}-%{release}
 Requires:	%{name}-graf-gpad%{?_isa} = %{version}-%{release}
 Requires:	%{name}-graf3d%{?_isa} = %{version}-%{release}
 Requires:	%{name}-graf3d-csg%{?_isa} = %{version}-%{release}
@@ -822,7 +841,7 @@ from marked up sources.
 %package io
 Summary:	Input/output of ROOT objects
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
-%if %{?fedora}%{!?fedora:0}
+%if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 9
 Requires:	liburing-devel
 %endif
 
@@ -913,6 +932,7 @@ Requires:	%{name}-core%{?_isa} = %{version}-%{release}
 #		Dynamic dependencies
 Requires:	%{name}-mathmore%{?_isa} = %{version}-%{release}
 Requires:	%{name}-minuit%{?_isa} = %{version}-%{release}
+Requires:	%{name}-minuit2%{?_isa} = %{version}-%{release}
 
 %description mathcore
 This package contains the MathCore library for ROOT.
@@ -1100,6 +1120,7 @@ This package contains the ROOT networking library.
 %package net-rpdutils
 Summary:	Authentication utilities used by xproofd
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
+Requires:	%{name}-net%{?_isa} = %{version}-%{release}
 
 %description net-rpdutils
 This package contains authentication utilities used by xproofd.
@@ -1201,6 +1222,7 @@ Requires:	%{name}-graf3d%{?_isa} = %{version}-%{release}
 Requires:	%{name}-hist%{?_isa} = %{version}-%{release}
 Requires:	%{name}-io%{?_isa} = %{version}-%{release}
 Requires:	%{name}-net%{?_isa} = %{version}-%{release}
+Requires:	%{name}-mathcore%{?_isa} = %{version}-%{release}
 Requires:	%{name}-proof%{?_isa} = %{version}-%{release}
 Requires:	%{name}-tree%{?_isa} = %{version}-%{release}
 Requires:	%{name}-tree-player%{?_isa} = %{version}-%{release}
@@ -1266,7 +1288,10 @@ Requires:	%{name}-io%{?_isa} = %{version}-%{release}
 Requires:	%{name}-mathcore%{?_isa} = %{version}-%{release}
 Requires:	%{name}-matrix%{?_isa} = %{version}-%{release}
 Requires:	%{name}-minuit%{?_isa} = %{version}-%{release}
+Requires:	%{name}-minuit2%{?_isa} = %{version}-%{release}
 Requires:	%{name}-roofit-batchcompute%{?_isa} = %{version}-%{release}
+Requires:	%{name}-roofit-multiprocess%{?_isa} = %{version}-%{release}
+Requires:	%{name}-roofit-zmq%{?_isa} = %{version}-%{release}
 Requires:	%{name}-tree%{?_isa} = %{version}-%{release}
 #		Package split / Library split (from roofit)
 Obsoletes:	%{name}-roofit < 6.20.00
@@ -1317,9 +1342,6 @@ This package contains RooFit classes that use the mathmore library.
 Summary:	Optimized computation functions for PDFs
 License:	BSD-2-Clause
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
-Requires:	%{name}-io%{?_isa} = %{version}-%{release}
-Requires:	%{name}-multiproc%{?_isa} = %{version}-%{release}
-Requires:	%{name}-net%{?_isa} = %{version}-%{release}
 
 %description roofit-batchcompute
 While fitting, a significant amount of time and processing power is
@@ -1344,7 +1366,6 @@ Requires:	%{name}-matrix%{?_isa} = %{version}-%{release}
 Requires:	%{name}-roofit%{?_isa} = %{version}-%{release}
 Requires:	%{name}-roofit-core%{?_isa} = %{version}-%{release}
 Requires:	%{name}-roofit-jsoninterface%{?_isa} = %{version}-%{release}
-Requires:	%{name}-roostats%{?_isa} = %{version}-%{release}
 
 %description roofit-hs3
 When using RooFit, statistical models can be conveniently handled and
@@ -1425,6 +1446,7 @@ Requires:	%{name}-io%{?_isa} = %{version}-%{release}
 Requires:	%{name}-io-xmlparser%{?_isa} = %{version}-%{release}
 Requires:	%{name}-roofit%{?_isa} = %{version}-%{release}
 Requires:	%{name}-roofit-core%{?_isa} = %{version}-%{release}
+Requires:	%{name}-roofit-jsoninterface%{?_isa} = %{version}-%{release}
 Requires:	%{name}-roostats%{?_isa} = %{version}-%{release}
 
 %description hist-factory
@@ -1437,6 +1459,7 @@ Requires:	%{name}-core%{?_isa} = %{version}-%{release}
 Requires:	%{name}-graf%{?_isa} = %{version}-%{release}
 Requires:	%{name}-graf-gpad%{?_isa} = %{version}-%{release}
 Requires:	%{name}-gui%{?_isa} = %{version}-%{release}
+Requires:	%{name}-gui-fitpanel%{?_isa} = %{version}-%{release}
 Requires:	%{name}-gui-ged%{?_isa} = %{version}-%{release}
 Requires:	%{name}-hist%{?_isa} = %{version}-%{release}
 Requires:	%{name}-hist-factory%{?_isa} = %{version}-%{release}
@@ -1447,6 +1470,7 @@ Requires:	%{name}-roofit%{?_isa} = %{version}-%{release}
 Requires:	%{name}-roofit-core%{?_isa} = %{version}-%{release}
 Requires:	%{name}-roofit-hs3%{?_isa} = %{version}-%{release}
 Requires:	%{name}-roostats%{?_isa} = %{version}-%{release}
+Requires:	%{name}-tree%{?_isa} = %{version}-%{release}
 
 %description xroofit
 The RooFit packages provide a toolkit for modeling the expected
@@ -1571,6 +1595,7 @@ Requires:	python%{python3_pkgversion}-numpy
 %description tmva-python
 Python integration with TMVA.
 
+%if %{rrr}
 %package tmva-r
 Summary:	Toolkit for multivariate data analysis (R)
 License:	BSD-3-Clause
@@ -1581,11 +1606,13 @@ Requires:	%{name}-tmva%{?_isa} = %{version}-%{release}
 
 %description tmva-r
 R integration with TMVA.
+%endif
 
 %package tmva-sofie
 Summary:	ROOT/TMVA SOFIE (System for Optimized Fast Inference code Emit)
 License:	BSD-3-Clause
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
+Requires:	%{name}-io%{?_isa} = %{version}-%{release}
 
 %description tmva-sofie
 ROOT/TMVA SOFIE (System for Optimized Fast Inference code Emit)
@@ -1617,6 +1644,7 @@ Requires:	%{name}-io%{?_isa} = %{version}-%{release}
 Requires:	%{name}-io-xml%{?_isa} = %{version}-%{release}
 Requires:	%{name}-matrix%{?_isa} = %{version}-%{release}
 Requires:	%{name}-tmva%{?_isa} = %{version}-%{release}
+Requires:	%{name}-tree%{?_isa} = %{version}-%{release}
 Requires:	%{name}-tree-viewer%{?_isa} = %{version}-%{release}
 
 %description tmva-gui
@@ -1718,6 +1746,7 @@ written in python.
 %package gui-webdisplay
 Summary:	Web display for ROOT
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
+Requires:	%{name}-io%{?_isa} = %{version}-%{release}
 Requires:	%{name}-mathcore%{?_isa} = %{version}-%{release}
 Requires:	%{name}-net%{?_isa} = %{version}-%{release}
 Requires:	%{name}-net-http%{?_isa} = %{version}-%{release}
@@ -1755,6 +1784,7 @@ Requires:	%{name}-graf-gpad%{?_isa} = %{version}-%{release}
 Requires:	%{name}-gui-webdisplay%{?_isa} = %{version}-%{release}
 Requires:	%{name}-hist%{?_isa} = %{version}-%{release}
 Requires:	%{name}-io%{?_isa} = %{version}-%{release}
+Requires:	%{name}-net-http%{?_isa} = %{version}-%{release}
 
 %description gui-webgui6
 This package provides a Web based GUI for ROOT.
@@ -1794,6 +1824,7 @@ This package contains the ROOT file browser (RBrowser) and browser widgets.
 Summary:	Geometry web viewer library for ROOT
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
 Requires:	%{name}-geom%{?_isa} = %{version}-%{release}
+Requires:	%{name}-geom-painter%{?_isa} = %{version}-%{release}
 Requires:	%{name}-graf3d-csg%{?_isa} = %{version}-%{release}
 Requires:	%{name}-gui-webdisplay%{?_isa} = %{version}-%{release}
 Requires:	%{name}-io%{?_isa} = %{version}-%{release}
@@ -1821,9 +1852,10 @@ This package contains graphics primitives for ROOT 7
 Summary:	Event display library for ROOT (ROOT 7)
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
 Requires:	%{name}-geom%{?_isa} = %{version}-%{release}
+Requires:	%{name}-geom-webviewer%{?_isa} = %{version}-%{release}
 Requires:	%{name}-graf%{?_isa} = %{version}-%{release}
+Requires:	%{name}-graf3d%{?_isa} = %{version}-%{release}
 Requires:	%{name}-graf3d-csg%{?_isa} = %{version}-%{release}
-Requires:	%{name}-gui-browserv7%{?_isa} = %{version}-%{release}
 Requires:	%{name}-gui-webdisplay%{?_isa} = %{version}-%{release}
 Requires:	%{name}-hist%{?_isa} = %{version}-%{release}
 Requires:	%{name}-io%{?_isa} = %{version}-%{release}
@@ -1878,6 +1910,7 @@ This package contains a canvas painter extension for ROOT 7
 Summary:	GUI element for fits in ROOT (ROOT 7)
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
 Requires:	%{name}-graf-gpad%{?_isa} = %{version}-%{release}
+Requires:	%{name}-graf-gpadv7%{?_isa} = %{version}-%{release}
 Requires:	%{name}-gui-webdisplay%{?_isa} = %{version}-%{release}
 Requires:	%{name}-hist%{?_isa} = %{version}-%{release}
 Requires:	%{name}-io%{?_isa} = %{version}-%{release}
@@ -1913,6 +1946,9 @@ This package contains an ntuple extension for ROOT 7.
 %package tree-ntuple-utils
 Summary:	Ntuple utility library (ROOT 7)
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
+Requires:	%{name}-hist%{?_isa} = %{version}-%{release}
+Requires:	%{name}-io%{?_isa} = %{version}-%{release}
+Requires:	%{name}-tree%{?_isa} = %{version}-%{release}
 Requires:	%{name}-tree-ntuple%{?_isa} = %{version}-%{release}
 
 %description tree-ntuple-utils
@@ -1930,6 +1966,7 @@ This package contains utility functions for ntuples.
 %patch -P5 -p1
 %patch -P6 -p1
 %patch -P7 -p1
+%patch -P8 -p1
 
 # Remove bundled sources in order to be sure they are not used
 #  * afterimage
@@ -1970,7 +2007,7 @@ rm etc/notebook/JsMVA/css/*.min.css
 install -p -m 644 %{SOURCE7} bindings/jupyroot
 
 %build
-%if %{?fedora}%{!?fedora:0} == 40
+%if %{?fedora}%{!?fedora:0} == 40 || %{?rhel}%{!?rhel:0} == 10
 # This package triggers a fault in LLVM when LTO is enabled.  Until LLVM
 # is analyzed and fixed, disable LTO
 %define _lto_cflags %{nil}
@@ -2086,7 +2123,11 @@ done
 %else
        -Dqt6web:BOOL=OFF \
 %endif
+%if %{rrr}
        -Dr:BOOL=ON \
+%else
+       -Dr:BOOL=OFF \
+%endif
 %if %{roofit}
        -Droofit:BOOL=ON \
 %if %{?fedora}%{!?fedora:0} >= 40
@@ -2118,7 +2159,11 @@ done
        -Dtmva-cudnn:BOOL=OFF \
        -Dtmva-gpu:BOOL=OFF \
        -Dtmva-pymva:BOOL=ON \
+%if %{rrr}
        -Dtmva-rmva:BOOL=ON \
+%else
+       -Dtmva-rmva:BOOL=OFF \
+%endif
 %if %{tmvasofieparser}
        -Dtmva-sofie:BOOL=ON \
 %else
@@ -2127,7 +2172,7 @@ done
        -Dtpython:BOOL=ON \
        -Dunfold:BOOL=ON \
        -Dunuran:BOOL=ON \
-%if %{?fedora}%{!?fedora:0}
+%if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 9
        -During:BOOL=ON \
 %else
        -During:BOOL=OFF \
@@ -2287,6 +2332,9 @@ rm %{buildroot}%{_datadir}/%{name}/macros/fileopen.C
 
 # Remove plugin definitions for non-built and obsolete plugins
 pushd %{buildroot}%{_datadir}/%{name}/plugins
+%if ! %{rrr}
+rm ROOT@@Math@@Minimizer/P090_RMinimizer.C
+%endif
 rm TGLManager/P020_TGWin32GLManager.C
 rm TGLManager/P030_TGOSXGLManager.C
 rm TProofMgr/P010_TXProofMgr.C
@@ -2673,14 +2721,12 @@ test-stresshistogram\$\$|\
 test-stresshistogram-interpreted"
 %endif
 
-%if %{?fedora}%{!?fedora:0} >= 40
-%ifarch aarch64 %{power64} s390x
-# Fails with gcc 14 on aarch64, ppc64le and s390x
+%if %{?fedora}%{!?fedora:0} >= 40 || %{?rhel}%{!?rhel:0} >= 10
+# Fails with gcc 14 on aarch64, ppc64le and s390x (on EPEL 10 also x86_64)
 # https://github.com/root-project/root/issues/14446
 # - gtest-math-matrix-testMatrixTSparse
 excluded="${excluded}|\
 gtest-math-matrix-testMatrixTSparse"
-%endif
 %endif
 
 # Filter out parts of tests that require remote network access
@@ -2910,6 +2956,7 @@ fi
 %{python3_sitelib}/DistRDF-*.dist-info
 %endif
 
+%if %{rrr}
 %files r -f includelist-bindings-r
 %{_libdir}/%{name}/libRInterface.*
 %{_libdir}/%{name}/libRInterface_rdict.pcm
@@ -2919,6 +2966,7 @@ fi
 %{_libdir}/%{name}/libRtools.*
 %{_libdir}/%{name}/libRtools_rdict.pcm
 %{_datadir}/%{name}/plugins/ROOT@@Math@@Minimizer/P090_RMinimizer.C
+%endif
 
 %files genetic -f includelist-math-genetic
 %{_libdir}/%{name}/libGenetic.*
@@ -3444,9 +3492,11 @@ fi
 %{_libdir}/%{name}/libPyMVA.*
 %{_libdir}/%{name}/libPyMVA_rdict.pcm
 
+%if %{rrr}
 %files tmva-r -f includelist-tmva-rmva
 %{_libdir}/%{name}/libRMVA.*
 %{_libdir}/%{name}/libRMVA_rdict.pcm
+%endif
 
 %files tmva-sofie -f includelist-tmva-sofie
 %{_libdir}/%{name}/libROOTTMVASofie.*
@@ -3601,6 +3651,12 @@ fi
 %endif
 
 %changelog
+* Sun Jan 12 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.34.02-2
+- Adjust stressGraphics.ref
+- Build for EPEL 10
+- Disable the R interface for EPEL 10 (R not yet abailable)
+- Enable uring support for EPEL 9 (supported in kernel since RHEL 9.3)
+
 * Wed Dec 25 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.34.02-1
 - Update to 6.34.02
 - Build CLAD plugin
@@ -3654,7 +3710,7 @@ fi
 * Sat Jun 08 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.32.00-2
 - Python 3.13 compatibility
 
-* Mon Jun 03 2024 Mattias Ellert <ellert@ellert.se> - 6.32.00-1
+* Mon Jun 03 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.32.00-1
 - Update to 6.32.00
 - Drop EPEL 8 build (now requires Python >= 3.7 and tbb >= 2020)
 - Dropped patches: 12
@@ -3681,7 +3737,7 @@ fi
 * Mon Mar 25 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.30.04-2
 - Support StandardSymbolsPS.otf
 
-* Wed Jan 31 2024 Mattias Ellert <ellert@ellert.se> - 6.30.04-1
+* Wed Jan 31 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.30.04-1
 - Update to 6.30.04
 - Drop patch root-adjust-test-for-failures-on-aarch64-ppc64le-s390x.patch
   (accepted upstrem)

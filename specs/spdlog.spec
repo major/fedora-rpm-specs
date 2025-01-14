@@ -8,6 +8,11 @@ URL:            https://github.com/gabime/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         %{name}-fmt_external.patch
 
+# https://github.com/gabime/spdlog/commit/276ee5f5c0eb13626bd367b006ace5eae9526d8a
+# https://github.com/gabime/spdlog/commit/7f8060d5b280eac9786f92ac74d263cc8359c5ed
+# https://github.com/gabime/spdlog/commit/96a8f6250cbf4e8c76387c614f666710a2fa9bad
+Patch100:       %{name}-1.15.0-fmt11.1-build-fixes.patch
+
 BuildRequires:  catch-devel >= 3.0.0
 BuildRequires:  fmt-devel >= 10.0.0
 BuildRequires:  google-benchmark-devel

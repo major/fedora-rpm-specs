@@ -3,7 +3,7 @@
 %global         api_version      1.0
 
 Name:           mingw-gstreamer1-plugins-base
-Version:        1.24.10
+Version:        1.24.11
 Release:        1%{?dist}
 Summary:        Cross compiled GStreamer1 media framework base plug-ins
 
@@ -212,6 +212,9 @@ rm -rf %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw64_datadir}/gst-plugins-base
 
 %changelog
+* Sun Jan 12 2025 Sandro Mani <manisandro@gmail.com> - 1.24.11-1
+- Update to 1.24.11
+
 * Fri Dec 06 2024 Sandro Mani <manisandro@gmail.com> - 1.24.10-1
 - Update to 1.24.10
 

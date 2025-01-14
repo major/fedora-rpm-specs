@@ -1,6 +1,6 @@
 Name: lm_sensors
 Version: 3.6.0
-Release: 20%{?dist}
+Release: 21%{?dist}
 Summary: Hardware monitoring tools
 
 %define upstream_version %(echo %{version} | sed -e 's/\\./-/g')
@@ -221,6 +221,9 @@ fi
 
 
 %changelog
+* Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.6.0-21
+- Rebuilt for the bin-sbin merge (2nd attempt)
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

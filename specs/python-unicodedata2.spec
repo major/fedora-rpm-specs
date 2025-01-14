@@ -1,10 +1,10 @@
 # Created by pyp2rpm-3.3.7
 %global pypi_name unicodedata2
-%global pypi_version 15.1.0
+%global pypi_version %{version}
 
 Name:           python-%{pypi_name}
-Version:        %{pypi_version}
-Release:        5%{?dist}
+Version:        16.0.0
+Release:        1%{?dist}
 Summary:        Unicodedata backport updated to the latest Unicode version
 
 License:        Apache-2.0
@@ -58,6 +58,9 @@ is data from Unicode 13.0.0.
 %{python3_sitearch}/%{pypi_name}-%{pypi_version}-py%{python3_version}.egg-info
 
 %changelog
+* Sun Jan 12 2025 Parag Nemade <pnemade AT redhat DOT com> - 16.0.0-1
+- Update to 16.0.0 version (#2337092)
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 15.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

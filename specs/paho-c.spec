@@ -1,5 +1,5 @@
 Name:           paho-c
-Version:        1.3.13
+Version:        1.3.14
 Release:        %autorelease
 Summary:        MQTT C Client
 License:        BSD-3-Clause AND EPL-2.0

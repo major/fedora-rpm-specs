@@ -1,7 +1,7 @@
 %global giturl  https://github.com/SWI-Prolog/packages-swipy
 
 Name:           python-janus-swi
-Version:        1.5.1
+Version:        1.5.2
 Release:        %autorelease
 Summary:        Bidirectional interface between SWI Prolog and Python
 
@@ -15,6 +15,7 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
+BuildRequires:  %{py3_dist pytest}
 BuildRequires:  swi-prolog-core-packages
 
 %global common_desc %{expand:
@@ -52,15 +53,7 @@ export LDSHARED="gcc -shared"
 %pyproject_save_files -L janus_swi
 
 %check
-cat > test.py << EOF
-import sys
-import janus_swi as janus
-janus.consult("test_janus")
-if not janus.query_once("test_janus").get('truth'):
-  sys.exit(1)
-EOF
-
-%{py3_test_envvars} %{python3} test.py
+%pytest
 
 %files -n python3-janus-swi -f %{pyproject_files}
 %doc README.md

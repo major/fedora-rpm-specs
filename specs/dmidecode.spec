@@ -1,7 +1,7 @@
 Summary:        Tool to analyse BIOS DMI data
 Name:           dmidecode
 Version:        3.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Epoch:          1
 License:        GPL-2.0-or-later
 Source0:        https://download.savannah.gnu.org/releases/%{name}/%{name}-%{version}.tar.xz
@@ -52,6 +52,9 @@ I/O ports (e.g. serial, parallel, USB).
 %{bash_completions_dir}/%{name}
 
 %changelog
+* Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:3.6-5
+- Rebuilt for the bin-sbin merge (2nd attempt)
+
 * Wed Sep 25 2024 David Abdurachmanov <davidlt@rivosinc.com> - 1:3.6-4
 - Add riscv64
 

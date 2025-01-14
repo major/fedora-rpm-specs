@@ -4,7 +4,7 @@ Summary: A network traffic monitoring tool
 Name: tcpdump
 Epoch: 14
 Version: 4.99.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND BSD-4-Clause-UC AND ISC AND NTP
 URL: http://www.tcpdump.org
 Requires(pre): shadow-utils
@@ -92,6 +92,9 @@ exit 0
 %{_mandir}/man8/tcpdump.8*
 
 %changelog
+* Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 14:4.99.5-2
+- Rebuilt for the bin-sbin merge (2nd attempt)
+
 * Tue Sep 03 2024 Michal Ruprich <mruprich@redhat.com> - 14:4.99.5-1
 - New version 4.99.5
 

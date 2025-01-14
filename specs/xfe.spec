@@ -4,8 +4,8 @@
 %global	use_gcc_strict_sanitize	0
 
 Name:		xfe
-Version:	1.46.1
-Release:	2%{?dist}
+Version:	2.0
+Release:	1%{?dist}
 Summary:	X File Explorer File Manager
 
 # GPL-2.0-or-later:	README
@@ -17,7 +17,7 @@ URL:		http://roland65.free.fr/xfe/
 Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
 # Temporarily
 # Use system-wide startup-notification: need discuss with upstream
-Patch0:	xfe-1.44-use-system-libsn.patch
+Patch0:	xfe-2.0-use-system-libsn.patch
 
 BuildRequires:	make
 BuildRequires:	gcc-c++
@@ -32,6 +32,7 @@ BuildRequires:	libXrandr-devel
 BuildRequires:	startup-notification-devel
 BuildRequires:	/usr/bin/pkexec
 BuildRequires:	pkgconfig(freetype2)
+BuildRequires:	pkgconfig(polkit-gobject-1)
 BuildRequires:	pkgconfig(xcb)
 BuildRequires:	pkgconfig(xcb-aux)
 BuildRequires:	pkgconfig(xcb-event)
@@ -91,12 +92,6 @@ rm -rf libsn
 export CC="${CC} -fsanitize=address -fsanitize=undefined"
 export CXX="${CXX} -fsanitize=address -fsanitize=undefined -fno-sanitize=vptr"
 export LDFLAGS="${LDFLAGS} -pthread"
-
-# Currently -fPIE binary cannot work with ASAN on kernel 4.12
-# https://github.com/google/sanitizers/issues/837
-export CFLAGS="$(echo $CFLAGS     | sed -e 's|-specs=[^ \t][^ \t]*hardened[^ \t][^ \t]*||g')"
-export CXXFLAGS="$(echo $CXXFLAGS | sed -e 's|-specs=[^ \t][^ \t]*hardened[^ \t][^ \t]*||g')"
-export LDFLAGS="$(echo $LDFLAGS   | sed -e 's|-specs=[^ \t][^ \t]*hardened[^ \t][^ \t]*||g')"
 %endif
 
 %configure \
@@ -113,7 +108,7 @@ make %{?_smp_mflags}
 mkdir -p %{buildroot}%{_datadir}/%{name}/pixmaps
 mkdir -p %{buildroot}%{_bindir}
 for suffix in \
-	i e p w
+	a i e p w
 do
 	cat > %{buildroot}%{_bindir}/xfe-xf${suffix} <<EOF
 #!/bin/sh
@@ -122,25 +117,21 @@ exec xf${suffix} \$@
 EOF
 	chmod 0755 %{buildroot}%{_bindir}/xfe-xf${suffix}
 
-	mv %{buildroot}%{_datadir}/pixmaps/xf${suffix}.{png,xpm} \
-		%{buildroot}%{_datadir}/%{name}/pixmaps/
 	mv %{buildroot}%{_datadir}/applications/{,xfe-}xf${suffix}.desktop
 	# Modify desktop file
 	sed -i \
 		-e "\@^Exec=@s|xf${suffix}|xfe-xf${suffix}|" \
-		-e "s|Icon=xf${suffix}|Icon=%{_datadir}/%{name}/pixmaps/xf${suffix}.png|" \
 		%{buildroot}%{_datadir}/applications/xfe-xf${suffix}.desktop
 	desktop-file-validate %{buildroot}%{_datadir}/applications/xfe-xf${suffix}.desktop
 
 	mv %{buildroot}%{_mandir}/man1/{,xfe-}xf${suffix}.1
 done
-rmdir %{buildroot}%{_datadir}/pixmaps/
 
 # Move configuration files
 mkdir %{buildroot}%{_sysconfdir}
 mv %{buildroot}%{_datadir}/%{name}/xferc \
 	%{buildroot}%{_sysconfdir}
-ln -sf %{_sysconfdir}/xferc %{buildroot}%{_datadir}/%{name}/xferc
+ln -sf ../../../%{_sysconfdir}/xferc %{buildroot}%{_datadir}/%{name}/xferc
 
 %files	-f %{name}.lang
 %doc	AUTHORS
@@ -165,7 +156,7 @@ ln -sf %{_sysconfdir}/xferc %{buildroot}%{_datadir}/%{name}/xferc
 %{_datadir}/%{name}/icons/gnome*-theme/
 %{_datadir}/%{name}/pixmaps/
 
-%{_datadir}/icons/hicolor/scalable/apps/xf*.svg
+%{_datadir}/icons/hicolor/*/apps/xf*.*
 
 %{_datadir}/polkit-1/actions/org.xfe.root.policy
 
@@ -177,6 +168,9 @@ ln -sf %{_sysconfdir}/xferc %{buildroot}%{_datadir}/%{name}/xferc
 %exclude	%{_datadir}/%{name}/icons/gnome*-theme/
 
 %changelog
+* Sun Jan 12 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0-1
+- 2.0
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.46.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

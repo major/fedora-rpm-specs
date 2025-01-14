@@ -1,5 +1,5 @@
 %global repo_name vcpkg-tool
-%global repo_tag 2024-12-09
+%global repo_tag 2025-01-11
 
 Name: vcpkg
 Version: %(echo %{repo_tag} | sed 's/-/./g')
@@ -10,6 +10,11 @@ Summary: C++ Library Manager
 URL: https://github.com/microsoft/%{repo_name}
 Source0: %{url}/archive/%{repo_tag}/%{name}-%{version}.tar.gz
 Source1: %{name}.sh
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+%if 0%{?fedora} && 0%{?fedora} >= 42
+ExcludeArch: %{ix86}
+%endif
 
 BuildRequires: catch-devel >= 2.13.0
 BuildRequires: cmake

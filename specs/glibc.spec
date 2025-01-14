@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 27
+%global baserelease 28
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -1576,6 +1576,17 @@ rm -f %{glibc_sysroot}%{_libdir}/libnss-*.so.1
 # Further, see https://github.com/projectatomic/rpm-ostree/pull/1173#issuecomment-355014583
 rm -f %{glibc_sysroot}/{usr/,}sbin/sln
 
+##############################################################################
+# Remove separate sbin directory
+##############################################################################
+
+# 'make install' insists on creating a separate /usr/sbin directory,
+# Instead of fighting with this, just move things to the right location.
+%if "%{_sbindir}" == "%{_bindir}"
+mv "%{glibc_sysroot}/usr/sbin/"* "%{glibc_sysroot}/usr/bin/"
+rmdir "%{glibc_sysroot}/usr/sbin"
+%endif
+
 ######################################################################
 # Run ldconfig to create all the symbolic links we need
 ######################################################################
@@ -2367,6 +2378,9 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.40.9000-28
+- Rebuilt for the bin-sbin merge (2nd attempt)
+
 * Thu Jan 09 2025 Florian Weimer <fweimer@redhat.com> - 2.40.9000-27
 - Drop glibc-nolink-libc.patch, applied upstream.
 - Drop glibc-clone-reset-tid.patch, unnecessary due to upstream reverts.

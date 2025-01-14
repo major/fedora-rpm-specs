@@ -8,7 +8,7 @@
 Summary:	Free implementation of the server-side SMTP protocol as defined by RFC 5321
 Name:		opensmtpd
 Version:	7.6.0p1
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 License:	ISC
 URL:		http://www.opensmtpd.org/
@@ -256,6 +256,9 @@ exit 0
 
 
 %changelog
+* Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 7.6.0p1-2
+- Rebuilt for the bin-sbin merge (2nd attempt)
+
 * Fri Jan 03 2025 Denis Fateyev <denis@fateyev.com> - 7.6.0p1-1
 - Update to 7.6.0p1 release
 

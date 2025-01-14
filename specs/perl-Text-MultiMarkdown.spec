@@ -1,10 +1,10 @@
 Name:           perl-Text-MultiMarkdown
-Version:        1.003000
+Version:        1.004000
 Release:        1%{?dist}
 Summary:        Convert MultiMarkdown syntax to (X)HTML
 License:        BSD-3-Clause
 URL:            https://metacpan.org/release/Text-MultiMarkdown
-Source0:        https://cpan.metacpan.org/authors/id/B/BR/BRIANDFOY/Text-MultiMarkdown-1.003.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/B/BR/BRIANDFOY/Text-MultiMarkdown-1.004.tar.gz
 BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  perl-generators
@@ -36,6 +36,7 @@ BuildRequires:  perl(utf8)
 BuildRequires:  perl(Test::Pod) >= 1.14
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
 BuildRequires:  perl(Test::Spelling) >= 0.11
+BuildRequires:  perl(Text::Unidecode)
 Requires:       perl(Text::Markdown) >= 1.000026
 
 %{?perl_default_filter}
@@ -49,7 +50,7 @@ similar to that of plain text email, and supports features such as headers,
 *emphasis*, code blocks, block quotes, and links.
 
 %prep
-%setup -q -n Text-MultiMarkdown-1.003
+%setup -q -n Text-MultiMarkdown-1.004
 
 %build
 /usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -71,6 +72,9 @@ TEST_POD=1 TEST_SPELLING=1 %{make_build} test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 12 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 1.004000-1
+- Update to 1.004
+
 * Sun Nov 17 2024 Emmanuel Seyman <emmanuel@seyman.fr> - 1.003000-1
 - Update to 1.003
 

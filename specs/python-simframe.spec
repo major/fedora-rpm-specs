@@ -8,7 +8,7 @@ Source:         %{pypi_source simframe}
 
 # Install as pure-Python
 # https://github.com/stammler/simframe/pull/4
-Patch:          %{url}/pull/4.patch
+Patch0:         %{url}/pull/4.patch
 # Downstream-only:
 # Revert "Adjusting unit tests for deprecation warning"
 #
@@ -17,9 +17,9 @@ Patch:          %{url}/pull/4.patch
 # The new atol/rtol keywords for gmres are not available before Scipy
 # 0.14.0, so we must keep using the old, deprecated tol keyword.
 #
-# scipy-1.14.0 is available
+# scipy-1.14.0 is available for F42+ only
 # https://bugzilla.redhat.com/show_bug.cgi?id=2211813
-Patch:          0001-Revert-Adjusting-unit-tests-for-deprecation-warning.patch
+Patch101:       0001-Revert-Adjusting-unit-tests-for-deprecation-warning.patch
 
 BuildArch:      noarch
 
@@ -55,7 +55,15 @@ Summary:        Documentation and examples for %{name}
 
 
 %prep
-%autosetup -n simframe-%{version} -p1
+# Apply patches manually
+%autosetup -n simframe-%{version} -N
+%autopatch -M100 -p1
+
+# Apply scipy >= 0.14 reversal patch only for F42-
+%if 0%{?fedora} < 42
+%patch -P101 -p1
+%endif
+
 # fix file permissions
 find . -type f -perm /0111 -exec chmod -v a-x '{}' '+'
 

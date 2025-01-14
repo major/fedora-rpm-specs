@@ -1,8 +1,8 @@
 %global octpkg iso2mesh
 
 Name:           octave-%{octpkg}
-Version:        1.9.6
-Release:        18%{?dist}
+Version:        1.9.8
+Release:        1%{?dist}
 Summary:        A 3D surface and volumetric mesh generator for MATLAB/Octave
 # Main package: GPLv3+
 # Meshfix: GPLv2+
@@ -23,14 +23,16 @@ Source3:        http://ftp.mcs.anl.gov/pub/petsc/externalpackages/tetgen1.5.1.ta
 # See also https://github.com/CGAL/cgal/issues/5857
 Patch0:         iso2mesh-1.9.6-CMakeCMP0064.patch
 
-# Fix the incorrect detection of Boost version
-# > -- NOTICE: This program requires Boost >= 1.34.1, and will not be compiled.
-Patch1:         iso2mesh-1.9.6-recent_Boost_version.patch
 Patch2:         octave-iso2mesh-c99.patch
 
 ExcludeArch:    armv7hl
-BuildRequires: make
-BuildRequires:  cmake CGAL-devel SuperLU-devel gcc-c++ zlib-devel octave-devel
+BuildRequires:  cmake
+BuildRequires:  cmake(cgal)
+BuildRequires:  cmake(superlu)
+BuildRequires:  cmake(tbb)
+BuildRequires:  cmake(zlib)
+BuildRequires:  gcc-c++
+BuildRequires:  pkgconfig(octave)
 
 %if 0%{?fedora} >=32
 Requires:       octave mpfr-devel boost-devel SuperLU octave-jsonlab octave-jnifti octave-zmat
@@ -69,7 +71,6 @@ This package contains the demo script and sample datasets for octave-%{octpkg}.
 %setup -q -T -D -b 2 -n meshfix-1.2.2
 %setup -q -T -D -b 3 -n %{octpkg}-%{version}
 %patch -P 0 -z .bak -p1
-%patch -P 1 -z .bak -p1
 rm -rf tools/cork
 rm -rf tools/meshfix
 rm -rf tools/tetgen
@@ -168,6 +169,9 @@ install -m 0755 -vp  bin/* %{buildroot}%{_libexecdir}/%{octpkg}/
 %doc sample
 
 %changelog
+* Sun Dec 22 2024 Orion Poplawski <orion@nwra.com> - 1.9.8-1
+- Update to 1.9.8
+
 * Sun Sep 08 2024 Antonio Trande <sagitter@fedoraproject.org> - 1.9.6-18
 - Rebuild for SuperLU-7.0.0
 

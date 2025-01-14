@@ -48,6 +48,11 @@ Features include:
 %autosetup -p1
 
 %build
+# Update gettext files:
+# *** error: gettext infrastructure mismatch: using a Makefile.in.in from gettext version 0.20
+#            but the autoconf macros are from gettext version 0.22
+gettextize -f
+
 autoreconf -ivf
 %configure --disable-rpath --with-libsecret --with-libgsasl
 %make_build

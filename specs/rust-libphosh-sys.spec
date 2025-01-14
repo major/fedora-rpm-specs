@@ -2,35 +2,31 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate nettle
+%global crate libphosh-sys
 
-Name:           rust-nettle
-Version:        7.4.0
+Name:           rust-libphosh-sys
+Version:        0.0.5
 Release:        %autorelease
-Summary:        Rust bindings for the Nettle cryptographic library
+Summary:        FFI bindings for libphosh
 
-License:        LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
-URL:            https://crates.io/crates/nettle
+License:        MIT
+URL:            https://crates.io/crates/libphosh-sys
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * migrate license string away from deprecated identifiers:
-#   https://gitlab.com/sequoia-pgp/nettle-rs/-/merge_requests/46
-Patch:          nettle-fix-metadata.diff
-# * drop two elliptic curves that are disabled in nettle in Fedora:
-#   - nettle_get_secp_192r1
-#   - nettle_get_secp_224r1
-Patch:          0001-drop-secp192r1-and-secp224r1-elliptic-curves.patch
+
+ExcludeArch:    %{ix86}
 
 BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  pkgconfig(libphosh-0.44)
 
 %global _description %{expand:
-Rust bindings for the Nettle cryptographic library.}
+FFI bindings for libphosh.}
 
 %description %{_description}
 
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
+Requires:       pkgconfig(libphosh-0.44)
 
 %description    devel %{_description}
 
@@ -38,10 +34,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-GPL2
-%license %{crate_instdir}/LICENSE-GPL3
-%license %{crate_instdir}/LICENSE-LGPL3
-%doc %{crate_instdir}/README.md
+%license %{crate_instdir}/LICENSE
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
