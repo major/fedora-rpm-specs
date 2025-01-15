@@ -1,5 +1,5 @@
 Name:           fmt
-Version:        11.1.1
+Version:        11.1.2
 Release:        1%{?dist}
 
 License:        MIT
@@ -61,6 +61,9 @@ This package contains the header file for using %{name}.
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Jan 13 2025 Kefu Chai <tchaikov@gmail.com> - 11.1.2-1
+- Updated to version 11.1.2
+
 * Sun Jan 12 2025 Kefu Chai <tchaikov@gmail.com> - 11.1.1-1
 - Updated to version 11.1.1
 

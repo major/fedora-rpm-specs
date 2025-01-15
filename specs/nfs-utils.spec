@@ -2,7 +2,7 @@ Summary: NFS utilities and supporting clients and daemons for the kernel NFS ser
 Name: nfs-utils
 URL: http://linux-nfs.org/
 Version: 2.8.2
-Release: 0.rc1%{?dist}.2
+Release: 0.rc1%{?dist}.3
 Epoch: 1
 
 # group all 32bit related archs
@@ -49,6 +49,7 @@ Provides: /sbin/mount.nfs4
 Provides: /usr/sbin/mount.nfs
 Provides: /usr/sbin/mount.nfs4
 Provides: /sbin/rpc.statd
+Provides: /usr/sbin/rpc.statd
 Provides: /usr/sbin/rpc.mountd
 Provides: /usr/sbin/rpc.nfsd
 %endif
@@ -441,6 +442,9 @@ rm -rf /etc/systemd/system/rpc-*.requires
 %{_mandir}/*/nfsiostat.8.gz
 
 %changelog
+* Mon Jan 13 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:2.8.2-0.rc1.3
+- Add one more compat file provide
+
 * Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:2.8.2-0.rc1.2
 - Add more compat file provides
 

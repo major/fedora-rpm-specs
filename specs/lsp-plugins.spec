@@ -130,7 +130,7 @@ make config ADD_FEATURES=xdg \
 
 
 %install
-%make_install
+%make_install GSTREAMER_INSTDIR=%{_libdir}/gstreamer-1.0
 mv %{buildroot}%{_datadir}/doc .
 rm %{buildroot}%{_libdir}/*.a
 

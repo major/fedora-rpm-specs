@@ -5,7 +5,7 @@ Version:        1.1
 Release:        %autorelease
 Summary:        Maven Incremental Build support utilities
 License:        Apache-2.0
-URL:            http://maven.apache.org/shared/maven-shared-incremental/
+URL:            https://maven.apache.org/shared/maven-shared-incremental/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 

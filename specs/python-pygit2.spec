@@ -1,7 +1,7 @@
 %global pkgname pygit2
 
 Name:           python-%{pkgname}
-Version:        1.16.0
+Version:        1.17.0
 Release:        %autorelease
 Summary:        Python bindings for libgit2
 
@@ -12,16 +12,10 @@ Source0:        https://github.com/libgit2/pygit2/archive/v%{version}.tar.gz#/%{
 # that capability through a DNS resolution is not always accurate.
 # Forcefully disable all network tests to avoid unnecessary build failures.
 Patch:          python-pygit2-network-tests.patch
-# Patch from Debian.
-# Revert const correctness change from libgit2 1.8.1
-Patch:          0006-Revert-const-correctness-change-from-libgit2-1.8.1.patch
-# Patch from upstream.
-# Properly implement the iterator protocol.
-Patch:          0001-Fix-tests-with-Python-3.13.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
-BuildRequires:  (libgit2-devel >= 1.8.2~rc1 with libgit2-devel < 1.9.0)
+BuildRequires:  (libgit2-devel >= 1.9.0 with libgit2-devel < 1.10.0)
 
 %description
 pygit2 is a set of Python bindings to the libgit2 library, which implements

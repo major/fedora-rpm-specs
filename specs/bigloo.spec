@@ -60,6 +60,8 @@ Patch:          %{name}-javac.patch
 Patch:          %{name}-return.patch
 # Fix signal numbers in the Java code
 Patch:          %{name}-java-signum.patch
+# Adapt to changed semantics in C23, the default in GCC 15
+Patch:          %{name}-gcc15.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -161,6 +163,7 @@ environment.
 %prep
 %autosetup -p0 -n %{name}-%{version}%{?patch_suffix}
 
+%conf
 # Remove an example with a dubious license
 rm -fr examples/Socket
 
@@ -198,10 +201,13 @@ ulimit -s unlimited
 
 # Enable UTF-8 filename support
 export LOCALE="C.utf8"
-export CFLAGS="%{build_cflags} -fwrapv -Wno-unused"
-%if 0%{?__isa_bits} == 32
-CFLAGS="$CFLAGS -D_FILE_OFFSET_BITS=64"
-%endif
+# The sources are not ready for C23
+export CFLAGS="%{build_cflags} -std=gnu17 -D_GNU_SOURCE=1 -fwrapv -Wno-unused"
+sed -i 's/TLS=thread_local/TLS=_Thread_local/;s/"thread_local"/"_Thread_local"/' autoconf/pthreadlocalstorage
+
+# Build blib with the correct flags
+sed -i "s|^CFLAGS.*|& $CFLAGS|" bdb/blib/Makefile
+
 export LDFLAGS="-Wl,-z,relro -Wl,--as-needed"
 ./configure \
         --prefix=%{_prefix} \
@@ -359,6 +365,9 @@ fi
 
 
 %changelog
+* Mon Jan 13 2025 Jerry James <loganjerry@gmail.com> - 4.5b-5
+- Fix the build with GCC 15 (rhbz#2336442)
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.5b-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

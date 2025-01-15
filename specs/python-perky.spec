@@ -1,6 +1,6 @@
 Name:           python-perky
-Version:        0.8.2
-Release:        8%{?dist}
+Version:        0.9.3
+Release:        1%{?dist}
 Summary:        A simple, Pythonic file format
 
 License:        MIT
@@ -58,6 +58,9 @@ cd tests
 
 
 %changelog
+* Mon Jan 13 2025 Maxwell G <maxwell@gtmx.me> - 0.9.3-1
+- Update to 0.9.3. Fixes rhbz#2219611.
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

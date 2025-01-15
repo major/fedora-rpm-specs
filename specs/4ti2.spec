@@ -46,6 +46,7 @@ you must run "module load 4ti2-%{_arch}" to modify your PATH.
 
 %package devel
 Summary:        Headers needed to develop software that uses 4ti2
+License:        GPL-2.0-or-later
 Requires:       4ti2-libs%{?_isa} = %{version}-%{release}
 Requires:       gmp-devel%{?_isa}
 
@@ -54,6 +55,7 @@ Headers and library files needed to develop software that uses 4ti2.
 
 %package libs
 Summary:        Library for problems on linear spaces
+License:        GPL-2.0-or-later
 
 %description libs
 A library for algebraic, geometric and combinatorial problems on linear
@@ -62,6 +64,7 @@ spaces.
 %prep
 %autosetup
 
+%conf
 # Add a missing executable bit
 chmod a+x ltmain.sh
 
@@ -73,7 +76,6 @@ mv -f NEWS.utf8 NEWS
 # Update the C++ standard
 sed -i 's/c++0x/c++11/g' configure
 
-%build
 # Do not override Fedora compiler flags
 sed -e 's|-O3 -fomit-frame-pointer|%{build_cflags}|' \
     -e 's/-march=\$arch -mcpu=\$arch -m\$arch//' \
@@ -89,6 +91,7 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
     -e 's|CC="\(.*g..\)"|CC="\1 -Wl,--as-needed"|' \
     -i libtool
 
+%build
 %make_build
 
 # Build the manual

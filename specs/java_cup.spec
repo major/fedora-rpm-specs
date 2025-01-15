@@ -7,7 +7,7 @@ Version:        0.11b
 Release:        %autorelease
 Summary:        LALR parser generator for Java
 License:        SMLNJ
-URL:            http://www2.cs.tum.edu/projects/cup/
+URL:            https://www2.cs.tum.edu/projects/cup/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 

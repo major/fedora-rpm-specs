@@ -1,5 +1,5 @@
 Name:           xonsh
-Version:        0.19.0
+Version:        0.19.1
 Release:        %autorelease
 Summary:        A general purpose, Python-ish shell
 

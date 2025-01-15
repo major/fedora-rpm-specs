@@ -72,6 +72,7 @@ Examples programs that use the DSDP library.
 %prep
 %autosetup -p0 -n %{name}%{version} -a 1
 
+%conf
 sed -e 's|@RPM_OPT_FLAGS@|%{build_cflags}|' \
     -e 's|@RPM_LD_FLAGS@|%{build_ldflags}|' \
     -e 's|@libdir@|%{_libdir}|' \

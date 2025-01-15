@@ -46,7 +46,7 @@ BuildRequires: pkgconfig(libsystemd)
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
 Version: 6.8.1
-Release: 9%{?dist}
+Release: 10%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -578,6 +578,7 @@ make check -k ||:
 %dir %{_qt6_libdir}/cmake/Qt6/platforms
 %dir %{_qt6_libdir}/cmake/Qt6/platforms/Platform
 %dir %{_qt6_libdir}/cmake/Qt6/config.tests
+%dir %{_qt6_libdir}/cmake/Qt6/3rdparty
 %dir %{_qt6_libdir}/cmake/Qt6/3rdparty/extra-cmake-modules
 %dir %{_qt6_libdir}/cmake/Qt6/3rdparty/extra-cmake-modules/find-modules
 %dir %{_qt6_libdir}/cmake/Qt6/3rdparty/extra-cmake-modules/modules
@@ -900,6 +901,9 @@ make check -k ||:
 
 
 %changelog
+* Mon Jan 13 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.1-10
+- Fix directory ownership for 3rdparty cmake plugins
+
 * Thu Jan 09 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.1-9
 - Fix directory ownership
   Resolves: rhbz#2292582

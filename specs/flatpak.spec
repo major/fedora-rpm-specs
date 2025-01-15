@@ -11,7 +11,7 @@
 %bcond malcontent %[!0%{?rhel}]
 
 Name:           flatpak
-Version:        1.15.91
+Version:        1.16.0
 Release:        1%{?dist}
 Summary:        Application deployment framework for desktop apps
 
@@ -296,6 +296,9 @@ fi
 
 
 %changelog
+* Mon Jan 13 2025 David King <amigadave@amigadave.com> - 1.16.0-1
+- Update to 1.16.0 (#2336719)
+
 * Sat Dec 21 2024 David King <amigadave@amigadave.com> - 1.15.91-1
 - Update to 1.15.91 (#2333542)
 

@@ -52,6 +52,7 @@ Documentation for CLI11.
 %prep
 %autosetup -p1 -n CLI11-%{version}
 
+%conf
 # Alter the icon path in README.md for the installed paths
 sed -i.orig 's,\./docs,.,' README.md
 touch -r README.md.orig README.md

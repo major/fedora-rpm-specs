@@ -54,14 +54,15 @@ applications that use %{name}.
 %prep
 %autosetup -n Ccluster-%{version} -p1
 
+%conf
 # Install in the right place on 64-bit platforms
 if [ "%{_lib}" != lib ]; then
   sed -i 's,^\(LIBDIR=\)lib,\1%{_lib},' Makefile.in
 fi
 
 %build
-CFLAGS="%{build_cflags} -I%{_includedir}/flint"
-CXXFLAGS="%{build_cxxflags} -I%{_includedir}/flint"
+CFLAGS='%{build_cflags} -I%{_includedir}/flint'
+CXXFLAGS='%{build_cxxflags} -I%{_includedir}/flint'
 # Use Fedora link flags and add an soname
 major=$(echo %{version} | cut -d. -f1)
 sed -i "s|-shared|& %{build_ldflags} -Wl,-h,libccluster.so.${major}|" Makefile.in

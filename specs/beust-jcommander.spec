@@ -5,7 +5,7 @@ Version:        1.82
 Release:        %autorelease
 Summary:        Java framework for parsing command line parameters
 License:        Apache-2.0
-URL:            http://jcommander.org/
+URL:            https://jcommander.org
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 

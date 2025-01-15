@@ -21,6 +21,8 @@ BuildRequires: libtool
 BuildRequires: elfutils-devel
 BuildRequires: libxml2-devel
 BuildRequires: xxhash-devel
+# libabigail builds with XXH_INLINE_ALL, so depend on (virtual) xxhash-static
+BuildRequires: xxhash-static
 BuildRequires: doxygen
 BuildRequires: python3-sphinx
 BuildRequires: texinfo

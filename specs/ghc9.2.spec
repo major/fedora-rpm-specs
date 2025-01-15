@@ -20,6 +20,10 @@
 %global ghc_major 9.2
 %global ghc_name ghc%{ghc_major}
 
+%global Cabal_ver 3.6.3.0
+%global mtl_ver 2.2.2
+%global transformers_ver 0.5.6.2
+
 # to handle RCs
 %global ghc_release %{version}
 
@@ -211,7 +215,6 @@ BuildRequires:  ghc-shake-devel
 BuildRequires:  ghc-stm-devel
 BuildRequires:  ghc-transformers-devel
 BuildRequires:  ghc-unordered-containers-devel
-BuildRequires:  alex
 %else
 BuildRequires:  %{name}-hadrian
 %endif
@@ -361,7 +364,7 @@ This provides the hadrian tool which can be used to build ghc.
 
 # use "./libraries-versions.sh" to check versions
 %if %{defined ghclibdir}
-%ghc_lib_subpackage -d -l BSD-3-Clause Cabal-3.6.3.0
+%ghc_lib_subpackage -d -l BSD-3-Clause Cabal-%{Cabal_ver}
 %ghc_lib_subpackage -d -l %BSDHaskellReport array-0.5.4.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport -c gmp-devel%{?_isa},libffi-devel%{?_isa} base-%{base_ver}
 %ghc_lib_subpackage -d -l BSD-3-Clause binary-0.8.9.0
@@ -384,7 +387,7 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -x -l BSD-3-Clause hpc-%{hpc_ver}
 # see below for integer-gmp
 %ghc_lib_subpackage -d -x -l %BSDHaskellReport libiserv-%{ghc_version_override}
-%ghc_lib_subpackage -d -l BSD-3-Clause mtl-2.2.2
+%ghc_lib_subpackage -d -l BSD-3-Clause mtl-%{mtl_ver}
 %ghc_lib_subpackage -d -l BSD-3-Clause parsec-3.1.15.0
 %ghc_lib_subpackage -d -l BSD-3-Clause pretty-1.1.3.6
 %ghc_lib_subpackage -d -l %BSDHaskellReport process-1.6.16.0
@@ -393,7 +396,7 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -l BSD-3-Clause -c ncurses-devel%{?_isa} terminfo-0.4.1.5
 %ghc_lib_subpackage -d -l BSD-3-Clause text-1.2.5.0
 %ghc_lib_subpackage -d -l BSD-3-Clause time-1.11.1.1
-%ghc_lib_subpackage -d -l BSD-3-Clause transformers-0.5.6.2
+%ghc_lib_subpackage -d -l BSD-3-Clause transformers-%{transformers_ver}
 %ghc_lib_subpackage -d -l BSD-3-Clause unix-2.7.2.2
 %if %{with haddock} || %{with hadrian}
 %ghc_lib_subpackage -d -l BSD-3-Clause xhtml-%{xhtml_ver}
@@ -483,6 +486,11 @@ rm libffi-tarballs/libffi-*.tar.gz
 %patch -P 35 -p1 -b .orig
 %endif
 
+%if %{with hadrian}
+(cd libraries/Cabal/Cabal
+ cabal-tweak-dep-ver unix '< 2.8' '< 2.9')
+%endif
+
 %if %{with haddock} && %{without hadrian}
 %global gen_contents_index gen_contents_index.orig
 if [ ! -f "libraries/%{gen_contents_index}" ]; then
@@ -570,11 +578,11 @@ export LANG=C.utf8
 %global ghc_debuginfo 1
 (
 cd hadrian
-%if 0%{?fedora} >= 38
+ln -s ../libraries/mtl mtl-%{mtl_ver}
+ln -s ../libraries/transformers transformers-%{transformers_ver}
+ln -s ../libraries/Cabal/Cabal Cabal-%{Cabal_ver}
+%ghc_libs_build -P -W transformers-%{transformers_ver} mtl-%{mtl_ver} Cabal-%{Cabal_ver}
 %ghc_bin_build -W
-%else
-%ghc_bin_build
-%endif
 )
 %global hadrian hadrian/dist/build/hadrian/hadrian
 %else

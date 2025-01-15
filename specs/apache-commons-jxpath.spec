@@ -5,7 +5,7 @@ Version:        1.3
 Release:        %autorelease
 Summary:        Simple XPath interpreter
 License:        Apache-2.0
-URL:            http://commons.apache.org/jxpath/
+URL:            https://commons.apache.org/proper/commons-jxpath/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 

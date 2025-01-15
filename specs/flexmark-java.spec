@@ -723,6 +723,7 @@ formatted text (before YouTrack implemented Markdown comment option).
 %prep
 %autosetup -p1
 
+%conf
 # Remove prebuilt jars
 rm lib/*.jar
 

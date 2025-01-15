@@ -5,7 +5,7 @@ Version:        7.0.0
 Release:        %autorelease
 Summary:        Interfaces and Classes for use in compiling OSGi bundles
 License:        Apache-2.0
-URL:            http://www.osgi.org
+URL:            https://www.osgi.org
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 

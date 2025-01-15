@@ -5,7 +5,7 @@ Version:        1.14.2
 Release:        %autorelease
 Summary:        Runtime code generation for the Java virtual machine
 License:        Apache-2.0
-URL:            http://bytebuddy.net/
+URL:            https://bytebuddy.net
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 

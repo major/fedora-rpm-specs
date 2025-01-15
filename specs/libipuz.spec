@@ -10,9 +10,13 @@ URL:            https://gitlab.gnome.org/jrb/libipuz
 Source:         %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
 
 # Ensure we only enable introspection support from 0.4.7 onwards
-%bcond introspection %([ $(echo %{version} | tr -d .) -eq 047 ] && echo 1 || echo 0)
+%bcond introspection %(v=$(echo %{version} | tr -d .) && [ "${v:0:3}" -ge 047 ] && echo 1 || echo 0)
+
+# Library version is bumped in 0.5
+%global soversion %(v=$(echo %{version} | tr -d .) && [ "${v:0:2}" -ge 05 ] && echo 0.5 || echo 0.4)
 
 BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  meson
@@ -92,7 +96,7 @@ rm -rf html/.{doctrees,buildinfo}
 %files
 %license LICENSE COPYING.LGPL COPYING.MIT
 %doc README.md NEWS.md
-%{_libdir}/lib%{name}-0.4.so
+%{_libdir}/lib%{name}-%{soversion}.so
 
 %files devel
 %{_includedir}/*
@@ -100,7 +104,7 @@ rm -rf html/.{doctrees,buildinfo}
 %{_datadir}/gir-1.0/Ipuz-1.0.gir
 %{_libdir}/girepository-1.0/Ipuz-1.0.typelib
 %endif
-%{_libdir}/pkgconfig/%{name}-0.4.pc
+%{_libdir}/pkgconfig/%{name}-%{soversion}.pc
 
 %if %{with docs}
 %files doc

@@ -2,8 +2,8 @@
 %bcond_without tests
 
 Name:           rpmlint
-Version:        2.5.0
-Release:        10%{?dist}
+Version:        2.6.1
+Release:        1%{?dist}
 Summary:        Tool for checking common errors in RPM packages
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/rpmlint
@@ -13,10 +13,6 @@ Source1:        fedora.toml
 Source3:        scoring.toml
 Source4:        users-groups.toml
 Source5:        warn-on-functions.toml
-
-# Fix from @danigm to reset checks for each package
-# https://github.com/rpm-software-management/rpmlint/pull/1163
-Patch0:         https://patch-diff.githubusercontent.com/raw/rpm-software-management/rpmlint/pull/1163.patch
 
 BuildArch:      noarch
 
@@ -103,6 +99,10 @@ cp -a %{SOURCE1} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{buildroot}%{_sysconfdir}/xdg
 %{_bindir}/rpmlint
 
 %changelog
+* Mon Jan 13 2025 Miro Hrončok <mhroncok@redhat.com> - 2.6.1-1
+- Update to 2.6.1
+- Fixes: rhbz#2295961
+
 * Wed Dec 11 2024 Miro Hrončok <mhroncok@redhat.com> - 2.5.0-10
 - Fixup a bad regex in the spelling errors filter
 

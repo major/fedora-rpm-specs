@@ -1,5 +1,5 @@
 Name:           sasl-xoauth2
-Version:        0.25
+Version:        0.26
 Release:        1%{?dist}
 Summary:        The xoauth2 plugin for cyrus-sasl
 
@@ -70,6 +70,9 @@ relays from Postfix.
 %{_mandir}/man1/%{name}-tool.1.gz
 
 %changelog
+* Mon Jan 13 2025 Jakub Jelen <jjelen@redhat.com> - 0.26-1
+- New upstream release (#2337235)
+
 * Fri Nov 01 2024 Jakub Jelen <jjelen@redhat.com> - 0.25-1
 - New upstream release (#2323128)
 

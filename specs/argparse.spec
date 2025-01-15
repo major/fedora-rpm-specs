@@ -31,6 +31,7 @@ Argparse is an argument parser for C++17 in a single header file.
 %prep
 %autosetup
 
+%conf
 # Install into the noarch directory
 # https://github.com/p-ranav/argparse/pull/323
 sed -i 's/CMAKE_INSTALL_LIBDIR/CMAKE_INSTALL_DATADIR/' CMakeLists.txt

@@ -68,6 +68,8 @@ Sample binaries that use cddlib.
 %prep
 %autosetup -p1
 
+
+%conf
 # Fix the FSF's address
 for f in $(find . -type f -exec grep -Fl '675 Mass' {} +); do
   sed -i.orig \

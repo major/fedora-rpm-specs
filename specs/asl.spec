@@ -1,10 +1,10 @@
 # ASL upstream has not tagged any releases, so we use a git checkout
-%global commit     97e10747f47fea0db03c55c9d6b8294f0b3393bf
-%global date       20241202
+%global commit     ae937db9bd1169ec2c4cb8d75196f67cdcb8041b
+%global date       20241212
 %global forgeurl   https://github.com/ampl/asl
 
 Name:           asl
-Version:        20241111
+Version:        20241122
 Summary:        AMPL Solver Library
 
 %forgemeta
@@ -20,8 +20,6 @@ Source:         %{forgesource}
 Patch:          %{name}-shared.patch
 # Do not override Fedora architecture flags
 Patch:          %{name}-arch-flags.patch
-# Declare functions as functions, not as variables
-Patch:          %{name}-prototype.patch
 
 BuildRequires:  cmake
 BuildRequires:  fdupes

@@ -1,6 +1,6 @@
 Name:           perl-DBD-CSV
-Version:        0.60
-Release:        6%{?dist}
+Version:        0.62
+Release:        1%{?dist}
 Summary:        DBI driver for CSV files
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DBD-CSV
@@ -25,7 +25,6 @@ BuildRequires:  perl(IO::File)
 BuildRequires:  perl(SQL::Statement) >= 1.405
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Text::CSV_XS) >= 1.45
-BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 # Test Suite
 BuildRequires:  perl(charnames)
@@ -66,13 +65,22 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 make test
 
 %files
-%doc ChangeLog CONTRIBUTING.md README
+%doc ChangeLog CONTRIBUTING.md README SECURITY.md
 %{perl_vendorlib}/Bundle/
 %{perl_vendorlib}/DBD/
 %{_mandir}/man3/Bundle::DBD::CSV.3*
 %{_mandir}/man3/DBD::CSV.3*
 
 %changelog
+* Mon Jan 13 2025 Paul Howarth <paul@city-fan.org> - 0.62-1
+- Update to 0.62 (rhbz#2337361)
+  - It's 2025
+  - Replace "use vars" with "our" (GH#9)
+  - Specify recommended versions based on known CVE's
+  - Update documentation for groff-1.24
+  - Tested with perl-5.40.0
+  - Add SECURITY.md
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.60-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

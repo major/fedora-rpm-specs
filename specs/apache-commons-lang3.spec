@@ -5,7 +5,7 @@ Version:        3.17.0
 Release:        %autorelease
 Summary:        Provides a host of helper utilities for the java.lang API
 License:        Apache-2.0
-URL:            https://commons.apache.org/lang
+URL:            https://commons.apache.org/proper/commons-lang/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 

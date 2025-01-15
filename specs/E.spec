@@ -1,5 +1,7 @@
+%global giturl  https://github.com/eprover/eprover
+
 Name:		E
-Version:	3.1.0
+Version:	3.2.5
 Release:	%autorelease
 Summary:	Equational Theorem Prover
 
@@ -10,12 +12,12 @@ Summary:	Equational Theorem Prover
 # CM-Super: GPL-1.0-or-later
 License:	(GPL-2.0-or-later OR LGPL-2.1-or-later) AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later
 URL:		https://www.eprover.org/
-VCS:		https://github.com/eprover/eprover
-Source0:	%{vcs}/archive/%{name}-%{version}.tar.gz
+VCS:		git:%{giturl}.git
+Source0:	%{giturl}/archive/%{name}-%{version}.tar.gz
 # Bibliography file, courtesy of Debian, with modifications by Jerry James
 Source1:	eprover.bbl
 # Unbundle picosat
-Patch0:		%{name}-picosat.patch
+Patch:		%{name}-picosat.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:	%{ix86}
@@ -48,6 +50,7 @@ placed highly in CNF and UEQ.
 %prep
 %autosetup -p0 -n eprover-%{name}-%{version}
 
+%conf
 # Fix the character encoding of one file
 iconv -f ISO8859-1 -t UTF-8 DOC/E-REMARKS > DOC/E-REMARKS.utf8
 touch -r DOC/E-REMARKS DOC/E-REMARKS.utf8
@@ -72,6 +75,7 @@ sed -e "s|^EXECPATH = .*|EXECPATH = %{buildroot}%{_bindir}|" \
 
 # smp_mflags causes unwelcome races, so we will not use it
 make remake
+ln -s eprover-ho PROVER/eprover
 make man
 
 # We need one more pdflatex invocation to fix up cross references
@@ -82,6 +86,7 @@ cd -
 
 %install
 %make_install
+mv %{buildroot}%{_bindir}/eprover-ho %{buildroot}%{_bindir}/eprover
 
 %check
 ./PROVER/eprover -s --tstp-in EXAMPLE_PROBLEMS/TPTP/SYN190-1.p \

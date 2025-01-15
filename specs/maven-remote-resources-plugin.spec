@@ -5,7 +5,7 @@ Version:        3.1.0
 Release:        %autorelease
 Summary:        Maven Remote Resources Plugin
 License:        Apache-2.0
-URL:            http://maven.apache.org/plugins/maven-remote-resources-plugin/
+URL:            https://maven.apache.org/plugins/maven-remote-resources-plugin/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 

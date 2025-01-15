@@ -1,7 +1,7 @@
 %global pkgname aws-cli
 
 Name:               awscli2
-Version:            2.22.10
+Version:            2.22.33
 Release:            %autorelease
 
 Summary:            Universal Command Line Environment for AWS, version 2
@@ -61,6 +61,12 @@ find awscli/examples/ -type f -name '*.rst' -executable -exec chmod -x '{}' +
 
 # remove version caps on dependencies
 sed -i 's/,<=\?[^"]*"/"/' pyproject.toml
+
+# loosen awscrt version requirement
+sed -i 's/awscrt==0.23.4/awscrt>=0.23.4/' pyproject.toml
+
+# remove zipp dependency
+sed -i "/zipp<3.21.0/d" pyproject.toml
 
 # use unittest.mock
 find -type f -name '*.py' -exec sed \

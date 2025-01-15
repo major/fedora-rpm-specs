@@ -1,6 +1,6 @@
 Name:           template-glib
-Version:        3.36.2
-Release:        2%{?dist}
+Version:        3.36.3
+Release:        1%{?dist}
 Summary:        A templating library for GLib
 
 License:        LGPL-2.1-or-later
@@ -72,6 +72,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Mon Jan 13 2025 nmontero <nmontero@redhat.com> - 3.36.3-1
+- Update to 3.36.3
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.36.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

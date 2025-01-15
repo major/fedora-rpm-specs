@@ -94,6 +94,7 @@ descriptions containing actions in a variety of target languages.
 
 %package        tool
 Summary:        ANother Tool for Language Recognition
+License:        BSD-3-Clause AND Apache-2.0
 BuildArch:      noarch
 Provides:       %{name} = %{epoch}:%{antlr_version}-%{release}
 Obsoletes:      %{name} < %{epoch}:%{antlr_version}-%{release}
@@ -201,6 +202,8 @@ C++ runtime support for ANTLR-generated parsers.
 
 %prep
 %autosetup -p1 -n antlr3-%{antlr_version} -a 1
+
+%conf
 sed -i "s,\${buildNumber},`cat %{_sysconfdir}/fedora-release` `date`," tool/src/main/resources/org/antlr/antlr.properties
 
 # remove pre-built artifacts
@@ -355,6 +358,10 @@ install -pm 644 runtime/Cpp/include/* $RPM_BUILD_ROOT/%{_includedir}/
 %doc tool/LICENSE.txt
 
 %changelog
+* Mon Jan 13 2025 Jerry James <loganjerry@gmail.com> - 1:3.5.3-11
+- Clarify license of the tool subpackage
+- Move configuration actions to %%conf
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.5.3-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -13,7 +13,7 @@ Version: 0.6.4
 %define dotrc           %{nil}
 %endif
 
-Release: 4%{dotrc}%{?dist}.3
+Release: 4%{dotrc}%{?dist}.4
 Summary:    A semantic parser of source files
 License:    MIT
 URL:        https://sparse.wiki.kernel.org
@@ -75,6 +75,9 @@ make clean
 %{_mandir}/man1/*
 
 %changelog
+* Sun Jan 12 2025 Carlos Rodriguez-Fernandez <carlosrodrifernandez@gmail.com> - 0.6.4-4.gce1a6720f69e.4
+- Migrated to SPDX license
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.4-4.gce1a6720f69e.3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -3,13 +3,13 @@
 
 
 Name:           python-pycares
-Version:        4.3.0
-Release:        9%{?dist}
+Version:        4.5.0
+Release:        1%{?dist}
 Summary:        Python interface for c-ares
 
 License:        MIT
 URL:            https://github.com/saghul/pycares
-Source0:        https://github.com/saghul/%{srcname}/archive/%{srcname}-%{version}.tar.gz
+Source0:        https://github.com/saghul/%{srcname}/archive/v%{version}.tar.gz
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -56,7 +56,7 @@ This package contains documentation in reST and HTML formats.
 
 
 %prep
-%autosetup -p1 -n %{srcname}-%{srcname}-%{version}
+%autosetup -p1 -n %{srcname}-%{version}
 
 
 %build
@@ -82,9 +82,6 @@ mv -f %{buildroot}%{_pkgdocdir}/html/_sources/ %{buildroot}%{_pkgdocdir}/rst/
 # Remove buildinfo sphinx documentation
 rm -rf %{buildroot}%{_pkgdocdir}/html/.buildinfo
 
-# Fix non-standard modes (775)
-chmod 755 %{buildroot}%{python3_sitearch}/%{srcname}/_cares.cpython-*.so
-
 
 %check
 # no tests to run with pytest: Disabling.
@@ -106,6 +103,11 @@ chmod 755 %{buildroot}%{python3_sitearch}/%{srcname}/_cares.cpython-*.so
 
 
 %changelog
+* Mon Jan 13 2025 Matthieu Saulnier <fantom@fedoraproject.org> - 4.5.0-1
+- Update to 4.5.0
+- Update SourcesURL tag
+- Minor cleanup in %%install section
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

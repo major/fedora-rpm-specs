@@ -146,30 +146,38 @@ serialization format.
 %package -n mingw32-%{name}
 Summary:        MinGW Windows %{name} library
 
+BuildArch:      noarch
+
 %description -n mingw32-%{name}
-Summary:        MinGW Windows %{name} library.
+%{summary}
 
 
 %package -n mingw32-python3-%{name}
 Summary:        MinGW Windows %{name} Python 3 bindings
 
+BuildArch:      noarch
+
 %description -n mingw32-python3-%{name}
-Summary:        MinGW Windows %{name}  Python 3 bindings.
+%{summary}
 
 
 # Win64
 %package -n mingw64-%{name}
 Summary:        MinGW Windows %{name} library
 
+BuildArch:      noarch
+
 %description -n mingw64-%{name}
-Summary:        MinGW Windows %{name} library.
+%{summary}
 
 
 %package -n mingw64-python3-%{name}
 Summary:        MinGW Windows %{name} Python 3 bindings
 
+BuildArch:      noarch
+
 %description -n mingw64-python3-%{name}
-Summary:        MinGW Windows %{name}  Python 3 bindings.
+%{summary}
 
 
 %{?mingw_debug_package}

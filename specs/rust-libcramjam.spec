@@ -7,8 +7,8 @@ Name:           rust-libcramjam
 # Even though this is just MAJOR.MINOR from the SemVer version, we repeat it
 # explicitly to help prevent undetected/unannounced SONAME version bumps in the
 # libcramjam/libcramjam-devel subpackages.
-%global soversion 0.6
-Version:        0.6.0
+%global soversion 0.7
+Version:        0.7.0
 Release:        %autorelease
 Summary:        Compression library combining a plethora of algorithms
 
@@ -20,10 +20,9 @@ Source:         %{crates_source}
 #   template from rust2rpm
 # * Do not upper-bound the version of libdeflate-sys (which is only due to CI
 #   limitations)
-# * Patch out the wasm-compat feature, which requires an unavailable blosc2
-#   crate feature
 # * Patch out all -static features
-# * Update to cbindgen 0.27: https://github.com/cramjam/libcramjam/pull/20
+# * Patch out features requiring blosc2-rs or isal-rs so we can stop packaging
+#   those crates
 Patch:          libcramjam-fix-metadata.diff
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -112,30 +111,6 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+blosc2-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+blosc2-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "blosc2" feature of the "%{crate}" crate.
-
-%files       -n %{name}+blosc2-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+blosc2-shared-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+blosc2-shared-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "blosc2-shared" feature of the "%{crate}" crate.
-
-%files       -n %{name}+blosc2-shared-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+brotli-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -220,90 +195,6 @@ use the "gzip-shared" feature of the "%{crate}" crate.
 %files       -n %{name}+gzip-shared-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+ideflate-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+ideflate-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "ideflate" feature of the "%{crate}" crate.
-
-%files       -n %{name}+ideflate-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+ideflate-shared-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+ideflate-shared-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "ideflate-shared" feature of the "%{crate}" crate.
-
-%files       -n %{name}+ideflate-shared-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+igzip-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+igzip-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "igzip" feature of the "%{crate}" crate.
-
-%files       -n %{name}+igzip-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+igzip-shared-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+igzip-shared-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "igzip-shared" feature of the "%{crate}" crate.
-
-%files       -n %{name}+igzip-shared-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+isal-shared-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+isal-shared-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "isal-shared" feature of the "%{crate}" crate.
-
-%files       -n %{name}+isal-shared-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+izlib-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+izlib-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "izlib" feature of the "%{crate}" crate.
-
-%files       -n %{name}+izlib-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+izlib-shared-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+izlib-shared-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "izlib-shared" feature of the "%{crate}" crate.
-
-%files       -n %{name}+izlib-shared-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+lz4-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -326,30 +217,6 @@ This package contains library source intended for building other packages which
 use the "snappy" feature of the "%{crate}" crate.
 
 %files       -n %{name}+snappy-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+use-system-blosc2-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+use-system-blosc2-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "use-system-blosc2" feature of the "%{crate}" crate.
-
-%files       -n %{name}+use-system-blosc2-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+use-system-isal-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+use-system-isal-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "use-system-isal" feature of the "%{crate}" crate.
-
-%files       -n %{name}+use-system-isal-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+xz-devel
@@ -437,14 +304,7 @@ rm '%{buildroot}%{_libdir}/%{crate}.a'
 
 %if %{with check}
 %check
-# * Segmentation fault if blosc2 is updated to version 2.15.2:
-#   https://github.com/cramjam/libcramjam/issues/21
-%{cargo_test -a -- -- %{shrink:
-    --skip roundtrip_compress_via_slice_decompress_via_slice
-    --skip roundtrip_compress_via_slice_decompress_via_vector
-    --skip roundtrip_compress_via_vector_decompress_via_slice
-    --skip roundtrip_compress_via_vector_decompress_via_vector
-}}
+%cargo_test -a
 %endif
 
 %changelog

@@ -19,6 +19,9 @@ Patch:          0005-Fix-testing-setup-for-Fedora.patch
 # Allow older NumPy.
 Patch:          0006-Reduce-numpy-build-requirement.patch
 
+# Fix a bug in delta filter.
+Patch:          https://github.com/zarr-developers/numcodecs/pull/677.patch
+
 # Stop building on i686
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

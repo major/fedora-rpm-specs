@@ -1,5 +1,5 @@
 Name:           fastfetch
-Version:        2.33.0
+Version:        2.34.1
 Release:        1%{?dist}
 Summary:        Like neofetch, but much faster because written in c
 
@@ -112,6 +112,9 @@ mechanisms like multithreading and caching to finish as fast as possible.
 %{_datadir}/zsh/site-functions/_%{name}
 
 %changelog
+* Mon Jan 13 2025 Jonathan Wright <jonathan@almalinux.org> - 2.34.1-1
+- update to 2.34.1 rhbz#2336492
+
 * Fri Jan 03 2025 Jonathan Wright <jonathan@almalinux.org> - 2.33.0-1
 - update to 2.33.0 rhbz#2334157
 

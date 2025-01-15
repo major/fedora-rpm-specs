@@ -196,6 +196,7 @@ for the latter is also included.
 %prep
 %autosetup -p1
 
+%conf
 fixtimestamp() {
   touch -r $1.orig $1
   rm -f $1.orig

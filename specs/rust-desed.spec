@@ -36,7 +36,7 @@ Summary:        %{summary}
 # MIT
 # MIT OR Apache-2.0
 # Zlib
-License:        GPL-3.0-or-later AND ISC AND MIT AND Zlib (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT)
+License:        GPL-3.0-or-later AND ISC AND MIT AND Zlib AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 Requires:       sed >= 4.6
 

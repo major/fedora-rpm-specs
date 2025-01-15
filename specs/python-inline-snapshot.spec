@@ -6,7 +6,7 @@
 %bcond pydantic_tests %{without bootstrap}
 
 Name:           python-inline-snapshot
-Version:        0.18.2
+Version:        0.19.1
 Release:        %autorelease
 Summary:        Golden master/snapshot/approval testing library
 
@@ -33,6 +33,9 @@ Summary:        %{summary}
 %description -n python3-inline-snapshot %{common_description}
 
 
+%pyproject_extras_subpkg -n python3-inline-snapshot black,dirty-equals
+
+
 %prep
 %autosetup -n inline_snapshot-%{version} -p1
 
@@ -48,7 +51,7 @@ tomcli set pyproject.toml lists delitem --no-first --type regex \
 
 
 %generate_buildrequires
-%pyproject_buildrequires -g dev
+%pyproject_buildrequires -g dev -x black,dirty-equals
 
 
 %build
@@ -71,6 +74,10 @@ ignore="${ignore-} --ignore=tests/test_pydantic.py"
 # dependency tree, and this can cause tests that expect precisely-matching
 # pytest output to fail unnecessarily.
 export PYTHONWARNINGS='ignore::DeprecationWarning'
+
+# Note that tests expect black-formatted generated code, and we cannot
+# meaningingfully test the package without black; there would be 100+ test
+# failures.
 
 %pytest ${ignore-} -vv -rs
 

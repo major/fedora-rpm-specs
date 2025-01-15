@@ -22,7 +22,8 @@ URL:            https://metacpan.org/release/MaxMind-DB-Reader-XS
 Source0:        https://cpan.metacpan.org/authors/id/M/MA/MAXMIND/MaxMind-DB-Reader-XS-%{version}.tar.gz
 # Do not hardcore debugging
 Patch0:         MaxMind-DB-Reader-XS-1.000008-Do-not-hardcode-debugging.patch
-# Adapt to changes in libmaxminddb-1.12.0, bug #2336619, proposed upstream
+# Adapt to changes in libmaxminddb-1.12.0, bug #2336619, upstream fixed it
+# in libmaxminddb-1.12.2 instead,
 # <https://github.com/maxmind/MaxMind-DB-Reader-XS/pull/39>.
 Patch1:         MaxMind-DB-Reader-XS-1.000009-Do-not-call-MMDB_free_entry_data_list-on-libmaxmindd.patch
 # Math::Int128 is not supported on 32-bit platforms, bugs #1871719, #1871720

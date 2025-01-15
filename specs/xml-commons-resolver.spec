@@ -3,7 +3,7 @@ Version:        1.2
 Release:        %autorelease
 Summary:        Resolver subproject of xml-commons
 License:        Apache-2.0
-URL:            http://xerces.apache.org/xml-commons/components/resolver/
+URL:            https://xerces.apache.org/xml-commons/components/resolver/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 

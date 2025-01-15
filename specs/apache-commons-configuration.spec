@@ -99,6 +99,7 @@ AbstractConfiguration or AbstractHierarchicalConfiguration.
 %{gpgverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
 %autosetup -n commons-configuration2-%{version}-src -p1
 
+%conf
 # Not needed for RPM builds
 %pom_xpath_remove //pom:reporting
 %pom_remove_plugin :apache-rat-plugin

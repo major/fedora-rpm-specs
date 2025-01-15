@@ -11,7 +11,7 @@
 Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   2
-Version: 1.13.1
+Version: 1.13.2
 Release: 1%{?dist}
 # No version is specified.
 License: GPL-2.0-or-later
@@ -295,6 +295,10 @@ rm -rf %{buildroot}/%{_docdir}/packages
 %endif
 
 %changelog
+* Mon Jan 13 2025 Than Ngo <than@redhat.com> - 2:1.13.2-1
+- Fix rhbz#2336720, Update to 1.13.2
+- Fix rhbz#2336536, FTBFS in ignition-transport
+
 * Fri Jan 03 2025 Than Ngo <than@redhat.com> - 2:1.13.1-1
 - Fix rhbz#2335266, Update to 1.13.1
 

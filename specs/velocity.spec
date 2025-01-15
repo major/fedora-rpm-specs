@@ -5,7 +5,7 @@ Version:        2.3
 Release:        %autorelease
 Summary:        Java-based template engine
 License:        Apache-2.0
-URL:            http://velocity.apache.org/
+URL:            https://velocity.apache.org
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 

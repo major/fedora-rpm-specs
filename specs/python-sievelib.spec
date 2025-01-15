@@ -1,7 +1,7 @@
 %global srcname sievelib
 
 Name:           python-%{srcname}
-Version:        1.4.1
+Version:        1.4.2
 Release:        1%{?dist}
 Summary:        Client-side SIEVE library
 License:        MIT
@@ -9,7 +9,7 @@ URL:            https://github.com/tonioo/sievelib
 Source0:        %{pypi_source}
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-nose
+BuildRequires:  python3-pytest
 
 %global _description %{expand:
 Client-side Sieve and Managesieve library written in Python.
@@ -39,13 +39,17 @@ rm -rf %{srcname}.egg-info
 %pyproject_save_files -l sievelib
 
 %check
-nosetests-%{python3_version}
+%pytest
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
 %license COPYING
 
 %changelog
+* Mon Jan 13 2025 Juan Orti Alcaine <jortialc@redhat.com> - 1.4.2-1
+- Version 1.4.2 (RHBZ#2336381)
+- nose replaced by pytest
+
 * Wed Sep 04 2024 Juan Orti Alcaine <jortialc@redhat.com> - 1.4.1-1
 - Version 1.4.1 (RHBZ#2298639)
 

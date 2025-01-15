@@ -32,7 +32,7 @@ BuildRequires: socat
 BuildRequires: systemd
 
 # No point in running a DPDK application on 32 bit x86: see fedora#2336884
-ExcludeArch: i686
+ExcludeArch: %{ix86}
 # DPDK does not build on s390x: see fedora#2336876
 ExcludeArch: s390x
 

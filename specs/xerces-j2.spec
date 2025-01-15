@@ -10,7 +10,7 @@ Summary:        Java XML parser
 # src/org/apache/xerces/dom3/as
 # src/org/w3c/dom/html/HTMLDOMImplementation.java
 License:        Apache-2.0 AND W3C
-URL:            http://xerces.apache.org/xerces2-j/
+URL:            https://xerces.apache.org/xerces2-j/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 

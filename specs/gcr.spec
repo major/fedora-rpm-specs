@@ -3,8 +3,8 @@
 %endif
 
 Name:           gcr
-Version:        4.3.0
-Release:        3%{?dist}
+Version:        4.3.90.3
+Release:        1%{?dist}
 Summary:        A library for bits of crypto UI and parsing
 
 # gck/pkcs11n.h is MPL 1.1/GPL 2.0/LGPL 2.1
@@ -128,6 +128,9 @@ developing applications that use %{name}.
 %doc %{_datadir}/doc/gcr-4/
 
 %changelog
+* Mon Jan 13 2025 nmontero <nmontero@redhat.com> - 4.3.90.3-1
+- Update to 4.3.90.3
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

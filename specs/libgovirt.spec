@@ -2,7 +2,7 @@
 Summary: A GObject library for interacting with oVirt REST API
 Name: libgovirt
 Version: 0.3.9
-Release: 6%{?dist}%{?extra_release}
+Release: 7%{?dist}%{?extra_release}
 License: LGPL-2.1-or-later
 Source0: http://download.gnome.org/sources/libgovirt/0.3/%{name}-%{version}.tar.xz
 Source1: http://download.gnome.org/sources/libgovirt/0.3/%{name}-%{version}.tar.xz.sig
@@ -10,6 +10,7 @@ Source2: etrunko-57E1C130.keyring
 URL: https://gitlab.gnome.org/GNOME/libgovirt
 
 Patch1: 0001-Fix-i18n-generation.patch
+Patch2: 0001-tests-Workaround-libproxy-bug.patch
 
 BuildRequires: meson
 BuildRequires: pkgconfig(glib-2.0)
@@ -70,6 +71,9 @@ gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
 %{_datadir}/gir-1.0/GoVirt-1.0.gir
 
 %changelog
+* Mon Jan 13 2025 Eduardo Lima (Etrunko) <eblima@gmail.com> - 0.3.9-7
+- Fix tests
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.9-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

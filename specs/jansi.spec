@@ -5,7 +5,7 @@ Version:        2.4.1
 Release:        %autorelease
 Summary:        Generate and interpret ANSI escape sequences in Java
 License:        Apache-2.0
-URL:            http://fusesource.github.io/jansi/
+URL:            https://fusesource.github.io/jansi/
 ExclusiveArch:  %{java_arches}
 
 # ./generate-tarball.sh

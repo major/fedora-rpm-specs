@@ -78,6 +78,7 @@ library.
 %prep
 %autosetup -n Bliss-%{version} -p0
 
+%conf
 # Do not override Fedora build flags.  The last sagemath version added an
 # soname.  Duplicate it for compatibility.  Link the library with libgmp.
 # Hidden symbols hide ALL symbols, meaning we can't use the library.

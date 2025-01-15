@@ -87,6 +87,7 @@ General with GNU Emacs.
 %prep
 %forgeautosetup -p0
 
+%conf
 fixtimestamp() {
   touch -r $1.orig $1
   rm -f $1.orig

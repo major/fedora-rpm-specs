@@ -23,7 +23,7 @@ for optimization to choose the best set of components for the
 classification pipeline, and optimize their hyperparameters.}
 
 Name:           python-%{pypi_name}
-Version:        2.1.0
+Version:        2.1.1
 Release:        %autorelease
 Summary:        Python automated machine learning framework
 
@@ -129,7 +129,7 @@ find examples -type f -name '*.py' |
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
-%doc README.md CHANGELOG.md COMPONENTS.md CITATION.md
+%doc README.md CHANGELOG.md COMPONENTS.md CITATION.cff
 %{_bindir}/niaaml
 %{bash_completions_dir}/niaaml
 %{zsh_completions_dir}/_niaaml
@@ -137,13 +137,13 @@ find examples -type f -name '*.py' |
 
 %files doc
 %license LICENSE
+%doc README.md CHANGELOG.md COMPONENTS.md CITATION.cff
 %if %{with doc_pdf}
 %doc docs/_build/latex/%{pypi_name}.pdf
 %endif
 %doc examples/
 %doc paper/
 %doc docs/paper/10.21105.joss.02949.pdf
-%doc CODE_OF_CONDUCT.md CONTRIBUTING.md CITATION.md
 
 %changelog
 %autochangelog

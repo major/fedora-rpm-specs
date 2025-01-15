@@ -34,7 +34,7 @@ Version:        2.0.8
 Release:        %autorelease
 Summary:        Full regular expressions API
 License:        Apache-1.1
-URL:            http://jakarta.apache.org/oro
+URL:            https://jakarta.apache.org/oro/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 

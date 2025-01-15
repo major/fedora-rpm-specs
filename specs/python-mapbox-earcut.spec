@@ -18,8 +18,7 @@ BuildSystem:            pyproject
 BuildOption(build):     %{shrink:
                         -Clogging.level=INFO
                         -Ccmake.verbose=true
-                        -Ccmake.build-type="RelWithDebInfo"
-                        -Cinstall.strip=false}
+                        -Ccmake.build-type="RelWithDebInfo"}
 BuildOption(install):   -L mapbox_earcut
 
 BuildRequires:  gcc-c++

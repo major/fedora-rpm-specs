@@ -60,14 +60,14 @@
 %global dbus_python_version 0.83.0
 
 Name:           ibus
-Version:        1.5.31
+Version:        1.5.32~beta1
 # https://github.com/fedora-infra/rpmautospec/issues/101
 Release:        1%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
 Source0:        https://github.com/ibus/%name/releases/download/%{source_version}/%{name}-%{source_version}.tar.gz
-Source1:        https://github.com/ibus/%name/releases/download/%{source_version}/%{name}.tar.gz.sum
+Source1:        https://github.com/ibus/%name/releases/download/%{source_version}/%{name}-%{source_version}.tar.gz.sum#/%{name}.tar.gz.sum
 Source2:        %{name}-xinput
 Source3:        %{name}.conf.5
 # Patch0:         %%{name}-HEAD.patch
@@ -110,6 +110,7 @@ BuildRequires:  cldr-emoji-annotation
 BuildRequires:  unicode-emoji
 BuildRequires:  unicode-ucd
 BuildRequires:  systemd
+BuildRequires:  wayland-protocols-devel
 
 Requires:       %{name}-libs%{?_isa}   = %{version}-%{release}
 %if %{with gtk2}
@@ -301,7 +302,7 @@ The ibus-devel-docs package contains developer documentation for IBus
 %package desktop-testing
 Summary:        Wrapper of InstalledTests Runner for IBus
 Requires:       %{name} = %{version}-%{release}
-%if 0%{?fedora:1}%{?rhel:0}
+%if (0%{?fedora} || 0%{?rhel} > 9)
 # Use no-overview mode in CI to get input focus
 BuildRequires:  gnome-shell-extension-no-overview
 Requires:       gnome-shell-extension-no-overview
@@ -435,6 +436,26 @@ cp src/compose/sequences-* $RPM_BUILD_ROOT%{_libdir}/ibus
 HAS_PREFIX=$(grep prefix $RPM_BUILD_ROOT%{_bindir}/ibus-setup | wc -l)
 [ x"$HAS_PREFIX" == x1 ] && \
   sed -i -e '/prefix/d' $RPM_BUILD_ROOT%{_bindir}/ibus-setup
+
+# Export GSK_RENDERER=cairo in CentOS only as a workaround.
+# Not sure but seems mesa-vulkan-drivers is not configured correctly in
+# CentOS and GTK is failed in CentOS CI:
+# ibus-compose:10228: Gdk-WARNING **:
+# Vulkan: ../src/imagination/vulkan/pvr_device.c:854:
+# Failed to enumerate drm devices
+# (errno 2: Δεν υπάρχει τέτοιο αρχείο ή κατάλογος)
+# (VK_ERROR_INITIALIZATION_FAILED)
+# https://www.linux.org.ru/forum/desktop/17554505
+%if 0%{?rhel} > 9
+if [ -f /etc/centos-release ] ; then
+  sed -i.bak -e '/^TESTING_RUNNER=/a\
+export GSK_RENDERER=cairo' \
+    $RPM_BUILD_ROOT%{_libexecdir}/ibus-desktop-testing-autostart
+  diff $RPM_BUILD_ROOT%{_libexecdir}/ibus-desktop-testing-autostart* || :
+  ls -l $RPM_BUILD_ROOT%{_libexecdir}/ibus-desktop-testing-autostart*
+  rm $RPM_BUILD_ROOT%{_libexecdir}/ibus-desktop-testing-autostart.bak
+fi
+%endif
 
 desktop-file-install --delete-original          \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications \
@@ -617,6 +638,10 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Mon Jan 13 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.32~beta1-1
+- Implement Wayland input-method version 2
+- Add ibus start --wayland option
+
 * Fri Nov 08 2024 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.31-1
 - Bump to 1.5.31
 

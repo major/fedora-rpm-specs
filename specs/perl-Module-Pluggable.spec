@@ -7,16 +7,12 @@
 
 Name:           perl-Module-Pluggable
 Epoch:          2
-Version:        6.2
-Release:        2%{?dist}
+Version:        6.3
+Release:        1%{?dist}
 Summary:        Automatically give your module the ability to have plugins
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Pluggable
 Source0:        https://cpan.metacpan.org/authors/id/S/SI/SIMONW/Module-Pluggable-%{version}.tar.gz
-# https://rt.cpan.org/Ticket/Display.html?id=156362
-Patch0:         Module-Pluggable-6.2-fix_cleanup.patch
-# https://rt.cpan.org/Ticket/Display.html?id=156367
-Patch1:         Module-Pluggable-6.2-fix_running_as_root.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -82,8 +78,6 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Module-Pluggable-%{version}
-%patch -P 0 -p 1
-%patch -P 1 -p 1
 find -type f -exec chmod -x {} +
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
@@ -119,6 +113,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jan 13 2025 Michal Josef Špaček <mspacek@redhat.com> - 2:6.3-1
+- 6.3 bump (#2337044)
+
 * Fri Oct 25 2024 Michal Josef Špaček <mspacek@redhat.com> - 2:6.2-2
 - Add comment for previous patch
 - Fix issue with root in tests

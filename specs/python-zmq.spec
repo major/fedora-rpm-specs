@@ -133,8 +133,7 @@ sed -r \
     -Ccmake.define.PYZMQ_LIBZMQ_NO_BUNDLE=ON \
     -Clogging.level=INFO \
     -Ccmake.verbose=true \
-    -Ccmake.build-type="RelWithDebInfo" \
-    -Cinstall.strip=false}
+    -Ccmake.build-type="RelWithDebInfo"}
 
 
 %install

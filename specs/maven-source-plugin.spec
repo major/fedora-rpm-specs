@@ -5,7 +5,7 @@ Version:        3.3.0
 Release:        %autorelease
 Summary:        Plugin creating source JAR
 License:        Apache-2.0
-URL:            http://maven.apache.org/plugins/maven-source-plugin/
+URL:            https://maven.apache.org/plugins/maven-source-plugin/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 

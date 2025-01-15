@@ -21,14 +21,19 @@ Source0:        https://github.com/behave/behave/archive/v%{version}/%{srcname}-
 
 # This patch is backport of upstream commits solving https://bugzilla.redhat.com/show_bug.cgi?id=1706085
 # Upstream issue: https://github.com/behave/behave/issues/755
-Patch0:         0001-Backport-for-py38-fixes.patch
+Patch:          0001-Backport-for-py38-fixes.patch
 # This patch is backport of upstream commit solving issues with pytest 5.0 and newer
 # Upstream issue: https://github.com/behave/behave/issues/864
-Patch1:         0002-Tweak-tests-required-by-pytest-5.0.patch
+Patch:          0002-Tweak-tests-required-by-pytest-5.0.patch
 # Invalid escape sequence warnings fixes
-Patch2:		0003-invalid-escape-seq.patch
+Patch:          0003-invalid-escape-seq.patch
 # RHBZ #2180467
-Patch3:		0004-sphinx-extlinks.patch
+Patch:          0004-sphinx-extlinks.patch
+# Replace nose test-framework functionality with pytest
+# https://github.com/behave/behave/commit/d086029e
+# (sans file moves to make the patch smaller and easier to inspect)
+# Several modules converted by hand.
+Patch:          0005-remove-nose.patch
 
 
 BuildArch:      noarch
@@ -37,7 +42,6 @@ BuildRequires:	make
 BuildRequires:  help2man
 BuildRequires:	python3-devel
 BuildRequires:	python3-hamcrest
-BuildRequires:	python3-nose
 BuildRequires:	python3-pytest
 BuildRequires:	python3-sphinx
 BuildRequires:	python3-sphinx-bootstrap-theme

@@ -7,7 +7,7 @@
 %bcond_without tests
 
 Name:           yt-dlp
-Version:        2024.12.23
+Version:        2025.01.12
 Release:        %autorelease
 Summary:        A command-line program to download videos from online video platforms
 

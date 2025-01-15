@@ -65,6 +65,7 @@ Documentation and examples for CARAT.
 %prep
 %forgeautosetup -p1
 
+%conf
 # Don't ship XV thumbnails with the examples
 rm -fr tex/examples/.xvpics
 

@@ -1,7 +1,7 @@
 # Upstream has not made a new release since 2010
 %global srcname clisp
-%global commit  9ff8aedb796fbf7c47e594bfc2357b69c8e64dc9
-%global date    20241123
+%global commit  c3ec11bab87cfdbeba01523ed88ac2a16b22304d
+%global date    20241228
 %global forgeurl https://gitlab.com/gnu-clisp/clisp
 
 # There is a plus on the end for unreleased versions, not for released versions
@@ -24,7 +24,7 @@ Version:	2.49.95
 # - src/socket.d and modules/clx/mit-clx/doc.lisp are HPND
 # - src/xthread.d and modules/asdf/asdf.lisp are X11
 License:	GPL-2.0-or-later AND (GPL-2.0-or-later OR GFDL-1.2-or-later) AND LGPL-2.1-or-later AND HPND AND X11
-Release:	1%{?dist}
+Release:	2%{?dist}
 URL:		http://www.clisp.org/
 VCS:		git:%{forgeurl}.git
 Source0:	%{forgesource}
@@ -126,6 +126,8 @@ Files necessary for linking CLISP programs.
 %ifarch %{power64}
 %autopatch 100 -p0
 %endif
+
+%conf
 cp -p %{SOURCE1} emacs
 cp -p %{SOURCE2} %{SOURCE3} src/po
 
@@ -439,6 +441,10 @@ make -C build base-mod-check
 
 
 %changelog
+* Mon Jan 13 2025 Jerry James <loganjerry@gmail.com> - 2.49.95-2
+- Update to latest git snapshot
+- Move configuration steps to %%conf
+
 * Mon Nov 25 2024 Jerry James <loganjerry@gmail.com> - 2.49.95-1
 - Version 2.49.95
 - Drop upstreamed patches: db, c99, bdb-mismatched-pointer, new-clx, pari

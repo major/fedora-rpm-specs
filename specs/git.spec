@@ -78,7 +78,7 @@
 %global _package_note_file  %{_builddir}/%{name}-%{real_version}/.package_note-%{name}-%{version}-%{release}.%{_arch}.ld
 
 Name:           git
-Version:        2.47.1
+Version:        2.48.0
 Release:        1%{?dist}
 Summary:        Fast Version Control System
 License:        BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
@@ -1040,6 +1040,9 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 %{?with_docs:%{_pkgdocdir}/git-svn.html}
 
 %changelog
+* Mon Jan 13 2025 Ondřej Pohořelský <opohorel@redhat.com> - 2.48.0-1
+- update to 2.48.0
+
 * Mon Nov 25 2024 Ondřej Pohořelský <opohorel@redhat.com> - 2.47.1-1
 - update to 2.47.1
 

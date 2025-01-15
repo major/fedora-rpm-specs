@@ -7,14 +7,17 @@
 # - linbox: has a rational solver, unknown whether it accepts constraints
 # - one of the coin-or-* packages might provide a suitable solver
 
+%global baseurl https://cocoa.altervista.org/cocoalib
+
 Name:           cocoalib
 Version:        0.99850
 Release:        %autorelease
 Summary:        C++ library for computations in commutative algebra
 
 License:        GPL-3.0-or-later
-URL:            https://cocoa.dima.unige.it/cocoa/cocoalib/
-Source:         %{url}/tgz/CoCoALib-%{version}.tgz
+URL:            %{baseurl}/index.shtml
+VCS:            git:https://github.com/cocoa-official/CoCoALib.git
+Source:         %{baseurl}/tgz/CoCoALib-%{version}.tgz
 # Build a shared library instead of a static library
 Patch:          %{name}-shared.patch
 # Fix error handling in Qsolve
@@ -73,6 +76,7 @@ Documentation for %{name}.
 %prep
 %autosetup -p0 -n CoCoALib-%{version}
 
+%conf
 # Use FlexiBLAS instead of the reference lapack/blas implementation.
 # Do not throw away our choice of compiler flags.
 # Fix the location of the cddlib headers.

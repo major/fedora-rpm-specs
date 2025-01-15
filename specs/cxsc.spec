@@ -86,6 +86,7 @@ API documentation for %{name}.
 %prep
 %autosetup -p0 -n %{name}-%{upstreamver}
 
+%conf
 # Don't set rpath
 sed -i 's/\(RPATH[[:blank:]]*=\).*/\1/;' Makefile.in CToolbox/Makefile
 sed -i '/LINKERPATH=-Wl,-R/d' install_cxsc

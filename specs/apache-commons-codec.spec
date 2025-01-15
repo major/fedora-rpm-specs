@@ -5,7 +5,7 @@ Version:        1.17.1
 Release:        %autorelease
 Summary:        Implementations of common encoders and decoders
 License:        Apache-2.0
-URL:            https://commons.apache.org/codec/
+URL:            https://commons.apache.org/proper/commons-codec/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 

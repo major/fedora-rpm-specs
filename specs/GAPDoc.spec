@@ -154,8 +154,6 @@ This package contains documentation for GAPDoc.
 %autosetup
 
 %build
-export LC_ALL=C.UTF-8
-
 # Link to main GAP documentation
 ln -s %{gap_libdir}/doc ../../doc
 mkdir ../pkg
@@ -183,7 +181,6 @@ done
 
 %if %{with test}
 %check
-export LC_ALL=C.UTF-8
 mkdir ../pkg
 ln -s ../%{name}-%{version} ../pkg
 gap -l "$PWD/..;" << EOF
@@ -196,10 +193,13 @@ rm -fr ../pkg
 %files
 %doc CHANGES README.md
 %license GPL
-%{gap_libdir}/pkg/%{name}/
-%exclude %{gap_libdir}/pkg/%{name}/3k+1/
-%exclude %{gap_libdir}/pkg/%{name}/doc/
-%exclude %{gap_libdir}/pkg/%{name}/example/
+%dir %{gap_libdir}/pkg/%{name}/
+%{gap_libdir}/pkg/%{name}/*.dtd
+%{gap_libdir}/pkg/%{name}/*.g
+%{gap_libdir}/pkg/%{name}/lib/
+%{gap_libdir}/pkg/%{name}/styles/
+%{gap_libdir}/pkg/%{name}/tst/
+%{gap_libdir}/pkg/%{name}/version
 
 %files latex
 # This is a metapackage to pull in dependencies only

@@ -2,7 +2,7 @@
 %global srcname_ sphinx_issues
 
 Name:           python-%{srcname}
-Version:        4.1.0
+Version:        5.0.0
 Release:        %autorelease
 Summary:        Sphinx extension for linking to your project's issue tracker
 

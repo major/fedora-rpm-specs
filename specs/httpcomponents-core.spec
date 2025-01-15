@@ -5,7 +5,7 @@ Version:        4.4.16
 Release:        %autorelease
 Summary:        Set of low level Java HTTP transport components for HTTP services
 License:        Apache-2.0
-URL:            http://hc.apache.org/
+URL:            https://hc.apache.org
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 

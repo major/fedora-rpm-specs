@@ -1,25 +1,25 @@
-%global glib_version 2.75.1
+%global glib_version 2.81.1
 %global gtk3_version 3.19.8
 %global gtk4_version 4.0.0
 %global gsettings_desktop_schemas_version 47~beta
-%global libinput_version 1.19.0
-%global pipewire_version 0.3.33
+%global libinput_version 1.26.0
+%global pipewire_version 1.2.0
 %global lcms2_version 2.6
 %global colord_version 1.4.5
 %global libei_version 1.0.901
-%global mutter_api_version 15
+%global mutter_api_version 16
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:          mutter
-Version:       47.3
+Version:       48~alpha
 Release:       %autorelease
 Summary:       Window and compositing manager based on Clutter
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
 URL:           http://www.gnome.org
-Source0:       http://download.gnome.org/sources/%{name}/47/%{name}-%{tarball_version}.tar.xz
+Source0:       http://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
 
 # Work-around for OpenJDK's compliance test
 Patch:         0001-window-actor-Special-case-shaped-Java-windows.patch

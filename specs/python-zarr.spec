@@ -2,7 +2,7 @@
 %bcond doc 0
 
 Name:           python-%{srcname}
-Version:        2.18.3
+Version:        2.18.4
 Release:        %autorelease
 Summary:        Chunked, compressed, N-dimensional arrays for Python
 
@@ -17,6 +17,8 @@ Patch:          0001-Adapt-storage-tests-for-changes-in-fsspec-1819-1679.patch
 # https://github.com/zarr-developers/zarr-python/issues/1678
 # fix tests with zlib-ng
 Patch:          0002-array-tests-handle-different-hexdigests-from-zlib-ng.patch
+# Allow the numcodecs version that we patched to fix a bug.
+Patch:          0003-Allow-numcodecs-0.14.patch
 
 BuildArch:      noarch
 

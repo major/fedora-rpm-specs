@@ -1,12 +1,15 @@
 # libbase is a utility library from the same upstream that is only used by this
 # project and is statically linked into the build
-%global libbase_commit 27aae1898bcc9bd125f260c42c370896159afbee
+%global libbase_commit 69a87c3c476c73683c9b12e3ac099ac464bd562e
 %global libbase_url https://github.com/phkaeser/libbase
 
 %bcond docs 1
 
+# wlmclock fails to link against libbase when using gcc
+%global toolchain clang
+
 Name:           wlmaker
-Version:        0.2
+Version:        0.4.1
 Release:        %autorelease
 Summary:        Wayland compositor inspired by Window Maker
 
@@ -16,11 +19,13 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{libbase_url}/archive/%{libbase_commit}/libbase-%{libbase_commit}.tar.gz
 
 # i686: https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-# ppc64le: https://github.com/phkaeser/libbase/issues/7
-ExcludeArch:    %{ix86} ppc64le
+ExcludeArch:    %{ix86}
 
 BuildRequires:  cmake
-BuildRequires:  gcc
+BuildRequires:  bison
+BuildRequires:  clang
+BuildRequires:  desktop-file-utils
+BuildRequires:  flex
 BuildRequires:  sed
 %if %{with docs}
 BuildRequires:  doxygen
@@ -35,11 +40,12 @@ BuildRequires:  pkgconfig(cairo) >= 1.16.0
 BuildRequires:  pkgconfig(wayland-client) >= 1.22.0
 BuildRequires:  pkgconfig(wayland-protocols) >= 1.31
 BuildRequires:  pkgconfig(wayland-server) >= 1.22.0
-BuildRequires:  pkgconfig(wlroots) >= 0.17
-BuildRequires:  pkgconfig(xcb) >= 1.14
-BuildRequires:  pkgconfig(xkbcommon) >= 1.0.3
+BuildRequires:  pkgconfig(wlroots) >= 0.17.4
+BuildRequires:  pkgconfig(xcb) >= 1.15
+BuildRequires:  pkgconfig(xkbcommon) >= 1.5.0
+BuildRequires:  pkgconfig(xwayland) >= 22.1.9
 
-# These are currently hardcoded in the dock
+# These are hardcoded in the stock config
 Recommends:     chromium
 Recommends:     firefox
 Recommends:     foot
@@ -76,15 +82,11 @@ rm -r dependencies
 rm -r submodules/libbase
 mv ../libbase-%{libbase_commit}/ submodules/libbase
 
-# Relax wayland version requirement
-# https://github.com/phkaeser/wlmaker/issues/23
-sed -i 's/1.22.90/1.22.0/g' CMakeLists.txt
-
 # Do not abort on warnings
 sed -i 's/-Werror//' CMakeLists.txt submodules/libbase/CMakeLists.txt
 
 # Use chromium instead of google-chrome
-sed -i 's/google-chrome/chromium-browser/' src/dock.c
+sed -i 's/google-chrome/chromium-browser/' etc/wlmaker-state.plist
 
 %build
 %cmake -Dconfig_OPTIM=ON
@@ -96,14 +98,25 @@ sed -i 's/google-chrome/chromium-browser/' src/dock.c
 %install
 %cmake_install
 
+# Drop useless example
+rm %{buildroot}%{_bindir}/example_toplevel
+
+# Relocate desktop files
+mkdir %{buildroot}%{_datadir}/applications/
+mv %{buildroot}%{_datadir}/{wlmaker,wlmclock}.desktop %{buildroot}%{_datadir}/applications/
+
 %check
 %ctest
+desktop-file-validate %{buildroot}/%{_datadir}/applications/{wlmaker,wlmclock}.desktop
 
 %files
 %license LICENSE
 %doc README.md CODE_OF_CONDUCT.md CONTRIBUTING.md doc/ROADMAP.md
 %{_bindir}/wlmaker
 %{_bindir}/wlmclock
+%{_bindir}/wrap-wlmaker.sh
+%{_datadir}/applications/wlmaker.desktop
+%{_datadir}/applications/wlmclock.desktop
 %{_datadir}/icons/%{name}/
 
 %if %{with docs}

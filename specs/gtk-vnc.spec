@@ -15,7 +15,7 @@
 Summary: A GTK widget for VNC clients
 Name: gtk-vnc
 Version: 1.4.0
-Release: 1%{?dist}
+Release: %autorelease
 License: LGPL-2.1-or-later
 Source: https://download.gnome.org/sources/%{name}/%{verdir}/%{name}-%{version}.tar.xz
 URL: https://gitlab.gnome.org/GNOME/gtk-vnc
@@ -225,6 +225,8 @@ rm -f $RPM_BUILD_ROOT%{mingw64_mandir}/man1/gvnccapture.1*
 %files -n gvnc -f %{name}.lang
 %{_libdir}/libgvnc-1.0.so.*
 %{_libdir}/girepository-1.0/GVnc-1.0.typelib
+%dir %{_datadir}/vala/
+%dir %{_datadir}/vala/vapi/
 %{_datadir}/vala/vapi/gvnc-1.0.deps
 %{_datadir}/vala/vapi/gvnc-1.0.vapi
 
@@ -326,56 +328,4 @@ rm -f $RPM_BUILD_ROOT%{mingw64_mandir}/man1/gvnccapture.1*
 %endif
 
 %changelog
-* Mon Jan  6 2025 Daniel P. Berrangé <berrange@redhat.com> - 1.4.0-1
-- Update to 1.4.0 release
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Mon Jan 16 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.3.1-1
-- Update to 1.3.1 release
-
-* Mon Aug  8 2022 Daniel P. Berrangé <berrange@redhat.com> - 1.3.0-5
-- Pull in mingw sub-packages
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Mon Nov 22 2021 Daniel P. Berrangé <berrange@redhat.com> - 1.3.0-1
-- Update to 1.3.0 release
-
-* Mon Aug 23 2021 Kalev Lember <klember@redhat.com> - 1.2.0-3
-- BR vala instead of vala-tools
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Apr 14 2021 Daniel P. Berrangé <berrange@redhat.com> - 1.2.0-1
-- Update to 1.2.0 release
-- Drop outdated conditionals
-- Drop outdated ldconfig script
-- Use versioned obsoletes tags
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+%autochangelog

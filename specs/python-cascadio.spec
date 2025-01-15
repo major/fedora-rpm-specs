@@ -70,8 +70,7 @@ sed -r -i 's/\bCXX\b/C &/' CMakeLists.txt
     -Ccmake.define.SYSTEM_OPENCASCADE=ON \
     -Clogging.level=INFO \
     -Ccmake.verbose=true \
-    -Ccmake.build-type="RelWithDebInfo" \
-    -Cinstall.strip=false}
+    -Ccmake.build-type="RelWithDebInfo"}
 
 
 %install

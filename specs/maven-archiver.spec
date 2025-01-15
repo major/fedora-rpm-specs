@@ -5,7 +5,7 @@ Version:        3.6.2
 Release:        %autorelease
 Summary:        Maven Archiver
 License:        Apache-2.0
-URL:            http://maven.apache.org/shared/maven-archiver/
+URL:            https://maven.apache.org/shared/maven-archiver/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 

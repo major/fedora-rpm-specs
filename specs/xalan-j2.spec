@@ -4,7 +4,7 @@ Release:        %autorelease
 Summary:        Java XSLT processor
 # src/org/apache/xpath/domapi/XPathStylesheetDOM3Exception.java is W3C
 License:        Apache-2.0 AND W3C
-URL:            http://xalan.apache.org/
+URL:            https://xalan.apache.org
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 

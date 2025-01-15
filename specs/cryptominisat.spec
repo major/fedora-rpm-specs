@@ -86,6 +86,7 @@ Python 3 interface to %{name}.
 %prep
 %autosetup -p1 -b1
 
+%conf
 # Make cadiback visible to cmake
 mv ../cadiback-%{cadicommit} ../cadiback
 
@@ -101,10 +102,9 @@ sed -i 's/INSTALL_RPATH_USE_LINK_PATH TRUE//' src/CMakeLists.txt
 # Ensure the bundled picosat is not used
 rm -fr src/mpicosat
 
+%generate_buildrequires
 # Do not confuse pyproject_buildrequires by requiring a python builtin
 sed -i 's/, "pathlib"//' pyproject.toml
-
-%generate_buildrequires
 %pyproject_buildrequires
 
 %build

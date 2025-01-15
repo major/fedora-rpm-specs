@@ -19,7 +19,7 @@
 %bcond latex_tests 1
 
 Name:       python-sphinx
-%global     general_version 7.3.7
+%global     general_version 8.1.3
 #global     prerel ...
 %global     upstream_version %{general_version}%{?prerel}
 Version:    %{general_version}%{?prerel:~%{prerel}}
@@ -53,12 +53,6 @@ Patch:      sphinx-test_theming.patch
 # This is a downstream-only change - rejected upstream.
 # https://github.com/sphinx-doc/sphinx/pull/11747
 Patch:      Make-the-first-party-extensions-optional.patch
-
-# Fix tests with Python 3.13+
-Patch:      https://github.com/sphinx-doc/sphinx/pull/12373.patch
-
-# Lazily import defusedxml only when necessary
-Patch:      https://github.com/sphinx-doc/sphinx/pull/12362.patch
 
 BuildArch:     noarch
 

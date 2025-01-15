@@ -1,16 +1,12 @@
 %bcond docs 1
-# tests are broken on s390x
-# https://gitlab.gnome.org/jrb/crosswords/-/issues/118
-%ifarch s390x
-%bcond tests 0
-%else
 %bcond tests 1
-%endif
 
 Name:           crosswords
 Version:        0.3.13.3
 Release:        %autorelease
 Summary:        Solve crossword puzzles
+
+%global ipuz_soversion %(v=$(echo %{version} | tr -d .) && [ "${v:0:4}" -ge 0314 ] && echo 0.5 || echo 0.4)
 
 # crosswords itself is GPL-3.0-or-later, the puzzle sets it bundles are
 # CC-BY-SA-4.0
@@ -27,6 +23,10 @@ Patch:          %{url}/-/commit/b4689c2426cf24e944f8ae419ed23f1969745995.patch
 Patch:          %{url}/-/commit/3891aecfe538864cfc31561d21ccbcd007a94d2d.patch
 # Only load AdwStyleManager if we have a display
 Patch:          %{url}/-/commit/216efd16f5e651a039d3de7bf7219e7c38a2407a.patch
+
+# Big endian systems are not supported
+# https://jrb.pages.gitlab.gnome.org/crosswords/devel-docs/PACKAGING.html
+ExcludeArch:    s390x
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  cmake
@@ -52,7 +52,7 @@ BuildRequires:  pkgconfig(gtk4)
 BuildRequires:  pkgconfig(iso-codes)
 BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(libadwaita-1)
-BuildRequires:  pkgconfig(libipuz-0.4)
+BuildRequires:  pkgconfig(libipuz-%{ipuz_soversion})
 BuildRequires:  pkgconfig(libpanel-1)
 BuildRequires:  pkgconfig(librsvg-2.0)
 
@@ -195,7 +195,10 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/word-lists
 %{_bindir}/%{name}
 %dir %{_datadir}/%{name}
 %dir %{_datadir}/%{name}/puzzle-sets
-%{_datadir}/%{name}/word-lists/
+%dir %{_datadir}/%{name}/word-lists/
+%if %(v=$(echo %{version} | tr -d .) && [ "${v:0:4}" -ge 0314 ] && echo 1 || echo 0)
+%{_datadir}/%{name}/word-lists/player.gresource
+%endif
 %{_datadir}/applications/org.gnome.Crosswords.desktop
 %{_datadir}/dbus-1/services/org.gnome.Crosswords.service
 %{_datadir}/glib-2.0/schemas/org.gnome.Crosswords.gschema.xml
@@ -227,6 +230,10 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/word-lists
 
 %files -n crossword-editor
 %{_bindir}/crossword-editor
+%if %(v=$(echo %{version} | tr -d .) && [ "${v:0:4}" -ge 0314 ] && echo 1 || echo 0)
+%{_datadir}/%{name}/word-lists/broda.gresource
+%{_datadir}/%{name}/word-lists/wordnik.gresource
+%endif
 %{_datadir}/applications/org.gnome.Crosswords.Editor.desktop
 %{_datadir}/dbus-1/services/org.gnome.Crosswords.Editor.service
 %{_datadir}/glib-2.0/schemas/org.gnome.Crosswords.Editor.gschema.xml

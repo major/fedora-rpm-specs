@@ -313,9 +313,6 @@ Requires: %{name}-math%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: %{name}-base%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: %{name}-emailmerge%{?_isa} = %{epoch}:%{version}-%{release}
 
-# not upstreamed: upstream wants an automatic restart after a crash; we
-# want a nice abrt report
-Patch0: 0001-don-t-suppress-crashes.patch
 # disable tip-of-the-day dialog by default
 Patch1: 0001-disble-tip-of-the-day-dialog-by-default.patch
 # rhbz#1736810 disable opencl by default again

@@ -2,11 +2,12 @@
 %global with_broadway 1
 %endif
 
-%global glib2_version 2.76.0
-%global pango_version 1.52.0
+%global glib2_version 2.80.0
+%global pango_version 1.55.0
 %global cairo_version 1.18.0
 %global gdk_pixbuf_version 2.30.0
 %global gstreamer_version 1.24.0
+%global harfbuzz_version 8.4
 %global wayland_protocols_version 1.31
 %global wayland_version 1.21.0
 %global epoxy_version 1.4
@@ -25,7 +26,7 @@
 %endif
 
 Name:           gtk4
-Version:        4.17.1
+Version:        4.17.2
 Release:        %autorelease
 Summary:        GTK graphical user interface library
 
@@ -54,6 +55,7 @@ BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(graphene-gobject-1.0)
 BuildRequires:  pkgconfig(gstreamer-player-1.0) >= %{gstreamer_version}
+BuildRequires:  pkgconfig(harfbuzz) >= %{harfbuzz_version}
 BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libpng)
@@ -88,6 +90,7 @@ Requires: gtk-update-icon-cache
 Requires: cairo%{?_isa} >= %{cairo_version}
 Requires: cairo-gobject%{?_isa} >= %{cairo_version}
 Requires: glib2%{?_isa} >= %{glib2_version}
+Requires: harfbuzz%{?_isa} >= %{harfbuzz_version}
 Requires: libepoxy%{?_isa} >= %{epoxy_version}
 Requires: gstreamer1-plugins-bad-free-libs%{?_isa} >= %{gstreamer_version}
 Requires: libwayland-client%{?_isa} >= %{wayland_version}
@@ -140,7 +143,7 @@ This package contains helpful applications for developers using GTK.
 %autosetup -p1 -n gtk-%{version}
 
 %build
-export CFLAGS='-fno-strict-aliasing -DG_DISABLE_CAST_CHECKS -DG_DISABLE_ASSERT %optflags'
+export CFLAGS='-std=c11 -fno-strict-aliasing -DG_DISABLE_CAST_CHECKS -DG_DISABLE_ASSERT %optflags'
 %meson \
 %if 0%{?with_broadway}
         -Dbroadway-backend=true \

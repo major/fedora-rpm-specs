@@ -5,7 +5,7 @@ Version:        4.5.14
 Release:        %autorelease
 Summary:        HTTP agent implementation based on httpcomponents HttpCore
 License:        Apache-2.0
-URL:            http://hc.apache.org/
+URL:            https://hc.apache.org
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 

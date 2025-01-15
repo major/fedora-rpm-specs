@@ -105,6 +105,7 @@ Emacs.
 %prep
 %autosetup -n auctex-%{version}
 
+%conf
 # Fix some encodings
 iconv -f ISO-8859-1 -t UTF8 RELEASE > RELEASE.utf8 && \
 touch -r RELEASE RELEASE.utf8 && \

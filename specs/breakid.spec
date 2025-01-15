@@ -38,6 +38,7 @@ breakid.
 %prep
 %autosetup -p1
 
+%conf
 # Make sure the bundled bliss cannot be used
 rm -fr src/bliss
 

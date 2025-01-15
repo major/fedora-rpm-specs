@@ -1,6 +1,6 @@
 Name:           dovecot-fts-xapian
-Version:        1.7.17
-Release:        2%{?dist}
+Version:        1.8.4
+Release:        1%{?dist}
 Summary:        Dovecot FTS plugin based on Xapian
 
 # From the source code it isn't clear whether this is -only or -or-later, so
@@ -45,6 +45,9 @@ rm %{buildroot}%{_libdir}/dovecot/lib21_fts_xapian_plugin.la
 %{_libdir}/dovecot/lib21_fts_xapian_plugin.so
 
 %changelog
+* Fri Jan 10 2025 Arjen Heidinga <dexter@beetjevreemd.nl> - 1.8.4
+- Rebase to 1.8.4
+
 * Sun Dec 08 2024 Pete Walter <pwalter@fedoraproject.org> - 1.7.17-2
 - Rebuild for ICU 76
 

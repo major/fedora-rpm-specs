@@ -2,8 +2,8 @@
 
 Summary: Tools needed to create Texinfo format documentation files
 Name: texinfo
-Version: 7.1.1
-Release: 2%{?dist}
+Version: 7.2
+Release: 1%{?dist}
 License: GPL-3.0-or-later
 Url: http://www.gnu.org/software/texinfo/
 Source0: ftp://ftp.gnu.org/gnu/texinfo/texinfo-%{version}.tar.xz
@@ -13,8 +13,6 @@ Source2: fix-info-dir
 Patch0: info-6.5-sync-fix-info-dir.patch
 # Patch1: rhbz#1592433, bug in fix-info-dir --delete
 Patch1: texinfo-6.5-fix-info-dir.patch
-# Patch2: fixes issues detected by static analysis
-Patch2: texinfo-6.5-covscan-fixes.patch
 # Patch3: fixes issues detected by static analysis
 Patch3: texinfo-7.1-various-sast-fixes.patch
 # Patch4: fixes issues detected by static analysis
@@ -120,6 +118,7 @@ export ALL_TESTS=yes
 %{_bindir}/texi2any
 %{_bindir}/pod2texi
 %{_datadir}/texinfo
+%{_datadir}/texi2any
 %{_infodir}/texinfo*
 %{_infodir}/texi2any_api.info*
 %{_infodir}/texi2any_internals.info*
@@ -152,6 +151,10 @@ export ALL_TESTS=yes
 %{_mandir}/man1/pdftexi2dvi.1*
 
 %changelog
+* Mon Jan 13 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 7.2-1
+- Update to texinfo-7.2
+  Resolves: #2333829
+
 * Tue Oct 15 2024 Vitezslav Crhonek <vcrhonek@redhat.com> - 7.1.1-2
 - Another batch of fixes for issues detected by static analysis
 

@@ -46,6 +46,7 @@ User manual for %{name}.
 %prep
 %autosetup -p1 -a 1
 
+%conf
 # Remove prebuilt Windows binaries and the prebuilt manual
 rm -f bin/*.exe manual.pdf
 

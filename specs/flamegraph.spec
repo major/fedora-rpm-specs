@@ -98,6 +98,7 @@ A script for collapsing PHP trace output for consumption by flamegraph.
 %prep
 %forgeautosetup
 
+%conf
 fixtimestamp() {
   touch -r $1.orig $1
   rm -f $1.orig

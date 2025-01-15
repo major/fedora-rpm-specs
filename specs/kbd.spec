@@ -155,6 +155,10 @@ done < layouts-list-uniq.lst
 
 # wipe converted layouts which cannot input ASCII (#1031848)
 zgrep -L "U+0041" $RPM_BUILD_ROOT%{kbd_datadir}/keymaps/xkb/* | xargs rm -f
+# wipe the xkb-converted georgian layout, it is unusable, see:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2336875
+# https://src.fedoraproject.org/rpms/kbd/pull-request/2#comment-239318
+rm -f $RPM_BUILD_ROOT%{kbd_datadir}/keymaps/xkb/ge.map.gz
 
 # Fix converted cz layout - add compose rules, if exists
 if [ -f "$RPM_BUILD_ROOT%{kbd_datadir}/keymaps/xkb/cz.map.gz" ]; then

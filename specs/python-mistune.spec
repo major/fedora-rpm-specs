@@ -58,7 +58,7 @@ This is the documentation package for %{name}.
 sed -i "s/html_theme = 'shibuya'/html_theme = 'sphinx_rtd_theme'/" docs/conf.py
 sed -i "s/shibuya/sphinx-rtd-theme/" docs/requirements.txt
 # unpin versions to allow newer versions available in Fedora
-sed -i "s/sphinx==6.2.1/sphinx<=8.0.0/" docs/requirements.txt
+sed -i "s/sphinx==6.2.1/sphinx>=6.2.1/" docs/requirements.txt
 sed -i "s/sphinx-design==0.4.1/sphinx-design<0.7.0/" docs/requirements.txt
 
 %generate_buildrequires

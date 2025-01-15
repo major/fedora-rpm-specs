@@ -42,6 +42,7 @@ Development files for cliquer.
 %autosetup -p1
 cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} .
 
+%conf
 sed -i \
     's/59 Temple Place, Suite 330, Boston, MA  02111-1307/51 Franklin Street, Suite 500, Boston, MA  02110-1335/' \
     COPYING

@@ -5,7 +5,7 @@ implements many SSH protocol features such as the various channels,\
 SFTP, SCP, forwarding, session multiplexing over a connection and more.
 
 Name:           python-%{srcname}
-Version:        2.17.0
+Version:        2.19.0
 Release:        1%{?dist}
 Summary:        Asynchronous SSH for Python
 
@@ -17,23 +17,12 @@ Source0:        %pypi_source
 
 BuildArch:      noarch
 
-# required for py3_build macro
-BuildRequires:  python3-devel
-
-BuildRequires:  python3-setuptools
-
 # required by unittests
 BuildRequires:  nmap-ncat
 BuildRequires:  openssh-clients
 BuildRequires:  openssl
-BuildRequires:  python3-bcrypt
 BuildRequires:  python3-gssapi
-BuildRequires:  python3-libnacl
-BuildRequires:  python3-pyOpenSSL
 
-BuildRequires:  python3-cryptography
-
-BuildRequires:  python3-typing-extensions
 
 # for ed25519 etc.
 Recommends:     python3-libnacl
@@ -60,27 +49,31 @@ Summary:        %{summary}
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires -t
+
 
 %build
 sed -i '1,1s@^#!.*$@#!%{__python3}@' examples/*.py
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{srcname}
 
 %check
-# tests fail on el9: https://github.com/ronf/asyncssh/issues/566
 %{__python3} -m unittest discover -s tests -t . -v
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE COPYRIGHT
 %doc README.rst examples
-%{python3_sitelib}/%{srcname}/
-%{python3_sitelib}/%{srcname}-*-py*.egg-info/
 
 
 %changelog
+* Sun Jan 12 2025 Georg Sauthoff <mail@gms.tf> - 2.19.0-1
+- Update to latest upstream version (fixes fedora#2321945)
+
 * Mon Sep 09 2024 Georg Sauthoff <mail@gms.tf> - 2.17.0-1
 - Update to latest upstream version (fixes fedora#2295694)
 

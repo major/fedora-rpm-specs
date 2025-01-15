@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.0
-Release:        34%{?dist}
+Release:        35%{?dist}
 BuildArch:      noarch
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -15,9 +15,7 @@ Source0:        https://pypi.python.org/packages/source/j/%{srcname}/%{srcname}-
 
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-inflect
-BuildRequires:  python3-jinja2
-BuildRequires:  python3-setuptools
+BuildRequires:  python3dist(pytest)
 
 
 %description
@@ -39,27 +37,31 @@ Requires:       python3-inflect
 %prep
 %autosetup -n %{srcname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%py3_build
-
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{srcname}
 
 
 %check
-%{__python3} setup.py test
+%{pytest}
 
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
 %doc AUTHORS.rst CONTRIBUTING.rst HISTORY.rst README.rst
-%{python3_sitelib}/jinja2_pluralize
-%{python3_sitelib}/jinja2_pluralize-%{version}-*.egg-info
 
 
 %changelog
+* Mon Jan 13 2025 David Shea <reallylongword@gmail.com> - 0.3.0-35
+- Update build commands
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.3.0-34
 - convert license to SPDX
 

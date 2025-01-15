@@ -23,6 +23,10 @@ Source:         %forgesource
 # successfully "pip install" it, but we have no such difficulty with system
 # packages. It is a real dependency for msal_extensions/libsecret.py.
 Patch:          0001-Downstream-only-restore-hard-dependency-on-pygobject.patch
+# Allow portalocker version 3
+# https://github.com/AzureAD/microsoft-authentication-extensions-for-python/pull/136
+# Rebased on top of 0001-Downstream-only-restore-hard-dependency-on-pygobject.patch.
+Patch:          0002-Allow-portalocker-version-3.patch
 # Fix a typo in README.md (persistance/persistence)
 # https://github.com/AzureAD/microsoft-authentication-extensions-for-python/pull/133
 Patch:          %{forgeurl}/pull/133.patch

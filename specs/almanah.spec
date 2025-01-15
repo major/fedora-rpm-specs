@@ -1,26 +1,23 @@
 Name:		almanah
-Version:	0.12.3
-Release:	12%{?dist}
+Version:	0.12.4
+Release:	1%{?dist}
 Summary:	Application for keeping an encrypted diary
 
 License:	GPL-3.0-or-later
 URL:		https://wiki.gnome.org/Apps/Almanah_Diary
 Source0:	https://download.gnome.org/sources/almanah/0.12/almanah-%{version}.tar.xz
 
-Patch01:	0001-build-Build-with-gcr4-by-default.patch
-Patch02:	0001-build-remove-positional-i18n.merge_file-arguments.patch
-
+BuildRequires:	appstream
 BuildRequires:	gcc
 BuildRequires:	gettext
 BuildRequires:	gpgme-devel
 BuildRequires:	desktop-file-utils
-BuildRequires:	libappstream-glib-devel
 BuildRequires:	meson
 BuildRequires:	pkgconfig(cryptui-0.0)
 BuildRequires:	pkgconfig(gtk+-3.0)
 BuildRequires:	pkgconfig(gcr-4)
 BuildRequires:	pkgconfig(gtkspell3-3.0)
-BuildRequires:	pkgconfig(gtksourceview-3.0)
+BuildRequires:	pkgconfig(gtksourceview-4)
 BuildRequires:	pkgconfig(libecal-2.0) >= 3.45.1
 BuildRequires:	pkgconfig(libedataserver-1.2) >= 3.45.1
 BuildRequires:	pkgconfig(sqlite3)
@@ -46,17 +43,19 @@ diary entries using multiple events.
 
 %files -f %{name}.lang
 %license COPYING
-%doc AUTHORS NEWS README.md
+%doc AUTHORS NEWS.md README.md
 %{_bindir}/%{name}
-%{_datadir}/icons/hicolor/*/apps/%{name}.png
-%{_datadir}/icons/hicolor/*/actions/%{name}*.svg
-%{_datadir}/icons/hicolor/scalable/apps/%{name}-symbolic.svg
-%{_datadir}/applications/%{name}.desktop
-%{_datadir}/metainfo/%{name}.appdata.xml
-%{_datadir}/GConf/gsettings/%{name}.convert
+%{_datadir}/icons/hicolor/*/apps/org.gnome.Almanah.png
+%{_datadir}/icons/hicolor/scalable/actions/org.gnome.Almanah-tags-symbolic.svg
+%{_datadir}/icons/hicolor/scalable/apps/org.gnome.Almanah-symbolic.svg
+%{_datadir}/applications/org.gnome.Almanah.desktop
+%{_datadir}/metainfo/org.gnome.Almanah.metainfo.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.%{name}.gschema.xml
 
 %changelog
+* Mon Jan 13 2025 Milan Crha <mcrha@redhat.com> - 0.12.4-1
+- Update to 0.12.4
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -20,7 +20,7 @@
 %endif
 
 Name:           buildbot
-Version:        4.2.0
+Version:        4.2.1
 Release:        1%{?dist}
 
 Summary:        Build/test automation system
@@ -406,6 +406,9 @@ trial buildbot.test
 %endif
 
 %changelog
+* Mon Jan 13 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.2.1-1
+- 4.2.1
+
 * Mon Dec 16 2024 Gwyn Ciesla <gwync@protonmail.com> - 4.2.0-1
 - 4.2.0
 

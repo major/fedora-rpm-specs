@@ -66,7 +66,7 @@
 Name:           gprbuild
 Epoch:          2
 Version:        %{upstream_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A multi-language extensible build tool
 
 License:        GPL-3.0-or-later WITH GCC-exception-3.1 AND Unicode-DFS-2016
@@ -485,6 +485,9 @@ make -C examples run
 ###############
 
 %changelog
+* Mon Jan 13 2025 Björn Persson <Bjorn@Rombobjörn.se> - 2:25.0.0-2
+- Rebuilt with GCC 15 prerelease.
+
 * Sun Oct 27 2024 Dennis van Raaij <dvraaij@fedoraproject.org> - 2:25.0.0-1
 - Updated to v25.0.0.
 - The user's guide is now available in PDF format.

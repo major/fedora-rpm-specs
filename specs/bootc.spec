@@ -8,7 +8,7 @@
 %endif
 
 Name:           bootc
-Version:        1.1.3
+Version:        1.1.4
 Release:        %{autorelease}
 Summary:        Bootable container system
 
@@ -92,6 +92,7 @@ make install-ostree-hooks DESTDIR=%{?buildroot}
 %{_prefix}/libexec/libostree/ext/*
 %endif
 %{_unitdir}/*
+%{_docdir}/bootc/*
 %{_mandir}/man*/bootc*
 
 %changelog

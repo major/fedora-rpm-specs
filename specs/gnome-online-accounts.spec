@@ -5,14 +5,14 @@
 %global libsoup_version 3.0
 
 Name:		gnome-online-accounts
-Version:	3.52.2
+Version:	3.53.0
 Release:	%autorelease
 Summary:	Single sign-on framework for GNOME
 
 # Sources are LGPL-2.0-or-later, icons are CC-BY-SA-4.0.
 License:	LGPL-2.0-or-later AND CC-BY-SA-4.0
 URL:		https://wiki.gnome.org/Projects/GnomeOnlineAccounts
-Source0:	https://download.gnome.org/sources/%{name}/3.52/%{name}-%{version}.tar.xz
+Source0:	https://download.gnome.org/sources/%{name}/3.53/%{name}-%{version}.tar.xz
 
 BuildRequires:	pkgconfig(dbus-1)
 BuildRequires:	pkgconfig(gcr-4)

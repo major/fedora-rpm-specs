@@ -1,7 +1,7 @@
 # upstream tests require the upstream repo, so we can't run those
 
 Name:       python-setuptools-git-versioning
-Version:    2.0.0
+Version:    2.1.0
 Release:    %autorelease
 Summary:    Use git repo data for building a version number according PEP-440
 

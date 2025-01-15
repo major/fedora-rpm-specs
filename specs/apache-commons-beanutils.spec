@@ -5,7 +5,7 @@ Version:        1.9.4
 Release:        %autorelease
 Summary:        Java utility methods for accessing and modifying the properties of arbitrary JavaBeans
 License:        Apache-2.0
-URL:            http://commons.apache.org/beanutils
+URL:            https://commons.apache.org/proper/commons-beanutils/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 

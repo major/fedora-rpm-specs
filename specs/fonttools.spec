@@ -3,8 +3,8 @@
 # Some extras are disabled in RHEL to avoid bringing in additional
 # dependencies.
 #
-# Requires python-lz4 (not yet in EPEL10):
-%bcond graphite_extra %{expr:%{undefined rhel} || (%{defined epel} && !%{defined el10})}
+# Requires python-lz4:
+%bcond graphite_extra %{expr:%{undefined rhel} || %{defined epel}}
 # Requires python-skia-pathops, not packaged:
 %bcond pathops_extra 0
 # Requires python-matplotlib:
@@ -29,7 +29,7 @@ AFM and to an extent Type 1 and some Mac-specific formats.}
 
 Name:           fonttools
 Version:        4.55.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tools to manipulate font files
 
 # https://spdx.org/licenses/MIT.html
@@ -194,6 +194,9 @@ k="${k-}${k+ and }not (InterpolatableTest and test_sparse_interpolatable_ufos)"
 %doc NEWS.rst README.rst
 
 %changelog
+* Sun Jan 12 2025 Romain Geissler <romain.geissler@amadeus.com> - 4.55.3-3
+- Build the graphite subpackage on EPEL 10 now that python-lz4 is available.
+
 * Wed Dec 18 2024 Romain Geissler <romain.geissler@amadeus.com> - 4.55.3-2
 - Update extra dependencies for EPEL.
 

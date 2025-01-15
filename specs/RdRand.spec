@@ -1,9 +1,8 @@
 Summary:        Library for generating random numbers using the RDRAND (read random) instruction
 Name:           RdRand
 Version:        2.1.6
-Release:        1%{?dist}
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LGPLv2+
+Release:        2%{?dist}
+License:        LGPL-2.0-or-later
 URL:            https://github.com/jirka-h/%{name}
 Source0:        https://github.com/jirka-h/%{name}/archive/%{version}.tar.gz
 ExclusiveArch: %{ix86} x86_64
@@ -63,6 +62,9 @@ rm -vf $RPM_BUILD_ROOT{%{_libdir}/librdrand.la,%{_libdir}/librdrand.a,%{_libdir}
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Sat Jan 11 2025  Jirka Hladky <hladky.jiri@gmail.com> - 2.1.6-2
+- Converted license to SPDX format
+
 * Sat Jan 11 2025  Jirka Hladky <hladky.jiri@gmail.com> - 2.1.6-1
 - Updated to v2.1.6
 - Fixes https://bugzilla.redhat.com/show_bug.cgi?id=2336261

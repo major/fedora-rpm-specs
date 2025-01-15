@@ -2,12 +2,12 @@
 # either interface, file a bug requesting it.
 
 # The build runs git to get a commit, but we don't have a git checkout
-%global commit  4a7f24ac6
+%global commit  66f735e60
 
 %global giturl  https://github.com/ERGO-Code/HiGHS
 
 Name:           coin-or-HiGHS
-Version:        1.8.1
+Version:        1.9.0
 Release:        %autorelease
 Summary:        Linear optimization software
 
@@ -88,6 +88,7 @@ This package contains a Python 3 interface to coin-or-HiGHS.
 %prep
 %autosetup -n HiGHS-%{version} -p1
 
+%conf
 # Substitute the release git hash; see note above
 sed -i 's,n/a,%{commit},' CMakeLists.txt
 

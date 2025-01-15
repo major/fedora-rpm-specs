@@ -1,11 +1,11 @@
 Name:           at-spi2-core
-Version:        2.54.0
+Version:        2.55.0
 Release:        1%{?dist}
 Summary:        Protocol definitions and daemon for D-Bus at-spi
 
 License:        LGPL-2.1-or-later
 URL:            https://gitlab.gnome.org/GNOME/%{name}/
-Source0:        https://download.gnome.org/sources/%{name}/2.54/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/2.55/%{name}-%{version}.tar.xz
 # scriptlet to set AT_SPI_BUS for XWayland apps that run as root (i.e. anaconda)
 # https://bugzilla.redhat.com/show_bug.cgi?id=1821345
 Source1:        xwayland-session-scriptlet
@@ -164,6 +164,9 @@ install -Dpm 0755 %{SOURCE1} %{buildroot}%{_sysconfdir}/xdg/Xwayland-session.d/0
 %{_libdir}/pkgconfig/atk-bridge-2.0.pc
 
 %changelog
+* Mon Jan 13 2025 nmontero <nmontero@redhat.com> - 2.55.0-1
+- Update to 2.55.0
+
 * Mon Sep 16 2024 nmontero <nmontero@redhat.com> - 2.54.0-1
 - Update to 2.54.0
 

@@ -14,7 +14,7 @@
 
 Name:           openjpeg
 Version:        2.5.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        C-Library for JPEG 2000
 
 # windirent.h is MIT, the rest is BSD
@@ -67,9 +67,10 @@ BuildRequires:  mingw64-zlib
 BuildRequires:  mingw64-zstd
 %endif
 
-Obsoletes:      openjpeg2 < 2.5.2-2
-Obsoletes:      openjpeg-libs <= 1.5.1-38
+Obsoletes:      openjpeg2 <= %{version}-%{release}
 Provides:       openjpeg2 = %{version}-%{release}
+Obsoletes:      openjpeg-libs <= 1.5.1-38
+Provides:       openjpeg-libs = 1.5.1-38
 
 %description
 The OpenJPEG library is an open-source JPEG 2000 library developed in order to
@@ -450,6 +451,10 @@ rm -rf %{buildroot}%{mingw64_datadir}/doc
 
 
 %changelog
+* Mon Jan 13 2025 Sérgio Basto <sergio@serjux.com> - 2.5.3-3
+- Update provides and obsoletes of openjpeg2
+- Also add a more agressive way to remove old openjpeg-libs (1.x)
+
 * Tue Dec 24 2024 Sérgio Basto <sergio@serjux.com> - 2.5.3-2
 - Also obsolete openjpeg-libs 1.x.x
 

@@ -1,6 +1,6 @@
 Name:           SFML
-Version:        2.6.1
-Release:        5%{?dist}
+Version:        2.6.2
+Release:        1%{?dist}
 Summary:        Simple and Fast Multimedia Library
 
 # Assets used by SFML's example projects.
@@ -37,7 +37,6 @@ URL:            http://www.sfml-dev.org/
 # And here's the PR that changed (most) of the things: https://github.com/SFML/SFML/pull/1718
 
 Source0:        https://www.sfml-dev.org/files/%{name}-%{version}-sources.zip
-Patch0:         SFML-2.6.1-PKGCONFIG_DIR.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -76,7 +75,6 @@ developing applications that use %{name}.
 
 %prep
 %setup -q
-%patch -P0 -p1
 # fixup non needed executable permission on regular files
 find -type f -print0 | xargs -0 chmod -x
 
@@ -113,6 +111,9 @@ popd
 
 
 %changelog
+* Mon Jan 13 2025 Sérgio Basto <sergio@serjux.com> - 2.6.2-1
+- Update SFML to 2.6.2
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

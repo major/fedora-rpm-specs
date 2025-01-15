@@ -1,7 +1,7 @@
-%global xdg_desktop_portal_version 1.14.0
+%global xdg_desktop_portal_version 1.19.1
 
 Name:           xdg-desktop-portal-gtk
-Version:        1.15.1
+Version:        1.15.2
 Release:        %autorelease
 Summary:        Backend implementation for xdg-desktop-portal using GTK+
 
@@ -68,7 +68,7 @@ A backend implementation for xdg-desktop-portal that is using GTK+.
 
 %files -f %{name}.lang
 %license COPYING
-%doc NEWS
+%doc NEWS README.md
 %{_libexecdir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/dbus-1/services/org.freedesktop.impl.portal.desktop.gtk.service

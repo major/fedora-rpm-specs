@@ -1,6 +1,6 @@
-%global DATE 20250111
-%global gitrev 20e73534b5a3aeac8624799d31783f12f24e29cb
-%global gcc_version 15.0.0
+%global DATE 20250113
+%global gitrev 074f598e85b434066965fa130b38f32abcbc4f5e
+%global gcc_version 15.0.1
 %global gcc_major 15
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
@@ -143,7 +143,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.4%{?dist}
+Release: %{gcc_release}.1%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -299,6 +299,8 @@ Patch9: gcc15-Wno-format-security.patch
 Patch10: gcc15-rh1574936.patch
 Patch11: gcc15-d-shared-libphobos.patch
 Patch12: gcc15-pr118206.patch
+Patch13: gcc15-d-deps.patch
+Patch14: gcc15-pr118438.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -914,6 +916,8 @@ so that there cannot be any synchronization problems.
 %endif
 %patch -P11 -p0 -b .d-shared-libphobos~
 %patch -P12 -p0 -b .pr118206~
+%patch -P13 -p0 -b .d-deps~
+%patch -P14 -p0 -b .pr118438~
 
 %patch -P50 -p0 -b .rh2155127~
 touch -r isl-0.24/m4/ax_prog_cxx_for_build.m4 isl-0.24/m4/ax_prog_cc_for_build.m4
@@ -1725,8 +1729,8 @@ ln -sf ../../../libgo.so.23.* libgo.so
 ln -sf ../../../libquadmath.so.0.* libquadmath.so
 %endif
 %if %{build_d}
-ln -sf ../../../libgdruntime.so.5.* libgdruntime.so
-ln -sf ../../../libgphobos.so.5.* libgphobos.so
+ln -sf ../../../libgdruntime.so.6.* libgdruntime.so
+ln -sf ../../../libgphobos.so.6.* libgphobos.so
 %endif
 %if %{build_m2}
 for i in cor iso log min pim; do
@@ -1760,8 +1764,8 @@ ln -sf ../../../../%{_lib}/libgo.so.23.* libgo.so
 ln -sf ../../../../%{_lib}/libquadmath.so.0.* libquadmath.so
 %endif
 %if %{build_d}
-ln -sf ../../../../%{_lib}/libgdruntime.so.5.* libgdruntime.so
-ln -sf ../../../../%{_lib}/libgphobos.so.5.* libgphobos.so
+ln -sf ../../../../%{_lib}/libgdruntime.so.6.* libgdruntime.so
+ln -sf ../../../../%{_lib}/libgphobos.so.6.* libgphobos.so
 %endif
 %if %{build_m2}
 for i in cor iso log min pim; do
@@ -1906,10 +1910,10 @@ echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib/libquadmath.so.0.* | sed '
 %endif
 %if %{build_d}
 rm -f libgdruntime.so libgphobos.so
-echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib/libgdruntime.so.5.* | sed 's,^.*libg,libg,'`' )' > libgdruntime.so
-echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib/libgdruntime.so.5.* | sed 's,^.*libg,libg,'`' )' > 64/libgdruntime.so
-echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib/libgphobos.so.5.* | sed 's,^.*libg,libg,'`' )' > libgphobos.so
-echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib/libgphobos.so.5.* | sed 's,^.*libg,libg,'`' )' > 64/libgphobos.so
+echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib/libgdruntime.so.6.* | sed 's,^.*libg,libg,'`' )' > libgdruntime.so
+echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib/libgdruntime.so.6.* | sed 's,^.*libg,libg,'`' )' > 64/libgdruntime.so
+echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib/libgphobos.so.6.* | sed 's,^.*libg,libg,'`' )' > libgphobos.so
+echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib/libgphobos.so.6.* | sed 's,^.*libg,libg,'`' )' > 64/libgphobos.so
 %endif
 %if %{build_m2}
 for i in cor iso log min pim; do
@@ -2023,10 +2027,10 @@ echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib64/libquadmath.so.0.* | sed '
 %endif
 %if %{build_d}
 rm -f libgdruntime.so libgphobos.so
-echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib64/libgdruntime.so.5.* | sed 's,^.*libg,libg,'`' )' > libgdruntime.so
-echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib64/libgdruntime.so.5.* | sed 's,^.*libg,libg,'`' )' > 32/libgdruntime.so
-echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib64/libgphobos.so.5.* | sed 's,^.*libg,libg,'`' )' > libgphobos.so
-echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib64/libgphobos.so.5.* | sed 's,^.*libg,libg,'`' )' > 32/libgphobos.so
+echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib64/libgdruntime.so.6.* | sed 's,^.*libg,libg,'`' )' > libgdruntime.so
+echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib64/libgdruntime.so.6.* | sed 's,^.*libg,libg,'`' )' > 32/libgdruntime.so
+echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib64/libgphobos.so.6.* | sed 's,^.*libg,libg,'`' )' > libgphobos.so
+echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib64/libgphobos.so.6.* | sed 's,^.*libg,libg,'`' )' > 32/libgphobos.so
 %endif
 %if %{build_m2}
 for i in cor iso log min pim; do
@@ -2203,8 +2207,8 @@ chmod 755 %{buildroot}%{_prefix}/%{_lib}/libcc1.so.0.*
 chmod 755 %{buildroot}%{_prefix}/%{_lib}/libquadmath.so.0.*
 %endif
 %if %{build_d}
-chmod 755 %{buildroot}%{_prefix}/%{_lib}/libgdruntime.so.5.*
-chmod 755 %{buildroot}%{_prefix}/%{_lib}/libgphobos.so.5.*
+chmod 755 %{buildroot}%{_prefix}/%{_lib}/libgdruntime.so.6.*
+chmod 755 %{buildroot}%{_prefix}/%{_lib}/libgphobos.so.6.*
 %endif
 %if %{build_m2}
 for i in cor iso log min pim; do
@@ -3127,8 +3131,8 @@ end
 %doc rpm.doc/gdc/*
 
 %files -n libgphobos
-%{_prefix}/%{_lib}/libgdruntime.so.5*
-%{_prefix}/%{_lib}/libgphobos.so.5*
+%{_prefix}/%{_lib}/libgdruntime.so.6*
+%{_prefix}/%{_lib}/libgphobos.so.6*
 %doc rpm.doc/libphobos/*
 
 %files -n libgphobos-static
@@ -3673,6 +3677,14 @@ end
 %endif
 
 %changelog
+* Mon Jan 13 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.1
+- update from trunk
+  - PRs c/118112, c++/114630, d/117701, fortran/115788, fortran/118432,
+	lto/118181, middle-end/64242, middle-end/118303, middle-end/118411,
+	middle-end/118415, modula2/118453, rtl-optimization/107455,
+	target/115910, target/115921, target/118418, tree-optimization/117119,
+	tree-optimization/117997, tree-optimization/118409
+
 * Sat Jan 11 2025 Jakub Jelinek <jakub@redhat.com> 15.0.0-0.4
 - update from trunk
   - PRs ada/18765, ada/118274, c/116060, c/117866, c/118376, c++/117792,

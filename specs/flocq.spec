@@ -46,6 +46,7 @@ purposes.
 %prep
 %autosetup -n %{name}-%{name}-%{version}-%{commit}
 
+%conf
 # Point to the local coqdoc files
 sed -i 's,\(--coqlib \)[^[:blank:]]*,\1%{ocamldir}/coq,' Remakefile.in
 

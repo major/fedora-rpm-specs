@@ -4,7 +4,7 @@ Version:        1.5
 Release:        %autorelease
 Summary:        Simple regular expressions API
 License:        Apache-2.0
-URL:            http://jakarta.apache.org/%{name}/
+URL:            https://jakarta.apache.org/regexp/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 

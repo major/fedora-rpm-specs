@@ -4,7 +4,7 @@
 
 Name:           shotcut
 Version:        25.01.05
-Release:        1%{dist}
+Release:        2%{dist}
 Summary:        A free, open source, cross-platform video editor
 # Main code is GPLv3+
 License:        GPL-3.0-or-later AND LGPL-2.1-only AND Apache-2.0 AND MIT
@@ -234,6 +234,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{org_name_sh
 %doc doc
 
 %changelog
+* Tue Jan 07 2025 Jan Grulich <jgrulich@redhat.com> - 25.01.05-2
+- Rebuild (qt6)
+
 * Mon Jan 06 2025 Martin Gansser <martinkg@fedoraproject.org> - 25.01.05-1
 - Update to 25.01.05
 

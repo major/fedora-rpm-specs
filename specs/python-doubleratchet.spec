@@ -1,5 +1,5 @@
 Name:           python-doubleratchet
-Version:        1.0.4
+Version:        1.1.0
 Release:        1%{?dist}
 Summary:        Python implementation of the Double Ratchet algorithm
 
@@ -67,6 +67,9 @@ class.
 
 
 %changelog
+* Mon Jan 13 2025 Matthieu Saulnier <fantom@fedoraproject.org> - 1.1.0-1
+- Update to 1.1.0
+
 * Wed Jul 24 2024 Matthieu Saulnier <fantom@fedoraproject.org> - 1.0.4-1
 - Update to 1.0.4
 

@@ -36,6 +36,7 @@ iedit-mode is a great alternative to built-in replace commands:
 %prep
 %autosetup -n iedit-%{version}
 
+%conf
 # Fix permissions
 chmod 0644 iedit-demo.gif
 

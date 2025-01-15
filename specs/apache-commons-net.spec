@@ -3,7 +3,7 @@ Version:        3.11.1
 Release:        %autorelease
 Summary:        Internet protocol suite Java library
 License:        Apache-2.0
-URL:            https://commons.apache.org/net/
+URL:            https://commons.apache.org/proper/commons-net/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 

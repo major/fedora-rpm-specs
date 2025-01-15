@@ -25,6 +25,7 @@ with trailing punctuation.
 %prep
 %autosetup -n %{name}-autolink-%{version}
 
+%conf
 # Not needed for an RPM build
 %pom_remove_plugin com.github.siom79.japicmp:japicmp-maven-plugin
 %pom_remove_plugin org.apache.maven.plugins:maven-release-plugin

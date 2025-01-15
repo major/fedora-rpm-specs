@@ -6,7 +6,7 @@ Version:        2.16.1
 Release:        %autorelease
 Summary:        Utilities to assist with developing IO functionality
 License:        Apache-2.0
-URL:            https://commons.apache.org/io
+URL:            https://commons.apache.org/proper/commons-io/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 

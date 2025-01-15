@@ -5,7 +5,7 @@ Version:        3.2.2
 Release:        %autorelease
 Summary:        Provides new interfaces, implementations and utilities for Java Collections
 License:        Apache-2.0
-URL:            http://commons.apache.org/collections/
+URL:            https://commons.apache.org/proper/commons-collections/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 

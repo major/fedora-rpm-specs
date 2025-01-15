@@ -94,6 +94,7 @@ MinGW libraries and headers for developing programs with check
 %endif
 %patch -P1 -p1
 
+%conf
 # Fix detection of various time-related function declarations
 sed -e '/DECLS(\[a/s|)|,,,[AC_INCLUDES_DEFAULT\n[#include <time.h>\n #include <sys/time.h>]]&|' \
     -i configure.ac

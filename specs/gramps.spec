@@ -1,14 +1,12 @@
 Name:           gramps
-Version:        5.2.3
-Release:        3%{?dist}
+Version:        5.2.4
+Release:        1%{?dist}
 Summary:        Genealogical Research and Analysis Management Programming System
 
 License: GPL-2.0-or-later
 URL:            https://gramps-project.org/
 Source0:        https://github.com/gramps-project/gramps/archive/v%{version}/gramps-%{version}.tar.gz
 BuildArch:	noarch
-
-Patch0:         1761.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
@@ -46,8 +44,6 @@ based plugin system.
 
 %prep
 %setup -q
-
-%patch -P 0 -p1
 
 %build
 %py3_build
@@ -112,6 +108,9 @@ desktop-file-install --delete-original  \
 %{python3_sitelib}/gramps/plugins
 
 %changelog
+* Mon Jan 13 2025 Gwyn Ciesla <gwync@protonmail.com> - 5.2.4-1
+- 5.2.4
+
 * Tue Sep 24 2024 Gwyn Ciesla <gwync@protonmail.com> - 5.2.3-3
 - Patch for 3.13
 

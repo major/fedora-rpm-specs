@@ -51,6 +51,7 @@ developing applications that use %{name}.
 %prep
 %autosetup -p1
 
+%conf
 # Upstream does not generate the configure script
 autoreconf -fi .
 

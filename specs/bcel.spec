@@ -3,7 +3,7 @@ Version:        6.8.1
 Release:        %autorelease
 Summary:        Byte Code Engineering Library
 License:        Apache-2.0
-URL:            http://commons.apache.org/proper/commons-bcel/
+URL:            https://commons.apache.org/proper/commons-bcel/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 

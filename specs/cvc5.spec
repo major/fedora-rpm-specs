@@ -133,6 +133,8 @@ Python 3 interface to %{name}.
 
 %prep
 %autosetup -n %{name}-%{name}-%{version} -p1
+
+%conf
 mkdir -p %{_vpath_builddir}/deps/src/CVC5PythonicAPI
 cp -p %{SOURCE1} %{_vpath_builddir}/deps/src
 

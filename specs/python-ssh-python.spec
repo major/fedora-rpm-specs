@@ -3,24 +3,13 @@
 %global modname ssh-python
 
 Name:           python-%{modname}
-Version:        1.0.0
-Release:        10%{?dist}
+Version:        1.1.0
+Release:        1%{?dist}
 Summary:        Bindings for libssh C library
 
 License:        GPL-2.0-or-later
 URL:            https://github.com/ParallelSSH/ssh-python
 Source0:        %{url}/archive/%{version}/%{modname}-%{version}.tar.gz
-
-Patch0001:      0001-Set-master_doc-to-index-in-conf.py-for-sphinx.patch
-# Upstream MR:  https://github.com/ParallelSSH/ssh-python/pull/71
-Patch0002:	0002-Versioneer_patches_for_Python_3.12.patch
-# Versioneer used is extremely old, force version, see above MR for suggestion
-Patch0003:      0003-Fix_version_due_to_old_versioneer.patch
-# Fix documentation build with Sphinx 8.x (backport due to above as well)
-# Upstream MR: https://github.com/ParallelSSH/ssh-python/pull/88
-Patch0004:      0004-Fix_Sphinx_8.patch
-# Skip a subpart of test as seems behaviour changed, TBC with upstream
-Patch0005:      0005-Skip_assertion_test.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -34,7 +23,7 @@ BuildRequires:  python3-sphinx_rtd_theme
 
 # test dependencies
 BuildRequires:  python3-pytest
-BuildRequires:  %{_sbindir}/sshd %{_bindir}/ssh-agent
+BuildRequires:  python3-pytest-rerunfailures
 
 Recommends: python3-%{modname}-doc
 
@@ -77,11 +66,6 @@ chmod 0755 %{buildroot}/%{python3_sitearch}/ssh/*.so
 
 
 %check
-# disable some options for sshd running inside mock
-echo UsePrivilegeSeparation no >> tests/embedded_server/sshd_config.tmpl
-echo StrictModes no >> tests/embedded_server/sshd_config.tmpl
-# test_statvfs/test_fstatvfs do not seem to work in mock
-rm -f tests/test_sftp.py
 %pytest -v tests
 
 %files -n python3-%{modname}
@@ -100,6 +84,9 @@ Summary:        %{summary} documentation
 %doc examples/ _build/html/
 
 %changelog
+* Mon Jan 13 2025 Federico Pellegrin <fede@evolware.org> - 1.1.0-1
+- Bump to 1.1.0, remove now upstreamed patches. Simplify tests as per upstream
+
 * Tue Dec 03 2024 Federico Pellegrin <fede@evolware.org> - 1.0.0-10
 - Fix build with Sphinx 8.x
 

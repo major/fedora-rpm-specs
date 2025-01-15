@@ -8,7 +8,7 @@
 %endif
 
 Name:           gnome-shell
-Version:        47.2
+Version:        48~alpha
 Release:        %autorelease
 Summary:        Window management and application launching for GNOME
 
@@ -34,20 +34,19 @@ Patch: 0003-status-keyboard-Use-gnome-desktop-API-for-getting-de.patch
 %define gjs_version 1.73.1
 %define gtk4_version 4.0.0
 %define adwaita_version 1.5.0
-%define mutter_version 47.0
+%define mutter_version 48~alpha
 %define polkit_version 0.100
-%define gsettings_desktop_schemas_version 47~alpha
+%define gsettings_desktop_schemas_version 48~alpha
 %define ibus_version 1.5.2
 %define gnome_bluetooth_version 1:42.3
 %define gstreamer_version 1.4.5
-%define pipewire_version 0.3.0
+%define pipewire_version 0.3.49
 %define gnome_settings_daemon_version 3.37.1
 
 BuildRequires:  pkgconfig(bash-completion)
 BuildRequires:  gcc
 BuildRequires:  meson
 BuildRequires:  git
-BuildRequires:  pkgconfig(ibus-1.0) >= %{ibus_version}
 BuildRequires:  desktop-file-utils
 BuildRequires:  pkgconfig(libedataserver-1.2) >= %{eds_version}
 BuildRequires:  pkgconfig(gcr-4)
@@ -109,7 +108,9 @@ Requires:       xdg-user-dirs-gtk
 # needed for schemas
 Requires:       at-spi2-atk%{?_isa}
 # needed for on-screen keyboard
-Requires:       ibus%{?_isa} >= %{ibus_version}
+Recommends:     ibus%{?_isa} >= %{ibus_version}
+# needed for gobject-introspection typelib
+Requires:       ibus-libs%{?_isa} >= %{ibus_version}
 # needed for "show keyboard layout"
 Requires:       tecla
 # needed for the user menu
@@ -230,8 +231,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shell.Porta
 %{_datadir}/dbus-1/interfaces/org.gnome.Shell.PadOsd.xml
 %{_datadir}/dbus-1/interfaces/org.gnome.Shell.Screencast.xml
 %{_datadir}/dbus-1/interfaces/org.gnome.Shell.Screenshot.xml
+%{_datadir}/dbus-1/interfaces/org.gnome.Shell.ScreenTime.xml
 %{_datadir}/dbus-1/interfaces/org.gnome.ShellSearchProvider.xml
 %{_datadir}/dbus-1/interfaces/org.gnome.ShellSearchProvider2.xml
+%{_datadir}/desktop-directories/X-GNOME-Shell-Utilities.directory
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.Shell.Extensions.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.Shell.Extensions-symbolic.svg
 %{_userunitdir}/org.gnome.Shell-disable-extensions.service

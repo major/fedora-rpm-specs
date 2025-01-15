@@ -56,6 +56,7 @@ platforms.
 %{gpgverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
 %autosetup -n commons-jexl3-%{version}-src -p1
 
+%conf
 # Remove workaround for fixed JavaCC bug.
 # The workaround now causes build failure.
 %pom_remove_plugin :maven-antrun-plugin

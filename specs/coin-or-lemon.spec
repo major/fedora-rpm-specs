@@ -78,6 +78,8 @@ The %{name}-doc package contains a %{name}'s API documentation.
 %prep
 %autosetup -n lemon-%{version} -p1
 
+
+%conf
 # Fix the library directory name on 64-bit systems
 if [ "%{_lib}" = "lib64" ]; then
     sed -i 's,/lib,/lib64,' cmake/FindCOIN.cmake cmake/FindGLPK.cmake \

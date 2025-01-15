@@ -6,13 +6,17 @@
 %endif
 
 Name:           libgit2
-Version:        1.8.4
+Version:        1.9.0
 Release:        %autorelease
 Summary:        C implementation of the Git core methods as a library with a solid API
 # Automatically converted from old format: GPLv2 with exceptions - review is highly recommended.
 License:        LicenseRef-Callaway-GPLv2-with-exceptions
 URL:            https://libgit2.org/
 Source0:        https://github.com/libgit2/libgit2/archive/refs/tags/v%{version_no_tilde}.tar.gz#/libgit2-%{version_no_tilde}.tar.gz
+
+# Fix lib64 use
+# https://github.com/libgit2/libgit2/pull/7004
+Patch:          7004.patch
 
 BuildRequires:  gcc
 BuildRequires:  cmake >= 3.5.1
@@ -91,11 +95,12 @@ popd
 
 %files
 %license COPYING
-%{_libdir}/libgit2.so.1.8*
+%{_libdir}/libgit2.so.1.9*
 
 %files devel
 %doc AUTHORS docs examples README.md
 %{_libdir}/libgit2.so
+%{_libdir}/cmake/libgit2/
 %{_libdir}/pkgconfig/libgit2.pc
 %{_includedir}/git2.h
 %{_includedir}/git2/

@@ -3,7 +3,7 @@ Version:        1.4.01
 Release:        %autorelease
 Summary:        APIs for DOM, SAX, and JAXP
 License:        Apache-2.0 AND W3C AND SAX-PD-2.0
-URL:            http://xml.apache.org/commons/
+URL:            https://xerces.apache.org/xml-commons/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
