@@ -10,7 +10,7 @@
 Name:           aunit
 Epoch:          2
 Version:        %{upstream_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A unit testing framework for Ada
 
 License:        GPL-3.0-or-later WITH GCC-exception-3.1
@@ -195,8 +195,8 @@ export PATH=%{checkroot}%{_bindir}:$PATH
 export LD_LIBRARY_PATH=%{checkroot}%{_libdir}:$LD_LIBRARY_PATH
 export GPR_PROJECT_PATH=%{checkroot}%{_GNAT_project_dir}:$GPR_PROJECT_PATH
 
-# Run the test suite.
-make -C test
+# Run the test suite. If it fails, output its output so we can troubleshoot.
+make -C test || { cat test/test.out.full >&2 ; false ; }
 
 %endif
 
@@ -238,6 +238,9 @@ make -C test
 ###############
 
 %changelog
+* Tue Jan 14 2025 Björn Persson <Bjorn@Rombobjörn.se> - 2:25.0.0-2
+- Rebuilt with GCC 15 prerelease.
+
 * Sun Oct 27 2024 Dennis van Raaij <dvraaij@fedoraproject.org> - 2:25.0.0-1
 - Updated to v25.0.0.
 

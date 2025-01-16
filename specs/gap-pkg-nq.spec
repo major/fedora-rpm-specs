@@ -48,10 +48,11 @@ This package contains documentation for gap-pkg-%{pkgname}.
 
 %prep
 %autosetup -n %{pkgname}-%{version}
+
+%conf
 ./autogen.sh
 
 %build
-export LC_ALL=C.UTF-8
 %configure --with-gaproot=%{gap_archdir} --disable-silent-rules
 %make_build
 gap makedoc.g
@@ -62,15 +63,16 @@ cp -a *.g bin examples gap tst %{buildroot}%{gap_archdir}/pkg/%{pkgname}
 %gap_copy_docs
 
 %check
-export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
+gap -l '%{buildroot}%{gap_archdir};' tst/testall.g
 
 %files
 %doc CHANGES README.md
 %license LICENSE
-%{gap_archdir}/pkg/%{pkgname}/
-%exclude %{gap_archdir}/pkg/%{pkgname}/doc/
-%exclude %{gap_archdir}/pkg/%{pkgname}/examples/
+%dir %{gap_archdir}/pkg/%{pkgname}/
+%{gap_archdir}/pkg/%{pkgname}/*.g
+%{gap_archdir}/pkg/%{pkgname}/bin/
+%{gap_archdir}/pkg/%{pkgname}/gap/
+%{gap_archdir}/pkg/%{pkgname}/tst/
 
 %files doc
 %docdir %{gap_archdir}/pkg/%{pkgname}/doc/

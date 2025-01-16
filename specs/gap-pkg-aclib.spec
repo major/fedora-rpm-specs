@@ -63,14 +63,13 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %prep
 %autosetup -n %{pkgname}-%{version}
 
+%conf
 # Fix end-of-line encoding
 sed -i.orig 's/\r//' doc/algos.tex
 touch -r doc/algos.tex.orig doc/algos.tex
 rm -f doc/algos.tex.orig
 
 %build
-export LC_ALL=C.UTF-8
-
 # Link to main GAP documentation
 ln -s %{gap_libdir}/doc ../../doc
 cd doc
@@ -84,15 +83,15 @@ cp -a *.g gap htm tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
 %gap_copy_docs
 
 %check
-export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
+gap -l '%{buildroot}%{gap_libdir};' tst/testall.g
 
 %files
 %doc README
 %license LICENSE
-%{gap_libdir}/pkg/%{pkgname}/
-%exclude %{gap_libdir}/pkg/%{pkgname}/doc/
-%exclude %{gap_libdir}/pkg/%{pkgname}/htm/
+%dir %{gap_libdir}/pkg/%{pkgname}/
+%{gap_libdir}/pkg/%{pkgname}/*.g
+%{gap_libdir}/pkg/%{pkgname}/gap
+%{gap_libdir}/pkg/%{pkgname}/tst
 
 %files doc
 %docdir %{gap_libdir}/pkg/%{pkgname}/doc/

@@ -6,7 +6,7 @@
 
 Name: qt5
 # This version MUST remain in sync with Qt5 versions!
-Version: 5.15.15
+Version: 5.15.16
 Release: 1%{?dist}
 Summary: Qt5 meta package
 License: GPL-3.0-only
@@ -191,6 +191,9 @@ echo "- Qt5 devel meta package" > %{buildroot}%{_docdir}/qt5-devel/README
 
 
 %changelog
+* Thu Jan 09 2025 Zephyr Lykos <fedora@mochaa.ws> - 5.15.16-1
+- 5.15.16
+
 * Wed Sep 04 2024 Jan Grulich <jgrulich@redhat.com> - 5.15.15-1
 - 5.15.15
 

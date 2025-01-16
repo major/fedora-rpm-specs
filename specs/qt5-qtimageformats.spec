@@ -2,7 +2,7 @@
 
 Summary: Qt5 - QtImageFormats component
 Name:    qt5-%{qt_module}
-Version: 5.15.15
+Version: 5.15.16
 Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for details
@@ -11,10 +11,12 @@ Url:     http://www.qt.io
 %global majmin %(echo %{version} | cut -d. -f1-2)
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-opensource-src-%{version}.tar.xz
 
+## upstream patches
+## repo: https://invent.kde.org/qt/qt/qtimageformats
+## branch: kde/5.15
+## git format-patch v5.15.16-lts-lgpl
 Patch1:  0001-webp-support-sequential-input-device-if-full-file-is.patch
 Patch2:  0002-Explicitly-include-QVarLengthArray-header.patch
-Patch3:  0003-Update-bundled-libwebp-to-version-1.3.2.patch
-Patch4:  0004-Update-bundled-libtiff-to-version-4.6.0.patch
 
 
 BuildRequires: make
@@ -78,6 +80,9 @@ make install INSTALL_ROOT=%{buildroot}
 
 
 %changelog
+* Thu Jan 09 2025 Zephyr Lykos <fedora@mochaa.ws> - 5.15.16-1
+- 5.15.16
+
 * Wed Sep 04 2024 Jan Grulich <jgrulich@redhat.com> - 5.15.15-1
 - 5.15.15
 

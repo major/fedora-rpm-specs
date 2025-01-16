@@ -1,6 +1,6 @@
 Name:           flint
 Version:        3.1.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fast Library for Number Theory
 
 # LGPL-3.0-or-later: the project as a whole
@@ -14,6 +14,8 @@ License:        LGPL-3.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later AND
 URL:            https://www.flintlib.org/
 VCS:            git:https://github.com/flintlib/flint.git
 Source:         https://www.flintlib.org/%{name}-%{version}.tar.gz
+# Fix noreturn attribute in C23 mode
+Patch:          https://github.com/flintlib/flint/pull/2116.patch
 
 BuildRequires:  flexiblas-devel
 BuildRequires:  gcc-c++
@@ -60,6 +62,8 @@ developing applications that use %{name}.
 %prep
 %autosetup -p1
 
+
+%conf
 fixtimestamp() {
   touch -r $1.orig $1
   rm -f $1.orig
@@ -121,6 +125,9 @@ make check
 
 
 %changelog
+* Tue Jan 14 2025 Jerry James <loganjerry@gmail.com> - 3.1.2-3
+- Add patch to fix GCC 15 build
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

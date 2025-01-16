@@ -56,6 +56,7 @@ Library links and header files for developing applications that use
 %prep
 %autosetup -p1 -n %{name}-rel-%{version}
 
+%conf
 # Remove handle.c from APPSRC; it defines kissat_signal_name, which is called
 # from library code, so handle.c must be in the library as well.
 sed -i 's/ handle\.c//' makefile.in
@@ -66,13 +67,12 @@ sed -i 's/@SOVER@/%{sover}/;s/@MAJVER@/%{majver}/' makefile.in
 # Adapt to a drat-trim change
 sed -ri '/sqrt|prime/s/false/true/' test/testcnfs.h
 
-%build
-# Use Fedora flags by default.  This cannot be done in %%prep.  See
-# https://bugzilla.redhat.com/show_bug.cgi?id=2044028
+# Use Fedora flags by default
 sed -e 's|-W -Wall|%{build_cflags} -fPIC|' \
     -e 's|^\(passtolinker=\)""|\1" %{build_ldflags}"|' \
     -i configure
 
+%build
 # This is NOT an autoconf-generated script.  Do NOT use %%configure.
 ./configure -O2 --test
 %make_build

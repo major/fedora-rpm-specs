@@ -22,8 +22,8 @@
 
 Summary: PyQt5 is Python bindings for Qt5
 Name:    python-qt5
-Version: 5.15.10
-Release: 11%{?dist}
+Version: 5.15.11
+Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License: GPL-3.0-only
@@ -245,7 +245,7 @@ sed -i \
 %{python3_sitearch}/PyQt5/QtXmlPatterns.*
 
 %files -n python%{python3_pkgversion}-qt5-base
-%doc NEWS README
+%doc NEWS README.md
 %license LICENSE
 %{python3_dbus_dir}/pyqt5.abi3.so
 %dir %{python3_sitearch}/PyQt5/
@@ -310,6 +310,9 @@ sed -i \
 
 
 %changelog
+* Tue Jan 14 2025 Zephyr Lykos <fedora@mochaa.ws> - 5.15.11-1
+- new version
+
 * Thu Sep 05 2024 Jan Grulich <jgrulich@redhat.com> - 5.15.10-11
 - Rebuild (qt5)
 

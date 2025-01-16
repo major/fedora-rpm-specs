@@ -67,6 +67,7 @@ Example input and output files for TOPCOM.
 %prep
 %autosetup -n topcom-%{version} -p1
 
+%conf
 # Fix character encoding
 iconv -f iso8859-1 -t utf8 -o README.utf8 README
 touch -r README README.utf8

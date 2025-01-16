@@ -82,7 +82,7 @@ ExcludeArch:    %{ix86}
 Summary:        Free Software Productivity Suite
 Name:           libreoffice
 Epoch:          1
-Version:        %{libo_version}.1
+Version:        %{libo_version}.2
 %if %{defined libo_prerelease} && 0%{?libo_prerelease} != 0
 Release:        %autorelease -e %(e=%{libo_prerelease}; echo ${e:1})
 %else
@@ -317,8 +317,6 @@ Requires: %{name}-emailmerge%{?_isa} = %{epoch}:%{version}-%{release}
 Patch1: 0001-disble-tip-of-the-day-dialog-by-default.patch
 # rhbz#1736810 disable opencl by default again
 Patch2: 0001-Resolves-rhbz-1432468-disable-opencl-by-default.patch
-# Fix CppunitTest_xmlsecurity_xmlsec
-Patch3: f0efcb9.patch
 # not upstreamed
 # fix FTB in ppc64le from sharkcz
 # https://lists.freedesktop.org/archives/libreoffice/2023-August/090870.html

@@ -47,8 +47,8 @@
 
 Summary: Qt5 - QtWebEngine components
 Name:    qt5-qtwebengine
-Version: 5.15.17
-Release: 11%{?dist}
+Version: 5.15.18
+Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -103,6 +103,10 @@ Patch71: fix_build_pdf_extension_util.patch
 Patch72: python3.12-imp.patch
 Patch73: python3.12-six.patch
 Patch74: python3.13-pipes.patch
+
+# Fix building with ICU 75
+# https://gitlab.archlinux.org/archlinux/packaging/packages/qt5-webengine/-/blob/97c4d298f/qt5-webengine-icu-75.patch
+Patch80: qtwebengine-icu75.patch
 
 # riscv64 support patch from https://github.com/felixonmars/archriscv-packages/tree/master/qt5-webengine
 Patch100: v8.patch
@@ -392,6 +396,8 @@ popd
 %patch -P73 -p1
 %patch -P74 -p1
 
+%patch -P80 -p1
+
 %ifarch riscv64
 %patch -P100 -p1 -b .riscv64-v8
 %patch -P101 -p1 -b .riscv64
@@ -576,6 +582,9 @@ done
 %{_qt5_examplesdir}/
 
 %changelog
+* Thu Jan 09 2025 Zephyr Lykos <fedora@mochaa.ws> - 5.15.18-1
+- 5.15.18
+
 * Mon Sep 23 2024 Fabio Valentini <decathorpe@gmail.com> - 5.15.17-11
 - Rebuild for ffmpeg 7
 

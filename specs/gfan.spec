@@ -86,6 +86,7 @@ developing applications that use libgfan.
 %prep
 %autosetup -n %{name}%{version} -p1
 
+%conf
 # Point to where the TOPCOM binaries will be installed
 sed -i.orig "s|^\(#define MINKOWSKIPROGRAM \).*|\1\"%{_bindir}/essai\"|" \
   src/minkowskisum.cpp
@@ -99,7 +100,7 @@ rm -f homepage/Makefile
 %build
 # Enable use of SoPlex
 sed -e 's|^\(SOPLEX_PATH = \).*|\1%{_prefix}|' \
-    -e 's|^\(SOPLEX_LINKOPTIONS = \).*|\1%{build_ldflags} -lsoplex -lclusol -lmpfr -ltbb -lz|' \
+    -e 's|^\(SOPLEX_LINKOPTIONS = \).*|\1%{build_ldflags} -lsoplex -lclusol -lmpfr -ltbb -lz-ng|' \
     -e 's|^\(SOPLEX_INCLUDEOPTIONS = \).*|\1|' \
     -i Makefile
 

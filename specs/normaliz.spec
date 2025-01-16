@@ -72,6 +72,7 @@ Normaliz internals as a library (libnormaliz).
 %prep
 %autosetup -p0 -n Normaliz-%{version}
 
+%conf
 # Update the configuration for Fedora
 sed -e 's|-funroll-loops|%{build_cxxflags} -I%{_includedir}/gfanlib|' \
     -e 's|-O3|-O2|' \

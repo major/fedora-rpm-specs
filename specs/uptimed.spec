@@ -1,9 +1,8 @@
 
 Summary:	A daemon to record and keep track of system up times
 Name:		uptimed
-Version:	0.4.6
-Release:	8%{?dist}
-# Automatically converted from old format: GPLv2 - review is highly recommended.
+Version:	0.4.7
+Release:	1%{?dist}
 License:	GPL-2.0-only
 URL:		https://github.com/rpodgorny/uptimed/
 Source0:	https://github.com/rpodgorny/%{name}/archive/v%{version}.tar.gz
@@ -80,6 +79,9 @@ mkdir -p %{buildroot}%{_localstatedir}/spool/uptimed
 %{_includedir}/uptimed.h
 
 %changelog
+* Mon Jan 13 2025 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 0.4.7-1
+- Update to 0.4.7 (#2337462)
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.4.6-8
 - convert license to SPDX
 

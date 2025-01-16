@@ -1,12 +1,12 @@
 # remirepo/fedora spec file for php-myclabs-php-enum
 #
-# Copyright (c) 2017-2022 Remi Collet
-# License: CC-BY-SA
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2017-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    a867478eae49c9f59ece437ae7f9506bfaa27483
+%global gh_commit    e7be26966b7398204a234f8673fdad5ac6277802
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     myclabs
 %global gh_project   php-enum
@@ -21,8 +21,8 @@
 %bcond_without       tests
 
 Name:           php-%{pk_vendor}-%{pk_project}
-Version:        1.8.4
-Release:        6%{?dist}
+Version:        1.8.5
+Release:        1%{?dist}
 Summary:        PHP Enum implementation
 
 License:        MIT
@@ -41,7 +41,7 @@ BuildRequires:  php-spl
 # From composer.json, "require-dev": {
 #        "phpunit/phpunit": "^9.5",
 #        "squizlabs/php_codesniffer": "1.*"
-#        "vimeo/psalm": "^4.6.2"
+#        "vimeo/psalm": "^4.6.2 || ^5.2"
 %global phpunit %{_bindir}/phpunit9
 BuildRequires:  phpunit9 >= 9.5
 # Required by autoloader
@@ -103,7 +103,7 @@ require __DIR__ . '/bootstrap.php';
 EOF
 
 ret=0
-for cmd in "php %{phpunit}" php74 php80 php81 php82; do
+for cmd in "php %{phpunit}" php81 php82 php83 php84; do
   if which $cmd; then
     set $cmd
     $1 ${2:-%{_bindir}/phpunit9} --verbose --bootstrap tests/autoload.php || ret=1
@@ -124,6 +124,10 @@ exit $ret
 
 
 %changelog
+* Tue Jan 14 2025 Remi Collet <remi@remirepo.net> - 1.8.5-1
+- update to 1.8.5
+- re-license spec file to CECILL-2.1
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

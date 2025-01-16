@@ -49,6 +49,8 @@ files for developing applications that use %{name}.
 
 %prep
 %autosetup -p0 -n ocplib-simplex-%{version}
+
+%conf
 autoconf
 
 # Upstream's attempt to set OCAMLFIND_DESTDIR interferes with ours

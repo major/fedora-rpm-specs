@@ -26,7 +26,7 @@
 Name:    kf5-%{framework}
 Summary: PIM Storage Service
 Version: 23.08.5
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND MIT
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -316,6 +316,9 @@ fi
 
 
 %changelog
+* Tue Jan 14 2025 Jan Grulich <jgrulich@redhat.com> - 23.08.5-6
+- Rebuild (qt5)
+
 * Thu Sep 05 2024 Jan Grulich <jgrulich@redhat.com> - 23.08.5-5
 - Rebuild (qt5)
 

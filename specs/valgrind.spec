@@ -3,7 +3,7 @@
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
 Version: 3.24.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 1
 
 # This ignores licenses that are only found in the test or perf sources
@@ -97,6 +97,9 @@ Patch12: 0008-helgrind-tests-tc17_sembar.c-Remove-bool-typedef.patch
 Patch13: 0009-drd-tests-swapcontext.c-Rename-typedef-struct-thread.patch
 Patch14: 0010-none-tests-bug234814.c-sa_handler-take-an-int-as-arg.patch
 Patch15: 0011-Add-open_tree-move_mount-fsopen-fsconfig-fsmount-fsp.patch
+Patch16: 0012-Recognize-new-DWARF5-DW_LANG-constants.patch
+Patch17: 0013-Bug-498317-FdBadUse-is-not-a-valid-CoreError-type-in.patch
+Patch18: 0014-linux-support-EVIOCGRAB-ioctl.patch
 
 BuildRequires: make
 BuildRequires: glibc-devel
@@ -135,6 +138,11 @@ BuildRequires: elfutils-debuginfod-client
 # For using debuginfod at runtime
 Recommends: elfutils-debuginfod-client
 %endif
+
+# Optional subpackages
+Recommends: %{?scl_prefix}valgrind-docs = %{epoch}:%{version}-%{release}
+Recommends: %{?scl_prefix}valgrind-scripts = %{epoch}:%{version}-%{release}
+Recommends: %{?scl_prefix}valgrind-gdb = %{epoch}:%{version}-%{release}
 
 # For running the testsuite.
 # Some of the python scripts require python 3.9+
@@ -205,6 +213,28 @@ Requires: %{?scl_prefix}valgrind = %{epoch}:%{version}-%{release}
 %description devel
 Header files and libraries for development of valgrind aware programs.
 
+%package docs
+Summary: Documentation for valgrind tools, scripts and gdb integration
+License: GFDL-1.2-or-later
+
+%description docs
+Documentation in html and pdf, plus man pages for valgrind tools and scripts.
+
+%package scripts
+Summary: Scripts for post-processing valgrind tool output
+License: GPL-2.0-or-later
+
+%description scripts
+Perl and Python scripts for post-processing valgrind tool output.
+
+%package gdb
+Summary: Tools for integrating valgrind and gdb
+License: GPL-2.0-or-later
+Requires: %{?scl_prefix}valgrind-devel = %{epoch}:%{version}-%{release}
+
+%description gdb
+Tools and support files for integrating valgrind and gdb.
+
 %if %{build_tools_devel}
 %package tools-devel
 Summary: Development files for building valgrind tools.
@@ -247,6 +277,9 @@ Valgrind User Manual for details.
 %patch -P13 -p1
 %patch -P14 -p1
 %patch -P15 -p1
+%patch -P16 -p1
+%patch -P17 -p1
+%patch -P18 -p1
 
 %build
 # LTO triggers undefined symbols in valgrind.  But valgrind has a
@@ -418,18 +451,41 @@ echo ===============END TESTING===============
 %{!?_licensedir:%global license %%doc}
 
 %files
-%license COPYING COPYING.DOCS
-%doc NEWS README_*
-%doc docs/installed/html docs/installed/*.pdf
-%{_bindir}/*
+%license COPYING
+%{_bindir}/valgrind
 %dir %{_libexecdir}/valgrind
-# Install everything in the libdir except the .so.
-# The vgpreload so files might need file mode adjustment.
-%{_libexecdir}/valgrind/*[^o]
+# Install just the core tools, default suppression and vgpreload libraries.
+%{_libexecdir}/valgrind/default.supp
+%{_libexecdir}/valgrind/*-*-linux
 # Turn on executable bit again for vgpreload libraries.
 # Was disabled in %%install to prevent debuginfo stripping.
-%attr(0755,root,root) %{_libexecdir}/valgrind/vgpreload*-%{valarch}-*so
+%attr(0755,root,root) %{_libexecdir}/valgrind/vgpreload_*-%{valarch}-linux.so
+
+%files docs
+%license COPYING.DOCS
+%doc NEWS README_*
+%doc docs/installed/html docs/installed/*.pdf
 %{_mandir}/man1/*
+
+%files scripts
+%license COPYING
+%{_bindir}/callgrind_annotate
+%{_bindir}/callgrind_control
+%{_bindir}/cg_annotate
+%{_bindir}/cg_diff
+%{_bindir}/cg_merge
+%{_bindir}/ms_print
+%{_libexecdir}/valgrind/dh_view.css
+%{_libexecdir}/valgrind/dh_view.html
+%{_libexecdir}/valgrind/dh_view.js
+
+%files gdb
+%license COPYING
+%{_bindir}/valgrind-di-server
+%{_bindir}/valgrind-listener
+%{_bindir}/vgdb
+# gdb register descriptions
+%{_libexecdir}/valgrind/*.xml
 %{_datadir}/gdb/auto-load/valgrind-monitor.py
 %{_datadir}/gdb/auto-load/valgrind-monitor-def.py
 
@@ -463,6 +519,17 @@ echo ===============END TESTING===============
 %endif
 
 %changelog
+* Tue Jan 14 2025 Mark Wielaard <mjw@fedoraproject.org> - 3.24.0-3
+- Add more VALGRIND_3_24_BRANCH patches
+  0012-Recognize-new-DWARF5-DW_LANG-constants.patch
+  0013-Bug-498317-FdBadUse-is-not-a-valid-CoreError-type-in.patch
+  0014-linux-support-EVIOCGRAB-ioctl.patch
+- Split main valgrind package into several subpackages:
+  - valgrind now contains just the core tools.
+  - valgrind-scripts contains the post-processing scripts for callgrind,
+    cachegrind, massif and dhat which depend on perl and python.
+  - valgrind-gdb contains the debuginfo client/server and (v)gdb support.
+  - valgrind-docs contains the man pages, html and pdf manual.
 * Tue Nov 26 2024 Mark Wielaard <mjw@fedoraproject.org> - 3.24.0-2
 - Add VALGRIND_3_24_BRANCH patches
   0001-Prepare-NEWS-for-branch-3.24-fixes.patch

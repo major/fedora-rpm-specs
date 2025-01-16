@@ -2,7 +2,7 @@
 
 Name: libvma
 Version: 9.8.60
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A library for boosting TCP and UDP traffic (over RDMA hardware)
 
 # Automatically converted from old format: GPLv2 or BSD - review is highly recommended.
@@ -12,6 +12,7 @@ Source0: https://github.com/Mellanox/libvma/archive/%{version}/%{name}-%{version
 # https://github.com/Mellanox/libvma/pull/1076
 Patch0: 0001-Fix-gcc14-compilation-issue.patch
 Patch1: 0002-kernel-6-10-netlink-issue.patch
+Patch2: 0003-fix-memory-leak-and-style.patch
 
 # libvma currently supports only the following architectures
 ExclusiveArch: x86_64 ppc64le ppc64 aarch64
@@ -103,6 +104,9 @@ rm -f $RPM_BUILD_ROOT/%{_sysconfdir}/init.d/vma
 %{_mandir}/man8/vma_stats.*
 
 %changelog
+* Tue Jan 14 2025 Igor Ivanov <igori@nvidia.com> 9.8.60-2
+- Fix memory leak and style issues
+
 * Sat Jan 11 2025 Honggang Li <honggangli@163.com> - 9.8.60-1
 - Bump version to 9.8.60
 - VMA support for kernel 6.10

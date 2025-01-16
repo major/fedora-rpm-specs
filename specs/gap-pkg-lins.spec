@@ -54,7 +54,6 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %autosetup -n %{upname}-%{version}
 
 %build
-export LC_ALL=C.UTF-8
 gap makedoc.g
 
 %install
@@ -63,8 +62,7 @@ cp -a gap tst *.g  %{buildroot}%{gap_libdir}/pkg/%{upname}
 %gap_copy_docs -n %{upname}
 
 %check
-export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_libdir};" tst/testquick.g
+gap -l '%{buildroot}%{gap_libdir};' tst/testquick.g
 
 %files
 %doc README.md

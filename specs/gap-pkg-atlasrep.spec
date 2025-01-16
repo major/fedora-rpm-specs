@@ -83,6 +83,8 @@ This package contains documentation for gap-pkg-%{pkgname}.
 
 %prep
 %autosetup -n %{pkgname}-%{version} -p1
+
+%conf
 tar -x --strip-components=1 -f %{SOURCE1}
 rm {dataext,datagens,dataword}/dummy
 rm -fr dataword/{.cvsignore,CVS}

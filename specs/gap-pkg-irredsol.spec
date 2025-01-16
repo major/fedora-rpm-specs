@@ -73,14 +73,17 @@ cp -a *.g data fp htm lib tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
 %gap_copy_docs
 
 %check
-gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
+gap -l '%{buildroot}%{gap_libdir};' tst/testall.g
 
 %files
 %doc README.txt
 %license LICENSE.txt
-%{gap_libdir}/pkg/%{pkgname}/
-%exclude %{gap_libdir}/pkg/%{pkgname}/doc/
-%exclude %{gap_libdir}/pkg/%{pkgname}/htm/
+%dir %{gap_libdir}/pkg/%{pkgname}/
+%{gap_libdir}/pkg/%{pkgname}/*.g
+%{gap_libdir}/pkg/%{pkgname}/data/
+%{gap_libdir}/pkg/%{pkgname}/fp/
+%{gap_libdir}/pkg/%{pkgname}/lib/
+%{gap_libdir}/pkg/%{pkgname}/tst/
 
 %files doc
 %docdir %{gap_libdir}/pkg/%{pkgname}/doc/

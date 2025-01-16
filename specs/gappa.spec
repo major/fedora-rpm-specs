@@ -60,6 +60,7 @@ Documentation for gappa.
 %prep
 %autosetup
 
+%conf
 # Increase the test timeout for ARM
 sed -i 's/timeout 5/&0/' Remakefile.in
 

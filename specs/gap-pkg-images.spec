@@ -46,6 +46,7 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %prep
 %autosetup -n %{pkgname}-%{version}
 
+%conf
 # Update the atlas package name
 sed -i 's/atlas/atlasrep/' tst/test_functions.g
 

@@ -14,7 +14,7 @@
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
 Version:        2.35.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          2
 # MIT covers nearly all the files, except init files
 License:        MIT AND LGPL-2.1-or-later
@@ -104,7 +104,7 @@ BuildRequires:  crate(serde_test)
 BuildRequires:  crate(serde_yaml)
 BuildRequires:  crate(strsim)
 BuildRequires:  crate(terminal_size)
-BuildRequires:  crate(thiserror)
+BuildRequires:  crate(thiserror) < 2
 BuildRequires:  crate(zerocopy)
 BuildRequires:  rust-packaging
 %endif
@@ -138,7 +138,12 @@ make \
         ENABLE_DOC=1 \
 %endif
         NO_PIE_LDFLAGS="" \
+%if "%{_sbindir}" == "%{_bindir}"
+        BINDIR=/usr/bin \
+        USRSBINDIR=/usr/bin \
+%else
         BINDIR=/usr/sbin \
+%endif
         DISTRELEASE=%{release} \
         V=1
 
@@ -152,13 +157,17 @@ popd
 
 
 %install
-make install \
+%make_install \
         HAVE_DRACUT=1 \
 %if %{with pandoc}
         ENABLE_DOC=1 \
 %endif
-        DESTDIR=%{buildroot} \
+%if "%{_sbindir}" == "%{_bindir}"
+        BINDIR=/usr/bin \
+        USRSBINDIR=/usr/bin \
+%else
         BINDIR=/usr/sbin \
+%endif
         SYSTEMDSYSTEMUNITDIR=%{_unitdir} \
         DISTRELEASE=%{release} \
         V=1
@@ -577,7 +586,7 @@ getent group zkeyadm > /dev/null || groupadd -r zkeyadm
 %{_sbindir}/qetharp
 %{_sbindir}/qethconf
 %{_sbindir}/qethqoat
-%{_sbindir}/scsi_logging_level
+%exclude %{_sbindir}/scsi_logging_level
 %{_sbindir}/sclpdbf
 %{_sbindir}/start_hsnc.sh
 %{_sbindir}/tape390_crypt
@@ -1065,6 +1074,9 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Tue Jan 14 2025 Dan Horák <dan[at]danny.cz> - 2:2.35.0-2
+- updated for https://fedoraproject.org/wiki/Changes/Unify_bin_and_sbin
+
 * Thu Oct 03 2024 Dan Horák <dan[at]danny.cz> - 2:2.35.0-1
 - rebased to 2.35.0 (rhbz#2316232)
 

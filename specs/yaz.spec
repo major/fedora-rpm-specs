@@ -1,11 +1,14 @@
 Name:           yaz
 Version:        5.34.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Z39.50/SRW/SRU toolkit
 # SPDX confirmed
 License:        BSD-3-Clause
 URL:            http://www.indexdata.com/yaz/
 Source0:        http://ftp.indexdata.com/pub/yaz/yaz-%{version}.tar.gz
+# https://github.com/indexdata/yaz/issues/133
+# Avoid keyword bool usage on C23
+Patch0:		yaz-5.34.3-c23-keyword.patch
 
 BuildRequires:  gcc
 BuildRequires:  bison
@@ -71,6 +74,7 @@ server and client.
 
 %prep
 %setup -q
+%patch -P0 -p1 -b .c23
 
 %build
 sed -i.rpath configure \
@@ -150,6 +154,9 @@ make check
 %{_pkgdocdir}
 
 %changelog
+* Tue Jan 14 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.34.3-2
+- Fix compilation with C23 with bool keyword
+
 * Thu Jan 09 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.34.3-1
 - 5.34.3
 

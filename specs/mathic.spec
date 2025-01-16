@@ -61,6 +61,7 @@ Mathic-based tools.  Currently this contains:
 %prep
 %autosetup -p0 -n %{user}-%{name}-%{shorttag}
 
+%conf
 # Upstream doesn't generate the configure script
 autoreconf -fi .
 

@@ -51,6 +51,7 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %prep
 %autosetup -n %{pkgname}-%{version} -p0
 
+%conf
 # Do not override Fedora build flags
 sed -i 's/-O3 -fomit-frame-pointer//;s/-O3/-O2/' configure
 

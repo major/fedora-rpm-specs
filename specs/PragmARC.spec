@@ -4,8 +4,7 @@ Release:        35%{?dist}
 Summary:        PragmAda Reusable Components, a component library for Ada
 Summary(sv):    PragmAda Reusable Components, ett komponentbibliotek för ada
 
-# Automatically converted from old format: GPLv2+ with exceptions - review is highly recommended.
-License:        LicenseRef-Callaway-GPLv2+-with-exceptions
+License:        GPL-2.0-or-later WITH GNAT-exception
 URL:            https://pragmada.x10hosting.com/pragmarc.htm
 Source1:        https://www.Rombobjörn.se/PragmARC/pragmarc-%{version}.zip
 Source2:        build_pragmarc.gpr

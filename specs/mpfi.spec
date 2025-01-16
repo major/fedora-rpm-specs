@@ -57,6 +57,7 @@ The %{name}-static package contains the static %{name} library.
 %prep
 %autosetup -p1
 
+%conf
 # In the 1.5.4 release, these two tests try to call functions with mismatched
 # signatures, then segfault.  It is not clear to me how to fix them.
 sed -i 's/ tdiv_ext\$(EXEEXT)//;s/ trec_sqrt\$(EXEEXT)//' tests/Makefile.in

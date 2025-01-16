@@ -60,6 +60,7 @@ files for developing applications that use %{name}.
 %prep
 %autosetup -p1
 
+%conf
 # Use Fedora flags
 sed -i 's/ "-cclib"; "-Wl,--no-as-needed";//' src/ctypes-foreign/config/discover.ml
 

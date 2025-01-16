@@ -242,7 +242,6 @@ while a do
       b = "/usr/sbin/"..name
       sta = posix.stat(a)
       stb = posix.stat(b)
-      print(a, sta, b, stb)
 
       if sta and not stb then
         print('Symlinking /usr/sbin/'..name..'->/usr/bin/'..name)
@@ -269,7 +268,6 @@ while a do
       b = "/usr/sbin/"..name
       sta = posix.stat(a)
       stb = posix.stat(b)
-      print(a, sta, b, stb)
 
       if sta and not stb then
         print('Symlinking '..b..'->/usr/bin/'..name)
@@ -300,7 +298,6 @@ filenames = %sbin_filenames
 b = rpm.next_file()
 while b do
     name = b:match("^.+/(.+)$")
-    print('filetriggerpostun', b)
 
     if filenames[name] then
       a = "/usr/bin/"..name

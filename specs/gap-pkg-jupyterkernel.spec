@@ -57,7 +57,6 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %autosetup -n %{upname}-%{version}
 
 %build
-export LC_ALL=C.UTF-8
 gap makedoc.g
 
 %install
@@ -78,8 +77,7 @@ mkdir -p %{buildroot}%{_sysconfdir}/jupyter/nbconfig/notebook.d
 cp -p etc/gap-mode.json %{buildroot}%{_sysconfdir}/jupyter/nbconfig/notebook.d
 
 %check
-export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
+gap -l '%{buildroot}%{gap_libdir};' tst/testall.g
 
 %files
 %doc README.md
@@ -88,9 +86,10 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{_datadir}/jupyter/nbextensions/gap-mode/
 %{_datadir}/jupyter/kernels/gap-4/
 %config(noreplace) %{_sysconfdir}/jupyter/nbconfig/notebook.d/gap-mode.json
-%{gap_libdir}/pkg/%{upname}/
-%exclude %{gap_libdir}/pkg/%{upname}/demos/
-%exclude %{gap_libdir}/pkg/%{upname}/doc/
+%dir %{gap_libdir}/pkg/%{upname}/
+%{gap_libdir}/pkg/%{upname}/*.g
+%{gap_libdir}/pkg/%{upname}/gap/
+%{gap_libdir}/pkg/%{upname}/tst/
 
 %files doc
 %docdir %{gap_libdir}/pkg/%{upname}/demos/

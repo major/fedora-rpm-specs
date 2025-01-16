@@ -1,6 +1,6 @@
 Name:           kicad
 Version:        8.0.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        EDA software suite for creation of schematic diagrams and PCBs
 
@@ -211,6 +211,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Tue Jan 14 2025 Pete Walter <pwalter@fedoraproject.org> - 1:8.0.8-2
+- Rebuild for libgit2 1.9.x
+
 * Sat Jan 11 2025 Steven A. Falco <stevenfalco@gmail.com> - 1:8.0.8-1
 - Update to 8.0.8
 

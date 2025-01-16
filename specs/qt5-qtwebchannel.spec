@@ -2,7 +2,7 @@
 
 Summary: Qt5 - WebChannel component
 Name:    qt5-%{qt_module}
-Version: 5.15.15
+Version: 5.15.16
 Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
@@ -10,6 +10,14 @@ License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url: http://qt.io
 %global majmin %(echo %{version} | cut -d. -f1-2)
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-opensource-src-%{version}.tar.xz
+
+## upstream patches
+## repo: https://invent.kde.org/qt/qt/qtwebchannel
+## branch: kde/5.15
+## git format-patch v5.15.16-lts-lgpl
+Patch1: 0001-Handle-signals-in-the-registered-object-s-thread.patch
+Patch2: 0002-Handle-per-transport-client-idle-status.patch
+Patch3: 0003-QMetaObjectPublisher-Never-send-stale-queued-message.patch
 
 BuildRequires: make
 BuildRequires: qt5-qtbase-devel >= %{version}
@@ -38,7 +46,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{summary}.
 
 %prep
-%setup -q -n %{qt_module}-everywhere-src-%{version}
+%autosetup -n %{qt_module}-everywhere-src-%{version} -p1
 
 
 %build
@@ -87,6 +95,9 @@ popd
 
 
 %changelog
+* Thu Jan 09 2025 Zephyr Lykos <fedora@mochaa.ws> - 5.15.16-1
+- 5.15.16
+
 * Wed Sep 04 2024 Jan Grulich <jgrulich@redhat.com> - 5.15.15-1
 - 5.15.15
 

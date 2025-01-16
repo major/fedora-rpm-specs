@@ -68,6 +68,7 @@ The %{name}-tools package contains graph editing tools for use with
 %prep
 %autosetup -n ocamlgraph-%{version}
 
+%conf
 # Fix encoding
 for fil in COPYING TODO.md; do
   iconv -f latin1 -t utf-8 $fil > $fil.utf8

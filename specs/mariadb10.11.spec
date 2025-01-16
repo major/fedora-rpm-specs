@@ -157,7 +157,7 @@
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          1%{?with_debug:.debug}%{?dist}
+Release:          2%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          A very fast and robust SQL database server
@@ -325,6 +325,9 @@ Requires:         %{pkgname}-libs%{?_isa} = %{sameevr}
 Requires:         mariadb-connector-c >= 3.0
 %endif
 
+# Recommend additional client utils that require Perl
+Recommends:       %{pkgname}-client-utils
+
 Suggests:         %{pkgname}-server%{?_isa} = %{sameevr}
 
 %{?with_conflicts_mysql:Conflicts: mysql}
@@ -368,6 +371,21 @@ SQL database server. It is a client/server implementation consisting of
 a server daemon (mariadbd) and many different client programs and libraries.
 The base package contains the standard MariaDB/MySQL client programs and
 utilities.
+
+
+%package          -n %{pkgname}-client-utils
+Summary:          Non-essential client utilities for MariaDB/MySQL applications
+Requires:         %{pkgname}%{?_isa} = %{sameevr}
+Requires:         perl(DBI)
+
+%virtual_conflicts_and_provides client-utils
+
+%description      -n %{pkgname}-client-utils
+This package contains all non-essential client utilities and scripts for
+managing databases. It also contains all utilities requiring Perl and it is the
+only MariaDB sub-package with the corresponding server-utils one, except test
+subpackage, that depends on Perl.
+
 
 %if %{with clibrary}
 %package          -n %{pkgname}-libs
@@ -703,7 +721,8 @@ Requires:         perl(DBI) perl(DBD::MariaDB)
 %description      -n %{pkgname}-server-utils
 This package contains all non-essential server utilities and scripts for
 managing databases. It also contains all utilities requiring Perl and it is
-the only MariaDB sub-package, except test subpackage, that depends on Perl.
+the only MariaDB sub-package with the corresponding client-utils one, except
+test subpackage, that depends on Perl.
 
 
 %if %{with devel}
@@ -1414,8 +1433,8 @@ fi
 %files -n %{pkgname}
 %{_bindir}/msql2mysql
 %{_bindir}/{mysql,mariadb}
-%{_bindir}/mysql{access,admin,binlog,check,dump,_find_rows,import,_plugin,show,slap,_waitpid}
-%{_bindir}/mariadb-{access,admin,binlog,check,dump,find-rows,import,plugin,show,slap,waitpid}
+%{_bindir}/mysql{admin,binlog,check,dump,import,_plugin,show,slap,_waitpid}
+%{_bindir}/mariadb-{admin,binlog,check,dump,import,plugin,show,slap,waitpid}
 
 %{_mandir}/man1/msql2mysql.1*
 %{_mandir}/man1/{mysql,mariadb}.1*
@@ -1423,6 +1442,12 @@ fi
 %{_mandir}/man1/mariadb-{access,admin,binlog,check,dump,find-rows,import,plugin,show,slap,waitpid}.1*
 
 %config(noreplace) %{_sysconfdir}/my.cnf.d/mysql-clients.cnf
+
+%files -n %{pkgname}-client-utils
+%{_bindir}/mysql{access,_find_rows}
+%{_bindir}/mariadb-{access,find-rows}
+%{_mandir}/man1/mysql{access,_find_rows}.1*
+%{_mandir}/man1/mariadb-{access,find-rows}.1*
 %endif
 
 %if %{with clibrary}
@@ -1779,6 +1804,9 @@ fi
 %endif
 
 %changelog
+* Fri Nov 29 2024 Timothée Ravier <tim@siosm.fr> - 3:10.11.10-2
+- Split mariadb-access & mariadb-find-rows into a client-utils subpackage
+
 * Sat Nov 16 2024 Michal Schorm <mschorm@redhat.com> - 3:10.11.10-1
 - Rebase to 10.11.10
 

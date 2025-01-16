@@ -83,6 +83,7 @@ This package contains files needed to develop programs that use libnauty.
 %prep
 %autosetup -p1 -n %{name}%{nautytarver}
 
+%conf
 # Remove the pregenerated makefile
 rm -f makefile
 

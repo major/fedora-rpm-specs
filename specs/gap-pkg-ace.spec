@@ -50,8 +50,6 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %autosetup -p1 -n %{pkgname}-%{version}
 
 %build
-export LC_ALL=C.UTF-8
-
 # This is NOT an autoconf-generated script.  Do not use %%configure.
 ./configure %{gap_archdir}
 %make_build
@@ -75,17 +73,17 @@ rm %{buildroot}%{gap_archdir}/pkg/%{pkgname}/gap/CHANGES
 %gap_copy_docs
 
 %check
-export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
+gap -l '%{buildroot}%{gap_archdir};' tst/testall.g
 
 %files
 %doc CHANGES.md README.md
 %license LICENSE
-%{gap_archdir}/pkg/%{pkgname}/
-%exclude %{gap_archdir}/pkg/%{pkgname}/doc/
-%exclude %{gap_archdir}/pkg/%{pkgname}/examples/
-%exclude %{gap_archdir}/pkg/%{pkgname}/htm/
-%exclude %{gap_archdir}/pkg/%{pkgname}/res-examples/
+%dir %{gap_archdir}/pkg/%{pkgname}/
+%{gap_archdir}/pkg/%{pkgname}/*.g
+%{gap_archdir}/pkg/%{pkgname}/bin/
+%{gap_archdir}/pkg/%{pkgname}/gap/
+%{gap_archdir}/pkg/%{pkgname}/tst/
+%{gap_archdir}/pkg/%{pkgname}/VERSION
 
 %files doc
 %doc standalone-doc/ace3001.pdf

@@ -7,10 +7,10 @@
 
 Name:           fpc
 Version:        3.2.2
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Free Pascal Compiler
 
-License:        GPLv2+ and LGPLv2+ with exceptions
+License:        GPL-2.0-or-later AND LGPL-2.1-or-later WITH Independent-modules-exception
 URL:            http://www.freepascal.org/
 Source0:        ftp://ftp.freepascal.org/pub/fpc/dist/%{version}/source/fpcbuild-%{version}.tar.gz
 
@@ -79,6 +79,24 @@ Patch6:         fpc-3.2.2--fix-IDE-data-files-locations.patch
 # Backport of upstream commit:
 # https://gitlab.com/freepascal.org/fpc/source/-/commit/ec9f7c84b46906c3ef153245044ed787eaf1d5bb
 Patch7:         fpc-3.2.2--arm64-stack-trace-crash.patch
+
+# "man 5 resolv.conf" states that, should the file be missing or empty,
+# then C stdlib functions dealing with name resolution should fall back
+# to querying the DNS server running on the local machine.
+#
+# FPC, by default, does not link to libc, providing its own standard library;
+# said code does not contain this fallback logic.
+#
+# Backport of upstream commit:
+# https://gitlab.com/freepascal.org/fpc/source/-/commit/1cd1415df746ecaf9603bb0afb8660d3af3ea1f1
+Patch8:         fpc-3.2.2--fallback-to-localhost-when-no-dns-server-specified.patch
+
+# The compiler produces incorrect "unit unused" hints
+# if symbols from a unit are used only for compile-time checks.
+#
+# Backport of upstream commit:
+# https://gitlab.com/freepascal.org/fpc/source/-/commit/22ec4a20332f8208273604b46e727e481f6502eb.patch
+Patch9:         fpc-3.2.2--compiletime-check-is-usage.patch
 
 # FPC's LaTeX docs use the \htmladdnormallink command, which has been removed in recent TexLive versions.
 # Alias the command to \href.
@@ -210,6 +228,8 @@ pushd fpcsrc
 %patch -P5 -p1
 %patch -P6 -p2
 %patch -P7 -p1
+%patch -P8 -p1
+%patch -P9 -p1
 popd
 
 pushd fpcdocs
@@ -363,6 +383,11 @@ rm -rf %{buildroot}/usr/lib/%{name}/lexyacc
 
 
 %changelog
+* Tue Jan 14 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.2.2-16
+- Convert License tag to SPDX
+- Add a patch to make generated code fallback to localhost if no DNS servers are specified
+- Add a patch to fix symbols being wrongly marked as unused
+
 * Sat Jul 27 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.2.2-15
 - Add a patch to fix broken stack trace handling on aarch64
 

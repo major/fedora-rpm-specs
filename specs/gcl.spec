@@ -144,9 +144,10 @@ Emacs mode for interacting with GCL
 
 %prep
 %{gpgverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
-
 %autosetup -p1
 
+
+%conf
 # The binary MUST be run with address randomization off.  The main() function
 # has code to accomplish that, but it does not run early enough.  Ensure that
 # randomization is off before GCL even starts.

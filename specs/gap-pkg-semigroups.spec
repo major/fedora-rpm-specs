@@ -94,6 +94,7 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %prep
 %autosetup -n %{pkgname}-%{version}
 
+%conf
 # Do not use the bundled libsemigroups
 rm -fr libsemigroups
 

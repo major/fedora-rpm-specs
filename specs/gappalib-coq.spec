@@ -60,6 +60,7 @@ informational purposes.
 %prep
 %autosetup -n coq-%{name}-%{version}-%{commit}
 
+%conf
 # Enable debuginfo
 sed -i 's/-rectypes/-g &/' Remakefile.in
 

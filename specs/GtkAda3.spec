@@ -7,7 +7,7 @@
 Name:           GtkAda3
 Epoch:          2
 Version:        %{upstream_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GTKada, an Ada binding to GTK+ 3
 Summary(sv):    GTKada, en adabindning till GTK+ 3
 
@@ -359,6 +359,9 @@ mkdir --parents %{buildroot}%{_licensedir}/%{name}
 ###############
 
 %changelog
+* Tue Jan 14 2025 Björn Persson <Bjorn@Rombobjörn.se> - 2:25.0.0-2
+- Rebuilt with GCC 15 prerelease.
+
 * Sun Oct 27 2024 Dennis van Raaij <dvraaij@fedoraproject.org> - 2:25.0.0-1
 - Updated to v25.0.0.
 - Subpackage GtkAda3-devel now requires the GTK+-3.0 and GLib 2.0 development

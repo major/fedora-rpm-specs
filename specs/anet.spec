@@ -1,6 +1,6 @@
 Name:           anet
 Version:        0.5.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Ada Networking Library
 
 License:        GPL-2.0-or-later WITH GNAT-exception
@@ -121,6 +121,9 @@ make tests %{all_the_flags}
 
 
 %changelog
+* Tue Jan 14 2025 Björn Persson <Bjorn@Rombobjörn.se> - 0.5.1-2
+- Rebuilt with GCC 15 prerelease.
+
 * Mon Nov 04 2024 Björn Persson <Bjorn@Rombobjörn.se> - 0.5.1-1
 - Upgraded to version 0.5.1.
 

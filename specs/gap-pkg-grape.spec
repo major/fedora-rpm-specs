@@ -46,6 +46,7 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %prep
 %autosetup -p1 -n %{pkgname}-%{version}
 
+%conf
 # There is no ext manual anymore
 sed -i '/UseReferences.*ext/d' doc/manual.tex
 

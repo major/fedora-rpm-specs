@@ -31,6 +31,7 @@ Before using a previewer, read the file README.fedora.
 %prep
 %autosetup -n %{name}
 
+%conf
 # Invoke perl directly
 sed -i.orig "s|^#\!/usr/bin/env perl|#\!/usr/bin/perl -w|" latexmk.pl
 touch -r latexmk.pl.orig latexmk.pl

@@ -1,12 +1,10 @@
-%global major_ver 59
-
 Summary: Emacs Speech interface
 Name: emacspeak
-Version: %{major_ver}.0
-Release: 4%{?dist}
+Version: 60.0
+Release: 1%{?dist}
 # main lisp files are GPL2+
 License: GPL-2.0-or-later AND BSD-3-Clause
-Source: https://github.com/tvraman/emacspeak/releases/download/%{major_ver}/%{name}-%{version}.tar.bz2
+Source: https://github.com/tvraman/emacspeak/releases/download/%{version}/%{name}-%{version}.tar.bz2
 URL: http://emacspeak.sourceforge.net/
 BuildRequires: emacs
 BuildRequires: espeak-ng-devel
@@ -79,6 +77,10 @@ cp -p info/*.info* %{buildroot}%{_infodir}
 
 
 %changelog
+* Tue Jan 14 2025 Jens Petersen <petersen@redhat.com> - 60.0-1
+- Update to 60.0
+- https://tvraman.github.io/emacspeak/blog/Announce-60.html
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 59.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

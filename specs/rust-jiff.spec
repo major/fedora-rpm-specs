@@ -5,13 +5,20 @@
 %global crate jiff
 
 Name:           rust-jiff
-Version:        0.1.21
+Version:        0.1.23
 Release:        %autorelease
 Summary:        Date-time library that encourages you to jump into the pit of success
 
 License:        Unlicense OR MIT
 URL:            https://crates.io/crates/jiff
 Source:         %{crates_source}
+# * Since 0.1.22, the published crates no longer include “non-essential files
+#   (including tests and test data).” Since we would like to run the tests, we
+#   use the GitHub archive as an additonal source as permitted in
+#   https://docs.fedoraproject.org/en-US/packaging-guidelines/Rust/#_package_sources,
+#   waiting until %%check to copy in the extra files to prove they are not
+#   included in the crate sources shipped in the binary RPMs.
+Source10:       https://github.com/BurntSushi/jiff/archive/%{version}/jiff-%{version}.tar.gz
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          jiff-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
@@ -29,9 +36,9 @@ Patch12:        0001-Downstream-only-omit-tests-that-require-serde_yml.patch
 # * EPEL9: Ignore doctests that require very recent Rust compilers
 # * In this crate, doctests and examples (but not the lib and integration tests)
 #   are allowed to use Rust features from versions newer than the MSRV. It’s
-#   therefore necessary to ignore some of them on EPEL9. If this patch becomes
-#   too unwieldy, we could choose to start skipping doctests and/or examples
-#   there entirely.
+#   therefore necessary to ignore some of them on EPEL9. If this patch becomes too
+#   unwieldy, we could choose to start skipping doctests and/or examples there
+#   entirely.
 Patch1009:      0001-EPEL9-Ignore-doctests-that-require-very-recent-Rust-.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -147,6 +154,18 @@ use the "tzdb-bundle-platform" feature of the "%{crate}" crate.
 %files       -n %{name}+tzdb-bundle-platform-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+tzdb-concatenated-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+tzdb-concatenated-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "tzdb-concatenated" feature of the "%{crate}" crate.
+
+%files       -n %{name}+tzdb-concatenated-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+tzdb-zoneinfo-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -171,8 +190,6 @@ use the "tzdb-zoneinfo" feature of the "%{crate}" crate.
 # We do not yet have a rust-icu package (although one would be desirable)
 tomcli set Cargo.toml del dev-dependencies.icu
 %cargo_prep
-# Exclude test and debug scripts that would BuildRequire sh or bash
-tomcli set Cargo.toml append package.exclude test test-wasm 'scripts/*'
 
 %generate_buildrequires
 %cargo_generate_buildrequires -f serde
@@ -185,6 +202,14 @@ tomcli set Cargo.toml append package.exclude test test-wasm 'scripts/*'
 
 %if %{with check}
 %check
+# Copy in snapshots, integration tests, and test data – required to run tests,
+# but not included in the released crate. By doing so here in %%check rather
+# than in %%prep, we prove that the binary RPMs are derived solely from the
+# published crate sources.
+tar -xzvf '%{SOURCE10}' --strip-components=1 \
+    jiff-%{version}/src/tz/snapshots \
+    jiff-%{version}/src/tz/testdata \
+    jiff-%{version}/tests
 %cargo_test -f serde
 %endif
 

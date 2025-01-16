@@ -8,9 +8,17 @@
 # For declaring rich dependency on libdecor
 %global libdecor_majver 0
 
+%if 0%{?rhel}
+# Disable static library on RHEL
+%bcond_with static
+%else
+%bcond_without static
+%endif
+
+
 Name:           SDL3
 Version:        3.1.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cross-platform multimedia library
 License:        Zlib AND MIT AND Apache-2.0 AND (Apache-2.0 OR MIT)
 URL:            http://www.libsdl.org/
@@ -90,6 +98,10 @@ Requires:       pkgconfig(glu)
 ## For SDL_syswm.h
 Requires:       pkgconfig(x11)
 Requires:       pkgconfig(xproto)
+%if ! %{with static}
+# Remove any leftover -static subpackages
+Obsoletes:      %{name}-static < %{version}-%{release}
+%endif
 
 %description devel
 Simple DirectMedia Layer (SDL) is a cross-platform multimedia library designed
@@ -97,6 +109,7 @@ to provide fast access to the graphics frame buffer and audio device. This
 package provides the libraries, include files, and other resources needed for
 developing SDL applications.
 
+%if %{with static}
 %package static
 Summary:        Static libraries for SDL3
 # Needed to keep CMake happy
@@ -104,6 +117,7 @@ Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
 
 %description static
 Static libraries for SDL3.
+%endif
 
 %package test
 Summary:        Testing libraries for SDL3
@@ -139,8 +153,8 @@ export LDFLAGS="%{shrink:%{build_ldflags}}"
     -DSDL_VIDEO_VULKAN=ON \
     -DSDL_SSE3=OFF \
     -DSDL_RPATH=OFF \
-    -DSDL_STATIC=ON \
-    -DSDL_STATIC_PIC=ON \
+    %{?with_static:-DSDL_STATIC=ON} \
+    %{?with_static:-DSDL_STATIC_PIC=ON} \
 %ifarch ppc64le
     -DSDL_ALTIVEC=OFF \
 %endif
@@ -176,10 +190,12 @@ rm -v %{buildroot}%{_mandir}/man3/{S,U}int*.3type*
 %{_includedir}/SDL3
 %{_mandir}/man3/SDL*.3*
 
+%if %{with static}
 %files static
 %license LICENSE.txt
 %{_libdir}/libSDL3.a
 %{_libdir}/cmake/SDL3/SDL3staticTargets*.cmake
+%endif
 
 %files test
 %license LICENSE.txt
@@ -188,6 +204,9 @@ rm -v %{buildroot}%{_mandir}/man3/{S,U}int*.3type*
 
 
 %changelog
+* Tue Jan 14 2025 Neal Gompa <ngompa@fedoraproject.org> - 3.1.8-2
+- Disable static library subpackage on RHEL
+
 * Thu Jan 09 2025 Neal Gompa <ngompa@fedoraproject.org> - 3.1.8-1
 - Update to 3.1.8
 - Enable man pages

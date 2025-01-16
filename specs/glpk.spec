@@ -86,9 +86,9 @@ that uses GLPK (GNU Linear Programming Kit).
 %prep
 # Verify the source file
 %{gpgverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
-
 %autosetup -p1
 
+%conf
 # Unbundle zlib and suitesparse
 rm -fr src/{amd,colamd,zlib}
 

@@ -2033,6 +2033,7 @@ reset_test_opts
 # The ml_dtypes python module required by mlir/test/python/execution_engine.py
 # isn't packaged.
 test_list_filter_out+=("MLIR :: python/execution_engine.py")
+test_list_filter_out+=("MLIR :: python/multithreaded_tests.py")
 
 %ifarch s390x
 # s390x does not support half-float

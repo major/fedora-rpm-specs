@@ -36,6 +36,7 @@ files for developing applications that use %{name}.
 %prep
 %autosetup -n camlbz2-%{version} -p1
 
+%conf
 # Fix the version number
 sed -i 's/0\.7\.1/%{version}/' dune-project
 

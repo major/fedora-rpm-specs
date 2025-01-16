@@ -106,6 +106,7 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %prep
 %autosetup -n %{pkgname}-%{version} -p1
 
+%conf
 fixtimestamp() {
   touch -r $1.orig $1
   rm -f $1.orig

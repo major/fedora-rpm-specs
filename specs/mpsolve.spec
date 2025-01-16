@@ -154,6 +154,7 @@ This package contains an octave interface to mpsolve.
 %prep
 %autosetup -n MPSolve-%{version} -p1
 
+%conf
 # Fix the version number in the octave interface
 sed -i 's/3\.1\.7/%{version}/' examples/octave/DESCRIPTION
 cp -p examples/octave/DESCRIPTION examples/matlab

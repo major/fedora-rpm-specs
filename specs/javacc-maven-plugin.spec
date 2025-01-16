@@ -50,6 +50,8 @@ Maven Plugin for processing JavaCC grammar files.
 
 %prep
 %autosetup -p1 -C
+
+%conf
 cp -p %{SOURCE1} .
 
 # Do not use jtb, which is unmaintained.  It is accessed only via reflection to

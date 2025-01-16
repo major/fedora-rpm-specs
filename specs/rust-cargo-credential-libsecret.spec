@@ -5,7 +5,7 @@
 %global crate cargo-credential-libsecret
 
 Name:           rust-cargo-credential-libsecret
-Version:        0.4.9
+Version:        0.4.10
 Release:        %autorelease
 Summary:        Cargo credential process that stores tokens with GNOME libsecret
 

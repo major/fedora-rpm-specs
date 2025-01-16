@@ -74,13 +74,17 @@ mkdir -p %{buildroot}%{_sysconfdir}
 cp -p src/fplsa4.ini %{buildroot}%{_sysconfdir}
 
 %check
-gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
+gap -l '%{buildroot}%{gap_archdir};' tst/testall.g
 
 %files
 %doc CHANGES README.md
 %license LICENSE
-%{gap_archdir}/pkg/%{upname}/
-%exclude %{gap_archdir}/pkg/%{upname}/doc/
+%dir %{gap_archdir}/pkg/%{upname}/
+%{gap_archdir}/pkg/%{upname}/*.g
+%{gap_archdir}/pkg/%{upname}/bin/
+%{gap_archdir}/pkg/%{upname}/gap/
+%{gap_archdir}/pkg/%{upname}/lib/
+%{gap_archdir}/pkg/%{upname}/tst/
 %config(noreplace) %{_sysconfdir}/fplsa4.ini
 
 %files doc

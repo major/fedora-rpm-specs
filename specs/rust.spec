@@ -907,7 +907,13 @@ rm -rf ./build/dist/ ./build/tmp/
 # Some of the components duplicate-install binaries, leaving backups we don't want
 rm -f %{buildroot}%{_bindir}/*.old
 
-# Make sure the shared libraries are in the proper libdir
+# We don't want to ship the shared standard library, because it has no stable ABI.
+# (and if we merely %%exclude these, then rpmbuild still packages build-id links)
+find %{buildroot}%{rustlibdir} -type f                      \
+  '(' -name '*.so' -o -name '*.dll' -o -name '*.dll.a' ')'  \
+  -exec rm -v '{}' '+'
+
+# Make sure the compiler's shared libraries are in the proper libdir
 %if "%{_libdir}" != "%{common_libdir}"
 mkdir -p %{buildroot}%{_libdir}
 find %{buildroot}%{common_libdir} -maxdepth 1 -type f -name '*.so' \
@@ -1031,7 +1037,6 @@ rm -rf "./build/%{rust_triple}/stage2-tools/%{rust_triple}/cit/"
 %dir %{rustlibdir}/%{rust_triple}
 %dir %{rustlibdir}/%{rust_triple}/lib
 %{rustlibdir}/%{rust_triple}/lib/*.rlib
-%exclude %{rustlibdir}/%{rust_triple}/lib/*.so
 
 %global target_files()      \
 %files std-static-%1        \
@@ -1043,15 +1048,11 @@ rm -rf "./build/%{rust_triple}/stage2-tools/%{rust_triple}/cit/"
 %if %target_enabled i686-pc-windows-gnu
 %target_files i686-pc-windows-gnu
 %{rustlibdir}/i686-pc-windows-gnu/lib/rs*.o
-%exclude %{rustlibdir}/i686-pc-windows-gnu/lib/*.dll
-%exclude %{rustlibdir}/i686-pc-windows-gnu/lib/*.dll.a
 %endif
 
 %if %target_enabled x86_64-pc-windows-gnu
 %target_files x86_64-pc-windows-gnu
 %{rustlibdir}/x86_64-pc-windows-gnu/lib/rs*.o
-%exclude %{rustlibdir}/x86_64-pc-windows-gnu/lib/*.dll
-%exclude %{rustlibdir}/x86_64-pc-windows-gnu/lib/*.dll.a
 %endif
 
 %if %target_enabled wasm32-unknown-unknown

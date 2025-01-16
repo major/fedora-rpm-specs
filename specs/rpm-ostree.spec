@@ -13,6 +13,9 @@ Source0: https://github.com/coreos/rpm-ostree/releases/download/v%{version}/rpm-
 
 ExclusiveArch: %{rust_arches}
 
+# Fast track https://github.com/coreos/rpm-ostree/pull/5224
+Patch0: 0001-core-Create-usr-sbin-bin-if-we-detect-merged-sbin-fi.patch
+
 # ostree not on i686 for RHEL 10
 # https://github.com/containers/composefs/pull/229#issuecomment-1838735764
 %if 0%{?rhel} >= 10

@@ -57,18 +57,17 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %prep
 %autosetup -p1 -n %{pkgname}-%{version}
 
+%conf
 # Fix paths
 sed -i 's,\.\./\.\./\.\./,%{gap_libdir}/,' doc/make_doc
 
 %build
-export LC_ALL=C.UTF-8
-
 # There are lot of type safety violations in the C code.  It also
 # relies on implicit function declarations, a C89-only language
 # feature.
 %global build_type_safety_c 0
 %set_build_flags
-export CC="gcc -std=gnu89"
+export CC='gcc -std=gnu89'
 
 # This is NOT an autoconf-generated script.  Do NOT use %%configure.
 ./configure %{gap_archdir}
@@ -91,15 +90,18 @@ cp -a standalone/{data.d,info.d} \
 %gap_copy_docs
 
 %check
-export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
+gap -l '%{buildroot}%{gap_archdir};' tst/testall.g
 
 %files
 %doc CHANGES README.md
 %license LICENSE
-%{gap_archdir}/pkg/%{pkgname}/
-%exclude %{gap_archdir}/pkg/%{pkgname}/doc/
-%exclude %{gap_archdir}/pkg/%{pkgname}/htm/
+%dir %{gap_archdir}/pkg/%{pkgname}/
+%{gap_archdir}/pkg/%{pkgname}/*.g
+%{gap_archdir}/pkg/%{pkgname}/bin/
+%{gap_archdir}/pkg/%{pkgname}/gap/
+%{gap_archdir}/pkg/%{pkgname}/standalone/
+%{gap_archdir}/pkg/%{pkgname}/testdata/
+%{gap_archdir}/pkg/%{pkgname}/tst/
 
 %files doc
 %docdir %{gap_archdir}/pkg/%{pkgname}/doc/

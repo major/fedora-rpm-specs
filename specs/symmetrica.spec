@@ -1,23 +1,14 @@
-%global gittag b3d8e1ad5ab2449c30bbc3147e7a5e53
+%global gittag b24da56820651687cafb611809a4b1b0
 
 Name:           symmetrica
-Version:        3.0.1
-Release:        11%{?dist}
+Version:        3.1.0
+Release:        1%{?dist}
 Summary:        A Collection of Routines for Solving Symmetric Groups
 # Note: they claim it's 'public domain' but then provide this:
 # http://www.algorithm.uni-bayreuth.de/en/research/SYMMETRICA/copyright_engl.html
 License:        ISC
-URL:            https://gitlab.com/sagemath/symmetrica/
+URL:            https://gitlab.com/-/project/16178617
 Source0:        %{url}/uploads/%{gittag}/%{name}-%{version}.tar.xz
-# Will not be sent upstream, as it is GCC-specific.  Add function attributes
-# to quiet GCC warnings and improve opportunities for optimization.
-Patch0:         %{name}-attribute.patch
-# Patch from sagemath to fix issues on 64-bit systems
-Patch1:         %{name}-int32.patch
-# Silence -Wsequence-point output from gcc
-Patch2:         %{name}-seq-point.patch
-# Silence -Wreturn-type output from gcc
-Patch3:         %{name}-return-type.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -46,10 +37,6 @@ developing applications that use %{name}.
 %prep
 %autosetup -p0
 
-# Upstream forgot to set GRAPHTRUE when ALLTRUE is set
-sed -i '/ALLTRUE/a#define GRAPHTRUE 1' src/def.h
-
-
 %build
 %configure --disable-static --disable-silent-rules
 
@@ -73,24 +60,26 @@ rm doc/Makefile*
 cd src
 make test
 export LD_LIBRARY_PATH=$PWD/.libs
-[ "$(./test <<< 11)" -eq 39916800 ]
+./test
 cd -
 
 
 %files
 %doc README.md
-%{_libdir}/lib%{name}.so.2.*
-%{_libdir}/lib%{name}.so.2
-
+%{_libdir}/lib%{name}.so.3*
 
 %files devel
 %doc doc
 %{_includedir}/%{name}/
 %{_includedir}/%{name}.h
 %{_libdir}/lib%{name}.so
+%{_libdir}/pkgconfig/%{name}.pc
 
 
 %changelog
+* Mon Jan 13 2025 Carlos Rodriguez-Fernandez <carlosrodrifernandez@gmail.com> - 3.1.0-1
+- Update to 3.1.0 (rhbz#2336496)
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

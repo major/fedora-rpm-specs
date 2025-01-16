@@ -63,8 +63,6 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %autosetup -p0 -n %{pkgname}-%{version}
 
 %build
-export LC_ALL=C.UTF-8
-
 # Build the documentation
 mkdir ../pkg
 ln -s ../%{pkgname}-%{version} ../pkg
@@ -72,7 +70,7 @@ gap -l "$PWD/..;" makedoc.g
 rm -fr ../pkg
 
 # Fix up broken HTML links between the two books
-sed -i "s,\./lib,.&,g" doc/*.html
+sed -i 's,\./lib,.&,g' doc/*.html
 
 %install
 mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
@@ -83,21 +81,24 @@ mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/lib/datatypes/doc
 %gap_copy_docs -d lib/datatypes/doc
 
 %check
-export LC_ALL=C.UTF-8
-
 # Produce less chatter while running the test
 polymake --reconfigure - <<< exit;
 
 # Run the actual tests
-gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
+gap -l '%{buildroot}%{gap_libdir};' tst/testall.g
 
 %files
 %doc CHANGES README
 %license LICENSE
-%{gap_libdir}/pkg/%{pkgname}/
-%exclude %{gap_libdir}/pkg/%{pkgname}/doc/
-%exclude %{gap_libdir}/pkg/%{pkgname}/examples/
-%exclude %{gap_libdir}/pkg/%{pkgname}/lib/datatypes/doc/
+%dir %{gap_libdir}/pkg/%{pkgname}/
+%dir %{gap_libdir}/pkg/%{pkgname}/lib/
+%dir %{gap_libdir}/pkg/%{pkgname}/lib/datatypes/
+%{gap_libdir}/pkg/%{pkgname}/*.g
+%{gap_libdir}/pkg/%{pkgname}/lib/*.gd
+%{gap_libdir}/pkg/%{pkgname}/lib/*.gi
+%{gap_libdir}/pkg/%{pkgname}/lib/datatypes/*.gd
+%{gap_libdir}/pkg/%{pkgname}/lib/datatypes/*.gi
+%{gap_libdir}/pkg/%{pkgname}/tst/
 
 %files doc
 %docdir %{gap_libdir}/pkg/%{pkgname}/doc/

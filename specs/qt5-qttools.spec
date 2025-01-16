@@ -12,26 +12,31 @@
 
 Summary: Qt5 - QtTool components
 Name:    qt5-qttools
-Version: 5.15.15
-Release: 2%{?dist}
+Version: 5.15.16
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
 %global majmin %(echo %{version} | cut -d. -f1-2)
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-opensource-src-%{version}.tar.xz
 
+## upstream patches
+## repo: https://invent.kde.org/qt/qt/qttools
+## branch: kde/5.15
+## git format-patch v5.15.16-lts-lgpl
+Patch1: 0001-Ensure-FileAttributeSetTable-is-filled-ordered-so-we.patch
+Patch2: 0002-Drop-superfluous-network-dependency-from-assistant-h.patch
+Patch3: 0003-qdoc-Ensure-the-generated-temporary-header-file-is-c.patch
+
 # help lrelease/lupdate use/prefer qmake-qt5
 # https://bugzilla.redhat.com/show_bug.cgi?id=1009893
-Patch2: qttools-opensource-src-5.13.2-runqttools-with-qt5-suffix.patch
+Patch102: qttools-opensource-src-5.13.2-runqttools-with-qt5-suffix.patch
 
 # 32-bit MIPS needs explicit -latomic
-Patch4: qttools-opensource-src-5.7-add-libatomic.patch
-
+Patch104: qttools-opensource-src-5.7-add-libatomic.patch
 # Link against libclang-cpp.so
 # https://fedoraproject.org/wiki/Changes/Stop-Shipping-Individual-Component-Libraries-In-clang-lib-Package
-Patch5: 0001-Link-against-libclang-cpp.so-instead-of-the-clang-co.patch
-
-## upstream patches
+Patch105: Link-against-libclang-cpp.so-instead-of-the-clang-co.patch
 
 Source20: assistant.desktop
 Source21: designer.desktop
@@ -174,12 +179,13 @@ Requires: %{name}-common = %{version}-%{release}
 
 %prep
 %setup -q -n %{qt_module}-everywhere-src-%{version}
-%patch -P2 -p1 -b ..runqttools-with-qt5-suffix.patch
+%autopatch -M 99 -p1
+%patch -P102 -p1 -b ..runqttools-with-qt5-suffix.patch
 
 %ifarch %{mips32}
-%patch -P4 -p1 -b .libatomic
+%patch -P104 -p1 -b .libatomic
 %endif
-%patch -P5 -p1 -b .libclang-cpp
+%patch -P105 -p1 -b .libclang-cpp
 
 
 %build
@@ -484,6 +490,9 @@ fi
 
 
 %changelog
+* Thu Jan 09 2025 Zephyr Lykos <fedora@mochaa.ws> - 5.15.16-1
+- 5.15.16
+
 * Sun Oct 06 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 5.15.15-2
 - Rebuilt for LLVM/Clang 19
 

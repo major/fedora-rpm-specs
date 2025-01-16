@@ -5,8 +5,8 @@
 %define enable_autoreconf 0
 
 Name:          pam-u2f
-Version:       1.3.0
-Release:       6%{?dist}
+Version:       1.3.1
+Release:       1%{?dist}
 Summary:       Implements PAM authentication over U2F
 
 License:       BSD-2-Clause
@@ -69,6 +69,9 @@ make check
 %{_mandir}/man1/pamu2fcfg.1{,.*}
 
 %changelog
+* Tue Jan 14 2025 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.3.1-1
+- Update to 1.3.1 - resolves rhbz#2337634
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

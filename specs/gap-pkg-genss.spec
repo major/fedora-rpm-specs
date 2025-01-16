@@ -50,6 +50,7 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %prep
 %autosetup -n %{pkgname}-%{version}
 
+%conf
 # Fix encodings
 for fil in init.g read.g; do
   iconv -f iso8859-1 -t utf-8 $fil > $fil.utf8
@@ -58,7 +59,6 @@ for fil in init.g read.g; do
 done
 
 %build
-export LC_ALL=C.UTF-8
 gap makedoc.g
 
 %install
@@ -67,8 +67,7 @@ cp -a examples gap test tst *.g %{buildroot}%{gap_libdir}/pkg/%{pkgname}
 %gap_copy_docs
 
 %check
-export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
+gap -l '%{buildroot}%{gap_libdir};' tst/testall.g
 
 %files
 %doc CHANGES README

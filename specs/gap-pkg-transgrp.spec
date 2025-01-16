@@ -74,12 +74,11 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %prep
 %autosetup -n %{pkgname} -a 1
 
+%conf
 # There is no ext manual anymore
 sed -i '/UseReferences.*ext/d' doc/manual.tex
 
 %build
-export LC_ALL=C.UTF-8
-
 # Compress large group files
 parallel %{?_smp_mflags} --no-notice gzip --best ::: dat32/*.grp
 
@@ -100,17 +99,15 @@ cp -a *.g data dat32 htm lib tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
 %gap_copy_docs
 
 %check
-export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_libdir};" --bare -c 'LoadPackage("GAPDoc");LoadPackage("smallgrp");' tst/testall.g
+gap -l '%{buildroot}%{gap_libdir};' --bare -c 'LoadPackage("GAPDoc");LoadPackage("smallgrp");' tst/testall.g
 
 %files
 %doc README.md
 %license LICENSE
-%{gap_libdir}/pkg/%{pkgname}/
-%exclude %{gap_libdir}/pkg/%{pkgname}/data/
-%exclude %{gap_libdir}/pkg/%{pkgname}/dat32/
-%exclude %{gap_libdir}/pkg/%{pkgname}/doc/
-%exclude %{gap_libdir}/pkg/%{pkgname}/htm/
+%dir %{gap_libdir}/pkg/%{pkgname}/
+%{gap_libdir}/pkg/%{pkgname}/*.g
+%{gap_libdir}/pkg/%{pkgname}/lib/
+%{gap_libdir}/pkg/%{pkgname}/tst/
 
 %files data
 %{gap_libdir}/pkg/%{pkgname}/data/

@@ -2,23 +2,31 @@
 
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
-Version: 5.15.15
+Version: 5.15.16
 Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
-License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
+License: (LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0) AND ISC AND BSL-1.0 AND MIT
 Url:     http://www.qt.io
 %global majmin %(echo %{version} | cut -d. -f1-2)
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-opensource-src-%{version}.tar.xz
 
-# build failure with gcc10
-# various C++ runtime headers indirectly included <string> which in turn
-# included <local> and <cerrno>.  Those indirect inclusions have been
-# eliminated which in turn forces packages to include the C++ headers they
-# actually need.
-Patch0: qtlocation-gcc10.patch
-Patch1: qtlocation-fix-build-qtlabs-location-qml-plugin.patch
-Patch2: qtlocation-fix-rapidjson-build.patch
+## upstream patches
+## repo: https://invent.kde.org/qt/qt/qtlocation
+## branch: kde/5.15
+## git format-patch v5.15.16-lts-lgpl
+Patch1:   0001-Fix-appendChildNode-call.patch
+Patch5:   0005-Fix-build-of-Qt.labs.location-QML-plugin.patch
+Patch6:   0006-Fix-HereMap-plugin-not-supporting-authentication-via.patch
+
+Patch100: 0100-Add-some-missing-cstdint-inclusions-872.patch
+Patch101: 0101-Add-missing-include.patch
+Patch102: 0102-Removed-non-compiling-assignment-operator.-Fixed-718.patch
+Patch103: 0103-Explicitly-disable-copy-assignment-operator.patch
+Patch104: 0104-Fix-build-with-ICU-75.patch
+
+Patch200: 0200-Bump-mapbox-gl-native-deps.patch
+Patch201: 0201-mapbox-gl-fix-smart-ptr.patch
 
 # filter plugin/qml provides
 %global __provides_exclude_from ^(%{_qt5_archdatadir}/qml/.*\\.so|%{_qt5_plugindir}/.*\\.so)$
@@ -34,6 +42,33 @@ BuildRequires: pkgconfig(zlib)
 BuildRequires: pkgconfig(icu-i18n)
 BuildRequires: pkgconfig(libssl)
 BuildRequires: pkgconfig(libcrypto)
+
+BuildRequires: boost-devel >= 1.65.1
+BuildRequires: earcut-hpp-devel >= 0.12.4
+BuildRequires: geometry-hpp-devel >= 0.9.3
+BuildRequires: polylabel-devel >= 1.0.3
+BuildRequires: protozero-devel >= 1.5.2
+BuildRequires: rapidjson-devel >= 1.1.0
+BuildRequires: mapbox-variant-devel >= 1.1.4
+BuildRequires: wagyu-devel >= 0.4.3
+
+# TODO: use upstream tarballs or unbundle
+# geojson-cpp: https://github.com/mapbox/geojson-cpp, ISC
+# geojson-vt-cpp: https://github.com/mapbox/geojson-vt-cpp, ISC
+# kdbush-hpp: https://github.com/mourner/kdbush.hpp, ISC
+# shelf-pack-cpp: https://github.com/mapbox/shelf-pack-cpp, ISC
+# supercluster-hpp: https://github.com/mapbox/supercluster.hpp, ISC
+# unique-resource: https://github.com/okdshin/unique_resource, BSL-1.0
+# vector-tile: https://github.com/mapbox/vector-tile, ISC
+# nunicode: https://bitbucket.org/alekseyt/nunicode, MIT
+Provides: bundled(geojson-cpp) = 0.5.1
+Provides: bundled(geojson-vt-cpp) = 6.6.5
+Provides: bundled(kdbush-hpp) = 0.1.3
+Provides: bundled(shelf-pack-cpp) = 2.1.1
+Provides: bundled(supercluster-hpp) = 0.5.0
+Provides: bundled(unique-resource) = 0~gcba309e
+Provides: bundled(vector-tile) = 1.0.4
+Provides: bundled(nunicode) = 1.11
 
 %description
 The Qt Location and Qt Positioning APIs gives developers the ability to
@@ -56,7 +91,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %prep
 %autosetup -n %{qt_module}-everywhere-src-%{version} -p1
-
+rm -rf src/3rdparty/mapbox-gl-native/deps/{boost,earcut,geometry,optional,polylabel,protozero,rapidjson,wagyu,tao_tuple,variant}
 
 %build
 # QT is known not to work properly with LTO at this point.  Some of the issues
@@ -128,6 +163,10 @@ popd
 
 
 %changelog
+* Thu Jan 09 2025 Zephyr Lykos <fedora@mochaa.ws> - 5.15.16-1
+- 5.15.16
+- Unbundle deps
+
 * Wed Sep 04 2024 Jan Grulich <jgrulich@redhat.com> - 5.15.15-1
 - 5.15.15
 

@@ -1,8 +1,8 @@
-# Copyright (c) 2022, 2023 Garry T. Williams
+# Copyright (c) 2022-2024 Garry T. Williams
 
 Name: deal
-Version: 3.1.11
-Release: 14%{?dist}
+Version: 3.1.12
+Release: 1%{?dist}
 Summary: Bridge Hand Generator
 URL: https://github.com/gtwilliams/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -24,10 +24,10 @@ BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: make
 
-BuildRequires: tcl-devel
+BuildRequires: tcl-devel >= 9.0.0
 BuildRequires: perl-podlators
 
-Requires: tcl
+Requires: tcl >= 9.0.0
 
 %description
 This program generates bridge hands.  It can be told to generate only
@@ -87,6 +87,9 @@ done
 %license GPL LICENSE
 
 %changelog
+* Mon Oct 21 2024 Garry T. Williams <gtwilliams@gmail.com> 3.1.12-1
+- Ported to Tcl 9.0.0
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.11-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

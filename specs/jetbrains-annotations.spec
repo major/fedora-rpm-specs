@@ -26,6 +26,8 @@ interpreted by IDEs and static analysis tools to improve code analysis.
 
 %prep
 %autosetup -n java-annotations-%{version}
+
+%conf
 cp -p %{SOURCE1} pom.xml
 
 %pom_add_plugin org.apache.maven.plugins:maven-compiler-plugin:3.10.1 . '<configuration><source>1.8</source><target>1.8</target></configuration>'

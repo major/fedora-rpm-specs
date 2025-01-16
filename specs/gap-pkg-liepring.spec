@@ -47,11 +47,11 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %prep
 %autosetup -n %{pkgname}-%{version}
 
+%conf
 # Fix paths
 sed -i 's,\.\./\.\./\.\./,%{gap_libdir}/,' doc/make_doc
 
 %build
-export LC_ALL=C.UTF-8
 ln -s %{gap_libdir}/doc ../../doc
 cd doc
 ./make_doc
@@ -64,21 +64,38 @@ cp -a *.g gap htm lib tst VERSION %{buildroot}%{gap_libdir}/pkg/%{pkgname}
 %gap_copy_docs
 
 %check
-export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_libdir};%{gap_libdir}" tst/testall.g
+gap -l '%{buildroot}%{gap_libdir};%{gap_libdir}' tst/testall.g
 
 %files
 %doc README.md
 %license LICENSE
-%{gap_libdir}/pkg/%{pkgname}/
-%exclude %{gap_libdir}/pkg/%{pkgname}/doc/
-%exclude %{gap_libdir}/pkg/%{pkgname}/htm/
-%exclude %{gap_libdir}/pkg/%{pkgname}/lib/notes/
-%exclude %{gap_libdir}/pkg/%{pkgname}/lib/dim6/notes/
-%exclude %{gap_libdir}/pkg/%{pkgname}/lib/dim7/2gen/notes/
-%exclude %{gap_libdir}/pkg/%{pkgname}/lib/dim7/3gen/notes/
-%exclude %{gap_libdir}/pkg/%{pkgname}/lib/dim7/4gen/notes/
-%exclude %{gap_libdir}/pkg/%{pkgname}/lib/dim7/5gen/notes/
+%dir %{gap_libdir}/pkg/%{pkgname}/
+%dir %{gap_libdir}/pkg/%{pkgname}/lib/
+%dir %{gap_libdir}/pkg/%{pkgname}/lib/dim6/
+%dir %{gap_libdir}/pkg/%{pkgname}/lib/dim7/
+%dir %{gap_libdir}/pkg/%{pkgname}/lib/dim7/2gen/
+%dir %{gap_libdir}/pkg/%{pkgname}/lib/dim7/3gen/
+%dir %{gap_libdir}/pkg/%{pkgname}/lib/dim7/4gen/
+%dir %{gap_libdir}/pkg/%{pkgname}/lib/dim7/5gen/
+%{gap_libdir}/pkg/%{pkgname}/*.g
+%{gap_libdir}/pkg/%{pkgname}/gap/
+%{gap_libdir}/pkg/%{pkgname}/lib/*.gi
+%{gap_libdir}/pkg/%{pkgname}/lib/dim6/gap*
+%{gap_libdir}/pkg/%{pkgname}/lib/dim6/stuff/
+%{gap_libdir}/pkg/%{pkgname}/lib/dim7/2gen/gap*
+%{gap_libdir}/pkg/%{pkgname}/lib/dim7/2gen/group*
+%{gap_libdir}/pkg/%{pkgname}/lib/dim7/2gen/stuff/
+%{gap_libdir}/pkg/%{pkgname}/lib/dim7/3gen/gap*
+%{gap_libdir}/pkg/%{pkgname}/lib/dim7/3gen/stuff/
+%{gap_libdir}/pkg/%{pkgname}/lib/dim7/4gen/gap*
+%{gap_libdir}/pkg/%{pkgname}/lib/dim7/4gen/stuff/
+%{gap_libdir}/pkg/%{pkgname}/lib/dim7/5gen/gap*
+%{gap_libdir}/pkg/%{pkgname}/lib/dim7/5gen/stuff/
+%{gap_libdir}/pkg/%{pkgname}/lib/dim7/6gen/
+%{gap_libdir}/pkg/%{pkgname}/lib/dim7/gap*
+%{gap_libdir}/pkg/%{pkgname}/lib/dim7/stuff/
+%{gap_libdir}/pkg/%{pkgname}/lib/dim8/
+%{gap_libdir}/pkg/%{pkgname}/tst/
 
 %files doc
 %docdir %{gap_libdir}/pkg/%{pkgname}/doc/

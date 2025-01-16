@@ -45,16 +45,15 @@ Documentation for %{name}.
 %prep
 %autosetup -n MyST-NB-%{version}
 
+%generate_buildrequires
 # Permit newer versions of matplotlib for testing only.  The newer version of
 # matplotlib causes some changes in test output; pyproject.toml says:
 #   Matplotlib outputs are sensitive to the matplotlib version
 sed -i 's/==\([*.[:digit:]]*\)//' pyproject.toml
-sed -e 's/9bc81205a14646a235d284d1b68223d17f30f7f1d3d8ed3e52cf47830b02e3bb/aa1873688b8d21fe01d28d77daeb954e06d007f7a955e4254cf521bf1be58d9a/g' \
-    -e 's/a2e637020dfe58f670ba2c942d7a55e49ba48bed09312569ee15a84f5ac680cb/c59564c9acfd7e3a23eb1a3dced7010e6e1b16b9f00aef9d843dd4970693cfd6/g' \
+sed -e 's/9bc81205a14646a235d284d1b68223d17f30f7f1d3d8ed3e52cf47830b02e3bb/6b2036253586d5fc9698aafec0292cfad0dd12c9f8fefb3f6be255409b89ed39/g' \
+    -e 's/a2e637020dfe58f670ba2c942d7a55e49ba48bed09312569ee15a84f5ac680cb/b99cf76118b984ae1e1a23821dd0793a98b20eb318387e0d64e45b6d7ce14a28/g' \
     -i tests/test_execute/test_complex_outputs_unrun_{auto,cache}.xml \
        tests/test_execute/test_custom_convert_{auto,cache}.xml
-
-%generate_buildrequires
 %pyproject_buildrequires -x testing%{?with_doc:,rtd}
 
 %build

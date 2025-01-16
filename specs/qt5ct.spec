@@ -1,6 +1,6 @@
 Name:           qt5ct
 Version:        1.1
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Qt5 Configuration Tool
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -61,6 +61,9 @@ install -D -pm 644 src/%{name}/translations/*.qm %{buildroot}%{_datadir}/%{name}
 %{_qt5_plugindir}/styles/libqt5ct-style.so
 
 %changelog
+* Tue Jan 14 2025 Jan Grulich <jgrulich@redhat.com> - 1.1-28
+- Rebuild (qt5)
+
 * Thu Sep 05 2024 Jan Grulich <jgrulich@redhat.com> - 1.1-27
 - Rebuild (qt5)
 

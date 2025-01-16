@@ -18,11 +18,11 @@
 %global         main_version	1.3.2
 
 %if 0%{?use_gitbare}
-%global		gittardate		20241225
-%global		gittartime		1644
+%global		gittardate		20250114
+%global		gittartime		1503
 
-%global		gitbaredate	20241221
-%global		git_rev		37456d7d7839c55d2cf9d1c38d92c7571aeb463a
+%global		gitbaredate	20250109
+%global		git_rev		2d94c3c8c4a2c4e252a79da3ef2b6a70e9ec37e1
 %global		git_short		%(echo %{git_rev} | cut -c-8)
 %global		git_version	%{gitbaredate}git%{git_short}
 
@@ -40,7 +40,7 @@
 
 Name:           libfm
 Version:        %{main_version}%{git_ver_rpm}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GIO-based library for file manager-like programs
 
 # src/actions/	GPL-2.0-or-later
@@ -75,11 +75,11 @@ Source10:       create-libfm-git-bare-tarball.sh
 # when subsequent config file does not contain such key but previous key had
 # (related to bug 2011471)
 Patch1:         libfm-1.3.2-0001-fm_config_load_from_key_file-don-t-replace-string-va.patch
+# https://github.com/lxde/libfm/pull/107/
+# Fix for C23
+Patch10:        libfm-pr107-c23-prototype.patch
 # http://sourceforge.net/p/pcmanfm/feature-requests/385/
 #Patch1000:      http://sourceforge.net/p/pcmanfm/feature-requests/_discuss/thread/0a50a386/597e/attachment/libfm-1.2.3-moduledir-gtkspecific-v02.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=2333955
-# https://github.com/lxde/libfm/issues/104
-Patch11:        libfm-pr105-Restore-ABI-for-libfm.so.patch
 Patch1000:      libfm-1.3.0.2-moduledir-gtkspecific-v03.patch
 
 BuildRequires:  pkgconfig(gio-unix-2.0) >= 2.26.0
@@ -260,9 +260,10 @@ done
 %endif
 
 cat %PATCH1  | git am
-cat %PATCH11 | git am
 %patch -P1000 -p1 -Z
 git commit -m "Use gtk version specific module directory" -a
+
+cat %PATCH10 | git am
 
 # Need reporting upstream
 # ref: https://github.com/lxde/libfm/commit/1af95bd8f26cab6848a74b7e02b53c6c79fb53a5
@@ -495,6 +496,12 @@ fi
 %endif
 
 %changelog
+* Tue Jan 14 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.2^20250109git2d94c3c8-2
+- Apply upstream PR for C23 with function prototype strictness
+
+* Tue Jan 14 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.2^20250109git2d94c3c8-1
+- Update to the latest git
+
 * Wed Dec 25 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.2^20241221git37456d7d-1
 - Update to the latest git
 - Restore libfm.so ABI (bug 2333955)

@@ -1,12 +1,14 @@
 Name:           touchegg
-Version:        2.0.16
-Release:        5%{?dist}
+Version:        2.0.17
+Release:        1%{?dist}
 Summary:        Multi-touch gesture recognizer
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            https://github.com/JoseExposito/touchegg
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+
+ExcludeArch:    %{ix86}
 
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -70,15 +72,16 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/%{name}.desktop
 %files
 %license COPYING COPYRIGHT
 %doc README.md CHANGELOG.md
-
 %config(noreplace) %{_sysconfdir}/xdg/autostart/%{name}.desktop
-
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
 %{_unitdir}/%{name}.service
 
 
 %changelog
+* Wed Jan 15 2025 Leigh Scott <leigh123linux@gmail.com> - 2.0.17-1
+- Update to 2.0.17
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0.16-5
 - convert license to SPDX
 
@@ -91,7 +94,7 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/%{name}.desktop
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.16-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
-* Thu Feb 07 2023 Maíra Canal <mairacanal@riseup.net> - 2.0.16-1
+* Tue Feb 07 2023 Maíra Canal <mairacanal@riseup.net> - 2.0.16-1
 - Update to 2.0.16.
 
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.15-2

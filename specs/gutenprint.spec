@@ -56,6 +56,8 @@ BuildRequires: cups-libs
 BuildRequires: gcc
 # for language support
 BuildRequires: gettext-devel
+# glib-mkenums required for autogen.sh regardless of plugin
+BuildRequires: glib2-devel
 # for JPEG, PNG and TIFF file format support
 BuildRequires: libjpeg-devel
 BuildRequires: libpng-devel

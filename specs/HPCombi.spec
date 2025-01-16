@@ -69,6 +69,7 @@ API documentation for HPCombi.
 %prep
 %autosetup -p1
 
+%conf
 # Ensure we can't use the bundled simde
 rm -fr third_party
 

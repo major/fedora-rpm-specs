@@ -128,6 +128,8 @@ display the derived separating hyperplane.
 
 %prep
 %autosetup -p0 -n %{name}-%{upver}
+
+%conf
 cp -p %{SOURCE1} ChangeLog
 cp -p %{SOURCE2} %{SOURCE3} .
 cp -p %{SOURCE4} %{name}-svm-toy-qt-48.png

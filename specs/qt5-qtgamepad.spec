@@ -2,7 +2,7 @@
 
 Summary: Qt5 - Gamepad component
 Name:    qt5-%{qt_module}
-Version: 5.15.15
+Version: 5.15.16
 Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
@@ -89,6 +89,9 @@ make install_docs INSTALL_ROOT=%{buildroot} -C %{_target_platform}
 
 
 %changelog
+* Thu Jan 09 2025 Zephyr Lykos <fedora@mochaa.ws> - 5.15.16-1
+- 5.15.16
+
 * Wed Sep 04 2024 Jan Grulich <jgrulich@redhat.com> - 5.15.15-1
 - 5.15.15
 

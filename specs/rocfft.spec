@@ -37,7 +37,7 @@
 
 Name:           rocfft
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -45,6 +45,7 @@ License:        MIT
 Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-rocm-%{version}.tar.gz
 
 BuildRequires:  cmake
+BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  rocm-cmake
 BuildRequires:  rocm-comgr-devel
@@ -176,6 +177,9 @@ fi
 %endif
 
 %changelog
+* Tue Jan 14 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-2
+- build requires gcc-c++
+
 * Sun Dec 8 2024 Tom Rix <Tom.Rix@amd.com> - 6.3.0-1
 - Update to 6.3
 

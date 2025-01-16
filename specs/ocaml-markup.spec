@@ -73,6 +73,7 @@ developing applications that use %{name}-lwt.
 %prep
 %autosetup -n markup.ml-%{version} -p1
 
+%conf
 # The uchar package is a forward compatibility package for OCaml versions prior
 # to 4.03.  We have a later OCaml in Fedora; uchar is in the standard library.
 # Nothing in this package directly refers to uchar (only indirectly via uutf),

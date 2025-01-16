@@ -2,7 +2,7 @@
 
 # https://github.com/git-lfs/git-lfs
 %global goipath         github.com/git-lfs/git-lfs/v3
-Version:                3.6.0
+Version:                3.6.1
 
 %gometa
 

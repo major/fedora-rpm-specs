@@ -50,15 +50,25 @@
 Summary: A dynamic adaptive system tuning daemon
 Name: tuned
 Version: 2.24.1
-Release: 1%{?prerel1}%{?git_suffix:.%{git_suffix}}%{?dist}
+Release: 2%{?prerel1}%{?git_suffix:.%{git_suffix}}%{?dist}
 License: GPL-2.0-or-later AND CC-BY-SA-3.0
 %if 0%{?git_commit:1}
 Source0: https://github.com/redhat-performance/%{name}/archive/%{git_commit}/%{name}-%{version}-%{git_suffix}.tar.gz
 %else
 Source0: https://github.com/redhat-performance/%{name}/archive/v%{version}%{?prerel2}/%{name}-%{version}%{?prerel2}.tar.gz
 %endif
+# https://github.com/redhat-performance/tuned/pull/669
+Patch: ppd-adjustments.patch
+# https://github.com/redhat-performance/tuned/pull/697
+Patch: ppd-hold-add.patch
 # https://github.com/redhat-performance/tuned/pull/684
-Patch: 0001-tuned-ppd-Support-the-new-UPower-PPD-namespace.patch
+Patch: ppd-namespace.patch
+# https://github.com/redhat-performance/tuned/pull/727
+Patch: ppd-signal-handling.patch
+# https://github.com/redhat-performance/tuned/pull/698
+Patch: ppd-polkit.patch
+# https://github.com/redhat-performance/tuned/pull/707
+Patch: ppd-hold-release.patch
 # https://github.com/redhat-performance/tuned/pull/705
 Patch: 0001-Add-variables-to-BLS-entries-only-if-grub-is-used.patch
 URL: http://www.tuned-project.org/
@@ -502,6 +512,7 @@ fi
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/tuned/active_profile
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/tuned/profile_mode
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/tuned/post_loaded_profile
+%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/tuned/ppd_base_profile
 %config(noreplace) %{_sysconfdir}/tuned/tuned-main.conf
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/tuned/bootcmdline
 %verify(not size mtime md5) %{_sysconfdir}/modprobe.d/tuned.conf
@@ -632,6 +643,10 @@ fi
 %config(noreplace) %{_sysconfdir}/tuned/ppd.conf
 
 %changelog
+* Tue Jan 14 2025 Pavol Žáčik <pzacik@redhat.com> - 2.24.1-2
+- Backported multiple tuned-ppd patches
+  Resolves: rhbz#2318788
+
 * Tue Nov 26 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 2.24.1-1
 - new release
   - fixed privileged execution of arbitrary scripts by active local user

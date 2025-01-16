@@ -50,11 +50,11 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %prep
 %autosetup -n %{pkgname}-%{version}
 
+%conf
 # Fix a broken reference
 sed -i 's/Basic Construction/Constructing Quivers/' doc/chapter_path_algebras.xml
 
 %build
-export LC_ALL=C.UTF-8
 mkdir ../pkg
 ln -s ../%{pkgname}-%{version} ../pkg
 gap -l "$PWD/..;" makedoc.g
@@ -77,15 +77,16 @@ cp -a *.g examples lib tst version %{buildroot}%{gap_libdir}/pkg/%{pkgname}
 %gap_copy_docs -d doc/gap-days-lectures
 
 %check
-export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
+gap -l '%{buildroot}%{gap_libdir};' tst/testall.g
 
 %files
 %doc CHANGES README
 %license LICENSE
-%{gap_libdir}/pkg/%{pkgname}/
-%exclude %{gap_libdir}/pkg/%{pkgname}/doc/
-%exclude %{gap_libdir}/pkg/%{pkgname}/examples/
+%dir %{gap_libdir}/pkg/%{pkgname}/
+%{gap_libdir}/pkg/%{pkgname}/*.g
+%{gap_libdir}/pkg/%{pkgname}/lib/
+%{gap_libdir}/pkg/%{pkgname}/tst/
+%{gap_libdir}/pkg/%{pkgname}/version
 
 %files doc
 %docdir %{gap_libdir}/pkg/%{pkgname}/doc/

@@ -51,17 +51,17 @@
 
 Name:           rocblas
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        BLAS implementation for ROCm
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT AND BSD-3-Clause
 
 Source0:        %{url}/archive/refs/tags/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
 Patch2:         0001-fixup-install-of-tensile-output.patch
-# Patch3:         0001-add-gfx1103-support-for-rocBLAS.patch
 Patch4:         0001-offload-compress-option.patch
 
 BuildRequires:  cmake
+BuildRequires:  gcc-c++
 BuildRequires:  rocm-cmake
 BuildRequires:  rocm-comgr-devel
 BuildRequires:  rocm-compilersupport-macros
@@ -204,6 +204,9 @@ fi
 %endif
 
 %changelog
+* Tue Jan 14 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-3
+- build requires gcc-c++
+
 * Fri Dec 20 2024 Tom Rix <Tom.Rix@amd.com> - 6.3.0-2
 - Build type should be release
 

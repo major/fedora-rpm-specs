@@ -51,6 +51,7 @@ can execute a side condition.
 %prep
 %autosetup -p0 -n LFSC-%{gittag}
 
+%conf
 # We want to know about use of deprecated interfaces
 sed -i '/Wno-deprecated/d' CMakeLists.txt
 

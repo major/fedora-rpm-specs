@@ -78,17 +78,16 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %prep
 %autosetup -p0 -n %{pkgname}-%{version}
 
+%conf
 # Avoid name collisions in the documentation
 cp -p src/ctjhai/README README.ctjhai
 
 %build
-export LC_ALL=C.UTF-8
-
 # This is NOT an autoconf-generated script.  Do not use %%configure.
 ./configure %{gap_archdir}
 
 # Building with %%{?_smp_mflags} fails
-make CFLAGS="%{build_cflags} -DLONG_EXTERNAL_NAMES"
+make CFLAGS='%{build_cflags} -DLONG_EXTERNAL_NAMES'
 
 # Compress large tables
 parallel %{?_smp_mflags} --no-notice gzip --best ::: tbl/*.g
@@ -107,9 +106,8 @@ cp -a *.g bin lib tbl tst %{buildroot}%{gap_archdir}/pkg/%{pkgname}
 %check
 # The documentation tests cannot be run, as they require breaking out of
 # infinite loops.  See comments about a user interrupt.
-export LC_ALL=C.UTF-8
 cd tst
-gap -l "%{buildroot}%{gap_archdir};" << EOF
+gap -l '%{buildroot}%{gap_archdir};' << EOF
 LoadPackage("guava");
 if Test("guava.tst", rec( compareFunction := "uptowhitespace" ) ) = false then GAP_EXIT_CODE(1); fi;
 if Test("decoding.tst", rec( compareFunction := "uptowhitespace" ) ) = false then GAP_EXIT_CODE(1); fi;
@@ -120,8 +118,12 @@ EOF
 %files
 %doc CHANGES HISTORY README.md README.ctjhai
 %license COPYING
-%{gap_archdir}/pkg/%{pkgname}/
-%exclude %{gap_archdir}/pkg/%{pkgname}/doc/
+%dir %{gap_archdir}/pkg/%{pkgname}/
+%{gap_archdir}/pkg/%{pkgname}/*.g
+%{gap_archdir}/pkg/%{pkgname}/bin/
+%{gap_archdir}/pkg/%{pkgname}/lib/
+%{gap_archdir}/pkg/%{pkgname}/tbl/
+%{gap_archdir}/pkg/%{pkgname}/tst/
 
 %files doc
 %doc src/leon/doc/manual.pdf

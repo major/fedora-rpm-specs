@@ -252,6 +252,8 @@ notation system.
 
 %prep
 %setup -q -c -T
+
+%conf
 msiextract %{SOURCE0}
 cp -p %{SOURCE1} .
 %linuxtext -n OFL.txt

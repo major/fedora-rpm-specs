@@ -53,8 +53,6 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %autosetup -n %{upname}-%{version}
 
 %build
-export LC_ALL=C.UTF-8
-
 # Build the NTL interfaces
 cd ntl
 for fil in *.cc; do
@@ -79,14 +77,18 @@ cp -p ntl/{factors,findirr,findstdirrGF{2,p},isirrGF{p,q}} \
 %gap_copy_docs -n %{upname}
 
 %check
-export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
+gap -l '%{buildroot}%{gap_archdir};' tst/testall.g
 
 %files
 %doc CHANGES README.md
 %license LICENSE
-%{gap_archdir}/pkg/%{upname}/
-%exclude %{gap_archdir}/pkg/%{upname}/doc/
+%dir %{gap_archdir}/pkg/%{upname}/
+%{gap_archdir}/pkg/%{upname}/*.g
+%{gap_archdir}/pkg/%{upname}/data/
+%{gap_archdir}/pkg/%{upname}/lib/
+%{gap_archdir}/pkg/%{upname}/ntl/
+%{gap_archdir}/pkg/%{upname}/tst/
+%{gap_archdir}/pkg/%{upname}/VERSION
 
 %files doc
 %docdir %{gap_archdir}/pkg/%{upname}/doc/

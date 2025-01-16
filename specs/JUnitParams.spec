@@ -29,7 +29,7 @@ Patch:          %{name}-parse-bigdecimal.patch
 # Fix single method test filters
 Patch:          %{name}-single-method-filter.patch
 # Use hasMessageContaining instead of hasMessage
-Patch :         %{name}-has-message-containing.patch
+Patch:          %{name}-has-message-containing.patch
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(junit:junit)
@@ -62,6 +62,7 @@ The main differences with the standard JUnit Parameterized runner are:
 %prep
 %autosetup -n %{name}-%{name}-%{version} -p1
 
+%conf
 # sonatype-oss-parent is deprecated in Fedora
 %pom_remove_parent
 

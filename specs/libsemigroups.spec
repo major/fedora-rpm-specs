@@ -130,6 +130,7 @@ Documentation for %{name}.
 %prep
 %autosetup -p1
 
+%conf
 # Unbundle catch2
 rm tests/catch.hpp
 ln -s %{_includedir}/catch2/catch.hpp tests
@@ -143,16 +144,15 @@ sed -i 's,m4_esyscmd([^)]*),[%{version}],' configure.ac
 # Generate the configure script
 autoreconf -fi .
 
+%generate_buildrequires
 # Relax python version dependencies
 sed -i 's/==/>=/g' docs/requirements.txt
-
-%generate_buildrequires
 %pyproject_buildrequires -N docs/requirements.txt
 
 %build
 # Hpcombi is an x86-specific library that uses SSE and AVX instructions.
-# It is not currently available in Fedora, and we cannot assume the
-# availability of AVX in any case.
+# It is available in Fedora, but we cannot assume the availability of AVX.
+# We will use it when microarchitecture support is nailed down.
 %configure --disable-silent-rules --disable-static --disable-hpcombi \
   --enable-eigen --with-external-eigen --enable-fmt --with-external-fmt
 

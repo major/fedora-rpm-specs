@@ -6,7 +6,7 @@ Version:        76.1
 Release:        %autorelease
 Epoch:          1
 Summary:        International Components for Unicode for Java
-License:        Unicode-DFS-2016
+License:        Unicode-3.0
 URL:            https://icu.unicode.org/
 VCS:            git:%{giturl}.git
 
@@ -79,8 +79,9 @@ API documentation for %{name}.
 
 %prep
 %autosetup -p1 -n icu-release-%{dashver}
-cd icu4j
 
+%conf
+cd icu4j
 # Unnecessary plugins for an RPM build
 %pom_remove_plugin -r :flatten-maven-plugin
 %pom_remove_plugin -r :maven-clean-plugin

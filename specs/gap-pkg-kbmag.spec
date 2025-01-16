@@ -92,11 +92,11 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %prep
 %autosetup -n %{pkgname}-%{version}
 
+%conf
 # Preserve timestamps
 sed -i 's/cp /cp -p /' standalone/src/makefile
 
 %build
-export LC_ALL=C.UTF-8
 # This is not an autoconf-generated script.  Do not use %%configure.
 ./configure --with-gaproot=%{gap_archdir}
 %make_build
@@ -108,9 +108,8 @@ cp -a bin gap tst *.g  %{buildroot}%{gap_archdir}/pkg/%{pkgname}
 %gap_copy_docs
 
 %check
-export LC_ALL=C.UTF-8
 make test
-gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
+gap -l '%{buildroot}%{gap_archdir};' tst/testall.g
 
 %files
 %doc CHANGES README.md

@@ -58,6 +58,7 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %prep
 %autosetup -n %{upname}-%{version} -p1
 
+%conf
 # Defeat attempts to set an rpath
 sed -i 's/\(NORMALIZ_RPATH_EXTRA=\)"-.*"/\1""/' configure
 

@@ -27,6 +27,7 @@
 %global build_openrisc		%{build_all}
 %global build_powerpc64		%{build_all}
 %global build_powerpc64le	%{build_all}
+%global build_riscv32		%{build_all}
 %global build_riscv64		%{build_all}
 %global build_s390x		%{build_all}
 %global build_score		%{build_all}
@@ -66,7 +67,7 @@
 
 Name: %{cross}-binutils
 Version: 2.43.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A GNU collection of cross-compilation binary utilities
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
@@ -269,6 +270,7 @@ Cross-build binary image generation, manipulation and query tools. \
 %do_symlink ppc-linux-gnu	%{build_powerpc}	powerpc-linux-gnu
 %do_symlink ppc64-linux-gnu	%{build_powerpc64}	powerpc64-linux-gnu
 %do_symlink ppc64le-linux-gnu	%{build_powerpc64le}	powerpc64le-linux-gnu
+%do_package riscv32-linux-gnu	%{build_riscv32}
 %do_package riscv64-linux-gnu	%{build_riscv64}
 %do_package s390-linux-gnu	%{build_s390}
 %do_package s390x-linux-gnu	%{build_s390x}
@@ -382,6 +384,7 @@ cd ..
     prep_target powerpc-linux-gnu	%{build_powerpc}
     prep_target powerpc64-linux-gnu	%{build_powerpc64}
     prep_target powerpc64le-linux-gnu	%{build_powerpc64le}
+    prep_target riscv32-linux-gnu	%{build_riscv32}
     prep_target riscv64-linux-gnu	%{build_riscv64}
     prep_target s390-linux-gnu		%{build_s390}
     prep_target s390x-linux-gnu		%{build_s390x}
@@ -784,6 +787,7 @@ cd -
 %do_files ppc64-linux-gnu	%{build_powerpc64}
 %do_files ppc64le-linux-gnu	%{build_powerpc64le}
 %do_files riscv64-linux-gnu	%{build_riscv64}
+%do_files riscv32-linux-gnu	%{build_riscv32}
 %do_files s390-linux-gnu	%{build_s390}
 %do_files s390x-linux-gnu	%{build_s390x}
 %do_files score-linux-gnu	%{build_score}
@@ -797,6 +801,9 @@ cd -
 %do_files xtensa-linux-gnu	%{build_xtensa}
 
 %changelog
+* Sat Jan 11 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.43.1-2
+- Add support for riscv632 arch
+
 * Tue Aug 20 2024 Jose E. Marchesi <jose.marchesi@oracle.com> - 2.43.1-1
 - Update to binutils 2.43.1-1
 - Add: binutils-fix-ar-test.patch

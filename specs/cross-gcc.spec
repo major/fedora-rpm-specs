@@ -28,6 +28,7 @@
 %global build_openrisc		%{build_all}
 %global build_powerpc64		%{build_all}
 %global build_powerpc64le	%{build_all}
+%global build_riscv32		%{build_all}
 %global build_riscv64		%{build_all}
 %global build_s390x		%{build_all}
 %global build_sh		%{build_all}
@@ -83,7 +84,7 @@
 # line.  gcc_release is the Fedora gcc release that the patches were
 # taken from.
 %global gcc_release 1
-%global cross_gcc_release 1
+%global cross_gcc_release 2
 %global cross_binutils_version 2.43.1-1
 %global isl_version 0.16.1
 %global isl_libmajor 15
@@ -251,6 +252,7 @@ the number of packages. \
 %do_symlink ppc-linux-gnu	%{build_powerpc}	powerpc-linux-gnu
 %do_symlink ppc64-linux-gnu	%{build_powerpc64}	powerpc64-linux-gnu
 %do_symlink ppc64le-linux-gnu	%{build_powerpc64le}	powerpc64le-linux-gnu
+%do_package riscv32-linux-gnu	%{build_riscv32}
 %do_package riscv64-linux-gnu	%{build_riscv64}
 %do_package s390-linux-gnu	%{build_s390}
 %do_package s390x-linux-gnu	%{build_s390x}
@@ -342,6 +344,7 @@ cd ..
     prep_target powerpc-linux-gnu	%{build_powerpc}
     prep_target powerpc64-linux-gnu	%{build_powerpc64}
     prep_target powerpc64le-linux-gnu	%{build_powerpc64le}
+    prep_target riscv32-linux-gnu	%{build_riscv32}
     prep_target riscv64-linux-gnu	%{build_riscv64}
     prep_target s390-linux-gnu		%{build_s390}
     prep_target s390x-linux-gnu		%{build_s390x}
@@ -849,6 +852,7 @@ chmod +x %{__ar_no_strip}
 %do_files ppc-linux-gnu		%{build_powerpc}
 %do_files ppc64-linux-gnu	%{build_powerpc64}
 %do_files ppc64le-linux-gnu	%{build_powerpc64le}
+%do_files riscv32-linux-gnu	%{build_riscv32}
 %do_files riscv64-linux-gnu	%{build_riscv64}
 %do_files s390-linux-gnu	%{build_s390}
 %do_files s390x-linux-gnu	%{build_s390x}
@@ -863,6 +867,9 @@ chmod +x %{__ar_no_strip}
 %do_files xtensa-linux-gnu	%{build_xtensa}
 
 %changelog
+* Sat Jan 11 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 14.2.1-2
+- Add support for riscv632 arch
+
 * Sun Oct 27 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 14.2.1-1
 - Update to 14.2.1
 

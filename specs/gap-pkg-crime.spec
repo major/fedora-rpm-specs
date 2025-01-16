@@ -45,7 +45,6 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %autosetup -n %{pkgname}-%{version}
 
 %build
-export LC_ALL=C.UTF-8
 gap makedoc.g
 
 %install
@@ -54,11 +53,9 @@ cp -a *.g gap tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
 %gap_copy_docs
 
 %check
-export LC_ALL=C.UTF-8
-
 # Do not run the batch.g test.  It never terminates.  The instructions indicate
 # it has to be interrupted manually.
-gap -l "%{buildroot}%{gap_libdir};" << EOF
+gap -l '%{buildroot}%{gap_libdir};' << EOF
 LoadPackage("crime");
 GAP_EXIT_CODE(Test("tst/test.tst", rec(compareFunction := "uptowhitespace")));
 EOF
@@ -66,8 +63,10 @@ EOF
 %files
 %doc CHANGES.md README.md
 %license COPYING
-%{gap_libdir}/pkg/%{pkgname}/
-%exclude %{gap_libdir}/pkg/%{pkgname}/doc/
+%dir %{gap_libdir}/pkg/%{pkgname}/
+%{gap_libdir}/pkg/%{pkgname}/*.g
+%{gap_libdir}/pkg/%{pkgname}/gap/
+%{gap_libdir}/pkg/%{pkgname}/tst/
 
 %files doc
 %docdir %{gap_libdir}/pkg/%{pkgname}/doc/

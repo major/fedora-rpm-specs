@@ -120,6 +120,7 @@ files for developing applications that use %{name}-sourceview3.
 %prep
 %autosetup -n lablgtk-%{version} -p1
 
+%conf
 # This file is empty, so drop it before we make assemble the docs
 rm doc/FAQ.text
 

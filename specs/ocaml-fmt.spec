@@ -46,6 +46,7 @@ developing applications that use %{name}.
 %prep
 %autosetup -n fmt-%{version} -p1
 
+%conf
 # Skip the styled_perf_bug test, which runs until stopped by an external signal
 sed -i '/styled_perf_bug/d' pkg/pkg.ml _tags
 

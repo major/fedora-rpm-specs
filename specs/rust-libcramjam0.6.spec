@@ -24,10 +24,16 @@ Source:         %{crates_source}
 #   crate feature
 # * Patch out all -static features
 # * Update to cbindgen 0.27: https://github.com/cramjam/libcramjam/pull/20
+# * Update to blosc2-rs 0.4.0; backported from 0.7.0:
+#   https://github.com/cramjam/libcramjam/pull/22/commits/b8f92299c0d4ff6ab40aac60d52c7250602edbea
 Patch:          libcramjam-fix-metadata.diff
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+
+# * Patch a test for blosc2-rs 0.4; excerpted from
+#   https://github.com/cramjam/libcramjam/pull/22/commits/b8f92299c0d4ff6ab40aac60d52c7250602edbea
+Patch10:        libcramjam0.6-blosc2-rs-0.4.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  cargo-c

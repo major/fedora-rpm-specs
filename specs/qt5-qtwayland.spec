@@ -2,7 +2,7 @@
 
 Summary: Qt5 - Wayland platform support and QtCompositor module
 Name:    qt5-%{qt_module}
-Version: 5.15.15
+Version: 5.15.16
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -13,7 +13,7 @@ Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submod
 ## Upstream patches
 ## repo: https://invent.kde.org/qt/qt/qtwayland
 ## branch: kde/5.15
-## git format-patch v5.15.15-lts-lgpl
+## git format-patch v5.15.16-lts-lgpl
 Patch1:  0001-Client-Announce-an-output-after-receiving-more-compl.patch
 Patch2:  0002-Fix-issue-with-repeated-window-size-changes.patch
 Patch3:  0003-Client-Connect-drags-being-accepted-to-updating-the-.patch
@@ -68,11 +68,11 @@ Patch51: 0051-Client-Commit-the-initial-surface-state-explicitly.patch
 Patch52: 0052-tests-Fix-tst_xdgshell-minMaxSize.patch
 Patch53: 0053-Client-Remove-some-surface-commits.patch
 Patch54: 0054-Client-Avoid-locking-resizing-in-QWaylandShmBackingS.patch
-Patch55: 0055-Client-Always-populate-mimedata-in-drags.patch
-Patch56: 0056-Client-Fix-enter-event-cursor-position-with-xdg-popu.patch
-Patch57: 0057-client-don-t-cache-one-type-in-QWaylandMimeData.patch
-Patch58: 0058-Fix-race-condition-in-drag-and-drop.patch
-Patch59: 0059-Revert-Client-Send-release-button-event-on-pointer-l.patch
+Patch55: 0055-Client-Fix-enter-event-cursor-position-with-xdg-popu.patch
+Patch56: 0056-client-don-t-cache-one-type-in-QWaylandMimeData.patch
+Patch57: 0057-Fix-race-condition-in-drag-and-drop.patch
+Patch58: 0058-fix-variable-not-initialized.patch
+Patch59: 0059-client-use-current-modifiers-in-repeat-keys.patch
 
 # Use QAdwaitaDecorations by default
 Patch100: qtwayland-use-adwaita-decorations-by-default.patch
@@ -187,6 +187,9 @@ popd
 
 
 %changelog
+* Thu Jan 09 2025 Zephyr Lykos <fedora@mochaa.ws> - 5.15.16-1
+- 5.15.16
+
 * Wed Sep 04 2024 Jan Grulich <jgrulich@redhat.com> - 5.15.15-1
 - 5.15.15
 

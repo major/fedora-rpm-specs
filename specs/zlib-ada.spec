@@ -10,7 +10,7 @@
 
 Name:           zlib-ada
 Version:        %{upstream_version}
-Release:        0.38.%{upstream_commit_date}git%{upstream_shortcommit}%{?dist}
+Release:        0.39.%{upstream_commit_date}git%{upstream_shortcommit}%{?dist}
 Summary:        Zlib for Ada
 Summary(sv):    Zlib för ada
 
@@ -169,6 +169,9 @@ gnatmake mtest.adb -largs -lz && ./mtest
 ###############
 
 %changelog
+* Tue Jan 14 2025 Björn Persson <Bjorn@Rombobjörn.se> - 1.4-0.39.20210811gitca39312
+- Rebuilt with GCC 15 prerelease.
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-0.38.20210811gitca39312
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

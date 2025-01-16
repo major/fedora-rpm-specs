@@ -75,6 +75,7 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %prep
 %autosetup -n %{pkgname}-%{version}
 
+%conf
 # Use the main gap package's macro file
 rm -f doc/gapmacro.tex
 ln -s %{gap_libdir}/doc/gapmacro.tex doc/gapmacro.tex
@@ -86,7 +87,6 @@ sed -e 's,\.\./\.\./\.\./\.\./etc/convert\.pl,%{gap_libdir}/etc/convert.pl,' \
 
 %build
 # Build the documentation
-export LC_ALL=C.UTF-8
 pushd doc
 ./make_doc
 popd
@@ -102,14 +102,18 @@ cp -a *.g grp lib nr nri tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
 cp -a doc/htm %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
 
 %check
-export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
+gap -l '%{buildroot}%{gap_libdir};' tst/testall.g
 
 %files
 %doc README
 %license LICENSE
-%{gap_libdir}/pkg/%{pkgname}/
-%exclude %{gap_libdir}/pkg/%{pkgname}/doc/
+%dir %{gap_libdir}/pkg/%{pkgname}/
+%{gap_libdir}/pkg/%{pkgname}/*.g
+%{gap_libdir}/pkg/%{pkgname}/grp/
+%{gap_libdir}/pkg/%{pkgname}/lib/
+%{gap_libdir}/pkg/%{pkgname}/nr/
+%{gap_libdir}/pkg/%{pkgname}/nri/
+%{gap_libdir}/pkg/%{pkgname}/tst/
 
 %files doc
 %docdir %{gap_libdir}/pkg/%{pkgname}/doc/

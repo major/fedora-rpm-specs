@@ -2,7 +2,7 @@
 
 Summary: Qt5 - WebSockets component
 Name:    qt5-%{qt_module}
-Version: 5.15.15
+Version: 5.15.16
 Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
@@ -10,7 +10,15 @@ License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url: http://qt-project.org/
 %global majmin %(echo %{version} | cut -d. -f1-2)
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-opensource-src-%{version}.tar.xz
-Patch0: %{name}-gcc11.patch
+
+## upstream patches
+## repo: https://invent.kde.org/qt/qt/qtwebsockets
+## branch: kde/5.15
+## git format-patch v5.15.16-lts-lgpl
+Patch1:   0001-Clear-frame-on-reconnect.patch
+Patch2:   0002-Disconnect-when-handshake-fails.patch
+
+Patch100: %{name}-gcc11.patch
 
 # filter qml provides
 %global __provides_exclude_from ^%{_qt5_archdatadir}/qml/.*\\.so$
@@ -89,6 +97,9 @@ popd
 
 
 %changelog
+* Thu Jan 09 2025 Zephyr Lykos <fedora@mochaa.ws> - 5.15.16-1
+- 5.15.16
+
 * Wed Sep 04 2024 Jan Grulich <jgrulich@redhat.com> - 5.15.15-1
 - 5.15.15
 

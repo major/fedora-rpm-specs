@@ -87,6 +87,8 @@ Documentation for %{name}.
 %prep
 %autosetup -p1
 
+
+%conf
 # Adapt to the way saclib is packaged in Fedora
 sed -e 's,include/saclib,&/saclib,' \
     -e '/saclib\.h/,+1s/__GNU_MP_VERSION < 3/SACMAJVERS < 2/' \

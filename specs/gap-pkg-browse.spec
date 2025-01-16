@@ -3,7 +3,7 @@
 # test for this package, so the maintainer should always run this before
 # pushing a new version:
 #
-# gap -l "%%{gap_archdir};" <<< 'Test("tst/test.tst");'
+# gap -l '%%{gap_archdir};' <<< 'Test("tst/test.tst");'
 #
 # That test is more useful if the altasrep package is also installed.
 
@@ -112,11 +112,11 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %prep
 %autosetup -n %{upname}-%{version}
 
+%conf
 # Give an executable script a shebang
 sed -i '1i#!/bin/sh' bibl/getnewestbibfile
 
 %build
-export LC_ALL=C.UTF-8
 # This is NOT an autoconf-generated configure script
 ./configure %{gap_archdir}
 %make_build
@@ -139,8 +139,14 @@ cp -a app bibl bin lib tst version *.g %{buildroot}%{gap_archdir}/pkg/%{upname}
 %files
 %doc CHANGES README
 %license doc/GPL
-%{gap_archdir}/pkg/%{upname}/
-%exclude %{gap_archdir}/pkg/%{upname}/doc/
+%dir %{gap_archdir}/pkg/%{upname}/
+%{gap_archdir}/pkg/%{upname}/*.g
+%{gap_archdir}/pkg/%{upname}/app/
+%{gap_archdir}/pkg/%{upname}/bibl/
+%{gap_archdir}/pkg/%{upname}/bin/
+%{gap_archdir}/pkg/%{upname}/lib/
+%{gap_archdir}/pkg/%{upname}/tst/
+%{gap_archdir}/pkg/%{upname}/version
 
 %files doc
 %docdir %{gap_archdir}/pkg/%{upname}/doc/

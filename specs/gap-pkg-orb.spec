@@ -58,6 +58,7 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %prep
 %autosetup -n %{pkgname}-%{version} -b 1
 
+%conf
 # Account for changed hash values on big endian architectures
 # https://github.com/gap-packages/orb/issues/70
 %ifarch s390x

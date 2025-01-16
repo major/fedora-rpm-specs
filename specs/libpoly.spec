@@ -36,16 +36,21 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
-%package     -n python3-%{name}
+%package     -n python3-polypy
 Summary:        Python 3 interface to %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
-%description -n python3-%{name}
+# This can be removed when F45 reaches EOL
+Obsoletes:      python3-%{name} < 0.1.14
+Provides:       python3-%{name} = %{version}-%{release}
+
+%description -n python3-polypy
 This package contains a python 3 interface to %{name}.
 
 %prep
 %autosetup -p1
 
+%conf
 # Install in the right place
 if [ "%{_lib}" != "lib" ]; then
   sed -i 's/\(DESTINATION \)lib/\1%{_lib}/' src/CMakeLists.txt
@@ -79,7 +84,7 @@ cd -
 # Install the python interface the Fedora way
 cd python
 %pyproject_install
-%pyproject_save_files polypy
+%pyproject_save_files -L polypy
 cd -
 
 %check
@@ -97,7 +102,8 @@ export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/src
 %{_libdir}/libpoly.so
 %{_libdir}/libpolyxx.so
 
-%files -n python3-%{name} -f %{pyproject_files}
+%files -n python3-polypy -f %{pyproject_files}
+%license LICENCE
 
 %changelog
 %autochangelog

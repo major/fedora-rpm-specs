@@ -56,6 +56,8 @@ This package contains documentation for gap-pkg-%{pkgname}.
 
 %prep
 %autosetup -n %{pkgname}-%{version}
+
+%conf
 cp -p standalone-doc/README README.standalone
 
 %build

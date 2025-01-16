@@ -12,7 +12,7 @@
 # disable python2 by default
 %bcond python2 0
 
-%{!?tcl_version: %global tcl_version %(echo 'puts $tcl_version' | tclsh)}
+%{!?tcl_version: %global tcl_version %(echo 'puts $tcl_version' | tclsh8)}
 %{!?tcl_sitearch: %global tcl_sitearch %{_prefix}/%{_lib}/tcl%{tcl_version}}
 
 # with speech dispatcher iff on Fedora:
@@ -37,7 +37,7 @@
 
 Name: brltty
 Version: 6.7
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: LGPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later
 URL: http://brltty.app/
 Source0: http://brltty.app/archive/%{name}-%{version}.tar.xz
@@ -176,7 +176,7 @@ which directly accesses a refreshable braille display.
 %package -n tcl-brlapi
 Version: %{api_version}
 Requires: brlapi%{?_isa} = %{api_version}-%{release}
-BuildRequires: tcl-devel
+BuildRequires: tcl8-devel
 Summary: Tcl binding for BrlAPI
 %description -n tcl-brlapi
 This package provides the Tcl binding for BrlAPI.
@@ -276,6 +276,8 @@ cp -a python2 python3
 cp -a python2 minimal
 %endif
 
+find . -type f -name 'configure' | xargs sed -i s/in\ tclsh/in\ tclsh8/g
+find . -type f | xargs sed -i s/env\ tclsh/env\ tclsh8/g
 
 %build
 # If MAKEFLAGS=-jN is set it would break local builds.
@@ -676,6 +678,9 @@ fi
 %config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/brltty/Initramfs/cmdline
 
 %changelog
+* Tue Jan 14 2025 Gwyn Ciesla <gwync@protonmail.com> - 6.7-5
+- Update to use tcl8 compat.
+
 * Fri Jan 10 2025 Jerry James <loganjerry@gmail.com> - 6.7-4
 - OCaml 5.3.0 rebuild for Fedora 42
 

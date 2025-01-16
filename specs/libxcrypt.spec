@@ -167,8 +167,8 @@ fi                                          \
 
 
 Name:           libxcrypt
-Version:        4.4.37
-Release:        6%{?dist}
+Version:        4.4.38
+Release:        1%{?dist}
 Summary:        Extended crypt library for descrypt, md5crypt, bcrypt, and others
 
 # For explicit license breakdown, see the
@@ -181,10 +181,8 @@ Source2:        %{url}/releases/download/v%{version}/%{name}-gpgkey.asc
 Source3:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.xz.sha256sum
 
 # Patch 0000 - 2999: Backported patches from upstream.
-Patch0000:      %{url}/commit/819352f1cac6.patch#/%{name}-%{version}-util-base64-Fix-Wunterminated-string-initialization.patch
-Patch0001:      %{url}/commit/22c2a515641b.patch#/%{name}-%{version}-test-Fix-Wunterminated-string-initialization.patch
 # Patch 3000 - 5999: Backported patches from pull requests.
-Patch3000:      %{name}-Make-crypt-and-crypt_gensalt-use-thread-local-output.patch
+Patch3000:      %{url}/commit/5b930d8e84ea.patch#/%{name}-%{version}-Make-crypt-and-crypt_gensalt-use-thread-local-output.patch
 # Patch 6000 - 9999: Downstream patches.
 
 BuildRequires:  autoconf
@@ -331,10 +329,10 @@ discouraged.
 %if %{without bootstrap}
 # Omitted during bootstrap.
 %{gpgverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
-%endif
 pushd %{_sourcedir}
 sha256sum -c %{SOURCE3}
 popd
+%endif
 
 %autosetup -p 1
 
@@ -541,6 +539,9 @@ done
 
 
 %changelog
+* Tue Jan 14 2025 Björn Esser <besser82@fedoraproject.org> - 4.4.38-1
+- New upstream release
+
 * Sun Jan 12 2025 Björn Esser <besser82@fedoraproject.org> - 4.4.37-6
 - Drop all_possible_tests configuration
 - Build test-programs during %%check stage

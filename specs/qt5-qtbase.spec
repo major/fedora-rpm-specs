@@ -56,8 +56,8 @@
 
 Name:    qt5-qtbase
 Summary: Qt5 - QtBase components
-Version: 5.15.15
-Release: 3%{?dist}
+Version: 5.15.16
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -144,11 +144,11 @@ Patch90: %{name}-gcc11.patch
 
 ## upstream patches
 # https://invent.kde.org/qt/qt/qtbase, kde/5.15 branch
-# git diff v5.15.15-lts-lgpl..HEAD | gzip > kde-5.15-rollup-$(date +%Y%m%d).patch.gz
+# git diff v5.15.16-lts-lgpl..HEAD | gzip > kde-5.15-rollup-$(date +%Y%m%d).patch.gz
 # patch100 in lookaside cache due to large'ish size -- rdieter
-Patch100: kde-5.15-rollup-20240904.patch.gz
+Patch100: kde-5.15-rollup-20250109.patch.gz
 # HACK to make 'fedpkg sources' consider it 'used"
-Source100: kde-5.15-rollup-20240904.patch.gz
+Source100: kde-5.15-rollup-20250109.patch.gz
 
 Patch101: qtbase-5.15.10-fix-missing-qtsan-include.patch
 # Workaround for font rendering issue with cjk-vf-fonts
@@ -156,7 +156,6 @@ Patch101: qtbase-5.15.10-fix-missing-qtsan-include.patch
 # https://bugreports.qt.io/browse/QTBUG-112136
 Patch102: qtbase-QTBUG-111994.patch
 Patch103: qtbase-QTBUG-112136.patch
-Patch104: qtbase-qfutureinterface-fix-build-with-gcc14.patch
 
 ## Qt 6 backports for better Gtk/GNOME integration
 # https://fedoraproject.org/wiki/Changes/Qt_Wayland_By_Default_On_Gnome
@@ -238,7 +237,7 @@ BuildRequires: pkgconfig(xkeyboard-config)
 BuildRequires: pkgconfig(vulkan)
 %if 0%{?fedora} || 0%{?rhel} > 6
 %global egl 1
-BuildRequires: libEGL-devel
+BuildRequires: pkgconfig(egl)
 BuildRequires: pkgconfig(gbm)
 ## TODO: apparently only needed if building opengl_es2 support, do we actually use it?  -- rex
 BuildRequires: pkgconfig(glesv2)
@@ -329,7 +328,7 @@ Summary: Development files for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: %{name}-gui%{?_isa}
 %if 0%{?egl}
-Requires: libEGL-devel
+Requires: pkgconfig(egl)
 %endif
 Requires: pkgconfig(gl)
 %if 0%{?vulkan}
@@ -474,7 +473,6 @@ Qt5 libraries used for drawing widgets and OpenGL items.
 %patch -P101 -p1
 %patch -P102 -p1
 %patch -P103 -p1
-%patch -P104 -p1
 
 ## Qt 6 backports
 %if 0%{?fedora} > 30 || 0%{?rhel} > 8
@@ -669,7 +667,7 @@ translationdir=%{_qt5_translationdir}
 
 Name: Qt5
 Description: Qt5 Configuration
-Version: 5.15.15
+Version: 5.15.16
 EOF
 
 # rpm macros
@@ -1171,6 +1169,9 @@ fi
 
 
 %changelog
+* Thu Jan 09 2025 Zephyr Lykos <fedora@mochaa.ws> - 5.15.16-1
+- 5.15.16
+
 * Tue Dec 10 2024 Jan Grulich <jgrulich@redhat.com> - 5.15.15-3
 - Obsolete QGnomePlatform and AdwaitaQt
 

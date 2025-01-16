@@ -74,6 +74,7 @@ functions over polytopes and in particular to do volume computations.
 %setup -q -n latte-int-%{version} -T -D -a 3
 %autopatch -p0
 
+%conf
 # Add a missing executable bit
 chmod a+x ltmain.sh
 

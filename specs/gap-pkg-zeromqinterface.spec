@@ -47,6 +47,7 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %prep
 %autosetup -n %{upname}-%{version}
 
+%conf
 # Fix python shebang
 sed -i.orig 's,%{_bindir}/env python,%{python3},' zgap
 touch -r zgap.orig zgap

@@ -71,6 +71,7 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %prep
 %autosetup -n %{pkgname}-%{version} -p0
 
+%conf
 # Fix character encodings
 for fil in gap/basic/colcom.gi; do
   iconv -f iso8859-1 -t utf-8 $fil > $fil.utf8
@@ -79,7 +80,6 @@ for fil in gap/basic/colcom.gi; do
 done
 
 %build
-export LC_ALL=C.UTF-8
 gap makedoc.g
 
 %install
@@ -91,15 +91,16 @@ cp -a *.g gap tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
 # https://github.com/gap-packages/polycyclic/issues/46
 #%%if %%{without bootstrap}
 #%%check
-#export LC_ALL=C.UTF-8
-#gap -l "%%{buildroot}%%{gap_libdir};" tst/testall.g
+#gap -l '%%{buildroot}%%{gap_libdir};' tst/testall.g
 #%%endif
 
 %files
 %doc CHANGES.md README.md
 %license LICENSE
-%{gap_libdir}/pkg/%{pkgname}/
-%exclude %{gap_libdir}/pkg/%{pkgname}/doc/
+%dir %{gap_libdir}/pkg/%{pkgname}/
+%{gap_libdir}/pkg/%{pkgname}/*.g
+%{gap_libdir}/pkg/%{pkgname}/gap/
+%{gap_libdir}/pkg/%{pkgname}/tst/
 
 %files doc
 %docdir %{gap_libdir}/pkg/%{pkgname}/doc/

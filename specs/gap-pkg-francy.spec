@@ -56,13 +56,13 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %prep
 %autosetup -n %{pkgname}-%{version} -p1
 
+%conf
 # Call xdg-open instead of open
 sed -i.orig 's/"open "/"xdg-open "/' gap/canvas.gi
 touch -r gap/canvas.gi.orig gap/canvas.gi
 rm gap/canvas.gi.orig
 
 %build
-export LC_ALL=C.UTF-8
 gap makedoc.g
 
 %install
@@ -72,16 +72,16 @@ cp -a *.g examples gap notebooks schema tst \
 %gap_copy_docs
 
 %check
-export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
+gap -l '%{buildroot}%{gap_libdir};' tst/testall.g
 
 %files
 %doc README.md
 %license LICENSE
-%{gap_libdir}/pkg/%{pkgname}/
-%exclude %{gap_libdir}/pkg/%{pkgname}/doc/
-%exclude %{gap_libdir}/pkg/%{pkgname}/examples/
-%exclude %{gap_libdir}/pkg/%{pkgname}/notebooks/
+%dir %{gap_libdir}/pkg/%{pkgname}/
+%{gap_libdir}/pkg/%{pkgname}/*.g
+%{gap_libdir}/pkg/%{pkgname}/gap/
+%{gap_libdir}/pkg/%{pkgname}/schema/
+%{gap_libdir}/pkg/%{pkgname}/tst/
 
 %files doc
 %docdir %{gap_libdir}/pkg/%{pkgname}/doc/

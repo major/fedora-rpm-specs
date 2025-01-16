@@ -57,6 +57,7 @@ files for developing applications that use %{name}.
 %prep
 %autosetup -n logs-%{version} -p1
 
+%conf
 # test_lwt needs the thread flag
 sed -i 's/package(lwt)/thread, &/' _tags
 

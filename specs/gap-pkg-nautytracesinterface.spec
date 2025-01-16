@@ -62,6 +62,7 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %prep
 %autosetup -p0 -n %{user}-NautyTracesInterface-%{shorttag}
 
+%conf
 # Make sure the bundled nauty is not used
 rm -fr nauty*
 

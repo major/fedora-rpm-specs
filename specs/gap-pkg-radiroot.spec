@@ -47,12 +47,11 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %prep
 %autosetup -p0 -n %{pkgname}-%{version}
 
+%conf
 # Fix link to main GAP bibliography file
 sed -i 's,/doc/manual,&bib.xml,' doc/manual.tex
 
 %build
-export LC_ALL=C.UTF-8
-
 # Link to main GAP documentation
 ln -s %{gap_libdir}/etc ../../etc
 ln -s %{gap_libdir}/doc ../../doc
@@ -68,15 +67,15 @@ cp -a *.g htm lib tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
 %gap_copy_docs
 
 %check
-export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
+gap -l '%{buildroot}%{gap_libdir};' tst/testall.g
 
 %files
 %doc CHANGES README
 %license LICENSE
-%{gap_libdir}/pkg/%{pkgname}/
-%exclude %{gap_libdir}/pkg/%{pkgname}/doc/
-%exclude %{gap_libdir}/pkg/%{pkgname}/htm/
+%dir %{gap_libdir}/pkg/%{pkgname}/
+%{gap_libdir}/pkg/%{pkgname}/*.g
+%{gap_libdir}/pkg/%{pkgname}/lib/
+%{gap_libdir}/pkg/%{pkgname}/tst/
 
 %files doc
 %docdir %{gap_libdir}/pkg/%{pkgname}/doc/

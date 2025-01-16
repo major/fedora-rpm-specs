@@ -2,7 +2,7 @@
 %bcond check 0
 
 Name:    newsboat
-Version: 2.37
+Version: 2.38
 Release: %{autorelease}
 Summary: RSS/Atom feed reader for the text console
 
@@ -14,8 +14,7 @@ Source2: https://newsboat.org/newsboat.pgp
 
 Patch:  0001-make-do-not-require-Cargo.lock.patch
 Patch:  0002-libnewsboat-relax-requirements.patch
-Patch:  0003-Revert-update-to-unicode-width-0.1.13.patch
-Patch:  0004-Do-not-build-http-test-server-by-default.patch
+Patch:  0003-Do-not-build-http-test-server-by-default.patch
 ## # Following patches should be included in next release; prune when updating
 
 # Source file verification
@@ -93,6 +92,14 @@ find %{buildroot}%{_pkgdocdir}/ -type f -exec chmod -x '{}' +
 %{_mandir}/man1/podboat.1*
 %{_pkgdocdir}
 %{_datadir}/icons/hicolor/scalable/apps/newsboat.svg
+
+%dir %{_datadir}/fish
+%dir %{_datadir}/fish/vendor_completions.d
+%{_datadir}/fish/vendor_completions.d/newsboat.fish
+
+%dir %{_datadir}/zsh
+%dir %{_datadir}/zsh/site-functions
+%{_datadir}/zsh/site-functions/_newsboat
 
 %changelog
 %{autochangelog}

@@ -57,17 +57,18 @@ Files for developing applications that use memtailor.
 %prep
 %autosetup -p0 -n %{user}-%{name}-%{shorttag}
 
+%conf
 # Remove spurious executable bits
 chmod a-x src/test/*.cpp
 
 # Fix the URL in the pkgconfig file
 sed -i 's/broune/Macaulay2/' build/autotools/memtailor.pc.in
 
-%build
 # Upstream doesn't generate the configure script, and we have altered
 # Makefile.am anyway.
 autoreconf -fi
 
+%build
 export GTEST_PATH=%{_prefix}
 export GTEST_VERSION=$(gtest-config --version)
 %configure --disable-static --enable-shared --with-gtest=yes

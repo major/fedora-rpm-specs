@@ -65,8 +65,6 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %autosetup -p0 -n %{upname}-%{version}
 
 %build
-export LC_ALL=C.UTF-8
-
 # Link to main GAP documentation
 ln -s %{gap_libdir}/doc ../../doc
 mkdir ../pkg
@@ -105,8 +103,8 @@ install -p -m 0644 %{SOURCE4} %{buildroot}%{_sysconfdir}
 
 # Install the man page
 mkdir -p %{buildroot}%{_mandir}/man8
-help2man -m "GAP SCSCP package" -S "GAP SCSCP (Fedora %{version}-%{release})" \
-  -n "GAP Daemon" -I %{SOURCE5} -o %{buildroot}%{_mandir}/man8/%{usrname}.8 \
+help2man -m 'GAP SCSCP package' -S 'GAP SCSCP (Fedora %{version}-%{release})' \
+  -n 'GAP Daemon' -I %{SOURCE5} -o %{buildroot}%{_mandir}/man8/%{usrname}.8 \
   -N -s 8 %{SOURCE1}
 
 # Move the config files to their new home
@@ -119,8 +117,6 @@ ln -s %{_sysconfdir}/scscp/gap/config.g %{buildroot}%{gap_libdir}/pkg/%{upname}
 ln -s %{_sysconfdir}/scscp/gap/configpar.g %{buildroot}%{gap_libdir}/pkg/%{upname}
 
 %check
-export LC_ALL=C.UTF-8
-
 # We only run the offline test as the others require network access and two
 # servers to be setup and running.
 mkdir ../pkg
@@ -145,10 +141,13 @@ rm -fr ../pkg
 %files
 %doc README.md todo.txt
 %license COPYING
-%{gap_libdir}/pkg/%{upname}/
-%exclude %{gap_libdir}/pkg/%{upname}/demo/
-%exclude %{gap_libdir}/pkg/%{upname}/doc/
-%exclude %{gap_libdir}/pkg/%{upname}/example/
+%dir %{gap_libdir}/pkg/%{upname}/
+%{gap_libdir}/pkg/%{upname}/*.g
+%{gap_libdir}/pkg/%{upname}/*.sh
+%{gap_libdir}/pkg/%{upname}/lib/
+%{gap_libdir}/pkg/%{upname}/par/
+%{gap_libdir}/pkg/%{upname}/tracing/
+%{gap_libdir}/pkg/%{upname}/tst/
 %{_mandir}/man8/%{usrname}.8*
 %{_sysusersdir}/%{usrname}.conf
 %{_unitdir}/gap-scscp.service

@@ -57,6 +57,7 @@ developing applications that use %{name}.
 %prep
 %autosetup -n %{name}-%{basever}-%{extraver} -p1
 
+%conf
 # Choose the build method that uses an installed glpk
 cp -p src/glpk/dune-shared src/glpk/dune
 

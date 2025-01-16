@@ -35,7 +35,7 @@
 
 Name:           rocsparse
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        SPARSE implementation for ROCm
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -47,6 +47,7 @@ Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{ro
 Patch0:         0001-rocsparse-offload-compress.patch
 
 BuildRequires:  cmake
+BuildRequires:  gcc-c++
 BuildRequires:  rocm-cmake
 BuildRequires:  rocm-comgr-devel
 BuildRequires:  rocm-compilersupport-macros
@@ -163,6 +164,9 @@ fi
 %endif
 
 %changelog
+* Tue Jan 14 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-2
+- build requires gcc-c++
+
 * Mon Dec 9 2024 Tom Rix <Tom.Rix@amd.com> - 6.3.0-1
 - Update to 6.3
 

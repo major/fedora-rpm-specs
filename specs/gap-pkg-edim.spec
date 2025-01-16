@@ -62,6 +62,7 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %prep
 %autosetup -n %{upname}-%{version}
 
+%conf
 # Fix encodings
 for fil in doc/edim.bib doc/edim.bbl; do
   iconv -f iso8859-1 -t utf-8 $fil > $fil.utf8
@@ -70,8 +71,6 @@ for fil in doc/edim.bib doc/edim.bbl; do
 done
 
 %build
-export LC_ALL=C.UTF-8
-
 # This is NOT an autoconf-generated script.  Do not use %%configure.
 ./configure %{gap_archdir}
 %make_build
@@ -90,14 +89,17 @@ cp -a *.g bin lib tst VERSION %{buildroot}%{gap_archdir}/pkg/%{upname}
 %gap_copy_docs -n %{upname}
 
 %check
-export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_archdir};" tst/testinstall.g
+gap -l '%{buildroot}%{gap_archdir};' tst/testinstall.g
 
 %files
 %doc CHANGES README TODO
 %license GPL
-%{gap_archdir}/pkg/%{upname}/
-%exclude %{gap_archdir}/pkg/%{upname}/doc/
+%dir %{gap_archdir}/pkg/%{upname}/
+%{gap_archdir}/pkg/%{upname}/*.g
+%{gap_archdir}/pkg/%{upname}/bin/
+%{gap_archdir}/pkg/%{upname}/lib/
+%{gap_archdir}/pkg/%{upname}/tst/
+%{gap_archdir}/pkg/%{upname}/VERSION
 
 %files doc
 %docdir %{gap_archdir}/pkg/%{upname}/doc/

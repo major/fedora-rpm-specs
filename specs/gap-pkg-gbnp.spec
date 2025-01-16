@@ -51,6 +51,7 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %prep
 %autosetup -p0 -n %{pkgname}-%{version}
 
+%conf
 # Help GAP find its files
 sed -i 's,\\\\\\\(.*\) ,"%{gap_libdir}\1",;s/eval //' etc/workspace
 sed -i 's,\\\\;,%{gap_libdir};,' etc/makedepend etc/workspace

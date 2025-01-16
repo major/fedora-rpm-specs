@@ -89,6 +89,13 @@ done
 # Don't install any static .a and libtool .la files
 rm -f $RPM_BUILD_ROOT%{tcl_sitearch}/%{pkgname}%{version}/*.{a,la}
 
+%check
+cp -prf $RPM_BUILD_ROOT%{_libdir} test
+sed -e "s|%{tcl_sitearch}|$(pwd)/test/tcl%{tcl_version}|" \
+    -i test/tcl%{tcl_version}/%{pkgname}%{version}/tclreadlineInit.tcl
+echo "package require tclreadline" > load.tcl
+TCLLIBPATH="$(pwd)/test/tcl%{tcl_version}" tclsh load.tcl
+
 %ldconfig_scriptlets
 
 %files

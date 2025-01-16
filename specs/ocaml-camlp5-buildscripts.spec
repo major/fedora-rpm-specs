@@ -33,6 +33,7 @@ dependency on Perl for such projects.
 %prep
 %autosetup -n camlp5-buildscripts-%{version}
 
+%conf
 # Build native executables when possible
 %ifarch %{ocaml_native_compiler}
 sed -i 's/ocamlc/ocamlopt/' src/Makefile

@@ -36,6 +36,7 @@ transform, and query JSON documents.
 %prep
 %autosetup -n jsonp-api-%{version}-RELEASE
 
+%conf
 # org.eclipse.ee4j:project is not available in Fedora
 %pom_remove_parent api
 

@@ -2,13 +2,23 @@
 
 Summary: Main Qt5 Reference Documentation
 Name:    qt5-%{qt_module}
-Version: 5.15.15
+Version: 5.15.16
 Release: 1%{?dist}
 
 License: GFDL-1.3-no-invariants-or-later
 Url:     http://www.qt.io
 %global majmin %(echo %{version} | cut -d. -f1-2)
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-opensource-src-%{version}.tar.xz
+
+## upstream patches
+## repo: https://invent.kde.org/qt/qt/qtdoc
+## branch: kde/5.15
+## git format-patch v5.15.16-lts-lgpl
+Patch1: 0001-Android-keep-only-mandatory-arguments-for-configure-.patch
+Patch2: 0002-Doc-update-some-packages-for-Linux.patch
+Patch3: 0003-Android-update-linux-package-dependencies.patch
+Patch4: 0004-Remove-unneeded-italic-decoration.patch
+Patch5: 0005-Linux-Fix-library-xcb-spelling-errors.patch
 
 BuildArch: noarch
 %global _qt5_qmake %{_bindir}/qmake-qt5
@@ -28,7 +38,7 @@ overviews, Qt topics, and examples not specific to any Qt module.
 
 
 %prep
-%setup -q -n %{qt_module}-everywhere-src-%{version}
+%autosetup -n %{qt_module}-everywhere-src-%{version} -p1
 
 
 %build
@@ -50,6 +60,9 @@ make install_docs INSTALL_ROOT=%{buildroot}
 
 
 %changelog
+* Thu Jan 09 2025 Zephyr Lykos <fedora@mochaa.ws> - 5.15.16-1
+- 5.15.16
+
 * Wed Sep 04 2024 Jan Grulich <jgrulich@redhat.com> - 5.15.15-1
 - 5.15.15
 

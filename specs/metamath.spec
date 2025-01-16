@@ -59,6 +59,8 @@ automated theorem provers.
 
 %prep
 %autosetup -n %{name}
+
+%conf
 cp -p %{SOURCE1} .
 touch special-settings.sty
 

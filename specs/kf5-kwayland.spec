@@ -14,7 +14,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.116.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: KDE Frameworks 5 library that wraps Client and Server Wayland libraries
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT AND MIT-CMU
@@ -24,6 +24,7 @@ URL:     https://invent.kde.org/frameworks/%{framework}
 %global stable %stable_kf5
 Source0: http://download.kde.org/%{stable}/frameworks/%{majmin}/%{framework}-%{version}.tar.xz
 
+Patch0:  kwayland-fix-build.patch
 
 BuildRequires: make
 BuildRequires:  extra-cmake-modules >= %{version}
@@ -109,6 +110,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Tue Jan 14 2025 Jan Grulich <jgrulich@redhat.com> - 5.116.0-5
+- Rebuild (qt5)
+
 * Thu Sep 05 2024 Jan Grulich <jgrulich@redhat.com> - 5.116.0-4
 - Rebuild (qt5)
 

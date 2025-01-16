@@ -42,6 +42,7 @@ developing applications that use %{name}.
 %prep
 %autosetup -n jsonm-%{version}
 
+%conf
 # Topkg does watermark replacements only if run inside a git checkout.  Github
 # tarballs do not come with a .git directory.  Therefore, we do the watermark
 # replacement manually.

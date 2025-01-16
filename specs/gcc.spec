@@ -1,5 +1,5 @@
-%global DATE 20250113
-%global gitrev 074f598e85b434066965fa130b38f32abcbc4f5e
+%global DATE 20250114
+%global gitrev 6adb681d9cf55f12e8a232c1e9a009e5ca5fdde5
 %global gcc_version 15.0.1
 %global gcc_major 15
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -143,7 +143,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.1%{?dist}
+Release: %{gcc_release}.3%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -301,6 +301,7 @@ Patch11: gcc15-d-shared-libphobos.patch
 Patch12: gcc15-pr118206.patch
 Patch13: gcc15-d-deps.patch
 Patch14: gcc15-pr118438.patch
+Patch15: gcc15-pr117231.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -918,6 +919,7 @@ so that there cannot be any synchronization problems.
 %patch -P12 -p0 -b .pr118206~
 %patch -P13 -p0 -b .d-deps~
 %patch -P14 -p0 -b .pr118438~
+%patch -P15 -p0 -b .pr117231~
 
 %patch -P50 -p0 -b .rh2155127~
 touch -r isl-0.24/m4/ax_prog_cxx_for_build.m4 isl-0.24/m4/ax_prog_cc_for_build.m4
@@ -3677,6 +3679,14 @@ end
 %endif
 
 %changelog
+* Tue Jan 14 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.3
+- temporary fix for coroutine range for handling (PR c++/117231)
+
+* Tue Jan 14 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.2
+- update from trunk
+  - PRs ada/118459, c/116871, c++/118445, modula2/116557, target/116030,
+	target/117682, tree-optimization/118405
+
 * Mon Jan 13 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.1
 - update from trunk
   - PRs c/118112, c++/114630, d/117701, fortran/115788, fortran/118432,

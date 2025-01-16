@@ -1,5 +1,5 @@
 Name:           scribus
-Version:        1.6.1
+Version:        1.6.3
 Release:        %autorelease
 Summary:        Desktop Publishing application written in Qt
 # swatches bring in the fun licenses
@@ -13,13 +13,6 @@ URL:            http://www.scribus.net/
 Source0:        %{name}-%{version}-free.tar.xz
 #Source0:        http://downloads.sourceforge.net/%%{name}/%%{name}-%%{version}.tar.xz
 #Source1:        http://downloads.sourceforge.net/%%{name}/%%{name}-%%{version}.tar.xz.asc
-
-# Enforce C++20 due to poppler
-Patch0:         scribus-1.6.1-c++20.patch
-Patch1:         scribus-1.6.1-c++20-warnings.patch
-Patch2:         scribus-1.6.1-point-operator.patch
-Patch3:         scribus-1.6.1-poppler-24.03.0.patch
-Patch4:         scribus-1.6.1-poppler-24.03.0-fix.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake

@@ -2,7 +2,7 @@ Name:           mine_detector
 Version:        6.0^20160527
 # The version numbering upstream is inconsistent and useless. Here the date of
 # the newest source file in the zip file is used to identify the version
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Mine Detector, a mine-finding game
 Summary(sv):    Mine Detector, ett minröjningsspel
 
@@ -77,6 +77,9 @@ cp -p %{SOURCE8} %{buildroot}%{_mandir}/sv/man1/mine_detector.1
 
 
 %changelog
+* Tue Jan 14 2025 Björn Persson <Bjorn@Rombobjörn.se> - 6.0^20160527-4
+- Rebuilt with GCC 15 prerelease.
+
 * Thu Dec 05 2024 Björn Persson <Bjorn@Rombobjörn.se> - 6.0^20160527-3
 - Rebuilt with GTKada 25.
 

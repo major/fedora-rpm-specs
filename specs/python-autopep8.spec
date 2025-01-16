@@ -2,7 +2,7 @@
 %global py3_name python3-%{pypi_name}
 
 Name:           python-%{pypi_name}
-Version:        2.3.1
+Version:        2.3.2
 Release:        %autorelease
 Summary:        Automatically formats Python code to conform to the PEP 8 style guide
 

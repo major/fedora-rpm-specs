@@ -7,9 +7,8 @@ License:   CC0-1.0 AND CC-BY-1.0 AND CC-BY-SA-1.0 AND GFDL-1.1-or-later
 URL:       https://github.com/hughsie/appstream-glib
 Source1:   https://dl.fedoraproject.org/pub/alt/screenshots/f%{version}/fedora-%{version}.xml.gz
 Source2:   https://dl.fedoraproject.org/pub/alt/screenshots/f%{version}/fedora-%{version}-icons.tar.gz
-Source3:   https://raw.githubusercontent.com/hughsie/fedora-appstream/master/appstream-extra/adobe-flash.xml
-Source5:   https://raw.githubusercontent.com/hughsie/fedora-appstream/master/appstream-extra/gstreamer-non-free.xml
-Source6:   https://raw.githubusercontent.com/hughsie/fedora-appstream/master/appstream-extra/other-repos.xml
+Source3:   gstreamer-non-free.xml
+Source4:   other-repos.xml
 
 BuildRequires: libappstream-glib
 
@@ -23,7 +22,7 @@ repositories and the extra data in fedora-appstream.
 
 DESTDIR=%{buildroot} appstream-util install-origin fedora %{SOURCE1} %{SOURCE2}
 DESTDIR=%{buildroot} appstream-util install \
-	%{SOURCE3} %{SOURCE5} %{SOURCE6}
+	%{SOURCE3} %{SOURCE4}
 
 # Move to the "correct" path for appstream 0.16 / 1.0
 mv %{buildroot}%{_datadir}/app-info %{buildroot}%{_datadir}/swcatalog

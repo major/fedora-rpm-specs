@@ -19,7 +19,7 @@
 %endif
 
 Name:           webkit2gtk4.0
-Version:        2.46.3
+Version:        2.47.2
 Release:        %autorelease
 Summary:        WebKitGTK for GTK 3 and libsoup 2
 
@@ -39,7 +39,7 @@ Summary:        WebKitGTK for GTK 3 and libsoup 2
 # Source/ThirdParty/ANGLE/tools/flex-bison/third_party/m4sugar/m4sugar.m4 is GPL-3.0-only WITH Autoconf-exception-3.0
 # Source/ThirdParty/pdfjs/web/images/annotation-paperclip.svg is MPL-2.0i
 # Source/ThirdParty/pdfjs/web/standard_fonts/LICENSE_LIBERATION is OFL-1.1
-# Source/ThirdParty/xdgmime/ is AFL-2.0 GPL-2.0-or-later
+# Source/ThirdParty/xdgmime/ is AFL-2.0 OR GPL-2.0-or-later
 # Source/WebCore/dom/PseudoElement.h is BSD-Source-Code
 # Source/WebCore/dom/SecurityContext.cpp is BSD-2-Clause-Views
 # Source/WebKit/UIProcess/Launcher/glib/BubblewrapLauncher.cpp is LGPL-2.1-or-later
@@ -48,7 +48,7 @@ Summary:        WebKitGTK for GTK 3 and libsoup 2
 # Source/WTF/icu/LICENSE is ICU
 # Source/WTF/wtf/Markable.h is BSL-1.0
 # The license tag and above comment is up to date as of WebKitGTK 2.42.2.
-License:        LGPL-2.1-only AND BSD-2-Clause AND BSD-3-Clause AND ISC AND bzip2-1.0.6 AND NCSA AND MIT AND GPL-2.0-only AND MPL-1.1 AND SunPro AND Unicode-TOU AND Apache-2.0 AND GPL-3.0-or-later WITH Bison-exception-2.2 AND GPL-3.0-only WITH Autoconf-exception-3.0 AND MPL-2.0 AND OFL-1.1 AND (AFL-2.0 GPL-2.0-or-later) AND BSD-Source-Code AND BSD-2-Clause-Views AND LGPL-2.1-or-later AND (NCSA OR MIT) AND Apache-2.0 WITH LLVM-exception AND ICU AND BSL-1.0
+License:        LGPL-2.1-only AND BSD-2-Clause AND BSD-3-Clause AND ISC AND bzip2-1.0.6 AND NCSA AND MIT AND GPL-2.0-only AND MPL-1.1 AND SunPro AND Unicode-TOU AND Apache-2.0 AND GPL-3.0-or-later WITH Bison-exception-2.2 AND GPL-3.0-only WITH Autoconf-exception-3.0 AND MPL-2.0 AND OFL-1.1 AND (AFL-2.0 OR GPL-2.0-or-later) AND BSD-Source-Code AND BSD-2-Clause-Views AND LGPL-2.1-or-later AND (NCSA OR MIT) AND Apache-2.0 WITH LLVM-exception AND ICU AND BSL-1.0
 URL:            https://www.webkitgtk.org/
 Source0:        https://webkitgtk.org/releases/webkitgtk-%{version}.tar.xz
 Source1:        https://webkitgtk.org/releases/webkitgtk-%{version}.tar.xz.asc
@@ -57,14 +57,15 @@ Source1:        https://webkitgtk.org/releases/webkitgtk-%{version}.tar.xz.asc
 # $ gpg --export --export-options export-minimal 013A0127AC9C65B34FFA62526C1009B693975393 5AA3BC334FD7E3369E7C77B291C559DBE4C9123B > webkitgtk-keys.gpg
 Source2:        webkitgtk-keys.gpg
 
-# https://bugs.webkit.org/show_bug.cgi?id=280642
-Patch:          llvm19.patch
+# https://bugs.webkit.org/show_bug.cgi?id=283768
+Patch:          i686-build.patch
 
 BuildRequires:  bison
 BuildRequires:  bubblewrap
 BuildRequires:  clang
 BuildRequires:  cmake
 BuildRequires:  flex
+BuildRequires:  flite-devel
 BuildRequires:  gettext
 BuildRequires:  gi-docgen
 BuildRequires:  git
@@ -193,6 +194,8 @@ This package contains developer documentation for webkit2gtk4.0.
 
 %package -n     javascriptcoregtk4.0
 Summary:        JavaScript engine from webkit2gtk4.0
+Provides:       bundled(simde)
+Provides:       bundled(simdutf)
 Obsoletes:      webkitgtk4-jsc < %{version}-%{release}
 Provides:       webkitgtk4-jsc = %{version}-%{release}
 Obsoletes:      webkit2gtk3-jsc < %{version}-%{release}

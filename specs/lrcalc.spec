@@ -55,7 +55,9 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
 %make_build
 
 # Build the python interface
-sed -i "/libraries/i\                  extra_link_args=['-L$PWD/src/.libs']," python/setup.py
+sed -e "/libraries/i\                  extra_link_args=['-L$PWD/src/.libs']," \
+    -e 's/long_description_type/long_description_content_type/' \
+    -i python/setup.py
 cd python
 ln -s ../src lrcalc
 %pyproject_wheel
@@ -92,6 +94,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir}: make check
 %files -n	python3-lrcalc -f %{pyproject_files}
 
 %changelog
+* Tue Jan 14 2025 Jerry James <loganjerry@gmail.com> - 2.1-10
+- Fix a typo in setup.py
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

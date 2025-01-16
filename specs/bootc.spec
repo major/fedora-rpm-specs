@@ -1,5 +1,9 @@
 %bcond_without check
-%bcond_without ostree_ext
+%if 0%{?rhel} >= 10 || 0%{?fedora} > 41
+    %bcond_without ostree_ext
+%else
+    %bcond_with ostree_ext
+%endif
 
 %if 0%{?rhel}
     %bcond_without rhsm
@@ -63,7 +67,12 @@ Provides: ostree-cli(ostree-container)
 %cargo_prep -v vendor
 
 %build
-%cargo_build %{?with_rhsm:-f rhsm}
+%if 0%{?rhel} == 10
+    %cargo_build %{?with_rhsm:-f rhsm}
+%else
+    %cargo_build %{?with_rhsm:--features rhsm}
+%endif
+
 %cargo_vendor_manifest
 %cargo_license_summary
 %{cargo_license} > LICENSE.dependencies

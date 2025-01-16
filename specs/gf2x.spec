@@ -34,6 +34,7 @@ Headers and library files for developing applications that use %{name}.
 %prep
 %autosetup -n %{name}-%{name}-%{version} -p1
 
+%conf
 # Fix the FSF's address
 for badfile in `grep -FRl 'Fifth Floor' .`; do
   sed -e 's/Fifth Floor/Suite 500/' -e 's/02111-1307/02110-1335/' \

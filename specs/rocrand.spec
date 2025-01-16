@@ -35,15 +35,15 @@
 
 Name:           rocrand
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm random number generator
 
 Url:            https://github.com/ROCm/rocRAND
 License:        MIT AND BSD-3-Clause
 Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
-#BuildRequires:  git
 BuildRequires:  cmake
+BuildRequires:  gcc-c++
 BuildRequires:  rocm-cmake
 BuildRequires:  rocm-comgr-devel
 BuildRequires:  rocm-compilersupport-macros
@@ -157,6 +157,9 @@ fi
 %endif
 
 %changelog
+* Tue Jan 14 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-2
+- build requires gcc-c++
+
 * Sun Dec 8 2024 Tom Rix <Tom.Rix@amd.com> - 6.3.0-1
 - Update to 6.3
 

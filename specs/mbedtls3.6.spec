@@ -4,7 +4,7 @@
 
 Name: mbedtls3.6
 Version: 3.6.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Light-weight cryptographic and SSL/TLS library
 # Note: The BSD Clause is for configs/ext/crypto_config_profile_medium.h is relicensed
 # per https://github.com/Mbed-TLS/mbedtls/blob/development/configs/ext/README.md under
@@ -77,17 +77,6 @@ make apidoc
 # - https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/PDD6RNQMII472HXM4XAUUWWZKKBGHPTO/
 chmod 755 %{buildroot}%{_libdir}/*.so.*
 
-# We want to prefix all the files under their own include directories so mbedtls and mbedtls3.6, mbedtls-3.7,
-# and so forth can be installed side by side. This is because of an unstable upstrem
-mkdir -p %{buildroot}/%{_includedir}/mbedtls3.6
-mv %{buildroot}/%{_includedir}/mbedtls %{buildroot}/%{_includedir}/mbedtls3.6
-
-mkdir -p %{buildroot}/%{_includedir}/psa3.6
-mv %{buildroot}/%{_includedir}/psa %{buildroot}/%{_includedir}/psa3.6
-
-mkdir -p %{buildroot}/%{_includedir}/everest3.6
-mv %{buildroot}/%{_includedir}/everest %{buildroot}/%{_includedir}/everest3.6
-
 mv %{buildroot}/%{_libdir}/cmake/MbedTLS %{buildroot}/%{_libdir}/cmake/MbedTLS3.6
 
 # They do file system stuff with the same file, so parallel file modifications
@@ -110,8 +99,6 @@ mv %{buildroot}/%{_libdir}/cmake/MbedTLS %{buildroot}/%{_libdir}/cmake/MbedTLS3.
 %{!?_licensedir:%global license %%doc}
 %license LICENSE
 %{_includedir}/mbedtls3.6/
-%{_includedir}/psa3.6/
-%{_includedir}/everest3.6/
 %{_libdir}/pkgconfig/
 %{_libdir}/cmake/
 %{_libdir}/libmbedcrypto3.6.so
@@ -123,6 +110,13 @@ mv %{buildroot}/%{_libdir}/cmake/MbedTLS %{buildroot}/%{_libdir}/cmake/MbedTLS3.
 %doc apidoc/*
 
 %changelog
+* Fri Jan 10 2025 Frank Lichtenheld <frank@lichtenheld.com> - 3.6.2-2
+- Change include directory layout, so that all headers are in the same
+directory structure. This fixes the cross references between the headers.
+- Do this change on the CMake level instead of in .spec. This fixes the
+  CMake import files.
+- Fix pkg-config files to reference correct include directory. (BZ #2336562)
+
 * Tue Oct 15 2024 Morten Stevens <mstevens@fedoraproject.org> - 3.6.2-1
 - Update to 3.6.2
 

@@ -1,8 +1,8 @@
 %global	gem_name	tk
 
 Name:		rubygem-%{gem_name}
-Version:	0.5.0
-Release:	5%{?dist}
+Version:	0.5.1
+Release:	1%{?dist}
 
 Summary:	Tk interface module using tcltklib
 # SPDX confirmred
@@ -113,6 +113,9 @@ popd
 %doc	%lang(ja) %{gem_instdir}/MANUAL_tcltklib.ja
 
 %changelog
+* Tue Jan 14 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.1-1
+- 0.5.1
+
 * Tue Jan 07 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.0-5
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.4
 

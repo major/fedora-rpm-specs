@@ -60,6 +60,9 @@ The %{name}-doc package contains documentation for using %{name}.
 
 %prep
 %autosetup -n mlgmpidl-%{version} -p1
+
+
+%conf
 cp -p %{SOURCE1} %{SOURCE2} .
 
 # Fix install on 64-bit platforms

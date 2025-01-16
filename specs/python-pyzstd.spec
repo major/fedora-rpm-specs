@@ -3,7 +3,7 @@
 %define tag %{version}
 
 Name:           python-pyzstd
-Version:        0.16.1
+Version:        0.16.2
 %forgemeta
 Release:        %autorelease
 Summary:        Python bindings to Zstandard (zstd) compression library
@@ -15,6 +15,7 @@ Source:         %{forgesource}
 BuildRequires:  gcc
 BuildRequires:  libzstd-devel
 BuildRequires:  python3-devel
+BuildRequires:  tomcli
 %if %{with tests}
 BuildRequires:  %{py3_dist pytest}
 %endif
@@ -40,6 +41,8 @@ sed -i 's|DYNAMIC_LINK =.*|DYNAMIC_LINK = True|' setup.py
 sed -i "s|'-g0', ||" setup.py
 # Fix non-executable-script rpmlint error
 sed -i -e '1{\@^#!.*@d}' src/__main__.py
+# Remove setuptools upperbound
+tomcli set pyproject.toml arrays replace 'build-system.requires' '(setuptools.*),<.+' '\1'
 
 
 %generate_buildrequires

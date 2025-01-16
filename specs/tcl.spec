@@ -1,6 +1,10 @@
-%define majorver 8.6
-%define	vers %{majorver}.15
-%{!?sdt:%define sdt 1}
+%global xver 9
+%global yver 0
+%global zver 0
+
+%global majorver %{xver}.%{yver}
+%global vers %{majorver}.%{zver}
+%{!?sdt:%global sdt 1}
 
 Summary: Tool Command Language, pronounced tickle
 Name: tcl
@@ -14,13 +18,15 @@ BuildRequires: make
 Buildrequires: autoconf
 BuildRequires: gcc
 BuildRequires: zlib-devel
+BuildRequires: libtommath-devel
 Provides: tcl(abi) = %{majorver}
 Obsoletes: tcl-tcldict <= %{vers}
 Provides: tcl-tcldict = %{vers}
-Patch0: tcl-8.6.15-autopath.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2318255
+Provides: bundled(zlib) = 1.3.1
+Patch0: tcl-9.0.0-autopath.patch
 Patch1: tcl-8.6.15-conf.patch
-Patch3: tcl-8.6.13-tcltests-path-fix.patch
-Patch4: tcl-8.6.13-configure-c99.patch
+Patch3: tcl-9.0.0-tcltests-path-fix.patch
 
 %if %sdt
 BuildRequires: systemtap-sdt-dtrace
@@ -47,6 +53,7 @@ TCL documentation.
 %package devel
 Summary: Tcl scripting language development environment
 Requires: %{name} = %{epoch}:%{version}-%{release}
+Conflicts: tcl8-devel
 
 %description devel
 The Tcl (Tool Command Language) provides a powerful platform for
@@ -61,7 +68,8 @@ The package contains the development files and man pages for tcl.
 
 %prep
 %autosetup -p1 -n %{name}%{version}
-rm -r compat/zlib
+# uncomment the following line when fixed https://bugzilla.redhat.com/show_bug.cgi?id=2318255
+#rm -r compat/zlib
 
 %build
 pushd unix
@@ -70,9 +78,9 @@ autoconf
 %if %sdt
 --enable-dtrace \
 %endif
---enable-threads \
 --enable-symbols \
---enable-shared
+--enable-shared \
+--disable-rpath
 
 %make_build CFLAGS="%{optflags}" TCL_LIBRARY=%{_datadir}/%{name}%{majorver}
 
@@ -86,7 +94,9 @@ autoconf
 %endif
 
 %install
-make install -C unix INSTALL_ROOT=%{buildroot} TCL_LIBRARY=%{_datadir}/%{name}%{majorver}
+# install-libraries install-msgs is workaround for
+# https://core.tcl-lang.org/tcl/tktview/3d6d7523525d19ffe95109e08a90f2413c956f82
+make install install-libraries install-msgs -C unix INSTALL_ROOT=%{buildroot} TCL_LIBRARY=%{_datadir}/%{name}%{majorver}
 
 ln -s tclsh%{majorver} %{buildroot}%{_bindir}/tclsh
 
@@ -120,16 +130,15 @@ ln -s %{_bindir}/tclsh %{_bindir}/tclsh%{majorver} %{buildroot}%{_usr}/bin/
 
 %files
 %{_bindir}/tclsh*
+%{_datadir}/%{name}%{xver}
 %{_datadir}/%{name}%{majorver}
-%exclude %{_datadir}/%{name}%{majorver}/tclAppInit.c
-%{_datadir}/%{name}8
 %{_libdir}/lib%{name}%{majorver}.so
 %{_mandir}/man1/*
 %if 0%{?flatpak}
 %{_usr}/bin/tclsh*
 %endif
 %dir %{_libdir}/%{name}%{majorver}
-%doc README.md changes
+%doc README.md changes.md
 %doc license.terms
 
 %files doc
@@ -138,15 +147,18 @@ ln -s %{_bindir}/tclsh %{_bindir}/tclsh%{majorver} %{buildroot}%{_usr}/bin/
 
 %files devel
 %{_includedir}/*
-%{_libdir}/lib%{name}stub%{majorver}.a
+%{_libdir}/lib%{name}stub.a
 %{_libdir}/lib%{name}.so
 %{_libdir}/%{name}Config.sh
 %{_libdir}/%{name}ooConfig.sh
 %{_libdir}/%{name}%{majorver}/%{name}Config.sh
 %{_libdir}/pkgconfig/tcl.pc
-%{_datadir}/%{name}%{majorver}/tclAppInit.c
 
 %changelog
+* Tue Jan 14 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 1:9.0.0-1
+- New version
+  Resolves: rhbz#2315280
+
 * Tue Dec  3 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 1:8.6.15-6
 - Dropped workaround for read-only library, problem was fixed in debugedit
 

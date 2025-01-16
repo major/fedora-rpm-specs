@@ -1,9 +1,11 @@
 Name:           SDL2_sound
-Version:        2.0.2
-Release:        6%{?dist}
+Version:        2.0.4
+Release:        1%{?dist}
 Summary:        An abstract soundfile decoder library
-# Automatically converted from old format: zlib and LGPLv2+ - review is highly recommended.
-License:        Zlib AND LicenseRef-Callaway-LGPLv2+
+# src/stb_vorbis.h: MIT or Unlicense
+# src/libmodplug: Public-Domain
+# src/timidity: LGPL-2.1-or-later or Artistic-1.0-Perl (See https://gitlab.com/fedora/legal/fedora-license-data/-/issues/589)
+License:        Zlib AND LGPL-2.1-or-later AND ( MIT OR Unlicense ) AND LicenseRef-Fedora-Public-Domain
 URL:            http://www.icculus.org/SDL_sound
 Source0:        https://github.com/icculus/SDL_sound/archive/v%{version}/%{name}-%{version}.tar.gz
 # Remove references to the bundled dr_flac and dr_mp3 headers from the build
@@ -109,6 +111,10 @@ mv man3 %{buildroot}/%{_mandir}
 
 
 %changelog
+* Tue Jan 14 2025 Dominik Mierzejewski <dominik@greysector.net> - 2.0.4-1
+- update to 2.0.4 (resolves rhbz#2337428)
+- correct License tag after review
+
 * Tue Dec 17 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.0.2-6
 - Unbundle dr_flac and dr_mp3
 

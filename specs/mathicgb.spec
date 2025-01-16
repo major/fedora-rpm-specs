@@ -49,6 +49,7 @@ Library interface to mathicgb.
 %prep
 %autosetup -p0 -n %{user}-%{name}-%{shorttag}
 
+%conf
 # Fix end-of-line encoding
 sed -i.orig 's/\r//' doc/description.txt
 touch -r doc/description.txt.orig doc/description.txt

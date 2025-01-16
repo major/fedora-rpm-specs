@@ -2,7 +2,7 @@
 %global __provides_exclude ^perl\\(vboxService\\)
 
 Name:           RemoteBox
-Version:        3.3
+Version:        3.4
 Release:        1%{?dist}
 Summary:        Open Source VirtualBox Client with Remote Management
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -85,6 +85,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/remotebox.desktop
 
 
 %changelog
+* Tue Jan 14 2025 Pete Walter <pwalter@fedoraproject.org> - 3.4-1
+- Update to 3.4 (rhbz#2326721)
+
 * Thu Oct 03 2024 Pete Walter <pwalter@fedoraproject.org> - 3.3-1
 - Update to 3.3
 

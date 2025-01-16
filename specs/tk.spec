@@ -1,10 +1,11 @@
-%define majorver 8.6
-%define vers %{majorver}.15
+%global major 9
+%global majorver %{major}.0
+%global vers %{majorver}.0
 
 Summary: The graphical toolkit for the Tcl scripting language
 Name: tk
 Version: %{vers}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch:   1
 License: TCL AND HPND-Pbmplus AND CC-BY-SA-3.0 AND MIT-open-group AND MIT
 URL: http://tcl.sourceforge.net
@@ -21,8 +22,6 @@ Obsoletes: tile <= 0.8.2
 Provides: tile = 0.8.2
 Patch1: tk-8.6.12-make.patch
 Patch2: tk-8.6.15-conf.patch
-# https://core.tcl-lang.org/tk/tktview/dccd82bdc70dc25bb6709a6c14880a92104dda43
-Patch3: tk-8.6.10-font-sizes-fix.patch
 
 %description
 When paired with the Tcl scripting language, Tk provides a fast and powerful
@@ -33,6 +32,7 @@ Summary: Tk graphical toolkit development files
 Requires: %{name} = %{epoch}:%{version}-%{release}
 Requires: tcl-devel = %{epoch}:%{vers}
 Requires: libX11-devel libXft-devel
+Conflicts: tk8-devel
 
 %description devel
 When paired with the Tcl scripting language, Tk provides a fast and powerful
@@ -46,7 +46,8 @@ The package contains the development files and man pages for tk.
 %build
 cd unix
 autoconf
-%configure --enable-threads
+%configure --enable-threads \
+--disable-zipfs
 %make_build CFLAGS="%{optflags}" TK_LIBRARY=%{_datadir}/%{name}%{majorver}
 
 %check
@@ -90,26 +91,31 @@ ln -s %{_bindir}/wish %{_bindir}/wish%{majorver} %{buildroot}%{_usr}/bin/
 %files
 %{_bindir}/wish*
 %{_datadir}/%{name}%{majorver}
-%exclude %{_datadir}/%{name}%{majorver}/tkAppInit.c
-%{_libdir}/lib%{name}%{majorver}.so
+%{_libdir}/libtcl%{major}%{name}%{majorver}.so
 %{_libdir}/%{name}%{majorver}
 %{_mandir}/man1/*
 %{_mandir}/mann/*
 %if 0%{?flatpak}
 %{_usr}/bin/wish*
 %endif
-%doc README.md changes license.terms
+%doc README.md changes.md license.terms
 
 %files devel
 %{_includedir}/*
+%{_libdir}/lib%{name}stub.a
 %{_libdir}/lib%{name}.so
-%{_libdir}/lib%{name}stub%{majorver}.a
 %{_libdir}/%{name}Config.sh
 %{_libdir}/pkgconfig/tk.pc
 %{_mandir}/man3/*
-%{_datadir}/%{name}%{majorver}/tkAppInit.c
 
 %changelog
+* Tue Jan 14 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 1:9.0.0-2
+- Disabled zipfs
+
+* Thu Oct 10 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 1:9.0.0-1
+- New version
+  Related: rhbz#2315280
+
 * Tue Oct  1 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 1:8.6.15-1
 - New version
   Related: rhbz#2315271

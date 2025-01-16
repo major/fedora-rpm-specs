@@ -408,6 +408,7 @@ derived from FluidR3Mono.
 %prep
 %autosetup -n MuseScore-%{musescore_ver} -p1
 
+%conf
 # Remove bundled stuff
 rm -rf thirdparty/{dr_libs,dtl,flac,freetype,googletest,lame,opus*,singleapp,stb}
 rm -rf src/framework/global/thirdparty/{tinyxml,utfcpp*}

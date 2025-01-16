@@ -9,7 +9,7 @@
 
 Summary: Qt5 - Multimedia support
 Name:    qt5-%{qt_module}
-Version: 5.15.15
+Version: 5.15.16
 Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
@@ -17,7 +17,15 @@ License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
 %global majmin %(echo %{version} | cut -d. -f1-2)
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-opensource-src-%{version}.tar.xz
-Patch0: %{name}-gcc11.patch
+
+## upstream patches
+## repo: https://invent.kde.org/qt/qt/qtmultimedia
+## branch: kde/5.15
+## git format-patch v5.15.16-lts-lgpl
+Patch1:   0001-Pass-explicit-GL-api-when-initializing-GStreamer-bac.patch
+Patch2:   0002-Drop-obsolete-QtOpengl-dependency.patch
+
+Patch100: %{name}-gcc11.patch
 
 # filter plugin/qml provides
 %global __provides_exclude_from ^(%{_qt5_archdatadir}/qml/.*\\.so|%{_qt5_plugindir}/.*\\.so)$
@@ -48,6 +56,8 @@ BuildRequires: pkgconfig(xv)
 # workaround missing dep
 # /usr/include/gstreamer-1.0/gst/gl/wayland/gstgldisplay_wayland.h:26:10: fatal error: wayland-client.h: No such file or directory
 BuildRequires: wayland-devel
+
+Provides: bundled(fftreal) = 2.00
 
 %description
 The Qt Multimedia module provides a rich feature set that enables you to
@@ -149,6 +159,9 @@ popd
 
 
 %changelog
+* Thu Jan 09 2025 Zephyr Lykos <fedora@mochaa.ws> - 5.15.16-1
+- 5.15.16
+
 * Wed Sep 04 2024 Jan Grulich <jgrulich@redhat.com> - 5.15.15-1
 - 5.15.15
 

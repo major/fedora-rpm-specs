@@ -1,7 +1,7 @@
 Name:    qt5-doc
 Summary: Qt5 - Complete documentation
-Version: 5.15.1
-Release: 11%{?dist}
+Version: 5.15.16
+Release: 1%{?dist}
 BuildArch: noarch
 
 # Automatically converted from old format: GFDL - review is highly recommended.
@@ -378,6 +378,9 @@ popd
 
 
 %changelog
+* Thu Jan 09 2025 Zephyr Lykos <fedora@mochaa.ws> - 5.15.16-1
+- 5.15.16
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 5.15.1-11
 - convert license to SPDX
 

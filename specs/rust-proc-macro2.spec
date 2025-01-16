@@ -5,7 +5,7 @@
 %global crate proc-macro2
 
 Name:           rust-proc-macro2
-Version:        1.0.92
+Version:        1.0.93
 Release:        %autorelease
 Summary:        Substitute implementation of the Rust compiler's proc_macro API
 

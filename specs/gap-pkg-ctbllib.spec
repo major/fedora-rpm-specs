@@ -77,6 +77,7 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %prep
 %autosetup -n %{pkgname}-%{version} -b1 -p1
 
+%conf
 # Remove spurious executable bit
 chmod a-x doc/utils.xml
 
@@ -91,9 +92,8 @@ cp -a *.g data dlnames gap4 htm tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
 # Building documentation has to be done after installation, because otherwise
 # GAP sees an old version of ctbllib in the buildroot rather than this version,
 # and the ctbllib version check kills the build.
-export LC_ALL=C.UTF-8
 cp -a doc doc2 %{buildroot}%{gap_libdir}/pkg/%{pkgname}
-gap -l "%{buildroot}%{gap_libdir};" makedocrel.g
+gap -l '%{buildroot}%{gap_libdir};' makedocrel.g
 rm -fr doc doc2
 mv %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc{,2} .
 mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc{,2}
@@ -101,8 +101,6 @@ mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc{,2}
 %gap_copy_docs -d doc2
 
 %check
-export LC_ALL=C.UTF-8
-
 # Tell ATLAS where to find downloaded files
 mkdir ~/.gap
 cat > ~/.gap/gap.ini << EOF
@@ -110,7 +108,7 @@ SetUserPreference( "AtlasRep", "AtlasRepDataDirectory", "%{_builddir}/atlasrep/"
 EOF
 
 # Basic installation test
-gap -l "%{buildroot}%{gap_libdir};" << EOF
+gap -l '%{buildroot}%{gap_libdir};' << EOF
 ReadPackage( "ctbllib", "tst/testinst.g" );
 EOF
 
@@ -126,10 +124,12 @@ rm -fr ../pkg
 
 %files
 %doc README.md
-%{gap_libdir}/pkg/%{pkgname}/
-%exclude %{gap_libdir}/pkg/%{pkgname}/doc/
-%exclude %{gap_libdir}/pkg/%{pkgname}/doc2/
-%exclude %{gap_libdir}/pkg/%{pkgname}/htm/
+%dir %{gap_libdir}/pkg/%{pkgname}/
+%{gap_libdir}/pkg/%{pkgname}/*.g
+%{gap_libdir}/pkg/%{pkgname}/data/
+%{gap_libdir}/pkg/%{pkgname}/dlnames/
+%{gap_libdir}/pkg/%{pkgname}/gap4/
+%{gap_libdir}/pkg/%{pkgname}/tst/
 
 %files doc
 %docdir %{gap_libdir}/pkg/%{pkgname}/doc/

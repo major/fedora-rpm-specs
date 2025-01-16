@@ -16,7 +16,7 @@
 
 Name:           rocprim
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm parallel primatives
 
 License:        MIT and BSD
@@ -30,6 +30,7 @@ BuildArch: noarch
 ExclusiveArch:  x86_64
 
 BuildRequires:  cmake
+BuildRequires:  gcc-c++
 BuildRequires:  rocm-cmake
 BuildRequires:  rocm-comgr-devel
 BuildRequires:  rocm-compilersupport-macros
@@ -98,6 +99,9 @@ fi
 %{_datadir}/cmake/rocprim
 
 %changelog
+* Tue Jan 14 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-2
+- build requires gcc-c++
+
 * Mon Dec 9 2024 Tom Rix <Tom.Rix@amd.com> - 6.3.0-1
 - Update to 6.3
 

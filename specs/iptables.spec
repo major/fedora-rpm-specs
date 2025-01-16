@@ -11,7 +11,7 @@ Name: iptables
 Summary: Tools for managing Linux kernel packet filtering capabilities
 URL: https://www.netfilter.org/projects/iptables
 Version: 1.8.11
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source0: %{url}/files/%{name}-%{version}.tar.xz
 source1: %{url}/files/%{name}-%{version}.tar.xz.sig
 Source2: coreteam-gpg-key-0xD70D1A666ACF2B21.txt
@@ -236,11 +236,17 @@ touch %{buildroot}%{_mandir}/man8/ebtables.8
 # fix absolute symlink
 ln -sf --relative %{buildroot}%{_sbindir}/xtables-legacy-multi %{buildroot}%{_bindir}/iptables-xml
 
+%if "%{_sbindir}" == "%{_bindir}"
+# We keep those symlinks in /usr/sbin for compatibility
+mkdir -p %{buildroot}/usr/sbin
+mv %{buildroot}/usr/bin/{ip,ip6,arp,eb}tables{,-save,-restore} %{buildroot}/usr/sbin/
+%endif
+
 %ldconfig_scriptlets
 
 %post legacy
-pfx=%{_sbindir}/iptables
-pfx6=%{_sbindir}/ip6tables
+pfx=/usr/sbin/iptables
+pfx6=/usr/sbin/ip6tables
 update-alternatives --install \
 	$pfx iptables $pfx-legacy 10 \
 	--slave $pfx6 ip6tables $pfx6-legacy \
@@ -252,7 +258,7 @@ update-alternatives --install \
 %postun legacy
 if [ $1 -eq 0 ]; then
 	update-alternatives --remove \
-		iptables %{_sbindir}/iptables-legacy
+		iptables /usr/sbin/iptables-legacy
 fi
 
 # iptables-1.8.0-1 introduced the use of alternatives
@@ -265,8 +271,8 @@ alternatives --list | awk '/^iptables/{print $3; exit}' \
 cp /var/lib/alternatives/iptables /var/tmp/alternatives.iptables.setup
 
 %triggerpostun legacy -- iptables > 1.8.0
-pfx=%{_sbindir}/iptables
-pfx6=%{_sbindir}/ip6tables
+pfx=/usr/sbin/iptables
+pfx6=/usr/sbin/ip6tables
 update-alternatives --install \
 	$pfx iptables $pfx-legacy 10 \
 	--slave $pfx6 ip6tables $pfx6-legacy \
@@ -291,8 +297,8 @@ mv /var/tmp/alternatives.iptables.setup /var/lib/alternatives/iptables
 %post -e nft
 [[ %%{_excludedocs} == 1 ]] || do_man=true
 
-pfx=%{_sbindir}/iptables
-pfx6=%{_sbindir}/ip6tables
+pfx=/usr/sbin/iptables
+pfx6=/usr/sbin/ip6tables
 update-alternatives --install \
 	$pfx iptables $pfx-nft 10 \
 	--slave $pfx6 ip6tables $pfx6-nft \
@@ -301,7 +307,7 @@ update-alternatives --install \
 	--slave $pfx6-restore ip6tables-restore $pfx6-nft-restore \
 	--slave $pfx6-save ip6tables-save $pfx6-nft-save
 
-pfx=%{_sbindir}/ebtables
+pfx=/usr/sbin/ebtables
 manpfx=%{_mandir}/man8/ebtables
 for sfx in "" "-restore" "-save"; do
 	if [ "$(readlink -e $pfx$sfx)" == $pfx$sfx ]; then
@@ -317,7 +323,7 @@ update-alternatives --install \
 	--slave $pfx-restore ebtables-restore $pfx-nft-restore \
 	${do_man:+--slave $manpfx.8.gz ebtables-man $manpfx-nft.8.gz}
 
-pfx=%{_sbindir}/arptables
+pfx=/usr/sbin/arptables
 manpfx=%{_mandir}/man8/arptables
 lepfx=%{_libexecdir}/arptables
 for sfx in "" "-restore" "-save"; do
@@ -343,7 +349,7 @@ update-alternatives --install \
 %postun nft
 if [ $1 -eq 0 ]; then
 	for cmd in iptables ebtables arptables; do
-		update-alternatives --remove $cmd %{_sbindir}/$cmd-nft
+		update-alternatives --remove $cmd /usr/sbin/$cmd-nft
 	done
 fi
 
@@ -355,7 +361,7 @@ fi
 %{_mandir}/man8/xtables-legacy*
 %dir %{_datadir}/xtables
 %{_datadir}/xtables/iptables.xslt
-%ghost %{_sbindir}/ip{,6}tables{,-save,-restore}
+%ghost /usr/sbin/ip{,6}tables{,-save,-restore}
 
 %files libs
 %license COPYING
@@ -416,14 +422,17 @@ fi
 %{_mandir}/man8/ip{,6}tables{,-restore}-translate*
 %{_mandir}/man8/ebtables-translate*
 %{_mandir}/man8/arptables-translate*
-%ghost %{_sbindir}/ip{,6}tables{,-save,-restore}
-%ghost %{_sbindir}/{eb,arp}tables{,-save,-restore}
+%ghost /usr/sbin/ip{,6}tables{,-save,-restore}
+%ghost /usr/sbin/{eb,arp}tables{,-save,-restore}
 %ghost %{_libexecdir}/arptables-helper
 %ghost %{_mandir}/man8/arptables{,-save,-restore}.8.gz
 %ghost %{_mandir}/man8/ebtables.8.gz
 
 
 %changelog
+* Tue Jan 14 2025 Zbigniew Jedrzejewski-Szmek <zbyszek@in.waw.pl> - 1.8.11-3
+- Keep symlinks managed by alternatives under /usr/sbin
+
 * Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.8.11-2
 - Rebuilt for the bin-sbin merge (2nd attempt)
 

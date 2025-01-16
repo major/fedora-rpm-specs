@@ -66,6 +66,7 @@ msolve.
 %prep
 %autosetup -p1
 
+%conf
 # Fix the pkgconfig file
 sed -i 's/ -lflint -lmpfr -lgmp/\nLibs.private:&/' msolve.pc.in
 
