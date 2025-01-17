@@ -12,7 +12,7 @@
 Summary: Personal finance
 Name:    kmymoney
 Version: 5.1.3
-Release: 11%{?dist}
+Release: 12%{?dist}
 
 # kmm itself is GPLv2+
 # bundled kdchart is GPLv2 or GPLv3, but currently not using it
@@ -24,6 +24,7 @@ Source0: http://download.kde.org/stable/kmymoney/%{version}/src/kmymoney-%{versi
 
 ## upstreamable patches
 
+ExclusiveArch: %{qt5_qtwebengine_arches}
 
 BuildRequires: make
 BuildRequires: boost-devel
@@ -78,12 +79,7 @@ BuildRequires: cmake(Qt5Sql)
 BuildRequires: cmake(Qt5Xml)
 BuildRequires: cmake(Qt5Test)
 BuildRequires: cmake(Qt5PrintSupport)
-%ifarch %{qt5_qtwebengine_arches}
-%global webengine 1
 BuildRequires: cmake(Qt5WebEngineWidgets)
-%else
-BuildRequires: cmake(KF5WebKit)
-%endif
 
 BuildRequires: pkgconfig(libalkimia5) >= 8.0
 BuildRequires: pkgconfig(libical-glib)
@@ -160,7 +156,7 @@ sed -r -i 's/K(MYMONEY_DEPRECATED)/KMM_\1/g' \
 
 %build
 %cmake_kf5 \
-  -DENABLE_WEBENGINE:BOOL=%{?webengine:ON}%{!?webengine:OFF} \
+  -DENABLE_WEBENGINE:BOOL=ON \
   %{?tests:-DBUILD_TESTING:BOOL=ON}
 
 %cmake_build
@@ -230,6 +226,10 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 300" ||:
 
 
 %changelog
+* Wed Jan 15 2025 Marie Loise Nolden <loise@kde.org> - 5.1.3-12
+- do not use webkit anymore so switch to webengine available arches only
+  (will be so for Qt6/KF6 port later anyway)
+
 * Fri Jul 19 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 5.1.3-11
 - Rebuild for libalkimia 8.1
 - Enable QtWebEngine on applicable arches

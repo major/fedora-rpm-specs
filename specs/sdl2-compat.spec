@@ -13,7 +13,7 @@
 
 Name:           sdl2-compat
 Version:        2.30.50~git%{commitdate}.%{shortcommit}
-Release:        2%{?dist}
+Release:        3%{?dist}
 SourceLicense:  Zlib and Apache-2.0 and MIT and BSD-3-Clause
 Summary:        SDL 2.0 runtime compatibility library using SDL 3.0
 License:        Zlib
@@ -25,6 +25,7 @@ Source1:        SDL2_config.h
 Source2:        SDL2_revision.h
 
 # Backports from upstream (0001~0500)
+Patch0001:      https://github.com/libsdl-org/sdl2-compat/commit/340227d9c741de7fafc86b149c48e573b38ac3cc.patch
 
 # Proposed patches (0501~1000)
 
@@ -172,6 +173,9 @@ install -p -m 644 %{SOURCE2} %{buildroot}%{_includedir}/SDL2/SDL_revision.h
 
 
 %changelog
+* Wed Jan 15 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.30.50~git20250107.c368587-3
+- Backport fix adding some defines to fix mupen64plus FTBFS
+
 * Mon Jan 13 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.30.50~git20250107.c368587-2
 - Fix versioned Obsoletes
 

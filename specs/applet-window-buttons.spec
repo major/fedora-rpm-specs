@@ -6,12 +6,14 @@
 
 Name:           applet-window-buttons
 Version:        0.12.0^%{gitdate}.%{shortcommit0}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Plasma 6 applet to show window buttons in panels
 License:        GPL-2.0-or-later
 URL:            https://github.com/moodyhunter/applet-window-buttons6
 Source0:        https://github.com/moodyhunter/applet-window-buttons6/archive/%{commit0}/%{name}-%{commit0}.tar.gz
 
+# https://github.com/moodyhunter/applet-window-buttons6/pull/22
+Patch0:         kdecoration3.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -36,7 +38,7 @@ BuildRequires:  cmake(KF6Service)
 BuildRequires:  cmake(KF6Svg)
 BuildRequires:  cmake(KF6WindowSystem)
 BuildRequires:  cmake(Plasma)
-BuildRequires:  cmake(KDecoration2)
+BuildRequires:  cmake(KDecoration3)
 
 Provides:       applet-window-buttons6 = %{version}-%{release}
 
@@ -71,6 +73,9 @@ desktop-file-validate %{buildroot}%{_datadir}/plasma/plasmoids/%{orig_name}/meta
 
 
 %changelog
+* Wed Jan 15 2025 Alessandro Astone <ales.astone@gmail.com> - 0.12.0^20240405.3263828-2
+- Add patch to build against KDecoration3
+
 * Fri Aug 09 2024 Alessandro Astone <alessandro.astone@canonical.com> - 0.12.0^20240405.3263828-1
 - Update git snapshot (0.12.0)
 - Fix build (rhbz#2300563)

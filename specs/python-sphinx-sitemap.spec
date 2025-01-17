@@ -37,7 +37,7 @@ rst2html --no-datestamp README.rst README.html
 
 %install
 %pyproject_install
-%pyproject_save_files sphinx_sitemap
+%pyproject_save_files -l sphinx_sitemap
 
 %check
 %tox

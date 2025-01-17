@@ -82,6 +82,7 @@ applications that use libspasm.
 %prep
 %autosetup -p1
 
+%conf
 # Generate the configure script
 autoreconf -fi .
 

@@ -424,7 +424,7 @@ end
 %dir /usr
 %attr(555,root,root) /usr/bin
 %if %{with merged_sbin}
-%ghost /usr/sbin
+%ghost %verify(not mode) /usr/sbin
 %else
 %attr(555,root,root) /usr/sbin
 %endif
@@ -462,7 +462,7 @@ end
 /usr/libexec
 %dir /usr/local
 %if %{with merged_sbin}
-%ghost /usr/local/sbin
+%ghost %verify(not mode) /usr/local/sbin
 %else
 /usr/local/sbin
 %endif

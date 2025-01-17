@@ -9,14 +9,14 @@
 
 %bcond_with          generators
 
-%global gh_commit    25addd3cb10e54cfd20b84d9c083c6625cd52218
+%global gh_commit    73f78d8b2b34a0dd65fedb434a602ee4c2c8ad4c
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2025-01-07
+%global gh_date      2025-01-13
 %global gh_owner     FriendsOfPHP
 %global gh_project   PHP-CS-Fixer
 
 Name:           php-cs-fixer
-Version:        3.66.2
+Version:        3.68.0
 Release:        1%{?dist}
 Summary:        PHP Coding Standards Fixer
 
@@ -164,6 +164,9 @@ PHP_CS_FIXER_IGNORE_ENV=1 ./%{name} --version | grep %{version}
 
 
 %changelog
+* Tue Jan 14 2025 Remi Collet <remi@remirepo.net> - 3.68.0-1
+- update to 3.68.0
+
 * Tue Jan  7 2025 Remi Collet <remi@remirepo.net> - 3.66.2-1
 - update to 3.66.2
 

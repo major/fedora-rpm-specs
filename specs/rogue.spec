@@ -1,9 +1,8 @@
 Name:             rogue
 Version:          5.4.5
-Release:          40%{?dist}
+Release:          41%{?dist}
 Summary:          The original graphical adventure game
-# Automatically converted from old format: BSD - review is highly recommended.
-License:          LicenseRef-Callaway-BSD
+License:          BSD-3-Clause
 # TODO: Fix the source url
 Source0:          https://github.com/phs/rogue/archive/v5.4.4/%{name}-5.4.4.tar.gz
 URL:              https://github.com/phs/rogue
@@ -12,6 +11,10 @@ Patch1:           rogue-5.4.5-writesave.patch
 Patch2:           rogue-5.4.5-backspace.patch
 Patch3:           rogue-5.4.5-ncurses.patch
 Patch4:           rogue-5.4.5-setgroups.patch
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:      %{ix86}
+
 BuildRequires:    binutils
 BuildRequires:    coreutils
 BuildRequires:    desktop-file-utils
@@ -34,7 +37,7 @@ an entire genre.
 %patch -P4 -p1
 
 %build
-%set_build_flags
+CFLAGS='%{build_cflags} -std=gnu17'
 %configure \
     --enable-setgid=games \
     --enable-scorefile=%{_localstatedir}/games/roguelike/rogue54.scr \
@@ -65,6 +68,12 @@ desktop-file-install \
 %config(noreplace) %attr(0664,games,games) %{_localstatedir}/games/roguelike/%{name}54.scr
 
 %changelog
+* Wed Jan 15 2025 Jerry James <loganjerry@gmail.com> - 5.4.5-41
+- Fix FTBFS due to ncurses change
+- Update license to BSD-3-Clause
+- Stop building for 32-bit x86
+- Build in C17 mode to avoid FTBFS with GCC 15
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 5.4.5-40
 - convert license to SPDX
 

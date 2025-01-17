@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.13.0
 %define specversion 6.13.0
 %define patchversion 6.13
-%define pkgrelease 0.rc7.20250114gitc45323b7560e.56
+%define pkgrelease 0.rc7.20250115git619f0b6fad52.57
 %define kversion 6
-%define tarfile_release 6.13-rc7-19-gc45323b7560e
+%define tarfile_release 6.13-rc7-43-g619f0b6fad52
 # This is needed to do merge window version magic
 %define patchlevel 13
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc7.20250114gitc45323b7560e.56%{?buildid}%{?dist}
+%define specrelease 0.rc7.20250115git619f0b6fad52.57%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.13.0
 
@@ -4174,12 +4174,18 @@ fi\
 #
 #
 %changelog
-* Tue Jan 14 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.13.0-0.rc7.20250114gitc45323b7560e.56]
+* Wed Jan 15 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.13.0-0.rc7.20250115git619f0b6fad52.57]
 - Fedora 6.13 configs part 1 (Justin M. Forbes)
 
-* Tue Jan 14 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.13.0-0.rc7.c45323b7560e.56]
+* Wed Jan 15 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.13.0-0.rc7.619f0b6fad52.57]
+- Fix build with merged-sbin (Adam Williamson)
 - x86/insn_decoder_test: allow longer symbol-names (David Rheinsberg)
 - kernel.spec: update license field (Scott Weaver)
+
+* Wed Jan 15 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.13.0-0.rc7.619f0b6fad52.56]
+- redhat/configs: enable CONFIG_VFAT_FS as a module (Dorinda Bassey)
+- redhat: create 'debug' addon for UKI (Li Tian)
+- Linux v6.13.0-0.rc7.619f0b6fad52
 
 * Tue Jan 14 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.13.0-0.rc7.c45323b7560e.55]
 - kernel.spec: Build cpupower on riscv64 (Yanko Kaneti)

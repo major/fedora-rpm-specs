@@ -24,6 +24,11 @@ License:        MIT
 URL:            https://github.com/biojppm/c4log
 Source:         %{url}/archive/%{commit}/c4log-%{commit}.tar.gz
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+%if %{undefined fc40} && %{undefined fc41}
+ExcludeArch:    %{ix86}
+%endif
+
 # Upstream always wants to build with c4core as a git submodule, but we want to
 # unbundle it and build with an external library. We therefore maintain this
 # patch without sending it upstream.

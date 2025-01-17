@@ -46,7 +46,10 @@ sed -i "/addopts/d" setup.cfg
 
 
 %check
-%pytest
+# Ignore DeprecationWarning untill
+# https://github.com/aio-libs/async-lru/issues/635
+# is resolved.
+%pytest -W ignore::DeprecationWarning
 
 
 %files -n python3-async-lru -f %{pyproject_files}

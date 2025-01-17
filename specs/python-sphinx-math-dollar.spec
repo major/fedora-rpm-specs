@@ -70,10 +70,10 @@ rm -f docs/_build/html/.{buildinfo,nojekyll}
 
 %install
 %pyproject_install
-%pyproject_save_files sphinx_math_dollar
+%pyproject_save_files -l sphinx_math_dollar
 
 %check
-%pytest
+%pytest -v
 
 %files -n python3-sphinx-math-dollar -f %{pyproject_files}
 %doc CHANGELOG.html README.html

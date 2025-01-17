@@ -42,6 +42,7 @@ Source0:        https://bitbucket.org/icl/magma/get/%{commit}.tar.gz
 Patch0:         0001-Prepare-magma-cmake-for-fedora.patch
 
 BuildRequires:  cmake
+BuildRequires:  gcc-c++
 BuildRequires:  flexiblas-devel
 BuildRequires:  hipblas-devel
 BuildRequires:  hipsparse-devel

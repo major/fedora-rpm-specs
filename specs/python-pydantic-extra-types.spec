@@ -2,7 +2,7 @@
 %global forgeurl https://github.com/pydantic/pydantic-extra-types
 
 Name:           python-pydantic-extra-types
-Version:        2.10.1
+Version:        2.10.2
 %forgemeta
 Release:        1%{?dist}
 Summary:        Extra types for Pydantic
@@ -95,6 +95,9 @@ tomcli set pyproject.toml lists delitem --type regex --no-first \
 
 
 %changelog
+* Wed Jan 15 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.10.2-1
+- Update to 2.10.2. Fixes rhbz#2338374.
+
 * Thu Dec 19 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.10.1-1
 - Update to 2.10.1. Fixes rhbz#2330807.
 

@@ -43,7 +43,7 @@
 
 Name:           rocsolver
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Next generation LAPACK implementation for ROCm platform
 Url:            https://github.com/ROCm/rocSOLVER
 
@@ -61,6 +61,7 @@ Patch0:         0001-Add-llvm-style-compile-and-link-options.patch
 Patch1:         0001-rocsolver-offload-compress.patch
 
 BuildRequires:  cmake
+BuildRequires:  gcc-c++
 BuildRequires:  fmt-devel
 BuildRequires:  rocblas-devel
 BuildRequires:  rocm-cmake
@@ -203,6 +204,9 @@ fi
 %endif
 
 %changelog
+* Tue Jan 14 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-2
+- build requires gcc-c++
+
 * Tue Dec 10 2024 Tom Rix <Tom.Rix@amd.com> - 6.3.0-1
 - Update to 6.3
 

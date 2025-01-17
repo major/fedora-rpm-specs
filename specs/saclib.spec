@@ -46,6 +46,7 @@ saclib.
 cp -p %{SOURCE1} src
 cp -p %{SOURCE2} include
 
+%conf
 # Generate the makefile
 saclib=$PWD bin/mkmake
 

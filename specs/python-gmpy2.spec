@@ -66,6 +66,7 @@ This package contains API documentation for gmpy2.
 %prep
 %autosetup -n gmpy2-%{version} -p1
 
+%conf
 %if %{with py3docs}
 # Use local objects.inv for intersphinx
 sed -e "s|\('https://docs\.python\.org/3/', \)None|\1'%{_docdir}/python3-docs/html/objects.inv'|" \
@@ -84,11 +85,11 @@ PYTHONPATH=$PWD/$(ls -1d build/lib.linux*) make -C docs html
 
 %install
 %pyproject_install
-%pyproject_save_files gmpy2
+%pyproject_save_files -l gmpy2
 
 %check
 %if %{with tests}
-%pytest
+%pytest -v
 %else
 %pyproject_check_import
 %endif

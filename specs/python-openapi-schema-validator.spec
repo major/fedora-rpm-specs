@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-openapi-schema-validator
-Version:        0.6.2
+Version:        0.6.3
 Release:        %autorelease
 Summary:        OpenAPI schema validator for Python
 
@@ -19,7 +19,7 @@ BuildRequires:  python3-devel
 # coverage/formatter/linter/typechecker type dependencies that we do not need
 # or want. Upstream pins a major version of pytest, but we do not have that
 # luxury.
-BuildRequires:  python3dist(pytest) >= 6
+BuildRequires:  python3dist(pytest) >= 7
 %endif
 
 %global common_description %{expand:
@@ -36,6 +36,9 @@ Openapi-schema-validator is a Python library that validates schema against:
 %package -n python3-openapi-schema-validator
 Summary:        %{summary}
 
+# In retrospect, and conservatively: all of these took effect no later than
+# Fedora 38, so they can be removed when Fedora 40 reaches end-of-life.
+#
 # This extra was removed upstream in 0.4.3.
 Obsoletes:      python3-openapi-schema-validator+rfc3339-validator < 0.4.3-0
 # These extras were removed upstream in 0.4.2.

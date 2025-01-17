@@ -32,10 +32,10 @@ Capture C-level stdout/stderr pipes in Python via os.dup2.
 
 %install
 %pyproject_install
-%pyproject_save_files wurlitzer
+%pyproject_save_files -l wurlitzer
 
 %check
-%pytest test.py
+%pytest -v test.py
 
 %files -n python3-wurlitzer -f %{pyproject_files}
 %doc CHANGELOG.md README.md

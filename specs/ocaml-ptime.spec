@@ -45,6 +45,7 @@ files for developing applications that use %{name}.
 %prep
 %autosetup -n ptime-%{version}
 
+%conf
 # Link with the math library and include debuginfo
 echo $'\ntrue: cclib(-lm), debug' >> _tags
 

@@ -138,6 +138,7 @@ rm -rf %{buildroot}%{mingw64_mandir}
 %{mingw32_bindir}/libgstreamer-%{api_version}-0.dll
 
 %{mingw32_datadir}/aclocal/gst-element-check-%{api_version}.m4
+%{mingw32_datadir}/cmake/FindGStreamer.cmake
 
 
 # Win64
@@ -177,6 +178,7 @@ rm -rf %{buildroot}%{mingw64_mandir}
 %{mingw64_bindir}/libgstreamer-%{api_version}-0.dll
 
 %{mingw64_datadir}/aclocal/gst-element-check-%{api_version}.m4
+%{mingw64_datadir}/cmake/FindGStreamer.cmake
 
 
 %changelog

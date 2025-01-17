@@ -122,10 +122,10 @@ rm -f doc/build/html/.buildinfo
 
 %install
 %pyproject_install
-%pyproject_save_files cvxopt
+%pyproject_save_files -l cvxopt
 
 %check
-%pytest
+%pytest -v
 
 %files -n python3-cvxopt -f %{pyproject_files}
 %license LICENSE

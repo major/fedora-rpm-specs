@@ -1,7 +1,7 @@
 ### Header
 Summary: Collection of basic system utilities
 Name: util-linux
-Version: 2.40.2
+Version: 2.40.4
 # -p -e rc1
 Release: %autorelease
 License: GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause-UC AND LicenseRef-Fedora-Public-Domain

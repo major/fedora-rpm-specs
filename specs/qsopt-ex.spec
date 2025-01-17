@@ -64,6 +64,7 @@ applications that use QSopt_ex.
 %prep
 %forgeautosetup -p1
 
+%conf
 # Update obsolete macros
 sed -i '/AC_HEADER_STDC/d;/AC_HEADER_TIME/d;/AC_TYPE_SIGNAL/d' configure.ac
 sed -i 's/AC_PROG_LIBTOOL/LT_INIT/' configure.ac

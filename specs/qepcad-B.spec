@@ -60,6 +60,7 @@ development of the original that may proceed in a different direction.
 %prep
 %autosetup -n qesource -p0
 
+%conf
 # Adapt to the Fedora saclib package
 sed -i 's,\${saclib}/lib/saclib.\.a,-lsaclib,' source/Makefile cad2d/Makefile
 

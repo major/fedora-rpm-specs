@@ -37,7 +37,7 @@ Summary:        Python 3 interface to Singular
 
 %install
 %pyproject_install
-%pyproject_save_files PySingular
+%pyproject_save_files -l PySingular
 
 %check
 %pyproject_check_import

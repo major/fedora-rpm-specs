@@ -14,7 +14,7 @@
 
 Name:           rocdecode
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        High-performance video decode SDK for AMD GPUs
 
 Url:            https://github.com/ROCm/rocDecode
@@ -24,6 +24,7 @@ License:        MIT
 Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 BuildRequires:  cmake
+BuildRequires:  gcc-c++
 BuildRequires:  libva-devel
 BuildRequires:  rocm-cmake
 BuildRequires:  rocm-comgr-devel
@@ -94,6 +95,9 @@ sed -i "s|/opt/amdgpu/include NO_DEFAULT_PATH|/usr/include|" cmake/FindLibva.cma
 %exclude %{_datadir}/%{name}/samples
 
 %changelog
+* Wed Jan 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-2
+- build requires gcc-c++
+
 * Tue Dec 17 2024 Tom Rix <Tom.Rix@amd.com> - 6.3.0-1
 - Update to 6.3
 

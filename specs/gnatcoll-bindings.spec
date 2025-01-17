@@ -7,7 +7,7 @@
 Name:           gnatcoll-bindings
 Epoch:          2
 Version:        %{upstream_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The GNAT Components Collection – bindings
 Summary(sv):    GNAT Components Collection – bindningar
 
@@ -656,6 +656,9 @@ done
 ###############
 
 %changelog
+* Wed Jan 15 2025 Björn Persson <Bjorn@Rombobjörn.se> - 2:25.0.0-2
+- Rebuilt with GCC 15 prerelease.
+
 * Sun Oct 27 2024 Dennis van Raaij <dvraaij@fedoraproject.org> - 2:25.0.0-1
 - Updated to v25.0.0.
 - New subpackage for bindings to the C++ ISO/IEC 14882:1998(E) string class.

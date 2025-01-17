@@ -2,17 +2,16 @@
 
 Name: libvma
 Version: 9.8.60
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A library for boosting TCP and UDP traffic (over RDMA hardware)
 
 # Automatically converted from old format: GPLv2 or BSD - review is highly recommended.
 License: GPL-2.0-only OR LicenseRef-Callaway-BSD
 Url: https://github.com/Mellanox/libvma
 Source0: https://github.com/Mellanox/libvma/archive/%{version}/%{name}-%{version}.tar.gz
-# https://github.com/Mellanox/libvma/pull/1076
-Patch0: 0001-Fix-gcc14-compilation-issue.patch
-Patch1: 0002-kernel-6-10-netlink-issue.patch
-Patch2: 0003-fix-memory-leak-and-style.patch
+# Patches from upstream 'master' branch
+Patch1: 0001-Fix-compilation-with-GCC-14.patch
+Patch2: 0002-issue-4223310-VMA-support-for-kernel-6.10.patch
 
 # libvma currently supports only the following architectures
 ExclusiveArch: x86_64 ppc64le ppc64 aarch64
@@ -55,7 +54,6 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 This package contains the tool for collecting and analyzing libvma statistic.
 
 %prep
-%setup -q
 %autosetup -p1
 
 %build
@@ -104,6 +102,10 @@ rm -f $RPM_BUILD_ROOT/%{_sysconfdir}/init.d/vma
 %{_mandir}/man8/vma_stats.*
 
 %changelog
+* Wed Jan 15 2025 Michal Schmidt <mschmidt@redhat.com> - 9.8.60-3
+- Remove redundant %%setup invocation.
+- Replace custom patch files with "git format-patch" from upstream git.
+
 * Tue Jan 14 2025 Igor Ivanov <igori@nvidia.com> 9.8.60-2
 - Fix memory leak and style issues
 

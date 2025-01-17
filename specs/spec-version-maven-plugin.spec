@@ -29,6 +29,7 @@ Maven Plugin to configure APIs version and specs in a MANIFEST.MF file.
 %prep
 %autosetup -n glassfish-%{name}-%{version}
 
+%conf
 sed -i "s|mvn|mvn-rpmbuild|" src/main/resources/checkVersion.sh
 
 # remove spurious executable bits

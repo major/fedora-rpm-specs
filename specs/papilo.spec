@@ -92,6 +92,7 @@ that use libpapilo.
 %prep
 %autosetup -p1
 
+%conf
 # Ensure none of the bundled code but fmt can be used
 rm -fr src/papilo/external/{catch,lusol,pdqsort,ska}
 

@@ -37,7 +37,7 @@ rst2html --no-datestamp CHANGELOG.rst CHANGELOG.html
 
 %install
 %pyproject_install
-%pyproject_save_files pytest_datadir
+%pyproject_save_files -l pytest_datadir
 
 %check
 %tox

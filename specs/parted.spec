@@ -1,7 +1,7 @@
 Summary: The GNU disk partition manipulation program
 Name:    parted
 Version: 3.6
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: GPL-3.0-or-later
 URL:     http://www.gnu.org/software/parted
 
@@ -14,6 +14,10 @@ Patch0001: 0001-parted-Print-the-Fixing.-message-to-stderr.patch
 Patch0002: 0002-doc-Document-IEC-unit-behavior-in-the-manpage.patch
 Patch0003: 0003-libparted-Fail-early-when-detecting-nilfs2.patch
 Patch0004: 0004-bug-74444-PATCH-parted-fix-do_version-declaration.patch
+Patch0005: 0005-libparted-Fix-sun-disklabel-unhandled-exception.patch
+Patch0006: 0006-tests-Add-test-for-SUN-disklabel-handling.patch
+Patch0007: 0007-libparted-Fix-dvh-disklabel-unhandled-exception.patch
+Patch0008: 0008-tests-Add-test-for-dvh-with-a-bad-checksum.patch
 
 BuildRequires: gcc
 BuildRequires: e2fsprogs-devel
@@ -118,6 +122,12 @@ make check
 
 
 %changelog
+* Wed Jan 15 2025 Brian C. Lane <bcl@redhat.com> - 3.6-10
+- tests: Add test for dvh with a bad checksum (bcl)
+- libparted: Fix dvh disklabel unhandled exception (bcl)
+- tests: Add test for SUN disklabel handling (bcl)
+- libparted: Fix sun disklabel unhandled exception (bcl)
+
 * Wed Nov 20 2024 Brian C. Lane <bcl@redhat.com> - 3.6-9
 - parted: Fix do_version declaration (rudi)
 

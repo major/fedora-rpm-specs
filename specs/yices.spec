@@ -107,6 +107,7 @@ This package contains yices documentation.
 %prep
 %autosetup -n yices2-Yices-%{version} -a 1 -p1
 
+%conf
 # Do not try to avoid -fstack-protector
 sed -i 's/@NO_STACK_PROTECTOR@//' make.include.in
 

@@ -28,8 +28,8 @@
 # Fedora Release starts with 1; see
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/
 Name:    cppad
-Version: 20240000.3
-Release: 3%{?dist}
+Version: 20250000.0
+Release: 1%{?dist}
 Summary: C++ Algorithmic Differentiation (AD), %{name}-devel and %{name}-doc
 #
 License: EPL-2.0 OR GPL-2.0-or-later
@@ -40,9 +40,13 @@ BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: cmake >= 3.0
 BuildRequires: make
-BuildRequires: python-xrst >= 2024.0
-# python-xrst should auotmatically require python-toml
-BuildRequires: python-toml  
+BuildRequires: python-xrst >= 2025.0
+BuildRequires: python-sphinx_rtd_theme
+BuildRequires: python-toml
+BuildRequires: python-sphinx-copybutton
+BuildRequires: python-pyspellchecker
+BuildRequires: python-furo
+
 
 %description
 C++ Algorithmic Differentiation (AD) library file libcppad_lib.so; 
@@ -61,7 +65,7 @@ Provides: coin-or-cppad-devel = %{version}-%{release}
 We refer to the step by step conversion from an algorithm that computes 
 function values to an algorithm that computes derivative values as 
 Algorithmic Differentiation (often referred to as Automatic Differentiation.) 
-Given a C++ algorithm that computes function values, %{name} generates an 
+Given a C++ algorithm that computes function values, {name} generates an 
 algorithm that computes its derivative values. A brief introduction to 
 Algorithmic Differentiation (AD) can be found at 
      http://en.wikipedia.org/wiki/Automatic_differentiation
@@ -79,7 +83,7 @@ The %{name}-doc package installs the HTML documentation for this version
 of %{name}-devel in
      %{_docdir}/%{name}
 The documentation, for the most recent version of %{name}, can be found at
-     https://cppad.readthedocs.io
+     https://cppad.readthedocs.io/latest
 
 # -----------------------------------------------------------------------------
 # prep
@@ -87,8 +91,13 @@ The documentation, for the most recent version of %{name}, can be found at
 %prep
 #
 # Create an empty directory named cppad-%%{version}, 
-# changed into that directory and unpack Source0 and Source1.
+# changed into that directory and unpack Source.
 %setup -q -c
+#
+# atomic_op.hpp
+# Fix warning. This should not be necessary when version > 20250000.0
+sed -i CppAD-%{version}/include/cppad/local/var_op/atomic_op.hpp \
+   -e 's|arg_tmp\[1\];|*arg_tmp = { 0 };|'
 #
 # xrst.toml
 # This is not a git repository so suppress the warning that could not double
@@ -120,6 +129,7 @@ xrst \
 # remove hidden files not needed for viewing documentation
 rm CppAD-%{version}/build/html/.buildinfo
 rm -r CppAD-%{version}/build/html/.doctrees
+mv CppAD-%{version}/build/html html
 
 #
 # COPYING, uw_copy_040507.html
@@ -131,10 +141,6 @@ mv CppAD-%{version}/uw_copy_040507.html uw_copy_040507.html
 sed -i.bak CppAD-%{version}/cppad_lib/CMakeLists.txt \
     -e "s|print_variable(soversion)|SET(soversion %{soversion} )\n&|" \
     -e "s|\${cppad_debug_which}|debug_none|"
-#
-# Bug fix to version 20240000.3 (not necessary in version 20240000.4 or higher)
-sed -z -i.bak CppAD-%{version}/include/cppad/local/val_graph/fun2val.hpp \
-   -e 's|\n *break;\(\n[^\n]*}\n[^\n]*-\n[^\n]*else switch(var_op)\n\)|\1|'
 #
 # ----------------------------------------------------------------------------
 # Print machine epsilon before any other testing
@@ -158,12 +164,12 @@ cat temp.out
 # ----------------------------------------------------------------------------
 # Comment out test of to_string long double on ppc64le arch. Understanding why
 # it is failing will have to wait until there is a fedora 36 ppc64le test machine.
-if [ "%{_arch}" == 'ppc64le' ]
-then
-    sed -i.bak CppAD-%{version}/example/utility/to_string.cpp \
-        -e 's|ok *&= *floating<long double>();|// &|'  
-fi
-# -----------------------------------------------------------------------------
+### if [ "%{_arch}" == 'ppc64le' ]
+### then
+###     sed -i.bak CppAD-%{version}/example/utility/to_string.cpp \
+###         -e 's|ok *&= *floating<long double>();|// &|'  
+### fi
+# ----------------------------------------------------------------------------
 # build
 # -----------------------------------------------------------------------------
 %build
@@ -211,8 +217,12 @@ cppad_cxx_flags=\
     -D cmake_install_datadir=share \
     -D cmake_install_docdir=share/doc \
     \
+    -D cmake_defined_ok=false \
+    -D include_doc=false \
+    -D cppad_static_lib=false \
+    -D cppad_debug_and_release=true \
+    \
     -D include_adolc=false \
-    -D include_eigen=false \
     -D include_ipopt=false \
     -D include_cppadcg=false \
     \
@@ -225,9 +235,8 @@ cppad_cxx_flags=\
     -D cppad_testvector=cppad \
     -D cppad_max_num_threads=64 \
     -D cppad_tape_id_type=size_t \
-    -D cppad_tape_addr_type=size_t \
-    -D cppad_debug_which='debug_all' \
-    -D cppad_debug_and_release=true
+    -D cppad_tape_addr_type='unsigned int' \
+    -D cppad_debug_which='debug_all'
 #
 # see https://docs.fedoraproject.org/en-US/packaging-guidelines/
 #   parallel_make
@@ -247,6 +256,7 @@ cppad_cxx_flags=\
 # These documentation files come from the source code tarball
 %doc COPYING uw_copy_040507.html
 
+
 %files devel
 %{_includedir}/%{name}
 %{_datadir}/pkgconfig/%{name}.pc
@@ -254,8 +264,9 @@ cppad_cxx_flags=\
 %{_libdir}/libcppad_lib.so
 
 %files doc
+
 # These documentation files are build by the xrst command above
-%{_docdir}/%{name}
+%doc html
 
 # -----------------------------------------------------------------------------
 # Check
@@ -269,6 +280,9 @@ make %{?_smp_mflags} check
 # This enables one to check that the necessary files are installed.
 # ----------------------------------------------------------------------------
 %changelog
+* Tue Jan 14 2025 Brad Bell <bradbell at seanet dot com> - 20250000.0-1
+- New upstream source cppad-20250000.0.
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20240000.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

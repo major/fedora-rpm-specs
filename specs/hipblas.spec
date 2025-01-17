@@ -32,7 +32,7 @@
 
 Name:           hipblas
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm BLAS marshalling library
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -40,6 +40,7 @@ License:        MIT
 Source0:        %{url}/archive/refs/tags/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
 
 BuildRequires:  cmake
+BuildRequires:  gcc-c++
 %if 0%{?suse_version}
 BuildRequires:  gcc-fortran
 %else
@@ -168,6 +169,9 @@ fi
 %endif
 
 %changelog
+* Wed Jan 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-2
+- build requires gcc-c++
+
 * Tue Dec 10 2024 Tom Rix <Tom.Rix@amd.com> - 6.3.0-1
 - Update to 6.3
 

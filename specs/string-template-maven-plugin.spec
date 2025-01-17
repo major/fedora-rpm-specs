@@ -44,6 +44,7 @@ This package contains %{summary}.
 %autosetup -n %{name}-%{name}-%{version} -p1
 cp -p %{SOURCE1} .
 
+%conf
 # Updated name
 %pom_change_dep :stringtemplate :ST4
 
@@ -53,7 +54,7 @@ cp -p %{SOURCE1} .
 # We do not have the secret key for signing jars
 %pom_remove_plugin :maven-gpg-plugin
 
-# We do not create any soure JARs
+# We do not create any source JARs
 %pom_remove_plugin :maven-source-plugin
 
 # We use xmvn-javadoc instead of maven-javadoc-plugin

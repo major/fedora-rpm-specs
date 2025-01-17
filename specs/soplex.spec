@@ -119,6 +119,7 @@ API documentation for libsoplex.
 %prep
 %autosetup -n %{name}-release-%{upver} -p1
 
+%conf
 # We want to know about overflow errors, as the compiler can do surprising
 # things if we don't fix them!
 sed -i 's/ -Wno-strict-overflow//' CMakeLists.txt Makefile

@@ -1,6 +1,6 @@
 Name:       odcs
 Version:    0.8.1
-Release:    1%{?dist}
+Release:    3%{?dist}
 Summary:    The On Demand Compose Service
 
 
@@ -20,7 +20,6 @@ BuildRequires:    systemd
 BuildRequires:    pungi
 BuildRequires:    python3-devel
 BuildRequires:    python3-requests-gssapi
-BuildRequires:    python3-fedora
 BuildRequires:    python3-productmd
 BuildRequires:    python3-filelock
 BuildRequires:    python3-funcsigs
@@ -29,15 +28,10 @@ BuildRequires:    python3-setuptools
 BuildRequires:    python3-flask-sqlalchemy
 BuildRequires:    python3-flask-migrate
 BuildRequires:    python3-jwt
-BuildRequires:    python3-nose
-BuildRequires:    python3-mock
-BuildRequires:    python3-tabulate
-BuildRequires:    python3-six
 BuildRequires:    python3-flask
 BuildRequires:    python3-systemd
 BuildRequires:    python3-defusedxml
 BuildRequires:    python3-koji
-BuildRequires:    python3-httplib2
 BuildRequires:    python3-sqlalchemy
 BuildRequires:    python3-ldap
 BuildRequires:    python3-gobject-base
@@ -55,7 +49,6 @@ Requires(pre): shadow-utils
 Requires:    systemd
 Requires:    pungi
 Requires:    python3-requests-gssapi
-Requires:    python3-fedora
 Requires:    python3-funcsigs
 Requires:    python3-openidc-client
 Requires:    python3-productmd
@@ -162,7 +155,9 @@ exit 0
 %systemd_postun_with_restart odcs-backend.service
 
 %check
-nosetests-%{python3_version} -v
+export ODCS_CONFIG_DIR=server/conf/
+export ODCS_DEVELOPER_ENV=1
+%py3_check_import odcs odcs.client odcs.server
 
 %files -n odcs-client
 %doc README.md
@@ -200,6 +195,12 @@ nosetests-%{python3_version} -v
 
 
 %changelog
+* Mon Jan 15 2025 Lubomír Sedlář <lsedlar@redhat.com> - 0.8.1-3
+- Remove dependency on python3-nose
+
+* Wed Jan 08 2025 Lubomír Sedlář <lsedlar@redhat.com> - 0.8.1-2
+- Drop dependency on python3-fedora
+
 * Mon Sep 23 2024 Haibo Lin <hlin@redhat.com> - 0.8.1-1
 - client: Make black happy
 - client: Print OIDC exchange info to stderr

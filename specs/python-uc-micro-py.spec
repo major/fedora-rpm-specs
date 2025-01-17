@@ -33,10 +33,10 @@ Summary:        Micro subset of Unicode data files for linkify-it.py projects
 
 %install
 %pyproject_install
-%pyproject_save_files uc_micro
+%pyproject_save_files -l uc_micro
 
 %check
-%pytest
+%pytest -v
 
 %files -n python3-uc-micro-py -f %{pyproject_files}
 %doc CHANGELOG.md README.md

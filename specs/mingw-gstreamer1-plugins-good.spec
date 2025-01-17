@@ -3,7 +3,7 @@
 %global         api_version     1.0
 
 Name:           mingw-gstreamer1-plugins-good
-Version:        1.24.11
+Version:        1.25.1
 Release:        1%{?dist}
 Summary:        Cross compiled GStreamer1 plug-ins good
 
@@ -277,6 +277,9 @@ rm -rf %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 
 
 %changelog
+* Wed Jan 15 2025 Sandro Mani <manisandro@gmail.com> - 1.25.1-1
+- Update to 1.25.1
+
 * Sun Jan 12 2025 Sandro Mani <manisandro@gmail.com> - 1.24.11-1
 - Update to 1.24.11
 

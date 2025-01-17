@@ -28,11 +28,11 @@
 
 # hipblaslt does not support our default set
 # These are the ones it does, gfx942 building still has problems
-%global amdgpu_targets "gfx90a:xnack+;gfx90a:xnack-;gfx1100;gfx1101"
+%global amdgpu_targets "gfx90a:xnack+;gfx90a:xnack-;gfx1100;gfx1101;gfx1102"
 
 Name:           hipblaslt
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm general matrix operations beyond BLAS
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -40,6 +40,7 @@ License:        MIT
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
 
 BuildRequires:  cmake
+BuildRequires:  gcc-c++
 BuildRequires:  git
 BuildRequires:  hipblas-devel
 BuildRequires:  hipcc
@@ -209,6 +210,9 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
 %endif
 
 %changelog
+* Wed Jan 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-2
+- build requires gcc-c++
+
 * Mon Dec 23 2024 Tom Rix <Tom.Rix@amd.com> - 6.3.1-1
 - Update to 6.3.1
 

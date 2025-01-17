@@ -56,11 +56,8 @@ This package contains documentation for %{name}.
 %prep
 %autosetup -p0
 
-# Autoloading this package interferes with SAGE (bz 819705).
-sed -i "/^Autoload/s/true/false/" PackageInfo.g 
-
 %build
-export CFLAGS="%{build_cflags} -D_GNU_SOURCE"
+export CFLAGS='%{build_cflags} -D_GNU_SOURCE'
 %configure --with-gaproot=%{gap_archdir}
 %make_build
 
@@ -96,7 +93,7 @@ cp -p %{SOURCE2} %{buildroot}%{_datadir}/X11/app-defaults
 # Temporarily modify the test runner to add the necessary -l argument
 sed -i.orig 's|"-p"|"-l","%{buildroot}%{gap_archdir};",&|' \
    %{buildroot}%{gap_archdir}/pkg/%{name}/tst/xgap_test.g
-gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
+gap -l '%{buildroot}%{gap_archdir};' tst/testall.g
 mv %{buildroot}%{gap_archdir}/pkg/%{name}/tst/xgap_test.g.orig \
    %{buildroot}%{gap_archdir}/pkg/%{name}/tst/xgap_test.g
 
@@ -105,10 +102,11 @@ mv %{buildroot}%{gap_archdir}/pkg/%{name}/tst/xgap_test.g.orig \
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/X11/app-defaults/XGap
-%{gap_archdir}/pkg/%{name}/
-%exclude %{gap_archdir}/pkg/%{name}/doc/
-%exclude %{gap_archdir}/pkg/%{name}/examples/
-%exclude %{gap_archdir}/pkg/%{name}/htm/
+%dir %{gap_archdir}/pkg/%{name}/
+%{gap_archdir}/pkg/%{name}/*.g
+%{gap_archdir}/pkg/%{name}/bin/
+%{gap_archdir}/pkg/%{name}/lib/
+%{gap_archdir}/pkg/%{name}/tst/
 
 %files doc
 %docdir %{gap_archdir}/pkg/%{name}/doc/

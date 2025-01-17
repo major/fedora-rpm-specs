@@ -40,10 +40,10 @@ rst2html --no-datestamp README.rst README.html
 
 %install
 %pyproject_install
-%pyproject_save_files texext
+%pyproject_save_files -l texext
 
 %check
-%pytest
+%pytest -v
 
 %files -n python3-texext -f %{pyproject_files}
 %doc README.html

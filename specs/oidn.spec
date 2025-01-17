@@ -2,7 +2,7 @@
 %bcond          ninja 1
 #%%global	        prerelease beta
 Name:           oidn
-Version:        2.3.1
+Version:        2.3.2
 Release:        %autorelease %{?prerelease: -p -e %{prerelease}}
 Summary:        Library of denoising filters for images rendered with ray tracing
 License:        Apache-2.0

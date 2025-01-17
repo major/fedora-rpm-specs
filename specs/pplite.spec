@@ -44,6 +44,8 @@ Command line tools to use PPLite functionality.
 
 %prep
 %autosetup -n PPLite-%{name}-%{version}-tag
+
+%conf
 autoreconf -fi .
 
 %build

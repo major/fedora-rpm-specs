@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.5.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 Summary:	Tk interface module using tcltklib
 # SPDX confirmred
@@ -16,6 +16,9 @@ Summary:	Tk interface module using tcltklib
 License:	BSD-2-Clause OR Ruby
 URL:		https://github.com/ruby/tk
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# https://github.com/ruby/tk/pull/66
+# Support C23 with strict function prototype declaration
+Patch0:	rubygem-tk-pr66-c23-fuction-prototype.patch
 
 BuildRequires:	gcc
 BuildRequires:	ruby(release)
@@ -39,6 +42,7 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}
+%patch -P0 -p1 -b .c23
 mv ../%{gem_name}-%{version}.gemspec .
 
 %build
@@ -113,6 +117,9 @@ popd
 %doc	%lang(ja) %{gem_instdir}/MANUAL_tcltklib.ja
 
 %changelog
+* Wed Jan 15 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.1-2
+- Apply upstream PR to support C23 strict function prototype
+
 * Tue Jan 14 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.1-1
 - 0.5.1
 

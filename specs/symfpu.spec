@@ -9,7 +9,7 @@ Release:        0.17.%{gitdate}git%{shorttag}%{?dist}
 Summary:        An implementation of IEEE-754 / SMT-LIB floating-point 
 
 License:        GPL-3.0-or-later
-URL:            https://github.com/martin-cs/symfpu
+URL:            https://github.com/cvc5/symfpu
 VCS:            git:%{url}.git
 Source:         %{url}/archive/%{gittag}/%{name}-%{shorttag}.tar.gz
 # Fedora-only patch: build a shared library instead of a static library
@@ -50,6 +50,7 @@ applications that use %{name}.
 %prep
 %autosetup -p1 -n %{name}-%{gittag}
 
+%conf
 # Use Fedora build flags
 sed -e 's/ -Wall -W//' \
     -e 's/ -msse2 -mfpmath=sse//' \
@@ -97,6 +98,10 @@ export LD_LIBRARY_PATH=$PWD
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Wed Jan 15 2025 Jerry James <loganjerry@gmail.com> - 0-0.17.20190517gitc3acaf6
+- New project URL
+- Move configuration steps to %conf
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.17.20190517gitc3acaf6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

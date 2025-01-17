@@ -1,6 +1,5 @@
 %bcond system_lapack 1
-# atlas dropped in Fedora 42, remove completely when that is EOL
-%bcond atlas %[%{undefined rhel} && %{undefined flatpak} && "%{_arch}" != "riscv64" && 0%{?fedora} < 42 ]
+%bcond atlas %[%{undefined rhel} && %{undefined flatpak} && "%{_arch}" != "riscv64" ]
 %bcond blis %[%{undefined rhel} && %{undefined flatpak}]
 %bcond openblas 1
 
@@ -22,7 +21,7 @@
 
 Name:           flexiblas
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A BLAS/LAPACK wrapper library with runtime exchangeable backends
 
 # LGPL-3.0-or-later
@@ -448,6 +447,9 @@ make -C build64 test
 %endif
 
 %changelog
+* Wed Jan 15 2025 Iñaki Úcar <iucar@fedoraproject.org> - 3.4.4-6
+- Restore atlas support, was saved
+
 * Wed Jan 08 2025 Iñaki Úcar <iucar@fedoraproject.org> - 3.4.4-5
 - Limit the number of threads for testing
 

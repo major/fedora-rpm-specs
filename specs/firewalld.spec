@@ -1,7 +1,7 @@
 Summary: A firewall daemon with D-Bus interface providing a dynamic firewall
 Name: firewalld
 Version: 2.3.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL:     http://www.firewalld.org
 License: GPL-2.0-or-later
 Source0: https://github.com/firewalld/firewalld/releases/download/v%{version}/firewalld-%{version}.tar.bz2
@@ -9,6 +9,9 @@ Source1: FedoraServer.xml
 Source2: FedoraWorkstation.xml
 Source3: org.fedoraproject.FirewallD1.desktop.rules.choice
 Patch0: fedora-only-MDNS-default.patch
+Patch1: 0001-FEDORA-ONLY-default-to-IPv6_rpfilter-loose-for-works.patch
+Patch2: 0002-v2.3.1-fix-config-correctly-set-IPv6_rpfilter-via-db.patch
+Patch3: 0003-v2.3.1-test-rpfilter-improve-config-value-checks.patch
 BuildArch: noarch
 BuildRequires: autoconf
 BuildRequires: automake
@@ -164,6 +167,8 @@ sed -i 's|^DefaultZone=.*|DefaultZone=FedoraServer|g' \
 cp -a %{buildroot}%{_sysconfdir}/firewalld/firewalld-standard.conf \
     %{buildroot}%{_sysconfdir}/firewalld/firewalld-workstation.conf
 sed -i 's|^DefaultZone=.*|DefaultZone=FedoraWorkstation|g' \
+    %{buildroot}%{_sysconfdir}/firewalld/firewalld-workstation.conf
+sed -i 's|^IPv6_rpfilter=.*|IPv6_rpfilter=loose|g' \
     %{buildroot}%{_sysconfdir}/firewalld/firewalld-workstation.conf
 
 rm -f %{buildroot}%{_datadir}/polkit-1/actions/org.fedoraproject.FirewallD1.policy
@@ -340,6 +345,9 @@ fi
 %{_mandir}/man1/firewall-config*.1*
 
 %changelog
+* Mon Jan 13 2025 Eric Garver <eric@garver.life> - 2.3.0-2
+- workstation variants default to IPv6_rpfilter=loose (RHBZ#2337587)
+
 * Wed Nov 06 2024 Eric Garver <eric@garver.life> - 2.3.0-1
 - rebase package to v2.3.0
 

@@ -63,11 +63,11 @@ Documentation for %{name}.
 
 %prep
 %autosetup -n sphinx-design-%{version} -p1
+
+%generate_buildrequires
 # Unpin pytest and myst-parser's version
 sed -i "/pytest~=/s/~=8\.3//" pyproject.toml
 sed -i "/myst-parser>=/s/>=2,<4//" pyproject.toml
-
-%generate_buildrequires
 %pyproject_buildrequires -t -x testing
 
 %build
@@ -79,7 +79,7 @@ rm -rf html/{.buildinfo,.doctrees}
 
 %install
 %pyproject_install
-%pyproject_save_files sphinx_design
+%pyproject_save_files -L sphinx_design
 
 %check
 %pytest -v

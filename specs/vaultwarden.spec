@@ -7,7 +7,7 @@
 
 Name:           vaultwarden
 Version:        1.32.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Unofficial Bitwarden compatible server
 
 ExcludeArch:    ppc64le s390x
@@ -54,6 +54,9 @@ BuildRequires:  systemd-rpm-macros
 Requires:       %{name}-web
 
 Patch:          remove-remote-git-patch.patch
+%if 0%{?rhel} == 9
+Patch:          remove-msrv.patch
+%endif
 
 %{?sysusers_requires_compat}
 
@@ -155,6 +158,9 @@ install -Dp %{SOURCE2} %{buildroot}%{_unitdir}/%{name}.service
 
 
 %changelog
+* Wed Jan 15 2025 Jonathan Wright <jonathan@almalinux.org> - 1.32.7-2
+- fix build on el9 with rust 1.79
+
 * Fri Jan 03 2025 Jonathan Wright <jonathan@almalinux.org> - 1.32.7-1
 - update to 1.32.7 rhbz#2322181
 - Fix CVE-2024-56335

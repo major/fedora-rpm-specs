@@ -1,4 +1,4 @@
-%global blender_api 4.2
+%global blender_api 4.3
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
 %bcond clang	0
@@ -7,7 +7,7 @@
 %bcond llvm	1
 %bcond manpage  1
 %bcond materialx 0
-%bcond ninja 1
+%bcond ninja	1
 %bcond openshading	1
 %bcond openvdb  1
 %bcond sdl	0
@@ -41,7 +41,7 @@
 
 Name:           blender
 Epoch:          1
-Version:        4.2.3
+Version:        4.3.2
 Release:        %autorelease
 
 
@@ -53,16 +53,15 @@ Source0:        https://download.%{name}.org/source/%{name}-%{version}.tar.xz
 
 # Rename macros extension to avoid clashing with upstream version
 Source1:        %{name}-macros-source
-# FFmpeg 7 compatibility patch with syntax error fixed
-# https://projects.blender.org/blender/blender/pulls/121947
-Patch0:         %{name}-ffmpeg7.patch
 # FFmpeg 7 compatibility for audaspace plugin
-Patch1:         https://projects.blender.org/blender/blender/pulls/121960.patch
-# Python 3.13 compatibility
-# https://projects.blender.org/blender/blender/pulls/129191
-Patch2:         %{name}-python3.13.patch
-#  Fix crash on creating fluid domain with python 3.12 and up #130160
-Patch3:         https://projects.blender.org/blender/blender/pulls/130160.patch
+# https://projects.blender.org/blender/blender/pulls/121960.patch
+Patch1:         121960.patch
+# Fix crash on creating fluid domain with python 3.12 and up #130160
+# https://projects.blender.org/blender/blender/pulls/130160.patch
+Patch3:         130160.patch
+# Upstream patches cherry-picked from main branch
+Patch4:         PyAPI-support-Python-3.13.patch
+Patch5:         Fix-Remove-internal-ffmpeg-API-usage-fix-ffmpeg-7-co.patch
 
 # Development stuff
 BuildRequires:  boost-devel
@@ -100,8 +99,8 @@ BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(pugixml)
 BuildRequires:  pkgconfig(python3) >= 3.7
 %if %{with vulkan}
-BuildRequires:  vulkan-headers
-BuildRequires:  vulkan-loader
+BuildRequires:  pkgconfig(shaderc)
+BuildRequires:  pkgconfig(vulkan)
 %endif
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:	pkgconfig(libdecor-0) >= 0.1.0

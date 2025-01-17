@@ -18,7 +18,7 @@
 %define my_subversion b7
 Name:           html2ps
 Version:        1.0
-Release:        0.53.%{my_subversion}%{?dist}
+Release:        0.54.%{my_subversion}%{?dist}
 Summary:        HTML to PostScript converter
 # contrib/xhtml2ps/LICENSE:     GPL-2.0 text
 # contrib/xhtml2ps/README:      "X-html2ps is GPL"
@@ -97,10 +97,12 @@ converter.
 %patch -P 2 -p1
 %patch -P 3 -p1
 
-# Convert README to UTF-8
-iconv -f latin1 -t utf8 < README > README.utf8
-touch -c -r README README.utf8
-mv README.utf8 README
+# Convert to UTF-8
+for F in README contrib/xhtml2ps/xhtml2ps; do
+    iconv -f latin1 -t utf8 < "$F" > "$F".utf8
+    touch -c -r "$F" "$F".utf8
+    mv "$F".utf8 "$F"
+done
 
 patch -p1 < debian/patches/01_manpages.dpatch
 
@@ -164,6 +166,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/applications/*xhtml2ps.desktop
 
 %changelog
+* Wed Jan 15 2025 Petr Pisar <ppisar@redhat.com> - 1.0-0.54.b7
+- Convert xhtml2ps to UTF-8 because Tcl 9 expects it (bug #2337716)
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.53.b7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

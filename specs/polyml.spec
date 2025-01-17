@@ -5,7 +5,7 @@
 
 Name:           polyml
 Version:        5.9.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Poly/ML compiler and runtime system
 
 License:        LGPL-2.1-or-later
@@ -24,11 +24,14 @@ ExcludeArch:    %{ix86}
 # A clean solution would involve upstream changing their Makefiles.  We use
 # the unclean solution instead: go with the flow, then strip the RPATHs out
 # of the binaries at the end.
+BuildRequires:  autoconf
+BuildRequires:  automake
 BuildRequires:  chrpath
 BuildRequires:  gcc-c++
 BuildRequires:  gmp-devel
 BuildRequires:  motif-devel
 BuildRequires:  libffi-devel
+BuildRequires:  libtool
 BuildRequires:  libX11-devel
 BuildRequires:  libXext-devel
 BuildRequires:  libXt-devel
@@ -58,8 +61,15 @@ Runtime libraries for Poly/ML.
 %prep
 %autosetup -p1
 
+%conf
 # Fix end of line encoding
 sed -i 's/\r//' documentation/main.css
+
+# Finding asm/elf.h makes the build fail for unknown reasons
+sed -i 's, asm/elf\.h,,' configure.ac
+
+# Regenerate the configure script after changing configure.ac
+autoreconf -fi .
 
 %build
 # Some hand-coded assembler is included.  While it does contain an explicit
@@ -113,6 +123,9 @@ make check
 %{_libdir}/libpolyml.so.14*
 
 %changelog
+* Tue Jan 14 2025 Jerry James <loganjerry@gmail.com> - 5.9.1-5
+- Fix FTBFS by avoiding asm/elf.h
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

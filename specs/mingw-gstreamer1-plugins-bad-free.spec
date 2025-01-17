@@ -4,7 +4,7 @@
 %global         api_version     1.0
 
 Name:           mingw-gstreamer1-plugins-bad-free
-Version:        1.24.11
+Version:        1.25.1
 Release:        1%{?dist}
 Summary:        Cross compiled GStreamer1 plug-ins "bad"
 
@@ -195,6 +195,7 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw32_bindir}/libgstcodecparsers-1.0-0.dll
 %{mingw32_bindir}/libgstcuda-1.0-0.dll
 %{mingw32_bindir}/libgstd3d11-1.0-0.dll
+%{mingw32_bindir}/libgstd3dshader-1.0-0.dll
 %{mingw32_bindir}/libgstdxva-1.0-0.dll
 %{mingw32_bindir}/libgstinsertbin-1.0-0.dll
 %{mingw32_bindir}/libgstisoff-1.0-0.dll
@@ -217,6 +218,7 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstaiff.dll
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstanalyticsoverlay.dll
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstasfmux.dll
+%{mingw32_libdir}/gstreamer-%{api_version}/libgstasio.dll
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstaudiobuffersplit.dll
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstaudiofxbad.dll
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstaudiolatency.dll
@@ -289,6 +291,7 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstspeed.dll
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstsubenc.dll
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstswitchbin.dll
+%{mingw32_libdir}/gstreamer-%{api_version}/libgsttensordecoders.dll
 %{mingw32_libdir}/gstreamer-%{api_version}/libgsttimecode.dll
 %{mingw32_libdir}/gstreamer-%{api_version}/libgsttranscode.dll
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstttmlsubs.dll
@@ -334,6 +337,7 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw32_libdir}/libgstcodecs-%{api_version}.dll.a
 %{mingw32_libdir}/libgstcodecparsers-%{api_version}.dll.a
 %{mingw32_libdir}/libgstd3d11-%{api_version}.dll.a
+%{mingw32_libdir}/libgstd3dshader-1.0.dll.a
 %{mingw32_libdir}/libgstdxva-%{api_version}.dll.a
 %{mingw32_libdir}/libgstinsertbin-%{api_version}.dll.a
 %{mingw32_libdir}/libgstisoff-%{api_version}.dll.a
@@ -382,6 +386,7 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw64_bindir}/libgstcodecparsers-1.0-0.dll
 %{mingw64_bindir}/libgstcuda-1.0-0.dll
 %{mingw64_bindir}/libgstd3d11-1.0-0.dll
+%{mingw64_bindir}/libgstd3dshader-1.0-0.dll
 %{mingw64_bindir}/libgstdxva-1.0-0.dll
 %{mingw64_bindir}/libgstinsertbin-1.0-0.dll
 %{mingw64_bindir}/libgstisoff-1.0-0.dll
@@ -404,6 +409,7 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstaiff.dll
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstanalyticsoverlay.dll
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstasfmux.dll
+%{mingw64_libdir}/gstreamer-%{api_version}/libgstasio.dll
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstaudiobuffersplit.dll
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstaudiofxbad.dll
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstaudiolatency.dll
@@ -476,6 +482,7 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstspeed.dll
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstsubenc.dll
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstswitchbin.dll
+%{mingw64_libdir}/gstreamer-%{api_version}/libgsttensordecoders.dll
 %{mingw64_libdir}/gstreamer-%{api_version}/libgsttimecode.dll
 %{mingw64_libdir}/gstreamer-%{api_version}/libgsttranscode.dll
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstttmlsubs.dll
@@ -521,6 +528,7 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw64_libdir}/libgstcodecs-%{api_version}.dll.a
 %{mingw64_libdir}/libgstcodecparsers-%{api_version}.dll.a
 %{mingw64_libdir}/libgstd3d11-%{api_version}.dll.a
+%{mingw64_libdir}/libgstd3dshader-1.0.dll.a
 %{mingw64_libdir}/libgstdxva-%{api_version}.dll.a
 %{mingw64_libdir}/libgstinsertbin-%{api_version}.dll.a
 %{mingw64_libdir}/libgstisoff-%{api_version}.dll.a
@@ -556,6 +564,9 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 
 
 %changelog
+* Wed Jan 15 2025 Sandro Mani <manisandro@gmail.com> - 1.25.1-1
+- Update to 1.25.1
+
 * Mon Jan 13 2025 Sandro Mani <manisandro@gmail.com> - 1.24.11-1
 - Update to 1.24.11
 

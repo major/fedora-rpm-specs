@@ -40,6 +40,7 @@ This package contains javadoc for %{name}.
 %prep
 %autosetup -p1 -n %{name}-ST4-%{version}
 
+%conf
 # sonatype-oss-parent is deprecated in Fedora
 %pom_remove_parent
 

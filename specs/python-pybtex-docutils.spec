@@ -50,6 +50,7 @@ Provides:       bundled(js-underscore)
 %prep
 %autosetup -n pybtex-docutils-%{version}
 
+%conf
 # Update the sphinx theme name
 sed -i "s/'default'/'classic'/" doc/conf.py
 
@@ -66,10 +67,10 @@ rst2html --no-datestamp README.rst README.html
 
 %install
 %pyproject_install
-%pyproject_save_files pybtex_docutils
+%pyproject_save_files -l pybtex_docutils
 
 %check
-%pytest test
+%pytest -v test
 
 %files -n python3-pybtex-docutils -f %{pyproject_files}
 %doc README.html doc/_build/html/*

@@ -72,6 +72,7 @@ Documentation for python-pybtex.
 %prep
 %autosetup -p0 -n pybtex-%{version}
 
+%conf
 # Remove useless shebang
 sed -i '\@/usr/bin/env python@d' pybtex/cmdline.py
 
@@ -112,7 +113,7 @@ rm -f docs/build/html/.buildinfo
 
 %install
 %pyproject_install
-%pyproject_save_files pybtex
+%pyproject_save_files -l pybtex
 
 mkdir -p %{buildroot}%{_mandir}/man1
 cp -p docs/build/man/*.1 %{buildroot}%{_mandir}/man1
@@ -126,7 +127,7 @@ chmod a+x pybtex/bibtex/runner.py pybtex/charwidths/make_charwidths.py \
 popd
 
 %check
-%pytest
+%pytest -v
 
 %files -n python3-pybtex -f %{pyproject_files}
 %doc README

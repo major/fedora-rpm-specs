@@ -99,7 +99,15 @@ tomcli set Cargo.toml del dev-dependencies.criterion
 
 %if %{with check}
 %check
-%cargo_test
+# * Regressions in test suite with isa-l 2.31.1 in Fedora:
+#   https://github.com/milesgranger/isal-rs/issues/31
+%{cargo_test -- -- %{shrink:
+    --skip tests::deflate::level_zero::empty_data::read::flate2_zlib_compat_decompress
+    --skip tests::deflate::level_zero::empty_data::write::flate2_zlib_compat_decompress
+    --skip tests::gzip::level_zero::empty_data::read::flate2_zlib_compat_decompress
+    --skip tests::gzip::level_zero::empty_data::write::flate2_zlib_compat_decompress
+    --skip tests::zlib::level_zero::empty_data::flate2_zlib_compat_decompress_into
+}}
 %endif
 
 %changelog

@@ -3,7 +3,7 @@
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
 Version: 3.24.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch: 1
 
 # This ignores licenses that are only found in the test or perf sources
@@ -100,6 +100,7 @@ Patch15: 0011-Add-open_tree-move_mount-fsopen-fsconfig-fsmount-fsp.patch
 Patch16: 0012-Recognize-new-DWARF5-DW_LANG-constants.patch
 Patch17: 0013-Bug-498317-FdBadUse-is-not-a-valid-CoreError-type-in.patch
 Patch18: 0014-linux-support-EVIOCGRAB-ioctl.patch
+Patch19: 0015-ppc-test_dfp2-build-fix-for-GCC-15.patch
 
 BuildRequires: make
 BuildRequires: glibc-devel
@@ -280,6 +281,7 @@ Valgrind User Manual for details.
 %patch -P16 -p1
 %patch -P17 -p1
 %patch -P18 -p1
+%patch -P19 -p1
 
 %build
 # LTO triggers undefined symbols in valgrind.  But valgrind has a
@@ -519,6 +521,9 @@ echo ===============END TESTING===============
 %endif
 
 %changelog
+* Wed Jan 15 2025 Mark Wielaard <mjw@fedoraproject.org> - 3.24.0-4
+- Add 0015-ppc-test_dfp2-build-fix-for-GCC-15.patch
+
 * Tue Jan 14 2025 Mark Wielaard <mjw@fedoraproject.org> - 3.24.0-3
 - Add more VALGRIND_3_24_BRANCH patches
   0012-Recognize-new-DWARF5-DW_LANG-constants.patch

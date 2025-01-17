@@ -44,7 +44,7 @@
 
 Name:           miopen
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        AMD's Machine Intelligence Library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND BSD-2-Clause AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
@@ -66,6 +66,7 @@ Patch2:         0001-add-link-and-compile-pools-for-miopen.patch
 BuildRequires:  boost-devel
 BuildRequires:  cmake
 BuildRequires:  pkgconfig(eigen3)
+BuildRequires:  gcc-c++
 BuildRequires:  fplus-devel
 BuildRequires:  frugally-deep-devel
 BuildRequires:  half-devel
@@ -262,6 +263,9 @@ fi
 %endif
 
 %changelog
+* Wed Jan 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-2
+- build requires gcc-c++
+
 * Mon Dec 23 2024 Tom Rix <Tom.Rix@amd.com> - 6.3.1-1
 - Update to 6.3.1
 

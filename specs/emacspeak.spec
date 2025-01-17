@@ -12,7 +12,7 @@ BuildRequires: gcc-c++
 BuildRequires: perl-interpreter
 BuildRequires: perl-generators
 BuildRequires: texinfo
-BuildRequires: tcl-devel
+BuildRequires: tcl-devel < 1:9
 BuildRequires: make
 Requires: emacs(bin) >= %{_emacs_version}
 Requires: tclx

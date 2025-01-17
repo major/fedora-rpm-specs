@@ -21,7 +21,7 @@
 
 Name:           buildbot
 Version:        4.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        Build/test automation system
 License:        GPL-2.0-only
@@ -406,6 +406,9 @@ trial buildbot.test
 %endif
 
 %changelog
+* Wed Jan 15 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.2.1-2
+- Rebuilt to drop hard requires on groups (rhbz#2338295)
+
 * Mon Jan 13 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.2.1-1
 - 4.2.1
 

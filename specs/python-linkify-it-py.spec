@@ -44,10 +44,10 @@ Summary:        Link recognition library with full Unicode support
 
 %install
 %pyproject_install
-%pyproject_save_files linkify_it
+%pyproject_save_files -l linkify_it
 
 %check
-%pytest
+%pytest -v
 
 %files -n python3-linkify-it-py -f %{pyproject_files}
 %doc CHANGELOG.md README.md

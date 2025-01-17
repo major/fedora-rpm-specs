@@ -1,7 +1,7 @@
 %global oqs_version 0.12.0
 Name:       liboqs
 Version:    %{oqs_version}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    liboqs is an open source C library for quantum-safe cryptographic algorithms.
 
 #liboqs uses MIT license by itself but includes several files licensed under different terms.
@@ -13,6 +13,8 @@ URL:        https://github.com/open-quantum-safe/liboqs.git
 Source:     https://github.com/open-quantum-safe/liboqs/archive/refs/tags/liboqs-%{oqs_version}.tar.gz
 Patch1:	    liboqs-0.12.0-acvp_patch.patch
 Patch2:	    liboqs-0.10.0-std-stricter.patch
+# https://github.com/open-quantum-safe/liboqs/pull/2043
+Patch3:	    liboqs-0.12.0-openssl-memfuncs.patch
 
 BuildRequires: ninja-build
 BuildRequires: cmake
@@ -99,6 +101,9 @@ done
 #%doc %%{_datadir}/doc/oqs/xml/*
 
 %changelog
+* Wed Jan 15 2025 Daiki Ueno <dueno@redhat.com> - 0.12.0-2
+- Avoid unresolved symbols when compiled with OQS_DLOPEN_OPENSSL
+
 * Fri Jan 03 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 0.12.0-1
 - Rebasing to liboqs-0.12.0
   Removing support of Kyber from build. Falcon is also disabled until being

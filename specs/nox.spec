@@ -20,6 +20,10 @@ file for configuration.
 
 %prep
 %autosetup -p1 -n nox-%{version}
+# Fix test compatibility with Python 3.12.8+
+# Fixed upstream in https://github.com/wntrblm/nox/commit/28bbaa
+# but the patch does not apply cleanly.
+sed -i '/@mock.patch("sys.platform", "win32")/d' tests/test_command.py
 
 %generate_buildrequires
 %pyproject_buildrequires -r -x tox_to_nox

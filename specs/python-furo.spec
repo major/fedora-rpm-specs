@@ -107,7 +107,7 @@ nodeenv --node=system --prebuilt --clean-src $PWD/.nodeenv
 
 %install
 %pyproject_install
-%pyproject_save_files furo
+%pyproject_save_files -L furo
 
 # Build documentation
 %{py3_test_envvars} sphinx-build -b html docs html

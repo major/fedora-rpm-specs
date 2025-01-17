@@ -36,7 +36,7 @@ rst2html --no-datestamp README.rst README.html
 
 %install
 %pyproject_install
-%pyproject_save_files sphinx_documatt_theme
+%pyproject_save_files -l sphinx_documatt_theme
 
 %check
 %pyproject_check_import

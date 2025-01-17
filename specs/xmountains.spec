@@ -1,36 +1,17 @@
-%global         usegit      1
-%global         baserelease     8
-
-%global         githash     3ba444a4f7a6835e4a717c46f95802faea03eaf5
-%global         shorthash   %(TMP=%githash ; echo ${TMP:0:10})
-%global         gitdate     Tue, 3 Jan 2017 08:25:51 +0000
-%global         gitdate_num 20170103
-
-%if 0%{?usegit} >= 1
-%global         fedorarel   %{baserelease}.D%{gitdate_num}git%{shorthash}
-%else
-%global         fedorarel   %{?prever:0.}%{baserelease}%{?prever:.%{prerpmver}}
-%endif
-
 Name:           xmountains
-Version:        2.9
-Release:        %{fedorarel}%{?dist}
+Version:        2.11
+Release:        3%{?dist}
 Summary:        A fractal terrain generator
 
 # SPDX confirmed
 License:        HPND
 URL:            https://spbooth.github.io/xmountains/
-%if 0%{?usegit} >= 1
-Source0:        https://github.com/spbooth/xmountains/archive/%{githash}/%{name}_%{version}-D%{gitdate_num}git%{githash}.tar.gz
-%else
-Source0:        http://www2.epcc.ed.ac.uk/~spb/xmountains/xmountains_%{version}.tar.gz
-%endif
+Source0:        https://github.com/spbooth/xmountains/archive/v%{version}/%{name}-%{version}.tar.gz
 Source11:        xscreensaver-xmountains.xml
 Source12:        xscreensaver-xmountains.conf
-# Support -Werror=impliciti-function-declaration
-Patch1:		xmountains-2.9-implicit.patch
-# Support gcc10 -fno-common
-Patch2:		xmountains-2.9-fno-common.patch
+# Need report to the upstream
+# Fix for C23
+Patch0:         xmountains-2.11-c23.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -54,19 +35,14 @@ This package adds XScreenSaver integration.
 
 
 %prep
-%if 0%{?usegit} >= 1
-%setup -q -n xmountains-%{githash}
-%else
-%setup -q -c
-%endif
-%patch -P1 -p1 -b .implicit
-%patch -P2 -p1 -b .fnocommon
+%setup -q
+%patch -P0 -p1 -b .c23
 
 %global optflags %optflags -Werror=implicit-function-declaration
 
 %build
 xmkmf
-make %{?_smp_mflags} CCOPTIONS="$RPM_OPT_FLAGS"
+make %{?_smp_mflags} CCOPTIONS="$RPM_OPT_FLAGS -DANSI"
 
 %install
 make install \
@@ -103,6 +79,15 @@ fi
 %{_datadir}/xscreensaver/*/*
 
 %changelog
+* Wed Jan 15 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.11-3
+- Port to C23
+
+* Wed Jan 15 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.11-2
+- use C17 for now
+
+* Wed Jan 15 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.11-1
+- 2.11
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.9-8.D20170103git3ba444a4f7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

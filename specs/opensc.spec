@@ -1,5 +1,5 @@
 Name:           opensc
-Version:        0.26.0
+Version:        0.26.1
 Release:        1%{?dist}
 Summary:        Smart card library and applications
 
@@ -67,7 +67,7 @@ XFAIL_TESTS="test-pkcs11-tool-test-threads.sh test-pkcs11-tool-test.sh"
 # In FIPS mode, OpenSSL doesn't allow RSA-PKCS, this is hardcoded into OpenSSL
 # and we cannot influence it. Hence, the test is expected to fail in FIPS mode.
 if [[ -f "/proc/sys/crypto/fips_enabled" && $(cat /proc/sys/crypto/fips_enabled) == "1" ]]; then
-	XFAIL_TESTS+=" test-pkcs11-tool-unwrap-wrap-test.sh test-p11test.sh"
+	XFAIL_TESTS+=" test-pkcs11-tool-unwrap-wrap-test.sh"
 fi
 
 sed -i -e "/XFAIL_TESTS/,$ {
@@ -233,6 +233,9 @@ rm %{buildroot}%{_mandir}/man1/opensc-notify.1*
 
 
 %changelog
+* Wed Jan 15 2025 Veronika Hanulikova <vhanulik@redhat.com> - 0.26.1-1
+- New upstream release (#2337633)
+
 * Thu Nov 14 2024 Veronika Hanulikova <vhanulik@redhat.com> - 0.26.0-1
 - New upstream release (#2311896)
 - Separate OpenSC into libraries and binaries

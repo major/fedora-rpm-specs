@@ -200,7 +200,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        7%{?rc_version:.%rc_version}%{?dist}
+Release:        8%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -222,6 +222,7 @@ Source2:        gpgkey-0E63D716D76AC080A4A33513F40800B6298EB963.asc
 Patch0001:      ipa-post-4.12.2-updates.patch
 Patch0004:      freeipa-fix-ldap-otp-bind.patch
 Patch0002:      0001-freeipa-disable-nis.patch
+Patch0003:      freeipa-CVE-2024-11029.patch
 
 # RHEL spec file only: START: Change branding to IPA and Identity Management
 # Moved branding logos and background to redhat-logos-ipa-80.4:
@@ -1864,6 +1865,10 @@ fi
 %endif
 
 %changelog
+* Wed Jan 15 2025 Alexander Bokovoy <abokovoy@redhat.com> - 4.12.2-8
+- CVE-2024-11029
+- Release notes: https://www.freeipa.org/release-notes/4-12-3.html
+
 * Wed Dec 04 2024 Alexander Bokovoy <abokovoy@redhat.com> - 4.12.2-7
 - Apply upstream fixes since 4.12.2
 - Fix OTP LDAP bind regression

@@ -168,7 +168,7 @@ fi                                          \
 
 Name:           libxcrypt
 Version:        4.4.38
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extended crypt library for descrypt, md5crypt, bcrypt, and others
 
 # For explicit license breakdown, see the
@@ -183,6 +183,7 @@ Source3:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.xz.s
 # Patch 0000 - 2999: Backported patches from upstream.
 # Patch 3000 - 5999: Backported patches from pull requests.
 Patch3000:      %{url}/commit/5b930d8e84ea.patch#/%{name}-%{version}-Make-crypt-and-crypt_gensalt-use-thread-local-output.patch
+Patch3001:      %{url}/pull/205.patch#/%{name}-%{version}-crypt-Properly-initialize-and-cleanup-struct-crypt_data.patch
 # Patch 6000 - 9999: Downstream patches.
 
 BuildRequires:  autoconf
@@ -539,6 +540,9 @@ done
 
 
 %changelog
+* Wed Jan 15 2025 Björn Esser <besser82@fedoraproject.org> - 4.4.38-2
+- Add patch for proper initialization and cleanup in some crypt functions
+
 * Tue Jan 14 2025 Björn Esser <besser82@fedoraproject.org> - 4.4.38-1
 - New upstream release
 

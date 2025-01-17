@@ -64,6 +64,7 @@ developing applications that use %{name}.
 %prep
 %autosetup -n Zarith-release-%{version}
 
+%conf
 # Fix compilation flags
 sed -i "s|^ccdef=''|ccdef='%{build_cflags}'|" configure
 sed -i "s/-shared/-g &/" project.mak

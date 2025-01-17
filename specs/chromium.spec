@@ -158,19 +158,17 @@
 
 # enable qt backend
 %global enable_qt 1
-%global use_qt6 0
-%global use_qt 0
-
 %if %{enable_qt}
 %if 0%{?rhel} > 9 || 0%{?fedora} > 39
 %global use_qt6 1
 %global use_qt 1
 %else
-%if 0%{?rhel} == 8 || 0%{?rhel} == 9 || 0%{?fedora}
 %global use_qt6 0
 %global use_qt 1
 %endif
-%endif
+%else
+%global use_qt6 0
+%global use_qt 0
 %endif
 
 # bundle re2, jsoncpp, woff2 - build errors with use_custom_libcxx=true
@@ -228,17 +226,16 @@
 %global bundlelibdrm 0
 %global bundleffmpegfree 0
 %global bundlefreetype 0
-%global bundlelibtiff 0
 %global bundlelibxml 0
-%if 0%{?rhel} > 9
-%global bundlelibopenjpeg2 0
-%global bundleharfbuzz 0
-%global bundlebrotli 0
-%global bundlelibwebp 0
+# need libtiff-4.6.1 or newer, error: use of undeclared identifier 'TIFFOpenOptionsSetMaxCumulatedMemAlloc'
+%if 0%{?fedora} > 41
+%global bundlelibtiff 0
 %endif
 %if 0%{?fedora}
-%global bundlelibopenjpeg2 0
 %global bundlecrc32c 0
+%endif
+%if 0%{?rhel} > 9 || 0%{?fedora}
+%global bundlelibopenjpeg2 0
 %global bundleharfbuzz 0
 %global bundlebrotli 0
 %global bundlelibwebp 0
@@ -279,7 +276,7 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 131.0.6778.264
+Version: 132.0.6834.83
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -309,12 +306,6 @@ Patch90: chromium-121-system-libxml.patch
 # patch for using system opus
 Patch91: chromium-108-system-opus.patch
 
-# python-3,13, Deprecationwarning: 'count' is passed as positionaö argument
-Patch100: chromium-128.0.6613.137-python-3.13-warning.patch
-
-# fix build error with system freetype
-Patch101: chromium-131-system-freetype.patch
-
 # system ffmpeg
 # need for old ffmpeg 5.x on epel9
 Patch129: chromium-125-ffmpeg-5.x-reordered_opaque.patch
@@ -340,6 +331,9 @@ Patch151: chromium-131-qt-ui.patch
 # revert, it causes ramdom crash on aarch64
 Patch300: chromium-131-revert-decommit-pooled-pages-by-default.patch
 
+# Workaround for build error on el8 aarch64
+Patch304: chromium-132-el8-ffmpeg.patch
+
 # disable memory tagging (epel8 on aarch64) due to new feature IFUNC-Resolver
 # it is not supported in old glibc < 2.30, error: fatal error: 'sys/ifunc.h' file not found
 Patch305: chromium-124-el8-arm64-memory_tagging.patch
@@ -347,6 +341,9 @@ Patch306: chromium-127-el8-ifunc-header.patch
 
 # workaround for build error due to old atk version on el8
 Patch307: chromium-129-el8-atk-compiler-error.patch
+Patch308: chromium-132-el8-unsupport-clang-flags.patch
+Patch309: chromium-132-el8-unsupport-rustc-flags.patch
+Patch310: chromium-132-el8-clang18-build-error.patch
 
 # enable fstack-protector-strong
 Patch312: chromium-123-fstack-protector-strong.patch
@@ -366,10 +363,6 @@ Patch354: chromium-126-split-threshold-for-reg-with-hint.patch
 
 # fix build error: no member named 'hardware_destructive_interference_size' in namespace 'std'
 Patch355: chromium-130-hardware_destructive_interference_size.patch
-
-# fix build error on ppc64le
-# error: static assertion failed due to requirement 'sizeof(blink::MatchedProperties) <= 12': MatchedProperties should not grow without thinking
-Patch356: chromium-130-size-assertions.patch
 
 # set clang_lib path
 Patch358: chromium-127-rust-clanglib.patch
@@ -412,7 +405,6 @@ Patch385: 0002-Include-cstddef-to-fix-build.patch
 Patch386: 0004-third_party-crashpad-port-curl-transport-ppc64.patch
 
 Patch387: HACK-third_party-libvpx-use-generic-gnu.patch
-Patch388: HACK-debian-clang-disable-skia-musttail.patch
 Patch389: HACK-debian-clang-disable-base-musttail.patch
 
 Patch390: 0001-Add-ppc64-target-to-libaom.patch
@@ -1027,12 +1019,6 @@ Qt6 UI for chromium.
 %patch -P91 -p1 -b .system-opus
 %endif
 
-%if 0%{?fedora}
-%patch -P100 -p1 -b .python-3.13-warning
-%endif
-
-%patch -P101 -p1 -b .chromium-131-system-freetype
-
 %if ! %{bundleffmpegfree}
 %if 0%{?rhel} == 9
 %patch -P129 -p1 -R -b .ffmpeg-5.x-reordered_opaque
@@ -1060,10 +1046,16 @@ Qt6 UI for chromium.
 
 %if 0%{?rhel} == 8
 %ifarch aarch64
+%patch -P304 -p1 -b .el8-ffmpeg
 %patch -P305 -p1 -b .el8-memory_tagging
 %patch -P306 -p1 -b .el8-ifunc-header
 %endif
 %patch -P307 -p1 -b .el8-atk-compiler-error
+%endif
+%if 0%{?rhel} == 8 || 0%{?rhel} == 9 || 0%{?fedora} == 40
+%patch -P308 -p1 -b .el8-unsupport-clang-flags
+%patch -P309 -p1 -b .el8-unsupport-rustc-flags
+%patch -P310 -p1 -b .el8-clang18-build-error
 %endif
 
 %patch -P312 -p1 -b .fstack-protector-strong
@@ -1083,7 +1075,6 @@ Qt6 UI for chromium.
 %endif
 
 %patch -P355 -p1 -b .hardware_destructive_interference_size
-%patch -P356 -p1 -b .size-assertions
 %patch -P358 -p1 -b .rust-clang_lib
 
 %ifarch ppc64le
@@ -1116,7 +1107,6 @@ Qt6 UI for chromium.
 %patch -P385 -p1 -b .0002-Include-cstddef-to-fix-build
 %patch -P386 -p1 -b .0004-third_party-crashpad-port-curl-transport-ppc64
 %patch -P387 -p1 -b .HACK-third_party-libvpx-use-generic-gnu
-%patch -P388 -p1 -b .HACK-debian-clang-disable-skia-musttail
 %patch -P389 -p1 -b .HACK-debian-clang-disable-base-musttail
 %patch -P390 -p1 -b .0001-Add-ppc64-target-to-libaom
 %patch -P391 -p1 -b .0001-Add-pregenerated-config-for-libaom-on-ppc64
@@ -1933,6 +1923,22 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %endif
 
 %changelog
+* Wed Jan 15 2025 Than Ngo <than@redhat.com> - 132.0.6834.83-1
+- Update to 132.0.6834.83
+  * High CVE-2025-0434: Out of bounds memory access in V8
+  * High CVE-2025-0435: Inappropriate implementation in Navigation
+  * High CVE-2025-0436: Integer overflow in Skia
+  * High CVE-2025-0437: Out of bounds read in Metrics
+  * High CVE-2025-0438: Stack buffer overflow in Tracing
+  * Medium CVE-2025-0439: Race in Frames
+  * Medium CVE-2025-0440: Inappropriate implementation in Fullscreen
+  * Medium CVE-2025-0441: Inappropriate implementation in Fenced
+  * Medium CVE-2025-0442: Inappropriate implementation in Payments
+  * Medium CVE-2025-0443: Insufficient data validation in Extensions
+  * Low CVE-2025-0446: Inappropriate implementation in Extensions
+  * Low CVE-2025-0447: Inappropriate implementation in Navigation
+  * Low CVE-2025-0448: Inappropriate implementation in Compositing
+
 * Wed Jan 08 2025 Than Ngo <than@redhat.com> - 131.0.6778.264-1
 - Update to 131.0.6778.264
   * High CVE-2025-0291: Type Confusion in V8

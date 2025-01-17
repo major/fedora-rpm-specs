@@ -59,6 +59,7 @@ files for developing applications that use %{name}.
 %prep
 %autosetup -n stdcompat-%{commit} -p1
 
+%conf
 # Regenerate configure after Patch0 and Patch1
 autoreconf -fi .
 

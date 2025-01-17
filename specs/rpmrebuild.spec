@@ -1,6 +1,6 @@
 Name:           rpmrebuild
 Version:        2.20
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A tool to build rpm file from rpm database
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -28,7 +28,8 @@ make %{?_smp_mflags}
 make install DESTDIR="$RPM_BUILD_ROOT"
 
 %files
-%doc AUTHORS COPYING COPYRIGHT Changelog LISEZ.MOI News README Todo rpmrebuild.lsm Version
+%doc AUTHORS Changelog LISEZ.MOI News README Todo rpmrebuild.lsm Version
+%license COPYING COPYRIGHT
 %dir %{_prefix}/lib/rpmrebuild/
 %dir %{_prefix}/lib/rpmrebuild/plugins/
 %dir %{_prefix}/lib/rpmrebuild/locale/
@@ -121,6 +122,9 @@ make install DESTDIR="$RPM_BUILD_ROOT"
 
 
 %changelog
+* Tue Jan 14 2025 Michal Josef Špaček <mspacek@redhat.com> - 2.20-2
+- Mark license files as %license
+
 * Mon Dec 30 2024 Edgar Hoch <edgar.hoch@ims.uni-stuttgart.de> - 2.20-1
 - Latest package from upstream.
 

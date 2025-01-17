@@ -1,6 +1,6 @@
 Name:       distgen
 Summary:    Templating system/generator for distributions
-Version:    2.0
+Version:    2.1
 Release:    1%{?dist}
 License:    GPL-2.0-or-later AND Apache-2.0
 URL:        https://github.com/devexp-db/distgen
@@ -45,6 +45,10 @@ file and preexisting distribution metadata generate output file.
 
 
 %changelog
+* Tue Jan 14 2025 Ales Nezbeda <anezbeda@redhat.com> - 2.1-1
+- Update to 2.1
+- Support for RHEL 10
+
 * Wed Oct 2 2024 Ales Nezbeda <anezbeda@redhat.com> - 2.0-1
 - Update to 2.0
 - Refresh of build system

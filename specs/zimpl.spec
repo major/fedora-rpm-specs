@@ -29,6 +29,9 @@ Patch:          %{name}-shared.patch
 Patch:          %{name}-cddlib-set-clash.patch
 # Use zlib-ng directly, rather than via the compatibility interface
 Patch:          %{name}-zlib-ng.patch
+# Fix a test failure that appears to be due to changes in bsearch behavior
+# in newer glibc builds
+Patch:          %{name}-test-bsearch.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -79,6 +82,7 @@ applications that use libzimpl.
 %prep
 %autosetup -n %{name}-%{upver} -p1
 
+%conf
 # Fix installation directories
 if [ "%{_lib}" != "lib" ]; then
   sed -i 's,\(DESTINATION \)lib,\1%{_lib},' src/CMakeLists.txt

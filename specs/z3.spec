@@ -156,6 +156,7 @@ Python 3 interface to z3.
 %patch -P0 -p1
 %endif
 
+%conf
 # Enable verbose builds, use Fedora CFLAGS, preserve timestamps when installing,
 # include the entire contents of the archives in the library, link the library
 # with the correct flags, and build the ocaml files with debuginfo.

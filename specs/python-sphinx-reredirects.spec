@@ -63,13 +63,9 @@ Documentation for %{name}.
 %prep
 %autosetup -n sphinx-reredirects-%{version}
 
-# Do not pin the pytest version
-sed -i 's/==8\.2\.2//' tox.ini
-
+%generate_buildrequires
 # Do not pin to specific package versions
 sed -i 's/==/>=/g' docs/requirements.txt test-requirements.txt tox.ini
-
-%generate_buildrequires
 %pyproject_buildrequires -t docs/requirements.txt
 
 %build
@@ -82,7 +78,7 @@ rst2html --no-datestamp README.rst README.html
 
 %install
 %pyproject_install
-%pyproject_save_files sphinx_reredirects
+%pyproject_save_files -l sphinx_reredirects
 
 %check
 # test_linkcheck attempts to access the network

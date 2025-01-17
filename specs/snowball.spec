@@ -216,7 +216,7 @@ cd -
 # Install the python algorithms
 cd dist/snowballstemmer-%{version}
 %pyproject_install
-%pyproject_save_files snowballstemmer
+%pyproject_save_files -l snowballstemmer
 cd -
 
 %check
@@ -254,7 +254,6 @@ make check_python
 
 %files -n python3-snowballstemmer -f %{pyproject_files}
 %doc python/README.html
-%license COPYING
 
 %changelog
 %autochangelog

@@ -33,6 +33,7 @@ surf is script driven and has (optionally) a nifty GUI using the Gtk widget set.
 %prep
 %autosetup -p1 -n surf-%{version}
 
+%conf
 # Regenerate the configure script due to patch 1
 autoreconf -fi .
 

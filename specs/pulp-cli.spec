@@ -1,15 +1,11 @@
 Name: pulp-cli
-Version: 0.29.2
-Release: 4%{?dist}
+Version: 0.30.0
+Release: 1%{?dist}
 Summary: Command line interface to talk to the Pulp 3 REST API
 
 License: GPL-2.0-or-later
 URL: https://github.com/pulp/pulp-cli
 Source: %{url}/archive/%{version}/pulp-cli-%{version}.tar.gz
-# See https://github.com/pulp/pulp-cli/pull/1085
-Patch0: 0001-Remove-python-toml-dependency.patch
-# See https://github.com/pulp/pulp-cli/pull/1103
-Patch1: 0002-Bump-setuptools.patch
 
 BuildArch: noarch
 BuildRequires: python3-devel
@@ -79,6 +75,9 @@ done
 
 
 %changelog
+* Wed Jan 15 2025 Matthias Dellweg <x9c4@redhat.com> - 0.30.0-1
+- new version
+
 * Tue Oct 22 2024 Matthias Dellweg <x9c4@redhat.com> - 0.29.2-4
 - Bump setuptools build requirement.
 

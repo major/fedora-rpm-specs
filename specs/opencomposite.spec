@@ -5,8 +5,8 @@
 %global _lto_cflags %nil
 
 %global forgeurl0  https://gitlab.com/znixian/OpenOVR
-%global commit0    effe0a8783937c5a3cfe7a72cf6f81152150b6cb
-%global date       20241226
+%global oc_version 1.0.1459
+%global tag0       %{oc_version}
 
 # Bundled openxr 1.0.x for the bubblewraped environments (i.e. steam)
 # https://gitlab.com/znixian/OpenOVR/-/issues/416
@@ -17,7 +17,7 @@
 %forgemeta
 
 Name:           opencomposite
-Version:        0.0.1
+Version:        %{oc_version}
 Release:        %autorelease
 Summary:        Reimplementation of OpenVR, translating calls to OpenXR
 

@@ -14,8 +14,8 @@ referencing-based Schema Registry.}
 
 Name:           python-%{pypi_name}
 Summary:        JSON Schema meta-schemas and vocabularies, exposed as a Registry
-Version:        2023.11.2
-Release:        6%{?dist}
+Version:        2024.10.1
+Release:        1%{?dist}
 License:        MIT
 URL:            https://github.com/python-jsonschema/jsonschema-specifications
 Source0:        %{pypi_source %{pkg_name}}
@@ -62,6 +62,7 @@ Documentation for the JSON Schema specifications
 
 sed -i "/^file:.*/d" docs/requirements.in
 sed -i "/^pygments-github-lexers/d" docs/requirements.in
+sed -i "s/^pyenchant.*/pyenchant/" docs/requirements.in
 
 %generate_buildrequires
 %if 0%{?with_doc}
@@ -107,6 +108,9 @@ rm -rf docs/build/html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Wed Jan 15 2025 Joel Capitao <jcapitao@redhat.com> - 2024.10.1-1
+- Update to 2024.10.1 (rhbz#2255833)
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.11.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           abseil-cpp
 Version:        20240722.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        C++ Common Libraries
 
 # The entire source is Apache-2.0, except:
@@ -23,6 +23,10 @@ Summary:        C++ Common Libraries
 License:        Apache-2.0 AND LicenseRef-Fedora-Public-Domain
 URL:            https://abseil.io
 Source:         https://github.com/abseil/abseil-cpp/archive/%{version}/%{name}-%{version}.tar.gz
+
+# container/internal: Explicitly include <cstdint>
+# https://github.com/abseil/abseil-cpp/pull/1739
+Patch:          https://github.com/abseil/abseil-cpp/pull/1739.patch
 
 BuildRequires:  cmake
 # The default make backend would work just as well; ninja is observably faster
@@ -249,6 +253,9 @@ skips="${skips})$"
 %{_libdir}/pkgconfig/absl_*.pc
 
 %changelog
+* Thu Jan 09 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 20240722.0-3
+- Patch for GCC 15 (fix RHBZ#2336266)
+
 * Wed Jan 08 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 20240722.0-2
 - Report and skip a test regression on ppc64le
 

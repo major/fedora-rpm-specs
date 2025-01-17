@@ -9,7 +9,7 @@
 
 Name:           uudeview
 Version:        0.5.20%{?snapshot:^%{commitdate}git%{shortcommit}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -20,9 +20,10 @@ BuildRequires:  autoconf
 Source0:        http://www.fpx.de/fp/Software/UUDeview/download/uudeview-%{version}.tar.gz
 %endif
 Source1:        xdeview.desktop
+Patch0:         uudeview-threads.patch
 URL:            http://www.fpx.de/fp/Software/UUDeview/
 Summary:        Applications for uuencoding, uudecoding, ...
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  inews
 BuildRequires:  texlive-collection-latexextra
 BuildRequires:  transfig, desktop-file-utils
@@ -95,6 +96,11 @@ install -p -m 0644 uulib/libuu.a $RPM_BUILD_ROOT/%{_libdir}/
 %{_libdir}/*.a
 
 %changelog
+* Wed Jan 15 2025 Charles R. Anderson <cra@alum.wpi.edu> - 0.5.20^20241111git7ef9e26-2
+- Rebuilt for Tcl/Tk 9.0 (#2337805)
+- Patch to always set -D_REENTRANT since Tcl 9.0 no longer sets TCL_THREADS,
+  and add -std=gnu17 to CFLAGS since GCC 15 changed to gnu23 which fails.
+
 * Fri Jan 03 2025 Charles R. Anderson <cra@alum.wpi.edu> - 0.5.20^20241111git7ef9e26-1
 - Update to git snapshot to resolve FTBFS with Tcl_CreateCommand
 

@@ -30,12 +30,12 @@
 %endif
 
 Name:           perl-DBI
-Version:        1.645
+Version:        1.646
 Release:        1%{?dist}
 Summary:        A database access API for perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://dbi.perl.org/
-Source0:        https://cpan.metacpan.org/modules/by-module/DBI/DBI-%{version}.tgz
+Source0:        https://cpan.metacpan.org/modules/by-module/DBI/DBI-%{version}.tar.gz
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -250,8 +250,9 @@ make test
 %endif
 %{perl_vendorarch}/DBI/
 %{perl_vendorarch}/auto/DBI/
-%{_mandir}/man1/*.1*
-%{_mandir}/man3/*.3*
+%{_mandir}/man1/dbi*.1*
+%{_mandir}/man3/DBD*.3*
+%{_mandir}/man3/DBI*.3*
 
 %if %{with perl_DBI_enables_coro}
 %files Coro
@@ -263,6 +264,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jan 15 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.646-1
+- 1.646 bump (rhbz#2337138)
+
 * Tue Sep 03 2024 Jitka Plesnikova <jplesnik@redhat.com> - 1.645-1
 - 1.645 bump (rhbz#2309389)
 

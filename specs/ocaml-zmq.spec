@@ -55,6 +55,7 @@ files for developing applications that use %{name}-lwt.
 %prep
 %autosetup -n zmq-%{version} -p1
 
+%conf
 # We cannot build the async-aware bindings until ocaml-async-kernel and
 # ocaml-async-unix have been added to Fedora.
 rm -fr zmq-async*

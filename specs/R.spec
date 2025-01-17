@@ -35,7 +35,7 @@
 
 Name:           R
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A language for data analysis and graphics
 
 License:        GPL-2.0-or-later
@@ -43,6 +43,7 @@ URL:            https://www.r-project.org
 Source0:        https://cran.r-project.org/src/base/R-4/R-%{version}.tar.gz
 # see https://bugzilla.redhat.com/show_bug.cgi?id=1324145
 Patch0:         R-3.3.0-fix-java_path-in-javareconf.patch
+Patch1:         R-4.4.2-gcc15-noreturn.patch
 
 BuildRequires:  gcc-gfortran
 BuildRequires:  gcc-c++
@@ -52,8 +53,9 @@ BuildRequires:  libtiff-devel
 BuildRequires:  cairo-devel
 BuildRequires:  pango-devel
 BuildRequires:  readline-devel
-BuildRequires:  tcl-devel
-BuildRequires:  tk-devel
+# Until upstream adds support for tcl/tk 9
+BuildRequires:  tcl-devel < 1:9
+BuildRequires:  tk-devel < 1:9
 BuildRequires:  ncurses-devel
 BuildRequires:  pcre2-devel
 BuildRequires:  libcurl-devel
@@ -194,8 +196,9 @@ Requires:       gcc-gfortran
 Requires:       gcc-c++
 Requires:       make
 Requires:       pkgconfig
-Requires:       tcl-devel
-Requires:       tk-devel
+# Until upstream adds support for tcl/tk 9
+Requires:       tcl-devel < 1:9
+Requires:       tk-devel < 1:9
 Requires:       pcre2-devel
 Requires:       bzip2-devel
 Requires:       xz-devel
@@ -307,6 +310,7 @@ from the R project.  This package provides the static libRmath library.
 %prep
 %setup -q
 %patch -P0 -p1 -b .fixpath
+%patch -P1 -p1 -b .noreturn
 
 %build
 # Comment out default R_LIBS_SITE (since R 4.2) and set our own as always
@@ -947,6 +951,10 @@ TZ="Europe/Paris" make check
 %{_libdir}/libRmath.a
 
 %changelog
+* Wed Jan 15 2025 Iñaki Úcar <iucar@fedoraproject.org> - 4.4.2-3
+- Depend on compat tcl/tk 8 for now
+- Apply upstream patch for gcc15 compatibility
+
 * Sun Dec 08 2024 Pete Walter <pwalter@fedoraproject.org> - 4.4.2-2
 - Rebuild for ICU 76
 

@@ -43,15 +43,15 @@ A tool for authoring Sphinx themes with a simple (opinionated) workflow.
 %prep
 %autosetup -n sphinx-theme-builder-%{version}%{prerel} -p1
 
+%conf
 # Use local objects.inv for intersphinx
 sed -e 's|\("https://docs\.python\.org/3", \)None|\1"%{_docdir}/python3-docs/html/objects.inv"|' \
     -e 's|\("https://www\.sphinx-doc\.org/en/master", \)None|\1"%{_docdir}/python-sphinx-doc/html/objects.inv"|' \
     -i docs/conf.py
 
+%generate_buildrequires
 # Skip test packages not available in Fedora
 sed -i '/pytest-clarity/d;/pytest-pspec/d' tests/requirements.txt
-
-%generate_buildrequires
 %pyproject_buildrequires %{!?with_bootstrap:-x cli tests/requirements.txt}
 
 %build
@@ -59,7 +59,7 @@ sed -i '/pytest-clarity/d;/pytest-pspec/d' tests/requirements.txt
 
 %install
 %pyproject_install
-%pyproject_save_files sphinx_theme_builder
+%pyproject_save_files -L sphinx_theme_builder
 
 %if %{without bootstrap}
 # Install a man page
@@ -74,7 +74,7 @@ rm %{buildroot}%{_bindir}/stb
 
 %check
 %if %{without bootstrap}
-%pytest
+%pytest -v
 %else
 %pyproject_check_import
 %endif

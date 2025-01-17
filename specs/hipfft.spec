@@ -27,7 +27,7 @@
 
 Name:           hipfft
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm FFT marshalling library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -38,6 +38,7 @@ ExclusiveArch:  x86_64
 Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-rocm-%{version}.tar.gz
 
 BuildRequires:  cmake
+BuildRequires:  gcc-c++
 BuildRequires:  rocm-cmake
 BuildRequires:  rocm-comgr-devel
 BuildRequires:  rocm-compilersupport-macros
@@ -147,6 +148,9 @@ fi
 %endif
 
 %changelog
+* Wed Jan 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-2
+- build requires gcc-c++
+
 * Tue Dec 10 2024 Tom Rix <Tom.Rix@amd.com> - 6.3.0-1
 - Update to 6.3
 

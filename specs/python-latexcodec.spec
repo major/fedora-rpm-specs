@@ -53,6 +53,7 @@ Documentation for %{name}.
 %prep
 %autosetup -n latexcodec-%{version} -p1
 
+%conf
 # Update the sphinx theme name
 sed -i 's/default/classic/' doc/conf.py
 
@@ -70,10 +71,10 @@ rst2html --no-datestamp LICENSE.rst LICENSE.html
 
 %install
 %pyproject_install
-%pyproject_save_files latexcodec
+%pyproject_save_files -l latexcodec
 
 %check
-%pytest
+%pytest -v
 
 %files -n python3-latexcodec -f %{pyproject_files}
 

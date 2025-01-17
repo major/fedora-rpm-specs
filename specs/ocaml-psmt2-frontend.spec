@@ -48,6 +48,7 @@ Documentation for %{name}.
 %prep
 %autosetup -n psmt2-frontend-%{version} -p1
 
+%conf
 # Do not use git to find the version; we don't have a git checkout
 sed -i '/^git =/d;/^branch=/d;s/^\(version = \).*/\1"%{version}"/' sphinx/conf.py
 

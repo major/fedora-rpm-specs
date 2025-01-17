@@ -39,10 +39,10 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 %install
 %pyproject_install
-%pyproject_save_files a11y_pygments
+%pyproject_save_files -l a11y_pygments
 
 %check
-%pytest
+%pytest -v
 
 %files -n python3-accessible-pygments -f %{pyproject_files}
 %doc CHANGELOG.md README.md

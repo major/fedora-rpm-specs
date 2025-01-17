@@ -1,7 +1,7 @@
 Summary:        Modular SIP user-agent with audio and video support
 Name:           baresip
-Version:        3.18.0
-Release:        3%{?dist}
+Version:        3.19.0
+Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/baresip
 Source0:        https://github.com/baresip/baresip/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -13,7 +13,7 @@ Source14:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/C
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  libre-devel >= 3.18.0
+BuildRequires:  libre-devel >= 3.19.0
 %if 0%{?fedora} || 0%{?rhel} >= 9
 BuildRequires:  openssl-devel
 Recommends:     %{name}-pipewire%{?_isa} = %{version}-%{release}
@@ -625,6 +625,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_libdir}/%{name}/modules/x11.so
 
 %changelog
+* Thu Jan 16 2025 Robert Scheck <robert@fedoraproject.org> 3.19.0-1
+- Upgrade to 3.19.0 (#2338145)
+
 * Tue Dec 31 2024 Robert Scheck <robert@fedoraproject.org> 3.18.0-3
 - Add the baresip-avcodec, baresip-avfilter, baresip-avformat and
   baresip-swscale subpackages for Fedora and RHEL 9 (and newer)

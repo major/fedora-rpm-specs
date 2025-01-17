@@ -68,6 +68,7 @@ SymPol applications.
 %autosetup -p0 -n SymPol-%{version}
 cp -p %{SOURCE1} .
 
+%conf
 # Do not use the bundled cddlib, lrslib, or permlib
 rm -fr external/{cddlib-094f,lrslib-042c,permlib}
 sed -e "/(external/d" \

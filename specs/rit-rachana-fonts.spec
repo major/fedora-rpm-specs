@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 Version:    1.5.2
-Release:    1%{?dist}
+Release:    2%{?dist}
 URL:        https://gitlab.com/rit-fonts/%{fontsource}
 
 %global foundry        RIT
@@ -22,7 +22,7 @@ It covers Unicode 13.0 and entire character set in 'definitive character set' of
 }
 
 # https://gitlab.com/rit-fonts/%%{fontsource}/-/jobs/artifacts/%%{version}/download?job=build-tag
-Source0:    %{fontsource}-%{version}.tar.bz2
+Source0:    %{fontsource}-%{version}.zip
 
 %fontpkg
 
@@ -42,6 +42,9 @@ Source0:    %{fontsource}-%{version}.tar.bz2
 
 
 %changelog
+* Wed Jan 15 2025 Rajeesh KV <rajeeshknambiar@gmail.com> - 1.5.2-2
+- Fix RHBZ#2338102, use `zip` file of prebuilt fonts
+
 * Sun Jan 12 2025 Rajeesh KV <rajeeshknambiar@gmail.com> - 1.5.2-1
 - Bugfix update, version 1.5.2
 

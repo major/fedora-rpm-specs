@@ -177,10 +177,6 @@ Provides:       perl(Polymake::utils.pl)
 # Major version number
 %global majver  %(cut -dr -f1 <<< %{version})
 
-# This can be removed when F38 reaches EOL
-Obsoletes:      polymake-singular < 4.4-1
-Provides:       polymake-singular = %{version}-%{release}
-
 %description
 Polymake is a tool to study the combinatorics and the geometry of convex
 polytopes and polyhedra.  It is also capable of dealing with simplicial
@@ -209,6 +205,7 @@ This package contains documentation for %{name}.
 %prep
 %autosetup -p0 -n %{name}-%{majver}
 
+%conf
 fixtimestamp() {
   touch -r $1.orig $1
   rm -f $1.orig

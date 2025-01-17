@@ -1,6 +1,6 @@
 Name:           rocm-rpm-macros
-Version:        6.3.0
-Release:        1%{?dist}
+Version:        6.3.1
+Release:        2%{?dist}
 Summary:        ROCm RPM macros
 License:        GPL-2.0-or-later
 
@@ -24,8 +24,9 @@ Source14:       gfx1101
 Source15:       gfx1102
 Source16:       gfx1103
 Source17:       default.rhel
+Source18:       gfx12
 
-%global gpu_list gfx8 gfx9 gfx10 gfx11 gfx90a gfx942 gfx1100 gfx1103
+%global gpu_list gfx8 gfx9 gfx10 gfx11 gfx12 gfx90a gfx942 gfx1100 gfx1103
 
 # Just some files
 %global debug_package %{nil}
@@ -78,6 +79,7 @@ install -pm 644 %{SOURCE13} modules
 install -pm 644 %{SOURCE14} modules
 install -pm 644 %{SOURCE15} modules
 install -pm 644 %{SOURCE16} modules
+install -pm 644 %{SOURCE18} modules
 
 %install
 mkdir -p %{buildroot}%{_rpmmacrodir}/
@@ -110,10 +112,14 @@ done
 %endif
 
 %changelog
+* Wed Jan 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-2
+- Add gfx1152,gfx1200,gfx1201 to default set
+
+* Mon Dec 30 2024 Tom Rix <Tom.Rix@amd.com> - 6.3.1-1
+- Add hipblaslt gpu list
+
 * Sun Dec 8 2024 Tom Rix <Tom.Rix@amd.com> - 6.3.0-1
 - Update to 6.3
 
 * Sun Nov 10 2024 Tom Rix <Tom.Rix@amd.com> - 6.2.1-1
 - Stub for tumbleweed
-
-

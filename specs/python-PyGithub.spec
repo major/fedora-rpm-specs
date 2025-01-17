@@ -6,13 +6,21 @@
 %global pkgname pygithub
 
 Name:           python-%{srcname}
-Version:        2.3.0
+Version:        2.5.0
 Release:        1%{?dist}
 Summary:        Python library to work with the Github API
 License:        LGPL-3.0-or-later
 URL:            https://github.com/PyGithub/PyGithub
 # github tarball (unlike PyPI one) contains tests
 Source:         %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
+# Patch httpretty socket for latest urllib3 release
+# https://github.com/PyGithub/PyGithub/pull/3102
+#
+# Fixes:
+#
+# urllib3 2.3.0 breaks tests
+# https://github.com/PyGithub/PyGithub/issues/3101
+Patch:          %{url}/pull/3102.patch
 BuildArch:      noarch
 
 %global _description %{expand:
@@ -34,9 +42,13 @@ Obsoletes:      python3-PyGithub < 1.29-8
 %prep
 %autosetup -p 1 -n %{srcname}-%{version}
 
+# Remove linter(s) from test requirements
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+sed -i '/pytest-cov/d' requirements/test.txt
+
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
-%pyproject_buildrequires -t
+%pyproject_buildrequires requirements/test.txt
 
 %build
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
@@ -47,12 +59,21 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_save_files %{libname}
 
 %check
-%tox
+%pytest -v
 
 %files -n python3-%{pkgname} -f %{pyproject_files}
 %doc README.md
 
 %changelog
+* Tue Jan 14 2025 Sandro <devel@penguinpee.nl> - 2.5.0-1
+- Update to 2.5.0 (RHBZ#2307832)
+- Don't run coverage
+
+* Sun Dec 29 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.3.0-2
+- Test fix: patch httpretty socket for latest urllib3 release
+- Test fix: work around expired test token
+- Fixes RHBZ#2334702
+
 * Sun Jul 21 2024 Sandro <devel@penguinpee.nl> - 2.3.0-1
 - Update to 2.3.0 (RHBZ#2216820)
 

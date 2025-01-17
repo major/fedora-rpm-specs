@@ -17,6 +17,9 @@ Source2:        ianhhutchinson.asc
 # the same copyright and license as tth itself.
 Source3:        tth.h
 
+# Update the code for C23
+Patch:          %{name}-c23.patch
+
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
@@ -130,21 +133,13 @@ Development files for building applications that use TTH.
 %prep
 # Verify the source file
 %{gpgverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
-
 %autosetup -n %{name} -p1
 
+%conf
 fixtimestamp() {
   touch -r $1.orig $1
   rm -f $1.orig
 }
-
-# Fix a couple of minor warnings
-sed -i.orig 's/^main/int &/;/slen/d' tools/tthsplit.c
-fixtimestamp tools/tthsplit.c
-sed -i.orig 's/^main/#include <stdio.h>\nint &/;/slen/d' tools/choice.c
-fixtimestamp tools/choice.c
-sed -i.orig 's/^main/#include <stdlib.h>\nint &/;/slen/d' tthgold/tthrfcat.c
-fixtimestamp tthgold/tthrfcat.c
 
 # Remove prebuilt binaries
 find . -name \*.exe -delete
@@ -256,6 +251,9 @@ cp -p tthgold/tth*.sty %{buildroot}%{_texmf_main}/tex/generic/%{name}
 %{_includedir}/tth.h
 
 %changelog
+* Wed Jan 15 2025 Jerry James <loganjerry@gmail.com> - 4.16-5
+- Add patch for C23 compatibility
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.16-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

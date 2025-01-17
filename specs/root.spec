@@ -27,13 +27,19 @@
 %global rrr 1
 %endif
 
+%if %{?fedora}%{!?fedora:0} >= 40
+%global roofitmp 1
+%else
+%global roofitmp 0
+%endif
+
 # Do not generate autoprovides for Python modules
 %global __provides_exclude_from ^%{python3_sitearch}/lib.*\\.so$
 
 Name:		root
 Version:	6.34.02
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -171,7 +177,7 @@ BuildRequires:	protobuf-devel >= 3.0
 BuildRequires:	libarrow-devel
 %endif
 %if %{roofit}
-%if %{?fedora}%{!?fedora:0} >= 40
+%if %{roofitmp}
 #		Required for roofit-multiprocess
 #		Requires new zeromq with zmq_ppoll
 BuildRequires:	zeromq-devel >= 4.3.5
@@ -410,7 +416,7 @@ Requires:	%{name}-core = %{version}-%{release}
 #		notebook package was merged with JupyROOT package
 Provides:	%{name}-notebook = %{version}-%{release}
 Obsoletes:	%{name}-notebook < 6.32.00
-Requires:	js-jsroot >= 7.7
+Requires:	js-jsroot >= 7.8
 %if %{?fedora}%{!?fedora:0}
 #		jupyter-notebook not available in RHEL/EPEL
 #		some functionality missing
@@ -1148,7 +1154,7 @@ access to http based storage such as webdav and S3.
 Summary:	HTTP server extension for ROOT
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
 Requires:	%{name}-io%{?_isa} = %{version}-%{release}
-Requires:	js-jsroot >= 7.7
+Requires:	js-jsroot >= 7.8
 #		Library split (net-httpsniff from net-http)
 Obsoletes:	%{name}-net-http < 6.14.00
 
@@ -1290,8 +1296,10 @@ Requires:	%{name}-matrix%{?_isa} = %{version}-%{release}
 Requires:	%{name}-minuit%{?_isa} = %{version}-%{release}
 Requires:	%{name}-minuit2%{?_isa} = %{version}-%{release}
 Requires:	%{name}-roofit-batchcompute%{?_isa} = %{version}-%{release}
+%if %{roofitmp}
 Requires:	%{name}-roofit-multiprocess%{?_isa} = %{version}-%{release}
 Requires:	%{name}-roofit-zmq%{?_isa} = %{version}-%{release}
+%endif
 Requires:	%{name}-tree%{?_isa} = %{version}-%{release}
 #		Package split / Library split (from roofit)
 Obsoletes:	%{name}-roofit < 6.20.00
@@ -1395,7 +1403,7 @@ suitable for adoption in different disciplines as well.
 
 This package contains the JSON interface to RooFit.
 
-%if %{?fedora}%{!?fedora:0} >= 40
+%if %{roofitmp}
 %package roofit-multiprocess
 Summary:	Multi-process support for RooFit
 License:	BSD-2-Clause
@@ -2130,7 +2138,7 @@ done
 %endif
 %if %{roofit}
        -Droofit:BOOL=ON \
-%if %{?fedora}%{!?fedora:0} >= 40
+%if %{roofitmp}
        -Droofit_multiprocess:BOOL=ON \
 %else
        -Droofit_multiprocess:BOOL=OFF \
@@ -3397,7 +3405,7 @@ fi
 %{_libdir}/%{name}/libRooFitJSONInterface_rdict.pcm
 %dir %{_includedir}/%{name}/RooFit
 
-%if %{?fedora}%{!?fedora:0} >= 40
+%if %{roofitmp}
 %files roofit-multiprocess -f includelist-roofit-multiprocess
 %{_libdir}/%{name}/libRooFitMultiProcess.*
 %dir %{_includedir}/%{name}/RooFit
@@ -3651,6 +3659,10 @@ fi
 %endif
 
 %changelog
+* Wed Jan 15 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.34.02-3
+- Don't add dependencies on root-roofit-multiprocess and root-roofit-zmq
+  to root-roofit-core for EPEL builds
+
 * Sun Jan 12 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.34.02-2
 - Adjust stressGraphics.ref
 - Build for EPEL 10

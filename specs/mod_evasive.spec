@@ -1,14 +1,12 @@
 Name:           mod_evasive
-Version:        1.10.1
-Release:        44%{?dist}
+Version:        2.3.0
+Release:        1%{?dist}
 Summary:        Denial of Service evasion module for Apache
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
-URL:            http://www.zdziarski.com/blog/?page_id=442
-Source0:        http://www.zdziarski.com/blog/wp-content/uploads/2010/02/mod_evasive_%{version}.tar.gz
+URL:            https://github.com/jvdmr/mod_evasive
+Source0:        https://github.com/jvdmr/mod_evasive/archive/%{version}.tar.gz
 Source1:        mod_evasive.conf
-Patch1:         mod_evasive-http11request.patch
 
 BuildRequires:  httpd-devel, gcc
 Requires:       httpd
@@ -23,7 +21,7 @@ reports abuses via email and syslog facilities.
 
 
 %prep
-%setup -q -n %{name}
+%setup -q -n %{name}-%{version}
 
 
 %build
@@ -44,12 +42,15 @@ install -pm 644 %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/httpd/conf.d/
 
 
 %files
-%doc README LICENSE CHANGELOG test.pl
+%doc README.md LICENSE CHANGELOG
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/*
 %{_libdir}/httpd/modules/*
 
 
 %changelog
+* Wed Jan 15 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.3.0-1
+- update to maintained fork
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.10.1-44
 - convert license to SPDX
 

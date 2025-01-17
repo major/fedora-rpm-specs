@@ -84,6 +84,7 @@ for developing applications that use %{name}-care.
 %prep
 %autosetup -n topkg-%{version} -p1
 
+%conf
 # This package can replace "watermarks" in software that it builds.  However,
 # we are building from scratch, rather than using topkg to build itself, so we
 # have to do the job manually.

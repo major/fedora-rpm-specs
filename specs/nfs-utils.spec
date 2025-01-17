@@ -2,7 +2,7 @@ Summary: NFS utilities and supporting clients and daemons for the kernel NFS ser
 Name: nfs-utils
 URL: http://linux-nfs.org/
 Version: 2.8.2
-Release: 0.rc1%{?dist}.3
+Release: 0.rc1%{?dist}.4
 Epoch: 1
 
 # group all 32bit related archs
@@ -39,6 +39,10 @@ Provides: umount.nfs  = %{epoch}:%{version}-%{release}
 Provides: umount.nfs4 = %{epoch}:%{version}-%{release}
 Provides: sm-notify   = %{epoch}:%{version}-%{release}
 Provides: start-statd = %{epoch}:%{version}-%{release}
+Provides: user(rpcuser)
+Provides: group(rpcuser)
+Provides: user(nfsnobody)
+Provides: group(nfsnobody)
 
 %if "%{_sbindir}" == "%{_bindir}"
 # Compat symlinks for Requires in other packages.
@@ -442,6 +446,9 @@ rm -rf /etc/systemd/system/rpc-*.requires
 %{_mandir}/*/nfsiostat.8.gz
 
 %changelog
+* Tue Jan 14 2025 Panu Matilainen <pmatilai@redhat.com> - 1:2.8.2-0.rc1.4
+- Add provides for the manually created rpcuser and nfsnobody users and groups
+
 * Mon Jan 13 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:2.8.2-0.rc1.3
 - Add one more compat file provide
 

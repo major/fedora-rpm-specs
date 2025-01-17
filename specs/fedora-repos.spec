@@ -4,7 +4,7 @@
 Summary:        Fedora package repositories
 Name:           fedora-repos
 Version:        42
-Release:        0.3%{?eln:.eln%{eln}}
+Release:        0.4%{?eln:.eln%{eln}}
 License:        MIT
 URL:            https://fedoraproject.org/
 
@@ -83,6 +83,7 @@ Source60:       RPM-GPG-KEY-fedora-40-primary
 Source61:       RPM-GPG-KEY-fedora-41-primary
 Source62:       RPM-GPG-KEY-fedora-42-primary
 Source63:       RPM-GPG-KEY-fedora-43-primary
+Source64:       RPM-GPG-KEY-fedora-44-primary
 
 # When bumping Rawhide to fN, create N+1 key (and update archmap). (This
 # ensures users have the next future key installed and referenced, even if they
@@ -402,6 +403,9 @@ rm -f "$TMPRING"
 
 
 %changelog
+* Wed Jan 10 2025 Samyak Jain <samyak.jn11@gmail.com> - 42-0.4
+- Add RPM-GPG-KEY-fedora-44-primary
+
 * Tue Oct 22 2024 Stephen Gallagher <sgallagh@redhat.com> - 42-0.3
 - ELN: Drop ResilientStorage
 

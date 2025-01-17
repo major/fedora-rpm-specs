@@ -40,6 +40,7 @@ This package contains javadoc for %{name}.
 %autosetup
 cp -p %{SOURCE1} .
 
+%conf
 # sonatype-oss-parent is deprecated in Fedora
 %pom_remove_parent %{core} %{core}.demo %{core}.netbeans %{core}.netbeans.demo
 

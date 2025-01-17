@@ -2,7 +2,7 @@ Summary: The NIS (Network Information Service) server
 
 Name: ypserv
 Version: 4.2
-Release: 11%{?dist}
+Release: 12%{?dist}
 License: GPL-2.0-only
 URL: https://www.thkukuk.de/nis/nis/ypserv/
 
@@ -33,6 +33,7 @@ Patch10: ypserv-2.31-netgrprecur.patch
 Patch12: ypserv-4.0-headers.patch
 Patch14: ypserv-4.0-selinux-context.patch
 Patch15: ypserv-4.2-implicit-int.patch
+Patch16: ypserv-4.2-uninitialized-int.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -165,6 +166,9 @@ install -m 755 %{SOURCE4} $RPM_BUILD_ROOT%{_libexecdir}/rpc.yppasswdd.env
 %{_includedir}/rpcsvc
 
 %changelog
+* Tue Jan 14 2025 Ales Nezbeda <anezbeda@redhat.com> - 4.2-12
+- Fix uninitialized int causing different ports for IPv4 and IPv6
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

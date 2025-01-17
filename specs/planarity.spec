@@ -49,6 +49,7 @@ planarity -test /usr/share/doc/planarity/samples
 %prep
 %autosetup -p0 -n edge-addition-%{name}-suite-Version_%{version}
 
+%conf
 # Use unix line endings in installed headers and debugsource files
 for header in c/*.{c,h} c/samples/Makefile.am c/samples/*.txt; do
     sed -i.orig 's|\r$||g' $header

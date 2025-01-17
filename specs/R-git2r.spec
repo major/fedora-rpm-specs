@@ -1,10 +1,10 @@
 %global packname git2r
-%global packver  0.32.0
+%global packver  0.35.0
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          7%{?dist}
+Release:          1%{?dist}
 Summary:          Provides Access to Git Repositories
 
 License:          GPL-2.0-only
@@ -34,12 +34,6 @@ and running some basic 'Git' commands.
 %prep
 %setup -q -c -n %{packname}
 
-# Remove bundled libgit2.
-pushd %{packname}
-rm -r src/libgit2
-sed -i '/libgit2/d' MD5
-popd
-
 
 %build
 
@@ -59,8 +53,6 @@ rm -f %{buildroot}%{rlibdir}/R.css
 %dir %{rlibdir}/%{packname}
 %doc %{rlibdir}/%{packname}/html
 %{rlibdir}/%{packname}/DESCRIPTION
-%doc %{rlibdir}/%{packname}/AUTHORS
-%license %{rlibdir}/%{packname}/COPYING
 %license %{rlibdir}/%{packname}/COPYRIGHTS
 %doc %{rlibdir}/%{packname}/NEWS.md
 %{rlibdir}/%{packname}/INDEX
@@ -73,6 +65,10 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jan 15 2025 Pete Walter <pwalter@fedoraproject.org> - 0.35.0-1
+- Update to 0.35.0 (rhbz#2251593)
+- Drop bundled libgit2 handling as libgit2 is no longer bundled
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.32.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

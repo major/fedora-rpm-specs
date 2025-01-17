@@ -18,7 +18,7 @@
 
 Name:           roctracer
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm Tracer Callback/Activity Library for Performance tracing AMD GPUs
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -26,11 +26,7 @@ License:        MIT
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
 
 BuildRequires:  cmake
-#BuildRequires:  clang-devel
-#BuildRequires:  compiler-rt
-
-#BuildRequires:  lld
-#BuildRequires:  llvm-devel
+BuildRequires:  gcc-c++
 BuildRequires:  python-cppheaderparser
 BuildRequires:  rocm-cmake
 BuildRequires:  rocm-comgr-devel
@@ -172,5 +168,8 @@ rm -rf rm %{buildroot}%{_datadir}/html
 %endif
 
 %changelog
+* Wed Jan 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-2
+- build requires gcc-c++
+
 * Tue Dec 10 2024 Tom Rix <Tom.Rix@amd.com> - 6.3.0-1
 - Update to 6.3

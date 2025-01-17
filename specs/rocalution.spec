@@ -28,7 +28,7 @@
 
 Name:           rocalution
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Next generation library for iterative sparse solvers for ROCm platform
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -41,6 +41,7 @@ Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version
 # Patch0:         0001-prepare-rocalution-cmake-for-fedora.patch
 
 BuildRequires:  cmake
+BuildRequires:  gcc-c++
 BuildRequires:  rocblas-devel
 BuildRequires:  rocm-cmake
 BuildRequires:  rocm-comgr-devel
@@ -153,6 +154,9 @@ fi
 %endif
 
 %changelog
+* Wed Jan 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-2
+- build requires gcc-c++
+
 * Tue Dec 10 2024 Tom Rix <Tom.Rix@amd.com> - 6.3.0-1
 - Update to 6.3
 

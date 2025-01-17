@@ -25,10 +25,9 @@
 
 Summary:	IPv6 address format change and calculation utility
 Name:		ipv6calc
-Version:	4.2.1
-Release:	81%{?gittag}%{?dist}
+Version:	4.2.2
+Release:	1%{?gittag}%{?dist}
 URL:		http://www.deepspace6.net/projects/%{name}.html
-# Automatically converted from old format: GPLv2 - review is highly recommended.
 License:	GPL-2.0-only
 %if 0%{?gitcommit:1}
 Source:		https://github.com/pbiering/%{name}/archive/%{gitcommit}/%{name}-%{gitcommit}.tar.gz
@@ -37,8 +36,6 @@ Source:		https://github.com/pbiering/%{name}/archive/%{gitcommit}/%{name}-%{gitc
 Source:		https://github.com/pbiering/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 %else
 Source:		ftp://ftp.bieringer.de/pub/linux/IPv6/ipv6calc/%{name}-%{version}.tar.gz
-# patch for 4.2.1 for >f41
-Patch0:		ipv6calc-4.2.1-3f88b26.patch
 %endif
 %endif
 BuildRequires:	automake make
@@ -49,6 +46,7 @@ BuildRequires:	perl(Digest::MD5), perl(Digest::SHA1), perl(URI::Escape)
 BuildRequires:	perl(strict), perl(warnings)
 BuildRequires:	procps-ng
 Requires:	unzip
+Requires:	perl-BerkeleyDB perl-Net-IP
 %if %{enable_shared}
 Provides:	ipv6calc-libs = %{version}-%{release}
 %else
@@ -213,11 +211,7 @@ By default the module is disabled.
 
 
 %prep
-%if 0%{?gitcommit:1}
-%setup -q -n %{name}-%{gitcommit}
-%else
-%setup -q
-%endif
+%autosetup %{?gitcommit:-n %{name}-%{gitcommit}} -p1
 
 autoreconf
 
@@ -270,6 +264,8 @@ done
 
 # db directory
 install -d %{buildroot}%{external_db}
+install -d %{buildroot}%{external_db}/lisp
+install -m 644 databases/registries/lisp/site-db %{buildroot}%{external_db}/lisp/
 
 # selinux
 install -d %{buildroot}%{_datadir}/%{name}/selinux
@@ -384,6 +380,10 @@ fi
 
 
 %changelog
+* Tue Jan 14 2025 Peter Bieringer <pb@bieringer.de> - 4.2.2-1
+- include databases/registries/lisp/site-db as no longer reachable for download
+- add additional Perl requirements
+
 * Fri Aug 23 2024 Peter Bieringer <pb@bieringer.de> - 4.2.1-81
 - Final release 4.2.1
 - Relocate CGI scripts into dedicated directories

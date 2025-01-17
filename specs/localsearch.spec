@@ -31,7 +31,7 @@
 
 Name:           localsearch
 Version:        3.8~rc
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Localsearch and metadata extractors
 
 # The indexer is a mix of GPLv2 and LGPLv2+ code
@@ -178,6 +178,9 @@ install -D -m 0755 %{SOURCE1} %{buildroot}%{_bindir}/%{name}-flatpak-fixup.sh
 
 
 %changelog
+* Wed Jan 15 2025 Nieves Montero <nmontero@redhat.com> - 3.8.rc-2
+-Bump release to rebuild after deleted build
+
 * Wed Nov 06 2024 Nieves Montero <nmontero@redhat.com> - 3.8.rc-1
 - Rename tracker-miners to localsearch
 - Update to 3.8~rc

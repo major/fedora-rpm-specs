@@ -1,6 +1,6 @@
 Summary:        Power Management Service
 Name:           upower
-Version:        1.90.6
+Version:        1.90.7
 Release:        %autorelease
 License:        GPL-2.0-or-later
 URL:            http://upower.freedesktop.org/
@@ -25,11 +25,6 @@ BuildRequires:  systemd
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       udev
-
-# https://gitlab.freedesktop.org/upower/upower/-/commit/9ee76826bd41a5d3a377dfd6f5835f42ec50be9a.patch
-Patch1001:      0001-Fix-race-condition-in-test_sibling_priority_no_overwrite.patch
-# https://gitlab.freedesktop.org/upower/upower/-/commit/7d7bb84fde91bef9ee7eba924cbdfa74639cc4fe.patch
-Patch1002:      0002-linux-up-enumerator-udev-Find-the.patch
 
 %description
 UPower (formerly DeviceKit-power) provides a daemon, API and command
@@ -90,7 +85,7 @@ Developer documentation for for libupower-glib.
 %files -f upower.lang
 %{!?_licensedir:%global license %%doc}
 %license COPYING
-%doc NEWS AUTHORS HACKING README
+%doc NEWS AUTHORS HACKING.md README.md
 %{_datadir}/dbus-1/system.d/*.conf
 %{_udevrulesdir}/*.rules
 %{_udevhwdbdir}/*.hwdb
@@ -106,6 +101,7 @@ Developer documentation for for libupower-glib.
 %{_unitdir}/*.service
 %{_datadir}/installed-tests/upower/upower-integration.test
 %{_datadir}/polkit-1/actions/org.freedesktop.upower.policy
+%{_datadir}/zsh
 
 %files libs
 %license COPYING

@@ -71,10 +71,10 @@ rm -rf html/{.buildinfo,.doctrees}
 
 %install
 %pyproject_install
-%pyproject_save_files pyproject_metadata
+%pyproject_save_files -L pyproject_metadata
 
 %check
-%pytest
+%pytest -v
 
 %files -n python3-pyproject-metadata -f %{pyproject_files}
 %doc CHANGELOG.html README.md

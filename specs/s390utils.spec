@@ -14,7 +14,7 @@
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
 Version:        2.35.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          2
 # MIT covers nearly all the files, except init files
 License:        MIT AND LGPL-2.1-or-later
@@ -130,6 +130,11 @@ popd
 %endif
 rm ./rust/Cargo.lock
 
+# Create sysusers config files
+echo 'g zkeyadm' >s390utils-base.conf
+echo 'g ts-shell' >s390utils-iucvterm.conf
+echo 'g cpacfstats' >s390utils-cpacfstatsd.conf
+
 %build
 make \
         CFLAGS="%{build_cflags}" CXXFLAGS="%{build_cxxflags}" LDFLAGS="%{build_ldflags}" \
@@ -235,6 +240,9 @@ install -p -m 644 %{SOURCE17} %{buildroot}%{_udevrulesdir}/81-ccw.rules
 
 # zipl.conf to be ghosted
 touch %{buildroot}%{_sysconfdir}/zipl.conf
+
+install -Dt %{buildroot}%{_sysusersdir}/ s390utils-{base,iucvterm,cpacfstatsd}.conf
+
 %endif
 
 %ifarch s390x
@@ -615,6 +623,7 @@ getent group zkeyadm > /dev/null || groupadd -r zkeyadm
 %ghost %config(noreplace) %{_sysconfdir}/zipl.conf
 %config(noreplace) %{_sysconfdir}/sysconfig/dumpconf
 %{_sysconfdir}/mdevctl.d/*
+%{_sysusersdir}/s390utils-base.conf
 /usr/lib/dracut/modules.d/99ngdump/
 # own the mdevctl dirs until new release is available
 %dir /usr/lib/mdevctl
@@ -901,6 +910,7 @@ fi
 %{_bindir}/ts-shell
 %{_sbindir}/chiucvallow
 %{_sbindir}/lsiucvallow
+%{_sysusersdir}/s390utils-iucvterm.conf
 %dir %attr(2770,root,ts-shell) /var/log/ts-shell
 %doc iucvterm/doc/ts-shell
 %{_mandir}/man1/iucvconn.1*
@@ -1004,6 +1014,7 @@ getent group cpacfstats >/dev/null || groupadd -r cpacfstats
 %{_mandir}/man1/cpacfstats.1*
 %{_mandir}/man8/cpacfstatsd.8*
 %{_unitdir}/cpacfstatsd.service
+%{_sysusersdir}/s390utils-cpacfstatsd.conf
 
 #
 # *********************** chreipl-fcp-mpath package  ***********************
@@ -1074,6 +1085,9 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Wed Jan 15 2025 Zbigniew Jedrzejewski-Szmek <zbyszek@in.waw.pl> - 2:2.35.0-3
+- Add sysusers.d config
+
 * Tue Jan 14 2025 Dan Horák <dan[at]danny.cz> - 2:2.35.0-2
 - updated for https://fedoraproject.org/wiki/Changes/Unify_bin_and_sbin
 

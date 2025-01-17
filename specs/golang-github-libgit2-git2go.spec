@@ -15,7 +15,7 @@ Version:                35.0.0
 %gometa -L
 
 %global godevelheader %{expand:
-Requires:      (pkgconfig(libgit2) >= 1.7 with pkgconfig(libgit2) < 1.8)}
+Requires:      (pkgconfig(libgit2) >= 1.9 with pkgconfig(libgit2) < 1.10)}
 
 %global common_description %{expand:
 Go bindings for libgit2.}
@@ -31,9 +31,9 @@ License:        MIT
 URL:            %{gourl}
 Source:         %{gosource}
 Patch:          0001-Skip-tests-that-use-the-network.patch
-Patch:          libgit2_1.7.patch
+Patch:          libgit2_1.9.patch
 
-BuildRequires: (pkgconfig(libgit2) >= 1.7 with pkgconfig(libgit2) < 1.8)
+BuildRequires: (pkgconfig(libgit2) >= 1.9 with pkgconfig(libgit2) < 1.10)
 BuildRequires: golang(github.com/google/shlex)
 BuildRequires: golang(golang.org/x/crypto/ssh)
 %if %{with check}

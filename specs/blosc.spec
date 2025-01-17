@@ -1,7 +1,6 @@
 # The bench subpackage requires matplotlib.  Disable it on new EPEL releases
-# until matplotlib is available.  Once it is available in EPEL 10, increment
-# the 10 below to 11 to move the condition forward.
-%bcond bench %[%{undefined rhel} || 0%{?rhel} < 10]
+# until matplotlib is available.
+%bcond bench %[%{undefined rhel} || 0%{?rhel} < 11]
 
 Summary: High performance compressor optimized for binary data
 Name: blosc

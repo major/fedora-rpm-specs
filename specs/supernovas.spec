@@ -1,16 +1,22 @@
-Name:			supernovas
-Version:		1.1.1
-Release:		1%{?dist}
-Summary:		The Naval Observatory's NOVAS C astronomy library, made better 
-License:		Unlicense
-URL:			https://smithsonian.github.io/SuperNOVAS
-Source0:		https://github.com/Smithsonian/SuperNOVAS/archive/refs/tags/v%{version}-2.tar.gz
-BuildRequires:		gcc
-BuildRequires:		sed
-BuildRequires:		doxygen >= 1.9.0
-Suggests:		%{name}-cio-data = %{version}-%{release}
-Suggests:		%{name}-solsys1 = %{version}-%{release}
-Suggests:		%{name}-solsys2 = %{version}-%{release}
+%global upstream_version     1.2.0
+
+Name:            supernovas
+Version:         1.2.0
+Release:         5%{?dist}
+Summary:         The Naval Observatory's NOVAS C astronomy library, made better 
+License:         Unlicense
+URL:             https://smithsonian.github.io/SuperNOVAS
+Source0:         https://github.com/Smithsonian/SuperNOVAS/archive/refs/tags/v%{upstream_version}.tar.gz
+
+# No i686 calceph package to build against
+ExcludeArch:     %{ix86}
+
+BuildRequires:   calceph-devel%{_isa}
+BuildRequires:   gcc
+BuildRequires:   sed
+BuildRequires:   doxygen >= 1.9.0
+Suggests:        %{name}-cio-data = %{version}-%{release}
+Suggests:        %{name}-solsys-calceph = %{version}-%{release}
 
 %description
 
@@ -33,7 +39,7 @@ calculations.
 
 %package solsys1
 Summary: Legacy solar-system plugin for JPL DE200 through DE421
-Requires:		%{name}%{_isa} = %{version}-%{release}
+Requires:        %{name}%{?_isa} = %{version}-%{release}
 
 %description solsys1
 Optional SuperNOVAS plugin library that provides legacy solar-system routines 
@@ -41,7 +47,7 @@ for accessing older JPL planetary data (DE200 through DE421).
  
 %package solsys2
 Summary: Legacy solar-system plugin for the JPL PLEPH routines
-Requires:		%{name}%{_isa} = %{version}-%{release}
+Requires:        %{name}%{?_isa} = %{version}-%{release}
 
 %description solsys2
 Optional SuperNOVAS plugin library that provides legacy solar-system routines 
@@ -49,10 +55,23 @@ for accessing older JPL planetary data through the JPL PLEPH routines. It
 requires a user-provided FORTRAN adapter module, and PLEPH library. This 
 package is provided only to support legacy applications that were written for 
 that particular interfacing.
-ls
+
+%package solsys-calceph
+Summary: Solar-system plugin based on the CALCEPH C library
+Requires:        %{name}%{?_isa} = %{version}-%{release}
+Requires:        calceph-libs%{?_isa}
+
+%description solsys-calceph
+Optional SuperNOVAS plugin library that provides Solar-system support via the 
+CALCEPH C library. It allows using both JPL (SPK) and INPOP 2.0/3.0 data files 
+with SuperNOVAS to obtain precise locations for Solar-system bodies. This 
+plugin is currently the preferred option to use for Fedora / RPM Linux 
+development, which requires use of precise Solar-system data.
+
+
 %package cio-data
-Summary:		CIO location data for the SuperNOVAS C/C++ astronomy library
-BuildArch:		noarch
+Summary:         CIO location data for the SuperNOVAS C/C++ astronomy library
+BuildArch:       noarch
 
 %description cio-data
 Optional CIO location vs GCRS lookup table. This file is not normally required
@@ -62,10 +81,10 @@ Applications that require CIO location w.r.t. the GCRS should depend on this
 sub-package
 
 %package devel
-Summary:		C development files for the SuperNOVAS C/C++ astronomy library
-Requires:		%{name}%{_isa} = %{version}-%{release}
-Requires:		%{name}-solsys1%{_isa} = %{version}-%{release}
-Requires:		%{name}-solsys2%{_isa} = %{version}-%{release}
+Summary:         C development files for the SuperNOVAS C/C++ astronomy library
+Requires:        %{name}%{?_isa} = %{version}-%{release}
+Requires:        %{name}-solsys1%{?_isa} = %{version}-%{release}
+Requires:        %{name}-solsys2%{?_isa} = %{version}-%{release}
 
 %description devel
 This sub-package provides C headers and non-versioned shared library symbolic 
@@ -75,83 +94,31 @@ needed, for the the JPL PLEPH module.
 
 
 %package doc
-Summary:		Documentation for the SuperNOVAS C/C++ astronomy library
-BuildArch:		noarch
-Requires:		%{name} = %{version}-%{release}
+Summary:         Documentation for the SuperNOVAS C/C++ astronomy library
+BuildArch:       noarch
+Requires:        %{name} = %{version}-%{release}
 
 %description doc
 This package provides man pages and HTML documentation for the SuperNOVAS 
 C/C++ astronomy library.
 
 %prep
-%setup -q -n SuperNOVAS-%{version}-2
+%setup -q -n SuperNOVAS-%{upstream_version}
 
 %build
 
+export CALCEPH_SUPPORT=1
 make %{?_smp_mflags} distro CIO_LOCATOR_FILE=%{_datadir}/%{name}/CIO_RA.TXT
 
 %check
 
+export CALCEPH_SUPPORT=1
 make test
 
 %install
 
-# ----------------------------------------------------------------------------
-# Install libsupernovas.so.1 runtime library
-mkdir -p %{buildroot}/%{_libdir}
-
-# ----------------------------------------------------------------------------
-# libsupernovas.so...
-install -m 755 lib/lib%{name}.so.1 %{buildroot}/%{_libdir}/lib%{name}.so.%{version}
-
-# Link libsopernovas.so.1.x.x -> libsupernovas.so.1
-( cd %{buildroot}/%{_libdir} ; ln -sf lib%{name}.so.{%version} lib%{name}.so.1 )
-
-# Link libsupernovas.so.1 -> libsupernovas.so
-( cd %{buildroot}/%{_libdir} ; ln -sf lib%{name}.so.1 lib%{name}.so )
-
-# ----------------------------------------------------------------------------
-# libsolsys1.so
-install -m 755 lib/libsolsys1.so.1 %{buildroot}/%{_libdir}/libsolsys1.so.%{version}
-
-# Link libsolsys1.so.1.x.x -> libsols dys1.so.1
-( cd %{buildroot}/%{_libdir} ; ln -sf libsolsys1.so.{%version} libsolsys1.so.1 )
-
-# Link libsolsys1.so.1 -> libsolsys1.so
-( cd %{buildroot}/%{_libdir} ; ln -sf libsolsys1.so.1 libsolsys1.so )
-
-# ----------------------------------------------------------------------------
-# libsolsys2.so
-install -m 755 lib/libsolsys2.so.1 %{buildroot}/%{_libdir}/libsolsys2.so.%{version}
-
-# Link libsolsys2.so.1.x.x -> libsolsys2.so.1
-( cd %{buildroot}/%{_libdir} ; ln -sf libsolsys2.so.{%version} libsolsys2.so.1 )
-
-# Link libsolsys2.so.1 -> libsolsys2.so
-( cd %{buildroot}/%{_libdir} ; ln -sf libsolsys2.so.1 libsolsys2.so )
-
-# ----------------------------------------------------------------------------
-# Install runtime CIO locator data 
-mkdir -p %{buildroot}/%{_datadir}/%{name}
-install -m 644 data/CIO_RA.TXT %{buildroot}/%{_datadir}/%{name}/CIO_RA.TXT
-
-# ----------------------------------------------------------------------------
-# C header files
-mkdir -p %{buildroot}/%{_prefix}/include
-install -m 644 -D include/* %{buildroot}/%{_prefix}/include/
-
-# ----------------------------------------------------------------------------
-# HTML documentation
-mkdir -p %{buildroot}/%{_docdir}/%{name}/html/search
-install -m 644 -D apidoc/html/search/* %{buildroot}/%{_docdir}/%{name}/html/search/
-rm -rf apidoc/html/search
-install -m 644 -D apidoc/html/* %{buildroot}/%{_docdir}/%{name}/html/
-install -m 644 apidoc/supernovas.tag %{buildroot}/%{_docdir}/%{name}/%{name}.tag
-
-# ----------------------------------------------------------------------------
-# examples
-install -m 644 -D examples/* %{buildroot}/%{_docdir}/%{name}/
-
+export CALCEPH_SUPPORT=1
+make DESTDIR=%{buildroot} libdir=%{_libdir} install
 
 %files
 %license LICENSE
@@ -164,22 +131,24 @@ install -m 644 -D examples/* %{buildroot}/%{_docdir}/%{name}/
 %files solsys2
 %{_libdir}/libsolsys2.so.1{,.*}
 
+%files solsys-calceph
+%{_libdir}/libsolsys-calceph.so.1{,.*}
+
 %files cio-data
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/CIO_RA.TXT
 
 %files devel
 %doc CONTRIBUTING.md
-%doc %{_docdir}/%{name}/example.c
-%doc %{_docdir}/%{name}/example-usno.txt
-%doc %{_docdir}/%{name}/jplint.f
+%dir %{_docdir}/%{name}
+%doc %{_docdir}/%{name}/*.c
+%doc %{_docdir}/%{name}/*.f
 %{_prefix}/include/*
 %{_libdir}/*.so
 
 %files doc
 %doc %{_docdir}/%{name}/%{name}.tag
 %doc %{_docdir}/%{name}/html
-
 
 %changelog
 %autochangelog

@@ -17,7 +17,12 @@
 # The rocm-llvm codebase is realively old and may never have been built
 # with the current gcc, instead of of making many changes to rocm-llvm
 # fall back to the older gcc.
+%if 0%{?fedora}
 %bcond_without compat_gcc
+%else
+%bcond_with compat_gcc
+%endif
+
 %if %{with compat_gcc}
 %global compat_gcc_major 13
 %global gcc_major_str -13
@@ -26,12 +31,7 @@
 %global gcc_major_str %{nil}
 %endif
 
-
-%if %{with bundled_llvm}
-%global toolchain gcc
-%else
 %global toolchain clang
-%endif
 
 %if %{with bundled_llvm}
 %global _smp_mflags %{nil}
@@ -560,33 +560,20 @@ export CFLAGS=""
 export CXXFLAGS=""
 export LDFLAGS=""
 
-%global gcc_cflags "-O2 -fexceptions -g -grecord-gcc-switches -pipe -Wall -Wno-complain-wrong-lang -Werror=format-security -Wp,-U_FORTIFY_SOURCE,-D_FORTIFY_SOURCE=3 -Wp,-D_GLIBCXX_ASSERTIONS -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -fstack-protector-strong -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -m64 -march=x86-64 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection  -fno-omit-frame-pointer -mno-omit-leaf-frame-pointer"
-
-%global gcc_ldflags "-Wl,-z,relro -Wl,--as-needed  -Wl,-z,pack-relative-relocs -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1  -Wl,--build-id=sha1 -specs=/usr/lib/rpm/redhat/redhat-package-notes"
-
-# remove lto cflags
-# -flto=thin -ffat-lto-objects 
-%global clang_cflags " -O2 -fexceptions -g -grecord-gcc-switches -pipe -Wall -Werror=format-security -Wp,-U_FORTIFY_SOURCE,-D_FORTIFY_SOURCE=3 -Wp,-D_GLIBCXX_ASSERTIONS --config=/usr/lib/rpm/redhat/redhat-hardened-clang.cfg -fstack-protector-strong -m64 -march=x86-64 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -D_DEFAULT_SOURCE -Dasm=__asm__ "
-
-# remove lto ldflags
-# -flto=thin -ffat-lto-objects
-%global clang_ldflags "-Wl,-z,relro -Wl,--as-needed  -Wl,-z,pack-relative-relocs -Wl,-z,now --config=/usr/lib/rpm/redhat/redhat-hardened-clang-ld.cfg  -Wl,--build-id=sha1"
-
 # So just built tools can find their *.so's
 export LD_LIBRARY_PATH=$PWD/build-llvm/lib
 export CC=/usr/bin/gcc%{gcc_major_str}
 export CXX=/usr/bin/g++%{gcc_major_str}
 
-%cmake %{llvmrocm_cmake_config} \
-       -DCMAKE_C_FLAGS=%{gcc_cflags} \
-       -DCMAKE_CXX_FLAGS=%{gcc_cflags} \
+%__cmake -S llvm -B build-llvm \
+       %{llvmrocm_cmake_config} \
        -DCMAKE_CXX_COMPILER=/usr/bin/g++%{gcc_major_str} \
        -DCMAKE_C_COMPILER=/usr/bin/gcc%{gcc_major_str} \
        -DCMAKE_INSTALL_PREFIX=%{bundle_prefix} \
        -DCMAKE_INSTALL_LIBDIR=lib \
        -DLLVM_ENABLE_PROJECTS=%{llvm_projects}
 
-%cmake_build -j ${JOBS}
+%make_build -C build-llvm -j ${JOBS}
 
 popd
 
@@ -615,14 +602,8 @@ pushd .
 %endif
 
 export LD_LIBRARY_PATH=$PWD/build-llvm-2/lib
-export CC=$build_stage1/bin/clang
-export CXX=$build_stage1/bin/clang++
-export LD=$build_stage1/bin/ld.lld
-export CFLAGS=%{clang_cflags}
-export CXXFLAGS=%{clang_cflags}
-export LDFLAGS=%{clang_ldflags}
 
-%__cmake -S llvm -B build-llvm-2 \
+%cmake \
        %{llvmrocm_cmake_config} \
        %{llvmrocm_stage1_config} \
        -DCMAKE_INSTALL_PREFIX=%{bundle_prefix} \
@@ -637,6 +618,7 @@ export LDFLAGS=%{clang_ldflags}
        -DLLVM_ENABLE_RUNTIMES=%{llvm_runtimes}
        
 %cmake_build -j ${JOBS}
+popd
 
 build_stage2=$p/build-llvm-2
 
@@ -661,7 +643,7 @@ pushd .
 %define _vpath_builddir build-devicelibs
 %endif
 
-%__cmake -S amd/device-libs -B build-devicelibs \
+%cmake \
        %{llvmrocm_cmake_config} \
        %{llvmrocm_tools_config} \
        -DCMAKE_INSTALL_PREFIX=%{_prefix} \
@@ -688,7 +670,7 @@ pushd .
 %define _vpath_builddir build-hipcc
 %endif
 
-%__cmake -S amd/hipcc -B build-hipcc \
+%cmake \
        %{llvmrocm_cmake_config} \
        %{llvmrocm_tools_config} \
        %{llvmrocm_devicelibs_config} \
@@ -711,11 +693,7 @@ pushd .
 %define _vpath_builddir build-comgr
 %endif
 
-# To find the clang static libs
-export PATH=$build_stage3/bin:$PATH
-export LDFLAGS="$LDFLAGS -L$build_stage3/lib"
-
-%__cmake -S amd/comgr -B build-comgr \
+%cmake \
        %{llvmrocm_cmake_config} \
        %{llvmrocm_tools_config} \
        %{llvmrocm_devicelibs_config} \
@@ -726,11 +704,13 @@ export LDFLAGS="$LDFLAGS -L$build_stage3/lib"
 # cmake produces a link.txt that includes libLLVM*.so, hack it out
 %if 0%{?suse_version}
 sed -i -e 's@libLLVM-%{llvm_maj_ver}git.so@libLLVMCore.a@' CMakeFiles/amd_comgr.dir/link.txt
+# Order of link is wrong include some missing libs
+sed -i -e 's@-lm -lrt@-lLLVMCoverage -lLLVMFrontendDriver -lLLVMFrontendHLSL -lLLVMLTO -lLLVMOption -lLLVMSymbolize -lLLVMWindowsDriver -lm -lrt@' CMakeFiles/amd_comgr.dir/link.txt
 %else
 sed -i -e 's@libLLVM-%{llvm_maj_ver}git.so@libLLVMCore.a@' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
-%endif
 # Order of link is wrong include some missing libs
 sed -i -e 's@-lm -lrt@-lLLVMCoverage -lLLVMFrontendDriver -lLLVMFrontendHLSL -lLLVMLTO -lLLVMOption -lLLVMSymbolize -lLLVMWindowsDriver -lm -lrt@' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
+%endif
 
 %cmake_build -j ${JOBS}
 

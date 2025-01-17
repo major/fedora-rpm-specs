@@ -1,5 +1,5 @@
 Name:           python-nbclassic
-Version:        1.1.0
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Jupyter Notebook as a Jupyter Server Extension
 
@@ -40,9 +40,6 @@ Source:         %{pypi_source nbclassic}
 # Patch to use the TeX fonts from the MathJax package rather than STIXWeb
 # See BZ: 1581899, 1580129
 Patch:          Use-MathJax-TeX-fonts-rather-than-STIXWeb.patch
-
-# Fix for Python 3.13 compatibility
-Patch:          https://github.com/jupyter/nbclassic/pull/286.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

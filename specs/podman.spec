@@ -65,6 +65,7 @@ Summary: Manage Pods, Containers and Container Images
 URL: https://%{name}.io/
 # All SourceN files fetched from upstream
 Source0: %{git0}/archive/v%{version_no_tilde}.tar.gz
+Patch0: 2193.patch
 Provides: %{name}-manpages = %{epoch}:%{version}-%{release}
 BuildRequires: %{_bindir}/envsubst
 %if %{defined build_with_btrfs}

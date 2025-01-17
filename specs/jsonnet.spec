@@ -1,7 +1,7 @@
 Name:           jsonnet
 Version:        0.20.0
 %global so_version 0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A data templating language based on JSON
 
 # The entire source is Apache-2.0, except:
@@ -32,6 +32,11 @@ Patch:          0003-Use-system-provided-rapidyaml.patch
 Patch:          0004-fix-remove-deprecated-declarations-in-python-binding.patch
 # Downstream-only: backport support for rapidyaml 0.7
 Patch:          0005-Downstream-only-backport-support-for-rapidyaml-0.7.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+%if %{undefined fc40} && %{undefined fc41}
+ExcludeArch:    %{ix86}
+%endif
 
 # Bundled MD5 C++ class in third_party/md5/ with very permissive license (RSA)
 # Per current guidance, we don’t need to record this as an additional license:
@@ -181,6 +186,9 @@ LD_LIBRARY_PATH='%{buildroot}%{_libdir}' \
 
 
 %changelog
+* Wed Jan 15 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 0.20.0-11
+- Drop i686 support (in Fedora 42 and later)
+
 * Thu Sep 05 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 0.20.0-10
 - Rebuilt for rapidyaml 0.7.2
 

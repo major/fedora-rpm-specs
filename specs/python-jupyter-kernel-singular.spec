@@ -7,6 +7,8 @@ License:        GPL-2.0-or-later
 URL:            https://github.com/sebasguts/jupyter_kernel_singular
 VCS:            git:%{url}.git
 Source:         %{url}/archive/v%{version}/jupyter_kernel_singular-%{version}.tar.gz
+# https://github.com/sebasguts/jupyter_kernel_singular/pull/13
+Patch:          %{name}-imports.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -33,12 +35,7 @@ Requires:       %{py3_dist pysingular}
 %description -n python3-jupyter-kernel-singular %_description
 
 %prep
-%autosetup -n jupyter_kernel_singular-%{version}
-
-# Remove unused imghdr import for python 3.13 compatibility
-sed -i.orig '/imghdr/d' jupyter_kernel_singular/kernel.py
-touch -r jupyter_kernel_singular/kernel.py.orig jupyter_kernel_singular/kernel.py
-rm jupyter_kernel_singular/kernel.py.orig
+%autosetup -n jupyter_kernel_singular-%{version} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -48,7 +45,7 @@ rm jupyter_kernel_singular/kernel.py.orig
 
 %install
 %pyproject_install
-%pyproject_save_files jupyter_kernel_singular
+%pyproject_save_files -l jupyter_kernel_singular
 
 # We want /etc, not /usr/etc
 mv %{buildroot}%{_prefix}%{_sysconfdir} %{buildroot}%{_sysconfdir}
@@ -63,6 +60,10 @@ mv %{buildroot}%{_prefix}%{_sysconfdir} %{buildroot}%{_sysconfdir}
 %config(noreplace) %{_sysconfdir}/jupyter/nbconfig/notebook.d/singular-mode.json
 
 %changelog
+* Wed Jan 15 2025 Jerry James <loganjerry@gmail.com> - 0.9.9-18
+- Add patch to remove unused imports
+- Assert that a license is installed
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.9-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,11 +1,13 @@
+# building multi-threaded causes intermittent build failures
+%global _smp_mflags -j1
+
 Name:           opendbx
 Version:        1.4.6
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Lightweight but extensible database access library written in C
 
-#License:        LGPLv2+
-# (util/argmap.{cpp,hpp}) and lib/opendbx/api are LGPL-2.0-or-later
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later
+# (util/argmap.{cpp,hpp}) and lib/opendbx/api are LGPL-2.0-or-later
 URL:            http://www.linuxnetworks.de/doc/index.php/OpenDBX
 Source0:        http://linuxnetworks.de/opendbx/download/%{name}-%{version}.tar.gz
 Patch0:         opendbx-1.4.6-freetds-fix.patch
@@ -13,19 +15,19 @@ Patch0:         opendbx-1.4.6-freetds-fix.patch
 Patch1:         opendbx-1.4.6-doxygen-1.9.1.patch
 # Remove obsolete throws( std::exception ) from C++ API that fail to build with C++17.
 Patch2:         opendbx-1.4.6-dynamic-exceptions.patch
-Patch3: opendbx-c99.patch
+Patch3:         opendbx-c99.patch
 
 
-BuildRequires: make
-%if 0%{?fedora} ||  0%{?rhel} <= 7
+BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  gcc
+%if 0%{?fedora}
 BuildRequires:  sqlite2-devel
 %endif
 BuildRequires:  mariadb-connector-c-devel, libpq-devel, sqlite-devel, firebird-devel, readline-devel
 BuildRequires:  freetds-devel, ncurses-devel
 BuildRequires:  doxygen, docbook2X, gettext
-BuildRequires:  autoconf, automake, gettext-devel, libtool
+BuildRequires:  automake, gettext-devel, libtool
 
 %{?filter_setup:
 %filter_provides_in %{_libdir}/opendbx/lib.*backend\.so.*$
@@ -106,11 +108,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 The %{name}-utils package provides the odbx-sql tool.
 
 %prep
-%setup
-%patch -P0 -p1 -b .freetds
-%patch -P1 -p1 -b .doxygen
-%patch -P2 -p1 -b .api
-%patch -P3 -p1
+%autosetup -p1
 
 # To fix Doxygen parsing issue
 ln -s api lib/%{name}/api.dox
@@ -119,8 +117,9 @@ cp lib/%{name}/api lib/%{name}/api.hpp
 
 %build
 autoreconf -iv
-export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS"
-%if 0%{?fedora} ||  0%{?rhel} <= 7
+export CXXFLAGS="-std=c++14 -Wno-error=incompatible-pointer-types -Wno-error=int-conversion %optflags"
+export CFLAGS="-Wno-error=incompatible-pointer-types -Wno-error=int-conversion %optflags"
+%if 0%{?fedora}
 %configure --with-backends="mysql pgsql sqlite sqlite3 firebird mssql sybase" CPPFLAGS="-I%{_includedir}/mysql -I%{_includedir}/firebird" --disable-test --disable-static LDFLAGS="-L%{_libdir}/mysql"
 %else
 %configure --with-backends="mysql pgsql sqlite3 firebird mssql sybase" CPPFLAGS="-I%{_includedir}/mysql -I%{_includedir}/firebird" --disable-test --disable-static LDFLAGS="-L%{_libdir}/mysql"
@@ -129,11 +128,11 @@ sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 # fix multithreaded builds by precreating the doc/{html,xml,man} directories
 mkdir -p doc/{html,xml.man}
-make %{?_smp_mflags}
+%make_build
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
+%make_install
+find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 %find_lang %{name}
 %find_lang %{name}-utils
@@ -160,7 +159,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/opendbx/*pgsql*.so
 %{_libdir}/opendbx/*pgsql*.so.*
 
-%if 0%{?fedora} ||  0%{?rhel} <= 7
+%if 0%{?fedora}
 %files sqlite2
 %{_libdir}/opendbx/*sqlitebackend.so
 %{_libdir}/opendbx/*sqlitebackend.so.*
@@ -187,6 +186,10 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_mandir}/man1/odbx-sql.1.gz
 
 %changelog
+* Wed Jan 15 2025 Jonathan Wright <jonathan@almalinux.org> - 1.4.6-38
+- Fix FTBFS
+- Modernize spec
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

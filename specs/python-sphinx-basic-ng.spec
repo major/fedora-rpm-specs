@@ -73,6 +73,7 @@ Documentation for %{name}.
 %prep
 %autosetup -n sphinx-basic-ng-%{version}.%{prerel}
 
+%conf
 # Use local objects.inv for intersphinx
 sed -e 's|\("https://docs\.python\.org/3", \)None|\1"%{_docdir}/python3-docs/html/objects.inv"|' \
     -e 's|\("https://www\.sphinx-doc\.org/en/master", \)None|\1"%{_docdir}/python-sphinx-doc/html/objects.inv"|' \
@@ -92,7 +93,7 @@ rm -rf html/{.buildinfo,.doctrees}
 
 %install
 %pyproject_install
-%pyproject_save_files sphinx_basic_ng
+%pyproject_save_files -l sphinx_basic_ng
 
 %check
 # The nox tests require network access, so we do not run them

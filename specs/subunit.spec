@@ -133,6 +133,7 @@ test cases.
 %prep
 %autosetup -p1
 
+%conf
 fixtimestamp() {
   touch -r $1.orig $1
   rm $1.orig
@@ -151,13 +152,13 @@ done
 # Update an obsolete autoconf macro
 sed -i 's/AC_PROG_LIBTOOL/LT_INIT/' configure.ac
 
+# Generate the configure script
+autoreconf -fi
+
 %generate_buildrequires
 %pyproject_buildrequires -x docs,test
 
 %build
-# Generate the configure script
-autoreconf -fi
-
 # Build for python3
 export PYTHON=%{_bindir}/python3
 %configure --enable-shared --enable-static
@@ -250,6 +251,9 @@ make check
 %{_bindir}/tap2subunit
 
 %changelog
+* Wed Jan 15 2025 Jerry James <loganjerry@gmail.com> - 1.4.4-4
+- Move configuration steps to %conf
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

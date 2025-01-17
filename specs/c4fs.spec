@@ -29,6 +29,11 @@ Source:         %{url}/archive/%{commit}/c4fs-%{commit}.tar.gz
 # patch without sending it upstream.
 Patch:          c4fs-1abba00-external-c4core.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+%if %{undefined fc40} && %{undefined fc41}
+ExcludeArch:    %{ix86}
+%endif
+
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  c4project

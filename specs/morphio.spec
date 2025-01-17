@@ -75,6 +75,10 @@ Patch:          dont_use_cmake_for_finding_ghc_filesystem.patch
 # Fix a test regression with pybind11 2.11.2, 2.12.1, 2.13.6+
 # https://github.com/BlueBrain/MorphIO/pull/515
 Patch:          %{forgeurl}/pull/515.patch
+# Include <cstdint> for fixed-width integers in API headers
+# https://github.com/BlueBrain/MorphIO/pull/517
+# Fixes failure to build with GCC 15.
+Patch:          %{forgeurl}/pull/517.patch
 
 # skip locale check if std::locale fails
 Patch:          https://github.com/BlueBrain/MorphIO/pull/512.patch
