@@ -7,7 +7,7 @@
 
 Name:           avrdude
 Version:        8.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Software for programming Atmel AVR Microcontroller
 
 License:        GPL-2.0-or-later AND GPL-3.0-only AND (WTFPL OR MIT)
@@ -169,6 +169,9 @@ install -p -m 644 %{SOURCE5} $RPM_BUILD_ROOT%{_mandir}/man1/elf2tag.1
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Sep  1 2024 Hans Ulrich Niedermann <hun@n-dimensional.de> - 8.0-5
 - ExcludeArch: s390x (#2308947)
 - Add elf2tag.1 man page

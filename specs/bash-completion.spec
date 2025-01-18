@@ -6,7 +6,7 @@
 
 Name:           bash-completion
 Version:        2.13
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          1
 Summary:        Programmable completion for Bash
 
@@ -91,6 +91,9 @@ make -C completions check
 %{_datadir}/pkgconfig/bash-completion.pc
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.13-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           AllegroOGG
 Version:        1.0.3
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Ogg library for use with the Allegro game library
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -65,6 +65,9 @@ install -m 644 include/* $RPM_BUILD_ROOT%{_includedir}/%{name}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.3-36
 - convert license to SPDX
 

@@ -11,7 +11,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        1.1.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Parsing of ISO 8601 dates, originally from aeson
 
 License:        BSD-3-Clause
@@ -138,4 +138,7 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 %autochangelog

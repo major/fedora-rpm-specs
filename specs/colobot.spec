@@ -2,7 +2,7 @@ Name: colobot
 %global orgname info.colobot.Colobot
 
 Version: 0.2.2
-Release: 1%{?dist}
+Release: 3%{?dist}
 Summary: A video game that teaches programming in a fun way
 
 License: GPL-3.0-only
@@ -27,6 +27,9 @@ Patch1: 0001-fix-test-compile-failure.patch
 # Fix compilation failures due to GCC12 -Wrestrict warnings
 # See: https://bugzilla.redhat.com/show_bug.cgi?id=2047428
 Patch2: 0002-fix-gcc12-memcpy-restrict-warnings.patch
+
+# Fix compilation failures due to GCC15 -Wpedantic errors
+Patch3: 0003-gcc15-pedantic.patch
 
 # Tests fail on ARM architectures. Needs some investigation.
 %ifarch %{arm} aarch64
@@ -177,6 +180,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{orgname}.app
 
 
 %changelog
+* Thu Jan 16 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.2.2-3
+- Fix FTBFS
+
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 23 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.2.2-1
 - Update to v0.2.2
 

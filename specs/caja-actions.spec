@@ -1,7 +1,7 @@
 Summary: Caja extension for customizing the context menu
 Name:    caja-actions
 Version: 1.28.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 
@@ -103,6 +103,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/cact.desktop
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 1.28.0-3
 - convert license to SPDX
 

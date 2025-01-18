@@ -2,7 +2,7 @@ Summary: An API for Run-time Code Generation
 License: LGPL-2.1-or-later AND GPL-3.0-or-later WITH Bison-exception-2.2 AND LicenseRef-Fedora-Public-Domain AND BSD-3-Clause
 Name: dyninst
 Group: Development/Libraries
-Release: 7%{?dist}
+Release: 8%{?dist}
 URL: http://www.dyninst.org
 Version: 12.3.0
 ExclusiveArch: %{ix86} x86_64 ppc64le aarch64
@@ -194,6 +194,9 @@ find %{buildroot}%{_libdir}/dyninst/testsuite/ \
 %attr(644,root,root) %{_libdir}/dyninst/testsuite/*.a
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 12.3.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 12.3.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

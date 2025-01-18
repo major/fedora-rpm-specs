@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Provides Access to Git Repositories
 
 License:          GPL-2.0-only
@@ -65,6 +65,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.35.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 15 2025 Pete Walter <pwalter@fedoraproject.org> - 0.35.0-1
 - Update to 0.35.0 (rhbz#2251593)
 - Drop bundled libgit2 handling as libgit2 is no longer bundled

@@ -7,7 +7,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          17%{?dist}
+Release:          18%{?dist}
 Summary:          Font Files for the 'showtext' Package
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -89,6 +89,9 @@ popd
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul  24 2024 Miroslav Suchý <msuchy@redhat.com> - 3.0-17
 - convert license to SPDX
 

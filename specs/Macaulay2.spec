@@ -51,7 +51,7 @@
 Summary: System for algebraic geometry and commutative algebra
 Name:    Macaulay2
 Version: 1.24.05
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 # GPL-2.0-only OR GPL-3.0-only:
 #   - the project as a whole
@@ -635,6 +635,9 @@ make check -C BUILD/%{_target_platform}/Macaulay2/bin
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.24.05-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Nov 22 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 1.24.05-5
 - Rebuild for libfplll 5.5.0
 

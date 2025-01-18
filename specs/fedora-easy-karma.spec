@@ -1,6 +1,6 @@
 Name:           fedora-easy-karma
 Version:        0.54
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fedora update feedback made easy
 License:        GPL-2.0-or-later
 URL:            https://fedoraproject.org/wiki/Fedora_Easy_Karma
@@ -42,6 +42,9 @@ updates that you have currently installed.
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.54-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.53-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

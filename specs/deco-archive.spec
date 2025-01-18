@@ -1,6 +1,6 @@
 Name:           deco-archive
 Version:        1.7
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Extraction scripts for various archive formats for use of deco
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -171,6 +171,9 @@ cat %{name}-ghosts.list %{name}-links.list > %{name}.files
 %{_datadir}/%{name}
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.7-19
 - convert license to SPDX
 

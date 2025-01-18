@@ -5,7 +5,7 @@
 
 Name:       fernflower
 Version:    211.7442.40
-Release:    13%{?dist}
+Release:    14%{?dist}
 Summary:    JIdea's java decompiler
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:    Apache-2.0 
@@ -106,6 +106,9 @@ cp %{name}.zip $RPM_BUILD_ROOT/%{_javadocdir}/
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 211.7442.40-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 211.7442.40-13
 - convert license to SPDX
 

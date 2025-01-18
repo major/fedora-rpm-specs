@@ -6,12 +6,14 @@ License:	GPL-2.0-or-later
 URL:		http://chocolate-doom.org/
 
 Version:	3.1.0
-Release:	2%{?dist}
+Release:	4%{?dist}
 
 %global git_tag %{name}-%{version}
 Source0:	https://github.com/chocolate-doom/chocolate-doom/archive/%{git_tag}/%{git_tag}.tar.gz
 
 Patch1:		0001-use-python3.patch
+
+Patch2:     0002-c23.patch
 
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -135,6 +137,12 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/screensavers/%{rtld}
 
 
 %changelog
+* Thu Jan 16 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.1.0-4
+- Fix build failure with gcc15
+
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 27 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.1.0-2
 - Fix installing .desktop files for non-existent executables
 

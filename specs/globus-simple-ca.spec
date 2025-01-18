@@ -1,7 +1,7 @@
 Name:		globus-simple-ca
 %global _name %(tr - _ <<< %{name})
 Version:	5.4
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Grid Community Toolkit - Simple CA Utility
 
 License:	Apache-2.0
@@ -71,6 +71,9 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %license GLOBUS_LICENSE
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary:        Open source cryptography library
 Name:           beecrypt
 Version:        4.2.1
-Release:        36%{?dist}
+Release:        37%{?dist}
 License:        LGPL-2.1-or-later
 URL:            https://beecrypt.sourceforge.net/
 Source0:        https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -91,6 +91,9 @@ mv -f CONTRIBUTORS.utf8 CONTRIBUTORS
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.1-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.1-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

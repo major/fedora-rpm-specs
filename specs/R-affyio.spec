@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.66.0
-Release:          9%{dist}
+Release:          10%{dist}
 Summary:          Tools for parsing Affymetrix data files
 Summary(fr):      Outils d'analyse de fichier de données de puces affymetrix
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -56,6 +56,9 @@ rm -rf %{buildroot}%{_libdir}/R/library/R.css
 %{_libdir}/R/library/%{packname}/libs
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.66.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep  4 2024 Miroslav Suchý <msuchy@redhat.com> - 1.66.0-9
 - convert license to SPDX
 

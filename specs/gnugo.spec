@@ -5,7 +5,7 @@
 
 Name:           gnugo
 Version:        3.8
-Release:        35%{?dist}
+Release:        36%{?dist}
 
 Summary:        Text based go program
 
@@ -55,6 +55,9 @@ rm -f ${RPM_BUILD_ROOT}/%{_infodir}/dir
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 30 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 3.8-35
 - Disable LTO
 

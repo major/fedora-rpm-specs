@@ -1,6 +1,6 @@
 Name:           CuraEngine_grpc_definitions
 Version:        0.1.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        gRPC Proto Definitions for CuraEngine
 License:        MIT
 URL:            https://github.com/Ultimaker/CuraEngine_grpc_definitions
@@ -64,6 +64,9 @@ popd
 %{_libdir}/libcuraengine_grpc_definitions.so
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Dec 15 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 0.1.0-8
 - Drop i686 support beginning with Fedora 42 (leaf package)
 

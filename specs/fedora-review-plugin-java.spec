@@ -1,6 +1,6 @@
 Name:           fedora-review-plugin-java
 Version:        4.6.1
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Java plugin for FedoraReview
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -33,6 +33,9 @@ install -pm644 fedora-review/java_guidelines.py %{buildroot}%{_datadir}/fedora-r
 %{_datadir}/fedora-review/plugins/java_guidelines.py*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.1-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 4.6.1-18
 - convert license to SPDX
 

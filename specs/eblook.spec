@@ -1,6 +1,6 @@
 Name:           eblook
 Version:        1.6.1
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Command-line EB and EPWING dictionary search program
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -54,6 +54,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.6.1-40
 - convert license to SPDX
 

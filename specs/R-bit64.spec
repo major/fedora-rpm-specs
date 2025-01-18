@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          4.0.5
-Release:          15%{?dist}
+Release:          16%{?dist}
 Summary:          A S3 Class for Vectors of 64bit Integers
 
 # Automatically converted from old format: GPLv2 or GPLv3 - review is highly recommended.
@@ -77,6 +77,9 @@ rm -r %{buildroot}%{rlibdir}/%{packname}/exec
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.5-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug  7 2024 Miroslav Suchý <msuchy@redhat.com> - 4.0.5-15
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           bpytop
 Version:        1.0.68
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Linux/OSX/FreeBSD resource monitor 
 BuildArch:      noarch
 
@@ -61,6 +61,9 @@ rm %{buildroot}%{_datadir}/%{name}/doc/README.md
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.68-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.68-9
 - convert license to SPDX
 

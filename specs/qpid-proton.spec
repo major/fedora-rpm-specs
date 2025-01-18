@@ -8,7 +8,7 @@
 
 Name:           qpid-proton
 Version:        0.40.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A high performance, lightweight messaging library
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -171,6 +171,7 @@ Obsoletes: qpid-proton-cpp-devel-docs
 Summary:  Python language bindings for the Qpid Proton messaging framework
 Requires: qpid-proton-c%{?_isa} = %{version}-%{release}
 Requires: python3
+Provides: python%{python3_version}dist(python-%name)
 
 %description -n python3-qpid-proton
 %{summary}.
@@ -309,6 +310,9 @@ rm -f  %{buildroot}%{proton_datadir}/CMakeLists.txt
 %check
 
 %changelog
+* Thu Jan 16 2025 Hirotaka Wakabayashi <hiwkby@yahoo.com> - 0.40.0-3
+- Fix Automatic Python Provides(rhbz#2243262)
+
 * Wed Dec 04 2024 Hirotaka Wakabayashi <hiwkby@yahoo.com> - 0.40.0-2
 - Update licenses.xml
 

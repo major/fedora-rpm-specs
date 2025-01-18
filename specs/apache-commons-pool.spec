@@ -1,6 +1,6 @@
 Name:           apache-commons-pool
 Version:        1.6
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Apache Commons Pool Package
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -40,6 +40,9 @@ interface that makes these implementations interchangeable.
 %doc README.txt RELEASE-NOTES.txt
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 1.6-39
 - convert license to SPDX
 

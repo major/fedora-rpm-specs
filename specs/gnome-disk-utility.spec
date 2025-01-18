@@ -4,7 +4,7 @@
 
 Name:           gnome-disk-utility
 Version:        46.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Disks
 
 License:        GPL-2.0-or-later AND CC0-1.0
@@ -78,6 +78,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 46.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Sep 03 2024 David King <amigadave@amigadave.com> - 46.1-1
 - Update to 46.1
 

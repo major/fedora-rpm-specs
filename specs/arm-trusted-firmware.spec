@@ -14,7 +14,7 @@
 
 Name:    arm-trusted-firmware
 Version: 2.12.0
-Release: 1%{?candidate:.%{candidate}}%{?dist}
+Release: 2%{?candidate:.%{candidate}}%{?dist}
 Summary: ARM Trusted Firmware
 License: BSD-3-clause
 URL:     https://github.com/TrustedFirmware-A/trusted-firmware-a
@@ -133,6 +133,9 @@ done
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Nov 27 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 2.12.0-1
 - Update to 2.12.0
 

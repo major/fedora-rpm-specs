@@ -5,7 +5,7 @@
 
 Name:   fctxpd
 Version:        0.2
-Release:        13.%{snapshotdate}git%{shortcommit}%{?dist}
+Release:        14.%{snapshotdate}git%{shortcommit}%{?dist}
 Summary:        Fibrechannel transport daemon
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -59,6 +59,9 @@ application performance profiling software.
 %license LICENSES/GPL-2.0
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-14.20210326gitc4dba7f
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2-13.20210326gitc4dba7f
 - convert license to SPDX
 

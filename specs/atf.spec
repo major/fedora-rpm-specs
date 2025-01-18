@@ -1,7 +1,7 @@
 Summary: Automated Testing Framework
 Name:    atf
 Version: 0.22
-Release: 1%{?dist}
+Release: 2%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 URL:     https://github.com/freebsd/atf
@@ -193,6 +193,9 @@ rm %{buildroot}%{_libdir}/libatf*.la
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 03 2025 Jonathan Wright <jonathan@almalinux.org> - 0.22-1
 - Update to 0.22
 

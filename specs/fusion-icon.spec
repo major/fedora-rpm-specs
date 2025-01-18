@@ -1,7 +1,7 @@
 
 Name:           fusion-icon
 Version:        0.2.4
-Release:        30%{?dist}
+Release:        31%{?dist}
 Epoch:          1
 Summary:        Compiz Fusion panel applet
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -69,6 +69,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/fusion-icon.desktop
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.2.4-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1:0.2.4-30
 - convert license to SPDX
 

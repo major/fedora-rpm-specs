@@ -1,6 +1,6 @@
 Name:           NearTree
 Version:        5.1.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        An API for finding nearest neighbors
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -73,6 +73,9 @@ find %{buildroot} -name '*.a' -delete
 %{_libdir}/libCNearTree.so
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 5.1.1-16
 - convert license to SPDX
 

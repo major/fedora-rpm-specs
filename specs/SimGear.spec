@@ -1,6 +1,6 @@
 Name:           SimGear
 Version:        2020.3.19
-Release:        5%{?dist}
+Release:        6%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Summary:        Simulation library components
@@ -79,6 +79,9 @@ patch -p2 < %{PATCH1}
 %{_libdir}/cmake/SimGear
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2020.3.19-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2020.3.19-5
 - convert license to SPDX
 

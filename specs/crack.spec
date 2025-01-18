@@ -1,7 +1,7 @@
 Summary:   Password cracker
 Name:      crack
 Version:   5.0a
-Release:   47%{?dist}
+Release:   48%{?dist}
 # Automatically converted from old format: Artistic clarified - review is highly recommended.
 License:   ClArtistic
 Source:    ftp://ftp.cerias.purdue.edu/pub/tools/unix/pwdutils/crack/%{name}5.0.tar.gz
@@ -78,6 +78,9 @@ fi
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0a-48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 5.0a-47
 - convert license to SPDX
 

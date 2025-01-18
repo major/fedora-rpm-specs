@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}.%{packrel}
-Release:          22%{?dist}
+Release:          23%{?dist}
 Summary:          Combine multi-dimensional arrays
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:          LicenseRef-Callaway-LGPLv2+
@@ -45,6 +45,9 @@ test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
 %{_datadir}/R/library/%{packname}/help
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep  4 2024 Miroslav Suchý <msuchy@redhat.com> - 1.4.5-22
 - convert license to SPDX
 

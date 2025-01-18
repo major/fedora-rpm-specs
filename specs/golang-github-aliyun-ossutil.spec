@@ -15,7 +15,7 @@ Alibaba Cloud (Aliyun) Object Storage Service (OSS) CLI.}
 %global godocs          CHANGELOG.md README-CN.md README.md
 
 Name:           %{goname}
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Alibaba Cloud (Aliyun) Object Storage Service (OSS) CLI
 
 License:        MIT
@@ -69,6 +69,9 @@ install -m 0644 -vp %{gobuilddir}/share/man/man1/* %{buildroot}%{_mandir}/man1/
 %gopkgfiles
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.9-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.9-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

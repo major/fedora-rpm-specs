@@ -1,6 +1,6 @@
 Name:           dSFMT
 Version:        2.2.3
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Double precision SIMD-oriented Fast Mersenne Twister
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -80,6 +80,9 @@ make std-check
 %doc html/
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 2.2.3-25
 - convert license to SPDX
 

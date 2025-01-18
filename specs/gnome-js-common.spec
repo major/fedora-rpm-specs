@@ -2,7 +2,7 @@
 
 Name:           gnome-js-common
 Version:        %{major_ver}.2
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Common modules for GNOME JavaScript interpreters
 
 # LGPLv3 part still being clarified with upstream
@@ -58,6 +58,9 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.2-31
 - convert license to SPDX
 

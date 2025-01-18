@@ -1,6 +1,6 @@
 Name:		fedora-upgrade
 Version:	41.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Upgrade Fedora to next version using dnf upgrade (unofficial tool)
 
 License:	GPL-2.0-only
@@ -87,6 +87,9 @@ install -m755 rpm-print-name-from-filename.py %{buildroot}%{_bindir}/rpm-print-n
 %license LICENSE
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 41.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Dec 26 2024 Miroslav Suchý <msuchy@redhat.com> 41.3-1
 - correctly detect tmux
 - requires sudo

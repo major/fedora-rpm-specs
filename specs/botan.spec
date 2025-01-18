@@ -2,7 +2,7 @@
 
 Name:           botan
 Version:        %{major_version}.17
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Crypto library written in C++
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -200,6 +200,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} ./check --validate
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.17-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 1.10.17-45
 - convert license to SPDX
 

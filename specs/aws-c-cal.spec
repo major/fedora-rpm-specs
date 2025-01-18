@@ -4,7 +4,7 @@ cryptography primitives}
 
 Name:           aws-c-cal
 Version:        0.8.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        AWS Crypto Abstraction Layer
 
 License:        Apache-2.0
@@ -85,6 +85,9 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 25 2024 Dominik Wombacher <dominik@wombacher.cc> - 0.8.1-2
 - Patch added to disable SHA1 related tests.
 

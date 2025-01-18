@@ -1,7 +1,7 @@
 Name:		devtodo
 Version:	0.1.20
 Summary:	Manage a prioritised list of todo items organized by directory
-Release:	38%{?dist}
+Release:	39%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:	GPL-2.0-only
 URL:		http://swapoff.org/DevTodo
@@ -65,6 +65,9 @@ mkdir -p %{buildroot}/%{_sysconfdir}/profile.d
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.20-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.20-38
 - convert license to SPDX
 

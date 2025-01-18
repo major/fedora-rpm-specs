@@ -7,7 +7,7 @@
 
 Name:		ebnetd
 Version:	1.0
-Release:	51%{?dist}
+Release:	52%{?dist}
 License:	GPL-2.0-or-later
 URL:		http://www.sra.co.jp/people/m-kasahr/ebnetd/
 # For systemd.macros
@@ -200,6 +200,9 @@ exit 0
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-52
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-51
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

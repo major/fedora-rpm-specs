@@ -11,7 +11,7 @@
 
 Name:           erofs-utils
 Version:        1.8.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        Utilities for working with EROFS
 License:        GPL-2.0-only AND GPL-2.0-or-later AND (GPL-2.0-only OR Apache-2.0) AND (GPL-2.0-or-later OR Apache-2.0) AND (GPL-2.0-only OR BSD-2-Clause) AND (GPL-2.0-or-later OR BSD-2-Clause) AND Unlicense
@@ -98,6 +98,9 @@ autoreconf -fi
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 03 2025 Neal Gompa <ngompa@fedoraproject.org> - 1.8.4-2
 - Backport support for -Efragdedupe=inode mkfs option
 

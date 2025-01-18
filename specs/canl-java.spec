@@ -1,6 +1,6 @@
 Name:		canl-java
 Version:	2.8.3
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	EMI Common Authentication library - bindings for Java
 
 #		The main parts of the code are BSD
@@ -67,6 +67,9 @@ Javadoc documentation for EMI caNl.
 %license LICENSE.txt
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.3-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

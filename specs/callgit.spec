@@ -1,6 +1,6 @@
 Name:		callgit
 Version:	2.0
-Release:	35%{dist}
+Release:	36%{dist}
 Summary:	A tool for Ham Radio Operators to look up call-signs on the web
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:	GPL-3.0-only
@@ -40,6 +40,9 @@ cp %{SOURCE2} %{buildroot}%{_datadir}/pixmaps/Ham_Icon-1-48.png
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0-35
 - convert license to SPDX
 

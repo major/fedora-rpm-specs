@@ -1,7 +1,7 @@
 %global snapshot 20060225
 Name:           duel3
 Version:        0.1
-Release:        0.42.%{snapshot}%{?dist}
+Release:        0.43.%{snapshot}%{?dist}
 Summary:        One on one spaceship duel in a 2D arena
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -88,6 +88,9 @@ install -p -m 644 %{SOURCE3} \
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.43.20060225
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1-0.42.20060225
 - convert license to SPDX
 

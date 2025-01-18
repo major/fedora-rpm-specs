@@ -1,6 +1,6 @@
 Name:           acpica-tools
 Version:        20240322
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ACPICA tools for the development and debug of ACPI tables
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -205,6 +205,9 @@ fi
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20240322-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 12 2024 Al Stone <ahs3@fedoraproject.org> - 20240322-1
 - Update source tree to 20240322 version from upstream.  NB: this update
   is done in conjunction with removing s390x support due to the large

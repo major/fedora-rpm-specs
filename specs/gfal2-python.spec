@@ -12,7 +12,7 @@
 
 Name:               gfal2-python
 Version:            1.13.0
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Python bindings for gfal 2
 License:            Apache-2.0
 URL:                http://dmc.web.cern.ch/
@@ -81,6 +81,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Aug 02 2024 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 1.13.0-1
 - Upstream release 1.13.0
 

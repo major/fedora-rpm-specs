@@ -1,6 +1,6 @@
 Name:           gforth
 Version:        0.7.3
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Fast and portable implementation of the ANS Forth language
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -124,6 +124,9 @@ fi
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.7.3-26
 - convert license to SPDX
 

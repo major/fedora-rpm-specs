@@ -7,7 +7,7 @@ License:        GPL-2.0-or-later
 %global git_date 20230218
 
 Version:        1.0.2
-Release:        25.%{git_date}git%{git_commit}%{?dist}
+Release:        26.%{git_date}git%{git_commit}%{?dist}
 
 URL:            https://github.com/burghardt/arptools
 Source0:        %{URL}/archive/%{git_commit_full}/%{name}-%{git_commit_full}.tar.gz
@@ -51,6 +51,9 @@ NOCONFIGURE="yes" ./autogen.sh
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-26.20230218git2cf523f
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-25.20230218git2cf523f
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

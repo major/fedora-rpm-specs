@@ -12,7 +12,7 @@
 
 Name:           fedora-license-data
 Version:        1.64
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fedora Linux license data
 
 License:        CC0-1.0
@@ -128,6 +128,9 @@ make check-grammar
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.64-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 09 2025 Miroslav Suchý <msuchy@redhat.com> 1.64-1
 - add copyleft-next-0.3.1 license
 - Add public-domain text for llvm-test-suite

@@ -3,7 +3,7 @@
 Summary:	FUSE filesystem Bittorrent
 Name:		fuse-btfs
 Version:	2.24
-Release:	13%{?dist}
+Release:	14%{?dist}
 
 License:	GPL-3.0-only
 URL:		https://github.com/johang/btfs
@@ -46,6 +46,9 @@ autoreconf -i
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.24-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jul 30 2024 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 2.24-13
 - OPENSSL_NO_ENGINE deprecation workaround rhbz#2300679
 

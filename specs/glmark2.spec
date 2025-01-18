@@ -4,7 +4,7 @@
 
 Name:		glmark2
 Version:	2023.01
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Benchmark for OpenGL 2.0
 
 
@@ -221,6 +221,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.ap
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2023.01-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2023.01-7
 - convert license to SPDX
 

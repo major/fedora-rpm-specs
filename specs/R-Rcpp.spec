@@ -4,7 +4,7 @@
 
 Name:		R-%{packname}
 Version:	1.0.13
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Seamless R and C++ Integration
 
 #		The following three files uses the Boost Software License:
@@ -117,6 +117,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 %{_libdir}/R/library/%{packname}/examples
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.13-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Nov 08 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.0.13-2
 - Require R >= 4.5.0 for new APIs (backport from upstream)
 

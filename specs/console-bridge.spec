@@ -4,7 +4,7 @@
 
 Name:           console-bridge
 Version:        1.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Lightweight set of macros used for reporting information in libraries
 
 License:        BSD-3-Clause
@@ -52,6 +52,9 @@ developing applications that use %{name}.
 %{_libdir}/%{realname}
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 08 2025 Scott K Logan <logans@cottsay.net> - 1.0.2-1
 - Update to 1.0.2
 - Review SPDX license identifier

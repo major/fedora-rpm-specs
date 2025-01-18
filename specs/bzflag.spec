@@ -1,7 +1,7 @@
 Summary: 3D multi-player tank battle game
 Name: bzflag
 Version: 2.4.26
-Release: 6%{?dist}
+Release: 7%{?dist}
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2
 URL: http://bzflag.org
@@ -158,6 +158,9 @@ exit 0
 %{_datadir}/bzflag/maps/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.26-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 2.4.26-6
 - convert license to SPDX
 

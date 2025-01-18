@@ -1,7 +1,7 @@
 Summary: Generate a readout of the current bandwidth use
 Name: bwbar
 Version: 1.2.3
-Release: 38%{?dist}
+Release: 39%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 Source0: http://www.kernel.org/pub/software/web/bwbar/bwbar-1.2.3.tar.bz2
@@ -72,6 +72,9 @@ END
 %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2.3-38
 - convert license to SPDX
 

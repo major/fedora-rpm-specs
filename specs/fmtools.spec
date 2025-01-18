@@ -4,7 +4,7 @@
 Summary: Simple Video for Linux radio card programs
 Name:    fmtools
 Version: 2.0.8
-Release: 2%{?dist}
+Release: 3%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL:     http://benpfaff.org/fmtools
@@ -100,6 +100,9 @@ install -Dpm 0644 %{SOURCE8} %{buildroot}%{_datadir}/%{name}/radio.gif
 %{_datadir}/%{name}/radio.gif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0.8-2
 - convert license to SPDX
 

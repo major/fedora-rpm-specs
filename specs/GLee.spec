@@ -2,7 +2,7 @@
 
 Name:           GLee
 Version:        %{major}.4.0
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        GL Easy Extension library
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -72,6 +72,9 @@ ln -s lib%{name}.so.%{version} %{buildroot}%{_libdir}/lib%{name}.so
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.0-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 5.4.0-30
 - convert license to SPDX
 

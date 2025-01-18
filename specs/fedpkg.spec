@@ -5,7 +5,7 @@
 
 Name:           fedpkg
 Version:        1.45
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Fedora utility for working with dist-git
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -129,6 +129,9 @@ mv %{buildroot}%{compdir}/fedpkg.bash %{buildroot}%{compdir}/fedpkg
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.45-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 07 2025 Ondřej Nosek <onosek@redhat.com> - 1.45-6
 - gitignore the name-version-build/ directory created by fedpkg prep/local
 - Fixing unittests for py36

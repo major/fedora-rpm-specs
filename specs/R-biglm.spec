@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}.%{packrel}
-Release:          14%{?dist}
+Release:          15%{?dist}
 Summary:          Bounded memory linear and generalized linear models
 
 # Only license attribution is in DESCRIPTION.
@@ -45,6 +45,9 @@ test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
 %{_libdir}/R/library/%{packname}/libs/
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

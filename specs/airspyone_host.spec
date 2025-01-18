@@ -6,7 +6,7 @@
 
 Name:           airspyone_host
 Version:        1.0.10
-Release:        10%{?git_suffix}%{?dist}
+Release:        11%{?git_suffix}%{?dist}
 Summary:        AirSpy host tools and library
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -80,6 +80,9 @@ mv %{buildroot}%{_sysconfdir}/udev/rules.d/52-airspy.rules %{buildroot}%{_udevru
 %{_libdir}/libairspy.so
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.10-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan  9 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 1.0.10-10
 - Used upstream fix to enforce gnu17 standard
   Related: rhbz#2336033

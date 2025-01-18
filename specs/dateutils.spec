@@ -9,6 +9,8 @@ Source0:        https://github.com/hroptatyr/dateutils/releases/download/v%{vers
 
 BuildRequires:  gcc
 BuildRequires: make
+# for tests
+BuildRequires: tzdata
 
 # Tests won't pass woth older tzdata!
 Requires: tzdata

@@ -9,7 +9,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        1.6.12
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        X.509 Certificate and CRL validation
 
 License:        BSD-3-Clause
@@ -146,6 +146,9 @@ library.
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.12-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Aug  1 2024 Jens Petersen <petersen@redhat.com> - 1.6.12-2
 - obsoletes ghc-x509-validation
 

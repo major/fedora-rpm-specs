@@ -46,7 +46,7 @@ Name: boost
 %global real_name boost
 Summary: The free peer-reviewed portable C++ source libraries
 Version: 1.83.0
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: BSL-1.0 AND MIT AND Python-2.0.1
 
 # Replace each . with _ in %%{version}
@@ -1316,6 +1316,9 @@ fi
 %{_mandir}/man1/b2.1*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.83.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 24 2024 Sandro <devel@penguinpee.nl> - 1.83.0-10
 - Backport patches for NumPy 2.x
 

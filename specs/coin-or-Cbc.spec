@@ -9,7 +9,7 @@
 Name:		coin-or-%{module}
 Summary:	Coin-or branch and cut
 Version:	2.10.12
-Release:	5%{?dist}
+Release:	6%{?dist}
 
 # The project as a whole is licensed EPL-2.0.  However, many source files still
 # claim to be licensed EPL-1.0.  This is probably an upstream oversight.
@@ -188,6 +188,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_docdir}/%{name}/cbc_doxy.tag
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.12-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 01 2025 Antonio Trande <sagitter@fedoraproject.org> - 2.10.12-5
 - Renaming of /usr/bin/cbc file (rhbz#2335063)
 

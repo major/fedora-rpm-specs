@@ -14,7 +14,7 @@ Name:           ansible-collection-%{collection_namespace}-%{collection_name}
 Version:        2.3.2
 %global tag     %{version}
 %forgemeta
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Ansible content for working with Kubernetes and OpenShift clusters
 
 # All files are GPL-3.0-or-later (GPLv3+) except:
@@ -114,6 +114,9 @@ popd
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 2.3.2-9
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           glog
 Version:        0.3.5
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        A C++ application logging library
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -58,6 +58,9 @@ rm -rf $RPM_BUILD_ROOT/%{_docdir}/%{name}-%{version}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.5-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.3.5-22
 - convert license to SPDX
 

@@ -3,7 +3,7 @@
 Summary:        Collection of tasks for Ant
 Name:           ant-contrib
 Version:        1.0
-Release:        0.46.%{beta_number}%{?dist}
+Release:        0.47.%{beta_number}%{?dist}
 # Project site on sf lists both Apache Software License, Apache License V2.0
 # see: https://sourceforge.net/projects/ant-contrib/
 License:        Apache-2.0 AND Apache-1.1
@@ -90,6 +90,9 @@ echo "ant-contrib/ant-contrib" > $RPM_BUILD_ROOT%{_sysconfdir}/ant.d/ant-contrib
 %license target/docs/LICENSE.txt LICENSE-2.0.txt
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.47.b3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.46.b3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

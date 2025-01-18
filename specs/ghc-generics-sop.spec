@@ -14,7 +14,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.5.1.3
 # can only be reset when subpkg bumped
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Generic Programming using True Sums of Products
 
 License:        BSD-3-Clause
@@ -175,6 +175,9 @@ cabal-tweak-dep-ver base '< 4.17' '< 4.19'
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1.3-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Aug  2 2024 Jens Petersen <petersen@redhat.com> - 0.5.1.3-17
 - bump base bound
 

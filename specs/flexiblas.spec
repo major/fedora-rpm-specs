@@ -21,7 +21,7 @@
 
 Name:           flexiblas
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A BLAS/LAPACK wrapper library with runtime exchangeable backends
 
 # LGPL-3.0-or-later
@@ -447,6 +447,9 @@ make -C build64 test
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.4-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 15 2025 Iñaki Úcar <iucar@fedoraproject.org> - 3.4.4-6
 - Restore atlas support, was saved
 

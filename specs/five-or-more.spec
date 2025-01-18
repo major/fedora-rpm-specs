@@ -1,6 +1,6 @@
 Name:           five-or-more
 Version:        3.32.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        GNOME "Five or More" game
 
 # Automatically converted from old format: GPLv2+ and GFDL - review is highly recommended.
@@ -58,6 +58,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.32.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 3.32.3-8
 - convert license to SPDX
 

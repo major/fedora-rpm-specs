@@ -11,7 +11,7 @@
 
 Name:           asterisk-sounds-core
 Version:        1.6.1
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Core sounds for Asterisk
 
 
@@ -1346,6 +1346,9 @@ done
 %doc asterisk-core-sounds-sv-wav-%{sv_version}.list
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 1.6.1-18
 - convert license to SPDX
 

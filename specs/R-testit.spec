@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          14%{?dist}
+Release:          15%{?dist}
 Summary:          A Simple Package for Testing R Packages
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -62,6 +62,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul  29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.13-14
 - convert license to SPDX
 

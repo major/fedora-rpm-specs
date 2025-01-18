@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 Version: 20070702
-Release: 47%{?dist}
+Release: 48%{?dist}
 # This used to be published here, copies are all over the web now
 #URL:     http://perso.orange.fr/jm.douteau/page_ecolier.htm
 
@@ -67,6 +67,9 @@ install -m 0644 -p %{SOURCE0} %{SOURCE1} .
 %fontfiles -a
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20070702-48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20070702-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

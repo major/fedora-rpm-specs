@@ -1,6 +1,6 @@
 Name:		faust
 Version:	0.9.46
-Release:	29%{?dist}
+Release:	30%{?dist}
 Summary:	Compiled language for real-time audio signal processing
 # Examples are BSD
 # The rest is GPLv2+
@@ -182,6 +182,9 @@ cp -a syntax-highlighting/%{name}.xml \
 %{_datadir}/kde4/apps/katepart/syntax/%{name}.xml
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.46-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.46-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

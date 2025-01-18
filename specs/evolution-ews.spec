@@ -6,7 +6,7 @@
 
 Name: evolution-ews
 Version: 3.55.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Evolution extension for Exchange Web Services
 License: LGPL-2.1-or-later
 URL: https://gitlab.gnome.org/GNOME/evolution/-/wikis/home
@@ -108,6 +108,9 @@ export CFLAGS="$RPM_OPT_FLAGS -Wno-deprecated-declarations"
 %files langpacks -f %{name}.lang
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.55.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 09 2025 Milan Crha <mcrha@redhat.com> - 3.55.1-2
 - Split files which do not need the 'evolution' package into a 'core' subpackage,
   which can be installed separately

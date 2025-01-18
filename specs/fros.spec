@@ -1,6 +1,6 @@
 Name:           fros
 Version:        1.1
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Universal screencasting frontend with pluggable support for various backends
 
 %global commit 30275a07dab7891b9f31ff115743f67d757c7c1a
@@ -97,6 +97,9 @@ CFLAGS="$RPM_OPT_FLAGS" %{__python3} setup.py build
 %{python3_sitelib}/pyfros/plugins/__pycache__/*gnome.cpython-%{python3_version_nodots}.*py*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 25 2024 Charalampos Stratakis <cstratak@redhat.com> - 1.1-39
 - Remove unused setup.py test command
 Resolves: rhbz#2319626

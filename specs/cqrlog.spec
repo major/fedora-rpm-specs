@@ -1,6 +1,6 @@
 Name:		cqrlog
 Version:	2.5.2
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	An amateur radio contact logging program
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -100,6 +100,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.5.2-16
 - convert license to SPDX
 

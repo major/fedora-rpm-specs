@@ -2,7 +2,7 @@
 
 Name:           ctpl
 Version:        0.3.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Template library and engine written in C
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -134,6 +134,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libctpl.la
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Aug 03 2024 Dominic Hopf <dmaphy@fedoraproject.org> - 0.3.5-1
 - New Upstream release (RHBZ#2302212)
 - Fixes #2261049 and #2300615 

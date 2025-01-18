@@ -1,7 +1,7 @@
 Name:		globus-gass-cache-program
 %global _name %(tr - _ <<< %{name})
 Version:	7.0
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	Grid Community Toolkit - Tools to manipulate local and remote GASS caches
 
 License:	Apache-2.0
@@ -66,6 +66,9 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %license GLOBUS_LICENSE
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

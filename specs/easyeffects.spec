@@ -1,6 +1,6 @@
 Name:           easyeffects
 Version:        7.2.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Audio effects for PipeWire applications
 
 License:        GPL-3.0-or-later
@@ -94,6 +94,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/com.githu
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 09 2025 Michel Lind <salimma@fedoraproject.org> - 7.2.3-2
 - Rebuilt for rubberband 4
 

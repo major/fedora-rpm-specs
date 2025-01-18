@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          14%{?dist}
+Release:          15%{?dist}
 Summary:          Tools: Moving Window Statistics, GIF, Base64, ROC AUC, etc
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -65,6 +65,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul  29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.18.2-14
 - convert license to SPDX
 

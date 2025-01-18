@@ -1,6 +1,6 @@
 Name: cockpit-session-recording
 Version: 17
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Cockpit Session Recording
 License: LGPL-2.1-or-later
 URL:     https://github.com/Scribery/%{name}
@@ -82,6 +82,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 17-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Nov 6 2024 Packit <hello@packit.dev> - 17-1
 - Config: Use authselect enable-feature when possible
 - Test: Move from CDP to BiDi

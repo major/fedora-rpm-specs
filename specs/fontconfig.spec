@@ -5,7 +5,7 @@
 Summary:	Font configuration and customization library
 Name:		fontconfig
 Version:	2.15.0
-Release:	8%{?dist}
+Release:	9%{?dist}
 # src/ftglue.[ch] is in Public Domain
 # src/fccache.c contains Public Domain code
 ## https://gitlab.com/fedora/legal/fedora-license-data/-/issues/177
@@ -196,6 +196,9 @@ fi
 %doc fontconfig-devel.txt fontconfig-devel
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Aug  1 2024 Akira TAGOH <tagoh@redhat.com> - 2.15.0-8
 - Fix a memory leak and potentially uninitialized values.
 

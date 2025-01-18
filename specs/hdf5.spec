@@ -182,6 +182,8 @@ HDF5 parallel openmpi static libraries
 %prep
 %autosetup -a 2 -n %{name}-%{name}_%{version} -p1
 
+
+%build
 %if %{with java}
 # Replace jars with system versions
 # hamcrest-core is obsoleted in hamcrest-2.2
@@ -209,8 +211,6 @@ sh ./autogen.sh
 # Modify low optimization level for gnu compilers
 sed -e 's|-O -finline-functions|-O3 -finline-functions|g' -i config/gnu-flags
 
-
-%build
 #Do out of tree builds
 %global _configure ../configure
 #Common configure options
@@ -391,7 +391,6 @@ fi
 %files
 %license COPYING
 %doc ACKNOWLEDGMENTS README.md release_docs/RELEASE.txt
-%doc release_docs/HISTORY*.txt
 %{_bindir}/h5clear
 %{_bindir}/h5copy
 %{_bindir}/h5debug
@@ -461,7 +460,6 @@ fi
 %files mpich
 %license COPYING
 %doc README.md release_docs/RELEASE.txt
-%doc release_docs/HISTORY*.txt
 %{_libdir}/mpich/bin/h5clear
 %{_libdir}/mpich/bin/h5copy
 %{_libdir}/mpich/bin/h5debug
@@ -504,7 +502,6 @@ fi
 %files openmpi
 %license COPYING
 %doc README.md release_docs/RELEASE.txt
-%doc release_docs/HISTORY*.txt
 %{_libdir}/openmpi/bin/h5clear
 %{_libdir}/openmpi/bin/h5copy
 %{_libdir}/openmpi/bin/h5debug

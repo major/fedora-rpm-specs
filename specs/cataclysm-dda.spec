@@ -1,7 +1,7 @@
 %global _lto_cflags %nil
 Name:           cataclysm-dda
 Version:        0.H
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Turn-based survival game set in a post-apocalyptic world
 
 # Automatically converted from old format: CC-BY-SA - review is highly recommended.
@@ -195,6 +195,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.H-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.G-5
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:		arc-gui-clients
 Version:	0.4.6
-Release:	35%{?dist}
+Release:	36%{?dist}
 Summary:	ARC Graphical Clients
 
 License:	Apache-2.0
@@ -89,6 +89,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/arcsub-ui.desktop
 %license LICENSE
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.6-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.6-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

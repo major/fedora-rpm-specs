@@ -5,7 +5,7 @@
 Summary:        Utility to capture video from a DV camera
 Name:           dvgrab
 Version:        3.5
-Release:        36.%{date}git%{shortcommit}%{?dist}
+Release:        37.%{date}git%{shortcommit}%{?dist}
 License:        GPL-2.0-or-later
 URL:            http://www.kinodv.org/
 Source:         https://github.com/ddennedy/dvgrab/archive/%{commit}/dvgrab-%{commit}.tar.gz
@@ -45,6 +45,9 @@ autoreconf -ivf
 %{_mandir}/man1/dvgrab.1*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-37.20231130git8a368f4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-36.20231130git8a368f4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          6%{?dist}
+Release:          7%{?dist}
 Summary:          Portable Native and Joint Stack Traces
 
 License:          GPL-3.0-only
@@ -84,6 +84,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check --no-vignettes %{packname}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

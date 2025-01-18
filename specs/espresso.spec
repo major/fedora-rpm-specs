@@ -3,7 +3,7 @@
 
 Name:           espresso
 Version:        4.2.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Extensible Simulation Package for Research on Soft matter
 # segfault on s390x: https://github.com/espressomd/espresso/issues/3753
 # segfault on armv7hl: https://src.fedoraproject.org/rpms/espresso/pull-request/4
@@ -162,6 +162,9 @@ done
 %{python3_sitearch}/mpich/%{name}md/
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 25 2024 Orion Poplawski <orion@nwra.com> - 4.2.2-6
 - Rebuild for hdf5 1.14.5
 

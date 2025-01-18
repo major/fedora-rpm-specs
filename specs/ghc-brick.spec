@@ -17,7 +17,7 @@
 Name:           ghc-%{pkg_name}
 Version:        2.1.1
 # can only be reset when all subpkgs bumped
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A declarative terminal user interface library
 
 License:        BSD-3-Clause
@@ -204,6 +204,9 @@ echo %{_bindir}/vty-unix-build-width-table >> %{vtyunix}/ghc-vty-unix.files
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Jens Petersen <petersen@redhat.com> - 2.1.1-7
 - https://hackage.haskell.org/package/brick-2.1.1/changelog
 - add vty-crossplatform and vty-unix

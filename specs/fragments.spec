@@ -2,7 +2,7 @@
 
 Name:           fragments
 Version:        3.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Easy to use BitTorrent client which follows the GNOME HIG
 
 License:        GPL-3.0-or-later
@@ -70,6 +70,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 03 2024 Pete Walter <pwalter@fedoraproject.org> - 3.0.1-1
 - Update to 3.0.1 (rhbz#2284003)
 

@@ -7,12 +7,7 @@
 %global _lto_cflags %{nil}
 %endif
 
-# The DCO feature is only available on EL-8+ or Fedora 34+
-%if 0%{?rhel} > 7 || 0%{?fedora} > 34
 %bcond_without dco
-%else
-%bcond_with dco
-%endif
 
 # pkcs11-helper on RHEL9 (v1.27.0) comes with a buggy pkcs11.h, so skip it
 %if 0%{?rhel} == 9
@@ -26,8 +21,8 @@
 %bcond_without tests_long
 
 Name:              openvpn
-Version:           2.6.12
-Release:           2%{?dist}
+Version:           2.6.13
+Release:           1%{?dist}
 Summary:           A full-featured TLS VPN solution
 URL:               https://community.openvpn.net/
 Source0:           https://build.openvpn.net/downloads/releases/%{name}-%{version}.tar.gz
@@ -73,14 +68,7 @@ Requires(pre):     /usr/sbin/useradd
 Recommends:        kmod-ovpn-dco >= 0.2
 %endif
 
-%if 0%{?rhel} > 7 || 0%{?fedora} > 34
 BuildRequires:  python3-docutils
-%else
-# We cannot use python36-docutils on RHEL-7 as
-# the ./configure script does not currently find
-# the rst2man-3 executable, it only looks for rst2man
-BuildRequires:  python-docutils
-%endif
 
 # For the perl_default_filter macro
 BuildRequires:     perl-macros
@@ -110,10 +98,7 @@ to similar features as the various script-hooks.
 gpgv2 --quiet --keyring %{SOURCE10} %{SOURCE1} %{SOURCE0}
 %setup -q -n %{name}-%{version}
 %patch -P 1 -p1
-%if 0%{?rhel} > 7 || 0%{?fedora} > 34
-# The crypto-policy patch is only valid on RHEL-8 and newer plus Fedora
 %patch -P 2 -p1
-%endif
 %patch -P 50 -p1
 
 # %%doc items shouldn't be executable.
@@ -200,11 +185,6 @@ rm -f  $RPM_BUILD_ROOT%{_pkgdocdir}/sample/Makefile{,.in,.am}
 rm -f  $RPM_BUILD_ROOT%{_pkgdocdir}/contrib/multilevel-init.patch
 rm -rf $RPM_BUILD_ROOT%{_pkgdocdir}/sample/sample-keys
 
-# Remove totpauth.py on RHEL-7, as it is not able to process the code
-%if 0%{?rhel} == 7
-rm -f $RPM_BUILD_ROOT%{_pkgdocdir}/sample/sample-scripts/totpauth.py
-%endif
-
 
 %pre
 getent group openvpn &>/dev/null || groupadd -r openvpn
@@ -256,6 +236,10 @@ done
 
 
 %changelog
+* Thu Jan 16 2025 Frank Lichtenheld <frank@lichtenheld.com> - 2.6.13-1
+- Update to upstream OpenVPN 2.6.13 (RHBZ#2338321)
+- Remove RHEL 7 compat code
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.6.12-2
 - convert license to SPDX
 

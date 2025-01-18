@@ -4,7 +4,7 @@ Summary: Terminal emulator mimicking a CRT display
 License: GPL-3.0-or-later
 
 Version: 1.2.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 
 URL: https://github.com/Swordfish90/%{name}
 Source0: %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -81,6 +81,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2.0-8
 - convert license to SPDX
 

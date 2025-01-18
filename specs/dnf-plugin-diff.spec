@@ -2,7 +2,7 @@
 
 Name:           dnf-plugin-diff
 Version:        1.1
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Show local changes in RPM packages
 BuildArch:      noarch
 
@@ -50,6 +50,9 @@ autoreconf -vfi
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1-22
 - convert license to SPDX
 

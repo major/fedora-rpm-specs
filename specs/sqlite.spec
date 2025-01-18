@@ -12,7 +12,7 @@
 Summary: Library that implements an embeddable SQL database engine
 Name: sqlite
 Version: %{rpmver}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: blessing
 URL: http://www.sqlite.org/
 
@@ -72,6 +72,8 @@ SQLite is built with some non-default settings:
   `AND`, `OR` (SQLITE_ENABLE_FTS3_PARENTHESIS)
 - R*Tree index extension is enabled (SQLITE_ENABLE_RTREE)
 - Extension loading is enabled
+- Sessions (sqlite-session feature) is enabled
+- Preupdate hook is enabled
 
 It is also important to note that shell has some extensions as its dependencies,
 so some extensions are enabled by default in SQLite shell, but not in the system
@@ -196,6 +198,8 @@ export CFLAGS="$RPM_OPT_FLAGS $RPM_LD_FLAGS \
                -DSQLITE_ENABLE_FTS3_PARENTHESIS=1 \
                -DSQLITE_ENABLE_STMT_SCANSTATUS \
                -DSQLITE_ENABLE_DBPAGE_VTAB \
+               -DSQLITE_ENABLE_SESSION 
+               -DSQLITE_ENABLE_PREUPDATE_HOOK
                -Wall -fno-strict-aliasing"
 
 %configure %{!?with_tcl:--disable-tcl} \
@@ -225,6 +229,8 @@ export CFLAGS="$RPM_OPT_FLAGS $RPM_LD_FLAGS \
                -DSQLITE_ENABLE_UNLOCK_NOTIFY=1 -DSQLITE_ENABLE_DBSTAT_VTAB=1 \
                -DSQLITE_ENABLE_FTS3_PARENTHESIS=1 \
                -DSQLITE_ENABLE_DBPAGE_VTAB \
+               -DSQLITE_ENABLE_SESSION 
+               -DSQLITE_ENABLE_PREUPDATE_HOOK
                -Wall -fno-strict-aliasing"
 
 %configure %{!?with_tcl:--disable-tcl} \
@@ -340,6 +346,9 @@ make test
 %endif
 
 %changelog
+* Thu Jan 16 2024 Ales Nezbeda <anezbeda@redhat.com> - 3.47.2-2
+- Enabled sqlite-session feature
+
 * Mon Dec 9 2024 Ales Nezbeda <anezbeda@redhat.com> - 3.47.2-1
 - Update to 3.47.2
 - https://www.sqlite.org/releaselog/3_47_2.html

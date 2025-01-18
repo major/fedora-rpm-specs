@@ -5,7 +5,7 @@
 
 Name:           egl-wayland
 Version:        1.1.18%{!?tag:~%{date}git%{shortcommit0}}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        EGLStream-based Wayland external platform
 License:        MIT
 URL:            https://github.com/NVIDIA/%{name}
@@ -81,6 +81,9 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/pkgconfig/wayland-eglstream.pc
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.18~20250114git26ba0e3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 15 2025 Simone Caronni <negativo17@gmail.com> - 1.1.18~20250114git26ba0e3-2
 - Update to latest snapshot.
 

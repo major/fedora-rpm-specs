@@ -66,6 +66,11 @@ cp -p debian/changelog changelog.debian
 
 %install
 %make_install
+# the real executable cannot go in %_sbindir since
+# https://fedoraproject.org/wiki//Changes/Unify_bin_and_sbin
+# as sbindir and bindir are now the same directory
+mkdir -p %{buildroot}%{_libexecdir}
+mv %{buildroot}%{_sbindir}/hddtemp %{buildroot}%{_libexecdir}
 install -Dpm 644 %{S:1} %{buildroot}%{_datadir}/misc/hddtemp.db
 install -Dpm 644 %{S:2} %{buildroot}%{_unitdir}/hddtemp.service
 install -Dpm 644 %{S:3} %{buildroot}%{_sysconfdir}/sysconfig/hddtemp
@@ -93,7 +98,7 @@ install -Dpm 644 %{S:5} %{buildroot}%{_sysconfdir}/security/console.apps/hddtemp
 %config(noreplace) %{_sysconfdir}/security/console.apps/hddtemp
 %{_unitdir}/hddtemp.service
 %{_bindir}/hddtemp
-%{_sbindir}/hddtemp
+%{_libexecdir}/hddtemp
 %config(noreplace) %{_datadir}/misc/hddtemp.db
 %{_mandir}/man8/hddtemp.8*
 

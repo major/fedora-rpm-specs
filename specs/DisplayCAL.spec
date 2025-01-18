@@ -3,7 +3,7 @@
 
 Name:		DisplayCAL
 Version:	3.9.14
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Display calibration and profiling tool focusing on accuracy and versatility
 License:	GPL-3.0-or-later
 URL:		https://github.com/eoyilmaz/displaycal-py3
@@ -89,6 +89,9 @@ mv %{buildroot}%{_datadir}/DisplayCAL/z-displaycal-apply-profiles.desktop %{buil
 %{_mandir}/man1/%{lc_name}*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.14-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jan 06 2025 Neal Gompa <ngompa@fedoraproject.org> - 3.9.14-2
 - Rebuild for fixed package metadata
 

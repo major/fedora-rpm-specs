@@ -20,7 +20,7 @@ performance and good productivity, you will love Gin.}
                         CODE_OF_CONDUCT.md CONTRIBUTING.md README.md
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        HTTP web framework written in Go
 
 License:        MIT
@@ -58,6 +58,9 @@ rm context_1.17_test.go
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

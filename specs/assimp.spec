@@ -2,7 +2,7 @@
 
 Name:           assimp
 Version:        5.3.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Library to import various 3D model formats into applications
 
 # Assimp is BSD
@@ -199,6 +199,9 @@ rm -f %{buildroot}%{_libdir}/libzlibstatic.a
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 5.3.1-4
 - convert license to SPDX
 

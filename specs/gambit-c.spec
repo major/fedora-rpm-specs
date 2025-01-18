@@ -15,7 +15,7 @@
 
 Name:           gambit-c
 Version:        4.9.3
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Scheme programming system
 
 # Automatically converted from old format: ASL 2.0 or LGPLv2 - review is highly recommended.
@@ -158,6 +158,9 @@ cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_emacs_sitestartdir}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.3-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 4.9.3-14
 - convert license to SPDX
 

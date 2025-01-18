@@ -7,7 +7,7 @@
 
 Name:           email2trac
 Version:        2.14.0^%{snapdate}git%{sub %{commit} 1 7}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utilities for converting emails to trac tickets
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -62,6 +62,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.0^20240910git0747a5a-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 22 2024 Thomas Moschny <thomas.moschny@gmx.de> - 2.14.0^20240910git0747a5a-1
 - Use git snapshot with Python3 support.
 

@@ -1,7 +1,7 @@
 Summary: Legacy version of flex, a tool for creating scanners
 Name: compat-flex
 Version: 2.5.4a
-Release: 34%{?dist}
+Release: 35%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 URL: http://www.gnu.org/software/flex/
@@ -83,6 +83,9 @@ echo ============END TESTING===========
 %{_infodir}/flex-%{version}.info*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.4a-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 2.5.4a-34
 - convert license to SPDX
 

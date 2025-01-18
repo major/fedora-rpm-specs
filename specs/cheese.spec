@@ -3,7 +3,7 @@
 Name:           cheese
 Epoch:          2
 Version:        44.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Application for taking pictures and movies from a webcam
 
 License:        GPL-2.0-or-later
@@ -120,6 +120,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Cheese.desk
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:44.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 01 2024 Adam Williamson <awilliam@redhat.com> - 2:44.1-7
 - Backport MR #73 to fix a crash on startup with recent json-glib
 

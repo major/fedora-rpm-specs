@@ -1,6 +1,6 @@
 Name:           avl
 Version:        3.36
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Aerodynamic and flight-dynamic analysis of rigid aircrafts
 
 # Plotlib is LGPLv2+, the rest is GPLv2+
@@ -54,6 +54,9 @@ export CFLAGS="%{optflags}"
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.36-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 3.36-19
 - convert license to SPDX
 

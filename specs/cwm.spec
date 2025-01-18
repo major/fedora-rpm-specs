@@ -1,7 +1,7 @@
 Summary: Calm Window Manager by OpenBSD project
 Name: cwm
 Version: 7.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 # The entire source code is licensed under ISC license,
 # except queue.h which is BSD
 # Automatically converted from old format: ISC and BSD - review is highly recommended.
@@ -55,6 +55,9 @@ install -m 644 %{SOURCE1} %{buildroot}/%{_datadir}/xsessions
 %{_mandir}/man5/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 7.4-3
 - convert license to SPDX
 

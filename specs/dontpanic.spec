@@ -1,6 +1,6 @@
 Name:       dontpanic   
 Version:    1.02
-Release:    17%{?dist}
+Release:    18%{?dist}
 Summary:    Very simple library and executable used in testing Alien::Base
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl    
@@ -53,6 +53,9 @@ make %{?_smp_mflags} check
 %{_libdir}/pkgconfig
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 1.02-17
 - convert license to SPDX
 

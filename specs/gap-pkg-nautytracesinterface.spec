@@ -16,7 +16,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        0.2
-Release:        36.%{gitdate}git%{shorttag}%{?dist}
+Release:        37.%{gitdate}git%{shorttag}%{?dist}
 Summary:        GAP interface to nauty and Traces
 
 License:        GPL-2.0-or-later
@@ -102,6 +102,9 @@ gap -l '%{buildroot}%{gap_archdir};' tst/testall.g
 %{gap_archdir}/pkg/%{pkgname}/examples/
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-37.20241107git8ce9b7b
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 25 2024 Jerry James <loganjerry@gmail.com> - 0.2-36.20241107git8ce9b7b
 - Update to use the kext interface in gap 4.12+
 

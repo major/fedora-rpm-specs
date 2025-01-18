@@ -1,6 +1,6 @@
 Name:           cvs2cl
 Version:        2.73
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Generate ChangeLogs from CVS working copies
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -84,6 +84,9 @@ install -p -m 644 cvs2cl.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.73-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 2.73-30
 - convert license to SPDX
 

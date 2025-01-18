@@ -7,7 +7,7 @@
 
 Name:           apache-%{jarname}
 Version:        2.5.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Java-based dependency manager
 License:        Apache-2.0
 URL:            https://ant.apache.org/ivy
@@ -153,6 +153,9 @@ echo "apache-ivy/ivy" > %{buildroot}%{_sysconfdir}/ant.d/%{name}
 %{_sysconfdir}/ant.d/%{name}
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Oct 28 2024 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 2.5.2-6
 - Changed jdk15on to jdk18on
 

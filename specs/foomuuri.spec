@@ -1,6 +1,6 @@
 Name:           foomuuri
 Version:        0.26
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Multizone bidirectional nftables firewall
 License:        GPL-2.0-or-later
 URL:            https://github.com/FoobarOy/foomuuri
@@ -118,6 +118,9 @@ fi
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Nov 13 2024 Kim B. Heino <b@bbbs.net> - 0.26-1
 - Upgrade to 0.26
 

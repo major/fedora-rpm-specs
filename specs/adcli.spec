@@ -1,6 +1,6 @@
 Name:    adcli
 Version: 0.9.2
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Active Directory enrollment
 License: LGPL-2.1-or-later
 URL:     https://gitlab.freedesktop.org/realmd/adcli
@@ -91,6 +91,9 @@ documentation.
 %doc %{_datadir}/doc/adcli/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Nov 20 2024 Sumit Bose <sbose@redhat.com> - 0.9.2-8
 - support for Samba's offline join and static analyser fixes
 

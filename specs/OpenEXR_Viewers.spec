@@ -14,7 +14,7 @@
 
 Name:           %{real_name}
 Version:        2.3.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Viewers programs for OpenEXR
 
 # Automatically converted from old format: AMPAS BSD - review is highly recommended.
@@ -140,6 +140,9 @@ fi
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 2.3.0-17
 - convert license to SPDX
 

@@ -7,7 +7,7 @@
 
 Name:		gnome-shell-extension-refresh-wifi
 Version:	6.0
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	GNOME Shell Extension Refresh Wifi Connections by kgshank
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -50,6 +50,9 @@ Introduce a manual scan button for new wifi network scan.
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 6.0-17
 - convert license to SPDX
 

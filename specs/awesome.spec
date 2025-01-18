@@ -1,6 +1,6 @@
 Name:		awesome
 Version:	4.3
-Release:	18%{?dist}
+Release:	19%{?dist}
 Summary:	Highly configurable, framework window manager for X. Fast, light and extensible
 # common/buffer.[ch]: BSD
 # Automatically converted from old format: GPLv2+ and BSD - review is highly recommended.
@@ -125,6 +125,9 @@ desktop-file-validate %{buildroot}%{_datadir}/xsessions/%{name}.desktop
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug  28 2024 Miroslav Suchý <msuchy@redhat.com> - 4.3-18
 - convert license to SPDX
 

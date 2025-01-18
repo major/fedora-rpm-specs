@@ -18,7 +18,7 @@ dependencies.}
 %global godocs          CHANGELOG.md README.md Documentation
 
 Name:           %{goname}
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Library and CLI tool to convert Docker images to ACIs
 
 # Upstream license specification: Apache-2.0
@@ -72,6 +72,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.2-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.17.2-18
 - convert license to SPDX
 

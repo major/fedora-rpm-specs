@@ -23,7 +23,7 @@
 
 Name:           dnsmasq
 Version:        2.90
-Release:        4%{?extraversion:.%{extraversion}}%{?dist}
+Release:        5%{?extraversion:.%{extraversion}}%{?dist}
 Summary:        A lightweight DHCP/caching DNS server
 
 # SPDX identifiers already
@@ -217,6 +217,9 @@ install -Dpm 644 %{SOURCE2} %{buildroot}%{_sysusersdir}/%{name}.conf
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.90-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Dec 27 2024 Dmitry Konishchev <konishchev@gmail.com> - 2.90-4
 - Enable nftables sets support
 

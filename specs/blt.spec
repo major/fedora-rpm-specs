@@ -5,7 +5,7 @@
 Summary: Widget extension to the Tcl/Tk scripting language
 Name: blt
 Version: 2.4
-Release: 70.z%{?dist}
+Release: 71.z%{?dist}
 
 License: MIT
 URL: http://sourceforge.net/projects/blt/
@@ -130,6 +130,9 @@ rm -rf %{buildroot}%{_mandir}/
 %{_includedir}/%{name}
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-71.z
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 15 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.4-70.z
 - Apply debian patch for tk8.6 build failure with
   -Werror=incompatible-pointer-types

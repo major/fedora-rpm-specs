@@ -4,10 +4,10 @@ ExcludeArch: %{ix86}
 %bcond_without check
 
 
-%global commit fca3b25552deca3bd64de8bfd1ebb38c45e4fb39
+%global commit c37c2a3c6a0b0167267140f2792c49ccc0c15767
 %global shortcommit %{sub %{commit} 1 7}
-%global commitdatestring 2024-10-18 19:16:17 +0200
-%global commitdate 20241018
+%global commitdatestring 2024-12-09 12:49:47 -0500
+%global commitdate 20241209
 %global cosmic_minver 1.2.3
 
 Name:           pop-launcher

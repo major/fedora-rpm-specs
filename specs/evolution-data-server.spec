@@ -54,7 +54,7 @@
 
 Name: evolution-data-server
 Version: 3.55.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Backend data server for Evolution
 License: LGPL-2.0-or-later
 URL: https://gitlab.gnome.org/GNOME/evolution/-/wikis/home
@@ -513,6 +513,9 @@ find $RPM_BUILD_ROOT -name '*.so.*' -exec chmod +x {} \;
 %{_datadir}/installed-tests
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.55.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 07 2025 Milan Crha <mcrha@redhat.com> - 3.55.1-1
 - Update to 3.55.1
 

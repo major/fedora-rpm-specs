@@ -11,7 +11,7 @@
 
 Name:           SLOF
 Version:        %{gittagdate}
-Release:        5.git%{gittagcommit}%{?dist}
+Release:        6.git%{gittagcommit}%{?dist}
 Summary:        Slimline Open Firmware
 
 License:        BSD-3-Clause
@@ -73,6 +73,9 @@ install -c -m 0644 boot_rom.bin %{buildroot}%{_datadir}/%{targetdir}/slof.bin
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20220719-6.git6b6c16b4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20220719-5.git6b6c16b4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

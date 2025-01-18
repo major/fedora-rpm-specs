@@ -2,7 +2,7 @@ Summary:    GNOME icon theme
 Name:       gnome-icon-theme
 Version:    3.12.0
 License:    LGPL-3.0-or-later
-Release:    24%{?dist}
+Release:    25%{?dist}
 URL:        http://www.gnome.org
 
 #VCS: git:git://git.gnome.org/gnome-icon-theme
@@ -110,6 +110,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/gnome &>/dev/null || :
 %{_datadir}/pkgconfig/gnome-icon-theme.pc
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.0-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

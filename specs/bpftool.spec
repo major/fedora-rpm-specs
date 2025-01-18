@@ -1,6 +1,6 @@
 Name:           bpftool
 Version:        7.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Inspection and simple manipulation of eBPF programs and maps
 
 %global libname libbpf
@@ -43,5 +43,8 @@ manipulation of eBPF programs and maps.
 %{_mandir}/man8/bpftool*.8*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Nov 21 2024 Viktor Malik <vmalik@redhat.com> - 7.5.0-1
 - Create the package

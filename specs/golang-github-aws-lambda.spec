@@ -15,7 +15,7 @@ functions.}
 %global godocs          README.md events/*.md
 
 Name:           %{goname}
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Libraries, samples and tools to help Go developers develop AWS Lambda functions
 
 # Upstream license specification: Apache-2.0 and MIT
@@ -63,6 +63,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 1.26.0-13
 - convert license to SPDX
 

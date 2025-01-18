@@ -4,7 +4,7 @@
 Name:           fluid
 Summary:        Library for fluid and dynamic applications development with QtQuick
 Version:        0.8.0
-Release:        22%{?snaphash:.%{snapdate}git%(echo %{snaphash} | cut -c -13)}%{?dist}
+Release:        23%{?snaphash:.%{snapdate}git%(echo %{snaphash} | cut -c -13)}%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
 URL:            https://liri.io
@@ -45,6 +45,9 @@ Library for fluid and dynamic applications development with QtQuick.
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.8.0-22
 - convert license to SPDX
 

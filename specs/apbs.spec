@@ -11,7 +11,7 @@
 Name: apbs
 Summary: Adaptive Poisson Boltzmann Solver
 Version: 3.0.0
-Release: 25%{datecommit}%{shortcommit}%{?dist}
+Release: 26%{datecommit}%{shortcommit}%{?dist}
 # iAPBS looks licensed with a LGPLv2+, APBS is released under BSD license.
 License: LGPL-2.0-or-later AND BSD-3-Clause
 URL: https://www.poissonboltzmann.org/
@@ -213,6 +213,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %doc build/doc
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

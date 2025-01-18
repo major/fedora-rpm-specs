@@ -1,6 +1,6 @@
 Name:           fstrcmp
 Version:        0.7.D001
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Fuzzy string compare library
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -78,6 +78,9 @@ rm $RPM_BUILD_ROOT%{_defaultdocdir}/%{name}/readme.pdf
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.D001-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.7.D001-24
 - convert license to SPDX
 

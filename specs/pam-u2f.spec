@@ -5,7 +5,7 @@
 %define enable_autoreconf 0
 
 Name:          pam-u2f
-Version:       1.3.1
+Version:       1.3.2
 Release:       1%{?dist}
 Summary:       Implements PAM authentication over U2F
 
@@ -69,6 +69,10 @@ make check
 %{_mandir}/man1/pamu2fcfg.1{,.*}
 
 %changelog
+* Thu Jan 16 2025 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.3.2-1
+- Update to 1.3.2 - resolves rhbz#2338418
+  1.3.2 fixes a potentially breaking issue with tightened authfile checking with 1.3.1
+
 * Tue Jan 14 2025 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.3.1-1
 - Update to 1.3.1 - resolves rhbz#2337634
 

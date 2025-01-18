@@ -1,6 +1,6 @@
 Name:    dbus-python
 Version: 1.3.2
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: D-Bus Python Bindings
 
 License: MIT
@@ -87,6 +87,9 @@ make check -k || (cat test-suite.log && false)
 %{_libdir}/pkgconfig/dbus-python.pc
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

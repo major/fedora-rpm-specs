@@ -1,6 +1,6 @@
 Name:           createrepo-agent
 Version:        0.4.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Rapidly and repeatedly generate RPM repository metadata
 
 License:        Apache-2.0
@@ -50,6 +50,9 @@ gives createrepo-agent its name.
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

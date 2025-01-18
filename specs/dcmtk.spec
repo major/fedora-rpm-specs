@@ -18,7 +18,7 @@ Version: 3.6.7
 # https://github.com/DCMTK/dcmtk/blob/master/CMake/dcmtkPrepare.cmake#L78
 %global soname_version %{abi_version}.%{version}
 
-Release: 8%{?dist}
+Release: 9%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 Source: https://dicom.offis.de/download/dcmtk/dcmtk367/dcmtk-3.6.7.tar.gz
@@ -250,6 +250,9 @@ rm -rf %{_vpath_builddir}/dcmtls/tests/
 %{_libdir}/libofstd.so
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.7-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 3.6.7-8
 - convert license to SPDX
 

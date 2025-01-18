@@ -3,7 +3,7 @@
 
 Name:           gnome-nettool
 Version:        3.8.1
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Network information tool for GNOME
 
 # Automatically converted from old format: GPLv2+ and GFDL - review is highly recommended.
@@ -107,6 +107,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/gnome-nettool.desk
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.1-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 3.8.1-31
 - convert license to SPDX
 

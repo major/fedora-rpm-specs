@@ -4,7 +4,7 @@
 
 Name:           aspell-te
 Version:        0.01
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        GNU Aspell Telugu Dictionary Package
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -50,6 +50,9 @@ make install DESTDIR=%{buildroot}
 %{_libdir}/aspell-0.60/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.01-35
 - convert license to SPDX
 

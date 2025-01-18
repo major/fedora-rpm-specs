@@ -6,7 +6,7 @@ serif and sans-serif versions. The fonts cover all European Latin characters.
 
 Name:          %{fontname}-fonts
 Version:       20030318
-Release:       33%{?dist}
+Release:       34%{?dist}
 Summary:       General purpose sans-serif font with bold, italic and bold-italic variations
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -97,6 +97,9 @@ install -Dm 0644 -p %{SOURCE5} \
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20030318-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 20030318-33
 - convert license to SPDX
 

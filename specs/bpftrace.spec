@@ -2,7 +2,7 @@
 
 Name:           bpftrace
 Version:        0.21.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        High-level tracing language for Linux eBPF
 License:        Apache-2.0
 
@@ -94,6 +94,9 @@ find %{buildroot}%{_datadir}/%{name}/tools -type f -exec \
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Nov 01 2024 Augusto Caringi <acaringi@redhat.com> - 0.21.2-2
 - Replaced libdwarf-devel by lldb-devel (BuildRequires)
 - Added libpcap-devel (BuildRequires)

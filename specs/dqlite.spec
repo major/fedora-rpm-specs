@@ -1,6 +1,6 @@
 Name:           dqlite
 Version:        1.16.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Embeddable, replicated and fault tolerant SQL engine
 
 License:        LGPL-3.0-only WITH LGPL-3.0-linking-exception
@@ -54,6 +54,9 @@ rm -f %{buildroot}%{_libdir}/libdqlite.la
 %{_includedir}/%{name}.h
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

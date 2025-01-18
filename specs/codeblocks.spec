@@ -7,7 +7,7 @@
 
 Name:		codeblocks
 Version:	20.03
-Release:	29%{?svnrelease}%{?dist}
+Release:	30%{?svnrelease}%{?dist}
 Summary:	An open source, cross platform, free C++ IDE
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:	GPL-3.0-or-later
@@ -346,6 +346,9 @@ rm -f %{buildroot}/%{pkgdatadir}/docs/index.ini
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20.03-30.20241208svn13596
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Dec 19 2024 Dan Horák <dan[at]danny.cz> - 20.03-29.20241208svn13596
 - updated to nightly 20241208 rev 13596
 - rebuilt for astyle 3.6.6 (rhbz#2323142)

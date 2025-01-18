@@ -5,7 +5,7 @@
 
 Name:           ansible-collections-openstack
 Version:        2.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Openstack Ansible collections
 License:        GPL-3.0-or-later
 URL:            https://opendev.org/openstack/ansible-collections-openstack
@@ -49,6 +49,9 @@ export SKIP_PIP_INSTALL=1
 %{_datadir}/ansible/collections/ansible_collections/openstack/cloud/
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Oct 28 2024 Joel Capitao <jcapitao@redhat.com> 2.2.0-2
 - Require ansible-core in Fedora
 

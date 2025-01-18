@@ -9,7 +9,7 @@
 
 Name:          budgie-control-center
 Version:       1.4.0
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       A fork of GNOME Control Center for the Budgie 10 Series
 
 # Automatically converted from old format: GPLv2+ and CC-BY-SA - review is highly recommended.
@@ -203,6 +203,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 %{_datadir}/sounds/budgie/default/alerts/*.ogg
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 11 2024 Joshua Strobl <me@joshuastrobl.com> - 1.4.0-5
 - Add ppd-service as recommends, tuned-ppd as suggests
 

@@ -17,6 +17,9 @@ License: LGPL-2.1-or-later
 URL:     https://github.com/flatpak/xdg-desktop-portal/
 Source0: https://github.com/flatpak/xdg-desktop-portal/releases/download/%{version}/%{name}-%{version}.tar.xz
 
+# https://github.com/flatpak/xdg-desktop-portal/pull/1572
+Patch:   fix-camera-portal.patch
+
 BuildRequires: gcc
 BuildRequires: gettext
 BuildRequires: meson

@@ -35,7 +35,7 @@
 
 Name:           R
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A language for data analysis and graphics
 
 License:        GPL-2.0-or-later
@@ -951,6 +951,9 @@ TZ="Europe/Paris" make check
 %{_libdir}/libRmath.a
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 15 2025 Iñaki Úcar <iucar@fedoraproject.org> - 4.4.2-3
 - Depend on compat tcl/tk 8 for now
 - Apply upstream patch for gcc15 compatibility

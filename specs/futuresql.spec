@@ -13,7 +13,7 @@ less confusing, FutureSQL uses C++20 concepts, and requires a C++20 compiler.}
 
 Name:    futuresql
 Version: 0.1.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: (LGPL-2.1-only OR LGPL-3.0-only) AND BSD-2-Clause
 Summary: Non-blocking database framework for Qt
 URL:     https://invent.kde.org/libraries/futuresql/
@@ -145,6 +145,9 @@ popd
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

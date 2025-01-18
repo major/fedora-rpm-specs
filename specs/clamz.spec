@@ -1,6 +1,6 @@
 Name:           clamz
 Version:        0.5
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Amazon MP3 Music Store Downloader
 License:        GPL-3.0-or-later
 URL:            https://code.google.com/archive/p/clamz/
@@ -38,6 +38,9 @@ complete albums that you have purchased from Amazon.
 %{_datadir}/mime/packages/%{name}.xml
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

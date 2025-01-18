@@ -5,7 +5,7 @@
 
 Name:       cryptlib
 Version:    3.4.8  
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Security library and toolkit for encryption and authentication services    
 
 License:    Sleepycat and OpenSSL and BSD-3-Clause   
@@ -355,6 +355,9 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/clsmime.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 10 2025 Ralf Senderek <innovation@senderek.ie>  3.4.8-3
 - add BSD-3-Clause to License tag 
 

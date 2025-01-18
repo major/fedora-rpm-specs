@@ -13,7 +13,7 @@
 
 Name:           ccache
 Version:        4.10.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        C/C++ compiler cache
 
 # See LICENSE.adoc for licenses of bundled codes
@@ -232,6 +232,9 @@ getent group ccache >/dev/null || groupadd -r ccache || :
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 31 2024 Orion Poplawski <orion@nwra.com> - 4.10.2-1
 - Update to 4.10.2
 

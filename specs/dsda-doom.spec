@@ -25,7 +25,7 @@ Summary: Speedrun-oriented Doom source port
 License: GPL-2.0-or-later AND BSD-3-Clause AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LicenseRef-Fedora-Public-Domain AND Zlib
 
 Version: 0.28.2
-Release: 2%{?dist}
+Release: 4%{?dist}
 
 URL: https://github.com/kraflab/dsda-doom
 Source0: %{URL}/archive/v%{version}/%{name}-v%{version}.tar.gz
@@ -35,6 +35,11 @@ Source0: %{URL}/archive/v%{version}/%{name}-v%{version}.tar.gz
 #
 # Submitted upstream: https://github.com/kraflab/dsda-doom/pull/561/
 Patch0: 0000-fix-ub.patch
+
+# Fix missing includes.
+#
+# Submitted upstream: https://github.com/kraflab/dsda-doom/pull/577/
+Patch1: 0001-missing-includes.patch
 
 BuildRequires: cmake
 BuildRequires: desktop-file-utils
@@ -125,6 +130,12 @@ cp -a docs patch_notes AUTHORS README.md %{buildroot}%{_pkgdocdir}
 
 
 %changelog
+* Thu Jan 16 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.28.2-4
+- Fix FTBFS
+
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.28.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Dec 21 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.28.2-2
 - Add a patch to fix undefined behaviour (rhbz#2333687)
 

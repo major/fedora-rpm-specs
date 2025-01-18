@@ -11,7 +11,7 @@
 Name:    dicomanonymizer
 Version: 1
 
-Release: 0.16.%{gitdate}git%{shortcommit}%{dist}
+Release: 0.17.%{gitdate}git%{shortcommit}%{dist}
 Summary: A multi-threaded anonymizer for DICOM files
 
 %forgemeta
@@ -64,6 +64,9 @@ install -pm 0755 %{_vpath_builddir}/anonymize %{buildroot}%{_bindir}/dicomanonym
 %{_bindir}/dicomanonymize
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1-0.17.20210920gitf076264
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1-0.16.20210920gitf076264
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

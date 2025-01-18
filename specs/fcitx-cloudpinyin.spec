@@ -1,6 +1,6 @@
 Name:		fcitx-cloudpinyin
 Version:	0.3.7
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	Cloudpinyin module for fcitx
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -37,6 +37,9 @@ list. It current support four provider, Sogou, QQ, Baidu, Google.
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.7-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.3.7-15
 - convert license to SPDX
 

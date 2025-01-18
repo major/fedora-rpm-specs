@@ -2,7 +2,7 @@
 
 Name:           gkrellm
 Version:        2.3.11
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Multiple stacked system monitors in one process
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -150,6 +150,9 @@ useradd -r -g gkrellmd -M -d / -s /sbin/nologin -c "GNU Krell daemon" gkrellmd
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.11-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec 18 2024 Kevin Fenzi <kevin@scrye.com> - 2.3.11-18
 - Rebuild for new libntlm soname bump.
 

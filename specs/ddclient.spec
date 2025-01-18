@@ -4,7 +4,7 @@
 Summary:           Client to update dynamic DNS host entries
 Name:              ddclient
 Version:           3.11.2
-Release:           5%{?dist}
+Release:           6%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:           GPL-2.0-or-later
 URL:               https://ddclient.net/
@@ -143,6 +143,9 @@ fi
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 3.11.2-5
 - convert license to SPDX
 

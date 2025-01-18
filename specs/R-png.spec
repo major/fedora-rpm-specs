@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          0.1.7
-Release:          27%{?dist}
+Release:          28%{?dist}
 Summary:          Read and write PNG images
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -58,6 +58,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul  26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.7-27
 - convert license to SPDX
 

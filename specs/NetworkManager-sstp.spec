@@ -26,7 +26,7 @@ Summary:   NetworkManager VPN plugin for SSTP
 Name:      NetworkManager-sstp
 Epoch:     1
 Version:   1.3.1
-Release:   10%{?snapshot}%{?dist}
+Release:   11%{?snapshot}%{?dist}
 License:   GPL-2.0-or-later
 URL:       https://gitlab.gnome.org/GNOME/network-manager-sstp
 
@@ -139,6 +139,9 @@ rm -f %{buildroot}%{_libdir}/pppd/%{ppp_version}/*.la
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.3.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Nov 27 2024 Adam Williamson <awilliam@redhat.com> - 1.3.1-10
 - Rebuild for ppp 2.5.1
 

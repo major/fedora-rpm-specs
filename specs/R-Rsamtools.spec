@@ -5,7 +5,7 @@
 
 Name:             R-%{packname}
 Version:          2.18.0
-Release:          2%{dist}
+Release:          3%{dist}
 Summary:          R interface to samtools
 License:          Artistic-2.0
 URL:              http://www.bioconductor.org/packages/release/bioc/html/Rsamtools.html
@@ -65,6 +65,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 %{rlibdir}/%{packname}/libs/
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

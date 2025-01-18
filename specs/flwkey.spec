@@ -1,6 +1,6 @@
 Name:           flwkey
 Version:        1.2.3
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Modem program for the K1EL Winkeyer series
 
 # Automatically converted from old format: GPLv3+ and MIT - review is highly recommended.
@@ -67,6 +67,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2.3-18
 - convert license to SPDX
 

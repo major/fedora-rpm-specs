@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          1.0.2
-Release:          16%{?dist}
+Release:          17%{?dist}
 Summary:          Truncated Multivariate Normal Simulation
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -66,6 +66,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.2-16
 - convert license to SPDX
 

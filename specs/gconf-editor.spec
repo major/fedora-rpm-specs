@@ -3,7 +3,7 @@
 Summary: Editor/admin tool for GConf
 Name: gconf-editor
 Version: 3.0.1
-Release: 31%{?dist}
+Release: 32%{?dist}
 URL: http://www.gnome.org
 #VCS: git:git://git.gnome.org/gconf-editor
 Source0: http://download.gnome.org/sources/gconf-editor/3.0/%{name}-%{version}.tar.xz
@@ -77,6 +77,9 @@ fi
 %dir %{_datadir}/omf/gconf-editor
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 3.0.1-31
 - convert license to SPDX
 

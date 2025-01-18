@@ -1,4 +1,3 @@
-%global srcname wsproto
 %global common_description %{expand:
 wsproto is a pure-Python implementation of a WebSocket protocol stack.  It is
 written from the ground up to be embeddable in whatever program you choose to
@@ -12,21 +11,20 @@ WebSocket via RFC7692 are fully supported.}
 
 %bcond_without  tests
 
-
-Name:           python-%{srcname}
+Name:           python-wsproto
 Version:        1.2.0
 Release:        %autorelease
 Summary:        WebSockets state-machine based protocol implementation
 License:        MIT
 URL:            https://github.com/python-hyper/wsproto
-Source:         %pypi_source
+Source:         %{pypi_source wsproto}
 BuildArch:      noarch
 
 
 %description %{common_description}
 
 
-%package -n python3-%{srcname}
+%package -n python3-wsproto
 Summary:        %{summary}
 BuildRequires:  python3-devel
 %if %{with tests}
@@ -34,11 +32,11 @@ BuildRequires:  python3-pytest
 %endif
 
 
-%description -n python3-%{srcname} %{common_description}
+%description -n python3-wsproto %{common_description}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n wsproto-%{version}
 
 
 %generate_buildrequires
@@ -51,7 +49,7 @@ BuildRequires:  python3-pytest
 
 %install
 %pyproject_install
-%pyproject_save_files %{srcname}
+%pyproject_save_files -l wsproto
 
 
 %check
@@ -62,7 +60,7 @@ BuildRequires:  python3-pytest
 %endif
 
 
-%files -n python3-%{srcname} -f %{pyproject_files}
+%files -n python3-wsproto -f %{pyproject_files}
 %doc README.rst CHANGELOG.rst
 
 

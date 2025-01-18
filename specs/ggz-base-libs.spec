@@ -4,7 +4,7 @@
 Summary: Base libraries for GGZ gaming zone
 Name:    ggz-base-libs
 Version: 0.99.5
-Release: 39%{?dist}
+Release: 40%{?dist}
 
 # Automatically converted from old format: LGPLv2+ and GPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+ AND GPL-2.0-or-later
@@ -152,6 +152,9 @@ make check ||:
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.5-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug  28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.99.5-39
 - convert license to SPDX
 

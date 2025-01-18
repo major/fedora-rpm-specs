@@ -9,7 +9,7 @@
 
 Name:           firecracker
 Version:        1.10.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        Secure and fast microVMs for serverless computing
 SourceLicense:  Apache-2.0
@@ -92,6 +92,9 @@ done
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Nov 13 2024 David Michael <fedora.dm0@gmail.com> - 1.10.1-1
 - Update to the 1.10.1 release.
 

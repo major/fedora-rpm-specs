@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          9%{?dist}
+Release:          10%{?dist}
 Summary:          An Alternative Conflict Resolution Strategy
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -74,6 +74,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul  29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1.0-9
 - convert license to SPDX
 

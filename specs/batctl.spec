@@ -1,6 +1,6 @@
 Name:           batctl
 Version:        2024.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        B.A.T.M.A.N. advanced control and management tool
 
 License:        GPL-2.0-only AND MIT AND ISC
@@ -51,6 +51,9 @@ make %{?_smp_mflags} CFLAGS="%{optflags} -I%{_prefix}/include/libnl3" V=s
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2024.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

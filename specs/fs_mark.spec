@@ -1,6 +1,6 @@
 Name:		fs_mark
 Version:	3.3
-Release:	32%{?dist}
+Release:	33%{?dist}
 Summary:	Benchmark synchronous/async file creation
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -38,6 +38,9 @@ install -D fs_mark $RPM_BUILD_ROOT/usr/bin/fs_mark
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 3.3-32
 - convert license to SPDX
 

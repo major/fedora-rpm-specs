@@ -7,7 +7,7 @@
 
 Name:           bitcoin-core-selinux
 Version:        0^%{date}git%{shortcommit0}
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Bitcoin Core SELinux policy
 License:        GPL-3.0-only
 URL:            https://github.com/scaronni/%{name}
@@ -67,6 +67,9 @@ fi
 %ghost %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{modulename}
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0^20231127git4505616-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 25 2024 Simone Caronni <negativo17@gmail.com> - 0^20231127git4505616-16
 - Convert to new snapshot format.
 

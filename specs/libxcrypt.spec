@@ -168,7 +168,7 @@ fi                                          \
 
 Name:           libxcrypt
 Version:        4.4.38
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Extended crypt library for descrypt, md5crypt, bcrypt, and others
 
 # For explicit license breakdown, see the
@@ -181,9 +181,10 @@ Source2:        %{url}/releases/download/v%{version}/%{name}-gpgkey.asc
 Source3:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.xz.sha256sum
 
 # Patch 0000 - 2999: Backported patches from upstream.
+Patch0000:      %{url}/pull/205.patch#/%{name}-%{version}-crypt-Properly-initialize-and-cleanup-struct-crypt_data.patch
+Patch0001:      %{url}/commit/4450c48701c8.patch#/%{name}-%{version}-C23-memset_explicit.patch
 # Patch 3000 - 5999: Backported patches from pull requests.
-Patch3000:      %{url}/commit/5b930d8e84ea.patch#/%{name}-%{version}-Make-crypt-and-crypt_gensalt-use-thread-local-output.patch
-Patch3001:      %{url}/pull/205.patch#/%{name}-%{version}-crypt-Properly-initialize-and-cleanup-struct-crypt_data.patch
+Patch3000:      %{url}/commit/ba67911314f5.patch#/%{name}-%{version}-Make-crypt-and-crypt_gensalt-use-thread-local-output.patch
 # Patch 6000 - 9999: Downstream patches.
 
 BuildRequires:  autoconf
@@ -540,6 +541,10 @@ done
 
 
 %changelog
+* Thu Jan 16 2025 Björn Esser <besser82@fedoraproject.org> - 4.4.38-3
+- Synchronize upstream patches
+- Add upstream patch to utilize C23 memset_explicit, if available
+
 * Wed Jan 15 2025 Björn Esser <besser82@fedoraproject.org> - 4.4.38-2
 - Add patch for proper initialization and cleanup in some crypt functions
 

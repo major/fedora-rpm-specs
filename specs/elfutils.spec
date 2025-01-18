@@ -4,7 +4,7 @@
 
 Name: elfutils
 Version: 0.192
-%global baserelease 7
+%global baserelease 8
 Release: %{baserelease}%{?dist}
 URL: http://elfutils.org/
 %global source_url ftp://sourceware.org/pub/elfutils/%{version}/
@@ -538,6 +538,9 @@ exit 0
 %systemd_postun_with_restart debuginfod.service
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.192-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 
 * Mon Dec 2 2024 Mark Wielaard <mjw@fedoraproject.org> - 0.192-7
 - Add elfutils-0.192-ATOMIC_VAR_INIT.patch

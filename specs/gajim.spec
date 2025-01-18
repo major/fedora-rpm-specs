@@ -2,7 +2,7 @@
 
 Name:     gajim
 Version:  1.7.3
-Release:  8%{?dist}
+Release:  9%{?dist}
 Summary:  Jabber client written in PyGTK
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:  GPL-3.0-only
@@ -95,6 +95,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{appid}.
 %{_datadir}/icons/hicolor/scalable/apps/%{appid}-symbolic.svg
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.7.3-8
 - convert license to SPDX
 

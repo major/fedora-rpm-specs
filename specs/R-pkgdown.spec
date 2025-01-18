@@ -12,7 +12,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          8%{?dist}
+Release:          9%{?dist}
 Summary:          Make Static HTML Documentation for a Package
 
 License:          MIT
@@ -132,6 +132,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} $ARGS
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

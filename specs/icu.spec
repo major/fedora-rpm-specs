@@ -9,7 +9,7 @@
 
 Name:      icu
 Version:   76.1
-Release:   2%{?dist}
+Release:   3%{?dist}
 Summary:   International Components for Unicode
 
 License:   Unicode-DFS-2016 AND BSD-2-Clause AND BSD-3-Clause AND NAIST-2003 AND LicenseRef-Fedora-Public-Domain
@@ -34,7 +34,15 @@ Patch4: gennorm2-man.patch
 Patch5: icuinfo-man.patch
 
 # To be removed next release, rhbz#2335638
-Patch100: include-type_traits.patch
+Patch101: 0001-ICU-22954-USet-C-iterator-return-std-u16string.patch
+Patch102: 0002-ICU-22954-U_ICU_NAMESPACE_OR_INTERNAL-header-only-lo.patch
+Patch103: 0003-ICU-22954-intltest.h-IcuTestErrorCode-usable-without.patch
+Patch104: 0004-ICU-22954-header-only-test-USet-C-iterators.patch
+Patch105: 0005-ICU-22954-Partially-revert-PR-3295-U_ICU_NAMESPACE_O.patch
+Patch106: 0006-ICU-22954-USetHeaderOnlyTest-use-unique_ptr.patch
+Patch107: 0007-ICU-22954-Delete-copy-assign-from-IcuTestErrorCode.patch
+Patch108: 0008-ICU-22954-Workaround-Replace-std-u16string-member-wi.patch
+Patch109: 0009-ICU-22954-Revert-to-using-std-u16string-instead-of-U.patch
 
 %description
 Tools and utilities for developing with icu.
@@ -197,6 +205,9 @@ LD_LIBRARY_PATH=lib:stubdata:tools/ctestfw:$LD_LIBRARY_PATH bin/uconv -l
 
 
 %changelog
+* Thu Jan 16 2025 Eike Rathke <erack@redhat.com> - 76.1-3
+- Resolves: rhbz#2335638 Add upstream patches instead
+
 * Mon Jan 06 2025 Eike Rathke <erack@redhat.com> - 76.1-2
 - Resolves: rhbz#2335638 include <type_traits> in unicode/char16ptr.h
 

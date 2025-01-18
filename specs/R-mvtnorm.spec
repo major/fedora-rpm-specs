@@ -5,7 +5,7 @@
 Summary:	Multivariate normal and T distribution R Package
 Name:		R-%{packname}
 Version:	%{packver}.%{packrel}
-Release:	9%{?dist}
+Release:	10%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:	GPL-2.0-only
 Source0:	https://cran.r-project.org/src/contrib/%{packname}_%{packver}-%{packrel}.tar.gz
@@ -62,6 +62,9 @@ rm -rf %{buildroot}%{_libdir}/R/library/R.css
 %{_libdir}/R/library/%{packname}/include
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1.3-9
 - convert license to SPDX
 

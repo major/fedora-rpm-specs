@@ -1,5 +1,5 @@
 Version: 1.000
-Release: 5%{?dist}
+Release: 6%{?dist}
 URL:     http://www.amirifont.org
 
 %global fontlicense       OFL-1.1
@@ -86,6 +86,9 @@ Source12: 67-%{fontpkgname2}.conf
 %fontfiles -a
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.000-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.000-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

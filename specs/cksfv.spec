@@ -1,6 +1,6 @@
 Name:           cksfv
 Version:        1.3.15
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Utility to manipulate SFV files
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -56,6 +56,9 @@ mv -f ChangeLog.conv ChangeLog
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.15-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3.15-12
 - convert license to SPDX
 

@@ -15,7 +15,7 @@ A simple CSS parser and inliner in Go.}
 %global godocs          CHANGELOG.md README.md
 
 Name:           %{goname}
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Simple CSS parser and inliner in Go
 
 License:        MIT
@@ -55,6 +55,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

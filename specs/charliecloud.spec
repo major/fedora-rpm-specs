@@ -11,7 +11,7 @@
 
 Name:          charliecloud
 Version:       0.38
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Lightweight user-defined software stacks for high-performance computing
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:       Apache-2.0
@@ -162,6 +162,9 @@ ln -s "${sphinxdir}/js"    %{buildroot}%{_pkgdocdir}/html/_static/js
 %{_mandir}/man1/ch-test.1*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.38-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.38-3
 - convert license to SPDX
 

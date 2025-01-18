@@ -11,7 +11,7 @@
 Summary:        IRC services designed for flexibility and ease of use
 Name:           anope
 Version:        2.1.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 # Anope itself is GPL-2.0-only but uses other source codes, breakdown:
 # BSD-3-Clause: include/pstdint.h and modules/encryption/enc_sha256.cpp
 # MIT: src/siphash.cpp
@@ -355,6 +355,9 @@ rm -rf $RPM_BUILD_ROOT%{_localstatedir}/lib/%{name}/webcpanel/
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

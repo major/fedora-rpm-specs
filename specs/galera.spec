@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           galera
 Version:        26.4.20
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Synchronous multi-master wsrep provider (replication engine)
 
 License:        GPL-2.0-only
@@ -149,6 +149,9 @@ unlink /etc/systemd/system/garb.service || :
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 26.4.20-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Nov 14 2024 Michal Schorm <mschorm@redhat.com> - 26.4.20-1
 - Rebase to 26.4.20
 

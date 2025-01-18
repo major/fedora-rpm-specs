@@ -1,6 +1,6 @@
 Name:      dist-git-client
 Version:   1.0
-Release:   3%{?dist}
+Release:   4%{?dist}
 Summary:   Get sources for RPM builds from DistGit repositories
 BuildArch: noarch
 
@@ -78,6 +78,9 @@ PYTHON=python3 ./run_tests.sh -vv --no-coverage
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

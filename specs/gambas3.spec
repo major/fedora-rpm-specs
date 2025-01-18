@@ -20,7 +20,7 @@
 Name:		gambas3
 Summary:	IDE based on a basic interpreter with object extensions
 Version:	3.19.4
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	GPL-1.0-or-later
 URL:		http://gambas.sourceforge.net/
 Source0:	https://gitlab.com/gambas/gambas/-/archive/%{version}/gambas-%{version}.tar.bz2
@@ -1942,6 +1942,9 @@ install -m 0644 -p main/mime/application-x-gambas3.xml %{buildroot}%{_datadir}/m
 %{_datadir}/%{name}/info/gb.xml.xslt.*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.19.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 21 2024 Tom Callaway <spot@fedoraproject.org> - 3.19.4-2
 - apply hack to build with c++20
 

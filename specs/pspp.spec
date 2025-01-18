@@ -4,7 +4,7 @@ Release:        %autorelease
 Summary:        A program for statistical analysis of sampled data
 License:        GPL-3.0-or-later
 URL:            https://www.gnu.org/software/pspp/
-VCS:            scm:git:git://git.savannah.gnu.org/pspp.git
+VCS:            git://git.savannah.gnu.org/pspp.git
 Source0:        https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
 Source1:        https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz.sig
 Source2:        pspp-Smake

@@ -2,7 +2,7 @@
 
 Name:           PEGTL
 Version:        2.8.3
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Parsing Expression Grammar Template Library
 License:        MIT
 URL:            https://github.com/taocpp/%{name}
@@ -61,6 +61,9 @@ rm -rv %{buildroot}%{_pkgdocdir}
 %{_datadir}/cmake/pegtl/
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.3-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Sep 22 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.8.3-11
 - Switch to CMake, run tests, and ship CMake files
 - Use a better source URL

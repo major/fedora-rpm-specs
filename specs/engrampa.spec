@@ -15,9 +15,9 @@
 Name:          engrampa
 Version:       %{branch}.2
 %if 0%{?rel_build}
-Release:       1%{?dist}
+Release:       2%{?dist}
 %else
-Release:       0.22%{?git_rel}%{?dist}
+Release:       0.23%{?git_rel}%{?dist}
 %endif
 Summary:       MATE Desktop file archiver
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
@@ -101,6 +101,9 @@ find %{buildroot} -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Aug 29 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.28.2-1
 - update to 1.28.2
 

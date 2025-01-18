@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: MIT
 
 Version: 2.003
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL:     https://github.com/adobe-fonts/source-han-serif/
 
 %global foundry           Adobe
@@ -36,6 +36,9 @@ Source10: 65-2-%{fontpkgname}.conf
 %fontfiles
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.003-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Aug 15 2024 Peng Wu <pwu@redhat.com> - 2.003-1
 - Update to 2.003
 - Resolves: RHBZ#2302468

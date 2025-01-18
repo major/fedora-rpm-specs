@@ -4,7 +4,7 @@
 
 Name:		saphire
 Version:	3.6.5
-Release:	34%{?dist}
+Release:	35%{?dist}
 Summary:	Yet another shell
 
 # SPDX confirmed
@@ -14,6 +14,7 @@ Source0:	http://dl.sourceforge.jp/sash/%{repoid}/saphire-%{version}.tgz
 Patch0:	saphire-3.6.5-gcc10-fno-common.patch
 Patch1:	saphire-3.6.5-c99-port.patch
 Patch2:	saphire-string_chomp-public.patch
+Patch3:	saphire-3.6.5-c23.patch
 
 BuildRequires:	make
 BuildRequires:  gcc
@@ -41,6 +42,7 @@ developing applications that use %{name}.
 %patch -P0 -p1 -b .gcc10
 %patch -P1 -p1 -b .c99
 %patch -P2 -p1 -b .string_chomp
+%patch -P3 -p1 -b .c23
 
 # Don't strip binary
 sed -i.strip -e 's|\$(INSTALL) -s|\$(INSTALL) |' Makefile.in
@@ -157,6 +159,9 @@ make install \
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Thu Jan 16 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.6.5-35
+- Port to C23
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.5-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

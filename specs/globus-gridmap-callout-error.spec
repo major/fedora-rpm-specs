@@ -1,7 +1,7 @@
 Name:		globus-gridmap-callout-error
 %global _name %(tr - _ <<< %{name})
 Version:	3.2
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Grid Community Toolkit - Globus Gridmap Callout Errors
 
 License:	Apache-2.0
@@ -103,6 +103,9 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %license GLOBUS_LICENSE
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

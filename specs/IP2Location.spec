@@ -14,7 +14,7 @@
 Name:		IP2Location
 Summary:	Tools for mapping IP address to geolocation information
 Version:	%{rpm_version}
-Release:	6%{?gittag}%{?dist}
+Release:	7%{?gittag}%{?dist}
 License:	MIT
 URL:		https://www.ip2location.com/
 %if 0%{?gitcommit:1}
@@ -177,6 +177,9 @@ install -p data/IPV6-COUNTRY.BIN %{buildroot}%{_datadir}/%{name}/IPV6-COUNTRY.SA
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.6.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.6.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

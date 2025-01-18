@@ -2,7 +2,7 @@
 
 Name:          apache-%{short_name}
 Version:       2.1
-Release:       32%{?dist}
+Release:       33%{?dist}
 Summary:       XML to Java object mapping module
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:       Apache-2.0
@@ -50,6 +50,9 @@ This package contains the %{summary}.
 %doc LICENSE.txt NOTICE.txt
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 2.1-32
 - convert license to SPDX
 

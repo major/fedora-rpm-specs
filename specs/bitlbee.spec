@@ -3,7 +3,7 @@
 Summary:           IRC to other chat networks gateway
 Name:              bitlbee
 Version:           3.6
-Release:           16%{?dist}
+Release:           17%{?dist}
 # Automatically converted from old format: GPLv2+ and MIT - review is highly recommended.
 License:           GPL-2.0-or-later AND LicenseRef-Callaway-MIT
 URL:               https://www.bitlbee.org/
@@ -138,6 +138,9 @@ mkdir -p $RPM_BUILD_ROOT{%{_localstatedir}/lib,%{_libdir}}/%{name}/
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 3.6-16
 - convert license to SPDX
 

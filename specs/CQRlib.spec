@@ -1,6 +1,6 @@
 Name:           CQRlib
 Version:        1.1.2
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        ANSI C API for quaternion arithmetic and rotation
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -62,6 +62,9 @@ make tests
 %{_libdir}/libCQRlib.so
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1.2-32
 - convert license to SPDX
 

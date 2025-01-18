@@ -1,7 +1,7 @@
 Summary: SDL graphics drawing primitives and other support functions
 Name: SDL_gfx
 Version: 2.0.27
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: Zlib
 URL: http://www.ferzkopp.net/Software/SDL_gfx-2.0/
 Source: http://www.ferzkopp.net/Software/SDL_gfx-2.0/SDL_gfx-%{version}.tar.gz
@@ -60,6 +60,9 @@ make %{?_smp_mflags}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.27-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.27-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

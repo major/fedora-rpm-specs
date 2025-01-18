@@ -5,7 +5,7 @@
 Summary:       A powerful visualization and data analysis tool
 Name:          extrema
 Version:       4.4.5
-Release:       40%{?dist}
+Release:       41%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
 URL:           http://exsitewebware.com/extrema/
@@ -77,6 +77,9 @@ rm -f %{buildroot}%{_libdir}/lib%{name}.{la,a}
 %doc doc/*.pdf
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.5-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 4.4.5-40
 - convert license to SPDX
 

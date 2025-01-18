@@ -4,7 +4,7 @@ Summary: Swedish dictionaries for Aspell
 Name: aspell-%{lang}
 Epoch: 50
 Version: 0.51
-Release: 33%{?dist}
+Release: 34%{?dist}
 # file sv_phonet.dat is under GPL-2.0-or-later, the other parts of this package are under LGPL-2.1-only
 License: LGPL-2.1-only AND GPL-2.0-or-later
 URL: http://aspell.net/
@@ -43,6 +43,9 @@ make install  DESTDIR=$RPM_BUILD_ROOT
 %{_libdir}/aspell-0.60/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 50:0.51-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 50:0.51-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

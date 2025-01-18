@@ -15,7 +15,7 @@ Name:			clover2
 
 # For Version, see README.md and so on
 Version:		%{mainver}
-Release:		9%{?dist}
+Release:		10%{?dist}
 Summary:		Yet another compiler language
 
 # app-sample/	unused
@@ -149,6 +149,9 @@ LANG=C.utf8 make -C clover2 test
 %{_includedir}/clover2/
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 11.0.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Aug 16 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 11.0.0-9
 - Port to pcre2 (bug 2128279)
 

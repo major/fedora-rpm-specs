@@ -1,12 +1,13 @@
 Summary:	Waveform Viewer
 Name:		gtkwave
 Version:	3.3.121
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	GPL-2.0-or-later
 URL:		http://gtkwave.sourceforge.net/
 Source0:	http://gtkwave.sourceforge.net/gtkwave-gtk3-%{version}.tar.gz
 Patch0:		gtkwave-3.3.121-appdata.patch
 Patch1:		gtkwave-3.3.121-gcc15.patch
+Patch2:		gtkwave-gtk3-3.3.121-tcl9.patch
 BuildRequires:	bzip2-devel
 BuildRequires:	coreutils
 BuildRequires:	desktop-file-utils
@@ -55,6 +56,10 @@ tools.
 # Port to gcc 15
 # https://github.com/gtkwave/gtkwave/pull/406
 %patch -P 1
+
+# Port to tcl9
+# https://github.com/gtkwave/gtkwave/pull/407
+%patch -P 2
 
 %build
 %configure \
@@ -201,6 +206,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/io.github.
 %{_mandir}/man5/gtkwaverc.5*
 
 %changelog
+* Wed Jan 15 2025 Paul Howarth <paul@city-fan.org> - 3.3.121-3
+- Port to tcl9 (GH#407, rhbz#2337712)
+
 * Wed Jan 15 2025 Paul Howarth <paul@city-fan.org> - 3.3.121-2
 - Port to gcc 15 (GH#406)
 

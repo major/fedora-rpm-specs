@@ -5,7 +5,7 @@ Summary: Polish dictionaries for Aspell
 Name: aspell-%{lang}
 Epoch: 50
 Version: 6.0_20061121
-Release: 32%{?dist}
+Release: 33%{?dist}
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2
 URL: http://aspell.net/
@@ -44,6 +44,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_libdir}/aspell-0.60/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 50:6.0_20061121-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 50:6.0_20061121-32
 - convert license to SPDX
 

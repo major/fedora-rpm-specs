@@ -57,7 +57,7 @@
 Summary: Automatic bug detection and reporting tool
 Name: abrt
 Version: 2.17.6
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-2.0-or-later
 URL: https://abrt.readthedocs.org/
 Source: https://github.com/abrt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -986,6 +986,9 @@ killall abrt-dbus >/dev/null 2>&1 || :
 %config(noreplace) %{_sysconfdir}/profile.d/abrt-console-notification.sh
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.17.6-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Nov 20 2024 David Abdurachmanov <davidlt@rivosinc.com> - 2.17.6-3
 - Disable Requires for kexec-tools on riscv64 (not supported)
 

@@ -2,7 +2,7 @@
 
 Name:				davix
 Version:			0.8.7
-Release:			4%{?dist}
+Release:			5%{?dist}
 Summary:			Toolkit for http based file management
 License:			LGPL-2.1-or-later AND LGPL-2.0-or-later AND BSD-2-Clause AND MIT AND Apache-2.0 AND curl
 URL:				https://dmc-docs.web.cern.ch/dmc-docs/davix.html
@@ -149,6 +149,9 @@ rm %{buildroot}%{_pkgdocdir}/LICENSE
 %license LICENSE
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.7-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 31 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.8.7-4
 - Rebuild for gsoap 2.8.135 (Fedora 42)
 - Drop EPEL 7 specific instructions (EOL)

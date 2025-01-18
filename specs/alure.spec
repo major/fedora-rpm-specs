@@ -3,7 +3,7 @@
 
 Name:           alure
 Version:        1.2
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Audio Library Tools REloaded
 # ALURE code is LGPLv2+; note -devel subpackage has its own license tag
 License:        LGPL-2.1-or-later
@@ -65,6 +65,9 @@ rm -rf %{buildroot}%{_docdir}/alure/html
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 22 2024 Tom Callaway <spot@fedoraproject.org> - 1.2-32
 - fix FTBFS, apply a minor C++ cleanup
 

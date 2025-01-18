@@ -1,6 +1,6 @@
 Name:    fotocx
 Version: 25.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Photo editor
 
 License: GPL-3.0-or-later
@@ -94,6 +94,9 @@ rm -f %{buildroot}%{_datadir}/icons/fotocx.png
 %{_metainfodir}/*%{name}.metainfo.xml
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 02 2025 Gwyn Ciesla <gwync@protonmail.com> - 25.0-1
 - 25.0
 

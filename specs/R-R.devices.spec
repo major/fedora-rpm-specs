@@ -7,7 +7,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          9%{?dist}
+Release:          10%{?dist}
 Summary:          Unified Handling of Graphics Devices
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -90,6 +90,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --ignore-vignettes
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.17.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.17.1-9
 - convert license to SPDX
 

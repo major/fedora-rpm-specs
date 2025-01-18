@@ -24,7 +24,7 @@
 Summary:   NetworkManager VPN plugin for openconnect
 Name:      NetworkManager-openconnect
 Version:   1.2.10
-Release:   6%{?dist}
+Release:   7%{?dist}
 License:   GPL-2.0-or-later AND LGPL-2.1-only
 URL:       http://www.gnome.org/projects/NetworkManager/
 Source:    https://download.gnome.org/sources/NetworkManager-openconnect/1.2/%{name}-%{version}.tar.xz
@@ -151,6 +151,9 @@ fi
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.10-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.10-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:           centpkg
 Version:        0.9.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CentOS utility for working with dist-git
 License:        GPL-2.0-or-later
 URL:            https://git.centos.org/centos/centpkg
@@ -78,6 +78,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m unittest discover --verb
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Nov 12 2024 Troy Dawson <tdawson@redhat.com> - 0.9.1-1
 - determine_rhel_state: recognize Launch phase
 - Fixes: CS-2620

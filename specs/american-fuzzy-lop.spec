@@ -12,7 +12,7 @@ Summary:       Practical, instrumentation-driven fuzzer for binary formats
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:       Apache-2.0
 
-Release:       1%{?dist}
+Release:       2%{?dist}
 URL:           %{forgeurl}
 Source0:       %{forgesource}
 
@@ -287,6 +287,9 @@ test -n '%{clang_major}'
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.30c-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 03 2024 Richard W.M. Jones <rjones@redhat.com> - 4.30c-1
 - New version 4.30c (RHBZ#2330187)
 - Enable s390x again.

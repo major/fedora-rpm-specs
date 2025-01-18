@@ -11,7 +11,7 @@
 
 Name:           duc
 Version:        1.4.5
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Disk usage tools
 
 # src/glad/KHR/khrplatform.h: Khronos
@@ -77,6 +77,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Sep  6 2024 Jens Petersen <petersen@redhat.com> - 1.4.5-6
 - epel8 only has glfw (vulkan-devel) for x86_64 (#2310132)
 

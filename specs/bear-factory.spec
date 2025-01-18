@@ -5,7 +5,7 @@
 
 Name:           %{srcname}-factory
 Version:        0.7.0
-Release:        0.47.20200220git%{shortcommit0}%{?dist}
+Release:        0.48.20200220git%{shortcommit0}%{?dist}
 Summary:        Game engine and editors dedicated to creating great 2D games
 # Automatically converted from old format: GPLv3+ and CC-BY-SA - review is highly recommended.
 License:        GPL-3.0-or-later AND LicenseRef-Callaway-CC-BY-SA
@@ -137,6 +137,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/cmake/%{srcname}-engine
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-0.48.20200220git2a78522
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.7.0-0.47.20200220git2a78522
 - convert license to SPDX
 

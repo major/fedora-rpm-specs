@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          0.5.1
-Release:          7%{?dist}
+Release:          8%{?dist}
 Summary:          Easily work with 'Font Awesome' Icons
 %if 0%{?fedora} > 38
 License:          MIT
@@ -107,6 +107,9 @@ end
 %ghost %{rlibdir}/%{packname}/fontawesome.rpmmoved
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           gnome-mines
 Version:        40.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        GNOME Mines Sweeper game
 
 License:        GPL-3.0-or-later AND CC-BY-SA-3.0
@@ -57,6 +57,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Mines.de
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 40.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 40.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

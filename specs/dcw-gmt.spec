@@ -1,6 +1,6 @@
 Name:           dcw-gmt
 Version:        2.2.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Digital Chart of the World (DCW) for GMT
 
 License:        LGPL-3.0-or-later
@@ -34,6 +34,9 @@ cp -a *.nc *.txt %{buildroot}/%{_datadir}/%{name}/
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

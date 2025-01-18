@@ -1,6 +1,6 @@
 Name:		fcitx-table-extra
 Version:	0.3.8
-Release:	20%{?dist}
+Release:	21%{?dist}
 Summary:	Extra tables for Fcitx
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -41,6 +41,9 @@ Boshiamy table and its icon are released under their own license.
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.8-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.3.8-20
 - convert license to SPDX
 

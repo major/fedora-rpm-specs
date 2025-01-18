@@ -3,7 +3,7 @@
 %define		minorver	date%{tarballver}
 %define		prerelease	1
 
-%define		baserelease	18
+%define		baserelease	19
 
 
 %define		uprel		%(echo %{?minorver} | %{__sed} -e 's|^--*||' | %{__sed} -e 's|-|_|g' )
@@ -162,6 +162,9 @@ popd
 %{_libdir}/libmigemo.so
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-0.19.date20110227
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-0.18.date20110227
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

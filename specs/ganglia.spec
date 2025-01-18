@@ -14,7 +14,7 @@
 Summary:            Distributed Monitoring System
 Name:               ganglia
 Version:            %{gangver}
-Release:            55%{?dist}
+Release:            56%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:            LicenseRef-Callaway-BSD
 URL:                http://ganglia.sourceforge.net/
@@ -466,6 +466,9 @@ end
 %dir %attr(0755,apache,apache) %{_localstatedir}/lib/%{name}-web/dwoo/compiled
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.2-56
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 04 2024 Terje Rosten <terjeros@gmail.com> - 3.7.6-55
 - Add forgotten int() conversion patch
 

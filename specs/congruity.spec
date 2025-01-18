@@ -1,6 +1,6 @@
 Name:		congruity
 Version:	21
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Applications to program Logitech Harmony universal remote controls
 
 # Code is GPLv3+, icons are the other two licenses
@@ -54,6 +54,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/mhgui.desktop
 %{_mandir}/*/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 21-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 31 2024 Scott Talbert <swt@techie.net> - 21-9
 - Update License tag to use SPDX identifiers
 

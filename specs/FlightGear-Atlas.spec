@@ -3,7 +3,7 @@
 Name:           FlightGear-Atlas
 Summary:        Flightgear map tools
 Version:        0.5.0
-Release:        0.89%{snapshot}%{?dist}
+Release:        0.90%{snapshot}%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -68,6 +68,9 @@ install -m 0644 src/data/airplane_image.png \
 %{_datadir}/flightgear/Atlas
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-0.90.cvs20141002
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5.0-0.89.cvs20141002
 - convert license to SPDX
 

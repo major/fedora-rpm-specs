@@ -9,7 +9,7 @@
 
 Name:           cobbler
 Version:        3.3.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Boot server configurator
 URL:            https://cobbler.github.io/
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -339,6 +339,9 @@ fi
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Jan 05 2025 Orion Poplawski <orion@nwra.com> - 3.3.7-2
 - Backport upstream patch for Python 3.13 support (rhbz#2335620)
 

@@ -1,6 +1,6 @@
 Name:           CTL
 Version:        1.5.2
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        The Color Transformation Language
 
 # Automatically converted from old format: AMPAS BSD - review is highly recommended.
@@ -133,6 +133,9 @@ rm -rf %{buildroot}%{_prefix}/doc
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 1.5.2-27
 - convert license to SPDX
 

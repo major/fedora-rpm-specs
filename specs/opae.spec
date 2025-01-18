@@ -4,10 +4,10 @@ Vendor:         Intel Corporation
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 
-Version:        2.12.0
-%define opae_release 4
+Version:        2.13.0
+%define opae_release 3
 %define patch_level 1
-Release:        %{opae_release}.%{patch_level}%{?dist}.6
+Release:        %{opae_release}.%{patch_level}%{?dist}
 
 URL:            https://github.com/OPAE/%{name}-sdk
 Source0:        https://github.com/OPAE/opae-sdk/archive/refs/tags/%{version}-%{opae_release}.tar.gz
@@ -78,6 +78,9 @@ software tools for accelerators
 
 %prep
 %setup -q -n %{name}-sdk-%{version}-%{opae_release}
+
+# No Werror's please
+sed -i -e 's@-Werror @ @' cmake/modules/OPAECompiler.cmake
 
 %build
 %cmake -DCMAKE_INSTALL_PREFIX=/usr \
@@ -173,6 +176,7 @@ chmod a+x %{buildroot}%{_usr}/lib/opae-%{version}/modules/*.cmake
 %{_libdir}/opae/libboard_c6100.so
 %{_libdir}/opae/libboard_cmc.so
 %{_libdir}/opae/libboard_d5005.so
+%{_libdir}/opae/libboard_jtag_pci_dk.so
 %{_libdir}/opae/libboard_n3000.so
 %{_libdir}/opae/libboard_n5010.so
 %{_libdir}/opae/libboard_n6000.so
@@ -312,6 +316,9 @@ chmod a+x %{buildroot}%{_usr}/lib/opae-%{version}/modules/*.cmake
 %{python3_sitelib}/uio*
 
 %changelog
+* Thu Jan 16 2025 Tom Rix <Tom.Rix@amd.com> - 2.13.0-3.1
+- Update to 2.13.0-3
+
 * Tue Nov 26 2024 František Zatloukal <fzatlouk@redhat.com> - 2.12.0-4.1.6
 - Rebuilt for spdlog 1.15.0
 

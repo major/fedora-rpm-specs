@@ -10,7 +10,7 @@
 Summary: Web page with summary of ABRT services
 Name: abrt-server-info-page
 Version: 1.8
-Release: 18%{?dist}
+Release: 19%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
 URL: https://github.com/marusak/abrt-server-info-page
@@ -70,6 +70,9 @@ cp -a static/* %{buildroot}/%{PYTHONDIR}/abrt-server-info-page/static
 systemctl condrestart httpd
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.8-18
 - convert license to SPDX
 

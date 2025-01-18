@@ -1,6 +1,6 @@
 Name:           geany-themes
 Version:        1.27
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        A collection of syntax highlighting color schemes for Geany
 
 # Some of the color schemes are clearly stated as GPLv2+, some are BSD
@@ -40,6 +40,9 @@ install -pm 644 colorschemes/*.conf $RPM_BUILD_ROOT%{_datadir}/geany/colorscheme
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.27-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 1.27-19
 - convert license to SPDX
 

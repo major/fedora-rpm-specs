@@ -13,7 +13,7 @@
 Name:             ddccontrol
 URL:              https://github.com/ddccontrol/ddccontrol
 Version:          1.0.3
-Release:          3%{?dist}
+Release:          4%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:          GPL-2.0-or-later
 BuildRequires:    gtk2-devel
@@ -158,6 +158,9 @@ rm -rf %{buildroot}%{_datadir}/icons/Bluecurve
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul  25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.3-3
 - convert license to SPDX
 

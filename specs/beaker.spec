@@ -3,7 +3,7 @@
 
 Name:           %{upstream_name}
 Version:        29.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Full-stack software and hardware integration testing system
 # Automatically converted from old format: GPLv2+ and BSD - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-BSD
@@ -119,6 +119,9 @@ find %{buildroot} -name '__pycache__' | xargs rm -rf
 %{_datadir}/bash-completion
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 29.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 29.1-4
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           beansbinding
 Version:        1.2.1
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Beans Binding (JSR 295) reference implementation
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -58,6 +58,9 @@ find . -type f \( -iname "*.jar" -o -iname "*.zip" \) -print0 | xargs -t -0 %{__
 %{_javadocdir}/%{name}
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2.1-38
 - convert license to SPDX
 

@@ -2,8 +2,8 @@
 %define py3_shbang_opts %nil
 
 Name:           tortoisehg
-Version:        6.6.3
-Release:        8%{?dist}
+Version:        6.9
+Release:        1%{?dist}
 Summary:        Mercurial GUI command line tool thg
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -76,6 +76,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT/%{_datadir}/appdata/thg.ap
 %exclude %{_datadir}/nautilus-python/extensions/__pycache__/nautilus-thg.cpython-*.pyc
 
 %changelog
+* Thu Jan 16 2025 Mads Kiilerich <mads@kiilerich.com> - 6.9-1
+- tortoisehg 6.9
+
 * Wed Jul 31 2024 Mads Kiilerich <mads@kiilerich.com> - 6.6.3-8
 - Add explicit dependency to python3-wheel with bdist_wheel
 

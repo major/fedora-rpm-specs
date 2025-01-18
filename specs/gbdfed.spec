@@ -1,7 +1,7 @@
 Name:		gbdfed
 Summary: 	Bitmap Font Editor
 Version:	1.6
-Release:	24%{?dist}
+Release:	25%{?dist}
 License:	MIT
 Source0:	http://www.math.nmsu.edu/~mleisher/Software/gbdfed/%{name}-%{version}.tar.bz2
 Source1:	http://www.math.nmsu.edu/~mleisher/Software/gbdfed/%{name}16x16.png
@@ -51,6 +51,9 @@ desktop-file-install					\
 %{_mandir}/man1/gbdfed*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

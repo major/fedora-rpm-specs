@@ -3,7 +3,7 @@
 
 Name:           dnfdaemon
 Version:        0.3.22
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        DBus daemon for dnf package actions
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -118,6 +118,9 @@ fi
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.22-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.3.22-4
 - convert license to SPDX
 

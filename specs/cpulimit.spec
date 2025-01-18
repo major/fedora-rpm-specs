@@ -6,17 +6,21 @@
 
 Name:		cpulimit
 Summary:	CPU Usage Limiter for Linux
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
+
+# The main program sources are GPLv2+.
+# There is one file, "src/memrchr.c", under the MIT license;
+# however, that is used only for macOS builds.
 License:	GPL-2.0-or-later
 
 Epoch:		1
-Version:	0.2
-Release:	23.%{posttag}%{?dist}
+Version:	0.2^%{posttag}
+Release:	1%{?dist}
 
 URL:		https://github.com/opsengine/cpulimit
 Source0:	https://github.com/opsengine/%{name}/archive/%{commit}/%{name}-%{commit}.tar.gz
 
 Patch0:		0000-fix-includes.patch
+Patch1:		0001-incompatible-pointer-type.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -29,11 +33,9 @@ value or other scheduling priority stuff, but on the real CPU usage. Also, it
 is able to adapt itself to the overall system load, dynamically and quickly.
 
 %prep
-%setup -q -n %{name}-%{commit}
-%patch -P0 -p1
+%autosetup -p1 -n %{name}-%{commit}
 
 %build
-%set_build_flags
 %make_build
 
 %install
@@ -45,6 +47,12 @@ install -Dp -m 755 src/cpulimit %{buildroot}/%{_bindir}/cpulimit
 %license LICENSE
 
 %changelog
+* Thu Jan 16 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1:0.2^20151118gitf4d2682-1
+- Fix build failure
+
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.2-24.20151118gitf4d2682
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1:0.2-23.20151118gitf4d2682
 - convert license to SPDX
 

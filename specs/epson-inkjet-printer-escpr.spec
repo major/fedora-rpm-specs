@@ -5,7 +5,7 @@ Name:           epson-inkjet-printer-escpr
 Summary:        Drivers for Epson inkjet printers
 Epoch:          1
 Version:        1.7.21
-Release:        8.%{lsb}%{?dist}
+Release:        9.%{lsb}%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 # Search for something like XP-7100
@@ -87,6 +87,9 @@ rm %{buildroot}%{_libdir}/libescpr.so
 %{_libdir}/libescpr.so.*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.7.21-9.1lsb3.2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1:1.7.21-8.1lsb3.2
 - convert license to SPDX
 

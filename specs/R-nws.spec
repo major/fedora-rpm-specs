@@ -2,7 +2,7 @@
 
 Name:             R-%{packname}
 Version:          1.7.0.1
-Release:          37%{?dist}
+Release:          38%{?dist}
 Summary:          R functions for NetWorkSpaces and Sleigh
 Epoch:            1
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -58,6 +58,9 @@ chmod -x %{buildroot}%{_datadir}/R/library/nws/bin/nwsutil.py
 %{_datadir}/R/library/%{packname}/help
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.7.0.1-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1:1.7.0.1-37
 - convert license to SPDX
 

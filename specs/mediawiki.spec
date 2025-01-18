@@ -1,11 +1,11 @@
 Summary: A wiki engine
 Name: mediawiki
-Version: 1.41.1
-Release: 3%{?dist}
+Version: 1.43.0
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: https://www.mediawiki.org/
-Source0: https://releases.wikimedia.org/mediawiki/1.41/%{name}-%{version}.tar.gz
-Source1: https://releases.wikimedia.org/mediawiki/1.41/%{name}-%{version}.tar.gz.sig
+Source0: https://releases.wikimedia.org/mediawiki/1.43/%{name}-%{version}.tar.gz
+Source1: https://releases.wikimedia.org/mediawiki/1.43/%{name}-%{version}.tar.gz.sig
 Source2: mediawiki.conf
 Source3: README.RPM
 Source4: mw-createinstance.in
@@ -21,18 +21,17 @@ BuildRequires: php-intl
 BuildRequires: php-pdo
 #BuildRequires: php-phpunit-PHPUnit
 BuildRequires: php-theseer-autoload
-BuildRequires: php-composer(cssjanus/cssjanus) >= 2.1.1
+BuildRequires: php-composer(cssjanus/cssjanus) >= 2.3.0
 BuildRequires: php-composer(liuggio/statsd-php-client) >= 1.0.18
-BuildRequires: php-composer(oojs/oojs-ui) >= 0.48.1
+BuildRequires: php-composer(oojs/oojs-ui) >= 0.51.2
 BuildRequires: php-composer(psr/log) >= 1.1.4
 BuildRequires: php-composer(wikimedia/assert) >= 0.5.1
-BuildRequires: php-composer(wikimedia/avro) >= 1.9.0
 BuildRequires: php-composer(wikimedia/cdb) >= 3.0.0
 BuildRequires: php-composer(wikimedia/utfnormal) >= 4.0.0
 BuildRequires: php-composer(zordius/lightncandy) >= 1.2.6
-BuildRequires: php-pear(Mail) >= 1.5.1
-BuildRequires: php-pear(Mail_Mime) >= 1.10.11
-BuildRequires: php-pear(Net_SMTP) >= 1.10.0
+BuildRequires: php-pear(Mail) >= 2.0.0
+BuildRequires: php-pear(Mail_Mime) >= 1.10.12
+BuildRequires: php-pear(Net_SMTP) >= 1.12.1
 BuildRequires: php-pear(Net_Socket) >= 1.2.2
 BuildRequires: python3-devel
 
@@ -43,18 +42,17 @@ Requires: php-gd
 Requires: php-xml
 Requires: diffutils
 Recommends: ImageMagick
-Requires: php-composer(cssjanus/cssjanus) >= 2.1.1
+Requires: php-composer(cssjanus/cssjanus) >= 2.3.0
 Requires: php-composer(liuggio/statsd-php-client) >= 1.0.18
-Requires: php-composer(oojs/oojs-ui) >= 0.48.1
+Requires: php-composer(oojs/oojs-ui) >= 0.51.2
 Requires: php-composer(psr/log) >= 1.1.4
 Requires: php-composer(wikimedia/assert) >= 0.5.1
-Requires: php-composer(wikimedia/avro) >= 1.9.0
 Requires: php-composer(wikimedia/cdb) >= 3.0.0
 Requires: php-composer(wikimedia/utfnormal) >= 4.0.0
 Requires: php-composer(zordius/lightncandy) >= 1.2.6
-Requires: php-pear(Mail) >= 1.5.0
-Requires: php-pear(Mail_Mime) >= 1.10.11
-Requires: php-pear(Net_SMTP) >= 1.10.0
+Requires: php-pear(Mail) >= 2.0.0
+Requires: php-pear(Mail_Mime) >= 1.10.12
+Requires: php-pear(Net_SMTP) >= 1.12.1
 Requires: php-pear(Net_Socket) >= 1.2.2
 
 # Update script call command-line php
@@ -62,61 +60,63 @@ Requires(post): php-cli
 
 Obsoletes: php-mediawiki-at-ease <= 1.1.0
 Obsoletes: php-wikimedia-ip-set <= 3.1.0
+Obsoletes: php-wikimedia-avro <= 1.9.0
 
 Provides: bundled(php-christian-riesen-base32) = 1.6.0
-Provides: bundled(php-composer-semver) = 3.3.2
-Provides: bundled(php-guzzlehttp-guzzle) = 7.5.3
-Provides: bundled(php-guzzlehttp-promises) = 1.5.3
-Provides: bundled(php-guzzlehttp-psr7) = 2.4.5
+Provides: bundled(php-composer-semver) = 3.4.3
+Provides: bundled(php-guzzlehttp-guzzle) = 7.9.2
+Provides: bundled(php-guzzlehttp-promises) = 2.0.4
+Provides: bundled(php-guzzlehttp-psr7) = 2.7.0
 Provides: bundled(php-jakobo-hotp-php) = 2.0.0
-Provides: bundled(php-justinrainbow-json-schema) = 5.2.13
-Provides: bundled(php-monolog-monolog) = 2.2.0
+Provides: bundled(php-justinrainbow-json-schema) = 5.3.0
+Provides: bundled(php-monolog-monolog) = 2.9.3
 Provides: bundled(php-pear-console_getopt) = 1.4.3
 Provides: bundled(php-pear-Net_URL2) = 2.2.2
-Provides: bundled(php-pear-pear-core-minimal) = 1.10.13
+Provides: bundled(php-pear-pear-core-minimal) = 1.10.15
 Provides: bundled(php-pear-pear_exception) = 1.0.2
 Provides: bundled(php-psr-container) = 1.1.2
 Provides: bundled(php-psr-http-client) = 1.0.3
-Provides: bundled(php-psr-http-factory) = 1.0.2
-Provides: bundled(php-psr-http-message) = 1.0.1
+Provides: bundled(php-psr-http-factory) = 1.1.0
+Provides: bundled(php-psr-http-message) = 1.1
 Provides: bundled(php-ralouphie-getallheaders) = 3.0.3
-Provides: bundled(php-symfony-deprecation-contracts) = 2.5.2
-Provides: bundled(php-symfony-polyfill-php80) = 1.28.0
-Provides: bundled(php-symfony-polyfill-php81) = 1.28.0
-Provides: bundled(php-symfony-polyfill-php82) = 1.28.0
-Provides: bundled(php-symfony-polyfill-php83) = 1.28.0
-Provides: bundled(php-symfony-yaml) = 5.4.23
-Provides: bundled(php-wikimedia-at-ease) = 2.1.0
+Provides: bundled(php-symfony-deprecation-contracts) = 2.5.3
+Provides: bundled(php-symfony-polyfill-php80) = 1.31.0
+Provides: bundled(php-symfony-polyfill-php81) = 1.31.0
+Provides: bundled(php-symfony-polyfill-php82) = 1.31.0
+Provides: bundled(php-symfony-polyfill-php83) = 1.31.0
+Provides: bundled(php-symfony-yaml) = 5.4.45
+Provides: bundled(php-wikimedia-at-ease) = 3.0.0
 Provides: bundled(php-wikimedia-common-passwords) = 0.5.0
 Provides: bundled(php-wikimedia-composer-merge-plugin) = 2.1.0
-Provides: bundled(php-wikimedia-equivset) = 1.5.1
+Provides: bundled(php-wikimedia-equivset) = 1.7.0
 Provides: bundled(php-wikimedia-timestamp) = 4.1.1
 Provides: bundled(php-wikimedia-base-convert) = 2.0.2
 Provides: bundled(php-wikimedia-bcp-47-code) = 2.0.0
 Provides: bundled(php-wikimedia-cldr-plural-rule-parser) = 2.0.0
 Provides: bundled(php-wikimedia-composer-merge-plugin) = 2.0.1
-Provides: bundled(php-wikimedia-html-formatter) = 4.0.3
-Provides: bundled(php-wikimedia-ip-utils) = 4.0.0
+Provides: bundled(php-wikimedia-html-formatter) = 4.1.0
+Provides: bundled(php-wikimedia-ip-utils) = 5.0.0
+Provides: bundled(php-wikimedia-json-codec) = 3.0.3
 Provides: bundled(php-wikimedia-langconv) = 0.4.2
-Provides: bundled(php-wikimedia-less.php) = 4.1.1
-Provides: bundled(php-wikimedia-minify) = 2.5.1
-Provides: bundled(php-wikimedia-normalized-exception) = 1.0.1
+Provides: bundled(php-wikimedia-less.php) = 5.1.2
+Provides: bundled(php-wikimedia-minify) = 2.8.0
+Provides: bundled(php-wikimedia-normalized-exception) = 2.0.0
 Provides: bundled(php-wikimedia-object-factory) = 5.0.1
-Provides: bundled(php-wikimedia-parsoid) = 0.18.2
-Provides: bundled(php-wikimedia-php-session-serializer) = 2.0.1
-Provides: bundled(php-wikimedia-purtle) = 1.0.8
-Provides: bundled(php-wikimedia-relpath) = 3.0.0
-Provides: bundled(php-wikimedia-remex-html) = 4.0.1
-Provides: bundled(php-wikimedia-request-timeout) = 1.2.0
+Provides: bundled(php-wikimedia-parsoid) = 0.20.1
+Provides: bundled(php-wikimedia-php-session-serializer) = 3.0.0
+Provides: bundled(php-wikimedia-purtle) = 2.0.0
+Provides: bundled(php-wikimedia-relpath) = 4.0.1
+Provides: bundled(php-wikimedia-remex-html) = 4.1.1
+Provides: bundled(php-wikimedia-request-timeout) = 2.0.0
 Provides: bundled(php-wikimedia-running-stat) = 2.1.0
-Provides: bundled(php-wikimedia-scoped-callback) = 4.0.0
-Provides: bundled(php-wikimedia-services) = 3.0.0
-Provides: bundled(php-wikimedia-shellbox) = 4.0.0
-Provides: bundled(php-wikimedia-timestamp) = 4.1.0
+Provides: bundled(php-wikimedia-scoped-callback) = 5.0.0
+Provides: bundled(php-wikimedia-services) = 4.0.0
+Provides: bundled(php-wikimedia-shellbox) = 4.1.1
+Provides: bundled(php-wikimedia-timestamp) = 4.1.1
 Provides: bundled(php-wikimedia-wait-condition-loop) = 2.0.2
 Provides: bundled(php-wikimedia-wrappedstring) = 4.0.1
-Provides: bundled(php-wikimedia-xmp-reader) = 0.9.1
-Provides: bundled(php-wikimedia-zest-css) = 3.0.0
+Provides: bundled(php-wikimedia-xmp-reader) = 0.9.4
+Provides: bundled(php-wikimedia-zest-css) = 3.0.1
 
 
 %description
@@ -173,12 +173,12 @@ ln -s %{_datadir}/php/zordius vendor/zordius-shared
 
 %build
 %{_bindir}/php -d memory_limit=1G %{_bindir}/phpab --follow --tolerant --output vendor/autoload.php vendor
-echo "require dirname(dirname(__FILE__)) . '/vendor/wikimedia/at-ease/src/Wikimedia/Functions.php';" >> vendor/autoload.php
+echo "require dirname(dirname(__FILE__)) . '/vendor/wikimedia/at-ease/src/AtEase.php';" >> vendor/autoload.php
 echo "require dirname(dirname(__FILE__)) . '/vendor/wikimedia/base-convert/src/Functions.php';" >> vendor/autoload.php
 echo "require dirname(dirname(__FILE__)) . '/vendor/wikimedia/html-formatter/src/HtmlFormatter.php';" >> vendor/autoload.php
-echo "require dirname(dirname(__FILE__)) . '/vendor/wikimedia/php-session-serializer/src/Wikimedia/PhpSessionSerializer.php';" >> vendor/autoload.php
+echo "require dirname(dirname(__FILE__)) . '/vendor/wikimedia/php-session-serializer/src/PhpSessionSerializer.php';" >> vendor/autoload.php
 echo "require dirname(dirname(__FILE__)) . '/vendor/wikimedia/timestamp/src/defines.php';" >> vendor/autoload.php
-echo "require dirname(dirname(__FILE__)) . '/vendor/wikimedia/relpath/src/Wikimedia/RelPath.php';" >> vendor/autoload.php
+echo "require dirname(dirname(__FILE__)) . '/vendor/wikimedia/relpath/src/RelPath.php';" >> vendor/autoload.php
 
 
 %install
@@ -248,7 +248,7 @@ cd tests/phpunit
 
 
 %files
-%doc FAQ HISTORY README.md README.RPM RELEASE-NOTES-1.41 UPGRADE CREDITS docs
+%doc FAQ HISTORY README.md README.RPM RELEASE-NOTES-1.43 UPGRADE CREDITS docs
 %license COPYING
 %{_datadir}/mediawiki
 /var/www/wiki
@@ -260,6 +260,9 @@ cd tests/phpunit
 
 
 %changelog
+* Thu Jan 16 2025 Michael Cronenworth <mike@cchtml.com> - 1.43.0-1
+- Update to 1.43.0
+
 * Mon Dec 09 2024 Orion Poplawski <orion@nwra.com> - 1.41.1-3
 - Use run.php for maintenance scripts (rhbz#2330978)
 

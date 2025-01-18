@@ -40,7 +40,7 @@
 Summary: A VHDL simulator, using the GCC technology
 Name: ghdl
 Version: %{ghdlver}
-Release: 3.%{ghdlgitrev}%{?dist}
+Release: 4.%{ghdlgitrev}%{?dist}
 # Automatically converted from old format: GPLv2+ and GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD - review is highly recommended.
 License: GPL-2.0-or-later AND GPL-3.0-or-later AND LicenseRef-Callaway-GPLv3+-with-exceptions AND LicenseRef-Callaway-GPLv2+-with-exceptions AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD
 URL: http://ghdl.free.fr/
@@ -533,6 +533,9 @@ rm %{buildroot}/usr/lib/libghdl.{a,link}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-4.20230308git7de967c
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 3.0.0-3.20230308git7de967c
 - convert license to SPDX
 

@@ -1,15 +1,16 @@
 Summary:        Dallas Semiconductor 1-wire device reading console application
 Name:           digitemp
 Version:        3.7.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://www.digitemp.com/
 Source0:        https://github.com/bcl/digitemp/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        dthowto.txt
 Source2:        DS9097_Schematic.gif
+Patch0:         https://github.com/bcl/digitemp/pull/38.patch#/digitemp-3.7.2-prototype.patch
 BuildRequires:  gcc
 %if 0%{!?_without_libusb:1}
-%if 0%{?fedora} >= 37 || 0%{?rhel} > 9
+%if 0%{?fedora} || 0%{?rhel} > 9
 BuildRequires:  libusb-compat-0.1-devel
 %else
 BuildRequires:  libusb-devel
@@ -27,7 +28,7 @@ the DS2438 Smart Battery Monitor, DS2422 and DS2423 Counters, DS2409
 MicroLAN Coupler (used in 1-wire hubs) and the AAG TAI-8540 humidity sensor.
 
 %prep
-%setup -q
+%autosetup -p1
 cp -pf %{SOURCE1} %{SOURCE2} .
 
 %build
@@ -60,6 +61,9 @@ touch -c -r ChangeLog ChangeLog.utf8; mv -f ChangeLog.utf8 ChangeLog
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

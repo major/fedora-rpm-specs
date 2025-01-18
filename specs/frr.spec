@@ -9,7 +9,7 @@
 
 Name:           frr
 Version:        10.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Routing daemon
 License:        GPL-2.0-or-later AND ISC AND LGPL-2.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND (GPL-2.0-or-later  OR ISC) AND MIT
 URL:            http://www.frrouting.org
@@ -284,6 +284,9 @@ rm tests/lib/*grpc*
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jan 04 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 10.2-3
 - Drop i686 support (leaf package)
 

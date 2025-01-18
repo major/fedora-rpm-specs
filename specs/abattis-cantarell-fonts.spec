@@ -1,5 +1,5 @@
 Version: 0.301
-Release: 13%{?dist}
+Release: 14%{?dist}
 URL: https://gitlab.gnome.org/GNOME/cantarell-fonts/
 
 %global	common_description	%{expand:
@@ -58,6 +58,9 @@ BuildRequires: meson
 %fontfiles -a
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.301-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.301-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

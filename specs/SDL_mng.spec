@@ -1,7 +1,7 @@
 Summary: Simple DirectMedia Layer - MNG Loading Library
 Name: SDL_mng
 Version: 0.2.8
-Release: 11%{?dist}
+Release: 12%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
 URL: https://github.com/dulsi/SDL_mng
@@ -50,6 +50,9 @@ export CXXFLAGS="%{optflags} -Wl,--as-needed"
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.8-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.8-11
 - convert license to SPDX
 

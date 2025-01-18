@@ -2,7 +2,7 @@
 
 Name:           eglexternalplatform
 Version:        1.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        EGL External Platform Interface headers
 License:        MIT
 URL:            https://github.com/NVIDIA
@@ -39,6 +39,9 @@ developing applications that use %{name}.
 %{_datadir}/pkgconfig/eglexternalplatform.pc
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Simone Caronni <negativo17@gmail.com> - 1.2-2
 - Adjust path of generated pkg-config file so it's still considered noarch.
 

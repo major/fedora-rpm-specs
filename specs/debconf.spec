@@ -7,7 +7,7 @@
 
 Name:           debconf
 Version:        1.5.87
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Debian configuration management system
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -265,6 +265,9 @@ done
 %{python3_sitelib}/__pycache__/debconf.*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.87-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 07 2025 Sérgio Basto <sergio@serjux.com> - 1.5.87-2
 - Drop debconf-gnome on epel 10 because we don't have perl-GTK3 package
   and I don't know if we'll ever have or want have it (perl-GTK3 on epel 10)

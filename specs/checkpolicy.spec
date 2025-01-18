@@ -4,7 +4,7 @@
 Summary: SELinux policy compiler
 Name: checkpolicy
 Version: 3.8
-Release: 0.rc3.1%{?dist}
+Release: 0.rc3.1%{?dist}.1
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}-rc3/checkpolicy-%{version}-rc3.tar.gz
 Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}-rc3/checkpolicy-%{version}-rc3.tar.gz.asc
@@ -63,4 +63,7 @@ install test/dispol ${RPM_BUILD_ROOT}%{_bindir}/sedispol
 %{_bindir}/sedispol
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8-0.rc3.1.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 %autochangelog

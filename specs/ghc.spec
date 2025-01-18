@@ -57,7 +57,7 @@ Version: 9.6.6
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 144%{?dist}
+Release: 145%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -843,6 +843,9 @@ make test
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.6.6-145
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jul 23 2024 Jens Petersen <petersen@redhat.com> - 9.6.6-144
 - rebase to 9.6.6 from ghc9.6
 - switch to system default ld.bfd for all archs

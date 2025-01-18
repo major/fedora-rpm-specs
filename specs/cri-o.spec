@@ -30,7 +30,7 @@ Version:        1.32.0
 
 Name:           cri-o
 Epoch:          0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open Container Initiative-based implementation of Kubernetes Container Runtime Interface
 
 # Upstream license specification: Apache-2.0
@@ -224,6 +224,9 @@ sed -i -e 's/,metacopy=on//g' /etc/containers/storage.conf
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0:1.32.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 23 2024 Bradley G Smith <bradley.g.smith@gmail.com> - 0:1.32.0-1
 - Bump to v1.32.0
 - Add -Wl,-z,undefs linker flags to resolve https://github.com/cri-o/cri-o/issues/8860

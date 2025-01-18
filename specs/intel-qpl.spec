@@ -1,5 +1,5 @@
 Name:		intel-qpl
-Version:	1.6.0
+Version:	1.7.0
 Release:	%autorelease
 Summary:	Intel Query Processing Library
 
@@ -41,6 +41,8 @@ applications that use %{name}.
 
 %prep
 %autosetup -p1 -n qpl-%{version}
+# Continue to use Gtest 1.14.0 instead of 1.15.2
+sed -i -e 's|GTEST_INTERNAL_ATTRIBUTE_MAYBE_UNUSED|GTEST_ATTRIBUTE_UNUSED_|g' tools/tests/common/test_cases.hpp
 
 %build
 %cmake \

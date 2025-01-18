@@ -2,7 +2,7 @@
 
 Name:             freetalk
 Version:          4.1
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          A console based Jabber client
 License:          GPLv3+
 URL:              http://www.gnu.org/software/%{name}
@@ -65,6 +65,9 @@ fi
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 

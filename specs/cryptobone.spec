@@ -3,7 +3,7 @@
 
 Name:       cryptobone
 Version:    1.6   
-Release:    8%{?dist}
+Release:    9%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 # Automatically converted from old format: BSD-3-Clause and Sleepycat and OpenSSL - review is highly recommended.
@@ -201,6 +201,9 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 1.6-8
 - convert license to SPDX

@@ -1,7 +1,7 @@
 Name:		globus-gass-cache
 %global _name %(tr - _ <<< %{name})
 Version:	10.3
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Grid Community Toolkit - Globus Gass Cache
 
 License:	Apache-2.0
@@ -103,6 +103,9 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %license GLOBUS_LICENSE
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.3-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 10.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

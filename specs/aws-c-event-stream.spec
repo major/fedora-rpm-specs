@@ -3,7 +3,7 @@ C99 implementation of the vnd.amazon.eventstream content-type.}
 
 Name:           aws-c-event-stream
 Version:        0.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        C99 implementation of the vnd.amazon.eventstream content-type
 
 License:        Apache-2.0
@@ -74,6 +74,9 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 25 2024 Packit <hello@packit.dev> - 0.5.0-1
 - Update to version 0.5.0
 - Resolves: rhbz#2321726

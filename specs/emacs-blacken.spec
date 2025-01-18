@@ -6,7 +6,7 @@
 
 Name:           emacs-%{pkg}
 Version:        0
-Release:        0.15.%{commitdate}git%{shortcommit}%{?dist}
+Release:        0.16.%{commitdate}git%{shortcommit}%{?dist}
 Summary:        Python Black for Emacs
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -53,6 +53,9 @@ install -Dpm 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_emacs_sitestartdir}/%{pkg}-init.e
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.16.20210406git880cf50
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0-0.15.20210406git880cf50
 - convert license to SPDX
 

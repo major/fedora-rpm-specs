@@ -7,7 +7,7 @@
 Name:		coin-or-%{module}
 Summary:	Optimization Services
 Version:	2.10.3
-Release:	16%{?dist}
+Release:	17%{?dist}
 License:	EPL-1.0
 URL:		http://projects.coin-or.org/%{module}
 VCS:		git:%{giturl}.git
@@ -167,6 +167,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %doc doxydoc/* OS/doc/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.3-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec  4 2024 Jerry James <loganjerry@gmail.com> - 2.10.3-16
 - Rebuild for asl 20241111
 

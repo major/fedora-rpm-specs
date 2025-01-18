@@ -88,7 +88,7 @@ License:  MPL-2.0 AND ISC AND MIT AND BSD-3-Clause AND BSD-2-Clause
 # Before rebasing bind, ensure bind-dyndb-ldap is ready to be rebuild and use side-tag with it.
 # Updating just bind will cause freeipa-dns-server package to be uninstallable.
 Version:  9.18.32
-Release:  3%{?dist}
+Release:  6%{?dist}
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
 #
@@ -207,6 +207,12 @@ BuildRequires:  python3-sphinx-latex latexmk texlive-xetex texlive-xindy
 %if %{with TSAN}
 BuildRequires: libtsan
 %endif
+
+# https://fedoraproject.org/wiki/Changes/RPMSuportForSystemdSysusers
+# since we don't follow the guidelines on how users and groups should
+# be created we must explicitly specify these provides
+Provides: user(named)
+Provides: group(named)
 
 %description
 BIND (Berkeley Internet Name Domain) is an implementation of the DNS
@@ -988,6 +994,15 @@ fi;
 %endif
 
 %changelog
+* Thu Jan 16 2025 Adam Williamson <awilliam@redhat.com> - 32:9.18.32-6
+- Rebuild again on mass rebuild tag so -4 doesn't override -5
+
+* Thu Jan 16 2025 Adam Williamson <awilliam@redhat.com> - 32:9.18.32-5
+- Provide user(named) and group(named)
+
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 32:9.18.32-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jan 13 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 32:9.18.32-3
 - Rebuilt for the bin-sbin merge (2nd attempt)
 

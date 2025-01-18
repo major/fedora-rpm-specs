@@ -16,7 +16,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.6.3.0
 # can only be reset when all subpkgs bumped
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Robust, reliable performance measurement and analysis
 
 License:        BSD-3-Clause
@@ -220,6 +220,9 @@ PATH=%{buildroot}%{_bindir}:$PATH
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Jens Petersen <petersen@redhat.com> - 1.6.3.0-20
 - https://hackage.haskell.org/package/criterion-1.6.3.0/changelog
 

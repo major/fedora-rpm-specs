@@ -1,6 +1,6 @@
 Name:           gnome-system-log
 Version:        3.9.90
-Release:        27%{?dist}
+Release:        28%{?dist}
 Epoch:          1
 Summary:        A log file viewer for GNOME
 
@@ -105,6 +105,9 @@ EOF
 %doc %{_mandir}/man1/gnome-system-log.1.gz
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.9.90-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 1:3.9.90-27
 - convert license to SPDX
 

@@ -3,7 +3,7 @@ Summary:        C Interface for the Simple and Fast Multimedia Library
 License:        Zlib
 
 Version:        2.6.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 URL:            https://www.sfml-dev.org/download/csfml/
 Source0:        https://github.com/SFML/CSFML/archive/%{version}/CSFML-%{version}.tar.gz
@@ -78,6 +78,9 @@ rm %{buildroot}%{_datadir}/%{name}/readme.md
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

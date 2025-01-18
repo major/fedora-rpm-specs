@@ -3,7 +3,7 @@
 
 Name:		danmaq
 Version:	0.2.3.2
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	A small client side Qt program to play danmaku on any screen
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -72,6 +72,9 @@ fi
 %{_datadir}/applications/%{reponame}.desktop
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.3.2-14
 - convert license to SPDX
 

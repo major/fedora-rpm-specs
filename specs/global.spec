@@ -1,6 +1,6 @@
 Name:           global
 Version:        6.6.5
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Source code tag system
 # The entire source code is GPLv3+ except
 #   libglibc/ which is LGPLv2+
@@ -110,6 +110,9 @@ chmod -x %{buildroot}/%{_sysconfdir}/gtags.conf
 %{_libdir}/gtags/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.5-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 6.6.5-15
 - convert license to SPDX
 

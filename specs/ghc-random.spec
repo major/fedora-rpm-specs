@@ -14,7 +14,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.2.1.2
 # can only be reset when subpkg bumped
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Pseudo-random number generation
 
 License:        BSD-3-Clause
@@ -175,6 +175,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Jens Petersen <petersen@redhat.com> - 1.2.1.2-7
 - https://hackage.haskell.org/package/random-1.2.1.2/changelog
 

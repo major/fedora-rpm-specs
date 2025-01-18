@@ -1,6 +1,6 @@
 Name:           SoapySDR
 Version:        0.8.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A Vendor Neutral and Platform Independent SDR Support Library
 
 # Automatically converted from old format: Boost - review is highly recommended.
@@ -95,6 +95,9 @@ ctest -V %{?_smp_mflags}
 %{_pkgdocdir}/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.8.1-14
 - convert license to SPDX
 

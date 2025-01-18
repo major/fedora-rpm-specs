@@ -1,6 +1,6 @@
 Name:          awf-gtk4
 Version:       2.8.0
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Theme preview application for GTK
 Summary(fr):   Application d'aperçu de thème pour GTK
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -77,6 +77,9 @@ done
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 msuchy <msuchy@redhat.com> - 2.8.0-3
 - convert license to SPDX
 

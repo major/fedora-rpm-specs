@@ -1,6 +1,6 @@
 Name:           gmime30
 Version:        3.2.15
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for creating and parsing MIME messages
 
 # The library is LGPL-2.1-or-later; various files (which we don't package)
@@ -62,6 +62,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -delete
 %{_datadir}/vala/
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.15-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec 11 2024 David King <amigadave@amigadave.com> - 3.2.15-1
 - Update to 3.2.15 (#2293536)
 

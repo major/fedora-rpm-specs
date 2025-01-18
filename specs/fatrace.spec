@@ -1,6 +1,6 @@
 Name:		fatrace
 Version:	0.16.3
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Reports file access events from all running processes
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -34,6 +34,9 @@ make install DESTDIR=%{buildroot}
 %{_mandir}/man*/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.3-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.16.3-9
 - convert license to SPDX
 

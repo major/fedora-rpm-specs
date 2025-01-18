@@ -28,10 +28,10 @@ BuildRequires:  pkgconfig(Qt5Svg)
 BuildRequires:  pkgconfig(Qt5Widgets)
 BuildRequires:  pkgconfig(libacars)
 BuildRequires:  pkgconfig(vorbis)
-BuildRequires:  kiss-fft-static
+BuildRequires:  kiss-fft-devel
 BuildRequires:  qcustomplot-qt5-devel
 BuildRequires:  libappstream-glib
-BuildRequires: make
+BuildRequires:  make
 
 Requires:       hicolor-icon-theme
 Requires:       unzip%{?_isa}
@@ -61,7 +61,7 @@ rm -rf qcustomplot
 # Unbundle kiss-fft
 %global TYPE double
 echo "INCLUDEPATH += %{_includedir}/kissfft" >> JAERO/JAERO.pro
-echo "LIBS += -lkiss_fft_%{TYPE} -lkiss_fftnd_%{TYPE} -lkiss_fftndr_%{TYPE} -lkiss_fftr_%{TYPE} -lkiss_kfc_%{TYPE}" >> JAERO/JAERO.pro
+echo "LIBS += -lkissfft-%{TYPE}" >> JAERO/JAERO.pro
 sed -i 's|../kiss_fft130/kiss_fft|kiss_fft|' JAERO/fftwrapper.h
 sed -i 's|../kiss_fft130/kiss_fft|kiss_fft|' JAERO/fftrwrapper.h
 sed -i 's|../kiss_fft130/kiss_fft|kiss_fft|' JAERO/DSP.h

@@ -1,6 +1,6 @@
 Name:           abi-tracker
 Version:        1.11
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Tool to visualize ABI changes timeline of a C/C++ library
 
 License:        GPL-2.0-or-later OR  LGPL-2.1-or-later
@@ -68,6 +68,9 @@ help2man -s 1 -N --version-string %{version} \
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

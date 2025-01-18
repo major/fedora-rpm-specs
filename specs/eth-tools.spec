@@ -1,6 +1,6 @@
 Name: eth-tools
 Version: 11.7.0.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Intel Ethernet Fabric Suite basic tools and libraries for fabric management
 
 License: BSD-3-Clause
@@ -94,6 +94,9 @@ BUILDDIR=%{_builddir} DESTDIR=%{buildroot} LIBDIR=%{_prefix}/lib DSAP_LIBDIR=%{_
 %config(noreplace) /usr/lib/eth-tools/osid_wrapper
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:11.7.0.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 18 2024 Jijun Wang <jijun.wang@intel.com> - 11.7.0.2-2
 - Fixed ethudstress cq poll regression issue
 

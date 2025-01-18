@@ -9,7 +9,7 @@
 Name:           go-vendor-tools
 Version:        0.6.0
 %forgemeta
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools for handling Go library vendoring in Fedora [SEE NOTE IN DESCRIPTION]
 
 # BSD-3-Clause: src/go_vendor_tools/archive.py
@@ -130,6 +130,9 @@ install -Dpm 0644 zsh_completions/* -t %{buildroot}%{zsh_completions_dir}/
 %pyproject_extras_subpkg -n go-vendor-tools all
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Maxwell G <maxwell@gtmx.me> - 0.6.0-1
 - Update to 0.6.0.
 

@@ -1,6 +1,6 @@
 Name: curlftpfs
 Version: 0.9.2
-Release: 39%{?dist}
+Release: 40%{?dist}
 Summary: CurlFtpFS is a filesystem for accessing FTP hosts based on FUSE and libcurl
 URL: http://curlftpfs.sourceforge.net/
 # Code does not specify a version of the license.
@@ -50,6 +50,9 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %doc COPYING
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

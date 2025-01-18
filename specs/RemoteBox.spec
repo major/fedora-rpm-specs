@@ -3,7 +3,7 @@
 
 Name:           RemoteBox
 Version:        3.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open Source VirtualBox Client with Remote Management
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -85,6 +85,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/remotebox.desktop
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 14 2025 Pete Walter <pwalter@fedoraproject.org> - 3.4-1
 - Update to 3.4 (rhbz#2326721)
 

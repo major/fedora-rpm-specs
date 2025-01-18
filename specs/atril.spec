@@ -15,9 +15,9 @@
 Name:          atril
 Version:       %{branch}.0
 %if 0%{?rel_build}
-Release:       3%{?dist}
+Release:       4%{?dist}
 %else
-Release:       0.22%{?git_rel}%{?dist}
+Release:       0.23%{?git_rel}%{?dist}
 %endif
 Summary:       Document viewer
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and MIT - review is highly recommended.
@@ -197,6 +197,9 @@ desktop-file-validate ${RPM_BUILD_ROOT}%{_datadir}/applications/atril.desktop
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 1.28.0-3
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           gnome-online-accounts-gtk
 Version:        3.50.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GUI Utility for logging into online accounts
 License:        GPL-3.0-or-later
 URL:            https://github.com/xapp-project/%{name}
@@ -43,6 +43,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/scalable/apps/gnome-online-accounts-gtk.svg
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.50.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.50.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

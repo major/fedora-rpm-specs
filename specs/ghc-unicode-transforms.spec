@@ -14,7 +14,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.4.0.1
 # can only be reset when subpkg bumped
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Unicode normalization
 
 License:        BSD-3-Clause
@@ -133,6 +133,9 @@ dos2unix -k -n %{SOURCE2} %{pkg_name}.cabal
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jul 30 2024 Jens Petersen <petersen@redhat.com> - 0.4.0.1-7
 - update to unicode-data-0.6.0 (Unicode 15)
 

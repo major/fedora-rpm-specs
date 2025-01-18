@@ -11,7 +11,7 @@
 
 Name:       gnome-abrt
 Version:    1.5.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A utility for viewing problems that have occurred with the system
 
 License:    GPL-2.0-or-later
@@ -87,6 +87,9 @@ provides them with convenient way for managing these problems.
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 24 2024 Packit <hello@packit.dev> - 1.5.0-1
 - Update to version 1.5.0
 

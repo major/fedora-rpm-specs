@@ -1,6 +1,6 @@
 Name:           exodusii
 Version:        6.09
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Library to store and retrieve transient finite element data
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -98,6 +98,9 @@ cd exodus
 %{_docdir}/%{name}
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.09-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 6.09-25
 - convert license to SPDX
 

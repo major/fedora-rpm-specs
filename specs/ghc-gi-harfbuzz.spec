@@ -12,7 +12,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.0.10
 # can only be reset when subpkg bumped
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        HarfBuzz bindings
 
 License:        LGPL-2.1-or-later
@@ -147,6 +147,9 @@ ghc --make -package Cabal Setup.hs
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Jens Petersen <petersen@redhat.com> - 0.0.10-5
 - https://hackage.haskell.org/package/gi-harfbuzz-0.0.10/changelog
 

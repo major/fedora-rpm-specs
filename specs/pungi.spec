@@ -2,7 +2,7 @@
 
 Name:           pungi
 Version:        4.8.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPL-2.0-only
@@ -11,6 +11,10 @@ Source0:        https://pagure.io/releases/%{name}/%{name}-%{version}.tar.bz2
 # https://pagure.io/pungi/pull-request/1810
 # Use container and bootable-container productmd types
 Patch:          1810.patch
+# https://pagure.io/pungi/pull-request/1812
+# https://pagure.io/releng/issue/12474
+# Avoid crashing if command output cannot be decoded as utf-8
+Patch:          0002-Protect-against-decoding-errors-with-subprocess-text.patch
 
 BuildRequires:  make
 BuildRequires:  python3-pytest
@@ -142,6 +146,9 @@ gzip _build/man/pungi.1
 %{_bindir}/%{name}-cache-cleanup
 
 %changelog
+* Thu Jan 16 2025 Adam Williamson <awilliam@redhat.com> - 4.8.0-3
+- Backport PR #1812 to fix crash on subprocess unicode decode error
+
 * Mon Jan 06 2025 Adam Williamson <awilliam@redhat.com> - 4.8.0-2
 - Backport PR #1810 to use new container types
 

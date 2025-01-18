@@ -1,6 +1,6 @@
 Name:           fllog
 Version:        1.2.8
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Amateur Radio Log Program
 
 # Automatically converted from old format: GPLv3+ and GPLv2+ - review is highly recommended.
@@ -53,6 +53,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.8-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2.8-5
 - convert license to SPDX
 

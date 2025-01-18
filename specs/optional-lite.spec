@@ -7,10 +7,6 @@ License:        BSL-1.0
 URL:            https://github.com/martinmoene/optional-lite
 Source:         %{url}/archive/v%{version}/optional-lite-%{version}.tar.gz
 
-# Convert CHANGES.txt to UTF-8 (from, apparently, Windows-1252)
-# https://github.com/martinmoene/optional-lite/pull/80
-Patch:          %{url}/pull/80.patch
-
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 
@@ -66,7 +62,9 @@ ln -s /usr/include/lest test/lest
 
 %files devel
 %license LICENSE.txt
-%doc CHANGES.txt
+# We don’t package CHANGES.txt because it is hasn’t been updated since release
+# 1.0.2, so it isn’t very useful. If we did, we would need to fix its encoding,
+# https://github.com/martinmoene/optional-lite/pull/80.
 %doc README.md
 %doc example/
 
@@ -80,8 +78,8 @@ ln -s /usr/include/lest test/lest
 # welcome; until then, we just install the pretty-printer as documentation.
 %doc extra/
 
-# This directory may end up being co-owned with packages for similar libraries,
-# e.g. bit-lite, by the same author.
+# This directory is co-owned with packages for similar libraries, e.g.
+# variant-lite, by the same author.
 %dir %{_includedir}/nonstd/
 %{_includedir}/nonstd/optional.hpp
 

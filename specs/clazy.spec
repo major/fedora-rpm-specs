@@ -1,7 +1,7 @@
 Name:           clazy
 Summary:        Qt oriented code checker based on clang framework
 Version:        1.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        LGPL-2.0-or-later
 URL:            https://invent.kde.org/sdk/%{name}
 
@@ -52,6 +52,9 @@ refactoring.
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 30 2024 Steve Cossette <farchord@gmail.com> - 1.13-1
 - 1.13
 

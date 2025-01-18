@@ -1,7 +1,7 @@
 Name:		globus-gram-job-manager-scripts
 %global _name %(tr - _ <<< %{name})
 Version:	7.3
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	Grid Community Toolkit - GRAM Job ManagerScripts
 
 License:	Apache-2.0
@@ -87,6 +87,9 @@ sed '/$libdir =/d' \
 %license GLOBUS_LICENSE
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.3-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

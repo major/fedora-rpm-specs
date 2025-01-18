@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          0.1.4
-Release:          9%{?dist}
+Release:          10%{?dist}
 Summary:          Finite Moment Stable Distributions
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -63,6 +63,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul  29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.4-9
 - convert license to SPDX
 

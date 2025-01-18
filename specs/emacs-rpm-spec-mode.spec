@@ -3,7 +3,7 @@
 
 Name:           emacs-%{pkg}
 Version:        0.16
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Major GNU Emacs mode for editing RPM spec files
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -43,6 +43,9 @@ install -m 644 %SOURCE1 %{buildroot}%{_emacs_sitestartdir}
 %{_emacs_sitelispdir}/rpm-spec-mode/rpm-spec-mode.elc
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.16-20
 - convert license to SPDX
 

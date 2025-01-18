@@ -1,5 +1,5 @@
 Version: 4.49.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 URL: https://files.ax86.net/terminus-ttf
 
@@ -58,6 +58,9 @@ BuildRequires:  fontforge
 %fontfiles
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.49.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.49.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

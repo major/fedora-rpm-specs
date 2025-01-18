@@ -8,7 +8,7 @@
 
 Name:           gnome-tour
 Version:        47.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GNOME Tour and Greeter
 
 # * gnome-tour source code is GPL-3.0-or-later
@@ -104,6 +104,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Tour.des
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 47.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 46.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

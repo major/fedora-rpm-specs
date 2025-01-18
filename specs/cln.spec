@@ -1,6 +1,6 @@
 Name:           cln
 Version:        1.3.6
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Class Library for Numbers
 
 License:        GPL-2.0-or-later
@@ -73,6 +73,9 @@ make %{_smp_mflags} check
 %doc doc/cln.pdf doc/cln.html
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.6-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

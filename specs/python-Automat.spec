@@ -6,7 +6,7 @@ Automat is a library for concise, idiomatic Python expression of finite-state
 automata (particularly deterministic finite-state transducers).}
 
 Name:           python-%{srcname}
-Version:        22.10.0
+Version:        24.8.1
 Release:        %autorelease
 Summary:        Self-service finite-state machines for the programmer on the go
 
@@ -17,6 +17,11 @@ Source0:        %pypi_source
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(sphinx-rtd-theme)
+BuildRequires:  python3-pydoctor
+
+# removes pieces of sphinx config trying to use git
+# to get branch name or commit
+Patch:          sphinx-no-git.patch
 
 %description %{common_description}
 
@@ -33,7 +38,7 @@ Summary:        Automat documentation
 Documentation for Automat
 
 %prep
-%autosetup  -p1 -n %{srcname}-%{version}
+%autosetup  -p1 -n %{libname}-%{version}
 
 # Backport of https://github.com/glyph/automat/commit/2bf0abddd9b532ef9dd90707a10a09ce48c24f3d
 sed -i "s/py\.test/pytest/g" tox.ini
@@ -44,7 +49,7 @@ sed -i "s/py\.test/pytest/g" tox.ini
 %build
 %pyproject_wheel
 
-PYTHONPATH=%{pyproject_build_lib}  sphinx-build docs html
+sphinx-build docs html
 # remove the sphinx-build leftovers
 rm -rf html/.{doctrees,buildinfo}
 

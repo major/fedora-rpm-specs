@@ -1,6 +1,6 @@
 Name:		git-ftp		
 Version:	1.6.0
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Git powered FTP client written as shell script
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:	GPL-3.0-only	
@@ -38,6 +38,9 @@ make install-all  bindir=%{buildroot}%{_bindir} mandir=%{buildroot}%{_mandir}/ma
 %exclude %{_mandir}/man1/CACHEDIR.TAG.gz
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul  29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.6.0-11
 - convert license to SPDX
 

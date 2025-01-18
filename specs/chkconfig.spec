@@ -1,7 +1,7 @@
 Summary: A system tool for maintaining the /etc/rc*.d hierarchy
 Name: chkconfig
 Version: 1.31
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-only
 URL: https://github.com/fedora-sysv/chkconfig
 Source: https://github.com/fedora-sysv/chkconfig/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
@@ -103,6 +103,9 @@ mkdir -p $RPM_BUILD_ROOT/etc/chkconfig.d
 %{_mandir}/*/alternatives*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.31-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.31-2
 - Rebuilt for the bin-sbin merge (2nd attempt)
 

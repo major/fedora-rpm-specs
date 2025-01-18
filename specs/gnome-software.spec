@@ -26,7 +26,7 @@
 
 Name:      gnome-software
 Version:   48~alpha3
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   A software center for GNOME
 
 License:   GPL-2.0-or-later
@@ -288,6 +288,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/gnome-software/
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 48~alpha3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 14 2025 Milan Crha <mcrha@redhat.com> - 48~alpha3-1
 - Update to 48.alpha3
 

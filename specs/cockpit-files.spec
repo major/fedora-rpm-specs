@@ -1,6 +1,6 @@
 Name: cockpit-files
 Version: 14
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A filesystem browser for Cockpit
 License: LGPL-2.1-or-later
 
@@ -71,6 +71,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 14-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec 18 2024 Packit <hello@packit.dev> - 14-1
 - Allow editing multiple file permissions
 - Support uploading files with administrator privileges

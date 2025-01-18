@@ -1,6 +1,6 @@
 Name:           davfs2
 Version:        1.7.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A filesystem driver for WebDAV
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -96,6 +96,9 @@ exit 0
 %ghost %dir %attr(01775,root,%{groupname}) %{piddir}
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Dec 06 2024 Felix Schwarz <fschwarz@fedoraproject.org> - 1.7.1-1
 - update to 1.7.1
 

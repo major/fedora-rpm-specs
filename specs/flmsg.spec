@@ -3,7 +3,7 @@
 
 Name:           flmsg
 Version:        4.0.23
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Fast Light Message Amateur Radio Forms Manager
 
 # Embedded mongoose is GPLv2
@@ -77,6 +77,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.23-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.23-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

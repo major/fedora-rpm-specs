@@ -4,7 +4,7 @@
 Summary: Latin dictionaries for Aspell
 Name: aspell-%{lang}
 Version: 20020503
-Release: 25%{?dist}
+Release: 26%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL: http://aspell.net
@@ -40,6 +40,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_libdir}/aspell-0.60/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20020503-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 20020503-25
 - convert license to SPDX
 

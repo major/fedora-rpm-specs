@@ -12,7 +12,7 @@
 Name:           ghc-%{pkg_name}
 Version:        5.2.6
 # can only be reset when subpkg bumped
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Kan extensions, Kan lifts, the Yoneda lemma, and (co)density (co)monads
 
 License:        BSD-3-Clause
@@ -165,6 +165,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Jens Petersen <petersen@redhat.com> - 5.2.6-7
 - https://hackage.haskell.org/package/kan-extensions-5.2.6/changelog
 

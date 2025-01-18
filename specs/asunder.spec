@@ -1,7 +1,7 @@
 Name:		asunder
 Summary:	A graphical Audio CD ripper and encoder
 Version:	3.0.1
-Release:	5%{?dist}
+Release:	6%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:	GPL-2.0-only
 URL:		http://littlesvr.ca/asunder
@@ -62,6 +62,9 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications \
 %{_datadir}/pixmaps/asunder.svg
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 3.0.1-5
 - convert license to SPDX
 

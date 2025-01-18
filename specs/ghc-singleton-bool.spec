@@ -12,7 +12,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.1.8
 # can only be reset when subpkg bumped
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Type level booleans
 
 License:        BSD-3-Clause
@@ -137,6 +137,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Jens Petersen <petersen@redhat.com> - 0.1.8-7
 - https://hackage.haskell.org/package/singleton-bool-0.1.8/changelog
 - some-1.0.6

@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          2.3
-Release:          21%{?dist}
+Release:          22%{?dist}
 Summary:          Estimate Procedure in Case of First Order Autocorrelation
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -64,6 +64,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul  29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.3-21
 - convert license to SPDX
 

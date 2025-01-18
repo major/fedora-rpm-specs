@@ -3,7 +3,7 @@
 %endif
 
 Name:       mock-core-configs
-Version:    41.5
+Version:    42.1
 Release:    1%{?dist}
 Summary:    Mock core config files basic chroots
 
@@ -22,7 +22,7 @@ BuildArch:  noarch
 Provides: mock-configs
 
 # distribution-gpg-keys contains GPG keys used by mock configs
-Requires:   distribution-gpg-keys >= 1.105
+Requires:   distribution-gpg-keys >= 1.107
 # specify minimal compatible version of mock
 Requires:   mock >= 5.4.post1
 Requires:   mock-filesystem
@@ -149,6 +149,9 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
+* Thu Jan 16 2025 Pavel Raiskup <praiskup@redhat.com> 42.1-1
+- branch fedora-42 configs, move rawhide to releasever=43
+
 * Thu Dec 19 2024 Pavel Raiskup <praiskup@redhat.com> 41.5-1
 - Fedora 39 EOL
 - fix openSUSE-tumbleweed update failure during the second build (duli4868@gmail.com)

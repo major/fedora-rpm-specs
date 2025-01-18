@@ -23,7 +23,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.32.3
 # can only be reset when all subpkgs bumped
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A library providing the core functionality of hledger
 
 License:        GPL-3.0-or-later
@@ -359,6 +359,9 @@ cd %{pager}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.32.3-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Jens Petersen <petersen@redhat.com> - 1.32.3-18
 - https://hackage.haskell.org/package/hledger-lib-1.32.3/changelog
 - add text-builder-linear, quickcheck-instances, quote-quot

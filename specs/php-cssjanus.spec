@@ -1,6 +1,6 @@
 Name:		php-cssjanus
-Version:	2.1.1
-Release:	5%{?dist}
+Version:	2.3.0
+Release:	1%{?dist}
 Summary:	Convert CSS stylesheets between left-to-right and right-to-left
 
 License:	Apache-2.0
@@ -9,7 +9,7 @@ Source0:	https://github.com/wikimedia/mediawiki-libs-php-cssjanus/archive/v%{ver
 
 BuildArch:	noarch
 
-Requires:	php(language) >= 7.2
+Requires:	php(language) >= 7.4.0
 Requires:	php-pcre
 
 Provides:	php-composer(cssjanus/cssjanus) = %{version}
@@ -20,7 +20,7 @@ Convert CSS stylesheets between left-to-right and right-to-left.
 
 
 %prep
-%autosetup -n mediawiki-libs-php-cssjanus-%{version}
+%autosetup -n php-cssjanus-%{version}
 
 
 %build
@@ -38,6 +38,9 @@ cp -p src/CSSJanus.php %{buildroot}%{_datadir}/php/cssjanus
 
 
 %changelog
+* Thu Jan 16 2025 Michael Cronenworth <mike@cchtml.com> - 2.3.0-1
+- Update to 2.3.0
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

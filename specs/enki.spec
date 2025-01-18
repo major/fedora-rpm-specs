@@ -4,7 +4,7 @@
 
 Name:           enki
 Version:        22.08.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Text editor for programmers
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -149,6 +149,9 @@ xvfb-run -s '-screen :0 1024x768x16' %{__python3} run_all.py
 %doc html/
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 22.08.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 22.08.0-9
 - convert license to SPDX
 

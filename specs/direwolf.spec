@@ -1,6 +1,6 @@
 Name:           direwolf
 Version:        1.7
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Sound Card-based AX.25 TNC
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -141,6 +141,9 @@ exit 0
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 31 2024 Richard Shaw <hobbes1069@gmail.com> - 1.7-6
 - Rebuild for Hamlib 4.6.
 

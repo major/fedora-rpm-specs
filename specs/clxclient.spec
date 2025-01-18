@@ -4,7 +4,7 @@
 Summary:       C++ X Windows Library
 Name:          clxclient
 Version:       3.9.2
-Release:       13%{?dist}
+Release:       14%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:       LicenseRef-Callaway-LGPLv2+
 URL:           http://kokkinizita.linuxaudio.org/
@@ -57,6 +57,9 @@ CXXFLAGS="${CXXFLAGS} -I."
 %{_includedir}/%{name}.h
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 3.9.2-13
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           examiner
 Version:        0.5
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Utility to disassemble and comment foreign executable binaries 
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -59,6 +59,9 @@ rm %{buildroot}%{_datadir}/%{name}/os/linux/examiner_hashes.pl.hashes
 %{_datadir}/%{name}/
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5-36
 - convert license to SPDX
 

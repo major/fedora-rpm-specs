@@ -1,6 +1,6 @@
 Name:           dxcc
 Version:        20080225
-Release:        52%{?dist}
+Release:        53%{?dist}
 Summary:        Small utility which determines the ARRL DXCC entity of a ham radio callsign
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -66,6 +66,9 @@ desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/applications/*%{name}.desktop
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20080225-53
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 20080225-52
 - convert license to SPDX
 

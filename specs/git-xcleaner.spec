@@ -1,6 +1,6 @@
 Name:           git-xcleaner
 Version:        2.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary:        Interactive git branch removal TUI
 
@@ -41,6 +41,9 @@ install -Dpm 644 man/%{name}.1 $RPM_BUILD_ROOT%{_mandir}/man1/%{name}.1
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0-3
 - convert license to SPDX
 

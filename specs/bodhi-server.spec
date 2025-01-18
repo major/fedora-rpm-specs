@@ -4,7 +4,7 @@
 
 Name:           %{pypi_name}
 Version:        %{pypi_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Bodhi server
 
 License:        GPL-2.0-or-later
@@ -160,6 +160,9 @@ export BODHI_CONFIG=$(pwd)/tests/testing.ini
 %pycached %{python3_sitelib}/bodhi/server/metadata.py
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 25 2024 Mattia Verga <mattia.verga@proton.me> - 8.3.0-1
 - Update to 8.3.0
 

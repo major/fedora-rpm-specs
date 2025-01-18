@@ -1,6 +1,6 @@
 Name:           abcMIDI
 Version:        2022.12.09
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        ABC to/from MIDI conversion utilities
 
 Group:          Applications/Multimedia
@@ -61,6 +61,9 @@ install -p -m 644 doc/yaps.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2022.12.09-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 2022.12.09-7
 - convert license to SPDX
 

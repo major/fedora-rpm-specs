@@ -1,6 +1,6 @@
 Name:           dvtm
 Version:        0.15
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Tiling window management for the console
 License:        MIT and ISC
 URL:            http://www.brain-dump.org/projects/%{name}/
@@ -39,6 +39,9 @@ make install DESTDIR=%{buildroot} PREFIX=%{_prefix}
 %{_datadir}/terminfo/d
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           gdk-pixbuf2-xlib
 Version:        2.40.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Deprecated Xlib integration for gdk-pixbuf2
 
 License:        LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -61,6 +61,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.40.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.40.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

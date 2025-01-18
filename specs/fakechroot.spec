@@ -1,6 +1,6 @@
 Name:           fakechroot
 Version:        2.20.1
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Gives a fake chroot environment
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -82,6 +82,9 @@ find %{buildroot}%{_libdir} -name '*.la' -delete -print
 %{_libdir}/%{name}/
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.20.1-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Nov 21 2024 Sérgio Basto <sergio@serjux.com> - 2.20.1-21
 - Update 104 PR which fixes cp.t and disable disable_socket-af_unix.t to fix
   FTBFS

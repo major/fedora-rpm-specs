@@ -1,6 +1,6 @@
 Name:           ephemeral-port-reserve
 Version:        1.1.4
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Bind to an ephemeral port, force it into the TIME_WAIT state, and unbind it.
 
 License:        MIT
@@ -49,6 +49,9 @@ Bind to an ephemeral port, force it into the TIME_WAIT state, and unbind it.}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

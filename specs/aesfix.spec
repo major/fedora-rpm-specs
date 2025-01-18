@@ -1,6 +1,6 @@
 Name:           aesfix
 Version:        1.0.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 # 3-clause BSD license
 License:        BSD-3-Clause
 Summary:        Correct bit errors in AES-128 key schedule
@@ -76,6 +76,9 @@ install -p -m644 %{SOURCE3} %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

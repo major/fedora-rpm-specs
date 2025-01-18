@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          1.5.4
-Release:          22%{?dist}
+Release:          23%{?dist}
 Summary:          R Fortunes
 
 # Automatically converted from old format: GPLv2 or GPLv3 - review is highly recommended.
@@ -60,6 +60,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug  7 2024 Miroslav Suchý <msuchy@redhat.com> - 1.5.4-22
 - convert license to SPDX
 

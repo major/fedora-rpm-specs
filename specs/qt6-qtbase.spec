@@ -46,7 +46,7 @@ BuildRequires: pkgconfig(libsystemd)
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
 Version: 6.8.1
-Release: 10%{?dist}
+Release: 11%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -102,6 +102,9 @@ Patch152: qtbase-use-emoji-segmenter-to-apply-emoji-fonts-automatically.patch
 Patch153: qtbase-dont-support-subpixel-positioning-for-color-fonts.patch
 Patch154: qtbase-fix-regression-when-looking-up-fallback-fonts.patch
 Patch155: qtbase-skip-ad-hoc-handling-of-variation-selector-in-font-merging.patch
+Patch156: qtbase-fontconfig-dont-register-hardcoded-fonts-as-color-fonts.patch
+Patch157: qtbase-request-actual-font-family-request-in-final-color-font-fail-safe.patch
+Patch158: qtbase-fontconfig-fix-detection-of-color-fonts.patch
 
 # Do not check any files in %%{_qt6_plugindir}/platformthemes/ for requires.
 # Those themes are there for platform integration. If the required libraries are
@@ -901,6 +904,9 @@ make check -k ||:
 
 
 %changelog
+* Thu Jan 16 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.1-11
+- Backport additional fixes for emoji support
+
 * Mon Jan 13 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.1-10
 - Fix directory ownership for 3rdparty cmake plugins
 

@@ -1,9 +1,6 @@
-# Skip -Werror=incompatilbe-pointer-types
-%global	build_type_safety_c  2
-
 Name:		spacefm
 Version:	1.0.6
-Release:	18%{?dist}
+Release:	19%{?dist}
 Summary:	Multi-panel tabbed file and desktop manager
 
 # overall		GPL-3.0-or-later
@@ -20,6 +17,8 @@ Patch0:	spacefm-1.0.5-force-x11-backend.patch
 Patch1:	spacefm-1.0.6-major-glibc228.patch
 # Patch to compile with gcc10 -fno-common
 Patch2:	spacefm-1.0.6-gcc10-fno-common.patch
+# Support C99, use pointer type correctly
+Patch3:	spacefm-1.0.6-c99-type-cast.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -48,6 +47,7 @@ This package contains Faenza theme files for spacefm.
 %patch -P0 -p1 -b .x11
 %patch -P1 -p1 -b .glibc228
 %patch -P2 -p1 -b .gcc10
+%patch -P3 -p1 -b .c99
 find . -name \*.c -print0 | xargs --null chmod 0644
 
 %build
@@ -115,6 +115,9 @@ gtk-update-icon-cache %{_datadir}/icons/Faenza &>/dev/null || :
 %{_datadir}/icons/Faenza/apps/*/%{name}*
 
 %changelog
+* Thu Jan 16 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.6-19
+- Support C99, use pointer type correctly
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:          foxtrotgps
 Version:       1.2.2
-Release:       20%{?dist}
+Release:       21%{?dist}
 Summary:       GTK+ mapping and GPS application
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:       GPL-2.0-only
@@ -88,6 +88,9 @@ rm -rf %{buildroot}/usr/share/info/dir
 %{_datadir}/%{name}
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2.2-20
 - convert license to SPDX
 

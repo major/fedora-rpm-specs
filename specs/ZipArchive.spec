@@ -1,6 +1,6 @@
 Name:           ZipArchive
 Version:        4.1.2
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Library for accessing zip files
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -84,6 +84,9 @@ install -p -m 644 %{name}.pc $RPM_BUILD_ROOT%{_libdir}/pkgconfig
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.2-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 4.1.2-27
 - convert license to SPDX
 

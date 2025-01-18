@@ -9,7 +9,7 @@
 Summary: DjVu viewers, encoders, and utilities
 Name: djvulibre
 Version: 3.5.28
-Release: 12%{?dist}
+Release: 13%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: http://djvu.sourceforge.net/
@@ -190,6 +190,9 @@ fi
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.28-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 04 2024 Xavier Bachelot <xavier@bachelot.org> - 3.5.28-12
 - Do not BuildRequires: inkscape on EL10
 - Sort BuildRequires:

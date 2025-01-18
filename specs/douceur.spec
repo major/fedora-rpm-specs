@@ -18,7 +18,7 @@ Obsoletes:      golang-github-aymerick-douceur-unit-test-devel < 0.2.0-7
 }
 
 Name:           douceur
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        A simple CSS parser and inliner in Go
 
 License:        MIT
@@ -58,6 +58,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

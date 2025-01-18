@@ -1,6 +1,6 @@
 Name:		gnurobots
 Version:	1.2.0
-Release:	40%{?dist}
+Release:	41%{?dist}
 Summary:	A robot programming game
 
 License:	GPL-3.0-or-later
@@ -56,6 +56,9 @@ desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

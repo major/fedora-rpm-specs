@@ -1,6 +1,6 @@
 Name:           frei0r-plugins
 Version:        2.3.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Frei0r - a minimalist plugin API for video effects
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -71,6 +71,9 @@ rm -rf %{buildroot}%{_docdir}/%{name}
 %{_libdir}/pkgconfig/frei0r.pc
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Sérgio Basto <sergio@serjux.com> - 2.3.3-4
 - Rebuild for opencv 4.10.0
 

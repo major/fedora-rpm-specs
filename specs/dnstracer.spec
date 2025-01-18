@@ -1,6 +1,6 @@
 Name:           dnstracer
 Version:        1.10
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Trace DNS queries to the source
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -42,6 +42,9 @@ mkdir -p %{buildroot}%{_mandir}/man8
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 1.10-7
 - convert license to SPDX
 

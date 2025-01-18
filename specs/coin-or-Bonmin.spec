@@ -5,7 +5,7 @@
 Name:		coin-or-%{module}
 Summary:	Basic Open-source Nonlinear Mixed INteger programming
 Version:	1.8.9
-Release:	3%{?dist}
+Release:	4%{?dist}
 
 # EPL-1.0: the project as a whole
 # SMLNJ: Bonmin/src/Interfaces/Ampl/sos_kludge.cpp
@@ -175,6 +175,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir}:$LD_LIBRARY_PATH make test
 %{_pkgdocdir}/bonmin_doxy.tag
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.9-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec  4 2024 Jerry James <loganjerry@gmail.com> - 1.8.9-3
 - Rebuild for asl 20241111
 

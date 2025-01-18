@@ -10,7 +10,7 @@ BuildRequires:	%1 \
 %define		rubyabi		1.9.1
 %endif
 
-%define		baserelease	26
+%define		baserelease	27
 
 
 %define		fullrel		%{?betaver:0.}%{baserelease}%{?betaver:.%betaver}
@@ -214,6 +214,9 @@ exit $STATUS
 %{ruby_vendorlibdir}/%{name}/
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.27.beta7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.26.beta7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

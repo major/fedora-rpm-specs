@@ -1,7 +1,7 @@
 %define __cmake_in_source_build 1
 Name:       ArpON
 Version:    3.0
-Release:    28%{?dist}
+Release:    29%{?dist}
 Summary:    ARP handler inspection
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -51,6 +51,9 @@ attack.
 %{_mandir}/man8/arpon.8*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 3.0-28
 - convert license to SPDX
 

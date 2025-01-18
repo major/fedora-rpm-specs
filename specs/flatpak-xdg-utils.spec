@@ -1,7 +1,7 @@
 Name:     flatpak-xdg-utils
 Summary:  Command-line tools for use inside Flatpak sandboxes
 Version:  1.0.6
-Release:  1%{?dist}
+Release:  2%{?dist}
 License:  LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:      https://github.com/flatpak/flatpak-xdg-utils
 Source:   https://github.com/flatpak/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
@@ -62,6 +62,9 @@ mv $RPM_BUILD_ROOT%{_bindir}/xdg-open $RPM_BUILD_ROOT%{_bindir}/flatpak-xdg-open
 %{_libexecdir}/installed-tests
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 09 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 1.0.6-1
 - Update to 1.0.6
 

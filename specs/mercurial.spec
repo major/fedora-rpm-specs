@@ -9,8 +9,8 @@
 
 Summary: A fast, lightweight Source Control Management system
 Name: mercurial
-Version: 6.9
-Release: 2%{?dist}
+Version: 6.9.1
+Release: 1%{?dist}
 
 # Release: 1.rc1%%{?dist}
 
@@ -23,7 +23,6 @@ Source0: https://www.mercurial-scm.org/release/%{name}-%{upstreamversion}.tar.gz
 Source1: mercurial-site-start.el
 # Patch cargo metadata for dependency versions available in Fedora
 Patch0:  mercurial-rust-metadata.patch
-Patch1:  bytestring.patch
 BuildRequires: make
 BuildRequires: emacs-el
 BuildRequires: emacs-nox
@@ -258,6 +257,9 @@ rm -rf %{buildroot}%{python3_sitearch}/mercurial/locale
 
 
 %changelog
+* Thu Jan 16 2025 Mads Kiilerich <mads@kiilerich.com> - 6.9.1-1
+- mercurial 6.9.1
+
 * Sat Jan 11 2025 Mads Kiilerich <mads@kiilerich.com> - 6.9-2
 - Backport ByteString fix from 6.9.1 (#2336977)
 

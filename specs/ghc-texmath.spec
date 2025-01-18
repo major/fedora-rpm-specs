@@ -14,7 +14,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.12.8.7
 # can only be reset when subpkg bumped
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Conversion between math formats
 
 License:        GPL-2.0-or-later
@@ -148,6 +148,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.8.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Jul 28 2024 Jens Petersen <petersen@redhat.com> - 0.12.8.7-1
 - https://hackage.haskell.org/package/texmath-0.12.8.7/changelog
 - typst-symbols-0.1.5

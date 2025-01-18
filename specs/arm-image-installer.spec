@@ -4,7 +4,7 @@
 
 Name:		arm-image-installer
 Version:	4.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Writes binary image files to any specified block device
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -60,6 +60,9 @@ ln -s /usr/bin/arm-image-installer %{buildroot}%{_bindir}/fedora-arm-image-insta
 %{_datadir}/arm-image-installer/
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 11 2024 Paul Whalen <pwhalen@fedoraproject.org> - 4.2-1
 - Update to 4.2
 

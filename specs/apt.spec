@@ -14,7 +14,7 @@
 
 Name:           apt
 Version:        2.9.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command-line package manager for Debian packages
 
 License:        GPL-2.0-or-later
@@ -315,6 +315,9 @@ exit 0
 %doc %{_docdir}/%{name}-utils
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 09 2024 Packit <hello@packit.dev> - 2.9.8-1
 - Update to version 2.9.8
 - Resolves: rhbz#2283193

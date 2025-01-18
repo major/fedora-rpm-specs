@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          2.30.1
-Release:          9%{dist}
+Release:          10%{dist}
 Summary:          Low-level containers for storing sets of integer ranges
 # Automatically converted from old format: Artistic 2.0 and Copyright only - review is highly recommended.
 License:          Artistic-2.0 AND LicenseRef-Callaway-Copyright-only
@@ -85,6 +85,9 @@ rm -rf %{buildroot}%{_libdir}/R/library/R.css
 %{_libdir}/R/library/%{packname}/include
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.30.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.30.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

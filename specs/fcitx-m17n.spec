@@ -1,6 +1,6 @@
 Name:		fcitx-m17n
 Version:	0.2.4
-Release:	20%{?dist}
+Release:	21%{?dist}
 Summary:	M17n Engine for Fcitx
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:	LicenseRef-Callaway-LGPLv2+
@@ -37,6 +37,9 @@ input table maps from m17n-db.
 %{_datadir}/fcitx/m17n/default
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.4-20
 - convert license to SPDX
 

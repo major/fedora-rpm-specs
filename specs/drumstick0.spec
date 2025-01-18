@@ -3,7 +3,7 @@
 Summary: C++/Qt4 wrapper around the ALSA library sequencer interface
 Name:    drumstick0
 Version: 0.5.0
-Release: 39%{?dist}
+Release: 40%{?dist}
 #define svn svn
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -79,6 +79,9 @@ rm -fr $RPM_BUILD_ROOT%{_bindir} $RPM_BUILD_ROOT%{_datadir}/icons \
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5.0-39
 - convert license to SPDX
 

@@ -2,7 +2,7 @@
 
 Name:           capypdf
 Version:        0.11.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fully color-managed PDF generation library
 
 License:        Apache-2.0
@@ -84,5 +84,8 @@ This package provides the files for building applications that use
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Oct 09 2024 Neal Gompa <ngompa@fedoraproject.org> - 0.11.0-1
 - Initial package

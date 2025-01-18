@@ -3,7 +3,7 @@
 
 Name:           gnokii
 Version:        0.6.31
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Linux/Unix tool suite for various mobile phones
 
 License:        GPL-2.0-or-later
@@ -249,6 +249,9 @@ getent passwd %{name} > /dev/null || %{_sbindir}/useradd -r -M -d / \
 %{_libdir}/pkgconfig/xgnokii.pc
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.31-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.31-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

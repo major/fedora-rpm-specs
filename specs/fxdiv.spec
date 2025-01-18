@@ -7,7 +7,7 @@ Summary:        Header for division via fixed-point math
 Name:           fxdiv
 License:        MIT
 Version:        1.0^git%{date0}.%{shortcommit0}
-Release:        5%{?dist}
+Release:        6%{?dist}
 
 # Only a header
 BuildArch:      noarch
@@ -82,6 +82,9 @@ Features
 %{_includedir}/fxdiv.h
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0^git20201208.63058ef-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0^git20201208.63058ef-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

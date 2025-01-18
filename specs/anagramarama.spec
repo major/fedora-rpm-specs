@@ -1,6 +1,6 @@
 Name:           anagramarama
 Version:        0.7
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Anagram puzzle game
 # Almost all is GPLv2+ with some graphics being CC-BY-SA
 # Automatically converted from old format: GPLv2+ and CC-BY-SA - review is highly recommended.
@@ -58,6 +58,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.7-8
 - convert license to SPDX
 

@@ -22,7 +22,7 @@
 
 Name:           fftw
 Version:        3.3.10
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A Fast Fourier Transform library
 # Generally, the code is under GPL but some headers are also under MIT or BSD:
 License:        GPL-2.0-or-later AND MIT AND BSD-2-Clause
@@ -545,6 +545,9 @@ done
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.10-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 02 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 3.3.10-14
 - Enable openmpi for RHEL
 

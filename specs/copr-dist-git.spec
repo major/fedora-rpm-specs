@@ -2,7 +2,7 @@
 
 Name:       copr-dist-git
 Version:    1.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Copr services for Dist Git server
 
 License:    GPL-2.0-or-later
@@ -137,6 +137,9 @@ touch %{buildroot}%{_var}/log/copr-dist-git/main.log
 %{_tmpfilesdir}/copr-dist-git.conf
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Oct 02 2024 Jiri Kyjovsky <j1.kyjovsky@gmail.com> 1.0-1
 - Don't check that specfile matches the repository name
 

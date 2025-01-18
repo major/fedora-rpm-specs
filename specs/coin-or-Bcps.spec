@@ -3,7 +3,7 @@
 Name:		coin-or-%{module}
 Summary:	Part of the COIN High Performance Parallel Search Framework
 Version:	0.95.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	EPL-1.0
 URL:		https://github.com/coin-or/CHiPPS-BiCePS
 Source0:	https://github.com/coin-or/CHiPPS-BiCePS/archive/releases/%{version}/CHiPPS-%{module}-%{version}.tar.gz
@@ -94,6 +94,9 @@ make test
 %{_datadir}/doc/coin-or-bcps/bcps_doxy.tag
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.95.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.95.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

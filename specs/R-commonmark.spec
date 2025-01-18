@@ -5,7 +5,7 @@
 
 Name:             R-%{packname}
 Version:          1.9.0
-Release:          9%{?dist}
+Release:          10%{?dist}
 Summary:          High Performance CommonMark and Github Markdown Rendering in R
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -80,6 +80,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-examples
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep  4 2024 Miroslav Suchý <msuchy@redhat.com> - 1.9.0-9
 - convert license to SPDX
 

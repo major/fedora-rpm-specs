@@ -10,7 +10,7 @@ License:     GPL-2.0-or-later
 URL:         http://fusioninventory.org/
 
 Version:     2.6
-Release:     13%{?dist}
+Release:     14%{?dist}
 Source0:     https://github.com/fusioninventory/%{name}/releases/download/%{version}/FusionInventory-Agent-%{version}.tar.gz
 Source1:     %{name}.cron
 Source10:    %{name}.service
@@ -300,6 +300,9 @@ install -m 644 -D  %{SOURCE10}   %{buildroot}%{_unitdir}/%{name}.service
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 2.6-13
 - convert license to SPDX
 

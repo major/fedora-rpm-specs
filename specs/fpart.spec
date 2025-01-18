@@ -1,6 +1,6 @@
 Name:    fpart
 Version: 1.5.1
-Release: 8%{?dist}
+Release: 9%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 Summary: a tool that sorts files and packs them into bags
@@ -43,6 +43,9 @@ make %{?_smp_mflags}
 %{_bindir}/fpsync
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 1.5.1-8
 - convert license to SPDX
 

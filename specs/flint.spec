@@ -1,6 +1,6 @@
 Name:           flint
 Version:        3.1.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Fast Library for Number Theory
 
 # LGPL-3.0-or-later: the project as a whole
@@ -125,6 +125,9 @@ make check
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 14 2025 Jerry James <loganjerry@gmail.com> - 3.1.2-3
 - Add patch to fix GCC 15 build
 

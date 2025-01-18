@@ -1,6 +1,6 @@
 Name:           connect-proxy
 Version:        1.105
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        SSH Proxy command helper
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -51,6 +51,9 @@ cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_mandir}/man1/
 %{_bindir}/%{name}
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.105-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul  25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.105-3
 - convert license to SPDX
 

@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          1.6.9
-Release:          9%{?dist}
+Release:          10%{?dist}
 Source0:          ftp://cran.r-project.org/pub/R/contrib/main/%{packname}_%{version}.tar.gz
 # Automatically converted from old format: GPLv2+ and GPLv3+ - review is highly recommended.
 License:          GPL-2.0-or-later AND GPL-3.0-or-later
@@ -65,6 +65,9 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/R/library/R.css
 %{_libdir}/R/library/%{packname}/libs/%{packname}.so
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.9-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug  7 2024 Miroslav Suchý <msuchy@redhat.com> - 1.6.9-9
 - convert license to SPDX
 

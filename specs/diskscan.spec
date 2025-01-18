@@ -1,7 +1,7 @@
 Summary: Scan disk for bad or near failure sectors, performs disk diagnostics
 Name: diskscan
 Version: 0.20
-Release: 9%{?dist}
+Release: 10%{?dist}
 URL: https://github.com/baruch/diskscan
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Patch0: %{name}-0.20-version.patch
@@ -42,6 +42,9 @@ not pick up on such clues depending on the disk vendor decision making logic.
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.20-9
 - convert license to SPDX
 

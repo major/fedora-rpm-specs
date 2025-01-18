@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          0.8.0
-Release:          9%{?dist}
+Release:          10%{?dist}
 Summary:          Read and Write from the System Clipboard
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -80,6 +80,9 @@ TRAVIS=true TRAVIS_CLIP=xsel CLIPR_ALLOW=TRUE \
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul  29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.8.0-9
 - convert license to SPDX
 

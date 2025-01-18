@@ -1,6 +1,6 @@
 Name:           RBTools
 Version:        5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools for use with ReviewBoard
 
 License:        MIT
@@ -85,6 +85,9 @@ install -D -pv -m 0755 rbtools/commands/conf/completions/zsh \
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 22 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 5.0-1
 - Update to 5.0 (rhbz#2290688)
 

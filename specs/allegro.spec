@@ -3,7 +3,7 @@
 
 Name:           allegro
 Version:        4.4.3.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 
 Summary:        A game programming library
 Summary(es):    Una libreria de programacion de juegos
@@ -388,6 +388,9 @@ install -pm 644 addons/jpgalleg/readme.txt \
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.3.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.3.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

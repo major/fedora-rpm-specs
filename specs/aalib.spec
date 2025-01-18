@@ -3,7 +3,7 @@
 Summary:        ASCII art library
 Name:           aalib
 Version:        1.4.0
-Release:        0.53.%{rc_subver}%{?dist}
+Release:        0.54.%{rc_subver}%{?dist}
 License:        LGPL-2.1-or-later
 URL:            http://aa-project.sourceforge.net/aalib/
 Source0:        http://download.sourceforge.net/aa-project/%{name}-1.4%{rc_subver}.tar.gz
@@ -100,6 +100,9 @@ touch -r NEWS $RPM_BUILD_ROOT%{_bindir}/aalib-config $RPM_BUILD_ROOT%{_datadir}/
 %{_datadir}/aclocal/aalib.m4
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-0.54.rc5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 03 2025 Xavier Bachelot <xavier@bachelot.org> - 1.4.0-0.53.rc5
 - Re-enable gpm on EL10
 

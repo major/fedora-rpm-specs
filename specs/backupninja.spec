@@ -1,7 +1,7 @@
 
 Name:		backupninja
 Version:	1.2.2
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Lightweight, extensible backup system
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -74,6 +74,9 @@ mkdir -p -m 0750 %{buildroot}/%{_sysconfdir}/backup.d
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2.2-6
 - convert license to SPDX
 

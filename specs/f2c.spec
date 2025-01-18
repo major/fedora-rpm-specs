@@ -3,7 +3,7 @@
 Name:           f2c
 Summary:        A Fortran 77 to C/C++ conversion program
 Version:        20210928
-Release:        9%{?dist}
+Release:        10%{?dist}
 License:        MIT
 
 URL:            http://www.netlib.org/f2c/
@@ -87,6 +87,9 @@ install -Dpm 0755 fc %{buildroot}%{_bindir}/f77
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20210928-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20210928-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

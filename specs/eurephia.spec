@@ -1,6 +1,6 @@
 Name:           eurephia
 Version:        1.1.1
-Release:        14%{?betatag:.%{betatag}}%{?dist}.1
+Release:        15%{?betatag:.%{betatag}}%{?dist}.1
 Summary:        An advanced and flexible OpenVPN user authentication plug-in
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -144,6 +144,9 @@ rm -rf %{buildroot}
 %{_mandir}/man7/eurephia_saltdecode.7.gz
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-15.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1.1-14.1
 - convert license to SPDX
 

@@ -2,7 +2,7 @@
 
 Name:           emacs-%{pkg}
 Version:        1.5.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Emacs auto-complete package
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -55,6 +55,9 @@ emacs --batch -q --no-site-file --no-splash \
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.5.1-12
 - convert license to SPDX
 

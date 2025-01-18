@@ -3,7 +3,7 @@
 
 Name:           gnucobol
 Version:        3.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        COBOL compiler
 
 License:        GPL-3.0-or-later AND LGPL-3.0-or-later AND GFDL-1.3-only AND FSFAP AND GPL-2.0-or-later AND LGPL-3.0-or-later
@@ -128,6 +128,9 @@ make test CFLAGS="%optflags -O"
 %{_libdir}/libocsql.so*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

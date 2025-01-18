@@ -15,7 +15,7 @@
 Name:           %{pkg_name}
 Version:        2.18.2
 # can only be reset when all subpkgs bumped
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        A distributed, interactive, smart revision control system
 
 License:        GPL-2.0-or-later
@@ -258,6 +258,9 @@ install -Dpm 644 contrib/darcs_completion %{buildroot}%{_datadir}/bash-completio
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.2-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Aug  2 2024 Jens Petersen <petersen@redhat.com> - 2.18.2-44
 - https://hackage.haskell.org/package/darcs-2.18.2/changelog
 - don't disable threaded on other archs

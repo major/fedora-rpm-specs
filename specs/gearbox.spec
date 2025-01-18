@@ -2,7 +2,7 @@
 %global libversion 1.0.0
 Name:           gearbox
 Version:        10.11
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        A collection of usable peer-reviewed robotics-related libraries
 
 # Automatically converted from old format: LGPLv2+ and GPLv2+ - review is highly recommended.
@@ -100,6 +100,9 @@ rm $RPM_BUILD_ROOT%{_bindir}/*
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.11-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 10.11-33
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:		bowtie
 Version:	1.3.1
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	An ultrafast, memory-efficient short read aligner
 
 # bowite: Artistic 2.0
@@ -134,6 +134,9 @@ scripts/test/simple_tests.pl --bowtie=./bowtie --bowtie-build=./bowtie-build
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3.1-6
 - convert license to SPDX
 

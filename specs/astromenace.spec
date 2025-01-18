@@ -1,6 +1,6 @@
 Name: astromenace
 Version:  1.4.2
-Release:  11%{?dist}
+Release:  12%{?dist}
 Summary: Hardcore 3D space shooter with spaceship upgrade possibilities  
 
 License: GPL-3.0-only
@@ -113,6 +113,9 @@ EOF
 %{_datadir}/astromenace/
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 08 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.4.2-11
 - Patch for GCC 15
 

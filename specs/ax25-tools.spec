@@ -4,7 +4,7 @@
 
 Name:		ax25-tools
 Version:	1.0.4
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	Tools used to configure an ax.25 enabled computer
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -175,6 +175,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/ax25tools
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.4-12
 - convert license to SPDX
 

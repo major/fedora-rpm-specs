@@ -2,7 +2,7 @@
 
 Name:           fim
 Version:        0.6~rc0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Lightweight universal image viewer
 License:        GPL-2.0-or-later AND GPL-3.0-or-later
 URL:            https://www.nongnu.org/fbi-improved/
@@ -73,6 +73,9 @@ the ordering of images.
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6~rc0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6~rc0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

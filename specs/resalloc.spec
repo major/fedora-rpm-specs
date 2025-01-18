@@ -38,7 +38,7 @@ the purposes of CI/CD tasks.
 
 Name:       %srcname
 Summary:    %sum - client tooling
-Version:    5.7
+Version:    5.8
 Release:    1%{?dist}
 License:    GPL-2.0-or-later
 URL:        https://github.com/praiskup/resalloc
@@ -374,6 +374,9 @@ ln -s "%{default_sitelib}/%{name}server" %buildroot%_homedir/project
 
 
 %changelog
+* Thu Jan 16 2025 Jakub Kadlcik <frostyx@email.cz> - 5.8-1
+- New upstream release https://github.com/praiskup/resalloc/releases/tag/v5.8
+
 * Fri Jan 10 2025 Jakub Kadlcik <frostyx@email.cz> - 5.7-1
 - New upstream release https://github.com/praiskup/resalloc/releases/tag/v5.7
 

@@ -9,6 +9,9 @@ License:        MIT
 URL:            https://github.com/BIC-MNI/libminc
 Source0:        https://github.com/BIC-MNI/libminc/archive/%{upver}/%{name}-%{version}.tar.gz
 Patch0:         0001-install-cmake-files-in-private-directory.patch
+# Fix building with GCC15 as C23
+# https://github.com/BIC-MNI/libminc/pull/129
+Patch1:         %{url}/pull/129.patch
 
 BuildRequires:  git-core
 BuildRequires:  cmake

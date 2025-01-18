@@ -1,6 +1,6 @@
 Name:           dh-autoreconf
 Version:        20
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        debhelper add-on to call autoreconf and clean up after the build
 
 BuildArch:      noarch
@@ -65,6 +65,9 @@ install -Dpm 0644 dh-autoreconf.7 %{buildroot}%{_mandir}/man7/dh-autoreconf.7
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

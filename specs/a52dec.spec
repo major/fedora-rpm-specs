@@ -1,7 +1,7 @@
 Summary:    Small test program for liba52
 Name:       a52dec
 Version:    0.7.4
-Release:    49%{?dist}
+Release:    50%{?dist}
 License:    GPL-2.0-only
 URL:        http://liba52.sourceforge.net
 Source0:    %{url}/files/%{name}-%{version}.tar.gz
@@ -91,6 +91,9 @@ done
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.4-50
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.4-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

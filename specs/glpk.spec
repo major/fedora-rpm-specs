@@ -1,6 +1,6 @@
 Name:           glpk
 Version:        5.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        GNU Linear Programming Kit
 
 # GPL-3.0-or-later: the project as a whole
@@ -18,6 +18,10 @@ Patch:          %{name}-4.65-unbundle-zlib.patch
 Patch:          %{name}-4.65-unbundle-suitesparse.patch
 # Fix violations of the ANSI C strict aliasing rules
 Patch:          %{name}-4.65-alias.patch
+# Do not define bool, true, or false for C23 compatibility
+Patch:          %{name}-5.0-bool.patch
+# Use zlib-ng directly instead of via the compatibility interface
+Patch:          %{name}-5.0-zlib-ng.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -27,7 +31,7 @@ BuildRequires:  gnupg2
 BuildRequires:  make
 BuildRequires:  pkgconfig(libiodbc)
 BuildRequires:  pkgconfig(libmariadb)
-BuildRequires:  pkgconfig(zlib)
+BuildRequires:  pkgconfig(zlib-ng)
 BuildRequires:  suitesparse-devel
 
 Provides:       bundled(minisat) = 1.14.1
@@ -124,7 +128,6 @@ rm -Rf examples/{.deps,.libs,Makefile*,glpsol,glpsol.o} doc/*.tex
 %doc README
 %license COPYING
 %{_libdir}/libglpk.so.40*
-%exclude %{_libdir}/*.la
 
 %files devel
 %doc ChangeLog AUTHORS NEWS
@@ -139,6 +142,13 @@ rm -Rf examples/{.deps,.libs,Makefile*,glpsol,glpsol.o} doc/*.tex
 
 
 %changelog
+* Thu Jan 16 2025 Jerry James <loganjerry@gmail.com> - 5.0-13
+- Add patch for C23 compatibility
+- Build with zlib-ng instead of zlib
+
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -13,7 +13,7 @@ options. Supports several parallel processing backends.}
 
 Name:             R-%{packname}
 Version:          %{ver}.%{packrel}
-Release:          6%{?dist}
+Release:          7%{?dist}
 Source0:          ftp://cran.r-project.org/pub/R/contrib/main/%{packname}_%{ver}-%{packrel}.tar.gz
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:          GPL-2.0-only
@@ -60,6 +60,9 @@ export LANG=C.UTF-8
 %{_datadir}/R/library/%{packname}/help
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.7.2-6
 - convert license to SPDX
 

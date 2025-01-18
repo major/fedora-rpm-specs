@@ -8,7 +8,7 @@
 
 Name:      brasero
 Version:   3.12.3
-Release:   11%{?dist}
+Release:   12%{?dist}
 Summary:   Gnome CD/DVD burning application
 
 
@@ -177,6 +177,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.3-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Aug 09 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 3.12.3-11
 - Disable playlist support on RHEL 10+
 

@@ -23,7 +23,7 @@ in a number of implementations out there.}
 %global godocs          README.md cronexpr/README.md
 
 Name:           %{goname}
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Cron expression parser in Go language
 
 # Automatically converted from old format: GPLv3 or ASL 2.0 - review is highly recommended.
@@ -61,6 +61,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 7 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.0-13
 - convert license to SPDX
 

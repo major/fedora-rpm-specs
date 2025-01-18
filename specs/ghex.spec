@@ -4,7 +4,7 @@
 
 Name:           ghex
 Version:        46.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Binary editor for GNOME
 
 # Source code is under GPLv2+, help is under GFDL and icon is under CC-BY-SA.
@@ -92,6 +92,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/org.gnome.G
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 46.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Now 18 2024 Nieves Montero <nmontero@redhat.com> - 46.1-1
 - Update to 46.1
 

@@ -3,7 +3,7 @@
 
 Summary: Hybrid image/package system
 Name: rpm-ostree
-Version: 2024.9
+Version: 2025.1
 Release: %autorelease
 License: LGPL-2.0-or-later
 URL: https://github.com/coreos/rpm-ostree
@@ -12,9 +12,6 @@ URL: https://github.com/coreos/rpm-ostree
 Source0: https://github.com/coreos/rpm-ostree/releases/download/v%{version}/rpm-ostree-%{version}.tar.xz
 
 ExclusiveArch: %{rust_arches}
-
-# Fast track https://github.com/coreos/rpm-ostree/pull/5224
-Patch0: 0001-core-Create-usr-sbin-bin-if-we-detect-merged-sbin-fi.patch
 
 # ostree not on i686 for RHEL 10
 # https://github.com/containers/composefs/pull/229#issuecomment-1838735764
@@ -241,6 +238,7 @@ $PYTHON autofiles.py > files \
   '%{_datadir}/dbus-1/system.d/*' \
   '%{_sysconfdir}/rpm-ostreed.conf' \
   '%{_prefix}/lib/systemd/system/*' \
+  '%{_prefix}/lib/kernel/install.d/*' \
   '%{_libexecdir}/rpm-ostree*' \
 %if %{with ostree_ext}
   '%{_libexecdir}/libostree/ext/*' \

@@ -1,6 +1,6 @@
 Name:           binwalk
 Version:        2.3.4
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Firmware analysis tool
 License:        MIT
 URL:            https://github.com/ReFirmLabs/binwalk
@@ -57,6 +57,9 @@ cd testing/tests
 %{python3_sitelib}/%{name}-%{version}*.egg-info
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Dec 14 2024 Miro Hrončok <mhroncok@redhat.com> - 2.3.4-10
 - Replace deprecated nose with pytest
 - https://fedoraproject.org/wiki/Changes/DeprecateNose

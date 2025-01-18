@@ -4,7 +4,7 @@ Summary:	An OpenGL to PostScript printing library
 Summary(pl):	Biblioteka drukowania z OpenGL-a do PostScriptu
 Name:		gl2ps
 Version:	1.4.2
-Release:	12%{?dist}
+Release:	13%{?dist}
 License:	LGPL-2.0-or-later OR GL2PS
 Source0:	http://www.geuz.org/gl2ps/src/%{name}-%{version}.tgz
 URL:		http://www.geuz.org/gl2ps/
@@ -83,6 +83,9 @@ rm %{buildroot}%{_libdir}/libgl2ps.a
 %{_includedir}/gl2ps.h
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 1.4.2-12
 - convert license to SPDX
 

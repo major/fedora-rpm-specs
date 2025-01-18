@@ -1,6 +1,6 @@
 Name:           electron-cash
 Version:        4.4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A lightweight Bitcoin Cash client
 
 License:        MIT
@@ -104,6 +104,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.elect
 %{python3_sitelib}/Electron_Cash-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Dec 19 2024 Jonny Heggheim <hegjon@gmail.com> - 4.4.2-1
 - Updated to version 4.4.2
 

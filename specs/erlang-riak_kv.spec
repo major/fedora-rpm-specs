@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	2.1.8
-Release:	21%{?dist}
+Release:	22%{?dist}
 BuildArch:	noarch
 Summary:	Riak Key/Value Store
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -70,6 +70,9 @@ install -D -p -m 0644 priv/multi_backend.schema %{buildroot}%{erlang_appdir}/pri
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.8-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 2.1.8-21
 - convert license to SPDX
 

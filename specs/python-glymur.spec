@@ -1,13 +1,17 @@
+# Temporarily work around python-scikit-image not rebuilt for numpy 2,
+# https://bugzilla.redhat.com/show_bug.cgi?id=2334911
+%bcond scikit_image_tests %{undefined fc42}
+
 Name:           python-glymur
-Version:        0.13.6
+Version:        0.13.7
 Release:        %autorelease
 Summary:        Interface to the OpenJPEG library for working with JPEG 2000 files
 
 # SPDX
 License:        MIT
-URL:            https://pypi.org/project/Glymur/
+URL:            https://github.com/quintusdias/glymur
 # The PyPI sdist lacks documentation.
-Source0:        https://github.com/quintusdias/glymur/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/v%{version}/glymur-%{version}.tar.gz
 # Man pages hand-written for Fedora in groff_man(7) format based on --help
 # output:
 Source1:        jp2dump.1
@@ -20,10 +24,16 @@ Source2:        tiff2jp2.1
 # debuginfo package.
 %global debug_package %{nil}
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+%if %{undefined fc40} && %{undefined fc41}
+ExcludeArch:    %{ix86}
+%endif
+
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(pytest)
 # tests/fixtures.py: each of these enables more tests
+%if %{with scikit_image_tests}
 BuildRequires:  python3dist(scikit-image)
+%endif
 BuildRequires:  python3dist(gdal)
 
 # Provide shared libraries opened via ctypes; see glymur/config.py
@@ -57,7 +67,7 @@ Recommends:     python3dist(gdal)
 
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x test
 
 
 %build
@@ -72,7 +82,13 @@ install -m 0644 -p -D -t %{buildroot}%{_mandir}/man1 %{SOURCE1} %{SOURCE2}
 
 
 %check
-%pytest -v
+%if %{without scikit_image_tests}
+ignore="${ignore-} --ignore=tests/test_tiff2jp2.py"
+k="${k-}${k+ and }not (TestJp2k and test_write_using_slicing)"
+k="${k-}${k+ and }not (TestSuite and test_openjpeg_library_too_old_for_threaded_tile_writing)"
+%endif
+
+%pytest ${ignore-} -k "${k-}" -v
 
 
 %files -n python3-glymur -f %{pyproject_files}

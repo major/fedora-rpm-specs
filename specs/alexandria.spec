@@ -7,7 +7,7 @@ BuildRequires:  %{*} \
 %undefine		minorver	
 %undefine		ifpre	
 
-%define		baserelease	9
+%define		baserelease	10
 %define		rel		%{?ifpre:0.}%{baserelease}%{?minorver:.%minorver}
 
 
@@ -359,6 +359,9 @@ done
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.9-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Nov 16 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.7.9-9
 - Add missing syck file import (bug 2326632)
 

@@ -6,7 +6,7 @@
 
 Name:           chess_db
 Version:        0.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Chess database opening tree indexer
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -55,6 +55,9 @@ pushd parser
 %{_bindir}/parser
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul  29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2-10
 - convert license to SPDX
 

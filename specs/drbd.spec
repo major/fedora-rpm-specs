@@ -1,7 +1,7 @@
 Name: drbd
 Summary: DRBD user-land tools and scripts
 Version: 9.28.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source0: https://pkg.linbit.com/downloads/%{name}/utils/%{name}-utils-%{version}.tar.gz
 Patch0: drbd-utils-9.28.0-disable_xsltproc_network_read.patch
 Patch1: drbd-utils-9.15.0-make_configure-workaround.patch
@@ -278,6 +278,9 @@ fi
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.28.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Aug 24 2024 Peter Hanecak <hany@hany.sk> - 9.28.0-1
 - Upstream release of 9.28.0 (#2255728)
 

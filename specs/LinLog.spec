@@ -1,6 +1,6 @@
 Name:           LinLog
 Version:        0.5
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        A ham radio logbook for Linux
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -61,6 +61,9 @@ install -p -m 644 sql/statistics.sql %{buildroot}%{_datadir}/%{name}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5-22
 - convert license to SPDX
 

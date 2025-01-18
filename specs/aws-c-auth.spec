@@ -3,7 +3,7 @@ C99 library implementation of AWS client-side authentication}
 
 Name:           aws-c-auth
 Version:        0.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        C99 library implementation of AWS client-side authentication
 
 License:        Apache-2.0
@@ -79,6 +79,9 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 25 2024 Packit <hello@packit.dev> - 0.8.0-1
 - Update to version 0.8.0
 - Resolves: rhbz#2321728

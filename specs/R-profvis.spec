@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          14%{?dist}
+Release:          15%{?dist}
 Summary:          Interactive Visualizations for Profiling R Code
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -93,6 +93,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.7-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul  29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.3.7-14
 - convert license to SPDX
 

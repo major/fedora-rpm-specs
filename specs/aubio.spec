@@ -8,7 +8,7 @@
 
 Name:           aubio
 Version:        0.4.9
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        An audio labeling tool
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -133,6 +133,9 @@ sed -i -e '/^#![[:blank:]]*\//, 1d' %{buildroot}%{python3_sitearch}/%{name}/*.py
 %{python3_sitearch}/%{name}*.egg-info
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.9-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Dec 21 2024 Orion Poplawski <orion@nwra.com> - 0.4.9-25
 - Rebuild with numpy 2.2 (rhbz#2333015)
 

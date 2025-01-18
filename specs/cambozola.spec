@@ -1,6 +1,6 @@
 Name:           cambozola
 Version:        0.936
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        A viewer for multipart jpeg streams
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -69,6 +69,9 @@ cp -rp javadoc/*  \
 %{_javadocdir}/%{name}
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.936-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.936-26
 - convert license to SPDX
 

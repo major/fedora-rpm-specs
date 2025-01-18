@@ -1,6 +1,6 @@
 Name:           cjose
 Version:        0.6.2.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        C library implementing the Javascript Object Signing and Encryption (JOSE)
 
 License:        MIT
@@ -61,6 +61,9 @@ make check || (cat test/test-suite.log; exit 1)
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 22 2024 Richard W.M. Jones <rjones@redhat.com> - 0.6.2.2-6
 - Rebuild for Jansson 2.14
   (https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/3PYINSQGKQ4BB25NQUI2A2UCGGLAG5ND/)

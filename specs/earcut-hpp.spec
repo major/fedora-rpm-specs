@@ -17,6 +17,12 @@ URL:            https://github.com/mapbox/earcut.hpp
 
 Source:         %{url}/archive/v%{version}/earcut.hpp-%{version}.tar.gz
 
+# Include <cstdint> for uint32_t/int32_t
+#
+# Fixes failure to compile on GCC 15.
+# https://github.com/mapbox/earcut.hpp/pull/120
+Patch:          %{url}/pull/120.patch
+
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 # Our choice; the default UNIX Makefiles backend would also work

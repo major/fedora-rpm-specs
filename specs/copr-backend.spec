@@ -10,7 +10,7 @@
 
 Name:       copr-backend
 Version:    2.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Backend for Copr
 
 License:    GPL-2.0-or-later
@@ -239,6 +239,9 @@ useradd -r -g copr -G lighttpd -s /bin/bash -c "COPR user" copr
 %exclude %{_pkgdocdir}/lighttpd
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 22 2024 Jakub Kadlcik <frostyx@email.cz> 2.1-1
 - Activate Red Hat subscription on demand
 - Fix copr-backend-unknown-resalloc-tickets

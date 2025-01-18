@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          15%{?dist}
+Release:          16%{?dist}
 Summary:          Simple Memory Profiling for R
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -68,6 +68,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep  4 2024 Miroslav Suchý <msuchy@redhat.com> - 0.6.0-15
 - convert license to SPDX
 

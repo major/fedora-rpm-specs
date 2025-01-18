@@ -51,6 +51,10 @@ sed -i -e 's@gorgonia.org/tensor@github.com/pdevine/tensor@' tensor.go
 
 # rm test that depends on flakey python setup
 rm dense_io_test.go
+# example_iterator_test.go:54:1: ExampleSliceIter refers to unknown identifier: SliceIter
+rm example_iterator_test.go
+# ./example_dense_arith_test.go:2174:2: output comment block must be the last comment block
+rm example_dense_arith_test.go
 
 %if %{without bootstrap}
 %generate_buildrequires

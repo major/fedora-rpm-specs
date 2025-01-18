@@ -1,6 +1,6 @@
 Name: ck
 Version: 0.7.1
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Library for high performance concurrent programming
 
 License: BSD-2-clause AND Apache-2.0 AND BSD-3-clause
@@ -101,6 +101,9 @@ time timeout -k $TIMEOUT_KILL $TIMEOUT \
 %{_mandir}/man3/*.3.gz
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

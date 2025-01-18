@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          4.7.1.1
-Release:          9%{?dist}
+Release:          10%{?dist}
 Summary:          Breiman and Cutler's Random Forests for Classification and Regression
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -65,6 +65,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.1.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug  7 2024 Miroslav Suchý <msuchy@redhat.com> - 4.7.1.1-9
 - convert license to SPDX
 

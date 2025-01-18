@@ -1,6 +1,6 @@
 Name:		fcitx-configtool
 Version:	0.4.10
-Release:	21%{?dist}
+Release:	22%{?dist}
 Summary:	Gtk+-based configuring tools for Fcitx
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -39,6 +39,9 @@ Fcitx.
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.10-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.4.10-21
 - convert license to SPDX
 

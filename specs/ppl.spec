@@ -135,6 +135,7 @@ Install this package if you want to program with the PPL.
 %prep
 %autosetup -p1
 
+%conf
 # Fix detection of C++11 features
 sed -i 's,== 201103L,>= 201103L,g' m4/ac_check_cxx11.m4
 
@@ -307,11 +308,11 @@ mv \
 - Add support for riscv64
 
 * Wed Feb 14 2024 Jerry James <loganjerry@gmail.com> - 1.2-31
-- Rebuild for ppl 9.2.1
+- Rebuild for pl 9.2.1
 - Stop building for 32-bit x86
 
 * Thu Feb  1 2024 Jerry James <loganjerry@gmail.com> - 1.2-30
-- Rebuild for ppl 9.2.0
+- Rebuild for pl 9.2.0
 
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild

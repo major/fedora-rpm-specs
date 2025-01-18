@@ -3,7 +3,7 @@
 
 Name:           %{fontname}-fonts
 Version:        20121031
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Pictogram Suite font
 
 # Automatically converted from old format: CC-BY-SA - review is highly recommended.
@@ -49,6 +49,9 @@ install -m 0644 -p *.ttf  %{buildroot}%{_fontdir}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20121031-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 20121031-23
 - convert license to SPDX
 

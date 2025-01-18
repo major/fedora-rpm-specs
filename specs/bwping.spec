@@ -3,7 +3,7 @@
 
 Name:           bwping
 Version:        2.5
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 Summary:        Measure bandwidth and response times using ICMP
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -52,6 +52,9 @@ make check
 %{_mandir}/man8/bwping*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 2.5-6
 - convert license to SPDX
 

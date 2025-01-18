@@ -6,7 +6,7 @@
 
 Name: %{basen}
 Version: 1.12.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 # The entire source code is MIT except xxHash-0.6.5/ which is BSD
 # Automatically converted from old format: MIT and BSD - review is highly recommended.
 License: LicenseRef-Callaway-MIT AND LicenseRef-Callaway-BSD
@@ -116,6 +116,9 @@ perl "$src"/run-tests.pl
 %__rm -f %{buildroot}/%{_libdir}/*.a
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 1.12.0-8
 - convert license to SPDX
 

@@ -4,7 +4,7 @@ Name:           gnushogi
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Version:        1.5
-Release:        0.22.git%{shortcommit}%{?dist}
+Release:        0.23.git%{shortcommit}%{?dist}
 Summary:        Shogi, the Japanese version of chess
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -77,6 +77,9 @@ fi
 %{_mandir}/man6/%{name}.6.gz
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-0.23.git5bb0b5b
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.5-0.22.git5bb0b5b
 - convert license to SPDX
 

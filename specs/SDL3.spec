@@ -18,7 +18,7 @@
 
 Name:           SDL3
 Version:        3.1.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Cross-platform multimedia library
 License:        Zlib AND MIT AND Apache-2.0 AND (Apache-2.0 OR MIT)
 URL:            http://www.libsdl.org/
@@ -204,6 +204,9 @@ rm -v %{buildroot}%{_mandir}/man3/{S,U}int*.3type*
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 14 2025 Neal Gompa <ngompa@fedoraproject.org> - 3.1.8-2
 - Disable static library subpackage on RHEL
 

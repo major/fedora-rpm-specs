@@ -1,6 +1,6 @@
 Name:           clifm
 Version:        1.22
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Shell-like, command line terminal file manager
 
 # source is pretty evently split between these
@@ -71,6 +71,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.22-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 03 2024 Carl George <carlwgeorge@fedoraproject.org> - 1.22-1
 - Update to version 1.22 rhbz#2304057
 

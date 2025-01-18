@@ -1,6 +1,6 @@
 Name:           fedpkg-minimal
 Version:        1.2.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Script to allow fedpkg fetch to work
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -42,6 +42,9 @@ install -pm 755 bin/fedpkg-base %{buildroot}%{_bindir}/fedpkg-base
 %{_bindir}/fedpkg-base
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2.0-12
 - convert license to SPDX
 

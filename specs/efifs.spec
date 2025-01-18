@@ -15,7 +15,7 @@
 Summary:        Free software EFI/UEFI standalone file system drivers
 Name:           efifs
 Version:        1.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPL-3.0-or-later
 URL:            https://efi.akeo.ie/
 Source0:        https://github.com/pbatard/efifs/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -111,6 +111,9 @@ install -p -m 0700 edk2-%{edk2_stable_str}/Build/EfiFs/RELEASE_GCC5/%{efi_arch_u
 %{efi_esp_dir}/
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Dec 01 2024 Robert Scheck <robert@fedoraproject.org> 1.11-1
 - Upgrade to 1.11 (#2290813)
 

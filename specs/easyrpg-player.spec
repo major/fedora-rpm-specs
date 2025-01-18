@@ -46,7 +46,7 @@ URL: https://easyrpg.org
 License: GPL-3.0-or-later AND CC-BY-SA-4.0 AND BSD-3-Clause AND (Unlicense OR MIT-0) AND Unlicense AND Baekmuk AND LicenseRef-Fedora-Public-Domain AND MIT AND GPL-2.0-or-later WITH Font-exception-2.0
 
 Version: 0.8
-Release: 10%{?dist}
+Release: 11%{?dist}
 
 %global repo_owner EasyRPG
 %global repo_name Player
@@ -147,6 +147,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 17 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 0.8-10
 - Rebuilt with dr_wav 0.13.17
 

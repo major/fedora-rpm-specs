@@ -7,7 +7,7 @@
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
 Version: 8.11.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version}.tar.xz
 Source1: https://curl.se/download/%{name}-%{version}.tar.xz.asc
@@ -416,6 +416,9 @@ rm -f ${RPM_BUILD_ROOT}%{_libdir}/libcurl.la
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.11.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Dec 15 2024 Paul Howarth <paul@city-fan.org> - 8.11.1-2
 - Fix crash with Unexpected error 9 on netlink descriptor 10 (rhbz#2332350)
   - https://github.com/curl/curl/issues/15725

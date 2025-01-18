@@ -1,7 +1,7 @@
 Name:             gawkextlib
 Summary:          Library providing common infrastructure for gawk extension libraries
 Version:          1.0.4
-Release:          20%{?dist}
+Release:          21%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:          GPL-3.0-or-later
 
@@ -68,6 +68,9 @@ make check
 # =============================================================================
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.4-20
 - convert license to SPDX
 

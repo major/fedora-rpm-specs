@@ -1,7 +1,7 @@
 Summary:    A GNU tool for automatically configuring source code
 Name:       autoconf213
 Version:    2.13
-Release:    56%{?dist}
+Release:    57%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:    GPL-2.0-or-later
 URL:        http://www.gnu.org/software/autoconf/
@@ -93,6 +93,9 @@ make check
 %doc AUTHORS COPYING NEWS README TODO
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.13-57
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 2.13-56
 - convert license to SPDX
 

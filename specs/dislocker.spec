@@ -1,7 +1,7 @@
 Summary:         Utility to access BitLocker encrypted volumes
 Name:            dislocker
 Version:         0.7.3
-Release:         18%{?dist}
+Release:         19%{?dist}
 License:         GPL-2.0-or-later
 URL:             https://github.com/Aorimn/dislocker
 Source0:         https://github.com/Aorimn/dislocker/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -120,6 +120,9 @@ fi
 %{_mandir}/man1/%{name}-fuse.1*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 08 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.7.3-18
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.4
 

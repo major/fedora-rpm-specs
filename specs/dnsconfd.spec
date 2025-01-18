@@ -3,7 +3,7 @@
 
 Name:           dnsconfd
 Version:        1.4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Local DNS cache configuration daemon
 License:        MIT
 URL:            https://github.com/InfrastructureServices/dnsconfd
@@ -171,6 +171,9 @@ fi
 %{_tmpfilesdir}/dnsconfd-unbound.conf
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 11 2024 Tomas Korbar <tkorbar@redhat.com> - 1.4.2-1
 - Release 1.4.2
 

@@ -11,7 +11,7 @@
 Name:           fbrnch
 Version:        1.6.1
 # can only be reset when all subpkgs bumped
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Fedora packager tool to build package branches
 
 # copr-api: GPLv3+
@@ -194,6 +194,9 @@ help2man --no-info %{buildroot}%{_bindir}/%{name} > %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 17 2024 Jens Petersen <petersen@redhat.com> - 1.6.1-24
 - https://hackage.haskell.org/package/fbrnch-1.6.1/changelog
 - 'build','parallel': waitrepo now just uses "koji wait-repo --request"

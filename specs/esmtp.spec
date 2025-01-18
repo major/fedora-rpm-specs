@@ -2,7 +2,7 @@ Summary:        User configurable send-only Mail Transfer Agent
 Summary(de):    Benutzerkonfigurierbarer nur versendender Mail Transfer Agent (MTA)
 Name:           esmtp
 Version:        1.2
-Release:        28%{?dist}
+Release:        29%{?dist}
 Source:         http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
 Source1:        esmtp-0.4.1-mutt
 # esmtp system config file configuring procmail as mda, for the local-delivery
@@ -121,6 +121,9 @@ fi
 %config(noreplace) %{_sysconfdir}/esmtprc
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.2-28
 - Rebuilt for the bin-sbin merge (2nd attempt)
 

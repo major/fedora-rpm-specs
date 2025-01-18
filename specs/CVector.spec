@@ -4,7 +4,7 @@
 
 Name:           CVector
 Version:        %{version_number}.1
-Release:        %release_func 32
+Release:        %release_func 33
 Summary:        ANSI C API for Dynamic Arrays
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -68,6 +68,9 @@ make tests
 %{_libdir}/libCVector.so
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3.1-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.3.1-32
 - convert license to SPDX
 

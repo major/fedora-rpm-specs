@@ -18,7 +18,7 @@
 Name:           ghc-%{pkg_name}
 Version:        2.1.2.1
 # can only be reset when all subpkgs bumped
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Fast JSON parsing and encoding
 
 License:        BSD-3-Clause
@@ -221,6 +221,9 @@ cabal-tweak-dep-ver vector '<0.13' '<0.14'
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Aug  3 2024 Jens Petersen <petersen@redhat.com> - 2.1.2.1-7
 - OneTuple-0.4.2, indexed-traversable-instances-0.1.2, semialign-1.3.1
 

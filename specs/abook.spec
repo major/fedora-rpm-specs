@@ -1,6 +1,6 @@
 Name: abook
 Version: 0.6.1
-Release: 28%{?dist}
+Release: 29%{?dist}
 # GPL-2.0-or-later, except:
 # getopt.[ch]: LGPL-2.0-or-later
 # getopt1.c: LGPL-2.0-or-later
@@ -52,6 +52,9 @@ autoreconf -vif
 %{_mandir}/man5/abookrc.*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 09 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.6.1-28
 - fix FTBFS with GCC15 (resolves: rhbz#2336029)
 - switch to autosetup macro

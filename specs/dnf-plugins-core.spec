@@ -42,7 +42,7 @@
 
 Name:           dnf-plugins-core
 Version:        4.10.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Core Plugins for DNF
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf-plugins-core
@@ -878,6 +878,9 @@ ln -sf %{yum_utils_subpackage_name}.1.gz %{buildroot}%{_mandir}/man1/repotrack.1
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Nov 21 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 4.10.0-2
 - Toggle dnf5_obsoletes_dnf for ELN
 

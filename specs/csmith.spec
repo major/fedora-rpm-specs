@@ -1,6 +1,6 @@
 Name:    csmith
 Version: 2.4.0
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Tool to generate random C programs for compiler testing
 
 # Most of the source code is under BSD while few header files are GPLv2+ and LGPLv2+
@@ -61,6 +61,9 @@ rm -v %{buildroot}%{_includedir}/{custom,stdint}_*
 %{_libdir}/libcsmith.so
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug  28 2024 Miroslav Suchý <msuchy@redhat.com> - 2.4.0-10
 - convert license to SPDX
 

@@ -185,7 +185,7 @@
 #################################################################################
 Name:		ceph
 Version:	19.2.0
-Release:	8%{?dist}
+Release:	9%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -2718,6 +2718,9 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:19.2.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Dec 20 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.0-8
 - remove openssl-engine
 

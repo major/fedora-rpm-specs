@@ -6,7 +6,7 @@ databases or from SQLAlchemy models.
 
 Name:           eralchemy
 Version:        1.2.10
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -62,6 +62,9 @@ Summary:        %sum
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.10-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2.10-23
 - convert license to SPDX
 

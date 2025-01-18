@@ -1,6 +1,6 @@
 Name:           dtkwm
 Version:        2.0.12
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Deepin graphical user interface library
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -60,6 +60,9 @@ export PATH=%{_qt5_bindir}:$PATH
 %{_libdir}/libdtkwm.so
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.12-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0.12-24
 - convert license to SPDX
 

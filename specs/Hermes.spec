@@ -1,6 +1,6 @@
 Name:           Hermes
 Version:        1.3.3
-Release:        47%{?dist}
+Release:        48%{?dist}
 Summary:        Pixel format conversion library
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -74,6 +74,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep  2 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3.3-47
 - convert license to SPDX
 

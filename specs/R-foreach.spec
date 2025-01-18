@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          10%{?dist}
+Release:          11%{?dist}
 Summary:          Provides Foreach Looping Construct
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -84,6 +84,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --ignore-vignettes
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul  24 2024 Miroslav Suchý <msuchy@redhat.com> - 1.5.2-10
 - convert license to SPDX
 

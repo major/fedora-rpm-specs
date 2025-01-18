@@ -18,7 +18,7 @@
 Summary:        Firmware and topology files for Sound Open Firmware project
 Name:           alsa-sof-firmware
 Version:        %{sof_ver}
-Release:        2%{?sof_ver_rel}%{?dist}
+Release:        3%{?sof_ver_rel}%{?dist}
 # See later in the spec for a breakdown of licensing
 License:        BSD-3-Clause AND Apache-2.0
 URL:            https://github.com/thesofproject/sof-bin
@@ -162,6 +162,9 @@ if st and st.type == "directory" then
 end
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.09.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec 18 2024 Jaroslav Kysela <perex@perex.cz> - 2024.09.2-2
 - Add sof-ipc4-lib directory
 

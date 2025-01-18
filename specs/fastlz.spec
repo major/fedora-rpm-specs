@@ -12,7 +12,7 @@
 Name:      fastlz
 Summary:   Portable real-time compression library
 Version:   0.5.0
-Release:   1%{?dist}
+Release:   2%{?dist}
 License:   MIT
 URL:       http://fastlz.org/
 
@@ -99,6 +99,9 @@ diff ../%{name}.c tmpin
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Oct 16 2024 Remi Collet <remi@remirepo.net> - 0.5.0-1
 - update to 0.5.0
 

@@ -1,6 +1,6 @@
 Name:		CharLS
 Version:	2.4.2
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	An optimized implementation of the JPEG-LS standard
 License:	BSD-3-Clause
 URL:		https://github.com/team-charls/charls
@@ -67,6 +67,9 @@ rm CharLS*.sln* -v
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.4.2-7
 - convert license to SPDX
 

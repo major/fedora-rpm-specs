@@ -2,7 +2,7 @@
 
 Name:           MyPasswordSafe
 Version:        0.6.7
-Release:        51.%{datever}%{?dist}
+Release:        52.%{datever}%{?dist}
 Summary:        A graphical password management tool
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -95,6 +95,9 @@ desktop-file-install \
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.7-52.20061216
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.6.7-51.20061216
 - convert license to SPDX
 

@@ -19,7 +19,7 @@
 
 Name:       amdsmi
 Version:    %{rocm_version}
-Release:    3%{?dist}
+Release:    5%{?dist}
 Summary:    AMD System Management Interface
 
 License:    NCSA AND MIT AND BSD-3-Clause
@@ -83,6 +83,9 @@ chmod a-x README.md
 # /usr/libexec/amdsmi_cli/BDF.py:126: SyntaxWarning: invalid escape sequence '\.'
 #   bdf_regex = "(?:[0-6]?[0-9a-fA-F]{1,4}:)?[0-2]?[0-9a-fA-F]{1,2}:[0-9a-fA-F]{1,2}\.[0-7]"
 sed -i -e 's@bdf_regex = "@bdf_regex = r"@' amdsmi_cli/BDF.py
+
+# Fix script shebang
+sed -i -e 's@env python3@python3@' amdsmi_cli/*.py
 
 # Install local gtests in same dir as tests
 sed -i -e 's@${CPACK_PACKAGING_INSTALL_PREFIX}/lib@${SHARE_INSTALL_PREFIX}/tests@' tests/amd_smi_test/CMakeLists.txt
@@ -157,6 +160,13 @@ rm %{buildroot}%{_libdir}/cmake/amd_smi/amd_smi-config.cmake
 %endif
 
 %changelog
+* Thu Jan 16 2025 Tom Rix <Tom.Rix@amd.com> -6.3.1-5
+- Improve empty return patch
+- Fix shebangs
+
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 8 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-3
 - Include cstdint for gcc 15
 

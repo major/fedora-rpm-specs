@@ -2,7 +2,7 @@
 
 Name:           CUnit
 Version:        2.1.3
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Unit testing framework for C
 
 License:        LGPL-2.0-or-later
@@ -72,6 +72,9 @@ done
 %{_mandir}/man3/CUnit.3*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.3-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.3-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          2.1.7.1
-Release:          12%{?dist}
+Release:          13%{?dist}
 Summary:          Wrapper for the Gnu Scientific Library
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -62,6 +62,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.7.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.1.7.1-12
 - convert license to SPDX
 

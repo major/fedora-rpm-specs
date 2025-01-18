@@ -1,7 +1,7 @@
 Summary: DHCP relay agent
 Name: dhcp-forwarder
 Version: 0.11
-Release: 22%{?dist}
+Release: 23%{?dist}
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License: GPL-3.0-only
 URL: http://www.nongnu.org/dhcp-fwd/
@@ -78,6 +78,9 @@ exit 0
 %systemd_postun_with_restart dhcp-forwarder.service
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 0.11-22
 - convert license to SPDX
 

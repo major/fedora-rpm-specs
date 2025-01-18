@@ -12,7 +12,7 @@
 
 Name: criu
 Version: 4.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Tool for Checkpoint/Restore in User-space
 License: GPL-2.0-only AND LGPL-2.1-only AND MIT
 URL: http://criu.org/
@@ -192,6 +192,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libcriu.a
 %tmpfiles_create %{name}.conf
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Dec 08 2024 Radostin Stoyanov <rstoyanov@fedoraproject.org> - 4.0-3
 - Apply patch to handle vvar_vclock vma-s in rawhide
 

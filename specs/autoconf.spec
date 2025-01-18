@@ -10,7 +10,7 @@
 # `/opt/{namespace}/{versioned name}`.
 Name:       autoconf
 Version:    2.72
-Release:    3%{?dist}
+Release:    4%{?dist}
 
 # To help future rebase, the following licenses were seen in the following files/folders:
 # '*' is anything that was not explicitly listed earlier in the folder
@@ -222,6 +222,9 @@ install -p -m 755 enable.scl ${RPM_BUILD_ROOT}/%{_prefix}/enable
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.72-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.72-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

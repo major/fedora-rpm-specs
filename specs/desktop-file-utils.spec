@@ -1,7 +1,7 @@
 Summary: Utilities for manipulating .desktop files
 Name: desktop-file-utils
 Version: 0.27
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: https://www.freedesktop.org/software/desktop-file-utils
 Source0: https://www.freedesktop.org/software/desktop-file-utils/releases/%{name}-%{version}.tar.xz
 Source1: desktop-entry-mode-init.el
@@ -58,6 +58,9 @@ update-desktop-database &> /dev/null || :
 %{_emacs_sitelispdir}/desktop-file-utils/
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.27-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jul 23 2024 Ryan Brue <ryanbrue@gmail.com> - 0.27-2
 - Add patch to include COSMIC as a category
 

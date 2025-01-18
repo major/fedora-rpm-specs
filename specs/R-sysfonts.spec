@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          10%{?dist}
+Release:          11%{?dist}
 Summary:          Loading Fonts into R
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -91,6 +91,9 @@ popd
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.8-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul  29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.8.8-10
 - convert license to SPDX
 

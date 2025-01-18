@@ -62,6 +62,8 @@ Summary:        %{summary}
 
 %prep
 %forgeautosetup -p1
+# unpin urllib3, is compatible with both 1.x and 2.x
+sed -i -e '/urllib3/s/>=.*//' setup.cfg
 
 %generate_buildrequires
 %pyproject_buildrequires -t

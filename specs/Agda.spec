@@ -16,7 +16,7 @@
 Name:           %{pkg_name}
 Version:        2.6.4.3
 # can only be reset when all subpkgs bumped
-Release:        51%{?dist}
+Release:        52%{?dist}
 Summary:        A dependently typed functional programming language and proof assistant
 
 License:        MIT AND BSD-3-Clause
@@ -330,6 +330,9 @@ rm -r %{buildroot}%{_datadir}/%{pkgver}/emacs-mode
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4.3-52
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 09 2024 Pete Walter <pwalter@fedoraproject.org> - 2.6.4.3-51
 - Rebuild for ICU 76
 

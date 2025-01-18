@@ -6,7 +6,7 @@ Name: dovecot
 Epoch: 1
 Version: 2.3.21.1
 %global prever %{nil}
-Release: 2%{?dist}
+Release: 3%{?dist}
 #dovecot itself is MIT, a few sources are PD, pigeonhole is LGPLv2
 License: MIT AND LGPL-2.1-only
 
@@ -520,6 +520,9 @@ make check
 %{_libdir}/%{name}/dict/libdriver_pgsql.so
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.3.21.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Oct 02 2024 Michal Hlavinka <mhlavink@redhat.com> - 1:2.3.21.1-2
 - pigeonhole updated to 0.5.21.1
 

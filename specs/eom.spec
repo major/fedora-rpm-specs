@@ -15,9 +15,9 @@
 Name:          eom
 Version:       %{branch}.0
 %if 0%{?rel_build}
-Release:       5%{?dist}
+Release:       6%{?dist}
 %else
-Release:       0.21%{?git_rel}%{?dist}
+Release:       0.22%{?git_rel}%{?dist}
 %endif
 Summary:       Eye of MATE image viewer
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
@@ -129,6 +129,9 @@ find ${RPM_BUILD_ROOT} -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 18 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.28.0-5
 - another rebuild for unannounced so-name bump of image-magick !
 

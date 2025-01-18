@@ -4,7 +4,7 @@ Summary: Serbian dictionaries for Aspell
 Name: aspell-%{lang}
 Epoch: 50
 Version: 0.02
-Release: 34%{?dist}
+Release: 35%{?dist}
 License: LGPL-2.1-only
 URL: http://aspell.net/
 Source: ftp://ftp.gnu.org/gnu/aspell/dict/%{lang}/aspell6-%{lang}-%{version}.tar.bz2
@@ -45,6 +45,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_libdir}/aspell-0.60/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 50:0.02-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 50:0.02-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

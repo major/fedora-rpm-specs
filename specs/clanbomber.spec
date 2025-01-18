@@ -1,6 +1,6 @@
 Name:           clanbomber
 Version:        1.05
-Release:        48%{?dist}
+Release:        49%{?dist}
 Summary:        Lay bombs and Blast the other players of the field game using ClanLib
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -66,6 +66,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.05-48
 - convert license to SPDX
 

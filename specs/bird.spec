@@ -2,7 +2,7 @@
 
 Name:             bird
 Version:          2.16.1
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          BIRD Internet Routing Daemon
 
 License:          GPL-2.0-or-later
@@ -108,6 +108,9 @@ make test
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.16.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jan 11 2025 Robert Scheck <robert@fedoraproject.org> - 2.16.1-1
 - Upgrade to 2.16.1
 

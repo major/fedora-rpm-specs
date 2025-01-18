@@ -3,7 +3,7 @@
 
 Name:			xyzsh
 Version:		1.5.8
-Release:		27%{?dist}
+Release:		28%{?dist}
 Summary:		Interactive shell and text processing tool
 
 # LICENSE		MIT
@@ -21,6 +21,8 @@ Source0:		http://dl.sourceforge.jp/xyzsh/%{repoid}/%{name}-%{version}.tgz
 Patch0:		xyzsh-1.5.8-format.patch
 # -Werror=implicit-function-declaration
 Patch1:		xyzsh-1.5.8-implicit-function-declaration.patch
+# Support -std=gnu23
+Patch2:		xyzsh-1.5.8-c23-compat.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -117,6 +119,9 @@ make install \
 %{_includedir}/%{name}/
 
 %changelog
+* Thu Jan 16 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.5.8-28
+- Support C23
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.8-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

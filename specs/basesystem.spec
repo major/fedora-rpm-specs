@@ -3,7 +3,7 @@
 Summary: The skeleton package which defines a simple %{distroname} system
 Name: basesystem
 Version: 11
-Release: 21%{?dist}
+Release: 22%{?dist}
 License: LicenseRef-Fedora-Public-Domain
 Requires(pre): setup filesystem
 BuildArch: noarch
@@ -23,6 +23,9 @@ should never be removed. As the package has no content, it is Public Domain.
 %files
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 11-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 11-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

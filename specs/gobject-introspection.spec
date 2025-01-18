@@ -2,7 +2,7 @@
 
 Name:           gobject-introspection
 Version:        1.82.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Introspection system for GObject-based libraries
 
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-2-Clause
@@ -94,6 +94,9 @@ mv giscanner/ast.py giscanner/gio_ast.py
 %{_mandir}/man1/g-ir-scanner.1*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.82.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 16 2024 nmontero <nmontero@redhat.com> - 1.82.0-1
 - Update to 1.82.0
 

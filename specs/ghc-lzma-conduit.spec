@@ -14,7 +14,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.2.3
 # can only be reset when subpkg bumped
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Conduit interface for lzma/xz compression
 
 License:        BSD-3-Clause
@@ -137,6 +137,9 @@ cabal-tweak-dep-ver transformers '< 0.6' '< 0.7'
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Aug  2 2024 Jens Petersen <petersen@redhat.com> - 1.2.3-22
 - bump bounds for resourcet and transformers
 

@@ -5,7 +5,7 @@
 
 Name:           gedit-plugins
 Version:        46.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Plugins for gedit
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -267,6 +267,9 @@ The gedit wordcompletion plugin.
 %{_metainfodir}/gedit-wordcompletion.metainfo.xml
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 46.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 46.0-3
 - convert license to SPDX
 

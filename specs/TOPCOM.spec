@@ -1,6 +1,6 @@
 Name:           TOPCOM
 Version:        1.1.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Triangulations Of Point Configurations and Oriented Matroids
 
 %global upver %(tr . _ <<< %{version})
@@ -154,6 +154,9 @@ LD_LIBRARY_PATH=$PWD src/check
 %doc examples
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec  4 2024 Jerry James <loganjerry@gmail.com> - 1.1.2-6
 - Link with libz-ng instead of libz
 

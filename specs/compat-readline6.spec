@@ -1,7 +1,7 @@
 Summary: A library for editing typed command lines
 Name: compat-readline6
 Version: 6.3
-Release: 31%{?dist}
+Release: 32%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
 URL: http://cnswww.cns.cwru.edu/php/chet/readline/rltop.html
@@ -99,6 +99,9 @@ rm -rf %{buildroot}%{_mandir}
 %{_libdir}/readline6/libhistory.a
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.3-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 6.3-31
 - convert license to SPDX
 

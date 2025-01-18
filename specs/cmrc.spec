@@ -9,7 +9,7 @@ from without needing to store that data on disk external to the program.}
 
 Name: cmrc
 Version: 2.0.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 License: MIT
 Summary: Standalone CMake-Based C++ Resource Compiler
@@ -55,6 +55,9 @@ Provides: %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 %{_datadir}/cmake/%{appname}/
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

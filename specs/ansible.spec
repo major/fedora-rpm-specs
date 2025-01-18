@@ -34,7 +34,7 @@ Name:           ansible
 Summary:        Curated set of Ansible collections included in addition to ansible-core
 Version:        11.1.0
 %global uversion %{version_no_tilde %{quote:%nil}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 # In addition to GPL-3.0-or-later, the following licenses apply.
 # License text that solely exists in file headers were not considered.
@@ -169,6 +169,9 @@ chmod 0755 %{buildroot}%{python3_sitelib}/ansible_collections/ngine_io/cloudstac
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 11.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec 18 2024 Maxwell G <maxwell@gtmx.me> - 11.1.0-1
 - Update to 11.1.0.
 

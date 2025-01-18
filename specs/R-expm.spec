@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}.%{packrel}
-Release:          15%{?dist}
+Release:          16%{?dist}
 Source0:          ftp://cran.r-project.org/pub/R/contrib/main/%{packname}_%{packver}-%{packrel}.tar.gz
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:          GPL-2.0-or-later
@@ -49,6 +49,9 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}/R/library
 %{_libdir}/R/library/%{packname}/test-tools.R
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.999.6-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul  26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.999.6-15
 - convert license to SPDX
 

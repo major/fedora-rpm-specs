@@ -1,7 +1,7 @@
 Summary: Client for signing certificates with an ACME server
 Name: dehydrated
 Version: 0.7.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: MIT
 URL: https://github.com/dehydrated-io/dehydrated
 Source0: https://github.com/dehydrated-io/dehydrated/releases/download/v%{version}/dehydrated-%{version}.tar.gz
@@ -150,6 +150,9 @@ systemctl start dehydrated.timer >/dev/null 2>&1 || :
 %{_mandir}/man1/dehydrated.1*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Dec 26 2024 Robert Scheck <robert@fedoraproject.org> - 0.7.1-6
 - Added missing dehydrated run-time requirements
 - Resolved: rhbz#2279854 dehydrated dependency issue on EL8

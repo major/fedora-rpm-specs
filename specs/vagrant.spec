@@ -7,7 +7,7 @@
 
 Name: vagrant
 Version: 2.3.4
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Build and distribute virtualized development environments
 License: MIT
 URL: http://vagrantup.com
@@ -40,6 +40,10 @@ Patch4: vagrant-2.3.4-Only-check-for-arguments-matching-test-string.patch
 # The file is removed as it requires protobuf components not yet
 # packaged in Fedora.
 Patch5: vagrant-2.3.4-Disable-loading-of-direct_conversions-file.patch
+# Default URL for pulling boxes seems to have changed.
+# This fix allows vagrant to pull boxes again.
+# See: https://bugzilla.redhat.com/show_bug.cgi?id=2337302
+Patch6: vagrant-2.3.4-Fix-the-default-vagrant-URL-for-pulling-boxes.patch
 
 # The load directive is supported since RPM 4.12, i.e. F21+. The build process
 # fails on older Fedoras.
@@ -208,6 +212,8 @@ rm -rf plugins/commands/serve/util/direct_conversions.rb
 %patch 5 -p1
 
 %patch 3 -p1
+
+%patch 6 -p1
 
 
 %build
@@ -488,6 +494,10 @@ end
 %{vagrant_plugin_instdir}/vagrant-spec.config.example.rb
 
 %changelog
+* Thu Jan 16 2025 Jarek Prokop <jprokop@redhat.com> - 2.3.4-7
+- Fix default URL used for pulling boxes.
+  Resolves: rhbz#2337302
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

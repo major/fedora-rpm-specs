@@ -2,7 +2,7 @@
 
 Name:           fedfind
 Version:        6.0.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fedora compose and image finder
 
 License:        GPL-3.0-or-later
@@ -60,6 +60,9 @@ sed -i -e 's., "setuptools-scm"..g' pyproject.toml
 %{python3_sitelib}/%{srcname}*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Oct 21 2024 Adam Williamson <awilliam@redhat.com> - 6.0.4-1
 - New release 6.0.4: add several new subvariants to const
 

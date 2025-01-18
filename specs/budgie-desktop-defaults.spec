@@ -1,6 +1,6 @@
 Name:           budgie-desktop-defaults
 Version:        0.5.1
-Release:        5%{?dist}
+Release:        7%{?dist}
 Summary:        Budgie Desktop Defaults for Fedora
 
 License:        CC-BY-SA-4.0
@@ -14,13 +14,10 @@ BuildArch:      noarch
 BuildRequires:  gcc
 BuildRequires:  gnupg2
 BuildRequires:  meson
-Requires:       budgie-backgrounds
 Requires:       budgie-desktop
 Requires:       desktop-backgrounds-budgie
 Requires:       materia-gtk-theme
 Requires:       papirus-icon-theme
-Requires:       slick-greeter
-
 
 %description
 Budgie Desktop Defaults for Fedora.
@@ -43,6 +40,12 @@ Budgie Desktop Defaults for Fedora.
 %{_datadir}/glib-2.0/schemas/10_budgie_*.gschema.override
 
 %changelog
+* Thu Jan 16 2025 Joshua Strobl <me@joshuastrobl.com> - 0.5.1-7
+- Remove budgie-backgrounds and slick-greeter as required packages, keep it to being part of comp instead
+
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

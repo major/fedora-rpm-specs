@@ -1,6 +1,6 @@
 Name:		fcitx-libpinyin
 Version:	0.5.4
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Libpinyin Wrapper for Fcitx
 License:	GPL-2.0-or-later
 URL:		https://fcitx-im.org/wiki/Libpinyin
@@ -48,6 +48,9 @@ Libpinyin is a Frontend of the Intelligent Pinyin IME Backend.
 %{_datadir}/icons/hicolor/48x48/status/fcitx-*.png
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.4-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.4-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

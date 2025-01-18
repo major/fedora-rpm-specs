@@ -7,7 +7,7 @@
 
 Name:             R-%{packname}
 Version:          2.4
-Release:          15%{?dist}
+Release:          16%{?dist}
 Summary:          Export R Objects to Several Markup Languages
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -80,6 +80,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul  26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.4-15
 - convert license to SPDX
 

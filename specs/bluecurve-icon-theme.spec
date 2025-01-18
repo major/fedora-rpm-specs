@@ -1,7 +1,7 @@
 Summary: Bluecurve icon theme
 Name: bluecurve-icon-theme
 Version: 8.0.2
-Release: 31%{?dist}
+Release: 32%{?dist}
 BuildArch: noarch
 License: GPL-2.0-or-later
 # There is no official upstream yet
@@ -70,6 +70,9 @@ touch %{buildroot}%{_datadir}/icons/Bluecurve/icon-theme.cache
 %{_datadir}/icons/LBluecurve-inverse
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.2-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.2-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

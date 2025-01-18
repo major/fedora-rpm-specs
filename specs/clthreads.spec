@@ -3,7 +3,7 @@
 Summary:       POSIX threads C++ access library
 Name:          clthreads
 Version:       2.4.2
-Release:       13%{?dist}
+Release:       14%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:       LicenseRef-Callaway-LGPLv2+
 URL:           http://kokkinizita.linuxaudio.org/linuxaudio/
@@ -56,6 +56,9 @@ sed -i -e '/^CXXFLAGS += -march=native/d' source/Makefile
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 2.4.2-13
 - convert license to SPDX
 

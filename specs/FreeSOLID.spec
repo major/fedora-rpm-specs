@@ -1,6 +1,6 @@
 Name:           FreeSOLID
 Version:        2.1.1
-Release:        50%{?dist}
+Release:        51%{?dist}
 Summary:        3D collision detection C++ library
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -99,6 +99,9 @@ rm -rf sample/*.o sample/.libs $(find sample -type f -a -executable)
 %{_includedir}/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-51
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 2.1.1-50
 - convert license to SPDX
 

@@ -3,7 +3,7 @@
 Summary:    Job spooling tools
 Name:       at
 Version:    3.2.5
-Release:    12%{?dist}
+Release:    13%{?dist}
 # http://packages.debian.org/changelogs/pool/main/a/at/current/copyright
 # + install-sh is MIT license with changes under Public Domain
 License:    GPL-3.0-or-later AND GPL-2.0-or-later AND ISC
@@ -165,6 +165,9 @@ chown root:root %{_localstatedir}/spool/at/.SEQ
 %attr(0644,root,root)       /%{_unitdir}/atd.service
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.5-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Aug 8 2024 Ales Nezbeda <anezbeda@redhat.com> - 3.2.5-12
 - Backport fixes from upstream PR
 - https://salsa.debian.org/debian/at/-/merge_requests/34

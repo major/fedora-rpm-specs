@@ -3,7 +3,7 @@ Name:           colossus
 %global         revdate    20130917
 Version:        0.14.0
 %global         branch    %{nil}
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Allows people to play Titan against each other or AIs
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -181,6 +181,9 @@ EOF
 %{_javadocdir}/%{name}
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.14.0-29
 - convert license to SPDX
 

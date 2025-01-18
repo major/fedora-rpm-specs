@@ -6,7 +6,7 @@
 
 Name:           gnome-hexgl
 Version:        0.2.0
-Release:        16.%{date}git%{shortcommit}%{?dist}
+Release:        17.%{date}git%{shortcommit}%{?dist}
 Summary:        Gthree port of HexGL
 
 # The entire source code is GPLv3+ except sounds which is CC-BY
@@ -73,6 +73,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-17.20200724gitf47a351
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug  28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.0-16.20200724gitf47a351
 - convert license to SPDX
 

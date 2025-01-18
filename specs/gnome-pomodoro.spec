@@ -4,7 +4,7 @@
 Epoch:          1
 Name:           gnome-pomodoro
 Version:        0.26.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A time management utility for GNOME
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -81,6 +81,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/*/org.gnome.Pomod
 %{_datadir}/dbus-1/services/org.gnome.Pomodoro.service
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.26.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Oct 09 2024 Vicente Maroto Garzón <vicente.maroto.garzon@c512l.dev> 1:0.26.0-1
 - Update to 0.26.0
 

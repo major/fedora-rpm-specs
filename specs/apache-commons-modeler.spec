@@ -3,7 +3,7 @@
 
 Name:             apache-%{short_name}
 Version:          2.0.1
-Release:          42%{?dist}
+Release:          43%{?dist}
 Summary:          Model MBeans utility classes
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:          Apache-2.0
@@ -73,6 +73,9 @@ cp -p %{SOURCE1} .
 %doc LICENSE.txt NOTICE.txt
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0.1-42
 - convert license to SPDX
 

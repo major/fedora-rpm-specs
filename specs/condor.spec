@@ -6,7 +6,7 @@
 #######################
 Name:           condor
 Version:        23.9.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        HTCondor: High Throughput Computing
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -937,6 +937,9 @@ done
 /sbin/ldconfig
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 23.9.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 01 2024 Tim Theisen <ttheisen@fedoraproject.org> - 23.9.6-2
 - Suppress provides/requires for libfmt - rhbz#2315859
 

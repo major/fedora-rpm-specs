@@ -3,7 +3,7 @@
 
 Name:       copr-keygen
 Version:    2.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Part of Copr build system. Aux service that generate keys for signd
 
 License:    GPL-2.0-or-later
@@ -173,6 +173,9 @@ systemctl condrestart httpd &>/dev/null || :
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Oct 02 2024 Jiri Kyjovsky <j1.kyjovsky@gmail.com> 2.0-1
 - Drop support for python2
 

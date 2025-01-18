@@ -1,6 +1,6 @@
 Name:           asm6809
 Version:        2.13
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Multiple pass 6809 & 6309 cross assembler
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -41,6 +41,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.13-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 2.13-14
 - convert license to SPDX
 

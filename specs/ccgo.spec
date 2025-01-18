@@ -1,6 +1,6 @@
 Name:       ccgo
 Version:    0.3.6.5
-Release:    24%{?dist}
+Release:    25%{?dist}
 Summary:    An IGS (Internet Go Server) client written in C++
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:    GPL-3.0-or-later
@@ -75,6 +75,9 @@ install -m 0644 %{SOURCE1} %{buildroot}%{_datadir}/appdata
 %{_datadir}/pixmaps/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.6.5-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.3.6.5-24
 - convert license to SPDX
 

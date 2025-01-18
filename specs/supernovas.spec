@@ -2,7 +2,7 @@
 
 Name:            supernovas
 Version:         1.2.0
-Release:         5%{?dist}
+Release:         9%{?dist}
 Summary:         The Naval Observatory's NOVAS C astronomy library, made better 
 License:         Unlicense
 URL:             https://smithsonian.github.io/SuperNOVAS
@@ -85,6 +85,7 @@ Summary:         C development files for the SuperNOVAS C/C++ astronomy library
 Requires:        %{name}%{?_isa} = %{version}-%{release}
 Requires:        %{name}-solsys1%{?_isa} = %{version}-%{release}
 Requires:        %{name}-solsys2%{?_isa} = %{version}-%{release}
+Requires:        %{name}-solsys-calceph%{?_isa} = %{version}-%{release}
 
 %description devel
 This sub-package provides C headers and non-versioned shared library symbolic 
@@ -151,5 +152,47 @@ make DESTDIR=%{buildroot} libdir=%{_libdir} install
 %doc %{_docdir}/%{name}/html
 
 %changelog
-%autochangelog
+
+* Thu Jan 16 2025 Attila Kovacs <attipaci@gmail.com> - 1.2.0-9
+- Bad dates in changelog
+
+* Thu Jan 16 2025 Attila Kovacs <attipaci@gmail.com> - 1.2.0-8
+- Fix solsys-calceph subpackage dependence
+
+* Thu Jan 16 2025 Attila Kovacs <attipaci@gmail.com> - 1.2.0-7
+- Switch to manual changelog
+- Remove unwanted files committed earlier
+
+* Thu Jan 16 2025 Attila Kovacs <attipaci@gmail.com> - 1.2.0-6
+- Upstream rerelease v1.2.0 (fixes .so links)
+
+* Wed Jan 15 2025 Attila Kovacs <attipaci@gmail.com> - 1.2.0-5
+- Various small fixes to spec file
+
+* Wed Jan 15 2025 Attila Kovacs <attipaci@gmail.com> - 1.2.0-4
+- Exclude only solsys-calceph subpackage from i686 build
+
+* Wed Jan 15 2025 Attila Kovacs <attipaci@gmail.com> - 1.2.0-3
+- Exclude i686 from build
+
+* Wed Jan 15 2025 Attila Kovacs <attipaci@gmail.com> - 1.2.0-2
+- BuildRequires w/o {_isa}
+
+* Wed Jan 15 2025 Attila Kovacs <attipaci@gmail.com> - 1.2.0-1
+- Upstream v1.2.0
+
+* Wed Nov 06 2024 Attila Kovacs <attipaci@gmail.com> - 1.1.1-1
+- Upstream v1.1.1-2
+
+* Sat Aug 03 2024 Attila Kovacs <attipaci@gmail.com> - 1.1.0-2
+- v1.1.0-2: re-release with fixes to regression testing
+
+* Sat Aug 03 2024 Attila Kovacs <attipaci@gmail.com> - 1.1.0-1
+- Update to upstream SuperNOVAS v1.1.0
+
+* Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
+
+* Wed Jun 19 2024 Attila Kovacs <attipaci@gmail.com> - 1.0.1-1
+- Initial import (fedora#2283055)
 

@@ -1,6 +1,6 @@
 Name:           gmime
 Version:        2.6.23
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Library for creating and parsing MIME messages
 
 # Files in examples/, src/ and tests/ are GPLv2+
@@ -119,6 +119,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.23-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 2.6.23-22
 - convert license to SPDX
 

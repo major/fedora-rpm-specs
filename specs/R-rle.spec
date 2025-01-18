@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          15%{?dist}
+Release:          16%{?dist}
 Summary:          Common Functions for Run-Length Encoded Vectors
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -71,6 +71,9 @@ rm %{buildroot}%{rlibdir}/%{packname}/NEWS
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul  29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.9.2-15
 - convert license to SPDX
 

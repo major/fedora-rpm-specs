@@ -5,7 +5,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          9%{?dist}
+Release:          10%{?dist}
 Source0:          http://www.bioconductor.org/packages/release/bioc/src/contrib/%{packname}_%{packver}.tar.gz
 License:          Artistic-2.0
 URL:              http://www.bioconductor.org/packages/release/bioc/html/%{packname}.html
@@ -54,6 +54,9 @@ test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
 %{_libdir}/R/library/%{packname}/unitTests
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.32.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.32.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

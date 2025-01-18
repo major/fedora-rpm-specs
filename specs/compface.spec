@@ -1,6 +1,6 @@
 Name:           compface
 Version:        1.5.2
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Library and tools for handling X-Face data
 
 License:        LicenseRef-compface
@@ -78,6 +78,9 @@ cmp %{SOURCE1} __test.xbm
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug  7 2024 Michael Schwendt <mschwendt@fedoraproject.org> - 1.5.2-41
 - migrated to SPDX license based on license review ticket #555
 - include README.copyright file as license

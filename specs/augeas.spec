@@ -7,7 +7,7 @@ License:        LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND (G
 %global commit 2de06e0519bb8daf047191e46a9672e1d16b1955
 %forgemeta
 
-Release:        0.1%{?dist}
+Release:        0.2%{?dist}
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 
@@ -190,6 +190,9 @@ rm -f $RPM_BUILD_ROOT/usr/bin/dump
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.2-0.2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Sep 03 2024 Richard W.M. Jones <rjones@redhat.com> - 1.14.2-0
 - Move to latest upstream
 - Use forge macros

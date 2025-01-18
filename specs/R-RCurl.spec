@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}.%{packrel}
-Release:          9%{?dist}
+Release:          10%{?dist}
 Summary:          General network (HTTP/FTP) client interface for R
 # Automatically converted from old format: BSD - review is highly recommended.
 License:          LicenseRef-Callaway-BSD
@@ -62,6 +62,9 @@ rm -rf %{buildroot}%{_libdir}/R/library/R.css
 %{_libdir}/R/library/%{packname}/examples/
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.98.1.8-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep  4 2024 Miroslav Suchý <msuchy@redhat.com> - 1.98.1.8-9
 - convert license to SPDX
 

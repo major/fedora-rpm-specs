@@ -1,7 +1,7 @@
 Summary: GTK frontend for anyRemote
 Name: ganyremote
 Version: 8.1.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
 Source0: http://downloads.sourceforge.net/anyremote/%{name}-%{version}.tar.gz
@@ -38,6 +38,9 @@ desktop-file-install --vendor=""          \
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.1.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 8.1.1-3
 - convert license to SPDX
 

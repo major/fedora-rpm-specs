@@ -27,7 +27,7 @@ HAProxy Data Plane API.}
                         support/CHANGELOG.md e2e/libs/bats-support/README.md
 
 Name:           %{goname}
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        HAProxy Data Plane API
 
 Group:          System Environment/Daemons
@@ -192,6 +192,9 @@ install -m 0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/haproxy/%{gorepo}.yaml
 %gopkgfiles
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.4-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 2.4.4-14
 - convert license to SPDX
 

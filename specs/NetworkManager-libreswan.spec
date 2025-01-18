@@ -15,7 +15,7 @@
 Summary:   NetworkManager VPN plug-in for IPsec VPN
 Name:      NetworkManager-libreswan
 Version:   1.2.24
-Release:   1%{?dist}
+Release:   2%{?dist}
 License:   GPL-2.0-or-later
 URL:       https://gitlab.gnome.org/GNOME/NetworkManager-libreswan
 Source0:   https://download.gnome.org/sources/NetworkManager-libreswan/1.2/%{name}-%{version}.tar.xz
@@ -130,6 +130,9 @@ mv %{buildroot}%{_sysconfdir}/dbus-1 %{buildroot}%{_datadir}/
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.24-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 22 2024 Lubomir Rintel <lkundrak@v3.sk> - 1.2.24-1
 - Update to 1.2.24 release
 - Fixes a local privilege escalation bug with severity "important" (CVE-2024-9050)

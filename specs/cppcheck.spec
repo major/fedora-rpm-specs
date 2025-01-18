@@ -2,7 +2,7 @@
 
 Name:           cppcheck
 Version:        2.16.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool for static C/C++ code analysis
 License:        GPL-3.0-or-later
 URL:            http://cppcheck.wiki.sourceforge.net/
@@ -109,6 +109,9 @@ cd %{_vpath_builddir}/bin
 %{_bindir}/cppcheck-htmlreport
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.16.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Dec 28 2024 Wolfgang Stöggl <c72578@yahoo.de> - 2.16.2-1
 - 2.16.2
 

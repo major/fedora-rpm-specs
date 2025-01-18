@@ -4,7 +4,7 @@
 
 Name:           aspell-mr
 Version:        0.10
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        GNU Aspell Marathi Dictionary Package
 
 License:        GPL-2.0-only
@@ -55,6 +55,9 @@ make install DESTDIR=%{buildroot}
 %{_libdir}/aspell-0.60/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

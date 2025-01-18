@@ -3,7 +3,7 @@
 Summary: Tethered shooting & control of digital cameras
 Name: entangle
 Version: 3.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: GPL-3.0-or-later
 Source: https://entangle-photo.org/download/sources/%{name}-%{version}.tar.xz
 Patch: 0001-meson-fix-build-for-meson-0.60.0.patch
@@ -110,6 +110,9 @@ rm -f %{buildroot}%{_libdir}/libentangle_frontend.so
 %{_libdir}/girepository-1.0/Entangle-0.1.typelib
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

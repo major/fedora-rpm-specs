@@ -14,7 +14,7 @@ Name:             dogtag-pki
 # Downstream release number:
 # - development/stabilization (unsupported): 0.<n> where n >= 1
 # - GA/update (supported): <n> where n >= 1
-%global           release_number 0.1
+%global           release_number 0.3
 
 # Development phase:
 # - development (unsupported): alpha<n> where n >= 1
@@ -39,6 +39,10 @@ Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timesta
 #     -o pki-<version>.tar.gz \
 #     <version tag>
 Source: https://github.com/dogtagpki/pki/archive/v%{version}%{?phase:-}%{?phase}/pki-%{version}%{?phase:-}%{?phase}.tar.gz
+
+# https://github.com/dogtagpki/pki/pull/4929
+# required for sbin merge
+Patch: 0001-Make-sbin-install-dir-configurable.patch
 
 # To create a patch for all changes since a version tag:
 # $ git format-patch \
@@ -656,6 +660,12 @@ Provides:         bundled(js-jquery) = 3.5.1
 Provides:         bundled(js-jquery-i18n-properties) = 1.2.7
 Provides:         bundled(js-patternfly) = 3.59.2
 Provides:         bundled(js-underscore) = 1.9.2
+
+# https://fedoraproject.org/wiki/Changes/RPMSuportForSystemdSysusers
+# since we don't follow the guidelines on how users and groups should
+# be created we must explicitly specify these provides
+Provides:       user(%{pki_username})
+Provides:       group(%{pki_groupname})
 
 %description -n   %{product_id}-server
 This package provides libraries and utilities needed by %{product_name} services.
@@ -1320,6 +1330,7 @@ pkgs=base\
     --prefix-dir=%{_prefix} \
     --include-dir=%{_includedir} \
     --lib-dir=%{_libdir} \
+    --sbin-dir=%{_sbindir} \
     --sysconf-dir=%{_sysconfdir} \
     --share-dir=%{_datadir} \
     --cmake=%{__cmake} \
@@ -1997,7 +2008,13 @@ fi
 
 ################################################################################
 %changelog
-* Wed Nov 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 11.6.0-0.1
+* Thu Jan 16 2025 Adam Williamson <awilliam@redhat.com> - 11.6.0-0.3.alpha1
+- Rebuild on mass rebuild tag to make that process happy
+
+* Thu Jan 16 2025 Adam Williamson <awilliam@redhat.com> - 11.6.0-0.2.alpha1
+- Add pkiuser user and group provides
+
+* Wed Nov 20 2024 Dogtag PKI Team <devel@lists.dogtagpki.org> - 11.6.0-0.1.alpha1
 - Rebase to PKI 11.6.0-alpha1
 
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 11.5.0-3.2

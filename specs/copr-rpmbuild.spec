@@ -16,7 +16,7 @@ Requires: %1 \
 Name:    copr-rpmbuild
 Version: 1.2
 Summary: Run COPR build tasks
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: https://github.com/fedora-copr/copr
 License: GPL-2.0-or-later
 
@@ -303,6 +303,9 @@ EOF
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 16 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 1.2-2
 - Drop i686 support beginning in Fedora 42 (leaf package)
 

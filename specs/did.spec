@@ -1,6 +1,6 @@
 Name: did
 Version: 0.21
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 Summary: What did you do last week, month, year?
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -56,6 +56,9 @@ export LANG=en_US.utf-8
 %license LICENSE
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.21-6
 - convert license to SPDX
 

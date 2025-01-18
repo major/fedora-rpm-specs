@@ -1,7 +1,7 @@
 Name:		alsamixergui
 Summary:	GUI mixer for ALSA sound devices
 Version:	0.9.0
-Release:	0.43.rc2%{?dist}
+Release:	0.44.rc2%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
 # This is where the source used to live, but this upstream is dead.
@@ -55,6 +55,9 @@ desktop-file-install --dir $RPM_BUILD_ROOT%{_datadir}/applications %{SOURCE1}
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-0.44.rc2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.9.0-0.43.rc2
 - convert license to SPDX
 

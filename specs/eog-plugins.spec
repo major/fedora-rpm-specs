@@ -4,7 +4,7 @@
 
 Name:           eog-plugins
 Version:        44.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A collection of plugins for the eog image viewer
 
 License:        GPL-2.0-or-later AND CC0-1.0
@@ -234,6 +234,9 @@ The eog slideshowshuffle plugin.
 %{_metainfodir}/eog-slideshowshuffle.appdata.xml
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 44.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Aug 04 2024 David King <amigadave@amigadave.com> - 44.1-1
 - Update to 44.1
 

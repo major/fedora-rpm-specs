@@ -12,7 +12,7 @@
 Version: 0.68.5.1
 Name: flow-tools
 Summary: Tool set for working with NetFlow data
-Release: 42%{?dist}
+Release: 43%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD 
 URL: http://code.google.com/p/%{name}/
@@ -236,6 +236,9 @@ exit 0
 %doc docs/*.html ChangeLog.old TODO INSTALL SECURITY
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.68.5.1-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.68.5.1-42
 - convert license to SPDX
 

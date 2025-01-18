@@ -6,7 +6,7 @@
 
 Name:           %{name}
 Version:        0.4.2
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Unicode font by Electronic Font Open Laboratory
 
 # Automatically converted from old format: BSD and Public Domain and Baekmuk and MIT - review is highly recommended.
@@ -84,6 +84,9 @@ popd
 %{catalogdir}/fonts-%{name}
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug  28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.4.2-39
 - convert license to SPDX
 

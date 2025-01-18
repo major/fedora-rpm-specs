@@ -8,7 +8,7 @@
 
 Name:		fstransform
 Version:	0.9.4
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	Tool for in-place file-system conversion without backup
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -88,6 +88,9 @@ done
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.9.4-15
 - convert license to SPDX
 

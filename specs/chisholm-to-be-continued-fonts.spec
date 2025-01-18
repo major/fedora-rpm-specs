@@ -3,7 +3,7 @@
 
 Name:           %{fontname}-fonts
 Version:        20090124
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Decorative Sans Serif Font
 
 # Automatically converted from old format: OFL - review is highly recommended.
@@ -48,6 +48,9 @@ install -Dm 0644 -p %{SOURCE2} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20090124-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 20090124-31
 - convert license to SPDX
 

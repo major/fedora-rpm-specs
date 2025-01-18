@@ -12,7 +12,7 @@ system. It is based on an open architecture where developers can add new
 plugins or exports modules.}
 
 Name:		glances	
-Version:	4.2.1
+Version:	4.3.0.8
 Release:	%autorelease
 Summary:	A cross-platform system monitoring tool
 
@@ -26,6 +26,7 @@ Patch0:		disable-update-check.patch
 BuildArch:	noarch
 
 BuildRequires:	python3-devel
+BuildRequires:	python3-selenium
 BuildRequires:	systemd-units
 Requires:	python3-fastapi
 Requires:	python3-orjson

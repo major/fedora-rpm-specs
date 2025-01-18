@@ -2,7 +2,7 @@
 
 Name:             flent
 Version:          2.2.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          FLExible Network Tester for bufferbloat testing and more
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -88,6 +88,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %doc doc/_build/html
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Sep 10 2024 Toke Høiland-Jørgensen <toke@toke.dk> 2.2.0-1
 - Upstream release 2.2.0
 

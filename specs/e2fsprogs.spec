@@ -1,7 +1,7 @@
 Summary: Utilities for managing ext2, ext3, and ext4 file systems
 Name: e2fsprogs
 Version: 1.47.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # License tags based on COPYING file distinctions for various components
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -350,6 +350,9 @@ make PRINT_FAILED=yes fullcheck
 %{_udevdir}/96-e2scrub.rules
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.47.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.47.2-2
 - Rebuilt for the bin-sbin merge (2nd attempt)
 

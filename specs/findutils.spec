@@ -1,7 +1,7 @@
 Summary: The GNU versions of find utilities (find and xargs)
 Name: findutils
 Version: 4.10.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Epoch: 1
 License: GPL-3.0-or-later
 URL: https://www.gnu.org/software/findutils/
@@ -118,6 +118,9 @@ rm -f %{buildroot}%{_infodir}/dir
 %{_infodir}/find-maint.info.*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.10.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.10.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

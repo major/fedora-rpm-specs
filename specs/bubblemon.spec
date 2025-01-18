@@ -1,6 +1,6 @@
 Name:           bubblemon
 Version:        1.46
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        A system monitoring dockapp
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -46,6 +46,9 @@ make install PREFIX=$RPM_BUILD_ROOT%{_prefix}
 %{_bindir}/bubblemon
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.46-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.46-38
 - convert license to SPDX
 

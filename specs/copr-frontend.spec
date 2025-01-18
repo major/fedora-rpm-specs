@@ -47,7 +47,7 @@
 
 Name:       copr-frontend
 Version:    2.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Frontend for Copr
 
 License:    GPL-2.0-or-later
@@ -383,6 +383,9 @@ usermod -L copr-fe
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 03 2024 Pavel Raiskup <praiskup@redhat.com> 2.1-1
 - bugfix Packit 500, attempt no. 2
 

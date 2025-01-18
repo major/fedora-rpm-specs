@@ -3,7 +3,7 @@
 Name:    compiz-plugins-experimental
 Epoch:   1
 Version: %{basever}
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Additional plugins for Compiz
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -93,6 +93,9 @@ find $RPM_BUILD_ROOT -name '*.a' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.8.18-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul  25 2024 Miroslav Suchý <msuchy@redhat.com> - 1:0.8.18-12
 - convert license to SPDX
 

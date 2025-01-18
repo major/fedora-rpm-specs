@@ -5,7 +5,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          9%{?dist}
+Release:          10%{?dist}
 Source0:          ftp://cran.r-project.org/pub/R/contrib/main/%{packname}_%{packver}.tar.gz
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:          LicenseRef-Callaway-LGPLv2+
@@ -56,6 +56,9 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/R/library/%{packname}/include/
 %{_libdir}/R/library/%{packname}/help
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.16-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep  4 2024 Miroslav Suchý <msuchy@redhat.com> - 2.2.16-9
 - convert license to SPDX
 

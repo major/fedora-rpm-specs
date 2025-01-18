@@ -1,6 +1,6 @@
 Name:           cppi
 Version:        1.18
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        C preprocessor directive indenter
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -42,6 +42,9 @@ make check
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.18-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.18-24
 - convert license to SPDX
 

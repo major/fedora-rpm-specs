@@ -5,7 +5,7 @@
 
 Name:           aspell-%{lang}
 Version:        2.4.7
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Slovak dictionaries for Aspell
 
 # Automatically converted from old format: GPLv2 or LGPLv2 or MPLv1.1 - review is highly recommended.
@@ -52,6 +52,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.7-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 2.4.7-6
 - convert license to SPDX
 

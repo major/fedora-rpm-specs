@@ -1,6 +1,6 @@
 Name:           antlrworks
 Version:        1.5.2
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Grammar development environment for ANTLR v3 grammars
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -99,6 +99,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/appdata/%{name}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 1.5.2-31
 - convert license to SPDX
 

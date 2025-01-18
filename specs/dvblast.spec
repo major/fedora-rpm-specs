@@ -1,6 +1,6 @@
 Name:           dvblast
 Version:        3.4
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Simple and powerful streaming application
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -58,6 +58,9 @@ install -pm 0755 extra/dvbiscovery/dvbiscovery.sh %{buildroot}%{_bindir}
 %{_datadir}/%{name}
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 3.4-15
 - convert license to SPDX
 

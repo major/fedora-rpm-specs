@@ -3,7 +3,7 @@
 %global patch_version 6
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 3
+%global baserelease 4
 %define _unpackaged_files_terminate_build 0
 
 Name:           credentials-fetcher
@@ -73,6 +73,9 @@ ctest3
 %attr(0700, -, -) %{_sbindir}/credentials_fetcher_utf16_private.runtimeconfig.json
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.6-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Aug 25 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 1.3.6-3
 - Rebuilt for abseil-cpp-20240722.0
 

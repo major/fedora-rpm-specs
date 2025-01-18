@@ -4,7 +4,7 @@
 
 Name:           %{artifactId}
 Version:        1.9.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Clojure plugin for Maven
 
 License:        EPL-1.0
@@ -61,6 +61,9 @@ export LANG=en_US.utf8
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Oct 09 2024 Markku Korkeala <markku.korkeala@iki.fi> - 1.9.3-1
 - Update to upstream release 1.9.3, closes rhbz#2312181
 - Remove porting to commons-lang3

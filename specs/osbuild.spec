@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        137
+Version:        138
 
 %forgemeta
 
@@ -37,6 +37,7 @@ Requires:       tar
 Requires:       util-linux
 Requires:       python3-%{pypi_name} = %{version}-%{release}
 Requires:       (%{name}-selinux if selinux-policy-%{selinuxtype})
+Requires:       python3-librepo
 
 # This is required for `osbuild`, for RHEL-10 and above
 # the stdlib toml package can be used instead
@@ -317,6 +318,37 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Wed Jan 15 2025 Packit <hello@packit.dev> - 138-1
+Changes with 138
+----------------
+  * Don't use f-strings for path construction in `tuned` and `dnf*.sbom.spdx` stages (#1968)
+    * Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Brian C. Lane
+  * Make an iso9660 eltorito image (#1946)
+    * Author: Brian C. Lane, Reviewers: Michael Vogt, Simon de Vlieger
+  * Schutzbot: update terraform ref (HMS-5240) (#1972)
+    * Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Gianluca Zuccarelli
+  * Tools/osbuild-image-info: make `read_boot_entries()` more robust (HMS-5228) (#1971)
+    * Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Gianluca Zuccarelli
+  * Update snapshots to 20250101 (#1973)
+    * Author: SchutzBot, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  * erofs: Add zstd to the list of supported compression algorithms (#1969)
+    * Author: Brian C. Lane, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  * kickstart: Drop ostree signature verification flag (#1965)
+    * Author: Colin Walters, Reviewers: Brian C. Lane, Michael Vogt
+  * monitor: include result in jsonseq monitor streaming (COMPOSER-2393) (#1831)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * org.osbuild.xorriso: Add support for grub2 bootable iso (#1956)
+    * Author: Brian C. Lane, Reviewers: Michael Vogt, Simon de Vlieger
+  * osbuild-image-info: support swap partitions and btrfs subvolumes (#1975)
+    * Author: Achilleas Koutsou, Reviewers: Michael Vogt, Tomáš Hozza
+  * schutzbot: update Achilleas' ssh keys (#1967)
+    * Author: Achilleas Koutsou, Reviewers: Brian C. Lane, Simon de Vlieger
+  * sources: add an org.osbuild.librepo source (#1974)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Brian C. Lane, Simon de Vlieger, Tomáš Hozza
+
+— Somewhere on the Internet, 2025-01-15
+
+
 * Wed Dec 18 2024 Packit <hello@packit.dev> - 137-1
 Changes with 137
 ----------------

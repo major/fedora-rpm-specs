@@ -1,14 +1,14 @@
 Name:           podman-compose
 Version:        1.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Run docker-compose.yml using podman
 License:        GPL-2.0-only
 URL:            https://github.com/containers/podman-compose
 Source0:	https://github.com/containers/podman-compose/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch0:         1110.patch
 
 BuildArch:      noarch
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-pyyaml
 Requires:       python%{python3_pkgversion}
 Requires:       python%{python3_pkgversion}-pyyaml
@@ -20,26 +20,30 @@ The main objective of this project is to be able to run docker-compose.yml
 unmodified and rootless.
 
 %prep
-%autosetup -p0
+%autosetup -p1
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
  
 %install
-%py3_install 
+%pyproject_install
+%pyproject_save_files -l 'podman_compose*'
 
 #Drop spurious shebang
 sed -i /python3/d %{buildroot}%{python3_sitelib}/podman_compose.py
 
 
-%files
+%files -f %{pyproject_files}
 %doc README.md CONTRIBUTING.md docs/ examples
-%license LICENSE
 %{_bindir}/podman-compose
-%{python3_sitelib}/__pycache__/podman_compose*pyc
-%{python3_sitelib}/podman_compose*
 
 %changelog
+* Thu Jan 16 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.3.0-2
+- Patch for environment bug.
+
 * Tue Jan 07 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.3.0-1
 - 1.3.0
 

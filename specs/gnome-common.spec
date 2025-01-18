@@ -1,6 +1,6 @@
 Name:           gnome-common
 Version:        3.18.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Useful things common to building GNOME packages from scratch
 BuildArch:      noarch
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -46,6 +46,9 @@ make DESTDIR=%{buildroot} INSTALL="install -p" install
 %{_datadir}/aclocal/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.18.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 3.18.0-20
 - convert license to SPDX
 

@@ -1,7 +1,7 @@
 %global antlr_version 3.5.3
 %global c_runtime_version 3.4
 %global javascript_runtime_version 3.1
-%global baserelease 11
+%global baserelease 12
 
 # This package needs itself to build.  Use this to bootstrap on a new system.
 %bcond bootstrap 0
@@ -358,6 +358,9 @@ install -pm 644 runtime/Cpp/include/* $RPM_BUILD_ROOT/%{_includedir}/
 %doc tool/LICENSE.txt
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.5.3-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jan 13 2025 Jerry James <loganjerry@gmail.com> - 1:3.5.3-11
 - Clarify license of the tool subpackage
 - Move configuration actions to %%conf

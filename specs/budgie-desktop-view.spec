@@ -4,7 +4,7 @@
 
 Name:           budgie-desktop-view
 Version:        1.3
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Official Budgie desktop icons application / implementation
 
 License:        Apache-2.0
@@ -52,6 +52,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.buddiesofbudgie.b
 %{_sysconfdir}/xdg/autostart/org.buddiesofbudgie.budgie-desktop-view-autostart.desktop
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Joshua Strobl <me@joshuastrobl.com> - 1.3-6
 - Added patch to resolve compilation against newer vala, meson, gcc (rhbz#2300582)
 

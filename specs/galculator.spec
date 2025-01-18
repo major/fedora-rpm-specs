@@ -1,6 +1,6 @@
 Name:           galculator
 Version:        2.1.4
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        GTK 3 based scientific calculator
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -57,6 +57,9 @@ desktop-file-install --delete-original \
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 2.1.4-22
 - convert license to SPDX
 

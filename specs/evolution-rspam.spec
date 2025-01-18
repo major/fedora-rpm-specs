@@ -1,7 +1,7 @@
 Name: evolution-rspam
 Summary: Evolution Plugin for reporting spam
 Version: 0.6.0
-Release: 45%{?dist}
+Release: 46%{?dist}
 License: GPL-2.0-or-later
 Source: http://gnome.eu.org/%{name}-%{version}.tar.xz
 URL: http://gnome.eu.org/evo/index.php/Report_as_Spam
@@ -65,6 +65,9 @@ find %{buildroot} -name \*\.la -print | xargs rm -f
 %doc TODO
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 07 2025 Milan Crha <mcrha@redhat.com> - 0.6.0-45
 - Add patch to adapt to GtkUIManager removal in Evolution 3.55.1
 - Resolves: #2333515 (Flush Outbox when sending mail to spamcop)

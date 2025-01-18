@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          1.10.0
-Release:          20%{?dist}
+Release:          21%{?dist}
 Summary:          Polygon Clipping
 
 # Automatically converted from old format: Boost - review is highly recommended.
@@ -66,6 +66,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul  24 2024 Miroslav Suchý <msuchy@redhat.com> - 1.10.0-20
 - convert license to SPDX
 

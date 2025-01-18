@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.1.0
-Release:          8%{?dist}
+Release:          9%{?dist}
 Summary:          Examples of Recursive Lists and Nested or Split Data Frames
 
 # Automatically converted from old format: CC0 - review is highly recommended.
@@ -68,6 +68,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug  7 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1.0-8
 - convert license to SPDX
 

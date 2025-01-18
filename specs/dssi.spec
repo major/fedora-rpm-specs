@@ -1,7 +1,7 @@
 Summary:      Disposable Soft Synth Interface
 Name:         dssi
 Version:      1.1.1
-Release:      30%{?dist}
+Release:      31%{?dist}
 # Automatically converted from old format: MIT - review is highly recommended.
 License:      MIT
 URL:          http://dssi.sourceforge.net/
@@ -96,6 +96,9 @@ tests/controller
 %{_libdir}/pkgconfig/dssi.pc
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1.1-30
 - convert license to SPDX
 

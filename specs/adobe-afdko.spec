@@ -3,7 +3,7 @@
 
 Name:		adobe-afdko
 Version:	4.0.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Adobe Font Development Kit for OpenType
 # ExternalAntlr4Cpp.cmake is BSD-3-clause
 # c/makeotf/makeotf_lib/build/hotpccts/pccts/* is ANTLR-PD
@@ -45,6 +45,9 @@ export XFLAGS="${CFLAGS} ${LDFLAGS}"
 %{_bindir}/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

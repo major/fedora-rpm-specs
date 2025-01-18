@@ -1,6 +1,6 @@
 Name:           abe
 Version:        1.1
-Release:        52%{?dist}
+Release:        53%{?dist}
 
 Summary:        Scrolling, platform-jumping, ancient pyramid exploring game
 License:        GPL-1.0-or-later
@@ -94,6 +94,9 @@ desktop-file-install --dir $RPM_BUILD_ROOT/%{_datadir}/applications/ %{name}.des
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-53
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 08 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.1-52
 - Patch for GCC 15
 

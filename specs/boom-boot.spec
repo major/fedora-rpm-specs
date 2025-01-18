@@ -3,7 +3,7 @@
 
 Name:		boom-boot
 Version:	1.6.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	%{summary}
 
 License:	GPL-2.0-only
@@ -136,6 +136,9 @@ rm doc/conf.py
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 18 2024 Bryan Gurney <bgurney@redhat.com> - 1.6.5-1
 - Update to release 1.6.5.
 

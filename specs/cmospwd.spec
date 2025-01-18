@@ -1,6 +1,6 @@
 Name:           cmospwd
 Version:        5.0
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        BIOS password cracker utility
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -65,6 +65,9 @@ install -D -m 755 src/%{name} $RPM_BUILD_ROOT%{_sbindir}/%{name}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 5.0-29
 - convert license to SPDX
 

@@ -10,7 +10,7 @@
 
 Name:           %{pkg_name}
 Version:        0.10.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Shell script analysis tool
 
 License:        GPL-3.0-or-later
@@ -175,6 +175,9 @@ PATH=%{buildroot}%{_bindir}:$PATH
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Jul 21 2024 Jens Petersen <petersen@redhat.com> - 0.10.0-3
 - include CHANGELOG.md
 

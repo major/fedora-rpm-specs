@@ -1,7 +1,7 @@
 Name:           auto
 Summary:        Collection of source code generators for Java
 Version:        1.6.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 
@@ -131,6 +131,9 @@ find -name '*.jar' -print -delete
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 1.6.1-12
 - convert license to SPDX
 

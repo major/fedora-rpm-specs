@@ -2,7 +2,7 @@
 
 Name:			cage
 Version:		0.2.0
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		A Wayland kiosk
 
 License:		MIT
@@ -51,6 +51,9 @@ project page and the Wiki.
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Dec 08 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.2.0-1
 - Update to 0.2.0 (#2316836)
 

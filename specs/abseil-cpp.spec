@@ -3,7 +3,7 @@
 
 Name:           abseil-cpp
 Version:        20240722.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        C++ Common Libraries
 
 # The entire source is Apache-2.0, except:
@@ -253,6 +253,9 @@ skips="${skips})$"
 %{_libdir}/pkgconfig/absl_*.pc
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20240722.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 09 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 20240722.0-3
 - Patch for GCC 15 (fix RHBZ#2336266)
 

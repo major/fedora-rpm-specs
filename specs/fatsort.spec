@@ -1,7 +1,7 @@
 %define _legacy_common_support 1
 Name:           fatsort
 Version:        1.6.3.622
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        FAT sorter for FAT16 and FAT32 filesystems
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -40,6 +40,9 @@ make %{?_smp_mflags} CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_OPT_FLAGS"
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3.622-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.6.3.622-10
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           conntrack-tools
 Version:        1.4.7
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Manipulate netfilter connection tracking table and run High Availability
 License:        GPL-2.0-only
 URL:            http://conntrack-tools.netfilter.org/
@@ -92,6 +92,9 @@ install -m 0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/conntrackd/
 %systemd_postun conntrackd.service
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.7-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.7-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

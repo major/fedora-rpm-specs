@@ -2,7 +2,7 @@
 
 Name:           fcitx-qt5
 Version:        1.2.6
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Fcitx IM module for Qt5
 
 # The entire source code is GPLv2+ except
@@ -67,6 +67,9 @@ developing programs using fcitx-qt5 libraries.
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 14 2025 Jan Grulich <jgrulich@redhat.com> - 1.2.6-25
 - Rebuild (qt5)
 

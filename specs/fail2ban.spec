@@ -14,7 +14,7 @@
 
 Name: fail2ban
 Version: 1.1.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Daemon to ban hosts that cause multiple authentication errors
 
 License: GPL-2.0-or-later
@@ -475,6 +475,9 @@ fi
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Dec 19 2024 Orion Poplawski <orion@nwra.com> - 1.1.0-6
 - Add upstream fix for sshd filter (rhbz#2332945)
 

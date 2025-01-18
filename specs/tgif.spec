@@ -1,6 +1,6 @@
 Name:		tgif
 Version:	4.2.5
-Release:	31%{?dist}
+Release:	32%{?dist}
 Summary:	2-D drawing tool
 
 # convkinput.c	HPND
@@ -17,6 +17,7 @@ Patch10:	tgif-textcursor-a-urasim.patch
 Patch101:	tgif-QPL-4.1.45-size-debug.patch
 Patch102:	tgif-QPL-4.2.5-format-security.patch
 Patch103:	tgif-c99.patch
+Patch104:	tgif-QPL-4.2.5-c23-prototype.patch
 
 BuildRequires: make
 BuildRequires:	gcc
@@ -45,7 +46,8 @@ the World-Wide-Web.
 # Check later
 #%%patch101 -p1 -b .size
 %patch -P102 -p1 -b .format
-%patch -P103 -p1
+%patch -P103 -p1 -b .c99
+%patch -P104 -p1 -b .c23
 
 %{__perl} -pi \
 	-e 's,JISX-0208-1983-0,EUC-JP,g' \
@@ -165,6 +167,9 @@ desktop-file-install \
 %{_datadir}/applications/*%{name}.desktop
 
 %changelog
+* Thu Jan 16 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.5-32
+- Support C23
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.5-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

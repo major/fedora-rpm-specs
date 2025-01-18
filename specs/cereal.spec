@@ -5,7 +5,7 @@
 
 Name:           cereal
 Version:        1.3.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A header-only C++11 serialization library
 # include/cereal/details/polymorphic_impl.hpp is BSL-1.0
 # include/cereal/external/base64.hpp is Zlib
@@ -111,6 +111,9 @@ MinGW Windows %{name} library.
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 08 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 1.3.2-9
 - Disable mingw in RHEL builds
 

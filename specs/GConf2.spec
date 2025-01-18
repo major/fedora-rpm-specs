@@ -9,7 +9,7 @@
 
 Name:    GConf2
 Version: 3.2.6
-Release: 43%{?dist}
+Release: 44%{?dist}
 Summary: A process-transparent configuration system
 
 # Automatically converted from old format: LGPLv2+ and GPLv2+ - review is highly recommended.
@@ -155,6 +155,9 @@ fi
 %{_datadir}/gir-1.0
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.6-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 3.2.6-43
 - convert license to SPDX
 

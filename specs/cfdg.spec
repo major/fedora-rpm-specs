@@ -1,6 +1,6 @@
 Name: cfdg
 Version:  3.4.1
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary: Context Free Design Grammar
 
 License: GPL-2.0-or-later
@@ -42,6 +42,9 @@ popd
 %doc context-free%{version}/input/* context-free%{version}/README* context-free%{version}/ChangeLog
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 08 2025 Gwyn Ciesla <gwync@protonmail.com> - 3.4.1-1
 - 3.4.1
 

@@ -1,6 +1,6 @@
 Name:		fcitx-table-other
 Version:	0.2.4
-Release:	20%{?dist}
+Release:	21%{?dist}
 Summary:	Other tables for Fcitx
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:	GPL-3.0-or-later
@@ -39,6 +39,9 @@ provides additional tables.
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.4-20
 - convert license to SPDX
 

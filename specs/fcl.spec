@@ -3,7 +3,7 @@
 
 Name:           fcl
 Version:        0.7.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Flexible Collision Library
 
 
@@ -82,6 +82,9 @@ sed -i 's/-std=c++11 //g' CMakeModules/CompilerSettings.cmake
 %{_libdir}/*.so
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.7.0-8
 - convert license to SPDX
 

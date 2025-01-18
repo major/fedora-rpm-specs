@@ -8,7 +8,7 @@
 
 Name:			4Pane
 Version:		8.0
-Release:		10%{?dist}
+Release:		11%{?dist}
 Summary:		Multi-pane, detailed-list file manager
 
 # Overall		GPL-3.0-only
@@ -119,6 +119,9 @@ appstream-util validate-relax --nonet \
 %{_datadir}/icons/hicolor/*/apps/%{name}*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 10 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.0-10
 - Upstream fix to make files under /tmp unpredictable
 

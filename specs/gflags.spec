@@ -1,6 +1,6 @@
 Name:           gflags
 Version:        2.2.2
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Library for commandline flag processing
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -60,6 +60,9 @@ This package contains development files for %{name}.
 %{_libdir}/cmake/%{name}
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 2.2.2-16
 - convert license to SPDX
 

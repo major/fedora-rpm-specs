@@ -1,6 +1,6 @@
 Name:             backintime
 Version:          1.5.3
-Release:          1%{?dist}
+Release:          3%{?dist}
 Summary:          Simple backup tool inspired from the Flyback project and TimeVault
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:          GPL-2.0-or-later
@@ -132,17 +132,13 @@ desktop-file-install \
         --add-category="Settings;" \
         %{buildroot}%{_datadir}/applications/%{name}-qt-root.desktop
 
-mkdir -p %{buildroot}%{_sbindir}
-cp -p %{buildroot}%{_bindir}/%{name}-qt \
-      %{buildroot}%{_sbindir}/%{name}-qt-root
-
 ln -s consolehelper \
       %{buildroot}%{_bindir}/%{name}-qt-root
 
 mkdir -p %{buildroot}%{_sysconfdir}/security/console.apps/
 cat << EOF > %{buildroot}%{_sysconfdir}/security/console.apps/%{name}-qt-root
 USER=root
-PROGRAM=%{_sbindir}/%{name}-qt-root
+PROGRAM=%{_bindir}/%{name}-qt-root
 SESSION=true
 EOF
 
@@ -185,7 +181,6 @@ make -C common test-v
 %{_bindir}/%{name}-qt
 %{_bindir}/%{name}-qt-root
 %{_bindir}/%{name}-qt_polkit
-%{_sbindir}/%{name}-qt-root
 %{_datadir}/applications/%{name}-qt.desktop
 %{_datadir}/applications/%{name}-qt-root.desktop
 %{_datadir}/backintime/qt/
@@ -196,6 +191,12 @@ make -C common test-v
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-3
+- fix build for https://fedoraproject.org/wiki/Changes/Unify_bin_and_sbin
+
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Nov 13 2024 Johannes Lips <hannes@fedoraproject.org> - 1.5.3-1
 - update to latest upstream release
 

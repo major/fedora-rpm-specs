@@ -1,6 +1,6 @@
 Name:           SAASound
 Version:        3.2
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Phillips SAA 1099 sound chip emulator library
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -56,6 +56,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 3.2-38
 - convert license to SPDX
 

@@ -16,7 +16,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.14.2
 # can only be reset when all subpkgs bumped
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Syntax highlighting library
 
 License:        GPL-2.0-or-later
@@ -210,6 +210,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Jens Petersen <petersen@redhat.com> - 0.14.2-11
 - https://hackage.haskell.org/package/skylighting-0.14.2/changelog
 

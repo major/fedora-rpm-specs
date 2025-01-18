@@ -1,6 +1,6 @@
 Name:           gnome-themes-extra
 Version:        3.28
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        GNOME Extra Themes
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -124,6 +124,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/HighContrast &>/dev/null || :
 %{_datadir}/themes/HighContrast/index.theme
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.28-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 3.28-21
 - convert license to SPDX
 

@@ -10,7 +10,7 @@ d=%{_sysconfdir}/rpm; echo $d)
 
 Name:           gnustep-make
 Version:        2.9.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GNUstep makefile package
 License:        GPL-3.0-or-later
 URL:            http://www.gnustep.org/
@@ -125,6 +125,9 @@ install -p -m 644 macros.gnustep %{buildroot}%{macrosdir}
 %doc %{_datadir}/GNUstep/Documentation/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 2.9.2-4
 - convert license to SPDX
 

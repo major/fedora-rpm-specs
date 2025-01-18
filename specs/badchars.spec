@@ -3,7 +3,7 @@
 
 Name:           %{pypi_name}
 Version:        0.4.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        HEX bad char generator for different programming languages
 
 License:        MIT
@@ -45,6 +45,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

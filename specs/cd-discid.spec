@@ -1,6 +1,6 @@
 Name:           cd-discid
 Version:        1.4
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Utility to get CDDB discid information
 
 # Also "Larry Wall's Artistic" upstream, but that's not accepted in Fedora
@@ -41,6 +41,9 @@ make %{?_smp_mflags}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.4-28
 - convert license to SPDX
 

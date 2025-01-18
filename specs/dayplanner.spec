@@ -3,7 +3,7 @@
 
 Name:           dayplanner
 Version:        0.11
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        An easy and clean Day Planner
 Summary(pl):    Prosty i elegancki organizer
 Summary(de):    Ein einfacher und klarer Tagesplaner
@@ -125,6 +125,9 @@ find %{buildroot}%{_datadir}/%{name} -name \*.pm -exec chmod 0644 {} \;
 %{_mandir}/man1/dayplanner*.1*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.11-25
 - convert license to SPDX
 

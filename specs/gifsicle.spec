@@ -1,6 +1,6 @@
 Name:           gifsicle
 Version:        1.95
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Powerful program for manipulating GIF images and animations
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -76,6 +76,9 @@ slideshows or in real time,
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.95-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.95-3
 - convert license to SPDX
 

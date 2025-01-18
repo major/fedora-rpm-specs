@@ -1,6 +1,6 @@
 Name:           apriltag
 Version:        3.4.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Visual fiducial system popular for robotics research
 
 # The entire source code BSD-2-Clause-Views except common/pthreads_cross.{cpp,h} which is MIT
@@ -67,6 +67,9 @@ Development files for the %{name} package.
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Dec 20 2024 Scott K Logan <logans@cottsay.net> - 3.4.2-2
 - Add upstream patch to install cmake config to libdir
 

@@ -1,6 +1,6 @@
 Name:           SDL2_mixer
 Version:        2.8.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Simple DirectMedia Layer - Sample Mixer Library
 
 License:        Zlib
@@ -72,6 +72,9 @@ find %{buildroot} -name '*.la' -print -delete
 %{_includedir}/SDL2/SDL_mixer.h
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 10 2025 Sérgio Basto <sergio@serjux.com> - 2.8.0-4
 - Remove libmikmod dependency and add support to wavpack, because version 2.6.0
   removed support for libmikmod as a MOD music backend and version 2.8.0 added

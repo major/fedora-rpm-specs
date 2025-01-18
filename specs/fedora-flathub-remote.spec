@@ -1,6 +1,6 @@
 Name:		fedora-flathub-remote
 Version:	1
-Release:	9%{dist}
+Release:	10%{dist}
 Summary:	Third party remote pointing to a filtered version of flathub.org
 
 License:	MIT
@@ -42,6 +42,9 @@ install -D -m0644 %{SOURCE3} -t %{buildroot}%{_prefix}/lib/fedora-third-party/co
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

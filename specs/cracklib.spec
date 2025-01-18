@@ -5,7 +5,7 @@
 Summary: A password-checking library
 Name: cracklib
 Version: 2.9.11
-Release: 6%{?dist}
+Release: 7%{?dist}
 URL: https://github.com/cracklib/cracklib
 License: LGPL-2.1-or-later
 
@@ -154,6 +154,9 @@ make test DESTDIR=%{buildroot}
 %{_sbindir}/mkdict
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.11-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.11-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

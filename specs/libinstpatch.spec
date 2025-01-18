@@ -41,6 +41,12 @@ Source:         %{forgeurl}/archive/v%{version}/libinstpatch-%{version}.tar.gz
 # Fix warning from libinstpatch-scan.c (gtkdoc)
 # https://github.com/swami/libinstpatch/pull/71
 Patch:          %{forgeurl}/pull/71.patch
+# Rename variables called “bool”
+# https://github.com/swami/libinstpatch/pull/80
+#
+# Fixes failure to compile with GCC 15, where C23 is the default, so bool is a
+# keyword.
+Patch:          %{forgeurl}/pull/80.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc

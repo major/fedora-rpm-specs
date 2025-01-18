@@ -2,7 +2,7 @@
 
 Name:		arduino-%{shortname}
 Version:	1.4.0
-Release:	20%{?dist}
+Release:	21%{?dist}
 Summary:	Simple multiplatform program to list serial ports with vid/pid/iserial fields
 # Automatically converted from old format: LGPLv3+ - review is highly recommended.
 License:	LGPL-3.0-or-later
@@ -44,6 +44,9 @@ install -m755 liblistSerialsj.so %{buildroot}%{_datadir}/arduino/lib/
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug  7 2024 Miroslav Suchý <msuchy@redhat.com> - 1.4.0-20
 - convert license to SPDX
 

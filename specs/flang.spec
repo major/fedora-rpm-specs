@@ -12,7 +12,7 @@
 
 Name: flang
 Version: %{flang_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: a Fortran language front-end designed for integration with LLVM
 
 License: Apache-2.0 WITH LLVM-exception
@@ -321,6 +321,9 @@ export LD_LIBRARY_PATH=%{_builddir}/%{flang_srcdir}/%{_vpath_builddir}/lib
 %{_libdir}/libFortranRuntime.so.%{maj_ver}.%{min_ver}*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 19.1.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 02 2025 Timm Bäder <tbaeder@redhat.com> - 19.1.6-1
 - Update to 19.1.6
 

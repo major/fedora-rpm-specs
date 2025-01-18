@@ -3,7 +3,7 @@
 Summary: A GNU set of database routines which use extensible hashing
 Name: compat-gdbm
 Version: 1.14.1
-Release: 22%{?dist}
+Release: 23%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
 URL: http://www.gnu.org/software/gdbm/
@@ -118,6 +118,9 @@ make check
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.1-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.14.1-22
 - convert license to SPDX
 

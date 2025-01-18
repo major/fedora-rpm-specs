@@ -1,7 +1,7 @@
 Name:		globus-ftp-client
 %global _name %(tr - _ <<< %{name})
 Version:	9.8
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Grid Community Toolkit - GridFTP Client Library
 
 License:	Apache-2.0
@@ -145,6 +145,9 @@ GLOBUS_HOSTNAME=localhost %make_build check
 %license GLOBUS_LICENSE
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.8-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 29 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.8-8
 - Fix format warnings on 32 bit systems
 - Handle 64 bit time_t on 32 bit systems

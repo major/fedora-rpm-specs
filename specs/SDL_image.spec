@@ -2,7 +2,7 @@
 
 Name:		SDL_image
 Version:	1.2.12
-Release:	38%{?dist}
+Release:	39%{?dist}
 Summary:	Image loading library for SDL
 
 License:	Zlib
@@ -81,6 +81,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.12-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.12-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

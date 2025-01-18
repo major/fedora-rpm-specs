@@ -12,7 +12,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   2
 Version: 1.13.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 # No version is specified.
 License: GPL-2.0-or-later
 Url: https://github.com/doxygen
@@ -295,6 +295,9 @@ rm -rf %{buildroot}/%{_docdir}/packages
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.13.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jan 13 2025 Than Ngo <than@redhat.com> - 2:1.13.2-1
 - Fix rhbz#2336720, Update to 1.13.2
 - Fix rhbz#2336536, FTBFS in ignition-transport

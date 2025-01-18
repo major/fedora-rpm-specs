@@ -12,7 +12,7 @@
 
 Name:           gnome-shell-extension-netspeed
 Version:        47
-Release:        %autorelease
+Release:        %autorelease.1
 Summary:        A gnome-shell extension to show speed of the internet
 BuildArch:      noarch
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -60,6 +60,9 @@ rm %{buildroot}%{_datadir}/glib-2.0/schemas/gschemas.compiled
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 47-1.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Oct 20 2024 Martin Gansser <martinkg@fedoraproject.org> - 47-1
 - Add gnome 47 Support
 

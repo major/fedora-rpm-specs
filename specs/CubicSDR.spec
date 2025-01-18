@@ -1,6 +1,6 @@
 Name:           CubicSDR
 Version:        0.2.7
-Release:        18%{?dist}.1
+Release:        19%{?dist}.1
 Summary:        Cross-Platform Software-Defined Radio Panadapter
 
 # The primary license of CubicSDR is GPLv2+.
@@ -77,6 +77,9 @@ install -D -p -m644 %{SOURCE2} %{buildroot}%{_metainfodir}/com.cubicsdr.CubicSDR
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-19.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 18 2024 Richard Shaw <hobbes1069@gmail.com> - 0.2.7-18.1
 - Rebuild for new rtaudio.
 

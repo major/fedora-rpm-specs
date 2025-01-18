@@ -5,7 +5,7 @@
 Name:       figlet
 Summary:    A program for making large letters out of ordinary text
 Version:    2.2.5
-Release:    30%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
+Release:    31%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
 # Automatically converted from old format: BSD and MIT - review is highly recommended.
 License:    LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT
 URL:        http://www.figlet.org/
@@ -47,6 +47,9 @@ make check
 %{_datadir}/%{name}/
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.5-31.20151018gita565ae1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 2.2.5-30.20151018gita565ae1
 - convert license to SPDX
 

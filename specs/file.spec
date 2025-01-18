@@ -15,7 +15,7 @@
 Summary: Utility for determining file types
 Name: file
 Version: 5.45
-Release: 8%{?dist}
+Release: 9%{?dist}
 
 # Main license is BSD-2-Clause-Darwin
 # Shipped exceptions:
@@ -230,6 +230,9 @@ make -C tests check
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.45-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Nov 15 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 5.45-8
 - Do not provide or obsolete python3-magic
 

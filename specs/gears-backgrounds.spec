@@ -1,6 +1,6 @@
 Name:           gears-backgrounds
 Version:        0.0.1
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Gears desktop backgrounds
 
 # Automatically converted from old format: CC-BY-SA - review is highly recommended.
@@ -42,6 +42,9 @@ cp -a $RPM_BUILD_DIR/gears-%{version}/desktop-backgrounds-gears.xml \
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.0.1-31
 - convert license to SPDX
 

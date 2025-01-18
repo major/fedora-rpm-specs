@@ -7,7 +7,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        1.6.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Handle per-operating-system X.509 accessors and storage
 
 License:        BSD-3-Clause
@@ -128,6 +128,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Aug  1 2024 Jens Petersen <petersen@redhat.com> - 1.6.7-2
 - obsoletes ghc-x509-system
 

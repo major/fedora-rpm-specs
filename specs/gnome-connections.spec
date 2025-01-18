@@ -7,7 +7,7 @@
 
 Name:           gnome-connections
 Version:        47.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A remote desktop client for the GNOME desktop environment
 
 License:        GPL-3.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
@@ -85,6 +85,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Connections
 %{_datadir}/mime/packages/org.gnome.Connections.xml
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 47.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 23 2024 Marek Kasik <mkasik@redhat.com> - 47.0-2
 - Queue draw area from main thread
 

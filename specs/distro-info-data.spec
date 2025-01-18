@@ -1,6 +1,6 @@
 Name:    distro-info-data
 Version: 0.42
-Release: 12%{?dist}
+Release: 13%{?dist}
 
 Summary: Information about releases of Debian and Ubuntu (data files)
 License: ISC
@@ -37,6 +37,9 @@ make test
 %{_datadir}/distro-info
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.42-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.42-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

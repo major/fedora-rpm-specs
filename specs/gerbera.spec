@@ -1,6 +1,6 @@
 Name:           gerbera
 Version:        2.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        UPnP Media Server
 License:        GPL-2.0-only AND MIT AND OFL-1.1
 Url:            https://gerbera.io
@@ -122,6 +122,9 @@ EOF
 %config(noreplace) %{_datadir}/%{name}/js/common.js
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 07 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.4.1-1
 - 2.4.1
 

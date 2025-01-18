@@ -17,12 +17,7 @@
 # The rocm-llvm codebase is realively old and may never have been built
 # with the current gcc, instead of of making many changes to rocm-llvm
 # fall back to the older gcc.
-%if 0%{?fedora}
-%bcond_without compat_gcc
-%else
 %bcond_with compat_gcc
-%endif
-
 %if %{with compat_gcc}
 %global compat_gcc_major 13
 %global gcc_major_str -13
@@ -76,6 +71,8 @@ Patch4:         0001-Replace-use-of-mktemp-with-mkstemp.patch
 Patch5:         0001-Fix-build-with-GCC-14-on-ARM-78704.patch
 # Link comgr with static versions of llvm's libraries
 Patch6:         0001-comgr-link-with-static-llvm.patch
+# For gcc-15
+Patch7:         0001-gcc-15-cstdint-needs-to-include.patch
 
 BuildRequires:  cmake
 BuildRequires:  perl

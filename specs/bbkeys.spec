@@ -1,7 +1,7 @@
 Summary: Completely configurable key-combo grabber for blackbox
 Name: bbkeys
 Version: 0.9.0
-Release: 47%{?dist}
+Release: 48%{?dist}
 License: MIT
 URL: http://bbkeys.sourceforge.net/
 Source: http://downloads.sf.net/bbkeys/bbkeys-%{version}.tar.gz
@@ -49,6 +49,9 @@ autoreconf -vi
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

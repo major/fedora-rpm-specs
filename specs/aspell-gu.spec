@@ -4,7 +4,7 @@
 
 Name:           aspell-gu
 Version:        0.03
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        GNU Aspell Gujarati Dictionary Package
 
 License:        GPL-2.0-only
@@ -51,6 +51,9 @@ make install DESTDIR=%{buildroot}
 %{_libdir}/aspell-0.60/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

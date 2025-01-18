@@ -1,6 +1,6 @@
 Name:           4th
 Version:        3.62.5
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A Forth compiler
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -72,6 +72,9 @@ cp -ap sources/include/*.h %{buildroot}%{_includedir}/%{name}/
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.62.5-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 3.62.5-18
 - convert license to SPDX
 

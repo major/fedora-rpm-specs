@@ -2,7 +2,7 @@
 
 Name: deal
 Version: 3.1.12
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Bridge Hand Generator
 URL: https://github.com/gtwilliams/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -87,6 +87,9 @@ done
 %license GPL LICENSE
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Oct 21 2024 Garry T. Williams <gtwilliams@gmail.com> 3.1.12-1
 - Ported to Tcl 9.0.0
 

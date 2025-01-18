@@ -72,7 +72,7 @@
 %global patch_version 4
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 1
+%global baserelease 2
 
 # Set to RC version if building RC, else comment out.
 #%%global rcsuf rc3
@@ -588,6 +588,9 @@ popd
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.31.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Jan 12 2025 Björn Esser <besser82@fedoraproject.org> - 3.31.4-1
 - cmake-3.31.4
   Fixes rhbz#2336980

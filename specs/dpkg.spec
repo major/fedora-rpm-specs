@@ -3,7 +3,7 @@
 
 Name:           dpkg
 Version:        1.22.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Package maintenance system for Debian Linux
 # The entire source code is GPLv2+ with exception of the following
 # lib/dpkg/md5.c, lib/dpkg/md5.h - Public domain
@@ -494,6 +494,9 @@ make VERBOSE=1 TESTSUITEFLAGS=--verbose \
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Oct 21 2024 Packit <hello@packit.dev> - 1.22.11-1
 - Update to version 1.22.11
 - Resolves: rhbz#2298391

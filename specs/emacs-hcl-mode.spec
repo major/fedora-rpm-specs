@@ -2,7 +2,7 @@
 
 Name:           emacs-%{pkg}
 Version:        0.03
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Emacs major mode of HCL (Hashicorp Configuration Language)
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -51,6 +51,9 @@ emacs --batch -q --no-site-file --no-splash \
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.03-14
 - convert license to SPDX
 

@@ -6,7 +6,7 @@ Version:        3.10.3
 %if "%{?enable_native_atlas}" != "0"
 %define dist .native
 %endif
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Automatically Tuned Linear Algebra Software
 
 License:        BSD-3-Clause
@@ -772,6 +772,9 @@ fi
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.3-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 07 2025 Jakub Martisko <jamartis@redhat.com> - 3.10.3-28
 - Fix ftbs caused by the "modern c toolchain" effort
 - The sources are not prepared for the porting to ^^, so the checks were disabled for now

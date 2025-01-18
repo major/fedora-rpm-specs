@@ -14,11 +14,11 @@
 
 Name:       rocm-smi
 Version:    %{rocm_version}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    ROCm System Management Interface Library
 
-License:    NCSA and MIT and BSD
-URL:        https://github.com/RadeonOpenCompute/%{upstreamname}
+License:    MIT AND NCSA
+URL:        https://github.com/ROCm/%{upstreamname}
 Source0:    %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 Patch0:     0001-Fix-empty-return.patch
 
@@ -67,6 +67,10 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 # Don't change default C FLAGS and CXX FLAGS:
 sed -i '/CMAKE_C.*_FLAGS/d' CMakeLists.txt
 
+# Fix script shebang
+sed -i -e 's@env python3@python3@' python_smi_tools/*.py
+sed -i -e 's@env python3@python3@' python_smi_tools/rsmiBindingsInit.py.in
+
 %build
 %cmake -DFILE_REORG_BACKWARD_COMPATIBILITY=OFF -DCMAKE_INSTALL_LIBDIR=%{_lib} \
        -DCMAKE_SKIP_INSTALL_RPATH=TRUE \
@@ -106,6 +110,10 @@ fi
 %endif
 
 %changelog
+* Thu Jan 16 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-2
+- Update license and url
+- Fix script shebangs
+
 * Sun Dec 22 2024 Tom Rix <Tom.Rix@amd.com> - 6.3.1-1
 - Update to 6.3.1
 

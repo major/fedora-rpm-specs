@@ -5,7 +5,7 @@ Summary: Faeroese dictionaries for Aspell
 Name: aspell-%{lang}
 Epoch: 51
 Version: 0.2.16
-Release: 39%{?dist}
+Release: 40%{?dist}
 License: GPL-2.0-only
 URL: http://aspell.net/
 Source: ftp://ftp.gnu.org/gnu/aspell/dict/%{lang}/aspell%{aspellversion}-%{lang}-%{version}-%{langrelease}.tar.bz2
@@ -43,6 +43,9 @@ make install  DESTDIR=$RPM_BUILD_ROOT
 %{_libdir}/aspell-0.60/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 51:0.2.16-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 51:0.2.16-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

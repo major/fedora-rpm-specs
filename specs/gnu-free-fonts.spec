@@ -3,7 +3,7 @@
 
 Name:      %{fontname}-fonts
 Version:   20120503
-Release:   34%{?dist}
+Release:   35%{?dist}
 Summary:   Free UCS Outline Fonts
 
 License:   GPL-3.0-or-later WITH Font-exception-2.0
@@ -141,6 +141,9 @@ install -Dm 0644 -p %{SOURCE8} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20120503-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20120503-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

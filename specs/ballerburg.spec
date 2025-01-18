@@ -1,6 +1,6 @@
 Name:           ballerburg
 Version:        1.2.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Two players, two castles, and a hill in between
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -87,6 +87,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2.2-3
 - convert license to SPDX
 

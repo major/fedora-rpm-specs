@@ -1,6 +1,6 @@
 Name:           dumb
 Version:        0.9.3
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        IT, XM, S3M and MOD player library
 License:        zlib
 URL:            http://dumb.sourceforge.net/
@@ -70,6 +70,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.a $RPM_BUILD_ROOT%{_libdir}/*.la
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

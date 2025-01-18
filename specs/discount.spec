@@ -4,7 +4,7 @@
 
 Name:           discount
 Version:        2.2.7
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A command-line utility for converting Markdown files into HTML
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -112,6 +112,9 @@ done
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.7-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 2.2.7-10
 - convert license to SPDX
 

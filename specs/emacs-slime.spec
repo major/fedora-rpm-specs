@@ -3,7 +3,7 @@
 Name:            emacs-%{pkg}
 Epoch:           2
 Version:         2.28
-Release:         5%{?dist}
+Release:         6%{?dist}
 Summary:         The superior lisp interaction mode for emacs        
 
 #Public domain: Mentioned in README file
@@ -108,6 +108,9 @@ make check
 %{_infodir}/%{pkg}.info.*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:2.28-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:2.28-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

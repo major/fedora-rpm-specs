@@ -4,7 +4,7 @@
 Name:           %{archive_name}
 Epoch:          1
 Version:        24.12.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Best practices checker for Ansible
 
 # README file says its just GPLv3
@@ -66,6 +66,9 @@ ln -sr %{buildroot}%{_bindir}/%{name}{,-3}
 %{_bindir}/%{name}-3
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:24.12.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Dec 15 2024 Parag Nemade <pnemade AT redhat DOT com> - 1:24.12.2-1
 - Update to 24.12.2 version (#2331387)
 

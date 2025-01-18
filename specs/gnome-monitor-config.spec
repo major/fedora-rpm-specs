@@ -6,7 +6,7 @@
 Summary: GNOME Monitor Configuration Tool
 Name: gnome-monitor-config
 Version: 0
-Release: 0.15%{?fgittag:.%{fgittag}}%{?dist}
+Release: 0.16%{?fgittag:.%{fgittag}}%{?dist}
 #Note that the license isn't included in source yet, see this pull request:
 #https://github.com/jadahl/gnome-monitor-config/pull/1
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -41,6 +41,9 @@ install -m 755 */src/%{name} -D %{buildroot}%{_bindir}/%{name}
 %{_bindir}/%{name}
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.16.20230925.git04b854e
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0-0.15.20230925.git04b854e
 - convert license to SPDX
 

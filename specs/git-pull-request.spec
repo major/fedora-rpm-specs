@@ -3,7 +3,7 @@
 
 Name:           %{pypi_name}
 Version:        6.0.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Command line tool to send GitHub pull-request
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -44,6 +44,9 @@ rm -rf %{pypi_name}.egg-info
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 6.0.2-11
 - convert license to SPDX
 

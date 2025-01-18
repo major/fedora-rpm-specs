@@ -1,7 +1,7 @@
 Summary:        Converter between the rpm, dpkg, stampede slp, and Slackware tgz file formats
 Name:           alien
 Version:        8.95
-Release:        26%{?dist}
+Release:        27%{?dist}
 
 License:        GPL-2.0-or-later
 URL:            https://sourceforge.net/projects/alien-pkg-convert/
@@ -49,6 +49,9 @@ chmod 755 %{buildroot}%{_bindir}/alien
 %{_mandir}/man?/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.95-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.95-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

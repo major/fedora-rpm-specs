@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          1.1
-Release:          19%{?dist}
+Release:          20%{?dist}
 Summary:          Render Markdown with the C Library 'Sundown'
 
 # Automatically converted from old format: GPLv2 and ISC - review is highly recommended.
@@ -93,6 +93,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --ignore-vignettes
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug  7 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1-19
 - convert license to SPDX
 

@@ -4,7 +4,7 @@
 Name:           civetweb
 Summary:        Embedded C/C++ web server
 Version:        1.16
-Release:        5%{?dev:%{dev}}%{?dist}
+Release:        6%{?dev:%{dev}}%{?dist}
 License:        MIT
 Url:            https://github.com/civetweb/civetweb
 Source:         https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -61,6 +61,9 @@ mkdir -p %{buildroot}%{_docdir}/civetweb
 %{_datadir}/pkgconfig/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

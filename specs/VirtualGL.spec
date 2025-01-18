@@ -1,6 +1,6 @@
 Name:           VirtualGL
 Version:        3.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A toolkit for displaying OpenGL applications to thin clients
 
 # Automatically converted from old format: wxWindows - review is highly recommended.
@@ -173,6 +173,9 @@ mv %{buildroot}%{_bindir}/.vglrun.vars32 %{buildroot}%{_libexecdir}/vglrun.vars3
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jan 06 2025 Packit <hello@packit.dev> - 3.1.2-1
 - Update to version 3.1.2
 

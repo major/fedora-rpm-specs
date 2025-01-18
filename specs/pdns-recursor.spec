@@ -3,7 +3,7 @@
 %endif
 
 Name: pdns-recursor
-Version: 5.1.2
+Version: 5.2.0
 Release: %autorelease
 Summary: Modern, advanced and high performance recursing/non authoritative name server
 License: GPL-2.0-only
@@ -46,13 +46,16 @@ Requires(preun): systemd
 Requires(postun): systemd
 
 
+Patch:         serde_yaml.patch
+
+
 %description
 PowerDNS Recursor is a non authoritative/recursing DNS server. Use this
 package if you need a dns cache for your network.
 
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -n %{name}-%{version} -p1
 cd settings/rust
 %cargo_prep
 
@@ -78,11 +81,11 @@ cd settings/rust
 # needed because cargo_prep removes Cargo.lock but Makefile has no rule to make
 # target 'Cargo.lock'
 cargo generate-lockfile --offline
-make %{?_smp_mflags}
+%make_build
 
 
 %install
-make install DESTDIR=%{buildroot}
+%make_install
 
 %{__cp} %{buildroot}%{_sysconfdir}/%{name}/recursor.{yml-dist,conf}
 

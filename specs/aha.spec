@@ -3,7 +3,7 @@ Summary: Convert terminal output to HTML
 License: MPL-1.1 OR LGPL-2.0-or-later
 
 Version: 0.5.1
-Release: 12%{?dist}
+Release: 13%{?dist}
 
 URL: https://github.com/theZiz/aha
 Source0: %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -47,6 +47,9 @@ cat aha.c | awk '1;/\*\//{exit}' > LICENSE
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Aug 08 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.5.1-12
 - Convert License tag to SPDX
 - Include full license texts in the package

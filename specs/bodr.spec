@@ -1,6 +1,6 @@
 Name:           bodr
 Version:        10
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Blue Obelisk Data Repository
 
 License:        CC0-1.0
@@ -44,6 +44,9 @@ mv $RPM_BUILD_ROOT%{_docdir}/bodr DOC
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 10-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

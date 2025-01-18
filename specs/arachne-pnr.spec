@@ -13,7 +13,7 @@
 
 Name:           arachne-pnr
 Version:        0.1
-Release:        0.19.20190729git%{shortcommit0}%{?dist}
+Release:        0.20.20190729git%{shortcommit0}%{?dist}
 Summary:        Place and route for FPGA compilation
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -61,6 +61,9 @@ make install PREFIX="%{_prefix}" \
 %{_datadir}/%{name}
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.20.20190729gitc40fb22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul  29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1-0.19.20190729gitc40fb22
 - convert license to SPDX
 

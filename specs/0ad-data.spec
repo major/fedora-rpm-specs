@@ -2,7 +2,7 @@
 
 Name:		0ad-data
 Version:	0.0.26
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	The Data Files for 0 AD
 # Automatically converted from old format: CC-BY-SA - review is highly recommended.
 License:	LicenseRef-Callaway-CC-BY-SA
@@ -49,6 +49,9 @@ popd
 %{_datadir}/0ad
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.26-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.0.26-9
 - convert license to SPDX
 

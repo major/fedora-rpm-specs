@@ -1,6 +1,6 @@
 Name:           chkrootkit
 Version:        0.57
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Tool to locally check for signs of a rootkit
 License:        BSD-2-Clause AND GPL-2.0-or-later
 URL:            http://www.chkrootkit.org
@@ -106,6 +106,9 @@ install -p -m0644 %{SOURCE6} .
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.57-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.57-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

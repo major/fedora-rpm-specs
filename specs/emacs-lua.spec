@@ -4,7 +4,7 @@
 
 Name:		emacs-lua
 Version:	20201010
-Release:	10.20210121git2d9a468%{?dist}
+Release:	11.20210121git2d9a468%{?dist}
 Summary:	Lua major mode for GNU Emacs
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -41,6 +41,9 @@ install -p -m 0644 %{SOURCE1} %{buildroot}%{_emacs_sitestartdir}
 %{_emacs_sitestartdir}/lua-init.el
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20201010-11.20210121git2d9a468
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 20201010-10.20210121git2d9a468
 - convert license to SPDX
 

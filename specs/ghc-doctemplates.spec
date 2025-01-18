@@ -17,7 +17,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.11
 # can only be reset when all subpkgs bumped
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Pandoc-style document templates
 
 License:        BSD-3-Clause
@@ -184,6 +184,9 @@ rm %{buildroot}%{_datadir}/%{doclayout}/{README.md,changelog.md}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jul 30 2024 Jens Petersen <petersen@redhat.com> - 0.11-16
 - emojis-0.1.4.1
 

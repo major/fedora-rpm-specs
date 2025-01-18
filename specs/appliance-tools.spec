@@ -21,7 +21,7 @@
 Name: appliance-tools
 Summary: Tools for building Appliances
 Version: 011.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL: https://pagure.io/appliance-tools
@@ -76,6 +76,9 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 %{python_sitelib}/ec2convert/
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 011.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 011.3-2
 - convert license to SPDX
 

@@ -15,7 +15,7 @@
 Name:           ansible-core
 Version:        2.18.1
 %global uversion %{version_no_tilde %{quote:%nil}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A radically simple IT automation system
 
 # The main license is GPLv3+. Many of the files in lib/ansible/module_utils
@@ -268,6 +268,9 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec 04 2024 Maxwell G <maxwell@gtmx.me> - 2.18.1-1
 - Update to 2.18.1. Fixes rhbz#2330005.
 - dnf5 - backport support for automatically installing python3-libdnf5 (rhbz#2322751).

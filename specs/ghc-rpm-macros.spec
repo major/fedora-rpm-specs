@@ -3,7 +3,7 @@
 %global macros_dir %{_rpmconfigdir}/macros.d
 
 Name:           ghc-rpm-macros
-Version:        2.7.5
+Version:        2.7.6
 Release:        1%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
@@ -212,6 +212,10 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 
 
 %changelog
+* Thu Jan 16 2025 Jens Petersen <petersen@redhat.com> - 2.7.6-1
+- fix 2.7.5 regression preventing haddock generation for libraries
+  caused by bad -H macro conditional expansion (thanks decathorpe and qulogic)
+
 * Thu Dec 19 2024 Jens Petersen <petersen@redhat.com> - 2.7.5-1
 - add -H to ghc_libs_build and ghc_lib_build to disable haddock docs
 - cabal_configure: place -fhide-source-paths first in --ghc-options

@@ -3,7 +3,7 @@
 Name:           dummy-test-package-crested
 
 Version:        0
-Release:        3770
+Release:        3771
 Summary:        Dummy Test Package called Crested
 # Automatically converted from old format: CC0 - review is highly recommended.
 License:        CC0-1.0
@@ -33,6 +33,9 @@ cp -p uuid %{buildroot}%{_datadir}/%{name}
 %{_datadir}/%{name}
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-3771
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 0-3770
 - convert license to SPDX
 

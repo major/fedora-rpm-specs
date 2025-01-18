@@ -1,6 +1,6 @@
 Name: QXlsx
 Version:  1.4.10
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  Excel/XLSX file reader/writer library for Qt
 
 License: MIT
@@ -53,6 +53,9 @@ These are the development files.
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 31 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.4.10-1
 - 1.4.10
 

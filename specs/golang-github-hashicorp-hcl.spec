@@ -24,7 +24,7 @@ HCL is heavily inspired by libucl, nginx configuration, and others similar.}
 %global godocs          README.md
 
 Name:           golang-github-hashicorp-hcl
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Hashicorp configuration language
 
 License:        MPL-2.0
@@ -55,6 +55,9 @@ Patch:          https://patch-diff.githubusercontent.com/raw/hashicorp/hcl/pull/
 %gopkgfiles
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

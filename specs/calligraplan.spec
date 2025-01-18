@@ -4,7 +4,7 @@
 
 Name:    calligraplan
 Version: 3.3.0
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: A Project Planner 
 
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
@@ -177,6 +177,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.calligrap
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 3.3.0-10
 - convert license to SPDX
 

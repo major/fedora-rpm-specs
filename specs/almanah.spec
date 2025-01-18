@@ -1,6 +1,6 @@
 Name:		almanah
 Version:	0.12.4
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Application for keeping an encrypted diary
 
 License:	GPL-3.0-or-later
@@ -53,6 +53,9 @@ diary entries using multiple events.
 %{_datadir}/glib-2.0/schemas/org.gnome.%{name}.gschema.xml
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jan 13 2025 Milan Crha <mcrha@redhat.com> - 0.12.4-1
 - Update to 0.12.4
 

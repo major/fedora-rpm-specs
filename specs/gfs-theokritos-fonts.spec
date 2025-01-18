@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 Version: 20070415
-Release: 48%{?dist}
+Release: 49%{?dist}
 URL:     http://www.greekfontsociety-gfs.gr/typefaces/20th_21st_century
 
 %global foundry           GFS
@@ -71,6 +71,9 @@ unzip -j -q  %{SOURCE0}
 %doc *.pdf
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20070415-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20070415-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

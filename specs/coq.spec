@@ -29,7 +29,7 @@ ExclusiveArch: %{ocaml_native_compiler}
 
 Name:           coq
 Version:        8.20.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Proof management system
 
 # The project as a whole is LGPL-2.1-only.  Exceptions:
@@ -389,6 +389,9 @@ ln -s ../../coq/coq_style.xml %{buildroot}%{_datadir}/gtksourceview-3.0/styles
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.20.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 8.20.0-1
 - OCaml 5.3.0 rebuild for Fedora 42
 - Version 8.20.0

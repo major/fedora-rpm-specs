@@ -5,7 +5,7 @@
 
 Name:           clutter-gtk
 Version:        1.8.4
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        A basic GTK clutter widget
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -73,6 +73,9 @@ make check %{?_smp_mflags} V=1
 %{_datadir}/gtk-doc/html/clutter-gtk-1.0
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 1.8.4-20
 - convert license to SPDX
 

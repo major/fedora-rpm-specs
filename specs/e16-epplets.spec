@@ -1,7 +1,7 @@
 Summary:       Epplets for Enlightenment, DR16
 Name:          e16-epplets
 Version:       0.17
-Release:       5%{?dist}
+Release:       6%{?dist}
 # Automatically converted from old format: MIT with advertising and GPL+ and GPLv2+ - review is highly recommended.
 License:       LicenseRef-Callaway-MIT-with-advertising AND GPL-1.0-or-later AND GPL-2.0-or-later
 URL:           http://www.enlightenment.org/
@@ -54,6 +54,9 @@ rm -f %{buildroot}%{_libdir}/libepplet{,_glx}.{a,la}
 %{_libdir}/libepplet_glx.so
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.17-5
 - convert license to SPDX
 

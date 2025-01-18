@@ -3,7 +3,7 @@
 
 Name:           %{fontname}-fonts
 Version:        8.01
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        A font based on "Grecs du roi" and the "First Folio Edition of Shakespeare"
 License:        LicenseRef-Fedora-UltraPermissive
 URL:            http://users.teilar.gr/~g1951d/
@@ -65,6 +65,9 @@ appstream-util validate-relax --nonet \
 %{_datadir}/metainfo/%{fontname}.metainfo.xml
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.01-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.01-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

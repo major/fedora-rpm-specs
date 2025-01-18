@@ -1,6 +1,6 @@
 Name:           fruit
 Version:        2.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        UCI chess engine
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -67,6 +67,9 @@ cp -P %SOURCE2 %{buildroot}/%{_mandir}/man6
 %{_datadir}/%{name}/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.1-10
 - convert license to SPDX
 

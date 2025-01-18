@@ -1,6 +1,6 @@
 Name: esorex
 Version: 3.13.7
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Recipe Execution Tool of the European Southern Observatory 
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -42,6 +42,9 @@ make DESTDIR=%{buildroot} install
 %{_datadir}/bash-completion/completions/esorex
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.7-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 3.13.7-6
 - convert license to SPDX
 

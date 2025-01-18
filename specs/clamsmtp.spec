@@ -1,7 +1,7 @@
 Summary:                A SMTP virus scanning system
 Name:                   clamsmtp
 Version:                1.10
-Release:                45%{?dist}
+Release:                46%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:                LicenseRef-Callaway-BSD
 URL:                    http://memberwebs.com/stef/software/clamsmtp/
@@ -108,6 +108,9 @@ exit 0
 %{_mandir}/man8/clamsmtpd.8.gz
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 1.10-45
 - convert license to SPDX
 

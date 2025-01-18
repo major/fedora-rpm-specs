@@ -1,6 +1,6 @@
 Name:          flatpak-kcm
 Version:       6.2.90
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       BSD-2-Clause and BSD-3-Clause and CC0-1.0 and GPL-2.0-or-later
 Summary:       Flatpak Permissions Management KCM
 Url:           https://invent.kde.org/plasma/flatpak-kcm
@@ -41,6 +41,9 @@ BuildRequires: pkgconfig(flatpak)
 %{_qt6_plugindir}/plasma/kcms/systemsettings/kcm_flatpak.so
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.90-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 09 2025 Steve Cossette <farchord@gmail.com> - 6.2.90-1
 - Beta 6.2.90
 

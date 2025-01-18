@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          0.2.4
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Masked User Input
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -71,6 +71,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep  4 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.4-3
 - convert license to SPDX
 

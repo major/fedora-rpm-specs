@@ -1,6 +1,6 @@
 Name:		ebview
 Version:	0.3.6.2
-Release:	38%{?dist}
+Release:	40%{?dist}
 Summary:	EPWING CD-ROM dictionary viewer
 
 # data/about.en.in	GPL-2.0-or-later
@@ -25,6 +25,8 @@ Patch101:	https://sources.debian.org/data/main/e/ebview/0.3.6.2-2/debian/patches
 Patch102:	https://sources.debian.org/data/main/e/ebview/0.3.6.2-2/debian/patches/link-ebview.diff
 # Port to c99, -Werror=implicit-int -Werror=implicit-function-declaration
 Patch103:	ebview-0.3.6.2-c99.patch
+# Port to c23
+Patch104:	ebview-0.3.6.2-c23.patch
 
 BuildRequires:	gcc
 BuildRequires:	eb-devel
@@ -50,6 +52,7 @@ EBView is a EPWING dictionary browser.
 %patch -P101 -p1 -b .pango
 %patch -P102 -p1 -b .link
 %patch -P103 -p1 -b .c99
+%patch -P104 -p1 -b .c23
 
 rm -f m4/glib-gettext.m4
 autoreconf -i
@@ -127,6 +130,12 @@ desktop-file-install \
 %{_datadir}/pixmaps/%{name}.xpm
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.6.2-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
+* Thu Jan 16 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.6.2-39
+- Port to C23
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.6.2-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

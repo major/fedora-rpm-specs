@@ -3,7 +3,7 @@
 
 Name:           apx
 Version:        0.1
-Release:        41.%{date0}git%{?dist}
+Release:        42.%{date0}git%{?dist}
 Summary:        QIX clone, cut into and claim the square area
 
 # Automatically converted from old format: MIT - review is highly recommended.
@@ -94,6 +94,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.ap
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-42.20160804git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1-41.20160804git
 - convert license to SPDX
 

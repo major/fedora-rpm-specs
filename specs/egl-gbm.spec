@@ -6,7 +6,7 @@
 Name:           egl-gbm
 Epoch:          2
 Version:        1.1.2%{!?tag:^%{date}git%{shortcommit0}}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Nvidia egl gbm libary
 License:        MIT
 URL:            https://github.com/NVIDIA/%{name}
@@ -49,6 +49,9 @@ rm %{buildroot}%{_libdir}/libnvidia-egl-gbm.so
 %{_datadir}/egl/egl_external_platform.d/15_nvidia_gbm.json
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.1.2^20240919gitb24587d-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Sep 20 2024 Simone Caronni <negativo17@gmail.com> - 2:1.1.2^20240919gitb24587d-3
 - Update to latest snapshot.
 - ICD is installed directly from source.

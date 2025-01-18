@@ -1,7 +1,7 @@
 Summary: C++ wrapper library around CGAL for PostGIS
 Name: SFCGAL
 Version: 1.5.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2
 URL: https://gitlab.com/Oslandia/SFCGAL/
@@ -58,6 +58,9 @@ Development headers and libraries for SFCGAL.
 %doc example/ doc/html
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.5.0-2
 - convert license to SPDX
 

@@ -2,7 +2,7 @@
 
 Name:             apache-commons-math
 Version:          3.6.1
-Release:          20%{?dist}
+Release:          21%{?dist}
 Summary:          Java library of lightweight mathematics and statistics components
 # Automatically converted from old format: ASL 1.1 and ASL 2.0 and BSD - review is highly recommended.
 License:          Apache-1.1 AND Apache-2.0 AND LicenseRef-Callaway-BSD
@@ -58,6 +58,9 @@ src/test/java/org/apache/commons/math3/util/FastMathTest.java
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.1-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 3.6.1-20
 - convert license to SPDX
 

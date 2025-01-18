@@ -2,7 +2,7 @@ Name:           dh-make
 # Squeeze
 Version:        2.202402
 
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Tool that converts source archives into Debian package source
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -53,6 +53,9 @@ install -m 644 -p dh_make.1 %{buildroot}/%{_mandir}/man1
 %{_datadir}/debhelper/dh_make
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.202402-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 2.202402-3
 - convert license to SPDX
 

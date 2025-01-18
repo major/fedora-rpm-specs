@@ -8,7 +8,7 @@
 
 Name: dracut
 Version: 103
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 Summary: Initramfs generator using udev
 
@@ -459,6 +459,9 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{_prefix}/lib/kernel/install.d/51-dracut-rescue.install
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 103-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 31 2024 Manuel Fombuena <fombuena@outlook.com> - 103-2
 - fix(pcsc): add libpcsclite_real.so.*
 

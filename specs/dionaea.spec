@@ -2,7 +2,7 @@ Name:           dionaea
 Version:        0.11.0
 Summary:        Low interaction honeypot
 # Show as the RPM release number (keep same number line for tarball and git builds)
-%global         baserelease     2
+%global         baserelease     3
 
 %if 0%{?rhel}
 # Group needed for EPEL
@@ -441,6 +441,9 @@ getent passwd dionaea >/dev/null || \
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-3.20210228git4e459f1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.11.0-2.20210228git4e459f1
 - convert license to SPDX
 

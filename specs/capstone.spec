@@ -1,6 +1,6 @@
 Name:           capstone
 Version:        5.0.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A lightweight multi-platform, multi-architecture disassembly framework
 License:        BSD-3-Clause AND BSD-4-Clause AND APSL-2.0 AND NCSA AND MIT
 URL:            http://www.capstone-engine.org/
@@ -348,6 +348,9 @@ popd
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 31 2024 Michal Ambroz <rebus AT_ seznam.cz> - 5.0.1-6
 - add static subpackage for static building with capstone
 

@@ -12,7 +12,7 @@
 
 Name:           ec2-hibinit-agent
 Version:        1.0.9
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Hibernation setup utility for Amazon EC2
 
 License:        Apache-2.0
@@ -148,6 +148,9 @@ fi
 %selinux_relabel_post -s %{selinuxtype}
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Nov 08 2024 Dominik Wombacher <dominik@wombacher.cc> - 1.0.9-4
 - Include upstream Patch to ensure swapon with maximum priority before hibernation
 - Resolves rhbz#2322884

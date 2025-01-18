@@ -3,7 +3,7 @@ URL:		http://iharder.sourceforge.net/current/java/filedrop/
 Name:		filedrop
 License:	LicenseRef-Fedora-Public-Domain
 Version:	1.1
-Release:	25%{?dist}
+Release:	26%{?dist}
 
 BuildArch:	noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -49,6 +49,9 @@ install -m 644 %{name}.jar %{buildroot}%{_javadir}/
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

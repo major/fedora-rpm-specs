@@ -1,6 +1,6 @@
 Name:		CGSI-gSOAP
 Version:	1.3.12
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	GSI plugin for gSOAP
 
 License:	Apache-2.0
@@ -69,6 +69,9 @@ rm %{buildroot}%{_libdir}/*.a
 %doc %{_mandir}/man*/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.12-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 31 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.3.12-2
 - Rebuilt for gsoap 2.8.135 (Fedora 42)
 

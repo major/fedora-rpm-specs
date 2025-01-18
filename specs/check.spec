@@ -2,7 +2,7 @@
 
 Name:           check
 Version:        0.15.2
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        A unit test framework for C
 License:        LGPL-2.1-or-later
 URL:            https://libcheck.github.io/check/
@@ -18,6 +18,10 @@ Source:         %{name}-%{version}.tar.gz
 Patch0:         %{name}-0.11.0-info-in-builddir.patch
 # Fix test failures due to varying floating point behavior across platforms
 Patch1:         %{name}-0.11.0-fp.patch
+# Fix a texinfo error due to a missing @end verbatim
+# https://github.com/libcheck/check/issues/360
+# https://github.com/libcheck/check/pull/361
+Patch2:         %{name}-0.15.2-texinfo.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -88,16 +92,19 @@ MinGW libraries and headers for developing programs with check
 %endif
 
 %prep
-%setup -q
+%autosetup -N
 %if 0%{?fedora}
 %patch -P0 -p1 -b .info-in-builddir
 %endif
-%patch -P1 -p1
+%autopatch -m1 -p1
 
 %conf
 # Fix detection of various time-related function declarations
 sed -e '/DECLS(\[a/s|)|,,,[AC_INCLUDES_DEFAULT\n[#include <time.h>\n #include <sys/time.h>]]&|' \
     -i configure.ac
+
+# Avoid an obsolescence warning
+sed -i 's/fgrep/grep -F/' Makefile.am
 
 # Get rid of version control files
 find . -name .cvsignore -delete
@@ -227,6 +234,12 @@ cd -
 %endif
 
 %changelog
+* Thu Jan 16 2025 Jerry James <loganjerry@gmail.com> - 0.15.2-17
+- Add patch to fix texinfo error
+
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.2-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.2-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

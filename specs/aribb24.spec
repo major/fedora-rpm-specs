@@ -5,7 +5,7 @@
 
 Name:           aribb24
 Version:        1.0.3%{!?tag:^%{date}git%{shortcommit0}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A library for ARIB STD-B24
 License:        LGPL-3.0-only
 URL:            https://github.com/nkoriyama/%{name}
@@ -64,5 +64,8 @@ rm -fr %{buildroot}%{_docdir}/%{name}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3^20160216git5e9be27-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Sep 12 2024 Simone Caronni <negativo17@gmail.com> - 1.0.3^20160216git5e9be27-1
 - First build.

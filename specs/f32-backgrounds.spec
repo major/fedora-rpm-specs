@@ -10,7 +10,7 @@
 
 Name:		%{bgname}-backgrounds
 Version:	%{relnum}.2.2
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	Fedora %{relnum} default desktop background
 
 License:	CC-BY-SA-4.0
@@ -207,6 +207,9 @@ This package contains F%{relnum} supplemental wallpapers for XFCE
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 32.2.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 02 2024 David Auer <dreua@posteo.de> - 32.2.2-13
 - Fix build on f40+
 

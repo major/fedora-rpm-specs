@@ -1,7 +1,7 @@
 Summary:        Version 0.6 of this Cross platform C++ game library
 Name:           ClanLib06
 Version:        0.6.5
-Release:        64%{?dist}
+Release:        65%{?dist}
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2
 URL:            http://www.clanlib.org/
@@ -106,6 +106,9 @@ chmod -x $RPM_BUILD_ROOT%{_mandir}/man1/clanlib-config.1*
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.5-65
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug  28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.6.5-64
 - convert license to SPDX
 

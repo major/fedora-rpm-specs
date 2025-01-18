@@ -1,6 +1,6 @@
 Name:           flatpak-rpm-macros
 Version:        39
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Macros for building RPMS for flatpaks
 Source0:        macros.flatpak.in
 Source1:        distutils.cfg
@@ -45,6 +45,9 @@ install -t $RPM_BUILD_ROOT%{_rpmconfigdir} -m 755 %{SOURCE3}
 %{_rpmconfigdir}/fontconfig-flatpak.prov
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 39-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 39-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

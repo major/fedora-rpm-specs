@@ -10,7 +10,7 @@
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
 
-%global	baserelease	1
+%global	baserelease	2
 %global	alphatag		.beta6
 
 
@@ -419,6 +419,9 @@ popd
 %{_datadir}/cairo-dock/plug-ins/Dbus/CDApplet.h
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.99^20241217gitf8ad97e-2.beta6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 17 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.99^20241217gitf8ad97e-1.beta6
 - Update to the latest git (20241217gitf8ad97e)
 

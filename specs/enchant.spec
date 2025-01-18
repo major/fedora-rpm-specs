@@ -4,7 +4,7 @@
 Summary: An Enchanting Spell Checking Library
 Name: enchant
 Version: 1.6.0
-Release: 38%{?dist}
+Release: 39%{?dist}
 Epoch: 1
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
@@ -73,6 +73,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/enchant/*.la
 %ldconfig_scriptlets
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.6.0-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 25 2024 Gwyn Ciesla <gwync@protonmail.com> - 1:1.6.0-38
 - Drop aspell subpackage.
 

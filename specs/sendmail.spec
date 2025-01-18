@@ -41,7 +41,7 @@
 Summary: A widely used Mail Transport Agent (MTA)
 Name: sendmail
 Version: 8.18.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: sendmail-8.23 AND MIT AND MIT-CMU AND BSD-3-Clause AND CDDL-1.0 AND BSD-4-Clause AND BSD-4-Clause-UC AND PostgreSQL AND ISC AND HPND-sell-variant AND mailprio
 URL: http://www.sendmail.org/
 
@@ -533,10 +533,11 @@ exit 0
 
 %postun
 %systemd_postun_with_restart sendmail.service sm-client.service
+
 if [ $1 -ge 1 ] ; then
 	mta=`readlink %{_sysconfdir}/alternatives/mta`
 	if [ "$mta" == "%{_sbindir}/sendmail.sendmail" ] || [ "$mta" == "/usr/sbin/sendmail.sendmail" ]; then
-		alternatives --set mta %{_sbindir}/sendmail.sendmail
+		alternatives --set mta /usr/sbin/sendmail.sendmail
 	fi
 fi
 exit 0
@@ -545,9 +546,10 @@ exit 0
 %systemd_post sendmail.service sm-client.service
 
 # Set up the alternatives files for MTAs.
-alternatives --install %{_sbindir}/sendmail mta %{_sbindir}/sendmail.sendmail 90 \
-	--slave %{_sbindir}/makemap mta-makemap %{_sbindir}/makemap.sendmail \
-	--slave %{_sbindir}/editmap mta-editmap %{_sbindir}/editmap.sendmail \
+alternatives --install \
+        /usr/sbin/sendmail mta /usr/sbin/sendmail.sendmail 90 \
+	--slave /usr/sbin/makemap mta-makemap /usr/sbin/makemap.sendmail \
+	--slave /usr/sbin/editmap mta-editmap /usr/sbin/editmap.sendmail \
 	--slave %{_bindir}/mailq mta-mailq %{_bindir}/mailq.sendmail \
 	--slave %{_bindir}/newaliases mta-newaliases %{_bindir}/newaliases.sendmail \
 	--slave %{_bindir}/rmail mta-rmail %{_bindir}/rmail.sendmail \
@@ -607,7 +609,7 @@ exit 0
 %preun
 %systemd_preun sendmail.service sm-client.service
 if [ $1 = 0 ]; then
-	alternatives --remove mta %{_sbindir}/sendmail.sendmail
+	alternatives --remove mta /usr/sbin/sendmail.sendmail
 fi
 exit 0
 
@@ -747,6 +749,9 @@ exit 0
 
 
 %changelog
+* Thu Jan 16 2025 Zbigniew Jedrzejewski-Szmek <zbyszek@in.waw.pl> - 8.18.1-6
+- "Move" files managed by alternatives back to /usr/sbin
+
 * Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 8.18.1-5
 - Rebuilt for the bin-sbin merge (2nd attempt)
 

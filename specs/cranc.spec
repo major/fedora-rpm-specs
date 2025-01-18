@@ -2,7 +2,7 @@
 
 Name:		cranc
 Version:	1.1.0
-Release:	18%{?dist}
+Release:	19%{?dist}
 Summary:	Pagure CLI for handling pull requests
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -51,6 +51,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m pytest -v
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1.0-18
 - convert license to SPDX
 

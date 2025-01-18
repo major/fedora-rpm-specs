@@ -2,7 +2,7 @@
 
 Name:           fcft
 Version:        3.1.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple library for font loading and glyph rasterization
 
 # main source:  MIT
@@ -93,6 +93,9 @@ rm -f %{buildroot}%{_docdir}/%{name}/LICENSE
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 02 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 3.1.10-1
 - Update to 3.1.10 (#2335230)
 

@@ -10,7 +10,7 @@
 
 Name:           crest
 Version:        2.12
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Conformer-Rotamer Ensemble Sampling Tool: a driver for the xtb program
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -74,6 +74,9 @@ Phys. Chem. Chem. Phys., 2020, 22, 7169-7192.
 %{_mandir}/man1/crest.1.*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.12-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 2.12-8
 - convert license to SPDX
 

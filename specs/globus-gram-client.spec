@@ -1,7 +1,7 @@
 Name:		globus-gram-client
 %global _name %(tr - _ <<< %{name})
 Version:	14.6
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Grid Community Toolkit - GRAM Client Library
 
 License:	Apache-2.0
@@ -114,6 +114,9 @@ GLOBUS_HOSTNAME=localhost %make_build check
 %license GLOBUS_LICENSE
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 14.6-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 29 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 14.6-8
 - Correct spelling error found by lintian
 

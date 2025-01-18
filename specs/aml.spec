@@ -2,7 +2,7 @@
 
 Name:     aml
 Version:  0.3.0
-Release:  6%{?dist}
+Release:  7%{?dist}
 Summary:  Another Main Loop
 # main source is ISC
 # include/sys/queue.h is BSD
@@ -67,6 +67,9 @@ This package contains header files for %{name}.
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.3.0-6
 - convert license to SPDX
 

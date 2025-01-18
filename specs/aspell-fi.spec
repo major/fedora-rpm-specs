@@ -3,7 +3,7 @@
 Summary: Finnish dictionaries for Aspell
 Name: aspell-%{lang}
 Version: 0.7
-Release: 26%{?dist}
+Release: 27%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL: http://aspell.net
@@ -41,6 +41,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_libdir}/aspell-0.60/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.7-26
 - convert license to SPDX
 

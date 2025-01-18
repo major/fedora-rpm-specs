@@ -10,7 +10,7 @@
 
 Name:           ansible-collection-%{collection_namespace}-%{collection_name}
 Version:        1.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Manages virtual machines supported by libvirt
 License:        GPL-3.0-or-later
 URL:            %{ansible_collection_url}
@@ -65,6 +65,9 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 %{ansible_collection_files}
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 17 2024 Paul Howarth <paul@city-fan.org> - 1.3.1-1
 - Update to 1.3.1 (rhbz#2332772)
   - libvirt_lxc: add configuration for libvirt_lxc_noseclabel

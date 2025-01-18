@@ -4,7 +4,7 @@ Name:           emerald
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Version:        0.8.18
-Release:        11%{?dist}
+Release:        12%{?dist}
 Epoch:          1
 Summary:        Themeable window decorator and compositing manager for Compiz
 URL:            https://gitlab.com/compiz/%{name}
@@ -107,6 +107,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/emerald-theme-manager
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.8.18-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul  25 2024 Miroslav Suchý <msuchy@redhat.com> - 1:0.8.18-11
 - convert license to SPDX
 

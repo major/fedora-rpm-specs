@@ -4,7 +4,7 @@
 
 Name: firejail
 Version: 0.9.72
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Linux namespaces sandbox program
 BuildRequires: gcc make python3-devel
 BuildRequires: libselinux-devel
@@ -64,6 +64,9 @@ rm %{buildroot}%{_datadir}/gtksourceview-5/language-specs/firejail-profile.lang
 %config(noreplace) %{_sysconfdir}/%{name}
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.72-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.72-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

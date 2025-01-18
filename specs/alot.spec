@@ -1,6 +1,6 @@
 Name:           alot
 Version:        0.11
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Experimental terminal MUA based on notmuch mail
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -49,6 +49,9 @@ install -Dpm0644 alot/defaults/* -t %{buildroot}/%{python3_sitelib}/alot/default
 %{python3_sitelib}/alot/defaults
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 18 2024 Miro Hrončok <mhroncok@redhat.com> - 0.11-3
 - Run import check during the build
 

@@ -1,6 +1,6 @@
 Name:           anaconda-webui
 Version:        20
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
 URL:            https://github.com/rhinstaller/%{name}
@@ -119,6 +119,9 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 09 2024 Packit <hello@packit.dev> - 20-1
 - firefox theme: fix Firefox parsing of user.js
 - firefox theme: change CSS that hides UI when there's only 1 tab (rhbz#2330377)

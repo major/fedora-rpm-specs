@@ -21,7 +21,7 @@
 
 Name:           buildbot
 Version:        4.2.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        Build/test automation system
 License:        GPL-2.0-only
@@ -406,6 +406,9 @@ trial buildbot.test
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 15 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.2.1-2
 - Rebuilt to drop hard requires on groups (rhbz#2338295)
 

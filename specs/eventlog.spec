@@ -1,6 +1,6 @@
 Name:           eventlog
 Version:        0.2.13
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Syslog-ng v2/v3 support library
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -91,6 +91,9 @@ rm -f %{buildroot}%{_libdir}/libevtlog.la
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.13-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.13-28
 - convert license to SPDX
 

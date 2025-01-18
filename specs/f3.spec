@@ -1,6 +1,6 @@
 Name:		f3
 Version:	8.0
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Utility to test for fake flash drives and cards
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:	GPL-3.0-only
@@ -44,6 +44,9 @@ install -p -m0644 f3read.1 %{buildroot}%{_mandir}/man1
 %{_mandir}/man1/f3read.1*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 8.0-9
 - convert license to SPDX
 

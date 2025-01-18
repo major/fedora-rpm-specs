@@ -1,6 +1,6 @@
 Name:           abcde
 Version:        2.9.3
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        A Better CD Encoder
 
 # previously license field included Public Domain, but FOSSology scan of v2.9.3 did not 
@@ -82,6 +82,9 @@ install -pm 755 cue2discid $RPM_BUILD_ROOT%{_bindir}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.3-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.3-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

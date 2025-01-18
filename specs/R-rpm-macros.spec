@@ -1,6 +1,6 @@
 Name:           R-rpm-macros
 Version:        1.2.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Macros to help produce R packages
 
 License:        MIT
@@ -37,6 +37,9 @@ requires it. So install the R-devel package instead.
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

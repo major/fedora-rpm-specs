@@ -11,7 +11,7 @@
 
 Name:             R-%{packname}
 Version:          2.4.2
-Release:          14%{?dist}
+Release:          15%{?dist}
 Summary:          Tools to Make Developing R Packages Easier
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -116,6 +116,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check --ignore-vignettes %{packname}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul  26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.4.2-14
 - convert license to SPDX
 

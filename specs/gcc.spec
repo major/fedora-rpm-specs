@@ -143,7 +143,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.3%{?dist}
+Release: %{gcc_release}.3%{?dist}.1
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -3679,6 +3679,9 @@ end
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 15.0.1-0.3.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 14 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.3
 - temporary fix for coroutine range for handling (PR c++/117231)
 

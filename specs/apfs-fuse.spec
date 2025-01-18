@@ -11,7 +11,7 @@
 Name:          apfs-fuse
 Summary:       A read-only FUSE driver for Apple's APFS
 Version:       0
-Release:       27.%{date}git%{short_gittag}%{?dist}
+Release:       28.%{date}git%{short_gittag}%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
 URL:           https://github.com/sgan81/apfs-fuse
@@ -54,6 +54,9 @@ ln -sr %{buildroot}/%{_bindir}/apfs-fuse %{buildroot}/%{_sbindir}/mount.apfs
 %license LICENSE
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-28.20200928gitee71aa5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0-27.20200928gitee71aa5
 - convert license to SPDX
 

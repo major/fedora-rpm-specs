@@ -1,6 +1,6 @@
 Name:       dino
 Version:    0.4.4
-Release:    3%{?dist}
+Release:    4%{?dist}
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:    GPL-3.0-only
@@ -135,6 +135,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/im.dino.Dino.desktop
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Dec 08 2024 Pete Walter <pwalter@fedoraproject.org> - 0.4.4-3
 - Rebuild for ICU 76
 

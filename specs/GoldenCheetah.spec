@@ -14,10 +14,10 @@ Name:           GoldenCheetah
 %if 0%{?usesnapshot}
 Version:        3.6
 # Release:        0.19.%%{commitdate}git%%{shortcommit0}%%{?dist}
-Release:        0.30.RC4%{?dist}
+Release:        0.31.RC4%{?dist}
 %else
 Version:        3.6
-Release:        8%{?dist}
+Release:        9%{?dist}
 %endif
 Summary:        Cycling Performance Software
 Epoch:          1
@@ -159,6 +159,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %doc doc/user/*.pdf
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.6-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Martin Gansser <martinkg@fedoraproject.org> - 1:3.6-8
 - Modify desktop file to force X-Start
 

@@ -17,7 +17,7 @@
 
 Name:           cockpit-machines
 Version:        326
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
 URL:            https://github.com/cockpit-project/cockpit-machines
@@ -126,6 +126,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 326-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec 18 2024 Packit <hello@packit.dev> - 326-1
 - Download and install unsupported and older operating systems
 

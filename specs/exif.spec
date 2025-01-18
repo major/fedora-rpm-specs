@@ -1,6 +1,6 @@
 Name:           exif
 Version:        0.6.22
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Utility to show EXIF information hidden in JPEG files
 Summary(fr):    Outil pour afficher les informations EXIF masquées dans les fichiers JPEG
 
@@ -58,6 +58,9 @@ make check
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.22-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.22-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

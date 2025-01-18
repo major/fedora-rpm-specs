@@ -14,7 +14,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.13.1.0
 # can only be reset when subpkg bumped
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Efficient Arrays
 
 License:        BSD-3-Clause
@@ -132,6 +132,9 @@ cp -bp %{SOURCE2} %{pkg_name}.cabal
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Jul 28 2024 Jens Petersen <petersen@redhat.com> - 0.13.1.0-1
 - https://hackage.haskell.org/package/vector-0.13.1.0/changelog
 - vector-stream-0.1.0.1

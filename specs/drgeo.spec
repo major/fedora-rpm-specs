@@ -1,7 +1,7 @@
 Summary: Interactive educational geometry software
 Name: drgeo
 Version: 1.1.0
-Release: 53%{?dist}
+Release: 54%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: http://www.ofset.org/drgeo
@@ -81,6 +81,9 @@ rmdir %{buildroot}%{_datadir}/texmacs/
 %{_datadir}/applications/drgeo.desktop
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-54
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1.0-53
 - convert license to SPDX
 

@@ -2,7 +2,7 @@
 
 Name:           %{pypi_name}
 Version:        0.7.1
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        library which makes it easy to write tests for your containers
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -98,6 +98,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.7.1-24
 - convert license to SPDX
 

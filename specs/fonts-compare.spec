@@ -1,6 +1,6 @@
 Name:           fonts-compare
 Version:        1.5.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool to compare fonts for a language
 
 License:        GPL-2.0-or-later
@@ -77,6 +77,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.github.sudipshil9
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jan 06 2025 Sudip Shil <sshil@redhat.com> - 1.5.4-1
 - Started porting fonts-compare to use libadwaita on top of GTK for a modern and responsive UI.
 - Refactored CustomDialog to enhance usability.

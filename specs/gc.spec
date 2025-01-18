@@ -1,7 +1,7 @@
 Summary: Garbage collector for C and C++
 Name:    gc
 Version: 8.2.6
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
@@ -106,6 +106,9 @@ make check %{?arch_ignore}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.6-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 8.2.6-3
 - convert license to SPDX
 

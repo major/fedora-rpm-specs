@@ -6,7 +6,7 @@ Version:        2.2.0
 # Release candidate versions are messy. Give them a release of
 # e.g. "0.1.0%%{?dist}" for RC1 (and remember to adjust the Source0
 # URL). Non-RC releases go back to incrementing integers starting at 1.
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A non-linear least squares minimizer
 
 License:        BSD-3-Clause AND Apache-2.0
@@ -150,6 +150,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           FlightCrew
 Version:        0.9.1
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        EPUB validator
 License:        LGPL-3.0-or-later
 URL:            https://sigil-ebook.com/
@@ -104,6 +104,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Oct 21 2024 Pete Walter <pwalter@fedoraproject.org> - 0.9.1-40
 - Rebuild for xerces-c 3.3
 

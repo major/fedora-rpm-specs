@@ -15,7 +15,7 @@ Name: ansible-collection-microsoft-sql
 Url: https://github.com/linux-system-roles/mssql
 Summary: The Ansible collection for Microsoft SQL Server management
 Version: 2.5.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: MIT
 
@@ -316,6 +316,9 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org>
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Nov 27 2024 Packit <hello@packit.dev> - 2.5.2-1
 - Update to version 2.5.2
 

@@ -1,12 +1,12 @@
 %global         main_ver      1.4.5
 
 %global         reponame      ClipIt
-%global         gitdate       20210513
-%global         gitcommit     e5fa64c216c1b02a43cb3c90e8a151e43e881d96
+%global         gitdate       20241103
+%global         gitcommit     f35db540c9d3c57b13439d66597736e917e8c9a1
 %global         shortcommit   %(c=%{gitcommit}; echo ${c:0:7})
 
-%global         tarballdate   20210922
-%global         tarballtime   1754
+%global         tarballdate   20250116
+%global         tarballtime   2347
 
 %global         use_release   0
 %global         use_gitbare   1
@@ -27,7 +27,7 @@
 
 Name:           clipit
 Version:        %{rpm_ver}
-Release:        6%{?dist}
+Release:        1%{?dist}
 Summary:        A lightweight, fully featured GTK+ clipboard manager
 
 # meson.build says:	 GPL-3.0-or-later
@@ -44,14 +44,17 @@ Source0:        https://github.com/CristianHenzel/ClipIt/archive/v%{version}.tar
 Source0:        %{reponame}-%{tarballdate}T%{tarballtime}.tar.gz
 %endif
 Source1:        %{name}.appdata.xml
+Source2:        create-clipit-git-bare-tarball.sh
 # clipit doesn't autostart in MATE
 # Fixed upstream but not yet merged
 Patch0:         0001-Autostart-in-MATE.patch
 # Force GDK_BACKEND to x11
 Patch1:         clipit-1.4.5-force-gdk_backend-x11.patch
-Patch2:         clipit-c99.patch
 # Fix -Werror=incompatible-pointer-types
 Patch3:         https://sources.debian.org/data/main/c/clipit/1.4.5%2Bgit20210313-3/debian/patches/incompatible-pointer-types.patch
+# https://github.com/CristianHenzel/ClipIt/pull/211
+# Fix compilation with C23 struct function prototype
+Patch4:         clipit-pr211-c23-function-prototype.patch
 
 %if 0%{?use_gitbare} >= 1
 BuildRequires:  git
@@ -96,8 +99,8 @@ git config user.email "%{name}-maintainers@fedoraproject.org"
 
 %patch -P0 -p1 -b .mate
 %patch -P1 -p1 -b .nowayland
-%patch -P2 -p1 -b .c99
 %patch -P3 -p1 -b .c99_cast
+%patch -P4 -p1 -b .c23
 
 sed -i data/clipit.desktop.in -e '\@_Comment.*hr@d'
 sed -i data/clipit-startup.desktop.in -e '\@_Comment.*hr@d'
@@ -107,6 +110,7 @@ git commit -m "Apply Fedora specific configuration" -a
 %endif
 
 ./autogen.sh
+%global optflags %optflags -std=gnu23
 
 %build
 %if 0%{?use_gitbare} >= 1
@@ -161,6 +165,13 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %config(noreplace) %{_sysconfdir}/xdg/autostart/%{name}-startup.desktop
 
 %changelog
+* Thu Jan 16 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.5^20241103gitf35db54-1
+- Update to the latest git (20241103gitf35db54)
+- Fix compilation with C23 for struct function prototypes
+
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5^20210513gite5fa64c-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 08 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.5^20210513gite5fa64c-6
 - Apply debian patch for -Werror=incompatible-pointer-types
 

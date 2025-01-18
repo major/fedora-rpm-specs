@@ -1,6 +1,6 @@
 Name:           asymptote
 Version:        2.89
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Descriptive vector graphics language
 
 # LGPL-3.0-or-later: the project as a whole
@@ -196,6 +196,9 @@ chmod 755 %{buildroot}%{_datadir}/%{name}/{asy-kate.sh,asymptote.py}
 %{_emacs_sitelispdir}/%{name}/
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.89-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Jerry James <loganjerry@gmail.com> - 2.89-4
 - Fix eigen3, libtirpc, and gsl detection
 

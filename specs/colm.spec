@@ -1,6 +1,6 @@
 Name:           colm
 Version:        0.14.7
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Programming language designed for the analysis of computer languages
 
 # aapl/ and some headers from src/ are the LGPLv2+
@@ -77,6 +77,9 @@ install -p -m 0644 -D %{name}.vim %{buildroot}%{_datadir}/vim/vimfiles/syntax/%{
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.7-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 23 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.14.7-8
 - Correctly use off_t in cookie_seek_function_t especially on 32bit
 - Remove incompatible SIZEOF_LONG definition in test suite

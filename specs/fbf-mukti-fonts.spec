@@ -2,7 +2,7 @@
 %global forgeurl https://github.com/mitradranirban/fonts-mukti
 
 Version:   3.4.3
-Release:   1%{?dist}
+Release:   2%{?dist}
 
 %forgemeta
 
@@ -48,6 +48,9 @@ chmod 755 generate.pe
 %fontfiles
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Dec 05 2024 Dr Anirban Mitra <mitra_anirban@yahoo.co.in> - 3.4.3-1
 - minor bugfix - correction of typo in conjunct lookup 
 

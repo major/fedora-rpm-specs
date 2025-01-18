@@ -2,7 +2,7 @@
 
 Name:           cdogs-sdl
 Version:        0.7.3
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        C-Dogs is an arcade shoot-em-up
 # The game-engine is GPLv2+
 # The game art is CC
@@ -66,6 +66,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.7.3-13
 - convert license to SPDX
 

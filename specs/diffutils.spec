@@ -1,7 +1,7 @@
 Summary: GNU collection of diff utilities
 Name: diffutils
 Version: 3.10
-Release: 8%{?dist}
+Release: 9%{?dist}
 URL: https://www.gnu.org/software/diffutils/diffutils.html
 Source: https://ftp.gnu.org/gnu/diffutils/diffutils-%{version}.tar.xz
 # Multibyte
@@ -56,6 +56,9 @@ make check
 %{_infodir}/diffutils.info*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.10-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jul 30 2024 Than Ngo <than@redhat.com> - 3.10-8
 - refresh patch for 'cmp -s'
 

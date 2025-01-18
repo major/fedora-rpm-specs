@@ -5,7 +5,7 @@ License:	GPL-2.0-only
 %global		releasenum 2023-04-04a
 %global		releasetag %(rel="%{releasenum}"; echo "${rel//-/}")
 Version:	%{releasetag}
-Release:	5%{?dist}
+Release:	6%{?dist}
 
 URL:		https://www.dokuwiki.org/dokuwiki
 Source0:	https://download.dokuwiki.org/src/%{name}/%{name}-%{releasenum}.tgz
@@ -232,6 +232,9 @@ fi
 %doc DOKUWIKI-SELINUX.README
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20230404a-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20230404a-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

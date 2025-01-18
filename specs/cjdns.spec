@@ -72,7 +72,7 @@
 Name:           cjdns
 # major version is cjdns protocol version:
 Version:        21.1
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        The privacy-friendly network without borders
 # cjdns is all GPLv3 except libuv which is MIT and BSD and ISC
 # cnacl is unused except when use_embedded is true
@@ -731,6 +731,9 @@ fi
 %{_bindir}/graphStats
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 21.1-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 21.1-18
 - convert license to SPDX
 

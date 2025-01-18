@@ -14,7 +14,7 @@
 Name:           ghc-%{pkg_name}
 Version:        2.14.6.1
 # can only be reset when subpkg bumped
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Type-safe, multi-backend data serialization
 
 License:        MIT
@@ -188,6 +188,9 @@ cabal-tweak-drop-dep attoparsec-aeson
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.6.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Jens Petersen <petersen@redhat.com> - 2.14.6.1-11
 - https://hackage.haskell.org/package/persistent-2.14.6.1/changelog
 - lift-type-0.1.2.0

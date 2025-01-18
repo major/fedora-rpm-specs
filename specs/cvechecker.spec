@@ -5,7 +5,7 @@
 
 Name:           cvechecker
 Version:        4.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Tool for compare packages installed in your system with CVE database
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -72,6 +72,9 @@ make check
 %{_sharedstatedir}/cvechecker/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 4.0-13
 - convert license to SPDX
 

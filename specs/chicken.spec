@@ -7,7 +7,7 @@
 
 Name:           chicken
 Version:        %{shortversion}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A practical and portable Scheme system
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -139,6 +139,9 @@ make PLATFORM=linux check
 %{_libdir}/libchicken.a
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 5.3.0-8
 - convert license to SPDX
 

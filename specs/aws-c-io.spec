@@ -4,7 +4,7 @@ for application protocols.}
 
 Name:           aws-c-io
 Version:        0.15.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        IO package for AWS SDK for C
 
 License:        Apache-2.0
@@ -74,6 +74,9 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 25 2024 Dominik Wombacher <dominik@wombacher.cc> - 0.15.3-2
 - Patch '0001-disable-tests-that-require-internet-connectivity.patch' updated to work with 0.15.3
 

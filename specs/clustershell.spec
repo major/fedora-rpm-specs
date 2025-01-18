@@ -25,7 +25,7 @@
 
 Name:           clustershell
 Version:        1.9.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Python framework for efficient cluster administration
 
 %if 0%{?suse_version}
@@ -224,6 +224,9 @@ install -p -m 0644 doc/extras/vim/syntax/groupsconf.vim %{buildroot}/%{vimdatadi
 %{vimdatadir}/syntax/groupsconf.vim
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 1.9.2-6
 - convert license to SPDX
 

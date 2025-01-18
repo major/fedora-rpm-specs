@@ -2,7 +2,7 @@
 
 Name:		castxml
 Version:	0.6.10
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	C-family abstract syntax tree XML output tool
 
 License:	Apache-2.0
@@ -60,6 +60,9 @@ rm %{buildroot}%{_pkgdocdir}/NOTICE
 %license LICENSE NOTICE
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Nov 28 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.6.10-1
 - Update to version 0.6.10
 

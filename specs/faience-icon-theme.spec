@@ -2,7 +2,7 @@
 
 Name:           faience-icon-theme
 Version:        0.5
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Faience icon theme
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -83,6 +83,9 @@ done
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5-23
 - convert license to SPDX
 

@@ -17,7 +17,7 @@
 
 Name: openldap
 Version: 2.6.9
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: LDAP support libraries
 License: OLDAP-2.8
 URL: http://www.openldap.org/
@@ -201,6 +201,8 @@ popd
 %set_build_flags
 # enable experimental support for LDAP over UDP (LDAP_CONNECTIONLESS)
 export CFLAGS="${CFLAGS} ${LDFLAGS} -Wl,--as-needed -Wl,-z,now -DLDAP_CONNECTIONLESS"
+# disable legacy hash algorithm
+export CFLAGS="${CFLAGS} -DOPENSSL_NO_MD2"
 
 pushd openldap-%{version}
 %configure \
@@ -552,6 +554,9 @@ exit 0
 %endif
 
 %changelog
+* Thu Jan 16 2025 Simon Pichugin <spichugi@redhat.com> - 2.6.9-2
+- Disable MD2 hash algorithm (rhbz#2338556)
+
 * Thu Jan 9 2025 Simon Pichugin <spichugi@redhat.com> - 2.6.9-1
 - Rebase to version 2.6.9 (rhbz#2329002)
 

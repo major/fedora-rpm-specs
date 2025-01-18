@@ -3,7 +3,7 @@
 
 Name:           blaze
 Version:        3.8.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        An high-performance C++ math library for dense and sparse arithmetic
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -67,6 +67,9 @@ rm -rf %{_includedir}/%{name}/CMakeFiles/FindOpenMP
 %dir %{_datadir}/%{name}/cmake
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 3.8.2-5
 - convert license to SPDX
 

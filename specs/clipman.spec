@@ -15,7 +15,7 @@ after an application exits.}
 %global godocs          docs CHANGELOG.md CONTRIBUTING.md README.md
 
 Name:           clipman
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A simple clipboard manager for Wayland
 
 License:        GPL-3.0-only
@@ -55,6 +55,9 @@ install -m 0644 -vpD docs/clipman.1  -t %{buildroot}%{_mandir}/man1/
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

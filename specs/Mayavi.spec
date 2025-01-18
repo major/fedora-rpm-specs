@@ -3,7 +3,7 @@
 
 Name:           Mayavi
 Version:        4.8.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Scientific data 3-dimensional visualizer
 # Automatically converted from old format: BSD and EPL and LGPLv2+ and LGPLv2 and LGPLv3 - review is highly recommended.
 License:        LicenseRef-Callaway-BSD AND LicenseRef-Callaway-EPL AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-LGPLv2 AND LGPL-3.0-only
@@ -159,6 +159,9 @@ install -p -m 644 ./docs/source/mayavi/images/mayavi2-48x48.png \
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 29 2024 Sandro <devel@penguinpee.nl> - 4.8.2-4
 - Apply patch for NumPy 2.x
 - Run tests using pytest-xvfb

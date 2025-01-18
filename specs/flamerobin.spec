@@ -2,7 +2,7 @@
 Summary:	Graphical client for Firebird
 Name:		flamerobin
 Version:	0.9.9
-Release:	5%{?dist}
+Release:	6%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
 Source0:	https://github.com/mariuz/%{name}/archive/%{name}-%{version}.tar.gz
@@ -54,6 +54,9 @@ rm %{buildroot}%{_datadir}/pixmaps/*.png
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.9-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.9.9-5
 - convert license to SPDX
 

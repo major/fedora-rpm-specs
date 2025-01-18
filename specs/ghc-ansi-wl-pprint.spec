@@ -11,7 +11,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        1.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The Wadler/Leijen Pretty Printer for colored ANSI terminal output
 
 License:        BSD-3-Clause
@@ -135,4 +135,7 @@ sed -i 's/\r$//' README.md
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 %autochangelog

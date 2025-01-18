@@ -1,6 +1,6 @@
 Name:           amsynth
 Version:        1.13.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A classic synthesizer with dual oscillators
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -117,6 +117,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*%{name}.*
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Sep 29 2024 Guido Aulisi <guido.aulisi@inps.it> - 1.13.4-1
 - Update to 1.13.4
 

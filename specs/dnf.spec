@@ -66,7 +66,7 @@ It supports RPMs, modules and comps groups & environments.
 
 Name:           dnf
 Version:        4.22.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        %{pkg_summary}
 # For a breakdown of the licensing, see PACKAGE-LICENSING
 License:        GPL-2.0-or-later AND GPL-1.0-only
@@ -421,6 +421,9 @@ popd
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.22.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 07 2025 Petr Pisar <ppisar@redhat.com> - 4.22.0-3
 - Adapt tests to Python 3.14 (bug #2323186)
 

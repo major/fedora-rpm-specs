@@ -4,7 +4,7 @@ CEKit helps to build container images from image definition files
 
 Name:           %{modname}
 Version:        4.14.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Container image creation tool
 License:        MIT
 URL:            https://cekit.io
@@ -108,6 +108,9 @@ cp support/completion/zsh/_cekit %{buildroot}/%{_datadir}/zsh/site-functions/_ce
 %{_bindir}/cekit-cache
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.14.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Nov 28 2024 Nick Cross <ncross@redhat.com> - 4.14.0-1
 - Release 4.14.0
 

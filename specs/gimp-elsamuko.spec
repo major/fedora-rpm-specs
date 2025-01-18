@@ -3,7 +3,7 @@
 
 Name:		gimp-elsamuko
 Version:	29
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	Script collection for the GIMP
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:	GPL-3.0-or-later
@@ -41,6 +41,9 @@ install -Dm 0644 -p %{name}.metainfo.xml \
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 29-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 29-14
 - convert license to SPDX
 

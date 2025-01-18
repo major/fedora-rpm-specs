@@ -2,7 +2,7 @@
 
 Name:           file-roller
 Version:        44.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool for viewing and creating archives
 
 License:        GPL-2.0-or-later
@@ -88,6 +88,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.FileRoller.
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 44.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 25 2024 nmontero <nmontero@redhat.com> - 44.4-1
 - Update to 44.4
 

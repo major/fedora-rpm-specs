@@ -3,7 +3,7 @@
 
 Name:           emacs-%{pkg}
 Version:        3.0.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Use Emacsclient as the editor of child processes
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -39,6 +39,9 @@ install -D -p -m 644 -t %{buildroot}/%{_emacs_sitelispdir}/%{pkg} \
 %{_infodir}/%{pkg}.info.*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 3.0.2-11
 - convert license to SPDX
 

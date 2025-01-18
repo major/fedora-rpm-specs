@@ -166,7 +166,7 @@ Name: NetworkManager
 Summary: Network connection manager and user applications
 Epoch: %{epoch_version}
 Version: %{rpm_version}
-Release: %{release_version}%{?snap}%{?dist}
+Release: %{release_version}%{?snap}%{?dist}.1
 Group: System Environment/Base
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 URL: https://networkmanager.dev/
@@ -1064,6 +1064,9 @@ fi
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.51.2-4.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Nov 27 2024 Adam Williamson <awilliam@redhat.com> - 1.51.2-4
 - Rebuild for ppp 2.5.1 again on a side tag, ugh
 

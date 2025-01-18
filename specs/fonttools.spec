@@ -29,7 +29,7 @@ AFM and to an extent Type 1 and some Mac-specific formats.}
 
 Name:           fonttools
 Version:        4.55.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Tools to manipulate font files
 
 # https://spdx.org/licenses/MIT.html
@@ -194,6 +194,9 @@ k="${k-}${k+ and }not (InterpolatableTest and test_sparse_interpolatable_ufos)"
 %doc NEWS.rst README.rst
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.55.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Jan 12 2025 Romain Geissler <romain.geissler@amadeus.com> - 4.55.3-3
 - Build the graphite subpackage on EPEL 10 now that python-lz4 is available.
 

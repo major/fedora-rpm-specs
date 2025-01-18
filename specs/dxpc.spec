@@ -1,7 +1,7 @@
 Summary: A Differential X Protocol Compressor
 Name:    dxpc
 Version: 3.9.2
-Release: 28%{?dist}
+Release: 29%{?dist}
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
@@ -52,6 +52,9 @@ make DESTDIR=%{buildroot} install
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.2-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 3.9.2-28
 - convert license to SPDX
 

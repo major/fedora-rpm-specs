@@ -3,7 +3,7 @@
 
 Name:           %{fontname}-fonts
 Version:        1.9
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        A Devanagari font
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -66,6 +66,9 @@ install -Dm 0644 -p %{SOURCE2} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.9-31
 - convert license to SPDX
 

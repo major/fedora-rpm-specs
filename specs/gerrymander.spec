@@ -1,7 +1,7 @@
 Summary:       The gerrit client tools
 Name:          gerrymander
 Version:       1.5
-Release:       33%{?dist}
+Release:       34%{?dist}
 Source0:       https://pypi.python.org/packages/source/g/%{name}/%{name}-%{version}.tar.gz
 URL:           https://pypi.python.org/pypi/gerrymander
 License:       Apache-2.0
@@ -54,6 +54,9 @@ rm -rf *.egg-info
 %{python3_sitelib}/%{name}-%{version}-py3.*.egg-info
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

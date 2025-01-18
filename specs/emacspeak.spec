@@ -1,7 +1,7 @@
 Summary: Emacs Speech interface
 Name: emacspeak
 Version: 60.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 # main lisp files are GPL2+
 License: GPL-2.0-or-later AND BSD-3-Clause
 Source: https://github.com/tvraman/emacspeak/releases/download/%{version}/%{name}-%{version}.tar.bz2
@@ -77,6 +77,9 @@ cp -p info/*.info* %{buildroot}%{_infodir}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 60.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 14 2025 Jens Petersen <petersen@redhat.com> - 60.0-1
 - Update to 60.0
 - https://tvraman.github.io/emacspeak/blog/Announce-60.html

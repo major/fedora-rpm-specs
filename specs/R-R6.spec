@@ -5,7 +5,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          11%{?dist}
+Release:          12%{?dist}
 Source0:          ftp://cran.r-project.org/pub/R/contrib/main/%{packname}_%{packver}.tar.gz
 License:          MIT
 URL:              http://cran.r-project.org/web/packages/R6/index.html
@@ -60,6 +60,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/R/library/R.css
 %{_datadir}/R/library/%{packname}/help
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

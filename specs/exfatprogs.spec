@@ -1,6 +1,6 @@
 Name:           exfatprogs
 Version:        1.2.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Userspace utilities for exFAT filesystems
 License:        GPL-2.0-only
 URL:            https://github.com/%{name}/%{name}
@@ -46,6 +46,9 @@ autoreconf -vif
 %{_mandir}/man8/tune.exfat.*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Nov 21 2024 Pavel Reichl <preichl@redhat.com> - 1.2.6-1
 - new version
 - Related rhbz#2327575

@@ -1,6 +1,6 @@
 Name:           rocm-rpm-macros
 Version:        6.3.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm RPM macros
 License:        GPL-2.0-or-later
 
@@ -112,6 +112,9 @@ done
 %endif
 
 %changelog
+* Thu Jan 16 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-3
+- Add gfx1150 to default set
+
 * Wed Jan 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-2
 - Add gfx1152,gfx1200,gfx1201 to default set
 

@@ -3,7 +3,7 @@
 
 Name:          %{fontname}-fonts
 Version:       20030527
-Release:       32%{?dist}
+Release:       33%{?dist}
 Summary:       Handwriting font by Dustin Norlander
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -52,6 +52,9 @@ install -Dm 0644 -p %{SOURCE2} \
 %license license.txt
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20030527-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 20030527-32
 - convert license to SPDX
 

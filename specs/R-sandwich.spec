@@ -9,7 +9,7 @@
 
 Name:             R-%{packname}
 Version:          %{pkgver}.%{pkgrel}
-Release:          9%{dist}
+Release:          10%{dist}
 Summary:          Robust Covariance Matrix Estimators
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -61,6 +61,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 %{rlibdir}/%{packname}/data
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug  7 2024 Miroslav Suchý <msuchy@redhat.com> - 3.0.2-9
 - convert license to SPDX
 

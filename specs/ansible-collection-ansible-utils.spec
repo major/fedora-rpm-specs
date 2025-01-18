@@ -3,7 +3,7 @@
 
 Name:           ansible-collection-%{collection_namespace}-%{collection_name}
 Version:        5.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Ansible Network Collection for Common Code
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -37,6 +37,9 @@ find -type f -name '.gitignore' -print -delete
 %{ansible_collection_files}
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Orion Poplawski <orion@nwra.com> - 5.0.0-1
 - Update to 5.0.0
 

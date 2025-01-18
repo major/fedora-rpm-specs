@@ -2,7 +2,7 @@
 
 Name:    compiz-plugins-main
 Version: 0.8.18
-Release: 12%{?dist}
+Release: 13%{?dist}
 Epoch:   1
 Summary: Collection of Compiz Fusion plugins for Compiz
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -76,6 +76,9 @@ find $RPM_BUILD_ROOT -name '*.a' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.8.18-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul  25 2024 Miroslav Suchý <msuchy@redhat.com> - 1:0.8.18-12
 - convert license to SPDX
 

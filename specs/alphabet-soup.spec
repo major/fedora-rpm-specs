@@ -1,6 +1,6 @@
 Name:           alphabet-soup
 Version:        1.1
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Guide your worm through the soup to spell words
 # Automatically converted from old format: Crystal Stacker - review is highly recommended.
 License:        CrystalStacker
@@ -48,6 +48,9 @@ install -p -m 644 %{SOURCE2} \
 %{_datadir}/icons/hicolor/48x48/apps/%{name}.png
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1-39
 - convert license to SPDX
 

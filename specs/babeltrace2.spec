@@ -1,6 +1,6 @@
 Name:           babeltrace2
 Version:        2.0.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A trace manipulation toolkit
 License:        MIT AND GPL-2.0-only
 URL:            https://www.efficios.com/babeltrace
@@ -125,6 +125,9 @@ rm -f %{buildroot}/%{_pkgdocdir}/std-ext-lib.txt
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Oct 14 2024 Jitka Plesnikova <jplesnik@redhat.com> - 2.0.6-4
 - Fix for SWIG 4.3.0
 

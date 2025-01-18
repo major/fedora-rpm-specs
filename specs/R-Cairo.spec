@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          1.6.0
-Release:          13%{?dist}
+Release:          14%{?dist}
 Summary:          Use Cairo for high-quality bitmap, vector, and display output
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -73,6 +73,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Dec 08 2024 Pete Walter <pwalter@fedoraproject.org> - 1.6.0-13
 - Rebuild for ICU 76
 

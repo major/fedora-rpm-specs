@@ -3,7 +3,7 @@
 
 Name:           gfal2-util
 Version:        1.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GFAL2 utility tools
 Group:          Applications/Internet
 License:        Apache-2.0
@@ -86,6 +86,9 @@ Requires:       python3
 %doc RELEASE-NOTES VERSION LICENSE readme.html
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Aug 02 2024 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 1.9.0-1
 - Upstream release 1.9.0
 

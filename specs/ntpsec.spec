@@ -1,6 +1,6 @@
 Name:           ntpsec
 Version:        1.2.3
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        NTP daemon and utilities
 
 License:        NTP AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND ISC AND Apache-2.0 AND Beerware
@@ -48,6 +48,7 @@ Obsoletes:      ntp < 4.2.10 ntp-perl < 4.2.10 ntp-doc < 4.2.10 ntpdate < 4.2.10
 Requires:       filesystem(unmerged-sbin-symlinks)
 Provides:       /usr/sbin/ntpsec
 Provides:       /usr/sbin/ntpq
+Provides:       /usr/sbin/ntpdate
 %endif
 
 %description
@@ -193,6 +194,9 @@ sed -i.bak -E '/^restrict/s/no(e?peer|trap)//g' %{_sysconfdir}/ntp.conf
 %{python3_sitearch}/ntp
 
 %changelog
+* Thu Jan 16 2025 Zbigniew Jedrzejewski-Szmek <zbyszek@in.waw.pl> - 1.2.3-10
+- Also add Provides:/usr/sbin/ntpdate (rhbz#2338300)
+
 * Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.2.3-9
 - Rebuilt for the bin-sbin merge (2nd attempt)
 

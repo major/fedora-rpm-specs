@@ -1,6 +1,6 @@
 Name:           deco
 Version:        1.6.4
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Extractor for various archive file formats
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -34,6 +34,9 @@ install -dm 755 %{buildroot}/%{_var}/lib/%{name}
 %dir %{_var}/lib/%{name}
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.6.4-20
 - convert license to SPDX
 

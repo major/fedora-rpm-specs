@@ -1,6 +1,6 @@
 Name:           goffice         
 Version:        0.10.57
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        G Office support libraries
 License:        GPL-2.0-only AND GPL-3.0-only
 URL:            http://projects.gnome.org/gnumeric/index.shtml
@@ -68,6 +68,9 @@ rm $RPM_BUILD_ROOT/%{_libdir}/%{name}/%{version}/plugins/*/*.la
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.57-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Sep 08 2024 Alexander Ploumistos <alexpl@fedoraproject.org> - 0.10.57-1
 - Update to 0.10.57
 - Correct license tag

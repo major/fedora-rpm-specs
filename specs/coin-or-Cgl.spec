@@ -3,7 +3,7 @@
 Name:		coin-or-%{module}
 Summary:	Cut Generation Library
 Version:	0.60.9
-Release:	2%{?dist}
+Release:	3%{?dist}
 
 # The project as a whole is licensed EPL-2.0.  However, many source files still
 # claim to be licensed EPL-1.0.  This is probably an upstream oversight.
@@ -98,6 +98,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_docdir}/%{name}/cgl_doxy.tag
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.60.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Dec 29 2024 Antonio Trande <sagitter@fedoraproject.org> - 0.60.9-2
 - Rebuild for MUMPS-5.7.3
 

@@ -4,7 +4,7 @@ focused on maximizing throughput and network utilization.}
 
 Name:           aws-c-s3
 Version:        0.7.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        C99 library implementation for communicating with the S3 service
 
 License:        Apache-2.0
@@ -111,6 +111,9 @@ install -p -m 644 docs/images/*.svg %{buildroot}/%{_docdir}/aws-c-s3/docs/images
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Dec 21 2024 Dominik Wombacher <dominik@wombacher.cc> - 0.7.7-2
 - Patch '0001-disable-tests-that-require-internet-connectivity.patch' updated to work with current release.
 

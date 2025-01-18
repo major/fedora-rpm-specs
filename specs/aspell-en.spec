@@ -5,7 +5,7 @@ Summary: English dictionaries for Aspell
 Name: aspell-%{lang}
 Epoch: 50
 Version: 2020.12.07
-Release: 12%{?dist}
+Release: 13%{?dist}
 # Automatically converted from old format: MIT and BSD - review is highly recommended.
 License: LicenseRef-Callaway-MIT AND LicenseRef-Callaway-BSD
 URL: http://aspell.net/
@@ -49,6 +49,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_libdir}/aspell-0.60/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 50:2020.12.07-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug  28 2024 Miroslav Suchý <msuchy@redhat.com> - 50:2020.12.07-12
 - convert license to SPDX
 

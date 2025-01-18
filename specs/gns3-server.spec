@@ -6,7 +6,7 @@
 
 Name:           gns3-server
 Version:        2.2.52
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Graphical Network Simulator 3
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -132,6 +132,9 @@ cp -fp %{_datadir}/edk2/ovmf/OVMF_VARS.fd %{python3_sitelib}/gns3server/disks/OV
 %systemd_postun_with_restart gns3.service
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.52-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec  2 2024 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.52-1
 - Update to 2.2.52
 

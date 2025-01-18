@@ -1,6 +1,6 @@
 Name:           fips
 Version:        3.4.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        OpenGL-based FITS image viewer
 License:        LGPL-3.0-or-later
 Url:            https://github.com/matwey/fips3
@@ -45,6 +45,9 @@ desktop-file-validate ${RPM_BUILD_ROOT}%{_datadir}/applications/space.fips.Fips.
 %{_datadir}/icons/hicolor/*/apps/space.fips.Fips.*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

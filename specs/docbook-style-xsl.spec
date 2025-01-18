@@ -1,6 +1,6 @@
 Name: docbook-style-xsl
 Version: 1.79.2
-Release: 23%{?dist}
+Release: 24%{?dist}
 
 Summary: Norman Walsh's XSL stylesheets for DocBook XML
 
@@ -137,6 +137,9 @@ if [ "$1" = 0 ]; then
 fi
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.79.2-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.79.2-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

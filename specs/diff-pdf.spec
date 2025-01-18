@@ -1,6 +1,6 @@
 Name:           diff-pdf
 Version:        0.5.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A simple tool for visually comparing two PDF files
 
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
@@ -39,6 +39,9 @@ automake --add-missing --copy --foreign
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5.2-3
 - convert license to SPDX
 

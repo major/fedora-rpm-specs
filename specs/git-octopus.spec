@@ -17,7 +17,7 @@
 
 Name:           git-octopus
 Version:        2.0
-Release:        %{?pre_rel:0.}4%{?pre_rel:.%pre_rel}%{?dist}.21
+Release:        %{?pre_rel:0.}4%{?pre_rel:.%pre_rel}%{?dist}.22
 Summary:        Git commands for continuous delivery
 # Automatically converted from old format: LGPLv3 - review is highly recommended.
 License:        LGPL-3.0-only
@@ -83,6 +83,9 @@ export GOPATH=%{buildroot}/%{gopath}:$(pwd)/vendor:%{gopath}
 %{_mandir}/man1/git-*.1*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-0.4.beta.3.22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0-0.4.beta.3.21
 - convert license to SPDX
 

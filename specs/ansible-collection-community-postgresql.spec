@@ -2,7 +2,7 @@
 
 Name:           ansible-collection-community-postgresql
 Version:        3.0.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Manage PostgreSQL with Ansible
 
 # See the license files in the repo root and file headers
@@ -49,6 +49,9 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

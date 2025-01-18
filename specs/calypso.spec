@@ -6,7 +6,7 @@
 
 Name: calypso
 Version: 2.0
-Release: 0.17.%{date}git%{shortcommit}%{?dist}
+Release: 0.18.%{date}git%{shortcommit}%{?dist}
 Summary: Free and open-source CalDAV calendar server
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
@@ -105,6 +105,9 @@ fi
 %dir %attr(0750,calypso,calypso) %{_sharedstatedir}/calypso
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-0.18.20190429git7317d88
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0-0.17.20190429git7317d88
 - convert license to SPDX
 

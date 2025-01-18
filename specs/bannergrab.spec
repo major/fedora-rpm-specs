@@ -1,6 +1,6 @@
 Name:           bannergrab
 Version:        3.5
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        A banner grabbing tool
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -35,6 +35,9 @@ install -Dp -m 0644 %{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 %{_bindir}/%{name}
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 3.5-28
 - convert license to SPDX
 

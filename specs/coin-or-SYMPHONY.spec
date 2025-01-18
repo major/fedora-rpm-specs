@@ -4,7 +4,7 @@
 Name:		coin-or-%{module}
 Summary:	Solver for mixed-integer linear programs
 Version:	5.7.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 # The project as a whole is licensed EPL-2.0.  However, many source files still
 # claim to be licensed EPL-1.0.  This is probably an upstream oversight.
@@ -124,6 +124,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_libdir}/pkgconfig/symphony.pc
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 23 2024 Jerry James <loganjerry@gmail.com> - 5.7.2-1
 - Version 5.7.2
 

@@ -6,7 +6,7 @@
 
 Name:           dnf-plugins-extras
 Version:        4.1.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Extras Plugins for DNF
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/%{name}
@@ -181,6 +181,9 @@ $releasever and $basearch.
 %{_mandir}/man8/dnf-showvars.*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

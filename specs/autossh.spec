@@ -1,7 +1,7 @@
 Summary: Utility to autorestart SSH tunnels
 Name: autossh
 Version: 1.4g
-Release: 16%{?dist}
+Release: 17%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 URL: https://www.harding.motd.ca/autossh/
@@ -82,6 +82,9 @@ fi
 %{_unitdir}/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4g-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 1.4g-16
 - convert license to SPDX
 

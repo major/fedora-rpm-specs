@@ -1,6 +1,6 @@
 Name:           altermime
 Version:        0.3.10
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Alter MIME-encoded mailpacks
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -49,6 +49,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.10-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.3.10-34
 - convert license to SPDX
 

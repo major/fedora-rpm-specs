@@ -4,7 +4,7 @@
 
 Name:		R-%{packname}
 Version:	1.70
-Release:	1%{?dist}
+Release:	2%{?dist}
 Source0:	https://rqtl.org/download/%{packname}_%{version}.tar.gz
 License:	GPL-3.0-only
 URL:		https://rqtl.org/
@@ -86,6 +86,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 R CMD check %{packname}
 %{_libdir}/R/library/%{packname}/sampledata
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.70-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Aug 23 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.70-1
 - Update to 1.70
 

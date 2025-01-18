@@ -5,7 +5,7 @@
 
 Name:       %{pkg}
 Version:    41.0
-Release:    17%{?dist}
+Release:    18%{?dist}
 Summary:    Miscellaneous add on for Emacs
 
 # Automatically converted from old format: GPLv2+ and GPLv3 - review is highly recommended.
@@ -62,6 +62,9 @@ iconv -f iso8859-1 -t utf-8 info/emacs-goodies > info/emacs-goodies.utf
 %dir %{_emacs_sitelispdir}/goodies
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 41.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 41.0-17
 - convert license to SPDX
 

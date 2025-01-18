@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          1.0.2
-Release:          14%{?dist}
+Release:          15%{?dist}
 Summary:          Flights that Departed NYC in 2013
 
 # Automatically converted from old format: CC0 - review is highly recommended.
@@ -62,6 +62,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug  7 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.2-14
 - convert license to SPDX
 

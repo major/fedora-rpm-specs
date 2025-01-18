@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          2.3.8
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Methods to Convert R Data to YAML and Back
 
 # R library is BSD; bundled libyaml is MIT.
@@ -68,6 +68,9 @@ rm %{buildroot}%{rlibdir}/%{packname}/implicit.re
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep  4 2024 Miroslav Suchý <msuchy@redhat.com> - 2.3.8-3
 - convert license to SPDX
 

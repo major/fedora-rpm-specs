@@ -1,7 +1,7 @@
 Summary: Examines C/C++ source code for security flaws
 Name: flawfinder
 Version: 2.0.11
-Release: 13%{?dist}
+Release: 14%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 Source0: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -38,6 +38,9 @@ install -p -m644 -D flawfinder.1 %{buildroot}%{_mandir}/man1/flawfinder.1
 %{_mandir}/man1/flawfinder.1*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.11-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0.11-13
 - convert license to SPDX
 

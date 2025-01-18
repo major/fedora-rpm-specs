@@ -6,7 +6,7 @@
 
 Name:           freeimage
 Version:        3.19.0
-Release:        0.26%{?svn_rev:.svn%svn_rev}%{?dist}
+Release:        0.27%{?svn_rev:.svn%svn_rev}%{?dist}
 Summary:        Multi-format image decoder library
 
 # freeimage is tripple-licensed, see
@@ -172,6 +172,9 @@ ldconfig -n %{buildroot}%{_libdir}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.19.0-0.27.svn1909
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 3.19.0-0.26.svn1909
 - convert license to SPDX
 

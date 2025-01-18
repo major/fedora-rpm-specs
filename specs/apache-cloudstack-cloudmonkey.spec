@@ -19,7 +19,7 @@ which simplifies Apache CloudStack configuration and management.}
 %global godocs          README.md CHANGES.md
 
 Name:           apache-cloudstack-cloudmonkey
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Apache Cloudstack Cloudmonkey
 
 # Upstream license specification: Apache-2.0
@@ -65,6 +65,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 6.2.0-12
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name: anyterm
 Version: 1.2.3
-Release: 21%{?dist}
+Release: 22%{?dist}
 Summary: A web-based terminal emulator
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -115,6 +115,9 @@ exit 0
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/anyterm.conf
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul  25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2.3-21
 - convert license to SPDX
 

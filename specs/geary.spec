@@ -2,7 +2,7 @@
 
 Name:		geary
 Version:	46.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	A lightweight email program designed around conversations
 # Geary is under LGPL-2.1-or-later.
 # SQLite3-unicodesn code is in the Public Domain.
@@ -113,6 +113,9 @@ popd
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 46.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Dec 08 2024 Pete Walter <pwalter@fedoraproject.org> - 46.0-4
 - Rebuild for ICU 76
 

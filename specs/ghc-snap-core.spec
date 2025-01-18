@@ -14,7 +14,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.0.5.1
 # can only be reset when subpkg bumped
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Snap web framework core library
 
 License:        BSD-3-Clause
@@ -187,6 +187,9 @@ cabal-tweak-dep-ver text '< 1.3' '< 2.2'
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5.1-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug  5 2024 Jens Petersen <petersen@redhat.com> - 1.0.5.1-29
 - revise .cabal file
 

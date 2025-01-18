@@ -8,7 +8,7 @@
 
 Name:           %{pkgname}
 Version:        3.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Set of tools for using Fedora's messaging infrastructure
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -126,6 +126,9 @@ install -D -p -m 644 docs/_build/man/fedora-messaging.1 $RPM_BUILD_ROOT%{_mandir
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 03 2025 Packit <hello@packit.dev> - 3.7.0-1
 - Update to version 3.7.0
 - Drop patches that were merged upstream

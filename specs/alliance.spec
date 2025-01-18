@@ -4,7 +4,7 @@
 
 Name:           alliance
 Version:        5.1.1
-Release:        34.%{snapdate}git%{shortcommit}%{?dist}
+Release:        35.%{snapdate}git%{shortcommit}%{?dist}
 Summary:        VLSI EDA System
 License:        GPL-2.0-only
 URL:            https://soc-extras.lip6.fr/en/alliance-abstract-en/
@@ -309,6 +309,9 @@ source %{_sysconfdir}/profile.d/alc_env.sh
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-35.20160506gitd8c05cd
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-34.20160506gitd8c05cd
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

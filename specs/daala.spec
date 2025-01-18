@@ -4,7 +4,7 @@
 
 Name:       daala
 Version:    0
-Release:    29%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
+Release:    30%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
 Summary:    Daala video compression
 # Automatically converted from old format: BSD - review is highly recommended.
 License:    LicenseRef-Callaway-BSD
@@ -147,6 +147,9 @@ rm -f %{buildroot}/%{_mandir}/man3/_*_include_daala_.3
 %{_bindir}/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-30.20200724git694d4ce
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 0-29.20200724git694d4ce
 - convert license to SPDX
 

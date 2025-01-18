@@ -1,6 +1,6 @@
 Name: daemonize
 Version: 1.7.8
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Run a command as a Unix daemon
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -54,6 +54,9 @@ make DESTDIR=%{buildroot} INSTALL="install -p" install
 %{_mandir}/man1/daemonize.1.gz
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.8-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 1.7.8-10
 - convert license to SPDX
 

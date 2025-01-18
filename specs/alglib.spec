@@ -1,6 +1,6 @@
 Name:           alglib
 Version:        4.04.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A numerical analysis and data processing library
 
 # Automatically converted from old format: GPL-2.0-or-later - review is highly recommended.
@@ -87,6 +87,9 @@ popd
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.04.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Dec 22 2024 Sandro Mani <manisandro@gmail.com> - 4.04.0-1
 - Update to 4.04.0
 

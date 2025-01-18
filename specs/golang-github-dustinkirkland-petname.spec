@@ -18,7 +18,7 @@ An RFC1178 implementation.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.15%{?dist}
+Release:        0.16%{?dist}
 Summary:        An RFC1178 implementation
 
 # Upstream license specification: Apache-2.0
@@ -62,6 +62,9 @@ install -m 0644 -vp %{gobuilddir}/share/man/man1/* %{buildroot}%{_mandir}/man1/
 %gopkgfiles
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 0-0.15
 - convert license to SPDX
 

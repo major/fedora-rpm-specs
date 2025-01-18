@@ -1,6 +1,6 @@
 Name:		brial
 Version:	1.2.12
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Framework for Boolean Rings
 # The entire source code is GPLv2+ except the Cudd directory that is BSD
 License:	GPL-2.0-or-later AND BSD-3-Clause
@@ -101,6 +101,9 @@ make check
 %doc sage-brial/README.md
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.12-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.12-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

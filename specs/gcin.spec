@@ -1,6 +1,6 @@
 Name:              gcin
 Version:           2.9.0
-Release:           15%{?dist}
+Release:           16%{?dist}
 Summary:           An input method focused on Chinese users
 #Main program is LGPLv2;
 #eggtrayicon.cpp eggtrayicon.h are LGPLv2+;
@@ -213,6 +213,9 @@ fi
 %{_datadir}/%{name}/table/
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 2.9.0-15
 - convert license to SPDX
 

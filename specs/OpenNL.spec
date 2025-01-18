@@ -2,7 +2,7 @@
 
 Name:           OpenNL
 Version:        3.2.1
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        A library for solving sparse linear systems
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -88,6 +88,9 @@ find src/NL/ -name "*.h" ! -name "nl.h" -execdir cp -av '{}' $RPM_BUILD_ROOT/%{_
 %{_includedir}/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 3.2.1-36
 - convert license to SPDX
 

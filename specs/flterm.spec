@@ -1,6 +1,6 @@
 Name:           flterm
 Version:        1.2
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Firmware download program
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -33,6 +33,9 @@ install -p tools/flterm %{buildroot}%{_bindir}/
 %{_bindir}/%{name}
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2-26
 - convert license to SPDX
 

@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          4022.108
-Release:          7%{?dist}
+Release:          8%{?dist}
 Summary:          Rmetrics - chronological and calendar objects
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -82,6 +82,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4022.108-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul  26 2024 Miroslav Suchý <msuchy@redhat.com> - 4022.108-7
 - convert license to SPDX
 

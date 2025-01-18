@@ -3,7 +3,7 @@
 Name: autowrap
 Summary: Generates Python Extension modules from [Cython] PXD files
 Version: 0.22.11
-Release: 10%{?dist}
+Release: 11%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 URL: https://pypi.org/project/autowrap/
@@ -80,6 +80,9 @@ popd
 %{python3_sitelib}/*.egg-info
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.11-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.22.11-10
 - convert license to SPDX
 

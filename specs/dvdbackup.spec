@@ -1,6 +1,6 @@
 Name:           dvdbackup
 Version:        0.4.2
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Command line tool for ripping video DVDs
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -41,6 +41,9 @@ make %{?_smp_mflags}
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.4.2-27
 - convert license to SPDX
 

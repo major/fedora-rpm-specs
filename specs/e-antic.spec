@@ -2,7 +2,7 @@
 
 Name:           e-antic
 Version:        2.0.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Real Embedded Algebraic Number Theory In C
 
 License:        LGPL-3.0-or-later
@@ -107,6 +107,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make check
 %{_libdir}/libeanticxx.so
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

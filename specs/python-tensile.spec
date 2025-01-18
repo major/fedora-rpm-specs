@@ -14,7 +14,7 @@
 
 Name:           python-tensile
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tool for creating benchmark-driven backend libraries for GEMMs
 
 Url:            https://github.com/ROCmSoftwarePlatform/Tensile
@@ -26,6 +26,7 @@ Patch2:         0002-More-gfx1151.patch
 Patch3:         0003-Add-gfx1103.patch
 Patch4:         0004-Add-gfx1035.patch
 Patch5:         0005-Add-gfx1152.patch
+Patch6:         0006-Add-gfx1150.patch
 
 #Patch0:         0001-enable-gfx1103-for-Tensile.patch
 # In 6.1, work around  this error
@@ -183,6 +184,9 @@ cp %{buildroot}%{_datadir}/cmake/Tensile/*.cmake %{buildroot}%{python3_sitelib}/
 %{python3_sitelib}/%{upstreamname}*.egg-info/*
 
 %changelog
+* Thu Jan 16 2026 Tom Rix <Tom.Rix@amd.com> - 6.3.0-3
+- Add gfx1150
+
 * Wed Jan 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-2
 - Add gfx1152
 

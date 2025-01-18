@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          0.2.1
-Release:          23%{?dist}
+Release:          24%{?dist}
 Summary:          Programming with Big Data -- Remote Procedure Call
 
 # NOTE: There is a bundled copy of putty which is MIT, but we disable its usage
@@ -78,6 +78,9 @@ rm %{buildroot}%{rlibdir}/%{packname}/putty_LICENCE
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

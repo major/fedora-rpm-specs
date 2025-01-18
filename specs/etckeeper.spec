@@ -18,7 +18,7 @@
 
 Name:      etckeeper
 Version:   1.18.21
-Release:   4%{?dist}
+Release:   5%{?dist}
 Summary:   Store /etc in a SCM system (git, mercurial, bzr or darcs)
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:   GPL-2.0-or-later
@@ -296,6 +296,9 @@ fi
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.21-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.18.21-4
 - convert license to SPDX
 

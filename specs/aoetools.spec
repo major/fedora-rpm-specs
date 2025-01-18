@@ -1,6 +1,6 @@
 Name:           aoetools
 Version:        36
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        ATA over Ethernet Tools
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -38,6 +38,9 @@ install -pm 644 %{SOURCE1} %{buildroot}/%{_udevrulesdir}
 %config(noreplace) %{_udevrulesdir}/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 36-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 36-31
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           SDL_sound
 Version:        1.0.3
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Library handling decoding of several popular sound file formats
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -107,6 +107,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep  4 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.3-38
 - convert license to SPDX
 

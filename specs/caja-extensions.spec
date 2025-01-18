@@ -16,9 +16,9 @@ Name:           caja-extensions
 Summary:        Set of extensions for caja file manager
 Version:        %{branch}.0
 %if 0%{?rel_build}
-Release:        5%{?dist}
+Release:        6%{?dist}
 %else
-Release:        0.24%{?git_rel}%{?dist}
+Release:        0.25%{?git_rel}%{?dist}
 %endif
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -242,6 +242,9 @@ cp %{SOURCE2} %{buildroot}/%{_sysconfdir}/samba/
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mo Jul 29 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.28.0-5
 - disable gajim modul to fix building for f41
 

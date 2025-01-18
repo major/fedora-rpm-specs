@@ -3,7 +3,7 @@
 
 Name:           fldigi
 Version:        4.2.06
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Digital modem program for Linux
 
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-3.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND GPL-2.0-only AND BSL-1.0 AND MIT-0 AND LGPL-3.0-only AND GPL-1.0-only AND Apache-2.0
@@ -117,6 +117,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.06-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 31 2024 Richard Shaw <hobbes1069@gmail.com> - 4.2.06-2
 - Rebuild for Hamlib 4.6.
 

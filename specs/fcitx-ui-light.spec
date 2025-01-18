@@ -1,6 +1,6 @@
 Name:		fcitx-ui-light
 Version:	0.1.3
-Release:	31%{?dist}
+Release:	32%{?dist}
 Summary:	Light UI for fcitx
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -44,6 +44,9 @@ EOF
 %{_datadir}/applications/fcitx-light.desktop
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.3-31
 - convert license to SPDX
 

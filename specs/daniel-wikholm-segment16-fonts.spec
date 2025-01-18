@@ -7,7 +7,7 @@ License: CC0-1.0
 URL: https://www.wfonts.com/font/segment16a
 
 Version: 20171229
-Release: 7%{?dist}
+Release: 8%{?dist}
 
 %global foundry  Daniel Wikholm
 %global fontdocs  Segment16.txt
@@ -113,6 +113,9 @@ cp %{SOURCE20} ./cc0.txt
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20171229-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20171229-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

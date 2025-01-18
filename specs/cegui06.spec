@@ -1,6 +1,6 @@
 Name:           cegui06
 Version:        0.6.2
-Release:        47%{?dist}
+Release:        48%{?dist}
 Summary:        CEGUI library 0.6 for apps which need this specific version
 # Automatically converted from old format: MIT and LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MIT AND LicenseRef-Callaway-LGPLv2+
@@ -128,6 +128,9 @@ done
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.6.2-47
 - convert license to SPDX
 

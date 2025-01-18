@@ -1,5 +1,5 @@
 Version: 7.051
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://github.com/alerque/libertinus
 
 %global foundry alerque
@@ -63,6 +63,9 @@ Source10: 60-%{fontpkgname}.conf
 %fontfiles
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.051-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 30 2024 Jonny Heggheim <hegjon@gmail.com> - 7.051-1
 - Updated to version v7.051
 

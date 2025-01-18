@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.74.0
-Release:          9%{dist}
+Release:          10%{dist}
 Summary:          Bioconductor tools to support tcltk widgets
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:          LicenseRef-Callaway-LGPLv2+
@@ -46,6 +46,9 @@ test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
 %{_datadir}/R/library/%{packname}/help
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.74.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep  4 2024 Miroslav Suchý <msuchy@redhat.com> - 1.74.0-9
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name: fedora-workstation-backgrounds
 Version: 1.6
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Desktop backgrounds for Fedora Workstation
 
 License: CC-BY-4.0
@@ -55,6 +55,9 @@ wallpapers for Fedora Workstation.
 %{_datadir}/backgrounds/fedora-workstation/petals_dark.webp
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

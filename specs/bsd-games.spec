@@ -6,7 +6,7 @@
 Summary: Collection of text-based games
 Name: bsd-games
 Version: 2.17
-Release: 79%{?dist}
+Release: 80%{?dist}
 # Automatically converted from old format: BSD and BSD with advertising - review is highly recommended.
 License: LicenseRef-Callaway-BSD AND LicenseRef-Callaway-BSD-with-advertising
 URL: ftp://metalab.unc.edu/pub/Linux/games/
@@ -226,6 +226,9 @@ exit 0
 %doc AUTHORS COPYING ChangeLog ChangeLog.0 THANKS YEAR2000 README.hunt trek/USD.doc/trek.me
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.17-80
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Nov 27 2024 Sérgio Basto <sergio@serjux.com> - 2.17-79
 - Add boggle_fread_chk.patch
 

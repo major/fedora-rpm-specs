@@ -1,6 +1,6 @@
 Name:       diffmark
 Version:    0.10
-Release:    34%{?dist}
+Release:    35%{?dist}
 Summary:    XML diff and merge
 # COPYING:          diffmark license text
 # lib/lcs.hh:       GPL-1.0-or-later OR Artistic-1.0-Perl   (based on Algorithm-Diff)
@@ -81,6 +81,9 @@ find "$RPM_BUILD_ROOT" -name '*.la' -delete
 %{_libdir}/libdiffmark.so
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 08 2024 Petr Pisar <ppisar@redhat.com> - 0.10-34
 - Convert a License tag to SPDX
 

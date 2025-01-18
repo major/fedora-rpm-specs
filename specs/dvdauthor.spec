@@ -1,6 +1,6 @@
 Name:           dvdauthor
 Version:        0.7.2
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Command line DVD authoring tool
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -65,6 +65,9 @@ export LDFLAGS="$RPM_LD_FLAGS -Wl,--as-needed" # *Magick-config linkage bloat
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.7.2-25
 - convert license to SPDX
 

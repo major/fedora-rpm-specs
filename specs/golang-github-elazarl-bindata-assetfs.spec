@@ -16,7 +16,7 @@ Serve embedded files from jteeuwen/go-bindata with net/http.}
 %global gosupfiles glide.lock glide.yaml
 
 Name:           %{goname}
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Serve embedded files from jteeuwen/go-bindata with net/http
 
 # Upstream license specification: BSD-2-Clause
@@ -59,6 +59,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.1-18
 - convert license to SPDX
 

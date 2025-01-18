@@ -3,7 +3,7 @@
 
 Name:           ansible-collection-%{collection_namespace}-%{collection_name}
 Version:        2.0.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Kubernetes Collection for Ansible
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -44,6 +44,9 @@ find -type f -name '.gitignore' -print -delete
 %{ansible_collection_files}
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0.1-10
 - convert license to SPDX
 

@@ -2,7 +2,7 @@ Name:         amtterm
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:      GPL-2.0-or-later
 Version:      1.6
-Release:      22%{?dist}
+Release:      23%{?dist}
 Summary:      Serial-over-lan (sol) client for Intel AMT
 URL:          http://www.kraxel.org/blog/linux/amtterm/
 Source:       http://www.kraxel.org/releases/%{name}/%{name}-%{version}.tar.gz
@@ -47,6 +47,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications/ \
 %{_datadir}/applications/gamt.desktop
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.6-22
 - convert license to SPDX
 

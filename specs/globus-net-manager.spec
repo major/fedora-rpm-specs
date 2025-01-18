@@ -1,7 +1,7 @@
 Name:		globus-net-manager
 %global _name %(tr - _ <<< %{name})
 Version:	1.7
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Grid Community Toolkit - Network Manager Library
 
 License:	Apache-2.0
@@ -171,6 +171,9 @@ GLOBUS_HOSTNAME=localhost PYTHONDONTWRITEBYTECODE=1 %make_build check
 %license GLOBUS_LICENSE
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

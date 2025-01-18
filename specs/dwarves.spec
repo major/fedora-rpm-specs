@@ -3,7 +3,7 @@
 
 Name: dwarves
 Version: 1.27
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-2.0-only
 Summary: Debugging Information Manipulation Tools (pahole & friends)
 URL: http://acmel.wordpress.com
@@ -134,6 +134,9 @@ rm -Rf %{buildroot}
 %{_libdir}/%{libname}_reorganize.so
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.27-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 21 2024 Tom Stellard <tstellar@redhat.com> - 1.27-3
 - Backport a patch to fix kernel LTO build with clang
 

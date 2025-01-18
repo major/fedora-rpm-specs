@@ -11,7 +11,7 @@
 
 Name:           crypto-policies
 Version:        %{git_date}
-Release:        1.git%{git_commit_hash}%{?dist}
+Release:        2.git%{git_commit_hash}%{?dist}
 Summary:        System-wide crypto policies
 
 License:        LGPL-2.1-or-later
@@ -295,6 +295,9 @@ exit 0
 %{_mandir}/man8/fips-finish-install.8*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20241128-2.gitbb7b0b0
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Nov 28 2024 Alexander Sosedkin <asosedkin@redhat.com> - 20241128-1.gitbb7b0b0
 - openssl, BSI: add TLS 1.3 Brainpool identifiers
 

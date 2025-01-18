@@ -1,7 +1,7 @@
 Summary: Html documentation for drgeo
 Name: drgeo-doc
 Version: 1.6
-Release: 38%{?dist}
+Release: 39%{?dist}
 # Automatically converted from old format: GFDL - review is highly recommended.
 License: LicenseRef-Callaway-GFDL
 URL: http://www.ofset.org/drgeo
@@ -33,6 +33,9 @@ mkdir -p %{buildroot}%{_datadir}/drgeo/help/{fr,es,eu,it,nl}/figures/
 %{_datadir}/drgeo/help
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 1.6-38
 - convert license to SPDX
 

@@ -5,7 +5,7 @@
 
 Name:           gedit-plugin-editorconfig
 Version:        0.5.3
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        EditorConfig plugin for Gedit
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -65,6 +65,9 @@ cp editorconfig_gedit3.py %{buildroot}%{_libdir}/gedit/plugins/
 %{_libdir}/gedit/plugins/editorconfig_plugin/__pycache__/
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5.3-17
 - convert license to SPDX
 

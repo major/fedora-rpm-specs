@@ -11,7 +11,7 @@
 Summary: Benchmarking authorative and recursing DNS servers
 Name: dnsperf
 Version: 2.12.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 # New page was found, but on github is also project, that seems to be official.
 #
 # Github project has different license and so far is the only one with any
@@ -138,6 +138,9 @@ install -m 755 -p %{SOURCE2} %{buildroot}%{_bindir}/dnsperf-data
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 2.12.0-6
 - convert license to SPDX
 

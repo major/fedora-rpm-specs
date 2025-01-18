@@ -10,7 +10,7 @@
 
 Name:  anthy
 Version: 9100h
-Release: 56%{?dist}
+Release: 57%{?dist}
 # The entire source code is LGPLv2+ and dictionaries is GPLv2. the corpus data is under Public Domain.
 License: LGPL-2.1-or-later AND GPL-2.0-only AND LicenseRef-Fedora-Public-Domain
 URL:  http://sourceforge.jp/projects/anthy/
@@ -179,6 +179,9 @@ popd
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9100h-57
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Sep 19 2024 Akira TAGOH <tagoh@redhat.com> - 9100h-56
 - Fix an infinite loop when missing EOL in record file.
   Resolves: rhbz#1944546

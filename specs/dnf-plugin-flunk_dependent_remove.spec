@@ -8,7 +8,7 @@ Fail the request instead. This is implemented via a DNF plugin.}
 
 Name:           dnf-plugin-%{srcname}
 Version:        1.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        DNF plugin to prevent removing packages recursively via automation
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -39,6 +39,9 @@ install -D -m0644 %{SOURCE0} \
 %{python3_sitelib}/dnf-plugins/__pycache__/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0-16
 - convert license to SPDX
 

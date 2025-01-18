@@ -1,6 +1,6 @@
 Name:           git-tools
 Version:        2022.12
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Assorted git-related scripts and tools
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -64,6 +64,9 @@ cp -p man1/git-* %{buildroot}%{_mandir}/man1/.
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2022.12-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 2022.12-6
 - convert license to SPDX
 

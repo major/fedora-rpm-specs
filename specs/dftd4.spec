@@ -1,6 +1,6 @@
 Name:           dftd4
 Version:        3.7.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Generally Applicable Atomic-Charge Dependent London Dispersion Correction
 License:        LGPL-3.0-or-later
 URL:            https://dftd4.readthedocs.io/
@@ -75,6 +75,9 @@ MESON_TESTTHREADS=2 %meson_test --timeout-multiplier 4
 %{python3_sitearch}/dftd4/
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Sep 12 2024 Susi Lehtola <susi.lehtola@iki.fi> - 3.7.0-4
 - Add missing BR: mstore-devel and python3-cffi.
 

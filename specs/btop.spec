@@ -2,7 +2,7 @@
 
 Name:           btop
 Version:        1.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Modern and colorful command line resource monitor that shows usage and stats
 
 # The entire source code is ASL 2.0 except:
@@ -74,6 +74,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/btop.desktop
 %{_mandir}/man1/%{name}.1.gz
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Dec 15 2024 Jonathan Wright <jonathan@almalinux.org> - 1.4.0-1
 - update to 1.4.0 rhbz#2314092
 - add man page

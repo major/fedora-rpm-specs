@@ -5,7 +5,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          28%{?dist}
+Release:          29%{?dist}
 Summary:          ACE and AVAS methods for choosing regression transformations
 # Automatically converted from old format: Public Domain and MIT - review is highly recommended.
 License:          LicenseRef-Callaway-Public-Domain AND LicenseRef-Callaway-MIT
@@ -55,6 +55,9 @@ test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
 %{_libdir}/R/library/%{packname}/help
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep  4 2024 Miroslav Suchý <msuchy@redhat.com> - 1.4.1-28
 - convert license to SPDX
 

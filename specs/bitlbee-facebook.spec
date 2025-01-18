@@ -1,7 +1,7 @@
 Summary:        Facebook protocol plugin for BitlBee
 Name:           bitlbee-facebook
 Version:        1.2.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://github.com/bitlbee/bitlbee-facebook
 Source0:        https://github.com/bitlbee/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -39,6 +39,9 @@ script -c 'timeout --preserve-status --signal=TERM 5s bitlbee -c bitlbee.conf' -
 %{_libdir}/bitlbee/facebook.so
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

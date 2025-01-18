@@ -1,6 +1,6 @@
 Name:           gkermit
 Version:        1.00
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        A utility for transferring files using the Kermit protocol
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -53,6 +53,9 @@ make install BINDIR=%{buildroot}%{_bindir} MANDIR=%{buildroot}%{_mandir}/man1
 %{_mandir}/man1/gkermit.1*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.00-38
 - convert license to SPDX
 

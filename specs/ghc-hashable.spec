@@ -13,7 +13,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        1.4.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A class for types that can be converted to a hash value
 
 License:        BSD-3-Clause
@@ -152,4 +152,7 @@ cp -bp %{SOURCE2} %{pkg_name}.cabal
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 %autochangelog

@@ -1,5 +1,5 @@
 # Use forge macros for pulling from GitHub
-%global forgeurl https://github.com/BlueBrain/MorphIO
+%global forgeurl https://github.com/openbraininstitute/MorphIO
 
 %global _description %{expand:
 MorphIO is a library for reading and writing neuron morphology files. It
@@ -74,11 +74,11 @@ Patch:          allow_use_of_external_ghc_filesystem.patch
 Patch:          dont_use_cmake_for_finding_ghc_filesystem.patch
 # Fix a test regression with pybind11 2.11.2, 2.12.1, 2.13.6+
 # https://github.com/BlueBrain/MorphIO/pull/515
-Patch:          %{forgeurl}/pull/515.patch
+Patch:          https://github.com/BlueBrain/MorphIO/pull/515.patch
 # Include <cstdint> for fixed-width integers in API headers
-# https://github.com/BlueBrain/MorphIO/pull/517
+# https://github.com/openbraininstitute/MorphIO/pull/1
 # Fixes failure to build with GCC 15.
-Patch:          %{forgeurl}/pull/517.patch
+Patch:          %{forgeurl}/pull/1.patch
 
 # skip locale check if std::locale fails
 Patch:          https://github.com/BlueBrain/MorphIO/pull/512.patch

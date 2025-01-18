@@ -2,7 +2,7 @@
 
 Name:       distcc
 Version:    3.4
-Release:    7%{?dist}
+Release:    8%{?dist}
 Summary:    Distributed C/C++ compilation
 License:    GPL-2.0-or-later
 URL:        https://github.com/distcc/distcc
@@ -143,6 +143,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/*
 %dir /usr/lib/gcc-cross
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Oct 21 2024 Gwyn Ciesla <gwync@protonmail.com> - 3.4-7
 - Patch for Py_ssize_t
 

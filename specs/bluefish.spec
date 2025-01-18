@@ -1,6 +1,6 @@
 %global pkgver 2.2.16
 #global prerel rc1
-%global baserelease 1
+%global baserelease 3
 
 Name:		bluefish
 Version:	%{pkgver}
@@ -12,6 +12,7 @@ Source0:	http://www.bennewitz.com/bluefish/stable/source/bluefish-%{version}%{?p
 Patch0:		bluefish-2.2.13-strict-aliasing.patch
 Patch1:		bluefish-2.2.16-shellbang.patch
 Patch2:		bluefish-2.2.16-gcc14.patch
+Patch3:		bluefish-2.2.16-gcc15.patch
 BuildRequires:	coreutils
 BuildRequires:	desktop-file-utils
 BuildRequires:	enchant2-devel
@@ -80,6 +81,10 @@ Files common to every architecture version of %{name}.
 # Fix for type issue causing FTBFS with gcc 14
 # https://sourceforge.net/p/bluefish/tickets/95/
 %patch -P 2 -p2
+
+# Fix for type issues causing FTBFS with gcc 15
+# https://sourceforge.net/p/bluefish/tickets/101/
+%patch -P 3
 
 %build
 %configure	--disable-dependency-tracking \
@@ -167,6 +172,12 @@ fi
 %{_mandir}/man1/bluefish.1*
 
 %changelog
+* Thu Jan 16 2025 Paul Howarth <paul@city-fan.org> - 2.2.16-3
+- Fix for gcc 15
+
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.16-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Sep 22 2024 Paul Howarth <paul@city-fan.org> - 2.2.16-1
 - Update to 2.2.16 (rhbz#2314037)
   - Bluefish 2.2.16 is mostly a maintenance release

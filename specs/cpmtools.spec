@@ -1,6 +1,6 @@
 Name:		cpmtools
 Version:	2.23
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Programs for accessing CP/M disks
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -52,6 +52,9 @@ make install BINDIR=$RPM_BUILD_ROOT%{_bindir} MANDIR=$RPM_BUILD_ROOT%{_mandir} D
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.23-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 2.23-8
 - convert license to SPDX
 

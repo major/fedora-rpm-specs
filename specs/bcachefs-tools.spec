@@ -13,7 +13,7 @@
 
 Name:           bcachefs-tools
 Version:        1.13.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Userspace tools for bcachefs
 
 # --- rust ---
@@ -160,6 +160,9 @@ rm -rf %{buildroot}%{_sbindir}/*.fuse.bcachefs
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 10 2024 Neal Gompa <ngompa@fedoraproject.org> - 1.13.0-1
 - Update to 1.13.0
 - Remove unusable condition to build without rust (it's been required for a while)

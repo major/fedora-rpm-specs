@@ -9,7 +9,7 @@ CITATION.cff files in Python.}
 
 Name:           %{pypi_name}
 Version:        2.0.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Command line program to validate and convert CITATION.cff files
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -66,6 +66,9 @@ PYTHONPATH="${PWD}" %pytest -k "${k-}" test/
 %{_mandir}/man1/%{pypi_name}.1*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0.0-14
 - convert license to SPDX
 

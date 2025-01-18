@@ -1,6 +1,6 @@
 Name:           ast
 Version:        9.2.10
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A Library for Handling World Coordinate Systems in Astronomy
 
 # proj.c proj.h wcsmath.h wcstrig.c wcstrig.h are LGPLv2+
@@ -116,6 +116,9 @@ make check
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.10-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 9.2.10-6
 - convert license to SPDX
 

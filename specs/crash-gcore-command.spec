@@ -3,7 +3,7 @@
 Summary: Gcore extension module for the crash utility
 Name: crash-gcore-command
 Version: 1.6.4
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPL-2.0-only
 Source0: https://github.com/fujitsu/crash-gcore/archive/v%{version}/%{name}-%{version}.tar.gz
 URL: https://github.com/fujitsu/crash-gcore
@@ -36,6 +36,9 @@ install -m 0755 -t %{buildroot}%{_libdir}/crash/extensions %{_builddir}/%{repona
 %license COPYING
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

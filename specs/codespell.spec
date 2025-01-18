@@ -1,6 +1,6 @@
 Name:           codespell
 Version:        2.3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fix common misspellings in text files
 
 # Automatically converted from old format: GPLv2 and CC-BY-SA - review is highly recommended.
@@ -46,6 +46,9 @@ sed -i -e 's/--cov-report=//' pyproject.toml
 %{_bindir}/codespell
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 2.3.0-2
 - convert license to SPDX
 

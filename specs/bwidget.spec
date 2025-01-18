@@ -3,7 +3,7 @@
 
 Name:           bwidget
 Version:        1.9.7
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Extended widget set for Tk
 
 License:        TCL
@@ -42,6 +42,9 @@ install -m 0644 -pD images/*.gif images/*.xbm %{buildroot}/%{tcl_sitelib}/%{name
 %doc BWman/*.html
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.7-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.7-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

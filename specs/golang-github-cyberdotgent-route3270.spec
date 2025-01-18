@@ -20,7 +20,7 @@ Features:
 %global godocs          doc README.md
 
 Name:           %{goname}
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A simple 3270 application/connection router
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -73,6 +73,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul  29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2-12
 - convert license to SPDX
 

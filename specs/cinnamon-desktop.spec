@@ -11,7 +11,7 @@
 Summary: Shared code among cinnamon-session, nemo, etc
 Name:    cinnamon-desktop
 Version: 6.4.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and MIT - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-MIT
 URL:     https://github.com/linuxmint/%{name}
@@ -112,6 +112,9 @@ install -m 644 %SOURCE1 %buildroot%{_datadir}/applications/x-cinnamon-mimeapps.l
 %{_datadir}/gir-1.0/C*.gir
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 02 2024 Leigh Scott <leigh123linux@gmail.com> - 6.4.1-1
 - Update t0 6.4.1
 

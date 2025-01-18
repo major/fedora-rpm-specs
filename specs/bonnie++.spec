@@ -1,6 +1,6 @@
 Name:           bonnie++
 Version:        2.00a
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Filesystem and disk benchmark & burn-in suite
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -50,6 +50,9 @@ test servers.
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.00a-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.00a-12
 - convert license to SPDX
 

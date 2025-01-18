@@ -18,7 +18,7 @@ ExcludeArch: %{ix86}
 
 Name:    ga
 Version: 5.8.2
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Global Arrays Toolkit
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
@@ -233,6 +233,9 @@ cd ..
 %{_libdir}/openmpi/lib/lib*.a
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 5.8.2-9
 - convert license to SPDX
 

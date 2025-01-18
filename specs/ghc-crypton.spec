@@ -9,7 +9,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        0.34
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Cryptography Primitives sink
 
 #               Main         -   Argon2 C code           -   Blake2 C code
@@ -153,6 +153,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Jens Petersen <petersen@redhat.com> - 0.34-3
 - rebuild
 

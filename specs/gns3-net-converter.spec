@@ -1,6 +1,6 @@
 Name:           gns3-net-converter
 Version:        1.3.0
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Convert old ini-style GNS3 topologies to v1+ JSON format
 
 # This project is archived by upstream, thus downstream patch
@@ -47,6 +47,9 @@ to the newer version v1+ JSON format for use in GNS3 v1+.
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3.0-32
 - convert license to SPDX
 

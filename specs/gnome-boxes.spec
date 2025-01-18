@@ -36,7 +36,7 @@ ExclusiveArch: x86_64
 
 Name:		gnome-boxes
 Version:	47.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A simple GNOME 3 application to access remote or virtual systems
 
 # Sources are under LGPL-2.0-or-later, AppData is CC0-1.0 and help is
@@ -159,6 +159,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Boxe
 %{_metainfodir}/org.gnome.Boxes.metainfo.xml
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 47.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 18 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 47.0-2
 - Validate metainfo file
 

@@ -3,7 +3,7 @@
 Name: freetds
 Summary: Implementation of the TDS (Tabular DataStream) protocol
 Version: 1.4.23
-Release: 1%{?dist}
+Release: 2%{?dist}
 # Automatically converted from old format: LGPLv2+ and GPLv2+ - review is highly recommended.
 License: LGPL-2.0-or-later AND GPL-2.0-or-later
 URL: http://www.freetds.org/
@@ -150,6 +150,9 @@ find docdir -type f -print0 | xargs -0 chmod -x
  
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.23-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Oct  7 2024 Dmitry Butskoy <Dmitry@Butskoy.name> - 1.4.23-1
 - update to 1.4.23 (#2316972)
 - fix SPDX license

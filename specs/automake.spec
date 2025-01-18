@@ -23,7 +23,7 @@ Summary:    A GNU tool for automatically creating Makefiles
 Name:       automake
 # Any bump here requires libtool rebuild, rhbz#1813010
 Version:    %{api_version}
-Release:    1%{?dist}
+Release:    2%{?dist}
 
 # To help future rebase, the following licenses were seen in the following files/folders:
 # usr/bin/* - GPL-2.0-or-later
@@ -166,6 +166,9 @@ make -k %{?_smp_mflags} check %{?TESTS_FLAGS: TESTS="%{TESTS_FLAGS}"} \
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Nov 21 2024 Frédéric Bérat <fberat@redhat.com> - 1.17-1
 - Rebase to upstream version 1.17.0
 - Add a patch to fix py-compile behavior

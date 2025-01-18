@@ -1,6 +1,6 @@
 Name:		diceware
 Version:	0.9.5
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	Create passphrases which one can remember
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -71,6 +71,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.9.5-22
 - convert license to SPDX
 

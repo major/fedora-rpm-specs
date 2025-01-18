@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          1.62.0
-Release:          3%{dist}
+Release:          4%{dist}
 Summary:          R interface to genome browsers and their annotation tracks
 # Automatically converted from old format: Artistic 2.0 and BSD - review is highly recommended.
 License:          Artistic-2.0 AND LicenseRef-Callaway-BSD
@@ -80,6 +80,9 @@ rm -rf %{buildroot}%{_libdir}/R/library/%{packname}/tests/quickload/T_species_Oc
 %{_libdir}/R/library/%{packname}/unitTests/
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.62.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.62.0-3
 - convert license to SPDX
 

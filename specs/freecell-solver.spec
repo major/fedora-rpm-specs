@@ -4,7 +4,7 @@
 
 Name: freecell-solver
 Version: 6.12.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: MIT
 Source0: https://fc-solve.shlomifish.org/downloads/fc-solve/%{name}-%{version}.tar.xz
 URL: https://fc-solve.shlomifish.org/
@@ -193,6 +193,9 @@ done
 find %{buildroot} -name *.a -delete
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.12.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.12.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

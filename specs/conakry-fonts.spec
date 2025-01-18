@@ -3,7 +3,7 @@
 
 Name:		%{fontname}-fonts
 Version:	20070829
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	N'Ko font by Michael Everson
 
 # Automatically converted from old format: OFL - review is highly recommended.
@@ -53,6 +53,9 @@ install -Dm 0644 -p %{SOURCE2} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20070829-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 20070829-30
 - convert license to SPDX
 

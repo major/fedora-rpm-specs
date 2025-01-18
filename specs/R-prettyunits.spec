@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          15%{?dist}
+Release:          16%{?dist}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.tar.gz
 License:          MIT
 URL:              http://cran.r-project.org/web/packages/prettyunits/index.html
@@ -46,6 +46,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/R/library/R.css
 %{_datadir}/R/library/%{packname}/help
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

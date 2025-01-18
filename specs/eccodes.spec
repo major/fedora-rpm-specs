@@ -4,7 +4,7 @@
 
 Name:           eccodes
 Version:        2.38.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        WMO data format decoding and encoding
 
 # NOTE: dont use version 2.34.0
@@ -361,6 +361,9 @@ ctest3 -V %{?_smp_mflags}
 %doc %{_datadir}/doc/%{name}/
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.38.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Oct 20 2024 Jos de Kloe <josdekloe@gmail.com> - 2.38.3-1
 - Update to 2.38.3
 

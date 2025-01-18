@@ -1,7 +1,7 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
 Version: 2.6.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1: blivet-gui_event.conf
 License: GPL-2.0-or-later
@@ -74,6 +74,9 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 18 2024 Packit <hello@packit.dev> - 2.6.0-1
 - Update to version 2.6.0
 

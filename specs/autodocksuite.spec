@@ -2,7 +2,7 @@
 
 Name:		autodocksuite
 Version:	4.2.6
-Release:	23%{?dist}
+Release:	24%{?dist}
 Summary:	AutoDock is a suite of docking tools to study protein-ligand interaction
 
 License:	GPL-2.0-or-later
@@ -49,6 +49,9 @@ rm -f %{buildroot}/%{_bindir}/autodock4.omp
 %{_bindir}/autogrid4
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.6-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.6-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

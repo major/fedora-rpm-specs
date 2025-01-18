@@ -1,6 +1,6 @@
 Name:           crystal-stacker
 Version:        1.5
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Falling blocks, match 3 or more of the same color crystals
 # Automatically converted from old format: Crystal Stacker - review is highly recommended.
 License:        CrystalStacker
@@ -100,6 +100,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug  7 2024 Miroslav Suchý <msuchy@redhat.com> - 1.5-43
 - convert license to SPDX
 

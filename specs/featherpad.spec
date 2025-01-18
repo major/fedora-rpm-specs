@@ -2,7 +2,7 @@
 
 Name:           featherpad
 Version:        1.5.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Lightweight Qt Plain-Text Editor
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -72,6 +72,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/metainfo/featherpad.metainfo.xml
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Nov 10 2024 Steve Cossette <farchord@gmail.com> - 1.5.2-1
 - 1.5.2
 

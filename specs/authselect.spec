@@ -3,7 +3,7 @@
 
 Name:           authselect
 Version:        1.5.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Configures authentication and identity sources from supported profiles
 URL:            https://github.com/authselect/authselect
 
@@ -258,6 +258,9 @@ done
 exit 0
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Oct 9 2024 Pavel Březina <pbrezina@redhat.com> - 1.5.0-8
 - Temporary revert: myhostname is put right before dns module in nsswitch.conf hosts (rhbz#2291062)
 

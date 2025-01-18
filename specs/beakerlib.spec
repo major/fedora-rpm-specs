@@ -1,7 +1,7 @@
 Name:       beakerlib
 Summary:    A shell-level integration testing library
 Version:    1.31.3
-Release:    1%{?dist}
+Release:    2%{?dist}
 License:    GPL-2.0-only
 BuildArch:  noarch
 URL:        https://github.com/%{name}
@@ -129,6 +129,9 @@ Files for syntax highlighting BeakerLib tests in VIM editor
 %{_datadir}/vim/vimfiles/after/syntax/beakerlib.vim
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.31.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Nov 06 2024 Packit <hello@packit.dev> - 1.31.3-1
 - Ensure the dashes are removed from the test name prefix, by seberm
 

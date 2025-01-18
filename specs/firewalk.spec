@@ -1,6 +1,6 @@
 Name:           firewalk
 Version:        5.0
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Active reconnaissance network security tool
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -40,6 +40,9 @@ install -Dp -m 0644 man/firewalk.8 $RPM_BUILD_ROOT%{_mandir}/man8/firewalk.8
 %{_mandir}/man?/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 5.0-36
 - convert license to SPDX
 

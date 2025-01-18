@@ -1,7 +1,7 @@
 Summary: Spell checker
 Name: aspell
 Version: 0.60.8.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 12
 # LGPLv2+ .. common/gettext.h
 # LGPLv2  .. modules/speller/default/phonet.hpp,
@@ -122,6 +122,9 @@ rm -f ${RPM_BUILD_ROOT}%{_infodir}/dir
 %{_mandir}/man1/pspell-config.1*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 12:0.60.8.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 12:0.60.8.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

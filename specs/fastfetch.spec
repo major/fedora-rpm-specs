@@ -1,6 +1,6 @@
 Name:           fastfetch
 Version:        2.34.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Like neofetch, but much faster because written in c
 
 License:        MIT
@@ -112,6 +112,9 @@ mechanisms like multithreading and caching to finish as fast as possible.
 %{_datadir}/zsh/site-functions/_%{name}
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.34.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jan 13 2025 Jonathan Wright <jonathan@almalinux.org> - 2.34.1-1
 - update to 2.34.1 rhbz#2336492
 

@@ -6,7 +6,7 @@
 Summary: GNU arbitrary precision library
 Name: gmp
 Version: 6.3.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 1
 URL: https://gmplib.org/
 Source0: https://gmplib.org/download/gmp/gmp-%{version}.tar.xz
@@ -183,6 +183,9 @@ export LD_LIBRARY_PATH=`pwd`/.libs
 %{_libdir}/libgmpxx.a
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.3.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           babeld
 Version:        1.13.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Ad-hoc network routing daemon
 
 License:        MIT
@@ -58,6 +58,9 @@ install -Dp -m 0644 %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/babeld
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name: NFStest		
 Version: 3.2
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: NFS Testing Tool
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -52,6 +52,9 @@ most of the functionality is focused mainly on testing the client.
 %doc COPYING README
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 3.2-9
 - convert license to SPDX
 

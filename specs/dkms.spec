@@ -1,7 +1,7 @@
 Summary:        Dynamic Kernel Module Support Framework
 Name:           dkms
 Version:        3.1.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        GPL-2.0-or-later
 URL:            http://linux.dell.com/dkms
 
@@ -78,6 +78,9 @@ sed -i -e 's/# modprobe_on_install="true"/modprobe_on_install="true"/g' %{buildr
 %{_unitdir}/%{name}.service
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 30 2024 Simone Caronni <negativo17@gmail.com> - 3.1.4-3
 - Fix patch application.
 

@@ -1,6 +1,6 @@
 Name:		colrdx
 Version:	1.02
-Release:	34%{?dist}
+Release:	35%{?dist}
 Summary:	DX-cluster client with curses color support
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -37,6 +37,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_mandir}/man1/%{name}.1.gz
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.02-34
 - convert license to SPDX
 

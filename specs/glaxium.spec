@@ -1,6 +1,6 @@
 Name:           glaxium
 Version:        0.5
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        An OpenGL space shooter
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -80,6 +80,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5-45
 - convert license to SPDX
 

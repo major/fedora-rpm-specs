@@ -1,6 +1,6 @@
 Name:       bdftopcf
 Version:    1.1.2
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Font compiler for the X server and font server
 
 License:    MIT-open-group
@@ -37,6 +37,9 @@ slowly) on other machines.
 %{_mandir}/man1/bdftopcf.1*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Oct 12 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-1
 - Updated to version 1.1.2
   Resolves: rhbz#2246231

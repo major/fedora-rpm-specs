@@ -44,6 +44,11 @@ License:        BSD-3-Clause
 Patch:          0001-Quote-various-cmake-var-values.patch
 # Tests are failing to compile due to some missing includes
 Patch:          fix-missing-includes.patch
+# Fix a few typos that cause failure to compile with GCC 15
+#
+# These were eventually included in
+# 76120d16c00ae67128c3c69421ab712f985f3445, along with many other changes.
+Patch:          0001-Fix-a-few-typos-that-cause-failure-to-compile-with-G.patch
 
 # Random123 does not support:
 #   mips64r2 mips32r2 s390

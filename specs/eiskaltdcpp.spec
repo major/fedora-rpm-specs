@@ -1,6 +1,6 @@
 Name:           eiskaltdcpp
 Version:        2.4.2
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Direct Connect client
 
 # The entire source code is GPLv3+ except FlowLayout.cpp and .h which is LGPLv2+
@@ -142,6 +142,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 08 2024 Simone Caronni <negativo17@gmail.com> - 2.4.2-14
 - Rebuild for updated miniupnpc.
 

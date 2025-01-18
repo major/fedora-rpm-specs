@@ -7,7 +7,7 @@
 
 Name:             R-%{packname}
 Version:          2.3.60
-Release:          8%{?dist}
+Release:          9%{?dist}
 Summary:          Chronological Objects which can Handle Dates and Times
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -71,6 +71,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.60-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul  29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.3.60-8
 - convert license to SPDX
 

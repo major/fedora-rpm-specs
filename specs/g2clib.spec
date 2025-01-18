@@ -2,7 +2,7 @@
 
 Name:           g2clib
 Version:        1.6.3
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        GRIB2 encoder/decoder and search/indexing routines in C
 
 License:        LicenseRef-Fedora-Public-Domain
@@ -111,6 +111,9 @@ echo %%g2clib %g2clib > $RPM_BUILD_ROOT%{macrosdir}/macros.g2clib
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -9,7 +9,7 @@ embedded in PDF files.
 Name:		%{fontname}-fonts
 Summary: 	Musical Notation True Type Fonts
 Version:	5.002
-Release:	32%{?dist}
+Release:	33%{?dist}
 # Automatically converted from old format: OFL - review is highly recommended.
 License:	LicenseRef-Callaway-OFL
 # The source was originally downloaded from:
@@ -95,6 +95,9 @@ install -Dm 0644 -p %{SOURCE3} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.002-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 5.002-32
 - convert license to SPDX
 

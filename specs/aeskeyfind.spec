@@ -1,6 +1,6 @@
 Name:           aeskeyfind
 Version:        1.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 # 3-clause BSD license
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -97,6 +97,9 @@ install -p -m644 %{SOURCE3} %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0-20
 - convert license to SPDX
 

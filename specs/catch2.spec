@@ -2,7 +2,7 @@
 
 Name:           catch2
 Version:        2.13.10
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Modern, C++-native, header-only, framework for unit-tests, TDD and BDD
 
 License:        BSL-1.0
@@ -61,6 +61,9 @@ is packaged up as a single header for extra convenience.
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.10-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.10-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

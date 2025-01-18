@@ -9,7 +9,7 @@
 Summary: An user-space IPIP encapsulation daemon for the ampr network
 Name: amprd
 Version: 3.0.1
-Release: 8%{?dist}
+Release: 9%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
 URL: http://www.yo2loj.ro/hamprojects/
@@ -68,6 +68,9 @@ install -Dpm 644 -t %{buildroot}%{_datadir}/%{name} startup_example.sh interface
 %{_unitdir}/amprd.service
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 3.0.1-8
 - convert license to SPDX
 

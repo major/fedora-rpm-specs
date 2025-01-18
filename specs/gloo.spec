@@ -1,6 +1,6 @@
-%global commit0 01a0c815d1a98eb9b38341cf63546f234fbcc43b
+%global commit0 dc507d1eb822c4396aaca284efff498aba33c7dc
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20230824
+%global date0 20241203
 # MPI build based on spec file dbcsr by Orion
 %global mpi_list openmpi mpich
 # $mpi will be evaluated in the loops below
@@ -10,12 +10,13 @@ Summary:        Communications library for AI/ML
 Name:           gloo
 License:        BSD-3-Clause
 Version:        0.5.0^git%{date0}.%{shortcommit0}
-Release:        12%{?dist}
+Release:        %autorelease
 
 URL:            https://github.com/facebookincubator/%{name}
 Source0:        %{url}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
 Patch0:         0001-gloo-fedora-cmake-changes.patch
 Patch1:         0002-gloo-fedora-cmake-libuv.patch
+Patch2:         0001-gloo-gcc-15-cstdint.patch
 # See CMakeLists, gloo only builds on 64 bit systems
 ExcludeArch:    i686
 
@@ -107,7 +108,7 @@ that use %{name}-mpich.
 %autosetup -p1 -n %{name}-%{commit0}
 
 %build
-%define gloo_cmake_options -DUSE_IBVERBS=ON -DUSE_LIBUV=ON -DUSE_REDIS=ON
+%define gloo_cmake_options -DUSE_IBVERBS=ON -DUSE_LIBUV=OFF -DUSE_REDIS=ON
 
 %cmake %gloo_cmake_options \
        -DUSE_MPI=OFF \
@@ -170,45 +171,4 @@ done
 %{_libdir}/openmpi/include/
 
 %changelog
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0^git20230824.01a0c81-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sat May 11 2024 Kevin Fenzi <kevin@scrye.com> - 0.5.0^git20230824.01a0c81-11
-- rebuild for hiredis soname bump
-
-* Mon Apr 15 2024 Tom Rix <trix@redhat.com> - 0.5.0^git20230824.01a0c81-10
-- openssl 1.1 no longer available
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0^git20230824.01a0c81-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0^git20230824.01a0c81-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Oct 29 2023 Orion Poplawski <orion@nwra.com> - 0.5.0^git20230824.01a0c81-7
-- Rebuild for openmpi 5.0.0, drops C++ API
-
-* Wed Oct 11 2023 Tom Rix <trix@redhat.com> - 0.5.0^git20230824.01a0c81-6
-- Package the mpi includes
-
-* Tue Oct 10 2023 Tom Rix <trix@redhat.com> - 0.5.0^git20230824.01a0c81-5
-- Put the subpackages back.
-- Fix MPI configure
-- change so version to 0.0.230824
-
-* Sun Oct 8 2023 Tom Rix <trix@redat.com> - 0.5.0^git20230824.01a0c81-4
-- Rework to remove subpackages
-
-* Fri Oct 6 2023 Benson Muite <benson_muite@emailplus.org> - 0.5.0^git20230824.01a0c81-3
-- Add mpi subpackages
-- Add docs subpackage
-- Add example to check
-
-* Sun Sep 24 2023 Tom Rix <trix@redhat.com> - 0.5.0^git20230824.01a0c81-2
-- Address review comments
-- No testing because tests depend on a very old openssl
-- No libuv yet because needing a PR to its package to get cmake infra
-- Do not build for i686
-
-* Fri Sep 22 2023 Tom Rix <trix@redhat.com> - 0.5.0^git20230824.01a0c81-1
-- Initial package
+%autochangelog

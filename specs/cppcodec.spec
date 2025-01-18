@@ -2,7 +2,7 @@
 
 Name:           cppcodec
 Version:        0.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Header-only C++11 library to encode/decode base64/base64url/base32/base32hex/hex
 
 License:        MIT
@@ -50,6 +50,9 @@ rm -vrf test/catch
 %{_datadir}/pkgconfig/%{name}-1.pc
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           fspy
 Version:        0.1.1
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        A filesystem activity monitoring utility
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -33,6 +33,9 @@ install -Dp -m 0755 %{name} %{buildroot}%{_bindir}/%{name}
 %{_bindir}/%{name}
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.1-31
 - convert license to SPDX
 

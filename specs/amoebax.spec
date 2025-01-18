@@ -1,6 +1,6 @@
 Name:           amoebax
 Version:        0.2.1
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Action-Puzzle Game
 # Automatically converted from old format: GPLv2+ and Free Art - review is highly recommended.
 License:        GPL-2.0-or-later AND LAL-1.3
@@ -107,6 +107,9 @@ mv $RPM_BUILD_ROOT%{_datadir}/pixmaps/%{name}.svg \
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.1-30
 - convert license to SPDX
 

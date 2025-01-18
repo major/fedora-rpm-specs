@@ -2,7 +2,7 @@
 
 Name:           Carla
 Version:        2.5.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Audio plugin host
 
 # The entire source code is GPLv2+ except
@@ -231,6 +231,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/studio.kx
 %{_libdir}/pkgconfig/%{pname}-host-plugin.pc
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.5.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Sep 27 2024 Adam Williamson <awilliam@redhat.com> - 1:2.5.9-2
 - Backport PR #1933 to support pyliblo3 for F41+
 

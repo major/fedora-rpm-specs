@@ -3,7 +3,7 @@
 
 Name:           %{fontname}-fonts
 Version:        3.17
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A font for musical symbols
 
 # https://web.archive.org/web/20150625020428/http://users.teilar.gr/~g1951d/
@@ -60,6 +60,9 @@ appstream-util validate-relax --nonet \
 %doc Musica.pdf
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.17-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.17-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

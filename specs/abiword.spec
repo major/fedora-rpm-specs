@@ -3,7 +3,7 @@
 
 Name: abiword
 Version: 3.0.5
-Release: 17%{?dist}
+Release: 18%{?dist}
 Epoch: 1
 Summary: Word processing program
 License: GPL-2.0-or-later
@@ -199,6 +199,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/abiword.appdat
 %pycached %{python3_sitelib}/gi/overrides/Abi.py
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.0.5-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 22 2024 Gwyn Ciesla <gwync@protonmail.com> - 1:3.0.5-17
 - Fix desktop filename
 

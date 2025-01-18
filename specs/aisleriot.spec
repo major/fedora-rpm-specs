@@ -1,7 +1,7 @@
 Name:    aisleriot
 Epoch:   1
 Version: 3.22.21
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: A collection of card games
 
 # Automatically converted from old format: GPLv3+ and LGPLv3+ and GFDL - review is highly recommended.
@@ -73,6 +73,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/sol.desktop
 %{_mandir}/man6/sol.6*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.22.21-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 1:3.22.21-8
 - convert license to SPDX
 

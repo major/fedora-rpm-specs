@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 Version: 20090902
-Release: 34%{?dist}
+Release: 35%{?dist}
 URL:     http://www.greekfontsociety-gfs.gr/typefaces/19th_century
 
 %global foundry           GFS
@@ -70,6 +70,9 @@ unzip -j -q  %{SOURCE0}
 %doc *.pdf
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20090902-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20090902-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

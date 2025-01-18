@@ -11,7 +11,7 @@ Version:        3.6
 
 %forgemeta
 
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Tool for Red Hat Enterprise Linux Driver Update Disk creation
 
 License:        GPL-3.0-only
@@ -68,6 +68,9 @@ find %{buildroot} -size 0 -delete
 %config(noreplace) /etc/ddiskit.config
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 24 2024 Charalampos Stratakis <cstratak@redhat.com> - 3.6-27
 - Remove unused %check section
 Resolves: rhbz#2319624

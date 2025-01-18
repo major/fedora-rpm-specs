@@ -1,6 +1,6 @@
 Name:           caribou
 Version:        0.4.21
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        A simplified in-place on-screen keyboard
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -156,6 +156,9 @@ desktop-file-validate %{buildroot}%{_libdir}/gnome-settings-daemon-3.0/gtk-modul
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.21-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.4.21-42
 - convert license to SPDX
 

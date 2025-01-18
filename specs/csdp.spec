@@ -30,6 +30,9 @@ Source4:        %{name}-graphtoprob.1
 Source5:        %{name}-complement.1
 Source6:        %{name}-rand_graph.1
 
+# Convert from K&R C to ANSI C to fix problems with GCC 15
+Patch:          %{name}-ansi-c.patch
+
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
@@ -83,7 +86,7 @@ This package contains an Octave interface to the C library for
 SemiDefinite Programming.
 
 %prep
-%forgeautosetup
+%forgeautosetup -p1
 
 %build
 # We can't use the shipped build system.  First, a static library is built,
@@ -94,10 +97,7 @@ SemiDefinite Programming.
 # libs.  We build by hand to contain the pain.
 
 # Choose the CFLAGS we want
-CFLAGS="%{build_cflags} -I../include -I%{_includedir}/flexiblas -DNOSHORTS -DUSESIGTERM -DUSEGETTIME"
-if [ %{__isa_bits} = "64" ]; then
-  CFLAGS+=" -DBIT64"
-fi
+CFLAGS='%{build_cflags} -I../include -I%{_includedir}/flexiblas -DNOSHORTS -DUSESIGTERM -DUSEGETTIME -DBIT64 -DHIDDENSTRLEN -DCSDP_NEED_BLAS'
 LIBS='%{build_ldflags} -L../lib -lsdp'
 sed -i -e "s|^CFLAGS=.*|CFLAGS=${CFLAGS}|" \
        -e "s|^LIBS=.*|LIBS=${LIBS} -lflexiblas -lm|" \

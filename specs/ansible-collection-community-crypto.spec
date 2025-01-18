@@ -2,7 +2,7 @@
 
 Name:           ansible-collection-community-crypto
 Version:        2.22.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The community.crypto collection for Ansible
 
 # See the LICENSES directory and the summary in the README
@@ -55,6 +55,9 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.22.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Oct 20 2024 Orion Poplawski <orion@nwra.com> - 2.22.1-1
 - Update to 2.22.1
 

@@ -1,6 +1,6 @@
 Name:           gnome-tetravex
 Version:        3.38.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        GNOME Tetravex game
 
 # Automatically converted from old format: GPLv2+ and CC-BY-SA - review is highly recommended.
@@ -57,6 +57,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Tetravex
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.38.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 3.38.2-12
 - convert license to SPDX
 

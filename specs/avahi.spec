@@ -56,9 +56,11 @@
 # trim changelog included in binary rpms
 %global _changelog_trimtime %(date +%s -d "1 year ago")
 
+%define rc rc2
+
 Name:             avahi
-Version:          0.8
-Release:          30%{?dist}
+Version:          0.9%{?rc:~%{rc}}
+Release:          2%{?dist}
 Summary:          Local network service discovery
 License:          LGPL-2.1-or-later AND LGPL-2.0-or-later AND BSD-2-Clause-Views AND MIT
 URL:              http://avahi.org
@@ -129,41 +131,16 @@ BuildRequires:    gcc
 BuildRequires:    gcc-c++
 BuildRequires:    gettext-devel
 
-%if 0%{?beta:1}
-Source0:          https://github.com/lathiat/avahi/archive/%{version}-%{beta}.tar.gz#/%{name}-%{version}-%{beta}.tar.gz
+%if 0%{?rc:1}
+Source0:          https://github.com/avahi/avahi/archive/refs/tags/v%{version_no_tilde}.tar.gz
 %else
-Source0:          https://github.com/lathiat/avahi/releases/download/v%{version}/avahi-%{version}.tar.gz
-#Source0:         http://avahi.org/download/avahi-%%{version}.tar.gz
+Source0:          https://github.com/avahi/avahi/releases/download/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
 %endif
 
 ## upstream patches
-# https://github.com/lathiat/avahi/commit/9c3a314856affb288f701d2d3ee23278fc98eaee
-Patch6: 0006-avahi-dnsconfd.service-Drop-Also-avahi-daemon.socket.patch
-# https://github.com/lathiat/avahi/pull/148
-# https://github.com/lathiat/avahi/commit/f983df44870b602179b493f9c3d113753b378e27
-Patch7: 0007-man-add-missing-bshell.1-symlink.patch
-# https://github.com/lathiat/avahi/pull/142
-Patch8: 0008-Ship-avahi-discover-1-bssh-1-and-bvnc-1-also-for-GTK.patch
-# https://github.com/lathiat/avahi/pull/265
-# https://github.com/lathiat/avahi/commit/366e3798bdbd6b7bf24e59379f4a9a51af575ce9
-Patch9: 0009-fix-requires-in-pc-file.patch
-# https://github.com/lathiat/avahi/pull/270
-# https://github.com/lathiat/avahi/commit/a94f72081dd1d546a1d95d860311a1242315bb28
-Patch10: 0010-fix-bytestring-decoding-for-proper-display.patch
-# https://github.com/lathiat/avahi/pull/268
-# https://github.com/lathiat/avahi/commit/b897ca43ac100d326d118e5877da710eb7f836f9
-Patch11: 0011-avahi_dns_packet_consume_uint32-fix-potential-undefi.patch
-# https://github.com/lathiat/avahi/pull/324
-# https://github.com/lathiat/avahi/commit/9d31939e55280a733d930b15ac9e4dda4497680c
-Patch16: 0016-Fix-NULL-pointer-crashes-from-175.patch
-# https://github.com/lathiat/avahi/pull/407
-Patch17: 0017-Emit-error-if-requested-service-is-not-found.patch
 
 ## downstream patches
 Patch100: avahi-0.6.30-mono-libdir.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=1897925
-# https://github.com/lathiat/avahi/pull/312
-Patch101: 0016-fix-QT3-build.patch
 Patch102: avahi-0.8-no_undefined.patch
 
 %description
@@ -463,7 +440,7 @@ Requires:         %{name}-libs%{?_isa} = %{version}-%{release}
 
 
 %prep
-%autosetup -n %{name}-%{version}%{?beta:-%{beta}} -p1
+%autosetup -n %{name}-%{version_no_tilde} -p1
 
 rm -fv docs/INSTALL
 
@@ -662,7 +639,7 @@ exit 0
 %dir %{_sysconfdir}/avahi/services
 %ghost %attr(0755, avahi, avahi) %dir %{_localstatedir}/run/avahi-daemon
 %config(noreplace) %{_sysconfdir}/avahi/avahi-daemon.conf
-%config(noreplace) %{_sysconfdir}/dbus-1/system.d/avahi-dbus.conf
+%config(noreplace) %{_datadir}/dbus-1/system.d/avahi-dbus.conf
 %{_sbindir}/avahi-daemon
 %dir %{_datadir}/avahi
 %{_datadir}/avahi/*.dtd
@@ -878,6 +855,15 @@ exit 0
 
 
 %changelog
+* Thu Jan 16 2025 Michal Sekletar <msekleta@redhat.com> - 0.9~rc2-2
+- Fix previous changelog entry
+
+* Thu Jan 16 2025 Michal Sekletar <msekleta@redhat.com> - 0.9~rc2-1
+- Rebase to 0.9-rc2
+
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 21 2024 Michal Sekletar <msekleta@redhat.com> - 0.8-30
 - fix file attributes of /run/avahi-daemon (rhbz#1608918)
 

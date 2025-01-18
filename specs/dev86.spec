@@ -1,7 +1,7 @@
 Summary: A real mode 80x86 assembler and linker
 Name: dev86
 Version: 0.16.21
-Release: 28%{?dist}
+Release: 29%{?dist}
 # Automatically converted from old format: GPL+ and GPLv2+ and LGPLv2+ - review is highly recommended.
 License: GPL-1.0-or-later AND GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL: http://v3.sk/~lkundrak/dev86/
@@ -83,6 +83,9 @@ popd
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.21-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug  28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.16.21-28
 - convert license to SPDX
 

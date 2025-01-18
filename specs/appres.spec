@@ -1,6 +1,6 @@
 Name:       appres
 Version:    1.0.7
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    X11 utility to print application resources
 
 # SPDX confirmed
@@ -42,6 +42,9 @@ autoreconf -v --install
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Sep 27 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.7-1
 - 1.0.7
 

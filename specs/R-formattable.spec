@@ -7,7 +7,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          15%{?dist}
+Release:          16%{?dist}
 Summary:          Create 'Formattable' Data Structures
 
 License:          MIT
@@ -81,6 +81,9 @@ export _R_CHECK_STOP_ON_INVALID_NUMERIC_VERSION_INPUTS_=false
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.0.0
-Release:          8%{?dist}
+Release:          9%{?dist}
 Summary:          Data from Gapminder
 # Automatically converted from old format: CC0 - review is highly recommended.
 License:          CC0-1.0
@@ -67,6 +67,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug  7 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.0-8
 - convert license to SPDX
 

@@ -10,7 +10,7 @@ software and support an extended character set. \
 
 Name:		%{fontname}-fonts
 Version:	1.3
-Release:	39%{?dist}
+Release:	40%{?dist}
 Summary:	Very small futuristic font family
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:	GPL-2.0-only
@@ -288,6 +288,9 @@ done
 %dir %{_fontdir}
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul  29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3-39
 - convert license to SPDX
 

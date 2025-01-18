@@ -1,6 +1,6 @@
 Name:           gnome-sharp
 Version:        2.24.2
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        GTK+ and GNOME bindings for Mono
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -80,6 +80,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.*a
 %{_libdir}/pkgconfig/gconf-sharp-peditors-2.0.pc
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.24.2-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 2.24.2-37
 - convert license to SPDX
 

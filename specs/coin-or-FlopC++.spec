@@ -3,7 +3,7 @@
 Name:		coin-or-%{module}
 Summary:	Algebraic modeling language
 Version:	1.2.5
-Release:	15%{?dist}
+Release:	16%{?dist}
 License:	EPL-1.0
 URL:		https://projects.coin-or.org/FlopCpp
 Source0:	http://www.coin-or.org/download/pkgsource/%{module}/%{module}-%{version}.tgz
@@ -102,6 +102,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_docdir}/%{name}/flopcpp_doxy.tag
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

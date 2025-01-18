@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	0.1
-Release:	41.20120116git665cc80%{?dist}
+Release:	42.20120116git665cc80%{?dist}
 Summary:	Simple Authentication and Security Layer (SASL) support for Erlang
 # erlang sources are under BSD, C sources - under LGPLv2+
 # Automatically converted from old format: BSD and LGPLv2+ - review is highly recommended.
@@ -58,6 +58,9 @@ install -D -p -m 0755 priv/gsasl_drv $RPM_BUILD_ROOT%{_libdir}/erlang/lib/%{real
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-42.20120116git665cc80
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1-41.20120116git665cc80
 - convert license to SPDX
 

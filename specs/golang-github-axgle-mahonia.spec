@@ -16,7 +16,7 @@ compiled into the executable; it doesn't need any external data files.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.22%{?dist}
+Release:        0.23%{?dist}
 Summary:        Character-set conversion library implemented in Go
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -55,6 +55,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 0-0.22
 - convert license to SPDX
 

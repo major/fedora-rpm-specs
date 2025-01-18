@@ -1,6 +1,6 @@
 Name:		anaconda-realmd
 Version:	0.2
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	Anaconda addon which interacts with realmd to join domains
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -34,6 +34,9 @@ make install DESTDIR=%{buildroot}
 %doc COPYING ChangeLog NEWS README
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2-24
 - convert license to SPDX
 

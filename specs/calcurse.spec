@@ -1,6 +1,6 @@
 Name:           calcurse
 Version:        4.8.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Text-based personal organizer
 
 License:        BSD-2-Clause
@@ -42,6 +42,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/doc/%{name}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 10 2024 Gwyn Ciesla <gwync@protonmail.com> - 4.8.1-6
 - Require python3-httplib2 for calcav
 

@@ -2,7 +2,7 @@
 
 Name:           gnome-robots
 Version:        40.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        GNOME Robots game
 
 # Automatically converted from old format: GPLv2+ and GFDL - review is highly recommended.
@@ -65,6 +65,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 40.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 40.0-11
 - convert license to SPDX
 

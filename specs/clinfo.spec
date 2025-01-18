@@ -1,7 +1,7 @@
 Name:           clinfo
 Summary:        Enumerate OpenCL platforms and devices
 Version:        3.0.23.01.25
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 # Automatically converted from old format: CC0 - review is highly recommended.
 License:        CC0-1.0
@@ -38,6 +38,9 @@ install -Dpm0644 -t %{buildroot}%{_mandir}/man1 man1/%{name}.1
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.23.01.25-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 3.0.23.01.25-6
 - convert license to SPDX
 

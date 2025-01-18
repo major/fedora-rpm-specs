@@ -3,7 +3,7 @@
 Summary:        Analyzer and report generator for web proxy servers like Squid
 Name:           calamaris
 Version:        2.99.4.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND GPL-2.0-or-later
 URL:            https://cord.de/calamaris-english
 Source0:        https://cord.de/files/calamaris/%{name}-%{version}.tar.gz
@@ -69,6 +69,9 @@ echo '0 7 192.0.2.42 TCP_HIT/200 4711 GET http://example.net/ - NONE/- text/html
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.99.4.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 23 2024 Robert Scheck <robert@fedoraproject.org> 2.99.4.8-1
 - Upgrade to 2.99.4.8 (#2333752)
 

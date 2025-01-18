@@ -1,7 +1,7 @@
 Summary:        A lightweight C++ utility library
 Name:           elements-alexandria
 Version:        2.31.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 # Automatically converted from old format: LGPLv3+ - review is highly recommended.
 License:        LGPL-3.0-or-later
 URL:            https://github.com/astrorama/Alexandria
@@ -194,6 +194,9 @@ make test -C "%{_vpath_builddir}"
 %{docdir}
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.31.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Nov 01 2024 Alejandro Alvarez Ayllon <a.alvarezayllon@gmail.com> - 2.31.2-5
 - Rebuild for elements 6.3.2
 

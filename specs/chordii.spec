@@ -1,7 +1,7 @@
 Summary: Print songbooks (lyrics + chords)
 Name: chordii
 Version: 4.5.3b
-Release: 23%{?dist}
+Release: 24%{?dist}
 URL: http://www.chordii.org
 Source: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -52,6 +52,9 @@ make DESTDIR=%{buildroot} INSTALL="install -p" install
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.3b-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul  25 2024 Miroslav Suchý <msuchy@redhat.com> - 4.5.3b-23
 - convert license to SPDX
 

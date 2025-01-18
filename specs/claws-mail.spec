@@ -26,7 +26,7 @@ Obsoletes: claws-mail-plugin-gdata < 4.2.0-1
 
 Name:           claws-mail
 Version:        4.3.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Email client and news reader based on GTK+
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -649,6 +649,9 @@ touch -r NEWS %{buildroot}%{_includedir}/%{name}/config.h
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Sep 15 2024 Michael Schwendt <mschwendt@fedoraproject.org> - 4.3.0-6
 - require new gdk-pixbuf2-modules-extra package (arch-specific), since
   Fedora 41 gdk-pixbuf2 has dropped the XPM loader (= "others") suddenly,

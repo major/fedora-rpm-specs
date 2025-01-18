@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.0.9
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Functions for Bitwise operations
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -42,6 +42,9 @@ test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
 %{_libdir}/R/library/%{packname}/libs
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 04 2024 josef radinger <cheese@nosuchhost.net> - 
 - bump version
 

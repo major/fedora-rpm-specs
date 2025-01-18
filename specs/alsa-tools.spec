@@ -25,7 +25,7 @@
 Summary:        Specialist tools for ALSA
 Name:           alsa-tools
 Version:        1.2.11
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 # Checked at least one source file from all the sub-projects contained in
 # the source tarball and they are consistent GPLv2+ - TJ 2007-11-15
@@ -201,6 +201,9 @@ install -m 644 %{SOURCE1} %{buildroot}/usr/lib/udev/rules.d
 %endif
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.11-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec 18 2024 Jaroslav Kysela <perex@perex.cz> - 1.2.11-4
 - Move remaining files to /usr tree
 

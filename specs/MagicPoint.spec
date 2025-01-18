@@ -1,7 +1,7 @@
 %define _legacy_common_support 1
 Name:           MagicPoint
 Version:        1.13a
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        X based presentation software
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -67,6 +67,9 @@ rm sample/.cvsignore sample/*akefile*
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.13a-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.13a-40
 - convert license to SPDX
 

@@ -473,8 +473,8 @@ fi
 %exclude %{python2_sitelib}/tuned/gtk
 %{python2_sitelib}/tuned
 %endif
-%{_sbindir}/tuned
-%{_sbindir}/tuned-adm
+%{_exec_prefix}/sbin/tuned
+%{_exec_prefix}/sbin/tuned-adm
 %exclude %{_sysconfdir}/tuned/realtime-variables.conf
 %exclude %{_sysconfdir}/tuned/realtime-virtual-guest-variables.conf
 %exclude %{_sysconfdir}/tuned/realtime-virtual-host-variables.conf
@@ -533,7 +533,7 @@ fi
 %{_prefix}/lib/kernel/install.d/92-tuned.install
 
 %files gtk
-%{_sbindir}/tuned-gui
+%{_exec_prefix}/sbin/tuned-gui
 %if %{with python3}
 %{python3_sitelib}/tuned/gtk
 %else
@@ -552,10 +552,10 @@ fi
 %doc doc/README.utils
 %doc doc/README.scomes
 %doc COPYING
-%{_sbindir}/varnetload
-%{_sbindir}/netdevstat
-%{_sbindir}/diskdevstat
-%{_sbindir}/scomes
+%{_exec_prefix}/sbin/varnetload
+%{_exec_prefix}/sbin/netdevstat
+%{_exec_prefix}/sbin/diskdevstat
+%{_exec_prefix}/sbin/scomes
 %{_mandir}/man8/varnetload.*
 %{_mandir}/man8/netdevstat.*
 %{_mandir}/man8/diskdevstat.*
@@ -633,7 +633,7 @@ fi
 %{_mandir}/man7/tuned-profiles-openshift.7*
 
 %files ppd
-%{_sbindir}/tuned-ppd
+%{_exec_prefix}/sbin/tuned-ppd
 %{_unitdir}/tuned-ppd.service
 %{_datadir}/dbus-1/system-services/net.hadess.PowerProfiles.service
 %{_datadir}/dbus-1/system.d/net.hadess.PowerProfiles.conf

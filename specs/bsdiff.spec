@@ -1,7 +1,7 @@
 Summary:	Binary diff/patch utility
 Name:		bsdiff
 Version:	4.3
-Release:	35%{?dist}
+Release:	36%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
 Source0:	http://www.daemonology.net/bsdiff/bsdiff-%{version}.tar.gz
@@ -36,6 +36,9 @@ install -m 644 bsdiff.1 bspatch.1 ${RPM_BUILD_ROOT}%{_mandir}/man1
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 4.3-35
 - convert license to SPDX
 

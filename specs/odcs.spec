@@ -195,7 +195,7 @@ export ODCS_DEVELOPER_ENV=1
 
 
 %changelog
-* Mon Jan 15 2025 Lubomír Sedlář <lsedlar@redhat.com> - 0.8.1-3
+* Wed Jan 15 2025 Lubomír Sedlář <lsedlar@redhat.com> - 0.8.1-3
 - Remove dependency on python3-nose
 
 * Wed Jan 08 2025 Lubomír Sedlář <lsedlar@redhat.com> - 0.8.1-2

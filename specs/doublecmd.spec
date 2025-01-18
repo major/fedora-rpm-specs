@@ -2,7 +2,7 @@
 
 Name:           doublecmd
 Version:        1.1.21
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cross platform open source file manager with two panels
 
 # Full licenses description in licensecheck.txt file
@@ -165,6 +165,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/io.sourceforge
 %{_datadir}/polkit-1/actions/org.doublecmd.root.policy
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.21-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 09 2025 Vasiliy N. Glazov <vascom2@gmail.com> - 1.1.21-1
 - Update to 1.1.21
 

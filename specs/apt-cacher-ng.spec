@@ -3,7 +3,7 @@
 
 Name:             apt-cacher-ng
 Version:          3.7.4
-Release:          9%{?dist}
+Release:          10%{?dist}
 Summary:          Caching proxy for package files from Debian
 
 License:          BSD-4-Clause
@@ -14,6 +14,7 @@ Source2:          %{name}.conf
 Source3:          %{name}.rpmlintrc
 # Purpose: versioning the private shared library to comply with Fedora Policy
 Patch0:           supacng.patch
+Patch1:           missing-algorithm-header.patch
 
 BuildRequires:    gcc-c++
 BuildRequires:    zlib-devel
@@ -130,6 +131,9 @@ chown -R %{name}:%{name} /run/%{name}/
 %{_mandir}/man8/*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.4-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

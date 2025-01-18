@@ -18,7 +18,7 @@ Version: 2.0.5
 BuildArch: noarch
 
 Name:      fonts-rpm-macros
-Release:   19%{?dist}
+Release:   20%{?dist}
 Summary:   Build-stage rpm automation for fonts packages
 
 License:   GPL-3.0-or-later
@@ -166,6 +166,9 @@ install -m 0755 -vp   bin/* %{buildroot}%{_bindir}
 %doc %{ftcgtemplatedir}/*txt
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.5-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 13 2024 Akira TAGOH <tagoh@redhat.com> - 1:2.0.5-19
 - Add exact binary name in the file list.
 - Do not package backup files.

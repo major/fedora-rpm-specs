@@ -5,7 +5,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          12%{?dist}
+Release:          13%{?dist}
 Source0:          http://www.bioconductor.org/packages/release/bioc/src/contrib/%{packname}_%{packver}.tar.gz
 Patch0:           0001-format-security-fix.patch
 License:          Artistic-2.0
@@ -57,6 +57,9 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/R/library/R.css
 %{_libdir}/R/library/%{packname}/libs
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

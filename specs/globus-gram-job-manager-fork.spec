@@ -7,7 +7,7 @@
 Name:		globus-gram-job-manager-fork
 %global _name %(tr - _ <<< %{name})
 Version:	3.3
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Grid Community Toolkit - Fork Job Manager Support
 
 License:	Apache-2.0
@@ -184,6 +184,9 @@ fi
 %config(noreplace) %{_sysconfdir}/globus/scheduler-event-generator/available/fork
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 29 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3-9
 - Handle 64 bit time_t on 32 bit systems
 

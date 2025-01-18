@@ -1,6 +1,6 @@
 Name:           deluge
 Version:        2.1.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A GTK+ BitTorrent client with support for DHT, UPnP, and PEX
 # Automatically converted from old format: GPLv3 with exceptions - review is highly recommended.
 License:        LicenseRef-Callaway-GPLv3-with-exceptions
@@ -242,6 +242,9 @@ exit 0
 %systemd_postun_with_restart deluge-web.service
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.1.1-10
 - Backport upstream patch to support python 3.13 cgi module removal (bug 2292651)
 

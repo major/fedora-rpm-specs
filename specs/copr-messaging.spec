@@ -8,7 +8,7 @@ copr messages.
 
 Name:       copr-messaging
 Version:    1.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Abstraction for Copr messaging listeners/publishers
 
 License:    GPL-2.0-or-later
@@ -86,6 +86,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Oct 02 2024 Jiri Kyjovsky <j1.kyjovsky@gmail.com> 1.0-1
 - Set chroot message severity to DEBUG
 - One-line descriptions should be the summary

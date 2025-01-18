@@ -1,6 +1,6 @@
 Name:           SDL2_sound
 Version:        2.0.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An abstract soundfile decoder library
 # src/stb_vorbis.h: MIT or Unlicense
 # src/libmodplug: Public-Domain
@@ -111,6 +111,9 @@ mv man3 %{buildroot}/%{_mandir}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 14 2025 Dominik Mierzejewski <dominik@greysector.net> - 2.0.4-1
 - update to 2.0.4 (resolves rhbz#2337428)
 - correct License tag after review

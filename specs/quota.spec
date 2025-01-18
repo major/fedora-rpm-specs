@@ -15,40 +15,40 @@ Epoch:      1
 Version:    4.09
 Release:    7%{?dist}
 Summary:    System administration tools for monitoring users' disk usage
-# quota_nld.c, quotaio_xfs.h:       GPLv2
-# bylabel.c copied from util-linux: GPLv2+
-# COPYING:                          GPLv2 text and a license declaration
+# quota_nld.c, quotaio_xfs.h:       GPL-2.0-only
+# bylabel.c copied from util-linux: GPL-2.0-or-later
+# COPYING:                          GPL-2.0-only text and a license declaration
 ## Only in quota-rpc binary package
-# rquota_server.c:                  GPLv2+
+# rquota_server.c:                  GPL-2.0-or-later
 ## Only in quota-rpc and quota-nls binary packages
-# rquota_svc.c:                     GPLv2+
-# svc_socket.c copied from glibc:   LGPLv2+
+# rquota_svc.c:                     GPL-2.0-or-later
+# svc_socket.c copied from glibc:   LGPL-2.1-or-later
 ## Only in quota-nls binary package
-# po/cs.po:                         GPLv2+
+# po/cs.po:                         GPL-2.0-or-later
 ## Only in quota-warnquota binary package
-# warnquota.c:                      GPLv2+
+# warnquota.c:                      GPL-2.0-or-later
 ## Not involved in any binary package
-# aclocal.m4:                       FSFULLR and (GPLv2+ with exception)
-# ar-lib:                           GPLv2 with exception
-# depcomp:                          GPLv2+ with exception
-# compile:                          GPLv2+ with exception
-# config.guess:                     GPLv3+ with exception
-# config.rpath:                     GPLv2+ with exception
-# config.sub:                       GPLv3+ with exception
+# aclocal.m4:                       FSFULLR AND (GPL-2.0-or-later with exception)
+# ar-lib:                           GPL-2.0-only with exception
+# depcomp:                          GPL-2.0-or-later with exception
+# compile:                          GPL-2.0-or-later with exception
+# config.guess:                     GPL-3.0-or-later with exception
+# config.rpath:                     GPL-2.0-or-later with exception
+# config.sub:                       GPL-3.0-or-later with exception
 # configure:                        FSFUL
-# install-sh:                       MIT and Public Domain
-# m4/gettext.m4:                    GPL with exception
-# m4/iconv.m4:                      GPL with exception
-# m4/lib-ld.m4:                     GPL with exception
-# m4/lib-link.m4:                   GPL with exception
-# m4/lib-prefix.m4:                 GPL with exception
-# m4/nls.m4:                        GPL with exception
-# m4/po.m4:                         GPL with exception
-# m4/progtest.m4:                   GPL with exception
+# install-sh:                       MIT AND LicenseRef-Callaway-Public-Domain
+# m4/gettext.m4:                    GPL-2.0-only with exception
+# m4/iconv.m4:                      GPL-2.0-only with exception
+# m4/lib-ld.m4:                     GPL-2.0-only with exception
+# m4/lib-link.m4:                   GPL-2.0-only with exception
+# m4/lib-prefix.m4:                 GPL-2.0-only with exception
+# m4/nls.m4:                        GPL-2.0-only with exception
+# m4/po.m4:                         GPL-2.0-only with exception
+# m4/progtest.m4:                   GPL-2.0-only with exception
 # Makefile.in:                      FSFULLR
-# missing:                          GPLv2+ with exception
-# mkinstalldirs:                    Public Domain
-License:    GPLv2 and GPLv2+
+# missing:                          GPL-2.0-or-later with exception
+# mkinstalldirs:                    LicenseRef-Callaway-Public-Domain
+License:    GPL-2.0-only AND GPL-2.0-or-later
 URL:        http://sourceforge.net/projects/linuxquota/
 Source0:    http://downloads.sourceforge.net/linuxquota/%{name}-%{version}.tar.gz
 Source1:    quota_nld.service
@@ -98,7 +98,7 @@ and limiting user and or group disk usage per file system.
 %if %{with quota_enables_netlink}
 %package nld
 Summary:    quota_nld daemon
-License:    GPLv2 and GPLv2+
+License:    GPL-2.0-only AND GPL-2.0-or-later
 Requires:   quota-nls = %{epoch}:%{version}-%{release}
 # For %%{_unitdir} directory
 Requires:   systemd
@@ -115,7 +115,7 @@ a dialog) and writing them to the terminal user has last accessed.
 %if %{with quota_enables_rpc}
 %package rpc
 Summary:    RPC quota daemon
-License:    LGPLv2+ and GPLv2 and GPLv2+
+License:    LGPL-2.1-or-later AND GPL-2.0-only AND GPL-2.0-or-later
 Requires:   quota-nls = %{epoch}:%{version}-%{release}
 Requires:   rpcbind
 # For %%{_unitdir} directory
@@ -134,7 +134,7 @@ NFS client.
 
 %package warnquota
 Summary:    Send e-mail to users over quota
-License:    GPLv2 and GPLv2+
+License:    GPL-2.0-only AND GPL-2.0-or-later
 Requires:   quota-nls = %{epoch}:%{version}-%{release}
 
 %description warnquota
@@ -145,7 +145,7 @@ via cron(8).
 
 %package nls
 Summary:    Gettext catalogs for disk quota tools
-License:    LGPLv2+ and GPLv2 and GPLv2+
+License:    LGPL-2.1-or-later AND GPL-2.0-only AND GPL-2.0-or-later
 BuildArch:  noarch
 
 %description nls

@@ -22,7 +22,7 @@ Version:       1.3
 %endif
 
 Name:           coccinelle
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Semantic patching for Linux (spatch)
 
 License:        GPL-2.0-only
@@ -285,6 +285,9 @@ $spatch --sp-file %{SOURCE2} %{SOURCE1}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 1.3-2
 - OCaml 5.3.0 rebuild for Fedora 42
 - Build verbosely

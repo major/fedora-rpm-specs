@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          1.7.0
-Release:          17%{?dist}
+Release:          18%{?dist}
 Summary:          Testing DBI Backends
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -76,6 +76,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep  4 2024 Miroslav Suchý <msuchy@redhat.com> - 1.7.0-17
 - convert license to SPDX
 

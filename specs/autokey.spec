@@ -1,7 +1,7 @@
 %{?python_enable_dependency_generator}
 Name:		autokey
 Version:	0.96.0
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Desktop automation utility
 
 
@@ -105,6 +105,9 @@ done
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.96.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.96.0-8
 - convert license to SPDX
 

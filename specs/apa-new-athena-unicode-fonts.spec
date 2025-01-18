@@ -4,7 +4,7 @@
 
 Name:		%{fontname}-fonts
 Version:	3.4
-Release:	31%{?dist}
+Release:	32%{?dist}
 Summary:	New Athena Unicode is a libre/open multilingual font
 
 # Automatically converted from old format: OFL - review is highly recommended.
@@ -52,6 +52,9 @@ install -Dm 0644 -p %{SOURCE2} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 3.4-31
 - convert license to SPDX
 

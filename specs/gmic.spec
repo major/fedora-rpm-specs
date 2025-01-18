@@ -12,7 +12,7 @@ Summary: GREYC's Magic for Image Computing
 Name:    gmic
 Version: 3.5.0
 %global shortver %(foo=%{version}; echo ${foo//./})
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source0: https://gmic.eu/files/source/%{name}_%{version}.tar.gz
 # GIT archive snapshot of https://github.com/c-koi/zart
 Source1: zart-%{zart_version}.tar.gz
@@ -233,6 +233,9 @@ fi
 %{_libdir}/libcgmic.so.3*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 07 2025 josef radinger <cheese@nosuchhost.net> - 3.5.0-2
 - try to fix compilation
 - switch to new git-repo (https://github.com/GreycLab/gmic-qt 

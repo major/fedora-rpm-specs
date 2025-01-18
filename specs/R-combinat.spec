@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packvers}.%{packrel}
-Release:          36%{?dist}
+Release:          37%{?dist}
 Summary:          R routines for combinatorics
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:          GPL-2.0-only
@@ -44,6 +44,9 @@ test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
 %{_datadir}/R/library/%{packname}/help
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.8-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul  29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.0.8-36
 - convert license to SPDX
 

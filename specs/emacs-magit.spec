@@ -3,7 +3,7 @@
 
 Name:           emacs-%{pkg}
 Version:        3.3.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Emacs interface to the most common Git operations
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -62,6 +62,9 @@ cp -p %{SOURCE1} %{buildroot}%{_emacs_sitestartdir}/
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 3.3.0-6
 - convert license to SPDX
 

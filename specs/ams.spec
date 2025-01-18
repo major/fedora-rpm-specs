@@ -1,7 +1,7 @@
 Summary:  Alsa Modular Synth, a realtime modular synthesizer
 Name:     ams
 Version:  2.2.1
-Release:  6%{?dist}
+Release:  7%{?dist}
 URL:      http://alsamodular.sourceforge.net
 Source0:  http://downloads.sourceforge.net/project/alsamodular/alsamodular/%{version}/%{name}-%{version}.tar.xz
 Source1:  ams.desktop
@@ -62,6 +62,9 @@ desktop-file-install \
 %{_datadir}/pixmaps/%{name}*
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 2.2.1-6
 - convert license to SPDX
 

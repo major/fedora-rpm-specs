@@ -1,6 +1,6 @@
 Name:           fmt
 Version:        11.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        MIT
 Summary:        Small, safe and fast formatting library for C++
@@ -61,6 +61,9 @@ This package contains the header file for using %{name}.
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 11.1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jan 13 2025 Kefu Chai <tchaikov@gmail.com> - 11.1.2-1
 - Updated to version 11.1.2
 

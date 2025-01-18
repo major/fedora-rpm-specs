@@ -10,7 +10,7 @@
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
 
-%global	baserelease	1
+%global	baserelease	2
 %global	alphatag		.beta6
 
 %undefine _ld_strict_symbol_defs
@@ -256,6 +256,9 @@ popd
 %{_libdir}/pkgconfig/gldi.pc
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.99^20241218gitf852640-2.beta6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Dec 29 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.99^20241218gitf852640-1.beta6
 - Update to the latest git (20241218gitf852640)
 

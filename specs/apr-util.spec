@@ -37,7 +37,7 @@
 Summary: Apache Portable Runtime Utility library
 Name: apr-util
 Version: 1.6.3
-Release: 21%{?dist}
+Release: 22%{?dist}
 # Apache-2.0:  everything
 # RSA-MD:      https://gitlab.com/fedora/legal/fedora-legal-docs/-/merge_requests/187
 #              include\apr_md5.h, passwd\apr_md5.c, crypto\apr_md4.c, include\apr_md4.h
@@ -283,6 +283,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}/apr-util-%{apuver}
 %{_datadir}/aclocal/*.m4
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug  6 2024 Joe Orton <jorton@redhat.com> - 1.6.3-21
 - restore required openldap-devel dep from -devel (#2302876)
 

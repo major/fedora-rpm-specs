@@ -5,7 +5,7 @@
 
 Name:           egl-x11
 Version:        1.0.1%{!?tag:~%{date}git%{shortcommit0}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NVIDIA XLib and XCB EGL Platform Library
 License:        Apache-2.0
 URL:            https://github.com/NVIDIA/egl-x11
@@ -67,6 +67,9 @@ rm -fv %{buildroot}%{_libdir}/*.so
 %{_datadir}/egl/egl_external_platform.d/20_nvidia_xlib.json
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1~20241213git61e70b0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 16 2024 Simone Caronni <negativo17@gmail.com> - 1.0.1~20241213git61e70b0-1
 - Update to 1.0.1 pre-release snapshot.
 

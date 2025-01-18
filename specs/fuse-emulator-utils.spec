@@ -1,6 +1,6 @@
 Name:           fuse-emulator-utils
 Version:        1.4.3
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Additional utils for the Fuse spectrum emulator
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -41,6 +41,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.4.3-10
 - convert license to SPDX
 

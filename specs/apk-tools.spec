@@ -14,7 +14,7 @@
 
 Name:           apk-tools
 Version:        2.14.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Fast and lightweight package manager originally for Alpine
 # libapk AND netbsd-libfetch
 SourceLicense:  GPL-2.0-only AND BSD-3-Clause
@@ -133,6 +133,9 @@ mkdir -p %{buildroot}%{_localstatedir}/cache/apk
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Michel Lind <salimma@fedoraproject.org> - 2.14.1-3
 - Disable deprecated OpenSSL engine support
 

@@ -14,7 +14,7 @@
 Name:           ghc-%{pkg_name}
 Version:        3.3.31
 # can only be reset when subpkg bumped
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A fast, light-weight web server for WAI applications
 
 License:        MIT
@@ -187,6 +187,9 @@ cabal-tweak-drop-dep bytestring-builder
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.31-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Jens Petersen <petersen@redhat.com> - 3.3.31-7
 - https://hackage.haskell.org/package/warp-3.3.31/changelog
 

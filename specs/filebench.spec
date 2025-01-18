@@ -1,6 +1,6 @@
 Name:           filebench
 Version:        1.4.9.1
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        A model based file system workload generator
 
 License:        CDDL-1.1
@@ -49,6 +49,9 @@ install -m 644 -p %{SOURCE2} $RPM_BUILD_ROOT%{_mandir}/man1
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.9.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.9.1-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

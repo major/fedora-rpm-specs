@@ -4,7 +4,7 @@
 
 Name:           fancontrol-gui
 Version:        0.8
-Release:        5.%{date}git%{gitcommit}%{?dist}
+Release:        6.%{date}git%{gitcommit}%{?dist}
 Summary:        GUI for fancontrol
 
 License:        GPL-2.0-or-later
@@ -111,6 +111,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.kde.fancon
 %{_datadir}/plasma/plasmoids/org.kde.fancontrol.plasmoid
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-6.20220606git5bfa8fa
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-5.20220606git5bfa8fa
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

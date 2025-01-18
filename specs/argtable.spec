@@ -3,7 +3,7 @@
 Summary: Cross platform C library for parsing GNU style command line arguments
 Name: argtable
 Version: 2.13
-Release: 30%{?dist}
+Release: 31%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
 Url: http://argtable.sourceforge.net/
@@ -65,6 +65,9 @@ install -pm 644 AUTHORS ChangeLog COPYING README ${RPM_BUILD_ROOT}%{_pkgdocdir}
 %ldconfig_scriptlets
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.13-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug  28 2024 Miroslav Suchý <msuchy@redhat.com> - 2.13-30
 - convert license to SPDX
 

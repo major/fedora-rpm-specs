@@ -7,7 +7,7 @@ License: GPL-3.0-only
 %global git_commit_short  %(c="%{git_commit}"; echo ${c:0:8})
 
 Version: 0
-Release: 32.%{git_date}git%{git_commit_short}%{?dist}
+Release: 33.%{git_date}git%{git_commit_short}%{?dist}
 
 URL: https://github.com/yeyushengfan258/%{name}
 Source0: %{url}/archive/%{git_commit}/%{name}-%{git_commit}.tar.gz
@@ -126,6 +126,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/We10X-dark &>/dev/null || :
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-33.20230413git4c244fcd
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-32.20230413git4c244fcd
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

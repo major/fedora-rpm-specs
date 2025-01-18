@@ -5,7 +5,7 @@
 
 Name:           gnome-calculator
 Version:        47.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A desktop calculator
 
 License:        GPL-3.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
@@ -105,6 +105,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.Calculator
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 47.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 17 2024 nmontero <nmontero@redhat.com> - 47.1-1
 - Update to 47.1
 

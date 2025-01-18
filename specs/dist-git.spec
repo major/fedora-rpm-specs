@@ -4,7 +4,7 @@
 
 Name:           dist-git
 Version:        1.18
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Package source version control system
 
 # upload.cgi uses GPLv1
@@ -254,6 +254,9 @@ fi
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.18-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Sep 27 2024 Pavel Raiskup <praiskup@redhat.com> 1.18-1
 - replace test on _selinux_policy_version by macro that does it all
 - handle situation when _selinux_policy_version is not defined

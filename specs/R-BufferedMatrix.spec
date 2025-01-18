@@ -3,7 +3,7 @@
 
 Name:              R-%{packname}
 Version:           1.60.0
-Release:           10%{dist}
+Release:           11%{dist}
 Summary:           A matrix data storage object method from bioconductor
 Summary(fr):       Stockage des données d'un matrice dans un fichier temporaire
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -75,6 +75,9 @@ rm -rf %{buildroot}%{_libdir}/R/library/R.css
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.60.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep  4 2024 Miroslav Suchý <msuchy@redhat.com> - 1.60.0-10
 - convert license to SPDX
 

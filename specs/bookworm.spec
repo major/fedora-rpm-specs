@@ -5,7 +5,7 @@
 
 Name:     bookworm
 Version:  1.1.3
-Release:  0.15.20200414git.%{shortcommit}%{?dist}
+Release:  0.16.20200414git.%{shortcommit}%{?dist}
 Summary:  Simple, focused eBook reader
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:  GPL-3.0-only
@@ -67,6 +67,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/com.github.bab
 %license COPYING
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-0.16.20200414git.c7c3643
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Sep 29 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 1.1.3-0.15.20200414git.c7c3643
 - Use webkit2gtk4.1
 

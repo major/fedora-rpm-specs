@@ -3,7 +3,7 @@
 
 Name:		emacs-%{pkg}
 Version:	6.6.0
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	Color themes for Emacs
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -62,6 +62,9 @@ cp themes/*.el themes/*.elc %{buildroot}%{_emacs_sitelispdir}/%{pkg}/themes
 %{_emacs_sitestartdir}/emacs-color-theme-init.el
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.0-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 6.6.0-30
 - convert license to SPDX
 

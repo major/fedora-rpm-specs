@@ -5,7 +5,7 @@
 
 Name:           gdalcpp
 Version:        1.3.0
-Release:        8.20210925git%{shortcommit}%{?dist}
+Release:        9.20210925git%{shortcommit}%{?dist}
 Summary:        C++11 wrapper classes for GDAL/OGR
 
 License:        BSL-1.0
@@ -57,6 +57,9 @@ cp -p *.hpp  %{buildroot}%{_includedir}
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-9.20210925git7e23085
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-8.20210925git7e23085
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

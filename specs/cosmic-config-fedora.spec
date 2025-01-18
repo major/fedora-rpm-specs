@@ -6,7 +6,7 @@
 
 Name:           cosmic-config-fedora
 Version:        0~git.%{commitdate}.1.%{shortcommit}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        COSMIC default system configuration
 
 License:        GPL-3.0-or-later
@@ -71,5 +71,8 @@ install -pm 0755 initial-setup/run-gui-backend %{buildroot}%{_libexecdir}/initia
 
 
 %changelog
+* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0~git.20241103.1.d35e087-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Nov 03 2024 Neal Gompa <ngompa@fedoraproject.org> - 0~git.20241103.1.d35e087-1
 - Initial package
