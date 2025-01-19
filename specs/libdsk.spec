@@ -1,6 +1,6 @@
 Name:           libdsk
 Version:        1.5.15
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Library for accessing disk images
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -79,6 +79,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.15-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.5.15-10
 - convert license to SPDX
 

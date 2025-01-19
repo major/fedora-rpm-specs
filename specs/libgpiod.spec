@@ -2,7 +2,7 @@
 
 Name:          libgpiod
 Version:       2.2
-Release:       0.1%{?candidate:.%{candidate}}%{?dist}
+Release:       0.2%{?candidate:.%{candidate}}%{?dist}
 Summary:       C library and tools for interacting with linux GPIO char device
 
 License:       LGPL-2.1-or-later
@@ -168,6 +168,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-0.2.rc3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 17 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 2.2.0-0.1.rc3
 - Upgrade to 2.2 RC3
 - Enable new gpio-manager dbus service

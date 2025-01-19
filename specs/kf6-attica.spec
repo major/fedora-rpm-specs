@@ -2,7 +2,7 @@
 
 Name:		kf6-%{framework}
 Version:	6.10.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	KDE Frameworks Tier 1 Addon with Open Collaboration Services API
 License:	CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only).txt
 URL:		https://invent.kde.org/frameworks/%{framework}
@@ -62,6 +62,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.10.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 03 2025 Steve Cossette <farchord@gmail.com> - 6.10.0-1
 - 6.10.0
 

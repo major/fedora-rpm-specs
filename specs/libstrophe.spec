@@ -1,6 +1,6 @@
 Name:           libstrophe
 Version:        0.13.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        An XMPP library for C
 
 # Automatically converted from old format: MIT and GPLv3 - review is highly recommended.
@@ -110,6 +110,9 @@ cp -a coverage/ %{buildroot}%{_pkgdocdir}/html/
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 2 2024 Miroslav Suchý <msuchy@redhat.com> - 0.13.1-3
 - convert license to SPDX
 

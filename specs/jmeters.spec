@@ -1,7 +1,7 @@
 Summary:       Multichannel audio level meter
 Name:          jmeters
 Version:       0.4.1
-Release:       29%{?dist}
+Release:       30%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:       GPL-2.0-only
 URL:           http://kokkinizita.linuxaudio.org/linuxaudio/
@@ -49,6 +49,9 @@ make PREFIX=%{buildroot}%{_prefix} install
 %{_datadir}/%{name}
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.4.1-29
 - convert license to SPDX
 

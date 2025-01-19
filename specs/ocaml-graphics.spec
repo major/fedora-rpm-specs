@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-graphics
 Version:        5.1.2
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Portable drawing primitives for OCaml
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -63,6 +63,9 @@ The %{name}-doc package contains developer documentation for
 %doc examples
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.2-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 5.1.2-21
 - OCaml 5.3.0 rebuild for Fedora 42
 

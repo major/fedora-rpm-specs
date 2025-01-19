@@ -13,7 +13,7 @@
 
 Name:			%{libname}-mga
 Version:		1.2.1
-Release:		9%{?dist}
+Release:		10%{?dist}
 Summary:		Libyui extensions for Mageia tools
 
 # Automatically converted from old format: LGPLv2 or LGPLv3 - review is highly recommended.
@@ -72,6 +72,9 @@ for %{name}.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2.1-9
 - convert license to SPDX
 

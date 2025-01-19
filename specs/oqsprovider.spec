@@ -2,7 +2,7 @@
 %global liboqs_min_version 0.12.0-1
 Name:       oqsprovider
 Version:    %{oqs_version}
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    oqsprovider is an OpenSSL provider for quantum-safe algorithms based on liboqs
 
 License:    Apache-2.0 AND MIT
@@ -60,6 +60,9 @@ install -m644 '%{SOURCE1}' \
 %config(noreplace) %{_sysconfdir}/pki/tls/openssl.d/oqsprovider.conf
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 03 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 0.8.0-2
 - Enable mlkem1024 hybrid (upstream backport)
 

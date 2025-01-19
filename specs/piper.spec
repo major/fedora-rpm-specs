@@ -1,5 +1,5 @@
 Name: piper
-Version: 0.7
+Version: 0.8
 Release: 9%{?dist}
 
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
@@ -23,6 +23,7 @@ BuildRequires: git-core
 BuildRequires: libappstream-glib
 BuildRequires: libratbag-ratbagd
 BuildRequires: meson
+BuildRequires: gtk-update-icon-cache
 
 Requires: gtk3
 Requires: hicolor-icon-theme
@@ -72,6 +73,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_mandir}/man1/*.1*
 
 %changelog
+* Fri Jan 17 2025 Vojtech Trefny <vtrefny@redhat.com> - 0.8-1
+- piper 0.8
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

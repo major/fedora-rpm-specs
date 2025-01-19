@@ -1,6 +1,6 @@
 Name:           malaga
 Version:        7.12 
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        A programming language for automatic language analysis
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -98,6 +98,9 @@ chmod 0755 $RPM_BUILD_ROOT%{_libdir}/libmalaga.so*
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.12-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 7.12-40
 - convert license to SPDX
 

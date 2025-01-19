@@ -2,7 +2,7 @@
 
 Name:           hostapd
 Version:        2.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        IEEE 802.11 AP, IEEE 802.1X/WPA/WPA2/EAP/RADIUS Authenticator
 License:        BSD-3-Clause
 URL:            http://w1.fi/hostapd
@@ -192,6 +192,9 @@ fi
 %{_sysconfdir}/logwatch/scripts/services/%{name}
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Davide Caratti <dcaratti@redhat.com> - 1:2.11-1
 - Update to version 2.11 (#2299039)
 - Disable OpenSSL ENGINE API

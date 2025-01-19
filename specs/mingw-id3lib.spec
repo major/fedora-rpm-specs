@@ -5,7 +5,7 @@
 Summary:        Library for manipulating ID3v1 and ID3v2 tags
 Name:           mingw-%{_basename}
 Version:        3.8.3
-Release:        56%{?dist}
+Release:        57%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
 URL:            http://www.id3lib.sourceforge.net/
@@ -167,6 +167,9 @@ rm -f %{buildroot}/%{mingw64_libdir}/*.la
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.3-57
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 3.8.3-56
 - convert license to SPDX
 

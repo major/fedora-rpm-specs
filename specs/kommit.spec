@@ -1,6 +1,6 @@
 Name:           kommit
 Version:        1.7.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Graphical Git Client
 
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND BSD-3-Clause
@@ -93,6 +93,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 14 2025 Pete Walter <pwalter@fedoraproject.org> - 1.7.0-2
 - Rebuild for libgit2 1.9.x
 

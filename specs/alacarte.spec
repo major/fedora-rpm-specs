@@ -1,7 +1,7 @@
 %global app_id  org.gnome.alacarte
 
 Name:           alacarte
-Version:        3.54.0
+Version:        3.54.1
 Release:        %autorelease
 Summary:        Menu editor for the GNOME desktop
 License:        LGPL-2.0-or-later

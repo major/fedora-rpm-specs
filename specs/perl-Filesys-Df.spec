@@ -1,6 +1,6 @@
 Name:           perl-Filesys-Df
 Version:        0.92
-Release:        54%{?dist}
+Release:        55%{?dist}
 Summary:        Perl extension for filesystem disk space information
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -76,6 +76,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.92-55
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.92-54
 - convert license to SPDX
 

@@ -6,7 +6,7 @@
 
 Name:           moka-icon-theme
 Version:        5.4.0
-Release:        14.%{date}git%{shortcommit}%{?dist}
+Release:        15.%{date}git%{shortcommit}%{?dist}
 Summary:        Moka Icon Theme
 
 # Automatically converted from old format: CC-BY-SA and GPLv3 - review is highly recommended.
@@ -60,6 +60,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/%{tname} &>/dev/null || :
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.0-15.20190530gitc0355ea
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 5.4.0-14.20190530gitc0355ea
 - convert license to SPDX
 

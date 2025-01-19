@@ -3,7 +3,7 @@
 Summary:        Additional m4 files used to generate sendmail.cf
 Name:           open-sendmail
 Version:        0
-Release:        0.24.20090107cvs%{?dist}
+Release:        0.25.20090107cvs%{?dist}
 # Automatically converted from old format: Sendmail - review is highly recommended.
 License:        Sendmail-8.23
 URL:            http://open-sendmail.sourceforge.net/
@@ -43,6 +43,9 @@ ln -sf %{name}/require_rdns.m4 $RPM_BUILD_ROOT%{sendmailcf}/feature/require_rdns
 %{_datadir}/%{name}/
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.25.20090107cvs
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 0-0.24.20090107cvs
 - convert license to SPDX
 

@@ -6,7 +6,7 @@
 
 Name:           perl-File-Find-Object-Rule
 Version:        0.0313
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Alternative interface to File::Find::Object
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-Find-Object-Rule
@@ -76,6 +76,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/File::Find::Object::Rule::Procedural.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0313-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0313-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

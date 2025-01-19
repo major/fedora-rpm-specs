@@ -2,7 +2,7 @@
 
 Name:           perl-Event-ExecFlow
 Version:        0.64
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        High level API for event-based execution flow control
 License:        ( GPL-1.0-or-later OR Artistic-1.0-Perl ) AND LGPL-2.1-or-later
 URL:            https://metacpan.org/release/Event-ExecFlow
@@ -65,6 +65,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.64-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.64-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -20,7 +20,7 @@
 
 Name:		openconnect
 Version:	9.12
-Release:	6%{?relsuffix}%{?dist}
+Release:	7%{?relsuffix}%{?dist}
 Summary:	Open multi-protocol SSL VPN client
 
 License:	LGPL-2.1-or-later
@@ -120,6 +120,9 @@ make VERBOSE=1 check
 %{_libdir}/pkgconfig/openconnect.pc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.12-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.12-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

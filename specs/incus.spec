@@ -18,7 +18,7 @@ Version:        6.8
 %global golicenses COPYING
 
 Name:           incus
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Powerful system container and virtual machine manager
 License:        Apache-2.0
 URL:            https://linuxcontainers.org/incus
@@ -463,6 +463,9 @@ export CGO_LDFLAGS_ALLOW="(-Wl,-wrap,pthread_create)|(-Wl,-z,now)"
 %endif
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec 18 2024 Neal Gompa <ngompa@fedoraproject.org> - 6.8-1
 - Update to 6.8
 - Another fix for incus socket

@@ -5,7 +5,7 @@
 Summary: X.Org X11 libXxf86dga runtime library
 Name: libXxf86dga
 Version: 1.1.6
-Release: 4%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Release: 5%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 License: MIT
 URL: http://www.x.org
 
@@ -69,6 +69,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_includedir}/X11/extensions/Xxf86dga.h
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

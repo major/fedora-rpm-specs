@@ -1,6 +1,6 @@
 Name:           perl-Exception-Class-TryCatch
 Version:        1.13
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Syntactic try/catch sugar for use with Exception::Class
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -48,6 +48,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 1.13-31
 - convert license to SPDX
 

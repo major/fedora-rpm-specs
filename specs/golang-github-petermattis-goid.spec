@@ -15,7 +15,7 @@ Programatically retrieve the current goroutine's ID.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.22%{?dist}
+Release:        0.23%{?dist}
 Summary:        Programatically retrieve the current goroutine's ID
 
 # Upstream license specification: Apache-2.0
@@ -42,6 +42,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

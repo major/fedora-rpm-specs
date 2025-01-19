@@ -1,7 +1,7 @@
 Summary:       Small, portable symbolic math program
 Name:          mathomatic
 Version:       16.0.5
-Release:       32%{?dist}
+Release:       33%{?dist}
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License:       LicenseRef-Callaway-LGPLv2
 URL:           http://www.mathomatic.org/math/
@@ -94,6 +94,9 @@ make test
 %{_mandir}/man1/primorial.1*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 16.0.5-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 16.0.5-32
 - convert license to SPDX
 

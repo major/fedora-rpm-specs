@@ -1,6 +1,6 @@
 Name:           libsexy
 Version:        0.1.11
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Funky fresh graphical widgets for GTK+ 2
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -76,6 +76,9 @@ cp -a docs/reference/html/* $RPM_BUILD_ROOT%{_datadir}/gtk-doc/html/%{name}/
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.11-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.11-45
 - convert license to SPDX
 

@@ -7,7 +7,7 @@
 
 Name:           perl-FFI-Platypus
 Version:        2.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Write Perl bindings to non-Perl libraries with FFI
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://pl.atypus.org/
@@ -220,6 +220,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Dec 19 2024 Petr Pisar <ppisar@redhat.com> - 2.10-1
 - 2.10 bump
 

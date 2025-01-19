@@ -3,7 +3,7 @@
 Summary: Window Navigator Construction Kit
 Name: libwnck3
 Version: 43.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: http://download.gnome.org/sources/%{source_name}/
 Source0: http://download.gnome.org/sources/%{source_name}/43/%{source_name}-%{version}.tar.xz
 License: LGPL-2.0-or-later
@@ -77,6 +77,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 43.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Oct 07 2024 Wolfgang Ulbrich <raveit65.sun@gmail.com> - 43.1-1
 - update to 43.1
 

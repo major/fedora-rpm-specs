@@ -1,6 +1,6 @@
 Name:           perl-CGI-Untaint-date
 Version:        1.00
-Release:        53%{?dist}
+Release:        54%{?dist}
 Summary:        Validate a date
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -63,6 +63,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-54
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 1.00-53
 - convert license to SPDX
 

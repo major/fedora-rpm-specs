@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 Name:           leveldb
 Version:        1.23
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A fast and lightweight key/value database library by Google
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -91,6 +91,9 @@ cp -a %{name}.pc %{buildroot}%{_libdir}/pkgconfig/
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.23-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.23-11
 - convert license to SPDX
 

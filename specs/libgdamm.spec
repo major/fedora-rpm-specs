@@ -4,7 +4,7 @@
 
 Name:           libgdamm
 Version:        4.99.11
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        C++ wrappers for libgda
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -73,6 +73,9 @@ find %{buildroot} -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.99.11-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 4.99.11-21
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           libestr
 Version:        0.1.11
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        String handling essentials library
 
 License:        LGPL-2.1-or-later
@@ -47,6 +47,9 @@ rm -f %{buildroot}/%{_libdir}/*.{a,la}
 %{_libdir}/pkgconfig/libestr.pc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.11-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.11-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

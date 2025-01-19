@@ -1,6 +1,6 @@
 Name:           perl-CPAN-Perl-Releases
 Version:        5.20250106
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Mapping Perl releases on CPAN to the location of the tarballs
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-Perl-Releases
@@ -84,6 +84,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.20250106-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 5.20250106-1
 - 5.20250106 bump (rhbz#2335886)
 

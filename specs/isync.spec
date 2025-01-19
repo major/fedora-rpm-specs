@@ -1,6 +1,6 @@
 Name:           isync
 Version:        1.5.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tool to synchronize IMAP4 and Maildir mailboxes
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -64,6 +64,9 @@ rm -r %{buildroot}%{_defaultdocdir}
 %{_mandir}/man1/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Sep 26 2024 Charles R. Anderson <cra@alum.wpi.edu> - 1.5.0-2
 - Apply post-1.5.0 fixes from master branch:
 - fix implicit listing of Maildir INBOX under Path

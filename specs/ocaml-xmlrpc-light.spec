@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-xmlrpc-light
 Version:        0.6.1
-Release:        83%{?dist}
+Release:        84%{?dist}
 Summary:        OCaml library for writing XML-RPC clients and servers
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -91,6 +91,9 @@ mkdir -p $OCAMLFIND_DESTDIR
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-84
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 0.6.1-83
 - OCaml 5.3.0 rebuild for Fedora 42
 

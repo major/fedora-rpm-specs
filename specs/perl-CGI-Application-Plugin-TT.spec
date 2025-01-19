@@ -1,6 +1,6 @@
 Name:           perl-CGI-Application-Plugin-TT
 Version:        1.06
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Add Template Toolkit support to CGI::Application
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -64,6 +64,9 @@ that allow you to process template files from within your runmodes.
 %{_mandir}/man3/CGI*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.06-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Dec 01 2024 Emmanuel Seyman <emmanuel@seyman.fr> - 1.06-1
 - Update to 1.06
 - Replace %%{__perl} with /usr/bin/perl

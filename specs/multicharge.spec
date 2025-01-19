@@ -1,6 +1,6 @@
 Name:           multicharge
 Version:        0.3.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Electronegativity equilibration model for atomic partial charges
 License:        Apache-2.0
 URL:            https://github.com/grimme-lab/multicharge
@@ -59,6 +59,9 @@ mv %{buildroot}%{_includedir}/multicharge/gcc-*/*.mod %{buildroot}%{_libdir}/gfo
 %{_libdir}/pkgconfig/multicharge.pc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Sep 07 2024 Susi Lehtola <susi.lehtola@iki.fi> - 0.3.0-3
 - Add missing require in devel package.
 

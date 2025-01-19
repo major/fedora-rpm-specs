@@ -1,6 +1,6 @@
 Name:           options
 Version:        1.7
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Library for managing sets of JVM properties to configure an app or library
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -36,6 +36,9 @@ configuration for an application or library.
 %doc README.md
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 1.7-12
 - convert license to SPDX
 

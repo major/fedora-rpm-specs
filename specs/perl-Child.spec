@@ -1,6 +1,6 @@
 Name:           perl-Child
 Version:        0.013
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Object oriented simple interface to fork()
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Child
@@ -68,6 +68,9 @@ make test
 %{_mandir}/man3/Child::Util.3*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.013-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.013-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

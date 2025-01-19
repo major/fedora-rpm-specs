@@ -1,6 +1,6 @@
 Name:           guake
 Version:        3.7.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Drop-down terminal for GNOME
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -73,6 +73,9 @@ rm %{buildroot}%{_datadir}/glib-2.0/schemas/gschemas.compiled
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 3.7.0-20
 - convert license to SPDX
 

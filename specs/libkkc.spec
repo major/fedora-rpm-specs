@@ -2,7 +2,7 @@
 
 Name:		libkkc
 Version:	0.3.5
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	Japanese Kana Kanji conversion library
 
 License:	GPL-3.0-or-later
@@ -121,6 +121,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/kkc
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.5-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 21 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.5-30
 - Fix FTBFS with gcc14 -Werror=int-conversion (bug 2300903)
 - Fix invalid escape on json file (bug 2306455)

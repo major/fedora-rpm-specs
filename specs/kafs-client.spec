@@ -4,7 +4,7 @@
 
 Name:		kafs-client
 Version:	0.4
-Release:	13%{?dist}%{?buildid}
+Release:	14%{?dist}%{?buildid}
 Summary:	The basic tools for kAFS and mounter for the AFS dynamic root
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -147,6 +147,9 @@ ln -s aklog-kafs %{buildroot}/%{_bindir}/aklog
 %{_mandir}/man1/aklog.1*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.4-13
 - convert license to SPDX
 

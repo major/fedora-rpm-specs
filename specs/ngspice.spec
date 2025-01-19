@@ -19,7 +19,7 @@
 %undefine	prever
 %global	prerpmver	%(echo "%{?prever}" | sed -e 's|-||g')
 
-%global	baserelease	1
+%global	baserelease	2
 
 %if 0%{?usegitbare} >= 1
 # pre-master-42
@@ -501,6 +501,9 @@ popd
 %{_includedir}/ngspice/
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 44.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Jan 12 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 44.2-1
 - Update to 44.2
 

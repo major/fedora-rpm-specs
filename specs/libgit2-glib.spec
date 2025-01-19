@@ -3,7 +3,7 @@
 
 Name:           libgit2-glib
 Version:        1.2.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Git library for GLib
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -68,6 +68,9 @@ developing applications that use %{name}.
 %doc %{_datadir}/gtk-doc/
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 14 2025 Pete Walter <pwalter@fedoraproject.org> - 1.2.0-8
 - Patch for libgit2 1.9.x support
 

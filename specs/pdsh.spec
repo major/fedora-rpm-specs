@@ -1,6 +1,6 @@
 Name: pdsh
 Version: 2.34
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: Parallel remote shell program
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -392,6 +392,9 @@ fi
 %endif
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.34-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.34-13
 - convert license to SPDX
 

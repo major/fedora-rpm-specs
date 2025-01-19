@@ -1,6 +1,6 @@
 Name:           libecpint
 Version:        1.0.7
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Efficient evaluation of integrals over ab initio effective core potentials
 License:        MIT
 Url:            https://github.com/robashaw/libecpint
@@ -68,6 +68,9 @@ sed -r -i 's/\b(CMAKE_CXX_STANDARD[[:blank:]]+)11\b/\114/' CMakeLists.txt
 %{_libdir}/lib*.so
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

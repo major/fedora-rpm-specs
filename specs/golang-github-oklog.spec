@@ -18,7 +18,7 @@ block: easy to understand, easy to operate, and easy to extend.}
 %global godocs          doc DESIGN.md MODEL.md README.md
 
 Name:           %{goname}
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Distributed and coordination-free log management system
 
 # Upstream license specification: Apache-2.0
@@ -82,6 +82,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.3.2-21
 - convert license to SPDX
 

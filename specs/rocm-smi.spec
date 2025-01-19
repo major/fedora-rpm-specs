@@ -14,7 +14,7 @@
 
 Name:       rocm-smi
 Version:    %{rocm_version}
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    ROCm System Management Interface Library
 
 License:    MIT AND NCSA
@@ -89,6 +89,11 @@ if [ -f $F ]; then
     rm $F
 fi
 
+%if 0%{?suse_version}
+%post   -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
+%endif
+
 %files
 %doc %{_docdir}/rocm_smi
 %license License.txt
@@ -110,6 +115,9 @@ fi
 %endif
 
 %changelog
+* Fri Jan 17 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-3
+- Cleanup for suse
+
 * Thu Jan 16 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-2
 - Update license and url
 - Fix script shebangs

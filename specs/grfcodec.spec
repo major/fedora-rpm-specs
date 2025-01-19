@@ -2,7 +2,7 @@
 
 Name:           grfcodec
 Version:        6.0.6
-Release:        25%{?prever}%{?dist}
+Release:        26%{?prever}%{?dist}
 Summary:        A suite of programs to modify Transport Tycoon Deluxe's GRF files
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -54,6 +54,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.6-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 6.0.6-25
 - convert license to SPDX
 

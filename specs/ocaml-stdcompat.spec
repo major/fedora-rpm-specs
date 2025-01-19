@@ -5,7 +5,7 @@
 
 Name:           ocaml-stdcompat
 Version:        19^%{date}.%{shortcommit}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Compatibility module for the OCaml standard library
 
 License:        BSD-2-Clause
@@ -105,6 +105,9 @@ LD_LIBRARY_PATH=$PWD make test
 %files devel -f .ofiles-devel
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 19^20240529.d53390d-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 19^20240529.d53390d-1
 - OCaml 5.3.0 rebuild for Fedora 42
 - Update to git HEAD for OCaml 5.x compatibility

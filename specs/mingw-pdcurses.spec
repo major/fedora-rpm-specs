@@ -2,7 +2,7 @@
 
 Name:           mingw-pdcurses
 Version:        3.8
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Curses library for MinGW
 
 License:        LicenseRef-Fedora-Public-Domain
@@ -126,6 +126,9 @@ install -m 0644 curses.h panel.h $RPM_BUILD_ROOT%{mingw64_includedir}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.8-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

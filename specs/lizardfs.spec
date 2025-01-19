@@ -3,7 +3,7 @@
 Name:		lizardfs
 Summary:	Distributed, fault tolerant file system
 Version:	3.12.0
-Release:	27%{?dist}
+Release:	29%{?dist}
 # LizardFS is under GPLv3 while crcutil is under ASL 2.0 and there's one header,
 # src/common/coroutine.h, under the Boost license
 # Automatically converted from old format: GPLv3 and ASL 2.0 and Boost - review is highly recommended.
@@ -23,8 +23,11 @@ Patch1:		0001-Add-missing-header.patch
 # Use python 3 rather than python 2 for cgi server
 Patch2:     lizardfs-3.12-cgi-py3.patch
 
-# Fix building with GCC13
-Patch3:     0003-gcc-13-missing-includes.patch
+# Fix missing includes
+Patch3:     0003-missing-includes.patch
+
+# Starting with Fedora 42, /bin and /sbin are the same directory
+Patch4:     0004-bin-sbin-merge.patch
 
 BuildRequires:	asciidoc
 BuildRequires:	cmake
@@ -410,6 +413,12 @@ install -m644 %{SOURCE2} %{buildroot}%{_sysconfdir}/security/limits.d/95-lizardf
 
 
 %changelog
+* Fri Jan 17 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.12.0-29
+- Fix FTBFS
+
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.0-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 3.12.0-27
 - convert license to SPDX
 

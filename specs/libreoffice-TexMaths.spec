@@ -2,7 +2,7 @@
 
 Name:           libreoffice-%{extname}
 Version:        0.49
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A LaTex Equation Editor for LibreOffice
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -67,6 +67,9 @@ rm $RPM_BUILD_ROOT%{loextdir}/{README,license.txt}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.49-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.49-13
 - convert license to SPDX
 

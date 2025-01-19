@@ -1,7 +1,7 @@
 Name:           libirman
 Epoch:          1
 Version:        0.5.2
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Library for IRMAN hardware
 
 
@@ -87,6 +87,9 @@ rm  $RPM_BUILD_ROOT%{_docdir}/libirman/TECHNICAL
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.5.2-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1:0.5.2-22
 - convert license to SPDX
 

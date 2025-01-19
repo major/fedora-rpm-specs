@@ -4,7 +4,7 @@
 
 Name:           %{fontname}-fonts
 Version:        20080210
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Chalky slab-serif fonts
 
 # Automatically converted from old format: OFL - review is highly recommended.
@@ -60,6 +60,9 @@ install -Dm 0644 -p %{SOURCE2} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20080210-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 20080210-29
 - convert license to SPDX
 

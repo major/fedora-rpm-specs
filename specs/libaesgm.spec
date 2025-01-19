@@ -1,6 +1,6 @@
 Name:		libaesgm
 Version:	20090429
-Release:	34%{?dist}
+Release:	35%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
 Summary:	Library implementation of AES (Rijndael) cryptographic methods
@@ -51,6 +51,9 @@ make DESTDIR="%{buildroot}" LIBDIR="%{_libdir}" install
 %{_libdir}/libaesgm.so
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20090429-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 20090429-34
 - convert license to SPDX
 

@@ -1,7 +1,7 @@
 Name:           perl-Catalyst-Model-DBIC-Schema
 Summary:        DBIx::Class::Schema Model Class
 Version:        0.66
-Release:        5%{?dist}
+Release:        6%{?dist}
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/G/GB/GBJK/Catalyst-Model-DBIC-Schema-%{version}.tar.gz
@@ -77,6 +77,9 @@ TEST_POD=1 C_M_DBIC_SCHEMA_TESTAPP=1 make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.66-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 0.66-5
 - convert license to SPDX
 

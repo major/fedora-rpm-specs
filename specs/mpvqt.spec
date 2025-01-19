@@ -1,6 +1,6 @@
 Name:           mpvqt
 Version:        1.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        QML wrapper for libmpv
 License:        LGPL-2.1-only OR LGPL-3.0-only
 URL:            https://invent.kde.org/libraries/mpvqt
@@ -49,6 +49,9 @@ Development headers and link library for building packages which use %{name}.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jul 30 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 1.0.1-1
 - 1.0.1
 

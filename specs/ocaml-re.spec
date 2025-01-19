@@ -11,7 +11,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-re
 Version:        1.13.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A regular expression library for OCaml
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -70,6 +70,9 @@ sed -i 's/oUnit/ounit2/' lib_test/fort_unit/dune
 %files devel -f .ofiles-devel
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 1.13.3-2
 - OCaml 5.3.0 rebuild for Fedora 42
 - Add VCS field

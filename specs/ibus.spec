@@ -62,7 +62,7 @@
 Name:           ibus
 Version:        1.5.32~beta1
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -638,6 +638,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.32~beta1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jan 13 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.32~beta1-1
 - Implement Wayland input-method version 2
 - Add ibus start --wayland option

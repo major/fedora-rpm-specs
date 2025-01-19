@@ -1,6 +1,6 @@
 Name:           perl-Expect-Simple
 Version:        0.04
-Release:        47%{?dist}
+Release:        48%{?dist}
 Summary:        Wrapper around the Expect module
 License:        GPL-2.0-or-later
 URL:            https://metacpan.org/release/Expect-Simple
@@ -46,6 +46,9 @@ make test
 %{_mandir}/man3/Expect::Simple*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

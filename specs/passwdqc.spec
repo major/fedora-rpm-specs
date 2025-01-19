@@ -1,7 +1,7 @@
 Summary: A password/passphrase strength checking and policy enforcement toolset
 Name: passwdqc
 Version: 2.0.3
-Release: 5%{?dist}
+Release: 6%{?dist}
 # Two manual pages (pam_passwdqc.8 and passwdqc.conf.5) are under the
 # 3-clause BSD-style license as specified within the files themselves.
 # The rest of the files in this package fall under the terms of
@@ -139,6 +139,9 @@ make install install_locales \
 %_mandir/man1/*.1*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

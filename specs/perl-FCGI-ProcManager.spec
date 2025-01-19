@@ -1,6 +1,6 @@
 Name:       perl-FCGI-ProcManager
 Version:    0.28
-Release:    24%{?dist}
+Release:    25%{?dist}
 # ProcManager.pm -> LGPLv2, LGPLv3
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:    LicenseRef-Callaway-LGPLv2+
@@ -48,6 +48,9 @@ make test
 %{_mandir}/man3/FCGI*.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.28-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.28-24
 - convert license to SPDX
 

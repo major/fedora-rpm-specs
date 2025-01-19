@@ -5,7 +5,7 @@
 
 Name:           mathic
 Version:        1.0
-Release:        30.%{gitdate}.git%{shorttag}%{?dist}
+Release:        31.%{gitdate}.git%{shorttag}%{?dist}
 Summary:        Data structures for Groebner basis computations
 
 License:        LGPL-2.0-or-later
@@ -110,6 +110,9 @@ make check
 %{_bindir}/pqsim
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-31.20230916.git07e8df4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-30.20230916.git07e8df4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

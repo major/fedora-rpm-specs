@@ -10,7 +10,7 @@
 
 Name:           mingw-%{mingw_pkg_name}
 Version:        6.4.2
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        MinGW Windows Polygon clipping library
 
 # Automatically converted from old format: Boost - review is highly recommended.
@@ -133,6 +133,9 @@ mv %{buildroot}/%{mingw64_datadir}/pkgconfig/polyclipping.pc %{buildroot}/%{ming
 %{mingw64_libdir}/pkgconfig/polyclipping.pc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 6.4.2-19
 - convert license to SPDX
 

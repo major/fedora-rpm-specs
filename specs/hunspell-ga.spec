@@ -7,7 +7,7 @@
 Name: hunspell-ga
 Summary: Irish hunspell dictionaries
 Version: 5.1
-Release: 7%{?dist}
+Release: 8%{?dist}
 Source: https://github.com/kscanne/gaelspell/releases/download/v%{version}/hunspell-ga-%{version}.zip
 URL: https://cadhan.com/gaelspell/
 License: GPL-2.0-or-later
@@ -36,6 +36,9 @@ cp -p ga_IE.dic ga_IE.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Aug 04 2024 Parag Nemade <pnemade AT redhat DOT com> - 5.1-7
 - Add conditional for RHEL for using hunspell directory
 - Add tmt CI tests

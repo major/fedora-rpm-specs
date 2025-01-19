@@ -1,7 +1,7 @@
 Summary:        Port of libtls from LibreSSL to OpenSSL
 Name:           libretls
 Version:        3.8.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 # libretls itself is ISC but uses other source codes, breakdown:
 # BSD-3-Clause: compat/strsep.c
 # MIT: compat/timegm.c
@@ -77,6 +77,9 @@ install -D -p -m 0644 README.7 $RPM_BUILD_ROOT%{_mandir}/man7/libtls.7
 %endif
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

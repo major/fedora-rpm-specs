@@ -1,7 +1,7 @@
 Summary: X.Org X11 libXpm runtime library
 Name: libXpm
 Version: 3.5.17
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: MIT AND X11-distribute-modifications-variant
 URL: http://www.x.org
 
@@ -57,6 +57,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.17-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.17-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

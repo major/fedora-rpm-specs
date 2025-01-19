@@ -1,6 +1,6 @@
 Name:           libxnm
 Version:        0.1.3
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        A library for parsing the XNM format
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -51,6 +51,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.3-35
 - convert license to SPDX
 

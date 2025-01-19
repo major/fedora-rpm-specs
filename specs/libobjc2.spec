@@ -7,7 +7,7 @@
 
 Name:           libobjc2
 Version:        2.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        GNUstep Objective-C runtime library
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -100,6 +100,9 @@ mv %{buildroot}%{_includedir}/Block.h %{buildroot}%{_includedir}/Block-libobjc.h
 %{_libdir}/pkgconfig/libobjc.pc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul  29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.1-11
 - convert license to SPDX
 

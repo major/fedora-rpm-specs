@@ -1,7 +1,7 @@
 Name:             libosmo-dsp
 URL:              http://osmocom.org/projects/libosmo-dsp
 Version:          0.3
-Release:          24%{?dist}
+Release:          25%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:          GPL-2.0-or-later
 BuildRequires:    autoconf, automake, libtool, fftw-devel, doxygen, graphviz
@@ -65,6 +65,9 @@ mv %{buildroot}%{_datadir}/doc/libosmodsp %{buildroot}%{_docdir}/%{name}/html
 %{_docdir}/%{name}/html
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.3-24
 - convert license to SPDX
 

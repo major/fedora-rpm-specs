@@ -25,7 +25,7 @@ end}
 
 Name:             grafana
 Version:          10.2.6
-Release:          9%{?dist}
+Release:          10%{?dist}
 Summary:          Metrics dashboard and graph editor
 License:          AGPL-3.0-only
 URL:              https://grafana.org
@@ -1025,6 +1025,9 @@ fi
 %{_datadir}/selinux/*/grafana.pp
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.2.6-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Nov 26 2024 Sam Feifer <sfeifer@redhat.com> 10.2.6-9
 - Revert changes to configuration file that break older custom dashboards
 

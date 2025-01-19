@@ -17,7 +17,7 @@
 Summary: Tools for building live CDs
 Name: livecd-tools
 Version: 31.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 %if 0%{?fedora}
 Epoch: 1
 %endif
@@ -227,6 +227,9 @@ rm -rfv %{buildroot}%{_mandir}/man8/livecd-iso-to-*
 %endif
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:31.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1:31.0-11
 - convert license to SPDX
 

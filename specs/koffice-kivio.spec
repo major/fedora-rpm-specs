@@ -4,7 +4,7 @@
 Name:           koffice-kivio
 Epoch:          3
 Version:        1.6.3
-Release:        69%{?dist}
+Release:        70%{?dist}
 Summary:        A flowcharting application
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -230,6 +230,9 @@ mv -f kivio-unique.lang kivio.lang
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3:1.6.3-70
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul  26 2024 Miroslav Suchý <msuchy@redhat.com> - 0:1.6.3-69
 - convert license to SPDX
 

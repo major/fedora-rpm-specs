@@ -4,7 +4,7 @@
 
 Name: libsmbios
 Version: 2.4.3
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: Libsmbios C/C++ shared libraries
 
 License: GPL-2.0-or-later or OSL-2.1
@@ -199,6 +199,9 @@ rename %{pot_file}.mo %{lang_dom}.mo $(find %{buildroot}/%{_datadir} -name %{pot
 %{_datadir}/smbios-utils
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.3-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

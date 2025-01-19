@@ -56,7 +56,7 @@ A multilingual command line sentence tokenizer in Golang.}
                         test_files/english/self_reliance_s.txt
 
 Name:           golang-gopkg-neurosnap-sentences-1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A multilingual command line sentence tokenizer in Golang
 
 License:        MIT
@@ -120,6 +120,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

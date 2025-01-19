@@ -1,15 +1,15 @@
 %global somajor 8
 
 Name:           ode
-Version:        0.16.5
-Release:        2%{?dist}
+Version:        0.16.6
+Release:        1%{?dist}
 Summary:        High performance library for simulating rigid body dynamics
 License:        BSD-3-Clause AND LGPL-2.1-or-later
 URL:            https://bitbucket.org/odedevs/ode
 Source0:        https://bitbucket.org/odedevs/ode/downloads/ode-%{version}.tar.gz
 Patch1:         ode-0.11.1-multilib.patch
 # Modify ode-double.pc and ode-double-config to set dDOUBLE, link right lib
-Patch2:         ode-0.13.1-double-config.patch
+Patch2:         ode-0.16.6-double-config.patch
 # Modify ode.pc and ode-config to set dSINGLE
 Patch3:         ode-0.16.3-single-config.patch
 BuildRequires:  make gcc-c++
@@ -119,6 +119,9 @@ install -m 644 ode-double.pc $RPM_BUILD_ROOT%{_libdir}/pkgconfig
 
 
 %changelog
+* Fri Jan 17 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.16.6-1
+- 0.16.6
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

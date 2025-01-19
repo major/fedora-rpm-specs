@@ -26,7 +26,7 @@
 Summary: GNOME base library
 Name: libgnome
 Version: 2.32.1
-Release: 32%{?dist}
+Release: 33%{?dist}
 URL: http://www.gnome.org
 Source0: http://download.gnome.org/sources/libgnome/2.32/%{name}-%{version}.tar.bz2
 Source1: desktop_gnome_peripherals_monitor.schemas
@@ -173,6 +173,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/pixmaps
 %{_datadir}/gtk-doc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.32.1-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.32.1-32
 - convert license to SPDX
 

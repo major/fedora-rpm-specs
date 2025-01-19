@@ -1,6 +1,6 @@
 Name:           perl-Dist-Zilla-Plugin-ReadmeFromPod
 Version:        0.38
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Automatically convert POD to a README for Dist::Zilla
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -113,6 +113,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.38-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 0.38-5
 - convert license to SPDX
 

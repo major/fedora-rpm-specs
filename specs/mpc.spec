@@ -1,7 +1,7 @@
 Name:             mpc
 Summary:          Command-line client for MPD
 Version:          0.35
-Release:          5%{?dist}
+Release:          6%{?dist}
 
 License:          GPL-2.0-or-later
 URL:              http://www.musicpd.org/
@@ -46,6 +46,9 @@ rm -f %{buildroot}%{_pkgdocdir}/html/.buildinfo
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Sep 15 2024 Pavel Solovev <daron439@gmail.com> - 0.35-5
 - Fix FTBFS
 

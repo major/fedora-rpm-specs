@@ -7,7 +7,7 @@
 
 Name:           perl-Devel-CheckLib
 Version:        1.16
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Check that a library is available
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -114,6 +114,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

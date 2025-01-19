@@ -10,7 +10,7 @@
 
 Name:           nodejs-%{modname}
 Version:        1.3.3
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Models, Views, Collections, and Events for JavaScript applications (Nodejs module)
 License:        MIT
 URL:            http://backbonejs.org/
@@ -77,6 +77,9 @@ cp -p backbone.js package.json %{buildroot}%{nodejs_sitelib}/%{modname}/
 %{_jsdir}/%{modname}
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

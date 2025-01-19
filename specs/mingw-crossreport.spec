@@ -1,6 +1,6 @@
 Name:           mingw-crossreport
 Version:        201406
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Analysis tool to help cross-compilation to Windows
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -101,6 +101,9 @@ pod2man -c "CrossReport" -r "%{name}-%{version}" %{SOURCE0} \
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 201406-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 201406-21
 - convert license to SPDX
 

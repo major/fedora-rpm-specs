@@ -7,9 +7,10 @@
 # Optional supports
 %bcond openexr 1
 %bcond ax      0
-%bcond nanovdb 1
+%bcond nanovdb 0
 %bcond python  %{?fedora}
 %bcond imath   %{?fedora} || %{?rhel} >= 9
+%bcond docs    0
 
 # ax currently incompatible with newer llvm versions
 %global llvm_compat 15
@@ -42,7 +43,9 @@ BuildRequires:  boost-devel >= 1.61
 BuildRequires:  boost-python3-devel
 %endif
 BuildRequires:  cmake >= 2.8
+%if %{with docs}
 BuildRequires:  doxygen >= 1.8.11
+%endif
 #BuildRequires:  epydoc
 BuildRequires:  gcc-c++
 BuildRequires:  ghostscript >= 8.70
@@ -89,14 +92,18 @@ Summary:        Core OpenVDB libraries
 
 %package        devel
 Summary:        Development files for %{name}
+%if %{with docs}
 BuildRequires:  texlive-latex
+%endif
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 # Requires v2020.3 in adherence to VFX Reference Platform guideline
 # https://vfxplatform.com/
 Requires:       cmake(tbb) >= 2020.3
 Requires:       pkgconfig(zlib) > 1.2.7
 Obsoletes:      %{name}-doc < 6.1.0-1
+%if %{with docs}
 Provides:       %{name}-doc = %{version}-%{release}
+%endif
 
 %description    devel %{_description}
 
@@ -140,7 +147,9 @@ export CXXFLAGS="%{build_cxxflags} -Wl,--as-needed"
 %cmake \
     -DCMAKE_NO_SYSTEM_FROM_IMPORTED=TRUE \
     -DDISABLE_DEPENDENCY_VERSION_CHECKS=ON \
+%if %{with docs}
     -DOPENVDB_BUILD_DOCS=ON \
+%endif
 %if %{with python}
     -DOPENVDB_BUILD_PYTHON_MODULE=ON \
 %endif
@@ -180,15 +189,19 @@ export CXXFLAGS="%{build_cxxflags} -Wl,--as-needed"
 %install
 %cmake_install
 
+%if %{with docs}
 # Let RPM pick up html documents in the files section
 mv %{buildroot}%{_docdir}/OpenVDB/html .
 rm -fr %{buildroot}%{_datadir}/doc
+%endif
 
 find %{buildroot} -name '*.a' -delete
 
 %files
 %{_bindir}/vdb_print
+%if %{with nanovdb}
 %{_bindir}/nanovdb_{convert,print,validate}
+%endif
 
 %files libs
 %license LICENSE
@@ -202,7 +215,9 @@ find %{buildroot} -name '*.a' -delete
 %endif
 
 %files devel
+%if %{with docs}
 %doc html
+%endif
 %{_includedir}/*
 %{_libdir}/lib%{name}.so
 %{_libdir}/cmake/OpenVDB/

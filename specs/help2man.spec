@@ -5,7 +5,7 @@
 Name:           help2man
 Summary:        Create simple man pages from --help output
 Version:        1.49.3
-Release:        6%{?dist}
+Release:        7%{?dist}
 License:        GPL-3.0-or-later
 URL:            https://www.gnu.org/software/help2man/
 Source:         https://ftp.gnu.org/gnu/help2man/help2man-%{version}.tar.xz
@@ -58,6 +58,9 @@ still providing some useful information.
 %endif
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.49.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.49.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

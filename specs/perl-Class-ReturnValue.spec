@@ -1,7 +1,7 @@
 Name:      	perl-Class-ReturnValue
 Summary:   	Class::ReturnValue Perl module
 Version:   	0.55
-Release:   	47%{?dist}
+Release:   	48%{?dist}
 License:   	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:       	https://metacpan.org/release/Class-ReturnValue
 
@@ -44,6 +44,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.55-48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.55-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

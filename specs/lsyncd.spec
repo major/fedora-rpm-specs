@@ -5,7 +5,7 @@
 
 Name:		lsyncd
 Version:	2.3.1
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	File change monitoring and synchronization daemon
 License:	GPL-2.0-or-later AND CC-BY-3.0
 URL:		https://axkibe.github.io/lsyncd/
@@ -81,6 +81,9 @@ install -p -D -m 0644 %{SOURCE5} %{buildroot}%{_sysctldir}/50-lsyncd.conf
 %{_unitdir}/lsyncd.service
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

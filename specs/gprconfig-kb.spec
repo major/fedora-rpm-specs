@@ -9,7 +9,7 @@
 
 Name:           gprconfig-kb
 Version:        %{upstream_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GNAT project configuration knowledge base
 BuildArch:      noarch
 
@@ -112,6 +112,9 @@ xmllint --nonet --noout --noent \
 ###############
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Nov 08 2024 Dennis van Raaij <dvraaij@fedoraproject.org> - 25.0.0-1
 - Updated to v25.0.0.
 

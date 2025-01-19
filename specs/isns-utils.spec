@@ -1,6 +1,6 @@
 Name:           isns-utils
 Version:        0.101
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        The iSNS daemon and utility programs
 
 License:        LGPL-2.1-or-later
@@ -103,6 +103,9 @@ install -p -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/isnsd.service
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.101-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.101-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

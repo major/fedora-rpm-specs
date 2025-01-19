@@ -9,7 +9,7 @@
 
 Name:           lttng-tools
 Version:        2.13.14
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPL-2.0-only AND LGPL-2.1-only
 URL:            http://lttng.org
 Summary:        LTTng control and utility programs
@@ -189,6 +189,9 @@ exit 0
 %endif
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.14-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Kienan Stewart <kstewart@efficios.com> - 2.13.14-1
 - New upstream release
 

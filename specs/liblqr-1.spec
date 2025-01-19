@@ -1,6 +1,6 @@
 Name:           liblqr-1
 Version:        0.4.2
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        LiquidRescale library
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -51,6 +51,9 @@ find $RPM_BUILD_ROOT -name \*.la -exec %{__rm} -f {} \;
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.4.2-26
 - convert license to SPDX
 

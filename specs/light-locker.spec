@@ -1,6 +1,6 @@
 Name:           light-locker
 Version:        1.9.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Simple session-locker for lightdm
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -79,6 +79,9 @@ desktop-file-validate \
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.9.0-14
 - convert license to SPDX
 

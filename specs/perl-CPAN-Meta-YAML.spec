@@ -14,7 +14,7 @@
 
 Name:		perl-CPAN-Meta-YAML
 Version:	0.020
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Read and write a subset of YAML for CPAN Meta files
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/CPAN-Meta-YAML
@@ -93,6 +93,9 @@ make test TEST_FILES="xt/*/*.t"
 %{_mandir}/man3/CPAN::Meta::YAML.3*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.020-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 17 2024 Paul Howarth <paul@city-fan.org> - 0.020-1
 - Update to 0.20
   - Generated from ETHER/YAML-Tiny-1.76.tar.gz

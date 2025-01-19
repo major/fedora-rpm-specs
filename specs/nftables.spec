@@ -1,6 +1,6 @@
 Name:           nftables
 Version:        1.1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 # Upstream released a 0.100 version, then 0.4. Need Epoch to get back on track.
 Epoch:          1
 Summary:        Netfilter Tables userspace utilites
@@ -131,6 +131,9 @@ cd py/
 %files -n python3-nftables -f %{pyproject_files}
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.1.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 22 2024 Richard W.M. Jones <rjones@redhat.com> - 1:1.1.1-2
 - Rebuild for Jansson 2.14
   (https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/3PYINSQGKQ4BB25NQUI2A2UCGGLAG5ND/)

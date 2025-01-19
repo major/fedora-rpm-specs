@@ -3,7 +3,7 @@
 
 Name:    ktorrent
 Version: 24.12.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A BitTorrent program
 
 License: GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND (GPL-2.0-only OR GPL-3.0-only)
@@ -127,6 +127,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.ktorrent.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 07 2025 Steve Cossette <farchord@gmail.com> - 24.12.1-1
 - 24.12.1
 

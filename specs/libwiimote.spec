@@ -1,6 +1,6 @@
 Name:           libwiimote
 Version:        0.4
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Simple Wiimote Library for Linux
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -66,6 +66,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.a
 %{_libdir}/*.so
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.4-37
 - convert license to SPDX
 

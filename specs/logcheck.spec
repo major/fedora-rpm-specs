@@ -1,6 +1,6 @@
 Name:           logcheck
 Version:        1.3.18
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Analyzes log files and sends noticeable events as email
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -116,6 +116,9 @@ exit 0
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.18-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3.18-19
 - convert license to SPDX
 

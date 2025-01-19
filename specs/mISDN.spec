@@ -3,7 +3,7 @@
 
 Name:		mISDN
 Version:	2.0.22
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	Userspace part of Modular ISDN stack
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -101,6 +101,9 @@ exit 0
 %endif
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.22-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0.22-15
 - convert license to SPDX
 

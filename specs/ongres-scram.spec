@@ -2,7 +2,7 @@
 
 Name:           ongres-scram
 Version:        %(echo %{upstream_version} | sed 's/-/~/g')
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Salted Challenge Response Authentication Mechanism (SCRAM) - Java Implementation
 License:        BSD-2-Clause
 URL:            https://github.com/ongres/scram
@@ -73,6 +73,9 @@ find \( -name '*.jar' -o -name '*.class' \) -delete
 %license LICENSE
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Aug 29 2024 Marian Koncek <mkoncek@redhat.com> - 3.1-1
 - Update to upstream version 3.1
 

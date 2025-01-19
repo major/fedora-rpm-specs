@@ -1,6 +1,6 @@
 Name:		lgogdownloader
 Version:	3.16
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	GOG.com download client
 
 License:	WTFPL
@@ -48,6 +48,9 @@ same API as the official GOG Galaxy.
 %{_mandir}/man1/lgogdownloader.1.*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.16-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jan 4 2025 Benjamin Lowry <ben@ben.gmbh> - 3.16-1
 - lgogdownloader 3.16
 

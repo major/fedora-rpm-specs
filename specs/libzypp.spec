@@ -18,7 +18,7 @@ Requires:       %{_bindir}/%{1}
 
 Name:           libzypp
 Version:        17.34.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A package management library
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -250,6 +250,9 @@ end
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 17.34.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 25 2024 Orion Poplawski <orion@nwra.com> - 17.34.1-4
 - Rebuild for yaml-cpp 0.8
 

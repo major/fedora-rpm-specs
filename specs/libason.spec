@@ -1,6 +1,6 @@
 Name:           libason
 Version:        0.1.2
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        A library for manipulating ASON values
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -62,6 +62,9 @@ done
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.2-25
 - convert license to SPDX
 

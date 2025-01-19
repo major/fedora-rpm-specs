@@ -2,7 +2,7 @@ Name:           kchmviewer
 Version:        8.0
 %global _tag RELEASE_%(echo %{version} | sed 's/\\./_/g')
 %global _appid net.%{name}.%{name}
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        CHM viewer
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -71,6 +71,9 @@ install -Dpm 644 packages/%{name}.png $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/1
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 8.0-10
 - convert license to SPDX
 

@@ -17,7 +17,7 @@
 
 Name:           mingw-qt5-%{qt_module}
 Version:        5.15.15
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Qt5 for Windows - QtSvg component
 
 # Automatically converted from old format: GPLv3 with exceptions or LGPLv2 with exceptions - review is highly recommended.
@@ -131,6 +131,9 @@ mkdir .git
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.15-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Sep 06 2024 Sandro Mani <manisandro@gmail.com> - 5.15.15-1
 - Update to 5.15.15
 

@@ -1,6 +1,6 @@
 Name:           gtkimageview
 Version:        1.6.4
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Simple image viewer widget
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -65,6 +65,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/gtkimageview.pc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.6.4-33
 - convert license to SPDX
 

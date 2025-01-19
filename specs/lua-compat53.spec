@@ -18,7 +18,7 @@
 
 Name:           lua-%{luapkgname}
 Version:        0.7
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Compatibility module providing Lua-5.3-style APIs for Lua %{luacompatver}
 
 License:        MIT
@@ -117,6 +117,9 @@ install -m 0644 lprefix.h %{buildroot}%{luacompatincdir}/lprefix.h
 %endif
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

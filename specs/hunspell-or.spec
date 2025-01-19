@@ -8,7 +8,7 @@ Name: hunspell-or
 Summary: Odia hunspell dictionaries
 Version: 1.0.0
 Epoch:   1
-Release: 26%{?dist}
+Release: 27%{?dist}
 License:        GPL-2.0-or-later
 URL: https://gitorious.org/hunspell_dictionaries/hunspell_dictionaries.git
 Source0: http://anishpatil.fedorapeople.org/or_in.%{version}.tar.gz
@@ -40,6 +40,9 @@ cp -p or_IN/*.dic or_IN/*.aff %{buildroot}%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0.0-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Aug 03 2024 Parag Nemade <pnemade AT redhat DOT com> - 1:1.0.0-26
 - Add conditional for RHEL for using hunspell directory
 - Add tmt CI tests

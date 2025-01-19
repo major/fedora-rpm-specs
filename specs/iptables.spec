@@ -11,7 +11,7 @@ Name: iptables
 Summary: Tools for managing Linux kernel packet filtering capabilities
 URL: https://www.netfilter.org/projects/iptables
 Version: 1.8.11
-Release: 3%{?dist}
+Release: 4%{?dist}
 Source0: %{url}/files/%{name}-%{version}.tar.xz
 source1: %{url}/files/%{name}-%{version}.tar.xz.sig
 Source2: coreteam-gpg-key-0xD70D1A666ACF2B21.txt
@@ -430,6 +430,9 @@ fi
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org>
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 14 2025 Zbigniew Jedrzejewski-Szmek <zbyszek@in.waw.pl> - 1.8.11-3
 - Keep symlinks managed by alternatives under /usr/sbin
 

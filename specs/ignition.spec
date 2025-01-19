@@ -22,7 +22,7 @@ Version:                2.20.0
 %global dracutlibdir %{_prefix}/lib/dracut
 
 Name:           ignition
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        First boot installer and configuration tool
 
 # Upstream license specification: Apache-2.0
@@ -364,6 +364,9 @@ install -p -m 0755 ./ignition %{buildroot}/%{dracutlibdir}/modules.d/30ignition
 %{_libdir}/bootupd/grub2-static/configs.d/ignition.cfg
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.20.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Oct 31 2024 Miguel Martín <mmartinv@redhat.com> - 2.20.0-2
 - Update ignition-edge commit to include
     - https://github.com/fedora-iot/ignition-edge/pull/2

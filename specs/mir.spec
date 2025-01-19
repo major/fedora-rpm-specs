@@ -12,7 +12,7 @@
 
 Name:           mir
 Version:        2.19.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Next generation Wayland display server toolkit
 
 # mircommon is LGPL-2.1-only/LGPL-3.0-only, everything else is GPL-2.0-only/GPL-3.0-only
@@ -280,6 +280,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.19.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 03 2024 Neal Gompa <ngompa@fedoraproject.org> - 2.19.2-1
 - Update to 2.19.2
 

@@ -19,7 +19,7 @@
 Name:           kf5-%{framework}
 Summary:        A Tier 2 KDE Framework for extracting file metadata
 Version:        5.116.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 License:        BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:            https://cgit.kde.org/%{framework}
@@ -114,6 +114,9 @@ mkdir -p %{buildroot}%{_kf5_plugindir}/kfilemetadata/writers/
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.116.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 23 2024 Fabio Valentini <decathorpe@gmail.com> - 5.116.0-4
 - Rebuild for ffmpeg 7
 

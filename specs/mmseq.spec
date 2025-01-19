@@ -1,6 +1,6 @@
 Name:		mmseq
 Version:	1.0.11
-Release:	21%{?dist}
+Release:	22%{?dist}
 Summary:	Haplotype and isoform specific expression estimation for RNA-seq
 
 %if 0%{?fedora} >= 33
@@ -95,6 +95,9 @@ install -p -m 0755 bin/ensembl_gtf_to_gff.pl %{buildroot}%{_bindir}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.11-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.11-21
 - convert license to SPDX
 

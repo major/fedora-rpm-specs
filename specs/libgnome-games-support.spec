@@ -1,6 +1,6 @@
 Name:           libgnome-games-support
 Version:        2.0.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Support library for GNOME games
 
 # Automatically converted from old format: LGPLv3+ - review is highly recommended.
@@ -61,6 +61,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0.0-6
 - convert license to SPDX
 

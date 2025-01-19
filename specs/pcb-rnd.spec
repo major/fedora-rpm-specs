@@ -7,7 +7,7 @@
 
 Name:           pcb-rnd
 Version:        2.4.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Modular Printed Circuit Board layout tool
 
 # For a license breakdown info, please refer to https://metadata.ftp-master.debian.org/changelogs/main/p/pcb-rnd/pcb-rnd_2.4.0-1_copyright
@@ -556,6 +556,9 @@ Support library for alien file formats.
 %{plugindir}/lib_netmap.so
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep  2 2024 Miroslav Suchý <msuchy@redhat.com> - 2.4.0-12
 - convert license to SPDX
 

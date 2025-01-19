@@ -8,7 +8,7 @@
 
 Name: oddjob
 Version: 0.34.7
-Release: 14%{?dist}
+Release: 15%{?dist}
 Source0: https://releases.pagure.org/oddjob/oddjob-%{version}.tar.gz
 Source1: https://releases.pagure.org/oddjob/oddjob-%{version}.tar.gz.asc
 Patch1: oddjob-override-mask-fix.patch
@@ -170,6 +170,9 @@ fi
 exit 0
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.34.7-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.34.7-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

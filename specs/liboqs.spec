@@ -1,7 +1,7 @@
 %global oqs_version 0.12.0
 Name:       liboqs
 Version:    %{oqs_version}
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    liboqs is an open source C library for quantum-safe cryptographic algorithms.
 
 #liboqs uses MIT license by itself but includes several files licensed under different terms.
@@ -101,6 +101,9 @@ done
 #%doc %%{_datadir}/doc/oqs/xml/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 15 2025 Daiki Ueno <dueno@redhat.com> - 0.12.0-2
 - Avoid unresolved symbols when compiled with OQS_DLOPEN_OPENSSL
 

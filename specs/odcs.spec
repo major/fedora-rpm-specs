@@ -1,6 +1,6 @@
 Name:       odcs
 Version:    0.8.1
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    The On Demand Compose Service
 
 
@@ -195,6 +195,9 @@ export ODCS_DEVELOPER_ENV=1
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 15 2025 Lubomír Sedlář <lsedlar@redhat.com> - 0.8.1-3
 - Remove dependency on python3-nose
 

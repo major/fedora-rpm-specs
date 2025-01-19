@@ -1,7 +1,7 @@
 Name:           perl-Catalyst-View-TT
 Summary:        Template Toolkit View Class
 Version:        0.46
-Release:        7%{?dist}
+Release:        8%{?dist}
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -55,6 +55,9 @@ sed -i 's/\r//' t/lib/TestApp/Template/Any.pm
 %{_mandir}/man3/Catalyst*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.46-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 0.46-7
 - convert license to SPDX
 

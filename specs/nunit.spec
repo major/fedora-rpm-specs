@@ -2,7 +2,7 @@
 
 Name:           nunit
 Version:        3.7.1
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Unit test framework for CLI
 # Automatically converted from old format: MIT with advertising - review is highly recommended.
 License:        LicenseRef-Callaway-MIT-with-advertising
@@ -82,6 +82,9 @@ done
 %{_libdir}/pkgconfig/nunit.pc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.1-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 3.7.1-20
 - convert license to SPDX
 

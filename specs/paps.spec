@@ -1,6 +1,6 @@
 Name:           paps
 Version:        0.8.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 
 License:        LGPL-2.0-or-later
 URL:            https://github.com/dov/paps
@@ -155,6 +155,9 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="/usr/bin/install -p"
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Sep 13 2024 Akira TAGOH <tagoh@redhat.com> - 0.8.0-11
 - Fix build with glib 2.82
   Patch from Yaakov Selkowitz

@@ -1,6 +1,6 @@
 Name:           pdf2svg
 Version:        0.2.3
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Small tool to convert PDF files into SVG
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -37,6 +37,9 @@ make %{?_smp_mflags}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.3-22
 - convert license to SPDX
 

@@ -1,7 +1,7 @@
 Name:             perl-Geo-IP
 Summary:          Efficient Perl bindings for the GeoIP location database
 Version:          1.51
-Release:          25%{?dist}
+Release:          26%{?dist}
 URL:              https://metacpan.org/release/Geo-IP
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:          GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -58,6 +58,9 @@ make test
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.51-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 1.51-25
 - convert license to SPDX
 

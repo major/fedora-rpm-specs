@@ -4,7 +4,7 @@
 
 Name:           pcsc-lite-%{driver}
 Version:        3.7
-Release:        25%{dist}
+Release:        26%{dist}
 Summary:        ASEKey USB token driver
 # 92_pcscd_asekey.rules:    LGPLv2+
 # other files:              BSD
@@ -65,6 +65,9 @@ sed -i -e '/^BUILD=/ s/-gnu$//' Makefile.inc
 %{rulesdir}/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 3.7-25
 - convert license to SPDX
 

@@ -7,7 +7,7 @@
 Name: hunspell-ku
 Summary: Kurdish hunspell dictionaries
 Version: 0.21
-Release: 34%{?dist}
+Release: 35%{?dist}
 #http://hunspell-ku.googlecode.com/files/ku_TR-021_source.zip ?
 Source0: http://downloads.sourceforge.net/myspellkurdish/ku_TR-021.zip
 #http://code.google.com/p/hunspell-ku/ ?
@@ -53,6 +53,9 @@ popd
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

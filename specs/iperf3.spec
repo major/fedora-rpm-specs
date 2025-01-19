@@ -1,6 +1,6 @@
 Name:           iperf3
 Version:        3.18
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Measurement tool for TCP/UDP bandwidth performance
 
 # src/cjson.{c,h} and src/net.{c,h} are MIT
@@ -58,6 +58,9 @@ rm -f %{buildroot}%{_libdir}/libiperf.la
 %{_libdir}/*.so
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.18-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Dec 21 2024 Kevin Fenzi <kevin@scrye.com> - 3.18-1
 - Update to 3.18. Fixes rhbz#2332370
 

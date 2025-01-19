@@ -1,6 +1,6 @@
 Name:           jline2
 Version:        2.14.6
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Java library for handling console input
 License:        BSD-3-Clause
 URL:            http://jline.github.io/jline2/
@@ -79,6 +79,9 @@ find -name TerminalFactoryTest.java -delete
 %license LICENSE.txt
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.6-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.6-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

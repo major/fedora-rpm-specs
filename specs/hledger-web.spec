@@ -14,7 +14,7 @@
 Name:           %{pkg_name}
 Version:        1.32.3
 # can only be reset when subpkg bumped
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Web user interface for the hledger accounting system
 
 License:        GPL-3.0-or-later
@@ -272,6 +272,9 @@ PATH=%{buildroot}%{_bindir}:$PATH
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.32.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Jul 28 2024 Jens Petersen <petersen@redhat.com> - 1.32.3-1
 - https://hackage.haskell.org/package/hledger-web-1.32.3/changelog
 - yesod-test-1.6.16

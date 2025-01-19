@@ -9,7 +9,7 @@ of images based on fast booting VM images.
 
 Name:           kiwi-boxed-plugin
 Version:        0.2.38
-Release:        1%{?dist}
+Release:        2%{?dist}
 URL:            https://github.com/OSInside/kiwi-boxed-plugin
 Summary:        KIWI - Boxed Build Plugin
 License:        GPL-3.0-or-later
@@ -79,6 +79,9 @@ rm -f %{buildroot}%{_defaultdocdir}/python-%{srcname}/README
 %{python3_sitelib}/%{srcname}*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.38-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Sep 26 2024 Neal Gompa <ngompa@fedoraproject.org> - 0.2.38-1
 - Update to 0.2.38
 - Adapt for docopt->docopt-ng switch on F41+

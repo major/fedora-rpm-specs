@@ -95,8 +95,8 @@
 %global exclude_packages %{exclude_packages}"
 
 Name: subscription-manager
-Version: 1.30.2
-Release: 1%{?dist}
+Version: 1.30.3
+Release: 2%{?dist}
 Summary: Tools and libraries for subscription and repository management
 %if 0%{?suse_version}
 Group:   Productivity/Networking/System
@@ -117,6 +117,13 @@ Source0: %{name}-%{version}.tar.gz
 %if 0%{?suse_version}
 Source2: subscription-manager-rpmlintrc
 %endif
+
+# https://github.com/candlepin/subscription-manager/pull/3497
+# Stop using usermode (helps with sbin merge)
+Patch: 3497.patch
+# https://github.com/candlepin/subscription-manager/pull/3498
+# Don't hardcode /usr/sbin as install path for executable
+Patch: 3498.patch
 
 # The following macro examples are preceeded by '%' to stop macro expansion
 # in the comments. (See https://bugzilla.redhat.com/show_bug.cgi?id=1224660 for
@@ -360,7 +367,7 @@ cloud metadata and signatures.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 make -f Makefile VERSION=%{version}-%{release} CFLAGS="%{optflags}" \
@@ -385,6 +392,7 @@ make -f Makefile install VERSION=%{version}-%{release} \
     OS_VERSION=%{?fedora}%{?rhel}%{?suse_version} OS_DIST=%{dist} \
     COMPLETION_DIR=%{completion_dir} \
     RUN_DIR=%{run_dir} \
+    SBIN_DIR=%{_sbindir} \
     %{?install_ostree} %{?install_container} \
     %{?install_dnf_plugins} \
     %{?install_zypper_plugins} \
@@ -456,14 +464,6 @@ find %{buildroot} -name \*.py* -exec touch -r %{SOURCE0} '{}' \;
 %{_sbindir}/rcrhsm
 %{_sbindir}/rcrhsm-facts
 %{_sbindir}/rcrhsmcertd
-
-%else
-
-# symlink to console-helper
-%{_bindir}/subscription-manager
-# PAM config
-%{_sysconfdir}/pam.d/subscription-manager
-%{_sysconfdir}/security/console.apps/subscription-manager
 
 %endif
 
@@ -742,6 +742,13 @@ rmdir %{python_sitearch}/subscription_manager-*-*.egg-info --ignore-fail-on-non-
 rm -f /var/lib/rhsm/cache/rhsm_icon.json
 
 %changelog
+* Fri Jan 17 2025 Adam Williamson <awilliam@redhat.com> - 1.30.3-2
+- Backport PRs #3497 and #3498 to adapt to sbin merge
+
+* Thu Dec 19 2024 Packit <hello@packit.dev> - 1.30.3-1
+- Update to version 1.30.3
+- Resolves: rhbz#2333286
+
 * Thu Sep 26 2024 Pino Toscano <ptoscano@redhat.com> 1.30.2-1
 - Translated using Weblate (Georgian) (temuri.doghonadze@gmail.com)
 - feat: Create consumer cert & key owner by rhsm group (jhnidek@redhat.com)

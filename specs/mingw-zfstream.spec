@@ -7,7 +7,7 @@
 
 Name:           mingw-%{name1}
 Version:        %{vyear}%{vmonth}%{vday}
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        MinGW Windows abstraction API for reading and writing compressed files
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -104,6 +104,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 %{mingw64_libdir}/pkgconfig/zfstream.pc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20041202-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 20041202-44
 - convert license to SPDX
 

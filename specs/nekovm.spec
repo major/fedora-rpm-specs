@@ -1,6 +1,6 @@
 Name:           nekovm
 Version:        2.3.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Neko embedded scripting language and virtual machine
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -106,6 +106,9 @@ ulimit -s unlimited
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Sep 03 2024 Morten Stevens <mstevens@fedoraproject.org> - 2.3.0-17
 - Rebuilt for mbedTLS 3.6.1
 

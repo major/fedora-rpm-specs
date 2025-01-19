@@ -17,7 +17,7 @@
 
 Name:           mingw-qt6-%{qt_module}
 Version:        6.8.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Qt6 for Windows - Qt Positioning component
 
 # Base license is LGPLv3 or GPLv2
@@ -176,6 +176,9 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.8.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Dec 07 2024 Sandro Mani <manisandro@gmail.com> - 6.8.1-1
 - Update to 6.8.1
 

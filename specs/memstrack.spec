@@ -4,7 +4,7 @@
 
 Name:           memstrack
 Version:        0.2.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A memory allocation tracer, like a hot spot analyzer for memory allocation
 License:        GPL-3.0-only
 URL:            https://github.com/ryncsn/memstrack
@@ -35,6 +35,9 @@ install -p -m 755 memstrack %{buildroot}/%{_bindir}
 %{_bindir}/memstrack
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

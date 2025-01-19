@@ -2,7 +2,7 @@
 
 Name:           microdnf
 Version:        3.10.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Lightweight implementation of DNF in C
 
 License:        GPL-2.0-or-later
@@ -53,6 +53,9 @@ minimal environment possible so you can build up to exactly what you need.
 %{_bindir}/%{name}
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec 11 2024 Evan Goode <egoode@redhat.com> - 3.10.1-1
 - Update to 3.10.1
 - Correct spelling of summary

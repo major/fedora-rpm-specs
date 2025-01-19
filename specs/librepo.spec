@@ -31,7 +31,7 @@
 
 Name:           librepo
 Version:        1.19.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Repodata downloading library
 
 License:        LGPL-2.1-or-later
@@ -140,6 +140,9 @@ Python 3 bindings for the librepo library.
 %{python3_sitearch}/%{name}/
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 04 2024 Evan Goode <egoode@redhat.com> - 1.19.0-1
 - Fix input termination for pgpParsePkts
 - Convert all xattr strings to lower case to be compatible to Amazon S3 buckets

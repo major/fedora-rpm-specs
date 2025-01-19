@@ -17,7 +17,7 @@ entirely on NetBSD's sys/fs/efs.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.13%{?dist}
+Release:        0.14%{?dist}
 Summary:        A tool to convert SGI efs filesystems to tarballs
 
 # Upstream license specification: BSD-2-Clause
@@ -66,6 +66,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0-0.13
 - convert license to SPDX
 

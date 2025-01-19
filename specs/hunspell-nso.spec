@@ -7,7 +7,7 @@ Name: hunspell-nso
 Summary: Northern Sotho hunspell dictionaries
 %global upstreamid 20091201
 Version: 0.%{upstreamid}
-Release: 31%{?dist}
+Release: 32%{?dist}
 Source: https://downloads.sourceforge.net/project/aoo-extensions/3139/1/dict-ns_za-2009.12.01.oxt
 URL: https://extensions.openoffice.org/en/project/northern-sotho-spell-checker
 License: LGPL-2.1-or-later
@@ -45,6 +45,9 @@ cp -p ns_ZA.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/nso_ZA.aff
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20091201-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Aug 02 2024 Parag Nemade <pnemade AT redhat DOT com> - 0.20091201-31
 - Add conditional for RHEL for using hunspell directory
 - Add tmt CI tests

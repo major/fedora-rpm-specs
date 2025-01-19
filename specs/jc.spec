@@ -3,7 +3,7 @@ Summary: Serialize the output of CLI tools and file-types to structured JSON
 License: MIT
 
 Version: 1.25.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 URL: https://github.com/kellyjonbrazil/%{name}
 Source0: %{URL}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -75,6 +75,9 @@ TZ="America/Los_Angeles" ./runtests.sh
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.25.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Nov 29 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.25.4-1
 - Update to v1.25.4
 - Drop Patch0 (Python 3.13 compatibility - backport from this release)

@@ -3,7 +3,7 @@
 
 Name:       itop
 Version:    0.1
-Release:    22.20220502gitfb22eff1%{?dist}
+Release:    23.20220502gitfb22eff1%{?dist}
 Summary:    Interactive interrupt viewer
 
 License:    MIT
@@ -34,6 +34,9 @@ install -pm 0755 %{name} %{buildroot}%{_bindir}/%{name}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-23.20220502gitfb22eff1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Jan 12 2025 Florian Lehner <dev@der-flo.net> 0.1-22.20220502gitfb22eff1
 - Update package to commit fb22eff1cde008dc009e738736d844bfd6c594f2
 

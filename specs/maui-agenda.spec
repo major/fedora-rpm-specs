@@ -1,6 +1,6 @@
 Name:          maui-agenda
 Version:       1.0.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 # SPDX licenses missing from project, for the most part.
 License:       MIT AND GPL-3.0-or-later AND LGPL-3.0-only
 Summary:       Maui Calendar App for Plasma Mobile
@@ -60,5 +60,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml 
 %{_kf6_datadir}/icons/hicolor/scalable/apps/agenda.svg
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue May 14 2024 Steve Cossette <farchord@gmail.com> - 4.0.0-1
 - 4.0.0

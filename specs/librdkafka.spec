@@ -1,6 +1,6 @@
 Name:		librdkafka
 Version:	2.4.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	The Apache Kafka C library
 
 License:	Apache-2.0
@@ -89,6 +89,9 @@ find %{buildroot} -name '*-static.pc' -delete -print
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

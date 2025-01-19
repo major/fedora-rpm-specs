@@ -1,6 +1,6 @@
 Name:           jboss-parent
 Version:        20
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        JBoss Parent POM
 License:        CC0-1.0
 URL:            http://www.jboss.org/
@@ -47,6 +47,9 @@ sed -i 's/\r//' LICENSE
 %license LICENSE
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

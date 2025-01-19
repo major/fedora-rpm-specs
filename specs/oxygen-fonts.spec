@@ -3,7 +3,7 @@
 
 Name:           %{fontname}-fonts
 Version:        5.4.3
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Oxygen fonts created by the KDE Community
 
 # See LICENSE-GPL+FE for details about the exception
@@ -97,6 +97,9 @@ ln -s %{_fontconfig_templatedir}/%{fontconf}-mono.conf \
 %{_libdir}/cmake/OxygenFont/
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.3-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 5.4.3-25
 - convert license to SPDX
 

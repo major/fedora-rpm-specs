@@ -3,7 +3,7 @@
 
 Name:           k4dirstat
 Version:        3.2.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Graphical Directory Statistics for Used Disk Space
 
 # Automatically converted from old format: GPLv2 and LGPLv2 - review is highly recommended.
@@ -68,6 +68,9 @@ desktop-file-validate \
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 3.2.0-11
 - convert license to SPDX
 

@@ -32,12 +32,13 @@ A GUI tool that outputs ed2k-links for given files.
 %autosetup -p1
 
 %build
+export CFLAGS="$CXXFLAGS -DPROTOTYPES"
 %configure
 %make_build
 
 %install
 %make_install
-rm -rf %{buildroot}%{_docdir}/%{name}
+rm -rv %{buildroot}%{_docdir}/%{name}
 
 iconv -f iso8859-1 -t utf8 AUTHORS > AUTHORS.utf8 &&\
 touch -r AUTHORS AUTHORS.utf8 &&\

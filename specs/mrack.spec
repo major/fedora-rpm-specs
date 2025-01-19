@@ -1,6 +1,6 @@
 Name:           mrack
 Version:        1.23.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Multicloud use-case based multihost async provisioner
 
 License:        Apache-2.0
@@ -185,6 +185,9 @@ rm -r src/%{name}.egg-info
 %{python3_sitelib}/%{name}/providers/utils/{,__pycache__/}testcloud.*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.23.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 09 2025 David Pascual Hernandez <davherna@redhat.com> - 1.23.2-1
 - 600203c fix: Translate host_requires properly (David Pascual)
 

@@ -8,7 +8,7 @@ Name: hunspell-ast
 Summary: Asturian hunspell dictionaries
 Epoch: 1
 Version: 2.0
-Release: 15%{?dist}
+Release: 16%{?dist}
 Source: https://extensions.libreoffice.org/extensions/correutor-ortograficu-dasturianu/2.0/@@download/file/ort_ast_20190216_1129.oxt
 URL: http://softastur.org/
 License: GPL-1.0-or-later OR LGPL-2.1-or-later
@@ -37,6 +37,9 @@ cp -p dictionaries/ast.dic $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/ast_ES.di
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

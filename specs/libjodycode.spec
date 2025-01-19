@@ -1,6 +1,6 @@
 Name:           libjodycode
 Version:        3.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        General purpose utility functions
 
 License:        MIT
@@ -61,6 +61,9 @@ rm -rf %{buildroot}%{_mandir}/man7
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Jonathan Wright <jonathan@almalinux.org> - 3.1.1-1
 - update to 3.1.1
 

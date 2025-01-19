@@ -3,7 +3,7 @@ Summary:        Lazarus Component Library and IDE for Free Pascal
 
 Version:        3.6
 
-%global baserelease 2
+%global baserelease 3
 Release:        %{baserelease}%{?dist}
 
 # The qt5pas version is taken from lcl/interfaces/qt5/cbindings/Qt5Pas.pro
@@ -564,6 +564,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 09 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.6-2
 - Add a patch to fix SIGSEGV in programs built using Qt5 widgetset
 

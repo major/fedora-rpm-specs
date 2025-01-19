@@ -2,7 +2,7 @@ Name:       lector
 Summary:    Ebook reader and collection manager
 URL:        https://github.com/BasioMeusPuga/Lector
 Version:    0.5.1
-Release:    17%{?dist}
+Release:    18%{?dist}
 BuildArch:  noarch
 
 # Lector uses GPLv3, the bundled Rarfile library uses the MIT license.
@@ -117,6 +117,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/io.github.Bas
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5.1-17
 - convert license to SPDX
 

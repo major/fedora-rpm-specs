@@ -1,7 +1,7 @@
 Name:           ltunify
 URL:            https://lekensteyn.nl/logitech-unifying.html
 Version:        0.1
-Release:        25%{?dist}
+Release:        26%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 Summary:        Command line utility for Logitech Unifying Receiver
@@ -37,6 +37,9 @@ install -p -m0755 usbmon.awk %{buildroot}%{_bindir}
 %{_bindir}/usbmon.awk
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1-25
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           pdfmerge
 Version:        1.0.6
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Command line utility program for merging PDF files
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -36,6 +36,9 @@ install -Dpm 755 %{name} $RPM_BUILD_ROOT%{_bindir}/%{name}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.6-16
 - convert license to SPDX
 

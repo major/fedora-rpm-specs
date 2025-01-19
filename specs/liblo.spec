@@ -1,6 +1,6 @@
 Name:         liblo
 Version:      0.32
-Release:      3%{?dist}
+Release:      4%{?dist}
 Summary:      Open Sound Control library
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:      LicenseRef-Callaway-LGPLv2+
@@ -62,6 +62,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.32-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.32-3
 - convert license to SPDX
 

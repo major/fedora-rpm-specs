@@ -1,7 +1,7 @@
 Name: libdap
 Summary: The C++ DAP2 and DAP4 library from OPeNDAP
 Version: 3.21.0.120
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 %global libdap_tag 3.21.0-120
 
@@ -134,6 +134,9 @@ make check || :
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.21.0.120-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 15 2024 Orion Poplawski <orion@nwra.com> - 3.21.0.120-1
 - Update to 3.21.0-120
 

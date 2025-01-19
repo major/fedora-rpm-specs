@@ -1,7 +1,7 @@
 Summary:       Grep-like tool for source code
 Name:          grin
 Version:       1.3.0
-Release:       16%{?dist}
+Release:       17%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:       LicenseRef-Callaway-BSD
 URL:           http://pypi.python.org/pypi/grin
@@ -47,6 +47,9 @@ sed -i -e '1d' grin.py
 %{python3_sitelib}/__pycache__/grin.*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3.0-16
 - convert license to SPDX
 

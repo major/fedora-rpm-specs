@@ -2,7 +2,7 @@
 
 Name:           libdatachannel
 Version:        0.21.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        WebRTC network library featuring Data Channels, Media Transport, and WebSockets
 
 License:        MPL-2.0
@@ -63,6 +63,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Oct 05 2024 Neal Gompa <ngompa@fedoraproject.org> - 0.21.2-2
 - Set cmake build type
 

@@ -1,6 +1,6 @@
 Name:           med
 Version:        5.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library to exchange meshed data
 
 License:        LGPL-3.0-or-later
@@ -131,6 +131,9 @@ rm -rf %{buildroot}%{_bindir}/testpy
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 25 2024 Orion Poplawski <orion@nwra.com> - 5.0.0-2
 - Rebuild for hdf5 1.14.5
 

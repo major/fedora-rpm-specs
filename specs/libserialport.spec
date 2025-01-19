@@ -1,6 +1,6 @@
 Name:           libserialport
 Version:        0.1.1
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Library for accessing serial ports
 # Automatically converted from old format: LGPLv3+ - review is highly recommended.
 License:        LGPL-3.0-or-later
@@ -83,6 +83,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.1-20
 - convert license to SPDX
 

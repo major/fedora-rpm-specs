@@ -50,7 +50,7 @@ Name:		ugene
 Summary:	Integrated bioinformatics toolkit
 
 Version:	%{fedoraver}
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 #The entire source code is GPLv2+ except:
 #file src/libs_3rdparty/qtbindings_core/src/qtscriptconcurrent.h which is GPLv2
@@ -72,6 +72,7 @@ Source2:	create-%{name}-git-bare-tarball.sh
 # This is not installed
 Source10:	ugene.wrapper
 Patch1:	ugene-49.1-narrowing-for-unsigned-char.patch
+Patch2:	ugene-51.0-c23-function-proto.patch
 # Currently distro-specific
 Patch102:	ugene-44.x-libs_3rdparty-breakpad-sys_mmap_use_system_mmap.patch
 Patch103:	ugene-40.1-libs_3rdparty-breakpad-unwind-nonsupported-arch.patch
@@ -138,6 +139,8 @@ git config user.email "%{name}-maintainers@fedoraproject.org"
 %endif
 %patch -P1 -p1 -b .narrow
 	%GIT commit -m "Fix narrowing on arch where default char is unsigned" -a
+%patch -P2 -p1 -b .c23
+	%GIT comit -m "Fix for C23 strict function prototype" -a
 %patch -P102 -p1 -b .sys_mmap -Z
 	%GIT commit -m "libs_3rdparty/breakpad: use C function instead of directly using syscall assemble code" -a
 %patch -P103 -p1 -b .unwind -Z
@@ -260,6 +263,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jan 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 51.0-2
+- Support C23 strict function prototype
+
 * Thu Sep 26 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 51.0-1
 - 51.0
 

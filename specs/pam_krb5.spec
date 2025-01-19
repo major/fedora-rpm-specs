@@ -1,7 +1,7 @@
 Summary:	A Pluggable Authentication Module for Kerberos 5
 Name:		pam_krb5
 Version:	4.11
-Release:	8%{?dist}
+Release:	9%{?dist}
 # Automatically converted from old format: MIT and BSD - review is highly recommended.
 License:	LicenseRef-Callaway-MIT AND LicenseRef-Callaway-BSD
 Group:		System/Libraries
@@ -66,6 +66,9 @@ rm -f %{buildroot}/%{_pam_libdir}/security/*.la
 %{_mandir}/man5/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.11-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 2 2024 Miroslav Suchý <msuchy@redhat.com> - 4.11-8
 - convert license to SPDX
 

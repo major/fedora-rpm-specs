@@ -3,7 +3,7 @@
 
 Name:		mupen64plus
 Version:	2.6.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 
 Summary:	Nintendo 64 Emulator
 # Automatically converted from old format: GPLv2+ and CC-BY-SA - review is highly recommended.
@@ -13,6 +13,8 @@ Source:		https://github.com/mupen64plus/mupen64plus-core/releases/download/%{ver
 
 # https://github.com/mupen64plus/mupen64plus-core/issues/1104
 Patch1:		search-lib64.patch
+# Fix missing includes bubbling up due to sdl-compat
+Patch2:		add-includes.patch
 
 BuildRequires:	pkgconfig(SDL_ttf)
 BuildRequires:	pkgconfig(lirc)
@@ -112,6 +114,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/mupen64plus.desktop
 %{_libdir}/libmupen64plus.so
 
 %changelog
+* Fri Jan 17 2025 David Auer <dreua@posteo.de> - 2.6.0-4
+- Fix build on rawhide (42)
+
 * Wed Jan 08 2025 David Auer <dreua@posteo.de> - 2.6.0-3
 - Add patch for the plugin search path
 

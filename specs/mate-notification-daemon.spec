@@ -15,9 +15,9 @@
 Name:           mate-notification-daemon
 Version:        %{branch}.0
 %if 0%{?rel_build}
-Release:        4%{?dist}
+Release:        5%{?dist}
 %else
-Release:        0.24%{?git_rel}%{?dist}
+Release:        0.25%{?git_rel}%{?dist}
 %endif
 Summary:        Notification daemon for MATE Desktop
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -107,6 +107,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/mate-notification
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Sep 19 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.28.0-4
 - use https://github.com/mate-desktop/mate-notification-daemon/commit/90b39ec
 

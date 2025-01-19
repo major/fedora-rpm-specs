@@ -4,7 +4,7 @@
 
 Name:           mingw-%{base}
 Version:        1.1.1
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Theora Video Compression Codec
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -182,6 +182,9 @@ rm -fv %{buildroot}/%{mingw64_libdir}/*.la
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1.1-24
 - convert license to SPDX
 

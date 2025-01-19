@@ -37,7 +37,7 @@
 Name:           octave
 Epoch:          6
 Version:        9.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A high-level language for numerical computations
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -457,6 +457,9 @@ make check
 %{_pkgdocdir}/refcard*.pdf
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6:9.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 01 2025 Orion Poplawski <orion@nwra.com> - 6:9.3.0-1
 - Update to 9.3.0
 

@@ -3,7 +3,7 @@
 
 Name:		uget
 Version:	%{mainver}
-Release:	13%{?minorver:.respin%minorver}%{?dist}
+Release:	14%{?minorver:.respin%minorver}%{?dist}
 Summary:	Download manager using GTK+ and libcurl
 
 # Overall		LGPL-2.1-or-later
@@ -13,6 +13,7 @@ License:	LGPL-2.1-or-later
 URL:		http://ugetdm.com/
 Source0:	http://downloads.sourceforge.net/urlget/%{name}-%{mainver}%{?minorver:-%minorver}.tar.gz
 Patch0:		uget-2.2.3-gcc10-fno-common.patch
+Patch1:		uget-2.2.3-c23-function-proto.patch
 
 BuildRequires: make
 BuildRequires:	gcc
@@ -38,22 +39,20 @@ be inherited by each download in that category.
 %prep
 %setup -q -n %{name}-%{mainver}
 %patch -P0 -p1 -b .gcc10
+%patch -P1 -p1 -b .c23
 
 %global optflags_orig %optflags
 %global optflags %optflags -Werror=implicit-function-declaration
 
 %build
-
 %configure \
 	--with-gnutls \
 	--without-openssl
 
-make -k %{?_smp_mflags}
+%make_build
 
 %install
-make install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	INSTALL="install -p"
+%make_install
 desktop-file-install \
 	--dir $RPM_BUILD_ROOT%{_datadir}/applications \
 	--delete-original \
@@ -77,6 +76,9 @@ desktop-file-install \
 %{_datadir}/pixmaps/%{name}/logo.png
 
 %changelog
+* Fri Jan 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.2.3-14.respin1
+- Support C23 strict prototype
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-13.respin1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

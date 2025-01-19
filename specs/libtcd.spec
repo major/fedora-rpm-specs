@@ -3,7 +3,7 @@
 
 %global		mainver		2.2.7
 
-%global		baserelease	8
+%global		baserelease	9
 %global		rpmrel		%{baserelease}%{?postver:.%postrpmver}
 
 Name:		libtcd
@@ -66,6 +66,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/%{name}/*html
 %{_libdir}/*.so
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.7-9.r3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.7-8.r3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

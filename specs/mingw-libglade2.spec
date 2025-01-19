@@ -2,7 +2,7 @@
 
 Name:           mingw-libglade2
 Version:        2.6.4
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        MinGW Windows Libglade2 library
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -144,6 +144,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.6.4-40
 - convert license to SPDX
 

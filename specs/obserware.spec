@@ -2,7 +2,7 @@
 
 Name:           obserware
 Version:        0.2.9
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        An advanced system monitor utility written in Python and Qt
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -51,6 +51,9 @@ appstream-util validate-relax --nonet %{buildroot}%{python3_sitelib}/%{name}/app
 %{_datadir}/pixmaps/%{uuid}.png
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.9-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.9-12
 - convert license to SPDX
 

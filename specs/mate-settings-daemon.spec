@@ -19,9 +19,9 @@
 Name:           mate-settings-daemon
 Version:        %{branch}.0
 %if 0%{?rel_build}
-Release:        3%{?dist}
+Release:        4%{?dist}
 %else
-Release:        0.20%{?git_rel}%{?dist}
+Release:        0.21%{?git_rel}%{?dist}
 %endif
 Summary:        MATE Desktop settings daemon
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -144,6 +144,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/mate-settings-dae
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.28.0-3
 - convert license to SPDX
 

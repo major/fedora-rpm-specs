@@ -7,7 +7,7 @@
 
 Name:           perl-Coro-Multicore
 Version:        1.07
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Make Coro threads on multiple cores with specially supported modules
 # COPYING:          GPL-1.0-or-later OR Artistic-1.0-Perl
 # perlmulticore.h:  LicenseRef-Fedora-Public-Domain OR CC0-1.0
@@ -159,6 +159,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 26 2024 Petr Pisar <ppisar@redhat.com> - 1.07-14
 - Convert a license tag to SPDX
 

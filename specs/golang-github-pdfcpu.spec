@@ -14,7 +14,7 @@ A PDF processor written in Go.}
 %global godocs          CODE_OF_CONDUCT.md README.md
 
 Name:           %{goname}
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A PDF processor written in Go
 
 # Upstream license specification: Apache-2.0
@@ -57,6 +57,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.13-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.3.13-11
 - convert license to SPDX
 

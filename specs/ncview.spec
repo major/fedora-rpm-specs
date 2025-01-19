@@ -1,6 +1,6 @@
 Name:           ncview
 Version:        2.1.10
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A visual browser for netCDF format files
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -64,6 +64,9 @@ chrpath -l -d %{buildroot}%{_bindir}/ncview
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.10-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 18 2024 Orion Poplawski <orion@nwra.com> - 2.1.10-4
 - Add patch to fix FTBFS (rhbz#2300985)
 

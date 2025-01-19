@@ -8,7 +8,7 @@
 
 Name:           lua-lxc
 Version:        3.0.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Lua binding for LXC
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -52,6 +52,9 @@ The lua-lxc package contains the Lua binding for LXC.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep  2 2024 Miroslav Suchý <msuchy@redhat.com> - 3.0.2-18
 - convert license to SPDX
 

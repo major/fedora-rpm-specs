@@ -3,7 +3,7 @@
 
 Name:           patchelf
 Version:        0.18.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A utility for patching ELF binaries
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -55,6 +55,9 @@ rm -rf %{buildroot}/usr/share/doc/%{name}
 %{_datadir}/zsh/site-functions/_patchelf
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.18.0-6
 - convert license to SPDX
 

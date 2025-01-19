@@ -8,7 +8,7 @@
 
 Name:           grace
 Version:        5.1.25
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Numerical Data Processing and Visualization Tool
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -192,6 +192,9 @@ rm __dist_doc/doc/Makefile __dist_doc/doc/*.sgml
 %{_datadir}/%{name}/lib
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.25-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 5.1.25-41
 - convert license to SPDX
 

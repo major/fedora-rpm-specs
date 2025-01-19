@@ -1,6 +1,6 @@
 Name:           pcp2pdf
 Version:        0.3
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Utility to create PDF reports from PCP archives
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -54,6 +54,9 @@ rm -rf $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.3-35
 - convert license to SPDX
 

@@ -2,7 +2,7 @@
 
 Name:    libzip
 Version: 1.11.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: C library for reading, creating, and modifying zip archives
 
 License: BSD-3-Clause
@@ -116,6 +116,9 @@ sed -e '/clone-fs-/d' \
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov  4 2024 Remi Collet <remi@remirepo.net> - 1.11.2-1
 - update to 1.11.2
 

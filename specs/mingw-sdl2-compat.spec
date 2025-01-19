@@ -1,11 +1,11 @@
 %{?mingw_package_header}
 
-%global commit c368587979b4c69b79f864f3ff7a2c53a71644c9
+%global commit 10a9ed3db4fdaaa27912acf11b8d7561003c4f81
 %global shortcommit %{sub %{commit} 1 7}
-%global commitdate 20250107
+%global commitdate 20250116
 
 %global origname sdl2-compat
-%global sdl3_minver 3.1.8
+%global sdl3_minver 3.1.10
 
 Name:           mingw-%{origname}
 Version:        2.30.50~git%{commitdate}.%{shortcommit}
@@ -132,6 +132,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/aclocal
 
 
 %changelog
+* Fri Jan 17 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.30.50~git20250116.10a9ed3-1
+- Bump to new git snapshot
+
 * Sun Jan 12 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.30.50~git20250107.c368587-1
 - Bump to new git snapshot
 

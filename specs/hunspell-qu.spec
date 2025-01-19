@@ -6,7 +6,7 @@
 Name: hunspell-qu
 Summary: Quechua Ecuador hunspell dictionaries
 Version: 0.9
-Release: 29%{?dist}
+Release: 30%{?dist}
 # Following links is dead now
 Source: http://extensions.services.openoffice.org/e-files/2121/8/qu_EC-0.9.oxt
 URL: http://extensions.services.openoffice.org/project/KichwaSpellchecker
@@ -35,6 +35,9 @@ cp -p qu_EC.aff qu_EC.dic $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

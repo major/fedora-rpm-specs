@@ -1,7 +1,7 @@
 # This file is lincensed under the terms of GPLv2+.
 Name:           perl-Fedora-Rebuild
 Version:        0.12.1
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Rebuilds Fedora packages from scratch
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -136,6 +136,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.1-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.12.1-34
 - convert license to SPDX
 

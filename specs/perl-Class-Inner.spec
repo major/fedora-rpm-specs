@@ -1,6 +1,6 @@
 Name:           perl-Class-Inner
 Version:        0.200001
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        A perlish implementation of Java like inner classes
 
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -49,6 +49,9 @@ make test
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.200001-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 0.200001-40
 - convert license to SPDX
 

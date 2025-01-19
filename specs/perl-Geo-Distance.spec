@@ -1,6 +1,6 @@
 Name:           perl-Geo-Distance
 Version:        0.25
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Calculate distances and closest locations
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Geo-Distance
@@ -87,6 +87,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Sep 05 2024 Petr Pisar <ppisar@redhat.com> - 0.25-14
 - Modernize a spec file
 

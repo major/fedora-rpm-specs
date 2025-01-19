@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	18%{?dist}
+Release:	19%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -602,6 +602,9 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg
 %endif
 
 %changelog
+* Mon Jan 13 2025 Leo Sandoval <lsandova@redhat.com> 2.12-19
+- term/nns8250-spcr: return if redirection is disabled
+
 * Thu Jan 9 2025 Nicolas Frayer <nfrayer@redhat.com> - 2.12-18
 - fs/xfs: fix large extent counters incompat feature support
 

@@ -10,7 +10,7 @@ image root directory.
 
 Name:           kiwi-stackbuild-plugin
 Version:        1.0.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 URL:            https://github.com/OSInside/kiwi-stackbuild-plugin
 Summary:        KIWI - Stack Build Plugin
 License:        GPL-3.0-or-later
@@ -83,6 +83,9 @@ rm -f %{buildroot}%{_defaultdocdir}/python-%{srcname}/README
 %{python3_sitelib}/%{srcname}*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Nov 15 2024 Neal Gompa <ngompa@fedoraproject.org> - 1.0.10-1
 - Initial package
 

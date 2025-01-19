@@ -36,7 +36,7 @@
 
 Name:			lxappearance
 Version:		%{main_version}%{git_ver_rpm}
-Release:		2%{?dist}
+Release:		3%{?dist}
 Summary:		Feature-rich GTK+ theme switcher for LXDE
 
 # SPDX confirmed
@@ -191,6 +191,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3^20240817git95d5b02e-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Aug 30 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.6.3^20240817git95d5b02e-2
 - Own plugin directory
 

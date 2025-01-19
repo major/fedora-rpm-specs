@@ -2,7 +2,7 @@
 
 Name:    hyperscan
 Version: 5.4.1
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: High-performance regular expression matching library
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -88,6 +88,9 @@ needed for developing Hyperscan applications.
 %{_includedir}/hs/
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 5.4.1-7
 - convert license to SPDX
 

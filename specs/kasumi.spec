@@ -5,7 +5,7 @@
 
 Name:    kasumi
 Version: 2.5
-Release: 47%{?dist}
+Release: 48%{?dist}
 
 License: GPL-2.0-or-later
 URL:     http://kasumi.sourceforge.jp/
@@ -114,6 +114,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Sep  5 2024 Akira TAGOH <tagoh@redhat.com> - 2.5-47
 - Fix a crash on closing.
   Resolves: rhbz#1936817

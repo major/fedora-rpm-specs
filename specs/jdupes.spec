@@ -1,6 +1,6 @@
 Name:           jdupes
 Version:        1.28.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Duplicate file finder and an enhanced fork of 'fdupes'
 
 License:        MIT
@@ -44,6 +44,9 @@ prompting the user."
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Jonathan Wright <jonathan@almalinux.org> - 1.28.0-1
 - update to 1.28.0
 

@@ -17,13 +17,13 @@
 
 
 Name:           SDL3
-Version:        3.1.8
-Release:        3%{?dist}
+Version:        3.1.10
+Release:        1%{?dist}
 Summary:        Cross-platform multimedia library
 License:        Zlib AND MIT AND Apache-2.0 AND (Apache-2.0 OR MIT)
 URL:            http://www.libsdl.org/
 #Source0:        http://www.libsdl.org/release/%{name}-%{version}.tar.gz
-Source0:        https://github.com/libsdl-org/SDL/releases/download/preview-%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/libsdl-org/SDL/releases/download/prerelease-%{version}/%{name}-%{version}.tar.gz
 Source1:        SDL3_revision.h
 
 # Patches from upstream
@@ -130,7 +130,7 @@ Testing libraries for SDL3.
 
 %prep
 %autosetup -S git_am
-sed -e 's/\r//g' -i README.md WhatsNew.txt BUGS.txt LICENSE.txt CREDITS.md README-SDL.txt
+sed -e 's/\r//g' -i README.md WhatsNew.txt BUGS.txt LICENSE.txt CREDITS.md
 
 
 %build
@@ -138,7 +138,7 @@ sed -e 's/\r//g' -i README.md WhatsNew.txt BUGS.txt LICENSE.txt CREDITS.md READM
 export LDFLAGS="%{shrink:%{build_ldflags}}"
 
 %cmake \
-    -DSDL_DISABLE_INSTALL_DOCS=NO \
+    -DSDL_INSTALL_DOCS=ON \
     -DSDL_DLOPEN=ON \
     -DSDL_VIDEO_KMSDRM=ON \
     -DSDL_ARTS=OFF \
@@ -171,12 +171,10 @@ export LDFLAGS="%{shrink:%{build_ldflags}}"
 mv %{buildroot}%{_includedir}/SDL3/SDL_revision.h %{buildroot}%{_includedir}/SDL3/SDL_revision-%{_arch}.h
 install -p -m 644 %{SOURCE1} %{buildroot}%{_includedir}/SDL3/SDL_revision.h
 
-# Delete conflicting man pages
-rm -v %{buildroot}%{_mandir}/man3/{S,U}int*.3type*
 
 %files
 %license LICENSE.txt
-%doc BUGS.txt CREDITS.md README-SDL.txt
+%doc BUGS.txt CREDITS.md README.md
 %{_libdir}/libSDL3.so.0{,.*}
 
 %files devel
@@ -204,6 +202,9 @@ rm -v %{buildroot}%{_mandir}/man3/{S,U}int*.3type*
 
 
 %changelog
+* Thu Jan 16 2025 Neal Gompa <ngompa@fedoraproject.org> - 3.1.10-1
+- Update to 3.1.10
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

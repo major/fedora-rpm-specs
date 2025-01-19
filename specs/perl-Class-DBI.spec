@@ -1,6 +1,6 @@
 Name:           perl-Class-DBI
 Version:        3.0.17
-Release:        50%{?dist}
+Release:        51%{?dist}
 Summary:        Simple Database Abstraction
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -70,6 +70,9 @@ find $RPM_BUILD_ROOT -type f -name .packlist -delete
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.17-51
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 3.0.17-50
 - convert license to SPDX
 

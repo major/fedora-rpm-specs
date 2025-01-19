@@ -1,6 +1,6 @@
 Name:           perl-AI-Categorizer
 Version:        0.09
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Automatic Text Categorization
 
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -89,6 +89,9 @@ find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 0.09-36
 - convert license to SPDX
 

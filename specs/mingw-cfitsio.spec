@@ -5,7 +5,7 @@
 Name:          mingw-%{pkgname}
 # NOTE: sync SOVER in cfitsio_build.patch with the one in configure.in
 Version:       4.5.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       MinGW Windows CFITSIO library
 
 License:       CFITSIO
@@ -112,6 +112,9 @@ MINGW64_CMAKE_ARGS="-DINCLUDE_INSTALL_DIR=%{mingw64_includedir}/cfitsio" \
 %{mingw64_bindir}/funpack.exe
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Sep 26 2024 Sandro Mani <manisandro@gmail.com> - 4.5.0-2
 - Pass -DCMAKE_DLL_NAME_WITH_SOVERSION=ON
 

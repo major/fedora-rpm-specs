@@ -6,7 +6,7 @@ ExcludeArch:   %{ix86}
 Name:           libCombine
 Summary:        C++ library for working with the COMBINE Archive format
 Version:        0.2.20
-Release:        8%{?dist}
+Release:        9%{?dist}
 URL:            https://github.com/sbmlteam/libCombine
 Source0:        %{url}/archive/%{version}/libCombine-%{version}.tar.gz
 
@@ -123,6 +123,9 @@ rm -rf %{buildroot}%{_datadir}
 %endif
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.20-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.20-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

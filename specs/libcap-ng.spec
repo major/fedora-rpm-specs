@@ -1,7 +1,7 @@
 Summary: Alternate posix capabilities library
 Name: libcap-ng
 Version: 0.8.5
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: LGPL-2.0-or-later
 URL: https://people.redhat.com/sgrubb/libcap-ng/
 Source0: https://people.redhat.com/sgrubb/libcap-ng/%{name}-%{version}.tar.gz
@@ -91,6 +91,9 @@ make check
 %attr(0644,root,root) %{_mandir}/man8/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

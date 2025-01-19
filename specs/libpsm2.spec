@@ -53,7 +53,7 @@
 Summary: Intel PSM Libraries
 Name: libpsm2
 Version: 12.0.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 # Automatically converted from old format: BSD or GPLv2 - review is highly recommended.
 License: LicenseRef-Callaway-BSD OR GPL-2.0-only
 URL: https://github.com/cornelisnetworks/opa-psm2/
@@ -137,6 +137,9 @@ rm -f %{buildroot}%{_libdir}/*.a
 %endif
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 12.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Nov 12 2024 Kamal Heib <kheib@redhat.com> - 12.0.1-1
 - Rebase to upstream release PSM2_12.0.1
 

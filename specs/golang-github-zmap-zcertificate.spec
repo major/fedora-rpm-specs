@@ -14,7 +14,7 @@ ZCertificate parses X.509 certificates and runs ZLint.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Command line utility for parsing certificates
 
 # Upstream license specification: Apache-2.0
@@ -69,6 +69,9 @@ popd
 %gopkgfiles
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.0.1-15
 - convert license to SPDX
 

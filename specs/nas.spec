@@ -1,7 +1,7 @@
 Name:       nas 
 Summary:    The Network Audio System (NAS)
 Version:    1.9.5
-Release:    11%{?dist}
+Release:    12%{?dist}
 URL:        http://radscan.com/nas.html
 # README:               MIT (main license)
 # lib/audio/aiff.c          MIT (with Apple warranty declaration)
@@ -154,6 +154,9 @@ rm -fv $RPM_BUILD_ROOT%{_libdir}/lib*.a
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

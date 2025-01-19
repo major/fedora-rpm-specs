@@ -3,7 +3,7 @@
 
 Name:           mediaconch
 Version:        23.10
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Most relevant technical and tag data for video and audio files (CLI)
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -180,6 +180,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 23.10-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 23.10-5
 - convert license to SPDX
 

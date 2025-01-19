@@ -1,6 +1,6 @@
 Name:           perl-Eval-LineNumbers
 Version:        0.35
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Add line numbers to hereis blocks that contain perl source code
 # Automatically converted from old format: Artistic 2.0 or LGPLv2+ - review is highly recommended.
 License:        Artistic-2.0 OR LicenseRef-Callaway-LGPLv2+
@@ -38,6 +38,9 @@ eval'ed so that error messages will point back to the right place.
 %{_mandir}/man3/Eval::LineNumbers.3pm.gz
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.35-11
 - convert license to SPDX
 

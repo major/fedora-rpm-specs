@@ -2,7 +2,7 @@
 
 Name:           mingw-libtasn1
 Version:        4.19.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        MinGW Windows libtasn1 library
 
 # The libtasn1 library is LGPLv2+, utilities are GPLv3+;
@@ -99,6 +99,9 @@ rm -f %{buildroot}%{mingw64_bindir}/*.exe
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.19.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 4.19.0-7
 - convert license to SPDX
 

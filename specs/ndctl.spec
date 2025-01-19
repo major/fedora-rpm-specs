@@ -1,6 +1,6 @@
 Name:		ndctl
 Version:	80
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Manage "libnvdimm" subsystem devices (Non-volatile Memory)
 License:	GPL-2.0-only AND LGPL-2.1-only AND CC0-1.0 AND MIT
 Url:		https://github.com/pmem/ndctl
@@ -240,6 +240,9 @@ fi
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 80-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 11 2024 Alison Schofield <alison.schofield@intel.com> - 80-1
 - release v80
 

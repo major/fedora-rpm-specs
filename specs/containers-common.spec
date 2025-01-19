@@ -6,8 +6,8 @@
 
 # Packit will automatically update the image and storage versions on Fedora and
 # CentOS Stream dist-git PRs.
-%global image_branch v5.33.0
-%global storage_branch v1.56.0
+%global image_branch v5.33.1
+%global storage_branch v1.56.1
 %global shortnames_branch main
 
 %global project containers
@@ -39,7 +39,7 @@ Epoch: 5
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 0.61.0
+Version: 0.61.1
 Release: %autorelease
 License: Apache-2.0
 BuildArch: noarch
@@ -141,7 +141,7 @@ done
 
 %install
 # install config and policy files for registries
-install -dp %{buildroot}%{_sysconfdir}/containers/{certs.d,oci/hooks.d,systemd}
+install -dp %{buildroot}%{_sysconfdir}/containers/{certs.d,oci/hooks.d,networks,systemd}
 install -dp %{buildroot}%{_sharedstatedir}/containers/sigstore
 install -dp %{buildroot}%{_datadir}/containers/systemd
 install -dp %{buildroot}%{_prefix}/lib/containers/storage
@@ -187,6 +187,7 @@ ln -s ../../../..%{_sysconfdir}/yum.repos.d/redhat.repo %{buildroot}%{_datadir}/
 %files
 %dir %{_sysconfdir}/containers
 %dir %{_sysconfdir}/containers/certs.d
+%dir %{_sysconfdir}/containers/networks
 %dir %{_sysconfdir}/containers/oci
 %dir %{_sysconfdir}/containers/oci/hooks.d
 %dir %{_sysconfdir}/containers/registries.conf.d

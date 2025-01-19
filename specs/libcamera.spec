@@ -1,6 +1,6 @@
 Name:    libcamera
 Version: 0.4.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A library to support complex camera ISPs
 # see .reuse/dep5 and COPYING for details
 License: LGPL-2.1-or-later
@@ -204,6 +204,9 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 %{python3_sitearch}/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 10 2025 Milan Zamazal <mzamazal@redhat.com> - 0.4.0-2
 - Rebuilt with a side tag, to rebuilt pipewire against the new .so version.
 

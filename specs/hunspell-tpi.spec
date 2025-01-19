@@ -7,7 +7,7 @@
 Name: hunspell-tpi
 Summary: Tok Pisin hunspell dictionaries
 Version: 0.07
-Release: 26%{?dist}
+Release: 27%{?dist}
 Source: https://downloads.sourceforge.net/project/aoo-extensions/4824/3/hunspell-tpi-0.07.oxt
 URL: http://extensions.services.openoffice.org/en/project/tok-pisin-spell-checker
 License: GPL-3.0-or-later
@@ -34,6 +34,9 @@ cp -p dictionaries/tpi_PG.* $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

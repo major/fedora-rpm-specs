@@ -15,7 +15,7 @@
 
 Name:           lxdm
 Version:        %{main_version}%{?git_version:^%{?git_version}}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Lightweight X11 Display Manager
 
 # src/*.c	GPL-3.0-or-later
@@ -199,6 +199,9 @@ install -m644 -p -D %{SOURCE2} %{buildroot}%{_unitdir}-preset/83-fedora-lxdm.pre
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3^20220831git2d4ba970-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Aug 25 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.3^20220831git2d4ba970-5
 - Remove deprecated PATH with usrmove (bug 2276996)
 

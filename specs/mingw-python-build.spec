@@ -10,7 +10,7 @@
 Name:           mingw-python-%{pypi_name}
 Summary:        MinGW Python %{pypi_name} library
 Version:        1.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 BuildArch:      noarch
 
 License:        MIT
@@ -129,6 +129,9 @@ install -Dpm 0644 %{SOURCE2} %{buildroot}%{_rpmconfigdir}/macros.d/macros.mingw6
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Sep 10 2024 Sandro Mani <manisandro@gmail.com> - 1.2.2-1
 - Update to 1.2.2
 

@@ -3,7 +3,7 @@
 
 Name:           %{fontname}-fonts
 Version:        3.000
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Inconsolata fonts
 
 # Automatically converted from old format: OFL - review is highly recommended.
@@ -50,6 +50,9 @@ install -Dm 0644 -p %{SOURCE2} \
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.000-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 3.000-13
 - convert license to SPDX
 

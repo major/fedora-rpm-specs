@@ -10,7 +10,7 @@
 
 Name:           mingw-headers
 Version:        12.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Win32/Win64 header files
 
 License:        BSD-3-Clause AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later AND ZPL-2.1 AND MIT-Khronos-old AND LicenseRef-Fedora-Public-Domain
@@ -113,6 +113,9 @@ rm -f %{buildroot}%{ucrt64_includedir}/pthread_unistd.h
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 12.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Sep 24 2024 Sandro Mani <manisandro@gmail.com> - 12.0.0-3
 - Pass --with-default-msvcrt=msvcrt when building mingw32/64-headers
 

@@ -1,6 +1,6 @@
 Name:		libsrtp
 Version:	2.6.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	An implementation of the Secure Real-time Transport Protocol (SRTP)
 License:	BSD-3-Clause
 URL:		https://github.com/cisco/libsrtp
@@ -51,6 +51,9 @@ developing applications that use %{name}.
 %{_libdir}/*.so
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug  5 2024 Tom Callaway <spot@fedoraproject.org> - 2.6.0-1
 - update to 2.6.0
 

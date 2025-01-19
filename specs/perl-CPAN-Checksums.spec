@@ -1,6 +1,6 @@
 Name:           perl-CPAN-Checksums
 Version:        2.14
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Write a CHECKSUMS file for a directory as on CPAN
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-Checksums
@@ -76,6 +76,9 @@ rm -r "$GNUPGHOME"
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.14-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.14-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

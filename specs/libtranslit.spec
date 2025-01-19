@@ -1,6 +1,6 @@
 Name:		libtranslit
 Version:	0.0.3
-Release:	46%{?dist}
+Release:	47%{?dist}
 Summary:	ASCII to Unicode transliteration library with multiple backends
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -84,6 +84,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f '{}' ';'
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Dec 08 2024 Pete Walter <pwalter@fedoraproject.org> - 0.0.3-46
 - Rebuild for ICU 76
 

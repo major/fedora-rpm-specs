@@ -2,7 +2,7 @@
 
 Name:		mingw-portablexdr
 Version:	4.9.1
-Release:	35%{?dist}
+Release:	36%{?dist}
 Summary:	MinGW Windows PortableXDR / RPC Library
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -106,6 +106,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.1-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 4.9.1-35
 - convert license to SPDX
 

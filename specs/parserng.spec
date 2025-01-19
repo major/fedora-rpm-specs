@@ -2,7 +2,7 @@ Summary: %{nice_name} is a powerful open-source tool that parses and evaluates a
 %global nice_name ParserNG
 Name: parserng
 Version: 0.1.9
-Release: 8%{?dist}
+Release: 9%{?dist}
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
 URL: https://github.com/gbenroscience/ParserNG
@@ -76,6 +76,9 @@ install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/
 %license LICENSE
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.9-8
 - convert license to SPDX
 

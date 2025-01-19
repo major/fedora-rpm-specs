@@ -1,6 +1,6 @@
 Name:           http_ping
 Version:        20160309
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        HTTP latency measuring utility
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -44,6 +44,9 @@ install -Dpm 644 http_ping.1 $RPM_BUILD_ROOT%{_mandir}/man1/http_ping.1
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20160309-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 20160309-17
 - convert license to SPDX
 

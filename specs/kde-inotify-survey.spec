@@ -1,6 +1,6 @@
 Name:          kde-inotify-survey
 Version:       24.12.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Monitors inotify limits and lets the user know when exceeded
 
 # Complete license breakdown can be found in the "LICENSE-BREAKDOWN" file
@@ -59,6 +59,9 @@ install -m644 -p -D %{SOURCE1} %{buildroot}%{_datadir}/dbus-1/system.d/org.kde.k
 %{_datadir}/polkit-1/actions/org.kde.kded.inotify.policy
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 07 2025 Steve Cossette <farchord@gmail.com> - 24.12.1-1
 - 24.12.1
 

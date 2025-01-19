@@ -1,6 +1,6 @@
 Name:    kpkpass
 Version: 24.12.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Library to deal with Apple Wallet pass files
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later
@@ -70,6 +70,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.12.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 08 2025 Alessandro Astone <ales.astone@gmail.com> - 24.12.1-2
 - devel subpackage requires KF6Archive
 

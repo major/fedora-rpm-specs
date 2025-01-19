@@ -4,7 +4,7 @@ Name:           openlierox
 # Because we downgraded from 0.59 to 0.58 as 0.59 never became stable
 Epoch:          1
 Version:        0.58
-Release:        0.35.%{prever}%{?dist}
+Release:        0.36.%{prever}%{?dist}
 Summary:        Addictive realtime multi-player 2D shoot-em-up
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -92,6 +92,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.58-0.36.rc5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1:0.58-0.35.rc5
 - convert license to SPDX
 

@@ -3,7 +3,7 @@
 Summary:        A set of audio plugins for LADSPA
 Name:           ladspa-%{pkgname}
 Version:        0.4.17
-Release:        17%{?dist}
+Release:        18%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://plugin.org.uk/
@@ -63,6 +63,9 @@ autoreconf -f -i -I m4
 %{_datadir}/ladspa/rdf/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.17-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.4.17-17
 - convert license to SPDX
 

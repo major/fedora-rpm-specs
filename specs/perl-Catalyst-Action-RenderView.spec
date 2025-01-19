@@ -1,7 +1,7 @@
 Name:           perl-Catalyst-Action-RenderView
 Summary:        Sensible default end action for view rendering
 Version:        0.17
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/B/BO/BOBTFISH/Catalyst-Action-RenderView-%{version}.tar.gz 
 URL:            https://metacpan.org/release/Catalyst-Action-RenderView
@@ -68,6 +68,9 @@ find t/ -type f -exec perl -pi -e 's|^#!perl|#!/usr/bin/perl|; s/\r//' {} +
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Oct 13 2024 Emmanuel Seyman <emmanuel@seyman.fr> - 0.17-1
 - Update to 0.17
 - Use %%{make_build} and %%{make_install} where appropriate

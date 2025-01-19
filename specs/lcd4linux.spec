@@ -4,7 +4,7 @@ Name:           lcd4linux
 Version:        0.11
 # We package an svn snapshot of what will become 0.11 since upstream has
 # neglected to do a new release for ages
-Release:        0.34.svn%{svn_rev}%{?dist}
+Release:        0.35.svn%{svn_rev}%{?dist}
 Summary:        Display system state on an external LCD display
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -75,6 +75,9 @@ desktop-file-install --dir $RPM_BUILD_ROOT%{_datadir}/applications %{SOURCE3}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-0.35.svn1200
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.11-0.34.svn1200
 - convert license to SPDX
 

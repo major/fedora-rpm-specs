@@ -6,7 +6,7 @@
 
 Name:           gydl
 Version:        0.1.1
-Release:        15.%{date}git%{shortcommit}%{?dist}
+Release:        16.%{date}git%{shortcommit}%{?dist}
 Summary:        GUI wrapper around youtube-dl program
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -62,6 +62,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{appname}.desktop
 %{_metainfodir}/*.appdata.xml
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-16.20190828gitae2d296
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.1-15.20190828gitae2d296
 - convert license to SPDX
 

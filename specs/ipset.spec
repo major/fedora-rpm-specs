@@ -1,6 +1,6 @@
 Name:             ipset
 Version:          7.22
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Manage Linux IP sets
 
 License:          GPL-2.0-only
@@ -179,6 +179,9 @@ fi
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.22-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Aug 01 2024 Phil Sutter <psutter@redhat.com> - 7.22-1
 - Turn absolute ipset-translate symlink into a relative one
 - Rebase onto v7.22 plus fixes

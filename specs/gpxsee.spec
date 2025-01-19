@@ -2,7 +2,7 @@
 
 Name:           gpxsee
 Version:        13.32
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GPS log file viewer and analyzer
 
 License:        GPL-3.0-only
@@ -69,6 +69,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 13.32-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Nov 24 2024 Packit <hello@packit.dev> - 13.32-1
 - Update to version 13.32
 - Resolves: rhbz#2328542

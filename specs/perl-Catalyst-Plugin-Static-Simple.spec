@@ -1,6 +1,6 @@
 Name:           perl-Catalyst-Plugin-Static-Simple
 Version:        0.37
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Make serving static pages painless
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -79,6 +79,9 @@ TEST_POD=1 %{make_build} test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.37-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 0.37-12
 - convert license to SPDX
 

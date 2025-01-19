@@ -2,7 +2,7 @@
 
 Name:           onionshare
 Version:        2.5
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Securely and anonymously share files of any size
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -73,6 +73,9 @@ user just needs to use Tor Browser to download a file from you.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.5-10
 - convert license to SPDX
 

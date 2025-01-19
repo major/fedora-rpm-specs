@@ -1,6 +1,6 @@
 Name:           perl-Bencode
 Version:        1.502
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        BitTorrent serialization format
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Bencode
@@ -73,6 +73,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.502-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Sep 10 2024 Petr Pisar <ppisar@redhat.com> - 1.502-7
 - Modernize a spec file
 

@@ -4,7 +4,7 @@
 Summary:            A lightweight, portable desktop environment
 Name:               %{srcname}-desktop
 Version:            1.6.2
-Release:            13%{?dist}
+Release:            14%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:            LicenseRef-Callaway-BSD
 URL:                http://%{name}.org
@@ -392,6 +392,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{srcname}-*.desktop
 
 ########################################################################################
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.6.2-13
 - convert license to SPDX
 

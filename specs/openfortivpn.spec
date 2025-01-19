@@ -1,6 +1,6 @@
 Name:           openfortivpn
 Version:        1.22.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Client for PPP+SSL VPN tunnel services
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -47,6 +47,9 @@ make %{?_smp_mflags} V=1
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.22.0-3
 - convert license to SPDX
 

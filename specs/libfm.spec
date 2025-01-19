@@ -40,7 +40,7 @@
 
 Name:           libfm
 Version:        %{main_version}%{git_ver_rpm}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GIO-based library for file manager-like programs
 
 # src/actions/	GPL-2.0-or-later
@@ -496,6 +496,9 @@ fi
 %endif
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2^20250109git2d94c3c8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 14 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.2^20250109git2d94c3c8-2
 - Apply upstream PR for C23 with function prototype strictness
 

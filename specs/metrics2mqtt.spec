@@ -2,7 +2,7 @@
 
 Name:           %{pypi_name}
 Version:        0.1.18
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Publish system performance metrics to a MQTT broker
 
 License:        MIT
@@ -53,6 +53,9 @@ sed -i -e '/^#!\//, 1d' metrics2mqtt/base.py
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.18-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 04 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 0.1.18-15
 - Add patch to support paho-mqtt v2+
 

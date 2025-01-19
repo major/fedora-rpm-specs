@@ -1,7 +1,7 @@
 Name: hyphen-as
 Summary: Assamese hyphenation rules
 Version: 0.7.0
-Release: 26%{?dist}
+Release: 27%{?dist}
 Epoch: 1
 Source: http://download.savannah.gnu.org/releases/smc/hyphenation/patterns/%{name}-%{version}.tar.bz2
 URL: http://wiki.smc.org.in
@@ -27,6 +27,9 @@ install -m644 -p *.dic %{buildroot}/%{_datadir}/hyphen
 %{_datadir}/hyphen/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.7.0-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.7.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

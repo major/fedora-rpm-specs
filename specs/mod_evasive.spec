@@ -1,6 +1,6 @@
 Name:           mod_evasive
 Version:        2.3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Denial of Service evasion module for Apache
 
 License:        GPL-2.0-or-later
@@ -48,6 +48,9 @@ install -pm 644 %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/httpd/conf.d/
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 16 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.3.0-2
 - fix apache httpd module loading
 

@@ -1,7 +1,7 @@
 %global use_x11_tests 1
 Name:           perl-Gtk3-WebKit
 Version:        0.06
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        WebKit bindings for Perl
 License:        LGPL-2.1-only OR Artistic-2.0
 URL:            https://metacpan.org/release/Gtk3-WebKit
@@ -73,6 +73,9 @@ find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

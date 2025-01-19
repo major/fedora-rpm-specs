@@ -18,9 +18,9 @@ Name:          mate-desktop
 License:       GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-MIT
 Version:       %{branch}.2
 %if 0%{?rel_build}
-Release:       3%{?dist}
+Release:       4%{?dist}
 %else
-Release:       0.21%{?git_rel}%{?dist}
+Release:       0.22%{?git_rel}%{?dist}
 %endif
 URL:           http://mate-desktop.org
 
@@ -215,6 +215,9 @@ install -m 644 %SOURCE4 %{buildroot}/%{_prefix}/lib/systemd/system-preset/80-mat
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.28.2-3
 - convert license to SPDX
 

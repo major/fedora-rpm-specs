@@ -5,7 +5,7 @@
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name}
 Version:       5.2.0
-Release:       5%{?dist}
+Release:       6%{?dist}
 BuildArch:     noarch
 
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
@@ -68,6 +68,9 @@ MinGW Windows Python3 %{pypi_name}.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 5.2.0-5
 - convert license to SPDX
 

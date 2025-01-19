@@ -3,7 +3,7 @@
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
 Version: 3.24.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Epoch: 1
 
 # This ignores licenses that are only found in the test or perf sources
@@ -209,7 +209,11 @@ Summary: Development files for valgrind aware programs
 # But that doesnt have a SPDX identifier yet
 # https://gitlab.com/fedora/legal/fedora-license-data/-/issues/422
 License: bzip2-1.0.6
-Requires: %{?scl_prefix}valgrind = %{epoch}:%{version}-%{release}
+# These are just the header files, so strictly speaking you don't
+# need valgrind itself unless you are testing your builds. This used
+# to be a Requires, so people might depend on the package pulling in
+# the core valgrind package, so make it at least a weak dependency.
+Recommends: %{?scl_prefix}valgrind = %{epoch}:%{version}-%{release}
 
 %description devel
 Header files and libraries for development of valgrind aware programs.
@@ -224,6 +228,9 @@ Documentation in html and pdf, plus man pages for valgrind tools and scripts.
 %package scripts
 Summary: Scripts for post-processing valgrind tool output
 License: GPL-2.0-or-later
+# Most scripts can be used as is for post-processing a valgrind tool run.
+# But callgrind_control uses vgdb.
+Recommends: %{?scl_prefix}valgrind-gdb = %{epoch}:%{version}-%{release}
 
 %description scripts
 Perl and Python scripts for post-processing valgrind tool output.
@@ -231,7 +238,10 @@ Perl and Python scripts for post-processing valgrind tool output.
 %package gdb
 Summary: Tools for integrating valgrind and gdb
 License: GPL-2.0-or-later
-Requires: %{?scl_prefix}valgrind-devel = %{epoch}:%{version}-%{release}
+Requires: %{?scl_prefix}valgrind = %{epoch}:%{version}-%{release}
+# vgdb can be used without gdb, just to control valgrind.
+# But normally you use it together with both valgrind and gdb.
+Recommends: gdb
 
 %description gdb
 Tools and support files for integrating valgrind and gdb.
@@ -521,6 +531,12 @@ echo ===============END TESTING===============
 %endif
 
 %changelog
+* Fri Jan 17 2025 Mark Wielaard <mjw@fedoraproject.org> - 3.24.0-5
+- valgrind-devel now Recommends, instead of Requires, valgrind.
+- valgrind-gdb now Requires valgrind, instead of valgrind-devel.
+- valgrind-scripts now Recommends valgrind-gdb
+- valgrind-gdb now Recommends gdb
+
 * Wed Jan 15 2025 Mark Wielaard <mjw@fedoraproject.org> - 3.24.0-4
 - Add 0015-ppc-test_dfp2-build-fix-for-GCC-15.patch
 

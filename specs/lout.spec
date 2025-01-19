@@ -5,7 +5,7 @@
 Name:          lout
 Summary:       A document formatting system
 Version:       3.40
-Release:       28%{?dist}
+Release:       29%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
 URL:           http://savannah.nongnu.org/projects/lout/
@@ -107,6 +107,9 @@ make BINDIR=$RPM_BUILD_ROOT%{_bindir} \
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.40-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 3.40-28
 - convert license to SPDX
 

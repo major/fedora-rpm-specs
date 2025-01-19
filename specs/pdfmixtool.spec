@@ -2,7 +2,7 @@
 
 Name:           pdfmixtool
 Version:        1.1.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        An application to split, merge, rotate and mix PDF files
 
 License:        GPL-3.0-or-later
@@ -55,6 +55,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{appid}.desktop
 %{_metainfodir}/%{appid}.appdata.xml
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

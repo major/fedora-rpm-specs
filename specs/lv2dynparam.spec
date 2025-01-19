@@ -1,7 +1,7 @@
 Summary:	LV2 dynamic parameters extension
 Name:		lv2dynparam
 Version:	2
-Release:	31%{?dist}
+Release:	32%{?dist}
 License:	GPL-2.0-only
 URL:		http://home.gna.org/lv2dynparam/
 Source:		http://download.gna.org/lv2dynparam/lv2dynparam1-2.tar.bz2
@@ -60,6 +60,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_libdir}/pkgconfig/%{name}plugin1.pc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

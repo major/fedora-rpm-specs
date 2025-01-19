@@ -1,6 +1,6 @@
 Name:           perl-Devel-StackTrace-Extract
 Version:        1.000000
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Extract a stack trace from an exception object
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Devel-StackTrace-Extract
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/Devel::StackTrace::Extract.3pm*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.000000-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.000000-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

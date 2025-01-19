@@ -15,7 +15,7 @@ print(string.sub(hash, 0, 16))
 
 Name: libgcrypt
 Version: 1.11.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 URL: https://www.gnupg.org/
 Source0: https://www.gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-%{version}.tar.bz2
 Source1: https://www.gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-%{version}.tar.bz2.sig
@@ -181,6 +181,9 @@ mkdir -p -m 755 $RPM_BUILD_ROOT/etc/gcrypt
 %license COPYING
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 29 2024 Jakub Jelen <jjelen@redhat.com> - 1.11.0-4
 - Run annocheck as part of the build
 - Use upstream CF protection patches

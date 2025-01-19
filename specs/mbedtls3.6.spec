@@ -4,7 +4,7 @@
 
 Name: mbedtls3.6
 Version: 3.6.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Light-weight cryptographic and SSL/TLS library
 # Note: The BSD Clause is for configs/ext/crypto_config_profile_medium.h is relicensed
 # per https://github.com/Mbed-TLS/mbedtls/blob/development/configs/ext/README.md under
@@ -110,6 +110,9 @@ mv %{buildroot}/%{_libdir}/cmake/MbedTLS %{buildroot}/%{_libdir}/cmake/MbedTLS3.
 %doc apidoc/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 10 2025 Frank Lichtenheld <frank@lichtenheld.com> - 3.6.2-2
 - Change include directory layout, so that all headers are in the same
 directory structure. This fixes the cross references between the headers.

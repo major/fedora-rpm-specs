@@ -1,7 +1,7 @@
 Summary: A port-knocking server/client
 Name: knock
 Version: 0.8
-Release: 9%{?dist}
+Release: 10%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: http://www.zeroflux.org/projects/%{name}
@@ -85,6 +85,9 @@ iconv -f iso8859-1 -t utf-8 ChangeLog > ChangeLog.conv && mv -f ChangeLog.conv C
 %{_mandir}/man?/%{name}d.*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.8-9
 - convert license to SPDX
 

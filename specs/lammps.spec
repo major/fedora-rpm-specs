@@ -25,7 +25,7 @@ Version:        20241119
                   m=${v:4:2};
                   y=${v:0:4};
                   echo $([[ -z $patch ]] && echo patch || echo stable)_${d#0}${months[${m#0}]}${y}$([[ -n $patch ]] && echo _update${patch}))
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Molecular Dynamics Simulator
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -375,6 +375,9 @@ done
 %config %{_sysconfdir}/profile.d/lammps.*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20241119-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 03 2024 Christoph Junghans <junghans@votca.org> - 20241119-2
 - Enable heffte support
 

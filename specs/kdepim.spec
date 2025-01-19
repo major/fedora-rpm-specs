@@ -3,7 +3,7 @@ Name:    kdepim
 Summary: KDE Personal Information Metapackage
 Epoch:   7
 Version: 17.12.3
-Release: 16%{?dist}
+Release: 17%{?dist}
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -60,6 +60,9 @@ Obsoletes:      kdepim-libs < 7:16.12
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7:17.12.3-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 7:17.12.3-16
 - convert license to SPDX
 

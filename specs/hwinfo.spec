@@ -8,7 +8,7 @@
 
 Name:           hwinfo
 Version:        23.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Hardware information tool
 
 License:        GPL-1.0-or-later
@@ -88,6 +88,9 @@ make %{make_flags}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 23.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

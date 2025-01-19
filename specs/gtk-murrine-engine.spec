@@ -1,7 +1,7 @@
 Summary: Murrine GTK2 engine
 Name: gtk-murrine-engine
 Version: 0.98.2
-Release: 31%{?dist}
+Release: 32%{?dist}
 # Automatically converted from old format: LGPLv2 or LGPLv3 - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2 OR LGPL-3.0-only
 URL: http://www.cimitan.com/murrine/
@@ -63,6 +63,9 @@ find $RPM_BUILD_ROOT%{_datadir}/themes -type f | xargs chmod 0644 || true
 %{_datadir}/themes/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.98.2-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.98.2-31
 - convert license to SPDX
 

@@ -12,7 +12,7 @@
 
 Name:			%{libname}-mga-gtk
 Version:		1.2.0
-Release:		13%{?git_rel}%{?dist}
+Release:		14%{?git_rel}%{?dist}
 Summary:		Libyui-Gtk extensions for Mageia tools
 
 # Automatically converted from old format: LGPLv2 or LGPLv3 - review is highly recommended.
@@ -75,6 +75,9 @@ for %{name}.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2.0-13
 - convert license to SPDX
 

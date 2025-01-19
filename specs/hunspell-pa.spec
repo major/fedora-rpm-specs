@@ -7,7 +7,7 @@
 Name: hunspell-pa
 Summary: Punjabi hunspell dictionaries
 Version: 1.0.0
-Release: 26%{?dist}
+Release: 27%{?dist}
 Epoch: 1
 Source: http://anishpatil.fedorapeople.org/pa_in.%{version}.tar.gz
 URL: https://gitorious.org/hunspell_dictionaries/hunspell_dictionaries.git
@@ -37,6 +37,9 @@ cp -p pa_IN/*.dic pa_IN/*.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0.0-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Aug 03 2024 Parag Nemade <pnemade AT redhat DOT com> - 1:1.0.0-26
 - Add conditional for RHEL for using hunspell directory
 - Add tmt CI tests

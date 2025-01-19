@@ -2,7 +2,7 @@
 
 Name:           linuxconsoletools
 Version:        1.8.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Tools for connecting joysticks & legacy devices to the kernel's input subsystem
 License:        GPL-2.0-or-later
 URL:            http://sourceforge.net/projects/linuxconsole/
@@ -75,6 +75,9 @@ chmod -x %{buildroot}%{_mandir}/man1/*
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

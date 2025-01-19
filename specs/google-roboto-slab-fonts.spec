@@ -1,7 +1,7 @@
 %global commit0 90abd17b4f97671435798b6147b698aa9087612f
 
 Version:       1.100263
-Release:       0.24.20150923git%{?dist}
+Release:       0.25.20150923git%{?dist}
 URL:           https://www.google.com/fonts/specimen/Roboto+Slab
 
 %global foundry           google
@@ -49,6 +49,9 @@ cp -p %{SOURCE0} %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} .
 %fontfiles
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.100263-0.25.20150923git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.100263-0.24.20150923git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-DBIx-Class-DeploymentHandler
 Version:        0.002234
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extensible DBIx::Class deployment
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -95,6 +95,9 @@ of roles.
 %{perl_vendorlib}/DBIx/Class/DeploymentHandler*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.002234-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Aug 18 2024 Emmanuel Seyman <emmanuel@seyman.fr> - 0.002234-1
 - Update to 0.002234
 

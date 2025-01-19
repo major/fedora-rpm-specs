@@ -1,6 +1,6 @@
 Name:           perl-Config-Perl-V
 Version:        0.38
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Structured data retrieval of perl -V output
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Config-Perl-V
@@ -89,6 +89,9 @@ make test PERL_CORE=%{defined perl_bootstrap}
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.38-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 15 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.38-1
 - 0.38 bump (rhbz#2337314)
 

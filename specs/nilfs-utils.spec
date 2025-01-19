@@ -1,6 +1,6 @@
 Name:		nilfs-utils
 Version:	2.2.11
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Utilities for managing NILFS v2 filesystems
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -88,6 +88,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libnilfs*.la
 %{_includedir}/nilfs_cleaner.h
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.11-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.2.11-5
 - Rebuilt for the bin-sbin merge (2nd attempt)
 

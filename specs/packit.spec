@@ -7,7 +7,7 @@
 
 Name:           packit
 Version:        0.106.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
 License:        MIT
@@ -78,6 +78,9 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.106.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 16 2024 Packit <hello@packit.dev> - 0.106.0-1
 - We have added a `--resultdir` option for building in mock via our CLI (`packit build in-mock`). (#2475)
 - Resolves: rhbz#2332425

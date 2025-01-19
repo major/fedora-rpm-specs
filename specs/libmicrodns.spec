@@ -1,6 +1,6 @@
 Name:           libmicrodns
 Version:        0.2.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Minimal mDNS resolver library
 
 License:        LGPL-2.1-or-later
@@ -56,6 +56,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 10 2024 Nicolas Chauvet <kwizart@gmail.com> - 0.2.0-12
 - Clean-up
 

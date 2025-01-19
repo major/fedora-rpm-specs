@@ -11,7 +11,7 @@
 
 Name:           netcdf-cxx4
 Version:        4.3.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        NetCDF-4 C++ library
 
 # Automatically converted from old format: NetCDF - review is highly recommended.
@@ -250,6 +250,9 @@ done
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 4.3.1-14
 - convert license to SPDX
 

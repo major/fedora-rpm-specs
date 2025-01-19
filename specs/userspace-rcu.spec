@@ -1,5 +1,5 @@
 Name:           userspace-rcu
-Version:        0.14.1
+Version:        0.15.0
 Release:        1%{?dist}
 Summary:        RCU (read-copy-update) implementation in user-space
 License:        LGPL-2.1-or-later
@@ -42,14 +42,14 @@ that use %{name}
 # Reinitialize libtool with the fedora version to remove Rpath
 autoreconf -vif -W all,error
 
-%configure --disable-static
+%configure --disable-static --enable-compiler-atomic-builtins
 V=1 make %{?_smp_mflags}
 
 
 %install
 make install DESTDIR=$RPM_BUILD_ROOT
 find %{buildroot} -type f -name "*.la" -delete
-rm %{buildroot}/%{_docdir}/%{name}/LICENSE
+rm %{buildroot}/%{_docdir}/%{name}/LICENSE.md
 # Replace arch-dependent header file with arch-independent stub (when needed).
 %multilib_fix_c_header --file %{_includedir}/urcu/config.h
 %multilib_fix_c_header --file %{_includedir}/urcu/arch.h
@@ -63,7 +63,7 @@ make regtest
 
 
 %files
-%license LICENSE gpl-2.0.txt lgpl-relicensing.txt lgpl-2.1.txt
+%license LICENSE.md lgpl-relicensing.md
 %doc ChangeLog README.md
 %{_libdir}/liburcu-bp.so.8*
 %{_libdir}/liburcu-cds.so.8*
@@ -71,7 +71,6 @@ make regtest
 %{_libdir}/liburcu-mb.so.8*
 %{_libdir}/liburcu-memb.so.8*
 %{_libdir}/liburcu-qsbr.so.8*
-%{_libdir}/liburcu-signal.so.8*
 %{_libdir}/liburcu.so.8*
 
 %files devel
@@ -83,7 +82,6 @@ make regtest
 %{_libdir}/liburcu-mb.so
 %{_libdir}/liburcu-memb.so
 %{_libdir}/liburcu-qsbr.so
-%{_libdir}/liburcu-signal.so
 %{_libdir}/liburcu.so
 %{_libdir}/pkgconfig/liburcu*.pc
 %{_docdir}/%{name}/cds-api.md
@@ -93,6 +91,11 @@ make regtest
 
 
 %changelog
+* Thu Jan 16 2025 Michael Jeanson <mjeanson@efficios.com> - 0.15.0-1
+- New upstream release
+- The 'signal' flavour of liburcu was removed upstream
+- Enable compiler atomics
+
 * Tue Sep 03 2024 Kienan Stewart <kstewart@efficios.com> - 0.14.1-1
 - New upstream release
 

@@ -1,7 +1,7 @@
 Name:    ofono
 Summary: Open Source Telephony
 Version: 2.14
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # oFono is GPL. This covers most of the source files.
 # ProvisionDB is LGPL. This covers src/provisiondb.{c,h}
@@ -89,6 +89,9 @@ make check
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.14-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Dec 12 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.14-1
 - Update to v2.14
 

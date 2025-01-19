@@ -2,7 +2,7 @@
 
 Name:          mozo
 Version:       %{branch}.0
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       MATE Desktop menu editor
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:       LicenseRef-Callaway-LGPLv2+
@@ -53,6 +53,9 @@ desktop-file-install                                  \
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.28.0-4
 - convert license to SPDX
 

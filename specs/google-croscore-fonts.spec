@@ -1,7 +1,7 @@
 BuildArch: noarch
 
 Version:        1.31.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 #URL:            
@@ -109,6 +109,9 @@ echo %{fontpkgname}
 %fontfiles -a
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.31.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 1.31.0-20
 - convert license to SPDX
 

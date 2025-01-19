@@ -5,7 +5,7 @@
 %if %{svn}
 # svn co https://osmo-pim.svn.sourceforge.net/svnroot/osmo-pim/trunk osmo-pim
 # tar cvJf osmo-%{svn}.tar.xz osmo-pim/ --exclude=".svn*"
-%global release 1.%{rel}.svn%{svn}%{?dist}.12
+%global release 2.%{rel}.svn%{svn}%{?dist}.12
 %global tarname %{name}-%{svn}.tar.xz
 %global _dirname osmo-pim
 %else
@@ -155,6 +155,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/sounds/osmo/alarm.wav
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.4.4-3
 - convert license to SPDX
 

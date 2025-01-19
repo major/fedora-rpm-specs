@@ -2,7 +2,7 @@
 
 Name:           gpaste
 Version:        45.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Clipboard management system
 
 License:        BSD-2-Clause
@@ -201,6 +201,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/org.gn
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 45.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Oct 13 2024 Mohamed El Morabity <melmorabity@fedoraproject.org> - 45.2-1
 - Update to 45.2
 

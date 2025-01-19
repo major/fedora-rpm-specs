@@ -1,7 +1,7 @@
 
 Name:           irc-otr
 Version:        1.0.2
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Off-The-Record Messaging plugin for irssi
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -44,6 +44,9 @@ chmod +x $RPM_BUILD_ROOT%{_libdir}/irssi/modules/libotr.so
 %{_datadir}/irssi/help/otr
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.2-22
 - convert license to SPDX
 

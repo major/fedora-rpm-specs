@@ -6,7 +6,7 @@
 Summary: KDE Photo Album 
 Name:	 kphotoalbum
 Version: 6.0.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 # Automatically converted from old format: (GPLv2 or GPLv3) and GFDL - review is highly recommended.
@@ -101,6 +101,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.kphotoalb
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 07 2025 Steve Cossette <farchord@gmail.com> - 6.0.1-1
 - 6.0.1 hotfix
 

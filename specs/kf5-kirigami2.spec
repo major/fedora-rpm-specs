@@ -9,7 +9,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.116.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: QtQuick plugins to build user interfaces based on the KDE UX guidelines
 
 # templates/kirigami/src/contents/ui/About.qml: File is mislabeled as "GPL-2.1-or-later"
@@ -119,6 +119,9 @@ xvfb-run -a \
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.116.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.116.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

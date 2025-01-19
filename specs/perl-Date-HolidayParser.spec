@@ -1,6 +1,6 @@
 Name:           perl-Date-HolidayParser
 Version:        0.43
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Parser for .holiday-files
 # COPYING:      GPL-3.0-or-later OR Artistic-1.0-Perl
 # COPYING.artistic:     Artistic-1.0-Perl text
@@ -83,6 +83,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.43-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Petr Pisar <ppisar@redhat.com> - 0.43-13
 - Convert a license tag to SPDX
 - Package the tests

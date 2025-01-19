@@ -5,7 +5,7 @@
 Name:          mingw-%{pkgname}
 Version:       1.17
 Summary:       MinGW Windows libcharset library
-Release:       8%{?dist}
+Release:       9%{?dist}
 
 BuildArch:     noarch
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -79,6 +79,9 @@ find %{buildroot} -name *.la -delete
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.17-8
 - convert license to SPDX
 

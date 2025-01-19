@@ -1,6 +1,6 @@
 Name:		isa-l
 Version:	2.31.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Intel(R) Intelligent Storage Acceleration Library
 
 License:	BSD-3-Clause
@@ -85,6 +85,9 @@ rm %{buildroot}%{_libdir}/*.la
 %{_mandir}/man1/igzip.1*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.31.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 07 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.31.1-1
 - Update to version 2.31.1
 

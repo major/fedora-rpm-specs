@@ -14,7 +14,7 @@
 
 Name:           mod_perl
 Version:        2.0.13
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        An embedded Perl interpreter for the Apache HTTP Server
 # other files:                  ASL 2.0
 ## Not in binary packages
@@ -323,6 +323,9 @@ fi
 %endif
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.13-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Andrew Bauer <zonexpertconsulting@outlook.com> - 2.0.13-8
 - Add lmdb and openldap devel buildrequires, fixes RHBZ#2302876
 

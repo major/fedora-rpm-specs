@@ -2,7 +2,7 @@
 
 Name:          nes_ntsc
 Version:       0.2.2
-Release:       31%{?dist}
+Release:       32%{?dist}
 Summary:       Provides a NES NTSC video filtering library
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -111,6 +111,9 @@ install -p -m0755 nes_ntsc_demo %{buildroot}%{_bindir}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.2-31
 - convert license to SPDX
 

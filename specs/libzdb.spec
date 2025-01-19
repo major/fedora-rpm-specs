@@ -1,6 +1,6 @@
 Name:           libzdb
 Version:        3.4.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Small, easy to use Database Connection Pool Library
 # Automatically converted from old format: GPLv3+ and MIT - review is highly recommended.
 License:        GPL-3.0-or-later AND LicenseRef-Callaway-MIT
@@ -55,6 +55,9 @@ make install DESTDIR=%{buildroot}
 %doc doc/api-docs
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 3.4.0-2
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:		perl-ExtUtils-Config
 Version:	0.010
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A wrapper for perl's configuration
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/ExtUtils-Config
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/ExtUtils::Config::MakeMaker.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.010-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Aug 17 2024 Paul Howarth <paul@city-fan.org> - 0.010-1
 - Update to 0.010
   - Fix regression in serialize method

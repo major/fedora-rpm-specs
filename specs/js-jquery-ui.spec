@@ -2,7 +2,7 @@
 
 Name:		js-%{jsname}
 Version:	1.14.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	jQuery user interface
 
 License:	MIT
@@ -49,6 +49,9 @@ install -m 644 -p themes/base/images/* %{buildroot}%{_jsdir}/%{jsname}/images
 %doc AUTHORS.txt CONTRIBUTING.md README.md
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Nov 13 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.14.1-1
 - Update to version 1.14.1
 

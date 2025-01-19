@@ -1,4 +1,4 @@
-%global baserelease 15
+%global baserelease 16
 
 #%%global commit 1e7ef9e7e6952f5d29ef0f5c25fd062798de55f3
 #%%global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -104,6 +104,9 @@ install -p docs/offlineimapui.7.gz %{buildroot}/%{_mandir}/man7/
 %{_mandir}/man7/%{name}ui.7*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 8.0.0-15
 - convert license to SPDX
 

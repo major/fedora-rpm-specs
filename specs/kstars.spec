@@ -7,7 +7,7 @@ ExcludeArch:    %{ix86}
 Name:    kstars
 Summary: Desktop Planetarium
 Version: 3.7.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # We have to use epoch now, KStars is no longer part of KDE Applications and
 # uses its own (lower) version now
@@ -171,6 +171,9 @@ fi
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.7.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jan 10 2025 Mattia Verga <mattia.verga@proton.me> - 1:3.7.4-2
 - Drop i686 builds due to build failure
 

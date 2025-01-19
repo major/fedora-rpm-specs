@@ -6,7 +6,7 @@
 
 Name:           libetnaviv
 Version:        1.0.0
-Release:        13.20141102git%{shortcommit}%{?dist}
+Release:        14.20141102git%{shortcommit}%{?dist}
 Summary:        Vivante GPU user-space driver
 
 License:        MIT
@@ -51,6 +51,9 @@ install -pm644 src/*.h %{buildroot}%{_includedir}/etnaviv/
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-14.20141102git60105d1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-13.20141102git60105d1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           openeuclide
 Version:        0.5        
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        A geometry software that is intended for educational or modeling purposes
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -62,6 +62,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5-34
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           perl-B-Hooks-OP-Check-StashChange
 Version:        0.06
-Release:        48%{?dist}
+Release:        49%{?dist}
 Summary:        Invoke callbacks when the stash code is being compiled in changes
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/B-Hooks-OP-Check-StashChange
@@ -62,6 +62,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

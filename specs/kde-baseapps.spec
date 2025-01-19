@@ -2,7 +2,7 @@
 Name:    kde-baseapps
 Summary: KDE Core Applications 
 Version: 16.12.2
-Release: 19%{?dist}
+Release: 20%{?dist}
 
 # Automatically converted from old format: GPLv2 and GFDL - review is highly recommended.
 License: GPL-2.0-only AND LicenseRef-Callaway-GFDL
@@ -61,6 +61,9 @@ Obsoletes: libkonq < 16.12
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 16.12.2-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 16.12.2-19
 - convert license to SPDX
 

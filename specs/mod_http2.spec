@@ -3,7 +3,7 @@
 
 Name:		mod_http2
 Version:	2.0.29
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	module implementing HTTP/2 for Apache 2
 License:	Apache-2.0
 URL:		https://icing.github.io/mod_h2/
@@ -47,6 +47,9 @@ echo "LoadModule proxy_http2_module modules/mod_proxy_http2.so" > %{buildroot}%{
 %{_httpd_moddir}/mod_proxy_http2.so
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.29-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.29-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

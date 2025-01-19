@@ -1,7 +1,7 @@
 Name:    palapeli
 Summary: A jigsaw puzzle game
 Version: 24.12.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # Automatically converted from old format: GPLv2+ and GFDL - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-GFDL
@@ -127,6 +127,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.12.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 10 2025 Pavel Solovev <daron439@gmail.com> - 24.12.1-2
 - Move palathumbcreator out of devel
 

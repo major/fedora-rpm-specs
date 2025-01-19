@@ -3,7 +3,7 @@
 
 Name:           mingw-zlib
 Version:        1.3.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        MinGW Windows zlib compression library
 
 License:        Zlib
@@ -137,6 +137,9 @@ rm -rf %{buildroot}%{ucrt64_mandir}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

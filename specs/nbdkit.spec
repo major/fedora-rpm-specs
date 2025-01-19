@@ -55,7 +55,7 @@
 
 Name:           nbdkit
 Version:        1.41.9
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -1522,6 +1522,9 @@ fi
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.41.9-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.41.9-3
 - Rebuilt for the bin-sbin merge (2nd attempt)
 

@@ -1,6 +1,6 @@
 Name:           perl-Catalyst-Plugin-Cache
 Version:        0.12
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Flexible caching support for Catalyst
 # Automatically converted from old format: (GPL+ or Artistic) or MIT - review is highly recommended.
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) OR LicenseRef-Callaway-MIT
@@ -69,6 +69,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.12-34
 - convert license to SPDX
 

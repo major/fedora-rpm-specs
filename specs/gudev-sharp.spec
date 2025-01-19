@@ -7,7 +7,7 @@
 
 Name:           gudev-sharp
 Version:        0.1
-Release:        39%{?dist}
+Release:        40%{?dist}
 # This is necessary because we went to 3.0 too soon.
 Epoch:          1
 Summary:        C# bindings for gudev
@@ -71,6 +71,9 @@ test "%{_libdir}" = "%{_prefix}/lib" || mv $RPM_BUILD_ROOT/%{_prefix}/lib/pkgcon
 %{_libdir}/pkgconfig/%{name}-1.0.pc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.1-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1:0.1-39
 - convert license to SPDX
 

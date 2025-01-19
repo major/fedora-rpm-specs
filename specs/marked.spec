@@ -4,7 +4,7 @@
 
 Name:       marked
 Version:    2.0.0
-Release:    9%{?dist}
+Release:    10%{?dist}
 Summary:    A markdown parser for Node.js built for speed
 License:    MIT
 URL:        https://github.com/markedjs/%{name}
@@ -137,6 +137,9 @@ npm run test
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

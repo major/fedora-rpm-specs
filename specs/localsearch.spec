@@ -31,7 +31,7 @@
 
 Name:           localsearch
 Version:        3.8~rc
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Localsearch and metadata extractors
 
 # The indexer is a mix of GPLv2 and LGPLv2+ code
@@ -39,6 +39,9 @@ License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://gnome.pages.gitlab.gnome.org/localsearch/
 Source0:        https://download.gnome.org/sources/%{name}/3.8/%{name}-%{tarball_version}.tar.xz
 Source1:        flatpak-fixup.sh
+
+# https://gitlab.gnome.org/GNOME/localsearch/-/merge_requests/581
+Patch1:     0001-build-issues-with-gcc-581.patch
 
 BuildRequires:  asciidoc
 BuildRequires:  gcc
@@ -178,6 +181,12 @@ install -D -m 0755 %{SOURCE1} %{buildroot}%{_bindir}/%{name}-flatpak-fixup.sh
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8~rc-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
+* Fri Jan 17 2025 Nieves Montero <nmontero@redhat.com> - 3.8.rc-3
+-Add gcc patch
+
 * Wed Jan 15 2025 Nieves Montero <nmontero@redhat.com> - 3.8.rc-2
 -Bump release to rebuild after deleted build
 

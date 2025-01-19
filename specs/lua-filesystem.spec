@@ -12,7 +12,7 @@
 
 Name:           lua-filesystem
 Version:        1.8.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        File System Library for the Lua Programming Language
 
 %global gitowner lunarmodules
@@ -109,6 +109,9 @@ LUA_CPATH=%{buildroot}%{lua_compat_libdir}/\?.so lua-%{lua_compat_version} tests
 %endif
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Aug 29 2024 Michel Lind <salimma@fedoraproject.org> - 1.8.0-13
 - Disable compat-lua support on EL10
 - Switch URL from keplerproject to lunarmodules

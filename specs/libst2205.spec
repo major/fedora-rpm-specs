@@ -1,6 +1,6 @@
 Name:           libst2205
 Version:        1.4.3
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Library for accessing the display of hacked st2205 photo frames
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -85,6 +85,9 @@ install -p -m 644 libst2205/st2205.h $RPM_BUILD_ROOT%{_includedir}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.4.3-31
 - convert license to SPDX
 

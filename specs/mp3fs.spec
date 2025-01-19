@@ -1,7 +1,7 @@
 Summary: FUSE filesystem to transcode FLAC to MP3 on the fly
 Name: mp3fs
 Version: 1.1.1
-Release: 12%{dist}
+Release: 13%{dist}
 # Automatically converted from old format: GPLv3+ and GFDL - review is highly recommended.
 License: GPL-3.0-or-later AND LicenseRef-Callaway-GFDL
 Source0: https://github.com/khenriks/mp3fs/releases/download/v%{version}/mp3fs-%{version}.tar.gz
@@ -44,6 +44,9 @@ them somewhere!
 %{_mandir}/man1/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1.1-12
 - convert license to SPDX
 

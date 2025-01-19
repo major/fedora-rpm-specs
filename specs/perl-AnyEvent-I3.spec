@@ -1,6 +1,6 @@
 Name:           perl-AnyEvent-I3
 Version:        0.19
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Communicate with the i3 window manager
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/AnyEvent-I3
@@ -57,6 +57,9 @@ make test
 %{_mandir}/man3/AnyEvent::I3.3*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

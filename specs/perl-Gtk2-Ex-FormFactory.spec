@@ -1,6 +1,6 @@
 Name:           perl-Gtk2-Ex-FormFactory
 Version:        0.67
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Framework for GTK2 Perl applications
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -69,6 +69,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.67-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.67-37
 - convert license to SPDX
 

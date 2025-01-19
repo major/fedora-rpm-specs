@@ -3,7 +3,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.116.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: KDE Frameworks 5 Tier 3 library for contact and people aggregation
 
 License: CC0-1.0 AND LGPL-2.1-or-later
@@ -81,6 +81,9 @@ mkdir -p %{buildroot}%{_kf5_qtplugindir}/kpeople/{actions,datasource,widgets}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.116.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.116.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

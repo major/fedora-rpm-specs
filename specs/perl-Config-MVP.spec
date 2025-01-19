@@ -1,6 +1,6 @@
 Name:           perl-Config-MVP
 Version:        2.200013
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Multivalue-property package-oriented configuration
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -67,6 +67,9 @@ things that do.
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.200013-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 2.200013-7
 - convert license to SPDX
 

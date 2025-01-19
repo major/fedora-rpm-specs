@@ -1,7 +1,7 @@
 Name:           perl-Catalyst-Plugin-ConfigLoader
 Summary:        Load config files of various types
 Version:        0.35
-Release:        14%{?dist}
+Release:        15%{?dist}
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -69,6 +69,9 @@ various types. Currently it supports YAML, JSON, XML, INI and Perl formats.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 0.35-14
 - convert license to SPDX
 

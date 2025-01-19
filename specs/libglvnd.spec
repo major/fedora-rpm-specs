@@ -13,7 +13,7 @@
 
 Name:           libglvnd
 Version:        1.7.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 # Provide an upgrade path from the negativo17.org pkgs which have Epoch 1
 Epoch:          1
 Summary:        The GL Vendor-Neutral Dispatch library
@@ -273,6 +273,9 @@ xwfb-run -c %{compositor} -- make check V=1 || \
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.7.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Nov 05 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 1:1.7.0-6
 - Test on wayland/Xwayland
 

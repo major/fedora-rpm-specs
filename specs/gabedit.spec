@@ -6,7 +6,7 @@
 Name:		gabedit
 Summary:	GUI for computational chemistry
 Version:	%{mainver}
-Release:	0.10%{?snap_digit:_snap%{snap_digit}}%{?dist}
+Release:	0.11%{?snap_digit:_snap%{snap_digit}}%{?dist}
 URL:		http://gabedit.sourceforge.net/home.html
 License:	MIT
 
@@ -22,6 +22,12 @@ Patch5:	%{name}-2.5.1-function-prototype-typo.patch
 Patch6:	%{name}-2.5.1-array-bounds.patch
 # Remove apparent memory leak detected by -Wunused-variable
 Patch7:	%{name}-2.5.1-apparent-leak.patch
+# C23: avoid bool keyword usage
+Patch8:	%{name}-2.5.1-c23-bool-keyword.patch
+# C23: support strict function prototype
+Patch9:	%{name}-2.5.1-c23-function-proto.patch
+# show_homepage: use xdg-open
+Patch10:	%{name}-2.5.1-show_homepage-use-xdg-open.patch
 
 BuildRequires: 	gcc
 BuildRequires:	make
@@ -53,6 +59,9 @@ file formats are supported.
 %patch -P5 -p1 -b .implicit
 %patch -P6 -p1 -b .bounds
 %patch -P7 -p1 -b .leak
+%patch -P8 -p1 -b .bool
+%patch -P9 -p1 -b .c23
+%patch -P10 -p1 -b .xdg
 
 # package_notes needs buildsubdir to be defined
 %if "x%{?buildsubdir}" == "x"
@@ -119,6 +128,11 @@ done
 %{_datadir}/icons/hicolor/*/apps/*.png
 
 %changelog
+* Sat Jan 18 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.5.2-0.11_snap20220518
+- C23: avoid bool keyword usage
+- C23: support strict function prototype
+- show_homepage: use xdg-open
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-0.10_snap20220518
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

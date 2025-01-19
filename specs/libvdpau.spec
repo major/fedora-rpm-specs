@@ -1,6 +1,6 @@
 Name:           libvdpau
 Version:        1.5
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Wrapper library for the Video Decode and Presentation API
 License:        MIT
 URL:            https://freedesktop.org/wiki/Software/VDPAU/
@@ -87,6 +87,9 @@ mv %{_vpath_builddir}/doc/html html
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Oct 30 2024 Simone Caronni <negativo17@gmail.com> - 1.5-8
 - Add upstream AV1 tracing patch.
 - Modernize SPEC file.

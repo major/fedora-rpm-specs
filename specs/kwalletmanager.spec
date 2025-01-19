@@ -1,7 +1,7 @@
 Name:    kwalletmanager
 Summary: Wallet Management Tool for KDE4
 Version: 15.04.3
-Release: 25%{?dist}
+Release: 26%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -81,6 +81,9 @@ make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 15.04.3-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 15.04.3-25
 - convert license to SPDX
 

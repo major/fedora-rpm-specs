@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-res
 Version:        5.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OCaml library for resizing arrays and strings
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -69,6 +69,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 5.0.2-1
 - OCaml 5.3.0 rebuild for Fedora 42
 - Version 5.0.2

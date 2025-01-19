@@ -10,7 +10,7 @@
 
 Name:    kf5-%{framework}
 Version: 20.04.3
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: The KBlog Library
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -115,6 +115,9 @@ make test/fast ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20.04.3-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 20.04.3-12
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           kcheckers
 Version:        0.8.1
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Checkers board game
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -60,6 +60,9 @@ cp -p -r themes $RPM_BUILD_ROOT/%{_datadir}/%{name}/
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.8.1-35
 - convert license to SPDX
 

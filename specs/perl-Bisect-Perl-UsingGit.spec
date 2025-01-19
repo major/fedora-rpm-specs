@@ -1,6 +1,6 @@
 Name:           perl-Bisect-Perl-UsingGit
 Version:        0.33
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Help you to bisect Perl
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -49,6 +49,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.33-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 0.33-37
 - convert license to SPDX
 

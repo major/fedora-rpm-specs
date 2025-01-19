@@ -5,7 +5,7 @@
 
 Name:           gtkmm2.4
 Version:        2.24.5
-Release:        21%{?dist}
+Release:        22%{?dist}
 
 Summary:        C++ interface for GTK2 (a GUI library for X)
 
@@ -98,6 +98,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.24.5-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.24.5-21
 - convert license to SPDX
 

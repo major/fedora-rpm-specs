@@ -2,7 +2,7 @@
 
 Name:           mingw-libgnurx
 Version:        2.5.1
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        MinGW Regex library
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -128,6 +128,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.5.1-37
 - convert license to SPDX
 

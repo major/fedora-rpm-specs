@@ -3,7 +3,7 @@
 
 Name:           gtts
 Version:        2.5.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Create an mp3 file from spoken text via the Google TTS API
 
 License:        MIT
@@ -74,6 +74,9 @@ be spoken by tokenizing long sentences where the speech would naturally pause.
 %{python3_sitelib}/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

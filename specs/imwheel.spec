@@ -3,7 +3,7 @@
 
 Name:           imwheel
 Version:        %{pkgrel}
-Release:        0.16.%{extver}%{?dist}
+Release:        0.17.%{extver}%{?dist}
 Summary:        Mouse Event to Key Event Mapper Daemon
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -63,6 +63,9 @@ autoreconf -fiv
 %{_mandir}/man1/imwheel.1*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-0.17.pre12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.0-0.16.pre12
 - convert license to SPDX
 

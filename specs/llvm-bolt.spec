@@ -13,7 +13,7 @@
 
 Name: llvm-bolt
 Version: %{bolt_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: a post-link optimizer developed to speed up large applications
 
 License: Apache-2.0 WITH LLVM-exception
@@ -160,6 +160,9 @@ rm -f %{buildroot}/%{_builddir}/%{bolt_srcdir}/%{_vpath_builddir}/%{_lib}/lib*.a
 %doc %{_pkgdocdir}
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 19.1.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 02 2025 Timm Bäder <tbaeder@redhat.com> - 19.1.6-1
 - Update to 19.1.6
 

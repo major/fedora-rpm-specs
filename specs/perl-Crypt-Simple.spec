@@ -1,6 +1,6 @@
 Name:           perl-Crypt-Simple
 Version:        0.06
-Release:        52%{?dist}
+Release:        53%{?dist}
 Summary:        Encrypt stuff simply 
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -67,6 +67,9 @@ make test
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-53
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.06-52
 - convert license to SPDX
 

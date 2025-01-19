@@ -3,7 +3,7 @@
 
 Name:           libdazzle
 Version:        3.44.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Experimental new features for GTK+ and GLib
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -89,6 +89,9 @@ export DISPLAY=:99
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.44.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 3.44.0-8
 - convert license to SPDX
 

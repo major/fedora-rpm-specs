@@ -1,6 +1,6 @@
 Name:		mcrypt
 Version:	2.6.8
-Release:	35%{?dist}
+Release:	36%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:	GPL-3.0-or-later
 Summary:	Replacement for crypt()
@@ -67,6 +67,9 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %{_mandir}/man1/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.8-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 2.6.8-35
 - convert license to SPDX
 

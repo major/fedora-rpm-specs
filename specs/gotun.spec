@@ -46,7 +46,7 @@
 
 Name:           gotun
 Version:        0
-Release:        0.23.git%{shortcommit}%{?dist}
+Release:        0.24.git%{shortcommit}%{?dist}
 Summary:        Tool to run tests on OpenStack
 # Detected licences
 # - Unknown at 'COPYING'
@@ -246,6 +246,9 @@ export GOPATH=%{buildroot}/%{gopath}:$(pwd)/vendor:%{gopath}
 %endif
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.24.gita9dbe4d
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0-0.23.gita9dbe4d
 - convert license to SPDX
 

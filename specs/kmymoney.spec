@@ -12,7 +12,7 @@
 Summary: Personal finance
 Name:    kmymoney
 Version: 5.1.3
-Release: 12%{?dist}
+Release: 13%{?dist}
 
 # kmm itself is GPLv2+
 # bundled kdchart is GPLv2 or GPLv3, but currently not using it
@@ -226,6 +226,9 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 300" ||:
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.3-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 15 2025 Marie Loise Nolden <loise@kde.org> - 5.1.3-12
 - do not use webkit anymore so switch to webengine available arches only
   (will be so for Qt6/KF6 port later anyway)

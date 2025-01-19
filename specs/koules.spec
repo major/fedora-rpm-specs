@@ -1,6 +1,6 @@
 Name:           koules
 Version:        1.4
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        Action game with multiplayer, network and sound support
 
 License:        GPL-2.0-or-later AND BSD-4-Clause-UC AND HPND-Netrek
@@ -189,6 +189,9 @@ cp %{SOURCE2} %{buildroot}%{_libexecdir}/%{name}/koules.sndsrv.linux
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Aug 01 2024 Charles R. Anderson <cra@alum.wpi.edu> - 1.4-46
 - Fix License tag NTP --> HPND-Netrek
 

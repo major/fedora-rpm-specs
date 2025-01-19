@@ -19,7 +19,7 @@
 %endif
 
 Name:           wine-dxvk
-Version:        2.5.2
+Version:        2.5.3
 Release:        %autorelease
 Summary:        Vulkan-based implementation of D3D8, 9, 10 and 11 for Linux / Wine
 
@@ -27,10 +27,6 @@ License:        zlib AND MIT
 URL:            https://github.com/doitsujin/dxvk
 Source0:        %{url}/archive/v%{version}/dxvk-%{version}.tar.gz
 Source1:        https://gitlab.freedesktop.org/frog/libdisplay-info/-/archive/%{libdisplay_commit}/libdisplay-info-%{libdisplay_shortcommit}.tar.gz
-
-# https://github.com/doitsujin/dxvk/pull/4533
-# D3D9 Fixes
-Patch01:        4533.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++

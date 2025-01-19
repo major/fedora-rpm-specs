@@ -1,6 +1,6 @@
 Name:           perl-Acme-Damn
 Version:        0.08
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Unbless Perl objects
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Aug 18 2024 Emmanuel Seyman <emmanuel@seyman.fr> -  0.08-31
 - Patch out attempt to call undefined import (#2303672)
 

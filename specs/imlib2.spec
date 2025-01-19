@@ -1,7 +1,7 @@
 Summary:        Image loading, saving, rendering, and manipulation library
 Name:           imlib2
 Version:        1.11.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 License:        Imlib2
 URL:            http://docs.enlightenment.org/api/imlib2/html/
 Source0:        http://downloads.sourceforge.net/enlightenment/%{name}-%{version}.tar.xz
@@ -130,6 +130,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f \{\} \;
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.11.1-9
 - convert license to SPDX
 

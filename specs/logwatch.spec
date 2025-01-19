@@ -2,7 +2,7 @@
 Summary: Analyzes and Reports on system logs
 Name: logwatch
 Version: 7.11
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: MIT
 URL: https://sourceforge.net/projects/logwatch/
 Source0: https://sourceforge.net/projects/logwatch/files/%{name}-%{version}/%{name}-%{version}.tar.gz
@@ -136,6 +136,9 @@ echo "# Configuration overrides for specific logfiles/services may be placed her
 %{_unitdir}/logwatch.timer
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.11-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jan 04 2025 Frank Crawford <frank@crawford.emu.id.au> - 7.11-3
 - Correct update to confs to fix BZ2326879
 

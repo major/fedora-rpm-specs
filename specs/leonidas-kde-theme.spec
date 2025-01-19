@@ -1,6 +1,6 @@
 Name:		leonidas-kde-theme
 Version:	11.0.3
-Release:	27%{?dist}
+Release:	28%{?dist}
 Summary:	Leonidas KDE Theme
 
 # Automatically converted from old format: GPLv2+ and CC-BY-SA and CC-BY - review is highly recommended.
@@ -197,6 +197,9 @@ ln -s ../../../../backgrounds/leonidas/landscape/normal/1400x1050/leonidas-1-noo
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 11.0.3-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 11.0.3-27
 - convert license to SPDX
 

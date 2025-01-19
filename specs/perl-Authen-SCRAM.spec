@@ -1,6 +1,6 @@
 Name:           perl-Authen-SCRAM
 Version:        0.011
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Salted Challenge Response Authentication Mechanism (RFC 5802)
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -69,6 +69,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.011-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.011-21
 - convert license to SPDX
 

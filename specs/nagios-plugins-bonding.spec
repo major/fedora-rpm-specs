@@ -8,7 +8,7 @@
 
 Name:          nagios-plugins-bonding
 Version:       1.4
-Release:       26%{?dist}
+Release:       27%{?dist}
 Summary:       Nagios plugin to monitor Linux bonding interfaces
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -68,6 +68,9 @@ install -Dp -m 0644 man/%{plugin}.8 %{buildroot}%{_mandir}/man8/%{plugin}.8
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.4-26
 - convert license to SPDX
 

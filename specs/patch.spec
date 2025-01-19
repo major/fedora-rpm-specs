@@ -3,7 +3,7 @@
 Summary: Utility for modifying/upgrading files
 Name: patch
 Version: 2.7.6
-Release: 25%{?dist}
+Release: 26%{?dist}
 License: GPL-3.0-or-later
 URL: https://savannah.gnu.org/projects/patch/
 Source: https://ftp.gnu.org/gnu/patch/patch-%{version}.tar.xz
@@ -109,6 +109,9 @@ make check
 %{_mandir}/*/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.6-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.6-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -10,7 +10,7 @@
 
 Name:           links
 Version:        2.20.2
-Release:        16%{?dist}
+Release:        17%{?dist}
 Epoch:          1
 Summary:        Web browser running in both graphics and text mode
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -113,6 +113,9 @@ exit 0
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.20.2-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1:2.20.2-16
 - convert license to SPDX
 

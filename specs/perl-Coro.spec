@@ -1,7 +1,7 @@
 %global cpan_version 6.57
 Name:           perl-Coro
 Version:        6.570
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        The only real threads in perl
 # Coro/libcoro:    GPL-2.0-or-later OR BSD-2-Clause
 # Rest of package: GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -161,6 +161,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.570-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.570-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

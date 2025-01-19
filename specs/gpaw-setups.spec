@@ -5,7 +5,7 @@
 
 Name:			gpaw-setups
 Version:		0.9.20000
-Release:		16%{?dist}
+Release:		17%{?dist}
 Summary:		Atomic GPAW setups
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -40,6 +40,9 @@ install -p -m 444 *.{gz,pckl,txt} %{buildroot}%{_datadir}/%{name}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.20000-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.9.20000-16
 - convert license to SPDX
 

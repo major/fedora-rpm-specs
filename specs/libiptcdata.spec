@@ -6,7 +6,7 @@
 
 Name: libiptcdata
 Version: 1.0.5
-Release: 20%{?dist}
+Release: 21%{?dist}
 Summary: IPTC tag library
 
 License: LGPL-2.0-only
@@ -99,6 +99,9 @@ find %{buildroot} -name "*.la" -exec rm -f {} \;
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Tomas Popela <tpopela@redhat.com> - 1.0.5-20
 - Disable python support on RHEL 10+
 

@@ -2,7 +2,7 @@
 
 Name:		json-glib
 Version:	1.10.6
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Library for JavaScript Object Notation format
 
 License:	LGPL-2.1-or-later
@@ -84,6 +84,9 @@ the functionality of the installed json-glib package.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec 11 2024 nmontero <nmontero@redhat.com> - 1.10.6-1
 - Update to 1.10.6
 

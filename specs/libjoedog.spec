@@ -4,7 +4,7 @@
 
 Name:           lib%{libname}
 Version:        %{current}.1.2
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Repack of the common code base of fido and siege as shared library
 
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
@@ -74,6 +74,9 @@ rm -f %{buildroot}%{_libdir}/%{name}.la
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.2-26
 - convert license to SPDX
 

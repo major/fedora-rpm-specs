@@ -2,7 +2,7 @@
 
 Name:       perl-App-Asciio 
 Version:    1.90.02
-Release:    3%{?dist}
+Release:    4%{?dist}
 # see lib/App/Asciio.pm
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -146,6 +146,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications asciio.desktop
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.90.02-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 1.90.02-3
 - convert license to SPDX
 

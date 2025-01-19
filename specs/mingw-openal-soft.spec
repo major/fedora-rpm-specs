@@ -7,7 +7,7 @@
 
 Name:           mingw-%{pkgname}
 Version:        1.23.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Open Audio Library
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -149,6 +149,9 @@ install -Dpm644 alsoftrc.sample %{buildroot}%{mingw64_sysconfdir}/openal/alsoft.
 %{mingw64_datadir}/openal
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.23.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.23.1-6
 - convert license to SPDX
 

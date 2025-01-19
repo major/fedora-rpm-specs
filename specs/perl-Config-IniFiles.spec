@@ -1,6 +1,6 @@
 Name:           perl-Config-IniFiles
 Version:        3.000003
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A module for reading .ini-style configuration files
 # LICENSE:                              GPL+ or Artistic
 # lib/Config/IniFiles.pm:               GPL+ or Artistic
@@ -81,6 +81,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.000003-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 3.000003-15
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           mediawriter
 Version:        5.2.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fedora Media Writer
 
 License:        LGPL-2.0-or-later AND GPL-2.0-or-later
@@ -72,6 +72,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.fedo
 %{_datadir}/icons/hicolor/512x512/apps/org.fedoraproject.MediaWriter.png
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jan 06 2025 Jan Grulich <jgrulich@redhat.com> - 5.2.3-1
 - 5.2.3
 

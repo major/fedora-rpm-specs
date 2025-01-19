@@ -1,6 +1,6 @@
 Name:    kldap
 Version: 24.12.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The KLDAP Library
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND MIT
@@ -82,6 +82,9 @@ find ./po -type f -name libkldap5.po -execdir mv {} libkldap6.po \;
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 07 2025 Steve Cossette <farchord@gmail.com> - 24.12.1-1
 - 24.12.1
 

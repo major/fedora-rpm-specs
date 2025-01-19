@@ -1,6 +1,6 @@
 Name:           perl-CGI-Application-Dispatch
 Version:        3.12
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Dispatch requests to CGI::Application based objects
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -52,6 +52,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.12-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 3.12-35
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           java-jd-decompiler
 Version:        1.1.3
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        JAVA library having JAVA decompiler of "Java Decompiler project"
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -81,6 +81,9 @@ cp -v %{SOURCE4} $RPM_BUILD_ROOT/%{_mandir}/man1
 %doc README.md
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1.3-11
 - convert license to SPDX
 

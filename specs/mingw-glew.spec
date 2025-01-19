@@ -9,7 +9,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       2.2.0
-Release:       9%{?dist}
+Release:       10%{?dist}
 Summary:       MinGW Windows GLEW library
 # Automatically converted from old format: BSD and MIT - review is highly recommended.
 License:       LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT
@@ -134,6 +134,9 @@ Tools for the MinGW Windows GLEW library.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.2.0-9
 - convert license to SPDX
 

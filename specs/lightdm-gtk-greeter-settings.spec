@@ -2,7 +2,7 @@
 
 Name:       lightdm-gtk-greeter-settings
 Version:    %{relver}.2
-Release:    26%{?dist}
+Release:    27%{?dist}
 Summary:    Settings editor for LightDM GTK+ Greeter
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -71,6 +71,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2.2-26
 - convert license to SPDX
 

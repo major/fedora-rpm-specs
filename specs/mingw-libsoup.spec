@@ -5,7 +5,7 @@
 
 Name:		mingw-libsoup
 Version:	2.74.3
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	MinGW library for HTTP and XML-RPC functionality
 
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
@@ -154,6 +154,9 @@ rm -f %{buildroot}%{mingw64_libdir}/*.la
 %{mingw64_libdir}/pkgconfig/libsoup-gnome-2.4.pc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.74.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 18 2024 Sandro Mani <manisandro@gmail.com> - 2.74.3-8
 - Backport fix for CVE-2024-52530 and CVE-2024-52532
 

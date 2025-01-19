@@ -1,6 +1,6 @@
 Name:           pbuilder
 Version:        0.231.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Personal package builder for Debian packages
 
 License:        GPL-2.0-or-later
@@ -141,6 +141,9 @@ make check
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.231.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Nov 30 2024 Sérgio Basto <sergio@serjux.com> - 0.231.1-3
 - Requires util-linux-core instead mount, which doesn't exist as package on
   Fedora

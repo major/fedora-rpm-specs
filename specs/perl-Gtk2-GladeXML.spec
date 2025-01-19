@@ -2,7 +2,7 @@
 
 Name:           perl-Gtk2-GladeXML
 Version:        1.008
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Create user interfaces directly from Glade XML files (deprecated)
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -87,6 +87,9 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.008-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.008-15
 - convert license to SPDX
 

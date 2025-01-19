@@ -14,7 +14,7 @@
 
 Name: openbabel
 Version: 3.1.1
-Release: 30%{?dist}
+Release: 31%{?dist}
 Summary: Chemistry software file format converter
 License: GPL-2.0-only
 URL: https://openbabel.org/
@@ -349,6 +349,9 @@ ctest3 -j1 --force-new-ctest-process
 %{ruby_vendorarchdir}/openbabel.so
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 08 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.1.1-30
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.4
 

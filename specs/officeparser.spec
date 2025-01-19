@@ -6,7 +6,7 @@
 
 Name:           officeparser
 Version:        0.20180820
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Parse the format of OLE compound documents used by MS Office applications
 License:        MIT
 URL:            https://github.com/%{gituser}/%{gitname}
@@ -63,6 +63,9 @@ install -D officeparser.py %{buildroot}%{_bindir}/officeparser.py
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20180820-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20180820-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

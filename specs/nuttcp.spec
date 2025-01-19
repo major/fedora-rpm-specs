@@ -1,6 +1,6 @@
 Name:                   nuttcp
 Version:                8.2.2
-Release:                13%{?dist}
+Release:                14%{?dist}
 Source0:                http://nuttcp.net/nuttcp/%{name}-%{version}.tar.bz2
 URL:                    http://nuttcp.net/
 
@@ -67,6 +67,9 @@ install -m644 systemd/* %{buildroot}%{_unitdir}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 8.2.2-13
 - convert license to SPDX
 

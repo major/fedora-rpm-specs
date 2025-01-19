@@ -2,7 +2,7 @@
 
 Name:           orca
 Version:        47.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Assistive technology for people with visual impairments
 
 License:        LGPL-2.1-or-later AND CC-BY-SA-3.0
@@ -75,6 +75,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/orca-autostart.de
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 47.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 25 2024 nmontero <nmontero@redhat.com> - 47.2-1
 - Update to 47.2
 

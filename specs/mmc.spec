@@ -2,7 +2,7 @@
 
 Name:           mmc
 Version:        1.7.9
-Release:        13%{?dist}
+Release:        14%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            http://mcx.space/mmc
@@ -223,6 +223,9 @@ mv %{buildroot}/%{octpkgdir}/*.mex %{buildroot}/%{octpkglibdir}/%{octave_host}-%
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.9-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.7.9-13
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           perl-Class-DBI-Plugin
 Version:        0.03
-Release:        53%{?dist}
+Release:        54%{?dist}
 Summary:        Abstract base class for Class::DBI plugins
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-DBI-Plugin
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/Class::DBI::Plugin.3*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-54
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-53
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

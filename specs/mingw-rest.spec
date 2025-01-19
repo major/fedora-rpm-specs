@@ -2,7 +2,7 @@
 
 Name:           mingw-rest
 Version:        0.8.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        A library for access to RESTful web services
 
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
@@ -137,6 +137,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 %{mingw64_libdir}/librest-extras-0.7.a
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.8.0-23
 - convert license to SPDX
 

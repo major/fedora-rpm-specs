@@ -3,7 +3,7 @@
 
 Name:           jcip-annotations
 Version:        %{fedora_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A clean room implementation of the JCIP Annotations
 
 License:        Apache-2.0
@@ -51,6 +51,9 @@ Javadoc documentation for the jcip-annotations package.
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Nov 30 2024 Richard Fearn <richardfearn@gmail.com> - 1.0_1-1
 - Switch to clean room implementation, as original implementation uses
   CC-BY-2.5 licence, which is not allowed for code in Fedora

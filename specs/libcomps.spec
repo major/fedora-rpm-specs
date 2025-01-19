@@ -2,7 +2,7 @@
 
 Name:           libcomps
 Version:        0.1.21
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Comps XML file manipulation library
 
 License:        GPL-2.0-or-later
@@ -120,6 +120,9 @@ popd
 %{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.21-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec 11 2024 Miro Hrončok <mhroncok@redhat.com> - 0.1.21-4
 - Python: Return self from iter(iterator) to prevent a segfault
 - Fixes: rhbz#2331665

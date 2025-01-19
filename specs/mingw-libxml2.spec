@@ -2,7 +2,7 @@
 
 Name:           mingw-libxml2
 Version:        2.12.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MinGW Windows libxml2 XML processing library
 
 License:        MIT
@@ -137,6 +137,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Sep 10 2024 Sandro Mani <manisandro@gmail.com> - 2.12.9-1
 - Update to 2.12.9
 

@@ -2,7 +2,7 @@
 
 Name:           mingw-gdb
 Version:        15.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MinGW Windows port of the GDB debugger
 
 # Same License tag as the native gdb package has:
@@ -112,6 +112,9 @@ rm %{buildroot}%{mingw32_bindir}/gdb-add-index
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 15.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 15 2024 Sandro Mani <manisandro@gmail.com> - 15.2-1
 - Update to 15.2
 

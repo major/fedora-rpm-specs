@@ -1,6 +1,6 @@
 Name:           iio-sensor-proxy
 Version:        3.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        IIO accelerometer sensor to input device proxy
 
 # tests/unittest_inspector.py is LGPL-2.1-or-later but it is not packaged
@@ -67,6 +67,9 @@ This package contains the documentation for %{name}.
 %{_datadir}/gtk-doc/html/%{name}/
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Nov 13 2024 Michel Lind <salimma@fedoraproject.org> - 3.5-5
 - Update URL
 - Resolves: rhbz#2324439

@@ -1,6 +1,6 @@
 Name:           perl-Authen-DecHpwd
 Version:        2.007
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        DEC VMS password hashing
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -56,6 +56,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.007-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.007-25
 - convert license to SPDX
 

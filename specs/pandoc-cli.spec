@@ -24,7 +24,7 @@
 Name:           pandoc-cli
 Version:        3.1.11.1
 # can only be reset when all subpkgs bumped
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Conversion between documentation formats
 
 License:        GPL-2.0-or-later
@@ -330,6 +330,9 @@ echo | %{buildroot}%{_bindir}/pandoc --data-dir=%{buildroot}%{_datadir}/%{pandoc
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.11.1-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 31 2024 Jens Petersen <petersen@redhat.com> - 3.1.11.1-32
 - update to 3.1.11.1
 - provide pandoc-pdf meta-package

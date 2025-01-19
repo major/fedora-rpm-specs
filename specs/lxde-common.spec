@@ -21,7 +21,7 @@
 
 Name:			lxde-common
 Version:		0.99.2
-Release:		26%{?git_version:.%{?git_version}}%{?dist}
+Release:		27%{?git_version:.%{?git_version}}%{?dist}
 Summary:		Default configuration files for LXDE
 
 # SPDX confirmed
@@ -169,6 +169,9 @@ install -cpm 0644 %{SOURCE11} %{buildroot}%{_sysconfdir}/xdg/lxsession/libfm/lib
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.2-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.2-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

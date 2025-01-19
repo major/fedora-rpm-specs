@@ -9,7 +9,7 @@
 Name:    kreport
 Summary: Framework for creation and generation of reports
 Version: 3.2.0
-Release: 18%{?dist}
+Release: 19%{?dist}
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
@@ -127,6 +127,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Nov 15 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 3.2.0-18
 - Disable maps plugin
 

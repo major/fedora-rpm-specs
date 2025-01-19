@@ -3,7 +3,7 @@
 
 Name:           perl-Dist-Zilla-Plugin-CheckChangesHasContent
 Version:        0.011
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Ensure Changes file has content before releasing
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -76,6 +76,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.011-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.011-22
 - convert license to SPDX
 

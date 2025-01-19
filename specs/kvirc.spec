@@ -6,7 +6,7 @@
 
 Name:             kvirc
 Version:          5.2.6
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Free portable IRC client
 # Automatically converted from old format: GPLv2+ with exceptions - review is highly recommended.
 License:          LicenseRef-Callaway-GPLv2+-with-exceptions
@@ -144,6 +144,9 @@ rm %{buildroot}%{_libdir}/libkvilib.so
 %lang(uk) %{_mandir}/uk/man1/%{name}.1.gz
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 10 2024 Alexey Kurov <nucleo@fedoraproject.org> - 5.2.6-1
 - KVIrc 5.2.6
 

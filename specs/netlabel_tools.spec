@@ -1,7 +1,7 @@
 Summary: Tools to manage the Linux NetLabel subsystem
 Name: netlabel_tools
 Version: 0.30.0
-Release: 19%{?dist}
+Release: 20%{?dist}
 License: GPL-2.0-only
 URL: https://github.com/netlabel/netlabel_tools
 Source: https://github.com/netlabel/netlabel_tools/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -66,6 +66,9 @@ make V=1 DESTDIR="%{buildroot}" install
 %attr(0644,root,root) %config(noreplace) /etc/netlabel.rules
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.30.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.30.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

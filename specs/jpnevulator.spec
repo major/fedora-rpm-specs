@@ -1,7 +1,7 @@
 Summary: Serial line sniffer including very simple terminal emulator
 Name: jpnevulator
 Version: 2.3.6
-Release: 12%{?dist}
+Release: 13%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: http://jpnevulator.snarl.nl/
@@ -30,6 +30,9 @@ make DESTDIR=%{buildroot} INSTALL="install -p" install
 %{_mandir}/*/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.6-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.3.6-12
 - convert license to SPDX
 

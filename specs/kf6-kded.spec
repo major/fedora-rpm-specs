@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Version: 6.10.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 6 Tier 3 addon with extensible daemon for system-level services
 
 License: CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later
@@ -77,6 +77,9 @@ mkdir -p %{buildroot}%{_kf6_plugindir}/kded
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.10.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 03 2025 Steve Cossette <farchord@gmail.com> - 6.10.0-1
 - 6.10.0
 

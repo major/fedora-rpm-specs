@@ -5,7 +5,7 @@
 
 Name:           krop
 Version:        0.5.1
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Tool to crop PDF files with an eye towards eReaders
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -109,6 +109,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5.1-23
 - convert license to SPDX
 

@@ -22,7 +22,7 @@ Name:      ocsinventory-agent
 Summary:   Open Computer and Software Inventory Next Generation client
 
 Version:   2.10.4
-Release:   4%{?dist}
+Release:   5%{?dist}
 
 Source0:   https://github.com/OCSInventory-NG/UnixAgent/releases/download/v%{official_version}/Ocsinventory-Unix-Agent-%{official_version}.tar.gz
 
@@ -305,6 +305,9 @@ find %{buildroot} -type f -name ._.DS_Store -exec rm {} \;
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 2 2025 Pat Riehecky <riehecky@fnal.gov> - 2.10.4-4
 - Make monitor-edid suggests rather than recommended because we have perl-parse-edid
 

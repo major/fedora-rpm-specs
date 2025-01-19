@@ -9,7 +9,7 @@
 
 Name:           mozilla-https-everywhere
 Version:        2022.5.11
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        HTTPS enforcement extension for Mozilla Firefox
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -75,6 +75,9 @@ DESTDIR=%{buildroot} appstream-util install %{SOURCE1}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2022.5.11-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2022.5.11-7
 - convert license to SPDX
 

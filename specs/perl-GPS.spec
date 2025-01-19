@@ -1,6 +1,6 @@
 Name:           perl-GPS
 Version:        0.17
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Perl interface to a GPS receiver that implements the Garmin protocol
 
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -54,6 +54,9 @@ make test
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.17-29
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:          gupnp-dlna
 Version:       0.12.0
-Release:       9%{?dist}
+Release:       10%{?dist}
 Summary:       A collection of helpers for building UPnP AV applications
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:       LicenseRef-Callaway-LGPLv2+
@@ -90,6 +90,9 @@ Contains developer documentation for %{name}.
 %{_datadir}/gtk-doc/html/gupnp-dlna-metadata
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.12.0-9
 - convert license to SPDX
 

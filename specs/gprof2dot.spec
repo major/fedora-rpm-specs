@@ -1,5 +1,5 @@
 %global         usegit      1
-%global         baserelease     1
+%global         baserelease     2
 
 %global         githash     6edec704a3c6242801ce8e8be9095e9cf0753493
 %global         shorthash   %(TMP=%githash ; echo ${TMP:0:10})
@@ -70,6 +70,9 @@ python3 ./tests/test.py
 %{_bindir}/gprof2dot
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.2.D20240702git6edec704a3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Sep 06 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0-0.1.D20240702git6edec704a3
 - Update to the latest git (20240702git6edec704a3)
 

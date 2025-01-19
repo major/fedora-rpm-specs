@@ -1,6 +1,6 @@
 Name:           libaribcaption
 Version:        1.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Portable ARIB STD-B24 Caption Decoder/Renderer
 License:        MIT
 URL:            https://github.com/xqq/libaribcaption
@@ -65,5 +65,8 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 13 2024 Simone Caronni <negativo17@gmail.com> - 1.1.1-1
 - First build.

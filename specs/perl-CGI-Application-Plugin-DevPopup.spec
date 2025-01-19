@@ -1,6 +1,6 @@
 Name:           perl-CGI-Application-Plugin-DevPopup
 Version:        1.08
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Runtime cgiapp info in a popup window
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 1.08-34
 - convert license to SPDX
 

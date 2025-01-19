@@ -2,7 +2,7 @@ Name:           perl-Devel-StackTrace
 Summary:        Perl module implementing stack trace and stack trace frame objects
 Version:        2.05
 Epoch:          1
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Devel-StackTrace
 Source0:        https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/Devel-StackTrace-%{version}.tar.gz
@@ -53,6 +53,9 @@ data available from caller() as of Perl 5.6.0.
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.05-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.05-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

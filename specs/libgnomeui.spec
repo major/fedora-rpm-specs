@@ -3,7 +3,7 @@
 Summary: GNOME base GUI library
 Name: libgnomeui
 Version: 2.24.5
-Release: 34%{?dist}
+Release: 35%{?dist}
 URL: http://www.gnome.org
 Source0: http://download.gnome.org/sources/libgnomeui/2.24/%{name}-%{version}.tar.bz2
 
@@ -94,6 +94,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_includedir}/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.24.5-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.24.5-34
 - Kill BR: gvfs-devel, actually not used
 

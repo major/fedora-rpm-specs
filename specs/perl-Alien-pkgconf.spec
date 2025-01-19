@@ -1,6 +1,6 @@
 Name:           perl-Alien-pkgconf
 Version:        0.20
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Discover pkgconf and libpkgconf
 # Other files:  GPL-1.0-or-later OR Artistic-1.0-Perl
 ## Not used
@@ -127,6 +127,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Neal Gompa <ngompa@fedoraproject.org> - 0.20-4
 - Rebuild for pkgconf 2.3.0
 

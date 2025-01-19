@@ -1,6 +1,6 @@
 Name: dx
 Version: 4.4.4
-Release: 69%{?dist}
+Release: 70%{?dist}
 Summary: Open source version of IBM's Visualization Data Explorer
 License: IPL-1.0
 URL: http://www.opendx.org/
@@ -83,8 +83,10 @@ Editor, or in the scripting language, you will need this package.
 chmod a-x src/exec/{dxmods,dpexec,hwrender}/*.{c,h}
 
 %build
-export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS"
 autoreconf --force --install
+
+# The sources aren't ready for modern c++
+# As a work-around, use c++11 and c11
 %configure \
 	--disable-static \
 	--enable-shared \
@@ -93,7 +95,9 @@ autoreconf --force --install
 	--disable-dependency-tracking \
 	--enable-smp-linux \
 	--enable-new-keylayout \
-	--with-rsh=%{_bindir}/ssh
+	--with-rsh=%{_bindir}/ssh \
+	CXXFLAGS="-std=c++11 $RPM_OPT_FLAGS" \
+	CFLAGS="-std=c11 $RPM_OPT_FLAGS"
 
 %{make_build}
 
@@ -134,6 +138,9 @@ rm     $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/lib*.so
 
 %changelog
+* Fri Jan 17 2025 Ralf Corsépius <corsepiu@fedoraproject.org> - 4.4.4-70
+- Switch to using c11 and c++11 (Work-around F42FTBS).
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.4-69
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

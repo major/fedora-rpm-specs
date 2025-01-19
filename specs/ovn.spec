@@ -46,7 +46,7 @@ Name: ovn
 Summary: Open Virtual Network support
 URL: http://www.openvswitch.org/
 Version: 24.09.1
-Release: 10%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
+Release: 11%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
 Obsoletes: openvswitch-ovn-common < %{?epoch_ovs:%{epoch_ovs}:}2.11.0-8
 Provides: openvswitch-ovn-common = %{?epoch:%{epoch}:}%{version}-%{release}
 
@@ -437,6 +437,9 @@ fi
 %{_unitdir}/ovn-controller-vtep.service
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.09.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec 11 2024 Dumitru Ceara <dceara@redhat.com - 24.09.1-10
 - Sync to upstream ovn 24.09 branch commit e090b4ee942b
   which includes 24.09.1.

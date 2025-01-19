@@ -1,6 +1,6 @@
 Name:          maui-mauikit-accounts
 Version:       4.0.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       BSD-2-Clause AND LGPL-2.1-or-later AND CC0-1.0 AND GPL-3.0-or-later AND LGPL-2.0-or-later
 Summary:       MauiKit utilities to handle User Accounts
 URL:           https://invent.kde.org/maui/mauikit-accounts
@@ -57,5 +57,8 @@ on %{name}.
 %{_includedir}/MauiKit4/Accounts/
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue May 14 2024 Steve Cossette <farchord@gmail.com> - 4.0.0-1
 - 4.0.0

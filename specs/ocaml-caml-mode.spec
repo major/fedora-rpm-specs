@@ -6,7 +6,7 @@
 
 Name:           ocaml-%{srcname}
 Version:        4.9
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Opam file for caml-mode
 
 # GPL-2.0-or-later: the project as a whole
@@ -76,6 +76,9 @@ cd -
 %{_emacs_sitestartdir}/caml-mode-loaddefs.el
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.9-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Aug  9 2024 Jerry James <loganjerry@gmail.com> - 4.9-9
 - Generate loaddefs instead of deprecated autoloads
 

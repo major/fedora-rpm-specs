@@ -4,7 +4,7 @@
 
 Name:           mingw-binutils
 Version:        2.43.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Cross-compiled version of binutils for Win32 and Win64 environments
 
 License:        GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
@@ -451,6 +451,9 @@ rm -rf %{buildroot}%{_mandir}/man1/*
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.43.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Oct 02 2024 Davide Cavalca <dcavalca@fedoraproject.org> - 2.43.1-2
 - Fix invalid SPDX expression in license tag
 

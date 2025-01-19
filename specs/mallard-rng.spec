@@ -1,6 +1,6 @@
 Name:    mallard-rng
 Version: 1.1.0
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: RELAX NG schemas for all Mallard versions
 
 License: MIT
@@ -51,6 +51,9 @@ xmlcatalog --noout --del 'file://%{_sysconfdir}/xml/mallard/catalog' %{_sysconfd
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

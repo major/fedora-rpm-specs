@@ -1,6 +1,6 @@
 Name:           perl-File-Find-Iterator
 Version:        0.4
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Iterator interface for search files
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-Find-Iterator
@@ -80,6 +80,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 09 2024 Petr Pisar <ppisar@redhat.com> - 0.4-39
 - Modernize a spec file
 

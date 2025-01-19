@@ -8,7 +8,7 @@
 
 Name:           libclc
 Version:        %{libclc_version}%{?rc_ver:~rc%{rc_ver}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An open source implementation of the OpenCL 1.1 library requirements
 
 License:        Apache-2.0 WITH LLVM-exception OR NCSA OR MIT
@@ -107,6 +107,9 @@ export CFLAGS="%{build_cflags} -D__extern_always_inline=inline"
 %{_includedir}/%{shortname}
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 19.1.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 02 2025 Timm Bäder <tbaeder@redhat.com> - 19.1.6-1
 - Update to 19.1.6
 

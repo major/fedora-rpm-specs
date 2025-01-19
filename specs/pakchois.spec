@@ -1,7 +1,7 @@
 Summary: A wrapper library for PKCS#11
 Name: pakchois
 Version: 0.4
-Release: 32%{?dist}
+Release: 33%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
 URL: http://www.manyfish.co.uk/pakchois/
@@ -54,6 +54,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/lib*.la
 %{_libdir}/*.so
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.4-32
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           perl-Data-Dump-Streamer
 Version:        2.42
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Accurately serialize a data structure as Perl code
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-Dump-Streamer
@@ -89,6 +89,9 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_mandir}/man3/DDS.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.42-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.42-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

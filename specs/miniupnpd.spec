@@ -1,6 +1,6 @@
 Name:       miniupnpd
 Version:    2.3.6
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Lightweight UPnP IGD & PCP/NAT-PMP daemon
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -90,6 +90,9 @@ rm -f %{buildroot}/etc/init.d/%{name}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.6-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.3.6-3
 - convert license to SPDX
 

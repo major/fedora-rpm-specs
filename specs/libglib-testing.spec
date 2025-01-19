@@ -1,6 +1,6 @@
 Name:           libglib-testing
 Version:        0.1.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        GLib-based test library and harness
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -49,6 +49,9 @@ for %{name}.
 %{_libdir}/pkgconfig/glib-testing-0.pc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 2 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.0-13
 - convert license to SPDX
 

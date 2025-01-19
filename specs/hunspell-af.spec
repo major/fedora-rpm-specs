@@ -8,7 +8,7 @@ Name: hunspell-af
 Summary: Afrikaans hunspell dictionary
 %global upstreamid 20080825
 Version: 0.%{upstreamid}
-Release: 32%{?dist}
+Release: 33%{?dist}
 # Following URL is dead now
 Source: http://downloads.translate.org.za/spellchecker/afrikaans/myspell-af_ZA-0.%{upstreamid}.zip
 URL: http://www.translate.org.za/
@@ -44,6 +44,9 @@ popd
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20080825-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20080825-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

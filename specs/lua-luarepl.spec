@@ -3,7 +3,7 @@
 
 Name:      lua-luarepl
 Version:   0.10
-Release:   6%{?dist}
+Release:   7%{?dist}
 Summary:   REPL.lua - a reusable Lua REPL written in Lua
 License:   MIT
 URL:       %{forgeurl}
@@ -74,6 +74,9 @@ print(repl.VERSION)'
 %{lua_pkgdir}/repl/
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:		laughlin-kde-theme
 Version:	14.0.1
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	Laughlin KDE Theme
 
 # Automatically converted from old format: GPLv2+ and CC-BY-SA - review is highly recommended.
@@ -111,6 +111,9 @@ ln -s ../../../../../../pixmaps/system-logo-white.png %{buildroot}%{_kde4_appsdi
 %{_kde4_appsdir}/ksplash/Themes/Laughlin/
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 14.0.1-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 14.0.1-22
 - convert license to SPDX
 

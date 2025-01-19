@@ -1,6 +1,6 @@
 Name:           jowl
 Version:        2.3.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CLI for JSON operations with Lodash
 
 License:        MIT
@@ -89,6 +89,9 @@ yarn run test
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Jul 21 2024 Daniel Axelrod <git@danonline.net> - 2.3.2-1
 - Update to version 2.3.2
 

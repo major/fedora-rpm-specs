@@ -1,6 +1,6 @@
 Name:     nng
 Version:  1.9.0
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  Light-weight brokerless messaging
 
 License:  MIT
@@ -72,6 +72,9 @@ rm -rf %{buildroot}/%{_mandir}/man[3-7]*
 %{_mandir}/man1/nngcat.1.gz
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 10 2024 Fabian Affolter <mail@fabian-affolter.ch> - 1.9.0-1
 - Update to latest upstream release (closes rhbz#2317733)
 

@@ -10,7 +10,7 @@
 
 Name:          mod_cluster
 Version:       1.3.21
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Apache HTTP Server dynamic load balancer with Wildfly and Tomcat libraries
 # Automatically converted from old format: LGPLv3 - review is highly recommended.
 License:       LGPL-3.0-only
@@ -84,6 +84,9 @@ install -pm 0644 %{SOURCE2} README
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/*.conf
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.21-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 8 2025 Vladimir Chlup <vchlup@redhat.com> - 1.3.21-1
 - Update to upstream 1.3.21.Final release
 

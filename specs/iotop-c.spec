@@ -1,6 +1,6 @@
 Name:           iotop-c
 Version:        1.27
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple top-like I/O monitor (implemented in C)
 
 License:        GPL-2.0-or-later
@@ -53,6 +53,9 @@ V=1 STRIP=: %make_install
 %{_mandir}/man8/iotop.8*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.27-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon 13 Jan 2025 Boian Bonev <bbonev@ipacct.com> - 1.27-1
 - Update to latest ver 1.27
 

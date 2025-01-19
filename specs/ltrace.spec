@@ -1,7 +1,7 @@
 Summary: Tracks runtime library calls from dynamically linked executables
 Name: ltrace
 Version: 0.7.91
-Release: 51%{?dist}
+Release: 52%{?dist}
 # In coordination with Juan Céspedes, upstream is now officially on gitlab.
 # We are going to being sending all of our Fedora patches upstream to gitlab.
 URL: https://gitlab.com/cespedes/ltrace
@@ -210,6 +210,9 @@ echo ====================TESTING END=====================
 %{_datadir}/ltrace
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.91-52
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.91-51
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

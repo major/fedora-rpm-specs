@@ -2,7 +2,7 @@
 
 Name:           nunit2
 Version:        2.6.4
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Unit test framework for CLI
 # Automatically converted from old format: MIT with advertising - review is highly recommended.
 License:        LicenseRef-Callaway-MIT-with-advertising
@@ -128,6 +128,9 @@ fi
 /usr/bin/gtk-update-icon-cache %{_datadir}/icons/NUnit &>/dev/null || :
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.6.4-36
 - convert license to SPDX
 

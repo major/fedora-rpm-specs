@@ -1,6 +1,6 @@
 Name:           perl-CGI-Application-Plugin-Config-Simple
 Version:        1.01
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Add Config::Simple support to CGI::Application
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -45,6 +45,9 @@ LANG=C ./Build test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 1.01-42
 - convert license to SPDX
 

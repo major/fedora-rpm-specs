@@ -1,7 +1,7 @@
 Summary: Library for producing small, fast columnar storage for Hadoop workloads
 Name:    liborc
 Version: 2.0.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Apache-2.0
 URL:     http://orc.apache.org/
 Source: https://archive.apache.org/dist/orc/orc-%{version}/orc-%{version}.tar.gz
@@ -131,6 +131,9 @@ rm -f %{buildroot}/%{_includedir}/orc/sargs/._*.hh
      %{_libdir}/liborc.so
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Nov 20 2024  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 2.0.3-1
 - Apache ORC 2.0.3
 

@@ -4,7 +4,7 @@
 %global ghproject junction
 
 Version: 0^20140329gitfb73260
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 URL: https://www.theleagueofmoveabletype.com/junction
 
@@ -67,6 +67,9 @@ rm update-foundry.pe
 %doc OpenFontLicenseFAQ.markdown
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0^20140329gitfb73260-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0^20140329gitfb73260-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

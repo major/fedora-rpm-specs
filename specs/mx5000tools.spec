@@ -4,7 +4,7 @@
 
 Name:           mx5000tools
 Version:        0.1.2
-Release:        17.%{commitdate}git%{shortcommit}%{?dist}
+Release:        18.%{commitdate}git%{shortcommit}%{?dist}
 Summary:        Tools for the MX5000 series keyboard
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -62,6 +62,9 @@ install -p -m 644 %{SOURCE1} $RPM_BUILD_ROOT%{_udevrulesdir}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-18.20190613gitc575ea3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul  26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.2-17.20190613gitc575ea3
 - convert license to SPDX
 

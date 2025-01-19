@@ -18,7 +18,7 @@ well with Go's built-in testing package, but can be used in other contexts too.}
 %global godocs          AUTHORS CONTRIBUTORS README.md
 
 Name:           %{goname}
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Gomock is a mocking framework for the go programming language
 
 # Upstream license specification: Apache-2.0
@@ -61,6 +61,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 1.6.0-12
 - convert license to SPDX
 

@@ -7,7 +7,7 @@
 
 Name: SuperLUMT
 Version: %{majorver}.1
-Release: %{autorelease}
+Release: %autorelease
 Summary: Single precision real SuperLU routines for shared memory parallel machines
 License: BSD-3-Clause
 URL: https://portal.nersc.gov/project/sparse/superlu/
@@ -154,7 +154,7 @@ cp -a EXAMPLE EXAMPLE64
 
 %build
 cp -p MAKE_INC/make.linux.openmp make.inc
-sed -i -e "s|-O3|$RPM_OPT_FLAGS|" \
+sed -i -e "s|-O3|$RPM_OPT_FLAGS -std=gnu17|" \
 make.inc
 
 ## Build lib ##########################################
@@ -171,7 +171,7 @@ make -j1 \
  FORTRAN=gfortran \
  LOADER=gcc \
  CC=gcc \
- CFLAGS="$RPM_OPT_FLAGS $LDFLAGS -fPIC -D__OPENMP -DPRNTlevel=0 -DDEBUGlevel=0" \
+ CFLAGS="$RPM_OPT_FLAGS -std=gnu17 $LDFLAGS -fPIC -D__OPENMP -DPRNTlevel=0 -DDEBUGlevel=0" \
  LDFLAGS="%{__global_ldflags} -lgomp $LIBBLASLINK" \
  MATHLIB=-lm \
  MPLIB= -C SRC single double complex complex16
@@ -194,7 +194,7 @@ make -j1 \
  LOADER=gcc \
  LOADOPTS="$RPM_OPT_FLAGS $LDFLAGS -fPIC -D__OPENMP -DPRNTlevel=0 -DDEBUGlevel=0" \
  CC=gcc \
- CFLAGS="$RPM_OPT_FLAGS $LDFLAGS -fPIC -D__OPENMP -DPRNTlevel=0 -DDEBUGlevel=0" \
+ CFLAGS="$RPM_OPT_FLAGS -std=gnu17 $LDFLAGS -fPIC -D__OPENMP -DPRNTlevel=0 -DDEBUGlevel=0" \
  LDFLAGS="%{__global_ldflags} -lgomp $LIBBLASLINK" \
  MATHLIB=-lm \
  MPLIB= -C EXAMPLE single double complex complex16
@@ -224,7 +224,7 @@ make -j1 \
  CDEFS=-DAdd_ \
  FFLAGS="$RPM_OPT_FLAGS $LDFLAGS -fPIC -fopenmp -D__OPENMP -DPRNTlevel=0 -DDEBUGlevel=0 -fdefault-integer-8" \
  FORTRAN=gfortran \
- CFLAGS="$RPM_OPT_FLAGS $LDFLAGS -fPIC -D__OPENMP -DPRNTlevel=0 -DDEBUGlevel=0 -D_LONGINT" \
+ CFLAGS="$RPM_OPT_FLAGS -std=gnu17 $LDFLAGS -fPIC -D__OPENMP -DPRNTlevel=0 -DDEBUGlevel=0 -D_LONGINT" \
  LOADER=gcc \
  CC=gcc \
  LDFLAGS="%{__global_ldflags} -lgomp $LIBBLASLINK" \
@@ -247,7 +247,7 @@ make -j1 \
  CDEFS=-DAdd_ \
  FFLAGS="$RPM_OPT_FLAGS $LDFLAGS -fPIC -fopenmp -D__OPENMP -DPRNTlevel=0 -DDEBUGlevel=0 -fdefault-integer-8" \
  FORTRAN=gfortran \
- CFLAGS="$RPM_OPT_FLAGS $LDFLAGS -fPIC -D__OPENMP -DPRNTlevel=0 -DDEBUGlevel=0 -D_LONGINT" \
+ CFLAGS="$RPM_OPT_FLAGS -std=gnu17 $LDFLAGS -fPIC -D__OPENMP -DPRNTlevel=0 -DDEBUGlevel=0 -D_LONGINT" \
  LOADER=gcc \
  LOADOPTS="$RPM_OPT_FLAGS $LDFLAGS -fPIC -D__OPENMP -DPRNTlevel=0 -DDEBUGlevel=0 -D_LONGINT" \
  CC=gcc \

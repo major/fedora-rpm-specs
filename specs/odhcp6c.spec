@@ -5,7 +5,7 @@
 
 Name: odhcp6c
 Version: 0
-Release: 0.24.%{date}git%{shortcommit}%{?dist}
+Release: 0.25.%{date}git%{shortcommit}%{?dist}
 Summary: Embedded DHCPv6 and RA client
 # License is GPLv2 except:
 # ./src/md5.c: ISC
@@ -52,6 +52,9 @@ install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/odhcp6c@.service
 %{_unitdir}/odhcp6c@.service
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.25.20240116gitbcd2836
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 0-0.24.20240116gitbcd2836
 - convert license to SPDX
 

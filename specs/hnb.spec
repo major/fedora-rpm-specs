@@ -1,7 +1,7 @@
 Summary: Hierarchical Notebook
 Name: hnb
 Version: 1.9.19
-Release: 26%{?dist}
+Release: 27%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: https://github.com/liskin/lhnb
@@ -47,6 +47,9 @@ install -D -pm644 doc/hnb.1 $RPM_BUILD_ROOT%{_mandir}/man1/hnb.1
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.19-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.9.19-26
 - convert license to SPDX
 

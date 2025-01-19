@@ -9,7 +9,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.08.5
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: A library containing itinerary data model and itinerary extraction code
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND ODbL-1.0
@@ -141,6 +141,9 @@ make test/fast ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 23 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 23.08.5-4
 - Drop i686 support beginning with Fedora 42 (leaf package)
 

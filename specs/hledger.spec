@@ -16,7 +16,7 @@
 Name:           %{pkg_name}
 Version:        1.32.3
 # can only be reset when all subpkgs bumped
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Command-line interface for the hledger accounting system
 
 License:        GPL-3.0-or-later
@@ -244,6 +244,9 @@ PATH=%{buildroot}%{_bindir}:$PATH
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.32.3-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Jul 21 2024 Jens Petersen <petersen@redhat.com> - 1.32.3-13
 - https://hackage.haskell.org/package/hledger-1.32.3/changelog
 

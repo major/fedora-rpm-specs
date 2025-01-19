@@ -4,7 +4,7 @@
 Name:    oxygen-gtk2
 Summary: Oxygen GTK+2 theme
 Version: 1.4.6
-Release: 27%{?dist}
+Release: 28%{?dist}
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
@@ -57,6 +57,9 @@ otherwise breaks every time some setting is changed in KDE.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.4.6-27
 - convert license to SPDX
 

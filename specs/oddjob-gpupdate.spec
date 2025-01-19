@@ -1,6 +1,6 @@
 Name:           oddjob-gpupdate
 Version:        0.2.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        An oddjob helper which applies group policy objects
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -76,6 +76,9 @@ fi
 %config(noreplace) %{_sysconfdir}/oddjobd.conf.d/oddjobd-gpupdate.conf
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 2 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.1-8
 - convert license to SPDX
 

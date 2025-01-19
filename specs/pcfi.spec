@@ -2,7 +2,7 @@
 
 Name:           pcfi
 Version:        2010.08.09
-Release:        32.20111103git%{commit}%{?dist}
+Release:        33.20111103git%{commit}%{?dist}
 Summary:        PDF Core Font Information
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -45,6 +45,9 @@ cp %SOURCE1 .
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2010.08.09-33.20111103gitbd245c9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2010.08.09-32.20111103gitbd245c9
 - convert license to SPDX
 

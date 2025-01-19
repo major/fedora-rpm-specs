@@ -5,7 +5,7 @@
 
 Name:           mac-encheez
 Version:        0.1
-Release:        0.17.20170314git%{shortcommit0}%{?dist}
+Release:        0.18.20170314git%{shortcommit0}%{?dist}
 Summary:        Run a program with a modified view of network MAC addresses
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -48,6 +48,9 @@ make install PREFIX="%{_prefix}" LIBDIR="%{_libdir}" DESTDIR="%{buildroot}"
 # environment.
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.18.20170314git8f11e8a
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1-0.17.20170314git8f11e8a
 - convert license to SPDX
 

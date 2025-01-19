@@ -1,6 +1,6 @@
 Name:           perl-Exception-Tiny
 Version:        0.2.1
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Tiny Perl exception interface
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -52,6 +52,9 @@ handling so that anyone can understand the implementation.
 %{_mandir}/man3/Exception*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.1-31
 - convert license to SPDX
 

@@ -7,7 +7,7 @@
 
 Name:		milter-regex
 Version:	2.7
-Release:	14%{?dist}
+Release:	16%{?dist}
 Summary:	Milter plug-in for regular expression filtering
 License:	BSD-2-Clause
 URL:		http://www.benzedrine.ch/milter-regex.html
@@ -44,7 +44,7 @@ head -n +31 milter-regex.c > LICENSE
 
 %build
 make %{?_smp_mflags} -f Makefile.linux \
-	CFLAGS="%{optflags} -Wextra -Wwrite-strings -DYYMAXDEPTH=8192" \
+	CFLAGS="%{optflags} -Wextra -Wwrite-strings -DYYMAXDEPTH=8192 -std=gnu17" \
 	LDFLAGS="-Wl,-z,now -Wl,-z,relro %{?__global_ldflags} -Wl,--as-needed -L/usr/lib/libmilter -lmilter -lpthread"
 
 %install
@@ -90,6 +90,12 @@ exit 0
 %{_mandir}/man8/milter-regex.8*
 
 %changelog
+* Fri Jan 17 2025 Paul Howarth <paul@city-fan.org> - 2.7-16
+- Build with -std=gnu17 due to issues with milter API (#2336394)
+
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

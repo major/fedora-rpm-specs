@@ -3,7 +3,7 @@
 Summary:    Alternative C/C++ preprocessor
 Name:       mcpp
 Version:    2.7.2
-Release:    38%{?dist}
+Release:    39%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:    LicenseRef-Callaway-BSD
 Source:     http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -100,6 +100,9 @@ This package provides an html manual for mcpp.
 %lang(ja) %doc  doc-jp/mcpp-manual-jp.html
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.2-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.7.2-38
 - convert license to SPDX
 

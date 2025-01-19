@@ -18,7 +18,7 @@ Summary: Library to handle RPG Maker 2000/2003 game data
 License: MIT AND BSD-2-Clause AND BSL-1.0
 
 Version: 0.8
-Release: 7%{?dist}
+Release: 8%{?dist}
 
 URL: https://github.com/EasyRPG/liblcf
 Source0: %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -120,6 +120,9 @@ ln -s %{_includedir}/ini.h %{buildroot}%{_includedir}/lcf/ini.h
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

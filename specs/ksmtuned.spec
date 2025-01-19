@@ -1,6 +1,6 @@
 Name: ksmtuned
 Version: 0.1.0
-Release: 15%{?dist}
+Release: 16%{?dist}
 
 Summary: Kernel Samepage Merging services
 License: GPL-2.0-or-later
@@ -60,6 +60,9 @@ This package provides service files for disabling (ksm) and tuning
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

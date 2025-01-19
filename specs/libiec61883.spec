@@ -1,7 +1,7 @@
 Summary:        Streaming library for IEEE1394
 Name:           libiec61883
 Version:        1.2.0
-Release:        36%{?dist}
+Release:        37%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
 Source:         http://www.kernel.org/pub/linux/libs/ieee1394/%{name}-%{version}.tar.gz
@@ -69,6 +69,9 @@ find %{buildroot} -name '*.la' -delete
 %{_mandir}/man1/*.1*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2.0-36
 - convert license to SPDX
 

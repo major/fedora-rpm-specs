@@ -3,7 +3,7 @@
 Name:		kf6-%{framework}
 Summary:	A QtQuick module providing high-performance charts
 Version:	6.10.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 License:	BSD-2-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-3.0-only AND MIT
 URL:		https://invent.kde.org/frameworks/%{framework}
@@ -61,6 +61,9 @@ developing applications that use %{name}.
 %{_libdir}/libQuickChartsControls.so
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.10.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 03 2025 Steve Cossette <farchord@gmail.com> - 6.10.0-1
 - 6.10.0
 

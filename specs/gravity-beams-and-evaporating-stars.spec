@@ -5,7 +5,7 @@ Name: gravity-beams-and-evaporating-stars
 %global shortname %(echo "%{name}" | sed -e 's:\\([a-z]\\)[a-z]*:\\1:g' -e 's:-::g')
 
 Version: 1.0
-Release: 19%{?dist}
+Release: 20%{?dist}
 Summary: A game about hurling asteroids into the sun
 License: MIT
 
@@ -98,6 +98,9 @@ appstream-util validate-relax --nonet packaging/%{name}.appdata.xml
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

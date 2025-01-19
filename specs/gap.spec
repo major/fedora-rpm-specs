@@ -48,6 +48,9 @@ Patch:          %{name}-help.patch
 Patch:          %{name}-popcount.patch
 # Use zlib-ng directly instead of via the compatibility layer
 Patch:          %{name}-zlib-ng.patch
+# Work around for build errors with C23
+# https://github.com/gap-system/gap/issues/5857
+Patch:          %{name}-c23.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

@@ -3,7 +3,7 @@
 Summary:	Collection of LV2 plugins
 Name:		lv2-ll-plugins
 Version:	0.2.8
-Release:	38%{?dist}
+Release:	39%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:	GPL-3.0-or-later
 URL:		http://ll-plugins.nongnu.org/
@@ -50,6 +50,9 @@ rm -f %{buildroot}%{_docdir}/%{pkgname}/*
 %{_libdir}/lv2/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.8-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.8-38
 - convert license to SPDX
 

@@ -3,7 +3,7 @@
 
 Name:           lpcnetfreedv
 Version:        0.5
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        LPCNet for FreeDV
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -65,6 +65,9 @@ cp %{SOURCE1} %{__cmake_builddir}/
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5-7
 - convert license to SPDX
 

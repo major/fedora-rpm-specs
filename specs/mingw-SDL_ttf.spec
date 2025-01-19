@@ -2,7 +2,7 @@
 
 Name:           mingw-SDL_ttf
 Version:        2.0.11
-Release:        16%{?dist}
+Release:        17%{?dist}
 
 %global  pkg_summary  MinGW Windows port of the TrueType font handling library for SDL
 Summary: %{pkg_summary}
@@ -120,6 +120,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.11-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Aug 08 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.0.11-16
 - Fix License tag (project relicensed from LGPL-2.1-or-later to Zlib)
 - Add a patch to fix a broken function

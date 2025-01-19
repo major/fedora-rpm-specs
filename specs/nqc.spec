@@ -1,6 +1,6 @@
 Name:           nqc
 Version:        3.1.7
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Not Quite C compiler
 
 # Automatically converted from old format: MPLv1.0 - review is highly recommended.
@@ -165,6 +165,9 @@ fi
 %lang(pt) %doc nqc-tutorial-pt.pdf
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.7-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 3.1.7-37
 - convert license to SPDX
 

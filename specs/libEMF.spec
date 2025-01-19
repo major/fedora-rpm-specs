@@ -2,7 +2,7 @@ Summary:	A library for generating Enhanced Metafiles
 Summary(pl):	Biblioteka do generowania plików w formacie Enhanced Metafile
 Name:		libEMF
 Version:	1.0.13
-Release:	13%{?dist}
+Release:	14%{?dist}
 # Automatically converted from old format: LGPLv2+ and GPLv2+ - review is highly recommended.
 License:	LicenseRef-Callaway-LGPLv2+ AND GPL-2.0-or-later
 URL:		http://libemf.sourceforge.net/
@@ -71,6 +71,9 @@ make check
 %{_includedir}/libEMF
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.13-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Nov 26 2024 Songsong Zhang <U2FsdGVkX1@gmail.com> - 1.0.13-13
 - Add riscv64 support
 

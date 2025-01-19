@@ -1,6 +1,6 @@
 Name:          initoverlayfs
 Version:       0.995
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       An initial scalable filesystem for Linux operating systems
 License:       GPL-2.0-only
 URL:           https://github.com/containers/initoverlayfs
@@ -47,6 +47,9 @@ install -D -m755 lib/kernel/install.d/94-initoverlayfs.install ${RPM_BUILD_ROOT}
 %{_prefix}/lib/kernel/install.d/94-initoverlayfs.install
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.995-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.995-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

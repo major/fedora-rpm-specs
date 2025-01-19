@@ -2,7 +2,7 @@
 
 Name: iperf
 Version: 2.2.1
-Release: 1%{?alphatag:.%{alphatag}}%{?dist}
+Release: 2%{?alphatag:.%{alphatag}}%{?dist}
 Summary: Measurement tool for TCP/UDP bandwidth performance
 License: BSD-3-Clause
 URL: http://sourceforge.net/projects/iperf2
@@ -32,6 +32,9 @@ jitter, datagram loss.
 %{_mandir}/man*/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Nov 07 2024 Gabriel Somlo <gsomlo@gmail.com> - 2.2.1-1
 - update to 2.2.1 (#2324266)
 

@@ -1,6 +1,6 @@
 Name:           mate-media
 Version:        1.28.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        MATE media programs
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
@@ -68,6 +68,9 @@ rm -rf %{buildroot}%{_sysconfdir}/xdg/autostart/mate-volume-control-status-icon.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.28.1-3
 - convert license to SPDX
 

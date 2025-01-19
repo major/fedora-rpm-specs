@@ -1,7 +1,7 @@
 Name: mythes-sv
 Summary: Swedish thesaurus
 Version: 1.3
-Release: 29%{?dist}
+Release: 30%{?dist}
 Source: https://downloads.sourceforge.net/project/aoo-extensions/934/4/swedishthesaurus.oxt
 URL: http://extensions.services.openoffice.org/project/SweThes
 License: MIT
@@ -35,6 +35,9 @@ popd
 %{_datadir}/mythes/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

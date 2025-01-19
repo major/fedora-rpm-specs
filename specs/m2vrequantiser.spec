@@ -3,7 +3,7 @@
 Name:           m2vrequantiser
 Epoch:          1
 Version:        1.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        MPEG-2 stream requantizer
 
 License:        GPL-2.0-or-later
@@ -33,6 +33,9 @@ recompressing.
 %{_bindir}/%{srcname}
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Nov 24 2024 Davide Cavalca <dcavalca@fedoraproject.org> - 1:1.1-10
 - Convert license tag to SPDX
 - Rework specfile to follow the Fedora packaging guidelines

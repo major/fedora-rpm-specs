@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       24.08.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       MinGW Windows Poppler library
 
 License:       (GPL-2.0-only OR GPL-3.0-only) AND GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT
@@ -251,6 +251,9 @@ rm -f %{buildroot}%{mingw64_bindir}/*.exe
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.08.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 01 2025 Sandro Mani <manisandro@gmail.com> - 24.08.0-2
 - Backport fix for CVE-2024-56378
 

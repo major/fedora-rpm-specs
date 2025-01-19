@@ -4,7 +4,7 @@
 
 Name:		libffi
 Version:	3.4.6
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	A portable foreign function interface library
 # No license change for 3.4.6
 # The following SPDX licenses are extracted from the sources using
@@ -155,6 +155,9 @@ install -m644 %{SOURCE2} $RPM_BUILD_ROOT%{_includedir}/ffitarget.h
 %{_infodir}/libffi.info.*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.6-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 21 2024 Carlos O'Donell <carlos@redhat.com> 3.4.6-3
 - Fix AArch64 BTI enablement issues (#2305877)
 

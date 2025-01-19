@@ -29,7 +29,7 @@
 
 Name:			lxrandr
 Version:		%{main_version}%{git_ver_rpm}
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		Simple monitor configuration tool
 
 # SPDX confirmed
@@ -135,6 +135,9 @@ cd ..
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2^20240823git74471545-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Aug 25 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.2^20240823git74471545-1
 - Update to the latest git
 

@@ -5,7 +5,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.116.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: KDE Frameworks 5 Tier 3 integration module for Qt Designer
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -84,6 +84,9 @@ cat kdesignerplugin5_qt.lang %{name}-man.lang > %{name}.lang
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.116.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 5.116.0-3
 - convert license to SPDX
 

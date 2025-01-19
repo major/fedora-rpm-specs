@@ -6,7 +6,7 @@
 Summary:        Hardware Platform Interface library and tools
 Name:           openhpi
 Version:        3.8.0
-Release:        30%{?dist}
+Release:        31%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            http://www.openhpi.org
@@ -216,6 +216,9 @@ fi
 %endif
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.0-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 3.8.0-30
 - convert license to SPDX
 

@@ -225,6 +225,8 @@ Patch0045:	0045_src-commom-crc32c_ppc_fast_zero_asm.S.patch
 Patch0046:	0046-src-s3select-include-s3select_parquet_intrf.h.patch
 Patch0047:	0047-openssl-no-engine.patch
 Patch0048:	0048-src-mds-CMakeLists.txt.patch
+Patch0049:	0049-src-rocksdb-db-blob-blob_file_meta.h.patch
+Patch0050:	0050-src-rgw-driver-posix-zpp_bits.h.patch
 
 # ceph 14.0.1 does not support 32-bit architectures, bugs #1727788, #1727787
 ExcludeArch:	i686 armv7hl
@@ -1660,7 +1662,7 @@ install -m 644 -D -t %{buildroot}%{_datadir}/snmp/mibs monitoring/snmp/CEPH-MIB.
 %{_bindir}/ceph-kvstore-tool
 %{_bindir}/ceph-run
 %{_presetdir}/50-ceph.preset
-%{_sbindir}/ceph-create-keys
+%{_exec_prefix}/sbin/ceph-create-keys
 %dir %{_libexecdir}/ceph
 %{_libexecdir}/ceph/ceph_common.sh
 %dir %{_libdir}/rados-classes
@@ -1744,7 +1746,7 @@ exit 0
 %endif
 
 %files -n cephadm
-%{_sbindir}/cephadm
+%{_exec_prefix}/sbin/cephadm
 %{_mandir}/man8/cephadm.8*
 %attr(0700,cephadm,cephadm) %dir %{_sharedstatedir}/cephadm
 %attr(0700,cephadm,cephadm) %dir %{_sharedstatedir}/cephadm/.ssh
@@ -1774,7 +1776,7 @@ exit 0
 %{_bindir}/rgw-gap-list-comparator
 %{_bindir}/rgw-orphan-list
 %{_bindir}/rgw-restore-bucket-index
-%{_sbindir}/mount.ceph
+%{_exec_prefix}/sbin/mount.ceph
 %if 0%{?suse_version} && 0%{?suse_version} < 1550
 /sbin/mount.ceph
 %endif
@@ -2086,7 +2088,7 @@ fi
 %files fuse
 %{_bindir}/ceph-fuse
 %{_mandir}/man8/ceph-fuse.8*
-%{_sbindir}/mount.fuse.ceph
+%{_exec_prefix}/sbin/mount.fuse.ceph
 %{_mandir}/man8/mount.fuse.ceph.8*
 %{_unitdir}/ceph-fuse@.service
 %{_unitdir}/ceph-fuse.target
@@ -2337,8 +2339,8 @@ fi
 %endif
 
 %files volume
-%{_sbindir}/ceph-volume
-%{_sbindir}/ceph-volume-systemd
+%{_exec_prefix}/sbin/ceph-volume
+%{_exec_prefix}/sbin/ceph-volume-systemd
 %dir %{python3_sitelib}/ceph_volume
 %{python3_sitelib}/ceph_volume/*
 %{python3_sitelib}/ceph_volume-*
@@ -2712,7 +2714,7 @@ exit 0
 %{_datadir}/snmp/mibs
 
 %files node-proxy
-%{_sbindir}/ceph-node-proxy
+%{_exec_prefix}/sbin/ceph-node-proxy
 %dir %{python3_sitelib}/ceph_node_proxy
 %{python3_sitelib}/ceph_node_proxy/*
 %{python3_sitelib}/ceph_node_proxy-*

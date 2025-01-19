@@ -1,6 +1,6 @@
 Name:           icemon
 Version:        3.3
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Icecream GUI monitor
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -54,6 +54,9 @@ install -m644 -D %{SOURCE1} %{buildroot}/%{_metainfodir}/%{name}.metainfo.xml
 %doc CHANGELOG.md README.md
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul  26 2024 Miroslav Suchý <msuchy@redhat.com> - 3.3-15
 - convert license to SPDX
 

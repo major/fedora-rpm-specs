@@ -1,7 +1,7 @@
 Summary:        Library with simple API for communication with LXI devices
 Name:           liblxi
 Version:        1.22
-Release:        1%{?dist}
+Release:        2%{?dist}
 # src/vxi11core* and src/include/vxi11core* are EPICS, rest is BSD-3-Clause
 License:        BSD-3-Clause AND EPICS
 URL:            https://lxi-tools.github.io/
@@ -55,6 +55,9 @@ developing applications that use %{name}.
 %{_mandir}/man3/lxi_*.3*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.22-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Nov 10 2024 Robert Scheck <robert@fedoraproject.org> 1.22-1
 - Upgrade to 1.22 (#2324967)
 

@@ -2,7 +2,7 @@
 Summary:        A top clone for MySQL
 Name:           mytop
 Version:        1.7
-Release:        31.%{git}%{?dist}
+Release:        32.%{git}%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 URL:            http://jeremy.zawodny.com/mysql/mytop
@@ -49,6 +49,9 @@ make test
 %{_mandir}/man1/mytop.1*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-32.b737f60
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.7-31.b737f60
 - convert license to SPDX
 

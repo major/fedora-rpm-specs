@@ -8,7 +8,7 @@ Version:       1.18.0
 %global tag libdnet-%{version}
 %forgemeta
 
-Release:       4%{?dist}
+Release:       5%{?dist}
 URL:           %{forgeurl}
 Source:        %{forgesource}
 
@@ -95,6 +95,9 @@ popd
 %{python3_sitearch}/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.18.0-4
 - convert license to SPDX
 

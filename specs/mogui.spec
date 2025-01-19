@@ -1,7 +1,7 @@
 %global srcname modules-gui
 Name:           mogui
 Version:        0.2.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Graphical User Interface for Environment Modules
 
 # icon files are licensed under CC-BY-SA-3.0 terms
@@ -68,6 +68,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %{_metainfodir}/%{name}.metainfo.xml
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

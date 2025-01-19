@@ -9,7 +9,7 @@
 Name:		globus-gridftp-server
 %global _name %(tr - _ <<< %{name})
 Version:	13.25
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Grid Community Toolkit - Globus GridFTP Server
 
 License:	Apache-2.0
@@ -24,6 +24,8 @@ Source8:	README
 Patch0:		0001-Correct-spelling-error-found-by-lintian.patch
 #		https://github.com/gridcf/gct/pull/223
 Patch1:		0001-Handle-64-bit-time_t-on-32-bit-systems.patch
+#		https://github.com/gridcf/gct/pull/237
+Patch2:		0001-Fix-compilation-with-GCC-15-Fedora-42.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -120,6 +122,7 @@ Globus GridFTP Server Development Files
 %setup -q -n %{_name}-%{version}
 %patch -P0 -p4
 %patch -P1 -p4
+%patch -P2 -p4
 
 %build
 # Reduce overlinking
@@ -251,6 +254,9 @@ fi
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jan 17 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 13.25-5
+- Fix incompatible pointer errors (gcc 15)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 13.25-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

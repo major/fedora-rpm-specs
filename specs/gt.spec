@@ -1,6 +1,6 @@
 Name:           gt
 Version:        0.4
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        Modified Timidity which supportes enhanced gus format patches
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -73,6 +73,9 @@ touch -r utils/midifile.c $RPM_BUILD_ROOT%{_mandir}/man1/midi-disasm.1
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.4-46
 - convert license to SPDX
 

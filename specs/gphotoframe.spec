@@ -14,7 +14,7 @@
 %global	mainver	2.0.2
 #%%define	minorver	-b1
 
-%global	baserelease	32
+%global	baserelease	33
 
 %global	rpmminorver	%(echo "%minorver" | sed -e 's|^-||' | sed -e 's|\\\.||')
 %global	fedorarel	%{?minorver:0.}%{baserelease}%{?minorver:.%rpmminorver}%{?hghash:.hg%hghash}
@@ -309,6 +309,9 @@ find %{buildroot}%{_prefix} -name \*.py3 -delete
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-33.hg2084299dffb6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Sep 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.2-32.hg2084299dffb6
 - Fix exception when loading rss is taking too much time
 

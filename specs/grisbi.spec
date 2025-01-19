@@ -1,6 +1,6 @@
 Name:		grisbi
 Version:	2.0.5
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Personal finances manager
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -79,6 +79,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/%{name}.a
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.5-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0.5-6
 - convert license to SPDX
 

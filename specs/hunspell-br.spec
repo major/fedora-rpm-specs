@@ -8,7 +8,7 @@ Name: hunspell-br
 Summary: Breton hunspell dictionaries
 Epoch: 1
 Version: 0.15
-Release: 17%{?dist}
+Release: 18%{?dist}
 URL: http://www.drouizig.org/
 Source: https://downloads.sourceforge.net/project/aoo-extensions/2207/7/dict-br-0.15.oxt
 License: LGPL-2.1-or-later
@@ -37,6 +37,9 @@ cp -p dictionaries/br_FR.* $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.15-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.15-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

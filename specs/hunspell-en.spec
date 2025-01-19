@@ -3,7 +3,7 @@ Name: hunspell-en
 Summary: English hunspell dictionaries
 %global upstreamid 20201207
 Version: 0.%{upstreamid}
-Release: 10%{?dist}
+Release: 11%{?dist}
 Source0: https://github.com/en-wl/wordlist/archive/rel-2020.12.07.tar.gz
 Source1: http://download.services.openoffice.org/contrib/dictionaries/en_GB.zip
 #See http://mxr.mozilla.org/mozilla/source/extensions/spellcheck/locales/en-US/hunspell/mozilla_words.diff?raw=1
@@ -140,6 +140,9 @@ popd
 %{_datadir}/%{dict_dirname}/en_GB.*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20201207-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20201207-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -18,7 +18,7 @@
 %define my_subversion b7
 Name:           html2ps
 Version:        1.0
-Release:        0.54.%{my_subversion}%{?dist}
+Release:        0.55.%{my_subversion}%{?dist}
 Summary:        HTML to PostScript converter
 # contrib/xhtml2ps/LICENSE:     GPL-2.0 text
 # contrib/xhtml2ps/README:      "X-html2ps is GPL"
@@ -166,6 +166,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/applications/*xhtml2ps.desktop
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.55.b7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 15 2025 Petr Pisar <ppisar@redhat.com> - 1.0-0.54.b7
 - Convert xhtml2ps to UTF-8 because Tcl 9 expects it (bug #2337716)
 

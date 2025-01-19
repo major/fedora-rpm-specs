@@ -1,6 +1,6 @@
 Name:           hd-idle
 Version:        1.05
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Spin down idle [USB] hard disks
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -79,6 +79,9 @@ install -Dpm 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/%{name}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.05-22
 - convert license to SPDX
 

@@ -24,7 +24,7 @@ Go library for accessing the Porkdun API.}
 %global godocs          readme.md
 
 Name:           %{goname}
-Release:        %autorelease.3
+Release:        %autorelease.4
 Summary:        Go library for accessing the Porkdun API
 
 # Upstream license specification: MPL-2.0
@@ -57,6 +57,9 @@ BuildRequires:  golang(github.com/stretchr/testify/require)
 %gopkgfiles
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org>
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

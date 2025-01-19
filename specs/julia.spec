@@ -44,7 +44,7 @@
 
 Name:           julia
 Version:        1.11.0
-Release:        13.rc3%{?dist}
+Release:        13.rc3%{?dist}.1
 Summary:        High-level, high-performance dynamic language for technical computing
 # Julia itself is MIT
 # libuv, libwhich, libblastrampoline and libunwind are MIT
@@ -531,6 +531,9 @@ desktop-file-validate %{buildroot}%{_datarootdir}/applications/%{name}.desktop
 exit 0
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-13.rc3.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 8 2024 Milan Bouchet-Valat <nalimilan@club.fr> - 1.11.0.13-rc3
 - Rebuild for utf8proc 2.9.0.
 

@@ -1,6 +1,6 @@
 Name:           perl-AnyEvent-AIO
 Version:        1.1
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Truly asynchronous file and directrory I/O
 
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -45,6 +45,9 @@ make test
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1-43
 - convert license to SPDX
 

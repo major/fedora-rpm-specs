@@ -9,7 +9,7 @@
 
 Name:           mingw-crt
 Version:        12.0.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        MinGW Windows cross-compiler runtime
 
 License:        LicenseRef-Fedora-Public-Domain AND ZPL-2.1
@@ -142,6 +142,9 @@ rm -rf %{buildroot}%{ucrt64_includedir}/*.c
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org>
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Sep 24 2024 Sandro Mani <manisandro@gmail.com> - 12.0.0-4
 - Pass --with-default-msvcrt=msvcrt when building mingw32/64 crt
 

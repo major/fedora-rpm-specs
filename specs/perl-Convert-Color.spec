@@ -1,6 +1,6 @@
 Name:           perl-Convert-Color
 Version:        0.18
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Color space conversions and named lookups
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Convert-Color
@@ -56,6 +56,9 @@ and it provides ways to look up colors by a name.
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Sep 17 2024 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.18-1
 - Update to 0.18.
 - Add BR: perl(meta).

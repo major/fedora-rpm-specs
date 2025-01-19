@@ -1,6 +1,6 @@
 Name:		openrdate
 Version:	1.2
-Release:	29%{?dist}
+Release:	30%{?dist}
 Summary:	Good-old rdate date and time-setting software
 # Automatically converted from old format: BSD and BSD with advertising - review is highly recommended.
 License:	LicenseRef-Callaway-BSD AND LicenseRef-Callaway-BSD-with-advertising
@@ -37,6 +37,9 @@ make install DESTDIR=%{buildroot}
 %{_mandir}/man8/rdate.8*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2-29
 - convert license to SPDX
 

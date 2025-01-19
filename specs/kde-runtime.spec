@@ -33,7 +33,7 @@
 Name:    kde-runtime
 Summary: KDE Runtime
 Version: 17.08.3
-Release: 32%{?dist}
+Release: 33%{?dist}
 
 # http://techbase.kde.org/Policies/Licensing_Policy
 # Automatically converted from old format: LGPLv2+ and GPLv2+ - review is highly recommended.
@@ -601,6 +601,9 @@ fi
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 17.08.3-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1:17.08.3-32
 - convert license to SPDX
 

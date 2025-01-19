@@ -10,7 +10,7 @@
 
 Name:       %{libname}-mga-qt
 Version:    1.2.0
-Release:    10%{?dist}
+Release:    11%{?dist}
 Summary:    Libyui-Qt extensions for Mageia tools
 
 # Automatically converted from old format: LGPLv2 or LGPLv3 - review is highly recommended.
@@ -78,6 +78,9 @@ for %{name}.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2.0-10
 - convert license to SPDX
 

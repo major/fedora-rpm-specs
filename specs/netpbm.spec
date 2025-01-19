@@ -1,7 +1,7 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
 Version:         11.02.00
-Release:         9%{?dist}
+Release:         10%{?dist}
 # See copyright_summary for details
 # Automatically converted from old format: BSD and GPLv2 and IJG and MIT and Public Domain - review is highly recommended.
 License:         LicenseRef-Callaway-BSD AND GPL-2.0-only AND IJG AND LicenseRef-Callaway-MIT AND LicenseRef-Callaway-Public-Domain
@@ -232,6 +232,9 @@ popd
 %doc userguide/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 11.02.00-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Dec 13 2024 Lukáš Zaoral <lzaoral@redhat.com> - 11.02.00-9
 - build netpbm with correct LDFLAGS (RHEL-70899)
 

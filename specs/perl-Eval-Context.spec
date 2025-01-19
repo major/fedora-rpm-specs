@@ -1,6 +1,6 @@
 Name:       perl-Eval-Context
 Version:    0.09.11
-Release:    38%{?dist}
+Release:    39%{?dist}
 # see lib/Eval/Context.pm
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Evaluate Perl code in context wrapper
@@ -100,6 +100,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.09.11-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Petr Pisar <ppisar@redhat.com> - 0.09.11-38
 - Fix failing tests with perl 5.40.0 (bug #2292371)
 - Correct misspellings in RPM summary

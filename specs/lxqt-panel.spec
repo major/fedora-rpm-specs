@@ -1,7 +1,7 @@
 Name:          lxqt-panel
 Summary:       Main panel bar for LXQt desktop suite
 Version:       2.1.4
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       LGPL-2.1-or-later
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -119,6 +119,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/lxqt-panel.desktop |
 %dir %{_datadir}/lxqt/translations/lxqt-panel
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jan 11 2025 Steve Cossette <farchord@gmail.com> - 2.1.4-1
 - 2.1.4
 

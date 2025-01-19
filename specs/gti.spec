@@ -1,6 +1,6 @@
 Name:		gti		
 Version:	1.6.1
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Just a silly gti launcher
 Patch0:		gti-1.2.0-nostrip.patch
 
@@ -29,6 +29,9 @@ make install DESTDIR=%{buildroot}
 %{_mandir}/man6/%{name}.6*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

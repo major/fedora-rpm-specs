@@ -18,7 +18,7 @@
 Name:           %{pkg_name}
 Version:        2.12.0
 # can only be reset when all subpkgs bumped
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Dockerfile linter, validate inline bash
 
 License:        GPL-3.0-or-later
@@ -250,6 +250,9 @@ PATH=%{buildroot}%{_bindir}:$PATH
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 31 2024 Jens Petersen <petersen@redhat.com> - 2.12.0-17
 - commutative-semigroups-0.1.1.0
 - monoid-subclasses-1.2.5.1

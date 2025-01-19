@@ -2,7 +2,7 @@ Name: mythes-sl
 Summary: Slovenian thesaurus
 %global upstreamid 20130130
 Version: 0.%{upstreamid}
-Release: 26%{?dist}
+Release: 27%{?dist}
 Source: http://88.200.20.8:85/download/thes_sl_SI_v2.zip
 URL: http://www.tezaver.si/
 License: LGPL-2.1-or-later
@@ -35,6 +35,9 @@ cp -p th_sl_SI_v2.* $RPM_BUILD_ROOT/%{_datadir}/mythes
 %{_datadir}/mythes/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20130130-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20130130-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

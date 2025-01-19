@@ -11,7 +11,7 @@
 
 Name:           nx-libs
 Version:        3.5.99.27
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        NX X11 protocol compression libraries
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -485,6 +485,9 @@ pathfix.py -pni "%{__python2} %{py2_shbang_opts}" %{buildroot}%{_bindir}/nxdialo
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.99.27-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 18 2024 Orion Poplawski <orion@nwra.com> - 3.5.99.27-6
 - Drop i686 builds (FTBFS rhbz#2301004)
 

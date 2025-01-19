@@ -3,7 +3,7 @@
 Name:           ocaml-ppxlib
 Epoch:          1
 Version:        0.34.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Base library and tools for ppx rewriters
 
 License:        MIT
@@ -91,6 +91,9 @@ cat .ofiles-ppxlib-tools-devel >> .ofiles-ppxlib-tools
 %files devel -f .ofiles-ppxlib-devel
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.34.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan  8 2025 Jerry James <loganjerry@gmail.com> - 1:0.34.0-1
 - OCaml 5.3.0 rebuild for Fedora 42
 - Version 0.34.0

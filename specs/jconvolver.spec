@@ -1,7 +1,7 @@
 Summary:       Real-time Convolution Engine
 Name:          jconvolver
 Version:       1.0.3
-Release:       14%{?dist}
+Release:       15%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
 URL:           https://kokkinizita.linuxaudio.org/linuxaudio/index.html
@@ -65,6 +65,9 @@ cp -a config-files/* %{buildroot}%{_datadir}/%{name}
 %{_datadir}/%{name}/
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.3-14
 - convert license to SPDX
 

@@ -332,7 +332,8 @@ cd build-lucid
            --with-x-toolkit=lucid \
            --with-xft \
            --with-xinput2 \
-           --with-xpm
+           --with-xpm \
+    || ( cat config.log && false )
 %{setarch} %make_build bootstrap
 %{setarch} %make_build
 cd ..
@@ -350,7 +351,8 @@ cd build-nw
 %if %{without gpm}
            --with-gpm=no \
 %endif
-           --with-x=no
+           --with-x=no \
+    || ( cat config.log && false )
 %{setarch} %make_build bootstrap
 %{setarch} %make_build
 cd ..
@@ -377,7 +379,8 @@ cd build-gtk+x11
            --with-webp \
            --with-x-toolkit=gtk3 \
            --with-xinput2 \
-           --with-xpm
+           --with-xpm \
+    || ( cat config.log && false )
 %{setarch} %make_build bootstrap
 %{setarch} %make_build
 cd ..
@@ -401,7 +404,8 @@ cd build-pgtk
            --with-tiff \
            --with-tree-sitter \
            --with-webp \
-           --with-xpm
+           --with-xpm \
+    || ( cat config.log && false )
 %{setarch} %make_build bootstrap
 %{setarch} %make_build
 cd ..

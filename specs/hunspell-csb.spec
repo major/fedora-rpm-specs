@@ -9,7 +9,7 @@ Summary: Kashubian hunspell dictionaries
 # We are using here upstreamid date as upstream published source archive date
 %global upstreamid 20190319
 Version: 0.%{upstreamid}
-Release: 5%{?dist}
+Release: 6%{?dist}
 Source: https://addons.thunderbird.net/firefox/downloads/latest/kashubian-spell-checker-poland/addon-222511-latest.xpi
 URL: https://addons.thunderbird.net/en-us/firefox/addon/kashubian-spell-checker-poland/
 License: GPL-2.0-only
@@ -38,6 +38,9 @@ cp -p dictionaries/Kaszebsczi.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/cs
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20190319-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20190319-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

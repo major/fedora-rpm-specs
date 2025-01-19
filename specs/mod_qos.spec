@@ -8,7 +8,7 @@
 
 Name:           mod_qos
 Version:        11.75
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Quality of service module for Apache
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -93,6 +93,9 @@ install -Dpm 644 man1/*  %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 11.75-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 11.75-3
 - convert license to SPDX
 

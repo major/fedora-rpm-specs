@@ -1,6 +1,6 @@
 Name:           meanwhile
 Version:        1.1.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Lotus Sametime Community Client library
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -75,6 +75,9 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}-doc-%{version}/
 %doc docs/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 2 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1.1-8
 - convert license to SPDX
 

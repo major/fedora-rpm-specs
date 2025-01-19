@@ -6,7 +6,7 @@
 
 Name:           parsec-tool
 Version:        0.4.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Parsec Command Line Interface
 
 SourceLicense:  Apache-2.0
@@ -65,6 +65,9 @@ A tool to communicate with the Parsec service on the command-line.}
 %{_bindir}/parsec-tool
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Sep 24 2024 Fabio Valentini <decathorpe@gmail.com> - 0.4.0-9
 - Regenerate with rust2rpm v26 and refresh license tag.
 

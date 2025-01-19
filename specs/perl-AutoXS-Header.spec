@@ -1,6 +1,6 @@
 Name:           perl-AutoXS-Header
 Version:        1.02
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Container for the AutoXS header files
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/AutoXS-Header
@@ -38,6 +38,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -18,6 +18,8 @@ Source:         %{giturl}/archive/v%{version}/%{upname}-%{version}.tar.gz
 # - /etc
 # - $PWD/src
 Patch:          %{name}-ini.patch
+# With C23 (such as in GCC 15), bool is a keyword
+Patch:          %{name}-bool.patch
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc

@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-mccs
 Version:        %{basever}.%{extraver}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Multi Criteria CUDF Solver with OCaml bindings
 
 %global libname %(echo %{name} | sed -e 's/^ocaml-//')
@@ -80,6 +80,9 @@ sed -i 's,clibs,../clibs,' src/glpk/dune
 %files devel -f .ofiles-devel
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.19-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 10 2025 Jerry James <loganjerry@gmail.com> - 1.1.19-1
 - OCaml 5.3.0 rebuild for Fedora 42
 - New version 1.1+19

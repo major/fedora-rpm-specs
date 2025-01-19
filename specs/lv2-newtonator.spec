@@ -1,6 +1,6 @@
 Name:           lv2-newtonator
 Version:        0.6.0
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        An LV2 soft synth
 
 # stated as GPLv2 on project page
@@ -46,6 +46,9 @@ export CXXFLAGS="%{optflags} -fpic"
 %{_libdir}/lv2/newtonator_gtk.lv2
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.6.0-31
 - convert license to SPDX
 

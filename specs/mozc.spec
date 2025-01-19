@@ -6,7 +6,7 @@
 
 Name:		mozc
 Version:	2.29.5111.102
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	A Japanese Input Method Editor (IME) designed for multi-platform
 
 License:	BSD-3-Clause AND Apache-2.0 AND Unicode-DFS-2015 AND NAIST-2003
@@ -254,6 +254,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.29.5111.102-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Oct  7 2024 Akira TAGOH <tagoh@redhat.com> - 2.29.5111.102-11
 - Backport a patch to fix key event behavior with modifier keys.
   Resolves rhbz#2257171

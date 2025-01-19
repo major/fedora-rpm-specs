@@ -16,7 +16,7 @@ binary data in a Go program.}
 %global godocs          AUTHORS CONTRIBUTING.md README.md CHANGELOG
 
 Name:           %{goname}
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A small utility which generates Go code from any file
 
 # Upstream license specification: CC0-1.0
@@ -65,6 +65,9 @@ install -m 0644 -vp %{gobuilddir}/share/man/man1/* %{buildroot}%{_mandir}/man1/
 %gopkgfiles
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 3.6.1-15
 - convert license to SPDX
 

@@ -15,7 +15,7 @@ Get a free and open TCP port that is ready to use.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Detect free and open TCP port
 
 # Upstream license specification: BSD-3-Clause
@@ -55,6 +55,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 2 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.2-15
 - convert license to SPDX
 

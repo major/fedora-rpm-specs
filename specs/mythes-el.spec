@@ -2,7 +2,7 @@ Name: mythes-el
 Summary: Greek thesaurus
 %global upstreamid 20070412
 Version: 0.%{upstreamid}
-Release: 34%{?dist}
+Release: 35%{?dist}
 # below links are dead and can't find any mirror for it
 # please don't report any FTBFS bugs
 #Source: http://www.ellak.gr/pub/oo_extras/th_el.zip
@@ -48,6 +48,9 @@ done
 %{_datadir}/mythes/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20070412-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20070412-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

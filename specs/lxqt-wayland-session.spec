@@ -5,7 +5,7 @@
 
 Name:           lxqt-wayland-session
 Version:        0.1.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Wayland session files for LXQt
 # See "LICENSE" for a breakdown of license usage
 License:        LGPL-2.1-only AND GPL-3.0-only AND MIT AND GPL-2.0-only AND BSD-3-Clause
@@ -190,6 +190,9 @@ rm -v %{buildroot}%{_datadir}/lxqt/wayland/lxqt-niri.kdl
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 08 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 0.1.1-4
 - Add patch to adjust default pointer speed in labwc session
 

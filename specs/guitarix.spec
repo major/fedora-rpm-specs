@@ -5,7 +5,7 @@
 
 Name:           guitarix
 Version:        0.44.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A virtual guitar amplifier
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -221,6 +221,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.%{name}.%{
 %{_libdir}/lv2/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.44.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.44.1-12
 - convert license to SPDX
 

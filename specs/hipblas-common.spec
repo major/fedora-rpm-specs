@@ -5,7 +5,7 @@
 
 Name:           hipblas-common
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Common files shared by hipBLAS and hipBLASLt
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -54,6 +54,9 @@ fi
 %{_datadir}/cmake/%{name}
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 10 2024 Tom Rix <Tom.Rix@amd.com> - 6.3.0-1
 - Initial package
 

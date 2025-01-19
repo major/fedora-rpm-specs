@@ -15,7 +15,7 @@
 
 Name:           nova-agent
 Version:        2.1.25
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Agent for setting up clean servers on Xen
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -129,6 +129,9 @@ fi
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.25-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 2.1.25-10
 - convert license to SPDX
 

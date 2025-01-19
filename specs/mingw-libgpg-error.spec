@@ -2,7 +2,7 @@
 
 Name:           mingw-libgpg-error
 Version:        1.36
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        MinGW Windows GnuPGP error library
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -140,6 +140,9 @@ rm -rf $RPM_BUILD_ROOT%{mingw64_infodir} $RPM_BUILD_ROOT%{mingw64_mandir}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.36-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.36-15
 - convert license to SPDX
 

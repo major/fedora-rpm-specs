@@ -2,7 +2,7 @@
 
 Name:           jgoodies-common
 Version:        1.8.1
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Common library shared by JGoodies libraries and applications
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -79,6 +79,9 @@ done
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.8.1-23
 - convert license to SPDX
 

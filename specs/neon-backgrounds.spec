@@ -1,6 +1,6 @@
 Name:           neon-backgrounds
 Version:        0.0.1
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Neon desktop backgrounds
 
 License:        CC-BY-SA-4.0
@@ -41,6 +41,9 @@ cp -a $RPM_BUILD_DIR/neon-%{version}/desktop-backgrounds-neon.xml \
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.0.1-31
 - convert license to SPDX
 

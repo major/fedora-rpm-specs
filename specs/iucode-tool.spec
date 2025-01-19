@@ -1,6 +1,6 @@
 Name:           iucode-tool
 Version:        2.3.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        iucode_tool is a program to manipulate microcode update collections for Intel i686 and X86-64 system processors, and prepare them for use by the Linux kernel
 
 # Automatically converted from old format: GPlv2+ - review is highly recommended.
@@ -35,6 +35,9 @@ iucode_tool is a program to manipulate microcode update collections for Intel i6
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.3.1-12
 - convert license to SPDX
 

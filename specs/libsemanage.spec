@@ -4,7 +4,7 @@
 Summary: SELinux binary policy manipulation library
 Name: libsemanage
 Version: 3.8
-Release: 0.rc3.1%{?dist}
+Release: 0.rc3.1%{?dist}.1
 License: LGPL-2.1-or-later
 Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}-rc3/libsemanage-%{version}-rc3.tar.gz
 Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}-rc3/libsemanage-%{version}-rc3.tar.gz.asc
@@ -157,5 +157,8 @@ cp %{SOURCE3} ${RPM_BUILD_ROOT}%{_sysconfdir}/selinux/semanage.conf
 %{_libexecdir}/selinux/semanage_migrate_store
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8-0.rc3.1.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 
 %autochangelog

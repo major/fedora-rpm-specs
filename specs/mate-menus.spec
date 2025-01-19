@@ -1,6 +1,6 @@
 Name:          mate-menus
 Version:       1.28.0
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Displays menus for MATE Desktop
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
@@ -87,6 +87,9 @@ find %{buildroot} -name '*.a' -exec rm -f {} ';'
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.28.0-3
 - convert license to SPDX
 

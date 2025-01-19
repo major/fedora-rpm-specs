@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        4.0.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Parallel execution package for cluster computers for Octave
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -73,6 +73,9 @@ rm -rf  %{buildroot}/%{octpkgdir}/doc
 %{octpkgdir}/bin/octave-pserver
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Nov 14 2024 Orion Poplawski <orion@nwra.com> - 4.0.1-7
 - Rebuild for octave 9.2
 

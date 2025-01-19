@@ -1,6 +1,6 @@
 Name: libcdio-paranoia
 Version: 10.2+2.0.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: CD paranoia on top of libcdio
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
@@ -84,6 +84,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/*.so.*
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.2+2.0.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 07 2025 Adrian Reber <adrian@lisas.de> - 10.2+2.0.2-3
 - applied upstream patch to fix segfault (#2334834)
 

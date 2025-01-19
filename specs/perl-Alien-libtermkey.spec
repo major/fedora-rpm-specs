@@ -1,6 +1,6 @@
 Name:           perl-Alien-libtermkey
 Version:        0.22
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Alien wrapping for libtermkey
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -58,6 +58,9 @@ to drive CPAN and other Perl-related build infrastructure.
 %{_mandir}/man3/Alien*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Oct 27 2024 Emmanuel Seyman <emmanuel@seyman.fr> - 0.22-3
 - run-require libtermkey-devel, as suggested by Petr Pisar (#2318412)
 

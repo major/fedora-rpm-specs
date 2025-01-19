@@ -1,6 +1,6 @@
 Name:           gtkterm
 Version:        1.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Serial port terminal
 License:        GPL-2.0-or-later AND GPL-3.0-or-later
 URL:            https://github.com/wvdakker/gtkterm
@@ -45,6 +45,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Aug 15 2024 Dan Horák <dan[at]danny.cz> - 1.3.1-1
 - updated to 1.3.1
 

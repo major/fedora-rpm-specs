@@ -1,6 +1,6 @@
 Name:           numberstation
 Version:        1.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        TOTP Authenticator application
 License:        GPL-3.0-or-later
 URL:            https://sr.ht/~martijnbraam/%{name}/
@@ -46,6 +46,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/org.postmarke
 %{_datadir}/%{name}
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jul 23 2024 Tomi Lähteenmäki <lihis@lihis.net> - 1.4.0-1
 - Update to v1.4.0
 

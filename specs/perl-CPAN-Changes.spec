@@ -4,7 +4,7 @@
 Name:		perl-CPAN-Changes
 Summary:	Read and write Changes files
 Version:	0.500004
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/CPAN-Changes
 Source0:	https://cpan.metacpan.org/modules/by-module/CPAN/CPAN-Changes-%{version}.tar.gz
@@ -93,6 +93,9 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/Test::CPAN::Changes.3*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.500004-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.500004-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

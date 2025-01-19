@@ -50,7 +50,7 @@
 Summary: A dynamic adaptive system tuning daemon
 Name: tuned
 Version: 2.24.1
-Release: 2%{?prerel1}%{?git_suffix:.%{git_suffix}}%{?dist}
+Release: 3%{?prerel1}%{?git_suffix:.%{git_suffix}}%{?dist}
 License: GPL-2.0-or-later AND CC-BY-SA-3.0
 %if 0%{?git_commit:1}
 Source0: https://github.com/redhat-performance/%{name}/archive/%{git_commit}/%{name}-%{version}-%{git_suffix}.tar.gz
@@ -644,6 +644,9 @@ fi
 %config(noreplace) %{_sysconfdir}/tuned/ppd.conf
 
 %changelog
+* Fri Jan 17 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 2.24.1-3
+- Added workaround for /bin /sbin merge, patch by Kate Hsuan
+
 * Tue Jan 14 2025 Pavol Žáčik <pzacik@redhat.com> - 2.24.1-2
 - Backported multiple tuned-ppd patches
   Resolves: rhbz#2318788

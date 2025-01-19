@@ -1,6 +1,6 @@
 Name:           ldapvi
 Version:        1.7
-Release:        49%{?dist}
+Release:        50%{?dist}
 Summary:        An interactive LDAP client
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -81,6 +81,9 @@ make DESTDIR=%{buildroot} install
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-50
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.7-49
 - convert license to SPDX
 

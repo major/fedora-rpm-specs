@@ -18,6 +18,9 @@ Patch:          %{name}-postproc.patch
 # Mark python regular expressions as raw strings
 # https://github.com/libsemigroups/libsemigroups/pull/552
 Patch:          %{name}-raw-string.patch
+# Fix for changes to template lookup in GCC 15
+# https://github.com/libsemigroups/libsemigroups/pull/558
+Patch:          %{name}-template-lookup.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

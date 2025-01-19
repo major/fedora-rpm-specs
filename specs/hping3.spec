@@ -1,7 +1,7 @@
 %define  cvs 20051105
 Name:    hping3
 Version: 0.0.%{cvs}
-Release: 46%{?dist}
+Release: 47%{?dist}
 Summary: TCP/IP stack auditing and much more
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -62,6 +62,9 @@ ln -sf hping3 $RPM_BUILD_ROOT%{_sbindir}/hping2
 %{_mandir}/man8/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.20051105-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.0.20051105-46
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           perl-Crypt-MySQL
 Version:        0.04
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Emulate MySQL PASSWORD() function
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -51,6 +51,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 0.04-25
 - convert license to SPDX
 

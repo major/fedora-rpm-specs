@@ -1,6 +1,6 @@
 Name:          libservicelog
 Version:       1.1.19
-Release:       11%{?dist}
+Release:       12%{?dist}
 Summary:       Servicelog Database and Library
 
 #v29_notify_gram.c v29_notify_gram.h are GPLv2+
@@ -78,6 +78,9 @@ getent group service >/dev/null || /usr/sbin/groupadd -r service
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.19-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.19-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

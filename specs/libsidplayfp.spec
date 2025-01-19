@@ -1,6 +1,6 @@
 Name:           libsidplayfp
 Version:        2.12.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        SID chip music module playing library
 # Zlib (src/utils/MD5/), GPL-2.0-only (src/builders/exsid-builder/) and GPL-2.0-or-later (the rest)
 License:        GPL-2.0-or-later AND GPL-2.0-only AND Zlib
@@ -73,6 +73,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Dec 13 2024 Karel Volný <kvolny@redhat.com> - 2.12.0-1
 - Update to 2.12.0 (rhbz#2329741)
 - See the upstream changes at https://github.com/libsidplayfp/libsidplayfp/releases

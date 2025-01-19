@@ -29,7 +29,7 @@
 Summary: An implementation of the SSH protocol with GSI authentication
 Name: gsi-openssh
 Version: %{openssh_ver}
-Release: %{openssh_rel}%{?dist}
+Release: %{openssh_rel}%{?dist}.1
 Provides: gsissh = %{version}-%{release}
 Obsoletes: gsissh < 5.8p2-2
 URL: http://www.openssh.com/portable.html
@@ -561,6 +561,9 @@ fi
 %ghost %attr(0644,root,root) %{_localstatedir}/lib/.gsissh-host-keys-migration
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.8p1-2.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Oct 02 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.8p1-2
 - Based on openssh-9.8p1-4.fc42
 

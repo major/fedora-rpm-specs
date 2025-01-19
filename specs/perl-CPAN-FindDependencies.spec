@@ -7,7 +7,7 @@
 
 Name:           perl-CPAN-FindDependencies
 Version:        3.13
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Find dependencies for modules on CPAN
 License:        GPL-2.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-FindDependencies
@@ -151,6 +151,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.13-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.13-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

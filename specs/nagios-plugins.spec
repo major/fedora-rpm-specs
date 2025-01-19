@@ -22,9 +22,9 @@
 Name: nagios-plugins
 Version: 2.4.9
 %if 0%{?fromgit}
-Release: 2.%{?commdate}git%{?shortcommit}%{?dist}
+Release: 3.%{?commdate}git%{?shortcommit}%{?dist}
 %else
-Release: 3%{?dist}
+Release: 4%{?dist}
 %endif
 
 Summary: Host/service/network monitoring program plugins for Nagios
@@ -874,6 +874,9 @@ chmod 644 %{buildroot}/%{_libdir}/nagios/plugins/utils.pm
 %{_libdir}/nagios/plugins/check_wave
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.9-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 2.4.9-3
 - convert license to SPDX
 

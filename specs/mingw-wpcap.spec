@@ -9,7 +9,7 @@
 
 Name:           mingw-wpcap
 Version:        %{versionmajor}.%{versionminor}.final%{versionsuffix}
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        MinGW user-level packet capture
 
 # Automatically converted from old format: BSD with advertising - review is highly recommended.
@@ -204,6 +204,9 @@ rm -rf $RPM_BUILD_ROOT/%{wpcapexamples}/pcap/stats
 %{mingw64_includedir}/wpcap
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.final3-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 4.1.final3-22
 - convert license to SPDX
 

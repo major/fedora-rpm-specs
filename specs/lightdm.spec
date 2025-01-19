@@ -7,7 +7,7 @@
 Name:		lightdm
 Summary:	A cross-desktop Display Manager
 Version:	1.32.0
-Release:	12%{?dist}
+Release:	13%{?dist}
 
 # library/bindings are LGPLv2 or LGPLv3, the rest GPLv3+
 # Automatically converted from old format: (LGPLv2 or LGPLv3) and GPLv3+ - review is highly recommended.
@@ -280,6 +280,9 @@ fi
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.32.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.32.0-12
 - convert license to SPDX
 

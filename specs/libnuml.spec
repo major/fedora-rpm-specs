@@ -36,7 +36,7 @@ ExcludeArch:    %{ix86}
 Name:           libnuml
 Summary:        Numerical Markup Language
 Version:        1.1.4
-Release:        19%{?dist}
+Release:        20%{?dist}
 URL:            https://github.com/NuML/NuML
 Source0:        https://github.com/NuML/NuML/archive/%{commit}/NuML-%{version}.tar.gz
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -369,6 +369,9 @@ make test -C libnuml/build
 %endif
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1.4-19
 - convert license to SPDX
 

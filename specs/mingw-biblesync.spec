@@ -5,7 +5,7 @@
 
 Name:		mingw-%{_pkg_name}
 Version:	2.1.0
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	A Cross-platform library for sharing Bible navigation
 
 Group:		System Environment/Libraries
@@ -110,6 +110,9 @@ mv "%{buildroot}%{mingw64_libdir}/"*.dll "%{buildroot}%{mingw64_bindir}/"
 %{mingw64_libdir}/lib%{_pkg_name}.dll.a
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

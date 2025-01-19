@@ -4,7 +4,7 @@
 
 Name:           %{fontname}-fonts
 Version:        1.002.001
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        A coding-friendly monospace font
 
 # Automatically converted from old format: OFL - review is highly recommended.
@@ -70,6 +70,9 @@ install -Dm 0644 -p %{SOURCE2} \
 %doc *.txt
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.002.001-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.002.001-28
 - convert license to SPDX
 

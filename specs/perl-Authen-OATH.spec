@@ -1,6 +1,6 @@
 Name:           perl-Authen-OATH
 Version:        2.0.1
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        OATH One Time Passwords
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -68,6 +68,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0.1-24
 - convert license to SPDX
 

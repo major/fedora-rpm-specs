@@ -2,7 +2,7 @@
 
 Name:           mirrormanager2
 Version:        1.0.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Mirror management application
 
 # Most MirrorManager files are licensed under the MIT license. Some
@@ -308,6 +308,9 @@ MM2_SKIP_NETWORK_TESTS=1 %{pytest} tests
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 10 2024 Aurelien Bompard <abompard@fedoraproject.org> - 1.0.0-9
 - Patch the configuration file for the report-mirror client to update the server URL.
 

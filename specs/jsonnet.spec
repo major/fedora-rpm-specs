@@ -1,7 +1,7 @@
 Name:           jsonnet
 Version:        0.20.0
 %global so_version 0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A data templating language based on JSON
 
 # The entire source is Apache-2.0, except:
@@ -186,6 +186,9 @@ LD_LIBRARY_PATH='%{buildroot}%{_libdir}' \
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 15 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 0.20.0-11
 - Drop i686 support (in Fedora 42 and later)
 

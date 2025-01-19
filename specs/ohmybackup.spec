@@ -16,7 +16,7 @@ Scan for backup directories and backup files.}
 
 Name:           ohmybackup
 Version:        0
-Release:        0.15%{?dist}
+Release:        0.16%{?dist}
 Summary:        Scan for backup directories and backup files
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -53,6 +53,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0-0.15
 - convert license to SPDX
 

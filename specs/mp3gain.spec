@@ -3,7 +3,7 @@ Version:	1.6.2
 
 %global tarball_version %(echo %version|sed 's/\\./_/g')
 
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	Lossless MP3 volume adjustment tool
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -54,6 +54,9 @@ install -Dp -m 644 %{SOURCE1} $RPM_BUILD_ROOT%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.6.2-14
 - convert license to SPDX
 

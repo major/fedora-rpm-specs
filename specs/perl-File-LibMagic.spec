@@ -3,7 +3,7 @@
 
 Name:		perl-File-LibMagic
 Version:	1.23
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	Perl wrapper/interface for libmagic
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/File-LibMagic
@@ -75,6 +75,9 @@ make test
 %{_mandir}/man3/File::LibMagic::Constants.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.23-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.23-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

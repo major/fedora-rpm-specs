@@ -37,6 +37,8 @@ Patch17: a2ps-forward-null.patch
 Patch18: a2ps-overrun-dynamic.patch
 Patch19: a2ps-overrun-static.patch
 Patch20: a2ps-resource-leak.patch
+# https://savannah.gnu.org/bugs/index.php?66678
+Patch21: a2ps-gcc15.patch
 
 
 # most conversion rules are guarded by configure macros, so they
@@ -189,6 +191,8 @@ and medias.
 %patch -P 19 -p1 -b .overrun-static
 # Coverity fix (resource-leak).
 %patch -P 20 -p1 -b .resource-leak
+# https://savannah.gnu.org/bugs/index.php?66678
+%patch -P 21 -p1 -b .gcc15
 
 for file in AUTHORS ChangeLog; do
   iconv -f latin1 -t UTF-8 < $file > $file.utf8
@@ -317,6 +321,9 @@ exit 0
 %{_mandir}/man1/pdiff.1.gz
 
 %changelog
+* Fri Jan 17 2025 Zdenek Dohnal <zdohnal@redhat.com> - 4.15.6-3
+- fix build with GCC 15 (fedora#2336012)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.15.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

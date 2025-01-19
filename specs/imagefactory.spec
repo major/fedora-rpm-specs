@@ -1,6 +1,6 @@
 Name: imagefactory
 Version: 1.1.16
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: System image generation tool
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
@@ -115,6 +115,9 @@ rm -f %{buildroot}/%{_initddir}/imagefactoryd
 %{_bindir}/imagefactoryd
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.16-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1.16-15
 - convert license to SPDX
 

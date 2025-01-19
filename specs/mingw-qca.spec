@@ -4,7 +4,7 @@
 
 Name:           mingw-%{pkgname}
 Version:        2.3.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        MinGW Windows Qt Cryptographic Architecture
 BuildArch:      noarch
 
@@ -136,6 +136,9 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

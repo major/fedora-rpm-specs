@@ -31,7 +31,7 @@ ExcludeArch:    i686 armv7hl s390x
 
 Name:		gromacs
 Version:	2024.4
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Fast, Free and Flexible Molecular Dynamics
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	LGPL-2.1-or-later
@@ -375,6 +375,9 @@ done
 %{_libdir}/mpich/bin/gmx_mpich*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Dec 12 2024 Andrey Alekseenko <al42and@gmail.com> - 2024.4-2
 - Correct SPDX license ID
 - Update build-time CMake dependency and remove X11 dependency

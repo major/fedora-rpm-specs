@@ -1,6 +1,6 @@
 Name:           parsero
 Version:        0.81
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        A Python based Robots.txt audit tool
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -41,6 +41,9 @@ find -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 %{python3_sitelib}/__pycache__/%{name}*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.81-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.81-32
 - convert license to SPDX
 

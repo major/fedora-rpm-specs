@@ -4,7 +4,7 @@ URL:          http://www.kornshell.com/
 License:      EPL-2.0
 Epoch:        3
 Version:      1.0.10
-Release:      4%{?dist}
+Release:      5%{?dist}
 Source0:      https://github.com/ksh93/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:      kshcomp.conf
 Source2:      kshrc.rhs
@@ -144,6 +144,9 @@ fi
 %config(noreplace) %{_sysconfdir}/binfmt.d/kshcomp.conf
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3:1.0.10-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Nov 08 2024 Vincent Mihalkovic <vmihalko@redhat.com> - 3:1.0.10-4
 - Add forking workaround for block stdout redir
 

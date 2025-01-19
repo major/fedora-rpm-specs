@@ -1,6 +1,6 @@
 Name:           perl-CGI-Application-Plugin-Session
 Version:        1.06
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Add CGI::Session support to CGI::Application
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -61,6 +61,9 @@ make test
 %{_mandir}/man3/CGI::Application::Plugin::Session*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.06-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Dec 01 2024 Emmanuel Seyman <emmanuel@seyman.fr> - 1.06-1
 - Update to 1.06
 - Drop upstreamed patch

@@ -2,7 +2,7 @@
 
 Name:               greenboot
 Version:            0.15.7
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Generic Health Check Framework for systemd
 License:            LGPL-2.1-or-later
 
@@ -176,6 +176,9 @@ fi
 %{_prefix}/lib/%{name}/check/required.d/02_watchdog.sh
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 11 2024 Packit <hello@packit.dev> - 0.15.7-1
 ## What's Changed
  * packit: only use IoT relevant branches by @miabbott in https://github.com/fedora-iot/greenboot/pull/156

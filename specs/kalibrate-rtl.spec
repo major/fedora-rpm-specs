@@ -6,7 +6,7 @@
 Name:             kalibrate-rtl
 URL:              http://github.com/steve-m/kalibrate-rtl
 Version:          0.4.1^%{git_suffix}
-Release:          7%{?dist}
+Release:          8%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:          LicenseRef-Callaway-BSD
 BuildRequires:    gcc-c++
@@ -45,6 +45,9 @@ mv %{buildroot}%{_bindir}/kal %{buildroot}%{_bindir}/kal-rtl
 %{_bindir}/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1^20230403git340003eb-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep  2 2024 Miroslav Suchý <msuchy@redhat.com> - 0.4.1^20230403git340003eb-7
 - convert license to SPDX
 

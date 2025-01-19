@@ -13,7 +13,7 @@
 %undefine	betaver
 %define	betarel	%(echo %betaver | sed -e 's|-|_|' | sed -e 's|^_||')
 
-%global	baserelease	10
+%global	baserelease	11
 
 %undefine        _changelog_trimtime
 
@@ -34,6 +34,8 @@ Source11:	https://ymu.dl.osdn.jp/ticket/g/s/sk/skf/39882/5733/pythontest
 Patch0:	skf-2.10.16-rubyext-ptr-conversion.patch
 # rubyext: type check for argument (ref: bug 2256789)
 Patch1:	skf-2.10.16-rubyext-ptr-typecheck.patch
+# Support C23 strict prototype
+Patch2:	skf-2.10.16-c23-function-proto.patch
 
 # common BR
 BuildRequires:	gcc
@@ -120,6 +122,7 @@ pushd main
 
 %patch -P0 -p1 -b .rubyptr
 %patch -P1 -p1 -b .rubycheck
+%patch -P2 -p2 -b .c23
 
 %if 0%{?usescm} >= 1
 autoconf
@@ -356,6 +359,9 @@ sh %{SOURCE1}
 %{perl_vendorarch}/auto/skf/
 
 %changelog
+* Fri Jan 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.10.16-11
+- Support C23 strict prototype
+
 * Wed Jan 08 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.10.16-10
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.4
 

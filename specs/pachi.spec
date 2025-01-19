@@ -1,6 +1,6 @@
 Name:           pachi
 Version:        1.0
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Pachi El Marciano - Platform Game
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -80,6 +80,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0-41
 - convert license to SPDX
 

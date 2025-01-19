@@ -16,7 +16,7 @@ APIs that return large blobs of JSON.}
 %global godocs          docs CHANGELOG.mkd README.mkd
 
 Name:           gron
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Make JSON greppable
 
 License:        MIT
@@ -63,6 +63,9 @@ install -m 644 %{SOURCE1} %{buildroot}%{_mandir}/man1
 %gopkgfiles
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

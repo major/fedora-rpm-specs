@@ -2,7 +2,7 @@
 
 Name:           jakarta-server-pages
 Version:        2.3.6
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Jakarta Server Pages (JSP)
 # some files have Apache-2.0 license headers
 # https://github.com/eclipse-ee4j/jsp-api/issues/180
@@ -130,6 +130,9 @@ rm impl/src/main/java/org/apache/jasper/runtime/PerThreadTagHandlerPool.java
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.6-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.3.6-17
 - convert license to SPDX
 

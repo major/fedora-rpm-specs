@@ -14,7 +14,7 @@
 Summary: Network UPS Tools
 Name: nut
 Version: 2.8.2.1
-Release: 2%{?dist}.1.git20240703pr2505
+Release: 3%{?dist}.1.git20240703pr2505
 License: GPL-2.0-or-later AND GPL-3.0-or-later
 Url: https://www.networkupstools.org/
 Source: https://www.networkupstools.org/source/2.8/%{name}-%{version}.tar.gz
@@ -491,6 +491,9 @@ fi
 %{_libdir}/pkgconfig/libnutscan.pc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.2.1-3.1.git20240703pr2505
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Nov 15 2024 Orion Poplawski <orion@nwra.com> - 2.8.2.1-2.1.git20240703pr2505
 - Add BR systemd-devel to enable systemd notification support
 

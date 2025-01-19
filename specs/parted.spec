@@ -1,7 +1,7 @@
 Summary: The GNU disk partition manipulation program
 Name:    parted
 Version: 3.6
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: GPL-3.0-or-later
 URL:     http://www.gnu.org/software/parted
 
@@ -122,6 +122,9 @@ make check
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 15 2025 Brian C. Lane <bcl@redhat.com> - 3.6-10
 - tests: Add test for dvh with a bad checksum (bcl)
 - libparted: Fix dvh disklabel unhandled exception (bcl)

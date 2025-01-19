@@ -1,6 +1,6 @@
 Name:           maui-mauiman
 Version:        4.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        LGPL-3.0-or-later
 Summary:        Maui Manager Library
 Url:            https://invent.kde.org/maui/mauiman
@@ -68,6 +68,9 @@ MauiMan.
 %{_libdir}/cmake/MauiMan4/*.cmake
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 15 2025 Benson Muite <fed500@fedoraproject.org> - 4.0.1-1
 - Update to 4.0.1
 

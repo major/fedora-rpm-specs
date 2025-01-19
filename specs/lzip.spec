@@ -1,12 +1,12 @@
 Name:           lzip
-Version:        1.24.1
-Release:        3%{?dist}
+Version:        1.25
+Release:        1%{?dist}
 Summary:        LZMA compressor with integrity checking
 
 License:        GPL-2.0-or-later
 URL:            http://www.nongnu.org/lzip/lzip.html
-Source0:        http://download.savannah.gnu.org/releases/lzip/lzip-%{version}.tar.gz
-Source1:        http://download.savannah.gnu.org/releases/lzip/lzip-%{version}.tar.gz.sig
+Source0:        http://download-mirror.savannah.gnu.org/releases/lzip/lzip-%{version}.tar.gz
+Source1:        http://download-mirror.savannah.gnu.org/releases/lzip/lzip-%{version}.tar.gz.sig
 BuildRequires: make
 BuildRequires:  gcc-c++
 
@@ -49,6 +49,12 @@ make check
 
 
 %changelog
+* Fri Jan 17 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.25-1
+- 1.25
+
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.24.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.24.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

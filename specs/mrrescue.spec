@@ -1,6 +1,6 @@
 Name:           mrrescue
 Version:        1.02e
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Arcade-style fire fighting game
 
 #See LICENSE file in source for details
@@ -81,6 +81,9 @@ install -p -D -m 0644 %{name}.png \
 %{_datadir}/appdata/*.appdata.xml
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.02e-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.02e-26
 - convert license to SPDX
 

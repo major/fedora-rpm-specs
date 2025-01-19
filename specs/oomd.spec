@@ -3,7 +3,7 @@
 Name:		oomd
 Summary:	Userspace Out-Of-Memory (OOM) killer
 Version:	0.5.0
-Release:	12%{dist}
+Release:	13%{dist}
 License:	GPL-2.0-only
 URL:		https://github.com/facebookincubator/oomd/
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -80,6 +80,9 @@ Furthermore, time spent livedlocked in kernelspace is minimized.
 %systemd_postun_with_restart oomd.service
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -25,7 +25,7 @@
 
 Name:           mingw-qt5-qtbase
 Version:        5.15.15
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Qt5 for Windows - QtBase component
 
 # See LGPL_EXCEPTIONS.txt, for exception details
@@ -813,6 +813,9 @@ ln -s %{mingw64_target}-qmake-qt5 %{buildroot}%{_bindir}/mingw64-qmake-qt5
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.15-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Sep 05 2024 Sandro Mani <manisandro@gmail.com> - 5.15.15-1
 - Update to 5.15.15
 

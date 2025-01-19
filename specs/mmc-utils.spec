@@ -5,7 +5,7 @@
 Summary: Configure MMC storage devices from userspace
 Name: mmc-utils
 Version: 0~%{date}git%{shortcommit}
-Release: 3%{?dist}
+Release: 4%{?dist}
 URL: https://docs.kernel.org/driver-api/mmc/mmc-tools.html
 Source0: https://git.kernel.org/pub/scm/utils/mmc/mmc-utils.git/snapshot/mmc-utils-%{commit}.tar.gz
 Patch0: https://sources.debian.org/data/main/m/mmc-utils/0%2Bgit20220624.d7b343fd-1/debian/patches/0001-Fix-typo.patch
@@ -62,6 +62,9 @@ install -D -pm0644 -t %{buildroot}%{_mandir}/man1 man/mmc.1
 %{_mandir}/man1/mmc.1*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0~20240305gite1281d4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0~20240305gite1281d4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

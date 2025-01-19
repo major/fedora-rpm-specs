@@ -1,7 +1,7 @@
 Name:		numactl
 Summary:	Library for tuning for Non Uniform Memory Access machines
 Version:	2.0.19
-Release:	1%{?dist}
+Release:	2%{?dist}
 # libnuma is LGPLv2 and GPLv2
 # numactl binaries are GPLv2 only
 License:	GPL-2.0-only
@@ -73,6 +73,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.19-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Nov 05 2024 Jonathan Wright <jonathan@almalinux.org> - 2.0.19-1
 - update to 2.0.19 rhbz#2321909
 - Fixes "numactl exits if MPOL_PREFERRED_MANY isn't supported"

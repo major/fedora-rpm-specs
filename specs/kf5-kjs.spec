@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.116.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: KDE Frameworks 5 Tier 3 functional module with JavaScript interpreter
 
 # Automatically converted from old format: GPLv2+ and BSD - review is highly recommended.
@@ -75,6 +75,9 @@ chmod +x %{buildroot}%{_kf5_datadir}/kf5/kjs/create_hash_table
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.116.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 5.116.0-3
 - convert license to SPDX
 

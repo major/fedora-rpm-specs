@@ -16,9 +16,9 @@ Name:        mate-user-guide
 Summary:     User Guide for MATE desktop
 Version:     %{branch}.0
 %if 0%{?rel_build}
-Release:     3%{?dist}
+Release:     4%{?dist}
 %else
-Release:     0.19%{?git_rel}%{?dist}
+Release:     0.20%{?git_rel}%{?dist}
 %endif
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:     GPL-2.0-or-later
@@ -77,6 +77,9 @@ $RPM_BUILD_ROOT%{_datadir}/applications/mate-user-guide.desktop
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.28.0-3
 - convert license to SPDX
 

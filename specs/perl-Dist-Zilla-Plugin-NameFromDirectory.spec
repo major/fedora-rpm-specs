@@ -1,6 +1,6 @@
 Name:           perl-Dist-Zilla-Plugin-NameFromDirectory
 Version:        0.04
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Guess distribution name from the current directory
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -56,6 +56,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 0.04-24
 - convert license to SPDX
 

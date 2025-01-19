@@ -2,7 +2,7 @@
 
 Name: mysql-mmm
 Version: 2.2.1
-Release: 35%{?dist}
+Release: 36%{?dist}
 Summary: Multi-Master Replication Manager for MySQL
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -174,6 +174,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.2.1-35
 - convert license to SPDX
 

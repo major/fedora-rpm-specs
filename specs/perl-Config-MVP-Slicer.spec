@@ -1,6 +1,6 @@
 Name:           perl-Config-MVP-Slicer
 Version:        0.303
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Extract embedded configuration from a parent configuration
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.303-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 0.303-23
 - convert license to SPDX
 

@@ -3,7 +3,7 @@
 
 Name:           goocanvas2
 Version:        2.0.4
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        A new canvas widget for GTK+ that uses cairo for drawing
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -72,6 +72,9 @@ find %buildroot -name '*.la' -exec rm -f {} ';'
 %{_datadir}/gir-1.0/GooCanvas-2.0.gir
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0.4-17
 - convert license to SPDX
 

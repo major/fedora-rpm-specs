@@ -3,7 +3,7 @@
 Summary: CMPI Utility Library
 Name: libcmpiutil
 Version: 0.5.7
-Release: 26%{?dist}%{?extra_release}
+Release: 27%{?dist}%{?extra_release}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
 Source: ftp://libvirt.org/libvirt-cim/libcmpiutil-%{version}.tar.gz
@@ -71,6 +71,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
 %doc doc/SubmittingPatches
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.7-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5.7-26
 - convert license to SPDX
 

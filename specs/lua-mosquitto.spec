@@ -2,7 +2,7 @@
 
 Name:           lua-mosquitto
 Version:        0.3
-Release:        13%{?dist}
+Release:        14%{?dist}
 License:        MIT
 Summary:        Lua bindings to libmosquitto
 Url:            https://github.com/flukso/%{name}/
@@ -47,6 +47,9 @@ export OPT=
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

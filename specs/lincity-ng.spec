@@ -5,7 +5,7 @@
 %global fonts font(dejavusans)
 
 # For rpmdev-bumpspec
-%global baserelease 35
+%global baserelease 36
 
 Name:		lincity-ng
 Version:	2.9
@@ -136,6 +136,9 @@ EOF
 %{_datadir}/lincity-ng/
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.9-0.36.20210424gitd35c3be
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.9-0.35.20210424gitd35c3be
 - convert license to SPDX
 

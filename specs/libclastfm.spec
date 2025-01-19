@@ -16,7 +16,7 @@
 
 Name:           libclastfm
 Version:        0.5
-Release:        0.27%{?git_version:.%{?git_version}}%{?dist}
+Release:        0.28%{?git_version:.%{?git_version}}%{?dist}
 Summary:        Unofficial C-API for the Last.fm web service
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -80,6 +80,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-0.28.20120314git968af0ab
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5-0.27.20120314git968af0ab
 - convert license to SPDX
 

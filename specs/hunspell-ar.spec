@@ -9,7 +9,7 @@
 Summary: Arabic hunspell dictionaries
 Name: hunspell-ar
 Version: 3.5
-Release: 23%{?dist}
+Release: 24%{?dist}
 License: GPL-2.0-only OR LGPL-2.1-only OR MPL-1.1
 
 URL: http://ayaspell.sourceforge.net/
@@ -46,6 +46,9 @@ popd
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

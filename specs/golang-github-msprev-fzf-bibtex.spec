@@ -19,7 +19,7 @@ Name:           %{goname}
 # Upstream includes release notes for past releases, but does not post 
 # tarballs or use git tags, so we ship the latest Git snapshot.
 Version:        1.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A BibTeX source for fzf
 
 License:        BSD-3-Clause
@@ -55,6 +55,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %{_bindir}/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Oct 19 2024 Daniel Moerner <dmoerner@gmail.com> - 1.1-15.20241019git64316c2
 - Update to latest upstream snapshot. Includes fzf-lua support.
 

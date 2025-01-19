@@ -50,7 +50,7 @@
 
 Name:           jetty
 Version:        9.4.40
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Java Webserver and Servlet Container
 
 # Jetty is dual licensed under both ASL 2.0 and EPL 1.0, see NOTICE.txt
@@ -973,6 +973,9 @@ exit 0
 %license LICENSE NOTICE.txt LICENSE-MIT
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.4.40-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 9.4.40-13
 - convert license to SPDX
 

@@ -9,7 +9,7 @@
 Name:             osmo-fl2k
 URL:              https://osmocom.org/projects/osmo-fl2k/wiki
 Version:          0.1.1^%{git_suffix}
-Release:          6%{?dist}
+Release:          7%{?dist}
 # Automatically converted from old format: GPLv2+ and GPLv3+ - review is highly recommended.
 License:          GPL-2.0-or-later AND GPL-3.0-or-later
 BuildRequires:    cmake
@@ -74,6 +74,9 @@ install -Dpm 644 ./osmo-fl2k.rules %{buildroot}%{_prefix}/lib/udev/rules.d/10-os
 %{_libdir}/*.so
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1^20230403gitf8cdd64b-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug  7 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.1^20230403gitf8cdd64b-6
 - convert license to SPDX
 

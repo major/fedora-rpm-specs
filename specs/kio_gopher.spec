@@ -2,7 +2,7 @@
 
 Name:           kio_gopher
 Version:        0.1.99
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Gopher KIO slave
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -51,6 +51,9 @@ application.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.99-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.99-15
 - convert license to SPDX
 

@@ -19,7 +19,7 @@ It can be safely uninstalled.
 
 Name:      %{fontname}-fonts
 Version:   0.%{upstream_date}
-Release:   44%{?dist}
+Release:   45%{?dist}
 Summary:   Truetype greek fonts
 
 # Automatically converted from old format: MgOpen - review is highly recommended.
@@ -162,6 +162,9 @@ install -Dm 0644 -p %{SOURCE6} \
 %files compat
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20050515-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 0.20050515-44
 - convert license to SPDX
 

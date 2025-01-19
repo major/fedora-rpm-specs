@@ -5,7 +5,7 @@
 Name:    libkscreen-qt5
 Summary: KDE display configuration library
 Version: 5.27.11
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -117,6 +117,9 @@ rm -rf %{buildroot}%{_kf5_datadir}/zsh
 %{_kf5_archdatadir}/mkspecs/modules/qt_KScreen.pri
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.27.11-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 5.27.11-3
 - convert license to SPDX
 

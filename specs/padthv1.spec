@@ -2,7 +2,7 @@
 
 Name:           padthv1
 Version:        0.9.91
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        An old-school polyphonic additive synthesizer
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -80,6 +80,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{namespace}.%
 %{_libdir}/lv2/%{name}.lv2/
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.91-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.9.91-3
 - convert license to SPDX
 

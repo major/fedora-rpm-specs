@@ -4,7 +4,7 @@ Version:       5.2.122
 %global version_main      5.2
 %global version_dash_main 5-2
 %global version_dash      %{version_dash_main}-122
-Release:       36%{?dist}
+Release:       37%{?dist}
 Summary:       An implementation of the PGM reliable multicast protocol
 
 License:       LGPL-2.1-or-later
@@ -94,6 +94,9 @@ mv -f %{buildroot}%{_includedir}/%{name_alias}-%{version_main}/%{name_alias} %{b
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.122-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep  2 2024 Miroslav Suchý <msuchy@redhat.com> - 5.2.122-36
 - convert license to SPDX
 

@@ -10,7 +10,7 @@ License: BSD-2-Clause
 %global git_short  %(c="%{git_commit}"; echo "${c:0:7}")
 
 Version: 0.5
-Release: 19.%{git_date}git%{git_short}%{?dist}
+Release: 20.%{git_date}git%{git_short}%{?dist}
 
 URL:     https://github.com/%{repo_owner}/%{repo_name}
 Source0: %{URL}/archive/%{git_commit}/%{repo_name}-%{git_commit}.tar.gz
@@ -48,6 +48,9 @@ install -m 644 ./icat.man %{buildroot}/%{_mandir}/man1/%{name}.1
 %{_mandir}/man1/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-20.20230110git9b5aa62
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-19.20230110git9b5aa62
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

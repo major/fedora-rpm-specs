@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-psmt2-frontend
 Version:        0.4.0
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Parser and typechecker for an extension of SMT-LIB 2
 
 License:        Apache-2.0
@@ -72,6 +72,9 @@ make sphinx
 %doc docs/sphinx
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 0.4.0-21
 - OCaml 5.3.0 rebuild for Fedora 42
 

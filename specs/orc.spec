@@ -1,6 +1,6 @@
 Name:		orc
 Version:	0.4.39
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	The Oil Run-time Compiler
 
 License:	BSD-2-Clause AND BSD-3-Clause
@@ -89,6 +89,9 @@ rm -rf %{buildroot}/%{_libdir}/orc
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.39-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jul 30 2024 Wim Taymans <wtaymans@redhat.com> 0.4.39-1
 - Update to 0.4.39
 - Add patch for div255w fix on ppc64le

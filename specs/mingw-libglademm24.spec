@@ -7,7 +7,7 @@
 
 Name:           mingw-%{mingw_pkg_name}
 Version:        2.6.7
-Release:        41%{?dist}
+Release:        42%{?dist}
 
 Summary:        MinGW Windows C++ wrapper for libglade
 
@@ -115,6 +115,9 @@ find ${RPM_BUILD_ROOT} -type f -name "*.exe" -exec rm -f {} ';'
 %endif
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.7-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.6.7-41
 - convert license to SPDX
 

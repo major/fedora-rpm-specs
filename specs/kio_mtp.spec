@@ -3,7 +3,7 @@
 
 Name:           kio_mtp
 Version:        0.75
-Release:        32.%{snap}git%{git_commit}%{?dist}
+Release:        33.%{snap}git%{git_commit}%{?dist}
 Summary:        An MTP KIO slave for KDE
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -65,6 +65,9 @@ make install/fast  DESTDIR=%{buildroot} -C %{_target_platform}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.75-33.20141221gitc418634
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.75-32.20141221gitc418634
 - convert license to SPDX
 

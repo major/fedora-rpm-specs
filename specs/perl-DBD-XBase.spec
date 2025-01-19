@@ -1,6 +1,6 @@
 Name:           perl-DBD-XBase
 Version:        1.08
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Perl module for reading and writing the dbf files
 
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -64,6 +64,9 @@ make test
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 1.08-25
 - convert license to SPDX
 

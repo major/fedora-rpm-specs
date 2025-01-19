@@ -1,7 +1,7 @@
 Summary: A collection of Math symbol fonts 
 Name:	 jsmath-fonts 
 Version: 20090708 
-Release: 28%{?dist}
+Release: 29%{?dist}
 
 # derived from computer modern metafont tex sources
 License: LicenseRef-Fedora-Public-Domain
@@ -37,6 +37,9 @@ install -p -m644 *.ttf %{buildroot}%{_fontdir}/
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20090708-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 20090708-28
 - convert license to SPDX
 

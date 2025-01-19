@@ -35,7 +35,7 @@
 Name:           kokkos
 Version:        4.4.01
 %global         sover 4.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Kokkos C++ Performance Portability Programming
 # no support for 32-bit archs https://github.com/kokkos/kokkos/issues/2312
 ExcludeArch: i686 armv7hl
@@ -200,6 +200,9 @@ module purge
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.01-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 3 2025 Tom Rix <Tom.Rix@amd.com> - 4.4.01-2
 - Add ROCm support
 

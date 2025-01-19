@@ -4,7 +4,7 @@
 
 Name:           miracle-wm-config
 Version:        0~git.%{commitdate}.1.%{shortcommit}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Miracle Window Manager system configuration
 
 License:        GPL-3.0-or-later
@@ -98,6 +98,9 @@ install -pm 0644 sddm/miracle-wm.conf %{buildroot}%{_prefix}/lib/sddm/sddm.conf.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0~git.20241021.1.cece62d-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Oct 21 2024 Neal Gompa <ngompa@fedoraproject.org> - 0~git.20241021.1.cece62d-1
 - Bump to new git snapshot
 

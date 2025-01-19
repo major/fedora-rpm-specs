@@ -5,7 +5,7 @@
 
 Name:           lpf
 Version:        0.3
-Release:        11%{?rel}%{?dist}
+Release:        12%{?rel}%{?dist}
 Summary:        Local package factory - build non-redistributable rpms
 
 # Icon from iconarchive.com
@@ -91,6 +91,9 @@ exit 0
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Nov 03 2024 Sérgio Basto <sergio@serjux.com> - 0.3-11
 - Only requires dnf to work with dnf5 Resolves: rhbz#2209396
 

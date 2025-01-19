@@ -1,6 +1,6 @@
 Name:           libsigrok
 Version:        0.5.2
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Basic hardware access drivers for logic analyzers
 # Combined GPLv3+ and GPLv2+ and BSD
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -120,6 +120,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5.2-14
 - convert license to SPDX
 

@@ -2,7 +2,7 @@
 
 Name:           perl-Gtk2-TrayIcon
 Version:        0.07
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Perl interface to the EggTrayIcon library (deprecated)
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+ 
@@ -78,6 +78,9 @@ find %{buildroot} -type f -name '*.bs' -a -size 0 -delete
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.07-15
 - convert license to SPDX
 

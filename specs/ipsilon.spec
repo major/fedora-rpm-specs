@@ -8,7 +8,7 @@
 %global snaprel %%{?snapdate:.git%%{snapdate}.%%{shortcommit}}
 
 # for rpmdev-bumpspec
-%global baserelease 0.1
+%global baserelease 0.2
 
 Name:       ipsilon
 Version:    3.0.5
@@ -471,6 +471,9 @@ exit 0
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.5-0.2.git20241202.01109c1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 02 2024 Kevin Fenzi <kevin@scrye.com> - 3.0.5-0.1
 - Switch to a git snapshot.
 - Drop python-m2crypto, as it's no longer used.

@@ -1,6 +1,6 @@
 Name:           kbdd
 Version:        0.7.1
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Per window keyboard layout
 
 # Upstream license ticket https://github.com/qnikst/kbdd/issues/48
@@ -42,6 +42,9 @@ autoreconf -vfi
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.7.1-21
 - convert license to SPDX
 

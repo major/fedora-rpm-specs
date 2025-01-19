@@ -3,7 +3,7 @@
 Summary: POSIX File System Archiver
 Name: pax
 Version: 3.4
-Release: 46%{?dist}
+Release: 47%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 
@@ -104,6 +104,9 @@ fi
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 3.4-46
 - convert license to SPDX
 

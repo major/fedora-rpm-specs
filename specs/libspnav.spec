@@ -1,6 +1,6 @@
 Name:           libspnav
 Version:        1.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Open source alternative to 3DConnextion drivers
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -66,6 +66,9 @@ rm -f %{buildroot}%{_libdir}/%{name}.a
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1-6
 - convert license to SPDX
 

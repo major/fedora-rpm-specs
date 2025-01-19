@@ -6,7 +6,7 @@
 Summary:       Broadcom Crystal HD device interface library
 Name:          libcrystalhd
 Version:       3.10.0
-Release:       34%{?dist}
+Release:       35%{?dist}
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License:       LicenseRef-Callaway-LGPLv2
 URL:           http://www.broadcom.com/support/crystal-hd/
@@ -134,6 +134,9 @@ install -pm 0644 driver/linux/20-crystalhd.rules \
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.0-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 3.10.0-34
 - convert license to SPDX
 

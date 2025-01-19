@@ -1,7 +1,7 @@
 Name: mythes-uk
 Summary: Ukrainian thesaurus
 Version: 1.6.5
-Release: 29%{?dist}
+Release: 30%{?dist}
 Source: http://downloads.sourceforge.net/ispell-uk/spell-uk-%{version}.tgz
 URL: http://sourceforge.net/projects/ispell-uk
 #unused myspell dicts are under GPLv2+ or LGPLv2+ or MPLv1.1
@@ -35,6 +35,9 @@ cp -p src/thesaurus/th_uk_UA_v2.* $RPM_BUILD_ROOT/%{_datadir}/mythes
 %{_datadir}/mythes/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.5-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.5-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

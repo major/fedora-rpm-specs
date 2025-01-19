@@ -6,7 +6,7 @@
 Name: hunspell-sq
 Summary: Albanian hunspell dictionaries
 Version: 1.6.4
-Release: 28%{?dist}
+Release: 29%{?dist}
 Source: http://www.shkenca.org/shkarkime/myspell-sq_AL-%{version}.zip
 URL: http://www.shkenca.org/k6i/albanian_dictionary_for_myspell_en.html
 License: GPL-2.0-or-later
@@ -33,6 +33,9 @@ cp -p sq_AL.* $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

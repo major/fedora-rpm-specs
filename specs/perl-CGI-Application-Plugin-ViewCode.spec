@@ -1,6 +1,6 @@
 Name:           perl-CGI-Application-Plugin-ViewCode
 Version:        1.02
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        Allows you to view the source of a CGI::Application module
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -52,6 +52,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 1.02-46
 - convert license to SPDX
 

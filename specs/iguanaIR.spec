@@ -5,7 +5,7 @@
 
 Name:           iguanaIR
 Version:        1.1.0
-Release:        41%{?dist}
+Release:        42%{?dist}
 Epoch:          2
 Summary:        Driver for Iguanaworks USB IR transceiver
 
@@ -233,6 +233,9 @@ exit 0
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.1.0-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2:1.1.0-41
 - convert license to SPDX
 

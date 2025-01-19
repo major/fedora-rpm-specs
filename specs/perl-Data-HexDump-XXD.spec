@@ -1,6 +1,6 @@
 Name:           perl-Data-HexDump-XXD
 Version:        0.1.1
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Format hexadecimal dump like xxd
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-HexDump-XXD
@@ -42,6 +42,9 @@ AUTHOR_TEST=1 ./Build test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

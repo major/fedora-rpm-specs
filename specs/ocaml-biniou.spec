@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-biniou
 Version:        1.2.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Safe and fast binary data format
 
 License:        BSD-3-Clause
@@ -81,6 +81,9 @@ sed -i '/bdump/d' .ofiles
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 1.2.2-12
 - OCaml 5.3.0 rebuild for Fedora 42
 - Add VCS field

@@ -1,7 +1,7 @@
 Summary: Window Navigator Construction Kit
 Name: libwnck
 Version: 2.31.0
-Release: 25%{?dist}
+Release: 26%{?dist}
 URL: http://download.gnome.org/sources/libwnck/
 #VCS: git:git://git.gnome.org/libwnck
 Source0: http://download.gnome.org/sources/libwnck/2.31/%{name}-%{version}.tar.xz
@@ -69,6 +69,9 @@ rm -f $RPM_BUILD_ROOT%{_bindir}/wnck-urgency-monitor
 %doc %{_datadir}/gtk-doc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.31.0-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.31.0-25
 - convert license to SPDX
 

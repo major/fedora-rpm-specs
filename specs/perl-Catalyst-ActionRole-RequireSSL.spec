@@ -1,6 +1,6 @@
 Name:           perl-Catalyst-ActionRole-RequireSSL
 Version:        1.00
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Catalyst::ActionRole::RequireSSL Perl module
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -63,6 +63,9 @@ action role to force an action to be secure only.
 %{_mandir}/man3/Catalyst*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 04 2024 Emmanuel Seyman <emmanuel@seyman.fr> - 1.00-3
 - Take into account final review feedback
 

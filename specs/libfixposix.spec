@@ -5,7 +5,7 @@ whose behavior is inconsistent across *NIX flavors.}
 Name:           libfixposix
 Summary:        Thin wrapper over POSIX syscalls
 Version:        0.4.3
-Release:        14%{?dist}
+Release:        15%{?dist}
 # Automatically converted from old format: Boost - review is highly recommended.
 License:        BSL-1.0
 
@@ -65,6 +65,9 @@ find %{buildroot} -name "*.la" -print -delete
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.4.3-14
 - convert license to SPDX
 

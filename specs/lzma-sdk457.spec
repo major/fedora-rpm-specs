@@ -1,6 +1,6 @@
 Name:		lzma-sdk457
 Version:	4.57
-Release:	31%{?dist}
+Release:	32%{?dist}
 Summary:	SDK for lzma compression
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:	LicenseRef-Callaway-LGPLv2+
@@ -96,6 +96,9 @@ find -iname '*.h' | xargs -I {} install -m0644 -D {} %{buildroot}/%{_includedir}
 %{_libdir}/liblzmasdk457.so
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.57-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 4.57-31
 - convert license to SPDX
 

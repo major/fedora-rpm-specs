@@ -1,7 +1,7 @@
 Summary: Xt / Motif OpenGL widgets
 Name: mesa-libGLw
 Version: 8.0.0
-Release: 30%{?dist}
+Release: 31%{?dist}
 License: SGI-OpenGL
 URL: http://www.mesa3d.org
 # archived project
@@ -70,6 +70,9 @@ find $RPM_BUILD_ROOT -name \*.la | xargs rm -f
 %{_includedir}/GL/GLwMDrawAP.h
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.0-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.0-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

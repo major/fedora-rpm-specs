@@ -11,7 +11,7 @@
 Name:          mod_proxy_cluster
 Summary:       JBoss mod_proxy_cluster for Apache httpd
 Version:       1.3.21
-Release:       %{serial}%{?dist}
+Release:       %{serial}%{?dist}.1
 License:       LGPL-3.0-only
 URL:           https://github.com/modcluster/mod_cluster
 Source0:       https://github.com/modcluster/mod_cluster/archive/%{namedversion}/mod_cluster-%{namedversion}.tar.gz
@@ -126,6 +126,9 @@ fi
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.21-1.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 8 2025 Vladimir Chlup <vchlup@redhat.com> - 1.3.21-1
 - Update to upstream 1.3.21.Final release
 

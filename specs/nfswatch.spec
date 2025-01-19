@@ -1,7 +1,7 @@
 Summary: An NFS traffic monitoring tool
 Name: nfswatch
 Version: 4.99.13
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
@@ -35,6 +35,9 @@ make STRIP= MANSUF=8 DESTDIR=${RPM_BUILD_ROOT} install
 %{_mandir}/man8/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.99.13-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep  2 2024 Miroslav Suchý <msuchy@redhat.com> - 4.99.13-3
 - convert license to SPDX
 

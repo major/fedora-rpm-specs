@@ -1,6 +1,6 @@
 Name:          maui-mauikit-terminal
 Version:       4.0.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       LGPL-2.0-or-later AND GPL-3.0-or-later AND CC0-1.0 AND GPL-2.0-or-later
 Summary:       Terminal support components for Maui applications
 URL:           https://invent.kde.org/maui/mauikit-terminal
@@ -63,5 +63,8 @@ on %{name}.
 %{_kf6_libdir}/libMauiKitTerminal4.so
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue May 14 2024 Steve Cossette <farchord@gmail.com> - 4.0.0-1
 - 4.0.0

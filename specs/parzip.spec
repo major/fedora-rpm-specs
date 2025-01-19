@@ -1,6 +1,6 @@
 Name:           parzip
 Version:        1.4.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        High performance parallel pkzip implementation
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -38,6 +38,9 @@ A command line utility to pack and unpack zip archives using multiple threads.
 %{_mandir}/man1/parunzip.1*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.4.0-6
 - convert license to SPDX
 

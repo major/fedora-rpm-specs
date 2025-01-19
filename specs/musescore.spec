@@ -20,7 +20,7 @@
 Name:           musescore
 Summary:        Music Composition & Notation Software
 Version:        %{musescore_ver}
-Release:        16%{?dist}
+Release:        17%{?dist}
 
 # The MuseScore project itself is GPL-3.0-only WITH Font-exception-2.0.  Other
 # licenses in play:
@@ -585,6 +585,9 @@ hardlink -t %{buildroot}%{_datadir}/mscore-%{musescore_maj}
 %fontfiles -z 9
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.2-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 17 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 4.3.2-16
 - Rebuild with dr_flac 0.12.43, dr_mp3 0.6.40, and dr_wav 0.13.17
 

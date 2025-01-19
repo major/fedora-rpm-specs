@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-benchmark
 Version:        1.6
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Benchmarking module for OCaml
 
 License:        LGPL-3.0-only WITH OCaml-LGPL-linking-exception
@@ -62,6 +62,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 1.6-15
 - OCaml 5.3.0 rebuild for Fedora 42
 

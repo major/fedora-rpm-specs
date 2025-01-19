@@ -1,6 +1,6 @@
 Name:           irclog2html
 Version:        2.17.2
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        A script to convert IRC logs to HTML and other formats
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -43,6 +43,9 @@ install -Dpm 0644 src/%{name}/irclog.css %{buildroot}%{_datadir}/%{name}
 %{python3_sitelib}/*.egg-info
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.17.2-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.17.2-22
 - convert license to SPDX
 

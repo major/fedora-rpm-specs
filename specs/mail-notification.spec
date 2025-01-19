@@ -5,7 +5,7 @@
 
 Name:           mail-notification
 Version:        5.4
-Release:        112.git.%{git_revision}%{?dist}
+Release:        113.git.%{git_revision}%{?dist}
 Summary:        Status icon that informs you if you have new mail
 
 License:        GPL-3.0-or-later
@@ -229,6 +229,9 @@ desktop-file-install \
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-113.git.9ae8768
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-112.git.9ae8768
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

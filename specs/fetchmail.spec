@@ -1,7 +1,7 @@
 Summary: A remote mail retrieval and forwarding utility
 Name: fetchmail
-Version: 6.5.1
-Release: 2%{?dist}
+Version: 6.5.2
+Release: 1%{?dist}
 Source0: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
 Source1: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz.asc
 URL: http://www.fetchmail.info/
@@ -48,6 +48,10 @@ rm -f $RPM_BUILD_ROOT%{python3_sitelib}/__pycache__/fetchmailconf*
 %{_mandir}/man1/fetchmail.1*
 
 %changelog
+* Fri Jan 17 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 6.5.2-1
+- Update to fetchmail-6.5.2
+  Resolves: #2334927
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

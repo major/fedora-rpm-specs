@@ -16,7 +16,7 @@
 
 Name:           kcov
 Version:        43
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Code coverage tool without special compilation options
 
 # Licenses of kcov itself and its bundled js libraries (see below)
@@ -117,6 +117,9 @@ export PYTHONPATH=tests/tools
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 43-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Aug 17 2024 Dridi Boukelmoune <dridi@fedoraproject.org> - 43-1
 - Bumped version to 43
 - Updated license using SPDX

@@ -1,7 +1,7 @@
 Summary: Musepack SV7 audio file encoder
 Name: mppenc
 Version: 1.16
-Release: 32%{?dist}
+Release: 33%{?dist}
 
 # Some source files by one of the authors lack a license header.
 # Musepack website acknowledges the licensing as "LGPL".
@@ -53,6 +53,9 @@ advanced stage in which it contains heavily optimized and patentless code.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Michael Schwendt <mschwendt@fedoraproject.org> - 1.16-32
 - change to SPDX license tag
 

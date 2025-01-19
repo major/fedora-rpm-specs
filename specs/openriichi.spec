@@ -1,6 +1,6 @@
 Name:             openriichi
 Version:          0.2.1.1
-Release:          7%{?dist}
+Release:          8%{?dist}
 Summary:          Japanese Mahjong 3D game
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:          GPL-3.0-only
@@ -96,6 +96,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 %license LICENSE ENGINE_LICENSE
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.1.1-7
 - convert license to SPDX
 

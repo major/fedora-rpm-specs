@@ -62,7 +62,7 @@ Source:         %{forgeurl}/releases/download/v%{version}/givaro-%{version}.tar.
 # Add missing #include <cstdint> for (u)int64_t
 # Fixes failure to compile on GCC 13.
 # https://github.com/linbox-team/givaro/pull/218
-Patch:          %{forguerl}/pull/218.patch
+Patch:          %{forgeurl}/pull/218.patch
 # Temporary GCC 14 workaround
 #
 # Fixes https://github.com/linbox-team/givaro/issues/226 “GCC 14: No match
@@ -71,6 +71,14 @@ Patch:          %{forguerl}/pull/218.patch
 # Recommended in
 # https://github.com/linbox-team/givaro/issues/226#issuecomment-1908853755
 Patch:          0001-Temporary-GCC-14-workaround.patch
+# Fix build using GCC 15
+# https://github.com/linbox-team/givaro/pull/233
+#
+# Fixes:
+#
+# Build failure with GCC-15
+# https://github.com/linbox-team/givaro/issues/232
+Patch:          %{forgeurl}/pull/233.patch
 
 %if %{with autoreconf}
 BuildRequires:  autoconf

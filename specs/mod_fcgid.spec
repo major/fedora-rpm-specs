@@ -1,6 +1,6 @@
 Name:		mod_fcgid
 Version:	2.3.9
-Release:	34%{?dist}
+Release:	35%{?dist}
 Summary:	FastCGI interface module for Apache 2
 License:	Apache-2.0
 URL:		http://httpd.apache.org/mod_fcgid/
@@ -80,6 +80,9 @@ install -p -m 644 %{SOURCE4} %{buildroot}%{_tmpfilesdir}/mod_fcgid.conf
 %dir %attr(0775,root,apache) /run/mod_fcgid/
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.9-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.9-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

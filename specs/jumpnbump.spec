@@ -3,7 +3,7 @@
 
 Name:           jumpnbump
 Version:        1.61
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Cute multiplayer platform game with bunnies
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -114,6 +114,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 %{_datadir}/applications/%{name}-menu.desktop
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.61-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.61-15
 - convert license to SPDX
 

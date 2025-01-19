@@ -3,7 +3,7 @@
 Summary: The InterNetNews system, an Usenet news server
 Name: inn
 Version: 2.7.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 # most files are under ISC, except:
 # contrib/analyze-traffic.in: public-domain
 # contrib/mm_ckpasswd: GPL-2.0-or-later
@@ -586,6 +586,9 @@ fi
 %{_mandir}/man1/inews*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Oct 13 2024 Dominik Mierzejewski <dominik@greysector.net> - 2.7.2-1
 - update to 2.7.2 (#2293907)
 

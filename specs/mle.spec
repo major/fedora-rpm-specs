@@ -1,7 +1,7 @@
 Summary:         A small, flexible, terminal-based text editor
 Name:            mle
 Version:         1.7.2
-Release:         6%{?dist}
+Release:         7%{?dist}
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:         Apache-2.0
 URL:             https://github.com/adsr/mle
@@ -45,6 +45,9 @@ install -D -p -v -m 644 mle.1 ${RPM_BUILD_ROOT}%{_mandir}/man1/mle.1
 %{_mandir}/man1/mle.1*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 1.7.2-6
 - convert license to SPDX
 

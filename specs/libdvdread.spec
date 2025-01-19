@@ -2,7 +2,7 @@
 
 Name:           libdvdread
 Version:        6.1.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A library for reading DVD video discs based on Ogle code
 # msvc/contrib/dirent/dirent.c is HPND-Kevlin-Henney, but is not included in the build
 # src/logger.c and few other are LGPL-2.1-or-later
@@ -61,6 +61,9 @@ rm %{buildroot}%{_libdir}/libdvdread.la %{buildroot}%{_pkgdocdir}/COPYING
 %{_libdir}/pkgconfig/dvdread.pc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 13 2024 Pavel Cahyna <pcahyna@redhat.com> - 6.1.3-8
 - Correct License: some files are GPL 2 or GPL 3, but not later
 

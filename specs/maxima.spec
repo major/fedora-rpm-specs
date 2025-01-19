@@ -2,7 +2,7 @@ Summary: Symbolic Computation Program
 Name:    maxima
 Version: 5.47.0
 
-Release: 5%{?dist}
+Release: 6%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL:     http://maxima.sourceforge.net/
@@ -413,6 +413,9 @@ fi
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.47.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Nov 22 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 5.47.0-5
 - Disable ECL runtime
 

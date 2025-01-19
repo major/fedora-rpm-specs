@@ -3,7 +3,7 @@
 
 Name:    kcoloredit
 Version: 4.4.0
-Release: 33%{?dist}
+Release: 34%{?dist}
 Summary: A color palette Editor
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -62,6 +62,9 @@ desktop-file-validate %{buildroot}%{_kde4_datadir}/applications/kde4/kcoloredit.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 4.4.0-33
 - convert license to SPDX
 

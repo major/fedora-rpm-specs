@@ -1,6 +1,6 @@
 Name:           libHX
 Version:        3.22
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Useful collection of routines for C and C++ programming
 
 # Automatically converted from old format: LGPLv2 or LGPLv3 - review is highly recommended.
@@ -97,6 +97,9 @@ install -m 644 README.txt \
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.22-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 3.22-23
 - convert license to SPDX
 

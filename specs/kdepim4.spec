@@ -5,7 +5,7 @@
 Name:    kdepim4
 Summary: KDE4 PIM (Personal Information Manager) applications
 Version: 4.14.10
-Release: 55%{?dist}
+Release: 56%{?dist}
 
 # code is GPLv2 and docs GFDL
 # Automatically converted from old format: GPLv2 and GFDL - review is highly recommended.
@@ -295,6 +295,9 @@ done
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.14.10-56
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 4.14.10-55
 - convert license to SPDX
 

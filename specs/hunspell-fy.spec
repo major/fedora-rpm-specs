@@ -7,7 +7,7 @@
 Name: hunspell-fy
 Summary: Frisian hunspell dictionaries
 Version: 3.0.0
-Release: 18%{?dist}
+Release: 19%{?dist}
 Source: https://addons.mozilla.org/firefox/downloads/file/499875/frysk_wurdboek-%{version}-tb+fx+sm.xpi
 URL: http://www.mozilla-nl.org/projecten/frysk
 License: GPL-3.0-or-later
@@ -49,6 +49,9 @@ popd
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

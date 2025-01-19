@@ -1,6 +1,6 @@
 Name:           libsfdo
 Version:        0.1.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A collection of libraries implementing freedesktop.org specifications
 
 License:        BSD-2-Clause
@@ -44,5 +44,8 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %{_libdir}/pkgconfig/libsfdo-*.pc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Oct 26 2024 Steve Cossette <farchord@gmail.com> - 0.1.3-1
 - 0.1.3

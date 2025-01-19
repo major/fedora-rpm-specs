@@ -1,6 +1,6 @@
 Name:           perl-CGI-Application-Structured-Tools
 Version:        0.015
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Tools to generate and maintain CGI::Application::Structured based web apps
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -85,6 +85,9 @@ make test
 %{_bindir}/cas-starter.pl
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.015-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 0.015-36
 - convert license to SPDX
 

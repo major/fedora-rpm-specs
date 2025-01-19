@@ -12,7 +12,7 @@
 
 Name:           kanatest
 Version:        %{mainver}
-Release:        %{mainrel}%{?git_version:.%{?git_version}}%{?dist}.16
+Release:        %{mainrel}%{?git_version:.%{?git_version}}%{?dist}.17
 Summary:        Hiragana and Katakana drill tool
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -85,6 +85,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.10-0.1.D20170810git19dd1a7d.17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.4.10-0.1.D20170810git19dd1a7d.16
 - convert license to SPDX
 

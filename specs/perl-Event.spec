@@ -1,6 +1,6 @@
 Name:		perl-Event
 Version:	1.28
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	Event loop processing
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Event
@@ -71,6 +71,9 @@ make test
 %{_mandir}/man3/Event::generic.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.28-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.28-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:           kabi-dw
 Version:        0
-Release:        0.27%{?dist}
+Release:        0.28%{?dist}
 Summary:        Detect changes in the ABI between kernel builds
 License:        GPL-3.0-or-later
 URL:            %{forgeurl}
@@ -50,6 +50,9 @@ install -m 0755 %{name} %{buildroot}%{_bindir}/
 %license COPYING
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

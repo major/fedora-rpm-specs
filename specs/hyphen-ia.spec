@@ -2,7 +2,7 @@ Name: hyphen-ia
 Summary: Interlingua hyphenation rules
 %global upstreamid 20050628
 Version: 0.%{upstreamid}
-Release: 29%{?dist}
+Release: 30%{?dist}
 Source: http://www.ctan.org/get/language/hyphenation/iahyphen.tex
 URL: http://www.ctan.org/tex-archive/help/Catalogue/entries/iahyphen.html
 License: LPPL-1.3a
@@ -36,6 +36,9 @@ cp -p hyph_ia.dic $RPM_BUILD_ROOT/%{_datadir}/hyphen
 %{_datadir}/hyphen/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20050628-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20050628-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

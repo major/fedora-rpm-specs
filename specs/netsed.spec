@@ -1,6 +1,6 @@
 Name:           netsed
 Version:        1.2
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        A tool to modify network packets
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -47,6 +47,9 @@ install -Dp -m 0755 %{name} %{buildroot}%{_bindir}/%{name}
 %{_bindir}/%{name}
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2-25
 - convert license to SPDX
 

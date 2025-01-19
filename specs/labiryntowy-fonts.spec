@@ -2,7 +2,7 @@
 
 Name:          %{fontname}-fonts
 Version:       1.53
-Release:       22%{?dist}
+Release:       23%{?dist}
 Summary:       Artificial font consisting of vertical and horizontal bars
 # Automatically converted from old format: OFL - review is highly recommended.
 License:       LicenseRef-Callaway-OFL
@@ -33,6 +33,9 @@ cp -p *.ttf %{buildroot}%{_fontdir}
 %doc opis.txt
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.53-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.53-22
 - convert license to SPDX
 

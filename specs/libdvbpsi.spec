@@ -4,7 +4,7 @@
 Summary:	Library for MPEG TS and DVB PSI tables decoding and generation
 Name:		libdvbpsi
 Version:	1.3.3
-Release:	15%{?dist}
+Release:	16%{?dist}
 License:	LGPL-2.1-or-later
 URL:		http://www.videolan.org/developers/libdvbpsi.html
 Source0:        https://code.videolan.org/videolan/libdvbpsi/-/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
@@ -69,6 +69,9 @@ rm -f %{buildroot}%{_libdir}/lib*.la
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Oct 21 2024 Nicolas Chauvet <kwizart@gmail.com> - 1.3.3-15
 - Revert to plain 1.3.3 commit hash
 

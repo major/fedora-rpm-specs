@@ -1,6 +1,6 @@
 Name:           perl-Data-FormValidator
 Version:        4.88
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Validates user input (usually from an HTML form) based on input profile
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -80,6 +80,9 @@ make test
 %{_mandir}/man3/Data*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.88-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 4.88-22
 - convert license to SPDX
 

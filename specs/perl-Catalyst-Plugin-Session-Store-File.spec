@@ -1,6 +1,6 @@
 Name:           perl-Catalyst-Plugin-Session-Store-File
 Version:        0.18
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        File storage backend for session data
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -72,6 +72,9 @@ TEST_POD=1 make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 0.18-44
 - convert license to SPDX
 

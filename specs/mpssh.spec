@@ -3,7 +3,7 @@
 
 Name:		mpssh
 Version:	1.3.3
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	Parallel ssh tool
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -55,6 +55,9 @@ install -p -D -m 0644 %{name}.1.gz %{buildroot}%{_mandir}/man1/%{name}.1.gz
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3.3-22
 - convert license to SPDX
 

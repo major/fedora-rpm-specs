@@ -1,6 +1,6 @@
 Name:           perl-Exception-Class
 Version:        1.45
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Module that allows you to declare real exception classes in Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Exception-Class
@@ -57,6 +57,9 @@ make test
 %{_mandir}/man3/Exception::Class::Base.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.45-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.45-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:          mingw-dlfcn
 Version:       1.4.1
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       Implements a wrapper for dlfcn (dlopen dlclose dlsym dlerror)
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -158,6 +158,9 @@ export MINGW_BUILDDIR_SUFFIX=-static
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.4.1-6
 - convert license to SPDX
 

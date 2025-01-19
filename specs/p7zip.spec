@@ -7,7 +7,7 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
 Version: 16.02
-Release: 31%{?dist}
+Release: 32%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
 # Automatically converted from old format: LGPLv2 and (LGPLv2+ or CPL) - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2 AND (LicenseRef-Callaway-LGPLv2+ OR CPL-1.0)
@@ -180,6 +180,9 @@ make test
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 16.02-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 04 2024 Sérgio Basto <sergio@serjux.com> - 16.02-31
 - Fix wrapper to hide password from process history
 

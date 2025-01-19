@@ -15,9 +15,9 @@
 Name:           mate-icon-theme
 Version:        %{branch}.0
 %if 0%{?rel_build}
-Release:        3%{?dist}
+Release:        4%{?dist}
 %else
-Release:        0.23%{?git_rel}%{?dist}
+Release:        0.24%{?git_rel}%{?dist}
 %endif
 Summary:        Icon theme for MATE Desktop
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
@@ -72,6 +72,9 @@ make %{?_smp_mflags} V=1
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.28.0-3
 - convert license to SPDX
 

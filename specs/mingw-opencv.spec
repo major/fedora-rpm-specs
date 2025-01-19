@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       4.10.0
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       MinGW Windows OpenCV library
 
 BuildArch:     noarch
@@ -236,6 +236,9 @@ rm -f %{buildroot}%{mingw64_prefix}/{LICENSE,setup_vars_opencv4.cmd}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 18 2024 Sandro Mani <manisandro@gmail.com> - 4.10.0-4
 - Rebuild (openexr)
 

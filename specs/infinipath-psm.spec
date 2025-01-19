@@ -4,7 +4,7 @@
 Name:           infinipath-psm
 Summary:        Intel Performance Scaled Messaging (PSM) Libraries
 Version:        3.3
-Release:        %{git_version}.6%{?dist}.13
+Release:        %{git_version}.6%{?dist}.14
 # Automatically converted from old format: GPLv2 or BSD - review is highly recommended.
 License:        GPL-2.0-only OR LicenseRef-Callaway-BSD
 ExclusiveArch:  x86_64
@@ -92,6 +92,9 @@ install -m 0644 %{SOURCE1} %{buildroot}%{_udevrulesdir}/60-ipath.rules
 %{_includedir}/psm_mq.h
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-26_g604758e_open.6.14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 3.3-26_g604758e_open.6.13
 - convert license to SPDX
 

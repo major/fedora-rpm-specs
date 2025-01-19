@@ -5,7 +5,7 @@
 
 Name:		lua-ldoc
 Version:	1.5.0
-Release:	5%{?dist}
+Release:	6%{?dist}
 BuildArch:	noarch
 Summary:	Lua documentation generator
 # the included css code is BSD licensed
@@ -101,6 +101,9 @@ cp -av %{!?_licensedir:COPYRIGHT} README.html CHANGELOG.html public/* \
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep  2 2024 Miroslav Suchý <msuchy@redhat.com> - 1.5.0-5
 - convert license to SPDX
 

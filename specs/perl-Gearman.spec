@@ -1,6 +1,6 @@
 Name:           perl-Gearman
 Version:        2.004.015
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Perl interface for Gearman distributed job system
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -81,6 +81,9 @@ make test
 %{_mandir}/man3/Gearman::*.*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.004.015-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 2.004.015-23
 - convert license to SPDX
 

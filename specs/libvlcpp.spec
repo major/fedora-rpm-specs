@@ -8,7 +8,7 @@
 
 Name:           libvlcpp
 Version:        0.1.0^%{gitdate}git%{shortcommit0}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        C++ bindings for libvlc
 
 License:        LGPL-2.1-or-later
@@ -57,6 +57,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0^20240204git44c1f48-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 01 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.1.0^20240204git44c1f48-1
 - switch versioning to current recommended way
 - use SPDX identifier in License:

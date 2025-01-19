@@ -1,6 +1,6 @@
 Name:           perl-Contextual-Return
 Version:        0.004014
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Create context-sensitive return values
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Contextual-Return
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man3/Contextual::Return::Failure.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.004014-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.004014-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

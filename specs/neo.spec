@@ -7,7 +7,7 @@ Summary: Digital rain in your terminal
 License: GPL-3.0-or-later
 
 Version: 0.6.1
-Release: 9%{?dist}
+Release: 10%{?dist}
 
 URL: https://github.com/st3w/neo
 Source0: %{URL}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -56,6 +56,9 @@ for terminal color, and supports resizing gracefully.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.6.1-9
 - convert license to SPDX
 

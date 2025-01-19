@@ -14,8 +14,12 @@ Patch1:         chkrootkit-0.44-getCMD.patch
 Patch2:         chkrootkit-0.44-inetd.patch
 Patch3:         chkrootkit-0.47-chklastlog.patch
 Patch4:         chkrootkit-0.49-chkproc-psver.patch
-Patch5: 	chkrootkit-0.49-CVE-2014-0476.patch
-Patch6: 	chkrootkit-0.53-netstat-l2cap.patch
+Patch5:         chkrootkit-0.49-CVE-2014-0476.patch
+Patch6:         chkrootkit-0.53-netstat-l2cap.patch
+# Fix a build failure caused by a signal handler function having the
+# wrong signature
+# Mailed to upstream authors jessen and nelsonmurilo 2025-01-17
+Patch7:         chkrootkit-0.57-sighandler-type.patch
 
 BuildRequires:  desktop-file-utils perl-interpreter
 BuildRequires:  glibc-static gcc
@@ -47,6 +51,7 @@ It contains:
 %patch -P 4 -p0 -b .chkproc-psver
 %patch -P 5 -p1
 %patch -P 6 -p0
+%patch -P 7 -p1
 sed -i -e 's!\s\+@strip.*!!g' Makefile
 
 
@@ -55,20 +60,12 @@ make sense CC="%{__cc} $RPM_OPT_FLAGS -D_FILE_OFFSET_BITS=64"
 
 
 %install
-mkdir -p ${RPM_BUILD_ROOT}%{_sbindir}
-cat << EOF > .tmp.chkrootkit.sbin
-#! /bin/sh
-cd %{_libdir}/%{name}-%{version}
-exec ./chkrootkit "\$@"
-EOF
-install -p -D -m0755 .tmp.chkrootkit.sbin ${RPM_BUILD_ROOT}%{_sbindir}/chkrootkit
-
 mkdir -p ${RPM_BUILD_ROOT}%{_bindir}
 ln -s %{_bindir}/consolehelper ${RPM_BUILD_ROOT}%{_bindir}/chkrootkit
 
 install -p -D -m0644 %{SOURCE2} ${RPM_BUILD_ROOT}%{_datadir}/pixmaps/chkrootkit.png
 install -p -D -m0644 %{SOURCE4} ${RPM_BUILD_ROOT}%{_sysconfdir}/security/console.apps/chkrootkit
-perl -pi -e 's!/usr/sbin!%{_sbindir}!' ${RPM_BUILD_ROOT}%{_sysconfdir}/security/console.apps/chkrootkit
+perl -pi -e 's!--PATH--!%{_libdir}/%{name}-%{version}!' ${RPM_BUILD_ROOT}%{_sysconfdir}/security/console.apps/chkrootkit
 install -p -D -m0644 %{SOURCE5} ${RPM_BUILD_ROOT}%{_sysconfdir}/pam.d/chkrootkit
 for f in \
     check_wtmpx  \
@@ -96,7 +93,6 @@ install -p -m0644 %{SOURCE6} .
 %files
 %license COPYRIGHT
 %doc ACKNOWLEDGMENTS README README.chklastlog README.chkwtmp chkrootkit.lsm README.false_positives
-%{_sbindir}/chkrootkit
 %{_bindir}/chkrootkit
 %config(noreplace) %{_sysconfdir}/pam.d/chkrootkit
 %config(noreplace) %{_sysconfdir}/security/console.apps/chkrootkit

@@ -4,7 +4,7 @@
 
 Name:          objfw
 Version:       1.2.3
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Portable, lightweight framework for the Objective-C language
 
 License:       LGPL-3.0-only

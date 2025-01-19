@@ -4,7 +4,7 @@
 
 Name:          maven-native
 Version:       1.0
-Release:       0.20%{dotreltag}%{?dist}
+Release:       0.21%{dotreltag}%{?dist}
 Summary:       Compile c and c++ source under Maven
 # Automatically converted from old format: ASL 2.0 and MIT - review is highly recommended.
 License:       Apache-2.0 AND LicenseRef-Callaway-MIT
@@ -130,6 +130,9 @@ done
 %license LICENSE.txt
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.21.alpha.11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0-0.20.alpha.11
 - convert license to SPDX
 

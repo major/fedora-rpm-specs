@@ -1,7 +1,7 @@
 Name:           libdasm
 Version:        1.6
 Summary:        Simple x86 disassembly library
-%global         baserelease     21
+%global         baserelease     22
 %if 0%{?rhel}
 # Group needed for EPEL
 Group:          Applications/System
@@ -307,6 +307,9 @@ find %{buildroot} -name '*.a' -exec rm -f {} ';'
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.6-21
 - convert license to SPDX
 

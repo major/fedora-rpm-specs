@@ -1,6 +1,6 @@
 Name:           gpredict
 Version:        2.2.1
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Real-time satellite tracking and orbit prediction program
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -63,6 +63,9 @@ install -D -p -m644 %{SOURCE2} %{buildroot}%{_datadir}/appdata/%{name}.appdata.x
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.2.1-20
 - convert license to SPDX
 

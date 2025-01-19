@@ -1,6 +1,6 @@
 Name:           libu2f-host
 Version:        1.1.10
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Yubico Universal 2nd Factor (U2F) Host C Library
 
 License:        GPLv3 and LGPLv2
@@ -84,6 +84,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_includedir}/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.10-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1.10-17
 - convert license to SPDX
 

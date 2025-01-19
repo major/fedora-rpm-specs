@@ -4,7 +4,7 @@
 
 Name:           lbzip2
 Version:        2.5
-Release:        31.%{date}git%{shortcommit}%{?dist}
+Release:        32.%{date}git%{shortcommit}%{?dist}
 Summary:        Fast, multi-threaded bzip2 utility
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -58,6 +58,9 @@ build-aux/autogen.sh
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-32.20171011gitb6dc48a
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 2.5-31.20171011gitb6dc48a
 - convert license to SPDX
 

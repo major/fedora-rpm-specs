@@ -1,6 +1,6 @@
 Name:       makepasswd
 Version:    0.5.3
-Release:    32%{?dist}
+Release:    33%{?dist}
 Summary:    Generates (pseudo-)random passwords of a desired length
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -46,6 +46,9 @@ install -D -p -m 644 doc/makepasswd.1 %{buildroot}%{_mandir}/man1/makepasswd.1
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul  29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5.3-32
 - convert license to SPDX
 

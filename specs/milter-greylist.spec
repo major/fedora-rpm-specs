@@ -18,7 +18,7 @@
 Summary:		Milter for greylisting, the next step in the spam control war
 Name:			milter-greylist
 Version:		4.6.4
-Release:		14%{?dist}
+Release:		16%{?dist}
 # License is like BSD-4-Clause but without the 4th clause
 # We use spamd.c but not queue.h
 # See READNE for details
@@ -120,7 +120,7 @@ done
 %build
 # Harden the build if supported
 %global _hardened_build 1
-export CFLAGS="%{__global_cflags} -fno-strict-aliasing -D_GNU_SOURCE"
+export CFLAGS="%{__global_cflags} -fno-strict-aliasing -D_GNU_SOURCE -std=gnu17"
 export LDFLAGS="-Wl,-z,now -Wl,-z,relro %{__global_ldflags} -Wl,--as-needed $LDLIBS"
 %configure \
 	--disable-drac				\
@@ -192,8 +192,14 @@ exit 0
 %{_unitdir}/milter-greylist.service
 
 %changelog
+* Fri Jan 17 2025 Paul Howarth <paul@city-fan.org> - 4.6.4-16
+- Build with -std=gnu17 due to issues with milter API (#2336394)
+
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.4-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep  2 2024 Miroslav Suchý <msuchy@redhat.com> - 4.6.4-14
-- convert license to SPDX
+- Convert license to SPDX
 
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.4-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild

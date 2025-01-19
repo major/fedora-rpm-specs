@@ -1,6 +1,6 @@
 Name:           nload
 Version:        0.7.4
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        A tool can monitor network traffic and bandwidth usage in real time
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -35,6 +35,9 @@ network usage.
 %{_bindir}/%{name}
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.4-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.7.4-29
 - convert license to SPDX
 

@@ -6,7 +6,7 @@
 Name:    libmygpo-qt
 Summary: Qt4 Library that wraps the gpodder.net Web API
 Version: 1.1.0
-Release: 17%{?dist}
+Release: 18%{?dist}
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
@@ -127,6 +127,9 @@ make test -C %{_target_platform}-qt5 ||:
 
  
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1.0-17
 - convert license to SPDX
 

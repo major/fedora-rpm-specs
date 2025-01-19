@@ -2,7 +2,7 @@
 
 Name:           netcdf
 Version:        4.9.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Libraries for the Unidata network Common Data Form
 
 License:        BSD-3-Clause
@@ -401,6 +401,9 @@ done
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 25 2024 Orion Poplawski <orion@nwra.com> - 4.9.2-7
 - Rebuild for hdf5 1.14.5
 

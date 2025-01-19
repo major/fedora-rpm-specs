@@ -12,7 +12,7 @@
 Name:    kactivities
 Summary: API for using and interacting with Activities 
 Version: 4.13.3
-Release: 42%{?dist}
+Release: 43%{?dist}
 
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
@@ -203,6 +203,9 @@ rm -fv %{buildroot}%{_kde4_datadir}/kde4/servicetypes/activitymanager-plugin.des
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.13.3-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 4.13.3-42
 - convert license to SPDX
 

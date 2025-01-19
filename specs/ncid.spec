@@ -1,6 +1,6 @@
 Name:       ncid
 Version:    1.17
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    Network Caller ID server, client and gateways
 Requires:   logrotate
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -482,6 +482,9 @@ touch --no-create %{_datadir}/icons/hicolor &>/dev/null
 gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 16 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 1.17-5
 - Drop i686 support beginning with Fedora 42 (leaf package)
 

@@ -1,5 +1,5 @@
 Version:        0.954
-Release:        23%{?dist}
+Release:        24%{?dist}
 ## Note that upstream is dead and there is no download link available at this minute
 ## so please don't report FTBFS bugs for this package.
 URL:            http://www.ctan.org/tex-archive/fonts/Asana-Math/
@@ -42,6 +42,9 @@ cp -p %{SOURCE0} %{SOURCE1} %{SOURCE2} %{SOURCE3} .
 %fontfiles
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.954-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.954-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

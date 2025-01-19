@@ -3,7 +3,7 @@
 
 Name:           kdissert
 Version:        1.0.7
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Mind-mapping tool
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -109,6 +109,9 @@ chmod +x $RPM_BUILD_ROOT%{_libdir}/kde3/*.so
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.7-42
 - convert license to SPDX
 

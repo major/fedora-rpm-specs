@@ -1,6 +1,6 @@
 Name:           perl-EBook-EPUB
 Version:        0.6
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Perl module for generating EPUB documents
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -47,6 +47,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.6-37
 - convert license to SPDX
 

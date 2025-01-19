@@ -149,7 +149,7 @@ sound through JACK (Jack Audio Connection Kit).
 
 %package -n alleggl
 Summary:        OpenGL support library for Allegro
-License:        zlib or GPL+
+License:        Zlib OR GPL-1.0-or-later
 URL:            http://allegrogl.sourceforge.net/
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
@@ -162,7 +162,7 @@ that things like glut do.
 
 %package -n alleggl-devel
 Summary:        Development files for alleggl
-License:        zlib or GPL+
+License:        Zlib OR GPL-1.0-or-later
 Requires:       alleggl%{?_isa} = %{version}-%{release}
 
 %description -n alleggl-devel
@@ -172,7 +172,7 @@ developing applications that use alleggl.
 
 %package -n jpgalleg
 Summary:        JPEG library for the Allegro game library
-License:        zlib
+License:        Zlib
 URL:            http://www.ecplusplus.com/index.php?page=projects&pid=1
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
@@ -182,7 +182,7 @@ using JPEG's as Allegro bitmaps.
 
 %package -n jpgalleg-devel
 Summary:        Development files for jpgalleg
-License:        zlib
+License:        Zlib
 Requires:       jpgalleg%{?_isa} = %{version}-%{release}
 
 %description -n jpgalleg-devel
@@ -192,7 +192,7 @@ developing applications that use jpgalleg.
 
 %package loadpng
 Summary:        OGG/Vorbis library for the Allegro game library
-License:        Public Domain
+License:        LicenseRef-Fedora-Public-Domain
 URL:            http://wiki.allegro.cc/index.php?title=LoadPNG
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
@@ -202,7 +202,7 @@ save bitmaps from Allegro programs.
 
 %package loadpng-devel
 Summary:        Development files for loadpng
-License:        Public Domain
+License:        LicenseRef-Fedora-Public-Domain
 Requires:       %{name}-loadpng%{?_isa} = %{version}-%{release}
 
 %description loadpng-devel

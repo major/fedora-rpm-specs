@@ -1,6 +1,6 @@
 Name:           perl-HTML-Encoding
 Version:        0.61
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Determine the encoding of HTML/XML/XHTML documents
 
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -48,6 +48,9 @@ make test
 %{_mandir}/man3/HTML::Encoding.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.61-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.61-40
 - convert license to SPDX
 

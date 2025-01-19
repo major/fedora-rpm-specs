@@ -14,7 +14,7 @@
 Summary: An extensible library which provides authentication for applications
 Name: pam
 Version: 1.7.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 # The library is BSD licensed with option to relicense as GPLv2+
 # - this option is redundant as the BSD license allows that anyway.
 # pam_timestamp and pam_loginuid modules are GPLv2+.
@@ -367,6 +367,9 @@ done
 %{_pam_libdir}/libpam_misc.so.%{so_ver}*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org>
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Nov 22 2024 Iker Pedrosa <ipedrosa@redhat.com> - 1.7.0-3
 - pam_access: rework resolving of tokens as hostname.
   Resolves: CVE-2024-10963

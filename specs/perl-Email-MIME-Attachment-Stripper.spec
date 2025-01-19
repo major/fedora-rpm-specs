@@ -1,6 +1,6 @@
 Name:           perl-Email-MIME-Attachment-Stripper
 Version:        1.317
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Strip the attachments from a mail message
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.317-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 1.317-30
 - convert license to SPDX
 

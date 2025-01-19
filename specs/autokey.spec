@@ -1,7 +1,7 @@
 %{?python_enable_dependency_generator}
 Name:		autokey
 Version:	0.96.0
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Desktop automation utility
 
 
@@ -9,6 +9,7 @@ Summary:	Desktop automation utility
 License:	GPL-3.0-only
 URL:		https://github.com/autokey/autokey
 Source0:	https://github.com/autokey/autokey/archive/v%{version}.tar.gz
+Patch0:		0001-scripting-Remove-dependency-on-imghdr.patch
 
 
 BuildArch:	noarch
@@ -25,6 +26,7 @@ the full flexibility and power of the Python language.
 %package common
 Summary:	Desktop automation utility - common data
 Requires:	python3-dbus
+Requires:	python3-file-magic
 Requires:	wmctrl
 Provides:	autokey = %{version}-%{release}
 
@@ -57,7 +59,7 @@ This package contains the QT front end for autokey
 
 %prep
 %setup -q -n %{name}-%{version}
-
+%patch 0 -p 1
 
 %build
 %{__python3} setup.py build
@@ -105,6 +107,9 @@ done
 
 
 %changelog
+* Fri Jan 17 2025 Till Maas <opensource@till.name> - 0.96.0-10
+- Remove dependency on imghdr (https://bugzilla.redhat.com/show_bug.cgi?id=2329600)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.96.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

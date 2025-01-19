@@ -1,6 +1,6 @@
 Name:           perl-Catalyst-Plugin-Authorization-Roles
 Version:        0.09
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Role based authorization for Catalyst based on Catalyst::Plugin::Authentication
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -66,6 +66,9 @@ TEST_POD=1 make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 0.09-39
 - convert license to SPDX
 

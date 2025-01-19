@@ -1,6 +1,6 @@
 Name:           miglayout
 Version:        5.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Versatile and flexible Swing layout manager
 URL:            http://www.miglayout.com/
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -61,6 +61,9 @@ cp -a doc %{buildroot}%{_javadocdir}/%{name}
 %doc %{_javadocdir}/%{name}
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep  2 2024 Miroslav Suchý <msuchy@redhat.com> - 5.3-2
 - convert license to SPDX
 

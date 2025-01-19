@@ -1,6 +1,6 @@
 Name: pcs
 Version: 0.11.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/LicensingGuidelines/
 # https://fedoraproject.org/wiki/Licensing:Main?rd=Licensing#Good_Licenses
 # GPL-2.0-only: pcs
@@ -460,6 +460,9 @@ run_all_tests
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 6 2024 Michal Pospíšil <mpospisi@redhat.com> - 0.11.8-1
 - Rebased to the latest sources (see CHANGELOG.md)
 - Updated pcs-web-ui to 0.1.20

@@ -1,7 +1,7 @@
 Summary: X.Org X11 libXfont runtime library
 Name: libXfont
 Version: 1.5.4
-Release: 18%{?dist}
+Release: 19%{?dist}
 License: MIT
 URL: http://www.x.org
 
@@ -69,6 +69,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/pkgconfig/xfont.pc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Config-Model-CursesUI
 Version:        1.107
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Curses interface to edit config data
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -52,6 +52,9 @@ Config::Model.
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.107-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.107-13
 - convert license to SPDX
 

@@ -19,7 +19,7 @@
 Summary: Builds packages inside chroots
 Name: mock
 Version: 6.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 # Source is created by
 # git clone https://github.com/rpm-software-management/mock.git
@@ -330,6 +330,9 @@ pylint-3 py/mockbuild/ py/*.py py/mockbuild/plugins/* || :
 %config(noreplace) %{_sysusersdir}/mock.conf
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Dec 19 2024 Pavel Raiskup <praiskup@redhat.com> 6.0-1
 - export_buildroot_image: new plugin for OCI image exports
 - buildroot_image: allow using OCI images as the base for buildroot

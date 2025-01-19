@@ -4,7 +4,7 @@
 Name:    grantlee-qt5
 Summary: Qt5 string template engine based on the Django template system
 Version: 5.3.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
@@ -139,6 +139,9 @@ sed -i \
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 5.3.1-6
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:		ntpstat
 Version:	0.6
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	Utility to print NTP synchronization status
 
 License:	MIT
@@ -32,6 +32,9 @@ make install bindir=$RPM_BUILD_ROOT%{_bindir} mandir=$RPM_BUILD_ROOT%{_mandir}
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

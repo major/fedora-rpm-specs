@@ -1,7 +1,7 @@
 Summary:	Open audio/video container format library
 Name:		libmatroska
 Version:	1.7.1
-Release:	8%{?dist}
+Release:	9%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:	LicenseRef-Callaway-LGPLv2+
 URL:		https://www.matroska.org/
@@ -65,6 +65,9 @@ will use the Matroska container format.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.7.1-8
 - convert license to SPDX
 

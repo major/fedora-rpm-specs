@@ -1,6 +1,6 @@
 Name:           hmmer
 Version:        3.3.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Biosequence analysis using profile hidden Markov models
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -84,6 +84,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul  29 2024 Miroslav Suchý <msuchy@redhat.com> - 3.3.2-9
 - convert license to SPDX
 

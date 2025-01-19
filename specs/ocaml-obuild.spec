@@ -10,7 +10,7 @@ Summary:        Simple package build system for OCaml
 
 %forgemeta
 
-Release:        5%{?dist}
+Release:        6%{?dist}
 License:        BSD-2-Clause
 URL:            https://github.com/ocaml-obuild/obuild
 VCS:            git:%{url}.git
@@ -77,6 +77,9 @@ help2man \
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.11-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 0.1.11-5
 - OCaml 5.3.0 rebuild for Fedora 42
 - Add VCS field

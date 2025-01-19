@@ -5,7 +5,7 @@
 
 Name:           kbd
 Version:        2.7.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools for configuring the console (keyboard, virtual terminals, etc.)
 License:        GPL-2.0-or-later
 URL:            http://www.kbd-project.org/
@@ -189,6 +189,9 @@ make check
 %{kbd_datadir}/keymaps/legacy
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 02 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.7.1-1
 - Update to kbd-2.7.1
   Resolves: #2331264

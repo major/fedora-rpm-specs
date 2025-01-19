@@ -1,7 +1,7 @@
 Summary:	Firmware for Epson flatbed scanners
 Name:		iscan-firmware
 Version:	20241112
-Release:	14%{?dist}
+Release:	15%{?dist}
 License:	Redistributable, no modification permitted
 URL:		http://download.ebz.epson.net/dsc/search/01/search/
 BuildArch:	noarch
@@ -114,6 +114,9 @@ mv %{buildroot}%{_prefix}/lib/firmware/epson/{Esfw0111.bin,esfw0111.bin}
 %{_prefix}/lib/firmware/epson/esfw0282.bin
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20241112-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Nov 12 2024 Simone Caronni <negativo17@gmail.com> - 20241112-14
 - Update and clean up.
 - Trim changelog.

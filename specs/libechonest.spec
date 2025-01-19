@@ -4,7 +4,7 @@
 
 Name:		libechonest
 Version: 	2.3.0
-Release:	26%{?dist}
+Release:	27%{?dist}
 Summary:	C++ wrapper for the Echo Nest API
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -114,6 +114,9 @@ time make test -C %{_target_platform} ARGS="--timeout 300 --output-on-failure" |
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.3.0-26
 - convert license to SPDX
 

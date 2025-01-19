@@ -1,7 +1,7 @@
 Summary:       A set of scripts to work locally on subversion checkouts using mercurial
 Name:          hgsvn
 Version:       0.6.0
-Release:       16%{?dist}
+Release:       17%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 URL:           http://pypi.python.org/pypi/hgsvn/
@@ -50,6 +50,9 @@ fast local operations like hg log and hg annotate.
 %{python3_sitelib}/%{name}-*-py*.egg-info
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.6.0-16
 - convert license to SPDX
 

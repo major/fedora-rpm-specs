@@ -1,6 +1,6 @@
 Name:           perl-Catalyst-View-Email
 Version:        0.36
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Send Email from Catalyst
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -80,6 +80,9 @@ TEST_POD=yep make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.36-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 0.36-27
 - convert license to SPDX
 

@@ -2,7 +2,7 @@
 
 Name:           mingw-c-ares
 Version:        1.17.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Library that performs asynchronous DNS operations
 
 # ares_getopt.c ares_getopt.h are BSD (3 clause)
@@ -111,6 +111,9 @@ rm -rf ${RPM_BUILD_ROOT}%{mingw64_mandir}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.17.2-10
 - convert license to SPDX
 

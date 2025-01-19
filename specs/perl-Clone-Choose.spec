@@ -1,6 +1,6 @@
 Name:           perl-Clone-Choose
 Version:        0.010
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Choose appropriate clone utility
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Clone-Choose
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man3/Clone::Choose.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.010-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.010-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

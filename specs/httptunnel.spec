@@ -1,6 +1,6 @@
 Name:           httptunnel
 Version:        3.3
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Tunnels a data stream in HTTP requests
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -48,6 +48,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 3.3-37
 - convert license to SPDX
 

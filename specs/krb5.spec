@@ -10,7 +10,7 @@
 #
 # baserelease is what we have standardized across Fedora and what
 # rpmdev-bumpspec knows how to handle.
-%global baserelease 3
+%global baserelease 4
 
 # This should be e.g. beta1 or %%nil
 %global pre_release %nil
@@ -720,6 +720,9 @@ exit 0
 %{_datarootdir}/%{name}-tests/%{_arch}
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.21.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Oct 30 2024 Julien Rische <jrische@redhat.com> - 1.21.3-3
 - libkrad: implement support for Message-Authenticator (CVE-2024-3596)
   Resolves: rhbz#2304071

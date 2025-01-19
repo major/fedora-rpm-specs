@@ -1,7 +1,7 @@
 Name:           mpqc
 Summary:        Ab-inito chemistry program
 Version:        2.3.1
-Release:        60%{?dist}
+Release:        61%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:            http://www.mpqc.org/
@@ -191,6 +191,9 @@ done
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-61
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.3.1-60
 - convert license to SPDX
 

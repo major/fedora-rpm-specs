@@ -6,7 +6,7 @@
 
 Name:           md5deep
 Version:        4.4
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        A set of cross-platform tools to compute hashes
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -51,6 +51,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_mandir}/man1/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 4.4-24
 - convert license to SPDX
 

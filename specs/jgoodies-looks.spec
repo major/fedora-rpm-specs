@@ -2,7 +2,7 @@
 
 Name:           jgoodies-looks
 Version:        2.7.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Free high-fidelity Windows and multi-platform appearance
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -70,6 +70,9 @@ rm -r src/main/java/com/jgoodies/looks/windows/
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.7.0-13
 - convert license to SPDX
 

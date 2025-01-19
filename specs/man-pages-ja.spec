@@ -1,6 +1,6 @@
 Name: man-pages-ja
 Version: 20231115
-Release: 2%{?dist}
+Release: 3%{?dist}
 # BSD-3-Clause - shadow, bsd-games, byacc, bzip2, dhcpcd, dump, file, hdparm, rssh, tcp_wrappers, tcsh
 # GFDL-1.3-or-later - GNU_*, cron, glibc-linuxthreads
 # BSD-4-Clause-UC/Linux-man-pages-copyleft/GPL-2.0-or-later/BSD-4.3TAHOE/Linux-man-pages-1-para/GPL-1.0-or-later/BSD-3-Clause/MIT/Spencer-94/LicenseRef-LDPL/BSD-2-Clause/LicenseRef-Fedora-UltraPermissive/LicenseRef-Fedora-Public-Domain - LDP_manpages, gnumaniak, ld.so
@@ -157,6 +157,9 @@ done
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20231115-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Nov 01 2024 msuchy <msuchy@redhat.com> - 20231115-2
 - Use correct SPDX id for sendmail
 

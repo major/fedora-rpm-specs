@@ -5,7 +5,7 @@
 
 Name:           migrationtools
 Version:        %{version}
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Migration scripts for LDAP
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -60,6 +60,9 @@ install -m 755 migrate_* $RPM_BUILD_ROOT/%{_datadir}/%{name}
 %doc migration-tools.txt
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 47-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 47-36
 - convert license to SPDX
 

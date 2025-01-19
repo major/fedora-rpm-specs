@@ -77,7 +77,7 @@ Version:        4.10.0
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD-3-Clause AND Apache-2.0 AND ISC
@@ -104,6 +104,7 @@ Source6:        https://github.com/WeChatCV/opencv_3rdparty/archive/%{wechat_com
 
 Patch0:         opencv-4.1.0-install_3rdparty_licenses.patch
 Patch3:         opencv.python.patch
+Patch5:         https://github.com/opencv/opencv/pull/26786.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake >= 2.6.3
@@ -403,6 +404,7 @@ popd &>/dev/null
 
 %patch -P 0 -p1 -b .install_3rdparty_licenses
 %patch -P 3 -p1 -b .python_install_binary
+%patch -P 5 -p1 -b .GCC15
 
 pushd %{name}_contrib-%{version}
 #patch1 -p1 -b .install_cvv
@@ -579,6 +581,10 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+- Add upstream patch to fix build on PPC64LE with GCC 15
+
 * Mon Dec 23 2024 Orion Poplawski <orion@nwra.com> - 4.10.0-8
 - Rebuild with numpy 2.x (rhbz#2333781)
 

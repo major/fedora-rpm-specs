@@ -1,7 +1,7 @@
 Name:    kpilot
 Summary: Sync PIM data with PalmOS devices
 Version: 5.3.0
-Release: 42%{?dist}
+Release: 43%{?dist}
 
 # no pilot-link on S/390
 ExcludeArch: s390 s390x
@@ -125,6 +125,9 @@ done
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 5.3.0-42
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           lsp-plugins
 Version:        1.2.19
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Linux Studio Plugins
 
 License:        LGPL-3.0-or-later and Zlib
@@ -193,6 +193,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/gstreamer-1.0/libgstlsp-plugins*.so
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.19-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Nov 21 2024 Janne Grunau <janne-fdr@jannau.net> - 1.2.19-2
 - Backport upstream aarch64 atomic_swap fix. Fixes rhbz#2327886
 

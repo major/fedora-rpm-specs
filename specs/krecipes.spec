@@ -1,7 +1,7 @@
 
 Name:           krecipes
 Version:        2.1.0
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Application to manage recipes and shopping-lists
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -69,6 +69,9 @@ desktop-file-validate \
 %{_kde4_appsdir}/krecipes/
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.1.0-22
 - convert license to SPDX
 

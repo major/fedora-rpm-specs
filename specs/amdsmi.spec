@@ -5,7 +5,7 @@
 
 # Downloads its own googletest
 # Testing also depends on having AMD hardware cpu and/or gpu installed.
-# Not suitable for a general %check
+# Not suitable for a general check
 #
 # Non root result for gfx1100 and this kernel 6.13.0-0.rc0.20241126git7eef7e306d3c.10.fc42.x86_64
 # 25 pass, 5 fail
@@ -19,7 +19,7 @@
 
 Name:       amdsmi
 Version:    %{rocm_version}
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    AMD System Management Interface
 
 License:    NCSA AND MIT AND BSD-3-Clause
@@ -130,10 +130,14 @@ fi
 # let's just strip it
 strip %{buildroot}/%{python3_sitelib}/amdsmi/*.so
 # E: non-executable-script .../amdsmi_cli/amdsmi_cli_exceptions.py 644 /usr/bin/env python3
-chmod a+x %{buildroot}/%{_libexecdir}/amdsmi_cli/*.py
-
+chmod a+x %{buildroot}/%{_libexecdir}/amdsmi_cli/amdsmi_*.py
 # RPM has a problem with this file
 rm %{buildroot}%{_libdir}/cmake/amd_smi/amd_smi-config.cmake
+
+%if 0%{?suse_version}
+%post   -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
+%endif
 
 %files
 %doc README.md
@@ -160,7 +164,10 @@ rm %{buildroot}%{_libdir}/cmake/amd_smi/amd_smi-config.cmake
 %endif
 
 %changelog
-* Thu Jan 16 2025 Tom Rix <Tom.Rix@amd.com> -6.3.1-5
+* Fri Jan 17 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-6
+- Cleanup for suse
+
+* Thu Jan 16 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-5
 - Improve empty return patch
 - Fix shebangs
 

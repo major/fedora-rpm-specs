@@ -1,6 +1,6 @@
 Name:           libbatch
 Version:        2.4.5
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Generic batch management library
 
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
@@ -70,6 +70,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.5-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.4.5-14
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           libAfterImage
 Version:        1.20
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        A generic image manipulation library
 
 License:        LGPL-2.1-or-later
@@ -109,6 +109,9 @@ cp %{SOURCE1} COPYING
 %{_bindir}/as*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.20-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.20-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

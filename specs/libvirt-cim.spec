@@ -3,7 +3,7 @@
 Summary: A CIM provider for libvirt
 Name: libvirt-cim
 Version: 0.6.3
-Release: 25%{?dist}%{?extra_release}
+Release: 26%{?dist}%{?extra_release}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
 Source: libvirt-cim-%{version}.tar.gz
@@ -198,6 +198,9 @@ fi
 %config(noreplace) %{_sysconfdir}/libvirt-cim.conf
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.6.3-25
 - convert license to SPDX
 

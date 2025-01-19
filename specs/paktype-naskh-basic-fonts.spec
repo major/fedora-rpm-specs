@@ -2,7 +2,7 @@
 %global release_date 20231228
 
 Version:       7.0
-Release:       1.%{release_date}%{?dist}
+Release:       2.%{release_date}%{?dist}
 URL:           https://sourceforge.net/projects/paktype/
 
 %global foundry           paktype
@@ -48,6 +48,9 @@ chmod 644 PakTypeNaskhBasicFeatures.pdf
 %fontfiles
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0-2.20231228
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 30 2024 Parag Nemade <pnemade AT redhat DOT com> - 7.0-1.20231228
 - Update to new upstream source archive 20231228 (rhbz#2213602)
 

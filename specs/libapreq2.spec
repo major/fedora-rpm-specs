@@ -6,7 +6,7 @@
 
 Name:           libapreq2
 Version:        2.17
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Apache HTTP request library
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -172,6 +172,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.17-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul  24 2024 Miroslav Suchý <msuchy@redhat.com> - 2.17-9
 - convert license to SPDX
 

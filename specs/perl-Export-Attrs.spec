@@ -1,6 +1,6 @@
 Name:           perl-Export-Attrs
 Version:        0.1.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        The Perl 6 'is export(...)' trait as a Perl 5 attribute
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -48,6 +48,9 @@ AUTHOR_TESTING=1 RELEASE_TESTING=1 ./Build test
 %{_mandir}/man3/Export*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.0-23
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           perl-Authen-Radius
 Version:        0.33
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Provide simple Radius client facilities
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Authen-Radius
@@ -75,6 +75,9 @@ make test
 %{_mandir}/man3/Authen::Radius.3*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.33-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Nov  3 2024 Paul Howarth <paul@city-fan.org> - 0.33-1
 - Update to 0.33
   - Support for Message-Authenticator of type 'octets' (CPAN RT#154336)

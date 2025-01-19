@@ -7,7 +7,7 @@
 Name: hunspell-hsb
 Summary: Upper Sorbian hunspell dictionaries
 Version: 0.20060327.3
-Release: 28%{?dist}
+Release: 29%{?dist}
 Source: https://addons.mozilla.org/firefox/downloads/file/113003/upper_sorbian_spelling_dictionary-0.0.20060327.3-tb+fx+sm.xpi
 URL: http://sorbzilla.de/
 License: GPL-2.0-or-later
@@ -35,6 +35,9 @@ cp -p dictionaries/hsb.dic $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/hsb_DE.di
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20060327.3-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20060327.3-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

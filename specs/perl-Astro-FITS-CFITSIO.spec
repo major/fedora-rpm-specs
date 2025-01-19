@@ -1,6 +1,6 @@
 Name:           perl-Astro-FITS-CFITSIO
 Version:        1.18
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Perl extension for using the cfitsio library
 # tarball m51 doesn't state license https://rt.cpan.org/Public/Bug/Display.html?id=66226
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -49,6 +49,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.18-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 1.18-6
 - convert license to SPDX
 

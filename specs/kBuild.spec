@@ -3,7 +3,7 @@
 
 Name:           kBuild
 Version:        0.1.9998%{?svn_revision:.r%{svn_revision}}
-Release:        3%{?svn_date:.%{svn_date}}%{?dist}
+Release:        4%{?svn_date:.%{svn_date}}%{?dist}
 Summary:        A cross-platform build environment
 
 # Automatically converted from old format: BSD and GPLv2+ - review is highly recommended.
@@ -115,6 +115,9 @@ pod2man -c 'kBuild for Fedora/EPEL GNU/Linux' \
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9998.r3605-4.20240424
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.9998.r3605-3.20240424
 - convert license to SPDX
 

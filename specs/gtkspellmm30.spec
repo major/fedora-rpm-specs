@@ -2,7 +2,7 @@
 
 Name:          gtkspellmm30
 Version:       3.0.5
-Release:       25%{?dist}
+Release:       26%{?dist}
 License:       GPL-2.0-or-later
 Summary:       On-the-fly spell checking for GtkTextView widgets - C++ bindings
 URL:           http://gtkspell.sourceforge.net/
@@ -141,6 +141,9 @@ find %{buildroot} -name "*.la" -exec rm {} \;
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.5-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.5-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

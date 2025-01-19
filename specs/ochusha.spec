@@ -25,7 +25,7 @@
 %define		strtag		cvs%{codate}T%{cotime_JST}
 %define		repoid		36733
 
-%define		baserelease	19
+%define		baserelease	20
 %define		pre_release	1
 
 %if %{pre_release}
@@ -235,6 +235,9 @@ change_encoding \
 %{_datadir}/icons/hicolor/48x48/apps/*.png
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0.1-0.20.cvs20100817T0000
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Sep 24 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.6.0.1-0.19.cvs20100817T0000
 - Update system ca cert file for F42
 - Remove explicit file Requires per new package guidelines

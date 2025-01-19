@@ -3,7 +3,7 @@
 
 Name:           libdockapp
 Version:        0.7.3
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        DockApp Development Standard Library
 
 License:        MIT
@@ -86,6 +86,9 @@ ln -sf %{legacydir} %{buildroot}%{_sysconfdir}/X11/fontpath.d
 %{_x11fontdir}/misc/seg7-ascii-05x07.pcf.gz
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

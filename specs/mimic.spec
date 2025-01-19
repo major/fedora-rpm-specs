@@ -1,6 +1,6 @@
 Name:           mimic
 Version:        1.3.0.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Mycroft's TTS engine
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -73,6 +73,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_includedir}/ttsmimic
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3.0.1-14
 - convert license to SPDX
 

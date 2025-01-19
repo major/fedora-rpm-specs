@@ -1,6 +1,6 @@
 Name:           lib765
 Version:        0.4.2
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        A library for emulating the uPD765a floppy controller
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -58,6 +58,9 @@ find %{buildroot} -name \*\.la -print | xargs rm -f
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.4.2-31
 - convert license to SPDX
 

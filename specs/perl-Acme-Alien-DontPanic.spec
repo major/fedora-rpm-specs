@@ -1,7 +1,7 @@
 Name:           perl-Acme-Alien-DontPanic
 %global cpan_version 2.7200
 Version:        2.720.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Test module for Alien::Base
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Acme-Alien-DontPanic
@@ -117,6 +117,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.720.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.720.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

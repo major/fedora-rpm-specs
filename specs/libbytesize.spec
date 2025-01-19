@@ -17,7 +17,7 @@
 
 Name:        libbytesize
 Version:     2.11
-Release:     99%{?dist}
+Release:     100%{?dist}
 Summary:     A library for working with sizes in bytes
 License:     LGPL-2.1-or-later
 URL:         https://github.com/storaged-project/libbytesize
@@ -114,6 +114,9 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 %endif
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.11-100
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 20 2024 Packit <hello@packit.dev> - 2.11-99
 - Update to version 2.11
 

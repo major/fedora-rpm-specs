@@ -1,7 +1,7 @@
 Summary: Lightweight C++ API library for Lua
 Name: lutok
 Version: 0.4
-Release: 28%{?dist}
+Release: 29%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 URL: http://code.google.com/p/lutok/
@@ -110,6 +110,9 @@ details on how to run the installed tests.
 %{_testsdir}
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.4-28
 - convert license to SPDX
 

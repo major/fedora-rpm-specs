@@ -1,6 +1,6 @@
 Name:		perl-Crypt-Curve25519
 Version:	0.07
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Generate shared secret using elliptic-curve Diffie-Hellman function
 License:	(GPL-1.0-or-later OR Artistic-1.0-Perl) AND BSD-3-Clause
 URL:		https://metacpan.org/release/Crypt-Curve25519
@@ -63,6 +63,9 @@ make test
 %{_mandir}/man3/Crypt::Curve25519.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec  4 2024 Paul Howarth <paul@city-fan.org> - 0.07-9
 - Use %%{make_build} and %%{make_install}
 - Switch source URL from cpan.metacpan.org to www.cpan.org

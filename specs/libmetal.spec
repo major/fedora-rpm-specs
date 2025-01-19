@@ -1,6 +1,6 @@
 Name:		libmetal
 Version:	2024.10.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	An abstraction layer across user-space Linux, baremetal, and RTOS environments 
 License:	BSD-3-Clause OR Apache-2.0 OR GPL-2.0-only
 URL:		https://github.com/OpenAMP/libmetal/
@@ -66,6 +66,9 @@ cd build
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.10.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Nov 10 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 2024.10.0-1
 - Update to 2024.10.0
 

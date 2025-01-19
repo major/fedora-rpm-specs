@@ -1,6 +1,6 @@
 Name:           perl-Crypt-OpenSSL-DSA
 Version:        0.20
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Perl interface to OpenSSL for DSA
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-OpenSSL-DSA
@@ -91,6 +91,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 22 2024 Petr Pisar <ppisar@redhat.com> - 0.20-30
 - Adapt tests to crypto-policies ≥ 20240717-1.git154fd4e that disabled SHA-1
   (bug #2299171)

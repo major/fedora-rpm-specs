@@ -1,7 +1,7 @@
 Summary:          MirBSD enhanced version of the Korn Shell
 Name:             mksh
 Version:          59c
-Release:          11%{?dist}
+Release:          12%{?dist}
 # ISC (strlcpy.c) and MirOS (the rest)
 License:          MirOS AND ISC
 URL:              https://www.mirbsd.org/mksh.htm
@@ -167,6 +167,9 @@ done
 %{_mandir}/man1/rmksh.1*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 59c-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 59c-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

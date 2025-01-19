@@ -1,6 +1,6 @@
 Name:           jsch-agent-proxy
 Version:        0.0.8
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Proxy to ssh-agent and Pageant in Java
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -124,6 +124,9 @@ This package provides %{summary}.
 %license LICENSE.txt
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.8-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.0.8-27
 - convert license to SPDX
 

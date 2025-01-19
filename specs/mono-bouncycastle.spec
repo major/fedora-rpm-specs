@@ -2,7 +2,7 @@
 
 Name:           mono-bouncycastle
 Version:        1.8.10
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Bouncy Castle Crypto Package for Mono
 
 # Files in crypto/bzip2/ are ASL 2.0 licensed,
@@ -52,6 +52,9 @@ gacutil -i crypto/api/bin/release/BouncyCastle.Crypto.dll -f -package bouncycast
 %{_prefix}/lib/mono/bouncycastle/
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.10-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.8.10-9
 - convert license to SPDX
 

@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-curl
 Version:        0.9.2
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        OCaml Curl library (ocurl)
 License:        MIT
 
@@ -91,6 +91,9 @@ make -C examples clean
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 0.9.2-19
 - OCaml 5.3.0 rebuild for Fedora 42
 

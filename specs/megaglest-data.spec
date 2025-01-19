@@ -1,6 +1,6 @@
 Name:		megaglest-data
 Version:	3.13.0
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	Mega Glest data files
 # Automatically converted from old format: CC-BY-SA - review is highly recommended.
 License:	LicenseRef-Callaway-CC-BY-SA
@@ -63,6 +63,9 @@ rm %{buildroot}/%{_datadir}/menu/megaglest
 %{_datadir}/megaglest/tutorials/
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 3.13.0-15
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:          gupnp-av
 Version:       0.14.1
-Release:       8%{?dist}
+Release:       9%{?dist}
 Summary:       A collection of helpers for building UPnP AV applications
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -79,6 +79,9 @@ This package contains developer documentation for %{name}.
 %{_datadir}/gtk-doc/html/gupnp-av/
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.14.1-8
 - convert license to SPDX
 

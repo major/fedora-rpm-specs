@@ -1,7 +1,7 @@
 Name:      perl-Astro-SunTime
 Summary:   Calculates sun rise/set times 
 Version:   0.06
-Release:   22%{?dist}
+Release:   23%{?dist}
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:   GPL-3.0-only
 URL:       https://metacpan.org/release/Astro-SunTime
@@ -49,6 +49,9 @@ find %{buildroot} -type f -name .packlist -delete
 %{perl_vendorlib}/Astro/SunTime.pm
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.06-22
 - convert license to SPDX
 

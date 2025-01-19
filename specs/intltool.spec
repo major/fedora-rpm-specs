@@ -1,7 +1,7 @@
 Name: intltool
 Summary: Utility for internationalizing various kinds of data files
 Version: 0.51.0
-Release: 28%{?dist}
+Release: 29%{?dist}
 License: GPL-2.0-or-later WITH Autoconf-exception-generic
 #VCS: bzr:https://code.edge.launchpad.net/~intltool/intltool/trunk
 Source: https://edge.launchpad.net/intltool/trunk/%{version}/+download/intltool-%{version}.tar.gz
@@ -69,6 +69,9 @@ fi
 %{_mandir}/man8/intltool*.8*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.51.0-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 6 2024 Manish Tiwari <matiwari@redhat.com> - 0.51.0-28
 - CI gating tests migration to tmt
 

@@ -3,7 +3,7 @@
 
 Name:             apt-cacher-ng
 Version:          3.7.4
-Release:          10%{?dist}
+Release:          11%{?dist}
 Summary:          Caching proxy for package files from Debian
 
 License:          BSD-4-Clause
@@ -60,6 +60,10 @@ sed -i 's/HAVE_STRLCPY/HAVE_STRLCPY 1/' */acsyscap.h
 
 %install
 %cmake_install
+%if "%{_bindir}" == "%{_sbindir}"
+mv %{buildroot}/usr/sbin %{buildroot}/usr/bin
+%endif
+
 # we do not want an unversioned .so or a -devel package
 rm -vf %{buildroot}%{_libdir}/libsupacng.so
 
@@ -127,10 +131,17 @@ chown -R %{name}:%{name} /run/%{name}/
 %{_tmpfilesdir}/%{name}.conf
 %{_libexecdir}/%{name}/
 %{_libdir}/libsupacng.so*
+%if "%{_bindir}" == "%{_sbindir}"
+%{_bindir}/apt-cacher-ng
+%else
 %{_sbindir}/apt-cacher-ng
+%endif
 %{_mandir}/man8/*
 
 %changelog
+* Fri Jan 17 2025 Alexandre Detiste > - 3.7.4-11
+- Fix FBTFS (Bugs #226088, #2300564)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

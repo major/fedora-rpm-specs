@@ -2,7 +2,7 @@
 
 Name:           %{pypi_name}
 Version:        0.2.2
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Tool for generating MQTT messages on various topics
 
 License:        MIT
@@ -41,6 +41,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/mqtt_randompub-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 04 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 0.2.2-14
 - Add patch to support paho-mqtt v2+
 

@@ -6,7 +6,7 @@
 
 Name:           i2c-tools
 Version:        4.3
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A heterogeneous set of I2C tools for Linux
 # Note: py-symbus/ is GPL-2.0-only, lib/ is LGPL-2.1-or-later
 # and the rest is GPL-2.0-or-later
@@ -158,6 +158,9 @@ exit 0
 %{_mandir}/man3/libi2c.3.*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

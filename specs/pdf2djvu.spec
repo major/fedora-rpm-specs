@@ -1,6 +1,6 @@
 Name:           pdf2djvu
 Version:        0.9.19
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        PDF to DjVu converter
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -51,6 +51,9 @@ install -p -m 644 -D {doc,%{buildroot}%{_mandir}/man1}/%{name}.1
 %{_mandir}/ru/man1/%{name}.1*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.19-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Aug 22 2024 Marek Kasik <mkasik@redhat.com> - 0.9.19-12
 - Rebuild for poppler 24.08.0
 

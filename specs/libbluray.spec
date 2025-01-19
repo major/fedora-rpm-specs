@@ -7,7 +7,7 @@
 
 Name:           libbluray
 Version:        1.3.4
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Library to access Blu-Ray disks for video playback 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -132,6 +132,9 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3.4-8
 - convert license to SPDX
 

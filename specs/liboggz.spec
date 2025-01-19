@@ -1,6 +1,6 @@
 Name:           liboggz
 Version:        1.1.1
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Simple programming interface for Ogg files and streams
 
 License:        BSD-3-Clause
@@ -101,6 +101,9 @@ rm -rf __docs_staging/latex
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 10 2024 Nicolas Chauvet <kwizart@gmail.com> - 1.1.1-32
 - clean-up
 

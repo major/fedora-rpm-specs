@@ -3,7 +3,7 @@
 Summary: GnomeCanvas widget
 Name: libgnomecanvas
 Version: 2.30.3
-Release: 30%{?dist}
+Release: 31%{?dist}
 URL: http://www.gnome.org/
 Source0: http://download.gnome.org/sources/libgnomecanvas/2.30/%{name}-%{version}.tar.bz2
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -62,6 +62,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_datadir}/gtk-doc/html/libgnomecanvas
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.30.3-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.30.3-30
 - convert license to SPDX
 

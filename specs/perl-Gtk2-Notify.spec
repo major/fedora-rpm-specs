@@ -2,7 +2,7 @@
 
 Name:           perl-Gtk2-Notify
 Version:        0.05
-Release:        55%{?dist}
+Release:        56%{?dist}
 Summary:        Perl interface to libnotify
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -91,6 +91,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-56
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.05-55
 - convert license to SPDX
 

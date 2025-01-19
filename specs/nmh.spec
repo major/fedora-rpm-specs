@@ -1,6 +1,6 @@
 Name:          nmh
 Version:       1.8
-Release:       7%{?dist}
+Release:       8%{?dist}
 Summary:       A capable MIME-email-handling system with a command-line interface
 # Automatically converted from old format: BSD - review is highly recommended.
 License:       LicenseRef-Callaway-BSD
@@ -57,6 +57,9 @@ CFLAGS="$RPM_OPT_FLAGS"
 %doc %{_pkgdocdir}/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep  2 2024 Miroslav Suchý <msuchy@redhat.com> - 1.8-7
 - convert license to SPDX
 

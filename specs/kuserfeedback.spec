@@ -3,7 +3,7 @@
 Name:    kuserfeedback
 Summary: Framework for collecting user feedback for apps via telemetry and surveys
 Version: 1.3.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 License: MIT
 URL:     https://invent.kde.org/libraries/%{name}
@@ -110,6 +110,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kuserfeedback
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

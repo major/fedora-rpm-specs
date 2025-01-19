@@ -1,7 +1,7 @@
 Name:           lcdtest
 URL:            http://www.brouhaha.com/~eric/software/lcdtest/
 Version:        1.18
-Release:        35%{?dist}
+Release:        36%{?dist}
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
 Summary:        Displays monitor test patterns
@@ -53,6 +53,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.svg
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.18-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.18-35
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           khard
 Version:        0.19.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        An address book for the Linux console
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -54,6 +54,9 @@ install -p -m 0644 misc/zsh/_khard %{buildroot}%{_datadir}/zsh/site-functions/_k
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.19.1-4
 - convert license to SPDX
 

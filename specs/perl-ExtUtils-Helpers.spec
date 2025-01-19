@@ -1,6 +1,6 @@
 Name:		perl-ExtUtils-Helpers
 Version:	0.028
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Various portability utilities for module builders
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/ExtUtils-Helpers
@@ -60,6 +60,9 @@ make test
 %{_mandir}/man3/ExtUtils::Helpers::Unix.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.028-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Sep  3 2024 Paul Howarth <paul@city-fan.org> - 0.028-1
 - Update to 0.028
   - Add ext argument to man1_pagename and man3_pagename

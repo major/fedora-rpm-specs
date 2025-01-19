@@ -5,7 +5,7 @@
 
 Name:           lorax
 Version:        42.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool for creating the anaconda install images
 License:        GPL-2.0-or-later
 
@@ -171,6 +171,9 @@ make DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir} install
 %{_datadir}/lorax/templates.d/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 42.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Nov 22 2024 Brian C. Lane <bcl@redhat.com> 42.4-1
 - runtime-cleanup: Newer glibc installs into /usr/lib64 (bcl@redhat.com)
 - erofs: Change the erofs compression default to zstd (bcl@redhat.com)

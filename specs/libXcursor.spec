@@ -5,7 +5,7 @@
 Summary: Cursor management library
 Name: libXcursor
 Version: 1.2.3
-Release: 1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Release: 2%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 License: HPND-sell-variant
 URL: http://www.x.org
 
@@ -93,6 +93,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_mandir}/man3/Xcursor*.3*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Nov 07 2024 José Expósito <jexposit@redhat.com> - 1.2.3-1
 - libXcursor 1.2.3
 

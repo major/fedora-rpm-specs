@@ -6,7 +6,7 @@
 Summary: Bonobo component system
 Name: libbonobo
 Version: 2.32.1
-Release: 29%{?dist}
+Release: 30%{?dist}
 URL: http://ftp.gnome.org
 Source0: http://download.gnome.org/sources/libbonobo/2.32/%{name}-%{version}.tar.bz2
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
@@ -113,6 +113,9 @@ mkdir -p $RPM_BUILD_ROOT%{_prefix}/lib/bonobo/servers
 %{_datadir}/gtk-doc/html/bonobo-activation
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.32.1-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.32.1-29
 - convert license to SPDX
 

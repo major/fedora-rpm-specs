@@ -10,7 +10,7 @@
 
 Name:           kio-fuse
 Version:        5.1.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        KIO FUSE
 
 License:        GPL-3.0-or-later
@@ -87,6 +87,9 @@ dbus-launch --exit-with-session \
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 5.1.0-7
 - convert license to SPDX
 

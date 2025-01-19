@@ -2,7 +2,7 @@
 
 Name:           perl-Archive-Zip-SimpleZip
 Version:        1.002
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Create Zip Archives
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -100,6 +100,9 @@ make test
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.002-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 09 2024 Xavier Bachelot <xavier@bachelot.org> - 1.002-1
 - Update to 1.002 (RHBZ#2309002)
 

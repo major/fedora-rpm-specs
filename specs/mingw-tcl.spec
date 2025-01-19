@@ -9,7 +9,7 @@
 
 Name: mingw-%{pkgname}
 Version: 8.6.15
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: MinGW Windows Tool Command Language, pronounced tickle
 
 License: TCL
@@ -190,6 +190,9 @@ rm -f %{buildroot}/%{mingw64_bindir}/zlib1.dll
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.6.15-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 18 2024 Sandro Mani <manisandro@gmail.com> - 8.6.15-1
 - Update to 8.6.15
 

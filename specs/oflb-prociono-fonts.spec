@@ -3,7 +3,7 @@
 
 Name:    %{fontname}-fonts
 Version: 20141125
-Release: 22%{?dist}
+Release: 23%{?dist}
 Summary: A text roman with standard and discretionary ligatures, class-based kerning
 # Automatically converted from old format: OFL - review is highly recommended.
 License: LicenseRef-Callaway-OFL
@@ -53,6 +53,9 @@ install -Dm 0644 -p %{SOURCE3} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20141125-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 20141125-22
 - convert license to SPDX
 

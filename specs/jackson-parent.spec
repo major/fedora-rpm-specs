@@ -1,6 +1,6 @@
 Name:          jackson-parent
 Version:       2.18.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Parent pom for all Jackson components
 License:       Apache-2.0
 
@@ -38,6 +38,9 @@ sed -i 's/\r//' LICENSE
 %license LICENSE
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Oct 28 2024 Packit <hello@packit.dev> - 2.18.1-1
 - Update to version 2.18.1
 - Resolves: rhbz#2322288

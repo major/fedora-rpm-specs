@@ -5,7 +5,7 @@
 
 Name:          mate-user-admin
 Version:       1.7.0
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       User management tool
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later 
@@ -66,6 +66,9 @@ desktop-file-install                               \
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.7.0-6
 - convert license to SPDX
 

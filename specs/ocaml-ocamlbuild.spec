@@ -10,7 +10,7 @@ ExcludeArch: %{ix86}
 
 Name:          ocaml-ocamlbuild
 Version:       0.15.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 
 Summary:       Build tool for OCaml libraries and programs
 
@@ -108,6 +108,9 @@ popd
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 0.15.0-2
 - OCaml 5.3.0 rebuild for Fedora 42
 - Add VCS field

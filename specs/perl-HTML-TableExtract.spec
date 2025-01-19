@@ -1,6 +1,6 @@
 Name:           perl-HTML-TableExtract
 Version:        2.15
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A Perl module for extracting content in HTML tables
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://www.mojotoad.com/sisk/projects/HTML-TableExtract/
@@ -61,6 +61,9 @@ HTE_DEV_TESTS=1 make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.15-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.15-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

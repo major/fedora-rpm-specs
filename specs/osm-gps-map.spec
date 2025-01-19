@@ -1,6 +1,6 @@
 Name:           osm-gps-map
 Version:        1.1.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Gtk+ widget for displaying OpenStreetMap tiles
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -73,6 +73,9 @@ GObject introspection bindings for %{name}.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Sep 27 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 1.1.0-18
 - Modernize spec
 

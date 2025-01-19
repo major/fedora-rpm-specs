@@ -6,7 +6,7 @@
 Summary:	A library for viewing source files
 Name:		gtksourceview2
 Version:	2.11.2
-Release:	43%{?dist}
+Release:	44%{?dist}
 
 # Overall		LGPL-2.0-or-later
 # data/language-specs/php.lang		GPL-2.0-or-later
@@ -123,6 +123,9 @@ xvfb-run \
 %{_datadir}/gir-1.0/GtkSource-2.0.gir
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.2-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.2-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

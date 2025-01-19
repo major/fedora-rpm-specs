@@ -2,7 +2,7 @@
 
 Name:           lxmenu-data
 Version:        0.1.5
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Data files for the LXDE menu
 
 # SPDX confirmed
@@ -51,6 +51,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

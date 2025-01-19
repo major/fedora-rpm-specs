@@ -7,7 +7,7 @@
 
 Name:           knot-resolver
 Version:        5.7.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Caching full DNS Resolver
 
 License:        GPL-3.0-or-later
@@ -378,6 +378,9 @@ fi
 %endif
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Nov 26 2024 Jakub Ružička <jakub.ruzicka@nic.cz> - 5.7.4-2
 - Rebuilt for Knot DNS 3.4
 

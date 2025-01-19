@@ -1,6 +1,6 @@
 Name:		gtorrentviewer
 Version:	0.2b
-Release:	55%{?dist}
+Release:	56%{?dist}
 Summary:	A GTK2-based viewer and editor for BitTorrent meta files
 License:	GPL-1.0-or-later
 URL:		http://gtorrentviewer.sourceforge.net/
@@ -102,6 +102,9 @@ desktop-file-install \
 %{_mandir}/man1/gtorrentviewer.1*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2b-56
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2b-55
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

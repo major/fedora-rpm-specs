@@ -12,7 +12,7 @@
 
 Name:           msitools
 Version:        0.103
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Windows Installer tools
 
 # LGPL-2.1-or-later: the project as a whole
@@ -298,6 +298,9 @@ The libmsi1-devel package includes the header files for libmsi.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.103-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug  5 2024 Daniel P. Berrangé <berrange@redhat.com> - 0.103-4
 - Updates for changes mingw content
 

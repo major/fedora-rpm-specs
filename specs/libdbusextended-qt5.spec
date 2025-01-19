@@ -3,7 +3,7 @@
 Name:           libdbusextended-qt5
 Summary:        Extended DBus for Qt
 Version:        0.0.3
-Release:        15%{?dist}
+Release:        16%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
 URL:            https://github.com/nemomobile/qtdbusextended
@@ -47,6 +47,9 @@ Header files and libraries for %{name}.
 %{_libdir}/lib*.so
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.0.3-15
 - convert license to SPDX
 

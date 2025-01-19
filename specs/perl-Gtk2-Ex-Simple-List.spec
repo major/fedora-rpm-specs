@@ -1,6 +1,6 @@
 Name:           perl-Gtk2-Ex-Simple-List
 Version:        0.50
-Release:        48%{?dist}
+Release:        49%{?dist}
 Summary:        Simple interface to Gtk2's complex MVC list widget
 License:        LGPL-2.1-or-later
 URL:            https://metacpan.org/release/Gtk2-Ex-Simple-List
@@ -49,6 +49,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.50-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.50-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

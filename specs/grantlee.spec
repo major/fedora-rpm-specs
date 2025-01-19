@@ -7,7 +7,7 @@
 Name:    grantlee
 Summary: Qt string template engine based on the Django template system
 Version: 0.5.1
-Release: 28%{?dist}
+Release: 29%{?dist}
 
 License: LGPL-2.0-or-later
 URL:     http://www.gitorious.org/grantlee/pages/Home
@@ -126,6 +126,9 @@ xvfb-run -a make test -C %{_target_platform} ||:
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 07 2025 Alessandro Astone <ales.astone@gmail.com> - 0.5.1-28
 - Fix build dependency on %_kde4_libdir macro
 

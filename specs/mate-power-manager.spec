@@ -15,9 +15,9 @@
 Name:          mate-power-manager
 Version:       %{branch}.1
 %if 0%{?rel_build}
-Release:       3%{?dist}
+Release:       4%{?dist}
 %else
-Release:       0.20%{?git_rel}%{?dist}
+Release:       0.21%{?git_rel}%{?dist}
 %endif
 Summary:       MATE power management service
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -107,6 +107,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/mate-power-manage
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.28.1-3
 - convert license to SPDX
 

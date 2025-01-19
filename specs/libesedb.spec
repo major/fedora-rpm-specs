@@ -1,6 +1,6 @@
 Name:           libesedb
 Version:        20240420
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Library to access the Extensible Storage Engine (ESE) Database File (EDB) format
 License:        LGPL-3.0-or-later
 URL:            https://github.com/libyal/libesedb
@@ -137,6 +137,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20240420-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20240420-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

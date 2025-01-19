@@ -554,7 +554,7 @@ MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | %{__sed} -e 's/-g/-g1/')
 export MOZ_DEBUG_FLAGS=" "
 %endif
 
-# We don't wantfirefox to use CK_GCM_PARAMS_V3 in nss
+# We don't want firefox to use CK_GCM_PARAMS_V3 in nss
 MOZ_OPT_FLAGS="$MOZ_OPT_FLAGS -DNSS_PKCS11_3_0_STRICT"
 
 %if !0%{?build_with_clang}
@@ -566,8 +566,8 @@ MOZ_LINK_FLAGS="-Wl,--no-keep-memory -Wl,--reduce-memory-overheads -Wl,--print-m
 export RUSTFLAGS="-Cdebuginfo=0"
 %endif
 
-export CFLAGS=$MOZ_OPT_FLAGS
-export CXXFLAGS="$MOZ_OPT_FLAGS -fpermissive"
+export CFLAGS="$MOZ_OPT_FLAGS -std=gnu17"
+export CXXFLAGS="$MOZ_OPT_FLAGS -fpermissive -std=gnu17"
 export LDFLAGS=$MOZ_LINK_FLAGS
 
 export PREFIX='%{_prefix}'

@@ -13,7 +13,7 @@ Name:           gpsd-epel
 Name:           gpsd
 %endif
 Version:        3.25
-Release:        15%{?dist}
+Release:        16%{?dist}
 Epoch:          1
 Summary:        Service daemon for mediating access to a GPS
 
@@ -379,6 +379,9 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 %endif
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.25-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Aug 02 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 1:3.25-15
 - Refactor for ELN and EPEL
 

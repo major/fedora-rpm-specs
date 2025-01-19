@@ -1,6 +1,6 @@
 Name:		libvidcap
 Version:	0.2.1
-Release:	34%{?dist}
+Release:	35%{?dist}
 Summary:	Cross-platform video capture library
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:	LicenseRef-Callaway-LGPLv2+
@@ -47,6 +47,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_includedir}/vidcap/
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.1-34
 - convert license to SPDX
 

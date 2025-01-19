@@ -1,6 +1,6 @@
 Name:          maui-mauikit-station
 Version:       4.0.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       MIT AND GPL-3.0-or-later
 Summary:       Convergent terminal emulator written using Maui
 URL:           https://mauikit.org/apps/station/
@@ -60,5 +60,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_metainfodir}/org.kde.station.appdata.xml
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Nov 8 2024 Steve Cossette <farchord@gmail.com> - 4.0.0-1
 - 4.0.0

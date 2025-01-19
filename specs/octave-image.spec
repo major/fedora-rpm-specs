@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        2.14.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Image processing for Octave
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -59,6 +59,9 @@ export XTRA_CXXFLAGS="-fPIC"
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Nov 14 2024 Orion Poplawski <orion@nwra.com> - 2.14.0-12
 - Rebuild for octave 9.2
 

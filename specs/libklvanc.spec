@@ -1,6 +1,6 @@
 Name:           libklvanc
 Version:        1.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        VANC Processing Framework
 License:        LGPL-2.1
 URL:            https://github.com/stoth68000/libklvanc
@@ -78,5 +78,8 @@ rm -fr %{buildroot}%{_bindir}
 %{_libdir}/%{name}.so
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Jan 14 2024 Simone Caronni <negativo17@gmail.com> - 1.6.0-1
 - First build.

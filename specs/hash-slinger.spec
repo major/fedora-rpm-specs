@@ -3,7 +3,7 @@
 Summary: Generate and verify various DNS records such as SSHFP, TLSA and OPENPGPKEY
 Name: hash-slinger
 Version: 3.2
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPL-2.0-or-later
 Url:  https://github.com/letoams/%{name}/
 Source:  %{url}archive/%{version}/%{name}-%{version}.tar.gz
@@ -48,6 +48,9 @@ This package has incorporated the old 'sshfp' and 'swede' commands/packages
 %doc %{_mandir}/man1/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

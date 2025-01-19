@@ -1,6 +1,6 @@
 %define		mainver		0.996
 #%%define		betaver		pre3
-%define		baserelease	11
+%define		baserelease	12
 
 %define set_javaver() \
 %if 	0%{?fedora}%{?rhel} == %1 \
@@ -86,6 +86,9 @@ LANG=ja_JP.utf8
 %{_jnidir}/MeCab.jar
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.996-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Sep 29 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.996-11
 - Use explicit java version for BR
 - Add more BR stuff for F42

@@ -1,7 +1,7 @@
 Summary:        Theme engines for GTK+ 2.0
 Name:           gtk2-engines
 Version:        2.20.2
-Release:        31%{?dist}
+Release:        32%{?dist}
 # This release of gtk-engines is now solely LGPL 2.1 or any later version.
 License:        LGPL-2.1-or-later
 #VCS: git:git://git.gnome.org/gtk-engines
@@ -73,6 +73,9 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/gtk-2.0/2.4.0/engines/libredmond95.so
 %{_libdir}/pkgconfig/gtk-engines-2.pc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.20.2-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.20.2-31
 - convert license to SPDX
 

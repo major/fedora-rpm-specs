@@ -1,6 +1,6 @@
 Name:           perl-File-pushd
 Version:        1.016
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Change directory temporarily for a limited scope
 License:        Apache-2.0
 URL:            https://metacpan.org/release/File-pushd
@@ -62,6 +62,9 @@ make test
 %{_mandir}/man3/File::pushd.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.016-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.016-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

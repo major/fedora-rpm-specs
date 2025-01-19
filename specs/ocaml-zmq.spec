@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-zmq
 Version:        5.3.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        ZeroMQ bindings for OCaml
 
 License:        MIT
@@ -94,6 +94,9 @@ rm -fr %{buildroot}%{ocamldir}/zmq-eio
 %files lwt-devel -f .ofiles-zmq-lwt-devel
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 5.3.0-6
 - OCaml 5.3.0 rebuild for Fedora 42
 

@@ -8,7 +8,7 @@ MOD2C is NMODL to C adapted for CoreNEURON simulator.
 
 Name:       mod2c
 Version:    2.1.0
-Release:    12.%{checkoutdate}git%{commit}%{?dist}
+Release:    13.%{checkoutdate}git%{commit}%{?dist}
 Summary:    NMODL to C adapted for CoreNEURON simulator
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -45,6 +45,9 @@ BuildRequires:  (flex-devel or libfl-devel)
 %{_datadir}/nrnunits.lib
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-13.20201009git5a7f820748a0ff8443dc7bdabfb371f2a042d053
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.1.0-12.20201009git5a7f820748a0ff8443dc7bdabfb371f2a042d053
 - convert license to SPDX
 

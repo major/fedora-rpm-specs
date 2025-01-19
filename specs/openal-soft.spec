@@ -1,6 +1,6 @@
 Name:           openal-soft
 Version:        1.23.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Open Audio Library
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -129,6 +129,9 @@ sed -i 's/#allow-moves = false/allow-moves = true/' \
 %endif
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.23.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.23.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

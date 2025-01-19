@@ -1,6 +1,6 @@
 Name:           libQGLViewer
 Version:        2.9.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Qt based OpenGL generic 3D viewer library
 
 # Automatically converted from old format: GPLv2 with exceptions or GPLv3 with exceptions - review is highly recommended.
@@ -120,6 +120,9 @@ make -e INSTALL_ROOT=$RPM_BUILD_ROOT install STRIP=/usr/bin/true
 %doc examples
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.9.1-6
 - convert license to SPDX
 

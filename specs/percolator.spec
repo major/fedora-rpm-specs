@@ -4,7 +4,7 @@
 Name:      percolator
 Summary:   Software for postprocessing of shotgun proteomics data
 Version:   3.06.04
-Release:   5%{?dist}
+Release:   6%{?dist}
 
 ## Code under src/ (except RAMP) is licensed under a ASL 2.0 license.
 ## Code under src/converters/MSToolkit/RAMP is licensed under a LGPLv2+ license.
@@ -208,6 +208,9 @@ popd
 %{_libdir}/percolator/
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.06.04-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 18 2024 Pete Walter <pwalter@fedoraproject.org> - 3.06.04-5
 - Rebuild for xerces-c 3.3
 

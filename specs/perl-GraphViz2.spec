@@ -1,6 +1,6 @@
 Name:           perl-GraphViz2
 Version:        2.67
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        GraphViz2 Perl module
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -68,6 +68,9 @@ that preexisting code using (the Perl module) GraphViz continues to work.
 %{_mandir}/man3/GraphViz2*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.67-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 2.67-7
 - convert license to SPDX
 

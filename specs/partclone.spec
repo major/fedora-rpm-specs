@@ -4,7 +4,7 @@
 Summary:        Utility to clone and restore a partition
 Name:           partclone
 Version:        0.3.33
-Release:        1%{?dist}
+Release:        2%{?dist}
 # Partclone itself is GPL-2.0-or-later but uses other source codes, breakdown:
 # GPL-3.0-or-later: fail-mbr/fail-mbr.S
 # BSD-2-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-3.0-or-later: src/btrfs*
@@ -138,6 +138,9 @@ make check || { cat tests/test-suite.log; exit 1; }
 %{_mandir}/man8/%{name}*.8*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.33-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 17 2024 Robert Scheck <robert@fedoraproject.org> 0.3.33-1
 - Upgrade to 0.3.33 (#2332011)
 

@@ -1,6 +1,6 @@
 Name:           perl-Gtk2-Ex-Utils
 Version:        0.09
-Release:        47%{?dist}
+Release:        48%{?dist}
 Summary:        Extra Gtk2 Utilities for working with GNOME2/GTK2 in Perl
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -47,6 +47,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.09-47
 - convert license to SPDX
 

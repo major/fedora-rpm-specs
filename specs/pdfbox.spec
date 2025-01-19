@@ -1,6 +1,6 @@
 Name:          pdfbox
 Version:       2.0.30
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Apache PDFBox library for working with PDF documents
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:       Apache-2.0
@@ -262,6 +262,9 @@ rm pdfbox/src/test/java/org/apache/pdfbox/pdmodel/graphics/image/CCITTFactoryTes
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.30-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0.30-3
 - convert license to SPDX
 

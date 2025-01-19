@@ -2,7 +2,7 @@
 
 Name: mustache
 Version: 4.1
-Release: 13%{?dist}
+Release: 14%{?dist}
 
 License: BSL-1.0
 Summary: Mustache text templates for modern C++
@@ -62,6 +62,9 @@ install -m 0644 -p %{name}.hpp %{buildroot}%{_includedir}
 %{_includedir}/%{name}.hpp
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

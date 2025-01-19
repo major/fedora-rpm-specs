@@ -1,6 +1,6 @@
 Name:           nsntrace
 Version:        4
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Perform network trace of a program by using network namespaces
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -45,6 +45,9 @@ analyzed by for instance Wireshark.
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 4-12
 - convert license to SPDX
 

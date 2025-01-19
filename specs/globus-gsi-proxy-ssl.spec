@@ -1,13 +1,15 @@
 Name:		globus-gsi-proxy-ssl
 %global _name %(tr - _ <<< %{name})
 Version:	6.5
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Grid Community Toolkit - Globus GSI Proxy SSL Library
 
 License:	Apache-2.0
 URL:		https://github.com/gridcf/gct/
 Source:		https://repo.gridcf.org/gct6/sources/%{_name}-%{version}.tar.gz
 Source8:	README
+#		https://github.com/gridcf/gct/pull/237
+Patch0:		0001-Fix-compilation-with-GCC-15-Fedora-42.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -60,6 +62,7 @@ Globus GSI Proxy SSL Library Documentation Files
 
 %prep
 %setup -q -n %{_name}-%{version}
+%patch -P0 -p5
 
 %build
 # Reduce overlinking
@@ -112,6 +115,9 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %license GLOBUS_LICENSE
 
 %changelog
+* Fri Jan 17 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.5-11
+- Fix incompatible pointer errors (gcc 15)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.5-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

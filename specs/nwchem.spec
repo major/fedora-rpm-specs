@@ -51,7 +51,7 @@ need libxc version > 3
 
 Name:			nwchem
 Version:		%{major_version}
-Release:		2%{?dist}
+Release:		3%{?dist}
 Summary:		Delivering High-Performance Computational Chemistry to Science
 
 # Automatically converted from old format: ECL 2.0 - review is highly recommended.
@@ -527,6 +527,9 @@ mv QA.orig QA
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Oct 12 2024 Susi Lehtola <jussilehtola@fedoraproject.org> - 7.2.3-2
 - Rebuild against libxc 7.0.0 in rawhide.
 

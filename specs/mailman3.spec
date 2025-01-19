@@ -5,7 +5,7 @@
 
 Name:           mailman3
 Version:        %{baseversion}%{?prerelease:~%{prerelease}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The GNU mailing list manager
 
 License:        GPL-3.0-or-later
@@ -213,6 +213,9 @@ done
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Michel Lind <salimma@fedoraproject.org>
 - Update to version 3.3.9; Fixes: RHBZ#2245287
 

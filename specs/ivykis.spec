@@ -7,7 +7,7 @@
 Summary:        Library for asynchronous I/O readiness notification
 Name:           ivykis
 Version:        0.43.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -75,6 +75,9 @@ make check
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.43.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.43.2-2
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           perl-Device-SerialPort
 Version:        1.04
-Release:        52%{?dist}
+Release:        53%{?dist}
 Summary:        Linux/POSIX emulation of Win32::SerialPort functions
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -46,6 +46,9 @@ chmod -R u+rwX,go+rX,go-w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-53
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 1.04-52
 - convert license to SPDX
 

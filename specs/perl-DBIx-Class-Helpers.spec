@@ -1,6 +1,6 @@
 Name:           perl-DBIx-Class-Helpers
 Version:        2.037000
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A collection of various components for DBIx::Class
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -88,6 +88,9 @@ for DBIx::Class.
 %{_mandir}/man3/DBIx*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.037000-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Nov 10 2024 Emmanuel Seyman <emmanuel@seyman.fr> - 2.037000-1
 - Update to 2.037000
 

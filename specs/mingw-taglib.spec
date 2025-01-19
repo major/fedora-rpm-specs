@@ -7,7 +7,7 @@
 Name:       mingw-%{_basename}
 Summary:    Audio Meta-Data Library
 Version:    1.12
-Release:    12%{?dist}
+Release:    13%{?dist}
 
 # Automatically converted from old format: LGPLv2 or MPLv1.1 - review is highly recommended.
 License:    LicenseRef-Callaway-LGPLv2 OR LicenseRef-Callaway-MPLv1.1
@@ -101,6 +101,9 @@ This is the MinGW version, built for the win64 target.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.12-12
 - convert license to SPDX
 

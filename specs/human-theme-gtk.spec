@@ -1,6 +1,6 @@
 Name:          human-theme-gtk
 Version:       2.2.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Human theme for GTK
 Summary(fr):   Thème Human pour GTK
 License:       GPLv3+ and LGPLv2+ and CC-BY-SA
@@ -55,6 +55,9 @@ cp -a src/human-theme-orange/ %{buildroot}%{_datadir}/themes/
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:          maui-mauikit-calendar
 Version:       4.0.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 License:       GPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-2-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND GPL-3.0-or-later
 Summary:       Calendar support components for Maui applications
 URL:           https://invent.kde.org/maui/mauikit-calendar/
@@ -74,6 +74,9 @@ on %{name}.
 %{_kf6_libdir}/cmake/MauiKitCalendar4/
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Sep 21 2024 Steve Cossette <farchord@gmail.com> - 4.0.0-2
 - Added buildArch restriction as this package depends on akonadi-calendar
 

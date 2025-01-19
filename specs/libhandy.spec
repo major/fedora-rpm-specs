@@ -2,7 +2,7 @@
 
 Name:           libhandy
 Version:        1.8.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Building blocks for modern adaptive GNOME apps
 License:        LGPL-2.1-or-later
 
@@ -97,6 +97,9 @@ export NO_AT_BRIDGE=1
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jul 23 2024 Niels De Graef <ndegraef@redhat.com> - 1.8.3-3
 - Move away from xvfb-run
 

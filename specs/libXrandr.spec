@@ -5,7 +5,7 @@
 Summary: X.Org X11 libXrandr runtime library
 Name: libXrandr
 Version: 1.5.4
-Release: 4%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Release: 5%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 License: HPND-sell-variant
 URL: http://www.x.org
 
@@ -69,6 +69,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

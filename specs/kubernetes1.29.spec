@@ -15,13 +15,13 @@
 # **** release metadata ****
 # populated by envsubst in newrelease
 %global k8s_name                kubernetes1.29
-%global k8s_ver                 1.29.12
+%global k8s_ver                 1.29.13
 # major:minor version substring
 %global k8s_minver              1.29
 %global k8s_nextver             1.30
-%global k8s_tag                 v1.29.12
+%global k8s_tag                 v1.29.13
 # golang 'built with' version
-%global golangver               1.22.9
+%global golangver               1.22.10
 
 # k8builddir is the default kubernetes build dir - current _output
 # setting this macro should simplify the build/install process

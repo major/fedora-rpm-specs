@@ -2,7 +2,7 @@
 
 Name:		nvidia-texture-tools
 Version:	2.1.2
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Collection of image processing and texture manipulation tools
 # Automatically converted from old format: MIT and ASL 2.0 and BSD - review is highly recommended.
 License:	LicenseRef-Callaway-MIT AND Apache-2.0 AND LicenseRef-Callaway-BSD
@@ -115,6 +115,9 @@ export LD_LIBRARY_PATH=$RPM_BUILD_ROOT/%{_libdir}:
 %{_libdir}/lib*.so
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.1.2-11
 - convert license to SPDX
 

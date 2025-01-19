@@ -4,7 +4,7 @@
 
 Name:		gtk-v4l
 Version:	0.4
-Release:	32.%{commitdate}git%{shortcommit}%{?dist}
+Release:	33.%{commitdate}git%{shortcommit}%{?dist}
 Summary:	Video4Linux Device Preferences
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:	LicenseRef-Callaway-LGPLv2+
@@ -46,6 +46,9 @@ gtk-v4l is a Video4Linux Web camera control app
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-33.20220522gitd3bcbc7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.4-32.20220522gitd3bcbc7
 - convert license to SPDX
 

@@ -10,7 +10,7 @@
 
 Name:    kf5-%{framework}
 Version: 1.1.0
-Release: 24%{?dist}
+Release: 25%{?dist}
 Summary: QtQuick plugins to build user interfaces based on the KDE UX guidelines
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -97,6 +97,9 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1.0-24
 - convert license to SPDX
 

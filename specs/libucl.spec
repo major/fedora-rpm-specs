@@ -1,6 +1,6 @@
 Name:           libucl
 Version:        0.8.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Universal configuration library parser
 
 # Automatically converted from old format: BSD and MIT - review is highly recommended.
@@ -98,6 +98,9 @@ rm %{buildroot}%{_libdir}/%{name}.la
 %{python3_sitearch}/ucl*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.8.2-8
 - convert license to SPDX
 

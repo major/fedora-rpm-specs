@@ -8,7 +8,7 @@
 Summary:       MinGW port of the wxWidgets GUI library
 Name:          mingw-%{mingw_pkg_name}
 Version:       2.8.12
-Release:       39%{?dist}
+Release:       40%{?dist}
 License:       LGPL-2.0-or-later WITH WxWindows-exception-3.1
 
 URL:           http://wxwidgets.org
@@ -259,6 +259,9 @@ rm -rf $RPM_BUILD_ROOT%{mingw64_datadir}/bakefile
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.12-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.12-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

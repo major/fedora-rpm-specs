@@ -2,7 +2,7 @@
 
 Name:           mopidy-mpd
 Version:        3.3.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Mopidy extension for controlling Mopidy from MPD clients
 
 License:        Apache-2.0
@@ -44,6 +44,9 @@ rm MANIFEST.in
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 24 2024 Tobias Girstmair <t-fedora@girst.at> - 3.3.0-10
 - move away from calling 'setup.py test' directly (RHBZ#2319635)
 

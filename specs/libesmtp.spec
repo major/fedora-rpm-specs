@@ -3,7 +3,7 @@
 Summary:        SMTP client library
 Name:           libesmtp
 Version:        1.0.6
-Release:        32%{?dist}
+Release:        33%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
 Source:         http://www.stafford.uklinux.net/libesmtp/%{name}-%{version}.tar.bz2
@@ -98,6 +98,9 @@ install -p -m644 -D libesmtp.pc $RPM_BUILD_ROOT%{_libdir}/pkgconfig/libesmtp.pc
 %{_libdir}/pkgconfig/libesmtp.pc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.6-32
 - convert license to SPDX
 

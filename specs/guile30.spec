@@ -14,7 +14,7 @@
 
 Name: guile30
 Version: 3.0.9
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: A GNU implementation of Scheme for application extensibility
 # Automatically converted from old format: LGPLv3+ and MIT and Public Domain and GPL+ and GPLv3+ - review is highly recommended.
 License: LGPL-3.0-or-later AND LicenseRef-Callaway-MIT AND LicenseRef-Callaway-Public-Domain AND GPL-1.0-or-later AND GPL-3.0-or-later
@@ -177,6 +177,9 @@ fi
 %{_includedir}/guile
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.9-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 3.0.9-4
 - convert license to SPDX
 

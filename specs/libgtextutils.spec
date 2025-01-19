@@ -1,6 +1,6 @@
 Name:		libgtextutils
 Version:	0.7
-Release:	36%{?dist}
+Release:	37%{?dist}
 Summary:	Assaf Gordon text utilities    
 
 License:	AGPL-3.0-or-later
@@ -58,6 +58,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/gtextutils.pc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

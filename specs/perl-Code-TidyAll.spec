@@ -1,6 +1,6 @@
 Name:           perl-Code-TidyAll
 Version:        0.84
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Engine for tidyall, your all-in-one code tidier and validator
 # lib/Test/Code/TidyAll.pm:     GPL-1.0-or-later OR Artistic-1.0-Perl
 # LICENSE:                      GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -132,6 +132,9 @@ make test
 %{_mandir}/man3/Test::Code::TidyAll*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.84-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.84-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

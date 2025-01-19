@@ -1,7 +1,7 @@
 Summary: A X front-end for the Ghostscript PostScript(TM) interpreter
 Name: gv
 Version: 3.7.4
-Release: 35%{?dist}
+Release: 36%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
 %if 0%{?fedora} || 0%{?rhel} >= 8
@@ -109,6 +109,9 @@ rm -f ${RPM_BUILD_ROOT}%{_infodir}/dir
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.4-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 3.7.4-35
 - convert license to SPDX
 

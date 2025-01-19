@@ -1,6 +1,6 @@
 Name:           perl-Encode-JP-Mobile
 Version:        0.30
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Japan mobile phone Shift_JIS (CP932) / UTF-8 encoding
 Summary(ja_JP): 日本の携帯電話向け Shift_JIS (CP932) / UTF-8 エンコーディング
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -74,6 +74,9 @@ make test
 %{perl_vendorarch}/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 0.30-39
 - convert license to SPDX
 

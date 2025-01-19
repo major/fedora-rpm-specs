@@ -19,7 +19,7 @@
 Summary: Library for Colour AsCii Art, text mode graphics
 Name: libcaca
 Version: 0.99
-Release: 0.75.%{beta}%{?dist}
+Release: 0.76.%{beta}%{?dist}
 License: WTFPL
 URL: http://caca.zoy.org/wiki/libcaca
 
@@ -202,6 +202,9 @@ mv %{buildroot}%{_docdir}/libcaca-dev libcaca-dev-docs
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.99-0.76.beta20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.99-0.75.beta20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

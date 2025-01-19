@@ -6,7 +6,7 @@
 
 Name:               pagure-dist-git
 Version:            1.15
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Pagure Git auth backend for Dist-Git setups
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -67,6 +67,9 @@ install -p -m 644 scripts/*.py $RPM_BUILD_ROOT/%{_libexecdir}/pagure-dist-git/
 %{_libexecdir}/pagure-dist-git/
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Aug 08 2024 Carl George <carlwgeorge@fedoraproject.org> - 1.15-1
 - Update to 1.15 to resolve epel10 issue
 - https://pagure.io/releng/issue/12236

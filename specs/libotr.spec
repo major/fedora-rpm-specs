@@ -2,7 +2,7 @@
 Summary: Off-The-Record Messaging library and toolkit
 Name: libotr
 Version: 4.1.1
-Release: 22%{?dist}
+Release: 23%{?dist}
 # Automatically converted from old format: GPLv2 and LGPLv2 - review is highly recommended.
 License: GPL-2.0-only AND LicenseRef-Callaway-LGPLv2
 Source0: http://otr.cypherpunks.ca/%{name}-%{version}.tar.gz
@@ -76,6 +76,9 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/*.la
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 4.1.1-22
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           labwc-menu-generator
 Version:        0.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Menu generator for labwc
 
 # Tests are GPL-2.0-or-later
@@ -45,6 +45,9 @@ Supplements:    labwc
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 20 2024 Steve Cossette <farchord@gmail.com> - 0.1.0-2
 - Fixed a packaging issue with disabling debug packages
 

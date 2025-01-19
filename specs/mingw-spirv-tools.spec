@@ -6,7 +6,7 @@
 Name:          mingw-%{pkgname}
 Epoch:         1
 Version:       1.4.304.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
 License:       Apache-2.0
@@ -131,6 +131,9 @@ MINGW64_CMAKE_ARGS="-DSPIRV-Headers_SOURCE_DIR=%{mingw64_prefix}" \
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.4.304.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 14 2025 Sandro Mani <manisandro@gmail.com> - 1:1.4.304.0-1
 - Update to 1.4.304.0
 

@@ -4,7 +4,7 @@
 
 Name:           jFormatString
 Version:        0
-Release:        0.51.20131227git%{shortcommit}%{?dist}
+Release:        0.52.20131227git%{shortcommit}%{?dist}
 Summary:        Java format string compile-time checker
 
 License:        GPL-2.0-only WITH Classpath-exception-2.0
@@ -81,6 +81,9 @@ end
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.52.20131227gitf159b88
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Nov 09 2024 Richard Fearn <richardfearn@gmail.com> - 0-0.51.20131227gitf159b88
 - Fix FTBFS in -javadoc package (bug #2323984)
 

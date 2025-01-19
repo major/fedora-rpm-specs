@@ -24,7 +24,7 @@ Requires:  pkgconfig(libusb-1.0) >= 1.0
 }
 
 Name:           %{goname}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        HTTP reverse proxy, backed by IPP-over-USB connection to device
 
 # Upstream license specification: BSD-2-Clause
@@ -114,6 +114,9 @@ install -m 0644 -vp ipp-usb-quirks/* %{buildroot}%{_datadir}/ipp-usb/quirks
 %gopkgfiles
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.28-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Zdenek Dohnal <zdohnal@redhat.com> - 0.9.28-1
 - (fedora#2304909) - golang-github-openprinting-ipp-usb-0.9.28 is available
 

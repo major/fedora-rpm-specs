@@ -2,7 +2,7 @@
 
 Name:           gthree
 Version:        0.9.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Gthree is a GObject/Gtk+ port of three.js
 
 License:        MIT
@@ -137,6 +137,9 @@ GTK 4 supprort for %{name}.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

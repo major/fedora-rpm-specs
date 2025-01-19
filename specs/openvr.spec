@@ -1,3 +1,7 @@
+# Release 2.7.1 is not tagged:
+%global commit ebd425331229365dc3ec42d1bb8b2cc3c2332f81
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+
 # Samples aren't supported on i686
 %ifarch i686
 %bcond_with samples
@@ -11,13 +15,13 @@ vendors without requiring that applications have specific knowledge of the
 hardware they are targeting.}
 
 Name:           openvr
-Version:        2.5.1
+Version:        2.7.1
 Release:        %autorelease
 Summary:        OpenVR SDK
 
 License:        BSD-3-Clause
 URL:            https://github.com/ValveSoftware/openvr
-Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source:         %{url}/archive/%{commit}.tar.gz#/%{name}-%{shortcommit}.tar.gz
 # Use GNUInstallDirs to determine lib install path
 Patch:          %{url}/pull/1511.patch
 # Add ability to build with system installed jsoncpp
@@ -83,7 +87,7 @@ This package provides various sample programs and drivers using OpenVR.
 %endif
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{commit}
 
 # Delete prebuilt binaries and libraries
 rm -r bin lib samples/bin/{android*,linux*,win*}

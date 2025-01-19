@@ -1,6 +1,6 @@
 Name:          honggfuzz
 Version:       2.5
-Release:       8%{?dist}
+Release:       9%{?dist}
 Summary:       General-purpose, easy-to-use fuzzer
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -121,6 +121,9 @@ hfuzz_cc/hfuzz-g++ hello.cpp -o hello
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 2.5-8
 - convert license to SPDX
 

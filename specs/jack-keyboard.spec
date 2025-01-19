@@ -1,6 +1,6 @@
 Name:		jack-keyboard
 Version:	2.7.2
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Virtual keyboard for JACK MIDI
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
@@ -64,6 +64,9 @@ desktop-file-install						\
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.7.2-11
 - convert license to SPDX
 

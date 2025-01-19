@@ -1,6 +1,6 @@
 Name:           perl-Cache-FastMmap
 Version:        1.57
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Uses an mmap'ed file to act as a shared memory interprocess cache
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -65,6 +65,9 @@ situation better.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.57-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 1.57-13
 - convert license to SPDX
 

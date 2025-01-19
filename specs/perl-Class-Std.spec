@@ -1,6 +1,6 @@
 Name:           perl-Class-Std
 Version:        0.013
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Support for creating standard "inside-out" classes
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -53,6 +53,9 @@ rm -rf %{buildroot}
 %{_mandir}/man3/Class::Std.3pm*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.013-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 0.013-27
 - convert license to SPDX
 

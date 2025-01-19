@@ -1,6 +1,6 @@
 Name:           perl-App-DuckDuckGo
 Version:        0.008
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Application class used to query duckduckgo.com from the command line
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -66,6 +66,9 @@ shell script to automatically work with the DuckDuckGo API results.
 %{_bindir}/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.008-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 0.008-30
 - convert license to SPDX
 

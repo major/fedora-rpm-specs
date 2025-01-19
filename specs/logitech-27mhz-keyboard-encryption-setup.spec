@@ -1,6 +1,6 @@
 Name:           logitech-27mhz-keyboard-encryption-setup
 Version:        0.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Logitech 27MHz keyboard encryption setup tool
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -31,6 +31,9 @@ used by some (somewhat older) Logitech keyboards.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul  26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1-10
 - convert license to SPDX
 

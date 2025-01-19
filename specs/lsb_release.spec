@@ -1,6 +1,6 @@
 Name:           lsb_release
 Version:        3.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Linux Standard Base Release Tool using os-release(5)
 
 License:        GPL-2.0-or-later
@@ -56,6 +56,9 @@ make install INSTALL_ROOT=%{buildroot}%{_prefix}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 02 2024 Carl George <carlwgeorge@fedoraproject.org> - 3.3-5
 - Conflict with redhat-lsb
 

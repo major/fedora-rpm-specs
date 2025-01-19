@@ -1,6 +1,6 @@
 Name:           opengl-games-utils
 Version:        0.2
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Utilities to check proper 3d support before launching 3d games
 License:        LicenseRef-Fedora-Public-Domain
 URL:            http://fedoraproject.org/wiki/SIGs/Games
@@ -45,6 +45,9 @@ fi
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

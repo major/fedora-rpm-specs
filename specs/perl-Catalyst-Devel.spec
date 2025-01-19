@@ -1,7 +1,7 @@
 Name:           perl-Catalyst-Devel
 Summary:        Catalyst Development Tools
 Version:        1.42
-Release:        13%{?dist}
+Release:        14%{?dist}
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/H/HA/HAARG/Catalyst-Devel-%{version}.tar.gz
@@ -81,6 +81,9 @@ Catalyst are now known as Catalyst::Runtime.
 %exclude %{perl_vendorlib}/Catalyst/Restarter/Win32.pm
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.42-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 1.42-13
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:          maui-mauikit-imagetools
 Version:       4.0.0
-Release:       5%{?dist}
+Release:       6%{?dist}
 License:       GPL-3.0-or-later AND BSD-2-Clause AND GPL-2.0-only AND LGPL-2.1-or-later AND LGPL-2.1-only AND LGPL-2.0-or-later AND CC0-1.0 AND LGPL-3.0-or-later AND GPL-3.0-only AND LGPL-3.0-only
 Summary:       MauiKit Image Tools Components
 URL:           https://invent.kde.org/maui/mauikit-imagetools/
@@ -81,6 +81,9 @@ Cities database required for geolocation for %{name}.
 %{_kf6_datadir}/org/mauikit/imagetools/cities.db
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Nov 12 2024 Sandro Mani <manisandro@gmail.com> - 4.0.0-5
 - Rebuild (tesseract)
 

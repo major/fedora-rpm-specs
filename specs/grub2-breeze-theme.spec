@@ -3,7 +3,7 @@
 
 Name:           grub2-breeze-theme
 Version: 6.2.90
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary:        Breeze theme for GRUB
 
 License:        BSD-2-Clause AND CC-BY-SA-4.0 AND GPL-2.0-or-later WITH Font-exception-2.0 AND GPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only)
@@ -59,6 +59,9 @@ find breeze/ -type f -and -not -iname \*.license -print0 \
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.90-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 09 2025 Steve Cossette <farchord@gmail.com> - 6.2.90-1
 - Beta 6.2.90
 

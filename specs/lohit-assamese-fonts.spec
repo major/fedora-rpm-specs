@@ -1,7 +1,7 @@
 %global fontname lohit-assamese
 
 Version:       2.91.5 
-Release:       23%{?dist}
+Release:       24%{?dist}
 URL:           https://github.com/lohit-fonts/lohit-assamese-fonts
  
 %global foundry           Lohit  
@@ -44,6 +44,9 @@ make ttf %{?_smp_mflags}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.91.5-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.91.5-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -70,7 +70,7 @@
 
 Name:           %{package_name}
 Version:        0.18
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Hybrid Cloud Console extension for IPA
 
 BuildArch:      noarch
@@ -595,6 +595,9 @@ install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/ipa-hcc.conf
 %endif
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Aug 10 2024 Fraser Tweedale <frase@frase.id.au> 0.18-1
 - test: use RHEL with golang 1.21 for backend vm
 - test: fix idm-domains-backend-deploy after RBAC changes

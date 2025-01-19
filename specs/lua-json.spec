@@ -5,7 +5,7 @@
 
 Name:           lua-json
 Version:        1.3.4
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        JSON Parser/Constructor for Lua
 License:        MIT
 URL:            https://github.com/harningt/luajson
@@ -42,6 +42,9 @@ make check-regression
 %{luapkgdir}/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Aug 01 2024 Orion Poplawski <orion@nwra.com> - 1.3.4-8
 - Add upstream patch to support lua lpeg 1.1.0 (bz#2302036)
 

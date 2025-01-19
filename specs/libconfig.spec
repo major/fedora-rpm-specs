@@ -3,7 +3,7 @@
 Name:                   libconfig
 Summary:                C/C++ configuration file library
 Version:                1.7.3
-Release:                9%{?dist}
+Release:                10%{?dist}
 # lib/grammar.* are GPL-3.0-or-later WITH Bison-exception-2.2
 License:                LGPL-2.1-or-later AND GPL-3.0-or-later WITH Bison-exception-2.2
 URL:                    http://www.hyperrealm.com/libconfig/
@@ -80,6 +80,9 @@ make check
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

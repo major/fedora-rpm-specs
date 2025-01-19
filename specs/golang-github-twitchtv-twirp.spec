@@ -14,7 +14,7 @@ A simple RPC framework with protobuf service definitions.}
 %global godocs          docs example CONTRIBUTING.md PROTOCOL.md README.md
 
 Name:           %{goname}
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A simple RPC framework with protobuf service definitions
 
 # Upstream license specification: Apache-2.0
@@ -72,6 +72,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.1.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 8.1.0-13
 - convert license to SPDX
 

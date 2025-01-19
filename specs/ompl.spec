@@ -3,7 +3,7 @@
 
 Name:           ompl
 Version:        1.6.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        The Open Motion Planning Library
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -97,6 +97,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %{_libdir}/%{name}
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.6.0-6
 - convert license to SPDX
 

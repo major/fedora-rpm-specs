@@ -8,7 +8,7 @@ Version:        %{cpan_version}
 # perl-encoding sub-package has independent version which does not change
 # often and consecutive builds would clash on perl-encoding NEVRA. This is the
 # same case as in perl.spec.
-Release:        511%{?dist}
+Release:        512%{?dist}
 Summary:        Character encodings in Perl
 # ucm:          license in this repository can be ingored based on
 # https://gitlab.com/fedora/legal/fedora-license-data/-/issues/30#note_1435176617
@@ -216,6 +216,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4:3.21-512
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4:3.21-511
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

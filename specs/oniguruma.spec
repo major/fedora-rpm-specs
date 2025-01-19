@@ -21,7 +21,7 @@
 #%%global	betaver	rc4
 #%%define	prerelease	1
 
-%global	baserelease	1
+%global	baserelease	2
 
 Name:		oniguruma
 Version:	%{mainver}%{?postver:.%postver}%{?gitversion:^%{?gitversion}}
@@ -125,6 +125,9 @@ autoreconf -fi
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.9.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 01 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 6.9.10-1
 - 6.9.10
 

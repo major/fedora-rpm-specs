@@ -34,7 +34,7 @@ exit 0
 
 Name: imagefactory-plugins
 Version: 1.1.16
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: Default plugins for the Image Factory system image generation tool
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
@@ -416,6 +416,9 @@ rm -rf %{buildroot}%{python3_sitelib}/imagefactory_plugins/EC2
 %{python3_sitelib}/imagefactory_plugins/GCE/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.16-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1.16-14
 - convert license to SPDX
 

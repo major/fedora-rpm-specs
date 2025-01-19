@@ -1,6 +1,6 @@
 Name:           perl-Diff-LibXDiff
 Version:        0.05
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Calculate a diff with LibXDiff (via XS)
 # License describes: libxdiff and (Diff-LibXDiff)
 # Automatically converted from old format: LGPLv2+ and (GPL+ or Artistic) - review is highly recommended.
@@ -62,6 +62,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.05-23
 - convert license to SPDX
 

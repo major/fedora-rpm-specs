@@ -23,7 +23,7 @@ ExcludeArch: %{ix86}
 
 Name:		libint2
 Version:	2.9.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	A library for efficient evaluation of electron repulsion integrals
 # Generator itself is GPLv2+, generated library packaged in Fedora is LGPLv3
 License:	LGPL-3.0-only
@@ -154,6 +154,9 @@ mv %{buildroot}%{_includedir}/libint_f.mod %{buildroot}%{_fmoddir}/
 %{_libdir}/libint2.so
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Sep 03 2024 Susi Lehtola <jussilehtola@fedoraproject.org>  2.9.0-3
 - Fix location of data directory in generated CMake config.
 

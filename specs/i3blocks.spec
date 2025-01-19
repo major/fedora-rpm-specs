@@ -1,6 +1,6 @@
 Name:     i3blocks
 Version:  1.5
-Release:  11%{?dist}
+Release:  12%{?dist}
 Summary:  A feed generator for text based status bars
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:  GPL-3.0-or-later
@@ -47,6 +47,9 @@ rm -rf %{buildroot}/usr/share/bash-completion
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.5-11
 - convert license to SPDX
 

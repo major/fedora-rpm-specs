@@ -1,6 +1,6 @@
 Name:           nanomsg
 Version:        1.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Socket library that provides several common communication patterns
 
 License:        MIT
@@ -79,6 +79,9 @@ This package contains documentation for %{name}.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Scott K Logan <logans@cottsay.net> - 1.2.1-1
 - Update to 1.2.1 (rhbz#2262607)
 

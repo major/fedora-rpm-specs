@@ -16,7 +16,7 @@ end}
 
 Name:           grafana-pcp
 Version:        5.2.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Performance Co-Pilot Grafana Plugin
 License:        Apache-2.0
 URL:            https://github.com/performancecopilot/grafana-pcp
@@ -196,6 +196,9 @@ yarn test
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 2 2024 Sam Feifer <sfeifer@redhat.org> - 5.2.2-2
 - Remove visualizations for proc.hog.net and proc.hog.disk while they do not work via pmproxy
 

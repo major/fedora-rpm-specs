@@ -3,7 +3,7 @@
 
 Name:           perl-Config-Model
 Version:        2.155
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Framework to create configuration validation tools and editors
 License:        LGPL-2.1-or-later
 
@@ -127,6 +127,9 @@ modprobe fuse
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.155-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 25 2024 Jitka Plesnikova <jplesnik@redhat.com> - 2.155-1
 - 2.155 bump
 

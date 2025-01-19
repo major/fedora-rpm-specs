@@ -1,6 +1,6 @@
 Name:           perl-Cache
 Version:        2.11
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        The Cache interface
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -99,6 +99,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.11-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 2.11-29
 - convert license to SPDX
 

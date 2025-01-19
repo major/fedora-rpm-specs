@@ -4,7 +4,7 @@
 Summary:        A Python interface to the HDF5 library
 Name:           h5py
 Version:        3.12.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            http://www.h5py.org/
@@ -229,6 +229,9 @@ mpirun %{__python3} -m pytest -rxXs --with-mpi ${PYTHONPATH} || exit $fail
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Dec 15 2024 Terje Rosten <terjeros@gmail.com> - 3.12.1-4
 - Rebuild for numpy bump
 

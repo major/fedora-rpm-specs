@@ -15,7 +15,7 @@ sql-migrate is a SQL Schema migration tool for Go, based on gorp and goose.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.13%{?dist}
+Release:        0.14%{?dist}
 Summary:        SQL schema migration tool for Go
 
 License:        MIT
@@ -70,6 +70,9 @@ rm migrate_test.go
 %gopkgfiles
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

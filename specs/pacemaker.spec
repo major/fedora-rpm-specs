@@ -176,7 +176,7 @@
 Name:          pacemaker
 Summary:       Scalable High-Availability cluster resource manager
 Version:       %{pcmkversion}
-Release:       %{pcmk_release}%{?dist}
+Release:       %{pcmk_release}%{?dist}.1
 
 License:       GPL-2.0-or-later AND LGPL-2.1-or-later
 Url:           https://www.clusterlabs.org/
@@ -770,6 +770,9 @@ exit 0
 %{_datadir}/pkgconfig/pacemaker-schemas.pc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-5.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 10 2025 Klaus Wenninger <kwenning@redhat.com> - 3.0.0-5
 - Update for new upstream release tarball: Pacemaker-3.0.0,
   for full details, see included ChangeLog.md file or

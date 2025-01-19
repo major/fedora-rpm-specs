@@ -1,6 +1,6 @@
 Name:          maui-mauikit-filebrowsing
 Version:       4.0.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 License:       CC0-1.0 AND BSD-2-Clause AND LGPL-2.1-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later
 Summary:       MauiKit File Browsing utilities and controls
 URL:           https://invent.kde.org/maui/mauikit-filebrowsing/
@@ -61,6 +61,9 @@ on %{name}.
 %{_kf6_libdir}/libMauiKitFileBrowsing4.so
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Sep 24 2024 Steve Cossette <farchord@gmail.com> - 4.0.0-2
 - Moved a file from devel subpackage
 

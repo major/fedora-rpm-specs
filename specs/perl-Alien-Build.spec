@@ -8,7 +8,7 @@
 
 Name:           perl-Alien-Build
 Version:        2.84
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Build external dependencies for use in CPAN
 # lib/Alien/Build/Plugin/Test/Mock.pm contains Base64-encoded files for tests
 # (a bash script, C source file, a gzipped tar archive, Mach-O 64-bit x86_64
@@ -444,6 +444,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.84-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 29 2024 Petr Pisar <ppisar@redhat.com> - 2.84-1
 - 2.84 bump
 

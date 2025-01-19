@@ -1,6 +1,6 @@
 Name:           perl-HTML-Scrubber
 Version:        0.19
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Library for scrubbing/sanitizing html
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -51,6 +51,9 @@ make test
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.19-16
 - convert license to SPDX
 

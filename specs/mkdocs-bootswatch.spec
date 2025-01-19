@@ -2,7 +2,7 @@
 
 Name:           mkdocs-bootswatch
 Version:        1.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Bootswatch themes for MkDocs
 
 License:        BSD-2-Clause AND MIT
@@ -47,6 +47,9 @@ popd
 %doc README.md
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Dec 13 2024 Davide Cavalca <dcavalca@fedoraproject.org> - 1.1-7
 - Unretire package; Fixes: RHBZ#2332263
 - Convert to pyproject macros

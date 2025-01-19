@@ -5,7 +5,7 @@
 
 Name:           libeconf
 Version:        0.7.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Enhanced config file parser library
 
 License:        MIT
@@ -82,6 +82,9 @@ configuration files from applications that use %{name}.
 %{_mandir}/man8/econftool.8*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 10 2024 Iker Pedrosa <ipedrosa@redhat.com> - 0.7.5-1
 - Rebase to 0.7.5
 

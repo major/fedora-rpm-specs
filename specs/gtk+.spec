@@ -2,7 +2,7 @@ Summary:	The GIMP ToolKit
 Name:		gtk+
 Epoch:		1
 Version:	1.2.10
-Release:	108%{?dist}
+Release:	110%{?dist}
 License:	LGPL-2.0-or-later
 URL:		http://www.gtk.org/
 Source0:	https://ftp.gnome.org/pub/gnome/sources/gtk+/1.2/gtk+-%{version}.tar.gz
@@ -87,6 +87,8 @@ Patch37:	gtk+-1.2.10-format.patch
 Patch38:	gtk+-1.2.10-c99.patch
 # Fix incompatible pointer type in call to XmbTextListToTextProperty
 Patch39:	gtk+-1.2.10-ptrtype.patch
+# C23 compiler support
+Patch40:	gtk+-1.2.10-c23.patch
 
 BuildRequires:	coreutils
 BuildRequires:	gettext
@@ -155,6 +157,7 @@ Libraries, header files and documentation for developing GTK+
 %patch -P 37 -p0 -b .format
 %patch -P 38 -p1 -b .c99
 %patch -P 39 -p1 -b .ptrtype
+%patch -P 40 -p0 -b .c23
 
 # The original config.{guess,sub} do not work on x86_64, aarch64 etc.
 #
@@ -248,6 +251,12 @@ make check LIBTOOL=/usr/bin/libtool
 %{_mandir}/man1/gtk-config.1*
 
 %changelog
+* Fri Jan 17 2025 Paul Howarth <paul@city-fan.org> - 1:1.2.10-110
+- Fix building in C23 mode
+
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.2.10-109
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.2.10-108
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

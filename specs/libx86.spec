@@ -1,6 +1,6 @@
 Name:           libx86
 Version:        1.1
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        Library for making real-mode x86 calls
 
 License:        MIT
@@ -60,6 +60,9 @@ rm $RPM_BUILD_ROOT/%{_libdir}/*.a
 %{_libdir}/pkgconfig/x86.pc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

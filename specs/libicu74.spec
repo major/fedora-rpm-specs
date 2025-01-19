@@ -9,7 +9,7 @@
 
 Name:      libicu74
 Version:   74.2
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   Compat package with icu libraries
 
 License:   Unicode-DFS-2016 AND BSD-2-Clause AND BSD-3-Clause AND NAIST-2003 AND LicenseRef-Fedora-Public-Domain
@@ -118,5 +118,8 @@ LD_LIBRARY_PATH=lib:stubdata:tools/ctestfw:$LD_LIBRARY_PATH bin/uconv -l
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 74.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Dec 05 2024 Pete Walter <pwalter@fedoraproject.org> - 74.2-1
 - Initial packaging

@@ -1,6 +1,6 @@
 Name:          opus-tools
 Version:       0.2
-Release:       16%{?dist}
+Release:       17%{?dist}
 Summary:       A set of tools for the opus audio codec
 # Automatically converted from old format: BSD and GPLv2 - review is highly recommended.
 License:       LicenseRef-Callaway-BSD AND GPL-2.0-only
@@ -45,6 +45,9 @@ make check %{?_smp_mflags} V=1
 %{_datadir}/man/man1/opus*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2-16
 - convert license to SPDX
 

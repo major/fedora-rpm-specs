@@ -1,6 +1,6 @@
 Name:           hawknl
 Version:        1.68
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Game oriented network library
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+ 
@@ -66,6 +66,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/libNL.a $RPM_BUILD_ROOT%{_libdir}/NL.so \
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.68-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.68-35
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           inadyn-mt
 Version:        2.28.10
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Dynamic DNS Client
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -113,6 +113,9 @@ exit 0
 %attr(755,inadyn,inadyn) %dir /var/cache/inadyn-mt/
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.28.10-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.28.10-21
 - convert license to SPDX
 

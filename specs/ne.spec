@@ -3,7 +3,7 @@
 Summary: ne, the nice editor
 Name: ne
 Version: 3.3.3
-Release: 5%{?dist}
+Release: 6%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
 Source0: https://ne.di.unimi.it/ne-%{version}.tar.gz
@@ -70,6 +70,9 @@ Documentation for ne, the nice editor.
 %doc ./doc/default.*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 3.3.3-5
 - convert license to SPDX
 

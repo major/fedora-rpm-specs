@@ -7,7 +7,7 @@
 
 Name:           perl-DateTime-TimeZone-SystemV
 Version:        0.010
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        System V and POSIX timezone strings
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-TimeZone-SystemV
@@ -64,6 +64,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/DateTime::TimeZone::SystemV.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.010-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.010-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

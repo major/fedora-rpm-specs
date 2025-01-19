@@ -1,6 +1,6 @@
 Name:       perl-Check-ISA
 Version:    0.09
-Release:    24%{?dist}
+Release:    25%{?dist}
 # see lib/Check/ISA.pm
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    DWIM, correct checking of an object's class
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

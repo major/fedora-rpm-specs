@@ -9,7 +9,7 @@
 Summary: A portable x86 assembler which uses Intel-like syntax
 Name: nasm
 Version: 2.16.03
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: BSD-2-Clause
 URL: http://www.nasm.us
 Source0: https://www.nasm.us/pub/nasm/releasebuilds/%{version}/%{name}-%{version}.tar.xz
@@ -84,6 +84,9 @@ make -C test golden test diff
 %endif
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.16.03-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.16.03-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

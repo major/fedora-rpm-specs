@@ -3,7 +3,7 @@
 
 Name:           libcutl
 Version:        %{base_version}.0
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        C++ utility library from Code Synthesis
 
 #Used internal Boost files
@@ -63,6 +63,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}
 %{_libdir}/pkgconfig/libcutl.pc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.10.0-31
 - convert license to SPDX
 

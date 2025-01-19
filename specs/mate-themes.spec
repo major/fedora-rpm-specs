@@ -17,9 +17,9 @@
 Name:           mate-themes
 Version:        %{rel_ver}
 %if 0%{?rel_build}
-Release:        3%{?dist}
+Release:        4%{?dist}
 %else
-Release:        0.18%{?git_rel}%{?dist}
+Release:        0.19%{?git_rel}%{?dist}
 %endif
 Summary:        MATE Desktop themes
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -99,6 +99,9 @@ find %{buildroot} -name '*.a' -exec rm -rf {} ';'
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.22.26-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 3.22.26-3
 - convert license to SPDX
 

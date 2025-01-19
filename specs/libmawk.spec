@@ -1,6 +1,6 @@
 Name:           libmawk
 Version:        1.0.3
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Embed awk scripting language in any application written in C
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -71,6 +71,9 @@ HTML documentation for %{name}.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.3-9
 - convert license to SPDX
 

@@ -4,7 +4,7 @@
 
 Name:           howl
 Version:        0.6
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Lightweight editor with a keyboard-centric minimalistic UI
 
 # For a breakdown of the licensing, see LICENSE.md
@@ -85,6 +85,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/howl.desktop
 %{_metainfodir}/howl.appdata.xml
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.6-27
 - convert license to SPDX
 

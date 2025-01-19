@@ -1,6 +1,6 @@
 Name:           ladspa-vco-plugins
 Version:        0.3.0
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Anti-aliased pulse and sawtooth oscillators
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -49,6 +49,9 @@ sed -i -e "s|/usr/lib/ladspa|\\\$\(DESTDIR\)%{_libdir}/ladspa|g" \
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.3.0-39
 - convert license to SPDX
 

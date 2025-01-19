@@ -1,7 +1,7 @@
 Name:    kwallet
 Summary: Manage KDE passwords 
 Version: 4.12.3
-Release: 26%{?dist}
+Release: 27%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -69,6 +69,9 @@ make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.12.3-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 4.12.3-26
 - convert license to SPDX
 

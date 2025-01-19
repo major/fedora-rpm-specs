@@ -1,6 +1,6 @@
 Name:           perl-Clownfish-CFC
 Version:        0.6.3
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Compiler for Apache Clownfish
 # other files:          ASL 2.0
 ## Unbundled
@@ -111,6 +111,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.6.3-27
 - convert license to SPDX
 

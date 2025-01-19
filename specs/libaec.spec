@@ -1,6 +1,6 @@
 Name:           libaec
 Version:        1.1.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Adaptive Entropy Coding library
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -60,6 +60,9 @@ mv %{buildroot}/%{_prefix}/cmake %{buildroot}/%{_libdir}
 %{_libdir}/cmake/%{name}-*.cmake
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 03 2024 Christoph Junghans <junghans@votca.org> - 1.1.3-1
 - Version bump to v1.1.3 (bug #2270651)
 

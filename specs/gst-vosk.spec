@@ -1,6 +1,6 @@
 Name:  gst-vosk
 Version:  0.3.1
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  GStreamer plugin for VOSK voice recognition engine
 # gst-vosk has build dependency on vosk-api-devel which depends on 64-bit systems
 ExclusiveArch:  x86_64 aarch64 ppc64le
@@ -40,5 +40,8 @@ sed -i "/install_data('libvosk.so', install_dir : get_option('libdir'))/d" vosk/
 %{_libdir}/gstreamer-1.0/libgstvosk.so
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Dec 20 2024 Manish Tiwari <matiwari@redhat.com> 0.3.1-1
 - Initial release of the package

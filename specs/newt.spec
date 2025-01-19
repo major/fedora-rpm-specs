@@ -5,7 +5,7 @@
 Summary: A library for text mode user interfaces
 Name: newt
 Version: 0.52.24
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: LGPL-2.0-only
 URL: https://pagure.io/newt
 Source: https://pagure.io/releases/newt/newt-%{version}.tar.gz
@@ -110,6 +110,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libnewt.a
 %{python3_sitearch}/__pycache__/*.py*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.52.24-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.52.24-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

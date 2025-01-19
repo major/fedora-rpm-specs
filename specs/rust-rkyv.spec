@@ -153,6 +153,18 @@ use the "pointer_width_64" feature of the "%{crate}" crate.
 %files       -n %{name}+pointer_width_64-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+smallvec-1-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+smallvec-1-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "smallvec-1" feature of the "%{crate}" crate.
+
+%files       -n %{name}+smallvec-1-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+std-devel
 Summary:        %{summary}
 BuildArch:      noarch

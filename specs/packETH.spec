@@ -1,6 +1,6 @@
 Name:           packETH
 Version:        2.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A GUI packet generator tool
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -47,6 +47,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/packeth
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.1-12
 - convert license to SPDX
 

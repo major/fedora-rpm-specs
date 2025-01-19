@@ -2,7 +2,7 @@
 Name:    kfloppy
 Summary: Floppy formatting tool 
 Version: 23.04.3
-Release: 7%{?dist}
+Release: 8%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -72,6 +72,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.kfloppy.d
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 23.04.3-7
 - convert license to SPDX
 

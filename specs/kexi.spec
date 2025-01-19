@@ -13,7 +13,7 @@
 Name:    kexi
 Summary: An integrated environment for managing data
 Version: 3.2.0
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: LGPL-2.0-or-later AND GFDL-1.2-or-later
 Url:     https://kexi-project.org/
 Source0: https://download.kde.org/%{stable_kf5}/%{name}/src/%{name}-%{version}.tar.xz
@@ -184,6 +184,9 @@ export CTEST_OUTPUT_ON_FAILURE=1
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 3.2.0-12
 - Disable webbrowser support
 - Use KF5 macros

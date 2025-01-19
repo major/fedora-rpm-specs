@@ -1,6 +1,6 @@
 Name:           needrestart
 Version:        3.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Restart daemons after library updates
 
 License:        GPL-2.0-or-later
@@ -112,6 +112,9 @@ echo "IUCODE_TOOL_EXTRA_OPTIONS=--ignore-broken" >%{buildroot}/%{_sysconfdir}/de
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Nov 24 2024 Steve Cossette <farchord@gmail.com> - 3.8-1
 - Update to 3.8 to fix several CVEs:
 - CVE-2024-48991: Prevent race condition on /proc/$PID/exec evaluation

@@ -4,7 +4,7 @@
 
 Name:           imath
 Version:        3.1.12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library of 2D and 3D vector, matrix, and math operations for computer graphics
 
 License:        BSD-3-Clause
@@ -97,6 +97,9 @@ Requires:       python3-devel
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Sep 10 2024 Richard Shaw <hobbes1069@gmail.com> - 3.1.12-1
 - Update to 3.1.12.
 

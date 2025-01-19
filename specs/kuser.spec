@@ -1,7 +1,7 @@
 Name:    kuser
 Summary: User Manager for KDE
 Version: 16.08.3
-Release: 24%{?dist}
+Release: 25%{?dist}
 
 # Automatically converted from old format: GPLv2+ and GFDL - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-GFDL
@@ -63,6 +63,9 @@ desktop-file-validate %{buildroot}%{_kde4_datadir}/applications/kde4/%{name}.des
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 16.08.3-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 16.08.3-24
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           perl-DBICx-Sugar
 Version:        0.0200
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Just some syntax sugar for DBIx::Class
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -67,6 +67,9 @@ make test
 %{_mandir}/man3/DBICx*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0200-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 0.0200-23
 - convert license to SPDX
 

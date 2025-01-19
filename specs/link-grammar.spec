@@ -7,7 +7,7 @@
 Summary: A full-service natural language dependency parser
 Name: link-grammar
 Version: 5.12.3
-Release: 11%{?dist}
+Release: 12%{?dist}
 License: LGPL-2.1-or-later
 Source: http://www.abisource.com/downloads/link-grammar/%{version}/link-grammar-%{version}.tar.gz
 Patch0: java8.patch
@@ -128,6 +128,9 @@ find $RPM_BUILD_ROOT/%{_libdir}/ -name '*.la' | xargs rm -f
 %endif
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.12.3-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 09 2024 Gwyn Ciesla <gwync@protonmail.com> - 5.12.3-11
 - Fix FTBFS
 

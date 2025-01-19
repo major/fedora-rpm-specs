@@ -7,7 +7,7 @@
 
 Name:		iaxclient
 Version:	%{mainver}
-Release:	0.50.%{betaver}%{?dist}
+Release:	0.51.%{betaver}%{?dist}
 Summary:	Library for creating telephony solutions that interoperate with Asterisk
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:	LicenseRef-Callaway-LGPLv2+
@@ -259,6 +259,9 @@ ln -s iaxcli iaxcli-Linux-%{tkphonearch}
 %{_datadir}/pixmaps/wxiax.png
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-0.51.beta3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.1-0.50.beta3
 - convert license to SPDX
 

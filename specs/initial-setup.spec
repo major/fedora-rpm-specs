@@ -6,7 +6,7 @@ Summary: Initial system configuration utility
 URL: https://fedoraproject.org/wiki/InitialSetup
 License: GPL-2.0-or-later
 Version: 0.3.101
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # This is a Red Hat maintained package which is specific to
 # our distribution.
@@ -156,6 +156,9 @@ rm -v %{buildroot}%{_libexecdir}/%{name}/firstboot-windowmanager
 %find_lang %{name}
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.101-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Martin Kolman <mkolman@redhat.com> - 0.3.101-1
 - Use threads.py submodule in favor of compatibility file threading.py (kkoukiou)
 

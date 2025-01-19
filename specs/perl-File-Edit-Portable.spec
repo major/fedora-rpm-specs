@@ -1,6 +1,6 @@
 Name:           perl-File-Edit-Portable
 Version:        1.26
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Read and write files while keeping the original line-endings intact
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -69,6 +69,9 @@ make test AUTHOR_TESTING=1
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.26-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 1.26-7
 - convert license to SPDX
 

@@ -4,7 +4,7 @@ Name:    okteta
 Summary: Binary/hex editor
 Epoch:   1
 Version: 0.26.15
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # Automatically converted from old format: GPLv2+ and GFDL - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-GFDL
@@ -154,6 +154,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.okteta.deskto
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.26.15-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1:0.26.15-3
 - convert license to SPDX
 

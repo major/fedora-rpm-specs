@@ -1,6 +1,6 @@
 Name:           mailnag
 Version:        2.2.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Mail notification daemon
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -63,6 +63,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT/%{_datadir}/metainfo/*.app
 %{_datadir}/icons/hicolor/*/apps/%{name}*png
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.2.0-18
 - convert license to SPDX
 

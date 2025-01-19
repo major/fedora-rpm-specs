@@ -1,6 +1,6 @@
 Name:           os-prober
 Version:        1.81
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Probes disks on the system for installed operating systems
 
 # For more information about licensing, see copyright file.
@@ -94,6 +94,9 @@ fi
 %{_var}/lib/%{name}
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.81-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 14 2024 Leo Sandoval <lsandova@redhat.com> - 1.81-9
 - 90fallback: include possible kernel parameters from grub's default file
 - common.sh: do not resolve symbolic link on mapped device filesystems

@@ -1,6 +1,6 @@
 Name:           lacewing
 Version:        1.10
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        Arcade-style shoot-em-up
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -78,6 +78,9 @@ install -p -m 644 %{SOURCE3} \
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.10-46
 - convert license to SPDX
 

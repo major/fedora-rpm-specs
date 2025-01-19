@@ -8,7 +8,7 @@
 
 Name:           perl-GStreamer1
 Version:        0.003
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Perl binding for GStreamer 1.x
 # lib/GStreamer1.pm:                BSD
 # lib/GStreamer1/Caps/Simple.pm:    BSD
@@ -74,6 +74,9 @@ make test
 %{_mandir}/man3/GStreamer1*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.003-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.003-31
 - convert license to SPDX
 

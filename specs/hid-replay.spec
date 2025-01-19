@@ -1,6 +1,6 @@
 Name:           hid-replay
 Version:        0.7.1
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        HID Input device recorder and replay
 
 License:        GPL-2.0-or-later
@@ -37,6 +37,9 @@ make install DESTDIR=%{buildroot}
 %{_mandir}/man1/hid-recorder.1*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

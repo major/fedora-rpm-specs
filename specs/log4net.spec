@@ -9,7 +9,7 @@ URL:		http://logging.apache.org/log4net/
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:	Apache-2.0
 Version:	2.0.8
-Release:	21%{?dist}
+Release:	22%{?dist}
 Summary:	A .NET framework for logging
 Source:		http://mirror.reverse.net/pub/apache/logging/log4net/source/%{name}-%{version}-src.zip
 Patch0:		log4net-2.0.8-xmlconfigurator.patch
@@ -91,6 +91,9 @@ gacutil -i build/bin/net/*/debug/log4net.dll -f -package log4net -root ${RPM_BUI
 %{_libdir}/pkgconfig/log4net.pc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0.8-21
 - convert license to SPDX
 

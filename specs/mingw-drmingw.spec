@@ -4,7 +4,7 @@
 
 Name:           mingw-%{name1}
 Version:        0.9.3
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Just-in-Time (JIT) debugger for MinGW
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -167,6 +167,9 @@ chmod a-x $RPM_BUILD_ROOT%{mingw64_libdir}/* $RPM_BUILD_ROOT%{mingw64_includedir
 %{mingw64_includedir}/exchndl.h
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.9.3-9
 - convert license to SPDX
 

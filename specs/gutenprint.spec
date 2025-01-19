@@ -25,7 +25,7 @@
 Name: gutenprint
 Summary: Printer Drivers Package
 Version: 5.3.5
-Release: 0.1%{prever}%{?dist}
+Release: 0.2%{prever}%{?dist}
 URL: http://gimp-print.sourceforge.net/
 Source0: http://downloads.sourceforge.net/gimp-print/%{name}-%{ver}.tar.xz
 # Post-install script to update CUPS native PPDs.
@@ -188,6 +188,9 @@ sed -i -e 's,^#!/usr/bin/python3,#!%{__python3},' src/cups/cups-genppdupdate.in
 %patch -P 4 -p1 -b .python36syntax
 %patch -P 5 -p1 -b .soname-ver
 
+# sbin is hardcoded in stp_cups.m4 - root it out (idea taken from Arch Linux)
+sed -i 's,cups_sbindir="${cups_exec_prefix}/sbin",cups_sbindir="${cups_exec_prefix}/bin",g' m4local/stp_cups.m4
+
 
 %build
 # run after patch for configure.ac
@@ -218,8 +221,6 @@ sed -i -e 's,^\(TESTS *=.*\) run-weavetest,\1,' test/Makefile.in
 %install
 %make_install
 
-mkdir -p %{buildroot}%{_sbindir}
-
 rm -rf %{buildroot}%{_datadir}/gutenprint/doc
 rm -f %{buildroot}%{_datadir}/foomatic/kitload.log
 
@@ -241,7 +242,9 @@ for file in \
   %{buildroot}%{_libdir}/*.so.* \
   %{buildroot}%{_cups_serverbin}/driver/* \
   %{buildroot}%{_cups_serverbin}/filter/* \
-  %{buildroot}%{_bindir}/*
+  %{buildroot}%{_bindir}/escputil \
+  %{buildroot}%{_bindir}/testpattern \
+  %{buildroot}%{_bindir}/cups-calibrate
 do
   chrpath --delete ${file}
 done
@@ -326,6 +329,10 @@ exit 0
 %{_mandir}/man8/cups-genppd*8*.gz
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.5-0.2pre1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+- fix FTBFS due bin/sbin change
+
 * Thu Dec 19 2024 Zdenek Dohnal <zdohnal@redhat.com> - 5.3.5-0.1pre1
 - 5.3.5pre1
 

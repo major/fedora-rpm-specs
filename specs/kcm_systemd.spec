@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 Name:           kcm_systemd
 Version:        1.2.1
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Systemd control module for KDE
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -60,6 +60,9 @@ rm -f %{buildroot}%{_kf5_datadir}/kservices5/settings-system-administration.desk
 %{_kf5_datadir}/polkit-1/actions/org.kde.kcontrol.kcmsystemd.policy
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2.1-27
 - convert license to SPDX
 

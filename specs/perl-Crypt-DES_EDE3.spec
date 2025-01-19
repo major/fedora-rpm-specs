@@ -1,6 +1,6 @@
 Name:           perl-Crypt-DES_EDE3
 Version:        0.03
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Triple-DES EDE encryption/decryption module
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-DES_EDE3
@@ -44,6 +44,9 @@ make test
 %{_mandir}/man3/Crypt::DES_EDE3.3pm*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Nov 05 2024 Xavier Bachelot <xavier@bachelot.org> - 0.03-1
 - Update to 0.03 (RHBZ#2320854)
 - Modernize specfile

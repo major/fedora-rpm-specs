@@ -1,6 +1,6 @@
 Name:           perl-CDDB_get
 Version:        2.28
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Read the CDDB entry for an audio CD in your drive
 # Artistic:     Artistic-1.0-Perl text
 # cddb.pl:          "same conditions as Perl, i.e. GPL-2.0-only OR Artistic-1.0-Perl"
@@ -82,6 +82,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.28-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Petr Pisar <ppisar@redhat.com> - 2.28-34
 - Convert a license tag to SPDX
 - Package the tests

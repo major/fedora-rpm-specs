@@ -1,6 +1,6 @@
 Name:           perl-CGI-Application-Plugin-Forward
 Version:        1.06
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        Pass control from one run mode to another in CGI::Application
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -47,6 +47,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.06-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 1.06-44
 - convert license to SPDX
 

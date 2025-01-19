@@ -1,6 +1,6 @@
 Name:           gpx-viewer
 Version:        0.4.0
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        A simple gpx viewer
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -67,6 +67,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/mime/packages/gpx-viewer.xml
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.4.0-30
 - convert license to SPDX
 

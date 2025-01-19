@@ -1,6 +1,6 @@
 Name:           libldm
 Version:        0.2.4
-Release:        17%{?dist}%{?extra_release}
+Release:        18%{?dist}%{?extra_release}
 Summary:        A tool to manage Windows dynamic disks
 
 # Automatically converted from old format: LGPLv3+ and GPLv3+ - review is highly recommended.
@@ -70,6 +70,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.4-17
 - convert license to SPDX
 

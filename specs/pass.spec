@@ -6,7 +6,7 @@
 Name:           pass
 Summary:        A password manager using standard Unix tools
 Version:        1.7.4
-Release:        12%{?dist}
+Release:        13%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Url:            http://zx2c4.com/projects/password-store/
@@ -82,6 +82,9 @@ make test
 %endif
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.7.4-12
 - convert license to SPDX
 

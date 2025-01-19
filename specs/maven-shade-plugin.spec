@@ -1,6 +1,6 @@
 Name:           maven-shade-plugin
 Version:        3.6.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Maven plugin for packaging artifacts in an uber-jar
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -64,6 +64,9 @@ ln -s $(build-classpath plexus/utils) src/test/jars/plexus-utils-1.4.1.jar
 %license LICENSE NOTICE
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 3.6.0-3
 - convert license to SPDX
 

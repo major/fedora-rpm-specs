@@ -2,7 +2,7 @@
 
 Name:             ledger
 Version:          3.2.1
-Release:          18%{?dist}
+Release:          19%{?dist}
 Summary:          A powerful command-line double-entry accounting system
 # Automatically converted from old format: BSD - review is highly recommended.
 License:          LicenseRef-Callaway-BSD
@@ -119,6 +119,9 @@ done
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 3.2.1-18
 - convert license to SPDX
 

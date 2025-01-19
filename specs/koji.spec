@@ -9,7 +9,7 @@
 
 Name: koji
 Version: 1.35.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 # the included arch lib from yum's rpmUtils is GPLv2+
 # Automatically converted from old format: LGPLv2 and GPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2 AND GPL-2.0-or-later
@@ -367,6 +367,9 @@ done
 %systemd_postun kojira.service
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.35.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Nov 26 2024 Romain Geissler <romain.geissler@amadeus.com> - 1.35.1-5
 - Drop the cvs requirement.
 

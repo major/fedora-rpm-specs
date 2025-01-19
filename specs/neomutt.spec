@@ -1,7 +1,7 @@
 Summary: Text mode Mail Client
 Name: neomutt
 Version: 20250113
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 6
 Url: https://neomutt.org/
 
@@ -78,6 +78,9 @@ cat %{SOURCE1} >> %{buildroot}%{_sysconfdir}/neomuttrc
 %{_datadir}/neomutt
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6:20250113-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jan 13 2025 Richard Russon <rich@flatcap.org> - 20250113-1
 - Bug Fixes
   - #4477 fix crash in folder-hook

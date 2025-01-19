@@ -1,6 +1,6 @@
 Name:           nettee
 Version:        0.1.9.1
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Network "tee" program
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -43,6 +43,9 @@ chmod 644 *.sh
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9.1-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.9.1-31
 - convert license to SPDX
 

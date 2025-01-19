@@ -2,7 +2,7 @@
 
 Name:           hxtools
 Version:        20150304
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        A collection of several tools
 # fd0ssh: LGPLv2 or LGPLv3
 # git-forest: GPLv2+
@@ -215,6 +215,9 @@ rm "%{buildroot}%{_mandir}/man8/xfs_irecover.8"*
 %{_mandir}/man1/peicon.1*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20150304-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 20150304-21
 - convert license to SPDX
 

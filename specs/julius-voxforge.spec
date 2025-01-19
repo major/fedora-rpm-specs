@@ -4,7 +4,7 @@
 
 Name:		julius-voxforge
 Version:	%{year}.%{month}.%{day}
-Release:	23%{?dist}
+Release:	24%{?dist}
 Summary:	VoxForge Acoustic Model files for Julius
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -32,6 +32,9 @@ install -m644 acoustic_model_files/hmmdefs acoustic_model_files/macros acoustic_
 %{_datadir}/%{name}/acoustic
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2013.03.01-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2013.03.01-23
 - convert license to SPDX
 

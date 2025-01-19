@@ -1,6 +1,6 @@
 Name:           perl-Apache-Htpasswd
 Version:        1.9
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Manage Unix crypt-style password file
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Apache-Htpasswd
@@ -62,6 +62,9 @@ make test
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

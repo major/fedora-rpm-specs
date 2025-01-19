@@ -2,7 +2,7 @@
 
 Name:           mingw-gtkmm24
 Version:        2.24.5
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        MinGW Windows C++ interface for GTK2 (a GUI library for X)
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -134,6 +134,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.24.5-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.24.5-22
 - convert license to SPDX
 

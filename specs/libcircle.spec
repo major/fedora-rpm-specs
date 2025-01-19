@@ -1,6 +1,6 @@
 Name:    libcircle
 Version: 0.3
-Release: 18%{?dist}
+Release: 19%{?dist}
 
 Source: https://github.com/hpc/libcircle/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 URL: http://hpc.github.io/libcircle/
@@ -138,6 +138,9 @@ make -C mpich check || { cat mpich/tests/test-suite.log && exit 1; }
 %{_docdir}/%{name}
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.3-18
 - convert license to SPDX
 

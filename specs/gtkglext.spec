@@ -3,7 +3,7 @@
 Summary:	OpenGL Extension to GTK
 Name:		gtkglext
 Version:	1.2.0
-Release:	49%{?dist}
+Release:	50%{?dist}
 
 License:	GPL-2.0-or-later OR LGPL-2.0-or-later
 URL:		http://gtkglext.sourceforge.net/
@@ -90,6 +90,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %doc %{_datadir}/gtk-doc/html/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-50
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

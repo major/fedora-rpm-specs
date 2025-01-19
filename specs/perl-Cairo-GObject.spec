@@ -1,6 +1,6 @@
 Name:           perl-Cairo-GObject
 Version:        1.005
-Release:        18%{?dist}.1
+Release:        19%{?dist}.1
 Summary:        Integrate Cairo into the Glib type system
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.005-19.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep  2 2024 Miroslav Suchý <msuchy@redhat.com> - 1.005-18.1
 - convert license to SPDX
 

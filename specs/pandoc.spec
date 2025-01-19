@@ -24,7 +24,7 @@
 Name:           %{pkg_name}
 Version:        3.1.11.1
 # can only be reset when all subpkgs bumped
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Conversion between markup formats
 
 License:        GPL-2.0-or-later
@@ -395,6 +395,9 @@ echo %{_bindir}/jira-wiki-markup >> %{jirawikimarkup}/ghc-jira-wiki-markup.files
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.11.1-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Jul 21 2024 Jens Petersen <petersen@redhat.com> - 3.1.11.1-31
 - https://hackage.haskell.org/package/pandoc-3.1.11.1/changelog
 - move pdf meta subpackage to pandoc-cli

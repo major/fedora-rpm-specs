@@ -5,7 +5,7 @@
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
 Version:       74.1.3
-Release:       4%{?dist}
+Release:       5%{?dist}
 BuildArch:     noarch
 
 License:       MIT
@@ -100,6 +100,9 @@ find %{buildroot}%{mingw64_python3_sitearch}/ -name '*.exe' | xargs rm -f
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 74.1.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 07 2025 Sandro Mani <manisandro@gmail.com> - 74.1.3-4
 - Add mingw-python-setuptools-shlib-suffix.patch
 

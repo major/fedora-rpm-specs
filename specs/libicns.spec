@@ -1,6 +1,6 @@
 Name:           libicns
 Version:        0.8.1
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Library for manipulating Macintosh icns files
 
 # libicns, icns2png and icontainer2icns are under LGPLv2+
@@ -82,6 +82,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.8.1-32
 - convert license to SPDX
 

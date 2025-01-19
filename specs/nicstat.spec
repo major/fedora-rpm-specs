@@ -1,6 +1,6 @@
 Name:		nicstat	
 Version:	1.95
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	CLI utility that prints out network statistics for all network interface 
 
 License:	Artistic-2.0
@@ -36,6 +36,9 @@ install -p -D -m 0644 %{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.95-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.95-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

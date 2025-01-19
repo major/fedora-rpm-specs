@@ -4,7 +4,7 @@
 
 Name:          jboss-jaxrs-2.0-api
 Version:       1.0.0
-Release:       28%{?dist}
+Release:       29%{?dist}
 Summary:       JAX-RS 2.0: The Java API for RESTful Web Services
 # ASL 2.0 src/main/java/javax/ws/rs/core/GenericEntity.java
 License:       (CDDL-1.0 or GPL-2.0-only WITH Classpath-exception-2.0) and Apache-2.0
@@ -50,6 +50,9 @@ JSR 339: JAX-RS 2.0: The Java API for RESTful Web Services.
 %license LICENSE
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           lterm
 Version:        1.5.1
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Terminal and multi protocol client
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -55,6 +55,9 @@ desktop-file-install                                    \
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.5.1-19
 - convert license to SPDX
 

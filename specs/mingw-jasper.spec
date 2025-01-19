@@ -2,7 +2,7 @@
 
 Name:           mingw-jasper
 Version:        4.2.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        MinGW Windows Jasper library
 
 License:        JasPer-2.0
@@ -122,6 +122,9 @@ rmdir %{buildroot}%{mingw64_datadir}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

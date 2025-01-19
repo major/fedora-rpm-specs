@@ -7,7 +7,7 @@ License:        CC-BY-SA-4.0
 %global git_short %(c="%{git_commit}"; echo "${c:0:7}")
 
 Version:        1.5.0
-Release:        17.%{git_date}git%{git_short}%{?dist}
+Release:        18.%{git_date}git%{git_short}%{?dist}
 
 URL:            https://snwh.org/paper
 Source0:        https://github.com/snwh/%{name}/archive/%{git_commit}/%{name}-%{git_commit}.tar.gz
@@ -74,6 +74,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Paper-Mono-Dark &>/dev/null || :
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-18.20200312gitaa3e8af
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-17.20200312gitaa3e8af
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

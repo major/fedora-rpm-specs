@@ -4,7 +4,7 @@
 
 Name:		lilypond
 Version:	2.25.20
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A typesetting system for music notation
 
 License:	GPL-3.0-only
@@ -118,6 +118,9 @@ ln -s %{_fontdir} $RPM_BUILD_ROOT%{_datadir}/lilypond/%{version}/fonts/otf
 %doc COPYING
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.25.20-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Oct 07 2024 Gwyn Ciesla <gwync@protonmail.com> - 2.25.20-4
 - 2.25.20
 - Fix vim files path.

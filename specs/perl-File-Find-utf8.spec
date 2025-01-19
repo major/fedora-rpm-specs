@@ -1,6 +1,6 @@
 Name:           perl-File-Find-utf8
 Version:        0.014
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Fully UTF-8 aware File::Find
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -92,6 +92,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.014-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.014-9
 - convert license to SPDX
 

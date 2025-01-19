@@ -1,6 +1,6 @@
 Name:           perl-File-DirList
 Version:        0.05
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Provide a sorted list of directory content
 # Standard perl license, see README.md
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -55,6 +55,9 @@ make test
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

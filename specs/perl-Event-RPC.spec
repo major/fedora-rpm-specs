@@ -1,6 +1,6 @@
 Name:           perl-Event-RPC
 Version:        1.10
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Event based transparent client/server RPC framework
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -137,6 +137,9 @@ make test
 %{_mandir}/man3/Event::RPC::Message::Storable.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 1.10-21
 - convert license to SPDX
 

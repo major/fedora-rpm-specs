@@ -8,7 +8,7 @@ Name: hunspell-ts
 Summary: Tsonga hunspell dictionaries
 %global upstreamid 20110323.1
 Version: 0.%{upstreamid}
-Release: 17%{?dist}
+Release: 18%{?dist}
 Source:https://addons.mozilla.org/firefox/downloads/file/376225/tsonga_spell_checker-20110323.1-typefix-fn+sm+tb+fx.xpi 
 URL: https://addons.mozilla.org/en-US/firefox/addon/tsonga-spell-checker/
 License: LGPL-2.1-or-later
@@ -36,6 +36,9 @@ cp -p dictionaries/ts-ZA.dic $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/ts_ZA.d
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20110323.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20110323.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

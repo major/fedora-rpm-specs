@@ -1,6 +1,6 @@
 Name:			maim
 Version:		5.8.0
-Release:		3%{?dist}
+Release:		4%{?dist}
 Summary:		Command-line screen capture tool
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -48,6 +48,9 @@ predetermined or user selected regions of your desktop.
 %license COPYING license.txt
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 5.8.0-3
 - convert license to SPDX
 

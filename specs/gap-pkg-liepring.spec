@@ -96,6 +96,7 @@ gap -l '%{buildroot}%{gap_libdir};%{gap_libdir}' tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/lib/dim7/stuff/
 %{gap_libdir}/pkg/%{pkgname}/lib/dim8/
 %{gap_libdir}/pkg/%{pkgname}/tst/
+%{gap_libdir}/pkg/%{pkgname}/VERSION
 
 %files doc
 %docdir %{gap_libdir}/pkg/%{pkgname}/doc/

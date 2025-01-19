@@ -1,6 +1,6 @@
 Name:           perl-Config-Simple
 Version:        4.59
-Release:        47%{?dist}
+Release:        48%{?dist}
 Summary:        Simple configuration file class 
 
 #see README
@@ -64,6 +64,9 @@ make test
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.59-48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 4.59-47
 - convert license to SPDX
 

@@ -7,7 +7,7 @@
 
 Name: hdf
 Version: 4.3.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
@@ -246,6 +246,9 @@ make -j1 -C build-static check
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 30 2024 Orion Poplawski <orion@nwra.com> - 4.3.0-1
 - Update to 4.3.0
 

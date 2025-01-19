@@ -1,16 +1,11 @@
-%global commit      0b39e21977d736bf5434a102c859cbf0446d3dfa
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date        20231110
-
 Name:           gnome-radio
-Version:        0.1.0
-Release:        10.%{date}git%{shortcommit}%{?dist}
+Version:        47.0
+Release:        %autorelease
 Summary:        GNOME Radio
  
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            http://gnomeradio.org
-Source0:        https://gitlab.gnome.org/olekaam/radio/-/archive/%{commit}/radio-%{commit}.tar.bz2
+Source0:        http://www.gnomeradio.org/src/gnome-radio-47.0.tar.xz
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -18,6 +13,7 @@ BuildRequires:  automake
 BuildRequires:  gcc
 BuildRequires:  gtk-doc
 BuildRequires:  intltool
+BuildRequires:  itstool
 # BuildRequires:  libappstream-glib
 BuildRequires:  pkgconfig(champlain-gtk-0.12) >= 0.12.10
 BuildRequires:  pkgconfig(geoclue-2.0) >= 1.0
@@ -36,7 +32,7 @@ BuildRequires:  make
 GNOME Radio is a free network radio software for the GNOME desktop.
 
 %prep
-%autosetup -p1 -n radio-%{commit}
+%autosetup
 
 %build
 %configure
@@ -46,33 +42,44 @@ GNOME Radio is a free network radio software for the GNOME desktop.
 %make_install
 
 %files
-%{_bindir}/gtk-internet-radio-locator
-%{_datadir}/appdata/gtk-internet-radio-locator.appdata.xml
-%{_datadir}/applications/gtk-internet-radio-locator.desktop
-%{_datadir}/gtk-internet-radio-locator/internet-radio-locator-1.5.dtd
-%{_datadir}/gtk-internet-radio-locator/internet-radio-locator.xml
-%{_datadir}/icons/hicolor/1024x1024/apps/gtk-internet-radio-locator.png
-%{_datadir}/icons/hicolor/16x16/apps/gtk-internet-radio-locator.png
-%{_datadir}/icons/hicolor/22x22/apps/gtk-internet-radio-locator.png
-%{_datadir}/icons/hicolor/24x24/apps/gtk-internet-radio-locator.png
-%{_datadir}/icons/hicolor/256x256/apps/gtk-internet-radio-locator.png
-%{_datadir}/icons/hicolor/32x32/apps/gtk-internet-radio-locator.png
-%{_datadir}/icons/hicolor/48x48/apps/gtk-internet-radio-locator.png
-%{_datadir}/icons/hicolor/512x512/apps/gtk-internet-radio-locator.png
-%{_datadir}/locale/ca/LC_MESSAGES/gtk-internet-radio-locator.mo
-%{_datadir}/locale/cs/LC_MESSAGES/gtk-internet-radio-locator.mo
-%{_datadir}/locale/de/LC_MESSAGES/gtk-internet-radio-locator.mo
-%{_datadir}/locale/es/LC_MESSAGES/gtk-internet-radio-locator.mo
-%{_datadir}/locale/fr/LC_MESSAGES/gtk-internet-radio-locator.mo
-%{_datadir}/locale/hu/LC_MESSAGES/gtk-internet-radio-locator.mo
-%{_datadir}/locale/id/LC_MESSAGES/gtk-internet-radio-locator.mo
-%{_datadir}/locale/nb/LC_MESSAGES/gtk-internet-radio-locator.mo
-%{_datadir}/locale/pl/LC_MESSAGES/gtk-internet-radio-locator.mo
-%{_datadir}/locale/pt_BR/LC_MESSAGES/gtk-internet-radio-locator.mo
-%{_datadir}/locale/sl/LC_MESSAGES/gtk-internet-radio-locator.mo
-%{_datadir}/locale/sr/LC_MESSAGES/gtk-internet-radio-locator.mo
-%{_datadir}/locale/sv/LC_MESSAGES/gtk-internet-radio-locator.mo
-%{_mandir}/man1/gtk-internet-radio-locator.1.gz
+%{_bindir}/gnome-internet-radio-locator
+%{_bindir}/gnome-radio
+%{_bindir}/org.gnome.Radio
+%{_datadir}/applications/gnome-radio.desktop
+%{_datadir}/gnome-radio/doc/AAMOT.txt.xz
+%{_datadir}/gnome-radio/doc/Aamot-2020.txt.xz
+%{_datadir}/gnome-radio/gnome-radio-47.0.dtd
+%{_datadir}/gnome-radio/gnome-radio.xml
+%{_datadir}/gnome-radio/org.gnome.Radio.dtd
+%{_datadir}/gnome-radio/org.gnome.Radio.xml
+%{_datadir}/icons/hicolor/scalable/apps/gnome-radio.svg
+%{_datadir}/locale/ca/LC_MESSAGES/gnome-radio.mo
+%{_datadir}/locale/cs/LC_MESSAGES/gnome-radio.mo
+%{_datadir}/locale/da/LC_MESSAGES/gnome-radio.mo
+%{_datadir}/locale/de/LC_MESSAGES/gnome-radio.mo
+%{_datadir}/locale/el/LC_MESSAGES/gnome-radio.mo
+%{_datadir}/locale/es/LC_MESSAGES/gnome-radio.mo
+%{_datadir}/locale/eu/LC_MESSAGES/gnome-radio.mo
+%{_datadir}/locale/fr/LC_MESSAGES/gnome-radio.mo
+%{_datadir}/locale/fur/LC_MESSAGES/gnome-radio.mo
+%{_datadir}/locale/hr/LC_MESSAGES/gnome-radio.mo
+%{_datadir}/locale/hu/LC_MESSAGES/gnome-radio.mo
+%{_datadir}/locale/id/LC_MESSAGES/gnome-radio.mo
+%{_datadir}/locale/nb/LC_MESSAGES/gnome-radio.mo
+%{_datadir}/locale/nl/LC_MESSAGES/gnome-radio.mo
+%{_datadir}/locale/oc/LC_MESSAGES/gnome-radio.mo
+%{_datadir}/locale/pl/LC_MESSAGES/gnome-radio.mo
+%{_datadir}/locale/pt_BR/LC_MESSAGES/gnome-radio.mo
+%{_datadir}/locale/ro/LC_MESSAGES/gnome-radio.mo
+%{_datadir}/locale/sk/LC_MESSAGES/gnome-radio.mo
+%{_datadir}/locale/sl/LC_MESSAGES/gnome-radio.mo
+%{_datadir}/locale/sr/LC_MESSAGES/gnome-radio.mo
+%{_datadir}/locale/sv/LC_MESSAGES/gnome-radio.mo
+%{_datadir}/locale/tr/LC_MESSAGES/gnome-radio.mo
+%{_datadir}/locale/uk/LC_MESSAGES/gnome-radio.mo
+%{_datadir}/locale/zh_CN/LC_MESSAGES/gnome-radio.mo
+%{_datadir}/man/man1/gnome-radio.1.gz
+%{_datadir}/metainfo/gnome-radio.appdata.xml
 %doc README AUTHORS
 
 %changelog

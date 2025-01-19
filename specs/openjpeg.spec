@@ -14,7 +14,7 @@
 
 Name:           openjpeg
 Version:        2.5.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        C-Library for JPEG 2000
 
 # windirent.h is MIT, the rest is BSD
@@ -451,6 +451,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/doc
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 15 2025 Sérgio Basto <sergio@serjux.com> - 2.5.3-4
 - Second try to obsolete and remove old openjpeg-libs-1.5.1 from Fedora 40
 

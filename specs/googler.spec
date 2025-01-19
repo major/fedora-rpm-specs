@@ -1,6 +1,6 @@
 Name:       googler
 Version:    4.3.2
-Release:    10%{?dist}
+Release:    11%{?dist}
 Summary:    Access google search, google site search, google news from the terminal
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -63,6 +63,9 @@ install -Dpm0644 -t %{buildroot}%{_datadir}/zsh/site-functions \
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul  25 2024 Miroslav Suchý <msuchy@redhat.com> - 4.3.2-10
 - convert license to SPDX
 

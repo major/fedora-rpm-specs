@@ -4,7 +4,7 @@ Version:        2.26.0
 # yes, this is ugly
 %global major_minor_version %(echo "%version" | sed "s|^\\([^\\.]*\\.[^\\.]*\\).*$|\\1|")
 
-Release:        36%{?dist}
+Release:        37%{?dist}
 
 Summary:        C++ interface for Gnome libs (a GUI library for X)
 
@@ -62,6 +62,9 @@ find %buildroot -type f -name "*.la" -exec rm -f {} ';'
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.26.0-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.26.0-36
 - convert license to SPDX
 

@@ -2,7 +2,7 @@
 
 Name:           openjph
 Version:        0.18.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open-source implementation of JPEG2000 Part-15 (or JPH or HTJ2K)
 License:        BSD-2-Clause
 URL:            https://openjph.org/
@@ -62,6 +62,9 @@ standard Part 15.
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Dec 12 2024 Simone Caronni <negativo17@gmail.com> - 0.18.2-1
 - Update to 0.18.2.
 

@@ -1,6 +1,6 @@
 Name:           libaccounts-glib
 Version:        1.25
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Accounts framework for Linux and POSIX based platforms
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2
@@ -126,6 +126,9 @@ mkdir -p %{buildroot}%{_datadir}/accounts/{applications,providers,services,servi
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.25-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.25-18
 - convert license to SPDX
 

@@ -1,7 +1,7 @@
 Summary: A panoramic photo stitcher and more
 Name: hugin
 Version: 2024.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 Source: https://downloads.sourceforge.net/hugin/%{name}-%{version}.tar.bz2
 URL: http://hugin.sourceforge.net/
@@ -179,6 +179,9 @@ EOF
 %{_mandir}/man1/hugin_lensdb.*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Nov 16 2024 Bruno Postle <bruno@postle.net> - 2024.0.0-1
 - stable release
 

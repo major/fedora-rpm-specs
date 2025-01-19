@@ -1,7 +1,7 @@
 Name:          lxqt-archiver
 Summary:       A simple & lightweight desktop-agnostic Qt file archiver
 Version:       1.1.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       GPL-2.0-or-later
 URL:           https://lxqt.github.io/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -65,6 +65,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_datadir}/%{name}/translations/%{name}_ast.qm
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Nov 10 2024 Steve Cossette <farchord@gmail.com> - 1.1.0-1
 - 1.1.0
 

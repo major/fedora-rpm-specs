@@ -9,7 +9,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.08.5
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: The KMailTransport Library
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -136,6 +136,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.5-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Nov 19 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 23.08.5-5
 - Avoid file conflict with (kf6-)kmailtransport
 

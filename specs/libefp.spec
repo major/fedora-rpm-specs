@@ -1,6 +1,6 @@
 Name:    libefp
 Version: 1.5.0
-Release: 19%{?dist}
+Release: 20%{?dist}
 Summary: A full implementation of the Effective Fragment Potential (EFP) method
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD 
@@ -115,6 +115,9 @@ make check
 %ldconfig_postun
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.5.0-19
 - convert license to SPDX
 

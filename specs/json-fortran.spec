@@ -1,6 +1,6 @@
 Name:           json-fortran
 Version:        8.3.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A Modern Fortran JSON API
 # Automatically converted from old format: MIT and BSD - review is highly recommended.
 License:        LicenseRef-Callaway-MIT AND LicenseRef-Callaway-BSD
@@ -51,6 +51,9 @@ rm -f %{buildroot}%{_libdir}/*.a
 %{_fmoddir}/json_*.mod
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 2 2024 Miroslav Suchý <msuchy@redhat.com> - 8.3.0-9
 - convert license to SPDX
 

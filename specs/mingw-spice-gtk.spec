@@ -2,7 +2,7 @@
 
 Name:           mingw-spice-gtk
 Version:        0.42
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A GTK+ widget for SPICE clients
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -175,6 +175,9 @@ find $RPM_BUILD_ROOT -name "*.1" -delete
 %{mingw64_includedir}/spice-client-gtk-3.0
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.42-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.42-7
 - convert license to SPDX
 

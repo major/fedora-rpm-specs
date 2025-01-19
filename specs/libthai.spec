@@ -1,7 +1,7 @@
 Summary:  Thai language support routines
 Name: libthai
 Version: 0.1.29
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: LGPL-2.1-or-later
 Source: http://linux.thai.net/pub/thailinux/software/libthai/libthai-%{version}.tar.xz
 Patch0: libthai-0.1.9-multilib.patch
@@ -64,6 +64,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.29-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.29-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

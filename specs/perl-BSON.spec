@@ -3,7 +3,7 @@
 
 Name:           perl-BSON
 Version:        1.12.2
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        BSON serialization and deserialization
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -118,6 +118,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 1.12.2-15
 - convert license to SPDX
 

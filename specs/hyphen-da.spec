@@ -2,7 +2,7 @@ Name: hyphen-da
 Summary: Danish hyphenation rules
 %global upstreamid 20070903
 Version: 0.%{upstreamid}
-Release: 32%{?dist}
+Release: 33%{?dist}
 Source: http://download.services.openoffice.org/contrib/dictionaries/hyph_da_DK.zip
 URL: http://wiki.services.openoffice.org/wiki/Dictionaries
 Patch0: hyphen-da-lppl-license-fix.patch
@@ -30,6 +30,9 @@ cp -p hyph_da_DK.dic $RPM_BUILD_ROOT/%{_datadir}/hyphen
 %{_datadir}/hyphen/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20070903-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20070903-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

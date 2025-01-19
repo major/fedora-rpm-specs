@@ -1,6 +1,6 @@
 Name:           http-parser
 Version:        2.9.4
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        HTTP request/response parser for C
 
 License:        MIT
@@ -75,6 +75,9 @@ EOF
 %{_libdir}/libhttp_parser_strict.so
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.4-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Jan 12 2025 Carlos Rodriguez-Fernandez <carlosrodrifernandez@gmail.com> - 2.9.4-13
 - Migrated to SPDX license
 

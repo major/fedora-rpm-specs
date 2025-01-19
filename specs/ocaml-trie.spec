@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-trie
 Version:        1.0.0
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Strict impure trie tree
 
 License:        MIT
@@ -44,6 +44,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 1.0.0-28
 - OCaml 5.3.0 rebuild for Fedora 42
 

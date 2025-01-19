@@ -1,6 +1,6 @@
 Name:           perl-Class-Virtual
 Version:        0.08
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Base class for virtual base classes in Perl
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -60,6 +60,9 @@ make test
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 0.08-25
 - convert license to SPDX
 

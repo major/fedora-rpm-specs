@@ -1,6 +1,6 @@
 Name:          par
 Version:       1.53.0
-Release:       15%{?dist}
+Release:       16%{?dist}
 Summary:       Paragraph reformatter, vaguely like fmt, but more elaborate
 License:       LicenseRef-Par
 URL:           http://www.nicemice.net/par/
@@ -48,6 +48,9 @@ install -m 644 par.1 %{buildroot}/%{_mandir}/man1
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.53.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.53.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

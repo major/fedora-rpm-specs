@@ -7,7 +7,7 @@
 
 Name:           libepc
 Version:        0.4.0
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Easy Publish and Consume library
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -102,6 +102,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.4.0-29
 - convert license to SPDX
 

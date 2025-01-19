@@ -1,7 +1,7 @@
 Name: pam_radius
 Summary: PAM Module for RADIUS Authentication
 Version: 3.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 URL: http://www.freeradius.org/pam_radius_auth/
 
@@ -44,6 +44,9 @@ fi
 /%{_lib}/security/pam_radius_auth.so
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 27 2024 Iker Pedrosa <ipedrosa@redhat.com> - 3.0.0-1
 - Rebase to version 3.0.0
 - Remove all downstream patches as they are no longer needed

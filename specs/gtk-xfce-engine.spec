@@ -2,7 +2,7 @@
 
 Name:           gtk-xfce-engine
 Version:        3.2.0
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Xfce GTK theme engine
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -42,6 +42,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 3.2.0-22
 - convert license to SPDX
 

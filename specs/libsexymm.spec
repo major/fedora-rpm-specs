@@ -1,6 +1,6 @@
 Name:           libsexymm
 Version:        0.1.9
-Release:        41%{?dist}
+Release:        42%{?dist}
 
 Summary:        C++ wrapper for libsexy
 
@@ -66,6 +66,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.9-41
 - convert license to SPDX
 

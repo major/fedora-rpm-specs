@@ -3,7 +3,7 @@
 
 Name:           lbrickbuster2
 Version:        2.6.5
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Brickbuster arcade game
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -135,6 +135,9 @@ EOF
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.5-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.6.5-23
 - convert license to SPDX
 

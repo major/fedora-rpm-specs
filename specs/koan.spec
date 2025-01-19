@@ -3,7 +3,7 @@
 
 Name:           koan
 Version:        3.0.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Kickstart over a network
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -60,6 +60,9 @@ koan python%{python3_pkgversion} module.
 %{python3_sitelib}/koan*.egg-info
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 3.0.1-13
 - convert license to SPDX
 

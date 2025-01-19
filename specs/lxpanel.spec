@@ -30,7 +30,7 @@
 %dnl %global		use_gcc_strict_sanitize	1
 
 %global		main_version	0.10.1
-%global		baserelease	1
+%global		baserelease	2
 
 Name:			lxpanel
 Version:		%{main_version}%{git_ver_rpm}
@@ -232,6 +232,9 @@ cd ..
 %{_libdir}/pkgconfig/lxpanel.pc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1^20241223gitd45c45ae-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec 25 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.1^20241223gitd45c45ae-1
 - Update to the latest git
 

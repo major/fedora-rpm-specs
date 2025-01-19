@@ -1,8 +1,9 @@
+%global sname confluent-kafka
 %global pypi_name confluent-kafka
 
-Name:           python-%{pypi_name}
-Version:        1.6.1
-Release:        9%{?dist}
+Name:           python-%{sname}
+Version:        2.4.0
+Release:        1%{?dist}
 Summary:        Confluent's Apache Kafka client for Python
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -14,9 +15,9 @@ Source0:        https://files.pythonhosted.org/packages/source/c/%{pypi_name}/%{
 confluent-kafka-python is Confluent's Python client for Apache Kafka
 and the Confluent Platform.
 
-%package -n     python3-%{pypi_name}
+%package -n     python3-%{sname}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
+%{?python_provide:%python_provide python3-%{sname}}
 BuildRequires:  gcc
 BuildRequires:  librdkafka-devel
 BuildRequires:  python3-devel
@@ -27,15 +28,15 @@ BuildRequires:  python3-setuptools
 
 Requires:       python3-fastavro
 Requires:       python3-requests
-Requires:       librdkafka >= 1.6.1
-%description -n python3-%{pypi_name}
+Requires:       librdkafka >= 2.4.0
+%description -n python3-%{sname}
 confluent-kafka-python is Confluent's Python client for Apache Kafka
 and the Confluent Platform.
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
 # Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+rm -rf %{sname}.egg-info
 
 %build
 %py3_build
@@ -51,13 +52,16 @@ rm -f  %{buildroot}/%{_prefix}/LICENSE.txt
 %py3_check_import confluent_kafka
 #py.test-3 -v --ignore=tests/integration ./tests/
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{sname}
 %license LICENSE.txt
 %doc README.md
 %{python3_sitearch}/confluent_kafka
 %{python3_sitearch}/confluent_kafka-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Jan 15 2025 Javier Peña <jpena@redhat.com> - 2.4.0-1
+- Updated to version 2.4.0
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 1.6.1-9
 - convert license to SPDX
 

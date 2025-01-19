@@ -1,6 +1,6 @@
 Name:           jedit
 Version:        5.6.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Programmer's text editor
 
 License:        GPL-2.0-or-later AND GFDL-1.1-no-invariants-or-later
@@ -92,6 +92,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications --set-icon=%{_da
 %license doc/Apache.LICENSE.txt
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 11 2024 Zdenek Zambersky <zzambers@redhat.com> - 5.6.0-5
 - Added xalan serializer dependency to fix build problem on f41
 

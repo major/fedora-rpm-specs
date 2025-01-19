@@ -2,7 +2,7 @@
 
 Name:           libscrypt
 Version:        1.22
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Library that implements the secure password hashing function "scrypt"
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -57,6 +57,9 @@ make check
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.22-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.22-8
 - convert license to SPDX
 

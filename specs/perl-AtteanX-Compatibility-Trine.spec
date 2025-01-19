@@ -1,6 +1,6 @@
 Name:           perl-AtteanX-Compatibility-Trine
 Version:        0.002
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Compatibility layer between RDF::Trine and Attean
 # COPYRIGHT:    claims to be Public Domain but is not copyrightable
 # other files:  GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -75,6 +75,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.002-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 17 2024 Petr Pisar <ppisar@redhat.com> - 0.002-22
 - Modernize a spec file
 - Package the tests

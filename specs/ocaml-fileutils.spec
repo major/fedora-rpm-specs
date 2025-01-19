@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-fileutils
 Version:        0.6.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OCaml library for common file and filename operations
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -74,6 +74,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 0.6.6-1
 - OCaml 5.3.0 rebuild for Fedora 42
 - Version 0.6.6

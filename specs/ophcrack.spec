@@ -1,6 +1,6 @@
 Name:           ophcrack
 Version:        3.8.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Free Windows password cracker based on rainbow tables
 # Automatically converted from old format: GPLv2+ with exceptions - review is highly recommended.
 License:        LicenseRef-Callaway-GPLv2+-with-exceptions
@@ -77,6 +77,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 3.8.0-17
 - convert license to SPDX
 

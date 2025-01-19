@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.116.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: KDE Frameworks 5 Tier 4 module with porting aid from KDELibs 4
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and BSD - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD
@@ -191,6 +191,9 @@ rm -fv %{buildroot}%{_kf5_sysconfdir}/xdg/kdebugrc
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.116.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 5.116.0-3
 - convert license to SPDX
 

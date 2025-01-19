@@ -1,6 +1,6 @@
 Name:           perl-CGI-Emulate-PSGI
 Version:        0.23
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        PSGI adapter for CGI applications
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CGI-Emulate-PSGI
@@ -47,6 +47,9 @@ in a PSGI environment, and thus on any of the back-ends that PSGI supports.
 %{_mandir}/man3/CGI*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

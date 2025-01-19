@@ -1,6 +1,6 @@
 Name:		open-amp
 Version:	2024.10.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Open Asymmetric Multi Processing (OpenAMP) framework project
 License:	BSD-3-Clause OR BSD-2-Clause
 URL:		https://github.com/OpenAMP/open-amp/
@@ -78,6 +78,9 @@ baremetal, and RTOS environments.
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.10.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Nov 10 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 2024.10.0-1
 - Update to 2024.10.0
 

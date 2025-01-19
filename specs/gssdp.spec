@@ -1,6 +1,6 @@
 Name:          gssdp
 Version:       1.6.3
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       Resource discovery and announcement over SSDP
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -83,6 +83,9 @@ This package contains developer documentation for %{name}.
 %{_docdir}/gssdp-1.6/
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.6.3-4
 - convert license to SPDX
 

@@ -18,7 +18,7 @@
 
 Name:		hitch
 Version:	1.8.0
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Network proxy that terminates TLS/SSL connections
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -133,6 +133,9 @@ useradd -r -g %{hitch_group} -s /sbin/nologin -d %{hitch_homedir} %{hitch_user} 
 %ghost %verify(not md5 size mtime)  /run/%{name}/%{name}.pid
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.8.0-6
 - convert license to SPDX
 

@@ -4,7 +4,7 @@
 
 Name:           mysqltuner
 Version:        2.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MySQL configuration assistant
 
 License:        GPL-3.0-or-later
@@ -45,6 +45,9 @@ install -Dpm 644 vulnerabilities.csv $RPM_BUILD_ROOT%{_datadir}/mysqltuner/vulne
 %{_datadir}/mysqltuner/vulnerabilities.csv
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 josef radinger <cheese@nosuchhost.net> - 2.6.0-1
 - bump version
 - add basic_passwords.txt and vulnerabilities.csv

@@ -1,6 +1,6 @@
 Name:		mmv
 Version:	2.9.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Move/copy/link multiple files
 
 License:	GPL-3.0-or-later
@@ -44,6 +44,9 @@ make check
 %{_mandir}/man1/*.1*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 08 2024 Jens Kuehnel <JensKuehnel@users.noreply.github.com> - 2.9.1-1
 - release 2.9.1
 - fixes setuid call as marked by rpmlint

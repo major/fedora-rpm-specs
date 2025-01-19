@@ -6,7 +6,7 @@
 Name:           mingw-python-%{pkg_name}
 Summary:        MinGW Python %{pkg_name}
 Version:        1.17.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 BuildArch:      noarch
 
 License:        BSD-2-Clause
@@ -83,6 +83,9 @@ rm -rf pyqtbuild/bundle/dlls/
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 10 2024 Sandro Mani <manisandro@gmail.com> - 1.17.0-2
 - Fix pylib_lib in PyQt-builder_mingw.patch
 

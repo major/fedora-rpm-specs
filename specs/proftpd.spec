@@ -17,9 +17,9 @@
 %undefine _strict_symbol_defs_build
 
 #global prever rc4
-%global baserelease 1
+%global baserelease 2
 %global mod_proxy_version 0.9.4
-%global mod_vroot_version 0.9.11
+%global mod_vroot_version 0.9.12
 
 Summary:		Flexible, stable and highly-configurable FTP server
 Name:			proftpd
@@ -48,6 +48,7 @@ Patch10:		mod_proxy-certificate.patch
 Patch11:		mod_proxy-old-openssl.patch
 Patch12:		proftpd-1.3.8c-no-engine.patch
 Patch13:		proftpd-1.3.8b-format-overflow.patch
+Patch14:		proftpd-1.3.8c-c23.patch
 
 BuildRequires:		coreutils
 BuildRequires:		gcc
@@ -246,6 +247,10 @@ mv contrib/README contrib/README.contrib
 # Avoid potential null pointer dereference in mod_tls and mod_proxy
 # https://github.com/proftpd/proftpd/pull/1817
 %patch -P 13 -p1 -b .format-overflow
+
+# Fix for C23 compatibility
+# These are already non-issues in proftpd 1.3.9 upstream
+%patch -P 14 -p0 -b .c23
 
 # Tweak logrotate script for systemd compatibility (#802178)
 sed -i -e '/killall/s/test.*/systemctl try-reload-or-restart proftpd.service/' \
@@ -484,6 +489,12 @@ fi
 %{_mandir}/man1/ftpwho.1*
 
 %changelog
+* Fri Jan 17 2025 Paul Howarth <paul@city-fan.org> - 1.3.8c-2
+- Fixes for C23 compatibility
+- Update mod_vroot to 0.9.12
+  - Implement a realpath(3) callback for the FSIO API, for better
+    interoperability of other modules when mod_vroot is in effect
+
 * Thu Dec 12 2024 Paul Howarth <paul@city-fan.org> - 1.3.8c-1
 - Update to 1.3.8c
   - Using FTPS after upgrading from 1.3.8a to 1.3.8b lead to crash (GH#1770)

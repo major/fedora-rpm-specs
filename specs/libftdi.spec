@@ -1,6 +1,6 @@
 Name:		libftdi
 Version:	1.5
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	Library to program and control the FTDI USB controller
 
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
@@ -128,6 +128,9 @@ rm -f %{buildroot}%{_datadir}/doc/libftdipp1/example.conf
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Oct 16 2024 Jitka Plesnikova <jplesnik@redhat.com> - 1.5-16
 - Fix for SWIG 4.3.0 (rhbz#2319133)
 

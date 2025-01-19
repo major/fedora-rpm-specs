@@ -12,7 +12,7 @@
 Name:    kwebkitpart
 Summary: A KPart based on QtWebKit
 Version: 1.4.0
-Release: 0.18.%{snap}%{?dist}
+Release: 0.19.%{snap}%{?dist}
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
@@ -107,6 +107,9 @@ fi
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-0.19.20190110
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.4.0-0.18.20190110
 - convert license to SPDX
 

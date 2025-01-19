@@ -1,6 +1,6 @@
 Name:		libmseed
 Version:	2.19.5
-Release:	19%{?dist}
+Release:	20%{?dist}
 License:	LGPL-3.0-or-later
 Summary:	A C library framework for manipulating and managing SEED data records
 Url:		https://www.iris.edu/ds/nodes/dmc/software/downloads/libmseed
@@ -85,6 +85,9 @@ popd
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.19.5-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.19.5-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

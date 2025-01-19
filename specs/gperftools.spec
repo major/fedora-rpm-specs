@@ -4,7 +4,7 @@
 
 Name:		gperftools
 Version:	2.15
-Release:	4%{?dist}
+Release:	5%{?dist}
 License:	BSD-3-Clause
 Summary:	Very fast malloc and performance analysis tools
 URL:		https://github.com/gperftools/gperftools
@@ -121,6 +121,9 @@ rm -rf %{buildroot}%{_pkgdocdir}/INSTALL
 %{_libdir}/*.so.*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.15-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug  7 2024 Tom Callaway <spot@fedoraproject.org> - 2.15-4
 - include COPYING (bz2295840)
 

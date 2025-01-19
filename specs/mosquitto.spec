@@ -2,7 +2,7 @@
 
 Name:           mosquitto
 Version:        2.0.20
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Open Source MQTT v5/v3.1.x Broker
 
 License:        EPL-2.0
@@ -108,6 +108,9 @@ make test
 %{_mandir}/man3/libmosquitto.3.*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.20-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 31 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 2.0.20-3
 - Move to building with CMake
 - Fix libdir in pkgconf files

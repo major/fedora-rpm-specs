@@ -3,7 +3,7 @@
 
 Name:           %{fontname}-fonts
 Version:        20031109
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Handwriting font
 
 # Automatically converted from old format: OFL - review is highly recommended.
@@ -52,6 +52,9 @@ install -Dm 0644 -p %{SOURCE2} \
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20031109-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 20031109-30
 - convert license to SPDX
 

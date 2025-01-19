@@ -1,6 +1,6 @@
 Name:           perl-CGI-Application-Plugin-MessageStack
 Version:        0.34
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Message stack for your CGI::Application
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -50,6 +50,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 0.34-42
 - convert license to SPDX
 

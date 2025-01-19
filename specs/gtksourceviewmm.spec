@@ -2,7 +2,7 @@
 
 Name:             gtksourceviewmm
 Version:          2.10.3
-Release:          29%{?dist}
+Release:          30%{?dist}
 Summary:          A C++ wrapper for the gtksourceview widget library
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -90,6 +90,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.3-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.10.3-29
 - convert license to SPDX
 

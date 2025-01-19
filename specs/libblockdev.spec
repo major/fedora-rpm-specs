@@ -86,7 +86,7 @@
 
 Name:        libblockdev
 Version:     3.2.1
-Release:     1%{?dist}
+Release:     2%{?dist}
 Summary:     A library for low-level manipulation with block devices
 License:     LGPL-2.1-or-later
 URL:         https://github.com/storaged-project/libblockdev
@@ -958,6 +958,9 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 %files plugins-all
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Nov 07 2024 Vojtech Trefny <vtrefny@redhat.com> - 3.2.1-1
 - Makefile: Fix generating RPM log during bumpver (vtrefny)
 - nvme: Avoid element-type g-i annotations (tbzatek)

@@ -2,7 +2,7 @@
 
 Name:           mingw-libssh2
 Version:        1.9.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        MinGW Windows library implementation of the SSH2 protocol
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -121,6 +121,9 @@ rm -r $RPM_BUILD_ROOT%{mingw64_mandir}/man3
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.9.0-16
 - convert license to SPDX
 

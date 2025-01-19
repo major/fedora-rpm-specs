@@ -3,7 +3,7 @@
 
 Name:           perl-Crypt-Random-Seed
 Version:        0.03
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Simple method to get strong randomness
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-Random-Seed
@@ -107,6 +107,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 25 2024 Petr Pisar <ppisar@redhat.com> - 0.03-30
 - Modernize a spec file
 - Package the tests

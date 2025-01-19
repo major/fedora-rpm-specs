@@ -76,7 +76,7 @@
 Name:           jd
 Epoch:          1
 Version:        %{main_ver}%{?strtag:.%{strtag}}%{?pre_ver:~%{pre_ver}}%{gitver_rpm}
-Release:        1%{?dist}%{flagrel}
+Release:        2%{?dist}%{flagrel}
 Summary:        A 2ch browser
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -211,6 +211,9 @@ export ASAN_OPTIONS=detect_leaks=0
 %{_datadir}/icons/hicolor/*/apps/jdim.*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.13.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jan 11 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:0.13.0-1
 - 0.13.0
 

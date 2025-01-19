@@ -5,7 +5,7 @@
 BuildArch: noarch
 
 Version: 3.020
-Release: 38.20140930%{?dist}
+Release: 39.20140930%{?dist}
 License: OFL-1.1
 URL:     http://hangeul.naver.com
 
@@ -148,6 +148,9 @@ cp %{SOURCE1} COPYING
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.020-39.20140930
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.020-38.20140930
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

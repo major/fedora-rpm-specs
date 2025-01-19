@@ -1,7 +1,7 @@
 Summary:	Support library for writing LV2 plugins in C++
 Name:		lv2-c++-tools
 Version:	1.0.5
-Release:	23%{?dist}
+Release:	24%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:	GPL-3.0-or-later
 URL:		http://ll-plugins.nongnu.org/hacking.html
@@ -77,6 +77,9 @@ ln -sf libpaq.so.0.0.0 %{buildroot}%{_libdir}/libpaq.so.0
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.5-23
 - convert license to SPDX
 

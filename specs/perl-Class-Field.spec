@@ -1,6 +1,6 @@
 Name:           perl-Class-Field
 Version:        0.24
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Class Field Accessor Generator
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -53,6 +53,9 @@ make test
 %{_mandir}/man3/Class*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 0.24-18
 - convert license to SPDX
 

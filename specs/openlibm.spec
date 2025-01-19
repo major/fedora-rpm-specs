@@ -3,7 +3,7 @@
 Summary:        High quality system independent, open source libm
 Name:           openlibm
 Version:        0.7.5
-Release:        10%{?dist}
+Release:        11%{?dist}
 # Automatically converted from old format: BSD and MIT and ISC and Public Domain - review is highly recommended.
 License:        LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT AND ISC AND LicenseRef-Callaway-Public-Domain
 Source0:        https://github.com/JuliaLang/openlibm/archive/v%{version}.tar.gz
@@ -82,6 +82,9 @@ rm %{buildroot}/%{_libdir}/libopenlibm.a
 %endif
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.5-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.7.5-10
 - convert license to SPDX
 

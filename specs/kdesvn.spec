@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 Name:           kdesvn
 Version:        2.1.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Subversion client for KDE
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -95,6 +95,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.1.0-12
 - convert license to SPDX
 

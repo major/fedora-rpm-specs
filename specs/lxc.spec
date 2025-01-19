@@ -13,7 +13,7 @@
 
 Name:           lxc
 Version:        6.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Linux Resource Containers
 # Automatically converted from old format: LGPLv2+ and GPLv2 - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+ AND GPL-2.0-only
@@ -277,6 +277,9 @@ cp -a %{SOURCE1} %{buildroot}%{_sysconfdir}/sysconfig/%{name}-net
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Sep 21 2024 Sérgio Basto <sergio@serjux.com> - 6.0.2-1
 - Update lxc to 6.0.2 (#2313692)
 

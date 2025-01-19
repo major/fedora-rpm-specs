@@ -1,6 +1,6 @@
 Name:           gtkdatabox
 Version:        1.0.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        GTK+ widget for fast data display
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -82,6 +82,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_datadir}/glade/catalogs/gtkdatabox.xml
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.0-11
 - convert license to SPDX
 

@@ -8,7 +8,7 @@
 
 Name:           myproxy
 Version:        6.2.16
-Release:        6%{?dist}
+Release:        8%{?dist}
 Summary:        Manage X.509 Public Key Infrastructure (PKI) security credentials
 
 License:        NCSA AND BSD-4-Clause AND BSD-2-Clause AND Apache-2.0
@@ -23,6 +23,8 @@ Patch0:         0001-MyProxy-change-private-key-cipher-to-EVP_aes_256_cbc.patch
 Patch1:         0001-Handle-64-bit-time_t-on-32-bit-systems.patch
 #               https://github.com/gridcf/gct/pull/234
 Patch2:         0001-Make-OpenSSL-engine-optional.patch
+#               https://github.com/gridcf/gct/pull/237
+Patch3:         0001-Fix-compilation-with-GCC-15-Fedora-42.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -166,6 +168,7 @@ Package %{name}-doc contains the MyProxy documentation.
 %patch -P0 -p3
 %patch -P1 -p3
 %patch -P2 -p3
+%patch -P3 -p3
 
 %build
 # Reduce overlinking
@@ -327,6 +330,12 @@ rm %{buildroot}%{_sbindir}/myproxy-server-setup
 %license LICENSE*
 
 %changelog
+* Fri Jan 17 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.2.16-8
+- Fix incompatible pointer errors (gcc 15)
+
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.16-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Nov 02 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.2.16-6
 - Make OpenSSL engine optional
 

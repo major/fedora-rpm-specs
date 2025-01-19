@@ -4,7 +4,7 @@
 
 Name:		libyui-gtk
 Version:	2.52.5
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Gtk3 User Interface for libyui
 
 # Automatically converted from old format: LGPLv2 or LGPLv3 - review is highly recommended.
@@ -68,6 +68,9 @@ for %{name} which is not covered within the UI-plugin.
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.52.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.52.5-3
 - convert license to SPDX
 

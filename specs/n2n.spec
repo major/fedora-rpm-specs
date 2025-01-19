@@ -1,6 +1,6 @@
 Name:           n2n
 Version:        2.1.0
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        A layer-two peer-to-peer virtual private network
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -44,6 +44,9 @@ make INSTALL="install -p" install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 2.1.0-29
 - convert license to SPDX
 

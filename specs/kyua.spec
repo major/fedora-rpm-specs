@@ -3,7 +3,7 @@
 
 Name:           kyua
 Version:        0.13
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Testing framework for infrastructure software
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -83,6 +83,9 @@ HOME=$(pwd)/check %make_build check %{_make_args}
 %{_libexecdir}/%{name}/
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.13-17
 - convert license to SPDX
 

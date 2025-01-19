@@ -1,6 +1,6 @@
 Name:           libpgf
 Version:        7.21.7
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        PGF (Progressive Graphics File) library
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -73,6 +73,9 @@ export CXXFLAGS="%{optflags} -DLIBPGF_DISABLE_OPENMP -std=c++14"
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.21.7-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 7.21.7-6
 - convert license to SPDX
 

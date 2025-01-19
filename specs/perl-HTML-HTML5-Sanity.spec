@@ -1,6 +1,6 @@
 Name:           perl-HTML-HTML5-Sanity
 Version:        0.105
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Make HTML5 DOM trees less insane
 # CONTRIBUTING: CC-BY-SA
 # COPYRIGHT:    Public Domain
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.105-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.105-18
 - convert license to SPDX
 

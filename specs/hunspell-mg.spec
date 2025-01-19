@@ -8,7 +8,7 @@ Name: hunspell-mg
 Summary: Malagasy hunspell dictionaries
 %global upstreamid 20050109
 Version: 0.%{upstreamid}
-Release: 34%{?dist}
+Release: 35%{?dist}
 Source: http://download.services.openoffice.org/contrib/dictionaries/mg_MG.zip
 URL: http://borel.slu.edu/crubadan/apps.html
 License: GPL-2.0-or-later
@@ -54,6 +54,9 @@ popd
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20050109-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20050109-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

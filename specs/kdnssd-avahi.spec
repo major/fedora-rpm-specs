@@ -4,7 +4,7 @@
 Summary: KDE zeroconf implementation based on avahi
 Name:	 kdnssd-avahi
 Version: 0.1.3
-Release: 0.46.%{beta}%{?dist}
+Release: 0.47.%{beta}%{?dist}
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
@@ -99,6 +99,9 @@ export QA_RPATHS=0x0001
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-0.47.20080116svn
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.3-0.46.20080116svn
 - convert license to SPDX
 

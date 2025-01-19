@@ -1,6 +1,6 @@
 Name:           maven-invoker
 Version:        3.1.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Fires a maven build in a clean environment
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -69,6 +69,9 @@ sed -i 's/\r$//' src/test/java/org/apache/maven/shared/invoker/DefaultInvokerTes
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 3.1.0-15
 - convert license to SPDX
 

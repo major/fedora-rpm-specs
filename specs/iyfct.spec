@@ -4,7 +4,7 @@
 
 Name:           iyfct
 Version:        1.0.2
-Release:        %{gitdate}git.%{shortcommit}%{?dist}.15
+Release:        %{gitdate}git.%{shortcommit}%{?dist}.16
 Summary:        Side scrolling endless runner game
 
 #See LICENSE file in source for details
@@ -77,6 +77,9 @@ install -p -D -m 0644 %{name}.png \
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-20180819git.ac4555d.16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.2-20180819git.ac4555d.15
 - convert license to SPDX
 

@@ -2,7 +2,7 @@
 
 Name:           maven-invoker-plugin
 Version:        3.2.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Maven Invoker Plugin
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -73,6 +73,9 @@ API documentation for %{name}.
 %license LICENSE NOTICE
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 3.2.2-13
 - convert license to SPDX
 

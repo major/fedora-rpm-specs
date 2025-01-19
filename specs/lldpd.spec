@@ -1,6 +1,6 @@
 Name:     lldpd
 Version:  1.0.18
-Release:  2%{?dist}
+Release:  3%{?dist}
 Summary:  ISC-licensed implementation of LLDP
 License:  ISC
 
@@ -114,6 +114,9 @@ exit 0
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.18-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.18-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

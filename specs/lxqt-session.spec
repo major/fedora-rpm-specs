@@ -1,7 +1,7 @@
 Name:          lxqt-session
 Summary:       Main session for LXQt desktop suite
 Version:       2.1.1
-Release:       2%{?dist}
+Release:       3%{?dist}
 License:       LGPL-2.1-only
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -110,6 +110,9 @@ sed -i 's/cursor_theme=whiteglass/cursor_theme=breeze_cursors/g;/General/a windo
 %{_datadir}/lxqt/translations/lxqt-session/lxqt-session_arn.qm
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Dec 28 2024 Neal Gompa <ngompa@fedoraproject.org> - 2.1.1-2
 - Drop niri and Hyprland options
 

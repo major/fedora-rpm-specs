@@ -1,6 +1,6 @@
 Name:		nemiver
 Version:	0.9.6
-Release:	25%{?dist}
+Release:	26%{?dist}
 Summary:	A GNOME C/C++ Debugger
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -148,6 +148,9 @@ desktop-file-install                                    \
 %{_mandir}/man?/%{name}.*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.9.6-25
 - convert license to SPDX
 

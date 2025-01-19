@@ -3,7 +3,7 @@
 
 Name:		%{fontname}-fonts
 Version:	1.1
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	NotCourier Sans is a re-interpretation of Nimbus Mono
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -69,6 +69,9 @@ install -Dm 0644 -p %{SOURCE2} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1-30
 - convert license to SPDX
 

@@ -3,7 +3,7 @@
 
 Name:           perl-HTML-Strip
 Version:        2.12
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Perl extension for stripping HTML markup from text
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -69,6 +69,9 @@ unset RELEASE_TESTING
 %{_mandir}/man3/HTML*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.12-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.12-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

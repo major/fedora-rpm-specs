@@ -35,7 +35,7 @@
 
 %undefine		_changelog_trimtime
 
-%global		baserelease	1
+%global		baserelease	2
 
 Name:			lxterminal
 Version:		%{main_version}%{git_ver_rpm}
@@ -189,6 +189,9 @@ cd ..
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0^20240821gitda62ee20-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Aug 25 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.4.0^20240821gitda62ee20-1
 - Update to the latest git
 

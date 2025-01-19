@@ -1,6 +1,6 @@
 Name:           netcdf-perl
 Version:        1.2.4
-Release:        53%{?dist}
+Release:        54%{?dist}
 Summary:        Perl extension module for scientific data access via the netCDF API
 
 # Automatically converted from old format: NetCDF - review is highly recommended.
@@ -69,6 +69,9 @@ make test
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-54
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2.4-53
 - convert license to SPDX
 

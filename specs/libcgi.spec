@@ -13,7 +13,7 @@
 
 Name:           libcgi
 Version:        1.0
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        CGI easy as C
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -102,6 +102,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libcgi.a
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0-41
 - convert license to SPDX
 

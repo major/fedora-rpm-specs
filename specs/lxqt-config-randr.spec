@@ -10,9 +10,9 @@
 Name:           lxqt-config-randr
 Version:        0.1.2
 %if 0%{?gitdate}
-Release:        23.%{gitdate}git%(c=%{commit0}; echo ${c:0:7} )%{?dist}
+Release:        24.%{gitdate}git%(c=%{commit0}; echo ${c:0:7} )%{?dist}
 %else
-Release:        22%{?dist}
+Release:        23%{?dist}
 %endif
 Summary:        GUI interface to RandR extension
 
@@ -91,6 +91,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-24.20140202git6ada849
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.2-23.20140202git6ada849
 - convert license to SPDX
 

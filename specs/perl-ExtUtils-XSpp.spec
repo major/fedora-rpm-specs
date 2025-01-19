@@ -1,7 +1,7 @@
 Name:           perl-ExtUtils-XSpp
 Epoch:          1
 Version:        0.18
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        C++ variant of Perl's XS language
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ExtUtils-XSpp
@@ -64,6 +64,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man?/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.18-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.18-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

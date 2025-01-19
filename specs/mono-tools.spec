@@ -3,7 +3,7 @@
 Name:    mono-tools
 Summary: A collection of tools for mono applications
 Version: 4.2
-Release: 31%{?dist}
+Release: 32%{?dist}
 License: MIT
 URL:     http://www.mono-project.com/Main_Page
 Source0: http://download.mono-project.com/sources/%{name}/%{name}-%{version}.tar.gz
@@ -159,6 +159,9 @@ test "%{_libdir}" = "%{_prefix}/lib" || mv %{buildroot}%{_prefix}/lib/pkgconfig/
 %{_mandir}/man5/gendarme*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

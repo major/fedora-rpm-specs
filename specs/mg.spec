@@ -1,6 +1,6 @@
 Name:          mg
 Version:       20240709
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Tiny Emacs-like editor
 License:       LicenseRef-Fedora-Public-Domain
 URL:           https://github.com/hboetes/mg
@@ -31,6 +31,9 @@ rm -rf %{buildroot}
 %{_mandir}/man1/mg.1.*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20240709-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 25 2024 Mark McKinstry <mmckinst@fedoraproject.org> - 20240709-3
 - change license to LicenseRef-Fedora-Public-Domain (RHBZ#2328778)
 

@@ -17,7 +17,7 @@
 Name:           ldc
 Epoch:          1
 Version:        1.40.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        LLVM D Compiler
 
 # The DMD frontend in dmd/* GPL version 1 or artistic license
@@ -152,6 +152,9 @@ install --mode=0644 %{SOURCE3} %{buildroot}%{_rpmconfigdir}/macros.d/macros.ldc
 %{_libdir}/libphobos2-ldc-shared.so.%{soversion}*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.40.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec 18 2024 Kalev Lember <klember@redhat.com> - 1:1.40.0-2
 - Drop unused gc build dep
 

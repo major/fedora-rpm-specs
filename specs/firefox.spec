@@ -207,6 +207,7 @@ Source1:        firefox-langpacks-%{version}%{?pre_version}-20250115.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source3:        dump_syms-vendor.tar.xz
+Source4:        wasm-component-ld-vendor.tar.xz
 Source10:       firefox-mozconfig
 Source12:       firefox-redhat-default-prefs.js
 Source20:       firefox.desktop
@@ -567,7 +568,7 @@ This package contains results of tests executed during build.
 
 # We need to create the wasi.patch with the correct path to the wasm libclang_rt.
 %if %{with wasi_sdk}
-export LIBCLANG_RT=`pwd`/wasi-sdk-25/build/sysroot/install/wasi-resource-dir/lib/wasi/libclang_rt.builtins-wasm32.a; cat %{SOURCE49} | envsubst > %{_sourcedir}/wasi.patch
+cat %{SOURCE49} | sed -e "s|LIBCLANG_RT_PLACEHOLDER|`pwd`/wasi-sdk-25/build/sysroot/install/wasi-resource-dir/lib/wasi/libclang_rt.builtins-wasm32.a|" > %{_sourcedir}/wasi.patch
 %patch -P80 -p1 -b .wasi
 %endif
 
@@ -734,15 +735,28 @@ chmod a-x third_party/rust/ash/src/extensions/nv/*.rs
 %if %{with wasi_sdk}
 pushd wasi-sdk-25
 
-NINJA_FLAGS=-v CC=clang CXX=clang++ env -u CFLAGS -u CXXFLAGS -u FFLAGS -u VALFLAGS -u RUSTFLAGS -u LDFLAGS -u LT_SYS_LIBRARY_PATH cmake -G Ninja -B build/toolchain -S . -DWASI_SDK_BUILD_TOOLCHAIN=ON -DCMAKE_INSTALL_PREFIX=build/install
-NINJA_FLAGS=-v CC=clang CXX=clang++ env -u CFLAGS -u CXXFLAGS -u FFLAGS -u VALFLAGS -u RUSTFLAGS -u LDFLAGS -u LT_SYS_LIBRARY_PATH cmake --build build/toolchain --target install
+mkdir -p my_rust_vendor
+cd my_rust_vendor
+tar xf %{SOURCE4}
+mkdir -p .cargo
+cat > .cargo/config <<EOL
+[source.crates-io]
+replace-with = "vendored-sources"
 
-NINJA_FLAGS=-v CC=clang CXX=clang++ env -u CFLAGS -u CXXFLAGS -u FFLAGS -u VALFLAGS -u RUSTFLAGS -u LDFLAGS -u LT_SYS_LIBRARY_PATH cmake -G Ninja -B build/sysroot -S . \
+[source.vendored-sources]
+directory = "`pwd`"
+EOL
+cd -
+
+CARGO_HOME=`pwd`/my_rust_vendor/.cargo NINJA_FLAGS=-v CC=clang CXX=clang++ env -u CFLAGS -u CXXFLAGS -u FFLAGS -u VALFLAGS -u RUSTFLAGS -u LDFLAGS -u LT_SYS_LIBRARY_PATH cmake -G Ninja -B build/toolchain -S . -DWASI_SDK_BUILD_TOOLCHAIN=ON -DCMAKE_INSTALL_PREFIX=build/install
+CARGO_HOME=`pwd`/my_rust_vendor/.cargo NINJA_FLAGS=-v CC=clang CXX=clang++ env -u CFLAGS -u CXXFLAGS -u FFLAGS -u VALFLAGS -u RUSTFLAGS -u LDFLAGS -u LT_SYS_LIBRARY_PATH cmake --build build/toolchain --target install
+
+CARGO_HOME=`pwd`/my_rust_vendor/.cargo NINJA_FLAGS=-v CC=clang CXX=clang++ env -u CFLAGS -u CXXFLAGS -u FFLAGS -u VALFLAGS -u RUSTFLAGS -u LDFLAGS -u LT_SYS_LIBRARY_PATH cmake -G Ninja -B build/sysroot -S . \
     -DCMAKE_INSTALL_PREFIX=build/install \
     -DCMAKE_TOOLCHAIN_FILE=build/install/share/cmake/wasi-sdk.cmake \
     -DCMAKE_C_COMPILER_WORKS=ON \
     -DCMAKE_CXX_COMPILER_WORKS=ON
-NINJA_FLAGS=-v CC=clang CXX=clang++ env -u CFLAGS -u CXXFLAGS -u FFLAGS -u VALFLAGS -u RUSTFLAGS -u LDFLAGS -u LT_SYS_LIBRARY_PATH cmake --build build/sysroot --target install
+CARGO_HOME=`pwd`/my_rust_vendor/.cargo NINJA_FLAGS=-v CC=clang CXX=clang++ env -u CFLAGS -u CXXFLAGS -u FFLAGS -u VALFLAGS -u RUSTFLAGS -u LDFLAGS -u LT_SYS_LIBRARY_PATH cmake --build build/sysroot --target install
 
 popd
 %endif

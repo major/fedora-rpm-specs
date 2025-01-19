@@ -10,7 +10,7 @@
 
 Name:           perl-Gtk2
 Version:        1.24993
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Perl interface to the 2.x series of the Gimp Toolkit library
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -281,6 +281,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.24993-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.24993-19
 - convert license to SPDX
 

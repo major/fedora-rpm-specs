@@ -6,7 +6,7 @@ It contains a web server, numerous chat clients, chat servers, mail servers
 and more.}
 
 Name:           python-%{srcname}
-Version:        23.10.0
+Version:        24.10.0
 Release:        %autorelease
 Summary:        Twisted is a networking engine written in Python
 
@@ -14,45 +14,8 @@ License:        MIT
 URL:            http://twistedmatrix.com/
 VCS:            https://github.com/twisted/twisted
 Source0:        %vcs/archive/%{srcname}-%{version}/%{srcname}-%{version}.tar.gz
-# https://github.com/twisted/twisted/pull/12027
-# https://github.com/twisted/twisted/issues/12026
-Patch1:         0001-Adjust-to-deprecation-of-3-arg-signature-of-generato.patch
-# downstream-only fix tests, skip network tests that fail in buildsys
-Patch2:         0002-23.10.0-fix-and-skip-tests-fedora.patch
-# https://github.com/twisted/twisted/issues/12052
-# https://github.com/twisted/twisted/pull/12054
-Patch3:         0003-python3.12.1.patch
-
-# Three backported upstream commits to remove cgi module (removed from Python 3.13)
-# https://github.com/twisted/twisted/commit/e6bf82b0a703e4bc78934d
-# https://github.com/twisted/twisted/commit/2bceedc79f86c750f27432
-# https://github.com/twisted/twisted/commit/4579398f6b089f93181ba2
-Patch4:         0004-Remove-the-usage-of-cgi.parse_multipart.patch
-
-# In Python 3.13 line numbers returned by findlinestarts
-# can be None for bytecode that does not map to source lines.
-# https://github.com/twisted/twisted/pull/12059
-Patch5:         0005-Update-dis.findlinestarts-for-Python-3.13.patch
-
-# Fix inlineCallbacks tests on Python 3.13
-# https://github.com/twisted/twisted/pull/12092
-Patch6:         0006-fix-inlinecb-tests.patch
-
-# Fix stripped indentation (change of behaviour with Python 3.13)
-Patch7:         https://github.com/twisted/twisted/pull/12064.patch
-
-# Update twisted.python._shellcomp.ZshArgumentsGenerator for Python 3.13
-# Merged upstream: https://github.com/twisted/twisted/pull/12066
-Patch8:         https://github.com/twisted/twisted/pull/12066.patch
-
-# Reported: https://github.com/twisted/twisted/issues/12098
-Patch9:         0009-Account-with-the-new-traceback-pointing-characters.patch
-
-# With Python 3.13.0b1 there are issues with test_flatten
-# https://github.com/twisted/twisted/issues/12194
-# Skip the last failing tests, reported:
-# https://github.com/twisted/twisted/issues/12099
-Patch10:        0010-Skip-failing-tests.patch
+# downstream-only disable tests that fail in the buildsystem or due to sha1
+Patch0:         python-twisted-24.10.0-disable-tests.patch
 
 BuildArch:      noarch
 
@@ -61,12 +24,19 @@ BuildArch:      noarch
 %package -n python3-%{srcname}
 Summary:        %{summary}
 
-BuildRequires:  python3-devel >= 3.3
-BuildRequires:  python3-pyasn1-modules, python3-cryptography, python3-pynacl
-BuildRequires:  python3-service-identity, python3-pyOpenSSL, python3-h2
-BuildRequires:  python3-bcrypt, python3-subunit
-BuildRequires:  python3-hamcrest, python3-hypothesis
 BuildRequires:  git-core
+BuildRequires:  python3-bcrypt
+BuildRequires:  python3-cryptography
+BuildRequires:  python3-devel >= 3.3
+BuildRequires:  python3-h2
+BuildRequires:  python3-hamcrest
+BuildRequires:  python3-httpx
+BuildRequires:  python3-hypothesis
+BuildRequires:  python3-pyasn1-modules
+BuildRequires:  python3-pynacl
+BuildRequires:  python3-pyOpenSSL
+BuildRequires:  python3-service-identity
+BuildRequires:  python3-subunit
 
 Recommends:  python3-%{srcname}+tls
 

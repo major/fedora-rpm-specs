@@ -3,7 +3,7 @@
 
 Name:           kpartsplugin
 Version:        0.0.1
-Release:        0.34.%{snap}%{?dist}
+Release:        0.35.%{snap}%{?dist}
 Summary:        KParts technology to embed file viewers into non-KDE browsers
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -55,6 +55,9 @@ make install/fast -C %{_target_platform} DESTDIR=%{buildroot}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-0.35.20120723
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.0.1-0.34.20120723
 - convert license to SPDX
 

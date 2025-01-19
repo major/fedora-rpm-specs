@@ -1,7 +1,7 @@
 Name:           perl-Catalyst-Plugin-Session-State-Cookie
 Summary:        Maintain session IDs using cookies
 Version:        0.18
-Release:        13%{?dist}
+Release:        14%{?dist}
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/H/HA/HAARG/Catalyst-Plugin-Session-State-Cookie-%{version}.tar.gz
@@ -70,6 +70,9 @@ client, through a cookie.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 0.18-13
 - convert license to SPDX
 

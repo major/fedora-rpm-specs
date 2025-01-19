@@ -1,6 +1,6 @@
 Name:           perl-Config-Model-Itself
 Version:        2.023
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Model editor for Config::Model
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -88,6 +88,9 @@ install -D -m 0644 contrib/bash_completion.cme_meta %{buildroot}%{_sysconfdir}/b
 %config(noreplace) %{_sysconfdir}/bash_completion.d/cme_meta
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.023-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.023-9
 - convert license to SPDX
 

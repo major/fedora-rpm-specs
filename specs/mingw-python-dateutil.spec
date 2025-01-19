@@ -7,7 +7,7 @@
 Name:          mingw-python-%{mod_name}
 Summary:       MinGW Windows Python %{pypi_name} library
 Version:       2.8.2
-Release:       9%{?dist}
+Release:       10%{?dist}
 BuildArch:     noarch
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -74,6 +74,9 @@ sed -i 's|{version}|%{version}|' setup.py
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.8.2-9
 - convert license to SPDX
 

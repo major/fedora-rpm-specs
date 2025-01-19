@@ -1,6 +1,6 @@
 Name:		numix-gtk-theme
 Version:	2.6.7
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	Numix Gtk Theme
 
 Source:		https://github.com/numixproject/numix-gtk-theme/archive/%{version}.tar.gz#/numix-gtk-theme-%{version}.tar.gz
@@ -62,6 +62,9 @@ end
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.7-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.6.7-15
 - convert license to SPDX
 

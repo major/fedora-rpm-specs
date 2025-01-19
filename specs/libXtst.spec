@@ -5,7 +5,7 @@
 Summary: X.Org X11 libXtst runtime library
 Name: libXtst
 Version: 1.2.5
-Release: 1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Release: 2%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 License: MIT-open-group AND HPND-sell-variant AND X11 AND HPND-doc AND HPND-doc-sell
 URL: http://www.x.org
 
@@ -73,6 +73,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}
 %{_mandir}/man3/XTest*.3*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Aug 02 2024 José Expósito <jexposit@redhat.com> 1.2.5-1
 - libXtst 1.2.5
 

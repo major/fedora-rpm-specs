@@ -1,7 +1,7 @@
 Summary:        Encrypt Data with Cipher Block Chaining Mode
 Name:           perl-Crypt-CBC
 Version:        3.04
-Release:        16%{?dist}
+Release:        17%{?dist}
 # Upstream confirms that they're under the same license as perl.
 # Wording in CBC.pm is less than clear, but still.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -106,6 +106,9 @@ PERL5LIB=%{buildroot}%{perl_vendorlib} perl %{SOURCE2}
 %{_mandir}/man3/Crypt::CBC.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.04-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.04-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           mlmmj
 Version:        1.4.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A simple and slim mailing list manager inspired by ezmlm
 License:        MIT
 URL:            https://codeberg.org/mlmmj/mlmmj
@@ -119,6 +119,9 @@ fi
 %ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{modulename}
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 21 2024 Denis Fateyev <denis@fateyev.com> - 1.4.7-1
 - Update to 1.4.7 release
 

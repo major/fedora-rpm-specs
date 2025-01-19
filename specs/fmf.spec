@@ -1,6 +1,6 @@
 Name:          fmf
-Version:       1.6.0
-Release:       2%{?dist}
+Version:       1.6.1
+Release:       1%{?dist}
 
 Summary:       Flexible Metadata Format
 License:       GPL-2.0-or-later
@@ -60,6 +60,9 @@ install -pm 644 fmf.1* %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Fri Jan 17 2025 Packit <hello@packit.dev> - 1.6.1-1
+- Update to version 1.6.1
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

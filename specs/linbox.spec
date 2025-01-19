@@ -3,7 +3,7 @@
 Name:           linbox
 Version:        1.7.0
 %global so_version 0
-Release:        9%{?dist}
+Release:        11%{?dist}
 Summary:        C++ Library for High-Performance Exact Linear Algebra
 
 License:        LGPL-2.1-or-later
@@ -28,6 +28,23 @@ Patch:          https://github.com/linbox-team/%{name}/pull/308.patch
 # https://github.com/linbox-team/linbox/commit/b8f2d4ccdc0af4418d14f72caf6c4d01969092a3
 # Fixes FTBFS with GCC 14. Cherry-picked to v1.7.0.
 Patch:          0001-const_cast-missing.patch
+
+# solving issue #319
+# https://github.com/linbox-team/linbox/commit/4a1e1395804d4630ec556c61ba3f2cb67e140248
+#
+# Fixes:
+#
+# vector/blas-subvector.h: build failure with GCC 15 (-Wtemplate-body)
+# https://github.com/linbox-team/linbox/issues/319
+Patch:          https://github.com/linbox-team/%{name}/commit/4a1e1395804d4630ec556c61ba3f2cb67e140248.patch
+# Fix a compiler error on GCC 15
+# https://github.com/linbox-team/linbox/pull/322
+#
+# Fixes:
+#
+# Compiler error with GCC 15 in Fedora Rawhide
+# https://github.com/linbox-team/linbox/issues/321
+Patch:          https://github.com/linbox-team/%{name}/pull/322.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 # The sole dependent package, sagemath, is already not built on i686.
@@ -154,6 +171,12 @@ LD_LIBRARY_PATH=$PWD/linbox/.libs %make_build check -j1
 
 
 %changelog
+* Fri Jan 17 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1.7.0-11
+- Patch for GCC 15
+
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Jan  5 2025 Jerry James <loganjerry@gmail.com> - 1.7.0-9
 - Remove unused m4ri and m4rie deps
 

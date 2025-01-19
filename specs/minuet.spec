@@ -1,6 +1,6 @@
 Name:           minuet
 Version:        24.12.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A KDE Software for Music Education
 #OFL license for bundled Bravura.otf font
 #and BSD license for cmake/FindFluidSynth.cmake
@@ -100,6 +100,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.%{name}.desk
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 07 2025 Steve Cossette <farchord@gmail.com> - 24.12.1-1
 - 24.12.1
 

@@ -6,7 +6,7 @@
 
 Name:		llvm-test-suite
 Version:	%{llvm_test_suite_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	C/C++ Compiler Test Suite
 
 License:	NCSA AND BSD-3-Clause-LBNL AND BSD-4.3TAHOE AND dtoa AND GPL-1.0-only AND GPL-2.0-or-later AND GPL-2.0-only AND MIT AND PSF-2.0 AND LicenseRef-Fedora-Public-Domain AND LicenseRef-CRC32 AND AML AND Rdisc AND Apache-2.0 AND LGPL-3.0-only
@@ -82,6 +82,9 @@ cp -R %{_builddir}/%{test_suite_srcdir}/* %{buildroot}%{_datadir}/llvm-test-suit
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 19.1.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 02 2025 Timm Bäder <tbaeder@redhat.com> - 19.1.6-1
 - Update to 19.1.6
 

@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        1.3.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Miscellaneous functions for Octave
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -65,6 +65,9 @@ rm -rf %{buildroot}/%{octpkgdir}/test
 %license %{octpkgdir}/packinfo/COPYING
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Nov 14 2024 Orion Poplawski <orion@nwra.com> - 1.3.1-2
 - Rebuild for octave 9.2
 

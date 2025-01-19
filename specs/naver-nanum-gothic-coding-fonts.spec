@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: MIT
 
 Version: 2.000
-Release: 25%{?dist}
+Release: 26%{?dist}
 URL:     http://dev.naver.com/projects/nanumfont/
 
 %global foundry           Naver
@@ -50,6 +50,9 @@ done
 %fontfiles
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.000-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.000-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

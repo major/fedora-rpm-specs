@@ -3,7 +3,7 @@
 Summary:        M.A.R.S. - A Ridiculous Shooter
 Name:           marsshooter
 Version:        0.7.6
-Release:        31%{?dist}
+Release:        32%{?dist}
 # Engine is GPLv3+, the libs under ext_libs_for_windows are LGPLv2+ / MPLv1.1
 # but those are unused, so the resulting binary is pure GPLv3+
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -119,6 +119,9 @@ appstream-util validate-relax --nonet \
 %{_datadir}/%{name}/
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.6-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.7.6-31
 - convert license to SPDX
 

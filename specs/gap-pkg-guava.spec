@@ -19,6 +19,9 @@ Patch:          %{name}-sonata.patch
 Patch:          %{name}-warning.patch
 # Use popcount instructions where available.
 Patch:          %{name}-popcount.patch
+# Avoid redefining bool for C23 compatibility
+# https://github.com/jamesjer/guava/commit/3dc3b1a2e1f5935fa105531ad9f4cf604aeefcb1
+Patch:          %{name}-bool.patch
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc

@@ -20,7 +20,7 @@ Implements a subset of PKCS#7/Cryptographic Message Syntax (rfc2315, rfc5652).}
 
 Name:           %{goname}
 Version:        0
-Release:        0.12%{?dist}
+Release:        0.13%{?dist}
 Summary:        Implements a subset of PKCS#7/Cryptographic Message Syntax (rfc2315, rfc5652)
 
 License:        MIT
@@ -62,6 +62,9 @@ sed -e '/\t\tx509.ECDSAWithSHA1,/d' -i verify_test.go
 %gopkgfiles
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Nov 07 2024 Michel Lind <salimma@fedoraproject.org> - 0-0.12
 - Properly disable deprecated DSA test
 - Resolves: rhbz#2300810

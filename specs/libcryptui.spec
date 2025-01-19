@@ -1,6 +1,6 @@
 Name:    libcryptui
 Version: 3.12.2
-Release: 32%{?dist}
+Release: 33%{?dist}
 Summary: Interface components for OpenPGP
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -76,6 +76,9 @@ find ${RPM_BUILD_ROOT} -type f -name "*.la" -delete
 %{_datadir}/gir-1.0/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.2-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 3.12.2-32
 - convert license to SPDX
 

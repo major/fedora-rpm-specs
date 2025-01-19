@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       1.3.14
-Release:       13%{?dist}
+Release:       14%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -118,6 +118,9 @@ rm -rf %{buildroot}%{mingw64_datadir}
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.14-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3.14-13
 - convert license to SPDX
 

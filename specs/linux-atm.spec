@@ -1,7 +1,7 @@
 Summary: Tools to support ATM networking under Linux
 Name: linux-atm
 Version: 2.5.1
-Release: 41%{?dist}
+Release: 42%{?dist}
 # The licensing here is a mess. This is as close to accurate as possible.
 # Automatically converted from old format: BSD and GPLv2 and GPLv2+ and LGPLv2+ and MIT - review is highly recommended.
 License: LicenseRef-Callaway-BSD AND GPL-2.0-only AND GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-MIT
@@ -113,6 +113,9 @@ rm -rf _doc/init-redhat/{CVS,.cvsignore}
 %{_libdir}/libatm.so
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.5.1-41
 - convert license to SPDX
 

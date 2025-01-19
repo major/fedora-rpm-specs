@@ -1,6 +1,6 @@
 Name:           liboping
 Version:        1.10.0
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        A C library to generate ICMP echo requests
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -92,6 +92,9 @@ LD_LIBRARY_PATH=../../src/.libs make -C bindings/perl test
 %{_mandir}/man3/ping_setopt.3*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.10.0-31
 - convert license to SPDX
 

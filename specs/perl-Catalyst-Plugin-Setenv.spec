@@ -1,6 +1,6 @@
 Name:           perl-Catalyst-Plugin-Setenv
 Version:        0.03
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Catalyst::Plugin::Setenv Perl module
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -42,6 +42,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 0.03-43
 - convert license to SPDX
 

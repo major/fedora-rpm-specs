@@ -1,6 +1,6 @@
 Name:           nosync
 Version:        1.1
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Preload library for disabling file's content synchronization
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -40,6 +40,9 @@ make CFLAGS="%{optflags}" %{?_smp_mflags}
 %{_libdir}/%{name}
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1-19
 - convert license to SPDX
 

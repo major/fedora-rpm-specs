@@ -28,7 +28,7 @@
 Name:           netgen-mesher
 # Also update version in netgen_fallback-version.patch!
 Version:        6.2.2406
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Automatic mesh generation tool
 ExcludeArch:    %{ix86}
 
@@ -418,6 +418,9 @@ install -Dpm 0644 nglib/nglib.h %{buildroot}%{_includedir}/%{name}/nglib.h
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.2406-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 03 2024 Sandro Mani <manisandro@gmail.com> - 6.2.2406-1
 - Update to 6.2.2406
 

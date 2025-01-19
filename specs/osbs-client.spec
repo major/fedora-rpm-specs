@@ -11,7 +11,7 @@
 
 %if 0%{?dev_release}
 %global postrelease dev
-%global release 19
+%global release 20
 %else
 %global postrelease 0
 %global release 3
@@ -125,6 +125,9 @@ py.test-3 -vv tests
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.15.0-3
 - convert license to SPDX
 

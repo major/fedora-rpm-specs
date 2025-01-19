@@ -100,7 +100,7 @@
 
 Name:           openqa
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        OS-level automated testing framework
 # openQA is mostly GPLv2+. some scripts and bundled Node modules are
 # MIT, ace-builds is BSD-3-Clause
@@ -772,6 +772,9 @@ fi
 %{_datadir}/openqa/lib/OpenQA/WebAPI/Plugin/FedoraUpdateRestart.pm
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.6^20240729gitd5cf789-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Adam Williamson <awilliam@redhat.com> - 4.6^20240729gitd5cf789-1
 - Update to latest upstream git
 - Backport #5797 to avoid retrying obsoleted jobs

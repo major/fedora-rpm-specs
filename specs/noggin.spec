@@ -1,6 +1,6 @@
 Name:           noggin
 Version:        1.9.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Self-service user portal for FreeIPA for communities
 
 License:        MIT
@@ -125,6 +125,9 @@ touch %{buildroot}%{_localstatedir}/log/nginx/noggin.error.log
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 10 2024 Lumír Balhar <lbalhar@redhat.com> - 1.9.0-4
 - Allow markupsafe 3 and newer
 

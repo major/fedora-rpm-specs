@@ -1,6 +1,6 @@
 Name:           litehtml
 Version:        0.9
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Fast and lightweight HTML/CSS rendering engine
 
 License:        BSD-3-Clause
@@ -77,6 +77,9 @@ sed -r -i 's/(CXX_STANDARD[[:blank:]]+)11/\114/' CMakeLists.txt
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

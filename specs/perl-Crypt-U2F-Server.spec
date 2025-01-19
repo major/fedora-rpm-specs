@@ -1,6 +1,6 @@
 Name:           perl-Crypt-U2F-Server
 Version:        0.47
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Low level wrapper around the U2F C library (server side)
 License:        BSD-2-Clause AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
 URL:            https://metacpan.org/dist/Crypt-U2F-Server
@@ -65,6 +65,9 @@ perl Makefile.PL \
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.47-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Xavier Bachelot <xavier@bachelot.org> - 0.47-1
 - Update to 0.47 (RHBZ#2261447, RHBZ#2280641, RHBZ#2292219, RHBZ#2302694)
 

@@ -1,6 +1,6 @@
 Name:           perl-Catalyst-ActionRole-ACL
 Version:        0.07
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        User role-based authorization action class
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -65,6 +65,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 0.07-35
 - convert license to SPDX
 

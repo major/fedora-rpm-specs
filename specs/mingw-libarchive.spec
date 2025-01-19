@@ -2,7 +2,7 @@
 
 Name:           mingw-libarchive
 Version:        3.5.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        MinGW package for handling streaming archive formats
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -208,6 +208,9 @@ rm -r $RPM_BUILD_ROOT/%{mingw64_prefix}/share
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 3.5.1-11
 - convert license to SPDX
 

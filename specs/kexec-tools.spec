@@ -1,6 +1,6 @@
 Name: kexec-tools
 Version: 2.0.30
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: https://kernel.org/pub/linux/utils/kernel/kexec
 License: GPL-2.0-only
 Summary: The kexec/kdump userspace component
@@ -81,6 +81,9 @@ rm -f %{buildroot}/%{_libdir}/kexec-tools/kexec_test
 %doc TODO
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.30-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.0.30-2
 - Rebuilt for the bin-sbin merge (2nd attempt)
 

@@ -7,7 +7,7 @@
 
 Name:		perl-DBIx-SearchBuilder
 Version:	1.82
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Encapsulate SQL queries and rows in simple perl objects
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/DBIx-SearchBuilder
@@ -100,6 +100,9 @@ DBIx::SearchBuilder bindings for Oracle
 %endif
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.82-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.82-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

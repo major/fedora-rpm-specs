@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        2.4.0
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Quaternion package for Octave
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -53,6 +53,9 @@ Package for the manipulation of Quaternions used for frame transformation
 
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Nov 14 2024 Orion Poplawski <orion@nwra.com> - 2.4.0-30
 - Rebuild for octave 9.2
 

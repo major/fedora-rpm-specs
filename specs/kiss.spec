@@ -7,7 +7,7 @@
 
 Name:           kiss
 Version:        0~%{date}git%{shortcommit0}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Initial setup for systems using Plasma
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -49,6 +49,9 @@ BuildRequires:  systemd-rpm-macros
 %{_unitdir}/org.kde.initialsystemsetup.service
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0~20211207git22cf331-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0~20211207git22cf331-9
 - convert license to SPDX
 

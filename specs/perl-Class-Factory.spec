@@ -1,6 +1,6 @@
 Name:           perl-Class-Factory
 Version:        1.06
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Base class for dynamic factory classes
 # see lib/Class/Factory.pm
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -49,6 +49,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.06-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 1.06-45
 - convert license to SPDX
 

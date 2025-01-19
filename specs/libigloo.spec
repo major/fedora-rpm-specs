@@ -1,6 +1,6 @@
 Name:       libigloo
 Version:    0.9.2
-Release:    7%{?dist}
+Release:    8%{?dist}
 Summary:    C framework from Icecast
 # COPYING:                  LGPL-2.0 text
 # include/igloo/config.h:   LGPL-2.0-or-later
@@ -203,6 +203,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 
