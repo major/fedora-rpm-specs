@@ -1,6 +1,6 @@
 Name:           perl-Pod-LaTeX
 Version:        0.61
-Release:        323%{?dist}
+Release:        324%{?dist}
 Summary:        Convert POD data to formatted LaTeX
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-LaTeX
@@ -88,6 +88,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.61-324
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.61-323
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

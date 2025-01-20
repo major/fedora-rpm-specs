@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A client library for accessing the Forgejo API
 
 License:        MIT
@@ -50,6 +50,9 @@ A client library for accessing the Forgejo API
 %license LICENSE
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 24 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.0.2-2
 - Relax httpx pin
 

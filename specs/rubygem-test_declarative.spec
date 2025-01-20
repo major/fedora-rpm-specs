@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.0.6
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Simply adds a declarative test method syntax to test/unit
 License: MIT
 URL: http://github.com/svenfuchs/test_declarative
@@ -76,6 +76,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.6-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

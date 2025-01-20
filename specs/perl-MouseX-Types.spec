@@ -1,7 +1,7 @@
 Name:           perl-MouseX-Types
 Summary:        Organize your Mouse types in libraries
 Version:        0.06
-Release:        38%{?dist}
+Release:        39%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MouseX-Types
 Source0:        https://cpan.metacpan.org/modules/by-module/MouseX/MouseX-Types-%{version}.tar.gz
@@ -78,6 +78,9 @@ make test
 %{_mandir}/man3/MouseX::Types::Mouse.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

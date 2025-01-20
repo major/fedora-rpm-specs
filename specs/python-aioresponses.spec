@@ -5,7 +5,7 @@ easy way  to test asynchronous HTTP requests.
 
 Name:           python-%{srcname}
 Version:        0.7.6
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Mock out requests made by ClientSession from aiohttp package
 
 License:        MIT
@@ -71,6 +71,9 @@ sed -i 's/def \(test_pass_through_with_origin_params\)(/def skip_\1(/' tests/tes
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.6-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 22 2024 Tomáš Hrnčiar <thrnciar@redhat.com> - 0.7.6-6
 - Add compatibility to setuptools 74+
 - Fixes: rhbz#2319639

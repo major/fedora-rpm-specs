@@ -1,6 +1,6 @@
 Name:           perl-Net-IP-Match-Regexp
 Version:        1.01
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Efficiently match IP addresses against ranges
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -54,6 +54,9 @@ module useful for mapping IP ranges to names or codes or anything else.
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 1.01-38
 - convert license to SPDX
 

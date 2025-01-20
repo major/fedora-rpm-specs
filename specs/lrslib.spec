@@ -14,6 +14,9 @@ Source1:        lrslib.module.in
 # This patch was sent upstream on 31 May 2011.  It fixes some miscellaneous
 # bugs.
 Patch:          %{name}-fixes.patch
+# This patch was sent upstream on 18 Jan 2025.  It fixes various constructs
+# that are not compatible with C23.
+Patch:          %{name}-c23.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

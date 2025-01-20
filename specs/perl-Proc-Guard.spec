@@ -1,6 +1,6 @@
 Name:           perl-Proc-Guard
 Version:        0.07
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Process runner with RAII pattern
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -56,6 +56,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.07-29
 - convert license to SPDX
 

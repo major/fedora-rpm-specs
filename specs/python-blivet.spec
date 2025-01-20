@@ -5,7 +5,7 @@ Version: 3.11.0
 
 #%%global prerelease .b2
 # prerelease, if defined, should be something like .a1, .b1, .b2.dev1, or .c2
-Release: 6%{?prerelease}%{?dist}
+Release: 7%{?prerelease}%{?dist}
 Epoch: 1
 License: LGPL-2.1-or-later
 %global realname blivet
@@ -119,6 +119,9 @@ make DESTDIR=%{buildroot} install
 %{python3_sitelib}/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.11.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 09 2024 Vojtech Trefny <vtrefny@redhat.com> - 3.11.0-6
 - Fix crash on ppc64le with GPT (#2330563)
 

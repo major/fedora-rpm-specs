@@ -4,7 +4,7 @@
 
 Name:    python-%{srcname}
 Version: 1.2.2
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Gilt is a git layering tool
 License: MIT
 
@@ -74,6 +74,9 @@ rm -rf build/html/.{doctrees,buildinfo}
 %doc doc/build/html
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

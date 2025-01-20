@@ -2,7 +2,7 @@
 
 Name:             python-%{modname}
 Version:          0.34.2
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Mock D-Bus objects
 
 License:          LGPL-3.0-or-later
@@ -52,6 +52,9 @@ rm -rf python-%{modname}.egg-info
 %{python3_sitelib}/*%{modname}*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.34.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Dec 27 2024 Packit <hello@packit.dev> - 0.34.2-1
 - spec: Adjust %%autosetup to PEP-625 tarball top-level directory
 

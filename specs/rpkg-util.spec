@@ -14,7 +14,7 @@
 
 Name: rpkg-util
 Version: 3.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: RPM packaging utility
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -131,6 +131,9 @@ cp -a rpkg.bash %{buildroot}%{_datarootdir}/bash-completion/completions/
 %{_mandir}/*/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Aug 09 2024 Jakub Kadlcik <frostyx@email.cz> 3.3-1
 - Make the INVALID_SPEC_TEMPLATE really invalid
 - Use quote from shlex instead of deprecated pipes

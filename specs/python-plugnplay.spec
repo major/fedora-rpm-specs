@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.5.4
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        A generic plug-in system for Python
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -47,6 +47,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.4-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5.4-17
 - convert license to SPDX
 

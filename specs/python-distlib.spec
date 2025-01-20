@@ -3,7 +3,7 @@
 
 Name:       python-distlib
 Version:    0.3.9
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Low-level components of distutils2/packaging, augmented with higher-level APIs
 
 # Automatically converted from old format: Python - review is highly recommended.
@@ -69,6 +69,9 @@ export SKIP_ONLINE=1
 %doc README.rst
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 15 2024 Charalampos Stratakis <cstratak@redhat.com> - 0.3.9-1
 - Update to 0.3.9
 Resolves: rhbz#2317657

@@ -3,7 +3,7 @@
 Name: rubygem-%{gem_name}
 
 Version: 7.0.8
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Inbound email handling framework
 License: MIT
 URL: https://rubyonrails.org
@@ -94,6 +94,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.8-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

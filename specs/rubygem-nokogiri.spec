@@ -1,7 +1,7 @@
 %global	mainver		1.18.1
 #%%global	prever		.rc4
 
-%global	baserelease		2
+%global	baserelease		3
 %global	prerpmver		%(echo "%{?prever}" | sed -e 's|\\.||g')
 
 %global	gem_name	nokogiri
@@ -275,6 +275,9 @@ popd
 %doc	%{gem_dir}/doc/%{gem_name}-%{mainver}%{?prever}/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 07 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.18.1-2
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.4
 

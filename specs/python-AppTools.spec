@@ -5,7 +5,7 @@ Name:    python-AppTools
 Version: 5.3.0
 %forgemeta
 
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Enthought Tool Suite Application Tools
 # Automatically converted from old format: BSD and LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-BSD AND LicenseRef-Callaway-LGPLv2+
@@ -98,6 +98,9 @@ popd
 %doc docs/build/html examples README.fedora
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 5.3.0-3
 - convert license to SPDX
 

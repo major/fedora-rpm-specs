@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.2.0.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Angular-Bootstrap (XStatic packaging standard)
 
 License:        MIT
@@ -89,6 +89,9 @@ chmod 644 %{buildroot}%{_jsdir}/angular_bootstrap/angular-bootstrap.js
 %{python3_sitelib}/XStatic_Angular_Bootstrap-%{version}-py%{python3_version}-nspkg.pth
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0.0-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

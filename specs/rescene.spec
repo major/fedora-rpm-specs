@@ -4,7 +4,7 @@
 
 Name:           rescene
 Version:        1.2
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Extracts RAR metadata and recreates RAR files
 License:        MIT
 # Upstream at http://rescene.info/ appears to have gone away. Mirror is
@@ -62,6 +62,9 @@ install -m 755 rescene.shell_script $RPM_BUILD_ROOT%{_bindir}/srr
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

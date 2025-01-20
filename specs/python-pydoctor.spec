@@ -36,7 +36,6 @@ BuildRequires:  python3-beautifulsoup4
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-pytest-subtests
 
-%{?python_enable_dependency_generator}
 
 %description
 This is pydoctor, a standalone API documentation generator that works by 

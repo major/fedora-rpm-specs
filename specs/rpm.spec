@@ -28,7 +28,7 @@
 
 %global rpmver 4.20.0
 #global snapver rc1
-%global baserelease 6
+%global baserelease 7
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -624,6 +624,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.20.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 15 2025 Panu Matilainen <pamtilai@redhat.com> - 4.20.0-6
 - Revert back to weak dependencies for users and groups
 

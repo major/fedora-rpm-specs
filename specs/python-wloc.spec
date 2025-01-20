@@ -10,7 +10,7 @@ It supports different geolocation backends.}
 
 Name: python-%{pypi_name}
 Version: 1.1.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 
 # Main code - GPL-3.0-or-later.
 # pywifi - MIT.
@@ -66,6 +66,9 @@ install -D -p -m 0644 packaging/assets/%{pypi_name}.1 %{buildroot}%{_mandir}/man
 %doc docs/html/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

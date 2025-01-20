@@ -15,7 +15,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.23.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Library for stubbing HTTP requests in Ruby
 License: MIT
 URL: https://github.com/bblimke/webmock
@@ -155,6 +155,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.23.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 18 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.23.1-2
 - Apply upstream patch for ruby34 hash inspect formatting change
 - Apply upstream patch for ruby34 net-http legacy constants removal

@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.3.3
-Release: 17%{?dist}
+Release: 18%{?dist}
 Summary: Parsing and returning cookies in Ruby
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD	
@@ -77,6 +77,9 @@ cp -a .%{gem_dir}/* \
 %{gem_instdir}/Gemfile
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Nov 12 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.3-17
 - Use URI::RFC2396_Parser explicitly for ruby34 (uri 1.0.1)
 

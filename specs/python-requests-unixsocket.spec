@@ -8,7 +8,7 @@
 
 Name:           python-%{package_name}
 Version:        0.4.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Use requests to talk HTTP via a UNIX domain socket
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -58,6 +58,9 @@ sed -i 's/unixsocket2/unixsocket/g' %{buildroot}%{python3_sitelib}/requests_unix
 %{python3_sitelib}/requests_unixsocket-%{version}.dist-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Nov 07 2024 Dan Radez <dradez@redhat.com> - 0.4.0-7
 - generate build requires
 

@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.100.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Speed, persistence, http(s)
 License: MIT
 URL: https://github.com/excon/excon
@@ -109,6 +109,9 @@ popd
 %{gem_instdir}/excon.gemspec
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.100.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.100.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.4.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Parser for a D-Bus Signature
 
 License:        Apache-2.0
@@ -42,6 +42,9 @@ Python 3 version.
 %{python3_sitelib}/dbus_signature_pyparsing-*.egg-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

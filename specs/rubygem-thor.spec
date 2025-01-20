@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.2.1
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Thor is a toolkit for building powerful command-line interfaces
 License: MIT
 URL: http://whatisthor.com/
@@ -111,6 +111,9 @@ popd
 %{gem_instdir}/thor.gemspec
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Nov 19 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.2.1-8
 - Apply upstream fix for ruby34 error msg formatting change
 

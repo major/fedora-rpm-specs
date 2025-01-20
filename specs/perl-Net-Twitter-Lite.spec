@@ -1,6 +1,6 @@
 Name:           perl-Net-Twitter-Lite
 Version:        0.12008
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Perl interface to the Twitter API
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -75,6 +75,9 @@ This module provides a perl interface to the Twitter API v1.
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12008-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.12008-25
 - convert license to SPDX
 

@@ -2,7 +2,7 @@
 
 Name:      perl-XML-Entities
 Version:   1.0002
-Release:   27%{?dist}
+Release:   28%{?dist}
 Summary:   Decode strings with XML entities
 
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -59,6 +59,9 @@ make test
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0002-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0002-27
 - convert license to SPDX
 

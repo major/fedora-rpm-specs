@@ -27,7 +27,7 @@ actual REST API client actions.
 
 Name:             python-%{sname}
 Version:          7.1.2
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          OpenStack Command-line Client
 
 License:          Apache-2.0
@@ -193,6 +193,9 @@ export PYTHON=%{__python3}
 %license LICENSE
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 08 2024 Joel Capitao <jcapitao@redhat.com> 7.1.2-3
 - Update to upstream version 7.1.2
 

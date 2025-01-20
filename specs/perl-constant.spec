@@ -9,7 +9,7 @@
 
 Name:           perl-constant
 Version:        1.33
-Release:        512%{?dist}
+Release:        513%{?dist}
 Summary:        Perl pragma to declare constants
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/constant
@@ -107,6 +107,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.33-513
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.33-512
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

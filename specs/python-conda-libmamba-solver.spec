@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        24.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The libmamba based solver for conda
 
 License:        BSD-3-Clause
@@ -148,6 +148,9 @@ export CONDA_TEST_DATA_DIR=/usr/share/conda/tests/data
 %doc README.*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 18 2024 Orion Poplawski <orion@nwra.com> - 24.9.0-1
 - Update to 24.9.0
 

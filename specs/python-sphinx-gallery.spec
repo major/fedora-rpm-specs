@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.18.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Sphinx extension to automatically generate an examples gallery
 
 License:        BSD-3-Clause
@@ -69,6 +69,9 @@ sed -i -e 's/"--cov[^ ]*//g' pyproject.toml
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 31 2024 Sandro <devel@penguinpee.nl> - 0.18.0-2
 - Add missing test dependency
 

@@ -3,7 +3,7 @@
 
 Name:           perl-POE-Component-SSLify
 Version:        1.012
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Makes using SSL in the world of POE easy!
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -134,6 +134,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.012-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 1.012-34
 - convert license to SPDX
 

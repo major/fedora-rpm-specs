@@ -1,6 +1,6 @@
 Name:           perl-Test-Needs
 Version:        0.002010
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Skip tests when modules not available
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -81,6 +81,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.002010-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 18 2024 Michal Josef Špaček <mspacek@redhat.com> - 0.002010-7
 - Package tests
 

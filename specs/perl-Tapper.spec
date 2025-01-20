@@ -2,7 +2,7 @@
 
 Name:           perl-Tapper
 Version:        4.1.1
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        A flexible and open test infrastructure
 License:        BSD-2-Clause
 Url:            https://metacpan.org/release/Tapper
@@ -44,6 +44,9 @@ make test
 %{_mandir}/man3/Tapper*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

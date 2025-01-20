@@ -5,7 +5,7 @@ projects.
 
 Name: python-%{srcname}
 Version: 1.0.13
-Release: 12%{?dist}
+Release: 13%{?dist}
 BuildArch: noarch
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -52,6 +52,9 @@ Summary: %{summary}
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.13-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.13-12
 - convert license to SPDX
 

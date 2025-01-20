@@ -1,6 +1,6 @@
 Name:           perl-Role-Identifiable
 Version:        0.009
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Identifiable roles
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -49,6 +49,9 @@ This module provides several Moose roles for identifying things.
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.009-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.009-7
 - convert license to SPDX
 

@@ -3,7 +3,7 @@
 Name:             poppler-data
 Summary:          Encoding files for use with poppler
 Version:          0.4.11
-Release:          8%{?dist}
+Release:          9%{?dist}
 
 # NOTE: The licensing details are explained in COPYING file in source archive.
 # Makefile is HPND-sell-variant but is not included in binary package
@@ -86,6 +86,9 @@ pkgconfig utility allowing your software to be build with poppler-data.
 # =============================================================================
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.11-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.11-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

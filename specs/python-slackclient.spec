@@ -1,6 +1,6 @@
 Name:               python-slackclient
 Version:            3.34.0
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Slack Developer Kit for Python
 
 # SPDX
@@ -77,6 +77,9 @@ k="${k-}${k+ and }not test_start_raises_an_error_if_rtm_ws_url_is_not_returned"
 %doc README.md
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.34.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec 18 2024 Gwyn Ciesla <gwync@protonmail.com> - 3.34.0-1
 - 3.34.0
 

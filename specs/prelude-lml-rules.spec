@@ -1,6 +1,6 @@
 Name:           prelude-lml-rules
 Version:        5.2.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Prelude LML community ruleset
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -40,6 +40,9 @@ test -z "`%{buildroot}%{_bindir}/%{name}-check %{buildroot}%{_sysconfdir}/prelud
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 5.2.0-11
 - convert license to SPDX
 

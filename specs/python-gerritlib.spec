@@ -9,7 +9,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.11.0
-Release:        2%{?pre:}%{?gitrelease:}%{?dist}
+Release:        3%{?pre:}%{?gitrelease:}%{?dist}
 Summary:        Client library for accessing Gerrit
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -79,6 +79,9 @@ cp %{SOURCE2} ChangeLog
 %{python3_sitelib}/%{pypi_name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 29 2024 Neil Hanlon <neil@shrug.pw> - 0.11.0-2
 - drop pre tag
 - stop using setup.py test -- switch to nox (#2319663)

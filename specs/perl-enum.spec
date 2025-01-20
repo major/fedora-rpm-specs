@@ -1,6 +1,6 @@
 Name:           perl-enum
 Version:        1.12
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        C-style enumerated types and bitmask flags in Perl
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -56,6 +56,9 @@ make test
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 1.12-10
 - convert license to SPDX
 

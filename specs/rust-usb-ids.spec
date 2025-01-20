@@ -5,7 +5,7 @@
 %global crate usb-ids
 
 Name:           rust-usb-ids
-Version:        1.2024.5
+Version:        1.2025.1
 Release:        %autorelease
 Summary:        Rust wrappers for the USB ID Repository
 

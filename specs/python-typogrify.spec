@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.7
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Filters to enhance web typography, with support for Django & Jinja templates
 
 # typogrify/packages/titlecase/__init__.py is MIT
@@ -53,6 +53,9 @@ done
 %doc README.rst
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.7-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Oct 23 2024 Carl George <carlwgeorge@fedoraproject.org> - 2.0.7-22
 - Port to pyproject macros
 

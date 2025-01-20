@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python wrapper around the reflink system calls
 License:        MIT
 URL:            https://gitlab.com/rubdos/pyreflink
@@ -64,5 +64,8 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Aug 23 2024 Neel Chauhan <neel@neelc.org> - 0.2.2-1
 - Initial package.

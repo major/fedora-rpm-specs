@@ -2,7 +2,7 @@
 
 Name:           python-extras
 Version:        1.0.0
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Useful extra bits for Python
 
 License:        MIT
@@ -63,6 +63,9 @@ sed -e '/extras\.tests/d' -i setup.py
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Nov 13 2024 Carl George <carlwgeorge@fedoraproject.org> - 1.0.0-36
 - Run tests with testtools instead of pytest
 - Run import check while bootstrapping

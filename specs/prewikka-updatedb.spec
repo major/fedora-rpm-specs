@@ -1,6 +1,6 @@
 Name:           prewikka-updatedb
 Version:        5.2.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Database update scripts for prewikka
 # License justification: https://www.prelude-siem.org/projects/prelude/wiki/SourceOrganization
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -36,6 +36,9 @@ Database update scripts for prewikka.
 %{python3_sitelib}/prewikka_updatedb-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 5.2.0-15
 - convert license to SPDX
 

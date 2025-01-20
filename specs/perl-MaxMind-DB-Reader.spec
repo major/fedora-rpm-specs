@@ -14,7 +14,7 @@
 
 Name:           perl-MaxMind-DB-Reader
 Version:        1.000014
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Read MaxMind database files and look up IP addresses
 # lib/MaxMind/DB/Reader.pm: Artistic-2.0
 # LICENSE:      Artistic-2.0 text
@@ -163,6 +163,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.000014-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Sep 03 2024 Petr Pisar <ppisar@redhat.com> - 1.000014-15
 - Modernize a spec file
 

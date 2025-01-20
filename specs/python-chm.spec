@@ -8,7 +8,7 @@ MS-ITSS encoded files - Compressed Html Help files (.chm).}
 
 Name:           python-chm
 Version:        0.8.6
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Python package for CHM files handling
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -52,6 +52,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitearch}/%{pypi_name}-%{version}-py*.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.6-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.8.6-15
 - convert license to SPDX
 

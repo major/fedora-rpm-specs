@@ -1,7 +1,7 @@
 %global pypi_name path
 
 Name:           python-path
-Version:        17.0.0
+Version:        17.1.0
 Release:        1%{?dist}
 Summary:        Python module wrapper for os.path
 
@@ -53,6 +53,9 @@ operations on files to be invoked on those path objects directly.
 
 
 %changelog
+* Sat Jan 18 2025 Dan Radez <dradez@redhat.com> - 17.1.0
+- update to upstream 17.1.0 rhbz#2334741
+
 * Thu Aug 01 2024 Dan Radez <dradez@redhat.com> - 17.0.0
 - update to upstream 17.0.0 rhbz#2300203
 

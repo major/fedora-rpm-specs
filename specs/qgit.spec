@@ -1,6 +1,6 @@
 Name:           qgit
 Version:        2.10
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        GUI browser for git repositories
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -43,6 +43,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.10-8
 - convert license to SPDX
 

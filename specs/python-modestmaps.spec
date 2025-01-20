@@ -5,7 +5,7 @@
 
 Name:           python-%{pkgname}
 Version:        1.4.7
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Modest Maps python port
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -52,6 +52,9 @@ additional functionality.
 %{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.7-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.4.7-22
 - convert license to SPDX
 

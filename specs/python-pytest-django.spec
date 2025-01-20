@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Django plugin for pytest
 
 License:        LicenseRef-Callaway-BSD
@@ -64,6 +64,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Sep 28 2024 Fabian Affolter <mail@fabian-affolter.ch> - 4.9.0-1
 - Update to latest upstream release (closes rhbz#2309214)
 

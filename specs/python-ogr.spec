@@ -1,6 +1,6 @@
 Name:           python-ogr
 Version:        0.50.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        One API for multiple git forges
 
 License:        MIT
@@ -47,6 +47,9 @@ One Git library to Rule!
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.50.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 10 2025 Packit <hello@packit.dev> - 0.50.3-1
 - We have improved wrapping of the forge-specific exceptions, string representation of the original exception is now included. (#884)
 - The test suite for parsing git URLs has been extended and also the handling of GitHub repository with changed owner or name has been improved. (#874)

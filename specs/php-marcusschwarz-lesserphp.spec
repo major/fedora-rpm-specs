@@ -8,7 +8,7 @@
 
 Name:    php-%{composer_vendor}-%{composer_project}
 Version: 0.6.0
-Release: 10%{?dist}
+Release: 11%{?dist}
 
 Summary: A compiler for LESS written in PHP
 License: MIT OR GPL-3.0-only
@@ -95,6 +95,9 @@ phpunit9 --verbose --bootstrap %{buildroot}%{pkgdir}/autoload.php
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Aug 08 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.6.0-10
 - Migrate License tag to SPDX
 

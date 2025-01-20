@@ -1,7 +1,7 @@
 Summary:	High speed arbitrary size integer math
 Name:		perl-Math-GMP
 Version:	2.25
-Release:	11%{?dist}
+Release:	12%{?dist}
 License:	LGPL-2.0-or-later
 URL:		https://metacpan.org/release/Math-GMP
 Source0:	https://www.cpan.org/modules/by-module/Math/Math-GMP-%{version}.tar.gz
@@ -78,6 +78,9 @@ make test
 %{_mandir}/man3/Math::GMP.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.25-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec  4 2024 Paul Howarth <paul@city-fan.org> - 2.25-11
 - Switch source URL from cpan.metacpan.org to www.cpan.org
 - Use %%{make_build} and %%{make_install}

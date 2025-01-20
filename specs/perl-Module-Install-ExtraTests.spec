@@ -1,6 +1,6 @@
 Name:       perl-Module-Install-ExtraTests 
 Version:    0.008
-Release:    34%{?dist}
+Release:    35%{?dist}
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Ignorable, contextual test support for Module::Install
 Url:        https://metacpan.org/release/Module-Install-ExtraTests
@@ -63,6 +63,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.008-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.008-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

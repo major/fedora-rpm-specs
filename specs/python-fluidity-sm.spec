@@ -1,6 +1,6 @@
 Name:		python-fluidity-sm
 Version:	0.2.0
-Release:	35%{?dist}
+Release:	36%{?dist}
 Summary:	State machine implementation for Python objects
 License:	MIT
 URL:		https://github.com/nsi-iff/fluidity
@@ -40,6 +40,9 @@ State machine implementation for Python objects.
 %{python3_sitelib}/fluidity_sm-%{version}-*.egg-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec 11 2024 Miro Hrončok <mhroncok@redhat.com> - 0.2.0-35
 - Drop unneeded BuildRequires for python3-spec and python3-nose, use unittest
 - https://fedoraproject.org/wiki/Changes/DeprecateNose

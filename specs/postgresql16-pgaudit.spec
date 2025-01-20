@@ -4,7 +4,7 @@
 %global pgversion 16
 Name:		postgresql%{pgversion}-%{majorname}
 Version:	16.0
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	PostgreSQL Audit Extension
 
 License:	PostgreSQL
@@ -90,6 +90,9 @@ trail or audit log. The term audit log is used in this documentation.
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 16.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 16 2024 Filip Janus <fjanus@redhat.com> - 16.0-6
 - Add provide postgresqlVERSION-pgaudit
 

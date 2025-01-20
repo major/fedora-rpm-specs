@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        2.39
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -44,6 +44,9 @@ scrollkeeper based documentation into Python's distutils.
 %{python3_sitelib}/python_distutils_extra*.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.39-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.39-32
 - convert license to SPDX
 

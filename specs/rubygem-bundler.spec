@@ -14,7 +14,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.3.25
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Library and utilities to manage a Ruby application's gem dependencies
 License: MIT
 URL: https://bundler.io
@@ -217,6 +217,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.25-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.25-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

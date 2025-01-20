@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.13.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Python Java parser and tools
 
 License:        MIT
@@ -41,6 +41,9 @@ provides a lexer and parser targeting Java 8.
 %{python3_sitelib}/%{pypi_name}/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

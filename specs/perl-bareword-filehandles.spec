@@ -1,6 +1,6 @@
 Name:           perl-bareword-filehandles
 Version:        0.007
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Disables bareword filehandles
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/bareword-filehandles
@@ -87,6 +87,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.007-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 17 2024 Petr Pisar <ppisar@redhat.com> - 0.007-20
 - Modernize a spec file
 

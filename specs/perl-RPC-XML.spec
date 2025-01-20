@@ -7,7 +7,7 @@
 
 Name:       perl-%{cpan_name}
 Version:    0.82
-Release:    13%{?dist}
+Release:    14%{?dist}
 Summary:    Set of classes for core data, message and XML handling
 # LGPL version and Artistic variant are clarified in README.license.
 # etc/make_method:      Artistic-2.0 OR LGPL-2.1-only
@@ -201,6 +201,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.82-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 31 2024 Petr Pisar <ppisar@redhat.com> - 0.82-13
 - Convert license tag to SPDX
 - Properly declare an optional dependency on Compress::Zlib

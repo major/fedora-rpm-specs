@@ -8,7 +8,7 @@
 
 Name:		riemann-c-client
 Version:	1.10.5
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	The riemann C client
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:	GPL-2.0-only
@@ -71,6 +71,9 @@ rm %{buildroot}%{_libdir}/libriemann-client.la
 %{_libdir}/pkgconfig/riemann-client.pc
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.5-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.10.5-11
 - convert license to SPDX
 

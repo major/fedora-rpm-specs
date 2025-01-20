@@ -1,7 +1,7 @@
 %global bigname QXmlEdit
 Name:           qxmledit
 Version:        0.9.18
-Release:        6%{?dist}
+Release:        7%{?dist}
 # QXmlEdit - LGPLv2, some icons (oxygen) - GPLv3, QwtPlot3D - zlib-like
 # Automatically converted from old format: LGPLv2+ and GPLv3 and zlib - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+ AND GPL-3.0-only AND Zlib
@@ -121,6 +121,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{bigname}.desktop
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.18-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.9.18-6
 - convert license to SPDX
 

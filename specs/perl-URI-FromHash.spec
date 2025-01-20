@@ -1,6 +1,6 @@
 Name:          perl-URI-FromHash 
 Version:       0.05
-Release:       27%{?dist}
+Release:       28%{?dist}
 Summary:       Build a URI from a set of named parameters 
 # see lib/URI/FromHash.pm
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/URI*.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.05-27
 - convert license to SPDX
 

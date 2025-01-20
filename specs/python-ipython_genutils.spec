@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        IPython vestigial utilities
 
 License:        BSD-3-Clause
@@ -69,6 +69,9 @@ IPython/Jupyter should depend on it.
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 03 2024 Miro Hrončok <mhroncok@redhat.com> - 0.2.0-13
 - Use pytest instead of nose
 - https://fedoraproject.org/wiki/Changes/DeprecateNose

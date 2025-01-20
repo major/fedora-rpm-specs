@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.6
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Pytest plugin for running tests under MPI
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -66,6 +66,9 @@ module unload mpi/openmpi-%{_host_cpu}
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.6-11
 - convert license to SPDX
 

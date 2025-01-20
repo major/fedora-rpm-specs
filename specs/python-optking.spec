@@ -3,7 +3,7 @@
 
 Name:           python-optking
 Version:        0.3.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A Python version of the PSI4 geometry optimization program by R.A. King
 License:        BSD-3-Clause
 URL:            https://github.com/psi-rking/optking
@@ -66,6 +66,9 @@ rm -rf optking.*-info
 %doc README.rst
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Susi Lehtola <jussilehtola@fedoraproject.org> - 0.3.0-4
 - Turn on tests.
 

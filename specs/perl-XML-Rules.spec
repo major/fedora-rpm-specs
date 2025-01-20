@@ -1,6 +1,6 @@
 Name:		perl-XML-Rules
 Version:	1.16
-Release:	35%{?dist}
+Release:	36%{?dist}
 Summary:	Parse XML and specify what and how to keep/process for individual tags
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -70,6 +70,9 @@ find . -type f -exec sed -i 's/\r//' {} \;
 %{_bindir}/xml2XMLRules.pl
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 1.16-35
 - convert license to SPDX
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{dist_name}
 Version:        1.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Easy to use Python subprocess interface
 
 License:        BSD-2-Clause
@@ -52,6 +52,9 @@ rm -f tests/test_fast/test_deadlock.py
 %{python3_sitelib}/%{dist_name}/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Aug 01 2024 Scott Talbert <swt@techie.net> - 1.1-4
 - Update License tag to use SPDX identifiers
 

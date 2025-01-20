@@ -2,7 +2,7 @@
 
 Name:           perl-%{cpan_name}
 Version:        2.30
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Utilities for MogileFS
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -48,6 +48,9 @@ make %{?_smp_mflags} test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.30-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 2.30-22
 - convert license to SPDX
 

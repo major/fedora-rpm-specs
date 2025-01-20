@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.31.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Pure Python PostgreSQL Driver
 
 License:        BSD-3-Clause
@@ -47,6 +47,9 @@ Frontend Protocol.
 %files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.31.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Sep 28 2024 Fabian Affolter <mail@fabian-affolter.ch> - 1.31.2-1
 - Update to latest upstream version (closes rhbz#2277630)
 

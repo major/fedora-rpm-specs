@@ -2,7 +2,7 @@
 
 Name:           python-%{realname}
 Version:        1.0.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        MS-KKDCP (kerberos proxy) WSGI module
 
 License:        MIT
@@ -58,6 +58,9 @@ minimal configuration.
 %{python3_sitelib}/%{realname}-%{version}-*.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 23 2024 Julien Rische <jrische@redhat.com> - 1.0.0-18
 - Log KDC timeout only once per request
   Resolves: rhbz#2333853

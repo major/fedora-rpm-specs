@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.6.3
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Utility for starting a server in a directory
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -75,6 +75,9 @@ LiveReload documentation and examples.
 %{_bindir}/%{pypi_name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.3-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.6.3-15
 - convert license to SPDX
 

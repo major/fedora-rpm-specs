@@ -1,6 +1,6 @@
 Name:           perl-Net-Server-Coro
 Version:        1.3
-Release:        29%{?dist}
+Release:        30%{?dist}
 
 Summary:        Co-operative multithreaded server using Coro
 License:        MIT
@@ -57,6 +57,9 @@ make test
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           python-matplotlib-inline
 Version:        0.1.7
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Inline Matplotlib backend for Jupyter
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -40,6 +40,9 @@ Inline Matplotlib backend for Jupyter
 %doc README.md
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.7-4
 - convert license to SPDX
 

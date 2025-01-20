@@ -1,6 +1,6 @@
 Name:           perl-Test-Refcount
 Version:        0.10
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Assert reference counts on objects
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -62,6 +62,9 @@ properly DESTROYed when it drops all of its references to it.
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

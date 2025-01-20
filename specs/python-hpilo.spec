@@ -7,7 +7,7 @@ management interface of your HP hardware. It supports RILOE II, iLO, iLO 2, iLO
 
 Name:           python-%{srcname}
 Version:        4.4.3
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Accessing the HP iLO XML interface from python
 
 # Automatically converted from old format: ASL 2.0 or GPLv3+ - review is highly recommended.
@@ -70,6 +70,9 @@ rm examples/elasticsearch/.gitignore
 %doc html
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.3-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 4.4.3-10
 - convert license to SPDX
 

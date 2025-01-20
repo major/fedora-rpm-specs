@@ -1,6 +1,6 @@
 Name:           perl-UUID
 Version:        0.36
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Universally Unique Identifier library for Perl
 # README:       Artistic-2.0
 # ulib/md5.c:   (GPL-1.0-or-later OR Artistic-1.0-Perl) AND RSA-MD
@@ -115,6 +115,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.36-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.36-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

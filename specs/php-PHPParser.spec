@@ -25,7 +25,7 @@
 
 Name:          php-%{lib_name_old}
 Version:       %{github_version}
-Release:       23%{?dist}
+Release:       24%{?dist}
 Summary:       A PHP parser written in PHP - version 1
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -118,6 +118,9 @@ ln -s ../%{lib_name}/Autoloader.php \
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep  4 2024 Miroslav Suchý <msuchy@redhat.com> - 1.4.1-23
 - convert license to SPDX
 

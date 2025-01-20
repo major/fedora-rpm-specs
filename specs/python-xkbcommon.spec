@@ -1,6 +1,6 @@
 Name:           python-xkbcommon
 Version:        0.8
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Bindings for libxkbcommon using cffi
 
 License:        MIT
@@ -55,6 +55,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

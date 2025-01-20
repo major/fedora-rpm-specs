@@ -46,6 +46,9 @@ Recommends:     rpmdistro-repoquery
 # Needed for koji edit-sidetag
 Recommends:     python3-koji-cli-plugins
 
+# A CLI tool that helps conduct package reviews
+Recommends:     fedora-review
+
 BuildArch:      noarch
 
 %description

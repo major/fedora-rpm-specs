@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.0.5
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Ruby libcurl bindings
 License: Ruby
 URL: https://github.com/taf2/curb
@@ -86,6 +86,9 @@ popd
 %{gem_instdir}/tests
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 07 2025 Vít Ondruch <vondruch@redhat.com> - 1.0.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.4
 

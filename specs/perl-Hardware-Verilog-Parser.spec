@@ -1,6 +1,6 @@
 Name:           perl-Hardware-Verilog-Parser
 Version:        0.13
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Complete grammar for parsing Verilog code using perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Hardware-Verilog-Parser
@@ -67,6 +67,9 @@ make test
 %{_mandir}/man3/Hardware::Verilog::Parser.3pm*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

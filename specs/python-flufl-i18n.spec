@@ -10,7 +10,7 @@ servers.
 
 Name:           python-%{pkgname}
 Version:        2.0.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        %{summary}
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -98,6 +98,9 @@ rm -rf %{buildroot}%{_prefix}/lib/python*/site-packages/flufl/i18n/{*.rst,docs,c
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0.2-18
 - convert license to SPDX
 

@@ -5,7 +5,7 @@
 Summary:	Test file attributes through Test::Builder
 Name:		perl-Test-File
 Version:	%{rpm_version}
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	Artistic-2.0
 URL:		https://metacpan.org/release/Test-File
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-File-%{cpan_version}.tar.gz
@@ -65,6 +65,9 @@ make test
 %{_mandir}/man3/Test::File.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.99.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan  3 2025 Paul Howarth <paul@city-fan.org> - 1.99.4-1
 - Update to 1.994
   - Refresh distro and move to BRIANDFOY

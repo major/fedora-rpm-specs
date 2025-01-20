@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.5.5
-Release:	16%{?dist}
+Release:	17%{?dist}
 
 Summary:	Pure-Ruby Readline Implementation
 # SPDX confirmed
@@ -96,6 +96,9 @@ popd
 %doc	%{gem_docdir}/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

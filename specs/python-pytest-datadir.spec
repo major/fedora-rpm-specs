@@ -1,6 +1,6 @@
 Name:           python-pytest-datadir
 Version:        1.5.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Pytest plugin for test data directories and files
 License:        MIT
 URL:            https://github.com/gabrielcnr/pytest-datadir
@@ -46,6 +46,9 @@ rst2html --no-datestamp CHANGELOG.rst CHANGELOG.html
 %doc AUTHORS CHANGELOG.html README.md
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

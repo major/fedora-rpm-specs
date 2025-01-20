@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        1.4
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Read access to Windows Registry files
 
 License:        Apache-2.0
@@ -58,6 +58,9 @@ sed -i -e '/^#!\//, 1d' Registry/*.py
 %{python3_sitelib}/python_registry-*.egg-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

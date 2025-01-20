@@ -7,7 +7,7 @@
 Name: rubygem-%{gem_name}
 Epoch: 1
 Version: 7.0.8
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Web-flow and rendering framework putting the VC in MVC (part of Rails)
 License: MIT
 URL: http://rubyonrails.org
@@ -144,6 +144,9 @@ popd
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.0.8-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 23 2024 Vít Ondruch <vondruch@redhat.com> - 1:7.0.8-8
 - Add support for selenium-webdriver 4.22+
 

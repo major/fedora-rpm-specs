@@ -26,7 +26,7 @@ The OpenStack Oslo Utility library. \
 
 Name:           python-oslo-utils
 Version:        7.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OpenStack Oslo Utility library
 
 License:        Apache-2.0
@@ -177,6 +177,9 @@ rm oslo_utils/tests/test_eventletutils.py
 %license LICENSE
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 08 2024 Joel Capitao <jcapitao@redhat.com> 7.3.0-1
 - Update to upstream version 7.3.0
 

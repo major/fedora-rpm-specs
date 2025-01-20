@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.1.2
-Release: 19%{?dist}
+Release: 20%{?dist}
 Summary: Facets-bread collection of Hash-like classes
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
@@ -69,6 +69,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.1.2-19
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           remind
 Version:        05.00.05
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sophisticated calendar and alarm program
 
 # GPL-2.0-only: main software
@@ -144,6 +144,9 @@ make test
 %{_datadir}/pixmaps/tkremind.png
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 05.00.05-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Neil Hanlon <neil@shrug.pw> - 05.00.05-1
 - update to 05.00.05 (#2290739)
 

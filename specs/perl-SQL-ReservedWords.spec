@@ -1,6 +1,6 @@
 Name:		perl-SQL-ReservedWords
 Version:	0.8
-Release:	34%{?dist}
+Release:	35%{?dist}
 Summary:	Determine if words are reserved by ANSI/ISO SQL standard
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -50,6 +50,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.8-34
 - convert license to SPDX
 

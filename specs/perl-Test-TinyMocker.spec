@@ -3,7 +3,7 @@
 
 Name:           perl-Test-TinyMocker
 Version:        0.05
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        A very simple tool to mock external modules
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-TinyMocker
@@ -61,6 +61,9 @@ make test RELEASE_TESTING=1
 %{_mandir}/man3/Test::TinyMocker.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

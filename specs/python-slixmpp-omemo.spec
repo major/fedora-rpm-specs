@@ -4,7 +4,7 @@
 
 Name:           python-slixmpp-omemo
 Version:        0.9.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        OMEMO plugin for Slixmpp
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -64,6 +64,9 @@ find ./%{srcname}/ -type f '(' -name __init__.py -o -name stanza.py -o -name ver
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.9.1-3
 - convert license to SPDX
 

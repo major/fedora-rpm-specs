@@ -4,7 +4,7 @@
 
 Name:           php-pear-Date
 Version:        1.4.7
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Date and Time Zone Classes
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -78,6 +78,9 @@ fi
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.7-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.4.7-34
 - convert license to SPDX
 

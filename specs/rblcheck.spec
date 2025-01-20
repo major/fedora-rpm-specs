@@ -4,7 +4,7 @@ Name:		rblcheck
 Summary:	Command-line interface to RBL-style listings
 
 Version:	1.5
-Release:	48%{?dist}
+Release:	49%{?dist}
 
 Source0:	https://github.com/logic/rblcheck/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
 Source1:	rblcheckrc
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/rblcheckrc
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.5-48
 - convert license to SPDX
 

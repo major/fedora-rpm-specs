@@ -5,7 +5,7 @@ Version:        0.6.2
 %forgemeta
 
 Name:           python-%{srcname}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extract text from HTML
 
 License:        MIT
@@ -63,5 +63,8 @@ Summary:        %{summary}
 %doc README.rst
  
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 18 2024 Benson Muite <benson_muite@emailplus.org> - 0.6.2-1
 - Initial packaging

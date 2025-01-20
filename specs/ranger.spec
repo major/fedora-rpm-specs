@@ -1,6 +1,6 @@
 Name:           ranger
 Version:        1.9.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A vim-like file manager
 License:        GPL-3.0-only
 URL:            https://ranger.github.io/
@@ -48,6 +48,9 @@ find _doc -type f -exec chmod -R -x '{}' \;
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Nov 10 2024 Ben Boeckel <fedora@me.benboeckel.net> - 1.9.4-2
 - Add "-only" suffix to License
 

@@ -3,7 +3,7 @@
 Summary: {OPEN} client authentication protocol for python-requests
 Name: python-edgegrid
 Version: 1.2.1
-Release: 12%{?dist}
+Release: 13%{?dist}
 Source0: %{pypi_source}
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
@@ -61,6 +61,9 @@ find akamai -name '*.py' -exec sed -r -e 's|^#!/usr/bin/env.*|#|' -i '{}' ';'
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2.1-12
 - convert license to SPDX
 

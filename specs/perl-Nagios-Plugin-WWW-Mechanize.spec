@@ -1,6 +1,6 @@
 Name:           perl-Nagios-Plugin-WWW-Mechanize
 Version:        0.13
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Login to a web page as a user and get data as a Nagios plugin
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -59,6 +59,9 @@ mv t/lib/Nagios t/lib/Monitoring
 %{_mandir}/man3/Nagios*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.13-43
 - convert license to SPDX
 

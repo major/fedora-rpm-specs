@@ -6,7 +6,7 @@
 %global with_extras 0
 
 Name:           %{bgname}-backgrounds
-Version:        %{relnum}.0.1
+Version:        %{relnum}.0.2
 Release:        %autorelease
 Summary:        Fedora %{relnum} default desktop background
 
@@ -19,6 +19,9 @@ BuildArch:      noarch
 
 BuildRequires:  kde-filesystem
 BuildRequires:  make
+# Some desktops environment failed to properly handle
+# PNG with transparency, convert into 24-bits format
+BuildRequires:  optipng
 
 Requires:       %{name}-budgie = %{version}-%{release}
 Requires:       %{name}-gnome = %{version}-%{release}
@@ -135,6 +138,8 @@ This package contains  supplemental wallpapers for XFCE
 
 %install
 %make_install
+# Convert RBGA in RBG for PNG format 
+optipng %{buildroot}/%{_datadir}/backgrounds/%{bgname}/default/*.png
 
 %files
 %doc

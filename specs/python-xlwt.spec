@@ -5,7 +5,7 @@
 
 Name:           python-xlwt
 Version:        1.3.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        %{sum}
 
                 # Utils.py is LPGL2.0+
@@ -70,6 +70,9 @@ cp -ar examples docs tmp_docs
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3.0-13
 - convert license to SPDX
 

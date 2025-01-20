@@ -19,6 +19,8 @@ ExcludeArch:    %{ix86}
 URL:            https://semigroups.github.io/Semigroups/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+# Adapt to C23, e.g., with GCC 15
+Patch:          %{name}-c23.patch
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -92,7 +94,7 @@ Requires:       gap-pkg-smallsemi-doc
 This package contains documentation for gap-pkg-%{pkgname}.
 
 %prep
-%autosetup -n %{pkgname}-%{version}
+%autosetup -n %{pkgname}-%{version} -p1
 
 %conf
 # Do not use the bundled libsemigroups

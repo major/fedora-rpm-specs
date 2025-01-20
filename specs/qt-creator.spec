@@ -6,7 +6,7 @@
 
 Name:           qt-creator
 Version:        15.0.0
-Release:        2%{?prerelease:.%prerelease}%{?dist}
+Release:        3%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -211,6 +211,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org>
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 09 2024 Jan Grulich <jgrulich@redhat.com> - 15.0.0-2
 - Rebuild (qt6.8.1)
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{module}
 Version:        0.1
-Release:        0.49.%{snapdate}%{?dist}
+Release:        0.50.%{snapdate}%{?dist}
 Summary:        Python libraries for interacting with LibreOffice
 License:        GPL-3.0-only AND LGPL-2.1-or-later
 URL:            https://gitorious.org/openoffice-python
@@ -52,6 +52,9 @@ sed -i -e '1d' %{module}/interact.py
 %{python3_sitelib}/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.50.20110209
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.49.20110209
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 Name:		perl-Test-Unit-Lite
 Epoch:		1
 Version:	0.12%{?extraversion:.}%{?extraversion}
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Unit testing without external dependencies
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-Unit-Lite
@@ -67,6 +67,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Test::Unit::Lite.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.12.02-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.12.02-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

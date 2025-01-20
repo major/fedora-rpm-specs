@@ -4,7 +4,7 @@
 
 Name:           %{pypi_name}
 Version:        0.5.0
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        %{global_desc}
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -54,6 +54,9 @@ Summary: %{global_desc}. This package includes a commandline interface.
 %{python3_sitelib}/pyjokes/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5.0-31
 - convert license to SPDX
 

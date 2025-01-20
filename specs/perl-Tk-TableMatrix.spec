@@ -1,6 +1,6 @@
 Name:           perl-Tk-TableMatrix
 Version:        1.29
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Perl module for creating and manipulating tables
 
 # Automatically converted from old format: (GPL+ or Artistic) and BSD - review is highly recommended.
@@ -70,6 +70,9 @@ chmod -x demos/*
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.29-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.29-9
 - convert license to SPDX
 

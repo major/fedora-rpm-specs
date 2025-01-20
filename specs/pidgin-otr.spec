@@ -2,7 +2,7 @@
 Summary: Off-The-Record Messaging plugin for Pidgin
 Name: pidgin-otr
 Version: 4.0.2
-Release: 20%{?dist}
+Release: 21%{?dist}
 Source: http://otr.cypherpunks.ca/%{name}-%{version}.tar.gz
 Url: http://otr.cypherpunks.ca/
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -56,6 +56,9 @@ cp -a %{SOURCE1} %{buildroot}/%{_datadir}/appdata/
 %{_datadir}/appdata/pidgin-otr.metainfo.xml
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 4.0.2-20
 - convert license to SPDX
 

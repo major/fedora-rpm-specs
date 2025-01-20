@@ -1,6 +1,6 @@
 Name:               python-llfuse
 Version:            1.5.1
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Python Bindings for the low-level FUSE API
 Source0:            https://files.pythonhosted.org/packages/source/l/llfuse/llfuse-%{version}.tar.gz
 URL:                https://pypi.python.org/pypi/llfuse
@@ -56,6 +56,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} py.test-3 -v test
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Oct 21 2024 Denis Fateyev <denis@fateyev.com> - 1.5.1-1
 - Update to 1.5.1 release
 

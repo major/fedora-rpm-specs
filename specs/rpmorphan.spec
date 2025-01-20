@@ -1,7 +1,7 @@
 Summary:          List packages that have no dependencies (like deborphan)
 Name:             rpmorphan
 Version:          1.19
-Release:          6%{?dist}
+Release:          7%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:          GPL-2.0-or-later
 
@@ -88,6 +88,9 @@ mv $RPM_BUILD_ROOT/usr/lib/%{name} $RPM_BUILD_ROOT%{_datadir}/%{name}
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.19-6
 - convert license to SPDX
 

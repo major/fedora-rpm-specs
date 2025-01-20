@@ -22,7 +22,7 @@
 Summary:        A compact, more readable alternative to var_export
 Name:           php-pecl-var-representation
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 License:        BSD-3-Clause
 URL:            https://pecl.php.net/package/%{pecl_name}
@@ -136,6 +136,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 17 2024 Remi Collet <remi@fedoraproject.org> - 0.1.5-2
 - modernize the spec file
 

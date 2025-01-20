@@ -1,6 +1,6 @@
 Name:		python-utmp
 Version:	0.8.2
-Release:	27%{?dist}
+Release:	28%{?dist}
 Summary:	Python modules for umtp records
 
 License:	LicenseRef-Fedora-UltraPermissive
@@ -66,6 +66,9 @@ install -D -p -m644 debian/copyright COPYING
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

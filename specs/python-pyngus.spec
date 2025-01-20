@@ -7,7 +7,7 @@ Name:          python-%{srcname}
 # Uses the snapshot because the upstream does not provides the latest version from git.
 # Please see: https://github.com/kgiusti/pyngus/issues/14
 Version:       2.3.0^%{snapshotdate}git%{shortcommit}
-Release:       6.%{snapshotdate}git%{shortcommit}%{?dist}
+Release:       7.%{snapshotdate}git%{shortcommit}%{?dist}
 Summary:       Callback API implemented over Proton
 
 License:       Apache-2.0
@@ -62,6 +62,9 @@ PYTHONPATH=.:tests tests/test-runner -i "unit_tests.connection.CyrusTest.test_cy
 %doc README.md
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0^20200513git60b6f10-7.20200513git60b6f10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0^20200513git60b6f10-6.20200513git60b6f10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

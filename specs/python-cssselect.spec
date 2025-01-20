@@ -4,7 +4,7 @@
 
 Name:           python-cssselect
 Version:        1.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Parses CSS3 Selectors and translates them to XPath 1.0
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -56,6 +56,9 @@ Python 3 version.
 %{python3_sitelib}/%{modname}/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 24 2024 Eduardo Echeverria <echevemaster@gmail.com> - 1.2.0-1
 - Update to 1.2.0
 

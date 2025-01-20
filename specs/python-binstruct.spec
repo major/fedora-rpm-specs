@@ -11,7 +11,7 @@ with its fields.
 
 Name:		python-%{pypi_name}
 Version:	1.0.1
-Release:	29%{?dist}
+Release:	30%{?dist}
 Summary:	Library for read/write access of binary data via structures
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -68,6 +68,9 @@ BuildRequires:	python3-setuptools
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.1-29
 - convert license to SPDX
 

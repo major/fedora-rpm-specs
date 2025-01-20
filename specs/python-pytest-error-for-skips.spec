@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.2
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Pytest plugin to treat skipped tests a test failure
 
 License:        MIT
@@ -45,6 +45,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/pytest_error_for_skips-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

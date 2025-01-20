@@ -11,7 +11,7 @@ provides your test with the URL in the fixture.
 
 Name:           python-%{github_name}
 Version:        2.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 # License is included in-line in README.md
@@ -67,6 +67,9 @@ This package provides the Python 3 implementation.
 
 #################################################################################
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Sep 20 2024 Adam Williamson <awilliam@redhat.com> - 2.1.0-1
 - Update to 2.1.0
 

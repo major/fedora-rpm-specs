@@ -2,7 +2,7 @@
 
 Name:           pwauth
 Version:        2.3.10
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        External plugin for mod_authnz_external authenticator
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -57,6 +57,9 @@ install -p -T %{SOURCE1} %{buildroot}%{_sysconfdir}/pam.d/pwauth
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.10-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.3.10-32
 - convert license to SPDX
 

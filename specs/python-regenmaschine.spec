@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2022.9.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python API for RainMachine sprinkler controllers
 
 License:        MIT
@@ -45,6 +45,9 @@ the RainMachine cloud.
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2022.9.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2022.9.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 %global pkg_name scrapy
 Name:		python-scrapy
 Version:	2.12.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A high-level Python Screen Scraping framework
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
@@ -104,6 +104,9 @@ popd
 %doc docs/build/html
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 23 2024 Eduardo Echeverria <echevemaster@gmail.com> - 2.12.0-1
 - Update to 2.12.0
 

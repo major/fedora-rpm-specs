@@ -1,6 +1,6 @@
 Name:		psiconv
 Version:	0.9.8
-Release:	46%{?dist}
+Release:	47%{?dist}
 Summary:	A conversion utility for Psion files
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -69,6 +69,9 @@ mv $RPM_BUILD_ROOT%{_datadir}/%{name} _doc
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.9.8-46
 - convert license to SPDX
 

@@ -7,7 +7,7 @@ Summary:	Small and fast replacement for ruby's huge and slow test/unit
 Name:		rubygem-%{gem_name}4
 # With 4.7.5, some test fails, so for now use 4.7.0
 Version:	4.7.0
-Release:	25%{?dist}
+Release:	26%{?dist}
 
 License:	MIT
 URL:		https://github.com/seattlerb/minitest
@@ -102,6 +102,9 @@ done
 %doc	%{gem_docdir}/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.0-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Nov 15 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.7.0-25
 - Support ruby34 formatting change for testsuite
 

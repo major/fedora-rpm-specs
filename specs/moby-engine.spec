@@ -13,7 +13,7 @@
 # For rc, beta, alpha releases substitute tilde (~) for dash (-)
 # in version0. tag0 reverses the substitution
 # e.g.  global version0        27.4.0~rc.4
-%global version0        27.4.1
+%global version0        27.5.0
 %global tag0            v%{gsub %{version0} ~ -}
 
 # https://github.com/docker/cli

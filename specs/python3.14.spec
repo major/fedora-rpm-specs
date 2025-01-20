@@ -17,7 +17,7 @@ URL: https://www.python.org/
 %global prerel a3
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python-2.0.1
 
 
@@ -1703,6 +1703,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.14.0~a3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 17 2024 Karolina Surma <ksurma@redhat.com> - 3.14.0~a3-1
 - Update to Python 3.14.0a3
 

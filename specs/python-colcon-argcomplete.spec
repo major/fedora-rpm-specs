@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.3
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Completion for colcon command lines using argcomplete
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -69,6 +69,9 @@ BUILD_DEBIAN_PACKAGE=1 \
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.3.3-21
 - convert license to SPDX
 

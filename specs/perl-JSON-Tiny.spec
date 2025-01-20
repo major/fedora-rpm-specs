@@ -1,6 +1,6 @@
 Name:           perl-JSON-Tiny
 Version:        0.58
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Minimalistic JSON. No dependencies
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -55,6 +55,9 @@ RELEASE_TESTING=1 make test
 %{_mandir}/man3/JSON*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.58-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.58-23
 - convert license to SPDX
 

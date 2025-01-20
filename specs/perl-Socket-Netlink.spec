@@ -1,6 +1,6 @@
 Name:           perl-Socket-Netlink
 Version:        0.05
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Interface to Linux's PF_NETLINK socket family
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -84,6 +84,9 @@ find %{buildroot} -type f -name '*.bs' -size 0 -delete
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.05-29
 - convert license to SPDX
 

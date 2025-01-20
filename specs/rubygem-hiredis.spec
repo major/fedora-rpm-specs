@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.6.3
-Release: 23%{?dist}
+Release: 24%{?dist}
 Summary: Ruby wrapper for hiredis
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
@@ -99,6 +99,9 @@ popd
 %{gem_instdir}/Rakefile
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 07 2025 Vít Ondruch <vondruch@redhat.com> - 0.6.3-23
 - Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.4
 

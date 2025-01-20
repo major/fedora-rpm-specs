@@ -2,7 +2,7 @@ Name:           python-kmod
 License:        LGPL-2.0-or-later
 Summary:        Python module to work with kernel modules
 Version:        0.9.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 URL:            https://github.com/maurizio-lombardi/python-kmod/
 Source0:        https://github.com/downloads/maurizio-lombardi/%{name}/%{name}-%{version}.tar.gz
 BuildRequires:  gcc
@@ -40,6 +40,9 @@ Linux kernel modules, using libkmod.
 %doc COPYING.LESSER README
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

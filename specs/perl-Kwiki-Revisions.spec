@@ -1,6 +1,6 @@
 Name:           perl-Kwiki-Revisions
 Version:        0.15
-Release:        57%{?dist}
+Release:        58%{?dist}
 Summary:        Kwiki Revisions Plugin
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-58
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.15-57
 - convert license to SPDX
 

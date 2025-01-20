@@ -3,7 +3,7 @@
 
 Name:           perl-Spiffy
 Version:        0.46
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Framework for doing object oriented (OO) programming in Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Spiffy
@@ -78,6 +78,9 @@ make test %{?with_perl_Spiffy_enables_extra_test:RELEASE_TESTING=1}
 %{_mandir}/man3/Spiffy.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.46-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.46-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

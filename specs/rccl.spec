@@ -43,11 +43,11 @@
 # Handle with a custom gpu list
 # Because this package is a leaf, set it to the minimum until there is a request for
 # more support or it is used by another package
-%global rccl_gpu_list gfx1100
+%global rccl_gpu_list "gfx90a:xnack+;gfx90a:xnack-;gfx1100;gfx1101;gfx1102;gfx1200;gfx1201"
 
 Name:           rccl
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm Communication Collectives Library
 
 Url:            https://github.com/ROCm/rccl
@@ -186,6 +186,9 @@ fi
 %endif
 
 %changelog
+* Sat Jan 18 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-3
+- Add gfx1200,gfx1201
+
 * Fri Dec 27 2024 Tom Rix <Tom.Rix@amd.com> - 6.3.0-2
 - Add --with export
 - Remove unneeded requires rocm-rpm-macros-modules

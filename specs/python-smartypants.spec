@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.1
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        plug-in that easily translates ASCII punctuation characters into smart entities
 
 License:        BSD-3-Clause AND BSD-2-Clause
@@ -83,6 +83,9 @@ rm -rf _build/html/.{doctrees,buildinfo}
 %license COPYING
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 15 2024 Carl George <carlwgeorge@fedoraproject.org> - 2.0.1-22
 - Convert to pyproject macros
 - Fix test invocation

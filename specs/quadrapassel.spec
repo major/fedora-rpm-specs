@@ -1,6 +1,6 @@
 Name:           quadrapassel
 Version:        40.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        GNOME Quadrapassel game
 
 # Automatically converted from old format: GPLv2+ and CC-BY-SA - review is highly recommended.
@@ -56,6 +56,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Quadrapa
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 40.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep  4 2024 Miroslav Suchý <msuchy@redhat.com> - 40.2-10
 - convert license to SPDX
 

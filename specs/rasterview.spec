@@ -1,7 +1,7 @@
 Name: rasterview
 Summary: CUPS raster file viewer
 Version: 1.7.1
-Release: 16%{?dist}
+Release: 17%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 Source: https://www.msweet.org/files/project7/rasterview-%{version}.tar.gz
@@ -61,6 +61,9 @@ desktop-file-install \
 %{_datadir}/applications/Development/rasterview.desktop
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.7.1-16
 - convert license to SPDX
 

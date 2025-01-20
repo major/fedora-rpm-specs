@@ -1,6 +1,6 @@
 Name:           perl-Role-Tiny
 Version:        2.002004
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A nouvelle cuisine portion size slice of Moose
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Role-Tiny
@@ -55,6 +55,9 @@ Role::Tiny is a minimalist role composition tool.
 %{_mandir}/man3/Role::Tiny::With.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.002004-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.002004-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

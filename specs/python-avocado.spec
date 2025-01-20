@@ -35,7 +35,7 @@
 
 Name: python-avocado
 Version: 92.3
-Release: 1%{?gitrel}%{?dist}
+Release: 2%{?gitrel}%{?dist}
 Summary: Framework with tools and libraries for Automated Testing
 # Found licenses:
 # avocado/core/tapparser.py: MIT
@@ -452,6 +452,9 @@ Again Shell code (and possibly other similar shells).
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 92.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 19 2024 Cleber Rosa <crosa@redhat.com> - 92.3-1
 - Updated to 92.3
 - Support building and running under Python 3.13 for F42

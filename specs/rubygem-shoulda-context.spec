@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.0.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Context framework extracted from Shoulda
 License: MIT
 URL: https://github.com/thoughtbot/shoulda-context
@@ -130,6 +130,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 Summary:        Qt5 - QtConfiguration module
 Name:           qt5-%{qt_module}
 Version:        0.3.1
-Release:        24%{?dist}
+Release:        25%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 # Automatically converted from old format: LGPLv2 with exceptions or GPLv3 with exceptions - review is highly recommended.
@@ -66,6 +66,9 @@ Requires:       qt5-qtbase-devel%{?_isa}
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.3.1-24
 - convert license to SPDX
 

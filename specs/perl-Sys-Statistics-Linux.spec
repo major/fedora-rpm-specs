@@ -1,6 +1,6 @@
 Name:           perl-Sys-Statistics-Linux
 Version:        0.66
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Front-end module to collect system statistics
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -49,6 +49,9 @@ modules to get more information about all possible statistics.
 %{_mandir}/man3/Sys*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.66-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.66-36
 - convert license to SPDX
 

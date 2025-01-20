@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Evaluator of Python expression using ast module
 
 License:        MIT
@@ -69,6 +69,9 @@ rm -rf html/.{doctrees,buildinfo} html/_static/empty
 %license LICENSE
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 30 2024 Fabian Affolter <mail@fabian-affolter.ch> - 1.0.5-1
 - Update to latest upstream release (closes rhbz#2315594)
 

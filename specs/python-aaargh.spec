@@ -9,7 +9,7 @@ using a single entry point.
 
 Name:           python-%{srcname}
 Version:        0.7.1
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        An astonishingly awesome application argument helper
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -54,6 +54,9 @@ py.test-3 -v
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.7.1-29
 - convert license to SPDX
 

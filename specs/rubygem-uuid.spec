@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        2.3.7
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        UUID generator based on RFC 4122
 
 # Automatically converted from old format: MIT or CC-BY-SA - review is highly recommended.
@@ -108,6 +108,9 @@ popd
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.7-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.3.7-22
 - convert license to SPDX
 

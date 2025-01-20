@@ -1,6 +1,6 @@
 Name:           perl-Test-Stream
 Version:        1.302027
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Successor to Test::More and Test::Builder
 # The license URL in COPYRIGHT POD sections is wrong,
 # <https://github.com/Test-More/Test-Stream/issues/66>
@@ -84,6 +84,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.302027-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 1.302027-33
 - convert license to SPDX
 

@@ -7,7 +7,7 @@
 Name:		qtcurve
 Summary:        A set of widget styles for GTK+ and Qt widget toolkits
 Version:	1.9.1
-Release:	31%{?dist}
+Release:	32%{?dist}
 
 # KDE e.V. may determine that future LGPL versions are accepted
 # Automatically converted from old format: LGPLv2 or LGPLv3 - review is highly recommended.
@@ -142,6 +142,9 @@ rm -fv %{buildroot}%{_libdir}/libqtcurve-{cairo,utils}.so
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.1-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.9.1-31
 - convert license to SPDX
 

@@ -5,7 +5,7 @@
 
 Name:           python-%{pkgname}
 Version:        1.51.14
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A stylish alternative for caching your map tiles
 
 License:        BSD-3-Clause
@@ -136,6 +136,9 @@ NO_DATABASE=1 OFFLINE_TESTS=1 %{__python3} -m nose \
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.51.14-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.51.14-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

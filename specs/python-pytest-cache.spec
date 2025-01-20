@@ -8,7 +8,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Pytest plugin with mechanisms for caching across test runs
 
 License:        MIT
@@ -93,6 +93,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version} -v || :
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

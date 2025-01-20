@@ -1,6 +1,6 @@
 Name:           qastools
 Version:        0.23.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Collection of desktop applications for ALSA
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -115,6 +115,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.23.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.23.0-10
 - convert license to SPDX
 

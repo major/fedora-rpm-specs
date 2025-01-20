@@ -2,7 +2,7 @@
 
 Name:               python-pygeoip
 Version:            0.2.6
-Release:            39%{?dist}
+Release:            40%{?dist}
 Summary:            Pure Python GeoIP API
 License:            LGPL-3.0-or-later
 URL:                http://pypi.python.org/pypi/pygeoip
@@ -94,6 +94,9 @@ rm -rf %{modname}.egg-info
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.6-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.6-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           python-eccodes
 Version:        2.38.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python interface to the ecCodes GRIB and BUFR decoder/encoder
 License:        Apache-2.0
 
@@ -106,6 +106,9 @@ rm -rf %sphinx_doc_path/.doctrees
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.38.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Oct 27 2024 Jos de Kloe <josdekloe@gmail.com> 2.38.1-1
 - move to upstream release 2.38.1
   Note that upstream numbering scheme has changed so 1.7.1 jumped to 2.38.0

@@ -2,7 +2,7 @@
 
 Name:           python3-postgresql
 Version:        1.2.2
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Connect to PostgreSQL with Python 3
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -39,6 +39,9 @@ support a developer working with PostgreSQL databases.
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2.2-16
 - convert license to SPDX
 

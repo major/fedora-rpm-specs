@@ -18,7 +18,7 @@
 Summary:	PoPToP Point to Point Tunneling Server
 Name:		pptpd
 Version:	1.5.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 BuildRequires:	make
@@ -141,6 +141,9 @@ fi
 %endif
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Nov 28 2024 Adam Williamson <awilliam@redhat.com> - 1.5.0-4
 - Rebuild for ppp 2.5.1
 - Add strong version tie to ppp dependency

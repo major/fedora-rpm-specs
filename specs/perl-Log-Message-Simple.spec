@@ -1,6 +1,6 @@
 Name:           perl-Log-Message-Simple
 Version:        0.10
-Release:        322%{?dist}
+Release:        323%{?dist}
 Summary:        Simplified interface to Log::Message
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Log-Message-Simple
@@ -77,6 +77,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-323
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-322
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

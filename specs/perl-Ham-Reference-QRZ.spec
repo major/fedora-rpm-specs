@@ -1,6 +1,6 @@
 Name:               perl-Ham-Reference-QRZ
 Version:            0.04
-Release:            25%{?dist}
+Release:            26%{?dist}
 Summary:            An object oriented front end for the QRZ.COM Amateur Radio call-sign database
 License:            Artistic-2.0
 URL:                https://metacpan.org/release/Ham-Reference-QRZ
@@ -45,6 +45,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

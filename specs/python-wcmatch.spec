@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Wildcard/glob file name matcher
 
 License:        MIT
@@ -62,6 +62,9 @@ globmatch which functions like fnmatch, but for paths.
 %doc README.md
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Nov 06 2024 Parag Nemade <pnemade AT redhat DOT com> - 10.0-1
 - Update to 10.0 version (#2315029)
 

@@ -16,7 +16,7 @@
 
 Name:           php-%{pk_owner}-%{pk_project}
 Version:        1.1.5
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        PSR Http Message Util
 
 License:        MIT
@@ -99,6 +99,9 @@ exit ($ok ? 0 : 1);
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

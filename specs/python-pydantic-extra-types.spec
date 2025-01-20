@@ -4,7 +4,7 @@
 Name:           python-pydantic-extra-types
 Version:        2.10.2
 %forgemeta
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extra types for Pydantic
 
 License:        MIT
@@ -95,6 +95,9 @@ tomcli set pyproject.toml lists delitem --type regex --no-first \
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 15 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.10.2-1
 - Update to 2.10.2. Fixes rhbz#2338374.
 

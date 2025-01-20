@@ -2,7 +2,7 @@
 
 Name: python-%{srcname}
 Version: 0.2.12
-Release: 35.post1%{?dist}
+Release: 36.post1%{?dist}
 Summary: Allows using distutils2-like setup.cfg files with setup.py
 License: BSD-3-Clause
 
@@ -51,6 +51,9 @@ find . -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.12-36.post1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Dec 09 2024 Sergio Pascual <sergiopr@fedoraproject.org> - 0.2.12-35.post1
 - Add reviewed license identifier
 

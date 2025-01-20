@@ -7,7 +7,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.3.1
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Python interface to DBus notifications
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -70,6 +70,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license docs/license.rst LICENSE
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.3.1-23
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:    realmd
 Version: 0.17.1
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: Kerberos realm enrollment service
 License: LGPL-2.1-or-later
 URL:     https://gitlab.freedesktop.org/realmd/realmd
@@ -105,6 +105,9 @@ make check
 %doc ChangeLog
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Nov 29 2024 Sumit Bose <sbose@redhat.com> - 0.17.1-14
 - Various fixes for issues found by static code scanners
 - Systemd security setting and CacheDirectory

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.5.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Library for Generating D-Bus Client Code
 
 License:        MPL-2.0
@@ -46,6 +46,9 @@ Python 3 version.
 %{python3_sitelib}/dbus_client_gen-*.egg-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

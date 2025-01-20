@@ -7,7 +7,7 @@ permessage-deflate extension from RFC 7692.}
 
 Name:               python-websocket-client
 Version:            1.8.0
-Release:            2%{?dist}
+Release:            3%{?dist}
 Summary:            WebSocket client for python
 License:            Apache-2.0
 URL:                https://github.com/websocket-client/websocket-client
@@ -56,6 +56,9 @@ BuildRequires:      python3-devel
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Aug 30 2024 Carl George <carlwgeorge@fedoraproject.org> - 1.8.0-2
 - Remove explicit pytest buildreq by including it in the test extra
 - Remove duplicate license file

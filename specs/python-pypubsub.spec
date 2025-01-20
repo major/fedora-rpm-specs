@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.0.3
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Python Publish-Subscribe Package
 
 License:        BSD-2-Clause
@@ -59,6 +59,9 @@ popd
 %{python3_sitelib}/pubsub/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Aug 01 2024 Scott Talbert <swt@techie.net> - 4.0.3-23
 - Update License tag to use SPDX identifiers
 

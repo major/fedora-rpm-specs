@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        6.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Colored formatter for the Python logging module
 
 License:        MIT
@@ -43,6 +43,9 @@ Summary:        %{summary}
 %{python3_sitelib}/%{srcname}*.egg-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 29 2024 Fabian Affolter <mail@fabian-affolter.ch> - 6.9.0-1
 - Update to latest upstream release (closes rhbz#2322532)
 

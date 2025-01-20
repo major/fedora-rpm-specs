@@ -2,7 +2,7 @@
 
 Name:               python-%{modname}
 Version:            1.1.2
-Release:            33%{?dist}
+Release:            34%{?dist}
 Summary:            Easy to use mocking/stub/spy framework
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -67,6 +67,9 @@ $(find tests -type f)
 %{python3_sitelib}/%{modname}-%{version}-*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 24 2024 Charalampos Stratakis <cstratak@redhat.com> - 1.1.2-33
 - Utilize pytest instead of the removed setup.py test command
 Resolves: rhbz#2319664

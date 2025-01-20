@@ -29,6 +29,8 @@ Source11:        https://bazaar.launchpad.net/~ubuntu-branches/ubuntu/vivid/%{na
 # polyglot support
 Source20:        https://raw.githubusercontent.com/mpurland/%{name}/master/polyglot.ini#/%{name}-polyglot.ini
 
+Patch:           https://github.com/official-%{name}/%{srcname}/commit/1776448917e49b922a762d2d08c00a3f3be10205.patch#/001-fix-for-gcc-15.patch
+
 BuildRequires:  gcc-c++
 BuildRequires:  make
 
@@ -48,7 +50,7 @@ test %nnuehash1 = "$(sha256sum %{SOURCE1} | cut -c1-12)"
 test %nnuehash2 = "$(sha256sum %{SOURCE2} | cut -c1-12)"
 
 #%%autosetup -n%%{name}-%%{version}-linux
-%autosetup -n%{srcname}-sf_%{version}
+%autosetup -p1 -n%{srcname}-sf_%{version}
 
 # Verify the NNUE net checksums match the defaults defined in the sources
 grep -Fq '#define EvalFileDefaultNameBig "nn-%{nnuehash1}.nnue"' src/evaluate.h

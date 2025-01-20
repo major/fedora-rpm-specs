@@ -2,7 +2,7 @@
 
 Name: python-dill
 Version: 0.3.9
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Serialize all of Python
 
 License: BSD-3-Clause
@@ -96,6 +96,9 @@ find '%{buildroot}%{python3_sitelib}/dill' -type f -name '*.py' ! -perm /0111 \
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 10 2024 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.3.9-2
 - Update to 0.3.9
 

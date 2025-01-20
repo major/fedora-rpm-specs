@@ -8,7 +8,7 @@
 
 Name:           python-%{real_name}
 Version:        1.4.3
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        A jQuery-like library for python
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -87,6 +87,9 @@ XML and HTML manipulation.
 %{python3_sitelib}/pyquery*.egg-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec 11 2024 Miro Hrončok <mhroncok@redhat.com> - 1.4.3-21
 - Use pytest instead of nose
 - https://fedoraproject.org/wiki/Changes/DeprecateNose

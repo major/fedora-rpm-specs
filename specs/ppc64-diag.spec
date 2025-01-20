@@ -1,6 +1,6 @@
 Name:           ppc64-diag
 Version:        2.7.10
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        PowerLinux Platform Diagnostics
 URL:            https://github.com/power-ras/%{name}
 License:        GPL-2.0-only
@@ -172,6 +172,9 @@ if [ "$1" = "0" ]; then # last uninstall
 fi
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.10-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 02 2025 Than Ngo <than@redhat.com> - 2.7.10-2
 - Add Power11 support for diag_nvme
 

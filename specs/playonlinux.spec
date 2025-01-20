@@ -1,7 +1,7 @@
 Summary:       Graphical front-end for Wine
 Name:          playonlinux
 Version:       4.4
-Release:       13%{?dist}
+Release:       14%{?dist}
 # playonlinux itself is GPL-3.0-only but uses other source codes, breakdown:
 # GPL-2.0-or-later: python/{configurewindow/ConfigureWindow,debug,mainwindow,options,wrapper}.py
 # GPL-2.0-or-later: python/{install/InstallWindow,setupwindow/{POL_SetupFrame,gui_server}}.py
@@ -100,6 +100,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/PlayOnLinu
 %{_mandir}/man1/%{name}-pkg.1*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Oct 14 2024 Robert Scheck <robert@fedoraproject.org> 4.4-13
 - Add patch to replace pipes.quote() from deprecated Python
   pipes (#2318435, thanks to Sean Carlos and Patrick Scheck)

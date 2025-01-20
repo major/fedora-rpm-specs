@@ -1,6 +1,6 @@
 Name:           portaudio
 Version:        19
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Free, cross platform, open-source, audio I/O library
 License:        MIT
 URL:            http://www.portaudio.com/
@@ -91,6 +91,9 @@ doxygen
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 19-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Oct 16 2024 Xavier Bachelot <xavier@bachelot.org> - 19-45
 - Add conditional for {pipewire-,}jack-audio-connection-kit-devel
 - Narrow scope of globs for .so/.pc

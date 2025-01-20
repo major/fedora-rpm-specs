@@ -4,7 +4,7 @@
 
 Name:           php-pear-File-Fstab
 Version:        2.0.3
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Read and write fstab files
 
 # Automatically converted from old format: PHP - review is highly recommended.
@@ -88,6 +88,9 @@ fi
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0.3-24
 - convert license to SPDX
 

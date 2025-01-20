@@ -1,6 +1,6 @@
 Name:           rssh
 Version:        2.3.4
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Restricted shell for use with OpenSSH, allowing only scp and/or sftp
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD 
@@ -80,6 +80,9 @@ exit 0
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.3.4-30
 - convert license to SPDX
 

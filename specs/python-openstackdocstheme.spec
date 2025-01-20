@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.0.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        OpenStack Docs Theme
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -78,6 +78,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc doc/build/html
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 3.0.0-9
 - convert license to SPDX
 

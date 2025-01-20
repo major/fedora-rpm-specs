@@ -4,7 +4,7 @@ Name: rubygem-%{gem_name}
 Version: 2.2.4
 # Introduce Epoch (related to bug 552972)
 Epoch:  1
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: A modular Ruby webserver interface
 # lib/rack/show_{status,exceptions}.rb contains snippets from Django under BSD license.
 # Automatically converted from old format: MIT and BSD - review is highly recommended.
@@ -110,6 +110,9 @@ popd
 %doc %{gem_instdir}/example
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.2.4-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Nov 20 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:2.2.4-8
 - Backport upstream patch for ruby34 hash formatting change
 - Add dependency for rubygem(base64) explicitly

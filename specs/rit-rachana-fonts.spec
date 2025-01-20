@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 Version:    1.5.2
-Release:    2%{?dist}
+Release:    3%{?dist}
 URL:        https://gitlab.com/rit-fonts/%{fontsource}
 
 %global foundry        RIT
@@ -42,6 +42,9 @@ Source0:    %{fontsource}-%{version}.zip
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 15 2025 Rajeesh KV <rajeeshknambiar@gmail.com> - 1.5.2-2
 - Fix RHBZ#2338102, use `zip` file of prebuilt fonts
 

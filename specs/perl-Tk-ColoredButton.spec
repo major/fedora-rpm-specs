@@ -1,6 +1,6 @@
 Name:           perl-Tk-ColoredButton
 Version:        1.05
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Button widget with background gradient color
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Tk-ColoredButton
@@ -85,6 +85,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 23 2024 Petr Pisar <ppisar@redhat.com> - 1.05-38
 - Moderize a spec file
 - Package the tests

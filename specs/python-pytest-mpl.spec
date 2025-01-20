@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.13
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Pytest plugin for testing figure output from Matplotlib
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -65,6 +65,9 @@ MPLBACKEND=Agg %{pytest} tests -k 'not test_succeeds_remote and not test_succeed
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 09 2024 Miro Hrončok <mhroncok@redhat.com> - 0.13-14
 - Remove redundant BuildRequires on python3-nose
 - Update outdated description not to mention nose

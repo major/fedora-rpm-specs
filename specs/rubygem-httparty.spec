@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.21.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Makes http fun! Also, makes consuming restful web services dead easy
 License: MIT
 URL: https://github.com/jnunemaker/httparty
@@ -106,6 +106,9 @@ popd
 %{gem_instdir}/website
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Nov 24 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.21.0-5
 - Support ruby3.4 hash inspect format change
 - Explicitly add base64 dependency

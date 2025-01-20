@@ -11,7 +11,7 @@
 Summary:	Small, fast daemon to serve DNSBLs
 Name:		rbldnsd
 Version:	0.998b
-Release:	15%{?dist}
+Release:	16%{?dist}
 License:	GPL-2.0-or-later
 URL:		https://rbldnsd.io/
 Source0:	https://rbldnsd.io/dwl/rbldnsd-%{version}.tgz
@@ -101,6 +101,9 @@ fi
 %{_sbindir}/rbldnsctl
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.998b-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.998b-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

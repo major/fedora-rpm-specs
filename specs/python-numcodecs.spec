@@ -1,7 +1,7 @@
 %global srcname numcodecs
 
 Name:           python-%{srcname}
-Version:        0.14.1
+Version:        0.15.0
 Release:        %autorelease
 Summary:        Buffer compression and transformation for data storage and communication
 
@@ -18,9 +18,6 @@ Patch:          0004-Re-add-Snappy-to-tests.patch
 Patch:          0005-Fix-testing-setup-for-Fedora.patch
 # Allow older NumPy.
 Patch:          0006-Reduce-numpy-build-requirement.patch
-
-# Fix a bug in delta filter.
-Patch:          https://github.com/zarr-developers/numcodecs/pull/677.patch
 
 # Stop building on i686
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -53,6 +50,8 @@ BuildArch:      noarch
 %description -n python-%{srcname}-doc
 Documentation for numcodecs
 
+
+%pyproject_extras_subpkg -n python3-%{srcname} crc32c msgpack zfpy
 
 %prep
 %autosetup -n %{srcname}-%{version} -p1

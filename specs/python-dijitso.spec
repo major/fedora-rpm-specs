@@ -1,6 +1,6 @@
 Name:           python-dijitso
 Version:        2019.1.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Distributed just-in-time building of shared libraries
 
 License:        LGPL-3.0-or-later
@@ -76,6 +76,9 @@ BuildArch:      noarch
 %{_mandir}/man1/dijitso.1*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2019.1.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2019.1.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name: python-grabserial
 Version: 2.0.2
-Release: 17%{?dist}
+Release: 18%{?dist}
 Summary: Reads a serial port and writes data to standard output
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -44,6 +44,9 @@ Requires: python3-pyserial
 %{python3_sitelib}/*.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0.2-17
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           rpminspect-data-fedora
 Version:        1.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        Build deviation compliance tool data files
 Group:          Development/Tools
@@ -59,6 +59,9 @@ used by the inspections provided by librpminspect.
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.13-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Sep 10 2024 David Cantrell <dcantrell@redhat.com> - 1.13-1
 - Upgrade to rpminspect-data-fedora-1.13
 

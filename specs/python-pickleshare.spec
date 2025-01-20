@@ -1,6 +1,6 @@
 Name:           python-pickleshare
 Version:        0.7.5
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Tiny 'shelve'-like database with concurrency support
 
 License:        MIT
@@ -61,6 +61,9 @@ sed -i 's/\/usr\/bin\/env python/\/usr\/bin\/python/' pickleshare.py
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.5-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 09 2024 Michel Lind <salimma@fedoraproject.org> - 0.7.5-18
 - Modernize spec to follow latest packaging guidelines
 - Update URL

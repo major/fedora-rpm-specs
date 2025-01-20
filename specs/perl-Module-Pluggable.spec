@@ -8,7 +8,7 @@
 Name:           perl-Module-Pluggable
 Epoch:          2
 Version:        6.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Automatically give your module the ability to have plugins
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Pluggable
@@ -113,6 +113,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:6.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jan 13 2025 Michal Josef Špaček <mspacek@redhat.com> - 2:6.3-1
 - 6.3 bump (#2337044)
 

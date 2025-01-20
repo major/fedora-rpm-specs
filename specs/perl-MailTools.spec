@@ -1,7 +1,7 @@
 Summary:	Various ancient mail-related perl modules
 Name:		perl-MailTools
 Version:	2.22
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/MailTools
 Source0:	https://cpan.metacpan.org/authors/id/M/MA/MARKOV/MailTools-%{version}.tar.gz
@@ -117,6 +117,9 @@ make test TEST_FILES="xt/*.t"
 %{_mandir}/man3/MailTools.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.22-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 18 2024 Paul Howarth <paul@city-fan.org> - 2.22-1
 - Update to 2.22 (rhbz#2326982)
   - To/Cc/Bcc/From fields may appear only once (GH#4)

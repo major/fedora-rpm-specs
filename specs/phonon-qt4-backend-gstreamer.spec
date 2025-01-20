@@ -5,7 +5,7 @@
 Summary: Gstreamer phonon backend for Qt4
 Name:    phonon-qt4-backend-gstreamer
 Version: 4.9.1
-Release: 24%{?dist}
+Release: 25%{?dist}
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
@@ -75,6 +75,9 @@ make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 08 2025 Alessandro Astone <ales.astone@gmail.com> - 4.9.1-24
 - Add missing build dependency on kde4 macros
 

@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.17.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 
 Summary:	Contracts for Ruby
 # SPDX confirmed
@@ -83,6 +83,9 @@ popd
 %{gem_instdir}/benchmarks/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Nov 26 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.17.2-2
 - Workaround for ruby34 hash inspect format change
 

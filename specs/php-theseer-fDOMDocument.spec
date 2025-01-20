@@ -17,7 +17,7 @@
 
 Name:           php-theseer-fDOMDocument
 Version:        1.6.7
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        An Extension to PHP standard DOM
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -99,6 +99,9 @@ fi
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.7-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.6.7-8
 - convert license to SPDX
 

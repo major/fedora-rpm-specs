@@ -2,7 +2,7 @@
 
 Name:           python-repoze-tm2
 Version:        2.2.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Zope-like transaction manager via WSGI middleware
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -56,6 +56,9 @@ This package contains the python3 version of the library.
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.2.0-10
 - convert license to SPDX
 

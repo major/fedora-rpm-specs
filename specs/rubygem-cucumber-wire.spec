@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 6.2.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Wire protocol for Cucumber
 License: MIT
 URL: http://cucumber.io
@@ -92,6 +92,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 03 2025 Vít Ondruch <vondruch@redhat.com> - 6.2.1-3
 - Support quote in backtrace for Ruby 3.4
 

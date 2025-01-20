@@ -3,7 +3,7 @@
 Name:           plasma-pk-updates
 Epoch:          1
 Version:        0.3.2
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Plasma applet for system updates using PackageKit
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -81,6 +81,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.pl
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.3.2-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1:0.3.2-19
 - convert license to SPDX
 

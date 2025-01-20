@@ -1,6 +1,6 @@
 Name:           rapid-photo-downloader
 Version:        0.9.33
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Images downloader for external devices
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -85,6 +85,9 @@ desktop-file-install                                        \
 %{_mandir}/man1/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.33-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.9.33-13
 - convert license to SPDX
 

@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.8.32
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Keep your application settings in sync
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -70,6 +70,9 @@ rm -rf %{pypi_name}.egg-info
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.32-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.8.32-14
 - convert license to SPDX
 

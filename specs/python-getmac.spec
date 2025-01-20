@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.9.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python module to get the MAC address of local network interfaces and LAN hosts
 
 License:        MIT
@@ -46,6 +46,9 @@ sed -i '1{/^#!\//d}' getmac/__main__.py
 /usr/bin/getmac
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 22 2024 Filipe Rosset <rosset.filipe@gmail.com> - 0.9.5-1
 - Update to 0.9.5 fixes rhbz#2179157
 

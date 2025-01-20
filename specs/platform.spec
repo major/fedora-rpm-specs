@@ -1,6 +1,6 @@
 Name:           platform
 Version:        2.1.0.1
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Platform support library used by libCEC and binary add-ons for Kodi
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -61,6 +61,9 @@ cp -p %{SOURCE1} .
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0.1-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.1.0.1-21
 - convert license to SPDX
 

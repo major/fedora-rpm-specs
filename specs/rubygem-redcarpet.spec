@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	3.6.0
-Release:	7%{?dist}
+Release:	8%{?dist}
 
 Summary:	A fast, safe and extensible Markdown to (X)HTML parser
 # SPDX confirmed
@@ -94,6 +94,9 @@ popd
 %{gem_instdir}/CONTRIBUTING.md
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 08 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.6.0-7
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.4
 

@@ -2,7 +2,7 @@
 
 Name:           python-zope-configuration
 Version:        5.0.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Zope Configuration Markup Language (ZCML)
 
 License:        ZPL-2.1
@@ -59,6 +59,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

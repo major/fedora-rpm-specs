@@ -1,6 +1,6 @@
 Name:		poezio
 Version:	0.14
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	IRC-like jabber (XMPP) console client
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -115,6 +115,9 @@ rm -f %{buildroot}%{_pkgdocdir}/html/.buildinfo
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.14-13
 - convert license to SPDX
 

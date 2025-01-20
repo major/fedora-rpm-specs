@@ -1,7 +1,7 @@
 Name:		perl-Test-CheckDeps
 Summary:	Check for presence of dependencies
 Version:	0.010
-Release:	41%{?dist}
+Release:	42%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-CheckDeps
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-CheckDeps-%{version}.tar.gz
@@ -60,6 +60,9 @@ make test RELEASE_TESTING=1
 %{_mandir}/man3/Test::CheckDeps.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.010-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.010-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

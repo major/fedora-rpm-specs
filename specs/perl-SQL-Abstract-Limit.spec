@@ -1,6 +1,6 @@
 Name:           perl-SQL-Abstract-Limit
 Version:        0.143
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Portable LIMIT Emulation
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -64,6 +64,9 @@ make test
 %{_mandir}/man3/SQL::Abstract::Limit.3pm*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.143-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.143-12
 - convert license to SPDX
 

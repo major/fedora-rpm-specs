@@ -1,6 +1,6 @@
 Name:           perl-MooX-StrictConstructor
 Version:        0.013
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Make your Moo-based object constructors blow up on unknown attributes
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MooX-StrictConstructor
@@ -82,6 +82,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.013-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Oct 21 2024 Jitka Plesnikova <jplesnik@redhat.com> - 0.013-1
 - 0.013 bump (rhbz#2319156)
 - Package tests

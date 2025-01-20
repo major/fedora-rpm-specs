@@ -8,7 +8,7 @@ Summary: Read and write WAV files as numpy arrays
 License: BSD-2-Clause
 
 Version: 0.0.9
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 URL: https://github.com/WarrenWeckesser/wavio
 Source0: %{URL}/archive/v%{version}/%{pypi_name}-v%{version}.tar.gz
@@ -65,6 +65,9 @@ awk 'BEGIN { start_print=0 }
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 17 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.0.9-1
 - Update to v0.0.9
 

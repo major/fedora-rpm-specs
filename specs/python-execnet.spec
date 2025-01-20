@@ -7,7 +7,7 @@
 
 Name:           python-%{srcname}
 Version:        2.1.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Distributed Python deployment and communication
 License:        MIT
 URL:            https://github.com/pytest-dev/execnet
@@ -88,6 +88,9 @@ py.test-%{python3_version} -r s \
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 12 2024 Miro Hrončok <mhroncok@redhat.com> - 2.1.1-4
 - Generate BuildRequires instead of manually listing them
 - Drop some unused BuildRequires

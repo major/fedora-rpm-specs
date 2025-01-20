@@ -1,6 +1,6 @@
 Name:           powwow
 Version:        1.2.23
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A console MUD client
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -65,6 +65,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/powwow/powwow.doc
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.23-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2.23-9
 - convert license to SPDX
 

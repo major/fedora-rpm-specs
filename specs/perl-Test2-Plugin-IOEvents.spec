@@ -4,7 +4,7 @@
 Name:           perl-Test2-Plugin-IOEvents
 %global cpan_version 0.001001
 Version:        0.1.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Turn STDOUT and STDERR into Test2 events
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.1-15
 - convert license to SPDX
 

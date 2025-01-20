@@ -2,7 +2,7 @@
 Summary: RDF Parser Toolkit for Redland
 Name:    raptor2
 Version: 2.0.15
-Release: 46%{?dist}
+Release: 47%{?dist}
 
 # Automatically converted from old format: GPLv2+ or LGPLv2+ or ASL 2.0 - review is highly recommended.
 License: GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+ OR Apache-2.0
@@ -105,6 +105,9 @@ make check
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.15-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Dec 08 2024 Pete Walter <pwalter@fedoraproject.org> - 2.0.15-46
 - Rebuild for ICU 76
 

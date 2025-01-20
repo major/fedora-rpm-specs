@@ -1,6 +1,6 @@
 Name:           perl-TheSchwartz
 Version:        1.18
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Reliable job queue
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/TheSchwartz
@@ -68,6 +68,9 @@ atomically to perform. Failed jobs can be left in the queue to retry later.
 %{_bindir}/schwartzmon
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.18-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Jan 05 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 1.18-1
 - Update to 1.18
 

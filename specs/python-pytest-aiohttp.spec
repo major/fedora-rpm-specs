@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Pytest plugin for aiohttp support
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -55,6 +55,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %license LICENSE
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.5-4
 - convert license to SPDX
 

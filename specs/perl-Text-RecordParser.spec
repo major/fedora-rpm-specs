@@ -1,6 +1,6 @@
 Name:           perl-Text-RecordParser
 Version:        1.6.5
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Read record-oriented files
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -98,6 +98,9 @@ specific to the tools.
 %{_bindir}/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.5-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.6.5-31
 - convert license to SPDX
 

@@ -1,7 +1,7 @@
 Name:             perl-Mail-SPF-Iterator
 Summary:          Iterative SPF lookup
 Version:          1.121
-Release:          1%{?dist}
+Release:          2%{?dist}
 License:          GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:              https://metacpan.org/release/Mail-SPF-Iterator
 Source0:          https://cpan.metacpan.org/authors/id/S/SU/SULLR/Mail-SPF-Iterator-%{version}.tar.gz
@@ -62,6 +62,9 @@ DNS queries and later expects the responses.
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.121-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Nov 03 2024 Emmanuel Seyman <emmanuel@seyman.fr> - 1.121-1
 - Update to 1.121
 

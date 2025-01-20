@@ -6,7 +6,7 @@
 
 Name:           python-%{modulename}
 Version:        4.0
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Invoke py.test as distutils command with dependency resolution
 
 License:        MIT
@@ -63,6 +63,9 @@ Python 3 version.
 %{python3_sitelib}/__pycache__/ptr.*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 23 2024 Michel Lind <salimma@fedoraproject.org> - 4.0-25
 - Use `pytest` instead of the removed `setup.py test` for setuptools 74+ compatibility
 - Mark as deprecated

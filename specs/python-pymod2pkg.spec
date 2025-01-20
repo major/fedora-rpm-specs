@@ -4,7 +4,7 @@
 
 Name:             python-pymod2pkg
 Version:          0.17.1
-Release:          22%{?dist}
+Release:          23%{?dist}
 Summary:          python module name to package name map
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:          Apache-2.0
@@ -66,6 +66,9 @@ ln -s ./%{sname}-%{python3_version} %{buildroot}%{_bindir}/%{sname}
 %{python3_sitelib}/pymod2pkg-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.1-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.17.1-22
 - convert license to SPDX
 

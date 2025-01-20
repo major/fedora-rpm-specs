@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.09
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Module that multiplexes interactions with lists of Python objects
 
 License:        BSD-2-Clause
@@ -41,6 +41,9 @@ python objects.
 %{python3_sitelib}/%{pypi_name}-*-py*.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.09-16
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:      plasma-welcome-fedora
 Version:   6.1.2
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   Fedora-related customizations for Plasma-welcome
 # License is specified in 01-EnableExtraRepos.qml
 License:   (GPL-2.0-only OR GPL-3.0-only) AND CC-BY-SA-4.0
@@ -43,6 +43,9 @@ install -D -m 0644 -p \
 %{_datadir}/icons/hicolor/scalable/apps/mascot_konqi_3rdparty.svg
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Timothée Ravier <tim@siosm.fr> - 6.1.2-1
 - Update mascot image and text for third part page
 - Remove documentation

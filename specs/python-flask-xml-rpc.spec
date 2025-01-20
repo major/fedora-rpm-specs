@@ -3,7 +3,7 @@
 
 Name:               python-flask-xml-rpc
 Version:            0.1.2
-Release:            34%{?dist}
+Release:            35%{?dist}
 Summary:            Adds support for creating XML-RPC APIs to Flask
 
 License:            MIT
@@ -55,6 +55,9 @@ Requires:           python3-flask
 %{python3_sitelib}/%{modname}-%{version}*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

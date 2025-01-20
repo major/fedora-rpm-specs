@@ -1,6 +1,6 @@
 Name:           perl-IPC-Shareable
 Version:        1.12
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Share Perl variables between processes
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -72,6 +72,9 @@ make test CI_TESTING=1
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.12-9
 - convert license to SPDX
 

@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.0.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Ruby interface to the VMware vSphere API
 License: MIT
 URL: https://github.com/vmware/rbvmomi
@@ -79,6 +79,9 @@ popd
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Nov 10 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.0-8
 - Add BR: rubygem(base64) explicitly for ruby34
 

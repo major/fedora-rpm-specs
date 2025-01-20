@@ -1,6 +1,6 @@
 Name: po4a
 Version: 0.73
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A tool maintaining translations anywhere
 
 # Note: source is imprecise about 2.0-only vs 2.0-or-later
@@ -135,6 +135,9 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 %{_mandir}/*/man7/po4a.7*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.73-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.73-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:              redict
 Version:           7.3.2
-Release:           1%{?dist}
+Release:           2%{?dist}
 Summary:           A persistent key-value database
 # redict: LGPL-3.0-only
 # hiredict: BSD-3-Clause
@@ -229,6 +229,9 @@ make %{make_flags} test-sentinel
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.3.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 08 2025 Jonathan Wright <jonathan@almalinux.org> - 7.3.2-1
 - update to 7.3.2 rhbz#2315906
   fixes CVE-2024-46981

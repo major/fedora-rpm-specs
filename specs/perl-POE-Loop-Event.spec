@@ -1,6 +1,6 @@
 Name:           perl-POE-Loop-Event
 Version:        1.305
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Bridge that allows POE to be driven by Event.pm
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -71,6 +71,9 @@ make test
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.305-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 1.305-27
 - convert license to SPDX
 

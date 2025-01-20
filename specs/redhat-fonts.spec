@@ -26,7 +26,7 @@ and designed by Jeremy Mickel / MCKL for the new Red Hat identity.
 
 Name:           %{fontname}-fonts
 Version:        4.0.3
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Red Hat Typeface fonts
 # Only the metainfo files are CC-BY-SA
 License:        OFL-1.1-RFN AND CC-BY-SA-4.0
@@ -186,6 +186,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Nov 21 2024 Akira TAGOH <tagoh@redhat.com> - 4.0.3-13
 - Remove Italic variable fonts to workaround a crash issue
   and unexpected italic rendering.

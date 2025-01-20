@@ -3,7 +3,7 @@
 
 Name:           procdump
 Version:        2.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Sysinternals process dump utility
 
 License:        MIT
@@ -51,6 +51,9 @@ make CFLAGS=""
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

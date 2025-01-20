@@ -11,7 +11,7 @@ https://en.wikipedia.org/wiki/Levenshtein_distance.}
 Name:           python-%{pypi_name}
 Summary:        Liberally licensed, pure Python Levenshtein implementation
 Version:        1.3.0
-Release:        22%{?dist}
+Release:        23%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 
@@ -63,6 +63,9 @@ cp %{SOURCE1} .
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3.0-22
 - convert license to SPDX
 

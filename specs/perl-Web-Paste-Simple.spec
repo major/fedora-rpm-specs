@@ -1,6 +1,6 @@
 Name:           perl-Web-Paste-Simple
 Version:        0.002
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Simple PSGI-based pastebin-like web site
 # CONTRIBUTING:             GPL+ or Artistic or CC-BY-SA
 # lib/Web/Paste/Simple.pm   GPL+ or Artistic
@@ -113,6 +113,9 @@ exit 0
 %dir %attr(750, webpastesimple, webpastesimple) %{storage}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.002-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.002-29
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           perl-Module-Install-Repository
 Version:        0.08
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Automatically sets repository URL from Svn/Svk/Git checkout
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Install-Repository
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man3/Module::Install::Repository.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Oct 14 2024 Paul Howarth <paul@city-fan.org> - 0.08-1
 - 0.08 bump (rhbz#2318481)
 

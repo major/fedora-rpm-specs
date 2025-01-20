@@ -3,7 +3,7 @@
 
 Name:           perl-Locale-Maketext-Gettext
 Version:        1.32
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Joins the gettext and Maketext frameworks
 # README.md:            GPL+ or Artistic
 # t/02-big-endian.t:    "the same terms as Perl" and "the same license as the commonlib package"
@@ -131,6 +131,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.32-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 1.32-13
 - convert license to SPDX
 

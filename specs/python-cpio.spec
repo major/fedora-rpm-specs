@@ -1,6 +1,6 @@
 Name:           python-cpio
 Version:        0.1
-Release:        52%{?dist}
+Release:        53%{?dist}
 Summary:        A Python module for accessing cpio archives
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -44,6 +44,9 @@ Summary: %summary
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-53
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1-52
 - convert license to SPDX
 

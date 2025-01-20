@@ -31,7 +31,7 @@
 
 Name:           php-%{composer_vendor}-%{composer_project}
 Version:        %{github_version}
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Efficient JavaScript minification
 
 # Automatically converted from old format: ASL 2.0 or GPLv2 - review is highly recommended.
@@ -125,6 +125,9 @@ exit $ret
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.5-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug  7 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0.5-20
 - convert license to SPDX
 

@@ -15,7 +15,7 @@
 
 Name:           python-%{srcname}
 Version:        2.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An etcd3 gateway Python client
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -127,6 +127,9 @@ py.test-3
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug  5 2024 John Eckersberg <jeckersb@redhat.com> - 2.4.1-1
 - New upstream version 2.4.1 (rhbz#2301633)
 

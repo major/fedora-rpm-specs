@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.4.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 # append my cmake path before swig is included
 Summary:        Python library parsing HL7 v2.x and v3.x messages
 
@@ -76,6 +76,9 @@ find docs/_build/ -name ".buildinfo" -execdir rm -fv '{}' \;
 %license LICENSE
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.4.5-2
 - convert license to SPDX
 

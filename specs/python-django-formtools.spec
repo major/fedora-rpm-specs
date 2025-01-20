@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.2
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A set of high-level abstractions for Django forms
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -86,6 +86,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.2-15
 - convert license to SPDX
 

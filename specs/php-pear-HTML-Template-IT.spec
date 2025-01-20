@@ -4,7 +4,7 @@
 
 Name:           php-pear-HTML-Template-IT
 Version:        1.3.0
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Integrated Templates
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -100,6 +100,9 @@ fi
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3.0-29
 - convert license to SPDX
 

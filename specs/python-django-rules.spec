@@ -1,7 +1,7 @@
 %global shortname django-rules
 Name:          python-%{shortname}
 Version:       3.3.0
-Release:       10%{?dist}
+Release:       11%{?dist}
 Summary:       Awesome Django authorization, without the database
 
 License:       MIT
@@ -38,6 +38,9 @@ Awesome Django authorization, without the database.
 %{python3_sitelib}/rules-*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

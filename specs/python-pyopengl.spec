@@ -3,7 +3,7 @@
 
 Name:           python-%{shortname}
 Version:        3.1.7
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Python bindings for OpenGL
 License:        BSD-3-Clause and X11-distribute-modifications-variant
 URL:            https://github.com/mcfletch/pyopengl
@@ -129,6 +129,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.7-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 24 2024 Sandro <devel@penguinpee.nl> - 3.1.7-10
 - Apply patch for NumPy 2.x
 

@@ -1,6 +1,6 @@
 Name:           python-pytest-testinfra
 Version:        10.1.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Unit testing for config-managed server state
 
 License:        Apache-2.0
@@ -63,4 +63,7 @@ sed -i '/types-paramiko/d' test-requirements.txt
 %doc README.rst
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.1.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 %autochangelog

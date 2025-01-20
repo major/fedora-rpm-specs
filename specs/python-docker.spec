@@ -13,7 +13,7 @@
 
 Name:           python-%{srcname}
 Version:        7.1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A Python library for the Docker Engine API
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -95,6 +95,9 @@ rm -fr docker.egg-info
 %endif # with_python3
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 7.1.0-4
 - convert license to SPDX
 

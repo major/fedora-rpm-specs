@@ -15,7 +15,7 @@ Name:           python-%{pypi_name}
 Summary:        Platform-independent file locking module
 Epoch:          1
 Version:        0.12.2
-Release:        15%{?dist}
+Release:        16%{?dist}
 License:        MIT
 
 URL:            https://github.com/openstack/pylockfile
@@ -93,6 +93,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.12.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.12.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

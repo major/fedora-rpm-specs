@@ -19,7 +19,7 @@ system.}
 
 Name:           python-%{pypi_name}
 Version:        0.5.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        AST-Monitor is a wearable Raspberry Pi computer for cyclists
 
 License:        MIT
@@ -110,6 +110,9 @@ toml-adapt -path pyproject.toml -a change -dep ALL -ver X
 %doc CITATION.cff
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Oct 20 2024 Iztok Fister Jr. <iztok@iztok-jr-fister.eu> - 0.5.2-1
 - Update to 0.5.2
 

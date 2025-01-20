@@ -23,7 +23,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}
 Version:        5.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Map nested JSON structures onto PHP classes, version %{major}
 
 License:        OSL-3.0
@@ -135,6 +135,9 @@ exit $ret
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep  9 2024 Remi Collet <remi@remirepo.net> - 5.0.0-1
 - update to 5.0.0
 - move to /usr/share/php/netresearch/jsonmapper5

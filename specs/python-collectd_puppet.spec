@@ -4,7 +4,7 @@
 
 Name:           python-%{module_name}
 Version:        2.0.0
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Collectd plugin to monitor puppet agents
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -53,6 +53,9 @@ rm -r src/%{module_name}.egg-info
 %{python3_sitelib}/%{module_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0.0-22
 - convert license to SPDX
 

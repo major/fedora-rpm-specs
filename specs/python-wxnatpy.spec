@@ -13,7 +13,7 @@ It is built on top of wxPython and xnatpy.}
 
 Name:           python-%{pypi_name}
 Version:        0.4.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        wxnatpy is a wxPython widget which allows users to browse the contents of a XNAT repository.
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -60,6 +60,9 @@ find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.4.0-12
 - convert license to SPDX
 

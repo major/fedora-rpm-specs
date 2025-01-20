@@ -3,7 +3,7 @@
 Summary:       A Ruby implementation of the Coveralls API
 Name:          rubygem-%{gem_name}
 Version:       0.8.13
-Release:       23%{?dist}
+Release:       24%{?dist}
 License:       MIT
 URL:           https://coveralls.io
 Source0:       https://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -111,6 +111,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.13-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 11 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.8.13-23
 - Add BR: rubygem(base64) explicitly for ruby34
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.1.8
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Time expression parser
 
 License:        MIT
@@ -46,6 +46,9 @@ find . -name '*.py' -exec sed -i '1 { /^#!/ d }' {} \+
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.8-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jan 06 2025 Vojtech Trefny <vtrefny@redhat.com> - 1.1.8-22
 - Remove build dependency on python3-nose
 

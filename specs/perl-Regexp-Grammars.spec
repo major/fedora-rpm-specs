@@ -1,6 +1,6 @@
 Name:		perl-Regexp-Grammars
 Version:	1.058
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Add grammatical parsing features to perl regular expressions
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -51,6 +51,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/Regexp::Grammars.3pm*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.058-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 1.058-7
 - convert license to SPDX
 

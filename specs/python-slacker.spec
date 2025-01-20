@@ -10,7 +10,7 @@
 
 Name:           python-%{srcname}
 Version:        0.14.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Python Slack API client
 
 License:        Apache-2.0
@@ -66,6 +66,9 @@ Documentation files for %{name}.
 %doc examples/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 29 2024 Fabian Affolter <mail@fabian-affolter.ch> - 0.14.0-18
 - Switch to pytest (closes rhbz#2319719)
 

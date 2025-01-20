@@ -8,7 +8,7 @@
 
 Name:           python-flit-core
 Version:        3.10.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PEP 517 build backend for packages using Flit
 
 # flit-core is BSD-3-Clause
@@ -95,6 +95,9 @@ rm %{buildroot}%{python3_sitelib}/flit_core-*.dist-info/RECORD
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Nov 22 2024 Michel Lind <salimma@fedoraproject.org> - 3.10.1-1
 - Update to 3.10.1
 - Resolves: rhbz#2322947

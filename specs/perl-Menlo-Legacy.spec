@@ -1,6 +1,6 @@
 Name:           perl-Menlo-Legacy
 Version:        1.9022
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Legacy internal and client support for Menlo
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Menlo-Legacy
@@ -119,6 +119,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9022-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9022-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

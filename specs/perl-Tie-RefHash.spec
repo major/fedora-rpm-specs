@@ -3,7 +3,7 @@
 
 Name:           perl-Tie-RefHash
 Version:        1.41
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Use references as hash keys
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Tie-RefHash
@@ -99,6 +99,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.41-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 26 2024 Petr Pisar <ppisar@redhat.com> - 1.41-1
 - 1.41 bump
 

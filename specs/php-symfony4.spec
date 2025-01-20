@@ -143,7 +143,7 @@
 
 Name:          php-%{composer_project}4
 Version:       %{github_version}
-Release:       9%{?github_prerelease:.%{github_prerelease}}%{?dist}
+Release:       10%{?github_prerelease:.%{github_prerelease}}%{?dist}
 Summary:       Symfony PHP framework (version 4)
 
 # MIT and CC-BY-SA:
@@ -3378,6 +3378,9 @@ exit $RET
 # ##############################################################################
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.50-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 4.4.50-9
 - convert license to SPDX
 

@@ -25,7 +25,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        2.0.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Library for handling version information and constraints
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -105,6 +105,9 @@ exit $ret
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0.1-15
 - convert license to SPDX
 

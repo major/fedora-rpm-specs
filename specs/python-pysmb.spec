@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.2.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python SMB/CIFS library
 
 # smb/utils/sha256.py is MIT
@@ -54,6 +54,9 @@ sed -i -e '/^#!\//, 1d' python3/smb/utils/sha256.py
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Sep 26 2024 Fabian Affolter <mail@fabian-affolter.ch> - 1.2.10-1
 - Update to new upstream version
 

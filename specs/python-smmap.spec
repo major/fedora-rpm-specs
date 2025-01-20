@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        5.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sliding window memory map manager
 
 License:        BSD-3-Clause
@@ -46,6 +46,9 @@ BuildRequires:  %{py3_dist pytest}
 %doc README.md
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 11 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 5.0.1-1
 - Update to 5.0.1 (close RHBZ#2239518)
 

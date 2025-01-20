@@ -27,7 +27,7 @@
 
 Name:		raceintospace
 Version:	2.0.0
-Release:	13%{?extra:.%extra}%{?dist}
+Release:	14%{?extra:.%extra}%{?dist}
 Summary:	Race into Space game
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -125,6 +125,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.raceintosp
 %doc doc/manual
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-14.rc1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0.0-13.rc1
 - convert license to SPDX
 

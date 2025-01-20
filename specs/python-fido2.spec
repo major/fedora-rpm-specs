@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Functionality for FIDO 2.0, including USB device communication
 
 # Main code is BSD
@@ -69,6 +69,9 @@ BuildRequires:  python%{python3_pkgversion}-pytest
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Nov 30 2024 Orion Poplawski <orion@nwra.com> - 1.2.0-1
 - Update to 1.2.0
 

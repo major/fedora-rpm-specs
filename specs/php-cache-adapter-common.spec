@@ -39,7 +39,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}
 Version:       %{github_version}
-Release:       13%{?github_release}%{?dist}
+Release:       14%{?github_release}%{?dist}
 Summary:       Common classes for PSR-6 adapters
 
 License:       MIT
@@ -181,6 +181,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

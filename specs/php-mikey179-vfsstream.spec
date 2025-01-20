@@ -16,7 +16,7 @@
 
 Name:           php-%{pk_owner}-%{pk_project}
 Version:        1.6.12
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        PHP stream wrapper for a virtual file system
 
 # Automatically converted from old format: BSD-3-Clause - review is highly recommended.
@@ -115,6 +115,9 @@ exit $ret
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.12-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep  4 2024 Miroslav Suchý <msuchy@redhat.com> - 1.6.12-2
 - convert license to SPDX
 

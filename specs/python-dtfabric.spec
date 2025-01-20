@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.%{date}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Tool to manage data types and structures, as used by libyal
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -49,6 +49,9 @@ rm -rf %{buildroot}%{_defaultdocdir}/%{pypi_name}/*
 %{python3_sitelib}/%{pypi_name}/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.20230520-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.0.20230520-9
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           perl-MooseX-Clone
 Version:        0.06
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Fine grained cloning support for Moose objects
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -59,6 +59,9 @@ value's own clone method.
 %{_mandir}/man3/MooseX*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.06-31
 - convert license to SPDX
 

@@ -1,7 +1,7 @@
 %global cpan_name MogileFS-Server
 Name:       perl-%{cpan_name}
 Version:    2.73
-Release:    24%{?dist}
+Release:    25%{?dist}
 Summary:    Server part of the MogileFS distributed file system
 # LICENSE:      GPL+ or Artistic
 # mogautomount: GPL+ or Artistic
@@ -331,6 +331,9 @@ exit 0
 %{perl_vendorlib}/Mogstored/HTTPServer/Perlbal.pm
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.73-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 2.73-24
 - convert license to SPDX
 

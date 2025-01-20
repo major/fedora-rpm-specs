@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.8
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Math extension for Python-Markdown
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -52,6 +52,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/python_markdown_math-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.8-15
 - convert license to SPDX
 

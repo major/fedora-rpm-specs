@@ -2,7 +2,7 @@
 
 Name:		python-%{module}
 Version:	0.1.32
-Release:	3%{?dist}
+Release:	4%{?dist}
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:	Apache-2.0
 Summary:	TKRZW Python bindings
@@ -85,6 +85,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.32-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.32-3
 - convert license to SPDX
 

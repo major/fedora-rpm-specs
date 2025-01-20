@@ -20,7 +20,7 @@
 
 Name:		python-%{src_name}
 Version:	3.2.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Psycopg 3 is a modern implementation of a PostgreSQL adapter for Python
 
 License:	LGPL-3.0-only
@@ -186,6 +186,9 @@ export PSYCOPG_TEST_DSN="host=$PGHOST port=$PGPORT dbname=${PGTESTS_DATABASES##*
 %endif
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jul 30 2024 Ondrej Sloup <osloup@redhat.com> - 3.2.1-3
 - Added specific tests to skip (test_pipeline) as it fails on s390x (rhbz#2301198)
 

@@ -12,7 +12,7 @@ Summary: Python wrapper for the ssdeep library
 License: LGPL-3.0-or-later
 
 Version: 3.4
-Release: 21%{?dist}
+Release: 22%{?dist}
 
 URL: https://github.com/DinoTools/python-ssdeep/
 Source0: %pypi_source
@@ -82,6 +82,9 @@ install -m 644 docs/build/man/pythonssdeep.1 %{buildroot}%{_mandir}/man5/python3
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Nov 09 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.4-21
 - Update to pyproject macros (fixes rhbz#2319723)
 

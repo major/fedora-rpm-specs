@@ -1,6 +1,6 @@
 Name:           perl-Time-Period
 Version:        1.25
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        A Perl module to deal with time periods
 
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -56,6 +56,9 @@ make test
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.25-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 1.25-27
 - convert license to SPDX
 

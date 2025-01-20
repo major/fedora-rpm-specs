@@ -5,7 +5,7 @@
 %global	rpmminorver		.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver		%{majorver}%{?preminorver}
 
-%global	baserelease		1
+%global	baserelease		2
 
 %global	gem_name		mechanize
 
@@ -157,6 +157,9 @@ popd
 %{gem_instdir}/examples/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jan 06 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.14.0-1
 - 2.14.0
 

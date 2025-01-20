@@ -9,7 +9,7 @@
 
 Name:           perl-Types-URI
 Version:        0.007
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Type constraints and coercions for URIs
 # COPYRIGHT:    LicenseRef-Fedora-Public-Domain
 # other files:  GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -130,6 +130,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.007-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Sep 03 2024 Petr Pisar <ppisar@redhat.com> - 0.007-19
 - Convert license tag to SPDX
 

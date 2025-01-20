@@ -2,7 +2,7 @@
 
 Name:           perl-OpenGL
 Version:        %{cpanversion}00
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Perl OpenGL bindings
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -92,6 +92,9 @@ make test
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7000-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.7000-29
 - convert license to SPDX
 

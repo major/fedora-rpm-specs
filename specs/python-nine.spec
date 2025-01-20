@@ -2,7 +2,7 @@
 
 Name:               python-nine
 Version:            1.1.0
-Release:            18%{?dist}
+Release:            19%{?dist}
 Summary:            Python 2 / 3 compatibility, like six, but favouring Python 3
 
 License:            LicenseRef-Fedora-Public-Domain
@@ -67,6 +67,9 @@ rm -rf %{modname}.egg-info
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 19 2024 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 1.1.0-18
 - Switch to tox istead of setup.py test
 

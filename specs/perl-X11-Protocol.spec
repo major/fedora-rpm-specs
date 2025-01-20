@@ -1,6 +1,6 @@
 Name:           perl-X11-Protocol
 Version:        0.56
-Release:        47%{?dist}
+Release:        48%{?dist}
 Summary:        X11-Protocol - Raw interface to X Window System servers
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -90,6 +90,9 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.56-48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.56-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

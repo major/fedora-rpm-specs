@@ -6,7 +6,7 @@
 
 Name:           qm-vamp-plugins
 Version:        1.7.1
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Vamp audio feature extraction plugin
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -85,6 +85,9 @@ install -p -m 0755 qm-vamp-plugins.so %{buildroot}%{_libdir}/vamp/
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.7.1-23
 - convert license to SPDX
 

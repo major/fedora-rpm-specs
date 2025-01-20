@@ -2,7 +2,7 @@
 
 Name:           python-flask-login
 Version:        0.6.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        User session management for Flask
 
 License:        MIT
@@ -58,6 +58,9 @@ extended periods of time.
 %license LICENSE
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

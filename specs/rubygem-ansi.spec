@@ -7,7 +7,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.5.0
-Release: 21%{?dist}
+Release: 22%{?dist}
 Summary: ANSI at your fingertips!
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
@@ -101,6 +101,9 @@ popd
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.5.0-21
 - convert license to SPDX
 

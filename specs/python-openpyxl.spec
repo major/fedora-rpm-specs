@@ -8,7 +8,7 @@ Office Open XML format.
 
 Name:           python-%{pypi_name}
 Version:        3.1.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: MIT and Python - review is highly recommended.
@@ -54,6 +54,9 @@ rm -rf *.egg-info
 %{python3_sitelib}/%{pypi_name}/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 3.1.2-8
 - convert license to SPDX
 

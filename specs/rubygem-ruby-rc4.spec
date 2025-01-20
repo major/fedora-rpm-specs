@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.1.5
-Release: 27%{?dist}
+Release: 28%{?dist}
 Summary: Pure Ruby implementation of the RC4 algorithm
 License: MIT
 URL: https://github.com/caiges/Ruby-RC4
@@ -62,6 +62,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

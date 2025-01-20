@@ -7,7 +7,7 @@
 
 Name:		perl-Perl-Critic
 Version:	1.156
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Critique Perl source code for best-practices
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Perl-Critic
@@ -160,6 +160,9 @@ LC_ALL=en_US ./Build test
 %{_mandir}/man3/Test::Perl::Critic::Policy.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.156-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Oct 23 2024 Paul Howarth <paul@city-fan.org> - 1.156-1
 - Update to 1.156 (rhbz#2321227)
   - Subroutines::ProhibitManyArgs no longer gets confused by underscores in

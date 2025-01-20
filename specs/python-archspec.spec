@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A library to query system architecture
 
 License:        Apache-2.0 OR MIT
@@ -60,6 +60,9 @@ rm -rf archspec/json/.git*
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Oct 16 2024 Orion Poplawski <orion@nwra.com> - 0.2.5-1
 - Update to 0.2.5
 

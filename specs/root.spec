@@ -39,7 +39,7 @@
 Name:		root
 Version:	6.34.02
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -3659,6 +3659,9 @@ fi
 %endif
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.34.02-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 15 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.34.02-3
 - Don't add dependencies on root-roofit-multiprocess and root-roofit-zmq
   to root-roofit-core for EPEL builds

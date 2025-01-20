@@ -9,7 +9,7 @@
 Name:    qaccessibilityclient
 Summary: Accessibility client library for Qt5 and Qt6
 Version: 0.6.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: CC0-1.0 AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://cgit.kde.org/libkdeaccessibilityclient.git/
@@ -133,6 +133,9 @@ popd
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

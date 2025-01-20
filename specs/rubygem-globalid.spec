@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.2.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Refer to any model with a URI: gid://app/class/id
 License: MIT
 URL: http://www.rubyonrails.org
@@ -78,6 +78,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 10 2024 Vít Ondruch <vondruch@redhat.com> - 1.2.1-1
 - Update to globalid 1.2.1.
   Resolves: rhbz#2236912

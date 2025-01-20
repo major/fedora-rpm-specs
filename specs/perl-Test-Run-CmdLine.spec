@@ -1,6 +1,6 @@
 Name:           perl-Test-Run-CmdLine
 Version:        0.0132
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Run TAP tests from command line using the Test::Run module
 # lib and other code:   MIT
 # bin/runprove:         GPL+ or Artistic
@@ -108,6 +108,9 @@ perl Build.PL installdirs=vendor
 %doc examples
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0132-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.0132-13
 - convert license to SPDX
 

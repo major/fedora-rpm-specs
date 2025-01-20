@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.1.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Print ASCII tables for terminals
 
 License:        MIT
@@ -65,6 +65,9 @@ Features included but not limited to:
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Apr 23 2020 Fabian Affolter <mail@fabian-affolter.ch> - 1.1.0-9
 - Remove docs (closes rhbz#2329845)
 - Refactor

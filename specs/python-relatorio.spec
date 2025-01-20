@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.10.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -66,6 +66,9 @@ objects and report together, find reports by mimetypes/name/python objects.
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.10.1-10
 - convert license to SPDX
 

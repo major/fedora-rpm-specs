@@ -8,7 +8,7 @@
 
 Name:           python-%{pkg_name}
 Version:        4.0.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Adds i18n/l10n support to Flask applications
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -79,6 +79,9 @@ rm -f docs/_build/html/.buildinfo
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 4.0.0-6
 - convert license to SPDX
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.13.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast and simple WSGI-framework for small web-applications
 
 License:        MIT
@@ -55,6 +55,9 @@ rm %{buildroot}%{_bindir}/bottle %{buildroot}%{_bindir}/bottle.py
 %{python3_sitelib}/*.py
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Oct 27 2024 Federico Pellegrin <fede@evolware.org> - 0.13.2-1
 - Bump to 0.13.2
 

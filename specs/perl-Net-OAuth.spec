@@ -1,6 +1,6 @@
 Name:           perl-Net-OAuth
 Version:        0.30
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OAuth protocol support library for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-OAuth
@@ -69,6 +69,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 03 2025 Xavier Bachelot <xacier@bachelot.org> -  0.30-1
 - Update to 0.30 (RHBZ#2335403)
   - fix CVE-2025-22376 (RHBZ#2335499,2335500,2335501)

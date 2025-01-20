@@ -1,6 +1,6 @@
 Name: qtile-extras
 Version: 0.29.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: A collection of mods for Qtile
 
 License: MIT
@@ -118,6 +118,9 @@ pytest_expressions+=" and not test_syncthing_http_error"
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.29.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Nov 05 2024 Jakub Kadlcik <frostyx@email.cz> - 0.29.0-5
 - Exclude one more test
 - Add todo about dynamic BuildRequires

@@ -2,7 +2,7 @@
 
 Name:          python-%{pypi_name}
 Version:       0.3.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       JapaneseCharacterCONVerter
 
 License:       MIT
@@ -51,6 +51,9 @@ inter-convert hiragana, katakana, and half-width kana
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Dec 05 2024 Björn Esser <besser82@fedoraproject.org> - 0.3.0-1
 - New release
 - Run unittest in verbose mode

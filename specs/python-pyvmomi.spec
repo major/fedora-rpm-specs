@@ -6,7 +6,7 @@ ESX, ESXi, and vCenter.}
 
 Name:           python-%{srcname}
 Version:        8.0.3.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        vSphere Python SDK
 License:        Apache-2.0
 URL:            https://github.com/vmware/%{srcname}
@@ -63,6 +63,9 @@ find . -name '*.py' -exec sed -i 's@/usr/bin/env python@@' {} \;
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.3.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 14 2024 Robby Callicotte <rcallicotte@fedoraproject.org> - 8.0.3.0.1-1
 - Rebased to version 8.0.3.0.1
 

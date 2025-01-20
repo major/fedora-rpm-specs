@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.23
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        %{sum}
 
 License:        BSD-2-Clause
@@ -53,6 +53,9 @@ sed -i -e "s/’/'/g" README.rst
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.23-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec 11 2024 Miro Hrončok <mhroncok@redhat.com> - 0.3.23-8
 - Use pytest instead of deprecated nose
 - https://fedoraproject.org/wiki/Changes/DeprecateNose

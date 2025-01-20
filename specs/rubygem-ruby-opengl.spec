@@ -3,7 +3,7 @@
 Summary:	OpenGL Interface for Ruby
 Name:		rubygem-%{gem_name}
 Version:	0.61.0
-Release:	20%{?dist}
+Release:	21%{?dist}
 License:	MIT
 URL:		http://ruby-opengl.rubyforge.org/
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -63,6 +63,9 @@ rm -rf %{buildroot}%{gem_docdir}
 %{gem_spec}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.61.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.61.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

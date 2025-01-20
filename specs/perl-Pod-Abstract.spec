@@ -1,6 +1,6 @@
 Name:           perl-Pod-Abstract
 Version:        0.20
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Abstract document tree for Perl POD documents
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-Abstract
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man1/paf.1.gz
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

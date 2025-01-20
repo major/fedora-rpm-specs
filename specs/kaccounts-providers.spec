@@ -1,12 +1,16 @@
 Name:    kaccounts-providers
 Version: 24.12.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Additional service providers for KAccounts framework
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL:     https://invent.kde.org/network/%{name}
 
 Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+
+# Upstream patches
+# https://invent.kde.org/network/kaccounts-providers/-/commit/78a81aafedced524c1bc9f16788c4304acc3b807
+Patch0: 78a81aafedced524c1bc9f16788c4304acc3b807.patch
 
 # handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
 %{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
@@ -67,6 +71,9 @@ Obsoletes: kaccounts-providers < 15.12.0
 
 
 %changelog
+* Sat Jan 18 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.12.1-3
+- Backport upstream patch
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

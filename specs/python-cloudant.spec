@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.15.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Cloudant/CouchDB Client Python library
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -43,6 +43,9 @@ sed -i -e '/^#!\//, 1d' src/cloudant/*.py
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 2.15.0-12
 - convert license to SPDX
 

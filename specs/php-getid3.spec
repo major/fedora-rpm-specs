@@ -15,7 +15,7 @@
 
 Name:      php-%{pk_project}
 Version:   1.9.23
-Release:   4%{?dist}
+Release:   5%{?dist}
 Epoch:     1
 License:   GPL-1.0-or-later OR LGPL-3.0-only OR MPL-2.0
 Summary:   The PHP media file parser
@@ -97,6 +97,9 @@ exit ($ok ? 0 : 1);
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.9.23-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.9.23-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

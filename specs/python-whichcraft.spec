@@ -3,7 +3,7 @@
 
 Name:           python-%{modname}
 Version:        0.6.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Cross-python shutil.which functionality
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -48,6 +48,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version} -v
 %{python3_sitelib}/__pycache__/%{modname}.*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.6.1-15
 - convert license to SPDX
 

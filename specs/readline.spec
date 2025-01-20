@@ -1,7 +1,7 @@
 Summary: A library for editing typed command lines
 Name: readline
 Version: 8.2
-Release: 11%{?dist}
+Release: 12%{?dist}
 
 # * Main sources are GPL-3.0-or-later
 # * examples/rlfe are GPL-2.0-or-later
@@ -101,6 +101,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %{_libdir}/libhistory.a
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Aug 29 2024 Siteshwar Vashisht <svashisht@redhat.com> - 8.2-11
 - Fix issues identified by OpenScanHub
   Resolves: RHEL-44656

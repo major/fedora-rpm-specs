@@ -4,7 +4,7 @@
 
 Name:           python-vobject
 Version:        0.9.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 License:        Apache-2.0
@@ -65,6 +65,9 @@ rm vobject/win32tz.py
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Oct 02 2024 Dan Horák <dan[at]danny.cz> - 0.9.8-1
 - updated to 0.9.8 (rhbz#2315926)
 

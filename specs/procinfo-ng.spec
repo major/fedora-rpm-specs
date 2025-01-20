@@ -1,6 +1,6 @@
 Name:           procinfo-ng
 Version:        2.0.304
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Console-based system monitoring utility
 # Automatically converted from old format: GPLv2 and LGPLv2 - review is highly recommended.
 License:        GPL-2.0-only AND LicenseRef-Callaway-LGPLv2
@@ -38,6 +38,9 @@ mv %{buildroot}%{_mandir}/man8/procinfo.8 %{buildroot}%{_mandir}/man8/%{name}.8
 %{_bindir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.304-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0.304-34
 - convert license to SPDX
 

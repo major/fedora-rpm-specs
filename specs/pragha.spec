@@ -5,7 +5,7 @@
 
 Name:           pragha
 Version:        1.3.3
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Lightweight GTK+ music manager
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -104,6 +104,9 @@ find %{buildroot}%{_libdir}/pragha -name \*.ls -exec rm -f {} \;
 %{_libdir}/pragha
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3.3-30
 - convert license to SPDX
 

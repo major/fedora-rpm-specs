@@ -1,6 +1,6 @@
 Name:           pimd
 Version:        2.3.2
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        The original PIM-SM multicast routing daemon
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -72,6 +72,9 @@ install -p -m 644 -D %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.3.2-25
 - convert license to SPDX
 

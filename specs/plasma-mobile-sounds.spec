@@ -2,7 +2,7 @@
 
 Name:           plasma-mobile-sounds
 Version:        0.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 # Automatically converted from old format: CC-BY-SA and CC0 and CC-BY - review is highly recommended.
 License:        LicenseRef-Callaway-CC-BY-SA AND CC0-1.0 AND LicenseRef-Callaway-CC-BY
 Summary:        Plasma Mobile Sound Theme
@@ -35,6 +35,9 @@ BuildRequires: kf6-rpm-macros
 %{_datadir}/sounds/plasma-mobile
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec 11 2024 Troy Dawson <tdawson@redhat.com> - 0.1-9
 - Use cmake datadir
 

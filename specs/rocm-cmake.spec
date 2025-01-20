@@ -7,7 +7,7 @@
 
 Name:     rocm-cmake
 Version:  %{rocm_version}
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  CMake modules for common build and dev tasks within the ROCm project
 License:  MIT
 URL:      https://github.com/ROCm/rocm-cmake
@@ -52,6 +52,9 @@ fi
 %{_datadir}/rocmcmakebuildtools/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Dec 8 2024 Tom Rix <Tom.Rix@amd.com> - 6.3.0-1
 - Update to 6.3
 

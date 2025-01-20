@@ -1,6 +1,6 @@
 Name:		quicksynergy
 Version:	0.8.1
-Release:	34%{?dist}
+Release:	35%{?dist}
 Summary:	Share keyboard and mouse between computers
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -59,6 +59,9 @@ desktop-file-install \
 %endif
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.8.1-34
 - convert license to SPDX
 

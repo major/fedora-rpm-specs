@@ -1,6 +1,6 @@
 Name:           perl-Metrics-Any
 Version:        0.10
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Abstract collection of monitoring metrics
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -53,6 +53,9 @@ programs to collect up and send those metrics to monitoring services.
 %{_mandir}/man3/Metrics*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 6 2024 Miroslav Suchý <msuchy@redhat.com> - 0.10-5
 - convert license to SPDX
 

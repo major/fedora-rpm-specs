@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 7.0.8
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Rendering framework putting the V in MVC (part of Rails)
 License: MIT
 URL: http://rubyonrails.org
@@ -122,6 +122,9 @@ popd
 %doc %{gem_instdir}/CHANGELOG.md
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.8-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Nov 15 2024 Vít Ondruch <vondruch@redhat.com> - 7.0.8-7
 - Ruby 3.4 backtick and `Hash#inspect` compatibility.
 

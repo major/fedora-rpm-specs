@@ -1,10 +1,10 @@
 %global miral_ver 5.1
 %global miroil_ver 5.0
-%global mirversion 2.19
+%global mirversion 2.18
 
 Name:           miracle-wm
-Version:        0.4.0
-Release:        2%{?dist}
+Version:        0.4.1
+Release:        1%{?dist}
 Summary:        A tiling Wayland compositor based on Mir
 
 License:        GPL-3.0-or-later and MIT
@@ -76,6 +76,9 @@ those compositors, like swayfx.
 
 
 %changelog
+* Sat Jan 18 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.4.1-1
+- Update to 0.4.1
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

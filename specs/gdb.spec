@@ -928,6 +928,11 @@ fi
 # endif scl
 
 %changelog
+* Fri Jan 17 2025
+- remove gdb-test-bt-cfi-without-die.patch.  This test has been
+  accepted upstream and will make its way back to testing with
+  the GDB 17 release.
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

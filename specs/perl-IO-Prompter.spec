@@ -1,6 +1,6 @@
 Name:           perl-IO-Prompter
 Version:        0.005001
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Prompt for input, read it, clean it, return it
 
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -62,6 +62,9 @@ an object representing that text.
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.005001-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 6 2024 Miroslav Suchý <msuchy@redhat.com> - 0.005001-4
 - convert license to SPDX
 

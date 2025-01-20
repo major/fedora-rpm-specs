@@ -5,7 +5,7 @@
 
 Name:           python-webtest
 Version:        3.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Helper to test WSGI applications
 
 License:        MIT
@@ -89,6 +89,9 @@ rm -f docs/Makefile docs/conf.py docs/changelog.rst
 %{python3_sitelib}/WebTest-*.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Dec 22 2024 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.0.1-2
 - Coverage tests should not be run in Fedora/EPEL
 

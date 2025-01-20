@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.18.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Guard keeps an eye on your file modifications
 License: MIT
 URL: http://guardgem.org
@@ -133,6 +133,9 @@ popd
 %doc %{gem_instdir}/man/guard.1.html
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 10 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.18.0-7
 - Allow accepting ENV value in rspec with ruby3.4
 - Patch for ruby3.4 backtrace formatting change

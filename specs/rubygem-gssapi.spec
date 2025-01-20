@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.3.1
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: A FFI wrapper around the system GSSAPI library
 License: MIT
 URL: http://github.com/zenchild/gssapi
@@ -75,6 +75,9 @@ rm %{buildroot}%{gem_instdir}/.gitignore
 %doc %{gem_instdir}/preamble
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

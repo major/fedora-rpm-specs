@@ -48,6 +48,8 @@ Patch:          %{name}-prefix.patch
 Patch:          %{name}-soplex.patch
 # Adapt to a changed function name in Singular 4.3.2
 Patch:          %{name}-Singular-4.3.2.patch
+# Adapt to streamlined headers in GCC 15
+Patch:          %{name}-gcc-15.patch
 
 # Polymake 4.7 and later cannot be built on 32 bit platforms due to the
 # limited integer ranges on those platforms.

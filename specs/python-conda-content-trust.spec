@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Signing and verification tools for conda
 
 License:        BSD-3-Clause
@@ -65,6 +65,9 @@ sed -i -E '/--(no-)?cov/d' setup.cfg
 %{_bindir}/conda-content-trust
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jul 30 2024 Orion Poplawski <orion@nwra.com> - 0.2.0-1
 - Update to 0.2.0
 

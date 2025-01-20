@@ -4,7 +4,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 7.1.0
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Tool to execute plain-text documents as functional tests
 License: MIT
 URL: https://cucumber.io/
@@ -150,6 +150,9 @@ popd
 %doc %{gem_instdir}/CHANGELOG.md
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 03 2025 Vít Ondruch <vondruch@redhat.com> - 7.1.0-12
 - Fix Ruby 3.4 backtrace and Hash#inspect formatting compatibility.
 

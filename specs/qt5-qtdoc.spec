@@ -3,7 +3,7 @@
 Summary: Main Qt5 Reference Documentation
 Name:    qt5-%{qt_module}
 Version: 5.15.16
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GFDL-1.3-no-invariants-or-later
 Url:     http://www.qt.io
@@ -60,6 +60,9 @@ make install_docs INSTALL_ROOT=%{buildroot}
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.16-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 09 2025 Zephyr Lykos <fedora@mochaa.ws> - 5.15.16-1
 - 5.15.16
 

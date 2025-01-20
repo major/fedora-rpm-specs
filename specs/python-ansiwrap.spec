@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.8.4
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Text wrapper with ANSI colors and styles support
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -67,6 +67,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v test
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.8.4-18
 - convert license to SPDX
 

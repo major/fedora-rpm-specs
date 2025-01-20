@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.3.0
-Release: 17%{?dist}
+Release: 18%{?dist}
 Summary: A Sinatra plugin for running on async webservers
 License: MIT
 URL: http://github.com/raggi/async_sinatra
@@ -91,6 +91,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

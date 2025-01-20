@@ -10,7 +10,7 @@ or docs/index.rst in this distribution for detailed documentation.
 
 Name:           python-pyramid-tm
 Version:        2.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -84,6 +84,9 @@ or docs/index.rst in this distribution for detailed documentation.
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Nov 17 2024 Kevin Fenzi <kevin@scrye.com> - 2.6-1
 - Update to 2.6. Fixes rhbz#2326182
 - Moderize spec and check license

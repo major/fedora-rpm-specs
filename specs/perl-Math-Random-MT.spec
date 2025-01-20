@@ -1,6 +1,6 @@
 Name:       perl-Math-Random-MT
 Version:    1.17
-Release:    12%{?dist}
+Release:    13%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:    LicenseRef-Callaway-BSD
 Summary:    The Mersenne Twister PRNG
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.17-12
 - convert license to SPDX
 

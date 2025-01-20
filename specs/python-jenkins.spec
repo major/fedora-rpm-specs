@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.8.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python bindings for the remote Jenkins API
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -92,6 +92,9 @@ install -D -m0644 -p doc/build/man/pythonjenkins.1 %{buildroot}%{_mandir}/man1/p
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Dec 13 2024 Miro Hrončok <mhroncok@redhat.com> - 1.8.2-5
 - Drop unused test dependency on deprecated python3-nose
 - https://fedoraproject.org/wiki/Changes/DeprecateNose

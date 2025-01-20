@@ -2,7 +2,7 @@
 
 Name: python-%{srcname}
 Version: 4.0.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: A py.test fixture for benchmarking code
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
@@ -63,6 +63,9 @@ Requires: python3-cpuinfo
 %{python3_sitelib}/pytest_benchmark-%{version}-py*.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 4.0.0-9
 - convert license to SPDX
 

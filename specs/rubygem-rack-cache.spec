@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.14.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: HTTP Caching for Rack
 License: MIT
 URL: https://github.com/rack/rack-cache
@@ -77,6 +77,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        7.8.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python module that allows for simple access to reddit's API
 
 License:        GPL-3.0-or-later
@@ -73,6 +73,9 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.8.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Oct 26 2024 Fabian Affolter <mail@fabian-affolter.ch> - 7.8.2-1
 - Update to latest upstream release (closes rhbz#2320089)
 

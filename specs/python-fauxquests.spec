@@ -8,7 +8,7 @@
 
 Name:           python-%{modname}
 Version:        1.1
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Mock HTTP requests sent with the requests package
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -55,6 +55,9 @@ Python 3 version.
 %{python3_sitelib}/%{modname}/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1-30
 - convert license to SPDX
 

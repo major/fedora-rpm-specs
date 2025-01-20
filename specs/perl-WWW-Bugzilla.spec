@@ -6,7 +6,7 @@
 
 Name:           perl-WWW-Bugzilla
 Version:        1.5
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Handles submission/update of bugzilla bugs via WWW::Mechanize
 
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -61,6 +61,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 1.5-38
 - convert license to SPDX
 

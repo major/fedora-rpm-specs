@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        RAR archive reader for Python
 
 License:        ISC
@@ -42,6 +42,9 @@ zipfile like as possible.
 %{python3_sitelib}/__pycache__/%{pypi_name}*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Sep 17 2024 Fabian Affolter <mail@fabian-affolter.ch> - 4.2-1
 - Update to latest upstream release 4.2 (closes rhbz#2273019)
 

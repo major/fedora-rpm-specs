@@ -1,6 +1,6 @@
 Name:           perl-iCal-Parser
 Version:        1.21
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Parse iCalendar files into a data structure
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/iCal-Parser
@@ -91,6 +91,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.21-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 15 2024 Petr Pisar <ppisar@redhat.com> - 1.21-26
 - Modernize a spec file
 - Package the tests

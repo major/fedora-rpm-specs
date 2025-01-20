@@ -4,7 +4,7 @@
 
 Name: python-%{srcname}
 Version: 7.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A Community Python Library for Astronomy
 # File _strptime.py is under Python-2.0.1
 # jquery is MIT
@@ -128,6 +128,9 @@ pytest_args=(
 %doc README.rst 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 24 2024 Mattia Verga <mattia.verga@proton.me> - 7.0.0-1
 - Update to 7.0.0 for Numpy 2.x
 

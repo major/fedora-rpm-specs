@@ -1,6 +1,6 @@
 Name:           perl-Tickit
 Version:        0.74
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Perl bindings for Tickit
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Tickit
@@ -107,6 +107,9 @@ export TERM=xterm
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.74-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.74-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

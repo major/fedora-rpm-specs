@@ -4,7 +4,7 @@
 
 Name:           python-poetry-plugin-export
 Version:        1.7.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Poetry plugin to export the dependencies to various formats
 
 # SPDX
@@ -67,6 +67,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 08 2024 Charalampos Stratakis <cstratak@redhat.com> - 1.7.1-1
 - Update to 1.7.1
 - Fixes: rhbz#2269651

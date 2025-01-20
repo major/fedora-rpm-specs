@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.6.12
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: A Ruby-based text parsing and interpretation DSL
 License: MIT
 URL: https://github.com/cjheath/treetop
@@ -87,6 +87,9 @@ popd
 %{gem_instdir}/treetop.gemspec
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.12-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.12-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

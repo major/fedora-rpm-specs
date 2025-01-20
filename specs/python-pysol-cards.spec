@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.18.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Deal PySol FC Cards
 License:        MIT
 URL:            https://fc-solve.shlomifish.org/
@@ -50,6 +50,9 @@ rm -rf %{buildroot}/%{_bindir}
 %{python3_sitelib}/pysol_cards-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Sep 15 2024 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 0.18.0-1
 - Update to 0.18.0 (#2312449)
 

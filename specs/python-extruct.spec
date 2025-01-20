@@ -5,7 +5,7 @@ Version:        0.18.0
 %forgemeta
 
 Name:           python-%{srcname}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extract embedded metadata from HTML markup
 
 License:        BSD-3-Clause
@@ -63,6 +63,9 @@ Summary:        %{summary}
 %{_bindir}/extruct
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 10 2024 Benson Muite <benson_muite@emailplus.org> - 0.18.0-1
 - Update to 0.18.0
 

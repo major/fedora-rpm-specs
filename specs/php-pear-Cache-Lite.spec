@@ -18,7 +18,7 @@
 Summary:        Fast and Safe little cache system for PHP
 Name:           php-pear-Cache-Lite
 Version:        2.0.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        LGPL-2.1-or-later
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 # git snapshot to retrieve test suite
@@ -103,6 +103,9 @@ fi
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

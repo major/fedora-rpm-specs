@@ -1,6 +1,6 @@
 Name:           primecount
 Version:        7.14
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast prime counting function implementation
 
 # BSD-2-Clause: the project as a whole
@@ -104,6 +104,9 @@ export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_SSE2'
 %{_libdir}/pkgconfig/primecount.pc
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.14-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 31 2024 Kim Walisch <walki@fedoraproject.org> - 7.14-1
 - Fix libdivide.h issue with GCC 15.
 - Improve AVX512 code.

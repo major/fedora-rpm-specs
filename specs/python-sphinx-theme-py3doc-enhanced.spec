@@ -6,7 +6,7 @@ enhancements.
 
 Name:           python-%{pkgname}
 Version:        2.4.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Theme based on the theme of https://docs.python.org/3/
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -52,6 +52,9 @@ Provides:       python%{python3_pkgversion}-%{pypi_name} = %{version}-%{release}
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.4.0-12
 - convert license to SPDX
 

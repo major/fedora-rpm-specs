@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.5.0
-Release:	34%{?dist}
+Release:	35%{?dist}
 Summary:	Ruby binding to ZOOM
 
 # README.md
@@ -108,6 +108,9 @@ popd
 %{gem_instdir}/sample/
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 07 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.0-34
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.4
 

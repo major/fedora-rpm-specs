@@ -3,7 +3,7 @@
 
 Name: python-%{srcname}
 Version: 0.13.2
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Statistical data visualization in Python
 License: BSD-3-Clause
 
@@ -69,6 +69,9 @@ rm -rf seaborn/external/docscrape.py
 %doc README.md
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Dec 08 2024 Sergio Pascual <sergiopr@fedoraproject.com> - 0.13.2-6
 - Update SPDX indentifier
 

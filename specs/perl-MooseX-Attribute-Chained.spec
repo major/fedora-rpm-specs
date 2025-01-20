@@ -1,6 +1,6 @@
 Name:           perl-MooseX-Attribute-Chained
 Version:        1.0.3
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Attribute that returns the instance to allow for chaining
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -68,6 +68,9 @@ find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.3-26
 - convert license to SPDX
 

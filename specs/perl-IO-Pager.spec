@@ -5,7 +5,7 @@
 
 Name:           perl-IO-Pager
 Version:        2.10
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Select a pager and pipe text to it if destination is a TTY
 # The license is something home-made or "the same terms as Perl itself".
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -97,6 +97,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 2.10-12
 - convert license to SPDX
 

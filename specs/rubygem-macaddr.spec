@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        1.7.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        MAC Address Determination for Ruby
 
 # Automatically converted from old format: Ruby or BSD - review is highly recommended.
@@ -89,6 +89,9 @@ popd
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.7.2-13
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:          pgrouting
 Version:       3.7.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Provides routing functionality to PostGIS / PostgreSQL
 License:       GPL-2.0-or-later AND BSL-1.0 AND MIT
 URL:           https://pgrouting.org
@@ -50,6 +50,9 @@ geospatial routing functionality.
 %{_datadir}/pgsql/extension/pgrouting.control
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 02 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-1
 - Update to version 3.7.0
 

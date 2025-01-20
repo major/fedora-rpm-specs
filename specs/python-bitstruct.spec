@@ -11,7 +11,7 @@ bits instead of primitive data types (char, int, …).
 
 Name:           python-%{pypi_name}
 Version:        8.17.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Interpret strings as packed binary data
 
 # the c module won't compile
@@ -76,6 +76,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.17.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.17.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

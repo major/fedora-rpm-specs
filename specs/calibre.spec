@@ -13,11 +13,13 @@ URL:            https://calibre-ebook.com/
 Source0:        https://download.calibre-ebook.com/%{version}/%{name}-%{version}.tar.xz
 
 # Disable auto update from inside the app
-Patch1:         calibre-no-update.patch
+Patch:          calibre-no-update.patch
 
 # Do not display multiple apps in desktop files, only the main app
 # This is so gnome-software only 'sees' calibre once.
-Patch3:         calibre-nodisplay.patch
+Patch:          calibre-nodisplay.patch
+
+Patch:          0001-Fix-build-with-std-gnu23.patch
 
 ExclusiveArch: aarch64 x86_64
 

@@ -4,7 +4,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.15.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: An IRB alternative and runtime developer console
 License: MIT
 URL: http://pry.github.io
@@ -94,6 +94,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Nov 28 2024 Vít Ondruch <vondruch@redhat.com> - 0.15.0-1
 - Update to Pry 0.15.0.
   Resolves: rhbz#2159362

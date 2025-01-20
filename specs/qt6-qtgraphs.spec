@@ -2,7 +2,7 @@
 
 Name:          qt6-qtgraphs
 Version:       6.8.1
-Release:       2%{?dist}
+Release:       3%{?dist}
 
 %global examples 1
 
@@ -112,6 +112,9 @@ popd
 %endif
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.8.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Dec 05 2024 Jan Grulich <jgrulich@redhat.com> - 6.8.1-2
 - Move Software Bill of Materials from -devel
 

@@ -7,7 +7,7 @@
 
 Name:           python-onigurumacffi
 Version:        1.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python cffi bindings for the Oniguruma regex engine
 
 License:        MIT
@@ -64,6 +64,9 @@ Summary:    %{summary}
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Oct 05 2024 Maxwell G <maxwell@gtmx.me> - 1.3.0-1
 - Update to 1.3.0.
 

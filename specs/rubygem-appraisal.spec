@@ -3,7 +3,7 @@
 Summary:       Find out what your Ruby gems are worth
 Name:          rubygem-%{gem_name}
 Version:       0.5.2
-Release:       21%{?dist}
+Release:       22%{?dist}
 License:       MIT
 URL:           http://github.com/thoughtbot/appraisal
 Source0:       http://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -71,6 +71,9 @@ rm -f %{buildroot}%{gem_instdir}/appraisal.gemspec
 %{gem_instdir}/spec
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

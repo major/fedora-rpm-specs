@@ -1,6 +1,6 @@
 Name:           perl-Mail-SPF
 Version:        3.20240923
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Object-oriented implementation of Sender Policy Framework
 License:        BSD-3-Clause
 URL:            https://metacpan.org/release/Mail-SPF
@@ -115,6 +115,9 @@ fi
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.20240923-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 23 2024 Jitka Plesnikova <jplesnik@redhat.com> - 3.20240923-1
 - 3.20240923 bump (rhbz#2314156)
 

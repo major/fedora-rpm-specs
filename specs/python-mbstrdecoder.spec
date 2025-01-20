@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.1.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        multi-byte character string decoder
 
 License:        MIT
@@ -45,6 +45,9 @@ sed -i 's/chardet>=3.0.4,<.*/chardet>=3.0.4/g' requirements/requirements.txt
 %doc README.rst
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

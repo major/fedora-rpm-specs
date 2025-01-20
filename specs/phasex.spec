@@ -4,7 +4,7 @@
 
 Name:  phasex
 Version: 0.14.97
-Release: %{prerel}.20150304git%{shortcommit}%{?dist}.6
+Release: %{prerel}.20150304git%{shortcommit}%{?dist}.7
 Summary: PHASEX -- Phase Harmonic Advanced Synthesis EXperiment
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
@@ -89,6 +89,9 @@ desktop-file-install \
 %{_datadir}/icons/hicolor/scalable/apps/%{name}-icon.svg
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.97-9.20150304git4942467.7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.14.97-9.20150304git4942467.6
 - convert license to SPDX
 

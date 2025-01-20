@@ -1,6 +1,6 @@
 Name:           rcssmonitor
 Version:        19.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        RoboCup 2D Soccer Simulator Monitor
 
 # rcss/ libraries are under LGPLv2+
@@ -66,6 +66,9 @@ desktop-file-install \
 %{_libdir}/*.so
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 19.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 19.0.0-3
 - convert license to SPDX
 

@@ -64,7 +64,7 @@
 
 Name:           plplot
 Version:        5.15.0
-Release:        75%{?dist}
+Release:        76%{?dist}
 Summary:        Library of functions for making scientific plots
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -782,6 +782,9 @@ export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/bindings/ocaml:$RPM_BUILD_ROOT%{_
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.0-76
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jan 11 2025 Orion Poplawski <orion@nwra.com> - 5.15.0-75
 - Add patch to fix example with numpy 2.X (FTBFS rhbz#2336933)
 

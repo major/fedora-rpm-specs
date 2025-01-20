@@ -2,7 +2,7 @@
 
 Name:           python-firkin
 Version:        0.02
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        Python module to convert between different measurement units
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -50,6 +50,9 @@ done
 %{python3_sitelib}/__pycache__/%{srcname}.*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.02-44
 - convert license to SPDX
 

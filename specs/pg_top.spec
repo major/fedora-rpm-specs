@@ -1,7 +1,7 @@
 Summary:	'top' for PostgreSQL process
 Name:		pg_top
 Version:	4.1.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
 Source0:	https://pg_top.gitlab.io/source/pg_top-4.1.1.tar.xz
@@ -38,6 +38,9 @@ query plans, issued locks, and table and index statistics.
 %license LICENSE
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 4.1.1-3
 - convert license to SPDX
 

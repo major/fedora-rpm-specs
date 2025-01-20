@@ -10,7 +10,7 @@
 
 Name:           python-ironicclient
 Version:        5.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python client for Ironic
 
 License:        Apache-2.0
@@ -80,6 +80,9 @@ done
 %{python3_sitelib}/python_%{sname}*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Oct 07 2024 Joel Capitao <jcapitao@redhat.com> 5.8.0-1
 - Update to upstream version 5.8.0
 

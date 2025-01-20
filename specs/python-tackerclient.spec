@@ -16,7 +16,7 @@
 
 Name:       %{client}
 Version:    2.1.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    OpenStack Tacker client
 License:    Apache-2.0
 URL:        http://launchpad.net/%{client}/
@@ -172,6 +172,9 @@ ln -s %{executable} %{buildroot}%{_bindir}/%{executable}-3
 %endif
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Oct 07 2024 Joel Capitao <jcapitao@redhat.com> 2.1.0-1
 - Update to upstream version 2.1.0
 

@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        0.5.2
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Python library for reading EPUB files
 
 License:        LGPL-3.0-or-later
@@ -71,6 +71,9 @@ rm -f docs/_build/html/.buildinfo
 %doc docs/_build/html/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

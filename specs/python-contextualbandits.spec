@@ -14,7 +14,7 @@ serve as a guide in learning about contextual bandits.}
 
 Name:           python-%{pypi_name}
 Version:        0.3.21
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Python implementations of algorithms for contextual bandits
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -91,6 +91,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc example/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.21-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 24 2024 Orion Poplawski <orion@nwra.com> - 0.3.21-10
 - Rebuild with numpy 2.x (rhbz#2333879)
 

@@ -2,7 +2,7 @@
 Name:           qoauth
 Summary:        Qt library OAuth authorization scheme
 Version:        2.0.0
-Release:        21%{?dist}
+Release:        22%{?dist}
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -166,6 +166,9 @@ make check -C %{_target_platform}-qt4 || :
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0.0-21
 - convert license to SPDX
 

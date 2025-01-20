@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.9.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A set of objects for performing math operations on font data
 
 License:        MIT 
@@ -47,6 +47,9 @@ export LC_ALL=C.UTF-8
 %files -n python3-%{srcname} -f %{pyproject_files}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Sep 29 2024 Benson Muite <benson_muite@emailplus.org> 0.9.4-1
 - Update to latest release 0.9.4
 - Update to using latest python build macros

@@ -13,7 +13,7 @@
 
 Name:           python-nanobind
 Version:        2.4.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Tiny and efficient C++/Python bindings
 
 License:        BSD-3-Clause
@@ -110,6 +110,9 @@ popd
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Dec 19 2024 Konrad Kleine <kkleine@redhat.com> - 2.4.0-9
 - Add python3-devel
 - Fix shebang in src/stubgen.py

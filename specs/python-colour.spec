@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.1.5
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Python module to convert and manipulate color representations
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -60,6 +60,9 @@ Converts and manipulates common color representation (RGB, HSL, web, etc.)
 %{python3_sitelib}/__pycache__/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.5-21
 - convert license to SPDX
 

@@ -1,7 +1,7 @@
 Name:       perl-Net-UPnP
 Version:    1.4.6
 Epoch:      1
-Release:    19%{?dist}
+Release:    20%{?dist}
 Summary:    Perl extension for UPnP
 # Automatically converted from old format: BSD - review is highly recommended.
 License:    LicenseRef-Callaway-BSD
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/Net::UPnP*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.4.6-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1:1.4.6-19
 - convert license to SPDX
 

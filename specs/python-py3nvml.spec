@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.7
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Python 3 Bindings for the NVIDIA Management Library
 
 License:        BSD-3-Clause
@@ -74,6 +74,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

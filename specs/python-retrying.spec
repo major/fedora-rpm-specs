@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.3.3
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        General-purpose retrying library in Python
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -55,6 +55,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3.3-15
 - convert license to SPDX
 

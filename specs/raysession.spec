@@ -1,6 +1,6 @@
 Name:               raysession
 Version:            0.14.3
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Session manager for audio software
 BuildArch:          noarch
 # The entire source code is GPLv2
@@ -101,6 +101,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 # No manpages, developer is aware https://github.com/Houston4444/RaySession/issues/40
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Sep 27 2024 Adam Williamson <awilliam@redhat.com> - 0.14.3-1
 - New release 0.14.3
 - Patch to work with pyliblo3 (for F41+ / Python 3.13+)

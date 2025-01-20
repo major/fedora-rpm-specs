@@ -2,7 +2,7 @@
 
 Name:           python-formencode
 Version:        2.1.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        HTML form validation, generation, and convertion package  
 # Automatically converted from old format: Python - review is highly recommended.
 License:        LicenseRef-Callaway-Python
@@ -101,6 +101,9 @@ rm -rf $RPM_BUILD_ROOT%{python3_sitelib}/formencode/i18n
 %files -n python-formencode-langpacks -f %{srcname}.lang
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.1.0-6
 - convert license to SPDX
 

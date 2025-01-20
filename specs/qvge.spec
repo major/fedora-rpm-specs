@@ -1,6 +1,6 @@
 Name:		qvge
 Version:	0.6.3
-Release:	7%{?dist}
+Release:	8%{?dist}
 # Automatically converted from old format: MIT and LGPLv3 and BSD - review is highly recommended.
 License:	LicenseRef-Callaway-MIT AND LGPL-3.0-only AND LicenseRef-Callaway-BSD
 Summary:	Graph editor
@@ -73,6 +73,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.ap
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.6.3-7
 - convert license to SPDX
 

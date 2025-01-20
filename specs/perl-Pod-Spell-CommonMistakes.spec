@@ -1,6 +1,6 @@
 Name:           perl-Pod-Spell-CommonMistakes
 Version:        1.002
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Catches common typos in POD
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -52,6 +52,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.002-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 1.002-30
 - convert license to SPDX
 

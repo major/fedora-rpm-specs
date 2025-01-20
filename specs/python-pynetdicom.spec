@@ -12,7 +12,7 @@ Version:        2.1.1
 
 %forgemeta
 
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A Python implementation of the DICOM networking protocol
 
 License:        MIT
@@ -173,6 +173,9 @@ k="${k-}${k+ and }not (TestPrettyDataset and test_sequence_multi)"
 %{_bindir}/storescu
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Sep 27 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.1.1-3
 - Skip a new unexplained test failure
 - Allow pydicom 3.0.0 (and skip a few failing tests)

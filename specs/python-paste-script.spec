@@ -10,7 +10,7 @@ Built-in features:\
 
 Name:           python-paste-script
 Version:        3.3.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 BuildArch:      noarch
 
 # paste/script/wsgiserver/ is BSD licensed from CherryPy
@@ -71,6 +71,9 @@ ln -s ./paster-%{python3_version} %{buildroot}%{_bindir}/paster-3
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 3.3.0-6
 - convert license to SPDX
 

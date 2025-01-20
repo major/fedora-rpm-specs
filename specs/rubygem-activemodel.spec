@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 7.0.8
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: A toolkit for building modeling frameworks (part of Rails)
 License: MIT
 URL: http://rubyonrails.org
@@ -95,6 +95,9 @@ popd
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.8-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Nov 05 2024 Vít Ondruch <vondruch@redhat.com> - 7.0.8-5
 - Fix Ruby 3.4 compatibility.
 

@@ -4,7 +4,7 @@
 
 Name:           python-xeddsa
 Version:        1.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python implementation of the XEdDSA signature scheme
 
 License:        MIT
@@ -67,6 +67,9 @@ cp -a xeddsa/* %{buildroot}%{python3_sitearch}/xeddsa/
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Sep 19 2024 Matthieu Saulnier <fantom@fedoraproject.org> - 1.0.3-1
 - Update to 1.0.3
 - Cleanup BuildRequires list

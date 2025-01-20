@@ -9,7 +9,7 @@
 
 Name:           python-%{srcname}
 Version:        1.3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        NTLM module for python requests (requires md4, thus legacy OpenSSL settings)
 
 License:        ISC
@@ -82,6 +82,9 @@ export OPENSSL_CONF=${PWD}/openssl.cnf
 %doc CONTRIBUTORS.rst README.rst
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 11 2024 Orion Poplawski <orion@nwra.com> - 1.3.0-2
 - Use pyproject macros
 - Build without flask in epel10

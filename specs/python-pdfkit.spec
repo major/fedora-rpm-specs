@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.6.1
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Wkhtmltopdf python wrapper
 
 License:        MIT
@@ -68,6 +68,9 @@ cd tests
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jan 06 2025 Miro Hrončok <mhroncok@redhat.com> - 0.6.1-17
 - Fix build with setuptools 74+
 - Fixes: rhzb#2319690

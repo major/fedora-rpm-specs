@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 4.2.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Rack-based asset packaging system
 License: MIT
 URL: https://github.com/rails/sprockets
@@ -211,6 +211,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Nov 10 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.0-6
 - Add BR: rubygem(base64) explicitly for ruby34
 

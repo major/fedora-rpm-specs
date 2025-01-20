@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python MQTT version 3.1/3.1.1/5.0 client class
 
 License:        EPL-1.0
@@ -57,6 +57,9 @@ and/or network bandwidth is at a premium.
 %doc CONTRIBUTING.md README.rst *.html
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Nov 03 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 2.1.0-1
 - Update to 2.1.0
 

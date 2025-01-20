@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.10.5
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Writing user interfaces without all that ugly mucking about in hyperspace
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -50,6 +50,9 @@ done
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.5-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 4.10.5-18
 - convert license to SPDX
 

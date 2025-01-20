@@ -2,7 +2,7 @@
 
 Name:           python-%{module}
 Version:        0.0.4
-Release:        11%{?dist}
+Release:        12%{?dist}
 
 Summary:        A Python framework to build ManaTools applications
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -54,6 +54,9 @@ sed -i 's|0.0.1|%{version}|' manatools/version.py
 %{python3_sitelib}/python_manatools-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.0.4-11
 - convert license to SPDX
 

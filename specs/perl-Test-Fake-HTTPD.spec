@@ -1,6 +1,6 @@
 Name:           perl-Test-Fake-HTTPD
 Version:        0.09
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Fake HTTP server module for testing
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -74,6 +74,9 @@ find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.09-14
 - convert license to SPDX
 

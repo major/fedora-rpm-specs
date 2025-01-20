@@ -1,6 +1,6 @@
 Name: python-pytest-sourceorder
 Version: 0.6.0
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Test-ordering plugin for pytest
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -56,6 +56,9 @@ instead of the "almost alphabetical" order Pytest normally uses.
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.6.0-12
 - convert license to SPDX
 

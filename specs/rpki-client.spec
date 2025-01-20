@@ -9,7 +9,7 @@
 Summary:        OpenBSD RPKI validator to support BGP Origin Validation
 Name:           rpki-client
 Version:        9.4
-Release:        1%{?with_snapshot:.git%{gitdate}}%{?dist}
+Release:        2%{?with_snapshot:.git%{gitdate}}%{?dist}
 # rpki-client itself is ISC but uses other source codes, breakdown:
 # BSD-2-Clause: include/sys/tree.h and src/{http,output}.c
 # BSD-3-Clause: compat/{setproctitle,vis}.c and include/{sha2_openbsd,vis,sys/queue}.h and src/mkdir.c
@@ -113,6 +113,9 @@ install -D -p -m 0644 %{SOURCE6} $RPM_BUILD_ROOT%{_unitdir}/%{name}.timer
 %dir %attr(0755,%{name},%{name}) %{_localstatedir}/lib/%{name}/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jan 13 2025 Robert Scheck <robert@fedoraproject.org> 9.4-1
 - Upgrade to 9.4 (#2336356)
 

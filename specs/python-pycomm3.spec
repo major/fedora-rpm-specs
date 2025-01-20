@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.10.2
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Python library for communicating with Allen-Bradley PLCs
 
 License:        MIT
@@ -53,6 +53,9 @@ sed -i 's/\r$//' README.rst
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

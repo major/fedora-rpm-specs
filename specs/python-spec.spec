@@ -1,6 +1,6 @@
 Name:           python-spec
 Version:        1.4.1
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Specification-style output for python-nose
 License:        MIT
 URL:            https://github.com/bitprophet/spec
@@ -66,6 +66,9 @@ rm -rf spec.egg-info
 %{python3_sitelib}/spec-*.egg-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

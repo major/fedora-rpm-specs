@@ -3,7 +3,7 @@
 
 Name:           perl-HTTP-Link-Parser
 Version:        0.200
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Parse HTTP Link headers
 # COPYRIGHT:    Public Domain
 # CONTRIBUTING: CC-BY-SA
@@ -66,6 +66,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.200-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.200-18
 - convert license to SPDX
 

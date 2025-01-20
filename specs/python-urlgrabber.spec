@@ -11,7 +11,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{majorver}.%{minorver}.%{patchver}
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        A high-level cross-protocol url-grabber
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -72,6 +72,9 @@ export URLGRABBER_EXT_DOWN="%{buildroot}%{_libexecdir}/urlgrabber-ext-down"
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 4.1.0-19
 - convert license to SPDX
 

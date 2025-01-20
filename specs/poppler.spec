@@ -17,7 +17,7 @@
 Summary: PDF rendering library
 Name:    poppler
 Version: 24.08.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: (GPL-2.0-only OR GPL-3.0-only) AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:     https://poppler.freedesktop.org/
 Source0: https://poppler.freedesktop.org/poppler-%{version}.tar.xz
@@ -287,6 +287,9 @@ test "$(pkg-config --modversion poppler-qt6)" = "%{version}"
 %{_mandir}/man1/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.08.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug  6 2024 Marek Kasik <mkasik@redhat.com> - 24.08.0-1
 - Update to 24.08.0
 - Resolves: #2267564

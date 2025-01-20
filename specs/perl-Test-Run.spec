@@ -1,6 +1,6 @@
 Name:           perl-Test-Run
 Version:        0.0306
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extensible and object-oriented test harness for TAP scripts
 # Build.PL:                         MIT
 # lib/Test/Run.pm:                  MIT
@@ -175,6 +175,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0306-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 10 2024 Petr Pisar <ppisar@redhat.com> - 0.0306-1
 - 0.0306 bump
 

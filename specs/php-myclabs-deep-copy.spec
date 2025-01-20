@@ -18,7 +18,7 @@
 
 Name:           php-myclabs-deep-copy%{major}
 Version:        1.12.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        Create deep copies (clones) of your objects
 
@@ -120,6 +120,9 @@ exit $ret
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Nov 12 2024 Remi Collet <remi@remirepo.net> - 1.12.1-1
 - update to 1.12.1
 

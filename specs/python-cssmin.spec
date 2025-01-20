@@ -2,7 +2,7 @@
 
 Name:       python-cssmin
 Version:    0.2.0
-Release:    35%{?dist}
+Release:    36%{?dist}
 Summary:    A Python port of the YUI CSS compression algorithm
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -62,6 +62,9 @@ cd src && \
 %{_bindir}/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.0-35
 - convert license to SPDX
 

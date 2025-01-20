@@ -8,7 +8,7 @@ classes and service classes (normal, registered, ...).
 
 Name:           python-%{srcname}
 Version:        0.8.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Python interface to the Deutsche Post Internetmarke Online Franking
 
 License:        LGPL-3.0-or-later
@@ -57,6 +57,9 @@ sed -i '1,1s@^#!.*$@@' inema/frank.py inema/inema.py
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Jan 12 2025 Georg Sauthoff <mail@gms.tf> - 0.8.11-1
 - Bump to upstream release (includes January, 2025 product updates, fixes fedora#2337215)
 

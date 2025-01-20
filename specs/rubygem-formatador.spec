@@ -4,7 +4,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.2.5
-Release: 19%{?dist}
+Release: 20%{?dist}
 Summary: Ruby STDOUT text formatting
 License: MIT
 URL: http://github.com/geemus/formatador
@@ -67,6 +67,9 @@ popd
 %{gem_instdir}/tests
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary:       Perl module for SOAP with WSDL support
 Name:          perl-SOAP-WSDL
 Version:       3.004
-Release:       18%{?dist}
+Release:       19%{?dist}
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:       GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:           https://metacpan.org/release/SOAP-WSDL
@@ -134,6 +134,9 @@ chmod 0755 %{buildroot}%{_bindir}/wsdl2perl.pl
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.004-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 3.004-18
 - convert license to SPDX
 

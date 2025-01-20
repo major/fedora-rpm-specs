@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 6.0.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Sass adapter for the Rails asset pipeline
 License: MIT
 URL: https://github.com/rails/sass-rails
@@ -61,6 +61,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Test-Script
 Version:        1.29
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Cross-platform basic tests for scripts
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Script
@@ -55,6 +55,9 @@ in the bin directory of your Perl distribution.
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.29-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.29-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        3.0.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A Python namespace control and lazy-import mechanism
 
 License:        MIT
@@ -51,6 +51,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %license LICENSE
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

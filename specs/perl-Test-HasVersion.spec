@@ -1,6 +1,6 @@
 Name:           perl-Test-HasVersion
 Version:        0.014
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Check Perl modules have version numbers
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-HasVersion
@@ -64,6 +64,9 @@ make test
 %{_mandir}/man3/Test::HasVersion.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.014-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Sep  6 2024 Paul Howarth <paul@city-fan.org> - 0.014-27
 - Add manpage for test_version
 

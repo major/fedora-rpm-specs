@@ -10,7 +10,7 @@ It reports errors and warning including:\
 
 Name:           python-%{pkg_name}
 Version:        1.4.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        reStructuredText linter
 
 License:        Unlicense
@@ -70,6 +70,9 @@ PYTHONPATH="$(pwd)" pytest-%{python3_version} -v
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

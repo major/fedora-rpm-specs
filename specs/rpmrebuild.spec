@@ -1,6 +1,6 @@
 Name:           rpmrebuild
 Version:        2.20
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A tool to build rpm file from rpm database
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -122,6 +122,9 @@ make install DESTDIR="$RPM_BUILD_ROOT"
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.20-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 14 2025 Michal Josef Špaček <mspacek@redhat.com> - 2.20-2
 - Mark license files as %license
 

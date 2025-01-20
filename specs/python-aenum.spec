@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.1.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Advanced Enumerations, NamedTuples and NamedConstants for Python
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -72,6 +72,9 @@ Enum capabilities, however.
 %{python3_sitelib}/%{pypi_name}/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 3.1.0-12
 - convert license to SPDX
 

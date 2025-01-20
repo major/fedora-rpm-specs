@@ -1,6 +1,6 @@
 Name:           perl-JSON-Util
 Version:        0.06
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Easy and portable encode/decode of JSON
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -53,6 +53,9 @@ Provides methods to encode and decode JSON.
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.06-28
 - convert license to SPDX
 

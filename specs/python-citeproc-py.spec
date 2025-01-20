@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.6.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Citations and bibliography formatter
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -54,6 +54,9 @@ sed -i -e '1s|^.*$|#!%{__python3}|' %{buildroot}%{_bindir}/csl_unsorted
 %{_bindir}/csl_unsorted
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.6.0-13
 - convert license to SPDX
 

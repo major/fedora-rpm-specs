@@ -1,6 +1,6 @@
 Name:           perl-Mojo-RabbitMQ-Client
 Version:        0.3.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Mojo::IOLoop based RabbitMQ client
 # Automatically converted from old format: Artistic 2.0 and BSD - review is highly recommended.
 License:        Artistic-2.0 AND LicenseRef-Callaway-BSD
@@ -73,6 +73,9 @@ TEST_RMQ='' MOJO_RABBITMQ_DEBUG="" MOJO_CONNECT_TIMEOUT="" ./Build test
 %{_mandir}/man3/Mojo*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.3.1-16
 - convert license to SPDX
 

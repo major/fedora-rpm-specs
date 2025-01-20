@@ -4,7 +4,7 @@
 
 Name:           python-%{modname}
 Version:        0.7.8
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Port David Beazley's PLY to RPython
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -51,6 +51,9 @@ pytest-%{python3_version} -v
 %{python3_sitelib}/%{modname}/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.8-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.7.8-13
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           python-kgb
 Version:        7.1.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Intercept and record calls to functions
 License:        MIT
 URL:            https://github.com/beanbaginc/kgb
@@ -94,6 +94,9 @@ Unit tests for python3-kgb
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

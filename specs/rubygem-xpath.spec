@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.2.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Generate XPath expressions from Ruby
 License: MIT
 URL: https://github.com/teamcapybara/xpath
@@ -62,6 +62,9 @@ popd
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

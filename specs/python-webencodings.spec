@@ -4,7 +4,7 @@
 
 Name: python-%{srcname}
 Version: 0.5.1
-Release: 27%{?dist}
+Release: 28%{?dist}
 BuildArch: noarch
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -78,6 +78,9 @@ py.test-3
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5.1-27
 - convert license to SPDX
 

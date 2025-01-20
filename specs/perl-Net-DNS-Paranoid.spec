@@ -3,7 +3,7 @@
 
 Name:           perl-Net-DNS-Paranoid
 Version:        0.09
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Paranoid DNS resolver
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Net-DNS-Paranoid/
@@ -56,6 +56,9 @@ rm t/01_simple.t
 %{_mandir}/man3/Net::DNS::Paranoid*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

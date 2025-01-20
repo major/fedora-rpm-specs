@@ -2,7 +2,7 @@
 
 Name:           python-jinja2
 Version:        3.1.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        General purpose template engine
 License:        BSD-3-Clause
 URL:            https://palletsprojects.com/p/jinja/
@@ -89,6 +89,9 @@ rm -rvf docs/_build/html/.buildinfo
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 08 2025 Miro Hrončok <mhroncok@redhat.com> - 3.1.5-1
 - Update to 3.1.5
 - Security fix for CVE-2024-56201

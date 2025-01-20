@@ -1,6 +1,6 @@
 Name:       perl-WWW-Mechanize-GZip 
 Version:    0.14
-Release:    19%{?dist}
+Release:    20%{?dist}
 # lib/WWW/Mechanize/GZip.pm -> GPL+ or Artistic
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl 
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/WWW*.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.14-19
 - convert license to SPDX
 

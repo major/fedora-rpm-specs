@@ -3,7 +3,7 @@ Name:           python-google-i18n-address
 %global pypi_name %(echo %{srcname} | sed 's/-/_/g')
 
 Version:        3.1.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Address validation helpers for Google's i18n address database
 
 # Automatically converted from old format: BSD with advertising - review is highly recommended.
@@ -62,6 +62,9 @@ rm -rf %{buildroot}/%{_bindir}/update-validation-files
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 3.1.0-6
 - convert license to SPDX
 

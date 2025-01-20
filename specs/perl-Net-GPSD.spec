@@ -1,6 +1,6 @@
 Name:           perl-Net-GPSD
 Version:        0.39
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Provides an object client interface to the gpsd server daemon
 
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -54,6 +54,9 @@ make test
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.39-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.39-40
 - convert license to SPDX
 

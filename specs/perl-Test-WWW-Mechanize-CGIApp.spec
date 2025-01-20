@@ -1,6 +1,6 @@
 Name:           perl-Test-WWW-Mechanize-CGIApp
 Version:        0.05
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Test::WWW::Mechanize for CGI::Application
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -53,6 +53,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.05-45
 - convert license to SPDX
 

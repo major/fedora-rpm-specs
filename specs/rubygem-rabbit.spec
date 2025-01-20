@@ -6,7 +6,7 @@ BuildRequires:	%1 \
 
 Name:		rubygem-%{gem_name}
 Version:	3.0.3
-Release:	5%{?dist}
+Release:	6%{?dist}
 
 Summary:	RD-document-based presentation application
 # GPL-2.0-or-later:	overall
@@ -182,6 +182,9 @@ popd
 %doc	%{gem_instdir}/sample/	
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

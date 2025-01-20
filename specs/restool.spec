@@ -6,7 +6,7 @@
 
 Name:      restool
 Version:   2.4.0
-Release:   11.%{gittag}%{?dist}
+Release:   12.%{gittag}%{?dist}
 Summary:   A tool to create and manage the DPAA2 Management Complex (MC)
 # Automatically converted from old format: BSD or GPLv2+ - review is highly recommended.
 License:   LicenseRef-Callaway-BSD OR GPL-2.0-or-later
@@ -50,6 +50,9 @@ install -m 0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/udev/rules.d/
 %{_sysconfdir}/udev/rules.d/fsl_mc_bus.rules
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-12.443e5fa
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 30 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 2.4.0-11.443e5fa
 - Move to new upstream and a git snapshot
 

@@ -14,7 +14,7 @@ Name:             rtl-sdr
 URL:              http://sdr.osmocom.org/trac/wiki/rtl-sdr
 #Version:          0.6.0^%%{git_suffix}
 Version:          2.0.1
-Release:          3%{?dist}
+Release:          4%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:          GPL-2.0-or-later
 BuildRequires:    gcc
@@ -81,6 +81,9 @@ exit 0
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul  26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0.1-3
 - convert license to SPDX
 

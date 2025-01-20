@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        16.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Unicodedata backport updated to the latest Unicode version
 
 License:        Apache-2.0
@@ -58,6 +58,9 @@ is data from Unicode 13.0.0.
 %{python3_sitearch}/%{pypi_name}-%{pypi_version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 16.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Jan 12 2025 Parag Nemade <pnemade AT redhat DOT com> - 16.0.0-1
 - Update to 16.0.0 version (#2337092)
 

@@ -1,6 +1,6 @@
 Name:       reprepro
 Version:    5.4.4
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Tool to handle local repositories of Debian packages
 # filecntl.c, md5.c, md5.h are Public Domain
 # dpkgversions.c is GPLv2+
@@ -84,6 +84,9 @@ rm Makefile{,.am,.in} changestool.1 rredtool.1 reprepro.1
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 5.4.4-3
 - convert license to SPDX
 

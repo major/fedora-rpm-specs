@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.5.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 
 Summary:	Tk interface module using tcltklib
 # SPDX confirmred
@@ -117,6 +117,9 @@ popd
 %doc	%lang(ja) %{gem_instdir}/MANUAL_tcltklib.ja
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 15 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.1-2
 - Apply upstream PR to support C23 strict function prototype
 

@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.0.2
-Release: 47%{?dist}
+Release: 48%{?dist}
 Summary: Ruby Bindings for the GNU LibIDN library
 # ASL license for ext/idn.c, ext/idn.h, ext/punycode.c and ext/stringprep.c
 # Automatically converted from old format: ASL 2.0 and LGPLv2+ - review is highly recommended.
@@ -88,6 +88,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 08 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.0.2-47
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.4
 

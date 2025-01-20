@@ -1,6 +1,6 @@
 Name:           perl-Net-POP3S
 Version:        0.12
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        SSL/STARTTLS support for Net::POP3
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -63,6 +63,9 @@ document of IO::Socket::SSL about these options detail.
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.12-13
 - convert license to SPDX
 

@@ -1,7 +1,7 @@
 Name: perl-Net-Telnet
 Summary: Interact with TELNET port or other TCP ports
 Version: 3.05
-Release: 11%{?alphatag:.%{alphatag}}%{?dist}
+Release: 12%{?alphatag:.%{alphatag}}%{?dist}
 License: GPL-1.0-or-later OR Artistic-1.0-Perl
 URL: https://metacpan.org/release/Net-Telnet
 Source0: https://cpan.metacpan.org/authors/id/J/JR/JROGERS/Net-Telnet-%{version}.tar.gz
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.05-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.05-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

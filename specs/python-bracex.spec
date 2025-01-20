@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Bash style brace expander
 
 License:        MIT
@@ -48,6 +48,9 @@ Brace expanding is used to generate arbitrary strings.
 %doc README.md
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 29 2024 Parag Nemade <pnemade AT redhat DOT com> - 2.5-1
 - Update to new upstream release 2.5
 

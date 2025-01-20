@@ -1,6 +1,6 @@
 Name:       qstardict
 Version:    3.0.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    StarDict clone written using Qt
 License:    GPL-3.0-or-later
 URL:        https://qstardict.ylsoftware.com/
@@ -64,6 +64,9 @@ rm -fr %{buildroot}%{_docdir}
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 07 2025 Vojtech Trefny <vtrefny@redhat.com> - 3.0.0-1
 - Update to the latest upstream release 3.0.0
 

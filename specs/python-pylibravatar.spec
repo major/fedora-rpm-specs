@@ -4,7 +4,7 @@
 
 Name:               python-pylibravatar
 Version:            1.6
-Release:            38%{?dist}
+Release:            39%{?dist}
 Summary:            Python module for Libravatar
 
 # The full text of the license isn't shipped
@@ -64,6 +64,9 @@ rm -rf %{eggname}.egg-info
 %{python3_sitelib}/%{eggname}-%{version}-*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

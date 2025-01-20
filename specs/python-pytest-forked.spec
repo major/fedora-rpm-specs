@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.6.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        py.test plugin for running tests in isolated forked subprocesses
 
 License:        MIT
@@ -52,6 +52,9 @@ Summary:        %{summary}
 %{python3_sitelib}/pytest_forked*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Scott Talbert <swt@techie.net> - 1.6.0-8
 - Update License tag to use SPDX identifiers
 

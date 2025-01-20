@@ -1,7 +1,7 @@
 Name:           perl-Test-JSON
 Summary:        Test JSON data
 Version:        0.11
-Release:        41%{?dist}
+Release:        42%{?dist}
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man3/Test*.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.11-41
 - convert license to SPDX
 

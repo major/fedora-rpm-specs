@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.8.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Library and framework for reverse engineering binary file formats
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -72,6 +72,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.8.0-15
 - convert license to SPDX
 

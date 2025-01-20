@@ -6,7 +6,7 @@
 
 Name:           rust-devicemapper
 Version:        0.34.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for using Linux device mapper
 
 License:        MPL-2.0
@@ -67,6 +67,9 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.34.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 21 2024 Bryan Gurney <bgurney@redhat.com> - 0.34.4-1
 - Update to version 0.34.4
 

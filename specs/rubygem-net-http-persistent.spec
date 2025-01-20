@@ -3,7 +3,7 @@
 Summary:	Persistent connections using Net::HTTP plus a speed fix
 Name:		rubygem-%{gem_name}
 Version:	4.0.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 # SPDX confirmed
 License:	MIT
 
@@ -78,6 +78,9 @@ popd
 %{gem_docdir}/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Dec 05 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.5-1
 - 4.0.5
 

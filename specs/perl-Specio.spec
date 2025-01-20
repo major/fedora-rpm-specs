@@ -7,7 +7,7 @@
 
 Name:		perl-Specio
 Version:	0.49
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Type constraints and coercions for Perl
 # lib/Specio/PartialDump.pm:	GPL-1.0-or-later OR Artistic-1.0-Perl
 #				<https://github.com/houseabsolute/Specio/issues/17>
@@ -161,6 +161,9 @@ make test
 %{_mandir}/man3/Test::Specio.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.49-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 24 2024 Paul Howarth <paul@city-fan.org> - 0.49-1
 - Update to 0.49
   - Attempting to import any structured type caused a confusing

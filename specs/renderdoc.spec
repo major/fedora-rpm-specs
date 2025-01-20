@@ -1,7 +1,7 @@
 %global vswig   modified-7
 Name:           renderdoc
 Version:        1.35
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A stand-alone graphics debugging tool
 
 License:        MIT
@@ -114,6 +114,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.35-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Sep 29 2024 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 1.35-1
 - Update to 1.35 (#2315525)
 

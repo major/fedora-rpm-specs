@@ -5,7 +5,7 @@
 
 Name:           perl-Term-Terminfo
 Version:        0.09
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Access the terminfo database
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -66,6 +66,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 6 2024 Miroslav Suchý <msuchy@redhat.com> - 0.09-15
 - convert license to SPDX
 

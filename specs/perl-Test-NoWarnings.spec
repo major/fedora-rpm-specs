@@ -7,7 +7,7 @@
 
 Name:           perl-Test-NoWarnings
 Version:        1.06
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Make sure you didn't emit any warnings while testing
 License:        LGPL-2.1-or-later
 URL:            https://metacpan.org/release/Test-NoWarnings
@@ -94,6 +94,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.06-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.06-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

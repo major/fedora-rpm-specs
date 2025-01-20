@@ -1,6 +1,6 @@
 Name:           pscan
 Version:        1.3
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Limited problem scanner for C source files
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -40,6 +40,9 @@ install -Dpm 644 debian/pscan.1 $RPM_BUILD_ROOT%{_mandir}/man1/pscan.1
 %{_mandir}/man1/pscan.1*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3-33
 - convert license to SPDX
 

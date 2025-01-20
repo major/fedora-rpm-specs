@@ -1,6 +1,6 @@
 Name:           perl-WWW-Shorten
 Version:        3.094
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Interface to URL shortening sites
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/WWW-Shorten
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.094-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.094-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Net-Async-HTTP
 Version:        0.49
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Use HTTP with IO::Async
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Net-Async-HTTP
@@ -79,6 +79,9 @@ unset NET_ASYNC_HTTP_MAXCONNS
 %{_mandir}/man3/Net::Async::HTTP*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.49-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Sep 29 2024 Chris Adams <linux@cmadams.net> 0.49-6
 - perl-Net-Async-HTTP-Server is in repo now, so remove forced bootstrap mode
 

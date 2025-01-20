@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.5.0.0
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Rickshaw (XStatic packaging standard)
 
 License:        MIT
@@ -82,6 +82,9 @@ chmod 644 %{buildroot}%{_jsdir}/rickshaw/rickshaw.js
 %{_jsdir}/rickshaw
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0.0-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0.0-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

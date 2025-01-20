@@ -8,7 +8,7 @@
 Name:		perl-Test-CheckChanges
 Summary:	Check that the Changes file matches the distribution
 Version:	0.14
-Release:	42%{?dist}
+Release:	43%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-CheckChanges
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-CheckChanges-%{version}.tar.gz
@@ -76,6 +76,9 @@ export TEST_AUTHOR=1
 %{_mandir}/man3/Test::CheckChanges.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

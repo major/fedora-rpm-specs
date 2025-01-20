@@ -1,6 +1,6 @@
 Name:           perl-Net-Server
 Version:        2.014
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Extensible, general Perl server engine
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-Server
@@ -127,6 +127,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.014-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 04 2024 Michal Josef Špaček <mspacek@redhat.com> - 2.014-7
 - Fix running of tests in perl-Net-Server-tests subpackage
 - Rename patch file to better name

@@ -17,7 +17,7 @@ Client library and command line utility for interacting with Openstack Designate
 
 Name:       python-%{sname}
 Version:    6.1.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Python API and CLI for OpenStack Designate
 
 License:    Apache-2.0
@@ -130,6 +130,9 @@ rm -fr doc/build/html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Oct 07 2024 Joel Capitao <jcapitao@redhat.com> 6.1.0-1
 - Update to upstream version 6.1.0
 

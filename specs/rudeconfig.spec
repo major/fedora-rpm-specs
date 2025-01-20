@@ -4,7 +4,7 @@
 
 Name:           rudeconfig
 Version:        5.0.6
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Library (C++ API) for reading and writing configuration/.ini files
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -56,6 +56,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.6-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 5.0.6-15
 - convert license to SPDX
 

@@ -4,7 +4,7 @@
 Name: %{basen}
 Version: 0.10.3
 %global basenver %{basen}-%{version}
-Release: 2%{dist}
+Release: 3%{dist}
 License: MIT
 Source:  https://github.com/shlomif/rinutils/releases/download/%{version}/%{basenver}.tar.xz
 URL: https://github.com/shlomif/rinutils/
@@ -48,6 +48,9 @@ of limited general interest, but nevertheless free and open source software
 %{_libdir}/cmake/Rinutils/*.cmake
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: Multimedia framework api
 Name:    phonon
 Version: 4.12.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
 URL:     https://community.kde.org/Phonon
@@ -150,6 +150,9 @@ test "$(pkg-config --modversion phonon4qt6)" = "%{version}"
 %files common -f %{name}.lang
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.12.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 4.12.0-8
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:		rcm
 Version:	1.3.6
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Management suite for dotfiles
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -46,6 +46,9 @@ make check
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.6-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3.6-7
 - convert license to SPDX
 

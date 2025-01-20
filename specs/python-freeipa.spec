@@ -6,7 +6,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.8
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Lightweight FreeIPA client
 
 License:        MIT
@@ -56,6 +56,9 @@ sed -e "s/version='1.0.6',/version='%{version}',/" -i setup.py
 %{python3_sitelib}/python_freeipa-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Nov 14 2024 Neal Gompa <ngompa@fedoraproject.org> - 1.0.8-4
 - Switch to pytest macro for running tests (#2319660)
 

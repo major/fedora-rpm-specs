@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.9.21
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Simple library to encode/decode DNS packets
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -46,6 +46,9 @@ sed -i -e '/^#!\//, 1d' dnslib/test_decode.py
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.21-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.9.21-9
 - convert license to SPDX
 

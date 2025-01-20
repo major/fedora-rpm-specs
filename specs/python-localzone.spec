@@ -4,7 +4,7 @@ Version:           0.9.8
 %forgemeta
 
 Name:           python-%{pypi_name}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A simple library for managing DNS zones
 
 License:        BSD
@@ -53,6 +53,9 @@ Summary:        %{summary}
 %doc README.rst
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

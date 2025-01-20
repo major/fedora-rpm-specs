@@ -6,9 +6,9 @@
 Name:           php-pear-MDB2
 Version:        2.5.0
 %if 0%{?prever:1}
-Release:        0.31.%{?prever}%{?dist}
+Release:        0.32.%{?prever}%{?dist}
 %else
-Release:        26%{?dist}
+Release:        27%{?dist}
 %endif
 Summary:        Database Abstraction Layer
 
@@ -87,6 +87,9 @@ fi
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-0.32.b5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.5.0-0.31.b5
 - convert license to SPDX
 

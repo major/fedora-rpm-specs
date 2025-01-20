@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.9.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: HTTP server toolkit
 License: Ruby AND BSD-2-Clause
 URL: https://github.com/ruby/webrick
@@ -76,6 +76,9 @@ popd
 %{gem_instdir}/webrick.gemspec
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Nov 21 2024 Jarek Prokop <jprokop@redhat.com> - 1.9.0-1
 - Upgrade to webrick 1.9.0.
   Resolves: CVE-2024-47220

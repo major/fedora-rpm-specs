@@ -1,6 +1,6 @@
 Name:           perl-PBKDF2-Tiny
 Version:        0.005
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Minimalist PBKDF2 (RFC 2898) with HMAC-SHA1 or HMAC-SHA2
 # inc/MakeMaker.pm:     GPL+ or Artistic (derived from
 #                       Package-Stash:inc/MMPackageStash.pm)
@@ -61,6 +61,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.005-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.005-29
 - convert license to SPDX
 

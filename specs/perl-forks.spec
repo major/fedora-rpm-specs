@@ -1,6 +1,6 @@
 Name:           perl-forks
 Version:        0.36
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        A drop-in replacement for Perl threads using fork()
 # ppport.h:     GPL-1.0-or-later OR Artistic-1.0-Perl
 # README:       GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -160,6 +160,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.36-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Aug 08 2024 Petr Pisar <ppisar@redhat.com> - 0.36-32
 - Depend on perl(lib) for the tests
 

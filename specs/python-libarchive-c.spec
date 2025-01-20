@@ -11,6 +11,8 @@ URL:           https://github.com/Changaco/python-libarchive-c
 
 Source0:       https://github.com/Changaco/python-libarchive-c/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
+Patch:         https://github.com/Changaco/python-libarchive-c/commit/a56e9402c76c2fb9631651de7bae07b5fbb0b624.patch
+
 BuildRequires: libarchive-devel
 BuildArch:     noarch
 

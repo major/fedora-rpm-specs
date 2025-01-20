@@ -17,7 +17,7 @@
 Summary:        Extended attributes
 Name:           php-pecl-%{pecl_name}
 Version:        1.4.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 License:        PHP-3.01
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{sources}.tgz
@@ -124,6 +124,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 17 2024 Remi Collet <remi@fedoraproject.org> - 1.4.0-19
 - modernize the spec file
 

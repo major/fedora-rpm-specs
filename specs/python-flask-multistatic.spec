@@ -4,7 +4,7 @@
 
 Name:               python-flask-multistatic
 Version:            1.0
-Release:            31%{?dist}
+Release:            32%{?dist}
 Summary:            %{sum}
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -57,6 +57,9 @@ rm -rf %{modname}.egg-info
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0-31
 - convert license to SPDX
 

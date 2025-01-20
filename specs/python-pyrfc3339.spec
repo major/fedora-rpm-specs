@@ -2,7 +2,7 @@
 
 Name:           python-pyrfc3339
 Version:        2.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Generate and parse RFC 3339 timestamps
 
 License:        MIT
@@ -54,6 +54,9 @@ cp -a %{SOURCE1} .
 %doc README.rst
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 03 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 2.0.1-1
 - update to 2.0.1
 

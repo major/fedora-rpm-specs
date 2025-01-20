@@ -38,7 +38,7 @@ may give different results from other packages.}
 
 Name:           python-%{pname}
 Version:        1.6.1
-Release:        12%{date}%{shortcommit}%{?dist}
+Release:        13%{date}%{shortcommit}%{?dist}
 Summary:        Extensible periodic table of the elements
 
 # periodictable/cromermann.py: BSD 3-clause "New" or "Revised" License
@@ -93,6 +93,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version} -v
 %{python3_sitelib}/%{pname}/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 24 2024 Sandro <devel@penguinpee.nl> - 1.6.1-12
 - Apply patch for NumPy 2.x
 

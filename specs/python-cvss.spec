@@ -10,7 +10,7 @@
 
 Name:           python-%{srcname}
 Version:        2.5
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        CVSS2/3 library with interactive calculator
 
 License:        LGPL-3.0-or-later
@@ -102,6 +102,9 @@ Python 3 version.
 %{_bindir}/cvss_calculator
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

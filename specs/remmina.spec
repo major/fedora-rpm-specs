@@ -2,7 +2,7 @@
 
 Name: remmina
 Version: 1.4.39
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Remote Desktop Client
 License: GPL-2.0-or-later and MIT
 URL: https://remmina.org
@@ -340,6 +340,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 %{_mandir}/man1/remmina-gnome.1*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.39-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 23 2024 Daniel Milnes <daniel@daniel-milnes.uk> - 1.4.37-1
 - Update to 1.4.37 rhbz#2333334
 

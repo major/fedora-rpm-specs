@@ -2,7 +2,7 @@
 
 Name:    plymouth-theme-breeze
 Version: 6.2.90
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Breeze theme for Plymouth
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -51,6 +51,9 @@ install -D -m644 -p %{SOURCE10} \
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.90-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 09 2025 Steve Cossette <farchord@gmail.com> - 6.2.90-1
 - Beta 6.2.90
 

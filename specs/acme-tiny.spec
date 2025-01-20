@@ -9,7 +9,7 @@
 
 Name:		acme-tiny
 Version:	5.0.1
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Tiny auditable script to issue, renew Let's Encrypt certificates
 
 License:	MIT
@@ -27,8 +27,7 @@ Source10:	acme-tiny-notify.service
 Source11:	acme-tiny.conf
 
 Requires(pre): shadow-utils
-# systemd macros are not defined unless systemd is present
-BuildRequires: systemd
+BuildRequires: systemd-rpm-macros
 %{?systemd_requires}
 Requires: %{name}-core = %{version}-%{release}
 BuildArch:	noarch
@@ -70,6 +69,8 @@ sed -i.orig -e '1,1 s,^.*python$,#!/usr/bin/python,' acme_tiny.py
 sed -i.old -e '1,1 s/python$/python3/' *.py
 %endif
 
+echo 'u acme - "Tiny Auditable ACME Client" %{_sharedstatedir}/acme' >acme.sysusers.conf
+
 %build
 
 %install
@@ -95,6 +96,7 @@ install -pm 644	 %{SOURCE6} %{buildroot}%{_unitdir}
 install -pm 644	 %{SOURCE7} %{buildroot}%{_unitdir}
 install -pm 644	 %{SOURCE10} %{buildroot}%{_unitdir}
 install -m 0644 %{SOURCE11} %{buildroot}%{_sysconfdir}/sysconfig/%{name}
+install -m 0644 -D acme.sysusers.conf %{buildroot}%{_sysusersdir}/acme.conf
 
 %pre
 getent group acme > /dev/null || groupadd -r acme
@@ -126,6 +128,7 @@ exit 0
 %{_sbindir}/cert-check
 %{_sbindir}/%{name}
 %{_sysconfdir}/%{name}
+%{_sysusersdir}/acme.conf
 
 %files core
 %license LICENSE
@@ -133,6 +136,9 @@ exit 0
 %{_sbindir}/acme_tiny
 
 %changelog
+* Thu Jan 16 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 5.0.1-11
+- Add sysusers.d config file
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

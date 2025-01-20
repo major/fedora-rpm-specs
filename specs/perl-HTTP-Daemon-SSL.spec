@@ -1,6 +1,6 @@
 Name:           perl-HTTP-Daemon-SSL
 Version:        1.04
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        Simple http server class with SSL support
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTTP-Daemon-SSL
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man3/HTTP::Daemon::SSL.3pm*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

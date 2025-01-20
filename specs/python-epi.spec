@@ -3,7 +3,7 @@
 
 Name:           python-%{sname}
 Version:        0.2.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Tool for looking at the entry point plugins on a system
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -45,6 +45,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.1-12
 - convert license to SPDX
 

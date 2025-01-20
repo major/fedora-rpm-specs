@@ -10,7 +10,7 @@
 
 Name:       python-%{library}
 Version:    0.9.0
-Release:    12%{?dist}
+Release:    13%{?dist}
 Summary:    Dictdiffer is a module that helps you to diff and patch dictionaries
 License:    MIT
 URL:        https://github.com/inveniosoftware/dictdiffer
@@ -184,6 +184,9 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib} sphinx-build docs/ html
 %endif
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Web Aug 14 2024 Jason Montleon <jmontleo@redhat.com> - 0.9.0-12
 - Enable tests again
 - Switch to using %pytest

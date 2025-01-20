@@ -18,7 +18,7 @@
 
 Name:           python-%{pypi_name}
 Version:        7.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OpenStack Hacking Guideline Enforcement
 
 License:        Apache-2.0
@@ -149,6 +149,9 @@ rm -rf doc/build/html/.{doctrees,buildinfo} doc/build/html/objects.inv
 %{python3_sitelib}/%{pypi_name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 08 2024 Joel Capitao <jcapitao@redhat.com> 7.0.0-1
 - Update to upstream version 7.0.0
 

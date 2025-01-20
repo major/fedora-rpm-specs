@@ -1,6 +1,6 @@
 Name:		python-alsaaudio
 Version:	0.10.0
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Python Alsa Bindings
 # Automatically converted from old format: Python - review is highly recommended.
 License:	LicenseRef-Callaway-Python
@@ -38,6 +38,9 @@ The python3-AlsaAudio package contains python3 bindings for the ALSA sound API.
 %{python3_sitearch}/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.10.0-6
 - convert license to SPDX
 

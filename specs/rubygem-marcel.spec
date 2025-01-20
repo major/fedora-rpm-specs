@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.0.2
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Simple mime type detection using magic numbers, file names, and extensions
 # * Portions of Marcel are adapted from the [mimemagic] gem, released under
 #   the terms of the MIT License.
@@ -78,6 +78,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.2-10
 - convert license to SPDX
 

@@ -5,7 +5,7 @@
 Summary: Adds a metaclass method to all Ruby objects
 Name: rubygem-%{gem_name}
 Version: 0.0.4
-Release: 19%{?dist}
+Release: 20%{?dist}
 # https://github.com/floehopper/metaclass/issues/1
 License: MIT
 URL: http://github.com/floehopper/metaclass
@@ -75,6 +75,9 @@ popd
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

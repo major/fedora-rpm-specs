@@ -1,6 +1,6 @@
 Name:           perl-Test-WWW-Mechanize
 Version:        1.60
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Testing-specific WWW::Mechanize subclass
 
 License:        Artistic-2.0
@@ -72,6 +72,9 @@ sed -i -e 's|use Carp::Assert::More|use Carp::Assert::More 1.16|' Mechanize.pm
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.60-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.60-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           pgp-tools
 Version:        2.10
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Collection of several utilities related to OpenPGP
 # Automatically converted from old format: BSD and GPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-BSD AND GPL-2.0-or-later
@@ -101,6 +101,9 @@ popd
 %{_mandir}/man1/*.1*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.10-14
 - convert license to SPDX
 

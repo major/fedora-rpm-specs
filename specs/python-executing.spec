@@ -10,7 +10,7 @@
 
 Name:           python-executing
 Version:        2.1.0^%{snapdate}git%{sub %{commit} 1 7}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library for inspecting the current frame run footprint
 
 License:        MIT
@@ -71,6 +71,9 @@ export EXECUTING_SLOW_TESTS=1
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0^20240916git3f11fdc-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Sep 21 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.1.0^20240916git3f11fdc-1
 - Package a post-release snapshot to fix regressions
 - Add a build conditional to optionally enable very slow tests; enable them

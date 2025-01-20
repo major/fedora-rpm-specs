@@ -4,7 +4,7 @@
 
 Name:             python-%{srcname}
 Version:          1.10.1
-Release:          15%{?dist}
+Release:          16%{?dist}
 Summary:          %{sum}
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -62,6 +62,9 @@ rm -rf %{modname}.egg-info
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.10.1-15
 - convert license to SPDX
 

@@ -1,7 +1,7 @@
 Name:           python-pcodedmp
 Summary:        VBA p-code disassembler
 Version:        1.2.6
-Release:        22%{?dist}
+Release:        23%{?dist}
 License:        GPL-3.0-or-later
 URL:            https://github.com/bontchev/pcodedmp
 VCS:            https://github.com/bontchev/pcodedmp
@@ -146,4 +146,7 @@ Requires:       python%{python3_other_pkgversion}-oletools >= 0.54
 %endif
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 %autochangelog

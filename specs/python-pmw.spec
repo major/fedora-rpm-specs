@@ -3,7 +3,7 @@
 
 Name: python-pmw
 Version: 2.1.1
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Python powerwidgets
 # Automatically converted from old format: MIT and GPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-MIT AND GPL-2.0-or-later
@@ -57,6 +57,9 @@ rm -rf %{buildroot}%{python3_sitelib}/Pmw/Pmw_1_3_3
 %{python3_sitelib}/Pmw/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.1.1-9
 - convert license to SPDX
 

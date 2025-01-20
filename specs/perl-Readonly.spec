@@ -1,6 +1,6 @@
 Name:		perl-Readonly
 Version:	2.05
-Release:	27%{?dist}
+Release:	28%{?dist}
 Summary:	Facility for creating read-only scalars, arrays, hashes
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Readonly
@@ -62,6 +62,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Readonly.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.05-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.05-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Tk-ProgressBar-Mac
 Version:        1.2
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        Mac ProgressBar for Perl::Tk
 
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -49,6 +49,9 @@ chmod -R u+w %{buildroot}/*
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2-46
 - convert license to SPDX
 

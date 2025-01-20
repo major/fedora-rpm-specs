@@ -1,7 +1,7 @@
 %global pypi_name ndg_httpsclient
 Name:           python-%{pypi_name}
 Version:        0.5.1
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Provides enhanced HTTPS support for httplib and urllib2 using PyOpenSSL
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -66,6 +66,9 @@ grep -qv python2 %{buildroot}%{_bindir}/ndg_httpclient
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5.1-22
 - convert license to SPDX
 

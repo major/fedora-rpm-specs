@@ -1,6 +1,6 @@
 Name:           python-pytest-xvfb
 Version:        3.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A pytest plugin to run Xvfb for tests
 
 License:        MIT
@@ -56,6 +56,9 @@ Summary:        %{summary}
 %doc CHANGELOG.rst README.rst
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Scott Talbert <swt@techie.net> - 3.0.0-1
 - Update to new upstream release 3.0.0
 - Update License tag to use SPDX identifiers

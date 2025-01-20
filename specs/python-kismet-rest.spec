@@ -4,7 +4,7 @@
 
 Name:           python-%{pkg_name}
 Version:        2019.5.2
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Python API for the Kismet REST interface
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -43,6 +43,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2019.5.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2019.5.2-15
 - convert license to SPDX
 

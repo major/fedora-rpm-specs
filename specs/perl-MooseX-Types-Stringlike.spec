@@ -1,7 +1,7 @@
 Name:		perl-MooseX-Types-Stringlike
 Summary:	Moose type constraints for strings or string-like objects
 Version:	0.003
-Release:	31%{?dist}
+Release:	32%{?dist}
 License:	Apache-2.0
 URL:		https://metacpan.org/release/MooseX-Types-Stringlike
 Source0:	https://cpan.metacpan.org/modules/by-module/MooseX/MooseX-Types-Stringlike-%{version}.tar.gz
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man3/MooseX::Types::Stringlike.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.003-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.003-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

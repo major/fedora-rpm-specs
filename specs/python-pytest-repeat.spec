@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.9.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A pytest plugin for repeating test execution
 
 License:        MPL-2.0
@@ -56,6 +56,9 @@ SETUPTOOLS_SCM_PRETEND_VERSION=%{version}; export SETUPTOOLS_SCM_PRETEND_VERSION
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

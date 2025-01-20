@@ -1,7 +1,7 @@
 Name:           perl-MooseX-Types-JSON
 Summary:        JSON data types for Moose
 Version:        1.01
-Release:        10%{?dist}
+Release:        11%{?dist}
 # see lib/MooseX/Types/JSON.pm
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -53,6 +53,9 @@ Requires:       perl(MooseX::Types)
 %{_mandir}/man3/MooseX*.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 1.01-10
 - convert license to SPDX
 

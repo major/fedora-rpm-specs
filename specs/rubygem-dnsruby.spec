@@ -3,7 +3,7 @@
 Summary: Ruby DNS(SEC) implementation
 Name: rubygem-%{gem_name}
 Version: 1.70.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
 URL: https://github.com/alexdalitz/dnsruby
@@ -82,6 +82,9 @@ popd
 %doc %{gem_instdir}/SIGNED_UPDATES
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.70.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 1.70.0-6
 - convert license to SPDX
 

@@ -21,7 +21,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}4
 Version:        4.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Map nested JSON structures onto PHP classes, version 4
 
 License:        OSL-3.0
@@ -133,6 +133,9 @@ exit $ret
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep  9 2024 Remi Collet <remi@remirepo.net> - 4.5.0-1
 - update to 4.5.0
 - rename to php-netresearch-jsonmapper4 (compat package)

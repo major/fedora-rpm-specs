@@ -5,7 +5,7 @@
 
 Name:           polyml
 Version:        5.9.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Poly/ML compiler and runtime system
 
 License:        LGPL-2.1-or-later
@@ -123,6 +123,9 @@ make check
 %{_libdir}/libpolyml.so.14*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 14 2025 Jerry James <loganjerry@gmail.com> - 5.9.1-5
 - Fix FTBFS by avoiding asm/elf.h
 

@@ -2,7 +2,7 @@
 
 Name:           qtbrowserplugin
 Version:        2.4
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Qt Solutions Component: Browser Plugin
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -58,6 +58,9 @@ cp -p src/*.h %{buildroot}%{_includedir}
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.4-27
 - convert license to SPDX
 

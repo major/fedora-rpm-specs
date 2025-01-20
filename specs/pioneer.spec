@@ -61,7 +61,7 @@ Obsoletes: %{name}-pionilliumtext22l-medium-fonts < %{version}-%{release}
 Name: pioneer
 Summary: A game of lonely space adventure
 Version: 20240710
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 ## Main license: GPLv3
 ## Dejavu font license: Bitstream Vera and Public Domain
@@ -291,6 +291,9 @@ ln -sf %{_datadir}/fonts/pionilliumtext22l-fonts/PionilliumText22L-Medium.ttf %{
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20240710-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Gwyn Ciesla <gwync@protonmail.com> - 20240710-1
 - 20240710
 

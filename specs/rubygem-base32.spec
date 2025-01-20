@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.3.4
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Ruby extension for base32 encoding and decoding
 License: MIT
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -78,6 +78,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

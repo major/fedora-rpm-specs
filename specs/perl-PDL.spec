@@ -4,7 +4,7 @@
 Name:           perl-PDL
 %global cpan_version 2.098
 Version:        2.98.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The Perl Data Language
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:            http://pdl.perl.org/
@@ -238,6 +238,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.98.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jan 06 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.98.0-1
 - 2.098 bump (rhbz#2335323)
 - PDL::Graphics2D removed - use PDL::Graphics::Simple or PDL::Graphics::TriD

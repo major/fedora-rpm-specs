@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.13
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Extension for colcon to customize the output in various ways
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -58,6 +58,9 @@ An extension for colcon-core to customize the output in various ways.
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.13-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.13-8
 - convert license to SPDX
 

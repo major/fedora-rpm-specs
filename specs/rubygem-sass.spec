@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.7.4
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: A powerful but elegant CSS compiler that makes CSS fun again
 License: MIT
 URL: http://sass-lang.com/
@@ -111,6 +111,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.4-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Dec 19 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.7.4-11
 - Support ruby3.4 string literal being chilled
 - Support ruby3.4 backtrace formatting change

@@ -1,6 +1,6 @@
 Name:           perl-IO-Capture
 Version:        0.05
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        Abstract Base Class to build modules to capture output
 
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -49,6 +49,9 @@ make test
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.05-46
 - convert license to SPDX
 

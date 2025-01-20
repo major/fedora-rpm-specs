@@ -10,7 +10,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.1.0
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Python libraries for the Ceph librados library with use cython instead of ctypes
 
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
@@ -101,6 +101,9 @@ Python libraries for the Ceph librados library with use cython instead of ctypes
 %endif
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.1.0-25
 - convert license to SPDX
 

@@ -8,7 +8,8 @@ Version: 1.21.6
 Release: %autorelease
 License: BSD-3-Clause
 Source: https://github.com/Blosc/c-blosc/archive/v%{version}/blosc-%{version}.tar.gz
-Patch0: %{name}-gcc11.patch
+Patch:  blosc-gcc11.patch
+Patch:  blosc-gcc23.patch
 
 URL:  https://github.com/Blosc/c-blosc
 BuildRequires: gcc

@@ -6,7 +6,7 @@ A Python implementation of RFC 3986 including validation and authority parsing.}
 
 Name:           python-%{pypi_name}
 Version:        1.5.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Validating URI References per RFC 3986
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -46,6 +46,9 @@ BuildRequires:  %{py3_dist pytest}
 %doc README.rst
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 1.5.0-11
 - convert license to SPDX
 

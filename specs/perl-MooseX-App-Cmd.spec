@@ -1,6 +1,6 @@
 Name:       perl-MooseX-App-Cmd
 Version:    0.34
-Release:    12%{?dist}
+Release:    13%{?dist}
 # see lib/MooseX/App/Cmd.pm
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -100,6 +100,9 @@ returning a Getopt::Long::Descriptive spec.
 %{_mandir}/man3/MooseX::*.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.34-12
 - convert license to SPDX
 

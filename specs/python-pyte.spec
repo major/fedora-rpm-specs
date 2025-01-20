@@ -1,7 +1,7 @@
 Summary:        In memory VT-compatible terminal emulator
 Name:           python-pyte
 Version:        0.8.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 # Automatically converted from old format: LGPLv3 - review is highly recommended.
 License:        LGPL-3.0-only
 URL:            https://github.com/selectel/pyte
@@ -57,6 +57,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitelib}
 %doc docs/_build/html
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 18 2024 Terje Rosten <terjeros@gmail.com> - 0.8.2-7
 - Use pytest
 

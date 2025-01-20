@@ -10,7 +10,7 @@
 Summary:         PHP library for punycode encoding and decoding
 Name:            php-pear-Net-IDNA2
 Version:         0.2.0
-Release:         22%{?dist}
+Release:         23%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:         LicenseRef-Callaway-LGPLv2+
 URL:             http://pear.php.net/package/Net_IDNA2/
@@ -76,6 +76,9 @@ fi
 %{pear_xmldir}/%{name}.xml
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep  4 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.0-22
 - convert license to SPDX
 

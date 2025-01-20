@@ -6,7 +6,7 @@
 
 Name:           python-%{pkgname}
 Version:        0.2.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -130,6 +130,9 @@ exit 0
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{pkgname}.conf
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.1-14
 - convert license to SPDX
 

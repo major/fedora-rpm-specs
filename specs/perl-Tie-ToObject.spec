@@ -1,6 +1,6 @@
 Name:           perl-Tie-ToObject
 Version:        0.03
-Release:        48%{?dist}
+Release:        49%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:        Tie to an existing object
 Source:         https://cpan.metacpan.org/authors/id/N/NU/NUFFIN/Tie-ToObject-%{version}.tar.gz
@@ -51,6 +51,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

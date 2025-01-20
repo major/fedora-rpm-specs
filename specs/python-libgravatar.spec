@@ -1,6 +1,6 @@
 Name:           python-libgravatar
 Version:        1.0.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python interface for the Gravatar APIs
 
 License:        GPL-3.0-or-later
@@ -51,6 +51,9 @@ Python 3 interface for the Gravatar API.
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

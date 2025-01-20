@@ -5,7 +5,7 @@
 
 Name:      pykickstart
 Version:   3.61
-Release:   1%{?dist}
+Release:   2%{?dist}
 License:   GPL-2.0-only
 Summary:   Python utilities for manipulating kickstart files.
 Url:       http://fedoraproject.org/wiki/pykickstart
@@ -75,6 +75,9 @@ LC_ALL=C make PYTHON=%{__python3} test-no-coverage
 %{python3_sitelib}/pykickstart*.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.61-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 09 2025 Brian C. Lane <bcl@redhat.com> - 3.61-1
 - runpylint: Log astroid version (bcl)
 - tests: Limit the python versions used in testing (bcl)

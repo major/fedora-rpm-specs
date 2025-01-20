@@ -14,7 +14,7 @@
 
 Name:		po-debconf
 Version:	1.0.21
-Release:	17%{release_posttag}%{?dist}
+Release:	18%{release_posttag}%{?dist}
 Summary:	Tool for managing templates file translations with gettext
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -119,6 +119,9 @@ ln -s ../bin %{buildroot}%{_datadir}/intltool-debian
 %{_datadir}/intltool-debian
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.21-18.nmu1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Dec 26 2024 Sérgio Basto <sergio@serjux.com> - 1.0.21-17.nmu1
 - Revert BR to dpkg-dev, to avoid circular dependencies
 

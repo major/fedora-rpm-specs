@@ -7,7 +7,7 @@
 
 Name:           perl-Sereal
 Version:        5.004
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Fast, compact, powerful binary (de-)serialization
 # Makefile.PL defines LICENSE
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -99,6 +99,9 @@ make test
 %{_mandir}/man3/Sereal.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.004-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.004-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

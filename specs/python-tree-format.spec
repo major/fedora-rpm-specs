@@ -4,7 +4,7 @@
 
 Name:           python-%{pkgname}
 Version:        0.1.2
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Python library to generate nicely formatted trees, like the UNIX tree command
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -46,6 +46,9 @@ Python library to generate nicely formatted trees, like the UNIX `tree` command
 %{python3_sitelib}/tree_format/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.2-25
 - convert license to SPDX
 

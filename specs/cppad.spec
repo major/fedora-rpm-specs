@@ -136,6 +136,38 @@ mv CppAD-%{version}/build/html html
 mv CppAD-%{version}/COPYING  COPYING
 mv CppAD-%{version}/uw_copy_040507.html uw_copy_040507.html
 #
+# fix bug
+# should not be needed once version > 20250000.0
+cat << EOF > temp.sed
+/setup_random(size_t& not_used)/! b end
+: loop
+N
+/\\n *}/! b loop
+s|^|# if ! CPPAD_IS_SAME_UNSIGNED_INT_SIZE_T\\n|
+s|$|\\n# endif|
+#
+: end
+EOF
+sed -i.bak CppAD-%{version}/include/cppad/local/play/player.hpp -f temp.sed
+#
+# fix bug
+# should not be needed once version > 20250000.0
+cat << EOF > temp.sed
+/CHECK_CXX_SOURCE_COMPILES/! b end
+s|^|   SET(CMAKE_REQUIRED_DEFINITIONS "" )\\
+   SET(CMAKE_REQUIRED_INCLUDES    "" )\\
+   SET(CMAKE_REQUIRED_LIBRARIES   "" )\\
+   IF( cppad_cxx_flags )\\
+      SET(CMAKE_REQUIRED_FLAGS   "\${cppad_cxx_flags} \${CMAKE_CXX_FLAGS}" )\\
+   ELSE( cppad_cxx_flags )\\
+      SET(CMAKE_REQUIRED_FLAGS   "" )\\
+   ENDIF( cppad_cxx_flags )\\
+|
+#
+: end
+EOF
+sed -i.bak CppAD-%{version}/cmake/compile_source_test.cmake -f temp.sed
+#
 # ----------------------------------------------------------------------------
 # cppad_lib: replace soversion number and ensure build type is release 
 sed -i.bak CppAD-%{version}/cppad_lib/CMakeLists.txt \
@@ -280,6 +312,10 @@ make %{?_smp_mflags} check
 # This enables one to check that the necessary files are installed.
 # ----------------------------------------------------------------------------
 %changelog
+* Sat Jan 18 2025 Brad Bell <bradbell at seanet dot com> - 20250000.0-1
+- This fixes two bugs and will not be necessary
+- once the upstream source advances to 20250000.1.
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20250000.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

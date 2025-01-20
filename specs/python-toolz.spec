@@ -28,7 +28,7 @@ suitable for most developers.
 
 Name:           python-%{srcname}
 Version:        1.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A functional standard library for Python
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -76,6 +76,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v -k 'not t
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Oct 05 2024 Orion Poplawski <orion@nwra.com> - 1.0.0-1
 - Update to 1.0.0
 

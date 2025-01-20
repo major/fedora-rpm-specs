@@ -7,7 +7,7 @@ Pluginlib makes creating plugins for your project simple.
 
 Name:           python-%{pypi_name}
 Version:        0.9.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 License:        MPL-2.0
@@ -101,6 +101,9 @@ rm -rf %{pypi_name}.egg-info
 %endif
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Nov 24 2024 Avram Lubkin <aviso@rockhopper.net> - 0.9.4-1
 - Update to 0.9.4 (#2323156)
 

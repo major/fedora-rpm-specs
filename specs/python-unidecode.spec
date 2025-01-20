@@ -2,7 +2,7 @@
 
 Name:		python-unidecode
 Version:	1.3.8
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	US-ASCII transliterations of Unicode text
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -54,6 +54,9 @@ characters.
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3.8-3
 - convert license to SPDX
 

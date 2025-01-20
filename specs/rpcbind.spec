@@ -4,7 +4,7 @@
 
 Name:           rpcbind
 Version:        1.2.7
-Release:        1.rc1%{?dist}.2
+Release:        1.rc1%{?dist}.3
 Summary:        Universal Addresses to RPC Program Number Mapper
 License:        BSD-3-Clause
 URL:            http://nfsv4.bullopensource.org
@@ -127,6 +127,9 @@ fi
 %attr(0700, %{rpcbind_user_group}, %{rpcbind_user_group}) %dir %{rpcbind_state_dir}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.7-1.rc1.3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 14 2025 Panu Matilainen <pmatilai@redhat.com> - 1.2.7-1.rc1.2
 - Add provides for the manually created rpc user and group
 

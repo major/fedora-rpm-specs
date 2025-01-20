@@ -7,7 +7,7 @@ also happens to be valid Markdown (a text-to-HTML format).
 
 Name:           python-%{upname}
 Version:        2024.2.26
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        %{common_sum}
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -80,6 +80,9 @@ popd
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.2.26-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2024.2.26-4
 - convert license to SPDX
 

@@ -18,6 +18,9 @@ Patch:          %{name}-stdlib-shims.patch
 Patch:          %{name}-test.patch
 # Fedora does not need the forward compatibility bigarray-compat package
 Patch:          %{name}-bigarray-compat.patch
+# Fix the name of the bool type for C23
+# https://github.com/yallop/ocaml-ctypes/issues/793
+Patch:          %{name}-c23-bool.patch
 
 BuildRequires:  ocaml >= 4.03.0
 BuildRequires:  ocaml-bisect-ppx-devel
@@ -80,6 +83,9 @@ sed -i 's/ "-cclib"; "-Wl,--no-as-needed";//' src/ctypes-foreign/config/discover
 %files devel -f .ofiles-devel
 
 %changelog
+* Sat Jan 18 2025 Jerry James <loganjerry@gmail.com> - 0.23.0-4
+- Add patch for C23 compatibility
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.23.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

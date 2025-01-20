@@ -4,7 +4,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.14.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: New wave Internationalization support for Ruby
 # `BSD or Ruby` due to header of lib/i18n/gettext/po_parser.rb
 License: MIT AND (BSD-2-Clause OR Ruby)
@@ -90,6 +90,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 09 2024 Vít Ondruch <vondruch@redhat.com> - 1.14.6-1
 - Update to i18n 1.14.6.
   Resolves: rhbz#2268010

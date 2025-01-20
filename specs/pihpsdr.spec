@@ -19,7 +19,7 @@
 
 Name:		pihpsdr
 Version:	2.0.8~rc1^%{git_suffix}
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Raspberry Pi standalone code for HPSDR
 License:	GPL-2.0-or-later
 URL:		https://github.com/g0orx/%{name}
@@ -103,6 +103,9 @@ install -Dm 0644 %{SOURCE2} \
 %doc documentation/{MIDI-manual,piHPSDR-Controller-Users-Guide}.pdf
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8~rc1^20241105git7ad62180-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan  7 2025 Daniel Rusek <mail@asciiwolf.com> - 2.0.8~rc1^20241105git7ad62180-6
 - Fixed desktop icon installation path
 

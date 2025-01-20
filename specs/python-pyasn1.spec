@@ -3,7 +3,7 @@
 
 Name:           python-pyasn1
 Version:        0.6.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ASN.1 tools for Python
 License:        BSD-2-Clause
 Source0:        https://github.com/pyasn1/pyasn1/archive/v%{version}.tar.gz
@@ -83,6 +83,9 @@ popd
 %doc docs/build/html/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 18 2024 Rob Crittenden <rcritten@redhat.com> - 0.6.1-2
 - Convert to the pyproject macros (#2319694)
 

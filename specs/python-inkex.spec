@@ -9,7 +9,7 @@ Version:        1.4.0
 %forgemeta
 
 Name:           python-%{srcname}
-Release:        2.%{commitdate}git%{shortcommit}%{?dist}
+Release:        3.%{commitdate}git%{shortcommit}%{?dist}
 Summary:        Python extensions for Inkscape core
 
 License:        GPL-2.0-or-later
@@ -122,6 +122,9 @@ sed -i /env\ python/d %{buildroot}%{python3_sitelib}/inkex/tester/inx.py
 %license LICENSE.txt
  
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-3.20241202git13ebc1e9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 16 2024 Orion Poplawski <orion@nwra.com> - 1.4.0-2
 - Update to latest git for numpy 2.0 support
 

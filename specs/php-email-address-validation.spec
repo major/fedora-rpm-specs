@@ -3,7 +3,7 @@ Summary:	PHP class for validating email addresses
 License:	BSD-2-Clause
 
 Version:	2.0.1
-Release:	13%{?dist}
+Release:	14%{?dist}
 
 %global repo_owner	aziraphale
 %global repo_name	email-address-validator
@@ -53,6 +53,9 @@ phpunit10 --bootstrap %{buildroot}%{_datadir}/php/%{name}/EmailAddressValidator.
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.0.1-13
 - Explicitly call "phpunit10" instead of "phpunit" in tests
 

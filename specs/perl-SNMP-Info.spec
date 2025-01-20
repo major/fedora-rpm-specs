@@ -1,7 +1,7 @@
 Name:           perl-SNMP-Info
 %global cpan_version 3.972002
 Version:        3.972.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Object Oriented Perl5 Interface to Network devices and MIBs through SNMP
 License:        BSD-3-Clause
 URL:            https://metacpan.org/release/SNMP-Info
@@ -67,6 +67,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/SNMP::Info*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.972.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Nov 05 2024 Jitka Plesnikova <jplesnik@redhat.com> - 3.972.2-1
 - 3.972002 bump (rhbz#2322558)
 

@@ -3,7 +3,7 @@
 Name:    python-fuse
 # TODO rename to python-fusepy
 Version: 2.0.4
-Release: 31%{?dist}
+Release: 32%{?dist}
 Summary: Python module that provides a simple interface to FUSE and MacFUSE
 
 License: ISC
@@ -46,6 +46,9 @@ It's just one file and is implemented using ctypes.
 %{python3_sitelib}/__pycache__
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

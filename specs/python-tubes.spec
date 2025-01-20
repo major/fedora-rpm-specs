@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Flow control and backpressure for event-driven applications
 
 License:        MIT
@@ -58,6 +58,9 @@ sed -e '/"characteristic",/d' -i setup.py
 %{python3_sitelib}/Tubes-%{version}.dist-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 14 2024 Gwyn Ciesla <gwync@protonmail.com> - 0.2.1-1
 - 0.2.1, modernize packaging.
 

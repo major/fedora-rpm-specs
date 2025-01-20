@@ -15,7 +15,7 @@
 
 Name:           php-phpdocumentor-reflection-docblock%{major}
 Version:        5.6.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        DocBlock parser
 
 License:        MIT
@@ -165,6 +165,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 23 2024 Remi Collet <remi@remirepo.net> - 5.6.1-2
 - allow phpstan/phpdoc-parser v2
 

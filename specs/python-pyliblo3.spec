@@ -4,7 +4,7 @@
 Name:           python-pyliblo3
 %global snapinfo ^%{snapdate}git%{sub %{commit} 1 7}
 Version:        0.16.2%{snapinfo}
-Release:        3%{?dist} 
+Release:        4%{?dist} 
 Summary:        Python bindings for the liblo Open Sound Control (OSC) library
 # Main code is LGPL-2.1-or-later
 License:        LGPL-2.1-or-later
@@ -80,6 +80,9 @@ cp -a scripts/dump_osc.1 scripts/send_osc.1 %{buildroot}%{_mandir}/man1/
 %doc examples/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.2^20240801git91d1781-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 25 2024 Martin Gansser <martinkg@fedoraproject.org> - 0.16.2^20240801git91d1781-3
 - remove pyhton3-pyliblo3 from the doc package
 

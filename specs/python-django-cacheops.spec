@@ -16,7 +16,7 @@ And there is more to it:
 
 Name:           python-%{srcname}
 Version:        6.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        ORM cache with automatic granular event-driven invalidation for Django
 
 License:        BSD-3-Clause
@@ -76,6 +76,9 @@ cat $PWD/redis.log
 %doc README.rst CHANGELOG
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

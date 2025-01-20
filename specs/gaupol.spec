@@ -78,7 +78,12 @@ BuildRequires:  gstreamer1 >= 1.6
 BuildRequires:  gstreamer1-plugins-base >= 1.6
 BuildRequires:  gstreamer1-plugins-good >= 1.6
 BuildRequires:  gstreamer1-plugins-good-gtk >= 1.6
+%if %{defined fedora}
+BuildRequires:  gstreamer1-plugins-bad-free
+%else
+# https://src.fedoraproject.org/rpms/svt-av1/c/d014cf8707aa1d3c927a3c582a10aac1c0c46f13?branch=rawhide
 BuildRequires:  gstreamer1-svt-av1
+%endif
 %if %{with vp9}
 # svt-vp9 is ExclusiveArch: x86_64
 BuildRequires:  (gstreamer1-svt-vp9 if python3(x86-64))

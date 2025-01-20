@@ -1,6 +1,6 @@
 Name:           perl-Sort-MergeSort
 Version:        0.31
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Merge pre-sorted input streams
 # Automatically converted from old format: (Artistic 2.0 or LGPLv2) and (GPL+ or Artistic) - review is highly recommended.
 License:        (Artistic-2.0 OR LicenseRef-Callaway-LGPLv2) AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
@@ -58,6 +58,9 @@ make test
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.31-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.31-28
 - convert license to SPDX
 

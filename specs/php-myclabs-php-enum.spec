@@ -22,7 +22,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}
 Version:        1.8.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PHP Enum implementation
 
 License:        MIT
@@ -124,6 +124,9 @@ exit $ret
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 14 2025 Remi Collet <remi@remirepo.net> - 1.8.5-1
 - update to 1.8.5
 - re-license spec file to CECILL-2.1

@@ -1,6 +1,6 @@
 Name:           pgcli
 Version:        4.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CLI for Postgres Database. With auto-completion and syntax highlighting
 
 License:        BSD-3-Clause
@@ -76,6 +76,9 @@ PYTHONPATH='%{buildroot}%{python3_sitelib}' \
 %{_mandir}/man1/pgcli.1*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Nov 26 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 4.1.0-1
 - Update to 4.1.0
 

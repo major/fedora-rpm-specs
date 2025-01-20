@@ -7,7 +7,7 @@
 
 Name:           python-%{shortname}
 Version:        0.4.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Non-validating SQL parser for Python
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -70,6 +70,9 @@ tox -e py%{python3_version_nodots}
 %{_bindir}/sqlformat
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.4.2-12
 - convert license to SPDX
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{pkg_name}
 Version:        0.5.2
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Python wrapper around the ZoneMinder REST API
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -48,6 +48,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/zm_py-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5.2-15
 - convert license to SPDX
 

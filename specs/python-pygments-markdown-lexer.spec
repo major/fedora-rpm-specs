@@ -6,7 +6,7 @@
 
 Name:               python-pygments-markdown-lexer
 Version:            0.1.0.dev39
-Release:            33%{?dist}
+Release:            34%{?dist}
 Summary:            %{sum}
 
 # One file is BSD, the rest are ASL
@@ -52,6 +52,9 @@ rm -rf %{buildroot}/usr/EGG-INFO
 %{python3_sitelib}/pygments_markdown_lexer-%{version}-*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0.dev39-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.0.dev39-33
 - convert license to SPDX
 

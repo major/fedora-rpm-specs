@@ -31,7 +31,7 @@ were compiled for Python 2.7.10 and Python 3.5.1 on Windows 10.}
 
 Name:           python-%{pypi_name}
 Version:        6.28
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Frequent Item Set Mining and Association Rule Induction
 
 License:        MIT
@@ -86,6 +86,9 @@ sed -i "s/version=.*/version='6.28',/" setup.py
 %{python3_sitearch}/fim.cpython-%{python3_version_nodots}*.so
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.28-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.28-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

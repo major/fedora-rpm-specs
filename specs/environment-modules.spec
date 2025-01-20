@@ -3,7 +3,7 @@
 
 Name:           environment-modules
 Version:        5.5.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Provides dynamic modification of a user's environment
 
 License:        GPL-2.0-or-later
@@ -189,6 +189,9 @@ fi
 
 
 %changelog
+* Sat Jan 18 2025 Xavier Delaruelle <xavier.delaruelle@cea.fr> - 5.5.0-3
+- Rebuilt for Tcl 9.0 (#2337702)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

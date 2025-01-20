@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.22.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Comprehensive HTTP client library
 License:        MIT
 URL:            https://pypi.python.org/pypi/httplib2
@@ -69,6 +69,9 @@ sed -i '/--cov/d' setup.cfg
 %doc README.md
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Oct 27 2024 Joel Capitao <jcapitao@redhat.com> - 0.22.0-1
 - Update to 0.22.0 rhbz#2180642
 

@@ -1,6 +1,6 @@
 Name:       recode
 Version:    3.7.14
-Release:    6%{?dist}
+Release:    7%{?dist}
 Summary:    Conversion between character sets and surfaces
 # COPYING:              GPLv3 text
 # COPYING-LIB:          LGPLv3 text
@@ -133,6 +133,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_includedir}/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.14-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.14-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

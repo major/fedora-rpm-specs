@@ -1,6 +1,6 @@
 Name:           perl-MojoX-JSON-RPC
 Version:        0.13
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Perl implementation of JSON-RPC 2.0 protocol for Mojolicious
 License:        Artistic-2.0
 
@@ -58,6 +58,9 @@ with Mojolicious.
 %{_mandir}/man3/Mojolicious::Plugin::JsonRpcDispatcher.3pm.gz
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

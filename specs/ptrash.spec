@@ -1,6 +1,6 @@
 Name:           ptrash
 Version:        1.1
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Move file(s) to $XDG_DATA_HOME/Trash directory
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -41,6 +41,9 @@ rm -f $RPM_BUILD_ROOT/%{_infodir}/dir
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1-20
 - convert license to SPDX
 

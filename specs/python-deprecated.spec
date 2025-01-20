@@ -1,6 +1,6 @@
 Name:           python-deprecated
 Version:        1.2.15
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python decorator to deprecate old python classes, functions or methods
 License:        MIT
 URL:            https://github.com/laurent-laporte-pro/deprecated
@@ -41,6 +41,9 @@ BuildRequires:  python3-pytest
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.15-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Nov 23 2024 Carl George <carlwgeorge@fedoraproject.org> - 1.2.15-1
 - Update to version 1.2.15
 - Convert to pyproject macros

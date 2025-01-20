@@ -3,7 +3,7 @@
 
 Name:               python-scour
 Version:            0.38.2
-Release:            11%{?dist}
+Release:            12%{?dist}
 Summary:            %{sum}
 
 # All files are Apache-2.0 except scour/svg_regex.py
@@ -75,6 +75,9 @@ find . -type f -name '*.py' -exec sed -i /env\ python/d {} ';'
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.38.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 14 2024 Gwyn Ciesla <gwync@protonmail.com> - 0.38.2-11
 - Modernize packaging.
 

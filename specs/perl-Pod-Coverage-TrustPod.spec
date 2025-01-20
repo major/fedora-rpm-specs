@@ -1,6 +1,6 @@
 Name:           perl-Pod-Coverage-TrustPod
 Version:        0.100006
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Allow a module's pod to contain Pod::Coverage hints
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-Coverage-TrustPod
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/Pod::Coverage::TrustPod.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.100006-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.100006-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

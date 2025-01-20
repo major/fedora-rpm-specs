@@ -5,7 +5,7 @@
 
 Name:           python-pymongo
 Version:        4.9.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        Apache-2.0
 Summary:        Python driver for MongoDB
@@ -144,6 +144,9 @@ rm doc/_build/html/.buildinfo
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Sep 20 2024 Jerry James <loganjerry@gmail.com> - 4.9.1-1
 - Version 4.9.1
 - Fixes CVE-2024-21506 (rhbz#2273860)

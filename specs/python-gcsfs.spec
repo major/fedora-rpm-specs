@@ -6,7 +6,7 @@
 
 Name:           python-gcsfs
 Version:        2024.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Convenient Filesystem interface over GCS
 
 License:        BSD-3-Clause
@@ -96,6 +96,9 @@ PYTHONPATH="${PWD}" %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
 %license LICENSE.txt
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Sep 26 2024 Fabian Affolter <mail@fabian-affolter.ch> - 2024.9.0-1
 - Update to new upstream version (closes rhbz#2237124)
 

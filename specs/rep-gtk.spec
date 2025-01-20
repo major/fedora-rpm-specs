@@ -1,6 +1,6 @@
 Name:           rep-gtk
 Version:        0.90.8.3
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        GTK+ binding for librep Lisp environment
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -52,6 +52,9 @@ find %{buildroot}%{_libdir} -name \*.la -exec rm '{}' \;
 %{_libdir}/pkgconfig/rep-gtk.pc
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.90.8.3-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.90.8.3-22
 - convert license to SPDX
 

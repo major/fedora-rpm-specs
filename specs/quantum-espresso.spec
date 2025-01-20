@@ -44,7 +44,7 @@ ExclusiveArch:		x86_64 aarch64 %{power64}
 
 Name:			quantum-espresso
 Version:		7.0
-Release:		12%{?dist}
+Release:		13%{?dist}
 Summary:		A suite for electronic-structure calculations and materials modeling
 
 # See bundling discussion in https://gitlab.com/QEF/q-e/-/issues/366
@@ -345,6 +345,9 @@ mv test-suite.orig test-suite
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Aug 02 2024 Marcin Dulak <marcindulak@fedoraproject.org> - 7.0-12
 - Fix python ModuleNotFoundError testcode2 import bug #2301229
 

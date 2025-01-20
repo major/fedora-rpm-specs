@@ -11,7 +11,7 @@ stestr hard codes python-subunit-isms into how it works.
 
 Name:       python-%{pypi_name}
 Version:    4.1.0
-Release:    6%{?dist}
+Release:    7%{?dist}
 Summary:    A test runner runner similar to testrepository
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -113,6 +113,9 @@ ln -s stestr-3 %{buildroot}/%{_bindir}/stestr-%{python3_version}
 %endif
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 4.1.0-6
 - convert license to SPDX
 

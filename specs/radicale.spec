@@ -36,7 +36,7 @@
 
 Name:             radicale
 Version:          %{radicale_version}
-Release:          %{radicale_release}%{?gittag}%{?dist}
+Release:          %{radicale_release}%{?gittag}%{?dist}.1
 Summary:          A simple CalDAV (calendar) and CardDAV (contact) server
 License:          GPL-3.0-or-later
 URL:              https://radicale.org
@@ -443,6 +443,9 @@ fi
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-2.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 09 2025 Peter Bieringer <pb@bieringer.de> - 3.4.0-2
 - Update to 3.4.0
 

@@ -23,7 +23,7 @@
 
 Name:               python-apsw
 Version:            %{real_version}
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Another Python SQLite Wrapper
 License:            any-OSI
 URL:                https://github.com/rogerbinns/apsw
@@ -74,6 +74,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{__python3} setup.py test
 %{python3_sitearch}/apsw*.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.46.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Dec 13 2024 Denis Fateyev <denis@fateyev.com> - 3.47.2.0-1
 - Bump upstream version to 3.47.2.0
 - Migrated to SPDX license

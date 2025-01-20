@@ -1,6 +1,6 @@
 Name:           perl-MooseX-SingleArg
 Version:        0.09
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        No-fuss instantiation of Moose objects using a single argument
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -51,6 +51,9 @@ find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.09-18
 - convert license to SPDX
 

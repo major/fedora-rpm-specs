@@ -1,7 +1,7 @@
 Summary:	Should assertions in Python in as clear and readable a way as possible
 Name:		python-should_dsl
 Version:	2.1.2
-Release:	18%{?dist}
+Release:	19%{?dist}
 License:	MIT
 URL:		https://github.com/nsi-iff/should-dsl
 Source0:	https://files.pythonhosted.org/packages/source/s/should_dsl/should_dsl-%{version}.tar.gz
@@ -42,6 +42,9 @@ Summary:	Should assertions in Python in as clear and readable a way as possible
 %doc CONTRIBUTORS README.rst
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

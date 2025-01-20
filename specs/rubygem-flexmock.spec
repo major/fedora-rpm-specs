@@ -3,7 +3,7 @@
 Summary:	Mock object library for ruby
 Name:		rubygem-%{gem_name}
 Version:	3.0.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	MIT
 URL:		https://github.com/doudou/flexmock
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -99,6 +99,9 @@ popd
 %{gem_docdir}/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 18 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.1-2
 - Make testsuite compatible with ruby34 formatting change
 

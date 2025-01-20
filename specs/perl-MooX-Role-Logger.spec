@@ -1,6 +1,6 @@
 Name:           perl-MooX-Role-Logger
 Version:        0.005
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Universal logging via Log::Any
 License:        Apache-2.0
 
@@ -59,6 +59,9 @@ make test
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.005-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.005-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

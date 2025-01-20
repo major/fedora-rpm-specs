@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A python module to manipulate default parameters of a module's functions
 
 License:        ISC
@@ -51,6 +51,9 @@ sed -e '1d' -i %{buildroot}%{python3_sitelib}/presets/version.py
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 31 2024 Gwyn Ciesla <gwync@protonmail.com> - 0.1.3-3
 - Additional fixes`
 

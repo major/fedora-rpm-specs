@@ -6,7 +6,7 @@ interfaces.
 
 Name:           python-paste
 Version:        3.10.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 BuildArch:      noarch
 
 # Most of the code is MIT
@@ -85,6 +85,9 @@ py.test-3 -k "not test_paste_website and not test_proxy_to_website and not test_
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec 25 2024 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.10.1-5
 - Remove dependency on python-tempita
 

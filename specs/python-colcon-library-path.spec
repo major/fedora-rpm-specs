@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.1
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Extension for colcon adding an environment variable to find libraries
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -60,6 +60,9 @@ libraries at runtime.
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.1-23
 - convert license to SPDX
 

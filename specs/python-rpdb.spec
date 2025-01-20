@@ -3,7 +3,7 @@
 
 Name: python-%{srcname}
 Version: 0.1.6
-Release: 33%{?dist}
+Release: 34%{?dist}
 BuildArch: noarch
 
 Summary: A wrapper around pdb allowing remote debugging
@@ -55,6 +55,9 @@ debugging tools are available.
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.6-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.6-33
 - convert license to SPDX
 

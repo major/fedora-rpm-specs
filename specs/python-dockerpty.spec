@@ -16,7 +16,7 @@
 
 Name:           python-%{pkgname}
 Version:        0.4.1
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Python library to use the pseudo-tty of a docker container
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -85,6 +85,9 @@ Requires:       python%{python3_pkgversion}-six
 %endif
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.4.1-34
 - convert license to SPDX
 

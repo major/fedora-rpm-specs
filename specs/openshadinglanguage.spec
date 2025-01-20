@@ -57,6 +57,12 @@ License:        BSD-3-Clause AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain 
 URL:            https://github.com/AcademySoftwareFoundation/OpenShadingLanguage
 Source:         %{url}/archive/v%{version}/OpenShadingLanguage-%{version}%{?prerelease}.tar.gz
 
+# Add <cstdint> for fixed-size integers; fixes build on GCC 15
+#
+# Downstream-only since the patch would no longer apply to the development
+# version, in which the patched file has been significantly modified.
+Patch:          0001-Add-cstdint-for-fixed-size-integers-fixes-build-on-G.patch
+
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 BuildRequires:  bison >= 2.7

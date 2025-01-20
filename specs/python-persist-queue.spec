@@ -7,7 +7,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.8.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A single process, persistent multi-producer, multi-consumer queue
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -101,6 +101,9 @@ nose2 persistqueue.tests.test_queue
 %endif
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.8.0-8
 - convert license to SPDX
 

@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.2.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Ruby-based web application framework
 License: MIT
 URL: http://sinatrarb.com/
@@ -122,6 +122,9 @@ popd
 %{gem_instdir}/sinatra.gemspec
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 18 2024 Vít Ondruch <vondruch@redhat.com> - 3.2.0-1
 - Update to Sinatra 3.2.0.
 

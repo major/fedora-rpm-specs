@@ -1,6 +1,6 @@
 Name:           perl-RDF-RDFa-Generator
 Version:        0.204
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Generate data in RDFa
 # COPYRIGHT:    LicenseRef-Fedora-Public-Domain
 # other files:  GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -101,6 +101,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.204-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.204-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

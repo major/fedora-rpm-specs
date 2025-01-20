@@ -3,7 +3,7 @@ Name:          rtorrent
 # Automatically converted from old format: GPLv2+ with exceptions - review is highly recommended.
 License:       LicenseRef-Callaway-GPLv2+-with-exceptions
 Version:       0.15.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       BitTorrent client based on libtorrent 
 URL:           https://github.com/rakshasa/rtorrent
 Source0:       https://github.com/rakshasa/rtorrent/releases/download/v%{version}/rtorrent-%{version}.tar.gz
@@ -51,6 +51,9 @@ install -Dpm 0644 %SOURCE1 %{buildroot}/%{_mandir}/man1/rtorrent.1
 %{_mandir}/man1/rtorrent.1.gz
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jan 04 2025 Conrad Meyer <cse.cem@gmail.com> - 0.15.1-1
 - Update to 0.15.1
 

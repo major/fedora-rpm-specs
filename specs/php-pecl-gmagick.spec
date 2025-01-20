@@ -7,7 +7,7 @@
 Summary:        Provides a wrapper to the GraphicsMagick library
 Name:           php-pecl-%{pecl_name}
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        15%{?dist}
+Release:        16%{?dist}
 License:        PHP-3.01
 Source0:        https://pecl.php.net/get/%{sources}.tgz
 Source1:        %{pecl_name}.ini
@@ -79,6 +79,9 @@ php --no-php-ini \
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6~RC1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Oct 14 2024 Remi Collet <remi@fedoraproject.org> - 2.0.6~RC1-15
 - rebuild for https://fedoraproject.org/wiki/Changes/php84
 

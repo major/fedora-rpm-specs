@@ -1,6 +1,6 @@
 Name:           python3-iep
 Version:        3.7
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        The interactive editor for Python
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -76,6 +76,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/iep.desktop
 %{_datadir}/applications/iep.desktop
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 3.7-32
 - convert license to SPDX
 

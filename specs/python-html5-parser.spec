@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.4.12
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A fast, standards compliant, C based, HTML 5 parser for python
 
 # html5-parser-0.4.4/gumbo/utf8.c is MIT
@@ -63,6 +63,9 @@ sed -i -e '/^#!\//, 1d' src/html5_parser/*.py
 %{python3_sitearch}/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.12-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.4.12-4
 - convert license to SPDX
 

@@ -22,7 +22,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}
 Version:        1.0.5.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        QR code decoder / reader
 
 Group:          Development/Libraries
@@ -126,6 +126,9 @@ exit $ret
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep  4 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.5.2-9
 - convert license to SPDX
 

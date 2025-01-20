@@ -11,7 +11,7 @@ date, bootloader version etc.}
 
 Name:           python-%{pypi_name}
 Version:        0.2.6
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Tool for unpacking, modding and repacking OP-1 firmware
 
 License:        MIT
@@ -54,6 +54,9 @@ sed -e "\|#!/usr/bin/env python3|d" -i %{pypi_name}/*.py
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.6-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.6-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

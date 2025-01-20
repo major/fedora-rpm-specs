@@ -1,7 +1,7 @@
 Name:           perl-MooseX-Role-Parameterized
 Summary:        Make your roles flexible through parameterization
 Version:        1.11
-Release:        16%{?dist}
+Release:        17%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MooseX-Role-Parameterized
 Source0:        https://cpan.metacpan.org/modules/by-module/MooseX/MooseX-Role-Parameterized-%{version}.tar.gz
@@ -87,6 +87,9 @@ make test
 %{_mandir}/man3/MooseX*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

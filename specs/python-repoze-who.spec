@@ -4,7 +4,7 @@
 
 Name:           python-repoze-who
 Version:        3.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        An identification and authentication framework for WSGI
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -75,6 +75,9 @@ rm -rf %{modname}.egg-info
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 3.0.0-3
 - convert license to SPDX
 

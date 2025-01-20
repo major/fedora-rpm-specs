@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.1.23
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Generates rosinstall files
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -69,6 +69,9 @@ ln -s %{srcname}-%{python3_version} %{buildroot}%{_bindir}/%{srcname}
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.23-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.23-8
 - convert license to SPDX
 

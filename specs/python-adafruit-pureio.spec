@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.1.10
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python access to Linux IO including I2C and SPI
 
 License:        MIT
@@ -65,6 +65,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.10-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.10-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

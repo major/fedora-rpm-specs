@@ -1,6 +1,6 @@
 Name:           quarry
 Version:        0.2.0
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        A multi-purpose board game GUI
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -59,6 +59,9 @@ desktop-file-install \
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.0-39
 - convert license to SPDX
 

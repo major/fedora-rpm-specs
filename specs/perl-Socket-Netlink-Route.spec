@@ -1,6 +1,6 @@
 Name:           perl-Socket-Netlink-Route
 Version:        0.05
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Interface to Linux's NETLINK_ROUTE netlink socket protocol
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -67,6 +67,9 @@ find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.05-34
 - convert license to SPDX
 

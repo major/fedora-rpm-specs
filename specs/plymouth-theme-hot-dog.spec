@@ -2,7 +2,7 @@
 %define set_theme %{_sbindir}/plymouth-set-default-theme
 Name:           plymouth-theme-%{themename}
 Version:        0.5
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Plymouth Happy Hot Dog Theme
 
 # Automatically converted from old format: CC-BY-SA - review is highly recommended.
@@ -52,6 +52,9 @@ fi
 %{_datadir}/plymouth/themes/%{themename}/%{themename}.plymouth
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5-28
 - convert license to SPDX
 

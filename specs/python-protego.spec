@@ -6,7 +6,7 @@ conventions.}
 
 Name:		python-protego
 Version:	0.3.0
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Pure-Python robots.txt parser with support for modern conventions
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -51,6 +51,9 @@ BuildRequires:	python3-pytest
 %{python3_sitelib}/Protego-*.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.3.0-6
 - convert license to SPDX
 

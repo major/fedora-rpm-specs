@@ -7,7 +7,7 @@
 Summary:	Cryptography library for Python
 Name:		python-crypto
 Version:	2.6.1
-Release:	53%{?dist}
+Release:	54%{?dist}
 # Mostly LicenseRef-Fedora-Public-Domain apart from parts of HMAC.py and setup.py, which are PSF-2.0
 License:	LicenseRef-Fedora-Public-Domain AND PSF-2.0
 URL:		http://www.pycrypto.org/
@@ -144,6 +144,9 @@ find %{buildroot}%{python3_sitearch} -name '*.so' -exec chmod -c g-w {} \;
 %{python3_sitearch}/pycrypto-%{version}-py3.*.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-54
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 14 2024 Paul Howarth <paul@city-fan.org> - 2.6.1-53
 - Avoid use of deprecated 'setup.py test'
 

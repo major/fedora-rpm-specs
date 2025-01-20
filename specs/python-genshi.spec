@@ -1,6 +1,6 @@
 Name:           python-genshi
 Version:        0.7.9
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Toolkit for stream-based generation of output for the web
 
 License:        BSD-3-Clause
@@ -66,6 +66,9 @@ sed -i -e '/_speedups.c/d' %{pyproject_files}
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.9-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Oct 12 2024 Felix Schwarz <fschwarz@fedoraproject.org> - 0.7.9-4
 - modernize macro usage
 - use "BSD-3-Clause" license identifier

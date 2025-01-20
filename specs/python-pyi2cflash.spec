@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.2
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Python I2C eeprom device drivers
 
 License:        MIT
@@ -46,6 +46,9 @@ products, to store firmware, microcode or configuration parameters.
 %{python3_sitelib}/%{pypi_name}*.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

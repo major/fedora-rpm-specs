@@ -3,7 +3,7 @@
 
 Name:           perl-Syntax-Keyword-Junction
 Version:        0.003009
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl6 style Junction operators in Perl5
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Syntax-Keyword-Junction
@@ -119,6 +119,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.003009-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 21 2024 Petr Pisar <ppisar@redhat.com> - 0.003009-1
 - 0.003009 bump
 

@@ -23,7 +23,7 @@
 
 Name: python-aexpect
 Version: 1.6.2
-Release: 13%{?gitrel}%{?dist}
+Release: 14%{?gitrel}%{?dist}
 Summary: A python library to control interactive applications
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -81,6 +81,9 @@ selftests/checkall
 %{_bindir}/aexpect_helper*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.6.2-13
 - convert license to SPDX
 

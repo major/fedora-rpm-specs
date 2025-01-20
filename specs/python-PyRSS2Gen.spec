@@ -1,6 +1,6 @@
 Name:		python-PyRSS2Gen
 Version:	1.1
-Release:	41%{?dist}
+Release:	42%{?dist}
 Summary:	A Python library for generating RSS 2.0 feeds
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -42,6 +42,9 @@ A Python3 library for generating RSS 2.0 feeds.
 %doc README LICENSE
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1-41
 - convert license to SPDX
 

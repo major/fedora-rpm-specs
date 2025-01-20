@@ -1,6 +1,6 @@
 Name:           perl-MooseX-Meta-TypeConstraint-Mooish
 Version:        0.001
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Translate Moo-style constraints to Moose-style
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2
@@ -60,6 +60,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.001-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.001-30
 - convert license to SPDX
 

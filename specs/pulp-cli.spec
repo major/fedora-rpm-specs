@@ -1,6 +1,6 @@
 Name: pulp-cli
 Version: 0.30.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Command line interface to talk to the Pulp 3 REST API
 
 License: GPL-2.0-or-later
@@ -75,6 +75,9 @@ done
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.30.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 15 2025 Matthias Dellweg <x9c4@redhat.com> - 0.30.0-1
 - new version
 

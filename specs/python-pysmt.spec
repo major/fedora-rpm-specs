@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.9.5
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Solver-agnostic library for SMT Formulae manipulation and solving
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -67,6 +67,9 @@ sed -i -e '/^#!\//, 1d' pysmt/{cmd/shell.py,constants.py}
 %{_bindir}/pysmt-install
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.9.5-8
 - convert license to SPDX
 

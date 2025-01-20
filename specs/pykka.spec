@@ -2,7 +2,7 @@
 
 Name:             pykka
 Version:          4.0.2
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Python library that provides concurrency using actor model
 
 License:          Apache-2.0
@@ -74,6 +74,9 @@ cp -rp docs/_build/devhelp %{buildroot}%{_datarootdir}/devhelp/%{pypi_name}
 %exclude %{_datarootdir}/devhelp/%{pypi_name}/.*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Tobias Girstmair <t-fedora@girst.at> - 4.0.2-1
 - Updated to latest release
 

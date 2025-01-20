@@ -1,6 +1,6 @@
 Name:           perl-Term-EditorEdit
 Version:        0.0016
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Edit a document via $EDITOR
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Term-EditorEdit
@@ -49,6 +49,9 @@ rm $RPM_BUILD_ROOT%{_bindir}/editor-edit
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0016-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0016-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

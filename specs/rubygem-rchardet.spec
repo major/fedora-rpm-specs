@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.8.0
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Character encoding auto-detection in Ruby
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2
@@ -66,6 +66,9 @@ popd
 %doc %{gem_docdir}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.8.0-10
 - convert license to SPDX
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Support library for building plugins systems
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -50,6 +50,9 @@ popd
 %{python3_sitelib}/__pycache__/%{srcname}.*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.1-12
 - convert license to SPDX
 

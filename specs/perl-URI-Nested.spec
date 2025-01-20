@@ -1,6 +1,6 @@
 Name:           perl-URI-Nested
 Version:        0.10
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Perl support for nested URIs
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -49,6 +49,9 @@ JDBC URIs and database URIs.
 %{_mandir}/man3/URI*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.10-18
 - convert license to SPDX
 

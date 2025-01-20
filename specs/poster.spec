@@ -1,7 +1,7 @@
 Summary:        Scales PostScript images to span multiple pages
 Name:           poster
 Version:        20060221
-Release:        37%{?dist}
+Release:        38%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 Source:         ftp://ftp.kde.org/pub/kde/printing/%{name}.tar.bz2
@@ -37,6 +37,9 @@ larger media and/or tiles them to print on multiple sheets.
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20060221-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 20060221-37
 - convert license to SPDX
 

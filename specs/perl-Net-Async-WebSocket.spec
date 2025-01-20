@@ -1,6 +1,6 @@
 Name:           perl-Net-Async-WebSocket
 Version:        0.14
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Use WebSockets with IO::Async
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Net-Async-WebSocket
@@ -64,6 +64,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Net::Async::WebSocket*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Sep 21 2024 Chris Adams <linux@cmadams.net> 0.14-1
 - update to new upstream release
 - update dependencies to match

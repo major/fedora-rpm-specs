@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.4.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Extended implementation of JSONPath for Python
 
 License:        Apache-2.0
@@ -55,6 +55,9 @@ objects, easy to analyze, transform, parse, print, and extend.
 %{python3_sitelib}/jsonpath_rw-%{version}*-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 29 2024 Fabian Affolter <mail@fabian-affolter.ch> - 1.4.0-18
 - Switch to pytest (closes rhbz#2319672)
 

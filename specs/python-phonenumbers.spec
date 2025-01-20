@@ -7,7 +7,7 @@ numbers.\
 
 Name:           python-%{pypi_name}
 Version:        8.13.48
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Python port of Google's libphonenumber
 License:        Apache-2.0
 URL:            https://github.com/daviddrysdale/%{name}
@@ -58,6 +58,9 @@ cd python
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.13.48-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Nov 03 2024 Dan Callaghan <djc@djc.id.au> - 8.13.48-1
 - new upstream release 8.13.48:
   https://github.com/daviddrysdale/python-phonenumbers/blob/v8.13.48/python/HISTORY.md

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.3
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        A port of the serialize and unserialize functions of php to python
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -53,6 +53,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3-22
 - convert license to SPDX
 

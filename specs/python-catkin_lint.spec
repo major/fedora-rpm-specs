@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.6.22
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Check catkin packages for common errors
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -89,6 +89,9 @@ install -p -D -m0644 shell/bash/%{srcname} %{buildroot}%{_sysconfdir}/bash_compl
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.22-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.6.22-8
 - convert license to SPDX
 

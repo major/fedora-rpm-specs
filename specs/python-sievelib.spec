@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Client-side SIEVE library
 License:        MIT
 URL:            https://github.com/tonioo/sievelib
@@ -46,6 +46,9 @@ rm -rf %{srcname}.egg-info
 %license COPYING
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jan 13 2025 Juan Orti Alcaine <jortialc@redhat.com> - 1.4.2-1
 - Version 1.4.2 (RHBZ#2336381)
 - nose replaced by pytest

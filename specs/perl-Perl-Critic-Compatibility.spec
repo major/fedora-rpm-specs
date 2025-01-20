@@ -1,6 +1,6 @@
 Name:           perl-Perl-Critic-Compatibility
 Version:        1.001
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Perl::Critic policies for compatibility with Perl versions
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.001-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 1.001-39
 - convert license to SPDX
 

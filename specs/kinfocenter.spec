@@ -60,6 +60,7 @@ Requires: fwupd
 Requires: aha
 Requires: clinfo
 Requires: pulseaudio-utils
+Requires: libdisplay-info-tools
 
 # When kinfocenter was split out from kde-workspace
 Conflicts:      kde-workspace < 4.11.15-3

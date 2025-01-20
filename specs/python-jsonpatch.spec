@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.33
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Applying JSON Patches in Python
 
 License:        BSD-3-Clause
@@ -63,6 +63,9 @@ ln -s ./jsonpatch-%{python3_version} %{buildroot}%{_bindir}/jsonpatch
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.33-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.33-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 4.2.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Ensure your Puppet manifests conform with the Puppetlabs style guide
 License: MIT
 URL: https://github.com/puppetlabs/puppet-lint/
@@ -71,6 +71,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Dec 05 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.1-4
 - Support ruby34 backtrace formatting change
 

@@ -1,6 +1,6 @@
 Name:           python-ly
 Version:        0.9.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool and library for manipulating LilyPond files
 
 License:        GPL-2.0-or-later
@@ -50,6 +50,9 @@ This package allows for use of python-ly with Python 3.
 %{_bindir}/ly-server
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jan 04 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.9.9-1
 - 0.9.9
 

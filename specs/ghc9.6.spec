@@ -38,7 +38,7 @@
 %bcond_with testsuite
 
 # ld
-%if %{defined fedora} || 0%{?rhel} >= 10
+%if %{defined fedora} || 0%{?rhel} >= 10 || "%{_arch}" == "aarch64"
 %bcond ld_gold 0
 %else
 %bcond ld_gold 1
@@ -62,7 +62,7 @@ Version: 9.6.6
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 22%{?dist}
+Release: 23%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -82,10 +82,8 @@ ExcludeArch: armv7hl
 Patch1: ghc-gen_contents_index-haddock-path.patch
 Patch2: ghc-Cabal-install-PATH-warning.patch
 Patch3: ghc-gen_contents_index-nodocs.patch
+Patch5: hp2ps-C-gnu17.patch
 Patch8: ghc-configure-c99.patch
-# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604
-# needs more backporting to 9.6
-Patch9: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604.patch
 # https://gitlab.haskell.org/ghc/ghc/-/issues/23707
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11085
 Patch11: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11085.patch
@@ -396,11 +394,11 @@ cabal-tweak-dep-ver Cabal '< 3.9' '< 3.11'
 )
 
 %patch -P1 -p1 -b .orig
-%patch -P3 -p1 -b .orig
-
 %patch -P2 -p1 -b .orig
+%patch -P3 -p1 -b .orig
+%patch -P5 -p1 -b .orig
+
 %patch -P8 -p1 -b .orig
-#%%patch -P9 -p1 -b .orig
 %patch -P11 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
@@ -481,11 +479,7 @@ export LANG=C.utf8
 %global ghc_debuginfo 1
 (
 cd hadrian
-%if 0%{defined fedora}
 %ghc_bin_build -W
-%else
-%ghc_bin_build
-%endif
 )
 %global hadrian hadrian/dist/build/hadrian/hadrian
 %else
@@ -850,6 +844,10 @@ make test
 
 
 %changelog
+* Sat Jan 18 2025 Jens Petersen <petersen@redhat.com> - 9.6.6-23
+- fix hp2ps failure with gcc15 C23
+- epel9: default to ld.bfd for aarch64 (breaking change)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.6.6-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

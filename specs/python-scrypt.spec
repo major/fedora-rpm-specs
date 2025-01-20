@@ -10,7 +10,7 @@ brute force search of several...
 
 Name:           python-%{pypi_name}
 Version:        0.8.20
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Bindings for the scrypt key derivation function library
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -59,6 +59,9 @@ sed -i '1d' scrypt/scrypt.py
 %{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.20-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.8.20-8
 - convert license to SPDX
 

@@ -5,7 +5,7 @@
 Name:           python-%{modname}
 Summary:        Unicode-aware Pure Python Expect-like module
 Version:        4.9.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 
 # All the files have ISC license except the
 # following two that have BSD license:
@@ -104,6 +104,9 @@ export CI=true
 %{python3_sitelib}/%{modname}-*.dist-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 25 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 4.9.0-8
 - Avoid tox dependency
 

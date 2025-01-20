@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.14.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Ruby driver for MongoDB
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
@@ -153,6 +153,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 2.14.0-11
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           perl-Wiki-Toolkit
 Version:        0.87
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Toolkit for building Wikis
 # Wiki/Toolkit pod
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -85,6 +85,9 @@ chmod -x lib/Wiki/Toolkit/Feed/{Atom,RSS}.pm
 %{_mandir}/man3/Wiki*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.87-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.87-13
 - convert license to SPDX
 

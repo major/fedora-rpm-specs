@@ -3,7 +3,7 @@
 
 Name:          pygsl
 Version:       2.4.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       %{sum}
 
 # The package is mostly GPL+ but there are two scripts
@@ -147,6 +147,9 @@ rm -fr html/.{buildinfo,doctrees}
 %doc examples/ html/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 12 2024 José Matos <jamatos@fedoraproject.org> - 2.4.0-2
 - All the changes below come from Jerry James <loganjerry@gmail.com> (from Fri Feb 23 2024)
 - Use virtual Provides instead of empty packages

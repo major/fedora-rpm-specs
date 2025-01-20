@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.5
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        An implementation of time.monotonic() for Python 2 & < 3.3
 
 # Missing license file from source package
@@ -66,6 +66,9 @@ it will fall back to an equivalent platform specific implementation.
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 1.5-22
 - convert license to SPDX
 

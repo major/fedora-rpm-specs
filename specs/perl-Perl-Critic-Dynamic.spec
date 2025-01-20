@@ -1,6 +1,6 @@
 Name:           perl-Perl-Critic-Dynamic
 Version:        0.05
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Non-static policies for Perl::Critic
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -65,6 +65,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.05-37
 - convert license to SPDX
 

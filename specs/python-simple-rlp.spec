@@ -1,6 +1,6 @@
 Name:      python-simple-rlp
 Version:   0.1.3
-Release:   8%{?dist}
+Release:   9%{?dist}
 Summary:   Simple RLP (Recursive Length Prefix)
 
 License:   MIT
@@ -62,6 +62,9 @@ sed -i 's/\r$//' README.md
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

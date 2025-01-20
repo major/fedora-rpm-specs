@@ -1,7 +1,7 @@
 Name:           perl-inc-latest
 Epoch:          2
 Version:        0.500
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Use modules bundled in inc/ if they are newer than installed ones
 License:        Apache-2.0
 URL:            https://metacpan.org/release/inc-latest
@@ -74,6 +74,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:0.500-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:0.500-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

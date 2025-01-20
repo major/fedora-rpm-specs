@@ -5,7 +5,7 @@
 
 Name:           python-pyqt5-sip
 Version:        12.16.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The sip module support for PyQt5
 
 License:        BSD-2-Clause
@@ -49,6 +49,9 @@ Provides: python3-pyqt5-sip-api(%{_sip_api_major})%{?_isa} = %{_sip_api}
 %{python3_sitearch}/PyQt5/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 12.16.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Dec 14 2024 Scott Talbert <swt@techie.net> - 12.16.1-1
 - Update to new upstream release 12.16.1 (#2330773)
 

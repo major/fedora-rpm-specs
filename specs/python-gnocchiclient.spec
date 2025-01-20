@@ -22,7 +22,7 @@ provides a Python API (the gnocchiclient module) and a command-line tool.
 
 Name:             python-gnocchiclient
 Version:          7.1.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Python API and CLI for OpenStack Gnocchi
 
 License:          Apache-2.0
@@ -127,6 +127,9 @@ ln -s gnocchi %{buildroot}%{_bindir}/gnocchi-3
 %endif
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Oct 07 2024 Joel Capitao <jcapitao@redhat.com> 7.1.0-1
 - Update to upstream version 7.1.0
 

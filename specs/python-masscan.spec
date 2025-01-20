@@ -2,7 +2,7 @@
 
 Name:           %{srcname}
 Version:        0.1.6
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Python module to interact with masscan
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -43,6 +43,9 @@ sed -i -e '/^#!\//, 1d' masscan/*.py
 %{python3_sitelib}/masscan/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.6-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.6-16
 - convert license to SPDX
 

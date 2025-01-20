@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.5.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Utilities for ROS package, stack, and distribution information
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -104,6 +104,9 @@ export LANG=en_US.UTF-8
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.5.1-4
 - convert license to SPDX
 

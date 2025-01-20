@@ -1,6 +1,6 @@
 Name:           qqwing
 Version:        1.3.4
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Command-line Sudoku solver and generator
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -60,6 +60,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/qqwing.pc
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3.4-22
 - convert license to SPDX
 

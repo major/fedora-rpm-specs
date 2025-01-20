@@ -6,7 +6,7 @@
 Summary: A Scintilla port to Qt
 Name:    qscintilla
 Version: 2.14.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License: GPL-3.0-only
@@ -269,6 +269,9 @@ grep "%{_qt6_translationdir}" qscintilla.lang > qscintilla-qt6.lang
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.14.1-3
 - convert license to SPDX
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.5.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Pure python IPMI library
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -51,6 +51,9 @@ export PYTHONPATH=$RPM_BUILD_ROOT/%{python3_sitelib}
 %{python3_sitelib}/*-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5.5-2
 - convert license to SPDX
 

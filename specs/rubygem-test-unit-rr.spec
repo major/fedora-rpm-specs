@@ -3,7 +3,7 @@
 Summary:	Test::Unit::RR - RR adapter for Test::Unit
 Name:		rubygem-%{gem_name}
 Version:	1.0.5
-Release:	19%{?dist}
+Release:	20%{?dist}
 # SPDX confirmed
 License:	LGPL-2.1-or-later
 URL:		http://rubyforge.org/projects/test-unit/
@@ -75,6 +75,9 @@ popd
 %doc	%{gem_docdir}/
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

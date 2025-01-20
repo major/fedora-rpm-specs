@@ -5,7 +5,7 @@
 
 Name:           python-%{realname}
 Version:        2.6
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Parse human-readable date/time strings in Python
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -59,6 +59,9 @@ py.test-3 -x tests/*.py
 %{python3_sitelib}/%{realname}*.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 2.6-15
 - convert license to SPDX
 

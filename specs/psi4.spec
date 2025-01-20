@@ -15,7 +15,7 @@ ExcludeArch: %{ix86}
 Name:           psi4
 Epoch:          1
 Version:        1.9.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        An ab initio quantum chemistry package
 # Automatically converted from old format: LGPLv3 and MIT - review is highly recommended.
 License:        LGPL-3.0-only AND LicenseRef-Callaway-MIT
@@ -185,6 +185,9 @@ ctest -L smoketests --output-on-failure
 %{_datadir}/psi4/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.9.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 25 2024 Orion Poplawski <orion@nwra.com> - 1:1.9.1-4
 - Rebuild for hdf5 1.14.5
 

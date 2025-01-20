@@ -3,7 +3,7 @@
 
 Name:           python-pluggy1.3
 Version:        1.3.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        pluggy 1.3.x for compatibility purposes
 
 # SPDX
@@ -64,6 +64,9 @@ Provides:       deprecated()
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Sep 17 2024 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.3.0-8
 - BuildRequire pytest < 8
 

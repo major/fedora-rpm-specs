@@ -1,6 +1,6 @@
 Name:           perl-HTTP-Message
 Version:        7.00
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        HTTP style message
 # CONTRIBUTING.md:  CC0-1.0
 # other files:      GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -126,6 +126,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.00-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 08 2024 Michal Josef Špaček <mspacek@redhat.com> - 7.00-1
 - 7.00 bump
 - Requires IO::Compress::Brotli for tests.

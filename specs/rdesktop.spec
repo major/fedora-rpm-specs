@@ -4,7 +4,7 @@
 
 Name:		rdesktop
 Version:	1.9.0
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	X client for remote desktop into Windows Terminal Server
 
 License:	GPL-3.0-or-later
@@ -57,6 +57,9 @@ autoreconf -vif
 %{_mandir}/man1/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

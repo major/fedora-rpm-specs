@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.1.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Retrieve the source code for a method
 License: MIT
 URL: https://github.com/banister/method_source/
@@ -68,6 +68,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Nov 20 2024 Vít Ondruch <vondruch@redhat.com> - 1.1.0-1
 - Update to method_source 1.1.0.
   Resolves: rhbz#2275133

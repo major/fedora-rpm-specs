@@ -19,7 +19,7 @@ de débrancher l'appareil après l'installation.}
 
 Name:          python-radexreader
 Version:       1.2.4
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       %{common_summary_en}
 Summary(fr):   %{common_summary_fr}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -83,6 +83,9 @@ install -pm 644 ../debian/udev %{buildroot}/lib/udev/rules.d/60-%{name}.rules
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2.4-4
 - convert license to SPDX
 

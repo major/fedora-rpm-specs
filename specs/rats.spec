@@ -1,6 +1,6 @@
 Name:           rats
 Version:        2.4
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Rough Auditing Tool for Security
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -49,6 +49,9 @@ sed -e 's/$(BINDIR)/$(DESTDIR)$(BINDIR)/g' \
 %{_mandir}/man1/rats.1*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.4-28
 - convert license to SPDX
 

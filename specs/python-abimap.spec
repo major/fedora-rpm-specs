@@ -2,7 +2,7 @@
 
 Name:           python-%{module_name}
 Version:        0.3.2
-Release:        21%{?dist}
+Release:        22%{?dist}
 License:        MIT
 Summary:        A helper for library maintainers to use symbol versioning
 Url:            https://github.com/ansasaki/abimap
@@ -116,6 +116,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib}:$PWD/tests \
 %doc html
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 23 2024 Anderson Toshiyuki Sasaki <ansasaki@redhat.com> - 0.3.2-21
 - Use natural sorting to sort releases
 

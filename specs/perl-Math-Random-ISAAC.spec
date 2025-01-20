@@ -1,6 +1,6 @@
 Name:           perl-Math-Random-ISAAC
 Version:        1.004
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Perl interface to the ISAAC PRNG algorithm
 # Automatically converted from old format: MIT or GPL+ or Artistic - review is highly recommended.
 License:        LicenseRef-Callaway-MIT OR GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -55,6 +55,9 @@ some seed information and produce seemingly random results as output.
 %{_mandir}/man3/Math*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.004-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.004-42
 - convert license to SPDX
 

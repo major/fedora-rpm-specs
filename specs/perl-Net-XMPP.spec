@@ -1,6 +1,6 @@
 Name:           perl-Net-XMPP
 Version:        1.05
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        XMPP Perl Library
 License:        LGPL-2.1-or-later
 URL:            https://metacpan.org/release/Net-XMPP
@@ -68,6 +68,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/Net::XMPP*.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

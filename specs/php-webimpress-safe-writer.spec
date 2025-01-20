@@ -26,7 +26,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}
 Version:       %{github_version}
-Release:       10%{?github_release}%{?dist}
+Release:       11%{?github_release}%{?dist}
 Summary:       Tool to write files safely, to avoid race conditions
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -121,6 +121,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 4 2024 Miroslav Suchý <msuchy@redhat.com> - 2.2.0-10
 - convert license to SPDX
 

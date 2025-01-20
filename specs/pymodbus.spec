@@ -22,7 +22,7 @@ Server Features \
 
 Name: pymodbus
 Version: 3.7.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: %{sum}
 
 License: BSD-3-Clause
@@ -73,6 +73,9 @@ rm -rf %{buildroot}%{python3_sitelib}/test
 %{_bindir}/pymodbus.simulator
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Nov 13 2024 Christian Krause <chkr@fedoraproject.org> - 3.7.4-1
 - Update to 3.7.4 (#2302441)
 - Remove obsolete documentation of bundled pyserial-asyncio

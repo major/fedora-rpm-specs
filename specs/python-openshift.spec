@@ -27,7 +27,7 @@
 
 Name:       python-%{library}
 Version:    0.13.2
-Release:    6%{?dist}
+Release:    7%{?dist}
 Summary:    Python client for the OpenShift API
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:    Apache-2.0
@@ -179,6 +179,9 @@ py.test test/unit -c /dev/null -v -r s
 %endif
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.13.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 1:0.13.2-6
 - convert license to SPDX
 

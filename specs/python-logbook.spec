@@ -1,6 +1,6 @@
 Name:		python-logbook
 Version:	1.8.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A logging replacement for Python
 
 License:	BSD-3-Clause
@@ -53,6 +53,9 @@ Logbook can do that.
 %doc CHANGES README.md
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Oct 28 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.8.0-1
 - 1.8.0
 

@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        1.3.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A Ruby implementation of SNMP (the Simple Network Management Protocol)
 License:        MIT
 URL:            https://github.com/hallidave/ruby-snmp
@@ -77,6 +77,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

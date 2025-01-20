@@ -3,7 +3,7 @@
 
 Name:               python-freezegun
 Version:            1.5.1
-Release:            2%{?dist}
+Release:            3%{?dist}
 Summary:            %{sum}
 
 License:            Apache-2.0
@@ -57,6 +57,9 @@ pytest-3 --deselect tests/test_datetimes.py::TestUnitTestMethodDecorator::test_m
 %doc README.rst LICENSE
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Nov 02 2024 Kevin Fenzi <kevin@scrye.com> - 1.5.1-2
 - Add patch to not run coverage tests to allow epel10. rhbz#2321257
 

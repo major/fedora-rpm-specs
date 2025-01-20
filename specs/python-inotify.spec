@@ -3,7 +3,7 @@
 Summary:       Monitor filesystem events with Python under Linux
 Name:          python-inotify
 Version:       0.9.6
-Release:       36%{?dist}
+Release:       37%{?dist}
 License:       MIT
 URL:           https://github.com/seb-m/pyinotify
 Source0:       http://seb.dbzteam.org/pub/pyinotify/releases/pyinotify-%{version}.tar.gz
@@ -48,6 +48,9 @@ sed -i '1c#! %{__python3}' python3/pyinotify.py
 %{python3_sitelib}/__pycache__/%{oname}*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

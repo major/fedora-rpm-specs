@@ -1,6 +1,6 @@
 Name:       perl-Template-Plugin-JavaScript
 Version:    0.02
-Release:    37%{?dist}
+Release:    38%{?dist}
 # see lib/Template/Plugin/JavaScript.pm
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Encodes text to be safe in JavaScript
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

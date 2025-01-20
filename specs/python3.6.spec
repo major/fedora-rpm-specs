@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 40%{?dist}
+Release: 41%{?dist}
 # Python is Python
 # pip MIT is and bundles:
 #   appdirs: MIT
@@ -2068,6 +2068,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.15-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec 18 2024 Victor Stinner <vstinner@python.org> - 3.6.15-40
 - Fix compatibility with glibc 2.41 (resolve sinpi name clash).
 

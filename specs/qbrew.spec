@@ -1,6 +1,6 @@
 Name:		qbrew
 Version:	0.4.1
-Release:	36%{?dist}
+Release:	37%{?dist}
 Summary:	A Brewing Recipe Calculator
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -81,6 +81,9 @@ cp translations/*.ts translations/*.qm \
 %doc AUTHORS ChangeLog TODO *.qbrew LICENSE README
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.4.1-36
 - convert license to SPDX
 

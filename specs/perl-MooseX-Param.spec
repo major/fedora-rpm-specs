@@ -1,6 +1,6 @@
 Name:           perl-MooseX-Param
 Version:        0.02
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Simple role to provide a standard param method
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -41,6 +41,9 @@ This is a very simple Moose role which provides a CGI like param method.
 %{_mandir}/man3/Moose*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.02-45
 - convert license to SPDX
 

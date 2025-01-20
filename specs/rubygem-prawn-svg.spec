@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.35.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: SVG renderer for Prawn PDF library
 License: MIT
 URL: http://github.com/mogest/prawn-svg
@@ -76,6 +76,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.35.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Oct 05 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.35.1-2
 - Backport upstream patch to support REXML 3.3.3 invalid XML handling
 

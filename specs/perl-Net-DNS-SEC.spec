@@ -1,6 +1,6 @@
 Name:           perl-Net-DNS-SEC
 Version:        1.26
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        DNSSEC modules for Perl
 License:        HPND-MIT-disclaimer
 URL:            https://metacpan.org/release/Net-DNS-SEC
@@ -134,6 +134,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.26-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 31 2024 Petr Pisar <ppisar@redhat.com> - 1.26-1
 - 1.26 bump
 

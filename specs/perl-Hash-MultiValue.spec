@@ -1,7 +1,7 @@
 Name:           perl-Hash-MultiValue
 Summary:        Store multiple values per key
 Version:        0.16
-Release:        31%{?dist}
+Release:        32%{?dist}
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/A/AR/ARISTOTLE/Hash-MultiValue-%{version}.tar.gz
@@ -53,6 +53,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.16-31
 - convert license to SPDX
 

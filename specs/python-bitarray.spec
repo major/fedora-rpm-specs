@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        2.8.5
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: Python - review is highly recommended.
@@ -59,6 +59,9 @@ This is Python 3 version.
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.5-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.8.5-6
 - convert license to SPDX
 

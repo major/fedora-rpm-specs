@@ -19,9 +19,9 @@ Summary:  Modules for the pluma text editor
 Name:     pluma-plugins
 Version:  %{branch}.0
 %if 0%{?rel_build}
-Release:  3%{?dist}
+Release:  4%{?dist}
 %else
-Release:  0.9%{?git_rel}%{?dist}
+Release:  0.10%{?git_rel}%{?dist}
 %endif
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:  GPL-2.0-or-later
@@ -116,6 +116,9 @@ find %{buildroot} -name '*.a' -exec rm -f {} ';'
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.28.0-3
 - convert license to SPDX
 

@@ -4,7 +4,7 @@
 %global crate heatseeker
 
 Name:           rust-heatseeker
-Version:        1.7.1
+Version:        1.7.2
 Release:        %autorelease
 Summary:        Fast, robust, and portable fuzzy finder
 
@@ -14,9 +14,13 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          heatseeker-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * bump crossbeam dependency from 0.7 to 0.8:
+# * bump crossbeam from 0.7 to 0.8 and port from time v0.1 to chrono:
 #   https://github.com/rschmitt/heatseeker/commit/b774e37
+# * port from signal-hook v0.1 to v0.3:
+#   https://github.com/rschmitt/heatseeker/commit/b19e187
 Patch:          heatseeker-fix-metadata.diff
+Patch2:         0001-port-from-time-v0.1-to-chrono.patch
+Patch3:         0002-port-from-signal-hook-v0.1-to-v0.3.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -30,8 +34,7 @@ Summary:        %{summary}
 # Apache-2.0 OR MIT
 # MIT
 # MIT OR Apache-2.0
-# MIT OR Apache-2.0 AND BSD-2-Clause
-License:        MIT AND BSD-2-Clause AND (Apache-2.0 OR MIT)
+License:        MIT AND (Apache-2.0 OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}
@@ -59,8 +62,8 @@ License:        MIT AND BSD-2-Clause AND (Apache-2.0 OR MIT)
 
 %if %{with check}
 %check
-export TRAVIS=1
-%cargo_test
+# * skip a test that does not work without a TTY
+%cargo_test -- -- --exact --skip screen::unix::tests::winsize_test
 %endif
 
 %changelog

@@ -1,6 +1,6 @@
 Name:           perl-Test-DiagINC
 Version:        0.010
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        List modules and versions loaded if tests fail
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -61,6 +61,9 @@ during a test run.
 %{_mandir}/man3/Test*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.010-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.010-7
 - convert license to SPDX
 

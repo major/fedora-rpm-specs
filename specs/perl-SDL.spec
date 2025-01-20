@@ -1,6 +1,6 @@
 Name:           perl-SDL
 Version:        2.548
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Simple DirectMedia Layer for Perl
 # COPYING:                      GPL-2.0 text
 # lib/pods/SDL.pod:             GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -182,6 +182,9 @@ find %{buildroot} -type f -name '*.bs' -a -size 0 -delete
 %{_mandir}/man3/Module::Build::SDL.*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.548-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.548-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

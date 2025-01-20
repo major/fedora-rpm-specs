@@ -1,6 +1,6 @@
 Name:           perl-OpenFrame
 Version:        3.05
-Release:        53%{?dist}
+Release:        54%{?dist}
 Summary:        Framework for network enabled applications
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/OpenFrame
@@ -86,6 +86,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.05-54
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.05-53
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

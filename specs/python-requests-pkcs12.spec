@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.25
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Add PKCS12 support to the requests library
 
 License:        ISC
@@ -45,6 +45,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/requests_pkcs12-%{version}-py*.egg-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.25-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 22 2024 Lukas Slebodnik <lslebodn@redhat.com> - 1.25-1
 - New upstream version 1.25
 

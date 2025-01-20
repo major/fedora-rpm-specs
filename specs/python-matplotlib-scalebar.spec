@@ -1,17 +1,11 @@
-%global commit 2c57173d67a346b323a4afff7b7dd9c7f1314da4
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global snapdate 20230706
-%global releasever 0.8.1
-
 Name:           python-matplotlib-scalebar
-Version:        %{releasever}^%{snapdate}git%{shortcommit}
+Version:        0.9.0
 Release:        %autorelease
 Summary:        Artist for matplotlib to display a scale bar
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-2-Clause
 URL:            https://github.com/ppinard/matplotlib-scalebar
-Source0:        %{url}/archive/%{commit}/matplotlib-scalebar-%{shortcommit}.tar.gz
+Source0:        %{url}/archive/%{version}/matplotlib-scalebar-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -49,28 +43,25 @@ Requires:       python3dist(requests)
 
 
 %prep
-%autosetup -n matplotlib-scalebar-%{commit}
+%autosetup -n matplotlib-scalebar-%{version}
 
 
 %generate_buildrequires
-# Python tools don't like %%version
-export SETUPTOOLS_SCM_PRETEND_VERSION=%{releasever}
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %pyproject_buildrequires
 
 
 %build
-export SETUPTOOLS_SCM_PRETEND_VERSION=%{releasever}
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %pyproject_wheel
 
 
 %install
-export SETUPTOOLS_SCM_PRETEND_VERSION=%{releasever}
 %pyproject_install
 %pyproject_save_files -l matplotlib_scalebar
 
 
 %check
-export SETUPTOOLS_SCM_PRETEND_VERSION=%{releasever}
 %pytest
 
 

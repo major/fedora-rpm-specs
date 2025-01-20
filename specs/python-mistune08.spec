@@ -5,7 +5,7 @@ The fastest markdown parser in pure Python, inspired by marked.}
 
 Name:           python-mistune08
 Version:        0.8.4
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Markdown parser for Python 
 
 License:        BSD
@@ -62,6 +62,9 @@ Provides:       deprecated()
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:		perl-Maypole
 Version:	2.13
-Release:	44%{?dist}
+Release:	45%{?dist}
 Epoch:		1
 Summary:	MVC web application framework
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -64,6 +64,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.13-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 1:2.13-44
 - convert license to SPDX
 

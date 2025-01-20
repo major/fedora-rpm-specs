@@ -5,7 +5,7 @@
 
 Name:           python-%{modname}
 Version:        0.7.3
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        %{sum}
 
 # setup.py mentions BSD license
@@ -126,6 +126,9 @@ popd
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.7.3-25
 - convert license to SPDX
 

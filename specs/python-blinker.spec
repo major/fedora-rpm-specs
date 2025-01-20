@@ -2,7 +2,7 @@
 
 Name:           python-blinker
 Version:        1.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast, simple object-to-object and broadcast signaling
 
 License:        MIT
@@ -49,6 +49,9 @@ mv requirements/tests.in requirements/tests.txt
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Nov 12 2024 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.9.0-1
 - Bump to blinker 1.9.0 (fixes RHBZ#2183824)
 

@@ -3,7 +3,7 @@
 Summary:	Making C extensions for Ruby a bit easier
 Name:		rubygem-%{gem_name}
 Version:	0.2.3
-Release:	31%{?dist}
+Release:	32%{?dist}
 
 # lib/mkrf/availability.rb		Ruby OR GPL-2.0-only
 # Others	MIT
@@ -89,6 +89,9 @@ popd
 %{gem_docdir}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

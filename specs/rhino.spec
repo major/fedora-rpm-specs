@@ -4,7 +4,7 @@
 
 Name:           rhino
 Version:        1.7.14
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Rhino
 
 # rhino itself is MPLv2.0 but use other codes, breakdown:
@@ -285,6 +285,9 @@ install -m 644 man/%{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 %doc README.md CODE_OF_CONDUCT.md RELEASE-NOTES.md
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.14-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Nov 01 2024 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 1.7.14-13
 - Remove snakeyaml (test deps) since it's orphaned
 

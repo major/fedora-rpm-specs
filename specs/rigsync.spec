@@ -6,7 +6,7 @@
 
 Name:		rigsync
 Version:	0~%{git_suffix}
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Rigsync keeps multiple rigs frequency and mode in sync using Hamlib
 License:	LGPL-2.1-only
 URL:		https://github.com/daveriesz/%{name}
@@ -39,6 +39,9 @@ install -Dp %{name} %{buildroot}%{_bindir}/%{name}
 %{_bindir}/rigsync
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0~20230612gitb320c4d9-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 31 2024 Richard Shaw <hobbes1069@gmail.com> - 0~20230612gitb320c4d9-5
 - Rebuild for Hamlib 4.6.
 

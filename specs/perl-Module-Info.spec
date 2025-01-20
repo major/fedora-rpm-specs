@@ -1,6 +1,6 @@
 Name:           perl-Module-Info
 Version:        0.39
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Information about Perl modules
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Info
@@ -72,6 +72,9 @@ make test
 %{_mandir}/man3/Module*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.39-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Jitka Plesnikova <jplesnik@redhat.com> - 0.39-1
 - 0.39 bump (rhbz#2308339)
 

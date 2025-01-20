@@ -2,7 +2,7 @@
 
 Name:		perl-Test-Kwalitee-Extra
 Version:	0.4.0
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	Run Kwalitee tests including optional indicators
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-Kwalitee-Extra
@@ -92,6 +92,9 @@ mv ./{01-kwalitee,04-prereq_maches_use,05-build_prereq_matches_use,06-minperlver
 %{_mandir}/man3/Test::Kwalitee::Extra.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -20,7 +20,7 @@ Version:            3.18.0
 %bcond_without tests
 
 Name:           python-%{pypi_name}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Manipulate DNS records on various DNS providers in a standardized/agnostic way
 
 License:        MIT
@@ -221,6 +221,9 @@ rm -rf %{buildroot}%{python3_sitelib}/lexicon/tests
 # }}}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.18.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Nov 23 2024 Ben Maconi <turboben@fedoraproject.org> - 3.18.0-1
 - Updated to 3.18.0
 

@@ -17,15 +17,18 @@ URL: http://www.nico.schottelius.org/software/gpm/
 
 Source: %{name}-%{version}.tar.xz
 Source1: gpm.service
-Patch0: https://github.com/telmich/gpm/compare/1.20.7...e82d1a653ca94aa4ed12441424da6ce780b1e530.diff
-Patch1: gpm-1.20.6-multilib.patch
-Patch2: gpm-1.20.1-lib-silent.patch
-Patch4: gpm-1.20.5-close-fds.patch
-Patch5: gpm-1.20.1-weak-wgetch.patch
-Patch7: gpm-1.20.7-rhbz-668480-gpm-types-7-manpage-fixes.patch
+Patch:  https://github.com/telmich/gpm/compare/1.20.7...e82d1a653ca94aa4ed12441424da6ce780b1e530.diff
+Patch:  gpm-1.20.6-multilib.patch
+Patch:  gpm-1.20.1-lib-silent.patch
+Patch:  gpm-1.20.5-close-fds.patch
+Patch:  gpm-1.20.1-weak-wgetch.patch
+Patch:  gpm-1.20.7-rhbz-668480-gpm-types-7-manpage-fixes.patch
+Patch:  0001-src-daemon-remove-obvious-use-of-unitialized-data.patch
+Patch:  0002-src-daemon-reindent-switch-statement-to-avoid-compil.patch
+Patch:  0003-configure-drop-broken-configure-code.patch
 
 # Disabled, need to be reviewed
-Patch9: gpm-1.20.6-capability.patch
+# Patch: gpm-1.20.6-capability.patch
 
 Requires(post): info
 Requires(preun): info
@@ -71,17 +74,10 @@ mouse support to text-based Linux applications.
 
 
 %prep
-%setup -q
-
-%patch -P0 -p1 -b .master
-%patch -P1 -p1 -b .multilib
-%patch -P2 -p1 -b .lib-silent
-%patch -P4 -p1 -b .close-fds
-%patch -P5 -p1 -b .weak-wgetch
-%patch -P7 -p1
-#patch9 -p1 -b .capability
+%autosetup -p1
 
 %build
+export CFLAGS="$CFLAGS -std=gnu17 -Wno-unused-result -Wno-sign-compare -Wno-pointer-sign"
 ./autogen.sh
 %configure
 %make_build
@@ -134,8 +130,10 @@ rm -rf %{buildroot}%{_mandir}
 %ifnarch s390 s390x
 %config(noreplace) %{_sysconfdir}/gpm-*
 %{_unitdir}/gpm.service
-%{_sbindir}/*
 %{_bindir}/*
+%if "%{_sbindir}" != "%{_bindir}"
+%{_sbindir}/*
+%endif
 %{_mandir}/man?/*
 %endif
 

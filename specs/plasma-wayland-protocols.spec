@@ -3,7 +3,7 @@
 
 Name:    plasma-wayland-protocols
 Version: 1.16.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Plasma Specific Protocols for Wayland
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-or-later AND MIT-CMU
@@ -50,6 +50,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 09 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1.16.0-1
 - 1.16.0
 

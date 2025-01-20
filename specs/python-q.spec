@@ -2,7 +2,7 @@
 
 Name:           python-%{modname}
 Version:        2.6
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Quick and dirty python debugging output
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -57,6 +57,9 @@ Python 3 version.
 %{python3_sitelib}/__pycache__/%{modname}.*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 2.6-32
 - convert license to SPDX
 

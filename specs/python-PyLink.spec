@@ -2,7 +2,7 @@
 
 Name:           python-PyLink
 Version:        0.3.2
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Universal communication interface using File-Like API
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -58,6 +58,9 @@ rm -rf *.egg-info
 %{python3_sitelib}/pylink/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.3.2-31
 - convert license to SPDX
 

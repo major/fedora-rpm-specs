@@ -4,7 +4,7 @@
 Summary:        Perl module for context-sensitive phonetic string replacement
 Name:           perl-ccom
 Version:        1.4.1
-Release:        49%{?dist}
+Release:        50%{?dist}
 License:        LGPL-2.0-or-later
 URL:            https://www.heise.de/ct/ftp/99/25/252/
 Source0:        https://ftp.heise.de/ct/listings/phonet.tgz
@@ -69,6 +69,9 @@ rm -f $RPM_BUILD_ROOT%{perl_vendorarch}/ccom_test.pl
 %{perl_vendorarch}/*.pm
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-50
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

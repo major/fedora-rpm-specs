@@ -7,7 +7,7 @@
 Name:    qca-qt4
 Summary: Qt4 Cryptographic Architecture
 Version: 2.2.1
-Release: 25%{?dist}
+Release: 26%{?dist}
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
@@ -210,6 +210,9 @@ Requires: qca%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.2.1-25
 - convert license to SPDX
 

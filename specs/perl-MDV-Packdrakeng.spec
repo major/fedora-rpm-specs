@@ -1,6 +1,6 @@
 Name:           perl-MDV-Packdrakeng
 Version:        1.13
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Simple Archive Extractor/Builder
 License:        GPL-2.0-or-later
 URL:            https://metacpan.org/release/MDV-Packdrakeng
@@ -47,6 +47,9 @@ make test
 %{_mandir}/man3/MDV::Packdrakeng*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

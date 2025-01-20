@@ -7,7 +7,7 @@
 
 Name:           python-%{srcname}
 Version:        1.33.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Python module for operating OpenStack clouds
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -85,6 +85,9 @@ ln -s shade-inventory-3 \
 %{_bindir}/shade-inventory
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.33.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 1.33.0-15
 - convert license to SPDX
 

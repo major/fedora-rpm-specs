@@ -4,7 +4,7 @@
 Name:	 qtchooser
 Summary: Wrapper to select between Qt development binary versions
 Version: 39
-Release: 32%{?dist}
+Release: 33%{?dist}
 
 # Automatically converted from old format: LGPLv2 or GPLv3 - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2 OR GPL-3.0-only
@@ -127,6 +127,9 @@ make check
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 39-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 39-32
 - convert license to SPDX
 

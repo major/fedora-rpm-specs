@@ -1,6 +1,6 @@
 Name:		recutils
 Version:	1.9
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	A set of tools to access GNU recfile databases
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -103,6 +103,9 @@ chrpath --delete %{buildroot}%{_bindir}/*
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.9-10
 - convert license to SPDX
 

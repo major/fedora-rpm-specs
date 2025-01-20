@@ -1,6 +1,6 @@
 Name:      robotfindskitten
 Version:   2.8284271.702
-Release:   13%{?dist}
+Release:   14%{?dist}
 Summary:   A game/zen simulation. You are robot. Your job is to find kitten.
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -46,6 +46,9 @@ rm -f $RPM_BUILD_ROOT/%{_infodir}/dir
 %{_datadir}/man/man6/robotfindskitten.6*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8284271.702-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.8284271.702-13
 - convert license to SPDX
 

@@ -2,7 +2,7 @@
 Name: phpldapadmin
 Summary: Web-based tool for managing LDAP servers
 Version: 1.2.6.6
-Release: 6%{?dist}
+Release: 7%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: https://www.phpldapadmin.org
@@ -126,6 +126,9 @@ fi
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6.6-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2.6.6-6
 - convert license to SPDX
 

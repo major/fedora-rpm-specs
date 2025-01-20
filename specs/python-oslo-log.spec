@@ -27,7 +27,7 @@ Tests for the Oslo Log handling library.
 
 Name:           python-oslo-log
 Version:        6.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OpenStack Oslo Log library
 
 License:        Apache-2.0
@@ -174,6 +174,9 @@ rm -f oslo_log/tests/unit/test_pipe_mutex.py
 %license LICENSE
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 08 2024 Joel Capitao <jcapitao@redhat.com> 6.1.2-1
 - Update to upstream version 6.1.2
 

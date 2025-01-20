@@ -1,6 +1,6 @@
 Name:           perl-Math-PlanePath
 Version:        129
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Mathematical paths through the 2-D plane
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -91,6 +91,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 129-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 129-13
 - convert license to SPDX
 

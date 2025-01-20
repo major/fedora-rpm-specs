@@ -4,7 +4,7 @@
 
 Name:           perl-Net-RDAP
 Version:        0.33
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Interface to the Registration Data Access Protocol (RDAP)
 # LICENSE:      BSD-2-Clause
 License:        BSD-2-Clause
@@ -113,6 +113,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.33-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Oct 16 2024 Petr Pisar <ppisar@redhat.com> - 0.33-1
 - 0.33 bump
 

@@ -5,7 +5,7 @@
 
 Name:           python-%{pkgname}
 Version:        0.9.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Boolean operations on paths
 
 License:        MIT
@@ -74,6 +74,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %{python3_sitelib}/%{srcname}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

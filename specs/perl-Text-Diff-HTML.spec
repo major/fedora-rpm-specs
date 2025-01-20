@@ -1,6 +1,6 @@
 Name:           perl-Text-Diff-HTML
 Version:        0.08
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        XHTML format for Text::Diff::Unified
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -50,6 +50,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/Text::Diff::HTML.3pm*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.08-19
 - convert license to SPDX
 

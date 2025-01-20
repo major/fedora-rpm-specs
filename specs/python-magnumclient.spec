@@ -24,7 +24,7 @@ command-line tool (magnum).
 
 Name:           python-%{pname}
 Version:        4.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Client library for Magnum API
 
 License:        Apache-2.0
@@ -153,6 +153,9 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 %{python3_sitelib}/%{pname}/tests
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Oct 07 2024 Joel Capitao <jcapitao@redhat.com> 4.7.0-1
 - Update to upstream version 4.7.0
 

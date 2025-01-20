@@ -7,7 +7,7 @@
 Summary:    Qt library to start applications only once per user
 Name:       qtsingleapplication
 Version:    2.6.1
-Release:    50%{?dist}
+Release:    51%{?dist}
 
 License:    GPLv3 or LGPLv2 with exceptions
 URL:        http://doc.qt.digia.com/solutions/4/qtsingleapplication/qtsingleapplication.html
@@ -344,6 +344,9 @@ install -p -m644 qt6/*.prf %{buildroot}%{_qt6_archdatadir}/mkspecs/features
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-51
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

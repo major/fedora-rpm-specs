@@ -3,7 +3,7 @@
 Name:           perl-Test-Differences
 %global cpan_version 0.71
 Version:        %(LANG=C printf "%.4f" %{cpan_version})
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Test strings and data structures and show differences if not OK
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Differences
@@ -63,6 +63,9 @@ make test
 %{_mandir}/man3/Test::Differences.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7100-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 20 2024 Michal Josef Špaček <mspacek@redhat.com> - 0.7100-5
 - Fix version handling for build with different locales set
   `printf "%.4f" 0.71` has different results e.g. for cs_CZ.UTF-8 vs C

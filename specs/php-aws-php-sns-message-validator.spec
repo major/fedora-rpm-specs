@@ -40,7 +40,7 @@
 
 Name:          php-%{composer_project}
 Version:       %{github_version}
-Release:       12%{?github_release}%{?dist}
+Release:       13%{?github_release}%{?dist}
 Summary:       Amazon SNS message validation
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -172,6 +172,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 1.6.0-12
 - convert license to SPDX
 

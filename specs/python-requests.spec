@@ -7,7 +7,7 @@
 
 Name:           python-requests
 Version:        2.32.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        HTTP library, written in Python, for human beings
 
 License:        Apache-2.0
@@ -103,6 +103,9 @@ sed -i 's/ --doctest-modules//' pyproject.toml
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.32.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Aug 01 2024 Adam Williamson <awilliam@redhat.com> - 2.32.3-3
 - Backport PR #6781 to fix crash on import if CA cert bundle is missing (#2297632)
 

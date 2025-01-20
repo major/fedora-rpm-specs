@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.5.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python API client for interacting with dingz devices
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -52,6 +52,9 @@ CLI tool to interact with dingz devices.
 %{_bindir}/%{pypi_name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5.0-9
 - convert license to SPDX
 

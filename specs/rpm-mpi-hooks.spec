@@ -1,6 +1,6 @@
 Name:           rpm-mpi-hooks
 Version:        8
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        RPM dependency generator hooks for MPI packages
 
 License:        MIT
@@ -46,6 +46,9 @@ install -Dpm 0755 %{SOURCE3} %{buildroot}%{_rpmconfigdir}/mpi.req
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 31 2024 Sandro Mani <manisandro@gmail.com> - 8-10
 - Switch require from environment(modules) to environment-modules
 

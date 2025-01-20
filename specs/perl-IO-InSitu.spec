@@ -1,6 +1,6 @@
 Name:		perl-IO-InSitu
 Version:	0.0.2
-Release:	43%{?dist}
+Release:	44%{?dist}
 Summary:	Avoid clobbering files opened for both input and output
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -54,6 +54,9 @@ rm -rf %{buildroot}
 %{_mandir}/man3/IO::InSitu.3pm*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.0.2-43
 - convert license to SPDX
 

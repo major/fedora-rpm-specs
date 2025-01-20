@@ -10,7 +10,7 @@ support the Transifex service for translation with Sphinx (not packaged yet).
 
 Name:           python-%{pypi_name}
 Version:        2.2.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Sphinx utility that make it easy to translate and to apply translation
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -90,6 +90,9 @@ rm tests/test_*transifex*.py
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.2.0-3
 - convert license to SPDX
 

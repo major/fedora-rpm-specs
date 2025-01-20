@@ -1,7 +1,7 @@
 Name:           python-resultsdb_api
 # NOTE: if you update version, *make sure* to also update `setup.py`
 Version:        2.1.5
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Interface api to ResultsDB
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -54,6 +54,9 @@ Python3 interface to resultsdb.
 %{python3_sitelib}/resultsdb_api-%{version}*.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.5-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.1.5-14
 - convert license to SPDX
 

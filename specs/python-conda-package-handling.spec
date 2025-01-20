@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        2.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Create and extract conda packages of various formats
 
 License:        BSD-3-Clause
@@ -52,6 +52,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version} -v tests
 %{python3_sitelib}/%{pkgname}/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 18 2024 Orion Poplawski <orion@nwra.com> - 2.4.0-1
 - Update to 2.4.0
 

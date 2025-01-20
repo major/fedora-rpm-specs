@@ -1,6 +1,6 @@
 Name:           quotatool
 Version:        1.6.2
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Command-line utility for filesystem quotas
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -45,6 +45,9 @@ mkdir -p %{buildroot}%{_mandir}/man8
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.6.2-27
 - convert license to SPDX
 

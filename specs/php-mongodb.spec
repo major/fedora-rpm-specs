@@ -24,7 +24,7 @@
 
 Name:           php-%{gh_owner}
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MongoDB driver library
 
 License:        Apache-2.0
@@ -194,6 +194,9 @@ exit $ret
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 25 2024 Remi Collet <remi@remirepo.net> - 1.20.0-1
 - update to 1.20.0
 - drop docs

@@ -3,7 +3,7 @@
 
 Name:          python-%{srcname}
 Version:       1.1.4
-Release:       11%{?dist}
+Release:       12%{?dist}
 Summary:       Show in File Manager is a Python package to open the system file manager and optionally select files in it.
 
 License:       MIT
@@ -42,6 +42,9 @@ BuildRequires: python3-setuptools
 %{python3_sitelib}/show_in_file_manager-*.egg-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

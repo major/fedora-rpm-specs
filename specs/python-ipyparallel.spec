@@ -1,6 +1,6 @@
 Name:		python-ipyparallel
 Version:	9.0.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Interactive Parallel Computing with IPython
 
 License:	BSD-3-Clause
@@ -108,6 +108,9 @@ mv %{buildroot}%{_prefix}%{_sysconfdir} %{buildroot}%{_sysconfdir}
 %{python3_sitelib}/ipyparallel/tests
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 10 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 9.0.0-3
 - Drop spurious dependency on python3-zmq-tests
 

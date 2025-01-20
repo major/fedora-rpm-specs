@@ -1,6 +1,6 @@
 Name:           perl-Net-AMQP
 Version:        0.06
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Advanced Message Queue Protocol (de)serialization and representation
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -65,6 +65,9 @@ TCP/IP communication.
 %{_mandir}/man3/Net*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.06-17
 - convert license to SPDX
 

@@ -5,7 +5,7 @@ Version:        1.5.1
 %forgemeta
 
 Name:           python-%{srcname}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for reading and writing a variety of embroidery formats
 
 License:        MIT
@@ -61,6 +61,9 @@ sed -i 's/\r$//' README.md
 %exclude %{python3_sitelib}/test
  
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Oct 20 2024 Benson Muite <benson_muite@emailplus.org> - 1.5.1-1
 - Upgrade to 1.5.1
 

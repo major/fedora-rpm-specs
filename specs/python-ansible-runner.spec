@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.4.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A tool and python library to interface with Ansible
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -102,6 +102,9 @@ ln -s ansible-runner-%{python3_version} %{buildroot}/%{_bindir}/ansible-runner-3
 %{_bindir}/ansible-runner
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Sep 17 2024 Tomáš Hrnčiar <thrnciar@redhat.com> - 2.4.0-6
 - Bump setuptools and setuptools_scm
 

@@ -7,7 +7,7 @@
 
 Name:           python-%{srcname}
 Version:        1.21
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Font Querying tool for Fedora
 License:        MIT
 URL:            https://github.com/fedora-i18n/fontquery
@@ -82,6 +82,9 @@ This package contains the image build tools for %{srcname}.
 %{_bindir}/fontquery-build
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.21-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 11 2024 Akira TAGOH <tagoh@redhat.com> - 1.21-2
 - Add missing dependency of git-core.
 

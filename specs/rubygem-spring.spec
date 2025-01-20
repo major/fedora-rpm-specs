@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 4.1.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Rails application preloader
 License: MIT
 URL: https://github.com/rails/spring
@@ -80,6 +80,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

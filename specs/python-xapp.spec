@@ -1,6 +1,6 @@
 Name:           python-xapp
 Version:        2.4.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python bindings for xapps
 
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
@@ -49,6 +49,9 @@ Requires:      xapps
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.4.2-4
 - convert license to SPDX
 

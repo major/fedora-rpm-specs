@@ -10,7 +10,7 @@
 
 Name:           python-%{modname}
 Version:        0.5.0
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Assorted utilities for neuroimaging and cognitive science
 
 # moss/external/mvpasurf.py is MIT
@@ -103,6 +103,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version} -v
 %{python3_sitelib}/%{modname}*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5.0-25
 - convert license to SPDX
 

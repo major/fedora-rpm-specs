@@ -4,7 +4,7 @@
 
 Name:           python-deepdiff
 Version:        8.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Deep Difference and search of any Python object/data
 
 License:        MIT
@@ -117,6 +117,9 @@ rm -rf docs/_build/html/.{doctrees,buildinfo}
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Oct 30 2024 Karolina Surma <ksurma@redhat.com> - 8.0.1-1
 - Update to 8.0.1.
 

@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.8
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        A Coffescript Object Notation (CSON) parser for Python 2 and Python 3
 License:        MIT
 URL:            https://github.com/avakar/pycson
@@ -65,6 +65,9 @@ A python parser for the Coffeescript Object Notation (CSON).
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

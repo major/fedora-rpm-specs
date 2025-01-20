@@ -1,6 +1,6 @@
 Name:           perl-Module-Install-TestML
 Version:        0.02
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Module::Install support for TestML
 # The URL to Artistic license is wrong,
 # <https://github.com/ingydotnet/module-install-testml-pm/issues/1>
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.02-31
 - convert license to SPDX
 

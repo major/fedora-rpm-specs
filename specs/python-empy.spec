@@ -3,7 +3,7 @@
 
 Name:           python-empy
 Version:        4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -45,6 +45,9 @@ text; it takes an EmPy source file, processes it, and produces output.
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 16 2024 Filipe Rosset <rosset.filipe@gmail.com> - 4.2-1
 - Update to 4.2 fixes rhbz#2307819
 

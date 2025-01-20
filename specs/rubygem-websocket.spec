@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.2.11
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Universal Ruby library to handle WebSocket protocol
 License: MIT
 URL: http://github.com/imanel/websocket-ruby
@@ -67,6 +67,9 @@ popd
 %{gem_instdir}/websocket.gemspec
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 09 2024 Vít Ondruch <vondruch@redhat.com> - 1.2.11-1
 - Update to WebSocket Ruby 1.2.11.
   Resolves: rhbz#2239602

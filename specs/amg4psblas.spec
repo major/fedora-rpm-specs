@@ -37,10 +37,8 @@ ExcludeArch: %{ix86}
 
 Name: amg4psblas
 Summary: Algebraic Multigrid Package based on PSBLAS
-
-# Mixed Source Licensing
 Version: %{major_minor}.2
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: MIT-CMU AND BSD-3-Clause
 URL: https://psctoolkit.github.io/products/amg4psblas/
 Source0: https://github.com/sfilippone/amg4psblas/archive/V%{version}%{?postrelease_version}/amg4psblas-%{version}%{?postrelease_version}.tgz
@@ -213,7 +211,7 @@ cd serial-build
 
 export LIBBLAS=-l%{blaslib}
 export INCBLAS=-I%{_includedir}/%{blaslib}
-export FCFLAGS="%{?fc_optflags} %{__global_ldflags} -fPIC"
+export FCFLAGS="%{?fc_optflags} -fdec-blank-format-item %{__global_ldflags} -fPIC"
 
 %if %{with debug}
 ./configure_n --enable-serial --with-fcopt="-O0 -g -fPIC -I%{_fmoddir}" --with-ccopt="-O0 -g -fPIC" \
@@ -260,7 +258,7 @@ export CXX=mpic++
 export FC=mpifort
 export LIBBLAS=-l%{blaslib}
 export INCBLAS=-I%{_includedir}/%{blaslib}
-export FCFLAGS="%{?fc_optflags} %{__global_ldflags} -lstdc++ -fPIC"
+export FCFLAGS="%{?fc_optflags} -fdec-blank-format-item %{__global_ldflags} -lstdc++ -fPIC"
 
 %if %{with debug}
 ./configure --with-fcopt="-O0 -g -fPIC -I${MPI_FORTRAN_MOD_DIR} $INCBLAS" --with-ccopt="-O0 -g -fPIC $INCBLAS" \
@@ -312,7 +310,7 @@ export CXX=mpic++
 export FC=mpif90
 export LIBBLAS=-l%{blaslib}
 export INCBLAS=-I%{_includedir}/%{blaslib}
-export FCFLAGS="%{?fc_optflags} %{__global_ldflags} -lstdc++ -fPIC"
+export FCFLAGS="%{?fc_optflags} -fdec-blank-format-item %{__global_ldflags} -lstdc++ -fPIC"
 
 %if %{with debug}
 ./configure --with-fcopt="-O0 -g -fPIC -I${MPI_FORTRAN_MOD_DIR} $INCBLAS" --with-ccopt="-O0 -g -fPIC $INCBLAS" \
@@ -506,6 +504,9 @@ popd
 %license serial-build/LICENSE
 
 %changelog
+* Sat Jan 18 2025 Antonio Trande <sagitter@fedoraproject.org> - 1.1.2-8
+- Fix GCC15 builds
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:          python-%{modname}
 Version:       0.6.5
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       Lightweight way of building RPMs, and sabotaging them
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -54,6 +54,9 @@ python3 -m unittest %{modname}.test
 %{python3_sitelib}/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.6.5-4
 - convert license to SPDX
 

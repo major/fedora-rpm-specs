@@ -1,6 +1,6 @@
 Name:           perl-XML-Merge 
 Version:        1.4
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Flexibly merge XML documents
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -73,6 +73,9 @@ make test
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.4-25
 - convert license to SPDX
 

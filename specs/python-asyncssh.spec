@@ -6,7 +6,7 @@ SFTP, SCP, forwarding, session multiplexing over a connection and more.
 
 Name:           python-%{srcname}
 Version:        2.19.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Asynchronous SSH for Python
 
 # Automatically converted from old format: EPL-2.0 or GPLv2+ - review is highly recommended.
@@ -71,6 +71,9 @@ sed -i '1,1s@^#!.*$@#!%{__python3}@' examples/*.py
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.19.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Jan 12 2025 Georg Sauthoff <mail@gms.tf> - 2.19.0-1
 - Update to latest upstream version (fixes fedora#2321945)
 

@@ -2,7 +2,7 @@
 
 Name:           python-imagecodecs
 Version:        2023.1.23
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Image transformation, compression, and decompression codecs
 
 License:        BSD-3-Clause
@@ -279,6 +279,9 @@ TEST_OPTS=(
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2023.1.23-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Sep 10 2024 Zbigniew Jedrzejewski-Szmek <zbyszek@in.waw.pl> - 2023.1.23-4
 - Rebuilt for blosc2-2.15.1-1
 

@@ -81,9 +81,9 @@ rm -rf html/.{doctrees,buildinfo}
 # Overriding --import-mode because it was picking up `jaraco.packaging` as `packaging`
 # metadata.hunt_down_url, print-metadata.main: tests run `pip install` without `--no-build-isolation`
 # sphinx._load_metadata_from_wheel: test runs `pip download`
-%pytest --import-mode prepend -k "not (jaraco.packaging.metadata.hunt_down_url \
-or jaraco.packaging.print-metadata.main \
-or jaraco.packaging.sphinx._load_metadata_from_wheel)"
+%pytest --import-mode prepend -k "not (packaging.metadata.hunt_down_url \
+or packaging.print-metadata.main \
+or packaging.sphinx._load_metadata_from_wheel)"
 
 
 %files -n python3-jaraco

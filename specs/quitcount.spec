@@ -1,6 +1,6 @@
 Name:           quitcount
 Version:        3.1.3
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        A tool for people who quit smoking
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -46,6 +46,9 @@ desktop-file-install                                        \
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.3-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 3.1.3-25
 - convert license to SPDX
 

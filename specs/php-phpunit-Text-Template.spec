@@ -16,7 +16,7 @@
 
 Name:           php-phpunit-Text-Template
 Version:        1.2.1
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Simple template engine
 
 License:        BSD-3-Clause
@@ -76,6 +76,9 @@ fi
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:               python-zc-customdoctests
 Version:            1.0.1
-Release:            40%{?dist}
+Release:            41%{?dist}
 Summary:            Use doctest with other languages
 License:            ZPL-2.1
 URL:                http://pypi.python.org/pypi/zc.customdoctests
@@ -72,6 +72,9 @@ rm -rf %{modname}.egg-info
 %{python3_sitelib}/%{modname}-%{version}-*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 29 2024 Fabian Affolter <mail@fabian-affolter.ch> - 1.0.1-40
 - Switch to pytest (closes rhbz#2319740)
 

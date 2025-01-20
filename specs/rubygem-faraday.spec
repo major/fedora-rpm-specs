@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.0.1
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: HTTP/REST API client library
 License: MIT
 URL: https://lostisland.github.io/faraday
@@ -116,6 +116,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec 04 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.1-15
 - Use upstreamed patch for ruby34 formatting change
 

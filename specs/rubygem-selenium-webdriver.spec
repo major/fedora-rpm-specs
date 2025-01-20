@@ -4,7 +4,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 4.27.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Selenium is a browser automation tool for automated testing of webapps and more
 License: Apache-2.0
 URL: https://selenium.dev
@@ -148,6 +148,9 @@ popd
 %{gem_instdir}/selenium-webdriver.gemspec
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.27.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 02 2025 Vít Ondruch <vondruch@redhat.com> - 4.27.0-2
 - Disable ppc64le support due to missing chromium-headless.
 

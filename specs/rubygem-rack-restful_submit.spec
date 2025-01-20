@@ -4,7 +4,7 @@
 Summary: Allows RESTful routing without Javascript and multiple submit buttons
 Name: rubygem-%{gem_name}
 Version: 1.2.2
-Release: 26%{?dist}
+Release: 27%{?dist}
 License: MIT
 URL: https://github.com/martincik/%{gem_name}
 Source0: http://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -75,6 +75,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

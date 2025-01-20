@@ -8,7 +8,7 @@
 Summary:        AMD Radeon video cards monitoring utility
 Name:           radeontop
 Version:        1.4
-Release:        10%{?dist}
+Release:        11%{?dist}
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
 URL:            https://github.com/clbr/%{name}
@@ -62,6 +62,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.metai
 %{_metainfodir}/%{name}.metainfo.xml
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.4-10
 - convert license to SPDX
 

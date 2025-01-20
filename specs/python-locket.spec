@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        File-based locks for Python for Linux and Windows
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -78,6 +78,9 @@ module in the standard library. Specifically, their behaviour is:
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.0-11
 - convert license to SPDX
 

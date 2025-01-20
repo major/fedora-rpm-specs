@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.15.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Library for handling computation with address ranges in bytes
 
 License:        LGPL-2.1-or-later
@@ -44,6 +44,9 @@ rm -rf justbytes.egg-info
 %{python3_sitelib}/justbytes-%{version}-*.egg-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

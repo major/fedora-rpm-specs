@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 Version:    2.3.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 URL:        https://gitlab.com/rit-fonts/Sundar
 
 %global foundry RIT
@@ -45,6 +45,9 @@ Source0:    %{fontsource}-%{version}.zip
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Aug 25 2024 Rajeesh K V <rajeeshknambiar@gmail.com> - 2.3.1-1
 - New release 2.3.1
 

@@ -1,6 +1,6 @@
 Name:           python-openid-teams
 Version:        1.1
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Teams extension for python-openid
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -49,6 +49,9 @@ This package includes the python 3 version of the module.
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1-34
 - convert license to SPDX
 

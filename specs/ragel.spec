@@ -2,7 +2,7 @@
 
 Name:           ragel
 Version:        7.0.4
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Finite state machine compiler
 
 # aapl/ is the LGPLv2+
@@ -77,6 +77,9 @@ install -p -m 0644 -D %{name}.vim %{buildroot}%{_datadir}/vim/vimfiles/syntax/%{
 %{_datadir}/vim/vimfiles/syntax/%{name}.vim
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.4-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 7.0.4-6
 - convert license to SPDX
 

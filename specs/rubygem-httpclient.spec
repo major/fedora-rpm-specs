@@ -12,7 +12,7 @@
 Summary:        HTTP Client interface for ruby
 Name:           rubygem-%{gem_name}
 Version:        2.8.3
-Release:        14%{?dist}
+Release:        15%{?dist}
 # httpclient is licensed under Ruby license from 2003 or later.
 License:        Ruby
 URL:            https://github.com/nahi/httpclient
@@ -115,6 +115,9 @@ popd
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.3-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Nov 20 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.8.3-14
 - Add BR: rubygem(mutex_m) explicitly
 

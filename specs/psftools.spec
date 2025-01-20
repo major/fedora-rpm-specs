@@ -1,6 +1,6 @@
 Name:		psftools
 Version:	1.0.10
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	Conversion tools for .PSF fonts
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -41,6 +41,9 @@ make %{?_smp_mflags}
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.10-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.10-16
 - convert license to SPDX
 

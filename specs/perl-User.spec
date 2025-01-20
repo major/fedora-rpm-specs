@@ -1,6 +1,6 @@
 Name:           perl-User
 Version:        1.9
-Release:        41%{?dist}
+Release:        42%{?dist}
 
 Summary:        API for locating user information regardless of OS
 
@@ -57,6 +57,9 @@ make test
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 1.9-41
 - convert license to SPDX
 

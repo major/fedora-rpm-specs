@@ -1,7 +1,7 @@
 %global enable_net_tests 0
 Name:           perl-YUM-RepoQuery
 Version:        0.002
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Query a YUM repository for package information
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -68,6 +68,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.002-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.002-36
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:       onnx
 Version:    1.17.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Open standard for machine learning interoperability
 License:    Apache-2.0
 
@@ -17,6 +17,10 @@ Patch4:     0004-Add-fixes-for-use-with-onnxruntime.patch
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=2212096
 ExcludeArch:    s390x
+%if %{undefined fc40} && %{undefined fc41}
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+%endif
 
 BuildRequires:  cmake >= 3.13
 BuildRequires:  make
@@ -118,6 +122,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %{_bindir}/check-node
 
 %changelog
+* Sat Jan 18 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1.17.0-3
+- Drop i686 support (leaf package on that architecture)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

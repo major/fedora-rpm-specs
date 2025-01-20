@@ -2,7 +2,7 @@
 
 Name:           %{pypi_name}
 Version:        3.0.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        ReStructuredText viewer
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -57,6 +57,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 3.0.0-9
 - convert license to SPDX
 

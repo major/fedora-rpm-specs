@@ -1,6 +1,6 @@
 Name:           quesoglc
 Version:        0.7.2
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        The OpenGL Character Renderer
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -80,6 +80,9 @@ rm %{buildroot}%{_libdir}/libGLC.la
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.7.2-41
 - convert license to SPDX
 

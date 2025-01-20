@@ -23,7 +23,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_name}
 Version:        4.7.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library for generating and working with UUIDs
 
 License:        MIT
@@ -170,6 +170,9 @@ exit $ret
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

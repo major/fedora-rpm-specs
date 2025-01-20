@@ -10,7 +10,7 @@
 
 Name: gnustep-base
 Version: 1.30.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPL-3.0-or-later and LGPL-2.0-or-later
 Summary: GNUstep Base library package
 URL: http://www.gnustep.org/
@@ -101,6 +101,7 @@ mv ChangeLog.2.utf8 ChangeLog.2
 %build
 ffi_include=$(pkg-config --cflags-only-I libffi | sed -e 's/^\-\I//')
 export LDFLAGS="%{__global_ldflags}"
+export CFLAGS="%{optflags} -std=gnu17"
 %gnustep_configure --disable-ffcall --with-ffi-include=$ffi_include
 
 %gnustep_make -n
@@ -171,6 +172,9 @@ export GNUSTEP_CONFIG_FILE=$(pwd)/GNUstep.conf
 %{_datadir}/GNUstep/Documentation/*
 
 %changelog
+* Sat Jan 18 2025 Antonio Trande <sagitter@fedoraproject.org> - 1.30.0-7
+- Fix GCC15 builds
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.30.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

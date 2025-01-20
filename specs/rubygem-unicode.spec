@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        0.4.4.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Unicode normalization library for Ruby
 License:        Ruby
 URL:            https://github.com/blackwinter/unicode
@@ -75,6 +75,9 @@ popd
 %{gem_instdir}/unicode.gemspec
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.4.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 08 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.4.4.5-2
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.4
 

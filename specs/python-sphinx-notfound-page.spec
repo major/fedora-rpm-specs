@@ -7,7 +7,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Create a custom 404 page with absolute URLs hardcoded
 
 License:        MIT
@@ -57,6 +57,9 @@ BuildArch:      noarch
 %doc README.rst CHANGELOG.rst docs
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jan 04 2025 Kevin Fenzi <kevin@scrye.com> - 1.0.4-1
 - Update to 1.0.4. Fixes rhbz#2330153
 

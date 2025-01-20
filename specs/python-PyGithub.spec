@@ -7,7 +7,7 @@
 
 Name:           python-%{srcname}
 Version:        2.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library to work with the Github API
 License:        LGPL-3.0-or-later
 URL:            https://github.com/PyGithub/PyGithub
@@ -65,6 +65,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %doc README.md
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 14 2025 Sandro <devel@penguinpee.nl> - 2.5.0-1
 - Update to 2.5.0 (RHBZ#2307832)
 - Don't run coverage

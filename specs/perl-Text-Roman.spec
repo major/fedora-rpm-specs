@@ -1,6 +1,6 @@
 Name:           perl-Text-Roman
 Version:        3.5
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Conversion between Roman algorisms and Arabic numerals
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -50,6 +50,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 3.5-29
 - convert license to SPDX
 

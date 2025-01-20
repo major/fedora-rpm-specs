@@ -2,7 +2,7 @@
 
 Name:     rubygem-%{gem_name}
 Version:  2.0.0
-Release:  12%{?dist}
+Release:  13%{?dist}
 Summary:  Generate private/public SSH key-pairs using pure Ruby
 License:  MIT
 URL:      https://github.com/bensie/sshkey
@@ -73,6 +73,9 @@ popd
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

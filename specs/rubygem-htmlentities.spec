@@ -7,7 +7,7 @@
 Summary:	A module for encoding and decoding (X)HTML entities
 Name:		rubygem-%{gem_name}
 Version:	4.3.4
-Release:	19%{?dist}
+Release:	20%{?dist}
 License:	MIT
 URL:		https://github.com/threedaymonk/htmlentities
 Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -81,6 +81,9 @@ ruby -Ilib:. -e 'Dir.glob("test/*.rb").each{|f| require f}'
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.4-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.4-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

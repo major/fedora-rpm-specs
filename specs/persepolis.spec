@@ -1,6 +1,6 @@
 Name:           persepolis
 Version:        4.1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A powerful download manager powered by aria2
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -67,6 +67,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 4.1.0-4
 - convert license to SPDX
 

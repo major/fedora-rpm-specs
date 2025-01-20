@@ -1,7 +1,7 @@
 Name:    pulseaudio-qt
 Summary: Qt bindings for PulseAudio
 Version: 1.7.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: CC0-1.0 AND LGPL-2.1-only AND LGPL-3.0-only
 URL:     https://invent.kde.org/libraries/pulseaudio-qt
@@ -65,6 +65,9 @@ rm %{buildroot}%{_kf6_includedir}/pulseaudioqt_version.h
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 09 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1.7.0-1
 - 1.7.0
 - Drop qt5 subpackages as upstream dropped support for it

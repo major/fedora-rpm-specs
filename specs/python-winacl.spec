@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.1.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python ACL/ACE/Security Descriptor manipulation library
 
 License:        MIT
@@ -38,6 +38,9 @@ Platform independent library for interfacing windows security descriptors.
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Sep 26 2024 Fabian Affolter <mail@fabian-affolter.ch> - 0.1.9-1
 - Update to new upstream version (closes rhbz#2034821)
 

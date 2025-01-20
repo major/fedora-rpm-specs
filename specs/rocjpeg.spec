@@ -14,7 +14,7 @@
 
 Name:           rocjpeg
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A high-performance jpeg decode library for AMD’s GPUs
 
 Url:            https://github.com/ROCm/rocJPEG
@@ -22,6 +22,7 @@ License:        MIT
 Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 BuildRequires:  cmake
+BuildRequires:  gcc-c++
 BuildRequires:  libva-devel
 BuildRequires:  rocm-cmake
 BuildRequires:  rocm-comgr-devel
@@ -99,5 +100,8 @@ sed -i -e 's@{ROCM_PATH}/share@/usr/share@' test/CMakeLists.txt
 %{_datadir}/%{name}
 
 %changelog
+* Wed Jan 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-2
+- build requires gcc-c++
+
 * Wed Dec 25 2024 Tom Rix <Tom.Rix@amd.com> - 6.3.1-1
 - Initial package

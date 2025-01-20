@@ -1,6 +1,6 @@
 Name:           perl-IPC-Run-SafeHandles
 Version:        0.04
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Use IPC::Run and IPC::Run3 safely
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IPC-Run-SafeHandles
@@ -51,6 +51,9 @@ rm -r inc/
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

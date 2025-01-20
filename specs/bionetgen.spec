@@ -167,6 +167,9 @@ cp -a bionetgen-BioNetGen-%{version} mpich
 %endif
 
 %build
+CFLAGS="$CFLAGS -Wno-unused-variable -Wno-unused-but-set-variable -std=gnu17"
+CXXFLAGS="$CXXFLAGS -Wno-deprecated-declarations"
+
 pushd bionetgen-BioNetGen-%{version}/bng2/Network3
 
 # Compile muparser static library
@@ -181,8 +184,7 @@ make -j1 -C src/util/mathutils
 # Build sundials static libraries
 %if %{with bundled_sundials}
 
-SETOPT_FLAGS=$(echo "%{optflags}" | sed -e 's/-Werror=format-security/-Wno-error=format-security/g')
-export CFLAGS="$SETOPT_FLAGS"
+export CFLAGS="${CFLAGS//-Werror=format-security/-Wno-error=format-security}"
 mkdir -p cvode-2.6.0/build
 %define _vpath_builddir cvode-2.6.0/build
 %cmake -S cvode-2.6.0 -B cvode-2.6.0/build -DCMAKE_MODULE_LINKER_FLAGS:STRING="%{__global_ldflags}" \
@@ -194,9 +196,8 @@ mkdir -p cvode-2.6.0/build
 %cmake_build
 %endif
 
-SETOPT_FLAGS=$(echo "%{optflags}" | sed -e 's/-Werror=format-security/-Wno-error=format-security/g')
-export CFLAGS="$SETOPT_FLAGS -I../src/util/mathutils -I../cvode-2.6.0/include -I../muparser_v2_2_4/include"
-export CXXFLAGS="$SETOPT_FLAGS -I../src/util/mathutils -I../cvode-2.6.0/include -I../cvode-2.6.0/include/cvode -I../cvode-2.6.0/build/include  -I../cvode-2.6.0/src/cvode/fcmix -L../src/util/mathutils -I../muparser_v2_2_4/include -L../muparser_v2_2_4/lib -L../cvode-2.6.0/build/src/cvode/fcmix -L../cvode-2.6.0/build/src/sundials -L../cvode-2.6.0/build/src/cvode -L../cvode-2.6.0/build/src/nvec_ser"
+export CFLAGS="$CFLAGS -I../src/util/mathutils -I../cvode-2.6.0/include -I../muparser_v2_2_4/include"
+export CXXFLAGS="${CXXFLAGS//-Werror=format-security/-Wno-error=format-security} -I../src/util/mathutils -I../cvode-2.6.0/include -I../cvode-2.6.0/include/cvode -I../cvode-2.6.0/build/include  -I../cvode-2.6.0/src/cvode/fcmix -L../src/util/mathutils -I../muparser_v2_2_4/include -L../muparser_v2_2_4/lib -L../cvode-2.6.0/build/src/cvode/fcmix -L../cvode-2.6.0/build/src/sundials -L../cvode-2.6.0/build/src/cvode -L../cvode-2.6.0/build/src/nvec_ser"
 mkdir -p build
 %define _vpath_builddir build
 %cmake  -DCMAKE_SKIP_RPATH:BOOL=YES -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES \

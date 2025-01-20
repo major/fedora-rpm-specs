@@ -2,7 +2,7 @@
 
 Name:          python-%{srcname}
 Version:       3.5.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       SSH2 protocol library for python
 
 # No version specified
@@ -92,6 +92,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version}
 %doc html/ demos/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 16 2024 Paul Howarth <paul@city-fan.org> - 3.5.0-1
 - Update to 3.5.0 (rhbz#2312503)
   - Add support for AES-GCM encryption ciphers (128 and 256 bit variants)

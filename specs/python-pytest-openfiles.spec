@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.6.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        %{sum}
 
 # Note, this package is not actively developed
@@ -62,6 +62,9 @@ rm -fr %{buildroot}%{python3_sitelib}/tests
 %{python3_sitelib}/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Dec 08 2024 Sergio Pascual <sergiopr@fedoraproyect.org> - 0.6.0-4
 - Add reviewed license identifier
 

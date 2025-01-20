@@ -16,7 +16,7 @@
 
 Name:           php-%{gh_owner}-%{gh_project}
 Version:        2.4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PHP library to generate linear and bidimensional barcodes
 
 License:        LGPL-3.0-or-later
@@ -137,6 +137,9 @@ exit $ret
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Dec 26 2024 Remi Collet <remi@remirepo.net> - 2.4.2-1
 - update to 2.4.2
 - raise dependency on PHP 8.1

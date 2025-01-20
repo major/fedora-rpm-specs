@@ -1,6 +1,6 @@
 Name:           perl-MojoX-Log-Log4perl
 Version:        0.12
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Log::Log4perl logging for Mojo/Mojolicious
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -53,6 +53,9 @@ methods listed in Mojo::Log (and many more from Log4perl).
 %{_mandir}/man3/MojoX*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.12-14
 - convert license to SPDX
 

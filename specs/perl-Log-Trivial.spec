@@ -1,6 +1,6 @@
 Name:           perl-Log-Trivial
 Version:        0.40
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Very simple tool for writing very simple log files
 # Automatically converted from old format: LGPLv3 - review is highly recommended.
 License:        LGPL-3.0-only
@@ -47,6 +47,9 @@ SKIP_SIGNATURE_TEST=1 ./Build test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.40-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.40-32
 - convert license to SPDX
 

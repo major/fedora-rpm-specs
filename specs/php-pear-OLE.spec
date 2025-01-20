@@ -5,7 +5,7 @@
 
 Name:           php-pear-OLE
 Version:        1.0.0
-Release:        0.31.%{prever}%{?dist}
+Release:        0.32.%{prever}%{?dist}
 Summary:        Package for reading and writing OLE containers
 
 # Automatically converted from old format: PHP - review is highly recommended.
@@ -72,6 +72,9 @@ fi
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-0.32.RC2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.0-0.31.RC2
 - convert license to SPDX
 

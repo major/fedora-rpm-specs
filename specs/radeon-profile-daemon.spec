@@ -1,6 +1,6 @@
 Name: radeon-profile-daemon
 Version: 20190603
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Daemon for radeon-profile GUI
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -56,6 +56,9 @@ popd
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20190603-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul  26 2024 Miroslav Suchý <msuchy@redhat.com> - 20190603-11
 - convert license to SPDX
 

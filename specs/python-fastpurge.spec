@@ -3,7 +3,7 @@
 Summary: A Python client for the Akamai Fast Purge API
 Name: python-%{srcname}
 Version: 1.0.3
-Release: 12%{?dist}
+Release: 13%{?dist}
 URL: https://github.com/release-engineering/%{name}
 Source0: %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -55,6 +55,9 @@ Purge API, including authentication and error recovery.
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.3-12
 - convert license to SPDX
 

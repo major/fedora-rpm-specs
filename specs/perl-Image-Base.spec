@@ -1,6 +1,6 @@
 Name:           perl-Image-Base
 Version:        1.17
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Base class for loading, manipulating and saving images in Perl
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -54,6 +54,9 @@ make test
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.17-30
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           perl-HTTP-Cache-Transparent
 Version:        1.4
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Cache the result of http get-requests persistently
 
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -53,6 +53,9 @@ make test
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 1.4-24
 - convert license to SPDX
 

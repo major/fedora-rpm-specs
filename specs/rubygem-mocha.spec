@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.6.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Mocking and stubbing library
 License: Ruby OR BSD-2-Clause OR MIT
 URL: https://mocha.jamesmead.org
@@ -86,6 +86,9 @@ popd
 %{gem_instdir}/mocha.gemspec
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Dec 06 2024 Vít Ondruch <vondruch@redhat.com> - 2.6.1-2
 - Use single quote instead of backtick for Ruby 3.4 compatibility
 

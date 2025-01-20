@@ -18,7 +18,7 @@
 
 Name:           python-%{srcname}
 Version:        11.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python image processing library
 
 # License: see http://www.pythonware.com/products/pil/license.htm
@@ -308,6 +308,9 @@ popd
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 11.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 03 2025 Sandro Mani <manisandro@gmail.com> - 11.1.0-1
 - Update to 11.1.0
 

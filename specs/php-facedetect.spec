@@ -12,7 +12,7 @@
 
 Name:		php-facedetect
 Version:	1.2.0
-Release:	0.42.%{commitdate}git%{shortcommit}%{?dist}
+Release:	0.43.%{commitdate}git%{shortcommit}%{?dist}
 Summary:	PHP extension to access the OpenCV library
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
@@ -73,6 +73,9 @@ php --no-php-ini \
 %{php_extdir}/facedetect.so
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-0.43.20201021git2a8974b
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Oct 14 2024 Remi Collet <remi@fedoraproject.org> - 1.2.0-0.42.20201021git2a8974b
 - rebuild for https://fedoraproject.org/wiki/Changes/php84
 

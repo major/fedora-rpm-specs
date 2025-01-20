@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.2.2
-Release: 21%{?dist}
+Release: 22%{?dist}
 Summary: Provides tables for PrawnPDF
 # Automatically converted from old format: Ruby or GPLv2 or GPLv3 - review is highly recommended.
 License: Ruby OR GPL-2.0-only OR GPL-3.0-only
@@ -75,6 +75,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.2-21
 - convert license to SPDX
 

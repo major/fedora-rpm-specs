@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.04
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Some useful dict-like structures
 
 License:        BSD-2-Clause
@@ -40,6 +40,9 @@ Helper for handling dictonery-like structures.
 %{python3_sitelib}/%{pypi_name}-*-py*.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.04-18
 - convert license to SPDX
 

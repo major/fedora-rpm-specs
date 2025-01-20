@@ -1,6 +1,6 @@
 Name:           perl-Module-Install-Copyright
 Version:        0.009
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Package a COPYRIGHT file with a distribution
 # CONTRIBUTING: CC-BY-SA
 # COPYRIGHT:    Public Domain
@@ -75,6 +75,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.009-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.009-25
 - convert license to SPDX
 

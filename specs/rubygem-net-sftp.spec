@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 4.0.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: A pure Ruby implementation of the SFTP client protocol
 License: MIT
 URL: https://github.com/net-ssh/net-sftp
@@ -79,6 +79,9 @@ popd
 %{gem_instdir}/setup.rb
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Nov 10 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.0-5
 - Add BR: rubygem(base64) explicitly for ruby34
 

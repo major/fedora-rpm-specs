@@ -30,7 +30,7 @@ and local caching of the fetched data.
 
 Name:           python-%{pypi_name}
 Version:        1.7.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Python library for consuming OpenStack sevice-types-authority data
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -116,6 +116,9 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 1.7.0-19
 - convert license to SPDX
 

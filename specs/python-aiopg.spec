@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.3.4 
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Postgres integration with asyncio
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -60,6 +60,9 @@ sed -i -e 's/"psycopg2-binary>=2.8.4"/"psycopg2"/g' setup.py
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3.4-9
 - convert license to SPDX
 

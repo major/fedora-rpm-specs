@@ -12,7 +12,7 @@
 %bcond_without kfdtest
 %endif
 
-%bcond_without compat_gcc
+%bcond_with compat_gcc
 %if %{with compat_gcc}
 %global compat_gcc_major 13
 %global gcc_major_str -13
@@ -23,7 +23,7 @@
 
 Name:       rocm-runtime
 Version:    %{rocm_version}
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    ROCm Runtime Library
 
 License:    NCSA
@@ -82,6 +82,9 @@ excluded tests for each ASIC, and a convenience script to run the test suite.
 
 # Use llvm's static libs kfdtest
 sed -i -e 's@LLVM_LINK_LLVM_DYLIB@0@' libhsakmt/tests/kfdtest/CMakeLists.txt
+
+# gcc 15 include cstdint
+sed -i '/#include <memory>.*/a#include <cstdint>' runtime/hsa-runtime/core/inc/amd_elf_image.hpp
 
 %build
 
@@ -158,6 +161,9 @@ fi
 %endif
 
 %changelog
+* Sat Jan 18 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-3
+- gcc 15 include cstdint
+
 * Thu Jan 9 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-2
 - Use compat gcc
 

@@ -1,7 +1,7 @@
 Summary:          Re-implementation for Unix of the Plan 9 shell
 Name:             rc
 Version:          1.7.4
-Release:          23%{?dist}
+Release:          24%{?dist}
 License:          Zlib
 URL:              https://github.com/rakitzis/rc
 Source0:          https://github.com/rakitzis/rc/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -53,6 +53,9 @@ fi
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-XML-CommonNS
 Version:        0.06
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        List of commonly used XML name spaces
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/XML-CommonNS
@@ -66,6 +66,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Sep 05 2024 Petr Pisar <ppisar@redhat.com> - 0.06-29
 - Moderinze a spec file
 

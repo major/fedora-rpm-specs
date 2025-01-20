@@ -1,5 +1,5 @@
 Name:           feedbackd
-Version:        0.5.0
+Version:        0.6.0
 Release:        %autorelease
 Summary:        Feedback library for GNOME
 
@@ -78,6 +78,7 @@ developing applications that use %{name}.
 %{_libexecdir}/fbd-alert-slider
 %{_udevrulesdir}/90-feedbackd.rules
 %{_datadir}/dbus-1/interfaces/org.sigxcpu.Feedback.xml
+%{_datadir}/dbus-1/interfaces/org.sigxcpu.Feedback.Haptic.xml
 %{_datadir}/dbus-1/services/org.sigxcpu.Feedback.service
 %{_datadir}/feedbackd
 %{_datadir}/glib-2.0/schemas/org.sigxcpu.feedbackd.gschema.xml

@@ -9,7 +9,7 @@ License:       LicenseRef-Callaway-LGPLv2
 
 # There's no versioning upstream, it's all about the Git hash
 Version:       0
-Release:       0.39.git%{shortcommit}%{?dist}
+Release:       0.40.git%{shortcommit}%{?dist}
 
 # There aren't any release yet, I'm downloading straight from the last commit
 Source0:       https://github.com/psykoyiko/pycanberra/archive/%{commit}/%{name}-%{version}-%{shortcommit}.tar.gz
@@ -51,6 +51,9 @@ install -D -p -m 0644 pycanberra.py -t %{buildroot}%{python3_sitelib}/
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.40.git88c53cd
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0-0.39.git88c53cd
 - convert license to SPDX
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        5.1.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Accurately separate the TLD from the registered domain and subdomains of a URL
 
 License:        BSD-3-Clause
@@ -76,6 +76,9 @@ TEST_SELECTOR="not test_log_snapshot_diff"
 %{_bindir}/tldextract
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jan 06 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 5.1.3-2
 - fix missing ".tld_set_snapshot" in RPM
 

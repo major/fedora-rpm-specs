@@ -7,7 +7,7 @@
 Name:           qhexedit2
 # Remember to also update version in qhexedit2_build.patch in the setup.py hunk
 Version:        0.8.9
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Binary Editor for Qt
 
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
@@ -184,6 +184,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications/ %{SOURCE1}
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.9-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.8.9-16
 - convert license to SPDX
 

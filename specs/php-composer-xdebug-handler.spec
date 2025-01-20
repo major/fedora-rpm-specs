@@ -20,7 +20,7 @@
 
 Name:           php-%{gh_owner}-%{gh_project}
 Version:        1.4.6
-Release:        9%{?gh_date:.%{gh_date}git%{gh_short}}%{?dist}
+Release:        10%{?gh_date:.%{gh_date}git%{gh_short}}%{?dist}
 Summary:        Restarts a process without Xdebug
 
 License:        MIT
@@ -139,6 +139,9 @@ exit $ret
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

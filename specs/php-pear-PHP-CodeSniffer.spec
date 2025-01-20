@@ -24,7 +24,7 @@
 
 Name:           php-pear-PHP-CodeSniffer
 Version:        3.11.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PHP coding standards enforcement tool
 
 License:        BSD-3-Clause
@@ -144,6 +144,9 @@ fi
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Dec 12 2024 Remi Collet <remi@remirepo.net> - 3.11.2-1
 - update to 3.11.2
 

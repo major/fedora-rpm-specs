@@ -7,7 +7,7 @@
 
 Name:       python-%{srcname}
 Version:    1.5
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Dictionary with Jinja2 expansion
 
 License:    GPL-2.0-or-later
@@ -54,6 +54,9 @@ version=%version %py3_install
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Sep 17 2024 Pavel Raiskup <praiskup@redhat.com> 1.5-1
 - The dictionary.copy() method should copy aliases
 

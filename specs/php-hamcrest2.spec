@@ -16,7 +16,7 @@
 
 Name:           php-hamcrest2
 Version:        2.0.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        PHP port of Hamcrest Matchers
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -121,6 +121,9 @@ exit $ret
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep  4 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0.1-12
 - convert license to SPDX
 

@@ -3,7 +3,7 @@
 
 Name:		python-%{srcname}
 Version:	0.26
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	Adds network extension support to python-novaclient
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -41,6 +41,9 @@ Requires:	python3-novaclient
 %{python3_sitelib}/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.26-30
 - convert license to SPDX
 

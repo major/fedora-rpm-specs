@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.7
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Library/utility to help provision various IoT devices
 
 License:        MIT
@@ -45,6 +45,9 @@ sed -i -e '/^#!\//, 1d' {aioiotprov/plugins/*.py,aioiotprov/*.py}
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.7-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.7-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

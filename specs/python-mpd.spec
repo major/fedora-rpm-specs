@@ -1,6 +1,6 @@
 Name:           python-mpd
 Version:        0.2.1
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Python MPD client library
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -44,6 +44,9 @@ An MPD (Music Player Daemon) client library written in pure Python.
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.1-41
 - convert license to SPDX
 

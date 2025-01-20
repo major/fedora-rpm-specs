@@ -1,6 +1,6 @@
 Name:		perl-Package-Anon
 Version:	0.05
-Release:	40%{?dist}
+Release:	41%{?dist}
 Summary:	Anonymous packages
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Package-Anon
@@ -64,6 +64,9 @@ make test RELEASE_TESTING=1
 %{_mandir}/man3/Package::Anon.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

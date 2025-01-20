@@ -4,7 +4,7 @@
 
 Name:           python-sgmllib3k
 Version:        1.0.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        python3 copy of sgmllib
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -53,6 +53,9 @@ eventually think about finding another module to use.
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.0-16
 - convert license to SPDX
 

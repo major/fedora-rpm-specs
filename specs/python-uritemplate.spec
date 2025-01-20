@@ -5,7 +5,7 @@
 
 Name:           python-%{modname}
 Version:        4.1.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Simple python library to deal with URI Templates (RFC 6570)
 
 # Automatically converted from old format: BSD or ASL 2.0 - review is highly recommended.
@@ -51,6 +51,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version} -v
 %{python3_sitelib}/%{modname}/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 4.1.1-11
 - convert license to SPDX
 

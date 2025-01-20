@@ -1,6 +1,6 @@
 Name:           perl-Test-Module-Used
 Version:        0.2.6
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Test required module is really used and vice versa between lib/t and META.yml
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -62,6 +62,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.6-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.6-29
 - convert license to SPDX
 

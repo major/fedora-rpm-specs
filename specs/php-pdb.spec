@@ -1,6 +1,6 @@
 Name:           php-pdb
 Version:        1.3.4
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        PHP classes for manipulating Palm OS databases
 
 License:        LGPL-2.1-or-later
@@ -43,6 +43,9 @@ install -p -m 644 -t %{buildroot}%{_datadir}/php/php-pdb/modules modules/*.inc
 %license doc/{COPYING,LEGAL}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

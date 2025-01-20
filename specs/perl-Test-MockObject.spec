@@ -1,6 +1,6 @@
 Name:           perl-Test-MockObject
 Version:        1.20200122
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Perl extension for emulating troublesome interfaces
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -66,6 +66,9 @@ make test
 %{_mandir}/man3/Test::MockObject::Extends.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.20200122-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 1.20200122-16
 - convert license to SPDX
 

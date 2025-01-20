@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.6.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Time-handling functionality from netcdf4-python
 
 # calendar calculation routines in _cftime.pyx derived from calcalcs.c by David
@@ -54,6 +54,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} py.test-%{python3_version} -v
 %{python3_sitearch}/%{srcname}/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Dec 15 2024 Orion Poplawski <orion@nwra.com> - 1.6.4-3
 - Rebuild against numpy 2.0 (rhbz@2332484)
 

@@ -4,7 +4,7 @@
 
 Name:           poezio-omemo
 Version:        0.7.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        OMEMO plugin for the Poezio XMPP client
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -56,6 +56,9 @@ find ./%{srcname}/ -type f '(' -name __init__.py -o -name version.py ')' -ls -ex
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.7.0-3
 - convert license to SPDX
 

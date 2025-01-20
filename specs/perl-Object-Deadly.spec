@@ -1,6 +1,6 @@
 Name:           perl-Object-Deadly
 Version:        0.09
-Release:        48%{?dist}
+Release:        49%{?dist}
 Summary:        Perl module providing an object that dies whenever examined
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Object-Deadly
@@ -82,6 +82,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Michal Josef Špaček <mspacek@redhat.com> - 0.09-48
 - Fix requires.
 - Package tests

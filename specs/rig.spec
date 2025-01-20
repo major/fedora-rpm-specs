@@ -1,7 +1,7 @@
 Name:       rig
 Summary:    Monitor a system for events and trigger specific actions
 Version:    1.1
-Release:    10%{?dist}
+Release:    11%{?dist}
 Url:        https://github.com/TurboTurtle/rig
 Source0:    %{url}/archive/%{name}-%{version}.tar.gz
 License:    GPL-2.0-only
@@ -40,6 +40,9 @@ install -p -m644 man/en/rig.1 ${RPM_BUILD_ROOT}%{_mandir}/man1/
 %doc README.md
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

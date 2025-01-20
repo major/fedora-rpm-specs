@@ -3,7 +3,7 @@
 Name:    qt5-%{qt_module}
 Summary: Qt5 - module with set of QtQuick controls
 Version: 5.15.16
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -59,6 +59,9 @@ make install INSTALL_ROOT=%{buildroot}
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.16-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 09 2025 Zephyr Lykos <fedora@mochaa.ws> - 5.15.16-1
 - 5.15.16
 

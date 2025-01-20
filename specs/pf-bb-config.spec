@@ -1,6 +1,6 @@
 Name:           pf-bb-config
 Version:        24.07
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PF BBDEV (baseband device) Configuration Application
 
 License:        Apache-2.0
@@ -47,6 +47,9 @@ install -p -D -m 755 pf_bb_config %{buildroot}%{_bindir}/pf_bb_config
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.07-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Sep 27 2024 Timothy Redaelli <tredaelli@redhat.com> - 24.07-1
 - Update to 24.07
 

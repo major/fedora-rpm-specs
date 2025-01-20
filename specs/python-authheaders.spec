@@ -6,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.16.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A library wrapping email authentication header verification and generation
 
 # Licensing described in LICENSE file
@@ -73,6 +73,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} help2man --no-info \
 %{_mandir}/man1/dmarc-policy-find.1*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 28 2024 Michel Lind <salimma@fedoraproject.org> - 0.16.3-1
 - Update to version 0.16.3; Fixes: RHBZ#2258214
 - Fix rpmlint issues

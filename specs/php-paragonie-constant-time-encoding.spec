@@ -11,7 +11,7 @@
 
 Name:       php-%{composer_vendor}-constant-time-encoding
 Version:    2.6.3
-Release:    7%{?dist}
+Release:    8%{?dist}
 Summary:    Constant-time Implementations of RFC 4648 Encoding
 
 License:    MIT
@@ -71,6 +71,9 @@ cp -pr src/* %{buildroot}%{_datadir}/php/%{composer_namespace}
 %license LICENSE.txt
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.3-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

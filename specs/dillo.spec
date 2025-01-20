@@ -5,7 +5,7 @@
 %define _legacy_common_support 1
 
 Name:           dillo
-Version:        3.1.1
+Version:        3.2.0
 Release:        %autorelease
 Summary:        A multi-platform graphical web browser
 
@@ -24,6 +24,7 @@ BuildRequires:  perl-generators
 BuildRequires:  cmake(fltk) >= 1.3.0
 BuildRequires:  cmake(libjpeg-turbo)
 BuildRequires:  pkgconfig(libpng) >= 1.2.0
+BuildRequires:  pkgconfig(librsvg-2.0)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(xft)
 BuildRequires:  pkgconfig(zlib)

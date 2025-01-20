@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.14.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Thin-wrapper around the mock package for easier use with py.test
 
 License:        MIT
@@ -67,6 +67,9 @@ sed -i 's/\r$//' README.rst
 %{python3_sitelib}/%{file_name}-%{version}.dist-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.14.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.14.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

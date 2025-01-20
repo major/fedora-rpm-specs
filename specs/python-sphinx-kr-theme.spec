@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.1
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Kenneth Reitz's krTheme for Sphinx
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -64,6 +64,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitelib}
 %{python3_sitelib}/sphinx_kr_theme-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.1-17
 - convert license to SPDX
 

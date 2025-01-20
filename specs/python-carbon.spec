@@ -7,7 +7,7 @@ a storage back-end.}
 
 Name:           python-%{srcname}
 Version:        1.1.10
-Release:        10%{?dist}
+Release:        11%{?dist}
 
 Summary:        Back-end data caching and persistence daemon for Graphite
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -221,6 +221,9 @@ getent passwd carbon >/dev/null || \
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.10-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1.10-10
 - convert license to SPDX
 

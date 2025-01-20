@@ -23,7 +23,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        1.0.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PHP enum implementation
 
 License:        BSD-2-Clause
@@ -121,6 +121,9 @@ exit $ret
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 12 2024 Remi Collet <remi@remirepo.net> - 1.0.6-1
 - update to 1.0.6 (no change)
 - switch to phpunit10

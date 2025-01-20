@@ -3,7 +3,7 @@
 
 Name:           python-musicbrainzngs
 Version:        0.7.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Python bindings for MusicBrainz NGS webservice
 
 # Automatically converted from old format: BSD and ISC - review is highly recommended.
@@ -60,6 +60,9 @@ rm -rf musicbrainzngs
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Dec 13 2024 Miro Hrončok <mhroncok@redhat.com> - 0.7.1-13
 - Use pytest instead of deprecated nose
 - https://fedoraproject.org/wiki/Changes/DeprecateNose

@@ -1,6 +1,6 @@
 Name:           perl-Object-HashBase
 Version:        0.015
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Build hash-based classes
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Object-HashBase
@@ -102,6 +102,9 @@ make test
 %{perl_vendorlib}/Object/HashBase
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.015-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Michal Josef Špaček <mspacek@redhat.com> - 0.015-1
 - 0.015 bump
 - Fix dependencies

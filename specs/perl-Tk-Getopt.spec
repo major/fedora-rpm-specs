@@ -1,6 +1,6 @@
 Name:           perl-Tk-Getopt
 Version:        0.52
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        User configuration window for Tk with interface to Getopt::Long
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Tk-Getopt
@@ -118,6 +118,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.52-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Sep 26 2024 Petr Pisar <ppisar@redhat.com> - 0.52-1
 - 0.52 bump
 

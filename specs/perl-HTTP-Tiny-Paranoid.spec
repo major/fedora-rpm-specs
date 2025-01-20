@@ -1,6 +1,6 @@
 Name:           perl-HTTP-Tiny-Paranoid
 Version:        0.07
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Safer HTTP::Tiny
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/HTTP-Tiny-Paranoid
@@ -44,6 +44,9 @@ perl -I./lib -MHTTP::Tiny::Paranoid -e '1;'
 %{_mandir}/man3/HTTP::Tiny::*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

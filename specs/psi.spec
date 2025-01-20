@@ -1,6 +1,6 @@
 Name:           psi
 Version:        1.5
-Release:        15%{?dist}
+Release:        16%{?dist}
 
 # GPL-2.0-or-later - core project.
 # LGPL-2.1-or-later - iris library, widgets, several tools.
@@ -157,6 +157,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_libdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.5-15
 - convert license to SPDX
 

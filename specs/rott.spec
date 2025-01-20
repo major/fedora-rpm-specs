@@ -1,6 +1,6 @@
 Name:           rott
 Version:        1.1.2
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Rise of the Triad
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -126,6 +126,9 @@ install -p -m 644 %{SOURCE8} \
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1.2-26
 - convert license to SPDX
 

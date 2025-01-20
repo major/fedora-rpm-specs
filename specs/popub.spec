@@ -8,7 +8,7 @@
 
 Name:    %{reponame}
 Version: 0
-Release: 0.22.%{commitdate}git%{shortcommit}%{?dist}
+Release: 0.23.%{commitdate}git%{shortcommit}%{?dist}
 Summary: Publish a service from localhost onto your server
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
@@ -99,6 +99,9 @@ sed -i '/daemon-reload/d' systemd/Makefile
 %{_unitdir}/%{name}-relay@.service
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.23.20171007git6ffa11c
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0-0.22.20171007git6ffa11c
 - convert license to SPDX
 

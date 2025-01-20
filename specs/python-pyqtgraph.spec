@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        0.13.7
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Scientific Graphics and GUI Library for Python
 License:        MIT
 URL:            https://www.pyqtgraph.org/
@@ -81,6 +81,9 @@ rm -f doc/build/html/objects.inv
 %endif
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.7-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Aug 01 2024 Scott Talbert <swt@techie.net> - 0.13.7-5
 - Update License tag to use SPDX identifiers
 

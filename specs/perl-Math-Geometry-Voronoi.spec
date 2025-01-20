@@ -1,6 +1,6 @@
 Name:           perl-Math-Geometry-Voronoi
 Version:        1.3
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        Compute Voronoi diagrams from sets of points
 License:        ( GPL-1.0-or-later OR Artistic-1.0-Perl ) AND MIT
 # Perl module is licensed as Perl, underlaying C code is MIT
@@ -66,6 +66,9 @@ make test
 %{_mandir}/man3/Math*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        4.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Humane Web Text Generator
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -62,6 +62,9 @@ done
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 22 2024 Thomas Moschny <thomas.moschny@gmx.de> - 4.0.3-1
 - Update to 4.0.3.
 - Update for current Python packaging guidelines.

@@ -7,7 +7,7 @@
 
 Name:           python-%{pkg_name}
 Version:        2.4.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Can add links and perform other custom replacements to rst
 
 License:        MIT
@@ -82,6 +82,9 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Nov 02 2024 Miro Hrončok <mhroncok@redhat.com> - 2.4.0-8
 - Generate BuildRequires dynamically
 - Drop unneeded build dependency on python3dist(toml)

@@ -1,6 +1,6 @@
 Name:           qt4pas
 Version:        2.5
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Free Pascal Qt4 Binding
 # Automatically converted from old format: LGPLv3 - review is highly recommended.
 License:        LGPL-3.0-only
@@ -48,6 +48,9 @@ make install INSTALL_ROOT=%{buildroot}
 %{_libdir}/libQt4Pas.so
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.5-31
 - convert license to SPDX
 

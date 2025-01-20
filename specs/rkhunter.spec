@@ -3,7 +3,7 @@
 
 Name:           rkhunter
 Version:        1.4.6
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        A host-based tool to scan for rootkits, backdoors and local exploits
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -101,6 +101,9 @@ EOF
 %{_mandir}/man8/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.4.6-26
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           perl-Log-Any-Adapter-TAP
 Version:        0.003003
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Logging adapter suitable for use in TAP testcases
 
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -67,6 +67,9 @@ emitted as note comments on STDOUT.
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.003003-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.003003-18
 - convert license to SPDX
 

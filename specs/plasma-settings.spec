@@ -1,6 +1,6 @@
 Name:           plasma-settings
 Version:        24.02.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 # Automatically converted from old format: BSD and CC0 and GPLv2 and GPLv2+ and GPLv3 and GPLv3+ and LGPLv2 and LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-BSD AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LicenseRef-Callaway-LGPLv2 AND LicenseRef-Callaway-LGPLv2+
 Summary:        Convergent Plasma Mobile settings application
@@ -63,6 +63,9 @@ desktop-file-validate %{buildroot}/%{_kf6_datadir}/applications/org.kde.mobile.p
 %{_kf6_datadir}/applications/org.kde.mobile.plasmasettings.desktop
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.02.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 24.02.0-3
 - convert license to SPDX
 

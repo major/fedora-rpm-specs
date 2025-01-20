@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.0
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Dictionaries sorted by key or by comparison function
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -60,6 +60,9 @@ rm -f docs/_build/html/.buildinfo
 %doc docs/_build/html
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.0-31
 - convert license to SPDX
 

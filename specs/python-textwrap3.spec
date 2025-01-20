@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.9.2
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Text wrap backport
 
 # Automatically converted from old format: Python - review is highly recommended.
@@ -53,6 +53,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v test
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.9.2-16
 - convert license to SPDX
 

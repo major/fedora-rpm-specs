@@ -1,6 +1,6 @@
 Name:           rapidxml
 Version:        1.13
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Fast XML parser
 License:        BSL-1.0 OR MIT
 URL:            http://rapidxml.sourceforge.net/
@@ -61,6 +61,9 @@ cd -
 %{_includedir}/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

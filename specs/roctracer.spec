@@ -7,6 +7,8 @@
 # hipcc does not support some clang flags
 %global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/')
 
+%global gpu_list "gfx900;gfx906:xnack-;gfx908:xnack-;gfx90a:xnack+;gfx90a:xnack-;gfx942;gfx1010;gfx1012;gfx1030;gfx1031;gfx1035;gfx1100;gfx1101;gfx1102;gfx1103;gfx1150;gfx1151;gfx1152;gfx1200;gfx1201"
+
 # Needs ROCm HW and is only suitable for local testing
 %bcond_with test
 %if %{with test}
@@ -18,7 +20,7 @@
 
 Name:           roctracer
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm Tracer Callback/Activity Library for Performance tracing AMD GPUs
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -124,7 +126,7 @@ sed -i -e 's@add_subdirectory(test)@#add_subdirectory(test)@' CMakeLists.txt
     -DROCM_SYMLINK_LIBS=OFF \
     -DHIP_PLATFORM=amd \
     -DBUILD_SHARED_LIBS=ON \
-    -DAMDGPU_TARGETS=$ROCM_GPUS \
+    -DAMDGPU_TARGETS=%{gpu_list} \
     -DCMAKE_BUILD_TYPE=RelDebInfo
 
 %cmake_build
@@ -168,6 +170,9 @@ rm -rf rm %{buildroot}%{_datadir}/html
 %endif
 
 %changelog
+* Sat Jan 18 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-3
+- fix gpu list
+
 * Wed Jan 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-2
 - build requires gcc-c++
 

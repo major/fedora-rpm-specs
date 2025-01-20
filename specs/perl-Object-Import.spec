@@ -1,6 +1,6 @@
 Name:           perl-Object-Import
 Version:        1.006
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Import methods of an object as functions to a package
 License:        GPL-3.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Object-Import/
@@ -49,6 +49,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.006-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.006-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

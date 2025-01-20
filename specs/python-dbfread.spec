@@ -15,7 +15,7 @@ See docs/changes.rst for a full list of changes in each version.
 
 Name:           python-%{pypi_name}
 Version:        2.0.7
-Release:        29.git%{shortcommit}%{?dist}
+Release:        30.git%{shortcommit}%{?dist}
 Summary:        Read DBF Files with Python
 
 License:        MIT
@@ -93,6 +93,9 @@ pytest-%{python3_version}
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.7-30.git300b2d7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.7-29.git300b2d7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

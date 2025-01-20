@@ -1,6 +1,6 @@
 Name:           perl-MooX-HasEnv
 Version:        0.004
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Making attributes based on ENV variables
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -52,6 +52,9 @@ RELEASE_TESTING=1 make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.004-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.004-30
 - convert license to SPDX
 

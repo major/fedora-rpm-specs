@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.1.2
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Integrate SassC-Ruby into Rails
 # SIL license found in
 # test/dummy/app/assets/stylesheets/erb_render_with_context.css.erb
@@ -106,6 +106,9 @@ popd
 %doc %{gem_instdir}/CODE_OF_CONDUCT.md
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.1.2-12
 - convert license to SPDX
 

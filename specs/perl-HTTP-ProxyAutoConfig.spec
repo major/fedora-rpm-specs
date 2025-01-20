@@ -1,6 +1,6 @@
 Name:           perl-HTTP-ProxyAutoConfig
 Version:        0.3
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Use a .pac or wpad.dat file to get proxy information
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -50,6 +50,9 @@ find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.3-36
 - convert license to SPDX
 

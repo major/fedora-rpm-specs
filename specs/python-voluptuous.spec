@@ -2,7 +2,7 @@
 
 Name:      python-%{srcname}
 Version:   0.15.2
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   Python data validation library
 
 License:   BSD-3-Clause
@@ -46,6 +46,9 @@ BuildRequires: %{py3_dist pytest}
 %license COPYING
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 21 2024 Sergio Pascual <sergiopr@fedoraproject.org> - 0.15.2-1
 - New upstream source 0.15.2
 

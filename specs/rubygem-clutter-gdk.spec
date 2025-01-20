@@ -4,7 +4,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	4.2.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 Summary:	Ruby binding of GDK specific API of Clutter
 # SPDX confirmed
@@ -79,6 +79,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Dec 15 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.5-1
 - 4.2.5
 

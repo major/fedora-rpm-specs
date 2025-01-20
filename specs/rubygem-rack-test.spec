@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.1.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Simple testing API built on Rack
 License: MIT
 URL: http://github.com/rack-test/rack-test
@@ -87,6 +87,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Nov 27 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.1.0-11
 - Apply upstream fix for ruby34 Hash inspect formatting change
 

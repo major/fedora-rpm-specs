@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.7.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Python library for nmap tasks, parse and compare/diff scan results
 
 # Automatically converted from old format: CC-BY - review is highly recommended.
@@ -44,6 +44,9 @@ sed -i -e '/^#!\//, 1d' libnmap/reportjson.py
 %{python3_sitelib}/natlas_libnmap-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.7.1-16
 - convert license to SPDX
 

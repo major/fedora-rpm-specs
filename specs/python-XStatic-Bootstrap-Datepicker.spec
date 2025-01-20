@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.3.1.0
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Bootstrap-Datepicker (XStatic packaging standard)
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -84,6 +84,9 @@ chmod 644 %{buildroot}%{_jsdir}/bootstrap_datepicker/bootstrap-datepicker.js
 %{_jsdir}/bootstrap_datepicker
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1.0-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3.1.0-33
 - convert license to SPDX
 

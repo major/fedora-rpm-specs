@@ -3,7 +3,7 @@
 
 Name: rear
 Version: 2.7
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Relax-and-Recover is a Linux disaster recovery and system migration tool
 URL: https://relax-and-recover.org
 
@@ -260,6 +260,9 @@ install -m 0644 %{SOURCE3} %{buildroot}%{_docdir}/%{name}/
 
 #-- CHANGELOG -----------------------------------------------------------------#
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Aug  8 2024 Pavel Cahyna <pcahyna@redhat.com> - 2.7-12
 - Remove doc/rear-release-notes.txt, it is CC-BY-ND-3.0, which is not an allowed
   license for documentation, and use a cleaned tarball (with the file removed)

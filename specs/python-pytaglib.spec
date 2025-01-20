@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python audio metadata ("tagging") library based on TagLib
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -59,6 +59,9 @@ sed -i -e '1{\@^#!/usr/bin/env python@d}' src/pyprinttags.py
 %{python3_sitearch}/__pycache__/pyprinttags.*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 08 2025 Vojtech Trefny <vtrefny@redhat.com> - 2.1.0-1
 - Update to 2.1.0
 

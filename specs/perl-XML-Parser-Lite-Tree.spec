@@ -1,6 +1,6 @@
 Name:           perl-XML-Parser-Lite-Tree
 Version:        0.14
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Lightweight XML tree builder
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/XML-Parser-Lite-Tree
@@ -46,6 +46,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

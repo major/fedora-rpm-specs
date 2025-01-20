@@ -3,7 +3,7 @@
 
 Name:           python-sly
 Version:        0.4
-Release:        0.36.%{shortcommit}%{?dist}
+Release:        0.37.%{shortcommit}%{?dist}
 Summary:        An implementation of lex and yacc for Python 3
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -54,6 +54,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-0.37.f8fcbb0
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.4-0.36.f8fcbb0
 - convert license to SPDX
 

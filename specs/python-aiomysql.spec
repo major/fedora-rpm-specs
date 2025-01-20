@@ -1,6 +1,6 @@
 Name:           python-aiomysql
 Version:        0.2.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        MySQL driver for asyncio
 
 License:        MIT
@@ -55,6 +55,9 @@ sed -r -i '/"setuptools_scm_git_archive/d' pyproject.toml
 %doc README.rst
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

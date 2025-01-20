@@ -3,7 +3,7 @@
 
 Name:           pytz
 Version:        2024.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        World Timezone Definitions for Python
 
 License:        MIT
@@ -68,6 +68,9 @@ rm -r %{buildroot}%{python3_sitelib}/pytz/zoneinfo
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 11 2024 Gwyn Ciesla <gwync@protonmail.com> - 2024.2-1
 - 2024.2
 

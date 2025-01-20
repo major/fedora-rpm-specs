@@ -13,7 +13,7 @@
 
 Name:           python-pydantic-core
 Version:        2.27.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Core validation logic for pydantic written in rust
 
 License:        MIT
@@ -133,6 +133,9 @@ ignore="${ignore-} --ignore=tests/validators/test_allow_partial.py"
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.27.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Dec 26 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.27.2-2
 - Omit snapshot tests on EPEL10
 

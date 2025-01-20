@@ -1,6 +1,6 @@
 Name:           perl-POE-Filter-Transparent-SMTP
 Version:        0.2
-Release:        48%{?dist}
+Release:        49%{?dist}
 Summary:        A POE filter for SMTP
 
 # note license definition in Makefile.PL
@@ -49,6 +49,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2-48
 - convert license to SPDX
 

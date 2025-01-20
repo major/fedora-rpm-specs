@@ -1,6 +1,6 @@
 Name:           perl-XML-XQL
 Version:        0.68
-Release:        52%{?dist}
+Release:        53%{?dist}
 Summary:        Perl module for querying XML tree structures with XQL
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/XML-XQL
@@ -63,6 +63,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.68-53
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.68-52
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

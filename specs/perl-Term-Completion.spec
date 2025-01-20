@@ -1,6 +1,6 @@
 Name:       perl-Term-Completion 
 Version:    1.02
-Release:    4%{?dist}
+Release:    5%{?dist}
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Read one line of user input, with convenience functions 
 Source:     https://cpan.metacpan.org/authors/id/M/MA/MAREKR/Term-Completion-%{version}.tar.gz 
@@ -96,6 +96,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

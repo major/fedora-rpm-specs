@@ -4,7 +4,7 @@
 
 Name:           php-pear-Net-Curl
 Version:        1.2.5
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        OO interface to PHP's cURL extension
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -68,6 +68,9 @@ fi
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2.5-32
 - convert license to SPDX
 

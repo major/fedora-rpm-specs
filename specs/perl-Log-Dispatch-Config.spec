@@ -1,7 +1,7 @@
 Name:           perl-Log-Dispatch-Config
 Summary:        Log4j for Perl        
 Version:        1.04
-Release:        37%{?dist}
+Release:        38%{?dist}
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl        
 URL:            https://metacpan.org/release/Log-Dispatch-Config
@@ -67,6 +67,9 @@ make test
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 1.04-37
 - convert license to SPDX
 

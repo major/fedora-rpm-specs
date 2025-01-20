@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.1.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A small extension for the tempfile module
 License:        MIT
 URL:            https://github.com/mbr/volatile
@@ -61,6 +61,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 31 2024 Michel Lind <salimma@fedoraproject.org> - 2.1.0-16
 - Switch from deprecated `setup.py test` to `pytest`
 - Resolves: rhbz#2319734

@@ -7,7 +7,7 @@
 
 Name:           python-%{srcname}
 Version:        0.9.2
-Release:        28.%{snapdate}git%{shortcommit0}%{?dist}
+Release:        29.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        A Python toolbox for building complex digital hardware
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -67,6 +67,9 @@ install -Dpm644 -t %{buildroot}%{_mandir}/man1 _build/man/%{srcname}.1
 %{_mandir}/man1/%{srcname}.1*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-29.20240716git66f5963
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.9.2-28.20240716git66f5963
 - convert license to SPDX
 

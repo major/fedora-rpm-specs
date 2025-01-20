@@ -1,6 +1,6 @@
 Name:           perl-String-Format
 Version:        1.18
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Sprintf-like string formatting capabilities with arbitrary format definitions
 
 License:        GPL-2.0-only
@@ -61,6 +61,9 @@ make test
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.18-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.18-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

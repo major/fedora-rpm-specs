@@ -1,6 +1,6 @@
 Name:		radius-engine
 Version:	1.1
-Release:	26%{?dist}
+Release:	27%{?dist}
 Summary:	A Lua based real-time 2D graphics game engine
 License:	MIT
 URL:		http://radius-engine.sourceforge.net/
@@ -67,6 +67,9 @@ rm -rf %{buildroot}%{_libdir}/*.la
 %{_libdir}/pkgconfig/radius-engine.pc
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

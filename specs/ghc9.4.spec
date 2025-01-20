@@ -86,7 +86,7 @@ Version: 9.4.8
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 32%{?dist}
+Release: 33%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -111,6 +111,8 @@ Patch3: ghc-gen_contents_index-nodocs.patch
 Patch5: https://gitlab.haskell.org/ghc/ghc/-/commit/6e12e3c178fe9ad16131eb3c089bd6578976f5d6.patch
 Patch7: ghc-compiler-enable-build-id.patch
 Patch8: ghc-configure-c99.patch
+# https://gitlab.haskell.org/ghc/ghc/-/issues/25662
+Patch9: hp2ps-C-gnu17.patch
 
 # arm patches
 Patch12: ghc-armv7-VFPv3D16--NEON.patch
@@ -435,15 +437,16 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %setup -q -n ghc-%{version} %{?with_testsuite:-b1}
 
 %patch -P1 -p1 -b .orig
+%patch -P2 -p1 -b .orig
 %patch -P3 -p1 -b .orig
 
-%patch -P2 -p1 -b .orig
 %patch -P5 -p1 -b .orig
 # should be safe but enabling in fedora first
 %if 0%{?fedora}
 %patch -P7 -p1 -b .orig
 %endif
 %patch -P8 -p1 -b .orig
+%patch -P9 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
 
@@ -1066,6 +1069,9 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Sat Jan 18 2025 Jens Petersen <petersen@redhat.com> - 9.4.8-33
+- fix hp2ps failure with gcc15 C23
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.4.8-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

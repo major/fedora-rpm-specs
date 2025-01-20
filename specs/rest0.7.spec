@@ -1,6 +1,6 @@
 Name:          rest0.7
 Version:       0.8.1
-Release:       8%{?dist}
+Release:       9%{?dist}
 Summary:       A library for access to RESTful web services
 
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
@@ -75,6 +75,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_datadir}/gir-1.0/RestExtras-0.7.gir
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 4 2024 Miroslav Suchý <msuchy@redhat.com> - 0.8.1-8
 - convert license to SPDX
 

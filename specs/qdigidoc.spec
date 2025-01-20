@@ -8,7 +8,7 @@
 
 Name:           qdigidoc
 Version:        4.6.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Estonian digital signature and encryption application
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -139,6 +139,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/ee.ria.qdigidoc4.des
 %{_datadir}/nautilus-python/extensions/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jan 04 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.6.0-3
 - Rebuilt for flatbuffers 24.12.24
 

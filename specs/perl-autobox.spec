@@ -1,6 +1,6 @@
 Name:           perl-autobox
 Version:        3.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Call methods on native types
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/autobox
@@ -75,6 +75,9 @@ make test
 %{_mandir}/man3/autobox.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep  4 2024 Paul Howarth <paul@city-fan.org> - 3.0.2-1
 - Update to 3.0.2 (rhbz#2309576)
   - Fix debugger test (GH#15)

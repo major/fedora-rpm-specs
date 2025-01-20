@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.6.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Flake8 extension to check for new lines after class definitions
 
 License:        MIT
@@ -52,6 +52,9 @@ BuildRequires:  python%{python3_pkgversion}-devel
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 29 2024 Scott K Logan <logans@cottsay.net> - 1.6.0-4
 - Switch from tox to directly invoking unittest
 

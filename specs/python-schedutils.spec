@@ -1,7 +1,7 @@
 Summary: Linux scheduler python bindings
 Name: python-schedutils
 Version: 0.6
-Release: 26%{?dist}
+Release: 27%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL: https://rt.wiki.kernel.org/index.php/Tuna
@@ -43,6 +43,9 @@ Summary: %summary
 %{python3_sitearch}/*.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.6-26
 - convert license to SPDX
 

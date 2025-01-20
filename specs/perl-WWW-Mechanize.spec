@@ -1,6 +1,6 @@
 Name:           perl-WWW-Mechanize
 Version:        2.19
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Automates web page form & link interaction
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/WWW-Mechanize
@@ -91,6 +91,9 @@ make test TEST_VERBOSE=1
 %{_mandir}/man3/WWW::Mechanize::*.3pm*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.19-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Sep 22 2024 Emmanuel Seyman <emmanuel@seyman.fr> - 2.19-1
 - Update to 2.19
 

@@ -6,7 +6,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        0.9.2.0.3.1
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        A branch of Rake supporting automatic parallelizing of tasks
 
 License:        MIT
@@ -90,6 +90,9 @@ chmod 644 %{buildroot}%{gem_instdir}/lib/rake/ruby182_test_unit_fix.rb
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2.0.3.1-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2.0.3.1-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Python port of the JSON-minify utility
 
 License:        MIT
@@ -57,6 +57,9 @@ transmitting them over-the-wire.
 %doc README.rst
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 30 2024 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.3.0-23
 - Switch to modern Python packaging macros
 - Backport patch to fix invalid escape sequences

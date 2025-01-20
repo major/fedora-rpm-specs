@@ -1,6 +1,6 @@
 Name:           perl-Math-Cartesian-Product
 Version:        1.009
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Generate the Cartesian product of zero or more lists
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -43,6 +43,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.009-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 1.009-22
 - convert license to SPDX
 

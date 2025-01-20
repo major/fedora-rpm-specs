@@ -1,6 +1,6 @@
 Name:           perl-Version-Next
 Version:        1.000
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Increment module version numbers simply and correctly
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -51,6 +51,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.000-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 1.000-24
 - convert license to SPDX
 

@@ -6,7 +6,7 @@
 
 Name:           polyclipping2
 Version:        1.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Polygon Clipping and Offsetting Library v2
 License:        BSL-1.0
 URL:            https://angusj.com/clipper2/Docs/Overview.htm
@@ -75,6 +75,9 @@ popd
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 07 2025 Thomas Sailer <fedora@tsailer.ch> - 1.4.0-1
 - Update to 1.4.0
 - Package cmake files

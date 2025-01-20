@@ -2,7 +2,7 @@
 
 Name:     rubygem-%{gem_name}
 Version:  2.3.18
-Release:  2%{?dist}
+Release:  3%{?dist}
 Summary:  Converts AsciiDoc documents to PDF using Prawn
 License:  MIT
 URL:      https://github.com/asciidoctor/asciidoctor-pdf
@@ -97,6 +97,9 @@ rspec -t '~network'
 %{gem_instdir}/%{gem_name}.gemspec
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.18-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 13 2024 Sergi Jimenez <tripledes@fedoraproject.org> - 2.3.18-2
 - Relax prawn-svg dependency
 

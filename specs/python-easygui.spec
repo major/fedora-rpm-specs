@@ -2,7 +2,7 @@
 
 Name:           python-easygui
 Version:        0.96
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Very simple, very easy GUI programming in Python
 
 #License file, says CC 2.0 upstream website says with this version they moved to BSD.
@@ -82,6 +82,9 @@ install -m 644 %{SOURCE1} .
 %{python3_sitelib}/__pycache__/easygui.cpython-3*.py*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.96-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.96-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

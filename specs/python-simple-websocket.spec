@@ -6,7 +6,7 @@
 
 Name:           python-simple-websocket
 Version:        1.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple WebSocket server and client for Python
 
 BuildArch:      noarch
@@ -85,6 +85,9 @@ PYTHONPATH="${PWD}/src" %make_build -C docs latex \
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Oct 13 2024 Sandro Mani <manisandro@gmail.com> - 1.1.0-1
 - Update to 1.1.0
 

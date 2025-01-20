@@ -8,7 +8,7 @@
 
 Name:       procyon
 Version:    0.6.0
-Release:    0.7.%{commitdate}.git%{shortcommit}%{?dist}
+Release:    0.8.%{commitdate}.git%{shortcommit}%{?dist}
 Summary:    procyon java decompiler and other tools
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:    Apache-2.0 
@@ -212,6 +212,9 @@ popd
 %doc README.md
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-0.8.20220221.git88a95fa
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.6.0-0.7.20220221.git88a95fa
 - convert license to SPDX
 

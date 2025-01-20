@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -47,6 +47,9 @@ Allows you to skip tests when their required config variables aren't set.
 %doc README.md CHANGES.md
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Nov 07 2024 Kevin Fenzi <kevin@scrye.com> - 1.8.0-1
 - Update to 1.8.0. Fixes rhbz#2319439
 - Merdernize spec and fix ftbfs. fixed rhbz#2319707

@@ -5,7 +5,7 @@ ExcludeArch: aarch64 %{power64} s390x
 Name:          qcas
 Summary:       Qt5 GUI application for Giac
 Version:       0.5.3
-Release:       25%{?dist}
+Release:       26%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 URL:           http://webusers.imj-prg.fr/~frederic.han/qcas
@@ -165,6 +165,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{_datadir}/metainfo/%{name}.appdata.xml
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5.3-25
 - convert license to SPDX
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.25.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library to mock out calls with Python requests
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -58,6 +58,9 @@ sed -i -e '/\/tests\//d' %{pyproject_files}
 %exclude %{python3_sitelib}/responses/tests
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.25.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 10 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 0.25.5-1
 - update to 0.25.5
 

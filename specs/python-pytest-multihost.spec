@@ -7,7 +7,7 @@
 
 Name: python-%{srcname}
 Version: %{srcversion}
-Release: 26%{?dist}
+Release: 27%{?dist}
 Summary: Utility for writing multi-host tests for pytest
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -58,6 +58,9 @@ specify how many machines they need and commands/checks to run on them.
 %{python3_sitelib}/%{modulename}/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 3.0-26
 - convert license to SPDX
 

@@ -1,7 +1,7 @@
 Name:      perl-X10
 Summary:   Enables Perl to communicate with X10 devices
 Version:   0.04
-Release:   26%{?dist}
+Release:   27%{?dist}
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:   GPL-3.0-only
 URL:       https://metacpan.org/release/X10
@@ -61,6 +61,9 @@ find %{buildroot} -type f -name .packlist -delete
 %{perl_vendorlib}/X10/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.04-26
 - convert license to SPDX
 

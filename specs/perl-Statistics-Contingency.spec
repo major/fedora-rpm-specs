@@ -1,6 +1,6 @@
 Name:           perl-Statistics-Contingency
 Version:        0.09
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Calculate precision, recall, F1, accuracy, etc
 
 # There is no license file included with the sources, I asked upstream for one:
@@ -62,6 +62,9 @@ find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.09-31
 - convert license to SPDX
 

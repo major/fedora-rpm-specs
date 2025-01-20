@@ -23,7 +23,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}
 Version:        1.1.4
-Release:        15%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
+Release:        16%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
 Summary:        Server side handling class for FIDO U2F registration and authentication
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -114,6 +114,9 @@ php -r '
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1.4-15
 - convert license to SPDX
 

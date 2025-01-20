@@ -9,7 +9,7 @@ inclusion specifications with MANIFEST.in.
 
 Name:           python-%{srcname}
 Version:        1.2
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Setuptools revision control system plugin for Git
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -59,6 +59,9 @@ BuildRequires:  python3dist(pytest)
 %{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2-15
 - convert license to SPDX
 

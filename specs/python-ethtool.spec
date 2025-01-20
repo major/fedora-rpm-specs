@@ -6,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.15
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Python module to interface with %{pypi_name}
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -77,6 +77,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 %{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.15-12
 - convert license to SPDX
 

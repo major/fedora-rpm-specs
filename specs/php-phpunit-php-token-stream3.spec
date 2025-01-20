@@ -27,7 +27,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        3.1.3
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Wrapper around PHP tokenizer extension
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -124,6 +124,9 @@ exit $ret
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.3-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep  4 2024 Miroslav Suchý <msuchy@redhat.com> - 3.1.3-10
 - convert license to SPDX
 

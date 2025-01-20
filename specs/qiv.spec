@@ -1,6 +1,6 @@
 Name:           qiv
 Version:        2.3.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 
 Summary:        Quick Image Viewer
 
@@ -42,6 +42,9 @@ chmod 644 contrib/qiv-command.example
 %{_datadir}/pixmaps/qiv.png
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.3.2-11
 - convert license to SPDX
 

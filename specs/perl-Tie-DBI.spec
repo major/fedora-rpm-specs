@@ -1,6 +1,6 @@
 Name:           perl-Tie-DBI
 Version:        1.08
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Tie hashes to DBI relational databases
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -57,6 +57,9 @@ make test
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 1.08-17
 - convert license to SPDX
 

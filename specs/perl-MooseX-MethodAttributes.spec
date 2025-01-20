@@ -1,7 +1,7 @@
 Name:           perl-MooseX-MethodAttributes
 Summary:        Introspect your method code attributes
 Version:        0.32
-Release:        13%{?dist}
+Release:        14%{?dist}
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/MooseX-MethodAttributes-%{version}.tar.gz
@@ -54,6 +54,9 @@ sed -i '1s,#!.*perl,#!/usr/bin/perl,' t/*.t
 %{_mandir}/man3/MooseX*.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.32-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.32-13
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           perl-Statistics-Descriptive
 Version:        3.0801
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Perl module of basic descriptive statistical functions
 # lib/Statistics/Descriptive.pm:            GPL-1.0-or-later OR Artistic-1.0-Perl
 # lib/Statistics/Descriptive/Full.pm:       GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -100,6 +100,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0801-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0801-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

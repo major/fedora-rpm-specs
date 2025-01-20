@@ -1,6 +1,6 @@
 Name: restmbmaster
 Version: 5
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Rest API gateway to Modbus slaves
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -42,6 +42,9 @@ mkdir -p %{buildroot}/%{_sysconfdir}/%{name}
 %{_sysconfdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 5-7
 - convert license to SPDX
 

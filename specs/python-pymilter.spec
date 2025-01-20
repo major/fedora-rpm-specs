@@ -16,7 +16,7 @@
 Summary: %{sum}
 Name: python-pymilter
 Version: 1.0.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 Url:    https://www.pymilter.org
 Source: https://github.com/sdgathman/pymilter/archive/pymilter-%{version}.tar.gz
 #       https://github.com/sdgathman/pymilter/tags
@@ -163,6 +163,9 @@ if [ $1 -eq 0 ] ; then
 fi
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 13 2024 Sandro <devel@penguinpee.nl> - 1.0.6-1
 - Update to 1.0.6
 - Apply patch replacing unittest.makeSuite()

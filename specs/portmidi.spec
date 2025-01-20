@@ -12,7 +12,7 @@
 Summary:        Real-time Midi I/O Library
 Name:           portmidi
 Version:        217
-Release:        58%{?dist}
+Release:        60%{?dist}
 License:        MIT
 URL:            http://portmedia.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/portmedia/%{name}-src-%{version}.zip
@@ -25,6 +25,7 @@ Patch2:         portmidi-217-format-security.patch
 Patch3:         portmidi-no.c++.patch
 Patch4:         portmidi-cyrex-0.21.patch
 Patch5:         portmidi-c99.patch
+Patch6:         portmidi-PtTime.patch
 # Number no java patches 100 and above
 Patch100:       portmidi-no.java.patch
 BuildRequires: make
@@ -222,6 +223,12 @@ rm -f %{buildroot}%{_libdir}/libportmidi_s.so
 %{_libdir}/lib*.so
 
 %changelog
+* Sat Jan 18 2025 Michael J Gruber <mjg@fedoraproject.org> - 217-60
+- fix FTBFS with newer gcc
+
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 217-59
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 217-58
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

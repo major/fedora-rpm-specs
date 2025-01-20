@@ -1,6 +1,6 @@
 Name:           perl-NetAddr-IP
 Version:        4.079
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Manages IPv4 and IPv6 addresses and subnets
 # Lite/Util/Util.xs is GPL-2.0-or-later
 # Other files are (GPL-2.0-or-later OR Artistic-1.0-Perl)
@@ -73,6 +73,9 @@ make test
 %{_mandir}/man3/NetAddr::IP::UtilPP.3*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.079-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Sep 28 2024 Xavier Bachelot <xavier@bachelot.org> - 4.079-31
 - Modernize specfile (Thanks to Tom Stellard for the initial PR)
 

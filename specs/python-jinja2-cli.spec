@@ -8,7 +8,7 @@ yml and toml formats.
 
 Name:           python-%{pypi_name}
 Version:        0.8.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        %sum
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -67,6 +67,9 @@ py.test-%{python3_version}
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.8.2-11
 - convert license to SPDX
 

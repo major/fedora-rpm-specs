@@ -3,7 +3,7 @@
 
 Name:           python-%{project_name}
 Version:        2.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OpenID Connect extension for Flask
 
 License:        BSD-2-Clause
@@ -53,6 +53,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 24 2024 Packit <hello@packit.dev> - 2.2.2-1
 - Update to version 2.2.2
 

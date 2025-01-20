@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.6
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A schema package for messages sent by pagure
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -48,6 +48,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/pagure_messages-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.6-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.0.6-14
 - convert license to SPDX
 

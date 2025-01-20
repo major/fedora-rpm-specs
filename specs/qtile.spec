@@ -1,6 +1,6 @@
 Name: qtile
 Version: 0.29.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A pure-Python tiling window manager
 Source: https://github.com/qtile/qtile/archive/v%{version}/qtile-%{version}.tar.gz
 
@@ -148,6 +148,9 @@ desktop-file-install \
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.29.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Dec 19 2024 Jakub Kadlcik <frostyx@email.cz> - 0.29.0-3
 - Recommend python3-pulsectl-asyncio for the PulseVolume widget
 

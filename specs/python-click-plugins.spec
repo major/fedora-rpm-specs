@@ -1,6 +1,6 @@
 Name:           python-click-plugins
 Version:        1.1.1
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Click extension to register CLI commands via setuptools
 
 License:        BSD-3-Clause
@@ -52,6 +52,9 @@ export LANG=C.UTF-8
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Aug 16 2024 Carl George <carlwgeorge@fedoraproject.org> - 1.1.1-22
 - Convert to pyproject macros
 

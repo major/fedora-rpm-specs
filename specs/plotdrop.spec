@@ -1,6 +1,6 @@
 Name:           plotdrop
 Version:        0.5.3
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        A minimal GNOME front-end to Gnuplot
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -84,6 +84,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/plotdrop.desktop
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5.3-37
 - convert license to SPDX
 

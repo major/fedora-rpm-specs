@@ -2,7 +2,7 @@ Name:    qbittorrent
 Summary: A Bittorrent Client
 Epoch:   1
 Version: 5.0.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL:     https://www.qbittorrent.org
@@ -115,6 +115,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.qbittorren
 %{_mandir}/ru/man1/qbittorrent-nox.1*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.0.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec 25 2024 Filipe Rosset <rosset.filipe@gmail.com> - 1:5.0.3-1
 - Update to 5.0.3 fixes rhbz#2332941
 

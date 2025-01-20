@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A package containing multiple implementations of Ordered Set
 License:        MIT
 URL:            https://github.com/seperman/orderly-set
@@ -51,6 +51,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/orderly_set-%{pypi_version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 30 2024 Susi Lehtola <susi.lehtola@iki.fi> - 5.2.2-3
 - Review fix: switch to GitHub upstream to include license file.
 

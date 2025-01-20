@@ -1,6 +1,6 @@
 Name:           perl-Shell-Guess
 Version:        0.10
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Make an educated guess about the shell in use
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Shell-Guess
@@ -97,6 +97,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec 04 2024 Petr Pisar <ppisar@redhat.com> - 0.10-2
 - Require tcsh for tests
 

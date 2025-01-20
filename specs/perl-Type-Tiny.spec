@@ -1,6 +1,6 @@
 Name:           perl-Type-Tiny
 Version:        2.006000
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tiny, yet Moo(se)-compatible type constraint
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Type-Tiny
@@ -189,6 +189,9 @@ sed -i -e '/^inc\//d' MANIFEST
 %{_mandir}/man3/Test::TypeTiny.3pm*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.006000-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 01 2024 Ralf Corsépius <corsepiu@fedoraproject.org> - 2.006000-1
 - Update to 2.006000.
 - Reflect perl(Reply::Plugin) having been added to Fedora.

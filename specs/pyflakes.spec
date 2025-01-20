@@ -8,7 +8,7 @@ check on style.}
 Name:           pyflakes
 # WARNING: When updating pyflakes, check not to break flake8!
 Version:        3.1.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A simple program which checks Python source files for errors
 
 License:        MIT
@@ -68,6 +68,9 @@ ln -s pyflakes-3.1 %{buildroot}%{_mandir}/man1/pyflakes.1
 %exclude %{python3_sitelib}/pyflakes/test
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

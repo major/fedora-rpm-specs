@@ -14,7 +14,7 @@
 
 Name:    qwt5-qt5
 Version: 5.2.3a
-Release: 20.%{commitdate}git%{shortcommit0}%{?dist}
+Release: 21.%{commitdate}git%{shortcommit0}%{?dist}
 Summary: Qt Widgets for Technical Applications adapted to Qt5
 
 License: LGPL-2.1-or-later WITH Qwt-exception-1.0
@@ -91,6 +91,9 @@ pushd %{name}-master
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.3a-21.20210522gita2b11e3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.3a-20.20210522gita2b11e3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

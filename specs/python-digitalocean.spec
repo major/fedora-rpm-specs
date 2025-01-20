@@ -12,7 +12,7 @@
 
 Name:           python-%{pkgname}
 Version:        1.17.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Easy access to Digital Ocean APIs to deploy droplets, images and more
 
 # Automatically converted from old format: LGPLv3 - review is highly recommended.
@@ -122,6 +122,9 @@ This is the Python 3 version of the package.
 %endif
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.17.0-13
 - convert license to SPDX
 

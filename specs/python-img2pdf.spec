@@ -9,7 +9,7 @@ The img2pdf command complements the pdfimages command.
 
 Name:           python-%{srcname}
 Version:        0.5.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Lossless images to PDF conversion library and command
 
 License:        LGPL-3.0-or-later
@@ -116,6 +116,9 @@ PYTHONPATH=src %{__python3} -m pytest src/img2pdf_test.py -v -k 'not miff_c and 
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Sep 08 2024 Georg Sauthoff <mail@gms.tf> - 0.5.1-5
 - Fix ImageMagick version detection in tests (fixes fedora#2301153)
 

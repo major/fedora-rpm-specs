@@ -17,7 +17,7 @@
 Summary:       Zstandard extension
 Name:          php-%{pecl_name}
 Version:       0.14.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       MIT
 URL:           https://pecl.php.net/package/%{pecl_name}
 Source0:       https://pecl.php.net/get/%{sources}.tgz
@@ -156,6 +156,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Nov  6 2024 Remi Collet <remi@remirepo.net> - 0.14.0-1
 - update to 0.14.0
 

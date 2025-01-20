@@ -2,7 +2,7 @@
 
 Name:           perl-Time-Moment
 Version:        0.44
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Represents a date and time of day with an offset from UTC
 # Automatically converted from old format: (GPL+ or Artistic) and BSD - review is highly recommended.
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND LicenseRef-Callaway-BSD
@@ -96,6 +96,9 @@ make test
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.44-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.44-24
 - convert license to SPDX
 

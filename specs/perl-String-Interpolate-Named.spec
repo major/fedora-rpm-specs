@@ -8,7 +8,7 @@ Summary: Interpolated named arguments in string
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License: GPL-1.0-or-later OR Artistic-1.0-Perl
 Version: 1.03
-Release: 10%{?dist}
+Release: 11%{?dist}
 Source: %{metacpan}/%{FullName}-%{version}.tar.gz
 Url: https://metacpan.org/release/%{FullName}
 
@@ -54,6 +54,9 @@ make test VERBOSE=1
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 6 2024 Miroslav Suchý <msuchy@redhat.com> - 1.03-10
 - convert license to SPDX
 

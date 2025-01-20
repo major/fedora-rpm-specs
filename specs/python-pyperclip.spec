@@ -6,7 +6,7 @@
 
 Name:           python-pyperclip
 Version:        1.8.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A cross-platform clipboard module for Python
 
 License:        BSD-3-Clause
@@ -155,6 +155,9 @@ k="${k-}${k+ and }not TestXSel"
 %endif
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

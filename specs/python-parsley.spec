@@ -3,7 +3,7 @@
 
 Name:		python-parsley
 Version:	1.3
-Release:	32%{?dist}
+Release:	33%{?dist}
 Summary:	Parsing and pattern matching made easy
 License:	MIT
 URL:		https://launchpad.net/parsley
@@ -74,6 +74,9 @@ py.test-%{python3_version} terml/test ometa/test --ignore=ometa/test/test_vm_bui
 %{python3_sitelib}/terml/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

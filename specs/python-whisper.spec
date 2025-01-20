@@ -4,7 +4,7 @@
 
 Name:           python-whisper
 Version:        1.1.10
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -118,6 +118,9 @@ install -D -p -m0644 %{SOURCE19} %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.10-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1.10-6
 - convert license to SPDX
 

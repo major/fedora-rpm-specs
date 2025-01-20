@@ -1,6 +1,6 @@
 Name:           perl-Minion
 Version:        10.31
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        High performance job queue for the Perl programming language
 # Minion itself is Artistic-2.0
 # Minion Artwork is CC-SA License, Version 4.0
@@ -83,6 +83,9 @@ chmod -x lib/Mojolicious/Plugin/Minion/resources/public/minion/epoch/*
 %{_mandir}/man3/Mojolicious::Plugin::Minion*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.31-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Sep 22 2024 Emmanuel Seyman <emmanuel@seyman.fr> - 10.31-1
 - Update to 10.31
 

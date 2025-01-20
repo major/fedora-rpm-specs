@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.9.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Strictly RFC 4511 conforming LDAP V3 pure Python client
 
 License:        LGPL-3.0-or-later
@@ -53,6 +53,9 @@ SERVER='NONE' %{py3_test_envvars} %{python3} -m unittest discover -s test
 %doc README.rst
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 10 2024 Carl George <carlwgeorge@fedoraproject.org> - 2.9.1-10
 - Update license tag to LGPL-3.0-or-later
 - Remove duplicate COPYING.LESSER.txt license file

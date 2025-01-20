@@ -1,7 +1,7 @@
 Summary:        Feature rich, easy to use tag editor
 Name:           puddletag
 Version:        2.4.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            http://docs.puddletag.net/
@@ -60,6 +60,9 @@ chmod 0644 %{buildroot}%{python3_sitelib}/puddlestuff/data/{menus,shortcuts}
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 2.4.0-3
 - convert license to SPDX
 

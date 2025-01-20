@@ -22,7 +22,7 @@ libxs features and adds some nice Pythonic sugar on top.}
 
 Name:           python-%{pkgname}
 Version:        0.4.1
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Pure Python bindings to XenStore
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -110,6 +110,9 @@ BuildRequires:  python%{python3_pkgversion}-pytest >= 2.4
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.4.1-27
 - convert license to SPDX
 

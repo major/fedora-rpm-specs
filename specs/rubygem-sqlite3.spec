@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.6.1
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Allows Ruby scripts to interface with a SQLite3 database
 # Automatically converted from old format: BSD-3-Clause - review is highly recommended.
 License: BSD-3-Clause
@@ -101,6 +101,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 07 2025 Vít Ondruch <vondruch@redhat.com> - 1.6.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.4
 

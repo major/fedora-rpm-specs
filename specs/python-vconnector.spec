@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        0.6.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        %{sum}
 
 # setup.py mentions BSD license
@@ -80,6 +80,9 @@ src/%{srcname}-cli -v
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.6.0-17
 - convert license to SPDX
 

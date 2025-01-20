@@ -6,7 +6,7 @@
 
 Name:           python-%{mod_name}
 Version:        0.6.3
-Release:        31%{?dist}
+Release:        32%{?dist}
 Url:            http://github.com/saschpe/py2pack
 Summary:        Generate distribution packages from Python packages on PyPI
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -76,6 +76,9 @@ rm -rf %{buildroot}/%{_docdir}/%{mod_name}
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.6.3-31
 - convert license to SPDX
 

@@ -18,7 +18,7 @@ Identity API.
 Name:       python-keystoneclient
 Epoch:      1
 Version:    5.5.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Client library for OpenStack Identity API
 License:    Apache-2.0
 URL:        https://launchpad.net/python-keystoneclient
@@ -150,6 +150,9 @@ rm -fr doc/build/html/.{doctrees,buildinfo}
 %{python3_sitelib}/%{sname}/tests
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Oct 07 2024 Joel Capitao <jcapitao@redhat.com> 1:5.5.0-1
 - Update to upstream version 5.5.0
 

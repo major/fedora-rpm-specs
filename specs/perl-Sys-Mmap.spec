@@ -1,6 +1,6 @@
 Name:           perl-Sys-Mmap
 Version:        0.20
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Use mmap to map in a file as a Perl variable
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -64,6 +64,9 @@ find %{buildroot} -type d -empty -delete
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.20-18
 - convert license to SPDX
 

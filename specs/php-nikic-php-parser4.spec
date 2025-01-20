@@ -26,7 +26,7 @@
 
 Name:           php-%{gh_owner}-%{pk_project}%{major}
 Version:        4.19.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A PHP parser written in PHP - version %{major}
 
 License:        BSD-3-Clause
@@ -149,6 +149,9 @@ exit $ret
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.19.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 30 2024 Remi Collet <remi@remirepo.net> - 4.19.4-1
 - update to 4.19.4
 

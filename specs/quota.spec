@@ -13,7 +13,7 @@
 Name:       quota
 Epoch:      1
 Version:    4.09
-Release:    7%{?dist}
+Release:    8%{?dist}
 Summary:    System administration tools for monitoring users' disk usage
 # quota_nld.c, quotaio_xfs.h:       GPL-2.0-only
 # bylabel.c copied from util-linux: GPL-2.0-or-later
@@ -333,6 +333,9 @@ make check
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.09-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1:4.09-7
 - convert license to SPDX
 

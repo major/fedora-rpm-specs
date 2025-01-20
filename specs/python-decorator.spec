@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        5.1.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Module to simplify usage of decorators
 
 License:        BSD-2-Clause
@@ -52,6 +52,9 @@ etc.  The core of this module is a decorator factory called decorator.
 %license LICENSE.txt
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Nov 20 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 5.1.1-13
 - Avoid tox dependency
 

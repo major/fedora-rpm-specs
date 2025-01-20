@@ -3,7 +3,7 @@
 %global	rpmminorver	.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver	%{majorver}%{?preminorver}
 
-%global	baserelease	3
+%global	baserelease	4
 
 %global	gem_name	rspec-mocks
 
@@ -127,6 +127,9 @@ cucumber
 %{gem_docdir}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Dec 29 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.13.2-3
 - Coordinate with rspec-support change wrt ruby34 hash inspect support
 

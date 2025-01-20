@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.4.3
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Python packet parsing using wireshark dissectors
 
 License:        MIT
@@ -57,6 +57,9 @@ popd
 %{python3_sitelib}/*.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

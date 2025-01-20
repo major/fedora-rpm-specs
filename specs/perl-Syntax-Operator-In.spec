@@ -3,7 +3,7 @@
 
 Name:           perl-Syntax-Operator-In
 Version:        0.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Infix element-of-list meta-operator
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Syntax-Operator-In
@@ -113,6 +113,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 22 2024 Petr Pisar <ppisar@redhat.com> - 0.10-1
 - 0.10 bump
 

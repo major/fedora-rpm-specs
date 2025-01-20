@@ -6,7 +6,7 @@
 
 Name:           python-jupyter-polymake
 Version:        0.16
-Release:        29.%{gitdate}.%{shortcommit}%{?dist}
+Release:        30.%{gitdate}.%{shortcommit}%{?dist}
 Summary:        Jupyter kernel for polymake
 
 # The code is WTFPL.  The JavaScript and image files are MIT.
@@ -70,6 +70,9 @@ rmdir %{buildroot}%{python3_sitelib}/jupyter_kernel_polymake/resources
 %{python3_sitelib}/jupyter_kernel_polymake*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-30.20180129.7049940
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-29.20180129.7049940
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

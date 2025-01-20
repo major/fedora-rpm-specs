@@ -1,6 +1,6 @@
 Name:           perl-HTTP-Tinyish
 Version:        0.19
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        HTTP::Tiny compatible HTTP client wrappers
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -110,6 +110,9 @@ Provides:       perl(:HTTP-Tinyish:backend) = %{version}
 %{perl_vendorlib}/HTTP/Tinyish/Wget.pm
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.19-3
 - convert license to SPDX
 

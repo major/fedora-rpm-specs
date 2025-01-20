@@ -24,6 +24,9 @@ Patch2:         swipl-8.2.0-unbundle-libstemmer.patch
 Patch3:         swipl-9.2.7-inclpr-math.patch
 # Use zlib-ng directly rather than via the zlib compatibility interface
 Patch4:         swipl-9.2.9-zlib-ng.patch
+# Adapt to changed semantics of "type f();" in C23
+# https://github.com/SWI-Prolog/swipl/pull/33
+Patch5:         swipl-9.2.9-c23.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -404,6 +407,7 @@ This package provides a Qt-based GUI for SWI-Prolog.
 %patch -P0 -p1 -b .jni
 %autopatch -p1 -m1
 
+%conf
 # Fix the installation path on 64-bit systems
 if [ "%{_lib}" = "lib64" ]; then
   sed -e 's,lib\(/\${SWIPL_INSTALL_DIR}\),lib64\1,' \

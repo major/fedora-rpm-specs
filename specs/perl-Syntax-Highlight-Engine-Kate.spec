@@ -1,6 +1,6 @@
 Name:           perl-Syntax-Highlight-Engine-Kate
 Version:        0.14
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Port to Perl of the syntax highlight engine of the Kate text editor
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Syntax-Highlight-Engine-Kate
@@ -71,6 +71,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           python-jupyter-kernel-singular
 Version:        0.9.9
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Jupyter kernel for Singular
 
 License:        GPL-2.0-or-later
@@ -60,6 +60,9 @@ mv %{buildroot}%{_prefix}%{_sysconfdir} %{buildroot}%{_sysconfdir}
 %config(noreplace) %{_sysconfdir}/jupyter/nbconfig/notebook.d/singular-mode.json
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.9-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 15 2025 Jerry James <loganjerry@gmail.com> - 0.9.9-18
 - Add patch to remove unused imports
 - Assert that a license is installed

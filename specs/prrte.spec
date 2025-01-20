@@ -1,6 +1,6 @@
 Name:           prrte
 Version:        3.0.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PMIx Reference RunTime Environment (PRRTE)
 # src/mca/prtereachable/netlink/reachable_netlink_utils_common.c is BSD-2-Clause
 # -devel related licenses:
@@ -125,6 +125,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Oct 20 2024 Orion Poplawski <orion@nwra.com> - 3.0.6-1
 - Update to 3.0.6
 - Add upstream fix for rhbz#2307533

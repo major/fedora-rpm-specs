@@ -2,7 +2,7 @@
 
 Name:           python-queuelib
 Version:        1.5.0
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Collection of persistent (disk-based) queues
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -47,6 +47,9 @@ nosetests-%{python3_version} queuelib/tests
 %{python3_sitelib}/%{srcname}*.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.5.0-22
 - convert license to SPDX
 

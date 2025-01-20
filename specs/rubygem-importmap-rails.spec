@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.0.3
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Manage modern JavaScript in Rails without transpiling or bundling
 License: MIT
 URL: https://github.com/rails/importmap-rails
@@ -85,6 +85,9 @@ popd
 %{gem_instdir}/Rakefile
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Nov 10 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.3-8
 - Add BR: rubygem(mutex_m) explicitly for ruby34
 

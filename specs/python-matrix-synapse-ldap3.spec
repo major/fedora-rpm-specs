@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Allows synapse to use LDAP as a password provider
 License:        Apache-2.0
 URL:            https://github.com/matrix-org/%{srcname}
@@ -51,6 +51,9 @@ BuildRequires:  python3-devel
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Nov 03 2024 Dan Callaghan <djc@djc.id.au> - 0.3.0-1
 - new upstream release 0.3.0:
   https://github.com/matrix-org/matrix-synapse-ldap3/releases/tag/v0.3.0

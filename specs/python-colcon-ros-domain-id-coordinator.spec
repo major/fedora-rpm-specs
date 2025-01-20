@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extension for colcon to coordinate different DDS domain IDs
 
 License:        Apache-2.0
@@ -52,5 +52,8 @@ BuildRequires:  python%{python3_pkgversion}-devel
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 08 2024 Scott K Logan <logans@cottsay.net> - 0.2.0-1
 - Initial package (rhbz#2317437)

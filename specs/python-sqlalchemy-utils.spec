@@ -2,7 +2,7 @@
 
 Name:               python-sqlalchemy-utils
 Version:            0.41.1
-Release:            8%{?dist}
+Release:            9%{?dist}
 Summary:            Various utility functions for SQLAlchemy
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -66,6 +66,9 @@ rm -rf %{modname}.egg-info
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.41.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.41.1-8
 - convert license to SPDX
 

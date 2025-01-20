@@ -1,7 +1,7 @@
 Summary:       Debugger using ptrace written in Python
 Name:          python-ptrace
 Version:       0.9.9
-Release:       4%{?dist}
+Release:       5%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:       GPL-2.0-only
 URL:           https://github.com/vstinner/python-ptrace
@@ -56,6 +56,9 @@ rm -f %{buildroot}%{_bindir}/{gdb,strace}.{pyo,pyc}
 %{python3_sitearch}/cptrace-*-py*.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.9-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.9.9-4
 - convert license to SPDX
 

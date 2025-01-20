@@ -7,7 +7,7 @@
 
 Name:           perl-Net-CalDAVTalk
 Version:        0.12
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        CalDAV client with JSON data interface
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Net-CalDAVTalk
@@ -119,6 +119,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

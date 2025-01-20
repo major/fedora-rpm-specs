@@ -18,7 +18,7 @@ the OpenStack Heat API.
 
 Name:    python-heatclient
 Version: 4.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Python API and CLI for OpenStack Heat
 
 License: Apache-2.0
@@ -135,6 +135,9 @@ install -p -D -m 644 doc/build/man/heat.1 %{buildroot}%{_mandir}/man1/heat.1
 %endif
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Oct 07 2024 Joel Capitao <jcapitao@redhat.com> 4.0.0-1
 - Update to upstream version 4.0.0
 

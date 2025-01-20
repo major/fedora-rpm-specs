@@ -1,6 +1,6 @@
 Name:           pstreams-devel
 Version:        1.0.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        POSIX Process Control in C++
 
 License:        BSL-1.0
@@ -46,6 +46,9 @@ make install  DESTDIR=$RPM_BUILD_ROOT includedir=%{_includedir}
 %doc doc/html README AUTHORS ChangeLog
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Aug 24 2024 Jonathan Wakely <jwakely@fedoraproject.org> - 1.0.4-1
 - Update to version 1.0.4
 

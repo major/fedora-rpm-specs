@@ -7,7 +7,7 @@
 
 Name:           perl-Net-CardDAVTalk
 Version:        0.09
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        CardDAV client
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Net-CardDAVTalk
@@ -107,6 +107,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.4.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Pure Python sorted container types
 
 License:        Apache-2.0
@@ -95,6 +95,9 @@ popd
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

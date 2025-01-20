@@ -2,7 +2,7 @@
 
 Name:           mot-adms
 Version:        2.3.7
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        An electrical compact device models converter
 
 # SPDX confirmed
@@ -10,6 +10,10 @@ License:        GPL-3.0-or-later
 URL:            https://github.com/Qucs/ADMS
 
 Source0:        https://github.com/Qucs/ADMS/archive/release-%{version}/adms-%{version}.tar.gz
+# Fix for C23 strict prototype
+# FIXME this patch actually matches what current mot-adms is doing even with C17,
+# however I don't know if this behavior is what upstream intends (mtasaka)
+Patch0:         adms-2.3.7-c23-func-prototype.patch
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -28,6 +32,7 @@ transforms Verilog-AMS code into other target languages.
 
 %prep
 %setup -q -n ADMS-release-%{version}
+%patch -P0 -p1 -b .c23
 
 %build
 autoreconf -vif
@@ -69,6 +74,9 @@ find %{buildroot} -type l -name '*.so' -delete
 %{_mandir}/man1/admsXml.1*
 
 %changelog
+* Sat Jan 18 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.3.7-13
+- Support C23 strict prototype
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.7-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

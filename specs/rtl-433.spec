@@ -4,7 +4,7 @@
 
 Name: rtl-433
 Version: 23.11
-Release: 1.%{commit_date}git%{commit_short}%{dist}
+Release: 2.%{commit_date}git%{commit_short}%{dist}
 
 Summary: Generic radio data receiver
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -87,6 +87,9 @@ done
 %{_includedir}/rtl_433*.h
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 23.11-2.20240826gitf0ba153
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 09 2024 Andrew Bauer <zonexpertconsulting@outlook.com> - 23.11-1.20240826gitf0ba153
 - bump to latest git release
 - buildrequires libusb1-devel 

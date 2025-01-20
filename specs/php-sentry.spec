@@ -39,7 +39,7 @@
 
 Name:          php-%{composer_project}
 Version:       %{github_version}
-Release:       21%{?github_release}%{?dist}
+Release:       22%{?github_release}%{?dist}
 Summary:       PHP client for Sentry
 
 # ASL 2.0:
@@ -206,6 +206,9 @@ exit $ret
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.0-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.22.0-21
 - convert license to SPDX
 

@@ -4,7 +4,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        3.0.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Commandline option parser for Ruby
 
 License:        MIT
@@ -76,6 +76,9 @@ ruby -Ilib:test -e '$0="workaround"; Dir.glob "./test/**/*_test.rb", &method(:re
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

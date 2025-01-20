@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.8
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Control Tasmota devices via their web API
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -43,6 +43,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.8-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.0.8-15
 - convert license to SPDX
 

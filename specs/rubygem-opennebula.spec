@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        6.4.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        OpenNebula Client API
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -58,6 +58,9 @@ cp -a .%{gem_dir}/* %{buildroot}%{gem_dir}/
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 6.4.2-6
 - convert license to SPDX
 

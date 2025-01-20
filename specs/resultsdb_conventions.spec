@@ -9,7 +9,7 @@ to help with reporting results that conform to the conventions.
 
 Name:           resultsdb_conventions
 Version:        %{pagure_version}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -72,6 +72,9 @@ sed -i -e 's., "setuptools-scm"..g' pyproject.toml
 %pycached %{python3_sitelib}/resultsdb_conventions/fedoracoreos.py
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 3.0.2-6
 - convert license to SPDX
 

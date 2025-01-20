@@ -1,6 +1,6 @@
 Name:           python-xdot
 Version:        1.1
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Interactive viewer for Graphviz dot files
 
 # The file declares itself to be LGPLv3 or later at the top, but
@@ -64,6 +64,9 @@ rm -rf xdot.egg-info
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1-18
 - convert license to SPDX
 

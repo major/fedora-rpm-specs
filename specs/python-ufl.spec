@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2019.1.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Compiler for finite element variational forms
 
 License:        LGPL-3.0-or-later
@@ -78,6 +78,9 @@ chmod +x %{buildroot}%{python3_sitelib}/%{srcname}/demo/clean.sh
 %{python3_sitelib}/%{srcname}/test/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2019.1.0-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 17 2024 Miro Hrončok <mhroncok@redhat.com> - 2019.1.0-23
 - python-ufl-test: Remove unused Requires for python3-nose
 

@@ -1,6 +1,6 @@
 Name:           picocli
 Version:        4.7.4
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Java command line parser with both an annotations API and a programmatic API
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -277,6 +277,9 @@ cp -p %{SOURCE1} %{name}-tests/pom.xml
 %doc %{name}-shell-jline3/README.md
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.4-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 4.7.4-7
 - convert license to SPDX
 

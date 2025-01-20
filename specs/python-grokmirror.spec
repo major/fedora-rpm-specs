@@ -1,6 +1,6 @@
 Name:           python-grokmirror
 Version:        2.0.12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Framework to smartly mirror git repositories
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -57,6 +57,9 @@ install -pm 0644 man/*.1 %{buildroot}/%{_mandir}/man1/
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Nov 22 2024 Robby Callicotte <rcallicotte@fedoraproject.org> - 2.0.12-1
 - Update to 2.0.12
 - Added grokmirror.conf to docs

@@ -4,7 +4,7 @@
 Name:           picojson
 Summary:        A header-file-only, JSON parser / serializer in C++
 Version:        1.3.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -46,6 +46,9 @@ install -p -m 0644 picojson.h %{buildroot}%{_includedir}/picojson.h
 %doc LICENSE README.mkdn examples
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3.0-20
 - convert license to SPDX
 

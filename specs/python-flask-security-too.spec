@@ -3,7 +3,7 @@
 
 Name:           python-%{pkg_name}
 Version:        5.5.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Simple security for Flask apps
 License:        MIT
 
@@ -71,6 +71,9 @@ ln -s pyproject-too.toml pyproject.toml
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Nov 22 2024 Frantisek Zatloukal <fzatlouk@redhat.com> - 5.5.2-2
 - Backport fix for Flask >= 3.1
 

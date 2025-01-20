@@ -1,6 +1,6 @@
 Name:           rudesocket
 Version:        1.3.0
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Library (C++ API) for creating client sockets
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -66,6 +66,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3.0-37
 - convert license to SPDX
 

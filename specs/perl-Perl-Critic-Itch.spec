@@ -1,6 +1,6 @@
 Name:           perl-Perl-Critic-Itch
 Version:        0.07
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Collection of Perl::Critic policies to solve some itches
 # Automatically converted from old format: GPLv3+ or Artistic 2.0 - review is highly recommended.
 License:        GPL-3.0-or-later OR Artistic-2.0
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 0.07-36
 - convert license to SPDX
 

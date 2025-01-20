@@ -12,7 +12,7 @@ so far seems to work (all tests pass on 2.7, 3.3, and 3.4).
 
 Name:           python-%{pypi_name}
 Version:        0.9.1
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Python parser for the CommonMark Markdown spec
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -95,6 +95,9 @@ PYTHONPATH=$(pwd) %{__python3} setup.py test
 
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.9.1-18
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           perl-Module-Install-TestBase
 Version:        0.86
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Module::Install support for Test::Base
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Install-TestBase
@@ -104,6 +104,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.86-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Aug 22 2024 Petr Pisar <ppisar@redhat.com> - 0.86-34
 - Modernize a spec file
 

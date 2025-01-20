@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.0.4
-Release: 18%{?dist}
+Release: 19%{?dist}
 Summary: Dynamic inspection of the hierarchy of method definitions on a Ruby object
 # https://github.com/floehopper/introspection/issues/1
 License: MIT
@@ -76,6 +76,9 @@ popd
 %doc %{gem_docdir}
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Vít Ondruch <vondruch@redhat.com> - 0.0.4-18
 - Drop BlankSlate dependency.
 

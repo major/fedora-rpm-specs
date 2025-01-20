@@ -18,7 +18,7 @@
 
 Name:           rpcsvc-proto
 Version:        1.4
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        RPC protocol definitions
 # Automatically converted from old format: BSD and LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-BSD AND LicenseRef-Callaway-LGPLv2+
@@ -76,6 +76,9 @@ rm -f $RPM_BUILD_ROOT%{_prefix}/include/rpcsvc/rquota.[hx]
 %{_mandir}/man1/rpcgen.1*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.4-16
 - convert license to SPDX
 

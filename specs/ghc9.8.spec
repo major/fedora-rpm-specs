@@ -60,7 +60,7 @@ Version: 9.8.4
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -77,6 +77,8 @@ Source7: runghc.man
 Patch1: ghc-gen_contents_index-haddock-path.patch
 Patch2: ghc-Cabal-install-PATH-warning.patch
 Patch3: ghc-gen_contents_index-nodocs.patch
+# https://gitlab.haskell.org/ghc/ghc/-/issues/25662
+Patch5: hp2ps-C-gnu17.patch
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604
 # needs more backporting to 9.6
 Patch9: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604.patch
@@ -85,8 +87,8 @@ Patch9: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604.patch
 Patch16: ghc-hadrian-s390x-rts--qg.patch
 
 # Debian patches:
-# bad according to upstream
-# see eg https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604
+# bad according to upstream: https://gitlab.haskell.org/ghc/ghc/-/issues/10424
+# see https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604 above
 #Patch24: buildpath-abi-stability.patch
 Patch26: no-missing-haddock-file-warning.patch
 Patch27: haddock-remove-googleapis-fonts.patch
@@ -166,7 +168,7 @@ BuildRequires:  ghc-stm-devel
 BuildRequires:  ghc-transformers-devel
 BuildRequires:  ghc-unordered-containers-devel
 %else
-BuildRequires: %{name}-hadrian
+BuildRequires:  %{name}-hadrian
 %endif
 
 Requires: %{name}-compiler = %{version}-%{release}
@@ -383,8 +385,9 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %setup -q -n ghc-%{version} %{?with_testsuite:-b1}
 
 %patch -P1 -p1 -b .orig
+%patch -P2 -p1 -b .orig
 %patch -P3 -p1 -b .orig
-#%%patch -P2 -p1 -b .orig
+%patch -P5 -p1 -b .orig
 #%%patch -P9 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
@@ -839,6 +842,10 @@ make test
 
 
 %changelog
+* Sun Jan 19 2025 Jens Petersen <petersen@redhat.com> - 9.8.4-14
+- fix hp2ps failure with gcc15 C23
+- disable Cabal install PATH warning
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.8.4-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

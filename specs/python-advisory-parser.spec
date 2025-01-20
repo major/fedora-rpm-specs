@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.10
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Security flaw parser for upstream security advisories
 
 # Automatically converted from old format: LGPLv3+ - review is highly recommended.
@@ -52,6 +52,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v tests
 %{python3_sitelib}/advisory_parser-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 1.10-15
 - convert license to SPDX
 

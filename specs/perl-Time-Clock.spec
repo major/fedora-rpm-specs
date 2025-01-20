@@ -1,6 +1,6 @@
 Name:		perl-Time-Clock
 Version:	1.03
-Release:	31%{?dist}
+Release:	32%{?dist}
 Summary:	Twenty-four hour clock object with nanosecond precision
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -48,6 +48,9 @@ make test
 %{_mandir}/man3/Time::Clock.3pm*
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 1.03-31
 - convert license to SPDX
 

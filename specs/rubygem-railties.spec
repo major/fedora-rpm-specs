@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 7.0.8
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Tools for creating, working with, and running Rails applications
 License: MIT
 URL: http://rubyonrails.org
@@ -271,6 +271,9 @@ popd
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.8-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Nov 26 2024 Vít Ondruch <vondruch@redhat.com> - 7.0.8-6
 - Ruby 3.4 compatibility fixes.
 

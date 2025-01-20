@@ -4,7 +4,7 @@
 
 Name:		python-%{pkgname}
 Version:	1.6.1
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	%{sum}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
@@ -81,6 +81,9 @@ rm flask_admin/translations/README.md
 %{python3_sitelib}/*.egg-info/
 
 %changelog
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.6.1-6
 - convert license to SPDX
 
