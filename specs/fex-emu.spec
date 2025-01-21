@@ -30,7 +30,7 @@
 %bcond x86_debug 0
 
 Name:       fex-emu
-Version:    2412%{?commit:^%{date}git%{commit}}
+Version:    2501%{?commit:^%{date}git%{commit}}
 Release:    %autorelease
 Summary:    Fast usermode x86 and x86-64 emulator for ARM64
 
@@ -54,10 +54,6 @@ Source5:    toolchain_x86_64.cmake
 SourceLicense: %{fex_license} %{sysroot_license}
 %endif
 
-# Fix thunk build
-Patch0:     0001-Thunks-gen-Add-support-for-compiling-against-clang-1.patch
-Patch1:     0001-Library-Forwarding-Allow-reading-standard-library-he.patch
-
 # Bundled dependencies managed as git submodules upstream
 # These are too entangled with the build system to unbundle for now
 # https://github.com/FEX-Emu/FEX/issues/2996
@@ -70,7 +66,7 @@ local externals = {
   --{ name="fex-gcc-target-tests-bins", ref="442678a", owner="FEX-Emu", license="GPL-2.0-or-later", bcond="integration" },
   --{ name="fex-gvisor-tests-bins", ref="71349ae", owner="FEX-Emu", license="Apache-2.0", bcond="integration" },
   --{ name="fex-posixtest-bins", ref="9ae2963", owner="FEX-Emu", package="posixtest", version="1.5.2", license="GPL-2.0-or-later", bcond="integration" },
-  { name="fmt", ref="0c9fce2", owner="fmtlib", version="11.0.2", license="MIT" },
+  { name="fmt", ref="873670b", owner="fmtlib", version="11.0.2", license="MIT" },
   --Excluded as we use the FEXConfig Qt backend instead
   --{ name="imgui", ref="4c986ec", owner="Sonicadvance1", version="1.73", license="MIT" },
   { name="jemalloc", ref="02ca52b", owner="FEX-Emu", version="5.3.0", license="MIT" },

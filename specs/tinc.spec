@@ -1,6 +1,6 @@
 Name:           tinc
 Version:        1.0.36
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A virtual private network daemon
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -58,6 +58,9 @@ rm -f %{buildroot}%{_infodir}/dir
 %{_unitdir}/%{name}*.service
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.36-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Sep 28 2024 Fabian Affolter <mail@fabian-affolter.ch> - 1.0.36-14
 - Fix FTBFS (closes rhbz#2301329)
 

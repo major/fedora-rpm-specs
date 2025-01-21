@@ -1,6 +1,6 @@
 Name:           test-drive
 Version:        0.4.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        The simple testing framework
 # Automatically converted from old format: ASL 2.0 or MIT - review is highly recommended.
 License:        Apache-2.0 OR LicenseRef-Callaway-MIT
@@ -48,6 +48,9 @@ rm -rf %{buildroot}%{_includedir}/test-drive/
 %{_libdir}/libtest-drive.so
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.4.0-8
 - convert license to SPDX
 

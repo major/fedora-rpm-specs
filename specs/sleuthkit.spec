@@ -5,7 +5,7 @@
 
 Name:           sleuthkit
 Version:        4.12.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        The Sleuth Kit (TSK)
 
 # Automatically converted from old format: CPL and IBM and GPLv2+ - review is highly recommended.
@@ -185,6 +185,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.12.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 4.12.1-4
 - convert license to SPDX
 

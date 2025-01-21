@@ -2,7 +2,7 @@
 
 Name:		tayga
 Version:	0.9.2
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	Simple, no-fuss NAT64
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -117,6 +117,9 @@ install -d -m 0755 %{buildroot}%{_localstatedir}/run/%{name}
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.9.2-24
 - convert license to SPDX
 

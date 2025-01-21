@@ -5,19 +5,13 @@
 
 Summary:        Firebird interface for perl
 Name:           perl-DBD-Firebird
-Version:        1.38
-Release:        4%{?dist}
+Version:        1.39
+Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/%{pkgname}
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAM/%{pkgname}-%{version}.tar.gz
 BuildRequires:  coreutils
-BuildRequires:  findutils
-%if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires:  libfbclient2-devel >= 2.5.1
-%else
-BuildRequires:  firebird >= 2.5.1
-BuildRequires:  firebird-devel >= 2.5.1
-%endif
 BuildRequires:  libicu-devel
 BuildRequires:  gcc
 %if 0%{?rhel} == 8
@@ -28,9 +22,7 @@ BuildRequires:  make
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-%if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires:  perl(:VERSION) >= 5.10.1
-%endif
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Config)
@@ -73,15 +65,11 @@ access to Firebird databases.
 . /opt/rh/gcc-toolset-12/enable
 %endif
 
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="$RPM_OPT_FLAGS -Wno-incompatible-pointer-types"
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="$RPM_OPT_FLAGS"
 %make_build
 
 %install
 %make_install
-%if 0%{?rhel} && 0%{?rhel} <= 7
-find $RPM_BUILD_ROOT \( -name perllocal.pod -o -name .packlist \) -exec rm -f {} \;
-find $RPM_BUILD_ROOT -type f -name '*.bs' -empty -exec rm -f {} ';'
-%endif
 chmod -R u+w $RPM_BUILD_ROOT/*
 
 %check
@@ -105,6 +93,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Sun Jan 19 2025 Robert Scheck <robert@fedoraproject.org> 1.39-1
+- Upgrade to 1.39 (#2338811)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.38-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

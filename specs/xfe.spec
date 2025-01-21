@@ -4,7 +4,7 @@
 %global	use_gcc_strict_sanitize	0
 
 Name:		xfe
-Version:	2.0
+Version:	2.0.1
 Release:	1%{?dist}
 Summary:	X File Explorer File Manager
 
@@ -14,7 +14,8 @@ Summary:	X File Explorer File Manager
 # SPDX confirmed
 License:	GPL-2.0-or-later AND Zlib AND MIT
 URL:		http://roland65.free.fr/xfe/
-Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
+%dnl Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
+Source0:	https://sourceforge.net/p/xfe/bugs/_discuss/thread/7d14462c76/238d/attachment/%{name}-%{version}.tar.xz
 # Temporarily
 # Use system-wide startup-notification: need discuss with upstream
 Patch0:	xfe-2.0-use-system-libsn.patch
@@ -168,6 +169,9 @@ ln -sf ../../../%{_sysconfdir}/xferc %{buildroot}%{_datadir}/%{name}/xferc
 %exclude	%{_datadir}/%{name}/icons/gnome*-theme/
 
 %changelog
+* Sun Jan 19 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.1-1
+- 2.0.1
+
 * Sun Jan 12 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0-1
 - 2.0
 

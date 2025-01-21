@@ -1,6 +1,6 @@
 Name: schedtool       
 Version:  1.3.0   
-Release:  32%{?dist}
+Release:  33%{?dist}
 Summary:  Tool to query or alter process scheduling policy      
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -43,6 +43,9 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/INSTALL
 %doc %{_docdir}/%{name}/SCHED_DESIGN
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3.0-32
 - convert license to SPDX
 

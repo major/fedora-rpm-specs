@@ -1,6 +1,6 @@
 Name:           src
 Version:        1.38
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Simple Revision Control
 
 License:        BSD-2-Clause
@@ -41,6 +41,9 @@ Has a modern, svn/hg/git-like UI
 %{_mandir}/man1/src.1*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.38-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.38-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:		voms
 Version:	2.1.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Virtual Organization Membership Service
 
 License:	Apache-2.0
@@ -10,6 +10,8 @@ URL:		https://italiangrid.github.io/voms/
 Source0:	https://github.com/italiangrid/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 #		Post-install setup instructions:
 Source1:	%{name}.INSTALL
+#		https://github.com/italiangrid/voms/pull/140
+Patch0:		0001-Fix-compilation-with-GCC-15-Fedora-42.patch
 
 BuildRequires:	make
 BuildRequires:	gcc-c++
@@ -102,6 +104,7 @@ This package provides the VOMS service.
 
 %prep
 %setup -q
+%patch -P0 -p1
 
 ./autogen.sh
 
@@ -292,6 +295,9 @@ fi
 %doc README.Fedora
 
 %changelog
+* Sun Jan 19 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.1.0-4
+- Fix compilation with GCC 15
+
 * Thu Oct 31 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.1.0-3
 - Rebuild for gsoap 2.8.135 (Fedora 42)
 - Add additional ghost files to package (rpmlint)

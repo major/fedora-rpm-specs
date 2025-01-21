@@ -2,7 +2,7 @@
 
 Name:           xiphos
 Version:        4.2.1
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Bible study and research tool
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -100,6 +100,9 @@ rm -frv %{buildroot}%{_docdir}/%{name}
 %{_mandir}/man1/%{name}-nav.1.gz
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.1-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Dec 08 2024 Pete Walter <pwalter@fedoraproject.org> - 4.2.1-26
 - Rebuild for ICU 76
 

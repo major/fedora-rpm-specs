@@ -24,7 +24,7 @@ An unofficial GUI wrapper around the Tailscale CLI client.}
 %global godocs          README.md
 
 Name:           trayscale
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An unofficial GUI wrapper around the Tailscale CLI client
 
 # main source code is MIT
@@ -229,6 +229,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/dev.deedles.Tr
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 03 2025 Jonathan Wright <jonathan@almalinux.org> - 0.14.1-1
 - update to 0.14.1 rhbz#2333617
 

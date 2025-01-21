@@ -2,7 +2,7 @@
 
 Name:           ufw-kde
 Version:        0.5.0
-Release:        0.26.%{snapdate}git%{?dist}
+Release:        0.27.%{snapdate}git%{?dist}
 Summary:        UFW control module for KDE
 
 # Some files GPLv3 only, some files GPLv2+
@@ -75,6 +75,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE3}
 %{_datadir}/applications/ufw-kde.desktop
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-0.27.20161006git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5.0-0.26.20161006git
 - convert license to SPDX
 

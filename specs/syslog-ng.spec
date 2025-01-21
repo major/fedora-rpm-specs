@@ -8,7 +8,7 @@
 
 Name:    syslog-ng
 Version: %{syslog_ng_ver}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Next-generation syslog server
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -611,6 +611,9 @@ fi
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Oct 09 2024 Peter Czanik <peter@czanik.hu> - 4.8.1-1
 - update to 4.8.1
 - it is a bug fix release fixing many bugs reported upstream

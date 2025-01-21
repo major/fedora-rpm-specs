@@ -1,6 +1,6 @@
 Name:          tinycompress
 Version:       1.2.13
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       A library for compress audio offload in alsa
 # Automatically converted from old format: BSD and LGPLv2 - review is highly recommended.
 License:       LicenseRef-Callaway-BSD AND LicenseRef-Callaway-LGPLv2
@@ -62,6 +62,9 @@ make check
 %{_bindir}/crecord
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.13-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Nov 12 2024 Jaroslav Kysela <perex@perex.cz> 1.2.13-1
 - 1.2.13 release
 

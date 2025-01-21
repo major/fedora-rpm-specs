@@ -6,7 +6,7 @@
 Summary: A printer administration tool
 Name: system-config-printer
 Version: 1.5.18
-Release: 11%{?dist}
+Release: 12%{?dist}
 License: GPL-2.0-or-later
 URL: https://github.com/%{username}/%{name}
 Source0: %{url}/releases/download/%{version}/%{name}-%{version}.tar.xz
@@ -291,6 +291,9 @@ exit 0
 %endif
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.18-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.18-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

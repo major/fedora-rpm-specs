@@ -3,7 +3,7 @@
 
 Name: %{fontname}-fonts
 Version: 1.1.3
-Release: 27%{?dist}
+Release: 28%{?dist}
 Summary: Unicode compliant OpenType font for Telugu
 
 # Automatically converted from old format: GPLv2+ with exceptions - review is highly recommended.
@@ -48,6 +48,9 @@ install -Dm 0644 -p %{SOURCE1} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1.3-27
 - convert license to SPDX
 

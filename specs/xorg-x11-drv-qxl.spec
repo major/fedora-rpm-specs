@@ -14,7 +14,7 @@
 Summary:    Xorg X11 qxl video driver
 Name:       xorg-x11-drv-qxl
 Version:    0.1.6
-Release:    6%{?dist}
+Release:    7%{?dist}
 URL:        http://www.x.org
 License:    MIT
 
@@ -101,6 +101,9 @@ install -p -m 644 examples/spiceqxl.xorg.conf.example \
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.6-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 30 2024 Simone Caronni <negativo17@gmail.com> - 0.1.6-6
 - Clean up SPEC file.
 - Enable Spice Smart Card support.

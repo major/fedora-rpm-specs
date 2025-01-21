@@ -4,7 +4,7 @@
 # https://github.com/golang/tools
 %global goipath         golang.org/x/tools/gopls
 %global forgeurl        https://github.com/golang/tools
-Version:                0.16.2
+Version:                0.17.1
 %global tag             gopls/v%{version}
 %{lua: rpm.define("safe_tag " .. string.gsub(rpm.expand("%tag"), "/", "-"))}
 %global distprefix      %{nil}
@@ -32,12 +32,6 @@ License:        BSD-3-Clause
 URL:            %{gourl}
 Source:         %{gosource}
 Patch:          0001-Skip-tests-that-require-module-mode.patch
-# https://github.com/golang/tools/commit/b5bfa9cc3f8a6e3ad9a05d63679fe9327631e41a
-# move the fuzzy package to gopls
-# This has been released as part of golang-x-tools 0.27 but no gopls stable
-# version that contains this change has been released yet.
-# Remove with 0.17.0
-Patch:          b5bfa9cc3f8a6e3ad9a05d63679fe9327631e41a.patch
 
 Obsoletes:      golang-x-tools-gopls < 1:0.22.0-3
 Provides:       golang-x-tools-gopls = %{version}-%{release}
@@ -64,6 +58,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 
 %if %{with check}
 %check
+# Tests expect this to be set because go.mod specifies a new enough Go version,
+# but since we disable module mode, this isn't set automatically.
+export GODEBUG=gotypesalias=1
 %gocheck -t internal/cmd -t internal/lsp/cache -t internal/telemetry
 %endif
 

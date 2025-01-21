@@ -1,6 +1,6 @@
 Name: unclutter-xfixes
 Version: 1.6
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Hides the cursor on inactivity (rewrite of unclutter)
 License: MIT
 URL: https://github.com/Airblader/unclutter-xfixes
@@ -37,6 +37,9 @@ rm -r %{buildroot}%{_prefix}/share/licenses
 %{_mandir}/man1/unclutter.1*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

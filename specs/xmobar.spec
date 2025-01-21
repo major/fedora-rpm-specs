@@ -16,7 +16,7 @@
 Name:           %{pkg_name}
 Version:        0.48.1
 # can only be reset when all subpkgs bumped
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        A minimalistic text-based status bar
 
 License:        BSD-3-Clause
@@ -247,6 +247,9 @@ PATH=%{buildroot}%{_bindir}:$PATH
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.48.1-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Jul 21 2024 Jens Petersen <petersen@redhat.com> - 0.48.1-31
 - https://hackage.haskell.org/package/xmobar-0.48.1/changelog
 

@@ -1,5 +1,5 @@
 Name:           paho-cpp
-Version:        1.4.0
+Version:        1.5.0
 Release:        %autorelease
 Summary:        Eclipse Paho MQTT C++ Client Library
 License:        EPL-2.0
@@ -50,7 +50,6 @@ sed -i 's|lib/cmake|%{_lib}/cmake|g' cmake/CMakeLists.txt
 
 mkdir -p %{buildroot}%{_docdir}/%{name}/examples/
 cp -a examples/*.cpp %{buildroot}%{_docdir}/%{name}/examples/
-mv %{buildroot}%{_docdir}/html %{buildroot}%{_docdir}/%{name}/html
 
 %files
 %license edl-v10 epl-v20
@@ -64,7 +63,8 @@ mv %{buildroot}%{_docdir}/html %{buildroot}%{_docdir}/%{name}/html
 %files doc
 %license edl-v10 epl-v20
 %doc README.md
-%{_docdir}/%{name}
+%{_docdir}/EclipsePahoCpp/
+%{_docdir}/paho-cpp/examples/
 
 %changelog
 %autochangelog

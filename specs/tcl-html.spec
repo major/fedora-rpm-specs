@@ -3,7 +3,7 @@
 Summary: Tcl/Tk manual in html format
 Name: tcl-html
 Version: %{vers}
-Release: 26%{?dist}
+Release: 27%{?dist}
 License: TCL
 URL: http://tcl.sourceforge.net/
 Source0: http://downloads.sourceforge.net/sourceforge/tcl/tcl%{version}-html.tar.gz
@@ -29,6 +29,9 @@ ln -s contents.htm index.html
 %doc html/*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.5.7-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.5.7-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

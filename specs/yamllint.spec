@@ -4,7 +4,7 @@
 
 Name:           %{pypi_name}
 Version:        1.35.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A linter for YAML files
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -63,6 +63,9 @@ install -m0644 docs/_build/man/%{pypi_name}.1.gz %{buildroot}%{_mandir}/man1/
 %exclude %{python3_sitelib}/tests
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.35.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.35.1-4
 - convert license to SPDX
 

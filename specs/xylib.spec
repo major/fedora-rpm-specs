@@ -1,7 +1,7 @@
 Name: xylib
 Summary: Library for reading x-y data from several file formats
 Version: 1.6
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: LGPL-2.1-only
 Url: http://xylib.sourceforge.net/
 Source0: https://github.com/wojdyr/xylib/releases/download/v%{version}/%{name}-%{version}.tar.bz2
@@ -49,6 +49,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/libxy.so
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

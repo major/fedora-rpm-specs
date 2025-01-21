@@ -1,6 +1,6 @@
 Name:           uisp
 Version:        20050207
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Universal In-System Programmer for Atmel AVR and 8051
 
 
@@ -56,6 +56,9 @@ make install DESTDIR=$RPM_BUILD_ROOT DOC_INST_DIR=$RPM_BUILD_ROOT/%{_pkgdocdir}
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20050207-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 20050207-38
 - convert license to SPDX
 

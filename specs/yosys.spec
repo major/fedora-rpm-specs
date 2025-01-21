@@ -5,7 +5,7 @@
 
 Name:           yosys
 Version:        0.48
-Release:        0.%{snapdate}git%{shortcommit0}%{?dist}
+Release:        0.%{snapdate}git%{shortcommit0}%{?dist}.1
 Summary:        Yosys Open SYnthesis Suite, including Verilog synthesizer
 License:        ISC and MIT
 URL:            http://www.clifford.at/yosys/
@@ -176,6 +176,9 @@ make test ABCEXTERNAL=%{_bindir}/abc SEED=314159265359
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.48-0.20241211gite91e95f.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec 11 2024 Gabriel Somlo <gsomlo@gmail.com> - 0.48.0.20241211gite91e95f
 - remove doc-offline patch (solved by setting SPHINXOPTS='' instead)
 - update to 0.48 snapshot

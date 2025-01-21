@@ -4,7 +4,7 @@
 Summary:       Visual tool for Git
 Name:          teamgit
 Version:       0.0.12
-Release:       39.%{date}%{?dist}
+Release:       40.%{date}%{?dist}
 Epoch:         1
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:       GPL-2.0-only
@@ -52,6 +52,9 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications \
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.0.12-40.20130626
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1:0.0.12-39.20130626
 - convert license to SPDX
 

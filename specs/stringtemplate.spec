@@ -1,7 +1,7 @@
 Summary: A Java template engine
 Name: stringtemplate
 Version: 3.2.1
-Release: 36%{?dist}
+Release: 37%{?dist}
 URL: http://www.stringtemplate.org/
 Source0: http://www.stringtemplate.org/download/stringtemplate-%{version}.tar.gz
 # Build jUnit tests + make the antlr2 generated code before preparing sources
@@ -56,6 +56,9 @@ ant javadocs -Dpackages= -Djavadocs.additionalparam="-Xdoclint:none"
 %{_javadocdir}/%{name}
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 3.2.1-36
 - convert license to SPDX
 

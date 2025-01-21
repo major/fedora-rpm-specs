@@ -4,7 +4,7 @@
 Name:       scl-utils
 Epoch:      1
 Version:    2.0.3
-Release:    4%{dist}
+Release:    5%{dist}
 Summary:    Utilities for alternative packaging
 
 License:    GPL-2.0-or-later
@@ -82,6 +82,9 @@ make check
 %{_rpmconfigdir}/brp-scl-python-bytecompile
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Sep 12 2024 Remi Collet <remi@remirepo.net> - 1:2.0.3-4
 - add workaround to "bare words are no longer supported" in RPM 4.20 #2306492
 

@@ -3,7 +3,7 @@
 %undefine _strict_symbol_defs_build
 
 Name:           qmplay2
-Version:        24.12.28
+Version:        25.01.19
 Release:        %autorelease
 Summary:        A Qt based media player, streamer and downloader
 # LGPL-3.0-or-later: QMPlay2
@@ -54,14 +54,7 @@ BuildRequires:  pkgconfig(xv)
 BuildRequires:  glslc
 
 Requires:       hicolor-icon-theme
-%if %{undefined flatpak}
-%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
 Requires:       kde-filesystem
-%else
-# kf6 only built for F40+, but solid directories are unchanged
-Requires:       kf5-filesystem
-%endif
-%endif
 Requires:       shared-mime-info
 Recommends:     yt-dlp
 
@@ -89,6 +82,12 @@ It's a development package for %{name}.
 %autosetup -p1 -n %{pname}-src-%{version}
 # unbundle vulkan headers
 find src/qmplay2/vulkan/headers -delete
+%if 0%{?fedora} >= 41 || 0%{?rhel} >= 11
+# fix for vulkan-headers >= 1.3.301
+# https://github.com/KhronosGroup/Vulkan-Headers/pull/512
+sed -i -r 's/vk::(DispatchLoaderDynamic|DynamicLoader)/vk::detail::\1/g' \
+    src/qmvk/*.[ch]pp src/qmplay2/vulkan/VulkanInstance.cpp
+%endif
 # subproject and bundled license files
 cp src/qmvk/LICENSE LICENSE.qmvk
 cp src/modules/Modplug/libmodplug/COPYING COPYING.libmodplug

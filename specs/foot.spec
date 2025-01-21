@@ -2,8 +2,8 @@
 %global default_terminfo foot
 
 Name:           foot
-Version:        1.20.1
-Release:        2%{?dist}
+Version:        1.20.2
+Release:        1%{?dist}
 Summary:        Fast, lightweight and minimalistic Wayland terminal emulator
 
 # Main package license: MIT
@@ -143,6 +143,9 @@ desktop-file-validate \
 
 
 %changelog
+* Sun Jan 19 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.20.2-1
+- Update to 1.20.2 (#2338726)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

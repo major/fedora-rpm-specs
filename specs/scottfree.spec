@@ -1,6 +1,6 @@
 Name:    scottfree
 Version: 1.14
-Release: 31%{?dist}
+Release: 32%{?dist}
 Summary: Interpreter for Scott Adams format text adventure games
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -63,6 +63,9 @@ install -p -m 644 %{SOURCE1} %{buildroot}%{_mandir}/man6/
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.14-31
 - convert license to SPDX
 

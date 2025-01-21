@@ -6,7 +6,7 @@
 
 Name:           rust-libblkid-rs-sys
 Version:        0.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Low level bindings for libblkid
 
 License:        MPL-2.0
@@ -79,6 +79,9 @@ echo 'pkgconfig(blkid)'
 %endif
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 02 2025 Chung Chung <cchung@redhat.com> - 0.3.1-1
 - Update to version 0.3.1
 

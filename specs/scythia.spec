@@ -1,6 +1,6 @@
 Name:           scythia
 Version:        0.9.3
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Just a small ftp client
 Summary(pl):    Mały klient ftp
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -58,6 +58,9 @@ desktop-file-install \
 %endif
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.9.3-36
 - convert license to SPDX
 

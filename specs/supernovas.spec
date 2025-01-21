@@ -2,7 +2,7 @@
 
 Name:            supernovas
 Version:         1.2.0
-Release:         9%{?dist}
+Release:         10%{?dist}
 Summary:         The Naval Observatory's NOVAS C astronomy library, made better 
 License:         Unlicense
 URL:             https://smithsonian.github.io/SuperNOVAS
@@ -152,6 +152,9 @@ make DESTDIR=%{buildroot} libdir=%{_libdir} install
 %doc %{_docdir}/%{name}/html
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 
 * Thu Jan 16 2025 Attila Kovacs <attipaci@gmail.com> - 1.2.0-9
 - Bad dates in changelog

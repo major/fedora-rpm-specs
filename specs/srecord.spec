@@ -1,6 +1,6 @@
 Name:		srecord
 Version:	1.65.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Manipulate EPROM load files
 License:	GPL-3.0-or-later AND LGPL-3.0-or-later
 # see also https://github.com/sierrafoxtrot/srecord
@@ -88,6 +88,9 @@ rm -rf %{buildroot}%{_defaultdocdir}/%{name}/htdocs
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.65.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.65.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

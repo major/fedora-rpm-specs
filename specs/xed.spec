@@ -4,7 +4,7 @@
 
 Name:		xed
 Version:	3.8.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	X-Apps [Text] Editor (Cross-DE, backward-compatible, GTK3, traditional UI)
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -129,6 +129,9 @@ This package contains the documentation files for %{name}.
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jan 06 2025 Leigh Scott <leigh123linux@gmail.com> - 3.8.2-1
 - Update to 3.8.2
 

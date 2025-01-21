@@ -3,7 +3,7 @@
 
 Name:           %{fontname}-fonts
 Version:        1.0
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        A sans serif gothic typeface
 
 # Automatically converted from old format: OFL - review is highly recommended.
@@ -55,6 +55,9 @@ install -Dm 0644 -p %{SOURCE2} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0-27
 - convert license to SPDX
 

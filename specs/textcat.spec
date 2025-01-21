@@ -1,6 +1,6 @@
 Name:			textcat
 Version:		1.10
-Release:		21%{?dist}
+Release:		22%{?dist}
 Summary:		Written language identification
 %{?el5:Group:		Applications/Text}
 
@@ -65,6 +65,9 @@ done
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.10-21
 - convert license to SPDX
 

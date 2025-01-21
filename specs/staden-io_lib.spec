@@ -2,7 +2,7 @@
 # staden-io_lib will be more recognizable for users
 Name:           staden-io_lib
 Version:        1.14.8
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        General purpose library to handle gene sequencing machine trace files
 
 License:        MIT
@@ -109,6 +109,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.8-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

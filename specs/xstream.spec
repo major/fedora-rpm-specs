@@ -13,7 +13,7 @@
 
 Name:           xstream
 Version:        1.4.20
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Java XML serialization library
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -214,6 +214,9 @@ rm xstream-benchmark/src/java/com/thoughtworks/xstream/tools/benchmark/products/
 %doc README.txt
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.20-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.4.20-7
 - convert license to SPDX
 

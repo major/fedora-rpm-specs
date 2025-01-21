@@ -1,6 +1,6 @@
 Name:           sndfile-tools
 Version:        1.5
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A collection of programs to do interesting things with sound files
 
 # The entire source is (GPLv2 or GPLv3) except src/jackplay.c, which is
@@ -71,6 +71,9 @@ fi
 %{_mandir}/man1/*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.5-11
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:		vodovod
 Version:	1.10r22
-Release:	26%{?dist}
+Release:	27%{?dist}
 Summary:	A pipe connecting game
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -97,6 +97,9 @@ desktop-file-install  \
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10r22-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.10r22-26
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name: tin
 Version: 2.6.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Basic Internet news reader
 # all sources built into binaries are BSD-3-Clause except
 # src/parsdate.{c,y} which are Public Domain
@@ -96,6 +96,9 @@ install -Dpm644 -t %{buildroot}%{_mandir}/man3 doc/wildmat.3
 %{_mandir}/man5/tin.5*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Dec 26 2024 Dominik Mierzejewski <dominik@greysector.net> 2.6.4-1
 - update to 2.6.4 (rhbz#2333917)
 

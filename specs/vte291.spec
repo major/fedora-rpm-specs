@@ -12,7 +12,7 @@
 
 Name:           vte291
 Version:        0.78.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GTK terminal emulator library
 
 # libvte-2.91.so is generated from LGPLv2+ and MIT sources
@@ -174,6 +174,9 @@ sed -i -e "/^vte_systemduserunitdir =/s|vte_prefix|'/usr'|" meson.build
 %{_sysconfdir}/profile.d/vte.sh
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.78.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Dec 08 2024 Pete Walter <pwalter@fedoraproject.org> - 0.78.2-2
 - Rebuild for ICU 76
 

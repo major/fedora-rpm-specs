@@ -2,7 +2,7 @@
 
 Name:           yapet
 Version:        2.6
-Release:        5%{?pre}%{?dist}
+Release:        6%{?pre}%{?dist}
 Summary:        Yet Another Password Encryption Tool
 # Automatically converted from old format: GPLv3+ with exceptions - review is highly recommended.
 License:        LicenseRef-Callaway-GPLv3+-with-exceptions
@@ -68,6 +68,9 @@ rm -frv %{buildroot}%{_docdir}
 %{_mandir}/man*/*yapet*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep  4 2024 Miroslav Suchý <msuchy@redhat.com> - 2.6-5
 - convert license to SPDX
 

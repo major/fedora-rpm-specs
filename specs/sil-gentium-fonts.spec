@@ -9,7 +9,7 @@ a wide range of Latin-based alphabets.
 
 Name:           %{fontname}-fonts
 Version:        1.02
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        SIL Gentium fonts
 
 License:        OFL-1.1
@@ -94,6 +94,9 @@ install -Dm 0644 -p %{SOURCE2} \
 %license OFL
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

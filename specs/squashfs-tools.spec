@@ -11,7 +11,7 @@ Source:  %{forgesource}
 # https://bugzilla.redhat.com/show_bug.cgi?id=2178510
 # Fix a crash caused by an out-of-bounds access that was inadvertently
 # re-introduced in a memory leak fix
-Release: 5%{dist}
+Release: 6%{dist}
 License: GPL-2.0-or-later
 
 BuildRequires: make
@@ -54,6 +54,9 @@ make INSTALL_PREFIX=%{buildroot}/usr INSTALL_DIR=%{buildroot}%{_sbindir} INSTALL
 %{_sbindir}/sqfscat
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

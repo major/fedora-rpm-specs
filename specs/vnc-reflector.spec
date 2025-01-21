@@ -1,6 +1,6 @@
 Name:       vnc-reflector
 Version:    1.2.4 
-Release:    39%{?dist}
+Release:    40%{?dist}
 Summary:    A specialized, multiplexing vnc proxy server
 # Automatically converted from old format: BSD - review is highly recommended.
 License:    LicenseRef-Callaway-BSD 
@@ -48,6 +48,9 @@ install -D -t %{buildroot}%{_bindir} vncreflector
 %{_bindir}/*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2.4-39
 - convert license to SPDX
 

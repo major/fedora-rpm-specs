@@ -3,7 +3,7 @@
 
 Name: %{vagrant_plugin_name}
 Version: 0.1.0
-Release: 17%{?dist}
+Release: 18%{?dist}
 Summary: Connection and configuration for a Docker daemon
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -74,6 +74,9 @@ popd
 %{vagrant_plugin_instdir}/vagrant-adbinfo.spec
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.0-17
 - convert license to SPDX
 

@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           virt-top
 Version:        1.1.1
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Utility like top(1) for displaying virtualization stats
 License:        GPL-2.0-or-later
 
@@ -136,6 +136,9 @@ install -m 0644 processcsv.py.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 10 2025 Jerry James <loganjerry@gmail.com> - 1.1.1-22
 - OCaml 5.3.0 rebuild for Fedora 42
 

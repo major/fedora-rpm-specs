@@ -5,7 +5,7 @@
 Summary: A utility to modify the "Coordinate Transformation Matrix" of an XInput2 device
 Name: xrestrict
 Version: 0.8.0
-Release: 9.%{snapshotdate}git%{shortcommit}%{?dist}
+Release: 10.%{snapshotdate}git%{shortcommit}%{?dist}
 URL: https://github.com/Ademan/xrestrict
 Source0: %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 License: MIT
@@ -46,6 +46,9 @@ src/rectest
 %{_bindir}/xrestrict
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-10.20160730git35a944a
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-9.20160730git35a944a
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

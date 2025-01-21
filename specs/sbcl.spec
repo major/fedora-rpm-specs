@@ -37,7 +37,7 @@
 Name: 	 sbcl
 Summary: Steel Bank Common Lisp
 Version: 2.3.11
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # See COPYING for a license breakdown
 # FIXME: The files in src/pcl have a license similar, but not identical, to the
@@ -258,6 +258,9 @@ fi
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.11-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.11-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

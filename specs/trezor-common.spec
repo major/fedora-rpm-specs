@@ -1,6 +1,6 @@
 Name:    trezor-common
 Version: 2.3.6
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: udev rules and protobuf messages for the hardware wallet Trezor
 
 # Automatically converted from old format: LGPLv3+ - review is highly recommended.
@@ -40,6 +40,9 @@ popd
 %{_datadir}/trezor
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.6-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 2.3.6-9
 - convert license to SPDX
 

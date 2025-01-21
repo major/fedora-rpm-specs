@@ -1,5 +1,5 @@
 Version: 0.91
-Release: 31%{?dist}
+Release: 32%{?dist}
 URL:     http://guca.sourceforge.net/typography/fonts/saab/
 
 %global fontlicense       GPL-2.0-or-later WITH Font-exception-2.0
@@ -38,6 +38,9 @@ cp -p %{SOURCE20} .
 %fontfiles
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.91-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.91-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

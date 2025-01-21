@@ -1,7 +1,7 @@
 Summary: A security tool which acts as a wrapper for TCP daemons
 Name: tcp_wrappers
 Version: 7.6
-Release: 107%{?dist}
+Release: 108%{?dist}
 
 %global LIB_MAJOR 0
 %global LIB_MINOR 7
@@ -152,6 +152,9 @@ rm -f ${RPM_BUILD_ROOT}%{_mandir}/man3/*
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.6-108
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 7.6-107
 - convert license to SPDX
 

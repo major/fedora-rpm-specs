@@ -1,6 +1,6 @@
 Name:           sddm-conf
 Version:	0.3.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	MIT
 URL:		https://github.com/qtilities/%{name}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -55,6 +55,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml 
 %license COPYING
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Jan 12 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 0.3.0-1
 - 0.3.0
 

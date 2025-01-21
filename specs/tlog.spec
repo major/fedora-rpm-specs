@@ -20,7 +20,7 @@
 
 Name:           tlog
 Version:        14
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Terminal I/O logger
 
 %if "%{_vendor}" == "debbuild"
@@ -157,6 +157,9 @@ systemd-tmpfiles --create %{name}.conf >/dev/null 2>&1 || :
 /sbin/ldconfig
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 14-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

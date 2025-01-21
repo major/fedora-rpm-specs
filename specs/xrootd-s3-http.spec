@@ -1,6 +1,6 @@
 Name:		xrootd-s3-http
 Version:	0.1.8
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	S3/HTTP filesystem plugins for XRootD
 
 License:	Apache-2.0
@@ -55,6 +55,9 @@ and HTTP backends through an XRootD server.
 %license LICENSE
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 31 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.1.8-1
 - Update to version 0.1.8
 - Drop patches accepted upstream

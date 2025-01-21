@@ -10,7 +10,7 @@
 
 Name:           vdr-%{pname}
 Version:        0.0.16
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        VDR plugin: Takes screenshots
 License:        GPL-1.0-or-later
 URL:            https://github.com/jowi24/vdr-screenshot
@@ -60,6 +60,9 @@ cp -pR locale/* $RPM_BUILD_ROOT%{_datadir}/locale
 %attr(-,%{vdr_user},root) %dir %{vdr_cachedir}/screenshot/
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.16-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Oct 09 2024 Martin Gansser <martinkg@fedoraproject.org> - 0.0.16-40
 - Rebuilt for new VDR API version 2.7.2
 

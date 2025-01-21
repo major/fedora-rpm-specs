@@ -1,6 +1,6 @@
 Name:           sugar-clock
 Version:        22.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Clock activity for Sugar
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -51,6 +51,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 22.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 22.1-12
 - convert license to SPDX
 

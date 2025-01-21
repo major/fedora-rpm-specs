@@ -2,7 +2,7 @@
 
 Name:           shellinabox
 Version:        2.20
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Web based AJAX terminal emulator
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -136,6 +136,9 @@ fi
 %attr(750,%{username},%{username}) %{_sharedstatedir}/%{name}
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.20-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.20-24
 - convert license to SPDX
 

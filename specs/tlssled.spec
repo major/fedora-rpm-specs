@@ -1,6 +1,6 @@
 Name:       tlssled
 Version:    1.3
-Release:    26%{?dist}
+Release:    27%{?dist}
 Summary:    An evaluation tool for SSL/TLS (HTTPS) web server implementations
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -37,6 +37,9 @@ sed -i 's|#!/usr/bin/env bash|#!/usr/bin/bash|g' %{buildroot}%{_bindir}/tlssled
 %{_bindir}/%{name}
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3-26
 - convert license to SPDX
 

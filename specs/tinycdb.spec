@@ -1,7 +1,7 @@
 Name:		tinycdb
 Summary:	Utility and library for manipulating constant databases
 Version:	0.80
-Release:	3%{?dist}
+Release:	4%{?dist}
 License:	LicenseRef-Fedora-Public-Domain
 URL:		http://www.corpit.ru/mjt/tinycdb.html
 Source0:	http://www.corpit.ru/mjt/%{name}/%{name}-%{version}.tar.gz
@@ -62,6 +62,9 @@ cp -p libcdb.pc %{buildroot}%{_libdir}/pkgconfig/libcdb.pc
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.80-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.80-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           txt2rss
 Version:        0.1
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Convert from txt to rss
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -50,6 +50,9 @@ install -m 644 %{SOURCE1} $RPM_BUILD_ROOT%{_mandir}/man1/
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1-32
 - convert license to SPDX
 

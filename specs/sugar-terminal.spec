@@ -1,6 +1,6 @@
 Name:    sugar-terminal
 Version: 47
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: Terminal for Sugar
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -44,6 +44,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 %{sugaractivitydir}/Terminal.activity/
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 47-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 47-13
 - convert license to SPDX
 

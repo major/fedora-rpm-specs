@@ -8,7 +8,7 @@
 
 Name:           wget2
 Version:        2.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An advanced file and recursive website downloader
 
 # Documentation is GFDL
@@ -187,6 +187,9 @@ echo ".so man1/%{name}.1" > %{buildroot}%{_mandir}/man1/wget.1
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 02 2024 Michal Ruprich <mruprich@redhat.com> - 2.2.0-1
 - New version 2.2.0
 - Resolves: rhbz#2298879 - Using options -nc and -O simultaneously causes existing files to be clobbered/truncated

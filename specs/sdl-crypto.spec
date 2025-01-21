@@ -18,7 +18,7 @@ the SDL-Hercules-390 emulator.}
 
 Name:           sdl-crypto
 Version:        1.0.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Simple AES/DES encryption and SHA1/SHA2 hashing library
 
 # The Public Domain declarations are under review:
@@ -71,6 +71,9 @@ mv %{buildroot}%{_docdir}/%{name}-devel/%{srcname}.LICENSE.txt .
 %{_libdir}/lib%{srcname}*.a
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 31 2024 Davide Cavalca <dcavalca@fedoraproject.org> - 1.0.0-11
 - Properly obsolete the old crypto package
 - Convert license tag to SPDX

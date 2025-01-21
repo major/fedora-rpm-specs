@@ -17,9 +17,6 @@
 %global ghc_major 9.10
 %global ghc_name ghc%{ghc_major}
 
-# to handle RCs (obsolete?)
-%global ghc_release %{version}
-
 %global base_ver 4.20.0.0
 %global Cabal_ver 3.12.0.0
 %global ghc_bignum_ver 1.3
@@ -66,7 +63,7 @@ Version: 9.10.1
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -85,6 +82,8 @@ Source11: https://hackage.haskell.org/package/Cabal-%{hadrian_Cabal_ver}/Cabal-%
 Patch1: ghc-gen_contents_index-haddock-path.patch
 Patch2: ghc-Cabal-install-PATH-warning.patch
 Patch3: ghc-gen_contents_index-nodocs.patch
+# https://gitlab.haskell.org/ghc/ghc/-/issues/25662
+Patch5: hp2ps-C-gnu17.patch
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604
 # needs more backporting to 9.6
 Patch9: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604.patch
@@ -93,8 +92,8 @@ Patch9: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604.patch
 Patch16: ghc-hadrian-s390x-rts--qg.patch
 
 # Debian patches:
-# bad according to upstream
-# see eg https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604
+# bad according to upstream: https://gitlab.haskell.org/ghc/ghc/-/issues/10424
+# see https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604 above
 #Patch24: buildpath-abi-stability.patch
 Patch26: no-missing-haddock-file-warning.patch
 Patch27: haddock-remove-googleapis-fonts.patch
@@ -102,14 +101,6 @@ Patch27: haddock-remove-googleapis-fonts.patch
 # ppc64le FFI miscompilation
 # https://gitlab.haskell.org/ghc/ghc/-/issues/23034
 Patch35: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/12885.patch
-
-# RISCV64 added to Cabal
-# See: https://github.com/haskell/cabal/pull/9062
-Patch40: cabal-add-riscv64.patch
-
-# Enable GHCi support on riscv64
-# Upstream in >= 9.9.
-Patch41: https://gitlab.haskell.org/ghc/ghc/-/commit/dd38aca95ac25adc9888083669b32ff551151259.patch
 
 # libraries
 Patch100: https://github.com/haskell/os-string/commit/bafe87d871399b58ce4a50592b980c990a3eac39.patch
@@ -160,17 +151,15 @@ BuildRequires: python3
 %if %{with manual}
 BuildRequires: python3-sphinx
 %endif
-%ifarch %{ghc_llvm_archs}
 BuildRequires: llvm%{llvm_major}
 BuildRequires: clang%{llvm_major}
-%endif
 
 # needed for binary-dist-dir
 BuildRequires:  autoconf automake
 %if %{with build_hadrian}
 BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-QuickCheck-devel
-BuildRequires:  ghc-base-devel
+BuildRequires:  ghc-base-devel >= 4.15
 BuildRequires:  ghc-base16-bytestring-devel
 BuildRequires:  ghc-bytestring-devel
 BuildRequires:  ghc-containers-devel
@@ -185,7 +174,7 @@ BuildRequires:  ghc-stm-devel
 BuildRequires:  ghc-transformers-devel
 BuildRequires:  ghc-unordered-containers-devel
 %else
-BuildRequires: %{name}-hadrian
+BuildRequires:  %{name}-hadrian
 %endif
 
 Requires: %{name}-compiler = %{version}-%{release}
@@ -252,6 +241,8 @@ Obsoletes: %{name}-manual < %{version}-%{release}
 Requires: binutils%{?with_ld_gold:-gold}
 %ifarch %{ghc_llvm_archs}
 Requires: llvm%{llvm_major}
+%else
+Suggests: llvm(major) = %{llvm_major}
 %endif
 
 %description compiler
@@ -407,8 +398,9 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %setup -q -n ghc-%{version} %{?with_testsuite:-b1} -a10 -a11
 
 %patch -P1 -p1 -b .orig
-%patch -P3 -p1 -b .orig
 #%%patch -P2 -p1 -b .orig
+%patch -P3 -p1 -b .orig
+%patch -P5 -p1 -b .orig
 #%%patch -P9 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
@@ -432,13 +424,6 @@ rm libffi-tarballs/libffi-*.tar.gz
 %patch -P 35 -p1 -b .orig
 %endif
 
-%ifarch riscv64
-#RISCV64 cabal support
-%patch -P40 -p1 -b .orig
-#GHCi support
-%patch -P41 -p1 -b .orig
-%endif
-
 (
 cd libraries/os-string
 %patch -P100 -p1 -b .orig
@@ -457,6 +442,8 @@ export CC=%{_bindir}/gcc
 %if %{with ld_gold}
 export LD=%{_bindir}/ld.gold
 %endif
+export LLC=%{_bindir}/llc-%{llvm_major}
+export OPT=%{_bindir}/opt-%{llvm_major}
 
 export GHC=%{_bindir}/ghc%{?ghcboot_major:-%{ghcboot_major}}
 
@@ -530,7 +517,8 @@ rm %{buildroot}%{_ghclicensedir}/%{name}/LICENSE
 cp -p LICENSE ../LICENSE.hadrian
 )
 %endif
-# https://gitlab.haskell.org/ghc/ghc/-/issues/20120#note_366872
+export LLC=%{_bindir}/llc-%{llvm_major}
+export OPT=%{_bindir}/opt-%{llvm_major}
 (
 cd _build/bindist/ghc-%{version}-*
 ./configure --prefix=%{buildroot}%{ghclibdir} --bindir=%{buildroot}%{_bindir} --libdir=%{buildroot}%{_libdir} --mandir=%{buildroot}%{_mandir} --docdir=%{buildroot}%{_docdir}/%{name} \
@@ -592,24 +580,9 @@ echo "%%dir %ghclibplatform" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
 %ghc_gen_filelists integer-gmp 1.1
 %ghc_gen_filelists rts %{rts_ver}
 
-%define merge_filelist()\
-cat %{name}-%1.files >> %{name}-%2.files\
-cat %{name}-%1-devel.files >> %{name}-%2-devel.files\
-%if %{with haddock}\
-cat %{name}-%1-doc.files >> %{name}-%2-doc.files\
-%endif\
-%if %{with ghc_prof}\
-cat %{name}-%1-prof.files >> %{name}-%2-prof.files\
-%endif\
-if [ "%1" != "rts" ]; then\
-cp -p libraries/%1/LICENSE libraries/LICENSE.%1\
-echo "%%license libraries/LICENSE.%1" >> %{name}-%2.files\
-fi\
-%{nil}
-
-%merge_filelist ghc-prim base
-%merge_filelist integer-gmp base
-%merge_filelist rts base
+%ghc_merge_filelist ghc-prim base
+%ghc_merge_filelist integer-gmp base
+%ghc_merge_filelist rts base
 
 %if "%{?_ghcdynlibdir}" != "%_libdir"
 echo "%{_sysconfdir}/ld.so.conf.d/%{name}.conf" >> %{name}-base.files
@@ -676,6 +649,7 @@ export LANG=C.utf8
 # stolen from ghc6/debian/rules:
 export LD_LIBRARY_PATH=%{buildroot}%{ghclibplatform}:
 GHC=%{buildroot}%{ghclibdir}/bin/ghc
+$GHC --info
 # simple sanity checks that the compiler actually works
 rm -rf testghc
 mkdir testghc
@@ -691,8 +665,10 @@ echo 'main = putStrLn "Foo"' > testghc/foo.hs
 $GHC testghc/foo.hs -o testghc/foo -dynamic
 [ "$(testghc/foo)" = "Foo" ]
 rm testghc/*
-
-$GHC --info
+echo 'main = putStrLn "Foo"' > testghc/foo.hs
+$GHC testghc/foo.hs -o testghc/foo -fllvm
+[ "$(testghc/foo)" = "Foo" ]
+rm testghc/*
 
 # check the ABI hashes
 %if %{with abicheck}
@@ -870,6 +846,10 @@ make test
 
 
 %changelog
+* Sun Jan 19 2025 Jens Petersen <petersen@redhat.com> - 9.10.1-7
+- fix hp2ps failure with gcc15 C23
+- setup llvm compiler for all archs not just those defaulting to llvm backend
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.10.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

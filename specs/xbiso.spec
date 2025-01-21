@@ -1,6 +1,6 @@
 Name:		xbiso
 Version:	0.6.1
-Release:	34%{?dist}
+Release:	35%{?dist}
 Summary:	ISO extraction utility for xdvdfs images
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -39,6 +39,9 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %{_bindir}/xbiso
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.6.1-34
 - convert license to SPDX
 

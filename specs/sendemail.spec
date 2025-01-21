@@ -1,7 +1,7 @@
 Summary:        Lightweight command line SMTP e-mail client
 Name:           sendemail
 Version:        1.56
-Release:        15%{?dist}
+Release:        16%{?dist}
 License:        GPL-2.0-or-later
 URL:            http://caspian.dotconf.net/menu/Software/SendEmail/
 Source0:        http://caspian.dotconf.net/menu/Software/SendEmail/sendEmail-v%{version}.tar.gz
@@ -45,6 +45,9 @@ ln -s %{name}.1 $RPM_BUILD_ROOT%{_mandir}/man1/sendEmail.1
 %{_mandir}/man1/sendEmail.1*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.56-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.56-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

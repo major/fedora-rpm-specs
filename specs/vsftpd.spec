@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.5
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Very Secure Ftp Daemon
 
 # OpenSSL link exception
@@ -168,6 +168,9 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.5-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 19 2024 Tomas Korbar <tkorbar@redhat.com> - 3.0.5-8
 - Fix FEAT command to list AUTH TLS when TLSv1.3 is enabled
 

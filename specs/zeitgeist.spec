@@ -1,6 +1,6 @@
 Name:           zeitgeist
 Version:        1.0.4
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Framework providing Desktop activity awareness
 
 # data/ontology/*.trig	BSD-3-Clause OR CC-BY-SA-3.0 -> main
@@ -200,6 +200,9 @@ dbus-run-session -- ./test-script
 %{_datadir}/vala/vapi/zeitgeist-datamodel-2.0.vapi
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Aug 16 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.4-17
 - execute test program which require dbus and zeitgeist-daemon
 

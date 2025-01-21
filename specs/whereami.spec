@@ -1,6 +1,6 @@
 Name:		whereami
 Version:	1.0
-Release:	29%{?dist}
+Release:	30%{?dist}
 Summary:	Displays work location
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -44,6 +44,9 @@ cd $RPM_BUILD_ROOT%{_mandir}/man1 && (ln -s whereami.1.gz wmi.1.gz||:) && cd -
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0-29
 - convert license to SPDX
 

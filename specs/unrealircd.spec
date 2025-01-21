@@ -7,7 +7,7 @@
 Summary:        Open Source IRC server
 Name:           unrealircd
 Version:        6.1.9.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 # UnrealIRCd declares itself as GPL-2.0-or-later as it's the common denominator for
 # a GPL-1.0-or-later and GPL-2.0-or-later mixture, breakdown of other source codes:
 # BSD-3-Clause: include/mempool.h and src/mempool.c
@@ -230,6 +230,9 @@ fi
 %endif
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.9.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Dec 13 2024 Robert Scheck <robert@fedoraproject.org> 6.1.9.1-1
 - Upgrade to 6.1.9.1 (#2327604)
 

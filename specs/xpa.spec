@@ -3,7 +3,7 @@
 
 Name: xpa
 Version: 2.1.20
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: The X Public Access messaging system
 
 License: MIT
@@ -110,6 +110,9 @@ mv %{buildroot}%{_libdir}/libtcl* %{buildroot}%{tcl_sitearch}/tclxpa
 #%doc doc/*.pdf
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.20-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.20-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

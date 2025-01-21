@@ -1,6 +1,6 @@
 Name: vim-fugitive
 Version: 3.7
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: A Git wrapper so awesome, it should be illegal
 License: Vim
 URL: https://github.com/tpope/vim-fugitive
@@ -70,6 +70,9 @@ vim -c ":helptags %{vimfiles_root}/doc" -c :q &> /dev/null
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.7-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

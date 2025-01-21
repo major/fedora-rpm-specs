@@ -13,7 +13,7 @@
 
 Name:           slibtool
 Version:        0.5.28
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A skinny libtool implementation, written in C
 
 License:        MIT
@@ -94,6 +94,9 @@ to use functionality provided by %{name}.
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.28-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.28-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

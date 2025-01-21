@@ -1,7 +1,7 @@
 Name:		xloadimage
 Summary: 	Image viewer and processor
 Version:	4.1
-Release:	38%{?dist}
+Release:	39%{?dist}
 License:	MIT
 Source0:	ftp://ftp.x.org/R5contrib/%{name}.%{version}.tar.gz
 # Patches 0-18 come from Debian 4.1-16.1
@@ -127,6 +127,9 @@ cp -a %{buildroot}%{_mandir}/man1/xloadimage.1x %{buildroot}%{_mandir}/man1/xvie
 %{_mandir}/man1/*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

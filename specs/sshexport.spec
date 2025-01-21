@@ -14,7 +14,7 @@
 
 Name:           sshexport
 Version:        2.4
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Install your SSH keys on remote sites
 
 # Bundled pexpect is ISC licensed.  The license text
@@ -96,6 +96,9 @@ ln -s %{name}.1 %{buildroot}%{_mandir}/man1/%{oldpkg}.1
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 4 2024 Miroslav Suchý <msuchy@redhat.com> - 2.4-13
 - convert license to SPDX
 

@@ -3,7 +3,7 @@
 
 Name:           speedcrunch
 Version:        0.12
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        A fast power user calculator
 
 License:        GPL-2.0-or-later
@@ -73,6 +73,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_metainfodir}/%{name}.appdata.xml
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:     uboot-tools
 Version:  2025.01
-Release:  1%{?candidate:.%{candidate}}%{?dist}
+Release:  2%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -218,6 +218,9 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2025.01-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 07 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2025.01-1
 - Update to 2025.01 GA
 

@@ -1,129 +1,89 @@
-# Conditional for release and snapshot builds. Uncomment for release-builds.
-%global rel_build	1
+Name:           2048-cli
+Version:        0.9.1
+Release:        23%{?gitrel}%{?dist}
+Summary:        The game 2048 for your Linux terminal
 
-# Setup _pkgdocdir if not defined already.
-%{!?_pkgdocdir:%global	_pkgdocdir %{_docdir}/%{name}-%{version}}
+License:        MIT
+URL:            https://github.com/Tiehuis/%{name}
+Source0:        %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
-# Settings used for build from snapshots.
-%if ! 0%{?rel_build}
-%global commit		4520781f25805bd9e3b0a7b861d55a22baeff7e3
-%global commit_date	20151229
-%global shortcommit	%(c=%{commit};echo ${c:0:7})
-%global gitver		git%{commit_date}-%{shortcommit}
-%global gitrel		.git%{commit_date}.%{shortcommit}
-%endif # 0%%{?rel_build}
-
-# Proper naming for the tarball from github.
-%global gittar		%{name}-%{version}%{!?rel_build:-%{gitver}}.tar.gz
-
-# No SDL2 on EPEL <= 7.
-%if 0%{?fedora} || 0%{?rhel} >= 8
-%bcond_without sdl
-%else  # 0%%{?fedora} || 0%%{?rhel} >= 8
-%bcond_with sdl
-%endif # 0%%{?fedora} || 0%%{?rhel} >= 8
-
-Name:		2048-cli
-Version:	0.9.1
-Release:	22%{?gitrel}%{?dist}
-Summary:	The game 2048 for your Linux terminal
-
-License:	MIT
-URL:		https://github.com/Tiehuis/%{name}
-%if 0%{?rel_build}
-# Sources for release-builds.
-Source0:	%{url}/archive/v%{version}.tar.gz#/%{gittar}
-%else  # 0%%{?rel_build}
-# Sources for snapshot-builds.
-Source0:	%{url}/archive/%{commit}.tar.gz#/%{gittar}
-%endif # 0%%{?rel_build}
+Patch0000:      %{name}-%{version}-include-string-h.patch
+Patch0001:      %{name}-%{version}-fix-Wformat.patch
 
 BuildRequires:  gcc
-BuildRequires:		ncurses-devel
+BuildRequires:  make
+BuildRequires:  ncurses-devel
 
 %description
 A cli version of the game 2048 for your Linux terminal.
 
 
 %package nocurses
-Summary:	The game 2048 for your Linux terminal (non-ncurses)
+Summary:        The game 2048 for your Linux terminal (non-ncurses)
 
 %description nocurses
 A non-ncurses cli version of the game 2048 for your Linux terminal.
 
 
-%if %{with sdl}
 %package sdl
-Summary:	The game 2048 for your Linux terminal (SDL)
+Summary:        The game 2048 for your Linux terminal (SDL)
 
-BuildRequires:	SDL2_ttf-devel
-BuildRequires:	liberation-mono-fonts
-BuildRequires: make
+BuildRequires:  SDL2_ttf-devel
+BuildRequires:  liberation-mono-fonts
 
-Requires:	liberation-mono-fonts
+Requires:       liberation-mono-fonts
 
 %description sdl
 A SDL version of the game 2048 for your Linux terminal.
-%endif # %%{with sdl}
 
 
 %prep
-%setup -q%{!?rel_build:n %{name}-%{commit}}
+%autosetup -p 1
 
 
 %build
 export TTF_FONT_PATH="%{_datadir}/fonts/liberation/LiberationMono-Regular.ttf"
-%configure || :
-%{__make} %{?_smp_mflags} terminal
-%{__mv} -f 2048 2048nc
-%if %{with sdl}
-%{__make} %{?_smp_mflags} sdl
-%{__mv} -f 2048 2048sdl
-%endif # %%{with sdl}
-%{__make} %{?_smp_mflags} curses
+%make_build terminal
+mv 2048 2048nc
+%make_build sdl
+mv 2048 2048sdl
+%make_build curses
 
 
 %install
 # There is no install-target in Makefile.
-%{__mkdir} -p	%{buildroot}%{_bindir}				\
-		%{buildroot}%{_mandir}/man1			\
-		%{buildroot}%{_pkgdocdir}
-%{__install} -pm 0755 2048 2048nc %{buildroot}%{_bindir}
-%{__install} -pm 0644 man/2048.1 %{buildroot}%{_mandir}/man1/2048.1
-%{__install} -pm 0644 man/2048.1 %{buildroot}%{_mandir}/man1/2048nc.1
-%if %{with sdl}
-%{__install} -pm 0755 2048sdl %{buildroot}%{_bindir}
-%{__install} -pm 0644 man/2048.1 %{buildroot}%{_mandir}/man1/2048sdl.1
-%endif # %%{with sdl}
+mkdir -p %{buildroot}{%{_bindir},%{_mandir}/man1,%{_pkgdocdir}}
+install -pm 0755 2048 2048nc 2048sdl %{buildroot}%{_bindir}
+install -pm 0644 man/2048.1 %{buildroot}%{_mandir}/man1/2048.1
+install -pm 0644 man/2048.1 %{buildroot}%{_mandir}/man1/2048nc.1
+install -pm 0644 man/2048.1 %{buildroot}%{_mandir}/man1/2048sdl.1
 
 
 %files
-%{!?_licensedir:%global license %doc}
 %license LICENSE
 %doc README.md
 %{_bindir}/2048
 %{_mandir}/man1/2048.1*
 
 %files nocurses
-# Pickup license-files from main-pkg's license-dir
-# If there's no license-dir they are picked up by %%doc previously
-%{?_licensedir:%license %{_datadir}/licenses/%{name}*}
+%license %{_datadir}/licenses/%{name}*
 %doc %{_pkgdocdir}
 %{_bindir}/2048nc
 %{_mandir}/man1/2048nc.1*
 
-%if %{with sdl}
 %files sdl
-# Pickup license-files from main-pkg's license-dir
-# If there's no license-dir they are picked up by %%doc previously
-%{?_licensedir:%license %{_datadir}/licenses/%{name}*}
+%license %{_datadir}/licenses/%{name}*
 %doc %{_pkgdocdir}
 %{_bindir}/2048sdl
 %{_mandir}/man1/2048sdl.1*
-%endif # %%{with sdl}
 
 
 %changelog
+* Sun Jan 19 2025 Björn Esser <besser82@fedoraproject.org> - 0.9.1-23
+- Add patch to properly #include<string.h> where needed
+- Add patch to fix -Wformat
+- Drop old cruft from spec file
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

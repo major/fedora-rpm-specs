@@ -7,7 +7,7 @@
 
 Name:      weldr-client
 Version:   35.14
-Release:   1%{?dist}
+Release:   2%{?dist}
 # Upstream license specification: Apache-2.0
 License:   Apache-2.0
 Summary:   Command line utility to control osbuild-composer
@@ -130,6 +130,9 @@ composer-cli package.
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 35.14-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Nov 12 2024 Brian C. Lane <bcl@redhat.com> - 35.14-1
 - New release: 35.14 (bcl)
 - tests: Remove openstack (bcl)

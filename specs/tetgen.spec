@@ -1,6 +1,6 @@
 Name:           tetgen
 Version:        1.5.0
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        A Quality Tetrahedral Mesh Generator
 
 License:        AGPL-3.0-or-later
@@ -74,6 +74,9 @@ sed -i 's|\r||g' example.poly
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Aug 04 2024 Sandro Mani <manisandro@gmail.com> - 1.5.0-27
 - Modernize spec
 

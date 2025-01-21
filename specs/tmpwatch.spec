@@ -1,7 +1,7 @@
 Summary: A utility for removing files based on when they were last accessed
 Name: tmpwatch
 Version: 2.11
-Release: 27%{?dist}
+Release: 28%{?dist}
 URL: https://pagure.io/%{name}
 Source0: https://releases.pagure.org/%{name}/%{name}-%{version}.tar.bz2
 License: GPL-2.0-only
@@ -42,6 +42,9 @@ ln -s $(echo %{_bindir} |sed 's,/[^/]\+,/..,g; s,^/,,')%{_sbindir}/tmpwatch \
 %{_mandir}/man8/tmpwatch.8*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.11-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.11-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -32,7 +32,7 @@ URL: https://www.gnome-look.org/p/1253385/
 	) | sort -rn | head -n1)
 
 Version: 5.0^%{git_date}
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 %global repo_name  Sweet
 %global repo_url   https://github.com/EliverLara/%{repo_name}
@@ -141,6 +141,9 @@ mv "%{buildroot}%{_datadir}/themes/Sweet-master" "%{buildroot}%{_datadir}/themes
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0^20241125-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Nov 29 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 5.0^20241125-1
 - Update to latest git snapshots (2024-11-25)
 

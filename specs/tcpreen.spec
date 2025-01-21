@@ -1,6 +1,6 @@
 Name:           tcpreen
 Version:        1.4.4
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        A TCP/IP re-engineering and monitoring program
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -39,6 +39,9 @@ protocol as packet sniffers do.
 %{_bindir}/%{name}
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.4.4-32
 - convert license to SPDX
 

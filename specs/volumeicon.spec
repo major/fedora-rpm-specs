@@ -4,7 +4,7 @@
 
 Name:           volumeicon
 Version:        0.5.1
-Release:        17.20230208gitb034dd1%{?dist}
+Release:        18.20230208gitb034dd1%{?dist}
 Summary:        Lightweight volume control for the system tray
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -65,6 +65,9 @@ desktop-file-install --dir=%{buildroot}%{_sysconfdir}/xdg/autostart %{SOURCE1}
 %{_datadir}/man/man5/%{name}.5*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-18.20230208gitb034dd1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5.1-17.20230208gitb034dd1
 - convert license to SPDX
 

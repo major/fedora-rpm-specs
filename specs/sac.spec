@@ -1,6 +1,6 @@
 Name: sac
 Version: 1.3
-Release: 47%{?dist}
+Release: 48%{?dist}
 Summary: Java standard interface for CSS parser
 License: W3C
 #Original source: http://www.w3.org/2002/06/%{name}java-%{version}.zip
@@ -51,6 +51,9 @@ jar ufm build/lib/sac.jar %{SOURCE2}
 %license COPYRIGHT.html
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name: t4k_common
 Version: 0.1.1
-Release: 37%{?dist}
+Release: 38%{?dist}
 URL: https://github.com/tux4kids/t4kcommon/
 Summary: Library for Tux4Kids applications
 License: GPL-3.0-or-later
@@ -66,6 +66,9 @@ chmod 755 $RPM_BUILD_ROOT%{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/t4k_common.pc
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

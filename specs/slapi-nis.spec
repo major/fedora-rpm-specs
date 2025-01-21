@@ -13,7 +13,7 @@
 
 Name:		slapi-nis
 Version:	0.70.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	NIS Server and Schema Compatibility plugins for Directory Server
 License:	GPL-3.0-or-later
 URL:		http://pagure.io/slapi-nis/
@@ -116,6 +116,9 @@ done
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.70.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 - Tue Aug 27 2024 Alexander Bokovoy <abokovoy@redhat.com> - 0.70.0-3
 - Fixed initialization regression that caused compat tree never be populated
 

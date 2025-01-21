@@ -3,7 +3,7 @@
 Summary: TV applications for video4linux compliant devices
 Name: xawtv
 Version: 3.107
-Release: 13%{?dist}
+Release: 14%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: http://linuxtv.org/wiki/index.php/Xawtv
@@ -157,6 +157,9 @@ ln -s consolehelper $RPM_BUILD_ROOT%{_bindir}/v4l-conf
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.107-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 3.107-13
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:		zinnia
 Version:	0.06
-Release:	71%{?dist}
+Release:	72%{?dist}
 Summary:	Online handwriting recognition system with machine learning
 
 License:	BSD-3-Clause
@@ -197,6 +197,9 @@ chmod 0755 $RPM_BUILD_ROOT%{perl_vendorarch}/auto/%{name}/%{name}.so
 %{_datadir}/zinnia/model/tomoe/handwriting-zh_CN.model
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-72
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Oct 30 2024 Peng Wu <pwu@redhat.com> - 0.06-71
 - Fix build
 - Resolves: RHBZ#2319752

@@ -31,7 +31,7 @@ Name:           uhd
 URL:            http://github.com/EttusResearch/uhd
 Version:        4.7.0.0
 %global images_ver %{version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 BuildRequires:  make
@@ -280,6 +280,9 @@ exit 0
 %endif
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 4.7.0.0-3
 - convert license to SPDX
 

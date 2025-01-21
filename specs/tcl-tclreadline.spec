@@ -1,29 +1,21 @@
-%{!?tcl_version: %global tcl_version %((echo '8.5'; echo 'puts $tcl_version' | tclsh 2>/dev/null) | tail -1)}
+%{!?tcl_version: %global tcl_version %((echo '8.6'; echo 'puts $tcl_version' | tclsh 2> /dev/null) | tail -n 1)}
 %{!?tcl_sitearch: %global tcl_sitearch %{_libdir}/tcl%{tcl_version}}
 
 %global pkgname tclreadline
 
 Summary:        GNU Readline extension for Tcl/Tk
 Name:           tcl-tclreadline
-Version:        2.1.0
-Release:        25%{?dist}
+Version:        2.4.0
+Release:        2%{?dist}
 License:        BSD-3-Clause
-URL:            https://tclreadline.sourceforge.net/
-Source0:        https://downloads.sourceforge.net/%{pkgname}/%{pkgname}-%{version}.tar.gz
-Source1:        https://sourceforge.net/p/tclreadline/git/ci/master/tree/sample.tclshrc?format=raw#/sample.tclshrc
-Patch0:         tcl-tclreadline-2.1.0-libdir.patch
-Patch1:         tcl-tclreadline-2.1.0-syntax.patch
-Patch2:         tcl-tclreadline-2.1.0-man-page.patch
-Patch3:         tcl-tclreadline-2.1.0-rl_completion.patch
-Patch4:         tcl-tclreadline-2.1.0-prompt2.patch
-Patch5:         tcl-tclreadline-2.1.0-memuse.patch
-Patch6:         tcl-tclreadline-ding.patch
-Patch7:         tcl-tclreadline-configure-fclose.patch
+URL:            https://github.com/flightaware/tclreadline
+Source0:        https://github.com/flightaware/%{pkgname}/archive/v%{version}/%{pkgname}-%{version}.tar.gz
+Patch0:         tcl-tclreadline-2.4.0-libdir.patch
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  tcl-devel
 BuildRequires:  readline-devel
-BuildRequires:  autoconf
+BuildRequires:  autoconf%{?el8:2.7x}%{?el9:2.7x}
 BuildRequires:  automake
 BuildRequires:  libtool
 Requires:       tcl(abi) = %{tcl_version}
@@ -47,25 +39,12 @@ The tclreadline-devel package includes the header file and library
 necessary for developing programs which use the tclreadline library.
 
 %prep
-%setup -q -n %{pkgname}-%{version}
-%patch -P0 -p1 -b .libdir
-%patch -P1 -p1 -b .syntax
-%patch -P2 -p1 -b .man-page
-%patch -P3 -p1 -b .rl_completion
-%patch -P4 -p1 -b .prompt2
-%patch -P5 -p1 -b .memuse
-%patch -P6 -p1 -b .ding
-%patch -P7 -p1 -b .configure-fclose
-autoreconf -f -i
-
-# Copy sample tclshrc for later pickup at %%doc
-cp -pf %{SOURCE1} .
+%autosetup -p1 -n %{pkgname}-%{version}
+libtoolize
+autoreconf%{?el8:27}%{?el9:27}
 
 %build
-%configure --libdir=%{tcl_sitearch}/%{pkgname}%{version} --with-tcl=%{_libdir}
-
-# Avoid unused direct shared library dependency to libncurses
-sed -e 's@ -shared @ -Wl,--as-needed\0@g' -i libtool
+%configure --libdir=%{tcl_sitearch}/%{pkgname}%{version} --with-tcl=%{_libdir} --with-tk=no
 
 %make_build
 
@@ -78,17 +57,6 @@ rm -f $RPM_BUILD_ROOT%{tcl_sitearch}/%{pkgname}%{version}/lib%{pkgname}.so
 ln -s ../../lib%{pkgname}-%{version}.so $RPM_BUILD_ROOT%{tcl_sitearch}/%{pkgname}%{version}/lib%{pkgname}.so
 ln -s lib%{pkgname}-%{version}.so $RPM_BUILD_ROOT%{_libdir}/lib%{pkgname}.so
 
-# Remove wrong and unnecessary shebang from files
-for file in tclreadlineSetup.tcl tclreadlineInit.tcl pkgIndex.tcl; do
-  sed -e '1d' $RPM_BUILD_ROOT%{tcl_sitearch}/%{pkgname}%{version}/$file > \
-    $RPM_BUILD_ROOT%{tcl_sitearch}/%{pkgname}%{version}/$file.new
-  touch -c -r $RPM_BUILD_ROOT%{tcl_sitearch}/%{pkgname}%{version}/$file{,.new}
-  mv -f $RPM_BUILD_ROOT%{tcl_sitearch}/%{pkgname}%{version}/$file{.new,}
-done
-
-# Don't install any static .a and libtool .la files
-rm -f $RPM_BUILD_ROOT%{tcl_sitearch}/%{pkgname}%{version}/*.{a,la}
-
 %check
 cp -prf $RPM_BUILD_ROOT%{_libdir} test
 sed -e "s|%{tcl_sitearch}|$(pwd)/test/tcl%{tcl_version}|" \
@@ -100,7 +68,7 @@ TCLLIBPATH="$(pwd)/test/tcl%{tcl_version}" tclsh load.tcl
 
 %files
 %license COPYING
-%doc AUTHORS ChangeLog README sample.tclshrc
+%doc AUTHORS ChangeLog README.md sample.tclshrc
 %{_libdir}/lib%{pkgname}-%{version}.so
 %{tcl_sitearch}/%{pkgname}%{version}
 %{_mandir}/mann/%{pkgname}.n*
@@ -110,6 +78,12 @@ TCLLIBPATH="$(pwd)/test/tcl%{tcl_version}" tclsh load.tcl
 %{_includedir}/%{pkgname}.h
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
+* Sun Jan 19 2025 Robert Scheck <robert@fedoraproject.org> 2.4.0-1
+- Upgrade to 2.4.0 (#2337782, #2338795)
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           trace-summary
 Version:        0.92
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Script generating break-downs of network traffic
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -34,6 +34,9 @@ install -Dp -m 0755 %{name} %{buildroot}%{_bindir}/%{name}
 %{_bindir}/%{name}
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.92-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.92-10
 - convert license to SPDX
 

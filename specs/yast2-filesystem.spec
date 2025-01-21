@@ -23,7 +23,7 @@ and handles log-rotation for YaST2-logfiles.
 
 Name:		yast2-filesystem
 Version:	0.1.0
-Release:	20%{?dist}
+Release:	21%{?dist}
 Summary:	YaST filesystem layout
 
 License:	Unlicense
@@ -95,6 +95,9 @@ EOF
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

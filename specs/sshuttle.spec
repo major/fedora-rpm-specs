@@ -1,6 +1,6 @@
 Name:               sshuttle
 Version:            1.1.1
-Release:            9%{?dist}
+Release:            10%{?dist}
 Summary:            Transparent Proxy VPN
 Source0:            https://files.pythonhosted.org/packages/source/s/%{name}/%{name}-%{version}.tar.gz
 URL:                https://github.com/%{name}/%{name}
@@ -74,6 +74,9 @@ popd
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1.1-9
 - convert license to SPDX
 

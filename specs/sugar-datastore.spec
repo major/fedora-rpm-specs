@@ -1,6 +1,6 @@
 Name:    sugar-datastore
 Version: 0.121
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Sugar Datastore
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -49,6 +49,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_datadir}/dbus-1/services/*.service
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.121-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.121-5
 - convert license to SPDX
 

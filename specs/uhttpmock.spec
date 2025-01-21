@@ -9,7 +9,7 @@
 
 Name:           uhttpmock
 Version:        0.11.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        HTTP web service mocking library
 
 License:        LGPL-2.1-or-later
@@ -85,6 +85,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

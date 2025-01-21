@@ -121,7 +121,7 @@ m     stapdev  stapdev
 Name: systemtap
 # PRERELEASE
 Version: 5.2
-Release: 1%{?release_override}%{?dist}
+Release: 2%{?release_override}%{?dist}
 # for version, see also configure.ac
 
 
@@ -1326,6 +1326,9 @@ exit 0
 
 # PRERELEASE
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Nov 08 2024 Frank Ch. Eigler <fche@redhat.com> - 5.2-1
 - Upstream release, see wiki page below for detailed notes.
   https://sourceware.org/systemtap/wiki/SystemTapReleases

@@ -1,6 +1,6 @@
 Name: wcslib
 Version: 8.2.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: An implementation of the FITS World Coordinate System standard
 
 # Library is under LGPLv3+ utils under GPLv3+
@@ -73,6 +73,9 @@ make check
 %{_mandir}/man1/*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

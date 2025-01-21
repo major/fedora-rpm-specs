@@ -7,7 +7,7 @@
 Summary:   Xorg X11 ati video driver
 Name:      xorg-x11-drv-ati
 Version:   22.0.0
-Release:   3%{?dist}
+Release:   4%{?dist}
 URL:       http://www.x.org
 License:   MIT
 
@@ -56,6 +56,9 @@ find %{buildroot} -name "*.la" -delete
 %{_datadir}/X11/xorg.conf.d/10-radeon.conf
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 22.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Sep 29 2024 Simone Caronni <negativo17@gmail.com> - 22.0.0-3
 - Clean up SPEC file.
 - Adjust build requirement.

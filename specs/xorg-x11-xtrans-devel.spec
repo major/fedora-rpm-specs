@@ -8,7 +8,7 @@
 Summary: X.Org X11 developmental X transport library
 Name: xorg-x11-xtrans-devel
 Version: 1.5.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: HPND AND HPND-sell-variant AND MIT AND MIT-open-group AND X11
 URL: http://www.x.org
 BuildArch: noarch
@@ -53,6 +53,9 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
 %{_datadir}/pkgconfig/xtrans.pc
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 11 2024 José Expósito <jexposit@redhat.com> - 1.5.2-1
 - xtrans 1.5.2
 

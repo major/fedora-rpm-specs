@@ -8,7 +8,7 @@
 
 Name:		tcl-%{realname}
 Version:	2.2.10
-Release:	61%{?dist}
+Release:	62%{?dist}
 Summary:	Sound toolkit
 # generic/snackDecls.h, generic/snackStubInit.c and generic/snackStubLib.c 
 # are under the TCL "license.terms", a copy of which can be found in the tcl package.
@@ -148,6 +148,9 @@ install -p unix/snackConfig.sh %{buildroot}%{_libdir}
 %{python3_sitelib}/__pycache__/tkSnack*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.10-62
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.10-61
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

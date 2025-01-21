@@ -1,6 +1,6 @@
 Name:    twa
 Version: 1.11.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Tiny web auditor with strong opinions
 License: MIT
 
@@ -61,6 +61,9 @@ install -m 644 -p twa.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

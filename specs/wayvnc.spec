@@ -4,7 +4,7 @@
 
 Name:     wayvnc
 Version:  0.9.1
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  A VNC server for wlroots based Wayland compositors
 License:  ISC
 URL:      https://github.com/any1/wayvnc
@@ -60,6 +60,9 @@ physical display attached.
 %license COPYING
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Nov 21 2024 Neal Gompa <ngompa@fedoraproject.org> - 0.9.1-1
 - Update to 0.9.1
 

@@ -49,7 +49,7 @@ Name:           sbd
 Summary:        Storage-based death
 License:        GPL-2.0-or-later
 Version:        1.5.2
-Release:        %{buildnum}%{?dist}.5
+Release:        %{buildnum}%{?dist}.6
 Url:            https://github.com/%{github_owner}/%{name}
 Source0:        https://github.com/%{github_owner}/%{name}/archive/%{longcommit}/%{name}-%{longcommit}.tar.gz
 Patch0:         0001-Fix-query-watchdog-avoid-issues-on-heap-allocation-f.patch
@@ -179,6 +179,9 @@ fi
 %{_libdir}/libsbdtestbed*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-1.6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Nov 21 2024 Klaus Wenninger <kwenning@redhat.com> - 1.5.2-1.5
 - Fixes bz#2327766
 

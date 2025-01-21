@@ -3,7 +3,7 @@
 
 Name:           thttpd
 Version:        2.29
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A tiny, turbo, throttleable lightweight HTTP server
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -146,6 +146,9 @@ EOF
 %dir /var/www
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.29-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.29-18
 - convert license to SPDX
 

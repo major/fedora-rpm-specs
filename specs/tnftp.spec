@@ -1,6 +1,6 @@
 Name:          tnftp
 Version:       20230507
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       FTP (File Transfer Protocol) client from NetBSD
 
 License:       0BSD AND BSD-2-Clause AND BSD-3-Clause AND ISC
@@ -50,6 +50,9 @@ export CFLAGS="%{optflags}"
 %{_mandir}/man1/%{name}.1.gz
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20230507-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20230507-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

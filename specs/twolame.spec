@@ -1,6 +1,6 @@
 Name:       twolame
 Version:    0.4.0
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    Optimized MPEG Audio Layer 2 encoding library based on tooLAME
 # build-scripts/install-sh is MIT/X11, build-scripts/{libtool.m4, ltmain.sh} are GPLv2+
 License:    LGPL-2.1-or-later
@@ -78,6 +78,9 @@ rm -rf %{buildroot}%{_docdir}
 %{_includedir}/%{name}.h
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

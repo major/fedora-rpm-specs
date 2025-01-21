@@ -1,6 +1,6 @@
 Name:		usbmon
 Version:	6.1
-Release:	20%{dist}
+Release:	21%{dist}
 Summary:	A basic front-end to usbmon
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -35,6 +35,9 @@ install -p -m 755 -t $RPM_BUILD_ROOT/%{_sbindir} usbmon
 %{_mandir}/man8/usbmon.8*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.1-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 6.1-20
 - convert license to SPDX
 

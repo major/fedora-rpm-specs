@@ -14,7 +14,7 @@ Vultr CLI and API client library.}
 %global godocs          README.md
 
 Name:           vultr
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Vultr CLI
 
 License:        MIT
@@ -68,6 +68,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

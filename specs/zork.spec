@@ -1,6 +1,6 @@
 Name:           zork
 Version:        1.0.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Public Domain original DUNGEON game (Zork I)
 
 License:        LicenseRef-Fedora-Public-Domain
@@ -56,6 +56,9 @@ echo ".so dungeon.6" > %{buildroot}%{_mandir}/man6/zork.6
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

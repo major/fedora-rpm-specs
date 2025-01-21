@@ -10,7 +10,7 @@
 
 Name:           tcpreplay
 Version:        4.5.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Replay captured network traffic
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -66,6 +66,9 @@ capture files.
 %{_bindir}/*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul  29 2024 Miroslav Suchý <msuchy@redhat.com> - 4.5.1-3
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           soundtouch
 Version:        2.3.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Audio Processing library for changing Tempo, Pitch and Playback Rates
 License:        LGPL-2.1-or-later
 URL:            http://www.surina.net/soundtouch/
@@ -69,6 +69,9 @@ ln -s soundtouch.pc %{buildroot}%{_libdir}/pkgconfig/soundtouch-1.0.pc
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Sep 29 2024 Sérgio Basto <sergio@serjux.com> - 2.3.3-1
 - Update soundtouch to 2.3.3 (#2293433)
 

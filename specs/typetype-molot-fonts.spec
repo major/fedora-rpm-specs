@@ -3,7 +3,7 @@
 
 Name:		%{fontname}-fonts
 Version:	1.000
-Release:	21%{?dist}
+Release:	22%{?dist}
 Summary:	A display sans-serif font 
 
 # Automatically converted from old format: OFL - review is highly recommended.
@@ -58,6 +58,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/%{fontnam
 %endif
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.000-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.000-21
 - convert license to SPDX
 

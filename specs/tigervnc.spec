@@ -6,7 +6,7 @@
 
 Name:           tigervnc
 Version:        1.14.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A TigerVNC remote display system
 
 %global _hardened_build 1
@@ -392,6 +392,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Dec 19 2024 Jan Grulich <jgrulich@redhat.com> - 1.14.1-3
 - Add runtime dependency on which
 

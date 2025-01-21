@@ -1,7 +1,7 @@
 Summary:       Fast, high-quality sample rate conversion library
 Name:          zita-resampler
 Version:       1.11.2
-Release:       1%{?dist}
+Release:       2%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 URL:           http://kokkinizita.linuxaudio.org/linuxaudio/zita-resampler/resampler.html
@@ -77,6 +77,9 @@ chmod 755 %{buildroot}/%{_libdir}/lib%{name}.so.%{version}
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 10 2024 Guido Aulisi <guido.aulisi@inps.it> - 1.11.2-1
 - Version 1.11.2
 

@@ -3,7 +3,7 @@
 Summary: The client for the Trivial File Transfer Protocol (TFTP)
 Name: tftp
 Version: 5.2
-Release: 44%{?dist}
+Release: 45%{?dist}
 License: BSD-4-Clause-UC
 URL: http://www.kernel.org/pub/software/network/tftp/
 Source0: http://www.kernel.org/pub/software/network/tftp/tftp-hpa/tftp-hpa-%{version}.tar.bz2
@@ -110,6 +110,9 @@ install -p -m 644 %SOURCE2 ${RPM_BUILD_ROOT}%{_unitdir}
 %{_unitdir}/*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.2-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

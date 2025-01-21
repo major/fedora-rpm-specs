@@ -1,6 +1,6 @@
 Name:           usbtop
 Version:        1.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Utility to show USB bandwidth
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -48,6 +48,9 @@ modprobe usbmon &> /dev/null || :
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0-13
 - convert license to SPDX
 

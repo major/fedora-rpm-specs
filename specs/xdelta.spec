@@ -1,7 +1,7 @@
 Summary: A binary file delta generator
 Name: xdelta
 Version: 3.1.0
-Release: 21%{?dist}
+Release: 22%{?dist}
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
 # the latest release tarball is only in the pre-relicensing GPL repo
@@ -58,6 +58,9 @@ popd
 %{_mandir}/man1/xdelta*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jul 02 2024 Benjamin Gilbert <bgilbert@backtick.net> - 3.1.0-21
 - Fix dead project URL (rhbz#2294794)
 - Update Source0 URL

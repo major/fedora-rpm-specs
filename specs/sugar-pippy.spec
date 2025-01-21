@@ -4,7 +4,7 @@
 
 Name:          sugar-pippy
 Version:       75
-Release:       13%{?dist}
+Release:       14%{?dist}
 Summary:       Pippy for Sugar
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
@@ -62,6 +62,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 75-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Ibiam Chihurumnaya <ibiam@sugarlabs.org> - 75-13
 - No need to remove pre-compiled pybox2d as it's no longer pre-compiled
 

@@ -1,7 +1,7 @@
 Summary: X Resource Monitor
 Name: xrestop
 Version: 0.6
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL-2.0-or-later
 URL: http://www.freedesktop.org/Software/xrestop
 Source0: %{name}-%{version}.tar.gz
@@ -35,6 +35,9 @@ make DESTDIR="$RPM_BUILD_ROOT" install
 %{_mandir}/man1/xrestop.1*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

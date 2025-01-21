@@ -5,7 +5,7 @@
 
 %global         githash_tools     0fe2106fbc052445c611e6c5b2a79899d740edcb
 
-%global         baserelease       3
+%global         baserelease       4
 
 %undefine        _changelog_trimtime
 
@@ -79,6 +79,9 @@ popd
 %{_datadir}/skk/
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20240131-4.gitb798a46b88
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep  4 2024 Miroslav Suchý <msuchy@redhat.com> - 20240131-3.gitb798a46b88
 - convert license to SPDX
 

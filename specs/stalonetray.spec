@@ -1,6 +1,6 @@
 Name:           stalonetray
 Version:        0.8.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A stand alone notification area
 
 # License is only mentioned in COPYING
@@ -43,6 +43,9 @@ install -D -m644 stalonetrayrc.sample %{buildroot}%{_sysconfdir}/stalonetrayrc
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.8.5-3
 - convert license to SPDX
 

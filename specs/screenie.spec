@@ -1,6 +1,6 @@
 Name:           screenie
 Version:        20120406
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        A small and lightweight screen wrapper
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -33,6 +33,9 @@ install -Dp -m 0644 %{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 %{_bindir}/%{name}
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20120406-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 20120406-20
 - convert license to SPDX
 

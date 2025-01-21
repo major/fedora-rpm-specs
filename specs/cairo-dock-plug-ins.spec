@@ -4,14 +4,14 @@
 %global	core_least_ver	3.5.99
 
 %global	use_git	1
-%global	gitdate	20241217
-%global	githash	f8ad97e8ec67b25e07a6dedae8a57634e04b5da6
+%global	gitdate	20250118
+%global	githash	18ad7382d751709c7028bf039e864c8a10b31f07
 %global	shorthash	%(c=%{githash} ; echo ${c:0:7})
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
 
-%global	baserelease	2
-%global	alphatag		.beta6
+%global	baserelease	1
+%global	alphatag		.beta7
 
 
 %global	ruby_vendorlib	%(ruby -rrbconfig -e "puts RbConfig::CONFIG['vendorlibdir']")
@@ -419,6 +419,9 @@ popd
 %{_datadir}/cairo-dock/plug-ins/Dbus/CDApplet.h
 
 %changelog
+* Sun Jan 19 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.99^20250118git18ad738-1.beta7
+- Update to the latest git (20250118git18ad738)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.99^20241217gitf8ad97e-2.beta6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

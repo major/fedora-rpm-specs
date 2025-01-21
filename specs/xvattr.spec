@@ -7,7 +7,7 @@
 Summary:    Utility for getting and setting Xv attributes
 Name:       xvattr
 Version:    1.3
-Release:    51%{?dist}
+Release:    52%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:    GPL-2.0-or-later
 URL:        http://www.dtek.chalmers.se/groups/dvd/
@@ -69,6 +69,9 @@ autoreconf --install --force
 %endif
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-52
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3-51
 - convert license to SPDX
 

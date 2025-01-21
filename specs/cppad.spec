@@ -10,26 +10,26 @@
 # a changelog or other information that is better placed in the main package
 # instead of a -doc subpackage.'
 #
-# fedpkg lint: W: files-duplicate: 
-# the files user_guide.html index.html in directory /usr/share/doc/cppad 
-# are the same. This is because a redirect from index.hml to user_guide.html 
-# will not reload when user_guide.html changes.
+# year 
+# The year corresponding to this version
+%define year 2025
 #
-# fedora uses its own soversion number for cppad_lib
-# 5.0 corresponds to version 20240000 
-%define soversion 5.0
-
+# soversion
+# fedora uses its own soversion number for cppad_lib where
+# 1.0 corresponds to year 2020
+%define soversion %[ %year - 2019 ] 
+#
 # This is really an out of soruce build because the source is in the
-# CppAD-%%{version} sub-directory. The fedora macros are confused and need 
-# this defined true.
+# CppAD-%%{version} sub-directory of the source. The fedora macros are 
+# confused and need this defined true.
 %define __cmake_in_source_build 1
 # ----------------------------------------------------------------------------
 
 # Fedora Release starts with 1; see
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/
 Name:    cppad
-Version: 20250000.0
-Release: 2%{?dist}
+Version: %{year}0000.0
+Release: 3%{?dist}
 Summary: C++ Algorithmic Differentiation (AD), %{name}-devel and %{name}-doc
 #
 License: EPL-2.0 OR GPL-2.0-or-later
@@ -49,8 +49,7 @@ BuildRequires: python-furo
 
 
 %description
-C++ Algorithmic Differentiation (AD) library file libcppad_lib.so; 
-see %{name}-devel and %{name}-doc.
+C++ Algorithmic Differentiation (AD) include and library files.
 
 # ---------------------------------------------------------------------------
 %package devel
@@ -65,26 +64,14 @@ Provides: coin-or-cppad-devel = %{version}-%{release}
 We refer to the step by step conversion from an algorithm that computes 
 function values to an algorithm that computes derivative values as 
 Algorithmic Differentiation (often referred to as Automatic Differentiation.) 
-Given a C++ algorithm that computes function values, {name} generates an 
+Given a C++ algorithm that computes function values, %{name} generates an 
 algorithm that computes its derivative values. A brief introduction to 
 Algorithmic Differentiation (AD) can be found at 
      http://en.wikipedia.org/wiki/Automatic_differentiation
-See the package %{name}-doc for documentation of this version of %{name}. 
-The documentation, for the most recent version of %{name}, can be found at
-     https://cppad.readthedocs.io
-
-# ----------------------------------------------------------------------------
-%package doc
-Summary: Documentation for %{name}-devel
-BuildArch: noarch
-
-%description doc
-The %{name}-doc package installs the HTML documentation for this version
-of %{name}-devel in
-     %{_docdir}/%{name}
-The documentation, for the most recent version of %{name}, can be found at
+The documentation for the %{year} version
+     https://cppad.readthedocs.io/stable-%{year}
+The documentation for the most recent version of %{name} can be found at
      https://cppad.readthedocs.io/latest
-
 # -----------------------------------------------------------------------------
 # prep
 # -----------------------------------------------------------------------------
@@ -106,35 +93,9 @@ echo ''                   >> CppAD-%{version}/xrst.toml
 echo '[input_files]'      >> CppAD-%{version}/xrst.toml
 echo 'data = [ ]'         >> CppAD-%{version}/xrst.toml
 #
-# CppAD-%%{version}/build/html
-# run xrst to create the documentation files in the directory above
-mkdir CppAD-%{version}/build
-xrst --version
-number_jobs=$(echo %{?_smp_mflags} | sed -e 's|[^0-9]*\([0-9]*\)[^0-9]*|\1|')
-if [ "$number_jobs" == '' ]
-then
-   number_jobs='1'
-fi
-xrst \
-   --config_file CppAD-%{version}/xrst.toml \
-   --local_toc \
-   --target html \
-   --html_theme sphinx_rtd_theme \
-   --index_page_name user_guide \
-   --group_list default app \
-   --number_jobs $number_jobs \
-   --suppress_spell_warnings
-#
-# CppAD-%%{version}/build/html
-# remove hidden files not needed for viewing documentation
-rm CppAD-%{version}/build/html/.buildinfo
-rm -r CppAD-%{version}/build/html/.doctrees
-mv CppAD-%{version}/build/html html
-
-#
 # COPYING, uw_copy_040507.html
-mv CppAD-%{version}/COPYING  COPYING
-mv CppAD-%{version}/uw_copy_040507.html uw_copy_040507.html
+cp CppAD-%{version}/COPYING  COPYING
+cp CppAD-%{version}/uw_copy_040507.html uw_copy_040507.html
 #
 # fix bug
 # should not be needed once version > 20250000.0
@@ -168,13 +129,12 @@ s|^|   SET(CMAKE_REQUIRED_DEFINITIONS "" )\\
 EOF
 sed -i.bak CppAD-%{version}/cmake/compile_source_test.cmake -f temp.sed
 #
-# ----------------------------------------------------------------------------
+# cppad_lib/CMakeLists.txt
 # cppad_lib: replace soversion number and ensure build type is release 
 sed -i.bak CppAD-%{version}/cppad_lib/CMakeLists.txt \
     -e "s|print_variable(soversion)|SET(soversion %{soversion} )\n&|" \
     -e "s|\${cppad_debug_which}|debug_none|"
 #
-# ----------------------------------------------------------------------------
 # Print machine epsilon before any other testing
 cat << EOF > temp.cpp
 # include <iostream>
@@ -194,26 +154,14 @@ g++ -std=c++11 temp.cpp -o temp
 ./temp > temp.out
 cat temp.out
 # ----------------------------------------------------------------------------
-# Comment out test of to_string long double on ppc64le arch. Understanding why
-# it is failing will have to wait until there is a fedora 36 ppc64le test machine.
-### if [ "%{_arch}" == 'ppc64le' ]
-### then
-###     sed -i.bak CppAD-%{version}/example/utility/to_string.cpp \
-###         -e 's|ok *&= *floating<long double>();|// &|'  
-### fi
-# ----------------------------------------------------------------------------
 # build
 # -----------------------------------------------------------------------------
 %build
 #
-# 1. Cannot use %%{_includedir}, %%{_libdir}, %%{_datadir}, %%{_docdir} 
-# because they are absolute paths. Relative values would be more flexible 
-# because they can be combined with %%{_prefix} to get absolute values.
-#
-# 2. The debug_all is overridden for cppad_lib by the edit of
+# 1. The debug_all is overridden for cppad_lib by the edit of
 # cppad_lib/CMakeLists.txt above
 #
-# 3. The gnu c++ compiler seems to be generating an incorrect warning about
+# 2. The gnu c++ compiler seems to be generating an incorrect warning about
 # array bounds in thread_alloc.hpp. Use -Wno-array-bounds to suppress it.
 #
 # cppad_cxx_flags
@@ -247,10 +195,10 @@ cppad_cxx_flags=\
     -D cmake_install_libdirs=%{_lib} \
     \
     -D cmake_install_datadir=share \
-    -D cmake_install_docdir=share/doc \
+    -D cmake_install_docdir='NOTFOUND' \
     \
+    -D include_doc=true \
     -D cmake_defined_ok=false \
-    -D include_doc=false \
     -D cppad_static_lib=false \
     -D cppad_debug_and_release=true \
     \
@@ -295,24 +243,43 @@ cppad_cxx_flags=\
 %{_libdir}/pkgconfig/%{name}.pc
 %{_libdir}/libcppad_lib.so
 
-%files doc
-
-# These documentation files are build by the xrst command above
-%doc html
-
 # -----------------------------------------------------------------------------
 # Check
 # -----------------------------------------------------------------------------
-# use the installed include files to compile and run the tests
+# 
 %check
+#
+# Test installed version of CppAD
+g++ CppAD-%{version}/example/get_started/get_started.cpp \
+   -I %{buildroot}/%{_includedir} \
+   -Wl,-rpath,%{buildroot}/%{_libdir} \
+   %{buildroot}/%{_libdir}/libcppad_lib.so \
+   -o get_started
+./get_started
+#
+# Test building documentation
+make %{?_smp_mflags} doc_user
+#
+# Run the all the standard CppAD tests.
 make %{?_smp_mflags} check
 # ----------------------------------------------------------------------------
-# %%clean
+#
 # Use %%clean with no arguments to surpress the cleanup of BUILDROOT 
 # This enables one to check that the necessary files are installed.
+%%clean
 # ----------------------------------------------------------------------------
 %changelog
-* Sat Jan 18 2025 Brad Bell <bradbell at seanet dot com> - 20250000.0-1
+* Sun Jan 19 2025 Brad Bell <bradbell at seanet dot com> - 20250000.0-3
+- 1. Add the year macro and use it to define soversion and Version.
+- 2. Remove the cppad-doc subpackage because documantion for this stable 
+     version is not available at https://cppad.readthedocs.io/stable-2025/ .
+- 3. Change include_doc=true, cmake_install_docdir=NOTFOUND, and add
+     make doc_user to test building, but not installing, user documentation.
+- 4. The ppc64le arch has been fixed and now the CppAD to_string test pass
+     for long double (so we do not need to skip that test).
+- 5. Use get_started.cpp to test the installed version of CppAD.
+
+* Sat Jan 18 2025 Brad Bell <bradbell at seanet dot com> - 20250000.0-2
 - This fixes two bugs and will not be necessary
 - once the upstream source advances to 20250000.1.
 

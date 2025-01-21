@@ -1,6 +1,6 @@
 Name:		streameye
 Version:	0.9
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	Simple MJPEG streamer for Linux
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:	GPL-3.0-only
@@ -33,6 +33,9 @@ cp -p %{name} %{buildroot}%{_bindir}
 %{_bindir}/%{name}
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.9-13
 - convert license to SPDX
 

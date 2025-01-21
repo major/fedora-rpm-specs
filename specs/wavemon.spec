@@ -2,7 +2,7 @@
 
 Name:           wavemon
 Version:        0.9.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Ncurses-based monitoring application for wireless network devices
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -56,6 +56,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}/*
 %{_bindir}/%{name}
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.9.6-2
 - convert license to SPDX
 

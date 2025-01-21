@@ -1,6 +1,6 @@
 Name:           scim-m17n
 Version:        0.2.3
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        SCIM IMEngine for m17n-lib
 
 License:        GPL-2.0-or-later
@@ -45,6 +45,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/scim-1.0/*/IMEngine/m17n.la
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

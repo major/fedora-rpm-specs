@@ -3,7 +3,7 @@
 Summary:       A 4-oscillator subtractive polyphonic synthesizer
 Name:          synthv1
 Version:       0.9.91
-Release:       3%{?dist}
+Release:       4%{?dist}
 URL:           https://%{name}.sourceforge.io/
 Source0:       https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 # Do not strip executables
@@ -70,6 +70,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{namespace}.%
 %{_libdir}/lv2/%{name}.lv2/
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.91-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.9.91-3
 - convert license to SPDX
 

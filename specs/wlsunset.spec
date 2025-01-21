@@ -1,6 +1,6 @@
 Name:           wlsunset
 Version:        0.4.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Day/night gamma adjustments for Sway
 
 License:        MIT
@@ -39,6 +39,9 @@ supporting wlr-gamma-control-unstable-v1.
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

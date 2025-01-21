@@ -1,6 +1,6 @@
 Name:       ydiff
 Version:    1.4.2
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    View colored, incremental diff
 URL:        https://github.com/ymattw/ydiff
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -50,6 +50,9 @@ tests/regression.sh
 %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Dec 13 2024 Alois Mahdal <n9042e84@vornet.cz> 1.4.2-1
 - Updated to 1.4.2 (RHBZ#2326989)
 

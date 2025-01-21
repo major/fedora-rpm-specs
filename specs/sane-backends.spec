@@ -24,7 +24,7 @@
 Summary: Scanner access software
 Name: sane-backends
 Version: 1.3.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 # backend/coolscan*, backend/epson2*, backend/epsonds*, backend/magicolor*, backend/kodakaio* -
 # GPL-2.0-only
 # backend/qcam* - MIT AND GPL-2.0-or-later WITH SANE-exception
@@ -403,6 +403,9 @@ udevadm hwdb --update >/dev/null 2>&1 || :
 %{_unitdir}/saned@.service
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Zdenek Dohnal <zdohnal@redhat.com> - 1.3.1-1
 - 2263985 - sane-backends-1.3.1 is available
 

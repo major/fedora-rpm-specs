@@ -2,7 +2,7 @@
 
 Name:           system-storage-manager
 Version:        1.3
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        A single tool to manage your storage
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -78,6 +78,9 @@ fi
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3-21
 - convert license to SPDX
 

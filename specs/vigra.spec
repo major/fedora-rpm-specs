@@ -1,7 +1,7 @@
 Summary:        Generic Programming for Computer Vision
 Name:           vigra
 Version:        1.11.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        MIT
 # The "Lenna" files are non-free, we need to remove them from the source tarball.
 # wget https://github.com/ukoethe/vigra/archive/refs/tags/Version-1-11-2.tar.gz
@@ -149,6 +149,9 @@ install -p -m755 -D %{SOURCE1} %{buildroot}%{_bindir}/vigra-config
 %endif
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 02 2025 Miro Hrončok <mhroncok@redhat.com> - 1.11.2-3
 - Drop a test dependency on deprecated python3-nose
 - https://fedoraproject.org/wiki/Changes/DeprecateNose

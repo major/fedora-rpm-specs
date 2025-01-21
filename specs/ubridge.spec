@@ -2,7 +2,7 @@
 
 Name:           ubridge
 Version:        0.9.19
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Bridge for UDP tunnels, Ethernet, TAP and VMnet interfaces
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -52,6 +52,9 @@ install -p -m4755 %{name} %{buildroot}%{_bindir}
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.19-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Nov  7 2024 Alexey Kurov <nucleo@fedoraproject.org> - 0.9.19-1
 - Update to 0.9.19
 

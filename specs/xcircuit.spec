@@ -5,7 +5,7 @@
 
 Name:			xcircuit
 Version:		%{short_version}.30
-Release:		12%{?dist}
+Release:		13%{?dist}
 Summary:		Electronic circuit schematic drawing program
 
 # Xw/		HPND unused
@@ -26,6 +26,8 @@ Source2:		%{name}.png
 
 Patch0:		xcircuit-3.9.40-format-security.patch
 Patch1:		xcircuit-c99.patch
+# C23 fix, include math.h instead of declare atan2 internally
+Patch2:		xcircuit-3.10.30-c23-math-include.patch
 
 BuildRequires:	make
 BuildRequires:	pkgconfig(cairo)
@@ -57,8 +59,9 @@ CAD program for circuit schematic drawing and schematic capture.
 
 %prep
 %setup -q
-%patch -P0 -p1
-%patch -P1 -p1
+%patch -P0 -p1 -b .format
+%patch -P1 -p1 -b .c99
+%patch -P2 -p1 -b .c23
 
 #439604: TCL 8.5.1
 sed -i lib/tcl/tkcon.tcl \
@@ -80,13 +83,10 @@ export WISH=/usr/bin/wish
 	--with-tcl=%{_libdir} \
 	--with-tk=%{_libdir} \
 	%{nil}
-make %{?_smp_mflags}
+%make_build
 
 %install
-make \
-	INSTALL="install -p" \
-	DESTDIR=%{buildroot} \
-	install
+%make_install
 make install-man mandir="%{buildroot}%{_mandir}"
 
 rm -rf examples/win32
@@ -121,6 +121,9 @@ desktop-file-install \
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Sun Jan 19 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.10.30-13
+- Fix for C23, include header properly
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.30-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

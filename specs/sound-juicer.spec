@@ -1,6 +1,6 @@
 Name:           sound-juicer
 Version:        3.40.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Clean and lean CD ripper
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -70,6 +70,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.SoundJui
 %{_mandir}/man1/*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.40.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 3.40.0-5
 - convert license to SPDX
 

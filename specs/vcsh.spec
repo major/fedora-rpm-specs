@@ -1,6 +1,6 @@
 Name:           vcsh
 Version:        2.0.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Version Control System for $HOME
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -45,6 +45,9 @@ configs you want to use on which machine.
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0.8-3
 - convert license to SPDX
 

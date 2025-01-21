@@ -3,7 +3,7 @@
 Summary:        Taglib support for other formats 
 Name:           taglib-extras
 Version:        1.0.1
-Release:        32%{?dist}
+Release:        33%{?dist}
 
 # all LGPLv2, except for rmff/ which is GPLv2+/LGPLv2+
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
@@ -70,6 +70,9 @@ Requires: taglib-devel
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.1-32
 - convert license to SPDX
 

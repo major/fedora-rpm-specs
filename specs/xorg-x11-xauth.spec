@@ -3,7 +3,7 @@
 Summary: X.Org X11 X authority utilities
 Name: xorg-x11-%{pkgname}
 Version: 1.1.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 # NOTE: Remove Epoch line if package gets renamed
 Epoch: 1
 License: MIT-open-group
@@ -44,6 +44,9 @@ make check || cat tests/test-suite.log
 %{_mandir}/man1/xauth.1*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.1.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.1.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

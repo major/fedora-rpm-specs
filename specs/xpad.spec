@@ -1,6 +1,6 @@
 Name:           xpad
 Version:        5.8.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Sticky notepad for GTK
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -60,6 +60,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 5.8.0-8
 - convert license to SPDX
 

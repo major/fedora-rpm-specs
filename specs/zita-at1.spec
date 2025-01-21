@@ -2,7 +2,7 @@
 Summary:       Audio autotuner for JACK
 Name:          zita-at1
 Version:       0.6.2
-Release:       14%{?dist}
+Release:       15%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
 URL:           http://kokkinizita.linuxaudio.org/
@@ -60,6 +60,9 @@ install -m 644 %{_builddir}/%{name}-%{version}/doc/redzita.png \
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.6.2-14
 - convert license to SPDX
 

@@ -2,7 +2,7 @@
 
 Name:           tali
 Version:        40.9
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        GNOME Tali game
 
 # Automatically converted from old format: GPLv2+ and GFDL - review is highly recommended.
@@ -53,6 +53,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 40.9-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 40.9-6
 - convert license to SPDX
 

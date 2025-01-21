@@ -6,7 +6,7 @@
 
 Name:		sunpinyin
 Version:	3.0.0
-Release:	0.13.%{gitdate}git%{?dist}
+Release:	0.14.%{gitdate}git%{?dist}
 Summary:	A statistical language model based Chinese input method engine
 License:	LGPL-2.1-only OR CDDL-1.0
 URL:		http://code.google.com/p/sunpinyin/
@@ -100,6 +100,9 @@ install -m0644 AUTHORS TODO %{buildroot}%{_docdir}/%{name}
 %{_docdir}/%{name}/SLM-*.mk
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-0.14.20190805git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-0.13.20190805git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

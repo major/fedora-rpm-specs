@@ -10,7 +10,7 @@
 Name: webalizer
 Summary: A flexible Web server log file analysis program
 Version: 2.23_08
-Release: 26%{?dist}
+Release: 27%{?dist}
 URL: http://www.mrunix.net/webalizer/
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -103,6 +103,9 @@ exit 0
 %attr(-, webalizer, root) %{_localstatedir}/www/usage/*.png
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.23_08-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.23_08-26
 - convert license to SPDX
 

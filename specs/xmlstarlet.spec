@@ -2,7 +2,7 @@
 
 Name: xmlstarlet
 Version: 1.6.1
-Release: 26%{?dist}
+Release: 27%{?dist}
 Summary: Command Line XML Toolkit
 License: MIT
 URL: http://xmlstar.sourceforge.net/
@@ -53,6 +53,9 @@ make check
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Nov 29 2024 Paul W. Frields <stickster@gmail.com> - 1.6.1-26
 - Remove docbook5-schemas BR due to deprecation
 

@@ -9,7 +9,7 @@
 
 Name:		sedutil
 Version:	1.49.6
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Tools to manage the activation and use of self encrypting drives
 
 # Everything is GPLv3+ except:
@@ -79,6 +79,9 @@ ln -sr %{buildroot}%{_sbindir}/linuxpba %{buildroot}%{_libexecdir}/linuxpba
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.49.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jan 06 2025 Charles R. Anderson <cra@alum.wpi.edu> - 1.49.6-2
 - ExcludeArch: ppc64le
 

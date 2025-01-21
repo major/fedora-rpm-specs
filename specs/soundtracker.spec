@@ -1,6 +1,6 @@
 Name:    soundtracker
 Version: 1.0.4
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 Summary: Sound module composer/player
 
@@ -52,6 +52,9 @@ format. The user interface makes use of GTK2.
 %{_datadir}/pixmaps/%{name}-icon.png
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul  26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.4-4
 - convert license to SPDX
 

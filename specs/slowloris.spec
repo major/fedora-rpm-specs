@@ -1,6 +1,6 @@
 Name:           slowloris
 Version:        0.2.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Low bandwidth DoS tool
 
 License:        MIT
@@ -49,6 +49,9 @@ sed -i -e '/^#!\//, 1d' %{name}.py
 %{python3_sitelib}/Slowloris-%{version}-py*.egg-info
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

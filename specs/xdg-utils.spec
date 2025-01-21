@@ -1,7 +1,7 @@
 Summary: Basic desktop integration functions
 Name:    xdg-utils
 Version: 1.2.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 URL:     https://www.freedesktop.org/wiki/Software/xdg-utils/
 %if 0%{?snap:1}
@@ -85,6 +85,9 @@ make man scripts %{?_smp_mflags} -C scripts
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

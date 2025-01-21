@@ -5,7 +5,7 @@
 
 Name:           stratisd
 Version:        3.7.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Daemon that manages block devices to create filesystems
 
 License:        (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND MIT AND MPL-2.0 AND (Unlicense OR MIT)
@@ -182,6 +182,9 @@ a2x -f manpage docs/stratis-dumpmetadata.txt
 %{_mandir}/man8/stratis-dumpmetadata.8*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 18 2024 Bryan Gurney <bgurney@redhat.com> - 3.7.3-1
 - Update to 3.7.3
 

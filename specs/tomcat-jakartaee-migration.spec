@@ -1,6 +1,6 @@
 Name:           tomcat-jakartaee-migration
 Version:        1.0.8
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Tomcat Migration Tool for Jakarta EE
 
 License:        Apache-2.0
@@ -62,6 +62,9 @@ API documentation for %{name}.
 %license LICENSE.txt
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Aug 08 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 1.0.8-4
 - Remove jacoco build dependency
 

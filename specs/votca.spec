@@ -2,7 +2,7 @@ Name:           votca
 Version:        2024.2
 %global         uversion %{version}
 %global         sover 2024
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Versatile Object-oriented Toolkit for Coarse-graining Applications
 License:        Apache-2.0
 URL:            http://www.votca.org
@@ -251,6 +251,9 @@ export PYTHONPATH="${MPI_PYTHON3_SITEARCH}${PYTHONPATH:+:}${PYTHONPATH}"
 %{_datadir}/bash-completion/completions/votca
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 25 2024 Orion Poplawski <orion@nwra.com> - 2024.2-3
 - Rebuild for hdf5 1.14.5
 

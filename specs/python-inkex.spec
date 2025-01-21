@@ -1,15 +1,15 @@
-%global         commit          13ebc1e957573fea2c3360f676b0f1680fad395d
+%global         commit          395418359ddcb5b8014b857115f7f6b2f147033c
 %global         shortcommit     %(c=%{commit}; echo ${c:0:8})
-%global         commitdate      20241202
+%global         commitdate      20250106
 %global         reponame        extensions
 %global         srcname         inkex
 %global         forgeurl        https://gitlab.com/inkscape/extensions
-Version:        1.4.0
+Version:        1.4.0^%{commitdate}git%{shortcommit}
 %global         tag             v%{version}
 %forgemeta
 
 Name:           python-%{srcname}
-Release:        3.%{commitdate}git%{shortcommit}%{?dist}
+Release:        1%{?dist}
 Summary:        Python extensions for Inkscape core
 
 License:        GPL-2.0-or-later
@@ -122,6 +122,9 @@ sed -i /env\ python/d %{buildroot}%{python3_sitelib}/inkex/tester/inx.py
 %license LICENSE.txt
  
 %changelog
+* Sun Jan 19 2025 Benson Muite <fed500@fedoraproject.org> - 1.4.0^20250106git39541835-1
+- Update to pre-release to ensure builds on Python 3.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-3.20241202git13ebc1e9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

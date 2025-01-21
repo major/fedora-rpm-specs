@@ -27,8 +27,10 @@ search star catalogs and manipulate images.
 
 
 %package libs
-Summary:    Wcstools shared library 
-License:    LGPLv2+
+Summary:    Wcstools shared library
+# most files have LGPL-2.0-or-later header
+# COPYING is LGPL-2.1-only
+License:    LGPL-2.0-or-later AND LGPL-2.1-only
 
 %description libs
 Shared library necessary to run wcstools and programs based on libwcs.
@@ -36,7 +38,7 @@ Shared library necessary to run wcstools and programs based on libwcs.
 
 %package devel
 Summary:    Libraries, includes, etc. used to develop an application with wcstools
-License:    LGPLv2+
+License:    LGPL-2.0-or-later AND LGPL-2.1-only
 Requires:   %{name}-libs%{_isa} = %{version}-%{release}
 %description devel
 This are the files needed to develop an application using wcstools.

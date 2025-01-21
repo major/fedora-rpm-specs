@@ -3,7 +3,7 @@
 
 Name: tre
 Version: 0.8.0
-Release: 46.20140228git%{shortcommit}%{?dist}
+Release: 47.20140228git%{shortcommit}%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 Source0: https://github.com/laurikari/tre/archive/%{commit}/tre-%{commit}.tar.gz
@@ -139,6 +139,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_mandir}/man1/agrep.1*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-47.20140228gitc2f5d13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.8.0-46.20140228gitc2f5d13
 - convert license to SPDX
 

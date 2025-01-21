@@ -1,6 +1,6 @@
 Name: tuned-switcher
 Version: 0.7.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 # Main code - GPL-3.0-or-later.
 # Icon - Apache-2.0.
@@ -60,6 +60,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

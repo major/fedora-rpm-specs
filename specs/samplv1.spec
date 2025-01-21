@@ -3,7 +3,7 @@
 Summary:       A polyphonic sampler synthesizer with stereo fx
 Name:          samplv1
 Version:       0.9.91
-Release:       4%{?dist}
+Release:       5%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
 URL:           https://%{name}.sourceforge.io/
@@ -72,6 +72,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{namespace}.%
 %{_libdir}/lv2/%{name}.lv2/
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.91-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 09 2025 Michel Lind <salimma@fedoraproject.org> - 0.9.91-4
 - Rebuilt for rubberband 4
 

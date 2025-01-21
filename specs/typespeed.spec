@@ -4,7 +4,7 @@
 
 Name:           typespeed
 Version:        0.6.5
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Test your typing speed and get your fingers' CPS
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -62,6 +62,9 @@ desktop-file-install  \
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.5-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul  26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.6.5-31
 - convert license to SPDX
 

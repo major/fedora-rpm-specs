@@ -2,7 +2,7 @@
 
 Name:           tdom
 Version:        0.8.2
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        DOM parser for Tcl
 
 # Most files MPL except for ./generic/xmlsimple.c and ./generic/domhtml.c
@@ -72,6 +72,9 @@ sed -i -e "s#%{_libdir}/%{name}%{version}#%{_libdir}#" %{buildroot}%{_libdir}/td
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.8.2-39
 - convert license to SPDX
 

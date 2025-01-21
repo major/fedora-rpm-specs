@@ -1,7 +1,7 @@
 Summary: Produces a document with syntax highlighting
 Name: source-highlight
 Version: 3.1.9
-Release: 23%{?dist}
+Release: 24%{?dist}
 License: GPL-3.0-or-later AND GFDL-1.1-or-later AND LicenseRef-Fedora-Public-Domain AND GPL-2.0-only AND GPL-3.0-only AND GPL-3.0-or-later WITH Bison-exception-2.2
 Source0: ftp://ftp.gnu.org/gnu/src-highlite/%{name}-%{version}.tar.gz
 Source1: ftp://ftp.gnu.org/gnu/src-highlite/%{name}-%{version}.tar.gz.sig
@@ -95,6 +95,9 @@ rmdir $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d
 %{_includedir}/srchilite/*.h
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.9-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.9-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name: tecnoballz
 Version: 0.92
-Release: 45%{?dist}
+Release: 46%{?dist}
 Summary: A Brick Busting game
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -98,6 +98,9 @@ install -p -m 0644 %{SOURCE1} %{buildroot}%{_datadir}/icons/hicolor/32x32/apps/%
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.92-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.92-45
 - convert license to SPDX
 

@@ -14,7 +14,7 @@
 
 Name:           zpaqfranz
 Version:        60.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Advanced multiversioned archiver with hardware acceleration
 # LICENSE:  MIT text
 # man/LICENSE:  Unlicense text
@@ -131,6 +131,9 @@ install -m 0644 -D -t %{buildroot}%{_mandir}/man1 man/zpaqfranz.1
 %{_mandir}/man1/zpaqfranz.1*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 60.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 02 2025 Petr Pisar <ppisar@redhat.com> - 60.10-1
 - 60.10 bump
 

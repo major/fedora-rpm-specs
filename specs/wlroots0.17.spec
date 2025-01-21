@@ -6,7 +6,7 @@
 
 Name:           wlroots%{compat_ver}
 Version:        %{compat_ver}.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A modular Wayland compositor library
 
 # Source files/overall project licensed as MIT, but
@@ -123,5 +123,8 @@ MESON_OPTIONS=(
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Aug 08 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.17.4-1
 - Initialize wlroots0.17 package from rpms/wlroots@17b823e

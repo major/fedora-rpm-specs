@@ -12,7 +12,7 @@
 
 Name:		tuned-profiles-nfv-host-bin
 Version:	0
-Release:	0.17.%{git_suffix}%{?dist}
+Release:	0.18.%{git_suffix}%{?dist}
 Summary:	Binaries that are needed for the NFV host Tuned profile
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:	GPL-2.0-only
@@ -47,6 +47,9 @@ install -Dpm 0644 x86/tscdeadline_latency.flat %{buildroot}%{_datadir}/%{name}/t
 %{_datadir}/%{name}
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.18.20180302git1edfa966
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0-0.17.20180302git1edfa966
 - convert license to SPDX
 

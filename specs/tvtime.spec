@@ -1,7 +1,7 @@
 Summary: A high quality TV viewer
 Name: tvtime
 Version: 1.0.10
-Release: 23%{?dist}
+Release: 24%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: http://tvtime.sourceforge.net
@@ -83,6 +83,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.10-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.10-23
 - convert license to SPDX
 

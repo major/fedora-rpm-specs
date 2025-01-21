@@ -1,6 +1,6 @@
-%global commit 10a9ed3db4fdaaa27912acf11b8d7561003c4f81
+%global commit 208cea955f571e0ff967f04f6bb04f7e5018070c
 %global shortcommit %{sub %{commit} 1 7}
-%global commitdate 20250116
+%global commitdate 20250119.1126
 
 %global sdl3_minver 3.1.10
 
@@ -172,6 +172,9 @@ install -p -m 644 %{SOURCE2} %{buildroot}%{_includedir}/SDL2/SDL_revision.h
 
 
 %changelog
+* Sun Jan 19 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.30.50~git20250119.1126.208cea9-1
+- Bump to new git snapshot
+
 * Fri Jan 17 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.30.50~git20250116.10a9ed3-1
 - Bump to new git snapshot
 

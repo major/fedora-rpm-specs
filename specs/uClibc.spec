@@ -1,6 +1,6 @@
 Name: uClibc
 Version: 0.9.33.2
-Release: 31%{?dist}
+Release: 32%{?dist}
 Summary: C library for embedded Linux
 
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
@@ -102,6 +102,9 @@ rm -rf  $RPM_BUILD_ROOT/include/
 %{_libdir}/uClibc
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.33.2-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.9.33.2-31
 - convert license to SPDX
 

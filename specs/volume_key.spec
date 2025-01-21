@@ -32,7 +32,7 @@
 Summary: An utility for manipulating storage encryption keys and passphrases
 Name: volume_key
 Version: 0.3.12
-Release: 23%{?dist}
+Release: 24%{?dist}
 License: GPL-2.0-only AND (MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later)
 URL: https://pagure.io/%{name}/
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
@@ -173,6 +173,9 @@ exit 1; \
 %endif
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.12-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.12-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

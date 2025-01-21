@@ -1,6 +1,6 @@
 Name:           stacer
 Version:        1.1.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Linux system optimizer and monitoring
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -99,6 +99,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1.0-20
 - convert license to SPDX
 

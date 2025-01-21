@@ -1,6 +1,6 @@
 Name:           shntool
 Version:        3.0.10
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        A multi-purpose WAVE data processing and reporting utility
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -46,6 +46,9 @@ autoreconf -fiv
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.10-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 3.0.10-34
 - convert license to SPDX
 

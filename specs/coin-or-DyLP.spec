@@ -3,7 +3,7 @@
 Name:		coin-or-%{module}
 Summary:	Implementation of the dynamic simplex algorithm
 Version:	1.10.4
-Release:	16%{?dist}
+Release:	17%{?dist}
 License:	EPL-1.0
 URL:		https://projects.coin-or.org/%{module}
 Source0:	http://www.coin-or.org/download/pkgsource/%{module}/%{module}-%{version}.tgz
@@ -29,6 +29,9 @@ Patch3:		%{name}-isfinite.patch
 
 # Do not provide incorrect isfinite and isnan macros
 Patch4:		%{name}-math-macros.patch
+
+# Provide definitions of bool, true, and false compatible with C23
+Patch5:           %{name}-fix_GCC15.patch
 
 %description
 DyLP is an implementation of the dynamic simplex algorithm. Briefly, dynamic
@@ -72,7 +75,7 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
     -e 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' \
     -e 's|CC="\(g..\)"|CC="\1 -Wl,--as-needed"|' \
     -i libtool
-
+    
 %make_build all doxydoc
 
 %install
@@ -115,6 +118,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test DYLP_ERRMSGDIR=$PWD/src/Dylp/
 %{_docdir}/%{name}/dylp_doxy.tag
 
 %changelog
+* Sun Jan 19 2025 Antonio Trande <sagitter@fedoraproject.org> - 1.10.4-17
+- Patched for GCC-15
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.4-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

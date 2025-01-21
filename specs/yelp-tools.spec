@@ -2,7 +2,7 @@
 
 Name:          yelp-tools
 Version:       42.1
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       Create, manage, and publish documentation for Yelp
 
 License:       GPL-2.0-or-later
@@ -49,6 +49,9 @@ wraps things up in a developer-friendly way.
 %{_datadir}/aclocal/yelp.m4
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 42.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 42.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

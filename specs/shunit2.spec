@@ -2,7 +2,7 @@
 
 Name:           shunit2
 Version:        2.1.6
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        A xUnit based unit testing for Unix shell scripts
 
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
@@ -48,6 +48,9 @@ make install DESTDIR=%{buildroot} DOCDIR=%{_pkgdocdir}
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.6-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.1.6-28
 - convert license to SPDX
 

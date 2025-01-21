@@ -1,7 +1,7 @@
 Summary: A clock for the X Window System
 Name: xdaliclock
 Version: 2.43
-Release: 21%{?dist}
+Release: 22%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 URL: http://www.jwz.org/xdaliclock/
@@ -60,6 +60,9 @@ desktop-file-install  \
 %{_datadir}/applications/*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.43-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.43-21
 - convert license to SPDX
 

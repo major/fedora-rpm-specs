@@ -2,7 +2,7 @@
 
 Name:           xcb-util-xrm
 Version:        1.3
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        XCB utility functions for the X resource manager
 
 License:        MIT
@@ -55,6 +55,9 @@ make %{?_smp_mflags} check
 %{_libdir}/pkgconfig/%{libname}.pc
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -16,7 +16,7 @@ Your NoSQL database powered by Golang.}
 %global godocs          doc README.md README-gommap.md
 
 Name:           tiedot
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        NoSQL database
 
 # Upstream license specification: BSD-3-Clause and BSD-2-Clause
@@ -74,6 +74,9 @@ install -p -m 0644 distributable/tiedot.service %{buildroot}%{_unitdir}/tiedot.s
 %gopkgfiles
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 3.4-16
 - convert license to SPDX
 

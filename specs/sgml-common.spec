@@ -2,7 +2,7 @@
 
 Name: sgml-common
 Version: 0.6.3
-Release: 65%{?dist}
+Release: 66%{?dist}
 
 Summary: Common SGML catalog and DTD files
 
@@ -195,6 +195,9 @@ fi
 %{_datadir}/xml/datatypes.dtd
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-66
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-65
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -23,7 +23,7 @@ Summary:   Open source remote desktop protocol (RDP) server
 Name:      xrdp
 Epoch:     1
 Version:   0.10.2
-Release:   7%{?dist}
+Release:   8%{?dist}
 # Automatically converted from old format: ASL 2.0 and GPLv2+ and MIT - review is highly recommended.
 License:   Apache-2.0 AND GPL-2.0-or-later AND LicenseRef-Callaway-MIT
 URL:       http://www.xrdp.org/
@@ -345,6 +345,9 @@ fi
 %{_datadir}/selinux/*/%{name}.pp
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.10.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Jan  5 2025 Bojan Smojver <bojan@rexursive.com> - 1:0.10.2~7
 - Comment out generic RDP proxy in xrdp.ini
 

@@ -1,6 +1,6 @@
 Name:           vmaf
 Version:        3.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Video Multi-Method Assessment Fusion
 
 License:        BSD-2-Clause-Patent
@@ -120,6 +120,9 @@ popd
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

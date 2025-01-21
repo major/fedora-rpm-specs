@@ -1,6 +1,6 @@
 Name:           ucblogo
 Version:        6.2.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        An interpreter for the Logo programming language
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -125,6 +125,9 @@ fi
 %{_bindir}/ucblogo-x11
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 6.2.3-8
 - convert license to SPDX
 

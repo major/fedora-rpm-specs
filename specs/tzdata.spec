@@ -3,7 +3,7 @@ Name: tzdata
 Version: 2024b
 %define tzdata_version 2024b
 %define tzcode_version 2024b
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LicenseRef-Fedora-Public-Domain AND (GPL-2.0-only WITH ClassPath-exception-2.0)
 URL: https://www.iana.org/time-zones
 Source0: ftp://ftp.iana.org/tz/releases/tzdata%{tzdata_version}.tar.gz
@@ -150,6 +150,9 @@ echo ============END TESTING===========
 %{_datadir}/javazi-1.8
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024b-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Dec 12 2024 Patsy Griffin <patsy@redhat.com> - 2024b-1
 - Update to tzdata-2024b (#2310315)
   - Improve historical data for Mexico, Mongolia, and Portugal.

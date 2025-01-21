@@ -8,13 +8,13 @@ and compare ideas, to reproduce research papers that don't provide
 easily-available implementations of their proposed algorithms, and to
 serve as a guide in learning about contextual bandits.}
 
-%global commit          331b9ef640c4315e6fb10f41d73e8a5e0e484038
-%global snapshotdate    20232604
+%global commit          6c152e2ff3a2c4c41daebc01e6c202548b3be092
+%global snapshotdate    20241901
 %global shortcommit     %(c=%{commit}; echo ${c:0:7})
 
 Name:           python-%{pypi_name}
-Version:        0.3.21
-Release:        11%{?dist}
+Version:        0.3.27
+Release:        1%{?dist}
 Summary:        Python implementations of algorithms for contextual bandits
 
 # Automatically converted from old format: BSD - review is highly recommended.

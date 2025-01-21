@@ -1,6 +1,6 @@
 Name:          xdesktopwaves
 Version:       1.4
-Release:       13%{?dist}
+Release:       14%{?dist}
 
 Summary:       Simulation of water waves on the X Window System desktop
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -57,6 +57,9 @@ desktop-file-install --delete-original \
 %{_datadir}/pixmaps/%{name}.xpm
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.4-13
 - convert license to SPDX
 

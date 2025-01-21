@@ -1,7 +1,7 @@
 %global revision 20240501
 Name:           tack
 Version:        1.10
-Release:        2.%{revision}%{?dist}
+Release:        3.%{revision}%{?dist}
 Summary:        Terminfo action checker
 
 License:        GPL-2.0-only
@@ -33,6 +33,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_mandir}/man1/tack.1*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-3.20240501
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-2.20240501
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

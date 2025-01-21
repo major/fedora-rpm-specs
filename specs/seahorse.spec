@@ -2,7 +2,7 @@
 
 Name:           seahorse
 Version:        47.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A GNOME application for managing encryption keys
 
 # seahorse is GPLv2+
@@ -79,6 +79,9 @@ desktop-file-validate ${RPM_BUILD_ROOT}%{_datadir}/applications/org.gnome.seahor
 %{_metainfodir}/org.gnome.seahorse.Application.appdata.xml
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 47.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Sep 28 2024 David King <amigadave@amigadave.com> - 47.0.1-1
 - Update to 47.0.1
 

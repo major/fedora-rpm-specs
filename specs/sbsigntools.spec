@@ -3,7 +3,7 @@
 
 Name:          sbsigntools
 Version:       0.9.5
-Release:       7%{?dist}
+Release:       8%{?dist}
 Summary:       Signing utility for UEFI secure boot
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
@@ -89,6 +89,9 @@ make check
 %{_mandir}/man1/sbverify.1.*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 18 2024 Dominik Mierzejewski <dominik@greysector.net> - 0.9.5-7
 - fix wchar_t usage in sbvarsign (fixes rhbz#2310759)
 

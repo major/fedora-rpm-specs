@@ -13,7 +13,7 @@
 
 Name:           znc
 Version:        1.9.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        An advanced IRC bouncer
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -229,6 +229,9 @@ getent passwd znc >/dev/null || \
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Dec 08 2024 Pete Walter <pwalter@fedoraproject.org> - 1.9.1-5
 - Rebuild for ICU 76
 

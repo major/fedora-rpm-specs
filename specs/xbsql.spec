@@ -1,7 +1,7 @@
 Name:		xbsql
 Summary:	A SQL wrapper for xbase
 Version:	0.11
-Release:	47%{?dist}
+Release:	48%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:	LicenseRef-Callaway-LGPLv2+
 URL:		http://www.quaking.demon.co.uk/xbsql/
@@ -53,6 +53,9 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/*.a
 %{_libdir}/*.so
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.11-47
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:		stalld
 Version:	1.19.6
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Daemon that finds starving tasks and gives them a temporary boost
 
 License:	GPL-2.0-or-later AND GPL-2.0-only
@@ -69,6 +69,9 @@ export CPPFLAGS="$CPPFLAGS -DGLIBC_HAS_SCHED_ATTR"
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 31 2024 Clark Williams <williams@redhat.com> - 1.19.6
 - systemd: add BE environment variable to select backend
 - Makefile: add uninstall target

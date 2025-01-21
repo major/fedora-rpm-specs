@@ -4,7 +4,7 @@
 Name:		ucviewer
 # The only place I could find a version was in the documentation.
 Version:	0.1
-Release:	0.33.%{svndate}svn%{svnrev}%{?dist}
+Release:	0.34.%{svndate}svn%{svnrev}%{?dist}
 Summary:	A tool for browsing Unicode tables
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -62,6 +62,9 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/UnicodeViewer/
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.34.20101019svn4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1-0.33.20101019svn4
 - convert license to SPDX
 

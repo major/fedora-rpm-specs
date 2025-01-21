@@ -7,7 +7,7 @@
 Name:    tbb
 Summary: The Threading Building Blocks library abstracts low-level threading details
 Version: 2022.0.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: Apache-2.0 AND BSD-3-Clause
 URL:     https://uxlfoundation.github.io/oneTBB/
 VCS:     git:%{giturl}.git
@@ -174,6 +174,9 @@ ctest --output-on-failure --force-new-ctest-process
 %{python3_sitearch}/__pycache__/TBB*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2022.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec 04 2024 Jonathan Wakely <jwakely@redhat.com> - 2022.0.0-2
 - Fix intersphinx_mapping for Sphinx 8.x (#2329903)
 

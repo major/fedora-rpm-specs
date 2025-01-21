@@ -1,7 +1,7 @@
 %define beta_version 4
 Name:           vbindiff
 Version:        3.0 
-Release:        0.33.beta%{beta_version}%{?dist}
+Release:        0.34.beta%{beta_version}%{?dist}
 Summary:        Visual binary diff
 
 License:        GPL-2.0-or-later
@@ -51,6 +51,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-0.34.beta4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-0.33.beta4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

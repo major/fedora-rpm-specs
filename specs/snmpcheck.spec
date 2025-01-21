@@ -1,6 +1,6 @@
 Name:           snmpcheck
 Version:        1.9
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        An utility to get information via SNMP protocols
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -63,6 +63,9 @@ install -p -m 0644 %{SOURCE1} %{buildroot}%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.9-19
 - convert license to SPDX
 

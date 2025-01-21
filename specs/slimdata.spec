@@ -1,6 +1,6 @@
 Name:           slimdata
 Version:        2.7.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Tools and library for reading and writing slim compressed data
 
 License:        GPL-3.0-or-later
@@ -88,6 +88,9 @@ popd
 %{_libdir}/libslim.so
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

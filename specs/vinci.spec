@@ -1,6 +1,6 @@
 Name:           vinci
 Version:        1.0.5
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Algorithms for volume computation
 
 License:        GPL-1.0-or-later
@@ -65,6 +65,9 @@ touch -r %{SOURCE1} %{buildroot}%{_mandir}/man1/%{name}.1
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

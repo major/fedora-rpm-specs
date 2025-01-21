@@ -1,6 +1,6 @@
 Name:		xcb-util
 Version:	0.4.1
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Convenience libraries sitting on top of libxcb
 License:	X11-distribute-modifications-variant
 URL:		http://xcb.freedesktop.org
@@ -69,6 +69,9 @@ rm %{buildroot}%{_libdir}/*.la
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

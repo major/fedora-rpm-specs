@@ -4,7 +4,7 @@
 
 Name:           withlock
 Version:        0.5
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Locking wrapper script
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -48,6 +48,9 @@ gzip %{buildroot}%{_mandir}/man1/withlock.1
 %{_mandir}/man1/withlock.1*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5-19
 - convert license to SPDX
 

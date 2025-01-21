@@ -1,6 +1,6 @@
 Name: xmlto
 Version: 0.0.29
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A tool for converting XML files to various formats
 
 License: GPL-2.0-or-later
@@ -88,6 +88,9 @@ make check
 %{_datadir}/xmlto/format/xhtml1/*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.29-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jun 11 2024 Ondrej Sloup <osloup@redhat.com> - 0.0.29-1
 - Rebase to the latest upstream version
 

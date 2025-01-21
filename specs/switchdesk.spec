@@ -1,7 +1,7 @@
 Name: switchdesk
 Summary: A desktop environment switcher
 Version: 5.0.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 Url: https://github.com/ngothan/switchdesk
 Source: https://github.com/ngothan/switchdesk/archive/%{version}/%{name}-%{version}.tar.gz
 License: GPL-2.0-or-later
@@ -65,6 +65,9 @@ install -p -m 644 %{name}.desktop %{buildroot}%{_datadir}/applications/
 %{_datadir}/pixmaps/*.png
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

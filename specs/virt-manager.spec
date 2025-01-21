@@ -8,7 +8,7 @@
 
 Name: virt-manager
 Version: 5.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 %global verrel %{version}-%{release}
 
 Summary: Desktop tool for managing virtual machines via libvirt
@@ -169,6 +169,9 @@ machine).
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 02 2024 Pavel Hrdina <phrdina@redhat.com> - 5.0.0-1
 - Update to version 5.0.0
 

@@ -1,6 +1,6 @@
 Name:		serialdv
 Version:	1.1.4
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	C++ minimal interface to encode/decode audio with AMBE3000 based devices
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:	GPL-3.0-only
@@ -43,6 +43,9 @@ Development files for serialdv.
 %{_libdir}/libserialdv.so
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1.4-7
 - convert license to SPDX
 

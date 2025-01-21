@@ -1,6 +1,6 @@
 Name:           tremulous
 Version:        1.2.0
-Release:        0.38.beta1%{?dist}
+Release:        0.39.beta1%{?dist}
 Summary:        First Person Shooter game based on the Quake 3 engine
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -156,6 +156,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/tremulous.desktop
 %{_datadir}/icons/hicolor/128x128/apps/%{name}.png
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-0.39.beta1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2.0-0.38.beta1
 - convert license to SPDX
 

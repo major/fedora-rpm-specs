@@ -1,6 +1,6 @@
 Name:		z80dasm
 Version:	1.1.3
-Release:	21%{?dist}
+Release:	22%{?dist}
 Summary:	Z80 Disassembler
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -46,6 +46,9 @@ make install DESTDIR="%{buildroot}"
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1.3-21
 - convert license to SPDX
 

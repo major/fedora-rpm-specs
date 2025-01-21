@@ -1,6 +1,6 @@
 Name:           zssh
 Version:        1.5c
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        SSH and Telnet client with ZMODEM file transfer capability
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -48,6 +48,9 @@ rm %{buildroot}%{_mandir}/man1/ztelnet.1*
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5c-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.5c-18
 - convert license to SPDX
 

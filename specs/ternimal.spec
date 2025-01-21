@@ -1,6 +1,6 @@
 Name:           ternimal
 Version:        0.1.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Simulate a lifeform in the terminal
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -30,6 +30,9 @@ install -Dpm0755 -t %{buildroot}%{_bindir} ternimal
 %{_bindir}/ternimal
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.0-18
 - convert license to SPDX
 

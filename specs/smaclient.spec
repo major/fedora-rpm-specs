@@ -1,6 +1,6 @@
 Name:		smaclient
 Version:	1.1
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	Provides access to z/VM System Management functions
 
 License:	Artistic-2.0
@@ -49,6 +49,9 @@ install -p -m644 %{SOURCE2} %{SOURCE3} ${RPM_BUILD_ROOT}%{_mandir}/man1/
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

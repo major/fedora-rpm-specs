@@ -2,7 +2,7 @@ Summary: 	Yerase's TNEF Stream Reader
 Name: 		ytnef
 Epoch: 		1
 Version: 	2.1.2
-Release: 	4%{?dist}
+Release: 	5%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: 	GPL-2.0-or-later
 URL: 		https://github.com/Yeraze/ytnef
@@ -64,6 +64,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/libytnef.pc
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.1.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1:2.1.2-4
 - convert license to SPDX
 

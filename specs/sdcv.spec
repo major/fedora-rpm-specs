@@ -2,7 +2,7 @@
 
 Name:           sdcv
 Version:        0.5.4
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Console version of StarDict program
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -43,6 +43,9 @@ make install DESTDIR=%{buildroot}
 %{_mandir}/uk/man1/sdcv.1.gz
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.4-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5.4-6
 - convert license to SPDX
 

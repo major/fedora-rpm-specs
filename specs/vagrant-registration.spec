@@ -3,7 +3,7 @@
 
 Name: %{vagrant_plugin_name}
 Version: 1.3.1
-Release: 17%{?dist}
+Release: 18%{?dist}
 Summary: Automatic guest registration for Vagrant
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -72,6 +72,9 @@ popd
 %{vagrant_plugin_instdir}/vagrant-registration.gemspec
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3.1-17
 - convert license to SPDX
 

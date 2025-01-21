@@ -10,7 +10,7 @@
 Name:           python-cherrypy
 %global         camelname CherryPy
 Version:        18.10.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Pythonic, object-oriented web development framework
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -29,10 +29,8 @@ BuildRequires:  python3dist(jaraco-collections)
 BuildRequires:  python3dist(path)
 BuildRequires:  python3dist(portend)
 BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(pytest-cov)
 BuildRequires:  python3dist(requests-toolbelt)
 BuildRequires:  python3dist(more-itertools)
-BuildRequires:  python3dist(coverage)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3-zc-lockfile
 %endif
@@ -62,6 +60,8 @@ Obsoletes: python2-cherrypy < 3.5.1
 
 # These tests still fail (reason unknown):
 rm cherrypy/test/test_session.py
+sed -i '/pytest_cov/d' setup.py
+sed -i '/cov/d' pytest.ini
 
 %build
 %py3_build
@@ -92,6 +92,9 @@ export WEBTEST_INTERACTIVE=false
 %{python3_sitelib}/cherrypy/tutorial
 
 %changelog
+* Sun Jan 19 2025 Dan Radez <dradez@redhat.com> - 18.10.0-4
+- removing coverage
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 18.10.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

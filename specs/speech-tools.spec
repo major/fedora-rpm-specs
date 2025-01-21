@@ -1,6 +1,6 @@
 Name:           speech-tools
 Version:        2.5
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Edinburgh speech tools library
 
 License:        MIT-Festival
@@ -104,6 +104,9 @@ but they might be depended upon by some third-party developers as well.
 %{_libdir}/*.a
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

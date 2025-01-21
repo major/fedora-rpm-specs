@@ -3,7 +3,7 @@
 
 Name:		twlog
 Version:	3.4
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	Records basic ham radio log information
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -74,6 +74,9 @@ install -p -D -m 0644 ./src/Twlog %{buildroot}/%{_datadir}/X11/app-defaults/Twlo
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 3.4-12
 - convert license to SPDX
 

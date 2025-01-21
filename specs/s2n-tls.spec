@@ -4,7 +4,7 @@ designed to be simple, small, fast, and with security as a priority.}
 
 Name:           s2n-tls
 Version:        1.5.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A C99 implementation of the TLS/SSL protocols
 
 License:        Apache-2.0
@@ -93,6 +93,9 @@ install -p -m 644 docs/images/*.svg %{buildroot}/%{_docdir}/s2n-tls/docs/images/
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Dec 21 2024 Packit <hello@packit.dev> - 1.5.10-1
 - Update to version 1.5.10
 - Resolves: rhbz#2332744

@@ -7,7 +7,9 @@ License:        LGPL-2.1-or-later
 URL:            https://github.com/systemd/python-systemd
 Source0:        https://github.com/systemd/python-systemd/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
-BuildRequires: make
+Patch:          https://github.com/systemd/python-systemd/pull/140.patch
+
+BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  systemd-devel
 BuildRequires:  python3-devel

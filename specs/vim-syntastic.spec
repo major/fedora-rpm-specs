@@ -6,7 +6,7 @@
 
 Name:           vim-%{upstream_name}
 Version:        3.10.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        A vim plugins to check syntax for programming languages
 Summary(fr):    Une extension de vim vérifiant la syntaxe pour les langages de programmation
 
@@ -291,6 +291,9 @@ appstream-util validate-relax --nonet %{buildroot}%{appdata_dir}/vim-syntastic.m
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.0-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Sep 12 2024 Martin Jackson <mhjacks@swbell.net> - 3.10.0-24
 - scala has retired, so stop building it. bz#2311476
 

@@ -2,7 +2,7 @@
 Name:    skrooge
 Summary: Personal finances manager
 Version: 25.1.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -138,6 +138,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.skrooge.d
 %{_kf6_datadir}/skrooge_source/
  
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Jan 12 2025 Marie Loise Nolden <loise@kde.org> - 25.1.0-1
 - 25.1.0 using Qt6/KF6
 

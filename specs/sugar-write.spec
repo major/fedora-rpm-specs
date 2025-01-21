@@ -1,6 +1,6 @@
 Name:    sugar-write
 Version: 101
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: Word processor for Sugar
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -48,6 +48,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 101-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 101-13
 - convert license to SPDX
 

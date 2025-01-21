@@ -1,7 +1,7 @@
 Summary: Console-based network traffic monitor
 Name: vnstat
 Version: 2.10
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -101,6 +101,9 @@ exit 0
 %{_bindir}/vnstati
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.10-6
 - convert license to SPDX
 

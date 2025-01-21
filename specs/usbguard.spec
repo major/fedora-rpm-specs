@@ -4,7 +4,7 @@
 
 Name:           usbguard
 Version:        1.1.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A tool for implementing USB device usage policy
 License:        GPL-2.0-or-later
 ## Not installed
@@ -225,6 +225,9 @@ fi
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

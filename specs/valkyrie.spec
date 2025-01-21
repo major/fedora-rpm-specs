@@ -1,6 +1,6 @@
 Name:		valkyrie
 Version:	2.0.0
-Release:	32%{?dist}
+Release:	33%{?dist}
 Summary:	Graphical User Interface for Valgrind Suite
 
 %global valkyrie %{name}-%{version}
@@ -53,6 +53,9 @@ cp -p %{_builddir}/%{valkyrie}/README  %{buildroot}%{_docdir}/%{valkyrie}
 %{_docdir}/%{valkyrie}
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0.0-32
 - convert license to SPDX
 

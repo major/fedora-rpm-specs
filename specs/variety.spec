@@ -9,10 +9,10 @@
 Name:           variety
 %if 0%{?usesnapshot}
 Version:        0.8.6
-Release:        0.10%{?snapshottag}%{?dist}
+Release:        0.11%{?snapshottag}%{?dist}
 %else
 Version:        0.8.12
-Release:        4%{?dist}
+Release:        5%{?dist}
 %endif
 Summary:        Wallpaper changer that automatically downloads wallpapers
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -129,6 +129,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.12-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.8.12-4
 - convert license to SPDX
 

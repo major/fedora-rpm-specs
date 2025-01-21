@@ -1,6 +1,6 @@
 Name:           zimg
 Version:        3.0.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Scaling, color space conversion, and dithering library
 License:        WTFPL
 URL:            https://github.com/sekrit-twc/zimg
@@ -68,6 +68,9 @@ rm -fr %{buildroot}%{_docdir}/%{name}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

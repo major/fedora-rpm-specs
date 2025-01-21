@@ -7,7 +7,7 @@ Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
 Version:        8.14
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -96,7 +96,7 @@ Requires: python3dist(user-agents) = 2.2
 Requires: python3dist(authlib) >= 1.3
 Requires: (python3dist(pyotp) >= 2 with python3dist(pyotp) < 3)
 Requires: (python3dist(qrcode) >= 8 with python3dist(qrcode) < 9)
-Requires: (python3dist(boto3) >= 1.35 with python3dist(boto3) < 1.36)
+Requires: python3dist(boto3) >= 1.35
 Requires: python3dist(urllib3) >= 1.25
 Requires: python3dist(azure-mgmt-rdbms) >= 10.1
 Requires: python3dist(azure-mgmt-resource) >= 23.1
@@ -265,6 +265,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sun Jan 19 2025 Sandro Mani <manisandro@gmail.com> - 8.14-5
+- Relax boto3 requires
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.14-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

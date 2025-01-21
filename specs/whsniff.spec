@@ -1,6 +1,6 @@
 Name:           whsniff
 Version:        1.3
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Command line utility that interfaces TI CC2531 USB dongle
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -34,6 +34,9 @@ firmware, converts to the PCAP format and writes to the standard output.
 %{_bindir}/%{name}
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3-11
 - convert license to SPDX
 

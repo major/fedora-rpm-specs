@@ -4,7 +4,7 @@
 %global crate cargo-vendor-filterer
 
 Name:           rust-cargo-vendor-filterer
-Version:        0.5.16
+Version:        0.5.17
 Release:        %autorelease
 Summary:        Cargo vendor, but with filtering for platforms and more
 

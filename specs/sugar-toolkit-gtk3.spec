@@ -2,7 +2,7 @@
 
 Name:    sugar-toolkit-gtk3
 Version: 0.121
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Sugar toolkit GTK+ 3
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
@@ -96,6 +96,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.121-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.121-7
 - convert license to SPDX
 

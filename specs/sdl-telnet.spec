@@ -25,7 +25,7 @@ negotiation, and NEW-ENVIRON.}
 
 Name:           sdl-telnet
 Version:        1.0.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Simple RFC-compliant TELNET implementation for SDL-Hercules-390
 
 License:        LicenseRef-Fedora-Public-Domain
@@ -68,6 +68,9 @@ mv %{buildroot}%{_docdir}/%{name}-devel/%{srcname}.LICENSE.txt .
 %{_libdir}/lib%{srcname}*.a
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -9,7 +9,7 @@
 
 Name:      tnef
 Version:   1.4.18
-Release:   13%{?dist}
+Release:   14%{?dist}
 Summary:   Extract files from email attachments like WINMAIL.DAT
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -134,6 +134,9 @@ make check DESTDIR=%{buildroot}
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.18-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul  26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.4.18-13
 - convert license to SPDX
 

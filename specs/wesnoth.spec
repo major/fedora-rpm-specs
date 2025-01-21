@@ -1,6 +1,6 @@
 Name:           wesnoth
 Version:        1.19.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Turn-based strategy game with a fantasy theme
 
 License:        GPL-2.0-or-later
@@ -189,6 +189,9 @@ done
 %{_mandir}/*/man6/wesnoth*.6*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Dec 19 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.19.7-1
 - 1.19.7
 

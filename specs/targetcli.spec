@@ -4,7 +4,7 @@ Name:           targetcli
 License:        Apache-2.0
 Summary:        An administration shell for storage targets
 Version:        2.1.58
-Release:        3%{?dist}
+Release:        4%{?dist}
 URL:            https://github.com/open-iscsi/%{oname}
 Source:         %{url}/archive/v%{version}/%{oname}-%{version}.tar.gz
 # Proposed upstream
@@ -47,6 +47,9 @@ install -m 644 systemd/* %{buildroot}%{_unitdir}/
 %dir %{_sysconfdir}/target/backup
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.58-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.58-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

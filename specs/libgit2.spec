@@ -32,6 +32,10 @@ BuildRequires:  pcre2-devel
 BuildRequires:  python3
 BuildRequires:  zlib-devel
 Provides:       bundled(libxdiff)
+%if 0%{?fedora} >= 37
+Obsoletes:      libgit2_0.27 < 0.27.8-4
+Obsoletes:      libgit2_0.28 < 0.28.5-9
+%endif
 %if 0%{?fedora} >= 38
 Obsoletes:      libgit2_1.3 < 1.3.2-3
 Obsoletes:      libgit2_1.4 < 1.4.6-3

@@ -1,6 +1,6 @@
 Name:           sugar-record
 Version:        201
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Recording tool for Sugar
 
 License:        MIT
@@ -50,6 +50,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 %{sugaractivitydir}/Record.activity/
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 201-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 201-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

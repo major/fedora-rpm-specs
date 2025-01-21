@@ -1,6 +1,6 @@
 Name:           sawfish
 Version:        1.13.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        An extensible window manager for the X Window System
 # Automatically converted from old format: GPLv2+ and Artistic 2.0 - review is highly recommended.
 License:        GPL-2.0-or-later AND Artistic-2.0
@@ -116,6 +116,9 @@ desktop-file-validate %{buildroot}%{_datadir}/xsessions/sawfish-xfce.desktop
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug  7 2024 Miroslav Suchý <msuchy@redhat.com> - 1.13.0-8
 - convert license to SPDX
 

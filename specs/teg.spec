@@ -1,6 +1,6 @@
 Name:           teg
 Version:        0.13.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Turn based strategy game
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -100,6 +100,9 @@ popd
 %{_datadir}/GConf/gsettings/teg.convert
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Sep 17 2024 josef radinger <cheese@nosuchhost.net> - 0.13.0-1
 - bump version
 - remove README, add README.md

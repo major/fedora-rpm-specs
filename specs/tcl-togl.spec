@@ -5,7 +5,7 @@
 
 Name:           tcl-togl
 Version:        2.1
-Release:        0.18%{?rev:.%rev}%{?dist}
+Release:        0.19%{?rev:.%rev}%{?dist}
 Summary:        A Tk OpenGL widget
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -65,6 +65,9 @@ ln -s %{tcl_sitearch}/Togl%{version}/libTogl%{version}.so %{buildroot}/%{_libdir
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-0.19.cvs20170502
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.1-0.18.cvs20170502
 - convert license to SPDX
 

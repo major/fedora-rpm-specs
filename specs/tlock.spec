@@ -1,6 +1,6 @@
 Name:           tlock
 Version:        1.6
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Terminal lock
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -54,6 +54,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/librpass.la
 %_mandir/man3/*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.6-22
 - convert license to SPDX
 

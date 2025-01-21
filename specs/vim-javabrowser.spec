@@ -7,7 +7,7 @@
 Summary:     The javabrowser plugin for VIM editor
 Name:        vim-%{pkgname}
 Version:     %{baseversion}
-Release:     24%{?dist}
+Release:     25%{?dist}
 
 License:     Vim
 URL:         http://www.vim.org/scripts/script.php?script_id=588
@@ -43,6 +43,9 @@ install -m 644 %{SOURCE1} %{buildroot}%{_datadir}/appdata
 %{_datadir}/appdata/%{name}.metainfo.xml
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.03-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.03-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

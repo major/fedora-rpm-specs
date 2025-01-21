@@ -1,7 +1,7 @@
 %define _hardened_build 1
 Name:             zfs-fuse
 Version:          0.7.2.2
-Release:          31%{?dist}
+Release:          32%{?dist}
 Summary:          ZFS ported to Linux FUSE
 License:          CDDL-1.0
 URL:              https://github.com/gordan-bobic/zfs-fuse
@@ -146,6 +146,9 @@ fi
 %{_mandir}/man8/zstreamdump.8.gz
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2.2-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2.2-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

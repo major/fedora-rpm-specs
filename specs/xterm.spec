@@ -4,7 +4,7 @@
 Summary: Terminal emulator for the X Window System
 Name: xterm
 Version: 395
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://invisible-island.net/xterm
 License: MIT AND X11 AND HPND AND CC-BY-4.0
 BuildRequires: make
@@ -105,6 +105,9 @@ install -m644 -p xterm.appdata.xml $RPM_BUILD_ROOT%{_datadir}/appdata
 %{_mandir}/man1/resize.1*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 395-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Nov 01 2024 Tomas Korbar <tkorbar@redhat.com> - 395-1
 - Rebase to version 395
 - Resolves: rhbz#2321689

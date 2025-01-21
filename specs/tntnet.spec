@@ -1,6 +1,6 @@
 Name:             tntnet
 Version:          3.0
-Release:          11%{?dist}
+Release:          12%{?dist}
 Summary:          A web application server for web applications
 Epoch:            1
 
@@ -106,6 +106,9 @@ exit 0
 %{_datadir}/%{name}/template/
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1:3.0-11
 - convert license to SPDX
 

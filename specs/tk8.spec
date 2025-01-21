@@ -4,7 +4,7 @@
 Summary: The graphical toolkit for the Tcl scripting language, version 8
 Name: tk8
 Version: %{vers}
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch:   1
 License: TCL AND HPND-Pbmplus AND CC-BY-SA-3.0 AND MIT-open-group AND MIT
 URL: http://tcl.sourceforge.net
@@ -117,6 +117,9 @@ ln -s %{_bindir}/wish8 %{_bindir}/wish%{majorver} %{buildroot}%{_usr}/bin/
 %{_datadir}/tk%{majorver}/tkAppInit.c
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.6.15-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 10 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 1:8.6.15-3
 - Updated according to the fedora review
 

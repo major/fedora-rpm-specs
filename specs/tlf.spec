@@ -3,7 +3,7 @@
 
 Name:		tlf
 Version:	1.4.1
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	Ham radio contest logger
 # GPLv3+ are some m4 macros
 # Automatically converted from old format: GPLv2+ and GPLv3+ - review is highly recommended.
@@ -72,6 +72,9 @@ make check
 %{_mandir}/man1/*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 31 2024 Richard Shaw <hobbes1069@gmail.com> - 1.4.1-17
 - Rebuild for Hamlib 4.6.
 

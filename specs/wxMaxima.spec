@@ -6,7 +6,7 @@
 Summary: Graphical user interface for Maxima
 Name:    wxMaxima
 Version: 24.02.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -105,6 +105,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.wxmaxima_de
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.02.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 24.02.1-3
 - convert license to SPDX
 

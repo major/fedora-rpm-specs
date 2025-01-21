@@ -1,6 +1,6 @@
 Name:           whohas
 Version:        0.29.1
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Command line tool for query package lists
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -56,6 +56,9 @@ rm -rf %{buildroot}%{_defaultdocdir}/whohas/examples/whohas.cf
 %{_bindir}/%{name}
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.29.1-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.29.1-22
 - convert license to SPDX
 

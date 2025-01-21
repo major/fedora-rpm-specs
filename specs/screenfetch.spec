@@ -1,6 +1,6 @@
 Name:           screenfetch
 Version:        3.9.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A "Bash Screenshot Information Tool"
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -41,6 +41,9 @@ install -m 644 -p -D screenfetch.1 %{buildroot}%{_mandir}/man1/screenfetch.1
 %{_mandir}/man1/screenfetch.1*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 3.9.1-12
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           webtech
 Version:        1.2.11
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Tool to identify technologies used on websites
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -38,6 +38,9 @@ sed -i -e '/^#!\//, 1d' webtech/*.py
 %{python3_sitelib}/%{name}/
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.11-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2.11-11
 - convert license to SPDX
 

@@ -4,7 +4,7 @@
 Name:           s3fs-fuse
 Version:        1.95
 
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        FUSE-based file system backed by Amazon S3
 
 License:        GPL-2.0-or-later
@@ -57,6 +57,9 @@ cp -p %{SOURCE1} passwd-s3fs
 %license COPYING
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.95-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Oct 26 2024 Julio González Gil <packages@juliogonzalez.es> - 1.95-1
 - Update to 1.95 from https://github.com/s3fs-fuse/s3fs-fuse/releases/tag/v1.95 (#2321940)
   * IMPORTANT: This is the last release supporting CentOS7 or clones

@@ -2,7 +2,7 @@
 
 Name:           t-digest
 Version:        3.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A new data structure for on-line accumulation of statistics
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -58,6 +58,9 @@ This package contains the API documentation for %{name}.
 %license LICENSE NOTICES
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 3.2-10
 - convert license to SPDX
 

@@ -83,7 +83,7 @@
 
 Name:        sympa
 Version:     6.2.74
-Release:     %{?pre_rel:0.}1%{?pre_rel:.%pre_rel}%{?dist}
+Release:     %{?pre_rel:0.}1%{?pre_rel:.%pre_rel}%{?dist}.1
 Summary:     Powerful multilingual List Manager
 Summary(fr): Gestionnaire de listes électroniques
 Summary(ja): 高機能で多言語対応のメーリングリスト管理ソフトウェア
@@ -845,6 +845,9 @@ fi
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.74-1.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 16 2024 Xavier Bachelot <xavier@bachelot.org> - 6.2.74-1
 - Update to 6.2.74, fix for CVE-2024-55919
   - Full changelog: https://github.com/sympa-community/sympa/releases/tag/6.2.74

@@ -1,6 +1,6 @@
 Name:		unixcw
 Version:	3.6.1
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Shared library for Morse programs
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -67,6 +67,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 3.6.1-4
 - convert license to SPDX
 

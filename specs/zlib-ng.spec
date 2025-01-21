@@ -19,7 +19,7 @@
 
 Name:		zlib-ng
 Version:	2.2.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Zlib replacement with optimizations
 License:	Zlib
 Url:		https://github.com/zlib-ng/zlib-ng
@@ -215,6 +215,9 @@ CHOST=%{target_cpu}-%{cpu_vendor}-linux-gnu sh test/abicheck.sh --zlib-compat
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 08 2025 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 2.2.3-1
 - Update to version 2.2.3
 

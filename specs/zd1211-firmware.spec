@@ -1,6 +1,6 @@
 Name:		zd1211-firmware
 Version:	1.5
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	Firmware for wireless devices based on zd1211 chipset
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:	GPL-2.0-only
@@ -37,6 +37,9 @@ xz -C crc32 $RPM_BUILD_ROOT/lib/firmware/zd1211/*
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.5-17
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:		udt
 Version:	4.11
-Release:	27%{?dist}
+Release:	28%{?dist}
 Summary:	UDP based Data Transfer Protocol
 
 #		BSD except for src/md5.cpp and src/md5.h that are Zlib
@@ -74,6 +74,9 @@ install -p -m 644 src/*.h %{buildroot}%{_includedir}/udt
 %doc doc
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.11-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 29 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 4.11-27
 - Update License tag
 

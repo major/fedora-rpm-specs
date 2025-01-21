@@ -7,7 +7,7 @@
 Name:          virt-v2v
 Epoch:         1
 Version:       2.7.4
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -310,6 +310,9 @@ done
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.7.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 10 2025 Jerry James <loganjerry@gmail.com> - 1:2.7.4-2
 - OCaml 5.3.0 rebuild for Fedora 42
 

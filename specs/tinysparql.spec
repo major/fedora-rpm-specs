@@ -4,7 +4,7 @@
 
 Name:           tinysparql
 Version:        3.8~rc
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Desktop-neutral metadata database and search tool
 
 License:        GPL-2.0-or-later
@@ -162,6 +162,9 @@ This package contains the documentation for %{name}.
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8~rc-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 03 2024 Nieves Montero <nmontero@redhat.com> - 3.8.rc-1
 - Rename tracker to tinysparql
 - Rename libtracker-sparql to libtinysparql

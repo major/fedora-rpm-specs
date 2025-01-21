@@ -15,7 +15,7 @@
 Name:           mate-utils
 Version:        %{branch}.0
 %if 0%{?rel_build}
-Release:        4%{?dist}
+Release:        5%{?dist}
 %else
 Release:        0.22%{?git_rel}%{?dist}
 %endif
@@ -166,13 +166,13 @@ EOF
 mkdir -p %{buildroot}%{_sysconfdir}/security/console.apps
 cat <<EOF >%{buildroot}%{_sysconfdir}/security/console.apps/mate-system-log
 USER=root
-PROGRAM=/usr/sbin/mate-system-log
+PROGRAM=%{_libexecdir}/mate-system-log
 SESSION=true
 FALLBACK=true
 EOF
 
-mkdir -p  %{buildroot}%{_sbindir}
-mv %{buildroot}%{_bindir}/mate-system-log %{buildroot}%{_sbindir}
+mkdir -p  %{buildroot}%{_libexecdir}
+mv %{buildroot}%{_bindir}/mate-system-log %{buildroot}%{_libexecdir}
 ln -s %{_bindir}/consolehelper %{buildroot}%{_bindir}/mate-system-log
 
 rm -fv %{buildroot}%{_libdir}/*.la
@@ -208,7 +208,7 @@ desktop-file-install                          \
 
 %files -n mate-system-log -f mate-system-log.lang
 %{_bindir}/mate-system-log
-%{_sbindir}/mate-system-log
+%{_libexecdir}/mate-system-log
 %{_sysconfdir}/security/console.apps/mate-system-log
 %{_sysconfdir}/pam.d/mate-system-log
 %{_datadir}/glib-2.0/schemas/org.mate.system-log.gschema.xml
@@ -266,6 +266,9 @@ desktop-file-install                          \
 
 
 %changelog
+* Sun Jan 19 2025 Adam Williamson <awilliam@redhat.com> - 1.28.0-5
+- install 'real' mate-system-log to libexecdir to fix sbin merge compatibility
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

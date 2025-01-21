@@ -5,7 +5,7 @@
 %global __cmake_in_source_build 1
 Name:           snappy
 Version:        1.2.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Fast compression and decompression library
 
 License:        BSD-3-Clause
@@ -97,6 +97,9 @@ ctest -V %{?_smp_mflags}
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Aug 15 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 1.2.1-3
 - Disable google-benchmark on RHEL
 

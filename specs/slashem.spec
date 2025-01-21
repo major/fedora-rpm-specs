@@ -1,6 +1,6 @@
 Name:           slashem
 Version:        0.0.8
-Release:        0.39.E0F1%{?dist}
+Release:        0.40.E0F1%{?dist}
 Summary:        Super Lotsa Added Stuff Hack - Extended Magic
 
 License:        NGPL
@@ -165,6 +165,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.ap
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.8-0.40.E0F1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.8-0.39.E0F1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           xdg-desktop-portal-xapp
 Version:        1.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Backend implementation for xdg-desktop-portal using Xapp
 
 License:        LGPL-2.1-or-later
@@ -59,6 +59,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 25 2024 Leigh Scott <leigh123linux@gmail.com> - 1.1.0-1
 - Update to 1.1.0
 

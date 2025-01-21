@@ -1,6 +1,6 @@
 Name:		sugar-yupana
 Version:	19
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Counting and calculating device used by the Incan
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -36,6 +36,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 19-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 19-5
 - convert license to SPDX
 

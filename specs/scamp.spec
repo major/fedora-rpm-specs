@@ -1,7 +1,7 @@
 
 Name:           scamp
 Version:        2.10.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        compute astrometric and photometric solutions from sextractor catalogs
 
 License:        GPL-3.0-only
@@ -50,6 +50,9 @@ sh autogen.sh
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Oct 06 2024 Sergio Pascual <sergiopr@fedoraproject.org> - 2.10.0-11
 - Rebuild to fix FTBFS 2301268
 

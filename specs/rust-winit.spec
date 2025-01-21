@@ -5,7 +5,7 @@
 %global crate winit
 
 Name:           rust-winit
-Version:        0.30.7
+Version:        0.30.8
 Release:        %autorelease
 Summary:        Cross-platform window creation library
 

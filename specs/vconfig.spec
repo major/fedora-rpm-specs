@@ -1,6 +1,6 @@
 Name:       vconfig
 Version:    1.9
-Release:    38%{?dist}
+Release:    39%{?dist}
 Summary:    Linux 802.1q VLAN configuration utility
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:    GPL-2.0-or-later
@@ -35,6 +35,9 @@ install -D -m644 vconfig.8 ${RPM_BUILD_ROOT}%{_mandir}/man8/vconfig.8
 %{_mandir}/man8/vconfig.8*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.9-38
 - convert license to SPDX
 

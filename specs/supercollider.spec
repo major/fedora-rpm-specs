@@ -9,7 +9,7 @@
 Summary: Object oriented programming environment for real-time audio and video processing
 Name: supercollider
 Version: 3.13.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: https://supercollider.github.io/
@@ -179,6 +179,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/SuperColliderIDE.des
 %{_datadir}/gtksourceview*/language-specs/supercollider.lang
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jan  6 2025 Tristan Cacqueray <tdecacqu@redhat.com> - 3.13.0-1
 - Bump to 3.13.0
 

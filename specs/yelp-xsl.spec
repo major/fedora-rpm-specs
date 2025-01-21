@@ -2,7 +2,7 @@
 
 Name:           yelp-xsl
 Version:        42.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        XSL stylesheets for the yelp help browser
 
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT AND BSD-3-Clause
@@ -54,6 +54,9 @@ XSL stylesheets in yelp-xsl.
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 42.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 42.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

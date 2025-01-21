@@ -7,7 +7,7 @@
 
 Name: hdf
 Version: 4.3.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
@@ -136,7 +136,7 @@ rm config/*linux-gnu
 
 # TODO: upstream fix
 # libmfhdf.so is link to libdf.so
-export CFLAGS="%{optflags} -I%{_usr}/include/tirpc"
+export CFLAGS="%{optflags} -std=gnu17 -I%{_usr}/include/tirpc"
 export LIBS="-ltirpc"
 %global _configure ../configure
 # Java test needs this but doesn't create it
@@ -246,6 +246,9 @@ make -j1 -C build-static check
 
 
 %changelog
+* Sun Jan 19 2025 Antonio Trande <sagitter@fedoraproject.org> - 4.3.0-3
+- Fix GCC15 builds
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

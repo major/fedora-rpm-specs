@@ -6,7 +6,7 @@
 
 Name:           vim-go
 Version:        1.28
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Go development plugin for Vim
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -90,6 +90,9 @@ vim -c ":helptags %{vimfiles_root}/doc" -c ":q" &> /dev/null || :
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.28-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.28-6
 - convert license to SPDX
 

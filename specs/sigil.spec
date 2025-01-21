@@ -1,6 +1,6 @@
 Name:           sigil
 Version:        2.2.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        WYSIWYG ebook editor
 # Automatically converted from old format: GPL-3.0-or-later AND Apache-2.0 - review is highly recommended.
 License:        GPL-3.0-or-later AND Apache-2.0
@@ -150,6 +150,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.2.1-3
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           taxipilot
 Version:        0.9.2
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Game where you pilot a taxi in space
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -65,6 +65,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.9.2-45
 - convert license to SPDX
 

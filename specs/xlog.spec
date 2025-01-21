@@ -1,6 +1,6 @@
 Name:          xlog
 Version:       2.0.25
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Logging program for Hamradio Operators
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -77,6 +77,9 @@ install -D -p -m644 %{SOURCE1} $RPM_BUILD_ROOT%{_metainfodir}/org.nongnu.Xlog.me
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.25-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 31 2024 Richard Shaw <hobbes1069@gmail.com> - 2.0.25-2
 - Rebuild for Hamlib 4.6.
 

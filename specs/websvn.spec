@@ -1,6 +1,6 @@
 Name:           websvn
 Version:        2.8.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Online subversion repository browser
 
 License:        GPL-2.0-or-later
@@ -118,6 +118,9 @@ fi
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

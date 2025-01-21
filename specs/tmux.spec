@@ -2,7 +2,7 @@
 
 Name:           tmux
 Version:        3.5a
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A terminal multiplexer
 
 License:        ISC AND BSD-2-Clause AND BSD-3-Clause AND SSH-short AND LicenseRef-Fedora-Public-Domain
@@ -73,6 +73,9 @@ fi
 %{_unitdir}/tmux@.service
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5a-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Oct 09 2024 Pat Riehecky <riehecky@fnal.gov> - 3.5a-2
 - Add tmux@.service
 

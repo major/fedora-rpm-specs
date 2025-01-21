@@ -1,6 +1,6 @@
 Name:           rzip
 Version:        2.1
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        A large-file compression program
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -36,6 +36,9 @@ make install INSTALL_BIN=$RPM_BUILD_ROOT%{_bindir} INSTALL_MAN=$RPM_BUILD_ROOT%{
 %{_mandir}/man1/*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.1-35
 - convert license to SPDX
 

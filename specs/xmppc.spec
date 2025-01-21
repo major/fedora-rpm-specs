@@ -1,6 +1,6 @@
 Name:           xmppc
 Version:        0.1.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A command-line interface (CLI) XMPP Client
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -77,6 +77,9 @@ make check
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.2-8
 - convert license to SPDX
 

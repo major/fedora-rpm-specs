@@ -2,7 +2,7 @@
 
 Name:           xfwm4-themes
 Version:        4.10.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Additional themes for xfwm4
 
 # Automatically converted from old format: GPL+ and BSD - review is highly recommended.
@@ -36,6 +36,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_datadir}/themes/*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.0-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 4.10.0-24
 - convert license to SPDX
 

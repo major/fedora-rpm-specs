@@ -5,7 +5,7 @@
 Summary: Tool Command Language, pronounced tickle, version 8
 Name: tcl8
 Version: %{vers}
-Release: 8%{?dist}
+Release: 9%{?dist}
 Epoch: 1
 License: TCL AND GPL-3.0-or-later WITH Bison-exception-2.2 AND BSD-3-Clause
 URL: http://tcl.sourceforge.net/
@@ -141,6 +141,9 @@ ln -s %{_bindir}/tclsh8 %{_bindir}/tclsh%{majorver} %{buildroot}%{_usr}/bin/
 %{_datadir}/tcl%{majorver}/tclAppInit.c
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.6.15-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 10 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 1:8.6.15-8
 - Updated according to the fedora review
 

@@ -8,7 +8,7 @@ VCS:            git:%{forgeurl}.git
 
 %forgemeta
 
-Release:        9%{?dist}
+Release:        10%{?dist}
 
 %global foundry          steinberg
 %global fontorg          org.smufl
@@ -84,6 +84,9 @@ ln -s metadata.json %{buildroot}%{_datadir}/SMuFL/Fonts/Bravura/Bravura.json
 %fontfiles -z 1
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.392-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.392-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

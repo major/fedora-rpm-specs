@@ -4,7 +4,7 @@
 
 Name:           zfstream
 Version:        %{vyear}%{vmonth}%{vday}
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Library for reading and writing compressed and non-compressed files
 
 License:        LGPL-2.1-or-later
@@ -82,6 +82,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20041202-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20041202-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

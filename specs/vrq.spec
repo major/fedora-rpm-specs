@@ -1,6 +1,6 @@
 Name:           vrq
 Version:        1.0.134
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Verilog tool framework with plugins for manipulating source code
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -92,6 +92,9 @@ rm -rf %{buildroot}%{_docdir}/%{name}-%{version}
 %{_includedir}/%{name}-%{version}
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.134-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.134-12
 - convert license to SPDX
 

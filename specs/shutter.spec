@@ -9,10 +9,10 @@
 Name:       shutter
 %if 0%{?usesnapshot}
 Version:    0.99.6
-Release:    0.2%{?snapshottag}%{?dist}
+Release:    0.3%{?snapshottag}%{?dist}
 %else
 Version:    0.99.5
-Release:    2%{?dist}
+Release:    3%{?dist}
 %endif
 
 Summary:    GTK+3-based screenshot application written in Perl
@@ -140,6 +140,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.metai
 %{_datadir}/icons/HighContrast/
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.6-0.3.git66c21b2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Nov 06 2024 Martin Gansser <martinkg@fedoraproject.org> - 0.99.6-0.2.git66c21b2
 - Add RR gdk-pixbuf2-modules-extra fix bug (#2323682)
 

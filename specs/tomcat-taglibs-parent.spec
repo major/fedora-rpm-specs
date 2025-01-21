@@ -1,6 +1,6 @@
 Name:           tomcat-taglibs-parent
 Version:        3
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Apache Taglibs Parent
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -31,6 +31,9 @@ cp -p %{SOURCE0} .
 %dir %{_mavenpomdir}/%{name}
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 3-26
 - convert license to SPDX
 

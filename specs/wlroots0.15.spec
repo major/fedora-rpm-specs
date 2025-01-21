@@ -5,7 +5,7 @@
 
 Name:           %{compat_name}%{compat_ver}
 Version:        %{compat_ver}.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A modular Wayland compositor library
 
 # Source files/overall project licensed as MIT, but
@@ -123,6 +123,9 @@ MESON_OPTIONS=(
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 22 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.15.1-5
 - Apply patch for GCC 14 `-Werror=calloc-transposed-args` (rhbz#2261793)
 

@@ -7,7 +7,7 @@
 
 Name:           warsow
 Version:        2.1.2
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Fast paced 3D first person shooter
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -146,6 +146,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/appdata/warsow.
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.1.2-17
 - convert license to SPDX
 

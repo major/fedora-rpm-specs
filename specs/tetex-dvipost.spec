@@ -3,7 +3,7 @@
 
 Name:           tetex-%{real_name}
 Version:        1.1
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        LaTeX post filter command to support change bars and overstrike mode
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -57,6 +57,9 @@ processor supports layout raster, change bars and overstrike mode.
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1-42
 - convert license to SPDX
 

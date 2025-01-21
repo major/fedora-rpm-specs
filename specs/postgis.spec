@@ -16,8 +16,8 @@
 %global        __provides_exclude_from %{_libdir}/pgsql
 
 Name:          postgis
-Version:       3.5.1
-Release:       2%{?dist}
+Version:       3.5.2
+Release:       1%{?dist}
 Summary:       Geographic Information Systems Extensions to PostgreSQL
 # Automatically converted from old format: GPL-2.0-or-later - review is highly recommended.
 License:       GPL-2.0-or-later
@@ -451,6 +451,9 @@ fi
 
 
 %changelog
+* Sun Jan 19 2025 Sandro Mani <manisandro@gmail.com> - 3.5.2-1
+- Update to 3.5.2
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           scl-utils-build-helpers
 Version:        0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        RPM macros and scripts for SCL maintainers
 
 BuildArch:      noarch
@@ -61,6 +61,9 @@ sed "${substitutions[@]}" %{SOURCE101} > %buildroot%macros
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 4 2024 Miroslav Suchý <msuchy@redhat.com> - 0-20
 - convert license to SPDX
 

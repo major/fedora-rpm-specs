@@ -11,7 +11,7 @@
 Summary: Extensions for Tcl and Tk
 Name: tclx
 Version: %{major_ver}.0
-Release: 46%{?dist}
+Release: 47%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 URL: http://tclx.sourceforge.net/
@@ -101,6 +101,9 @@ echo '%{_libdir}/tcl%{tcl_version}/%{name}%{major_ver}' > $RPM_BUILD_ROOT%{_sysc
 %{_mandir}/man3/Keylist.3*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.4.0-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 8.4.0-46
 - convert license to SPDX
 

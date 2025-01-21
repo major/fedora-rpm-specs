@@ -1,6 +1,6 @@
 Name:           snip
 Version:        0.11
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        An Ant task designed to help with the single-sourcing of program documentation
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -56,6 +56,9 @@ mv javadoc/ %{buildroot}%{_javadocdir}/%{name}
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.11-27
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           swing-layout
 Version:        1.0.4
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Natural layout for Swing panels
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2
@@ -54,6 +54,9 @@ cat %{SOURCE1} | sed "s|<version>1.0.3</version>|<version>%{version}</version>|"
 %license COPYING
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.4-32
 - convert license to SPDX
 

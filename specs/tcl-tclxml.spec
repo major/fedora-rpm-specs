@@ -6,7 +6,7 @@
 Summary: XML parsing library for the Tcl scripting language
 Name:    tcl-%{realname}
 Version: 3.2
-Release: 37%{?dist}
+Release: 38%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 URL:     http://tclxml.sourceforge.net/
@@ -106,6 +106,9 @@ install -p -m 0644 examples/tcldom/domtree.tcl \
 %{tcl_sitelib}/%{realname}-gui%{version}/*.tcl
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 3.2-37
 - convert license to SPDX
 

@@ -26,7 +26,7 @@ Summary:        USB firewall against BadUSB attacks
 URL:            https://github.com/kochstefan/usbauth-all/tree/master/usbauth
 Source:         https://github.com/kochstefan/usbauth-all/archive/v%{version}.tar.gz
 
-Release:        6%{?dist}
+Release:        7%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 
@@ -70,6 +70,9 @@ popd
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.5-6
 - convert license to SPDX
 

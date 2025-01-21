@@ -1,6 +1,6 @@
 Name:		smtpping
 Version:	1.1.4
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Small tool for measuring SMTP parameters
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -37,6 +37,9 @@ delay variation and throughput.
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1.4-8
 - convert license to SPDX
 

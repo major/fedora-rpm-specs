@@ -1,6 +1,6 @@
 Name:           twirssi
 Version:        2.6.4
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        An Irssi script to interact with Twitter
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -52,6 +52,9 @@ install -m 644 -p %{SOURCE2} $RPM_BUILD_ROOT%{_pkgdocdir}
 %doc %{_pkgdocdir}
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.6.4-17
 - convert license to SPDX
 

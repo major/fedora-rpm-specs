@@ -5,8 +5,8 @@
 
 Name:           chez-scheme
 Summary:        Scheme incremental optimizing compiler
-Version:        10.0.0
-Release:        9%{?dist}
+Version:        10.1.0
+Release:        1%{?dist}
 URL:            https://cisco.github.io/ChezScheme
 # zlib and lz4 source are removed in prep
 # $ licensecheck -r . | grep -v UNKNOWN | grep -v Apache
@@ -103,7 +103,8 @@ case %{_arch} in
      *) MACHINE=--pb ;;
 esac
 
-./configure --installbin=%{_bindir} --installlib=%{_libdir} --installman=%{_mandir} --temproot=%{buildroot} --threads $MACHINE ZLIB=-lz LZ4=-llz4
+# gcc15/C23 workaround: https://github.com/racket/zuo/issues/24
+./configure --installbin=%{_bindir} --installlib=%{_libdir} --installman=%{_mandir} --temproot=%{buildroot} --threads $MACHINE ZLIB=-lz LZ4=-llz4 CFLAGS_FOR_BUILD="-std=gnu17"
 make
 
 %install
@@ -138,6 +139,9 @@ rm -rf %{buildroot}%{_libdir}/csv%{version}/examples
 
 
 %changelog
+* Sun Jan 19 2025 Jens Petersen <petersen@redhat.com> - 10.1.0-1
+- https://cisco.github.io/ChezScheme/release_notes/v10.1.0/release_notes.html
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.0.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

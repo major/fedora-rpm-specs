@@ -5,7 +5,7 @@
 
 Name:           rust-%{crate}
 Version:        0.1.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        sshd AuthorizedKeysCommand to read ~/.ssh/authorized_keys.d
 
 License:        Apache-2.0
@@ -95,6 +95,9 @@ install -Dpm0644 -t %{buildroot}%{_sysconfdir}/ssh/sshd_config.d conf/40-ssh-key
 %endif
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 18 2024 Huijing Hei <hhei@redhat.com> - 0.1.5-1
 - New release
 

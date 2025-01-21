@@ -18,7 +18,7 @@ container images to version your runtime environments.}
 %global golicenses LICENSE
 
 Name:           source-to-image
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A tool for building artifacts from source and injecting into docker images
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -105,6 +105,9 @@ export LDFLAGS="$LDFLAGS -X %{goipath}/pkg/version.versionFromGit=v%{version} "
 %endif
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.9-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3.9-6
 - convert license to SPDX
 

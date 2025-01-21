@@ -1,6 +1,6 @@
 Name:           spill
 Version:        0.8
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        A segregated package install logical linker
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -37,6 +37,9 @@ install -Dp -m 0644 %{name}.8 %{buildroot}%{_mandir}/man8/%{name}.8
 %{_sbindir}/%{name}
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.8-31
 - convert license to SPDX
 

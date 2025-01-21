@@ -25,6 +25,9 @@ URL:            %{gourl}
 Source0:        %{gosource}
 # Update to govcr v4
 Patch:          https://github.com/wjdp/htmltest/pull/201.patch
+# Fix build with Go 1.24.
+# https://github.com/wjdp/htmltest/pull/238
+Patch:          0001-Fix-invalid-Example-naming.patch
 
 BuildRequires:  golang(github.com/badoux/checkmail) >= 1.2.1
 BuildRequires:  golang(github.com/docopt/docopt-go)

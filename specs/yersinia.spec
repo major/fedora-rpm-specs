@@ -1,6 +1,6 @@
 Name:           yersinia
 Version:        0.8.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Network protocols tester and attacker
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -66,6 +66,9 @@ make %{?_smp_mflags} CFLAGS="%{optflags} -fcommon"
 %{_bindir}/%{name}
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.8.2-18
 - convert license to SPDX
 

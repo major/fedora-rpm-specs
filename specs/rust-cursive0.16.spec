@@ -20,7 +20,11 @@ Source1:        https://raw.githubusercontent.com/gyscos/cursive/main/LICENSE
 # * drop unused crossterm backend
 # * drop unused pancurses backend
 # * remove reference to readme file that is not included in published crates
+# * port from wasmer_enumset to enumset
 Patch:          cursive-fix-metadata.diff
+# * https://github.com/gyscos/cursive/commit/aedfc9e
+# * https://github.com/gyscos/cursive/commit/efc7b31
+Patch:          0001-port-from-wasmer_enumset-to-enumset.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

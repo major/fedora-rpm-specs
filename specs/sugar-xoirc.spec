@@ -1,6 +1,6 @@
 Name:           sugar-xoirc
 Version:        14
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        IRC client for Sugar
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -42,6 +42,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 %{sugaractivitydir}/IRC.activity/
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 14-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 14-10
 - convert license to SPDX
 

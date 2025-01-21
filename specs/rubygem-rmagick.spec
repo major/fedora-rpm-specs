@@ -8,8 +8,8 @@ Requires:		(ImageMagick%{?_isa} >= %2 with ImageMagick%{?_isa} < %3)\
 %{nil}
 
 Name:		rubygem-%{gem_name}
-Version:	6.0.1
-Release:	5%{?dist}
+Version:	6.1.0
+Release:	1%{?dist}
 
 Summary:	Ruby binding to ImageMagick
 # SPDX confirmed
@@ -28,17 +28,15 @@ BuildRequires:	rubygem(observer)
 BuildRequires:	rubygem(test-unit)
 BuildRequires:	rubygem(rspec)
 BuildRequires:	rubygem(pry)
-# Due to test/RMagick/rmmain.c test_Magick_version(), for now
+# Due to ext/RMagick/rmmain.cpp test_Magick_version(), for now
 # we specify the exact version for ImageMagick
 #
 # With rmagick <= 5.5.0, ImageMagick X.Y.Z should all match,
 # with rmagick >= 6.0.0, ImageMagick X.Y should match.
 %if 0%{?fedora}
+%setIMver 43 1:7.1 1:7.2
 %setIMver 42 1:7.1 1:7.2
 %setIMver 41 1:7.1 1:7.2
-%setIMver 40 1:7.1.1 1:7.1.2
-%setIMver 39 1:7.1.1 1:7.1.2
-%setIMver 38 1:7.1.1 1:7.1.2
 %endif
 
 Obsoletes:	ruby-RMagick < 2.13.2
@@ -66,17 +64,6 @@ gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 
 # permission
 find . -name \*.rb -or -name \*.gif | xargs chmod ugo-x 
-
-# kill rpath
-sed -i ext/RMagick/extconf.rb \
-    -e '\@LDFLAGS@s|[ \t]*-Wl,-rpath,[^ \t][^ \t]*"|"|'
-
-# kill gcc optflags suppressing warnings
-sed -i ext/RMagick/extconf.rb \
-    -e "\@-std=gnu99@s|-Wno[^ \t'][^ \t']*||g"
-
-# observer is in standard lib, kill dependency for now
-sed -i '\@runtime.*observer@d' %{gem_name}.gemspec
 
 %build
 export MAKE="make %{?_smp_mflags}"
@@ -156,6 +143,9 @@ done
 %doc	%{gem_instdir}/examples/
 
 %changelog
+* Sun Jan 19 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 6.1.0-1
+- 6.1.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

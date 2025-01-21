@@ -10,7 +10,7 @@
 
 Name:       vdirsyncer
 Version:    0.19.2
-Release:    6%{?dist}
+Release:    7%{?dist}
 Summary:    %{sum}
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -151,6 +151,9 @@ sh build.sh tests
 %doc docs/_build/html docs/_build/text
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.19.2-6
 - convert license to SPDX
 

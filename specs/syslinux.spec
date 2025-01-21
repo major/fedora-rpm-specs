@@ -10,7 +10,7 @@ Summary: Simple kernel loader which boots from a FAT filesystem
 Name: syslinux
 Version: 6.04
 %define tarball_version 6.04-pre1
-Release: 0.29%{?dist}
+Release: 0.30%{?dist}
 License: GPL-2.0-or-later
 URL: http://syslinux.zytor.com/wiki/index.php/The_Syslinux_Project
 Source0: http://www.kernel.org/pub/linux/utils/boot/syslinux/%{name}-%{tarball_version}.tar.xz
@@ -262,6 +262,9 @@ fi
 %endif
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.04-0.30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.04-0.29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

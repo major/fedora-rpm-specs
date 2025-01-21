@@ -1,7 +1,7 @@
 Summary: Tool for removing ifdef'd lines
 Name: unifdef
 Version: 2.10
-Release: 22%{?dist}
+Release: 23%{?dist}
 License: BSD-2-Clause AND BSD-3-Clause
 URL: http://dotat.at/prog/unifdef/
 Source0: http://dotat.at/prog/unifdef/unifdef-%{version}.tar.xz
@@ -39,6 +39,9 @@ install -p -m0644 unifdef.1 $RPM_BUILD_ROOT%{_mandir}/man1/unifdef.1
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name: sextractor
 Version: 2.25.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Extract catalogs of sources from astronomical images
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -49,6 +49,9 @@ install -m 644 -p config/default.nnw %{buildroot}%{_datadir}/%{name}
 %{_datadir}/%{name}/
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.25.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 2.25.0-11
 - convert license to SPDX
 

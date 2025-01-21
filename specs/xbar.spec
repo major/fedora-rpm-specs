@@ -1,6 +1,6 @@
 Name:           xbar
 Version:        0.0.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Tiny XCB information bar
 
 License:        MIT
@@ -35,6 +35,9 @@ user experience.
 %{_bindir}/xbar
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           wayland
 Version:        1.23.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Wayland Compositor Infrastructure
 
 # SPDX
@@ -117,6 +117,9 @@ Wayland server library
 %{_libdir}/libwayland-server.so.0*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.23.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.23.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

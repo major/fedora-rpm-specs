@@ -5,7 +5,7 @@
 
 Name:           rust-pleaser
 Version:        0.5.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Please, a polite regex-first sudo alternative
 
 License:        GPL-3.0-or-later
@@ -130,6 +130,9 @@ EOF
 %endif
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Nov 21 2024 ed neville <ed@s5h.net> - 0.5.6-1
 - Switch to uzers
 

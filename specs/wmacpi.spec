@@ -5,7 +5,7 @@
 
 Name:           wmacpi
 Version:        2.3
-Release:        11.20200618git%{shortcommit}%{?dist}
+Release:        12.20200618git%{shortcommit}%{?dist}
 Summary:        Dockapp for laptop acpi/apm information
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -51,6 +51,9 @@ CFLAGS="%{build_cflags} -ansi" LDFLAGS="%{build_ldflags} -lX11 -ldockapp" \
 %{_mandir}/man1/wmacpi-cli.1*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-12.20200618gitd583dfc
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.3-11.20200618gitd583dfc
 - convert license to SPDX
 

@@ -6,7 +6,7 @@
 Name:           wingpanel-indicator-a11y
 Summary:        Wingpanel Universal Access Indicator
 Version:        1.0.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        GPL-2.0-or-later
 
 URL:            https://github.com/elementary/wingpanel-indicator-a11y
@@ -60,6 +60,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           xdms
 Version:        1.3.2
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Extracts Amiga DMS archives
 License:        LicenseRef-Fedora-Public-Domain
 URL:            http://zakalwe.fi/~shd/foss/%{name}
@@ -40,6 +40,9 @@ install -p -m0755 src/xdms %{buildroot}%{_bindir}
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

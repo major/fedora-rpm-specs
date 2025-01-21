@@ -1,6 +1,6 @@
 Name:           tofrodos
 Version:        1.7.13
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Converts text files between MSDOS and Unix file formats
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -39,6 +39,9 @@ make -C src/ install INSTALL="install -p" BINDIR="%{buildroot}%{_bindir}" MANDIR
 %{_mandir}/man1/todos.1*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.13-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.7.13-25
 - convert license to SPDX
 

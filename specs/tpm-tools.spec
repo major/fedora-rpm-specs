@@ -1,7 +1,7 @@
 Name:             tpm-tools
 Summary:          Management tools for the TPM hardware
 Version:          1.3.9
-Release:          19%{?dist}
+Release:          20%{?dist}
 # Automatically converted from old format: CPL - review is highly recommended.
 License:          CPL-1.0
 URL:              http://trousers.sourceforge.net
@@ -72,6 +72,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libtpm_unseal.la
 %{_mandir}/man3/tpmUnseal*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.9-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3.9-19
 - convert license to SPDX
 

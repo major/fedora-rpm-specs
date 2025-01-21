@@ -4,7 +4,7 @@
 
 Name:           twinkle
 Version:        1.10.3
-Release:        7%{?snap}%{?dist}
+Release:        8%{?snap}%{?dist}
 Summary:        SIP-based VoIP client
 
 # Incorrect FSF addresses: https://github.com/LubosD/twinkle/issues/71
@@ -94,6 +94,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop || :
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.3-8.git78313b4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.3-7.git78313b4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

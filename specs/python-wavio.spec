@@ -8,10 +8,18 @@ Summary: Read and write WAV files as numpy arrays
 License: BSD-2-Clause
 
 Version: 0.0.9
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 URL: https://github.com/WarrenWeckesser/wavio
 Source0: %{URL}/archive/v%{version}/%{pypi_name}-v%{version}.tar.gz
+
+# The library always returns data in little-endian format, but the test suite
+# expects them in native endianness. This makes the test suite fail on
+# big-endian architectures.
+#
+# Backported from upstream:
+# https://github.com/WarrenWeckesser/wavio/commit/2ddae60ef9e83f004482d9ad6ee9ac7c87423ae6
+Patch0: 0000-test-endianness.patch
 
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
@@ -35,7 +43,7 @@ BuildArch: noarch
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -p1 -n %{pypi_name}-%{version}
 
 # Extract license text from comment at top of source
 awk 'BEGIN { start_print=0 }
@@ -65,6 +73,9 @@ awk 'BEGIN { start_print=0 }
 
 
 %changelog
+* Sun Jan 19 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.0.9-3
+- Add a patch to fix test suite failing on s390x
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

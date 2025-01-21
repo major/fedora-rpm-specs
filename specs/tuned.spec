@@ -2,6 +2,14 @@
 #%%global git_date %%(date +'%Y%m%d')
 #%%global git_date 20220317
 
+%if 0%{?rhel} && 0%{?rhel} < 10
+%global user_profiles_dir %{_sysconfdir}/tuned
+%global system_profiles_dir %{_prefix}/lib/tuned
+%else
+%global user_profiles_dir %{_sysconfdir}/tuned/profiles
+%global system_profiles_dir %{_prefix}/lib/tuned/profiles
+%endif
+
 %if 0%{?fedora}
 %if 0%{?fedora} > 27
 %bcond_without python3
@@ -41,36 +49,22 @@
 %global archive_topdir %{name}-%{version}%{?prerel2}
 %endif
 
-#%%global prerelease rc
-#%%global prereleasenum 1
+%global prerelease rc
+%global prereleasenum 1
 
 %global prerel1 %{?prerelease:.%{prerelease}%{prereleasenum}}
 %global prerel2 %{?prerelease:-%{prerelease}.%{prereleasenum}}
 
 Summary: A dynamic adaptive system tuning daemon
 Name: tuned
-Version: 2.24.1
-Release: 3%{?prerel1}%{?git_suffix:.%{git_suffix}}%{?dist}
+Version: 2.25.0
+Release: 0.1%{?prerel1}%{?git_suffix:.%{git_suffix}}%{?dist}
 License: GPL-2.0-or-later AND CC-BY-SA-3.0
 %if 0%{?git_commit:1}
 Source0: https://github.com/redhat-performance/%{name}/archive/%{git_commit}/%{name}-%{version}-%{git_suffix}.tar.gz
 %else
 Source0: https://github.com/redhat-performance/%{name}/archive/v%{version}%{?prerel2}/%{name}-%{version}%{?prerel2}.tar.gz
 %endif
-# https://github.com/redhat-performance/tuned/pull/669
-Patch: ppd-adjustments.patch
-# https://github.com/redhat-performance/tuned/pull/697
-Patch: ppd-hold-add.patch
-# https://github.com/redhat-performance/tuned/pull/684
-Patch: ppd-namespace.patch
-# https://github.com/redhat-performance/tuned/pull/727
-Patch: ppd-signal-handling.patch
-# https://github.com/redhat-performance/tuned/pull/698
-Patch: ppd-polkit.patch
-# https://github.com/redhat-performance/tuned/pull/707
-Patch: ppd-hold-release.patch
-# https://github.com/redhat-performance/tuned/pull/705
-Patch: 0001-Add-variables-to-BLS-entries-only-if-grub-is-used.patch
 URL: http://www.tuned-project.org/
 BuildArch: noarch
 BuildRequires: systemd, desktop-file-utils
@@ -91,7 +85,7 @@ BuildRequires: %{_py}-mock
 %endif
 BuildRequires: %{_py}-pyudev
 Requires: %{_py}-pyudev
-Requires: %{_py}-linux-procfs, %{_py}-perf
+Requires: %{_py}-linux-procfs
 Requires: %{_py}-inotify
 %if %{without python3}
 Requires: %{_py}-schedutils
@@ -101,9 +95,6 @@ Requires: %{_py}-schedutils
 # BuildRequires for 'make test'
 BuildRequires: python3-dbus, python3-gobject-base
 Requires: python3-dbus, python3-gobject-base
-%if 0%{?fedora} > 22 || 0%{?rhel} > 7
-Recommends: dmidecode
-%endif
 %else
 # BuildRequires for 'make test'
 BuildRequires: dbus-python, pygobject3-base
@@ -113,11 +104,15 @@ Requires: virt-what, ethtool, gawk
 Requires: util-linux, dbus, polkit
 %if 0%{?fedora} > 22 || 0%{?rhel} > 7
 Recommends: dmidecode
+# https://src.fedoraproject.org/rpms/tuned/pull-request/8
+Recommends: %{_py}-perf
 # i686 excluded
 Recommends: kernel-tools
 Requires: hdparm
 Requires: kmod
 Requires: iproute
+%else
+Requires: %{_py}-perf
 %endif
 # syspurpose
 %if 0%{?rhel} > 8
@@ -219,7 +214,6 @@ Additional tuned profile(s) targeted to Atomic host and guest.
 %package profiles-realtime
 Summary: Additional tuned profile(s) targeted to realtime
 Requires: %{name} = %{version}
-Requires: tuna
 
 %description profiles-realtime
 Additional tuned profile(s) targeted to realtime.
@@ -228,7 +222,6 @@ Additional tuned profile(s) targeted to realtime.
 Summary: Additional tuned profile(s) targeted to Network Function Virtualization (NFV) guest
 Requires: %{name} = %{version}
 Requires: %{name}-profiles-realtime = %{version}
-Requires: tuna
 
 %description profiles-nfv-guest
 Additional tuned profile(s) targeted to Network Function Virtualization (NFV) guest.
@@ -237,7 +230,6 @@ Additional tuned profile(s) targeted to Network Function Virtualization (NFV) gu
 Summary: Additional tuned profile(s) targeted to Network Function Virtualization (NFV) host
 Requires: %{name} = %{version}
 Requires: %{name}-profiles-realtime = %{version}
-Requires: tuna
 
 %description profiles-nfv-host
 Additional tuned profile(s) targeted to Network Function Virtualization (NFV) host.
@@ -306,15 +298,15 @@ to TuneD from power-profiles-daemon (PPD).
 %autosetup -p1 -n %{archive_topdir}
 
 %build
-# Docs cannot be generated on RHEL now due to missing asciidoctor dependency
-# asciidoc doesn't seem to be compatible
-%if ! 0%{?rhel}
 make html %{make_python_arg}
-%endif
 
 %install
-make install DESTDIR=%{buildroot} DOCDIR=%{docdir} %{make_python_arg}
-make install-ppd DESTDIR=%{buildroot} DOCDIR=%{docdir} %{make_python_arg}
+make install DESTDIR="%{buildroot}" BINDIR="%{_bindir}" SBINDIR="%{_sbindir}" \
+  DOCDIR="%{docdir}" %{make_python_arg} \
+  TUNED_USER_PROFILES_DIR="%{user_profiles_dir}" \
+  TUNED_SYSTEM_PROFILES_DIR="%{system_profiles_dir}"
+make install-ppd DESTDIR="%{buildroot}" BINDIR="%{_bindir}" \
+  SBINDIR="%{_sbindir}" DOCDIR="%{docdir}" %{make_python_arg}
 
 %if ! 0%{?rhel}
 # manual
@@ -473,41 +465,45 @@ fi
 %exclude %{python2_sitelib}/tuned/gtk
 %{python2_sitelib}/tuned
 %endif
-%{_exec_prefix}/sbin/tuned
-%{_exec_prefix}/sbin/tuned-adm
+%{_sbindir}/tuned
+%{_sbindir}/tuned-adm
 %exclude %{_sysconfdir}/tuned/realtime-variables.conf
 %exclude %{_sysconfdir}/tuned/realtime-virtual-guest-variables.conf
 %exclude %{_sysconfdir}/tuned/realtime-virtual-host-variables.conf
 %exclude %{_sysconfdir}/tuned/cpu-partitioning-variables.conf
 %exclude %{_sysconfdir}/tuned/cpu-partitioning-powersave-variables.conf
-%exclude %{_prefix}/lib/tuned/profiles/default
-%exclude %{_prefix}/lib/tuned/profiles/desktop-powersave
-%exclude %{_prefix}/lib/tuned/profiles/laptop-ac-powersave
-%exclude %{_prefix}/lib/tuned/profiles/server-powersave
-%exclude %{_prefix}/lib/tuned/profiles/laptop-battery-powersave
-%exclude %{_prefix}/lib/tuned/profiles/enterprise-storage
-%exclude %{_prefix}/lib/tuned/profiles/spindown-disk
-%exclude %{_prefix}/lib/tuned/profiles/sap-netweaver
-%exclude %{_prefix}/lib/tuned/profiles/sap-hana
-%exclude %{_prefix}/lib/tuned/profiles/sap-hana-kvm-guest
-%exclude %{_prefix}/lib/tuned/profiles/mssql
-%exclude %{_prefix}/lib/tuned/profiles/oracle
-%exclude %{_prefix}/lib/tuned/profiles/atomic-host
-%exclude %{_prefix}/lib/tuned/profiles/atomic-guest
-%exclude %{_prefix}/lib/tuned/profiles/realtime
-%exclude %{_prefix}/lib/tuned/profiles/realtime-virtual-guest
-%exclude %{_prefix}/lib/tuned/profiles/realtime-virtual-host
-%exclude %{_prefix}/lib/tuned/profiles/cpu-partitioning
-%exclude %{_prefix}/lib/tuned/profiles/cpu-partitioning-powersave
-%exclude %{_prefix}/lib/tuned/profiles/spectrumscale-ece
-%exclude %{_prefix}/lib/tuned/profiles/postgresql
-%exclude %{_prefix}/lib/tuned/profiles/openshift
-%exclude %{_prefix}/lib/tuned/profiles/openshift-control-plane
-%exclude %{_prefix}/lib/tuned/profiles/openshift-node
+%exclude %{system_profiles_dir}/default
+%exclude %{system_profiles_dir}/desktop-powersave
+%exclude %{system_profiles_dir}/laptop-ac-powersave
+%exclude %{system_profiles_dir}/server-powersave
+%exclude %{system_profiles_dir}/laptop-battery-powersave
+%exclude %{system_profiles_dir}/enterprise-storage
+%exclude %{system_profiles_dir}/spindown-disk
+%exclude %{system_profiles_dir}/sap-netweaver
+%exclude %{system_profiles_dir}/sap-hana
+%exclude %{system_profiles_dir}/sap-hana-kvm-guest
+%exclude %{system_profiles_dir}/mssql
+%exclude %{system_profiles_dir}/oracle
+%exclude %{system_profiles_dir}/atomic-host
+%exclude %{system_profiles_dir}/atomic-guest
+%exclude %{system_profiles_dir}/realtime
+%exclude %{system_profiles_dir}/realtime-virtual-guest
+%exclude %{system_profiles_dir}/realtime-virtual-host
+%exclude %{system_profiles_dir}/cpu-partitioning
+%exclude %{system_profiles_dir}/cpu-partitioning-powersave
+%exclude %{system_profiles_dir}/spectrumscale-ece
+%exclude %{system_profiles_dir}/postgresql
+%exclude %{system_profiles_dir}/openshift
+%exclude %{system_profiles_dir}/openshift-control-plane
+%exclude %{system_profiles_dir}/openshift-node
 %{_prefix}/lib/tuned
 %dir %{_sysconfdir}/tuned
 %dir %{_sysconfdir}/tuned/recommend.d
-%dir %{_sysconfdir}/tuned/profiles
+
+%if "%{user_profiles_dir}" != "%{_sysconfdir}/tuned"
+%dir %{user_profiles_dir}
+%endif
+
 %dir %{_libexecdir}/tuned
 %{_libexecdir}/tuned/defirqaffinity*
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/tuned/active_profile
@@ -533,7 +529,7 @@ fi
 %{_prefix}/lib/kernel/install.d/92-tuned.install
 
 %files gtk
-%{_exec_prefix}/sbin/tuned-gui
+%{_sbindir}/tuned-gui
 %if %{with python3}
 %{python3_sitelib}/tuned/gtk
 %else
@@ -552,50 +548,50 @@ fi
 %doc doc/README.utils
 %doc doc/README.scomes
 %doc COPYING
-%{_exec_prefix}/sbin/varnetload
-%{_exec_prefix}/sbin/netdevstat
-%{_exec_prefix}/sbin/diskdevstat
-%{_exec_prefix}/sbin/scomes
+%{_sbindir}/varnetload
+%{_sbindir}/netdevstat
+%{_sbindir}/diskdevstat
+%{_sbindir}/scomes
 %{_mandir}/man8/varnetload.*
 %{_mandir}/man8/netdevstat.*
 %{_mandir}/man8/diskdevstat.*
 %{_mandir}/man8/scomes.*
 
 %files profiles-sap
-%{_prefix}/lib/tuned/profiles/sap-netweaver
+%{system_profiles_dir}/sap-netweaver
 %{_mandir}/man7/tuned-profiles-sap.7*
 
 %files profiles-sap-hana
-%{_prefix}/lib/tuned/profiles/sap-hana
-%{_prefix}/lib/tuned/profiles/sap-hana-kvm-guest
+%{system_profiles_dir}/sap-hana
+%{system_profiles_dir}/sap-hana-kvm-guest
 %{_mandir}/man7/tuned-profiles-sap-hana.7*
 
 %files profiles-mssql
-%{_prefix}/lib/tuned/profiles/mssql
+%{system_profiles_dir}/mssql
 %{_mandir}/man7/tuned-profiles-mssql.7*
 
 %files profiles-oracle
-%{_prefix}/lib/tuned/profiles/oracle
+%{system_profiles_dir}/oracle
 %{_mandir}/man7/tuned-profiles-oracle.7*
 
 %files profiles-atomic
-%{_prefix}/lib/tuned/profiles/atomic-host
-%{_prefix}/lib/tuned/profiles/atomic-guest
+%{system_profiles_dir}/atomic-host
+%{system_profiles_dir}/atomic-guest
 %{_mandir}/man7/tuned-profiles-atomic.7*
 
 %files profiles-realtime
 %config(noreplace) %{_sysconfdir}/tuned/realtime-variables.conf
-%{_prefix}/lib/tuned/profiles/realtime
+%{system_profiles_dir}/realtime
 %{_mandir}/man7/tuned-profiles-realtime.7*
 
 %files profiles-nfv-guest
 %config(noreplace) %{_sysconfdir}/tuned/realtime-virtual-guest-variables.conf
-%{_prefix}/lib/tuned/profiles/realtime-virtual-guest
+%{system_profiles_dir}/realtime-virtual-guest
 %{_mandir}/man7/tuned-profiles-nfv-guest.7*
 
 %files profiles-nfv-host
 %config(noreplace) %{_sysconfdir}/tuned/realtime-virtual-host-variables.conf
-%{_prefix}/lib/tuned/profiles/realtime-virtual-host
+%{system_profiles_dir}/realtime-virtual-host
 %{_mandir}/man7/tuned-profiles-nfv-host.7*
 
 %files profiles-nfv
@@ -604,36 +600,36 @@ fi
 %files profiles-cpu-partitioning
 %config(noreplace) %{_sysconfdir}/tuned/cpu-partitioning-variables.conf
 %config(noreplace) %{_sysconfdir}/tuned/cpu-partitioning-powersave-variables.conf
-%{_prefix}/lib/tuned/profiles/cpu-partitioning
-%{_prefix}/lib/tuned/profiles/cpu-partitioning-powersave
+%{system_profiles_dir}/cpu-partitioning
+%{system_profiles_dir}/cpu-partitioning-powersave
 %{_mandir}/man7/tuned-profiles-cpu-partitioning.7*
 
 %files profiles-spectrumscale
-%{_prefix}/lib/tuned/profiles/spectrumscale-ece
+%{system_profiles_dir}/spectrumscale-ece
 %{_mandir}/man7/tuned-profiles-spectrumscale-ece.7*
 
 %files profiles-compat
-%{_prefix}/lib/tuned/profiles/default
-%{_prefix}/lib/tuned/profiles/desktop-powersave
-%{_prefix}/lib/tuned/profiles/laptop-ac-powersave
-%{_prefix}/lib/tuned/profiles/server-powersave
-%{_prefix}/lib/tuned/profiles/laptop-battery-powersave
-%{_prefix}/lib/tuned/profiles/enterprise-storage
-%{_prefix}/lib/tuned/profiles/spindown-disk
+%{system_profiles_dir}/default
+%{system_profiles_dir}/desktop-powersave
+%{system_profiles_dir}/laptop-ac-powersave
+%{system_profiles_dir}/server-powersave
+%{system_profiles_dir}/laptop-battery-powersave
+%{system_profiles_dir}/enterprise-storage
+%{system_profiles_dir}/spindown-disk
 %{_mandir}/man7/tuned-profiles-compat.7*
 
 %files profiles-postgresql
-%{_prefix}/lib/tuned/profiles/postgresql
+%{system_profiles_dir}/postgresql
 %{_mandir}/man7/tuned-profiles-postgresql.7*
 
 %files profiles-openshift
-%{_prefix}/lib/tuned/profiles/openshift
-%{_prefix}/lib/tuned/profiles/openshift-control-plane
-%{_prefix}/lib/tuned/profiles/openshift-node
+%{system_profiles_dir}/openshift
+%{system_profiles_dir}/openshift-control-plane
+%{system_profiles_dir}/openshift-node
 %{_mandir}/man7/tuned-profiles-openshift.7*
 
 %files ppd
-%{_exec_prefix}/sbin/tuned-ppd
+%{_sbindir}/tuned-ppd
 %{_unitdir}/tuned-ppd.service
 %{_datadir}/dbus-1/system-services/net.hadess.PowerProfiles.service
 %{_datadir}/dbus-1/system.d/net.hadess.PowerProfiles.conf
@@ -644,6 +640,31 @@ fi
 %config(noreplace) %{_sysconfdir}/tuned/ppd.conf
 
 %changelog
+* Sun Jan 19 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 2.25.0-0.1.rc1
+- new release
+  - tuned-ppd: removed the use of StrEnum
+    resolves: RHEL-68208
+  - tuned-ppd: multiple fixes and updates
+  - docs: plugins docs are now automatically generated from the docstrings
+  - plugin_cpu: fixed no_turbo boolean option parsing
+    resolves: RHEL-51760
+  - plugin_cpu: allowed raw energy_performance_preference values
+  - plugin_vm: added support for dirty_(bytes|ratio) sysctl parameters
+    resolves: RHEL-58820
+  - plugin_bootloader: added variables to BLS entries only if grub is used
+  - plugin_scheduler: do not assume that perf events have type attribute
+    resolves: RHEL-60898
+  - plugin_scheduler: updated sched knobs for kernels 6.6+
+  - plugin_scheduler: log process info when its affinity cannot be changed
+    resolves: RHEL-69933
+  - plugin_scheduler: postpone cgroup blacklist check, double-check after fail
+    resolves: RHEL-72981
+  - plugin_scheduler: made perf support optional
+  - plugin_net: added support for hotplug and rename
+    resolves: RHEL-60906
+  - makefile: added support for installation to custom $BINDIR/$SBINDIR
+  - functions: dropped cpuspeed support
+
 * Fri Jan 17 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 2.24.1-3
 - Added workaround for /bin /sbin merge, patch by Kate Hsuan
 

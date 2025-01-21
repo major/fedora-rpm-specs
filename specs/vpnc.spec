@@ -2,7 +2,7 @@
 
 Name:		vpnc
 Version:	0.5.3
-Release:	49%{snapshot}%{?dist}
+Release:	50%{snapshot}%{?dist}
 Summary:	IPSec VPN client compatible with Cisco equipment
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -101,6 +101,9 @@ install -m 0644 %{SOURCE8} %{buildroot}%{_tmpfilesdir}/%{name}.conf
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-50.svn550
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5.3-49.svn550
 - convert license to SPDX
 

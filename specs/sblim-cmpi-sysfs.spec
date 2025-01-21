@@ -2,7 +2,7 @@
 
 Name:           sblim-cmpi-sysfs
 Version:        1.2.0
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        SBLIM sysfs instrumentation
 
 License:        EPL-1.0
@@ -104,6 +104,9 @@ mv $RPM_BUILD_ROOT/%{_libdir}/libLinux_SysfsDeviceUtil.so $RPM_BUILD_ROOT/%{prov
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

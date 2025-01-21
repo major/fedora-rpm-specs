@@ -1,6 +1,6 @@
 Name:          sugar-stopwatch
 Version:       21
-Release:       12%{?dist}
+Release:       13%{?dist}
 Summary:       Simple stopwatch for Sugar
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
@@ -44,6 +44,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 21-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 21-12
 - convert license to SPDX
 

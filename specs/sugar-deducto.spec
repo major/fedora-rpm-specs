@@ -1,6 +1,6 @@
 Name:		sugar-deducto
 Version:	11
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	A learning activity aimed towards improving children’s skills to deducing logic
 
 # sprites.py is in MIT and all other files in GPLv3+
@@ -44,6 +44,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 11-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 11-11
 - convert license to SPDX
 

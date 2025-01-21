@@ -1,7 +1,7 @@
 Summary: Fast, compact editor based on the S-Lang screen library
 Name: jed
 Version: 0.99.19
-Release: 32%{?dist}
+Release: 34%{?dist}
 License: GPL-1.0-or-later
 Source0: ftp://space.mit.edu/pub/davis/jed/v0.99/jed-0.99-19.tar.bz2
 Patch1: jed-0.99.12-xkeys.patch
@@ -9,9 +9,8 @@ URL: http://www.jedsoft.org/jed/
 Patch2: jed-etc.patch
 Patch3: jed-multilib-newauto.patch
 Patch4: jed-selinux.patch
+Patch5: jed-verror.patch
 Source1: selinux.c
-Obsoletes: jed-common jed-xjed
-Provides: jed-common jed-xjed
 Requires: slang-slsh
 BuildRequires:  gcc
 BuildRequires: slang-devel >= 2.0, autoconf, libselinux-devel, procps
@@ -36,6 +35,7 @@ what you'd like to use.
 %patch -P3 -p1
 %endif
 %patch -P4 -p1 -b .selinux
+%patch -P5 -p1
 cp -p %{SOURCE1} src/
 
 find doc -type f -exec chmod a-x {} \;
@@ -73,6 +73,13 @@ sed -i "s|JED_ROOT|%{_datadir}/jed|g" $RPM_BUILD_ROOT/%{_mandir}/man1/jed.1
 %{_datadir}/jed
 
 %changelog
+* Sun Jan 19 2025 Björn Esser <besser82@fedoraproject.org> - 0.99.19-34
+- Rebuilt again for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
+* Sat Jan 18 2025 Loren M. Lang <lorenl@north-winds.org> - 0.99.19-33
+- Fixed FTBFS errors due to changes in SELinux APIs (rhbz#2261263, rhbz#2300852)
+- Dropped references to former jed subpackages
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.19-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

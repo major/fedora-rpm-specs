@@ -1,6 +1,6 @@
 Name:       xeyes
 Version:    1.3.0
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    A follow the mouse X demo
 
 License:    X11
@@ -38,6 +38,9 @@ autoreconf -v --install
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

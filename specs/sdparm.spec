@@ -1,7 +1,7 @@
 Summary:       List or change SCSI/SATA disk parameters
 Name:          sdparm
 Version:       1.12
-Release:       10%{?dist}
+Release:       11%{?dist}
 
 # This software is primarily BSD-2-Clause, except for the following files:
 # - BSD-2-Clause AND GPL-2.0-or-later
@@ -62,6 +62,9 @@ cp %{S:1} %{S:2} .
 %{_mandir}/man8/scsi_ch_swp*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.12-10
 - convert license to SPDX
 

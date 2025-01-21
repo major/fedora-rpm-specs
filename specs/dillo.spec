@@ -23,8 +23,9 @@ BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  cmake(fltk) >= 1.3.0
 BuildRequires:  cmake(libjpeg-turbo)
+BuildRequires:  cmake(NanoSVG)
+BuildRequires:  cmake(WebP)
 BuildRequires:  pkgconfig(libpng) >= 1.2.0
-BuildRequires:  pkgconfig(librsvg-2.0)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(xft)
 BuildRequires:  pkgconfig(zlib)

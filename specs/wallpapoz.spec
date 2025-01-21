@@ -7,7 +7,7 @@
 
 %define         mainver         0.6.2
 %undefine         betaver
-%define         baserelease		17
+%define         baserelease		18
 
 %define         rel             %{?betaver:0.}%{baserelease}%{?betaver:.%betaver}
 
@@ -220,6 +220,9 @@ install -cpm 0644  \
 %{_datadir}/applications/*%{name}.desktop
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

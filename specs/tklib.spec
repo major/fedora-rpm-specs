@@ -4,7 +4,7 @@
 Summary: Collection of widgets and other packages for Tk
 Name: tklib
 Version: 0.5
-Release: 30%{?dist}
+Release: 31%{?dist}
 License: TCL
 Source: http://downloads.sourceforge.net/tcllib/tklib-0.5.tar.gz
 URL: http://tcllib.sourceforge.net/
@@ -52,6 +52,9 @@ make check
 %{_mandir}/*/*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

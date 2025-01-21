@@ -1,6 +1,6 @@
 Name:       spectre-meltdown-checker
 Version:    0.46
-Release:    5%{?dist}
+Release:    6%{?dist}
 
 Summary:    Spectre & Meltdown vulnerability/mitigation checker for Linux
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -53,6 +53,9 @@ help2man %{buildroot}%{_bindir}/%{name} -n "Spectre and Meltdown mitigation dete
 %{_mandir}/man1/%{name}*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.46-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep  2 2024 Charles R. Anderson <cra@alum.wpi.edu> - 0.46-5
 - Fix Retpoline detection for Linux 6.9+ (issue #490) PR#495
 

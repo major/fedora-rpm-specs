@@ -1,6 +1,6 @@
 Name:           unpaper
 Version:        7.0.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Post-processing of scanned and photocopied book pages
 # AUTHORS:      GPL-2.0-only
 # constants.h:  GPL-2.0-only
@@ -131,6 +131,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 23 2024 Fabio Valentini <decathorpe@gmail.com> - 7.0.0-12
 - Rebuild for ffmpeg 7
 

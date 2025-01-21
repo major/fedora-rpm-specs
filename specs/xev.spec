@@ -1,7 +1,7 @@
 Summary:    X Event utility
 Name:       xev
 Version:    1.2.6
-Release:    9%{?dist}
+Release:    10%{?dist}
 License:    MIT
 URL:        https://www.x.org
 
@@ -36,6 +36,9 @@ xev displays the X11 protocol events sent to a given window.
 %{_mandir}/man1/xev.1*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

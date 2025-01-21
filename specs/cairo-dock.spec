@@ -4,13 +4,13 @@
 %global	plugin_least_ver	3.5.99
 
 %global	use_git	1
-%global	gitdate	20241218
-%global	githash	f8526402586820d05eefa18d4c8ca5e6d017c5e7
+%global	gitdate	20250118
+%global	githash	b0f5d5c6d56f77e360d21aa8d95f91621a2f08ba
 %global	shorthash	%(c=%{githash} ; echo ${c:0:7})
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
 
-%global	baserelease	2
+%global	baserelease	1
 %global	alphatag		.beta6
 
 %undefine _ld_strict_symbol_defs
@@ -256,6 +256,9 @@ popd
 %{_libdir}/pkgconfig/gldi.pc
 
 %changelog
+* Sun Jan 19 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.99^20250118gitb0f5d5c-1.beta6
+- Update to the latest git (20250118gitb0f5d5c)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.99^20241218gitf852640-2.beta6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

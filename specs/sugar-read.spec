@@ -1,6 +1,6 @@
 Name:      sugar-read
 Version:   123
-Release:   14%{?dist}
+Release:   15%{?dist}
 Summary:   A document reader for Sugar
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:   GPL-2.0-or-later
@@ -51,6 +51,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 123-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 123-14
 - convert license to SPDX
 

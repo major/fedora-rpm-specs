@@ -1,6 +1,6 @@
 Name:           swatch
 Version:        3.2.3
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Tool for actively monitoring log files
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -59,6 +59,9 @@ make test
 %{perl_vendorlib}/auto/Swatch/
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.3-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 3.2.3-41
 - convert license to SPDX
 

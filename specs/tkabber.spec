@@ -3,7 +3,7 @@
 
 Name:           tkabber
 Version:        1.1.2
-Release:        20%{?fosrev:.%{fosrev}}%{?dist}
+Release:        21%{?fosrev:.%{fosrev}}%{?dist}
 Summary:        Client for the Jabber instant messaging system
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -85,6 +85,9 @@ chmod 755 %{buildroot}%{_bindir}/tkabber-remote
 %{_datadir}/pixmaps/tkabber.png
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-21.fos93d0303aad
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1.2-20.fos93d0303aad
 - convert license to SPDX
 

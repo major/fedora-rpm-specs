@@ -1,6 +1,6 @@
 Name:           toga2
 Version:        4.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        UCI chess engine based on Fruit
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -44,6 +44,9 @@ cp -P %SOURCE1 %{buildroot}/%{_mandir}/man6
 %{_mandir}/man6/%{name}.6*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 4.0-9
 - convert license to SPDX
 

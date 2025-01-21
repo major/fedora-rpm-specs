@@ -16,7 +16,7 @@
 
 Name:           strongswan
 Version:        5.9.14
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        An OpenSource IPsec-based VPN and TNC solution
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -421,6 +421,9 @@ install -D -m 0644 %{SOURCE3} %{buildroot}/%{_tmpfilesdir}/strongswan-starter.co
 %endif
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.14-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 27 2024 Michel Lind <salimma@fedoraproject.org> - 5.9.14-5
 - Depend on openssl-devel-engine since we still use this deprecated feature (rhbz#2295335)
 

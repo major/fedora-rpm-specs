@@ -1,6 +1,6 @@
 Name:		stripesnoop
 Version:	1.5
-Release:	40%{?dist}
+Release:	41%{?dist}
 License:	GPL-1.0-or-later
 Summary:	Magnetic Stripe Reader
 URL:		http://stripesnoop.sourceforge.net
@@ -55,6 +55,9 @@ install -m0755 ss $RPM_BUILD_ROOT/%{_bindir}/stripesnoop
 %{_datadir}/%{name}/
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:		xclip
 Version:	0.13
-Release:	23.git%{shortcommit}%{?dist}
+Release:	24.git%{shortcommit}%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
 Summary:	Command line clipboard grabber
@@ -46,6 +46,9 @@ make DESTDIR=$RPM_BUILD_ROOT install.man
 %{_mandir}/man1/xclip*.1*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-24.git11cba61
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.13-23.git11cba61
 - convert license to SPDX
 

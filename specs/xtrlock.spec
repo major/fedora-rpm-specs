@@ -1,7 +1,7 @@
 Name:		xtrlock
 URL:		https://salsa.debian.org/debian/xtrlock
 Version:	2.16
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL-3.0-or-later
 Summary:	Minimal X display lock program
 Source0:	%{url}/-/archive/%{version}/%{name}-%{version}.tar.bz2
@@ -35,6 +35,9 @@ access control lists.
 %{_mandir}/man1/%{name}.1x*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.16-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jan  6 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 2.16-1
 - New version
   Resolves: rhbz#2335525

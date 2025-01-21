@@ -2,7 +2,7 @@
 %global archivename washra_fonts4-1
 
 Version: 4.1
-Release: 37%{?dist}
+Release: 38%{?dist}
 URL:     http://www.senamirmir.org/projects/typography/typeface.html
 
 %global foundry           Senamirmir
@@ -178,6 +178,9 @@ This package provides optional documentation files shipped with
 %doc *.doc *.pdf
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

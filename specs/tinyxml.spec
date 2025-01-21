@@ -4,7 +4,7 @@
 
 Name:           tinyxml
 Version:        2.6.2
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        A simple, small, C++ XML parser
 License:        zlib
 URL:            http://www.grinninglizard.com/tinyxml/
@@ -90,6 +90,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} ./xmltest
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.2-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.2-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

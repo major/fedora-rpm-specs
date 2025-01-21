@@ -3,7 +3,7 @@
 
 Name:           unittest-cpp
 Version:        2.0.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Lightweight unit testing framework for C++
 License:        MIT
 
@@ -80,6 +80,9 @@ rm -f %{buildroot}%{_libdir}/lib%{oldname}.la
 %ldconfig_scriptlets
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

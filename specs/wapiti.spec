@@ -2,7 +2,7 @@
 
 Name:           wapiti
 Version:        3.0.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A web application vulnerability scanner
 
 # wapiti is GPLv2+
@@ -58,6 +58,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v tests
 %{python3_sitelib}/%{name}3-%{version}-py*.egg-info
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 3.0.2-18
 - convert license to SPDX
 

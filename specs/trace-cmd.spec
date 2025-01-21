@@ -6,7 +6,7 @@
 
 Name: trace-cmd
 Version: %{srcversion}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPL-2.1-only AND LGPL-2.1-or-later AND GPL-2.0-only AND GPL-2.0-or-later
 Summary: A user interface to Ftrace
 
@@ -102,6 +102,9 @@ rm -rf %{buildroot}/%{_mandir}/man3/*
 %{_libdir}/%{name}/python/
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 17 2024 Zamir SUN <sztsian@gmail.com> - 3.3.1-1
 - Update to 3.3
 

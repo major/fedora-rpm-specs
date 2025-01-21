@@ -11,7 +11,7 @@ Version:  0.5.0
 
 Name:     wf-recorder
 Summary:  Screen recorder for wlroots-based compositors eg swaywm
-Release:  3%{?dist}
+Release:  4%{?dist}
 License:  MIT
 URL:      %{forgeurl}
 Source0:  %{forgesource}
@@ -65,6 +65,9 @@ and xdg-output).
 %license LICENSE
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 23 2024 Neal Gompa <ngompa@fedoraproject.org> - 0.5.0-3
 - Refresh build dependencies to match actual build requirements
 - Refresh free codec patch

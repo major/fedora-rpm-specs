@@ -2,7 +2,7 @@
 
 Name:           toppler
 Version:        1.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Platform game
 License:        GPL-3.0-only
 URL:            https://gitlab.com/roever/toppler/
@@ -87,6 +87,9 @@ install -p -m 0644 dist/toppler*.xpm %{buildroot}%{_datadir}/pixmaps/
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 BuildArch: noarch
 
 Version:    3.300
-Release:    5%{?dist}
+Release:    6%{?dist}
 URL:        https://software.sil.org/%{projectname}/
 
 %global foundry           SIL
@@ -54,6 +54,9 @@ rm -rf documentation/source documentation/pdf
 %fontfiles -a
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.300-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.300-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           terminator
 Version:        2.1.4
-Release:        3%{?dist}.1
+Release:        4%{?dist}.1
 Summary:        Store and run multiple GNOME terminals in one window
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -79,6 +79,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/terminator.desktop
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-4.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.1.4-3.1
 - convert license to SPDX
 

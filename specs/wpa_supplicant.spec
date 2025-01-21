@@ -9,7 +9,7 @@ Summary: WPA/WPA2/IEEE 802.1X Supplicant
 Name: wpa_supplicant
 Epoch: 1
 Version: 2.11
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: BSD-3-Clause
 Source0: http://w1.fi/releases/%{name}-%{version}.tar.gz
 Source1: wpa_supplicant.conf
@@ -204,6 +204,9 @@ chmod -R 0644 wpa_supplicant/examples/*.py
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.11-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 25 2024 Davide Caratti <dcaratti@redhat.com> - 1:2.11-3
 - re-enable OpenSSL ENGINE API, add build dependency on openssl-devel-engine (#2307226)
 

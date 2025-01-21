@@ -2,7 +2,7 @@
 
 Name:           %{core_name}db
 Version:        2.16.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open-source time-series database powered by PostgreSQL
 
 License:        Apache-2.0
@@ -49,6 +49,9 @@ rm -rf tsl
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.16.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Aug 04 2024 Ondrej Sloup <osloup@redhat.com> - 2.16.0-1
 - Rebase to the latest upstream version (rhbz#2302504)
 

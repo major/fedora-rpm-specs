@@ -2,7 +2,7 @@ Name:           targetd
 License:        GPL-3.0-only
 Summary:        Service to make storage remotely configurable
 Version:        0.10.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 URL:            https://github.com/open-iscsi/targetd
 Source:         https://github.com/open-iscsi/targetd/archive/v%{version}/targetd-%{version}.tar.gz
 Source1:        targetd.service
@@ -56,6 +56,9 @@ install -m 644 targetd.yaml.5 %{buildroot}%{_mandir}/man5/
 %config(noreplace) %{_sysconfdir}/target/targetd.yaml
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

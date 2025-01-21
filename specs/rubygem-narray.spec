@@ -1,46 +1,20 @@
-# For compatibility with RHEL <= 6
-%{!?ruby_vendorlibdir:	%global ruby_vendorlibdir	%(ruby -rrbconfig -W0 -e "puts Config::CONFIG['sitelibdir']")}
-%{!?ruby_vendorarchdir:	%global ruby_vendorarchdir	%(ruby -rrbconfig -W0 -e "puts Config::CONFIG['sitearchdir']")}
-%{!?gem_dir:		%global gem_dir			%(ruby -rubygems -e 'puts Gem::dir' 2>/dev/null)}
-%{!?gem_instdir:	%global gem_instdir		%{gem_dir}/gems/%{gem_name}-%{version}}
-%{!?gem_libdir:		%global gem_libdir		%{gem_instdir}/lib}
-%{!?gem_cache:		%global gem_cache		%{gem_dir}/cache/%{gem_name}-%{version}.gem}
-%{!?gem_spec:		%global gem_spec		%{gem_dir}/specifications/%{gem_name}-%{version}.gemspec}
-%{!?gem_docdir:		%global gem_docdir		%{gem_dir}/doc/%{gem_name}-%{version}}
-%{!?gem_extdir_mri:	%global gem_extdir_mri		%{ruby_vendorarchdir}}
-
 %global gem_name narray
 
-Name:			rubygem-%{gem_name}
-Version:		0.6.1.1
-Release:		34%{?dist}
-Summary:		N-dimensional Numerical Array class for Ruby
-%{?el5:Group:		System Environment/Libraries}
+Name:           rubygem-%{gem_name}
+Version:        0.6.1.2
+Release:        1%{?dist}
+Summary:        N-dimensional Numerical Array class for Ruby
 
 # Automatically converted from old format: BSD and Ruby - review is highly recommended.
-License:		LicenseRef-Callaway-BSD AND Ruby
-URL:			http://%{gem_name}.rubyforge.org
-Source0:		http://rubygems.org/downloads/%{gem_name}-%{version}.gem
+License:        LicenseRef-Callaway-BSD AND Ruby
+URL:            http://%{gem_name}.rubyforge.org
+Source0:        http://rubygems.org/downloads/%{gem_name}-%{version}.gem
 
-%{?el5:BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)}
-BuildRequires:		gcc
-BuildRequires:		ruby-devel
-BuildRequires:		rubygems%{!?el5:-devel}
+Patch0000:      https://github.com/masa16/narray/compare/0.6.1.2...master.patch#/%{name}-%{version}-last-commit.patch
 
-%if 0%{?fedora} >= 19 || 0%{?rhel} >= 7
-Requires:		ruby(release)
-%else #0%{?fedora} >= 19 || 0%{?rhel} >= 7
-%{?rhel:Requires:	ruby(abi)			== 1.8}
-%{!?rhel:Requires:	ruby(abi)			== 1.9.1}
-%endif #0%{?fedora} >= 19 || 0%{?rhel} >= 7
-Requires:		rubygems
-
-%if 0%{?fedora} && 0%{?fedora} <= 22
-Obsoletes:		%{name}-common			<  %{version}-%{release}
-%endif #0%{?fedora} && 0%{?fedora} <= 22
-
-Provides:		rubygem(%{gem_name})		== %{version}
-Provides:		rubygem(%{gem_name})%{?_isa}	== %{version}
+BuildRequires:  gcc
+BuildRequires:  ruby-devel
+BuildRequires:  rubygems-devel
 
 %description
 NArray is a Numerical N-dimensional Array class.  Supported element types are
@@ -51,21 +25,8 @@ NumPy, but NArray has vector and matrix sub-classes.
 
 
 %package devel
-Summary:		Development files and developer's docs for %{name}
-%{?el5:Group:		Development/Libraries}
-
-%if (0%{?fedora} && 0%{?fedora} <= 20) || 0%{?rhel} == 7
-BuildArch:		noarch
-Requires:		%{name}				== %{version}-%{release}
-%else #(0%{?fedora} && 0%{?fedora} <= 20) || 0%{?rhel} == 7
-Requires:		%{name}%{?_isa}			== %{version}-%{release}
-%endif #(0%{?fedora} && 0%{?fedora} <= 20) || 0%{?rhel} == 7
-
-%if 0%{?fedora} && 0%{?fedora} <= 22
-Obsoletes:		%{name}-devel			<  %{version}-%{release}
-Obsoletes:		%{name}-common-devel		<  %{version}-%{release}
-Obsoletes:		%{name}-doc			<  %{version}-%{release}
-%endif #0%{?fedora} && 0%{?fedora} <= 22
+Summary:        Development files and developer's docs for %{name}
+Requires:       %{name}%{?_isa} == %{version}-%{release}
 
 %description devel
 This package contains the development files and the developer's documentation
@@ -73,42 +34,20 @@ for %{name}.
 
 
 %prep
-%if 0%{?fedora} >= 36
-%setup -n %{gem_name}-%{version}
-%else
-%setup -qcT
-%if 0%{?fedora} || 0%{?rhel} >= 6
-%gem_install -n %{SOURCE0}
-%else #0%{?fedora} || 0%{?rhel} >= 6
-export CONFIGURE_ARGS="--with-cflags='%{optflags}'"
-mkdir -p .%{gem_dir}
-gem install									\
-	-V --local --install-dir .%{gem_dir} --bindir .%{_bindir}		\
-	--force --backtrace %{SOURCE0}
-%endif #0%{?fedora} || 0%{?rhel} >= 6
-%endif
+%autosetup -p 1 -n %{gem_name}-%{version}
 
 
 %build
-%if 0%{?fedora} >= 36
+export CONFIGURE_ARGS="--with-cflags='-std=c99 %{build_cflags}'"
 gem build ../%{gem_name}-%{version}.gemspec
 %gem_install
-%endif
 
 
 %install
-%{?el5:rm -rf %{buildroot}}
-mkdir -p %{buildroot}%{_prefix}
+# Copy to buildroot.
+cp -a ./%{_prefix} %{buildroot}
 
-# Install the gem to final location
-cp -a ./%{_prefix}/* %{buildroot}%{_prefix}
-%if (0%{?fedora} && 0%{?fedora} <= 20) || (0%{?rhel} && 0%{?rhel} <= 7)
-mkdir -p %{buildroot}%{gem_extdir_mri}
-mv -f %{buildroot}%{gem_instdir}/%{gem_name}.so					\
-	%{buildroot}%{gem_extdir_mri}
-%endif #(0%{?fedora} && 0%{?fedora} <= 20) || (0%{?rhel} && 0%{?rhel} <= 7)
-
-# Clean-up
+# Clean-up.
 pushd %{buildroot}
 find .%{gem_instdir} -depth -type f -name '*.so' -print0 | xargs -0 rm -rf
 find . -depth -type f -name '.*' -print0 | xargs -0 rm -rf
@@ -117,17 +56,8 @@ find . -depth -type f -name '*.o' -print0 | xargs -0 rm -rf
 find . -depth -type f -name '*.out' -print0 | xargs -0 rm -rf
 find . -depth -size 0 -type f -print0 | xargs -0 rm -rf
 rm -rf .%{gem_cache} .%{gem_instdir}/src .%{gem_instdir}/%{gem_name}.gemspec
-%if 0%{?fedora} >= 21 || 0%{?rhel} >= 8
 touch %{buildroot}%{gem_extdir_mri}/gem.build_complete
-%endif #0%{?fedora} >= 21 || 0%{?rhel} >= 8
 popd
-
-# On <= el6 there needs to be a symlink for %%{gem_name}_ext.rb
-# in %%{ruby_vendorarchdir}.  Otherwise the so-plugin can't be loaded.
-%if 0%{?rhel} && 0%{?rhel} <= 6
-ln -fs	%{gem_instdir}/%{gem_name}_ext.rb %{buildroot}%{gem_extdir_mri}
-%endif #0%{?rhel} && 0%{?rhel} <= 6
-
 
 
 %files
@@ -136,30 +66,30 @@ ln -fs	%{gem_instdir}/%{gem_name}_ext.rb %{buildroot}%{gem_extdir_mri}
 %dir %{gem_instdir}
 %exclude %{gem_instdir}/MANIFEST
 %exclude %{gem_instdir}/SPEC.*
-%if 0%{?fedora} >= 21 || 0%{?rhel} >= 8
 %exclude %{gem_extdir_mri}/*.h
-%else #0%{?fedora} >= 21 || 0%{?rhel} >= 8
-%exclude %{gem_instdir}/*.h
-%{gem_instdir}/*.rb
-%endif #0%{?fedora} >= 21 || 0%{?rhel} >= 8
-%if 0%{?fedora} >= 19 || 0%{?rhel} >= 7
 %{gem_extdir_mri}
-%else #0%{?fedora} >= 19 || 0%{?rhel} >= 7
-%{gem_extdir_mri}/%{gem_name}*
-%endif #0%{?fedora} >= 19 || 0%{?rhel} >= 7
 %{gem_spec}
+
 
 %files devel
 %doc %{gem_docdir}
 %doc %{gem_instdir}/MANIFEST
 %doc %{gem_instdir}/SPEC.*
-%if 0%{?fedora} >= 21 || 0%{?rhel} >= 8
 %{gem_extdir_mri}/*.h
-%else #0%{?fedora} >= 21 || 0%{?rhel} >= 8
-%{gem_instdir}/*.h
-%endif #0%{?fedora} >= 21 || 0%{?rhel} >= 8
+
 
 %changelog
+* Sun Jan 19 2025 Björn Esser <besser82@fedoraproject.org> - 0.6.1.2-1
+- New upstream release
+- Add patch with last upstream commits
+- Set GCC in C99 mode explicitly
+- Build devel package archful
+- Drop explicit Requires and Provides
+
+* Sun Jan 19 2025 Björn Esser <besser82@fedoraproject.org> - 0.6.1.1-35
+- Remove old cruft from spec file
+- Convert tabs to spaces
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1.1-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

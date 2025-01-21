@@ -6,7 +6,7 @@
 
 Name:           rust-peg-macros0.6
 Version:        0.6.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Procedural macros for rust-peg
 
 License:        MIT
@@ -82,6 +82,9 @@ cp -pav %{SOURCE1} .
 %endif
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

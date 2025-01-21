@@ -2,7 +2,7 @@
 
 Name:           sgtk-menu
 Version:        1.4.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        GTK launcher for sway & other WMs
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -52,6 +52,9 @@ done
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.4.1-15
 - convert license to SPDX
 

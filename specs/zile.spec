@@ -12,7 +12,7 @@
 Summary: Zile Is Lossy Emacs
 Name: zile
 Version: 2.6.2
-Release: 7%{?dist}
+Release: 8%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
 URL: http://www.gnu.org/software/%{name}/
@@ -58,6 +58,9 @@ mv THANKS{.utf8,}
 %{_mandir}/man1/*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 2.6.2-7
 - convert license to SPDX
 

@@ -22,6 +22,8 @@ Summary:        Cross-platform serial library for Golang
 License:        BSD-3-Clause
 URL:            %{gourl}
 Source0:        %{gosource}
+# Fix examples with Go 1.24.
+Patch:          https://github.com/bugst/go-serial/commit/f5a4685ea0112d5230d45141c606bb49cefc75a5.patch
 
 BuildRequires:  golang(github.com/creack/goselect)
 BuildRequires:  golang(github.com/stretchr/testify/require)
@@ -35,6 +37,7 @@ BuildRequires:  socat
 
 %prep
 %goprep
+%autopatch -p1
 
 %build
 for cmd in portlist; do

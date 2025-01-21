@@ -25,7 +25,7 @@
 Name:    udisks2
 Summary: Disk Manager
 Version: 2.10.90
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 URL:     https://github.com/storaged-project/udisks
 Source0: https://github.com/storaged-project/udisks/releases/download/udisks-%{version}/udisks-%{version}.tar.bz2
@@ -340,6 +340,9 @@ fi
 %endif
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.90-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Oct 02 2024 Tomas Bzatek <tbzatek@redhat.com> - 2.10.90-1
 - Version 2.10.90
 

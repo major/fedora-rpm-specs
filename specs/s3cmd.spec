@@ -6,7 +6,7 @@
 
 %define	name	s3cmd
 %define	version	2.4.0
-%define	release	4
+%define	release	5
 
 Name:           %{name}
 Version:        %{version}
@@ -84,6 +84,9 @@ install -D -p -m 0644 -t %{buildroot}%{_mandir}/man1 %{name}.1
 %endif
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -2,14 +2,14 @@
 
 Name:           racket
 Version:        8.15
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        General purpose programming language
 
 # see LICENSE.txt
 License:        MIT AND Apache-2.0
 URL:            https://racket-lang.org
 Source0:        https://download.racket-lang.org/installers/%{version}/%{name}-%{version}-src.tgz
-Patch1:         racket-configure-c99.patch
+Patch0:         racket-configure-c99.patch
 
 # To compile the program
 BuildRequires:  gcc
@@ -105,6 +105,8 @@ rm -r src/bc/foreign/libffi
 %build
 cd src
 
+# https://github.com/racket/racket/issues/5183
+CFLAGS="$CFLAGS -std=gnu17"
 %configure \
         --enable-pthread \
         --enable-shared \
@@ -224,6 +226,9 @@ chmod -x %{buildroot}%{_libdir}/racket/starter-sh
 %{_datadir}/doc/racket
 
 %changelog
+* Sun Jan 19 2025 Jens Petersen <petersen@redhat.com> - 8.15-3
+- build with gcc15 using -std=gnu17
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.15-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

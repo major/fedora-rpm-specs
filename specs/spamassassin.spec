@@ -17,7 +17,7 @@ Summary: Spam filter for email which can be invoked from mail delivery agents
 Name: spamassassin
 Version: 4.0.1
 #Release: 0.8.%%{prerev}%%{?dist}
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: Apache-2.0
 URL: https://spamassassin.apache.org/
 Source0: https://www.apache.org/dist/%{name}/source/%{real_name}-%{version}.tar.bz2
@@ -284,6 +284,9 @@ rm -f %{_sharedstatedir}/razor/*
 %systemd_preun sa-update.timer
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Nov 29 2024 Michal Josef Špaček <mspacek@redhat.com> - 4.0.1-5
 - Remove dependency to Digest::SHA1
 - Remove duplicite requires, they are generated

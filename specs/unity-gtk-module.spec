@@ -3,7 +3,7 @@
 
 Name:		unity-gtk-module
 Version:	0.0.0+17.04.20170403
-Release:	21%{?dist}
+Release:	22%{?dist}
 Summary:	GTK+ module for exporting old-style menus as GMenuModels
 
 # Automatically converted from old format: LGPLv3 - review is highly recommended.
@@ -219,6 +219,9 @@ done
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.0+17.04.20170403-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.0.0+17.04.20170403-21
 - convert license to SPDX
 

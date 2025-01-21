@@ -1,6 +1,6 @@
 Name:           wmdocker
 Version:        1.5
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        KDE and GNOME2 system tray replacement docking application
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -48,6 +48,9 @@ mv %{buildroot}/%{_bindir}/docker %{buildroot}/%{_bindir}/wmdocker
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.5-34
 - convert license to SPDX
 

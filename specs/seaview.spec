@@ -1,6 +1,6 @@
 Name:           seaview
 Version:        5.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Graphical multiple sequence alignment editor
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -68,6 +68,9 @@ install -m 644 seaview.1 $RPM_BUILD_ROOT/%{_mandir}/man1
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 5.0-11
 - convert license to SPDX
 

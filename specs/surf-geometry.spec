@@ -1,7 +1,7 @@
 Name:		surf-geometry
 Version:	1.0.6
 Summary:	Tool to visualize some real algebraic geometry
-Release:	38%{?dist}
+Release:	39%{?dist}
 Source0:	http://downloads.sourceforge.net/surf/surf-%{version}.tar.gz
 Source1:	%{name}.module.in
 Patch0:		%{name}-min-max.patch
@@ -77,6 +77,9 @@ mv $RPM_BUILD_ROOT%{_mandir}/man1/surf.1 \
 %{_datadir}/modulefiles/%{name}-%{_arch}
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

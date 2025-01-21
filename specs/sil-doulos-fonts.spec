@@ -4,7 +4,7 @@
 
 Name:           %{fontname}-fonts
 Version:        6.200
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Doulos SIL fonts
 
 License:        OFL-1.1
@@ -50,6 +50,9 @@ install -Dm 0644 -p %{SOURCE1} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.200-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.200-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global maj 0
 
 Name:       sord
-Version:    0.16.16
+Version:    0.16.18
 Release:    %autorelease
 Summary:    A lightweight Resource Description Framework (RDF) C library
 

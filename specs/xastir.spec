@@ -2,7 +2,7 @@ Summary: Amateur Station Tracking and Reporting system for amateur radio
 Name:    xastir
 Epoch:   1
 Version: 2.2.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 Source0: https://github.com/Xastir/Xastir/archive/Release-%{version}.tar.gz
@@ -83,6 +83,9 @@ install -D -p -m644 %{SOURCE4} %{buildroot}%{_metainfodir}/org.xastir.Xastir.met
 %doc README.MAPS UPGRADE
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.2.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 25 2024 Orion Poplawski <orion@nwra.com> - 1:2.2.0-6
 - Rebuild for hdf5 1.14.5
 

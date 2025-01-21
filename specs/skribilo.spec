@@ -5,7 +5,7 @@
 
 Name:         skribilo
 Version:      0.10.0
-Release:      1%{?dist}
+Release:      2%{?dist}
 Summary:      A free document production tool
 
 License:      GPL-3.0-or-later
@@ -197,5 +197,8 @@ make check
 %{_datadir}/emacs/site-lisp/skribe.el
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Oct 05 2024 Benson Muite <benson_muite@emailplus.org> - 0.10.0-1
 - Initial packaging

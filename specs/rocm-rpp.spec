@@ -1,6 +1,6 @@
 %global upstreamname rpp
-%global rocm_release 6.2
-%global rocm_patch 0
+%global rocm_release 6.3
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -8,7 +8,7 @@
 %global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/')
 
 # The default list in the project does not cover our expected targets
-%global all_rocm_gpus "gfx900;gfx906:xnack-;gfx908:xnack-;gfx90a:xnack+;gfx90a:xnack-;gfx942;gfx1010;gfx1012;gfx1030;gfx1100;gfx1101;gfx1102;gfx1103"
+%global all_rocm_gpus "gfx900;gfx906:xnack-;gfx908:xnack-;gfx90a:xnack+;gfx90a:xnack-;gfx942;gfx1010;gfx1012;gfx1030;gfx1100;gfx1101;gfx1102;gfx1103;gfx1200;gfx1201"
 
 %bcond_with debug
 %if %{with debug}
@@ -21,7 +21,7 @@
 
 Name:           rocm-rpp
 Version:        %{rocm_version}
-Release:        %autorelease
+Release:        2%{?dist}
 Summary:        ROCm Performace Primatives for computer vision
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
@@ -34,13 +34,16 @@ License:        MIT AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
 
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
 
+BuildRequires:  chrpath
 BuildRequires:  cmake
+BuildRequires:  gcc-c++
 BuildRequires:  half-devel
-BuildRequires:  hipcc-libomp-devel
 BuildRequires:  ninja-build
 BuildRequires:  opencv-devel
 BuildRequires:  rocm-cmake
 BuildRequires:  rocm-comgr-devel
+BuildRequires:  rocm-compilersupport-macros
+BuildRequires:  rocm-omp-devel
 BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
@@ -82,11 +85,11 @@ sed -i -e '/COMPONENT test/d' CMakeLists.txt
 %build
 
 %cmake -G Ninja \
+       -DAMDGPU_TARGETS=%{all_rocm_gpus} \
        -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
-       -DROCM_SYMLINK_LIBS=OFF \
        -DHIP_PLATFORM=amd \
        -DBACKEND=HIP \
-       -DAMDGPU_TARGETS=%{all_rocm_gpus} \
+       -DROCM_SYMLINK_LIBS=OFF \
        -DCMAKE_BUILD_TYPE=%{build_type} \
        -DROCM_PATH=%{_prefix} \
        -DHIP_PATH=%{_prefix} \
@@ -95,6 +98,9 @@ sed -i -e '/COMPONENT test/d' CMakeLists.txt
 
 %install
 %cmake_install
+
+# ERROR   0020: file '/usr/lib64/librpp.so.1.9.1' contains a runpath referencing '..' of an absolute path [/usr/lib64/rocm/llvm/bin/../lib]
+chrpath -r %{rocmllvm_libdir} %{buildroot}%{_libdir}/librpp.so.1.*.*
 
 %files
 %license LICENSE
@@ -109,4 +115,10 @@ sed -i -e '/COMPONENT test/d' CMakeLists.txt
 
 
 %changelog
-%autochangelog
+* Sun Jan 19 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-2
+- build requires gcc-c++
+- Add gfx12
+
+* Sun Dec 29 2024 Tom Rix <Tom.Rix@amd.com> - 6.3.1-1
+- Update to 6.3.1
+

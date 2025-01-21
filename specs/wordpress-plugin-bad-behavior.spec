@@ -4,7 +4,7 @@
 
 Name:		wordpress-plugin-%{plugin_name}
 Version:	2.2.13
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	%{plugin_human_name} plugin for WordPress
 
 # According to http://plugins.trac.wordpress.org/ all plugins are licensed
@@ -64,6 +64,9 @@ cp -a %{plugin_name} %{buildroot}%{_datadir}/wordpress/wp-content/plugins/
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.13-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 2.2.13-22
 - convert license to SPDX
 

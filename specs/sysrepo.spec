@@ -1,6 +1,6 @@
 Name: sysrepo
 Version: 2.2.12
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: YANG-based configuration and operational data store
 Url: https://github.com/sysrepo/sysrepo
 Source: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -128,6 +128,9 @@ rm -rf /dev/shm/srsub_*
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.12-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 4 2024 Miroslav Suchý <msuchy@redhat.com> - 2.2.12-6
 - convert license to SPDX
 

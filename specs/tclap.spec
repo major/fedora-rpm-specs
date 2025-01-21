@@ -1,7 +1,7 @@
 Name:           tclap
 Summary:        Template-Only Command Line Argument Parser
 Version:        1.2.5
-Release:        7%{?dist}
+Release:        8%{?dist}
 License:        MIT
 URL:            http://%{name}.sourceforge.net
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -69,6 +69,9 @@ make %{?_smp_mflags} -j1 check
 %doc __tmp_doc/*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

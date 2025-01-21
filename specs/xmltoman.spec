@@ -1,6 +1,6 @@
 Name:           xmltoman
 Version:        0.4
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Scripts for converting XML to roff or HTML
 
 License:        GPL-2.0-or-later
@@ -44,6 +44,9 @@ cp -p *.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary:	Render a planetary image into an X window
 Name:		xplanet
 Version:	1.3.1
-Release:	23%{?dist}
+Release:	24%{?dist}
 
 # src/ParseGeom.c.	... under review https://gitlab.com/fedora/legal/fedora-license-data/-/issues/502
 # src/ParseGeom.h	... the same review
@@ -71,6 +71,9 @@ ln -sf ../fonts/gnu-free/FreeMonoBold.ttf \
 %{_datadir}/xplanet
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3.1-23
 - convert license to SPDX
 

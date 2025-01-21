@@ -2,7 +2,7 @@
 
 Name:           secilc
 Version:        3.8
-Release:        0.rc3.1%{?dist}
+Release:        0.rc3.1%{?dist}.1
 Summary:        The SELinux CIL Compiler
 
 License:        BSD-2-Clause
@@ -70,4 +70,7 @@ make %{?_smp_mflags} DESTDIR="%{buildroot}" SBINDIR="%{buildroot}%{_sbindir}" LI
 %license LICENSE
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8-0.rc3.1.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 %autochangelog

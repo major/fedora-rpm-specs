@@ -1,6 +1,6 @@
 Name:           wafw00f
 Version:        2.1.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Tool to identifies and fingerprints Web Application Firewall (WAF)
 
 
@@ -34,6 +34,9 @@ sed -i -e '/^#!\//, 1d' {wafw00f/*.py,wafw00f/*/*.py}
 %{python3_sitelib}/%{name}/
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.1.0-17
 - convert license to SPDX
 

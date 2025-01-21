@@ -9,7 +9,7 @@
 Name:           %{sname}-im
 Summary:        XMPP/Jabber client
 Version:        1.3.0
-Release:        0.32.%{commitdate}git%{shortcommit}%{?dist}
+Release:        0.33.%{commitdate}git%{shortcommit}%{?dist}
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
 Url:            http://www.vacuum-im.org/
@@ -141,6 +141,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.metai
 %{_includedir}/%{name}
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-0.33.20211209git0abd5e1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 05 2024 Martin Gansser <martinkg@fedoraproject.org> - 1.3.0-0.32.20211209git0abd5e1
 - Add %%{name}-fix-type-mismatch.patch
 

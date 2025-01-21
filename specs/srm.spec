@@ -1,6 +1,6 @@
 Name:           srm
 Version:        1.2.15
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Secure file deletion
 
 License:        MIT
@@ -36,6 +36,9 @@ make %{?_smp_mflags} CFLAGS="%{optflags}" CC=gcc
 %{_bindir}/fill_test
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.15-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.15-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

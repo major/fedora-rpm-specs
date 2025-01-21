@@ -3,7 +3,7 @@
 
 Name:    web-eid
 Version: 2.5.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Web eID browser extension helper application
 License: MIT
 URL:     https://github.com/web-eid/web-eid-app
@@ -92,6 +92,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 25 2024 Germano Massullo <germano.massullo@gmail.com> - 2.5.0-5
 - add Obsoletes: firefox-pkcs11-loader
 

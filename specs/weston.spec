@@ -2,7 +2,7 @@
 
 Name:           weston
 Version:        14.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Reference compositor for Wayland
 
 License:        MIT and CC-BY-SA-3.0
@@ -217,6 +217,9 @@ Common headers for weston
 %{_datadir}/libweston-%{apiver}/protocols/
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 14.0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Nov 21 2024 Neal Gompa <ngompa@fedoraproject.org> - 14.0.1-2
 - Backport patch to allow neatvnc 0.9.0 as a dependency
 

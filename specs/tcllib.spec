@@ -4,7 +4,7 @@
 Summary:    The standard Tcl library
 Name:       tcllib
 Version:    1.21
-Release:    6%{?dist}
+Release:    7%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:    LicenseRef-Callaway-BSD
 Source:     https://core.tcl-lang.org/tcllib/uv/%{name}-%{version}.tar.xz
@@ -63,6 +63,9 @@ find %{buildroot}/%{_datadir} -name \*.tcl -exec chmod 0644 {} \;
 %{_bindir}/tcldocstrip
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.21-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.21-6
 - convert license to SPDX
 

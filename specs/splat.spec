@@ -1,6 +1,6 @@
 Name:		splat
 Version:	1.4.2
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	Analyze point-to-point terrestrial RF communication links
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -90,6 +90,9 @@ mv utils/README utils/README-utils
 %{_mandir}/man1/*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.4.2-22
 - convert license to SPDX
 

@@ -3,7 +3,7 @@
 
 Name:           %{fontname}-fonts
 Version:        1.28
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Generic sans font
 
 # Automatically converted from old format: Public Domain - needs further work
@@ -64,6 +64,9 @@ install -Dm 0644 -p %{SOURCE2} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.28-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.28-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

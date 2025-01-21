@@ -1,6 +1,6 @@
 Name:		sha2
 Version:	1.0.1
-Release:	28%{?dist}
+Release:	29%{?dist}
 Summary:	SHA Implementation Library
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
@@ -66,6 +66,9 @@ LD_PRELOAD=./libsha2.so ./sha2test.pl
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.1-28
 - convert license to SPDX
 

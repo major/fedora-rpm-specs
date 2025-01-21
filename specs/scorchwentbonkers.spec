@@ -1,6 +1,6 @@
 Name:           scorchwentbonkers
 Version:        1.3
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Realtime remake of Scorched Earth
 License:        zlib
 URL:            http://wasyl.eu/games/scorch-went-bonkers.html
@@ -65,6 +65,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

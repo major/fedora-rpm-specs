@@ -8,7 +8,7 @@
 
 Name:           %{srcname}
 Version:        0.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -75,6 +75,9 @@ py.test-%{python3_version} -vv tests || :
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Nov 21 2024 Packit <hello@packit.dev> - 0.8.0-1
 - Update to version 0.8.0
 

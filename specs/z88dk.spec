@@ -6,7 +6,7 @@ Name: z88dk
 # what version it is supposed to be. (README.1st still claims to be from version
 # 1.9 when they already released 1.10 and 1.10.1.)
 Version: 1.10.1
-Release: 31%{?nightly:.%{nightly}cvs}%{?dist}
+Release: 32%{?nightly:.%{nightly}cvs}%{?dist}
 Summary: A Z80 cross compiler
 # Automatically converted from old format: Artistic clarified - review is highly recommended.
 License: ClArtistic
@@ -91,6 +91,9 @@ cp -p netman/man3z/* %{buildroot}%{_mandir}/man3z
 %{_mandir}/man3z/
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-32.20150709cvs
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug  7 2024 Miroslav Suchý <msuchy@redhat.com> - 1.10.1-31.20150709cvs
 - convert license to SPDX
 

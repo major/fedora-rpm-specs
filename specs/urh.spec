@@ -3,7 +3,7 @@
 
 Name:		urh
 Version:	2.9.8
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Universal Radio Hacker: investigate wireless protocols like a boss
 # Automatically converted from old format: ASL 2.0 and GPLv2 - review is highly recommended.
 License:	Apache-2.0 AND GPL-2.0-only
@@ -100,6 +100,9 @@ install -Dpm 0644 %{SOURCE1} \
 %{python3_sitearch}/urh-%{version}-*.egg-info
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jan  6 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 2.9.8-2
 - Relaxed numpy dependency, this may cause problems with the GUI
   Resolves: rhbz#2332202

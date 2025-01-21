@@ -6,7 +6,7 @@
 
 Name:           scoutfish
 Version:        1.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Chess Query Engine 
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -57,6 +57,9 @@ pushd src
 %{_bindir}/scoutfish
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul  29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1-9
 - convert license to SPDX
 

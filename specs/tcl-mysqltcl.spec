@@ -6,7 +6,7 @@
 Summary:        MySQL interface for Tcl
 Name:           tcl-mysqltcl
 Version:        3.052
-Release:        23%{?dist}
+Release:        24%{?dist}
 
 License:        MIT
 Source:         http://www.xdobry.de/mysqltcl/%{real_name}-%{version}.tar.gz
@@ -51,6 +51,9 @@ mv $RPM_BUILD_ROOT%{_libdir}/%{real_name}-%{version} $RPM_BUILD_ROOT%{tcl_sitear
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.052-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.052-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

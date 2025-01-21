@@ -1,6 +1,6 @@
 Name:           tetrinetx
 Version:        1.13.16
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        The GNU TetriNET server
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -109,6 +109,9 @@ getent passwd tetrinetx >/dev/null || \
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.16-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.13.16-41
 - convert license to SPDX
 

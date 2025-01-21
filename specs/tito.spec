@@ -23,7 +23,7 @@
 
 Name: tito
 Version: 0.6.27
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A tool for managing rpm based git projects
 
 License: GPL-2.0-only
@@ -133,6 +133,9 @@ git config --global user.name "Your Name"
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.27-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 11 2024 Jakub Kadlčík <frostyx@email.cz>
 - Defer submodule detection to git
 - Many improvements to tests and they now run during package build

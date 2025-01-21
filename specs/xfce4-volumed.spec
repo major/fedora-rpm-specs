@@ -5,7 +5,7 @@
 
 Name:           xfce4-volumed
 Version:        0.2.3
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Daemon to add additional functionality to the volume keys of the keyboard
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -58,6 +58,9 @@ rm -rf %{buildroot}/%{_datadir}/applications/
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.3-35
 - convert license to SPDX
 

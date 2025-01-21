@@ -1,6 +1,6 @@
 Name:           tomboy
 Version:        1.15.9
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Note-taking application
 # Automatically converted from old format: LGPLv2+ and GPLv2+ and MIT - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+ AND GPL-2.0-or-later AND LicenseRef-Callaway-MIT
@@ -183,6 +183,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/tomboy.desktop
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.9-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.15.9-22
 - convert license to SPDX
 

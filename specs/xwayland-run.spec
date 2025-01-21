@@ -1,6 +1,6 @@
 Name:           xwayland-run
 Version:        0.0.4
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Set of utilities to run headless X/Wayland clients
 
 License:        GPL-2.0-or-later
@@ -63,6 +63,9 @@ Xwayland and various Wayland compositor headless.
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

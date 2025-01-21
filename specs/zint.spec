@@ -1,6 +1,6 @@
 Name:      zint
 Version:   2.13.0
-Release:   4%{?dist}
+Release:   5%{?dist}
 Summary:   Barcode generator library
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:   GPL-3.0-or-later
@@ -127,6 +127,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}-qt.desktop
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 2.13.0-4
 - convert license to SPDX
 

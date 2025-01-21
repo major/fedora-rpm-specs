@@ -7,7 +7,7 @@ License: MIT
 %global git_sha %(c="%{git_commit}"; echo "${c:0:7}")
 
 Version: 0^%{git_date}.%{git_sha}
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 URL: https://github.com/simonccarter/sta
 Source0: %{URL}/archive/%{git_commit}/sta-%{git_commit}.tar.gz
@@ -61,6 +61,9 @@ g++ %{optflags} %{build_ldflags} -o tester tests.cpp
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0^20231130.94559e3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Dec 19 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0^20231130.94559e3-2
 - Add a man page
 - Run tests in %%check

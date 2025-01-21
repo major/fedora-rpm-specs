@@ -6,7 +6,7 @@
 
 Name:       utf8cpp
 Version:    4.0.6
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A simple, portable and lightweight library for handling UTF-8 encoded strings
 License:    BSL-1.0
 URL:        https://github.com/nemtrif/utfcpp
@@ -88,6 +88,9 @@ popd
 %{_datadir}/cmake/utf8cpp
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Nov 17 2024 Dominik Mierzejewski <dominik@greysector.net> - 4.0.6-1
 - update to 4.0.6 (resolves rhbz#2323791)
 

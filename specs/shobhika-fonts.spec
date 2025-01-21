@@ -3,7 +3,7 @@
 
 Name:		%{fontname}-fonts
 Version:	1.04
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	Free Indian truetype/open type fonts
 # Automatically converted from old format: OFL - review is highly recommended.
 License:	LicenseRef-Callaway-OFL
@@ -56,6 +56,9 @@ appstream-util validate-relax --nonet \
 %{_datadir}/metainfo/%{fontname}.metainfo.xml
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.04-17
 - convert license to SPDX
 

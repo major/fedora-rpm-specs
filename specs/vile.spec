@@ -1,6 +1,6 @@
 Name:		vile
 Version:	9.8z
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	VI Like Emacs
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:	GPL-2.0-only
@@ -115,6 +115,9 @@ popd
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.8z-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 9.8z-4
 - convert license to SPDX
 

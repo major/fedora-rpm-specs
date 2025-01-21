@@ -1,6 +1,6 @@
 Name:           teckit
 Version:        2.5.12
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Encoding conversion library and mapping compiler
 # COPYING:                      links to license/LICENSING.txt
 # license/License_CPLv05.txt:   CPL-1.0 text, "0.5" version in the license
@@ -134,6 +134,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_libdir}/pkgconfig/teckit.pc
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.12-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:           sdl12-compat
 Version:        1.2.68
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        SDL 1.2 runtime compatibility library using SDL 2.0
 # mp3 decoder code is MIT-0/PD
 # SDL_opengl.h is zlib and MIT
@@ -151,6 +151,9 @@ rm -rf %{buildroot}%{_libdir}/*.a
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.68-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2.68-4
 - convert license to SPDX
 

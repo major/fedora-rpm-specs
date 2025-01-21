@@ -1,7 +1,7 @@
 Summary:	Backup and restore utilities for the XFS filesystem
 Name:		xfsdump
 Version:	3.2.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 # Licensing based on generic "GNU GENERAL PUBLIC LICENSE"
 # in source, with no mention of version.
 License:	GPL-1.0-or-later
@@ -63,6 +63,9 @@ mkdir -p $RPM_BUILD_ROOT/%{_sharedstatedir}/xfsdump/inventory
 %{_sharedstatedir}/xfsdump/inventory
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Pavel Reichl <preichl@redhat.com> - 3.2.0-1
 - Update to latest upstream version
 - Related: rhbz#2309186

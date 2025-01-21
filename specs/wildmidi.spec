@@ -1,6 +1,6 @@
 Name:           wildmidi
 Version:        0.4.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Softsynth midi player
 License:        GPL-3.0-or-later
 URL:            https://github.com/Mindwerks/wildmidi
@@ -73,6 +73,9 @@ ln -s ../timidity.cfg $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/%{name}.cfg
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.6-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -24,7 +24,7 @@
 
 Name:           yosyshq-%{prjname}
 Version:        0.46
-Release:        1.%{snapdate}git%{shortcommit0}%{?dist}
+Release:        2.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Sequential logic synthesis and formal verification
 # The ABC code itself is MIT-Modern-Variant.
 # The bundled CUDD code is BSD-3-Clause.
@@ -165,6 +165,9 @@ install -p -m 0644 %{prjname}.1 %{buildroot}%{_mandir}/man1
 %{_libdir}/lib%{prjname}.so
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.46-2.20241011gitcac8f99
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 11 2024 Gabriel Somlo <gsomlo@gmail.com> - 0.46-1.20241011gitcac8f99
 - update to 0.46 snapshot
 

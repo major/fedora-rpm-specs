@@ -1,6 +1,6 @@
 Name:           telepathy-salut
 Version:        0.99.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Link-local XMPP telepathy connection manager
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -88,6 +88,9 @@ make check
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 30 2024 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 0.99.11-1
 - Update to 0.99.11
 

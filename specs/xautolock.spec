@@ -1,6 +1,6 @@
 Name:           xautolock
 Version:        2.2
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Launches a program when your X session has been idle
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -49,6 +49,9 @@ make install install.man DESTDIR=%{buildroot} INSTALL="install -p"
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.2-37
 - convert license to SPDX
 

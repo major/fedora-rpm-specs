@@ -1,6 +1,6 @@
 Name:           tunneler
 Version:        1.1.1
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Clone of legendary Tunneler game
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -56,6 +56,9 @@ desktop-file-install %{SOURCE2} \
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Sep 20 2024 Thomas Huth <thuth@redhat.com> - 1.1.1-37
 - Fix crash due to bad buffersize caught by -D_FORTIFY_SOURCE=3
 - Resolves: rhbz#2248493

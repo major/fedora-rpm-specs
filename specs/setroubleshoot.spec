@@ -6,7 +6,7 @@
 Summary: Helps troubleshoot SELinux problems
 Name: setroubleshoot
 Version: 3.3.35
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 URL: https://gitlab.com/setroubleshoot/setroubleshoot
 Source0: https://gitlab.com/setroubleshoot/setroubleshoot/-/archive/%{version}/setroubleshoot-%{version}.tar.gz
@@ -196,6 +196,9 @@ to user preference. The same tools can be run on existing log files.
 %doc AUTHORS COPYING ChangeLog DBUS.md NEWS README TODO
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.35-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Nov 26 2024 Petr Lautrbach <lautrbach@redhat.com> - 3.3.35-1
 - Do not hardcode /var/lib/selinux as store_root
 

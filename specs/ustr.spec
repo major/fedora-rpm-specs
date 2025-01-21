@@ -27,7 +27,7 @@
 
 Name: ustr
 Version: 1.0.4
-Release: 40%{?dist}
+Release: 41%{?dist}
 Summary: String library, very low memory overhead, simple to import
 # Automatically converted from old format: MIT or LGPLv2+ or BSD - review is highly recommended.
 License: LicenseRef-Callaway-MIT OR LicenseRef-Callaway-LGPLv2+ OR LicenseRef-Callaway-BSD
@@ -143,6 +143,9 @@ make $@ %{ustr_make_install} prefix=%{_prefix} \
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.4-40
 - convert license to SPDX
 

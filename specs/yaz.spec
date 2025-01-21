@@ -1,6 +1,6 @@
 Name:           yaz
 Version:        5.34.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Z39.50/SRW/SRU toolkit
 # SPDX confirmed
 License:        BSD-3-Clause
@@ -154,6 +154,9 @@ make check
 %{_pkgdocdir}
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.34.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 14 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.34.3-2
 - Fix compilation with C23 with bool keyword
 

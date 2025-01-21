@@ -11,7 +11,7 @@
 
 Name:           vdr-epg-daemon
 Version:        1.3.24
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A daemon to download EPG data from internet and manage it in a mysql database
 License:        GPL-1.0-or-later AND GPL-2.0-only AND LicenseRef-Callaway-BSD
 URL:            https://github.com/horchi/vdr-epg-daemon
@@ -135,6 +135,9 @@ mkdir -p %{buildroot}%{_libdir}/mariadb/plugin
 %{vdr_resdir}/epgd/
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.24-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Oct 22 2024 Richard W.M. Jones <rjones@redhat.com> - 1.3.24-8
 - Rebuild for Jansson 2.14
   (https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/3PYINSQGKQ4BB25NQUI2A2UCGGLAG5ND/)

@@ -1,6 +1,6 @@
 Name:           scrot
 Version:        1.11.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command line screen capture utility
 
 License:        MIT
@@ -41,6 +41,9 @@ autoreconf -if
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 16 2024 Vojtech Trefny <vtrefny@redhat.com> - 1.11.1-1
 - Update to 1.11.1
 

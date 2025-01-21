@@ -4,7 +4,7 @@
 
 Name:           signon-plugin-oauth2
 Version:        0.25^%{gitdate}.%{shortcommit0}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        OAuth2 plugin for the Accounts framework
 
 License:        LGPL-2.1-or-later
@@ -70,6 +70,9 @@ rm -rvf %{buildroot}/%{_sysconfdir}
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.25^20231216.fab6988-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.25^20231216.fab6988-4
 - convert license to SPDX
 

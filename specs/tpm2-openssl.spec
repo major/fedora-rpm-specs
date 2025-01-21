@@ -1,6 +1,6 @@
 Name:tpm2-openssl
 Version: 1.2.0
-Release: 5%{?candidate:.%{candidate}}%{?dist}
+Release: 6%{?candidate:.%{candidate}}%{?dist}
 Summary: Provider for integration of TPM 2.0 to OpenSSL 3.0
 
 License: BSD-3-Clause
@@ -63,6 +63,9 @@ cp %{SOURCE3} %{_builddir}/%{name}-%{version}%{?candidate:-%{candidate}}/test/
 %{_libdir}/ossl-modules/tpm2.so
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 18 2024 Adrian Freihofer <adrian.freihofer@gmail.com> 1.2.0-5
 - Fix tests for F41 https://bugzilla.redhat.com/show_bug.cgi?id=2301337
 - Revert exclude broken test on s390

@@ -5,7 +5,7 @@
 
 Name:           zulucrypt
 Version:        7.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Qt GUI front end to cryptsetup
 
 # More details available in the copyright file in the source tarball.
@@ -218,6 +218,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/zulu*.desktop
 %doc docs/README docs/*.jpg
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 10 2024 Ian McInerney <ian.s.mcinerney@ieee.org> - 7.1.0-1
 - Update to upstream 7.1.0 (fixes rhbz#2330000, rhbz#2331292)
 - Update license string with final SPDX expression

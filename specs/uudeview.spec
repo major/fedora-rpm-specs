@@ -9,7 +9,7 @@
 
 Name:           uudeview
 Version:        0.5.20%{?snapshot:^%{commitdate}git%{shortcommit}}
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -96,6 +96,9 @@ install -p -m 0644 uulib/libuu.a $RPM_BUILD_ROOT/%{_libdir}/
 %{_libdir}/*.a
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.20^20241111git7ef9e26-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 15 2025 Charles R. Anderson <cra@alum.wpi.edu> - 0.5.20^20241111git7ef9e26-2
 - Rebuilt for Tcl/Tk 9.0 (#2337805)
 - Patch to always set -D_REENTRANT since Tcl 9.0 no longer sets TCL_THREADS,

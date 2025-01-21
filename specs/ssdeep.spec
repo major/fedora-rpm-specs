@@ -9,7 +9,7 @@
 
 Name:      ssdeep
 Version:   2.14.1
-Release:   19%{?dist}
+Release:   20%{?dist}
 Summary:   Compute context triggered piecewise hashes
 
 License:   GPL-2.0-or-later
@@ -89,6 +89,9 @@ rm %{buildroot}%{_libdir}/libfuzzy.la
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.1-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Oct 17 2024 Remi Collet <remi@fedoraproject.org> - 2.14.1-19
 - modernize the spec file
 

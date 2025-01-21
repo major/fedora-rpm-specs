@@ -4,7 +4,7 @@ Summary: test VT100-type terminal
 
 Name: vttest
 Version: 2.7.%{AppPatched}
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: MIT
 URL: https://invisible-island.net/%{name}/
 Source0: https://invisible-island.net/archives/%{name}/%{name}-%{AppPatched}.tgz
@@ -41,6 +41,9 @@ can run all menu-items (for a given level) by entering an asterisk, i.e,
 %license COPYING
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.20241204-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Dec 08 2024 Thomas E. Dickey <dickey@his.com> - 2.7.20241204-1
 - update to 2.7.20241204 (RHBZ #2321688)
 

@@ -3,7 +3,7 @@ Summary: Real-time plotting utility for the terminal
 License: Apache-2.0
 
 Version: 1.7.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 URL: https://github.com/tenox7/ttyplot/
 Source0: %{URL}archive/refs/tags/%{version}/%{name}-%{version}.tar.gz
@@ -38,5 +38,8 @@ with data input from stdin / pipe.
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Nov 30 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.7.0-1
 - Initial packaging

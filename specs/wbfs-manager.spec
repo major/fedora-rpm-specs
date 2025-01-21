@@ -1,7 +1,7 @@
 Summary:	A WBFS manager for Linux using GTK+
 Name:		wbfs-manager
 Version:	0.1.12
-Release:	29%{?dist}
+Release:	30%{?dist}
 License:	GPL-2.0-only
 Url:		http://code.google.com/p/linux-wbfs-manager/
 Source0:	http://linux-wbfs-manager.googlecode.com/files/linux-wbfs-manager-%{version}.tar.gz
@@ -37,6 +37,9 @@ desktop-file-install \
 %{_datadir}/applications/wbfs-gtk.desktop
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.12-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.12-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

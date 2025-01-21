@@ -1,6 +1,6 @@
 Name:       vapoursynth
 Version:    68
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    Video processing framework with simplicity in mind
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License:    LicenseRef-Callaway-LGPLv2
@@ -117,6 +117,9 @@ rm -fr %{buildroot}%{_docdir}/%{name}
 %{_bindir}/vspipe
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 68-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 68-4
 - convert license to SPDX
 

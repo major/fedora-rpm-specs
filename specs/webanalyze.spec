@@ -15,7 +15,7 @@ scanning.}
 %global godocs          README.md
 
 Name:           webanalyze
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Tool to uncovers technologies used on websites
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -57,6 +57,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.3.1-14
 - convert license to SPDX
 

@@ -6,7 +6,7 @@ Version:        1.4.3
 
 %forgemeta
 Name:           waydroid
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Container-based approach to boot a full Android system on GNU/Linux
 License:        GPL-3.0-only
 URL:            %{forgeurl}
@@ -153,6 +153,9 @@ fi
 %{_datadir}/selinux/%{selinuxtype}/%{name}.pp
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Alessandro Astone <ales.astone@gmail.com> - 1.4.3-2
 - Backport patch to fix initializing with preinstalled images
 

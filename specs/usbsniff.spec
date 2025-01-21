@@ -3,7 +3,7 @@
 
 Name:           usbsniff
 Version:        0
-Release:        23.20170624git%{shortcommit}%{?dist}
+Release:        24.20170624git%{shortcommit}%{?dist}
 Summary:        USB traffic capture and replay tools
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -46,6 +46,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-24.20170624gitb4ba3c8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0-23.20170624gitb4ba3c8
 - convert license to SPDX
 

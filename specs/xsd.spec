@@ -1,6 +1,6 @@
 Name: xsd
 Version: 4.1.0
-Release: 0.16.a11%{?dist}
+Release: 0.17.a11%{?dist}
 Summary: W3C XML schema to C++ data binding compiler
 # Exceptions permit otherwise GPLv2 incompatible combination with ASL 2.0
 # Automatically converted from old format: GPLv2 with exceptions and ASL 2.0 - review is highly recommended.
@@ -113,6 +113,9 @@ make -j 1 test EXTERNAL_LIBCUTL=y BOOST_LINK_SYSTEM=y
 %doc apidocdir/*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-0.17.a11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 18 2024 Pete Walter <pwalter@fedoraproject.org> - 4.1.0-0.16.a11
 - Rebuild for xerces-c 3.3
 

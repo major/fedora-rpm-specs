@@ -1,6 +1,6 @@
 Name:		sediment
 Version:	0.9.4
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A function reordering tool set
 
 License:	GPL-3.0-or-later
@@ -49,6 +49,9 @@ make
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec 4 2024 William Cohen <wcohen@redhat.com> - 0.9.4-1
 - Eliminate versioning infomation in function names.
 

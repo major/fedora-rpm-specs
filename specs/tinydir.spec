@@ -13,7 +13,7 @@ TinyDir wraps dirent for POSIX and FindFirstFile for Windows.
 
 Name:           tinydir
 Version:        1.2.5
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        %{common_sum}
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -98,6 +98,9 @@ popd
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2.5-8
 - convert license to SPDX
 

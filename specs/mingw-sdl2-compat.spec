@@ -1,8 +1,8 @@
 %{?mingw_package_header}
 
-%global commit 10a9ed3db4fdaaa27912acf11b8d7561003c4f81
+%global commit 208cea955f571e0ff967f04f6bb04f7e5018070c
 %global shortcommit %{sub %{commit} 1 7}
-%global commitdate 20250116
+%global commitdate 20250119.1126
 
 %global origname sdl2-compat
 %global sdl3_minver 3.1.10
@@ -39,7 +39,7 @@ BuildRequires:  mingw32-filesystem >= 95
 BuildRequires:  mingw32-gcc
 BuildRequires:  mingw32-SDL3 >= %{sdl3_minver}
 # This replaces SDL2
-Obsoletes:      mingw32-SDL2 < 2.30.50~
+Obsoletes:      mingw32-SDL2 < 2.30.11-2
 Conflicts:      mingw32-SDL2 < 2.30.50~
 Provides:       mingw32-SDL2 = %{version}
 # This dlopens SDL3 (?!), so manually depend on it
@@ -62,7 +62,7 @@ BuildRequires:  mingw64-filesystem >= 95
 BuildRequires:  mingw64-gcc
 BuildRequires:  mingw64-SDL3 >= %{sdl3_minver}
 # This replaces SDL2
-Obsoletes:      mingw64-SDL2 < 2.30.50~
+Obsoletes:      mingw64-SDL2 < 2.30.11-2
 Conflicts:      mingw64-SDL2 < 2.30.50~
 Provides:       mingw64-SDL2 = %{version}
 # This dlopens SDL3 (?!), so manually depend on it
@@ -132,6 +132,12 @@ rm -rf %{buildroot}%{mingw64_datadir}/aclocal
 
 
 %changelog
+* Sun Jan 19 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.30.50~git20250119.1126.208cea9-1
+- Bump to new git snapshot
+
+* Sun Jan 19 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.30.50~git20250116.10a9ed3-2
+- Fix mingw-SDL2 obsoletes
+
 * Fri Jan 17 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.30.50~git20250116.10a9ed3-1
 - Bump to new git snapshot
 

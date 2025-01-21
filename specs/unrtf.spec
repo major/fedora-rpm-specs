@@ -1,7 +1,7 @@
 Name:		unrtf
 Summary:	RTF (Rich Text Format) to other formats converter
 Version:	0.21.9
-Release:	22%{?dist}
+Release:	23%{?dist}
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:	GPL-3.0-or-later
@@ -53,6 +53,9 @@ make check
 %{_datadir}/%{name}/
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.9-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.21.9-22
 - convert license to SPDX
 

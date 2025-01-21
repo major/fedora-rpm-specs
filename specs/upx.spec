@@ -1,6 +1,6 @@
 Name:           upx
 Version:        4.2.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Ultimate Packer for eXecutables
 
 License:        GPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain
@@ -44,6 +44,9 @@ rm -f %{buildroot}%{_datadir}/doc/upx/*
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec 18 2024 Gwyn Ciesla <gwync@protonmail.com> - 4.2.4-3
 - Provide bundled lzma-sdk
 

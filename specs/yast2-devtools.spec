@@ -37,7 +37,7 @@
 
 Name:		%{suite_name}2-%{name_suffix}
 Version:	3.1.36
-Release:	20%{?gitrel}%{?dist}
+Release:	21%{?gitrel}%{?dist}
 Summary:	YaST Development Tools
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -181,6 +181,9 @@ fi
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.36-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 3.1.36-20
 - convert license to SPDX
 

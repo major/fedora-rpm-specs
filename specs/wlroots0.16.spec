@@ -5,7 +5,7 @@
 
 Name:           %{compat_name}%{compat_ver}
 Version:        %{compat_ver}.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A modular Wayland compositor library
 
 # Source files/overall project licensed as MIT, but
@@ -121,6 +121,9 @@ MESON_OPTIONS=(
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

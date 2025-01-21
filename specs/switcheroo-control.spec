@@ -1,6 +1,6 @@
 Name:           switcheroo-control
 Version:        2.6
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        D-Bus service to check the availability of dual-GPU
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -73,6 +73,9 @@ fi
 %{_datadir}/gtk-doc/html/%{name}/
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.6-7
 - convert license to SPDX
 

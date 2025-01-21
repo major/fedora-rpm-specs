@@ -12,6 +12,11 @@ Source:         %pypi_source %{srcname}
 # Fix test_dask_da_groupby_quantile.
 Patch:          https://github.com/pydata/xarray/pull/9945.patch
 
+# https://github.com/pydata/xarray/pull/9949
+Patch:          0001-Fix-test_doc_example-on-big-endian-systems.patch
+# https://github.com/pydata/xarray/pull/9964
+Patch:          0002-Avoid-unsafe-casts-from-float-to-unsigned-int.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

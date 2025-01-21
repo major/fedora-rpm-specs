@@ -3,15 +3,18 @@
 
 Summary:        World's most popular Open Source IRC bot
 Name:           eggdrop
-Version:        1.9.5
-Release:        6%{?dist}
+Version:        1.10.0
+Release:        1%{?dist}
 # Eggdrop itself is GPL-2.0-or-later but uses other source codes, breakdown:
+# GPL-2.0-only: src/mod/pbkdf2.mod/{pbkdf2,tclpbkdf2}.c
 # BSD-3-Clause: src/compat/inet_aton.c
 # ISC: src/compat/{base64,explicit_bzero,inet_aton,strlcpy}.c
-License:        GPL-2.0-or-later AND BSD-3-Clause AND ISC
+# LicenseRef-Fedora-Public-Domain: src/md5/{md5.h,md5c.c}
+# MIT: doc/html/_static/{jquery,underscore}.js
+License:        GPL-2.0-or-later AND GPL-2.0-only AND BSD-3-Clause AND ISC AND LicenseRef-Fedora-Public-Domain AND MIT
 URL:            https://www.eggheads.org/
-Source0:        https://ftp.eggheads.org/pub/eggdrop/source/1.9/%{name}-%{version}.tar.gz
-Source1:        https://ftp.eggheads.org/pub/eggdrop/source/1.9/%{name}-%{version}.tar.gz.asc
+Source0:        https://ftp.eggheads.org/pub/eggdrop/source/1.10/%{name}-%{version}.tar.gz
+Source1:        https://ftp.eggheads.org/pub/eggdrop/source/1.10/%{name}-%{version}.tar.gz.asc
 Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/E01C240484DE7DBE190FE141E7667DE1D1A39AFF
 Patch0:         eggdrop-1.6.17-langdir.patch
 BuildRequires:  gnupg2
@@ -20,6 +23,12 @@ BuildRequires:  make
 BuildRequires:  tcl-devel >= 8.5
 BuildRequires:  zlib-devel
 BuildRequires:  openssl-devel
+%if 0%{?fedora} || 0%{?rhel} >= 9
+BuildRequires:  python-devel >= 3.8.0
+%else
+# Application Stream supported until EOL of RHEL 8
+BuildRequires:  python3.12-devel
+%endif
 
 %description
 Eggdrop is the world's most popular Open Source IRC bot, designed
@@ -34,6 +43,7 @@ able to form botnets, share partylines and userfiles between bots.
 touch -c -r doc/man1/%{name}.1{.langdir,}
 
 %build
+export CFLAGS="$RPM_OPT_FLAGS -std=gnu17"  # https://github.com/eggheads/eggdrop/issues/1740
 %configure
 make config
 # Parallel builds are not supported 
@@ -44,7 +54,7 @@ mkdir -p $RPM_BUILD_ROOT{%{_datadir}/%{name},%{_libdir},%{_mandir}/man1}/
 %make_install DEST=$RPM_BUILD_ROOT%{_datadir}/%{name}
 
 rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/{README,doc,eggdrop*,filesys,logs,modules,scripts/CONTENTS}
-install -D -m 755 %{name} $RPM_BUILD_ROOT%{_bindir}/%{name}
+install -D -m 0755 %{name} $RPM_BUILD_ROOT%{_bindir}/%{name}
 
 # Fix paths while installing man page
 sed -e 's@doc/@%{_pkgdocdir}/@g' doc/man1/%{name}.1 > $RPM_BUILD_ROOT%{_mandir}/man1/%{name}.1
@@ -68,16 +78,19 @@ done
 
 %files
 %license COPYING
-%doc FEATURES NEWS README doc/Changes1.9 eggdrop.conf eggdrop-basic.conf
-%doc doc/ABOUT doc/BANS doc/BOTNET doc/BUG-REPORT doc/FIRST-SCRIPT doc/IPV6
-%doc doc/IRCv3 doc/MODULES doc/PARTYLINE doc/PBKDF2 doc/TLS doc/TRICKS
-%doc doc/TWITCH doc/USERS doc/tcl-commands.doc doc/settings doc/html
+%doc FEATURES NEWS README doc/Changes1.10 eggdrop.conf eggdrop-basic.conf
+%doc doc/ABOUT doc/ACCOUNTS doc/AUTOSCRIPTS doc/BANS doc/BOTNET doc/BUG-REPORT
+%doc doc/FIRST-SCRIPT doc/IPV6 doc/IRCv3 doc/PARTYLINE doc/PBKDF2 doc/TLS
+%doc doc/TRICKS doc/TWITCH doc/USERS doc/tcl-commands.doc doc/settings doc/html
 %{_bindir}/%{name}
 %{_libdir}/%{name}/
 %{_datadir}/%{name}/
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sun Jan 19 2025 Robert Scheck <robert@fedoraproject.org> 1.10.0-1
+- Upgrade to 1.10.0 (#2337700, #2338018)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
-Version:        0.42.0
+Version:        0.44.0
 Name:           lfortran
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        A modern Fortran compiler
 
 # Main code is BSD-3-Clause
@@ -171,6 +171,9 @@ This package contains the jupyter kernel for %{name}.
 %endif
 
 %changelog
+* Sun Jan 19 2025 Christoph Junghans <junghans@votca.org> - 0.44.0-1
+- Version bump to v0.44.0 (bug #2338372)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.42.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

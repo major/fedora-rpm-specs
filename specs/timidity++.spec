@@ -7,7 +7,7 @@
 Summary: A software wavetable MIDI synthesizer
 Name: timidity++
 Version: 2.15.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 Source0: http://downloads.sourceforge.net/timidity/TiMidity++-2.15.0.tar.xz
 Source1: timidity.desktop
 Source2: timidity-xaw.desktop
@@ -103,6 +103,9 @@ install -p -m 644 interface/pixmaps/timidity.xpm \
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.15.0-11
 - convert license to SPDX
 

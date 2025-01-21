@@ -3,7 +3,7 @@
 Summary: Realtime software looping sampler
 Name: sooperlooper
 Version: 1.7.9
-Release: 1%{?dist}
+Release: 2%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: https://sonosaurus.com/sooperlooper/
@@ -68,6 +68,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 10 2025 Sérgio Basto <sergio@serjux.com> - 1.7.9-1
 - Update sooperlooper to 1.7.9
 

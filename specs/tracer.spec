@@ -18,7 +18,7 @@
 
 Name:       tracer
 Version:    1.2
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Finds outdated running applications in your system
 
 BuildArch:  noarch
@@ -205,6 +205,9 @@ make DESTDIR=%{buildroot}%{_datadir} mo
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Nov 12 2024 Jakub Kadlcik <frostyx@email.cz> 1.2-1
 - Implement support for DNF5 (frostyx@email.cz)
 

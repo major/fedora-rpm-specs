@@ -27,7 +27,7 @@ Summary:        Notifier for USB Firewall to use with desktop environments
 URL:            https://github.com/kochstefan/usbauth-all/tree/master/usbauth-notifier
 Source:         https://github.com/kochstefan/usbauth-all/archive/v%{version}.tar.gz
 
-Release:        5%{?dist}
+Release:        6%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 
@@ -77,6 +77,9 @@ popd
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.4-5
 - convert license to SPDX
 

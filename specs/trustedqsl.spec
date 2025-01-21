@@ -5,7 +5,7 @@
 
 Name:           trustedqsl
 Version:        2.7.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool for digitally signing Amateur Radio QSO records
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -112,6 +112,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 18 2024 Richard Shaw <hobbes1069@gmail.com> - 2.7.5-1
 - Update to 2.7.5.
 

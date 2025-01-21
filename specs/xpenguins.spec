@@ -1,6 +1,6 @@
 Name: xpenguins
 Version: 2.2
-Release: 37%{?dist}
+Release: 38%{?dist}
 Summary: Cute little penguins that walk along the tops of your windows
 Summary(sv): Söta små pingviner som vandrar längs överkanterna på dina fönster
 
@@ -114,6 +114,9 @@ appstream-util validate-relax --nonet \
 %_datadir/metainfo/%name.appdata.xml
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.2-37
 - convert license to SPDX
 

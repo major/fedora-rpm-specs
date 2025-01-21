@@ -1,6 +1,6 @@
 Name:           xsecurelock
 Version:        1.8.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        X11 screen lock utility with security in mind
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -62,6 +62,9 @@ rm %{buildroot}%{_pkgdocdir}/LICENSE
 %{_libexecdir}/%{name}/saver_mpv
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 1.8.0-7
 - convert license to SPDX
 

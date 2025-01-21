@@ -107,14 +107,6 @@ Patch16: ghc-hadrian-s390x-rts--qg.patch
 Patch26: no-missing-haddock-file-warning.patch
 Patch27: haddock-remove-googleapis-fonts.patch
 
-# RISCV64 added to Cabal
-# See: https://github.com/haskell/cabal/pull/9062
-Patch40: cabal-add-riscv64.patch
-
-# Enable GHCi support on riscv64
-# Upstream in >= 9.9.
-Patch41: https://gitlab.haskell.org/ghc/ghc/-/commit/dd38aca95ac25adc9888083669b32ff551151259.patch
-
 # https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms
 
 # fedora ghc has been bootstrapped on
@@ -434,13 +426,6 @@ rm libffi-tarballs/libffi-*.tar.gz
 #%%patch -P24 -p1 -b .orig
 #%%patch -P26 -p1 -b .orig
 #%%patch -P27 -p1 -b .orig
-
-%ifarch riscv64
-#RISCV64 cabal support
-%patch -P40 -p1 -b .orig
-#GHCi support
-%patch -P41 -p1 -b .orig
-%endif
 
 
 %build

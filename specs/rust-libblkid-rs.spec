@@ -6,7 +6,7 @@
 
 Name:           rust-libblkid-rs
 Version:        0.3.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        High level bindings for libblkid
 
 License:        MPL-2.0
@@ -78,6 +78,9 @@ use the "deprecated" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

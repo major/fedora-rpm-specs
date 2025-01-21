@@ -1,6 +1,6 @@
 Name: wmx
 Version: 8
-Release: 24%{?dist}
+Release: 25%{?dist}
 Summary: A really simple window manager for X
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
@@ -47,6 +47,9 @@ configurable options.
 %{_sysconfdir}/X11/xinit/Xclients.d/*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 8-24
 - convert license to SPDX
 

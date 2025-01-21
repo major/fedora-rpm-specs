@@ -33,7 +33,7 @@ Version:       0.1.1
 %endif
 %endif
 
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Tool for interactive command line environments on Linux
 
 License:       Apache-2.0
@@ -210,6 +210,9 @@ install -m0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/containers/%{name}.conf
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 04 2024 Debarshi Ray <rishi@fedoraproject.org> - 0.1.1-1
 - Update to 0.1.1
 

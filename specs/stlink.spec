@@ -5,7 +5,7 @@
 Name:           stlink
 Version:        1.8.0
 # Release:        0.1.%{date}git%{gitcommit}%{?dist}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        STM32 discovery line Linux programmer
 License:        BSD-3-Clause
 
@@ -92,6 +92,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}-gui.desktop
 # %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

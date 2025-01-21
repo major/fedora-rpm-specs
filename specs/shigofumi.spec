@@ -1,6 +1,6 @@
 Name:           shigofumi
 Version:        0.9
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Command line client for accessing the Czech Data Boxes
 # COPYING:          GPL-3.0 text
 # README:           GPL-3.0-or-later
@@ -97,6 +97,9 @@ autoreconf -fi
 %{_mandir}/*/man5/shigofumirc.*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Sep 05 2024 Petr Pisar <ppisar@redhat.com> - 0.9-12
 - Convert license tag to SPDX
 

@@ -4,7 +4,7 @@
 Summary: Lightweight library to easily extract data from zip files
 Name: zziplib
 Version: 0.13.74
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: LGPL-2.0-or-later OR MPL-1.1
 URL: http://zziplib.sourceforge.net/
 Source: https://github.com/gdraheim/zziplib/archive/v%{version}.tar.gz
@@ -89,6 +89,9 @@ zziplib library.
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.74-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.74-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

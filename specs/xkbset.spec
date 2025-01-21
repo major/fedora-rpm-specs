@@ -1,6 +1,6 @@
 Name:           xkbset
 Version:        0.5
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Tool to configure XKB extensions
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -60,6 +60,9 @@ desktop-file-install                                    \
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5-28
 - convert license to SPDX
 

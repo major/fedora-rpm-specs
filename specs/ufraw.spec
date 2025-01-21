@@ -10,7 +10,7 @@
 Name:           ufraw
 Summary:        Raw image data retrieval tool for digital cameras
 Version:        0.23
-Release:        0.25.20210425%{?dist}
+Release:        0.26.20210425%{?dist}
 
 # GPL-2.0-or-later: main program
 # GPL-2.0-only:
@@ -134,6 +134,9 @@ install -D -m0644 %{SOURCE2} %{buildroot}%{_datadir}/thumbnailers/%{name}.thumbn
 %endif
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-0.26.20210425
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Aug 31 2024 Nils Philippsen <nils@tiptoe.de> - 0.23-0.25.20210425
 - Don’t build GIMP plugin from Fedora Linux 41 on, and obsolete it
   (rhbz#2307974)

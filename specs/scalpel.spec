@@ -1,6 +1,6 @@
 Name:           scalpel
 Version:        2.1
-Release:        0.rc2.%{shortcommit}%{?dist}.5
+Release:        0.rc2.%{shortcommit}%{?dist}.6
 Summary:        Fast file carver working on disk images
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -80,6 +80,9 @@ rm -f  %{buildroot}/%{_libdir}/libscalpel*.la
 %endif
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-0.rc2.%{shortcommit}.6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.1-0.rc2.35e1367.5
 - convert license to SPDX
 

@@ -5,7 +5,7 @@
 Name:          yelp
 Epoch:         2
 Version:       42.2
-Release:       7%{?dist}
+Release:       8%{?dist}
 Summary:       Help browser for the GNOME desktop
 
 # Automatically converted from old format: LGPLv2+ and ASL 2.0 and GPLv2+ - review is highly recommended.
@@ -96,6 +96,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/yelp.desktop
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:42.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2:42.2-7
 - convert license to SPDX
 

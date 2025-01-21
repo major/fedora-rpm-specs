@@ -2,7 +2,7 @@
 
 Name:           vo-amrwbenc
 Version:        0.1.3
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        VisualOn AMR-WB encoder library
 License:        Apache-2.0
 URL:            http://opencore-amr.sourceforge.net/
@@ -51,6 +51,9 @@ rm %{buildroot}%{_libdir}/libvo-amrwbenc.la
 %{_libdir}/pkgconfig/vo-amrwbenc.pc
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

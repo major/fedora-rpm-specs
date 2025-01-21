@@ -2,7 +2,7 @@
 Summary:	A daemon to record and keep track of system up times
 Name:		uptimed
 Version:	0.4.7
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL-2.0-only
 URL:		https://github.com/rpodgorny/uptimed/
 Source0:	https://github.com/rpodgorny/%{name}/archive/v%{version}.tar.gz
@@ -79,6 +79,9 @@ mkdir -p %{buildroot}%{_localstatedir}/spool/uptimed
 %{_includedir}/uptimed.h
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jan 13 2025 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 0.4.7-1
 - Update to 0.4.7 (#2337462)
 

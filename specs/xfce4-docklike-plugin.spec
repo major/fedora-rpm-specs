@@ -3,7 +3,7 @@
 
 Name:           xfce4-docklike-plugin
 Version:        0.4.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A modern, minimalist taskbar for Xfce
 
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND FSFUL
@@ -50,6 +50,9 @@ rm -f ChangeLog README
 %{_libdir}/xfce4/panel/plugins/libdocklike.so
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

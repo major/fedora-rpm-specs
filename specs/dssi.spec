@@ -1,7 +1,7 @@
 Summary:      Disposable Soft Synth Interface
 Name:         dssi
 Version:      1.1.1
-Release:      31%{?dist}
+Release:      32%{?dist}
 # Automatically converted from old format: MIT - review is highly recommended.
 License:      MIT
 URL:          http://dssi.sourceforge.net/
@@ -9,7 +9,8 @@ Source0:      http://download.sf.net/sourceforge/%{name}/%{name}-%{version}.tar.
 Source1:      http://download.sf.net/sourceforge/%{name}/README
 # Fix 64bit plugin path
 # http://sourceforge.net/tracker/?func=detail&aid=2798711&group_id=104230&atid=637350
-Patch1:       dssi-lib64.patch
+Patch1:       %{name}-lib64.patch
+Patch2:       %{name}-liblo.patch
 
 BuildRequires: alsa-lib-devel
 BuildRequires: gcc
@@ -50,8 +51,7 @@ Requires: pkgconfig
 Libraries, include files, etc you can use to develop DSSI based applications.
 
 %prep
-%setup -q
-%patch -P1 -p1
+%autosetup -p1
 
 cp -a %{SOURCE1} README.%{version}
 
@@ -96,6 +96,9 @@ tests/controller
 %{_libdir}/pkgconfig/dssi.pc
 
 %changelog
+* Sun Jan 19 2025 Guido Aulisi <guido.aulisi@inps.it> - 1.1.1-32
+- Fix FTBFS in Fedora rawhide/f41
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

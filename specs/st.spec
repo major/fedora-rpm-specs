@@ -1,6 +1,6 @@
 Name:             st
 Version:          0.9.2
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          A simple terminal implementation for X
 %global           _stsourcedir %{_usrsrc}/%{name}-user-%{version}-%{release}
 License:          MIT
@@ -107,6 +107,9 @@ fi
 %{_stsourcedir}
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec 25 2024 Filipe Rosset <rosset.filipe@gmail.com> - 0.9.2-1
 - update to 0.9.2 fixes rhbz#2270294
 

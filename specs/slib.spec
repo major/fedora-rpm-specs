@@ -1,7 +1,7 @@
 Summary:      Platform independent library for scheme
 Name:         slib
 Version:      3b7
-Release:      6%{?dist}
+Release:      7%{?dist}
 # Automatically converted from old format: SLIB - review is highly recommended.
 License:      LicenseRef-SLIB
 BuildArch:    noarch
@@ -35,6 +35,9 @@ install -m644 slib.info $RPM_BUILD_ROOT%{_infodir}
 %{_infodir}/slib.*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3b7-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 3b7-6
 - convert license to SPDX
 

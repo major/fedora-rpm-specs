@@ -30,7 +30,7 @@
 Name:           %{pkg_name}
 Version:        2.15.7
 # can only be reset when all subpkgs bumped
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Haskell stable package build tool
 
 License:        BSD-3-Clause
@@ -468,6 +468,9 @@ PATH=%{buildroot}%{_bindir}:$PATH
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.7-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Dec  6 2024 Jens Petersen <petersen@redhat.com> - 2.15.7-34
 - split out with deps from haskell-platform
 

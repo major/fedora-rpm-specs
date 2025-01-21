@@ -1,6 +1,6 @@
 Name:           sjinn
 Version:        1.01
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Simple tool for sending & receiving data from RS-232 devices
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -115,6 +115,9 @@ make INSTALL="install -cDp" DESTDIR=%{buildroot} prefix=%{_prefix} \
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.01-32
 - convert license to SPDX
 

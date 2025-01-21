@@ -1,6 +1,6 @@
 Name:           xblast
 Version:        2.10.4
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Lay bombs and Blast the other players of the field (SDL version)
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -120,6 +120,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.4-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul  26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.10.4-41
 - convert license to SPDX
 

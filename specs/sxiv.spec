@@ -1,6 +1,6 @@
 Name:           sxiv
 Version:        26
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Simple (or small or suckless) X Image Viewer
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -51,6 +51,9 @@ cd icon && make install DESTDIR=%{buildroot} PREFIX=%{_prefix}
 %{_datadir}/icons/hicolor/*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 26-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 26-12
 - convert license to SPDX
 

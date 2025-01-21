@@ -2,7 +2,7 @@
 
 Name:           sip6
 Version:        6.9.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        SIP - Python/C++ Bindings Generator
 %py_provides    python3-sip6
 
@@ -52,6 +52,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %{python3_sitelib}/sipbuild/
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.9.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Dec 14 2024 Scott Talbert <swt@techie.net> - 6.9.1-1
 - Update to new upstream release 6.9.1 (#2332001)
 

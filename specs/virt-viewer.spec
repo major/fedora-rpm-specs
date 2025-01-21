@@ -11,7 +11,7 @@
 
 Name: virt-viewer
 Version: 11.0
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Virtual Machine Viewer
 License: GPL-2.0-or-later
 URL: https://gitlab.com/virt-viewer/virt-viewer
@@ -89,6 +89,9 @@ the display, and libvirt for looking up VNC/SPICE server details.
 %{_datadir}/bash-completion/completions/virt-viewer
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 11.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 11.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

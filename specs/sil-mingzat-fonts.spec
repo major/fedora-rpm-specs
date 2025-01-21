@@ -1,5 +1,5 @@
 Version:        1.100
-Release:        7%{?dist}
+Release:        8%{?dist}
 URL:            https://software.sil.org/mingzat/
 BuildRequires:  fonts-rpm-macros
 
@@ -54,6 +54,9 @@ Source10:   65-sil-mingzat.conf
 %fontfiles
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.100-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.100-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           xde-menu
 Version:        0.14
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Menu system for the X Desktop Environment
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -79,6 +79,9 @@ rm %{buildroot}%{_libdir}/%{name}/modules/*.la
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.14-7
 - convert license to SPDX
 

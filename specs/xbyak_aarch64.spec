@@ -3,7 +3,7 @@ Name:           xbyak_aarch64
 License:        Apache-2.0
 
 Version:        1.1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 URL:            https://github.com/fujitsu/xbyak_aarch64
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -164,6 +164,9 @@ cd ..
 %{_libdir}/libxbyak_aarch64.a
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

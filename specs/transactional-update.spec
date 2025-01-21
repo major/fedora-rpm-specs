@@ -2,7 +2,7 @@
 
 Name:           transactional-update
 Version:        4.8.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Transactional Updates with btrfs and snapshots
 
 License:        GPL-2.0-or-later and LGPL-2.1-or-later
@@ -179,6 +179,9 @@ rm -rf %{buildroot}%{_docdir}
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Oct 16 2024 Neal Gompa <ngompa@fedoraproject.org> - 4.8.3-1
 - Rebase to 4.8.3
 

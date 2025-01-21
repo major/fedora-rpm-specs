@@ -6,7 +6,7 @@
 
 Name:           vncpwd
 Version:        0.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        VNC Password Decrypter
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -42,6 +42,9 @@ make install DESTDIR="%{buildroot}"
 %{_bindir}/%{name}
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1-7
 - convert license to SPDX
 

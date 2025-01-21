@@ -1,6 +1,6 @@
 Name:           xmountains
 Version:        2.11
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A fractal terrain generator
 
 # SPDX confirmed
@@ -79,6 +79,9 @@ fi
 %{_datadir}/xscreensaver/*/*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.11-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 15 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.11-3
 - Port to C23
 

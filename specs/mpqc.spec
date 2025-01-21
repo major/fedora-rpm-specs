@@ -1,7 +1,7 @@
 Name:           mpqc
 Summary:        Ab-inito chemistry program
 Version:        2.3.1
-Release:        61%{?dist}
+Release:        62%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:            http://www.mpqc.org/
@@ -11,8 +11,10 @@ Patch0:         mpqc-2.3.1-mdv-fix-wfn-lib.patch
 Patch1:         mpqc-2.3.1-format-security.patch
 # C++11 build fix
 Patch2:         mpqc-2.3.1-cpp11-constexpr.patch
+# C23 strict function prototype fix
+Patch3:         mpqc-2.3.1-c23-function-prototype.patch
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  libtool flex bison
 BuildRequires:  desktop-file-utils
@@ -69,6 +71,7 @@ based on mpqc computational chemistry package from Sandia Labs.
 %patch -P0 -p1
 %patch -P1 -p1
 %patch -P2 -p1 -b .cpp11
+%patch -P3 -p1 -b .c23
 sed -i -e 's,molrender.in,%{_datadir}/molrender/molrender.in,g' src/bin/molrender/tkmolrender.in
 sed -i -e 's,prefix/lib,prefix/%{_lib},g' configure.in
 # fixup for modern autoreconf
@@ -191,6 +194,9 @@ done
 
 
 %changelog
+* Sun Jan 19 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.3.1-62
+- Support C23 strict function prototype
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-61
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

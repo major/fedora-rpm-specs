@@ -2,7 +2,7 @@ Summary:        Web Services Description Language Toolkit for Java
 Name:           wsdl4j
 Epoch:          0
 Version:        1.6.3
-Release:        32%{?dist}
+Release:        33%{?dist}
 # Automatically converted from old format: CPL - review is highly recommended.
 License:        CPL-1.0
 URL:            http://sourceforge.net/projects/wsdl4j
@@ -62,6 +62,9 @@ ln -sf ../qname.jar %{buildroot}%{_javadir}/javax.wsdl/
 %license license.html
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0:1.6.3-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 0:1.6.3-32
 - convert license to SPDX
 

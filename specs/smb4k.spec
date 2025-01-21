@@ -11,7 +11,7 @@
 
 Name:       smb4k
 Version:    3.2.92
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    The SMB/CIFS Share Browser for KDE
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -130,6 +130,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_kf6_metainfodir}/*.appdata
 %{_kf6_qmldir}/org/kde/smb4k/
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.92-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jan 11 2025 Marie Loise Nolden <loise@kde.org> - 3.2.92-1
 - update to 3.2.92 using Qt6/KF6
 

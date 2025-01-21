@@ -24,6 +24,8 @@ Source0:        %{gosource}
 
 # Remove the github.com/inconshreveable/go-update dependency
 Patch:          0001-Disable-self-update.patch
+# Fix build with Go 1.24.
+Patch:          0002-Fix-non-constant-format-strings.patch
 
 BuildRequires:  golang(github.com/blang/semver)
 BuildRequires:  golang(github.com/spf13/cobra) >= 1.7

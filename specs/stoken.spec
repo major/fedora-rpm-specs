@@ -1,6 +1,6 @@
 Name:           stoken
 Version:        0.92
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Token code generator compatible with RSA SecurID 128-bit (AES) token
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -109,6 +109,9 @@ rm -fr %{buildroot}%{_docdir}/%{name}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.92-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.92-12
 - convert license to SPDX
 

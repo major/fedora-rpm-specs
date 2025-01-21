@@ -4,7 +4,7 @@
 
 Name: sdubby
 Version: 1.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Set of systemd-boot shims that don't fit anywhere else in the distro
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -81,6 +81,9 @@ install -TD -m 444 %{SOURCE6} %{buildroot}%{_sysconfdir}/kernel/install.conf
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 26 2024 Jeremy Linton <jeremy.linton@arm.com> 1.0-11
 - BZ 2271533 Support ALL for add/remove kernel options
 

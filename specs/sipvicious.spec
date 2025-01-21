@@ -2,7 +2,7 @@
 
 Name:           %{pypi_name}
 Version:        0.3.3
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Set of tools to audit SIP based VoIP systems
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -61,6 +61,9 @@ mv %{buildroot}/usr/man/man1/sv*.* %{buildroot}/%{_mandir}/man1/
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.3.3-13
 - convert license to SPDX
 

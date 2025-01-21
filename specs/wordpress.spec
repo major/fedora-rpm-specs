@@ -15,7 +15,7 @@ Summary:    Blog tool and publishing platform
 URL:        https://wordpress.org/
 Name:       wordpress
 Version:    %{upstream_version}%{?upstream_prever:~%upstream_lower}
-Release:    1%{?dist}
+Release:    2%{?dist}
 # Wordpress     is GPL-2.0-or-later
 # php-simplepie is BSD-3-Clause
 # php-getid3    is LGPL-3.0-or-later (or some others)
@@ -252,6 +252,9 @@ end
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.7.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Nov 22 2024 Remi Collet <remi@remirepo.net> - 6.7.1-1
 - WordPress 6.7.1 Maintenance Release
 

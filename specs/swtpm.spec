@@ -8,7 +8,7 @@
 Summary: TPM Emulator
 Name:           swtpm
 Version:        0.10.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 License:        BSD-3-Clause
 Url:            https://github.com/stefanberger/swtpm
 Source0:        https://github.com/stefanberger/swtpm/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -204,6 +204,9 @@ fi
 %{_libexecdir}/installed-tests/swtpm/
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Dec 27 2024 Stefan Berger <stefanb@linux.ibm.com> - 0.10.0-5
 - Fix build error on 32bit systems due to inconsistent _FILE_OFFSET_BITS
 

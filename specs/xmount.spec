@@ -2,7 +2,7 @@
 
 Name:           xmount
 Version:        0.7.6
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        A on-the-fly convert for multiple hard disk image types
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -68,6 +68,9 @@ chmod -x src/xmount.*
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.6-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.7.6-16
 - convert license to SPDX
 

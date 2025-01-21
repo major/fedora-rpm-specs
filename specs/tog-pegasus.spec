@@ -6,7 +6,7 @@
 
 Name:           tog-pegasus
 Version:        %{major_ver}.1
-Release:        75%{?dist}
+Release:        76%{?dist}
 Epoch:          2
 Summary:        OpenPegasus WBEM Services for Linux
 
@@ -574,6 +574,9 @@ fi
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:2.14.1-76
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Aug 30 2024 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.14.1-75
 - Add epoch prefix to version-release in requires
 - Add rpminspect.yaml to adjust configuration for rpminspect run

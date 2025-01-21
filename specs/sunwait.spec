@@ -3,7 +3,7 @@
 Name:           sunwait
 Summary:        Calculate sunrise, sunset, twilight
 Version:        0.1
-Release:        0.24.%{pkgdate}%{?dist}
+Release:        0.25.%{pkgdate}%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://www.risacher.org/sunwait/
@@ -49,6 +49,9 @@ install -m 755 sunwait ${RPM_BUILD_ROOT}/%{_bindir}
 %{_bindir}/sunwait
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.25.20041208
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1-0.24.20041208
 - convert license to SPDX
 

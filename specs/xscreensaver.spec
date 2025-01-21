@@ -12,7 +12,7 @@
 %define split_getimage   1
 %endif
 
-%define baserelease    3
+%define baserelease    4
 
 %global use_clang_as_cc 0
 %global use_clang_analyze 0
@@ -1193,6 +1193,9 @@ exit 0
 %endif
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.09-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 23 2024 Fabio Valentini <decathorpe@gmail.com> - 1:6.09-3
 - Rebuild for ffmpeg 7
 

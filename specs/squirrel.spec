@@ -1,6 +1,6 @@
 Name:           squirrel
 Version:        3.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        High level imperative/OO programming language
 
 License:        Zlib
@@ -82,6 +82,9 @@ install -p -m 644 %{SOURCE1} %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

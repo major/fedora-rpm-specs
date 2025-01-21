@@ -1,6 +1,6 @@
 Name:           sympow
 Version:        2.023.6
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Special Values of Symmetric Power Elliptic Curve L-Functions
 
 # The License tag is a lie.  See
@@ -90,6 +90,9 @@ cp -a binfiles %{buildroot}%{_var}/cache/%{name}/datafiles
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.023.6-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.023.6-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

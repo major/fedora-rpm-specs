@@ -1,6 +1,6 @@
 Name:           terminology
 Version:        1.13.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 Summary:        EFL based terminal emulator
@@ -68,6 +68,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/terminology.desktop
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.13.0-7
 - convert license to SPDX
 

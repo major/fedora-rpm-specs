@@ -1,6 +1,6 @@
 Name: speedtest-cli
 Version: 2.1.3
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: Command line interface for testing internet bandwidth
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -40,6 +40,9 @@ rm -f %{buildroot}%{_bindir}/speedtest
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.3-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 2.1.3-13
 - convert license to SPDX
 

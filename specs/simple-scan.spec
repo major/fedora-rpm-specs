@@ -2,7 +2,7 @@
 
 Name:           simple-scan
 Version:        46.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Simple scanning utility
 
 # Sources are under GPLv3+, icon and help are under CC-BY-SA.
@@ -60,6 +60,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/glib-2.0/schemas/org.gnome.SimpleScan.gschema.xml
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 46.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 46.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           tth
 Version:        4.16
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        TeX to HTML/MathML translators
 
 License:        GPL-2.0-only
@@ -251,6 +251,9 @@ cp -p tthgold/tth*.sty %{buildroot}%{_texmf_main}/tex/generic/%{name}
 %{_includedir}/tth.h
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.16-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jan 15 2025 Jerry James <loganjerry@gmail.com> - 4.16-5
 - Add patch for C23 compatibility
 

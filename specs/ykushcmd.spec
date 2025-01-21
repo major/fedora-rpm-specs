@@ -1,6 +1,6 @@
 Name:           ykushcmd
 Version:        1.2.3
-Release:        10%{?gitsnap:.%{gitsnap}}%{?dist}
+Release:        11%{?gitsnap:.%{gitsnap}}%{?dist}
 Summary:        YKUSH Boards Control Application 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -37,6 +37,9 @@ install bin/ykushcmd %{buildroot}%{_bindir}
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2.3-10
 - convert license to SPDX
 

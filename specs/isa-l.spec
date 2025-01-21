@@ -1,11 +1,13 @@
 Name:		isa-l
 Version:	2.31.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Intel(R) Intelligent Storage Acceleration Library
 
 License:	BSD-3-Clause
 URL:		https://github.com/intel/isa-l
 Source0:	%{url}/archive/v%{version}/isa-l-%{version}.tar.gz
+#		https://github.com/intel/isa-l/pull/310
+Patch0:		0001-Adderss-compiler-warnings-on-ppc64le-and-s390x.patch
 
 ExcludeArch:	%{ix86}
 
@@ -54,6 +56,7 @@ This package contains CLI tools.
 
 %prep
 %setup -q
+%patch -P0 -p1
 
 %build
 autoreconf -v -f -i
@@ -85,6 +88,9 @@ rm %{buildroot}%{_libdir}/*.la
 %{_mandir}/man1/igzip.1*
 
 %changelog
+* Sat Jan 18 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.31.1-3
+- Adderss compiler warnings on ppc64le and s390x
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.31.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

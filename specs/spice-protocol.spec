@@ -1,6 +1,6 @@
 Name:           spice-protocol
 Version:        0.14.4
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Spice protocol header files
 # Main headers are BSD, controller / foreign menu are LGPL
 License:        BSD-3-Clause AND LGPL-2.1-or-later
@@ -37,6 +37,9 @@ gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.4-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

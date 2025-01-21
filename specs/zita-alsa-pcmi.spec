@@ -1,7 +1,7 @@
 Summary:       ALSA C++ library
 Name:          zita-alsa-pcmi
 Version:       0.6.1
-Release:       6%{?dist}
+Release:       7%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later 
 URL:           http://kokkinizita.linuxaudio.org
@@ -74,6 +74,9 @@ ln -sf lib%{name}.so.%{version} source/lib%{name}.so
 %{_bindir}/alsa_loopback
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.6.1-6
 - convert license to SPDX
 

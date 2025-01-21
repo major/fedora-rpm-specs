@@ -1,7 +1,7 @@
 Summary: Exchange data with Siemens mobile phones
 Name: scmxx
 Version: 0.9.0
-Release: 33%{?dist}
+Release: 34%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: http://www.hendrik-sattler.de/scmxx
@@ -44,6 +44,9 @@ make install DESTDIR=%{buildroot}
 %lang(ru) %{_mandir}/ru/man1/scmxx.1.gz
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.9.0-33
 - convert license to SPDX
 

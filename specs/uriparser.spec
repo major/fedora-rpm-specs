@@ -6,7 +6,7 @@
 
 Name:           uriparser
 Version:        0.9.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        URI parsing library - RFC 3986
 
 # /test/ is under LGPL-2.1-or-later but not included in RPM
@@ -144,6 +144,9 @@ sed -i 's/GENERATE_QHP\ =\ yes/GENERATE_QHP\ =\ no/g' doc/Doxyfile.in
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

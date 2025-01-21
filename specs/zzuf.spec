@@ -1,6 +1,6 @@
 Name:           zzuf
 Version:        0.15
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Transparent application input fuzzer
 
 License:        WTFPL
@@ -57,6 +57,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/zzuf/libzzuf.la
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

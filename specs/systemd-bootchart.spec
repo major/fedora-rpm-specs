@@ -1,6 +1,6 @@
 Name:           systemd-bootchart
 Version:        235
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Boot performance graphing tool
 
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
@@ -59,6 +59,9 @@ are displayed separately.
 %{_mandir}/man5/bootchart.conf.d.5*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 235-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Oct 30 2024 Andrea Bolognani <abologna@redhat.com> - 235-1
 - Update to v235 (RHBZ #2247564)
 

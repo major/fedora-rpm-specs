@@ -7,7 +7,7 @@
 
 Name:		wdsp
 Version:	0
-Release:	0.9.%{git_suffix}%{?dist}
+Release:	0.10.%{git_suffix}%{?dist}
 Summary:	DSP library for LinHPSDR
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -55,6 +55,9 @@ rmdir fftw
 %{_libdir}/libwdsp.so
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.10.20210705gitc55342c5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul  26 2024 Miroslav Suchý <msuchy@redhat.com> - 0-0.9.20210705gitc55342c5
 - convert license to SPDX
 

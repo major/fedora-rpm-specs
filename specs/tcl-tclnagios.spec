@@ -5,7 +5,7 @@
 
 Name:           tcl-tclnagios
 Version:        1.3
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Library to assist with writing Nagios plugins in Tcl
 
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
@@ -43,6 +43,9 @@ chmod a-x examples/*
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3-19
 - convert license to SPDX
 

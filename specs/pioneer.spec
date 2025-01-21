@@ -61,7 +61,7 @@ Obsoletes: %{name}-pionilliumtext22l-medium-fonts < %{version}-%{release}
 Name: pioneer
 Summary: A game of lonely space adventure
 Version: 20240710
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 ## Main license: GPLv3
 ## Dejavu font license: Bitstream Vera and Public Domain
@@ -111,6 +111,7 @@ Provides: bundled(fmt) = 6.2.1
 Patch0: %{name}-use_manual_installation.patch
 
 Patch1: %{name}-gcc14.patch
+Patch2: %{name}-fix_GCC15.patch
 
 %fontpkg -a
 
@@ -143,6 +144,7 @@ Data files of %{name}.
 %autosetup -n %{name}-%{version} -N
 %patch -P 0 -p1 -b .backup
 %patch -P 1 -p1 -b .backup
+%patch -P 2 -p1 -b .backup
 
 %build
 %if 0%{?use_autotools}
@@ -291,6 +293,9 @@ ln -sf %{_datadir}/fonts/pionilliumtext22l-fonts/PionilliumText22L-Medium.ttf %{
 
 
 %changelog
+* Sun Jan 19 2025 Antonio Trande <sagitter@fedoraproject.org> - 20240710-3
+- Fix GCC15 builds
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20240710-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

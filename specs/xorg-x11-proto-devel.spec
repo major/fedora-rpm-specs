@@ -6,7 +6,7 @@
 Summary: X.Org X11 Protocol headers
 Name: xorg-x11-proto-devel
 Version: 2024.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: BSD-2-Clause AND HPND AND HPND-sell-variant AND ICU AND MIT AND MIT-open-group AND SGI-B-2.0 AND SMLNJ AND X11 AND X11-distribute-modifications-variant
 URL: https://www.x.org
 BuildArch: noarch
@@ -210,6 +210,9 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/*/*.{html,svg}
 %dir %{_docdir}/xorgproto/
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2024.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

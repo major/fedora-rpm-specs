@@ -4,7 +4,7 @@
 
 Name:		snobol4
 Version:	2.3.1
-Release:	5%{?dist}
+Release:	6%{?dist}
 # Majority: BSD-2-Clause
 # BSD-3-Clause: modules/random/random.c
 # BSD-4-Clause: lib/bsd/popen.c
@@ -85,6 +85,9 @@ rm -rf %{buildroot}%{_libdir}/%{name}/%{version}/CHANGES %{buildroot}%{_libdir}/
 %{_libdir}/snobol4/%{version}/include
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

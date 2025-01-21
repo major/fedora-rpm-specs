@@ -2,7 +2,7 @@ Name:    spectacle
 Summary: Screenshot capture utility
 Epoch:   1
 Version: 6.2.90
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -123,6 +123,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.spectacle
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.2.90-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 10 2025 Timothée Ravier <tim@siosm.fr> - 6.2.90-2
 - Add qt6-qtimageformats recommends for animated tray icon
 

@@ -1,6 +1,6 @@
 Name:           system-config-rootpassword
 Version:        1.99.6
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        A graphical interface for modifying the rootpassword
 
 License:        GPL-1.0-or-later
@@ -67,6 +67,9 @@ desktop-file-install \
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.99.6-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.99.6-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

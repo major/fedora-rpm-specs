@@ -1,6 +1,6 @@
 Name:             umockdev
 Version:          0.19.1
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Mock hardware devices
 
 License:          LGPL-2.1-or-later
@@ -75,6 +75,9 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/umockdev
 %{_datadir}/vala/vapi/umockdev-1.0.vapi
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 02 2025 Packit <hello@packit.dev> - 0.19.1-1
 - preload: Restore errno in ioctl_emulate_open()
 - preload: Only emulate ioctls on emulated devices

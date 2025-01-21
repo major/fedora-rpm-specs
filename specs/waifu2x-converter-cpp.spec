@@ -1,6 +1,6 @@
 Name:           waifu2x-converter-cpp
 Version:        5.3.4
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Image Super-Resolution for Anime-style art using OpenCL and OpenCV
 
 # Automatically converted from old format: BSD and MIT - review is highly recommended.
@@ -60,6 +60,9 @@ sed -i 's|-mfloat-abi=hard -mfloat-abi=softfp|-mfloat-abi=hard|' CMakeLists.txt
 %{_libdir}/libw2xc.so
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.4-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 5.3.4-14
 - convert license to SPDX
 

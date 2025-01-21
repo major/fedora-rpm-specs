@@ -3,7 +3,7 @@
 Summary: A PDF file viewer for the X Window System
 Name: xpdf
 Version: 4.05
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: (GPL-2.0-only OR GPL-3.0-only) AND BSD-3-Clause
 Epoch: 1
 Url: https://www.xpdfreader.com/
@@ -341,6 +341,9 @@ sed -i -e 's:/usr/local/share/:%{_datadir}/:g' $RPM_BUILD_ROOT%{_sysconfdir}/xpd
 %{_libdir}/lib*.so.*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.05-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.05-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

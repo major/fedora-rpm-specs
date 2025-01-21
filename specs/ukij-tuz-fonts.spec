@@ -3,7 +3,7 @@
 %global fontname ukij-tuz
 
 Version: 3.10
-Release: 26%{?dist}
+Release: 27%{?dist}
 URL:     http://www.ukij.org/fonts/
 
 %global foundry           UKIJ
@@ -38,6 +38,9 @@ cp -p %{SOURCE0} .
 %fontfiles
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.10-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.10-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

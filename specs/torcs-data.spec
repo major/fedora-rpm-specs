@@ -1,6 +1,6 @@
 Name:           torcs-data
 Version:        1.3.7
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        The Open Racing Car Simulator data files
 
 # Automatically converted from old format: GPLv2+ and Free Art - review is highly recommended.
@@ -66,6 +66,9 @@ make datainstall DESTDIR=%{buildroot}
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.7-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 1.3.7-18
 - convert license to SPDX
 

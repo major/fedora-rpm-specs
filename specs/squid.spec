@@ -2,7 +2,7 @@
 
 Name:     squid
 Version:  6.12
-Release:  3%{?dist}
+Release:  4%{?dist}
 Summary:  The Squid proxy caching server
 Epoch:    7
 # See CREDITS for breakdown of non GPLv2+ code
@@ -315,6 +315,9 @@ fi
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7:6.12-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Nov 01 2024 Luboš Uhliarik <luhliari@redhat.com> - 7:6.12-3
 - better error handling in cache_swap.sh
 - added RuntimeDirectory to systemd service file

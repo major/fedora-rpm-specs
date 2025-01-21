@@ -1,6 +1,6 @@
 Name:           tilda
 Version:        2.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A Gtk based drop down terminal for Linux and Unix
 
 # Automatically converted from old format: GPLv2 and MIT - review is highly recommended.
@@ -70,6 +70,9 @@ install -D -p -m 644 %{name}.png \
 %{_metainfodir}/tilda.appdata.xml
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0.0-3
 - convert license to SPDX
 

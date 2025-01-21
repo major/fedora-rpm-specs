@@ -1,7 +1,7 @@
 Summary: A threaded Internet news reader
 Name: slrn
 Version: 1.0.3a
-Release: 17%{?dist}
+Release: 18%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: http://slrn.sourceforge.net/
@@ -128,6 +128,9 @@ exit 0
 %{_mandir}/man1/slrnpull.1*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3a-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.3a-17
 - convert license to SPDX
 

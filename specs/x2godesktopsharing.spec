@@ -1,6 +1,6 @@
 Name:           x2godesktopsharing
 Version:        3.2.0.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Share X11 desktops with other users via X2Go
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -74,6 +74,9 @@ getent group x2godesktopsharing >/dev/null || groupadd -r x2godesktopsharing
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 3.2.0.0-15
 - convert license to SPDX
 

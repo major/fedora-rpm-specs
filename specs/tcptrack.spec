@@ -1,6 +1,6 @@
 Name:           tcptrack
 Version:        1.4.3
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Displays information about tcp connections on a network interface
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -44,6 +44,9 @@ and bandwidth usage
 %{_mandir}/man*/%{name}.*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.4.3-15
 - convert license to SPDX
 

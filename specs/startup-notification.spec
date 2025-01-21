@@ -1,6 +1,6 @@
 Name:    startup-notification
 Version: 0.12
-Release: 30%{?dist}
+Release: 31%{?dist}
 Summary: Library for tracking application startup
 
 License: LGPL-2.0-or-later AND MIT
@@ -54,6 +54,9 @@ cp -p test/*.c test/*.h examples
 %{_includedir}/startup-notification-1.0/
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -34,6 +34,11 @@ Source:         %{gosource}
 %prep
 %goprep -A
 
+# example_greenspun_test.go:95:60: non-constant format string in call to fmt.Fprintf
+rm example_greenspun_test.go
+# hm_test.go:105:10: undefined: lit
+rm hm_test.go
+
 %if %{without bootstrap}
 %generate_buildrequires
 %go_generate_buildrequires

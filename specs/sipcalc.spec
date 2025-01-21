@@ -1,6 +1,6 @@
 Name: sipcalc
 Version: 1.1.6
-Release: 27%{?dist}
+Release: 28%{?dist}
 Summary: An "advanced" console based ip subnet calculator
 
 License: BSD-3-Clause
@@ -40,6 +40,9 @@ mv -f ChangeLog{.utf8,}
 %{_mandir}/man1/sipcalc.1.*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.6-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 31 2024 Michal Ambroz <rebus _AT seznam.cz> - 1.1.6-27
 - use current macros, spdx license
 

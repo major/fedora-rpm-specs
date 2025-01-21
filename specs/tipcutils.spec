@@ -1,6 +1,6 @@
 Name:       tipcutils
 Version:    3.0.6
-Release:    1%{?dist}
+Release:    2%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:    LicenseRef-Callaway-BSD
 URL:        http://tipc.sourceforge.net/
@@ -63,6 +63,9 @@ make install DESTDIR=%{buildroot}
 make check
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Sep 15 2024 Peter Hanecak <hany@hany.sk> - 3.0.6-1
 - Newer stable version
 - Dropped patches since no longer needed

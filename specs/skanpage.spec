@@ -1,6 +1,6 @@
 Name:     skanpage
 Version:  24.12.1
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  Utility to scan images and multi-page documents
 License:  BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only
 
@@ -88,6 +88,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.kde.%{name
 %{_kf6_datadir}/icons/hicolor/48x48/apps/%{name}.png
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 07 2025 Steve Cossette <farchord@gmail.com> - 24.12.1-1
 - 24.12.1
 

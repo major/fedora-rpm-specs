@@ -1,7 +1,7 @@
 Summary: Tracks and displays system calls associated with a running process
 Name: strace
 Version: 6.12
-Release: 1%{?dist}
+Release: 2%{?dist}
 # The test suite is GPLv2+, the bundled headers are GPLv2 with Linux syscall
 # exception, all the rest is LGPLv2.1+.
 %if 0%{?fedora} >= 35 || 0%{?centos} >= 9 || 0%{?rhel} >= 9
@@ -205,6 +205,9 @@ fi
 %{_mandir}/man1/*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Nov 18 2024 Dmitry V. Levin <ldv@strace.io> - 6.12-1
 - v6.11 -> v6.12.
 

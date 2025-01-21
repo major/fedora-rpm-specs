@@ -2,7 +2,7 @@ Summary:           Tiny IPv4 and IPv6 SIP redirect server written in Perl
 Summary(de):       Ein winziger, in Perl geschriebener, SIP Redirekt-Server
 Name:              sip-redirect
 Version:           0.2.0
-Release:           22%{?dist}
+Release:           23%{?dist}
 License:           GPL-2.0-or-later
 URL:               https://ftp.robert-scheck.de/linux/%{name}/
 Source0:           https://ftp.robert-scheck.de/linux/%{name}/%{name}-%{version}.tar.gz
@@ -66,6 +66,9 @@ chmod 0640 %{_localstatedir}/log/%{name} > /dev/null 2>&1 || :
 %ghost %attr(0640,sip,sip) %{_localstatedir}/log/%{name}
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

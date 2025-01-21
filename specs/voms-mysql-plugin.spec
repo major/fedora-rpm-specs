@@ -1,6 +1,6 @@
 Name:		voms-mysql-plugin
 Version:	3.1.7
-Release:	23%{?dist}
+Release:	24%{?dist}
 Summary:	VOMS server plugin for MySQL
 
 License:	Apache-2.0
@@ -50,6 +50,9 @@ rm %{buildroot}%{_libdir}/voms/libvomsmysql.la
 %{_libdir}/voms/libvomsmysql.so
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.7-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 3.1.7-23
 - convert license to SPDX
 

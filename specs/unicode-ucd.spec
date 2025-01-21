@@ -4,7 +4,7 @@
 
 Name:           unicode-ucd
 Version:        16.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Unicode Character Database
 
 # http://www.unicode.org/terms_of_use.html in ReadMe.txt redirects to:
@@ -63,6 +63,9 @@ cp %{SOURCE2} .
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 16.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Sep 19 2024 Jens Petersen <petersen@redhat.com> - 16.0.0-1
 - update for https://unicode.org/versions/Unicode16.0.0/
 

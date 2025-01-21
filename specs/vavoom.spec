@@ -3,7 +3,7 @@
 
 Name:           vavoom
 Version:        1.33
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Enhanced Doom, Heretic, Hexen and Strife source port - meta package
 Source0:        http://downloads.sourceforge.net/vavoom/%{name}-%{version}.tar.bz2
 Source1:        doom.autodlrc
@@ -256,6 +256,9 @@ install -p -m 644 %{SOURCE22} $RPM_BUILD_ROOT%{_mandir}/man6
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.33-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.33-45
 - convert license to SPDX
 

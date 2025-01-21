@@ -4,7 +4,7 @@
 
 Name:           %{fontname}-fonts
 Version:        1.0.0
-Release:        0.28.rc1%{?dist}
+Release:        0.29.rc1%{?dist}
 Summary:        WenQuanYi Bitmap Chinese Fonts
 
 # Automatically converted from old format: GPLv2 with exceptions - review is highly recommended.
@@ -57,6 +57,9 @@ ln -s %{_fontconfig_templatedir}/%{fontconf} \
 %doc AUTHORS ChangeLog COPYING README LOGO.png
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-0.29.rc1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.0-0.28.rc1
 - convert license to SPDX
 

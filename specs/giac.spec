@@ -1,12 +1,16 @@
 # Tests excluded
 # See https://xcas.univ-grenoble-alpes.fr/forum/viewtopic.php?f=19&t=1733
+%ifarch s390x
+%bcond_with check
+%else
 %bcond_without check
+%endif
 
 %bcond_without flexiblas
 
 %global _lto_cflags %{nil}
 
-%global subversion .993
+%global subversion .998
 
 Name:          giac
 Summary:       Computer Algebra System, Symbolic calculus, Geometry
@@ -230,8 +234,8 @@ autoreconf -ivf
 %build
 # https://xcas.univ-grenoble-alpes.fr/forum/viewtopic.php?f=4&t=2817
 OPT_FLAGS=$(echo "%build_cxxflags" | %{__sed} -e 's/-Werror=format-security/-Wno-error=format-security/')
-export CXXFLAGS="$OPT_FLAGS -std=gnu++14"
-export CFLAGS_FEDORA="$OPT_FLAGS"
+export CXXFLAGS="$OPT_FLAGS -std=gnu++17"
+export CFLAGS_FEDORA="$OPT_FLAGS -std=gnu17"
 %configure --enable-static=yes --with-included-gettext=no --enable-nls=yes \
  --enable-tommath=no --enable-debug=no --enable-gc=no --enable-sscl=no \
  --enable-dl=yes --enable-gsl=yes --enable-lapack=yes --enable-pari=yes \
@@ -248,13 +252,13 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 # Compile 'mkjs' executable
 # See patch7's comment
 export OPT_FLAGS=$(echo "%build_cxxflags" | %{__sed} -e 's/-Werror=format-security/-Wno-error=format-security/')
-g++ $OPT_FLAGS -std=gnu++14 src/mkjs.cc -o src/mkjs
+g++ $OPT_FLAGS -std=gnu++17 src/mkjs.cc -o src/mkjs
 #
 
 # https://xcas.univ-grenoble-alpes.fr/forum/viewtopic.php?f=4&t=2817
 OPT_FLAGS=$(echo "%build_cflags" | %{__sed} -e 's/-Werror=format-security/-Wno-error=format-security/')
-export CXXFLAGS="$OPT_FLAGS -std=gnu++14"
-export CFLAGS_FEDORA="$OPT_FLAGS"
+export CXXFLAGS="$OPT_FLAGS -std=gnu++17"
+export CFLAGS_FEDORA="$OPT_FLAGS -std=gnu17"
 export LDFLAGS_FEDORA="$OPT_FLAGS"
 %make_build
 

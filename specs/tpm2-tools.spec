@@ -2,7 +2,7 @@
 
 Name:    tpm2-tools
 Version: 5.7
-Release: 2%{?candidate:.%{candidate}}%{?dist}
+Release: 3%{?candidate:.%{candidate}}%{?dist}
 Summary: A bunch of TPM testing toolS build upon tpm2-tss
 
 License: BSD-3-Clause
@@ -55,6 +55,9 @@ tpm2-tools is a batch of tools for tpm2.0. It is based on tpm2-tss.
 %{_mandir}/man1/tss2_*.1.gz
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -9,7 +9,7 @@
 Name:           showtime
 Version:        48.0~%{gitdate}.%{shortcommit}
 
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Modern video player built using GTK4
 
 License:        GPL-3.0-or-later
@@ -77,6 +77,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %{_datadir}/showtime/
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 48.0~20241104.080500.5579430-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Jan 07 2025 Neal Gompa <ngompa@fedoraproject.org> - 48.0~20241104.080500.5579430-2
 - Make the package noarch
 

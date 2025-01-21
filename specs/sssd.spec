@@ -64,7 +64,7 @@
 
 Name: sssd
 Version: %{downstream_version}
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: System Security Services Daemon
 License: GPL-3.0-or-later
 URL: https://github.com/SSSD/sssd/
@@ -1193,6 +1193,9 @@ fi
 %systemd_postun_with_restart sssd.service
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Dec 23 2024 Iker Pedrosa <ipedrosa@redhat.com> - 2.10.1-2
 - Rebuild
 

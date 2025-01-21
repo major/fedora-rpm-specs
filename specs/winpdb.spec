@@ -1,6 +1,6 @@
 Name:		winpdb
 Version:	2.0.0
-Release:	0.20.dev5%{?dist}
+Release:	0.21.dev5%{?dist}
 Summary:	An advanced python debugger
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -57,6 +57,9 @@ chmod +x $RPM_BUILD_ROOT%{python3_sitelib}/rpdb2.py $RPM_BUILD_ROOT%{python3_sit
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-0.21.dev5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0.0-0.20.dev5
 - convert license to SPDX
 

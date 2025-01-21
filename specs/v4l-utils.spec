@@ -6,7 +6,7 @@
 
 Name:           v4l-utils
 Version:        1.28.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Utilities for video4linux and DVB devices
 # libdvbv5, dvbv5 utils, ir-keytable are GPL-2.0-only
 # e.g. utils/cec-follower/cec-follower.cpp is (GPL-2.0-only OR BSD-3-Clause) 
@@ -269,6 +269,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/qvidcap.desktop
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.28.1-2
 - Rebuilt for the bin-sbin merge (2nd attempt)
 

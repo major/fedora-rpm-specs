@@ -4,8 +4,8 @@ aiohttp package. The purpose of this package is to provide an\
 easy way  to test asynchronous HTTP requests.
 
 Name:           python-%{srcname}
-Version:        0.7.6
-Release:        7%{?dist}
+Version:        0.7.7
+Release:        1%{?dist}
 Summary:        Mock out requests made by ClientSession from aiohttp package
 
 License:        MIT
@@ -49,9 +49,6 @@ Summary:        %{summary}
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
 
-# disable tests that connect to httpbin.org
-sed -i 's/def \(test_address_as_instance_of_url_combined_with_pass_through\)(/def skip_\1(/' tests/test_aioresponses.py
-sed -i 's/def \(test_pass_through_with_origin_params\)(/def skip_\1(/' tests/test_aioresponses.py
 
 %build
 %py3_build
@@ -60,8 +57,11 @@ sed -i 's/def \(test_pass_through_with_origin_params\)(/def skip_\1(/' tests/tes
 %install
 %py3_install
 
+
 %check
-%pytest
+# disable tests that connect to httpbin.org
+%pytest -v -k 'not test_address_as_instance_of_url_combined_with_pass_through and not test_pass_through_with_origin_params and not test_pass_through_unmatched_requests'
+
 
 %files -n python3-%{srcname}
 %license LICENSE
@@ -71,6 +71,9 @@ sed -i 's/def \(test_pass_through_with_origin_params\)(/def skip_\1(/' tests/tes
 
 
 %changelog
+* Sun Jan 19 2025 Georg Sauthoff <mail@gms.tf> - 0.7.7-1
+- bump version (fixes fedora#2326558)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

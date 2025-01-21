@@ -2,7 +2,7 @@
 Name:    websocketpp
 Summary: C++ WebSocket Protocol Library
 Version: 0.8.2
-Release: 16%{?dist}
+Release: 17%{?dist}
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
@@ -93,6 +93,9 @@ rm -rfv %{buildroot}%{_includedir}/test_connection/
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.8.2-16
 - convert license to SPDX
 

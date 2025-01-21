@@ -14,7 +14,7 @@ Name: simde
 Version: %{simde_version}%{?rc_version:~rc%{rc_version}}
 # Align the release format with the packages setting Source0 by commit hash
 # such as podman.spec and moby-engine.spec.
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Implementations of SIMD instruction sets for non-native systems
 # find simde/ -type f | xargs licensecheck
 #   simde: MIT
@@ -170,6 +170,9 @@ export CI_GCC_RPM_LDFLAGS="%{build_ldflags}"
 %{_includedir}/%{name}
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Sep 13 2024 Dominik Mierzejewski <dominik@greysector.net> - 0.8.2-2
 - use upstream PR to fix tests with clang on aarch64
 - switch to noarch for the devel subpackage (tests still run on all arches)

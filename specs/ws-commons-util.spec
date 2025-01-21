@@ -1,6 +1,6 @@
 Name:           ws-commons-util
 Version:        1.0.2
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Common utilities from the Apache Web Services Project
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -74,6 +74,9 @@ Summary:        Javadoc for %{name}
 %license LICENSE.txt
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.2-26
 - convert license to SPDX
 

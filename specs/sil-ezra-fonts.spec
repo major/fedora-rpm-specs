@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 Version: 2.51
-Release: 16%{?dist}
+Release: 17%{?dist}
 URL:     https://scripts.sil.org/ezrasil_home
 
 %global foundry           SIL
@@ -65,6 +65,9 @@ unzip -j -q %{SOURCE0}
 %fontfiles -a
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.51-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.51-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

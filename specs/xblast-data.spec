@@ -1,6 +1,6 @@
 Name:           xblast-data
 Version:        2.10.0
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Data files for the game xblast
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -40,6 +40,9 @@ cp -a image level sounds $RPM_BUILD_ROOT%{_datadir}/xblast
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.10.0-31
 - convert license to SPDX
 

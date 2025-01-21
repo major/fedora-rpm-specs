@@ -1,6 +1,6 @@
 Name:      schismtracker
 Version:   20241226
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   Sound module composer/player
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:   GPL-2.0-only
@@ -60,6 +60,9 @@ popd
 %{_datadir}/pixmaps/schism*.png
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20241226-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Dec 27 2024 josef radinger <cheese@nosuchhost.net> - 20241226-1
 - bump version
 

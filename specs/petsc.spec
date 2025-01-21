@@ -9,11 +9,9 @@
 
 # Python binding and its testing
 %bcond_without python
-# Python tests need Cython
-# Python tests need epydoc (no longer available)
 # MPI is failing in s390x with the message
 # Abort(76) on node 1 (rank 0 in comm 16): application called MPI_Abort(MPI_COMM_SELF, 76) - process 0
-%ifnarch s390x
+%ifnarch s390x %{power64}
 %bcond_without pycheck
 # Testing libpetsc ?
 %bcond_without check
@@ -346,9 +344,7 @@ BuildRequires: tcsh
 BuildRequires: tetgen-devel
 %endif
 BuildRequires: xorg-x11-server-Xvfb
-%ifarch %{valgrind_arches}
-BuildRequires: valgrind-devel
-%endif
+BuildRequires: valgrind
 
 %description
 PETSc, pronounced PET-see (the S is silent), is a suite of data structures
@@ -1026,10 +1022,10 @@ export CFLAGS="-O0 -g -Wl,-z,now -fPIC"
 export CXXFLAGS="-O0 -g -Wl,-z,now -fPIC"
 export FFLAGS="-O0 -g -Wl,-z,now -fPIC -I${MPI_FORTRAN_MOD_DIR}"
 export TESTFLAGS="-o"
-xvfb-run -a make VALGRIND=1 alltest V=1
+xvfb-run -a make alltests V=1 VALGRIND=1 TIMEOUT=240
 xvfb-run -a make print-test test-fail=1 | tr ' ' '\n' | sort
 %else
-xvfb-run -a make check V=0 NP=4
+xvfb-run -a make check V=1 NP=4
 %endif
 %{_openmpi_unload}
 popd
@@ -1071,10 +1067,10 @@ export PETSCVALGRIND_OPTIONS=" --tool=memcheck --leak-check=yes --track-origins=
 export CFLAGS="-O0 -g -Wl,-z,now -fPIC"
 export CXXFLAGS="-O0 -g -Wl,-z,now -fPIC"
 export FFLAGS="-O0 -g -Wl,-z,now -fPIC -I${MPI_FORTRAN_MOD_DIR}"
-xvfb-run -a make VALGRIND=1 alltest V=1
+xvfb-run -a make alltests V=1 VALGRIND=1 TIMEOUT=240
 xvfb-run -a make print-test test-fail=1 | tr ' ' '\n' | sort
 %else
-xvfb-run -a make check V=0 NP=4
+xvfb-run -a make check V=1 NP=4
 %endif
 %{_mpich_unload}
 popd
@@ -1094,10 +1090,10 @@ export PETSCVALGRIND_OPTIONS=" --tool=memcheck --leak-check=yes --track-origins=
 export CFLAGS="-O0 -g -Wl,-z,now -fPIC"
 export CXXFLAGS="-O0 -g -Wl,-z,now -fPIC"
 export FFLAGS="-O0 -g -Wl,-z,now -fPIC -I%{_libdir}/gfortran/modules"
-xvfb-run -a make VALGRIND=1 alltest V=1
+xvfb-run -a make alltests V=1 VALGRIND=1 TIMEOUT=240
 xvfb-run -a make print-test test-fail=1 | tr ' ' '\n' | sort
 %else
-xvfb-run -a make check V=0
+xvfb-run -a make check V=1
 %endif
 popd
 
@@ -1118,7 +1114,7 @@ export PETSCVALGRIND_OPTIONS=" --tool=memcheck --leak-check=yes --track-origins=
 export CFLAGS="-O0 -g -Wl,-z,now -fPIC"
 export CXXFLAGS="-O0 -g -Wl,-z,now -fPIC"
 export FFLAGS="-O0 -g -Wl,-z,now -fPIC -I%{_libdir}/gfortran/modules"
-xvfb-run -a make VALGRIND=1 alltest V=1
+xvfb-run -a make alltests V=1 VALGRIND=1 TIMEOUT=240
 xvfb-run -a make print-test test-fail=1 | tr ' ' '\n' | sort
 %else
 xvfb-run -a make check V=0

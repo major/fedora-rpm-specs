@@ -7,7 +7,7 @@
 Summary:   Xorg X11 dummy video driver
 Name:      xorg-x11-drv-dummy
 Version:   0.4.1
-Release:   5%{?dist}
+Release:   6%{?dist}
 URL:       http://www.x.org
 License:   MIT AND X11
 
@@ -43,6 +43,9 @@ find %{buildroot} -name "*.la" -delete
 %{driverdir}/dummy_drv.so
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Sep 29 2024 Simone Caronni <negativo17@gmail.com> - 0.4.1-5
 - Clean up SPEC file.
 - Trim changelog.

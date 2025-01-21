@@ -1,6 +1,6 @@
 Name:           urg
 Version:        0.8.18
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Library to access Hokuyo URG laser range finders
 
 # Automatically converted from old format: LGPLv3 - review is highly recommended.
@@ -69,6 +69,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.18-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.8.18-34
 - convert license to SPDX
 

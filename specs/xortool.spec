@@ -2,7 +2,7 @@
 
 Name:           %{pypi_name}
 Version:        1.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool for XOR cipher analysis
 
 License:        MIT
@@ -40,6 +40,9 @@ sed -i -e '/^#!\//, 1d' xortool/*.py
 %{python3_sitelib}/%{pypi_name}/
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Sep 26 2024 Sept Fabian Affolter <mail@fabian-affolter.ch> - 1.0.2-1
 - Update to latest upstream release (closes rhbz#1884656)
 

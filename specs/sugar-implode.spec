@@ -2,7 +2,7 @@
 
 Name:           sugar-%{shortname}
 Version:        20
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Implode for Sugar
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -56,6 +56,9 @@ done
 %{sugaractivitydir}/Implode.activity/
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 20-12
 - convert license to SPDX
 

@@ -1,7 +1,7 @@
 Summary: Displays who is logged in to local network machines
 Name: rwho
 Version: 0.17
-Release: 78%{?dist}
+Release: 79%{?dist}
 # part of rwhod is under GPL+, other parts are under BSD
 # Automatically converted from old format: BSD and GPL+ - review is highly recommended.
 License: LicenseRef-Callaway-BSD AND GPL-1.0-or-later
@@ -102,6 +102,9 @@ install -m 644 %SOURCE1 ${RPM_BUILD_ROOT}%{_unitdir}/rwhod.service
 %{_unitdir}/*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-79
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.17-78
 - convert license to SPDX
 

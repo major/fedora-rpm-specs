@@ -4,7 +4,7 @@
 
 Name:		scummvm-tools
 Version:	2.7.0
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Tools for scummVM / S.C.U.M.M scripting language
 # All previous Lua versions are relicensed to MIT (https://www.lua.org/license.html)
 # Automatically converted from old format: GPLv3+ and LGPLv2+ and MIT - review is highly recommended.
@@ -67,6 +67,9 @@ desktop-file-install \
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.7.0-6
 - convert license to SPDX
 

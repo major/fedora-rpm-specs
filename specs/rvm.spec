@@ -1,6 +1,6 @@
 Name:           rvm
 Version:        1.17
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        C library for unstructured recoverable virtual memory
 License:        LGPLv2
 URL:            http://www.coda.cs.cmu.edu/
@@ -66,6 +66,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/%{name}lwp.pc
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.17-31
 - convert license to SPDX
 

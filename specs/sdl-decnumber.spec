@@ -27,7 +27,7 @@ emulator.}
 
 Name:           sdl-decnumber
 Version:        3.68.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        ANSI C General Decimal Arithmetic Library (SDL version)
 
 License:        MIT
@@ -89,6 +89,9 @@ mv %{buildroot}%{_docdir}/%{name}-doc/decnumber.ICU-license.html .
 %doc examples
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.68.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Jul 31 2024 Davide Cavalca <dcavalca@fedoraproject.org> - 3.68.0-11
 - Properly obsolete the old decnumber package
 

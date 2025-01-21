@@ -3,7 +3,7 @@
 
 Name:		tripwire
 Version:	2.4.3.7
-Release:	18%{?dist}
+Release:	19%{?dist}
 Summary:	IDS (Intrusion Detection System)
 
 License:	GPL-2.0-or-later
@@ -130,6 +130,9 @@ done
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.3.7-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.3.7-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

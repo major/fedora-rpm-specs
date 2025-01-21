@@ -3,7 +3,7 @@
 
 Name:		xreader
 Version:	4.2.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Simple document viewer
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -170,6 +170,9 @@ LDFLAGS+=' -lX11 -lICE -lSM'
 %doc %{_datadir}/doc/%{name}*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Dec 06 2024 Leigh Scott <leigh123linux@gmail.com> - 4.2.3-1
 - Update to 4.2.3
 

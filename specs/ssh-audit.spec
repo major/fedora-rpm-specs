@@ -1,6 +1,6 @@
 Name:           ssh-audit
 Version:        3.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An SSH server & client configuration security auditing tool
 
 License:        MIT
@@ -50,6 +50,9 @@ install -t %{buildroot}%{_mandir}/man1 -Dpm 0644 ssh-audit.1
 %{_bindir}/ssh-audit
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec 18 2024 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 3.3.0-1
 - Update to 3.3.0 rhbz#2318995
 

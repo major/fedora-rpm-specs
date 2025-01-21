@@ -1,13 +1,15 @@
 %global         maj 0
 
 Name:           zix
-Version:        0.4.2
-Release:        2%{?dist}
+Version:        0.6.2
+Release:        1%{?dist}
 Summary:        A lightweight C library of portability wrappers and data structures
 
 License:        ISC
 URL:            https://gitlab.com/drobilla/%{name}
 Source0:        https://download.drobilla.net/%{name}-%{version}.tar.xz
+Source1:        https://download.drobilla.net/%{name}-%{version}.tar.xz.sig
+Source2:        https://drobilla.net/drobilla.gpg
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -15,6 +17,7 @@ BuildRequires:  meson
 BuildRequires:  doxygen
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-sphinxygen
+BuildRequires:  gnupg2
 
 %description
 %{name} is a lightweight C library of portability wrappers and data structures.
@@ -37,6 +40,7 @@ The %{name}-doc package contains documentation files for
 developing applications that use %{name}.
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 %build
@@ -72,6 +76,13 @@ mv %{buildroot}%{_docdir}/%{name}-%{maj} %{buildroot}%{_docdir}/%{name}
 %doc %{_docdir}/%{name}/%{name}-%{maj}
 
 %changelog
+* Sun Jan 19 2025 Guido Aulisi <guido.aulisi@inps.it> - 0.6.2-1
+- Update to 0.6.2
+- Verify sources
+
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

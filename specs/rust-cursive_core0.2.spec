@@ -17,10 +17,16 @@ Source1:        https://raw.githubusercontent.com/gyscos/cursive/main/LICENSE
 # Manually created patch for downstream crate metadata changes
 # - bump ahash to 0.7
 # - bump enum-map to 1.1
+# - port from wasmer_enumset to enumset
 Patch:          cursive_core-fix-metadata.diff
 # * backported upstream patch to fix tests with unicode-width >= 0.1.13:
 #   https://github.com/gyscos/cursive/commit/a0e405e
 Patch:          0001-Make-spans-test-adaptable-to-unicode-width-version.patch
+# * https://github.com/gyscos/cursive/commit/aedfc9e
+# * https://github.com/gyscos/cursive/commit/efc7b31
+# * https://github.com/gyscos/cursive/commit/03451ae
+# * https://github.com/gyscos/cursive/commit/4faf55c
+Patch:          0002-port-from-wasmer_enumset-to-enumset.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

@@ -2,7 +2,7 @@
 Name: stardict-dic-cs_CZ
 Summary: Czech dictionaries for StarDict
 Version: 20150213
-Release: 22%{?dist}
+Release: 23%{?dist}
 # Automatically converted from old format: GFDL - review is highly recommended.
 License: LicenseRef-Callaway-GFDL
 Provides: stardict-dic-cs = %{?epoch:%{epoch}:}%{version}-%{release}
@@ -33,6 +33,9 @@ install -m 0644 -p  %{dicname}-%{version}/en* ${RPM_BUILD_ROOT}%{_datadir}/stard
 %{_datadir}/stardict/dic/*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20150213-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 20150213-22
 - convert license to SPDX
 

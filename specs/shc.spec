@@ -4,7 +4,7 @@ Name: shc
 Summary: Shell script compiler
 URL: https://neurobin.org/projects/softwares/unix/shc/
 Version: 4.0.3
-Release: 13%{?dist}
+Release: 14%{?dist}
 Source0: https://github.com/%{owner}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License: GPL-3.0-only
@@ -35,6 +35,9 @@ tripped binary.
 %{_mandir}/*/%{name}*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 4.0.3-13
 - convert license to SPDX
 

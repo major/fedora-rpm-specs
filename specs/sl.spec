@@ -1,6 +1,6 @@
 Name:           sl
 Version:        5.02
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Joke command for when you type 'sl' instead of 'ls'
 License:        SL
 URL:            https://github.com/mtoyoda/sl
@@ -43,6 +43,9 @@ install -p -m644 sl.1.ja %{buildroot}%{_mandir}/ja/man1/
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.02-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.02-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

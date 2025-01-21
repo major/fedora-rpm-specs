@@ -37,7 +37,7 @@
 
 Name:           tracker-miners
 Version:        3.7.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tracker miners and metadata extractors
 
 # libtracker-extract and libtracker-miner libraries are LGPLv2+; the miners are a mix of GPLv2+ and LGPLv2+ code
@@ -194,6 +194,9 @@ done
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Dec 12 2024 Kalev Lember <klember@redhat.com> - 3.7.4-2
 - Remove references to nonexistent tracker-extract-3.service (rhbz#2332029)
 

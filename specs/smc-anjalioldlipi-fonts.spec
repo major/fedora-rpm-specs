@@ -3,7 +3,7 @@
 
 Name:		%{fontname}-fonts
 Version:	7.1.2
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Open Type Fonts for Malayalam script 
 # Automatically converted from old format: OFL - review is highly recommended.
 License:	LicenseRef-Callaway-OFL
@@ -64,6 +64,9 @@ appstream-util validate-relax --nonet \
 %{_datadir}/metainfo/%{fontname}.metainfo.xml
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 7.1.2-11
 - convert license to SPDX
 

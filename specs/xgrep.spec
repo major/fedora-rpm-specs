@@ -1,6 +1,6 @@
 Name:		xgrep
 Version:	0.08
-Release:	23%{?dist}
+Release:	24%{?dist}
 Summary:	A grep-like utility for XML files
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -41,6 +41,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.08-23
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           ykpers
 Version:        1.20.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Yubikey personalization program
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -77,6 +77,9 @@ make check
 %exclude %{_libdir}/libykpers-1.la
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.20.0-15
 - convert license to SPDX
 

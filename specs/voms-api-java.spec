@@ -1,6 +1,6 @@
 Name:		voms-api-java
 Version:	3.3.3
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Virtual Organization Membership Service Java API
 
 License:	Apache-2.0
@@ -108,6 +108,9 @@ Virtual Organization Membership Service (VOMS) Java API Documentation.
 %license LICENSE
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Nov 28 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.3-2
 - Update bouncycastle dependencies for EPEL 10
 

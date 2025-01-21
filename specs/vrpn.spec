@@ -17,7 +17,7 @@ physical devices (tracker, etc.) used in a virtual-reality (VR) system.}
 
 Name:           vrpn
 Version:        07.35
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Virtual-Reality Peripheral Network
 
 # According to upstream, linking to the wiiuse (GPLv3+) and gpm (GPLv2+)
@@ -199,6 +199,9 @@ mv %{buildroot}/%{_datadir}/%{name}-%{version}/%{name}.cfg.sample .
 %endif
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 07.35-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Aug 12 2024 Davide Cavalca <dcavalca@fedoraproject.org> - 07.35-5
 - Disable Python bindings on f41 and later; Fixes: RHBZ#2247291
 

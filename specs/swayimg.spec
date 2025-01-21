@@ -1,7 +1,7 @@
 %bcond  tests   1
 
 Name:           swayimg
-Version:        3.6
+Version:        3.7
 Release:        %autorelease
 Summary:        Lightweight image viewer for Wayland display servers
 
@@ -32,6 +32,7 @@ BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libjxl)
 BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(librsvg-2.0) >= 2.46
+BuildRequires:  pkgconfig(libsixel)
 BuildRequires:  pkgconfig(libtiff-4)
 BuildRequires:  pkgconfig(libwebp)
 BuildRequires:  pkgconfig(libwebpdemux)

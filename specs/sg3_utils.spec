@@ -4,7 +4,7 @@
 Summary: Utilities for devices that use SCSI command sets
 Name:    sg3_utils
 Version: 1.48
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL-2.0-or-later AND BSD-2-Clause
 URL:     https://sg.danny.cz/sg/sg3_utils.html
 Source0: https://sg.danny.cz/sg/p/sg3_utils-%{version}.tar.xz
@@ -136,6 +136,9 @@ install -p -m 755 scripts/fc_wwpn_id %{buildroot}%{_udevlibdir}
 
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.48-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Nov 01 2024 Tomas Bzatek <tbzatek@redhat.com> - 1.48-4
 - udev rules: avoid spurious warning for non-SCSI devices
 - Install missing 00-scsi-sg3_config.rules

@@ -1,7 +1,7 @@
 Summary:          Latency Logging and Graphing System
 Name:             smokeping
 Version:          2.8.2
-Release:          10%{?dist}
+Release:          11%{?dist}
 License:          GPL-2.0-or-later AND GPL-3.0-or-later AND MIT
 URL:              https://oss.oetiker.ch/smokeping/
 Source0:          https://oss.oetiker.ch/smokeping/pub/smokeping-%{version}.tar.gz
@@ -169,6 +169,9 @@ exit 0
 %{_mandir}/man7/smokeping_*.7*
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Oct 28 2024 Terje Rosten <terjeros@gmail.com> - 2.8.2-10
 - Fix docs (rhbz#2274326)
 - Use modern filter setup

@@ -10,7 +10,7 @@
 
 Name:           sylpheed
 Version:        3.7.0
-Release:        17%{?prerelease:.%{?prerelease}}%{?dist}
+Release:        18%{?prerelease:.%{?prerelease}}%{?dist}
 Summary:        GTK+ based, lightweight, and fast email client
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT AND LicenseRef-Fedora-Public-Domain
@@ -155,6 +155,9 @@ install -p -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_mandir}/man1/
 %{_libdir}/*.so
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

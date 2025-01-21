@@ -3,7 +3,7 @@
 
 Name:           %{pypi_name}
 Version:        2.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CLI and library for usage checking of user names and email addresses
 
 License:        MPL-2.0
@@ -60,6 +60,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v tests \
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Sep 27 2024 Fabian Affolter <mail@fabian-affolter.ch> - 2.0.1-1
 - Update to latest upstream release (closes rhbz#2157650)
 

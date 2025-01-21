@@ -3,7 +3,7 @@
 
 Name:           %{pypi_name}
 Version:        0.5.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        URL bruteforcer to locate files or directories
 
 License:        MIT
@@ -49,6 +49,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

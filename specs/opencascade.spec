@@ -1,6 +1,6 @@
 %global major 7
 %global minor 8
-%global patch 0
+%global patch 1
 %global ver_under %{major}_%{minor}_%{patch}
 
 Name:           opencascade
@@ -25,6 +25,7 @@ Patch0:         occt-config.patch
 # https://tracker.dev.opencascade.org/view.php?id=33164
 # https://gitlab.kitware.com/vtk/vtk/-/issues/18683
 #Patch1:         opencascade-vtk.patch
+Patch1:         occt-invalid_conversion.patch
 
 
 # Utilities

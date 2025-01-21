@@ -2,7 +2,7 @@
 
 Name:           seadrive-gui
 Version:        3.0.12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GUI part of Seafile Drive client
 
 # main source:  Apache-2.0
@@ -89,6 +89,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/seadrive.appda
 %{_metainfodir}/seadrive.appdata.xml
 
 %changelog
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Jan 12 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 3.0.12-1
 - Update to 3.0.12 (#2336493)
 - Build with Qt6
