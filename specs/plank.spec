@@ -15,7 +15,7 @@ to add fancier things like Docklets, painters, settings dialogs, etc.}
 Name:           plank
 Summary:        Stupidly simple Dock
 Version:        0.11.89
-Release:        17.%{commitdate}.git%{shortcommit}%{?dist}
+Release:        18.%{commitdate}.git%{shortcommit}%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 
@@ -147,6 +147,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.89-18.20210202.git013d051
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.11.89-17.20210202.git013d051
 - convert license to SPDX
 

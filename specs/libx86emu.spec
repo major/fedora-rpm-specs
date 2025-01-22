@@ -11,7 +11,7 @@
 
 Name:           libx86emu
 Version:        3.5
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        x86 emulation library
 
 License:        HPND-sell-variant
@@ -69,6 +69,9 @@ library.
 
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 31 2024 Lubomir Rintel <lkundrak@v3.sk> - 3.5-9
 - Make it build outside x86 again
 - Fix logging buffer overflow

@@ -24,7 +24,7 @@
 %define PLATFORMS_COMMIT 4b3530dfbbda
 
 %define OPENSSL_VER    3.0.7
-%define OPENSSL_COMMIT 8e5beb77088bfec064d60506b1e76ddb0ac417fe
+%define OPENSSL_COMMIT 0205b589887203b065154ddc8e8107c4ac8625a1
 
 %define DBXDATE        20230509
 
@@ -52,6 +52,9 @@
 %define cross %{defined fedora}
 %define disable_werror %{defined fedora}
 
+%if 0%{?copr_projectname:1}
+  %define dist %{buildtag}
+%endif
 
 Name:       edk2
 Version:    %{GITDATE}
@@ -125,6 +128,8 @@ Patch0016: 0016-OvmfPkg-PlatformInitLib-enable-x2apic-mode-if-needed.patch
 Patch0017: 0017-silence-.-has-a-LOAD-segment-with-RWX-permissions-wa.patch
 %endif
 Patch0018: 0018-xen-pcd-lib-override.patch
+Patch0019: 0019-MdePkg-BaseFdtLib-fix-build-with-gcc-15.patch
+Patch0020: 0020-BaseTools-Pccts-set-C-standard.patch
 
 
 # needed by %prep

@@ -1,9 +1,9 @@
 # Start: prod settings
-# all *bcond_without* for production builds:
+# all bcond 1 for production builds:
 # - performance build (disable for quick build)
-%bcond_without perfbuild
-%bcond_without build_hadrian
-%bcond_without manual
+%bcond perfbuild 1
+%bcond build_hadrian 1
+%bcond manual 1
 # End: prod settings
 
 # not for production builds
@@ -16,9 +16,6 @@
 
 %global ghc_major 9.8
 %global ghc_name ghc%{ghc_major}
-
-# to handle RCs
-%global ghc_release %{version}
 
 %global base_ver 4.19.2.0
 %global ghc_bignum_ver 1.3
@@ -34,15 +31,16 @@
 %global ghcboot ghc%{?ghcboot_major}
 
 # make sure ghc libraries' ABI hashes unchanged
-%bcond_with abicheck
+%bcond abicheck 0
 
 # no longer build testsuite (takes time and not really being used)
-%bcond_with testsuite
+%bcond testsuite 0
 
 # ld
 %bcond ld_gold 0
 
 # 9.8 needs llvm 11-15
+# note the llvm backend is unsupported for ppc64le
 # rhel9 binutils too old for llvm13:
 # https://bugzilla.redhat.com/show_bug.cgi?id=2141054
 # https://gitlab.haskell.org/ghc/ghc/-/issues/22427
@@ -65,9 +63,9 @@ Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
 URL: https://haskell.org/ghc/
-Source0: https://downloads.haskell.org/ghc/%{ghc_release}/ghc-%{version}-src.tar.xz
+Source0: https://downloads.haskell.org/ghc/%{version}/ghc-%{version}-src.tar.xz
 %if %{with testsuite}
-Source1: https://downloads.haskell.org/ghc/%{ghc_release}/ghc-%{version}-testsuite.tar.xz
+Source1: https://downloads.haskell.org/ghc/%{version}/ghc-%{version}-testsuite.tar.xz
 %endif
 Source5: ghc-pkg.man
 Source6: haddock.man
@@ -103,6 +101,7 @@ Patch41: https://gitlab.haskell.org/ghc/ghc/-/commit/dd38aca95ac25adc9888083669b
 
 # https://github.com/haskell/directory/pull/184
 Patch50: https://patch-diff.githubusercontent.com/raw/haskell/directory/pull/184.patch
+
 # https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms
 
 # fedora ghc has been bootstrapped on
@@ -144,9 +143,7 @@ BuildRequires: python3
 %if %{with manual}
 BuildRequires: python3-sphinx
 %endif
-%ifarch %{ghc_llvm_archs}
 BuildRequires: llvm%{llvm_major}
-%endif
 
 # needed for binary-dist-dir
 BuildRequires:  autoconf automake
@@ -235,6 +232,8 @@ Obsoletes: %{name}-manual < %{version}-%{release}
 Requires: binutils%{?with_ld_gold:-gold}
 %ifarch %{ghc_llvm_archs}
 Requires: llvm%{llvm_major}
+%else
+Suggests: llvm(major) = %{llvm_major}
 %endif
 
 %description compiler
@@ -388,6 +387,7 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %patch -P2 -p1 -b .orig
 %patch -P3 -p1 -b .orig
 %patch -P5 -p1 -b .orig
+
 #%%patch -P9 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
@@ -430,6 +430,8 @@ export CC=%{_bindir}/gcc
 %if %{with ld_gold}
 export LD=%{_bindir}/ld.gold
 %endif
+export LLC=%{_bindir}/llc-%{llvm_major}
+export OPT=%{_bindir}/opt-%{llvm_major}
 
 export GHC=%{_bindir}/ghc%{?ghcboot_major:-%{ghcboot_major}}
 
@@ -496,7 +498,8 @@ rm %{buildroot}%{_ghclicensedir}/%{name}/LICENSE
 cp -p LICENSE ../LICENSE.hadrian
 )
 %endif
-# https://gitlab.haskell.org/ghc/ghc/-/issues/20120#note_366872
+export LLC=%{_bindir}/llc-%{llvm_major}
+export OPT=%{_bindir}/opt-%{llvm_major}
 (
 cd _build/bindist/ghc-%{version}-*
 ./configure --prefix=%{buildroot}%{ghclibdir} --bindir=%{buildroot}%{_bindir} --libdir=%{buildroot}%{_libdir} --mandir=%{buildroot}%{_mandir} --docdir=%{buildroot}%{_docdir}/%{name} \
@@ -555,24 +558,9 @@ echo "%%dir %ghclibplatform" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
 %ghc_gen_filelists integer-gmp 1.1
 %ghc_gen_filelists rts %{rts_ver}
 
-%define merge_filelist()\
-cat %{name}-%1.files >> %{name}-%2.files\
-cat %{name}-%1-devel.files >> %{name}-%2-devel.files\
-%if %{with haddock}\
-cat %{name}-%1-doc.files >> %{name}-%2-doc.files\
-%endif\
-%if %{with ghc_prof}\
-cat %{name}-%1-prof.files >> %{name}-%2-prof.files\
-%endif\
-if [ "%1" != "rts" ]; then\
-cp -p libraries/%1/LICENSE libraries/LICENSE.%1\
-echo "%%license libraries/LICENSE.%1" >> %{name}-%2.files\
-fi\
-%{nil}
-
-%merge_filelist ghc-prim base
-%merge_filelist integer-gmp base
-%merge_filelist rts base
+%ghc_merge_filelist ghc-prim base
+%ghc_merge_filelist integer-gmp base
+%ghc_merge_filelist rts base
 
 %if "%{?_ghcdynlibdir}" != "%_libdir"
 echo "%{_sysconfdir}/ld.so.conf.d/%{name}.conf" >> %{name}-base.files
@@ -648,7 +636,8 @@ export LANG=C.utf8
 # stolen from ghc6/debian/rules:
 export LD_LIBRARY_PATH=%{buildroot}%{ghclibplatform}:
 GHC=%{buildroot}%{ghclibdir}/bin/ghc
-# Do some very simple tests that the compiler actually works
+$GHC --info
+# simple sanity checks that the compiler actually works
 rm -rf testghc
 mkdir testghc
 echo 'main = putStrLn "Foo"' > testghc/foo.hs
@@ -663,8 +652,14 @@ echo 'main = putStrLn "Foo"' > testghc/foo.hs
 $GHC testghc/foo.hs -o testghc/foo -dynamic
 [ "$(testghc/foo)" = "Foo" ]
 rm testghc/*
-
-$GHC --info
+# no GHC calling convention in LLVM's PowerPC target code
+# https://gitlab.haskell.org/ghc/ghc/-/issues/25667
+%ifnarch ppc64le
+echo 'main = putStrLn "Foo"' > testghc/foo.hs
+$GHC testghc/foo.hs -o testghc/foo -fllvm
+[ "$(testghc/foo)" = "Foo" ]
+rm testghc/*
+%endif
 
 # check the ABI hashes
 %if %{with abicheck}
@@ -842,6 +837,9 @@ make test
 
 
 %changelog
+* Sun Jan 19 2025 Jens Petersen <petersen@redhat.com>
+- setup llvm compiler for all archs not just those defaulting to llvm backend
+
 * Sun Jan 19 2025 Jens Petersen <petersen@redhat.com> - 9.8.4-14
 - fix hp2ps failure with gcc15 C23
 - disable Cabal install PATH warning

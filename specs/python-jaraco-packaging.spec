@@ -3,7 +3,7 @@
 %bcond_with docs 
 
 Name:           python-jaraco-packaging
-Version:        10.2.2
+Version:        10.2.3
 Release:        %autorelease
 Summary:        Tools to supplement packaging Python releases
 

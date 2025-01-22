@@ -1,6 +1,6 @@
 %global appname include-what-you-use
 %global toolchain clang
-%global llvmver 19.0.0
+%global llvmver 19
 
 # Opt out of https://fedoraproject.org/wiki/Changes/fno-omit-frame-pointer
 # https://bugzilla.redhat.com/show_bug.cgi?id=2215937
@@ -16,8 +16,10 @@ Summary: C/C++ source files #include analyzer based on clang
 URL: https://github.com/%{appname}/%{appname}
 Source0: %{url}/archive/%{version}/%{appname}-%{version}.tar.gz
 
-# Revert the upstream commit e046d23 with new resource dir path detection.
-Patch100: %{appname}-0.23-revert-path-detection.patch
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+%if 0%{?fedora} && 0%{?fedora} >= 42
+ExcludeArch: %{ix86}
+%endif
 
 BuildRequires: clang >= %{llvmver}
 BuildRequires: clang-devel >= %{llvmver}
@@ -51,20 +53,20 @@ code.
 
 %prep
 %autosetup -n %{appname}-%{version} -p1
-sed -e "s@\${LLVM_LIBRARY_DIR}@%{_prefix}/lib@g" -i CMakeLists.txt
 %py3_shebang_fix *.py
 
 %build
 %cmake -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON
+    -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON \
+    -DIWYU_RESOURCE_DIR='../lib/clang/%{llvmver}'
 %cmake_build
 
 %install
 %cmake_install
 
 %check
-%ctest --exclude-regex "(cxx.test_(badinc|ms_inline_asm)|driver.test_offload_openmp)"
+%ctest --exclude-regex "(cxx.test_(badinc|ms_inline_asm|precomputed_tpl_args)|driver.test_offload_openmp)"
 
 %files
 %doc docs/* README.md

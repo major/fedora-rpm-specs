@@ -16,7 +16,7 @@
 
 Name:           mingw-openssl
 Version:        3.2.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        MinGW port of the OpenSSL toolkit
 
 License:        OpenSSL
@@ -552,6 +552,9 @@ mkdir -m700 %{buildroot}%{ucrt64_sysconfdir}/pki/CA/private
 
 
 %changelog
+* Mon Jan 20 2025 Sandro Mani <manisandro@gmail.com> - 3.2.2-4
+- Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

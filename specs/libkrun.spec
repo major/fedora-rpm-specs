@@ -9,8 +9,8 @@
 %endif
 
 Name:           libkrun
-Version:        1.9.8
-Release:        2%{?dist}
+Version:        1.10.1
+Release:        1%{?dist}
 Summary:        Dynamic library providing Virtualization-based process isolation capabilities
 
 License:        Apache-2.0
@@ -83,6 +83,17 @@ BuildRequires:  (crate(pipewire/default) >= 0.8.0 with crate(pipewire/default) <
 BuildRequires:  (crate(zerocopy/default) >= 0.6.0 with crate(zerocopy/default) < 0.7.0~)
 BuildRequires:  (crate(zerocopy/default) >= 0.7.0 with crate(zerocopy/default) < 0.8.0~)
 BuildRequires:  (crate(remain/default) >= 0.2.0 with crate(remain/default) < 0.3.0~)
+
+# imago dependencies to be removed once it has its own package
+BuildRequires:  (crate(caps/default) >= 0.5.0 with crate(caps/default) < 0.6.0~)
+BuildRequires:  (crate(async-trait/default) >= 0.1.0 with crate(async-trait/default) < 0.2.0~)
+BuildRequires:  (crate(bincode/default) >= 1.3.0 with crate(bincode/default) < 2.0.0~)
+BuildRequires:  (crate(miniz_oxide/default) >= 0.8.0 with crate(miniz_oxide/default) < 0.9.0~)
+BuildRequires:  (crate(page_size/default) >= 0.6.0 with crate(page_size/default) < 0.7.0~)
+BuildRequires:  (crate(tracing/default) >= 0.1.0 with crate(tracing/default) < 0.2.0~)
+BuildRequires:  (crate(tracing-attributes/default) >= 0.1.0 with crate(tracing-attributes/default) < 0.2.0~)
+BuildRequires:  (crate(rustc_version/default) >= 0.4.0 with crate(rustc_version/default) < 0.5.0~)
+BuildRequires:  (crate(tokio/default) >= 1.42.0 with crate(tokio/default) < 2.0.0~)
 
 %ifarch x86_64
 # SEV variant dependencies
@@ -208,6 +219,9 @@ patchelf --set-soname libkrun.so.1 --output target/release/libkrun.so.%{version}
 %endif
 
 %changelog
+* Mon Jan 20 2025 Sergio Lopez <slp@redhat.com> - 1.10.1-1
+- Update to version 1.10.1
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 42.21
-Release: 2%{?dist}
+Version: 42.23
+Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -38,7 +38,7 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %define libreportanacondaver 2.0.21-1
 %define mehver 0.23-1
 %define nmver 1.0
-%define pykickstartver 3.58-1
+%define pykickstartver 3.61-1
 %define pypartedver 2.5-2
 %define pythonblivetver 1:3.9.0-1
 %define rpmver 4.15.0
@@ -134,7 +134,7 @@ Requires: NetworkManager-libnm >= %{nmver}
 Requires: kbd
 Requires: chrony
 Requires: systemd
-%if 0%{?rhel} > 10 || 0%{?fedora}
+%if ! 0%{?rhel}
 Requires: systemd-resolved
 %endif
 Requires: python3-pid
@@ -490,6 +490,37 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jan 16 2025 Packit <hello@packit.dev> - 42.23-1
+- Add release notes for certificates import (rvykydal)
+- docs: add release note for the `hidden-webui-pages` configuration option
+  (k.koukiou)
+- data: profile: extend workstation profile to hide pages for Web UI
+  (k.koukiou)
+- security: add a service to transfer certificates from initramfs (rvykydal)
+- Revert "build: Install systemd-resolved in ELN aka RHEL-11" (rvykydal)
+- Handle invalid UTF-8 characters in efibootmgr output (k.koukiou)
+- Don't log a bogus warning when kickstart specifies a disk label (awilliam)
+- Fix displaying attributes on advanced storage spoke (#2332568) (vtrefny)
+- Reapply "fix missing WWID values for multipath devices in advanced storage
+  UI" (vtrefny)
+- security: import certificates in initramfs (rvykydal)
+- security: install certificates in pre-install phase only for dnf payload
+  (rvykydal)
+- security: raise exception if certificate destination is unknown (rvykydal)
+- security: log a warning when dumping certificate over an existing file
+  (rvykydal)
+- security: pre-install certificates before payload installation (rvykydal)
+- security: add API to install certificates early before payload (rvykydal)
+- security: install certificates on target system (rvykydal)
+- security: Add API for installation on target system (rvykydal)
+- security: import certificates early after Anaconda start (rvykydal)
+- security: add API to import certificates to Anaconda environment (rvykydal)
+- security: add API: Certificate getter (rvykydal)
+- kickstart: extend section specification for list of section data (rvykydal)
+- security: implement the support to install certificates to Anaconda
+  (k.koukiou)
+- Add documentation for keyboard layout control (jkonecny)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 42.21-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

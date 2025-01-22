@@ -6,8 +6,8 @@ Name: binutils%{?_with_debug:-debug}
 # A version number of X.XX.90 is a pre-release snapshot.
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
-Version: 2.43.50
-Release: 12%{?dist}
+Version: 2.43.90
+Release: 1%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -108,8 +108,8 @@ URL: https://sourceware.org/binutils
 # instead.
 
 # %%define source official-release
-# %%define source pre-release
-%define source snapshot
+%define source pre-release
+# %%define source snapshot
 # %%define source tarball
 
 # For snapshots and tarballs an extension is used to indicate the commit ID.
@@ -117,7 +117,7 @@ URL: https://sourceware.org/binutils
 # correctly.  Note %%(echo) is used because you cannot directly set a
 # spec variable to a hexadecimal string value.
 
-%define commit_id %(echo "f832531609d")
+# %%define commit_id %%(echo "f832531609d")
 
 #----End of Configure Options------------------------------------------------
 
@@ -1415,6 +1415,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Mon Jan 20 2025 Nick Clifton <nickc@redhat.com> - 2.43.90-1
+- Rebased to 2.43.90 pre-release tarball.
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.43.50-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           pre-commit
-Version:        4.0.1
+Version:        4.1.0
 Release:        %autorelease
 Summary:        Framework for managing and maintaining multi-language pre-commit hooks
 
@@ -27,6 +27,7 @@ BuildRequires:  python3-devel
 # BuildRequires:  dotnet-sdk-7.0
 # BuildRequires:  ghc-compiler
 # BuildRequires:  golang-bin
+# BuildRequires:  julia
 
 # These BR’s would enable a few extra tests, but are inconveniently
 # ExclusiveArch. If we wanted to conditionalize BR’s based on build
@@ -85,6 +86,8 @@ k="${k-}${k+ and }not test_additional_node_dependencies_installed"
 k="${k-}${k+ and }not test_additional_ruby_dependencies_installed"
 k="${k-}${k+ and }not test_additional_rust_cli_dependencies_installed"
 k="${k-}${k+ and }not test_additional_rust_lib_dependencies_installed"
+k="${k-}${k+ and }not test_automatic_toolchain_switching"
+k="${k-}${k+ and }not test_automatic_toolchain_switching_go_fmt"
 k="${k-}${k+ and }not test_conda_additional_deps"
 k="${k-}${k+ and }not test_conda_hook"
 k="${k-}${k+ and }not test_conda_language"
@@ -117,6 +120,11 @@ k="${k-}${k+ and }not test_installs_with_bootstrapped_rustup"
 k="${k-}${k+ and }not test_installs_with_existing_rustup"
 k="${k-}${k+ and }not test_installs_without_links_outside_env"
 k="${k-}${k+ and }not test_invalidated_virtualenv"
+k="${k-}${k+ and }not test_julia_hook"
+k="${k-}${k+ and }not test_julia_hook_additional_deps"
+k="${k-}${k+ and }not test_julia_hook_args"
+k="${k-}${k+ and }not test_julia_hook_manifest"
+k="${k-}${k+ and }not test_julia_repo_local"
 k="${k-}${k+ and }not test_language_versioned_python_hook"
 k="${k-}${k+ and }not test_local_conda_additional_dependencies"
 k="${k-}${k+ and }not test_local_golang_additional_dependencies"

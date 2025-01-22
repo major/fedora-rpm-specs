@@ -14,6 +14,10 @@ Source0:    intel-media-%{version}-free.tar.gz
 Source1:    intel-media-driver.metainfo.xml
 Source2:    strip.py
 
+# GCC 15 Fix
+# https://github.com/intel/media-driver/commit/46a7058714b17a13cf62c052ab1134031fa5f706
+Patch01:    46a7058714b17a13cf62c052ab1134031fa5f706.patch
+
 # This is an Intel only vaapi backend
 ExclusiveArch:  i686 x86_64
 
@@ -50,7 +54,10 @@ https://01.org/intel-media-for-linux
 Summary:        The Intel Media Driver for VAAPI.
 
 %description -n libva-intel-media-driver
-%{description}
+The Intel Media Driver for VAAPI is a new VA-API (Video Acceleration API)
+user mode driver supporting hardware accelerated decoding, encoding,
+and video post processing for GEN based graphics hardware.
+https://01.org/intel-media-for-linux
 
 %package -n     libigfxcmrt
 Summary:        Library to load own GPU kernels on render engine via Intel media driver.

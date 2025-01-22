@@ -12,7 +12,7 @@
 Name:             libosmocore
 URL:              https://osmocom.org/projects/libosmocore
 Version:          0.9.6
-Release:          24.%{git_suffix}%{?dist}
+Release:          25.%{git_suffix}%{?dist}
 # Automatically converted from old format: GPLv2+ and GPLv3+ and AGPLv3+ - review is highly recommended.
 License:          GPL-2.0-or-later AND GPL-3.0-or-later AND AGPL-3.0-or-later
 BuildRequires:    autoconf, automake, libtool, pcsc-lite-devel, doxygen
@@ -98,6 +98,9 @@ make check
 %doc %{_docdir}/%{name}/vty
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-25.20170220git32ee5af8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Aug  7 2024 Miroslav Suchý <msuchy@redhat.com> - 0.9.6-24.20170220git32ee5af8
 - convert license to SPDX
 

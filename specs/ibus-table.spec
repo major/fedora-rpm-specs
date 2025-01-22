@@ -1,5 +1,5 @@
 Name:       ibus-table
-Version:    1.17.9
+Version:    1.17.10
 Release:    %autorelease
 Summary:    The Table engine for IBus platform
 License:    LGPL-2.1-or-later
@@ -72,9 +72,9 @@ export PYTHON=%{__python3}
 
 %check
 %if 0%{?fedora}
-appstreamcli validate --pedantic --explain --no-net %{buildroot}/%{_datadir}/metainfo/*.appdata.xml
+appstreamcli validate --pedantic --explain --no-net %{buildroot}/%{_datadir}/metainfo/*.metainfo.xml
 %endif
-appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.metainfo.xml
 desktop-file-validate \
     $RPM_BUILD_ROOT%{_datadir}/applications/ibus-setup-table.desktop
 pushd engine
@@ -102,7 +102,7 @@ fi
 %files -f %{name}.lang
 %doc AUTHORS COPYING README
 %{_datadir}/%{name}
-%{_datadir}/metainfo/*.appdata.xml
+%{_datadir}/metainfo/*.metainfo.xml
 %{_datadir}/ibus/component/table.xml
 %{_datadir}/icons/hicolor/16x16/apps/ibus-table.png
 %{_datadir}/icons/hicolor/22x22/apps/ibus-table.png

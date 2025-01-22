@@ -10,7 +10,7 @@
 Summary: A fast, lightweight Source Control Management system
 Name: mercurial
 Version: 6.9.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Release: 1.rc1%%{?dist}
 
@@ -196,13 +196,6 @@ path=%{_libexecdir}/mercurial/hgk
 EOF
 install -m 644 hgk.rc %{buildroot}%{_sysconfdir}/mercurial/hgrc.d
 
-cat > certs.rc <<EOF
-# see: https://www.mercurial-scm.org/wiki/CACertificates
-[web]
-cacerts = /etc/pki/tls/certs/ca-bundle.crt
-EOF
-install -m 644 certs.rc %{buildroot}%{_sysconfdir}/mercurial/hgrc.d
-
 mv %{buildroot}%{python3_sitearch}/mercurial/locale %{buildroot}%{_datadir}/locale
 rm -rf %{buildroot}%{python3_sitearch}/mercurial/locale
 
@@ -233,8 +226,6 @@ rm -rf %{buildroot}%{python3_sitearch}/mercurial/locale
 %{_bindir}/hg
 %{_bindir}/hg-ssh
 
-%config(noreplace) %{_sysconfdir}/mercurial/hgrc.d/certs.rc
-
 %files hgk
 %{_libexecdir}/mercurial/
 %pycached %{python3_sitearch}/hgext/hgk.py
@@ -257,6 +248,9 @@ rm -rf %{buildroot}%{python3_sitearch}/mercurial/locale
 
 
 %changelog
+* Mon Jan 20 2025 Mads Kiilerich <mads@kiilerich.com> - 6.9.1-2
+- There is no need for TLS configuration with modern Python
+
 * Thu Jan 16 2025 Mads Kiilerich <mads@kiilerich.com> - 6.9.1-1
 - mercurial 6.9.1
 

@@ -15,7 +15,7 @@
 Name:           pipewire0.2
 Summary:        Media Sharing Server compat libraries
 Version:        0.2.7
-Release:        14%{?snap:.%{snap}git%{shortcommit}}%{?dist}
+Release:        15%{?snap:.%{snap}git%{shortcommit}}%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
 URL:            https://pipewire.org/
@@ -128,6 +128,9 @@ rm -rf $RPM_BUILD_ROOT%{_sysconfdir}/*
 %{_libdir}/pkgconfig/libspa-%{spaversion}.pc
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.7-14
 - convert license to SPDX
 

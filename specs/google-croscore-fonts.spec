@@ -6,6 +6,18 @@ Release:        21%{?dist}
 License:        Apache-2.0
 #URL:            
 
+Source0:        http://gsdview.appspot.com/chromeos-localmirror/distfiles/%{archivename}.tar.bz2
+Source1:        62-%{fontpkgname1}.conf
+Source2:        62-%{fontpkgname2}.conf
+Source3:        62-%{fontpkgname3}.conf
+Source4:        30-0-%{fontpkgname1}.conf
+Source5:        30-0-%{fontpkgname2}.conf
+Source6:        30-0-%{fontpkgname3}.conf
+# Upstream has not provided license text in their tarball release
+# Add ASL2.0 license text in LICENSE-2.0.txt file
+Source8:        LICENSE-2.0.txt
+
+
 %global foundry           google
 %global fontlicense       Apache-2.0
 %global fontlicenses      LICENSE-2.0.txt
@@ -72,11 +84,6 @@ and solves the needs of developers looking for width-compatible fonts to
 address document portability across platforms.}
 
 
-Source0:        http://gsdview.appspot.com/chromeos-localmirror/distfiles/%{archivename}.tar.bz2
-# Upstream has not provided license text in their tarball release
-# Add ASL2.0 license text in LICENSE-2.0.txt file
-Source8:        LICENSE-2.0.txt
-
 Name: google-croscore-fonts
 Summary: The width-compatible fonts for improved on-screen readability
 
@@ -84,13 +91,6 @@ Summary: The width-compatible fonts for improved on-screen readability
 %wordwrap -v common_description
 
 %fontpkg -a
-
-Source1:        62-%{fontpkgname1}.conf
-Source2:        62-%{fontpkgname2}.conf
-Source3:        62-%{fontpkgname3}.conf
-Source4:        30-0-%{fontpkgname1}.conf
-Source5:        30-0-%{fontpkgname2}.conf
-Source6:        30-0-%{fontpkgname3}.conf
 
 %prep
 %setup -q -n croscorefonts-%{version}

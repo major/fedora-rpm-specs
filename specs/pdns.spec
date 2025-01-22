@@ -2,12 +2,13 @@
 %global backends %{nil}
 
 Name: pdns
-Version: 4.9.2
-Release: 3%{?dist}
+Version: 4.9.3
+Release: 1%{?dist}
 Summary: A modern, advanced and high performance authoritative-only name server
 License: GPL-2.0-only
 URL: http://powerdns.com
 Source0: http://downloads.powerdns.com/releases/%{name}-%{version}.tar.bz2
+Patch0: pdns-gcc15.patch
 ExcludeArch: %{arm} %{ix86}
 
 Requires(pre): shadow-utils
@@ -322,6 +323,12 @@ getent passwd pdns >/dev/null || \
 %{_unitdir}/ixfrdist@.service
 
 %changelog
+* Mon Jan 20 2025 Morten Stevens <mstevens@fedoraproject.org> - 4.9.3-1
+- Update to 4.9.3
+
+* Mon Jan 20 2025 Morten Stevens <mstevens@fedoraproject.org> - 4.9.2-4
+- Fix missing include for gcc15
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

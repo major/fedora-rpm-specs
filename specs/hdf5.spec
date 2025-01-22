@@ -14,7 +14,7 @@
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: 1.14.5
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD-3-Clause
 URL: https://www.hdfgroup.org/solutions/hdf5/
@@ -542,6 +542,9 @@ fi
 
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 03 2025 Orion Poplawski <orion@nwra.com> - 1.14.5-2
 - Fix ownership of %%{_libdir}/hdf5
 

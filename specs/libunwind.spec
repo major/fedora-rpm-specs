@@ -46,7 +46,7 @@
 Summary: An unwinding library
 Name: libunwind
 Version: 1.8.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: MIT
 URL: http://savannah.nongnu.org/projects/libunwind
 Source: https://github.com/libunwind/libunwind/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -138,6 +138,9 @@ echo ====================TESTING END=====================
 %{_includedir}/libunwind*.h
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Nov 12 2024 Songsong Zhang <U2FsdGVkX1@gmail.com> - 1.8.0-5
 - Fix test failure in riscv64
 

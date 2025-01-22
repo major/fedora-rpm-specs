@@ -6,7 +6,7 @@
 
 Name:           libxeddsa
 Version:        2.0.0^%{snapdate}git%{shortcommit}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Toolkit around Curve25519 and Ed25519 key pairs
 
 # ref10 library is Public Domain (under ref10/ subdirectory)
@@ -113,6 +113,9 @@ rm -f %{buildroot}/%{_libdir}/*.a
 
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0^20240426gitd725c81-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0^20240426gitd725c81-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

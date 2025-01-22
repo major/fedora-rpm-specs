@@ -8,6 +8,7 @@ Summary:        C/C++ version of the zxcvbn password strength estimator
 License:        MIT
 URL:            %{forgeurl}
 Source0:        %{forgesource}
+Patch:          gcc15-c++23_fix.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -30,7 +31,7 @@ developing applications that use %{name}
 
 
 %prep
-%forgesetup
+%forgeautosetup
 
 
 %build

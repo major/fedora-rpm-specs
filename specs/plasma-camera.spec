@@ -4,7 +4,7 @@
 
 Name:          plasma-camera
 Version:       1.0^%{gitdate}.%{shortcommit}
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       BSD-3-Clause AND GPL-2.0-or-later AND CC0-1.0 AND GPL-3.0-or-later
 Summary:       Camera application for Plasma Mobile
 URL:           https://apps.kde.org/plasma-camera/
@@ -60,5 +60,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_metainfodir}/org.kde.plasma.camera.appdata.xml
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0^20240615.212920.2b92073-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jun 17 2024 Steve Cossette <farchord@gmail.com> - 1.0^2b92073.20240615.212920
 - Initial Release

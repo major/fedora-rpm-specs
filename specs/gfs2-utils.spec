@@ -1,6 +1,6 @@
 Name: gfs2-utils
 Version: 3.5.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 # Refer to doc/README.licence in the upstream tarball
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 Summary: Utilities for managing the global file system (GFS2)
@@ -39,8 +39,8 @@ make check || { cat tests/testsuite.log; exit 1; }
 %install
 %make_install
 # Don't ship gfs2_{trace,lockcapture} in this package
-rm -f %{buildroot}/usr/sbin/gfs2_trace
-rm -f %{buildroot}/usr/sbin/gfs2_lockcapture
+rm -f %{buildroot}%{_sbindir}/gfs2_trace
+rm -f %{buildroot}%{_sbindir}/gfs2_lockcapture
 rm -f %{buildroot}%{_mandir}/man8/gfs2_trace.8
 rm -f %{buildroot}%{_mandir}/man8/gfs2_lockcapture.8
 
@@ -66,6 +66,9 @@ modifying, and correcting inconsistencies in GFS2 file systems.
 %{_prefix}/lib/udev/rules.d/82-gfs2-withdraw.rules
 
 %changelog
+* Mon Jan 20 2025 Andrew Price <anprice@redhat.com> - 3.5.1-7
+- Don't hardcode /usr/sbin in the spec
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

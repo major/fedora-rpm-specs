@@ -6,7 +6,7 @@
 
 Name:           libqxt-qt5
 Version:        0.7.0
-Release:        0.38.%{commitdate}git%{shortcommit}%{?dist}
+Release:        0.39.%{commitdate}git%{shortcommit}%{?dist}
 Summary:        Extended version of the original Qt extension library
 # Automatically converted from old format: BSD and (CPL or LGPLv2) - review is highly recommended.
 License:        LicenseRef-Callaway-BSD AND (CPL-1.0 OR LicenseRef-Callaway-LGPLv2)
@@ -172,6 +172,9 @@ make install --ignore-errors INSTALL_ROOT=%{buildroot}
 %{_datadir}/doc/libqxt-qt5-doc/html/
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-0.39.20130718giteaf6872f6ad4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-0.38.20130718giteaf6872f6ad4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

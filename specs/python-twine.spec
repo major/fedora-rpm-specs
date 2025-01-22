@@ -6,7 +6,7 @@
 
 Name:           python-%{srcname}
 Version:        6.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Collection of utilities for interacting with PyPI
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -105,6 +105,9 @@ install -p -D -T -m 0644 docs/build/man/%{srcname}.1 %{buildroot}%{_mandir}/man1
 %{_bindir}/twine
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Dec 04 2024 Charalampos Stratakis <cstratak@redhat.com> - 6.0.1-1
 - Update to 6.0.1
 Resolves: rhbz#2329634

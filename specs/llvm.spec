@@ -2,7 +2,7 @@
 #region version
 %global maj_ver 19
 %global min_ver 1
-%global patch_ver 6
+%global patch_ver 7
 #global rc_ver 4
 
 %bcond_with snapshot_build
@@ -58,6 +58,19 @@
 %bcond_without libcxx
 %else
 %bcond_with libcxx
+%endif
+
+# I've called the build condition "build_bolt" to indicate that this does not
+# necessarily "use" BOLT in order to build LLVM.
+%if %{without compat_build} && 0%{?fedora} >= 41
+# BOLT only supports aarch64 and x86_64
+%ifarch aarch64 x86_64
+%bcond_without build_bolt
+%else
+%bcond_with build_bolt
+%endif
+%else
+%bcond_with build_bolt
 %endif
 
 # Disable LTO on x86 and riscv in order to reduce memory consumption.
@@ -205,11 +218,15 @@
 %global pkg_name_llvm_libunwind llvm-libunwind
 #endregion libcxx globals
 
+#region BOLT globals
+%global pkg_name_bolt llvm-bolt%{pkg_suffix}
+#endregion BOLT globals
+
 #region packages
 #region main package
 Name:		%{pkg_name_llvm}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	4%{?dist}
+Release:	2%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -290,7 +307,12 @@ Patch1905: 0001-CMake-Add-missing-dependency-108461.patch
 Patch1906: 0001-mlir-Specify-deps-via-LLVM_LINK_COMPONENTS.patch
 # See https://github.com/llvm/llvm-project/pull/120079
 Patch1907: 0001-CMake-Use-correct-exports-for-MLIR-tools.patch
+Patch1908: cstdint.patch
 #endregion MLIR patches
+
+#region BOLT patches
+Patch1909: 0001-19-PATCH-Bolt-CMake-Don-t-export-bolt-libraries-in-LLVM.patch
+#endregion BOLT patches
 
 #region LLD patches
 Patch1800: 0001-18-Always-build-shared-libs-for-LLD.patch
@@ -925,6 +947,24 @@ Static library for LLVM libunwind.
 %endif
 #endregion libcxx packages
 
+#region BOLT packages
+%if %{with build_bolt}
+%package -n %{pkg_name_bolt}
+Summary:	A post-link optimizer developed to speed up large applications
+License:	Apache-2.0 WITH LLVM-exception
+URL:		https://github.com/llvm/llvm-project/tree/main/bolt
+
+# As hinted by bolt documentation
+Recommends:     gperftools-devel
+
+%description -n %{pkg_name_bolt}
+
+BOLT is a post-link optimizer developed to speed up large applications.
+It achieves the improvements by optimizing application's code layout based on
+execution profile gathered by sampling profiler, such as Linux `perf` tool.
+%endif
+#endregion BOLT packages
+
 #endregion packages
 
 #region prep
@@ -1032,6 +1072,10 @@ Static library for LLVM libunwind.
 
 %if %{with mlir}
 %global projects %{projects};mlir
+%endif
+
+%if %{with build_bolt}
+%global projects %{projects};bolt
 %endif
 
 %if %{with libcxx}
@@ -1656,6 +1700,11 @@ popd
 %endif
 #endregion libcxx installation
 
+#region BOLT installation
+# We don't ship libLLVMBOLT*.a
+rm -f %{buildroot}%{_libdir}/libLLVMBOLT*.a
+#endregion BOLT installation
+
 %if %{with compat_build}
 # Add version suffix to binaries. Do this at the end so it includes any
 # additional binaries that may be been added by other steps.
@@ -2030,10 +2079,13 @@ reset_test_opts
 %if %{with mlir}
 reset_test_opts
 
+%if %{maj_ver} < 20
 # The ml_dtypes python module required by mlir/test/python/execution_engine.py
-# isn't packaged.
+# isn't packaged. But in LLVM 20 the execution_engine.py is modified to only
+# run certain tests if ml_dtypes is present.
 test_list_filter_out+=("MLIR :: python/execution_engine.py")
 test_list_filter_out+=("MLIR :: python/multithreaded_tests.py")
+%endif
 
 %ifarch s390x
 # s390x does not support half-float
@@ -2046,6 +2098,51 @@ export PYTHONPATH=%{buildroot}/%{python3_sitearch}
 %cmake_build --target check-mlir
 %endif
 #endregion Test MLIR
+
+#region BOLT tests
+%if %{with build_bolt}
+%if %{maj_ver} < 20
+export LIT_XFAIL="$LIT_XFAIL;AArch64/build_id.c"
+export LIT_XFAIL="$LIT_XFAIL;AArch64/plt-call.test"
+export LIT_XFAIL="$LIT_XFAIL;X86/linux-static-keys.s"
+export LIT_XFAIL="$LIT_XFAIL;X86/plt-call.test"
+%endif
+
+# Beginning with LLVM 20 this test has the "non-root-user" requirement
+# and then the test should pass. But now it is flaky, hence we can only
+# filter it out.
+test_list_filter_out+=("BOLT :: unreadable-profile.test")
+
+%ifarch aarch64
+# Failing test cases on aarch64
+# TODO(kkleine): The following used to fail on aarch64 but passed today.
+#export LIT_XFAIL="$LIT_XFAIL;cache+-deprecated.test"
+#export LIT_XFAIL="$LIT_XFAIL;bolt-icf.test"
+#export LIT_XFAIL="$LIT_XFAIL;R_ABS.pic.lld.cpp"
+
+# The following tests require LSE in order to run.
+# More info at: https://github.com/llvm/llvm-project/issues/86485
+if ! grep -q atomics /proc/cpuinfo; then
+  test_list_filter_out+=("BOLT :: runtime/AArch64/basic-instrumentation.test")
+  test_list_filter_out+=("BOLT :: runtime/AArch64/hook-fini.test")
+  test_list_filter_out+=("BOLT :: runtime/AArch64/instrumentation-ind-call.c")
+  test_list_filter_out+=("BOLT :: runtime/exceptions-instrumentation.test")
+  test_list_filter_out+=("BOLT :: runtime/instrumentation-indirect-2.c")
+  test_list_filter_out+=("BOLT :: runtime/pie-exceptions-split.test")
+fi
+%endif
+
+%if %{maj_ver} < 20
+%ifarch x86_64
+# BOLT-ERROR: instrumentation of static binary currently does not support profile output on binary
+# finalization, so it requires -instrumentation-sleep-time=N (N>0) usage
+export LIT_XFAIL="$LIT_XFAIL;X86/internal-call-instrument.s"
+%endif
+%endif
+
+%cmake_build --target check-bolt
+%endif
+#endregion BOLT tests
 
 %endif
 
@@ -2921,10 +3018,34 @@ fi
 %endif
 #endregion libcxx files
 
+#region BOLT files
+%if %{with build_bolt}
+%files -n %{pkg_name_bolt}
+%license bolt/LICENSE.TXT
+%{_bindir}/llvm-bolt
+%if %{maj_ver} >= 20
+%{_bindir}/llvm-bolt-binary-analysis
+%endif
+%{_bindir}/llvm-boltdiff
+%{_bindir}/llvm-bolt-heatmap
+%{_bindir}/merge-fdata
+%{_bindir}/perf2bolt
+
+%{_libdir}/libbolt_rt_hugify.a
+%{_libdir}/libbolt_rt_instr.a
+%endif
+#endregion BOLT files
+
 #endregion files
 
 #region changelog
 %changelog
+* Mon Jan 20 2025 Konrad Kleine <kkleine@redhat.com> - 19.1.7-2
+- Add bolt
+
+* Wed Jan 20 2025 Timm Bäder <tbaeder@redhat.com> - 19.1.7-1
+- Update to 19.1.7
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 19.1.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

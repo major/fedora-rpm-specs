@@ -100,7 +100,7 @@
 
 # Comment out go_prerelease and go_patch as needed
 %global go_api 1.24
-%global go_prerelease rc1
+%global go_prerelease rc2
 #global go_patch 4
 
 %global go_version %{go_api}%{?go_patch:.%{go_patch}}%{?go_prerelease:~%{go_prerelease}}
@@ -157,10 +157,6 @@ Requires:       go-filesystem
 Patch1:         0001-Modify-go.env.patch
 Patch5:		0005-Skip-TestCrashDumpsAllThreads.patch
 Patch6:		0006-Default-to-ld.bfd-on-ARM64.patch
-# This is a huge patch. At the time of the Fedora merge, there was no rc2 tag
-# to include a significant amount of necessary changes so I generated a single patch
-# git diff go1.24rc1..release-branch.go1.24 > combined_commits_2025-01-08.patch
-Patch7:		combined_commits_2025-01-08.patch
 # Related to https://gcc.gnu.org/PR118497
 Patch8:		fix_cgo_panic-with-gcc15-in-368.patch
 

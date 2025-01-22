@@ -4,7 +4,7 @@
 
 Name: heimdal
 Version: 7.8.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: A Kerberos 5 implementation without export restrictions
 # Automatically converted from old format: BSD and MIT - review is highly recommended.
 License: LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT
@@ -429,6 +429,9 @@ fi
 %{_sysconfdir}/profile.d/%{name}.csh
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.8.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 7.8.0-11
 - convert license to SPDX
 

@@ -1,6 +1,6 @@
 Name:           pkcs11-dump
 Version:        0.3.4
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Small utility for querying PKCS#11 modules
 
 # Automatically converted from old format: GPLv2 with exceptions - review is highly recommended.
@@ -44,6 +44,9 @@ rm -rf $RPM_BUILD_ROOT%{_defaultdocdir}/pkcs11-dump/
 
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.3.4-31
 - convert license to SPDX
 

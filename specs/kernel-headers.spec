@@ -5,10 +5,10 @@
 
 # define buildid .local
 %define specversion 6.13.0
-%define tarfile_release 6.13-rc7
+%define tarfile_release 6.13
 # This is needed to do merge window version magic
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc7.55%{?buildid}%{?dist}
+%define specrelease 62%{?buildid}%{?dist}
 
 # This package doesn't contain any binary, thus no debuginfo package is needed
 %global debug_package %{nil}
@@ -18,7 +18,7 @@ Summary: Header files for the Linux kernel for use by glibc
 License: ((GPL-2.0-only WITH Linux-syscall-note) OR BSD-2-Clause) AND ((GPL-2.0-only WITH Linux-syscall-note) OR BSD-3-Clause) AND ((GPL-2.0-only WITH Linux-syscall-note) OR CDDL-1.0) AND ((GPL-2.0-only WITH Linux-syscall-note) OR Linux-OpenIB) AND ((GPL-2.0-only WITH Linux-syscall-note) OR MIT) AND ((GPL-2.0-or-later WITH Linux-syscall-note) OR BSD-3-Clause) AND ((GPL-2.0-or-later WITH Linux-syscall-note) OR MIT) AND BSD-3-Clause AND (GPL-1.0-or-later WITH Linux-syscall-note) AND GPL-2.0-only AND (GPL-2.0-only WITH Linux-syscall-note) AND (GPL-2.0-or-later WITH Linux-syscall-note) AND (LGPL-2.0-or-later WITH Linux-syscall-note) AND (LGPL-2.1-only WITH Linux-syscall-note) AND (LGPL-2.1-or-later WITH Linux-syscall-note) AND MIT
 URL: http://www.kernel.org/
 Version: %{specversion}
-Release: %{specrelease}.1
+Release: %{specrelease}
 # This is a tarball with headers from the kernel, which should be created
 # using create_headers_tarball.sh provided in the kernel source package.
 # To create the tarball, you should go into a prepared/patched kernel sources
@@ -109,7 +109,4 @@ done
 %{_prefix}/*-linux-gnu/*
 
 %changelog
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.13.0-0.rc7.55.1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
 %autochangelog

@@ -1,6 +1,6 @@
 Name:           libvpl-tools
 Version:        1.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Intel Video Processing Library (Intel VPL) Tools
 License:        MIT
 URL:            https://intel.github.io/libvpl
@@ -100,6 +100,9 @@ rm -rf ext/*
 %{_libdir}/libvpl_wayland.so.*
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Dec 27 2024 Simone Caronni <negativo17@gmail.com> - 1.3.0-1
 - Update to 1.3.0.
 

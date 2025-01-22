@@ -1,6 +1,6 @@
 Name: ATpy
 Version: 0.9.7
-Release: 42%{?dist}
+Release: 43%{?dist}
 Summary: Astronomical Tables in Python
 # MIT License
 License: MIT
@@ -46,6 +46,9 @@ and ASCII tables) with a very simple API.
 %{python3_sitelib}/atpy
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.7-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.7-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

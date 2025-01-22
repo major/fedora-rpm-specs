@@ -1,6 +1,6 @@
 Name:           libpciaccess
 Version:        0.16
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        PCI access library
 
 License:        HPND AND MIT
@@ -56,6 +56,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/*.la
 %{_libdir}/pkgconfig/pciaccess.pc
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

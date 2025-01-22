@@ -15,9 +15,9 @@
 Name:           libmatekbd
 Version:        %{branch}.0
 %if 0%{?rel_build}
-Release:        3%{?dist}
+Release:        4%{?dist}
 %else
-Release:        0.21%{?git_rel}%{?dist}
+Release:        0.22%{?git_rel}%{?dist}
 %endif
 Summary:        Libraries for mate kbd
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -99,6 +99,9 @@ find %{buildroot} -name '*.la' -exec rm -fv {} ';'
 
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.28.0-3
 - convert license to SPDX
 

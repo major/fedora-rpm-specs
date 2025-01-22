@@ -12,9 +12,14 @@
 # Testing is not well behaved.
 %bcond_with test
 
+# Compression type and level for source/binary package payloads.
+#  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
+%define _source_payload	w7T0.xzdio
+%define _binary_payload	w7T0.xzdio
+
 Name:           rocjpeg
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A high-performance jpeg decode library for AMD’s GPUs
 
 Url:            https://github.com/ROCm/rocJPEG
@@ -100,6 +105,9 @@ sed -i -e 's@{ROCM_PATH}/share@/usr/share@' test/CMakeLists.txt
 %{_datadir}/%{name}
 
 %changelog
+* Mon Jan 20 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-3
+- multithread compress
+
 * Wed Jan 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-2
 - build requires gcc-c++
 

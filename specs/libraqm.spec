@@ -1,6 +1,6 @@
 Name:				libraqm
 Version:			0.10.1
-Release:			1%{?dist}
+Release:			2%{?dist}
 License:			MIT
 Summary:			Complex Textlayout Library
 Summary(ar):		مكتبة رقم للنّصوص المركّبة
@@ -79,6 +79,9 @@ rm -f %{buildroot}%{_libdir}/*.{la,a}
 %{_datadir}/gtk-doc/html/raqm
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sun Sep 22 2024 Carl George <carlwgeorge@fedoraproject.org> - 0.10.1-1
 - Update to version 0.10.1 rhbz#1900481
 

@@ -9,6 +9,9 @@ License: MIT
 URL: https://github.com/jarro2783/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+# https://github.com/jarro2783/cxxopts/commit/63d1b65a694cfceafc20863afa75df49dfbe6b2a
+Patch100: %{name}-3.2.1-add-missing-include.patch
+
 BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: ninja-build

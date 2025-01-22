@@ -1,8 +1,8 @@
 %global pypi_name mbstrdecoder
 
 Name:           python-%{pypi_name}
-Version:        1.1.2
-Release:        8%{?dist}
+Version:        1.1.3
+Release:        1%{?dist}
 Summary:        multi-byte character string decoder
 
 License:        MIT
@@ -45,6 +45,9 @@ sed -i 's/chardet>=3.0.4,<.*/chardet>=3.0.4/g' requirements/requirements.txt
 %doc README.rst
 
 %changelog
+* Mon Jan 20 2025 Joel Capitao <jcapitao@redhat.com> - 1.1.3-1
+- Update to 1.1.3
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -22,6 +22,8 @@ Source2:        XGap
 Patch:          %{name}-warning.patch
 # Fix FTBFS due to an incompatible pointer type
 Patch:          %{name}-incompatible-pointer.patch
+# Adapt to changes in C23
+Patch:          %{name}-c23.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gap-devel

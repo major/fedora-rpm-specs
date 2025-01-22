@@ -1,6 +1,6 @@
 Name:           libmediaart
 Version:        1.9.6
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Library for managing media art caches
 
 License:        LGPL-2.1-or-later
@@ -68,6 +68,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.6-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.6-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

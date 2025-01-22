@@ -6,8 +6,8 @@
 %endif
 
 Name:           packit
-Version:        0.106.0
-Release:        2%{?dist}
+Version:        1.0.0
+Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
 License:        MIT
@@ -78,6 +78,13 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Mon Jan 20 2025 Packit <hello@packit.dev> - 1.0.0-1
+- Job type `build` removed after deprecation, is now `copr_build`.
+- Job type `production_build` removed after deprecation, is now `upstream_koji_build`.
+- Key `upstream_project_name` removed after deprecation, is now `upstream_package_name`.
+- Key `synced_files` removed after deprecation, is now `files_to_sync`.
+- Resolves: rhbz#2338988
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.106.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

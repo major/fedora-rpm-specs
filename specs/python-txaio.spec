@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        23.1.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Compatibility API between asyncio/Twisted/Trollius
 
 License:        MIT
@@ -85,6 +85,9 @@ ln -s /usr/share/javascript/jquery/latest/jquery.min.js _build/html/_static/jque
 %doc docs/_build/html
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 23.1.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Tue Dec 03 2024 Julien Enselme <jujens@jujens.eu> - 23.1.1-9
 - Correct build for sphinx 8
 

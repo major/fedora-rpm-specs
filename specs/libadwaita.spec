@@ -5,14 +5,14 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           libadwaita
-Version:        1.6.2
+Version:        1.7~alpha
 Release:        %autorelease
 Summary:        Building blocks for modern GNOME applications
 
 # part of src/adw-spring-animation.c is MIT
 License:        LGPL-2.1-or-later AND MIT
 URL:            https://gitlab.gnome.org/GNOME/libadwaita
-Source0:        https://download.gnome.org/sources/%{name}/1.6/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/1.7/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -21,6 +21,7 @@ BuildRequires:  gi-docgen
 BuildRequires:  libappstream-glib
 BuildRequires:  meson >= 0.59.0
 BuildRequires:  vala
+BuildRequires:  /usr/bin/sassc
 BuildRequires:  pkgconfig(appstream)
 BuildRequires:  pkgconfig(fribidi)
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib_version}
@@ -76,7 +77,7 @@ Demo files for %{name}.
 
 %build
 %meson \
-    -Dgtk_doc=true \
+    -Ddocumentation=true \
     %{nil}
 %meson_build
 

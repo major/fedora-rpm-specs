@@ -1,6 +1,6 @@
 Name: libsixel
 Version: 1.10.3
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: SIXEL encoding and decoding
 
 License: MIT
@@ -68,6 +68,9 @@ rm %{buildroot}/%{_libdir}/libsixel.a
 %{zsh_completions_dir}/_img2sixel
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

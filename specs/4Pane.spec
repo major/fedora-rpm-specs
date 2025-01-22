@@ -8,7 +8,7 @@
 
 Name:			4Pane
 Version:		8.0
-Release:		11%{?dist}
+Release:		12%{?dist}
 Summary:		Multi-pane, detailed-list file manager
 
 # Overall		GPL-3.0-only
@@ -119,6 +119,9 @@ appstream-util validate-relax --nonet \
 %{_datadir}/icons/hicolor/*/apps/%{name}*
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

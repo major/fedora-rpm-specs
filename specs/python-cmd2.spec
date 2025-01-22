@@ -1,8 +1,8 @@
 %global pypi_name cmd2
 
 Name:             python-%{pypi_name}
-Version:          2.5.1
-Release:          2%{?dist}
+Version:          2.5.8
+Release:          1%{?dist}
 Summary:          Extra features for standard library's cmd module
 
 License:          MIT
@@ -65,6 +65,9 @@ Requires:         /usr/bin/which
 %doc CHANGELOG.md README.md docs
 
 %changelog
+* Mon Jan 20 2025 Joel Capitao <jcapitao@redhat.com> - 2.5.8-1
+- Update to 2.5.8. Fixes rhbz#2323520
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

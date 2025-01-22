@@ -14,7 +14,7 @@
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
 Version:        2.35.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Epoch:          2
 # MIT covers nearly all the files, except init files
 License:        MIT AND LGPL-2.1-or-later
@@ -45,6 +45,10 @@ Source25:       91-zipl.install
 # change the defaults to match Fedora environment
 Patch0:         s390-tools-zipl-invert-script-options.patch
 Patch1:         s390-tools-zipl-blscfg-rpm-nvr-sort.patch
+
+# build fix
+# https://github.com/ibm-s390-linux/s390-tools/pull/180
+Patch99:       s390utils-%{version}-gcc15-zipl.patch
 
 # upstream fixes/updates
 #Patch100:       s390utils-%%{version}-fedora.patch
@@ -1085,6 +1089,10 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Mon Jan 20 2025 Dan Horák <dan[at]danny.cz> - 2:2.35.0-4
+- fix build with gcc15
+- Resolves: rhbz#2338176
+
 * Wed Jan 15 2025 Zbigniew Jedrzejewski-Szmek <zbyszek@in.waw.pl> - 2:2.35.0-3
 - Add sysusers.d config
 

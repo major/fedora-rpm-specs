@@ -1,7 +1,7 @@
 Name:           mpqc
 Summary:        Ab-inito chemistry program
 Version:        2.3.1
-Release:        62%{?dist}
+Release:        63%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:            http://www.mpqc.org/
@@ -13,6 +13,8 @@ Patch1:         mpqc-2.3.1-format-security.patch
 Patch2:         mpqc-2.3.1-cpp11-constexpr.patch
 # C23 strict function prototype fix
 Patch3:         mpqc-2.3.1-c23-function-prototype.patch
+# C++17 build fix: remove deprecated exception specification
+Patch4:         mpqc-2.3.1-cpp17-exception-specification.patch
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -72,6 +74,8 @@ based on mpqc computational chemistry package from Sandia Labs.
 %patch -P1 -p1
 %patch -P2 -p1 -b .cpp11
 %patch -P3 -p1 -b .c23
+%patch -P4 -p1 -b .cpp17
+
 sed -i -e 's,molrender.in,%{_datadir}/molrender/molrender.in,g' src/bin/molrender/tkmolrender.in
 sed -i -e 's,prefix/lib,prefix/%{_lib},g' configure.in
 # fixup for modern autoreconf
@@ -98,7 +102,6 @@ Version=1.0
 EOF
 
 %build
-export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS"
 export F77=gfortran
 autoreconf -v -f -i -I lib/autoconf
 
@@ -194,6 +197,9 @@ done
 
 
 %changelog
+* Mon Jan 20 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.3.1-63
+- Support C++17, remove deprecated exception specification
+
 * Sun Jan 19 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.3.1-62
 - Support C23 strict function prototype
 

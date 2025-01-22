@@ -1,6 +1,6 @@
 Name:       perl-Text-CSV
-Version:    2.04
-Release:    3%{?dist}
+Version:    2.05
+Release:    1%{?dist}
 Summary:    Comma-separated values manipulator
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:        https://metacpan.org/release/Text-CSV
@@ -35,7 +35,7 @@ BuildRequires:  perl(warnings)
 # Optional tests:
 BuildRequires:  perl(Test::Pod) >= 1.00
 Requires:       perl(IO::Handle)
-Suggests:       perl(Text::CSV_XS) >= 1.53
+Suggests:       perl(Text::CSV_XS) >= 1.59
 
 %{?perl_default_filter}
 

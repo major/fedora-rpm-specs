@@ -1,7 +1,7 @@
 Name:           perl-DBIx-Class
 Summary:        Extensible and flexible object <-> relational mapper
-Version:        0.082843
-Release:        9%{?dist}
+Version:        0.082844
+Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/R/RI/RIBASUSHI/DBIx-Class-%{version}.tar.gz
 URL:            https://metacpan.org/release/DBIx-Class
@@ -12,8 +12,8 @@ BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(Config)
 BuildRequires:  perl(CPAN)
 BuildRequires:  perl(Cwd)
@@ -286,11 +286,19 @@ make test
 %files
 %license LICENSE
 %doc AUTHORS Changes README examples/ t/
-%{perl_vendorlib}/*
-%{_bindir}/*
-%{_mandir}/man[13]/*
+%{_bindir}/dbicadmin*
+%dir %{perl_vendorlib}/DBIx
+%{perl_vendorlib}/DBIx/Class*
+%dir %{perl_vendorlib}/SQL
+%{perl_vendorlib}/SQL/Translator*
+%{_mandir}/man1/dbicadmin*
+%{_mandir}/man3/DBIx::Class*
+%{_mandir}/man3/SQL::Translator*
 
 %changelog
+* Mon Jan 20 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.082844-1
+- 0.082844 bump (rhbz#2338423)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.082843-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

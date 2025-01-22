@@ -4,7 +4,7 @@
 
 Name:           libtomcrypt
 Version:        1.18.2
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        A comprehensive, portable cryptographic toolkit
 License:        Unlicense OR WTFPL
 URL:            http://www.libtom.net/
@@ -115,6 +115,9 @@ sed -i \
 }
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.2-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.2-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

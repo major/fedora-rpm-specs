@@ -12,9 +12,14 @@
 # Tests also have issues and possibly requires ffmpeg from rpmfusion to work 
 %bcond_with test
 
+# Compression type and level for source/binary package payloads.
+#  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
+%define _source_payload	w7T0.xzdio
+%define _binary_payload	w7T0.xzdio
+
 Name:           rocdecode
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        High-performance video decode SDK for AMD GPUs
 
 Url:            https://github.com/ROCm/rocDecode
@@ -95,6 +100,9 @@ sed -i "s|/opt/amdgpu/include NO_DEFAULT_PATH|/usr/include|" cmake/FindLibva.cma
 %exclude %{_datadir}/%{name}/samples
 
 %changelog
+* Mon Jan 20 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-3
+- multithread compress
+
 * Wed Jan 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-2
 - build requires gcc-c++
 

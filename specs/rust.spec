@@ -60,6 +60,15 @@ ExclusiveArch:  %{rust_arches}
 %bcond_without bundled_libgit2
 %endif
 
+# Try to use system oniguruma (only used at build time for rust-docs)
+# src/tools/rustbook -> ... -> onig_sys v69.8.1 needs at least 6.9.3
+%global min_oniguruma_version 6.9.3
+%if 0%{?rhel} && 0%{?rhel} < 9
+%bcond_without bundled_oniguruma
+%else
+%bcond_with bundled_oniguruma
+%endif
+
 # Cargo uses UPSERTs with omitted conflict targets
 %global min_sqlite3_version 3.35
 %global bundled_sqlite3_version 3.46.0
@@ -248,6 +257,10 @@ BuildRequires:  pkgconfig(zlib)
 
 %if %{without bundled_libgit2}
 BuildRequires:  (pkgconfig(libgit2) >= %{min_libgit2_version} with pkgconfig(libgit2) < %{next_libgit2_version})
+%endif
+
+%if %{without bundled_oniguruma}
+BuildRequires:  pkgconfig(oniguruma) >= %{min_oniguruma_version}
 %endif
 
 %if %{without bundled_sqlite3}
@@ -701,6 +714,10 @@ rm -rf src/tools/rustc-perf
 %clear_dir vendor/libgit2-sys*/libgit2/
 %endif
 
+%if %without bundled_oniguruma
+%clear_dir vendor/onig_sys*/oniguruma/
+%endif
+
 %if %without bundled_sqlite3
 %clear_dir vendor/libsqlite3-sys*/sqlite3/
 %endif
@@ -753,6 +770,7 @@ end}
 %global rust_env %{shrink:
   %{?rustflags:RUSTFLAGS="%{rustflags}"}
   %{rustc_target_cpus}
+  %{!?with_bundled_oniguruma:RUSTONIG_SYSTEM_LIBONIG=1}
   %{!?with_bundled_sqlite3:LIBSQLITE3_SYS_USE_PKG_CONFIG=1}
   %{!?with_disabled_libssh2:LIBSSH2_SYS_USE_PKG_CONFIG=1}
 }

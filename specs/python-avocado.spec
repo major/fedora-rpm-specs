@@ -35,7 +35,7 @@
 
 Name: python-avocado
 Version: 92.3
-Release: 2%{?gitrel}%{?dist}
+Release: 4%{?gitrel}%{?dist}
 Summary: Framework with tools and libraries for Automated Testing
 # Found licenses:
 # avocado/core/tapparser.py: MIT
@@ -90,6 +90,8 @@ sed -e "s/'PyYAML>=4.2b2'/'PyYAML>=3.12'/" -i optional_plugins/varianter_yaml_to
 sed -e "s/'markupsafe<2.0.0', //" -i optional_plugins/html/setup.py
 # loosen jinja2 version requirement
 sed -e "s/'jinja2<3.0.0'/'jinja2'/" -i optional_plugins/html/setup.py
+# loosen pyyaml version requirement
+sed -e "s/'PyYAML>=4.2b2,<6.0.2'/'PyYAML>=4.2b2'/" -i optional_plugins/varianter_yaml_to_mux/setup.py
 
 %build
 %py3_build
@@ -299,7 +301,7 @@ Common files (such as configuration) for the Avocado Testing Framework.
 
 %package -n python3-avocado-plugins-output-html
 Summary: Avocado HTML report plugin
-License: GPLv2+ and MIT
+License: GPL-2.0-or-later AND MIT
 Requires: python3-avocado == %{version}-%{release}
 
 %description -n python3-avocado-plugins-output-html
@@ -434,7 +436,7 @@ examples of how to write tests on your own.
 
 %package -n python-avocado-bash
 Summary: Avocado Test Framework Bash Utilities
-License: GPLv2+ and GPLv2
+License: GPL-2.0-or-later AND GPL-2.0-only
 Requires: python-avocado-common == %{version}-%{release}
 
 %description -n python-avocado-bash
@@ -452,6 +454,12 @@ Again Shell code (and possibly other similar shells).
 
 
 %changelog
+* Mon Jan 20 2025 Miro Hrončok <mhroncok@redhat.com> - 92.3-4
+- Loosen the PyYAML version requirement in python3-avocado-plugins-varianter-yaml-to-mux
+
+* Mon Jan 20 2025 Cleber Rosa <crosa@redhat.com> - 92.3-3
+- convert remaining licenses to SPDX
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 92.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

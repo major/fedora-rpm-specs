@@ -1,13 +1,14 @@
 Name:           dqlite
-Version:        1.16.4
-Release:        3%{?dist}
+Version:        1.17.1
+Release:        1%{?dist}
 Summary:        Embeddable, replicated and fault tolerant SQL engine
 
 License:        LGPL-3.0-only WITH LGPL-3.0-linking-exception
 URL:            https://github.com/canonical/dqlite
 Source0:        %{URL}/archive/v%{version}.tar.gz
-# https://github.com/canonical/dqlite/issues/574
-Patch0:         dqlite-1.16.4-raft-uv-Drop-AI_V4MAPPED-AI_ADDRCONFIG-from-getaddrinfo.patch
+# https://github.com/ganto/copr-lxc4/issues/24
+# https://github.com/canonical/dqlite/issues/643
+Patch0:         dqlite-1.17.1-Skip-flaky-tests.patch
 
 BuildRequires:  autoconf libtool
 BuildRequires:  gcc
@@ -54,6 +55,9 @@ rm -f %{buildroot}%{_libdir}/libdqlite.la
 %{_includedir}/%{name}.h
 
 %changelog
+* Mon Jan 20 2025 Reto Gantenbein <reto.gantenbein@linuxmonk.ch> - 1.17.1-1
+- Update to 1.17.1
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

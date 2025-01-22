@@ -1,6 +1,6 @@
 Name:           libxo
 Version:        1.6.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A Library for Generating Text, XML, JSON, and HTML Output
 
 
@@ -74,6 +74,9 @@ rm -f %{buildroot}%{_docdir}/libxo/Copyright
 %{_libdir}/libxo/encoder/libenc*.so
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 2 2024 Miroslav Suchý <msuchy@redhat.com> - 1.6.0-8
 - convert license to SPDX
 

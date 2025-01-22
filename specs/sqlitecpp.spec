@@ -40,6 +40,9 @@ sed -e "s,\r,," -i README.md
 # Removing bundled libraries...
 rm -rf {sqlite3,googletest}
 
+# Adding missing includes...
+sed -e "17i #include <cstdint>" -i include/SQLiteCpp/Statement.h
+
 %build
 %cmake -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \

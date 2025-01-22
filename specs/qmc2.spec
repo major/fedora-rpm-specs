@@ -17,6 +17,7 @@ URL:            http://qmc2.batcom-it.net
 Source0:        %{forgesource}
 #Fedora-specific configuration
 Patch1:         %{name}-ini.patch
+Patch2:         0001-Fix-build-with-minizip-4.0.8.patch
 #Fixes and improvements from upstream git
 Patch10:        0001-fix-MachineListDatabase-wasn-t-saved-to-qmc2.ini.patch
 Patch11:        0001-new-added-a-Brasilian-Portuguese-translation-thanks-.patch

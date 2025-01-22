@@ -1,6 +1,6 @@
 Name:             libnfc
 Version:          1.8.0
-Release:          10%{?dist}
+Release:          11%{?dist}
 Summary:          NFC SDK and Programmers API
 
 License:          LGPL-3.0-or-later
@@ -100,6 +100,9 @@ exit 0
 %{_mandir}/man1/*
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,4 +1,4 @@
-%if 0%{?rhel} >= 8
+%if 0%{?rhel} == 8
 %bcond_with     ruby
 %bcond_with     php
 %bcond_with     opencv
@@ -33,6 +33,7 @@ Source0:        https://github.com/mltframework/mlt/releases/download/v%{version
 # export missing APIs on i686
 # https://github.com/mltframework/mlt/issues/1020
 Patch0:         mlt-version-script.patch
+Patch1:         gcc15.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -57,11 +58,11 @@ BuildRequires:  cmake(Qt6Network)
 BuildRequires:  cmake(Qt6Core5Compat)
 BuildRequires:  SDL-devel
 BuildRequires:  SDL2-devel
-%if ! (0%{?rhel} >= 8)
+%if ! (0%{?rhel} == 8)
 BuildRequires:  SDL_image-devel
 BuildRequires:  SDL2_image-devel
 %endif
-BuildRequires:  gtk2-devel
+#BuildRequires:  gtk2-devel
 BuildRequires:  pipewire-jack-audio-connection-kit-devel
 BuildRequires:  libatomic
 BuildRequires:  libogg-devel
@@ -272,9 +273,6 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 %files php
 %config(noreplace) %{_sysconfdir}/php.d/mlt.ini
 %{php_extdir}/mlt.so
-%if ! (0%{?fedora} > 37)
-%{_libdir}/php/modules/mlt.php
-%endif
 %endif
 
 %files devel
@@ -289,6 +287,9 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 %changelog
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.28.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+- Add mini patch for GCC 15
+- Drop BR gtk2-devel
+- Fix conditionals for epel9+
 
 * Thu Jan 09 2025 Michel Lind <salimma@fedoraproject.org> - 7.28.0-6
 - Rebuilt for rubberband 4

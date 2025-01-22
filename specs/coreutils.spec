@@ -1,7 +1,7 @@
 Summary: A set of basic GNU tools commonly used in shell scripts
 Name:    coreutils
-Version: 9.5
-Release: 13%{?dist}
+Version: 9.6
+Release: 1%{?dist}
 # some used parts of gnulib are under various variants of LGPL
 License: GPL-3.0-or-later AND GFDL-1.3-no-invariants-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later
 Url:     https://www.gnu.org/software/coreutils/
@@ -32,13 +32,9 @@ Patch103: coreutils-python3.patch
 # df --direct
 Patch104: coreutils-df-direct.patch
 
-# coreutils no longer lists Cockpit logins in `who` (rhbz#2307847)
-# https://git.savannah.gnu.org/cgit/gnulib.git/patch/?id=43f7f428a1665950233557bd97611bd5e996b5cb
-Patch105: coreutils-9.5-readutmp-web-session.patch
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2325167
-Patch106: coreutils-nproc-affinity-1.patch
-Patch107: coreutils-nproc-affinity-2.patch
+# ls: fix crash with --context
+# https://git.savannah.gnu.org/cgit/coreutils.git/patch/?id=915004f403cb25fadb207ddfdbe6a2f43bd44fac
+Patch105: coreutils-9.6-ls-selinux-crash.patch
 
 # (sb) lin18nux/lsb compliance - multibyte functionality patch
 Patch800: coreutils-i18n.patch
@@ -162,6 +158,10 @@ sed src/dircolors.hin \
 find tests -name '*.sh' -perm 0644 -print -exec chmod 0755 '{}' '+'
 (echo "<<< done") 2>/dev/null
 
+# FIXME: Force a newer gettext version to workaround `autoreconf -i` errors
+# with coreutils 9.6 and bundled gettext 0.19.2 from gettext-common-devel.
+sed -i 's/0.19.2/0.22.5/' bootstrap.conf configure.ac
+
 autoreconf -fiv
 
 %build
@@ -282,6 +282,10 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %license COPYING
 
 %changelog
+* Mon Jan 20 2025 Lukáš Zaoral <lzaoral@redhat.com> - 9.6-1
+- rebase to latest upstream version (rhbz#2338620)
+- sync i18n patch with SUSE (Kudos to Berny Völker!)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.5-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -24,9 +24,6 @@
 %global mtl_ver 2.2.2
 %global transformers_ver 0.5.6.2
 
-# to handle RCs
-%global ghc_release %{version}
-
 %global base_ver 4.17.2.1
 %global ghc_bignum_ver 1.3
 %global ghc_compact_ver 0.1.0.0
@@ -73,10 +70,10 @@
 %global llvm_major 14
 %endif
 %if %{with hadrian}
-%global ghc_llvm_archs armv7hl s390x riscv64
+%global ghc_llvm_archs s390x riscv64
 %global ghc_unregisterized_arches s390 %{mips}
 %else
-%global ghc_llvm_archs armv7hl riscv64
+%global ghc_llvm_archs riscv64
 %global ghc_unregisterized_arches s390 s390x %{mips}
 %endif
 
@@ -91,16 +88,13 @@ Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
 URL: https://haskell.org/ghc/
-Source0: https://downloads.haskell.org/ghc/%{ghc_release}/ghc-%{version}-src.tar.lz
+Source0: https://downloads.haskell.org/ghc/%{version}/ghc-%{version}-src.tar.lz
 %if %{with testsuite}
-Source1: https://downloads.haskell.org/ghc/%{ghc_release}/ghc-%{version}-testsuite.tar.lz
+Source1: https://downloads.haskell.org/ghc/%{version}/ghc-%{version}-testsuite.tar.lz
 %endif
 Source5: ghc-pkg.man
 Source6: haddock.man
 Source7: runghc.man
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2083103
-ExcludeArch: armv7hl
 
 # absolute haddock path (was for html/libraries -> libraries)
 Patch1: ghc-gen_contents_index-haddock-path.patch
@@ -115,7 +109,6 @@ Patch8: ghc-configure-c99.patch
 Patch9: hp2ps-C-gnu17.patch
 
 # arm patches
-Patch12: ghc-armv7-VFPv3D16--NEON.patch
 # https://github.com/haskell/text/issues/396
 # reverts https://github.com/haskell/text/pull/405
 Patch13: text2-allow-ghc8-arm.patch
@@ -192,9 +185,8 @@ BuildRequires: python3
 %if %{with manual}
 BuildRequires: python3-sphinx
 %endif
-%ifarch %{ghc_llvm_archs}
 BuildRequires: llvm%{llvm_major}
-%endif
+
 %if %{with hadrian}
 # needed for binary-dist-dir
 BuildRequires:  autoconf automake
@@ -216,12 +208,8 @@ BuildRequires:  ghc-unordered-containers-devel
 %else
 BuildRequires: %{name}-hadrian
 %endif
-%else
-%ifarch armv7hl
-# patch12
-BuildRequires: autoconf automake
 %endif
-%endif
+
 Requires: %{name}-compiler = %{version}-%{release}
 Requires: %{name}-devel = %{version}-%{release}
 Requires: %{name}-ghc-devel = %{version}-%{release}
@@ -287,6 +275,8 @@ Obsoletes: %{name}-manual < %{version}-%{release}
 Requires: binutils%{?with_ld_gold:-gold}
 %ifarch %{ghc_llvm_archs}
 Requires: llvm%{llvm_major}
+%else
+Suggests: llvm(major) = %{llvm_major}
 %endif
 
 %description compiler
@@ -450,10 +440,7 @@ Installing this package causes %{name}-*-prof packages corresponding to
 
 rm libffi-tarballs/libffi-*.tar.gz
 
-%ifarch armv7hl
-%patch -P12 -p1 -b .orig
-%endif
-%ifarch aarch64 armv7hl
+%ifarch aarch64
 %patch -P13 -p1 -b .orig
 %endif
 
@@ -549,7 +536,7 @@ EOF
 
 
 %build
-# patch5, patch8 and patch12
+# patch5, patch8
 autoupdate
 
 %ghc_set_gcc_flags
@@ -557,6 +544,8 @@ export CC=%{_bindir}/gcc
 %if %{with ld_gold}
 export LD=%{_bindir}/ld.gold
 %endif
+export LLC=%{_bindir}/llc-%{llvm_major}
+export OPT=%{_bindir}/opt-%{llvm_major}
 
 export GHC=%{_bindir}/ghc%{?ghcboot_major:-%{ghcboot_major}}
 
@@ -633,7 +622,8 @@ rm %{buildroot}%{_ghclicensedir}/%{name}/LICENSE
 cp -p LICENSE ../LICENSE.hadrian
 )
 %endif
-# https://gitlab.haskell.org/ghc/ghc/-/issues/20120#note_366872
+export LLC=%{_bindir}/llc-%{llvm_major}
+export OPT=%{_bindir}/opt-%{llvm_major}
 (
 cd _build/bindist/ghc-%{version}-*
 ./configure --prefix=%{buildroot}%{ghclibdir} --bindir=%{buildroot}%{_bindir} --libdir=%{buildroot}%{_libdir} --mandir=%{buildroot}%{_mandir} --docdir=%{buildroot}%{_docdir}/%{name} \
@@ -698,25 +688,10 @@ echo "%%dir %ghclibplatform" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
 %ghc_gen_filelists rts %{rts_ver}
 %endif
 
-%define merge_filelist()\
-cat %{name}-%1.files >> %{name}-%2.files\
-cat %{name}-%1-devel.files >> %{name}-%2-devel.files\
-%if %{with haddock}\
-cat %{name}-%1-doc.files >> %{name}-%2-doc.files\
-%endif\
-%if %{with ghc_prof}\
-cat %{name}-%1-prof.files >> %{name}-%2-prof.files\
-%endif\
-if [ "%1" != "rts" ]; then\
-cp -p libraries/%1/LICENSE libraries/LICENSE.%1\
-echo "%%license libraries/LICENSE.%1" >> %{name}-%2.files\
-fi\
-%{nil}
-
-%merge_filelist ghc-prim base
-%merge_filelist integer-gmp base
+%ghc_merge_filelist ghc-prim base
+%ghc_merge_filelist integer-gmp base
 %if %{with hadrian}
-%merge_filelist rts base
+%ghc_merge_filelist rts base
 %endif
 
 %if "%{?_ghcdynlibdir}" != "%_libdir"
@@ -790,10 +765,6 @@ mv %{buildroot}%{_mandir}/man1/ghc{,-%{ghc_major}}.1
 find %{buildroot}%{ghc_html_libraries_dir} -name LICENSE -exec rm '{}' ';'
 %endif
 
-%ifarch armv7hl
-export RPM_BUILD_NCPUS=1
-%endif
-
 %if %{with hadrian}
 %if %{with build_hadrian}
 mv %{buildroot}%{_bindir}/hadrian{,-%{ghc_major}}
@@ -841,7 +812,8 @@ GHC=%{buildroot}%{ghclibdir}/bin/ghc
 %else
 GHC=inplace/bin/ghc-stage2
 %endif
-# Do some very simple tests that the compiler actually works
+$GHC --info
+# simple sanity checks that the compiler actually works
 rm -rf testghc
 mkdir testghc
 echo 'main = putStrLn "Foo"' > testghc/foo.hs
@@ -856,8 +828,14 @@ echo 'main = putStrLn "Foo"' > testghc/foo.hs
 $GHC testghc/foo.hs -o testghc/foo -dynamic
 [ "$(testghc/foo)" = "Foo" ]
 rm testghc/*
-
-$GHC --info
+# no GHC calling convention in LLVM's PowerPC target code
+# https://gitlab.haskell.org/ghc/ghc/-/issues/25667
+%ifnarch ppc64le
+echo 'main = putStrLn "Foo"' > testghc/foo.hs
+$GHC testghc/foo.hs -o testghc/foo -fllvm
+[ "$(testghc/foo)" = "Foo" ]
+rm testghc/*
+%endif
 
 # check the ABI hashes
 %if %{with abicheck}
@@ -1071,6 +1049,7 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 %changelog
 * Sat Jan 18 2025 Jens Petersen <petersen@redhat.com> - 9.4.8-33
 - fix hp2ps failure with gcc15 C23
+- setup llvm compiler for all archs not just those defaulting to llvm backend
 
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.4.8-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild

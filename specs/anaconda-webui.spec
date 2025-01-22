@@ -1,6 +1,6 @@
 Name:           anaconda-webui
-Version:        20
-Release:        2%{?dist}
+Version:        21
+Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
 URL:            https://github.com/rhinstaller/%{name}
@@ -40,11 +40,11 @@ Requires: fedora-logos
 BuildRequires: desktop-file-utils
 
 Provides: bundled(npm(@patternfly/patternfly)) = 5.4.2
-Provides: bundled(npm(@patternfly/react-core)) = 5.4.11
+Provides: bundled(npm(@patternfly/react-core)) = 5.4.12
 Provides: bundled(npm(@patternfly/react-icons)) = 5.4.2
 Provides: bundled(npm(@patternfly/react-log-viewer)) = 5.3.0
 Provides: bundled(npm(@patternfly/react-styles)) = 5.4.1
-Provides: bundled(npm(@patternfly/react-table)) = 5.4.12
+Provides: bundled(npm(@patternfly/react-table)) = 5.4.13
 Provides: bundled(npm(@patternfly/react-tokens)) = 5.4.1
 Provides: bundled(npm(attr-accept)) = 2.2.5
 Provides: bundled(npm(dequal)) = 2.0.3
@@ -119,6 +119,9 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Mon Jan 20 2025 Packit <hello@packit.dev> - 21-1
+- Parse new 'hidden_webui_screen' configuration file options
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

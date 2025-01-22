@@ -149,6 +149,7 @@ install -D -m 0755 %{SOURCE1} %{buildroot}%{_bindir}/%{name}-flatpak-fixup.sh
 %find_lang tracker3-miners
 
 
+%if ! 0%{?flatpak}
 %check
 for f in %{systemd_units} ; do
   test -f $RPM_BUILD_ROOT%{_userunitdir}/$f
@@ -163,6 +164,7 @@ done
 
 %postun
 %systemd_user_postun_with_restart %{systemd_units}
+%endif
 
 
 %files -f tracker3-miners.lang

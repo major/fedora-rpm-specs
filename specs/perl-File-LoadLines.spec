@@ -6,7 +6,7 @@
 Name: perl-%{FullName}
 Summary: Loads the contents of a text file into an array of lines
 License: GPL-1.0-or-later OR Artistic-1.0-Perl
-Version: 1.046
+Version: 1.047
 Release: %autorelease
 Source: %{metacpan}/%{FullName}-%{version}.tar.gz
 Url: https://metacpan.org/release/%{FullName}

@@ -32,10 +32,14 @@
 # For docs
 %bcond_with doc
 
+# Compression type and level for source/binary package payloads.
+#  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
+%define _source_payload	w7T0.xzdio
+%define _binary_payload	w7T0.xzdio
 
 Name:           rocrand
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm random number generator
 
 Url:            https://github.com/ROCm/rocRAND
@@ -157,6 +161,9 @@ fi
 %endif
 
 %changelog
+* Mon Jan 20 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-3
+- multithread compress
+
 * Tue Jan 14 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-2
 - build requires gcc-c++
 

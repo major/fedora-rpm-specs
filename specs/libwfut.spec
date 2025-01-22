@@ -1,6 +1,6 @@
 Name:           libwfut
 Version:        0.2.3
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Software updater tool for WorldForge applications
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -75,6 +75,9 @@ make check
 
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.3-31
 - convert license to SPDX
 

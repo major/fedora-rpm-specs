@@ -1,7 +1,7 @@
 %bcond_without tests
 
 Name:           conda
-Version:        24.11.2
+Version:        24.11.3
 Release:        %autorelease
 Summary:        Cross-platform, Python-agnostic binary package manager
 

@@ -8,7 +8,7 @@
 %global snaprel %%{?snapdate:.git%%{snapdate}.%%{shortcommit}}
 
 # for rpmdev-bumpspec
-%global baserelease 0.2
+%global baserelease 0.3
 
 Name:       ipsilon
 Version:    3.0.5
@@ -268,7 +268,6 @@ Provides a theme for Ipsilon used for openSUSE Accounts.
 
 %install
 %py3_install
-mkdir -p %{buildroot}%{_sbindir}
 mkdir -p %{buildroot}%{_libexecdir}/ipsilon
 mkdir -p %{buildroot}%{_defaultdocdir}
 mkdir -p %{buildroot}%{_localstatedir}/cache/ipsilon
@@ -276,8 +275,6 @@ mkdir -p %{buildroot}%{_localstatedir}/cache/ipsilon
 install -d -m 0700 %{buildroot}%{_sharedstatedir}/ipsilon
 install -d -m 0700 %{buildroot}%{_sysconfdir}/ipsilon
 mv %{buildroot}/%{_bindir}/ipsilon %{buildroot}/%{_libexecdir}/ipsilon/ipsilon
-mv %{buildroot}/%{_bindir}/ipsilon-server-install %{buildroot}/%{_sbindir}
-mv %{buildroot}/%{_bindir}/ipsilon-upgrade-database %{buildroot}/%{_sbindir}
 mv %{buildroot}%{_defaultdocdir}/%{name} %{buildroot}%{_defaultdocdir}/%{name}-%{version}
 rm -fr %{buildroot}%{python3_sitelib}/tests
 ln -s %{_datadir}/fonts %{buildroot}%{_datadir}/ipsilon/ui/fonts
@@ -319,7 +316,7 @@ exit 0
 
 %files
 %license COPYING
-%{_sbindir}/ipsilon-server-install
+%{_bindir}/ipsilon-server-install
 %{_bindir}/ipsilon-db2conf
 %{_datadir}/ipsilon/templates/install/*.conf
 %{_datadir}/ipsilon/ui/saml2sp
@@ -471,6 +468,9 @@ exit 0
 
 
 %changelog
+* Mon Jan 20 2025 Kevin Fenzi <kevin@scrye.com> - 3.0.5-0.3.git20241202.01109c1
+- Fix fallout due to /sbin merge.
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.5-0.2.git20241202.01109c1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

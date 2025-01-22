@@ -14,6 +14,9 @@ URL:            https://crates.io/crates/io-lifetimes
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          io-lifetimes-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * Omit the mio feature to avoid a dependency on the rust-mio0.8 compat package
+Patch:          io-lifetimes-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -87,18 +90,6 @@ This package contains library source intended for building other packages which
 use the "libc" feature of the "%{crate}" crate.
 
 %files       -n %{name}+libc-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+mio-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+mio-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "mio" feature of the "%{crate}" crate.
-
-%files       -n %{name}+mio-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+os_pipe-devel

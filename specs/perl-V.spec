@@ -1,12 +1,12 @@
 Name:           perl-V
-Version:        0.19
-Release:        3%{?dist}
+Version:        0.21
+Release:        1%{?dist}
 Summary:        Print version of the specified Perl modules
 
 Group:          Development/Libraries
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://search.cpan.org/dist/V
-Source0:        http://search.cpan.org/CPAN/authors/id/A/AB/ABELTJE/V-%{version}.tar.gz
+Source0:        http://search.cpan.org/CPAN/authors/id/H/HM/HMBRAND/V-%{version}.tgz
 BuildArch:      noarch
 
 BuildRequires:  coreutils

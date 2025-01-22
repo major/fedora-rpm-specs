@@ -12,7 +12,7 @@
 
 Name:           rust-coreos-installer
 Version:        0.23.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Installer for Fedora CoreOS and RHEL CoreOS
 
 License:        Apache-2.0
@@ -69,13 +69,7 @@ Requires:       systemd-udev
 Requires:       util-linux
 
 %ifarch s390x
-# This should be spelled "s390utils-core" but some of the binaries are
-# still moving over from s390utils-base
-Requires:       /usr/sbin/chreipl
-Requires:       /usr/sbin/dasdfmt
-Requires:       /usr/sbin/fdasd
-Requires:       /usr/sbin/lszdev
-Requires:       /usr/sbin/zipl
+Requires:       s390utils-core
 %endif
 
 # Since `rust-coreos-installer` creates a `coreos-installer`
@@ -187,6 +181,9 @@ mv %{buildroot}%{_bindir}/rdcore %{buildroot}%{dracutlibdir}/modules.d/50rdcore/
 %endif
 
 %changelog
+* Sun Jan 19 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.23.0-3
+- Update s390utils dependency
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.23.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

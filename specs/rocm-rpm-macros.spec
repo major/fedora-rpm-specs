@@ -1,6 +1,6 @@
 Name:           rocm-rpm-macros
 Version:        6.3.1
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        ROCm RPM macros
 License:        GPL-2.0-or-later
 
@@ -26,16 +26,18 @@ Source16:       gfx1103
 Source17:       default.rhel
 Source18:       gfx12
 
-%global gpu_list gfx8 gfx9 gfx10 gfx11 gfx12 gfx90a gfx942 gfx1100 gfx1103
-
 # Just some files
 %global debug_package %{nil}
 
+Requires:       rpm
 %if 0%{?suse_version}
 Requires:       Modules
 %else
 Requires:       environment-modules
 %endif
+# Only infra files
+BuildArch: noarch
+# ROCm only working on x86_64
 ExclusiveArch:  x86_64
 %description
 This package contains ROCm RPM macros for building ROCm packages.
@@ -49,6 +51,7 @@ Requires:       Modules
 %else
 Requires: environment(modules)
 Requires: cmake-filesystem
+Requires: rocm-llvm-filesystem
 %endif
 
 %description modules
@@ -91,12 +94,6 @@ cp -p modules/* %{buildroot}%{_datadir}/modules/rocm/
 mkdir -p %{buildroot}%{_datadir}/modulefiles/rocm/
 cp -p modules/* %{buildroot}%{_datadir}/modulefiles/rocm/
 %endif
-# Make directories users of modules will install to
-for gpu in %{gpu_list}
-do
-    mkdir -p %{buildroot}%{_libdir}/rocm/$gpu/lib/cmake
-    mkdir -p %{buildroot}%{_libdir}/rocm/$gpu/bin
-done
 
 %files
 %license GPL
@@ -104,7 +101,6 @@ done
 
 %files modules
 %license GPL
-%{_libdir}/rocm
 %if 0%{?suse_version}
 %{_datadir}/modules
 %else
@@ -112,6 +108,12 @@ done
 %endif
 
 %changelog
+* Mon Jan 20 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-5
+- Move lib64/rocm creation to rocm-compilersupport
+
+* Mon Jan 20 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-4
+- Cleanup dir ownership
+
 * Thu Jan 16 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-3
 - Add gfx1150 to default set
 

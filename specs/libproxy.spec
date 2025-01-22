@@ -4,7 +4,7 @@
 
 Name:           libproxy
 Version:        0.5.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A library handling all the details of proxy configuration
 
 License:        LGPL-2.1-or-later
@@ -103,6 +103,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 David King <amigadave@amigadave.com> - 0.5.8-1
 - Update to 0.5.8
 

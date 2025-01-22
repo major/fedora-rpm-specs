@@ -3,7 +3,7 @@
 
 Name:              monitorix
 Version:           3.16.0
-Release:           1%{?dist}
+Release:           2%{?dist}
 Summary:           A free, open source, lightweight system monitoring tool
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:           GPL-2.0-or-later
@@ -102,6 +102,9 @@ install -pDm644 docs/%{name}.service %{buildroot}%{_unitdir}/%{name}.service
 %attr(755,root,root) %{_sharedstatedir}/%{name}/usage
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.16.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Wed Nov 27 2024 Jordi Sanfeliu <jordi@fibranet.cat> - 3.16.0-1
 - Updated to 3.16.0.
 

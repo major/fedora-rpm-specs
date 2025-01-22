@@ -7,6 +7,11 @@ License:	GPL-2.0-or-later
 URL:		http://gparted.org
 Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 
+# Backporting patches to fix reading exfat filesystems
+# https://gitlab.gnome.org/GNOME/gparted/-/issues/275
+Patch0:		35baa44e2f174504a20b22424285458d501dcda4.diff
+Patch1:		344e03439e1a79776b9cc7e6f65fccf3e6f656dd.diff
+
 BuildRequires:	gtkmm30-devel
 BuildRequires:	parted-devel
 BuildRequires:	libuuid-devel
@@ -31,7 +36,7 @@ support for filesystems not included in libparted. These optional packages
 will be detected at runtime and don't require a rebuild of GParted
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %configure --enable-libparted-dmraid --enable-online-resize --enable-xhost-root

@@ -52,7 +52,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        A language and compiler for custom Deep Learning operations
 
 License:        MIT AND Apache-2.0 AND BSD-3-Clause AND BSD-2-Clause
@@ -138,6 +138,13 @@ cp -r third_party/{amd,nvidia} python/triton/backends
 
 # rm llvm-project bits we do not need
 rm -rf llvm-project-%{commit1}/{bolt,clang,compiler-rt,flang,libc,libclc,libcxx,libcxxabi,libunwind,lld,lldb,llvm-libgcc,openmp,polly,pst,runtimes,utils}
+
+# gcc 15 include cstdint
+sed -i '/#include <memory>.*/a#include <cstdint>' llvm-project-%{commit1}/llvm/include/llvm/ADT/SmallVector.h
+sed -i '/#include <memory>.*/a#include <cstdint>' llvm-project-%{commit1}/llvm/lib/Target/AMDGPU/MCTargetDesc/AMDGPUMCTargetDesc.h
+sed -i '/#include <memory>.*/a#include <cstdint>' llvm-project-%{commit1}/llvm/lib/Target/X86/MCTargetDesc/X86MCTargetDesc.h
+sed -i '/#define .*/a#include <cstdint>' llvm-project-%{commit1}/mlir/include/mlir/Dialect/Affine/IR/ValueBoundsOpInterfaceImpl.h
+sed -i '/#define .*/a#include <cstdint>' llvm-project-%{commit1}/mlir/include/mlir/Target/SPIRV/Deserialization.h
 
 # disable -Werror
 sed -i -e 's@-Werror @ @' CMakeLists.txt
@@ -269,5 +276,11 @@ cd python
 %{python3_sitearch}/%{pypi_name}*.egg-info
 
 %changelog
+* Mon Jan 20 2025 Tom Rix <Tom.Rix@amd.com> - 3.1.0-3
+- gcc 15 include cstdint
+
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jan 4 2025 Tom Rix <trix@redhat.com> 3.1.0-1
 - Inital release

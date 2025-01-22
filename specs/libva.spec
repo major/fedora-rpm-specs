@@ -2,7 +2,7 @@
 
 Name:		libva
 Version:	2.22.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Video Acceleration (VA) API for Linux
 # va/wayland/wayland-drm.xml is HPND-sell-variant
 # va/x11/va_dri* are ICU
@@ -88,6 +88,9 @@ mkdir -p %{buildroot}%{_libdir}/dri-{freeworld,nonfree}
 %{_libdir}/pkgconfig/libva*.pc
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.22.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.22.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

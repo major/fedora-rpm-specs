@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.40.9000-719-g502a71c578
+%global glibcsrcdir glibc-2.40.9000-800-g1ac28b7818
 %global glibcversion 2.40.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 29
+%global baserelease 31
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -341,7 +341,6 @@ Patch8: glibc-fedora-manual-dircategory.patch
 Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
-Patch24: glibc-benchtests-extra-pi-inputs.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2378,6 +2377,72 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Mon Jan 20 2025 Florian Weimer <fweimer@redhat.com> - 2.40.9000-31
+- Auto-sync with upstream branch master,
+  commit 1ac28b781882e3f14b41dcb06f3f945d53938948:
+- stdlib: Test for expected sequence of random numbers from rand
+- stdlib: Fix unintended change to the random_r implementation
+- NEWS: Add the extensible rseq ABI to new features
+- Linux: Do not check unused bytes after sched_getattr in tst-sched_setattr
+- aarch64: Fix tests not compatible with targets supporting GCS
+- aarch64: Use __alloc_gcs in makecontext
+- aarch64: Add GCS user-space allocation logic
+- aarch64: Process gnu properties in static exe
+- aarch64: Ignore GCS property of ld.so
+- aarch64: Handle GCS marking
+- aarch64: Use l_searchlist.r_list for bti
+- aarch64: Mark objects with GCS property note
+- aarch64: Enable GCS in dynamic linked exe
+- aarch64: Enable GCS in static linked exe
+- aarch64: Add glibc.cpu.aarch64_gcs tunable
+- aarch64: Add GCS support for makecontext
+- aarch64: Mark swapcontext with indirect_return
+- aarch64: Add GCS support for setcontext
+- aarch64: Add GCS support to vfork
+- aarch64: Add GCS support to longjmp
+- aarch64: Define jmp_buf offset for GCS
+- elf.h: Define GNU_PROPERTY_AARCH64_FEATURE_1_GCS
+- aarch64: Add asm helpers for GCS
+
+* Mon Jan 20 2025 Florian Weimer <fweimer@redhat.com> - 2.40.9000-30
+- CVE-2025-0577: getrandom, arc4random could return predictable data
+  after fork (#2338960)
+- Drop glibc-benchtests-extra-pi-inputs.patch, applied upstream.
+- Auto-sync with upstream branch master,
+  commit 91bb902f58264a2fd50fbce8f39a9a290dd23706:
+- nptl: Use all of g1_start and g_signals
+- nptl: rename __condvar_quiesce_and_switch_g1
+- nptl: Fix indentation
+- nptl: Use a single loop in pthread_cond_wait instaed of a nested loop
+- nptl: Remove g_refs from condition variables
+- nptl: Remove unnecessary quadruple check in pthread_cond_wait
+- nptl: Remove unnecessary catch-all-wake in condvar group switch
+- nptl: Update comments and indentation for new condvar implementation
+- pthreads NPTL: lost wakeup fix 2
+- Linux: Add tests that check that TLS and rseq area are separate
+- Consolidate TLS block allocation for static binaries with ld.so
+- elf: Iterate over loaded object list in _dl_determine_tlsoffset
+- benchtests: Add dummy in put files cospi, cospif, sinpi, sinpif, tanpi, tanpif
+- Linux: Fixes for getrandom fork handling
+- affinity-inheritance: Overallocate CPU sets
+- inet: Add common IPv6 packet header macros
+- aarch64: Use 64-bit variable to access the special registers
+- x86-64: Cast __rseq_offset to long long int [BZ #32543]
+- Linux: Update internal copy of '<sys/rseq.h>'
+- nptl: Remove the rseq area from 'struct pthread'
+- nptl: Move the rseq area to the 'extra TLS' block
+- nptl: Introduce <rseq-access.h> for RSEQ_* accessors
+- nptl: add rtld_hidden_proto to __rseq_size and __rseq_offset
+- Add Linux 'extra TLS'
+- Add generic 'extra TLS'
+- nptl: Add rseq auxvals
+- Add missing include guards to <dl-tls.h>
+- configure: Clear libc_cv_cc_wimplicit_fallthrough if not supported
+- elf: Always define TLS_TP_OFFSET
+- x86: Add missing #include <features.h> to <thread_pointer.h>
+- Move <thread_pointer.h> to kernel-independent sysdeps directories
+- math: Fix acosf when building with gcc <= 11
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.40.9000-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

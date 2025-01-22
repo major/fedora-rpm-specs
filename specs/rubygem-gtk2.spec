@@ -11,7 +11,7 @@
 Summary:	Ruby binding of GTK+-2.x
 Name:		rubygem-%{gem_name}
 Version:	3.4.3
-Release:	22%{?dist}
+Release:	23%{?dist}
 # gemspec	LGPL-2.1-or-later
 # SPDX confirmed
 License:	LGPL-2.1-or-later
@@ -24,6 +24,7 @@ Patch0:	rubygem-gtk2-3.4.3-assign-nonzero-ID-to-relative-callback.patch
 Patch1:	gtk2-3.4.3-rb_rescue-func-prototype.patch
 Patch2:	gtk2-3.4.3-rb_define_method_arg_number.patch
 Patch3:	gtk2-3.4.3-pointer-type-extra-cast-c99.patch
+Patch4:	gtk2-3.4.3-c23-strict-function-prototype.patch
 
 Requires:	ruby(release)
 BuildRequires:	ruby(release)
@@ -107,6 +108,7 @@ sed -i -e 's|= 3\.4\.3|>= 3.4.3|' %{gem_name}-%{version}.gemspec
 %patch -P1 -p1 -b .rb_rescue_2args
 %patch -P2 -p1 -b .method_arg_num
 %patch -P3 -p1 -b .pointer-cast
+%patch -P4 -p1 -b .c23
 
 # Fix wrong dir
 grep -rl /usr/local/bin sample | \
@@ -212,6 +214,9 @@ mv test/test_gtk_icon_theme.rb{.skip,}
 %{gem_instdir}/sample/
 
 %changelog
+* Mon Jan 20 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.3-23
+- Support C23 strict function prototype
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.3-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

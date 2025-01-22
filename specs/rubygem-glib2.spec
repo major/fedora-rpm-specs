@@ -9,12 +9,15 @@
 Summary:	Ruby binding of GLib-2.x
 Name:		rubygem-%{gem_name}
 Version:	4.2.5
-Release:	3%{?dist}
+Release:	4%{?dist}
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
 License:	LGPL-2.1-or-later
 URL:		http://ruby-gnome2.sourceforge.jp/
 Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
+# https://github.com/ruby-gnome/ruby-gnome/issues/1660
+# Workaround for C23...
+Patch0:	rubygem-glib2-4.2.5-issue1660-c23-workaround.patch
 # F-19 %%_bindir/ruby wrapper pollutes environ, which makes
 # g_spawn_async() test failure
 Patch100:	rubygem-glib2-3.5.1-rubywrapper-pollutes-env.patch
@@ -83,6 +86,7 @@ rubygem-%{gem_name}
 mv ../%{gem_name}-%{version}.gemspec .
 
 # Patches and etc
+%patch -P0 -p1
 %patch -P100 -p1
 
 # Make pkg-config devel dependency (not runtime)
@@ -228,6 +232,9 @@ popd
 
 
 %changelog
+* Mon Jan 20 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.5-4
+- Workaround for C23
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

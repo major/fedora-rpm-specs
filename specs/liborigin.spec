@@ -3,7 +3,7 @@
 
 Name:           liborigin
 Version:        3.0.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Epoch:          1
 Summary:        Library for reading OriginLab OPJ project files
 
@@ -71,6 +71,9 @@ The %{name}-doc package contains documentation for %{name}.
 %{_docdir}/%{name}/html/
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.0.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.0.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

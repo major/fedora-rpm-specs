@@ -42,6 +42,9 @@ Source0:        %{gosource}
 # Skip tests that uses the network.
 # Based on https://sources.debian.org/data/main/h/hugo/0.58.3-1/debian/patches/0005-skip-modules-TestClient.patch
 Patch0001:      0010-skip-modules-TestClient.patch
+# Fix build on Go 1.24.
+# Submitted upstream as https://github.com/gohugoio/hugo/pull/13285
+Patch0002:      0020-remove-non-const-fmt-string.patch
 
 BuildRequires:  golang(github.com/bep/golibsass/libsass) >= 0.7.0
 BuildRequires:  golang-github-gohugoio-hugo-goldmark-extensions-devel

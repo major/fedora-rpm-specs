@@ -4,7 +4,7 @@
 
 Name:           libsrm
 Version:        %{basever}%{?origrel:_%{origrel}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for building DRM/KMS applications
 
 License:        MIT
@@ -90,5 +90,8 @@ popd
 
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3_1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jul 13 2024 Neal Gompa <ngompa@fedoraproject.org> - 0.6.3_1-1
 - Initial package

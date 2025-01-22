@@ -1,6 +1,6 @@
 Name:		pipebench
 Version:	0.40
-Release:	33%{?dist}
+Release:	34%{?dist}
 Summary:	Measures the speed of STDIN/STDOUT communication
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -53,6 +53,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.40-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.40-33
 - convert license to SPDX
 

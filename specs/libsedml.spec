@@ -24,7 +24,7 @@ ExcludeArch:    %{ix86}
 Name:           libsedml
 Summary:        Library that fully supports SED-ML for SBML
 Version:        2.0.32
-Release:        13%{?dist}
+Release:        14%{?dist}
 Epoch:          2
 URL:            https://github.com/fbergmann/libSEDML
 Source0:        https://github.com/fbergmann/libSEDML/archive/v%{version}/libSEDML-%{version}.tar.gz
@@ -382,6 +382,9 @@ make test -C build
 %endif
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:2.0.32-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2:2.0.32-13
 - convert license to SPDX
 

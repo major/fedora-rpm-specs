@@ -3,7 +3,7 @@
 
 Name:           libserf
 Version:        1.3.10
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        High-Performance Asynchronous HTTP Client Library
 License:        Apache-2.0
 URL:            http://serf.apache.org/
@@ -82,6 +82,9 @@ grep '^Version: %{version}' %{buildroot}%{_libdir}/pkgconfig/serf.pc
 %{_libdir}/pkgconfig/serf*.pc
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.10-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.10-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

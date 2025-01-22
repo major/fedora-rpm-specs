@@ -1,7 +1,7 @@
 %global srcname python-prctl
 Name:           python3-prctl
 Version:        1.6.1
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Python(ic) interface to the linux prctl syscall
 
 License:        GPL-3.0-or-later
@@ -37,6 +37,9 @@ cp -p %{SOURCE1} .
 %{python3_sitearch}/python_prctl*.egg-info
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

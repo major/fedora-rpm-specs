@@ -56,7 +56,7 @@
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}
-Release:        33.rocm%{rocm_version}%{?dist}
+Release:        34.rocm%{rocm_version}%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 
 Url:            https://github.com/ROCm/llvm-project
@@ -562,7 +562,11 @@ export LD_LIBRARY_PATH=$PWD/build-llvm/lib
 export CC=/usr/bin/gcc%{gcc_major_str}
 export CXX=/usr/bin/g++%{gcc_major_str}
 
+%if 0%{?suse_version}
+%cmake \
+%else
 %__cmake -S llvm -B build-llvm \
+%endif
        %{llvmrocm_cmake_config} \
        -DCMAKE_CXX_COMPILER=/usr/bin/g++%{gcc_major_str} \
        -DCMAKE_C_COMPILER=/usr/bin/gcc%{gcc_major_str} \
@@ -570,7 +574,11 @@ export CXX=/usr/bin/g++%{gcc_major_str}
        -DCMAKE_INSTALL_LIBDIR=lib \
        -DLLVM_ENABLE_PROJECTS=%{llvm_projects}
 
+%if 0%{?suse_version}
+%cmake_build -j ${JOBS}
+%else
 %make_build -C build-llvm -j ${JOBS}
+%endif
 
 popd
 
@@ -776,6 +784,16 @@ pushd .
 %endif
 
 %cmake_install
+
+# Make directories users of rocm-rpm-modules will install to
+%global modules_gpu_list gfx8 gfx9 gfx10 gfx11 gfx12 gfx906 gfx908 gfx90a gfx942 gfx1031 gfx1036 gfx1100 gfx1101 gfx1102 gfx1103
+for gpu in %{modules_gpu_list}
+do
+    mkdir -p %{buildroot}%{_libdir}/rocm/$gpu/lib/cmake
+    mkdir -p %{buildroot}%{_libdir}/rocm/$gpu/bin
+done
+
+
 popd
 
 #
@@ -904,6 +922,69 @@ mv %{buildroot}%{_bindir}/hip*.pm %{buildroot}%{perl_vendorlib}
 
 # ROCM LLVM
 %files -n rocm-llvm-filesystem
+%dir %{_libdir}/rocm
+# For rocm-rpm-modules
+%dir %{_libdir}/rocm/gfx8
+%dir %{_libdir}/rocm/gfx8/bin
+%dir %{_libdir}/rocm/gfx8/lib
+%dir %{_libdir}/rocm/gfx8/lib/cmake
+%dir %{_libdir}/rocm/gfx9
+%dir %{_libdir}/rocm/gfx9/bin
+%dir %{_libdir}/rocm/gfx9/lib
+%dir %{_libdir}/rocm/gfx9/lib/cmake
+%dir %{_libdir}/rocm/gfx10
+%dir %{_libdir}/rocm/gfx10/bin
+%dir %{_libdir}/rocm/gfx10/lib
+%dir %{_libdir}/rocm/gfx10/lib/cmake
+%dir %{_libdir}/rocm/gfx11
+%dir %{_libdir}/rocm/gfx11/bin
+%dir %{_libdir}/rocm/gfx11/lib
+%dir %{_libdir}/rocm/gfx11/lib/cmake
+%dir %{_libdir}/rocm/gfx12
+%dir %{_libdir}/rocm/gfx12/bin
+%dir %{_libdir}/rocm/gfx12/lib
+%dir %{_libdir}/rocm/gfx12/lib/cmake
+%dir %{_libdir}/rocm/gfx906
+%dir %{_libdir}/rocm/gfx906/bin
+%dir %{_libdir}/rocm/gfx906/lib
+%dir %{_libdir}/rocm/gfx906/lib/cmake
+%dir %{_libdir}/rocm/gfx908
+%dir %{_libdir}/rocm/gfx908/bin
+%dir %{_libdir}/rocm/gfx908/lib
+%dir %{_libdir}/rocm/gfx908/lib/cmake
+%dir %{_libdir}/rocm/gfx90a
+%dir %{_libdir}/rocm/gfx90a/bin
+%dir %{_libdir}/rocm/gfx90a/lib
+%dir %{_libdir}/rocm/gfx90a/lib/cmake
+%dir %{_libdir}/rocm/gfx942
+%dir %{_libdir}/rocm/gfx942/bin
+%dir %{_libdir}/rocm/gfx942/lib
+%dir %{_libdir}/rocm/gfx942/lib/cmake
+%dir %{_libdir}/rocm/gfx1031
+%dir %{_libdir}/rocm/gfx1031/bin
+%dir %{_libdir}/rocm/gfx1031/lib
+%dir %{_libdir}/rocm/gfx1031/lib/cmake
+%dir %{_libdir}/rocm/gfx1036
+%dir %{_libdir}/rocm/gfx1036/bin
+%dir %{_libdir}/rocm/gfx1036/lib
+%dir %{_libdir}/rocm/gfx1036/lib/cmake
+%dir %{_libdir}/rocm/gfx1100
+%dir %{_libdir}/rocm/gfx1100/bin
+%dir %{_libdir}/rocm/gfx1100/lib
+%dir %{_libdir}/rocm/gfx1100/lib/cmake
+%dir %{_libdir}/rocm/gfx1101
+%dir %{_libdir}/rocm/gfx1101/bin
+%dir %{_libdir}/rocm/gfx1101/lib
+%dir %{_libdir}/rocm/gfx1101/lib/cmake
+%dir %{_libdir}/rocm/gfx1102
+%dir %{_libdir}/rocm/gfx1102/bin
+%dir %{_libdir}/rocm/gfx1102/lib
+%dir %{_libdir}/rocm/gfx1102/lib/cmake
+%dir %{_libdir}/rocm/gfx1103
+%dir %{_libdir}/rocm/gfx1103/bin
+%dir %{_libdir}/rocm/gfx1103/lib
+%dir %{_libdir}/rocm/gfx1103/lib/cmake
+# For llvm
 %dir %{bundle_prefix}
 %dir %{bundle_prefix}/bin
 %dir %{bundle_prefix}/include
@@ -1034,6 +1115,10 @@ mv %{buildroot}%{_bindir}/hip*.pm %{buildroot}%{perl_vendorlib}
 %endif
 
 %changelog
+* Mon Jan 20 2025 Tom Rix <Tom.Rix@amd.com> - 18-34.rocm6.3.1
+- do dir creation for rocm-rpm-macros-modules
+- fix suse build
+
 * Sat Jan 11 2025 Tom Rix <Tom.Rix@amd.com> - 18-33.rocm6.3.1
 - remove the requires gcc-c++
 - build and use the libc++ runtime

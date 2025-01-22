@@ -1,6 +1,6 @@
 Name:           libpar2
 Version:        0.2       
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Library for performing comman tasks related to PAR recovery sets
      
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -78,6 +78,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/%{name}/include/
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2-43
 - convert license to SPDX
 

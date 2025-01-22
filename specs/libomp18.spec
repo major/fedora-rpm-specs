@@ -51,7 +51,7 @@
 
 Name: %{pkg_name}
 Version: %{libomp_version}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: OpenMP runtime for clang
 
 License: Apache-2.0 WITH LLVM-exception OR NCSA
@@ -196,6 +196,9 @@ rm -rf %{buildroot}%{install_libdir}/libarcher_static.a
 %endif
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 18.1.8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Sat Oct 05 2024 Timm Bäder <tbaeder@redhat.com> - 18.1.8-3
 - Update to 18.1.8
 

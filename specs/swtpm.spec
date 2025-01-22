@@ -8,13 +8,15 @@
 Summary: TPM Emulator
 Name:           swtpm
 Version:        0.10.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 License:        BSD-3-Clause
 Url:            https://github.com/stefanberger/swtpm
 Source0:        https://github.com/stefanberger/swtpm/archive/v%{version}/%{name}-%{version}.tar.gz
 
 Patch1:         0001-SELinux-Add-rule-for-swtpm-to-be-able-to-read-passwo.patch
 Patch2:         0001-swtpm-Fix-build-error-on-32bit-systems-due-to-incons.patch
+Patch3:         0001-SELinux-allow-to-map-state-file.patch
+Patch4:         0002-SELinux-add-NFS-permissions-for-swtpm_t.patch
 
 BuildRequires: make
 BuildRequires:  git-core
@@ -204,6 +206,9 @@ fi
 %{_libexecdir}/installed-tests/swtpm/
 
 %changelog
+* Mon Jan 20 2025 Stefan Berger <stefanb@linux.ibm.com> - 0.10.0-7
+- Add 2 more patches with more SELinux permissions
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

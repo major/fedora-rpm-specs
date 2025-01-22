@@ -46,6 +46,7 @@
 %bcond ld_gold 0
 
 # 9.8 needs llvm 11-15
+# note the llvm backend is unsupported for ppc64le
 # rhel9 binutils too old for llvm13:
 # https://bugzilla.redhat.com/show_bug.cgi?id=2141054
 # https://gitlab.haskell.org/ghc/ghc/-/issues/22427
@@ -241,8 +242,10 @@ Obsoletes: %{name}-manual < %{version}-%{release}
 Requires: binutils%{?with_ld_gold:-gold}
 %ifarch %{ghc_llvm_archs}
 Requires: llvm%{llvm_major}
+Requires: clang%{llvm_major}
 %else
 Suggests: llvm(major) = %{llvm_major}
+Suggests: clang(major) = %{llvm_major}
 %endif
 
 %description compiler
@@ -665,10 +668,14 @@ echo 'main = putStrLn "Foo"' > testghc/foo.hs
 $GHC testghc/foo.hs -o testghc/foo -dynamic
 [ "$(testghc/foo)" = "Foo" ]
 rm testghc/*
+# no GHC calling convention in LLVM's PowerPC target code
+# https://gitlab.haskell.org/ghc/ghc/-/issues/25667
+%ifnarch ppc64le
 echo 'main = putStrLn "Foo"' > testghc/foo.hs
 $GHC testghc/foo.hs -o testghc/foo -fllvm
 [ "$(testghc/foo)" = "Foo" ]
 rm testghc/*
+%endif
 
 # check the ABI hashes
 %if %{with abicheck}

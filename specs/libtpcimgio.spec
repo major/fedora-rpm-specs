@@ -1,7 +1,7 @@
 %global _legacy_common_support 1
 Name:           libtpcimgio
 Version:        1.5.10
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Turku PET Centre for image file input and output procedures
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -100,6 +100,9 @@ popd
 %{_libdir}/%{name}.a
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.10-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.5.10-35
 - convert license to SPDX
 

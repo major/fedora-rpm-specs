@@ -1,5 +1,5 @@
 Name:           python-yte
-Version:        1.5.5
+Version:        1.5.6
 Release:        %autorelease
 Summary:        YAML template engine with Python expressions
 

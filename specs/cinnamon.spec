@@ -16,7 +16,7 @@
 
 Name:           cinnamon
 Version:        6.4.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Window management and application launching for GNOME
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
@@ -173,6 +173,9 @@ Requires:       keybinder3%{?_isa}
 
 # required for sound applet
 Requires:       wget%{?_isa}
+
+# required for power applet
+Recommends:     tuned-ppd
 
 # required for printer applet
 Requires:       cups-client%{?_isa}
@@ -346,6 +349,9 @@ EOF
 %endif
 
 %changelog
+* Mon Jan 20 2025 Leigh Scott <leigh123linux@gmail.com> - 6.4.6-3
+- Add recommends tuned-ppd for power applet power levels
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

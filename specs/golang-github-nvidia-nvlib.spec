@@ -9,7 +9,7 @@
 
 # https://github.com/NVIDIA/go-nvlib
 %global goipath         github.com/NVIDIA/go-nvlib
-Version:                0.6.1
+Version:                0.7.0
 
 %gometa -L -f
 
@@ -53,7 +53,7 @@ Source:         %{gosource}
 #   /tmp/go-build738952468/b001/device.test: undefined symbol:
 #   nvmlGpuInstanceGetComputeInstanceProfileInfoV
 #
-# These were tried both with the proprietary NVIDIA driver version 550.78 and
+# These were tried both with the proprietary NVIDIA driver version 565.77 and
 # without.
 %gocheck -d pkg/nvlib/device -d pkg/nvlib/info
 %endif

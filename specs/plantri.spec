@@ -10,6 +10,8 @@ URL:            https://users.cecs.anu.edu.au/~bdm/plantri/
 Source:         %{url}plantri%{upstreamver}.tar.gz
 # Eliminate many warnings about use of uninitialized variables
 Patch:          %{name}-uninitialized.patch
+# Adapt to changes in C23
+Patch:          %{name}-c23.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

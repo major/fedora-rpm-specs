@@ -1,7 +1,7 @@
 # Running the tests requires python3-zope-testrunner, which requires
 # python3-zope-interface, which requires this package.  Build in bootstrap
 # mode to avoid the circular dependency.
-%bcond_with bootstrap
+%bcond_without bootstrap
 %bcond_without docs
 
 # Install doc subpackage files into the main package doc directory
@@ -9,12 +9,16 @@
 
 Name:           python-zope-event
 Version:        5.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Zope Event Publication
 License:        ZPL-2.1
 URL:            https://pypi.python.org/pypi/zope.event/
 Source0:        %pypi_source zope.event
 BuildArch:      noarch
+# upstream fixes for doc build with sphinx 8.1
+# https://github.com/zopefoundation/zope.event/commit/cfcb34ea5c61d71c77529cbf2400738473e25bac
+# https://bugzilla.redhat.com/show_bug.cgi?id=2329899
+Patch:          python-zope-event-docs.patch
 
 %description
 The zope.event package provides a simple event system. It provides
@@ -95,6 +99,10 @@ rm -f docs/_build/html/.buildinfo
 %endif
 
 %changelog
+* Mon Jan 20 2025 Orion Poplawski <orion@nwra.com> - 5.0-6
+- Rebuild without bootstrop (rhbz#2314522)
+- Add upstream fix for doc build with sphinx 8.x (rhbz#2329899)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

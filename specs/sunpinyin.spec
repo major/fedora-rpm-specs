@@ -40,7 +40,7 @@ to write their own front-end for sunpinyin.
 
 %package data
 Summary:	Little-endian data files for %{name}
-License:	CC-BY-SA
+License:	CC-BY-SA-3.0
 Obsoletes:	%{name}-data-le
 Obsoletes:	%{name}-data-be
 

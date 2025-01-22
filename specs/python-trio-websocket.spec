@@ -6,7 +6,7 @@ Summary: WebSocket implementation focused on safety and correctness
 License: MIT
 
 Version: 0.11.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 URL: https://github.com/python-trio/trio-websocket
 Source: %{URL}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
@@ -84,6 +84,9 @@ rm docs/build/html/.buildinfo
 
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

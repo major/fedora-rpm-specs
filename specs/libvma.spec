@@ -2,7 +2,7 @@
 
 Name: libvma
 Version: 9.8.60
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: A library for boosting TCP and UDP traffic (over RDMA hardware)
 
 # Automatically converted from old format: GPLv2 or BSD - review is highly recommended.
@@ -102,6 +102,9 @@ rm -f $RPM_BUILD_ROOT/%{_sysconfdir}/init.d/vma
 %{_mandir}/man8/vma_stats.*
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.8.60-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.8.60-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

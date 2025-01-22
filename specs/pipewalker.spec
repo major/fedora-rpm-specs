@@ -3,7 +3,7 @@ Summary: Puzzle game about connecting components into a single circuit
 License: MIT
 
 Version: 1.1
-Release: 2%{?dist}
+Release: 4%{?dist}
 
 URL: https://github.com/artemsen/pipewalker
 Source0: %{URL}/archive/v%{version}/%{name}-v%{version}.tar.gz
@@ -16,6 +16,10 @@ Patch2: 0002-no-games-subdir-for-data.patch
 
 # Disable a debug feature where the game generates the levels already solved.
 Patch3: 0003-fix-levels-being-already-solved.patch
+
+# Fix missing includes.
+# Submitted upstream: https://github.com/artemsen/pipewalker/pull/12
+Patch4: 0004-missing-includes.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: gcc-c++
@@ -83,6 +87,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 
 
 %changelog
+* Mon Jan 20 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.1-4
+- Add a patch to fix FTBFS due to missing includes
+
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

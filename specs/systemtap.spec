@@ -45,6 +45,10 @@
 %{!?with_httpd: %global with_httpd 0}
 %{!?with_specific_python: %global with_specific_python 0%{?fedora} >= 31}
 %{!?with_sysusers: %global with_sysusers 0%{?fedora} >= 32 || 0%{?rhel} >= 9}
+# NB: can't turn this on by default on any distro version whose builder system
+# may run kernels different than the distro version itself.
+%{!?with_check: %global with_check 0}
+
 
 # Virt is supported on these arches, even on el7, but it's not in core EL7
 %if 0%{?rhel} && 0%{?rhel} <= 7
@@ -120,8 +124,8 @@ m     stapdev  stapdev
 
 Name: systemtap
 # PRERELEASE
-Version: 5.2
-Release: 2%{?release_override}%{?dist}
+Version: 5.3~pre17373816g7a71d34b
+Release: 1%{?release_override}%{?dist}
 # for version, see also configure.ac
 
 
@@ -157,7 +161,7 @@ Release: 2%{?release_override}%{?dist}
 Summary: Programmable system-wide instrumentation system
 License: GPL-2.0-or-later
 URL: https://sourceware.org/systemtap/
-Source: ftp://sourceware.org/pub/systemtap/releases/systemtap-%{version}.tar.gz
+Source: %{name}-%{version}.tar.gz
 
 # Build*
 BuildRequires: make
@@ -209,7 +213,7 @@ BuildRequires: xmlto /usr/share/xmlto/format/fo/pdf
 %endif
 %if %{with_emacsvim}
 # for _emacs_sitelispdir macros etc.
-BuildRequires: emacs
+BuildRequires: emacs-common
 %endif
 %if %{with_java}
 BuildRequires: java-devel
@@ -241,8 +245,14 @@ BuildRequires: libmicrohttpd-devel
 BuildRequires: libuuid-devel
 %endif
 %if %{with_sysusers}
-BuildRequires:  systemd-rpm-macros
+BuildRequires: systemd-rpm-macros
 %endif
+%if %{with_check}
+BuildRequires: kernel-devel
+# and some of the same Requires: as below
+BuildRequires: dejagnu gcc make
+%endif
+
 
 
 # Install requirements
@@ -847,6 +857,12 @@ done
 %py3_shebang_fix %{buildroot}%{python3_sitearch} %{buildroot}%{_bindir}/*
 %endif
 
+%check
+%if %{with_check}
+make check RUNTESTFLAGS=environment_sanity.exp
+%endif
+
+
 %pre runtime
 %if %{with_sysusers}
 echo '%_systemtap_runtime_preinstall' | systemd-sysusers --replace=%{_sysusersdir}/systemtap-runtime.conf -
@@ -1326,6 +1342,22 @@ exit 0
 
 # PRERELEASE
 %changelog
+* Mon Jan 20 2025 Frank Ch. Eigler <fche@redhat.com> - 5.3-17373816g7a71d34b
+- Automated weekly rawhide release
+- Applied spec changes from upstream git
+
+* Mon Jan 20 2025 Frank Ch. Eigler <fche@redhat.com> - 5.3-17373794g3efe129d
+- Automated weekly rawhide release
+- Applied spec changes from upstream git
+
+* Sun Jan 19 2025 Frank Ch. Eigler <fche@redhat.com> - 5.3-17373422g9a48fbea
+- Automated weekly rawhide release
+- Applied spec changes from upstream git
+
+* Sun Jan 19 2025 Frank Ch. Eigler <fche@redhat.com> - 5.2-17373420g1e894ff0
+- Automated weekly rawhide release
+- Applied spec changes from upstream git
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

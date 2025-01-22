@@ -16,13 +16,16 @@ Source:         %{crates_source}
 Patch:          pcap-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * Remove the libloading build dep.; we use pkg-config unconditionally
+# * Port tests from tempdir to tempfile:
+#   https://github.com/rust-pcap/pcap/commit/3f54c0c
 Patch:          pcap-fix-metadata.diff
 # # * Use pkg-config unconditionally for detecting libpcap; avoid libloading
 # # * https://github.com/rust-pcap/pcap/issues/345
-Patch10:       0001-Downstream-only-use-pkg-config-unconditionally.patch
+Patch10:        0001-Downstream-only-use-pkg-config-unconditionally.patch
 # # * Fix IPv4 initialization for test_address_ipv4
 # # * https://github.com/rust-pcap/pcap/pull/348
-Patch11:       https://github.com/rust-pcap/pcap/pull/348.patch
+Patch11:        https://github.com/rust-pcap/pcap/pull/348.patch
+Patch12:        0001-Port-tests-from-tempdir-to-tempfile.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

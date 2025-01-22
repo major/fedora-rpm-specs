@@ -1,7 +1,7 @@
 Name:           libsass
 Version:        3.6.6
 %global soname_version 1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        C/C++ port of the Sass CSS precompiler
 
 # src/ast.hpp, src/utf8* is BSL-1.0
@@ -66,6 +66,9 @@ find $RPM_BUILD_ROOT -name '*.la' -print -delete
 
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.6-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

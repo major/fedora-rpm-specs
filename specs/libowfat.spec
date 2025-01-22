@@ -6,7 +6,7 @@
 
 Name:           libowfat
 Version:        0.30
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Reimplementation of libdjb 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -62,6 +62,9 @@ make -f GNUmakefile install \
 %{_mandir}/man3/**
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.30-27
 - convert license to SPDX
 

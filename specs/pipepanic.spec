@@ -1,6 +1,6 @@
 Name: pipepanic
 Version: 0.1.3
-Release: 39%{?dist}
+Release: 40%{?dist}
 Summary: A pipe connecting game
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -96,6 +96,9 @@ desktop-file-install \
 
 
 %changelog
+* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.3-39
 - convert license to SPDX
 

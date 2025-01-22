@@ -4,7 +4,7 @@
 
 Name: python-scikit-image
 Version: 0.24.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
 # skimage/graph/_mcp.pyx
@@ -19,8 +19,9 @@ Source1: scikit-image-data-20240618.tar.xz
 # Fix method docstring generation for Python 3.13
 # https://github.com/scikit-image/scikit-image/pull/7448
 Patch: 0001-_parse_docs-handle-change-to-docstring-indentation-i.patch
-# Fix tests on i686
-Patch: https://github.com/scikit-image/scikit-image/pull/7453.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires: gcc gcc-c++
 BuildRequires: xorg-x11-server-Xvfb
@@ -128,6 +129,9 @@ popd
 
 
 %changelog
+* Sun Jan 19 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 0.24.0-4
+- Drop i686 support beginning with Fedora 42 (leaf package)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.24.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
