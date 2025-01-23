@@ -5,12 +5,14 @@
 
 Name:           python-%{srcname}
 Version:        0.13.7
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Scientific Graphics and GUI Library for Python
 License:        MIT
 URL:            https://www.pyqtgraph.org/
 Source0:        https://github.com/pyqtgraph/pyqtgraph/archive/refs/tags/pyqtgraph-%{version}.tar.gz
 Patch0:         no-sphinx-qt-doc.patch
+# sphinxext-rediraffe has been retired
+Patch1:         drop-rediraffe.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -18,7 +20,7 @@ BuildRequires:  python3-setuptools
 # For Docs
 %if %{with docs}
 BuildRequires:  make %{py3_dist pydata-sphinx-theme sphinx sphinx_design}
-BuildRequires:  %{py3_dist sphinx_rtd_theme sphinxext-rediraffe}
+BuildRequires:  %{py3_dist sphinx_rtd_theme}
 BuildRequires:  %{py3_dist sphinx_autodoc_typehints}
 %endif
 # For Tests
@@ -81,6 +83,9 @@ rm -f doc/build/html/objects.inv
 %endif
 
 %changelog
+* Tue Jan 21 2025 Sandro <devel@penguinpee.nl> - 0.13.7-7
+- Drop dependency on `sphinxext-rediraffe`
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.7-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

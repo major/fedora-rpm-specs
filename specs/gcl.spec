@@ -101,6 +101,8 @@ Patch:          %{name}-2.6.12-infrastructure.patch
 # handling of system extensions.  For example, on glibc-based systems, some
 # functionality is available only when _GNU_SOURCE is defined.
 Patch:          %{name}-2.6.12-extension.patch
+# Force building in C17 mode; the code is not ready for C23
+Patch:          %{name}-2.6.14-c17.patch
 
 BuildRequires:  binutils-devel
 BuildRequires:  bzip2
@@ -175,6 +177,8 @@ chmod a+x bin/info bin/info1 gcl-tk/gcltksrv.in gcl-tk/ngcltksrv mp/gcclab
 chmod a+x o/egrep-def utils/replace xbin/*
 
 %build
+# The code is not ready for C23
+export CFLAGS='%{build_cflags} -std=gnu17'
 %configure --enable-readline --enable-ansi --enable-dynsysgmp --enable-xgcl \
   --enable-tclconfig=%{_libdir} --enable-tkconfig=%{_libdir}
 # FIXME: %%{?_smp_mflags} breaks the build
@@ -252,6 +256,9 @@ rm -f /tmp/gazonk_* /tmp/gcl_*
 
 
 %changelog
+* Tue Jan 21 2025 Jerry James <loganjerry@gmail.com> - 2.6.14-10
+- Build in C17 mode
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.14-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

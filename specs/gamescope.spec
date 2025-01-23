@@ -3,22 +3,23 @@
 %else
 %global libliftoff_minver 0.4.1
 %endif
-%global reshade_commit 4245743a8c41abbe3dc73980c1810fe449359bf1
+%global reshade_commit 696b14cd6006ae9ca174e6164450619ace043283
 %global reshade_shortcommit %(c=%{reshade_commit}; echo ${c:0:7})
 
 Name:           gamescope
-Version:        3.15.15
+Version:        3.16.1
 Release:        %autorelease
 Summary:        Micro-compositor for video games on Wayland
-
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
-URL:            https://github.com/Plagman/gamescope
+URL:            https://github.com/ValveSoftware/gamescope
+
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # Create stb.pc to satisfy dependency('stb')
 Source1:        stb.pc
 Source2:        https://github.com/Joshua-Ashton/reshade/archive/%{reshade_commit}/reshade-%{reshade_shortcommit}.tar.gz
 
+# https://github.com/misyltoad/reshade/pull/1:
 Patch:          0001-cstdint.patch
 # Allow to use system wlroots
 # We use/package rest from the forks, I've tried to verify that wlroots match relevant commits
@@ -26,6 +27,8 @@ Patch:          0001-cstdint.patch
 Patch:          Allow-to-use-system-wlroots.patch
 Patch:          Switch-wlroots-to-the-new-pc-filename.patch
 Patch:          Add-pixman-dependency.patch
+# https://github.com/ValveSoftware/gamescope/pull/1548:
+Patch:          https://github.com/ValveSoftware/gamescope/commit/fa0832f616a1060a3311f9b41368590169ba4872.patch
 
 BuildRequires:  meson >= 0.54.0
 BuildRequires:  ninja-build
@@ -62,6 +65,8 @@ BuildRequires:  pkgconfig(libcap)
 BuildRequires:  pkgconfig(libeis-1.0)
 BuildRequires:  pkgconfig(libdecor-0)
 BuildRequires:  pkgconfig(hwdata)
+BuildRequires:  pkgconfig(luajit)
+BuildRequires:  pkgconfig(openvr) >= 2.7
 BuildRequires:  spirv-headers-devel
 # Enforce the the minimum EVR to contain fixes for all of:
 # CVE-2021-28021 CVE-2021-42715 CVE-2021-42716 CVE-2022-28041 CVE-2023-43898
@@ -102,7 +107,7 @@ rm -rf src/reshade && mv reshade-%{reshade_commit} src/reshade
 
 %build
 export PKG_CONFIG_PATH=pkgconfig
-%meson -Dpipewire=enabled -Denable_openvr_support=false -Dforce_fallback_for=[]
+%meson -Dpipewire=enabled -Denable_openvr_support=true -Dforce_fallback_for=[]
 %meson_build
 
 %install
@@ -115,6 +120,7 @@ export PKG_CONFIG_PATH=pkgconfig
 %{_bindir}/gamescopectl
 %{_bindir}/gamescopereaper
 %{_bindir}/gamescopestream
+%{_datadir}/gamescope
 %{_libdir}/libVkLayer_FROG_gamescope_wsi_*.so
 %{_datadir}/vulkan/implicit_layer.d/VkLayer_FROG_gamescope_wsi.*.json
 

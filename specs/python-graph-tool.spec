@@ -14,7 +14,7 @@ Please refer to https://graph-tool.skewed.de/static/doc/index.html for
 documentation.}
 
 Name:           python-graph-tool
-Version:        2.80
+Version:        2.88
 Release:        %autorelease
 Summary:        Efficient network analysis tool written in Python
 
@@ -67,12 +67,19 @@ License:        %{shrink:
                 }
 URL:            https://graph-tool.skewed.de/
 Source:         https://downloads.skewed.de/graph-tool/graph-tool-%{version}.tar.bz2
-# Remove upstream compiler flags
+
+# Note that upstream sets the optimization flag -O3. Per
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_compiler_flags,
+# we should normally patch this out in order to fully respect the system
+# default compiler flags. However, upstream writes in
+# https://git.skewed.de/count0/graph-tool/-/blob/release-2.86/configure.ac#L67-L69:
 #
-# We can leave those controlling warnings and dynamic symbol visibility;
-# we must remove any that hard-code the optimization settings or otherwise
-# fail to respect the distribution defaults.
-Patch:          0001-Remove-upstream-compiler-flags.patch
+#   Enforce -O3. It makes a substantial difference, e.g. 12x speed improvement
+#   over -O2 in benchmarks.
+#
+# It’s not obvious how we should validate upstream’s claim with downstream
+# benchmarking; nevertheless, we consider it adequate justification for
+# allowing -O3.
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -172,6 +179,12 @@ echo 'intersphinx_mapping.clear()' >> doc/conf.py
 
 %build
 ./autogen.sh
+# We get a few thousand warnings like:
+#   warning: 'always_inline' attribute does not apply to types [-Wattributes]
+# and since each is very verbose, with a lot of context, the build log explodes
+# to many gigabytes, which ends up failing the build. Disable this class of
+# warnings as a pragmatic matter.
+export CXXFLAGS="${CXXFLAGS-} -Wno-attributes"
 %configure \
     --with-python-module-path=%{python3_sitearch} \
     --with-boost-libdir=%{_libdir} \

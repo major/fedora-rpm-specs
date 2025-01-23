@@ -1,8 +1,8 @@
 #TODO: Run test suite (see debian/rules)
 
 Name:           qgis
-Version:        3.40.2
-Release:        2%{?dist}
+Version:        3.40.3
+Release:        1%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
 # http://issues.qgis.org/issues/3789
@@ -236,8 +236,6 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 # QGIS shows the following files in the GUI, including the license text
 %doc %{_datadir}/%{name}/doc/
 %dir %{_datadir}/%{name}/i18n/
-%lang(zh-Hans) %{_datadir}/%{name}/i18n/%{name}_zh-Hans.qm
-%lang(zh-Hant) %{_datadir}/%{name}/i18n/%{name}_zh-Hant.qm
 %{_libdir}/lib%{name}_native.so.*
 %{_libdir}/lib%{name}_app.so.*
 %{_libdir}/lib%{name}_analysis.so.*
@@ -302,6 +300,9 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Tue Jan 21 2025 Sandro Mani <manisandro@gmail.com> - 3.40.3-1
+- Update to 3.40.3
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.40.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

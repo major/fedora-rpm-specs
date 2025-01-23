@@ -7,7 +7,7 @@
 
 Name:           conserver
 Version:        8.2.7
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Serial console server daemon/client
 
 License:        BSD-3-Clause AND Zlib
@@ -24,6 +24,9 @@ Source3:        %{name}.service
 
 Patch0:         %{name}-no-exampledir.patch
 Patch1:         %{name}-8.2.7-buffer-overflow.patch
+# Fix FTBFS with GCC 15 in C23 mode
+# https://github.com/bstansell/conserver/commit/84fc79a459e00dbc87b8cfc943c5045bfcc7aeeb
+Patch2:         %{name}-gcc15-c23.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -115,6 +118,9 @@ install -D -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/conserver.service
 %{_mandir}/man1/console.1*
 
 %changelog
+* Tue Jan 21 2025 Lukáš Zaoral <lzaoral@redhat.com> - 8.2.7-11
+- fix FTBFS with GCC 15 in C23 mode
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.7-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

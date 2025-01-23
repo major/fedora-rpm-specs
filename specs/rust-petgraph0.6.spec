@@ -5,8 +5,8 @@
 
 %global crate petgraph
 
-Name:           rust-petgraph
-Version:        0.7.1
+Name:           rust-petgraph0.6
+Version:        0.6.5
 Release:        %autorelease
 Summary:        Graph data structure library
 

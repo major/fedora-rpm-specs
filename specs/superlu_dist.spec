@@ -71,7 +71,7 @@ BuildRequires: metis-devel
 
 Name: superlu_dist
 Version: 8.2.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 Epoch:   1
 Summary: Solution of large, sparse, nonsymmetric systems of linear equations
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -197,7 +197,8 @@ dos2unix CMakeLists.txt
 mkdir -p build/openmpi
 export CC=$MPI_BIN/mpicc
 export CXX=$MPI_BIN/mpic++
-export CXXFLAGS="%optflags -I$MPI_INCLUDE"
+export CFLAGS="%optflags -std=gnu17 -DPRNTlevel=0 -DDEBUGlevel=0"
+export CXXFLAGS="%optflags -std=gnu++17 -I$MPI_INCLUDE"
 export LDFLAGS="%build_ldflags -L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherrexit"
 %cmake -B build/openmpi -DCMAKE_BUILD_TYPE:STRING=Release \
  -DBUILD_STATIC_LIBS:BOOL=FALSE \
@@ -241,8 +242,8 @@ export LDFLAGS="%build_ldflags -L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherr
 mkdir -p build/mpich
 export CC=$MPI_BIN/mpicc
 export CXX=$MPI_BIN/mpic++
-export CFLAGS="%optflags -DPRNTlevel=0 -DDEBUGlevel=0"
-export CXXFLAGS="%optflags -I$MPI_INCLUDE"
+export CFLAGS="%optflags -std=gnu17 -DPRNTlevel=0 -DDEBUGlevel=0"
+export CXXFLAGS="%optflags -std=gnu++17 -I$MPI_INCLUDE"
 export LDFLAGS="%build_ldflags -L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherrexit"
 %cmake -B build/mpich -DCMAKE_BUILD_TYPE:STRING=Release \
  -DBUILD_STATIC_LIBS:BOOL=FALSE \
@@ -361,6 +362,9 @@ chrpath -r $MPI_LIB %buildroot$MPI_LIB/libsuperlu_dist*.so*
 
 
 %changelog
+* Tue Jan 21 2025 Antonio Trande <sagitter@fedoraproject.org> - 1:8.2.0-8
+- Fix GCC15 builds
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.2.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

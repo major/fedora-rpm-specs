@@ -1,100 +1,100 @@
 %undefine __cmake_in_source_build
 
-Name:				davix
-Version:			0.8.7
-Release:			5%{?dist}
-Summary:			Toolkit for http based file management
-License:			LGPL-2.1-or-later AND LGPL-2.0-or-later AND BSD-2-Clause AND MIT AND Apache-2.0 AND curl
-URL:				https://dmc-docs.web.cern.ch/dmc-docs/davix.html
-Source0:			https://github.com/cern-fts/davix/releases/download/R_0_8_7/davix-0.8.7.tar.gz
+Name:         davix
+Version:      0.8.8
+Release:      1%{?dist}
+Summary:      Toolkit for HTTP-based file management
+License:      LGPL-2.1-or-later AND LGPL-2.0-or-later AND BSD-2-Clause AND MIT AND Apache-2.0 AND curl
+URL:          https://dmc-docs.web.cern.ch/dmc-docs/davix.html
+Source0:      https://github.com/cern-fts/davix/releases/download/R_0_8_8/davix-0.8.8.tar.gz
 
-BuildRequires:			gcc-c++
-BuildRequires:			cmake
+BuildRequires:      gcc-c++
+BuildRequires:      python3
+BuildRequires:      cmake
 # main lib dependencies
-%if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 9
-# use bundled curl version on EPEL <= 8
-BuildRequires:			curl-devel
+%if 0%{?fedora} || 0%{?rhel} >= 9
+# use bundled curl version on EPEL 8
+BuildRequires:      curl-devel
 %else
 # build uses "git apply" to apply a patch to the bundled curl source
-BuildRequires:			git-core
+BuildRequires:      git-core
 %endif
-BuildRequires:			libxml2-devel
-BuildRequires:			openssl-devel
-BuildRequires:			rapidjson-devel
-BuildRequires:			zlib-devel
+BuildRequires:      libxml2-devel
+BuildRequires:      openssl-devel
+BuildRequires:      zlib-devel
 # davix-copy dependencies
-BuildRequires:			gsoap-devel
-BuildRequires:			libuuid-devel
+BuildRequires:      gsoap-devel
+BuildRequires:      libuuid-devel
 # unit tests
-BuildRequires:			gtest-devel
+BuildRequires:      gtest-devel
 # documentation
-BuildRequires:			doxygen
-BuildRequires:			python3-sphinx
-BuildRequires:			python3-sphinx_rtd_theme
+BuildRequires:      doxygen
+BuildRequires:      python3-sphinx
+BuildRequires:      python3-sphinx_rtd_theme
 
-Requires:			%{name}-libs%{?_isa} = %{version}-%{release}
+Requires:     %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description
-Davix is a toolkit designed for file operations with http based protocols
-(WebDav, Amazon S3, ...).
-
-%package tests
-Summary:			Test suite for %{name}
-Requires:			%{name}-libs%{?_isa} = %{version}-%{release}
-
-%description tests
-Test suite for %{name}. Davix is a toolkit designed for file operations
-with http based protocols (WebDav, Amazon S3, ...).
+Davix is a toolkit designed for file operations
+with HTTP based protocols (WebDav, Amazon S3, ...).
+Davix provides an API and a set of command line tools.
 
 %package libs
-Summary:			Runtime libraries for %{name}
-%if ! ( %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 9)
-Provides:			bundled(libcurl) = 7.69.0
+Summary:      Runtime libraries for %{name}
+%if ! ( 0%{?fedora} || 0%{?rhel} >= 9)
+Provides:     bundled(libcurl) = 7.69.0
 %endif
 
 %description libs
 Libraries for %{name}. Davix is a toolkit designed for file operations
-with http based protocols (WebDav, Amazon S3, ...).
+with HTTP based protocols (WebDav, Amazon S3, ...).
 
 %package devel
-Summary:			Development files for %{name}
-Requires:			%{name}-libs%{?_isa} = %{version}-%{release}
+Summary:      Development files for %{name}
+Requires:     %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description devel
 Development files for %{name}. Davix is a toolkit designed for file operations
-with http based protocols (WebDav, Amazon S3, ...).
+with HTTP based protocols (WebDav, Amazon S3, ...).
+
+%package tests
+Summary:      Test suite for %{name}
+Requires:     %{name}-libs%{?_isa} = %{version}-%{release}
+
+%description tests
+Test suite for %{name}. Davix is a toolkit designed for file operations
+with HTTP based protocols (WebDav, Amazon S3, ...).
 
 %package doc
-Summary:			Documentation for %{name}
-BuildArch:			noarch
+Summary:      Documentation for %{name}
+BuildArch:    noarch
 
 %description doc
-Documentation and examples for %{name}. Davix is a toolkit designed 
-for file operations with http based protocols (WebDav, Amazon S3, ...).
+Documentation and examples for %{name}. Davix is a toolkit designed
+for file operations with HTTP based protocols (WebDav, Amazon S3, ...).
+
+%clean
+%cmake_build --target clean
 
 %prep
 %autosetup -p1
 
 # Remove bundled stuff
-%if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 9
-# use bundled curl version on EPEL
+%if 0%{?fedora} || 0%{?rhel} >= 9
+# remove bundled curl version outside EPEL 8
 rm -rf deps/curl
 %endif
-rm -rf deps/googletest/googlemock
-rm -rf deps/googletest/googletest/*
-touch deps/googletest/googletest/CMakeLists.txt
-rm -rf src/libs/rapidjson
 rm -rf test/pywebdav
 rm -rf doc/sphinx/_themes/sphinx_rtd_theme
 
 %build
 %cmake \
-%if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 9
-  -DEMBEDDED_LIBCURL:BOOL=FALSE \
+%if 0%{?fedora} || 0%{?rhel} >= 9
+  -DEMBEDDED_LIBCURL=FALSE \
 %endif
-  -DDOC_INSTALL_DIR:PATH=%{_pkgdocdir} \
-  -DENABLE_THIRD_PARTY_COPY:BOOL=TRUE \
-  -DENABLE_HTML_DOCS:BOOL=TRUE
+  -DDOC_INSTALL_DIR=%{_pkgdocdir} \
+  -DENABLE_THIRD_PARTY_COPY=TRUE \
+  -DENABLE_HTML_DOCS=TRUE
 %cmake_build
 %cmake_build --target doc
 ( cd %{_vpath_builddir}/doc ; \
@@ -109,26 +109,24 @@ rm -rf doc/sphinx/_themes/sphinx_rtd_theme
 %cmake_install
 rm %{buildroot}%{_pkgdocdir}/LICENSE
 
+%ldconfig_scriptlets libs
+
 %files
 %{_bindir}/davix-cp
 %{_bindir}/davix-get
 %{_bindir}/davix-http
 %{_bindir}/davix-ls
 %{_bindir}/davix-mkdir
+%{_bindir}/davix-mv
 %{_bindir}/davix-put
 %{_bindir}/davix-rm
-%{_bindir}/davix-mv
 %doc %{_mandir}/man1/davix-get.1*
 %doc %{_mandir}/man1/davix-http.1*
 %doc %{_mandir}/man1/davix-ls.1*
 %doc %{_mandir}/man1/davix-mkdir.1*
+%doc %{_mandir}/man1/davix-mv.1*
 %doc %{_mandir}/man1/davix-put.1*
 %doc %{_mandir}/man1/davix-rm.1*
-%doc %{_mandir}/man1/davix-mv.1*
-
-%files tests
-%{_bindir}/davix-tester
-%{_bindir}/davix-unit-tests
 
 %files libs
 %{_libdir}/libdavix.so.*
@@ -144,11 +142,19 @@ rm %{buildroot}%{_pkgdocdir}/LICENSE
 %{_libdir}/pkgconfig/davix_copy.pc
 %doc %{_mandir}/man3/libdavix.3*
 
+%files tests
+%{_bindir}/davix-tester
+%{_bindir}/davix-unit-tests
+
 %files doc
 %doc %{_pkgdocdir}/html
 %license LICENSE
 
 %changelog
+* Tue Jan 21 2025 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 0.8.8-1
+- New upstream release 0.8.8
+- Align specfile with upstream (including whitespace from tabs to spaces)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

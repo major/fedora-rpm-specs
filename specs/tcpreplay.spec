@@ -10,7 +10,7 @@
 
 Name:           tcpreplay
 Version:        4.5.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Replay captured network traffic
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -18,13 +18,14 @@ License:        GPL-3.0-only
 URL:            http://tcpreplay.appneta.com/
 Source:         https://github.com/appneta/tcpreplay/releases/download/v%{version}/tcpreplay-%{version}.tar.xz
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
+BuildRequires:  automake autoconf libtool
 BuildRequires:  %{pcapdep} >= 0.8.0, tcpdump
 %if ! 0%{?rhel}
 BuildRequires:  libdnet-devel
 %endif
-Requires:       /usr/sbin/tcpdump
+Requires:       tcpdump
 
 %description
 Tcpreplay is a tool to replay captured network traffic. Currently, tcpreplay
@@ -37,9 +38,8 @@ capture files.
 %autosetup -p1
 
 %build
-%configure --enable-dynamic-link \
-           --enable-tcpreplay-edit \
-           --enable-local-libopts \
+autoreconf -vif
+%configure --enable-local-libopts \
            --disable-libopts-install \
            --disable-maintainer-mode
 
@@ -66,6 +66,10 @@ capture files.
 %{_bindir}/*
 
 %changelog
+* Wed Jan 22 2025 Bojan Smojver <bojan@rexursive com> - 4.5.1-5
+- Drop unknown configure option --enable-tcpreplay-edit
+- Change tcpdump dependency to package
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

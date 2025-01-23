@@ -19,7 +19,9 @@
 # These are the extra external linker flags being used:
 # https://github.com/NVIDIA/nvidia-container-toolkit/commit/772cf77dcc2347ce
 # https://github.com/NVIDIA/nvidia-container-toolkit/pull/333
-%global __golang_extldflags -Wl,--export-dynamic -Wl,--unresolved-symbols=ignore-in-object-files
+# https://github.com/NVIDIA/nvidia-container-toolkit/commit/e2fe5915356a4b31
+# https://github.com/NVIDIA/nvidia-container-toolkit/pull/732
+%global __golang_extldflags -Wl,--export-dynamic -Wl,--unresolved-symbols=ignore-in-object-files -Wl,-z,lazy
 
 # https://github.com/NVIDIA/nvidia-container-toolkit
 %global goipath         github.com/NVIDIA/nvidia-container-toolkit

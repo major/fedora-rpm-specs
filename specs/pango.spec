@@ -1,20 +1,20 @@
-%global glib2_version 2.62
+%global glib2_version 2.80
 %global fribidi_version 1.0.6
 %global libthai_version 0.1.9
 %global harfbuzz_version 8.4.0
 %global fontconfig_version 2.15.0
 %global libXft_version 2.0.0
-%global cairo_version 1.12.10
+%global cairo_version 1.18
 %global freetype_version 2.1.5
 
 Name:    pango
-Version: 1.55.0
-Release: 2%{?dist}
+Version: 1.56.0
+Release: 1%{?dist}
 Summary: System for layout and rendering of internationalized text
 
 License: LGPL-2.0-or-later
 URL:     https://pango.gnome.org/
-Source0: https://download.gnome.org/sources/%{name}/1.55/%{name}-%{version}.tar.xz
+Source0: https://download.gnome.org/sources/%{name}/1.56/%{name}-%{version}.tar.xz
 
 BuildRequires: pkgconfig(cairo) >= %{cairo_version}
 BuildRequires: pkgconfig(cairo-gobject) >= %{cairo_version}
@@ -30,6 +30,7 @@ BuildRequires: help2man
 BuildRequires: meson
 BuildRequires: gcc gcc-c++
 BuildRequires: gi-docgen
+BuildRequires: python3-docutils
 
 Requires: glib2%{?_isa} >= %{glib2_version}
 Requires: freetype%{?_isa} >= %{freetype_version}
@@ -83,6 +84,7 @@ The pango-doc package contains developer documentation for the pango package.
 
 
 %build
+export CFLAGS='-std=c11 %optflags'
 %meson \
   -Dbuild-testsuite=true \
   -Dbuild-examples=true \
@@ -109,7 +111,6 @@ fi
 %{_bindir}/pango-list
 %{_bindir}/pango-segmentation
 %{_bindir}/pango-view
-%{_mandir}/man1/pango-view.1*
 %{_libdir}/girepository-1.0/Pango-1.0.typelib
 %{_libdir}/girepository-1.0/PangoCairo-1.0.typelib
 %{_libdir}/girepository-1.0/PangoFc-1.0.typelib
@@ -138,6 +139,9 @@ fi
 
 
 %changelog
+* Tue Jan 21 2025 Nieves Montero <nmontero@redhat.com> - 1.56.0-1
+- Update to 1.56.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.55.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

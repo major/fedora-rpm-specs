@@ -3,7 +3,7 @@
 Summary: Tools needed to create Texinfo format documentation files
 Name: texinfo
 Version: 7.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-3.0-or-later
 Url: http://www.gnu.org/software/texinfo/
 Source0: ftp://ftp.gnu.org/gnu/texinfo/texinfo-%{version}.tar.xz
@@ -79,15 +79,10 @@ install -Dpm0755 -t contrib %{SOURCE2}
 %make_build
 
 %install
-mkdir -p ${RPM_BUILD_ROOT}/sbin
-
 %make_install
 
-mkdir -p $RPM_BUILD_ROOT%{tex_texinfo}
-install -p -m644 doc/texinfo.tex doc/txi-??.tex $RPM_BUILD_ROOT%{tex_texinfo}
-
-mkdir -p $RPM_BUILD_ROOT%{_sbindir}
-mv $RPM_BUILD_ROOT%{_bindir}/install-info $RPM_BUILD_ROOT%{_sbindir}
+mkdir -p %{buildroot}%{tex_texinfo}
+install -p -m644 doc/texinfo.tex doc/txi-??.tex %{buildroot}%{tex_texinfo}
 
 install -Dpm0755 -t %{buildroot}%{_sbindir} contrib/fix-info-dir
 
@@ -151,6 +146,9 @@ export ALL_TESTS=yes
 %{_mandir}/man1/pdftexi2dvi.1*
 
 %changelog
+* Tue Jan 21 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 7.2-3
+- Changes related to bin and sbin unify
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

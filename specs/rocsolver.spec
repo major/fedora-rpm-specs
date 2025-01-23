@@ -41,9 +41,14 @@
 # Fortran is only used in testing
 %global build_fflags %{nil}
 
+# Compression type and level for source/binary package payloads.
+#  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
+%define _source_payload	w7T0.xzdio
+%define _binary_payload	w7T0.xzdio
+
 Name:           rocsolver
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Next generation LAPACK implementation for ROCm platform
 Url:            https://github.com/ROCm/rocSOLVER
 
@@ -204,6 +209,9 @@ fi
 %endif
 
 %changelog
+* Tue Jan 21 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-4
+- multithread compress
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

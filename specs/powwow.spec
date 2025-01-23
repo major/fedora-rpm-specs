@@ -41,6 +41,9 @@ done
 
 
 %build
+# Use -std=gnu17 to work around build issues with C23 that gcc 15 defaults to
+%global optflags %optflags -std=gnu17
+
 %configure
 %make_build
 

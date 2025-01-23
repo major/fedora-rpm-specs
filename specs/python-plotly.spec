@@ -64,6 +64,11 @@ Source0:    %forgesource
 # We use the sdist tarball to extract the NPM generated files
 Source1:    %{pypi_source plotly}
 
+# NumPy 2.x patch dealing with `np.NaN` and `np.Inf`.
+# Cherry picked relevant commits from PR for downstream use.
+# https://github.com/plotly/plotly.py/pull/4622
+Patch:      %{forgeurl}/pull/4622.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  npm
@@ -117,7 +122,7 @@ Recommends:     python3-plotly-geo
 
 
 %prep
-%forgeautosetup
+%forgeautosetup -p1
 
 # Upstream bundles three packages in one repo. We only need to consider
 # plotly. So, we remove everything else.

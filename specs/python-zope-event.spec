@@ -1,7 +1,7 @@
 # Running the tests requires python3-zope-testrunner, which requires
 # python3-zope-interface, which requires this package.  Build in bootstrap
 # mode to avoid the circular dependency.
-%bcond_without bootstrap
+%bcond_with bootstrap
 %bcond_without docs
 
 # Install doc subpackage files into the main package doc directory

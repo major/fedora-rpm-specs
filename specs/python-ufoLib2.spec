@@ -2,8 +2,8 @@
 %bcond cattrs %{undefined fc40}
 
 Name:           python-ufoLib2
-Version:        0.17.0
-Release:        2%{?dist}
+Version:        0.17.1
+Release:        1%{?dist}
 Summary:        A library to deal with UFO font sources
 
 License:        Apache-2.0
@@ -52,6 +52,9 @@ Summary:        %{summary}
 %doc README.md
 
 %changelog
+* Wed Jan 22 2025 Parag Nemade <pnemade AT redhat DOT com> - 0.17.1-1
+- Update to 0.17.1 version (#2339116)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

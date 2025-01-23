@@ -1,8 +1,8 @@
 %undefine   __brp_mangle_shebangs
 
 Name:		magic
-Version:	8.3.512
-Release:	3%{?dist}
+Version:	8.3.515
+Release:	1%{?dist}
 Summary:	A very capable VLSI layout tool
 
 # LICENSE: HPND-UC-export-US: https://gitlab.com/fedora/legal/fedora-license-data/-/issues/504
@@ -18,8 +18,6 @@ Source:	http://opencircuitdesign.com/%{name}/archive/%{name}-%{version}.tgz
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 Patch1:	%{name}-7.4.35-64bit.patch
-# https://github.com/RTimothyEdwards/magic/pull/364
-Patch2:	%{name}-pr364-gcc-support-Werror-format-security.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -87,7 +85,6 @@ sed -i "s|package require -exact|package require|" tcltk/tkcon.tcl
 %if "x%{?__isa_bits}" == "x64"
 %patch -P 1 -p0 -b .64bit
 %endif
-%patch -P 2 -p1 -b .format
 
 # Doesn't seem to need these.
 sed -i scripts/configure \
@@ -179,6 +176,9 @@ rm -f %{buildroot}%{_mandir}/man1/extcheck.1*
 %doc	scmos/
 
 %changelog
+* Tue Jan 21 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.515-1
+- 8.3.515
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.512-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

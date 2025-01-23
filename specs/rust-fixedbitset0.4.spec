@@ -2,27 +2,22 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate wasmer_enumset_derive
+%global crate fixedbitset
 
-Name:           rust-wasmer_enumset_derive
-Version:        0.5.0
+Name:           rust-fixedbitset0.4
+Version:        0.4.2
 Release:        %autorelease
-Summary:        Internal helper crate for enumset
+Summary:        Simple bitset collection
 
 # Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/wasmer_enumset_derive
+URL:            https://crates.io/crates/fixedbitset
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * bump darling from 0.10 to 0.13
-Patch:          wasmer_enumset_derive-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-An internal helper crate for enumset. Not public API. Wasmer fork to
-work around `syn` issue. This will not be updated once the issue is
-fixed upstream.}
+FixedBitSet is a simple bitset collection.}
 
 %description %{_description}
 
@@ -36,6 +31,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -62,10 +60,20 @@ use the "serde" feature of the "%{crate}" crate.
 %files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+std-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Fix permissions
-chmod -x src/lib.rs
 %cargo_prep
 
 %generate_buildrequires

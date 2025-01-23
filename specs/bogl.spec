@@ -1,7 +1,7 @@
 Summary: A terminal program for displaying Unicode on the console
 Name: bogl
 Version: 0.1.18
-Release: 54%{?dist}
+Release: 55%{?dist}
 URL: http://packages.debian.org/unstable/source/bogl
 Source0: http://update2.intellique.com/repository/archive/pool/main/b/bogl/bogl_0.1.18-1.5.tar.gz
 Source1: 14x14cjk.bdf.gz
@@ -14,6 +14,7 @@ Patch5: bogl-0.1.9-2.6fbdev.patch
 Patch6: bogl-0.1.18-noexecstack.patch
 Patch7: bogl-0.1.18-format-security.patch
 Patch8: bogl-0.1.18-fix-multiple-definition.patch
+Patch9: bogl-0.1.18-gcc15-fixes.patch
 Epoch: 0
 License: GPL-2.0-or-later
 BuildRequires: gcc
@@ -55,6 +56,7 @@ frame buffer.  It is able to display Unicode text on the console.
 %patch -P6 -p1 -b .noexecstack
 %patch -P7 -p1 -b .format-security
 %patch -P8 -p1 -b .fix-multiple-definition
+%patch -P9 -p1 -b .gcc15-fixes
 
 %build
 make %{?_smp_mflags} CFLAGS="$RPM_OPT_FLAGS"
@@ -91,6 +93,9 @@ rm $RPM_BUILD_ROOT/%{_datadir}/terminfo/b/bterm
 /usr/share/bogl
 
 %changelog
+* Tue Jan 21 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 0:0.1.18-55
+- Fix FTBFS with GCC 15
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0:0.1.18-54
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

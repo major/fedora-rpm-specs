@@ -8,8 +8,8 @@
 %bcond_without gnutls
 
 Name:           libsecret
-Version:        0.21.4
-Release:        4%{?dist}
+Version:        0.21.6
+Release:        1%{?dist}
 Summary:        Library for storing and retrieving passwords and other secrets
 
 # libsecret/mock/aes.py is Apache-2.0
@@ -26,6 +26,8 @@ BuildRequires:  meson
 BuildRequires:  vala
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
+BuildRequires:  pkgconfig(bash-completion)
+
 %if %{with gnutls}
 BuildRequires:  pkgconfig(gnutls) >= 3.8.2
 %else
@@ -107,9 +109,10 @@ cp -a libsecret/mock-service*.py %{buildroot}%{_datadir}/libsecret/
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/Secret-1.typelib
 %{_mandir}/man1/secret-tool.1*
+%{_datadir}/bash-completion/completions/secret-tool
 
 %files devel
-%license COPYING docs/reference/COPYING
+%license COPYING
 %{_includedir}/libsecret-1/
 %{_libdir}/libsecret-1.so
 %{_libdir}/pkgconfig/libsecret-1.pc
@@ -130,6 +133,9 @@ cp -a libsecret/mock-service*.py %{buildroot}%{_datadir}/libsecret/
 
 
 %changelog
+* Tue Jan 21 2025 nmontero <nmontero@redhat.com> - 0.21.6-1
+- Update to 0.21.6
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

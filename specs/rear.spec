@@ -3,7 +3,7 @@
 
 Name: rear
 Version: 2.7
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: Relax-and-Recover is a Linux disaster recovery and system migration tool
 URL: https://relax-and-recover.org
 
@@ -237,7 +237,7 @@ sed -e 's:/lib/:/usr/lib/:g' \
 TZ=UTC make doc
 
 %install
-%{make_install}
+%make_install sbindir=%{_sbindir}
 install -p -d %{buildroot}%{_docdir}/%{name}/
 install -m 0644 %{SOURCE1} %{buildroot}%{_docdir}/%{name}/
 install -m 0644 %{SOURCE2} %{buildroot}%{_docdir}/%{name}/
@@ -260,6 +260,9 @@ install -m 0644 %{SOURCE3} %{buildroot}%{_docdir}/%{name}/
 
 #-- CHANGELOG -----------------------------------------------------------------#
 %changelog
+* Tue Jan 21 2025 Lukáš Zaoral <lzaoral@redhat.com> - 2.7-14
+- fix FTBFS after F42 bin/sbin merge
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

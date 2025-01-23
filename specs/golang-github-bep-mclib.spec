@@ -21,6 +21,9 @@ Summary:        A simple library to make it possible to run Mkcert's main method
 License:        MIT
 URL:            %{gourl}
 Source:         %{gosource}
+# Fix build on Go 1.24.
+# Submitted upstream as https://github.com/bep/mclib/pull/2
+Patch0001:      0001-Fix-build-with-Go-1.24.patch
 
 %description %{common_description}
 

@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for composer
 #
-# SPDX-FileCopyrightText:  Copyright 2024 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2015-2025 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -10,7 +10,7 @@
 
 %bcond_with          generators
 
-%global gh_commit    112e37d1dca22b3fdb81cf3524ab4994f47fdb8c
+%global gh_commit    ae208dc1e182bd45d99fcecb956501da212454a1
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_branch    2.0-dev
 %global gh_owner     composer
@@ -18,7 +18,7 @@
 %global api_version  2.6.0
 %global run_version  2.2.2
 
-%global upstream_version 2.8.4
+%global upstream_version 2.8.5
 #global upstream_prever  RC1
 #global upstream_lower   rc1
 
@@ -29,7 +29,7 @@
 
 Name:           composer
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Dependency Manager for PHP
 
 # SPDX: composer and all dependencies are MIT
@@ -114,7 +114,7 @@ Requires:       php-zlib
 # Bundled libraries
 %if %{without generators}
 # License MIT
-Provides:       bundled(php-composer(composer/ca-bundle)) = 1.5.4
+Provides:       bundled(php-composer(composer/ca-bundle)) = 1.5.5
 Provides:       bundled(php-composer(composer/class-map-generator)) = 1.5.0
 Provides:       bundled(php-composer(composer/metadata-minifier)) = 1.0.0
 Provides:       bundled(php-composer(composer/pcre)) = 2.3.2
@@ -124,24 +124,24 @@ Provides:       bundled(php-composer(composer/xdebug-handler)) = 3.0.5
 Provides:       bundled(php-composer(justinrainbow/json-schema)) = 5.3.0
 Provides:       bundled(php-composer(psr/container)) = 1.1.1
 Provides:       bundled(php-composer(psr/log)) = 1.1.4
-Provides:       bundled(php-composer(react/promise)) = v3.2.0
+Provides:       bundled(php-composer(react/promise)) = 3.2.0
 Provides:       bundled(php-composer(seld/jsonlint)) = 1.11.0
 Provides:       bundled(php-composer(seld/phar-utils)) = 1.2.1
 Provides:       bundled(php-composer(seld/signal-handler)) = 2.0.2
-Provides:       bundled(php-composer(symfony/console)) = v5.4.47
-Provides:       bundled(php-composer(symfony/deprecation-contracts)) = v2.5.4
-Provides:       bundled(php-composer(symfony/filesystem)) = v5.4.45
-Provides:       bundled(php-composer(symfony/finder)) = v5.4.45
-Provides:       bundled(php-composer(symfony/polyfill-ctype)) = v1.31.0
-Provides:       bundled(php-composer(symfony/polyfill-intl-grapheme)) = v1.31.0
-Provides:       bundled(php-composer(symfony/polyfill-intl-normalizer)) = v1.31.0
-Provides:       bundled(php-composer(symfony/polyfill-mbstring)) = v1.31.0
-Provides:       bundled(php-composer(symfony/polyfill-php73)) = v1.31.0
-Provides:       bundled(php-composer(symfony/polyfill-php80)) = v1.31.0
-Provides:       bundled(php-composer(symfony/polyfill-php81)) = v1.31.0
-Provides:       bundled(php-composer(symfony/process)) = v5.4.47
-Provides:       bundled(php-composer(symfony/service-contracts)) = v2.5.4
-Provides:       bundled(php-composer(symfony/string)) = v5.4.47
+Provides:       bundled(php-composer(symfony/console)) = 5.4.47
+Provides:       bundled(php-composer(symfony/deprecation-contracts)) = 2.5.4
+Provides:       bundled(php-composer(symfony/filesystem)) = 5.4.45
+Provides:       bundled(php-composer(symfony/finder)) = 5.4.45
+Provides:       bundled(php-composer(symfony/polyfill-ctype)) = 1.31.0
+Provides:       bundled(php-composer(symfony/polyfill-intl-grapheme)) = 1.31.0
+Provides:       bundled(php-composer(symfony/polyfill-intl-normalizer)) = 1.31.0
+Provides:       bundled(php-composer(symfony/polyfill-mbstring)) = 1.31.0
+Provides:       bundled(php-composer(symfony/polyfill-php73)) = 1.31.0
+Provides:       bundled(php-composer(symfony/polyfill-php80)) = 1.31.0
+Provides:       bundled(php-composer(symfony/polyfill-php81)) = 1.31.0
+Provides:       bundled(php-composer(symfony/process)) = 5.4.47
+Provides:       bundled(php-composer(symfony/service-contracts)) = 2.5.4
+Provides:       bundled(php-composer(symfony/string)) = 5.4.47
 # Composer library
 Provides:       php-composer(composer/composer) = %{version}
 %endif
@@ -179,7 +179,7 @@ php -r '
     foreach($pkgs["packages"] as $pkg) {
 		$lic = implode(" and ", $pkg["license"]);
 		if (!isset($res[$lic])) $res[$lic] = [];
-		$res[$lic][] = sprintf("Provides:       bundled(php-composer(%s)) = %s", $pkg["name"], $pkg["version"]);
+		$res[$lic][] = sprintf("Provides:       bundled(php-composer(%s)) = %s", $pkg["name"], trim($pkg["version"], "v"));
 	}
 	foreach($res as $lic => $lib) {
 		sort($lib);
@@ -265,6 +265,9 @@ php -r '
 
 
 %changelog
+* Tue Jan 21 2025 Remi Collet <remi@remirepo.net> - 2.8.5-1
+- update to 2.8.5
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

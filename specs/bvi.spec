@@ -1,6 +1,6 @@
 Name:           bvi
 Version:        1.4.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Display-oriented editor for binary files
 Summary(fr):    Afficheur orienté editeur pour fichiers binaires
 
@@ -10,8 +10,9 @@ Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.src.
 
 BuildRequires:  gcc
 BuildRequires:  ncurses-devel
-BuildRequires: make
+BuildRequires:  make
 
+ExcludeArch:    %{ix86}
 
 %description
 The bvi is a display-oriented editor for binary files, based
@@ -33,6 +34,7 @@ sed -i "s@/usr/local/share/bmore.help@/usr/share/bvi/bmore.help@" ./bmore.1
 
 
 %build
+export CFLAGS="%{optflags} -std=gnu17"
 %configure
 %make_build
 
@@ -52,6 +54,9 @@ sed -i "s@/usr/local/share/bmore.help@/usr/share/bvi/bmore.help@" ./bmore.1
 
 
 %changelog
+* Tue Jan 21 2025 Steven A. Falco <stevenfalco@gmail.com> - 1.4.2-7
+- Need to force gcc17 syntax
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

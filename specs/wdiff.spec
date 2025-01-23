@@ -13,6 +13,14 @@ Source0:        https://ftp.gnu.org/gnu/wdiff/wdiff-%{version}.tar.gz
 Source1:        https://ftp.gnu.org/gnu/wdiff/wdiff-%{version}.tar.gz.sig
 Source2:        https://ftp.gnu.org/gnu/gnu-keyring.gpg
 
+# Fails to build with GCC 15 in default C23 mode
+# https://savannah.gnu.org/bugs/index.php?66692
+#
+# The redeclaration of strstr() is unnecessary since it is part of C89 and
+# later and we won’t need the gnulib replacement, so we patch out the
+# redeclaration rather than fixing its signature.
+Patch:          wdiff-1.2.2-c23.patch
+
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  automake
@@ -43,7 +51,7 @@ produce a nicer display of word differences between the original files.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%setup -q
+%autosetup -p1
 
 # Fix ISO-8859-1-encoded files
 for fn in BACKLOG ChangeLog

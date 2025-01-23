@@ -1,5 +1,5 @@
 %global toolchain clang
-%global polly_version 19.1.6
+%global polly_version 19.1.7
 #global rc_ver 4
 %global polly_srcdir polly-%{polly_version}%{?rc_ver:-rc%{rc_ver}}.src
 
@@ -9,7 +9,7 @@
 
 Name: polly
 Version: %{polly_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 Summary: LLVM Framework for High-Level Loop and Data-Locality Optimizations
 
 License: Apache-2.0 WITH LLVM-exception OR NCSA
@@ -108,6 +108,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Tue Jan 21 2025 Timm Bäder <tbaeder@redhat.com> - 19.1.7-1
+- Update to 19.1.7
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 19.1.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

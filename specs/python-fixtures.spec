@@ -2,7 +2,7 @@
 %bcond bootstrap 0
 
 Name:           python-fixtures
-Version:        4.1.0
+Version:        4.2.2
 Release:        %autorelease
 Summary:        Fixtures, reusable state for writing clean tests and more
 License:        Apache-2.0 OR BSD-3-Clause
@@ -39,12 +39,6 @@ BuildRequires:  python3-devel
 
 %prep
 %autosetup -p1 -n fixtures-%{version}
-
-# The code supports falling back to the standard library mock, but some tests
-# intentionally only test with the pypi mock.
-sed -e '/mock/d' -i setup.cfg
-sed -e 's/import mock/import unittest.mock as mock/' -i fixtures/tests/_fixtures/test_mockpatch.py
-
 
 %generate_buildrequires
 %pyproject_buildrequires %{!?with_bootstrap:-t -x streams}

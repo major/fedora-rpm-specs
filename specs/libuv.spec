@@ -9,7 +9,7 @@
 
 Name:           libuv
 Epoch:          1
-Version:        1.49.2
+Version:        1.50.0
 Release:        %autorelease
 Summary:        Platform layer for node.js
 

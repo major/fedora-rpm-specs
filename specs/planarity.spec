@@ -4,7 +4,10 @@ Version:	3.0.2.0
 Release:	7%{?dist}
 License:	BSD-3-Clause
 URL:		https://github.com/graph-algorithms/edge-addition-planarity-suite
-Source0:	%{url}/archive/Version_%{version}/%{name}-%{version}.tar.gz
+VCS:		git:%{url}.git
+Source:		%{url}/archive/Version_%{version}/%{name}-%{version}.tar.gz
+# Adapt to C23
+Patch:		%{name}-c23.patch
 
 %global _docdir_fmt %{name}
 
@@ -47,7 +50,7 @@ This package contains sample files for planarity.  For example:
 planarity -test /usr/share/doc/planarity/samples
 
 %prep
-%autosetup -p0 -n edge-addition-%{name}-suite-Version_%{version}
+%autosetup -p1 -n edge-addition-%{name}-suite-Version_%{version}
 
 %conf
 # Use unix line endings in installed headers and debugsource files
@@ -99,6 +102,9 @@ rm -rf %{buildroot}%{_docdir}
 %doc c/samples/
 
 %changelog
+* Tue Jan 21 2025 Jerry James <loganjerry@gmail.com> - 3.0.2.0-7
+- Add patch for C23 compatibility
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

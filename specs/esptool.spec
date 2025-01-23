@@ -9,7 +9,8 @@ Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # https://github.com/espressif/esptool/issues/1013
 Patch:          Don-t-test-ecdsa192-it-s-unsupported-on-Fedora.patch
-
+# https://github.com/espressif/esptool/pull/1055
+Patch:          https://github.com/espressif/esptool/pull/1055.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

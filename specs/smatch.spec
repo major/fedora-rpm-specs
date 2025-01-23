@@ -1,6 +1,6 @@
 Name:       smatch
 Version:    1.73
-Release:    6%{?dist}
+Release:    7%{?dist}
 Summary:    A static analyzer for C
 
 # License breakdown:
@@ -50,9 +50,9 @@ Data for Smatch the static analysis tool for C.
 %build
 %if 0%{?rhel}
 %set_build_flags
-export CFLAGS="-std=gnu99 $CFLAGS"
 %endif
 
+export CFLAGS="-std=gnu99 $CFLAGS"
 %make_build PREFIX='%{_prefix}'
 
 %install
@@ -72,6 +72,9 @@ grep "test.c:1 main() error: uninitialized symbol 'a'." out
 %{_datadir}/%{name}
 
 %changelog
+* Tue Jan 21 2025 Lukáš Zaoral <lzaoral@redhat.com> - 1.73-7
+- force gnu99 everywhere to fix FTBFS with GCC 15
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.73-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

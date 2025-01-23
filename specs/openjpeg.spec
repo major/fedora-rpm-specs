@@ -14,7 +14,7 @@
 
 Name:           openjpeg
 Version:        2.5.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        C-Library for JPEG 2000
 
 # windirent.h is MIT, the rest is BSD
@@ -67,7 +67,9 @@ BuildRequires:  mingw64-zlib
 BuildRequires:  mingw64-zstd
 %endif
 
-Obsoletes:      openjpeg2 <= %{version}-%{release}
+%global openjpeg2_obs_ver 2.5.3-10
+
+Obsoletes:      openjpeg2 < %{openjpeg2_obs_ver}
 Provides:       openjpeg2 = %{version}-%{release}
 Obsoletes:      openjpeg-libs < 1.5.1-39
 Provides:       openjpeg-libs = 1.5.1-39
@@ -88,7 +90,7 @@ Summary:        Development files for OpenJPEG 2
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 # OpenJPEGTargets.cmake refers to the tools
 Requires:       %{name}-tools%{?_isa} = %{version}-%{release}
-Obsoletes:      openjpeg2-devel < 2.5.2-2
+Obsoletes:      openjpeg2-devel < %{openjpeg2_obs_ver}
 Provides:       openjpeg2-devel = %{version}-%{release}
 
 %description devel
@@ -99,7 +101,7 @@ applications that use OpenJPEG 2.
 %package devel-docs
 Summary:        Developer documentation for OpenJPEG 2
 BuildArch:      noarch
-Obsoletes:      openjpeg2-devel-docs < 2.5.2-2
+Obsoletes:      openjpeg2-devel-docs < %{openjpeg2_obs_ver}
 Provides:       openjpeg2-devel-docs = %{version}-%{release}
 
 %description devel-docs
@@ -110,7 +112,7 @@ applications that use OpenJPEG 2.
 %package tools
 Summary:        OpenJPEG 2 command line tools
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Obsoletes:      openjpeg2-tools < 2.5.2-2
+Obsoletes:      openjpeg2-tools < %{openjpeg2_obs_ver}
 Provides:       openjpeg2-tools = %{version}-%{release}
 
 %description tools
@@ -245,7 +247,7 @@ OpenJPEG2 JP3D module command line tools
 %package -n mingw32-%{name}
 Summary:       MinGW Windows %{name} library
 BuildArch:     noarch
-Obsoletes:     mingw32-openjpeg2 < 2.5.2-2
+Obsoletes:     mingw32-openjpeg2 < %{openjpeg2_obs_ver}
 Provides:      mingw32-openjpeg2 = %{version}-%{release}
 
 %description -n mingw32-%{name}
@@ -256,7 +258,7 @@ Provides:      mingw32-openjpeg2 = %{version}-%{release}
 Summary:       Tools for the MinGW Windows %{name} library
 Requires:      mingw32-%{name} = %{version}-%{release}
 BuildArch:     noarch
-Obsoletes:     mingw32-openjpeg2-tools < 2.5.2-2
+Obsoletes:     mingw32-openjpeg2-tools < %{openjpeg2_obs_ver}
 Provides:      mingw32-openjpeg2-tools = %{version}-%{release}
 
 %description -n mingw32-%{name}-tools
@@ -266,7 +268,7 @@ Provides:      mingw32-openjpeg2-tools = %{version}-%{release}
 %package -n mingw64-%{name}
 Summary:       MinGW Windows %{name} library
 BuildArch:     noarch
-Obsoletes:     mingw64-openjpeg2 < 2.5.2-2
+Obsoletes:     mingw64-openjpeg2 < %{openjpeg2_obs_ver}
 Provides:      mingw64-openjpeg2 = %{version}-%{release}
 
 %description -n mingw64-%{name}
@@ -277,7 +279,7 @@ Provides:      mingw64-openjpeg2 = %{version}-%{release}
 Summary:       Tools for the MinGW Windows %{name} library
 Requires:      mingw64-%{name} = %{version}-%{release}
 BuildArch:     noarch
-Obsoletes:     mingw64-openjpeg2-tools < 2.5.2-2
+Obsoletes:     mingw64-openjpeg2-tools < %{openjpeg2_obs_ver}
 Provides:      mingw64-openjpeg2-tools = %{version}-%{release}
 
 %description -n mingw64-%{name}-tools
@@ -451,6 +453,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/doc
 
 
 %changelog
+* Tue Jan 21 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.5.3-6
+- Fix obsoletes for openjpeg2
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

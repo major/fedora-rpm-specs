@@ -4,7 +4,7 @@
 
 # https://github.com/briandowns/spinner
 %global goipath         github.com/briandowns/spinner
-Version:                1.23.1
+Version:                1.23.2
 
 %gometa -f
 

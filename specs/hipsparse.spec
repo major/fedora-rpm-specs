@@ -32,9 +32,14 @@
 # gfortran and clang rpm macros do not mix
 %global build_fflags %{nil}
 
+# Compression type and level for source/binary package payloads.
+#  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
+%define _source_payload	w7T0.xzdio
+%define _binary_payload	w7T0.xzdio
+
 Name:           hipsparse
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ROCm SPARSE marshalling library
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -172,6 +177,9 @@ fi
 %endif
 
 %changelog
+* Tue Jan 21 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-4
+- multithread compress
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

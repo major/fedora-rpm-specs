@@ -17,13 +17,12 @@
 
 
 Name:           SDL3
-Version:        3.1.10
+Version:        3.2.0
 Release:        1%{?dist}
 Summary:        Cross-platform multimedia library
 License:        Zlib AND MIT AND Apache-2.0 AND (Apache-2.0 OR MIT)
 URL:            http://www.libsdl.org/
-#Source0:        http://www.libsdl.org/release/%{name}-%{version}.tar.gz
-Source0:        https://github.com/libsdl-org/SDL/releases/download/prerelease-%{version}/%{name}-%{version}.tar.gz
+Source0:        http://www.libsdl.org/release/%{name}-%{version}.tar.gz
 Source1:        SDL3_revision.h
 
 # Patches from upstream
@@ -202,6 +201,9 @@ install -p -m 644 %{SOURCE1} %{buildroot}%{_includedir}/SDL3/SDL_revision.h
 
 
 %changelog
+* Wed Jan 22 2025 Neal Gompa <ngompa@fedoraproject.org> - 3.2.0-1
+- Update to 3.2.0 (SDL3 GA)
+
 * Thu Jan 16 2025 Neal Gompa <ngompa@fedoraproject.org> - 3.1.10-1
 - Update to 3.1.10
 

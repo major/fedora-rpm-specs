@@ -1712,7 +1712,7 @@ cp -a objlibgccjit/gcc/libgdiagnostics.so* %{buildroot}%{_prefix}/%{_lib}/
 cp -a ../gcc/libgdiagnostics*.h %{buildroot}%{_prefix}/include/
 cp -a objlibgccjit/gcc/sarif-replay %{buildroot}%{_prefix}/bin/
 
-sed -e 's,\.\./include/,../../../../include,' \
+sed -e 's,\.\./include/,../../../../include/,' \
   %{buildroot}%{_prefix}/%{_lib}/libstdc++.modules.json \
   > $FULLPATH/libstdc++.modules.json
 

@@ -2,11 +2,11 @@
 %bcond_with tests
 # The *.py files we ship are not python scripts, #813651
 %global _python_bytecompile_errors_terminate_build 0
-%define upstream_version 2.13.0
+%define upstream_version 2.16.0
 
 Name:           bash-completion
-Version:        2.13
-Release:        3%{?dist}
+Version:        2.16
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Programmable completion for Bash
 
@@ -91,6 +91,10 @@ make -C completions check
 %{_datadir}/pkgconfig/bash-completion.pc
 
 %changelog
+* Tue Jan 21 2025 Siteshwar Vashisht <svashisht@redhat.com> - 1:2.16-1
+- Update to version 2.16
+  Resolves: #2328588
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.13-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

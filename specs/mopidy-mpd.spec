@@ -1,22 +1,23 @@
-%global srcname Mopidy-MPD
-
 Name:           mopidy-mpd
-Version:        3.3.0
-Release:        11%{?dist}
+Version:        3.3.0^20241110git9c66c58
+Release:        1%{?dist}
 Summary:        Mopidy extension for controlling Mopidy from MPD clients
 
 License:        Apache-2.0
 URL:            https://mopidy.com/ext/mpd/
-Source0:        %{pypi_source}
-
-Patch0:         mopidympd330-fix-tests.patch
+#Source0:        %%{pypi_source}
+Source0:        https://github.com/mopidy/mopidy-mpd/archive/9c66c58dff86dbcc78276d9ee815fa287f85414b.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
-BuildRequires:  mopidy
-Requires:       mopidy
+BuildRequires:  python3-pytest-cov
+BuildRequires:  python3-pytest-mock
+BuildRequires:  tox
+BuildRequires:  python3-tox-current-env
+BuildRequires:  mopidy >= 4.0.0~a1
+Requires:       mopidy >= 4.0.0~a1
 
 %description
 Frontend that provides a full MPD server implementation to make Mopidy
@@ -24,26 +25,34 @@ available from MPD clients.
 
 
 %prep
-%autosetup -n %{srcname}-%{version} -p1
-rm MANIFEST.in
+%autosetup -n %{name}-9c66c58dff86dbcc78276d9ee815fa287f85414b -p1
+#^TODO: revert to %%autosetup -n %%{name}-%%{version} -p1
+echo $'Metadata-Version: 2.1\nName: mopidy-mpd\nVersion: 3.3.0' > PKG-INFO
+#^HACK: needed for setuptools to determine version when building from git snapshots
+echo 'include src/mopidy_*/ext.conf' > MANIFEST.in
+#^HACK: needed for %%pyproject_install until upstream releases tarball including this file
+
+%generate_buildrequires
+%pyproject_buildrequires -p
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l mopidy_mpd
 
 %check
-%pytest tests
+%tox
 
-%files
+%files -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
-%{python3_sitelib}/Mopidy_MPD-*.egg-info/
-%{python3_sitelib}/mopidy_mpd/
-
 
 %changelog
+* Tue Jan 21 2025 Tobias Girstmair <t-fedora@girst.at> - 3.3.0^20241110git9c66c58
+- Upgrade to latest snapshot, for compatibility with mopidy-4.0.0~a2 (RHBZ#2336892)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

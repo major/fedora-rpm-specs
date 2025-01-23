@@ -52,7 +52,7 @@ Version: 9.0.2
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 19%{?dist}
+Release: 20%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -80,6 +80,8 @@ Patch9: https://gitlab.haskell.org/ghc/ghc/-/commit/00dc51060881df81258ba3b3bdf4
 # distutils gone in python 3.12
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/10922
 Patch10: 10922-9.0.patch
+# https://gitlab.haskell.org/ghc/ghc/-/issues/25662
+Patch11: hp2ps-C-gnu17.patch
 
 # Arch dependent patches
 # arm
@@ -119,8 +121,8 @@ Patch35: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/12885.patch
 # https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms
 
 # fedora ghc has been bootstrapped on
-# %%{ix86} x86_64 s390x ppc64le aarch64 armv7hl
-# and retired arches: alpha sparcv9 armv5tel ppc ppc64 s390
+# %%{ix86} x86_64 s390x ppc64le aarch64 riscv64
+# and previously: alpha sparcv9 armv5tel ppc ppc64 s390 armv7hl
 # see also deprecated ghc_arches defined in ghc-srpm-macros
 # /usr/lib/rpm/macros.d/macros.ghc-srpm
 
@@ -153,9 +155,8 @@ BuildRequires: python3
 %if %{with manual}
 BuildRequires: python3-sphinx
 %endif
-%ifarch %{ghc_llvm_archs}
 BuildRequires: llvm%{llvm_major}
-%endif
+
 # patch8 and patch12
 BuildRequires: autoconf automake
 Requires: %{name}-compiler = %{version}-%{release}
@@ -220,6 +221,8 @@ Obsoletes: %{name}-xhtml-prof < %{xhtml_ver}-%{release}
 Requires: binutils-gold
 %ifarch %{ghc_llvm_archs}
 Requires: llvm%{llvm_major}
+%else
+Suggests: llvm(major) = %{llvm_major}
 %endif
 
 %description compiler
@@ -368,6 +371,7 @@ rm -r libraries/containers/containers/dist-install
 %patch -P8 -p1 -b .orig
 %patch -P9 -p1 -b .orig
 %patch -P10 -p1 -b .orig
+%patch -P11 -p1 -b .orig
 
 rm -r libffi-tarballs
 
@@ -448,6 +452,8 @@ autoreconf
 %ghc_set_gcc_flags
 export CC=%{_bindir}/gcc
 export LD=%{_bindir}/ld.gold
+export LLC=%{_bindir}/llc-%{llvm_major}
+export OPT=%{_bindir}/opt-%{llvm_major}
 
 # * %%configure induces cross-build due to different target/host/build platform names
 ./configure --prefix=%{_prefix} --exec-prefix=%{_exec_prefix} \
@@ -515,21 +521,8 @@ echo "%%dir %{ghclibdir}" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
 %ghc_gen_filelists ghc-prim 0.7.0
 %ghc_gen_filelists integer-gmp 1.1
 
-%define merge_filelist()\
-cat %{name}-%1.files >> %{name}-%2.files\
-cat %{name}-%1-devel.files >> %{name}-%2-devel.files\
-%if %{with haddock}\
-cat %{name}-%1-doc.files >> %{name}-%2-doc.files\
-%endif\
-%if %{with ghc_prof}\
-cat %{name}-%1-prof.files >> %{name}-%2-prof.files\
-%endif\
-cp -p libraries/%1/LICENSE libraries/LICENSE.%1\
-echo "%%license libraries/LICENSE.%1" >> %{name}-%2.files\
-%{nil}
-
-%merge_filelist ghc-prim base
-%merge_filelist integer-gmp base
+%ghc_merge_filelist ghc-prim base
+%ghc_merge_filelist integer-gmp base
 
 %if "%{?_ghcdynlibdir}" != "%_libdir"
 echo "%{_sysconfdir}/ld.so.conf.d/%{name}.conf" >> %{name}-base.files
@@ -601,7 +594,8 @@ done
 export LANG=C.utf8
 # stolen from ghc6/debian/rules:
 GHC=inplace/bin/ghc-stage2
-# Do some very simple tests that the compiler actually works
+$GHC --info
+# simple sanity checks that the compiler actually works
 rm -rf testghc
 mkdir testghc
 echo 'main = putStrLn "Foo"' > testghc/foo.hs
@@ -616,8 +610,14 @@ echo 'main = putStrLn "Foo"' > testghc/foo.hs
 $GHC testghc/foo.hs -o testghc/foo -dynamic
 [ "$(testghc/foo)" = "Foo" ]
 rm testghc/*
-
-$GHC --info
+# no GHC calling convention in LLVM's PowerPC target code
+# https://gitlab.haskell.org/ghc/ghc/-/issues/25667
+%ifnarch ppc64le
+echo 'main = putStrLn "Foo"' > testghc/foo.hs
+$GHC testghc/foo.hs -o testghc/foo -fllvm
+[ "$(testghc/foo)" = "Foo" ]
+rm testghc/*
+%endif
 
 # check the ABI hashes
 %if %{with abicheck}
@@ -788,6 +788,10 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Wed Jan 22 2025 Jens Petersen <petersen@redhat.com> - 9.0.2-20
+- fix hp2ps failure with gcc15 C23
+- setup llvm compiler for all archs not just those defaulting to llvm backend
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.2-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

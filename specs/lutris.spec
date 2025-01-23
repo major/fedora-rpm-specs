@@ -20,9 +20,9 @@ Requires:       python3-cairo
 
 # Tests
 BuildRequires:  python3dist(pytest)
-BuildRequires:  gtk3-devel
-BuildRequires:  webkit2gtk4.1-devel
-BuildRequires:  python3-cairo-devel
+BuildRequires:  pkgconfig(gdk-3.0)
+BuildRequires:  pkgconfig(webkit2gtk-4.1)
+BuildRequires:  pkgconfig(py3cairo)
 
 
 %if 0%{?fedora} || 0%{?rhel} < 10
@@ -84,13 +84,14 @@ on Linux.
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/net.%{name}.Lutris.metainfo.xml
 %fdupes %{buildroot}%{python3_sitelib}
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications share/applications/net.%{name}.Lutris.desktop
+%find_lang %{name} --with-man
 
 %check
 # Python tests: Disabled because either they are querying hardware (Don't work in mock) or they're
 # trying to spawn processes, which is also blocked.
 %pytest --ignore=tests/test_dialogs.py --ignore=tests/test_installer.py --ignore=tests/test_api.py -k "not GetNvidiaDriverInfo and not GetNvidiaGpuInfo and not import_module and not options"
 
-%files -f %{pyproject_files}
+%files -f %{pyproject_files} -f %{name}.lang
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
 %{_datadir}/applications/net.%{name}.Lutris.desktop
@@ -103,12 +104,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications share/applicatio
 %{_datadir}/icons/hicolor/64x64/apps/%{name}.png
 %{_datadir}/icons/hicolor/128x128/apps/%{name}.png
 %{_datadir}/man/man1/%{name}.1.gz
+%{_metainfodir}/net.lutris.Lutris.metainfo.xml
 # Some files being missed by the Python macros
 %{python3_sitelib}/%{name}/__pycache__/optional_settings.*.pyc
 %{python3_sitelib}/%{name}/optional_settings.py
-# ---
-%{_datadir}/metainfo/
-%{_datadir}/locale/
 
 %changelog
 %autochangelog

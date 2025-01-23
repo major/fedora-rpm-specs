@@ -93,7 +93,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -112,6 +112,8 @@ Source4:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ve
 Source5:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{third_party_srcdir}.tar.xz.sig
 Source6:	release-keys.asc
 %endif
+
+Patch0: cstdint.patch
 
 # RHEL-specific patch to avoid unwanted python3-myst-parser dep
 Patch101:	0101-Deactivate-markdown-doc.patch
@@ -586,6 +588,10 @@ fi
 
 
 %changelog
+* Mon Jan 20 2025 Timm Bäder <tbaeder@redhat.com> - 18.1.8-6
+- Fix missing cstdint include that broke the build.
+- See https://bugzilla.redhat.com/show_bug.cgi?id=2338982
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 18.1.8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -24,9 +24,6 @@
 %global mtl_ver 2.2.2
 %global transformers_ver 0.5.6.2
 
-# to handle RCs
-%global ghc_release %{version}
-
 %global base_ver 4.16.4.0
 %global ghc_bignum_ver 1.2
 %global ghc_compact_ver 0.1.0.0
@@ -80,14 +77,14 @@ Version: 9.2.8
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 27%{?dist}
+Release: 28%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
 URL: https://haskell.org/ghc/
-Source0: https://downloads.haskell.org/ghc/%{ghc_release}/ghc-%{version}-src.tar.lz
+Source0: https://downloads.haskell.org/ghc/%{version}/ghc-%{version}-src.tar.lz
 %if %{with testsuite}
-Source1: https://downloads.haskell.org/ghc/%{ghc_release}/ghc-%{version}-testsuite.tar.lz
+Source1: https://downloads.haskell.org/ghc/%{version}/ghc-%{version}-testsuite.tar.lz
 %endif
 Source5: ghc-pkg.man
 Source6: haddock.man
@@ -102,12 +99,15 @@ Patch2: ghc-Cabal-install-PATH-warning.patch
 Patch3: ghc-gen_contents_index-nodocs.patch
 # https://fedoraproject.org/wiki/Toolchain/PortingToModernC
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9394
-Patch7: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9394.patch
-# https://gitlab.haskell.org/ghc/ghc/-/issues/23286 (sphinx modern extlinks)
-Patch9: https://gitlab.haskell.org/ghc/ghc/-/commit/00dc51060881df81258ba3b3bdf447294618a4de.patch
+Patch4: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9394.patch
+# https://gitlab.haskell.org/ghc/ghc/-/issues/25662
+Patch5: hp2ps-C-gnu17.patch
+
 # distutils gone in python 3.12
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/10922
 Patch8: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/10922.patch
+# https://gitlab.haskell.org/ghc/ghc/-/issues/23286 (sphinx modern extlinks)
+Patch9: https://gitlab.haskell.org/ghc/ghc/-/commit/00dc51060881df81258ba3b3bdf447294618a4de.patch
 
 # https://phabricator.haskell.org/rGHC4eebc8016f68719e1ccdf460754a97d1f4d6ef05
 # https://gitlab.haskell.org/ghc/ghc/-/issues/19684
@@ -155,8 +155,8 @@ Patch35: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/12885.patch
 # https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms
 
 # fedora ghc has been bootstrapped on
-# %%{ix86} x86_64 s390x ppc64le aarch64
-# and retired arches: alpha sparcv9 armv5tel ppc ppc64 s390 armv7hl
+# %%{ix86} x86_64 s390x ppc64le aarch64 riscv64
+# and previously: alpha sparcv9 armv5tel ppc ppc64 s390 armv7hl
 # see also deprecated ghc_arches defined in ghc-srpm-macros
 # /usr/lib/rpm/macros.d/macros.ghc-srpm
 
@@ -195,9 +195,8 @@ BuildRequires: python3
 %if %{with manual}
 BuildRequires: python3-sphinx
 %endif
-%ifarch %{ghc_llvm_archs}
 BuildRequires: llvm%{llvm_major}
-%endif
+
 %if %{with hadrian}
 BuildRequires:  happy
 %if %{with build_hadrian}
@@ -219,6 +218,7 @@ BuildRequires:  ghc-unordered-containers-devel
 BuildRequires:  %{name}-hadrian
 %endif
 %endif
+
 Requires: %{name}-compiler = %{version}-%{release}
 Requires: %{name}-devel = %{version}-%{release}
 Requires: %{name}-ghc-devel = %{version}-%{release}
@@ -284,6 +284,8 @@ Obsoletes: %{name}-manual < %{version}-%{release}
 Requires: binutils%{?with_ld_gold:-gold}
 %ifarch %{ghc_llvm_archs}
 Requires: llvm%{llvm_major}
+%else
+Suggests: llvm(major) = %{llvm_major}
 %endif
 
 %description compiler
@@ -434,12 +436,13 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %setup -q -n ghc-%{version} %{?with_testsuite:-b1}
 
 %patch -P1 -p1 -b .orig
-%patch -P3 -p1 -b .orig
-
 %patch -P2 -p1 -b .orig
-%patch -P7 -p1 -b .orig7
-%patch -P9 -p1 -b .orig
+%patch -P3 -p1 -b .orig
+%patch -P4 -p1 -b .orig7
+%patch -P5 -p1 -b .orig7
+
 %patch -P8 -p1 -b .orig
+%patch -P9 -p1 -b .orig
 %patch -P10 -p1 -b .orig
 %patch -P11 -p1 -b .orig
 
@@ -542,6 +545,8 @@ export CC=%{_bindir}/gcc
 %if %{with ld_gold}
 export LD=%{_bindir}/ld.gold
 %endif
+export LLC=%{_bindir}/llc-%{llvm_major}
+export OPT=%{_bindir}/opt-%{llvm_major}
 
 export GHC=%{_bindir}/ghc%{?ghcboot_major:-%{ghcboot_major}}
 
@@ -610,7 +615,8 @@ rm %{buildroot}%{_ghclicensedir}/%{name}/LICENSE
 cp -p LICENSE ../LICENSE.hadrian
 )
 %endif
-# https://gitlab.haskell.org/ghc/ghc/-/issues/20120#note_366872
+export LLC=%{_bindir}/llc-%{llvm_major}
+export OPT=%{_bindir}/opt-%{llvm_major}
 (
 cd _build/bindist/ghc-%{version}-*
 ./configure --prefix=%{buildroot}%{ghclibdir} --bindir=%{buildroot}%{_bindir} --libdir=%{buildroot}%{_libdir} --mandir=%{buildroot}%{_mandir} --docdir=%{buildroot}%{_docdir}/%{name} \
@@ -673,25 +679,10 @@ echo "%%dir %ghclibplatform" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
 %ghc_gen_filelists rts %{rts_ver}
 %endif
 
-%define merge_filelist()\
-cat %{name}-%1.files >> %{name}-%2.files\
-cat %{name}-%1-devel.files >> %{name}-%2-devel.files\
-%if %{with haddock}\
-cat %{name}-%1-doc.files >> %{name}-%2-doc.files\
-%endif\
-%if %{with ghc_prof}\
-cat %{name}-%1-prof.files >> %{name}-%2-prof.files\
-%endif\
-if [ "%1" != "rts" ]; then\
-cp -p libraries/%1/LICENSE libraries/LICENSE.%1\
-echo "%%license libraries/LICENSE.%1" >> %{name}-%2.files\
-fi\
-%{nil}
-
-%merge_filelist ghc-prim base
-%merge_filelist integer-gmp base
+%ghc_merge_filelist ghc-prim base
+%ghc_merge_filelist integer-gmp base
 %if %{with hadrian}
-%merge_filelist rts base
+%ghc_merge_filelist rts base
 %endif
 
 %if "%{?_ghcdynlibdir}" != "%_libdir"
@@ -812,7 +803,8 @@ GHC=%{buildroot}%{ghclibdir}/bin/ghc
 %else
 GHC=inplace/bin/ghc-stage2
 %endif
-# Do some very simple tests that the compiler actually works
+$GHC --info
+# simple sanity checks that the compiler actually works
 rm -rf testghc
 mkdir testghc
 echo 'main = putStrLn "Foo"' > testghc/foo.hs
@@ -827,8 +819,14 @@ echo 'main = putStrLn "Foo"' > testghc/foo.hs
 $GHC testghc/foo.hs -o testghc/foo -dynamic
 [ "$(testghc/foo)" = "Foo" ]
 rm testghc/*
-
-$GHC --info
+# no GHC calling convention in LLVM's PowerPC target code
+# https://gitlab.haskell.org/ghc/ghc/-/issues/25667
+%ifnarch ppc64le
+echo 'main = putStrLn "Foo"' > testghc/foo.hs
+$GHC testghc/foo.hs -o testghc/foo -fllvm
+[ "$(testghc/foo)" = "Foo" ]
+rm testghc/*
+%endif
 
 # check the ABI hashes
 %if %{with abicheck}
@@ -1044,6 +1042,10 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Tue Jan 21 2025 Jens Petersen <petersen@redhat.com> - 9.2.8-28
+- fix hp2ps failure with gcc15 C23
+- setup llvm compiler for all archs not just those defaulting to llvm backend
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.8-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

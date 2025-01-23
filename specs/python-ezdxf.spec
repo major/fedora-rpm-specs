@@ -71,6 +71,11 @@ Source17:       ezdxf-info.1
 Source18:       ezdxf-strip.1
 Source19:       ezdxf-view.1
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+%if %{undefined fc41}
+ExcludeArch:    %{ix86}
+%endif
+
 BuildRequires:  python3-devel
 BuildRequires:  gcc-c++
 

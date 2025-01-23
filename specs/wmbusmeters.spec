@@ -14,7 +14,7 @@ Version:               1.4.0
 
 %forgemeta
 
-Release:               2%{?dist}
+Release:               3%{?dist}
 Summary:               Read the wireless mbus protocol to acquire utility meter readings
 License:               GPL-3.0-or-later
 Url:                   %{forgeurl}
@@ -46,6 +46,10 @@ inserted into a database or stored in a log file.
 
 %prep
 %forgeautosetup -S git
+# For https://fedoraproject.org/wiki/Changes/Unify_bin_and_sbin
+# Unfortunately other distros does not have similar plan so we cannot
+# upstream the change for now.
+sed -i 's#/sbin#/bin#g' scripts/install_binaries.sh
 
 
 %build
@@ -84,7 +88,7 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}/%{name}.service
 %doc README.md CHANGES HowToAddaNewMeter.txt
 %dir %{_sysconfdir}/%{name}.d/
 %config(noreplace) %{_sysconfdir}/%{name}.conf
-%{_sbindir}/wmbusmetersd
+%{_bindir}/wmbusmetersd
 %{_bindir}/%{name}
 %{_unitdir}/%{name}.service
 %{_mandir}/man1/%{name}*
@@ -102,6 +106,9 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}/%{name}.service
 
 
 %changelog
+* Tue Jan 21 2025 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 1.18.0-3
+- Fix FTBFS on F42.
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

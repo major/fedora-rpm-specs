@@ -15,13 +15,17 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Remove benchmark-only dev-dependency on criterion
 # * Remove dev-dependency on procinfo (missing, depends on outdated nom 2)
+# * Remove dev-dependency on failure (unmaintained upstream, depends on outdated
+#   synstructure 0.12 via failure_derive)
 Patch:          procfs-fix-metadata.diff
 # * Omit the test that would introduce the procinfo dev-dependency
 Patch10:        procfs-0.17.0-no-test_procinfo.patch
+# * Omit the test that would introduce the failure dev-dependency
+Patch11:        procfs-0.17.0-no-test_failure.patch
 # * Work around 32/64 bit mismatch
 # * https://github.com/eminence/procfs/pull/326
 # * Exported with git format-patch --relative.
-Patch11:        0001-Work-around-32-64-bit-mismatch.patch
+Patch12:        0001-Work-around-32-64-bit-mismatch.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

@@ -8,10 +8,15 @@
 
 %global examples 1
 
+%if 0%{?fedora}
+%global system_assimp 1
+%global system_openxr 1
+%endif
+
 Summary: Qt6 - Quick3D Libraries and utilities
 Name:    qt6-%{qt_module}
 Version: 6.8.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -24,6 +29,7 @@ Source0: https://download.qt.io/development_releases/qt/%{majmin}/%{qt_version}/
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-src-%{version}.tar.xz
 %endif
 Patch0:  qtquick3d-fix-build-with-gcc11.patch
+Patch1:  qtquick3d-fix-build-with-gcc15.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -36,10 +42,22 @@ BuildRequires: qt6-qtdeclarative-devel
 BuildRequires: qt6-qtdeclarative-static
 BuildRequires: qt6-qtquicktimeline-devel
 BuildRequires: qt6-qtshadertools-devel
+%if 0%{system_assimp}
+BuildRequires: pkgconfig(assimp) >= 5.0.0
+%else
+Provides:      bundled(assimp)
+%endif
+%if 0%{system_openxr}
+BuildRequires: openxr-devel
+%else
+Provides:      bundled(openxr)
+%endif
 
-#if 0{?fedora}
-# BuildRequires: pkgconfig(assimp) >= 5.0.0
-#endif
+# Bundled embree is only used on aarch64 and x86_64
+# Could be potentially unbundled
+%ifarch aarch64 x86_64
+Provides:      bundled(embree3) = 3.13.3
+%endif
 
 %description
 The Qt 6 Quick3D library.
@@ -83,8 +101,9 @@ CXXFLAGS="$CXXFLAGS -mno-avx"
 
 %cmake_qt6 \
   -DQT_BUILD_EXAMPLES:BOOL=%{?examples:ON}%{!?examples:OFF} \
-  -DQT_INSTALL_EXAMPLES_SOURCES=%{?examples:ON}%{!?examples:OFF}
-#   -DQT_FEATURE_system_assimp=ON
+  -DQT_INSTALL_EXAMPLES_SOURCES=%{?examples:ON}%{!?examples:OFF} \
+  -DQT_FEATURE_system_assimp=%{?system_assimp:ON}%{!?system_assimp:OFF} \
+  -DQT_FEATURE_system_openxr=%{?system_openxr:ON}%{!?system_openxr:OFF}
 
 %cmake_build
 
@@ -187,8 +206,10 @@ popd
 %endif
 
 %dir %{_qt6_libdir}/cmake/Qt6Quick3D/
+%if !0%{system_openxr}
 %{_qt6_libdir}/cmake/Qt6BundledOpenXR/*.cmake
 %dir %{_qt6_libdir}/cmake/Qt6BundledOpenXR/
+%endif
 %{_qt6_libdir}/cmake/Qt6Quick3DXr/*.cmake
 %dir %{_qt6_libdir}/cmake/Qt6Quick3DXr/
 %{_qt6_libdir}/cmake/Qt6Quick3D/*.cmake
@@ -215,7 +236,9 @@ popd
 %ifarch x86_64 aarch64
 %{_qt6_libdir}/libQt6BundledEmbree.a
 %endif
+%if !0%{system_openxr}
 %{_qt6_libdir}/libQt6BundledOpenXR.a
+%endif
 %{_qt6_libdir}/libQt6Quick3DXr.prl
 %{_qt6_libdir}/libQt6Quick3DXr.so
 %{_qt6_libdir}/libQt6Quick3D.prl
@@ -252,6 +275,9 @@ popd
 %endif
 
 %changelog
+* Tue Jan 21 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.1-5
+- Fix build against GCC 15 and unbundle assimp and openxr
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.8.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

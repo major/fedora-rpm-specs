@@ -28,8 +28,8 @@
 #global pre_release beta1
 
 Name:           lemonldap-ng
-Version:        2.20.1
-Release:        %{?pre_release:0.}1%{?pre_release:.%{pre_release}}%{?dist}.1
+Version:        2.20.2
+Release:        %{?pre_release:0.}1%{?pre_release:.%{pre_release}}%{?dist}
 Summary:        Web Single Sign On (SSO) and Access Management
 # Lemonldap-ng itself is GPLv2+
 # Qrious bundled javascript library is GPLv3+
@@ -180,6 +180,8 @@ BuildRequires:  perl(Lasso)
 BuildRequires:  perl(LWP::Protocol::https)
 BuildRequires:  perl(Moose)
 BuildRequires:  perl(Net::Facebook::Oauth2)
+BuildRequires:  perl(Net::MQTT::Simple)
+BuildRequires:  perl(Net::MQTT::Simple::SSL)
 BuildRequires:  perl(Net::OAuth)
 BuildRequires:  perl(Net::OpenID::Consumer)
 BuildRequires:  perl(Perl::Tidy)
@@ -280,7 +282,8 @@ Requires:       (mod_fcgid if httpd)
 Requires:       (perl(mod_perl2) if httpd)
 Requires:       (perl(Apache2::ServerRec) if httpd)
 Recommends:     perl(LWP::Protocol::https)
-%{?fedora:Recommends:     perl(Net::MQTT::Simple)}
+Recommends:     perl(Net::MQTT::Simple)
+Recommends:     perl(Net::MQTT::Simple::SSL)
 %endif
 Obsoletes:      perl-Lemonldap-NG-Common < %{version}-%{release}
 Provides:       perl-Lemonldap-NG-Common = %{version}-%{release}
@@ -322,8 +325,12 @@ This package deploys the Apache Handler.
 %package manager
 Summary:        LemonLDAP-NG administration interface
 Requires:       lemonldap-ng-common = %{version}-%{release}
+Provides:       bundled(fontawesome-fonts) = 4.7.0
 Provides:       bundled(js-angular) = 1.7.9
+Provides:       bundled(js-angular-animate) = 1.8.1
+Provides:       bundled(js-angular-aria) = 1.8.1
 Provides:       bundled(js-angular-bootstrap) = 2.5.0
+Provides:       bundled(js-angular-cookies) = 1.8.1
 Provides:       bundled(js-angular-ui-tree) = 2.22.6
 Provides:       bundled(js-es5-shim) = 4.5.14
 Provides:       bundled(js-filesaver) = 2.0.4
@@ -370,10 +377,12 @@ Recommends:     perl(Net::OAuth)
 Recommends:     perl(Net::OpenID::Consumer)
 %endif
 Provides:       bundled(fontawesome-fonts) = 4.7.0
-Provides:       bundled(js-bootstrap) = 4.5.2
+Provides:       bundled(js-bootstrap) = 4.6.2
 Provides:       bundled(js-fingerprint2) = 2.1.4
 Provides:       bundled(js-jquery) = 3.5.1
 Provides:       bundled(js-jquery-ui) = 1.13.2
+Provides:       bundled(js-jquery-cookie) = 1.4.1
+Provides:       bundled(js-jssha) = 3.3.0
 Provides:       bundled(js-qrious) = 4.0.2
 Obsoletes:      lemonldap-ng-nginx < %{version}-%{release}
 Provides:       lemonldap-ng-nginx = %{version}-%{release}
@@ -472,10 +481,8 @@ bzip2 -9 %{modulename}.pp
     STORAGECONFFILE=%{lm_storagefile} \
     TOOLSDIR=%{lm_sharedir}/ressources \
     CONFDIR=%{lm_confdir} \
-    CRONDIR=%{_sysconfdir}/cron.d \
     DATADIR=%{lm_vardir} \
     CACHEDIR=%{lm_cachedir} \
-    INITDIR=%{_sysconfdir}/init.d \
     UNITDIR=%{_unitdir}/ \
     TMPFILESDIR=%{_tmpfilesdir}/ \
     ETCDEFAULTDIR=%{_sysconfdir}/default \
@@ -489,6 +496,7 @@ bzip2 -9 %{modulename}.pp
     LLNGAPPDIR=%{lm_sharedir}/llng-server \
     CHOWN=/usr/bin/true \
     CHGRP=/usr/bin/true \
+    WITHRC=no \
     PROD=yes
 
 # Remove some unwanted files
@@ -496,16 +504,9 @@ find %{buildroot} -name .packlist -exec rm -f {} \;
 find %{buildroot} -name perllocal.pod -exec rm -f {} \;
 find %{buildroot} -name *.bak -exec rm -f {} \;
 
-# Drop sysvinit script for FastCGI Server
-rm -f %{buildroot}%{_sysconfdir}/init.d/llng-fastcgi-server
-
 # UWSGI Application
 mkdir -p %{buildroot}%{_sysconfdir}/uwsgi/apps-available
 mkdir -p %{buildroot}%{lm_sharedir}/llng-server
-
-# Drop cron files
-rm -f %{buildroot}%{_sysconfdir}/cron.d/lemonldap-ng-handler
-rm -f %{buildroot}%{_sysconfdir}/cron.d/lemonldap-ng-portal
 
 # Install systemd presets for timers
 mkdir -p %{buildroot}%{_presetdir}
@@ -571,7 +572,7 @@ sed -i 's:^dirName.*:dirName = %{lm_vardir}/conf:' \
 
 %post common
 # Upgrade from previous version
-# See http://lemonldap-ng.org/documentation/1.0/upgrade
+# See https://lemonldap-ng.org/documentation/1.0/upgrade
 if [ $1 -gt 1 ] ; then
     if [ -e %{lm_confdir}/storage.conf \
          -o -e %{lm_confdir}/apply.conf \
@@ -777,6 +778,9 @@ fi
 
 
 %changelog
+* Tue Jan 21 2025 Clement Oudot <clem.oudot@gmail.com> - 2.20.2-1
+- Update to 2.20.2
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.20.1-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

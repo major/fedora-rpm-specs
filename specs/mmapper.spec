@@ -1,6 +1,6 @@
 Name:           mmapper
 Version:        24.03.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Graphical MUME mapper
 
 License:        GPL-2.0-or-later
@@ -8,6 +8,7 @@ URL:            https://github.com/MUME/MMapper
 Source0:        https://github.com/MUME/MMapper/archive/v%{version}/MMapper-%{version}.tar.gz
 Source1:        https://github.com/g-truc/glm/releases/download/0.9.9.7/glm-0.9.9.7.zip
 Patch0:         %{name}-miniupnp228.patch
+Patch1:         0001-Add-missing-include-for-uint64_t.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -68,6 +69,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.mume.MMapper.d
 
 
 %changelog
+* Tue Jan 21 2025 Kalev Lember <klember@redhat.com> - 24.03.1-5
+- Fix the build with gcc 15
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.03.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

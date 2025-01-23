@@ -6,7 +6,7 @@
 
 Name:           tigervnc
 Version:        1.14.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A TigerVNC remote display system
 
 %global _hardened_build 1
@@ -25,6 +25,11 @@ Source5:        vncserver
 
 # Downstream patches
 Patch1:         tigervnc-vncsession-restore-script-systemd-service.patch
+
+%if 0%{?fedora} >= 42
+# https://fedoraproject.org/wiki/Changes/Unify_bin_and_sbin
+Patch2:         tigervnc-sbin-bin-merge.patch
+%endif
 
 # Upstream patches
 Patch50:        tigervnc-vncsession-move-existing-log-to-log-old-if-present.patch
@@ -185,6 +190,10 @@ runs properly under an environment with SELinux enabled.
 %setup -q
 
 %patch -P1 -p1 -b .vncsession-restore-script-systemd-service
+
+%if 0%{?fedora} >= 42
+%patch -P2 -p1 -b .sbin-bin-merge
+%endif
 
 # Upstream patches
 %patch -P50 -p1 -b .vncsession-move-existing-log-to-log-old-if-present.patch
@@ -359,7 +368,11 @@ fi
 %{_unitdir}/xvnc.socket
 %{_bindir}/vncserver
 %{_bindir}/x0vncserver
+%if 0%{?fedora} >= 42
+%{_bindir}/vncsession
+%else
 %{_sbindir}/vncsession
+%endif
 %{_libexecdir}/vncserver
 %{_libexecdir}/vncsession-start
 %{_libexecdir}/vncsession-restore
@@ -392,6 +405,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Tue Jan 21 2025 Jan Grulich <jgrulich@redhat.com> - 1.14.1-5
+- Adjust paths for vncsession binary for /sbin and /bin merge
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

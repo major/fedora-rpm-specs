@@ -33,7 +33,7 @@
 %constrain_build -m 4096
 
 Name:           uv
-Version:        0.5.16
+Version:        0.5.22
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -105,6 +105,7 @@ Summary:        An extremely fast Python package installer and resolver, written
 # Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR ISC OR MIT
 # Apache-2.0 OR MIT
+# Apache-2.0 OR MIT OR Zlib
 # Apache-2.0 WITH LLVM-exception
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # BSD-2-Clause OR Apache-2.0 OR MIT
@@ -594,17 +595,6 @@ tomcli set crates/uv/Cargo.toml del dependencies.tracing-durations-export
 # https://github.com/mgeisler/textwrap/commit/ef91a27bcf5f4cf50ee12993032b227982ecf52e.
 tomcli set Cargo.toml str \
     workspace.dependencies.unicode-width.version '0.1.12'
-
-# itertools
-#   wanted: 0.14.0
-#   currently packaged: 0.13.0
-#   https://bugzilla.redhat.com/show_bug.cgi?id=2335056
-tomcli set Cargo.toml str \
-    workspace.dependencies.itertools.version '>=0.13.0, <0.15.0'
-tomcli set crates/uv-python/Cargo.toml str \
-    dev-dependencies.itertools.version '>=0.13.0, <0.15.0'
-tomcli set crates/uv-requirements-txt/Cargo.toml str \
-    dev-dependencies.itertools.version '>=0.13.0, <0.15.0'
 
 %cargo_prep
 

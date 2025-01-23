@@ -1,6 +1,6 @@
 Name: imsprog
-Version: 1.4.4
-Release: 2%dist
+Version: 1.4.5
+Release: 1%dist
 
 Summary: I2C, SPI and MicroWire EEPROM/Flash chip programmer for CH341a devices
 Summary(ru_RU.UTF-8): I2C, SPI and MicroWire EEPROM/Flash программатор для CH341a устройств
@@ -185,8 +185,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.xml
 %license LICENSE
 
 %changelog
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+* Mon Jan 20 2025 Mikhail Medvedev 1.4.5-1
+- Fix: Incorrect block/page size after first read procedure
+- Fix: Incorrect reading/writing I2C low speed chips
+- Added support for MXIC MX25V8035F
+- Added I2C bus speed combobox to the main form
 
 * Tue Sep 24 2024 Mikhail Medvedev 1.4.4-1
 - Fix: incorrect reading of the DataFlash chips status register

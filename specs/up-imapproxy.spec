@@ -3,14 +3,14 @@
 Name:           up-imapproxy
 Summary:        University of Pittsburgh IMAP Proxy
 Version:        1.2.8
-Release:        0.31.20171022svn14722%{?dist}
+Release:        0.31.20250101svn15036%{?dist}
 License:        GPL-2.0-or-later
 URL:            http://www.imapproxy.org
 # The source for this package was pulled from upstream's vcs.  Use the
 # following commands to generate the tarball:
-#  svn export -r 14722 https://svn.code.sf.net/p/squirrelmail/code/trunk/imap_proxy squirrelmail-imap_proxy-1.2.8
-#  tar cJvf squirrelmail-imap_proxy-20171022svn14722.tar.gz squirrelmail-imap_proxy-1.2.8
-Source0:        squirrelmail-imap_proxy-20171022svn14722.tar.gz
+#  svn export -r 15036 https://svn.code.sf.net/p/squirrelmail/code/trunk/imap_proxy squirrelmail-imap_proxy-1.2.8
+#  tar cJvf squirrelmail-imap_proxy-20250101svn15036.tar.gz squirrelmail-imap_proxy-1.2.8
+Source0:        squirrelmail-imap_proxy-20250101svn15036.tar.gz
 Source1:        imapproxy.service
 # handle aarch64 per RH BZ 926684
 Patch0:         http://ausil.fedorapeople.org/aarch64/up-imapproxy/up-imapproxy-aarch64.patch
@@ -61,7 +61,7 @@ sed -i \
     scripts/imapproxy.conf
 
 %build
-%configure
+%configure CFLAGS="%{optflags} -std=gnu17"
 [ -d bin ] || mkdir bin
 make %{?_smp_mflags}
 
@@ -102,8 +102,9 @@ exit 0
 %dir /var/lib/imapproxy
 
 %changelog
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.8-0.31.20171022svn14722
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+* Tue Jan 21 2025 Chris Adams <linux@cmadams.net> - 1.2.8-0.31.20250101svn15036
+- update to latest SVN
+- explicitly set C level (due to config function handling)
 
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.8-0.30.20171022svn14722
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild

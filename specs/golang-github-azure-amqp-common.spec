@@ -29,6 +29,9 @@ Summary:        Common types and interfaces for Service Bus and Event Hubs
 License:        MIT
 URL:            %{gourl}
 Source0:        %{gosource}
+# Fix build on Go 1.24.
+# Submitted upstream as https://github.com/Azure/azure-amqp-common-go/pull/76
+Patch0001:      0001-Fix-build-with-Go-1.24.patch
 
 BuildRequires:  golang(github.com/Azure/go-amqp)
 BuildRequires:  golang(github.com/Azure/go-autorest/autorest/adal)
@@ -48,6 +51,7 @@ BuildRequires:  golang(github.com/stretchr/testify/assert)
 
 %prep
 %goprep
+%autopatch -p1
 
 %install
 %gopkginstall

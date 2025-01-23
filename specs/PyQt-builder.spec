@@ -1,8 +1,8 @@
 %global pypi_name pyqt_builder
 
 Name:           PyQt-builder
-Version:        1.17.0
-Release:        2%{?dist}
+Version:        1.17.2
+Release:        1%{?dist}
 Summary:        The PEP 517 compliant PyQt build system
 
 License:        BSD-2-Clause
@@ -48,6 +48,9 @@ rm -rf %{buildroot}/%{python3_sitelib}/pyqtbuild/bundle/dlls
 %{python3_sitelib}/PyQt_builder-%{version}.dist-info
 
 %changelog
+* Wed Jan 22 2025 Scott Talbert <swt@techie.net> - 1.17.2-1
+- Update to new upstream release 1.17.2 (#2334704)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

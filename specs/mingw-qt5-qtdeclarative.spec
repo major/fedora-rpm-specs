@@ -24,8 +24,8 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt5-%{qt_module}
-Version:        5.15.15
-Release:        2%{?dist}
+Version:        5.15.16
+Release:        1%{?dist}
 Summary:        Qt5 for Windows - QtDeclarative component
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
@@ -42,7 +42,7 @@ Source0:        http://download.qt.io/%{?pre:development}%{?!pre:official}_relea
 ## upstream patches
 ## repo: https://invent.kde.org/qt/qt/qtdeclarative
 ## branch: kde/5.15
-## git format-patch v5.15.15-lts-lgpl
+## git format-patch v5.15.16-lts-lgpl
 Patch1:  0001-Remove-unused-QPointer-QQuickPointerMask.patch
 Patch2:  0002-QQmlDelegateModel-Refresh-the-view-when-a-column-is-.patch
 Patch3:  0003-Fix-TapHandler-so-that-it-actually-registers-a-tap.patch
@@ -56,18 +56,15 @@ Patch10: 0010-QQuickItem-avoid-emitting-signals-during-destruction.patch
 Patch11: 0011-a11y-track-item-enabled-state.patch
 Patch12: 0012-Make-QaccessibleQuickWidget-private-API.patch
 Patch13: 0013-QQmlImportDatabase-Make-sure-the-newly-added-import-.patch
-Patch14: 0014-QQuickState-when-handle-QJSValue-properties-correctl.patch
-Patch15: 0015-Models-Avoid-crashes-when-deleting-cache-items.patch
-Patch16: 0016-qv4function-Fix-crash-due-to-reference-being-invalid.patch
-Patch17: 0017-Quick-Animations-Fix-crash.patch
-Patch18: 0018-Prevent-crash-when-destroying-asynchronous-Loader.patch
-Patch19: 0019-QQuickItem-Fix-effective-visibility-for-items-withou.patch
-Patch20: 0020-Revert-QQuickItem-Fix-effective-visibility-for-items.patch
-Patch21: 0021-Accessibility-respect-value-in-attached-Accessible-i.patch
+Patch14: 0014-Models-Avoid-crashes-when-deleting-cache-items.patch
+Patch15: 0015-qv4function-Fix-crash-due-to-reference-being-invalid.patch
+Patch16: 0016-Quick-Animations-Fix-crash.patch
+Patch17: 0017-Prevent-crash-when-destroying-asynchronous-Loader.patch
+Patch18: 0018-QQuickItem-Fix-effective-visibility-for-items-withou.patch
+Patch19: 0019-Revert-QQuickItem-Fix-effective-visibility-for-items.patch
+Patch20: 0020-QML-Fortify-qmlExecuteDeferred-some-more.patch
+Patch21: 0021-masm-Don-t-crash-on-failed-MADV_DONTNEED-on-Linux.patch
 Patch22: 0022-QtQml-Clean-up-QQmlData-ctor.patch
-Patch23: 0023-QML-Make-notify-list-thread-safe.patch
-Patch24: 0024-QML-Fortify-qmlExecuteDeferred-some-more.patch
-Patch25: 0025-masm-Don-t-crash-on-failed-MADV_DONTNEED-on-Linux.patch
 
 ## upstreamable patches
 Patch100: qt5-qtdeclarative-gcc11.patch
@@ -82,6 +79,8 @@ Patch111: 0002-Ensure-static-plugins-are-exported.patch
 Patch112: 0003-Prevent-exporting-QML-parser-symbols-on-static-build.patch
 # Disable d3d12 as there is currently no fxc.exe counterpart when cross compiling
 Patch113: 0005-Disable-d3d12-requiring-fxc.exe.patch
+# Add missing cstdint include
+Patch114: qtdeclarative-cstdint.patch
 
 
 BuildRequires:  gcc-c++
@@ -214,11 +213,6 @@ mkdir .git
 
 
 %build
-%ifarch ppc64le
-# FIXME: ICE with x86_64-w64-mingw32-g++ with mingw64-gcc-c++-11.1.1-1.fc35.x86_64
-export MINGW64_CFLAGS="%(echo %mingw64_cflags | sed 's/-O2/-O1/')"
-export MINGW64_CXXFLAGS="%(echo %mingw64_cflags | sed 's/-O2/-O1/')"
-%endif
 MINGW_BUILDDIR_SUFFIX=_static %mingw_qmake_qt5 ../%{qt_module}.pro CONFIG+=static
 MINGW_BUILDDIR_SUFFIX=_static %mingw_make_build
 
@@ -788,6 +782,9 @@ rm -f %{buildroot}%{_prefix}/%{mingw64_target}/lib/pkgconfig/Qt5QmlDevTools.pc
 
 
 %changelog
+* Tue Jan 21 2025 Sandro Mani <manisandro@gmail.com> - 5.15.16-1
+- Update to 5.15.16
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.15-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

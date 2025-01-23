@@ -5,7 +5,7 @@
 %global srcname cryptography
 
 Name:           python-%{srcname}
-Version:        43.0.0
+Version:        44.0.0
 Release:        %autorelease
 Summary:        PyCA's cryptography library
 
@@ -19,8 +19,9 @@ Source0:        https://github.com/pyca/cryptography/archive/%{version}/%{srcnam
 Source1:        cryptography-%{version}-vendor.tar.bz2
 Source2:        conftest-skipper.py
 
-Patch:          11328.patch
-Patch:          11536.patch
+# Merged for 45.0.0+
+# https://github.com/pyca/cryptography/pull/12091
+Patch: 12091.patch
 
 ExclusiveArch:  %{rust_arches}
 
@@ -74,7 +75,6 @@ recipes to Python developers.
 %if 0%{?fedora}
 %cargo_prep
 sed -i 's/locked = true//g' pyproject.toml
-rm src/rust/Cargo.lock
 %else
 # RHEL: use vendored Rust crates
 %cargo_prep -V 1
@@ -106,6 +106,7 @@ export CFLAGS="${CFLAGS} -DOPENSSL_NO_ENGINE=1 "
 # Actually other *.c and *.h are appropriate
 # see https://github.com/pyca/cryptography/issues/1463
 find . -name .keep -print -delete
+find . -name Cargo.toml -print -delete
 %pyproject_install
 %pyproject_save_files %{srcname}
 

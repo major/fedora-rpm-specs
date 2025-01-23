@@ -1,21 +1,16 @@
 %{?mingw_package_header}
 
-%global commit 208cea955f571e0ff967f04f6bb04f7e5018070c
-%global shortcommit %{sub %{commit} 1 7}
-%global commitdate 20250119.1126
-
 %global origname sdl2-compat
-%global sdl3_minver 3.1.10
+%global sdl3_minver 3.2.0
 
 Name:           mingw-%{origname}
-Version:        2.30.50~git%{commitdate}.%{shortcommit}
+Version:        2.30.50
 Release:        1%{?dist}
 Summary:        MinGW Windows port of SDL 2.0 runtime compatibility library using SDL 3.0
 # License of SDL-2.0 headers
 License:        Zlib and Apache-2.0 and MIT and BSD-3-Clause
 URL:            https://github.com/libsdl-org/%{origname}
-%dnl Source0:        %{url}/archive/release-%{version}/%{origname}-%{version}.tar.gz
-Source0:        %{url}/archive/%{commit}/%{origname}-%{shortcommit}.tar.gz
+Source0:        %{url}/archive/release-%{version}/%{origname}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  git-core
@@ -84,8 +79,7 @@ this layer.
 
 
 %prep
-%dnl %autosetup -n %{origname}-release-%{version} -S git_am
-%autosetup -n %{origname}-%{commit} -S git_am
+%autosetup -n %{origname}-release-%{version} -S git_am
 
 
 %build
@@ -132,6 +126,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/aclocal
 
 
 %changelog
+* Wed Jan 22 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.30.50-1
+- Update to 2.30.50 GA
+
 * Sun Jan 19 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.30.50~git20250119.1126.208cea9-1
 - Bump to new git snapshot
 

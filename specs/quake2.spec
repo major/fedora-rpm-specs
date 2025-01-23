@@ -81,6 +81,9 @@ of the extracted patch.
 
 
 %build
+# Use -std=gnu17 to work around build issues with C23 that gcc 15 defaults to
+%global optflags %optflags -std=gnu17
+
 %make_build \
     WITH_RPATH=no \
     WITH_SYSTEMWIDE=yes \

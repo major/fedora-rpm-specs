@@ -24,8 +24,8 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt5-qtbase
-Version:        5.15.15
-Release:        2%{?dist}
+Version:        5.15.16
+Release:        1%{?dist}
 Summary:        Qt5 for Windows - QtBase component
 
 # See LGPL_EXCEPTIONS.txt, for exception details
@@ -103,7 +103,7 @@ Patch19:        qtbase-5.15.8-fix-missing-qtsan-include.patch
 # https://invent.kde.org/qt/qt/qtbase, kde/5.15 branch
 # git diff v5.15.15-lts-lgpl..HEAD | gzip > kde-5.15-rollup-$(date +%Y%m%d).patch.gz
 # patch100 in lookaside cache due to large'ish size -- rdieter
-Source100: kde-5.15-rollup-20240904.patch.gz
+Source100: kde-5.15-rollup-20250109.patch.gz
 
 
 BuildRequires:  gcc-c++
@@ -148,6 +148,7 @@ BuildRequires:  mingw32-winpthreads
 BuildRequires:  mingw32-winpthreads-static
 BuildRequires:  mingw32-zlib
 BuildRequires:  mingw32-zlib-static
+BuildRequires:  mingw32-zstd
 
 BuildRequires:  mingw64-filesystem >= 95
 BuildRequires:  mingw64-binutils
@@ -184,6 +185,7 @@ BuildRequires:  mingw64-winpthreads
 BuildRequires:  mingw64-winpthreads-static
 BuildRequires:  mingw64-zlib
 BuildRequires:  mingw64-zlib-static
+BuildRequires:  mingw64-zstd
 
 
 %description
@@ -813,6 +815,9 @@ ln -s %{mingw64_target}-qmake-qt5 %{buildroot}%{_bindir}/mingw64-qmake-qt5
 
 
 %changelog
+* Mon Jan 20 2025 Sandro Mani <manisandro@gmail.com> - 5.15.16-1
+- Update to 5.15.6
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.15-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

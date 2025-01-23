@@ -26,6 +26,9 @@ Summary:        Minimal and idiomatic WebSocket library for Go
 License:        ISC
 URL:            %{gourl}
 Source:         %{gosource}
+# Fix build on Go 1.24.
+# Submitted upstream as https://github.com/coder/websocket/pull/508
+Patch0001:      0001-Fix-build-with-Go-1.24.patch
 
 %description %{common_description}
 
@@ -35,6 +38,7 @@ Source:         %{gosource}
 %goprep -A
 # Remove benchmark and examples to avoid extra deps
 rm -rf internal/examples internal/thirdparty
+%autopatch -p1
 
 %if %{without bootstrap}
 %generate_buildrequires

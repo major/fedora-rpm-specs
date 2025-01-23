@@ -38,6 +38,15 @@ URL:            https://sleef.org
 Source0:        sleef-%{tag}-filtered.tar.zst
 Source1:        get_source.sh
 
+# Work around removal of some PowerPC intrinsics in GCC 15
+# https://github.com/shibatch/sleef/pull/612
+#
+# Fixes:
+#
+# Fails to build with GCC 15 on ppc64le due to removed intrinsics
+# https://github.com/shibatch/sleef/issues/611
+Patch:          https://github.com/shibatch/sleef/pull/612.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 

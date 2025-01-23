@@ -9,7 +9,7 @@
 Summary: Qt6 - Qt Shader Tools module builds on the SPIR-V Open Source Ecosystem
 Name:    qt6-%{qt_module}
 Version: 6.8.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -22,6 +22,9 @@ Source0: https://download.qt.io/development_releases/qt/%{majmin}/%{qt_version}/
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-src-%{version}.tar.xz
 %endif
 
+# Downstream patches
+Patch0: qtshadertools-unbundle-glslang.patch
+
 # Upstream patches
 
 # Upstreamable patches
@@ -32,7 +35,11 @@ BuildRequires: ninja-build
 BuildRequires: qt6-qtbase-devel >= %{version}
 BuildRequires: qt6-qtbase-private-devel
 %{?_qt6:Requires: %{_qt6}%{?_isa} = %{_qt6_version}}
+BuildRequires: glslang-devel
+BuildRequires: spirv-tools-devel
 BuildRequires: pkgconfig(xkbcommon) >= 0.4.1
+
+Provides: bundled(spirv-cross)
 
 %description
 %{summary}.
@@ -49,6 +56,10 @@ Requires: spirv-tools
 %prep
 %autosetup -n %{qt_module}-everywhere-src-%{qt_version}%{?unstable:-%{prerelease}} -p1
 
+# Make sure 3rdparty/glslang isn't used
+pushd src/3rdparty
+rm -rf glslang
+popd
 
 %build
 %cmake_qt6
@@ -111,6 +122,9 @@ popd
 %{_qt6_libdir}/pkgconfig/Qt6ShaderTools.pc
 
 %changelog
+* Tue Jan 21 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.1-5
+- Unbundle glslang
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.8.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

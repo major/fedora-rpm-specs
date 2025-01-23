@@ -7,6 +7,9 @@ License:        EPL-1.0
 URL:            https://github.com/ibm-s390-linux/smc-tools
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
+# https://github.com/ibm-s390-linux/smc-tools/pull/15
+Patch0:         %{name}-gcc15.patch
+
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  libnl3-devel

@@ -2,14 +2,12 @@
 %define libver 1
 
 Name: dwarves
-Version: 1.27
-Release: 4%{?dist}
+Version: 1.29
+Release: 1%{?dist}
 License: GPL-2.0-only
 Summary: Debugging Information Manipulation Tools (pahole & friends)
 URL: http://acmel.wordpress.com
 Source: http://fedorapeople.org/~acme/dwarves/%{name}-%{version}.tar.xz
-# https://github.com/acmel/dwarves/commit/6a2b27c0f512619b0e7a769a18a0fb05bb3789a5
-Patch0: 0001-core-Initialize-cu-node-with-INIT_LIST_HEAD.patch
 Requires: %{libname}%{libver} = %{version}-%{release}
 BuildRequires: gcc
 BuildRequires: cmake >= 2.8.12
@@ -67,7 +65,6 @@ Debugging information processing library development files.
 
 %prep
 %setup -q
-%patch -P0 -p1
 
 %build
 %cmake -DCMAKE_BUILD_TYPE=Release .
@@ -82,7 +79,7 @@ rm -Rf %{buildroot}
 %files
 %doc README.ctracer
 %doc README.btf
-%doc changes-v1.27
+%doc changes-v1.29
 %doc NEWS
 %{_bindir}/btfdiff
 %{_bindir}/codiff
@@ -134,14 +131,37 @@ rm -Rf %{buildroot}
 %{_libdir}/%{libname}_reorganize.so
 
 %changelog
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.27-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+* Wed Jan 15 2025 Arnaldo Carvalho de Melo <acme@redhat.com> - 1.29-1
+- Multithreading is now in the DWARF loader using a jobs queue and a pool of worker threads.
+- The BTF encoding now is always reproducible, and as fast/faster than before.
+- The memory consumption is reduced.
+- Support for multiple BTF_DECL_TAGs pointing to same tag.
+- Verify that pfunct prints btf_decl_tags read from BTF.
+- Don't print functions twice when using 'pfunct -f function_name'.
 
-* Wed Aug 21 2024 Tom Stellard <tstellar@redhat.com> - 1.27-3
-- Backport a patch to fix kernel LTO build with clang
+Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
 
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.27-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
+* Fri Dec  6 2024 Arnaldo Carvalho de Melo <acme@redhat.com> - 1.28-1
+- New release: 1.28
+- Various improvements to reduce the memory footprint of pahole, notably when doing BTF encoding.
+- Show flexible arrays statistics
+- Add '--padding N' and '--padding_ge N' to show structs with paddings
+- Introduce --running_kernel_vmlinux to find a vmlinux that matches the build-id of the running kernel.
+- Don't stop pfunct output at the first function that matches a filter, show all of them
+- Allow encoding data about all global variables, not just per CPU ones
+- Handle .BTF_ids section endianness, fully supporting cross builds
+- Generate decl tags for bpf_fastcall for eligible kfuncs
+- Add "distilled_base" BTF feature to split BTF generation.
+- Use the ELF_C_READ_MMAP mode with libelf, reducing peak memory utilization
+- Allow overriding /sys/kernel/btf/vmlinux via the PAHOLE_VMLINUX_BTF_FILENAME env var
+- Allow setting the list of compile units via PAHOLE_LANG_EXCLUDE env var
+- Serialize access to elfutils dwarf_getlocation().
+- Honour --lang_exclude when merging LTO built CUs.
+- Add the debuginfod client cache directory to the vmlinux search path.
+- Print the CU's language when a tag isn't supported.
+- Initial support for GNU_formal_parameter_pack, GNU_template_parameter_pack, template_value_param and template_type_param DWARF tags.
+- Improve the parameter parsing by checking DW_OP_[GNU_]entry_value
+- Introduce a tests/ directory with regression tests
 
 * Tue Jun 11 2024 Arnaldo Carvalho de Melo <acme@redhat.com> - 1.27-1
 - New release: v1.27

@@ -2,7 +2,7 @@
 
 Name:           perl-PathTools
 Version:        3.91
-Release:        512%{?dist}
+Release:        513%{?dist}
 Summary:        PathTools Perl module (Cwd, File::Spec)
 # Cwd.xs:                   BSD-3-Clause
 # other files:              GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -19,7 +19,7 @@ Patch2:         PathTools-3.78-Upgrade-to-3.80.patch
 Patch3:         PathTools-3.80-Upgrade-to-3.84.patch
 # Unbundled from perl 5.37.11
 Patch4:         PathTools-3.84-Upgrade-to-3.89.patch
-# Unbundled from perl 5.40.0-RC1
+# Unbundled from perl 5.40.1
 Patch5:         PathTools-3.89-Upgrade-to-3.91.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -121,6 +121,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jan 21 2025 Jitka Plesnikova <jplesnik@redhat.com> - 3.91-513
+- Upgrade to 3.91 as provided in 5.40.1
+  version of File::Spec was updated
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.91-512
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

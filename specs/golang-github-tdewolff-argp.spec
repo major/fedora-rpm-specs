@@ -4,7 +4,7 @@
 
 # https://github.com/tdewolff/argp
 %global goipath         github.com/tdewolff/argp
-%global commit          87b04d5d3e520989967604cc2f0345d1a2d51a38
+%global commit          9726372d78812b680fc4bba9bd79c032a469e98f
 
 %gometa -L -f
 

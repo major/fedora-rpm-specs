@@ -7,7 +7,7 @@
 
 Name:           vaultwarden
 Version:        1.32.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Unofficial Bitwarden compatible server
 
 ExcludeArch:    ppc64le s390x
@@ -92,6 +92,7 @@ fi
 %endif
 
 %build
+export VW_VERSION=%{version}
 %cargo_build -f sqlite,mysql,postgresql
 %cargo_build -f sqlite
 %{cargo_license_summary}
@@ -104,6 +105,7 @@ find vendor/ -type f -executable -exec chmod -x {} +
 
 
 %install
+export VW_VERSION=%{version}
 %cargo_install -f sqlite,mysql,postgresql
 
 # filesystem
@@ -158,6 +160,9 @@ install -Dp %{SOURCE2} %{buildroot}%{_unitdir}/%{name}.service
 
 
 %changelog
+* Tue Jan 21 2025 Jonathan Wright <jonathan@almalinux.org> - 1.32.7-4
+- Set VW_VERSION env var during build and install rhbz#2338534
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.32.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

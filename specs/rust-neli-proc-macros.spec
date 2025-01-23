@@ -2,21 +2,22 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate asn1
+%global crate neli-proc-macros
+%global crate_version 0.2.0-rc3
 
-Name:           rust-asn1
-Version:        0.20.0
+Name:           rust-neli-proc-macros
+Version:        0.2.0~rc3
 Release:        %autorelease
-Summary:        ASN.1 (DER) parser and writer for Rust
+Summary:        Procedural macros for neli
 
 License:        BSD-3-Clause
-URL:            https://crates.io/crates/asn1
-Source:         %{crates_source}
+URL:            https://crates.io/crates/neli-proc-macros
+Source:         %{crates_source %{crate} %{crate_version}}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-ASN.1 (DER) parser and writer for Rust.}
+Procedural macros for neli.}
 
 %description %{_description}
 
@@ -31,7 +32,6 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -46,20 +46,8 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+std-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+std-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
-
-%files       -n %{name}+std-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %prep
-%autosetup -n %{crate}-%{version} -p1
+%autosetup -n %{crate}-%{crate_version} -p1
 %cargo_prep
 
 %generate_buildrequires

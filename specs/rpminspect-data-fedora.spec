@@ -1,10 +1,10 @@
 Name:           rpminspect-data-fedora
-Version:        1.13
-Release:        2%{?dist}
+Version:        1.15
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Build deviation compliance tool data files
 Group:          Development/Tools
-License:        CC-BY-SA
+License:        CC-BY-SA-4.0
 URL:            https://github.com/rpminspect/rpminspect-data-fedora
 Source0:        https://github.com/rpminspect/rpminspect/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:        https://github.com/rpminspect/rpminspect/releases/download/v%{version}/%{name}-%{version}.tar.gz.asc
@@ -16,7 +16,7 @@ BuildRequires:  meson
 BuildRequires:  ninja-build
 BuildRequires:  gnupg2
 
-Requires:       rpminspect >= 1.11
+Requires:       rpminspect >= 2.0
 
 # Used by inspections enabled in the configuration file
 Requires:       fedora-license-data >= 1.7
@@ -53,12 +53,18 @@ used by the inspections provided by librpminspect.
 
 %files
 %license CC-BY-SA-4.0.txt
-%doc AUTHORS README
+%doc AUTHORS.md README
 %{_datadir}/rpminspect
 %{_bindir}/rpminspect-fedora
 
 
 %changelog
+* Tue Jan 21 2025 David Cantrell <dcantrell@redhat.com> - 1:1.15-1
+- Upgrade to rpminspect-data-fedora-1.15
+
+* Tue Jan 21 2025 David Cantrell <dcantrell@redhat.com> - 1:1.14-1
+- Upgrade to rpminspect-data-fedora-1.14
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:		spacefm
 Version:	1.0.6
-Release:	20%{?dist}
+Release:	21%{?dist}
 Summary:	Multi-panel tabbed file and desktop manager
 
 # overall		GPL-3.0-or-later
@@ -19,6 +19,10 @@ Patch1:	spacefm-1.0.6-major-glibc228.patch
 Patch2:	spacefm-1.0.6-gcc10-fno-common.patch
 # Support C99, use pointer type correctly
 Patch3:	spacefm-1.0.6-c99-type-cast.patch
+# Avoid C23 bool keyword usage
+Patch4:	spacefm-1.0.6-c23-bool-keyword.patch
+# Support C23 strict function prototype
+Patch5:	spacefm-1.0.6-c23-function-proto.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -48,6 +52,8 @@ This package contains Faenza theme files for spacefm.
 %patch -P1 -p1 -b .glibc228
 %patch -P2 -p1 -b .gcc10
 %patch -P3 -p1 -b .c99
+%patch -P4 -p1 -b .bool
+%patch -P5 -p1 -b .c23
 find . -name \*.c -print0 | xargs --null chmod 0644
 
 %build
@@ -115,6 +121,11 @@ gtk-update-icon-cache %{_datadir}/icons/Faenza &>/dev/null || :
 %{_datadir}/icons/Faenza/apps/*/%{name}*
 
 %changelog
+* Tue Jan 21 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.6-21
+- Support C23
+  - Avoid bool keyword usage
+  - Support strict funciton prototype
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

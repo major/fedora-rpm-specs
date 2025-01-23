@@ -12,7 +12,7 @@
 
 Name:		bdii
 Version:	6.0.3
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	The Berkeley Database Information Index (BDII)
 
 License:	Apache-2.0
@@ -67,6 +67,11 @@ patch -p1 -f < 0001-Use-mdb-slapd-backend.patch
 
 %install
 make install prefix=%{buildroot}
+
+# Work around hardcoded /usr/sbin in the Makefile
+if [ %{_sbindir} != %{_prefix}/sbin ] ; then
+   mv %{buildroot}%{_prefix}/sbin %{buildroot}%{_sbindir}
+fi
 
 # Don't use /usr/bin/env shebang
 sed 's!%{_bindir}/env .*!%{__python3}!' -i %{buildroot}%{_sbindir}/bdii-update
@@ -155,6 +160,9 @@ fi
 %license COPYRIGHT LICENSE.txt
 
 %changelog
+* Tue Jan 21 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.0.3-4
+- Work around hardcoded /usr/sbin in the Makefile
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

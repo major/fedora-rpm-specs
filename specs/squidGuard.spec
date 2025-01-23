@@ -11,7 +11,7 @@
 
 Name:			squidGuard
 Version:		1.4
-Release:		49%{?dist}
+Release:		50%{?dist}
 Summary:		Filter, redirector and access controller plugin for squid
 
 License:		GPL-2.0-only
@@ -50,6 +50,7 @@ Patch10:		squidGuard-1.4-helper-protocol.patch
 Patch11:                squidGuard-1.4-setuserinfo.patch
 Patch12:                squidGuard-configure-c99.patch
 Patch13:                squidGuard-htunescape-c99.patch
+Patch14:                squidGuard-1.4-declarations.patch
 
 URL:			http://www.squidguard.org/
 
@@ -60,8 +61,6 @@ BuildRequires:	perl-generators
 BuildRequires:	systemd
 
 Requires:		squid
-#Requires(post):	%{_bindir}/chcon
-#Requires(post):	/sbin/chkconfig
 Requires(post): systemd-units
 Requires(preun): systemd-units
 Requires(postun): systemd-units
@@ -107,6 +106,7 @@ Neither squidGuard nor Squid can be used to
 %patch -P11 -p1
 %patch -P12 -p1
 %patch -P13 -p1
+%patch -P14 -p1
 
 %{__cp} %{SOURCE100} ./squidGuard.conf.k12ltsp.template
 %{__cp} %{SOURCE101} ./update_squidguard_blacklists.k12ltsp.sh
@@ -255,8 +255,6 @@ fi
 %config(noreplace) %{_sysconfdir}/logrotate.d/squidGuard
 %config(noreplace) %{_sysconfdir}/cron.daily/squidGuard
 %{_dbtopdir}/
-#%{_sysconfdir}/selinux/targeted/src/policy/domains/program/squidGuard.te
-#%{_sysconfdir}/selinux/targeted/src/policy/file_contexts/program/squidGuard.fc
 %attr(0755,root,root) %{_cgibin}/*.cgi
 %config(noreplace) %{_cgibin}/squidGuard.cgi
 %{_cgibin}/babel.*
@@ -266,6 +264,9 @@ fi
 %attr(0755,squid,squid) %{_localstatedir}/log/squid/squidGuard.log
 
 %changelog
+* Wed Jan 22 2025 Bojan Smojver <bojan@rexursive.com> - 1.4-50
+- fix rawhide build
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

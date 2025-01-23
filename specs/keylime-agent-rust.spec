@@ -15,7 +15,7 @@
 %endif
 
 Name:           keylime-agent-rust
-Version:        0.2.5
+Version:        0.2.7
 Release:        %{?autorelease}%{!?autorelease:1%{?dist}}
 Summary:        Rust agent for Keylime
 
@@ -54,9 +54,9 @@ Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz
 #   tar jcf rust-keylime-%%{version}-vendor.tar.xz vendor
 Source1:        rust-keylime-%{version}-vendor.tar.xz
 ## (0-99) General patches
-# Fix build with latest rust: https://github.com/keylime/rust-keylime/pull/789
-# and https://github.com/keylime/rust-keylime/pull/793
-Patch0:         rust-keylime-unnecessary-qualifications.patch
+# Enable logging for the keylime library
+# Patch from https://github.com/keylime/rust-keylime/pull/922
+Patch0:         rust-keylime-enable-logging-keylime-lib.patch
 ## (100-199) Patches for building from system Rust libraries (Fedora)
 # Drop completely the legacy-python-actions feature
 Patch100:       rust-keylime-metadata.patch

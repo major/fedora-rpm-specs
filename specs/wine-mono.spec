@@ -19,7 +19,8 @@ Patch2:         wine-mono-builtins.patch
 # see git://github.com/madewokherd/wine-mono
 
 BuildArch:      noarch
-ExcludeArch:    %{power64} s390x s390
+# wine-mono is not ported to any other architecture and can only be built on a x86 host
+ExcludeArch:    aarch64 %{power64} s390x s390
 
 # 64
 BuildRequires:  mingw64-filesystem >= 95

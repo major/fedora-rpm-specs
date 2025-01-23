@@ -1,6 +1,6 @@
 Name:		python-hwdata
-Version:	2.4.1
-Release:	2%{?dist}
+Version:	2.4.2
+Release:	1%{?dist}
 Summary:	Python bindings to hwdata package
 BuildArch:  noarch
 License:	GPL-2.0-or-later
@@ -18,6 +18,7 @@ It allows you to get human readable description of USB and PCI devices.
 Summary:	Python bindings to hwdata package
 
 BuildRequires:	python3-devel
+BuildRequires:  python3-setuptools
 BuildRequires:	python3-pylint
 Requires:	hwdata
 
@@ -32,18 +33,11 @@ This is the Python 3 build of the module.
 %prep
 %setup -q
 
-rm -rf %{py3dir}
-cp -a . %{py3dir}
-
 %build
-pushd %{py3dir}
 %py3_build
-popd
 
 %install
-pushd %{py3dir}
 %py3_install
-popd
 
 %check
 pylint-3 hwdata.py example.py || :
@@ -55,8 +49,8 @@ pylint-3 hwdata.py example.py || :
 %{python3_sitelib}/*
 
 %changelog
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+* Tue Jan 21 2025 Miroslav Suchý <msuchy@redhat.com> 2.4.2-1
+- modernize setup.py (msuchy@redhat.com)
 
 * Fri Nov 10 2023 Miroslav Suchý <msuchy@redhat.com> 2.4.1-1
 - remove python2 code

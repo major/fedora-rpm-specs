@@ -2,7 +2,7 @@
 
 Name: jwhois
 Version: 4.0
-Release: 79%{?dist}
+Release: 80%{?dist}
 URL: http://www.gnu.org/software/jwhois/
 Source0: ftp://ftp.gnu.org/gnu/jwhois/jwhois-%{version}.tar.gz
 Source1: https://raw.githubusercontent.com/robert-scheck/jwhois/2bd561e06ca37cf6c2ef9f0a2e957e09f58e6972/example/jwhois.conf
@@ -18,6 +18,7 @@ Patch8: jwhois-4.0-idnfail.patch
 Patch9: jwhois-4.0-ipv4_ipv6.patch
 Patch10: jwhois-configure-c99.patch
 Patch11: jwhois-c99.patch
+Patch12: jwhois-4.0-gcc15-fix.patch
 License: GPL-3.0-only
 Summary: Internet whois/nicname client
 BuildRequires: gcc, libidn2-devel, autoconf, automake
@@ -124,6 +125,9 @@ if [ $1 = 0 ]; then
 fi
 
 %changelog
+* Tue Jan 21 2025 Vitezlsav Crhonek <vcrhonek@redhat.com> - 4.0-80
+- Fix FTBFS with GCC 15
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-79
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

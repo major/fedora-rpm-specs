@@ -1,3 +1,9 @@
+# The Python extension tests now segfault on i686. Starting with Fedora 42, we
+# no longer build the Python extension on i686; in the medium term, we wish to
+# drop i686 support altogether, but we must coordinate all reverse dependencies
+# doing so first; see the notes in %%check.
+%bcond python %{expr:0%{?__isa_bits} != 32} || %{defined fc41} || %{defined fc40}}
+
 Name:           re2
 %global tag 2024-07-02
 %global so_version 11
@@ -23,6 +29,7 @@ BuildRequires:  pkgconfig(icu-uc)
 BuildRequires:  cmake(GTest)
 BuildRequires:  cmake(benchmark)
 
+%if %{with python}
 # Python extension
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist pybind11}
@@ -32,6 +39,7 @@ BuildRequires:  pybind11-static
 # Python extension tests
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist absl-py}
+%endif
 
 %global common_description %{expand:
 RE2 is a fast, safe, thread-friendly alternative to backtracking regular
@@ -53,6 +61,7 @@ libraries for re2. If you would like to develop programs using re2, you will
 need to install re2-devel.
 
 
+%if %{with python}
 %package -n     python3-google-re2
 Summary:        RE2 Python bindings
 
@@ -84,6 +93,7 @@ Known differences between this module’s API and the re module’s API:
   • The pattern string and the input string do not have to be the same type.
     Any str will be encoded to UTF-8.
   • The pattern string cannot be str if the options specify Latin-1 encoding.
+%endif
 
 
 %prep
@@ -93,9 +103,11 @@ Known differences between this module’s API and the re module’s API:
 rm lib/git/commit-msg.hook
 
 
+%if %{with python}
 %generate_buildrequires
 cd python
 %pyproject_buildrequires
+%endif
 
 
 %conf
@@ -104,30 +116,37 @@ cd python
     -DRE2_USE_ICU:BOOL=ON \
     -GNinja
 
+%if %{with python}
 cat >> python/setup.cfg <<EOF
 [build_ext]
 include_dirs=${PWD}
 library_dirs=${PWD}/%{_vpath_builddir}
 EOF
+%endif
 
 
 %build
 %cmake_build
+%if %{with python}
 cd python
 %pyproject_wheel
+%endif
 
 
 %install
 %cmake_install
 
+%if %{with python}
 cd python
 %pyproject_install
 %pyproject_save_files -l re2
+%endif
 
 
 %check
 %ctest
 
+%if %{with python}
 # Python tests now segfault on i686, but we cannot drop support under
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval because re2
 # is not yet a leaf package on that architecture. Instead, we skip the Python
@@ -137,34 +156,28 @@ cd python
 # - bloaty
 # - ceph
 # - credentials-fetcher
-# - CuraEngine_grpc_definitions:
+# - CuraEngine_grpc_definitions
 # - dnsdist
 # - libarrow
 # - mtxclient
 # - nheko
+# - onnx
 # - onnxruntime
 # - parlaylib
 # - perl-re-engine-RE2
-# - python-torchtext (orphaned)
+# - python-torchtext
 #
 # The following are not (yet):
 # - grpc:
-#   Not blocked by: CuraEngine_grpc_definitions, buildbox, credentials-fetcher
+#   Not blocked by: CuraEngine_grpc_definitions, buildbox, buildstream,
+#                   credentials-fetcher, frr
 #   Blocked by:
-#   - buildstream: https://src.fedoraproject.org/rpms/buildstream/pull-request/9
 #   - fastnetmon: https://src.fedoraproject.org/rpms/fastnetmon/pull-request/2
-#   - frr: https://src.fedoraproject.org/rpms/frr/pull-request/64
 #   TBD: Other reverse dependencies not yet evaluated
-# - libphonenumber:
-#   Not blocked by: chatty, mmsd-tng, ncid, plasma-dialer, spacebar
-#   Blocked by:
-#   - kf5-kitinerary: https://src.fedoraproject.org/rpms/kf5-kitinerary/pull-request/3
-#   - kitinerary, blocked by:
-#     - itinerary: https://src.fedoraproject.org/rpms/itinerary/pull-request/2
-#     - kdepim-addons: https://src.fedoraproject.org/rpms/kdepim-addons/pull-request/5
-# - onnx: https://src.fedoraproject.org/rpms/onnx/pull-request/7
-#   Not blocked by: onnxruntime, python-torch
-%ifnarch %{ix86}
+# - libphonenumber: https://src.fedoraproject.org/rpms/libphonenumber/pull-request/24
+#   Not blocked by: chatty, evolution-data-server (builds on i686, but with
+#                   libphonenumber support disabled) kf5-kitinerary,
+#                   kitinerary, mmsd-tng, ncid, plasma-dialer, spacebar
 # Run the tests from the top-level directory to make sure we don’t accidentally
 # import the “un-built” package instead of the one in the buildroot.
 ln -s python/re2_test.py
@@ -186,7 +199,9 @@ LD_LIBRARY_PATH='%{buildroot}%{_libdir}' %pytest re2_test.py
 %{_libdir}/cmake/re2/
 
 
+%if %{with python}
 %files -n       python3-google-re2 -f %{pyproject_files}
+%endif
 
 
 %changelog

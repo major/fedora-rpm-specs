@@ -1,6 +1,6 @@
 Name:           sblim-cmpi-base
 Version:        1.6.4
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        SBLIM CMPI Base Providers
 
 License:        EPL-1.0
@@ -24,6 +24,8 @@ Patch7:         sblim-cmpi-base-1.6.4-dont-install-license.patch
 Patch8:         sblim-cmpi-base-1.6.4-fix-get-os-install-date.patch
 # Patch9: fixes possible null pointer dereferences after strstr calls
 Patch9:         sblim-cmpi-base-1.6.4-fix-possible-null-dereference.patch
+# Patch10: fixes issues that causes FTBFS with GCC15
+Patch10:        sblim-cmpi-base-1.6.4-gcc15-fixes.patch
 Requires:       cim-server sblim-indication_helper
 BuildRequires: make
 BuildRequires:  perl-generators
@@ -67,7 +69,8 @@ autoreconf --install --force
 %patch -P6 -p1 -b .list-lib-dependencies
 %patch -P7 -p1 -b .dont-install-license
 %patch -P8 -p1 -b .fix-get-os-install-date
-%patch -P9 -p1 -b .fix-possible-null-dereference.patch
+%patch -P9 -p1 -b .fix-possible-null-dereference
+%patch -P10 -p1 -b .gcc15-fixes
 
 %build
 %configure TESTSUITEDIR=%{_datadir}/sblim-testsuite --disable-static
@@ -120,6 +123,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/cmpi/*a
 %postun -p /sbin/ldconfig
 
 %changelog
+* Tue Jan 21 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.6.4-28
+- Fix FTBFS with GCC 15
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

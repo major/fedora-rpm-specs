@@ -1,5 +1,5 @@
 Name:           python-importlib-metadata
-Version:        8.5.0
+Version:        8.6.1
 Release:        %autorelease
 Summary:        Library to access the metadata for a Python package
 

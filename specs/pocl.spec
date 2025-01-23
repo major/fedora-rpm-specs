@@ -24,6 +24,14 @@ Summary: Portable Computing Language - an OpenCL implementation
 URL: https://github.com/%{name}/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+# Add missing includes for modern libstdc++ versions
+Patch100: %{name}-6.0-add-missing-includes.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+%if 0%{?fedora} && 0%{?fedora} >= 42
+ExcludeArch: %{ix86}
+%endif
+
 %if %{llvm_legacy}
 BuildRequires: clang%{llvm_legacy_ver}
 BuildRequires: clang%{llvm_legacy_ver}-devel
@@ -103,10 +111,7 @@ export CXX="clang++-%{llvm_legacy_ver}"
     -DENABLE_EXAMPLES:BOOL=OFF \
     -DPOCL_INSTALL_ICD_VENDORDIR=%{_sysconfdir}/OpenCL/vendors \
     -DEXTRA_KERNEL_CXX_FLAGS="%{optflags}" \
-%ifarch %{ix86}
-    -DHOST_CPU_SUPPORTS_FLOAT16:BOOL=OFF \
-%endif
-%ifarch %{ix86} x86_64
+%ifarch x86_64
     -DKERNELLIB_HOST_CPU_VARIANTS=distro \
 %endif
 %ifarch aarch64

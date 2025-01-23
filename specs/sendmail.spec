@@ -41,7 +41,7 @@
 Summary: A widely used Mail Transport Agent (MTA)
 Name: sendmail
 Version: 8.18.1
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: sendmail-8.23 AND MIT AND MIT-CMU AND BSD-3-Clause AND CDDL-1.0 AND BSD-4-Clause AND BSD-4-Clause-UC AND PostgreSQL AND ISC AND HPND-sell-variant AND mailprio
 URL: http://www.sendmail.org/
 
@@ -240,7 +240,7 @@ sed -i 's|/usr/local/bin/perl|%{_bindir}/perl|' contrib/*.pl
 # generate redhat config file
 cat > redhat.config.m4 << EOF
 define(\`confMAPDEF', \`%{?with_db:-DNEWDB }-DCDB %{?nis_cflags} -DMAP_REGEX -DSOCKETMAP -DNAMED_BIND=1')
-define(\`confOPTIMIZE', \`\`\`\`${CFLAGS}'''')
+define(\`confOPTIMIZE', \`\`\`\`${CFLAGS} -std=gnu17'''')
 define(\`confENVDEF', \`%{?with_db:-I%{_includedir}/libdb }-I%{_prefix}/kerberos/include -Wall -DXDEBUG=0 -DNETINET6 -DHES_GETMAILHOST -DUSE_VENDOR_CF_PATH=1 -D_FFR_LINUX_MHNL -D_FFR_QOS -D_FILE_OFFSET_BITS=64 -DHAS_GETHOSTBYNAME2 -DHASFLOCK')
 define(\`confLIBDIRS', \`-L%{_prefix}/kerberos/%{_lib}')
 define(\`confLIBS', \`%{?nis_ldadd} -lcrypt %{?with_db:-ldb }-lcdb -lresolv')
@@ -749,6 +749,10 @@ exit 0
 
 
 %changelog
+* Tue Jan 21 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 8.18.1-8
+- Built with gnu17 C standard
+  Resolves: rhbz#2336394
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.18.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

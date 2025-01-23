@@ -27,6 +27,9 @@ Summary:        Converts .y (yacc) source files to data suitable for a parser ge
 License:        BSD-3-Clause and GPL-2.0-only and MIT
 URL:            %{gourl}
 Source:         %{gosource}
+# Fix build on Go 1.24.
+# Submitted upstream as https://gitlab.com/cznic/y/-/merge_requests/1
+Patch0001:      0001-Fix-build-with-Go-1.24.patch
 
 %description %{common_description}
 

@@ -23,13 +23,13 @@
 # Do we want libedit support
 %global libedit 1
 
-%global openssh_ver 9.8p1
-%global openssh_rel 2
+%global openssh_ver 9.9p1
+%global openssh_rel 1
 
 Summary: An implementation of the SSH protocol with GSI authentication
 Name: gsi-openssh
 Version: %{openssh_ver}
-Release: %{openssh_rel}%{?dist}.1
+Release: %{openssh_rel}%{?dist}
 Provides: gsissh = %{version}-%{release}
 Obsoletes: gsissh < 5.8p2-2
 URL: http://www.openssh.com/portable.html
@@ -60,8 +60,6 @@ Patch200: openssh-7.6p1-audit.patch
 Patch201: openssh-7.1p2-audit-race-condition.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2049947
 Patch202: openssh-9.0p1-audit-log.patch
-# Correctly audit hostname and IP address
-Patch203: openssh-8.7p1-audit-hostname.patch
 
 #https://bugzilla.mindrot.org/show_bug.cgi?id=1641 (WONTFIX)
 Patch400: openssh-7.8p1-role-mls.patch
@@ -139,9 +137,6 @@ Patch953: openssh-7.8p1-scp-ipv6.patch
 # Mention crypto-policies in manual pages (#1668325)
 # clarify rhbz#2068423 on the man page of ssh_config
 Patch962: openssh-8.0p1-crypto-policies.patch
-# Use OpenSSL high-level API to produce and verify signatures (#1707485)
-# TODO fix the comment above ^
-Patch963: openssh-9.3p1-merged-openssl-evp.patch
 # Use OpenSSL KDF (#1631761)
 Patch964: openssh-8.0p1-openssl-kdf.patch
 # sk-dummy.so built with -fvisibility=hidden does not work
@@ -174,19 +169,22 @@ Patch1002: openssh-8.7p1-ssh-manpage.patch
 # https://github.com/openssh/openssh-portable/pull/323
 Patch1006: openssh-8.7p1-negotiate-supported-algs.patch
 
-Patch1012: openssh-9.0p1-evp-fips-dh.patch
-Patch1013: openssh-9.0p1-evp-fips-ecdh.patch
+Patch1012: openssh-9.0p1-evp-fips-kex.patch
 Patch1014: openssh-8.7p1-nohostsha1proof.patch
 
 Patch1015: openssh-9.6p1-pam-rhost.patch
+Patch1016: openssh-9.9p1-separate-keysign.patch
+# upstream cf3e48ee8ba1beeccddd2f203b558fa102be67a2
+# upstream 0c3927c45f8a57b511c874c4d51a8c89414f74ef
+Patch1017: openssh-9.9p1-mlkembe.patch
 
 # This is the patch that adds GSI support
 # Based on hpn_isshd-gsi.7.5p1b.patch from Globus upstream
-Patch98: openssh-9.8p1-gsissh.patch
+Patch98: openssh-9.9p1-gsissh.patch
 
 # This is the HPN patch
-# Based on https://github.com/rapier1/hpn-ssh/ tag: hpn-18.5.1
-Patch99: openssh-9.8p1-hpn-18.5.1.patch
+# Based on https://github.com/rapier1/hpn-ssh/ tag: hpn-18.6.0
+Patch99: openssh-9.9p1-hpn-18.6.0.patch
 
 License: BSD-3-Clause AND BSD-2-Clause AND ISC AND SSH-OpenSSH AND ssh-keyscan AND sprintf AND LicenseRef-Fedora-Public-Domain AND X11-distribute-modifications-variant
 Requires: /sbin/nologin
@@ -235,6 +233,10 @@ Obsoletes: gsissh-clients < 5.8p2-2
 Requires: %{name} = %{version}-%{release}
 Requires: crypto-policies >= 20220824-1
 
+%package keysign
+Summary: A helper program used for host-based authentication
+Requires: %{name} = %{version}-%{release}
+
 %package server
 Summary: SSH server daemon with GSI authentication
 Provides: gsissh-server = %{version}-%{release}
@@ -269,6 +271,11 @@ into and executing commands on a remote machine. This package includes
 the clients necessary to make encrypted connections to SSH servers.
 
 This version of OpenSSH has been modified to support GSI authentication.
+
+%description keysign
+OpenSSH is a free version of SSH (Secure SHell), a program for logging
+into and executing commands on a remote machine. ssh-keysign is a
+helper program used for host-based authentication disabled by default.
 
 %description server
 OpenSSH is a free version of SSH (Secure SHell), a program for logging
@@ -317,7 +324,6 @@ gpgv2 --quiet --keyring %{SOURCE3} %{SOURCE1} %{SOURCE0}
 %patch -P 951 -p1 -b .pkcs11-uri
 %patch -P 953 -p1 -b .scp-ipv6
 %patch -P 962 -p1 -b .crypto-policies
-%patch -P 963 -p1 -b .openssl-evp
 %patch -P 964 -p1 -b .openssl-kdf
 %patch -P 965 -p1 -b .visibility
 %patch -P 966 -p1 -b .x11-ipv6
@@ -331,15 +337,15 @@ gpgv2 --quiet --keyring %{SOURCE3} %{SOURCE1} %{SOURCE0}
 %patch -P 200 -p1 -b .audit
 %patch -P 201 -p1 -b .audit-race
 %patch -P 202 -p1 -b .audit-log
-%patch -P 203 -p1 -b .audit-hostname
 %patch -P 700 -p1 -b .fips
 
 %patch -P 1002 -p1 -b .ssh-manpage
 %patch -P 1006 -p1 -b .negotiate-supported-algs
 %patch -P 1012 -p1 -b .evp-fips-dh
-%patch -P 1013 -p1 -b .evp-fips-ecdh
 %patch -P 1014 -p1 -b .nosha1hostproof
 %patch -P 1015 -p1 -b .pam-rhost
+%patch -P 1016 -p1 -b .sep-keysign
+%patch -P 1017 -p1 -b .mlkembe
 
 %patch -P 100 -p1 -b .coverity
 %patch -P 98 -p1 -b .gsi
@@ -468,7 +474,9 @@ rm $RPM_BUILD_ROOT%{_mandir}/man1/ssh-keyscan.1*
 rm $RPM_BUILD_ROOT%{_mandir}/man8/ssh-pkcs11-helper.8*
 
 for f in $RPM_BUILD_ROOT%{_bindir}/* \
+%if "%{_sbindir}" != "%{_bindir}"
 	 $RPM_BUILD_ROOT%{_sbindir}/* \
+%endif
 	 $RPM_BUILD_ROOT%{_mandir}/man*/* ; do
     mv $f `dirname $f`/gsi`basename $f`
 done
@@ -514,8 +522,6 @@ fi
 %attr(0755,root,root) %{_bindir}/gsissh-keygen
 %attr(0644,root,root) %{_mandir}/man1/gsissh-keygen.1*
 %attr(0755,root,root) %dir %{_libexecdir}/gsissh
-%attr(4555,root,root) %{_libexecdir}/gsissh/ssh-keysign
-%attr(0644,root,root) %{_mandir}/man8/gsissh-keysign.8*
 
 %files clients
 %attr(0755,root,root) %{_bindir}/gsissh
@@ -533,6 +539,10 @@ fi
 %attr(0755,root,root) %dir %{_libexecdir}/gsissh/bin
 %{_libexecdir}/gsissh/bin/scp
 %{_libexecdir}/gsissh/bin/hpnscp
+
+%files keysign
+%attr(4555,root,root) %{_libexecdir}/gsissh/ssh-keysign
+%attr(0644,root,root) %{_mandir}/man8/gsissh-keysign.8*
 
 %files server
 %dir %attr(0711,root,root) %{_datadir}/empty.sshd
@@ -561,6 +571,9 @@ fi
 %ghost %attr(0644,root,root) %{_localstatedir}/lib/.gsissh-host-keys-migration
 
 %changelog
+* Mon Jan 20 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.9p1-1
+- Based on openssh-9.9p1-5.fc42 / openssh-9.9p1-1.fc41
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.8p1-2.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

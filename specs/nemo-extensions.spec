@@ -7,7 +7,7 @@ Version:        6.4.0
 Release:        2%{?dist}
 Summary:        Extensions for Nemo
 
-License:        GPLv2+ and LGPLv2
+License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://github.com/linuxmint/%{name}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -157,7 +157,7 @@ Context menu comparison extension for Nemo file manager.
 
 %package     -n nemo-seahorse
 Summary:     PGP encryption and signing for Nemo
-License:     GPLv2+ and LGPLv2
+License:     GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later'
 Requires:    seahorse%{?_isa}
 
 %description -n nemo-seahorse

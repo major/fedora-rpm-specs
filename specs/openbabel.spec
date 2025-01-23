@@ -14,7 +14,7 @@
 
 Name: openbabel
 Version: 3.1.1
-Release: 31%{?dist}
+Release: 32%{?dist}
 Summary: Chemistry software file format converter
 License: GPL-2.0-only
 URL: https://openbabel.org/
@@ -54,11 +54,7 @@ Patch9: %{name}-3.1.1-bug2378.patch
 Patch10: %{name}-3.1.1-bug2493.patch
 
 BuildRequires: make
-%if 0%{?el7}
-BuildRequires: boost169-devel
-%else
 BuildRequires: boost-devel
-%endif
 BuildRequires: swig
 BuildRequires: cmake3
 BuildRequires: dos2unix
@@ -216,7 +212,7 @@ mkdir -p %{_target_platform}
 export CXXFLAGS="%{optflags} -DEIGEN_ALTIVEC_DISABLE_MMA"
 %endif
 %endif
-%cmake3 -B %{_target_platform} \
+%cmake -B %{_target_platform} \
  -Wno-dev \
  -DCMAKE_SKIP_RPATH:BOOL=ON \
  -DBUILD_GUI:BOOL=ON \
@@ -238,14 +234,7 @@ export CXXFLAGS="%{optflags} -DEIGEN_ALTIVEC_DISABLE_MMA"
  -DRUN_SWIG=true \
  -DENABLE_TESTS:BOOL=ON \
  -DOPTIMIZE_NATIVE=OFF \
- -DGLIBC_24_COMPATIBLE:BOOL=OFF \
-%if 0%{?el7}
- -DBoost_FILESYSTEM_LIBRARY_RELEASE:FILEPATH=%{_libdir}/boost169/libboost_filesystem.so \
- -DBoost_SERIALIZATION_LIBRARY_RELEASE:FILEPATH=%{_libdir}/boost169/libboost_serialization.so \
- -DBoost_SYSTEM_LIBRARY_RELEASE:FILEPATH=%{_libdir}/boost169/libboost_system.so \
- -DBoost_INCLUDE_DIR:PATH=%{_includedir}/boost169 \
- -DBoost_LIBRARY_DIR_RELEASE:PATH=%{_libdir}/boost169
-%endif
+ -DGLIBC_24_COMPATIBLE:BOOL=OFF
 
 %make_build -C %{_target_platform}
 
@@ -273,27 +262,18 @@ EOF
 %if 1
 %check
 %define _vpath_builddir %{_target_platform}
-pushd %{_vpath_builddir}
 
 # rm the built ruby bindings for testsuite to succeed (Red Hat bugzilla ticket #1191173)
-rm -f %{_lib}/openbabel.so
+rm -f %{_vpath_builddir}/%{_lib}/openbabel.so
 
 export CTEST_OUTPUT_ON_FAILURE=1
 export PYTHONPATH=%{buildroot}%{python3_sitearch}
-%if 0%{?el7}
-ctest3 -j1 --force-new-ctest-process -E 'test_cifspacegroup_1|test_cifspacegroup_2'
-%else
-# See https://github.com/openbabel/openbabel/issues/2138
+# See https://github.com/openbabel/openbabel/issues/2138, https://github.com/openbabel/openbabel/issues/2766
 %ifarch aarch64 %{arm} %{power64} s390x x86_64
-ctest3 -j1 --force-new-ctest-process -E 'pybindtest_bindings|pybindtest_obconv_writers'
+%ctest --test-dir %{_vpath_builddir} -VV -E 'pybindtest_bindings|pybindtest_obconv_writers|test_align_4|test_align_5'
 %else
-ctest3 -j1 --force-new-ctest-process
+%ctest
 %endif
-%endif
-%endif
-
-%if 0%{?el7}
-%ldconfig_scriptlets libs
 %endif
 
 %files
@@ -349,6 +329,9 @@ ctest3 -j1 --force-new-ctest-process
 %{ruby_vendorarchdir}/openbabel.so
 
 %changelog
+* Tue Jan 21 2025 Antonio Trande <sagitter@fedoraproject.org> - 3.1.1-32
+- Exclude failed test_align_ with GCC15
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -37,7 +37,7 @@
 Summary: Enhanced system logging and kernel message trapping daemon
 Name: rsyslog
 Version: 8.2412.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-3.0-or-later AND Apache-2.0
 URL: http://www.rsyslog.com/
 Source0: http://www.rsyslog.com/files/download/rsyslog/%{name}-%{version}.tar.gz
@@ -70,6 +70,7 @@ BuildRequires: zlib-devel
 BuildRequires: libcap-ng-devel
 
 Patch0: disable-openssl-engine.patch
+Patch1: gnu23.patch
 
 Recommends: logrotate
 Obsoletes: rsyslog-logrotate < 8.2310.0-2
@@ -382,6 +383,7 @@ mv build doc
 # set up rsyslog sources
 %setup -q -D
 %patch -P 0 -p1
+%patch -P 1 -p1
 
 %if %{with omamqp1}
 # Unpack qpid-proton
@@ -762,6 +764,9 @@ done
 
 
 %changelog
+* Tue Jan 21 2025 Attila Lakatos <alakatos@redhat.com> - 8.2412.0-3
+- Fix build problem by resolving -Wincompatible-pointer-types error
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.2412.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

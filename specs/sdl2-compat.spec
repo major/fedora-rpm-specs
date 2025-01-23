@@ -1,8 +1,4 @@
-%global commit 208cea955f571e0ff967f04f6bb04f7e5018070c
-%global shortcommit %{sub %{commit} 1 7}
-%global commitdate 20250119.1126
-
-%global sdl3_minver 3.1.10
+%global sdl3_minver 3.2.0
 
 # Features disabled for RHEL
 %if 0%{?rhel}
@@ -12,14 +8,13 @@
 %endif
 
 Name:           sdl2-compat
-Version:        2.30.50~git%{commitdate}.%{shortcommit}
+Version:        2.30.50
 Release:        1%{?dist}
 SourceLicense:  Zlib and Apache-2.0 and MIT and BSD-3-Clause
 Summary:        SDL 2.0 runtime compatibility library using SDL 3.0
 License:        Zlib
 URL:            https://github.com/libsdl-org/sdl2-compat
-%dnl Source0:        %{url}/archive/release-%{version}/%{name}-%{version}.tar.gz
-Source0:        %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Source0:        %{url}/archive/release-%{version}/%{name}-%{version}.tar.gz
 # Multilib aware-header stub
 Source1:        SDL2_config.h
 Source2:        SDL2_revision.h
@@ -115,8 +110,7 @@ this layer.
 %endif
 
 %prep
-%dnl autosetup -n %{name}-release-%{version} -S git_am
-%autosetup -n %{name}-%{commit} -S git_am
+%autosetup -n %{name}-release-%{version} -S git_am
 
 
 %build
@@ -172,6 +166,9 @@ install -p -m 644 %{SOURCE2} %{buildroot}%{_includedir}/SDL2/SDL_revision.h
 
 
 %changelog
+* Wed Jan 22 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.30.50-1
+- Update to 2.30.50 GA
+
 * Sun Jan 19 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.30.50~git20250119.1126.208cea9-1
 - Bump to new git snapshot
 
