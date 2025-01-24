@@ -222,8 +222,10 @@ rm run-postinst
 %{make_install}
 find %{buildroot} -type f -name '*.bs' -size 0 -delete
 
-# Move exe to root directory
-mv %{buildroot}%{_bindir} %{buildroot}%{_sbindir}
+if [[ "%{_bindir}" != "%{_sbindir}" ]]; then
+    # Move exe to right directory
+    mv %{buildroot}%{_bindir} %{buildroot}%{_sbindir}
+fi
 
 mkdir -p %{buildroot}%{_localstatedir}/{log,lib}/%{name}
 mkdir -p %{buildroot}%{_sysconfdir}/{logrotate.d,sysconfig,ocsinventory/softwares}
@@ -305,6 +307,9 @@ find %{buildroot} -type f -name ._.DS_Store -exec rm {} \;
 
 
 %changelog
+* Wed Jan 22 2025 Pat Riehecky <riehecky@fnal.gov> - 2.10.4-6
+- Fix for /usr/sbin merge in F42
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-xapian-haystack
 Version:        3.1.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A Xapian backend for Haystack
 
 License:        GPL-2.0-only
@@ -39,9 +39,12 @@ Requires:       python3-xapian >= 1.4
 %license LICENSE
 %doc README.rst
 %pycached %{python3_sitelib}/xapian_backend.py
-%{python3_sitelib}/xapian_haystack-%{version}.dist-info/*
+%{python3_sitelib}/xapian_haystack-%{version}.dist-info/
 
 %changelog
+* Wed Jan 22 2025 Michal Konecny <mkonecny@redhat.com> - 3.1.0-6
+- Fix the missing auto generated dependencies
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

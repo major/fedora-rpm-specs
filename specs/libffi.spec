@@ -4,7 +4,7 @@
 
 Name:		libffi
 Version:	3.4.6
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	A portable foreign function interface library
 # No license change for 3.4.6
 # The following SPDX licenses are extracted from the sources using
@@ -54,6 +54,8 @@ Patch2: 0003-aarch64-support-pointer-authentication-834.patch
 Patch4: 0005-Import-from-upstream.patch
 Patch5: 0006-aarch64-Add-a-missing-no-op-define-of-SIGN_LR_LINUX_.patch
 Patch6: 0007-Fix-struct-args-Rainer-Orth.patch
+
+Patch7: libffi-3.4.6-C23.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -155,6 +157,9 @@ install -m644 %{SOURCE2} $RPM_BUILD_ROOT%{_includedir}/ffitarget.h
 %{_infodir}/libffi.info.*
 
 %changelog
+* Wed Jan 22 2025 DJ Delorie <dj@redhat.com> - 3.4.6-5
+- Fix FTBFS due to C23 compiler (#2340729)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

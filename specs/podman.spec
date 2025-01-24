@@ -40,6 +40,9 @@
 # %%{name}
 %global git0 %{container_base_url}/%{name}
 
+# podman-machine subpackage will be present only on these architectures
+%global machine_arches x86_64 aarch64
+
 Name: podman
 %if %{defined copr_build}
 Epoch: 102
@@ -52,7 +55,7 @@ Epoch: 5
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 5.3.1
+Version: 5.3.2
 # The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0
 Release: %autorelease
@@ -65,7 +68,6 @@ Summary: Manage Pods, Containers and Container Images
 URL: https://%{name}.io/
 # All SourceN files fetched from upstream
 Source0: %{git0}/archive/v%{version_no_tilde}.tar.gz
-Patch0: 2193.patch
 Provides: %{name}-manpages = %{epoch}:%{version}-%{release}
 BuildRequires: %{_bindir}/envsubst
 %if %{defined build_with_btrfs}
@@ -180,6 +182,7 @@ capabilities specified in user quadlets.
 It is a symlink to %{_bindir}/%{name} and execs into the `%{name}sh` container
 when `%{_bindir}/%{name}sh` is set as a login shell or set as os.Args[0].
 
+%ifarch %{machine_arches}
 %package machine
 Summary: Metapackage for setting up %{name} machine
 Requires: %{name} = %{epoch}:%{version}-%{release}
@@ -190,6 +193,7 @@ Requires: virtiofsd
 %description machine
 This subpackage installs the dependencies for %{name} machine, for more see:
 https://docs.podman.io/en/latest/markdown/podman-machine.1.html
+%endif
 
 %prep
 %autosetup -Sgit -n %{name}-%{version_no_tilde}
@@ -283,8 +287,10 @@ rm -f %{buildroot}%{_mandir}/man5/docker*.5
 install -d -p %{buildroot}%{_datadir}/%{name}/test/system
 cp -pav test/system %{buildroot}%{_datadir}/%{name}/test/
 
+%ifarch %{machine_arches}
 # symlink virtiofsd in %%{name} libexecdir for machine subpackage
 ln -s ../virtiofsd %{buildroot}%{_libexecdir}/%{name}
+%endif
 
 #define license tag if not already defined
 %{!?_licensedir:%global license %doc}
@@ -339,9 +345,11 @@ ln -s ../virtiofsd %{buildroot}%{_libexecdir}/%{name}
 %{_bindir}/%{name}sh
 %{_mandir}/man1/%{name}sh.1*
 
+%ifarch %{machine_arches}
 %files machine
 %dir %{_libexecdir}/%{name}
 %{_libexecdir}/%{name}/virtiofsd
+%endif
 
 %changelog
 %autochangelog

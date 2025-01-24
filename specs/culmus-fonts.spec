@@ -3,7 +3,7 @@ BuildRequires: /usr/bin/makeotfexe
 BuildRequires: fontforge
 
 Version:   0.133
-Release:   12%{?dist}
+Release:   13%{?dist}
 License:   GPL-2.0-only
 URL:       http://culmus.sourceforge.net
 
@@ -15,15 +15,6 @@ Hebrew from the Culmus project.}
 %global fontlicenses      LICENSE GNU-GPL LICENSE LICENSE-BITSTREAM
 %global fontdocs          CHANGES
 %global fontdocsex        %{fontlicenses}
-
-Source0:   http://downloads.sourceforge.net/culmus/culmus-%{version}.tar.gz
-Source17:  modify-font-metadata.pe
-
-Name:      culmus-fonts
-Summary:   Fonts for Hebrew from Culmus project
-%description
-%wordwrap -v common_description
-
 
 %global fontfamily1       Aharoni CLM
 %global fontsummary1      Aharoni CLM, a sans-serif font family
@@ -250,10 +241,7 @@ Provides:  culmus-yehuda-clm-fonts = %{version}-%{release}
 
 This package provides Yehuda CLM, a sans-serif font family.
 }
-
-
-%fontpkg -a
-
+Source0:   http://downloads.sourceforge.net/culmus/culmus-%{version}.tar.gz
 Source1:   66-%{fontpkgname1}.conf
 Source2:   66-%{fontpkgname2}.conf
 Source3:   65-%{fontpkgname3}.conf
@@ -270,6 +258,14 @@ Source13:  66-%{fontpkgname13}.conf
 Source14:  66-%{fontpkgname14}.conf
 Source15:  66-%{fontpkgname15}.conf
 Source16:  66-%{fontpkgname16}.conf
+Source17:  modify-font-metadata.pe
+
+Name:      culmus-fonts
+Summary:   Fonts for Hebrew from Culmus project
+%description
+%wordwrap -v common_description
+
+%fontpkg -a
 
 %fontmetapkg
 
@@ -307,6 +303,9 @@ fontforge ./modify-font-metadata.pe
 %fontfiles -a
 
 %changelog
+* Wed Jan 22 2025 Parag Nemade <pnemade AT redhat DOT com> - 0.133-13
+- Fix FTBFS for F42
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.133-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

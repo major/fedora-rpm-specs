@@ -15,13 +15,14 @@
 Summary:            Utilities to convert Outlook .pst files to other formats
 Name:               libpst
 Version:            0.6.76
-Release:            23%{?dist}
+Release:            24%{?dist}
 License:            GPL-2.0-or-later
 URL:                http://www.five-ten-sg.com/%{name}/
 Source:             %{url}/packages/%{name}-%{version}.tar.gz
 # https://github.com/autoconf-archive/autoconf-archive/pull/235
 Patch0:             m4-python310.patch
 Patch1:             0002-incompatible-pointer-i686.patch
+Patch2:             0003-gcc-c23-changes.patch
 
 BuildRequires:      make
 BuildRequires:      libtool gcc-c++
@@ -217,6 +218,9 @@ rm %{buildroot}%{_mandir}/man1/pst2dii.1*
 
 
 %changelog
+* Wed Jan 22 2025 Milan Crha <mcrha@redhat.com> - 0.6.76-24
+- Add patch to build with gcc C23 standard
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.76-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

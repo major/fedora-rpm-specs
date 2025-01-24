@@ -6,15 +6,17 @@ License:        GPL-3.0-or-later
 Url:            http://gitweb.mageia.org/software/monitor-edid/
 
 Version:        3.4
-Release:        10%{?dist}
+Release:        11%{?dist}
 
 Source0:        https://gitweb.mageia.org/software/monitor-edid/snapshot/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 # Fix Makefile to permit RPM CFLAGS
-Patch000:	monitor-edid-Makefile.patch
+Patch000:	000-monitor-edid-Makefile.patch
 
 # fix double include
-Patch001:	Avoid-double-include.patch
+Patch001:	001-Avoid-double-include.patch
+
+Patch002:	002-Use-usr-bin-for-sbin-files-per-F42.patch
 
 Requires:	perl(File::Find)
 
@@ -74,14 +76,17 @@ make all
 %doc README NEWS ChangeLog
 %license COPYING
 %{_bindir}/monitor-parse-edid
-%{_sbindir}/monitor-edid
-%{_sbindir}/monitor-get*
+%{_bindir}/monitor-edid
+%{_bindir}/monitor-get*
 
 # Mandriva specific scripts (requires lspcidrake)
-%exclude %{_sbindir}/monitor-probe*
+%exclude %{_bindir}/monitor-probe*
 
 
 %changelog
+* Wed Jan 22 2025 Pat Riehecky <riehecky@fnal.gov> - 3.4-11
+- Fix for /usr/sbin merge in F42
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

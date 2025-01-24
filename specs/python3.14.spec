@@ -14,10 +14,10 @@ URL: https://www.python.org/
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
 %global general_version %{pybasever}.0
-%global prerel a3
+%global prerel a4
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -351,12 +351,24 @@ Source11: idle3.appdata.xml
 # pypa/distutils integration: https://github.com/pypa/distutils/pull/70
 Patch251: 00251-change-user-install-location.patch
 
-# 00447 # 79a44c0acfc4c88a1051c133c386da35e10fdee2
-# gh-128089: Bump the PYC magic number for a change in annotate functions
+# 00448 # e145ddea32596809c4222b05444c645eed2ea3af
+# gh-128916: Do not set `SO_REUSEPORT` on non-`AF_INET*` sockets (GH-128933)
 #
-# The magic number should have been increased in release 3.14a3. Users running
-# 3.14a3 with PYC files generated using earlier alphas may run into problems.
-Patch447: 00447-gh-128089-bump-the-magic-number.patch
+# * gh-128916: Do not set `SO_REUSEPORT` on non-`AF_INET*` sockets
+#
+# Do not attempt to set ``SO_REUSEPORT`` on sockets of address familifies other
+# than ``AF_INET`` and ``AF_INET6``, as it is meaningless with these address
+# families, and the call with fail with Linux kernel 6.12.9 and newer.
+#
+# * Apply suggestions from code review
+#
+#
+# ---------
+Patch448: 00448-gh-128916-do-not-set-so_reuseport-on-non--af_inet-sockets-gh-128933.patch
+
+# 00449 # ddd832ac88676343c94b57af00f892928d2c242d
+# gh-128889: Zero out memory ctypes for generated struct layout tests (GH-128944)
+Patch449: 00449-gh-128889-zero-out-memory-ctypes-for-generated-struct-layout-tests-gh-128944.patch
 
 # (New patches go here ^^^)
 #
@@ -772,6 +784,9 @@ rm -r Modules/_decimal/libmpdec
 # (This is after patching, so that we can use patches directly from upstream)
 rm configure pyconfig.h.in
 
+# Patch out the version requirement on autoconf 2.72
+# This can be removed when Fedora 40 goes EOL (2025-05-28)
+sed -i "s/AC_PREREQ(\[2\.72\])/AC_PREREQ([2.71])/" configure.ac
 
 # ======================================================
 # Configuring and building the code:
@@ -1246,8 +1261,8 @@ CheckPython() {
   # test.test_concurrent_futures.test_deadlock tends to time out on s390x and ppc64le in
   # freethreading{,-debug} build, skipping it to shorten the build time
   # see: https://github.com/python/cpython/issues/121719
-  # test_*_repeat_respect_immortality and test_immortals failures were reported:
-  # https://github.com/python/cpython/issues/128058
+  # test_init_pyvenv_cfg is failing since 3.14.0a4, the issue is known upstream:
+  # https://github.com/python/cpython/issues/128690
   LD_LIBRARY_PATH=$ConfDir $ConfDir/python -m test.regrtest \
     -wW --slowest %{_smp_mflags} \
     %ifarch riscv64
@@ -1257,17 +1272,13 @@ CheckPython() {
     %endif
     -i test_freeze_simple_script \
     -i test_check_probes \
+    -i test_init_pyvenv_cfg \
     %ifarch %{mips64}
     -x test_ctypes \
     %endif
     %ifarch s390x ppc64le
     -x test_signal \
     -i test_deadlock \
-    %endif
-    %ifarch %{ix86}
-    -i test_tuple_repeat_respect_immortality \
-    -i test_list_repeat_respect_immortality \
-    -i test_immortals \
     %endif
 
   echo FINISHED: CHECKING OF PYTHON FOR CONFIGURATION: $ConfName
@@ -1703,6 +1714,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Mon Jan 20 2025 Karolina Surma <ksurma@redhat.com> - 3.14.0~a4-1
+- Update to Python 3.14.0a4
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.14.0~a3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

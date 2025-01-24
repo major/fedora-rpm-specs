@@ -1,6 +1,6 @@
 Name:           kommit
-Version:        1.7.0
-Release:        3%{?dist}
+Version:        1.7.1
+Release:        1%{?dist}
 Summary:        Graphical Git Client
 
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND BSD-3-Clause
@@ -18,6 +18,7 @@ BuildRequires:  cmake(Qt6Gui)
 BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(Qt6Concurrent)
 BuildRequires:  cmake(Qt6Core5Compat)
+BuildRequires:  cmake(Qt6Charts)
 BuildRequires:  cmake(KF6ConfigWidgets)
 BuildRequires:  cmake(KF6CoreAddons)
 BuildRequires:  cmake(KF6Crash)
@@ -93,6 +94,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 
 
 %changelog
+* Sat Jan 18 2025 Steve Cossette <farchord@gmail.com> - 1.7.1-1
+- 1.7.1
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

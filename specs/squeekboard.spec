@@ -23,6 +23,9 @@ BuildRequires:	pkgconfig(libfeedback-0.0)
 BuildRequires:	pkgconfig(libbsd)
 BuildRequires:	desktop-file-utils
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 %description
 Squeekboard is a virtual keyboard supporting Wayland, built primarily
 for the Librem 5 phone. It squeaks because some Rust got inside.
@@ -73,6 +76,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/sm.puri.Squeekboard.
 %license COPYING
 
 %changelog
+* Wed Jan 22 2025 David Bold <davidsch@fedoraproject.org> - 1.42.0-2
+- Disable building for i686
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.42.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

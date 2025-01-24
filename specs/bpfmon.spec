@@ -1,6 +1,6 @@
 Name:           bpfmon
 Version:        2.53
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Traffic monitor for BPF expression/iptables rule
 
 License:        GPL-2.0-or-later
@@ -8,6 +8,7 @@ URL:            https://github.com/bbonev/bpfmon/
 Source0:        %{url}releases/download/v%{version}/bpfmon-%{version}.tar.xz
 Source1:        %{url}releases/download/v%{version}/bpfmon-%{version}.tar.xz.asc
 Source2:        https://raw.githubusercontent.com/bbonev/bpfmon/v%{version}/debian/upstream/signing-key.asc
+Patch1:         bpfmon-2.53-sbindir.patch
 
 BuildRequires:  gcc
 BuildRequires:  gnupg2
@@ -36,7 +37,7 @@ menu.
 NO_FLTO=1 %make_build PREFIX=%{_usr} STRIP=: bpfmon
 
 %install
-V=1 STRIP=: %make_install PREFIX=%{_usr}
+V=1 STRIP=: BINDIR=$RPM_BUILD_ROOT%{_bindir} %make_install
 install -TD -m 0644 bpfmon.8 $RPM_BUILD_ROOT/%{_mandir}/man8/bpfmon.8
 
 %files
@@ -45,6 +46,9 @@ install -TD -m 0644 bpfmon.8 $RPM_BUILD_ROOT/%{_mandir}/man8/bpfmon.8
 %{_mandir}/man8/bpfmon.8*
 
 %changelog
+* Thu Jan 23 2025 Boian Bonev <bbonev@ipacct.com> - 2.53-3
+- update for bin and sbin merge https://fedoraproject.org/wiki/Changes/Unify_bin_and_sbin
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.53-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

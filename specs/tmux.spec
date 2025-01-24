@@ -2,7 +2,7 @@
 
 Name:           tmux
 Version:        3.5a
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A terminal multiplexer
 
 License:        ISC AND BSD-2-Clause AND BSD-3-Clause AND SSH-short AND LicenseRef-Fedora-Public-Domain
@@ -11,7 +11,7 @@ Source0:        https://github.com/tmux/%{name}/releases/download/%{version}/%{n
 # Examples has been removed - so include the bash_completion here
 Source1:        bash_completion_tmux.sh
 Source2:        tmux@.service
-
+Source3:        README.polkit
 BuildRequires:  byacc
 BuildRequires:  gcc
 BuildRequires:  systemd-devel
@@ -41,9 +41,15 @@ as GNU Screen.
 
 %install
 %make_install
-# bash completion
+
+# Install the bash completion file
 install -Dpm 644 %{SOURCE1} %{buildroot}%{_datadir}/bash-completion/completions/tmux
+
+# Install the systemd file
 install -Dpm 644 %{SOURCE2} %{buildroot}%{_unitdir}/tmux@.service
+
+# Install the polkit example file
+install -Dpm 644 %{SOURCE3} %{buildroot}%{_docdir}/tmux/README.polkit
 
 %post
 if [ "$1" = 1 ]; then
@@ -66,13 +72,16 @@ fi
 
 %files
 %license COPYING
-%doc CHANGES README* example_tmux.conf
+%doc CHANGES README* example_tmux.conf README.polkit
 %{_bindir}/tmux
 %{_mandir}/man1/tmux.1.*
 %{_datadir}/bash-completion/completions/tmux
 %{_unitdir}/tmux@.service
 
 %changelog
+* Wed Jan 22 2025 Pat Riehecky <riehecky@fnal.gov> - 3.5a-4
+- Add example polkit documentation
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5a-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

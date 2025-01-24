@@ -1,5 +1,5 @@
 Name:           python-system-calls
-Version:        6.11.0
+Version:        6.13.0
 Release:        %{autorelease}
 Summary:        System calls
 
@@ -10,10 +10,7 @@ Source0:        %{pypi_source system-calls}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-
-%if %{with tests}
 BuildRequires:  python3dist(pytest)
-%endif
 
 %global _description %{expand:
 Simple interface to get system call numbers for any architecture.
@@ -48,11 +45,9 @@ mkdir -p %{buildroot}%{_mandir}/man1
 cp -p man/syscall.1 %{buildroot}%{_mandir}/man1/
 
 
-
-%if %{with tests}
 %check
-%pytest
-%endif
+%pyproject_check_import
+%pytest -v ./system_calls/tests/test*.py
 
 
 %files -n python3-system-calls -f %{pyproject_files}

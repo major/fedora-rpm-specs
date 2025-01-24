@@ -15,7 +15,7 @@
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
 Version: 5.15.16
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -151,6 +151,9 @@ fi
 
 
 %changelog
+* Wed Jan 22 2025 Jan Grulich <jgrulich@redhat.com> - 5.15.16-3
+- Rebuild (qt-5.15.16)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.16-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

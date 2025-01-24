@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.81
+Version: 12.83
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
@@ -532,8 +532,14 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Jan 22 2025 Nick Clifton  <nickc@redhat.com> - 12.83-1
+- Annocheck: Remove spurious debugging messages.
+
+* Wed Jan 22 2025 Nick Clifton  <nickc@redhat.com> - 12.82-1
+- Annocheck: Always look for annobin notes in separate debug info files.  (RHEL-75778)
+
 * Thu Jan 16 2025 Nick Clifton  <nickc@redhat.com> - 12.81-1
-- Annocheck: Support multiple --debug-rpm options.  (RHEL-73349)
+- Annocheck: Support multiple --debug-rpm and --debug-file options.  (RHEL-73349)
 
 * Sat Jan 11 2025 Jakub Jelinek  <jakub@redhat.com> - 12.80-2
 - NVR bump to allow rebuild for new GCC in a side-tag.

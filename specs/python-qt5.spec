@@ -9,9 +9,6 @@
 %global webengine 1
 %endif
 %endif
-%if 0%{?fedora}
-%global webkit 1
-%endif
 
 %global rpm_macros_dir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
@@ -23,7 +20,7 @@
 Summary: PyQt5 is Python bindings for Qt5
 Name:    python-qt5
 Version: 5.15.11
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License: GPL-3.0-only
@@ -77,7 +74,7 @@ BuildRequires: %{py3_dist PyQt-builder} >= 1.1.0
 BuildRequires: %{py3_dist sip} >= 5.3
 
 # when split out
-%if 0%{?webengine} || 0%{?webkit}
+%if 0%{?webengine}
 Obsoletes: python-qt5 < 5.5.1-10
 %endif
 
@@ -98,7 +95,7 @@ BuildArch: noarch
 %package -n python%{python3_pkgversion}-qt5
 Summary: Python 3 bindings for Qt5
 # when split out
-%if 0%{?webengine} || 0%{?webkit}
+%if 0%{?webengine}
 Obsoletes: python3-qt5 < 5.5.1-10
 %endif
 Provides: PyQt5 = %{version}-%{release}
@@ -147,18 +144,6 @@ Obsoletes: python3-qt5 < 5.5.1-10
 Requires:  python%{python3_pkgversion}-qt5%{?_isa} = %{version}-%{release}
 %{?python_provide:%python_provide python%{python3_pkgversion}-qt5-webengine}
 %description -n python%{python3_pkgversion}-qt5-webengine
-%{summary}.
-%endif
-
-%if 0%{?webkit}
-%package -n python%{python3_pkgversion}-qt5-webkit
-Summary: Python3 bindings for Qt5 Webkit
-BuildRequires: pkgconfig(Qt5WebKit)
-BuildRequires: pkgconfig(Qt5WebKitWidgets)
-Obsoletes: python3-qt5 < 5.5.1-10
-Requires:  python%{python3_pkgversion}-qt5%{?_isa} = %{version}-%{release}
-%{?python_provide:%python_provide python%{python3_pkgversion}-qt5-webkit}
-%description -n python%{python3_pkgversion}-qt5-webkit
 %{summary}.
 %endif
 
@@ -290,12 +275,6 @@ sed -i \
 %{python3_sitearch}/PyQt5/QtWebEngineWidgets.*
 %endif
 
-%if 0%{?webkit}
-%files -n python%{python3_pkgversion}-qt5-webkit
-%{python3_sitearch}/PyQt5/QtWebKit.*
-%{python3_sitearch}/PyQt5/QtWebKitWidgets.*
-%endif
-
 %files -n python%{python3_pkgversion}-qt5-devel
 %{python3_sitearch}/PyQt5/bindings/
 
@@ -310,6 +289,9 @@ sed -i \
 
 
 %changelog
+* Wed Jan 22 2025 Jan Grulich <jgrulich@redhat.com> - 5.15.11-3
+- Rebuild (qt5)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

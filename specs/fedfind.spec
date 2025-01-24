@@ -1,8 +1,8 @@
 %global srcname fedfind
 
 Name:           fedfind
-Version:        6.0.4
-Release:        2%{?dist}
+Version:        6.0.5
+Release:        1%{?dist}
 Summary:        Fedora compose and image finder
 
 License:        GPL-3.0-or-later
@@ -60,6 +60,9 @@ sed -i -e 's., "setuptools-scm"..g' pyproject.toml
 %{python3_sitelib}/%{srcname}*
 
 %changelog
+* Wed Jan 22 2025 Adam Williamson <awilliam@redhat.com> - 6.0.5-1
+- New release 6.0.5: don't use 'container' type for metadata guessing
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

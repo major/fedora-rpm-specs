@@ -4,7 +4,7 @@
 
 Name:           sblim-gather
 Version:        2.2.9
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        SBLIM Gatherer
 
 License:        EPL-1.0
@@ -50,6 +50,8 @@ Patch10:        sblim-gather-2.2.9-fix-multiple-definition.patch
 Patch11:        sblim-gather-2.2.9-covscan-fixes.patch
 # Patch12: fix incorrect use of temporary paths
 Patch12:        sblim-gather-2.2.9-fix-use-of-temp-paths.patch
+# Patch13: fix FTBFS with GCC 15
+Patch13:        sblim-gather-2.2.9-gcc15-fix.patch
 
 Requires:       cim-server
 Requires(post): systemd
@@ -300,6 +302,9 @@ fi
 %ldconfig_postun provider
 
 %changelog
+* Wed Jan 22 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.2.9-37
+- Fix FTBFS with GCC 15
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.9-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

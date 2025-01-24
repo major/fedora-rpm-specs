@@ -33,7 +33,7 @@ Version:       0.1.1
 %endif
 %endif
 
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Tool for interactive command line environments on Linux
 
 License:       Apache-2.0
@@ -164,14 +164,14 @@ export CGO_CFLAGS="%{optflags} -D_GNU_SOURCE -D_LARGEFILE_SOURCE -D_LARGEFILE64_
 
 %meson \
 %if 0%{?rhel}
-    -Dfish_completions_dir=%{_datadir}/fish/vendor_completions.d \
+    -Dfish_completions_dir=%{fish_completions_dir} \
 %if 0%{?rhel} <= 9
     -Dmigration_path_for_coreos_toolbox=true \
 %endif
 %endif
     -Dprofile_dir=%{_sysconfdir}/profile.d \
     -Dtmpfiles_dir=%{_tmpfilesdir} \
-    -Dzsh_completions_dir=%{_datadir}/zsh/site-functions
+    -Dzsh_completions_dir=%{zsh_completions_dir}
 
 %meson_build
 
@@ -194,15 +194,15 @@ install -m0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/containers/%{name}.conf
 %doc CODE-OF-CONDUCT.md CONTRIBUTING.md GOALS.md NEWS README.md SECURITY.md
 %license COPYING %{?rhel:src/vendor/modules.txt}
 %{_bindir}/%{name}
-%{_datadir}/bash-completion
-%{_datadir}/fish
-%{_datadir}/zsh
 %{_mandir}/man1/%{name}.1*
 %{_mandir}/man1/%{name}-*.1*
 %{_mandir}/man5/%{name}.conf.5*
 %config(noreplace) %{_sysconfdir}/containers/%{name}.conf
 %{_sysconfdir}/profile.d/%{name}.sh
 %{_tmpfilesdir}/%{name}.conf
+%{bash_completions_dir}/%{name}.bash
+%{fish_completions_dir}/%{name}.fish
+%{zsh_completions_dir}/_%{name}
 
 
 %files tests
@@ -210,6 +210,9 @@ install -m0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/containers/%{name}.conf
 
 
 %changelog
+* Wed Jan 22 2025 Debarshi Ray <rishi@fedoraproject.org> - 0.1.1-3
+- Use RPM macros for shell completions and clean up directory ownership
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

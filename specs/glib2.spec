@@ -15,6 +15,9 @@ Patch:          gnutls-hmac.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2192204
 Patch:          default-terminal.patch
 
+# https://gitlab.gnome.org/GNOME/glib/-/merge_requests/4459
+Patch:          revert-gcancellable-changes.patch
+
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  gettext

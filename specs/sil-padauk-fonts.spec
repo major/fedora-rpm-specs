@@ -1,10 +1,9 @@
 Version:  3.003
-Release:  17%{?dist}
+Release:  18%{?dist}
 URL:      https://software.sil.org/padauk/
 
 %global         foundry         SIL
 %global         fontlicense     OFL-1.1
-%global         fontlicenses    LICENSE.md
 %global         fontdocs        *.txt documentation
 %global         fontdocsex      %{fontlicenses}
 
@@ -23,19 +22,19 @@ on all OpenType and Graphite based systems.}
 This package provide the base fonts.}
 
 
-%global fontfamily2       Padauk Book
-%global fontsummary2      Padauk Book fonts
-%global fonts2            PadaukBook*.ttf
-%global fontconfs2        %{SOURCE11}
-%global fontdescription2  %{expand:
-%global fontpkgname2      sil-padauk-book-fonts
+%global fontfamily1       Padauk Book
+%global fontsummary1      Padauk Book fonts
+%global fonts1            PadaukBook*.ttf
+%global fontconfs1        %{SOURCE11}
+%global fontdescription1  %{expand:
+%global fontpkgname1      sil-padauk-book-fonts
 %{common_description}
 
 This package provide Padauk Book family font.}
 
 Source0:  https://github.com/silnrsi/font-padauk/releases/download/v%{version}/padauk-%{version}.zip
 Source10: 65-%{fontpkgname0}.conf
-Source11: 66-%{fontpkgname2}.conf
+Source11: 66-%{fontpkgname1}.conf
 
 %fontpkg -a
 
@@ -55,6 +54,9 @@ Source11: 66-%{fontpkgname2}.conf
 %fontfiles -a
 
 %changelog
+* Wed Jan 22 2025 Parag Nemade <pnemade AT redhat DOT com> - 3.003-18
+- Remove non-exist LICENSE.md file
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.003-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

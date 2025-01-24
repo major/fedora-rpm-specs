@@ -3,7 +3,7 @@
 Summary:       The quintessential all-purpose communications program
 Name:          ckermit
 Version:       9.0.%{patchlevel}
-Release:       36%{?dist}
+Release:       37%{?dist}
 # Most of the package is under a three-clause BSD license, but the file
 # ckaut2.h appears to be covered by three licenses:
 #   The blanket license in COPYING.TXT and ckcmai.c, which is BSD three-clause
@@ -53,7 +53,7 @@ cp %{SOURCE6} .
 
 %build
 %make_build linux \
-        KFLAGS="-O0 $RPM_OPT_FLAGS -Wall -DOPENSSL_097 -Dsdata=s_data -DHAVE_OPENPTY -D'krb5_init_ets(__ctx)=' -DMAINTYPE=int" \
+        KFLAGS="-O0 $RPM_OPT_FLAGS -Wall -ansi -D_DEFAULT_SOURCE -DOPENSSL_097 -Dsdata=s_data -DHAVE_OPENPTY -D'krb5_init_ets(__ctx)=' -DMAINTYPE=int" \
         LNKFLAGS="%{?optflags} %{?__global_ldflags}" \
         K4LIB= \
         K4INC= \
@@ -89,6 +89,9 @@ install -D -m 0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/kermit/ckermit.phone
 %{_mandir}/man1/kermit.1*
 
 %changelog
+* Wed Jan 22 2025 David Cantrell <dcantrell@redhat.com> - 9.0.302-37
+- Add '-ansi -D_DEFAULT_SOURCE' to KFLAG variable to fix FTBFS (#2339971)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.302-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

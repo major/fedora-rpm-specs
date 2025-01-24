@@ -1,6 +1,6 @@
 # spec file for php-pear-PHP-CodeSniffer
 #
-# Copyright (c) 2013-2024 Remi Collet
+# Copyright (c) 2013-2025 Remi Collet
 # Copyright (c) 2009-2013 Christof Damian
 # Copyright (c) 2006-2009 Konstantin Ryabitsev
 #
@@ -109,7 +109,8 @@ rm src/Standards/Generic/Tests/Debug/JSHintUnitTest.*
 
 # Fix current date
 YEAR=$(date +%Y)
-sed -e "/@copyright/s/2021/${YEAR}/" \
+PREV=$(expr $YEAR - 1)
+sed -e "/@copyright/s/${PREV}/${YEAR}/" \
     -i src/Standards/Squiz/Tests/Commenting/FileCommentUnitTest.1.*.fixed
 
 # Version 3.11.2: Tests: 3174, Assertions: 18639, Warnings: 3, Skipped: 19.
@@ -144,6 +145,9 @@ fi
 
 
 %changelog
+* Wed Jan 22 2025 Remi Collet <remi@remirepo.net> - 3.11.2-2
+- fix tests failing because of new year
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

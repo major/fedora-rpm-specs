@@ -1,6 +1,6 @@
 Name:           libnice
 Version:        0.1.22
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GLib ICE implementation
 
 # Automatically converted from old format: LGPLv2 and MPLv1.1 - review is highly recommended.
@@ -15,6 +15,7 @@ Source2: olivier.pgp
 
 # Build against the new gupnp-igd
 Patch0:         libnice-gupnp-1.6.patch
+Patch1:         libnice-0.1.22-fix-test-new-trickle-for-glib-2.83.patch
 
 BuildRequires:  glib2-devel
 BuildRequires:  gnupg2
@@ -108,6 +109,9 @@ sed \
 
 
 %changelog
+* Wed Jan 22 2025 Stefan Becker <chemobejk@gmail.com> - 0.1.22-5
+- add upstream patch to fix test-new-trickle for Glib 2.83
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.22-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

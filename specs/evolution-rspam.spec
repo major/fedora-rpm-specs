@@ -1,7 +1,7 @@
 Name: evolution-rspam
 Summary: Evolution Plugin for reporting spam
 Version: 0.6.0
-Release: 46%{?dist}
+Release: 47%{?dist}
 License: GPL-2.0-or-later
 Source: http://gnome.eu.org/%{name}-%{version}.tar.xz
 URL: http://gnome.eu.org/evo/index.php/Report_as_Spam
@@ -18,6 +18,7 @@ Patch8: evolution-rspam-0.6.0-evo3_23_2.patch
 Patch9: evolution-rspam-0.6.0-fix-po-charset.patch
 Patch10: evolution-rspam-0.6.0-no-gtkuimanager.patch
 Patch11: evolution-rspam-0.6.0-spamcop-flush-outbox-on-send.patch
+Patch12: evolution-rspam-0.6.0-gcc-changes.patch
 
 Requires: perl-Razor-Agent
 Requires: pyzor
@@ -65,6 +66,9 @@ find %{buildroot} -name \*\.la -print | xargs rm -f
 %doc TODO
 
 %changelog
+* Wed Jan 22 2025 Milan Crha <mcrha@redhat.com> - 0.6.0-47
+- Add patch to fix build with a new gcc
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

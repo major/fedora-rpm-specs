@@ -252,6 +252,7 @@ Source202:      samba.abignore
 
 Patch0:         samba-4.21.0-s3-notifyd.patch
 Patch1:         samba-4-21-pycrypt.patch
+Patch2:         samba-4-21-fix-smbreadline.patch
 
 Requires(pre): %{name}-common = %{samba_depver}
 Requires: %{name}-common = %{samba_depver}

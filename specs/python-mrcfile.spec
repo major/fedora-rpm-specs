@@ -18,7 +18,7 @@ interactively to inspect files, correct headers and so on, or in scripts and\
 larger software packages to provide basic MRC file I/O functions.
 
 Name: python-%{pname}
-Version: 1.5.3
+Version: 1.5.4
 Release: %autorelease
 Summary: MRC2014 file format used in structural biology to store image and volume data
 License: BSD-3-Clause

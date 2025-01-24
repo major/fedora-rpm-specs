@@ -14,8 +14,8 @@
 Name:           perl-Test-Simple
 Summary:        Basic utilities for writing tests
 Epoch:          3
-Version:        1.302207
-Release:        2%{?dist}
+Version:        1.302208
+Release:        1%{?dist}
 # CC0-1.0: lib/ok.pm
 # Public Domain: lib/Test/Tutorial.pod
 # GPL-1.0-or-later OR Artistic-1.0-Perl: the rest of the distribution
@@ -403,6 +403,10 @@ make test %{!?perl_bootstrap:AUTHOR_TESTING=1}
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jan 22 2025 Paul Howarth <paul@city-fan.org> - 3:1.302208-1
+- Update to 1.302208
+  - Avoid closing over values in string eval when comparing values (GH#1018)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3:1.302207-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

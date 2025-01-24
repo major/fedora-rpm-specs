@@ -1,10 +1,19 @@
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+# all packages requiring libindi are now disabled on i686
+ExcludeArch:    %{ix86}
+
 # Define boolean to quickly set option and dependencies for
 # building QT5 client
 %global build_qt5_client 1
 
 # Define boolean to quickly set option and dependencies for
 # building with websocket support
-%global build_websocket 1
+# RHEL 10 doesn't have websocketcpp
+%if 0%{?rhel} && 0%{?rhel} >= 10
+%bcond_with websocket
+%else
+%bcond_without websocket
+%endif
 
 # Define boolean to quickly set option and dependencies for
 # unit tests
@@ -23,6 +32,10 @@ License:    GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later and BSD
 
 URL:        http://www.indilib.org
 Source0:    https://github.com/indilib/indi/archive/v%{version}/indi-%{version}.tar.gz
+
+# Fix build with GCC15 / C++23
+# https://github.com/indilib/indi/pull/2165
+Patch:      fix_gcc15-c++23.patch
 
 BuildRequires: cmake
 BuildRequires: libev-devel
@@ -57,7 +70,7 @@ BuildRequires: pkgconfig(Qt5Network)
 %global qt5_client OFF
 %endif
 
-%if 0%{?build_websocket}
+%if %{with websocket}
 BuildRequires: boost-devel
 BuildRequires: websocketpp-devel
 %global websocket ON

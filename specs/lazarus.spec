@@ -1,9 +1,9 @@
 Name:           lazarus
 Summary:        Lazarus Component Library and IDE for Free Pascal
 
-Version:        3.6
+Version:        3.8
 
-%global baserelease 3
+%global baserelease 1
 Release:        %{baserelease}%{?dist}
 
 # The qt5pas version is taken from lcl/interfaces/qt5/cbindings/Qt5Pas.pro
@@ -375,7 +375,7 @@ for QTVER in 5 6; do
 	# and replace them with symlinks to the standalone .so.
 	for FILEPATH in "%{buildroot}%{_libdir}/%{name}/lcl/interfaces/qt${QTVER}/cbindings/libQt${QTVER}Pas.so"* ; do
 		FILENAME="$(basename "${FILEPATH}")"
-		ln -sf "%{_libdir}/${FILENAME}" "${FILEPATH}"
+		ln -sfr "%{buildroot}%{_libdir}/${FILENAME}" "${FILEPATH}"
 	done
 
 	# Cannot be done earlier since "make install" expects the tmp/ directory to be present. Sigh.
@@ -564,6 +564,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Wed Jan 22 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.8-1
+- Update to v3.8
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

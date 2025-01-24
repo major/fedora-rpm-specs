@@ -29,6 +29,9 @@ License:        MIT
 URL:            %{gourl}
 Source:         %{gosource}
 
+# https://bugzilla.redhat.com/show_bug.cgi?id=2340289
+Patch1:         fix-format-string.patch
+
 %description %{common_description}
 
 %gopkg

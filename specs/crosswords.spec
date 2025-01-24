@@ -1,28 +1,22 @@
 %bcond docs 1
 %bcond tests 1
 
+# The libipuz shared library version
+%global ipuz_soversion 0.5
+
 Name:           crosswords
-Version:        0.3.13.3
+Version:        0.3.14
 Release:        %autorelease
 Summary:        Solve crossword puzzles
 
-%global ipuz_soversion %(v=$(echo %{version} | tr -d .) && [ "${v:0:4}" -ge 0314 ] && echo 0.5 || echo 0.4)
-
-# crosswords itself is GPL-3.0-or-later, the puzzle sets it bundles are
-# CC-BY-SA-4.0
-License:        GPL-3.0-or-later AND CC-BY-SA-4.0
+# * crosswords itself is GPL-3.0-or-later
+# * the puzzle sets it bundles are CC-BY-SA-4.0
+# * the broda word list is LicenseRef-Fedora-UltraPermissive per
+#   https://gitlab.com/fedora/legal/fedora-license-data/-/issues/627
+# * the wordnik word list is MIT per word-lists/LICENSE.wordnik
+License:        GPL-3.0-or-later AND CC-BY-SA-4.0 AND LicenseRef-Fedora-UltraPermissive AND MIT
 URL:            https://gitlab.gnome.org/jrb/crosswords
 Source:         %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
-# Update requirements.txt and add a warning
-Patch:          %{url}/-/commit/0458426e9595c95f765f347d47a27a2a4ed8ae63.patch
-# build: relax Python version pins in requirements.txt
-Patch:          %{url}/-/commit/18d3ad276ff8f2f416f7a10067844878e56440d3.patch
-# Fix gresource generation
-Patch:          %{url}/-/commit/7aa9f6da72c2821a467989a8458e5b204184598e.patch
-Patch:          %{url}/-/commit/b4689c2426cf24e944f8ae419ed23f1969745995.patch
-Patch:          %{url}/-/commit/3891aecfe538864cfc31561d21ccbcd007a94d2d.patch
-# Only load AdwStyleManager if we have a display
-Patch:          %{url}/-/commit/216efd16f5e651a039d3de7bf7219e7c38a2407a.patch
 
 # Big endian systems are not supported
 # https://jrb.pages.gitlab.gnome.org/crosswords/devel-docs/PACKAGING.html
@@ -186,9 +180,6 @@ desktop-file-validate \
   %{buildroot}/%{_datadir}/applications/org.gnome.Crosswords.Editor.desktop
 %endif
 
-# TODO: remove when the 0.3.14 is out
-mkdir -p %{buildroot}%{_datadir}/%{name}/word-lists
-
 %files -f %{name}.lang
 %license COPYING
 %doc CONTRIBUTING.md NEWS.md README.md TODO.md images
@@ -196,9 +187,7 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/word-lists
 %dir %{_datadir}/%{name}
 %dir %{_datadir}/%{name}/puzzle-sets
 %dir %{_datadir}/%{name}/word-lists/
-%if %(v=$(echo %{version} | tr -d .) && [ "${v:0:4}" -ge 0314 ] && echo 1 || echo 0)
 %{_datadir}/%{name}/word-lists/player.gresource
-%endif
 %{_datadir}/applications/org.gnome.Crosswords.desktop
 %{_datadir}/dbus-1/services/org.gnome.Crosswords.service
 %{_datadir}/glib-2.0/schemas/org.gnome.Crosswords.gschema.xml
@@ -229,11 +218,10 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/word-lists
 %{_datadir}/thumbnailers/%{name}.thumbnailer
 
 %files -n crossword-editor
+%license word-lists/LICENSE.wordnik
 %{_bindir}/crossword-editor
-%if %(v=$(echo %{version} | tr -d .) && [ "${v:0:4}" -ge 0314 ] && echo 1 || echo 0)
 %{_datadir}/%{name}/word-lists/broda.gresource
 %{_datadir}/%{name}/word-lists/wordnik.gresource
-%endif
 %{_datadir}/applications/org.gnome.Crosswords.Editor.desktop
 %{_datadir}/dbus-1/services/org.gnome.Crosswords.Editor.service
 %{_datadir}/glib-2.0/schemas/org.gnome.Crosswords.Editor.gschema.xml

@@ -6,7 +6,7 @@
 
 Name:               gfal2
 Version:            2.23.1
-Release:            2%{?dist}
+Release:            3%{?dist}
 Summary:            Grid file access library 2.0
 License:            Apache-2.0
 URL:                https://dmc-docs.web.cern.ch/dmc-docs/gfal2/gfal2.html
@@ -285,6 +285,9 @@ fi
 
 
 %changelog
+* Wed Jan 22 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.23.1-3
+- Rebuilt for gtest 1.15.2
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.23.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

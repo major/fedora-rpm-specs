@@ -1,6 +1,6 @@
 Name:           inadyn-mt
 Version:        2.28.10
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Dynamic DNS Client
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -12,7 +12,8 @@ Source3:        inadyn-nm-dispatcher
 Patch1:         inadyn-mt-libao.patch
 # https://gitlab.com/bhoover/inadyn-mt/commit/84c18b121886e22375e2163d495f75a207b96d11
 Patch2:         inadyn-mt-gcc10.patch
-Patch3: inadyn-mt-c99.patch
+Patch3:         inadyn-mt-c99.patch
+Patch4:         inadyn-mt-c23.patch
 
 BuildRequires:  automake
 BuildRequires:  autoconf
@@ -50,7 +51,8 @@ should then fill in /etc/inadyn.conf with the appropriate detail
 %setup -q -n %name.v.0%{version}
 %patch -P1 -p1 -b .libao
 %patch -P2 -p1 -b .gcc10
-%patch -P3 -p1
+%patch -P3 -p1 -b .c99
+%patch -P4 -p1 -b .c23
 
 %build
 rm -rf bin/
@@ -113,6 +115,9 @@ exit 0
 %attr(755,inadyn,inadyn) %dir /var/cache/inadyn-mt/
 
 %changelog
+* Wed Jan 22 2025 Michael Cronenworth <mike@cchtml.com> - 2.28.10-23
+- C23 compatibility fixes
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.28.10-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

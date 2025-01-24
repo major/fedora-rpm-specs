@@ -3,8 +3,8 @@
 %global __suggests_exclude ^R\\((pkgKitten|rbenchmark|tinytest)\\)
 
 Name:		R-%{packname}
-Version:	1.0.13
-Release:	3%{?dist}
+Version:	1.0.14
+Release:	1%{?dist}
 Summary:	Seamless R and C++ Integration
 
 #		The following three files uses the Boost Software License:
@@ -14,10 +14,6 @@ Summary:	Seamless R and C++ Integration
 License:	GPL-2.0-or-later AND BSL-1.0
 URL:		https://cran.r-project.org/package=%{packname}
 Source0:	%{url}&version=%{version}#/%{packname}_%{version}.tar.gz
-#		Require R >= 4.5.0 for new APIs
-#		https://github.com/RcppCore/Rcpp/issues/1341
-#		https://github.com/RcppCore/Rcpp/pull/1342
-Patch0:		0001-require-R-4.5.0-closes-1341-1342.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	R-core-devel
@@ -58,9 +54,6 @@ Examples for using Rcpp.
 
 %prep
 %setup -q -c
-pushd %{packname}
-%patch -P0 -p1
-popd
 
 dos2unix -k \
     %{packname}/inst/tinytest/cpp/InternalFunction.cpp \
@@ -117,6 +110,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 %{_libdir}/R/library/%{packname}/examples
 
 %changelog
+* Wed Jan 22 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.0.14-1
+- Update to 1.0.14
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.13-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

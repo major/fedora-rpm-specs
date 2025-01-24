@@ -55,6 +55,10 @@ Source1:        generate-drivers-tarball.sh
 # Patch for building with libahp-xc >=1.4.4
 Patch:          ahp-xc-1.4.4.patch
 
+# Fix build with GCC15 / C++23
+# https://github.com/indilib/indi-3rdparty/pull/1031
+Patch:          fix_gcc15-c++23.patch
+
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++

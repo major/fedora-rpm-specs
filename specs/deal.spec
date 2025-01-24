@@ -87,6 +87,9 @@ done
 %license GPL LICENSE
 
 %changelog
+* Wed Jan 22 2025 Garry T. Williams <gtwilliams@gmail.com> 3.1.12-2
+- Fixed C23 compiler errors
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

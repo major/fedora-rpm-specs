@@ -196,6 +196,7 @@ sed -i 's|-mfpmath=387|-mfloat-abi=hard|' setup.py
 
 %build
 %set_build_flags
+export CFLAGS="%{optflags} -I%{_includedir}/security"
 %py3_build -- \
     --without-nvidia --without-pandoc_lua \
     --with-verbose \

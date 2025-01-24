@@ -1,6 +1,6 @@
 Name:		msktutil
-Version:	1.2
-Release:	9%{?dist}
+Version:	1.2.2
+Release:	1%{?dist}
 Summary:	Program for interoperability with Active Directory 
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -36,11 +36,13 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %license LICENSE
 %doc README ChangeLog
 %{_mandir}/man1/*
-%{_bindir}/%{name}
 %{_sbindir}/%{name}
 
 
 %changelog
+* Wed Jan 22 2025 Michael Cronenworth <mike@cchtml.com> - 1.2.2-1
+- Update to 1.2.2
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

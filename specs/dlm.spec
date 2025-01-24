@@ -1,6 +1,6 @@
 Name:           dlm
 Version:        4.3.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:	GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary:        dlm control daemon and tool
 URL:            https://pagure.io/dlm
@@ -39,7 +39,7 @@ The kernel dlm requires a user daemon to control membership.
 %make_build -j1 -C fence
 
 %install
-%make_install LIBDIR=%{_libdir}
+%make_install LIBDIR=%{_libdir} BINDIR=%{_sbindir}
 make -C fence install LIBDIR=%{_libdir} DESTDIR=$RPM_BUILD_ROOT
 
 install -Dm 0644 init/dlm.service %{buildroot}%{_unitdir}/dlm.service
@@ -94,6 +94,9 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Wed Jan 22 2025 David Teigland <teigland@redhat.com> - 4.3.0-4
+- set BINDIR
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

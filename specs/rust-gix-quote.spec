@@ -5,7 +5,7 @@
 %global crate gix-quote
 
 Name:           rust-gix-quote
-Version:        0.4.14
+Version:        0.4.15
 Release:        %autorelease
 Summary:        Deal with various quotations used by git
 

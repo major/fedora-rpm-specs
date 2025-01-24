@@ -2,7 +2,7 @@
 
 Name:         davix
 Version:      0.8.8
-Release:      1%{?dist}
+Release:      2%{?dist}
 Summary:      Toolkit for HTTP-based file management
 License:      LGPL-2.1-or-later AND LGPL-2.0-or-later AND BSD-2-Clause AND MIT AND Apache-2.0 AND curl
 URL:          https://dmc-docs.web.cern.ch/dmc-docs/davix.html
@@ -151,6 +151,9 @@ rm %{buildroot}%{_pkgdocdir}/LICENSE
 %license LICENSE
 
 %changelog
+* Wed Jan 22 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 0.8.8-2
+- Rebuilt for gtest 1.15.2
+
 * Tue Jan 21 2025 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 0.8.8-1
 - New upstream release 0.8.8
 - Align specfile with upstream (including whitespace from tabs to spaces)

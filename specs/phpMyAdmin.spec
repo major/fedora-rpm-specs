@@ -1,22 +1,24 @@
+# Fedora spec file for phpMyAdmin
 #
 # License: MIT
 # http://opensource.org/licenses/MIT
 #
 # Please, preserve the changelog entries
 #
-%{!?_pkgdocdir: %global _pkgdocdir %{_datadir}/doc/%{name}-%{version}}
+
+%bcond_with generators
 
 # nginx 1.6 with nginx-filesystem
 %global with_nginx     1
 # httpd 2.4 with httpd-filesystem
 %global with_httpd     1
 
-%global upstream_version 5.2.1
+%global upstream_version 5.2.2
 #global upstream_prever  rc1
 
 Name: phpMyAdmin
 Version: %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release: 6%{?dist}
+Release: 1%{?dist}
 Summary: A web interface for MySQL and MariaDB
 
 # phpMyAdmin is GPL-2.0-or-later
@@ -42,6 +44,9 @@ BuildRequires: gnupg2
 BuildRequires: php(language) >= 7.2.5
 BuildRequires: php-cli
 BuildRequires: php-json
+%if %{with generators}
+BuildRequires: composer-generators
+%endif
 
 Requires(post): coreutils sed
 Requires:  webserver
@@ -85,69 +90,73 @@ Requires:  php-openssl
 Requires:  php-pcre
 Requires:  php-xml
 
+%if %{without generators}
 # License BSD-2-Clause
-Provides:  bundled(php-bacon-bacon-qr-code) = 2.0.8
-Provides:  bundled(php-beberlei-assert) = v3.3.2
-Provides:  bundled(php-code-lts-u2f-php-server) = v1.2.1
-Provides:  bundled(php-dasprid-enum) = 1.0.3
+Provides:  bundled(php-composer(bacon/bacon-qr-code)) = 2.0.8
+Provides:  bundled(php-composer(beberlei/assert)) = 3.3.3
+Provides:  bundled(php-composer(code-lts/u2f-php-server)) = 1.2.2
+Provides:  bundled(php-composer(dasprid/enum)) = 1.0.6
 # License BSD-3-Clause
-Provides:  bundled(php-google-recaptcha) = 1.2.4
-Provides:  bundled(php-nikic-fast-route) = v1.3.0
-Provides:  bundled(php-twig-twig) = v3.5.0
+Provides:  bundled(php-composer(google/recaptcha)) = 1.2.4
+Provides:  bundled(php-composer(nikic/fast-route)) = 1.3.0
+Provides:  bundled(php-composer(twig/twig)) = 3.11.3
 # License GPL-2.0-or-later
-Provides:  bundled(php-phpmyadmin-motranslator) = 5.3.0
-Provides:  bundled(php-phpmyadmin-shapefile) = 3.0.1
-Provides:  bundled(php-phpmyadmin-sql-parser) = 5.7.0
+Provides:  bundled(php-composer(phpmyadmin/motranslator)) = 5.3.1
+Provides:  bundled(php-composer(phpmyadmin/shapefile)) = 3.0.2
+Provides:  bundled(php-composer(phpmyadmin/sql-parser)) = 5.10.3
 # License ISC
-Provides:  bundled(php-paragonie-sodium-compat) = v1.19.0
-# License LGPL-3.0-only
-Provides:  bundled(php-tecnickcom-tcpdf) = 6.6.2
+Provides:  bundled(php-composer(paragonie/sodium_compat)) = 1.21.1
+# License LGPL-3.0-or-later
+Provides:  bundled(php-composer(tecnickcom/tcpdf)) = 6.8.0
 # License MIT
-Provides:  bundled(php-brick-math) = 0.8.17
-Provides:  bundled(php-composer-ca-bundle) = 1.3.5
-Provides:  bundled(php-fgrosse-phpasn1) = v2.5.0
-Provides:  bundled(php-fig-http-message-util) = 1.1.5
-Provides:  bundled(php-league-uri) = 6.4.0
-Provides:  bundled(php-league-uri-interfaces) = 2.3.0
-Provides:  bundled(php-paragonie-constant-time-encoding) = v2.6.3
-Provides:  bundled(php-paragonie-random-compat) = v9.99.100
-Provides:  bundled(php-phpmyadmin-twig-i18n-extension) = v4.0.1
-Provides:  bundled(php-pragmarx-google2fa) = v8.0.1
-Provides:  bundled(php-pragmarx-google2fa-qrcode) = v2.1.1
-Provides:  bundled(php-psr-cache) = 1.0.1
-Provides:  bundled(php-psr-container) = 1.1.1
-Provides:  bundled(php-psr-http-client) = 1.0.1
-Provides:  bundled(php-psr-http-factory) = 1.0.1
-Provides:  bundled(php-psr-http-message) = 1.0.1
-Provides:  bundled(php-psr-log) = 1.1.4
-Provides:  bundled(php-ralouphie-getallheaders) = 3.0.3
-Provides:  bundled(php-ramsey-collection) = 1.1.4
-Provides:  bundled(php-ramsey-uuid) = 4.2.3
-Provides:  bundled(php-slim-psr7) = 1.4
-Provides:  bundled(php-spomky-labs-base64url) = v2.0.4
-Provides:  bundled(php-spomky-labs-cbor-php) = v1.1.1
-Provides:  bundled(php-symfony-cache) = v5.4.19
-Provides:  bundled(php-symfony-cache-contracts) = v2.5.2
-Provides:  bundled(php-symfony-config) = v5.4.19
-Provides:  bundled(php-symfony-dependency-injection) = v5.4.20
-Provides:  bundled(php-symfony-deprecation-contracts) = v2.5.2
-Provides:  bundled(php-symfony-expression-language) = v5.4.19
-Provides:  bundled(php-symfony-filesystem) = v5.4.19
-Provides:  bundled(php-symfony-polyfill-ctype) = v1.27.0
-Provides:  bundled(php-symfony-polyfill-mbstring) = v1.27.0
-Provides:  bundled(php-symfony-polyfill-php73) = v1.27.0
-Provides:  bundled(php-symfony-polyfill-php80) = v1.27.0
-Provides:  bundled(php-symfony-polyfill-php81) = v1.27.0
-Provides:  bundled(php-symfony-process) = v5.4.19
-Provides:  bundled(php-symfony-service-contracts) = v2.5.2
-Provides:  bundled(php-symfony-var-exporter) = v5.4.19
-Provides:  bundled(php-thecodingmachine-safe) = v1.3.3
-Provides:  bundled(php-web-auth-cose-lib) = v3.3.12
-Provides:  bundled(php-web-auth-metadata-service) = v3.3.12
-Provides:  bundled(php-web-auth-webauthn-lib) = v3.3.12
-Provides:  bundled(php-webmozart-assert) = 1.11.0
+Provides:  bundled(php-composer(brick/math)) = 0.8.17
+Provides:  bundled(php-composer(composer/ca-bundle)) = 1.5.5
+Provides:  bundled(php-composer(fgrosse/phpasn1)) = 2.5.0
+Provides:  bundled(php-composer(fig/http-message-util)) = 1.1.5
+Provides:  bundled(php-composer(league/uri)) = 6.4.0
+Provides:  bundled(php-composer(league/uri-interfaces)) = 2.3.0
+Provides:  bundled(php-composer(paragonie/constant_time_encoding)) = 2.7.0
+Provides:  bundled(php-composer(paragonie/random_compat)) = 9.99.100
+Provides:  bundled(php-composer(phpmyadmin/twig-i18n-extension)) = 4.1.3
+Provides:  bundled(php-composer(pragmarx/google2fa)) = 8.0.3
+Provides:  bundled(php-composer(pragmarx/google2fa-qrcode)) = 2.1.1
+Provides:  bundled(php-composer(psr/cache)) = 1.0.1
+Provides:  bundled(php-composer(psr/container)) = 1.1.1
+Provides:  bundled(php-composer(psr/http-client)) = 1.0.3
+Provides:  bundled(php-composer(psr/http-factory)) = 1.1.0
+Provides:  bundled(php-composer(psr/http-message)) = 1.1
+Provides:  bundled(php-composer(psr/log)) = 1.1.4
+Provides:  bundled(php-composer(ralouphie/getallheaders)) = 3.0.3
+Provides:  bundled(php-composer(ramsey/collection)) = 1.1.4
+Provides:  bundled(php-composer(ramsey/uuid)) = 4.2.3
+Provides:  bundled(php-composer(slim/psr7)) = 1.4.1
+Provides:  bundled(php-composer(spomky-labs/base64url)) = 2.0.4
+Provides:  bundled(php-composer(spomky-labs/cbor-php)) = 1.1.1
+Provides:  bundled(php-composer(symfony/cache)) = 5.4.46
+Provides:  bundled(php-composer(symfony/cache-contracts)) = 2.5.4
+Provides:  bundled(php-composer(symfony/config)) = 5.4.46
+Provides:  bundled(php-composer(symfony/dependency-injection)) = 5.4.48
+Provides:  bundled(php-composer(symfony/deprecation-contracts)) = 2.5.4
+Provides:  bundled(php-composer(symfony/expression-language)) = 5.4.45
+Provides:  bundled(php-composer(symfony/filesystem)) = 5.4.45
+Provides:  bundled(php-composer(symfony/polyfill-ctype)) = 1.31.0
+Provides:  bundled(php-composer(symfony/polyfill-mbstring)) = 1.31.0
+Provides:  bundled(php-composer(symfony/polyfill-php73)) = 1.31.0
+Provides:  bundled(php-composer(symfony/polyfill-php80)) = 1.31.0
+Provides:  bundled(php-composer(symfony/polyfill-php81)) = 1.31.0
+Provides:  bundled(php-composer(symfony/process)) = 5.4.47
+Provides:  bundled(php-composer(symfony/service-contracts)) = 2.5.4
+Provides:  bundled(php-composer(symfony/var-exporter)) = 5.4.45
+Provides:  bundled(php-composer(thecodingmachine/safe)) = 1.3.3
+Provides:  bundled(php-composer(web-auth/cose-lib)) = 3.3.12
+Provides:  bundled(php-composer(web-auth/metadata-service)) = 3.3.12
+Provides:  bundled(php-composer(web-auth/webauthn-lib)) = 3.3.12
+Provides:  bundled(php-composer(webmozart/assert)) = 1.11.0
 # License MPL-2.0
-Provides:  bundled(php-williamdes-mariadb-mysql-kbs) = v1.2.14
+Provides:  bundled(php-composer(williamdes/mariadb-mysql-kbs)) = 1.3.0
+# main package
+Provides:  php-composer(phpmyadmin/phpmyadmin) = %{version}
+%endif
 
 Requires:  php-dom
 Requires:  php-intl
@@ -179,7 +188,6 @@ Provides:  bundled(js-jquery) = 3.2.1
 Provides:  bundled(js-openlayers)
 Provides:  bundled(js-tracekit)
 
-Provides:  php-composer(phpmyadmin/phpmyadmin) = %{version}
 # Allow lowercase in install command
 Provides:  phpmyadmin   =  %{version}-%{release}
 
@@ -209,9 +217,7 @@ sed -e "/'blowfish_secret'/s@''@'MUSTBECHANGEDONINSTALL'@"  \
 sed -e "/'changeLogFile'/s@ROOT_PATH@'%{_pkgdocdir}/'@" \
     -e "/'licenseFile'/s@ROOT_PATH@'%{_pkgdocdir}/'@" \
     -e "/'configFile'/s@ROOT_PATH@'%{_sysconfdir}/%{name}/'@" \
-%if 0%{?_licensedir:1}
     -e '/licenseFile/s:%_defaultdocdir:%_defaultlicensedir:' \
-%endif
     -e "/versionSuffix/s/''/'-%{release}'/" \
     -e "/tempDir/s@ROOT.*tmp'@'%{_localstatedir}/lib/%{name}/temp'@" \
     -e "/cacheDir/s@ROOT.*cache'@'%{_localstatedir}/lib/%{name}/cache'@" \
@@ -220,7 +226,9 @@ sed -e "/'changeLogFile'/s@ROOT_PATH@'%{_pkgdocdir}/'@" \
 # For debug
 grep '=>' libraries/vendor_config.php
 
+%if %{without generators}
 php %{SOURCE5} vendor/composer/installed.json
+%endif
 
 
 %build
@@ -259,7 +267,7 @@ mv     %{buildroot}%{_datadir}/%{name}/libraries/cache %{buildroot}/%{_localstat
 rm -rf    %{buildroot}%{_datadir}/%{name}/examples/
 rm -rf    %{buildroot}%{_datadir}/%{name}/doc/
 mkdir -p  %{buildroot}%{_datadir}/%{name}/doc/
-ln -s %{_pkgdocdir}/html  %{buildroot}%{_datadir}/%{name}/doc/html
+ln -s ../../doc/%{name}/html  %{buildroot}%{_datadir}/%{name}/doc/html
 
 mv -f %{buildroot}%{_datadir}/%{name}/js/vendor/jquery/MIT-LICENSE.txt LICENSE-jquery
 mv -f %{buildroot}%{_datadir}/%{name}/js/vendor/codemirror/LICENSE LICENSE-codemirror
@@ -279,7 +287,6 @@ sed -e "/'blowfish_secret'/s/MUSTBECHANGEDONINSTALL/$SECRET/" \
 
 
 %files
-%{!?_licensedir:%global license %%doc}
 %license LICENSE*
 %doc ChangeLog README CONTRIBUTING.md config.sample.inc.php
 %doc doc/html/
@@ -302,6 +309,9 @@ sed -e "/'blowfish_secret'/s/MUSTBECHANGEDONINSTALL/$SECRET/" \
 
 
 %changelog
+* Wed Jan 22 2025 Remi Collet <remi@remirepo.net> - 5.2.2-1
+- update to 5.2.2 (2025-01-21, security and bugfix release)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

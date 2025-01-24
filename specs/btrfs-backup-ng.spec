@@ -1,5 +1,5 @@
 Name:           btrfs-backup-ng
-Version:        0.6.4
+Version:        0.6.5
 Release:        %autorelease
 Summary:        Intelligent, feature-rich backups for btrfs
 

@@ -18,7 +18,7 @@
 
 Name:		insight
 Version:	%(echo %{ver} | tr - .)%{?snap:.%{snap}}
-Release:	20%{?dist}
+Release:	21%{?dist}
 Summary:	Graphical debugger based on GDB
 # Automatically converted from old format: GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and BSD and Public Domain and GFDL - review is highly recommended.
 License:	GPL-3.0-or-later AND LicenseRef-Callaway-GPLv3+-with-exceptions AND GPL-2.0-or-later AND LicenseRef-Callaway-GPLv2+-with-exceptions AND GPL-1.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-Public-Domain AND LicenseRef-Callaway-GFDL
@@ -96,6 +96,7 @@ Patch207:	insight-13.0-bfd-CVE-2023-1972.patch
 Patch208:	insight-13.0-gdb-python313.patch
 Patch209:	insight-13.0.50-calloc.patch
 Patch210:	insight-13.0.50-C++20.patch
+Patch211:	insight-13.0.50-bool.patch
 
 
 %description
@@ -136,6 +137,7 @@ the latest GDB version.
 %patch 208 -p1
 %patch 209 -p1
 %patch 210 -p1
+%patch 211 -p1
 
 
 #-------------------------------------------------------------------------------
@@ -331,6 +333,11 @@ ${INSTALL} -m 644 gdb/gdbtk/insight_icon.svg				\
 
 #-------------------------------------------------------------------------------
 %changelog
+#-------------------------------------------------------------------------------
+
+* Tue Jan 21 2025 Patrick Monnerat <patrick@monnerat.net> 13.0.50.20220502-21
+- Patch "bool" to rename a variable conflicting with a reserved word.
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.50.20220502-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
@@ -342,8 +349,6 @@ ${INSTALL} -m 644 gdb/gdbtk/insight_icon.svg				\
 
 * Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 13.0.50.20220502-17
 - Rebuilt for Python 3.13
-
-#-------------------------------------------------------------------------------
 
 * Wed Apr  3 2024 Patrick Monnerat <patrick@monnerat.net> 13.0.50.20220502-16
 - Patch "C++20" to fix a language deprecation (FTBFS).

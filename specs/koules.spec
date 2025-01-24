@@ -73,6 +73,8 @@ Patch49:        0049-From-Debian-111_font_unsigned_char.diff.patch
 Patch50:        0050-From-Debian-112_unsigned_control.diff.patch
 Patch51:        0051-From-Debian-113_spelling_fixes.diff.patch
 Patch52:        0052-From-Debian-double-declaration.patch
+Patch100:       0100-c23.patch
+Patch101:       0101-ansi-c.patch
 
 %description
 Koules is a fast action arcade-style game.  It works in fine resolution
@@ -189,6 +191,12 @@ cp %{SOURCE2} %{buildroot}%{_libexecdir}/%{name}/koules.sndsrv.linux
 
 
 %changelog
+* Tue Jan 21 2025 Charles R. Anderson <cra@alum.wpi.edu> - 1.4-48
+- Add 0100-c23.patch for C23 compatibility for GCC 15
+- Add 0101-ansi-c.patch to convert function prototypes from K&R to ANSI C
+- Fix 0038-SDL2-build.patch to add -lm to SDL2_gfx_LIBS
+- Fix 0030-Add-SDL-support.patch to include <stdlib.h> in sdl/input.c for exit()
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

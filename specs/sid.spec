@@ -1,3 +1,9 @@
+#
+# SPDX-FileCopyrightText: (C) 2017-2025 Red Hat, Inc.
+#
+# SPDX-License-Identifier: GPL-2.0-or-later
+#
+
 #global commit 13a0dd86874b5d7558a0e131f3deaa42cd7d9d23
 %{?commit:%global shortcommit %(c=%{commit}; echo ${c:0:7})}
 %{?commit:%global commitdate 20200828}
@@ -17,8 +23,8 @@ Name: sid
 %if 0%{?rhel}
 Epoch: %{rhel}
 %endif
-Version: 0.0.6
-Release: 3%{?scmsnap:.%{scmsnap}}%{?dist}
+Version: 0.0.7
+Release: 1%{?scmsnap:.%{scmsnap}}%{?dist}
 Summary: Storage Instantiation Daemon (SID)
 
 License: GPL-2.0-or-later
@@ -110,7 +116,7 @@ rm -f %{buildroot}/%{_libdir}/sid/modules/ucmd/type/*.{a,la}
 rm -f %{buildroot}/%{_libdir}/sid/modules/ucmd/type/dm/*.{a,la}
 
 %files
-%license COPYING BSD_LICENSE
+%license LICENSES/GPL-2.0-or-later.txt LICENSES/BSD-3-Clause.txt LICENSES/FSFAP.txt LICENSES/FSFAP-no-warranty-disclaimer.txt LICENSES/CC0-1.0.txt
 %{_sbindir}/sid
 %config(noreplace) %{_sysconfdir}/sysconfig/sid.sysconfig
 %{_udevrulesdir}/00-sid.rules
@@ -164,11 +170,12 @@ base libraries.
 %{_libdir}/sid/libsidbase.so
 %dir %{_includedir}/sid
 %dir %{_includedir}/sid/base
-%{_includedir}/sid/base/binary.h
-%{_includedir}/sid/base/buffer-common.h
-%{_includedir}/sid/base/buffer-type.h
-%{_includedir}/sid/base/buffer.h
+%{_includedir}/sid/base/buf-common.h
+%{_includedir}/sid/base/buf-type.h
+%{_includedir}/sid/base/buf.h
 %{_includedir}/sid/base/comms.h
+%{_includedir}/sid/base/conv.h
+%{_includedir}/sid/base/conv-base64.h
 %{_includedir}/sid/base/util.h
 %doc README.md
 
@@ -199,17 +206,18 @@ functions.
 %package internal-libs-devel
 Summary: Development files for Storage Instantiation Daemon (SID) internal
 License: GPL-2.0-or-later AND BSD-3-Clause
+Requires: %{name}-internal-libs%{?_isa} = %{?epoch}:%{version}-%{release}
 %description internal-libs-devel
 This package contains development files for Storage Instantiation Daemon (SID)
 internal libraries.
 
 %files internal-libs-devel
 %dir %{_includedir}/sid/internal
-%{_includedir}/sid/internal/bitmap.h
+%{_includedir}/sid/internal/bmp.h
 %{_includedir}/sid/internal/bptree.h
 %{_includedir}/sid/internal/common.h
 %{_includedir}/sid/internal/comp-attrs.h
-%{_includedir}/sid/internal/formatter.h
+%{_includedir}/sid/internal/fmt.h
 %{_includedir}/sid/internal/hash.h
 %{_includedir}/sid/internal/list.h
 %{_includedir}/sid/internal/mem.h
@@ -293,9 +301,9 @@ interface libraries.
 %{_libdir}/sid/libsidiface.so
 %dir %{_includedir}/sid
 %dir %{_includedir}/sid/iface
-%{_includedir}/sid/iface/service-link.h
-%{_includedir}/sid/iface/iface.h
-%{_includedir}/sid/iface/iface_internal.h
+%{_includedir}/sid/iface/srv-lnk.h
+%{_includedir}/sid/iface/ifc.h
+%{_includedir}/sid/iface/ifc-internal.h
 %doc README.md
 
 
@@ -340,14 +348,14 @@ resource libraries.
 %{_libdir}/sid/libsidresource.so
 %dir %{_includedir}/sid
 %dir %{_includedir}/sid/resource
-%{_includedir}/sid/resource/kv-store.h
-%{_includedir}/sid/resource/module-registry.h
-%{_includedir}/sid/resource/module.h
-%{_includedir}/sid/resource/resource-type-regs.h
-%{_includedir}/sid/resource/resource.h
-%{_includedir}/sid/resource/ucmd-module.h
-%{_includedir}/sid/resource/ubridge.h
-%{_includedir}/sid/resource/worker-control.h
+%{_includedir}/sid/resource/kvs.h
+%{_includedir}/sid/resource/mod-reg.h
+%{_includedir}/sid/resource/mod.h
+%{_includedir}/sid/resource/res-type-regs.h
+%{_includedir}/sid/resource/res.h
+%{_includedir}/sid/resource/ucmd-mod.h
+%{_includedir}/sid/resource/ubr.h
+%{_includedir}/sid/resource/wrk-ctl.h
 %doc README.md
 
 
@@ -377,7 +385,7 @@ This package contains tools to support Storage Instantiation Daemon (SID).
 
 %package mod-dummies
 Summary: Dummy block and type module for Storage Instantiation Daemon (SID)
-Requires: %{name}-resource-libs%{?_isa} = %{?epoch}:%{version}-%{release}
+Requires: %{name} = %{?epoch}:%{version}-%{release}
 %description mod-dummies
 This package contains dummy block and type modules for Storage Instantiation
 Daemon (SID). Their only purpose is to test SID module functionality and hook
@@ -404,7 +412,7 @@ execution.
 
 %package mod-block-blkid
 Summary: Blkid block module for Storage Instantiation Daemon (SID)
-Requires: %{name}-resource-libs%{?_isa} = %{?epoch}:%{version}-%{release}
+Requires: %{name} = %{?epoch}:%{version}-%{release}
 %description mod-block-blkid
 This package contains blkid block module for Storage Instantiation Daemon (SID).
 
@@ -427,7 +435,7 @@ This package contains blkid block module for Storage Instantiation Daemon (SID).
 
 %package mod-block-dm-mpath
 Summary: Device-mapper multipath block module for Storage Instantiation Daemon (SID)
-Requires: %{name}-resource-libs%{?_isa} = %{?epoch}:%{version}-%{release}
+Requires: %{name} = %{?epoch}:%{version}-%{release}
 Requires: device-mapper-multipath-libs >= 0.8.4-7
 %description mod-block-dm-mpath
 This package contains device-mapper multipath block module for Storage
@@ -452,7 +460,7 @@ Instantiation Daemon (SID).
 
 %package mod-type-dm
 Summary: Device-mapper type module for Storage Instantiation Daemon (SID)
-Requires: %{name}-resource-libs%{?_isa} = %{?epoch}:%{version}-%{release}
+Requires: %{name} = %{?epoch}:%{version}-%{release}
 %description mod-type-dm
 This package contains device-mapper type module for Storage Instantiation
 Daemon (SID).
@@ -477,7 +485,7 @@ Daemon (SID).
 
 %package mod-type-dm-lvm
 Summary: LVM type module for Storage Instantiation Daemon (SID)
-Requires: %{name}-resource-libs%{?_isa} = %{?epoch}:%{version}-%{release}
+Requires: %{name} = %{?epoch}:%{version}-%{release}
 Requires: %{name}-mod-type-dm%{?_isa} = %{?epoch}:%{version}-%{release}
 %description mod-type-dm-lvm
 This package contains LVM type module for Storage Instantiation
@@ -491,44 +499,47 @@ Daemon (SID).
 
 
 %changelog
+* Wed Jan 22 2025 Peter Rajnoha <prajnoha@redhat.com> - 0.0.7-1
+- Update to latest upstream release.
+ 
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
+ 
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
+ 
 * Fri Feb 9 2024 Peter Rajnoha <prajnoha@redhat.com> - 0.0.6-1
 - Update to latest upstream release.
-
+ 
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
+ 
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
+ 
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
+ 
 * Tue Jan 03 2023 Peter Rajnoha <prajnoha@redhat.com> - 0.0.5-6
 - Use SPDX values for License fields in RPM spec file.
-
+ 
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
+ 
 * Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
+ 
 * Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri May 14 2021 Timm Bäder <tbaeder@redhat.com> - 0.0.5-2
+ 
+* Fri May 14 2021 Timm B├Ąder <tbaeder@redhat.com> - 0.0.5-2
 - Use make_install macro
-
+ 
 * Tue Apr 06 2021 Peter Rajnoha <prajnoha@redhat.com> - 0.0.5-1
 - Update to latest upstream release.
-
+ 
 * Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
+ 
 * Tue Oct 06 2020 Peter Rajnoha <prajnoha@redhat.com> - 0.0.4-1
 - Initial release.

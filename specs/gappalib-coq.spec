@@ -10,7 +10,7 @@ ExclusiveArch: %{ocaml_native_compiler}
 # install the package and run "remake check" manually before committing.
 
 %global gappadir %{ocamldir}/coq/user-contrib/Gappa
-%global coqver  8.20.0
+%global coqver  8.20.1
 %global commit  ae99b9db1a8d4effbbb7965e99e43e697545d8a1
 %global giturl  https://gitlab.inria.fr/gappa/coq
 

@@ -1,11 +1,12 @@
 Summary: A tool for printing multiple pages of text on each printed page
 Name: mpage
 Version: 2.5.7
-Release: 21%{?dist}
+Release: 22%{?dist}
 License: GPL-2.0-or-later
 Url: http://www.mesa.nl/pub/mpage/
 Source: ftp://ftp.mesa.nl/pub/mpage/mpage-%{version}.tgz
 Patch0: mpage25-config.patch
+Patch1:  mpage-2.5.7-fixdecl.patch
 BuildRequires: make
 BuildRequires: gcc
 
@@ -20,6 +21,7 @@ pages.
 %prep
 %setup -q
 %patch -P0 -p1 -b .config
+%patch -P 1 -p1 -b .fixdecl
 
 %build
 make BINDIR=%{_bindir} LIBDIR=%{_datadir} MANDIR=%{_mandir}/man1
@@ -43,6 +45,9 @@ make PREFIX=$RPM_BUILD_ROOT/%{_prefix} BINDIR=$RPM_BUILD_ROOT/%{_bindir} \
 %{_datadir}/mpage
 
 %changelog
+* Wed Jan 22 2025 Michal Hlavinka <mhlavink@redhat.com> - 2.5.7-22
+- fix FTBFS
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.7-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

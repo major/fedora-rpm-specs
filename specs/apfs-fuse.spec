@@ -11,12 +11,13 @@
 Name:          apfs-fuse
 Summary:       A read-only FUSE driver for Apple's APFS
 Version:       0
-Release:       28.%{date}git%{short_gittag}%{?dist}
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
+Release:       29.%{date}git%{short_gittag}%{?dist}
 License:       GPL-2.0-or-later
 URL:           https://github.com/sgan81/apfs-fuse
 Source0:       https://github.com/sgan81/%{name}/archive/%{short_gittag}/%{name}-%{short_gittag}.tar.gz
 Source1:       https://github.com/lzfse/lzfse/archive/lzfse-1.0.tar.gz
+# Add missing header to fix the build
+Patch:         https://github.com/sgan81/apfs-fuse/pull/205.patch
 Provides:      bundled(lzfse) = 1.0
 Requires:      fuse3
 BuildRequires: gcc gcc-c++
@@ -54,6 +55,10 @@ ln -sr %{buildroot}/%{_bindir}/apfs-fuse %{buildroot}/%{_sbindir}/mount.apfs
 %license LICENSE
 
 %changelog
+* Wed Jan 22 2025 Davide Cavalca <dcavalca@fedoraproject.org> - 0-29.20200928gitee71aa5
+- Add missing header to fix the build (#2339502)
+- Audit license tag
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-28.20200928gitee71aa5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -4,12 +4,12 @@ ExclusiveArch: %{ocaml_native_compiler}
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
-%global coqver  8.20.0
+%global coqver  8.20.1
 %global giturl  https://github.com/zenon-prover/zenon
 
 Name:		zenon
 Version:	0.8.5
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	Automated theorem prover for first-order classical logic
 License:	BSD-3-Clause
 URL:		http://zenon-prover.org/
@@ -97,6 +97,9 @@ fi
 %{_mandir}/man5/zenon-format.5*
 
 %changelog
+* Wed Jan 22 2025 Jerry James <loganjerry@gmail.com> - 0.8.5-31
+- Rebuild for coq 8.20.1
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.5-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -3,7 +3,7 @@ BuildArch: noarch
 %global archivename All_KhmerOS_%{version}
 
 Version:        5.0
-Release:        44%{?dist}
+Release:        45%{?dist}
 License:        LGPL-2.1-or-later
 URL:            http://www.khmeros.info/en/fonts
 
@@ -16,15 +16,6 @@ They were created by Danh Hong of the Cambodian Open Institute.}
 
 %global foundry           Khmer OS
 %global fontlicenses      License.txt
-
-Source0:        http://downloads.sourceforge.net/khmer/%{archivename}.zip
-Source11:       License.txt
-
-Name:      khmer-os-fonts
-Summary:   Khmer font family set created by Danh Hong of the Cambodian Open Institute
-%description
-%wordwrap -v common_description
-
 
 %global fontfamily1       Battambang
 %global fontsummary1      Battambang font
@@ -166,8 +157,7 @@ Provides: khmeros-base-fonts = %{version}-%{release}
 This package provides System font family.
 }
 
-%fontpkg -a
-
+Source0:        http://downloads.sourceforge.net/khmer/%{archivename}.zip
 Source1:        68-%{fontpkgname1}.conf
 Source2:        68-%{fontpkgname2}.conf
 Source3:        68-%{fontpkgname3}.conf
@@ -178,6 +168,14 @@ Source7:        68-%{fontpkgname7}.conf
 Source8:        68-%{fontpkgname8}.conf
 Source9:        68-%{fontpkgname9}.conf
 Source10:       68-%{fontpkgname10}.conf
+Source11:       License.txt
+
+Name:      khmer-os-fonts
+Summary:   Khmer font family set created by Danh Hong of the Cambodian Open Institute
+%description
+%wordwrap -v common_description
+
+%fontpkg -a
 
 %fontmetapkg -z 1,2,3,6,9,10
 
@@ -211,6 +209,9 @@ install -p %{SOURCE11} .
 %fontfiles -a
 
 %changelog
+* Wed Jan 22 2025 Parag Nemade <pnemade AT redhat DOT com> - 5.0-45
+- Fix FTBFS for F42
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

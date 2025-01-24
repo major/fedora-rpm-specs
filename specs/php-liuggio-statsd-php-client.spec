@@ -1,6 +1,6 @@
 Name:		php-liuggio-statsd-php-client
 Version:	1.0.18
-Release:	20%{?dist}
+Release:	21%{?dist}
 Summary:	Object Oriented Client for etsy/statsd written in php
 
 License:	MIT
@@ -11,8 +11,9 @@ Source1:	%{name}-autoload.php
 BuildArch:	noarch
 
 BuildRequires:	phpunit10
-BuildRequires:	php-composer(symfony/class-loader)
-BuildRequires:	php-composer(monolog/monolog) >= 1.2.0
+# https://pagure.io/releng/issue/12229
+#BuildRequires:	php-composer(symfony/class-loader)
+#BuildRequires:	php-composer(monolog/monolog) >= 1.2.0
 
 Requires:	php(language) >= 5.3.2
 Requires:	php-pcre
@@ -40,9 +41,9 @@ cp -rp src/Liuggio/StatsdClient/* %{buildroot}%{_datadir}/php/Liuggio/StatsdClie
 cp -p %{SOURCE1} %{buildroot}%{_datadir}/php/Liuggio/StatsdClient/autoload.php
 
 
-%check
-phpunit -v \
-    --bootstrap=%{buildroot}%{_datadir}/php/Liuggio/StatsdClient/autoload.php
+#check
+#phpunit -v \
+#    --bootstrap=%%{buildroot}%%{_datadir}/php/Liuggio/StatsdClient/autoload.php
 
 
 %files
@@ -52,6 +53,9 @@ phpunit -v \
 
 
 %changelog
+* Wed Jan 22 2025 Michael Cronenworth <mike@cchtml.com> - 1.0.18-21
+- Drop check stage due to retired build dependencies 
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.18-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,8 +1,14 @@
 %global goipath         github.com/caddyserver/caddy
 
+%if %{defined el8}
+%global gotest() go test -short -compiler gc -ldflags "${LDFLAGS:-}" %{?**};
+%else
+%global gotestflags %{gocompilerflags} -short
+%endif
+
 Name:           caddy
 Version:        2.9.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Web server with automatic HTTPS
 
 # main source code is Apache-2.0
@@ -26,8 +32,6 @@ Source31:       poweredby-black.png
 
 # downstream only patch to disable commands that can alter the binary
 Patch1:         0001-Disable-commands-that-can-alter-the-binary.patch
-# downstream only patch to skip certain tests
-Patch2:         0002-Skip-tests-that-fail-in-an-RPM-build-environment.patch
 
 %if %{defined el8}
 ExclusiveArch:  %{golang_arches}
@@ -486,6 +490,10 @@ fi
 
 
 %changelog
+* Wed Jan 22 2025 Carl George <carlwgeorge@fedoraproject.org> - 2.9.1-3
+- Run tests with -short flag like upstream to avoid test failures
+- Resolves FTBFS rhbz#2339573 rhbz#2339954
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

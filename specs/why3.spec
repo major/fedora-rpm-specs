@@ -21,6 +21,8 @@ Source1:        fr.lri.%{name}.desktop
 Source2:        fr.lri.%{name}.metainfo.xml
 # Fix a link order issue
 Patch:          %{name}-link-order.patch
+# Fix an incompatible pointer issue with C23
+Patch:          %{name}-c23.patch
 
 BuildRequires:  coq
 BuildRequires:  emacs-nw

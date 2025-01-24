@@ -3,8 +3,8 @@
 
 Summary:           Client to update dynamic DNS host entries
 Name:              ddclient
-Version:           3.11.2
-Release:           7%{?dist}
+Version:           4.0.0
+Release:           1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:           GPL-2.0-or-later
 URL:               https://ddclient.net/
@@ -14,8 +14,6 @@ Source2:           ddclient.service
 Source3:           ddclient.sysconfig
 Source4:           ddclient.NetworkManager
 Source5:           ddclient-tmpfiles.conf
-Patch0:            skip-tests.patch
-Patch1:            https://github.com/ddclient/ddclient/commit/a12398c315b9b909e57e87acf9fd3a15a0b3e213.patch
 
 BuildArch:         noarch
 
@@ -142,6 +140,9 @@ fi
 
 
 %changelog
+* Wed Jan 22 2025 Scott Talbert <swt@techie.net> - 4.0.0-1
+- Update to new upstream release 4.0.0 (#2334061)
+
 * Wed Jan 22 2025 Scott Talbert <swt@techie.net> - 3.11.2-7
 - Fix FTBFS with newer autoconf
 

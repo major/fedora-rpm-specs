@@ -1,10 +1,13 @@
 Name: libgbinder
-Version: 1.1.40
-Release: 2%{?dist}
+Version: 1.1.42
+Release: 1%{?dist}
 Summary: Binder client library
 License: BSD
 URL: https://github.com/mer-hybris/libgbinder
 Source0: %{url}/archive/refs/tags/%{version}.tar.gz
+
+# Fix compatibility with C23 for gcc15
+Patch0:  c23.patch
 
 %global libglibutil_version 1.0.52
 
@@ -38,7 +41,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 This package contains the development library for %{name}.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %{make_build} LIBDIR=%{_libdir} KEEP_SYMBOLS=1 release pkgconfig
@@ -82,6 +85,10 @@ Binder command line utilities
 %{_bindir}/binder-call
 
 %changelog
+* Wed Jan 22 2025 Alessandro Astone <ales.astone@gmail.com> - 1.1.42-1
+- new version (rhbz#2324966)
+- Add patch to fix FTBFS with gcc15 (rhbz#2340731)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.40-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

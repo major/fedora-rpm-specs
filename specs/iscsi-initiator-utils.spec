@@ -10,7 +10,7 @@
 Summary: iSCSI daemon and utility programs
 Name: iscsi-initiator-utils
 Version: 6.%{open_iscsi_version}.%{open_iscsi_build}
-Release: 0.git%{shortcommit0}%{?dist}.2
+Release: 0.git%{shortcommit0}%{?dist}.3
 License: GPL-2.0-or-later
 URL: https://github.com/open-iscsi/open-iscsi
 Source0: https://github.com/open-iscsi/open-iscsi/archive/%{commit0}.tar.gz#/open-iscsi-%{shortcommit0}.tar.gz
@@ -114,7 +114,7 @@ libiscsi interface for interacting with %{name}
 # avoid undefined references linking failures
 %undefine _ld_as_needed
 
-%meson -Diqn_prefix=iqn.1994-05.com.redhat
+%meson -Diqn_prefix=iqn.1994-05.com.redhat -Discsi_sbindir=/usr/bin
 %meson_build
 
 %make_build LDFLAGS="%{build_ldflags}" iqn_prefix=iqn.1994-05.com.redhat DBROOT=/var/lib/iscsi libiscsi
@@ -147,11 +147,11 @@ touch $RPM_BUILD_ROOT%{_rundir}/lock/iscsi/lock
 rm $RPM_BUILD_ROOT/etc/iscsi/initiatorname.iscsi
 rm $RPM_BUILD_ROOT/etc/udev/rules.d/50-iscsi-firmware-login.rules
 rm $RPM_BUILD_ROOT/usr/lib/systemd/system-generators/ibft-rule-generator
-rm $RPM_BUILD_ROOT/usr/sbin/brcm_iscsiuio
-rm $RPM_BUILD_ROOT/usr/sbin/iscsi-gen-initiatorname
-rm $RPM_BUILD_ROOT/usr/sbin/iscsi_discovery
-rm $RPM_BUILD_ROOT/usr/sbin/iscsi_fw_login
-rm $RPM_BUILD_ROOT/usr/sbin/iscsi_offload
+rm $RPM_BUILD_ROOT/usr/bin/brcm_iscsiuio
+rm $RPM_BUILD_ROOT/usr/bin/iscsi-gen-initiatorname
+rm $RPM_BUILD_ROOT/usr/bin/iscsi_discovery
+rm $RPM_BUILD_ROOT/usr/bin/iscsi_fw_login
+rm $RPM_BUILD_ROOT/usr/bin/iscsi_offload
 rm $RPM_BUILD_ROOT/usr/share/man/man8/iscsi-gen-initiatorname.8
 rm $RPM_BUILD_ROOT/usr/share/man/man8/iscsi_discovery.8
 rm $RPM_BUILD_ROOT/usr/share/man/man8/iscsi_fw_login.8
@@ -272,6 +272,9 @@ systemctl --no-reload preset iscsi.service iscsi-starter.service &>/dev/null || 
 %endif
 
 %changelog
+* Wed Jan 22 2025 Chris Leech <cleech@redhat.com> - 6.2.1.10-0.gitd0f04ae.3
+- FTBFS: use /usr/bin instead of /usr/sbin
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.1.10-0.gitd0f04ae.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

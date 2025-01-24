@@ -4,7 +4,7 @@
 Name:           perl-PDL
 %global cpan_version 2.098
 Version:        2.98.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The Perl Data Language
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:            http://pdl.perl.org/
@@ -14,17 +14,14 @@ Patch1:         PDL-2.72.0-Fix-numbering-of-line-in-test.patch
 # Fix test that assumed acosh(0)->byte, i.e. nan()->byte, was always 0
 # in upstream after 2.098
 Patch2:         PDL-2.098-fix-test-that-assumed-acosh-0-byte-i.e.-nan-byte-was.patch
+# Fix for GCC 14, in upstream after 2.098 (GH commit 1733c69)
+Patch3:         PDL-2.098-zap-unused-typedef-bool-with-true-false-that-breaks-.patch
+# Fix for i686, in upstream after 2.098 (GH commit c3baea8)
+Patch4:         PDL-2.098-set-all-bits-of-Anyval-to-0-not-just-first-8-on-inva.patch
 BuildRequires:  coreutils
-BuildRequires:  fftw2-devel
 BuildRequires:  findutils
-BuildRequires:  freeglut-devel
 BuildRequires:  gcc-c++
 BuildRequires:  gcc-gfortran
-BuildRequires:  gd-devel
-BuildRequires:  gsl-devel >= 1.0
-BuildRequires:  hdf-static hdf-devel
-BuildRequires:  libXi-devel
-BuildRequires:  libXmu-devel
 BuildRequires:  make
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
@@ -37,7 +34,6 @@ BuildRequires:  perl(Cwd)
 BuildRequires:  perl(Data::Dumper) >= 2.121
 BuildRequires:  perl(Devel::CheckLib)
 BuildRequires:  perl(ExtUtils::Depends)
-BuildRequires:  perl(ExtUtils::F77)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(ExtUtils::MakeMaker::Config)
 BuildRequires:  perl(File::Spec) >= 0.6
@@ -108,10 +104,6 @@ BuildRequires:  perl(threads::shared)
 BuildRequires:  netpbm-progs
 %endif
 
-%if %{with perl_PDL_enables_proj}
-# Needed by PDL::GIS::Proj
-BuildRequires:  proj-devel
-%endif
 BuildRequires:  sharutils
 Requires:       perl(ExtUtils::Liblist)
 Requires:       perl(ExtUtils::MakeMaker)
@@ -137,12 +129,11 @@ Provides:       perl(PDL::PP::SymTab) = %{version}
 Provides:       perl(PDL::PP::XS) = %{version}
 
 %{?perl_default_filter}
-%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\((OpenGL::Config|PDL::Demos::Screen|Tk|Win32::DDE::Client)\\)$
-%global __requires_exclude %{__requires_exclude}|^perl\\(PDL::Graphics::Simple\\)$
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(PDL::Graphics::Simple\\)$
 %global __provides_exclude %{?__provides_exclude:%__provides_exclude|}^perl\\(Inline\\)$
-%global __provides_exclude %__provides_exclude|^perl\\(Win32.*\\)$
+%global __provides_exclude %{__provides_exclude}|^perl\\(Win32.*\\)$
 # Remove under-specified dependencies
-%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\((Data::Dumper|File::Spec|Filter::Simple|Inline|Module::Compile|OpenGL|Text::Balanced)\\)$
+%global __requires_exclude %{__requires_exclude}|^perl\\((Data::Dumper|File::Spec|Filter::Simple|Inline|Module::Compile|OpenGL|Text::Balanced)\\)$
 # Filter modules bundled for tests
 %global __requires_exclude %{__requires_exclude}|^perl\\(My::Test::Primitive\\)
 
@@ -167,6 +158,8 @@ with "%{_libexecdir}/%{name}/test".
 %setup -q -n PDL-%{cpan_version}
 %patch -P1 -p1
 %patch -P2 -p1
+%patch -P3 -p1
+%patch -P4 -p1
 
 # Help file to recognise the Perl scripts
 for F in t/*.t; do
@@ -238,6 +231,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jan 22 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.98.0-3
+- Fix code for GCC 14
+- Removed unnecessary dependencies and filters
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.98.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -13,7 +13,7 @@ and data applications.}
 
 Name:           python-%{pypi_name}
 Version:        2.3.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Interactive plots and applications in the browser from Python
 
 # License breakdown: licensecheck -r . | sed '/UNKNOWN/ d' | sort -t ':' -k 2
@@ -202,6 +202,12 @@ BuildRequires:  %{py3_dist typing_extensions} >= 3.7.4
 %autosetup -n %{pypi_name}-%{version} -p1
 rm -rf %{pypi_name}.egg-info
 
+# Replace `np.bool8` with `np.bool_` for NumPy 2.x.
+# This is for `netpyne` failing on the deprecated type alias.
+# https://github.com/bokeh/bokeh/pull/12690
+sed -i 's/np\.bool8/np.bool_/g' $(grep -rl 'np\.bool8')
+
+
 %build
 %py3_build
 
@@ -226,6 +232,9 @@ rm -f %{buildroot}/%{python3_sitelib}/bokeh/server/static/.keep
 %{python3_sitelib}/%{pypi_name}
 
 %changelog
+* Wed Jan 22 2025 Sandro <devel@penguinpee.nl> - 2.3.0-18
+- Apply patch for NumPy 2.x compatibility
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

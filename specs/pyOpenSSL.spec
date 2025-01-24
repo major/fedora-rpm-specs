@@ -1,12 +1,14 @@
 %global         srcname     pyopenssl
 
 Name:           pyOpenSSL
-Version:        24.2.1
+Version:        25.0.0
 Release:        %autorelease
 Summary:        Python wrapper module around the OpenSSL library
 License:        Apache-2.0
 URL:            https://pyopenssl.readthedocs.org/
 Source0:        %{pypi_source %{srcname} %{version}}
+
+Patch:          0001-Limit-list-of-elliptic-curves-tested-to-those-in-Fed.patch
 
 BuildArch:      noarch
 

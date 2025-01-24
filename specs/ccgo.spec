@@ -1,9 +1,35 @@
 Name:       ccgo
 Version:    0.3.6.5
-Release:    25%{?dist}
+Release:    26%{?dist}
 Summary:    An IGS (Internet Go Server) client written in C++
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
+# *.cc and *.hh:    GPL-3.0-or-later
+# COPYING:  GPL-3.0 text
+## Unbundled
+# aclocal.m4:   GPL-2.0-or-later WITH Autoconf-exception-generic AND FSFULLR
+# configure:    FSFUL
+# compile:      GPL-2.0-or-later WITH Autoconf-exception-generic
+# config.guess: GPL-3.0-or-later
+# config.sub:   GPL-3.0-or-later WITH Autoconf-exception-generic-3.0
+# depcomp:      GPL-2.0-or-later
+# gettext.h:    GPL-3.0-or-later
+# go/Makefile.in:   FSFULLRWD
+# igs/Makefile.in:  FSFULLRWD
+# igs/parser/Makefile.in:   FSFULLRWD
+# install-sh:   X11 AND LicenseRef-Fedora-Public-Domain
+# m4/gettext.m4:    FSFULLR
+# m4/iconv.m4:      FSFULLR
+# m4/intlmacosx.m4: FSFULLR
+# m4/lib-ld.m4:     FSFULLR
+# m4/lib-link.m4:   FSFULLR
+# m4/lib-prefix.m4: FSFULLR
+# m4/nls.m4:        FSFULLR
+# m4/po.m4:         FSFULLR
+# m4/progtest.m4:   FSFULLR
+# Makefile.in:      FSFULLRWD
+# missing:      GPL-2.0-or-later WITH Autoconf-exception-generic
+# po/Makefile.in.in:   "This file can be copied and used freely without restrictions"
 License:    GPL-3.0-or-later
+SourceLicense:  GPL-3.0-or-later AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND GPL-2.0-or-later WITH Autoconf-exception-generic AND FSFUL AND FSFULLR AND FSFULLRWD AND X11 AND LicenseRef-Fedora-Public-Domain
 URL:        http://ccdw.org/~cjj/prog/%{name}/
 Source0:    %{url}src/%{name}-%{version}.tar.gz
 # NOTE: It would be *awesome* if this file was maintained by the upstream
@@ -38,18 +64,22 @@ on an Internet Go Server (IGS) on the Internet. It supports smart game format
 (SGF) suitable for exchanging game records.
 
 %prep
-%setup -q
-%patch -P0 -p1
-%patch -P1 -p1
+%autosetup -p1
 # Make XDG desktop file compliant
 sed -i -e '/^Encoding/d' -e '/^Categories/s/Application;//' \
     %{name}.desktop.in
 # Update config.sub to support aarch64, bug #925132
+# Remove bundled files
+rm ABOUT-NLS aclocal.m4 configure compile config.guess config.sub depcomp gettext.h \
+    go/Makefile.in igs/Makefile.in igs/parser/Makefile.in install-sh m4/* \
+    Makefile.in missing po/Makefile.in.in
+# gettextize breaks configure.ac. Rather symlink the header file.
+ln -s /usr/share/gettext/gettext.h gettext.h
 autoreconf -i -f
 
 %build
 %configure
-make %{?_smp_mflags}
+%{make_build}
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
@@ -57,7 +87,7 @@ appstream-util validate-relax --nonet \
     %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
 
 %install
-make install DESTDIR=%{buildroot}
+%{make_install}
 
 # Register as an application to be visible in the software center
 install -d %{buildroot}%{_datadir}/appdata
@@ -68,13 +98,18 @@ install -m 0644 %{SOURCE1} %{buildroot}%{_datadir}/appdata
 %files -f %{name}.lang
 %license COPYING
 %doc AUTHORS README
-%{_bindir}/*
-%{_mandir}/man*/*
+%{_bindir}/ccgo
+%{_mandir}/man6/ccgo.*
 %{_datadir}/appdata/%{name}.appdata.xml
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/pixmaps/*
+%{_datadir}/pixmaps/ccgo
+%{_datadir}/pixmaps/ccgo.xpm
 
 %changelog
+* Wed Jan 22 2025 Petr Pisar <ppisar@redhat.com> - 0.3.6.5-26
+- Modernize a spec file
+- Declare a source license
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.6.5-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

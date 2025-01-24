@@ -7,6 +7,10 @@
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^golang\\(.*\\)$
 %endif
 
+# The '-z now' flag, which is the opposite of '-z lazy', isn't supported:
+# https://github.com/NVIDIA/go-nvml/issues/18
+%global _hardening_ldflags %(echo %_hardening_ldflags | sed 's/-Wl,-z,now//g')
+
 # https://github.com/NVIDIA/go-nvlib
 %global goipath         github.com/NVIDIA/go-nvlib
 Version:                0.7.0
@@ -47,15 +51,7 @@ Source:         %{gosource}
 %if %{without bootstrap}
 %if %{with check}
 %check
-# The github.com/NVIDIA/go-nvlib/pkg/nvlib/device and
-# github.com/NVIDIA/go-nvlib/pkg/nvlib/info and tests fail with:
-# /tmp/go-build738952468/b001/device.test: symbol lookup error:
-#   /tmp/go-build738952468/b001/device.test: undefined symbol:
-#   nvmlGpuInstanceGetComputeInstanceProfileInfoV
-#
-# These were tried both with the proprietary NVIDIA driver version 565.77 and
-# without.
-%gocheck -d pkg/nvlib/device -d pkg/nvlib/info
+%gocheck
 %endif
 %endif
 

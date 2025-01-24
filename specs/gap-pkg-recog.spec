@@ -2,7 +2,7 @@
 %global giturl  https://github.com/gap-packages/recog
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.4.3
+Version:        1.4.4
 Release:        %autorelease
 Summary:        Group recognition methods
 

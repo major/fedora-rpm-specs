@@ -5,8 +5,8 @@
 %global __requires_exclude_from ^%{python3_sitelib}/gns3server/compute/docker/resources/.*$
 
 Name:           gns3-server
-Version:        2.2.52
-Release:        2%{?dist}
+Version:        2.2.53
+Release:        1%{?dist}
 Summary:        Graphical Network Simulator 3
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -54,14 +54,14 @@ Requires: %{name} = %{version}-%{release}
 # Relax requirements
 sed -i -r 's/==/>=/g' requirements.txt
 sed -i -r 's/distro>=1.9.*/distro>=1.5.0/' requirements.txt
-sed -i -r 's/psutil>=6.1.0/psutil>=5.8.0/' requirements.txt
+sed -i -r 's/psutil>=6.1.1/psutil>=5.8.0/' requirements.txt
 sed -i -r 's/aiofiles>=24.1.0,<25.0/aiofiles>=0.7/' requirements.txt
 sed -i -r 's/aiohttp>=3.10.10,<3.11/aiohttp>=3.9.3/' requirements.txt
-sed -i -r 's/Jinja2>=3.1.4,<3.2/jinja2>=2.11.3/' requirements.txt
+sed -i -r 's/Jinja2>=3.1.5,<3.2/jinja2>=2.11.3/' requirements.txt
 sed -i -r 's/jsonschema>=4.23,<4.24/jsonschema>=3.2.0/' requirements.txt
 sed -i -r 's/platformdirs>=2.4.0,<3/platformdirs>=2.4.0/' requirements.txt
 sed -i -r 's/py-cpuinfo>=9.0.0,<10.0/py-cpuinfo>=8.0.0/' requirements.txt
-sed -i -r 's/async-timeout>=4.0.3,<4.1/async-timeout>=4.0.2/' requirements.txt
+sed -i -r 's/async-timeout>=5.0.1,<5.1/async-timeout>=4.0.2/' requirements.txt
 sed -i -r 's/sentry-sdk.*//g' requirements.txt
 sed -i -r 's/truststore.*//g' requirements.txt
 
@@ -132,6 +132,9 @@ cp -fp %{_datadir}/edk2/ovmf/OVMF_VARS.fd %{python3_sitelib}/gns3server/disks/OV
 %systemd_postun_with_restart gns3.service
 
 %changelog
+* Wed Jan 22 2025 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.53-1
+- Update to 2.2.53
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.52-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

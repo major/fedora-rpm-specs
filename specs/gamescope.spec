@@ -13,6 +13,9 @@ Summary:        Micro-compositor for video games on Wayland
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://github.com/ValveSoftware/gamescope
+# luajit is not available on ppc64le:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2339416
+ExcludeArch:    ppc64le
 
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # Create stb.pc to satisfy dependency('stb')

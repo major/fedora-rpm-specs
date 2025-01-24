@@ -22,7 +22,7 @@
 
 Name:    gvfs
 Version: 1.56.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Backends for the gio framework in GLib
 
 License: LGPL-2.0-or-later AND GPL-3.0-only AND MPL-2.0 AND BSD-3-Clause-Sun
@@ -430,6 +430,9 @@ killall -USR1 gvfsd >&/dev/null || :
 
 
 %changelog
+* Wed Jan 22 2025 Adam Williamson <awilliam@redhat.com> - 1.56.1-4
+- Rebuild against libnfs (again, previous one never made it to Rawhide)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.56.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

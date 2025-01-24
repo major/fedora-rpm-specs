@@ -1,6 +1,6 @@
 Name:           python-psutil
-Version:        5.9.8
-Release:        6%{?dist}
+Version:        6.1.1
+Release:        1%{?dist}
 Summary:        A process and system utilities module for Python
 
 License:        BSD-3-Clause
@@ -10,10 +10,6 @@ Source:         %{url}/archive/release-%{version}/psutil-%{version}.tar.gz
 # skip tests that fail in mock chroots
 #
 Patch:          python-psutil-skip-tests-in-mock.patch
-#
-# avoid: AssertionError: 885725913.3 != 885725913.3000001 within 7 places
-#
-Patch:          https://github.com/giampaolo/psutil/pull/2372.patch
 #
 # Skip test_emulate_multi_cpu on aarch64 and ppc64le
 # Failure reported upstream: https://github.com/giampaolo/psutil/issues/2373
@@ -40,6 +36,7 @@ BuildRequires:  sed
 BuildRequires:  python%{python3_pkgversion}-devel
 # Test dependencies
 BuildRequires:  procps-ng
+BuildRequires:  python3-pytest-xdist
 
 %description
 psutil is a module providing an interface for retrieving information on all
@@ -109,7 +106,8 @@ done
 # Alternative is to set GITHUB_ACTIONS but that has undesirable side effects.
 
 # Note: We deliberately bypass the Makefile here to test the installed modules.
-APPVEYOR=1 %{py3_test_envvars} %{python3} psutil/tests/runner.py
+APPVEYOR=1 %{pytest} -k "not emulate_energy_full_0 and not emulate_energy_full_not_avail and not emulate_no_power and not emulate_power_undetermined" --pyargs psutil.tests
+
 %endif
 
 
@@ -122,6 +120,9 @@ APPVEYOR=1 %{py3_test_envvars} %{python3} psutil/tests/runner.py
 
 
 %changelog
+* Tue Jan 21 2025 Jeremy Cline <jeremycline@linux.microsoft.com> - 6.1.1-1
+- Update to 6.1.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

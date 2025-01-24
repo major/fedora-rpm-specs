@@ -50,13 +50,13 @@
 %if %{with debug}
 %global build_type DEBUG
 %else
-%global build_type RELEASE
+%global build_type RelWithDebInfo
 %global debug_package %{nil}
 %endif
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}
-Release:        34.rocm%{rocm_version}%{?dist}
+Release:        35.rocm%{rocm_version}%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 
 Url:            https://github.com/ROCm/llvm-project
@@ -155,6 +155,9 @@ Provides:       rocm-comgr = %{comgr_full_api_ver}-%{release}
 The AMD Code Object Manager (Comgr) is a shared library which provides
 operations for creating and inspecting code objects.
 
+%post -n rocm-comgr  -p /sbin/ldconfig
+%postun -n rocm-comgr -p /sbin/ldconfig
+
 %package -n rocm-comgr-devel
 Summary:        AMD ROCm LLVM Code Object Manager
 Requires:       rocm-comgr%{?_isa} = %{version}-%{release}
@@ -247,6 +250,9 @@ Requires:      rocm-llvm%{?_isa} = %{version}-%{release}
 %description -n rocm-llvm-devel
 %{summary}
 
+%post -n rocm-llvm-devel -p /sbin/ldconfig
+%postun -n rocm-llvm-devel -p /sbin/ldconfig
+
 %package -n rocm-llvm-static
 Summary:       Static libraries for ROCm LLVM
 Requires:      rocm-llvm-devel%{?_isa} = %{version}-%{release}
@@ -261,6 +267,9 @@ Requires:      rocm-llvm-libs%{?_isa} = %{version}-%{release}
 
 %description -n rocm-clang-libs
 %{summary}
+
+%post -n rocm-clang-libs -p /sbin/ldconfig
+%postun -n rocm-clang-libs -p /sbin/ldconfig
 
 %package -n rocm-clang-runtime-devel
 Summary:       The ROCm compiler runtime
@@ -785,15 +794,6 @@ pushd .
 
 %cmake_install
 
-# Make directories users of rocm-rpm-modules will install to
-%global modules_gpu_list gfx8 gfx9 gfx10 gfx11 gfx12 gfx906 gfx908 gfx90a gfx942 gfx1031 gfx1036 gfx1100 gfx1101 gfx1102 gfx1103
-for gpu in %{modules_gpu_list}
-do
-    mkdir -p %{buildroot}%{_libdir}/rocm/$gpu/lib/cmake
-    mkdir -p %{buildroot}%{_libdir}/rocm/$gpu/bin
-done
-
-
 popd
 
 #
@@ -835,6 +835,15 @@ pushd .
 %cmake_install
 popd
 
+# Make directories users of rocm-rpm-modules will install to
+%global modules_gpu_list gfx8 gfx9 gfx10 gfx11 gfx12 gfx906 gfx908 gfx90a gfx942 gfx1031 gfx1036 gfx1100 gfx1101 gfx1102 gfx1103
+for gpu in %{modules_gpu_list}
+do
+    mkdir -p %{buildroot}%{_libdir}/rocm/$gpu/lib/cmake
+    mkdir -p %{buildroot}%{_libdir}/rocm/$gpu/bin
+    mkdir -p %{buildroot}%{_libdir}/rocm/$gpu/include
+done
+
 rm -rf %{buildroot}%{_prefix}/hip
 if [ -f %{buildroot}%{_prefix}/share/doc/packages/rocm-compilersupport/LICENSE.TXT ]; then
     rm %{buildroot}%{_prefix}/share/doc/packages/rocm-compilersupport/LICENSE.*
@@ -848,13 +857,19 @@ fi
 
 %if 0%{?suse_version}
 find %{buildroot}%{bundle_prefix}/bin -type f -executable -exec strip {} \;
+find %{buildroot}%{_bindir}           -type f -executable -exec strip {} \;
 find %{buildroot}%{bundle_prefix}/lib -type f -name '*.so*' -exec strip {} \;
+find %{buildroot}%{_libdir}           -type f -name '*.so*' -exec strip {} \;
 %endif
 
 # Remove lld's libs
 rm -rf %{buildroot}%{bundle_prefix}/include/lld
 rm -rf %{buildroot}%{bundle_prefix}/lib/cmake/lld
 rm -rf %{buildroot}%{bundle_prefix}/lib/liblld*
+
+# Remove exec perm
+chmod a-x %{buildroot}%{bundle_prefix}/share/opt-viewer/optpmap.py
+chmod a-x %{buildroot}%{bundle_prefix}/share/opt-viewer/style.css
 
 %endif
 
@@ -926,62 +941,77 @@ mv %{buildroot}%{_bindir}/hip*.pm %{buildroot}%{perl_vendorlib}
 # For rocm-rpm-modules
 %dir %{_libdir}/rocm/gfx8
 %dir %{_libdir}/rocm/gfx8/bin
+%dir %{_libdir}/rocm/gfx8/include
 %dir %{_libdir}/rocm/gfx8/lib
 %dir %{_libdir}/rocm/gfx8/lib/cmake
 %dir %{_libdir}/rocm/gfx9
 %dir %{_libdir}/rocm/gfx9/bin
+%dir %{_libdir}/rocm/gfx9/include
 %dir %{_libdir}/rocm/gfx9/lib
 %dir %{_libdir}/rocm/gfx9/lib/cmake
 %dir %{_libdir}/rocm/gfx10
 %dir %{_libdir}/rocm/gfx10/bin
+%dir %{_libdir}/rocm/gfx10/include
 %dir %{_libdir}/rocm/gfx10/lib
 %dir %{_libdir}/rocm/gfx10/lib/cmake
 %dir %{_libdir}/rocm/gfx11
 %dir %{_libdir}/rocm/gfx11/bin
+%dir %{_libdir}/rocm/gfx11/include
 %dir %{_libdir}/rocm/gfx11/lib
 %dir %{_libdir}/rocm/gfx11/lib/cmake
 %dir %{_libdir}/rocm/gfx12
 %dir %{_libdir}/rocm/gfx12/bin
+%dir %{_libdir}/rocm/gfx12/include
 %dir %{_libdir}/rocm/gfx12/lib
 %dir %{_libdir}/rocm/gfx12/lib/cmake
 %dir %{_libdir}/rocm/gfx906
 %dir %{_libdir}/rocm/gfx906/bin
+%dir %{_libdir}/rocm/gfx906/include
 %dir %{_libdir}/rocm/gfx906/lib
 %dir %{_libdir}/rocm/gfx906/lib/cmake
 %dir %{_libdir}/rocm/gfx908
 %dir %{_libdir}/rocm/gfx908/bin
+%dir %{_libdir}/rocm/gfx908/include
 %dir %{_libdir}/rocm/gfx908/lib
 %dir %{_libdir}/rocm/gfx908/lib/cmake
 %dir %{_libdir}/rocm/gfx90a
 %dir %{_libdir}/rocm/gfx90a/bin
+%dir %{_libdir}/rocm/gfx90a/include
 %dir %{_libdir}/rocm/gfx90a/lib
 %dir %{_libdir}/rocm/gfx90a/lib/cmake
 %dir %{_libdir}/rocm/gfx942
 %dir %{_libdir}/rocm/gfx942/bin
+%dir %{_libdir}/rocm/gfx942/include
 %dir %{_libdir}/rocm/gfx942/lib
 %dir %{_libdir}/rocm/gfx942/lib/cmake
 %dir %{_libdir}/rocm/gfx1031
 %dir %{_libdir}/rocm/gfx1031/bin
+%dir %{_libdir}/rocm/gfx1031/include
 %dir %{_libdir}/rocm/gfx1031/lib
 %dir %{_libdir}/rocm/gfx1031/lib/cmake
 %dir %{_libdir}/rocm/gfx1036
 %dir %{_libdir}/rocm/gfx1036/bin
+%dir %{_libdir}/rocm/gfx1036/include
 %dir %{_libdir}/rocm/gfx1036/lib
 %dir %{_libdir}/rocm/gfx1036/lib/cmake
 %dir %{_libdir}/rocm/gfx1100
 %dir %{_libdir}/rocm/gfx1100/bin
+%dir %{_libdir}/rocm/gfx1100/include
 %dir %{_libdir}/rocm/gfx1100/lib
 %dir %{_libdir}/rocm/gfx1100/lib/cmake
 %dir %{_libdir}/rocm/gfx1101
 %dir %{_libdir}/rocm/gfx1101/bin
+%dir %{_libdir}/rocm/gfx1101/include
 %dir %{_libdir}/rocm/gfx1101/lib
 %dir %{_libdir}/rocm/gfx1101/lib/cmake
 %dir %{_libdir}/rocm/gfx1102
 %dir %{_libdir}/rocm/gfx1102/bin
+%dir %{_libdir}/rocm/gfx1102/include
 %dir %{_libdir}/rocm/gfx1102/lib
 %dir %{_libdir}/rocm/gfx1102/lib/cmake
 %dir %{_libdir}/rocm/gfx1103
 %dir %{_libdir}/rocm/gfx1103/bin
+%dir %{_libdir}/rocm/gfx1103/include
 %dir %{_libdir}/rocm/gfx1103/lib
 %dir %{_libdir}/rocm/gfx1103/lib/cmake
 # For llvm
@@ -1014,8 +1044,8 @@ mv %{buildroot}%{_bindir}/hip*.pm %{buildroot}%{perl_vendorlib}
 %{bundle_prefix}/lib/libLTO.so.*
 %{bundle_prefix}/lib/libRemarks.so.*
 
-%post -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%post -n rocm-llvm-libs -p /sbin/ldconfig
+%postun -n rocm-llvm-libs -p /sbin/ldconfig
 
 %files -n rocm-llvm
 %license llvm/LICENSE.TXT
@@ -1115,6 +1145,11 @@ mv %{buildroot}%{_bindir}/hip*.pm %{buildroot}%{perl_vendorlib}
 %endif
 
 %changelog
+* Tue Jan 21 2025 Tom Rix <Tom.Rix@amd.com> - 18-35.rocm6.3.1
+- Add module include dirs for kokkos
+- switch from release to relwithdebinfo
+- clean up some shebangs
+
 * Mon Jan 20 2025 Tom Rix <Tom.Rix@amd.com> - 18-34.rocm6.3.1
 - do dir creation for rocm-rpm-macros-modules
 - fix suse build

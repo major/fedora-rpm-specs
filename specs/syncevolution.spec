@@ -5,7 +5,7 @@ Summary:       SyncML client for evolution
 Name:          syncevolution
 Epoch:         1
 Version:       2.0.0
-Release:       14%{?dist}
+Release:       15%{?dist}
 License:       LGPL-2.0-or-later
 URL:           http://syncevolution.org/
 Source:        http://downloads.syncevolution.org/%{name}/sources/%{name}-%{version}.tar.gz
@@ -14,6 +14,7 @@ Patch1:        syncevolution-1.5.1-libical2.patch
 Patch2:        syncevolution-1.5.3-autoconf-2.71.patch
 Patch3:        003-pcre2.patch
 Patch4:        004-cpp-curl.patch
+Patch5:        005-gcc-c23-changes.patch
 
 BuildRequires: pkgconfig(dbus-glib-1)
 
@@ -220,6 +221,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/sync.desktop
 %{_datadir}/syncevolution/xml/*.pl
 
 %changelog
+* Wed Jan 22 2025 Milan Crha <mcrha@redhat.com> - 1:2.0.0-15
+- Add patch to build with gcc C23
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

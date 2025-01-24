@@ -16,8 +16,8 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt5-%{qt_module}
-Version:        5.15.15
-Release:        3%{?dist}
+Version:        5.15.16
+Release:        1%{?dist}
 Summary:        Qt5 for Windows - QtTranslations component
 
 # Automatically converted from old format: GPLv3 with exceptions or LGPLv2 with exceptions - review is highly recommended.
@@ -108,6 +108,9 @@ mkdir .git
 
 
 %changelog
+* Wed Jan 22 2025 Sandro Mani <manisandro@gmail.com> - 5.15.16-1
+- Update to 5.15.16
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.15-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

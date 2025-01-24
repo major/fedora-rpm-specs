@@ -9,7 +9,7 @@
 %endif
 # Exclude some BRs for Fedora
 %if 0%{?fedora}
-%global excluded_brs %{excluded_brs} eventlet
+%global excluded_brs %{excluded_brs} eventlet zake
 %endif
 
 %global pypi_name taskflow
@@ -22,7 +22,7 @@ different backends to be used with OpenStack projects.
 
 Name:           python-%{pypi_name}
 Version:        5.9.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Taskflow structured state management library
 
 License:        Apache-2.0
@@ -127,6 +127,9 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Wed Jan 22 2025 Eric Harney <eharney@redhat.com> - 5.9.1-3
+- Exclude zake from python buildreqs
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

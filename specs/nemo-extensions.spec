@@ -157,7 +157,7 @@ Context menu comparison extension for Nemo file manager.
 
 %package     -n nemo-seahorse
 Summary:     PGP encryption and signing for Nemo
-License:     GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later'
+License:     GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 Requires:    seahorse%{?_isa}
 
 %description -n nemo-seahorse

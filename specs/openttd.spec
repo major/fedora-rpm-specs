@@ -1,9 +1,9 @@
 # If we have a prerelease version we can define it here
-#%%global prever RC1
+%global prever beta1
 
 Name:           openttd
-Version:        14.1
-Release:        %autorelease
+Version:        15.0
+Release:        %autorelease -p -e %{prever}
 Summary:        Transport system simulation game
 
 # bundled squirrel is under Zlib license
@@ -128,7 +128,7 @@ EOF
 
 %files
 %license COPYING.md
-%doc changelog.txt CONTRIBUTING.md CREDITS.md known-bugs.txt README.md
+%doc changelog.md CONTRIBUTING.md CREDITS.md known-bugs.md README.md
 %{_bindir}/%{name}
 %{_datadir}/appdata/%{name}.appdata.xml
 %{_datadir}/applications/%{name}.desktop

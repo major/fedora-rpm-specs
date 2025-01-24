@@ -1,19 +1,17 @@
 %bcond docs 1
+%bcond introspection 1
+
+# The shared library version
+%global soversion 0.5
 
 Name:           libipuz
-Version:        0.4.6.3
+Version:        0.5.1
 Release:        %autorelease
 Summary:        Library for parsing .ipuz puzzle files
 
 License:        LGPL-2.1-or-later OR MIT
 URL:            https://gitlab.gnome.org/jrb/libipuz
 Source:         %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
-
-# Ensure we only enable introspection support from 0.4.7 onwards
-%bcond introspection %(v=$(echo %{version} | tr -d .) && [ "${v:0:3}" -ge 047 ] && echo 1 || echo 0)
-
-# Library version is bumped in 0.5
-%global soversion %(v=$(echo %{version} | tr -d .) && [ "${v:0:2}" -ge 05 ] && echo 0.5 || echo 0.4)
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  cmake

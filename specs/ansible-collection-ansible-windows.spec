@@ -5,7 +5,7 @@
 %endif
 
 Name:           ansible-collection-ansible-windows
-Version:        2.5.0
+Version:        2.7.0
 Release:        %autorelease
 Summary:        Windows core collection for Ansible
 

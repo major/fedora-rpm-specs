@@ -2,30 +2,38 @@
 %global repo_name ProcDump-for-Linux
 
 Name:           procdump
-Version:        2.1
-Release:        5%{?dist}
+Version:        3.3.0
+Release:        1%{?dist}
 Summary:        Sysinternals process dump utility
 
 License:        MIT
-URL:            https://github.com/Sysinternals/%{repo_name}
+URL:            https://github.com/Microsoft/%{repo_name}
 Source:         %{url}/archive/%{version}/%{repo_name}-%{version}.tar.gz
-Patch1:         0001-Fixing-some-leaks-in-src-Monitor.c-code-204.patch
+Patch1:         0001-Fix-clang-compilation-errors-due-to-variable-length-.patch
+Patch2:         0002-CMake-Add-ability-to-use-system-installed-libbpf-rat.patch
+Patch3:         0003-cmake-Include-install-section-for-procdump-and-its-m.patch
 
 BuildRequires:  gcc
-BuildRequires:  clang
 BuildRequires:  make
+BuildRequires:  cmake
+BuildRequires:  clang
+BuildRequires:  libbpf-devel
+BuildRequires:  bpftool
+BuildRequires:  git
 BuildRequires:  zlib-devel
 Requires:       gdb >= 7.6.1
 
-# ProcDump does not support PPC64 yet (#163)
-ExcludeArch:    ppc64le
+%undefine _annotated_build
+%undefine _hardened_build
+
+# ProcDump does not support PPC64 (#163) and Aarch64 (#260) yet
+ExclusiveArch:    x86_64 ppc64le s390x
 
 %description
-ProcDump is a command-line utility whose primary purpose is monitoring an
-application for various resources and generating crash dumps during a spike that
-an administrator or developer can use to determine the cause of the issue.
-ProcDump also serves as a general process dump utility that you can embed in
-other scripts.
+ProcDump is a command-line utility whose primary purpose is monitoring an application
+for various resources and generating crash dumps during a spike that an administrator
+or developer can use to determine the cause of the issue. ProcDump also serves as a
+general process dump utility that you can embed in other scripts.
 
 
 %prep
@@ -33,12 +41,12 @@ other scripts.
 
 
 %build
-# The makefile doesn't like %%make_build (parallel make)
-make CFLAGS=""
+%cmake
+%cmake_build
 
 
 %install
-%make_install
+%cmake_install
 
 
 %files
@@ -46,11 +54,20 @@ make CFLAGS=""
 %doc README.md
 %doc procdump.gif
 %{_bindir}/procdump
-%{_mandir}/man1/procdump.1*
+%{_mandir}/man1/procdump.1.gz
 
 
 
 %changelog
+* Wed Jan 22 2025 Julio Faracco <jfaracco@redhat.com> - 3.3.0-1
+- Adds improvements related to containerized workflows (3.3)
+- Adds mmap/munmap to resource tracking (3.2)
+- Adds ability to specify multiple comma separated signals (3.1)
+- Adds the new -mc switch which controls what type of memory is included in the core dumps (3.1)
+- Adds resource tracking and reporting feature (3.0)
+- Adds Azure Linux package (2.2)
+- Fixes memory leaks (2.2)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

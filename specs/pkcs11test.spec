@@ -15,6 +15,10 @@ License:        Apache-2.0 AND LicenseRef-RSA
 URL:            https://github.com/google/pkcs11test
 Source:         %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
 
+# Add missing #include for GCC 15
+# https://github.com/google/pkcs11test/pull/74
+Patch:          %{url}/pull/74.patch
+
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  sed
@@ -31,7 +35,7 @@ Provides:       bundled(pkcs11-headers) = 1.4
 This package provides a test suite for PKCS#11.
 
 %prep
-%autosetup -n %{name}-%{commit}
+%autosetup -n %{name}-%{commit} -p1
 
 # Build system fixes
 # * Replace bundled gtest with the system one

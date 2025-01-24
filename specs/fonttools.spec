@@ -28,8 +28,8 @@ an XML text format, which is also called TTX. It supports TrueType, OpenType,
 AFM and to an extent Type 1 and some Mac-specific formats.}
 
 Name:           fonttools
-Version:        4.55.3
-Release:        4%{?dist}
+Version:        4.55.4
+Release:        1%{?dist}
 Summary:        Tools to manipulate font files
 
 # https://spdx.org/licenses/MIT.html
@@ -194,6 +194,9 @@ k="${k-}${k+ and }not (InterpolatableTest and test_sparse_interpolatable_ufos)"
 %doc NEWS.rst README.rst
 
 %changelog
+* Wed Jan 22 2025 Parag Nemade <pnemade AT redhat DOT com> - 4.55.4-1
+- Update to 4.55.4 version (#2339159)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.55.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -15,7 +15,7 @@
 Name:          marco
 Version:       %{branch}.0
 %if 0%{?rel_build}
-Release:       4%{?dist}
+Release:       5%{?dist}
 %else
 Release:       0.23%{?git_rel}%{?dist}
 %endif
@@ -29,6 +29,14 @@ URL:           http://mate-desktop.org
 %{?rel_build:Source0:     http://pub.mate-desktop.org/releases/%{branch}/%{name}-%{version}.tar.xz}
 # Source for snapshot-builds.
 %{!?rel_build:Source0:    http://git.mate-desktop.org/%{name}/snapshot/%{name}-%{commit}.tar.xz#/%{git_tar}}
+
+# https://github.com/mate-desktop/marco/commit/5367553
+Patch1:        marco_0001-tabpopup-Report-the-window-as-active-to-a11y-when-it.patch
+# https://github.com/mate-desktop/marco/commit/2d3cec6
+Patch2:        marco_0002-tabpopup-Stop-spamming-the-ATs-with-label-changes-at.patch
+# https://github.com/mate-desktop/marco/pull/786
+Patch3:        marco_0004-window-props-Fix-check-for-XResQueryClientIds-succes.patch
+Patch4:        marco_0005-window-props-remove-incorrect-mask-check.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: gtk3-devel
@@ -154,6 +162,12 @@ desktop-file-install                                \
 
 
 %changelog
+* Wed Jan 22 2025 Wolfgang Ulbrich <raveit65.sun@gmail.com> - 1.28.0-5
+- use some upstream commits
+- tabpopup: Report the window as active to a11y when it's showing
+- tabpopup: Stop spamming the ATs with label changes at startup
+- fix Firejail/Flatpak applications display "as superuser" on window title
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

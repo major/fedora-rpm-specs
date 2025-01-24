@@ -28,7 +28,7 @@
 
 %global rpmver 4.20.0
 #global snapver rc1
-%global baserelease 7
+%global baserelease 8
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -124,8 +124,8 @@ rpm-4.18.x-siteconfig.patch
 # In current Fedora, man-pages pkg owns all the localized man directories
 rpm-4.9.90-no-man-dirs.patch
 
-# Disable new user/group handling
-rpm-4.18.92-disable-sysusers.patch
+# Use systemd-sysusers due to https://github.com/shadow-maint/shadow/issues/940
+rpm-4.20-sysusers.patch
 rpm-4.19.91-weak-user-group.patch
 
 # Temporarily disable the deprecation warning for
@@ -158,6 +158,8 @@ the package like its version, a description, etc.
 %package libs
 Summary:  Libraries for manipulating RPM packages
 License:  GPL-2.0-or-later OR LGPL-2.1-or-later
+# Either full systemd or systemd-standalone-sysusers
+Requires: /usr/bin/systemd-sysusers
 Requires(meta): %{name} = %{version}-%{release}
 # >= 1.4.0 required for pgpVerifySignature2() and pgpPrtParams2()
 Requires: rpm-sequoia%{_isa} >= 1.4.0
@@ -624,6 +626,10 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Wed Jan 22 2025 Panu Matilai <pmatilai@redhat.com> - 4.20.0-8
+- Enable rpm sysusers.d integration via native systemd-sysusers for
+  https://fedoraproject.org/wiki/Changes/RPMSuportForSystemdSysusers
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.20.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

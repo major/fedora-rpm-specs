@@ -52,7 +52,7 @@
 # than a Fedora release lifecycle.
 %global nodejs_epoch 1
 %global nodejs_major 22
-%global nodejs_minor 11
+%global nodejs_minor 13
 %global nodejs_patch 0
 # nodejs_soversion - from NODE_MODULE_VERSION in src/node_version.h
 %global nodejs_soversion 127
@@ -80,25 +80,25 @@
 
 # c-ares - from deps/cares/include/ares_version.h
 # https://github.com/nodejs/node/pull/9332
-%global c_ares_version 1.33.1
+%global c_ares_version 1.34.4
 
 # llhttp - from deps/llhttp/include/llhttp.h
 %global llhttp_version 9.2.1
 
 # libuv - from deps/uv/include/uv/version.h
-%global libuv_version 1.48.0
+%global libuv_version 1.49.2
 
 # nghttp2 - from deps/nghttp2/lib/includes/nghttp2/nghttp2ver.h
-%global nghttp2_version 1.63.0
+%global nghttp2_version 1.64.0
 
 # nghttp3 - from deps/ngtcp2/nghttp3/lib/includes/nghttp3/version.h
-%global nghttp3_version 0.7.0
+%global nghttp3_version 1.6.0
 
 # ngtcp2 from deps/ngtcp2/ngtcp2/lib/includes/ngtcp2/version.h
-%global ngtcp2_version 1.3.0
+%global ngtcp2_version 1.9.1
 
 # ICU - from tools/icu/current_ver.dep
-%global icu_major 75
+%global icu_major 76
 %global icu_minor 1
 %global icu_version %{icu_major}.%{icu_minor}
 
@@ -107,7 +107,7 @@
 # " this line just fixes syntax highlighting for vim that is confused by the above and continues literal
 
 # simdutf from deps/simdutf/simdutf.h
-%global simdutf_version 5.5.0
+%global simdutf_version 5.6.4
 
 # OpenSSL minimum version
 %global openssl11_minimum 1:1.1.1
@@ -120,7 +120,7 @@
 
 # npm - from deps/npm/package.json
 %global npm_epoch 1
-%global npm_version 10.9.0
+%global npm_version 10.9.2
 
 # In order to avoid needing to keep incrementing the release version for the
 # main package forever, we will just construct one for npm that is guaranteed
@@ -137,7 +137,7 @@
 %global histogram_version 0.9.7
 
 # sqlite – from deps/sqlite/sqlite3.h
-%global sqlite_version 3.46.1
+%global sqlite_version 3.47.2
 
 
 Name: nodejs%{nodejs_pkg_major}
@@ -167,9 +167,6 @@ Source202: nodejs.pc.in
 Source203: v8.pc.in
 
 Patch: 0001-Remove-unused-OpenSSL-config.patch
-Patch: 0002-build-conditionally-compile-bundled-sqlite.patch
-Patch: 0003-deps-ncrypto-include-openssl-rand.h.patch
-Patch: 0004-tools-fix-riscv64-build-failed.patch
 
 %if 0%{?nodejs_default}
 %global pkgname nodejs
@@ -341,7 +338,7 @@ Provides: bundled(simdutf) = %{simdutf_version}
 
 # Upstream has added a new URL parser that has no option to build as a shared
 # library (19.7.0+)
-Provides: bundled(ada) = 2.9.0
+Provides: bundled(ada) = 2.9.2
 
 
 # undici and cjs-module-lexer ship with pre-built WASM binaries.
@@ -353,7 +350,7 @@ Requires: nodejs-cjs-module-lexer
 %endif
 
 %if %{with bundled_undici}
-Provides: bundled(nodejs-undici) = 6.20.0
+Provides: bundled(nodejs-undici) = 6.21.0
 %else
 BuildRequires: nodejs-undici
 Requires: nodejs-undici

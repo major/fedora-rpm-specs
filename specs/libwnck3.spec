@@ -2,18 +2,18 @@
 
 Summary: Window Navigator Construction Kit
 Name: libwnck3
-Version: 43.1
-Release: 3%{?dist}
+Version: 43.2
+Release: 1%{?dist}
 URL: http://download.gnome.org/sources/%{source_name}/
 Source0: http://download.gnome.org/sources/%{source_name}/43/%{source_name}-%{version}.tar.xz
 License: LGPL-2.0-or-later
 
 # https://gitlab.gnome.org/GNOME/libwnck/-/merge_requests/10
-Patch1:        libwnck_0001-Expose-window-scaling-factor_v43.1.patch
-Patch2:        libwnck_0002-icons-Use-cairo-surfaces-to-render-icons_v43.1.patch
-Patch3:        libwnck_0003-xutils-Change-icons-to-being-cairo-surfaces_v43.1.patch
-Patch4:        libwnck_0004-icons-Mark-GdkPixbuf-icons-as-deprecated_v43.1.patch
-Patch5:        libwnck_0005-tasklist-Add-surface-loader-function_v43.1.patch
+#Patch1:        libwnck_0001-Expose-window-scaling-factor_v43.1.patch
+#Patch2:        libwnck_0002-icons-Use-cairo-surfaces-to-render-icons_v43.1.patch
+#Patch3:        libwnck_0003-xutils-Change-icons-to-being-cairo-surfaces_v43.1.patch
+#Patch4:        libwnck_0004-icons-Mark-GdkPixbuf-icons-as-deprecated_v43.1.patch
+#Patch5:        libwnck_0005-tasklist-Add-surface-loader-function_v43.1.patch
 
 BuildRequires: gcc
 BuildRequires: meson
@@ -77,6 +77,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Wed Jan 22 2025 Wolfgang Ulbrich <raveit65.sun@gmail.com> - 43.2-1
+- update to 43.2
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 43.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

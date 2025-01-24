@@ -1,6 +1,6 @@
 Name:		perl-Module-Extract-VERSION
-Version:	1.117
-Release:	3%{?dist}
+Version:	1.118
+Release:	1%{?dist}
 Summary:	Extract a module version without running code
 License:	Artistic-2.0
 URL:		https://metacpan.org/release/Module-Extract-VERSION
@@ -53,11 +53,16 @@ make test
 
 %files
 %license LICENSE
-%doc Changes README.pod
+%doc Changes README.pod SECURITY.md
 %{perl_vendorlib}/Module/
 %{_mandir}/man3/Module::Extract::VERSION.3*
 
 %changelog
+* Wed Jan 22 2025 Paul Howarth <paul@city-fan.org> - 1.118-1
+- Update to 1.118
+  - Refresh dist
+- Package new SECURITY.md file
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.117-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

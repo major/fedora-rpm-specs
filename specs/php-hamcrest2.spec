@@ -1,8 +1,8 @@
-# remirepo/fedora spec file for php-hamcrest
+# remirepo/fedora spec file for php-hamcrest2
 #
-# Copyright (c) 2015-2020 Remi Collet
-# License: CC-BY-SA
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2015-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
@@ -16,24 +16,25 @@
 
 Name:           php-hamcrest2
 Version:        2.0.1
-Release:        13%{?dist}
+Release:        12%{?dist}
 Summary:        PHP port of Hamcrest Matchers
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{gh_short}.tar.gz
 
 # Use generated autoloader instead of composer one
 Patch0:         bootstrap-autoload.patch
+# Upstream patch for testsuite
+Patch1:         upstream.patch
 
 BuildArch:      noarch
 BuildRequires:  php-fedora-autoloader-devel
 %if %{with tests}
 # From composer.json, require-dev:
 #               "phpunit/php-file-iterator": "^1.4 || ^2.0",
-#               "phpunit/phpunit": "^4.8.36 || ^5.7 || ^6.5 || ^7.0"
-BuildRequires:  phpunit7
+#               "phpunit/phpunit": "^4.8.36 || ^5.7 || ^6.5 || ^7.0 || ^8.0 || ^9.0"
+BuildRequires:  phpunit9
 # composer.json, require:
 #      "php": "^5.3|^7.0|^8.0"
 BuildRequires:  php(language) >= 5.3
@@ -72,7 +73,8 @@ Autoloader: %{_datadir}/php/%{ns_project}%{major}/autoload.php
 %setup -q -n %{gh_project}-%{gh_commit}
 
 %patch -P0 -p0 -b .rpm
-find . -name \*.rpm -exec rm {} \;
+%patch -P1 -p1 -b .up
+find . -name \*.rpm -o -name \*.up -exec rm {} \;
 
 # Move to Library tree
 mv hamcrest/%{ns_project}.php hamcrest/%{ns_project}/%{ns_project}.php
@@ -101,9 +103,9 @@ cp -pr hamcrest/%{ns_project} %{buildroot}%{_datadir}/php/%{ns_project}%{major}
 %if %{with tests}
 cd tests
 ret=0
-for cmd in php php72 php73 php74; do
+for cmd in php php81 php82 php83 php84; do
   if which $cmd; then
-    $cmd %{_bindir}/phpunit7 --verbose || ret=1
+    $cmd %{_bindir}/phpunit9 --verbose || ret=1
   fi
 done
 exit $ret
@@ -113,7 +115,6 @@ exit $ret
 
 
 %files
-%{!?_licensedir:%global license %%doc}
 %license LICENSE.txt
 %doc CHANGES.txt README.md
 %doc composer.json
@@ -121,6 +122,10 @@ exit $ret
 
 
 %changelog
+* Wed Jan 22 2025 Remi Collet <remi@remirepo.net> - 2.0.1-12
+- switch to phpunit9
+- re-license spec file to CECILL-2.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

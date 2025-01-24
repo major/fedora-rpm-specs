@@ -49,9 +49,11 @@ Requires:       python3-six
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 %if %{run_tests}
+BuildRequires:  python3-boto3
 BuildRequires:  python3-httplib2
+BuildRequires:  python3-httpx
 BuildRequires:  python3-mock
-BuildRequires:  python3-nose
+BuildRequires:  python3-pytest
 BuildRequires:  python3-requests
 BuildRequires:  python3-sure
 BuildRequires:  python3-urllib3
@@ -76,10 +78,6 @@ Don't worry, HTTPretty is here for you.
 # Alternative for building from commit tarball
 #autosetup -n %%{github_name}-%%{github_commit} -p1
 
-# nose plugins we don't have yet
-sed -i 's/^with-randomly = 1$//' setup.cfg
-sed -i 's/^rednose = 1$//' setup.cfg
-
 %build
 %py3_build
 
@@ -93,7 +91,14 @@ sed -i 's/^rednose = 1$//' setup.cfg
 # See:
 # - https://github.com/gabrielfalcao/HTTPretty/issues/457
 # - https://github.com/psf/requests/issues/6711
-%{__python3} -m nose -v --exclude=test_httpretty_should_handle_paths_starting_with_two_slashes
+# test_426_mypy_segfault seems to fail without real internet connection ?
+# test_bypass+test_debug+test_recording_calls rely on undefined pytest fixture ?
+%pytest -v \
+  --ignore tests/bugfixes/pytest/test_426_mypy_segfault.py \
+  --ignore tests/functional/test_bypass.py \
+  --ignore tests/functional/test_debug.py \
+  --ignore tests/bugfixes/nosetests \
+  -k "not test_httpretty_should_handle_paths_starting_with_two_slashes and not test_recording_calls"
 %endif
 
 %files -n python3-httpretty
