@@ -95,8 +95,8 @@
 %global exclude_packages %{exclude_packages}"
 
 Name: subscription-manager
-Version: 1.30.3
-Release: 2%{?dist}
+Version: 1.30.4
+Release: 1%{?dist}
 Summary: Tools and libraries for subscription and repository management
 %if 0%{?suse_version}
 Group:   Productivity/Networking/System
@@ -117,13 +117,6 @@ Source0: %{name}-%{version}.tar.gz
 %if 0%{?suse_version}
 Source2: subscription-manager-rpmlintrc
 %endif
-
-# https://github.com/candlepin/subscription-manager/pull/3497
-# Stop using usermode (helps with sbin merge)
-Patch: 3497.patch
-# https://github.com/candlepin/subscription-manager/pull/3498
-# Don't hardcode /usr/sbin as install path for executable
-Patch: 3498.patch
 
 # The following macro examples are preceeded by '%' to stop macro expansion
 # in the comments. (See https://bugzilla.redhat.com/show_bug.cgi?id=1224660 for
@@ -158,7 +151,6 @@ Requires: %{py_package_prefix}-zypp-plugin
 %else
 Requires: %{py_package_prefix}-dateutil
 Requires: %{py_package_prefix}-dbus
-Requires: usermode
 Requires: python3-gobject-base
 %endif
 
@@ -367,7 +359,7 @@ cloud metadata and signatures.
 
 
 %prep
-%autosetup -p1
+%setup -q
 
 %build
 make -f Makefile VERSION=%{version}-%{release} CFLAGS="%{optflags}" \
@@ -734,14 +726,20 @@ fi
 %endif
 
 %posttrans
+%systemd_posttrans_with_restart rhsm.service
 # Remove old *.egg-info empty directories not removed be previous versions of RPMs
 # due to this BZ: https://bugzilla.redhat.com/show_bug.cgi?id=1927245
 rmdir %{python_sitearch}/subscription_manager-*-*.egg-info --ignore-fail-on-non-empty
 # Remove old cache files
 # The -f flag ensures that exit code 0 will be returned even if the file does not exist.
 rm -f /var/lib/rhsm/cache/rhsm_icon.json
+rm -f /var/lib/rhsm/cache/content_access_mode.json
 
 %changelog
+* Wed Jan 22 2025 Packit <hello@packit.dev> - 1.30.4-1
+- Update to version 1.30.4
+- Resolves: rhbz#2339420
+
 * Fri Jan 17 2025 Adam Williamson <awilliam@redhat.com> - 1.30.3-2
 - Backport PRs #3497 and #3498 to adapt to sbin merge
 

@@ -5,8 +5,8 @@
 %global crate libcryptsetup-rs
 
 Name:           rust-libcryptsetup-rs
-Version:        0.11.2
-Release:        2%{?dist}
+Version:        0.12.0
+Release:        1%{?dist}
 Summary:        High level Rust bindings for libcryptsetup
 
 License:        MPL-2.0
@@ -78,6 +78,9 @@ use the "mutex" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Thu Jan 23 2025 Chung Chung <cchung@redhat.com> - 0.12.0-1
+- Update to version 0.12.0
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

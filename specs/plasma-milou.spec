@@ -1,8 +1,8 @@
 %define         base_name milou
 
 Name:    plasma-%{base_name}
-Version: 6.2.90
-Release: 2%{?dist}
+Version: 6.2.91
+Release: 1%{?dist}
 Summary: A dedicated KDE search application built on top of Baloo
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -57,6 +57,9 @@ Provides:       kde-plasma-milou = %{version}-%{release}
 
 
 %changelog
+* Thu Jan 23 2025 Steve Cossette <farchord@gmail.com> - 6.2.91-1
+- 6.2.91
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.90-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 # python3-docs is not shipped in RHEL 9+
 %bcond py3docs %{undefined rhel}
 
-%global giturl https://github.com/oneapi-src/oneTBB
+%global giturl https://github.com/uxlfoundation/oneTBB
 
 Name:    tbb
 Summary: The Threading Building Blocks library abstracts low-level threading details
@@ -16,6 +16,9 @@ Source0: %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
 # These two are downstream sources.
 Source7: tbbmalloc.pc
 Source8: tbbmalloc_proxy.pc
+
+# Fix failure to link with GCC 15
+Patch:   tbb-c++-linkage.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -87,8 +90,9 @@ Python 3 TBB module.
 
 %if %{with py3docs}
 # Fix intersphinx mapping for Sphinx 8.x
-sed -e "s|'\(https://docs\.python\.org\)/': None|'python': ('\1/3', None)|" \
-    -i doc/GSG/conf.py doc/main/conf.py
+# Use local objects.inv for intersphinx
+sed -e "s|'\(https://docs\.python\.org\)/': None|'python': ('\1/3', '%{_docdir}/python3-docs/html/objects.inv')|" \
+    -i doc/conf.py doc/GSG/conf.py doc/main/conf.py
 %endif
 
 %generate_buildrequires
@@ -174,6 +178,11 @@ ctest --output-on-failure --force-new-ctest-process
 %{python3_sitearch}/__pycache__/TBB*
 
 %changelog
+* Sun Jan 19 2025 Jerry James <loganjerry@gmail.com> - 2022.0.0-3
+- Add patch to fix linking tbbmalloc with GCC 15
+- Update %%giturl for the uxlfoundation change
+- Fix intersphinx_mapping to use local objects.inv
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2022.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

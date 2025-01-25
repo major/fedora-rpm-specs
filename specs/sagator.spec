@@ -119,7 +119,7 @@ make %{?_smp_mflags}
 
 %install
 rm -rf %{buildroot}
-make DESTDIR=%{buildroot} PREFIX=%{_prefix} install
+make DESTDIR=%{buildroot} PREFIX=%{_prefix} SBINDIR=%{buildroot}%{_sbindir} install
 rm -f %{buildroot}%{_datadir}/sagator/etc/sgconf.py* \
   scripts/mkchroot.sh scripts/graphs/*.in
 touch %{buildroot}%{_datadir}/%{name}/etc/sgconf.py_
@@ -172,7 +172,7 @@ touch %{_var}/lib/sagator-mkchroot
 %files
 # no files, this package just requires others
 # exclude sepolicy for builds without selinux module
-%if 0%{?sepolicy:1}
+%if 0%{?install_sepolicy}>0
 %exclude %{sepolicy}
 %endif
 
@@ -187,7 +187,10 @@ touch %{_var}/lib/sagator-mkchroot
 %doc doc/README doc/FAQ doc/*.txt doc/*.html TODO COPYING ChangeLog test
 %doc scripts/graphs scripts/*.sh scripts/log/analyzer.py
 %{_bindir}/*
+# Fedora 42 merged bin/sbin
+%if "%{_bindir}" != "%{_sbindir}"
 %{_sbindir}/*
+%endif
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/*.py*
 %dir %attr(750,root,vscan) %{_datadir}/%{name}/etc

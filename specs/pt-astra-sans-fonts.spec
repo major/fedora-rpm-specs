@@ -1,5 +1,5 @@
 Version: 1.002
-Release: 7%{?dist}
+Release: 8%{?dist}
 
 URL: https://astralinux.ru/en/information/#section-fonts-astra
 
@@ -33,6 +33,7 @@ unzip -n %{SOURCE0} -d %{name}-%{version}
 
 %build
 %fontbuild
+install -p -m 0644 %{SOURCE11} .
 
 
 %install
@@ -47,6 +48,10 @@ unzip -n %{SOURCE0} -d %{name}-%{version}
 
 
 %changelog
+* Thu Jan 23 2025 Akira TAGOH <tagoh@redhat.com> - 1.002-8
+- Fix FTBFS issue.
+  Resolves: rhbz#2341115
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.002-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

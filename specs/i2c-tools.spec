@@ -5,8 +5,8 @@
 # package are under the same license as the package itself.
 
 Name:           i2c-tools
-Version:        4.3
-Release:        14%{?dist}
+Version:        4.4
+Release:        1%{?dist}
 Summary:        A heterogeneous set of I2C tools for Linux
 # Note: py-symbus/ is GPL-2.0-only, lib/ is LGPL-2.1-or-later
 # and the rest is GPL-2.0-or-later
@@ -86,7 +86,7 @@ popd
 
 %install
 make install DESTDIR=$RPM_BUILD_ROOT PREFIX=%{_prefix} BUILD_STATIC_LIB=0 \
-  EXTRA=eeprog libdir=%{_libdir}
+  EXTRA=eeprog libdir=%{_libdir} bindir=%{_bindir} sbindir=%{_sbindir}
 pushd py-smbus
 %{__python3} setup.py build -b build-py3 install --skip-build --root=$RPM_BUILD_ROOT
 popd
@@ -158,6 +158,13 @@ exit 0
 %{_mandir}/man3/libi2c.3.*
 
 %changelog
+* Thu Jan 23 2025 Pavol Žáčik <pzacik@redhat.com> - 4.4-1
+- Updated to 4.4
+
+* Thu Jan 23 2025 Pavol Žáčik <pzacik@redhat.com> - 4.3-15
+- Rebuilt to comply with the bin/sbin merge
+- Resolves: rhbz#2340627
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

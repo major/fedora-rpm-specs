@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.83
+Version: 12.84
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
@@ -532,6 +532,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Jan 23 2025 Nick Clifton  <nickc@redhat.com> - 12.84-1
+- Annocheck: Fix corrupt warning message when unable to locate separate debug info files.
+
 * Wed Jan 22 2025 Nick Clifton  <nickc@redhat.com> - 12.83-1
 - Annocheck: Remove spurious debugging messages.
 

@@ -13,7 +13,7 @@
 %endif
 
 Name:           fcitx5-kkc
-Version:        5.1.5
+Version:        5.1.6
 Release:        %autorelease
 Summary:        Libkkc input method support for Fcitx5
 # Automatically converted from old format: GPLv3+ - review is highly recommended.

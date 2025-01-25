@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.2
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        A set of high-level abstractions for Django forms
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -69,6 +69,8 @@ PYTHONPATH=. DJANGO_SETTINGS_MODULE=tests.settings python3-coverage run %{python
 %{py3_install}
 %find_lang django py3lang
 # generate html docs
+# Fix doc build with latest Sphinx, see https://github.com/jazzband/django-formtools/issues/279
+sed -i "s#'http://docs.python.org/': None#'python': ('https://docs.python.org/3', None)#" docs/conf.py
 sphinx-build-3 docs html
 # remove the sphinx-build leftovers
 rm -rf html/.{doctrees,buildinfo}
@@ -86,6 +88,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
+* Thu Jan 23 2025 Javier Peña <jpena@redhat.com> - 2.2-17
+- Fix doc build with latest Sphinx (bz#2341143)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

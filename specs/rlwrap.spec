@@ -27,6 +27,24 @@ lists can be specified on the command line.
 
 
 %build
+%if 0%{?fedora} >= 42 || 0%{?rhel} >= 11
+# issues with rl_message function signature even though readline is not upgraded
+# https://gcc.gnu.org/gcc-15/porting_to.html
+# readline.c: In function ‘message_in_echo_area’:
+# readline.c:192:5: error: too many arguments to function ‘rl_message’; expected 0, have 1
+#   192 |     rl_message(message);
+#       |     ^~~~~~~~~~ ~~~~~~~
+# In file included from rlwrap.h:189,
+#                  from readline.c:23:
+# /usr/include/readline/readline.h:410:12: note: declared here
+#   410 | extern int rl_message ();
+#       |            ^~~~~~~~~~
+# seems related to the switch to -std=gnu23 but not sure how:
+# https://gcc.gnu.org/gcc-15/porting_to.html
+# reported upstream in https://github.com/hanslub42/rlwrap/issues/195
+export CFLAGS="%{optflags} -std=gnu17"
+%endif
+
 %configure
 %make_build
 

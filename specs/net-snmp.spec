@@ -10,7 +10,7 @@
 Summary:    A collection of SNMP protocol tools and libraries
 Name:       net-snmp
 Version:    5.9.4
-Release:    9%{?dist}
+Release:    10%{?dist}
 Epoch:      1
 
 License:    MIT-CMU AND BSD-3-Clause AND MIT
@@ -435,7 +435,8 @@ LD_LIBRARY_PATH=%{buildroot}/%{_libdir} make test
 %config(noreplace) %attr(0600,root,root) %{_sysconfdir}/snmp/snmptrapd.conf
 %{_bindir}/snmpconf
 %{_bindir}/net-snmp-create-v3-user
-%{_sbindir}/*
+%{_sbindir}/snmpd
+%{_sbindir}/snmptrapd
 %attr(0644,root,root) %{_mandir}/man[58]/snmp*d*
 %attr(0644,root,root) %{_mandir}/man5/snmp_config.5.gz
 %attr(0644,root,root) %{_mandir}/man5/variables*
@@ -513,6 +514,9 @@ LD_LIBRARY_PATH=%{buildroot}/%{_libdir} make test
 %{_libdir}/libnetsnmptrapd*.so.%{soname}*
 
 %changelog
+* Thu Jan 23 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1:5.9.4-10
+- Fix file listings for https://fedoraproject.org/wiki/Changes/Unify_bin_and_sbin
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.9.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

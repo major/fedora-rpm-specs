@@ -4,12 +4,14 @@
 
 Name:           qsf
 Version:        1.2.15
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Quick Spam Filter
 
 License:        Artistic-2.0
 URL:            http://www.ivarch.com/programs/qsf/
 Source0:        http://downloads.sourceforge.net/qsf/qsf-%{version}.tar.bz2
+# Fix build with gcc 15
+Patch1:         qsf-decl.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -33,6 +35,7 @@ QSF is designed to be run by an MDA, such as procmail.
 
 %prep
 %setup -q
+%autopatch -p1
 
 %build
 %configure \
@@ -55,6 +58,9 @@ make test
 %{_mandir}/man1/qsf.1*
 
 %changelog
+* Thu Jan 23 2025 Miroslav Lichvar <mlichvar@redhat.com> 1.2.15-11
+- fix FTBFS with new gcc (#2341253)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.15-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

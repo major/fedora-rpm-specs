@@ -7,7 +7,7 @@
 Name:		mingw-%{name1}
 Version:	8.45
 %global myversion %{version}%{?rcversion:-%rcversion}
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	MinGW Windows pcre library
 
 License:	BSD-3-Clause
@@ -41,6 +41,7 @@ BuildRequires:	redhat-rpm-config
 BuildRequires:  gnupg2
 BuildRequires:  autoconf
 BuildRequires:  automake
+BuildRequires:  libtool
 
 BuildRequires:	mingw32-filesystem >= 95
 BuildRequires:	mingw32-gcc
@@ -114,6 +115,7 @@ Static version of the mingw64-pcre library.
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -S git_am -n pcre-%{version}
+autoreconf -vif
 
 
 %build
@@ -205,6 +207,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 
 
 %changelog
+* Thu Jan 23 2025 Thomas Sailer <fedora@tsailer.ch> - 8.45-8
+- Fix build
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.45-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

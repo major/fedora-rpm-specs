@@ -21,6 +21,8 @@ Summary:        Extensions to the Python standard library unit testing framework
 License:        MIT
 URL:            https://github.com/testing-cabal/testtools
 Source:         %{pypi_source testtools}
+# https://github.com/testing-cabal/testtools/pull/387
+Patch:          0001-Prepare-tests-for-upcoming-twisted-version.patch
 BuildArch:      noarch
 
 %global common_description %{expand:

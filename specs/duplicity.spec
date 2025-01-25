@@ -34,7 +34,6 @@ Requires:       rsync
 
 Recommends:     ncftp >= 3.1.9
 Recommends:     openssh-clients
-Recommends:     python3dist(PyDrive2)
 Recommends:     python3dist(boto3)
 Recommends:     python3dist(dropbox)
 Recommends:     python3dist(paramiko)
@@ -75,7 +74,7 @@ sed -i "s/>=.[^\s][^,][^\"]*//g" pyproject.toml
 sed -i /pipx/d pyproject.toml
 
 # Strip requirements on optional modules not in Fedora
-for i in atom boxsdk gdata-python3 gettext jottalib mediafire megatools pyrax ; do
+for i in atom boxsdk gdata-python3 gettext jottalib mediafire megatools pyrax pydrive2; do
   sed -i /"$i"/d requirements.txt
 done
 

@@ -2,7 +2,7 @@
 
 Name:        mdadm
 Version:     4.3
-Release:     5%{?dist}
+Release:     6%{?dist}
 Summary:     The mdadm program controls Linux md devices (software RAID arrays)
 URL:         http://www.kernel.org/pub/linux/utils/raid/mdadm/
 License:     GPL-2.0-or-later
@@ -54,7 +54,8 @@ file can be used to help with some common tasks.
 
 
 %build
-%make_build CXFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS" SYSCONFDIR="%{_sysconfdir}" mdadm mdmon raid6check raid6check.man
+# CXFLAGS is NOT a typo, it's baked into the makefile, not to be confused with CXXFLAGS
+%make_build CXFLAGS="%{optflags} -std=gnu17 -Wno-error=unterminated-string-initialization" LDFLAGS="$RPM_LD_FLAGS" SYSCONFDIR="%{_sysconfdir}" mdadm mdmon raid6check raid6check.man
 
 
 %install
@@ -62,7 +63,7 @@ file can be used to help with some common tasks.
 install -Dp -m 755 %{SOURCE1} %{buildroot}%{_sbindir}/raid-check
 install -Dp -m 644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/raid-check
 mkdir -p -m 710 %{buildroot}/run/%{name}
-mkdir -p -m 700 %{buildroot}%{_datadir}/%{name}
+mkdir -p -m 755 %{buildroot}%{_datadir}/%{name}
 install -Dp -m 755 %{SOURCE8} %{buildroot}%{_datadir}/%{name}/mdcheck
 
 # systemd
@@ -123,6 +124,10 @@ install -Dm644 raid6check.man %{buildroot}/%{_mandir}/man8/raid6check.man
 
 
 %changelog
+* Thu Jan 23 2025 Jonathan Wright <jonathan@almalinux.org> - 4.3-6
+- fix FTBFS on gcc15 rhbz#2340833
+- fix permissions on /usr/share/mdadm to be world-readable rhbz#2322402
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

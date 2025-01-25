@@ -2,7 +2,7 @@
 
 Name:		opal-prd
 Version:	7.1
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	OPAL Processor Recovery Diagnostics Daemon
 
 License:	Apache-2.0
@@ -51,6 +51,9 @@ on such systems and update the OpenPower firmware.
 %prep
 %autosetup -p1 -n %{project}-%{version}
 
+# update for https://fedoraproject.org/wiki/Changes/Unify_bin_and_sbin
+sed -i -e 's|/usr/sbin|%{_sbindir}|' external/opal-prd/opal-prd.service
+
 
 %build
 OPAL_PRD_VERSION=%{version} make V=1 CC="gcc" CFLAGS="%{build_cflags}" LDFLAGS="%{build_ldflags}" ASFLAGS="-m64 -Wa,--generate-missing-build-notes=yes" -C external/opal-prd
@@ -61,11 +64,11 @@ FFSPART_VERSION=%{version}  make V=1 CC="gcc" CFLAGS="%{build_cflags}" LDFLAGS="
 
 
 %install
-OPAL_PRD_VERSION=%{version} make -C external/opal-prd install DESTDIR=%{buildroot} prefix=/usr
-GARD_VERSION=%{version}     make -C external/gard install DESTDIR=%{buildroot} prefix=/usr
-PFLASH_VERSION=%{version}   make -C external/pflash install DESTDIR=%{buildroot} prefix=/usr
-XSCOM_VERSION=%{version}    make -C external/xscom-utils install DESTDIR=%{buildroot} prefix=/usr
-FFSPART_VERSION=%{version}  make -C external/ffspart install DESTDIR=%{buildroot} prefix=/usr
+OPAL_PRD_VERSION=%{version} make -C external/opal-prd install DESTDIR=%{buildroot} prefix=/usr sbindir="\$(prefix)/bin"
+GARD_VERSION=%{version}     make -C external/gard install DESTDIR=%{buildroot} prefix=/usr sbindir="\$(prefix)/bin"
+PFLASH_VERSION=%{version}   make -C external/pflash install DESTDIR=%{buildroot} prefix=/usr sbindir="\$(prefix)/bin"
+XSCOM_VERSION=%{version}    make -C external/xscom-utils install DESTDIR=%{buildroot} prefix=/usr sbindir="\$(prefix)/bin"
+FFSPART_VERSION=%{version}  make -C external/ffspart install DESTDIR=%{buildroot} prefix=/usr sbindir="\$(prefix)/bin"
 
 mkdir -p %{buildroot}%{_unitdir}
 install -m 644 -p external/opal-prd/opal-prd.service %{buildroot}%{_unitdir}/opal-prd.service
@@ -116,6 +119,10 @@ install -m 644 -p %{SOURCE3} %{buildroot}%{_mandir}/man1/ffspart.1
 
 
 %changelog
+* Thu Jan 23 2025 Dan Horák <dan@danny.cz> - 7.1-7
+- update for https://fedoraproject.org/wiki/Changes/Unify_bin_and_sbin
+- Resolves: rhbz#2340962
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

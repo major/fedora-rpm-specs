@@ -4,7 +4,7 @@
 %global crate cargo-deny
 
 Name:           rust-cargo-deny
-Version:        0.16.2
+Version:        0.16.4
 Release:        %autorelease
 Summary:        Cargo plugin to help you manage large dependency graphs
 
@@ -18,10 +18,6 @@ Source:         %{crates_source}
 # $ askalono cache load-spdx spdx-license-list/json/details
 # $ mv askalono-cache.bin.zstd askalono-cache-3.22.bin.zstd
 Source:         askalono-cache-3.22.bin.zstd
-# Manually created patch for downstream crate metadata changes
-# * relax gix dependency to allow building with both v0.66 and v0.67
-# * relax tame-index dependency to allow building with both v0.14 and v0.15
-Patch:          cargo-deny-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

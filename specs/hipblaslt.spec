@@ -28,11 +28,16 @@
 
 # hipblaslt does not support our default set
 # These are the ones it does, gfx942 building still has problems
-%global amdgpu_targets "gfx90a:xnack+;gfx90a:xnack-;gfx1100;gfx1101;gfx1102"
+%global amdgpu_targets "gfx90a:xnack+;gfx90a:xnack-;gfx1100;gfx1101;gfx1102;gfx1200;gfx1201"
+
+# Compression type and level for source/binary package payloads.
+#  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
+%define _source_payload	w7T0.xzdio
+%define _binary_payload	w7T0.xzdio
 
 Name:           hipblaslt
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ROCm general matrix operations beyond BLAS
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -210,6 +215,10 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
 %endif
 
 %changelog
+* Thu Jan 23 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-4
+- Add gfx1200,gfx1201
+- multithread compress
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

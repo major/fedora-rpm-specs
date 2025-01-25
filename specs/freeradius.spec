@@ -1,7 +1,7 @@
 Summary: High-performance and highly configurable free RADIUS server
 Name: freeradius
 Version: 3.2.5
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: http://www.freeradius.org/
 
@@ -596,10 +596,10 @@ EOF
 
 # binaries
 %defattr(-,root,root)
-/usr/sbin/checkrad
-/usr/sbin/raddebug
-/usr/sbin/radiusd
-/usr/sbin/radmin
+%{_bindir}/checkrad
+%{_bindir}/raddebug
+%{_bindir}/radiusd
+%{_bindir}/radmin
 
 # dictionaries
 %dir %attr(755,root,root) /usr/share/freeradius
@@ -902,6 +902,9 @@ EOF
 %attr(640,root,radiusd) %config(noreplace) /etc/raddb/mods-available/rest
 
 %changelog
+* Thu Jan 23 2025 Antonio Torres <antorres@redhat.com> - 3.2.5-5
+- Fix usage of /usr/sbin according to https://fedoraproject.org/wiki/Changes/Unify_bin_and_sbin
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

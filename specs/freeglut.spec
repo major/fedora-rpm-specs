@@ -2,12 +2,13 @@
 Summary:        A freely licensed alternative to the GLUT library
 Name:           freeglut
 Version:        3.6.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 URL:            http://freeglut.sourceforge.net
 Source0:        https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 # For the manpages
 Source1:        https://downloads.sourceforge.net/openglut/openglut-0.6.3-doc.tar.gz
 Patch0:         common.patch
+Patch1:         0001-egl-fix-fgPlatformDestroyContext-prototype-for-C23.patch
 
 License:        MIT
 
@@ -54,6 +55,7 @@ license.
 %prep
 %setup -q -a 1
 %patch -P 0 -p0
+%patch -P 1 -p1
 
 %build
 %{cmake} -DFREEGLUT_BUILD_STATIC_LIBS=OFF .
@@ -85,6 +87,10 @@ install -p -m 644 doc/man/*.3 $RPM_BUILD_ROOT/%{_mandir}/man3
 %{_libdir}/cmake/FreeGLUT/*
 
 %changelog
+* Thu Jan 23 2025 José Expósito <jexposit@redhat.com> - 3.6.0-4
+- Backport compilation error fix
+  Resolves: https://bugzilla.redhat.com/show_bug.cgi?id=2340175
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

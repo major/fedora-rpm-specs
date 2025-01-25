@@ -13,13 +13,14 @@
 
 Name:		slapi-nis
 Version:	0.70.0
-Release:	4%{?dist}
-Summary:	NIS Server and Schema Compatibility plugins for Directory Server
+Release:	5%{?dist}
+Summary:	Schema Compatibility plugins for Directory Server
 License:	GPL-3.0-or-later
 URL:		http://pagure.io/slapi-nis/
 Source0:	https://releases.pagure.org/slapi-nis/slapi-nis-%{version}.tar.gz
 Source1:	https://releases.pagure.org/slapi-nis/slapi-nis-%{version}.tar.gz.asc
 Patch0:		slapi-nis-eq_once_rel.patch
+Patch1:         slapi-nis-rhbz2341357-fix.patch
 
 BuildRequires: make
 BuildRequires:  autoconf
@@ -62,6 +63,7 @@ for attributes from multiple entries in the tree.
 %prep
 %setup -q
 %patch -p1 -P0
+%patch -p1 -P1
 
 %build
 autoconf --force
@@ -116,6 +118,10 @@ done
 
 
 %changelog
+* Thu Jan 23 2025 Alexander Bokovoy <abokovoy@redhat.com> - 0.70.0-5
+- Fix gcc15 regression
+- Resolves: rhbz#2341357
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.70.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

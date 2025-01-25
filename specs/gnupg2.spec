@@ -3,31 +3,41 @@
 Summary: Utility for secure communication and data storage
 Name:    gnupg2
 Version: 2.4.7
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND (BSD-3-Clause OR LGPL-3.0-or-later OR GPL-2.0-or-later) AND CC-BY-4.0 AND MIT
 Source0: https://gnupg.org/ftp/gcrypt/%{?pre:alpha/}gnupg/gnupg-%{version}%{?pre}.tar.bz2
 Source1: https://gnupg.org/ftp/gcrypt/%{?pre:alpha/}gnupg/gnupg-%{version}%{?pre}.tar.bz2.sig
 Source2: https://gnupg.org/signature_key.asc
-# needed for compatibility with system FIPS mode
-Patch3:  gnupg-2.1.10-secmem.patch
+# initialize small amount of secmem for list of algorithms in help
+# (#598847) (necessary in the FIPS mode of libgcrypt)
+Patch1:  gnupg-2.4.7-secmem.patch
 # non-upstreamable patch adding file-is-digest option needed for Copr
 # https://dev.gnupg.org/T1646
-Patch4:  gnupg-2.4.1-file-is-digest.patch
-Patch6:  gnupg-2.1.1-fips-algo.patch
+Patch2:  gnupg-2.4.7-file-is-digest.patch
+# Disable brainpool tests as they are not built into our libgcrypt
+# Disable MD160 in FIPS mode (#879047)
+Patch3:  gnupg-2.4.7-fips-algo.patch
 # allow 8192 bit RSA keys in keygen UI with large RSA
-Patch9:  gnupg-2.2.23-large-rsa.patch
-# fix missing uid on refresh from keys.openpgp.org
-# https://salsa.debian.org/debian/gnupg2/commit/f292beac1171c6c77faf41d1f88c2e0942ed4437
-Patch20: gnupg-2.2.18-tests-add-test-cases-for-import-without-uid.patch
-Patch21: gnupg-2.4.0-gpg-allow-import-of-previously-known-keys-even-without-UI.patch
-Patch22: gnupg-2.2.18-gpg-accept-subkeys-with-a-good-revocation-but-no-self-sig.patch
+Patch4:  gnupg-2.4.7-large-rsa.patch
+
+# Patches from FreePG:
+# https://gitlab.com/freepg/gnupg/-/tree/main/STABLE-BRANCH-2-4-freepg
+Patch20: 0002-gpg-accept-subkeys-with-a-good-revocation-but-no-sel.patch
+Patch21: 0003-gpg-allow-import-of-previously-known-keys-even-witho.patch
+Patch22: 0004-tests-add-test-cases-for-import-without-uid.patch
+Patch23: 0005-gpg-drop-import-clean-from-default-keyserver-import-.patch
+Patch24: 0006-Do-not-use-OCB-mode-even-if-AEAD-OCB-key-preference-.patch
+Patch25: 0007-Revert-the-introduction-of-the-RFC4880bis-draft-into.patch
+Patch26: 0008-avoid-systemd-deprecation-warning.patch
+Patch27: 0009-Add-systemd-support-for-keyboxd.patch
+Patch28: 0010-Ship-sample-systemd-unit-files.patch
+Patch29: 0011-el-gamal-default-to-3072-bits.patch
+Patch30: 0012-gpg-default-digest-algorithm-SHA512.patch
+Patch31: 0013-gpg-Prefer-SHA-512-and-SHA-384-in-personal-digest.patch
+
 # Fixes for issues found in Coverity scan - reported upstream
-Patch30: gnupg-2.2.21-coverity.patch
-# Revert the introduction of the RFC4880bis draft into defaults
-Patch31: gnupg2-revert-rfc4880bis.patch
-# Mostly reverts https://dev.gnupg.org/rGeae28f1bd4a5632e8f8e85b7248d1c4d4a10a5ed
-Patch33: gnupg-2.4.3-restore-systemd-sockets.patch
+Patch40: gnupg-2.4.7-coverity.patch
 
 URL:     https://www.gnupg.org/
 
@@ -55,6 +65,7 @@ BuildRequires: sqlite-devel
 BuildRequires: fuse
 BuildRequires: make
 BuildRequires: systemd-rpm-macros
+BuildRequires: texinfo
 BuildRequires: tpm2-tss-devel
 # for tests
 BuildRequires: openssh-clients
@@ -109,18 +120,25 @@ to the base GnuPG package
 %endif
 %setup -q -n gnupg-%{version}
 
-%patch 3 -p1 -b .secmem
-%patch 4 -p1 -b .file-is-digest
-%patch 6 -p1 -b .fips
-%patch 9 -p1 -b .large-rsa
+%patch 1 -p1 -b .secmem
+%patch 2 -p1 -b .file-is-digest
+%patch 3 -p1 -b .fips
+%patch 4 -p1 -b .large-rsa
 
-%patch 20 -p1 -b .test_missing_uid
+%patch 20 -p1 -b .good_revoc
 %patch 21 -p1 -b .prev_known_key
-%patch 22 -p1 -b .good_revoc
+%patch 22 -p1 -b .test_missing_uid
+%patch 23 -p1 -b .import-clean
+%patch 24 -p1 -b .do-not-use-OCB
+%patch 25 -p1 -b .revert-rfc4880bis
+%patch 26 -p1 -b .systemd-deprecation
+%patch 27 -p1 -b .systemd-keybox
+%patch 28 -p1 -b .systemd-units
+%patch 29 -p1 -b .elgamal-3k
+%patch 30 -p1 -b .default-sha512
+%patch 31 -p1 -b .prefer-sha512
 
-%patch 30 -p1 -b .coverity
-%patch 31 -p1 -b .revert-rfc4880bis
-%patch 33 -p1 -b .restore-systemd-sockets
+%patch 40 -p1 -b .coverity
 
 # pcsc-lite library major: 0 in 1.2.0, 1 in 1.2.9+ (dlopen()'d in pcsc-wrapper)
 # Note: this is just the name of the default shared lib to load in scdaemon,
@@ -176,8 +194,8 @@ rm -f %{buildroot}%{_bindir}/gpgscm
 
 # Move the systemd user units to appropriate directory
 install -d -m755 %{buildroot}%{_userunitdir}
-mv %{buildroot}%{_pkgdocdir}/examples/systemd-user/*.socket %{buildroot}%{_userunitdir}
-mv %{buildroot}%{_pkgdocdir}/examples/systemd-user/*.service %{buildroot}%{_userunitdir}
+install -p doc/examples/systemd-user/*.socket %{buildroot}%{_userunitdir}
+install -p doc/examples/systemd-user/*.service %{buildroot}%{_userunitdir}
 
 %check
 # need scratch gpg database for tests
@@ -229,6 +247,9 @@ make -k check
 
 
 %changelog
+* Thu Jan 23 2025 Jakub Jelen <jjelen@redhat.com> - 2.4.7-2
+- Regenerate patches and pull new from FreePG project
+
 * Wed Jan 22 2025 Jakub Jelen <jjelen@redhat.com> - 2.4.7-1
 - New upstream release
 

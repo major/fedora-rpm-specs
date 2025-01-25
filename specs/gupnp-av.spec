@@ -1,16 +1,12 @@
 Name:          gupnp-av
-Version:       0.14.1
-Release:       9%{?dist}
+Version:       0.14.3
+Release:       1%{?dist}
 Summary:       A collection of helpers for building UPnP AV applications
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:       LicenseRef-Callaway-LGPLv2+
 URL:           http://www.gupnp.org/
 Source0:       http://download.gnome.org/sources/gupnp-av/0.14/%{name}-%{version}.tar.xz
-# https://gitlab.gnome.org/GNOME/gupnp-av/-/commit/9557768121d54fdcedabe7544863515d6a813354
-Patch0:        0001-Remove-deprecates-xmlRecoverMemory.patch
-# https://gitlab.gnome.org/GNOME/gupnp-av/-/commit/1e10a41fcef6ae0d3e89958db89bc22398f3b4f1
-Patch1:        0002-xml-Fix-compatibility-libxml2-2-12-x.patch
 
 BuildRequires: gobject-introspection-devel
 BuildRequires: gtk-doc
@@ -79,6 +75,9 @@ This package contains developer documentation for %{name}.
 %{_datadir}/gtk-doc/html/gupnp-av/
 
 %changelog
+* Tue Jan 21 2025 nmontero <nmontero@redhat.com> - 0.14.3-1
+- Update to 0.14.3
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -25,7 +25,7 @@
 
 Name:		openwsman
 Version:	2.7.2
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	Open source Implementation of WS-Management
 
 License:	BSD-3-Clause AND MIT
@@ -50,6 +50,7 @@ Patch3:		openwsman-2.6.2-openssl-1.1-fix.patch
 Patch4:		openwsman-2.6.5-http-status-line.patch
 Patch5:		openwsman-2.6.8-update-ssleay-conf.patch
 Patch6:		openwsman-2.7.2-fix-ftbfs.patch
+Patch7:		openwsman-2.7.2-gcc15-fix.patch
 BuildRequires:	make
 BuildRequires:	swig
 BuildRequires:	libcurl-devel libxml2-devel pam-devel sblim-sfcc-devel
@@ -388,7 +389,7 @@ fi
 %dir %{_libdir}/openwsman/plugins
 %{_libdir}/openwsman/plugins/*.so
 %{_libdir}/openwsman/plugins/*.so.*
-%{_sbindir}/openwsmand
+%{_bindir}/openwsmand
 %{_libdir}/libwsman_server.so.*
 %{_mandir}/man8/*
 
@@ -408,6 +409,9 @@ fi
 %endif
 
 %changelog
+* Thu Jan 23 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.7.2-14
+- Fix FTBFS with GCC 15, bin and sbin unification
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

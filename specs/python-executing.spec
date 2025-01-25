@@ -4,19 +4,15 @@
 # When tests are enabled, should we also run “very slow” tests?
 %bcond slow_tests 1
 
-# Package a snapshot to fix test failures with Python 3.13.0rc2
-%global commit 3f11fdcd7a017fbdca8a3a9de23dab18d3ba2100
-%global snapdate 20240916
-
 Name:           python-executing
-Version:        2.1.0^%{snapdate}git%{sub %{commit} 1 7}
-Release:        2%{?dist}
+Version:        2.2.0
+Release:        1%{?dist}
 Summary:        Python library for inspecting the current frame run footprint
 
 License:        MIT
 URL:            https://github.com/alexmojaki/executing
 %dnl Source:         %{pypi_source executing}
-Source:         %{url}/archive/%{commit}/executing-%{commit}.tar.gz
+Source:         %{pypi_source executing}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -34,7 +30,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -p1 -n executing-%{commit}
+%autosetup -p1 -n executing-%{version}
 # Remove coverage and coverage-enable-subprocess
 # from testing deps.
 sed -Ei "/coverage-?/d" setup.cfg
@@ -71,6 +67,9 @@ export EXECUTING_SLOW_TESTS=1
 
 
 %changelog
+* Wed Jan 22 2025 Lumír Balhar <lbalhar@redhat.com>
+- Update to 2.2.0 (rhbz#2339704)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0^20240916git3f11fdc-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

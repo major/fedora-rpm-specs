@@ -1,14 +1,14 @@
 
-%global forgeurl    https://github.com/AnalogJ/lexicon
-%global forgeversion 3.18.0
-Version:            3.18.0
+%global forgeurl    https://github.com/dns-lexicon/dns-lexicon
+%global forgeversion 3.20.1
+Version:            3.20.1
 %forgemeta
 
 %global pypi_name dns-lexicon
 
 %if 0%{?rhel} >= 8
 # EPEL is currently missing dependencies used by the extras metapackages
-# EPEL is currently missing dependancies used by the tests
+# EPEL is currently missing dependencies used by the tests
 %bcond_with tests
 %bcond_with extras
 %else
@@ -27,6 +27,8 @@ License:        MIT
 URL:            %{forgeurl}
 # pypi releases don't contain necessary data to run the tests
 Source0:        %{forgesource}
+Source1:        create-local-tld-cache.py
+Patch:          python-dns-lexicon-tox-config.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -40,6 +42,9 @@ BuildRequires:  python3-devel
 %if %{with tests}
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-vcr
+BuildRequires:  python3-pytest-xdist
+BuildRequires:  publicsuffix-list
+BuildRequires:  python3-tldextract
 %endif
 
 
@@ -138,9 +143,10 @@ dependencies necessary to use the Route 53 provider.
 
 
 %prep
-%autosetup -n lexicon-%{version} -p1
+%autosetup -n %{pypi_name}-%{version} -p1
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
+rm -f uv.lock
 
 %generate_buildrequires
 %if %{with extras}
@@ -157,31 +163,32 @@ sed -i '1d' src/lexicon/_private/cli.py
 
 %if %{with tests}
 %check
-# The following tests use tldextract which tries to fetch
-#   https://raw.githubusercontent.com/publicsuffix/list/master/public_suffix_list.dat
-# on first invocation
+export TLDEXTRACT_CACHE=%{_builddir}/tldextract-cache
+
+# tldextract tries to fetch "public_suffix_list.dat" from the internet on first
+# invocation.
 # (see https://github.com/john-kurkowski/tldextract/tree/master#note-about-caching)
-# - AutoProviderTests
-# - NamecheapProviderTests
-# - NamecheapManagedProviderTests
-# Disabling those until tldextract 3.3.0+ is available on Fedora.
-# With tldextract 3.3.0+ we can use Fedora's public suffix list by running
-#   tldextract --update --suffix_list_url "file:///usr/share/publicsuffix/public_suffix_list.dat"
-# prior to running the tests
-TEST_SELECTOR="not AutoProviderTests and not NamecheapProviderTests and not NamecheapManagedProviderTests and not Route53Provider and not AliyunProviderTests and not AuroraProviderTests and not Route53ProviderTests and not GoDaddyProviderTests"
+# The "publicsuffix-list" package provides that data however we need to use
+# that to populate a local cache directory.Most of the work is done via:
+#   $ tldextract --update --suffix_list_url "file:///usr/share/publicsuffix/public_suffix_list.dat"
+#
+# However tldextract uses the "file://" url as cache key while the tests use
+# "https://publicsuffix.org/list/public_suffix_list.dat". I did not find a way
+# get tldextract to use the https url so a small Python script will handle that.
+/usr/bin/python3 %{SOURCE1} %{buildroot}%{python3_sitelib}
 
 # lexicon providers which do not work in Fedora due to missing dependencies:
 # - SoftLayerProviderTests
-TEST_SELECTOR+=" and not SoftLayerProviderTests"
+TEST_SELECTOR="not SoftLayerProviderTests"
+
 %if %{without extras}
-TEST_SELECTOR+=" and not DDNSProviderTests and not DuckdnsProviderTests and not GransyProviderTests and not LocalzoneProviderTests and not OciProviderTests and not OciInstancePrincipalProviderTests and not Route53ProviderTests"
+TEST_SELECTOR+=" and not GransyProviderTests and not LocalzoneProviderTests and not OciProviderTests and not OciInstancePrincipalProviderTests and not Route53ProviderTests"
 %endif
-# The %%tox macro lacks features so we need to use pytest directly:
-# Miro Hrončok, 2020-09-11:
-# > I am afraid the %%tox macro can only work with "static" deps declaration,
-# > not with arbitrary installers invoked as commands, sorry about that.
-# %pytest -v -k "${TEST_SELECTOR}"
-# disable tests because it keeps wanting to download the public suffix list
+
+# We do not use "--xfail-providers-with-missing-deps" because we want to detect
+# missing dependencies unless we already know that a certain provider will not
+# work.
+%pytest -v -k "${TEST_SELECTOR}" -n auto --dist=loadfile tests/
 %endif
 
 %install
@@ -189,7 +196,6 @@ TEST_SELECTOR+=" and not DDNSProviderTests and not DuckdnsProviderTests and not 
 install -pm 0755 %{buildroot}/%{_bindir}/lexicon %{buildroot}/%{_bindir}/lexicon-%{python3_version}
 cd %{buildroot}/%{_bindir}
 ln -s lexicon-%{python3_version} lexicon-3
-rm -rf %{buildroot}%{python3_sitelib}/lexicon/tests
 
 
 %files -n python3-%{pypi_name}
@@ -221,6 +227,9 @@ rm -rf %{buildroot}%{python3_sitelib}/lexicon/tests
 # }}}
 
 %changelog
+* Thu Jan 23 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 3.20.1-1
+- update to 3.20.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.18.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -30,9 +30,14 @@
 # gfortran and clang rpm macros do not mix
 %global build_fflags %{nil}
 
+# Compression type and level for source/binary package payloads.
+#  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
+%define _source_payload	w7T0.xzdio
+%define _binary_payload	w7T0.xzdio
+
 Name:           hipsolver
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ROCm SOLVER marshalling library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -166,6 +171,9 @@ fi
 %endif
 
 %changelog
+* Thu Jan 23 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-4
+- multithread compress
+
 * Fri Jan 17 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-3
 - build requires gcc-c++
 

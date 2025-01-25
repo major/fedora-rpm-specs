@@ -89,7 +89,7 @@ ExcludeArch: %{ix86} %{arm}
 %global disable_elfhack 1
 
 # Use clang?
-%global build_with_clang  1
+%global build_with_clang  0
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1908792
 # https://bugzilla.redhat.com/show_bug.cgi?id=2255254
@@ -567,7 +567,7 @@ export RUSTFLAGS="-Cdebuginfo=0"
 %endif
 
 export CFLAGS="$MOZ_OPT_FLAGS -std=gnu17"
-export CXXFLAGS="$MOZ_OPT_FLAGS -fpermissive -std=gnu17"
+export CXXFLAGS="$MOZ_OPT_FLAGS -fpermissive -std=gnu++17"
 export LDFLAGS=$MOZ_LINK_FLAGS
 
 export PREFIX='%{_prefix}'

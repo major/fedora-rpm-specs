@@ -10,6 +10,9 @@ License:        MIT AND MPL-2.0 AND GPL-2.0-or-later
 Url:            https://github.com/lark-parser/lark
 Source:         %{pypi_source lark}
 
+# Python 3.14 compatibility
+Patch:          https://github.com/lark-parser/lark/pull/1483.patch
+
 BuildArch:      noarch
 
 %description

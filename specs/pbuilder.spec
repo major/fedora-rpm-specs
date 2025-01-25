@@ -74,7 +74,7 @@ sed -i 's|/usr/lib/ccache|%{_libdir}/ccache|g' pbuilderrc
 
 
 %install
-%make_install
+%make_install SBINDIR=%{buildroot}%{_bindir}
 
 # Man pages
 install -Dpm 0644 debuild-pbuilder.1 %{buildroot}%{_mandir}/man1/debuild-pbuilder.1
@@ -127,7 +127,7 @@ make check
 %{_bindir}/pbuilder-ubuntu-old
 %{_bindir}/pbuilder-ubuntu-old2
 %{_bindir}/pbuilder-ubuntu-stable
-%{_sbindir}/pbuilder
+%{_bindir}/pbuilder
 %{_prefix}/lib/pbuilder/
 %{_datadir}/bash-completion/
 %{_datadir}/pbuilder/

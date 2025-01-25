@@ -36,9 +36,10 @@ Patch6:         qtwebkit-icu68.patch
 Patch7:         webkit-offlineasm-warnings-ruby27.patch
 Patch8:         qtwebkit-cstdint.patch
 Patch9:         qtwebkit-fix-build-gcc14.patch
+Patch10:        qtwebkit-icu76.patch
 
 # Enable RISC-V (riscv64)
-Patch10:        https://github.com/qtwebkit/qtwebkit/commit/d9824ec806b6c6171862a7ba758fc28e6a20aada.patch
+Patch11:        https://github.com/qtwebkit/qtwebkit/commit/d9824ec806b6c6171862a7ba758fc28e6a20aada.patch
 
 BuildRequires: make
 BuildRequires:  bison

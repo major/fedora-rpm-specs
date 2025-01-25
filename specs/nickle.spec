@@ -6,7 +6,7 @@
 %endif
 
 Name:           nickle
-Version:        2.101
+Version:        2.102
 Release:        %autorelease
 Summary:        A programming language-based prototyping environment
 
@@ -61,6 +61,12 @@ function interface) libraries (e.g. the Cairo interface for Nickle).
 %build
 autoreconf -fiv
 
+%if 0%{?fedora} >= 42
+# gram.y has Bool bool, bool is a reserved keyword in C23
+# https://gcc.gnu.org/gcc-15/porting_to.html
+export CFLAGS="%{optflags} -std=gnu17"
+%endif
+
 # we will install documentation ourselves,
 # but this saves having to delete the ones installed by 'make install'
 %configure --docdir=%{_pkgdocdir}
@@ -80,7 +86,7 @@ rm examples/COPYING
 
 %files
 %license COPYING
-%doc README README.name AUTHORS TODO
+%doc README README.name AUTHORS TODO debian/changelog
 %doc examples
 %if %{with docs}
 %doc doc/tutorial/nickle-tutorial.pdf

@@ -1,6 +1,6 @@
 Name:           SimGear
 Version:        2020.3.19
-Release:        6%{?dist}
+Release:        7%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Summary:        Simulation library components
@@ -10,6 +10,7 @@ Patch1:         0001-remove-unneeded-header.patch
 Patch2:         0002-check-to-be-sure-that-n-is-not-being-set-as-format-t.patch
 Patch3:         0003-fix-support-for-aarch64.patch
 Patch4:         0004-Fix-a-new-Clang-compile-failure-with-current-XCode.patch
+Patch5:         0005-cppbind-check-I-O-rules-when-auto-constructing-an-SG.patch
 BuildRequires:  gcc-c++
 BuildRequires:  openal-soft-devel
 BuildRequires:  OpenSceneGraph-devel >= 3.2.0
@@ -40,6 +41,7 @@ SimGear.
 %patch -P2 -p1 -b .checkforn
 %patch -P3 -p1 -b .aarch64
 %patch -P4 -p1 -b .compile
+%patch -P5 -p1 -b .cppbind
 
 # makes rpmlint happy
 find -name \*.cxx -o -name \*.hxx | xargs chmod -x
@@ -79,6 +81,9 @@ patch -p2 < %{PATCH1}
 %{_libdir}/cmake/SimGear
 
 %changelog
+* Thu Jan 23 2025 Fabrice Bellet <fabrice@bellet.info> - 2020.3.19-7
+- cppbind: check I/O rules when auto-constructing an SGPath
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2020.3.19-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

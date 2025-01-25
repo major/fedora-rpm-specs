@@ -1,5 +1,5 @@
 Name:           astroterm
-Version:        1.0.5
+Version:        1.0.6
 Release:        1%{?dist}
 Summary:        A planetarium for your terminal
 
@@ -14,8 +14,6 @@ BuildRequires:  argtable-devel
 BuildRequires:  ncurses-devel
 BuildRequires:  ninja-build
 BuildRequires:  /usr/bin/xxd
-
-ExcludeArch:    s390x
 
 %description
 astroterm is a terminal-based star map.
@@ -49,5 +47,9 @@ gunzip -dc %{SOURCE1} > data/ybsc5
 
 
 %changelog
+* Thu Jan 23 2025 Jonathan Wright <jonathan@almalinux.org> - 1.0.6-1
+- update to 1.0.6 rhbz#2341135
+- enable builds for s390x
+
 * Tue Jan 21 2025 Jonathan Wright <jonathan@almalinux.org> - 1.0.5-1
 - Initial package build rhbz#2339148

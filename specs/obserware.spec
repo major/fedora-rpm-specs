@@ -1,8 +1,8 @@
 %global uuid org.t0xic0der.obserware
 
 Name:           obserware
-Version:        0.2.9
-Release:        13%{?dist}
+Version:        0.2.10
+Release:        1%{?dist}
 Summary:        An advanced system monitor utility written in Python and Qt
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -10,9 +10,6 @@ License:        GPL-3.0-or-later
 Url:            https://gitlab.com/t0xic0der/%{name}
 Source0:        %{pypi_source}
 BuildArch:      noarch
-
-Patch0: 0001-Change-the-version-constraint-for-py-cpuinfo.patch
-
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
@@ -51,6 +48,9 @@ appstream-util validate-relax --nonet %{buildroot}%{python3_sitelib}/%{name}/app
 %{_datadir}/pixmaps/%{uuid}.png
 
 %changelog
+* Thu Jan 23 2025 Akashdeep Dhar <t0xic0der@fedoraproject.org> - 0.2.10-1
+- Attempt fixing FTI https://bugzilla.redhat.com/show_bug.cgi?id=2341694
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.9-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
@@ -86,7 +86,6 @@ appstream-util validate-relax --nonet %{buildroot}%{python3_sitelib}/%{name}/app
 
 * Tue Jun 14 2022 Python Maint <python-maint@redhat.com> - 0.2.9-2
 - Rebuilt for Python 3.11
-
 
 * Sat Feb 19 2022 Akashdeep Dhar <t0xic0der@fedoraproject.org> - 0.2.9-1
 - v0.2.9 - Released on February 19th, 2022

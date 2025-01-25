@@ -98,6 +98,7 @@ This package adds configuration to use %{name} as a thumbnailer.
 %autosetup -p1
 
 %build
+export CFLAGS="$RPM_OPT_FLAGS -std=gnu17"
 LDFLAGS+=' -lX11 -lICE -lSM'
 %meson	\
  -Ddeprecated_warnings=false \

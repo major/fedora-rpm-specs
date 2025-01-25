@@ -1,11 +1,17 @@
+%global commit d79eacf77abe3b799387bb8a4e07a18f1f1031e8
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global date 20250123
+
 Name: compsize
-Version: 1.5
-Release: 11%{?dist}
+Version: 1.5^git%{date}.%{shortcommit}
+Release: 12%{?dist}
 Summary: Utility for measuring compression ratio of files on btrfs
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: https://github.com/kilobyte/compsize
-Source: https://github.com/kilobyte/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source: https://github.com/kilobyte/%{name}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz   
+# https://github.com/kilobyte/compsize/pull/54
+Patch: %{name}-1.5_fix_includes.patch
 BuildRequires: gcc
 BuildRequires: btrfs-progs-devel
 BuildRequires: make
@@ -16,7 +22,7 @@ measures used compression types and effective compression ratio, producing
 a report.
 
 %prep
-%autosetup
+%autosetup -n %{name}-%{commit}
 
 %build
 %set_build_flags
@@ -33,6 +39,10 @@ install -D -m 0644 %{name}.8 %{buildroot}%{_mandir}/man8/%{name}.8
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Thu Jan 23 2025 Juan Orti Alcaine <jortialc@redhat.com> - 1.5^git20250123.d79eacf-12
+- Update to the latest git snapshot
+- Add patch to fix build errors
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

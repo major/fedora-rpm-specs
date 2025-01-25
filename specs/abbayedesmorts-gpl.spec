@@ -1,6 +1,6 @@
 Name:           abbayedesmorts-gpl
 Version:        2.0.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Platform game set in 13th century
 
 # Graphics and Sounds are licensed under
@@ -10,6 +10,8 @@ License:        GPL-3.0-only AND CC-BY-3.0
 # https://locomalito.com/abbaye_des_morts.php
 URL:            https://github.com/nevat/abbayedesmorts-gpl 
 Source0:        https://github.com/nevat/abbayedesmorts-gpl/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+# Fix building with gcc 15
+Patch0:         %{name}-2.0.4-gcc15.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -34,7 +36,7 @@ Also, the gameplay is directly inspired by Manic Miner and Jet Set Willy.
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 # Enable verbose build
 sed -i 's/@$(CC)/$(CC)/' Makefile
@@ -75,6 +77,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/abbaye.app
 
 
 %changelog
+* Thu Jan 23 2025 Andrea Musuruane <musuruan@gmail.com> - 2.0.4-3
+- Fix FTBFS (BZ #2339459)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

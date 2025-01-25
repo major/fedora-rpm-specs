@@ -2,8 +2,8 @@
 %bcond_without perl_Crypt_URandom_enables_optional_test
 
 Name:           perl-Crypt-URandom
-Version:        0.50
-Release:        2%{?dist}
+Version:        0.52
+Release:        1%{?dist}
 Summary:        Non-blocking randomness for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-URandom
@@ -36,6 +36,7 @@ BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Test::More)
 %if %{with perl_Crypt_URandom_enables_optional_test}
 # Optional tests:
+# Devel::Cover not helpful
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Test::Pod) >= 1.14
 %endif
@@ -57,6 +58,7 @@ Requires:       coreutils
 Requires:       gcc
 Requires:       perl-Test-Harness
 Requires:       perl(Carp) >= 1.26
+Requires:       perl(FileHandle)
 %if %{with perl_Crypt_URandom_enables_optional_test}
 Requires:       perl(Encode)
 %endif
@@ -75,7 +77,8 @@ perl -i -ne 'print $_ unless m{^t/pod.t}' MANIFEST
 rm t/manifest.t
 perl -i -ne 'print $_ unless m{^t/manifest.t}' MANIFEST
 # Make scripts with shebangs executable
-chmod a+x t/core_read.t t/core_fork.t t/core_partial_read.t t/core_sysopen.t
+chmod a+x t/core_read.t t/core_fork.t t/core_fork_pp.t t/core_partial_read.t \
+    t/core_sysopen.t
 
 %build
 unset CRYPT_URANDOM_BUILD_DEBUG
@@ -89,7 +92,7 @@ find %{buildroot} -type f -name '*.bs' -size 0 -delete
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a check_random.inc t %{buildroot}%{_libexecdir}/%{name}
-# t/boilerplate.t expects files in source archive localtions.
+# t/boilerplate.t expects files in source archive locations.
 rm %{buildroot}%{_libexecdir}/%{name}/t/boilerplate.t
 %if %{with perl_Crypt_URandom_enables_optional_test}
 rm %{buildroot}%{_libexecdir}/%{name}/t/pod.t
@@ -129,6 +132,12 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 23 2025 Petr Pisar <ppisar@redhat.com> - 0.52-1
+- 0.52 bump
+
+* Wed Jan 22 2025 Petr Pisar <ppisar@redhat.com> - 0.51-1
+- 0.51 bump
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.50-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

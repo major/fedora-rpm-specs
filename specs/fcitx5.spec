@@ -2,7 +2,7 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so$
 
 Name:           fcitx5
-Version:        5.1.11
+Version:        5.1.12
 Release:        %autorelease
 Summary:        Next generation of fcitx
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.

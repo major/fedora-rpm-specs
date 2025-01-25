@@ -4,7 +4,7 @@
 %global commit da33770d22b404d7333e46e26495eaca0c5a6d8a
 %global gittag 5.8.0
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global baserelease 4
+%global baserelease 5
 
 ExclusiveArch:  %{ix86} x86_64 aarch64
 
@@ -27,6 +27,7 @@ License:        LicenseRef-Callaway-MIT AND CC0-1.0 AND LicenseRef-Callaway-BSD
 URL:            http://rr-project.org
 
 Source: https://github.com/rr-debugger/rr/archive/%{gittag}/%{name}-%{version}.tar.gz
+Patch1: rr-gcc15.patch
 
 %if  0%{?rhel} == 7
 BuildRequires: cmake3
@@ -125,6 +126,9 @@ patchelf --set-rpath '%{_libdir}/rr/' %{buildroot}%{_libdir}/rr/testsuite/obj/bi
 %license LICENSE
 
 %changelog
+* Thu Jan 23 2025 William Cohen <wcohen@redhat.com> - 5.8.0-5
+- Fix FTBFS issue with gcc-15.
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

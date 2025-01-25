@@ -3,7 +3,7 @@
 
 Name:           espresso
 Version:        4.2.2
-Release:        7%{?dist}
+Release:        9%{?dist}
 Summary:        Extensible Simulation Package for Research on Soft matter
 # segfault on s390x: https://github.com/espressomd/espresso/issues/3753
 # segfault on armv7hl: https://src.fedoraproject.org/rpms/espresso/pull-request/4
@@ -13,6 +13,15 @@ ExcludeArch:    s390x i686 armv7hl
 License:        GPL-3.0-or-later
 URL:            https://espressomd.org
 Source0:        https://github.com/%{name}md/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
+# fix for NumPy 2 support
+# https://github.com/espressomd/espresso/pull/4992
+Patch0:         %{name}-numpy.patch
+# fix for CMake 3.30 support
+# https://github.com/espressomd/espresso/pull/4992
+Patch1:         %{name}-cmake.patch
+# improve build reproducibility (diffoscope)
+# https://github.com/espressomd/espresso/commit/2111342
+Patch2:         %{name}-cython.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake3 >= 3.16
@@ -103,6 +112,9 @@ This package contains %{name} compiled against MPICH2.
 
 %prep
 %setup -q -n %{name}
+%patch 0 -p1
+%patch 1 -p1
+%patch 2 -p1
 
 %build
 %global defopts \\\
@@ -162,6 +174,12 @@ done
 %{python3_sitearch}/mpich/%{name}md/
 
 %changelog
+* Thu Jan 23 2025 Jean-Noël Grad <jgrad@icp.uni-stuttgart.de> - 4.2.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Changes/ReproduciblePackageBuilds
+
+* Thu Jan 23 2025 Jean-Noël Grad <jgrad@icp.uni-stuttgart.de> - 4.2.2-8
+- Rebuilt for NumPy 2.2 and CMake 3.31
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

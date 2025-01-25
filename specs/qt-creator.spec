@@ -5,8 +5,8 @@
 %global _python_bytecompile_errors_terminate_build 0
 
 Name:           qt-creator
-Version:        15.0.0
-Release:        3%{?prerelease:.%prerelease}%{?dist}
+Version:        15.0.1
+Release:        1%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -211,7 +211,10 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org>
+* Thu Jan 23 2025 Sandro Mani <manisandro@gmail.com> - 15.0.1-1
+- Update to 15.0.1
+
+* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 15.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
 * Mon Dec 09 2024 Jan Grulich <jgrulich@redhat.com> - 15.0.0-2
@@ -226,7 +229,7 @@ diff -u %{SOURCE1} $outfile
 * Thu Oct 31 2024 Sandro Mani <manisandro@gmail.com> - 15.0.0-0.3.beta2
 - Update to 15.0.0-beta2
 
-* Fri Oct 25 2024 Orion Poplawski <orion@nwra.com>
+* Fri Oct 25 2024 Orion Poplawski <orion@nwra.com> - 15.0.0-0.2.beta1
 - Rebuild for yaml-cpp 0.8
 
 * Tue Oct 22 2024 Sandro Mani <manisandro@gmail.com> - 15.0.0-0.1.beta1

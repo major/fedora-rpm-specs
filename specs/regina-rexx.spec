@@ -60,6 +60,8 @@ iconv -f iso8859-1 -t utf-8 README.38 > README.38.conv && mv -f README.38.conv R
 sed -i 's:/usr/bin/env regina:/usr/bin/regina:' demo/*.rexx regutil/*.rexx
 
 %build
+# Workaround for build issue with GCC 15 (#2341275)
+export CFLAGS="%{build_cflags} -std=gnu17"
 %configure
 %make_build
 

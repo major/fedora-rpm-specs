@@ -9,7 +9,7 @@
 # populated by envsubst in newrelease
 %global crio_spec_name  cri-o1.29
 %global crio_spec_ver   1.29.12
-%global crio_commit     fd64674492e281fb4d8ed9395fc3f1737e423f61
+%global crio_commit     adc9401395f9e85d173266416e2fdf4152b4d525
 %global crio_tag        v1.29.12
 %global golangver       1.21
 
@@ -27,7 +27,7 @@
 # https://github.com/cri-o/cri-o
 %global goipath         github.com/cri-o/cri-o
 Version:                %{crio_spec_ver}
-%global tag             %{crio_tag}
+# %%global tag             %%{crio_tag}
 
 %gometa -L -f
 

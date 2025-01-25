@@ -10,6 +10,8 @@ Source0:        https://github.com/wernerd/ZRTPCPP/archive/V%{version}/%{name}-%
 # needs to include. Most modern things treat warnings as errors, causing every
 # dependent build to fail, even if its not even calling zrtp_getSasType
 Patch0:         libzrtpcpp-4.4.0-no-warning.patch
+# Fix build with gcc15
+Patch1:         libzrtpcpp-gcc15.patch
 
 
 BuildRequires:  ccrtp-devel

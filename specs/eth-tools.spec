@@ -43,6 +43,9 @@ Contains tools for managing fabric on a management node.
 %prep
 %autosetup -cn eth-fast-fabric-%{version_no_tilde}
 
+# OpenIb_Host/ff_install.sh hardcodes /usr/sbin as the installation destination
+sed -r -i 's|/usr/sbin|%{_sbindir}|g' OpenIb_Host/ff_install.sh
+
 %build
 cd OpenIb_Host
 OPA_FEATURE_SET=opa10 CLOCAL='%build_cflags' CCLOCAL='%build_cxxflags' LDLOCAL='%build_ldflags' ./ff_build.sh %{_builddir}

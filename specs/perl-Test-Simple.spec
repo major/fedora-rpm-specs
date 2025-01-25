@@ -14,7 +14,7 @@
 Name:           perl-Test-Simple
 Summary:        Basic utilities for writing tests
 Epoch:          3
-Version:        1.302208
+Version:        1.302209
 Release:        1%{?dist}
 # CC0-1.0: lib/ok.pm
 # Public Domain: lib/Test/Tutorial.pod
@@ -384,6 +384,7 @@ make test %{!?perl_bootstrap:AUTHOR_TESTING=1}
 %{_mandir}/man3/Test2::Util::HashBase.3*
 %{_mandir}/man3/Test2::Util::Importer.3*
 %{_mandir}/man3/Test2::Util::Ref.3*
+%{_mandir}/man3/Test2::Util::Sig.3*
 %{_mandir}/man3/Test2::Util::Stash.3*
 %{_mandir}/man3/Test2::Util::Sub.3*
 %{_mandir}/man3/Test2::Util::Table.3*
@@ -403,6 +404,12 @@ make test %{!?perl_bootstrap:AUTHOR_TESTING=1}
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 23 2025 Paul Howarth <paul@city-fan.org> - 3:1.302209-1
+- Update to 1.302209
+  - Don't use base as much (GH#1021)
+  - Use PerlIO::get_layers without loading PerlIO.pm (GH#1022)
+  - Move try_sig_mask to separate file to avoid always loading POSIX (GH#1023)
+
 * Wed Jan 22 2025 Paul Howarth <paul@city-fan.org> - 3:1.302208-1
 - Update to 1.302208
   - Avoid closing over values in string eval when comparing values (GH#1018)

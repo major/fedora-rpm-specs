@@ -1,5 +1,6 @@
-%global nativever 2.4
-%global baserelease 3
+
+%global nativever 2.5
+%global baserelease 1
 %global pythonver 2.0
 %global pythonrelease %{nativever}.%{baserelease}
 
@@ -20,12 +21,12 @@ BuildRequires:  make
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 
-BuildRequires:  mingw32-filesystem >= 95
+BuildRequires:  mingw32-filesystem
 BuildRequires:  mingw32-gcc-c++
 BuildRequires:  mingw32-python3
 BuildRequires:  mingw32-python3-build
 
-BuildRequires:  mingw64-filesystem >= 95
+BuildRequires:  mingw64-filesystem
 BuildRequires:  mingw64-gcc-c++
 BuildRequires:  mingw64-python3
 BuildRequires:  mingw64-python3-build
@@ -121,6 +122,7 @@ MinGW Windows %{name} python 3 bindings.
 %cmake \
   -DLIBDIR=%{_lib} \
   -DPKGDIR=%{_lib}/pkgconfig \
+  -DSBINDIR=bin \
   -DCMAKEDIR=%{_lib}/cmake/%{name} \
   -DEXAMPLEDIR=%{_defaultdocdir}/%{name}/examples
 %cmake_build
@@ -141,14 +143,18 @@ popd
 # Native build
 %cmake_install
 # MinGW build
+(
 %mingw_make_install
+)
 
 pushd geographiclib-%{pythonver}
 # Native build
 %py3_install
 # MinGW build
+(
 %mingw32_py3_install_wheel
 %mingw64_py3_install_wheel
+)
 popd
 
 %mingw_debug_install_post
@@ -174,9 +180,9 @@ popd
 %{_bindir}/Planimeter
 %{_bindir}/RhumbSolve
 %{_bindir}/TransverseMercatorProj
-%{_sbindir}/geographiclib-get-geoids
-%{_sbindir}/geographiclib-get-gravity
-%{_sbindir}/geographiclib-get-magnetic
+%{_bindir}/geographiclib-get-geoids
+%{_bindir}/geographiclib-get-gravity
+%{_bindir}/geographiclib-get-magnetic
 %{_libdir}/libGeographicLib.so.26*
 %{_mandir}/man1/*.1.*
 %{_mandir}/man8/*.8.*
@@ -248,6 +254,9 @@ popd
 
 
 %changelog
+* Thu Jan 23 2025 Sandro Mani <manisandro@gmail.com> - 2.5-1
+- Update to 2.5
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

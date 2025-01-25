@@ -276,8 +276,8 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 132.0.6834.83
-Release: 2%{?dist}
+Version: 132.0.6834.110
+Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -330,9 +330,6 @@ Patch151: chromium-131-qt-ui.patch
 
 # revert, it causes ramdom crash on aarch64
 Patch300: chromium-131-revert-decommit-pooled-pages-by-default.patch
-
-# Workaround for build error on el8 aarch64
-Patch304: chromium-132-el8-ffmpeg.patch
 
 # disable memory tagging (epel8 on aarch64) due to new feature IFUNC-Resolver
 # it is not supported in old glibc < 2.30, error: fatal error: 'sys/ifunc.h' file not found
@@ -1046,7 +1043,6 @@ Qt6 UI for chromium.
 
 %if 0%{?rhel} == 8
 %ifarch aarch64
-%patch -P304 -p1 -b .el8-ffmpeg
 %patch -P305 -p1 -b .el8-memory_tagging
 %patch -P306 -p1 -b .el8-ifunc-header
 %endif
@@ -1923,6 +1919,11 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %endif
 
 %changelog
+* Thu Jan 23 2025 Than Ngo <than@redhat.com> - 132.0.6834.110-1
+- Update to 132.0.6834.110
+  * High CVE-2025-0611: Object corruption in V8
+  * High CVE-2025-0612: Out of bounds memory access in V8
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 132.0.6834.83-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

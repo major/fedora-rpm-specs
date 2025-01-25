@@ -11,33 +11,14 @@
 %endif
 
 Name:           bind-dyndb-ldap
-Version:        11.10
-Release:        35%{?dist}
+Version:        11.11
+Release:        1%{?dist}
 Summary:        LDAP back-end plug-in for BIND
 
 License:        GPL-2.0-or-later
 URL:            https://releases.pagure.org/bind-dyndb-ldap
 Source0:        https://releases.pagure.org/%{name}/%{name}-%{VERSION}.tar.bz2
 Source1:        https://releases.pagure.org/%{name}/%{name}-%{VERSION}.tar.bz2.asc
-
-# https://pagure.io/bind-dyndb-ldap/pull-request/217
-# https://pagure.io/bind-dyndb-ldap/c/00131b7b72daa953ab2bf5e6a4fd5508052debb0
-Patch1:         bind-dyndb-ldap-bind-9.18.10-db-options.patch
-# https://pagure.io/bind-dyndb-ldap/c/47902df23bf637e6c7ece67b928339e0fda58ae0
-Patch2:         bind-dyndb-ldap-bind-9.18.10-logs.patch
-# https://pagure.io/bind-dyndb-ldap/c/5dd2fefa0bc7cd7689004cec64304c3a02be9eab
-Patch3:         bind-dyndb-ldap-bind-9.18.10-staleok.patch
-Patch4: bind-dyndb-ldap-11.10-bind-9.18.11.patch
-Patch5: bind-dyndb-ldap-11.10-bind-9.18.13.patch
-# https://pagure.io/bind-dyndb-ldap/pull-request/226
-Patch6: bind-dyndb-ldap-11.10-bind-9.18.19.patch
-# https://pagure.io/bind-dyndb-ldap/pull-request/229
-Patch7: bind-dyndb-ldap-11.10-dns_name_init.patch
-Patch8: bind-dyndb-ldap-11.10-bind-9.18.24.patch
-# https://pagure.io/bind-dyndb-ldap/pull-request/231
-Patch9: bind-dyndb-ldap-11.10-bind-9.18.25.patch
-# https://pagure.io/bind-dyndb-ldap/pull-request/234
-Patch10: bind-dyndb-ldap-11.10-bind-9.18.28.patch
 
 BuildRequires:  bind-devel >= %{bind_version}, bind-lite-devel >= %{bind_version}
 BuildRequires:  krb5-devel
@@ -137,6 +118,10 @@ sed -i.bak -e "$SEDSCRIPT" /etc/named.conf
 
 
 %changelog
+* Thu Jan 23 2025 Thomas Woerner <twoerner@redhat.com> - 11.11-1
+- Release 11.11
+- Support BIND 9.18
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 11.10-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

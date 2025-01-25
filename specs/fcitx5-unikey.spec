@@ -13,7 +13,7 @@
 %endif
 
 Name:       fcitx5-unikey
-Version:    5.1.5
+Version:    5.1.6
 Release:    %autorelease
 Summary:    Unikey support for Fcitx5
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.

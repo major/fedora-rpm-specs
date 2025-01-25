@@ -31,7 +31,7 @@ ExcludeArch:    i686 armv7hl s390x
 
 Name:		gromacs
 Version:	2024.4
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Fast, Free and Flexible Molecular Dynamics
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	LGPL-2.1-or-later
@@ -41,6 +41,8 @@ Source0:	https://ftp.gromacs.org/gromacs/gromacs-%{version}%{?_rc}.tar.gz
 Source1:	https://ftp.gromacs.org/manual/manual-%{version}%{?_rc}.pdf
 Source2:	https://ftp.gromacs.org/regressiontests/regressiontests-%{version}%{?_rc}.tar.gz
 Source3:	gromacs-README.fedora
+# fix from upstream to build with gcc-15
+Patch0:         e0180bc37f3111d7dcaffca3854c088ed910c3b4.patch
 BuildRequires:	gcc-c++
 BuildRequires:  cmake3 >= 3.18.4
 BuildRequires:	%{blaslib}-devel
@@ -184,7 +186,6 @@ Recommends:	gromacs-opencl = %{version}-%{release}
 %endif
 Obsoletes:	gromacs-openmpi-libs < 2016-0.1.20160318gitbec9c87
 BuildRequires:	openmpi-devel
-BuildRequires:	heffte-openmpi-devel
 
 %description openmpi
 GROMACS is a versatile and extremely well optimized package to perform
@@ -206,7 +207,6 @@ Recommends:	gromacs-opencl = %{version}-%{release}
 %endif
 Obsoletes:	gromacs-mpich-libs < 2016-0.1.20160318gitbec9c87
 BuildRequires:	mpich-devel
-BuildRequires:	heffte-mpich-devel
 
 %description mpich
 GROMACS is a versatile and extremely well optimized package to perform
@@ -252,12 +252,13 @@ sed -i 's/set(_timeout [0-9]*)/set(_timeout 9000)/' src/testutils/TestMacros.cma
  -DGMX_VERSION_STRING_OF_FORK='Fedora%{fedora}' \\\
  -DGMX_SIMD=%{simd}
 
+#HEFFTE only works with CUDA for now
 %if %{with_opencl}
 # OpenCL is available for single precision only
 %global single -DGMX_GPU=OpenCL
 %endif
 %global double -DGMX_DOUBLE:BOOL=ON
-%global mpi -DGMX_MPI:BOOL=ON -DGMX_THREAD_MPI:BOOL=OFF -DGMX_DEFAULT_SUFFIX:BOOL=OFF -DBUILD_SHARED_LIBS:BOOL=OFF -DGMX_USE_HEFFTE=ON
+%global mpi -DGMX_MPI:BOOL=ON -DGMX_THREAD_MPI:BOOL=OFF -DGMX_DEFAULT_SUFFIX:BOOL=OFF -DBUILD_SHARED_LIBS:BOOL=OFF -DGMX_USE_HEFFTE=OFF
 %global _vpath_srcdir ..
 
 . /etc/profile.d/modules.sh
@@ -375,6 +376,10 @@ done
 %{_libdir}/mpich/bin/gmx_mpich*
 
 %changelog
+* Fri Jan 24 2025 Christoph Junghans <junghans@votca.org> - 2024.4-4
+- Fix build with gcc-15 (bug #2340576)
+- Drop heffte support again, only work with cuda for now
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

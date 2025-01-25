@@ -1,4 +1,4 @@
-%global baserelease 16
+%global baserelease 17
 
 #%%global commit 1e7ef9e7e6952f5d29ef0f5c25fd062798de55f3
 #%%global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -25,6 +25,7 @@ Patch1:         disable_rfc6555.patch
 Patch2:         https://github.com/OfflineIMAP/offlineimap3/pull/137.diff
 Patch3:         https://github.com/OfflineIMAP/offlineimap3/pull/120.diff
 Patch4:         https://github.com/OfflineIMAP/offlineimap3/pull/161.diff
+Patch5:         doc.patch
 
 # Patches for imaplib2, keep the numbers above 200
 Patch201:       https://github.com/jazzband/imaplib2/pull/4.patch
@@ -104,6 +105,9 @@ install -p docs/offlineimapui.7.gz %{buildroot}/%{_mandir}/man7/
 %{_mandir}/man7/%{name}ui.7*
 
 %changelog
+* Thu Jan 23 2025 Serge Guelton <sergesanspaille@free.fr> - 8.0.0-17
+- Patch documentation build
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

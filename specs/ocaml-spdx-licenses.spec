@@ -3,7 +3,7 @@
 %endif
 
 Name:           ocaml-spdx-licenses
-Version:        1.2.0
+Version:        1.3.0
 Release:        %autorelease
 Summary:        SPDX License Expression parser in OCaml
 

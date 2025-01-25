@@ -1,9 +1,8 @@
 Summary: Tools for Linux kernel block layer cache
 Name: bcache-tools
 Version: 1.1
-Release: 10%{?dist}
-# Automatically converted from old format: GPLv2 - review is highly recommended.
-License: GPL-2.0-only
+Release: 11%{?dist}
+License: GPLv2
 URL: http://bcache.evilpiepirate.org/
 VCS: git://git.kernel.org/pub/scm/linux/kernel/git/colyli/bcache-tools.git
 # git clone git://git.kernel.org/pub/scm/linux/kernel/git/colyli/bcache-tools.git
@@ -36,6 +35,8 @@ Patch5: bcache-status-python3.patch
 Patch6: bcache-status-rootgc.patch
 # Fedora packaging guidelines require man pages, none was provided for bcache. Add a placeholder
 Patch7: bcache-tools-1.1-man.pach
+# Fedora 42 drops /usr/sbin in favour of /usr/bin
+Patch8: bcache-tools-sbin.patch
 # This is a kind of soft dependency: because we don't include probe-bcache
 # we have to make sure that libblkid is able to identify bcache. So this
 # is why it requires recent libblkid.
@@ -65,10 +66,11 @@ chmod +x configure
 %patch -P5 -p1 -b .python3
 %patch -P6 -p1 -b .rootgc
 %patch -P7 -p1 -b .man
+%patch -P8 -p1 -b .sbin
 
 %build
 %configure
-make %{?_smp_mflags}
+make %{?_smp_mflags} SBINDIR=%{_sbindir}
 
 %install
 mkdir -p \
@@ -82,7 +84,8 @@ mkdir -p \
     INSTALL="install -p" \
     UDEVLIBDIR=%{_udevlibdir} \
     DRACUTLIBDIR=%{dracutlibdir} \
-    MANDIR=%{_mandir}
+    MANDIR=%{_mandir} \
+    SBINDIR=%{_sbindir}
 
 # prevent complaints when checking for unpackaged files
 rm %{buildroot}%{_udevlibdir}/probe-bcache
@@ -106,11 +109,8 @@ install -p  -m 755 bcache-status %{buildroot}%{_sbindir}/bcache-status
 %{dracutlibdir}/modules.d/90bcache
 
 %changelog
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.1-9
-- convert license to SPDX
+* Thu Jan 23 2025 Rolf Fokkens <rolf@rolffokkens.nl> - 1.1-9
+- (#2339535) Now builds on Fedora 42
 
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild

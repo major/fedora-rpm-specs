@@ -1,6 +1,6 @@
 Name:    ksystemstats
-Version: 6.2.90
-Release: 2%{?dist}
+Version: 6.2.91
+Release: 1%{?dist}
 Summary: KSystemStats is a daemon that collects statistics about the running system.
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only)
@@ -69,6 +69,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_kf6_datadir}/qlogging-categories6/ksystemstats.categories
 
 %changelog
+* Thu Jan 23 2025 Steve Cossette <farchord@gmail.com> - 6.2.91-1
+- 6.2.91
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.90-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

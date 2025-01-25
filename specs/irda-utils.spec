@@ -3,7 +3,7 @@
 Summary:         Utilities for infrared communication between devices
 Name:            irda-utils
 Version:         0.9.18
-Release:         50%{?dist}
+Release:         51%{?dist}
 Url:             http://irda.sourceforge.net
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:         GPL-2.0-or-later
@@ -21,6 +21,7 @@ Patch7: irda-utils-0.9.18-man.patch
 Patch8: irda-utils-0.9.18-PIE.patch
 Patch9: irda-utils-0.9.18-no-inline.patch
 Patch10: irda-utils-0.9.18-run.patch
+Patch11: irda-utils-0.9.18-sbin.patch
 BuildRequires: gcc
 BuildRequires: glib2-devel, pciutils-devel
 BuildRequires: systemd-units
@@ -62,6 +63,7 @@ gzip -9 man/irnet.4 man/irda.7
 %patch -P8 -p1
 %patch -P9 -p1
 %patch -P10 -p1
+%patch -P11 -p1
 
 
 %build
@@ -74,7 +76,7 @@ make all RPM_OPT_FLAGS="$RPM_OPT_FLAGS -std=gnu89" ROOT="$RPM_BUILD_ROOT" \
 %install
 rm -rf $RPM_BUILD_ROOT
 
-for dir in %{_sbindir} %{_bindir} %{_initrddir} %{_sysconfdir}/sysconfig
+for dir in %{_bindir} %{_initrddir} %{_sysconfdir}/sysconfig
 do
     install -d $RPM_BUILD_ROOT$dir
 done
@@ -115,7 +117,6 @@ chmod -x etc/ifcfg-irlan0
 
 
 %files
-%{_sbindir}/*
 %{_bindir}/*
 %{_mandir}/*/*
 %{_unitdir}/*
@@ -124,6 +125,9 @@ chmod -x etc/ifcfg-irlan0
 
 
 %changelog
+* Thu Jan 23 2025 Dmitry Butskoy <Dmitry@Butskoy.name> - 0.9.18-51
+- Use /usr/bin instead of /usr/sbin (#2340661)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.18-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

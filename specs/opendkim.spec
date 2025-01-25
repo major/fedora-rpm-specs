@@ -1,10 +1,3 @@
-%global systemd (0%{?fedora} >= 18) || (0%{?rhel} >= 7)
-# F21+ and RHEL8+ have systemd 211+ which offers RuntimeDirectory
-# use that instead of tmpfiles.d
-%global systemd_runtimedir (0%{?fedora} >= 21) || (0%{?rhel} >= 8)
-%global tmpfiles ((0%{?fedora} >= 15) || (0%{?rhel} == 7)) && !%{systemd_runtimedir}
-
-
 %global upname OpenDKIM
 %global bigname OPENDKIM
 
@@ -13,7 +6,7 @@
 Summary: A DomainKeys Identified Mail (DKIM) milter to sign and/or verify mail
 Name: opendkim
 Version: 2.11.0
-Release: 0.40%{?dist}
+Release: 0.41%{?dist}
 License: BSD-3-Clause AND Sendmail-Open-Source-1.1
 URL: http://%{name}.org/
 Source0: https://github.com/trusteddomainproject/OpenDKIM/archive/%{full_version}.tar.gz
@@ -98,11 +91,13 @@ autoreconf -iv
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 
+%make_build CFLAGS="%{optflags} -std=gnu17"
+
 %install
-make DESTDIR=%{buildroot} install %{?_smp_mflags}
+%make_install
 install -d %{buildroot}%{_sysconfdir}
 install -d %{buildroot}%{_sysconfdir}/sysconfig
-install -m 0755 contrib/init/redhat/%{name}-default-keygen %{buildroot}%{_sbindir}/%{name}-default-keygen
+install -Dm 0755 contrib/init/redhat/%{name}-default-keygen %{buildroot}%{_sbindir}/%{name}-default-keygen
 
 install -d -m 0755 %{buildroot}%{_unitdir}
 
@@ -123,13 +118,6 @@ install -m 0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/%{name}/TrustedHosts
 
 cp %{SOURCE6} ./README.fedora
 
-%if %{tmpfiles}
-install -p -d %{buildroot}/usr/lib/tmpfiles.d
-cat > %{buildroot}/usr/lib/tmpfiles.d/%{name}.conf <<'EOF'
-D %{_rundir}/%{name} 0750 %{name} %{name} -
-EOF
-%endif
-
 rm -r %{buildroot}%{_prefix}/share/doc/%{name}
 rm %{buildroot}%{_libdir}/*.a
 rm %{buildroot}%{_libdir}/*.la
@@ -139,9 +127,9 @@ mkdir -p %{buildroot}%{_rundir}/%{name}
 mkdir -p %{buildroot}%{_sysconfdir}/%{name}
 mkdir %{buildroot}%{_sysconfdir}/%{name}/keys
 
-install -m 0755 stats/%{name}-reportstats %{buildroot}%{_prefix}/sbin/%{name}-reportstats
-sed -i 's|^%{bigname}STATSDIR="/var/db/%{name}"|%{bigname}STATSDIR="%{_localstatedir}/spool/%{name}"|g' %{buildroot}%{_prefix}/sbin/%{name}-reportstats
-sed -i 's|^%{bigname}DATOWNER="mailnull:mailnull"|%{bigname}DATOWNER="%{name}:%{name}"|g' %{buildroot}%{_prefix}/sbin/%{name}-reportstats
+install -Dm 0755 stats/%{name}-reportstats %{buildroot}%{_sbindir}/%{name}-reportstats
+sed -i 's|^%{bigname}STATSDIR="/var/db/%{name}"|%{bigname}STATSDIR="%{_localstatedir}/spool/%{name}"|g' %{buildroot}%{_sbindir}/%{name}-reportstats
+sed -i 's|^%{bigname}DATOWNER="mailnull:mailnull"|%{bigname}DATOWNER="%{name}:%{name}"|g' %{buildroot}%{_sbindir}/%{name}-reportstats
 
 chmod 0644 contrib/convert/convert_keylist.sh
 
@@ -163,7 +151,7 @@ exit 0
 # For the switchover from initscript to service file
 %triggerun -- %{name} < 2.8.0-1
 %systemd_post %{name}.service
-/sbin/chkconfig --del %{name} >/dev/null 2>&1 || :
+%{_sbindir}/chkconfig --del %{name} >/dev/null 2>&1 || :
 %systemd_postun_with_restart %{name}.service
 
 
@@ -177,9 +165,6 @@ exit 0
 %doc %{name}/README contrib/lua/*.lua
 %doc README.fedora
 %config(noreplace) %{_sysconfdir}/%{name}.conf
-%if %{tmpfiles}
-%config(noreplace) /usr/lib/tmpfiles.d/%{name}.conf
-%endif
 %config(noreplace) %attr(0640,%{name},%{name}) %{_sysconfdir}/%{name}/SigningTable
 %config(noreplace) %attr(0640,%{name},%{name}) %{_sysconfdir}/%{name}/KeyTable
 %config(noreplace) %attr(0640,%{name},%{name}) %{_sysconfdir}/%{name}/TrustedHosts
@@ -223,6 +208,9 @@ exit 0
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Thu Jan 23 2025 Jonathan Wright <jonathan@almalinux.org> - 2.11.0-0.41
+- fix ftbfs with gcc 15 rhbz#2340968, minor spec file cleanup
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.0-0.40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

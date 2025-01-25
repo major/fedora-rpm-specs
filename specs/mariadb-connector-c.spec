@@ -20,6 +20,8 @@ Url:            http://mariadb.org/
 Patch1:         testsuite.patch
 %endif
 
+Patch2:         gcc-15.patch
+
 %if 0%{?flatpak}
 Requires:       %{name}-config = %{version}-%{release}
 %else
@@ -92,6 +94,7 @@ and require this package, so the /etc/my.cnf file is present.
 %if %{with testsuite}
 %patch -P1 -p1
 %endif
+%patch -P2 -p1
 
 # Remove unsused parts
 rm -r win win-iconv external/zlib

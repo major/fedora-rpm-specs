@@ -1,5 +1,5 @@
 Name:       fcitx5-table-other
-Version:    5.1.3
+Version:    5.1.4
 Release:    %autorelease
 Summary:    Other tables for Fcitx5
 # Automatically converted from old format: GPLv3 - review is highly recommended.

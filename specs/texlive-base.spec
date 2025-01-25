@@ -25,7 +25,7 @@
 
 Name: %{shortname}-base
 Version: %{source_date}
-Release: 88%{?dist}
+Release: 89%{?dist}
 Epoch: 11
 Summary: TeX formatting system
 # The only files in the base package are directories, cache, and license texts
@@ -525,6 +525,9 @@ Patch46: texlive-base-20230311-fix-scripts.patch
 
 # fix build error with gcc-14
 Patch48: texlive-base-20230311-typefixes.patch
+
+# fix buid error with gcc-15
+Patch49: texlive-2023-gcc15-ftbfs.patch
 
 # Can't do this because it causes everything else to be noarch
 # BuildArch: noarch
@@ -8294,6 +8297,7 @@ done
 
 %patch -P44 -p1 -b .pdf-header-order-fix
 %patch -P48 -p1 -b .gcc-14-typefixes
+%patch -P49 -p1 -b .gcc-15-ftbfs
 
 # Disable broken tests
 # updmap-cmdline-test.pl is not useful and it will fail because it finds the system perl bits instead of the local copy
@@ -8352,7 +8356,8 @@ latex dummy.tex
 rm -f dummy.*
 %endif
 
-export CFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing -Werror=format-security"
+# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=118112
+export CFLAGS="$RPM_OPT_FLAGS -std=gnu17 -fno-strict-aliasing -Werror=format-security"
 %if 0%{?fedora} >= 36 || 0%{?rhel} > 9
 export CXXFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing -Werror=format-security"
 %else
@@ -11105,6 +11110,9 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %doc %{_texdir}/texmf-dist/doc/latex/yplan/
 
 %changelog
+* Thu Jan 23 2025 Than Ngo <than@redhat.com> - 11:20230311-89
+- Fix rhbz#2341430, FTBFS with gcc15
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 11:20230311-88
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

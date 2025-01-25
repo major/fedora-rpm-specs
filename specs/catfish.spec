@@ -5,11 +5,11 @@ BuildRequires:	%1 \
 
 %global		native_wayland	1
 
-%global		majorver		4.18
-%define		mainver		4.18.0
+%global		majorver		4.20
+%define		mainver		4.20.0
 %undefine		betaver		
 
-%define		baserelease		6
+%define		baserelease		1
 
 Name:		catfish
 Version:	%{mainver}
@@ -27,8 +27,7 @@ BuildRequires:	gettext
 BuildRequires:	intltool
 
 BuildRequires:	python3-devel
-BuildRequires:	python3-distutils-extra
-BuildRequires:	python3-setuptools
+BuildRequires:	meson
 BuildRequires:	/usr/bin/appstream-util
 
 # python module
@@ -61,47 +60,31 @@ options.
 
 
 %prep
-# Because %%build is not allowed to write files under %%buildroot,
-# and calling setup.py --installed with target root under unpackaged directory
-# causes some trouble, here once create temporaily directory
-# and unpack source after that
-
-%setup -q -T -c -a 0 %{name}-%{mainver}%{?betaver}
-pushd %{name}-%{mainver}*
+%setup -q -n %{name}-%{mainver}%{?betaver}
 
 # Fix up permissions...
 find . -type f -print0 | xargs --null chmod 0644
 chmod 0755 bin/%{name}
 
-popd
+# Remove build time dependency
+sed -i meson.build \
+	-e '\@dependency@s|,[ \t]*required[^)]*||'
+sed -i meson.build \
+	-e '\@dependency@s|)|, required: false)|' \
+	-e '\@gtk_update_icon_cache@s|true|false|' \
+	-e '\@update_desktop_database@s|true|false|' \
+	%{nil}
 
 %build
-TOPDIR=$(pwd)
-
-pushd %{name}-%{mainver}*
-
 # Remove unneeded shebang
 grep -rl "/usr/bin/env" . | \
 	xargs sed -i -e "\@/usr/bin/env[ ][ ]*python@d"
 
-
-#%%py3_build
-# separation of build / install --skip-build not supported
-# (separation causes some error for creating additional files
-#  such as desktop file, also installation directory gets wrong)
-
-mkdir -p ./_TMPINSTDIR/python3
-%__python3 setup.py \
-	install \
-	--root ${TOPDIR}/_TMPINSTDIR/python3
-
-popd
+%meson
+%meson_build
 
 %install
-cp -a %{name}-%{mainver}*/[A-Z]* .
-
-#%%py3_install
-cp -a _TMPINSTDIR/python3/* %{buildroot}
+%meson_install
 
 # Explicitly set GDK_BACKEND
 %if ! 0%{?native_wayland}
@@ -123,30 +106,22 @@ chmod 0755 %{buildroot}%{_bindir}/catfish
 %endif
 
 # for backwards compatibility:
+%if 0%{?fedora} <= 41
 ln -s catfish %{buildroot}%{_bindir}/catfish-py3
+%endif
 
-
-pushd %{name}-%{mainver}*
 
 # Install man page manually
 %{__mkdir_p} %{buildroot}%{_mandir}/man1
 %{__install} -cpm 0644 ./%{name}.1 %{buildroot}%{_mandir}/man1/
 
-popd
-
 # Remove all unnecessary documentation
 %{__rm} -rf %{buildroot}%{_datadir}/doc/
 
-# Rename desktop files for now
-pushd %{buildroot}%{_datadir}/applications/
-mv *desktop %{name}.desktop
-popd
-
 %{find_lang} %{name}
 
-
 %check
-desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.xfce.Catfish.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdata.xml
 
 
@@ -156,23 +131,28 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %doc README.md
 %license COPYING
 %{_bindir}/%{name}
+%if 0%{?fedora} <= 41
 %{_bindir}/%{name}-py3
+%endif
 
 %if ! 0%{?native_wayland}
 %{_libexecdir}/%{name}
 %endif
 
 %{_mandir}/man1/%{name}.1*
-%{_datadir}/%{name}/
+%dir	%{_datadir}/%{name}/
+%{_datadir}/%{name}/ui/
 %{_datadir}/icons/hicolor/*/apps/org.xfce.%{name}.*
-%{_datadir}/applications/%{name}.desktop
+%{_datadir}/applications/org.xfce.Catfish.desktop
 %{_metainfodir}/%{name}.appdata.xml
 %{python3_sitelib}/%{name}/
 %{python3_sitelib}/%{name}_lib/
-%{python3_sitelib}/%{name}-%{version}-py3*.egg-info
 
 
 %changelog
+* Thu Jan 23 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.20.0-1
+- 4.20.0
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.18.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

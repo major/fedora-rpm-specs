@@ -1,8 +1,8 @@
 # vkamrk dynamicly loads modules that reference static functions in the main binary
 %undefine _strict_symbol_defs_build
 
-%global codate 20250117
-%global commit0 a4983658d43d30d4c667a0283729ae9fd52c18c9
+%global codate 20250123
+%global commit0 2bf2ca7f1623db7ad7840a4dd626444d11830815
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 # Some tests fail on s390x
@@ -10,8 +10,8 @@
 ExcludeArch:    s390x
 
 Name:           vkmark
-Version:        2017.08
-Release:        0.22.%{codate}git%{shortcommit0}%{?dist}
+Version:        2025.01
+Release:        1.%{codate}git%{shortcommit0}%{?dist}
 Summary:        Vulkan benchmarking suite
 
 License:        LGPL-2.1-or-later

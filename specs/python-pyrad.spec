@@ -13,6 +13,7 @@ URL:            https://github.com/pyradius/%{pypi_name}
 Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 Patch1:         refactor-test-aliases-for-python3.11-compat.patch
 Patch2:         0001-Revert-add-versions-for-dependencies-and-drop-python.patch
+Patch3:         fix-intersphinx-mapping-dict.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-sphinx

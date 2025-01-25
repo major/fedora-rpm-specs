@@ -11,6 +11,8 @@ Source2:       thinkfan.sysconfig
 
 # Fix systemd service install directory
 Patch0:        thinkfan_systemd.patch
+# Adapt for sbin-bin merge
+Patch1:        thinkfan-sbin-bin.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -64,7 +66,7 @@ rm -f %{buildroot}/%{_pkgdocdir}/COPYING
 %license COPYING
 %doc README.md
 %doc %{_pkgdocdir}/thinkfan.yaml
-%{_sbindir}/thinkfan
+%{_bindir}/thinkfan
 %{_unitdir}/thinkfan.service
 %{_unitdir}/thinkfan-wakeup.service
 %{_unitdir}/thinkfan-sleep.service

@@ -1,12 +1,10 @@
 Name:      gnome-color-manager
-Version:   3.36.0
-Release:   14%{?dist}
+Version:   3.36.2
+Release:   1%{?dist}
 Summary:   Color management tools for GNOME
 License:   GPL-2.0-or-later
 URL:       https://gitlab.gnome.org/GNOME/gnome-color-manager
 Source0:   http://download.gnome.org/sources/gnome-color-manager/3.36/%{name}-%{version}.tar.xz
-
-Patch0:    0001-Remove-forgotten-libcanberra-include.patch
 
 BuildRequires: gcc
 BuildRequires: gtk3-devel >= 3.0.0
@@ -55,6 +53,9 @@ and generate color profiles in the GNOME desktop.
 %{_mandir}/man1/*.1*
 
 %changelog
+* Tue Jan 21 2025 nmontero <nmontero@redhat.com> - 3.36.2-1
+- Update to 3.36.2
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.36.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

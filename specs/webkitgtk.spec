@@ -11,7 +11,8 @@
 %bcond_without docs
 
 # Clang is preferred: https://skia.org/docs/user/build/#supported-and-preferred-compilers
-%global toolchain clang
+# But it is broken due to https://bugzilla.redhat.com/show_bug.cgi?id=2341532
+#%%global toolchain clang
 
 # We run out of memory if building with LTO enabled on i686.
 %ifarch %{ix86}
@@ -19,7 +20,7 @@
 %endif
 
 Name:           webkitgtk
-Version:        2.47.2
+Version:        2.47.3
 Release:        %autorelease
 Summary:        GTK web content engine library
 
@@ -57,8 +58,8 @@ Source1:        https://webkitgtk.org/releases/webkitgtk-%{version}.tar.xz.asc
 # $ gpg --export --export-options export-minimal 013A0127AC9C65B34FFA62526C1009B693975393 5AA3BC334FD7E3369E7C77B291C559DBE4C9123B > webkitgtk-keys.gpg
 Source2:        webkitgtk-keys.gpg
 
-# https://bugs.webkit.org/show_bug.cgi?id=283768
-Patch:          i686-build.patch
+# https://bugs.webkit.org/show_bug.cgi?id=286433
+Patch:          ipint-linker-error.patch
 
 BuildRequires:  bison
 BuildRequires:  bubblewrap
@@ -92,6 +93,7 @@ BuildRequires:  pkgconfig(cairo)
 BuildRequires:  pkgconfig(egl)
 BuildRequires:  pkgconfig(enchant-2)
 BuildRequires:  pkgconfig(epoxy)
+BuildRequires:  pkgconfig(expat)
 BuildRequires:  pkgconfig(fontconfig)
 BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(gbm)

@@ -67,7 +67,7 @@
 
 Name:           mesa
 Summary:        Mesa graphics libraries
-%global ver 24.3.3
+%global ver 24.3.4
 Version:        %{lua:ver = string.gsub(rpm.expand("%{ver}"), "-", "~"); print(ver)}
 Release:        %autorelease
 License:        MIT AND BSD-3-Clause AND SGI-B-2.0
@@ -80,6 +80,9 @@ Source0:        https://archive.mesa3d.org/mesa-%{ver}.tar.xz
 Source1:        Mesa-MLAA-License-Clarification-Email.txt
 
 Patch10:        gnome-shell-glthread-disable.patch
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2333711
+Patch11:        0001-egl-never-select-swrast-for-vmwgfx.patch
 
 BuildRequires:  meson >= 1.3.0
 BuildRequires:  gcc

@@ -68,8 +68,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 
 
 %check
-# Test fails on s390x
-%ifarch s390x
+# TODO: Possible endianness issue. Needs further investigation.
+# Test fails on s390x when opening binary test file.
+%if "%{_host_cpu}" == "s390x"
 k="${k-}${k+ and }not test_convert__sonata_morphology_cycle"
 %endif
 %pytest -v ${k+-k } "${k-}"

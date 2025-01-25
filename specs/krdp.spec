@@ -3,8 +3,8 @@
 
 Name:           krdp
 Summary:        Desktop sharing using RDP
-Version:        6.2.90
-Release:        2%{?dist}
+Version:        6.2.91
+Release:        1%{?dist}
 
 License:        LGPL-2.1-only OR LGPL-3.0-only
 URL:            https://invent.kde.org/plasma/krdp
@@ -93,7 +93,7 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 %{_kf6_datadir}/qlogging-categories6/kcm_krdpserver.categories
 %{_kf6_datadir}/qlogging-categories6/krdp.categories
 %{_qt6_plugindir}/plasma/kcms/systemsettings/kcm_krdpserver.so
-%{_userunitdir}/plasma-krdp_server.service
+%{_userunitdir}/app-org.kde.krdpserver.service
 
 %files libs
 %license LICENSES/LGPL-*.txt LICENSES/LicenseRef-KDE-*
@@ -105,6 +105,9 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Thu Jan 23 2025 Steve Cossette <farchord@gmail.com> - 6.2.91-1
+- 6.2.91
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.90-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

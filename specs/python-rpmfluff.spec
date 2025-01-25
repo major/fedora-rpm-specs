@@ -1,11 +1,10 @@
 %global modname rpmfluff
 
 Name:          python-%{modname}
-Version:       0.6.5
-Release:       5%{?dist}
+Version:       0.6.6
+Release:       1%{?dist}
 Summary:       Lightweight way of building RPMs, and sabotaging them
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
 URL:           https://pagure.io/rpmfluff
 Source0:       https://pagure.io/releases/%{modname}/%{modname}-%{version}.tar.xz
@@ -54,6 +53,9 @@ python3 -m unittest %{modname}.test
 %{python3_sitelib}/*
 
 %changelog
+* Thu Jan 23 2025 Jan Hutar <jhutar@redhat.com> - 0.6.6-1
+- New upstream version with fixed debuginfo test
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

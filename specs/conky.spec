@@ -21,13 +21,15 @@
 %bcond_without xinerama
 
 Name:           conky
-Version:        1.21.7
-Release:        2%{?dist}
+Version:        1.22.0
+Release:        1%{?dist}
 Summary:        A system monitor for X
 
 License:        GPL-3.0-or-later AND LGPL-2.1-or-later AND MIT-open-group AND BSD-3-Clause
 URL:            https://github.com/brndnmtthws/conky
 Source0:        https://github.com/brndnmtthws/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+# Fix build failure with gcc 15
+Patch0:         conky-cstdint.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -60,6 +62,7 @@ It just keeps on given'er. Yeah.
 
 %prep
 %setup -q
+%autopatch -p1
 
 # remove executable bits from files included in %{_docdir}
 chmod a-x extras/convert.lua
@@ -122,6 +125,10 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/conky.desktop
 
 
 %changelog
+* Thu Jan 23 2025 Miroslav Lichvar <mlichvar@redhat.com> - 1.22.0-1
+- update to 1.22.0
+- fix FTBFS with new gcc (#2339994)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.21.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

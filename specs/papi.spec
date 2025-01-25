@@ -15,7 +15,7 @@
 Summary: Performance Application Programming Interface
 Name: papi
 Version: 7.1.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: BSD-3-Clause
 Requires: papi-libs = %{version}-%{release}
 URL: http://icl.cs.utk.edu/papi/
@@ -23,6 +23,7 @@ Source0: http://icl.cs.utk.edu/projects/papi/downloads/%{name}-%{version}.tar.gz
 Patch1: papi-python3.patch
 Patch5: papi-nostatic.patch
 Patch6: papi-libsde.patch
+Patch10: papi-gcc15.patch
 BuildRequires: make
 BuildRequires: autoconf
 BuildRequires: doxygen
@@ -97,6 +98,7 @@ the PAPI user-space libraries and interfaces.
 %patch 1 -p1 -b .python3
 %patch 5 -p1
 %patch 6 -p1 -b .flags
+%patch 10 -p1 -b .gcc15
 
 %build
 
@@ -191,6 +193,9 @@ find %{buildroot} -type f -executable ! -iname "*.py" ! -iname "*.sh" | xargs ch
 %endif
 
 %changelog
+* Thu Jan 23 2025 William Cohen <wcohen@redhat.com> - 7.1.0-7
+- Patches to allow building with GCC15.
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

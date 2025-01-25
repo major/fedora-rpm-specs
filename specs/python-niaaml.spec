@@ -23,7 +23,7 @@ for optimization to choose the best set of components for the
 classification pipeline, and optimize their hyperparameters.}
 
 Name:           python-%{pypi_name}
-Version:        2.1.1
+Version:        2.1.2
 Release:        %autorelease
 Summary:        Python automated machine learning framework
 

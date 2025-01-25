@@ -5,7 +5,7 @@
 %global crate tame-index
 
 Name:           rust-tame-index
-Version:        0.14.0
+Version:        0.17.0
 Release:        %autorelease
 Summary:        Access to local and remote cargo registry indices
 
@@ -191,22 +191,11 @@ use the "sparse" feature of the "%{crate}" crate.
 # * skip tests that require a cargo cache directory
 # * skip tests that require internet connectivity
 %{cargo_test -- -- --exact %{shrink:
-    --skip krate_name::test::rejects_reserved
     --skip serializes_current_cargo_cache
     --skip parses_current_cargo_cache
     --skip can_take_shared_lock
     --skip wait_lock_times_out
     --skip waits_lock
-    --skip clones_new
-    --skip fetch_invalidates_cache
-    --skip non_main_local_branch
-    --skip opens_existing
-    --skip updates_cache
-    --skip builds_local_registry
-    --skip downloads_and_verifies
-    --skip remote::end_to_end
-    --skip remote::reuses_connection
-    --skip remote::async_reuses_connection
 }}
 %endif
 

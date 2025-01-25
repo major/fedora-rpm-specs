@@ -8,13 +8,15 @@ echo %_sysconfdir/bash_completion.d)
 
 Name:           datamash
 Version:        1.8
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A statistical, numerical and textual operations tool
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            https://www.gnu.org/software/%{name}/
 Source0:        https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
+
+Patch0:         c23.patch
 
 BuildRequires:  gcc
 BuildRequires:  gettext perl(Digest::MD5) perl(Digest::SHA) perl(Data::Dumper)
@@ -29,7 +31,7 @@ numeric,textual and statistical operations on input textual data
 files.
 
 %prep
-%setup
+%autosetup -p1
 
 # work around upstream gnulib issue that break ppc64le
 # cf. https://bugzilla.redhat.com/show_bug.cgi?id=2056736#c10
@@ -73,6 +75,9 @@ fi
 %{_mandir}/man1/*
 
 %changelog
+* Fri Jan 24 2025 Georg Sauthoff <mail@gms.tf> - 1.8-8
+- fix C23 compile error (fixes fedora#2340029)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

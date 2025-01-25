@@ -21,6 +21,8 @@ Release:       2%{?dist}
 License:       CeCILL-C
 URL:           https://gitlab.inria.fr/scotch/scotch
 Source0:       https://gitlab.inria.fr/scotch/scotch/-/archive/v%{version}/scotch-v%{version}.tar.bz2
+# Fix conflicting declarations
+Patch0:        scotch-conflicting-declarations.patch
 
 BuildRequires: bison
 BuildRequires: bzip2-devel
@@ -133,7 +135,7 @@ to build against the scotch.
 ###############################################################################
 
 %prep
-%autosetup -N -n %{name}-v%{version}
+%autosetup -p1 -n %{name}-v%{version}
 
 # Convert the license files to utf8
 for file in doc/CeCILL-C_V1-en.txt doc/CeCILL-C_V1-fr.txt; do

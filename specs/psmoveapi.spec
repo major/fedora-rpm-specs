@@ -1,5 +1,5 @@
-%global date 20240424
-%global commit 26e1446fc9b5996192a1f406d289e64e4e97a195
+%global date 20240930
+%global commit 8cc40f73e62adbb8351a0180aa779cdd546170cb
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global forgeurl https://github.com/thp/psmoveapi
 
@@ -22,6 +22,8 @@ Summary:        Library for 6DoF tracking of the PS Move Motion Controller
 License:        BSD-2-Clause AND BSD-3-Clause
 URL:            https://thp.io/2010/psmove
 Source:         %{forgeurl}/archive/%{commit}/%{name}-%{commit}.tar.gz
+# Add missing include
+Patch:          %{forgeurl}/pull/499.patch
 # Fedora downstream changes
 # * Use system libraries
 # * Set soversion

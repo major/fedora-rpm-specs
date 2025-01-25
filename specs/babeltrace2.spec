@@ -1,6 +1,6 @@
 Name:           babeltrace2
-Version:        2.0.6
-Release:        5%{?dist}
+Version:        2.1.0
+Release:        1%{?dist}
 Summary:        A trace manipulation toolkit
 License:        MIT AND GPL-2.0-only
 URL:            https://www.efficios.com/babeltrace
@@ -9,21 +9,23 @@ Source1:        https://www.efficios.com/files/babeltrace/babeltrace2-%{version}
 # gpg2 --export --export-options export-minimal 7F49314A26E0DE78427680E05F1B2A0789F12B11 > gpgkey-7F49314A26E0DE78427680E05F1B2A0789F12B11.gpg
 Source2:        gpgkey-7F49314A26E0DE78427680E05F1B2A0789F12B11.gpg
 
-# Fix for SWIG 4.3.0
-Patch0:         babeltrace2-2.0.6-swig-4.3.0.patch
+Patch0:         0001-fix-building-form-the-release-tarball-without-flex.patch
+Patch1:         0002-fix-export-bt_component_class_sink_simple_borrow.patch
 
-BuildRequires:  autoconf >= 2.50
-BuildRequires:  automake >= 1.10
-BuildRequires:  bison >= 2.4
+BuildRequires:  autoconf >= 2.69
+BuildRequires:  automake >= 1.13
+BuildRequires:  bison >= 2.5
 BuildRequires:  elfutils-devel >= 0.154
 BuildRequires:  flex >= 2.5.35
+BuildRequires:  gcc
+BuildRequires:  gcc-g++
 BuildRequires:  glib2-devel >= 2.28.0
 BuildRequires:  gnupg2
 BuildRequires:  libtool >= 2.2
+BuildRequires:  make
 BuildRequires:  python3-devel >= 3.4
 BuildRequires:  python3-setuptools
 BuildRequires:  swig >= 3.0
-BuildRequires:  make
 
 Requires:       libbabeltrace2%{?_isa} = %{version}-%{release}
 
@@ -82,7 +84,7 @@ export PYTHON_CONFIG=%{__python3}-config
 make %{?_smp_mflags} V=1
 
 %check
-make check
+make %{?_smp_mflags} check
 
 %install
 make DESTDIR=%{buildroot} install
@@ -90,10 +92,7 @@ find %{buildroot} -type f -name "*.la" -delete
 # Clean installed doc
 rm -f %{buildroot}/%{_pkgdocdir}/CONTRIBUTING.adoc
 rm -f %{buildroot}/%{_pkgdocdir}/LICENSE
-rm -f %{buildroot}/%{_pkgdocdir}/gpl-2.0.txt
-rm -f %{buildroot}/%{_pkgdocdir}/lgpl-2.1.txt
-rm -f %{buildroot}/%{_pkgdocdir}/mit-license.txt
-rm -f %{buildroot}/%{_pkgdocdir}/std-ext-lib.txt
+rm -f %{buildroot}/%{_pkgdocdir}/std-ext-lib.md
 
 %ldconfig_scriptlets  -n lib%{name}
 
@@ -101,14 +100,14 @@ rm -f %{buildroot}/%{_pkgdocdir}/std-ext-lib.txt
 %doc ChangeLog
 %doc README.adoc
 %{!?_licensedir:%global license %%doc}
-%license LICENSE gpl-2.0.txt mit-license.txt
+%license LICENSE
 %{_bindir}/babeltrace2
 %{_mandir}/man1/*.1*
 %{_mandir}/man7/*.7*
 
 %files -n libbabeltrace2
 %{!?_licensedir:%global license %%doc}
-%license LICENSE gpl-2.0.txt mit-license.txt
+%license LICENSE
 %{_libdir}/*.so.*
 %{_libdir}/babeltrace2/plugin-providers/*.so
 %{_libdir}/babeltrace2/plugins/*.so
@@ -125,6 +124,9 @@ rm -f %{buildroot}/%{_pkgdocdir}/std-ext-lib.txt
 
 
 %changelog
+* Thu Jan 23 2025 Michael Jeanson <mjeanson@efficios.com> - 2.1.0-1
+- New upstream release
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

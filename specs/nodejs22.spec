@@ -53,7 +53,7 @@
 %global nodejs_epoch 1
 %global nodejs_major 22
 %global nodejs_minor 13
-%global nodejs_patch 0
+%global nodejs_patch 1
 # nodejs_soversion - from NODE_MODULE_VERSION in src/node_version.h
 %global nodejs_soversion 127
 %global nodejs_abi %{nodejs_soversion}
@@ -350,7 +350,7 @@ Requires: nodejs-cjs-module-lexer
 %endif
 
 %if %{with bundled_undici}
-Provides: bundled(nodejs-undici) = 6.21.0
+Provides: bundled(nodejs-undici) = 6.21.1
 %else
 BuildRequires: nodejs-undici
 Requires: nodejs-undici

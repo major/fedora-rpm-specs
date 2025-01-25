@@ -11,9 +11,10 @@ Name:           sayonara
 
 %if 0%{?stable}
 Version:        1.10.0
-Release:        4.%{stable_ver}%{?dist}
+Release:        5.%{stable_ver}%{?dist}
 #Release:        3%%{?dist}
 Source0:        https://gitlab.com/luciocarreras/sayonara-player/-/archive/%{version}-%{stable_ver}/sayonara-player-%{version}-%{stable_ver}.tar.bz2
+Patch0:         PlayActionEventHandler-fix.patch
 %else
 Version:        1.10.0
 Release:        0.3.%{prerel}%{?dist}
@@ -52,7 +53,7 @@ that use %{name}.
 
 %prep
 %if 0%{?stable}
-%autosetup -p0 -n %{name}-player-%{version}-%{stable_ver}
+%autosetup -p1 -n %{name}-player-%{version}-%{stable_ver}
 %else
 %autosetup -p1 -n %{name}-player-%{version}-%{prerel}
 %endif
@@ -108,6 +109,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{_datadir}/doc/%{name}/doxygen/html
 
 %changelog
+* Thu Jan 23 2025 Martin Gansser <martinkg@fedoraproject.org> - 1.10.0-5.stable1
+- Add PlayActionEventHandler-fix.patch to fix FTBFS #2341324
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-4.stable1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

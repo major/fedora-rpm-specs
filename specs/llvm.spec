@@ -1344,7 +1344,12 @@ popd
 %endif
 
 %if 0%{?rhel} == 8
+%ifnarch s390x
+	# This option uses the NUMBER_OF_LOGICAL_CORES query in CMake which doesn't
+	# work on s390x.
+	# https://gitlab.kitware.com/cmake/cmake/-/issues/26619
 	%global cmake_config_args %{cmake_config_args} -DLLVM_RAM_PER_COMPILE_JOB=2048
+%endif
 %endif
 #endregion misc options
 

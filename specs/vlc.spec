@@ -51,6 +51,8 @@ Patch:		https://code.videolan.org/videolan/vlc/-/merge_requests/6168.patch
 Patch:		https://code.videolan.org/videolan/vlc/-/merge_requests/6273.patch
 # avcodec: vaapi: support VAAPI with latest FFmpeg
 Patch:		https://code.videolan.org/videolan/vlc/-/merge_requests/6606.patch
+# nfs: fix libnfs API v2 support (rhbz#2341791)
+Patch:		https://code.videolan.org/videolan/vlc/-/merge_requests/6527.patch
 
 ## upstreamable patches
 
@@ -409,6 +411,7 @@ Crystal HD plugin for VLC media player
 Summary:	VLC media player FFmpeg plugins
 Requires:	%{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:	%{name}-plugins-base%{?_isa} = %{epoch}:%{version}-%{release}
+Requires:	%{name}-plugins-video-out%{?_isa} = %{epoch}:%{version}-%{release}
 %description plugin-ffmpeg
 FFmpeg support plugins for VLC media player
 

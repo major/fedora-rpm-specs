@@ -928,7 +928,10 @@ fi
 # endif scl
 
 %changelog
-* Fri Jan 17 2025
+* Thu Jan 23 2025 Alexandra Hájková <ahajkova@redhat.com>
+- Remove upstreamed gdb-6.3-gstack-20050411.patch.
+
+* Fri Jan 17 2025 Guinevere Larsen <guinevere@redhat.com>
 - remove gdb-test-bt-cfi-without-die.patch.  This test has been
   accepted upstream and will make its way back to testing with
   the GDB 17 release.

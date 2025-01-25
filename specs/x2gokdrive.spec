@@ -45,6 +45,7 @@ BuildRequires:  libtool
 BuildRequires:  gettext-devel
 BuildRequires:  bison
 BuildRequires:  flex
+BuildRequires:  font-util
 BuildRequires:  imake
 BuildRequires:  pkgconfig(xproto)
 BuildRequires:  pkgconfig(damageproto)

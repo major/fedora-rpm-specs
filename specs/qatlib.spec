@@ -4,7 +4,7 @@
 %global libusdm_soversion 0
 Name:             qatlib
 Version:          24.09.0
-Release:          5%{?dist}
+Release:          6%{?dist}
 Summary:          Intel QuickAssist user space library
 # The entire source code is released under BSD.
 # For a breakdown of inbound licenses see the INSTALL file.
@@ -16,6 +16,7 @@ Requires(pre):    shadow-utils
 Recommends:       qatlib-service
 # https://bugzilla.redhat.com/show_bug.cgi?id=1897661
 ExcludeArch:      %{arm} aarch64 %{power64} s390x i686
+Patch0:           fix-systemd-path.patch
 
 %description
 Intel QuickAssist Technology (Intel QAT) provides hardware acceleration
@@ -133,6 +134,9 @@ exit 0
 %{_mandir}/man8/qat_init.sh.8*
 
 %changelog
+* Thu Jan 23 2025 Giovanni Cabiddu <giovanni.cabiddu@intel.com> - 24.09.0-6
+- Add patch to remove hardcoded installation path to fix the build on F42
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.09.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

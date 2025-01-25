@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/fcitx5/.*\\.so$
 
 Name:       fcitx5-libthai
-Version:    5.1.4
+Version:    5.1.5
 Release:    %autorelease
 Summary:    Libthai Wrapper for Fcitx5
 # Automatically converted from old format: GPLv2+ - review is highly recommended.

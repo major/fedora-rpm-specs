@@ -1,6 +1,6 @@
 Name:           perl-Clipboard
-Version:        0.30
-Release:        3%{?dist}
+Version:        0.31
+Release:        1%{?dist}
 Summary:        Copy and paste with any OS
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Clipboard
@@ -60,6 +60,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Clipboard*
 
 %changelog
+* Thu Jan 23 2025 Xavier Bachelot <xavier@bachelot.org> - 0.31-1
+- Update to 0.31 (RHBZ#2339212)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

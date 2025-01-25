@@ -56,7 +56,7 @@
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}
-Release:        35.rocm%{rocm_version}%{?dist}
+Release:        36.rocm%{rocm_version}%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 
 Url:            https://github.com/ROCm/llvm-project
@@ -279,9 +279,12 @@ Summary:       The ROCm compiler runtime
 
 %package -n rocm-clang
 Summary:       The ROCm compiler
+Requires:      git
+Requires:      python%{python3_pkgversion}
 Requires:      rocm-clang-libs%{?_isa} = %{version}-%{release}
 Requires:      rocm-clang-runtime-devel%{?_isa} = %{version}-%{release}
 Requires:      rocm-libc++-devel%{?_isa} = %{version}-%{release}
+
 
 %description -n rocm-clang
 %{summary}
@@ -1145,6 +1148,9 @@ mv %{buildroot}%{_bindir}/hip*.pm %{buildroot}%{perl_vendorlib}
 %endif
 
 %changelog
+* Thu Jan 23 2025 Tom Rix <Tom.Rix@amd.com> - 18-36.rocm6.3.1
+- Add git,python requires for rocm-clang
+
 * Tue Jan 21 2025 Tom Rix <Tom.Rix@amd.com> - 18-35.rocm6.3.1
 - Add module include dirs for kokkos
 - switch from release to relwithdebinfo

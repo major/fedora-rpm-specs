@@ -30,7 +30,7 @@
 %global nodejs_epoch 1
 %global nodejs_major 18
 %global nodejs_minor 20
-%global nodejs_patch 2
+%global nodejs_patch 6
 # nodejs_soversion - from NODE_MODULE_VERSION in src/node_version.h
 %global nodejs_soversion 108
 %global nodejs_abi %{nodejs_soversion}
@@ -68,7 +68,7 @@
 
 # c-ares - from deps/cares/include/ares_version.h
 # https://github.com/nodejs/node/pull/9332
-%global c_ares_version 1.27.0
+%global c_ares_version 1.29.0
 
 # llhttp - from deps/llhttp/include/llhttp.h
 %global llhttp_version 6.1.1
@@ -77,13 +77,13 @@
 %global libuv_version 1.44.2
 
 # nghttp2 - from deps/nghttp2/lib/includes/nghttp2/nghttp2ver.h
-%global nghttp2_version 1.57.0
+%global nghttp2_version 1.61.0
 
 # nghttp3 - from deps/ngtcp2/nghttp3/lib/includes/nghttp3/version.h
 %global nghttp3_version 0.7.0
 
 # ngtcp2 from deps/ngtcp2/ngtcp2/lib/includes/ngtcp2/version.h
-%global ngtcp2_version 0.8.1
+%global ngtcp2_version 1.3.0
 
 # ICU - from tools/icu/current_ver.dep
 %global icu_major 74
@@ -95,7 +95,7 @@
 # " this line just fixes syntax highlighting for vim that is confused by the above and continues literal
 
 # simdutf from deps/simdutf/simdutf.h
-%global simdutf_version 4.0.8
+%global simdutf_version 5.6.0
 
 # OpenSSL minimum version
 %global openssl11_minimum 1:1.1.1
@@ -108,7 +108,7 @@
 
 # npm - from deps/npm/package.json
 %global npm_epoch 1
-%global npm_version 10.5.0
+%global npm_version 10.8.2
 
 # In order to avoid needing to keep incrementing the release version for the
 # main package forever, we will just construct one for npm that is guaranteed
@@ -152,7 +152,7 @@ Source202: nodejs.pc.in
 Source203: v8.pc.in
 
 Patch: 0001-Fedora-specific-patches.patch
-Patch: 0001-simdutf-cpu-feature-detection-fixes.patch
+Patch: 0001-missing-cstdint-fix.patch
 
 %if 0%{?nodejs_default}
 %global pkgname nodejs
@@ -322,13 +322,13 @@ Provides: bundled(simdutf) = %{simdutf_version}
 
 # Upstream has added a new URL parser that has no option to build as a shared
 # library (19.7.0+)
-Provides: bundled(ada) = 2.7.6
+Provides: bundled(ada) = 2.8.0
 
 
 # undici and cjs-module-lexer ship with pre-built WASM binaries.
 %if %{with bootstrap}
 Provides: bundled(nodejs-cjs-module-lexer) = 1.2.2
-Provides: bundled(nodejs-undici) = 5.28.4
+Provides: bundled(nodejs-undici) = 5.28.5
 %else
 BuildRequires: nodejs-cjs-module-lexer nodejs-undici
 Requires: nodejs-cjs-module-lexer nodejs-undici

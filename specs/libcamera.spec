@@ -1,6 +1,6 @@
 Name:    libcamera
 Version: 0.4.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A library to support complex camera ISPs
 # see .reuse/dep5 and COPYING for details
 License: LGPL-2.1-or-later
@@ -16,6 +16,10 @@ Source0: %{name}-%{version}.tar.xz
 Source1: qcam.desktop
 Source2: qcam.metainfo.xml
 Source3: 70-libcamera.rules
+
+Patch1: 0001-libcamera-missing-include.patch
+Patch2: 0002-libcamera-gcc15-templates.patch
+Patch3: 0003-libcamera-gcc15-gtest-workaround.patch
 
 # libcamera does not currently build on these architectures
 ExcludeArch: s390x ppc64le
@@ -204,6 +208,13 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 %{python3_sitearch}/*
 
 %changelog
+* Thu Jan 23 2025 Milan Zamazal <mzamazal@redhat.com> - 0.4.0-4
+- No longer applied patch file dropped.
+- Missing include added to fix FBTS with gcc 15.
+- Template condition workaround applied to fix FBTS with gcc 15.
+- Warnings as errors disabled on lc-compliance due to gtest FTBS with gcc 15.
+- Resolves: rhbz#2340721
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

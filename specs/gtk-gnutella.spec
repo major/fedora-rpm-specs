@@ -1,7 +1,7 @@
 Name: gtk-gnutella
 Summary: GUI based Gnutella Client
 Version: 1.2.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: http://gtk-gnutella.sourceforge.net
@@ -40,7 +40,7 @@ features.
 ./Configure -O -Dprefix=%{_prefix} -Dbindir=%{_bindir} \
 	-Dglibpth="/%{_lib} %{_libdir}" \
 	-Dprivlib=%{_datadir}/%{name} -Dsysman=%{_mandir}/man1 \
-	-Dccflags="%{optflags}" -Dcc="%{__cc}" -Dyacc="byacc" \
+	-Dccflags="%{optflags} -std=gnu99" -Dcc="%{__cc}" -Dyacc="byacc" \
 	-Dgtkversion=%{?_with_gtk1:1}%{!?_with_gtk1:2} \
 	-Dofficial=true -ders
 make #%{?_smp_mflags}
@@ -87,6 +87,9 @@ desktop-file-install --delete-original	\
 
 
 %changelog
+* Thu Jan 23 2025 Dmitry Butskoy <Dmitry@Butskoy.name> - 1.2.3-3
+- Use gnu99 standard for build (#2340598)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           geomorph
 Version:        0.62
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        A height field editor for Linux
 License:        GPL-2.0-only
 URL:            http://geomorph.sourceforge.net
@@ -28,6 +28,7 @@ Patch16:        geomorph-arg-not-used.patch
 Patch17:        geomorph-incompatible-pointer-types.patch
 Patch18:        geomorph-no-common.patch
 #Patch20:        geomorph-update-autotools.patch
+Patch30:        geomorph-crater_struct_free.patch
 
 BuildRequires:  gcc
 BuildRequires:  gtkglext-devel
@@ -69,7 +70,8 @@ for rendering the landscape.
 %patch -P16 -p1 -b .arg-not-used
 %patch -P17 -p1 -b .incompatible-pointer-types
 %patch -P18 -p1 -b .no-common.patch
-#%patch20 -p1 -b .update-autotools
+#%%patch -P20 -p1 -b .update-autotools
+%patch -P30 -p1 -b .crater_struct_free
 #autoreconf -vfi
 
 # to avoid rpmlint warnings
@@ -135,6 +137,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata
 %{_datadir}/appdata/geomorph.appdata.xml
 
 %changelog
+* Thu Jan 23 2025 Didier Fabert <didier.fabert@gmail.com> - 0.62-24
+- Fix FTBFS on fc42 : BZ #2340205
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.62-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

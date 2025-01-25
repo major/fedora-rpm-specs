@@ -2,11 +2,14 @@
 %global forgeurl https://github.com/mitradranirban/fonts-mukti
 
 Version:   3.4.3
-Release:   2%{?dist}
+Release:   3%{?dist}
 
 %forgemeta
 
 URL: %{forgeurl}
+
+Source0: %{forgesource}
+Source1: https://github.com/mitradranirban/fbf-mukti-fonts/raw/main/SOURCES/66-0-fbf-mukti-fonts.conf
 
 %global foundry fbf 
 %global fontfamily    mukti         
@@ -16,7 +19,7 @@ URL: %{forgeurl}
 %global fontdocsex        %{fontlicenses}
 %global fontsummary       Bangla open source Opentype font
 %global fonts            *.otf
-%global fontconfs        66-0-%{fontpkgname}.conf
+%global fontconfs        %{SOURCE1}
 BuildRequires: fontforge 
 
 %global fontdescription  %{expand:
@@ -25,9 +28,6 @@ made for Mukta Bangla Font project. It was  made by using good quality glyphs
  of GPLed font bng2-n from Cyberscape Multimedia
 <https://web.archive.org/web/20021113130716/http://www.akruti.com/freedom/>.
 }
-
-Source0: %{forgesource}
-Source1: https://github.com/mitradranirban/fbf-mukti-fonts/raw/main/SOURCES/66-0-fbf-mukti-fonts.conf
 
 %fontpkg 
 
@@ -48,6 +48,10 @@ chmod 755 generate.pe
 %fontfiles
 
 %changelog
+* Thu Jan 23 2025 Akira TAGOH <tagoh@redhat.com> - 3.4.3-3
+- Fix FTBFS issue
+  Resolves: rhbz#2340152
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

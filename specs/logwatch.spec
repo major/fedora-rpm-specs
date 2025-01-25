@@ -1,14 +1,11 @@
 %global _unitdir /usr/lib/systemd/system
 Summary: Analyzes and Reports on system logs
 Name: logwatch
-Version: 7.11
-Release: 4%{?dist}
+Version: 7.12
+Release: 1%{?dist}
 License: MIT
 URL: https://sourceforge.net/projects/logwatch/
 Source0: https://sourceforge.net/projects/logwatch/files/%{name}-%{version}/%{name}-%{version}.tar.gz
-# Fix for BZ2326879 until the release of Logwatch 7.12
-Source1: dist_sshd.conf
-Source2: dist_secure.conf
 BuildRequires: perl-generators
 Requires: grep
 Requires: perl(Date::Manip)
@@ -75,9 +72,6 @@ install -m 0644 conf/logfiles/* %{buildroot}%{_datadir}/logwatch/default.conf/lo
 install -m 0644 conf/services/* %{buildroot}%{_datadir}/logwatch/default.conf/services
 install -m 0644 conf/html/* %{buildroot}%{_datadir}/logwatch/default.conf/html
 
-install -m 0644 %{SOURCE1} %{buildroot}%{_datadir}/logwatch/dist.conf/services/sshd.conf
-install -m 0644 %{SOURCE2} %{buildroot}%{_datadir}/logwatch/dist.conf/services/secure.conf
-
 install -m 0644 lib/* %{buildroot}%{_datadir}/logwatch/lib
 
 install -m 0644 amavis-logwatch.1 %{buildroot}%{_mandir}/man1
@@ -113,7 +107,6 @@ echo "# Configuration overrides for specific logfiles/services may be placed her
 %dir %{_datadir}/logwatch
 %dir %{_datadir}/logwatch/dist.conf
 %dir %{_datadir}/logwatch/dist.conf/services
-%{_datadir}/logwatch/dist.conf/services/*.conf
 %dir %{_datadir}/logwatch/dist.conf/logfiles
 %{_datadir}/logwatch/scripts/logwatch.pl
 %config(noreplace) %{_datadir}/logwatch/default.conf/*.conf
@@ -136,6 +129,9 @@ echo "# Configuration overrides for specific logfiles/services may be placed her
 %{_unitdir}/logwatch.timer
 
 %changelog
+* Thu Jan 23 2025 Frank Crawford <frank@crawford.emu.id.au> - 7.12-1
+- Update to 7.12
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.11-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

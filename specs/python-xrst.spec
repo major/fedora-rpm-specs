@@ -5,7 +5,7 @@
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/
 Name:           python-xrst
 Version:        2025.0.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Extract Sphinx RST Files
 
 License:        GPL-3.0-or-later
@@ -14,7 +14,6 @@ Source:         %{url}/archive/%{version}/python-xrst-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-docutils
 
 %global _description %{expand:
 This is a sphinx wrapper that extracts RST files from source code
@@ -36,8 +35,32 @@ Summary:        %{summary}
 #
 # Suppress spelling warnings during tox because this system
 # may use a different dictionary than is used for xrst development.
-sed -i pytest/test_rst.py \
-   -e "s|'sphinx_rtd_theme'|&, '--suppress_spell_warnings'|"
+cat << EOF > temp.sed
+s|'sphinx_rtd_theme'|&, '--suppress_spell_warnings'|
+EOF
+sed -i pytest/test_rst.py -f temp.sed 
+#
+# Change toml -> tomli
+# This patch will not be necessary when version >= 2026.0.0
+cat << EOF > temp.sed
+s|import toml\$|import tomli|
+s|toml[.]loads[(]|tomli.loads(|
+s|^( *)toml\$|\\1tomli|
+s|'toml'|'tomli'|
+EOF
+#
+for file in \
+   bin/rst2man.py \
+   pyproject.toml \
+   tox.ini \
+   xrst/auto_file.py \
+   xrst/get_conf_dict.py \
+   xrst/rename_group.py \
+   xrst/replace_spell.py \
+   xrst/run_xrst.py
+do
+   sed -r -i $file -f temp.sed
+done
 #
 %generate_buildrequires
 %pyproject_buildrequires -t
@@ -79,6 +102,10 @@ mkdir -p %{buildroot}/%{_mandir}/man1
 %{_mandir}/man1/xrst.1*
 
 %changelog
+* Thu Jan 23 2025 Brad Bell <bradbell at seanet dot com> - 2025.0.2-3
+- Change import toml -> import tomli; see
+- https://fedoraproject.org/wiki/Changes/DeprecatePythonToml
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2025.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

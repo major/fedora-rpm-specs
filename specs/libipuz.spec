@@ -12,6 +12,8 @@ Summary:        Library for parsing .ipuz puzzle files
 License:        LGPL-2.1-or-later OR MIT
 URL:            https://gitlab.gnome.org/jrb/libipuz
 Source:         %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
+# rust: bump glib to 0.19.5
+Patch:          %{url}/-/commit/3b45d15c29da4f854e601b9b20e7da005e3792e6.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  cmake

@@ -5,7 +5,7 @@
 %global crate toml-span
 
 Name:           rust-toml-span
-Version:        0.3.0
+Version:        0.4.1
 Release:        %autorelease
 Summary:        Toml parser and deserializer that preserves span information
 

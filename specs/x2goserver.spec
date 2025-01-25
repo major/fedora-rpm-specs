@@ -2,7 +2,7 @@
 
 Name:           x2goserver
 Version:        4.1.0.6
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        X2Go Server
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -331,11 +331,11 @@ sed -i -e 's/-o root -g root//' */Makefile
 
 %build
 export PATH=%{_qt4_bindir}:$PATH
-%make_build CFLAGS="%{optflags}" PERL_INSTALLDIRS=vendor PREFIX=%{_prefix} NXLIBDIR=%{_libdir}/nx LIBDIR=%{_libdir}/x2go
+%make_build CFLAGS="%{optflags}" PERL_INSTALLDIRS=vendor PREFIX=%{_prefix} NXLIBDIR=%{_libdir}/nx LIBDIR=%{_libdir}/x2go SBINDIR=%{_sbindir}
 
 
 %install
-make install DESTDIR=%{buildroot} PREFIX=%{_prefix} NXLIBDIR=%{_libdir}/nx LIBDIR=%{_libdir}/x2go
+make install DESTDIR=%{buildroot} PREFIX=%{_prefix} NXLIBDIR=%{_libdir}/nx LIBDIR=%{_libdir}/x2go SBINDIR=%{_sbindir}
 
 # Make sure the .packlist file is removed from %%{perl_vendorarch}...
 find %{buildroot}%{perl_vendorarch} -name .packlist -delete
@@ -600,6 +600,9 @@ exit 0
 
 
 %changelog
+* Fri Jan 24 2025 Orion Poplawski <orion@nwra.com> - 4.1.0.6-7
+- Define SBINDIR for sbin merge (FTBFS rhbz#2341558)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

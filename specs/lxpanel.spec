@@ -13,11 +13,11 @@
 %global	git_builddir	%{nil}
 
 %if 0%{?use_gitbare}
-%global	gittardate		20241225
-%global	gittartime		1813
+%global	gittardate		20250124
+%global	gittartime		1010
 
-%global	gitbaredate	20241223
-%global	git_rev		d45c45ae6515f70a7f4fc79d5f374183d7b8e4b7
+%global	gitbaredate	20250123
+%global	git_rev		13a51958a92130674843d728805ebc39e12062ca
 %global	git_short		%(echo %{git_rev} | cut -c-8)
 %global	git_version	%{gitbaredate}git%{git_short}
 %endif
@@ -27,10 +27,10 @@
 %global	git_builddir	-%{git_version}
 %endif
 
-%dnl %global		use_gcc_strict_sanitize	1
+%dnl	%global		use_gcc_strict_sanitize	1
 
 %global		main_version	0.10.1
-%global		baserelease	2
+%global		baserelease	1
 
 Name:			lxpanel
 Version:		%{main_version}%{git_ver_rpm}
@@ -67,8 +67,6 @@ Patch102:		lxpanel-0.8.2-battery-plugin-use-zenity.patch
 # volumealsa: poll alsa mixer several times at startup (for pipewire)
 # https://bugzilla.redhat.com/show_bug.cgi?id=1960829
 Patch103:		lxpanel-0.10.1-0003-volumealsa-poll-alsa-mixer-several-times-at-startup.patch
-# batt: make the status green on batt when the state is "not charging"
-Patch104:		lxpanel-0.10.1-batt-chaging-pending.patch
 
 
 #BuildRequires:	docbook-utils
@@ -175,7 +173,6 @@ cat %PATCH103 | git am
 %patch -P100 -p1 -b .default
 #%%patch101 -p1 -b .system-config-network
 %patch -P102 -p1 -b .zenity
-%patch -P104 -p1 -b .batt_pending
 
 git commit -m "Apply Fedora specific configulation" -a
 
@@ -232,6 +229,9 @@ cd ..
 %{_libdir}/pkgconfig/lxpanel.pc
 
 %changelog
+* Fri Jan 24 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.1^20250123git13a51958-1
+- Update to the latest git
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1^20241223gitd45c45ae-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

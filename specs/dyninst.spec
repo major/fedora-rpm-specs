@@ -2,22 +2,15 @@ Summary: An API for Run-time Code Generation
 License: LGPL-2.1-or-later AND GPL-3.0-or-later WITH Bison-exception-2.2 AND LicenseRef-Fedora-Public-Domain AND BSD-3-Clause
 Name: dyninst
 Group: Development/Libraries
-Release: 8%{?dist}
+Release: 1%{?dist}
 URL: http://www.dyninst.org
-Version: 12.3.0
-ExclusiveArch: %{ix86} x86_64 ppc64le aarch64
+Version: 13.0.0
+ExclusiveArch: x86_64 ppc64le aarch64
 
-%define __testsuite_version 12.3.0
-Source0: https://github.com/dyninst/dyninst/archive/v%{version}/dyninst-%{version}.tar.gz
-Source1: https://github.com/dyninst/testsuite/archive/v%{__testsuite_version}/testsuite-%{__testsuite_version}.tar.gz
-
-Patch1: dwarf-error.patch
-Patch2: onetbb.patch
-# Support cmake 3.27 - https://github.com/dyninst/dyninst/pull/1438
-Patch3: dyninst-cmake3.27.patch
+Source0: dyninst-13.0.0.tar.gz
+Patch1: github-pr1721.patch
 
 %global dyninst_base dyninst-%{version}
-%global testsuite_base testsuite-%{__testsuite_version}
 
 BuildRequires: gcc-c++
 BuildRequires: elfutils-devel
@@ -29,17 +22,11 @@ BuildRequires: cmake
 BuildRequires: libtirpc-devel
 BuildRequires: tbb tbb-devel
 BuildRequires: tex-latex
-
-# Extra requires just for the testsuite
-BuildRequires: gcc-gfortran libxml2-devel
 BuildRequires: make
 
-# Testsuite files should not provide/require anything
-%{?filter_setup:
-%filter_provides_in %{_libdir}/dyninst/testsuite/
-%filter_requires_in %{_libdir}/dyninst/testsuite/
-%filter_setup
-}
+# https://fedoraproject.org/wiki/Changes/Linker_Error_On_Security_Issues
+# may impact the RT library
+%undefine _hardened_linker_errors
 
 %description
 
@@ -72,32 +59,18 @@ dyninst-devel includes the C header files that specify the Dyninst user-space
 libraries and interfaces. This is required for rebuilding any program
 that uses Dyninst.
 
-%package testsuite
-Summary: Programs for testing Dyninst
-Group: Development/System
-Requires: dyninst = %{version}-%{release}
-Requires: dyninst-devel = %{version}-%{release}
-License: BSD-3-Clause AND LGPL-2.1-or-later
-
-
-%description testsuite
-dyninst-testsuite includes the test harness and target programs for
-making sure that dyninst works properly.
-
 %prep
 %setup -q -n %{name}-%{version} -c
-%setup -q -T -D -a 1
+# %setup -q -T -D -a 1
 
 pushd %{dyninst_base}
-%patch -P1 -p1 -b .dwerr
-%patch -P2 -p1 -b .onetbb
-%patch -P3 -p1 -b .cmake3.27
+%patch -P1 -p1
 popd
 
 # cotire seems to cause non-deterministic gcc errors
 # https://bugzilla.redhat.com/show_bug.cgi?id=1420551
-sed -i.cotire -e 's/USE_COTIRE true/USE_COTIRE false/' \
-  %{dyninst_base}/cmake/shared.cmake
+# sed -i.cotire -e 's/USE_COTIRE true/USE_COTIRE false/' \
+#  %{dyninst_base}/cmake/shared.cmake
 
 %build
 
@@ -112,49 +85,30 @@ LDFLAGS="$LDFLAGS $RPM_LD_FLAGS"
 CXXFLAGS="$CFLAGS"
 export CFLAGS CXXFLAGS LDFLAGS
 
-%cmake \
+%cmake --log-level=DEBUG \
  -DENABLE_DEBUGINFOD=1 \
- -DINSTALL_LIB_DIR:PATH=%{_libdir}/dyninst \
- -DINSTALL_INCLUDE_DIR:PATH=%{_includedir}/dyninst \
- -DINSTALL_CMAKE_DIR:PATH=%{_libdir}/cmake/Dyninst \
  -DCMAKE_BUILD_TYPE=None \
- -DCMAKE_SKIP_RPATH:BOOL=YES
-%cmake_build
-
-# Hack to install dyninst nearby, so the testsuite can use it
-DESTDIR="../install" %__cmake --install "%{__cmake_builddir}"
-find ../install -name '*.cmake' -execdir \
-     sed -i -e "s!%{_prefix}!$PWD/../install&!" '{}' '+'
-# cmake mistakenly looks for libtbb.so in the dyninst install dir
-sed -i '/libtbb.so/ s/".*usr/"\/usr/' $PWD/../install%{_libdir}/cmake/Dyninst/commonTargets.cmake
-
-cd ../%{testsuite_base}
-# testsuite build sometimes encounters dependency issues with -jN
-%define _smp_mflags -j1
-%cmake \
- -DDyninst_DIR:PATH=$PWD/../install%{_libdir}/cmake/Dyninst \
- -DINSTALL_DIR:PATH=%{_libdir}/dyninst/testsuite \
- -DCMAKE_BUILD_TYPE:STRING=Debug \
- -DCMAKE_SKIP_RPATH:BOOL=YES
-%cmake_build
+ -DCMAKE_SKIP_RPATH:BOOL=YES \
+ -DINSTALL_CMAKE_DIR:PATH=/usr/lib64/cmake/Dyninst \
+ -DCMAKE_INSTALL_PREFIX:PATH=/usr \
+ -DCMAKE_INSTALL_INCLUDEDIR:PATH=/usr/include/dyninst \
+ -DCMAKE_INSTALL_LIBDIR:PATH=/usr/lib64/dyninst
+%cmake_build -v -v -v
 
 %install
 
 cd %{dyninst_base}
-%cmake_install
+%cmake_install -v -v -v
 
-cd ../%{testsuite_base}
-%cmake_install
+# move /usr/lib64//dyninst/cmake/Dyninst to /usr/lib64/cmake/Dyninst
+mkdir -p %{buildroot}/%{_libdir}/cmake
+mv %{buildroot}/%{_libdir}/dyninst/cmake/Dyninst %{buildroot}/%{_libdir}/cmake/Dyninst
+
+# this is a testsuite-like binary, not needed in main package
+rm -f "%{buildroot}%{_bindir}/parseThat"
 
 mkdir -p %{buildroot}/etc/ld.so.conf.d
 echo "%{_libdir}/dyninst" > %{buildroot}/etc/ld.so.conf.d/%{name}-%{_arch}.conf
-
-# Ugly hack to mask testsuite files from debuginfo extraction.  Running the
-# testsuite requires debuginfo, so extraction is useless.  However, debuginfo
-# extraction is still nice for the main libraries, so we don't want to disable
-# it package-wide.  The permissions are restored by attr(755,-,-) in files.
-find %{buildroot}%{_libdir}/dyninst/testsuite/ \
-  -type f '!' -name '*.a' -execdir chmod 644 '{}' '+'
 
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
@@ -187,13 +141,10 @@ find %{buildroot}%{_libdir}/dyninst/testsuite/ \
 %{_libdir}/dyninst/*.so
 %{_libdir}/cmake/Dyninst
 
-%files testsuite
-%{_bindir}/parseThat
-%dir %{_libdir}/dyninst/testsuite/
-%attr(755,root,root) %{_libdir}/dyninst/testsuite/*[!a]
-%attr(644,root,root) %{_libdir}/dyninst/testsuite/*.a
-
 %changelog
+* Thu Jan 23 2025 Frank Ch. Eigler <fche@redhat.com> - 13.0.0
+- Rebuilt for F42 FTBFS with 13.0.0 + backported cmake fixes
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 12.3.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

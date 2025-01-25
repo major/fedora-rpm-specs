@@ -4,14 +4,13 @@
 
 Summary: A text formatting package based on SGML
 Name: linuxdoc-tools
-Version: 0.9.82
-Release: 9%{?dist}
+Version: 0.9.85
+Release: 1%{?dist}
 License: X11-distribute-modifications-variant
-Source: http://http.us.debian.org/debian/pool/main/l/linuxdoc-tools/%{name}_%{version}.orig.tar.gz
+Source00: https://ftp.debian.org/debian/pool/main/l/linuxdoc-tools/%{name}_%{version}.orig.tar.gz
+Source01: https://ftp.debian.org/debian/pool/main/l/linuxdoc-tools/%{name}_%{version}.orig.tar.gz.asc
 Patch01: 0001-downstream-Changed-default-papersize-to-letter.patch
 Patch02: 0002-downstream-Added-fix-to-have-lib64-in-perl-path-on-6.patch
-Patch3: linuxdoc-tools-c99.patch
-Patch4: linuxdoc-tools-c89.patch
 Url: http://packages.qa.debian.org/l/linuxdoc-tools.html
 BuildRequires: git gcc
 BuildRequires: flex flex-static sgml-common jade gawk groff autoconf automake texinfo
@@ -104,6 +103,9 @@ exit 0
 %{_mandir}/*/*
 
 %changelog
+* Thu Jan 23 2025 Julien Rische <jrische@redhat.com> - 0.9.85-1
+- New version 0.9.85
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.82-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

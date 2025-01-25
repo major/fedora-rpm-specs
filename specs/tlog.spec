@@ -20,7 +20,7 @@
 
 Name:           tlog
 Version:        14
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Terminal I/O logger
 
 %if "%{_vendor}" == "debbuild"
@@ -36,6 +36,8 @@ License:        GPL-2.0-or-later
 URL:            https://github.com/Scribery/%{name}
 Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:        tlog.sysusers
+
+Patch0001: 0001-Add-missing-argument-for-sigchld-handler.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -83,7 +85,7 @@ shell afterwards. The recorded I/O can then be forwarded to a logging server
 in JSON format.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %configure --disable-rpath --disable-static --enable-utempter %{!?with_systemd:--disable-journal} --docdir=%{_defaultdocdir}/%{name}
@@ -157,6 +159,9 @@ systemd-tmpfiles --create %{name}.conf >/dev/null 2>&1 || :
 /sbin/ldconfig
 
 %changelog
+* Thu Jan 23 2025 Justin Stephenson <jstephen@redhat.com> - 14-4
+- Resolves: https://bugzilla.redhat.com/show_bug.cgi?id=2341444
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 14-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

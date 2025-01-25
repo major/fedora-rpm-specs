@@ -1,8 +1,8 @@
 # Fedora spec file for php-pecl-http
 #
-# Copyright (c) 2012-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2012-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
@@ -35,6 +35,8 @@ Source0:        https://pecl.php.net/get/%{sources}.tgz
 
 # From http://www.php.net/manual/en/http.configuration.php
 Source1:        %{proj_name}.ini
+
+Patch0:         0001-fix-incompatible-pointer-type.patch
 
 ExcludeArch:    %{ix86}
 
@@ -105,6 +107,8 @@ These are the files needed to compile programs using HTTP extension.
 sed -e '/LICENSE/s/role="doc"/role="src"/' -i package.xml
 
 cd %{sources}
+%patch -P0 -p1
+
 extver=$(sed -n '/#define PHP_PECL_HTTP_VERSION/{s/.* "//;s/".*$//;p}' php_http.h)
 if test "x${extver}" != "x%{upstream_version}%{?upstream_prever}%{?gh_date:dev}"; then
    : Error: Upstream HTTP version is now ${extver}, expecting %{upstream_version}%{?upstream_prever}%{?gh_date:dev}.
@@ -207,6 +211,11 @@ TEST_PHP_ARGS="-n $modules -d extension=$PWD/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Thu Jan 23 2025 Remi Collet <remi@fedoraproject.org> - 4.2.6-3
+- fix incompatible pointer type FTBFS #2341063
+  using patch from https://github.com/m6w6/ext-http/pull/143
+- re-license spec file to CECILL-2.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

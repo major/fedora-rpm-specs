@@ -803,7 +803,6 @@ BuildPython() {
   --with-computed-gotos=%{computed_gotos_flag} \
   --with-dbmliborder=gdbm:ndbm:bdb \
   --with-system-expat \
-  --with-system-ffi \
   --with-system-libmpdec \
   --enable-loadable-sqlite-extensions \
   --with-dtrace \

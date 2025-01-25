@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.40.9000-800-g1ac28b7818
+%global glibcsrcdir glibc-2.40.9000-808-g76c3f7f81b
 %global glibcversion 2.40.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 31
+%global baserelease 33
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -341,6 +341,7 @@ Patch8: glibc-fedora-manual-dircategory.patch
 Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
+Patch24: glibc-environ-malloc.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2377,6 +2378,17 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Thu Jan 23 2025 Florian Weimer <fweimer@redhat.com> - 2.40.9000-33
+- Apply patch to improve compatibility with environ/malloc misuse
+
+* Thu Jan 23 2025 Florian Weimer <fweimer@redhat.com> - 2.40.9000-32
+- Auto-sync with upstream branch master,
+  commit 76c3f7f81b7b99fedbff6edc07cddff59e2ae6e2:
+- po: Incorporate translations
+- Fix underallocation of abort_msg_s struct (CVE-2025-0395)
+- Fix typo: _POSIX_REATIME_SIGNALS -> _POSIX_REALTIME_SIGNALS [BZ# 32515]
+- aarch64: Add HWCAP_GCS
+
 * Mon Jan 20 2025 Florian Weimer <fweimer@redhat.com> - 2.40.9000-31
 - Auto-sync with upstream branch master,
   commit 1ac28b781882e3f14b41dcb06f3f945d53938948:

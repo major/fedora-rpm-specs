@@ -4,8 +4,8 @@
 %global __cmake_in_source_build 1
 
 Name: libipt
-Version: 2.1.1
-Release: 3%{?dist}
+Version: 2.1.2
+Release: 1%{?dist}
 Summary: Intel Processor Trace Decoder Library
 License: BSD-3-Clause
 URL: https://github.com/intel/libipt
@@ -79,6 +79,9 @@ ctest -V %{?_smp_mflags}
 %{_mandir}/*/*.gz
 
 %changelog
+* Tue Jan 21 2025 Keith Seitz keiths@redhat.com> - 2.1.2-1
+- Update to 2.1.2.
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

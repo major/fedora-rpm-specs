@@ -38,7 +38,11 @@ manipulation of eBPF programs and maps.
 %make_install -C src/ prefix=%{_prefix} bash_compdir=%{bash_completions_dir} mandir=%{_mandir} doc-install
 
 %files
-%{_sbindir}/bpftool
+# bpftool Makefile hard-codes installation to {_prefix}/sbin but {_sbindir} now
+# resolves to /usr/bin so we need to explicitly use {_prefix}/sbin here.
+# In the end, /usr/sbin is a symlink to /usr/bin.
+# Details: https://fedoraproject.org/wiki/Changes/Unify_bin_and_sbin
+%{_prefix}/sbin/bpftool
 %{bash_completions_dir}/bpftool
 %{_mandir}/man8/bpftool*.8*
 

@@ -1,7 +1,7 @@
 Summary: IPX RIP/SAP daemon - routing for IPX networks
 Name: ipxripd
 Version: 0.8
-Release: 41%{?dist}
+Release: 42%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: ftp://ftp.ibiblio.org/pub/Linux/system/filesystems/ncpfs/
@@ -13,6 +13,7 @@ Patch1: ipxripd-0.7-gcc3.patch
 Patch2: ipxripd-0.7-kernel2.6.patch
 Patch3: ipxripd-0.8-printf.patch
 Patch4: ipxripd-0.8-stdint.patch
+Patch5: ipxripd-0.8-signal.patch
 BuildRequires: gcc
 BuildRequires: systemd-units
 BuildRequires: make
@@ -30,11 +31,12 @@ It automagically builds and updates IPX routing table in the Linux kernel.
 
 %prep
 %setup -q
-%patch -P0  -p1
-%patch -P1  -p1
-%patch -P2  -p1
-%patch -P3  -p1
-%patch -P4  -p1
+%patch 0 -p1
+%patch 1 -p1
+%patch 2 -p1
+%patch 3 -p1
+%patch 4 -p1
+%patch 5 -p1
 
 
 %build
@@ -82,6 +84,9 @@ install -p -m644 %{SOURCE2} $RPM_BUILD_ROOT%{_unitdir}/ipxd.service
 
 
 %changelog
+* Thu Jan 23 2025 Dmitry Butskoy <Dmitry@Butskoy.name> - 0.8-42
+- Fix signal handler prototype for compiling with C23 standard (#2340660)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

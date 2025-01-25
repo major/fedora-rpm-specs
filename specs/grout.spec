@@ -1,7 +1,6 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # Copyright (c) 2025 Robin Jarry
 
-%global _lto_cflags %nil
 %global forgeurl https://github.com/DPDK/grout
 
 Name: grout
@@ -15,6 +14,7 @@ Group: System Environment/Daemons
 URL: %{forgeurl}
 Release: %{autorelease}
 Source: %{forgesource}
+Patch: meson-install-all-binaries-in-PREFIX-bin.patch
 
 BuildRequires: dpdk-devel >= 24.11.1-2
 BuildRequires: gcc
@@ -60,6 +60,7 @@ This package contains the development headers to build %{name} API clients.
 
 %prep
 %forgesetup
+%autopatch -p1
 
 %build
 %meson
@@ -92,7 +93,7 @@ install -D -m 0755 cli/grcli.bash-completion %{buildroot}%{_datadir}/bash-comple
 %attr(755, root, root) %{_datadir}/bash-completion/completions/grout
 %attr(755, root, root) %{_datadir}/bash-completion/completions/grcli
 %attr(755, root, root) %{_bindir}/grcli
-%attr(755, root, root) %{_sbindir}/grout
+%attr(755, root, root) %{_bindir}/grout
 %attr(644, root, root) %{_mandir}/man1/grcli.1*
 %attr(644, root, root) %{_mandir}/man8/grout.8*
 

@@ -5,7 +5,7 @@
 %global crate tokio
 
 Name:           rust-tokio
-Version:        1.42.0
+Version:        1.43.0
 Release:        %autorelease
 Summary:        Event-driven, non-blocking I/O platform
 

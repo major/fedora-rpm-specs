@@ -1,10 +1,10 @@
 # Created by pyp2rpm-3.3.10
 %global pypi_name optuna
-%global pypi_version 4.1.0
+%global pypi_version 4.2.0
 
 Name:           python-%{pypi_name}
-Version:        4.1.0
-Release:        2%{?dist}
+Version:        4.2.0
+Release:        1%{?dist}
 Summary:        A hyperparameter optimization framework
 
 License:        MIT AND BSD-3-Clause AND SunPro
@@ -58,6 +58,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}.dist-info/
 
 %changelog
+* Thu Jan 23 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.2.0-1
+- 4.2.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

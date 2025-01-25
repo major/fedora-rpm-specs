@@ -1,19 +1,20 @@
 Name: swarp
 Version: 2.38.0
-Release: 26%{?dist}
+Release: 27%{?dist}
 Summary: Tool that resamples and co-adds together FITS images
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
 URL: http://www.astromatic.net/software/%{name}
-Source0: http://www.astromatic.net/download/swarp/swarp-%{version}.tar.gz
+Source: http://www.astromatic.net/download/swarp/swarp-%{version}.tar.gz
+Patch: fix-gcc15.patch
 
 # https://gcc.gnu.org/gcc-10/porting_to.html#common
 # https://github.com/astromatic/sextractor/issues/12
 %define _legacy_common_support 1
 
 BuildRequires: make
-BuildRequires:	gcc
+BuildRequires: gcc
 
 %description
 SWarp is a program that resamples and co-adds together FITS images 
@@ -27,7 +28,7 @@ BuildArch: noarch
 This package contains the documentation for %{name}.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %configure --enable-threads
@@ -49,6 +50,9 @@ make DESTDIR=%{buildroot} install
 %license COPYRIGHT
 
 %changelog
+* Thu Jan 23 2025 Sergio Pascual <sergiopr@fedoraproject.org> - 2.38.0-27
+- Patch wrong function definition with gcc15 (fixes rhbz #2341402)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.38.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

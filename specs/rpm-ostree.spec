@@ -1,21 +1,20 @@
 # The canonical copy of this spec file is upstream at:
-# https://github.com/coreos/rpm-ostree/blob/main/packaging/rpm-ostree.spec.in
+# https://github.com/coreos/rpm-ostree/blob/main/packaging/rpm-ostree.spec
 
 Summary: Hybrid image/package system
 Name: rpm-ostree
-Version: 2025.1
-Release: %autorelease
+Version: 2025.2
+Release: 1%{?dist}
 License: LGPL-2.0-or-later
 URL: https://github.com/coreos/rpm-ostree
 # This tarball is generated via "cd packaging && make -f Makefile.dist-packaging dist-snapshot"
 # in the upstream git.  It also contains vendored Rust sources.
 Source0: https://github.com/coreos/rpm-ostree/releases/download/v%{version}/rpm-ostree-%{version}.tar.xz
 
-ExclusiveArch: %{rust_arches}
-
+# See https://github.com/coreos/fedora-coreos-tracker/issues/1716
 # ostree not on i686 for RHEL 10
 # https://github.com/containers/composefs/pull/229#issuecomment-1838735764
-%if 0%{?rhel} >= 10
+%if 0%{?fedora} || 0%{?rhel} >= 10
 ExcludeArch:    %{ix86}
 %endif
 
@@ -32,8 +31,14 @@ BuildRequires: rust
 %bcond_with sanitizers
 # Embedded unit tests
 %bcond_with bin_unit_tests
-# Don't add the ostree-container binaries
-%bcond_with ostree_ext
+
+# Don't add the ostree-container binaries; this version
+# conditional needs to be kept in sync with the bootc one.
+%if 0%{?rhel} >= 10 || 0%{?fedora} > 41
+    %bcond_with ostree_ext
+%else
+    %bcond_without ostree_ext
+%endif
 
 # This is copied from the libdnf spec
 %if 0%{?rhel} && ! 0%{?centos}
@@ -140,16 +145,24 @@ Requires:       librepo%{?_isa} >= %{librepo_version}
 # rpm-ostree wraps more of ostree (such as `ostree admin unlock` etc.)
 Requires: ostree
 Requires: bubblewrap
+# We have been building with fuse but changed to fuse3  on:
+# https://src.fedoraproject.org/rpms/rpm-ostree/c/3c602a23787fd2df873c0b18df3133c9fec4b66a
+# However our code is just calling fuse's fusermount.
+# We are updating our spec and code based on the discusion on:
+# https://github.com/coreos/rpm-ostree/pull/5047
+%if %{defined rhel} && 0%{?rhel} < 10
+Requires: fuse
+%else
 Requires: fuse3
+%endif
 
-# ref https://github.com/coreos/rpm-ostree/issues/4994
+# For container functionality
+# https://github.com/coreos/rpm-ostree/issues/3286
+Requires: skopeo
 Requires: bootc
 %if %{without ostree_ext}
 Requires: ostree-cli(ostree-container)
 %endif
-# For container functionality
-# https://github.com/coreos/rpm-ostree/issues/3286
-Requires: skopeo
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
@@ -196,6 +209,8 @@ export RUSTFLAGS="%{build_rustflags}"
 %cargo_license_summary
 %{cargo_license} > LICENSE.dependencies
 %cargo_vendor_manifest
+# https://pagure.io/fedora-rust/rust-packaging/issue/33
+sed -i -e '/https:\/\//d' cargo-vendor.txt
 %endif
 
 %install

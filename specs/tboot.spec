@@ -1,14 +1,15 @@
 Summary:       Performs a verified launch using Intel TXT
 Name:          tboot
 Version:       1.11.7
-Release:       11%{?dist}
+Release:       12%{?dist}
 Epoch:         1
 
 License:       BSD-3-Clause
 URL:           http://sourceforge.net/projects/tboot/
-source0:       https://sourceforge.net/projects/tboot/files/%{name}/%{name}-%{version}.tar.gz
-Patch0: tboot-gcc14.patch
-Patch1: openssl-no-engine.patch
+Source0:       https://sourceforge.net/projects/tboot/files/%{name}/%{name}-%{version}.tar.gz
+Patch0:        tboot-gcc14.patch
+Patch1:        openssl-no-engine.patch
+Patch2:        tboot-sbin.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -55,14 +56,14 @@ grub2-mkconfig -o /etc/grub2.cfg
 %doc docs/*
 %config %{_sysconfdir}/grub.d/20_linux_tboot
 %config %{_sysconfdir}/grub.d/20_linux_xen_tboot
-%{_sbindir}/lcp2_crtpol
-%{_sbindir}/lcp2_crtpolelt
-%{_sbindir}/lcp2_crtpollist
-%{_sbindir}/lcp2_mlehash
-%{_sbindir}/tb_polgen
-%{_sbindir}/txt-acminfo
-%{_sbindir}/txt-parse_err
-%{_sbindir}/txt-stat
+%{_bindir}/lcp2_crtpol
+%{_bindir}/lcp2_crtpolelt
+%{_bindir}/lcp2_crtpollist
+%{_bindir}/lcp2_mlehash
+%{_bindir}/tb_polgen
+%{_bindir}/txt-acminfo
+%{_bindir}/txt-parse_err
+%{_bindir}/txt-stat
 %{_mandir}/man8/lcp2_crtpol.8.gz
 %{_mandir}/man8/lcp2_crtpolelt.8.gz
 %{_mandir}/man8/lcp2_crtpollist.8.gz
@@ -75,6 +76,9 @@ grub2-mkconfig -o /etc/grub2.cfg
 /boot/tboot-syms
 
 %changelog
+* Thu Jan 23 2025 David Cantrell <dcantrell@redhat.com> - 1:1.11.7-12
+- Patch Makefiles to install to /usr/bin rather than /usr/sbin (#2341415)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.11.7-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -106,8 +106,8 @@ This package contains some handy XML-RPC demo applications.
 
 %build
 %configure
-%make_build
-%make_build -C tools
+%make_build CFLAGS="%{optflags} -std=gnu17"
+%make_build CFLAGS="%{optflags} -std=gnu17" -C tools
 
 
 %install
@@ -171,6 +171,9 @@ This package contains some handy XML-RPC demo applications.
 %{_bindir}/xmlrpc_dumpserver
 
 %changelog
+* Thu Jan 23 2025 Jonathan Wright <jonathan@almalinux.org> - 1.60.04-3
+- fix ftbfs on gcc15 rhbz#2341577
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.60.04-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

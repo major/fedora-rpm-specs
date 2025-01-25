@@ -2,17 +2,24 @@
 
 %global name1 libftdi
 Name:           mingw-%{name1}
-Version:        1.4
-Release:        15%{?dist}
+Version:        1.5
+Release:        1%{?dist}
 Summary:        MinGW library to program and control the FTDI USB controller
 
 # Automatically converted from old format: LGPLv2 and GPLv2 - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2 AND GPL-2.0-only
-URL:            http://www.intra2net.com/de/produkte/opensource/ftdi/
-Source0:        http://www.intra2net.com/en/developer/%{name1}/download/%{name1}1-%{version}.tar.bz2
-# Swig requirements have changed in newer versions of CMake.
-# This has been reported to the mailing list
-Patch0:         libftdi-cmake_swig.patch
+URL:            https://www.intra2net.com/en/developer/libftdi/
+Source0:        https://www.intra2net.com/en/developer/%{name1}/download/%{name1}1-%{version}.tar.bz2
+# http://developer.intra2net.com/git/?p=libftdi;a=commitdiff;h=cdb28383402d248dbc6062f4391b038375c52385;hp=5c2c58e03ea999534e8cb64906c8ae8b15536c30
+Patch0:         libftdi-1.5-fix_pkgconfig_path.patch
+# http://developer.intra2net.com/mailarchive/html/libftdi/2023/msg00003.html
+Patch1:         libftdi-1.5-no-distutils.patch
+# http://developer.intra2net.com/mailarchive/html/libftdi/2023/msg00005.html
+Patch2:         libftdi-1.5-cmake-deps.patch
+# Fix for SWIG 4.3.0
+# https://bugzilla.redhat.com/show_bug.cgi?id=2319133
+# http://developer.intra2net.com/mailarchive/html/libftdi/2024/msg00024.html
+Patch3:         libftdi-1.5-swig-4.3.patch
 BuildArch:      noarch
 
 BuildRequires:  make
@@ -59,7 +66,7 @@ FT232BM and FT245BM type chips including the popular bitbang mode.
 
 
 %build
-%mingw_cmake .
+%mingw_cmake -DSTATICLIBS=off -DFTDIPP=on -DPYTHON_BINDINGS=off -DDOCUMENTATION=on -DEXAMPLES=off .
 
 %mingw_make %{?_smp_mflags}
 
@@ -106,6 +113,9 @@ rm -rf $RPM_BUILD_ROOT/build_win64/examples
 %{mingw64_libdir}/pkgconfig/libftdipp1.pc
 
 %changelog
+* Thu Jan 23 2025 Thomas Sailer <fedora@tsailer.ch> - 1.5-1
+- update to 1.5
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

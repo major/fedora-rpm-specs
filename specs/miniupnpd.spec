@@ -1,6 +1,6 @@
 Name:       miniupnpd
-Version:    2.3.6
-Release:    4%{?dist}
+Version:    2.3.7
+Release:    1%{?dist}
 Summary:    Lightweight UPnP IGD & PCP/NAT-PMP daemon
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -22,6 +22,10 @@ Buildrequires:  libnftnl-devel
 BuildRequires:  libuuid-devel
 BuildRequires:  make
 BuildRequires:  procps-ng
+
+# requires ENABLE_HTTPS to be set
+#BuildRequires:  openssl-devel
+#BuildRequires:  zlib-devel
 
 
 %description
@@ -65,6 +69,12 @@ install -Dpm 644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
 #Do not ship SysVinit script
 rm -f %{buildroot}/etc/init.d/%{name}
 
+#sbin migration for F42+
+%if 0%{?fedora} >= 42
+mkdir -p %{buildroot}%{_bindir}
+mv %{buildroot}/usr/sbin/%{name} %{buildroot}%{_bindir}/%{name}
+%endif
+
 
 %post
 %systemd_post %{name}.service
@@ -90,6 +100,9 @@ rm -f %{buildroot}/etc/init.d/%{name}
 
 
 %changelog
+* Thu Jan 23 2025 - Michael Cronenworth <mike@cchtml.com> - 2.3.7-1
+- Version update
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

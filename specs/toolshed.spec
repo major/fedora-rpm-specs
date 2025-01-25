@@ -1,6 +1,6 @@
 Name:           toolshed
-Version:        20220204hga1b3c7faf452
-Release:        7%{?dist}
+Version:        20250123hg221d493c19f8
+Release:        1%{?dist}
 Summary:        Cross-development toolkit for use with the Tandy Color Computer
 
 
@@ -61,6 +61,10 @@ make %{?_smp_mflags} -C build/unix install INSTALLDIR=%{buildroot}%{_bindir} DOC
 
 
 %changelog
+* Thu Jan 23 2025 John W. Linville <linville@tuxdriver.com> 20250123hg221d493c19f8-1
+- Update source snapshot from current upstream
+- Add small fixes to correct FTBFS situation
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20220204hga1b3c7faf452-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

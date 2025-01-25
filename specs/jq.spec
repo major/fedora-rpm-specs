@@ -57,7 +57,9 @@ Development files for %{name}
 %build
 autoreconf -if
 %configure --disable-static
-%make_build
+# stud=gnu17 fixes ftbfs with gcc15
+# upstream fix for gcc 15 should be in > 1.7.1
+%make_build CFLAGS="%{optflags} -std=gnu17"
 # Docs already shipped in jq's tarball.
 # In order to build the manual page, it
 # is necessary to install rake, rubygem-ronn

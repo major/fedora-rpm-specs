@@ -5,7 +5,7 @@
 
 Name:           nethack
 Version:        3.6.7
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A rogue-like single player dungeon exploration game
 
 License:        NGPL
@@ -18,6 +18,7 @@ Patch2:         %{name}-%{version}-config.patch
 Patch3:         %{name}-%{version}-guidebook.patch
 Patch4:         hackdir.patch
 Patch5:         %{name}-%{version}-xpm.patch
+Patch6:         modern_c.patch
 Requires:       %{fontname}-fonts-core
 
 BuildRequires:  make
@@ -76,8 +77,9 @@ cd NetHack-3.6.7
 mv * ..
 cd ..
 rm -rf NetHack-3.6.7
+%dnl %patch0 -b .makefile
 %patch -P0 -b .makefile
-%patch -P1  
+%patch -P1 -p0 
 %patch -P2 -b .config
 %patch -P3 -b .guidebook
 
@@ -85,6 +87,8 @@ rm -rf NetHack-3.6.7
 %patch -P4 -p1
 
 %patch -P5 -b .xpm
+
+%patch -P6 -p1
 
 %{__sed} -i -e "s:PREFIX=\$(wildcard ~)/nh/install:PREFIX=/usr:" sys/unix/hints/linux
 %{__sed} -i -e "s:^\(HACKDIR=\).*:\1%{nhgamedir}:" sys/unix/hints/linux
@@ -183,6 +187,10 @@ fi;
 %files -n %{fontname}-fonts-core
 
 %changelog
+* Wed Jan 22 2025 Ron Olson <tachoknight@gmail.com> - 3.6.7-7
+- Fixes for gcc changes
+  Resolves: rhbz#2340917
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.7-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

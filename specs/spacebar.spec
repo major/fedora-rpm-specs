@@ -1,7 +1,7 @@
 Name:           spacebar
 Epoch:          1
-Version:        6.2.90
-Release:        2%{?dist}
+Version:        6.2.91
+Release:        1%{?dist}
 License:        GPLv2+ and GPLv3 and GPLv2
 Summary:        Messaging app for Plasma Mobile
 Url:            https://invent.kde.org/plasma-mobile/spacebar
@@ -86,6 +86,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_sysconfdir}/xdg/autostart/org.kde.%{name}.daemon.desktop
 
 %changelog
+* Thu Jan 23 2025 Steve Cossette <farchord@gmail.com> - 1:6.2.91-1
+- 6.2.91
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.2.90-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

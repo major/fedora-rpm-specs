@@ -1,6 +1,6 @@
 Name:           6tunnel
 Version:        0.13
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Tunnelling for application that don't speak IPv6
 
 License:        GPL-2.0-only
@@ -31,7 +31,7 @@ IPv6 addresses and forward all data to IPv4 or IPv6 (default) host.
 %build
 autoreconf -vif
 %configure
-%make_build
+%make_build CFLAGS="%{optflags} -std=gnu17"
 
 
 %check
@@ -50,6 +50,9 @@ autoreconf -vif
 
 
 %changelog
+* Thu Jan 23 2025 Jonathan Wright <jonathan@almalinux.org> - 0.13-11
+- fix ftbfs rbhz#2333049 rhbz#2341610
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -54,8 +54,8 @@ description of Galera replication engine see https://www.galeracluster.com web.
        -DBUILD_SHARED_LIBS:BOOL=OFF \
        \
        -DINSTALL_DOCDIR="share/doc/%{name}/" \
-       -DINSTALL_GARBD="sbin" \
-       -DINSTALL_GARBD-SYSTEMD="sbin" \
+       -DINSTALL_GARBD="bin" \
+       -DINSTALL_GARBD-SYSTEMD="bin" \
        -DINSTALL_CONFIGURATION="/etc/sysconfig/" \
        -DINSTALL_SYSTEMD_SERVICE="lib/systemd/system" \
        -DINSTALL_LIBDIR="%{_lib}/galera" \
@@ -68,13 +68,6 @@ cmake -B %_vpath_builddir -LAH
 
 %install
 %cmake_install
-
-# PATCH 2:
-#   Fix the hardcoded paths
-#     In the Systemd service file:
-sed -i 's;/usr/bin/garb-systemd;/usr/sbin/garb-systemd;g' %{buildroot}%{_unitdir}/garb.service
-#     In the wrapper script:
-sed -i 's;/usr/bin/garbd;/usr/sbin/garbd;g' %{buildroot}/usr/sbin/garb-systemd
 
 # PATCH 4:
 #  Use a dedicated user for the Systemd service
@@ -131,11 +124,11 @@ unlink /etc/systemd/system/garb.service || :
 %dir %{_docdir}/galera
 %dir %{_libdir}/galera
 
-%{_sbindir}/garbd
+%{_bindir}/garbd
 
 # PATCH 3:
 #   Make sure the wrapper script is executable
-%attr(755, -, -) %{_sbindir}/garb-systemd
+%attr(755, -, -) %{_bindir}/garb-systemd
 
 %{_mandir}/man8/garbd.8*
 

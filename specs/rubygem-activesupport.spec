@@ -5,7 +5,7 @@
 Name: rubygem-%{gem_name}
 Epoch: 1
 Version: 7.0.8
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: A support libraries and Ruby core extensions extracted from the Rails framework
 License: MIT
 URL: http://rubyonrails.org
@@ -37,6 +37,10 @@ Patch6: rubygem-activesupport-7.2.0-Update-test-suite-for-compatibility-with-Rub
 # Ruby 3.4 `Hash#inspect` compatibility.
 # https://github.com/rails/rails/commit/95c2ee8e0503215ad94629383311301742ebf012
 Patch7: rubygem-activesupport-8.0.0-Update-Active-Support-test-suite-for-Ruby-3-4-Hash-inspect.patch
+# concurrent-ruby 1.3.5+ drops Logger dependency. Make sure to load Logger
+# explicitly.
+# https://github.com/rails/rails/pull/54264
+Patch8: rubygem-activesupport-7.0.8-Ensure-the-logger-gem-is-loaded-in-Rails-7-0.patch
 
 # Ruby package has just soft dependency on rubygem(json), while
 # ActiveSupport always requires it.
@@ -90,6 +94,7 @@ mv %{_builddir}/test .
 %patch 4 -p2
 mv test %{_builddir}
 %patch 5 -p2
+%patch 8 -p2
 
 pushd %{_builddir}
 %patch 2 -p2
@@ -165,6 +170,9 @@ popd
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Thu Jan 23 2025 Vít Ondruch <vondruch@redhat.com> - 1:7.0.8-11
+- Fix compatibility with concurrent-ruby 1.3.5+
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.0.8-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -33,8 +33,8 @@ API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
-%pom_xpath_set "pom:project/pom:properties/pom:maven.compiler.target" "1.8" pom.xml
-%pom_xpath_set "pom:project/pom:properties/pom:maven.compiler.source" "1.8" pom.xml
+%pom_xpath_set "pom:project/pom:properties/pom:maven.compiler.target" "8" pom.xml
+%pom_xpath_set "pom:project/pom:properties/pom:maven.compiler.source" "8" pom.xml
 
 %build
 %mvn_build

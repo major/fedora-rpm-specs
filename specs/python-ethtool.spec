@@ -51,9 +51,11 @@ a2x -d manpage -f manpage man/pifconfig.8.asciidoc
 
 %install
 %py3_install
+%if "%{_sbindir}" != "%{_bindir}"
 mkdir -p %{buildroot}%{_sbindir}
 mv %{buildroot}{%{_bindir},%{_sbindir}}/pifconfig
 mv %{buildroot}{%{_bindir},%{_sbindir}}/pethtool
+%endif
 
 mkdir -p %{buildroot}%{_mandir}/man8/
 cp -p man/*.8 %{buildroot}%{_mandir}/man8/

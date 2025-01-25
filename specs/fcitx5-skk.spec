@@ -14,7 +14,7 @@
 
 
 Name:       fcitx5-skk
-Version:    5.1.5
+Version:    5.1.6
 Release:    %autorelease
 Summary:    Japanese SKK (Simple Kana Kanji) Engine for Fcitx5
 # Automatically converted from old format: GPLv3+ - review is highly recommended.

@@ -1,8 +1,8 @@
 %global		gem_name	marc
 
 Name:		rubygem-%{gem_name}
-Version:	1.2.0
-Release:	7%{?dist}
+Version:	1.3.0
+Release:	1%{?dist}
 Summary:	Ruby library for MARC catalog
 
 License:	MIT
@@ -16,7 +16,6 @@ BuildRequires:	rubygems-devel
 BuildRequires:	rubygem(test-unit)
 BuildRequires:	rubygem(xml-simple)
 BuildRequires:	rubygem(nokogiri)
-BuildRequires:	rubygem(unf)
 BuildRequires:	rubygem(ensure_valid_encoding)
 BuildRequires:	rubygem(scrub_rb)
 BuildRequires:	rubygem(rexml)
@@ -108,6 +107,9 @@ ruby -w -Ilib:. -e 'gem "test-unit"; require "marc" ; Dir.glob("test/**/tc_*.rb"
 %{gem_instdir}/examples/
 
 %changelog
+* Thu Jan 23 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.0-1
+- 1.3.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

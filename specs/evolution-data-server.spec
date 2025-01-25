@@ -54,13 +54,14 @@
 
 Name: evolution-data-server
 Version: 3.55.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Backend data server for Evolution
 License: LGPL-2.0-or-later
 URL: https://gitlab.gnome.org/GNOME/evolution/-/wikis/home
 Source: http://download.gnome.org/sources/%{name}/3.55/%{name}-%{version}.tar.xz
 
 # 0-99: General patches
+Patch01: 0001-gcc-bool-keyword.patch
 
 # 100-199: Flatpak-specific patches
 # https://gitlab.gnome.org/GNOME/evolution-data-server/-/merge_requests/144
@@ -513,6 +514,9 @@ find $RPM_BUILD_ROOT -name '*.so.*' -exec chmod +x {} \;
 %{_datadir}/installed-tests
 
 %changelog
+* Thu Jan 23 2025 Milan Crha <mcrha@redhat.com> - 3.55.1-3
+- Add patch to replace variables named 'bool', which C23 considers keyword
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.55.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

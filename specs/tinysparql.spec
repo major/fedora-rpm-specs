@@ -4,7 +4,7 @@
 
 Name:           tinysparql
 Version:        3.8~rc
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Desktop-neutral metadata database and search tool
 
 License:        GPL-2.0-or-later
@@ -141,7 +141,6 @@ This package contains the documentation for %{name}.
 %{_libdir}/girepository-1.0/Tsparql-3.0.typelib
 %{_libdir}/libtinysparql-3.0.so.0*
 %{_libdir}/libtracker-sparql-3.0.so*
-%{_libdir}/pkgconfig/tracker-sparql-3.0.pc
 %{_libdir}/tinysparql-3.0/
 %{_datadir}/gir-1.0/Tracker-3.0.gir
 
@@ -150,6 +149,7 @@ This package contains the documentation for %{name}.
 %{_includedir}/tinysparql-3.0/
 %{_libdir}/libtinysparql-3.0.so
 %{_libdir}/pkgconfig/tinysparql-3.0.pc
+%{_libdir}/pkgconfig/tracker-sparql-3.0.pc
 %{_datadir}/vala/vapi/tinysparql-3.0.deps
 %{_datadir}/vala/vapi/tinysparql-3.0.vapi
 %{_datadir}/gir-1.0/Tsparql-3.0.gir
@@ -162,6 +162,9 @@ This package contains the documentation for %{name}.
 
 
 %changelog
+* Thu Jan 23 2025 Nieves Montero <nmontero@redhat.com> - 3.8.rc-3
+- Minor change in %files
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8~rc-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 Name:    spectacle
 Summary: Screenshot capture utility
 Epoch:   1
-Version: 6.2.90
-Release: 3%{?dist}
+Version: 6.2.91
+Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -123,6 +123,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.spectacle
 
 
 %changelog
+* Thu Jan 23 2025 Steve Cossette <farchord@gmail.com> - 1:6.2.91-1
+- 6.2.91
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.2.90-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

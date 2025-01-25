@@ -16,6 +16,8 @@ License:        BSD-3-Clause
 URL:            https://ocaml-community.github.io/utop/
 VCS :           git:%{giturl}.git
 Source:         %{giturl}/releases/download/%{version}/%{name}-%{version}.tar.gz
+# Upstream patch to fix the version number
+Patch:          %{name}-version.patch
 
 BuildRequires:  ocaml >= 4.11.0
 BuildRequires:  ocaml-alcotest-devel
@@ -66,7 +68,7 @@ This package contains an Emacs front end for utop, an improved toplevel
 for OCaml.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 %dune_build

@@ -16,6 +16,10 @@ License:        MIT
 URL:            https://github.com/rodrigo-arenas/Sklearn-genetic-opt
 Source0:        %{forgesource}
 
+# Adjust two tests for scikit-learn 1.6
+# https://github.com/rodrigo-arenas/Sklearn-genetic-opt/pull/161
+Patch:          %{forgeurl}/pull/161.patch
+
 BuildArch:      noarch
 
 BuildRequires:  make

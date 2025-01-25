@@ -1,6 +1,6 @@
 Name:           deja-dup
 Version:        46.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Simple backup tool and frontend for duplicity
 
 License:        GPL-3.0-or-later
@@ -25,7 +25,6 @@ BuildRequires:  libhandy1-devel
 BuildRequires:  libadwaita-devel
 Requires:       duplicity >= 0.6.23
 Requires:       python3-gobject-base
-Requires:       python3-PyDrive2
 Requires:       rclone
 Recommends:     gvfs-fuse
 Recommends:     restic
@@ -76,6 +75,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.metain
 %{_datadir}/help/*
 
 %changelog
+* Thu Jan 23 2025 Gwyn Ciesla <gwync@protonmail.com> - 46.1-5
+- Drop PyDrive2 requires.
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 46.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

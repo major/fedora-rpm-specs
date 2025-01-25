@@ -2,17 +2,10 @@
 %global pkgname digitalocean
 
 %bcond_without python3
-%global py3_prefix python%{python3_pkgversion}
-
-%if 0%{?fedora} || (0%{?rhel} && 0%{?rhel} >= 8)
-%bcond_with python2
-%else
-%bcond_without python2
-%endif
 
 Name:           python-%{pkgname}
 Version:        1.17.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Easy access to Digital Ocean APIs to deploy droplets, images and more
 
 # Automatically converted from old format: LGPLv3 - review is highly recommended.
@@ -22,106 +15,50 @@ Source0:        https://github.com/koalalorenzo/%{pypi_name}/archive/v%{version}
 
 BuildArch:      noarch
 
-%if %{with python2}
-BuildRequires:  python2-devel
-BuildRequires:  python2-jsonpickle
-BuildRequires:  python2-mock
-BuildRequires:  python2-pytest
-BuildRequires:  python2-requests
-BuildRequires:  python2-responses
-BuildRequires:  python2-setuptools
-%endif
-
-%if %{with python3}
-BuildRequires:  %{py3_prefix}-devel
-BuildRequires:  %{py3_prefix}-jsonpickle
-BuildRequires:  %{py3_prefix}-pytest
-BuildRequires:  %{py3_prefix}-requests
-BuildRequires:  %{py3_prefix}-responses
-BuildRequires:  %{py3_prefix}-setuptools
-%endif
+BuildRequires:  python3-devel
+BuildRequires:  python3-pytest
+BuildRequires:  python3-responses
 
 %description
 Easy access to Digital Ocean APIs to deploy droplets, images and
 more.
 
-%if %{with python2}
-%package -n python2-%{pkgname}
-Requires:       python2-jsonpickle
-Requires:       python2-requests
-
-Summary:        %{summary}
-%{?python_provide:%python_provide python2-%{pkgname}}
-
-%description -n python2-%{pkgname}
-Easy access to Digital Ocean APIs to deploy droplets, images and
-more.
-
-This is the Python 2 version of the package.
-%endif
-
-%if %{with python3}
-%package -n %{py3_prefix}-%{pkgname}
-Requires:       %{py3_prefix}-jsonpickle
-Requires:       %{py3_prefix}-requests
+%package -n python3-%{pkgname}
+Requires:       python3-jsonpickle
+Requires:       python3-requests
 
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{pkgname}}
 
-%description -n %{py3_prefix}-%{pkgname}
+%description -n python3-%{pkgname}
 Easy access to Digital Ocean APIs to deploy droplets, images and
 more.
 
 This is the Python 3 version of the package.
-%endif
 
 %prep
 %autosetup -p1
+%generate_buildrequires
+%pyproject_buildrequires -r
 
 %build
-%if %{with python2}
-%py2_build
-%endif
-
-%if %{with python3}
-%py3_build
-%endif
+%pyproject_wheel
 
 %check
-%if %{with python2}
-%{__python2} setup.py test
-%endif
-
-%if %{with python3}
-%{__python3} setup.py test
-%endif
+%pytest -k "not TestFirewall"
 
 %install
-%if %{with python2}
-%py2_install
-%endif
+%pyproject_install
+%pyproject_save_files -l %{pkgname}
 
-%if %{with python3}
-%py3_install
-%endif
 
-%if %{with python2}
-%files -n python2-%{pkgname}
-%license LICENSE.txt
+%files -n python3-%{pkgname} -f %{pyproject_files}
 %doc README.md
-%{python2_sitelib}/digitalocean
-%{python2_sitelib}/python_digitalocean-%{version}*.egg-info
-%endif
-
-%if %{with python3}
-%files -n %{py3_prefix}-%{pkgname}
-%license LICENSE.txt
-%doc README.md
-%{python3_sitelib}/digitalocean
-%{python3_sitelib}/python_digitalocean-%{version}*.egg-info
-%endif
 
 %changelog
+* Thu Jan 23 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 1.17.0-15
+- use modern python packaging macros to get the tests running again
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

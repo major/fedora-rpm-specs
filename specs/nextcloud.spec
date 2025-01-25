@@ -5,7 +5,7 @@
 %endif
 
 Name:           nextcloud
-Version:        30.0.4
+Version:        30.0.5
 Release:        %autorelease
 Summary:        Private file sync and share server
 # Automatically converted from old format: AGPLv3+ and MIT and BSD and ASL 2.0 and WTFPL and CC-BY-SA and GPLv3+ and Adobe - review is highly recommended.
@@ -110,7 +110,7 @@ Provides: bundled(php-composer(phpstan/phpdoc-parser)) = 1.29.1
 Provides: bundled(php-composer(icewind/smb)) = 3.5.4
 Provides: bundled(php-composer(icewind/streams)) = 0.7.7
 Provides: bundled(php-composer(bamarni/composer-bin-plugin)) = 1.8.2
-Provides: bundled(php-composer(hexogen/kdtree)) = 0.2.5
+Provides: bundled(php-composer(hexogen/kdtree)) = 0.2.6
 Provides: bundled(php-composer(amphp/amp)) = 2.6.4
 Provides: bundled(php-composer(amphp/byte-stream)) = 1.8.1
 Provides: bundled(php-composer(amphp/parallel)) = 1.4.3

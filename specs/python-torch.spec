@@ -100,6 +100,7 @@ Patch11:       0001-Improve-finding-and-using-the-rocm_version.h.patch
 # Patches need to be refactored for ToT
 # These are ROCm packages
 Patch101:      0001-cuda-hip-signatures.patch
+Patch102:      0001-torch-paper-over-c-assert.patch
 
 ExclusiveArch:  x86_64 aarch64
 %global toolchain gcc
@@ -285,6 +286,10 @@ cp -r libuv-*/* third_party/tensorpipe/third_party/libuv/
 tar xf %{SOURCE22}
 rm -rf third_party/tensorpipe/third_party/libnop/*
 cp -r libnop-*/* third_party/tensorpipe/third_party/libnop/
+
+# gcc 15 include cstdint
+sed -i '/#include <tensorpipe.*/a#include <cstdint>' third_party/tensorpipe/tensorpipe/common/allocator.h
+sed -i '/#include <tensorpipe.*/a#include <cstdint>' third_party/tensorpipe/tensorpipe/common/memory.h
 %endif
 
 %if %{without opentelemtry}
@@ -324,6 +329,11 @@ sed -i -e 's@sympy==1.13.1@sympy>=1.13.1@' setup.py
 sed -i -e '/aotriton.cmake/d' cmake/Dependencies.cmake
 # Compress hip
 sed -i -e 's@HIP_CLANG_FLAGS -fno-gpu-rdc@HIP_CLANG_FLAGS -fno-gpu-rdc --offload-compress@' cmake/Dependencies.cmake
+# Silence noisy warning
+sed -i -e 's@HIP_CLANG_FLAGS -fno-gpu-rdc@HIP_CLANG_FLAGS -fno-gpu-rdc -Wno-pass-failed@' cmake/Dependencies.cmake
+sed -i -e 's@HIP_CLANG_FLAGS -fno-gpu-rdc@HIP_CLANG_FLAGS -fno-gpu-rdc -Wno-unused-command-line-argument@' cmake/Dependencies.cmake
+sed -i -e 's@HIP_CLANG_FLAGS -fno-gpu-rdc@HIP_CLANG_FLAGS -fno-gpu-rdc -Wno-unused-result@' cmake/Dependencies.cmake
+sed -i -e 's@HIP_CLANG_FLAGS -fno-gpu-rdc@HIP_CLANG_FLAGS -fno-gpu-rdc -Wno-deprecated-declarations@' cmake/Dependencies.cmake
 
 # No third_party fmt, use system
 sed -i -e 's@fmt::fmt-header-only@fmt@' CMakeLists.txt

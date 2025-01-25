@@ -17,6 +17,8 @@ Patch1:         med-py3.13.patch
 Patch2:         hdf5-1.14.patch
 # Fix swig-4.3.0 compatibility
 Patch3:         med-swig-4.3.0.patch
+# Fix build with gcc15
+Patch4:         med-gcc15.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

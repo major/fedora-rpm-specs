@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.14.0
 %define specversion 6.14.0
 %define patchversion 6.14
-%define pkgrelease 0.rc0.20250122gitc4b9570cfb63.3
+%define pkgrelease 0.rc0.20250123gitd0d106a2bd21.4
 %define kversion 6
-%define tarfile_release 6.13-2526-gc4b9570cfb63
+%define tarfile_release 6.13-5001-gd0d106a2bd21
 # This is needed to do merge window version magic
 %define patchlevel 14
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.20250122gitc4b9570cfb63.3%{?buildid}%{?dist}
+%define specrelease 0.rc0.20250123gitd0d106a2bd21.4%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.14.0
 
@@ -4174,17 +4174,21 @@ fi\
 #
 #
 %changelog
-* Wed Jan 22 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.14.0-0.rc0.20250122gitc4b9570cfb63.3]
-- kbuild: Use -fzero-init-padding-bits=all (Kees Cook)
-- efi: libstub: Use '-std=gnu11' to fix build with GCC 15 (Nathan Chancellor)
+* Thu Jan 23 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc0.d0d106a2bd21.4]
+- redhat: fix modules.order target (Scott Weaver)
 - apply -Wno-error=unterminated-string-initialization temporarily (Thorsten Leemhuis)
+- efi: libstub: Use '-std=gnu11' to fix build with GCC 15 (Nathan Chancellor)
 - x86/boot: Use '-std=gnu11' to fix build with GCC 15 (Nathan Chancellor)
-
-* Wed Jan 22 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc0.c4b9570cfb63.3]
+- kbuild: Use -fzero-init-padding-bits=all (Kees Cook)
 - include/linux: Adjust headers for C23 (Jakub Jelinek)
 - redhat: kernel.spec: fix build with merged-sbin (Adam Williamson)
 - x86/insn_decoder_test: allow longer symbol-names (David Rheinsberg)
 - kernel.spec: update license field (Scott Weaver)
+
+* Thu Jan 23 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc0.d0d106a2bd21.3]
+- Fix up CONFIG_CRC_T10DIF_IMPL_GENERIC mismatch (Justin M. Forbes)
+- Fix mismatches for 6.13 merge window (Justin M. Forbes)
+- Linux v6.14.0-0.rc0.d0d106a2bd21
 
 * Wed Jan 22 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc0.c4b9570cfb63.2]
 - Reset rhelver and trim changelog for 6.14 (Justin M. Forbes)

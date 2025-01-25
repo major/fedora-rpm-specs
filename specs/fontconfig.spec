@@ -4,8 +4,8 @@
 
 Summary:	Font configuration and customization library
 Name:		fontconfig
-Version:	2.15.0
-Release:	9%{?dist}
+Version:	2.16.0
+Release:	1%{?dist}
 # src/ftglue.[ch] is in Public Domain
 # src/fccache.c contains Public Domain code
 ## https://gitlab.com/fedora/legal/fedora-license-data/-/issues/177
@@ -22,17 +22,15 @@ Patch0:		%{name}-sleep-less.patch
 Patch4:		%{name}-drop-lang-from-pkgkit-format.patch
 Patch5:		%{name}-disable-network-required-test.patch
 Patch6:		%{name}-lower-nonlatin-conf.patch
-Patch7:		%{name}-remove-uuid.patch
-Patch8:		%{name}-fix-emojis.patch
-Patch9:		%{name}-fix-SAST.patch
+Patch7:		%{name}-meson-cachedir.patch
 
 BuildRequires:	libxml2-devel
 BuildRequires:	freetype-devel >= %{freetype_version}
 BuildRequires:	fontpackages-devel
-BuildRequires:	autoconf automake libtool gettext
+BuildRequires:	gettext
 BuildRequires:	gperf
 BuildRequires:  docbook-utils docbook-utils-pdf
-BuildRequires: make
+BuildRequires:  meson ninja-build gcc
 
 Requires:	fonts-filesystem freetype
 # Register DTD system-wide to make validation work by default
@@ -74,25 +72,18 @@ which is useful for developing applications that uses fontconfig.
 
 %prep
 %autosetup -p1
+# To reduce a maintenance cost of fontconfig-lower-nonlatin-conf.patch
+mv conf.d/65-nonlatin.conf conf.d/69-nonlatin.conf
 
 %build
-# We don't want to rebuild the docs, but we want to install the included ones.
-export HASDOCBOOK=no
-
-for i in doc/*.fncs; do
-  touch -r $i ${i//.fncs/.sgml}
-done
-autoreconf
-%configure	--with-add-fonts=/usr/share/X11/fonts/Type1,/usr/share/X11/fonts/TTF,/usr/local/share/fonts \
-		--enable-libxml2 \
-		--disable-static --with-cache-dir=/usr/lib/fontconfig/cache
-
-make %{?_smp_mflags}
+%meson -Ddoc=disabled -Dcache-build=disabled -Dxml-backend=libxml2 \
+       -Dadditional-fonts-dirs=/usr/share/X11/fonts/Type1,/usr/share/X11/fonts/TTF,/usr/local/share/fonts \
+       -Dcache-dir=/usr/lib/fontconfig/cache \
+       --default-library=shared
+%meson_build
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
-
-find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
+%meson_install
 
 install -p -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/fonts/conf.d
 ln -s %{_fontconfig_templatedir}/25-unhint-nonlatin.conf $RPM_BUILD_ROOT%{_fontconfig_confdir}/
@@ -100,14 +91,28 @@ ln -s %{_fontconfig_templatedir}/25-unhint-nonlatin.conf $RPM_BUILD_ROOT%{_fontc
 # Use implied value to allow the use of conditional conf
 rm $RPM_BUILD_ROOT%{_sysconfdir}/fonts/conf.d/10-sub-pixel-*.conf
 
-# move installed doc files back to build directory to package them
-# in the right place
-mv $RPM_BUILD_ROOT%{_docdir}/fontconfig/* .
-rmdir $RPM_BUILD_ROOT%{_docdir}/fontconfig/
+# Install docs manually
+install -d $RPM_BUILD_ROOT%{_mandir}/man1
+install -d $RPM_BUILD_ROOT%{_mandir}/man3
+install -d $RPM_BUILD_ROOT%{_mandir}/man5
+for f in doc/*.1; do
+  install -p -m 0644 $f $RPM_BUILD_ROOT%{_mandir}/man1
+done
+for f in doc/*.3; do
+  install -p -m 0644 $f $RPM_BUILD_ROOT%{_mandir}/man3
+done
+for f in doc/*.5; do
+  install -p -m 0644 $f $RPM_BUILD_ROOT%{_mandir}/man5
+done
+for f in doc/*.txt doc/*.pdf doc/*.html; do
+  install -p -m 0644 $f .
+done
 
 # adjust the timestamp to avoid conflicts for multilib
 touch -r doc/fontconfig-user.sgml fontconfig-user.txt
 touch -r doc/fontconfig-user.sgml fontconfig-user.html
+touch -r doc/fontconfig-devel.sgml fontconfig-devel.txt
+touch -r doc/fontconfig-devel.sgml fontconfig-devel.html
 
 # rename fc-cache binary
 mv $RPM_BUILD_ROOT%{_bindir}/fc-cache $RPM_BUILD_ROOT%{_bindir}/fc-cache-%{__isa_bits}
@@ -122,7 +127,10 @@ install -p -m 0755 %{SOURCE2} $RPM_BUILD_ROOT%{_bindir}/fc-cache
 cat %{name}-conf.lang >> %{name}.lang
 
 %check
-VERBOSE=1 make check
+# rhbz#2341757: md5 calculation seems wrong on s390x. unable to finish testcases properly
+%ifnarch s390x
+%meson_test
+%endif
 
 %post
 umask 0022
@@ -193,9 +201,15 @@ fi
 %{_datadir}/gettext/its/fontconfig.loc
 
 %files devel-doc
-%doc fontconfig-devel.txt fontconfig-devel
+%doc fontconfig-devel.txt fontconfig-devel.html
 
 %changelog
+* Sat Jan 18 2025 Akira TAGOH <tagoh@redhat.com> - 2.16.0-1
+- New upstream release.
+  Resolves: rhbz#2338618
+- Use meson instead of autotools to build.
+- Disable meson test on s390x temporarily.
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

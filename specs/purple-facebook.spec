@@ -9,7 +9,7 @@
 
 Name:           purple-facebook
 Version:        0.9.6
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Facebook protocol plugin for purple2
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -30,6 +30,14 @@ Patch0003:      %{name}-0.9.6-bump_FB_ORCA_AGENT_version.patch
 # Backported from upstream pull-requests.
 # https://github.com/dequis/purple-facebook/pull/414
 Patch1000:      %{name}-0.9.6-option-show-inactive-as-away.patch
+
+# Downstream
+# GLib deprecation warnings.
+Patch2000:      %{name}-0.9.6-g_type_class_add_private.patch
+Patch2001:      %{name}-0.9.6-g_memdup.patch
+Patch2002:      %{name}-0.9.6-G_TYPE_INSTANCE_GET_PRIVATE.patch
+# GCC-15 / C23
+Patch2003:	%{name}-0.9.6-Wincompatible-pointer-types.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -74,6 +82,11 @@ find %{buildroot}%{_libdir} -name '*.*a' -print -delete
 
 
 %changelog
+* Thu Jan 23 2025 Björn Esser <besser82@fedoraproject.org> - 0.9.6-21
+- Add several patches to avoid deprecation warnings
+- Add patch to fix build with GCC-15 / C23
+  Fixes rhbz#2341118
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

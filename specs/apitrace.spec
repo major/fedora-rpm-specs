@@ -29,6 +29,8 @@ Source3:        qapitrace.appdata.xml
 
 # Don't require third-party submodules
 Patch0:         apitrace_nosubmodules.patch
+# Fix build with gcc15
+Patch1:         apitrace-gcc15.patch
 
 BuildRequires:  brotli-devel
 BuildRequires:  cmake

@@ -48,7 +48,7 @@
 %global nodejs_epoch 1
 %global nodejs_major 20
 %global nodejs_minor 18
-%global nodejs_patch 1
+%global nodejs_patch 2
 # nodejs_soversion - from NODE_MODULE_VERSION in src/node_version.h
 %global nodejs_soversion 115
 %global nodejs_abi %{nodejs_soversion}
@@ -159,6 +159,7 @@ Source202: nodejs.pc.in
 Source203: v8.pc.in
 
 Patch: 0001-Remove-unused-OpenSSL-config.patch
+Patch: 0001-missing-cstdint-fix.patch
 
 %if 0%{?nodejs_default}
 %global pkgname nodejs
@@ -336,7 +337,7 @@ Requires: nodejs-cjs-module-lexer
 %endif
 
 %if %{with bundled_undici}
-Provides: bundled(nodejs-undici) = 6.20.0
+Provides: bundled(nodejs-undici) = 6.21.1
 %else
 BuildRequires: nodejs-undici
 Requires: nodejs-undici

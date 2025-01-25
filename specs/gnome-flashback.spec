@@ -12,6 +12,9 @@ URL:            https://wiki.gnome.org/Projects/GnomeFlashback
 Source0:        https://download.gnome.org/sources/%{name}/3.54/%{name}-%{version}.tar.xz
 Source1:        %{name}.pamd
 
+# input-sources: use correct function to get attribute type (rhbz#2340243)
+Patch0:         https://gitlab.gnome.org/GNOME/gnome-flashback/-/commit/1bb758374500e247ffab150205d05b72bf21b561.patch
+
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  gettext-devel
