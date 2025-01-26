@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.5
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Very Secure Ftp Daemon
 
 # OpenSSL link exception
@@ -99,6 +99,7 @@ Patch72: vsftpd-3.0.5-replace-old-network-addr-functions.patch
 Patch73: vsftpd-3.0.5-replace-deprecated-openssl-functions.patch
 Patch74: vsftpd-3.0.5-add-option-for-tlsv1.3-ciphersuites.patch
 Patch75: vsftpd-3.0.5-use-old-tlsv-options.patch
+Patch76: 0076-Correct-the-definition-of-setup_bio_callbacks-in-ssl.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -168,6 +169,9 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Fri Jan 24 2025 Stepan Broz <sbroz@redhat.com> - 3.0.5-10
+- Correct the definition of setup_bio_callbacks() in ssl.c
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

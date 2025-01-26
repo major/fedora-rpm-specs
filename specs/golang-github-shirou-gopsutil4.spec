@@ -48,6 +48,7 @@ BuildRequires:	/usr/bin/pgrep
 %if %{without bootstrap}
 %if %{with check}
 %check
+export CI=true
 # TestUsers: needs access to /var/run/utmp
 for test in "TestCountsAgainstLscpu" "TestUsers" "TestCwd" \
 ; do

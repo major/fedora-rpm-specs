@@ -27,6 +27,8 @@ Source2: lftocrlf
 
 
 # Patches
+# https://github.com/OpenPrinting/cups-filters/pull/618
+Patch001: 0001-Fix-build-failure-with-GCC-15-and-std-c23.patch
 
 
 # driverless backend/driver was moved into a separate package to
@@ -210,6 +212,9 @@ make check
 
 
 %changelog
+* Fri Jan 24 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.1-2
+- fix FTBFS (fedora#2340017)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

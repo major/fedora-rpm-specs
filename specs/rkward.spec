@@ -1,32 +1,55 @@
 Name:           rkward
-Version:        0.7.5
-Release:        6%{?dist}
+Version:        0.8.0
+Release:        1%{?dist}
 Summary:        Graphical frontend for R language
 
-License:        GPL-2.0-or-later
+License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:            https://%{name}.kde.org/
-Source0:        https://download.kde.org/stable/%{name}/%{version}/%{name}-%{version}.tar.gz
-Patch0:         0001-format-security-fix.patch
+Source:         https://download.kde.org/stable/%{name}/%{version}/%{name}-%{version}.tar.gz
+Source:         https://download.kde.org/stable/%{name}/%{version}/%{name}-%{version}.tar.gz.sig
+Source:         https://invent.kde.org/sysadmin/release-keyring/-/raw/master/keys/tfry@key1.asc?ref_type=heads#/signing-key.pgp
 
-BuildRequires:  gcc-c++, cmake, extra-cmake-modules
+Patch:          https://invent.kde.org/education/rkward/-/commit/997c8a7280fe0f99a29465f67b56fd001cdac4e1.patch
+
+# handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
+%{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
+
+BuildRequires:  cmake
+BuildRequires:  desktop-file-utils
+BuildRequires:  extra-cmake-modules
+BuildRequires:  gcc-c++
+BuildRequires:  hicolor-icon-theme
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  R-core-devel
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Qml)
-%ifarch %{qt5_qtwebengine_arches}
-BuildRequires:  cmake(Qt5WebEngine)
-%endif
-BuildRequires:  kf5-rpm-macros
-BuildRequires:  cmake(KF5CoreAddons)
-BuildRequires:  cmake(KF5DocTools)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5XmlGui)
-BuildRequires:  cmake(KF5TextEditor)
-BuildRequires:  cmake(KF5Notifications)
-BuildRequires:  cmake(KF5Archive)
-BuildRequires:  cmake(KF5Crash)
-BuildRequires:  cmake(KF5WebKit)
-BuildRequires:  hicolor-icon-theme, desktop-file-utils
-Requires:       hicolor-icon-theme, shared-mime-info
+
+BuildRequires:  cmake(KF6Archive)
+BuildRequires:  cmake(KF6BreezeIcons)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6Crash)
+BuildRequires:  cmake(KF6DocTools)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6Notifications)
+BuildRequires:  cmake(KF6Parts)
+BuildRequires:  cmake(KF6TextEditor)
+BuildRequires:  cmake(KF6WidgetsAddons)
+BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(KF6XmlGui)
+
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Core5Compat)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6PrintSupport)
+BuildRequires:  cmake(Qt6Qml)
+BuildRequires:  cmake(Qt6WebEngineWidgets)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Xml)
+
+BuildRequires:  cmake(KDSingleApplication-qt6)
+
+Requires:       hicolor-icon-theme
+Requires:       shared-mime-info
 
 %description
 RKWard aims to provide an easily extensible, easy to use IDE/GUI for the
@@ -35,60 +58,42 @@ R-project. RKWard tries to combine the power of the R-language with the
 include integration with office suites
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
+rm -rf 3rdparty
 
 %build
-%cmake_kf5
-
+%cmake_kf6
 %cmake_build
 
 %install
 %cmake_install
 
-desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.desktop
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
 
-## File lists
-# locale's
-%find_lang %{name} --with-kde || touch %{name}.lang
+%find_lang %{name} --all-name --with-kde --with-html --with-man
 
 %files -f %{name}.lang
-%doc README COPYING TODO AUTHORS
-%doc %{_datadir}/doc/HTML/en/%{name}/
-%doc %{_datadir}/doc/HTML/en/%{name}plugins/
-%doc %lang(it) %{_datadir}/doc/HTML/it/%{name}/
-%doc %lang(nl) %{_datadir}/doc/HTML/nl/%{name}/
-%doc %lang(nl) %{_datadir}/doc/HTML/nl/%{name}plugins/
-%doc %lang(sv) %{_datadir}/doc/HTML/sv/%{name}/
-%doc %lang(sv) %{_datadir}/doc/HTML/sv/%{name}plugins/
-%doc %lang(uk) %{_datadir}/doc/HTML/uk/%{name}/
-%doc %lang(uk) %{_datadir}/doc/HTML/uk/%{name}plugins/
-%{_datadir}/applications/org.kde.%{name}.desktop
-%{_datadir}/icons/hicolor/16x16/apps/%{name}.png
-%{_datadir}/icons/hicolor/22x22/apps/%{name}.png
-%{_datadir}/icons/hicolor/32x32/apps/%{name}.png
-%{_datadir}/icons/hicolor/48x48/apps/%{name}.png
-%{_datadir}/icons/hicolor/64x64/apps/%{name}.png
-%{_datadir}/icons/hicolor/128x128/apps/%{name}.png
-%{_datadir}/icons/hicolor/scalable/apps/%{name}.svgz
-%{_datadir}/org.kde.syntax-highlighting/syntax/r*.xml
-%{_datadir}/kservices5/%{name}.protocol
-%{_datadir}/ktexteditor_snippets/data/RKWard*.xml
-%{_datadir}/metainfo/org.kde.%{name}.appdata.xml
-%{_datadir}/mime/packages/vnd.%{name}.r.xml
-%{_datadir}/mime/packages/vnd.kde.%{name}-output.xml
-%{_datadir}/mime/packages/vnd.kde.rmarkdown.xml
-%{_datadir}/%{name}/
-%{_bindir}/%{name}
-%{_mandir}/man1/%{name}.1*
-%lang(ca) %{_mandir}/ca/man1/%{name}.1*
-%lang(de) %{_mandir}/de/man1/%{name}.1*
-%lang(it) %{_mandir}/it/man1/%{name}.1*
-%lang(nl) %{_mandir}/nl/man1/%{name}.1*
-%lang(sv) %{_mandir}/sv/man1/%{name}.1*
-%lang(uk) %{_mandir}/uk/man1/%{name}.1*
+%license LICENSES/GPL-2.0-or-later.txt LICENSES/MIT.txt LICENSES/LGPL-2.1-or-later.txt
+%doc README
+%{_kf6_bindir}/%{name}
+%{_kf6_datadir}/%{name}/
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_datadir}/icons/hicolor/*/apps/%{name}.*
+%{_kf6_datadir}/kio/servicemenus/%{name}.protocol
+%{_kf6_datadir}/ktexteditor_snippets/data/RKWard*.xml
+%{_kf6_datadir}/metainfo/org.kde.%{name}.metainfo.xml
+%{_kf6_datadir}/mime/packages/vnd.kde.rkward-output.xml
+%{_kf6_datadir}/mime/packages/vnd.kde.rmarkdown.xml
+%{_kf6_datadir}/mime/packages/vnd.rkward.r.xml
+%{_kf6_libdir}/librkward.rbackend.lib.so
+%{_kf6_mandir}/man1/%{name}.1*
 %{_libexecdir}/%{name}.rbackend
 
 %changelog
+* Wed Jan 22 2025 Pavel Solovev <daron439@gmail.com> - 0.8.0-1
+- Update to 0.8.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

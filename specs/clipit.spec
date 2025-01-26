@@ -27,7 +27,7 @@
 
 Name:           clipit
 Version:        %{rpm_ver}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A lightweight, fully featured GTK+ clipboard manager
 
 # meson.build says:	 GPL-3.0-or-later
@@ -110,7 +110,6 @@ git commit -m "Apply Fedora specific configuration" -a
 %endif
 
 ./autogen.sh
-%global optflags %optflags -std=gnu23
 
 %build
 %if 0%{?use_gitbare} >= 1
@@ -165,6 +164,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %config(noreplace) %{_sysconfdir}/xdg/autostart/%{name}-startup.desktop
 
 %changelog
+* Fri Jan 24 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.5^20241103gitf35db54-2
+- Remove debugging -std= option
+
 * Thu Jan 16 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.5^20241103gitf35db54-1
 - Update to the latest git (20241103gitf35db54)
 - Fix compilation with C23 for struct function prototypes

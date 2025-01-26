@@ -4,28 +4,30 @@
 %undefine       _cmake_shared_libs
 
 Name:           neovim-qt
-Version:        0.2.18
-Release:        5%{?dist}
+Version:        0.2.19
+Release:        1%{?dist}
 Summary:        Qt GUI for Neovim
 
-License:        ISC
-URL:            https://github.com/equalsraf/%{name}
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+# src/gui/shellwidget/konsole_wcwidth.cpp: HPND-Markus-Kuhn
+# third_party/DejaVuSans*: Bitstream-Vera AND LicenseRef-Fedora-Public-Domain
+License:        ISC AND HPND-Markus-Kuhn
+URL:            https://github.com/equalsraf/neovim-qt
+Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
 
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Network)
-BuildRequires:  cmake(Qt5Svg)
-BuildRequires:  cmake(Qt5Test)
-BuildRequires:  cmake(Qt5Widgets)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6SvgWidgets)
+BuildRequires:  cmake(Qt6Test)
+BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(msgpack)
 BuildRequires:  neovim
 %if %{with tests}
 BuildRequires:  font(dejavusansmono)
-BuildRequires:  xorg-x11-server-Xvfb
+BuildRequires:  xwfb-run
 %endif
 
 Requires:       hicolor-icon-theme
@@ -39,6 +41,7 @@ Requires:       neovim
 
 %build
 %cmake \
+    -DWITH_QT:STRING=Qt6 \
     -DUSE_SYSTEM_MSGPACK:BOOL=ON  \
     -DENABLE_TESTS:BOOL=%{?with_tests:ON}%{!?with_tests:OFF}
 %cmake_build
@@ -50,7 +53,7 @@ Requires:       neovim
 desktop-file-validate %{buildroot}/%{_datadir}/applications/nvim-qt.desktop
 %if %{with tests}
 # UI component tests require running X server
-%global __ctest xvfb-run -a %{__ctest}
+%global __ctest xwfb-run -- %{__ctest}
 %ctest
 %endif
 
@@ -64,6 +67,12 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/nvim-qt.desktop
 %{_datadir}/nvim-qt/
 
 %changelog
+* Fri Jan 24 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.2.19-1
+- Update to 0.2.19
+- Build with Qt6
+- Convert License tag to SPDX
+- Use xwfb-run for tests instead of xvfb-run
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.18-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 33
+%global baserelease 34
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2378,6 +2378,9 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Fri Jan 24 2025 Florian Weimer <fweimer@redhat.com> - 2.40.9000-34
+- Avoid env -i crash due to free (environ) compatibility patch
+
 * Thu Jan 23 2025 Florian Weimer <fweimer@redhat.com> - 2.40.9000-33
 - Apply patch to improve compatibility with environ/malloc misuse
 

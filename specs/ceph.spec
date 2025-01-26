@@ -185,7 +185,7 @@
 #################################################################################
 Name:		ceph
 Version:	19.2.0
-Release:	9%{?dist}
+Release:	10%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -227,6 +227,9 @@ Patch0047:	0047-openssl-no-engine.patch
 Patch0048:	0048-src-mds-CMakeLists.txt.patch
 Patch0049:	0049-src-rocksdb-db-blob-blob_file_meta.h.patch
 Patch0050:	0050-src-rgw-driver-posix-zpp_bits.h.patch
+Patch0051:	0051-src-googletest-nosharedlibs.patch
+Patch0052:	0052-src-tracing.patch
+Patch0053:	0053-src-test-neorados-common_tests.h.patch
 
 # ceph 14.0.1 does not support 32-bit architectures, bugs #1727788, #1727787
 ExcludeArch:	i686 armv7hl
@@ -2720,6 +2723,11 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Fri Jan 24 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.0-10
+- hack around cmake -std=gnu99 w/ userspace-rcu
+- use system version of gmock and gtest to avoid bundled brain damage
+  that creates but does not install gmock and gtest shlibs #rhbz#2341687
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:19.2.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

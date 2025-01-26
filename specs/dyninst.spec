@@ -2,13 +2,15 @@ Summary: An API for Run-time Code Generation
 License: LGPL-2.1-or-later AND GPL-3.0-or-later WITH Bison-exception-2.2 AND LicenseRef-Fedora-Public-Domain AND BSD-3-Clause
 Name: dyninst
 Group: Development/Libraries
-Release: 1%{?dist}
+Release: 4%{?dist}
 URL: http://www.dyninst.org
 Version: 13.0.0
 ExclusiveArch: x86_64 ppc64le aarch64
 
 Source0: dyninst-13.0.0.tar.gz
 Patch1: github-pr1721.patch
+Patch2: github-pr1880.patch
+Patch3: github-pr1880-ish.patch
 
 %global dyninst_base dyninst-%{version}
 
@@ -65,6 +67,8 @@ that uses Dyninst.
 
 pushd %{dyninst_base}
 %patch -P1 -p1
+%patch -P2 -p1
+%patch -P3 -p1
 popd
 
 # cotire seems to cause non-deterministic gcc errors
@@ -142,8 +146,8 @@ echo "%{_libdir}/dyninst" > %{buildroot}/etc/ld.so.conf.d/%{name}-%{_arch}.conf
 %{_libdir}/cmake/Dyninst
 
 %changelog
-* Thu Jan 23 2025 Frank Ch. Eigler <fche@redhat.com> - 13.0.0
-- Rebuilt for F42 FTBFS with 13.0.0 + backported cmake fixes
+* Thu Jan 23 2025 Frank Ch. Eigler <fche@redhat.com> - 13.0.0-4
+- Rebuilt for F42 FTBFS with 13.0.0 + backported fixes + sans i686
 
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 12.3.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild

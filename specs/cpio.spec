@@ -1,7 +1,7 @@
 Summary: A GNU archiving program
 Name: cpio
 Version: 2.15
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-3.0-or-later
 URL: https://www.gnu.org/software/cpio/
 Source0: https://ftp.gnu.org/gnu/cpio/cpio-%{version}.tar.bz2
@@ -71,6 +71,8 @@ Install cpio if you need a program to manage file archives.
 
 %build
 autoreconf -fi
+# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=118112
+CFLAGS="$RPM_OPT_FLAGS -std=gnu17"
 export CFLAGS="$RPM_OPT_FLAGS -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE64_SOURCE -pedantic -fno-strict-aliasing -Wall $CFLAGS"
 %configure --with-rmt="%{_sysconfdir}/rmt"
 %make_build
@@ -104,6 +106,9 @@ make check || {
 %{_infodir}/*.info*
 
 %changelog
+* Fri Jan 24 2025 Than Ngo <than@redhat.com> - 2.15-4
+- Fixed rhbz#2340003 - cpio: FTBFS in Fedora rawhide/f42
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.15-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

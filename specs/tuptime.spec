@@ -1,6 +1,6 @@
 Name:		tuptime
 Version:	5.2.4
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Report historical system real time
 
 License:	GPL-2.0-or-later
@@ -15,13 +15,8 @@ BuildRequires:	python%{python3_pkgversion}-devel
 %else
 BuildRequires:	python3-devel
 %endif
-%if 0%{?el7}
-BuildRequires:	systemd
-%else
 BuildRequires:	systemd-rpm-macros
-%endif
 Requires:	systemd
-Requires(pre):	shadow-utils
 
 
 %description
@@ -32,20 +27,7 @@ system, keeping the uptime and downtime between shutdowns.
 %prep
 %autosetup
 # Fix python shebang
-%if %{?py3_shebang_fix:1}%{!?py3_shebang_fix:0}
 %py3_shebang_fix src/tuptime
-%else
-# EPEL7 does not have py3_shebang_fix
-/usr/bin/pathfix.py -pni "%{__python3} -s" src/tuptime
-%endif
-
-
-%pre
-# Conversion to new group and usernames for previously installed version
-getent group tuptime >/dev/null && groupmod --new-name _tuptime tuptime
-getent passwd tuptime >/dev/null && usermod --login _tuptime tuptime
-getent group _tuptime >/dev/null || groupadd --system _tuptime
-getent passwd _tuptime >/dev/null || useradd --system --gid _tuptime --home-dir "/var/lib/tuptime" --shell '/sbin/nologin' --comment 'Tuptime execution user' _tuptime > /dev/null
 
 
 %build
@@ -57,10 +39,12 @@ install -d %{buildroot}%{_unitdir}/
 install -d %{buildroot}%{_mandir}/man1/
 install -d %{buildroot}%{_sharedstatedir}/tuptime/
 install -d %{buildroot}%{_datadir}/tuptime/
+install -d %{buildroot}%{_sysusersdir}/
 cp src/tuptime %{buildroot}%{_bindir}/
 cp src/systemd/tuptime.service %{buildroot}%{_unitdir}/
 cp src/systemd/tuptime-sync.service %{buildroot}%{_unitdir}/
 cp src/systemd/tuptime-sync.timer %{buildroot}%{_unitdir}/
+cp src/systemd/sysusers.d/tuptime.conf %{buildroot}%{_sysusersdir}/
 cp src/man/tuptime.1 %{buildroot}%{_mandir}/man1/
 cp misc/scripts/* %{buildroot}%{_datadir}/tuptime/
 chmod +x %{buildroot}%{_datadir}/tuptime/*.sh
@@ -68,8 +52,6 @@ chmod +x %{buildroot}%{_datadir}/tuptime/*.py
 
 
 %post
-# Create and initialise the tuptime DB with consistent permissions, etc.
-su -s /bin/sh _tuptime -c "(umask 0022 && /usr/bin/tuptime -q)"
 %systemd_post tuptime.service
 %systemd_post tuptime-sync.service
 %systemd_post tuptime-sync.timer
@@ -91,6 +73,7 @@ su -s /bin/sh _tuptime -c "(umask 0022 && /usr/bin/tuptime -q)"
 %{_unitdir}/tuptime.service
 %{_unitdir}/tuptime-sync.service
 %{_unitdir}/tuptime-sync.timer
+%{_sysusersdir}/tuptime.conf
 %attr(0755, root, root) %{_bindir}/tuptime
 %dir %attr(0755, _tuptime, _tuptime) %{_sharedstatedir}/tuptime/
 %doc tuptime-manual.txt
@@ -102,10 +85,13 @@ su -s /bin/sh _tuptime -c "(umask 0022 && /usr/bin/tuptime -q)"
 
 
 %changelog
+* Fri Jan 24 2025 Frank Crawford <frank3Y@crawford.emu.id.au> - 5.2.4-3
+- Update spec file to introduce sysuser.d configuration
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
-* Tue Aug 06 2024 Frank Crawford <frank@crawford.emu.id.au> - 5.2.4-1
+* Tue Aug 06 2024 Frank Crawford <frank3Y@crawford.emu.id.au> - 5.2.4-1
 - New upstream release
 
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.3-3

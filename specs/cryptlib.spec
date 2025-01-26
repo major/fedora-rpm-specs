@@ -25,6 +25,7 @@ Source8:    https://senderek.ie/fedora/claes.sig
 
 # soname is now libcl.so.3.4
 Patch0:     m64patch
+Patch1:     gcc15patch
 
 ExclusiveArch: x86_64 aarch64 ppc64le riscv64
 
@@ -152,6 +153,7 @@ cd %{name}-%{version}
 /usr/bin/unzip -a %{SOURCE0}
 
 %patch 0 -p1
+%patch 1 -p1
 
 # enable ADDFLAGS
 sed -i '97s/-I./-I. \$(ADDFLAGS)/' makefile

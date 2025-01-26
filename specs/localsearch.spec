@@ -31,7 +31,7 @@
 
 Name:           localsearch
 Version:        3.8~rc
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Localsearch and metadata extractors
 
 # The indexer is a mix of GPLv2 and LGPLv2+ code
@@ -91,7 +91,7 @@ Provides:       tracker-miners = %{version}-%{release}
 Provides:       tracker-miners%{?_isa} = %{version}-%{release}
 
 %if !0%{?flatpak}
-Requires:       tinysparql%{?_isa} >= %{tinysparql_version}
+Requires:       tinysparql%{?_isa}
 %endif
 
 %description
@@ -181,6 +181,9 @@ install -D -m 0755 %{SOURCE1} %{buildroot}%{_bindir}/%{name}-flatpak-fixup.sh
 
 
 %changelog
+* Fri Jan 24 2025 Nieves Montero <nmontero@redhat.com> - 3.8~rc-6
+- Change in Requires
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8~rc-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

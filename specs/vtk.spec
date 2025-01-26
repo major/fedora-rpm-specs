@@ -54,7 +54,7 @@
 Summary: The Visualization Toolkit - A high level 3D visualization library
 Name: vtk
 Version: 9.2.6
-Release: 22%{?dist}
+Release: 23%{?dist}
 License: BSD-3-Clause
 Source0: https://www.vtk.org/files/release/9.2/VTK-%{version}.tar.gz
 Source1: https://www.vtk.org/files/release/9.2/VTKData-%{version}.tar.gz
@@ -859,6 +859,9 @@ cat xorg.log
 
 
 %changelog
+* Fri Jan 24 2025 Sandro Mani <manisandro@gmail.com> - 9.2.6-23
+- Rebuild (cgnslib)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.6-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -8,7 +8,7 @@
 
 Name:           qpid-proton
 Version:        0.40.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A high performance, lightweight messaging library
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -310,6 +310,9 @@ rm -f  %{buildroot}%{proton_datadir}/CMakeLists.txt
 %check
 
 %changelog
+* Fri Jan 24 2025 Hirotaka Wakabayashi <hiwkby@yahoo.com> - 0.40.0-5
+- Add the warning workaround for std=++17 build flag.
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.40.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

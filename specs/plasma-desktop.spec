@@ -5,13 +5,13 @@
 
 Name:    plasma-desktop
 Summary: Plasma Desktop shell
-Version: 6.2.91
+Version: 6.2.91.1
 Release: 1%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/%{name}
 
-Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz
 
 # breeze fedora sddm theme components
 # includes f40-based preview (better than breeze or nothing at least)
@@ -346,6 +346,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 
 
 %changelog
+* Fri Jan 24 2025 Steve Cossette <farchord@gmail.com> - 6.2.91.1-1
+- Update to 6.2.91.1
+
 * Thu Jan 23 2025 Steve Cossette <farchord@gmail.com> - 6.2.91-1
 - 6.2.91
 

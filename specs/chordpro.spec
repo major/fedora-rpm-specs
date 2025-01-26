@@ -112,7 +112,6 @@ For more information about ChordPro, see https://www.chordpro.org.
 %package gui
 
 Summary: ChordPro graphical user interface
-AutoReqProv: 0
 
 Requires: %{name} = %{version}-%{release}
 Requires: perl(Wx) >= 0.99
@@ -128,7 +127,6 @@ https://github.com/sciurius/wxPerl for instructions.
 %package lilypond
 
 Summary: Support for ChordPro LilyPond embedding
-AutoReqProv: 0
 
 Requires: %{name} = %{version}-%{release}
 Requires: lilypond

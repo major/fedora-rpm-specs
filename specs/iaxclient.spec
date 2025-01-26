@@ -1,13 +1,13 @@
 %global betaver beta3
 %global tclver 0.2
 %global mainver 2.1
-%{!?tcl_version: %global tcl_version %(echo 'puts $tcl_version' | tclsh)}
+%{!?tcl_version: %global tcl_version %(echo 'puts $tcl_version' | tclsh8.6)}
 %{!?tcl_sitearch: %global tcl_sitearch %{_libdir}/tcl%{tcl_version}}
 %global tkphonearch %{_arch}
 
 Name:		iaxclient
 Version:	%{mainver}
-Release:	0.51.%{betaver}%{?dist}
+Release:	0.52.%{betaver}%{?dist}
 Summary:	Library for creating telephony solutions that interoperate with Asterisk
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:	LicenseRef-Callaway-LGPLv2+
@@ -44,12 +44,24 @@ Patch21:	iax-0.2.3_format-security.patch
 Patch22:	iax-0.2.3_socket.patch
 Patch23:	iaxclient-c99.patch
 
+BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
+BuildRequires:  gsm-devel
+BuildRequires:  gtk3-devel
+BuildRequires:  ilbc-devel
+BuildRequires:  libogg-devel
+BuildRequires:  liboggz-devel
+BuildRequires:  libtheora-devel
+BuildRequires:  libtool
+BuildRequires:  libvidcap-devel
 BuildRequires:  make
-BuildRequires:	speex-devel, libtheora-devel, gsm-devel, portaudio-devel
-BuildRequires:	tk-devel, gtk3-devel, SDL-devel, libogg-devel, liboggz-devel
-BuildRequires:	wxGTK-devel, libvidcap-devel, desktop-file-utils, libtool
-BuildRequires:	spandsp-devel, ilbc-devel, speexdsp-devel
+BuildRequires:  portaudio-devel
+BuildRequires:  SDL-devel
+BuildRequires:  spandsp-devel
+BuildRequires:  speex-devel
+BuildRequires:  speexdsp-devel
+BuildRequires:  tk-devel < 1:9
+BuildRequires:  wxGTK-devel
 
 %description
 Iaxclient is an open source, multiplatform library for creating telephony 
@@ -167,7 +179,7 @@ cd lib/libiax2
 make %{?_smp_mflags} UCFLAGS="%{optflags}"
 )
 
-%configure --disable-static
+%configure --disable-static --with-wish=%{_bindir}/wish8.6
 # sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 # sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 make %{?_smp_mflags} LIBTOOL="%{_bindir}/libtool"
@@ -213,10 +225,6 @@ cd %{buildroot}%{tcl_sitearch}/iaxclient/tkphone/
 ln -s iaxcli iaxcli-Linux-%{tkphonearch}
 
 
-%ldconfig_scriptlets
-
-%ldconfig_scriptlets libiax
-
 %files
 %doc AUTHORS ChangeLog README
 %license COPYING.LIB
@@ -259,6 +267,9 @@ ln -s iaxcli iaxcli-Linux-%{tkphonearch}
 %{_datadir}/pixmaps/wxiax.png
 
 %changelog
+* Sun Jan 19 2025 Sandro Mani <manisandro@gmail.com> - 2.1-0.52.beta3
+- BR: tk-devel < 1:9
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-0.51.beta3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

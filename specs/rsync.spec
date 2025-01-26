@@ -8,8 +8,8 @@
 
 Summary: A program for synchronizing files over a network
 Name: rsync
-Version: 3.4.0
-Release: 2%{?prerelease}%{?dist}
+Version: 3.4.1
+Release: 1%{?prerelease}%{?dist}
 URL: https://rsync.samba.org/
 
 Source0: https://download.samba.org/pub/rsync/src/rsync-%{version}%{?prerelease}.tar.gz
@@ -43,6 +43,8 @@ Provides: bundled(zlib) = 1.2.8
 License: GPL-3.0-or-later
 
 Patch1: rsync-3.2.2-runtests.patch
+Patch2: rsync-3.4.1-rrsync-man.patch
+Patch3: rsync-3.4.1-gcc15-fixes.patch
 
 %description
 Rsync uses a reliable algorithm to bring remote and host files into
@@ -74,9 +76,12 @@ package provides the anonymous rsync service.
 %endif
 
 %patch 1 -p1 -b .runtests
+%patch 2 -p1 -b .rrsync
+%patch 3 -p1 -b .gcc15
 
 patch -p1 -i patches/detect-renamed.diff
 patch -p1 -i patches/detect-renamed-lax.diff
+
 
 %build
 %configure \
@@ -86,7 +91,8 @@ patch -p1 -i patches/detect-renamed-lax.diff
 %endif
   --enable-zstd \
   --enable-lz4 \
-  --enable-ipv6
+  --enable-ipv6 \
+  --with-rrsync
 
 %{make_build}
 
@@ -107,8 +113,10 @@ install -D -m644 %{SOURCE6} $RPM_BUILD_ROOT/%{_unitdir}/rsyncd@.service
 %license COPYING
 %doc support/ tech_report.tex
 %{_bindir}/%{name}
+%{_bindir}/r%{name}
 %{_bindir}/%{name}-ssl
 %{_mandir}/man1/%{name}.1*
+%{_mandir}/man1/r%{name}.1*
 %{_mandir}/man1/%{name}-ssl.1*
 %{_mandir}/man5/rsyncd.conf.5*
 %config(noreplace) %{_sysconfdir}/rsyncd.conf
@@ -129,6 +137,10 @@ install -D -m644 %{SOURCE6} $RPM_BUILD_ROOT/%{_unitdir}/rsyncd@.service
 %systemd_postun_with_restart rsyncd.service
 
 %changelog
+* Fri Jan 24 2025 Michal Ruprich <mruprich@redhat.com> - 3.4.1-1
+- New version 3.4.1
+- Enabling build with rrsync
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

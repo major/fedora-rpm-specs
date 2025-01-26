@@ -4,7 +4,7 @@
 Summary: Utilities for monitoring process activities
 Name: psacct
 Version: 6.6.4
-Release: 23%{?dist}
+Release: 24%{?dist}
 License: GPL-3.0-or-later
 URL: http://www.gnu.org/software/acct/
 
@@ -18,6 +18,7 @@ Patch2: psacct-6.6.1-SEGV-when-record-incomplete.patch
 Patch3: psacct-6.6.4-lastcomm-manpage-pid-twice.patch
 Patch4: psacct-6.6.4-sprintf-buffer-overflow.patch
 Patch5: psacct-6.6.4-specfile-tweaks-file-locs.patch
+Patch6: f42-fix-ftbfs.patch
 
 Conflicts: filesystem < 3
 Requires: coreutils
@@ -124,6 +125,9 @@ touch /var/account/pacct && chmod 0600 /var/account/pacct
 
 
 %changelog
+* Fri Jan 24 2025 Jan Rybar <jrybar@redhat.com> - 6.6.4-24
+- fix compile errors - stricter check, incompat types
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.4-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

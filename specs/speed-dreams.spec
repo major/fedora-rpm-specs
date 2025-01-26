@@ -15,7 +15,7 @@ Summary: The Open Racing Car Simulator
 Name:    speed-dreams
 Version: 2.3.0
 %if 0%{?sf_release}
-Release: 6%{?dist}
+Release: 7%{?dist}
 %else
 Release: 0.19.%{svndate}svn%(echo %{src_release} | tr '-' '_').rc1%{?dist}
 %endif
@@ -39,6 +39,8 @@ Source3: %{?repo_url}%{name}-src-more-hq-cars-and-tracks-%{src_version}.tar.xz
 Source4: %{?repo_url}%{name}-src-unmaintained-%{src_version}.tar.xz
 Source5: %{name}.desktop
 # Patch0:  fix_invalid_ascii_characters.patch
+Patch0:  speed-dreams-replace_curl_formadd.patch
+Patch1:  speed-dreams-header-fix.patch
 
 ExcludeArch:   s390x
 
@@ -106,6 +108,8 @@ This package contains the development files for the game.
 
 %prep
 %setup -q -c -n %{name}-src-base-%{version}-%{release} -a1 -a2 -a3 -a4
+%patch 0 -p1
+%patch 1 -p1
 
 # delete unused header file on arm achitecture
 sed -i -e 's|#include "OsgReferenced.h"||g' src/modules/graphic/osggraph/Sky/OsgDome.h
@@ -204,6 +208,10 @@ find %{buildroot} -size 0 -delete
 %{_includedir}/%{name}-2/
 
 %changelog
+* Fri Jan 24 2025 Martin Gansser <martinkg@fedoraproject.org> - 1:2.3.0-7
+- Add speed-dreams-replace_curl_formadd.patch to fix FTBFS #2341372
+- Add speed-dreams-header-fix.patch
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.3.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

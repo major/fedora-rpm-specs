@@ -5,10 +5,10 @@
 
 # replacements for git snapshot dependencies
 %global lsp_types_commit    3512a9f33eadc5402cfab1b8f7340824c8ca1439
-%global salsa_commit        b14be5c0392f4c55eca60b92e457a35549372382
+%global salsa_commit        88a1d7774d78f048fbd77d40abca9ebd729fd1f0
 
 Name:           ruff
-Version:        0.7.0
+Version:        0.8.6
 Release:        %autorelease
 Summary:        Extremely fast Python linter and code formatter
 
@@ -18,6 +18,7 @@ Summary:        Extremely fast Python linter and code formatter
 # bundled salsa snapshot:       (Apache-2.0 OR MIT)
 SourceLicense:  MIT AND Apache-2.0 AND (Apache-2.0 OR MIT)
 
+# (MIT OR Apache-2.0) AND Unicode-3.0
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # Apache-2.0
 # Apache-2.0 OR BSD-2-Clause
@@ -33,18 +34,40 @@ SourceLicense:  MIT AND Apache-2.0 AND (Apache-2.0 OR MIT)
 # MIT OR Apache-2.0
 # MIT OR Apache-2.0 OR Zlib
 # MIT OR BSD-3-Clause
+# MIT-0 OR Apache-2.0
 # MPL-2.0
 # Unlicense OR MIT
 # WTFPL
 # Zlib OR Apache-2.0 OR MIT
-License:        MIT AND Apache-2.0 AND BSD-3-Clause AND CC0-1.0 AND ISC AND MPL-2.0 AND PSF-2.0 AND Unicode-DFS-2016 AND WTFPL AND (Apache-2.0 OR BSD-2-Clause) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (MIT OR Apache-2.0 OR Zlib) AND (MIT OR BSD-3-Clause) AND (Unlicense OR MIT)
+
+License:        %{shrink:
+    MIT AND
+    Apache-2.0 AND
+    BSD-3-Clause AND
+    CC0-1.0 AND
+    ISC AND
+    MPL-2.0 AND
+    PSF-2.0 AND
+    Unicode-3.0 AND
+    Unicode-DFS-2016 AND
+    WTFPL AND
+    (Apache-2.0 OR BSD-2-Clause) AND
+    (Apache-2.0 OR BSL-1.0) AND
+    (Apache-2.0 OR MIT) AND
+    (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
+    (BSD-2-Clause OR Apache-2.0 OR MIT) AND
+    (MIT OR Apache-2.0 OR Zlib) AND
+    (MIT OR BSD-3-Clause) AND
+    (MIT-0 OR Apache-2.0) AND
+    (Unlicense OR MIT)
+}
 
 URL:            https://github.com/astral-sh/ruff
 Source:         %{url}/archive/%{version}/ruff-%{version}.tar.gz
 
 Source1:        https://github.com/astral-sh/lsp-types/archive/%{lsp_types_commit}/lsp-types-%{lsp_types_commit}.tar.gz
 Source2:        https://github.com/salsa-rs/salsa/archive/%{salsa_commit}/salsa-%{salsa_commit}.tar.gz
-Source3:        0009-avoid-duplicate-workspace-definitions.patch
+Source3:        avoid-duplicate-workspace-definitions.patch
 
 # * drop non-Linux dependencies (non-upstreamable), generated with:
 #   "for i in $(find -name Cargo.toml) ; do rust2rpm-helper strip-foreign $i -o $i ; done"
@@ -56,16 +79,15 @@ Patch:          0002-replace-git-snapshot-dependencies-with-path-dependen.patch
 Patch:          0003-remove-unavailable-custom-allocators.patch
 # * do not strip debuginfo from the built executable (non-upstreamable)
 Patch:          0004-do-not-strip-debuginfo-from-built-binary-executable.patch
-# * bump pyproject-toml-dependency from 0.9 to 0.11 (blocked upstream):
-#   https://github.com/astral-sh/ruff/pull/10705
-#   https://github.com/astral-sh/ruff/pull/11708
-Patch:          0005-bump-pyproject-toml-dependency-from-0.9-to-0.11.patch
+# * relax pyproject-toml-dependency (non-upstreamable):
+Patch:          0005-relax-pyproject-toml-dependency-to-allow-0.11.-0.13.patch
 # * drop unavailable compile-time diagnostics feature for UUIDs (non-upstreamable)
 Patch:          0006-drop-unavailable-features-from-uuid-dependency.patch
-# * backport compatibility fix for insta 1.41
-Patch:          0007-Update-Rust-crate-insta-to-v1.41.0-13956.patch
-# * bump rstest dev-dependency from 0.22 to 0.23 (removed again upstream)
-Patch:          0008-bump-rstest-dependency-from-0.22-to-0.23.patch
+# * temporarily downgrade pep440_rs dependency from 0.7 to 0.6 (non-upstreamable)
+Patch:          0007-temporarily-downgrade-pep440_rs-from-0.7-to-0.6.patch
+# * bump notify dependency from 7 to 8:
+#   https://github.com/astral-sh/ruff/commit/36c90eb
+Patch:          0008-bump-notify-dependency-from-7-to-8.patch
 
 ExcludeArch:	%{ix86}
 
@@ -152,6 +174,7 @@ install -Dpm 0644 _ruff -t %{buildroot}/%{zsh_completions_dir}
 %check
 # ignore false positive snapshot test failures
 export INSTA_UPDATE=always
+export TRYBUILD=overwrite
 # reduce peak memory usage
 %cargo_test -- -- --test-threads 2
 %endif

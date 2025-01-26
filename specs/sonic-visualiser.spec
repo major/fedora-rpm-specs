@@ -8,6 +8,9 @@ Summary:        A program for viewing and exploring audio data
 License:        GPL-2.0-or-later
 URL:            https://sonicvisualiser.org/
 Source:         %{forgeurl}/releases/download/sv_v%{version}/%{name}-%{version}.tar.gz
+# include headers for uint32_t and uint8_t
+# https://github.com/piper-audio/piper-vamp-cpp/pull/8
+Patch:          sonic-visualiser-gcc15-cstdint.diff
 
 BuildRequires:  meson
 BuildRequires:  alsa-lib-devel

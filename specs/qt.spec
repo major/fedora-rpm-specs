@@ -43,7 +43,7 @@ Summary: Qt toolkit
 Name:    qt
 Epoch:   1
 Version: 4.8.7
-Release: 79%{?dist}
+Release: 80%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 # Automatically converted from old format: (LGPLv2 with exceptions or GPLv3 with exceptions) and ASL 2.0 and BSD and FTL and MIT - review is highly recommended.
@@ -212,6 +212,9 @@ Patch98: qt-everywhere-opensource-src-4.8.7-hardcode-buildkey.patch
 
 # FTBFS openssl3
 Patch99: qt-everywhere-opensource-src-4.8.7-openssl3.patch
+
+# FTBFS icu76
+Patch100: qt-4.6-ftbfs-icu76.patch
 
 # upstream patches
 # backported from Qt5 (essentially)
@@ -676,6 +679,7 @@ rm -rf src/3rdparty/clucene
 %patch -P97 -p1 -b .gcc11
 %patch -P98 -p1 -b .hardcode-buildkey
 %patch -P99 -p1 -b .ssl3
+%patch -P100 -p1 -b .ftbfs-icu76
 
 # upstream patches
 %patch -P102 -p1 -b .qgtkstyle_disable_gtk_theme_check
@@ -1415,6 +1419,9 @@ fi
 
 
 %changelog
+* Fri Jan 24 2025 Than Ngo <than@redhat.com> - 1:4.8.7-80
+- Fix rhbz#2341255, FTBFS due to new icu76
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.8.7-79
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

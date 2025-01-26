@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/qxmpp-project/qxmpp
-Version:        1.9.2
+Version:        1.9.3
 %global sover   5
 %forgemeta
 

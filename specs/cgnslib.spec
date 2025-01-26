@@ -6,8 +6,8 @@
 %bcond mpich %{undefined flatpak}
 
 Name:           cgnslib
-Version:        4.4.0
-Release:        7%{?dist}
+Version:        4.5.0
+Release:        1%{?dist}
 Summary:        Computational Fluid Dynamics General Notation System
 License:        Zlib
 URL:            http://www.cgns.org/
@@ -17,7 +17,7 @@ Patch0:         cgnslib-cmake-install-dirs.patch
 # Fix invalid Icon and Exec paths in desktop files
 Patch1:         cgnslib_desktop.patch
 Patch2:         cgnslib-c99.patch
-Patch3:         cgnslib-gcc14.patch
+Patch3:         cgnslib-i686.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -302,7 +302,7 @@ ctest || :
 %{_bindir}/unitconv
 
 %files libs
-%{_libdir}/libcgns.so.4.4
+%{_libdir}/libcgns.so.4.5
 
 %files devel
 %{_includedir}/cgnsBuild.defs
@@ -318,7 +318,7 @@ ctest || :
 %{_fmoddir}/cgns.mod
 
 %files common
-%doc release_docs/RELEASE.txt README.md
+%doc release_docs/RELEASE.md README.md
 %license license.txt
 %{_datadir}/cgnstools/
 %{_datadir}/applications/cgnscalc.desktop
@@ -347,7 +347,7 @@ ctest || :
 %{_libdir}/openmpi/bin/unitconv
 
 %files openmpi-libs
-%{_libdir}/openmpi/lib/libcgns.so.4.4
+%{_libdir}/openmpi/lib/libcgns.so.4.5
 
 %files openmpi-devel
 %{_includedir}/openmpi*/cgnsBuild.defs
@@ -384,7 +384,7 @@ ctest || :
 %{_libdir}/mpich/bin/unitconv
 
 %files mpich-libs
-%{_libdir}/mpich/lib/libcgns.so.4.4
+%{_libdir}/mpich/lib/libcgns.so.4.5
 
 %files mpich-devel
 %{_includedir}/mpich*/cgnsBuild.defs
@@ -403,6 +403,9 @@ ctest || :
 
 
 %changelog
+* Fri Jan 24 2025 Sandro Mani <manisandro@gmail.com> - 4.5.0-1
+- Update to 4.5.0
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

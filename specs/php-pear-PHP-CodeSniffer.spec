@@ -13,9 +13,9 @@
 
 %bcond_without       tests
 
-%global gh_commit    1368f4a58c3c52114b86b1abe8f4098869cb0079
+%global gh_commit    ba05f990e79cbe69b9f35c8c1ac8dca7eecc3a10
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2024-12-11
+%global gh_date      2025-01-23
 %global gh_owner     PHPCSStandards
 %global gh_project   PHP_CodeSniffer
 # keep in old PEAR tree
@@ -23,8 +23,8 @@
 
 
 Name:           php-pear-PHP-CodeSniffer
-Version:        3.11.2
-Release:        2%{?dist}
+Version:        3.11.3
+Release:        1%{?dist}
 Summary:        PHP coding standards enforcement tool
 
 License:        BSD-3-Clause
@@ -145,6 +145,9 @@ fi
 
 
 %changelog
+* Fri Jan 24 2025 Remi Collet <remi@remirepo.net> - 3.11.3-1
+- update to 3.11.3
+
 * Wed Jan 22 2025 Remi Collet <remi@remirepo.net> - 3.11.2-2
 - fix tests failing because of new year
 

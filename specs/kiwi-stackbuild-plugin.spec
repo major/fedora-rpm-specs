@@ -10,7 +10,7 @@ image root directory.
 
 Name:           kiwi-stackbuild-plugin
 Version:        1.0.10
-Release:        2%{?dist}
+Release:        3%{?dist}
 URL:            https://github.com/OSInside/kiwi-stackbuild-plugin
 Summary:        KIWI - Stack Build Plugin
 License:        GPL-3.0-or-later
@@ -20,6 +20,8 @@ Source0:        https://files.pythonhosted.org/packages/source/k/%{srcname}/%{sr
 # Backports from upstream
 ## From: https://github.com/OSInside/kiwi-stackbuild-plugin/pull/7
 Patch0001:      0001-setup.py-Drop-unused-dependency-on-mock.patch
+## From: https://github.com/OSInside/kiwi-stackbuild-plugin/pull/10
+Patch0002:      0002-Replace-usage-of-mock-with-standard-library-version.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -83,6 +85,9 @@ rm -f %{buildroot}%{_defaultdocdir}/python-%{srcname}/README
 %{python3_sitelib}/%{srcname}*
 
 %changelog
+* Fri Jan 24 2025 Neal Gompa <ngompa@fedoraproject.org> - 1.0.10-3
+- Backport fix to stop using mock module
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

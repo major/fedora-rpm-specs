@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.14.0
 %define specversion 6.14.0
 %define patchversion 6.14
-%define pkgrelease 0.rc0.20250123gitd0d106a2bd21.4
+%define pkgrelease 0.rc0.20250124gitbc8198dc7ebc.5
 %define kversion 6
-%define tarfile_release 6.13-5001-gd0d106a2bd21
+%define tarfile_release 6.13-5252-gbc8198dc7ebc
 # This is needed to do merge window version magic
 %define patchlevel 14
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.20250123gitd0d106a2bd21.4%{?buildid}%{?dist}
+%define specrelease 0.rc0.20250124gitbc8198dc7ebc.5%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.14.0
 
@@ -4174,16 +4174,19 @@ fi\
 #
 #
 %changelog
-* Thu Jan 23 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc0.d0d106a2bd21.4]
-- redhat: fix modules.order target (Scott Weaver)
+* Fri Jan 24 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc0.bc8198dc7ebc.5]
 - apply -Wno-error=unterminated-string-initialization temporarily (Thorsten Leemhuis)
 - efi: libstub: Use '-std=gnu11' to fix build with GCC 15 (Nathan Chancellor)
 - x86/boot: Use '-std=gnu11' to fix build with GCC 15 (Nathan Chancellor)
 - kbuild: Use -fzero-init-padding-bits=all (Kees Cook)
 - include/linux: Adjust headers for C23 (Jakub Jelinek)
-- redhat: kernel.spec: fix build with merged-sbin (Adam Williamson)
+- redhat: kernel.spec: fix build with merged-sbin (Zbigniew Jędrzejewski-Szmek)
 - x86/insn_decoder_test: allow longer symbol-names (David Rheinsberg)
 - kernel.spec: update license field (Scott Weaver)
+
+* Fri Jan 24 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc0.bc8198dc7ebc.4]
+- redhat: fix modules.order target (Scott Weaver)
+- Linux v6.14.0-0.rc0.bc8198dc7ebc
 
 * Thu Jan 23 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc0.d0d106a2bd21.3]
 - Fix up CONFIG_CRC_T10DIF_IMPL_GENERIC mismatch (Justin M. Forbes)

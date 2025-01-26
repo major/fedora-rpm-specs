@@ -4,7 +4,7 @@
 %global crate onefetch
 
 Name:           rust-onefetch
-Version:        2.22.0
+Version:        2.23.1
 Release:        %autorelease
 Summary:        Command-line Git information tool
 
@@ -14,12 +14,11 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          onefetch-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * Allow rstest 0.23 (see https://github.com/o2sh/onefetch/pull/1426)
-# * Allow image 0.25 (see https://github.com/o2sh/onefetch/pull/1396)
-# * Update askalono to 0.5 (see https://github.com/o2sh/onefetch/pull/1449)
 # * Patch out tests/repo.rs, which requires gix-testtools
-# * Update strum from 0.25.0 to 0.26.3:
-#   https://github.com/o2sh/onefetch/pull/1431
+# * Bump tokei from 13.0.0-alpha.7 to 13.0.0-alpha.8:
+#   https://github.com/o2sh/onefetch/commit/55453c80177210c7a8c214b2dcfcaab10916e06c
+# * Allow gix 0.70, gix-features 0.40:
+#   https://github.com/o2sh/onefetch/commit/3ff3ec298ecde3303a575c3b67bdb235c0ed2489
 Patch:          onefetch-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

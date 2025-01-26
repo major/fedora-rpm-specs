@@ -5,7 +5,7 @@
 
 Name:           lxqt-wayland-session
 Version:        0.1.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Wayland session files for LXQt
 # See "LICENSE" for a breakdown of license usage
 License:        LGPL-2.1-only AND GPL-3.0-only AND MIT AND GPL-2.0-only AND BSD-3-Clause
@@ -13,10 +13,16 @@ URL:            https://lxqt-project.org/
 
 Source0:        https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
-Patch0:         0001-adjust-labwc-pointer-speed.patch
+Patch0:         0001-configuration-changes-for-default-labwc-session.patch
+Patch1:         0002-configuration-changes-for-default-wayfire-session.patch
+Patch2:         0003-configuration-changes-for-default-niri-session.patch
+Patch3:         0004-configuration-adds-miriway-session.patch
+Patch4:         0005-configuration-changes-for-default-river-session.patch
+Patch5:         0006-configuration-changes-for-default-sway-session.patch
 BuildArch:      noarch
 
 BuildRequires:  cmake
+BuildRequires:  fdupes
 BuildRequires:  gcc-c++
 BuildRequires:  git-core
 BuildRequires:  perl
@@ -27,6 +33,8 @@ BuildRequires:  cmake(Qt6LinguistTools)
 BuildRequires:  cmake(lxqt)
 
 BuildRequires:  cmake(KF6WindowSystem)
+
+Requires:       desktop-backgrounds-compat
 
 %description
 Files needed for the LXQt Wayland Session: Wayland session start script,
@@ -64,6 +72,23 @@ compositor with LXQt.
 %endif
 
 %dnl ------------------------------------------------------------------
+%package -n     lxqt-miriway-session
+Summary:        Session files for LXQt-miriway
+License:        GPL-3.0-or-later
+Requires:       %{name} = %{version}-%{release}
+Requires:       miriway
+Supplements:    (%{name} and miriway)
+
+%description -n lxqt-miriway-session
+This package contains the files necessary to use Miriway as the Wayland
+compositor with LXQt
+
+%files -n lxqt-miriway-session
+%license COPYING
+%attr(0755,root,root) %{_datadir}/lxqt/wayland/miriway/lxqt-miriway-wrapper
+%{_datadir}/lxqt/wayland/miriway/miriway-shell.config
+
+%dnl ------------------------------------------------------------------
 
 %if %{with niri_session}
 %package -n     lxqt-niri-session
@@ -89,6 +114,7 @@ Summary:        Session files for LXQt-river
 License:        GPL-3.0-or-later
 Requires:       %{name} = %{version}-%{release}
 Requires:       river
+Recommends:     swaybg
 Supplements:    (%{name} and river)
 
 %description -n lxqt-river-session
@@ -97,7 +123,7 @@ compositor with LXQt.
 
 %files -n lxqt-river-session
 %license COPYING
-%{_datadir}/lxqt/wayland/lxqt-river-init
+%attr(0755,root,root) %{_datadir}/lxqt/wayland/lxqt-river-init
 
 %dnl ------------------------------------------------------------------
 
@@ -106,6 +132,7 @@ Summary:        Session files for LXQt-Sway
 License:        MIT
 Requires:       %{name} = %{version}-%{release}
 Requires:       sway
+Recommends:     swaybg
 Supplements:    (%{name} and sway)
 
 %description -n lxqt-sway-session
@@ -123,6 +150,7 @@ Summary:        Session files for LXQt-wayfire
 License:        MIT
 Requires:       %{name} = %{version}-%{release}
 Requires:       wayfire
+Recommends:     swaybg
 Supplements:    (%{name} and wayfire)
 
 %description -n lxqt-wayfire-session
@@ -188,8 +216,13 @@ rm -v %{buildroot}%{_datadir}/lxqt/wayland/lxqt-hyprland.conf
 rm -v %{buildroot}%{_datadir}/lxqt/wayland/lxqt-niri.kdl
 %endif
 
+%fdupes -s %{buildroot}%{_datadir}/themes/
 
 %changelog
+* Tue Jan 21 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 0.1.1-6
+- Added patches to adjust configurations in all sessions
+- Added patch to enable miriway session
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

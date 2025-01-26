@@ -50,6 +50,7 @@ Patch28: mgetty-1.2.1-hardening.patch
 Patch29: mgetty-sys_nerr-removed.patch
 Patch30: mgetty-manpage-typos.patch
 Patch31: mgetty-c99.patch
+Patch32: mgetty-gcc15-stdc23.patch
 
 License: GPL-2.0-or-later
 BuildRequires: libX11-devel, libXext-devel, perl-generators, texinfo-tex, texlive-dvips, lockdev-devel, systemd, gsm-devel
@@ -149,6 +150,7 @@ rm -r voice/libmgsm
 %patch -P 29 -p1 -b .sys_nerr-removed
 %patch -P 30 -p1 -b .manpage-typos
 %patch -P 31 -p1 -b .c99
+%patch -P 32 -p1 -b .gcc15-stdc23
 
 %build
 %define makeflags CFLAGS="$RPM_OPT_FLAGS -Wall -DAUTO_PPP -D_FILE_OFFSET_BITS=64 -DHAVE_LOCKDEV -fno-strict-aliasing" LIBS="-llockdev" prefix=%{_prefix} spool=%{_var}/spool BINDIR=%{_bindir} SBINDIR=%{_sbindir} LIBDIR=%{_libdir}/mgetty+sendfax HELPDIR=%{_libdir}/mgetty+sendfax CONFDIR=%{_sysconfdir}/mgetty+sendfax MANDIR=%{_mandir} MAN1DIR=%{_mandir}/man1 MAN4DIR=%{_mandir}/man4 MAN5DIR=%{_mandir}/man5 MAN8DIR=%{_mandir}/man8 INFODIR=%{_infodir} ECHO='"echo -e"' INSTALL=%{__install}
@@ -381,6 +383,9 @@ exit 0
 %{_mandir}/man1/viewfax.1*
 
 %changelog
+* Fri Jan 24 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1.2.1-24
+- fix FTBFS (fedora#2340846)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:		llvm-test-suite
 Version:	%{llvm_test_suite_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	C/C++ Compiler Test Suite
 
 License:	NCSA AND BSD-3-Clause-LBNL AND BSD-4.3TAHOE AND dtoa AND GPL-1.0-only AND GPL-2.0-or-later AND GPL-2.0-only AND MIT AND PSF-2.0 AND LicenseRef-Fedora-Public-Domain AND LicenseRef-CRC32 AND AML AND Rdisc AND Apache-2.0 AND LGPL-3.0-only
@@ -28,6 +28,7 @@ Source2:	pkg_test_suite.sh
 BuildArch:	noarch
 
 Patch0: fix-spurious-errors-in-halide-tests.patch
+Patch1: 72993e72a4b0e14324ad9cc3aa1b48872c453593.patch
 
 # We need python3-devel for pathfix.py.
 BuildRequires: python3-devel
@@ -82,6 +83,9 @@ cp -R %{_builddir}/%{test_suite_srcdir}/* %{buildroot}%{_datadir}/llvm-test-suit
 
 
 %changelog
+* Fri Jan 24 2025 Timm Bäder <tbaeder@redhat.com> - 19.1.7-2
+- Backport upstream patch to fix typedef bool error with GCC 15
+
 * Wed Jan 22 2025 Timm Bäder <tbaeder@redhat.com> - 19.1.7-1
 - Update to 19.1.7
 

@@ -17,7 +17,7 @@ m1n1 is the bootloader developed by the Asahi Linux project to bridge the Apple
 (XNU) boot ecosystem to the Linux boot ecosystem.}
 
 Name:           m1n1
-Version:        1.4.17
+Version:        1.4.18
 Release:        %autorelease
 Summary:        Bootloader and experimentation playground for Apple Silicon
 
@@ -31,8 +31,6 @@ Source:         https://github.com/rafalh/rust-fatfs/archive/%{fatfs_commit}/rus
 Patch:          m1n1-rust-deps.patch
 # https://github.com/rafalh/rust-fatfs/commit/eb274ca10d035c176e5eac79420ca734c02613ae
 Patch:          rust-fatfs-fix-build-log.patch
-# rust: 1.82.0 compat
-Patch:          %{url}/commit/b901c2706f214b3f7963152ffe826bd9cde66666.patch
 
 %ifarch aarch64
 # On aarch64 m1n1 does a native build

@@ -55,7 +55,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.19.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and BSD - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD
 URL:     http://xen.org/
@@ -463,7 +463,7 @@ rm -rf %{buildroot}/boot
 rm -fr %{buildroot}%{_datadir}/doc/xen
 
 # Pointless helper
-rm -f %{buildroot}%{_sbindir}/xen-python-path
+rm -f %{buildroot}%{_bindir}/xen-python-path
 
 # qemu stuff (unused or available from upstream)
 rm -rf %{buildroot}/usr/share/xen/man
@@ -551,10 +551,9 @@ find . -path licensedir -prune -o -path stubdom/ioemu -prune -o \
   install -m 644 $file licensedir/$file
 done
 
-############ workaround debugedit bug
-%ifarch aarch64
-/bin/rm -r dist/install/usr/{bin,lib64,libexec,sbin}
-%endif
+############ move sbin files to bin
+
+mv %{buildroot}/usr/sbin/* %{buildroot}/usr/bin/
 
 ############ all done now ############
 
@@ -815,57 +814,57 @@ fi
 %{_bindir}/xenstore-*
 #%#{_bindir}/remus
 # XSM
-%{_sbindir}/flask-*
+%{_bindir}/flask-*
 # Misc stuff
 %ifnarch armv7hl aarch64
 %{_bindir}/xen-detect
 %endif
 %{_bindir}/xencov_split
 %ifnarch armv7hl aarch64
-%{_sbindir}/gdbsx
-%{_sbindir}/xen-kdd
+%{_bindir}/gdbsx
+%{_bindir}/xen-kdd
 %endif
 %ifnarch armv7hl aarch64
-%{_sbindir}/xen-hptool
-%{_sbindir}/xen-hvmcrash
-%{_sbindir}/xen-hvmctx
+%{_bindir}/xen-hptool
+%{_bindir}/xen-hvmcrash
+%{_bindir}/xen-hvmctx
 %endif
-%{_sbindir}/xenconsoled
-%{_sbindir}/xenlockprof
-%{_sbindir}/xenmon
-%{_sbindir}/xentop
-%{_sbindir}/xentrace_setmask
-%{_sbindir}/xenbaked
-%{_sbindir}/xenstored
-%{_sbindir}/xenpm
-%{_sbindir}/xenpmd
-%{_sbindir}/xenperf
-%{_sbindir}/xenwatchdogd
-%{_sbindir}/xl
+%{_bindir}/xenconsoled
+%{_bindir}/xenlockprof
+%{_bindir}/xenmon
+%{_bindir}/xentop
+%{_bindir}/xentrace_setmask
+%{_bindir}/xenbaked
+%{_bindir}/xenstored
+%{_bindir}/xenpm
+%{_bindir}/xenpmd
+%{_bindir}/xenperf
+%{_bindir}/xenwatchdogd
+%{_bindir}/xl
 %ifnarch armv7hl aarch64
-%{_sbindir}/xen-lowmemd
+%{_bindir}/xen-lowmemd
 %endif
-%{_sbindir}/xencov
+%{_bindir}/xencov
 %ifnarch armv7hl aarch64
-%{_sbindir}/xen-mfndump
+%{_bindir}/xen-mfndump
 %endif
 %{_bindir}/xenalyze
-%{_sbindir}/xentrace
-%{_sbindir}/xentrace_setsize
+%{_bindir}/xentrace
+%{_bindir}/xentrace_setsize
 %ifnarch armv7hl aarch64
 %{_bindir}/xen-cpuid
 %endif
-%{_sbindir}/xen-livepatch
-%{_sbindir}/xen-diag
+%{_bindir}/xen-livepatch
+%{_bindir}/xen-diag
 %ifnarch armv7hl aarch64
-%{_sbindir}/xen-ucode
-%{_sbindir}/xen-memshare
-%{_sbindir}/xen-mceinj
-%{_sbindir}/xen-vmtrace
+%{_bindir}/xen-ucode
+%{_bindir}/xen-memshare
+%{_bindir}/xen-mceinj
+%{_bindir}/xen-vmtrace
 %endif
 %{_bindir}/vchan-socket-proxy
-%{_sbindir}/xenhypfs
-%{_sbindir}/xen-access
+%{_bindir}/xenhypfs
+%{_bindir}/xen-access
 
 # Xen logfiles
 %dir %attr(0700,root,root) %{_localstatedir}/log/xen
@@ -920,7 +919,7 @@ fi
 %exclude %{_libdir}/ocaml/xen*/*.cmx
 %{_libdir}/ocaml/stublibs/*.so
 %{_libdir}/ocaml/stublibs/*.so.owner
-%{_sbindir}/oxenstored
+%{_bindir}/oxenstored
 %config(noreplace) %{_sysconfdir}/xen/oxenstored.conf
 %{_unitdir}/oxenstored.service
 
@@ -931,6 +930,10 @@ fi
 %endif
 
 %changelog
+* Thu Jan 23 2025 Michael Young <m.a.young@durham.ac.uk> - 4.19.1-6
+- adjust file locations now /usr/sbin is a symlink to /usr/bin
+- remove debugedit fix as no longer needed
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.19.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

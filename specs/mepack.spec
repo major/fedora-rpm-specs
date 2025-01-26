@@ -82,6 +82,7 @@ cp -R build/doc/man/man3 %{buildroot}%{_mandir}
 %endif
 
 %check
+export CTEST_OUTPUT_ON_FAILURE=1
 make -C build test
 %if 0%{?__isa_bits} == 64
 make -C build64 test

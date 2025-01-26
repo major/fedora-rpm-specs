@@ -1,7 +1,7 @@
 Summary: A security tool which acts as a wrapper for TCP daemons
 Name: tcp_wrappers
 Version: 7.6
-Release: 108%{?dist}
+Release: 110%{?dist}
 
 %global LIB_MAJOR 0
 %global LIB_MINOR 7
@@ -9,8 +9,8 @@ Release: 108%{?dist}
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
-Source: ftp://ftp.porcupine.org/pub/security/%{name}_%{version}-ipv6.4.tar.gz
-URL: ftp://ftp.porcupine.org/pub/security/index.html
+Source: https://github.com/tcp-wrappers/tarballs/blob/main/%{name}_%{version}-ipv6.4.tar.gz
+URL: https://github.com/tcp-wrappers
 Patch0: tcpw7.2-config.patch
 Patch1: tcpw7.2-setenv.patch
 Patch2: tcpw7.6-netgroup.patch
@@ -42,6 +42,9 @@ Patch30: tcp_wrappers-7.6-altformat.patch
 Patch31: tcp_wrappers-7.6-aclexec.patch
 Patch32: tcp_wrappers-inetcf-c99.patch
 # required by sin_scope_id in ipv6 patch
+# RFE: rhbz#2341423
+Patch33: tcp_wrappers-7.6-gcc15-errors.patch
+Patch34: tcp_wrappers-7.6-gcc15-warnings.patch
 BuildRequires: make
 BuildRequires: glibc-devel >= 2.2
 BuildRequires: libnsl2-devel
@@ -96,6 +99,8 @@ tcp_wrappers-libs contains the libraries of the tcp_wrappers package.
 %patch -P28 -p1 -b .warnings
 %patch -P31 -p1 -b .aclexec
 %patch -P32 -p1
+%patch -P33 -p1
+%patch -P34 -p1
 
 %build
 make \
@@ -152,6 +157,11 @@ rm -f ${RPM_BUILD_ROOT}%{_mandir}/man3/*
 
 
 %changelog
+* Fri Jan 24 2025 Peter Bieringer <pb@bieringer.de> - 7.6-110
+- add patch to fix errors on GCC 15 (#2341423)
+- add patch to fix some warnings
+- change URLs to GitHub repository
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.6-108
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

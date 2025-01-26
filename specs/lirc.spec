@@ -9,7 +9,7 @@
 
 Name:           lirc
 Version:        0.10.0
-Release:        46%{?tag:.}%{?tag}%{?dist}
+Release:        47%{?tag:.}%{?tag}%{?dist}
 Summary:        The Linux Infrared Remote Control package
 
 %global repo    http://downloads.sourceforge.net/lirc/LIRC/%{version}
@@ -338,14 +338,29 @@ systemd-tmpfiles --create %{_tmpfilesdir}/lirc.conf
 %{_unitdir}/lirc*
 %{_unitdir}/irexec.service
 %{_udevrulesdir}/60-lirc.rules
-%{_bindir}/*ir*
-%{_bindir}/*mode2
-%exclude %{_bindir}/irdb-get
-%exclude %{_bindir}/xmode2
-%exclude %{_bindir}/irxevent
-%exclude %{_bindir}/lirc-setup
-%exclude %{_bindir}/lirc-config-tool
-%{_sbindir}/lirc*
+%{_bindir}/ircat
+%{_bindir}/irexec
+%{_bindir}/irman2lirc
+%{_bindir}/irpipe
+%{_bindir}/irpty
+%{_bindir}/irrecord
+%{_bindir}/irsend
+%{_bindir}/irsimreceive
+%{_bindir}/irsimsend
+%{_bindir}/irtestcase
+%{_bindir}/irtext2udp
+%{_bindir}/irw
+%{_bindir}/lirc-init-db
+%{_bindir}/lirc-lsremotes
+%{_bindir}/lirc-make-devinput
+%{_bindir}/lircrcd
+%{_bindir}/mode2
+%{_bindir}/pronto2lirc
+%{_sbindir}/lirc-lsplugins
+%{_sbindir}/lircd
+%{_sbindir}/lircd-setup
+%{_sbindir}/lircd-uinput
+%{_sbindir}/lircmd
 %{_libdir}/lirc/plugins
 %exclude %{_libdir}/lirc/plugins/ftdi.so
 %exclude %{_libdir}/lirc/plugins/audio.so
@@ -355,18 +370,29 @@ systemd-tmpfiles --create %{_tmpfilesdir}/lirc.conf
 %{_localstatedir}/lib/lirc/images
 %{_localstatedir}/lib/lirc/plugins
 %exclude %{_datadir}/lirc/configs/*
-%{_mandir}/man1/*ir*.1*
-%{_mandir}/man1/*mode2*.1*
-%{_mandir}/man5/lircd.conf.*
-%{_mandir}/man5/lircrc.*
-%{_mandir}/man8/lirc*d.8*
+%{_mandir}/man1/ircat.1*
+%{_mandir}/man1/irexec.1*
+%{_mandir}/man1/irpipe.1*
+%{_mandir}/man1/irpty.1*
+%{_mandir}/man1/irrecord.1*
+%{_mandir}/man1/irsend.1*
+%{_mandir}/man1/irsimreceive.1*
+%{_mandir}/man1/irsimsend.1*
+%{_mandir}/man1/irtestcase.1*
+%{_mandir}/man1/irtext2udp.1*
+%{_mandir}/man1/irw.1*
+%{_mandir}/man1/lirc-lsplugins.1*
+%{_mandir}/man1/lirc-lsremotes.1*
+%{_mandir}/man1/lirc-make-devinput.1*
+%{_mandir}/man1/mode2.1*
+%{_mandir}/man1/pronto2lirc.1*
+%{_mandir}/man5/lircd.conf.5*
+%{_mandir}/man5/lircrc.5*
 %{_mandir}/man8/lircd-setup.8*
 %{_mandir}/man8/lircd-uinput.8*
-%exclude %{_mandir}/man1/lirc-config-tool*
-%exclude %{_mandir}/man1/irdb-get*
-%exclude %{_mandir}/man1/lirc-setup*
-%exclude %{_mandir}/man1/irxevent*
-%exclude %{_mandir}/man1/xmode2*
+%{_mandir}/man8/lircd.8*
+%{_mandir}/man8/lircmd.8*
+%{_mandir}/man8/lircrcd.8*
 
 %files libs
 %license COPYING COPYING.ciniparser COPYING.curl
@@ -396,6 +422,9 @@ systemd-tmpfiles --create %{_tmpfilesdir}/lirc.conf
 %{_udevrulesdir}/99-remote-control-lirc.rules
 
 %changelog
+* Fri Jan 24 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.10.0-47
+- Adjust file patterns for the sbin merge
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

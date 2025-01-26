@@ -6,7 +6,7 @@
 
 Name:           tog-pegasus
 Version:        %{major_ver}.1
-Release:        76%{?dist}
+Release:        77%{?dist}
 Epoch:          2
 Summary:        OpenPegasus WBEM Services for Linux
 
@@ -110,6 +110,8 @@ Patch46:        pegasus-2.14.1-build-fixes-2.patch
 Patch47:        pegasus-2.14.1-snmp-disable-des.patch
 # 48: add RISC-V support
 Patch48:        add-riscv64-support.patch
+# 49: bin and sbin unify
+Patch49:        tog-pegasus-2.14.1-bin-sbin-unify.patch
 
 BuildRequires:  procps, libstdc++, pam-devel
 BuildRequires:  openssl, openssl-devel
@@ -123,8 +125,8 @@ Requires:       %{name}-libs = %{epoch}:%{version}-%{release}
 Requires:       openssl
 Requires:       ca-certificates
 Provides:       cim-server = 1
-Requires(post): /sbin/ldconfig
-Requires(post): /sbin/restorecon
+Requires(post): /bin/ldconfig
+Requires(post): /bin/restorecon
 
 %description
 OpenPegasus WBEM Services for Linux enables management solutions that deliver
@@ -146,9 +148,9 @@ supports C provider developers via the CMPI interface.
 %package libs
 Summary:        The OpenPegasus Libraries
 Conflicts:      libcmpiCppImpl0
-Requires(pre):  /usr/sbin/useradd
-Requires(pre):  /usr/sbin/groupadd
-Requires(post): /sbin/ldconfig
+Requires(pre):  /usr/bin/useradd
+Requires(pre):  /usr/bin/groupadd
+Requires(post): /bin/ldconfig
 
 %description libs
 The OpenPegasus libraries.
@@ -223,7 +225,6 @@ The OpenPegasus WBEM tests for the OpenPegasus %{version} Linux rpm.
 %global PEGASUS_PREV_REPOSITORY_DIR_NAME prev_repository
 %global PEGASUS_REPOSITORY_PARENT_DIR /var/lib/Pegasus
 %global PEGASUS_PREV_REPOSITORY_DIR /var/lib/PegasusXXX/prev_repository
-%global PEGASUS_SBIN_DIR /usr/sbin
 %global PEGASUS_DOC_DIR /usr/share/doc/%{name}-%{version}
 
 %global PEGASUS_RPM_ROOT $RPM_BUILD_DIR/%{srcname}
@@ -268,6 +269,7 @@ yes | mak/CreateDmtfSchema 238 %{SOURCE9} cim_schema_2.38.0
 %patch -P46 -p1 -b .build-fixes-2
 %patch -P47 -p1 -b .snmp-disable-des
 %patch -P48 -p1 -b .add-riscv64-support
+%patch -P49 -p1 -b .bin-sbin-unify
 
 
 %build
@@ -351,8 +353,8 @@ ln -s libcmpiCppImpl.so.1 libcmpiCppImpl.so
 ln -s libpeglistener.so.1 libpeglistener.so
 popd
 mkdir -p $RPM_BUILD_ROOT/%{_libexecdir}/pegasus
-mv $RPM_BUILD_ROOT/%{_sbindir}/cimprovagt $RPM_BUILD_ROOT/%{_libexecdir}/pegasus
-install -p -m 0755 %{SOURCE7} $RPM_BUILD_ROOT/%{_sbindir}/cimprovagt
+mv $RPM_BUILD_ROOT/%{_bindir}/cimprovagt $RPM_BUILD_ROOT/%{_libexecdir}/pegasus
+install -p -m 0755 %{SOURCE7} $RPM_BUILD_ROOT/%{_bindir}/cimprovagt
 # install Platform_LINUX_XSCALE_GNU.h because of lmiwbem on arm
 install -m 644 src/Pegasus/Common/Platform_LINUX_XSCALE_GNU.h $RPM_BUILD_ROOT/%{_includedir}/Pegasus/Common
 # install Linkage.h and CIMListener.h because of lmiwbem (CIMListener class)
@@ -434,7 +436,6 @@ rm $RPM_BUILD_ROOT/usr/share/Pegasus/test/testtracer4.trace.0
 %ghost %attr(0644, root, root) %verify(not md5 size mtime) /var/lib/Pegasus/log/install.log
 %ghost %attr(0640, root, pegasus) %verify(not md5 size mtime) /var/lib/Pegasus/cache/trace/cimserver.trc
 %defattr(0755, root, pegasus, 0755)
-/usr/sbin/*
 /usr/bin/*
 %{_libexecdir}/pegasus/
 %defattr(0644, root, pegasus, 0755)
@@ -490,7 +491,7 @@ fi
 %post
 install -d -m 1750 -o root -g pegasus /var/run/tog-pegasus
 restorecon /var/run/tog-pegasus
-/sbin/ldconfig;
+/bin/ldconfig;
 %systemd_post tog-pegasus.service
 if [ $1 -ge 1 ]; then
    echo `date` >>  /var/lib/Pegasus/log/install.log 2>&1 || :;
@@ -498,7 +499,7 @@ if [ $1 -ge 1 ]; then
       if [ -d /var/lib/Pegasus/prev_repository ]; then
       #  The user's old repository was moved to /var/lib/Pegasus/prev_repository, which 
       #  now must be upgraded to the new repository in /var/lib/Pegasus/repository:
-         /usr/sbin/repupgrade 2>> /var/lib/Pegasus/log/install.log || :;
+         /usr/bin/repupgrade 2>> /var/lib/Pegasus/log/install.log || :;
       fi;
       /bin/systemctl try-restart tog-pegasus.service >/dev/null 2>&1 || :;
    fi;
@@ -514,7 +515,7 @@ fi
 :;
 
 %postun
-/sbin/ldconfig
+/bin/ldconfig
 %systemd_postun_with_restart tog-pegasus.service
 
 %preun devel
@@ -567,13 +568,16 @@ if [ $1 -eq 1 ]; then
    /bin/chgrp -h pegasus /usr/%{_lib}/Pegasus/providerManagers/libCMPIProviderManager.so
 fi
 :;
-/sbin/ldconfig
+/bin/ldconfig
 
 %postun libs
-/sbin/ldconfig
+/bin/ldconfig
 
 
 %changelog
+* Fri Jan 24 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2:2.14.1-77
+- Fix FTBFS (bin and sbin unify)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:2.14.1-76
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

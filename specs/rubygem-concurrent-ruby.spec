@@ -2,14 +2,14 @@
 %global gem_name concurrent-ruby
 
 Name: rubygem-%{gem_name}
-Version: 1.1.9
-Release: 8%{?dist}
+Version: 1.3.5
+Release: 1%{?dist}
 Summary: Modern concurrency tools for Ruby
 License: MIT
 URL: http://www.concurrent-ruby.com
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/ruby-concurrency/concurrent-ruby.git && cd concurrent-ruby
-# git archive -v -o concurrent-ruby-1.1.9-specs.tar.gz v1.1.9 spec/
+# git archive -v -o concurrent-ruby-1.3.5-specs.tar.gz v1.3.5 spec/
 Source1: %{gem_name}-%{version}-specs.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -37,6 +37,9 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
 
+# Remove bundled .jar
+%gemspec_remove_file 'lib/concurrent-ruby/concurrent/concurrent_ruby.jar'
+
 %build
 # Create the gem as gem install only works on a gem file
 gem build ../%{gem_name}-%{version}.gemspec
@@ -52,30 +55,24 @@ cp -a .%{gem_dir}/* \
 
 
 %check
-pushd .%{gem_instdir}
-ln -s %{_builddir}/spec spec
+( cd .%{gem_instdir}
+ln -s %{builddir}/spec spec
 
-# -edge is not part of this gem.
-sed -i '/require.*concurrent-edge/ s/^/#/' spec/spec_helper.rb
-
-# We don't have the C extension. It would need to come from concurrent-ruby-ext
-# and that would lead to cicrular dependency.
-sed -i '/allow_c_extensions?/,/^      end/ s/^/#/' spec/concurrent/atomic/atomic_reference_spec.rb
+# We don't have the C extension and the condition is broken with 1.3.5
+# https://github.com/ruby-concurrency/concurrent-ruby/issues/1080
+sed -i 's/allow_c_extensions/c_extensions_loaded/' \
+  spec/concurrent/atomic/atomic_{fixnum,reference,boolean}_spec.rb
 
 # Exclude the -edge test cases.
-#
-# Also exclude `scheduled_task_spec` and `timer_task_spec`,
-# because these are pretty unstable:
-# https://github.com/ruby-concurrency/concurrent-ruby/issues/824
 #
 # Require path must be exported due to
 # spec/concurrent/executor/executor_service_shared.rb spawning new Ruby instance
 RUBYOPT=-Ilib/concurrent-ruby rspec -rspec_helper \
   -fd \
-  --exclude-pattern 'spec/concurrent/{actor_spec.rb,channel_spec.rb,lazy_register_spec.rb,channel/**/*,edge/**/*,promises_spec.rb,throttle_spec.rb,cancellation_spec.rb,scheduled_task_spec.rb,timer_task_spec.rb,executor/wrapping_executor_spec.rb}' \
+  --exclude-pattern 'spec/concurrent/{actor_spec.rb,channel_spec.rb,lazy_register_spec.rb,channel/**/*,edge/**/*,processing_actor_spec.rb,promises_spec.rb,throttle_spec.rb,cancellation_spec.rb,executor/wrapping_executor_spec.rb}' \
   spec
 
-popd
+)
 
 %files
 %dir %{gem_instdir}
@@ -94,6 +91,10 @@ popd
 %{gem_instdir}/Rakefile
 
 %changelog
+* Mon Jan 20 2025 Vít Ondruch <vondruch@redhat.com> - 1.3.5-1
+- Update to Concurrent Ruby 1.3.5.
+  Resolves: rhbz#2066526
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.9-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -30,8 +30,8 @@
 
 Summary: Apache HTTP Server
 Name: httpd
-Version: 2.4.62
-Release: 6%{?dist}
+Version: 2.4.63
+Release: 1%{?dist}
 URL: https://httpd.apache.org/
 Source0: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
 Source1: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2.asc
@@ -99,18 +99,12 @@ Patch27: httpd-2.4.43-sslciphdefault.patch
 Patch28: httpd-2.4.43-sslprotdefault.patch
 Patch29: httpd-2.4.43-logjournal.patch
 Patch30: httpd-2.4.53-separate-systemd-fns.patch
-Patch31: httpd-2.4.58-r1912477+.patch
+Patch31: httpd-2.4.63-r1912477+.patch
 Patch32: httpd-2.4.54-selinux.patch
 
 # Bug fixes
 # https://bugzilla.redhat.com/show_bug.cgi?id=1397243
 Patch60: httpd-2.4.43-enable-sslv3.patch
-# https://bz.apache.org/bugzilla/show_bug.cgi?id=69197
-Patch61: httpd-2.4.62-r1919325.patch
-# https://github.com/apache/httpd/pull/473
-# https://github.com/apache/httpd/commit/c91445b7f905587aa86ad552f4a1a3f29345e695
-Patch62: httpd-2.4.62-r1920980+.patch
-
 
 # Security fixes
 # Patch200: ...
@@ -852,6 +846,9 @@ exit $rv
 %{_rpmconfigdir}/macros.d/macros.httpd
 
 %changelog
+* Fri Jan 24 2025 Luboš Uhliarik <luhliari@redhat.com> - 2.4.63-1
+- new version 2.4.63
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.62-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

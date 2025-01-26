@@ -1,7 +1,7 @@
 Summary: The standard UNIX FTP (File Transfer Protocol) client
 Name: ftp
 Version: 0.17
-Release: 97%{?dist}
+Release: 98%{?dist}
 License: BSD-4-Clause-UC
 # The Upstream of ftp is no longer active.
 # The source file for ftp is no longer available anywhere
@@ -43,10 +43,15 @@ Patch33: netkit-ftp-0.17-getlogin.patch
 Patch34: netkit-ftp-0.17-token.patch
 Patch35: netkit-ftp-0.17-linelen-segfault.patch
 Patch36: netkit-ftp-0.17-out-of-memory.patch
+Patch37: netkit-ftp-0.17-gcc15.patch
 
-BuildRequires: glibc-devel, readline-devel, ncurses-devel
-BuildRequires: perl-interpreter, gcc
+BuildRequires: glibc-devel
+BuildRequires: readline-devel
+BuildRequires: ncurses-devel
+BuildRequires: perl-interpreter
+BuildRequires: gcc
 BuildRequires: make
+BuildRequires: git-core
 
 %description
 The ftp package provides the standard UNIX command-line FTP (File
@@ -57,43 +62,7 @@ If your system is on a network, you should install ftp in order to do
 file transfers.
 
 %prep
-%setup -q -n netkit-ftp-%{version}
-%patch -P1 -p1
-%patch -P2 -p1 -b .acct
-%patch -P3 -p1 -b .ipv6
-%patch -P4 -p1 -b .segv
-%patch -P5 -p1 -b .volatile
-%patch -P6 -p1 -b .runique_mget
-%patch -P7 -p1 -b .locale
-%patch -P8 -p1 -b .printf
-%patch -P9 -p1 -b .longint
-%patch -P10 -p1 -b .vsftp165083
-%patch -P11 -p1 -b .C-Frame121
-%patch -P12 -p1 -b .data
-%patch -P13 -p1 -b .multihome
-%patch -P14 -p1 -b .patch
-%patch -P15 -p1 -b .multiipv6
-%patch -P16 -p1 -b .nodebug
-%patch -P17 -p1 -b .stamp
-%patch -P18 -p1 -b .sigseg
-%patch -P19 -p1 -b .size
-%patch -P20 -p1 -b .fdleak
-%patch -P21 -p1 -b .fprintf
-%patch -P22 -p1 -b .bitrate
-%patch -P23 -p1 -b .arg_max
-%patch -P24 -p1 -b .case
-%patch -P25 -p1 -b .chkmalloc
-%patch -P26 -p1 -b .man
-%patch -P27 -p1 -b .acct_ovl
-%patch -P28 -p1
-%patch -P29 -p1 -b .linelen
-%patch -P30 -p1 -b .activemode
-%patch -P31 -p1 -b .cmds-leaks
-%patch -P32 -p1 -b .lsn-timeout
-%patch -P33 -p1 -b .getlogin
-%patch -P34 -p1 -b .token
-%patch -P35 -p1 -b .linelen-segfault
-%patch -P36 -p1 -b .out-of-memory
+%autosetup -n netkit-ftp-%{version} -S git
 
 %build
 sh configure --with-c-compiler=%{__cc} --enable-ipv6
@@ -123,6 +92,9 @@ make INSTALLROOT=${RPM_BUILD_ROOT} install
 %{_mandir}/man5/netrc.*
 
 %changelog
+* Fri Jan 24 2025 Michal Ruprich <mruprich@redhat.com> - 0.17-98
+- Fixing build with GCC15
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-97
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -25,7 +25,7 @@
 
 # https://github.com/NVIDIA/nvidia-container-toolkit
 %global goipath         github.com/NVIDIA/nvidia-container-toolkit
-Version:                1.16.2
+Version:                1.17.0
 
 %gometa -L -f
 
@@ -62,7 +62,7 @@ Provides:       nvidia-container-toolkit = %{version}-%{release}
 %if %{without bootstrap}
 %build
 # %%goprep calls %%goenv, which sets currentgoldflags to:
-# -X github.com/NVIDIA/nvidia-container-toolkit/version=1.16.2
+# -X github.com/NVIDIA/nvidia-container-toolkit/version=1.17.0
 #
 # Unfortunately, this definition is incorrect.  So, correct it.
 %undefine currentgoldflags
@@ -86,18 +86,22 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 # The cmd/nvidia-container-runtime test fails with:
 # exec: "nvidia-container-runtime": executable file not found in $PATH
 #
-# ... with both the proprietary NVIDIA driver version 555.58.02 and without.
+# ... because the executable is not being built.
+#
+# The internal/lookup/root test fails with the proprietary NVIDIA driver
+# version 565.77 and without.
 #
 # The internal/runtime test failed on a Koji s390x builder with:
 # fatal error: runtime: out of memory
 #
 # The internal/system/nvdevices test fails with the proprietary NVIDIA driver
-# version 555.58.02.
+# version 565.77.
 #
 # %%gocheck calls %%goenv, which again sets currentgoldflags incorrectly as
 # described above.  Hopefully, it won't disrupt the tests.
 %gocheck \
   -d cmd/nvidia-container-runtime \
+  -d internal/lookup/root \
 %ifarch s390x
   -d internal/runtime \
 %endif

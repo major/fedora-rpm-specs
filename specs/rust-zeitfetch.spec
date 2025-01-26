@@ -4,7 +4,7 @@
 %global crate zeitfetch
 
 Name:           rust-zeitfetch
-Version:        0.1.13
+Version:        0.1.14
 Release:        %autorelease
 Summary:        Instantaneous snapshots of cross-platform system information
 
@@ -13,9 +13,6 @@ URL:            https://crates.io/crates/zeitfetch
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          zeitfetch-fix-metadata-auto.diff
-# Manually created patch for downstream crate metadata changes
-# * Allow rstest 0.23: https://github.com/nidnogg/zeitfetch/pull/22
-Patch:          zeitfetch-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

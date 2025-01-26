@@ -8,6 +8,7 @@ URL:            https://sr.ht/~exec64/imv/
 Source:         https://git.sr.ht/~exec64/imv/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 # https://lists.sr.ht/~exec64/imv-devel/patches/41580
 Patch:          imv-4.4.0-libheif-support-fixes.patch
+Patch:          imv-4.5.0-Link-to-the-common-ICU-library.patch
 
 BuildRequires:  asciidoc
 BuildRequires:  desktop-file-utils
@@ -15,7 +16,7 @@ BuildRequires:  gcc
 BuildRequires:  meson
 BuildRequires:  pkgconfig(cmocka)
 BuildRequires:  pkgconfig(gl)
-BuildRequires:  pkgconfig(icu-io)
+BuildRequires:  pkgconfig(icu-uc)
 BuildRequires:  pkgconfig(inih)
 BuildRequires:  pkgconfig(pangocairo)
 BuildRequires:  pkgconfig(xkbcommon)

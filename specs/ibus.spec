@@ -62,7 +62,7 @@
 Name:           ibus
 Version:        1.5.32~beta1
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -639,6 +639,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Fri Jan 24 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.32~beta1-4
+- Resolves #2340631 ibus-engine-gui-ci FTBFS
+
 * Fri Jan 24 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.32~beta1-3
 - Resolves #2340629 declaration errors with GCC 15
 - Resolves #2340629 incompatible-pointer-types in TransportSW.checkAddr

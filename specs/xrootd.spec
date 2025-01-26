@@ -14,7 +14,7 @@
 Name:		xrootd
 Epoch:		1
 Version:	5.7.2
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Extended ROOT file server
 License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib
 URL:		https://xrootd.web.cern.ch
@@ -269,6 +269,7 @@ This package contains the API documentation of the xrootd libraries.
 
 %build
 %cmake \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DFORCE_ENABLED:BOOL=ON \
     -DENABLE_TESTS:BOOL=ON \
 %if %{ceph}
@@ -657,6 +658,9 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Thu Jan 23 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.7.2-4
+- Use CMAKE_BUILD_TYPE RelWithDebInfo to avoid -Werror in compiler flags
+
 * Sun Jan 19 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.7.2-3
 - Fix compilation errors with GCC 15
 

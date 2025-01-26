@@ -4,10 +4,10 @@
 
 %global glibmm_version 2.68.0
 %global cairomm_version 1.15.1
-%global pango_version 1.54.0
+%global pango_version 1.56.0
 
 Name:           pangomm2.48
-Version:        2.54.0
+Version:        2.56.1
 Release:        %autorelease
 Summary:        C++ interface for Pango
 

@@ -1,18 +1,27 @@
+%global candidate rc2
+
 Name:           kicad
-Version:        8.0.8
-Release:        3%{?dist}
+Version:        9.0.0
+Release:        0.1.%{candidate}%{?dist}
 Epoch:          1
 Summary:        EDA software suite for creation of schematic diagrams and PCBs
 
 License:        GPL-3.0-or-later
 URL:            https://www.kicad.org
 
-Source0:        https://gitlab.com/kicad/code/kicad/-/archive/%{version}/kicad-%{version}.tar.gz
-Source1:        https://gitlab.com/kicad/services/kicad-doc/-/archive/%{version}/kicad-doc-%{version}.tar.gz
-Source2:        https://gitlab.com/kicad/libraries/kicad-templates/-/archive/%{version}/kicad-templates-%{version}.tar.gz
-Source3:        https://gitlab.com/kicad/libraries/kicad-symbols/-/archive/%{version}/kicad-symbols-%{version}.tar.gz
-Source4:        https://gitlab.com/kicad/libraries/kicad-footprints/-/archive/%{version}/kicad-footprints-%{version}.tar.gz
-Source5:        https://gitlab.com/kicad/libraries/kicad-packages3D/-/archive/%{version}/kicad-packages3D-%{version}.tar.gz
+# Source0:        https://gitlab.com/kicad/code/kicad/-/archive/%%{version}/kicad-%%{version}.tar.gz
+# Source1:        https://gitlab.com/kicad/services/kicad-doc/-/archive/%%{version}/kicad-doc-%%{version}.tar.gz
+# Source2:        https://gitlab.com/kicad/libraries/kicad-templates/-/archive/%%{version}/kicad-templates-%%{version}.tar.gz
+# Source3:        https://gitlab.com/kicad/libraries/kicad-symbols/-/archive/%%{version}/kicad-symbols-%%{version}.tar.gz
+# Source4:        https://gitlab.com/kicad/libraries/kicad-footprints/-/archive/%%{version}/kicad-footprints-%%{version}.tar.gz
+# Source5:        https://gitlab.com/kicad/libraries/kicad-packages3D/-/archive/%%{version}/kicad-packages3D-%%{version}.tar.gz
+
+Source0:        https://gitlab.com/kicad/code/kicad/-/archive/%{version}-%{candidate}/kicad-%{version}-%{candidate}.tar.gz
+Source1:        https://gitlab.com/kicad/services/kicad-doc/-/archive/%{version}-%{candidate}/kicad-doc-%{version}-%{candidate}.tar.gz
+Source2:        https://gitlab.com/kicad/libraries/kicad-templates/-/archive/%{version}-%{candidate}/kicad-templates-%{version}-%{candidate}.tar.gz
+Source3:        https://gitlab.com/kicad/libraries/kicad-symbols/-/archive/%{version}-%{candidate}/kicad-symbols-%{version}-%{candidate}.tar.gz
+Source4:        https://gitlab.com/kicad/libraries/kicad-footprints/-/archive/%{version}-%{candidate}/kicad-footprints-%{version}-%{candidate}.tar.gz
+Source5:        https://gitlab.com/kicad/libraries/kicad-packages3D/-/archive/%{version}-%{candidate}/kicad-packages3D-%{version}-%{candidate}.tar.gz
 
 # https://gitlab.com/kicad/code/kicad/-/issues/237
 ExclusiveArch:  x86_64 aarch64 ppc64le
@@ -30,8 +39,12 @@ BuildRequires:  libcurl-devel
 BuildRequires:  libgit2-devel
 BuildRequires:  libngspice-devel
 BuildRequires:  libsecret-devel
+BuildRequires:  libzstd-devel
 BuildRequires:  make
+BuildRequires:  nng-devel
 BuildRequires:  opencascade-devel
+BuildRequires:  protobuf-compiler
+BuildRequires:  protobuf-devel
 BuildRequires:  python3-devel
 BuildRequires:  python3-wxpython4
 BuildRequires:  shared-mime-info
@@ -54,6 +67,7 @@ Requires:       libgit2
 Requires:       libngspice
 Requires:       libsecret
 Requires:       ngspice-codemodel
+Requires:       protobuf
 Requires:       python3-wxpython4
 Requires:       unixODBC
 
@@ -68,7 +82,7 @@ diagrams and printed circuit board artwork of up to
 Summary:        3D Models for KiCad
 License:        CC-BY-SA
 BuildArch:      noarch
-Requires:       kicad >= 8.0.0
+Requires:       kicad >= 9.0.0
 
 %description    packages3d
 3D Models for KiCad.
@@ -83,12 +97,37 @@ Documentation for KiCad.
 
 
 %prep
-%setup -q -a 1 -a 2 -a 3 -a 4 -a 5
+# The -rc2 source tar has a root directory that includes the -rc2
+# name component, so we have to account for that.
+%setup -n %{name}-%{version}-%{candidate} -q
+
+# The doc repo will create a tar with -rc2 in the root dir name.  We
+# rename the dir to remove the -rc2 portion.  The remaining tars need
+# similar adjustments.
+%setup -n kicad-%{version}-%{candidate} -q -D -T -a 1
+mv kicad-doc-%{version}-%{candidate} kicad-doc-%{version}
+
+%setup -n kicad-%{version}-%{candidate} -q -D -T -a 2
+mv kicad-templates-%{version}-%{candidate} kicad-templates-%{version}
+
+%setup -n kicad-%{version}-%{candidate} -q -D -T -a 3
+mv kicad-symbols-%{version}-%{candidate} kicad-symbols-%{version}
+
+%setup -n kicad-%{version}-%{candidate} -q -D -T -a 4
+mv kicad-footprints-%{version}-%{candidate} kicad-footprints-%{version}
+
+%setup -n kicad-%{version}-%{candidate} -q -D -T -a 5
+mv kicad-packages3D-%{version}-%{candidate} kicad-packages3D-%{version}
+
+# Once we get beyond the rc stage, we will be able to replace the above
+# with:
+#%%setup -q -a 1 -a 2 -a 3 -a 4 -a 5
 
 %build
 
 # KiCad application
 %cmake \
+    -DKICAD_IPC_API=ON \
     -DKICAD_SCRIPTING_WXPYTHON=ON \
     -DKICAD_USE_OCC=ON \
     -DKICAD_INSTALL_DEMOS=ON \
@@ -96,9 +135,10 @@ Documentation for KiCad.
     -DKICAD_BUILD_I18N=ON \
     -DKICAD_I18N_UNIX_STRICT_PATH=ON \
     -DKICAD_USE_EGL=OFF \
+    -DKICAD_USE_CMAKE_FINDPROTOBUF=ON \
+    -DKICAD_VERSION_EXTRA=%{release} \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-    -DPYTHON_SITE_PACKAGE_PATH=%{python3_sitearch} \
-    -DKICAD_VERSION_EXTRA=%{release}
+    -DPYTHON_SITE_PACKAGE_PATH=%{python3_sitearch}
 %cmake_build
 
 # Templates
@@ -186,6 +226,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %doc AUTHORS.txt
 %attr(0755, root, root) %{_bindir}/*
 %{_libdir}/%{name}/
+%{_libdir}/libkiapi.so*
 %{_libdir}/libkicad_3dsg.so*
 %{_libdir}/libkigal.so*
 %{_libdir}/libkicommon.so*
@@ -211,6 +252,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Fri Jan 24 2025 Steven A. Falco <stevenfalco@gmail.com> - 1:9.0.0-0.1.rc2
+- Update to 9.0.0-rc2
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.0.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

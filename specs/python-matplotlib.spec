@@ -65,6 +65,9 @@ Patch0001:      0004-Use-old-stride_windows-implementation-on-32-bit-x86.patch
 # Temporary fix for some tests.
 Patch0002:      0005-Partially-revert-TST-Fix-minor-issues-in-interactive.patch
 
+# https://github.com/matplotlib/matplotlib/pull/29518
+Patch0003:      0006-Increase-tolerance-on-more-arches.patch
+
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  glibc-langpack-en

@@ -22,7 +22,7 @@ Documentation for Brian2 can be found at http://brian2.readthedocs.org}
 %global forgeurl https://github.com/brian-team/brian2
 
 Name:           python-brian2
-Version:        2.8.0.1
+Version:        2.8.0.4
 Release:        %autorelease
 Summary:        A clock-driven simulator for spiking neural networks
 

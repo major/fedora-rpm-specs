@@ -23,7 +23,7 @@
 
 # main source 
 %global forgeurl0 https://github.com/fcitx/mozc
-%global commit0   0cbb8f18e8df5eb4e110bab850cebc1f57811f16
+%global commit0   c0ed34eaa1f39d2106554f4811969ebea04c1f0f
 
 # BSD 2-Clause license
 # src/third_party/japanese_usage_dictionary

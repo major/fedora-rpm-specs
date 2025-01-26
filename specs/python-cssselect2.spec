@@ -2,20 +2,19 @@
 
 Name:           python-%{srcname}
 Version:        0.7.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        CSS selectors for Python ElementTree
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
-URL:            https://%{srcname}.readthedocs.io/
+License:        BSD-3-Clause
+URL:            https://doc.courtbouillon.org/cssselect2/stable/
 BuildArch:      noarch
-Source0:        %pypi_source
+Source0:        %{pypi_source cssselect2}
 
 BuildRequires:  python3-devel
 
 %description
 cssselect2 is a straightforward implementation of CSS4 Selectors for markup
 documents (HTML, XML, etc.) that can be read by ElementTree-like parsers,
-including cElementTree, lxml, html5lib_, etc.
+including cElementTree, lxml, html5lib, etc.
 
 
 %package -n python3-%{srcname}
@@ -24,7 +23,7 @@ Summary:        %{summary}
 %description -n python3-%{srcname}
 cssselect2 is a straightforward implementation of CSS4 Selectors for markup
 documents (HTML, XML, etc.) that can be read by ElementTree-like parsers,
-including cElementTree, lxml, html5lib_, etc.
+including cElementTree, lxml, html5lib, etc.
 
 
 %prep
@@ -57,6 +56,9 @@ sed -i -e "s/, 'flake8'//" -e "s/, 'isort'//" pyproject.toml
 
 
 %changelog
+* Fri Jan 24 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 0.7.0-11
+- SPDX migration
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -19,7 +19,7 @@
 
 # https://github.com/gohugoio/hugo
 %global goipath github.com/gohugoio/hugo
-Version:        0.140.2
+Version:        0.142.0
 
 %gometa -f
 
@@ -42,12 +42,6 @@ Source0:        %{gosource}
 # Skip tests that uses the network.
 # Based on https://sources.debian.org/data/main/h/hugo/0.58.3-1/debian/patches/0005-skip-modules-TestClient.patch
 Patch0001:      0010-skip-modules-TestClient.patch
-# Fix build on Go 1.24.
-# Submitted upstream as https://github.com/gohugoio/hugo/pull/13285
-Patch0002:      0020-remove-non-const-fmt-string.patch
-# Backport s390x exception, allowing return of tpl-tplimpl check.
-# See also https://github.com/gohugoio/hugo/issues/13204
-Patch0003:      0001-tpl-tplimpl-Skip-TestTemplateFuncsExamples-on-s390x.patch
 
 BuildRequires:  golang(github.com/bep/golibsass/libsass) >= 0.7.0
 BuildRequires:  golang-github-gohugoio-hugo-goldmark-extensions-devel
@@ -120,6 +114,7 @@ install -Dp man/* -t %{buildroot}%{_mandir}/man1
 # langs/i18n: fails with current Rawhide
 # resources/resource_factories/bundler: uses networking
 # resources/resource_factories/create: uses networking
+# tpl/tplimpl: uses networking (render-tweet)
 %gocheck \
 	-d . \
 	-d cache/dynacache \
@@ -129,6 +124,7 @@ install -Dp man/* -t %{buildroot}%{_mandir}/man1
 	-d langs/i18n \
 	-d resources/resource_factories/bundler \
 	-d resources/resource_factories/create \
+	-d tpl/tplimpl \
 
 %endif
 

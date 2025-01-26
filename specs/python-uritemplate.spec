@@ -5,12 +5,11 @@
 
 Name:           python-%{modname}
 Version:        4.1.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Simple python library to deal with URI Templates (RFC 6570)
 
-# Automatically converted from old format: BSD or ASL 2.0 - review is highly recommended.
-License:        LicenseRef-Callaway-BSD OR Apache-2.0
-URL:            https://%{modname}.readthedocs.io
+License:        BSD-3-Clause OR Apache-2.0
+URL:            https://uritemplate.io.readthedocs
 Source0:        https://github.com/sigmavirus24/%{modname}/archive/%{version}/%{modname}-%{version}.tar.gz
 
 BuildArch:      noarch
@@ -21,7 +20,6 @@ BuildArch:      noarch
 %package -n python3-%{modname}
 Summary:        %{summary}
 Conflicts:      python3-uri-templates
-%{?python_provide:%python_provide python3-%{modname}}
 %{?python_provide:%python_provide python3-%{altname}}
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -35,22 +33,29 @@ Python 3 version.
 %prep
 %autosetup -n uritemplate-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires -r
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{modname}
 
 %check
-PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version} -v
+%pytest
 
-%files -n python3-%{modname}
-%license LICENSE LICENSE.APACHE LICENSE.BSD
+%files -n python3-%{modname} -f %{pyproject_files}
+# setup.cfg declares only "LICENSE" as license file so we have to add these two
+# manually
+%license LICENSE.APACHE LICENSE.BSD
 %doc HISTORY.rst README.rst
-%{python3_sitelib}/%{modname}-*.egg-info/
-%{python3_sitelib}/%{modname}/
 
 %changelog
+* Fri Jan 24 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 4.1.1-13
+- SPDX license review
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           btrfs-progs
 Version:        6.12
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Userspace programs for btrfs
 
 License:        GPL-2.0-only
@@ -11,6 +11,10 @@ URL:            https://btrfs.wiki.kernel.org/index.php/Main_Page
 Source0:        https://www.kernel.org/pub/linux/kernel/people/kdave/%{name}/%{name}-v%{version_no_tilde}.tar.xz
 Source1:        https://www.kernel.org/pub/linux/kernel/people/kdave/%{name}/%{name}-v%{version_no_tilde}.tar.sign
 Source2:        gpgkey-F2B41200C54EFB30380C1756C565D5F9D76D583B.gpg
+
+# Special patch source, conditionally applied
+## Disable RAID56 modes (RHEL-only)
+Source1001:     1001-balance-mkfs-Disable-raid56-modes.patch
 
 BuildRequires:  gnupg2
 BuildRequires:  gcc, autoconf, automake, make
@@ -91,6 +95,11 @@ btrfs filesystem-specific programs in Python.
 xzcat '%{SOURCE0}' | %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data=-
 %autosetup -n %{name}-v%{version_no_tilde} -S git_am
 
+%if 0%{?rhel}
+# Specially apply this source
+%{?__scm_source_timestamp:GIT_COMMITTER_DATE=%{__scm_source_timestamp}} git am --reject %{SOURCE1001}
+%endif
+
 %build
 ./autogen.sh
 %configure CFLAGS="%{optflags} -fno-strict-aliasing" --with-crypto=libgcrypt --disable-python
@@ -150,6 +159,9 @@ popd
 %{python3_sitearch}/btrfsutil-*.egg-info/
 
 %changelog
+* Fri Jan 24 2025 Neal Gompa <ngompa@centosproject.org> - 6.12-3
+- Add RHEL-only downstream patch to disable raid56 modes for now
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

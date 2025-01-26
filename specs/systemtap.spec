@@ -14,7 +14,7 @@
 %{!?with_rpm: %global with_rpm 1}
 %{!?elfutils_version: %global elfutils_version 0.179}
 %{!?with_boost: %global with_boost 0}
-%ifarch %{ix86} x86_64 ppc ppc64 ppc64le aarch64
+%ifarch x86_64 ppc ppc64 ppc64le aarch64
 %{!?with_dyninst: %global with_dyninst 0%{?fedora} >= 18 || 0%{?rhel} >= 7}
 %else
 %{!?with_dyninst: %global with_dyninst 0}
@@ -125,7 +125,7 @@ m     stapdev  stapdev
 Name: systemtap
 # PRERELEASE
 Version: 5.3~pre17373816g7a71d34b
-Release: 1%{?release_override}%{?dist}
+Release: 4%{?release_override}%{?dist}
 # for version, see also configure.ac
 
 
@@ -175,7 +175,7 @@ BuildRequires: pkgconfig(libdebuginfod)
 BuildRequires: pkgconfig(json-c)
 %endif
 %if %{with_dyninst}
-BuildRequires: dyninst-devel >= 10.0
+BuildRequires: dyninst-devel >= 13.0
 BuildRequires: pkgconfig(libselinux)
 %endif
 %if %{with_sqlite}
@@ -1342,6 +1342,9 @@ exit 0
 
 # PRERELEASE
 %changelog
+* Fri Jan 24 2025 Frank Ch. Eigler <fche@redhat.com> - 5.3~pre17373816g7a71d34b.3
+- Respin against dyninst 13, sans dyninst on i686.
+
 * Mon Jan 20 2025 Frank Ch. Eigler <fche@redhat.com> - 5.3-17373816g7a71d34b
 - Automated weekly rawhide release
 - Applied spec changes from upstream git

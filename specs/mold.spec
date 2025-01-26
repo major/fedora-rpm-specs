@@ -18,7 +18,7 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         0001-Use-system-compatible-include-path-for-xxhash.h.patch
 
 # Possibly https://sourceware.org/bugzilla/show_bug.cgi?id=29655
-Patch1:         0002-ELF-S390X-Skip-another-test-that-fails-with-GCC-14.patch
+Patch1:         0002-ELF-S390X-Skip-tests-that-fail-due-to-buggy-code-pro.patch
 
 BuildRequires:  blake3-devel
 BuildRequires:  cmake

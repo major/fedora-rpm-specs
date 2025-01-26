@@ -1,12 +1,11 @@
 %global srcname rospkg
 
 Name:           python-%{srcname}
-Version:        1.5.1
-Release:        5%{?dist}
+Version:        1.6.0
+Release:        1%{?dist}
 Summary:        Utilities for ROS package, stack, and distribution information
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            http://ros.org/wiki/rospkg
 Source0:        https://github.com/ros-infrastructure/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
@@ -31,7 +30,7 @@ HTML documentation for the '%{srcname}' Python module.
 
 
 %package -n python%{python3_pkgversion}-%{srcname}
-Summary:        %{summary}
+Summary:        Utilities for ROS package, stack, and distribution information
 BuildRequires:  python%{python3_pkgversion}-catkin_pkg
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-distro
@@ -47,9 +46,7 @@ Requires:       python%{python3_pkgversion}-distro
 Requires:       python%{python3_pkgversion}-PyYAML
 %endif
 
-%if 0%{?fedora} || 0%{?rhel} >= 8
 Suggests:       %{name}-doc = %{version}-%{release}
-%endif
 
 %description -n python%{python3_pkgversion}-%{srcname}
 The ROS packaging system simplifies development and distribution of code
@@ -104,6 +101,12 @@ export LANG=en_US.UTF-8
 
 
 %changelog
+* Fri Jan 24 2025 Scott K Logan <logans@cottsay.net> - 1.6.0-1
+- Update to 1.6.0 (rhbz#2342035)
+- Drop spec file support for RHEL 7
+- Review SPDX licensing
+- Fix summary on Python 3 subpackage
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

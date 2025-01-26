@@ -1,59 +1,62 @@
-Name:          lxqt-session
-Summary:       Main session for LXQt desktop suite
-Version:       2.1.1
-Release:       3%{?dist}
-License:       LGPL-2.1-only
-URL:           https://lxqt-project.org/
-Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+Name:         lxqt-session
+Summary:      Main session for LXQt desktop suite
+Version:      2.1.1
+Release:      4%{?dist}
+License:      LGPL-2.1-only
+URL:          https://lxqt-project.org/
+Source0:      https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
 # Backports from upstream
 
 # Proposed upstream
+# https://github.com/lxqt/lxqt-session/pull/571
+Patch0101:    0101-Add-miriway-entry-for-Wayland-window-managers.patch
 
 # Downstream only
-Patch1001:     1001-Drop-niri-entry-for-Wayland-window-managers.patch
-Patch1002:     1002-Drop-Hyprland-entry-for-Wayland-window-managers.patch
+Patch1001:    1001-Drop-niri-entry-for-Wayland-window-managers.patch
+Patch1002:    1002-Drop-Hyprland-entry-for-Wayland-window-managers.patch
 
 
-BuildRequires: cmake
-BuildRequires: gcc-c++
-BuildRequires: pkgconfig(lxqt)
-BuildRequires: cmake(Qt6DBus)
-BuildRequires: cmake(Qt6LinguistTools)
-BuildRequires: cmake(KF6WindowSystem)
-BuildRequires: cmake(LayerShellQt)
-BuildRequires: cmake(lxqt2-build-tools)
-BuildRequires: pkgconfig(xcb)
-BuildRequires: pkgconfig(x11)
-BuildRequires: pkgconfig(libudev)
-BuildRequires: desktop-file-utils
-BuildRequires: pkgconfig(glib-2.0)
-BuildRequires: pkgconfig(libproc2)
-BuildRequires: qtxdg-tools
-BuildRequires: perl
+BuildRequires:  cmake
+BuildRequires:  gcc-c++
+BuildRequires:  git-core
+BuildRequires:  pkgconfig(lxqt)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6LinguistTools)
+BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(LayerShellQt)
+BuildRequires:  cmake(lxqt2-build-tools)
+BuildRequires:  pkgconfig(xcb)
+BuildRequires:  pkgconfig(x11)
+BuildRequires:  pkgconfig(libudev)
+BuildRequires:  desktop-file-utils
+BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(libproc2)
+BuildRequires:  qtxdg-tools
+BuildRequires:  perl
 
-Requires:      dbus-x11
-Requires:      openbox-theme-mistral-thin
+Requires:     dbus-x11
+Requires:     openbox-theme-mistral-thin
 #Needs Updated
 #Requires:      lxqt-themes-fedora
 
 %if 0%{?fedora}
 # use pcmanfm-qt for default desktop
-Recommends:    pcmanfm-qt
+Recommends:   pcmanfm-qt
 %endif
 
 %description
 %{summary}.
 
 %package l10n
-BuildArch:      noarch
-Summary:        Translations for lxqt-session
-Requires:       lxqt-session
+BuildArch:    noarch
+Summary:      Translations for lxqt-session
+Requires:     lxqt-session
 %description l10n
 This package provides translations for the lxqt-session package.
 
 %prep
-%autosetup -p1
+%autosetup -S git_am
 
 %build
 %cmake
@@ -61,9 +64,9 @@ This package provides translations for the lxqt-session package.
 
 %install
 %cmake_install
-for name in config-session hibernate lockscreen logout reboot shutdown suspend; do 
-	desktop-file-edit --remove-category=LXQt --add-category=X-LXQt \
-		--remove-only-show-in=LXQt --add-only-show-in=X-LXQt %{buildroot}%{_datadir}/applications/lxqt-${name}.desktop
+for name in config-session hibernate lockscreen logout reboot shutdown suspend; do
+  desktop-file-edit --remove-category=LXQt --add-category=X-LXQt \
+    --remove-only-show-in=LXQt --add-only-show-in=X-LXQt %{buildroot}%{_datadir}/applications/lxqt-${name}.desktop
 done
 mkdir %{buildroot}%{_sysconfdir}/lxqt/
 cp %{buildroot}%{_datadir}/lxqt/lxqt.conf %{buildroot}%{_datadir}/lxqt/session.conf %{buildroot}%{_sysconfdir}/lxqt/
@@ -72,19 +75,21 @@ sed -i 's/theme=frost/theme=fedora-lxqt/g;s/icon_theme=oxygen/icon_theme=breeze/
 sed -i 's/cursor_theme=whiteglass/cursor_theme=breeze_cursors/g;/General/a window_manager=openbox' %{buildroot}%{_sysconfdir}/lxqt/session.conf
 %endif
 
-
 %find_lang lxqt-session --with-qt
 %find_lang lxqt-config-session --with-qt
 %find_lang lxqt-leave --with-qt
 
+
 %files
+%dir %{_sysconfdir}/lxqt
 %{_bindir}/lxqt-session
 %{_bindir}/lxqt-config-session
 %{_bindir}/lxqt-leave
 %{_bindir}/startlxqt
 %{_datadir}/applications/*.desktop
-%{_sysconfdir}/xdg/autostart/lxqt-xscreensaver-autostart.desktop
-%{_sysconfdir}/lxqt/
+%config(noreplace) %{_sysconfdir}/xdg/autostart/lxqt-xscreensaver-autostart.desktop
+%config(noreplace) %{_sysconfdir}/lxqt/session.conf
+%config(noreplace) %{_sysconfdir}/lxqt/lxqt.conf
 %{_datadir}/lxqt/lxqt.conf
 %{_datadir}/lxqt/session.conf
 %{_datadir}/lxqt/windowmanagers.conf
@@ -110,6 +115,9 @@ sed -i 's/cursor_theme=whiteglass/cursor_theme=breeze_cursors/g;/General/a windo
 %{_datadir}/lxqt/translations/lxqt-session/lxqt-session_arn.qm
 
 %changelog
+* Fri Jan 24 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 2.1.1-4
+- Add miriway option
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

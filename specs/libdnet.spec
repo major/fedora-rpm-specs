@@ -8,7 +8,7 @@ Version:       1.18.0
 %global tag libdnet-%{version}
 %forgemeta
 
-Release:       5%{?dist}
+Release:       6%{?dist}
 URL:           %{forgeurl}
 Source:        %{forgesource}
 
@@ -82,19 +82,23 @@ popd
 %{_libdir}/*.so.*
 
 %files devel
-%{_bindir}/*
-%{_libdir}/*.so
-%{_includedir}/*
-%{_mandir}/man3/*.3*
+%{_bindir}/dnet-config
+%{_libdir}/libdnet.so
+%{_includedir}/dnet.h
+%{_includedir}/dnet/
+%{_mandir}/man3/dnet.3*
 
 %files progs
-%{_sbindir}/*
-%{_mandir}/man8/*.8*
+%{_sbindir}/dnet
+%{_mandir}/man8/dnet.8*
 
 %files -n python%{python3_pkgversion}-libdnet
 %{python3_sitearch}/*
 
 %changelog
+* Fri Jan 24 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.18.0-6
+- Adjust file patterns for the sbin merge
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

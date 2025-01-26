@@ -1,10 +1,9 @@
 Summary: Tools to support ATM networking under Linux
 Name: linux-atm
 Version: 2.5.1
-Release: 42%{?dist}
+Release: 44%{?dist}
 # The licensing here is a mess. This is as close to accurate as possible.
-# Automatically converted from old format: BSD and GPLv2 and GPLv2+ and LGPLv2+ and MIT - review is highly recommended.
-License: LicenseRef-Callaway-BSD AND GPL-2.0-only AND GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-MIT
+License: GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: http://linux-atm.sourceforge.net/
 Source0: http://downloads.sf.net/%{name}/%{name}-%{version}.tgz
 
@@ -33,14 +32,14 @@ Patch8: siocgstamp.patch
 Patch9: linux-atm-2.5.1-disable-zntune.patch
 Patch10: linux-atm-c99.patch
 Patch11: linux-atm-use_socklen_t.patch
+Patch12: linux-atm-dont-use-bool-keyword.patch
 
 %description
 Tools to support ATM networking under Linux.
 
 %package libs
 Summary: Linux ATM API library
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License: LicenseRef-Callaway-LGPLv2+
+License: LGPL-2.0-or-later
 
 %description libs
 This package contains the ATM library required for user space ATM tools.
@@ -113,6 +112,12 @@ rm -rf _doc/init-redhat/{CVS,.cvsignore}
 %{_libdir}/libatm.so
 
 %changelog
+* Fri Jan 24 2025 Frantisek Sumsal <frantisek@sumsal.cz> - 2.5.1-44
+- Update package license to make rpminspect happy
+
+* Fri Jan 24 2025 Frantisek Sumsal <frantisek@sumsal.cz> - 2.5.1-43
+- Fix FTBFS with gcc-15 (rhbz#2340776)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

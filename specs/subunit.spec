@@ -19,6 +19,8 @@ License:        Apache-2.0 OR BSD-3-Clause
 URL:            https://launchpad.net/subunit
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/%{version}/%{name}-%{version}.tar.gz
+# Add another possible byte ordering to TestSubUnitTags.test_add_tag
+Patch:          %{name}-test-ordering.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -251,6 +253,9 @@ make check
 %{_bindir}/tap2subunit
 
 %changelog
+* Thu Jan 23 2025 Jerry James <loganjerry@gmail.com> - 1.4.4-5
+- Add patch to work around a test failure
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

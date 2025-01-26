@@ -238,6 +238,9 @@ Patch70: hplip-hpaio-gcc14.patch
 # format is no longer method in locale module
 # https://bugs.launchpad.net/hplip/+bug/2045507
 Patch71: hplip-locale-format.patch
+# function prototype did not specify argument's data types
+# https://bugs.launchpad.net/hplip/+bug/2096650
+Patch72: hplip-gcc15-stdc23.patch
 
 %if 0%{?fedora} || 0%{?rhel} <= 8
 # mention hplip-gui if you want to have GUI
@@ -591,6 +594,8 @@ done
 # format is no longer method in locale module
 # https://bugs.launchpad.net/hplip/+bug/2045507
 %patch -P 71 -p1 -b .locale-format
+# https://bugs.launchpad.net/hplip/+bug/2096650
+%patch -P 72 -p1 -b .gcc-strc23
 
 # Fedora specific patches now, don't put a generic patches under it
 %if 0%{?fedora} || 0%{?rhel} <= 8
@@ -962,6 +967,9 @@ find doc/images -type f -exec chmod 644 {} \;
 %config(noreplace) %{_sysconfdir}/sane.d/dll.d/hpaio
 
 %changelog
+* Fri Jan 24 2025 Zdenek Dohnal <zdohnal@redhat.com> - 3.24.4-2
+- fix FTBFS (fedora#2340616)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.24.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

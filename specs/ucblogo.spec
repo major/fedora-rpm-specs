@@ -1,16 +1,19 @@
 Name:           ucblogo
-Version:        6.2.3
-Release:        9%{?dist}
+Version:        6.2.4
+Release:        1%{?dist}
 Summary:        An interpreter for the Logo programming language
 
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
-Source:         https://github.com/jrincayc/ucblogo-code/releases/download/version_%{version}/ucblogo-%{version}.tar.gz
-Patch0: ucblogo-c99.patch
-Patch1: ucb-logo-c99-2.patch
-Patch2: ucb-logo-c99-3.patch
+Source:         https://github.com/jrincayc/ucblogo-code/archive/version_%{version}/ucblogo-%{version}.tar.gz
+Patch1: ucb-logo-c99-1.patch
+Patch2: ucb-logo-c99-2.patch
+Patch3: compile-flags.patch
+Patch4: function-pointers.patch
+
 URL:            https://people.eecs.berkeley.edu/~bh/logo.html
-BuildRequires: make
+BuildRequires:  make
+BuildRequires:  autoconf
+BuildRequires:  automake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  texinfo
@@ -57,18 +60,12 @@ Requires:       %{name} = %{version}-%{release}
 This package contains the x11 binary for ucblogo.
 
 %prep
-%autosetup -p1
-
-
-# correct directories /usr/lib -> /usr/share and /usr/local ->  /usr
-sed -i 's|/local/lib/logo|/share/logo|g' *.c README.md
-sed -i 's|/lib/logo|/share/logo|g' *.c makefile*
-sed -i "s|/usr/local/bin/logo|%{_bindir}/logo|g" docs/ucblogo.texi
-sed -i "s|/usr/local/bin/logo|%{_bindir}/logo|g" README.md
-sed -i "s|/usr/local/info|%{_datadir}/info|g" README.md
+%autosetup -p1 -n %{name}-code-version_%{version}
 
 
 %build
+autoreconf -fi
+autoconf
 # build traditional version
 %configure --x-includes=%{_includedir} --x-libraries=%{_libdir} --enable-x11 --with-wx-config=no
 %make_build ucblogo
@@ -125,6 +122,10 @@ fi
 %{_bindir}/ucblogo-x11
 
 %changelog
+* Fri Jan 24 2025 Benson Muite <benson_muite@emailplus.org> 6.2.4-1
+- Update to release 6.2.4
+- Fix failure to build errors
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

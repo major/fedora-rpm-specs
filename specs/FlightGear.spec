@@ -4,7 +4,7 @@
 Name:           FlightGear
 Summary:        The FlightGear Flight Simulator
 Version:        2020.3.19
-Release:        7%{?dist}
+Release:        8%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Source0:        https://sourceforge.net/projects/flightgear/files/release-2020.3/flightgear-%{version}.tar.bz2
@@ -15,6 +15,7 @@ Patch4:         0004-fgviewer-fix-crash-on-exit.patch
 Patch5:         0005-fgviewer-disconnect-the-viewer-from-the-renderer.patch
 Patch6:         0006-fgviewer-use-correct-renderer-declaration.patch
 Patch7:         0007-fgviewer-prevent-an-assert-on-uninitialized-locale.patch
+Patch8:         0008-NasalSGPath-move-checkIORules-to-SGPath-NasalIORules.patch
 
 URL:            http://www.flightgear.org/
 BuildRequires:  openal-soft-devel, SimGear-devel >= %{version}
@@ -81,6 +82,9 @@ ln -s opengl-game-wrapper.sh $RPM_BUILD_ROOT%{_bindir}/fgfs-wrapper
 %{_datadir}/metainfo/*.metainfo.xml
 
 %changelog
+* Thu Jan 23 2025 Fabrice Bellet <fabrice@bellet.info> - 2020.3.19-8
+- NasalSGPath: move checkIORules() to SGPath::NasalIORulesChecker()
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2020.3.19-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

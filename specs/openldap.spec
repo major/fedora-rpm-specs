@@ -17,7 +17,7 @@
 
 Name: openldap
 Version: 2.6.9
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: LDAP support libraries
 License: OLDAP-2.8
 URL: http://www.openldap.org/
@@ -129,7 +129,6 @@ and are available for compatibility reasons.
 %if %{with servers}
 %package servers
 Summary: LDAP server
-License: OpenLDAP
 Requires: openldap%{?_isa} = %{version}-%{release}
 %{?systemd_requires}
 Requires(pre): shadow-utils
@@ -501,12 +500,13 @@ exit 0
 %{_libdir}/openldap/valsort*
 %{_libexecdir}/openldap/functions
 %{_libexecdir}/openldap/check-config.sh
-%{_sbindir}/sl*
-%{_mandir}/man8/*
+%{_sbindir}/slap*
 %{_mandir}/man5/lloadd.conf.5*
+%{_mandir}/man8/lloadd.8*
 %{_mandir}/man5/slapd*.5*
 %{_mandir}/man5/slapo-*.5*
 %{_mandir}/man5/slappw-argon2.5*
+%{_mandir}/man8/slap*.8*
 %{_sysusersdir}/openldap.conf
 # obsolete configuration
 %ghost %config(noreplace,missingok) %attr(0640,ldap,ldap) %{_sysconfdir}/openldap/slapd.conf
@@ -520,7 +520,7 @@ exit 0
 %exclude %{_mandir}/man5/lloadd.conf.5*
 %exclude %{_mandir}/man5/slappw-argon2.5*
 %exclude %{_mandir}/man8/*
-%exclude %{_sbindir}/sl*
+%exclude %{_sbindir}/slap*
 %exclude %{_sysconfdir}/openldap/check_password.conf
 %exclude %{_sysconfdir}/openldap/schema
 %exclude %{_tmpfilesdir}/slapd.conf
@@ -530,8 +530,8 @@ exit 0
 
 
 %files clients
-%{_bindir}/*
-%{_mandir}/man1/*
+%{_bindir}/ldap*
+%{_mandir}/man1/ldap*.1*
 
 %files devel
 %doc openldap-%{version}/doc/drafts openldap-%{version}/doc/rfc
@@ -554,6 +554,9 @@ exit 0
 %endif
 
 %changelog
+* Fri Jan 24 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.6.9-3
+- Adjust file patterns for the sbin merge
+
 * Thu Jan 16 2025 Simon Pichugin <spichugi@redhat.com> - 2.6.9-2
 - Disable MD2 hash algorithm (rhbz#2338556)
 

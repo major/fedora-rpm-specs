@@ -3,7 +3,7 @@
 %global giturl  https://github.com/arminbiere/kissat
 
 Name:           kissat
-Version:        4.0.1
+Version:        4.0.2
 Release:        %autorelease
 Summary:        Keep It Simple SAT solver
 

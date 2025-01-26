@@ -1,6 +1,6 @@
 Name:           devscripts
-Version:        2.24.10
-Release:        2%{?dist}
+Version:        2.25.1
+Release:        1%{?dist}
 Summary:        Scripts for Debian Package maintainers
 BuildArch:      noarch
 
@@ -153,6 +153,9 @@ rm -f %{buildroot}%{_datadir}/bash-completion/completions/bts
 
 
 %changelog
+* Fri Jan 24 2025 Sandro Mani <manisandro@gmail.com> - 2.25.1-1
+- Update to 2.25.1
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.24.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

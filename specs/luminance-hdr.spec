@@ -115,6 +115,15 @@ Patch:          %{forgeurl}/pull/277.patch
 # https://github.com/LuminanceHDR/LuminanceHDR/pull/279
 Patch:          0001-Fix-build-with-exiv2-0.28.0-raise-minimum-to-0.27.0.patch
 
+# Patch from Gentoo for OpenEXR 3
+# (Contributed to Gentoo by Andreas K. Hüttel.)
+#
+# Fixes:
+#
+# Support OpenEXR 3.x
+# https://github.com/LuminanceHDR/LuminanceHDR/issues/244
+Patch:          https://github.com/gentoo/gentoo/raw/f183705a78237d697d57279c392fe4afb27b9ae3/media-gfx/luminance-hdr/files/luminance-hdr-2.6.1.1-openexr3.patch
+
 BuildRequires:  cmake
 # We choose to use the ninja backend instead of the make backend. Either works.
 BuildRequires:  ninja-build
@@ -160,13 +169,7 @@ BuildRequires:  libpng-devel
 BuildRequires:  LibRaw-devel
 # - [OpenEXR](http://www.openexr.com/), used to read and write high dynamic
 #   range EXR files. Some distributions refer to the package as `ilmbase`.
-#
-#   Upstream does not support OpenEXR 3.x, and a nontrivial patch may be
-#   required. See https://bugzilla.redhat.com/show_bug.cgi?id=1968167 and
-#   https://github.com/LuminanceHDR/LuminanceHDR/issues/244. For now, we must
-#   use the OpenEXR 2.x compatibility package. (In the long term, this package
-#   will risk retirement if upstream does not resume active development.)
-BuildRequires:  openexr2-devel
+BuildRequires:  openexr-devel
 # - [CFITSIO](https://heasarc.gsfc.nasa.gov/fitsio/), an optional library for
 #   reading and writing FITS files, commonly used by the astrophotographer
 #   community.

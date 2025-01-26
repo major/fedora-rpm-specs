@@ -14,14 +14,18 @@ Release:        %autorelease
 Summary:        Framework for test-driven validation of scientific models
 
 License:        MIT
-URL:            http://sciunit.io/
+URL:            https://github.com/scidash/sciunit
 
 # For tagged releases on Github: pypi does not include docs etc.
-Source0:        https://github.com/scidash/sciunit/archive/v%{version}/sciunit-%{version}.tar.gz
+Source0:        %{url}/archive/v%{version}/sciunit-%{version}.tar.gz
+
+# Adjust fix_display() to work when tkinter is not installed
+# https://github.com/scidash/sciunit/pull/225
+Patch:          %{url}/pull/225.patch
 
 # Required for tests
 # https://github.com/scidash/sciunit/blob/0.2.2/test.sh#L3
-Source1:        https://github.com/scidash/scidash/archive/%{scidash_commit}/scidash-%{scidash_shortcommit}.tar.gz
+Source1:        %{url}/archive/%{scidash_commit}/scidash-%{scidash_shortcommit}.tar.gz
 
 BuildArch:      noarch
 

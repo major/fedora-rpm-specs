@@ -9,7 +9,7 @@
 
 Name:           ncl
 Version:        6.6.2
-Release:        48%{?dist}
+Release:        49%{?dist}
 Summary:        NCAR Command Language and NCAR Graphics
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -53,6 +53,8 @@ Patch6:         ncl-gdal.patch
 # Drop unused headers removed from hdf 4.3
 # https://github.com/NCAR/ncl/pull/209
 Patch7:         ncl-hdf4.3.patch
+# Fixes for gcc15
+Patch8:         ncl-gcc15.patch
 # don't have the installation target depends on the build target since
 # for library it implies running ranlib and modifying the library timestamp
 Patch10:        ncl-5.0.0-no_install_dep.patch
@@ -142,6 +144,7 @@ Example programs and data using NCL.
 %patch -P5 -p1 -b .boz
 %patch -P6 -p1 -b .gdal
 %patch -P7 -p1 -b .hdf
+%patch -P8 -p1 -b .gcc15
 %patch -P10 -p1 -b .no_install_dep
 %patch -P11 -p1 -b .build_n_scripts
 %patch -P12 -p1 -b .netcdff
@@ -366,6 +369,9 @@ done
 
 
 %changelog
+* Fri Jan 24 2025 Orion Poplawski <orion@nwra.com> - 6.6.2-49
+- Add patch to fix build with gcc 15 (FTBFS rhbz#2340908)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.2-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

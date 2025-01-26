@@ -4,11 +4,12 @@
 Summary: Software version of a PKCS#11 Hardware Security Module
 Name: softhsm
 Version: 2.6.1
-Release: %{?prever:0.}10%{?prever:.%{prever}}%{?dist}.2
+Release: %{?prever:0.}11%{?prever:.%{prever}}%{?dist}
 License: BSD-2-clause
 Url: http://www.opendnssec.org/
 Source: http://dist.opendnssec.org/source/%{?prever:testing/}%{name}-%{version}.tar.gz
 Source1: http://dist.opendnssec.org/source/%{?prever:testing/}%{name}-%{version}.tar.gz.sig
+Source2: %{name}-sysusers.conf
 
 Patch1: softhsm-2.6.1-rh1831086-exit.patch
 Patch2: softhsm-openssl3-tests.patch
@@ -95,6 +96,8 @@ popd
 rm -rf %{buildroot}
 %make_install
 
+install -D %{SOURCE2} %{buildroot}%{_sysusersdir}/%{name}.conf
+
 rm %{buildroot}/%{_sysconfdir}/softhsm2.conf.sample
 rm -f %{buildroot}/%{_libdir}/pkcs11/*a
 mkdir -p %{buildroot}%{_includedir}/softhsm
@@ -120,17 +123,15 @@ ln -s ../pkcs11/libsofthsm2.so %{buildroot}/%{_libdir}/softhsm/libsofthsm.so
 %attr(1770,ods,ods) %dir %{_sharedstatedir}/softhsm/tokens
 %doc LICENSE README.md NEWS
 %{_mandir}/*/*
+%{_sysusersdir}/%{name}.conf
 
 %files devel
 %attr(0755,root,root) %dir %{_includedir}/softhsm
 %{_includedir}/softhsm/*.h
 
 %pre
-getent group ods >/dev/null || groupadd -r ods
-getent passwd ods >/dev/null || \
-    useradd -r -g ods -d %{_sharedstatedir}/softhsm -s /sbin/nologin \
-    -c "softhsm private keys owner" ods
-exit 0
+
+%sysusers_create_package %{name} %{SOURCE2}
 
 %post
 
@@ -140,6 +141,9 @@ if [ -f /var/softhsm/slot0.db ]; then
 fi
 
 %changelog
+* Thu Jan 23 2025 Rafael Jeffman <rjeffman@redhat.com> - 2.6.1-11
+- Use systemd-sysusers
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-10.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
@@ -379,4 +383,4 @@ fi
 - Upgraded to 1.3.0
 
 * Thu Mar  3 2011 Paul Wouters <paul@xelerance.com> - 1.2.0-1
-- Initial package for Fedora 
+- Initial package for Fedora

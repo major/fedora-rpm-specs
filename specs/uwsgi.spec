@@ -250,7 +250,7 @@
 
 Name:           uwsgi
 Version:        2.0.28
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -280,6 +280,7 @@ Patch6:         uwsgi_v8-314_compatibility.patch
 Patch7:         uwsgi_fix_mono.patch
 Patch13:        uwsgi_fix_chroot_chdir.patch
 Patch14:        uwsgi_python312-2.patch
+Patch15:        uwsgi_gcc15-signal-handler.patch
 
 BuildRequires:  curl, libxml2-devel, libuuid-devel, jansson-devel
 BuildRequires:  libyaml-devel, ruby-devel
@@ -1339,6 +1340,7 @@ cp -p %{SOURCE5} README.Fedora
 %endif
 %patch -P13 -p1
 %patch -P14 -p1
+%patch -P15 -p1
 
 %build
 CFLAGS="%{optflags} -Wno-error -Wno-unused-but-set-variable -fPIC" %{__python} uwsgiconfig.py --verbose --build fedora.ini
@@ -1964,6 +1966,9 @@ exit 0
 
 
 %changelog
+* Fri Jan 24 2025 Ralf Ertzinger <ralf@skytale.net> - 2.0.28-4
+- Fix type errors flagged by GCC15
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.28-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

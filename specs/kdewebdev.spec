@@ -1,11 +1,12 @@
 # Disable automatic .la file removal
 %global __brp_remove_la_files %nil
+%global configure ./configure~
 
 Name:    kdewebdev
 Summary: Web development applications 
 Epoch:   6
 Version: 3.5.10
-Release: 58%{?dist}
+Release: 59%{?dist}
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -46,6 +47,7 @@ Patch306: kdewebdev-3.5.10-libxml-ftbfs.patch
 Patch307: kdewebdev-configure-c99.patch
 # ftbfs, include cstdlib
 Patch308: kdewebdev-3.5.10-include-cstdlib.patch
+Patch309: kdewebdev-3.5.10-ftbfs.patch
 
 BuildRequires: gcc gcc-c++
 BuildRequires: automake libtool
@@ -117,6 +119,7 @@ install -m644 -p %{SOURCE5} kxsldbg/
 %patch -P306 -p1 -b .ftbfs
 %patch -P307 -p1 -b .configure-c99
 %patch -P308 -p1 -b .ftbfs
+%patch -P309 -p1 -b .ftbfs
 
 make -f admin/Makefile.common cvs
 
@@ -221,6 +224,9 @@ done
 
 
 %changelog
+* Fri Jan 24 2025 Than Ngo <than@redhat.com> - 6:3.5.10-59
+- Fixed rhbz#2340693 - kdewebdev: FTBFS in Fedora rawhide/f42
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6:3.5.10-58
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

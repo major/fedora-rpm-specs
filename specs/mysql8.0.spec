@@ -143,6 +143,7 @@ Patch5:           %{pkgnamepatch}-paths.patch
 Patch51:          %{pkgnamepatch}-sharedir.patch
 Patch52:          %{pkgnamepatch}-rpath.patch
 Patch53:          %{pkgnamepatch}-mtr.patch
+Patch54:          %{pkgnamepatch}-gcc-15.patch
 Patch55:          %{pkgnamepatch}-c99.patch
 Patch56:          %{pkgnamepatch}-flush-logrotate.patch
 Patch57:          %{pkgnamepatch}-openssl-engine.patch

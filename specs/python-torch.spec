@@ -100,6 +100,7 @@ Patch11:       0001-Improve-finding-and-using-the-rocm_version.h.patch
 # Patches need to be refactored for ToT
 # These are ROCm packages
 Patch101:      0001-cuda-hip-signatures.patch
+# https://github.com/pytorch/pytorch/issues/145608
 Patch102:      0001-torch-paper-over-c-assert.patch
 
 ExclusiveArch:  x86_64 aarch64

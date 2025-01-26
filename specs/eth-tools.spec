@@ -1,6 +1,6 @@
 Name: eth-tools
 Version: 11.7.0.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Intel Ethernet Fabric Suite basic tools and libraries for fabric management
 
 License: BSD-3-Clause
@@ -23,7 +23,7 @@ Requires: expect%{?_isa}, tcl%{?_isa}, libibverbs-utils%{?_isa}, librdmacm-utils
 BuildRequires: make
 BuildRequires: expat-devel
 BuildRequires: gcc-c++
-BuildRequires: tcl-devel
+BuildRequires: tcl-devel < 1:9
 BuildRequires: rdma-core-devel
 BuildRequires: net-snmp-devel
 
@@ -42,9 +42,6 @@ Contains tools for managing fabric on a management node.
 
 %prep
 %autosetup -cn eth-fast-fabric-%{version_no_tilde}
-
-# OpenIb_Host/ff_install.sh hardcodes /usr/sbin as the installation destination
-sed -r -i 's|/usr/sbin|%{_sbindir}|g' OpenIb_Host/ff_install.sh
 
 %build
 cd OpenIb_Host
@@ -97,8 +94,11 @@ BUILDDIR=%{_builddir} DESTDIR=%{buildroot} LIBDIR=%{_prefix}/lib DSAP_LIBDIR=%{_
 %config(noreplace) /usr/lib/eth-tools/osid_wrapper
 
 %changelog
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:11.7.0.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+* Wed Jan 22 2025 Jijun Wang <jijun.wang@intel.com> - 11.7.0.2-4
+- Limit tcl_dev package version to less than 9 as there is
+  no expect package available yet for Tcl 9.0
+- Improved build related script, ff_install.sh, to get install
+  directories from rpm macros
 
 * Mon Nov 18 2024 Jijun Wang <jijun.wang@intel.com> - 11.7.0.2-2
 - Fixed ethudstress cq poll regression issue

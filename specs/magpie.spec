@@ -10,7 +10,7 @@
 
 Name:          magpie
 Version:       0.9.3
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Window manager for Budgie Desktop
 
 License:       GPL-2.0-or-later
@@ -58,6 +58,7 @@ BuildRequires: gtk-doc gettext-devel git-core
 BuildRequires: pkgconfig(libcanberra)
 BuildRequires: pkgconfig(gsettings-desktop-schemas) >= %{gsettings_desktop_schemas_version}
 BuildRequires: pkgconfig(gnome-settings-daemon)
+BuildRequires: cvt
 BuildRequires: meson
 BuildRequires: pkgconfig(gbm)
 BuildRequires: pkgconfig(gnome-desktop-3.0)
@@ -92,7 +93,7 @@ Provides: bundled(cogl) = 1.22.0
 Provides: bundled(clutter) = 1.26.0
 
 %description
-Magpgie is the window manager used by Budgie Desktop.
+Magpie is the window manager used by Budgie Desktop.
 
 %package devel
 Summary: Development package for %{name}
@@ -137,6 +138,9 @@ Header files and libraries for developing against Magpie.
 %{_libdir}/pkgconfig/%{name}-cogl-pango-0.pc
 
 %changelog
+* Fri Jan 24 2025 Joshua Strobl <me@joshuastrobl.com> - 0.9.3-4
+- Fix FTBFS due to missing build deps (cvt) #2340810
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

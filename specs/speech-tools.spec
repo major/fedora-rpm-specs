@@ -1,6 +1,6 @@
 Name:           speech-tools
 Version:        2.5
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Edinburgh speech tools library
 
 License:        MIT-Festival
@@ -10,6 +10,7 @@ Source0: http://festvox.org/packed/festival/%{version}/speech_tools-%{version}.0
 # The issue which could change the situation is: https://github.com/festvox/speech_tools/issues/15
 Source1: LICENSE
 Patch0: enable_shared.patch
+Patch1: fix_editline_types.patch
 
 BuildRequires: make
 BuildRequires: gcc-c++
@@ -104,6 +105,9 @@ but they might be depended upon by some third-party developers as well.
 %{_libdir}/*.a
 
 %changelog
+* Fri Jan 24 2025 Lukáš Tyrychtr <lukastyrychtr@gmail.com>
+- Fix compilation with Gcc 15 by fixing function types
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

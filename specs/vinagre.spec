@@ -1,4 +1,7 @@
-%define _legacy_common_support 1
+%global _legacy_common_support 1
+# old vala-generated code triggers -Werror=incompatible-pointer-type,
+# but the code will not regenerate either due to changes in vala
+%global build_type_safety_c 2
 
 %ifarch %{ix86} x86_64
 %define with_spice 1

@@ -37,9 +37,9 @@ after Ultima V.
 %package -n haxima
 Summary:        A full-featured role-playing game for the Nazghul engine
 # The music files installed in /usr/share/nazghul/haxima/music have been
-# relicensed as CC-BY-SA (specifically version 2).   See the
-# haxima-music-license file for details. The rest of the package is GPLv2+.
-License:        GPLv2+ and CC-BY-SA
+# relicensed as CC-BY-SA-2.0.   See the
+# haxima-music-license file for details. The rest of the package is GPL-2.0-or-later.
+License:        GPL-2.0-or-later AND CC-BY-SA-2.0
 Requires:       nazghul = %{version}
 Provides:       nazghul-haxima = %{version}-%{release}
 Obsoletes:      nazghul-haxima < 0.6.0-8

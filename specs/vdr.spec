@@ -29,7 +29,7 @@
 
 Name:           vdr
 Version:        2.7.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Video Disk Recorder
 
 License:        GPL-2.0-or-later
@@ -308,7 +308,12 @@ make install-bin install-dirs install-conf install-doc install-i18n \
 
 install -pm 755 epg2html $RPM_BUILD_ROOT%{_bindir}
 install -dm 755 $RPM_BUILD_ROOT%{_sbindir}
-mv $RPM_BUILD_ROOT%{_bindir}/vdr $RPM_BUILD_ROOT%{_sbindir}
+#mv $RPM_BUILD_ROOT%{_bindir}/vdr $RPM_BUILD_ROOT%{_sbindir}
+
+# Avoid mv error by checking if source and destination are the same
+if [ "$RPM_BUILD_ROOT%{_bindir}/vdr" != "$RPM_BUILD_ROOT%{_sbindir}/vdr" ]; then
+    mv $RPM_BUILD_ROOT%{_bindir}/vdr $RPM_BUILD_ROOT%{_sbindir}
+fi
 
 install -dm 755 $RPM_BUILD_ROOT%{configdir}/plugins
 
@@ -547,6 +552,9 @@ systemctl daemon-reload
 
 
 %changelog
+* Fri Jan 24 2025 Martin Gansser <martinkg@fedoraproject.org> - 2.7.3-3
+- Fix FTBFS #2341505
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

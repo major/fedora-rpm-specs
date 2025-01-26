@@ -3,7 +3,7 @@
 Summary: TV applications for video4linux compliant devices
 Name: xawtv
 Version: 3.107
-Release: 14%{?dist}
+Release: 15%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: http://linuxtv.org/wiki/index.php/Xawtv
@@ -13,7 +13,7 @@ Patch0: xawtv-strsignal.patch
 Patch1: xawtv-3.107-XawListChange.patch
 
 BuildRequires: make
-BuildRequires:  gcc
+BuildRequires: gcc
 BuildRequires: mesa-libGL-devel, libXaw-devel, libXext-devel
 BuildRequires: libXft-devel, libXinerama-devel
 BuildRequires: libXpm-devel, libXrandr-devel, libXt-devel
@@ -32,7 +32,7 @@ BuildRequires: ImageMagick desktop-file-utils libappstream-glib
 BuildRequires: libv4l-devel
 BuildRequires: perl-interpreter
 
-Requires: usermode xorg-x11-fonts-misc hicolor-icon-theme
+Requires: polkit xorg-x11-fonts-misc hicolor-icon-theme
 
 %description
 Xawtv is a simple xaw-based TV program which uses the bttv driver or
@@ -93,45 +93,58 @@ done
 
 #   v4l-conf  stuff
 
-mkdir -p $RPM_BUILD_ROOT%{_sbindir} \
-	$RPM_BUILD_ROOT%{_sysconfdir}/pam.d \
-	$RPM_BUILD_ROOT%{_sysconfdir}/security/console.apps \
+mkdir -p $RPM_BUILD_ROOT%{_libexecdir} $RPM_BUILD_ROOT%{_datadir}/polkit-1/actions
 
-cat >v4l-conf.pam <<!
-#%%PAM-1.0
-auth		sufficient	pam_rootok.so
-auth		required	pam_console.so
-account		required	pam_permit.so
-session		required	pam_permit.so
-session		optional	pam_xauth.so
-!
-install -m 0644 v4l-conf.pam $RPM_BUILD_ROOT%{_sysconfdir}/pam.d/v4l-conf
+mv $RPM_BUILD_ROOT%{_bindir}/v4l-conf $RPM_BUILD_ROOT%{_libexecdir}/
 
-cat >v4l-conf.apps <<!
-SESSION=true
-USER=root
-PROGRAM=%{_sbindir}/v4l-conf
-!
-install -p -m 0644 v4l-conf.apps $RPM_BUILD_ROOT%{_sysconfdir}/security/console.apps/v4l-conf
+cat >v4l-conf.sh <<EOF
+#!/bin/sh
+exec %{_bindir}/pkexec %{_libexecdir}/v4l-conf
+EOF
+install -p -m 755 v4l-conf.sh $RPM_BUILD_ROOT%{_bindir}/v4l-conf
 
-mv $RPM_BUILD_ROOT%{_bindir}/v4l-conf $RPM_BUILD_ROOT%{_sbindir}/
-ln -s consolehelper $RPM_BUILD_ROOT%{_bindir}/v4l-conf
+cat >v4l-conf.policy <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE policyconfig PUBLIC
+ "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
+ "http://www.freedesktop.org/standards/PolicyKit/1.0/policyconfig.dtd">
+<policyconfig>
+
+  <vendor>XawTV Project</vendor>
+  <vendor_url>%{url}</vendor_url>
+
+  <action id="org.fedoraproject.v4l.conf.pkexec.run">
+
+    <description>Run v4l-conf with privileges required</description>
+    <message>Authentication is required for privileged operations of v4l-conf</message>
+    <defaults>
+      <allow_any>no</allow_any>
+      <allow_inactive>no</allow_inactive>
+      <allow_active>yes</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">%{_libexecdir}/v4l-conf</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
+  </action>
+
+</policyconfig>
+EOF
+install -p -m 644 v4l-conf.policy $RPM_BUILD_ROOT%{_datadir}/polkit-1/actions/org.fedoraproject.v4l.conf.policy
+
 
 %files
 %doc README TODO contrib/frequencies*
 %license COPYING
-%config(noreplace) %{_sysconfdir}/pam.d/v4l-conf
-%config(noreplace) %{_sysconfdir}/security/console.apps/v4l-conf
 %{_bindir}/*
 %exclude %{_bindir}/motv
 %exclude %{_bindir}/mtt
-%{_sbindir}/*
+%{_libexecdir}/*
 %{_libdir}/xawtv
 %{_datadir}/xawtv
 %{_datadir}/X11/app-defaults/Xawtv
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 %{_datadir}/appdata/%{name}.appdata.xml
 %{_datadir}/applications/%{name}.desktop
+%{_datadir}/polkit-1/actions/*
 %{_mandir}/man?/*
 %exclude %{_mandir}/man1/motv.1*
 %exclude %{_mandir}/man1/mtt.1*
@@ -157,6 +170,10 @@ ln -s consolehelper $RPM_BUILD_ROOT%{_bindir}/v4l-conf
 
 
 %changelog
+* Fri Jan 24 2025 Dmitry Butskoy <Dmitry@Butskoy.name> - 3.107-15
+- switch to PolicyKit (#502723)
+- avoid /usr/sbin dir (#2341562)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.107-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

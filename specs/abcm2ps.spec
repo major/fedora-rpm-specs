@@ -1,6 +1,6 @@
 Name:           abcm2ps
 Version:        8.14.15
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A program to typeset ABC tunes into Postscript
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -9,6 +9,7 @@ URL:            http://moinejf.free.fr
 Source0:        https://github.com/leesavide/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        http://abcplus.sourceforge.net/abcplus_en-2012-03-30.zip
 Source2:        http://abcplus.sourceforge.net/abcplus_en-DRAFT3.pdf
+Patch0:		abcm2ps-gnu23.patch
 
 BuildRequires:  gcc make
 %description
@@ -31,6 +32,7 @@ Some sample ABC files with output as mp3, mid, and pdf.
 %setup -q
 %setup -q -a 1
 cp -p %{SOURCE2} .
+%patch -P 0 -p 2
 
 %build
 %configure --enable-a4
@@ -58,6 +60,9 @@ make install \
 %doc abcplus_en*/* 
 
 %changelog
+* Fri Jan 24 2025 Stuart Gathman <stuart@gathman.org> - 8.14.15-5
+- Patch to compile with gcc-15 (gnu23)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.14.15-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -9,6 +9,8 @@ Summary: A lightweight text editor written in Lua, adapted from lite
 License: MIT and OFL
 URL:     https://lite-xl.com/
 Source:  https://github.com/lite-xl/lite-xl/archive/refs/tags/v%{version}.tar.gz
+# https://github.com/lite-xl/lite-xl/issues/2014
+Patch:   000-stdlib.patch
 
 BuildRequires: gcc
 BuildRequires: meson
@@ -33,7 +35,7 @@ improve the quality of font rendering, and reduce CPU usage.
 
 %prep
 # %forgesetup 
-%autosetup -n lite-xl-%{version}
+%autosetup -n lite-xl-%{version} -p1
 
 %build
 %meson -Darch_tuple=%{_arch}-linux -Duse_system_lua=true

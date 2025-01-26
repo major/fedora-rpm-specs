@@ -1,6 +1,6 @@
 Name:             openriichi
 Version:          0.2.1.1
-Release:          8%{?dist}
+Release:          9%{?dist}
 Summary:          Japanese Mahjong 3D game
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:          GPL-3.0-only
@@ -70,6 +70,7 @@ mv Engine/LICENSE ENGINE_LICENSE
 %autopatch -p1
 
 %build
+%global _distro_extra_cflags -Wno-int-conversion
 %meson
 %meson_build
 
@@ -96,6 +97,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 %license LICENSE ENGINE_LICENSE
 
 %changelog
+* Thu Jan 23 2025 Julien Rische <jrische@redhat.com> - 0.2.1.1-9
+- Compile ignoring integer conversion warnings
+  Resolves: rhbz#2340975
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

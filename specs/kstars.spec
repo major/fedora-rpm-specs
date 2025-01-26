@@ -7,7 +7,7 @@ ExcludeArch:    %{ix86}
 Name:    kstars
 Summary: Desktop Planetarium
 Version: 3.7.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # We have to use epoch now, KStars is no longer part of KDE Applications and
 # uses its own (lower) version now
@@ -23,6 +23,7 @@ Source0: https://download.kde.org/%{stable_kf5}/%{name}/%{version}/%{name}-%{ver
 
 ## Fedora specific patches
 Patch101: kstars-2.9.6-fix-compilerflag-exceptions.patch
+Patch102: kstars-ftbfs-gcc15.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: kf6-rpm-macros
@@ -112,9 +113,7 @@ all 8 planets, the Sun and Moon, and thousands of comets and asteroids.
 
 
 %prep
-%setup -q
-
-%patch -P101 -p1 -b .fix_cflag_exception
+%autosetup -p1
 
 # installs into the wrong location
 sed -i 's/${DATA_INSTALL_DIR}/${KSTARS_DATADIR}/'  kstars/data/fr/CMakeLists.txt
@@ -171,6 +170,9 @@ fi
 
 
 %changelog
+* Fri Jan 24 2025 Than Ngo <than@redhat.com> - 1:3.7.4-4
+- Fix rhbz#2340701, FTBFS
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.7.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

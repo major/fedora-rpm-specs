@@ -6,14 +6,26 @@ License:	GPL-2.0-or-later
 URL:		http://chocolate-doom.org/
 
 Version:	3.1.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 
 %global git_tag %{name}-%{version}
 Source0:	https://github.com/chocolate-doom/chocolate-doom/archive/%{git_tag}/%{git_tag}.tar.gz
 
+# Always use the system python3 instead of asking /usr/bin/env first.
 Patch1:		0001-use-python3.patch
 
-Patch2:     0002-c23.patch
+# Historically, chocolate-doom's build scripts did not explicitly set the -std= option.
+# When GCC15 came along and made C23 the default, the program failed to build because
+# it declares its custom "bool" type. After some debate, upstream decided that rather
+# than try to make the project compatible with different standards, they will use C99.
+#
+# Backport from upstream:
+# https://github.com/chocolate-doom/chocolate-doom/pull/1723
+Patch2:		0002-use-c99.patch
+
+# Fix missing includes.
+# Submitted upstream: https://github.com/chocolate-doom/chocolate-doom/pull/1725
+Patch3:		0003-missing-includes.patch
 
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -46,11 +58,16 @@ was played in the 1990s.
 
 %prep
 %autosetup -p1 -n %{name}-%{git_tag}
-autoreconf -vi
+autoreconf -vif
 
 
 %build
 export PYTHON=%{_bindir}/python3
+
+# Despite AC_PROC_CC_C99 inside configure.ac,
+# -std= does not seem to be set when building
+export CFLAGS="${CFLAGS} -std=gnu99"
+
 %configure
 %make_build
 
@@ -137,6 +154,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/screensavers/%{rtld}
 
 
 %changelog
+* Fri Jan 24 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.1.0-5
+- Fix crash during startup
+
 * Thu Jan 16 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.1.0-4
 - Fix build failure with gcc15
 

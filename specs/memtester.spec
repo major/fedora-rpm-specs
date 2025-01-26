@@ -1,6 +1,6 @@
 %define _legacy_common_support 1
 Name:		memtester
-Version:	4.7.0
+Version:	4.7.1
 Release:	%autorelease
 Summary:	Utility to test for faulty memory subsystem
 

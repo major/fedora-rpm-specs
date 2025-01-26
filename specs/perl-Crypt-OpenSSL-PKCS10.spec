@@ -1,12 +1,14 @@
 Name:           perl-Crypt-OpenSSL-PKCS10
-Version:        0.26
-Release:        4%{?dist}
+Version:        0.31
+Release:        1%{?dist}
 Summary:        Perl interface to OpenSSL for PKCS10
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-OpenSSL-PKCS10
 Source0:        https://cpan.metacpan.org/modules/by-module/Crypt/Crypt-OpenSSL-PKCS10-%{version}.tar.gz
 # Convert documentation to UTF-8
 Patch1:         Crypt-OpenSSL-PKCS10-0.16-Convert-changlog-to-UTF-8.patch
+# https://rt.cpan.org/Ticket/Display.html?id=158607
+Patch2:         Crypt-OpenSSL-PKCS10-0.31-Test-for-a-reduced-subset-of-digests-and-curves-refl.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -19,7 +21,7 @@ BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.8
 BuildRequires:  perl(Config)
-BuildRequires:  perl(Crypt::OpenSSL::Guess)
+BuildRequires:  perl(Crypt::OpenSSL::Guess) >= 0.11
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(strict)
@@ -29,7 +31,15 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(Crypt::OpenSSL::RSA)
+BuildRequires:  perl(File::Slurper)
+BuildRequires:  perl(File::Temp)
+BuildRequires:  perl(Import::Into)
+BuildRequires:  perl(Test::Lib)
 BuildRequires:  perl(Test::More)
+
+# Remove private test modules
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Test::Crypt::OpenSSL::PKCS10|Test::Crypt::OpenSSL::PKCS10::Util\\)$
+%global __provides_exclude %{?__provides_exclude:%__provides_exclude|}^perl\\(Test::Crypt::OpenSSL::PKCS10|Test::Crypt::OpenSSL::PKCS10::Util\\)$
 
 %description
 Crypt::OpenSSL::PKCS10 Perl module provides the ability to create PKCS10
@@ -87,6 +97,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 24 2025 Michal Josef Špaček <mspacek@redhat.com> - 0.31-1
+- 0.31 bump (rhbz#2339426)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

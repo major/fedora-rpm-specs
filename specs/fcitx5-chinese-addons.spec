@@ -37,6 +37,7 @@ URL:            https://github.com/fcitx/fcitx5-chinese-addons
 Source:         https://download.fcitx-im.org/fcitx5/fcitx5-chinese-addons/fcitx5-chinese-addons-%{version}_dict.tar.zst
 Source1:        https://download.fcitx-im.org/fcitx5/fcitx5-chinese-addons/fcitx5-chinese-addons-%{version}_dict.tar.zst.sig
 Source2:        https://pgp.key-server.io/download/0x8E8B898CBF2412F9
+Patch1:         0001-include-config.h-before-checking-macros.patch
 
 BuildRequires:  gnupg2
 BuildRequires:  boost-devel

@@ -1,10 +1,12 @@
 Name:           perl-Term-ReadLine-Gnu
 Version:        1.46
-Release:        9%{?dist}
+Release:        11%{?dist}
 Summary:        Perl extension for the GNU Readline/History Library
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Term-ReadLine-Gnu
 Source0:        https://cpan.metacpan.org/authors/id/H/HA/HAYASHI/Term-ReadLine-Gnu-%{version}.tar.gz
+Patch0:         0000-Fix-for-compilation-in-C23-mode.patch
+Patch1:         0001-Force-TERM-vt100-for-readline-test.patch
 
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -48,7 +50,7 @@ An implementation of Term::ReadLine using the GNU Readline/History Library.
 
 
 %prep
-%setup -q -n Term-ReadLine-Gnu-%{version}
+%autosetup -p1 -n Term-ReadLine-Gnu-%{version}
 
 %build
 # Fix permissions and shebang paths at one shot
@@ -82,6 +84,13 @@ expect -c '
 
 
 %changelog
+* Fri Jan 24 2025 Charles R. Anderson <cra@alum.wpi.edu> - 1.46-11
+- Add 0001-Force-TERM-vt100-for-readline-test.patch to fix i686 build.
+
+* Fri Jan 24 2025 Charles R. Anderson <cra@alum.wpi.edu> - 1.46-10
+- Add 0000-Fix-for-compilation-in-C23-mode.patch for GCC 15 compatibility,
+  thanks to Paul Howarth.
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.46-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

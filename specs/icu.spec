@@ -9,7 +9,7 @@
 
 Name:      icu
 Version:   76.1
-Release:   3%{?dist}
+Release:   4%{?dist}
 Summary:   International Components for Unicode
 
 License:   Unicode-DFS-2016 AND BSD-2-Clause AND BSD-3-Clause AND NAIST-2003 AND LicenseRef-Fedora-Public-Domain
@@ -163,7 +163,12 @@ LD_LIBRARY_PATH=lib:stubdata:tools/ctestfw:$LD_LIBRARY_PATH bin/uconv -l
 %{_bindir}/makeconv
 %{_bindir}/pkgdata
 %{_bindir}/uconv
-%{_sbindir}/*
+%{_sbindir}/escapesrc
+%{_sbindir}/genccode
+%{_sbindir}/gencmn
+%{_sbindir}/gennorm2
+%{_sbindir}/gensprep
+%{_sbindir}/icupkg
 %{_mandir}/man1/derb.1*
 %{_mandir}/man1/genbrk.1*
 %{_mandir}/man1/gencfu.1*
@@ -205,6 +210,9 @@ LD_LIBRARY_PATH=lib:stubdata:tools/ctestfw:$LD_LIBRARY_PATH bin/uconv -l
 
 
 %changelog
+* Fri Jan 24 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 76.1-4
+- Adjust file patterns for the sbin merge
+
 * Thu Jan 16 2025 Eike Rathke <erack@redhat.com> - 76.1-3
 - Resolves: rhbz#2335638 Add upstream patches instead
 
