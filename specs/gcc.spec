@@ -1,5 +1,5 @@
-%global DATE 20250114
-%global gitrev 6adb681d9cf55f12e8a232c1e9a009e5ca5fdde5
+%global DATE 20250125
+%global gitrev 971fa9cf8655e9ba26529620b624bac77d9a584b
 %global gcc_version 15.0.1
 %global gcc_major 15
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -143,7 +143,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.3%{?dist}.1
+Release: %{gcc_release}.4%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -300,8 +300,7 @@ Patch10: gcc15-rh1574936.patch
 Patch11: gcc15-d-shared-libphobos.patch
 Patch12: gcc15-pr118206.patch
 Patch13: gcc15-d-deps.patch
-Patch14: gcc15-pr118438.patch
-Patch15: gcc15-pr117231.patch
+Patch14: gcc15-pr117231.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -918,8 +917,7 @@ so that there cannot be any synchronization problems.
 %patch -P11 -p0 -b .d-shared-libphobos~
 %patch -P12 -p0 -b .pr118206~
 %patch -P13 -p0 -b .d-deps~
-%patch -P14 -p0 -b .pr118438~
-%patch -P15 -p0 -b .pr117231~
+%patch -P14 -p0 -b .pr117231~
 
 %patch -P50 -p0 -b .rh2155127~
 touch -r isl-0.24/m4/ax_prog_cxx_for_build.m4 isl-0.24/m4/ax_prog_cc_for_build.m4
@@ -3679,8 +3677,51 @@ end
 %endif
 
 %changelog
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 15.0.1-0.3.1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+* Sat Jan 25 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.4
+- update from trunk
+  - PRs c/118639, c++/105440, c++/107522, c++/107741, c++/115769, c++/116417,
+	c++/116568, c++/116756, c++/117153, c++/117397, c++/117602,
+	c++/117775, c++/117827, c++/118047, c++/118049, c++/118101,
+	c++/118124, c++/118139, c++/118147, c++/118199, c++/118214,
+	c++/118225, c++/118245, c++/118255, c++/118278, c++/118355,
+	c++/118390, c++/118396, c++/118454, c++/118486, c++/118509,
+	c++/118513, c++/118523, c++/118525, c++/118528, c++/118532,
+	c++/118534, c++/118582, c++/118590, c++/118604, d/114434, d/115249,
+	d/116373, d/117115, d/118438, d/118448, d/118449, d/118584,
+	fortran/71884, fortran/81978, fortran/96087, fortran/107122,
+	fortran/118321, fortran/118359, fortran/118441, fortran/118613,
+	gcov-profile/116743, ipa/116068, ipa/118400, jit/117886,
+	libfortran/118406, libfortran/118536, libfortran/118571,
+	libstdc++/99995, libstdc++/100249, libstdc++/109849, libstdc++/118158,
+	libstdc++/118185, lto/118238, middle-end/112779, middle-end/113904,
+	middle-end/114596, middle-end/114877, middle-end/118140,
+	middle-end/118273, middle-end/118472, modula2/118010, modula2/118589,
+	objc++/118586, rtl-optimization/109592, rtl-optimization/113994,
+	rtl-optimization/117868, rtl-optimization/118067,
+	rtl-optimization/118562, rtl-optimization/118591,
+	rtl-optimization/1180167, sarif-replay/117670, target/80813,
+	target/110901, target/113257, target/113560, target/114442,
+	target/116256, target/116308, target/116593, target/117079,
+	target/117726, target/118154, target/118170, target/118182,
+	target/118270, target/118329, target/118357, target/118489,
+	target/118497, target/118501, target/118510, target/118511,
+	target/118512, target/118531, target/118560, target/118609,
+	testsuite/116448, testsuite/117958, testsuite/118451,
+	tree-optimization/92539, tree-optimization/102705,
+	tree-optimization/115494, tree-optimization/115777,
+	tree-optimization/115895, tree-optimization/116010,
+	tree-optimization/117668, tree-optimization/117875,
+	tree-optimization/118012, tree-optimization/118077,
+	tree-optimization/118224, tree-optimization/118348,
+	tree-optimization/118360, tree-optimization/118384,
+	tree-optimization/118430, tree-optimization/118456,
+	tree-optimization/118483, tree-optimization/118487,
+	tree-optimization/118514, tree-optimization/118522,
+	tree-optimization/118529, tree-optimization/118552,
+	tree-optimization/118558, tree-optimization/118569,
+	tree-optimization/118572, tree-optimization/118605,
+	tree-optimization/118628, tree-optimization/118634
+- fix libstdc++.modules.json content after relocation
 
 * Tue Jan 14 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.3
 - temporary fix for coroutine range for handling (PR c++/117231)

@@ -3,7 +3,7 @@
 %bcond tests %{without bootstrap}
 
 Name:           python-cascadio
-Version:        0.0.14
+Version:        0.0.15
 Release:        %autorelease
 Summary:        Convert STEP files to GLB using OpenCASCADE
 
@@ -70,7 +70,8 @@ sed -r -i 's/\bCXX\b/C &/' CMakeLists.txt
     -Ccmake.define.SYSTEM_OPENCASCADE=ON \
     -Clogging.level=INFO \
     -Ccmake.verbose=true \
-    -Ccmake.build-type="RelWithDebInfo"}
+    -Ccmake.build-type="RelWithDebInfo" \
+    -Cinstall.strip=false}
 
 
 %install

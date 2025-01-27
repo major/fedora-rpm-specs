@@ -1,9 +1,5 @@
-# Temporarily work around python-scikit-image not rebuilt for numpy 2,
-# https://bugzilla.redhat.com/show_bug.cgi?id=2334911
-%bcond scikit_image_tests %{undefined fc42}
-
 Name:           python-glymur
-Version:        0.13.7
+Version:        0.13.8
 Release:        %autorelease
 Summary:        Interface to the OpenJPEG library for working with JPEG 2000 files
 
@@ -31,9 +27,6 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  python3-devel
 # tests/fixtures.py: each of these enables more tests
-%if %{with scikit_image_tests}
-BuildRequires:  python3dist(scikit-image)
-%endif
 BuildRequires:  python3dist(gdal)
 
 # Provide shared libraries opened via ctypes; see glymur/config.py
@@ -82,12 +75,6 @@ install -m 0644 -p -D -t %{buildroot}%{_mandir}/man1 %{SOURCE1} %{SOURCE2}
 
 
 %check
-%if %{without scikit_image_tests}
-ignore="${ignore-} --ignore=tests/test_tiff2jp2.py"
-k="${k-}${k+ and }not (TestJp2k and test_write_using_slicing)"
-k="${k-}${k+ and }not (TestSuite and test_openjpeg_library_too_old_for_threaded_tile_writing)"
-%endif
-
 %pytest ${ignore-} -k "${k-}" -v
 
 

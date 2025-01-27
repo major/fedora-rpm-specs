@@ -5,10 +5,13 @@ Summary:    Storage conversion and expression calculator
 
 License:    GPL-3.0-or-later
 URL:        https://github.com/jarun/bcal
-Source0:    %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source:     %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+# Patch for GCC 15 compatibility
+# https://github.com/jarun/bcal/pull/39
+Patch:      0001-Add-fix-to-use-with-GCC-15.patch
 
 # Only available for 64bits system
-ExclusiveArch: x86_64 aarch64 ia64 ppc64 ppc64le s390x riscv64
+ExclusiveArch:  x86_64 aarch64 ppc64le s390x riscv64
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -27,8 +30,8 @@ a 64-bit address is set, bcal is for you
 sed -i '/STRIP ?= strip/d;s/install: bcal/install: /;s/$(CFLAGS)/$(CFLAGS) $(LDFLAGS)/' Makefile
 
 %build
+%{set_build_flags}
 export CFLAGS="-fPIC %{optflags}"
-export LDFLAGS="%{?__global_ldflags}"
 %make_build bcal
 
 %install

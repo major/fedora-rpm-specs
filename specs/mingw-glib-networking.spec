@@ -4,8 +4,8 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-glib-networking
-Version:        2.80.0
-Release:        3%{?dist}
+Version:        2.80.1
+Release:        1%{?dist}
 Summary:        MinGW Windows glib-networking library
 
 License:        LGPL-2.1-or-later
@@ -89,6 +89,9 @@ rm -f %{buildroot}%{mingw64_libdir}/gio/modules/*.la
 
 
 %changelog
+* Sat Jan 25 2025 Sandro Mani <manisandro@gmail.com> - 2.80.1-1
+- Update to 2.80.1
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.80.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

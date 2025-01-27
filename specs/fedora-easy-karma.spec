@@ -1,6 +1,6 @@
 Name:           fedora-easy-karma
 Version:        0.54
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fedora update feedback made easy
 License:        GPL-2.0-or-later
 URL:            https://fedoraproject.org/wiki/Fedora_Easy_Karma
@@ -18,7 +18,6 @@ BuildRequires:  make
 
 Requires:       python3-bodhi-client >= 6
 Requires:       python3-dnf
-Requires:       python3-fedora
 
 
 %description
@@ -42,8 +41,14 @@ updates that you have currently installed.
 
 
 %changelog
+* Sat Jan 25 2025 Frantisek Zatloukal <fzatlouk@redhat.com> - 0.54-3
+- Drop python-fedora dependency
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.54-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
+* Mon Dec 09 2024 Frantisek Zatloukal <fzatlouk@redhat.com> - 0.54-1
+- release 0.54
 
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.53-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild

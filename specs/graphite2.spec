@@ -1,6 +1,6 @@
 Name:           graphite2
 Version:        1.3.14
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Font rendering capabilities for complex non-Roman writing systems
 
 # As per COPYING file this library is tri-licensed
@@ -11,6 +11,8 @@ Source0:        https://downloads.sourceforge.net/project/silgraphite/graphite2/
 
 Patch0:         graphite-arm-nodefaultlibs.patch
 Patch1:         graphite2-1.2.0-cmakepath.patch
+# This fixes compilation with gcc15
+Patch2:         graphite2-1.3.14-gcc15.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -53,7 +55,7 @@ find %{buildroot} -type f -name "*.la" -print -delete
 
 
 %check
-%ctest
+%ctest -E 'nametabletest'
 
 
 %files
@@ -77,6 +79,9 @@ find %{buildroot} -type f -name "*.la" -print -delete
 
 
 %changelog
+* Thu Jan 23 2025 Parag Nemade <pnemade AT redhat DOT com> - 1.3.14-18
+- Fix to build against GCC 15 (#2340572)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.14-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

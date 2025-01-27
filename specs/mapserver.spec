@@ -23,8 +23,8 @@
 
 
 Name:           mapserver
-Version:        8.2.2
-Release:        6%{?dist}
+Version:        8.4.0
+Release:        1%{?dist}
 Summary:        Environment for building spatially-enabled internet applications
 %global dashver %(echo %version | sed 's|\\.|-|g')
 
@@ -33,10 +33,6 @@ URL:            http://www.mapserver.org
 
 Source0:        https://github.com/%{project_owner}/%{project_name}/archive/rel-%{dashver}/%{project_name}-%{version}.tar.gz
 
-
-## Upstream patches
-# mappostgresql.c: avoid potential invalid use of strcpy()
-Patch1001:      f202bd52b35c82508555af722a8ad0f04910c403.patch
 
 Requires:       httpd
 Requires:       dejavu-sans-fonts
@@ -339,6 +335,9 @@ rm %{buildroot}%{_usr}/%{_sysconfdir}/mapserver-sample.conf
 %{ruby_sitearchdir}/mapscript.so
 
 %changelog
+* Sat Jan 25 2025 Sandro Mani <manisandro@gmail.com> - 8.4.0-1
+- Update to 8.4.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -493,7 +493,7 @@ Requires:         json-c
 # Log compression
 Requires:         zlib-devel
 # logconv.py, MIME type
-Requires:         python-magic
+Requires:         python3-file-magic
 # Picks up our systemd deps.
 %{?systemd_requires}
 
@@ -506,6 +506,8 @@ Source4:          389-ds-base.sysusers
 %if %{with bundle_libdb}
 Source5:          https://fedorapeople.org/groups/389ds/libdb-5.3.28-59.tar.bz2
 %endif
+
+Patch:            0001-Issue-6544-logconv.py-python3-magic-conflicts-with-p.patch
 
 %description
 389 Directory Server is an LDAPv3 compliant server.  The base package includes

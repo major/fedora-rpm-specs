@@ -17,6 +17,8 @@ Summary:        Replay captured network traffic
 License:        GPL-3.0-only
 URL:            http://tcpreplay.appneta.com/
 Source:         https://github.com/appneta/tcpreplay/releases/download/v%{version}/tcpreplay-%{version}.tar.xz
+Patch0:         tcpreplay-4.5.1-txring_h.patch
+Patch1:         tcpreplay-4.5.1-configure_ac.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -69,6 +71,7 @@ autoreconf -vif
 * Wed Jan 22 2025 Bojan Smojver <bojan@rexursive com> - 4.5.1-5
 - Drop unknown configure option --enable-tcpreplay-edit
 - Change tcpdump dependency to package
+- Remove checks for TX_RING support to avoid build problems
 
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild

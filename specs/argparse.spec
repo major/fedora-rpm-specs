@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 Name:           argparse
-Version:        3.1
+Version:        3.2
 Release:        %autorelease
 Summary:        Argument parser for modern C++
 

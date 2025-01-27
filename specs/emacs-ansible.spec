@@ -1,14 +1,13 @@
 %global pkg ansible
 
 Name:           emacs-%{pkg}
-Version:        0.3.2
-Release:        13%{?dist}
+Version:        0.4.0
+Release:        1%{?dist}
 Summary:        Ansible minor mode
 
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
-License:        GPL-3.0-or-later
-URL:            https://github.com/k1LoW/%{name}/
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+License:        GPL-2.0-or-later
+URL:            https://gitlab.com/%{name}/%{name}
+Source0:        %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        %{pkg}-init.el
 
 BuildRequires:  emacs
@@ -40,13 +39,16 @@ install -Dpm 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_emacs_sitestartdir}/%{pkg}-init.e
 
 
 %files
-%doc README.md
+%doc CHANGELOG.md README.md
 %license LICENSE
 %{_emacs_sitelispdir}/%{pkg}/
 %{_emacs_sitestartdir}/*.el
 
 
 %changelog
+* Sat Jan 25 2025 Mohamed El Morabity <melmorabity@fedoraproject.org> - 0.4.0-1
+- Update to 0.4.0
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

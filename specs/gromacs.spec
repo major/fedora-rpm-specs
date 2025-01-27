@@ -30,8 +30,8 @@ ExcludeArch:    i686 armv7hl s390x
 %endif
 
 Name:		gromacs
-Version:	2024.4
-Release:	4%{?dist}
+Version:	2024.5
+Release:	1%{?dist}
 Summary:	Fast, Free and Flexible Molecular Dynamics
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	LGPL-2.1-or-later
@@ -41,8 +41,6 @@ Source0:	https://ftp.gromacs.org/gromacs/gromacs-%{version}%{?_rc}.tar.gz
 Source1:	https://ftp.gromacs.org/manual/manual-%{version}%{?_rc}.pdf
 Source2:	https://ftp.gromacs.org/regressiontests/regressiontests-%{version}%{?_rc}.tar.gz
 Source3:	gromacs-README.fedora
-# fix from upstream to build with gcc-15
-Patch0:         e0180bc37f3111d7dcaffca3854c088ed910c3b4.patch
 BuildRequires:	gcc-c++
 BuildRequires:  cmake3 >= 3.18.4
 BuildRequires:	%{blaslib}-devel
@@ -376,6 +374,9 @@ done
 %{_libdir}/mpich/bin/gmx_mpich*
 
 %changelog
+* Sat Jan 25 2025 Christoph Junghans <junghans@votca.org> - 2024.5-1
+- Version bump to v2024.5 (bug #2341964)
+
 * Fri Jan 24 2025 Christoph Junghans <junghans@votca.org> - 2024.4-4
 - Fix build with gcc-15 (bug #2340576)
 - Drop heffte support again, only work with cuda for now

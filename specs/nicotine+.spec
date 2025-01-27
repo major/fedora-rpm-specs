@@ -2,8 +2,8 @@
 %global appdata_id org.nicotine_plus.Nicotine
 
 Name:           nicotine+
-Version:        3.3.6
-Release:        2%{?dist}
+Version:        3.3.7
+Release:        1%{?dist}
 Summary:        A graphical client for Soulseek
 
 # - pynicotine/external/ip2location.py and pynicotine/external/tinytag.py are
@@ -79,6 +79,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/%{appdata_i
 
 
 %changelog
+* Sat Jan 25 2025 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.3.7-1
+- Update to 3.3.7
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

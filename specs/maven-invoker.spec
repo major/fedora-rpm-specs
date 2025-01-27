@@ -1,8 +1,8 @@
 Name:           maven-invoker
-Version:        3.1.0
-Release:        16%{?dist}
+Version:        3.3.0
+Release:        1%{?dist}
 Summary:        Fires a maven build in a clean environment
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
+
 License:        Apache-2.0
 URL:            https://maven.apache.org/shared/maven-invoker/
 BuildArch:      noarch
@@ -12,20 +12,14 @@ Source0:        https://repo1.maven.org/maven2/org/apache/maven/shared/%{name}/%
 
 # Patch rejected upstream
 Patch1:         %{name}-MSHARED-279.patch
-# Disable two tests that are affected by bug in maven-surefire version 3.0.0-M6
-# https://issues.apache.org/jira/browse/SUREFIRE-2056
-# The bug is fixed in maven-surefire 3.0.0-M7.
-Patch2:         0001-Disable-two-tests-in-DefaultInvokerTest.java.patch
 
 BuildRequires:  maven-local
-BuildRequires:  mvn(junit:junit)
+BuildRequires:  mvn(javax.inject:javax.inject)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-surefire-plugin)
 BuildRequires:  mvn(org.apache.maven.shared:maven-shared-components:pom:)
-BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
+BuildRequires:  mvn(org.apache.maven.shared:maven-shared-utils)
 BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
-BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.inject)
-# Required by tests
-BuildRequires:  maven-antrun-plugin
-BuildRequires:  maven-clean-plugin
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
 
 %description
 This API is concerned with firing a Maven build in a new JVM. It accomplishes
@@ -45,15 +39,7 @@ Summary:        Javadoc for %{name}
 API documentation for %{name}.
 
 %prep
-%setup -q
-# Change line endings so patch can be applied
-sed -i 's/\r$//' src/main/java/org/apache/maven/shared/invoker/MavenCommandLineBuilder.java
-sed -i 's/\r$//' src/test/java/org/apache/maven/shared/invoker/DefaultInvokerTest.java
-%patch -P 1 -p1
-%patch -P 2 -p1
-%pom_change_dep javax.inject:javax.inject:1  org.eclipse.sisu:org.eclipse.sisu.inject
-
-%pom_xpath_set "pom:project/pom:properties/pom:javaVersion" "8" pom.xml
+%autosetup -p1
 
 %build
 %mvn_build -f
@@ -69,6 +55,11 @@ sed -i 's/\r$//' src/test/java/org/apache/maven/shared/invoker/DefaultInvokerTes
 
 
 %changelog
+* Thu Jan 23 2025 Jerry James <loganjerry@gmail.com> - 3.3.0-1
+- Version 3.3.0
+- Verify that the license is Apache-2.0
+- Drop test patch needed for old version of maven-surefire
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

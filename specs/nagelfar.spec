@@ -2,7 +2,7 @@
 
 Name:           nagelfar
 Version:        1.3.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Syntax checker for Tcl
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -16,6 +16,8 @@ Patch0:         use-datadir-to-store-aux-files.patch
 Patch1:         tclsh-as-shebang.patch
 # Add script to test Nagelfar installation
 Patch2:         script-to-test-install.patch
+# Add Tcl 9.0 support
+Patch3:         tcl9-work.patch
 
 BuildArch:      noarch
 
@@ -38,6 +40,7 @@ simple code coverage analysis.
 %patch -P0
 %patch -P1
 %patch -P2
+%patch -P3
 chmod +x test_nagelfar.sh
 
 %build
@@ -48,9 +51,11 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/
 mv nagelfar.syntax %{buildroot}%{_datadir}/%{name}/
 mv packagedb %{buildroot}%{_datadir}/%{name}/
 mv syntaxbuild.tcl %{buildroot}%{_datadir}/%{name}/
-mv syntaxdb8*.tcl %{buildroot}%{_datadir}/%{name}/
-# default syntaxdb points to current Tcl version (8.6)
-ln -s syntaxdb86.tcl %{buildroot}%{_datadir}/%{name}/syntaxdb.tcl
+mv syntaxdb86.tcl %{buildroot}%{_datadir}/%{name}/
+mv syntaxdb87.tcl %{buildroot}%{_datadir}/%{name}/
+mv syntaxdb90.tcl %{buildroot}%{_datadir}/%{name}/
+# default syntaxdb points to current Tcl version (9.0)
+ln -s syntaxdb90.tcl %{buildroot}%{_datadir}/%{name}/syntaxdb.tcl
 
 mkdir -p %{buildroot}%{_bindir}
 mv nagelfar.tcl %{buildroot}%{_bindir}/
@@ -79,15 +84,20 @@ mv {doc/,}syntaxtokens.txt
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/nagelfar.syntax
 %{_datadir}/%{name}/syntaxbuild.tcl
-%{_datadir}/%{name}/syntaxdb85.tcl
 %{_datadir}/%{name}/syntaxdb86.tcl
 %{_datadir}/%{name}/syntaxdb87.tcl
+%{_datadir}/%{name}/syntaxdb90.tcl
 %{_datadir}/%{name}/syntaxdb.tcl
 %dir %{_datadir}/%{name}/packagedb
 %{_datadir}/%{name}/packagedb/*
 
 
 %changelog
+* Sat Jan 25 2025 Xavier Delaruelle <xavier.delaruelle@cea.fr> - 1.3.3-9
+- Add patch that drops Tcl 8.5 and adds Tcl 9.0 support (patch extracted from
+  upstream commits)
+- Rebuilt for Tcl 9.0 (#2337734)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

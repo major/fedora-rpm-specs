@@ -1,13 +1,10 @@
 %bcond_with check
 %bcond_with debug
 
-ExclusiveArch: %{qt5_qtwebengine_arches}
-ExcludeArch:   %{ix86}
+ExclusiveArch: %{qt6_qtwebengine_arches}
 
 # Python binding
 %global with_pyOpenMS 1
-Obsoletes: python3-openms < 0:2.7.0-2
-Obsoletes: python2-openms < 0:2.4.0-1
 #
 
 # Filter private libraries
@@ -16,8 +13,8 @@ Obsoletes: python2-openms < 0:2.4.0-1
 
 Name:      openms
 Summary:   LC/MS data management and analyses
-Version:   3.2.0
-Epoch:     1
+Version:   3.3.0
+Epoch:     2
 Release:   %autorelease
 # BSD-3-Clause is the main license
 # Apache-2.0, CC-BY-4.0 and CC0-1.0 are coming from TDL directory
@@ -44,11 +41,9 @@ BuildRequires: libsvm-devel
 BuildRequires: gcc-c++
 BuildRequires: gsl-devel
 BuildRequires: glpk-devel
-BuildRequires: qt5-qtbase-devel
-BuildRequires: qt5-qtx11extras-devel
-BuildRequires: qt5-qtwebkit-devel
-BuildRequires: qt5-qtsvg-devel
-BuildRequires: qt5-qtwebengine-devel
+BuildRequires: qt6-qtbase-devel
+BuildRequires: qt6-qtsvg-devel
+BuildRequires: qt6-qtwebengine-devel
 BuildRequires: xerces-c-devel
 BuildRequires: boost-devel
 BuildRequires: sqlite-devel
@@ -61,7 +56,7 @@ BuildRequires: desktop-file-utils
 BuildRequires: percolator
 BuildRequires: libappstream-glib
 BuildRequires: yaml-cpp-devel >= 0.8.0
-Requires:      qt5-qtdeclarative-devel%{?_isa}
+Requires:      qt6-qtdeclarative-devel%{?_isa}
 
 # Build documentation
 # Doxygen useful only on SVN versions  
@@ -72,7 +67,7 @@ BuildRequires: texlive, texlive-a4wide, texlive-xtab
 BuildRequires: xorg-x11-server-Xvfb, gnuplot, gawk
 
 Requires: percolator%{?_isa}
-Requires: %{name}-data%{?_isa} = 1:%{version}-%{release}
+Requires: %{name}-data%{?_isa} = 2:%{version}-%{release}
 Requires: R-core%{?_isa}
 
 # Remove -O0 flag for tests compiling
@@ -121,8 +116,8 @@ The TOPP tools are divided into several subgroups:
 
 %package utilities
 Summary: OpenMS utilities
-Requires: %{name}-data%{?_isa} = 1:%{version}-%{release}
-Obsoletes: %{name}-tools < 1:3.1.0-1
+Requires: %{name}-data%{?_isa} = 2:%{version}-%{release}
+Obsoletes: %{name}-tools < 2:%{version}-%{release}
 %description utilities
 Besides TOPP, OpenMS offers a range of utilities. 
 They are not included in TOPP as they are not part of 
@@ -159,7 +154,7 @@ BuildRequires: python3-virtualenv
 BuildRequires: python3-pandas
 BuildRequires: python3-pytest
 Requires:      python3-biopython
-Requires:      %{name}%{?_isa} = 1:%{version}-%{release}
+Requires:      %{name}%{?_isa} = 2:%{version}-%{release}
 
 %description -n python3-openms
 This package contains Python3 bindings for a large part of the OpenMS library
@@ -175,7 +170,7 @@ implemented in OpenMS, specifically those for file access
 
 %package devel
 Summary: OpenMS header files
-Requires: %{name}%{?_isa} = 1:%{version}-%{release}
+Requires: %{name}%{?_isa} = 2:%{version}-%{release}
 %description devel
 OpenMS development files.
 
@@ -285,10 +280,6 @@ make -j1 pyopenms -C build
 export LD_LIBRARY_PATH=$PWD/lib:$LD_LIBRARY_PATH
 %{_bindir}/xvfb-run -a %make_install -C build
 
-# RHBZ#2231587
-ln -sfv %{_libdir}/libQt5QuickWidgets.so %{buildroot}%{_libdir}/OpenMS/libQt5QuickWidgets.so.%(pkg-config --modversion Qt5WebEngine)
-ln -sfv %{_libdir}/libQt5QuickWidgets.so %{buildroot}%{_libdir}/OpenMS/libQt5QuickWidgets.so.5
-
 # Install executable tests
 %if %{with check}
 install -pm 755 build/src/tests/class_tests/bin/*_test %{buildroot}%{_bindir}/
@@ -373,6 +364,7 @@ chmod 0755 %{buildroot}%{_datadir}/OpenMS/SCRIPTS/plot_trafo.R
 
 # Remove unused files
 rm -rf %{buildroot}%{_includedir}/thirdparty
+rm -rf %{buildroot}%{_datadir}/doc/OpenMS_host
 
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml

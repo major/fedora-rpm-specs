@@ -1,18 +1,21 @@
-# Post-release snapshot with fixes for examples
-# https://github.com/BenHanson/lexertl17/pull/2
-# https://github.com/BenHanson/lexertl17/commit/fc939f3d401753caa4c4c8b4442b169d7fef584d
-%global commit fc939f3d401753caa4c4c8b4442b169d7fef584d
-%global snapdate 20240301
-
 Name:           lexertl17
 Summary:        The Modular Lexical Analyser Generator
-Version:        2024.02.17%{?commit:^%{snapdate}git%{sub %{commit} 1 7}}
+# Upstream switched away from calendar-based versioning, and the new version
+# scheme sorts older than the calendar-based one, so we cannot avoid an Epoch.
+Epoch:          1
+Version:        1.1.3
 Release:        %autorelease
 
-License:        BSL-1.0
+# The entire source is BSL-1.0, except that the following are Unicode-3.0:
+# - gen_unicode_hpp/Blocks.txt
+# - gen_unicode_hpp/Scripts.txt
+# - gen_unicode_hpp/UnicodeData.txt
+# Since these are used to generate:
+# - include/lexertl/parser/tokeniser/unicode.hpp
+# …it is possibly Unicode-3.0 as well.
+License:        BSL-1.0 AND Unicode-3.0
 URL:            https://github.com/BenHanson/lexertl17
-%global srcversion %{?!commit:%{version}}%{?commit:%{commit}}
-Source:         %{url}/archive/%{srcversion}/lexertl17-%{srcversion}.tar.gz
+Source:         %{url}/archive/%{version}/lexertl17-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -37,7 +40,7 @@ you can:
 Summary:        %{summary}
 
 # Header-only library:
-Provides:       lexertl17-static = %{version}-%{release}
+Provides:       lexertl17-static = %{epoch}:%{version}-%{release}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Conflicts/#_compat_package_conflicts
 Conflicts:      lexertl14-devel
 
@@ -45,7 +48,7 @@ Conflicts:      lexertl14-devel
 
 
 %prep
-%autosetup -n lexertl17-%{srcversion}
+%autosetup -n lexertl17-%{version}
 
 # Fix line terminations (particularly for files that may be installed)
 find . -type f -exec file '{}' '+' |

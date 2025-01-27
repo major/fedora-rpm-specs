@@ -24,8 +24,8 @@
 %global srcname ClusterShell
 
 Name:           clustershell
-Version:        1.9.2
-Release:        7%{?dist}
+Version:        1.9.3
+Release:        1%{?dist}
 Summary:        Python framework for efficient cluster administration
 
 %if 0%{?suse_version}
@@ -91,7 +91,7 @@ BuildRequires:  %{python3_pkgprefix}-devel
 BuildRequires:  %{python3_pkgprefix}-setuptools
 Requires:       %{python3_pkgprefix}-PyYAML
 Requires:       %{python3_pkgprefix}-setuptools
-%{?python_provide:%python_provide %{python3_pkgprefix}-%{srcname}}
+%{?python_provide:%python_provide %{python3_pkgprefix}-%{name}}
 
 %description -n %{python3_pkgprefix}-%{name}
 ClusterShell Python 3 module and related command line tools.
@@ -149,6 +149,13 @@ install -p -m 0644 doc/extras/vim/ftdetect/clustershell.vim %{buildroot}/%{vimda
 install -p -m 0644 doc/extras/vim/syntax/clushconf.vim %{buildroot}/%{vimdatadir}/syntax/
 install -p -m 0644 doc/extras/vim/syntax/groupsconf.vim %{buildroot}/%{vimdatadir}/syntax/
 %{?suse_version:%fdupes %{buildroot}}
+
+install -d %{buildroot}%{bash_completions_dir}
+install -p -m 0644 bash_completion.d/cluset -t %{buildroot}%{bash_completions_dir}
+install -p -m 0644 bash_completion.d/clush -t %{buildroot}%{bash_completions_dir}
+pushd %{buildroot}%{bash_completions_dir}
+ln -s cluset nodeset
+popd
 
 %if 0%{!?py3only:1}
 
@@ -222,8 +229,14 @@ install -p -m 0644 doc/extras/vim/syntax/groupsconf.vim %{buildroot}/%{vimdatadi
 %{vimdatadir}/ftdetect/clustershell.vim
 %{vimdatadir}/syntax/clushconf.vim
 %{vimdatadir}/syntax/groupsconf.vim
+%{bash_completions_dir}/cluset
+%{bash_completions_dir}/clush
+%{bash_completions_dir}/nodeset
 
 %changelog
+* Fri Jan 24 2025 Stephane Thiell <sthiell@stanford.edu> 1.9.3-1
+- update to 1.9.3
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -3,12 +3,11 @@
 %global pkgname libzip
 
 Name:           mingw-%{pkgname}
-Version:        1.11.2
-Release:        2%{?dist}
+Version:        1.11.3
+Release:        1%{?dist}
 Summary:        C library for reading, creating, and modifying zip archives
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 BuildArch:      noarch
 URL:            http://www.nih.at/libzip/index.html
 Source0:        http://www.nih.at/libzip/%{pkgname}-%{version}.tar.xz
@@ -108,6 +107,9 @@ rm -r %{buildroot}%{mingw64_datadir}
 
 
 %changelog
+* Sat Jan 25 2025 Sandro Mani <manisandro@gmail.com> - 1.11.3-1
+- Update to 1.11.3
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

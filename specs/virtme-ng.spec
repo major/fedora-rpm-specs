@@ -1,18 +1,39 @@
-%global srcname virtme_ng
+%if 0%{?epel}
+# EPEL status as of 2025-01-23:
+# EPEL 9: fails on a weird error in %%pyproject_install
+# EPEL 10: missing rust-uzers
+%bcond optimized_init 0
+%else
+%bcond optimized_init 1
+%endif
 
-Name:           virtme-ng
+%global forgeurl https://github.com/arighi/virtme-ng
+%global commit f1c27d9ee496e5eac820f77d2f9063816dbb65be
+
 Version:        1.32
+%forgemeta
+Name:           virtme-ng
 Release:        %autorelease
 Summary:        Quickly build and run kernels inside a virtualized snapshot of your live system
+# Code license:
+# - GPL-2.0-only
+# - GPL-3.0-only (virtme_ng_init)
+# Rust dependency licenses:
+# - MIT
+# - MIT OR Apache-2.0
+License:        GPL-2.0-only AND GPL-3.0-only AND MIT AND (MIT OR Apache-2.0)
+URL:            %forgeurl
+Source:         %forgesource
 
-License:        GPL-2.0-only
-URL:            https://github.com/arighi/%{name}
-Source:         %{pypi_source %{srcname}}
-
+%if !%{with optimized_init}
 BuildArch:      noarch
+%endif
 
 BuildRequires:  python3-devel
 BuildRequires:  argparse-manpage
+%if %{with optimized_init}
+BuildRequires:  cargo-rpm-macros >= 24
+%endif
 
 Recommends:     qemu-kvm
 Recommends:     busybox
@@ -47,16 +68,34 @@ running your tests and experiments.
 virtme-ng is based on virtme, written by Andy Lutomirski <luto@kernel.org>.
 
 %prep
-%autosetup -p1 -n %{srcname}-%{version}
+%forgeautosetup -p1
 
-# Remove bundled binary (optional optimized init program for the VM)
-rm -f virtme/guest/bin/virtme-ng-init
+%if %{with optimized_init}
+# Don't strip the debuginfo - let the rpm macros do it.
+sed -i 's/\["strip", /["true", /' setup.py
+
+cd virtme_ng_init
+%cargo_prep
+%endif
 
 %generate_buildrequires
 %pyproject_buildrequires
+%if %{with optimized_init}
+cd virtme_ng_init
+%cargo_generate_buildrequires
+%endif
 
 %build
+%if %{with optimized_init}
+export BUILD_VIRTME_NG_INIT=1
+%endif
 %pyproject_wheel
+
+%if %{with optimized_init}
+cd virtme_ng_init
+%cargo_license_summary
+%{cargo_license} > LICENSE.dependencies
+%endif
 
 %install
 %pyproject_install
@@ -75,6 +114,9 @@ rm -rf %{buildroot}%{python3_sitelib}/usr
 
 %files -f %{pyproject_files}
 %license LICENSE
+%if %{with optimized_init}
+%license virtme_ng_init/LICENSE.dependencies
+%endif
 %doc README.md
 %config(noreplace) %{_sysconfdir}/virtme-ng.conf
 %{_bindir}/vng

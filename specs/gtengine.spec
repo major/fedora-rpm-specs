@@ -2,7 +2,7 @@
 
 Name: gtengine
 Summary: Library for computations in mathematics, graphics, image analysis, and physics
-Version: 7.1
+Version: 7.2
 Release: %autorelease
 Epoch: 1
 # Automatically converted from old format: Boost - review is highly recommended.
@@ -54,28 +54,26 @@ testing that use %{name}.
 # Remove -Werror flags (rhbz#1923590)
 find . -type f \( -name "CMakeLists.txt" \) -exec sed -i 's| -Werror||g' '{}' \;
 
-sed -i 's|GTE_VERSION_MINOR 5|GTE_VERSION_MINOR 6|g' -i GTE/CMakeLists.txt
+sed -i 's|GTE_VERSION_MINOR 1|GTE_VERSION_MINOR 2|g' -i GTE/CMakeLists.txt
 
 %build
-%define __cmake_in_source_build .
+
+%if %{with debug}
+%cmake -S GTE -DCMAKE_BUILD_TYPE:STRING=Debug -DBUILD_RELEASE_LIB:BOOL=ON -DBUILD_SHARED_LIB:BOOL=ON
+%else
+%cmake -S GTE -DCMAKE_BUILD_TYPE:STRING=Release -DBUILD_RELEASE_LIB:BOOL=ON -DBUILD_SHARED_LIB:BOOL=ON
+%endif
+%cmake_build
+
 pushd GTE
 %if %{with debug}
-%cmake -DCMAKE_BUILD_TYPE:STRING=Debug -DBUILD_RELEASE_LIB:BOOL=ON -DBUILD_SHARED_LIB:BOOL=ON %_vpath_srcdir
+%cmake -S Samples -DCMAKE_SKIP_RPATH:BOOL=ON -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON -DCMAKE_BUILD_TYPE:STRING=Debug \
+ -DBUILD_RELEASE_LIB:BOOL=ON -DBUILD_SHARED_LIB:BOOL=ON
 %else
-%cmake -DCMAKE_BUILD_TYPE:STRING=Release -DBUILD_RELEASE_LIB:BOOL=ON -DBUILD_SHARED_LIB:BOOL=ON %_vpath_srcdir
+%cmake -S Samples -DCMAKE_SKIP_RPATH:BOOL=ON -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON -DCMAKE_BUILD_TYPE:STRING=Release \
+ -DBUILD_RELEASE_LIB:BOOL=ON -DBUILD_SHARED_LIB:BOOL=ON
 %endif
-%make_build
-popd
-
-pushd GTE/Samples
-%if %{with debug}
-%cmake -DCMAKE_SKIP_RPATH:BOOL=ON -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON -DCMAKE_BUILD_TYPE:STRING=Debug \
- -DBUILD_RELEASE_LIB:BOOL=ON -DBUILD_SHARED_LIB:BOOL=ON %_vpath_srcdir
-%else
-%cmake -DCMAKE_SKIP_RPATH:BOOL=ON -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON -DCMAKE_BUILD_TYPE:STRING=Release \
- -DBUILD_RELEASE_LIB:BOOL=ON -DBUILD_SHARED_LIB:BOOL=ON %_vpath_srcdir
-%endif
-%make_build
+%cmake_build
 popd
 
 %install
@@ -84,12 +82,12 @@ echo 'Manual installation...'
 mkdir -p $RPM_BUILD_ROOT%{_libdir}/pkgconfig
 install -pm 755 GTE/lib/ReleaseShared/* $RPM_BUILD_ROOT%{_libdir}/
 
-ln -sf libgtapplications.so.7.0 $RPM_BUILD_ROOT%{_libdir}/libgtapplications.so
-ln -sf libgtgraphics.so.7.0 $RPM_BUILD_ROOT%{_libdir}/libgtgraphics.so
-ln -sf libgtmathematicsgpu.so.7.0 $RPM_BUILD_ROOT%{_libdir}/libgtmathematicsgpu.so
-ln -sf libgtapplications.so.7.0 $RPM_BUILD_ROOT%{_libdir}/libgtapplications.so.7
-ln -sf libgtgraphics.so.7.0 $RPM_BUILD_ROOT%{_libdir}/libgtgraphics.so.7
-ln -sf libgtmathematicsgpu.so.7.0 $RPM_BUILD_ROOT%{_libdir}/libgtmathematicsgpu.so.7
+ln -sf libgtapplications.so.%{version} $RPM_BUILD_ROOT%{_libdir}/libgtapplications.so
+ln -sf libgtgraphics.so.%{version} $RPM_BUILD_ROOT%{_libdir}/libgtgraphics.so
+ln -sf libgtmathematicsgpu.so.%{version} $RPM_BUILD_ROOT%{_libdir}/libgtmathematicsgpu.so
+ln -sf libgtapplications.so.%{version} $RPM_BUILD_ROOT%{_libdir}/libgtapplications.so.7
+ln -sf libgtgraphics.so.%{version} $RPM_BUILD_ROOT%{_libdir}/libgtgraphics.so.7
+ln -sf libgtmathematicsgpu.so.%{version} $RPM_BUILD_ROOT%{_libdir}/libgtmathematicsgpu.so.7
 
 mkdir -p $RPM_BUILD_ROOT%{_includedir}/GTE
 cp -a GTE/Applications $RPM_BUILD_ROOT%{_includedir}/GTE/
@@ -137,8 +135,8 @@ xthreadlib=-lpthread
 
 Name: GTEngine
 Description: Library for computations in mathematics, graphics, image analysis, and physics
-Version: 7.0
-Cflags: -I%{_includedir}/GTE
+Version: %{version}
+Cflags: -I%{_includedir}/GTE -I%{_includedir}/GTL
 Libs: -lgtgraphics -lgtmathematicsgpu -lgtapplications
 Libs.private: -lpthread
 EOF
@@ -146,7 +144,7 @@ EOF
 %files
 %license LICENSE
 %doc README.md
-%{_libdir}/libgt*.so.7.0
+%{_libdir}/libgt*.so.%{version}
 %{_libdir}/libgt*.so.7
 
 %files devel

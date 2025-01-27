@@ -1,19 +1,29 @@
 Name:           parsertl17
 Summary:        The Modular Parser Generator
-Version:        2024.02.17
+# Upstream switched away from calendar-based versioning, and the new version
+# scheme sorts older than the calendar-based one, so we cannot avoid an Epoch.
+Epoch:          1
+Version:        1.0.0
 Release:        %autorelease
 
 License:        BSL-1.0
 URL:            https://github.com/BenHanson/parsertl17
 Source:         %{url}/archive/%{version}/parsertl17-%{version}.tar.gz
 
+# No compiled binaries are installed, so this would be empty.
+%global debug_package %{nil}
+
+# This choice is somewhat arbitrary, but it’s safest to combine versions
+# released around the same time. Note that this includes an epoch.
+%global min_lexertl17 1:1.1.3
+
 BuildRequires:  gcc-c++
+BuildRequires:  cmake
 BuildRequires:  dos2unix
 
-BuildRequires:  lexertl17-devel
 # Header-only library:
 # (Technically, dependent packages should have this BuildRequires too.)
-BuildRequires:  lexertl17-static
+BuildRequires:  lexertl17-static >= %{min_lexertl17}
 
 # No compiled binaries are installed, so this would be empty.
 %global debug_package %{nil}
@@ -27,14 +37,12 @@ BuildRequires:  lexertl17-static
 %package devel
 Summary:        %{summary}
 
-BuildArch:      noarch
-
 # Header-only library:
-Provides:       parsertl17-static = %{version}-%{release}
+Provides:       parsertl17-static = %{epoch}:%{version}-%{release}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Conflicts/#_compat_package_conflicts
 Conflicts:      parsertl14-devel
 
-Requires:       lexertl17-devel
+Requires:       lexertl17-devel >= %{min_lexertl17}
 
 %description devel %{common_description}
 
@@ -49,15 +57,24 @@ find . -type f -exec file '{}' '+' |
   xargs -r dos2unix --keepdate
 
 
-# Nothing to build
+%conf
+# While the top-level CMakeLists.txt supports a BUILD_TESTING option, there are
+# not yet any tests that can be built or run via CMake.
+%cmake
+
+
+%build
+%cmake_build
 
 
 %install
-install -d '%{buildroot}%{_includedir}'
-cp -rvp include/parsertl '%{buildroot}%{_includedir}/'
+%cmake_install
 
 
 %check
+%ctest
+# There are not yet any tests that can be built or run via CMake. This is a
+# compile-only “smoke test.”
 %set_build_flags
 ${CXX-g++} -I"${PWD}/include" ${CPPFLAGS} ${CXXFLAGS} -o include_test ${LDFLAGS} \
     tests/include_test/*.cpp
@@ -68,6 +85,8 @@ ${CXX-g++} -I"${PWD}/include" ${CPPFLAGS} ${CXXFLAGS} -o include_test ${LDFLAGS}
 %doc README.md
 
 %{_includedir}/parsertl/
+
+%{_libdir}/cmake/parsertl/
 
 
 %changelog

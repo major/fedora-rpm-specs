@@ -1,6 +1,6 @@
 Name: openssl-gost-engine
 Version: 3.0.3
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 URL: https://github.com/gost-engine/engine
 License: OpenSSL
@@ -10,8 +10,13 @@ Source: https://github.com/gost-engine/engine/archive/v%{version}/%{name}-%{vers
 Patch1: 01-engine-nowerror.patch
 
 BuildRequires: make
-BuildRequires: cmake-rpm-macros gcc perl-Test-Simple
-BuildRequires: cmake openssl-devel pkgconf-pkg-config
+BuildRequires: cmake-rpm-macros
+BuildRequires: gcc
+BuildRequires: perl-Test-Simple
+BuildRequires: cmake
+BuildRequires: openssl-devel
+BuildRequires: openssl-devel-engine
+BuildRequires: pkgconf-pkg-config
 
 %{?!_without_check:%{?!_disable_check:BuildRequires: perl-devel openssl}}
 
@@ -63,6 +68,9 @@ OPENSSL_ENGINES="$PWD/%{_vpath_builddir}/bin" \
 %_mandir/man1/gost*sum*
 
 %changelog
+* Sat Jan 25 2025 Carlos Rodriguez-Fernandez <carlosrodrifernandez@gmail.com> - 3.0.3-6
+- Fix dependency on openssl engine
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

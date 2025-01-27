@@ -1,12 +1,15 @@
 Summary: Display information about users currently logged on 
 Name: whowatch
 Version: 1.8.6
-Release: 19%{?dist}
+Release: 20%{?dist}
 License: GPL-2.0-only
 URL: http://wizard.ae.krakow.pl/~mike/
 
 Source0: https://github.com/mtsuszycki/whowatch/archive/whowatch-%{version}.tar.gz
 Patch0: whowatch-configure-c99.patch
+
+# Submitted upstream: https://github.com/mtsuszycki/whowatch/pull/13
+Patch1: whowatch-gcc15-fixes.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -42,6 +45,9 @@ touch aclocal.m4 Makefile.in src/config.h.in
 %{_bindir}/whowatch
 
 %changelog
+* Sat Jan 25 2025 Richard Fearn <richardfearn@gmail.com> - 1.8.6-20
+- Fix FTBFS (bug #2341538)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.6-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

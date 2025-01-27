@@ -1,6 +1,6 @@
 Version:        3.052
-Release:        5%{?dist}
-URL:            https://github.com/adobe-fonts/source-sans-pro/
+Release:        6%{?dist}
+URL:            https://github.com/adobe-fonts/source-sans
 
 %global foundry adobe
 %global fontlicense OFL-1.1
@@ -16,7 +16,7 @@ URL:            https://github.com/adobe-fonts/source-sans-pro/
 user interface (UI) environments, as well as in text setting for screen and
 print.}
 
-Source0:        %{url}/releases/download/%{version}R/OTF-source-sans-%{version}R.zip
+Source0:        %{url}/archive/%{version}R/%{fontpkgname}-%{version}.tar.gz
 # Adjust as necessary. Keeping the filename in sync with the package name is a good idea.
 # See the fontconfig templates in fonts-rpm-templates for information on how to
 # write good fontconfig files and choose the correct priority [number].
@@ -26,7 +26,7 @@ Source10:       63-%{fontpkgname}.conf
 
 
 %prep
-%autosetup -c
+%autosetup -n source-sans-%{version}R
 
 
 %build
@@ -45,6 +45,9 @@ Source10:       63-%{fontpkgname}.conf
 
 
 %changelog
+* Sat Jan 25 2025 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.052-6
+- Fix FTBFS thanks to @mavit (RHBZ #2339874)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.052-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

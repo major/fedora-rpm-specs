@@ -1,5 +1,5 @@
 Name:           python-irodsclient
-Version:        2.2.0
+Version:        3.0.0
 Release:        %autorelease
 Summary:        A python API for iRODS
 
@@ -8,9 +8,24 @@ License:        BSD-3-Clause
 URL:            https://github.com/irods/python-irodsclient
 Source:         %{pypi_source python-irodsclient}
 
-BuildArch:      noarch
+# Replace deprecated description-file with description_file
+# https://github.com/irods/python-irodsclient/pull/682
+# Re-created on the released PyPI sdist (with different whitespace)
+Patch:          irodsclient-3.0.0-description_file.patch
 
-BuildRequires:  python3-devel
+# Fix some SyntaxWarnings in the tests
+# https://github.com/irods/python-irodsclient/pull/683
+Patch:          %{url}/pull/683.patch
+
+BuildSystem:            pyproject
+BuildOption(install):   -l irods
+# * The test runner module requires xmlrunner, which is no longer packaged.
+# * Merely importing ssl_test_client requires configured iRODS credentials.
+BuildOption(check): -e irods.test.runner -e irods.test.ssl_test_client
+# All tests require network access and a valid account on a running iRODS grid.
+# See irods/test/README.rst.
+
+BuildArch:      noarch
 
 %global common_description %{expand:
 iRODS (https://www.irods.org/) is an open source distributed data management
@@ -28,8 +43,7 @@ Summary:        %{summary}
 %description -n python3-irodsclient %{common_description}
 
 
-%prep
-%autosetup -n python-irodsclient-%{version} -p1
+%prep -a
 # Remove useless shebangs in files that will be installed without executable
 # permission. The pattern of selecting files before modifying them with sed
 # keeps us from unnecessarily discarding the original mtimes on unmodified
@@ -37,27 +51,6 @@ Summary:        %{summary}
 find 'irods' -type f -name '*.py' \
     -exec gawk '/^#!/ { print FILENAME }; { nextfile }' '{}' '+' |
   xargs -r sed -r -i '1{/^#!/d}'
-
-
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l irods
-
-
-%check
-# * The test runner module requires xmlrunner, which is no longer packaged.
-# * Merely importing ssl_test_client requires configured iRODS credentials.
-%pyproject_check_import -e irods.test.runner -e irods.test.ssl_test_client
-# All tests require network access and a valid account on a running iRODS grid.
-# See irods/test/README.rst.
 
 
 %files -n python3-irodsclient -f %{pyproject_files}

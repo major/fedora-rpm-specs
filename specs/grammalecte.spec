@@ -16,29 +16,29 @@ n'est pas possible de déterminer avec de fortes chances qu'une suite de mots
 douteuse est erronée, le correcteur ne signalera rien.}
 
 Name:           grammalecte
-Version:        2.1.2
-Release:        16%{?dist}
+Version:        2.2
+Release:        1%{?dist}
 Summary:        French grammar checker
 Summary(fr):    Correcteur grammatical dédié à la langue française
 
-# Source code is GPLv3. Language resources in
+# Source code is GPL-3.0-only. Language resources in
 # gc_lang/fr/oxt/Dictionnaires/dictionaries/ are:
-# - MPLv2.0 for dictionaries (*.dic) and affix files (*.aff)
-# - LGPLv2+ for French thesaurus (thes_fr.*) and hyphenation rules (*.tex)
+# - MPL-2.0 for dictionaries (*.dic) and affix files (*.aff)
+# - LGPL-2.1-or-later for French thesaurus (thes_fr.*) and hyphenation rules (*.tex)
 # See ./gc_lang/fr/oxt/Dictionnaires/dictionaries/README*.txt
-License:        GPL-3.0-only AND MPL-2.0 AND LGPLv2+
+License:        GPL-3.0-only AND MPL-2.0 AND LGPL-2.1-or-later
 URL:            https://grammalecte.net/
-Source0:        %{name}-%{version}.tar.xz
-# The source for this package was pulled from upstream's VCS. Use the
-# following script to generate the tarball (fossil is required):
-Source1:        %{name}-generate-tarball.sh
-Source2:        libreoffice-%{name}.metainfo.xml
+Source0:        http://grammalecte.net:8080/tarball/v%{version}/%{name}-%{version}.tar.gz
+Source1:        libreoffice-%{name}.metainfo.xml
+# Disable failing word suggestion tests due to algorithm change
+Patch0:         %{name}-2.2-tests.patch
 
 BuildRequires:  libappstream-glib
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist bottle}
 BuildRequires:  %{py3_dist pip}
 BuildRequires:  %{py3_dist setuptools}
+BuildRequires:  %{py3_dist wheel}
 
 %description
 %{_description}
@@ -71,7 +71,6 @@ Summary:        French grammar checker
 Summary(fr):    Correcteur grammatical dédié à la langue française
 Requires:       %{py3_dist bottle}
 Provides:       %{name} = %{version}-%{release}
-%py_provides python3-%{name}
 BuildArch:      noarch
 
 %description -n python3-%{name}
@@ -88,7 +87,7 @@ bibliothèque Python.
 
 
 %prep
-%autosetup
+%autosetup -p0
 
 # Use system bottle library for build
 ln -sf %{python3_sitelib}/bottle.py 3rd/
@@ -102,7 +101,6 @@ ln -sf %{python3_sitelib}/bottle.py 3rd/
 mkdir python/
 unzip _build/Grammalecte-fr-v%{version}.zip -d python/
 pushd python/
-rm -rf *.egg-info
 %pyproject_wheel
 popd
 
@@ -126,19 +124,15 @@ popd
 # Unbundle bottle library
 ln -sf %{python3_sitelib}/bottle.py $RPM_BUILD_ROOT%{python3_sitelib}/%{name}/bottle.py
 
-# Avoid code duplication accross subpackages
+# Avoid code duplication across subpackages
 ln -s %{_bindir}/%{name}-cli.py $RPM_BUILD_ROOT%{_libdir}/libreoffice/share/extensions/%{name}/pythonpath/
 ln -s %{python3_sitelib}/%{name} $RPM_BUILD_ROOT%{_libdir}/libreoffice/share/extensions/%{name}/pythonpath/
 
-install -Dpm 0644 %{SOURCE2} $RPM_BUILD_ROOT%{_metainfodir}/%{name}.appdata.xml
+install -Dpm 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_metainfodir}/%{name}.appdata.xml
 
 
 %check
-%{python3} ./make.py fr -t
-
-pushd python/
-%{py3_test_envvars} %{__python3} -m unittest
-popd
+%{py3_test_envvars} %{python3} -m unittest
 
 appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/%{name}.appdata.xml
 
@@ -156,7 +150,11 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/%{name}.app
 %{_bindir}/%{name}-cli.py
 %{_bindir}/%{name}-server.py
 
+
 %changelog
+* Sat Jan 25 2025 Mohamed El Morabity <melmorabity@fedoraproject.org> - 2.2-1
+- Update to 2.2
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

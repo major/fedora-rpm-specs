@@ -56,7 +56,7 @@
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}
-Release:        36.rocm%{rocm_version}%{?dist}
+Release:        37.rocm%{rocm_version}%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 
 Url:            https://github.com/ROCm/llvm-project
@@ -155,8 +155,10 @@ Provides:       rocm-comgr = %{comgr_full_api_ver}-%{release}
 The AMD Code Object Manager (Comgr) is a shared library which provides
 operations for creating and inspecting code objects.
 
+%if 0%{?suse_version}
 %post -n rocm-comgr  -p /sbin/ldconfig
 %postun -n rocm-comgr -p /sbin/ldconfig
+%endif
 
 %package -n rocm-comgr-devel
 Summary:        AMD ROCm LLVM Code Object Manager
@@ -250,8 +252,10 @@ Requires:      rocm-llvm%{?_isa} = %{version}-%{release}
 %description -n rocm-llvm-devel
 %{summary}
 
+%if 0%{?suse_version}
 %post -n rocm-llvm-devel -p /sbin/ldconfig
 %postun -n rocm-llvm-devel -p /sbin/ldconfig
+%endif
 
 %package -n rocm-llvm-static
 Summary:       Static libraries for ROCm LLVM
@@ -268,8 +272,10 @@ Requires:      rocm-llvm-libs%{?_isa} = %{version}-%{release}
 %description -n rocm-clang-libs
 %{summary}
 
+%if 0%{?suse_version}
 %post -n rocm-clang-libs -p /sbin/ldconfig
 %postun -n rocm-clang-libs -p /sbin/ldconfig
+%endif
 
 %package -n rocm-clang-runtime-devel
 Summary:       The ROCm compiler runtime
@@ -280,11 +286,10 @@ Summary:       The ROCm compiler runtime
 %package -n rocm-clang
 Summary:       The ROCm compiler
 Requires:      git
-Requires:      python%{python3_pkgversion}
+Requires:      python3
 Requires:      rocm-clang-libs%{?_isa} = %{version}-%{release}
 Requires:      rocm-clang-runtime-devel%{?_isa} = %{version}-%{release}
 Requires:      rocm-libc++-devel%{?_isa} = %{version}-%{release}
-
 
 %description -n rocm-clang
 %{summary}
@@ -1047,8 +1052,10 @@ mv %{buildroot}%{_bindir}/hip*.pm %{buildroot}%{perl_vendorlib}
 %{bundle_prefix}/lib/libLTO.so.*
 %{bundle_prefix}/lib/libRemarks.so.*
 
+%if 0%{?suse_version}
 %post -n rocm-llvm-libs -p /sbin/ldconfig
 %postun -n rocm-llvm-libs -p /sbin/ldconfig
+%endif
 
 %files -n rocm-llvm
 %license llvm/LICENSE.TXT
@@ -1148,6 +1155,10 @@ mv %{buildroot}%{_bindir}/hip*.pm %{buildroot}%{perl_vendorlib}
 %endif
 
 %changelog
+* Sat Jan 25 2025 Tom Rix <Tom.Rix@amd.com> - 18-37.rocm6.3.1
+- Fix the fixed shebangs
+- clang is used to find the rocm install, change /opt/rocm -> /usr
+
 * Thu Jan 23 2025 Tom Rix <Tom.Rix@amd.com> - 18-36.rocm6.3.1
 - Add git,python requires for rocm-clang
 

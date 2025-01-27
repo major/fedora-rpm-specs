@@ -13,8 +13,8 @@
 %global libver 18
 
 Name:          mingw-%{pkgname}
-Version:       19.1.4
-Release:       2%{?dist}
+Version:       19.1.7
+Release:       1%{?dist}
 Summary:       LLVM for MinGW
 
 License:       NCSA
@@ -261,6 +261,9 @@ chrpath --delete %{buildroot}%{_prefix}/%{mingw64_target}/bin/llvm-tblgen
 
 
 %changelog
+* Sat Jan 25 2025 Sandro Mani <manisandro@gmail.com> - 19.1.7-1
+- Update to 19.1.7
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 19.1.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

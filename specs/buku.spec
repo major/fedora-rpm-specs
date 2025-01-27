@@ -1,25 +1,17 @@
 Name:       buku
-Version:    4.8
+Version:    4.9
 Release:    %autorelease
 Summary:    Powerful command-line bookmark manager
 
 License:    GPL-3.0-or-later
 URL:        https://github.com/jarun/Buku
-Source0:    %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:     buku-fix-makefile.patch
+Source:     %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch:      buku-fix-makefile.patch
 
 BuildArch:  noarch
 
 BuildRequires:  make
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(myst-parser)
-BuildRequires:  python3dist(sphinx)
-BuildRequires:  python3dist(sphinx-rtd-theme)
-Requires:       python3dist(beautifulsoup4)
-Requires:       python3dist(certifi)
-Requires:       python3dist(cryptography)
-Requires:       python3dist(html5lib)
-Requires:       python3dist(urllib3)
 
 %description
 Buku is a powerful bookmark manager written in Python3 and SQLite3.
@@ -32,10 +24,14 @@ instantly. Multiple search results can be opened in the browser at once.
 
 %prep
 %autosetup -p1
+sed -i "s|urllib3>=1.23,<2|urllib3<3|" setup.py
+
+%generate_buildrequires
+%pyproject_buildrequires -x docs
 
 %build
 # generate html docs
-PYTHONPATH=%{pyproject_build_lib} sphinx-build docs/source html
+PYTHONPATH=$PWD/build/lib sphinx-build docs/source html
 # remove the sphinx-build leftovers
 rm -rf html/.{doctrees,buildinfo}
 

@@ -1,6 +1,9 @@
+# pytest-xdist is not included in RHEL, and on Fedora it depends on psutil
+%bcond xdist %[%{defined fedora} && %{undefined bootstrap}]
+
 Name:           python-psutil
 Version:        6.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A process and system utilities module for Python
 
 License:        BSD-3-Clause
@@ -36,7 +39,10 @@ BuildRequires:  sed
 BuildRequires:  python%{python3_pkgversion}-devel
 # Test dependencies
 BuildRequires:  procps-ng
-BuildRequires:  python3-pytest-xdist
+BuildRequires:  python%{python3_pkgversion}-pytest
+%if %{with xdist}
+BuildRequires:  python%{python3_pkgversion}-pytest-xdist
+%endif
 
 %description
 psutil is a module providing an interface for retrieving information on all
@@ -106,7 +112,7 @@ done
 # Alternative is to set GITHUB_ACTIONS but that has undesirable side effects.
 
 # Note: We deliberately bypass the Makefile here to test the installed modules.
-APPVEYOR=1 %{pytest} -k "not emulate_energy_full_0 and not emulate_energy_full_not_avail and not emulate_no_power and not emulate_power_undetermined" --pyargs psutil.tests
+APPVEYOR=1 %{pytest} %{?with_xdist:-n auto} -k "not emulate_energy_full_0 and not emulate_energy_full_not_avail and not emulate_no_power and not emulate_power_undetermined" --pyargs psutil.tests
 
 %endif
 
@@ -120,6 +126,9 @@ APPVEYOR=1 %{pytest} -k "not emulate_energy_full_0 and not emulate_energy_full_n
 
 
 %changelog
+* Fri Jan 24 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 6.1.1-2
+- Use pytest-xdist only on Fedora
+
 * Tue Jan 21 2025 Jeremy Cline <jeremycline@linux.microsoft.com> - 6.1.1-1
 - Update to 6.1.1
 

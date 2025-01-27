@@ -16,8 +16,8 @@ ase-3.23 requires pyproject.toml setuptools support
 %global upstream_name ase
 
 Name:			python-ase
-Version:		3.23.0
-Release:		5%{?dist}
+Version:		3.24.0
+Release:		1%{?dist}
 Summary:		Atomic Simulation Environment
 
 
@@ -142,6 +142,9 @@ cd -
 
 
 %changelog
+* Sat Jan 25 2025 Marcin Dulak <marcindulak@fedoraproject.org> - 3.24.0-1
+- New upstream release
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.23.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

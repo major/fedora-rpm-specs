@@ -4,8 +4,8 @@
 # No quick Rawhide-only fixes will be allowed.
 
 Name:			gpaw-setups
-Version:		0.9.20000
-Release:		17%{?dist}
+Version:		24.11.0
+Release:		1%{?dist}
 Summary:		Atomic GPAW setups
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -40,6 +40,9 @@ install -p -m 444 *.{gz,pckl,txt} %{buildroot}%{_datadir}/%{name}
 
 
 %changelog
+* Sat Jan 25 2025 Marcin Dulak <marcindulak@fedoraproject.org> - 24.11.0-1
+- new upstream release
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.20000-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
@@ -88,7 +91,7 @@ install -p -m 444 *.{gz,pckl,txt} %{buildroot}%{_datadir}/%{name}
 * Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.20000-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
-* Fri Apr 13 2018 Marcin Dulak <Marcin.Dulak@gmail.com> - 0.9.20000-1
+* Fri Apr 13 2018 Marcin Dulak <marcindulak@fedoraproject.org> - 0.9.20000-1
 - new upstream release
 
 * Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.11271-8
@@ -109,8 +112,8 @@ install -p -m 444 *.{gz,pckl,txt} %{buildroot}%{_datadir}/%{name}
 * Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.9.11271-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
 
-* Wed Apr 30 2014 Marcin Dulak <Marcin.Dulak@gmail.com> - 0.9.11271-2
+* Wed Apr 30 2014 Marcin Dulak <marcindulak@fedoraproject.org> - 0.9.11271-2
 - COPYING and LICENSE added
 
-* Tue Apr 22 2014 Marcin Dulak <Marcin.Dulak@gmail.com> - 0.9.11271-1
+* Tue Apr 22 2014 Marcin Dulak <marcindulak@fedoraproject.org> - 0.9.11271-1
 - initial version for Fedora

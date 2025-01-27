@@ -1,13 +1,13 @@
 Name:           pysnmp
-Version:        4.4.12
-Release:        19%{?dist}
+Version:        7.1.16
+Release:        1%{?dist}
 
 Summary:        An SNMP engine written in Python
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
-URL:            http://pysnmp.sourceforge.net/
-Source0:        https://github.com/etingof/pysnmp/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+URL:            https://pysnmp.com/
+Source0:        https://github.com/lextudio/pysnmp/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
 Requires:       net-snmp
@@ -36,19 +36,27 @@ networking.
 %prep
 %autosetup -n %{name}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files pysnmp
 
-%files -n python3-%{name}
-%doc CHANGES.txt README.md THANKS.txt TODO.txt examples/ docs/
+%check
+%pyproject_check_import -e '*.smi.mibs.*'
+
+%files -n python3-%{name} -f  %{pyproject_files}
+%doc CHANGES.rst README.md THANKS.txt TODO.txt examples/ docs/
 %license LICENSE.rst
-%{python3_sitelib}/%{name}/
-%{python3_sitelib}/%{name}*.egg-info
 
 %changelog
+* Wed Jan 22 2025 Federico Pellegrin <fede@evolware.org> - 7.1.16-1
+- Bump to 7.1.16, previous versions were not working with Python 3.12 (so Fedora >=40)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.12-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

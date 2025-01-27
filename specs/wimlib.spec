@@ -1,6 +1,6 @@
 Name:           wimlib
 Version:        1.14.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Open source Windows Imaging (WIM) library
 
 # wimlib is dual-licensed (GPL-3.0-or-later/LGPL-3.0-or-later) but is linked to
@@ -12,16 +12,15 @@ Source0:        %{url}/downloads/%{name}-%{version}.tar.gz
 # Disable tests requiring mount privileges
 Patch0:         %{name}-1.14.3-tests.patch
 
+%if 0%{?fedora} > 41
+BuildRequires:  autoconf
+BuildRequires:  libtool
+%endif
 BuildRequires:  automake
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(fuse3)
-BuildRequires:  pkgconfig(libcrypto)
 BuildRequires:  pkgconfig(libntfs-3g)
-BuildRequires:  pkgconfig(libxml-2.0)
-# Needed for tests
-# BuildRequires:  ntfs-3g
-# BuildRequires:  ntfsprogs
 
 %description
 wimlib is a C library for creating, modifying, extracting, and mounting files in
@@ -53,6 +52,10 @@ files in the Windows Imaging Format (WIM files).
 
 
 %build
+# Ensure build files match the installed Automake version
+%if 0%{?fedora} > 41
+autoreconf -fiv
+%endif
 %configure \
     --disable-silent-rules \
     --disable-static
@@ -89,6 +92,10 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 
 
 %changelog
+* Sat Jan 25 2025 Mohamed El Morabity <melmorabity@fedoraproject.org> - 1.14.4-4
+- Fix FTBFS (RHBZ #2341541)
+- Drop useless BuildRequires
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
