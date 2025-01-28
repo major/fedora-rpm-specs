@@ -23,6 +23,7 @@ Summary:        Yq is a portable command-line YAML, JSON, XML, CSV, TOML  and pr
 License:        MIT
 URL:            %{gourl}
 Source:         %{gosource}
+Patch:          https://github.com/mikefarah/yq/commit/6908161f1fb6713db8259909c606109770fe7673.patch#/yq-go1_24-replace_error_creation.diff
 
 %description %{common_description}
 

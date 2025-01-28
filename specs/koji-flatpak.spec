@@ -1,9 +1,9 @@
-%global project_version 0.6
-%global flatpak_module_tools_min_version 1.0~a5
+%global project_version 0.7
+%global flatpak_module_tools_min_version 1.1
 
 Name:           koji-flatpak
 Version:        %{project_version}
-Release:        6%{?dist}
+Release:        1%{?dist}
 Summary:        Koji plugins for building Flatpaks
 
 License:        LGPL-2.1-only
@@ -97,6 +97,10 @@ install -p -m 0644 koji_flatpak/plugins/flatpak_cli_plugin.py %{buildroot}%{pyth
 
 
 %changelog
+* Sun Jan 26 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.7-1
+- Version 0.7
+  Add support for extension flatpaks
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

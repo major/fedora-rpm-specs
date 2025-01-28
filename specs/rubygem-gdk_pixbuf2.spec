@@ -9,8 +9,8 @@
 
 Summary:	Ruby binding of GdkPixbuf-2.x
 Name:		rubygem-%{gem_name}
-Version:	4.2.5
-Release:	2%{?dist}
+Version:	4.2.6
+Release:	1%{?dist}
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
 License:	LGPL-2.1-or-later
@@ -57,7 +57,7 @@ This package contains documentation for %{name}.
 mv ../%{gem_name}-%{version}.gemspec .
 
 # Allow ruby-gnome2 no less than ones
-sed -i -e 's|= 4\.2\.5|>= 4.2.5|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.2\.6|>= 4.2.6|' %{gem_name}-%{version}.gemspec
 sed -i -e '\@s\.extensions@d'  %{gem_name}-%{version}.gemspec
 
 # Fix up Rakefile for "gnome2-raketask" requirement
@@ -128,6 +128,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Sun Jan 26 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.6-1
+- 4.2.6
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

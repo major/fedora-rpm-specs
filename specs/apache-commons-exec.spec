@@ -2,22 +2,21 @@
 %global short_name commons-%{base_name}
 
 Name:           apache-commons-exec
-Version:        1.3
-Release:        33%{?dist}
+Version:        1.4.0
+Release:        1%{?dist}
 Summary:        Java library to reliably execute external processes from within the JVM
 License:        Apache-2.0
-URL:            http://commons.apache.org/exec/
+URL:            https://commons.apache.org/proper/%{short_name}
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Source0:        http://www.apache.org/dist/commons/%{base_name}/source/%{short_name}-%{version}-src.tar.gz
+Source0:        https://www.apache.org/dist/commons/%{base_name}/source/%{short_name}-%{version}-src.tar.gz
 
 BuildRequires:  maven-local
-BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.commons:commons-parent:pom:)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
 
-# Tests execute /usr/bin/ping
+# Tests require /usr/bin/ping
 BuildRequires:  iputils
 
 %description
@@ -33,32 +32,22 @@ This package contains the API documentation for %{name}.
 
 
 %prep
-%setup -q -n %{short_name}-%{version}-src
+%autosetup -n %{short_name}-%{version}-src
 
-# Fix wrong end-of-line encoding
-for file in LICENSE.txt NOTICE.txt RELEASE-NOTES.txt STATUS; do
-  sed -i.orig "s/\r//" $file && \
-  touch -r $file.orig $file && \
-  rm $file.orig
-done
-
-# Shell scripts used for unit tests must be executable (see
-# http://commons.apache.org/exec/faq.html#environment-testing)
-chmod a+x src/test/scripts/*.sh
-
-
-%mvn_file :%{short_name} %{short_name} %{name}
+# Disable junit-pioneer features since it's not (yet) available in Fedora
+%pom_remove_dep org.junit-pioneer:junit-pioneer
+find src/test/java/ -name "*.java" -exec sed  -i '/SetSystemProperty/d' {} \;
 
 
 %build
-# - Skip Exec57Test (it is unstable), see RHBZ #1202260
 # - Skip Exec34Test/Exec41Test/Exec60Test ("socket: Operation not permitted" on Koji)
+# - Skip Exec57Test (it is unstable), see RHBZ #1202260
+# - Skip Exec65Test (calls sudo)
 %mvn_build -- \
   -Dcommons.osgi.symbolicName=org.apache.commons.exec \
   -Dcommons.packageId=exec \
-  -Dmaven.compiler.source=1.8 \
-  -Dmaven.compiler.target=1.8 \
-  -Dtest=\!org.apache.commons.exec.issues.Exec34Test,\!org.apache.commons.exec.issues.Exec41Test,\!org.apache.commons.exec.issues.Exec57Test,\!org.apache.commons.exec.issues.Exec60Test
+  -Dtest=\!org.apache.commons.exec.issues.Exec34Test,\!org.apache.commons.exec.issues.Exec41Test,\!org.apache.commons.exec.issues.Exec57Test,\!org.apache.commons.exec.issues.Exec60Test,\!org.apache.commons.exec.issues.Exec65Test
+
 
 %install
 %mvn_install
@@ -66,7 +55,7 @@ chmod a+x src/test/scripts/*.sh
 
 %files -f .mfiles
 %license LICENSE.txt NOTICE.txt
-%doc STATUS RELEASE-NOTES.txt
+%doc RELEASE-NOTES.txt
 
 
 %files javadoc -f .mfiles-javadoc
@@ -74,6 +63,9 @@ chmod a+x src/test/scripts/*.sh
 
 
 %changelog
+* Sun Jan 26 2025 Mohamed El Morabity <melmorabity@fedoraproject.org> - 1.4.0-1
+- Update to 1.4.0
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

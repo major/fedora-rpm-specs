@@ -5,7 +5,7 @@
 %global crate instability
 
 Name:           rust-instability
-Version:        0.3.5
+Version:        0.3.7
 Release:        %autorelease
 Summary:        Rust API stability attributes for the rest of us
 

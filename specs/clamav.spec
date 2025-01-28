@@ -25,8 +25,8 @@
 
 Summary:    End-user tools for the Clam Antivirus scanner
 Name:       clamav
-Version:    1.4.1
-Release:    2%{?dist}
+Version:    1.4.2
+Release:    1%{?dist}
 License:    %{?with_unrar:proprietary}%{!?with_unrar:GPL-2.0-only}
 URL:        https://www.clamav.net/
 %if %{with unrar}
@@ -50,7 +50,7 @@ Source5:    clamd-README
 #http://database.clamav.net/main.cvd
 Source10:   main-62.cvd
 #http://database.clamav.net/daily.cvd
-Source11:   daily-27399.cvd
+Source11:   daily-27526.cvd
 #http://database.clamav.net/bytecode.cvd
 Source12:   bytecode-335.cvd
 #for update
@@ -332,7 +332,7 @@ This package contains files which are needed to run the clamav-milter.
 # vendored packages included in the ClamAV sources suffice.
 %cargo_prep
 cd libclamav_rust
-sed -i -e '/^base64 *=/s/= .*/= "0.21"/' Cargo.toml
+sed -i -e '/^base64 *=/s/= .*/= "0.22"/' Cargo.toml
 sed -i -e '/^bindgen *=/s/= .*/= "0.69"/' Cargo.toml
 sed -i -e '/^cbindgen *=/s/= *".*"/= "0.26"/' Cargo.toml
 sed -i -e '/^onenote_parser *=/s/= *.*/= "0.3.1"/' Cargo.toml
@@ -488,12 +488,12 @@ rm %{buildroot}%{_unitdir}/clamav-daemon.*
 %ifarch s390x
 # Tests fail on s390x
 # https://github.com/Cisco-Talos/clamav/issues/759
-%ctest3 -- -E valgrind || :
+%ctest3 -E valgrind || :
 %else
-%ctest3 -- -E valgrind
+%ctest3 -E valgrind
 %endif
 # valgrind tests fail https://github.com/Cisco-Talos/clamav/issues/584
-%ctest3 -- -R valgrind || :
+%ctest3 -R valgrind || :
 
 
 %post
@@ -679,6 +679,9 @@ exit 0
 
 
 %changelog
+* Thu Jan 23 2025 Orion Poplawski <orion@nwra.com> - 1.4.2-1
+- Update to 1.4.2
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

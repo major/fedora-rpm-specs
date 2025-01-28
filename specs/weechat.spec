@@ -12,6 +12,12 @@ Source:    https://weechat.org/files/src/%{name}-%{version}.tar.xz
 Source1:   https://weechat.org/files/src/%{name}-%{version}.tar.xz.asc
 Source2:   https://keys.openpgp.org/vks/v1/by-fingerprint/A9AB5AB778FA5C3522FD0378F82F4B16DEC408F8
 
+# https://github.com/weechat/weechat/pull/2229
+Patch:     https://github.com/weechat/weechat/commit/68c70e55389bcd7a39ebec13cd9645a09b7f6a99.patch
+Patch1:    https://github.com/weechat/weechat/commit/4b7be27028dac22b3ec6703c53c7bc154a0cb2b0.patch
+# https://github.com/weechat/weechat/pull/2230
+Patch2:    https://github.com/weechat/weechat/commit/04aea1bcb5b6f1e3e6e1253f92772fa6c2f4f939.patch
+
 BuildRequires: asciidoctor
 BuildRequires: ca-certificates
 BuildRequires: cjson-devel

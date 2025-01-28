@@ -1,6 +1,6 @@
 #
 Name:           airinv
-Version:        1.00.9
+Version:        1.00.10
 Release:        %autorelease
 
 Summary:        C++ Simulated Airline Inventory Management System library
@@ -20,6 +20,7 @@ BuildRequires:  pkgconfig(stdair)
 BuildRequires:  pkgconfig(airrac)
 BuildRequires:  pkgconfig(rmol)
 BuildRequires:  pkgconfig(sevmgr)
+BuildRequires:  mysql-devel
 
 %description
 %{name} is a C++ library of airline inventory management classes and

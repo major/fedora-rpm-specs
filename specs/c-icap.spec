@@ -16,6 +16,8 @@ Source4:    %{name}.service
 Patch0:     %{name}-conf.in.patch
 # Patches from the c_icap_0_6_x branch:
 Patch3: c-icap-configure-c99.patch
+# Patch for gcc15 in F42
+Patch4: c-icap-gcc15.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -115,7 +117,9 @@ mkdir -p %{buildroot}%{_datadir}/c_icap/{contrib,templates}/
 mkdir -p %{buildroot}%{_localstatedir}/log/%{name}/
 mkdir -p %{buildroot}/run/%{name}/
 
+%if 0%{?fedora} < 42
 mv -f %{buildroot}%{_bindir}/%{name} %{buildroot}%{_sbindir}/
+%endif
 
 install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
 install -D -p -m 0644 %{SOURCE3} %{buildroot}%{_tmpfilesdir}/%{name}.conf
@@ -193,6 +197,10 @@ exit 0
 %{_libdir}/libicapapi.so.*
 
 %changelog
+* Sun Jan 26 2025 Frank Crawford <frank@crawford.emu.id.au> - 0.6.2-4
+- Patch for GCC15 issues - BZ2339953.
+- Remove mv due to unify /usr/bin and /usr/sbin
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

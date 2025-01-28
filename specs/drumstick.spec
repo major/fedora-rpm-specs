@@ -1,8 +1,8 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so$
 
-Summary: C++/Qt5 wrapper around multiple MIDI interfaces
+Summary: C++/Qt6 wrapper around multiple MIDI interfaces
 Name:    drumstick
-Version: 2.9.1
+Version: 2.10.0
 Release: %autorelease
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -19,11 +19,11 @@ BuildRequires: qt6-qtsvg-devel
 BuildRequires: fluidsynth-devel
 BuildRequires: pulseaudio-libs-devel
 BuildRequires: sonivox-devel >= 3.6.12
-BuildRequires: cmake(Qt6LinguistTools)
-BuildRequires: cmake(Qt6UiPlugin)
-BuildRequires: cmake(Qt6Core5Compat)
+BuildRequires: qt6-qttools-devel
+BuildRequires: qt6-qt5compat-devel
 # For building manpages
-BuildRequires: docbook-style-xsl /usr/bin/xsltproc
+BuildRequires: docbook-style-xsl
+BuildRequires: libxslt
 # For building API documents
 BuildRequires: doxygen
 

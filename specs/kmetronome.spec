@@ -1,7 +1,7 @@
 %global _appid net.sourceforge.kmetronome
 
 Name:           kmetronome
-Version:        1.4.0
+Version:        1.4.1
 Release:        %autorelease
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -22,7 +22,7 @@ BuildRequires:  cmake(Qt6DBus)
 BuildRequires:  cmake(Qt6Svg)
 BuildRequires:  cmake(Qt6SvgWidgets)
 BuildRequires:  cmake(Qt6LinguistTools)
-BuildRequires:  cmake(drumstick-alsa) >= 2.9
+BuildRequires:  cmake(drumstick-alsa) >= 2.10
 # transitive dependency of drumstick-alsa
 BuildRequires:  alsa-lib-devel >= 1.0
 

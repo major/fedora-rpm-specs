@@ -1,7 +1,7 @@
 %global srcname referencing
 
 Name:           python-%{srcname}
-Version:        0.35.1
+Version:        0.36.2
 Release:        %autorelease
 Summary:        An implementation-agnostic implementation of JSON reference resolution
 License:        MIT

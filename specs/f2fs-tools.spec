@@ -1,12 +1,13 @@
 Name:		f2fs-tools
 Version:	1.16.0
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Tools for Flash-Friendly File System (F2FS)
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
 URL:		http://sourceforge.net/projects/f2fs-tools/
 Source0:	http://git.kernel.org/cgit/linux/kernel/git/jaegeuk/f2fs-tools.git/snapshot/%{name}-%{version}.tar.gz
-
+# Patch  from https://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs-tools.git/patch/?id=6617d15a660becc23825007ab3fc2d270b5b250f
+Patch0:		f2fs-tools-1.16.0-c23.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	uuid-devel
@@ -46,8 +47,10 @@ This package contains the libraries needed to develop applications
 that use %{name}
 
 %prep
-%autosetup
+%setup -q
+%patch 0 -p1 -b .c23
 sed -i 's/AC_PROG_LIBTOOL/LT_INIT/' configure.ac
+
 
 %build
 autoreconf --install
@@ -85,6 +88,10 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_libdir}/*.so
 
 %changelog
+* Sat Jan 25 2025 Eduardo Echeverria <echevemaster@gmail.com> - 1.16.0-8
+- Rebuilt due to FTBFS in f42
+- The existing bool definition is broken for c23, where bool is now a keyword.
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

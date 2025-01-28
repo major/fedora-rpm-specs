@@ -45,20 +45,20 @@
 Name: ovn
 Summary: Open Virtual Network support
 URL: http://www.openvswitch.org/
-Version: 24.09.1
-Release: 11%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
+Version: 24.09.2
+Release: 4%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
 Obsoletes: openvswitch-ovn-common < %{?epoch_ovs:%{epoch_ovs}:}2.11.0-8
 Provides: openvswitch-ovn-common = %{?epoch:%{epoch}:}%{version}-%{release}
 
 License: Apache-2.0 AND LGPL-2.1-only AND SISSL
 
-%define ovncommit 972bedec0125478e2f39fb7e2d0752132f944879
+%define ovncommit df4f80a60d4cd712870aa73d32d5677448c11c78
 
 # Always pull an upstream release, since this is what we rebase to.
 Source: https://github.com/ovn-org/ovn/archive/%{ovncommit}.tar.gz#/ovn-%{version}.tar.gz
 
-%define ovscommit c598c05c85b2d38874a0ce8f7f088f6aae4fdabc
-%define ovsshortcommit c598c05
+%define ovscommit 9e07a69bbb2a7d3eb35f9b487161c50cfa5bd65e
+%define ovsshortcommit 9e07a69
 
 Source10: https://github.com/openvswitch/ovs/archive/%{ovscommit}.tar.gz#/openvswitch-%{ovsshortcommit}.tar.gz
 %define ovsdir ovs-%{ovscommit}
@@ -437,6 +437,24 @@ fi
 %{_unitdir}/ovn-controller-vtep.service
 
 %changelog
+* Sat Jan 25 2025 Numan Siddique <numans@ovn.org>  - 24.09.2-04
+- Update the OVN sources to upstream release v24.09.2
+  with the base OVN commit df4f80a60d4cd712870aa73d32d5677448c11c78
+  and OVS commit 9e07a69bbb2a7d3eb35f9b487161c50cfa5bd65e
+  The below commits are also synced:
+
+- Prepare for 24.09.3.
+[Upstream: 0a899586b9ec222b335a956021971de1c2dd2312]
+
+- ic: Fix NULL ptr deref on log of duplicate routes.
+[Upstream: 5a19ae8fa2965e4bf6864f84dfd1adef85ba4b13]
+
+- controller: Fix IPv6 dp flow explosion by setting flow table prefixes.
+[Upstream 8d64f2b7dcef24d175151ba5e0732281cdeb6d54]
+
+- tests: Fix flaky "ovn-controller: Multiple OVS interfaces ...".
+[Upstream: c09c714a6beb413c479983d2a301411e81d89f71]
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.09.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

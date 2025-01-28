@@ -3,7 +3,7 @@
 %bcond check 1
 
 Name:           meson
-Version:        1.6.1
+Version:        1.7.0
 Release:        %autorelease
 Summary:        High productivity build system
 

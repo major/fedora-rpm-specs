@@ -7,8 +7,8 @@ who want access to the video stream data. This project was forked from
 Livestreamer, which is no longer maintained.}
 
 Name:           python-%{srcname}
-Version:        6.11.0
-Release:        2%{?dist}
+Version:        7.1.2
+Release:        1%{?dist}
 Summary:        Python library for extracting streams from various websites
 
 # src/streamlink/packages/requests_file.py is Apache-2.0
@@ -63,12 +63,13 @@ Zsh command line completion support for %{srcname}.
 %prep
 %autosetup -n %{srcname}-%{version} -p1
 
-# Fix dependency on pycryptodomex
-sed -i -e 's/pycryptodome\b/&x/g' pyproject.toml
+# - Fix dependency on pycryptodomex
+# - Fix version constraint on trio
+sed -i -e 's/pycryptodome\b/&x/g' -e '/"trio[[:space:];<>=]/d; /dependencies = \[/a\  "trio",' pyproject.toml
 
 # Drop development dependencies not available in Fedora or not useful for tests
 sed -i -e '/# code-linting/,/^$/d' -e '/# typing/,/^$/d' dev-requirements.txt
-sed -i -e '/# typing/,/^$/d' -e '/^furo\b/d' -e 's/^\(sphinx-design\)\b.*/\1/' docs-requirements.txt
+sed -i -e '/^furo\b/d' -e '/# typing/,/^$/d' docs-requirements.txt
 
 
 %generate_buildrequires
@@ -96,8 +97,7 @@ install -Dpm 0644 -t $RPM_BUILD_ROOT%{zsh_completions_dir} completions/zsh/_%{sr
 
 
 %check
-# Disable non-critical test failing on Python 3.13
-%pytest -k "not test_datefmt_custom"
+%pytest
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}
@@ -116,6 +116,9 @@ install -Dpm 0644 -t $RPM_BUILD_ROOT%{zsh_completions_dir} completions/zsh/_%{sr
 
 
 %changelog
+* Sun Jan 26 2025 Mohamed El Morabity <melmorabity@fedoraproject.org> - 7.1.2-1
+- Update to 7.1.2
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.11.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

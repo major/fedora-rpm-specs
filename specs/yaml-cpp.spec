@@ -7,7 +7,9 @@ Release:        2%{?dist}
 License:        MIT
 Summary:        A YAML parser and emitter for C++
 URL:            https://github.com/jbeder/yaml-cpp
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/jbeder/yaml-cpp/archive/%{version}/%{name}-%{version}.tar.gz
+
+Patch0:         yaml-cpp-include.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -34,7 +36,7 @@ Requires:       %{name}-devel%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 The %{name}-static package contains the static library for %{name}.
 
 %prep
-%autosetup -n %{name}-%{version} -p1
+%autosetup -p1
 
 %build
 %cmake -B build_static \
@@ -84,6 +86,9 @@ mv %{buildroot}%{_libdir}/pkgconfig/%{name}.pc \
 %{_libdir}/pkgconfig/%{name}-static.pc
 
 %changelog
+* Sun Jan 26 2025 Richard Shaw <hobbes1069@gmail.com> - 0.8.0-2
+- Added patch for FTBFS, BZ#2341591.
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

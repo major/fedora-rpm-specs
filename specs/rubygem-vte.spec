@@ -11,7 +11,7 @@
 Summary:	Ruby binding of vte
 Name:		rubygem-%{gem_name}
 Version:	3.4.3
-Release:	16%{?dist}
+Release:	17%{?dist}
 
 # from README.md
 # SPDX confirmed
@@ -137,6 +137,9 @@ rm -f %{buildroot}%{gem_cache}
 %{gem_instdir}/sample/
 
 %changelog
+* Sun Jan 26 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.3-17
+- Rebuild for rubygem-glib2 4.2.6
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.3-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,9 +1,9 @@
 Name:           perl-Workflow
-Version:        2.02
-Release:        2%{?dist}
+Version:        2.03
+Release:        1%{?dist}
 Summary:        Simple, flexible system to implement work-flows
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
-URL:            https://metacpan.org/release/Workflow
+URL:            https://metacpan.org/dist/Workflow
 Source0:        https://cpan.metacpan.org/authors/id/J/JO/JONASBN/Workflow-%{version}.tar.gz
 BuildArch:      noarch
 
@@ -97,6 +97,9 @@ systems.
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 26 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 2.03-1
+- Update to 2.03
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.02-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global srcname pathable
 
 Name:           python-%{srcname}
-Version:        0.4.3
+Version:        0.4.4
 Release:        %autorelease
 Summary:        Object-oriented paths
 

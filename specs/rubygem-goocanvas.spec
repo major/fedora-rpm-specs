@@ -7,7 +7,7 @@
 Summary:	Ruby binding of GooCanvas
 Name:		rubygem-%{gem_name}
 Version:	2.2.0
-Release:	35%{?dist}
+Release:	36%{?dist}
 # gemspec	LGPL-2.1-or-later
 # some files under sample/		GPL-2.0-or-later
 # SPDX confirmed
@@ -137,6 +137,9 @@ done
 %{gem_instdir}/sample/
 
 %changelog
+* Sun Jan 26 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.2.0-36
+- Rebuild for rubygem-glib2 4.2.6
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

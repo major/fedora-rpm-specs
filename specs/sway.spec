@@ -1,8 +1,8 @@
-%global tag     1.10
+%global tag     1.10.1
 
 Name:           sway
-Version:        1.10
-Release:        2%{?dist}
+Version:        1.10.1
+Release:        1%{?dist}
 Summary:        i3-compatible window manager for Wayland
 License:        MIT
 URL:            https://github.com/swaywm/sway
@@ -180,6 +180,9 @@ install -d -m755 -pv %{buildroot}%{_sysconfdir}/sway/config.d
 %{_datadir}/backgrounds/sway
 
 %changelog
+* Sun Jan 26 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.10.1-1
+- Update to 1.10.1 (#2342139)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate picky-asn1-x509
 
 Name:           rust-picky-asn1-x509
-Version:        0.14.1
+Version:        0.14.3
 Release:        %autorelease
 Summary:        ASN1 types defined by X.509 related RFCs
 

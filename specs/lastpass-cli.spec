@@ -1,5 +1,5 @@
 Name:           lastpass-cli
-Version:        1.3.7
+Version:        1.6.1
 Release:        %autorelease
 Summary:        Command line interface to LastPass.com
 
@@ -13,10 +13,10 @@ BuildRequires:  asciidoc
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  libcurl-devel
-BuildRequires:  libxml2-devel
 BuildRequires:  make
-BuildRequires:  openssl-devel
+BuildRequires:  pkgconfig(libcurl)
+BuildRequires:  pkgconfig(libxml-2.0)
+BuildRequires:  pkgconfig(openssl)
 Requires:       pinentry
 Requires:       xclip
 

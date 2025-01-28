@@ -1,4 +1,4 @@
-Version:        22
+Version:        23
 
 %global forgeurl https://github.com/neocturne/fastd
 %forgemeta
@@ -104,8 +104,8 @@ install -dm 0755 %{buildroot}/run/%{name}
 
 
 %files
-%doc README.md doc/build/text/*
-%license COPYRIGHT
+%doc CODE_OF_CONDUCT.md README.md doc/build/text/*
+%license LICENSE
 %dir %{_sysconfdir}/%{name}
 %dir /run/%{name}
 %{_mandir}/man1/%{name}.1.gz

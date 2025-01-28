@@ -1,9 +1,8 @@
 Name:       ddgr
-Version:    2.1
+Version:    2.2
 Release:    %autorelease
 Summary:    DuckDuckGo from the terminal
 
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:    GPL-3.0-or-later
 URL:        https://github.com/jarun/ddgr
 Source0:    %{url}/archive/v%{version}/%{name}-%{version}.tar.gz

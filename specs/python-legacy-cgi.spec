@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/jackrosenthal/python-cgi
-Version:        2.6.1
+Version:        2.6.2
 %forgemeta
 
 Name:           python-legacy-cgi

@@ -1,12 +1,15 @@
 Name:           squidclamav
 Version:        7.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        HTTP Antivirus for Squid based on ClamAv and the ICAP protocol
 License:        GPL-3.0-or-later
 URL:            https://squidclamav.darold.net/
 
 Source0:        https://github.com/darold/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        %{name}-httpd.conf
+
+# Patch for gcc15 in F42
+Patch:		squidclamav-gcc15.patch
 
 BuildRequires:  bzip2-devel
 BuildRequires:  c-icap-devel
@@ -32,7 +35,7 @@ antivirus tool for HTTP traffic available for free, it is written in C as a
 c-icap service and can handle several thousands of connections at once.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 %configure \
@@ -66,6 +69,9 @@ rm -f %{buildroot}%{_sysconfdir}/c-icap/*.default
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sun Jan 26 2025 Frank Crawford <frank@crawford.emu.id.au> - 7.3-6
+- Patch for GCC15 issues - BZ2341381.
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

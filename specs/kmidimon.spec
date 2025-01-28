@@ -1,7 +1,7 @@
 %global _appid net.sourceforge.kmidimon
 
 Name:           kmidimon
-Version:        1.4.0
+Version:        1.4.1
 Release:        %autorelease
 License:        GPL-2.0-or-later
 Summary:        Drumstick MIDI monitor
@@ -18,7 +18,7 @@ BuildRequires:  cmake(Qt6Gui)
 BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(Qt6LinguistTools)
 BuildRequires:  cmake(Qt6Core5Compat)
-BuildRequires:  cmake(drumstick-alsa) >= 2.9
+BuildRequires:  cmake(drumstick-alsa) >= 2.10
 
 %description
 Drumstick MIDI Monitor monitors events coming from MIDI external ports or

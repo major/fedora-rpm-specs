@@ -4,7 +4,7 @@
 %global runtime_directory_path %{_libdir}/helix/runtime
 
 Name:           helix
-Version:        24.07
+Version:        25.01.1
 Release:        %autorelease
 # Output of %%{cargo_license_summary} + themes specific licenses (Unlicense)
 # (Apache-2.0 OR MIT) AND BSD-3-Clause
@@ -39,9 +39,9 @@ Source200:      https://raw.githubusercontent.com/blinxen/tree-sitter-eex/main/L
 
 # Remove windows dependencies
 Patch:          remove-windows-dependency.patch
-# Allow which 7
-# https://github.com/helix-editor/helix/commit/35802cb025b7a833387ce5187c7977e535f7000d
-Patch:          helix-24.07-allow-which-7.patch
+# Compatibility patch for gix 0.70
+# * https://github.com/helix-editor/helix/pull/12614/files
+Patch:          gix-0.70-compatibility.patch
 
 # Exclude %%{ix86} since the build fails with LLVM ERROR: out of memory Allocation failed error
 ExcludeArch: %{ix86}
@@ -290,10 +290,18 @@ A Kakoune / Neovim inspired editor, written in Rust.
 
 %prep
 %autosetup -c -p1
-# Bump gix to version 0.66
-tomcli set helix-vcs/Cargo.toml str dependencies.gix.version 0.66
+# Bump gix to version 0.70
+tomcli set helix-vcs/Cargo.toml str dependencies.gix.version 0.70
 # Bump tree-sitter to version 0.23
 tomcli set Cargo.toml str workspace.dependencies.tree-sitter.version 0.23
+# Relax url lower bound
+tomcli set helix-core/Cargo.toml str dependencies.url 2.5.2
+tomcli set helix-lsp-types/Cargo.toml str dependencies.url.version 2.5.2
+tomcli set helix-term/Cargo.toml str dependencies.url 2.5.2
+tomcli set helix-view/Cargo.toml str dependencies.url 2.5.2
+# Relax unicode-width lower bound
+tomcli set helix-core/Cargo.toml str dependencies.unicode-width 0.1.14
+
 # Rename license files for themes so they can be installed
 find runtime/themes/licenses -type f -exec /bin/sh -c 'cp -pav {} LICENSE-themes-$(basename {} .LICENSE)' \;
 # License for for tree-sitter-eex

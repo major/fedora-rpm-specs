@@ -2,12 +2,14 @@ Name: beesu
 Version: 2.7
 # Don't ever decrease this version (unless beesu update) or the subpackages will go backwards.
 # It is easier to do this than to track a separate release field.
-Release: 49%{?dist}
+Release: 50%{?dist}
 Summary: Graphical wrapper for su
 URL: http://www.honeybeenet.altervista.org
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 Source0: http://honeybeenet.altervista.org/beesu/files/beesu-sources/%{name}-%{version}.tar.bz2
+
+Patch1:        beesu_directory_fix_f42.patch
 
 BuildRequires: gcc-c++
 BuildRequires: make
@@ -27,7 +29,7 @@ Beesu is a wrapper around su and works with consolehelper under
 Fedora to let you have a graphic interface like gksu.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %make_build CFLAGS="%{optflags} -fno-delete-null-pointer-checks"
@@ -48,12 +50,15 @@ mv %{buildroot}%{_sysconfdir}/profile.d/beesu-bash-completion.sh \
 %config(noreplace) %{_sysconfdir}/pam.d/%{name}
 %config(noreplace) %{_sysconfdir}/security/console.apps/%{name}
 %{_sysconfdir}/bash_completion.d/%{name}-bash-completion.sh
-%{_sbindir}/%{name}
+%{_libexecdir}/%{name}
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1.*
 
 
 %changelog
+* Mon Jan 27 2025 Wolfgang Ulbrich <raveit65.sun@gmail.com> - 2.7-50
+- fix building of beesu in f42
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

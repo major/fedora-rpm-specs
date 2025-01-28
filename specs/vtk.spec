@@ -70,6 +70,8 @@ Patch2: vtk-include.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2310520
 # Backport of https://gitlab.kitware.com/vtk/vtk/-/merge_requests/11486
 Patch3: vtk-python3.13.patch
+# Fix build
+Patch4: vtk-build.patch
 
 URL: https://vtk.org/
 

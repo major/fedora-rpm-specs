@@ -1,16 +1,15 @@
 %global pkg_name protego
-%global pypi_name Protego
+%global pypi_name protego
 %global desc %{expand:
 Protego is a pure-Python `robots.txt` parser with support for modern
 conventions.}
 
 Name:		python-protego
-Version:	0.3.0
-Release:	7%{?dist}
+Version:	0.4.0
+Release:	1%{?dist}
 Summary:	Pure-Python robots.txt parser with support for modern conventions
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:	LicenseRef-Callaway-BSD
+License:	BSD-3-Clause
 URL:		https://github.com/scrapy/protego
 Source0:	%{pypi_source}
 
@@ -51,6 +50,9 @@ BuildRequires:	python3-pytest
 %{python3_sitelib}/Protego-*.egg-info
 
 %changelog
+* Sat Jan 25 2025 Eduardo Echeverria  <echevemaster@gmail.com> - 0.4.0-1
+- Update to 0.4.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

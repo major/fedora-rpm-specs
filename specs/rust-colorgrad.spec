@@ -5,8 +5,8 @@
 %global crate colorgrad
 
 Name:           rust-colorgrad
-Version:        0.7.0
-Release:        %autorelease
+Version:        0.6.2
+Release:        %autorelease -b 6
 Summary:        Color scales library for data visualization, charts, games, generative art and others
 
 License:        MIT OR Apache-2.0

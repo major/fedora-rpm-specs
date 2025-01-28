@@ -1,6 +1,6 @@
 Name:       ncid
 Version:    1.17
-Release:    6%{?dist}
+Release:    7%{?dist}
 Summary:    Network Caller ID server, client and gateways
 Requires:   logrotate
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -146,7 +146,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/ncid.metainfo.
 %{_bindir}/ncidutil
 %{_bindir}/ncidnumberinfo
 %{_bindir}/update-cidcall
-%{_sbindir}/ncidd
+%{_prefix}/sbin/ncidd
 %dir %{_libdir}/ncid
 %dir %{_datadir}/ncid
 %dir %{_datadir}/ncid/sys
@@ -235,8 +235,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/ncid.metainfo.
 %files gateways
 %defattr(-,root,root)
 %doc README VERSION doc/GPL.md gateway/README-gateways
-%{_sbindir}/artech2ncid
-%{_sbindir}/cideasy2ncid
+%{_prefix}/sbin/artech2ncid
+%{_prefix}/sbin/cideasy2ncid
 %{_bindir}/email2ncid
 %{_bindir}/ncid2ncid
 %{_bindir}/obi2ncid
@@ -245,7 +245,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/ncid.metainfo.
 %{_bindir}/wct
 %{_bindir}/xdmf2ncid
 %{_bindir}/yac2ncid
-%{_sbindir}/sip2ncid
+%{_prefix}/sbin/sip2ncid
 %dir %{_datadir}/ncid/setup
 %{_datadir}/ncid/setup/ncid-email2ncid-setup
 %config(noreplace) %{_sysconfdir}/ncid/artech2ncid.conf
@@ -482,6 +482,9 @@ touch --no-create %{_datadir}/icons/hicolor &>/dev/null
 gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %changelog
+* Fri Jan 24 2025 <jlc@users.sourceforge.net> 1.17-7
+- replaced {_sbindir} with {_prefix}/sbin
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

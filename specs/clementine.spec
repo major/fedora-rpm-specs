@@ -1,7 +1,7 @@
-%global tag     1.4.0rc1-901-g7b678f26e
+%global tag     1.4.1-30-ga05464b42 
 
 Name:           clementine
-Version:        1.4.0~rc2
+Version:        1.4.1
 Release:        %autorelease
 Summary:        A music player and library organizer
 
@@ -43,8 +43,6 @@ Source:         %vcs/archive/%{tag}/%{name}-%{tag}.tar.gz
 
 # Use qt5 libraries (qtiocompressor)
 Patch:          0001-Use-QtIoCompressor-from-Qt5.patch
-# Fix bug https://github.com/clementine-player/Clementine/pull/7301
-Patch:          0001-Fix-missing-QTSINGLECOREAPPLICATION_LIBRARIES.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake
@@ -100,7 +98,6 @@ BuildRequires:  qt5-linguist
 BuildRequires:  qtiocompressor-devel
 BuildRequires:  qtsingleapplication-qt5-devel >= 2.6.1-2
 BuildRequires:  qtsinglecoreapplication-qt5-devel >= 2.6.1-2
-BuildRequires:  sha2-devel
 %ifnarch s390 s390x
 BuildRequires:  pkgconfig(libgpod-1.0)
 BuildRequires:  pkgconfig(libimobiledevice-1.0)
@@ -153,7 +150,8 @@ mv {qocoa,qsqlite,utf8-cpp}/ 3rdparty/
   -DFORCE_GIT_REVISION:STRING=%{tag} \
   -DUSE_SYSTEM_PROJECTM:BOOL=ON \
   -DUSE_SYSTEM_QTSINGLEAPPLICATION:BOOL=ON \
-  -DUSE_SYSTEM_QXT:BOOL=ON
+  -DUSE_SYSTEM_QXT:BOOL=ON \
+  -DUSE_SYSTEM_TAGLIB:BOOL=ON
 %cmake_build
 
 %install

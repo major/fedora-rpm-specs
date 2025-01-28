@@ -2,7 +2,7 @@
 Summary: Clam Anti-Virus on the KDE Desktop
 Name: klamav
 Version: 0.46
-Release: 47%{?dist}
+Release: 48%{?dist}
 Source0: http://downloads.sourceforge.net/klamav/%{name}-%{version}.tar.bz2
 Patch0: klamav-0.46-suse-clamav-path.patch
 # Upstream notified via mailing list:
@@ -64,6 +64,8 @@ find doc \
     -type f | xargs %{__sed} -i -e 's,klamav02,klamav,g'
 
 %build
+# fix FTBFS (#2261284, #2300872, #2340698)
+export CFLAGS="%{optflags} -Wno-error=incompatible-pointer-types"
 %configure --disable-rpath --without-included-sqlite --with-disableupdates
 # kill rpath harder, inspired by https://fedoraproject.org/wiki/Packaging:Guidelines?rd=Packaging/Guidelines#Removing_Rpath
 # other more standard variants didnt work or caused other problems
@@ -106,6 +108,9 @@ chmod 644 src/klammail/*.{c,h}
 %{_datadir}/icons/*/*x*/apps/klamav.png
 
 %changelog
+* Sun Jan 26 2025 Kevin Kofler <Kevin@tigcc.ticalc.org> - 0.46.48
+- Fix FTBFS (#2261284, #2300872, #2340698)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.46-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global appid   net.sourceforge.dmidiplayer
 
 Name:           dmidiplayer
-Version:        1.7.4
+Version:        1.7.5
 Release:        %autorelease
 Summary:        Drumstick MIDI Player
 # code is GPLv3+, examples (content) are mostly CC-BY-SA, except for one GPLv2+
@@ -20,9 +20,9 @@ BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(Qt6PrintSupport)
 BuildRequires:  cmake(Qt6LinguistTools)
 BuildRequires:  cmake(Qt6Core5Compat)
-BuildRequires:  cmake(drumstick-file) >= 2.9
-BuildRequires:  cmake(drumstick-rt) >= 2.9
-BuildRequires:  cmake(drumstick-widgets) >= 2.9
+BuildRequires:  cmake(drumstick-file) >= 2.10
+BuildRequires:  cmake(drumstick-rt) >= 2.10
+BuildRequires:  cmake(drumstick-widgets) >= 2.10
 BuildRequires:  cmake(uchardet) >= 0.0.8
 
 Requires:       hicolor-icon-theme

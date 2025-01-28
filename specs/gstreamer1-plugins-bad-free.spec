@@ -3,11 +3,11 @@
 
 # Only have extras package on fedora
 %bcond extras %{defined fedora}
-%bcond opencv %[ 0%{?fedora} >= 39 ]
-%bcond openh264 %[ 0%{?fedora} >= 40 ]
-%bcond svtav1 %[ 0%{?fedora} >= 40 ]
+%bcond opencv %{defined fedora}
+%bcond openh264 %{defined fedora}
+%bcond svtav1 %{defined fedora}
 # requires new webrtc-audio-processing-1
-%bcond webrtcdsp %[ 0%{?fedora} >= 40 || 0%{?rhel} >= 11 ]
+%bcond webrtcdsp %[ %{defined fedora} || 0%{?rhel} >= 10 ]
 
 #global gitrel     140
 #global gitcommit  4ca3a22b6b33ad8be4383063e76f79c4d346535d
@@ -48,9 +48,7 @@ BuildRequires:  gobject-introspection-devel >= %{_gobject_introspection}
 
 BuildRequires:  bzip2-devel
 BuildRequires:  exempi-devel
-%if 0%{?fedora} >= 31 || 0%{?rhel} >= 9
 BuildRequires:  fdk-aac-free-devel
-%endif
 BuildRequires:  gsm-devel
 BuildRequires:  jasper-devel
 BuildRequires:  lcms2-devel
@@ -66,10 +64,8 @@ BuildRequires:  orc-devel
 BuildRequires:  soundtouch-devel
 BuildRequires:  wavpack-devel
 BuildRequires:  opus-devel
-%if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires:  wayland-devel
 BuildRequires:  wayland-protocols-devel
-%endif
 BuildRequires:  gnutls-devel
 BuildRequires:  libsrtp-devel
 BuildRequires:  pkgconfig(gudev-1.0)
@@ -80,10 +76,6 @@ BuildRequires:  libwebp-devel
 BuildRequires:  mesa-libEGL-devel
 BuildRequires:  vulkan-devel
 #BuildRequires:  mesa-vulkan-devel
-%if 0
-BuildRequires:  wpewebkit-devel
-BuildRequires:  wpebackend-fdo-devel
-%endif
 BuildRequires:  glslc
 BuildRequires:  libdrm-devel
 BuildRequires:  libva-devel
@@ -151,16 +143,8 @@ BuildRequires:  flite-devel
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
-%if 0%{?fedora} >= 31 || 0%{?rhel} >= 9
-# libgstfdkaac.so used to be shipped in -nonfree
-Obsoletes: gstreamer1-plugins-bad-nonfree < 1.16.1-2
-%endif
 # dtsdec, dvbsuboverlay, siren used to be shipped in -freeworld
 Conflicts: gstreamer1-plugins-bad-freeworld < 1.22.7-2
-
-# Drop after f36
-Provides: gst-transcoder = 1.16.0-4
-Obsoletes: gst-transcoder < 1.16.0-4
 
 %description
 GStreamer is a streaming media framework, based on graphs of elements which
@@ -571,9 +555,7 @@ EOF
 %{_libdir}/gstreamer-%{majorminor}/libgstclosedcaption.so
 %{_libdir}/gstreamer-%{majorminor}/libgstcolormanagement.so
 %{_libdir}/gstreamer-%{majorminor}/libgstdtls.so
-%if 0%{?fedora} >= 31 || 0%{?rhel} >= 9
 %{_libdir}/gstreamer-%{majorminor}/libgstfdkaac.so
-%endif
 %{_libdir}/gstreamer-%{majorminor}/libgsthls.so
 %{_libdir}/gstreamer-%{majorminor}/libgstgsm.so
 %{_libdir}/gstreamer-%{majorminor}/libgstgtkwayland.so
@@ -588,15 +570,10 @@ EOF
 %{_libdir}/gstreamer-%{majorminor}/libgstsrtp.so
 %{_libdir}/gstreamer-%{majorminor}/libgstva.so
 %{_libdir}/gstreamer-%{majorminor}/libgstvulkan.so
-%if 0%{?fedora} || 0%{?rhel} > 7
 %{_libdir}/gstreamer-%{majorminor}/libgstwaylandsink.so
-%endif
 %{_libdir}/gstreamer-%{majorminor}/libgstwebp.so
 %if %{with webrtcdsp}
 %{_libdir}/gstreamer-%{majorminor}/libgstwebrtcdsp.so
-%endif
-%if 0
-%{_libdir}/gstreamer-%{majorminor}/libgstwpe.so
 %endif
 %if %{with extras}
 %{_libdir}/gstreamer-%{majorminor}/libgstwebrtc.so
@@ -698,9 +675,7 @@ EOF
 %if %{with extras}
 %{_libdir}/libgstwebrtcnice-%{majorminor}.so.0{,.*}
 %endif
-%if 0%{?fedora} || 0%{?rhel} > 7
 %{_libdir}/libgstwayland-%{majorminor}.so.0{,.*}
-%endif
 
 %{_libdir}/girepository-1.0/CudaGst-1.0.typelib
 %{_libdir}/girepository-1.0/GstAnalytics-1.0.typelib
@@ -767,9 +742,7 @@ EOF
 %if %{with extras}
 %{_libdir}/libgstwebrtcnice-%{majorminor}.so
 %endif
-%if 0%{?fedora} || 0%{?rhel} > 7
 %{_libdir}/libgstwayland-%{majorminor}.so
-%endif
 
 %{_includedir}/gstreamer-%{majorminor}/gst/audio
 %{_includedir}/gstreamer-%{majorminor}/gst/analytics

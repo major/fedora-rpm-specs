@@ -63,8 +63,12 @@ use the "default" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * Probably failing because of DNS resolution
-%cargo_test -- -- --skip tests::test_read_timeout
+# * tests::test_read_timeout: Probably failing because of DNS resolution
+# * test_upload_timeout: Flaky test
+%{cargo_test -- -- %{shrink:
+    --skip tests::test_read_timeout
+    --skip test_upload_timeout
+}}
 %endif
 
 %changelog

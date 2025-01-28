@@ -1,11 +1,11 @@
-%global commit0 e91e95f501bef4799b1e07df67de8032d92bad07
+%global commit0 e456f2e9724394fc34c899d59a1cb0ee578e96b3
 %global shortcommit0 %%(c=%%{commit0}; echo ${c:0:7})
 
-%global snapdate 20241211
+%global snapdate 20250121
 
 Name:           yosys
-Version:        0.48
-Release:        0.%{snapdate}git%{shortcommit0}%{?dist}.1
+Version:        0.49
+Release:        1.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Yosys Open SYnthesis Suite, including Verilog synthesizer
 License:        ISC and MIT
 URL:            http://www.clifford.at/yosys/
@@ -33,9 +33,6 @@ Patch2:         0002-fedora-yosys-mancfginc-patch.patch
 # Use relative path (instead of assuming a bundled submodule) when
 # referencing the cxxopts.hpp include file.
 Patch3:         0003-fedora-yosys-cxxopts-patch.patch
-
-# https://github.com/YosysHQ/yosys/pull/4683
-Patch4:         0004-Respect-SOURCE_DATE_EPOCH-in-generate_bram_types_sim.patch
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -65,7 +62,7 @@ BuildRequires: rsync
 
 Requires:       %{name}-share = %{version}-%{release}
 Requires:       graphviz python-click python-xdot
-Requires:       yosyshq-abc >= 0.44
+Requires:       yosyshq-abc >= 0.46
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval :
 ExcludeArch: %{ix86}
@@ -176,7 +173,10 @@ make test ABCEXTERNAL=%{_bindir}/abc SEED=314159265359
 
 
 %changelog
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.48-0.20241211gite91e95f.1
+* Tue Jan 21 2025 Gabriel Somlo <gsomlo@gmail.com> - 0.49.1.20250121gite456f2e
+- update to 0.49 snapshot (incl. fix for tcl 9.0, see BZ 2337817)
+
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.48- 0.20241211gite91e95f.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
 * Wed Dec 11 2024 Gabriel Somlo <gsomlo@gmail.com> - 0.48.0.20241211gite91e95f

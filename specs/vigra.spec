@@ -1,24 +1,19 @@
 Summary:        Generic Programming for Computer Vision
 Name:           vigra
-Version:        1.11.2
-Release:        4%{?dist}
+Version:        1.12.1
+Release:        1%{?dist}
 License:        MIT
 # The "Lenna" files are non-free, we need to remove them from the source tarball.
-# wget https://github.com/ukoethe/vigra/archive/refs/tags/Version-1-11-2.tar.gz
-# tar -zxvf Version-1-11-2.tar.gz
-# mv vigra-Version-1-11-2 vigra-1.11.2
-# find vigra-1.11.2/ -name "lenna*" -delete
-# tar zcf vigra-1.11.2-src-clean.tar.gz vigra-1.11.2/
+# wget https://github.com/ukoethe/vigra/archive/refs/tags/Version-1-12-1.tar.gz
+# tar -zxvf Version-1-12-1.tar.gz
+# mv vigra-Version-1-12-1 vigra-1.12.1
+# find vigra-1.12.1/ -name "lenna*" -delete
+# tar zcf vigra-1.12.1-src-clean.tar.gz vigra-1.12.1/
 Source0:        %{name}-%{version}-src-clean.tar.gz
 Source1:        vigra-config.sh
 # Avoid attempt to install non-free 'lenna' files
 Patch1:         vigra-1.10.0-no-lenna.patch
 Patch2:         vigra-1.11.1.docdir.patch
-# Switch from nose to pytest:
-#  https://github.com/ukoethe/vigra/commit/7db3841c7e
-#  https://github.com/ukoethe/vigra/commit/e32c60b621
-#  https://github.com/ukoethe/vigra/commit/3729909b98
-Patch3:         vigra-1.11.2-nose-to-pytest.patch
 URL:            http://ukoethe.github.io/vigra/
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -94,7 +89,8 @@ export CXXFLAGS="%{optflags} -DH5_USE_110_API"
 %cmake -DWITH_OPENEXR=1 -DWITH_HDF5=1 -DWITH_VALGRIND=0 -DWITH_LEMON=0 \
           -DPYTHON_NUMPY_INCLUDE_DIR=%{_includedir}/numpy \
           -DWITH_VIGRANUMPY=1 -DVIGRANUMPY_INSTALL_DIR=%{python3_sitearch} \
-          -DPYTHON_VERSION=%{python3_version}
+          -DPYTHON_VERSION=%{python3_version} \
+          -DCMAKE_CXX_FLAGS="-Wno-template-body %{build_cxxflags}"
 %cmake_build
 %else
 sed -i '1s=^#!/usr/bin/\(python\|env python\)[0-9.]*=#!%{__python}=' \
@@ -149,6 +145,10 @@ install -p -m755 -D %{SOURCE1} %{buildroot}%{_bindir}/vigra-config
 %endif
 
 %changelog
+* Wed Jan 08 2025 Bruno Postle <bruno@postle.net> - 1.12.1-1
+- Upstream release
+- build with -Wno-template-body for gcc15 breakage bug #2341506
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

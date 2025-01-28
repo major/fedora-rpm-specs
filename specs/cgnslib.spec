@@ -7,7 +7,7 @@
 
 Name:           cgnslib
 Version:        4.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Computational Fluid Dynamics General Notation System
 License:        Zlib
 URL:            http://www.cgns.org/
@@ -27,8 +27,8 @@ BuildRequires:  libXmu-devel
 BuildRequires:  make
 BuildRequires:  mesa-libGL-devel
 BuildRequires:  mesa-libGLU-devel
-BuildRequires:  tcl-devel
-BuildRequires:  tk-devel
+BuildRequires:  tcl-devel < 1:9
+BuildRequires:  tk-devel < 1:9
 BuildRequires:  zlib-devel
 Requires:       hdf5%{?_isa} = %{_hdf5_version}
 Requires:       %{name}-common = %{version}-%{release}
@@ -403,6 +403,9 @@ ctest || :
 
 
 %changelog
+* Sun Jan 26 2025 Sandro Mani <manisandro@gmail.com> - 4.5.0-2
+- BR: {tcl,tk}-devel < 1:9
+
 * Fri Jan 24 2025 Sandro Mani <manisandro@gmail.com> - 4.5.0-1
 - Update to 4.5.0
 

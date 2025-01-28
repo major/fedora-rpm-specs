@@ -1,17 +1,25 @@
-%global commit d810aac8676b9b4af0f4a1145bcfe9ac2a0b102e
+%global commit ab7a3724918b793fbd031c6d222b9786c983af95
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
-%global snapdate 20241211
+%global snapdate 20250121
 
 Name:		nextpnr
 Version:	1
-Release:	49.%{snapdate}git%{shortcommit}%{?dist}
+Release:	50.%{snapdate}git%{shortcommit}%{?dist}
 Summary:	FPGA place and route tool
 
 # Automatically converted from old format: ISC and BSD and MIT and (MIT or Public Domain) - review is highly recommended.
 License:	ISC AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT AND (LicenseRef-Callaway-MIT OR LicenseRef-Callaway-Public-Domain)
 URL:		https://github.com/YosysHQ/nextpnr
 Source0:	https://github.com/YosysHQ/nextpnr/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+
+# Fedora-specific patch:
+# fix undef. type in json11 (see https://github.com/YosysHQ/nextpnr/pull/1440)
+Patch1:		0001-Fix-undefined-type-error-in-3rdparty-json11-json11.c.patch
+
+# Fedora-specific patch:
+# fix compile error in gui/quadtree.h (see upstream commit cd7f7c12f)
+Patch2:		0002-fedora-fix-compile-error-in-gui-quadtree.h.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
@@ -27,10 +35,10 @@ BuildRequires:	qt5-qtconfiguration-devel
 BuildRequires:	cmake(QtConfiguration)
 BuildRequires:	boost-python3-devel
 BuildRequires:	eigen3-devel
-#BuildRequires:	pybind11-devel
+BuildRequires:	pybind11-devel
 # NOTE: remember to update icestorm & trellis before rebuilding nextpnr!!!
-BuildRequires:	icestorm >= 0-0.36
-BuildRequires:	trellis-devel >= 1.2.1-29
+BuildRequires:	icestorm >= 0-0.38
+BuildRequires:	trellis-devel >= 1.2.1-31
 
 # License: ISC
 Provides:	bundled(qtimgui)
@@ -60,11 +68,11 @@ cp 3rdparty/python-console/LICENSE LICENSE-python-console.txt
 
 %build
 %cmake  -DARCH=all \
+	-DPYBIND11_INCLUDE_DIR="/usr/include/pybind11/" \
 	-DICEBOX_DATADIR=%{_datadir}/icestorm \
 	-DTRELLIS_LIBDIR=%{_libdir}/trellis \
 	-DBUILD_GUI=ON \
 	-DUSE_OPENMP=ON
-#	-DPYBIND11_INCLUDE_DIR="/usr/include/pybind11/" \
 %cmake_build
 # prepare examples doc. directory:
 mkdir -p examples/ice40
@@ -87,6 +95,10 @@ cp -r ice40/examples/* examples/ice40
 
 
 %changelog
+* Tue Jan 21 2025 Gabriel Somlo <gsomlo@gmail.com> - 1-50.20250121gitab7a372
+- Update to newer snapshot
+- unbundle pybind11 again
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1-49.20241211gitd810aac
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

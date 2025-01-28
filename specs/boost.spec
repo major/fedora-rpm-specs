@@ -46,7 +46,7 @@ Name: boost
 %global real_name boost
 Summary: The free peer-reviewed portable C++ source libraries
 Version: 1.83.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 License: BSL-1.0 AND MIT AND Python-2.0.1
 
 # Replace each . with _ in %%{version}
@@ -175,6 +175,9 @@ Patch11: boost-1.83-Fix-ABI-detection-for-empty-os-platform.patch
 # https://github.com/boostorg/python/pull/432
 # https://github.com/boostorg/python/pull/443
 Patch12: boost-1.83-NumPy-2.x-dtype.patch
+
+# https://github.com/boostorg/thread/pull/408
+Patch13: boost-1.83-fix-no-member-named_that_error.patch
 
 %bcond_with tests
 %bcond_with docs_generated
@@ -1316,6 +1319,9 @@ fi
 %{_mandir}/man1/b2.1*
 
 %changelog
+* Sun Jan 26 2025 Wolfgang Stöggl <c72578@yahoo.de> - 1.83.0-12
+- Add boost-1.83-fix-no-member-named_that_error.patch
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.83.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

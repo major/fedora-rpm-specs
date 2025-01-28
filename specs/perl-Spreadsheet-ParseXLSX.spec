@@ -1,9 +1,9 @@
 Name:           perl-Spreadsheet-ParseXLSX
-Version:        0.35
+Version:        0.36
 Release:        %autorelease
 Summary:        Parse XLSX files
 License:        MIT
-URL:            https://github.com/doy/spreadsheet-parsexlsx
+URL:            https://github.com/MichaelDaum/spreadsheet-parsexlsx
 Source:         https://cpan.metacpan.org/authors/id/N/NU/NUDDLEGG/Spreadsheet-ParseXLSX-%{version}.tar.gz
 BuildArch:      noarch
 

@@ -31,6 +31,9 @@ Summary: %{summary}
 %prep
 %autosetup -p1 -n pulp-cli-%{version}/pulp-glue
 
+# Remove the Python version upper bound to enable building with new versions in Fedora
+# This will work up until 3.19, which should be enough for now
+sed -i '/requires-python =/s/,<3\.1[4-9]//' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires

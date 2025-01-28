@@ -20,7 +20,7 @@
 
 %define	radicale_major	3
 
-%define	radicale_version	3.4.0
+%define	radicale_version	3.4.1
 %define	radicale_release	2
 #define gitcommit 8e9fdf391acb79d3fb1cb6e6b8f882f8999192cf
 
@@ -443,6 +443,9 @@ fi
 
 
 %changelog
+* Thu Jan 09 2025 Peter Bieringer <pb@bieringer.de> - 3.4.1-1
+- Update to 3.4.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-2.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

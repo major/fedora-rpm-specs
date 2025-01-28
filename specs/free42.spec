@@ -1,6 +1,8 @@
+%global app_id  com.thomasokken.free42
+
 Name:           free42
 Epoch:          1
-Version:        3.1.12
+Version:        3.2
 Release:        %autorelease
 License:        GPL-2.0-only AND BSD-3-Clause
 Summary:        42S Calculator Simulator
@@ -16,6 +18,11 @@ BuildRequires:  ImageMagick
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 BuildRequires:  make
+
+%if 0%{?fedora} >= 41 || 0%{?rhel} >= 10
+# for XPM icon loading
+Requires:       gdk-pixbuf2-modules-extra%{?_isa}
+%endif
 
 Provides:       bundled(IntelRDFPMathLib) = 2.1
 
@@ -40,7 +47,7 @@ convert icon-48x48.xpm icon-48x48.png
 sed -i -e 's/IvoryBlack/#231F20/' icon-128x128.xpm
 convert icon-128x128.xpm icon-128x128.png
 
-cat <<EOF >free42.desktop
+cat <<EOF >%{app_id}.desktop
 [Desktop Entry]
 Name=Free42
 GenericName=Free42 calculator simulator
@@ -49,12 +56,13 @@ Icon=free42
 Terminal=false
 Type=Application
 Categories=Utility;Calculator;
+StartupWMClass=%{name}dec
 EOF
 
-cat <<EOF >free42.appdata.xml
+cat <<EOF >%{app_id}.appdata.xml
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-    <id>com.thomasokken.free42</id>
+    <id>%{app_id}</id>
     <name>Free42</name>
     <summary>42S Calculator Simulator</summary>
     <metadata_license>FSFAP</metadata_license>
@@ -82,20 +90,20 @@ EOF
 install -D -p -m 755 gtk/free42dec %{buildroot}%{_bindir}/free42dec
 install -D -p -m 644 gtk/icon-48x48.png %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/%{name}.png
 install -D -p -m 644 gtk/icon-128x128.png %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/%{name}.png
-install -D -p -m 644 gtk/free42.desktop %{buildroot}%{_datadir}/applications/%{name}.desktop
-install -D -p -m 644 gtk/free42.appdata.xml %{buildroot}%{_metainfodir}/%{name}.appdata.xml
+install -D -p -m 644 gtk/%{app_id}.desktop %{buildroot}%{_datadir}/applications/%{app_id}.desktop
+install -D -p -m 644 gtk/%{app_id}.appdata.xml %{buildroot}%{_metainfodir}/%{app_id}.appdata.xml
 
 %check
-desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdata.xml
+desktop-file-validate %{buildroot}/%{_datadir}/applications/%{app_id}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.appdata.xml
 
 %files
 %doc CREDITS HISTORY README
 %license COPYING gtk/IntelRDFPMathLib20U1/eula.txt
 %{_bindir}/free42dec
-%{_datadir}/applications/%{name}.desktop
+%{_datadir}/applications/%{app_id}.desktop
 %{_datadir}/icons/hicolor/*/*/%{name}.png
-%{_metainfodir}/%{name}.appdata.xml
+%{_metainfodir}/%{app_id}.appdata.xml
 
 %changelog
 %autochangelog
