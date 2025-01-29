@@ -3,7 +3,7 @@
 
 Summary: Hybrid image/package system
 Name: rpm-ostree
-Version: 2025.2
+Version: 2025.3
 Release: 1%{?dist}
 License: LGPL-2.0-or-later
 URL: https://github.com/coreos/rpm-ostree
@@ -39,6 +39,13 @@ BuildRequires: rust
 %else
     %bcond_without ostree_ext
 %endif
+# Integrate with kernel-install
+%if 0%{?rhel} >= 10 || 0%{?fedora} > 41
+    %bcond_with kernel_install
+%else
+    %bcond_without kernel_install
+%endif
+ 
 
 # This is copied from the libdnf spec
 %if 0%{?rhel} && ! 0%{?centos}
@@ -217,6 +224,9 @@ sed -i -e '/https:\/\//d' cargo-vendor.txt
 %make_install INSTALL="install -p -c"
 %if %{without ostree_ext}
 rm -vrf $RPM_BUILD_ROOT/usr/libexec/libostree/ext
+%endif
+%if %{without kernel_install}
+rm -vr $RPM_BUILD_ROOT/usr/lib/kernel/install.d
 %endif
 find $RPM_BUILD_ROOT -name '*.la' -delete
 

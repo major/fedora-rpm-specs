@@ -54,7 +54,7 @@
 Summary: The Visualization Toolkit - A high level 3D visualization library
 Name: vtk
 Version: 9.2.6
-Release: 23%{?dist}
+Release: 24%{?dist}
 License: BSD-3-Clause
 Source0: https://www.vtk.org/files/release/9.2/VTK-%{version}.tar.gz
 Source1: https://www.vtk.org/files/release/9.2/VTKData-%{version}.tar.gz
@@ -861,6 +861,9 @@ cat xorg.log
 
 
 %changelog
+* Mon Jan 27 2025 Sandro Mani <manisandro@gmail.com> - 9.2.6-24
+- Rebuild (cgnslib)
+
 * Fri Jan 24 2025 Sandro Mani <manisandro@gmail.com> - 9.2.6-23
 - Rebuild (cgnslib)
 

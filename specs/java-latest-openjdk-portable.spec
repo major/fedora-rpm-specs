@@ -337,7 +337,7 @@
 # New Version-String scheme-style defines
 %global featurever 23
 %global interimver 0
-%global updatever 1
+%global updatever 2
 %global patchver 0
 # buildjdkver is usually same as %%{featurever},
 # but in time of bootstrap of next jdk, it is featurever-1,
@@ -401,7 +401,7 @@
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        11
+%global buildver        7
 %global rpmrelease      %(echo "%autorelease" | sed 's;%{?dist};;')
 #%%global tagsuffix     %%{nil}
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
@@ -569,7 +569,7 @@ Version: %{newjavaver}.%{buildver}
 # This package needs `.rolling` as part of Release so as to not conflict on install with
 # java-X-openjdk. I.e. when latest rolling release is also an LTS release packaged as
 # java-X-openjdk. See: https://bugzilla.redhat.com/show_bug.cgi?id=1647298
-Release: %{?eaprefix}%{rpmrelease}%{?extraver}.rolling%{?dist}.1
+Release: %{?eaprefix}%{rpmrelease}%{?extraver}.rolling%{?dist}
 # java-1.5.0-ibm from jpackage.org set Epoch to 1 for unknown reasons
 # and this change was brought into RHEL-4. java-1.5.0-ibm packages
 # also included the epoch in their virtual provides. This created a
@@ -606,7 +606,7 @@ License:  Apache-1.1 AND Apache-2.0 AND LicenseRef-Callaway-BSD AND LicenseRef-C
 URL:      http://openjdk.java.net/
 
 # The source tarball, generated using generate_source_tarball.sh
-Source0: https://openjdk-sources.osci.io/openjdk%{featurever}/openjdk-%{vcstag}%{ea_designator_zip}.tar.xz
+Source0: https://openjdk-sources.osci.io/openjdk%{featurever}/open%{vcstag}%{ea_designator_zip}.tar.xz
 
 # Use 'icedtea_sync.sh' to update the following
 # They are based on code contained in the IcedTea project (6.x).
@@ -1785,7 +1785,4 @@ done
 %endif
 
 %changelog
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:23.0.1.0.11-.rolling.1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
 %autochangelog

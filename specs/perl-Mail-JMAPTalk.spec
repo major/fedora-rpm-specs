@@ -1,6 +1,6 @@
 Name:           perl-Mail-JMAPTalk
-Version:        0.16
-Release:        2%{?dist}
+Version:        0.17
+Release:        1%{?dist}
 Summary:        Perl client for JMAP protocol
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mail-JMAPTalk
@@ -72,6 +72,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jan 27 2025 Michal Josef Špaček <mspacek@redhat.com> - 0.17-1
+- 0.17 bump (rhbz#2342131)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

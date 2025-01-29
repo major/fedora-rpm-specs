@@ -304,6 +304,9 @@ URL: https://libvirt.org/
 %endif
 Source: https://download.libvirt.org/%{?mainturl}libvirt-%{version}.tar.xz
 
+# fix build with GCC 15
+Patch: 0001-util-avoid-overflow-in-hextable-buffer.patch
+
 Requires: libvirt-daemon = %{version}-%{release}
 Requires: libvirt-daemon-config-network = %{version}-%{release}
 Requires: libvirt-daemon-config-nwfilter = %{version}-%{release}

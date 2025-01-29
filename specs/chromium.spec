@@ -37,10 +37,16 @@
 
 # enable|disable chromedriver
 %global build_chromedriver 1
+%if 0%{?flatpak}
+%global build_chromedriver 0
+%endif
 
 # enable|disable headless client build
 %global build_headless 1
 %ifarch ppc64le
+%global build_headless 0
+%endif
+%if 0%{?flatpak}
 %global build_headless 0
 %endif
 
@@ -439,6 +445,12 @@ Patch413: fix-unknown-warning-option-messages.diff
 Patch414: cargo-add-ppc64.diff
 Patch415: add-ppc64-pthread-stack-size.patch
 
+# flatpak sandbox patches from
+# https://github.com/flathub/org.chromium.Chromium/tree/master/patches/chromium
+Patch416: flatpak-Add-initial-sandbox-support.patch
+Patch417: flatpak-Adjust-paths-for-the-sandbox.patch
+Patch418: flatpak-Expose-Widevine-into-the-sandbox.patch
+
 # upstream patches
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
@@ -663,7 +675,7 @@ BuildRequires: libXNVCtrl-devel
 %endif
 
 # One of the python scripts invokes git to look for a hash. So helpful.
-BuildRequires:	/usr/bin/git
+BuildRequires:	git-core
 BuildRequires:	hwdata
 BuildRequires:	kernel-headers
 %if ! %{bundlelibevent}
@@ -779,7 +791,7 @@ Requires: nss-mdns%{_isa}
 # GTK modules it expects to find for some reason.
 Requires: libcanberra-gtk3%{_isa}
 
-%if 0%{?fedora}
+%if 0%{?fedora} && %{undefined flatpak}
 # This enables support for u2f tokens
 Requires: u2f-hidraw-policy
 %endif
@@ -920,9 +932,11 @@ Provides: bundled(xdg-mime)
 Provides: bundled(xdg-user-dirs)
 # Provides: bundled(zlib) = 1.2.11
 
+%if %{undefined flatpak}
 # For selinux scriptlet
 Requires(post): /usr/sbin/semanage
 Requires(post): /usr/sbin/restorecon
+%endif
 
 %description
 Chromium is an open-source web browser, powered by WebKit (Blink).
@@ -1131,6 +1145,12 @@ Qt6 UI for chromium.
 %patch -P415 -p1 -b .add-ppc64-pthread-stack-size
 %endif
 
+%if 0%{?flatpak}
+%patch -P416 -p1 -b .flatpak-initial-sandbox
+%patch -P417 -p1 -b .flatpak-sandbox-paths
+%patch -P418 -p1 -b .flatpak-widevine
+%endif
+
 # Change shebang in all relevant files in this directory and all subdirectories
 # See `man find` for how the `-exec command {} +` syntax works
 find -type f \( -iname "*.py" \) -exec sed -i '1s=^#! */usr/bin/\(python\|env python\)[23]\?=#!%{chromium_pybin}=' {} +
@@ -1151,12 +1171,12 @@ find -type f \( -iname "*.py" \) -exec sed -i '1s=^#! */usr/bin/\(python\|env py
 popd
 %else
   mkdir -p third_party/node/linux/node-linux-x64/bin
-  ln -s %{_bindir}/node third_party/node/linux/node-linux-x64/bin/node
+  ln -s $(which node) third_party/node/linux/node-linux-x64/bin/node
 %endif
 
 # Get rid of the bundled esbuild
 %if 0%{?fedora}
-  ln -sf %{_bindir}/esbuild third_party/devtools-frontend/src/third_party/esbuild/esbuild
+  ln -sf $(which esbuild) third_party/devtools-frontend/src/third_party/esbuild/esbuild
 %else
   %ifarch x86_64
     tar -zxf %{SOURCE14} --directory %{_tmppath}
@@ -1171,7 +1191,7 @@ popd
 rm -rf buildtools/third_party/eu-strip/bin/eu-strip
   
 # Replace it with a symlink to the Fedora copy
-ln -s %{_bindir}/eu-strip buildtools/third_party/eu-strip/bin/eu-strip
+ln -s $(which eu-strip) buildtools/third_party/eu-strip/bin/eu-strip
 
 %if %{bundlelibusbx}
 # no hackity hack hack
@@ -1179,7 +1199,7 @@ ln -s %{_bindir}/eu-strip buildtools/third_party/eu-strip/bin/eu-strip
 # hackity hack hack
 rm -rf third_party/libusb/src/libusb/libusb.h
 # we _shouldn't need to do this, but it looks like we do.
-cp -a %{_includedir}/libusb-1.0/libusb.h third_party/libusb/src/libusb/libusb.h
+cp -a $(pkg-config --variable=includedir libusb-1.0)/libusb-1.0/libusb.h third_party/libusb/src/libusb/libusb.h
 %endif
 
 # Hard code extra version
@@ -1243,7 +1263,8 @@ export RUSTC_BOOTSTRAP=1
 # set rustc version
 rustc_version="$(rustc --version)"
 # set rust bindgen root
-rust_bindgen_root="%{_prefix}"
+rust_bindgen_root="$(which bindgen | sed 's#/bin/.*##')"
+rust_sysroot_absolute="$(rustc --print sysroot)"
 
 # set clang version
 clang_version="$(clang --version | sed -n 's/clang version //p' | cut -d. -f1)"
@@ -1287,7 +1308,7 @@ CHROMIUM_CORE_GN_DEFINES+=' clang_use_chrome_plugins=false'
 CHROMIUM_CORE_GN_DEFINES+=' use_lld=true'
 
 # enable system rust
-CHROMIUM_CORE_GN_DEFINES+=' rust_sysroot_absolute="%{_prefix}"'
+CHROMIUM_CORE_GN_DEFINES+=" rust_sysroot_absolute=\"$rust_sysroot_absolute\""
 CHROMIUM_CORE_GN_DEFINES+=" rust_bindgen_root=\"$rust_bindgen_root\""
 CHROMIUM_CORE_GN_DEFINES+=" rustc_version=\"$rustc_version\""
 
@@ -1339,13 +1360,13 @@ CHROMIUM_BROWSER_GN_DEFINES+=' rtc_use_h264=false'
 CHROMIUM_BROWSER_GN_DEFINES+=' use_kerberos=true'
 
 %if %{use_qt}
-CHROMIUM_BROWSER_GN_DEFINES+=' use_qt=true moc_qt5_path="%{_libdir}/qt5/bin/"'
+CHROMIUM_BROWSER_GN_DEFINES+=" use_qt=true moc_qt5_path=\"$(%{_qt5_qmake} -query QT_HOST_BINS)\""
 %else
 CHROMIUM_BROWSER_GN_DEFINES+=' use_qt=false'
 %endif
 
 %if %{use_qt6}
-CHROMIUM_BROWSER_GN_DEFINES+=' use_qt6=true moc_qt6_path="%{_libdir}/qt6/libexec/"'
+CHROMIUM_BROWSER_GN_DEFINES+=" use_qt6=true moc_qt6_path=\"$(%{_qt6_qmake} -query QT_HOST_LIBEXECS)\""
 %else
 CHROMIUM_BROWSER_GN_DEFINES+=' use_qt6=false'
 %endif
@@ -1514,7 +1535,7 @@ fi
 %if %{bootstrap}
 tools/gn/bootstrap/bootstrap.py --gn-gen-args="$CHROMIUM_CORE_GN_DEFINES $CHROMIUM_BROWSER_GN_DEFINES"
 %else
-mkdir -p %{chromebuilddir} && cp -a %{_bindir}/gn %{chromebuilddir}/
+mkdir -p %{chromebuilddir} && cp -a $(which gn) %{chromebuilddir}/
 %endif
 
 %{chromebuilddir}/gn --script-executable=%{chromium_pybin} gen --args="$CHROMIUM_CORE_GN_DEFINES $CHROMIUM_BROWSER_GN_DEFINES" %{chromebuilddir}
@@ -1738,6 +1759,7 @@ cp -a %{SOURCE9} %{buildroot}%{_datadir}/gnome-control-center/default-apps/
 # README.fedora
 cp %{SOURCE1} .
 
+%if %{undefined flatpak}
 %post
 # Set SELinux labels - semanage itself will adjust the lib directory naming
 # But only do it when selinux is enabled, otherwise, it gets noisy.
@@ -1747,6 +1769,7 @@ if selinuxenabled; then
 	semanage fcontext -a -t chrome_sandbox_exec_t /usr/lib/chrome-sandbox &>/dev/null || :
 	restorecon -R -v %{chromium_path}/%{chromium_browser_channel} &>/dev/null || :
 fi
+%endif
 
 %if %{build_remoting}
 %pretrans -n chrome-remote-desktop -p <lua> 

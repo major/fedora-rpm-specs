@@ -1665,7 +1665,7 @@ install -m 644 -D -t %{buildroot}%{_datadir}/snmp/mibs monitoring/snmp/CEPH-MIB.
 %{_bindir}/ceph-kvstore-tool
 %{_bindir}/ceph-run
 %{_presetdir}/50-ceph.preset
-%{_exec_prefix}/sbin/ceph-create-keys
+%{_sbindir}/ceph-create-keys
 %dir %{_libexecdir}/ceph
 %{_libexecdir}/ceph/ceph_common.sh
 %dir %{_libdir}/rados-classes
@@ -1749,7 +1749,7 @@ exit 0
 %endif
 
 %files -n cephadm
-%{_exec_prefix}/sbin/cephadm
+%{_sbindir}/cephadm
 %{_mandir}/man8/cephadm.8*
 %attr(0700,cephadm,cephadm) %dir %{_sharedstatedir}/cephadm
 %attr(0700,cephadm,cephadm) %dir %{_sharedstatedir}/cephadm/.ssh
@@ -1779,7 +1779,7 @@ exit 0
 %{_bindir}/rgw-gap-list-comparator
 %{_bindir}/rgw-orphan-list
 %{_bindir}/rgw-restore-bucket-index
-%{_exec_prefix}/sbin/mount.ceph
+%{_sbindir}/mount.ceph
 %if 0%{?suse_version} && 0%{?suse_version} < 1550
 /sbin/mount.ceph
 %endif
@@ -2091,7 +2091,7 @@ fi
 %files fuse
 %{_bindir}/ceph-fuse
 %{_mandir}/man8/ceph-fuse.8*
-%{_exec_prefix}/sbin/mount.fuse.ceph
+%{_sbindir}/mount.fuse.ceph
 %{_mandir}/man8/mount.fuse.ceph.8*
 %{_unitdir}/ceph-fuse@.service
 %{_unitdir}/ceph-fuse.target
@@ -2342,8 +2342,8 @@ fi
 %endif
 
 %files volume
-%{_exec_prefix}/sbin/ceph-volume
-%{_exec_prefix}/sbin/ceph-volume-systemd
+%{_sbindir}/ceph-volume
+%{_sbindir}/ceph-volume-systemd
 %dir %{python3_sitelib}/ceph_volume
 %{python3_sitelib}/ceph_volume/*
 %{python3_sitelib}/ceph_volume-*
@@ -2717,7 +2717,7 @@ exit 0
 %{_datadir}/snmp/mibs
 
 %files node-proxy
-%{_exec_prefix}/sbin/ceph-node-proxy
+%{_sbindir}/ceph-node-proxy
 %dir %{python3_sitelib}/ceph_node_proxy
 %{python3_sitelib}/ceph_node_proxy/*
 %{python3_sitelib}/ceph_node_proxy-*

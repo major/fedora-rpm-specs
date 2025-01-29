@@ -1,12 +1,14 @@
 Name:		sqliteodbc
 Version:	0.99991
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	SQLite ODBC Driver
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
 URL:		http://www.ch-werner.de/sqliteodbc
 Source:		http://www.ch-werner.de/sqliteodbc/%{name}-%{version}.tar.gz
+Patch0:		sqliteodbc-0.99991-Fix-too-many-args-to-gpps-compilation-error.patch
+Patch1:		sqliteodbc-0.99991-Fix-incompatible-pointer-compilation-error.patch
 
 BuildRequires: make
 BuildRequires:	gcc
@@ -155,6 +157,9 @@ fi
 
 
 %changelog
+* Tue Jan 21 2025 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 0.99991-5
+- Fix FTBFS on F42.
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.99991-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

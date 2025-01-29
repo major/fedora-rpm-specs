@@ -9,7 +9,7 @@
 %endif
 
 Name:           python-attrs
-Version:        24.3.0
+Version:        25.1.0
 Release:        %autorelease
 Summary:        Python attributes without boilerplate
 
@@ -59,7 +59,9 @@ sed -i "s/license-files/license-files.paths/" pyproject.toml
 %check
 %pyproject_check_import
 %if %{with tests}
-%pytest
+# The skipped upstream test expects CloudPickle to
+# be broken with Python 3.14 which is not true in Fedora.
+%pytest -k "not TestCloudpickleCompat"
 %endif
 
 %files -n python%{python3_pkgversion}-%{modname} -f %{pyproject_files}

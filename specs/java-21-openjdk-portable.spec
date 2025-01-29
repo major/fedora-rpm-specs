@@ -32,8 +32,7 @@
 # Remove build artifacts by default
 %bcond_with artifacts
 # Build a fresh libjvm.so for use in a copy of the bootstrap JDK
-# Turned off until 21.0.5+1 or higher is in the buildroot
-%bcond_with fresh_libjvm
+%bcond_without fresh_libjvm
 # Build with system libraries
 %bcond_with system_libs
 
@@ -338,7 +337,7 @@
 # New Version-String scheme-style defines
 %global featurever 21
 %global interimver 0
-%global updatever 5
+%global updatever 6
 %global patchver 0
 # buildjdkver is usually same as %%{featurever},
 # but in time of bootstrap of next jdk, it is featurever-1,
@@ -402,7 +401,7 @@
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        11
+%global buildver        7
 %global rpmrelease      %(echo "%autorelease" | sed 's;%{?dist};;')
 #%%global tagsuffix     %%{nil}
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
@@ -567,7 +566,7 @@ ExcludeArch: %{ix86}
 
 Name:    java-%{javaver}-%{origin}-portable%{?pkgos:-%{pkgos}}
 Version: %{newjavaver}.%{buildver}
-Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}.1
+Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}
 # java-1.5.0-ibm from jpackage.org set Epoch to 1 for unknown reasons
 # and this change was brought into RHEL-4. java-1.5.0-ibm packages
 # also included the epoch in their virtual provides. This created a
@@ -1815,7 +1814,4 @@ done
 %endif
 
 %changelog
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:21.0.5.0.11-.1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
 %autochangelog

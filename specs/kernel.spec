@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.14.0
 %define specversion 6.14.0
 %define patchversion 6.14
-%define pkgrelease 0.rc0.20250124gitbc8198dc7ebc.5
+%define pkgrelease 0.rc0.20250127git9c5968db9e62.8
 %define kversion 6
-%define tarfile_release 6.13-5252-gbc8198dc7ebc
+%define tarfile_release 6.13-8265-g9c5968db9e62
 # This is needed to do merge window version magic
 %define patchlevel 14
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.20250124gitbc8198dc7ebc.5%{?buildid}%{?dist}
+%define specrelease 0.rc0.20250127git9c5968db9e62.8%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.14.0
 
@@ -3859,7 +3859,6 @@ fi\
 %{_libdir}/libperf-jvmti.so
 %dir %{_libexecdir}/perf-core
 %{_libexecdir}/perf-core/*
-%{_datadir}/perf-core/*
 %{_mandir}/man[1-8]/perf*
 %{_sysconfdir}/bash_completion.d/perf
 %doc linux-%{KVERREL}/tools/perf/Documentation/examples.txt
@@ -4174,15 +4173,29 @@ fi\
 #
 #
 %changelog
-* Fri Jan 24 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc0.bc8198dc7ebc.5]
+* Mon Jan 27 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc0.9c5968db9e62.8]
+- s390: Add '-std=gnu11' to decompressor and purgatory CFLAGS (Nathan Chancellor)
 - apply -Wno-error=unterminated-string-initialization temporarily (Thorsten Leemhuis)
-- efi: libstub: Use '-std=gnu11' to fix build with GCC 15 (Nathan Chancellor)
 - x86/boot: Use '-std=gnu11' to fix build with GCC 15 (Nathan Chancellor)
 - kbuild: Use -fzero-init-padding-bits=all (Kees Cook)
 - include/linux: Adjust headers for C23 (Jakub Jelinek)
-- redhat: kernel.spec: fix build with merged-sbin (Zbigniew Jędrzejewski-Szmek)
 - x86/insn_decoder_test: allow longer symbol-names (David Rheinsberg)
 - kernel.spec: update license field (Scott Weaver)
+
+* Mon Jan 27 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc0.9c5968db9e62.7]
+- Linux v6.14.0-0.rc0.9c5968db9e62
+
+* Mon Jan 27 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc0.aa22f4da2a46.6]
+- redhat/configs: automotive: set CONFIG_TIMEOUT_PANIC (Enric Balletbo i Serra)
+- drop %%{_datadir}/perf-core/* from kernel.spec (Thorsten Leemhuis)
+- put new misc_minor_kunit in modules-internal (Thorsten Leemhuis)
+- put new cirrus kunit tests in modules-internal (Thorsten Leemhuis)
+- redhat/configs: enable iBFT parsing on aarch64 (Chris Leech)
+- redhat: kernel.spec: fix build with merged-sbin (Zbigniew Jędrzejewski-Szmek)
+
+* Sun Jan 26 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc0.aa22f4da2a46.5]
+- Fix up CONFIG_REGMAP mismatch (Scott Weaver)
+- Linux v6.14.0-0.rc0.aa22f4da2a46
 
 * Fri Jan 24 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc0.bc8198dc7ebc.4]
 - redhat: fix modules.order target (Scott Weaver)

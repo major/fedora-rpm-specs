@@ -61,7 +61,7 @@ compat-guile18 package.
 
 %build
 
-export CFLAGS="$RPM_OPT_FLAGS -fwrapv"
+export CFLAGS="$RPM_OPT_FLAGS -fwrapv -std=gnu17"
 export LDFLAGS="$RPM_LD_FLAGS -Wl,--as-needed"
 %configure --disable-static --disable-error-on-warning --disable-rpath
 

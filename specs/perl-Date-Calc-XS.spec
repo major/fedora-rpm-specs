@@ -1,10 +1,13 @@
 Name:           perl-Date-Calc-XS
 Version:        6.4
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        XS wrapper and C library plug-in for Date::Calc
 License:        LGPL-2.0-or-later AND ( GPL-1.0-or-later OR Artistic-1.0-Perl )
 URL:            https://metacpan.org/release/Date-Calc-XS
 Source0:        https://cpan.metacpan.org/modules/by-module/Date/Date-Calc-XS-%{version}.tar.gz
+
+Patch1:         0001-Fix-bool-detection.patch
+
 BuildRequires:  coreutils
 BuildRequires:  findutils
 # glibc-common contains the iconv binary
@@ -43,6 +46,8 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Date-Calc-XS-%{version}
+%patch -P1 -p1
+
 iconv --from=ISO-8859-1 --to=UTF-8 CREDITS.txt >CREDITS.fixed
 mv CREDITS.fixed CREDITS.txt
 
@@ -85,6 +90,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 25 2025 Ralf Corsépius <corsepiu@fedoraproject.org> - 6.4-32
+- Add 0001-Fix-bool-detection.patch (F42FTBS, RHBZ#2341026).
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,9 +1,15 @@
-%global version 1.0.0.20240523.115004.g305cd56
+%global version 1.1.0
 %global min_required_version_django 3.2
+
+%if 0%{?fedora} < 41
+%global psycopg_pkg python3-psycopg2
+%else
+%global psycopg_pkg python3-psycopg3
+%endif
 
 Name:           osh
 Version:        %{version}
-Release:        4%{?dist}
+Release:        1%{?dist}
 License:        GPL-3.0-or-later
 Summary:        Static and Dynamic Analysis as a Service
 URL:            https://github.com/openscanhub/openscanhub/
@@ -11,14 +17,14 @@ Source:         https://github.com/openscanhub/openscanhub/archive/refs/tags/%{n
 BuildArch:      noarch
 
 BuildRequires:  koji
+BuildRequires:  python3dist(django) >= %{min_required_version_django}
 BuildRequires:  python3-csdiff
 BuildRequires:  python3-devel
-BuildRequires:  python3-django >= %{min_required_version_django}
 BuildRequires:  python3-kobo-client
 BuildRequires:  python3-kobo-django
 BuildRequires:  python3-kobo-hub
 BuildRequires:  python3-kobo-rpmlib
-BuildRequires:  python3-psycopg2
+BuildRequires:  %{psycopg_pkg}
 BuildRequires:  python3-qpid-proton
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-setuptools_scm
@@ -84,14 +90,14 @@ Summary: OpenScanHub xml-rpc interface and web application
 Requires: httpd
 Requires: mod_auth_gssapi
 Requires: mod_ssl
-Requires: python3-django >= %{min_required_version_django}
+Requires: python3dist(django) >= %{min_required_version_django}
 Requires: python3-kobo-client
 Requires: python3-kobo-django >= 0.35.0
 Requires: python3-kobo-hub >= 0.35.0
 Requires: python3-kobo-rpmlib
 Requires: python3-mod_wsgi
 # PostgreSQL adapter for python
-Requires: python3-psycopg2
+Requires: %{psycopg_pkg}
 Requires: gzip
 # inform ET about progress using UMB (Unified Message Bus)
 Requires: python3-qpid-proton
@@ -120,6 +126,14 @@ Obsoletes: covscan-hub < %{version}
 %description hub
 OpenScanHub xml-rpc interface and web application.
 
+%package worker-manager
+Summary: OpenScanHub worker manager
+Requires: %{name}-hub = %{version}-%{release}
+Requires: openssh-clients
+
+%description worker-manager
+OpenScanHub worker manager to dynamically create and destroy workers.
+
 %package hub-conf-devel
 Summary: OpenScanHub hub devel configuration
 Provides: osh-hub-conf = %{version}-%{release}
@@ -139,7 +153,7 @@ Conflicts: osh-worker-conf
 OpenScanHub worker devel configurations.
 
 %prep
-%setup -q
+%autosetup -n openscanhub-%{name}-%{version}
 
 %build
 
@@ -167,8 +181,17 @@ cp -a {,%{buildroot}%{python3_sitelib}/}osh/hub/static/
 # Temporarily provide /usr/bin/covscan for backward compatibility
 ln -s osh-cli %{buildroot}%{_bindir}/covscan
 
+%if "%{_bindir}" != "%{_sbindir}"
+# Temporarily provide /usr/sbin/osh-worker to support reexec upon upgrade
+mkdir -p %{buildroot}%{_sbindir}
+ln -s ../bin/osh-worker %{buildroot}%{_sbindir}/osh-worker
+%endif
+
 # create /etc/osh/hub/secrets directory
 mkdir -p %{buildroot}%{_sysconfdir}/osh/hub/secrets
+
+# create /etc/osh/worker-manager directory
+mkdir -p %{buildroot}%{_sysconfdir}/osh/worker-manager
 
 # create /var/lib dirs
 mkdir -p %{buildroot}%{_sharedstatedir}/osh/hub/{tasks,upload,worker}
@@ -194,9 +217,9 @@ mv %{buildroot}%{python3_sitelib}/osh/hub/settings_local.py %{buildroot}%{_sysco
 ln -s %{_sysconfdir}/osh/hub/settings_local.py %{buildroot}%{python3_sitelib}/osh/hub/settings_local.py
 
 %files client
-%attr(755,root,root) %{_bindir}/osh-cli
+%{_bindir}/osh-cli
 %{_bindir}/covscan
-%attr(644,root,root) %config(noreplace) %{_sysconfdir}/osh/client.conf
+%config(noreplace) %{_sysconfdir}/osh/client.conf
 %{bash_completions_dir}
 %{zsh_completions_dir}
 %{python3_sitelib}/osh/client
@@ -214,7 +237,11 @@ ln -s %{_sysconfdir}/osh/hub/settings_local.py %{buildroot}%{python3_sitelib}/os
 %files worker
 %{python3_sitelib}/osh/worker
 %{_unitdir}/osh-worker.service
-%attr(755,root,root) %{_sbindir}/osh-worker
+%{_bindir}/osh-worker
+%if "%{_bindir}" != "%{_sbindir}"
+# Temporarily provide /usr/sbin/osh-worker to support reexec upon upgrade
+%{_sbindir}/osh-worker
+%endif
 %dir %{_localstatedir}/log/osh
 
 %post client
@@ -243,8 +270,8 @@ fi
 %attr(640,root,root) %config(noreplace) %{_sysconfdir}/osh/worker.conf
 
 %files hub
-%{_sbindir}/osh-retention
-%{_sbindir}/osh-stats
+%{_bindir}/osh-retention
+%{_bindir}/osh-stats
 %{_sysconfdir}/osh/hub
 %{python3_sitelib}/osh/hub
 %{_unitdir}/osh-retention.*
@@ -299,6 +326,10 @@ fi
 %postun hub
 %systemd_postun osh-{retention,stats}.{service,timer}
 
+%files worker-manager
+%{_bindir}/osh-worker-manager
+%{_sysconfdir}/osh/worker-manager
+
 %files hub-conf-devel
 %{python3_sitelib}/osh/hub/settings_local.py
 %config(noreplace) %{_sysconfdir}/osh/hub/settings_local.py
@@ -307,6 +338,9 @@ fi
 
 
 %changelog
+* Fri Jan 24 2025 Kamil Dudka <kdudka@redhat.com> - 1.1.0-1
+- update to latest upstream release (rhbz#2340988)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0.20240523.115004.g305cd56-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

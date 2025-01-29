@@ -1,6 +1,6 @@
 #
 Name:           tvlsim
-Version:        1.01.7
+Version:        1.01.8
 Release:        %autorelease
 
 Summary:        Travel Market Simulator
@@ -15,6 +15,7 @@ BuildRequires:  boost-devel
 BuildRequires:  pkgconfig(readline)
 BuildRequires:  pkgconfig(libzmq)
 BuildRequires:  pkgconfig(cppzmq)
+BuildRequires:  mysql-devel
 BuildRequires:  soci-mysql-devel
 BuildRequires:  soci-sqlite3-devel
 BuildRequires:  pkgconfig(stdair)

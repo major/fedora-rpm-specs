@@ -20,6 +20,9 @@ Patch3: softhsm-2.6.1-uninitialized.patch
 Patch4: softhsm-prevent-global-deleted-objects-access.patch
 # fix for https://fedoraproject.org/wiki/Changes/OpensslDeprecateEngine
 Patch5: softhsm-disable-usage-of-openssl-engines.patch
+# upstream https://github.com/softhsm/SoftHSMv2/pull/664
+# commits adding tests dropped as they conflict with OpenSSL 3 patches
+Patch6: softhsm-rhbz2337819.patch
 
 BuildRequires: make
 BuildRequires: openssl-devel >= 1.0.1k-6, sqlite-devel >= 3.4.2, cppunit-devel
@@ -56,6 +59,7 @@ The devel package contains the libsofthsm include files
 %patch -P3 -p1
 %patch -P4 -p1
 %patch -P5 -p1
+%patch -P6 -p1
 
 %if 0%{?prever:1} || 0%{?prerelease:1}
    # pre-release or post-release snapshots fixup
@@ -141,6 +145,10 @@ if [ -f /var/softhsm/slot0.db ]; then
 fi
 
 %changelog
+* Mon Jan 27 2025 Alexander Bokovoy <abokovoy@redhat.com> - 2.6.1-12
+- Add support for zero-length AAD in AES-GCM
+- Resolves: rhbz#2337819
+
 * Thu Jan 23 2025 Rafael Jeffman <rjeffman@redhat.com> - 2.6.1-11
 - Use systemd-sysusers
 

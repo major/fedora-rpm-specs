@@ -1,8 +1,7 @@
 Name:           perl-ExtUtils-LibBuilder
-Version:        0.08
+Version:        0.09
 Release:        %autorelease
 Summary:        Perl library to build C libraries and programs
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ExtUtils-LibBuilder
 Source0:        https://cpan.metacpan.org/authors/id/A/AM/AMBS/ExtUtils-LibBuilder-%{version}.tar.gz

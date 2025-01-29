@@ -5,7 +5,7 @@
 Name:		nomacs
 Summary:	Lightweight image viewer
 Version:	3.17.2295
-Release:	6%{?dist}
+Release:	7%{?dist}
 # Automatically converted from old format: GPLv3+ and CC-BY - review is highly recommended.
 License:	GPL-3.0-or-later AND LicenseRef-Callaway-CC-BY
 Url:		http://nomacs.org
@@ -113,6 +113,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.nomacs.ImageLoung
 
 
 %changelog
+* Mon Jan 27 2025 TI_Eugene <ti.eugene@gmail.com> - 3.17.2295-7
+- Rebuild for fresh rawhide (rhbz#2340939)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.17.2295-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

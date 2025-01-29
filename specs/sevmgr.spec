@@ -1,6 +1,6 @@
 #
 Name:           sevmgr
-Version:        1.00.9
+Version:        1.00.10
 Release:        %autorelease
 
 Summary:        C++ Simulation-Oriented Discrete Event Management Library
@@ -16,6 +16,7 @@ BuildRequires:  soci-mysql-devel
 BuildRequires:  soci-sqlite3-devel
 BuildRequires:  pkgconfig(readline)
 BuildRequires:  pkgconfig(stdair)
+BuildRequires:  mysql-devel
 
 %description
 %{name} is a C++ library of discrete event queue management classes and

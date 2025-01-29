@@ -25,13 +25,6 @@
 # Do we want libedit support
 %global libedit 1
 
-# Whether to build pam_ssh_agent_auth
-%if 0%{?!nopam:1}
-%global pam_ssh_agent 1
-%else
-%global pam_ssh_agent 0
-%endif
-
 # Reserve options to override askpass settings with:
 # rpm -ba|--rebuild --define 'skip_xxx 1'
 %{?skip_gnome_askpass:%global no_gnome_askpass 1}
@@ -45,24 +38,18 @@
 # rpm -ba|--rebuild --define "static_openssl 1"
 %{?static_openssl:%global static_libcrypto 1}
 
-# Do not forget to bump pam_ssh_agent_auth release if you rewind the main package release to 1
 %global openssh_ver 9.9p1
-%global openssh_rel 5
-%global pam_ssh_agent_ver 0.10.4
-%global pam_ssh_agent_rel 11
+%global openssh_rel 7
 
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: %{openssh_rel}%{?dist}.1
+Release: %{openssh_rel}%{?dist}
 URL: http://www.openssh.com/portable.html
-#URL1: https://github.com/jbeverly/pam_ssh_agent_auth/
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz.asc
 Source2: sshd.pam
 Source3: gpgkey-736060BA.gpg
-Source4: https://github.com/jbeverly/pam_ssh_agent_auth/archive/pam_ssh_agent_auth-%{pam_ssh_agent_ver}.tar.gz
-Source5: pam_ssh_agent-rmheaders
 Source6: ssh-keycat.pam
 Source7: sshd.sysconfig
 Source9: sshd@.service
@@ -90,25 +77,6 @@ Patch200: openssh-7.6p1-audit.patch
 Patch201: openssh-7.1p2-audit-race-condition.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2049947
 Patch202: openssh-9.0p1-audit-log.patch
-
-# --- pam_ssh-agent ---
-# make it build reusing the openssh sources
-Patch300: pam_ssh_agent_auth-0.9.3-build.patch
-# check return value of seteuid()
-# https://sourceforge.net/p/pamsshagentauth/bugs/23/
-Patch301: pam_ssh_agent_auth-0.10.3-seteuid.patch
-# explicitly make pam callbacks visible
-Patch302: pam_ssh_agent_auth-0.9.2-visibility.patch
-# update to current version of agent structure
-Patch305: pam_ssh_agent_auth-0.9.3-agent_structure.patch
-# remove prefixes to be able to build against current openssh library
-Patch306: pam_ssh_agent_auth-0.10.2-compat.patch
-# Fix NULL dereference from getpwuid() return value
-# https://sourceforge.net/p/pamsshagentauth/bugs/22/
-Patch307: pam_ssh_agent_auth-0.10.2-dereference.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=2070113
-Patch308: pam_ssh_agent_auth-0.10.4-rsasha2.patch
-Patch309: pam_ssh_agent-configure-c99.patch
 
 #https://bugzilla.mindrot.org/show_bug.cgi?id=1641 (WONTFIX)
 Patch400: openssh-7.8p1-role-mls.patch
@@ -229,6 +197,9 @@ Patch1016: openssh-9.9p1-separate-keysign.patch
 # upstream cf3e48ee8ba1beeccddd2f203b558fa102be67a2
 # upstream 0c3927c45f8a57b511c874c4d51a8c89414f74ef
 Patch1017: openssh-9.9p1-mlkembe.patch
+# upstream 3f02368e8e9121847727c46b280efc280e5eb615
+# upstream 67a115e7a56dbdc3f5a58c64b29231151f3670f5
+Patch1020: openssh-9.9p1-match-regression.patch
 
 License: BSD-3-Clause AND BSD-2-Clause AND ISC AND SSH-OpenSSH AND ssh-keyscan AND sprintf AND LicenseRef-Fedora-Public-Domain AND X11-distribute-modifications-variant
 Requires: /sbin/nologin
@@ -305,12 +276,6 @@ Requires: openssh = %{version}-%{release}
 Summary: OpenSSH SK driver for test purposes
 Requires: openssh = %{version}-%{release}
 
-%package -n pam_ssh_agent_auth
-Summary: PAM module for authentication with ssh-agent
-Version: %{pam_ssh_agent_ver}
-Release: %{pam_ssh_agent_rel}.%{openssh_rel}%{?dist}.1
-License: BSD-3-Clause AND BSD-2-Clause AND ISC AND SSH-OpenSSH AND ssh-keyscan AND sprintf AND LicenseRef-Fedora-Public-Domain AND X11-distribute-modifications-variant AND OpenSSL
-
 %description
 SSH (Secure SHell) is a program for logging into and executing
 commands on a remote machine. SSH is intended to replace rlogin and
@@ -353,32 +318,9 @@ an X11 passphrase dialog for OpenSSH.
 %description sk-dummy
 This package contains a test SK driver used for OpenSSH test purposes
 
-%description -n pam_ssh_agent_auth
-This package contains a PAM module which can be used to authenticate
-users using ssh keys stored in a ssh-agent. Through the use of the
-forwarding of ssh-agent connection it also allows to authenticate with
-remote ssh-agent instance.
-
-The module is most useful for su and sudo service stacks.
-
 %prep
 gpgv2 --quiet --keyring %{SOURCE3} %{SOURCE1} %{SOURCE0}
-%setup -q -a 4
-
-%if %{pam_ssh_agent}
-pushd pam_ssh_agent_auth-pam_ssh_agent_auth-%{pam_ssh_agent_ver}
-%patch -P 300 -p2 -b .psaa-build
-%patch -P 301 -p2 -b .psaa-seteuid
-%patch -P 302 -p2 -b .psaa-visibility
-%patch -P 306 -p2 -b .psaa-compat
-%patch -P 305 -p2 -b .psaa-agent
-%patch -P 307 -p2 -b .psaa-deref
-%patch -P 308 -p2 -b .rsasha2
-%patch -P 309 -p1 -b .psaa-configure-c99
-# Remove duplicate headers and library files
-rm -f $(cat %{SOURCE5})
-popd
-%endif
+%setup -q
 
 %patch -P 400 -p1 -b .role-mls
 %patch -P 404 -p1 -b .privsep-selinux
@@ -441,19 +383,14 @@ popd
 %patch -P 1015 -p1 -b .pam-rhost
 %patch -P 1016 -p1 -b .sep-keysign
 %patch -P 1017 -p1 -b .mlkembe
+%patch -P 1020 -p1 -b .match
 
 %patch -P 100 -p1 -b .coverity
 
 autoreconf
-pushd pam_ssh_agent_auth-pam_ssh_agent_auth-%{pam_ssh_agent_ver}
-autoreconf
-popd
 
 %build
 %set_build_flags
-# the -fvisibility=hidden is needed for clean build of the pam_ssh_agent_auth
-# it is needed for lib(open)ssh build too since it is linked to the pam module too
-CFLAGS="$CFLAGS -fvisibility=hidden"; export CFLAGS
 %if %{pie}
 %ifarch s390 s390x sparc sparcv9 sparc64
 CFLAGS="$CFLAGS -fPIC"
@@ -543,18 +480,6 @@ fi
 popd
 %endif
 
-%if %{pam_ssh_agent}
-pushd pam_ssh_agent_auth-pam_ssh_agent_auth-%{pam_ssh_agent_ver}
-LDFLAGS="$SAVE_LDFLAGS"
-%configure --with-selinux \
-	--libexecdir=/%{_libdir}/security \
-	--with-mantype=man \
-	--without-ssl-engine \
-	--without-openssl-header-check `# The check is broken`
-%make_build
-popd
-%endif
-
 %check
 OPENSSL_CONF=/dev/null %{SOURCE22} %{SOURCE23}  # ./parallel_tests.sh parallel_tests.Makefile
 
@@ -613,12 +538,6 @@ rm -f $RPM_BUILD_ROOT/etc/profile.d/gnome-ssh-askpass.*
 %endif
 
 perl -pi -e "s|$RPM_BUILD_ROOT||g" $RPM_BUILD_ROOT%{_mandir}/man*/*
-
-%if %{pam_ssh_agent}
-pushd pam_ssh_agent_auth-pam_ssh_agent_auth-%{pam_ssh_agent_ver}
-%make_install
-popd
-%endif
 
 install -m 755 -d $RPM_BUILD_ROOT%{_libdir}/sshtest/
 install -m 755 regress/misc/sk-dummy/sk-dummy.so $RPM_BUILD_ROOT%{_libdir}/sshtest
@@ -742,14 +661,15 @@ test -f %{sysconfig_anaconda} && \
 %files sk-dummy
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
-%if %{pam_ssh_agent}
-%files -n pam_ssh_agent_auth
-%license pam_ssh_agent_auth-pam_ssh_agent_auth-%{pam_ssh_agent_ver}/OPENSSH_LICENSE
-%attr(0755,root,root) %{_libdir}/security/pam_ssh_agent_auth.so
-%attr(0644,root,root) %{_mandir}/man8/pam_ssh_agent_auth.8*
-%endif
-
 %changelog
+* Mon Jan 27 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.9p1-7
+- Fix regression of Match directive processing
+  Resolves: rhbz#2341769
+
+* Mon Jan 27 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.9p1-6
+- Remove pam-ssh-agent subcomponent
+  Resolves: rhbz#2338440
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.9p1-5.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -7,7 +7,7 @@ HTTP/2. It also contains a compatibility layer that automatically enables the
 use of nghttp2 if it's available.}
 
 Name:           python-%{srcname}
-Version:        4.0.0
+Version:        4.1.0
 Release:        %autorelease
 Summary:        Pure-Python HPACK header compression
 

@@ -2,18 +2,17 @@
 
 Summary: Displays where a particular program in your path is located
 Name: which
-Version: 2.21
-Release: 43%{?dist}
+Version: 2.22
+Release: 1%{?dist}
 License: GPL-3.0-only
 Source0: http://ftp.gnu.org/gnu/which/%{name}-%{version}.tar.gz
 Source1: which2.sh
 Source2: which2.csh
-Patch0: which-2.21-coverity-fixes.patch
-Patch1: which-2.21-path_max.patch
+Patch0: which-2.21-warning.patch
 Url: https://savannah.gnu.org/projects/which/
 Requires: coreutils
 BuildRequires: make
-BuildRequires: gcc
+BuildRequires: gcc gcc-c++
 BuildRequires: readline-devel
 
 %description
@@ -47,6 +46,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %{_mandir}/man1/which.1*
 
 %changelog
+* Mon Jan 27 2025 Than Ngo <than@redhat.com> - 2.22-1
+- Fixed rhbz#2342020, update to 2.22
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.21-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

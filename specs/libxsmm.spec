@@ -9,11 +9,6 @@
 # ix86 isn't built -- see
 # https://github.com/hfp/libxsmm/issues/103#issuecomment-256887962
 
-# The el7 system compiler doesn't do avx512.
-%if 0%{?el7}
-%bcond_without devtoolset
-%endif
-
 # For historical reasons, these have been out of step with the ABI
 # versioning used by the base source.  The soversion reflects the stable
 # "base" functionality, while the rest is considered unstable upstream.
@@ -21,9 +16,12 @@
 %global sominor 10
 %global soupd 1
 
+# Avoid FTBFS with gcc 15 https://github.com/libxsmm/libxsmm/issues/933
+%global optflags %optflags -std=gnu17
+
 Name:		libxsmm
 Version:	1.17
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Small dense or sparse matrix multiplications and convolutions for x86_64
 License:	BSD-3-Clause
 URL:		https://github.com/hfp/libxsmm
@@ -32,13 +30,7 @@ Source0:	https://github.com/hfp/libxsmm/archive/%version/%name-%version.tar.gz
 Patch0:		libxsmm-rpath.patch
 BuildRequires:	make
 BuildRequires:	python3-devel openblas-devel
-%if %{with devtoolset}
-# Release 6 supports avx512 and uses the same libgfortran version as
-# the system compiler.
-BuildRequires:	devtoolset-9-gcc-gfortran devtoolset-9-gcc-c++
-%else
 BuildRequires:	gcc-gfortran gcc-c++
-%endif
 ExclusiveArch:	x86_64
 
 # Remove /bin/sh, /bin/bash dependencies from -doc (not actually
@@ -96,9 +88,6 @@ cp -p samples/deeplearning/gxm/README.md documentation/gxm.md
 
 
 %build
-%if %{with devtoolset}
-. /opt/rh/devtoolset-9/enable
-%endif
 # OpenMP is only used by libxsmmext, so no need to turn it off.
 # Avoid the ld hardening flags, which are taken care of by the library
 # build system to the extent they don't affect perfromance.
@@ -111,9 +100,6 @@ cp -p samples/deeplearning/gxm/README.md documentation/gxm.md
 
 
 %install
-%if %{with devtoolset}
-. /opt/rh/devtoolset-9/enable
-%endif
 # Supply STATIC etc. since this actually builds stuff (a bug?),
 # and otherwise we end up with bits built wrongly.
 %make_install %makeflags
@@ -150,10 +136,6 @@ rm -rf samples/cp2k/obj
 %_bindir/libxsmm_gemm_generator
 # Get the module directory owned.  Currently in Fedora, gfortran owns
 # %%_fmoddir, but not %%_fmoddir/..
-# In el7 it doesn't own either
-%if 0%{?el7}
-%dir %_fmoddir
-%endif
 %_fmoddir/libxsmm.mod
 %_libdir/pkgconfig/*.pc
 
@@ -164,6 +146,10 @@ rm -rf samples/cp2k/obj
 
 
 %changelog
+* Sun Jan 26 2025 Dave Love <loveshack@fedoraproject.org> - 1.17-6
+- Fix FTBFS with gcc 15 (#2340767)
+- Remove el7 support
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

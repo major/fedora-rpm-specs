@@ -12,7 +12,7 @@
 # disable python2 by default
 %bcond python2 0
 
-%{!?tcl_version: %global tcl_version %(echo 'puts $tcl_version' | tclsh8)}
+%{!?tcl_version: %global tcl_version %(echo 'puts $tcl_version' | tclsh)}
 %{!?tcl_sitearch: %global tcl_sitearch %{_prefix}/%{_lib}/tcl%{tcl_version}}
 
 # with speech dispatcher iff on Fedora:
@@ -176,7 +176,7 @@ which directly accesses a refreshable braille display.
 %package -n tcl-brlapi
 Version: %{api_version}
 Requires: brlapi%{?_isa} = %{api_version}-%{release}
-BuildRequires: tcl8-devel
+BuildRequires: tcl-devel < 1:9
 Summary: Tcl binding for BrlAPI
 %description -n tcl-brlapi
 This package provides the Tcl binding for BrlAPI.
@@ -275,9 +275,6 @@ cp -a python2 python3
 %if %{with minimal}
 cp -a python2 minimal
 %endif
-
-find . -type f -name 'configure' | xargs sed -i s/in\ tclsh/in\ tclsh8/g
-find . -type f | xargs sed -i s/env\ tclsh/env\ tclsh8/g
 
 %build
 # If MAKEFLAGS=-jN is set it would break local builds.

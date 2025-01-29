@@ -25,7 +25,7 @@
 
 # https://github.com/NVIDIA/nvidia-container-toolkit
 %global goipath         github.com/NVIDIA/nvidia-container-toolkit
-Version:                1.17.0
+Version:                1.17.1
 
 %gometa -L -f
 
@@ -62,7 +62,7 @@ Provides:       nvidia-container-toolkit = %{version}-%{release}
 %if %{without bootstrap}
 %build
 # %%goprep calls %%goenv, which sets currentgoldflags to:
-# -X github.com/NVIDIA/nvidia-container-toolkit/version=1.17.0
+# -X github.com/NVIDIA/nvidia-container-toolkit/version=1.17.1
 #
 # Unfortunately, this definition is incorrect.  So, correct it.
 %undefine currentgoldflags

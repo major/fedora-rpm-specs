@@ -1,7 +1,7 @@
 Summary: A utility which lists open files on a Linux/UNIX system
 Name: lsof
 Version: 4.98.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: lsof
 URL: https://github.com/lsof-org/lsof
 
@@ -17,6 +17,7 @@ Source1: upstream2downstream.sh
 
 # BZ#1260300 - move lsof man page to section 1
 Patch0: lsof-man-page-section.patch
+Patch1: f42-ftbfs.patch
 
 BuildRequires: gcc
 BuildRequires: libselinux-devel
@@ -25,15 +26,14 @@ BuildRequires: groff-base
 BuildRequires: make
 BuildRequires: automake
 BuildRequires: autoconf
+BuildRequires: git
 
 %description
 Lsof stands for LiSt Open Files, and it does just that: it lists information
 about files that are open by the processes running on a UNIX system.
 
 %prep
-%setup -q -n %{lsofrh}
-%autopatch -p1
-#%patch1 -p1
+%autosetup -n %{lsofrh} -S git
 
 %build
 %configure
@@ -53,6 +53,9 @@ install -p -m 0644 lsof.1 ${RPM_BUILD_ROOT}%{_mandir}/man1/lsof.1
 %{_mandir}/man*/*
 
 %changelog
+* Fri Jan 24 2025 Jan Rybar <jrybar@redhat.com> - 4.98.0-7
+- FTBFS: stricter check, incompatible types
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.98.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

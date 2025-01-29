@@ -1,6 +1,6 @@
 Name:		sigscheme
 Version:	0.9.1
-Release:	11%{?dist}
+Release:	12%{?dist}
 License:	BSD-3-Clause
 URL:		https://github.com/uim/sigscheme
 BuildRequires: make
@@ -8,6 +8,7 @@ BuildRequires:	libgcroots-devel
 BuildRequires:	gcc
 
 Source0:	https://github.com/uim/sigscheme/releases/download/%{version}/%{name}-%{version}.tar.bz2
+Patch1:		%{name}-vararg-func.patch
 
 
 Summary:	R5RS Scheme interpreter for embedded use
@@ -41,6 +42,9 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="/usr/bin/install -p"
 rm $RPM_BUILD_ROOT%{_libdir}/*.la
 rm -rf $RPM_BUILD_ROOT%{_docdir}/sigscheme
 
+%check
+make check
+
 %ldconfig_scriptlets
 
 %files
@@ -59,6 +63,10 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/sigscheme
 %{_libdir}/pkgconfig/sigscheme.pc
 
 %changelog
+* Mon Jan 27 2025 Akira TAGOH <tagoh@redhat.com> - 0.9.1-12
+- Fix FTBFS.
+  Resolves: rhbz#2341349
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

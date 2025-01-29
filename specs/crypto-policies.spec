@@ -1,5 +1,5 @@
-%global git_date 20241128
-%global git_commit bb7b0b01d0790ab10ff0c4d17bb510efa62a707f
+%global git_date 20250124
+%global git_commit 4d262e79be1cd15c84cad55ad88c53a2d7712e85
 %{?git_commit:%global git_commit_hash %(c=%{git_commit}; echo ${c:0:7})}
 
 %global _python_bytecompile_extra 0
@@ -11,7 +11,7 @@
 
 Name:           crypto-policies
 Version:        %{git_date}
-Release:        2.git%{git_commit_hash}%{?dist}
+Release:        1.git%{git_commit_hash}%{?dist}
 Summary:        System-wide crypto policies
 
 License:        LGPL-2.1-or-later
@@ -295,6 +295,10 @@ exit 0
 %{_mandir}/man8/fips-finish-install.8*
 
 %changelog
+* Fri Jan 24 2025 Alexander Sosedkin <asosedkin@redhat.com> - 20250124-1.git4d262e7
+- openssl: stricter enabling of Ciphersuites
+- openssl: make use of -CBC and -AESGCM keywords
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20241128-2.gitbb7b0b0
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

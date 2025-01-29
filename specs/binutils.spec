@@ -7,7 +7,7 @@ Name: binutils%{?_with_debug:-debug}
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
 Version: 2.43.90
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -89,7 +89,7 @@ URL: https://sourceware.org/binutils
 # size point of view.  So for now, only enable it for the i686 and x86_64
 # architectures as these are the ones that have the most potential
 # vulnerability.
-%ifarch %{ix86} x86_64 
+%ifarch %{ix86} x86_64 riscv64
 %define enable_separate_code 1
 %else
 %define enable_separate_code 0
@@ -858,6 +858,8 @@ build_target()
 
     pushd $builddir
 
+    mkdir -p gas/doc
+    
 %if %{with docs}
     # Because of parallel building, info has to be made after all.
     # %%make_build %%{_smp_mflags} tooldir=%%{_prefix} all 
@@ -1415,6 +1417,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Mon Jan 27 2025 Nick Clifton <nickc@redhat.com> - 2.43.90-2
+- Enable separate-code by default for the RISC-V target.
+
 * Mon Jan 20 2025 Nick Clifton <nickc@redhat.com> - 2.43.90-1
 - Rebased to 2.43.90 pre-release tarball.
 

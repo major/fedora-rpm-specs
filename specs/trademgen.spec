@@ -3,7 +3,7 @@
 
 #
 Name:           trademgen
-Version:        1.00.11
+Version:        1.00.12
 Release:        %autorelease
 
 Summary:        C++ Simulated Travel Demand Generation Library
@@ -19,6 +19,7 @@ BuildRequires:  soci-mysql-devel
 BuildRequires:  soci-sqlite3-devel
 BuildRequires:  pkgconfig(stdair)
 BuildRequires:  pkgconfig(sevmgr)
+BuildRequires:  mysql-devel
 
 %description
 %{name} aims at providing a clean API, and the corresponding C++
@@ -103,7 +104,8 @@ rm -f %{_bindir}/py%{name}
 %endif
 
 %files
-%doc AUTHORS ChangeLog COPYING NEWS README.md
+%doc AUTHORS ChangeLog NEWS README.md
+%license COPYING
 %{_bindir}/%{name}
 %{_bindir}/%{name}_with_db
 %{_bindir}/%{name}_generateDemand

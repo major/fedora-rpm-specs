@@ -1,6 +1,6 @@
 Name:           paps
 Version:        0.8.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 
 License:        LGPL-2.0-or-later
 URL:            https://github.com/dov/paps
@@ -45,6 +45,7 @@ Patch60:        %{name}-a3.patch
 Patch61:	%{name}-fix-paper-size-truncate.patch
 Patch62:	paps-c99.patch
 Patch63:	paps-0.6.8-glib282.patch
+Patch64:	paps-0.6.8-ftbfs.patch
 ### For paps
 Patch100:	%{name}-fix-src-to-paps.patch
 Patch101:	%{name}-fix-build.patch
@@ -92,6 +93,7 @@ pushd %{name}-0.6.8
 %patch 61 -p1 -b .paper-size
 %patch 62 -p2 -b .configure-c99
 %patch 63 -p1 -b .glib282
+%patch 64 -p1 -b .ftbfs
 libtoolize -f -c
 autoreconf -f -i
 popd
@@ -155,6 +157,10 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="/usr/bin/install -p"
 
 
 %changelog
+* Mon Jan 27 2025 Akira TAGOH <tagoh@redhat.com> - 0.8.0-13
+- Fix FTBFS
+  Resolves: rhbz#2341001
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

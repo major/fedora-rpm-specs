@@ -27,6 +27,14 @@ Patch: 0001-status-keyboard-Add-a-catch-around-reload-call.patch
 Patch: 0002-status-keyboard-Load-keyboard-from-system-settings-i.patch
 Patch: 0003-status-keyboard-Use-gnome-desktop-API-for-getting-de.patch
 
+# Fix some things to be in Utilities
+# https://gitlab.gnome.org/GNOME/gnome-shell/-/merge_requests/3607
+Patch: 0001-data-List-Characters-and-Logs-in-the-Utilities-group.patch
+# Fix ordering in Utilities
+# https://gitlab.gnome.org/GNOME/gnome-shell/-/merge_requests/3609
+Patch: 0002-data-Correct-Utilities-category-ordering-add-comment.patch
+
+
 %define eds_version 3.45.1
 %define gnome_desktop_version 44.0-7
 %define glib2_version 2.79.2

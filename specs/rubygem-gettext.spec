@@ -4,8 +4,8 @@
 %global		repoid			67096
 
 Name:		rubygem-%{gem_name}
-Version:	3.5.0
-Release:	2%{?dist}
+Version:	3.5.1
+Release:	1%{?dist}
 Summary:	RubyGem of Localization Library and Tools for Ruby
 
 # Ruby OR LGPL-3.0-or-later:	gemspec
@@ -19,6 +19,7 @@ Requires:	ruby(release)
 BuildRequires:	ruby(release)
 BuildRequires:	rubygems-devel
 # For %%check
+
 BuildRequires:	rubygem(erubi)
 BuildRequires:	rubygem(locale) >= %{locale_ver}
 BuildRequires:	rubygem(prime)
@@ -123,9 +124,53 @@ popd
 pushd .%{gem_instdir}
 export LANG=C.UTF-8
 export LANGUAGE=ja_JP.utf8
+export RUBYLIB=$(pwd)/lib
 
 # Umm...
-msgfmt -o test/locale/ja/LC_MESSAGES/hello.mo test/po/ja/hello.po
+pushd test/po
+locales=$(ls -1d */ | sed -e 's|/||')
+popd
+catalogues=$(ls -1 test/po/ja/*.po | while read f ; do basename $f | sed -e 's|\.po||' ; done)
+for l in $locales
+do
+	for d in $catalogues
+	do
+		if [ -f test/po/${l}/${d}.po ] ; then
+			mkdir -p  test/locale/${l}/LC_MESSAGES/ || true
+			bin/rmsgfmt -o test/locale/${l}/LC_MESSAGES/${d}.mo test/po/${l}/${d}.po
+		fi
+	done
+done
+
+pushd samples/po
+locales=$(ls -1d */ | sed -e 's|/||')
+popd
+catalogues=$(ls -1 samples/po/ja/*.po | while read f ; do basename $f | sed -e 's|\.po||' ; done)
+for l in $locales
+do
+	for d in $catalogues
+	do
+		if [ -f samples/po/${l}/${d}.po ] ; then
+			mkdir -p  samples/locale/${l}/LC_MESSAGES/ || true
+			bin/rmsgfmt -o samples/locale/${l}/LC_MESSAGES/${d}.mo samples/po/${l}/${d}.po
+		fi
+	done
+done
+
+pushd samples/cgi/po
+locales=$(ls -1d */ | sed -e 's|/||')
+popd
+catalogues=$(ls -1 samples/cgi/po/ja/*.po | while read f ; do basename $f | sed -e 's|\.po||' ; done)
+for l in $locales
+do
+	for d in $catalogues
+	do
+		if [ -f samples/cgi/po/${l}/${d}.po ] ; then
+			mkdir -p  samples/cgi/locale/${l}/LC_MESSAGES/ || true
+			bin/rmsgfmt -o samples/cgi/locale/${l}/LC_MESSAGES/${d}.mo samples/cgi/po/${l}/${d}.po
+		fi
+	done
+done
 
 ruby -Ilib:test test/run-test.rb
 
@@ -156,6 +201,9 @@ popd
 %{gem_instdir}/samples/
 
 %changelog
+* Mon Jan 27 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.1-1
+- 3.5.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

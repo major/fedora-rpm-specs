@@ -1,14 +1,13 @@
-%global prever rc1
 %global _hardened_build 1
 
 Summary: DNSSEC key and zone management software
 Name: opendnssec
 Version: 2.1.14
-Release: 0.4rc1%{?dist}
+Release: 1%{?dist}
 License: BSD-2-Clause
 Url: http://www.opendnssec.org/
-Source0: http://www.opendnssec.org/files/source/%{?prever:testing/}%{name}-%{version}%{?prever}.tar.gz
-Source10: http://www.opendnssec.org/files/source/%{?prever:testing/}%{name}-%{version}%{?prever}.tar.gz.sig
+Source0: https://dist.opendnssec.org/source/%{?prever:testing/}%{name}-%{version}%{?prever}.tar.gz
+Source10: https://dist.opendnssec.org/source/%{?prever:testing/}%{name}-%{version}%{?prever}.tar.gz.sig
 Source1: ods-enforcerd.service
 Source2: ods-signerd.service
 Source3: ods.sysconfig
@@ -17,6 +16,7 @@ Source5: tmpfiles-opendnssec.conf
 Source6: opendnssec.cron
 Source7: opendnssec-2.1.sqlite_convert.sql
 Source8: opendnssec-2.1.sqlite_rpmversion.sql
+Source9: %{name}-sysusers.conf
 Patch1: 0001-Pass-right-remaining-buffer-size-in-hsm_hex_unparse-.patch
 Patch2: opendnssec-configure-c99.patch
 Patch3: opendnssec-2.1.14rc1-gcc14.patch
@@ -94,6 +94,7 @@ install -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/
 install -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}/
 install -m 0644 %{SOURCE3} %{buildroot}/%{_sysconfdir}/sysconfig/ods
 install -m 0644 %{SOURCE4} %{buildroot}/%{_sysconfdir}/opendnssec/
+install -D %{SOURCE9} %{buildroot}%{_sysusersdir}/%{name}.conf
 mkdir -p %{buildroot}%{_tmpfilesdir}/
 install -m 0644 %{SOURCE5} %{buildroot}%{_tmpfilesdir}/opendnssec.conf
 mkdir -p %{buildroot}%{_localstatedir}/run/opendnssec
@@ -131,13 +132,11 @@ sed -i "s:sqlite_convert.sql:%{_datadir}/opendnssec/migration/1.4-2.0_db_convert
 %{_bindir}/*
 %attr(0755,root,root) %dir %{_datadir}/opendnssec
 %{_datadir}/opendnssec/*
+%{_sysusersdir}/%{name}.conf
 
 %pre
-getent group ods >/dev/null || groupadd -r ods
-getent passwd ods >/dev/null || \
-useradd -r -g ods -d /etc/opendnssec -s /sbin/nologin \
--c "opendnssec daemon account" ods
-exit 0
+
+%sysusers_create_package %{name} %{SOURCE9}
 
 %post
 # Initialise a slot on the softhsm on first install
@@ -196,6 +195,10 @@ ods-enforcer update all >/dev/null 2>/dev/null ||:
 %systemd_postun_with_restart ods-signerd.service
 
 %changelog
+* Tue Jan 21 2025 Rafel Jeffman <rjeffman@redhat.com> - 2.1.14-1
+- Upstream release 2.1.14
+- Use systemd-sysusers
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.14-0.4rc1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:    angband
 Version: 4.2.5
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Popular roguelike role playing game
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -16,6 +16,8 @@ Source1: generate-tarball.sh
 # The fix-restricted.patch file is used by generate-tarball.sh to fix
 # the source to work without the restricted assets.
 Source2: fix-restricted.patch
+# Add warning when running on gnome desktop
+Source3: angband-sdl
 
 # Specific Fedora restriction on chown usage during install process
 Patch0: angband-4.2.4-1-chown_fix.patch
@@ -37,6 +39,8 @@ BuildRequires: python3-docutils
 
 Requires: hicolor-icon-theme
 Requires: freetype >= 2.11.0-3
+Requires: xorg-x11-fonts-misc
+Requires: zenity
 Requires: %{name}-data = %{version}-%{release}
 
 %description
@@ -102,11 +106,13 @@ appstream-util validate-relax --nonet \
 
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man6/
 install -p -m 644 src/angband.man $RPM_BUILD_ROOT%{_mandir}/man6/angband.6
+install -p -m 755 %{SOURCE3} $RPM_BUILD_ROOT%{_bindir}/angband-sdl
 
 
 %files
 %license docs/copying.rst
 %attr(2755,root,games) %{_bindir}/%{name}
+%{_bindir}/angband-sdl
 %{_datadir}/applications/*.desktop
 %{_metainfodir}/angband.metainfo.xml
 %dir %{_sysconfdir}/angband
@@ -136,6 +142,10 @@ install -p -m 644 src/angband.man $RPM_BUILD_ROOT%{_mandir}/man6/angband.6
 
 
 %changelog
+* Mon Jan 27 2025 Diego Herrera <dherrera@redhat.com> 4.2.5-7
+- Require xorg-x11-fonts-misc
+- Add extra warning when running Angband (SDL) on Gnome
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

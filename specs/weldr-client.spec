@@ -7,7 +7,7 @@
 
 Name:      weldr-client
 Version:   35.14
-Release:   2%{?dist}
+Release:   3%{?dist}
 # Upstream license specification: Apache-2.0
 License:   Apache-2.0
 Summary:   Command line utility to control osbuild-composer
@@ -19,6 +19,8 @@ Source0:   https://github.com/osbuild/weldr-client/releases/download/v%{version}
 Source1:   https://github.com/osbuild/weldr-client/releases/download/v%{version}/%{name}-%{version}.tar.gz.asc
 Source2:   https://keys.openpgp.org/vks/v1/by-fingerprint/117E8C168EFE3A7F#/gpg-117E8C168EFE3A7F.key
 %endif
+
+Patch0001: 0001-Fix-non-constant-log-strings.patch
 
 Obsoletes: composer-cli < 35.0
 Provides: composer-cli = %{version}-%{release}
@@ -50,6 +52,7 @@ Command line utility to control osbuild-composer
 %forgeautosetup -p1
 %else
 %goprep
+%autopatch -p1
 %endif
 
 %build
@@ -130,6 +133,10 @@ composer-cli package.
 
 
 %changelog
+* Mon Jan 27 2025 Brian C. Lane <bcl@redhat.com> - 35.14-3
+- Fix non-constant log strings
+  Resolves: rhbz#2341535
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 35.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

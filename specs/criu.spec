@@ -136,11 +136,11 @@ make docs V=1
 
 %install
 sed -e "s,--upgrade --ignore-installed,--no-index --no-deps -v --no-build-isolation,g" -i lib/Makefile -i crit/Makefile
-make install-criu DESTDIR=$RPM_BUILD_ROOT PREFIX=%{_prefix} LIBDIR=%{_libdir}
+make install-criu DESTDIR=$RPM_BUILD_ROOT PREFIX=%{_prefix} LIBDIR=%{_libdir} BINDIR=%{_bindir} SBINDIR=%{_sbindir}
 make install-lib DESTDIR=$RPM_BUILD_ROOT PREFIX=%{_prefix} LIBDIR=%{_libdir} PYTHON=%{py_binary} PIPFLAGS="--no-build-isolation --no-index --no-deps --progress-bar off --upgrade --ignore-installed"
 make install-amdgpu_plugin DESTDIR=$RPM_BUILD_ROOT PREFIX=%{_prefix} LIBDIR=%{_libdir} PLUGINDIR=%{_libdir}/criu
 make install-cuda_plugin DESTDIR=$RPM_BUILD_ROOT PREFIX=%{_prefix} LIBDIR=%{_libdir} PLUGINDIR=%{_libdir}/criu
-make install-crit DESTDIR=$RPM_BUILD_ROOT PREFIX=%{_prefix} LIBDIR=%{_libdir} PYTHON=%{py_binary} PIPFLAGS="--no-build-isolation --no-index --no-deps --progress-bar off --upgrade --ignore-installed"
+make install-crit DESTDIR=$RPM_BUILD_ROOT PREFIX=%{_prefix} LIBDIR=%{_libdir}  BINDIR=%{_bindir} SBINDIR=%{_sbindir} PYTHON=%{py_binary} PIPFLAGS="--no-build-isolation --no-index --no-deps --progress-bar off --upgrade --ignore-installed"
 make install-man DESTDIR=$RPM_BUILD_ROOT PREFIX=%{_prefix} LIBDIR=%{_libdir}
 rm -f $RPM_BUILD_ROOT%{_mandir}/man1/compel.1
 

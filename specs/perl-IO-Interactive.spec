@@ -2,8 +2,8 @@
 %bcond_without perl_IO_Interactive_enables_optional_test
 
 Name:           perl-IO-Interactive
-Version:        1.025
-Release:        6%{?dist}
+Version:        1.026
+Release:        1%{?dist}
 Summary:        Utilities for interactive I/O
 # lib/IO/Interactive.pm:    GPL-1.0-or-later OR Artistic-1.0-Perl
 # LICENSE:                  (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Artistic-2.0
@@ -15,7 +15,7 @@ Summary:        Utilities for interactive I/O
 # <https://github.com/briandfoy/io-interactive/issues/2>
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Artistic-2.0
 URL:            https://metacpan.org/release/IO-Interactive
-Source0:        https://cpan.metacpan.org/authors/id/B/BD/BDFOY/IO-Interactive-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/B/BR/BRIANDFOY/IO-Interactive-%{version}.tar.gz
 Source1:        license_clarification
 BuildArch:      noarch
 BuildRequires:  coreutils
@@ -92,7 +92,7 @@ make test
 
 %files
 %license LICENSE
-%doc Changes examples license_clarification README.pod
+%doc Changes examples license_clarification README.pod SECURITY.md
 %dir %{perl_vendorlib}/IO
 %{perl_vendorlib}/IO/Interactive.pm
 %{_mandir}/man3/IO::Interactive.*
@@ -101,6 +101,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jan 27 2025 Petr Pisar <ppisar@redhat.com> - 1.026-1
+- 1.026 bump
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.025-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

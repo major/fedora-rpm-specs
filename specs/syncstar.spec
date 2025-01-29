@@ -1,8 +1,8 @@
 %global pack syncstar
 
 Name:           %{pack}
-Version:        0.2.0
-Release:        2%{?dist}
+Version:        0.2.2
+Release:        1%{?dist}
 Summary:        Service for creating bootable USB storage devices at community conference kiosks
 
 # The syncstar project is licensed under AGPL-3.0-or-later license, except for the following files
@@ -54,9 +54,16 @@ visitors can avail its services.
 %{_bindir}/%{name}
 
 %changelog
+* Mon Jan 27 2025 Akashdeep Dhar <t0xic0der@fedoraproject.org> - 0.2.2-1
+- Fourth release for SyncStar project
+- More information can be found on https://github.com/gridhead/syncstar/releases/tag/0.2.2
+
+* Mon Jan 27 2025 Akashdeep Dhar <t0xic0der@fedoraproject.org> - 0.2.1-1
+- Third release for SyncStar project
+- More information can be found on https://github.com/gridhead/syncstar/releases/tag/0.2.1
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
 
 * Sat Dec 21 2024 Akashdeep Dhar <t0xic0der@fedoraproject.org> - 0.2.0-1
 - Second release for SyncStar project

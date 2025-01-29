@@ -1,15 +1,16 @@
 Name:           perl-Mock-Config
-Version:        0.03
-Release:        24%{?dist}
+Version:        0.04
+Release:        1%{?dist}
 Summary:        Temporarily set Config or XSConfig values
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Mock-Config
 Source0:        https://cpan.metacpan.org/authors/id/R/RU/RURBAN/Mock-Config-%{version}.tar.gz
 BuildArch:      noarch
 # Build
+BuildRequires:  coreutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.6
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
@@ -23,26 +24,60 @@ Requires:       perl(warnings)
 %description
 This module can be for temporarily set Config or XSConfig values.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Mock-Config-%{version}
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} %{buildroot}/*
+
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+# Remove author tests
+rm %{buildroot}%{_libexecdir}/%{name}/t/manifest.t
+rm %{buildroot}%{_libexecdir}/%{name}/t/pod*
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+unset RELEASE_TESTING
 make test
 
 %files
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Mock*
+%{_mandir}/man3/Mock::Config*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Mon Jan 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.04-1
+- 0.04 bump (rhbz#2342064)
+- Package tests
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

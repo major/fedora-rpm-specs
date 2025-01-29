@@ -177,7 +177,7 @@
 Summary: An interpreter of object-oriented scripting language
 Name: ruby
 Version: %{ruby_version}%{?development_release}
-Release: 21%{?dist}
+Release: 22%{?dist}
 # Licenses, which are likely not included in binary RPMs:
 # Apache-2.0:
 #   benchmark/gc/redblack.rb
@@ -278,6 +278,12 @@ Patch6: ruby-2.7.0-Initialize-ABRT-hook.patch
 # Disable syntax_suggest test suite, which tries to download its dependencies.
 # https://bugs.ruby-lang.org/issues/19297
 Patch9: ruby-3.3.0-Disable-syntax-suggest-test-case.patch
+# Don't include <cstdbool> header in C++ environment.
+# https://bugs.ruby-lang.org/issues/21024
+# https://github.com/ruby/ruby/pull/12628
+# See discussion on Ruby 3.5 PR
+# https://github.com/ruby/ruby/pull/12551#discussion_r1913285350
+Patch10: ruby-3.4.2-Bug-21024-cstdbool-header-has-been-useless.patch
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 %{?with_rubypick:Suggests: rubypick}
@@ -769,6 +775,7 @@ analysis result in RBS format, a standard type description format for Ruby
 %patch 4 -p1
 %patch 6 -p1
 %patch 9 -p1
+%patch 10 -p1
 
 # Provide an example of usage of the tapset:
 cp -a %{SOURCE3} .
@@ -1874,6 +1881,10 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 
 
 %changelog
+* Fri Jan 24 2025 Jarek Prokop <jprokop@redhat.com> - 3.4.1-22
+- Stop including <cstdbool> C++ header, it is deprecated since C++17.
+  Resolves: rhbz#2336567
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

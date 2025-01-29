@@ -1,7 +1,7 @@
 Summary: An ircII chat client
 Name: epic
 Version: 3.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 4
 License: BSD-3-Clause AND ISC AND LicenseRef-Fedora-Public-Domain
 Source0: ftp://ftp.epicsol.org/pub/epic/EPIC4-PRODUCTION/epic4-%{version}.tar.xz
@@ -14,6 +14,7 @@ Source6: http://splitfire.sourceforge.net/schemes/sf-eggsandham-scheme.irc.gz
 Source7: http://splitfire.sourceforge.net/schemes/sf-light-scheme.irc.gz
 Source8: http://splitfire.sourceforge.net/schemes/sf-perry-scheme.irc.gz
 Patch0: epic-default.patch
+Patch1: epic-fix-ftbfs.patch
 URL: http://www.epicsol.org/
 BuildRequires: gcc
 BuildRequires: openssl-devel
@@ -32,6 +33,7 @@ rm -rf $RPM_BUILD_DIR/ircii-EPIC%{prog_version}
 %autopatch -p0
 
 %build
+export CFLAGS="$RPM_OPT_FLAGS -std=gnu17"
 autoreconf -vi
 %configure
 
@@ -81,6 +83,9 @@ rm -f $RPM_BUILD_ROOT/%{_libexecdir}/wserv
 %{_datadir}/epic/help/*
 
 %changelog
+* Mon Jan 27 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 4:3.0-3
+- Fix FTBFS
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4:3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

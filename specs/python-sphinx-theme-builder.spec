@@ -10,7 +10,7 @@
 
 Name:           python-sphinx-theme-builder
 Version:        0.2.0
-Release:        0.17.%{prerel}%{?dist}
+Release:        0.18.%{prerel}%{?dist}
 Summary:        Streamline the Sphinx theme development workflow
 
 # Most of the code is MIT.  However,
@@ -19,6 +19,9 @@ License:        MIT AND BSD-3-Clause
 URL:            https://sphinx-theme-builder.readthedocs.io/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/%{version}%{prerel}/sphinx-theme-builder-%{version}%{prerel}.tar.gz
+# Compatibility fix for python 3.14
+# https://github.com/pradyunsg/sphinx-theme-builder/pull/51
+Patch:          0001-Avoid-ast.Str-for-python-3.14-compatibility.patch
 
 BuildArch:      noarch
 
@@ -84,6 +87,9 @@ rm %{buildroot}%{_bindir}/stb
 %license LICENSE
 
 %changelog
+* Mon Jan 27 2025 Jerry James <loganjerry@gmail.com> - 0.2.0-0.18.b2
+- Python 3.14 compatibility fix (rhbz#2342318)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-0.17.b2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

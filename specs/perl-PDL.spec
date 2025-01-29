@@ -4,7 +4,7 @@
 Name:           perl-PDL
 %global cpan_version 2.099
 Version:        2.99.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The Perl Data Language
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:            http://pdl.perl.org/
@@ -120,6 +120,7 @@ Provides:       perl(PDL::NiceSlice::FilterSimple) = %{version}
 Provides:       perl(PDL::PP::CType) = %{version}
 Provides:       perl(PDL::PP::Dims) = %{version}
 Provides:       perl(PDL::PP::PDLCode) = %{version}
+Provides:       perl(PDL::PP::PdlParObj) = %{version}
 Provides:       perl(PDL::PP::SymTab) = %{version}
 Provides:       perl(PDL::PP::XS) = %{version}
 
@@ -224,6 +225,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jan 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.99.0-2
+- Add missing provides PDL::PP::PdlParObj
+
 * Fri Jan 24 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.99.0-1
 - 2.099 bump (rhbz#2341654)
 - Fix code for GCC 15

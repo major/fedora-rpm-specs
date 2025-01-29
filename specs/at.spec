@@ -3,7 +3,7 @@
 Summary:    Job spooling tools
 Name:       at
 Version:    3.2.5
-Release:    13%{?dist}
+Release:    14%{?dist}
 # http://packages.debian.org/changelogs/pool/main/a/at/current/copyright
 # + install-sh is MIT license with changes under Public Domain
 License:    GPL-3.0-or-later AND GPL-2.0-or-later AND ISC
@@ -87,7 +87,7 @@ make install \
     DAEMON_USERNAME=`id -nu` \
     DAEMON_GROUPNAME=`id -ng` \
     DESTDIR=%{buildroot} \
-    sbindir=%{_prefix}/sbin \
+    sbindir=%{_bindir} \
     bindir=%{_bindir} \
     datadir=%{_datadir} \
     prefix=%{_prefix} \
@@ -154,8 +154,8 @@ chown root:root %{_localstatedir}/spool/at/.SEQ
 %attr(0600,root,root)       %verify(not md5 size mtime) %ghost %{_localstatedir}/spool/at/.SEQ
 %attr(0700,root,root)       %dir %{_localstatedir}/spool/at/spool
 %attr(0644,root,root)       %config(noreplace) %{_sysconfdir}/pam.d/atd
-%{_sbindir}/atrun
-%attr(0755,root,root)       %{_sbindir}/atd
+%{_bindir}/atrun
+%attr(0755,root,root)       %{_bindir}/atd
 %{_mandir}/man*/*
 %{_bindir}/batch
 %{_bindir}/atrm
@@ -165,6 +165,10 @@ chown root:root %{_localstatedir}/spool/at/.SEQ
 %attr(0644,root,root)       /%{_unitdir}/atd.service
 
 %changelog
+* Mon Jan 27 2025 Ondřej Pohořelský <opohorel@redhat.com> - 3.2.5-14
+- Unify bin and sbin directories
+- Resolves: rhbz#2339910
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.5-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:           tog-pegasus
 Version:        %{major_ver}.1
-Release:        77%{?dist}
+Release:        78%{?dist}
 Epoch:          2
 Summary:        OpenPegasus WBEM Services for Linux
 
@@ -125,8 +125,8 @@ Requires:       %{name}-libs = %{epoch}:%{version}-%{release}
 Requires:       openssl
 Requires:       ca-certificates
 Provides:       cim-server = 1
-Requires(post): /bin/ldconfig
-Requires(post): /bin/restorecon
+Requires(post): /usr/bin/ldconfig
+Requires(post): /usr/bin/restorecon
 
 %description
 OpenPegasus WBEM Services for Linux enables management solutions that deliver
@@ -150,7 +150,7 @@ Summary:        The OpenPegasus Libraries
 Conflicts:      libcmpiCppImpl0
 Requires(pre):  /usr/bin/useradd
 Requires(pre):  /usr/bin/groupadd
-Requires(post): /bin/ldconfig
+Requires(post): /usr/bin/ldconfig
 
 %description libs
 The OpenPegasus libraries.
@@ -491,7 +491,7 @@ fi
 %post
 install -d -m 1750 -o root -g pegasus /var/run/tog-pegasus
 restorecon /var/run/tog-pegasus
-/bin/ldconfig;
+/usr/bin/ldconfig;
 %systemd_post tog-pegasus.service
 if [ $1 -ge 1 ]; then
    echo `date` >>  /var/lib/Pegasus/log/install.log 2>&1 || :;
@@ -515,7 +515,7 @@ fi
 :;
 
 %postun
-/bin/ldconfig
+/usr/bin/ldconfig
 %systemd_postun_with_restart tog-pegasus.service
 
 %preun devel
@@ -568,13 +568,16 @@ if [ $1 -eq 1 ]; then
    /bin/chgrp -h pegasus /usr/%{_lib}/Pegasus/providerManagers/libCMPIProviderManager.so
 fi
 :;
-/bin/ldconfig
+/usr/bin/ldconfig
 
 %postun libs
-/bin/ldconfig
+/usr/bin/ldconfig
 
 
 %changelog
+* Mon Jan 27 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 2:2.14.1-78
+- Fix installation (bin and sbin unify)
+
 * Fri Jan 24 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2:2.14.1-77
 - Fix FTBFS (bin and sbin unify)
 

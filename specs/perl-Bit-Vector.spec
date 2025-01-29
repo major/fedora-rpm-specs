@@ -1,12 +1,13 @@
 Name:           perl-Bit-Vector
 Version:        7.4
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Efficient bit vector, set of integers and "big int" math library
 # Outdated FSF address reported, rt#85827
 # Clarified by a private mail from the author:
 License:        ( GPL-2.0-or-later OR Artistic-1.0-Perl ) AND LGPL-2.0-or-later
 URL:            https://metacpan.org/release/Bit-Vector
 Source0:        https://cpan.metacpan.org/authors/id/S/ST/STBEY/Bit-Vector-%{version}.tar.gz
+Patch0:         0001-Fix-bool-detection.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -52,6 +53,7 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Bit-Vector-%{version} 
+%patch -P0 -p1
 chmod -c 644 examples/*.pl
 perl -MConfig -pi -e 's|^#!.*perl\b|$Config{startperl}|' \
     examples/{benchmk{1,2,3},primes,SetObject}.pl
@@ -102,6 +104,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 25 2025 Ralf Corsépius <corsepiu@fedoraproject.org> - 7.4-37
+- Add 0001-Fix-bool-detection.patch (F42FTBS, RHBZ#2341020).
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.4-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

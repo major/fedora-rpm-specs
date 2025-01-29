@@ -9,6 +9,10 @@ Summary:        Guessing reasonable defaults for locale, keyboard layout, territ
 License:        GPL-3.0-or-later
 URL:            https://github.com/mike-fabian/langtable
 Source0:        https://github.com/mike-fabian/langtable/releases/download/%{version}/%{name}-%{version}.tar.gz
+# https://github.com/mike-fabian/langtable/pull/24
+# https://bugzilla.redhat.com/show_bug.cgi?id=2336875
+# Prefer Georgian-capable console fonts for Georgian
+Patch:          0001-Georgian-add-georgian-console-fonts.patch
 BuildArch:      noarch
 BuildRequires:  perl-interpreter
 BuildRequires:  python3-devel
@@ -35,6 +39,9 @@ from langtable-data.
 
 %prep
 %setup -q
+gunzip langtable/data/languages.xml.gz
+%patch 0 -p1
+gzip langtable/data/languages.xml
 
 %build
 perl -pi -e "s,_DATADIR = '(.*)',_DATADIR = '%{_datadir}/langtable'," langtable/langtable.py

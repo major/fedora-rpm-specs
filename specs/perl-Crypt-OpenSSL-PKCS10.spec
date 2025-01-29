@@ -1,14 +1,10 @@
 Name:           perl-Crypt-OpenSSL-PKCS10
-Version:        0.31
+Version:        0.34
 Release:        1%{?dist}
 Summary:        Perl interface to OpenSSL for PKCS10
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-OpenSSL-PKCS10
 Source0:        https://cpan.metacpan.org/modules/by-module/Crypt/Crypt-OpenSSL-PKCS10-%{version}.tar.gz
-# Convert documentation to UTF-8
-Patch1:         Crypt-OpenSSL-PKCS10-0.16-Convert-changlog-to-UTF-8.patch
-# https://rt.cpan.org/Ticket/Display.html?id=158607
-Patch2:         Crypt-OpenSSL-PKCS10-0.31-Test-for-a-reduced-subset-of-digests-and-curves-refl.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -48,6 +44,7 @@ certificate requests using RSA key pairs.
 %package tests
 Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       openssl
 Requires:       perl(Crypt::OpenSSL::RSA)
 Requires:       perl-Test-Harness
 
@@ -97,6 +94,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jan 27 2025 Michal Josef Špaček <mspacek@redhat.com> - 0.34-1
+- 0.34 bump (rhbz#2342050)
+
 * Fri Jan 24 2025 Michal Josef Špaček <mspacek@redhat.com> - 0.31-1
 - 0.31 bump (rhbz#2339426)
 

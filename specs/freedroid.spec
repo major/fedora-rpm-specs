@@ -1,28 +1,29 @@
 Name:           freedroid
-Version:        1.0.2
-Release:        48%{?dist}
 Summary:        Clone of the C64 game Paradroid
-
 License:        GPL-2.0-or-later
-URL:            http://freedroid.sourceforge.net/
-Source0:        http://downloads.sourceforge.net/freedroid/%{name}-%{version}.tar.gz
-Source1:        %{name}.desktop
-Patch0:         %{name}-cleaninst.patch
-Patch1:         %{name}-1.0.2-printfs.patch
-Patch2:         %{name}-1.0.2-cpuhog.patch
-Patch3:         %{name}-1.0.2-vorbisfile.patch
-Patch4: freedroid-configure-c99.patch
-Patch5: freedroid-c99.patch
 
+Version:        1.2.3
+Release:        1%{?dist}
+
+%global git_tag %{name}-%{version}.apk
+
+URL:            https://github.com/ReinhardPrix/FreedroidClassic/
+Source0:        %{URL}archive/%{git_tag}/%{git_tag}.tar.gz
+
+Source1:        %{name}.desktop
+Patch0:         0000-vorbisfile.patch
+
+BuildRequires:  autoconf
+BuildRequires:  automake
 BuildRequires:  gcc
+BuildRequires:  make
+BuildRequires:  SDL_gfx-devel
 BuildRequires:  SDL_image-devel
 BuildRequires:  SDL_mixer-devel
 BuildRequires:  libjpeg-devel
 BuildRequires:  libpng-devel
-BuildRequires:  ImageMagick
 BuildRequires:  libvorbis-devel
 BuildRequires:  desktop-file-utils
-BuildRequires: make
 Requires:       %{name}-data = %{version}
 
 %description
@@ -39,51 +40,41 @@ electric circuits.
 %package        data
 Summary:        Game data files for Freedroid
 Requires:       %{name} = %{version}
-%if 0%{?fedora} >= 10
 BuildArch:      noarch
-%endif
 
 %description    data
 This package contains game data files for Freedroid.
 
 
 %prep
-%setup -q
-%patch -P0 -p0
-%patch -P1 -p1
-%patch -P2 -p1
-%patch -P3 -p1
-%patch -P4 -p1
-%patch -P5 -p1
-
-chmod -c -x graphics/paraicon.ico
-convert graphics/paraicon.ico freedroid.png
+%autosetup -p1 -n FreedroidClassic-%{git_tag}
+./autogen.sh
 
 
 %build
-export CPPFLAGS="$CPPFLAGS -fcommon"
+export CFLAGS="${CFLAGS} -fcommon -std=c99"
 %configure --disable-dependency-tracking
-make %{?_smp_mflags}
+%make_build
 
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
+%make_install
 rm -rf $RPM_BUILD_ROOT%{_datadir}/freedroid/mac-osx
 desktop-file-install \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications \
   %{SOURCE1}
-install -Dpm 644 freedroid.png \
-  $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/32x32/apps/freedroid.png
+install -Dpm 644 graphics/paraicon_48x48.png \
+  $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/48x48/apps/freedroid.png
 
 
 
 
 %files
 %license COPYING
-%doc AUTHORS ChangeLog NEWS README TODO
+%doc AUTHORS ChangeLog NEWS README
 %{_bindir}/freedroid
 %{_datadir}/applications/*freedroid.desktop
-%{_datadir}/icons/hicolor/32x32/apps/freedroid.png
+%{_datadir}/icons/hicolor/48x48/apps/freedroid.png
 %{_mandir}/man6/freedroid.6*
 
 %files data
@@ -91,6 +82,10 @@ install -Dpm 644 freedroid.png \
 
 
 %changelog
+* Sun Jan 26 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.2.3-1
+- Switch source repo to another fork
+- Update to v1.2.3
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

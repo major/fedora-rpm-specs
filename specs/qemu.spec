@@ -436,6 +436,8 @@ Patch: 0001-Disable-9p-local-tests-that-fail-on-copr-aarch64.patch
 Patch: schedattr.patch
 # https://lists.nongnu.org/archive/html/qemu-devel/2025-01/msg01222.html
 Patch: 0001-crypto-fix-bogus-error-benchmarking-pbkdf-on-fast-ma.patch
+# https://lists.nongnu.org/archive/html/qemu-block/2025-01/msg00480.html
+Patch: 0001-nfs-Add-support-for-libnfs-v2-api.patch
 
 BuildRequires: gnupg2
 BuildRequires: meson >= %{meson_version}

@@ -1,23 +1,23 @@
 # remirepo/Fedora spec file for php-tcpdf
 #
-# SPDX-FileCopyrightText:  Copyright 2013-2024 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2013-2025 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 # see https://github.com/tecnickcom/TCPDF/releases
-%global gh_commit    14ffa0e308f5634aa2489568b4b90b24073b6731
+%global gh_commit    f7a781073e1645062f163e058139e2f89355d420
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     tecnickcom
-%global gh_date      2024-12-23
+%global gh_date      2025-01-26
 %global gh_project   TCPDF
 %global real_name    tcpdf
 
 Name:           php-tcpdf
 Summary:        PHP class for generating PDF documents and barcodes
-Version:        6.8.0
-Release:        2%{?dist}
+Version:        6.8.2
+Release:        1%{?dist}
 
 URL:            http://www.tcpdf.org
 License:        LGPL-3.0-or-later
@@ -25,6 +25,8 @@ License:        LGPL-3.0-or-later
 Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{?gh_short}.tar.gz
 # Disable opcache cahing for font metadata which may consume up to 90MB
 Source1:        %{name}.blacklist
+# See https://github.com/tecnickcom/TCPDF/commit/744c9ffa3be021782476c39cf97e242dbe504f7a#commitcomment-151792556
+Source2:        _blank.png
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 7.1
@@ -218,7 +220,7 @@ cp -a *.php    %{buildroot}%{_datadir}/php/%{real_name}/
 cp -a include  %{buildroot}%{_datadir}/php/%{real_name}/
 cp -a fonts    %{buildroot}%{_datadir}/php/%{real_name}/
 install -d     %{buildroot}%{_datadir}/php/%{real_name}/images
-install -m 0644 examples/images/_blank.png \
+install -m 0644 %{SOURCE2} \
                %{buildroot}%{_datadir}/php/%{real_name}/images/
 
 : Autoloader
@@ -270,7 +272,7 @@ php -r 'require "%{buildroot}%{_datadir}/php/%{real_name}/autoload.php";
 
 
 %files -f corefonts.lst
-%doc README.md CHANGELOG.TXT examples
+%doc README.md CHANGELOG.TXT
 %doc composer.json
 %license LICENSE.TXT
 %{_bindir}/%{real_name}_addfont
@@ -314,6 +316,10 @@ php -r 'require "%{buildroot}%{_datadir}/php/%{real_name}/autoload.php";
 
 
 %changelog
+* Mon Jan 27 2025 Remi Collet <remi@remirepo.net> - 6.8.2-1
+- update to 6.8.2
+- remove examples from package (removed upstream)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

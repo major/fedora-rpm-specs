@@ -12,6 +12,8 @@ URL:       https://github.com/cronie-crond/cronie
 Source0:   https://github.com/cronie-crond/cronie/releases/download/cronie-%{version}/cronie-%{version}.tar.gz
 
 Patch:     0001-do-no-leak-file-descriptors.patch
+# https://github.com/cronie-crond/cronie/issues/193
+Patch:     make_error_func_prototype_complete.patch
 
 Requires:  dailyjobs
 
@@ -153,7 +155,7 @@ exit 0
 # The package is allowed to autostart:
 /bin/systemctl enable crond.service >/dev/null 2>&1
 
-/sbin/chkconfig --del crond >/dev/null 2>&1 || :
+/bin/chkconfig --del crond >/dev/null 2>&1 || :
 /bin/systemctl try-restart crond.service >/dev/null 2>&1 || :
 /bin/systemctl daemon-reload >/dev/null 2>&1 || :
 
@@ -166,7 +168,7 @@ exit 0
 %doc AUTHORS README ChangeLog
 %{!?_licensedir:%global license %%doc}
 %license COPYING
-%attr(755,root,root) %{_sbindir}/crond
+%attr(755,root,root) %{_bindir}/crond
 %attr(4755,root,root) %{_bindir}/crontab
 %attr(755,root,root) %{_bindir}/cronnext
 %{_mandir}/man8/crond.*
@@ -185,7 +187,7 @@ exit 0
 %attr(0644,root,root) /lib/systemd/system/crond.service
 
 %files anacron
-%{_sbindir}/anacron
+%{_bindir}/anacron
 %attr(0755,root,root) %{_sysconfdir}/cron.hourly/0anacron
 %config(noreplace) %{_sysconfdir}/anacrontab
 %dir /var/spool/anacron

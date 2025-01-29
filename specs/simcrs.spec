@@ -1,6 +1,6 @@
 #
 Name:           simcrs
-Version:        1.01.9
+Version:        1.01.10
 Release:        %autorelease
 
 Summary:        C++ Simulated Travel-Oriented Distribution System library
@@ -15,6 +15,7 @@ BuildRequires:  boost-devel
 BuildRequires:  pkgconfig(readline)
 BuildRequires:  pkgconfig(libzmq)
 BuildRequires:  pkgconfig(cppzmq)
+BuildRequires:  mysql-devel
 BuildRequires:  soci-mysql-devel
 BuildRequires:  soci-sqlite3-devel
 BuildRequires:  pkgconfig(stdair)
@@ -87,7 +88,8 @@ rm -f %{buildroot}%{_docdir}/%{name}/{NEWS,README.md,AUTHORS}
 
 
 %files
-%doc AUTHORS ChangeLog COPYING NEWS README.md
+%doc AUTHORS ChangeLog NEWS README.md
+%license COPYING
 %{_bindir}/%{name}
 %{_libdir}/lib%{name}.so.*
 %{_mandir}/man1/%{name}.1.*

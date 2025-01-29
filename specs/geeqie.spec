@@ -1,3 +1,9 @@
+%if 0%{?fedora} >= 41
+%bcond_without  thumbnailer
+%else
+%bcond_with  thumbnailer
+%endif
+
 # un-double the %% to uncomment
 #%%global gitcommit f692950aaf0e9dc3cf275b25bfcc0b1df9a96bb6
 %{?gitcommit:%global gitcommitshort %(c=%{gitcommit}; echo ${c:0:7})}
@@ -6,7 +12,7 @@ Summary: Image browser and viewer
 Name: geeqie
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
-Version: 2.4
+Version: 2.5
 Release: %autorelease
 URL: https://www.geeqie.org
 
@@ -58,6 +64,9 @@ BuildRequires: gnome-doc-utils
 BuildRequires: LibRaw-devel
 BuildRequires: gspell-devel
 BuildRequires: webp-pixbuf-loader
+%if %{with thumbnailer}
+BuildRequires: ffmpegthumbnailer-devel
+%endif
 # BuildRequires: xvfb-run
 
 # This is needed to generate one of the icc headers in the build
@@ -74,10 +83,6 @@ Requires:      exiv2
 Requires:      fbida
 Requires:      ImageMagick
 Requires:      zenity
-# at run-time, it is only displayed in menus, if ufraw executable is available
-%if 0%{?fedora}
-BuildRequires: ufraw
-%endif
 BuildRequires: make
 # for %%gpgverify
 BuildRequires: gnupg2
@@ -105,15 +110,10 @@ support for external editors, previewing images using thumbnails, and zoom.
 for f in exiftran exiv2 mogrify zenity ; do
     type $f || exit -1
 done
-%if 0%{?fedora}
-for f in ufraw-batch ; do
-    type $f || exit -1
-done
-%endif
 
 export CXXFLAGS="$CXXFLAGS -Wno-deprecated-declarations -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-parameter"
 
-%meson -Dvideothumbnailer=disabled
+%meson %{!?with_thumbnailer: -Dvideothumbnailer=disabled}
 %meson_build
 
 
@@ -122,6 +122,9 @@ export CXXFLAGS="$CXXFLAGS -Wno-deprecated-declarations -Wno-unused-variable -Wn
 
 %install
 %meson_install
+
+# add missing html doc
+cp -av %{_vpath_builddir}/doc/html %{buildroot}%{_pkgdocdir}/
 
 # guard against missing HTML tree
 test -f %{buildroot}%{_pkgdocdir}/html/index.html
@@ -154,6 +157,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/org.geeqie
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %{_datadir}/applications/org.geeqie.Geeqie.desktop
 %{_datadir}/appdata/org.geeqie.Geeqie.appdata.xml
+%{bash_completions_dir}/%{name}
 
 
 %changelog

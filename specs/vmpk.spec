@@ -1,5 +1,5 @@
 Name:           vmpk
-Version:        0.9.0
+Version:        0.9.1
 Release:        %autorelease
 Summary:        Virtual MIDI Piano Keyboard
 # Automatically converted from old format: GPLv3+ - review is highly recommended.

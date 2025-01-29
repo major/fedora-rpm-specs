@@ -8,13 +8,15 @@ used directly by hyper and a number of other projects to provide HTTP/2 frame
 decoding logic.}
 
 Name:           python-%{srcname}
-Version:        6.0.1
+Version:        6.1.0
 Release:        %autorelease
 Summary:        HTTP/2 framing layer for Python
 
 License:        MIT
 URL:            https://github.com/python-hyper/hyperframe/
 Source0:        %url/archive/v%{version}/%{srcname}-%{version}.tar.gz
+
+Patch1:         0001-use-older-setuptools.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -49,7 +51,7 @@ This is the documentation package for %{name}.
 %pyproject_wheel
 
 # generate html docs
-PYTHONPATH=%{pyproject_build_lib} sphinx-build docs/source html
+PYTHON_PATH=${PWD}/build/lib sphinx-build docs/source html
 # remove the sphinx-build leftovers
 rm -rf html/.{doctrees,buildinfo}
 

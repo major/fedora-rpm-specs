@@ -9,7 +9,7 @@
 
 # https://github.com/junegunn/go-shellwords
 %global goipath         github.com/junegunn/go-shellwords
-%global commit          a62c48c52e972b3ab9f6874bb5313e55e9673638
+%global commit          2aa3b3277741a6ad31883f223d770221a85e9dd0
 
 %gometa -L -f
 

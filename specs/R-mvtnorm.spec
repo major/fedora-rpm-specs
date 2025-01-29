@@ -1,15 +1,20 @@
 %global packname	mvtnorm
-%global packver		1.1
+#%%global packver		1.3
+%global packver         1.1
 %global packrel		3
 
 Summary:	Multivariate normal and T distribution R Package
 Name:		R-%{packname}
 Version:	%{packver}.%{packrel}
-Release:	10%{?dist}
+Release:	%autorelease
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:	GPL-2.0-only
 Source0:	https://cran.r-project.org/src/contrib/%{packname}_%{packver}-%{packrel}.tar.gz
 URL:		https://cran.r-project.org/web/packages/mvtnorm/index.html
+
+# qrng is not packaged for Fedora yet - https://cran.r-project.org/src/contrib/qrng_0.0-10.tar.gz
+#Source1:        qrng_0.0-10.tar.gz
+
 BuildRequires:	R-devel >= 3.5.0
 BuildRequires:	tex(latex)
 BuildRequires:	gcc-gfortran
@@ -29,12 +34,16 @@ The %{name}-devel  package contains Header and libraries files for
 developing applications that use %{name}
 
 %prep
+#tar zxf %{SOURCE1}
 %setup -q -c -n %{packname}
 
 %build
 
 %install
 mkdir -p $RPM_BUILD_ROOT%{_libdir}/R/library
+#pushd ..
+#%%{_bindir}/R CMD INSTALL qrng -l %%{buildroot}%%{_libdir}/R/library
+#popd
 %{_bindir}/R CMD INSTALL %{packname} -l %{buildroot}%{_libdir}/R/library
 # Clean up in advance of check
 test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)

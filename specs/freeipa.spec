@@ -200,7 +200,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        8%{?rc_version:.%rc_version}%{?dist}
+Release:        9%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -223,6 +223,10 @@ Patch0001:      ipa-post-4.12.2-updates.patch
 Patch0004:      freeipa-fix-ldap-otp-bind.patch
 Patch0002:      0001-freeipa-disable-nis.patch
 Patch0003:      freeipa-CVE-2024-11029.patch
+Patch0005:      freeipa-9734-oauth.patch
+Patch0006:      freeipa-9471-post.patch
+Patch0007:      freeipa-9725-certmonger-timeouts-0.patch
+Patch0008:      freeipa-9725-certmonger-timeouts.patch
 
 # RHEL spec file only: START: Change branding to IPA and Identity Management
 # Moved branding logos and background to redhat-logos-ipa-80.4:
@@ -1865,6 +1869,11 @@ fi
 %endif
 
 %changelog
+* Mon Jan 27 2025 Alexander Bokovoy <abokovoy@redhat.com> - 4.12.2-9
+- Do not pass OAuth2 client secret for public clients (freeipa#9734)
+- Fix upgrade for two-way trust to Active Directory (freeipa#9471 post-fix)
+- Allow extending certmonger request timeouts to accomodate for slow HSMs (freeipa#9725)
+
 * Wed Jan 15 2025 Alexander Bokovoy <abokovoy@redhat.com> - 4.12.2-8
 - CVE-2024-11029
 - Release notes: https://www.freeipa.org/release-notes/4-12-3.html

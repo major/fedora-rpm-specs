@@ -29,7 +29,7 @@ print(string.sub(hash, 0, 16))
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
 Version: 3.2.2
-Release: 12%{?dist}
+Release: 13%{?dist}
 Epoch: 1
 Source: openssl-%{version}.tar.gz
 Source2: Makefile.certificate
@@ -557,6 +557,12 @@ ln -s /etc/crypto-policies/back-ends/openssl_fips.config $RPM_BUILD_ROOT%{_sysco
 %ldconfig_scriptlets libs
 
 %changelog
+* Mon Jan 27 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.2.2-13
+- Locally configured providers should not interfere with openssl build-time tests
+- Load system default cipher string from crypto-policies configuration file
+  include /etc/crypto-policies/back-ends/opensslcnf.config and remove
+  /etc/crypto-policies/back-ends/openssl.config.
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.2.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

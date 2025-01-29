@@ -1,12 +1,12 @@
 Name:           librep
 Version:        0.92.7
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        A lightweight Lisp environment
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://sawfish.wikia.com/
 Source0:        http://download.tuxfamily.org/%{name}/%{name}_%{version}.tar.bz2
 Patch0:         librep-configure-c99.patch
+Patch1:         gh_new_procedure.patch
 BuildRequires:  gcc
 BuildRequires:  gmp-devel
 BuildRequires:  gdbm-devel
@@ -17,7 +17,7 @@ BuildRequires:  libtool
 BuildRequires:  texinfo
 BuildRequires:  chrpath
 BuildRequires:  emacs
-BuildRequires: make
+BuildRequires:  make
 Requires:       emacs-filesystem >= %{_emacs_version}
 
 
@@ -92,6 +92,10 @@ find %{buildroot}%{_libdir} -name \*.la -exec rm '{}' \;
 
 
 %changelog
+* Mon Jan 27 2025 Kim B. Heino <b@bbbs.net> - 0.92.7-26
+- Fix build on Fedora 42
+- Resolves: rhbz#2341627
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.92.7-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

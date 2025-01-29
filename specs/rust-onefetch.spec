@@ -19,6 +19,7 @@ Patch:          onefetch-fix-metadata-auto.diff
 #   https://github.com/o2sh/onefetch/commit/55453c80177210c7a8c214b2dcfcaab10916e06c
 # * Allow gix 0.70, gix-features 0.40:
 #   https://github.com/o2sh/onefetch/commit/3ff3ec298ecde3303a575c3b67bdb235c0ed2489
+# * Loosen MSRV from 1.81.0 to 1.79.0
 Patch:          onefetch-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

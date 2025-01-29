@@ -38,6 +38,7 @@ Patch9:         libgda5-c99-2.patch
 Patch10:        libgda5-c99-3.patch
 Patch11:        libgda5-c99-4.patch
 Patch12:        pointer-types.patch
+Patch13:        types.patch
 
 BuildRequires:    gcc
 BuildRequires:    gcc-c++
@@ -248,6 +249,8 @@ touch -r AUTHORS AUTHORS.new && mv AUTHORS.new AUTHORS
 %endif
 export LD_LIBRARY_PATH=%{_jvmdir}/java/jre/lib/%{archinstall}/server:$LD_LIBRARY_PATH
 %endif
+export CFLAGS="$CFLAGS -std=gnu17"
+export CXXFLAGS="$CXXFLAGS -std=gnu17"
 %configure --disable-static --enable-vala \
            --with-libsoup  --with-gnome-keyring \
            --with-ui --with-gtksourceview \

@@ -5,7 +5,7 @@
 Summary:	Font configuration and customization library
 Name:		fontconfig
 Version:	2.16.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 # src/ftglue.[ch] is in Public Domain
 # src/fccache.c contains Public Domain code
 ## https://gitlab.com/fedora/legal/fedora-license-data/-/issues/177
@@ -23,6 +23,7 @@ Patch4:		%{name}-drop-lang-from-pkgkit-format.patch
 Patch5:		%{name}-disable-network-required-test.patch
 Patch6:		%{name}-lower-nonlatin-conf.patch
 Patch7:		%{name}-meson-cachedir.patch
+Patch8:		%{name}-meson-endianness.patch
 
 BuildRequires:	libxml2-devel
 BuildRequires:	freetype-devel >= %{freetype_version}
@@ -127,10 +128,7 @@ install -p -m 0755 %{SOURCE2} $RPM_BUILD_ROOT%{_bindir}/fc-cache
 cat %{name}-conf.lang >> %{name}.lang
 
 %check
-# rhbz#2341757: md5 calculation seems wrong on s390x. unable to finish testcases properly
-%ifnarch s390x
 %meson_test
-%endif
 
 %post
 umask 0022
@@ -204,6 +202,10 @@ fi
 %doc fontconfig-devel.txt fontconfig-devel.html
 
 %changelog
+* Mon Jan 27 2025 Akira TAGOH <tagoh@redhat.com> - 2.16.0-2
+- Fix endian detection.
+  Resolves: rhbz#2341757
+
 * Sat Jan 18 2025 Akira TAGOH <tagoh@redhat.com> - 2.16.0-1
 - New upstream release.
   Resolves: rhbz#2338618

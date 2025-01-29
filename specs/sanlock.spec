@@ -1,6 +1,6 @@
 Name:           sanlock
-Version:        3.9.4
-Release:        3%{?dist}
+Version:        3.9.5
+Release:        2%{?dist}
 Summary:        A shared storage lock manager
 License:	GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:            https://pagure.io/sanlock/
@@ -67,10 +67,17 @@ install -D -m 0644 init.d/wdmd.sysconfig \
     $RPM_BUILD_ROOT/etc/sysconfig/wdmd
 
 install -Dd -m 0755 $RPM_BUILD_ROOT/etc/wdmd.d
-install -Dd -m 0775 $RPM_BUILD_ROOT/%{_localstatedir}/run/sanlock
 
 %pre
-%sysusers_create_compat sanlock.sysusers
+# As libvirt does, install a sysusers file, but also directly
+# create the user and group to avoid rpm installation errors
+# (sysusers rpm macros seem to be insufficient to avoid problems.)
+getent group sanlock > /dev/null || /usr/sbin/groupadd \
+    -g 179 sanlock
+getent passwd sanlock > /dev/null || /usr/sbin/useradd \
+    -u 179 -c "sanlock" -s /sbin/nologin -r \
+    -g 179 -d /run/sanlock sanlock
+/usr/sbin/usermod -a -G disk sanlock
 
 %post
 %systemd_post wdmd.service sanlock.service
@@ -89,7 +96,6 @@ install -Dd -m 0775 $RPM_BUILD_ROOT/%{_localstatedir}/run/sanlock
 %{_sbindir}/wdmd
 %dir %{_sysconfdir}/wdmd.d
 %dir %{_sysconfdir}/sanlock
-%dir %attr(-,sanlock,sanlock) %{_localstatedir}/run/sanlock
 %{_mandir}/man8/wdmd*
 %{_mandir}/man8/sanlock*
 %config(noreplace) %{_sysconfdir}/logrotate.d/sanlock
@@ -149,6 +155,12 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/libsanlock_client.pc
 
 %changelog
+* Mon Jan 27 2025 David Teigland <teigland@redhat.com> - 3.9.5-2
+- retry
+
+* Mon Jan 27 2025 David Teigland <teigland@redhat.com> - 3.9.5-1
+- new upstream release
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

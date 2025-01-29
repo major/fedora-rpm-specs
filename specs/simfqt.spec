@@ -1,6 +1,6 @@
 #
 Name:           simfqt
-Version:        1.00.8
+Version:        1.00.9
 Release:        %autorelease
 
 Summary:        C++ Simulated Fare Quote System Library
@@ -12,6 +12,7 @@ Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  boost-devel
+BuildRequires:  mysql-devel
 BuildRequires:  soci-mysql-devel
 BuildRequires:  soci-sqlite3-devel
 BuildRequires:  pkgconfig(readline)

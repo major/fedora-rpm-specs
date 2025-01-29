@@ -1,6 +1,6 @@
 %bcond_with system_lapack
 # Version of bundled lapack
-%global lapackver 3.11.0
+%global lapackver 3.12.0
 
 # DO NOT "CLEAN UP" OR MODIFY THIS SPEC FILE WITHOUT ASKING THE
 # MAINTAINER FIRST!
@@ -14,8 +14,8 @@
 # "obsoleted" features are still kept in the spec.
 
 Name:           openblas
-Version:        0.3.28
-Release:        3%{?dist}
+Version:        0.3.29
+Release:        1%{?dist}
 Summary:        An optimized BLAS library based on GotoBLAS2
 
 License:        BSD-3-Clause
@@ -30,8 +30,6 @@ Patch1:         openblas-0.2.5-libname.patch
 Patch2:         openblas-0.2.15-constructor.patch
 # Supply the proper flags to the test makefile
 Patch3:         openblas-0.3.11-tests.patch
-# https://github.com/OpenMathLib/OpenBLAS/issues/49172
-Patch4:         openblas-0.3.28-zgemm-cgemm.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -245,7 +243,6 @@ cd OpenBLAS-%{version}
 %patch 2 -p1 -b .constructor
 %endif
 %patch 3 -p1 -b .tests
-%patch 4 -p1 -b .gemm
 
 # Fix source permissions
 find -name \*.f -exec chmod 644 {} \;
@@ -408,6 +405,7 @@ make -C threaded   $TARGET USE_THREAD=1 USE_OPENMP=0 FC=gfortran CC=gcc COMMON_O
 COMMON="%{optflags} -fPIC -fopenmp -pthread"
 FCOMMON="$COMMON -frecursive"
 make -C openmp     $TARGET USE_THREAD=1 USE_OPENMP=1 FC=gfortran CC=gcc COMMON_OPT="$COMMON" FCOMMON_OPT="$FCOMMON" $NMAX LIBPREFIX="libopenblaso"     $AVX $LAPACKE INTERFACE64=0 %{with cpp_thread_check:CPP_THREAD_SAFETY_TEST=1}
+make -C openmp     $TARGET USE_THREAD=1 USE_OPENMP=1 FC=gfortran CC=gcc COMMON_OPT="$COMMON" FCOMMON_OPT="$FCOMMON" $NMAX LIBPREFIX="libopenblaso"     $AVX $LAPACKE INTERFACE64=0 %{with cpp_thread_check:CPP_THREAD_SAFETY_TEST=1} lapack-test
 
 %if %build64
 COMMON="%{optflags} -fPIC"
@@ -657,6 +655,11 @@ rm -rf %{buildroot}%{_libdir}/pkgconfig
 %endif
 
 %changelog
+* Fri Jan 24 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.3.29-1
+- Update to 0.3.29
+  Resolves: BZ#2273704
+  Resolves: BZ#2329491
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.28-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

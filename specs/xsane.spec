@@ -78,6 +78,10 @@ Patch14: xsane-0.999-snprintf-update.patch
 Patch15: xsane-0.999-signal-handling.patch
 # https://gitlab.com/sane-project/frontend/xsane/-/commit/96424e369f67
 Patch16: 0001-Follow-new-convention-for-registering-gimp-plugin.patch
+# https://gitlab.com/sane-project/frontend/xsane/-/commit/bf9ef48ab57
+Patch17: 0001-replace-gtk_timeout-with-g_timeout.patch
+# https://gitlab.com/sane-project/frontend/xsane/-/merge_requests/32
+Patch18: xsane-gcc15-c23.patch
 
 # autoconf-generated files
 Patch100: xsane-0.999-7-autoconf.patch.bz2
@@ -168,6 +172,8 @@ done
 %patch -P 14 -p1 -b .snprintf-update
 %patch -P 15 -p1 -b .signal-handling
 %patch -P 16 -p1 -b .use-register
+%patch -P 17 -p1 -b .replace-gtk-timeout
+%patch -P 18 -p1 -b .gcc15-c23
 
 %patch -P 100 -p1 -b .autoconf
 %patch -P 101 -p1 -b .c99

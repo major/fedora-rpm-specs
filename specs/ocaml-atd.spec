@@ -2,8 +2,8 @@
 ExcludeArch: %{ix86}
 
 Name:           ocaml-atd
-Version:        2.15.0
-Release:        13%{?dist}
+Version:        2.16.0
+Release:        %autorelease
 Summary:        Adaptable Type Definitions for cross-language data types
 
 License:        BSD-3-Clause
@@ -11,6 +11,7 @@ URL:            https://github.com/ahrefs/atd
 VCS:            git:%{url}.git
 Source:         %{url}/releases/download/%{version}/atd-%{version}.tbz
 
+BuildRequires:  gcc-c++
 BuildRequires:  ocaml >= 4.08
 BuildRequires:  ocaml-alcotest-devel
 BuildRequires:  ocaml-biniou-devel >= 1.0.6
@@ -20,6 +21,7 @@ BuildRequires:  ocaml-easy-format-devel
 BuildRequires:  ocaml-menhir >= 20180523
 BuildRequires:  ocaml-re-devel
 BuildRequires:  ocaml-yojson-devel >= 2.0.2
+BuildRequires:  pkgconfig(RapidJSON)
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist flake8}
 BuildRequires:  %{py3_dist jsonschema}
@@ -70,15 +72,18 @@ the other. Atdgen was designed with efficiency and durability in mind. Software
 authors are encouraged to use Atdgen directly and to write tools that may reuse
 part of Atdgen’s source code.
 
-%package -n     ocaml-atdgen-devel
-Summary:        Development files for ocaml-atdgen
-Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
-Requires:       ocaml-atdgen%{?_isa} = %{version}-%{release}
-Requires:       ocaml-atdgen-runtime-devel%{?_isa} = %{version}-%{release}
 
-%description -n ocaml-atdgen-devel
-The ocaml-atdgen-devel package contains libraries and signature files for
-developing applications that use ocaml-atdgen.
+%package -n     ocaml-atdcpp
+Summary:        C++ code generation for ATD
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description -n ocaml-atdcpp
+Atdcpp takes type definitions in the ATD format and derives C++ classes
+that can read and write JSON data.  This saves the developer the labor
+writing boilerplate that converts between dicts and classes.
+
+This allows safe interoperability with other languages supported by ATD
+such as D, OCaml, Java, Python or Scala.
 
 
 %package -n     ocaml-atdd
@@ -91,7 +96,7 @@ classes that can read and write JSON data.  This saves the developer the
 labor writing boilerplate that converts between dicts and classes.
 
 This allows safe interoperability with other languages supported by ATD
-such as OCaml, Java, Python or Scala.
+such as C++, OCaml, Java, Python or Scala.
 
 
 %package -n     ocaml-atdj
@@ -167,15 +172,15 @@ classes that can read and write JSON data.  This saves the developer the
 labor writing boilerplate that converts between dicts and classes.
 
 This allows safe interoperability with other languages supported by
-ATD such as OCaml, Java, Scala, or Python.
+ATD such as C++, OCaml, Java, Scala, or Python.
 
 
 %package -n     ocaml-atdgen-codec-runtime
-Summary:        Runtime for atdgen generated bucklescript converters
+Summary:        Runtime for atdgen generated Melange converters
 # Requires:
 
 %description -n ocaml-atdgen-codec-runtime
-This library contains the types that are used by atdgen's bucklescript backend.
+This library contains the types that are used by atdgen's Melange backend.
 
 
 %package -n     ocaml-atdgen-codec-runtime-devel
@@ -201,6 +206,10 @@ Requires:       ocaml-atdgen-runtime%{?_isa} = %{version}-%{release}
 Requires:       ocaml-biniou-devel%{?_isa}
 Requires:       ocaml-yojson-devel%{?_isa}
 
+# This can be removed when F45 reaches EOL
+Obsoletes:      ocaml-atdgen-devel < 2.16.0
+Provides:       ocaml-atdgen-devel = %{version}-%{release}
+
 %description -n ocaml-atdgen-runtime-devel
 The ocaml-atdgen-runtime-devel package contains libraries and signature files
 for developing applications that use ocaml-atdgen-runtime.
@@ -217,22 +226,22 @@ for developing applications that use ocaml-atdgen-runtime.
 %install
 %dune_install -s
 
-# atdd, atdj, atdpy, atds, and atdts do not ship libraries
+# atdcpp, atdd, atdj, atdpy, atds, and atdts do not ship libraries
 # dune has a known issue where it generates empty META files
 #
 # we actually don't need to ship devel files at all so remove
 # the directories entirely
 #
 # https://github.com/ocaml/dune/issues/2353
-rm -rf %{buildroot}%{_libdir}/ocaml/atd{d,j,py,s,ts}
+rm -rf %{buildroot}%{_libdir}/ocaml/atd{cpp,d,gen,j,py,s,ts}
 
 
 %check
 # Do not run the scala tests to avoid a dependency on scala
 %ifarch %{java_arches}
-%dune_check -p atd{,d,gen,gen-runtime,gen-codec-runtime,j,py,ts}
+%dune_check -p atd{,cpp,d,gen,gen-runtime,gen-codec-runtime,j,py,ts}
 %else
-%dune_check -p atd{,d,gen,gen-runtime,gen-codec-runtime,py,ts}
+%dune_check -p atd{,cpp,d,gen,gen-runtime,gen-codec-runtime,py,ts}
 %endif
 
 
@@ -245,10 +254,14 @@ rm -rf %{buildroot}%{_libdir}/ocaml/atd{d,j,py,s,ts}
 %doc CODEOWNERS
 
 
-%files -n ocaml-atdgen -f .ofiles-atdgen
+%files -n ocaml-atdgen
+%{_bindir}/atdgen
+%{_bindir}/atdgen-cppo
+%{_bindir}/cppo-json
 
 
-%files -n ocaml-atdgen-devel -f .ofiles-atdgen-devel
+%files -n ocaml-atdcpp
+%{_bindir}/atdcpp
 
 
 %files -n ocaml-atdd
@@ -284,114 +297,4 @@ rm -rf %{buildroot}%{_libdir}/ocaml/atd{d,j,py,s,ts}
 
 
 %changelog
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.0-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Jan 10 2025 Jerry James <loganjerry@gmail.com> - 2.15.0-12
-- OCaml 5.3.0 rebuild for Fedora 42
-
-* Sun Oct  6 2024 Jerry James <loganjerry@gmail.com> - 2.15.0-11
-- Rebuild for ocaml-re 1.13.3
-
-* Mon Aug  5 2024 Jerry James <loganjerry@gmail.com> - 2.15.0-10
-- Rebuild for ocaml-menhir 20240715 and ocaml-yojson 2.2.2
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Wed Jun 19 2024 Richard W.M. Jones <rjones@redhat.com> - 2.15.0-8
-- OCaml 5.2.0 ppc64le fix
-
-* Wed Jun 05 2024 Richard W.M. Jones <rjones@redhat.com> - 2.15.0-7
-- Use latest JDK instead of ancient version 11
-
-* Wed May 29 2024 Richard W.M. Jones <rjones@redhat.com> - 2.15.0-6
-- OCaml 5.2.0 for Fedora 41
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 2.15.0-3
-- OCaml 5.1.1 + s390x code gen fix for Fedora 40
-
-* Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 2.15.0-2
-- OCaml 5.1.1 rebuild for Fedora 40
-
-* Mon Oct 30 2023 Jerry James <loganjerry@gmail.com> - 2.15.0-1
-- Version 2.15.0
-
-* Wed Oct 25 2023 Jerry James <loganjerry@gmail.com> - 2.14.1-1
-- Version 2.14.1
-
-* Fri Oct 20 2023 Jerry James <loganjerry@gmail.com> - 2.14.0-1
-- Version 2.14.0
-
-* Wed Oct 18 2023 Jerry James <loganjerry@gmail.com> - 2.13.0-1
-- Version 2.13.0
-- Add support for the D language
-
-* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 2.12.0-4
-- OCaml 5.1 rebuild for Fedora 40
-
-* Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 2.12.0-3
-- Reenable flake8 tests
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jul 12 2023 Richard W.M. Jones <rjones@redhat.com> - 2.12.0-2
-- OCaml 5.0 rebuild for Fedora 39
-
-* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 2.12.0-1
-- Version 2.12.0
-- New atdpy and atdts subpackages
-- Drop test dependency on scala
-- Drop doc dependency on odoc
-
-* Wed Feb 15 2023 Jerry James <loganjerry@gmail.com> - 2.2.1-11
-- Convert License tag to SPDX
-
-* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 2.2.1-11
-- Bump release and rebuild
-
-* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 2.2.1-10
-- Rebuild OCaml packages for F38
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jul  7 2022 Jerry James <loganjerry@gmail.com> - 2.2.1-7
-- Rebuild to fix FTI (rhbz#2098760)
-- Use new OCaml macros
-
-* Sat Feb 05 2022 Jiri Vanek <jvanek@redhat.com> - 2.2.1-6
-- Rebuilt for java-17-openjdk as system jdk
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Mon Dec 27 2021 Jerry James <loganjerry@gmail.com> - 2.2.1-4
-- Rebuild for ocaml-menhir 20211223
-- Enable testing with scala 2.13
-- Minor spec file cleanups
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Apr 30 2021 Michel Alexandre Salim <salimma@fedoraproject.org> - 2.2.1-3
-- Temporarily disable tests on i686
-
-* Fri Apr 23 2021 Michel Alexandre Salim <salimma@fedoraproject.org> - 2.2.1-2
-- Create subpackages per OPAM module
-- Optionally compile and test `atds`
-- Skip shipping empty META files; known Dune issue
-  https://github.com/ocaml/dune/issues/2353
-
-* Wed Apr 07 2021 Michel Alexandre Salim <salimma@fedoraproject.org> - 2.2.1-1
-- Initial package
+%autochangelog

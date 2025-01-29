@@ -1,6 +1,6 @@
 Name:		endless-sky
-Version:	0.10.10
-Release:	2%{?dist}
+Version:	0.10.11
+Release:	1%{?dist}
 Summary:	Space exploration, trading, and combat game
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -13,6 +13,7 @@ Source1:	endless-sky-wrapper
 # Patch not submitted upstream. Upstream conforms to Debian packaging
 # standards where the use of /usr/games is acceptable.
 Patch0:		endless-sky-0.10.0-remove-games-path.patch
+Patch1:         10952.patch
 
 Requires:	%{name}-data = %{version}-%{release}
 BuildRequires:	cmake
@@ -53,7 +54,7 @@ Images, sound, and game data for %{name}.
 
 
 %prep
-%autosetup -p0
+%autosetup -p1
 
 
 %build
@@ -96,6 +97,9 @@ rm -f %{buildroot}%{_datadir}/doc/endless-sky/license.txt
 
 
 %changelog
+* Mon Jan 27 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.10.11-1
+- 0.10.11
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

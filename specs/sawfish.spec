@@ -1,14 +1,14 @@
 Name:           sawfish
 Version:        1.13.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        An extensible window manager for the X Window System
-# Automatically converted from old format: GPLv2+ and Artistic 2.0 - review is highly recommended.
 License:        GPL-2.0-or-later AND Artistic-2.0
 # GPLv2+ is for Sawfish
 # Artistic 2.0 is for sounds
 URL:            http://sawfish.wikia.com/
 Source0:        http://download.tuxfamily.org/%{name}/%{name}_%{version}.tar.bz2
-BuildRequires: make
+Patch0:         bool.patch
+BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  gmp-devel
 BuildRequires:  gtk2-devel
@@ -54,7 +54,7 @@ Include files for Sawfish development.
 
 
 %prep
-%setup -q -n %{name}_%{version}
+%autosetup -p1 -n %{name}_%{version}
 
 
 %build
@@ -116,6 +116,10 @@ desktop-file-validate %{buildroot}%{_datadir}/xsessions/sawfish-xfce.desktop
 
 
 %changelog
+* Mon Jan 27 2025 Kim B. Heino <b@bbbs.net> - 1.13.0-10
+- Fix build on Fedora 42
+- Resolves: rhbz#2341322
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

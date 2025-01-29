@@ -6,7 +6,7 @@
 Name:           pass
 Summary:        A password manager using standard Unix tools
 Version:        1.7.4
-Release:        13%{?dist}
+Release:        14%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Url:            http://zx2c4.com/projects/password-store/
@@ -34,7 +34,8 @@ and git.
 %package -n passmenu
 Summary:        A dmenu based interface to pass.
 Requires:       pass
-Requires:       dmenu
+Recommends:     (dmenu-wayland if libwayland-client)
+Recommends:     (dmenu if xorg-x11-server-Xorg)
 Requires:       xdotool
 
 %description -n passmenu
@@ -82,6 +83,12 @@ make test
 %endif
 
 %changelog
+* Mon Jan 27 2025 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com> - 1.7.4-14
+- Set dmenu-wayland and dmenu to Recommends instead of Requires to have
+  a choice to install one or the other or both. Helpful when using Wayland
+  and having xorg-x11-server-Xorg for XWayland purpose only.
+  Resolves: rhbz#2335143
+  
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

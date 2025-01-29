@@ -7,7 +7,7 @@
 
 # https://git.sr.ht/~rjarry/aerc
 %global goipath         git.sr.ht/~rjarry/aerc
-%global version0        0.20.0
+%global version0        0.20.1
 
 %gometa -L
 

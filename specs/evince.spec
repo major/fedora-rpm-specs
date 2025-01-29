@@ -17,12 +17,14 @@
 
 Name:           evince
 Version:        46.3.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Document viewer
 
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND X11 AND MIT AND Afmparse
 URL:            https://wiki.gnome.org/Apps/Evince
 Source0:        https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
+
+Patch:          evince-46.3.1-kpathsea-header-files.patch
 
 BuildRequires:  gcc
 BuildRequires:  gettext-devel
@@ -285,6 +287,11 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Evince-p
 %{_mandir}/man1/evince-previewer.1*
 
 %changelog
+* Mon Jan 27 2025 Marek Kasik <mkasik@redhat.com> - 46.3.1-4
+- Determine correct kpathsea header files
+- Fix by Than Ngo
+- Resolves: #2342228, #2339772
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 46.3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

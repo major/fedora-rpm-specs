@@ -1,6 +1,6 @@
 Name: 		perl-Date-Pcalc
 Version:	6.1
-Release:	45%{?dist}
+Release:	46%{?dist}
 Summary:	Gregorian calendar date calculations
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL: 		https://metacpan.org/release/Date-Pcalc
@@ -11,6 +11,9 @@ Patch0:		Date-Pcalc-6.1-boolean.patch
 Patch1:         Date-Pcalc-6.1-century.patch
 # Fixed error "Unescaped left brace in regex is deprecated"
 Patch2:         Date-Pcalc-6.1-Fix-unescaped-left-brace-in-regex.patch
+# bool, true and false are keywords in modern C
+Patch3:         0001-Fix-bool-detection.patch
+
 BuildRequires:  %{_bindir}/iconv
 # Build
 BuildRequires:  coreutils
@@ -53,6 +56,7 @@ DIN 1355 and, to some extent, ISO 8601 (where applicable).
 %patch -P0 -p0
 %patch -P1 -p1
 %patch -P2 -p1
+%patch -P3 -p1
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 </dev/null
@@ -78,6 +82,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 25 2025 Ralf Corsépius <corsepiu@fedoraproject.org> - 6.1-46
+- Add 0001-Fix-bool-detection.patch (F42FTBS, RHBZ#2341027).
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.1-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 %bcond awscrt 0
 
 Name:           python-boto3
-Version:        1.36.6
+Version:        1.36.7
 Release:        1%{?dist}
 Summary:        The AWS SDK for Python
 
@@ -53,9 +53,6 @@ Recommends:     %{py3_dist awscrt} >= 0.19.18
 
 %prep
 %setup -q -n boto3-%{version}
-# Remove a bundled and pre-compiled/pre-minified JavaScript library. It would
-# be used for the generated HTML documentation, which we do not package.
-rm -v docs/source/_static/shortbreadv1.js
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -86,6 +83,9 @@ hardlink -c '%{buildroot}%{python3_sitelib}/boto3'
 %license LICENSE
 
 %changelog
+* Mon Jan 27 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.36.7-1
+- 1.36.7
+
 * Fri Jan 24 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.36.6-1
 - 1.36.6
 

@@ -1,6 +1,6 @@
 Name:           dlm
 Version:        4.3.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:	GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary:        dlm control daemon and tool
 URL:            https://pagure.io/dlm
@@ -40,7 +40,7 @@ The kernel dlm requires a user daemon to control membership.
 
 %install
 %make_install LIBDIR=%{_libdir} BINDIR=%{_sbindir}
-make -C fence install LIBDIR=%{_libdir} DESTDIR=$RPM_BUILD_ROOT
+make -C fence install LIBDIR=%{_libdir} DESTDIR=$RPM_BUILD_ROOT BINDIR=%{_sbindir}
 
 install -Dm 0644 init/dlm.service %{buildroot}%{_unitdir}/dlm.service
 install -Dm 0644 init/dlm.sysconfig %{buildroot}/etc/sysconfig/dlm
@@ -94,6 +94,9 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Mon Jan 27 2025 David Teigland <teigland@redhat.com> - 4.3.0-5
+- more attempts to fix dir stuff
+
 * Wed Jan 22 2025 David Teigland <teigland@redhat.com> - 4.3.0-4
 - set BINDIR
 

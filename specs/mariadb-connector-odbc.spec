@@ -12,6 +12,8 @@ Source:         https://archive.mariadb.org/connector-odbc-%{version}/%{name}-%{
 Url:            https://mariadb.org/en/
 # Online documentation can be found at: https://mariadb.com/kb/en/library/mariadb-connector-odbc/
 
+Patch1: gcc-15.patch
+
 BuildRequires:  cmake unixODBC-devel gcc-c++
 BuildRequires:  mariadb-connector-c-devel >= 3.4.3
 
@@ -25,6 +27,7 @@ and it supports both Unicode and ANSI modes.
 
 %prep
 %setup -q -n %{name}-%{version}-src
+%patch -P1 -p1
 
 
 

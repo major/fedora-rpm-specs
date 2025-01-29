@@ -1,6 +1,6 @@
 Name:           munin
 Version:        2.0.76
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Network-wide resource monitoring tool
 License:        GPL-2.0-only
 URL:            http://munin-monitoring.org/
@@ -232,6 +232,7 @@ FastCGI so you don't need this package.
 
 sed -i -e '
   s,^PREFIX     = \(.*\),PREFIX     = $(DESTDIR)%{_prefix},;
+  s,^SBINDIR    = \(.*\),SBINDIR    = $(DESTDIR)%{_sbindir},;
   s,^CONFDIR    = \(.*\),CONFDIR    = $(DESTDIR)%{_sysconfdir}/munin,;
   s,^DOCDIR     = \(.*\),DOCDIR     = $(DESTDIR)%{_docdir}/%{name}-%{version},;
   s,^MANDIR     = \(.*\),MANDIR     = $(DESTDIR)%{_mandir},;
@@ -659,6 +660,9 @@ exit 0
 
 
 %changelog
+* Mon Jan 27 2025 Kim B. Heino <b@bbbs.net> - 2.0.76-5
+- rhbz 2340895: Fix build on Fedora 42
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.76-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

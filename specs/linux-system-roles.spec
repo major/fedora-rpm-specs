@@ -23,8 +23,8 @@ Name: linux-system-roles
 %endif
 Url: https://github.com/linux-system-roles
 Summary: Set of interfaces for unified system management
-Version: 1.94.1
-Release: 2%{?dist}
+Version: 1.94.2
+Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv3+ and MIT and BSD and Python - review is highly recommended.
 License: GPL-3.0-or-later AND LicenseRef-Callaway-MIT AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-Python
@@ -107,7 +107,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 5 1.17.1
 
 %global rolename6 storage
-%deftag 6 1.18.10
+%deftag 6 1.18.11
 
 %global rolename7 metrics
 %deftag 7 1.10.9
@@ -142,7 +142,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 16 1.5.2
 
 %global rolename17 ha_cluster
-%deftag 17 1.22.1
+%deftag 17 1.22.2
 
 %global rolename18 vpn
 %deftag 18 1.6.9
@@ -160,7 +160,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 22 1.4.8
 
 %global rolename23 rhc
-%deftag 23 1.6.8
+%deftag 23 1.6.9
 
 %global rolename24 journald
 %deftag 24 1.3.5
@@ -703,6 +703,9 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Mon Jan  27 2025 Packit <hello@packit.dev> - 1.94.2-1
+- Update to upstream version 1.94.2
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           python-lunr
 Version:        0.7.0.post1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A Python implementation of Lunr.js
 
 License:        MIT
@@ -11,7 +11,6 @@ Source0:        %{pypi_source lunr}
 BuildRequires:  python3-devel
 # For tests
 BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(mock)
 
 
 %description
@@ -69,6 +68,9 @@ implementation as possible.
 
 
 %changelog
+* Sun Jan 26 2025 Romain Geissler <romain.geissler@amadeus.com> - 0.7.0.post1-7
+- Remove deprecated mock dependency.
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0.post1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

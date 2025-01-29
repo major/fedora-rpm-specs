@@ -1,5 +1,5 @@
 Name:           perl-Business-ISSN
-Version:        1.005
+Version:        1.008
 Release:        %autorelease
 Summary:        Perl library for International Standard Serial Numbers
 License:        Artistic-2.0
