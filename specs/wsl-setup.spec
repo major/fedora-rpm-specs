@@ -1,7 +1,7 @@
 %if 0%{?eln}
-  %define default_name ELN
+  %global default_name ELN
 %else
-  %define default_name Fedora
+  %global default_name Fedora
 %endif
 
 

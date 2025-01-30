@@ -1,6 +1,6 @@
 Name:           cucumber-messages
-Version:        27.0.2
-%global cpp_soversion 0.1
+Version:        27.1.0
+%global cpp_soversion 27
 Release:        %autorelease
 Summary:        A message protocol for representing results and other information from Cucumber
 

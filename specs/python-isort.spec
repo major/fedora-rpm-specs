@@ -2,8 +2,8 @@
 %global srcname isort
 
 Name:               python-%{modname}
-Version:            5.13.2
-Release:            6%{?dist}
+Version:            6.0.0
+Release:            1%{?dist}
 Summary:            Python utility / library to sort Python imports
 
 License:            MIT
@@ -16,9 +16,7 @@ BuildArch:          noarch
 
 %package -n python%{python3_pkgversion}-%{modname}
 Summary:            %{summary}
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{modname}}
 BuildRequires:      python%{python3_pkgversion}-devel
-BuildRequires:      python%{python3_pkgversion}-setuptools
 BuildRequires:      python%{python3_pkgversion}-pytest
 
 %description -n python%{python3_pkgversion}-%{modname}
@@ -33,11 +31,15 @@ Python %{python3_pkgversion} version.
 #sed -i -e '1{\@^#!.*@d}' %{modname}/main.py
 #chmod -x LICENSE
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{modname}
 mv %{buildroot}%{_bindir}/%{modname}{,-%{python3_version}}
 ln -s %{modname}-%{python3_version} %{buildroot}%{_bindir}/%{modname}-%{python3_pkgversion}
 ln -s %{modname}-3 %{buildroot}%{_bindir}/%{modname}
@@ -46,17 +48,17 @@ ln -s %{modname}-3 %{buildroot}%{_bindir}/%{modname}
 #%check
 #%{__python3} setup.py test
 
-%files -n python%{python3_pkgversion}-%{modname}
+%files -n python%{python3_pkgversion}-%{modname} -f %{pyproject_files}
 %doc *.md
-%license LICENSE
 %{_bindir}/%{modname}
 %{_bindir}/%{modname}-%{python3_pkgversion}
 %{_bindir}/%{modname}-%{python3_version}
 %{_bindir}/%{modname}-identify-imports
-%{python3_sitelib}/%{modname}/
-%{python3_sitelib}/%{modname}-*.egg-info/
 
 %changelog
+* Tue Jan 28 2025 Gwyn Ciesla <gwync@protonmail.com> - 6.0.0-1
+- 6.0.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.13.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

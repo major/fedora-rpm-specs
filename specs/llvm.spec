@@ -73,6 +73,12 @@
 %bcond_with build_bolt
 %endif
 
+%if %{without compat_build} && 0%{?fedora} >= 41
+%bcond_without polly
+%else
+%bcond_with polly
+%endif
+
 # Disable LTO on x86 and riscv in order to reduce memory consumption.
 %ifarch %ix86 riscv64
 %bcond_with lto_build
@@ -212,11 +218,15 @@
 %global pkg_name_bolt llvm-bolt%{pkg_suffix}
 #endregion BOLT globals
 
+#region polly globals
+%global pkg_name_polly polly%{pkg_suffix}
+#endregion polly globals
+
 #region packages
 #region main package
 Name:		%{pkg_name_llvm}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -288,6 +298,9 @@ Patch103: 0001-Workaround-a-bug-in-ORC-on-ppc64le.patch
 # this might no longer be needed.
 Patch104: 0001-Driver-Give-devtoolset-path-precedence-over-Installe.patch
 
+# Fix LLVMConfig.cmake when symlinks are used.
+Patch105: 0001-cmake-Resolve-symlink-when-finding-install-prefix.patch
+
 #region MLIR patches
 # See https://github.com/llvm/llvm-project/pull/108579
 Patch1904: 0001-mlir-python-Reuse-the-library-directory.patch
@@ -303,6 +316,13 @@ Patch1908: cstdint.patch
 #region BOLT patches
 Patch1909: 0001-19-PATCH-Bolt-CMake-Don-t-export-bolt-libraries-in-LLVM.patch
 #endregion BOLT patches
+
+#region polly patches
+# See https://github.com/llvm/llvm-project/pull/122123
+Patch1910: 122123.patch
+Patch1911: 0001-19-polly-shared-libs.patch
+Patch2001: 0001-20-polly-shared-libs.patch
+#endregion polly patches
 
 #region LLD patches
 Patch1800: 0001-18-Always-build-shared-libs-for-LLD.patch
@@ -954,6 +974,32 @@ execution profile gathered by sampling profiler, such as Linux `perf` tool.
 %endif
 #endregion BOLT packages
 
+#region polly packages
+%if %{with polly}
+%package -n %{pkg_name_polly}
+Summary:	LLVM Framework for High-Level Loop and Data-Locality Optimizations
+License:	Apache-2.0 WITH LLVM-exception
+URL:	http://polly.llvm.org
+
+# We no longer ship polly-doc.
+Obsoletes: %{pkg_name_polly}-doc < 20
+
+%description -n %{pkg_name_polly}
+
+Polly is a high-level loop and data-locality optimizer and optimization
+infrastructure for LLVM. It uses an abstract mathematical representation based
+on integer polyhedron to analyze and optimize the memory access pattern of a
+program.
+
+%package -n %{pkg_name_polly}-devel
+Summary: Polly header files
+Requires: %{pkg_name_polly} = %{version}-%{release}
+
+%description  -n %{pkg_name_polly}-devel
+Polly header files.
+%endif
+#endregion polly packages
+
 #endregion packages
 
 #region prep
@@ -1065,6 +1111,10 @@ execution profile gathered by sampling profiler, such as Linux `perf` tool.
 
 %if %{with build_bolt}
 %global projects %{projects};bolt
+%endif
+
+%if %{with polly}
+%global projects %{projects};polly
 %endif
 
 %if %{with libcxx}
@@ -1263,6 +1313,14 @@ popd
 	-DOPENMP_INSTALL_LIBDIR=%{unprefixed_libdir} \\\
 	-DLIBOMP_INSTALL_ALIASES=OFF
 #endregion openmp options
+
+#region polly options
+%if %{with polly}
+%global cmake_config_args %{cmake_config_args} \\\
+  -DLLVM_POLLY_LINK_INTO_TOOLS=OFF
+%endif
+#endregion polly options
+
 
 #region test options
 %global cmake_config_args %{cmake_config_args} \\\
@@ -2095,6 +2153,7 @@ export PYTHONPATH=%{buildroot}/%{python3_sitearch}
 
 #region BOLT tests
 %if %{with build_bolt}
+reset_test_opts
 %if %{maj_ver} < 20
 export LIT_XFAIL="$LIT_XFAIL;AArch64/build_id.c"
 export LIT_XFAIL="$LIT_XFAIL;AArch64/plt-call.test"
@@ -2137,6 +2196,14 @@ export LIT_XFAIL="$LIT_XFAIL;X86/internal-call-instrument.s"
 %cmake_build --target check-bolt
 %endif
 #endregion BOLT tests
+
+#region polly tests
+%if %{with polly}
+reset_test_opts
+%cmake_build --target check-polly
+%endif
+#endregion polly tests
+
 
 %endif
 
@@ -2254,7 +2321,7 @@ fi
 %files -n %{pkg_name_llvm}
 %license llvm/LICENSE.TXT
 
-%{expand_bins:
+%{expand_bins %{expand:
     bugpoint
     dsymutil
     FileCheck
@@ -2338,15 +2405,15 @@ fi
     UnicodeNameMappingGenerator
     verify-uselistorder
     yaml2obj
-}
+}}
 %if %{maj_ver} >= 20
-%{expand_bins:
+%{expand_bins %{expand:
     llvm-cgdata
     llvm-ctxprof-util
-}
+}}
 %endif
 
-%{expand_mans:
+%{expand_mans %{expand:
     bugpoint
     clang-tblgen
     dsymutil
@@ -2401,7 +2468,7 @@ fi
     mlir-tblgen
     opt
     tblgen
-}
+}}
 %if %{maj_ver} >= 20
 %expand_mans llvm-cgdata
 %endif
@@ -2410,12 +2477,12 @@ fi
 
 %files -n %{pkg_name_llvm}-libs
 %license llvm/LICENSE.TXT
-%{expand_libs:
+%{expand_libs %{expand:
     libLLVM-%{maj_ver}%{?llvm_snapshot_version_suffix}.so
     libLLVM.so.%{maj_ver}.%{min_ver}%{?llvm_snapshot_version_suffix}
     libLTO.so*
     libRemarks.so*
-}
+}}
 %if %{with gold}
 %expand_libs LLVMgold.so
 %if %{without compat_build}
@@ -2441,10 +2508,10 @@ fi
 
 %expand_mans llvm-config
 %expand_includes llvm llvm-c
-%{expand_libs:
+%{expand_libs %{expand:
     libLLVM.so
     cmake/llvm
-}
+}}
 
 %files -n %{pkg_name_llvm}-doc
 %license llvm/LICENSE.TXT
@@ -2466,23 +2533,23 @@ fi
 
 %files -n %{pkg_name_llvm}-test
 %license llvm/LICENSE.TXT
-%{expand_bins:
+%{expand_bins %{expand:
     not
     count
     yaml-bench
     lli-child-target
     llvm-isel-fuzzer
     llvm-opt-fuzzer
-}
+}}
 
 %files -n %{pkg_name_llvm}-googletest
 %license llvm/LICENSE.TXT
-%{expand_libs:
+%{expand_libs %{expand:
     libLLVMTestingSupport.a
     libLLVMTestingAnnotations.a
     libllvm_gtest.a
     libllvm_gtest_main.a
-}
+}}
 %expand_includes llvm-gtest llvm-gmock
 
 %if %{with snapshot_build}
@@ -2496,12 +2563,12 @@ fi
 
 %files -n %{pkg_name_clang}
 %license clang/LICENSE.TXT
-%{expand_bins:
+%{expand_bins %{expand:
     clang
     clang++
     clang-cl
     clang-cpp
-}
+}}
 %{install_bindir}/clang-%{maj_ver}
 
 %{_sysconfdir}/%{pkg_name_clang}/%{_target_platform}-clang.cfg
@@ -2515,6 +2582,15 @@ fi
 %files -n %{pkg_name_clang}-libs
 %license clang/LICENSE.TXT
 %{_prefix}/lib/clang/%{maj_ver}/include/*
+# Part of compiler-rt:
+%exclude %{_prefix}/lib/clang/%{maj_ver}/include/fuzzer
+%exclude %{_prefix}/lib/clang/%{maj_ver}/include/orc
+%exclude %{_prefix}/lib/clang/%{maj_ver}/include/profile
+%exclude %{_prefix}/lib/clang/%{maj_ver}/include/sanitizer
+%exclude %{_prefix}/lib/clang/%{maj_ver}/include/xray
+# Part of libomp-devel:
+%exclude %{_prefix}/lib/clang/%{maj_ver}/include/omp*.h
+
 %expand_libs libclang.so.%{maj_ver}*
 %expand_libs libclang-cpp.so.%{maj_ver}*
 %if %{with bundle_compat_lib}
@@ -2524,11 +2600,11 @@ fi
 
 %files -n %{pkg_name_clang}-devel
 %license clang/LICENSE.TXT
-%{expand_libs:
+%{expand_libs %{expand:
     cmake/clang
     libclang-cpp.so
     libclang.so
-}
+}}
 %expand_includes clang clang-c
 %expand_bins clang-tblgen
 %dir %{install_datadir}/clang/
@@ -2548,21 +2624,21 @@ fi
 
 %files -n %{pkg_name_clang}-analyzer
 %license clang/LICENSE.TXT
-%{expand_bins:
+%{expand_bins %{expand:
     scan-view
     scan-build
     analyze-build
     intercept-build
     scan-build-py
-}
-%{expand_libexecs:
+}}
+%{expand_libexecs %{expand:
     ccc-analyzer
     c++-analyzer
     analyze-c++
     analyze-cc
     intercept-c++
     intercept-cc
-}
+}}
 %expand_datas scan-view scan-build
 %expand_mans scan-build
 %if %{without compat_build}
@@ -2573,7 +2649,7 @@ fi
 
 %files -n %{pkg_name_clang}-tools-extra
 %license clang-tools-extra/LICENSE.TXT
-%{expand_bins:
+%{expand_bins %{expand:
     amdgpu-arch
     clang-apply-replacements
     clang-change-namespace
@@ -2605,7 +2681,7 @@ fi
     modularize
     clang-format-diff
     run-clang-tidy
-}
+}}
 %if %{maj_ver} >= 20
 %expand_bins clang-sycl-linker
 %endif
@@ -2685,11 +2761,11 @@ fi
 
 %files -n %{pkg_name_libomp}
 %license openmp/LICENSE.TXT
-%{expand_libs:
+%{expand_libs %{expand:
     libomp.so
     libompd.so
     libarcher.so
-}
+}}
 %ifnarch %{ix86}
 # libomptarget is not supported on 32-bit systems.
 # s390x does not support the offloading plugins.
@@ -2732,19 +2808,19 @@ fi
 %files -n %{pkg_name_lld}
 %license lld/LICENSE.TXT
 %ghost %{_bindir}/ld
-%{expand_bins:
+%{expand_bins %{expand:
     lld
     lld-link
     ld.lld
     ld64.lld
     wasm-ld
-}
+}}
 %expand_mans ld.lld
 
 %files -n %{pkg_name_lld}-devel
 %license lld/LICENSE.TXT
 %expand_includes lld
-%{expand_libs:
+%{expand_libs %{expand:
     liblldCOFF.so
     liblldCommon.so
     liblldELF.so
@@ -2752,18 +2828,18 @@ fi
     liblldMinGW.so
     liblldWasm.so
     cmake/lld
-}
+}}
 
 %files -n %{pkg_name_lld}-libs
 %license lld/LICENSE.TXT
-%{expand_libs:
+%{expand_libs %{expand:
     liblldCOFF.so.*
     liblldCommon.so.*
     liblldELF.so.*
     liblldMachO.so.*
     liblldMinGW.so.*
     liblldWasm.so.*
-}
+}}
 
 #endregion LLD files
 
@@ -2778,20 +2854,20 @@ fi
 %if %{with lldb}
 %files -n %{pkg_name_lldb}
 %license lldb/LICENSE.TXT
-%{expand_bins:
+%{expand_bins %{expand:
     lldb
     lldb-argdumper
     lldb-dap
     lldb-instr
     lldb-server
-}
+}}
 # Usually, *.so symlinks are kept in devel subpackages. However, the python
 # bindings depend on this symlink at runtime.
-%{expand_libs:
+%{expand_libs %{expand:
     liblldb*.so
     liblldb.so.*
     liblldbIntelFeatures.so.*
-}
+}}
 %expand_mans lldb-server lldb
 %if %{with bundle_compat_lib}
 %{_libdir}/liblldb.so.%{compat_maj_ver}*
@@ -2810,7 +2886,7 @@ fi
 %if %{with mlir}
 %files -n %{pkg_name_mlir}
 %license LICENSE.TXT
-%{expand_libs:
+%{expand_libs %{expand:
     libmlir_arm_runner_utils.so.%{maj_ver}*
     libmlir_arm_sme_abi_stubs.so.%{maj_ver}*
     libmlir_async_runtime.so.%{maj_ver}*
@@ -2818,13 +2894,13 @@ fi
     libmlir_float16_utils.so.%{maj_ver}*
     libmlir_runner_utils.so.%{maj_ver}*
     libMLIR*.so.%{maj_ver}*
-}
+}}
 
 %files -n %{pkg_name_mlir}-static
 %expand_libs libMLIR*.a
 
 %files -n %{pkg_name_mlir}-devel
-%{expand_bins:
+%{expand_bins %{expand:
     mlir-linalg-ods-yaml-gen
     mlir-lsp-server
     mlir-opt
@@ -2836,14 +2912,14 @@ fi
     mlir-translate
     tblgen-lsp-server
     tblgen-to-irdl
-}
+}}
 %if %{maj_ver} >= 20
 %expand_bins mlir-rewrite mlir-runner
 %else
 %expand_bins mlir-cpu-runner
 %endif
 %expand_includes mlir mlir-c
-%{expand_libs:
+%{expand_libs %{expand:
     cmake/mlir
     libmlir_arm_runner_utils.so
     libmlir_arm_sme_abi_stubs.so
@@ -2852,7 +2928,7 @@ fi
     libmlir_float16_utils.so
     libmlir_runner_utils.so
     libMLIR*.so
-}
+}}
 
 %files -n python%{python3_pkgversion}-%{pkg_name_mlir}
 %{python3_sitearch}/mlir/
@@ -2918,32 +2994,53 @@ fi
 %if %{with build_bolt}
 %files -n %{pkg_name_bolt}
 %license bolt/LICENSE.TXT
-%{expand_bins:
+%{expand_bins %{expand:
     llvm-bolt
     llvm-boltdiff
     llvm-bolt-heatmap
     merge-fdata
     perf2bolt
-}
+}}
 %if %{maj_ver} >= 20
 %expand_bins llvm-bolt-binary-analysis
 %endif
 
-%{expand_libs:
+%{expand_libs %{expand:
     libbolt_rt_hugify.a
     libbolt_rt_instr.a
-}
+}}
 %endif
 #endregion BOLT files
+
+#region polly files
+%if %{with polly}
+%files -n %{pkg_name_polly}
+%license polly/LICENSE.TXT
+%{expand_libs %{expand:
+  LLVMPolly.so
+  libPolly.so.*
+  libPollyISL.so
+}}
+%expand_mans polly
+
+%files -n %{pkg_name_polly}-devel
+%expand_libs libPolly.so
+%expand_includes polly
+%expand_libs cmake/polly
+%endif
+#endregion polly files
 
 #endregion files
 
 #region changelog
 %changelog
+* Wed Jan 22 2025 Konrad Kleine <kkleine@redhat.com> - 19.1.7-3
+- Add polly
+
 * Mon Jan 20 2025 Konrad Kleine <kkleine@redhat.com> - 19.1.7-2
 - Add bolt
 
-* Wed Jan 20 2025 Timm Bäder <tbaeder@redhat.com> - 19.1.7-1
+* Mon Jan 20 2025 Timm Bäder <tbaeder@redhat.com> - 19.1.7-1
 - Update to 19.1.7
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 19.1.6-4

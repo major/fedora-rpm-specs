@@ -72,6 +72,7 @@ Patch92: patch-cassandane-fix-annotator
 # try to get fixed the below upstream to work on Fedora:
 # https://github.com/cyrusimap/cyrus-imapd/commit/f10eee167313418d84e63d215310477d4fe68e94
 Patch93: patch-cassandane-xapian-delve-path
+Patch94: patch-cyrus-corrected-declaration-initialization-of-functions.patch
 
 BuildRequires: autoconf automake bison flex gcc gcc-c++ git glibc-langpack-en
 BuildRequires: groff libtool make pkgconfig rsync systemd

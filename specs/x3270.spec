@@ -1,16 +1,18 @@
 %global catalogue /etc/X11/fontpath.d
 
-%global majorver 4.3
+%global majorver 4.4
 Summary: An X Window System based IBM 3278/3279 terminal emulator
 Name: x3270
-Version: 4.3ga8
-Release: 3%{?dist}
+Version: 4.4alpha1
+Release: 1%{?dist}
 License: BSD-3-Clause AND HPND-sell-variant AND MIT AND Apache-2.0
 URL: https://x3270.miraheze.org/wiki/Main_Page
 Source0: http://downloads.sourceforge.net/%{name}/suite3270-%{version}-src.tgz
 Source1: x3270.png
 Source2: x3270.desktop
 Patch0: x3270-3.5-paths.patch
+# workaround C23 related issues
+Patch1: c23.patch
 
 BuildRequires: make
 BuildRequires: ncurses-devel
@@ -113,6 +115,10 @@ desktop-file-install \
 
 
 %changelog
+* Mon Jan 27 2025 Jakub Čajka <jcajka@redhat.com> 4.4alpha1-1
+- updated to 4.4alpha1(rhbz#2332509)
+- workaround C23 related issues(rhbz#2341559)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3ga8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

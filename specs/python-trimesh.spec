@@ -6,7 +6,7 @@
 %bcond pymeshlab 0
 
 Name:           python-trimesh
-Version:        4.5.3
+Version:        4.6.0
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 
@@ -294,11 +294,17 @@ test_boolean
 test_multiple
 test_multiple_difference
 %endif
+
+# This test fails if it doesn’t finish within 30 seconds, and executing it in
+# parallel with other tests tends to slow it down too much. We exclude it here,
+# then run it serially on its own.
+test_obb_mesh_large
 EOF
 )
 
 export PYTHONPATH="${PWD}/_stub:%{buildroot}%{python3_sitelib}"
 %pytest -v -k "${k-}" -n auto
+%pytest -v -k 'test_obb_mesh_large'
 
 
 %files -n python3-trimesh

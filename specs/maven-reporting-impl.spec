@@ -1,34 +1,45 @@
 Name:           maven-reporting-impl
-Version:        3.2.0
-Release:        8%{?dist}
+Version:        4.0.0
+Release:        1%{?dist}
 Summary:        Abstract classes to manage report generation
 License:        Apache-2.0
 URL:            https://maven.apache.org/shared/maven-reporting-impl/
 VCS:            git:https://github.com/apache/maven-reporting-impl.git
-BuildArch:      noarch
-ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://archive.apache.org/dist/maven/reporting/%{name}-%{version}-source-release.zip
 Source1:        https://archive.apache.org/dist/maven/reporting/%{name}-%{version}-source-release.zip.asc
 # Apache Maven public key
-Source2:        https://www.apache.org/dist/maven/KEYS
-# Fedora does not have junit-addons
-Patch0:         0001-Remove-dependency-on-junit-addons.patch
+Source2:        https://downloads.apache.org/maven/KEYS
+
+BuildArch:      noarch
+ExclusiveArch:  %{java_arches} noarch
 
 BuildRequires:  gnupg2
 BuildRequires:  maven-local
-BuildRequires:  mvn(junit:junit)
-BuildRequires:  mvn(org.apache.maven.doxia:doxia-core)
-BuildRequires:  mvn(org.apache.maven.doxia:doxia-decoration-model)
-BuildRequires:  mvn(org.apache.maven.doxia:doxia-sink-api)
-BuildRequires:  mvn(org.apache.maven.doxia:doxia-site-renderer)
+BuildRequires:  mvn(org.apache.maven:maven-archiver)
+BuildRequires:  mvn(org.apache.maven:maven-artifact)
 BuildRequires:  mvn(org.apache.maven:maven-core)
+BuildRequires:  mvn(org.apache.maven:maven-model)
 BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
+BuildRequires:  mvn(org.apache.maven.doxia:doxia-core)
+BuildRequires:  mvn(org.apache.maven.doxia:doxia-integration-tools)
+BuildRequires:  mvn(org.apache.maven.doxia:doxia-module-apt)
+BuildRequires:  mvn(org.apache.maven.doxia:doxia-module-xdoc)
+BuildRequires:  mvn(org.apache.maven.doxia:doxia-sink-api)
+BuildRequires:  mvn(org.apache.maven.doxia:doxia-site-model)
+BuildRequires:  mvn(org.apache.maven.doxia:doxia-site-renderer)
 BuildRequires:  mvn(org.apache.maven.plugin-tools:maven-plugin-annotations)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-compiler-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
 BuildRequires:  mvn(org.apache.maven.reporting:maven-reporting-api)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-api)
 BuildRequires:  mvn(org.apache.maven.shared:maven-shared-components:pom:)
 BuildRequires:  mvn(org.apache.maven.shared:maven-shared-utils)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
+BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.plexus)
+BuildRequires:  mvn(org.junit:junit-bom:pom:)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-engine)
 
 %{?javadoc_package}
 
@@ -47,12 +58,13 @@ sed -i.orig 's/\\r//' README.md
 touch -r README.md.orig README.md
 rm README.md.orig
 
+# Unavailable plugins
+%pom_remove_plugin :maven-install-plugin src/it/setup-reporting-plugin/pom.xml
+%pom_remove_plugin :maven-site-plugin src/it/use-as-site-report/pom.xml
+
 # integration tests try to download stuff from the internet
 # and therefore they don't work in Koji
 %pom_remove_plugin :maven-invoker-plugin
-
-# Compile for JDK 8 at a minimum
-%pom_xpath_set '//pom:javaVersion' 8
 
 %build
 %mvn_build
@@ -65,6 +77,10 @@ rm README.md.orig
 %license LICENSE NOTICE
 
 %changelog
+* Tue Jan 28 2025 Jerry James <loganjerry@gmail.com> - 4.0.0-1
+- Version 4.0.0
+- Drop junit-addons patch
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

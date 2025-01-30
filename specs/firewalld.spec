@@ -1,7 +1,7 @@
 Summary: A firewall daemon with D-Bus interface providing a dynamic firewall
 Name: firewalld
 Version: 2.3.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 URL:     http://www.firewalld.org
 License: GPL-2.0-or-later
 Source0: https://github.com/firewalld/firewalld/releases/download/v%{version}/firewalld-%{version}.tar.bz2
@@ -132,9 +132,27 @@ sed -i -e 's|/usr|%{_prefix}|' src/firewall-applet.in src/firewall/config/__init
 %endif
 
 %build
-%configure --enable-sysconfig --enable-rpmmacros \
-  --with-systemd-unitdir=%{_unitdir} \
+OPTS=(
+  --enable-sysconfig
+  --enable-rpmmacros
+  --with-systemd-unitdir=%{_unitdir}
+
+  # Work-around for https://bugzilla.redhat.com/show_bug.cgi?id=2338142
+  # and https://src.fedoraproject.org/rpms/iptables/pull-request/10.
+  # The "official" location for those binaries is under /usr/sbin.
+  --with-iptables=/usr/sbin/iptables
+  --with-iptables-restore=/usr/sbin/iptables-restore
+  --with-ip6tables=/usr/sbin/ip6tables
+  --with-ip6tables-restore=/usr/sbin/ip6tables-restore
+  --with-ebtables=/usr/sbin/ebtables
+  --with-ebtables-restore=/usr/sbin/ebtables-restore
+  --with-ipset=/usr/sbin/ipset
+
   PYTHON="%{__python3} %{py3_shbang_opts}"
+)
+
+%configure "${OPTS[@]}"
+
 # Enable the make line if there are patches affecting man pages to
 # regenerate them
 make %{?_smp_mflags}
@@ -345,6 +363,9 @@ fi
 %{_mandir}/man1/firewall-config*.1*
 
 %changelog
+* Sat Jan 25 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.3.0-4
+- Adjust paths for iptables (rhbz#2338712)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

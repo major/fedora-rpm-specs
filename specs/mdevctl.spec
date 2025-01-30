@@ -3,8 +3,8 @@
 %global crate mdevctl
 
 Name:           mdevctl
-Version:        1.3.0
-Release:        7%{?dist}
+Version:        1.4.0
+Release:        1%{?dist}
 Summary:        A mediated device management utility for Linux
 
 License:        LGPL-2.1-only
@@ -13,6 +13,7 @@ Source:         %{crates_source}
 Source1:        https://github.com/mdevctl/mdevctl/releases/download/v%{version}/mdevctl-%{version}-vendor.tar.gz
 
 BuildRequires: make systemd python3-docutils
+BuildRequires: sed
 %if 0%{?rhel}
 BuildRequires:  rust-toolset
 %else
@@ -29,6 +30,7 @@ vfio-mdev for assignment to virtual machines.
 
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1 %{?rhel:-a1}
+sed  -e 's/SBINDIR=/SBINDIR\?=/' -i Makefile.in
 %if 0%{?rhel}
 %cargo_prep -v vendor
 %else
@@ -47,7 +49,7 @@ vfio-mdev for assignment to virtual machines.
 %endif
 
 %install
-%make_install
+%make_install SBINDIR=%{_sbindir}
 
 %if %{with check}
 %check
@@ -75,6 +77,9 @@ vfio-mdev for assignment to virtual machines.
 %{_datadir}/bash-completion/completions/lsmdev
 
 %changelog
+* Tue Jan 28 2025 Alex Williamson <alex.williamson@redhat.com> - 1.4.0-1
+- New upstream release: https://github.com/mdevctl/mdevctl/releases/tag/v1.4.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

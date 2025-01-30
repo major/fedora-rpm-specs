@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 42.23
+Version: 42.24
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -490,6 +490,27 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jan 28 2025 Packit <hello@packit.dev> - 42.24-1
+- network: pass NM global dns configuration to the installed system (rvykydal)
+- Improve sections structure in tests/README (jkonecny)
+- Fix the `Note` section in tests/README (jkonecny)
+- Move shell testing to a separated directory (jkonecny)
+- Make minor improvements in test/README (jkonecny)
+- Improve security considerations in tests/README (jkonecny)
+- Remove outdated information from tests/README (jkonecny)
+- data: profiles: enable language screen for Web UI on Workstation (k.koukiou)
+- network: pass global dns initrd option to the installed system (rvykydal)
+- Enable dynamic bash commands disable for tests (jkonecny)
+- Add test for config_get dracut function (jkonecny)
+- Fix trailing `/` when downloading stage2 image (jkonecny)
+- Fix whitespace chars broke Dracut config parsing (jkonecny)
+- Disable keyboard shortcut switching on gnome-kiosk (jkonecny)
+- Improve name of compositor layout selection method (jkonecny)
+- Split LocaledWrapper code for compositor (jkonecny)
+- security: do not crash initramfs ks parsing on failing certificate (rvykydal)
+- docs: update release note for certificates import (rvykydal)
+- rpmostree: Use `--merge` for kargs (walters)
+
 * Thu Jan 16 2025 Packit <hello@packit.dev> - 42.23-1
 - Add release notes for certificates import (rvykydal)
 - docs: add release note for the `hidden-webui-pages` configuration option

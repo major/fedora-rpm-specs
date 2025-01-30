@@ -14,7 +14,7 @@
 
 Name:       cvs
 Version:    1.11.23
-Release:    72%{?dist}
+Release:    73%{?dist}
 Summary:    Concurrent Versions System
 URL:        https://cvs.nongnu.org/
 # contrib/check_cvs.in:     check-cvs
@@ -356,8 +356,12 @@ Patch35:    cvs-1.11.23-c99.patch
 # Adjust tests to grep-3.9, proposed to the upstream,
 # <https://savannah.nongnu.org/bugs/index.php?64084>
 Patch36:    cvs-1.11.23-tests-Call-nonobsolete-grep-F.patch
+# Adapt to changes in GCC 15, bug #2340021, proposed to the upstream,
+# <https://savannah.nongnu.org/bugs/index.php?66726>
+Patch37:    cvs-1.11.23-Adapt-to-changes-in-GCC-15.patch
 BuildRequires:  autoconf >= 2.58
 BuildRequires:  automake >= 1.7.9
+BuildRequires:  bison
 BuildRequires:  coreutils
 BuildRequires:  findutils
 %if %{with cvs_enables_pdf}
@@ -487,6 +491,7 @@ pages in PDF.
 %patch -p1 -P 34
 %patch -p1 -P 35
 %patch -p1 -P 36
+%patch -p1 -P 37
 
 # Remove bundled autotools files, they will be regenerated in %%build phase.
 # Keep acinclude.m4 becuse it defines ACX_WITH_GSSAPI.
@@ -502,6 +507,8 @@ find vms -type f \! \( -name Makefile.am -o -name config.h.in \) -delete
 find windows-NT -type f \! \( -name Makefile.am -o -name config.h.in -o -name fix-msvc-mak\* \) -delete
 truncate --size=0 lib/fncase.c lib/fnmatch.c lib/fnmatch.h.in lib/gethostname.c \
     lib/memmove.c lib/mkdir.c lib/rename.c lib/strerror.c
+# Remove pregenerated code
+rm lib/getdate.c
 # Remove pregenerated documentation
 %if %{with cvs_enables_pdf}
 rm doc/*.pdf
@@ -611,6 +618,9 @@ exit 0
 
 
 %changelog
+* Thu Jan 23 2025 Petr Pisar <ppisar@redhat.com> - 1.11.23-73
+- Fix building in ISO C23 with GCC 15 (bug #2340021)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.23-72
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

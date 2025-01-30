@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.40.9000-808-g76c3f7f81b
+%global glibcsrcdir glibc-2.40.9000-827-g9b2f20dd54
 %global glibcversion 2.40.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 34
+%global baserelease 35
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -341,7 +341,6 @@ Patch8: glibc-fedora-manual-dircategory.patch
 Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
-Patch24: glibc-environ-malloc.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2378,6 +2377,29 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Tue Jan 28 2025 DJ Delorie <dj@redhat.com> - 2.40.9000-35
+- Auto-sync with upstream branch master,
+  commit 9b2f20dd54079afb68addf23685b039f1accd6e0.
+- po: update translations (final, only timestamp and line number changes)
+- libc.pot: regenerate (only line number changes)
+- INSTALL: update last tested version numbers
+- contrib.texi: minor improvements
+- NEWS: Add some more news from the 2.41 cycle
+- contrib.texi: Update from 2.40..2.41 commit log
+- NEWS: Add reference to (single) advisory
+- NEWS: Add list of bugs fixed in 2.41
+- NEWS: editorial changes (language, line breaks)
+- testsuite: Make stdio-common/tst-printf-format-*-mem UNSUPPORTED if the mtrace output does not exist
+- elf: fix 'valgrind' typo in comment
+- malloc: cleanup casts in tst-calloc
+- stdlib: Test using setenv with updated environ [BZ #32588]
+- LICENSES: update CORE-MATH copyright
+- LICENSES: update location of getaddrinfo.c and getnameinfo.c
+- LICENSES: remove Intel License Agreement
+- stdlib: Re-implement free (environ) compatibility kludge for setenv
+- Revert "stdlib: Support malloc-managed environ arrays for compatibility"
+- stdlib: Support malloc-managed environ arrays for compatibility
+
 * Fri Jan 24 2025 Florian Weimer <fweimer@redhat.com> - 2.40.9000-34
 - Avoid env -i crash due to free (environ) compatibility patch
 

@@ -1,19 +1,14 @@
-# We do not ship the DFT library since it has undiagnosed test failures on
-# Fedora at -O2, and is not well-supported upstream. Additionally, it uses
-# illegal instructions on ARM and s390x, at least on the Fedora build machines.
-# See https://github.com/shibatch/sleef/issues/214.
 %bcond dft 1
-# As of Sleef 3.6, the quad-precision library is no longer marked experimental.
 %bcond quad 1
-# Similarly, Fedora packages should not ship static libraries unless absolutely
-# required. Some software may really rely on the inline headers and
-# accompanying static support library for exceptional performance requirements,
-# but we will leave this feature disabled until someone asks for it.
+# Fedora packages should not ship static libraries unless absolutely required.
+# Some software may really rely on the inline headers and accompanying static
+# support library for exceptional performance requirements, but we will leave
+# this feature disabled until someone asks for it.
 %bcond static 0
 
 Name:           sleef
-Version:        3.7.0
-%global tag 3.7
+Version:        3.8.0
+%global tag 3.8
 %global so_version 3
 Release:        %autorelease
 Summary:        Vectorized math library
@@ -37,15 +32,6 @@ URL:            https://sleef.org
 #   ./get_source.sh ${VERSION}
 Source0:        sleef-%{tag}-filtered.tar.zst
 Source1:        get_source.sh
-
-# Work around removal of some PowerPC intrinsics in GCC 15
-# https://github.com/shibatch/sleef/pull/612
-#
-# Fixes:
-#
-# Fails to build with GCC 15 on ppc64le due to removed intrinsics
-# https://github.com/shibatch/sleef/issues/611
-Patch:          https://github.com/shibatch/sleef/pull/612.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

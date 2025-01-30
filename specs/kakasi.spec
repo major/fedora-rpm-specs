@@ -1,6 +1,6 @@
 Name:		kakasi
 Version:	2.3.6
-Release:	30%{?dist}
+Release:	31%{?dist}
 URL:		http://kakasi.namazu.org/
 License:	GPL-2.0-or-later
 BuildRequires:	autoconf automake libtool gettext-devel
@@ -9,6 +9,7 @@ BuildRequires: make
 Source:	http://kakasi.namazu.org/stable/%{name}-%{version}.tar.xz
 Patch4:		kakasi-multilib.patch
 Patch5: kakasi-configure-c99.patch
+Patch6:	%{name}-ftbfs.patch
 
 
 Summary:	A Japanese character set conversion filter
@@ -96,6 +97,10 @@ iconv -f euc-jp -t utf-8 man/kakasi.1.ja > man/kakasi.1.ja.utf8 && touch -r man/
 
 
 %changelog
+* Tue Jan 28 2025 Akira TAGOH <tagoh@redhat.com> - 2.3.6-31
+- Fix FTBFS
+  Resolves: rhbz#2340685
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.6-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

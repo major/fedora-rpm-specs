@@ -5,7 +5,7 @@
 
 Name:           kbd
 Version:        2.7.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tools for configuring the console (keyboard, virtual terminals, etc.)
 License:        GPL-2.0-or-later
 URL:            http://www.kbd-project.org/
@@ -17,6 +17,13 @@ Source3:        xml2lst.pl
 Source4:        vlock.pamd
 Source5:        kbdinfo.1
 Source6:        cz-map.patch
+# See https://github.com/legionus/kbd/pull/127 and
+# https://bugzilla.redhat.com/show_bug.cgi?id=2336875#c41 for next two sources
+# Not done as a patch as it'd be a binary diff
+# Georgian keyboard layout from Temuri Doghonadze
+Source7:        ge.map.gz
+# Georgian font from Gia Shervashidze
+Source8:        LatCyrHebKa-16_GIA.psfu.gz
 # Patch0: puts additional information into man pages
 Patch0:         kbd-1.15-keycodes-man.patch
 # Patch1: sparc modifications
@@ -137,6 +144,10 @@ install -m 644 %{SOURCE4} $RPM_BUILD_ROOT%{_sysconfdir}/pam.d/vlock
 mkdir -p $RPM_BUILD_ROOT%{kbd_datadir}/keymaps/legacy
 mv $RPM_BUILD_ROOT%{kbd_datadir}/keymaps/{amiga,atari,i386,include,mac,ppc,sun} $RPM_BUILD_ROOT%{kbd_datadir}/keymaps/legacy
 
+# Install our Georgian font and layout
+install -m 0644 %{SOURCE7} $RPM_BUILD_ROOT%{kbd_datadir}/keymaps/legacy/i386/qwerty
+install -m 0644 %{SOURCE8} $RPM_BUILD_ROOT%{kbd_datadir}/consolefonts
+
 # Convert X keyboard layouts to console keymaps
 mkdir -p $RPM_BUILD_ROOT%{kbd_datadir}/keymaps/xkb
 perl xml2lst.pl < /usr/share/X11/xkb/rules/base.xml > layouts-variants.lst
@@ -189,6 +200,9 @@ make check
 %{kbd_datadir}/keymaps/legacy
 
 %changelog
+* Mon Jan 27 2025 Adam Williamson <awilliam@redhat.com> - 2.7.1-3
+- Add Georgian layout and font (from upstream PR #127)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

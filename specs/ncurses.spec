@@ -5,11 +5,11 @@
 %bcond_without compat_libs
 %bcond_without gpm
 %endif
-%global revision 20250118
+%global revision 20250125
 Summary: Ncurses support utilities
 Name: ncurses
 Version: 6.5
-Release: 4.%{revision}%{?dist}
+Release: 5.%{revision}%{?dist}
 License: MIT-open-group
 URL: https://invisible-island.net/ncurses/ncurses.html
 Source0: https://invisible-mirror.net/archives/ncurses/current/ncurses-%{version}-%{revision}.tgz
@@ -169,6 +169,9 @@ for abi in %{?with_compat_libs:5} 6; do
         %make_build libs
         [ $progs = yes ] && %make_build -C progs
 
+        # force use of stdbool.h for compatibility with older standards
+        sed -i '/^#define NCURSES_ENABLE_STDBOOL_H/s/0/1/' include/curses.h
+
         popd
     done
 done
@@ -298,6 +301,10 @@ xz NEWS
 %{_libdir}/lib*.a
 
 %changelog
+* Tue Jan 28 2025 Miroslav Lichvar <mlichvar@redhat.com> 6.5-5.20250125
+- update to 6.5-20250125
+- force use of stdbool.h for compatibility with older standards (#2342514)
+
 * Thu Jan 23 2025 Miroslav Lichvar <mlichvar@redhat.com> 6.5-4.20250118
 - update to 6.5-20250118 (#2340910)
 

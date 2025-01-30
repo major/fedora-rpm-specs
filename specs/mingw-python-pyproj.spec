@@ -11,6 +11,8 @@ BuildArch:      noarch
 License:        MIT
 Url:            https://github.com/jswhit/%{pypi_name}
 Source0:        %{pypi_source %pypi_name}
+# Don't pass runtime_library_dirs to ext_options in setup.py
+Patch0:         pyproj-runtime-library-dirs.patch
 
 
 BuildRequires:  mingw32-filesystem

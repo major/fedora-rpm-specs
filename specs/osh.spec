@@ -1,4 +1,4 @@
-%global version 1.1.0
+%global version 1.1.1
 %global min_required_version_django 3.2
 
 %if 0%{?fedora} < 41
@@ -338,6 +338,9 @@ fi
 
 
 %changelog
+* Tue Jan 28 2025 Kamil Dudka <kdudka@redhat.com> - 1.1.1-1
+- new minor release to update the version in setup.py
+
 * Fri Jan 24 2025 Kamil Dudka <kdudka@redhat.com> - 1.1.0-1
 - update to latest upstream release (rhbz#2340988)
 

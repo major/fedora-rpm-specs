@@ -18,7 +18,7 @@
 Name:       gmsh
 Summary:    A three-dimensional finite element mesh generator
 Version:    4.13.2
-Release:    6%{?dist}
+Release:    7%{?dist}
 # MPI not available on i686
 ExcludeArch: %{ix86}
 
@@ -409,6 +409,9 @@ rm -f %{buildroot}%{_defaultdocdir}/%{name}/LICENSE.txt
 
 
 %changelog
+* Tue Jan 28 2025 Sandro Mani <manisandro@gmail.com> - 4.13.2-7
+- Rebuild (cgnslib)
+
 * Fri Jan 24 2025 Sandro Mani <manisandro@gmail.com> - 4.13.2-6
 - Rebuild (cgnslib)
 

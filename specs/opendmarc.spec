@@ -19,6 +19,8 @@ Patch01:   opendmarc-1.4.0-ticket159-179.patch
 # https://github.com/trusteddomainproject/OpenDMARC/issues/256
 Patch02: cve-2024-25768.patch
 
+# gcc15 includes stricter check for header detection
+Patch: 0001-Fix-gcc15-stricter-check-for-headers.patch
 
 # Required for all versions
 Requires: lib%{name}%{?_isa} = %{version}-%{release}
@@ -76,7 +78,7 @@ autoreconf -v -i
   --with-spf \
   --with-spf2-include=%{_prefix}/include/spf2 \
   --with-spf2-lib=%{_libdir}/
-%make_build
+%make_build CFLAGS="%{optflags} -std=gnu17"
 
 %install
 %make_install

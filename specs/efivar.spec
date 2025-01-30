@@ -1,6 +1,6 @@
 Name:           efivar
 Version:        39
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Tools to manage UEFI variables
 License:        LGPL-2.1-only
 URL:            https://github.com/rhboot/efivar
@@ -84,6 +84,10 @@ make abicheck CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS"
 %{_libdir}/*.so.*
 
 %changelog
+* Tue Jan 28 2025 Nicolas Frayer <nfrayer@redhat.com> - 39-8
+- ABI: Update abixml to match glibc changes
+- Resolves: #2340115
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

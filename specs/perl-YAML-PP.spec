@@ -1,6 +1,6 @@
 Name:           perl-YAML-PP
-Version:        0.38.0
-Release:        3%{?dist}
+Version:        0.38.1
+Release:        1%{?dist}
 Summary:        YAML 1.2 processor
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/YAML-PP/
@@ -136,14 +136,18 @@ make test
 %files
 %license LICENSE
 %doc Changes CONTRIBUTING.md etc examples README.md
-%{_bindir}/*
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{_bindir}/yamlpp-*
+%dir %{perl_vendorlib}/YAML
+%{perl_vendorlib}/YAML/PP*
+%{_mandir}/man3/YAML::PP*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jan 28 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.38.1-1
+- 0.38.1 bump (rhbz#2342356)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.38.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,3 +1,4 @@
+
 Name:           castget
 Version:        2.0.1
 Release:        %autorelease
@@ -26,6 +27,10 @@ primarily intended for automatic, unattended downloading of podcasts.
 
 
 %build
+# Workaround for C23 incompatibility in id3lib
+# https://bugzilla.redhat.com/show_bug.cgi?id=2342124
+# https://sourceforge.net/p/id3lib/bugs/215/
+CFLAGS+=-std=gnu17
 %configure LDFLAGS=-Wl,--copy-dt-needed-entries
 %make_build
 

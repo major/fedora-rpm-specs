@@ -22,6 +22,17 @@ Source:         https://github.com/encode/starlette/archive/%{version}/starlette
 # We can (and must!) remove this once python-httpx is upgraded to 0.28.x.
 Patch:          0001-Revert-test-adjustments-from-5ccbc62175eece867b49811.patch
 
+# Get iscoroutinefunction() from inspect rather than asyncio
+# https://github.com/encode/starlette/pull/2855
+#
+# Fixes:
+#
+# python-starlette fails to build with Python 3.14: DeprecationWarning:
+# 'asyncio.iscoroutinefunction' is deprecated and slated for removal in Python
+# 3.16
+# https://bugzilla.redhat.com/show_bug.cgi?id=2342563
+Patch:          https://github.com/encode/starlette/pull/2855.patch
+
 BuildSystem:            pyproject
 BuildOption(install):   -l starlette
 BuildOption(generate_buildrequires): -x full
@@ -74,6 +85,11 @@ Summary:        %{summary}
 #         `abandon_on_cancel=` instead
 #         (https://github.com/python-trio/trio/issues/2841)
 warningsfilter="${warningsfilter-} -W ignore::trio.TrioDeprecationWarning"
+# E           DeprecationWarning: 'asyncio.set_event_loop' is deprecated and
+#             slated for removal in Python 3.16
+# These generally come from anyio; the only way we can fix them is to update
+# the python-anyio package.
+warningsfilter="${warningsfilter-} -W ignore:'asyncio.set_event_loop':DeprecationWarning"
 
 # E       Failed: DID NOT WARN. No warnings of type (<class
 #         'DeprecationWarning'>, <class 'PendingDeprecationWarning'>) were

@@ -1,9 +1,9 @@
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
 Name:           mup
-Version:        7.0
+Version:        7.2
 
-Release:        7%{?dist}
+Release:        1%{?dist}
 Summary:        A music notation program that can also generate MIDI files
 License:        Mup
 URL:            http://www.arkkra.com/doc/overview.html
@@ -45,6 +45,8 @@ musical score described by the input.
 sed -i -e 's|cp |cp -p |' simple.makefile
 
 %build
+# Use -std=gnu17 to work around build issues with C23 that gcc 15 defaults to
+%global optflags %optflags -std=gnu17
 make %{?_smp_mflags} CFLAGS="%{optflags}" CXXFLAGS="%{optflags}" LIBDIR="%{_datadir}/%{name}" DOCDIR="%{_pkgdocdir}" -f simple.makefile
 
 %install
@@ -75,6 +77,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/mupmate.desktop
 %{_datadir}/pixmaps/*
 
 %changelog
+* Tue Jan 28 2025 Greg Bailey <gbailey@lxpro.com> - 7.2-1
+- Update to 7.2
+- Specify gnu17 compatibility to fix FTBFS with GCC 15 (#2340896)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

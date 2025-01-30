@@ -1,6 +1,6 @@
 Name:           irqbalance
 Version:        1.9.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 Epoch:          2
 Summary:        IRQ balancing daemon
 License:        GPL-2.0-only
@@ -9,6 +9,8 @@ Source0:        %{url}/archive/v%{version}/irqbalance-%{version}.tar.gz
 Patch1:         irqbalance-1.9.0-environment-file-sysconfig.patch
 Patch2:         0001-irqbalance-ui-check-if-using-a-negative-index-of-buf.patch
 Patch3:         0001-Drop-ProtectKernelTunables.patch
+# https://github.com/Irqbalance/irqbalance/commit/b6a831d692ed7e12db7748db49b3b39516d151d2
+Patch4:         b6a831d692ed7e12db7748db49b3b39516d151d2.patch
 
 BuildRequires:  autoconf automake libtool libcap-ng
 BuildRequires:  glib2-devel pkgconf libcap-ng-devel
@@ -62,6 +64,9 @@ make check
 %systemd_postun_with_restart irqbalance.service
 
 %changelog
+* Thu Jan 23 2025 Timothée Ravier <tim@siosm.fr> - 2:1.9.4-6
+- Backport fixes from upstream (fedora#2340662)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.9.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

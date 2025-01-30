@@ -7,14 +7,14 @@
 
 %global cgidir  /var/www/nut-cgi-bin
 %global piddir  /run/nut
-%global modeldir /usr/sbin
+%global modeldir %{_sbindir}
 # powerman is retired on Fedora, therefore disable it by default
 %bcond_with powerman
 
 Summary: Network UPS Tools
 Name: nut
 Version: 2.8.2.1
-Release: 3%{?dist}.1.git20240703pr2505
+Release: 4%{?dist}
 License: GPL-2.0-or-later AND GPL-3.0-or-later
 Url: https://www.networkupstools.org/
 Source: https://www.networkupstools.org/source/2.8/%{name}-%{version}.tar.gz
@@ -491,6 +491,9 @@ fi
 %{_libdir}/pkgconfig/libnutscan.pc
 
 %changelog
+* Wed Jan 29 2025 Michal Hlavinka <mhlavink@redhat.com> - 2.8.2.1-4
+- fix ftbfs, make it build with unified bin/sbin
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.2.1-3.1.git20240703pr2505
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

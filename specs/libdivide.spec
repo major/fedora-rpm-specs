@@ -1,17 +1,16 @@
-# There are no ELF objects in this package, so turn off debuginfo generation.
-%global debug_package %{nil}
-
-%global giturl  https://github.com/ridiculousfish/libdivide
-
 Name:           libdivide
-Version:        5.1
+Version:        5.2.0
 Release:        %autorelease
 Summary:        Optimized integer division
 
 License:        Zlib OR BSL-1.0
 URL:            https://libdivide.com/
-VCS:            git:%{giturl}.git
-Source:         %{giturl}/archive/v%{version}/libdivide-%{version}.tar.gz
+%global forgeurl  https://github.com/ridiculousfish/libdivide
+VCS:            git:%{forgeurl}.git
+Source:         %{forgeurl}/archive/v%{version}/libdivide-%{version}.tar.gz
+
+# There are no ELF objects in this package, so turn off debuginfo generation.
+%global debug_package %{nil}
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

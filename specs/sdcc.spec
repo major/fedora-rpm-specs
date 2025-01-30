@@ -14,6 +14,7 @@ Source5:        sdcc-%{version}-libbacktrace.patch
 Patch1:         sdcc-%{version}-python3.patch
 Patch2:         sdcc-%{version}-pic16-glue.patch
 Patch3:		sdcc-%{version}-aslink.patch
+Patch4:		sdcc-%{version}-bool.patch
 
 BuildRequires: make
 BuildRequires:  bison, gcc-c++, automake, libtool
@@ -54,6 +55,7 @@ find . -regex '.*.\.[ch]*$' -executable -a -exec chmod a-x '{}' \;
 %patch 1 -p1
 %patch 2 -p0
 %patch 3 -p1
+%patch 4 -p1
 # Disable brp-strip-static-archive for now because it errors trying to
 # strip foreign binaries.
 echo '%{__os_install_post}'

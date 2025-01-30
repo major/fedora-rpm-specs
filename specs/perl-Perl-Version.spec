@@ -1,10 +1,10 @@
 Name:           perl-Perl-Version
-Version:        1.017
-Release:        3%{?dist}
+Version:        1.018
+Release:        1%{?dist}
 Summary:        Parse and manipulate Perl version strings
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Perl-Version
-Source0:        https://cpan.metacpan.org/authors/id/B/BD/BDFOY/Perl-Version-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/B/BR/BRIANDFOY/Perl-Version-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -91,7 +91,7 @@ make test
 
 %files
 %license LICENSE
-%doc Changes Notes.txt README.pod
+%doc Changes Notes.txt README.pod SECURITY.md
 %{perl_vendorlib}/Perl*
 %{_bindir}/perl-reversion*
 %{_mandir}/man1/perl-reversion*
@@ -101,6 +101,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jan 28 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.018-1
+- 1.018 bump (rhbz#2342256)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.017-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

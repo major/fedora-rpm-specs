@@ -7,7 +7,7 @@
 Name:           mon
 Summary:        General-purpose resource monitoring system
 Version:        1.2.0
-Release:        40%{?dist}
+Release:        41%{?dist}
 License:        GPL-2.0-or-later
 URL:            http://www.kernel.org/software/mon/
 
@@ -23,6 +23,7 @@ Patch0:         mon-1.2.0-perl.patch
 Patch1:         mon-1.2.0-uucp.patch
 # Use libtirpc instead of rpc/rpc.h from glibc, bug #1675405
 Patch2:         mon-1.2.0-Port-to-libtirpc.patch
+Patch3:         mon-1.2.0-fix_signal.patch
 
 Requires:       perl(Authen::PAM)
 Requires:       iputils
@@ -61,6 +62,7 @@ required, the mon server will not need to be changed.
 %patch -P0 -p1
 %patch -P1 -p1
 %patch -P2 -p1
+%patch -P3 -p1
 
 # Filter out unwanted requires
 cat << \EOF > %{name}-req
@@ -195,6 +197,9 @@ fi
 
 
 %changelog
+* Tue Jan 28 2025 Michal Josef Špaček <mspacek@redhat.com> - 1.2.0-41
+- Fix incompatible pointer type (rhbz#2340877)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

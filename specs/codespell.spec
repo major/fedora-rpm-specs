@@ -1,5 +1,5 @@
 Name:           codespell
-Version:        2.4.0
+Version:        2.4.1
 Release:        %autorelease
 Summary:        Fix common misspellings in text files
 

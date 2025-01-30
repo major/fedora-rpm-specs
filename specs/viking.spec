@@ -10,6 +10,9 @@ Source0:        https://downloads.sourceforge.net/viking/viking-%{version}.tar.b
 # upstream's GitHub mirror.
 Source1:        https://raw.githubusercontent.com/viking-gps/viking/refs/tags/viking-%{version}/autogen.sh
 Patch:          https://github.com/viking-gps/viking/commit/443fe78cb097ae2196517fc726595b57cb9418c4.patch
+# Make compatible with C23
+# Backported from https://github.com/viking-gps/viking/pull/316
+Patch:          0000-Declare-vik_aggregate_layer_new-parameter.patch
 # Fails to build on s390x, not needed for multilib
 ExcludeArch:    s390x %{ix86}
 

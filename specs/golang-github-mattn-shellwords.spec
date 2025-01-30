@@ -21,7 +21,8 @@ Summary:        Parse line as shell words
 
 License:        MIT
 URL:            %{gourl}
-Source0:        %{gosource}
+Source:         %{gosource}
+Patch:          https://github.com/junegunn/go-shellwords/commit/bf4f893cf83848d86c56798000808945f406d750.patch
 
 %description
 %{common_description}
@@ -30,6 +31,7 @@ Source0:        %{gosource}
 
 %prep
 %goprep
+%autopatch -p1
 
 %install
 %gopkginstall

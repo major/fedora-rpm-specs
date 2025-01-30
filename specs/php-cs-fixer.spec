@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-cs-fixer
 #
-# Copyright (c) 2016-2024 Remi Collet
+# Copyright (c) 2016-2025 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -9,14 +9,14 @@
 
 %bcond_with          generators
 
-%global gh_commit    b9db2b2ea3cdba7201067acee46f984ef2397cff
+%global gh_commit    85fd31cced824749a732e697acdd1a3d657312f0
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2025-01-17
+%global gh_date      2025-01-27
 %global gh_owner     FriendsOfPHP
 %global gh_project   PHP-CS-Fixer
 
 Name:           php-cs-fixer
-Version:        3.68.1
+Version:        3.68.3
 Release:        1%{?dist}
 Summary:        PHP Coding Standards Fixer
 
@@ -164,6 +164,9 @@ PHP_CS_FIXER_IGNORE_ENV=1 ./%{name} --version | grep %{version}
 
 
 %changelog
+* Tue Jan 28 2025 Remi Collet <remi@remirepo.net> - 3.68.3-1
+- update to 3.68.3
+
 * Fri Jan 17 2025 Remi Collet <remi@remirepo.net> - 3.68.1-1
 - update to 3.68.1
 

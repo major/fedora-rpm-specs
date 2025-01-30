@@ -9,10 +9,11 @@ Name:           qmc2
 Release:        %autorelease
 Summary:        M.A.M.E. Catalog / Launcher II
 
-#PDF.js is ASL 2.0
+#PDF.js is  	Apache-2.0
 #data/js/pdfjs/web/l10n.js is MIT
-#everything else is GPLv2
-License:        GPLv2 and ASL 2.0 and MIT
+#data/js/pdfjs/web/cmaps/LICENSE is BSD-3-Clause
+#everything else is GPL-2.0-only
+License:        GPL-2.0-only AND Apache-2.0 AND MIT AND BSD-3-Clause
 URL:            http://qmc2.batcom-it.net
 Source0:        %{forgesource}
 #Fedora-specific configuration
@@ -53,7 +54,6 @@ A Qt based multi-platform GUI front-end for MAME.
 
 %package -n qchdman
 Summary:        Qt CHDMAN GUI
-# Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 Requires:       mame-tools
 
@@ -63,7 +63,6 @@ A stand-alone graphical user interface / front-end to chdman
 
 %package arcade
 Summary:        Arcade QMC2 GUI
-# Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 
 %description arcade

@@ -1,6 +1,6 @@
 Name:           mmapper
 Version:        24.03.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Graphical MUME mapper
 
 License:        GPL-2.0-or-later
@@ -69,6 +69,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.mume.MMapper.d
 
 
 %changelog
+* Tue Jan 28 2025 Simone Caronni <negativo17@gmail.com> - 24.03.1-6
+- Rebuild for updated dependencies.
+
 * Tue Jan 21 2025 Kalev Lember <klember@redhat.com> - 24.03.1-5
 - Fix the build with gcc 15
 

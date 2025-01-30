@@ -7,7 +7,7 @@
 
 Name:     uboot-tools
 Version:  2025.01
-Release:  2%{?candidate:.%{candidate}}%{?dist}
+Release:  3%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -186,7 +186,7 @@ done
 %endif
 %endif
 
-for tool in dumpimage env/fw_printenv fit_check_sign fit_info gdb/gdbcont gdb/gdbsend gen_eth_addr gen_ethaddr_crc ifwitool img2srec kwboot mkeficapsule mkenvimage mkimage mksunxiboot ncb proftool sunxi-spl-image-builder
+for tool in dumpimage env/fw_printenv fdt_add_pubkey fit_check_sign fit_info gdb/gdbcont gdb/gdbsend gen_eth_addr gen_ethaddr_crc ifwitool img2srec kwboot mkeficapsule mkenvimage mkimage mksunxiboot ncb proftool sunxi-spl-image-builder
 do
 install -p -m 0755 builds/tools/$tool %{buildroot}%{_bindir}
 done
@@ -218,6 +218,9 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Tue Jan 28 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2025.01-3
+- Add new fdt_add_pubkey tool
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2025.01-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -18,6 +18,7 @@ BuildRequires: meson
 BuildRequires: vala
 BuildRequires: pkgconfig(glib-2.0)
 BuildRequires: pkgconfig(gio-2.0)
+BuildRequires: pkgconfig(gnutls)
 BuildRequires: pkgconfig(gobject-introspection-1.0)
 BuildRequires: pkgconfig(libbrotlidec)
 BuildRequires: pkgconfig(libnghttp2)
@@ -63,7 +64,7 @@ This package contains developer documentation for %{name}.
 %autosetup -p1 -n libsoup-%{version}
 
 %build
-%meson -Ddocs=enabled -Dtests=false -Dautobahn=disabled -Dpkcs11_tests=disabled
+%meson -Ddocs=enabled -Dautobahn=disabled
 %meson_build
 
 %install

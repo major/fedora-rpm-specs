@@ -1,6 +1,6 @@
 Name:           foomuuri
-Version:        0.26
-Release:        2%{?dist}
+Version:        0.27
+Release:        1%{?dist}
 Summary:        Multizone bidirectional nftables firewall
 License:        GPL-2.0-or-later
 URL:            https://github.com/FoobarOy/foomuuri
@@ -61,7 +61,7 @@ allowing dynamically assign interfaces to Foomuuri zones via NetworkManager.
 
 
 %install
-make install DESTDIR=%{buildroot}
+make install DESTDIR=%{buildroot} BINDIR=%{_sbindir}
 
 
 %if (%{defined fedora} || (%{defined epel} && 0%{?epel} <= 9))
@@ -118,6 +118,10 @@ fi
 
 
 %changelog
+* Tue Jan 28 2025 Kim B. Heino <b@bbbs.net> - 0.27-1
+- Upgrade to 0.27
+- Resolves: rhbz#2340166
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -66,13 +66,16 @@ It supports RPMs, modules and comps groups & environments.
 
 Name:           dnf
 Version:        4.22.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        %{pkg_summary}
 # For a breakdown of the licensing, see PACKAGE-LICENSING
 License:        GPL-2.0-or-later AND GPL-1.0-only
 URL:            https://github.com/rpm-software-management/dnf
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Patch1:         0001-Tests-Avoid-the-multiprocessing-forkserver-method.patch
+Patch2:         0002-automatic-Fix-incorrect-Error-class-instantiation.patch
+Patch3:         0003-doc-disableexcludepkgs-all-doesn-t-affect-just-file-.patch
+Patch4:         0004-spec-Provide-dnf4-by-python3-dnf.patch
 BuildArch:      noarch
 BuildRequires:  cmake
 BuildRequires:  gettext
@@ -154,6 +157,7 @@ Requires:       rpm-plugin-systemd-inhibit
 %else
 Recommends:     (rpm-plugin-systemd-inhibit if systemd)
 %endif
+Provides:       dnf4 = %{version}-%{release}
 Provides:       dnf-command(alias)
 Provides:       dnf-command(autoremove)
 Provides:       dnf-command(check-update)
@@ -421,6 +425,11 @@ popd
 %endif
 
 %changelog
+* Tue Jan 28 2025 Petr Pisar <ppisar@redhat.com> - 4.22.0-5
+- Fix reporting a reboot failure by dnf-automatic
+- Fix a documentation of --disableexcludes option
+- Provide dnf4 by python3-dnf package (bug #2328463)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.22.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

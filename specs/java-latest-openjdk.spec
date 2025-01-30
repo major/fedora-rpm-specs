@@ -287,7 +287,7 @@
 # New Version-String scheme-style defines
 %global featurever 23
 %global interimver 0
-%global updatever 1
+%global updatever 2
 %global patchver 0
 
 # We don't add any LTS designator for STS packages (Fedora and EPEL).
@@ -336,7 +336,7 @@
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        11
+%global buildver        7
 %global rpmrelease      %(echo "%autorelease" | sed 's;%{?dist};;')
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
@@ -1266,7 +1266,7 @@ Version: %{newjavaver}.%{buildver}
 # This package needs `.rolling` as part of Release so as to not conflict on install with
 # java-X-openjdk. I.e. when latest rolling release is also an LTS release packaged as
 # java-X-openjdk. See: https://bugzilla.redhat.com/show_bug.cgi?id=1647298
-Release: %{?eaprefix}%{rpmrelease}%{?extraver}.rolling%{?dist}.1
+Release: %{?eaprefix}%{rpmrelease}%{?extraver}.rolling%{?dist}
 # java-1.5.0-ibm from jpackage.org set Epoch to 1 for unknown reasons
 # and this change was brought into RHEL-4. java-1.5.0-ibm packages
 # also included the epoch in their virtual provides. This created a
@@ -2456,7 +2456,4 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:23.0.1.0.11-.rolling.1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
 %autochangelog

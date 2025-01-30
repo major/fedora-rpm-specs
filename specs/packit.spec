@@ -6,7 +6,7 @@
 %endif
 
 Name:           packit
-Version:        1.0.0
+Version:        1.0.1
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -78,6 +78,10 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Sun Jan 26 2025 Packit <hello@packit.dev> - 1.0.1-1
+- `version_update_mask` now applies to EPEL dist-git branches in the same way it does to stable Fedora branches. (#2507)
+- Resolves: rhbz#2342176
+
 * Mon Jan 20 2025 Packit <hello@packit.dev> - 1.0.0-1
 - Job type `build` removed after deprecation, is now `copr_build`.
 - Job type `production_build` removed after deprecation, is now `upstream_koji_build`.

@@ -1,5 +1,5 @@
 Name:           rmtfs
-Version:        1.0
+Version:        1.1
 Release:        %autorelease
 Summary:        Qualcomm Remote Filesystem Service Implementation
 

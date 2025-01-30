@@ -21,58 +21,6 @@ BuildRequires:  pandoc
 Requires:       python3
 Requires:       coreutils
 
-# for various image building tools (systemd-hwdb, systemd-sysusers, ...)
-Recommends:     systemd
-
-# for systemd-nspawn
-Recommends:     systemd-container >= 254
-
-# for bootable images (systemd-udev ships bootctl)
-Recommends:     systemd-udev >= 254
-Recommends:     systemd-ukify >= 254
-
-# for disk images
-Recommends:     systemd-repart >= 254
-
-# for signing
-Recommends:     openssl
-Recommends:     sbsigntools
-Recommends:     gnupg
-
-# for building specific distributions
-Recommends:     (dnf5 or dnf)
-Recommends:     apt
-Recommends:     debian-keyring
-Recommends:     pacman
-Recommends:     archlinux-keyring
-Recommends:     zypper
-
-# for various filesystems
-Recommends:     btrfs-progs
-Recommends:     e2fsprogs
-Recommends:     dosfstools
-Recommends:     mtools
-Recommends:     erofs-utils
-Recommends:     xfsprogs
-Recommends:     squashfs-tools
-
-# for various output formats
-Recommends:     cpio
-Recommends:     tar
-
-# for mkosi qemu
-Recommends:     qemu-kvm-core
-Recommends:     edk2-ovmf
-Recommends:     swtpm
-
-# for mkosi ssh
-Recommends:     openssh-clients
-Recommends:     socat
-
-# for output compression
-Recommends:     zstd
-Recommends:     xz
-
 %description
 A fancy wrapper around "dnf --installroot", "apt", "pacman", and "zypper" that
 generates disk images with a number of bells and whistles.
@@ -127,6 +75,8 @@ bin/mkosi completion zsh >mkosi.zsh
 %install
 %pyproject_install
 %pyproject_save_files mkosi
+
+bin/mkosi dependencies | sed -e 's/^/Recommends: /' >%{specpartsdir}/mkosi.specpart
 
 # Install man pages
 mkdir -p %{buildroot}%{_mandir}/man1

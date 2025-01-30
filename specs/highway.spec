@@ -30,6 +30,8 @@ Patch:          %url/commit/3ce50ffa85577140bdf088d8ee7830b76ac2501c.patch
 # Also split HWY_HAVE_RUNTIME_DISPATCH into multiple macros to enable
 # overriding parts of the logic.
 Patch:          %url/commit/c95cc0237d2f7a0f5ca5dc3fb4b5961b2b1dcdfc.patch
+# Fix FTBFS related to GCC15 on ppc64le
+Patch:          https://github.com/google/highway/commit/dcc0ca1cd4245ecff9e5ba50818e47d5e2ccf699.patch
 
 BuildRequires:  cmake
 BuildRequires:  clang

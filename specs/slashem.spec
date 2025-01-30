@@ -1,3 +1,6 @@
+# this code is quite old, not compatible with latest standards
+%global build_type_safety_c 2
+
 Name:           slashem
 Version:        0.0.8
 Release:        0.40.E0F1%{?dist}
@@ -82,6 +85,8 @@ done
 
 
 %build
+# this code is quite old, not compatible with latest standards
+export CFLAGS="$CFLAGS -std=gnu99"
 export LIBXAW_CFLAGS="-I/usr/include"
 export LIBXAW_LIBS="$(pkg-config --libs xaw7)"
 %configure \

@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Summary:        Simple, blog aware, static site generator
-Version:        4.3.4
+Version:        4.4.0
 Release:        %autorelease
 License:        MIT
 
@@ -17,12 +17,6 @@ Patch:          0004-tests-related_posts-disable-tests-requiring-classifi.patch
 Patch:          0005-test-coffeescript-disable-tests-requiring-coffeescri.patch
 Patch:          0006-test-plugin_manager-disable-tests-requiring-gemspec-.patch
 Patch:          0007-Revert-tests-to-expect-jekyll-sass-converter-2.patch
-# Use `shoulda-context` in place of `shoulda` to reduce dependency chain.
-# https://github.com/jekyll/jekyll/pull/9441
-Patch:          0009-Test-suite-uses-shoulda-context-only-.patch
-# https://github.com/jekyll/jekyll/issues/9721
-# Workaround for ruby3.4 Hash#inspect formatting change on testsuite
-Patch:          0010-issue9721-ruby34-formatting-change.patch
 
 
 BuildRequires:  ruby(release)
@@ -40,6 +34,7 @@ BuildRequires:  rubygem(em-websocket)
 BuildRequires:  rubygem(httpclient)
 BuildRequires:  rubygem(i18n)
 BuildRequires:  rubygem(jekyll-sass-converter) >= 2.0.0
+BuildRequires:  rubygem(jekyll-watch) >= 2.0.0
 BuildRequires:  rubygem(kramdown) >= 2.0.0
 BuildRequires:  rubygem(kramdown-parser-gfm)
 BuildRequires:  rubygem(kramdown-syntax-coderay)
@@ -132,6 +127,9 @@ help2man -N -s1 -o %{buildroot}%{_mandir}/man1/%{gem_name}.1 \
 
 
 %check
+# Test suite calls 'jekyll' from PATH, which in turn requires 'jekyll' gem.
+PATH="$PATH:%{buildroot}%{_bindir}/"
+export GEM_PATH="%{buildroot}/%{gem_dir}:%{gem_dir}"
 # Tests only pass when timezone offset is zero.
 # Related: https://github.com/jekyll/jekyll/pull/9168
 TZ=UTC ruby -I"lib:test" -e 'Dir.glob "./test/**/test_*.rb", &method(:require)'

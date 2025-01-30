@@ -1,16 +1,17 @@
 Name:           maven-reporting-api
-Version:        3.1.1
-Release:        8%{?dist}
+Version:        4.0.0
+Release:        1%{?dist}
 Epoch:          1
 Summary:        API to manage report generation
 License:        Apache-2.0
 URL:            https://maven.apache.org/shared/maven-reporting-api
 VCS:            git:https://github.com/apache/maven-reporting-api.git
+
 Source0:        https://archive.apache.org/dist/maven/reporting/%{name}-%{version}-source-release.zip
 # Source file signature
 Source1:        https://archive.apache.org/dist/maven/reporting/%{name}-%{version}-source-release.zip.asc
 # Apache Maven public key
-Source2:        https://www.apache.org/dist/maven/KEYS
+Source2:        https://downloads.apache.org/maven/KEYS
 
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -31,9 +32,6 @@ achieve report decoupling from the Maven 3 core.
 %{gpgverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
 %autosetup
 
-# Compile for JDK 8 at a minimum
-%pom_xpath_set '//pom:javaVersion' 8
-
 # Fix end of line encoding
 sed -i.orig 's/\\r//' README.md
 touch -r README.md.orig README.md
@@ -50,6 +48,9 @@ rm README.md.orig
 %license LICENSE NOTICE
 
 %changelog
+* Tue Jan 28 2025 Jerry James <loganjerry@gmail.com> - 1:4.0.0-1
+- Version 4.0.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.1.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -7,7 +7,7 @@ Main focus is on modifying existing spec files, any change should result
 in a minimal diff.}
 
 
-%global base_version 0.33.0
+%global base_version 0.34.0
 #global prerelease   rc1
 
 %global package_version %{base_version}%{?prerelease:~%{prerelease}}
@@ -16,7 +16,7 @@ in a minimal diff.}
 
 Name:           python-specfile
 Version:        %{package_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 
 Summary:        A library for parsing and manipulating RPM spec files
 License:        MIT
@@ -77,6 +77,10 @@ sed -i 's/setuptools_scm\[toml\]>=7/setuptools_scm[toml]/' pyproject.toml
 
 
 %changelog
+* Mon Jan 27 2025 Packit <hello@packit.dev> - 0.34.0-1
+- Added support for detached (open)SUSE style changelogs (#444)
+- Resolves: rhbz#2342178
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.33.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

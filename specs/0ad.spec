@@ -27,7 +27,7 @@
 
 Name:		0ad
 Version:	0.0.26
-Release:	27%{?dist}
+Release:	28%{?dist}
 # BSD License:
 #	build/premake/*
 #	libraries/source/miniupnpc/*		(not built/used)
@@ -290,6 +290,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/0ad.desktop
 %{_mandir}/man6/*.6*
 
 %changelog
+* Tue Jan 28 2025 Simone Caronni <negativo17@gmail.com> - 0.0.26-28
+- Rebuild for updated dependencies.
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.26-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

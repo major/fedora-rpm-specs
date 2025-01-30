@@ -107,9 +107,9 @@ with "%{_libexecdir}/%{name}/test".
 %setup -q -n DBD-MariaDB-%{version}
 %patch -P0 -p1
 cp %{SOURCE1} %{SOURCE2} t/
-mkdir t/certs
 
 # Create certificates for tests
+mkdir t/certs
 sscg --hostname=localhost --ca-mode=0644 --ca-key-mode=0640 --cert-key-mode=0640 --no-dhparams-file
 mv ca.crt service-key.pem service.pem t/certs
 

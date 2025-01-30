@@ -1,6 +1,6 @@
 Name:          perl-Net-DNS
-Version:       1.48
-Release:       2%{?dist}
+Version:       1.49
+Release:       1%{?dist}
 Summary:       DNS resolver modules for Perl
 License:       MIT
 URL:           https://www.net-dns.org
@@ -182,6 +182,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jan 28 2025 Michal Josef Špaček <mspacek@redhat.com> - 1.49-1
+- 1.49 bump (rhbz#2334347)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.48-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

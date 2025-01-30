@@ -197,7 +197,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        134.0.2
-Release:        1%{?pre_tag}%{?dist}
+Release:        2%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
@@ -1240,6 +1240,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Tue Jan 28 2025 Martin Stransky <stransky@redhat.com> - 134.0.2-2
+- Call restorecon for widevine only (rhbz#2342243)
+
 * Wed Jan 22 2025 Martin Stransky <stransky@redhat.com> - 134.0.2-1
 - Updated to 134.0.2
 

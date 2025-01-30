@@ -42,9 +42,14 @@
 # Needs to match rocblas
 %bcond_without tensile
 
+# Compression type and level for source/binary package payloads.
+#  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
+%define _source_payload	w7T0.xzdio
+%define _binary_payload	w7T0.xzdio
+
 Name:           miopen
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        AMD's Machine Intelligence Library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND BSD-2-Clause AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
@@ -263,6 +268,9 @@ fi
 %endif
 
 %changelog
+* Tue Jan 28 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-4
+- multithread compress
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

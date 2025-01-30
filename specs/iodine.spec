@@ -1,6 +1,6 @@
 Name:		iodine
 Version:	0.8.0
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Solution to tunnel IPv4 data through a DNS server
 Summary(ru):	Решение для туннелирования IPv4 трафика через DNS сервер
 License:	ISC
@@ -18,6 +18,10 @@ Source8:	%{name}-server.service
 
 # Split man pages into client and server:
 Patch1:		iodine-0.8.0-split-man.patch
+
+# Install to bin rather than sbin:
+# (see https://fedoraproject.org/wiki/Changes/Unify_bin_and_sbin)
+Patch2:		iodine-0.8.0-bin-path.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -84,8 +88,7 @@ This is the server part of iodine.
 Это пакет серверной части
 
 %prep
-%setup -q -n %{name}-%{version}%{?prerel}
-%patch -P1 -p1 -b .split-man
+%autosetup -p1 -n %{name}-%{version}%{?prerel}
 
 %build
 # Fails to build without -c gcc flag (comes from upstream Makefile).
@@ -125,20 +128,24 @@ install -Dp -m 0644 %{SOURCE8} %{buildroot}/%{_unitdir}/%{name}-server.service
 %doc CHANGELOG LICENSE README.md
 
 %files client
-%{_sbindir}/%{name}
+%{_bindir}/%{name}
 %attr(0600,root,root) %config(noreplace) %{_sysconfdir}/sysconfig/%{name}-client
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}-client
 %{_mandir}/man8/%{name}.8.gz
 %{_unitdir}/%{name}-client.service
 
 %files server
-%{_sbindir}/%{name}d
+%{_bindir}/%{name}d
 %attr(0600,root,root) %config(noreplace) %{_sysconfdir}/sysconfig/%{name}-server
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}-server
 %{_mandir}/man8/%{name}d.8.gz
 %{_unitdir}/%{name}-server.service
 
 %changelog
+* Tue Jan 28 2025 Gabriel L. Somlo <gsomlo@gmail.com> - 0.8.0-7
+- switch to 'bin' (from deprecated 'sbin') for binary install path (BZ #2340654)
+- use autosetup to simplify patch management
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:		vile
-Version:	9.8z
+Version:	9.8za
 Release:	5%{?dist}
 Summary:	VI Like Emacs
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -115,6 +115,9 @@ popd
 
 
 %changelog
+* Tue Jan 28 2025 Thomas E. Dickey <dickey@invisible-island.net> - 9.8za-1
+- Update to 9.8za
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.8z-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -4,13 +4,14 @@
 
 Name:           sdrpp
 Version:        1.2.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        SDRPlusPlus bloat-free SDR receiver software
 
 # Automatically converted from old format: GPLv3 and MIT and WTFPL and Public Domain - review is highly recommended.
 License:        GPL-3.0-only AND LicenseRef-Callaway-MIT AND WTFPL AND LicenseRef-Callaway-Public-Domain
 URL:            https://github.com/AlexandreRouma/SDRPlusPlus/
 Source0:        https://github.com/AlexandreRouma/SDRPlusPlus/archive/%{commit}/%{name}-%{version}.tar.gz
+Source1:        org.sdrpp.SDRPlusPlus.metainfo.xml
 
 # Changes to top-level and core CMakeLists.txt to complete the above changes.
 # Set soname on libsdrpp_core.so
@@ -23,6 +24,8 @@ Patch3:         configfile-libdir.patch
 # std::runtime_error requires <stdexcept>
 # https://github.com/AlexandreRouma/SDRPlusPlus/issues/970
 Patch5:         sdrpp-stdexcept.patch
+# Do not use hardcoded paths in desktop file
+Patch6:         desktop-file.patch
 
 ExcludeArch:    i686
 
@@ -55,6 +58,7 @@ BuildRequires:  stb_truetype-devel stb_truetype-static
 BuildRequires:  SoapySDR-devel hackrf-devel rtl-sdr-devel
 BuildRequires:  libcorrect-devel codec2-devel
 BuildRequires:  desktop-file-utils
+BuildRequires:  libappstream-glib
 Requires: google-roboto-fonts
 
 # Bundled libraries
@@ -142,10 +146,19 @@ sed -i -e 's:resDir + "/fonts/Roboto-Medium.ttf":"%{_datadir}/fonts/google-robot
 rm %{buildroot}%{_libdir}/libsdrpp_core.so
 rm -rf %{buildroot}%{_datadir}/%{name}/fonts
 
+# Install desktop icon
+install -D -p -m644 root/res/icons/sdrpp.png \
+  %{buildroot}%{_datadir}/icons/hicolor/512x512/apps/%{name}.png
+
+# Install AppStream metainfo file
+install -D -p -m644 %{SOURCE1} %{buildroot}%{_metainfodir}/org.sdrpp.SDRPlusPlus.metainfo.xml
+
 
 %check
 # upstream has no tests for ctest except in unbuilt libsddc
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
+appstream-util validate-relax \
+  --nonet %{buildroot}%{_metainfodir}/org.sdrpp.SDRPlusPlus.metainfo.xml
 
 
 %files
@@ -155,10 +168,17 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_libdir}/%{name}
 %{_libdir}/lib%{name}_core.so.%{version}
 %{_datadir}/applications/%{name}.desktop
+%{_datadir}/icons/hicolor/512x512/apps/%{name}.png
 %{_bindir}/%{name}
+%{_metainfodir}/*
 
 
 %changelog
+* Tue Jan 28 2025 Daniel Rusek <mail@asciiwolf.com> - 1.2.0-4
+- Add AppStream metadata
+- Install desktop icon in standard location
+- Do not use hardcoded paths in desktop file
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

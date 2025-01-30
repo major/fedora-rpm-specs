@@ -1,14 +1,11 @@
 Name:		stalld
-Version:	1.19.6
-Release:	2%{?dist}
+Version:	1.19.8
+Release:	1%{?dist}
 Summary:	Daemon that finds starving tasks and gives them a temporary boost
 
 License:	GPL-2.0-or-later AND GPL-2.0-only
 URL:		https://gitlab.com/rt-linux-tools/%{name}/%{name}.git
 Source0:	https://gitlab.com/rt-linux-tools/%{name}/-/archive/v%{version}/%{name}-%{version}.tar.bz2
-
-# Fix build with glibc 2.41 (development), uses GLIBC_HAS_SCHED_ATTR
-Patch0:         glibc241.patch
 
 BuildRequires:	glibc-devel
 BuildRequires:	gcc
@@ -69,6 +66,16 @@ export CPPFLAGS="$CPPFLAGS -DGLIBC_HAS_SCHED_ATTR"
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Tue Jan 28 2025 Clark Williams <williams@redhat.com> - 1.19.8
+- Added glibc41 fix to source tree, removed patch 
+- stalld.h:  fix prototype mis-match with cleanup_regex()
+
+* Tue Jan 21 2025 Clark Williams <williams@redhat.com> - 1.19.7
+- stalld.c: use a more reasonable size for reading /proc/stat
+- systemd/Makefile:  remove typo in uninstall line
+- Makefile:  change modes on throttled and stalld
+- throttlectl: clean up throttling script due to reported CVE-2024-54159
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:       bitcoin-core
 Version:    28.1
-Release:    2%{?dist}
+Release:    4%{?dist}
 Summary:    Peer to Peer Cryptographic Currency
 License:    MIT
 URL:        https://bitcoincore.org/
@@ -61,11 +61,7 @@ BuildRequires:  libnatpmp-devel
 BuildRequires:  libtool
 BuildRequires:  miniupnpc-devel
 BuildRequires:  procps-ng
-%if 0%{?rhel} == 8
-BuildRequires:  python3.11
-%else
 BuildRequires:  python3
-%endif
 BuildRequires:  pkgconfig(libevent) >= 2.1.8
 BuildRequires:  pkgconfig(libevent_pthreads) >= 2.1.8
 BuildRequires:  pkgconfig(libqrencode)
@@ -126,7 +122,7 @@ to create custom Bitcoin transactions.
 Summary:        Peer-to-peer digital currency
 Conflicts:      bitcoin-server
 Requires(pre):  shadow-utils
-Requires:       (%{name}-selinux if selinux-policy)
+Requires:       (%{name}-selinux >= 0.1 if selinux-policy)
 Provides:       bundled(leveldb) = 1.22.0
 Provides:       bundled(libdb) = 4.8.30.NC
 Provides:       bundled(secp256k1) = 0.1
@@ -208,11 +204,6 @@ autoreconf -vif
 %make_install
 
 find %{buildroot} -name "*.la" -delete
-
-# TODO: Upstream puts bitcoind in the wrong directory. Need to fix the
-# upstream Makefiles to install it in the correct place.
-mkdir -p -m 755 %{buildroot}%{_sbindir}
-mv %{buildroot}%{_bindir}/bitcoind %{buildroot}%{_sbindir}/bitcoind
 
 # Temporary files
 mkdir -p %{buildroot}%{_tmpfilesdir}
@@ -316,12 +307,18 @@ exit 0
 %config(noreplace) %attr(644,root,root) %{_sysconfdir}/sysconfig/%{project_name}
 %{_compldir}/%{project_name}d
 %{_mandir}/man1/%{project_name}d.1*
-%{_sbindir}/%{project_name}d
+%{_bindir}/%{project_name}d
 %{_tmpfilesdir}/%{project_name}.conf
 %{_unitdir}/%{project_name}.service
 %{_userunitdir}/%{project_name}.service
 
 %changelog
+* Tue Jan 28 2025 Simone Caronni <negativo17@gmail.com> - 28.1-4
+- Rebuild for updated dependencies.
+
+* Tue Jan 28 2025 Simone Caronni <negativo17@gmail.com> - 28.1-3
+- Update for https://fedoraproject.org/wiki/Changes/Unify_bin_and_sbin.
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 28.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

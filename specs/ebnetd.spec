@@ -7,7 +7,7 @@
 
 Name:		ebnetd
 Version:	1.0
-Release:	52%{?dist}
+Release:	53%{?dist}
 License:	GPL-2.0-or-later
 URL:		http://www.sra.co.jp/people/m-kasahr/ebnetd/
 # For systemd.macros
@@ -34,6 +34,7 @@ Patch2:		%{name}-fix-conflict.patch
 Patch3:		%{name}-gcc10.patch
 Patch4:		%{name}-fedora-c99.patch
 Patch5:		%{name}-fix-build.patch
+Patch6:		%{name}-ftbfs.patch
 
 
 Summary:	EBNET protocol server
@@ -200,6 +201,10 @@ exit 0
 
 
 %changelog
+* Tue Jan 28 2025 Akira TAGOH <tagoh@redhat.com> - 1.0-53
+- Fix FTBFS
+  Resolves: rhbz#2340109
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-52
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

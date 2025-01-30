@@ -5,7 +5,7 @@
 Summary: A program-script interaction and testing utility
 Name: expect
 Version: %{majorver}
-Release: 25%{?dist}
+Release: 26%{?dist}
 License: LicenseRef-Fedora-Public-Domain
 URL: https://core.tcl.tk/expect/index
 Source: http://downloads.sourceforge.net/%{name}/%{name}%{version}.tar.gz
@@ -113,6 +113,7 @@ autoconf
   autoconf -I.. )
 
 %build
+export CFLAGS="$RPM_OPT_FLAGS -std=gnu17"
 %configure --with-tcl=%{_libdir} --with-tk=%{_libdir} --enable-shared \
 	--with-tclinclude=%{_includedir}/tcl-private/generic
 make %{?_smp_mflags}
@@ -188,6 +189,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libexpect%{version}.so
 %{_mandir}/man1/tknewsbiff.1*
 
 %changelog
+* Tue Jan 28 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 5.45.4-26
+- Fix FTBFS
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.45.4-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

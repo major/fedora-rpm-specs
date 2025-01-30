@@ -2,21 +2,26 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate google-cloud-storage
+%global crate x509-cert
 
-Name:           rust-google-cloud-storage
-Version:        0.23.0
+Name:           rust-x509-cert
+Version:        0.2.5
 Release:        %autorelease
-Summary:        Google Cloud Platform storage client library
+Summary:        Pure Rust implementation of the X.509 PKI Certificate format from RFC 5280
 
-License:        MIT
-URL:            https://crates.io/crates/google-cloud-storage
+License:        Apache-2.0 OR MIT
+URL:            https://crates.io/crates/x509-cert
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop unused sct feature / tls_codec dependency
+# * bump rstest dev-dependency from 0.18 to 0.23
+Patch:          x509-cert-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Google Cloud Platform storage client library.}
+Pure Rust implementation of the X.509 Public Key Infrastructure
+Certificate format as described in RFC 5280.}
 
 %description %{_description}
 
@@ -30,9 +35,12 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
+%exclude %{crate_instdir}/tests/examples/
 
 %package     -n %{name}+default-devel
 Summary:        %{summary}
@@ -46,100 +54,88 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+auth-devel
+%package     -n %{name}+arbitrary-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+auth-devel %{_description}
+%description -n %{name}+arbitrary-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "auth" feature of the "%{crate}" crate.
+use the "arbitrary" feature of the "%{crate}" crate.
 
-%files       -n %{name}+auth-devel
+%files       -n %{name}+arbitrary-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+default-tls-devel
+%package     -n %{name}+builder-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+default-tls-devel %{_description}
+%description -n %{name}+builder-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "default-tls" feature of the "%{crate}" crate.
+use the "builder" feature of the "%{crate}" crate.
 
-%files       -n %{name}+default-tls-devel
+%files       -n %{name}+builder-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+external-account-devel
+%package     -n %{name}+hazmat-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+external-account-devel %{_description}
+%description -n %{name}+hazmat-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "external-account" feature of the "%{crate}" crate.
+use the "hazmat" feature of the "%{crate}" crate.
 
-%files       -n %{name}+external-account-devel
+%files       -n %{name}+hazmat-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+google-cloud-auth-devel
+%package     -n %{name}+pem-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+google-cloud-auth-devel %{_description}
+%description -n %{name}+pem-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "google-cloud-auth" feature of the "%{crate}" crate.
+use the "pem" feature of the "%{crate}" crate.
 
-%files       -n %{name}+google-cloud-auth-devel
+%files       -n %{name}+pem-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+google-cloud-metadata-devel
+%package     -n %{name}+sha1-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+google-cloud-metadata-devel %{_description}
+%description -n %{name}+sha1-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "google-cloud-metadata" feature of the "%{crate}" crate.
+use the "sha1" feature of the "%{crate}" crate.
 
-%files       -n %{name}+google-cloud-metadata-devel
+%files       -n %{name}+sha1-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+hickory-dns-devel
+%package     -n %{name}+signature-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+hickory-dns-devel %{_description}
+%description -n %{name}+signature-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "hickory-dns" feature of the "%{crate}" crate.
+use the "signature" feature of the "%{crate}" crate.
 
-%files       -n %{name}+hickory-dns-devel
+%files       -n %{name}+signature-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+rustls-tls-devel
+%package     -n %{name}+std-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+rustls-tls-devel %{_description}
+%description -n %{name}+std-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "rustls-tls" feature of the "%{crate}" crate.
+use the "std" feature of the "%{crate}" crate.
 
-%files       -n %{name}+rustls-tls-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+trace-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+trace-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "trace" feature of the "%{crate}" crate.
-
-%files       -n %{name}+trace-devel
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -157,8 +153,7 @@ use the "trace" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * skip tests that require internet access and valid authentication tokens
-%cargo_test -- --doc
+%cargo_test
 %endif
 
 %changelog

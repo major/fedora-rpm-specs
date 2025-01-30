@@ -9,7 +9,6 @@ Source0:        https://storage.googleapis.com/google-code-archive-downloads/v2/
 Patch1:         0002-Fix-engine-output-and-php-extension.patch
 Patch2:         0003-Fix-report-layout.patch
 Patch3:         rats-2.4-gtk-vuln.patch
-Patch4:         rats-2.4-hash.patch
 Patch5:		rats-configure-c99.patch
 BuildRequires: make
 BuildRequires:  expat-devel

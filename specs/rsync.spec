@@ -9,7 +9,7 @@
 Summary: A program for synchronizing files over a network
 Name: rsync
 Version: 3.4.1
-Release: 1%{?prerelease}%{?dist}
+Release: 2%{?prerelease}%{?dist}
 URL: https://rsync.samba.org/
 
 Source0: https://download.samba.org/pub/rsync/src/rsync-%{version}%{?prerelease}.tar.gz
@@ -77,11 +77,11 @@ package provides the anonymous rsync service.
 
 %patch 1 -p1 -b .runtests
 %patch 2 -p1 -b .rrsync
-%patch 3 -p1 -b .gcc15
 
 patch -p1 -i patches/detect-renamed.diff
 patch -p1 -i patches/detect-renamed-lax.diff
 
+%patch 3 -p1 -b .gcc15
 
 %build
 %configure \
@@ -137,6 +137,9 @@ install -D -m644 %{SOURCE6} $RPM_BUILD_ROOT/%{_unitdir}/rsyncd@.service
 %systemd_postun_with_restart rsyncd.service
 
 %changelog
+* Tue Jan 28 2025 Michal Ruprich <mruprich@redhat.com> - 3.4.1-2
+- Fixing rrsync manpage
+
 * Fri Jan 24 2025 Michal Ruprich <mruprich@redhat.com> - 3.4.1-1
 - New version 3.4.1
 - Enabling build with rrsync

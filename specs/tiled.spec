@@ -1,8 +1,8 @@
 Name:           tiled
 Summary:        Tiled Map Editor
 
-Version:        1.11.1
-Release:        2%{?dist}
+Version:        1.11.2
+Release:        1%{?dist}
 
 # tiled itself is GPLv2+, libtiled and tmxviewer are BSD
 License:        GPL-2.0-or-later AND BSD-2-Clause
@@ -174,8 +174,6 @@ as Godot Engine 4 scene files (.tscn).
 %prep
 %setup -q
 
-%patch -P1 -p1 -b .fix-build-against-qt6.8
-
 # Remove copy of zlib
 rm -rf src/zlib
 
@@ -278,6 +276,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.mape
 %{_libdir}/%{name}/plugins/libtscn.so
 
 %changelog
+* Tue Jan 28 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.11.2-1
+- Update to v1.11.2
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

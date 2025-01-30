@@ -10,8 +10,8 @@
 Name:           qbs
 # qbs was previously packaged as part of qt-creator, using the qt-creator version, hence the epoch bump
 Epoch:          1
-Version:        2.5.0
-Release:        2%{?dist}
+Version:        2.5.1
+Release:        1%{?dist}
 Summary:        Cross platform build tool
 # Fails to build on i686
 ExcludeArch:    i686
@@ -153,6 +153,9 @@ rm %{buildroot}%{_bindir}/clang-format-test
 
 
 %changelog
+* Tue Jan 28 2025 Sandro Mani <manisandro@gmail.com> - 1:2.5.1-1
+- Update to 2.5.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

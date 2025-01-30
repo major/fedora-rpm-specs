@@ -1,6 +1,11 @@
 # debuginfo not supported for static libraries, RB #209316
 %global debug_package %{nil}
 
+# Avoid -Werror=incompatible-pointer-type on 32-bit arches
+%ifarch %{ix86}
+%global build_type_safety_c 2
+%endif
+
 Name:           qm-dsp
 Version:        1.7.1
 Release:        25%{?dist}

@@ -17,7 +17,7 @@ ase-3.23 requires pyproject.toml setuptools support
 
 Name:			python-ase
 Version:		3.24.0
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		Atomic Simulation Environment
 
 
@@ -75,6 +75,8 @@ analyzing simulations, etc.
 
 # https://gitlab.com/ase/ase/-/issues/1461
 rm -f ase/test/fio/test_espresso.py
+# https://gitlab.com/ase/ase/-/issues/1614
+rm -f ase/test/db/test_o2b2o.py
 
 # copy required sources and remove doc directory
 cp -p doc/static/%{upstream_name}256.png %{upstream_name}.png
@@ -142,6 +144,9 @@ cd -
 
 
 %changelog
+* Tue Jan 28 2025 Marcin Dulak <marcindulak@fedoraproject.org> - 3.24.0-2
+- Remove test/db/test_o2b2o.py failing with Python 3.14
+
 * Sat Jan 25 2025 Marcin Dulak <marcindulak@fedoraproject.org> - 3.24.0-1
 - New upstream release
 

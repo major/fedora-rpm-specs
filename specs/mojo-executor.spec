@@ -84,9 +84,6 @@ rm -fr mojo-executor-maven-plugin/src/it/mojo-executor-test-project-{quiet,with-
 %build
 %mvn_build -s
 
-# We end up with duplicate mojo-executor-parent entries in the reactor.  Why?
-sed -i '4,13d' .xmvn-reactor
-
 %install
 %mvn_install
 

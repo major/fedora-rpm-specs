@@ -1,7 +1,7 @@
 Name: realtime-tests
 Summary: Programs that test various rt-features
-Version: 2.6
-Release: 7%{?dist}
+Version: 2.8
+Release: 1%{?dist}
 License: GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-or-later
 URL: https://git.kernel.org/pub/scm/utils/rt-tests/rt-tests.git
 Source0: https://www.kernel.org/pub/linux/utils/rt-tests/rt-tests-%{version}.tar.xz
@@ -15,9 +15,14 @@ Requires: bash
 Requires: bc
 
 #Patches
-Patch1: 0001-rt-tests-Makefile-Restore-support-for-Exuberant-Ctag.patch
-Patch2: 0002-rt-tests-Add-missing-SPDX-licenses.patch
-Patch3: 0003-rt-tests-Remove-remaining-unnecessary-texts-after-ad.patch
+Patch1: 0001-rt-tests-Put-variables-in-test-feature-in-quotes.patch
+Patch2: 0002-rt-tests-Handle-lcpupower-flag-outside-LDFLAGS.patch
+Patch3: 0003-rt-tests-Turn-off-Wunused-parameter.patch
+Patch4: 0004-rt-tests-Enable-Werror.patch
+Patch5: 0005-rt-tests-Remove-unused-parameter-annotations.patch
+
+# Fix build with glibc 2.41 (development), uses GLIBC_HAS_SCHED_ATTR
+Patch101: 0101-rt-tests-Fix-build-with-glibc-2-41.patch
 
 %description
 realtime-tests is a set of programs that test and measure various components of
@@ -29,6 +34,10 @@ latency. It also tests the functioning of priority-inheritance mutexes.
 
 %build
 %set_build_flags
+%if 0%{?fedora} > 41 || 0%{?rhel} > 10
+# For patch 101; this can be removed once glibc 2.41 is released
+export CPPFLAGS="$CPPFLAGS -DGLIBC_HAS_SCHED_ATTR"
+%endif
 %make_build
 
 %install
@@ -76,6 +85,10 @@ latency. It also tests the functioning of priority-inheritance mutexes.
 %{_mandir}/man8/determine_maximum_mpps.8.*
 
 %changelog
+* Thu Jan 23 2025 John Kacur <jkacur@redhat.com> - 2.8-1
+- Update to the latest version upstream v2.8
+- Add a few more upstream patches
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

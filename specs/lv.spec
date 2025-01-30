@@ -2,7 +2,7 @@
 
 Name:		lv
 Version:	4.51
-Release:	54%{?dist}
+Release:	55%{?dist}
 License:	GPL-2.0-or-later
 URL:		http://www.ff.iij4u.or.jp/~nrt/lv/
 BuildRequires:	ncurses-devel autoconf
@@ -19,6 +19,7 @@ Patch6:		%{name}-aarch64.patch
 Patch7:		%{name}-no-sigvec.patch
 Patch8:		%{name}-inline.patch
 Patch9:		lv-c99.patch
+Patch10:	%{name}-ftbfs.patch
 
 Summary:	A Powerful Multilingual File Viewer
 %description
@@ -32,16 +33,7 @@ In addition, lv can recognize ANSI escape sequences
 for text decoration.
 
 %prep
-%setup -q -n %{name}%{vver}
-%patch -P1 -p1 -b .nonstrip
-%patch -P2 -p1 -b .162372
-%patch -P3 -p1 -b .num
-%patch -P4 -p1 -b .fastio
-%patch -P5 -p1 -b .lfs
-%patch -P6 -p1 -b .6-aarch64
-%patch -P7 -p1 -b .7-sigvec
-%patch -P8 -p1 -b .inline
-%patch -P9 -p1 -b .c99
+%autosetup -p1 -n %{name}%{vver}
 
 %build
 cd src
@@ -66,6 +58,10 @@ mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
 
 
 %changelog
+* Mon Jan 27 2025 Akira TAGOH <tagoh@redhat.com> - 4.51-55
+- Fix FTBFS
+  Resolves: rhbz#2340802
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.51-54
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

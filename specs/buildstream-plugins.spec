@@ -6,11 +6,11 @@ URL:           https://buildstream.build/
 BuildArch:     noarch
 ExcludeArch:   %{ix86}
 
-Version:       2.3.0
+Version:       2.4.0
 Release:       %autorelease
 Source0:       https://github.com/apache/buildstream-plugins/archive/%{version}/buildstream-plugins-%{version}.tar.gz
 
-BuildRequires: python3-devel >= 3.8
+BuildRequires: python3-devel >= 3.9
 
 Requires:      git
 Requires:      lzip

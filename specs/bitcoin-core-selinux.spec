@@ -1,19 +1,15 @@
-%global commit0 450561671211f8421c696ade1098d2b0a71b5fe8
-%global date 20231127
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-
 %global selinuxtype targeted
 %global modulename bitcoin
 
 Name:           bitcoin-core-selinux
-Version:        0^%{date}git%{shortcommit0}
-Release:        17%{?dist}
+Version:        0.1
+Release:        1%{?dist}
 Summary:        Bitcoin Core SELinux policy
 License:        GPL-3.0-only
 URL:            https://github.com/scaronni/%{name}
 BuildArch:      noarch
 
-Source0:        %{url}/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
+Source0:        %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 Requires:       selinux-policy-%{selinuxtype}
 Requires(post): selinux-policy-%{selinuxtype}
@@ -24,7 +20,7 @@ BuildRequires:  selinux-policy-devel
 Bitcoin Core SELinux policy.
 
 %prep
-%autosetup -p1 -n %{name}-%{commit0}
+%autosetup -p1
 
 %build
 make -f %{_datadir}/selinux/devel/Makefile %{modulename}.pp
@@ -67,6 +63,9 @@ fi
 %ghost %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{modulename}
 
 %changelog
+* Tue Jan 28 2025 Simone Caronni <negativo17@gmail.com> - 0.1-1
+- Update to 0.1 for https://fedoraproject.org/wiki/Releases/42/ChangeSet#Unify_/usr/bin_and_/usr/sbin
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0^20231127git4505616-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

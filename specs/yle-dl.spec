@@ -1,5 +1,5 @@
 Name:           yle-dl
-Version:        20240927
+Version:        20250126
 Release:        %autorelease
 Summary:        Download videos from Yle servers
 
@@ -12,6 +12,7 @@ BuildArch:      noarch
 ExcludeArch:    %{ix86}
 
 BuildRequires:  python3-devel
+BuildRequires:  /usr/bin/ffmpeg
 Requires:       /usr/bin/ffmpeg
 Recommends:     yle-dl+extra
 # According to README, "required for podcasts".

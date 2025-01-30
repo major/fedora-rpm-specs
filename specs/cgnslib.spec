@@ -7,7 +7,7 @@
 
 Name:           cgnslib
 Version:        4.5.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Computational Fluid Dynamics General Notation System
 License:        Zlib
 URL:            http://www.cgns.org/
@@ -141,6 +141,7 @@ chmod a-x src/cgnstools/utilities/cgns_to_vtk.c
 # This is needed for GCC10, whenever a new cgnslib release is published, check whether it is still needed
 # export FCFLAGS+=-fallow-argument-mismatch
 cgnslib_cmake_args="\
+        -DCGNS_ENABLE_SCOPING=ON \
         -DCMAKE_SKIP_RPATH=ON \
         -DCGNS_ENABLE_TESTS=ON \
         -DCGNS_ENABLE_FORTRAN=ON \
@@ -403,6 +404,9 @@ ctest || :
 
 
 %changelog
+* Tue Jan 28 2025 Sandro Mani <manisandro@gmail.com> - 4.5.0-3
+- Build with -DCGNS_ENABLE_SCOPING=ON to avoid symbol collisions with gmsh
+
 * Sun Jan 26 2025 Sandro Mani <manisandro@gmail.com> - 4.5.0-2
 - BR: {tcl,tk}-devel < 1:9
 

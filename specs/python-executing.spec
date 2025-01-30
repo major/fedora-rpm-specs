@@ -1,12 +1,12 @@
 # Running the tests requires ipython which requires python-stack-data which
 # introduces a circular dependency back on python-executing
-%bcond tests 1
+%bcond bootstrap 0
 # When tests are enabled, should we also run “very slow” tests?
 %bcond slow_tests 1
 
 Name:           python-executing
 Version:        2.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library for inspecting the current frame run footprint
 
 License:        MIT
@@ -38,7 +38,7 @@ sed -Ei "/coverage-?/d" setup.cfg
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION="%(echo '%{version}' | cut -d '^' -f 1)"
-%pyproject_buildrequires %{?with_tests:-t}
+%pyproject_buildrequires %{!?with_bootstrap:-t}
 
 
 %build
@@ -53,7 +53,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION="%(echo '%{version}' | cut -d '^' -f 1)"
 
 %check
 %pyproject_check_import
-%if %{with tests}
+%if %{without bootstrap}
 %if %{with slow_tests}
 export EXECUTING_SLOW_TESTS=1
 %endif
@@ -67,6 +67,9 @@ export EXECUTING_SLOW_TESTS=1
 
 
 %changelog
+* Sun Jan 26 2025 Romain Geissler <romain.geissler@amadeus.com>
+- Allow to build without tests in bootstrap mode.
+
 * Wed Jan 22 2025 Lumír Balhar <lbalhar@redhat.com>
 - Update to 2.2.0 (rhbz#2339704)
 

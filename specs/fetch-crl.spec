@@ -7,6 +7,9 @@ License: Apache-2.0
 URL: https://wiki.nikhef.nl/grid/FetchCRL3
 Source0: https://dist.eugridpma.info/distribution/util/fetch-crl3/fetch-crl-%{version}.tar.gz
 
+# https://github.com/dlgroep/fetch-crl/pull/6
+Patch0:  sbin-to-bin.patch
+
 # systemd files.
 Source1: fetch-crl.service
 Source2: fetch-crl.timer
@@ -42,7 +45,7 @@ Certification Authorities.
 It assumes that the installed CA files follow the hash.crl_url convention.
 
 %prep
-%setup -q
+%autosetup
 cp -p %{SOURCE1} fetch-crl.service
 cp -p %{SOURCE2} fetch-crl.timer
 
@@ -91,8 +94,8 @@ rm -rf $RPM_BUILD_ROOT%{_defaultdocdir}/%{name}-%{version}
 %systemd_postun_with_restart %{name}.timer
 
 %files
-%{_sbindir}/%{name}
-%{_sbindir}/clean-crl
+%{_bindir}/%{name}
+%{_bindir}/clean-crl
 %{_unitdir}/%{name}.service
 %{_unitdir}/%{name}.timer
 %dir %{_var}/cache/%{name}
