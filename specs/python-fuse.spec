@@ -2,14 +2,12 @@
 
 Name:    python-fuse
 # TODO rename to python-fusepy
-Version: 2.0.4
-Release: 32%{?dist}
+Version: 3.0.1
+Release: 1%{?dist}
 Summary: Python module that provides a simple interface to FUSE and MacFUSE
-
 License: ISC
-URL:     https://github.com/terencehonles/fusepy
-Source0: https://github.com/terencehonles/fusepy/archive/v%{version}.tar.gz#/%{srcname}-%{version}.tar.gz
-
+URL: https://github.com/fusepy/fusepy
+Source: %{pypi_source %{srcname}}
 BuildArch: noarch
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
@@ -46,6 +44,10 @@ It's just one file and is implemented using ctypes.
 %{python3_sitelib}/__pycache__
 
 %changelog
+* Wed Jan 29 2025 Juan Orti Alcaine <jortialc@redhat.com> - 3.0.1-1
+- Update to new upstream repository
+- Update to version 3.0.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

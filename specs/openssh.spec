@@ -39,7 +39,7 @@
 %{?static_openssl:%global static_libcrypto 1}
 
 %global openssh_ver 9.9p1
-%global openssh_rel 7
+%global openssh_rel 8
 
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
@@ -101,7 +101,7 @@ Patch702: openssh-5.1p1-askpass-progress.patch
 #https://bugzilla.redhat.com/show_bug.cgi?id=198332
 Patch703: openssh-4.3p2-askpass-grab-info.patch
 #https://bugzilla.mindrot.org/show_bug.cgi?id=1635 (WONTFIX)
-Patch707: openssh-7.7p1-redhat.patch
+Patch707: openssh-8.7p1-redhat.patch
 # warn users for unsupported UsePAM=no (#757545)
 Patch711: openssh-7.8p1-UsePAM-warning.patch
 
@@ -662,6 +662,10 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
+* Wed Jan 29 2025 FeRD (Frank Dana) <ferdnyc@gmail.com> - 9.9p1-8
+- Replace deprecated (since 8.7) ChallengeResponseAuthentication
+  with KbdInteractiveAuthentication, in redhat sshd config
+
 * Mon Jan 27 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.9p1-7
 - Fix regression of Match directive processing
   Resolves: rhbz#2341769

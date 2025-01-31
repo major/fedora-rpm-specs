@@ -47,8 +47,8 @@
 
 Summary: PostgreSQL client programs
 Name: %{majorname}%{majorversion}
-Version: %{majorversion}.3
-Release: 8%{?dist}
+Version: %{majorversion}.6
+Release: 1%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -573,7 +573,7 @@ cd ..
 # Fiddling with CFLAGS.
 
 CFLAGS="${CFLAGS:-%optflags}"
-CFLAGS="$CFLAGS -DOPENSSL_NO_ENGINE"
+CFLAGS="$CFLAGS -DOPENSSL_NO_ENGINE -std=c18"
 # Strip out -ffast-math from CFLAGS....
 CFLAGS=`echo $CFLAGS|xargs -n 1|grep -v ffast-math|xargs -n 100`
 export CFLAGS
@@ -1331,6 +1331,10 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Wed Jan 29 2025 Filip Janus <fjanus@redhat.com> - 16.6-1
+- Update to 16.6
+- stick with std=C18
+ 
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 16.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

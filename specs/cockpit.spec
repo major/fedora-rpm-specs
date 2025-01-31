@@ -49,8 +49,8 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        331
-Release:        2%{?dist}
+Version:        332
+Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
 %if 0%{?fedora} >= 41 || 0%{?rhel}
@@ -255,7 +255,6 @@ troubleshooting, interactive command-line sessions, and more.
 
 %package bridge
 Summary: Cockpit bridge server-side component
-Requires: glib-networking
 
 %description bridge
 The Cockpit bridge component installed server side and runs commands on the
@@ -315,10 +314,10 @@ Recommends: (reportd if abrt)
 %endif
 
 Provides: bundled(npm(@patternfly/patternfly)) = 5.4.2
-Provides: bundled(npm(@patternfly/react-core)) = 5.4.11
+Provides: bundled(npm(@patternfly/react-core)) = 5.4.12
 Provides: bundled(npm(@patternfly/react-icons)) = 5.4.2
 Provides: bundled(npm(@patternfly/react-styles)) = 5.4.1
-Provides: bundled(npm(@patternfly/react-table)) = 5.4.12
+Provides: bundled(npm(@patternfly/react-table)) = 5.4.13
 Provides: bundled(npm(@patternfly/react-tokens)) = 5.4.1
 Provides: bundled(npm(@xterm/addon-canvas)) = 0.7.0
 Provides: bundled(npm(@xterm/xterm)) = 5.5.0
@@ -328,8 +327,6 @@ Provides: bundled(npm(autolinker)) = 3.16.2
 Provides: bundled(npm(dequal)) = 2.0.3
 Provides: bundled(npm(file-selector)) = 2.1.2
 Provides: bundled(npm(focus-trap)) = 7.6.2
-Provides: bundled(npm(js-sha1)) = 0.7.0
-Provides: bundled(npm(js-sha256)) = 0.11.0
 Provides: bundled(npm(js-tokens)) = 4.0.0
 Provides: bundled(npm(json-stable-stringify-without-jsonify)) = 1.0.1
 Provides: bundled(npm(lodash)) = 4.17.21
@@ -346,7 +343,7 @@ Provides: bundled(npm(sprintf-js)) = 1.0.3
 Provides: bundled(npm(tabbable)) = 6.2.0
 Provides: bundled(npm(throttle-debounce)) = 5.0.2
 Provides: bundled(npm(tslib)) = 2.8.1
-Provides: bundled(npm(uuid)) = 11.0.3
+Provides: bundled(npm(uuid)) = 11.0.5
 
 %description system
 This package contains the Cockpit shell and system configuration interfaces.
@@ -578,6 +575,13 @@ The Cockpit component for managing storage.  This package uses udisks.
 %files -n cockpit-storaged -f storaged.list
 %{_datadir}/metainfo/org.cockpit_project.cockpit_storaged.metainfo.xml
 
+%post storaged
+
+# version 332 moved the btrfs temp mounts db to /run
+if [ "$1" = 2 ] && [ -d /var/lib/cockpit/btrfs ]; then
+    rm -rf --one-file-system  /var/lib/cockpit/btrfs || true
+fi
+
 %package -n cockpit-packagekit
 Summary: Cockpit user interface for packages
 BuildArch: noarch
@@ -595,6 +599,11 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Jan 29 2025 Packit <hello@packit.dev> - 332-1
+- containers/ws: Include cockpit-files
+- login: Beibooting to all supported OSes
+- metrics: Show system boots in metrics
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 331-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -20,7 +20,7 @@
 %undefine _py3_shebang_s
 
 Name:           python-tox
-Version:        4.23.2
+Version:        4.24.1
 Release:        %autorelease
 Summary:        Virtualenv-based automation of test activities
 
@@ -32,6 +32,7 @@ Source:         %{pypi_source tox}
 # Remove dependency on detect-test-pollution.
 # Remove coverage-related dependencies.
 # Adjust virtualenv environment variables to make it work with our patched virtualenv.
+# Adjust setuptools-version specific ifs to check for setuptools version rather than Python version.
 Patch:          fix-tests.patch
 
 BuildArch:      noarch
@@ -81,10 +82,14 @@ Summary:        %{summary}
 # however it launches other Python versions as subprocesses.
 # It recommends all Python versions it supports. (This is an exception to
 # the rule that Fedora packages may not require the alternative interpreters.)
+%if 0%{?fedora}
+%if 0%{?fedora} < 42
 Recommends:     python3.8
+%endif
 Recommends:     python3.9
 Recommends:     python3.10
 Recommends:     pypy3-devel
+%endif
 Recommends:     python3-devel
 # Instead of adding new Pythons here, add `Supplements: tox` to them, see:
 # https://lists.fedoraproject.org/archives/list/python-devel@lists.fedoraproject.org/thread/NVVUXSVSPFQOWIGBE2JNI67HEO7R63ZQ/

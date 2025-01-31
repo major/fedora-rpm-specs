@@ -99,6 +99,8 @@ Requires: %{name}-gui-cpp-devel%{?_isa} = %{version}-%{release}
 
 
 %build
+export CFLAGS="$CFLAGS -std=gnu17"
+export CXXFLAGS="$CXXFLAGS -std=gnu++17"
 # avoid detection/use of stuff like x86_64-redhat-linux-gnu-pkg-config -- rdieter
 export PKG_CONFIG=/usr/bin/pkg-config
 # help configure find qt5 lrelease/lupdate

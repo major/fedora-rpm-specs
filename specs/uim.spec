@@ -6,7 +6,7 @@
 
 Name:		uim
 Version:	1.8.9
-Release:	9%{?dist}
+Release:	10%{?dist}
 # uim itself is licensed under BSD
 # scm/py.scm, helper/eggtrayicon.[ch], qt/pref-kseparator.{cpp,h}
 #   and qt/chardict/chardict-kseparator.{cpp,h} is licensed under LGPLv2+
@@ -36,6 +36,7 @@ Source2:	uim-init.el
 Patch1:		uim-emacs-utf8.patch
 Patch2:		uim-configure-c99.patch
 Patch3:		uim-fix-emacs29.patch
+Patch4:		uim-ftbfs.patch
 
 
 Summary:	A multilingual input method library
@@ -497,6 +498,10 @@ fi
 %dir %{_datadir}/uim
 
 %changelog
+* Wed Jan 29 2025 Akira TAGOH <tagoh@redhat.com> - 1.8.9-10
+- Fix FTBFS
+  Resolves: rhbz#2341480
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.9-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -2,8 +2,8 @@ Name:    device-mapper-multipath
 Version: 0.10.0
 Release: 4%{?dist}
 Summary: Tools to manage multipath devices using device-mapper
-# Automatically converted from old format: GPLv2 - review is highly recommended.
-License: GPL-2.0-only
+# readline uses GPL-3.0-only
+License: GPL-2.0-only AND GPL-3.0-only
 URL:     http://christophe.varoqui.free.fr/
 
 # The source for this package was pulled from upstream's git repo.  Use the
@@ -65,8 +65,8 @@ The tools are :
 
 %package libs
 Summary: The %{name} modules and shared library
-# only libmpathcmd is LGPLv2+
-License: GPLv2 and LGPLv2+
+# only libmpathcmd is LGPL-2.1-or-later AND LGPL-2.0-or-later
+License: GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 
 %description libs
 The %{name}-libs provides the path checker

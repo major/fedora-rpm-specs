@@ -2,7 +2,7 @@
 
 Name:           xiphos
 Version:        4.2.1
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Bible study and research tool
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -10,6 +10,7 @@ URL:            http://xiphos.org/
 Source0:        https://github.com/crosswire/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
 Patch0:         glib_version.patch
 Patch1:         minizip.patch
+Patch2:         no_editor.patch
 BuildRequires:  biblesync-devel >= 2.0.1-3
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -19,7 +20,6 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
 BuildRequires:  gtk3-devel
-BuildRequires:  gtkhtml3-devel
 BuildRequires:  intltool
 BuildRequires:  itstool
 BuildRequires:  libappstream-glib
@@ -51,6 +51,7 @@ Project and elsewhere.
 rm -rf src/biblesync
 %patch -P0 -p0
 %patch -P1 -p1
+%patch -P2 -p1
 
 %build
 export CFLAGS="$CFLAGS -fPIC"
@@ -63,8 +64,7 @@ export CXXFLAGS
 export CFLAGS
 
 LDFLAGS='%{?__global_ldflags}' \
-%cmake -DGTKHTML:BOOL=ON \
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+%cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     %{nil}
 %cmake_build
 
@@ -100,6 +100,9 @@ rm -frv %{buildroot}%{_docdir}/%{name}
 %{_mandir}/man1/%{name}-nav.1.gz
 
 %changelog
+* Wed Jan 29 2025 Aaron Rainbolt <arraybolt3@gmail.com> - 4.2.1-28
+- Strip out editor component to resolve FTBFS
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.1-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

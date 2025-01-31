@@ -1,7 +1,7 @@
 Summary:	Library for reading and writing sound files
 Name:		libsndfile
 Version:	1.2.2
-Release:	7%{?dist}
+Release:	8%{?dist}
 License:	LGPL-2.1-or-later AND GPL-2.0-or-later AND BSD-3-Clause
 URL:		http://libsndfile.github.io/libsndfile/
 Source0:        https://github.com/libsndfile/libsndfile/releases/download/%{version}/libsndfile-%{version}.tar.xz
@@ -9,6 +9,7 @@ Patch0:		libsndfile-1.0.25-system-gsm.patch
 
 #from upstream, for <= 1.2.2, rhbz#2322326
 Patch1:	libsndfile-1.2.2-cve-2024-50612.patch
+Patch2:	libsndfile-1.2.2-stdbool.patch
 
 %if %{undefined rhel}
 # used to regenerate test .c sources from .def files
@@ -65,6 +66,7 @@ This package contains command line utilities for libsndfile.
 %setup -q
 %patch -P0 -p1 -b .system-gsm
 %patch -P 1 -p1 -b .cve-2024-50612
+%patch -P 2 -p1 -b .stdbool
 rm -r src/GSM610
 
 %build
@@ -159,6 +161,9 @@ LD_LIBRARY_PATH=$PWD/src/.libs make check
 
 
 %changelog
+* Wed Jan 29 2025 Michal Hlavinka <mhlavink@redhat.com> - 1.2.2-8
+- fix ftbfs
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

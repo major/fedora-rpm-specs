@@ -48,6 +48,7 @@ cp -rvp include/wildcardtl '%{buildroot}%{_includedir}/'
 
 
 %check
+%set_build_flags
 # Compile-and-link “smoke test”:
 cat > smoke_test.cpp <<'EOF'
 #include "wildcardtl/wildcard.hpp"

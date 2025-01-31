@@ -16,8 +16,8 @@
 #
 
 Name:           cockpit-podman
-Version:        99
-Release:        2%{?dist}
+Version:        100
+Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPL-2.1-or-later
 URL:            https://github.com/cockpit-project/cockpit-podman
@@ -46,17 +46,17 @@ Requires:       libcriu2
 %endif
 
 Provides: bundled(npm(@patternfly/patternfly)) = 5.4.2
-Provides: bundled(npm(@patternfly/react-core)) = 5.4.8
+Provides: bundled(npm(@patternfly/react-core)) = 5.4.12
 Provides: bundled(npm(@patternfly/react-icons)) = 5.4.2
 Provides: bundled(npm(@patternfly/react-styles)) = 5.4.1
-Provides: bundled(npm(@patternfly/react-table)) = 5.4.9
+Provides: bundled(npm(@patternfly/react-table)) = 5.4.14
 Provides: bundled(npm(@patternfly/react-tokens)) = 5.4.1
 Provides: bundled(npm(@xterm/addon-canvas)) = 0.7.0
 Provides: bundled(npm(@xterm/xterm)) = 5.5.0
-Provides: bundled(npm(attr-accept)) = 2.2.4
+Provides: bundled(npm(attr-accept)) = 2.2.5
 Provides: bundled(npm(docker-names)) = 1.2.1
-Provides: bundled(npm(file-selector)) = 2.1.0
-Provides: bundled(npm(focus-trap)) = 7.6.0
+Provides: bundled(npm(file-selector)) = 2.1.2
+Provides: bundled(npm(focus-trap)) = 7.6.2
 Provides: bundled(npm(ipaddr.js)) = 2.2.0
 Provides: bundled(npm(js-tokens)) = 4.0.0
 Provides: bundled(npm(lodash)) = 4.17.21
@@ -92,6 +92,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Jan 29 2025 Packit <hello@packit.dev> - 100-1
+- Automatically start podman.socket
+- Identify quadlets by a 'service' label
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 99-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

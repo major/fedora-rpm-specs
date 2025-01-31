@@ -40,6 +40,11 @@ sed -r \
     -i pyproject.toml
 %endif
 
+# Don't impose upper bounds (= "^x.y")
+sed -r \
+    -e 's/\^([0-9])/>=\1/g' \
+    -i pyproject.toml
+
 
 %generate_buildrequires
 %pyproject_buildrequires -x uv

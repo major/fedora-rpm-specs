@@ -26,11 +26,7 @@ BuildRequires:  gettext
 BuildRequires:  gnupg2
 BuildRequires:  perl-interpreter
 BuildRequires:  libxml2-devel
-%if 0%{?el7}
-BuildRequires:  json-c12-devel
-%else
 BuildRequires:  json-c-devel
-%endif
 BuildRequires: make
 # esql
 BuildRequires: unixODBC-devel
@@ -68,12 +64,8 @@ ESQL for GnuCOBOL
 cp %{SOURCE3} tests/cobol85/
 
 %build
-%if 0%{?el7}
-%configure --enable-hardening --with-db --with-xml2 --with-curses=ncursesw --with-json=json-c \
-  JSON_C_LIBS=$(pkg-config --libs json-c12) JSON_C_CFLAGS=$(pkg-config --cflags json-c12)
-%else
+export CFLAGS="$CFLAGS -std=gnu17"
 %configure --enable-hardening --with-db --with-xml2 --with-curses=ncursesw --with-json=json-c
-%endif
 
 %make_build
 

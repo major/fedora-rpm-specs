@@ -4,8 +4,8 @@
 # since git does not support tilde in tag name. On the other side, Fedora and
 # RHEL requires tilde as a separator to correctly order builds.
 # For example: 2.10.0-beta1 vs 2.10.0~beta1
-%global upstream_version 2.10.1
-%global downstream_version %(echo "2.10.1" | sed 's/-/~/g')
+%global upstream_version 2.10.2
+%global downstream_version %(echo "2.10.2" | sed 's/-/~/g')
 
 # define SSSD user
 %if 0%{?fedora} >= 41 || 0%{?rhel}
@@ -64,7 +64,7 @@
 
 Name: sssd
 Version: %{downstream_version}
-Release: 3%{?dist}
+Release: 1%{?dist}
 Summary: System Security Services Daemon
 License: GPL-3.0-or-later
 URL: https://github.com/SSSD/sssd/
@@ -847,10 +847,10 @@ install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/sssd.conf
 %attr(775,%{sssd_user},%{sssd_user}) %dir %{pubconfpath}
 %attr(770,%{sssd_user},%{sssd_user}) %dir %{gpocachepath}
 %attr(770,%{sssd_user},%{sssd_user}) %dir %{_var}/log/%{name}
-%attr(750,%{sssd_user},%{sssd_user}) %dir %{_sysconfdir}/sssd
-%attr(750,%{sssd_user},%{sssd_user}) %dir %{_sysconfdir}/sssd/conf.d
-%attr(750,%{sssd_user},%{sssd_user}) %dir %{_sysconfdir}/sssd/pki
-%ghost %attr(0600,%{sssd_user},%{sssd_user}) %config(noreplace) %{_sysconfdir}/sssd/sssd.conf
+%attr(750,root,%{sssd_user}) %dir %{_sysconfdir}/sssd
+%attr(750,root,%{sssd_user}) %dir %{_sysconfdir}/sssd/conf.d
+%attr(750,root,%{sssd_user}) %dir %{_sysconfdir}/sssd/pki
+%ghost %attr(0640,root,%{sssd_user}) %config(noreplace) %{_sysconfdir}/sssd/sssd.conf
 %dir %{_sysconfdir}/logrotate.d
 %config(noreplace) %{_sysconfdir}/logrotate.d/sssd
 %dir %{_sysconfdir}/rwtab.d
@@ -1193,6 +1193,9 @@ fi
 %systemd_postun_with_restart sssd.service
 
 %changelog
+* Wed Jan 29 2025 Pavel Březina <pbrezina@redhat.com> - 2.10.2-1
+- Rebase to SSSD 2.10.2
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

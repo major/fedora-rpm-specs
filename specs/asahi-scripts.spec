@@ -12,6 +12,7 @@ BuildArch:      noarch
 
 BuildRequires:  make
 BuildRequires:  sed
+BuildRequires:  systemd-rpm-macros
 
 Requires:       bash
 Requires:       coreutils
@@ -29,8 +30,6 @@ Summary:        Asahi Linux firmware extractor
 Requires:       %{name} = %{version}-%{release}
 # Not using python3dist(asahi-firmware) because its version is fixed
 Requires:       python3-asahi_firmware >= 0.5.4
-Provides:       asahi-fwextract = %{version}-%{release}
-Obsoletes:      asahi-fwextract < 20230530-2
 
 %description -n asahi-fwupdate
 Asahi Linux firmware updater.
@@ -40,10 +39,6 @@ Summary:        Dracut config for Apple Silicon Macs
 
 Requires:       dracut
 Requires:       linux-firmware-vendor = %{version}-%{release}
-Provides:       dracut-config-asahi = %{version}-%{release}
-Obsoletes:      dracut-config-asahi < 20220821-5
-Provides:       update-vendor-firmware = %{version}-%{release}
-Obsoletes:      update-vendor-firmware < 20220918.2-8
 
 %description -n dracut-asahi
 Dracut config for Apple Silicon Macs.
@@ -60,7 +55,6 @@ over properly from the initramfs.
 Summary:        Keep m1n1 up to date
 
 Requires:       %{name} = %{version}-%{release}
-
 Requires:       bash
 Requires:       gzip
 Requires:       m1n1
@@ -72,11 +66,9 @@ Keep m1n1 up to date on Apple Silicon systems.
 %package -n     asahi-battery
 Summary:        Asahi Linux battery charge control scripts
 
-BuildRequires:  systemd-rpm-macros
 Requires:       %{name} = %{version}-%{release}
 Requires:       systemd
 Requires:       systemd-udev
-Provides:       asahi-battery = %{version}-%{release}
 
 %description -n asahi-battery
 Asahi Linux battery charge control scripts restore charge_control_end_threshold

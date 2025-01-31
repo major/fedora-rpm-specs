@@ -7,16 +7,14 @@
 # Please, preserve the changelog entries
 #
 
-%bcond_with              generators
-
-%global gh_commit        b6e014bdbe790a6cbb83ea0582ac9b6eb8ab31c1
+%global gh_commit        e7fcd163cf77e3ae878f6bee9a590e1fd00b2a26
 %global gh_short         %(c=%{gh_commit}; echo ${c:0:7})
 #global gh_date		     20241003
 %global gh_branch        main
 %global gh_owner         php
 %global gh_project       pie
 
-%global upstream_version 0.5.0
+%global upstream_version 0.6.0
 #global upstream_prever  dev
 #global upstream_lower   DEV
 
@@ -26,7 +24,7 @@
 
 Name:           pie
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        PHP Installer for Extensions
 
 # SPDX: pie is BSD-3-Clause, all dependencies are MIT
@@ -52,9 +50,7 @@ BuildRequires:  php-cli
 BuildRequires:  php-json
 BuildRequires:  php-zip
 BuildRequires:  pkgconfig(bash-completion)
-%if %{with generators}
 BuildRequires:  composer-generators
-%endif
 
 # From composer.json, "require": {
 #        "php": "8.1.*||8.2.*||8.3.*||8.4.*",
@@ -75,44 +71,6 @@ Requires:       php-mbstring
 Requires:       php-posix
 Requires:       php-phar
 
-%if %{without generators}
-# Bundled libraries
-# License MIT
-Provides:       bundled(php-composer(composer/ca-bundle)) = 1.5.5
-Provides:       bundled(php-composer(composer/class-map-generator)) = 1.5.0
-Provides:       bundled(php-composer(composer/composer)) = 2.8.4
-Provides:       bundled(php-composer(composer/metadata-minifier)) = 1.0.0
-Provides:       bundled(php-composer(composer/pcre)) = 3.3.2
-Provides:       bundled(php-composer(composer/semver)) = 3.4.3
-Provides:       bundled(php-composer(composer/spdx-licenses)) = 1.5.8
-Provides:       bundled(php-composer(composer/xdebug-handler)) = 3.0.5
-Provides:       bundled(php-composer(fidry/cpu-core-counter)) = 1.2.0
-Provides:       bundled(php-composer(illuminate/container)) = 10.48.25
-Provides:       bundled(php-composer(illuminate/contracts)) = 10.48.25
-Provides:       bundled(php-composer(justinrainbow/json-schema)) = 5.3.0
-Provides:       bundled(php-composer(psr/container)) = 2.0.2
-Provides:       bundled(php-composer(psr/log)) = 3.0.2
-Provides:       bundled(php-composer(psr/simple-cache)) = 3.0.0
-Provides:       bundled(php-composer(react/promise)) = 3.2.0
-Provides:       bundled(php-composer(seld/jsonlint)) = 1.11.0
-Provides:       bundled(php-composer(seld/phar-utils)) = 1.2.1
-Provides:       bundled(php-composer(seld/signal-handler)) = 2.0.2
-Provides:       bundled(php-composer(symfony/console)) = 6.4.17
-Provides:       bundled(php-composer(symfony/deprecation-contracts)) = 3.5.1
-Provides:       bundled(php-composer(symfony/filesystem)) = 6.4.13
-Provides:       bundled(php-composer(symfony/finder)) = 6.4.17
-Provides:       bundled(php-composer(symfony/polyfill-ctype)) = 1.31.0
-Provides:       bundled(php-composer(symfony/polyfill-intl-grapheme)) = 1.31.0
-Provides:       bundled(php-composer(symfony/polyfill-intl-normalizer)) = 1.31.0
-Provides:       bundled(php-composer(symfony/polyfill-mbstring)) = 1.31.0
-Provides:       bundled(php-composer(symfony/process)) = 6.4.15
-Provides:       bundled(php-composer(symfony/service-contracts)) = 3.5.1
-Provides:       bundled(php-composer(symfony/string)) = 6.4.15
-Provides:       bundled(php-composer(webmozart/assert)) = 1.11.0
-
-# Composer library
-Provides:       php-composer(php/pie) = %{version}
-%endif
 
 %description
 PIE (PHP Installer for Extensions).
@@ -137,27 +95,6 @@ rm vendor/composer/ca-bundle/res/cacert.pem
 
 : Set version
 sed -e 's/@pie_version@/%{upstream_version}%{?upstream_prever}/' -i bin/pie
-
-%if %{without generators}
-: List bundled libraries and Licenses
-php -r '
-	$pkgs = file_get_contents("vendor/composer/installed.json");
-	$pkgs = json_decode($pkgs, true);
-	if (!is_array($pkgs) || !isset($pkgs["packages"])) {
-        echo "cant decode json file\n";
-		exit(3);
-	}
-	$res = [];
-    foreach($pkgs["packages"] as $pkg) {
-		$lic = implode(" and ", $pkg["license"]);
-		if (!isset($res[$lic])) $res[$lic] = [];
-		$res[$lic][] = sprintf("Provides:       bundled(php-composer(%s)) = %s", $pkg["name"], ltrim($pkg["version"], "v"));
-	}
-	foreach($res as $lic => $lib) {
-		sort($lib);
-		printf("# License %s\n%s\n", $lic, implode("\n", $lib));
-	}'
-%endif
 
 
 %build
@@ -198,6 +135,10 @@ done
 
 
 %changelog
+* Wed Jan 29 2025 Remi Collet <remi@remirepo.net> - 0.6.0-1
+- update to 0.6.0
+- always use composer-generators
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

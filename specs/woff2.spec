@@ -2,7 +2,7 @@
 
 Name:           woff2
 Version:        1.0.2
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Web Open Font Format 2.0 library
 
 License:        MIT
@@ -11,6 +11,7 @@ Source0:        https://github.com/google/woff2/archive/v%{version}/%{name}-%{ve
 
 # https://github.com/google/woff2/pull/121
 Patch0:         covscan.patch
+Patch1:         include-cstdint.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -78,6 +79,9 @@ cd -
 %{_libdir}/pkgconfig/libwoff2enc.pc
 
 %changelog
+* Wed Jan 29 2025 Eike Rathke <erack@redhat.com> - 1.0.2-22
+- Resolves: rhbz#2341551 include <cstdint>
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

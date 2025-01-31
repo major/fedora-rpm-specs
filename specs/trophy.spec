@@ -1,12 +1,12 @@
 Name:           trophy
 Version:        2.0.4
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Car racing game with special features
 License:        GPL-1.0-or-later
 URL:            http://trophy.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Source1:        %{name}.appdata.xml
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  gcc
 BuildRequires:  ClanLib1-devel desktop-file-utils libappstream-glib
@@ -23,6 +23,8 @@ like shooting and dropping bombs.
 
 %build
 export LDFLAGS=-L%{_libdir}/ClanLib-1.0
+export CXXFLAGS="%{optflags} -Wno-template-body"
+
 %configure
 make %{?_smp_mflags}
 
@@ -58,6 +60,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Mon Jan 27 2025 josef radinger <cheese@nosuchhost.net> - 2.0.4-14
+- fix compiling with gcc15 (-Wno-template-body)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

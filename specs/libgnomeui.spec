@@ -65,6 +65,7 @@ libtoolize --force --copy
 autoreconf -i
 
 %build
+export CFLAGS="$CFLAGS -std=gnu17"
 %configure --disable-gtk-doc --disable-static
 
 sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0 /g' libtool

@@ -18,9 +18,6 @@ BuildRequires:  ncurses-devel
 BuildRequires:  glib2-devel
 BuildRequires:  systemd
 BuildRequires:  make
-#%%if 0%%{?rhel} >= 8 || 0%%{?fedora}
-#Requires:       python3-py3nvml
-#%%endif
 
 Requires(post): systemd
 Requires(preun): systemd
@@ -49,7 +46,7 @@ performance-monitors:
 sed -i "s|/etc/default/atop|/etc/sysconfig/atop|g" atop.service
 
 %build
-make %{?_smp_mflags} CFLAGS="$RPM_OPT_FLAGS $(pkg-config --cflags glib-2.0) -I."
+make %{?_smp_mflags} CFLAGS="$RPM_OPT_FLAGS $(pkg-config --cflags glib-2.0) -I. -std=gnu17"
 
 %install
 install -Dp -m 0755 atop $RPM_BUILD_ROOT%{_bindir}/atop

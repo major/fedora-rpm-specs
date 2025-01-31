@@ -31,7 +31,7 @@
 
 Name:           localsearch
 Version:        3.8~rc
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Localsearch and metadata extractors
 
 # The indexer is a mix of GPLv2 and LGPLv2+ code
@@ -89,10 +89,6 @@ BuildRequires:  pkgconfig(upower-glib)
 Obsoletes:      tracker-miners < 3.7.3-3
 Provides:       tracker-miners = %{version}-%{release}
 Provides:       tracker-miners%{?_isa} = %{version}-%{release}
-
-%if !0%{?flatpak}
-Requires:       tinysparql%{?_isa}
-%endif
 
 %description
 Tinysparql is a powerful desktop-neutral first class object database,
@@ -181,6 +177,9 @@ install -D -m 0755 %{SOURCE1} %{buildroot}%{_bindir}/%{name}-flatpak-fixup.sh
 
 
 %changelog
+* Wed Jan 29 2025 Nieves Montero <nmontero@redhat.com> - 3.8~rc-7
+- Delete a Requires line
+
 * Fri Jan 24 2025 Nieves Montero <nmontero@redhat.com> - 3.8~rc-6
 - Change in Requires
 

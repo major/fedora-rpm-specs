@@ -10,7 +10,7 @@
 #
 # baserelease is what we have standardized across Fedora and what
 # rpmdev-bumpspec knows how to handle.
-%global baserelease 4
+%global baserelease 5
 
 # This should be e.g. beta1 or %%nil
 %global pre_release %nil
@@ -84,6 +84,15 @@ Patch0022: 0022-Wait-indefinitely-on-KDC-TCP-connections.patch
 Patch0023: 0023-Remove-PKINIT-RSA-support.patch
 Patch0024: 0024-Fix-various-issues-detected-by-static-analysis.patch
 Patch0025: 0025-Generate-and-verify-message-MACs-in-libkrad.patch
+Patch0026: 0026-PKINIT-ECDH-support.patch
+Patch0027: 0027-Add-ecdsa-with-sha512-256-to-supportedCMSTypes.patch
+Patch0028: 0028-Get-rid-of-pkinit_crypto_openssl.h.patch
+Patch0029: 0029-Use-SoftHSMv2-for-PKCS11-PKINIT-tests.patch
+Patch0030: 0030-Simplify-PKINIT-cert-representation.patch
+Patch0031: 0031-Support-PKCS11-EC-client-certs-in-PKINIT.patch
+Patch0032: 0032-Improve-PKCS11-error-reporting-in-PKINIT.patch
+Patch0033: 0033-Set-missing-mask-flags-for-kdb5_util-operations.patch
+Patch0034: 0034-Prevent-overflow-when-calculating-ulog-block-size.patch
 
 License: Brian-Gladman-2-Clause AND BSD-2-Clause AND (BSD-2-Clause OR GPL-2.0-or-later) AND BSD-2-Clause-first-lines AND BSD-3-Clause AND BSD-4-Clause AND CMU-Mach-nodoc AND FSFULLRWD AND HPND AND HPND-export2-US AND HPND-export-US AND HPND-export-US-acknowledgement AND HPND-export-US-modify AND ISC AND MIT AND MIT-CMU AND OLDAP-2.8 AND OpenVision
 URL: https://web.mit.edu/kerberos/www/
@@ -117,6 +126,8 @@ BuildRequires: openssl-devel < 1:3.0.0
 # Enable compilation of optional tests
 BuildRequires: resolv_wrapper
 BuildRequires: libcmocka-devel
+BuildRequires: opensc
+BuildRequires: softhsm
 
 %description
 Kerberos V5 is a trusted-third-party network authentication system,
@@ -148,7 +159,7 @@ Requires: openssl-libs >= 1:3.0.0
 Requires: openssl-libs >= 1:1.1.1d-4
 Requires: openssl-libs < 1:3.0.0
 %endif
-Requires: coreutils, gawk, sed
+Requires: coreutils
 Requires: keyutils-libs >= 1.5.8
 Requires: /etc/crypto-policies/back-ends/krb5.config
 
@@ -261,11 +272,16 @@ Requires: net-tools, rpcbind
 Requires: perl-interpreter
 Requires: procps-ng
 Requires: python3-kdcproxy
-Requires: python3-pyrad
 Requires: resolv_wrapper
 Requires: /etc/crypto-policies/back-ends/krb5.config
 Requires: words
-#Requires: openldap-servers, openldap-clients
+Requires: opensc
+Requires: softhsm
+Recommends: python3-pyrad
+
+# Restore once openldap upstream tests are fixed
+#Recommends: openldap-servers
+#Recommends: openldap-clients
 
 %description tests
 FOR TESTING PURPOSE ONLY
@@ -720,6 +736,18 @@ exit 0
 %{_datarootdir}/%{name}-tests/%{_arch}
 
 %changelog
+* Wed Jan 29 2025 Julien Rische <jrische@redhat.com> - 1.21.3-5
+- Prevent overflow when calculating ulog block size (CVE-2025-24528)
+  Resolves: rhbz#2342798
+- Support PKCS11 EC client certs in PKINIT
+  Resolves: rhbz#2341962
+- kdb5_util: fix DB entry flags on modification
+  Resolves: rhbz#2336555
+- Add ECDH support for PKINIT (RFC5349)
+  Resolves: rhbz#2214326
+- Remove dependency of krb5-libs on gawk and sed
+  Resolves: rhbz#2323859
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.21.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

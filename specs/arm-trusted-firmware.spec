@@ -14,7 +14,7 @@
 
 Name:    arm-trusted-firmware
 Version: 2.12.0
-Release: 2%{?candidate:.%{candidate}}%{?dist}
+Release: 3%{?candidate:.%{candidate}}%{?dist}
 Summary: ARM Trusted Firmware
 License: BSD-3-clause
 URL:     https://github.com/TrustedFirmware-A/trusted-firmware-a
@@ -22,6 +22,7 @@ Source0: %{url}/archive/v%{version}%{?candidate:-%{candidate}}.tar.gz#/%{pname}-
 Source1: aarch64-bl31
 Patch1:  rk356x-scmi-clk-reset.patch
 Patch2:  0001-Fix-specifying-the-number-of-octects-in-a-character.patch
+Patch3:  0001-fix-imx_trdc.h-header-guard.patch
 
 %if %{with cross}
 BuildRequires: gcc-aarch64-linux-gnu
@@ -133,6 +134,9 @@ done
 %endif
 
 %changelog
+* Wed Jan 29 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.12.0-3
+- Add patch to fix FTBFS (rhbz#2339901)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

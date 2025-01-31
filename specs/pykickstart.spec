@@ -4,8 +4,8 @@
 %bcond_with signed
 
 Name:      pykickstart
-Version:   3.61
-Release:   2%{?dist}
+Version:   3.62
+Release:   1%{?dist}
 License:   GPL-2.0-only
 Summary:   Python utilities for manipulating kickstart files.
 Url:       http://fedoraproject.org/wiki/pykickstart
@@ -75,6 +75,10 @@ LC_ALL=C make PYTHON=%{__python3} test-no-coverage
 %{python3_sitelib}/pykickstart*.egg-info
 
 %changelog
+* Wed Jan 29 2025 Brian C. Lane <bcl@redhat.com> - 3.62-1
+- Make %%certificate section option --dir mandatory. (rvykydal)
+  Resolves: rhbz#2342762
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.61-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

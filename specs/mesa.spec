@@ -84,6 +84,10 @@ Patch10:        gnome-shell-glthread-disable.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2333711
 Patch11:        0001-egl-never-select-swrast-for-vmwgfx.patch
 
+# https://gitlab.freedesktop.org/mesa/mesa/-/issues/12310
+# https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/33248
+Patch12:        https://gitlab.freedesktop.org/mesa/mesa/-/commit/3b78dcec058e.patch#/mesa-24.3.4-radeonsi-disallow-compute-queues-on-Raven_Raven2-due-to-hangs.patch
+
 BuildRequires:  meson >= 1.3.0
 BuildRequires:  gcc
 BuildRequires:  gcc-c++

@@ -76,7 +76,7 @@ install -m644 %{SOURCE3} %{buildroot}%{_mandir}/man8/
 %{_mandir}/man8/mcstransd.8.gz
 %{_mandir}/man5/setrans.conf.5.gz
 %{_mandir}/man8/secolor.conf.8.gz
-/usr/sbin/mcstransd
+%{_sbindir}/mcstransd
 %{_unitdir}/mcstrans.service
 %{_unitdir}/mcstransd.service
 %dir %{_sysconfdir}/selinux/mls/setrans.d
@@ -92,7 +92,4 @@ install -m644 %{SOURCE3} %{buildroot}%{_mandir}/man8/
 %{_usr}/share/mcstrans/util/*
 
 %changelog
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8-0.rc3.1.1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
 %autochangelog

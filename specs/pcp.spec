@@ -1,6 +1,6 @@
 Name:    pcp
 Version: 6.3.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: System-level performance monitoring and performance management
 License: GPL-2.0-or-later AND LGPL-2.1-or-later AND CC-BY-3.0
 URL:     https://pcp.io
@@ -8,6 +8,7 @@ URL:     https://pcp.io
 Source0: https://github.com/performancecopilot/pcp/releases/pcp-%{version}.src.tar.gz
 
 Patch0: pcp-xsos-fixes.patch
+Patch1: pcp-gcc15.patch
 
 %if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
 ExcludeArch: %{ix86}
@@ -3605,6 +3606,9 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
+* Wed Jan 29 2025 William Cohen <wcohen@redhat.com> - 6.3.2-5
+- Backport GCC15 fixes (BZ #2341011)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

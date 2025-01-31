@@ -4,6 +4,9 @@
 
 %global crate az-cvm-vtpm
 
+# compile and run tests only on supported architectures
+%global supported_arches x86_64
+
 Name:           rust-az-cvm-vtpm
 Version:        0.7.1
 Release:        %autorelease
@@ -120,14 +123,18 @@ cp -f %{SOURCE1} .
 %cargo_generate_buildrequires
 
 %build
+%ifarch %{supported_arches}
 %cargo_build
+%endif
 
 %install
 %cargo_install
 
 %if %{with check}
+%ifarch %{supported_arches}
 %check
 %cargo_test
+%endif
 %endif
 
 %changelog

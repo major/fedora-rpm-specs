@@ -7,8 +7,8 @@ Name: perl-%{FullName}
 Summary: Access to a small subset of the native HarfBuzz library
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License: GPL-1.0-or-later OR Artistic-1.0-Perl
-Version: 0.026
-Release: 13%{?dist}
+Version: 0.028
+Release: 1%{?dist}
 Source: %{metacpan}/%{FullName}-%{version}.tar.gz
 Url: https://metacpan.org/release/%{FullName}
 
@@ -64,12 +64,15 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 make test VERBOSE=1
 
 %files
-%doc Changes README
+%doc Changes README.md
 %{perl_vendorarch}/auto/*
 %{perl_vendorarch}/HarfBuzz/Shaper.pm
 %{_mandir}/man3/*
 
 %changelog
+* Wed Jan 29 2025 Johan Vromans <jvromans@squirrel.nl> - 0.028-1
+- Upgrade to new upstream version.
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.026-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

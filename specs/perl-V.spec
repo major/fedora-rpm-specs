@@ -1,5 +1,5 @@
 Name:           perl-V
-Version:        0.21
+Version:        0.22
 Release:        1%{?dist}
 Summary:        Print version of the specified Perl modules
 
@@ -49,11 +49,14 @@ make test VERBOSE=1
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %files
-%doc Changes README.md
+%doc Changes README.md SECURITY.md CONTRIBUTING.md
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
 %changelog
+* Wed Jan 29 2025 Johan Vromans <jvromans@squirrel.nl> - 0.22-1
+- Upgrade to new upstream version.
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

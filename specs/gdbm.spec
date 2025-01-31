@@ -3,7 +3,7 @@
 Summary: A GNU set of database routines which use extensible hashing
 Name: gdbm
 Version: 1.23
-Release: 8%{?dist}
+Release: 9%{?dist}
 Epoch: 1
 License: GPL-3.0-or-later
 URL: http://www.gnu.org/software/gdbm/
@@ -58,6 +58,10 @@ gdbm database library.  You'll also need to install the gdbm package.
 %setup -q
 
 %build
+
+CFLAGS="$CFLAGS -std=gnu11"
+export CFLAGS
+
 %configure \
     --disable-static \
 %{!?with_largefile: --disable-largefile} \
@@ -112,6 +116,9 @@ make check
 %{_mandir}/man3/*
 
 %changelog
+* Wed Jan 29 2025 Filip Janus <fjanus@redhat.com> - 1:1.23-9
+- Stick with std=gnu11
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.23-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

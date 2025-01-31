@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Summary:        Simple, blog aware, static site generator
-Version:        4.4.0
+Version:        4.4.1
 Release:        %autorelease
 License:        MIT
 

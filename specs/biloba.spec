@@ -1,6 +1,6 @@
 Name:           biloba
 Version:        0.9.3
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        A tactical board game
 
 License:        GPL-2.0-or-later
@@ -24,7 +24,7 @@ your opponents.
 
 
 %build
-export CFLAGS="$CFLAGS -fcommon -g"
+export CFLAGS="$CFLAGS -fcommon -g -std=c17"
 autoreconf -if
 %configure --prefix=%{_prefix}
 make %{?_smp_mflags}
@@ -91,6 +91,9 @@ desktop-file-install                    \
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Wed Jan 29 2025 josef radinger <cheese@nosuchhost.net> - 0.9.3-34
+- rebuild with -std=c99
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

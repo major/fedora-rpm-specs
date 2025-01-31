@@ -1,6 +1,6 @@
 Name:		can-utils
-Version:	2023.03
-Release:	6%{?dist}
+Version:	2025.01
+Release:	1%{?dist}
 Summary:	SocketCAN user space utilities and tools
 
 # most utilities are dual-licensed but some are GPLv2 only
@@ -11,12 +11,9 @@ Source0:	https://github.com/linux-can/can-utils/archive/v%{version}.tar.gz#/%{na
 # Use this to extract new snapshots from upstream git repo
 Source1:	can-snapshot.sh
 
-BuildRequires:	autoconf
-BuildRequires:	automake
-BuildRequires:	libtool
+BuildRequires:	cmake
 BuildRequires:	gcc
 BuildRequires:	glibc-devel
-BuildRequires:  make
 
 %description
 CAN is a message-based network protocol designed for vehicles originally
@@ -26,26 +23,24 @@ the Linux kernel.
 
 This package contains some user space utilities for Linux SocketCAN subsystem.
 
+%package devel
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+%description devel
+Development file for %{name}.
+
 %prep
 %autosetup -p1
-# Correct includes
-for file in canlogserver cansniffer isotpdump isotpperf slcanpty isotpdump isotpsniffer; do
-    sed -i -e 's|#include <sys/socket.h>|#include <linux/sockios.h>|' ${file}.c
-done
 
 %build
-autoreconf -vif
-
-export CFLAGS="%{optflags} -fno-strict-aliasing"
-
-%configure --disable-silent-rules
-%make_build
+%cmake -DCMAKE_INSTALL_LIBDIR=%{_libdir}
+%cmake_build
 
 # Extract the dual license from one of the sources
 head -39 asc2log.c | tail -37 | cut -c4- > COPYING
 
 %install
-%make_install
+%cmake_install
 
 %files
 %license COPYING
@@ -74,6 +69,8 @@ head -39 asc2log.c | tail -37 | cut -c4- > COPYING
 %{_bindir}/j1939cat
 %{_bindir}/j1939spy
 %{_bindir}/j1939sr
+%{_bindir}/j1939-timedate-cli
+%{_bindir}/j1939-timedate-srv
 %{_bindir}/log2asc
 %{_bindir}/log2long
 %{_bindir}/mcp251xfd-dump
@@ -82,7 +79,16 @@ head -39 asc2log.c | tail -37 | cut -c4- > COPYING
 %{_bindir}/slcanpty
 %{_bindir}/testj1939
 
+%files devel
+%{_bindir}/isobusfs-cli
+%{_bindir}/isobusfs-srv
+%{_includedir}/isobusfs*
+%{_libdir}/libisobusfs*.so
+
 %changelog
+* Wed Jan 29 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2025.01-1
+- Update to 2025.01
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2023.03-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

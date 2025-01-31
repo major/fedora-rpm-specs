@@ -1,6 +1,6 @@
 Name:           mpv
 Version:        0.39.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 Summary:        Movie player playing most video formats and DVDs
@@ -217,6 +217,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Jan 29 2025 Simone Caronni <negativo17@gmail.com> - 0.39.0-4
+- Rebuild for updated VapourSynth.
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.39.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 %global srcname flatpak-module-tools
-%global project_version 1.1
+%global project_version 1.1.1
 
 Name:		%{srcname}
-Version:	1.1
+Version:	1.1.1
 Release:	%autorelease
 Summary:	Tools for maintaining Flatpak applications and runtimes as Fedora modules
 
@@ -12,7 +12,7 @@ Source0:	https://releases.pagure.org/flatpak-module-tools/flatpak-module-tools-%
 
 BuildArch:	noarch
 # i386 is not supported by flatpak_module_tools.utils.Arch
-ExcludeArch:    %{ix86}
+ExcludeArch:	%{ix86}
 
 BuildRequires: python3-build
 BuildRequires: python3-devel
@@ -115,6 +115,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{project_version}
 %files -n python3-%{srcname}
 %license LICENSE
 %{python3_sitelib}/*
+
 
 %changelog
 %autochangelog

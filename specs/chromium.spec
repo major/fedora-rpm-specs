@@ -282,7 +282,7 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 132.0.6834.110
+Version: 132.0.6834.159
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -1942,6 +1942,10 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %endif
 
 %changelog
+* Wed Jan 29 2025 Than Ngo <than@redhat.com> - 132.0.6834.159-1
+- Updated to 132.0.6834.159
+  * Medium CVE-2025-0762: Use after free in DevTools
+
 * Thu Jan 23 2025 Than Ngo <than@redhat.com> - 132.0.6834.110-1
 - Update to 132.0.6834.110
   * High CVE-2025-0611: Object corruption in V8

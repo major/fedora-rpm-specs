@@ -1,6 +1,6 @@
 Name:           sdcc
 Version:        4.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Small Device C Compiler
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -41,7 +41,7 @@ degree) include the 8051, ds390, z80, hc08, and PIC.
 
 %package libc-sources
 Summary:        Small Device C Compiler
-License:        GPLv2+
+License:        GPL-2.0-or-later
 Requires:       sdcc = %{version}-%{release}
 
 %description libc-sources
@@ -159,6 +159,9 @@ popd
 
 
 %changelog
+* Wed Jan 29 2025 Roy Rankin <rrankin@ihug.com.au> - 4.4.0-2
+- Fix SPDX license regression
+
 * Mon Jan 27 2025 Roy Rankin <rrankin@ihug.com.au> - 4.4.0-1
 - upgrade to sdcc 4.4.0 and fix gcc build issue
 

@@ -8,13 +8,13 @@
 %define desktop_file_utils_version 0.2.90
 
 Name:    gnome-terminal
-Version: 3.54.0
+Version: 3.54.3
 Release: %autorelease
 Summary: Terminal emulator for GNOME
 
 License: GPL-3.0-or-later AND GFDL-1.3-only
 URL:     https://wiki.gnome.org/Apps/Terminal
-Source0: https://gitlab.gnome.org/GNOME/%{name}/-/archive/%{version}/%{name}-%{version}.tar.bz2
+Source0: https://gitlab.gnome.org/GNOME/%{name}/-/archive/%{version}/%{name}-%{version}.tar.xz
 Source1: org.gnome.Terminal.gschema.override
 
 BuildRequires: pkgconfig(dconf)

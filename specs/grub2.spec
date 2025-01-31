@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	20%{?dist}
+Release:	21%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -602,6 +602,10 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg
 %endif
 
 %changelog
+* Tue Jan 28 2025 Nicolas Frayer <nfrayer@redhat.com> 2.12-21
+- commands/bli: Fix crash in get_part_uuid()
+- Resolves: #2339164
+
 * Wed Jan 22 2025 Leo Sandoval <lsandova@redhat.com> 2.12-20
 - fix pending SAST issues
 - Related: #RHEL-50504

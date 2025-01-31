@@ -8,7 +8,7 @@
 %endif
 
 Name:           python-%{srcname}
-Version:        7.0.0
+Version:        7.1.3
 Release:        %autorelease
 Summary:        Python library for working with RDF
 License:        BSD-3-Clause
@@ -16,11 +16,6 @@ URL:            https://github.com/RDFLib/rdflib
 BuildArch:      noarch
 
 Source:         %{pypi_source}
-Patch:          %{srcname}-py3_13-fix-pickler.diff
-# Backported from https://github.com/RDFLib/rdflib/pull/2817
-Patch:          rdflib-7.0.0-pytest8.patch
-# Relax isodate version requirement
-Patch:          rdflib-7.0.0-isodate-0.7.patch
 
 BuildRequires:  python%{python3_pkgversion}-devel
 %if %{with tests}
@@ -124,7 +119,7 @@ rm -rf docs/_build/html/.{doctrees,buildinfo}
             and not test_literal_addsub[2006-07-01T20:52:00-P123D-aplusb-2006-11-01T12:50:00] \
             and not test_literal_addsub[2006-07-01T20:52:00-2006-11-01T12:50:00-bminusa-P123D] \
 %endif
-            "
+            " -m "not webtest"
 %endif
 
 %files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}

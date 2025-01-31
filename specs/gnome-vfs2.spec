@@ -167,7 +167,7 @@ if pkg-config openssl ; then
 	LDFLAGS=`pkg-config --libs-only-L openssl`; export LDFLAGS
 fi
 
-CFLAGS="%optflags -fno-strict-aliasing" \
+CFLAGS="%optflags -fno-strict-aliasing -std=gnu17" \
 %configure \
     --with-samba-includes=`pkg-config --variable=includedir smbclient` \
     --enable-samba \

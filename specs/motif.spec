@@ -13,10 +13,7 @@ Requires: xorg-x11-xbitmaps
 
 BuildRequires: make
 BuildRequires: automake, libtool, autoconf, flex
-# flex static libs have been part of flex for RHEL <= 6 and Fedora <= 12
-%if 0%{?fedora} > 12 || 0%{?rhel} > 6
 BuildRequires: flex-static
-%endif
 BuildRequires: byacc, pkgconfig
 BuildRequires: libjpeg-devel libpng-devel
 BuildRequires: libXft-devel libXmu-devel libXp-devel libXt-devel libXext-devel
@@ -92,6 +89,7 @@ This package contains the static Motif libraries.
 %patch -P 57 -p1
 
 %build
+export CFLAGS="$CFLAGS -std=gnu17"
 ./autogen.sh
 %configure --enable-static --enable-xft --enable-jpeg --enable-png
 

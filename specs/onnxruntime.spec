@@ -56,6 +56,7 @@ Patch:      0017-revert-nan-propagation-bugfix.patch
 # from https://github.com/microsoft/onnxruntime/pull/21897
 Patch:      0019-backport-onnx-1.17.0-support.patch
 Patch:      0020-disable-locale-tests.patch
+Patch:      0021-fix-range-loop-construct.patch
 
 # s390x:   https://bugzilla.redhat.com/show_bug.cgi?id=2235326
 # armv7hl: https://bugzilla.redhat.com/show_bug.cgi?id=2235328
@@ -137,6 +138,9 @@ rm -v onnxruntime/test/optimizer/nhwc_transformer_test.cc
 
 # Re-generate flatbuffer headers
 %{__python3} onnxruntime/core/flatbuffers/schema/compile_schema.py --flatc %{_bindir}/flatc
+
+# -Werror is too strict and brittle for distribution packaging.
+CXXFLAGS+="-Wno-error"
 
 # Overrides BUILD_SHARED_LIBS flag since onnxruntime compiles individual components as static, and links
 # all together into a single shared library when onnxruntime_BUILD_SHARED_LIB is ON.

@@ -47,8 +47,8 @@
 
 Summary: PostgreSQL client programs
 Name: %{majorname}%{majorversion}
-Version: %{majorversion}.0
-Release: 2%{?dist}
+Version: %{majorversion}.2
+Release: 1%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -60,7 +60,7 @@ Url: http://www.postgresql.org/
 # that this be kept up with the latest minor release of the previous series;
 # but update when bugs affecting pg_dump output are fixed.
 %global prevmajorversion 16
-%global prevversion %{prevmajorversion}.4
+%global prevversion %{prevmajorversion}.6
 %global prev_prefix %{_libdir}/pgsql/postgresql-%{prevmajorversion}
 %global precise_version %{?epoch:%epoch:}%version-%release
 
@@ -574,7 +574,7 @@ cd ..
 # Fiddling with CFLAGS.
 
 CFLAGS="${CFLAGS:-%optflags}"
-CFLAGS="$CFLAGS -DOPENSSL_NO_ENGINE"
+CFLAGS="$CFLAGS -DOPENSSL_NO_ENGINE -std=c18"
 # Strip out -ffast-math from CFLAGS....
 CFLAGS=`echo $CFLAGS|xargs -n 1|grep -v ffast-math|xargs -n 100`
 export CFLAGS
@@ -1344,6 +1344,10 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Wed Jan 29 2025 Filip Janus <fjanus@redhat.com> - 17.2-1 
+- Update to 17.2
+- stick with std=c18
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 17.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

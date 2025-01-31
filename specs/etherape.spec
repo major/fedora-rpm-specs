@@ -21,6 +21,7 @@ EtherApe is a graphical network monitor modeled after etherman.
 
 
 %build
+export CFLAGS="$CFLAGS -std=gnu17"
 %configure
 make %{?_smp_mflags}
 

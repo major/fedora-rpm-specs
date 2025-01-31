@@ -1,6 +1,6 @@
 Name: realtime-setup
 Version: 2.5
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL-2.0-or-later
 Summary: Setup RT/low-latency environment details
 Source0: https://gitlab.com/rt-linux-tools/%{name}/-/archive/v%{version}/%{name}-%{version}.tar.bz2
@@ -65,13 +65,16 @@ Neither the slub script or realtime-entsk are active by default.
 %config(noreplace) %{_sysconfdir}/udev/rules.d/99-rhel-rt.rules
 %config(noreplace) %{_sysconfdir}/sysconfig/realtime-setup
 %{_bindir}/slub_cpu_partial_off
-%{_sbindir}/realtime-entsk
-%{_sbindir}/kernel-is-rt
+%{_bindir}/realtime-entsk
+%{_bindir}/kernel-is-rt
 %{_unitdir}/realtime-setup.service
 %{_bindir}/realtime-setup
 %{_unitdir}/realtime-entsk.service
 
 %changelog
+* Wed Jan 29 2025 Clark Williams <williams@redhat.com> - 2.5-5
+- Move realtime-entsk and kernel-is-rt to /usr/bin
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -8,7 +8,7 @@
 %endif
 
 Name:           sdl2-compat
-Version:        2.30.50
+Version:        2.30.51
 Release:        1%{?dist}
 SourceLicense:  Zlib and Apache-2.0 and MIT and BSD-3-Clause
 Summary:        SDL 2.0 runtime compatibility library using SDL 3.0
@@ -166,6 +166,9 @@ install -p -m 644 %{SOURCE2} %{buildroot}%{_includedir}/SDL2/SDL_revision.h
 
 
 %changelog
+* Thu Jan 30 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.30.51-1
+- Update to 2.30.51
+
 * Wed Jan 22 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.30.50-1
 - Update to 2.30.50 GA
 

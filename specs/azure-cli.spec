@@ -9,7 +9,7 @@
 
 %global         srcname     azure-cli
 %global         forgeurl    https://github.com/Azure/azure-cli
-Version:        2.67.0
+Version:        2.68.0
 %global         tag         %{srcname}-%{version}
 %global         distprefix  %{nil}
 %forgemeta
@@ -119,6 +119,10 @@ sed -i 's/azure-appconfiguration==1.7/azure-appconfiguration>=1.7,<2/' src/azure
 # Namespace packages are no longer needed after Python 3.7, but upstream
 # insists on carrying them.
 sed -i '/nspkg/d' src/azure-cli/requirements.py3.Linux.txt
+
+# portalocker 3 drops support for end-of-life Python versions
+sed -i 's/portalocker>=1.6,<3/portalocker>=1.6,<4/' src/azure-cli-telemetry/setup.py
+sed -i 's/portalocker==2.3.2/portalocker>=1.6,<4/' src/azure-cli/requirements.py3.Linux.txt
 
 # The requirements file has requirements set for azure-cli-{core,telemetry,testsdk}
 # but we can't install those until we actually build this package.

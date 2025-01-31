@@ -1,7 +1,7 @@
 Name:          lxqt-runner
 Summary:       Application runner agent for LXQt desktop suite
-Version:       2.1.1
-Release:       2%{?dist}
+Version:       2.1.2
+Release:       1%{?dist}
 License:       LGPL-2.1-only
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -56,6 +56,9 @@ This package provides translations for the lxqt-runner package.
 %dir %{_datadir}/lxqt/translations/%{name}
 
 %changelog
+* Wed Jan 29 2025 Steve Cossette <farchord@gmail.com> - 2.1.2-1
+- 2.1.2
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

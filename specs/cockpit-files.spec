@@ -1,6 +1,6 @@
 Name: cockpit-files
-Version: 14
-Release: 2%{?dist}
+Version: 15
+Release: 1%{?dist}
 Summary: A filesystem browser for Cockpit
 License: LGPL-2.1-or-later
 
@@ -20,10 +20,10 @@ BuildRequires: gettext
 Requires: cockpit-bridge >= 318
 
 Provides: bundled(npm(@patternfly/patternfly)) = 5.4.2
-Provides: bundled(npm(@patternfly/react-core)) = 5.4.11
+Provides: bundled(npm(@patternfly/react-core)) = 5.4.12
 Provides: bundled(npm(@patternfly/react-icons)) = 5.4.2
 Provides: bundled(npm(@patternfly/react-styles)) = 5.4.1
-Provides: bundled(npm(@patternfly/react-table)) = 5.4.12
+Provides: bundled(npm(@patternfly/react-table)) = 5.4.14
 Provides: bundled(npm(@patternfly/react-tokens)) = 5.4.1
 Provides: bundled(npm(attr-accept)) = 2.2.5
 Provides: bundled(npm(dequal)) = 2.0.3
@@ -71,6 +71,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Jan 29 2025 Packit <hello@packit.dev> - 15-1
+- Show user and group information in the footer
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

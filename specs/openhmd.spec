@@ -1,7 +1,7 @@
 %global srcname OpenHMD
-%global forgeurl https://github.com/OpenHMD/OpenHMD
-%global date 20230112
-%global commit e64708b8213c52a6b0bbd7ad77e0ab910b5af6b8
+%global forgeurl https://github.com/thaytan/OpenHMD
+%global date 20250112
+%global commit 4dbc6c9e5929029023a0a1c09cfde6bbbb15761e
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           openhmd
@@ -17,13 +17,18 @@ Source0:        %{forgeurl}/archive/%{commit}/%{srcname}-%{commit}.tar.gz
 Source1:        LICENSE.miniz
 # License text extracted from the comment at the bottom of src/ext_deps/miniz.c
 Source2:        LICENSE.nxjson
+# Add missing headers to fix the build with GCC 15 (#2340971)
+Patch:          openhmd-missing-headers.patch
 
+BuildRequires:  cmake
 BuildRequires:  doxygen
-BuildRequires:  gcc
+BuildRequires:  gcc-c++
 BuildRequires:  meson
 
 BuildRequires:  glew-devel
 BuildRequires:  hidapi-devel
+BuildRequires:  libusb1-devel
+BuildRequires:  opencv-devel
 BuildRequires:  SDL2-devel
 
 Recommends:     xr-hardware
@@ -61,7 +66,7 @@ Summary:        Examples for %{name}
 This package contains examples making use of %{name}.
 
 %prep
-%autosetup -n %{srcname}-%{commit}
+%autosetup -n %{srcname}-%{commit} -p1
 
 # Copy license texts for bundled dependencies
 cp -p %SOURCE1 %SOURCE2 .

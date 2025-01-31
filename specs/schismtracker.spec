@@ -1,6 +1,6 @@
 Name:      schismtracker
 Version:   20241226
-Release:   2%{?dist}
+Release:   3%{?dist}
 Summary:   Sound module composer/player
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:   GPL-2.0-only
@@ -46,10 +46,12 @@ make install DESTDIR=%{buildroot}
 
 pushd icons
 for i in 16 22 24 32 36 48 64 72 96; do
-        install -m644 -D schism-icon-${i}.png %{buildroot}/%{_datadir}/icons/hicolor/${i}x${i}/apps/%{name}.png
+        install -m644 -D schism-icon-${i}.png %{buildroot}%{_datadir}/icons/hicolor/${i}x${i}/apps/%{name}.png
 done
-install -m644 -D schism-icon.svg %{buildroot}/%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+install -m644 -D schism-icon.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 popd
+desktop-file-validate %{buildroot}%{_datadir}/applications/schism.desktop
+
 
 %files
 %doc AUTHORS COPYING NEWS
@@ -60,6 +62,10 @@ popd
 %{_datadir}/pixmaps/schism*.png
 
 %changelog
+* Wed Jan 29 2025 josef radinger <cheese@nosuchhost.net> - 20241226-3
+- cosmetic in spec-file
+- validate desktop-file
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20241226-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,5 +1,7 @@
 # Mypy plugin is deprecated in 2.0. mypy is not in RHEL.
-%bcond mypy %{undefined rhel}
+# Some mypy plugin tests fail with mypy 1.14.1:
+# https://github.com/sqlalchemy/sqlalchemy/issues/12287
+%bcond mypy 0
 
 # The asyncmy Python package isn’t available in x86 (32bit)
 %ifnarch %ix86
@@ -41,7 +43,7 @@
 %endif
 
 Name:           python-%{canonicalname}
-Version:        2.0.36
+Version:        2.0.37
 # cope with pre-release versions containing tildes
 %global srcversion %{lua: srcversion, num = rpm.expand("%{version}"):gsub("~", ""); print(srcversion);}
 Release:        %autorelease

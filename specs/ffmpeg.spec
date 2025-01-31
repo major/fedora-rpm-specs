@@ -82,7 +82,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        7.0.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -857,6 +857,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}/examples
 %{_mandir}/man3/libswscale.3*
 
 %changelog
+* Wed Jan 29 2025 Simone Caronni <negativo17@gmail.com> - 7.0.2-11
+- Rebuild for updated VapourSynth.
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

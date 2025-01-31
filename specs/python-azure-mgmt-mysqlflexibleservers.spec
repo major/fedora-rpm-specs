@@ -2,8 +2,8 @@
 %global         tarball_name    azure_mgmt_mysqlflexibleservers
 
 Name:           python-%{srcname}
-Version:        1.0.0~b2
-%global         pypi_version    1.0.0b2
+Version:        1.0.0~b3
+%global         pypi_version    1.0.0b3
 Release:        %autorelease
 Summary:        The Microsoft Azure Mysqlflexibleservers Management Client Library
 License:        MIT

@@ -26,7 +26,7 @@
 Summary:	IPv6 address format change and calculation utility
 Name:		ipv6calc
 Version:	4.2.2
-Release:	2%{?gittag}%{?dist}
+Release:	3%{?gittag}%{?dist}
 URL:		http://www.deepspace6.net/projects/%{name}.html
 License:	GPL-2.0-only
 %if 0%{?gitcommit:1}
@@ -34,8 +34,14 @@ Source:		https://github.com/pbiering/%{name}/archive/%{gitcommit}/%{name}-%{gitc
 %else
 %if 0%{?_with_github:1}
 Source:		https://github.com/pbiering/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+%if "%{version}" == "4.2.2"
+Patch1:         ipv6calc-4.2.2-bz2340658.patch
+%endif
 %else
 Source:		ftp://ftp.bieringer.de/pub/linux/IPv6/ipv6calc/%{name}-%{version}.tar.gz
+%if "%{version}" == "4.2.2"
+Patch1:         ipv6calc-4.2.2-bz2340658.patch
+%endif
 %endif
 %endif
 BuildRequires:	automake make
@@ -380,6 +386,9 @@ fi
 
 
 %changelog
+* Wed Jan 29 2025 Peter Bieringer <pb@bieringer.de> - 4.2.2-3
+- fix for BZ#2340658
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

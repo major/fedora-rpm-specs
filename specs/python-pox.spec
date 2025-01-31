@@ -2,7 +2,7 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as a substitute.
-%bcond_without doc_pdf
+%bcond doc_pdf 1
 
 %global forgeurl https://github.com/uqfoundation/pox
 
@@ -17,7 +17,7 @@ Summary:        Utilities for filesystem exploration and automated builds
 # spdx
 License:        BSD-3-Clause
 URL:            %{forgeurl}
-Source0:        %{forgesource}
+Source:         %{forgesource}
 
 BuildArch:      noarch
 
@@ -98,6 +98,10 @@ This package provides documentation for %{name}.
 find 'pox' 'tests' -type f -name '*.py' \
     -exec gawk '/^#!/ { print FILENAME }; { nextfile }' '{}' '+' |
   xargs -r sed -r -i '1{/^#!/d}'
+# The intersphinx mapping format has changed in Sphinx 8 (see
+# https://github.com/uqfoundation/pox/pull/61) but we cannot resolve remote
+# mappings anyway.
+echo 'intersphinx_mapping.clear()' >> docs/source/conf.py
 
 %generate_buildrequires
 %pyproject_buildrequires -t

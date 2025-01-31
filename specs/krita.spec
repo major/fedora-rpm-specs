@@ -12,8 +12,8 @@
 %endif
 
 Name:           krita
-Version:        5.2.6
-Release:        3%{?dist}
+Version:        5.2.9
+Release:        1%{?dist}
 
 Summary:        Krita is a sketching and painting program
 License:        GPL-2.0-or-later
@@ -27,8 +27,6 @@ Source3:        https://github.com/arximboldi/lager/archive/v%{lager_version}/la
 #org.kde.krita.appdata.xml: failed to parse org.kde.krita.appdata.xml: Error on line 505 char 110: <caption> already set 'Atau' and tried to replace with ' yang aktif'
 #org.kde.krita.appdata.xml: failed to parse org.kde.krita.appdata.xml: Error on line 514 char 120: <caption> already set 'xxOr the active' and tried to replace with 'xx'
 Patch1: krita-5.2.6-appstream_validate.patch
-# Patch to build with Python 3.13 (needs to be upstreamed)
-Patch5: 0001-Changes-to-build-pykrita-with-Python-3.13.patch
 
 ## upstream patches
 
@@ -224,6 +222,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.krita.des
 
 
 %changelog
+* Wed Jan 29 2025 Than Ngo <than@redhat.com> - 5.2.9-1
+- Fixed rhbz#2342751, Update to 5.2.9
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

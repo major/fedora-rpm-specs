@@ -15,8 +15,7 @@ URL:            https://gitlab.gnome.org/World/Wildcard
 Source:         %{url}/-/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-# s390x is excluded because the blueprint doesn't compile
-ExcludeArch:    %{ix86} s390x
+ExcludeArch:    %{ix86}
 
 BuildRequires:  blueprint-compiler
 BuildRequires:  cargo

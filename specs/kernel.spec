@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.14.0
 %define specversion 6.14.0
 %define patchversion 6.14
-%define pkgrelease 0.rc0.20250127git9c5968db9e62.8
+%define pkgrelease 0.rc0.20250129git05dbaf8dd8bf.10
 %define kversion 6
-%define tarfile_release 6.13-8265-g9c5968db9e62
+%define tarfile_release 6.13-9338-g05dbaf8dd8bf
 # This is needed to do merge window version magic
 %define patchlevel 14
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.20250127git9c5968db9e62.8%{?buildid}%{?dist}
+%define specrelease 0.rc0.20250129git05dbaf8dd8bf.10%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.14.0
 
@@ -684,7 +684,7 @@ Summary: The Linux kernel
 
 
 Name: %{package_name}
-License: ((GPL-2.0-only WITH Linux-syscall-note) OR BSD-2-Clause) AND ((GPL-2.0-only WITH Linux-syscall-note) OR BSD-3-Clause) AND ((GPL-2.0-only WITH Linux-syscall-note) OR CDDL-1.0) AND ((GPL-2.0-only WITH Linux-syscall-note) OR Linux-OpenIB) AND ((GPL-2.0-only WITH Linux-syscall-note) OR MIT) AND ((GPL-2.0-or-later WITH Linux-syscall-note) OR BSD-3-Clause) AND ((GPL-2.0-or-later WITH Linux-syscall-note) OR MIT) AND 0BSD AND BSD-2-Clause AND (BSD-2-Clause OR Apache-2.0) AND BSD-3-Clause AND BSD-3-Clause-Clear AND CC0-1.0 AND GFDL-1.1-no-invariants-or-later AND GPL-1.0-or-later AND (GPL-1.0-or-later OR BSD-3-Clause) AND (GPL-1.0-or-later WITH Linux-syscall-note) AND GPL-2 AND GPL-2.0-only AND (GPL-2.0-only OR Apache-2.0) AND (GPL-2.0-only OR BSD-2-Clause) AND (GPL-2.0-only OR BSD-3-Clause) AND (GPL-2.0-only OR CDDL-1.0) AND (GPL-2.0-only OR GFDL-1.1-no-invariants-or-later) AND (GPL-2.0-only OR GFDL-1.2-no-invariants-only) AND (GPL-2.0-only WITH Linux-syscall-note) AND GPL-2.0-or-later AND (GPL-2.0-or-later OR BSD-2-Clause) AND (GPL-2.0-or-later OR BSD-3-Clause) AND (GPL-2.0-or-later OR CC-BY-4.0) AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (GPL-2.0-or-later WITH Linux-syscall-note) AND ISC AND LGPL-2.0-or-later AND (LGPL-2.0-or-later OR BSD-2-Clause) AND (LGPL-2.0-or-later WITH Linux-syscall-note) AND LGPL-2.1-only AND (LGPL-2.1-only OR BSD-2-Clause) AND (LGPL-2.1-only WITH Linux-syscall-note) AND LGPL-2.1-or-later AND (LGPL-2.1-or-later WITH Linux-syscall-note) AND (Linux-OpenIB OR GPL-2.0-only) AND (Linux-OpenIB OR GPL-2.0-only OR BSD-2-Clause) AND Linux-man-pages-copyleft AND MIT AND (MIT OR Apache-2.0) AND (MIT OR GPL-2.0-only) AND (MIT OR GPL-2.0-or-later) AND (MIT OR LGPL-2.1-only) AND (MPL-1.1 OR GPL-2.0-only) AND (X11 OR GPL-2.0-only) AND (X11 OR GPL-2.0-or-later) AND Zlib AND (copyleft-next-0.3.1 OR GPL-2.0-or-later)
+License: ((GPL-2.0-only WITH Linux-syscall-note) OR BSD-2-Clause) AND ((GPL-2.0-only WITH Linux-syscall-note) OR BSD-3-Clause) AND ((GPL-2.0-only WITH Linux-syscall-note) OR CDDL-1.0) AND ((GPL-2.0-only WITH Linux-syscall-note) OR Linux-OpenIB) AND ((GPL-2.0-only WITH Linux-syscall-note) OR MIT) AND ((GPL-2.0-or-later WITH Linux-syscall-note) OR BSD-3-Clause) AND ((GPL-2.0-or-later WITH Linux-syscall-note) OR MIT) AND 0BSD AND BSD-2-Clause AND (BSD-2-Clause OR Apache-2.0) AND BSD-3-Clause AND BSD-3-Clause-Clear AND CC0-1.0 AND GFDL-1.1-no-invariants-or-later AND GPL-1.0-or-later AND (GPL-1.0-or-later OR BSD-3-Clause) AND (GPL-1.0-or-later WITH Linux-syscall-note) AND GPL-2.0-only AND (GPL-2.0-only OR Apache-2.0) AND (GPL-2.0-only OR BSD-2-Clause) AND (GPL-2.0-only OR BSD-3-Clause) AND (GPL-2.0-only OR CDDL-1.0) AND (GPL-2.0-only OR GFDL-1.1-no-invariants-or-later) AND (GPL-2.0-only OR GFDL-1.2-no-invariants-only) AND (GPL-2.0-only WITH Linux-syscall-note) AND GPL-2.0-or-later AND (GPL-2.0-or-later OR BSD-2-Clause) AND (GPL-2.0-or-later OR BSD-3-Clause) AND (GPL-2.0-or-later OR CC-BY-4.0) AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (GPL-2.0-or-later WITH Linux-syscall-note) AND ISC AND LGPL-2.0-or-later AND (LGPL-2.0-or-later OR BSD-2-Clause) AND (LGPL-2.0-or-later WITH Linux-syscall-note) AND LGPL-2.1-only AND (LGPL-2.1-only OR BSD-2-Clause) AND (LGPL-2.1-only WITH Linux-syscall-note) AND LGPL-2.1-or-later AND (LGPL-2.1-or-later WITH Linux-syscall-note) AND (Linux-OpenIB OR GPL-2.0-only) AND (Linux-OpenIB OR GPL-2.0-only OR BSD-2-Clause) AND Linux-man-pages-copyleft AND MIT AND (MIT OR Apache-2.0) AND (MIT OR GPL-2.0-only) AND (MIT OR GPL-2.0-or-later) AND (MIT OR LGPL-2.1-only) AND (MPL-1.1 OR GPL-2.0-only) AND (X11 OR GPL-2.0-only) AND (X11 OR GPL-2.0-or-later) AND Zlib AND (copyleft-next-0.3.1 OR GPL-2.0-or-later)
 URL: https://www.kernel.org/
 Version: %{specrpmversion}
 Release: %{pkg_release}
@@ -814,6 +814,13 @@ BuildRequires: pesign >= 0.10-4
 BuildRequires: binutils-%{_build_arch}-linux-gnu, gcc-%{_build_arch}-linux-gnu
 %define cross_opts CROSS_COMPILE=%{_build_arch}-linux-gnu-
 %define __strip %{_build_arch}-linux-gnu-strip
+
+# Work around find-debuginfo for cross builds.
+# find-debuginfo doesn't support any of CROSS options (RHEL-21797),
+# and since debugedit > 5.0-16.el10, or since commit
+#   dfe1f7ff30f4 ("find-debuginfo.sh: Exit with real exit status in parallel jobs")
+# it now aborts and build fails.
+%undefine _include_gdb_index
 %endif
 
 # These below are required to build man pages
@@ -4173,14 +4180,24 @@ fi\
 #
 #
 %changelog
-* Mon Jan 27 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc0.9c5968db9e62.8]
+* Wed Jan 29 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.14.0-0.rc0.20250129git05dbaf8dd8bf.10]
+- Add -fzero-init-padding-bits to bindgen_skip_cflags (Justin M. Forbes)
+
+* Wed Jan 29 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc0.05dbaf8dd8bf.10]
 - s390: Add '-std=gnu11' to decompressor and purgatory CFLAGS (Nathan Chancellor)
 - apply -Wno-error=unterminated-string-initialization temporarily (Thorsten Leemhuis)
 - x86/boot: Use '-std=gnu11' to fix build with GCC 15 (Nathan Chancellor)
 - kbuild: Use -fzero-init-padding-bits=all (Kees Cook)
 - include/linux: Adjust headers for C23 (Jakub Jelinek)
 - x86/insn_decoder_test: allow longer symbol-names (David Rheinsberg)
-- kernel.spec: update license field (Scott Weaver)
+
+* Wed Jan 29 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc0.05dbaf8dd8bf.9]
+- Linux v6.14.0-0.rc0.05dbaf8dd8bf
+
+* Tue Jan 28 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc0.6d61a53dd6f5.8]
+- redhat/kernel.spec: work around find-debuginfo aborting cross builds (Jan Stancek)
+- redhat/configs: Default to batched invalidation on s390 (Jerry Snitselaar)
+- Linux v6.14.0-0.rc0.6d61a53dd6f5
 
 * Mon Jan 27 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc0.9c5968db9e62.7]
 - Linux v6.14.0-0.rc0.9c5968db9e62

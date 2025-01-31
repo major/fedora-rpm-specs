@@ -6,7 +6,7 @@ Name: dovecot
 Epoch: 1
 Version: 2.3.21.1
 %global prever %{nil}
-Release: 3%{?dist}
+Release: 4%{?dist}
 #dovecot itself is MIT, a few sources are PD, pigeonhole is LGPLv2
 License: MIT AND LGPL-2.1-only
 
@@ -59,6 +59,10 @@ Patch26: dovecot-2.3.21-test-socket-path.patch
 
 # Compile without OpenSSL ENGINE, adapted from 2.4 dovecot, issue #RHEL-33733
 Patch27: dovecot-2.3.21-noengine.patch
+Patch28: dovecot-2.3.21.1-fixicu.patch
+
+# from upstream PR#229, for < 2.4
+Patch29: dovecot-2.3.21.1-fixtestdatastack.patch
 
 BuildRequires: gcc, gcc-c++, openssl-devel, pam-devel, zlib-devel, bzip2-devel, libcap-devel
 BuildRequires: libtool, autoconf, automake, pkgconfig
@@ -172,6 +176,8 @@ mv dovecot-2.3-pigeonhole-%{pigeonholever} dovecot-pigeonhole
 %patch -P 25 -p1 -b .ph_scriptcmp
 %patch -P 26 -p1 -b .test-socket-path
 %patch -P 27 -p1 -b .noengine
+%patch -P 28 -p1 -b .fixicu
+%patch -P 29 -p1 -b .fixtestdatastack
 cp run-test-valgrind.supp dovecot-pigeonhole/
 # valgrind would fail with shell wrapper
 echo "testsuite" >dovecot-pigeonhole/run-test-valgrind.exclude
@@ -520,6 +526,9 @@ make check
 %{_libdir}/%{name}/dict/libdriver_pgsql.so
 
 %changelog
+* Wed Jan 29 2025 Michal Hlavinka <mhlavink@redhat.com> - 1:2.3.21.1-4
+- fix ftbfs
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.3.21.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

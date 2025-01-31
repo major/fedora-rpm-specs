@@ -3,8 +3,8 @@
 %global srcname scikit-image
 
 Name: python-scikit-image
-Version: 0.24.0
-Release: 4%{?dist}
+Version: 0.25.0
+Release: 1%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
 # skimage/graph/_mcp.pyx
@@ -16,9 +16,6 @@ Source0: https://github.com/scikit-image/scikit-image/archive/v%{version}/%{srcn
 # Select extra test data - you can build the package locally and then run:
 # tar cJvf scikit-image-data.tar.xz -C scikit-image-0.21.0/scikit-image/0.21.0 .
 Source1: scikit-image-data-20240618.tar.xz
-# Fix method docstring generation for Python 3.13
-# https://github.com/scikit-image/scikit-image/pull/7448
-Patch: 0001-_parse_docs-handle-change-to-docstring-indentation-i.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -124,11 +121,14 @@ popd
 %endif
 
 %files -n python3-%{srcname} -f %{pyproject_files}
-%doc CONTRIBUTORS.txt RELEASE.txt
+%doc CONTRIBUTORS.md README.md SECURITY.md
 %license LICENSE.txt
 
 
 %changelog
+* Tue Jan 28 2025 Orion Poplawski <orion@nwra.com> - 0.25.0-1
+- Update to 0.25.0
+
 * Sun Jan 19 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 0.24.0-4
 - Drop i686 support beginning with Fedora 42 (leaf package)
 

@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           python-tomli-w
-Version:        1.1.0
+Version:        1.2.0
 Release:        %autorelease
 Summary:        A Python library for writing TOML
 

@@ -38,6 +38,7 @@ BuildRequires: pkgconfig
 BuildRequires: systemd-rpm-macros
 BuildRequires: mariadb-connector-c-devel
 BuildRequires: sendmail-milter-devel
+Suggests: %{name}-tools%{?_isa} = %{version}-%{release}
 
 %description
 OpenDMARC (Domain-based Message Authentication, Reporting & Conformance)
@@ -52,6 +53,19 @@ towards RFC status.
 The database schema required for some functions is provided in
 %{_datadir}/%{name}/db. The rddmarc tools are provided in
 %{_datadir}/%{name}/contrib/rddmarc.
+
+%package -n opendmarc-tools
+Summary: Tools for opendmarc
+Requires: lib%{name}%{?_isa} = %{version}-%{release}
+
+%description -n opendmarc-tools
+This package contains the util binaries for opendmarc, including:
+
+- opendmarc-expire
+- opendmarc-import
+- opendmarc-importstats
+- opendmarc-params
+- opendmarc-reports
 
 %package -n libopendmarc
 Summary: An open source DMARC library
@@ -171,16 +185,25 @@ exit 0
 %{_datadir}/%{name}
 %{_sbindir}/opendmarc
 %{_sbindir}/opendmarc-check
+%{_mandir}/man5/opendmarc.conf.5*
+%{_mandir}/man8/opendmarc.8*
+%{_mandir}/man8/opendmarc-check.8*
+%dir %attr(-,%{name},%{name}) %{_localstatedir}/spool/%{name}
+%dir %attr(710,%{name},mail) %{_rundir}/%{name}
+%dir %attr(-,%{name},%{name}) %{_sysconfdir}/%{name}
+%attr(0644,root,root) %{_unitdir}/%{name}.service
+
+%files -n opendmarc-tools
 %{_sbindir}/opendmarc-expire
 %{_sbindir}/opendmarc-import
 %{_sbindir}/opendmarc-importstats
 %{_sbindir}/opendmarc-params
 %{_sbindir}/opendmarc-reports
-%{_mandir}/*/*
-%dir %attr(-,%{name},%{name}) %{_localstatedir}/spool/%{name}
-%dir %attr(710,%{name},mail) %{_rundir}/%{name}
-%dir %attr(-,%{name},%{name}) %{_sysconfdir}/%{name}
-%attr(0644,root,root) %{_unitdir}/%{name}.service
+%{_mandir}/man8/opendmarc-expire.8*
+%{_mandir}/man8/opendmarc-import.8*
+%{_mandir}/man8/opendmarc-importstats.8*
+%{_mandir}/man8/opendmarc-params.8*
+%{_mandir}/man8/opendmarc-reports.8*
 
 %files -n libopendmarc
 %{_libdir}/lib%{name}.so.*
