@@ -2,8 +2,8 @@ Name: dnstwist
 Summary: Domain name permutation engine
 License: Apache-2.0
 
-Version: 20240812
-Release: 2%{?dist}
+Version: 20250130
+Release: 1%{?dist}
 
 URL:     https://github.com/elceef/%{name}/
 Source0: %{url}archive/%{version}/%{name}-%{version}.tar.gz
@@ -72,6 +72,9 @@ install -m 644 -p docs/%{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Thu Jan 30 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 20250130-1
+- Update to v20250130
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20240812-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -6,6 +6,9 @@ Summary:   Sound module composer/player
 License:   GPL-2.0-only
 URL:       http://schismtracker.org/
 Source0:   https://github.com/schismtracker/schismtracker/archive/%{version}.tar.gz
+
+Patch1:    desktop.patch
+
 Excludearch:   s390x
 Requires:      hicolor-icon-theme
 BuildRequires: make
@@ -30,6 +33,7 @@ is mostly text-based using SDL for graphical output.
 
 %prep
 %setup -q
+%patch -P 1 -p1
 mkdir auto
 
 %build
@@ -64,7 +68,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/schism.desktop
 %changelog
 * Wed Jan 29 2025 josef radinger <cheese@nosuchhost.net> - 20241226-3
 - cosmetic in spec-file
-- validate desktop-file
+- patch and validate desktop-file
 
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20241226-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild

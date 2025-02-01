@@ -38,7 +38,7 @@ These are the development files.
 %patch -P 2 -p0
 
 %build
-export CPPFLAGS="$CPPFLAGS -fcommon"
+export CPPFLAGS="$CPPFLAGS -fcommon -std=gnu17"
 %configure
 make %{?_smp_mflags}
 doxygen

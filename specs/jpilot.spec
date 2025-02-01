@@ -1,7 +1,7 @@
 Summary: pilot desktop software
 Name: jpilot
 Version: 1.8.2
-Release: 32%{?dist}
+Release: 33%{?dist}
 License: GPL-2.0-only
 URL: https://www.jpilot.org/
 Source0: https://www.jpilot.org/tarballs/jpilot-%{version}.tar.gz
@@ -10,6 +10,7 @@ Source1: jpilot.desktop
 Patch0: jpilot-0.99.7-conf.patch
 Patch1: jpilot-1.8.2-gcc10.patch
 Patch2: jpilot-configure-c99.patch
+Patch3: jpilot-callback-types.patch
 
 BuildRequires: gcc
 BuildRequires: gettext, pilot-link-devel, perl-XML-Parser, libgcrypt-devel
@@ -37,6 +38,7 @@ well known rampant legacy operating system.
 %patch -P0 -p1 -b .confp
 %patch -P1 -p1 -b .gcc10
 %patch -P2 -p1
+%patch -P3 -p1
 iconv -f windows-1252 -t utf-8 AUTHORS >AUTHORS.aux
 mv AUTHORS.aux AUTHORS
 
@@ -126,6 +128,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/%{name}.app
 %{_metainfodir}/%{name}.appdata.xml
 
 %changelog
+* Thu Jan 30 2025 Nikola Forró <nforro@redhat.com> - 1.8.2-33
+- Fix incompatible pointer type errors
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

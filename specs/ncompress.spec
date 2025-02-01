@@ -1,7 +1,7 @@
 Summary: Fast compression and decompression utilities
 Name: ncompress
 Version: 5.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: Unlicense
 URL: https://github.com/vapier/%{name}
 Source: https://github.com/vapier/%{name}/archive/refs/tags/v%{version}.tar.gz
@@ -66,7 +66,7 @@ ARCH_FLAGS="$ARCH_FLAGS -DNOALLIGN=0"
 %autosetup -n %{name}-%{version} -p2
 
 %build
-make CFLAGS="%{optflags} %{?nc_endian} %{?nc_align} %{build_ldflags}"
+make CFLAGS="%{optflags} %{?nc_endian} %{?nc_align} %{build_ldflags} -std=gnu17"
 
 
 %install
@@ -89,6 +89,10 @@ ln -sf compress.1 $RPM_BUILD_ROOT%{_mandir}/man1/uncompress.1
 
 
 %changelog
+* Wed Jan 29 2025 Lukas Javorsky <ljavorsk@redhat.com> - 5.0-9
+- Fix the FTBFS caused by new C23 standard
+- Resolves: rhbz#2340909
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -23,26 +23,16 @@
 %define enable_shared 1
 %endif
 
-Summary:	IPv6 address format change and calculation utility
+Summary:	IPv6/IPv4 address information, format change, filter and calculation utility
 Name:		ipv6calc
-Version:	4.2.2
-Release:	3%{?gittag}%{?dist}
-URL:		http://www.deepspace6.net/projects/%{name}.html
+Version:	4.3.0
+Release:	1%{?gittag}%{?dist}
+URL:		https://www.deepspace6.net/projects/%{name}.html
 License:	GPL-2.0-only
 %if 0%{?gitcommit:1}
 Source:		https://github.com/pbiering/%{name}/archive/%{gitcommit}/%{name}-%{gitcommit}.tar.gz
 %else
-%if 0%{?_with_github:1}
 Source:		https://github.com/pbiering/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-%if "%{version}" == "4.2.2"
-Patch1:         ipv6calc-4.2.2-bz2340658.patch
-%endif
-%else
-Source:		ftp://ftp.bieringer.de/pub/linux/IPv6/ipv6calc/%{name}-%{version}.tar.gz
-%if "%{version}" == "4.2.2"
-Patch1:         ipv6calc-4.2.2-bz2340658.patch
-%endif
-%endif
 %endif
 BuildRequires:	automake make
 BuildRequires:	gcc
@@ -124,7 +114,7 @@ Recommends:    geolite2-city
 
 %if %{enable_ip2location}
 BuildRequires: IP2Location-devel >= 8.6.0
-Recommends:    IP2Location       >= 8.2.0
+Recommends:    IP2Location       >= 8.6.0
 %endif
 
 # RPM license macro detector
@@ -151,26 +141,30 @@ Also this package contains additional programs
  - mod_ipv6calc: Apache module for anonymization/information logging on-the-fly
 
 Support for following databases
- - IP2Location	%{?enable_ip2location:ENABLED}%{?!enable_ip2location:DISABLED}
-		default directory for downloaded db files: %{ip2location_db}
-		(requires also external library on system)
+ - IP2Location(BIN)  %{?enable_ip2location:ENABLED}%{?!enable_ip2location:DISABLED}
+		     default directory for downloaded db files: %{ip2location_db}
+		     (requires also external library on system)
 
- - GeoIP v2	%{?enable_mmdb:ENABLED}%{?!enable_mmdb:DISABLED}
-		default directory for downloaded db files: %{geoip_db}
-		(requires also external library on system)
+ - IP2Location(MMDB) %{?enable_mmdb:ENABLED}%{?!enable_mmdb:DISABLED}
+		     default directory for downloaded db files: %{ip2location_db}
+		     (requires also external library on system)
 
- - db-ip.com v2	%{?enable_mmdb:ENABLED}%{?!enable_mmdb:DISABLED}
-		(once generated database files are found on system)
-		default directory for generated db files: %{dbip_db}
+ - GeoIP(MMDB)	     %{?enable_mmdb:ENABLED}%{?!enable_mmdb:DISABLED}
+		     default directory for downloaded db files: %{geoip_db}
+		     (requires also external library on system)
 
- - External	%{?enable_external:ENABLED}%{?!enable_external:DISABLED}
-		default directory for generated db files: %{external_db}
+ - db-ip.com(MMDB)   %{?enable_mmdb:ENABLED}%{?!enable_mmdb:DISABLED}
+		     (once generated database files are found on system)
+		     default directory for generated db files: %{dbip_db}
+
+ - External	     %{?enable_external:ENABLED}%{?!enable_external:DISABLED}
+		     default directory for generated db files: %{external_db}
 
 Built %{?enable_shared:WITH}%{?!enable_shared:WITHOUT} shared-library
 
 Available rpmbuild rebuild options:
-  --without ip2location
-  --without mmdb (which disables GeoIP v2 and db-ip.com v2)
+  --without ip2location : disables IP2Location(BIN)
+  --without mmdb : disables GeoIP, db-ip.com, IP2Location(MMDB)
   --without external
   --without shared
   --without mod_ipv6calc
@@ -305,10 +299,10 @@ rm -rf %{buildroot}
 
 %files
 %if %{rpm_license_extra}
-%doc ChangeLog README README.* CREDITS TODO USAGE doc/ipv6calc.lyx doc/ipv6calc.sgml doc/ipv6calc.html doc/ipv6calc.xml
+%doc ChangeLog README README.* CREDITS TODO USAGE doc/ipv6calc.lyx doc/ipv6calc.html doc/ipv6calc.xml
 %license COPYING LICENSE
 %else
-%doc ChangeLog README README.* CREDITS TODO USAGE doc/ipv6calc.lyx doc/ipv6calc.sgml doc/ipv6calc.html doc/ipv6calc.xml COPYING LICENSE
+%doc ChangeLog README README.* CREDITS TODO USAGE doc/ipv6calc.lyx doc/ipv6calc.html doc/ipv6calc.xml COPYING LICENSE
 %endif
 
 %defattr(644,root,root,755)
@@ -386,6 +380,12 @@ fi
 
 
 %changelog
+* Wed Jan 29 2025 Peter Bieringer <pb@bieringer.de> - 4.3.0-1
+- Final release 4.3.0
+- Update recommend IP2Location >= 8.6.0
+- Remove ipv6calc.sgml from doc
+- Use now only releases from GitHub
+
 * Wed Jan 29 2025 Peter Bieringer <pb@bieringer.de> - 4.2.2-3
 - fix for BZ#2340658
 

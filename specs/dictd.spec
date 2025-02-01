@@ -7,12 +7,13 @@
 Summary:   DICT protocol (RFC 2229) server and command-line client
 Name:      dictd
 Version:   1.13.1
-Release:   5%{?dist}
+Release:   6%{?dist}
 License:   GPL-2.0-only AND GPL-2.0-or-later AND GPL-1.0-or-later AND GPL-3.0-or-later AND MIT AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 Source0:   https://github.com/cheusov/dictd/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:   dictd.service
 Source2:   dictd2.te
 Source3:   dictd.conf
+Source4:   dict.conf
 Patch0:    0001-Fix-C99-compatibility-issues-in-lexer-parser-integra.patch
 Patch1:    0001-remove-use-of-deprecated-inet_aton-and-inet_ntoa.patch
 URL:       http://www.dict.org/
@@ -81,6 +82,7 @@ mkdir -p %{buildroot}%{_unitdir}
 install -m 755 %{SOURCE1} %{buildroot}%{_unitdir}/dictd.service
 mkdir -p %{buildroot}%{_sysconfdir}
 install -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/dictd.conf
+install -m 644 %{SOURCE4} %{buildroot}%{_sysconfdir}/dict.conf
 
 for selinuxvariant in %{selinux_variants}
 do
@@ -111,6 +113,7 @@ exit 0
 %doc examples/dict1.conf
 %{_bindir}/dict
 %{_mandir}/man1/dict.1*
+%config(noreplace) %{_sysconfdir}/dict.conf
 
 %files server
 %doc ANNOUNCE COPYING INSTALL README doc/rfc2229.txt doc/security.doc
@@ -142,6 +145,9 @@ exit 0
 %{_datadir}/selinux/*/dictd2.pp
 
 %changelog
+* Wed Jan 29 2025 Carlos Rodriguez-Fernandez <carlosrodrifernandez@gmail.com> - 1.13.1-6
+- Set default client configuration to use dict.org
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.14.0
 %define specversion 6.14.0
 %define patchversion 6.14
-%define pkgrelease 0.rc0.20250129git05dbaf8dd8bf.10
+%define pkgrelease 0.rc0.20250130git72deda0abee6.11
 %define kversion 6
-%define tarfile_release 6.13-9338-g05dbaf8dd8bf
+%define tarfile_release 6.13-9485-g72deda0abee6
 # This is needed to do merge window version magic
 %define patchlevel 14
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.20250129git05dbaf8dd8bf.10%{?buildid}%{?dist}
+%define specrelease 0.rc0.20250130git72deda0abee6.11%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.14.0
 
@@ -4180,16 +4180,23 @@ fi\
 #
 #
 %changelog
-* Wed Jan 29 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.14.0-0.rc0.20250129git05dbaf8dd8bf.10]
-- Add -fzero-init-padding-bits to bindgen_skip_cflags (Justin M. Forbes)
+* Thu Jan 30 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.14.0-0.rc0.20250130git72deda0abee6.11]
+- Turn on CONFIG_DRM_ACCEL_AMDXDNA for Fedora (Justin M. Forbes)
 
-* Wed Jan 29 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc0.05dbaf8dd8bf.10]
+* Thu Jan 30 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc0.72deda0abee6.11]
+- s390/bitops: Use correct constraint for arch_test_bit() inline assembly (Heiko Carstens)
+- Add -fzero-init-padding-bits to bindgen_skip_cflags (Justin M. Forbes)
 - s390: Add '-std=gnu11' to decompressor and purgatory CFLAGS (Nathan Chancellor)
 - apply -Wno-error=unterminated-string-initialization temporarily (Thorsten Leemhuis)
 - x86/boot: Use '-std=gnu11' to fix build with GCC 15 (Nathan Chancellor)
 - kbuild: Use -fzero-init-padding-bits=all (Kees Cook)
 - include/linux: Adjust headers for C23 (Jakub Jelinek)
 - x86/insn_decoder_test: allow longer symbol-names (David Rheinsberg)
+
+* Thu Jan 30 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc0.72deda0abee6.10]
+- redhat/configs: disable CONFIG_AF_UNIX_OOB on RHEL (Marcelo Ricardo Leitner)
+- redhat/configs: automotive: Disable wireless network and it's dependencies (Dorinda Bassey)
+- Linux v6.14.0-0.rc0.72deda0abee6
 
 * Wed Jan 29 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc0.05dbaf8dd8bf.9]
 - Linux v6.14.0-0.rc0.05dbaf8dd8bf

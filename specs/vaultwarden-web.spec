@@ -1,5 +1,5 @@
 Name:           vaultwarden-web
-Version:        2024.6.2c
+Version:        2025.1.1
 Release:        1%{?dist}
 Summary:        Web vault for vaultwarden
 
@@ -53,6 +53,9 @@ install -pm644 %{SOURCE1} %{_builddir}/web-vault/
 
 
 %changelog
+* Thu Jan 30 2025 Jonathan Wright <jonathan@almalinux.org> - 2025.1.1-1
+- update to 2025.1.1 rhbz#2334734
+
 * Thu Jan 16 2025 Jonathan Wright <jonathan@almalinux.org> - 2024.6.2c-1
 - update to 2024.6.2c
 

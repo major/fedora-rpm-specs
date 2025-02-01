@@ -57,6 +57,7 @@ bibliothèque utrac.
 %{__sed} -i -e '/^\s*strip /d' Makefile
 
 %build
+export RPM_OPT_FLAGS="$RPM_OPT_FLAGS -std=gnu17"
 make %{?_smp_mflags}
 
 %install

@@ -9,7 +9,7 @@
 %global giturl  https://github.com/cvc5/cvc5
 
 Name:           cvc5
-Version:        1.2.0
+Version:        1.2.1
 Release:        %autorelease
 Summary:        Automatic theorem prover for SMT problems
 
@@ -40,6 +40,7 @@ BuildRequires:  cmake(cryptominisat5)
 BuildRequires:  cocoalib-devel
 BuildRequires:  drat2er-devel
 BuildRequires:  drat-trim-devel
+BuildRequires:  ethos
 BuildRequires:  flex
 BuildRequires:  gcc-c++
 BuildRequires:  git-core
@@ -67,6 +68,8 @@ BuildRequires:  symfpu-devel
 BuildRequires:  yosyshq-abc-devel
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+
+Suggests:       ethos
 
 # Minisat has been altered for better integration with CVC5
 # See src/prop/minisat/CVC4-README
@@ -145,9 +148,9 @@ sed -i 's/ bsd//' cmake/FindEditline.cmake
 sed -i 's,#include <kissat/kissat\.h>,#include <kissat.h>,' src/prop/kissat.h
 sed -i 's,kissat/kissat\.h,kissat.h,' cmake/FindKissat.cmake
 
-# Build the Java interface so that JDK 1.8 can use it
-sed -i 's/\${Java_JAVAC_EXECUTABLE}/& -source 1.8 -target 1.8/' \
-  src/api/java/CMakeLists.txt
+# Fix the path to ethos
+sed -e 's,\(--ethos-binary \).*,\1%{_bindir}/ethos,' \
+    -i test/regress/cli/CMakeLists.txt
 
 %build
 export BUILDFLAGS='-DABC_USE_STDINT_H -I%{_jvmdir}/java/include -I%{_jvmdir}/java/include/linux -I%{_includedir}/abc -I%{_includedir}/cryptominisat5'
@@ -200,10 +203,9 @@ cd -
 export TEST_TIMEOUT=2000
 
 # The tests break without this
-cp -p %{_vpath_builddir}/src/api/python/build/lib.*/cvc5/cvc5_python_base.so \
+cp -p %{_vpath_builddir}/src/api/python/build/lib.*/cvc5/cvc5_python_base.*.so \
       %{_vpath_builddir}/src/api/python/cvc5
 
-# FIXME: package ethos for Fedora to enable more tests
 %ctest
 
 %files

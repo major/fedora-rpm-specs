@@ -1,7 +1,7 @@
 Summary: Spell checker
 Name: aspell
 Version: 0.60.8.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch: 12
 # LGPLv2+ .. common/gettext.h
 # LGPLv2  .. modules/speller/default/phonet.hpp,
@@ -16,6 +16,8 @@ Source: https://ftp.gnu.org/gnu/aspell/aspell-%{version}.tar.gz
 Patch0: aspell-0.60.7-fileconflict.patch
 Patch1: aspell-0.60.7-pspell_conf.patch
 Patch2: aspell-0.60.7-mp.patch
+# https://github.com/GNUAspell/aspell/commit/ee6cbb1.patch
+Patch3: aspell-0.60.8-gcc15.patch
 
 # IMPORTANT
 # This package has been deprecated since Fedora 39
@@ -56,6 +58,8 @@ and header files needed for Aspell development.
 %patch -P0 -p1 -b .fc
 %patch -P1 -p1 -b .mlib
 %patch -P2 -p1 -b .ai
+%patch -P3 -p1 -b .gcc15
+
 iconv -f iso-8859-2 -t utf-8 < manual/aspell.info > manual/aspell.info.aux
 mv manual/aspell.info.aux manual/aspell.info
 
@@ -122,6 +126,9 @@ rm -f ${RPM_BUILD_ROOT}%{_infodir}/dir
 %{_mandir}/man1/pspell-config.1*
 
 %changelog
+* Thu Jan 30 2025 Parag Nemade <pnemade AT redhat DOT com> - 12:0.60.8.1-4
+- Fix for GCC 15 (#2339904)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 12:0.60.8.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -67,7 +67,6 @@ find sample-plugins/ -type f -name '*.py' -exec install -pm 644 '{}' $RPM_BUILD_
 find sample-plugins/ -type f -name '*.ini*' -exec install -pm 644 '{}' $RPM_BUILD_ROOT/etc/trac/ \;
 
 install -dm 755 $RPM_BUILD_ROOT%{_sbindir}
-mv $RPM_BUILD_ROOT{%{_bindir}/tracd,%{_sbindir}/tracd}
 
 #%%check
 #PYTHONPATH=$(pwd) PYTHON=/usr/bin/python3 make test
@@ -76,7 +75,7 @@ mv $RPM_BUILD_ROOT{%{_bindir}/tracd,%{_sbindir}/tracd}
 %license COPYING
 %doc AUTHORS ChangeLog INSTALL* README* RELEASE* THANKS UPGRADE* contrib/
 %{_bindir}/trac-admin
-%{_sbindir}/tracd
+%{_bindir}/tracd
 %{python3_sitelib}/[Tt]rac*/
 %dir /etc/trac
 %config(noreplace) /etc/trac/*

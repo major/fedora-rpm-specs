@@ -112,7 +112,7 @@ sed -i -e "s@GPU_COMPILER:=\$(GPU_COMPILER_LINUX)@GPU_COMPILER:=${clang_path}@" 
 # our list
 # gfx900 gfx906:xnack- gfx908:xnack- gfx90a:xnack+ gfx90a:xnack- gfx942 gfx1010 gfx1012 gfx1030 gfx1031 gfx1035 gfx1100 gfx1101 gfx1102 gfx1103 gfx1151
 # need gfx942 gfx1012 gfx1031 gfx1035 gfx1103 gfx1151
-sed -i -e 's@gfx1102@gfx1102 gfx942 gfx1012 gfx1031 gfx1035 gfx1103 gfx1151@' llama/make/Makefile.rocm
+sed -i -e 's@gfx1102@gfx1102 gfx942 gfx1012 gfx1031 gfx1035 gfx1103 gfx1150 gfx1151 gfx1152 gfx1200 gfx1201@' llama/make/Makefile.rocm
 # we do not build for gfx940 or gfx941, this hw was precusor to gfx942 and is no longer built in ROCm packages
 sed -i -e 's@gfx900 gfx940 gfx941 gfx942@gfx900 gfx942@' llama/make/Makefile.rocm
 

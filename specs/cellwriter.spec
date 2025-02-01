@@ -26,7 +26,7 @@ Works well on a Wacom tablet, TabletPC, or any device with a stylus.
 
 %build
 %configure
-make %{?_smp_mflags} CFLAGS="$CFLAGS -fcommon" LIBS="$LIBS -lX11 -lm -lXtst -lxml2"
+make %{?_smp_mflags} CFLAGS="$CFLAGS -fcommon -std=gnu17" LIBS="$LIBS -lX11 -lm -lXtst -lxml2"
 
 %install
 make install DESTDIR="$RPM_BUILD_ROOT" INSTALL="install -p"

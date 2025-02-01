@@ -35,7 +35,7 @@ cp -p %{SOURCE1} LICENSE
 
 
 %build
-%{__cc} -D_GNU_SOURCE $RPM_OPT_FLAGS $RPM_LD_FLAGS -pthread \
+%{__cc} -D_GNU_SOURCE $RPM_OPT_FLAGS -std=gnu17 $RPM_LD_FLAGS -pthread \
     $(basename %{SOURCE0}) -o seeker
 
 

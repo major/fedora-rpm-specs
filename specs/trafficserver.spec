@@ -3,11 +3,10 @@
 %global selinuxtype targeted
 
 Name:           trafficserver
-Version:        10.0.2
-Release:        2%{?dist}
+Version:        10.0.3
+Release:        1%{?dist}
 Summary:        Fast, scalable and extensible HTTP/1.1 and HTTP/2 caching proxy server
 
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 URL:            https://trafficserver.apache.org/
 Source0:        http://www.apache.org/dist/%{name}/%{name}-%{version}.tar.bz2
@@ -21,30 +20,42 @@ Source7:        %{modulename}.te
 Source8:        %{modulename}.if
 Source9:        %{modulename}.fc
 
-# Use Crypto Policies 
+# Use Crypto Policies, don't set rpath as per Fedora policy
 Patch0:         trafficserver-crypto-policy.patch
+Patch1:         remove-rpath.patch
+Patch2:         remove-openssl-engine.patch
+Patch3:         config-path-fix.patch
 
 # Upstream does not support 32-bit architectures:
 # https://github.com/apache/trafficserver/issues/4432
 # s390x is also not a supported architecture and does not build
 ExcludeArch:    %{arm} %{ix86} s390x
 
-BuildRequires:  expat-devel hwloc-devel pcre-devel pcre2-devel zlib-devel xz-devel brotli-devel
-BuildRequires:  libcurl-devel ncurses-devel gnupg python3
-BuildRequires:  gcc gcc-c++ perl-ExtUtils-MakeMaker
+BuildRequires:  gdb
+BuildRequires:  expat-devel hwloc-devel pcre2-devel zlib-devel xz-devel brotli-devel
+BuildRequires:  libcurl-devel ncurses-devel gnupg python3-devel
+BuildRequires:  gcc gcc-c++
 BuildRequires:  cmake
 BuildRequires:  libcap-devel
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  openssl-devel
-# OpenSSL engines are deprecated in f41/c10
-%if 0%{?fedora} >= 41 || 0%{?rhel} >= 10
-BuildRequires:  openssl-devel-engine
+# pcre is removed from RHEL 10
+%if 0%{?rhel} >= 10
+%else
+BuildRequires:  pcre-devel
 %endif
 
-Requires:       expat hwloc pcre pcre2 xz ncurses pkgconfig
+Requires:       expat hwloc pcre2 xz ncurses pkgconfig
 Requires:       openssl
 Requires:       systemd
 Requires(postun): systemd
+# pcre is removed from RHEL 10
+%if 0%{?rhel} >= 10
+%else
+Requires:  pcre
+%endif
+# For convert2yaml.py
+Requires:       python3 python3-colorama python3-jsonschema python3-pyyaml
 
 %if 0%{?with_selinux}
 Requires:        (%{name}-selinux = %{version}-%{release} if selinux-policy-%{selinuxtype})
@@ -100,17 +111,6 @@ Apache Traffic Server plugins can do anything from modifying HTTP headers to
 hadling ESI requests to providing a different caching algorithm. 
 
 
-%package perl
-Summary: Perl bindings for Apache Traffic Server management
-BuildArch:           noarch
-BuildRequires:       perl-generators
-Requires: %{name} = %{version}-%{release}
-
-%description perl
-A collection of Perl interfaces to manage Apache Traffic Server
-installations.
-
-
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
@@ -118,7 +118,13 @@ installations.
 
 %build
 
-%cmake\
+# This is not working properly with cmake for an unclear reason; linking fails
+%define _lto_cflags %{nil}
+# Removes -Wp,-D_GLIBCXX_ASSERTIONS due to assertion failure in libswoc (or tests)
+# Raised upstream as https://github.com/apache/trafficserver/issues/11948
+#%define _preprocessor_defines  %{_fortify_level_flags}
+
+%cmake \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_SYSCONFDIR=%{_sysconfdir}/%{name} \
@@ -167,13 +173,12 @@ find %{buildroot} -type f -name "*.a" -delete
 rm -f %{buildroot}%{_libdir}/%{name}/plugin_*.so
 rm -f %{buildroot}/usr/lib/debug%{_libdir}/%{name}/plugin_*.debug
 
-# Why is the Perl stuff ending up in the wrong place ??
-mkdir -p %{buildroot}%{perl_vendorlib}
-mv %{buildroot}/usr/lib/perl5/Apache %{buildroot}%{perl_vendorlib}
-rm -rf %{buildroot}/usr/lib/perl5
-
-install -D -m 0644 -p %{buildroot}%{_libdir}/%{name}/pkgconfig/%{name}.pc %{buildroot}%{_libdir}/pkgconfig/%{name}.pc
+install -D -m 0644 -p %{buildroot}%{_libdir}/%{name}/pkgconfig/ts.pc %{buildroot}%{_libdir}/pkgconfig/ts.pc
 rm -rf %{buildroot}%{_libdir}/%{name}/pkgconfig
+
+# ATS 9.x to 10.x records.config converter
+install -D -m 0755 -p tools/records/convert2yaml.py %{buildroot}%{_libexecdir}/%{name}/convert2yaml.py
+
 
 %pre
 %sysusers_create_compat %{SOURCE4}
@@ -215,7 +220,6 @@ fi
 %attr(-, trafficserver, trafficserver) %config(noreplace) %{_sysconfdir}/%{name}/body_factory
 %attr(-, trafficserver, trafficserver) %config(noreplace) %{_sysconfdir}/%{name}/*.config
 %attr(-, trafficserver, trafficserver) %config(noreplace) %{_sysconfdir}/%{name}/*.yaml
-%attr(-, trafficserver, trafficserver) %{_sysconfdir}/%{name}/trafficserver-release
 
 %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
 
@@ -229,16 +233,17 @@ fi
 %{_bindir}/traffic_layout
 %{_bindir}/traffic_logcat
 %{_bindir}/traffic_logstats
-%{_bindir}/traffic_manager
 %{_bindir}/traffic_server
 %{_bindir}/traffic_top
 %{_bindir}/traffic_via
-%{_bindir}/tspush
 
 %dir %{_libdir}/%{name}
 %dir %{_libdir}/%{name}/plugins
-%{_libdir}/%{name}/libts*.so*
+%{_libdir}/%{name}/lib*.so*
 %{_libdir}/%{name}/plugins/*.so
+
+%dir %{_libexecdir}/%{name}
+%{_libexecdir}/%{name}/convert2yaml.py
 
 %attr(0750, trafficserver, trafficserver) %dir /var/log/%{name}
 %attr(0750, trafficserver, trafficserver) %dir /run/%{name}
@@ -251,26 +256,20 @@ fi
 %ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{modulename}
 %endif
 
-%files perl
-%{_mandir}/man3/Apache::TS.3pm.gz
-%{_mandir}/man3/Apache::TS::AdminClient.3pm.gz
-%{_mandir}/man3/Apache::TS::Config::Records.3pm.gz
-%dir %{perl_vendorlib}/Apache
-%{perl_vendorlib}/Apache/*
-
-
 %files devel
-%{_bindir}/tsxs
 %{_includedir}/ts
+%{_includedir}/swoc
+%{_includedir}/tsutil
+%{_includedir}/yaml-cpp
 %dir %{_includedir}/tscpp
 %{_includedir}/tscpp/api
-%{_includedir}/tscpp/util/
-%{_libdir}/pkgconfig/%{name}.pc
+%{_libdir}/%{name}/cmake
+%{_libdir}/pkgconfig/ts.pc
 
 
 %changelog
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.0.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+* Mon Jan 27 2025 Jered Floyd <jered@redhat.com> 10.0.3-1
+- Update to upstream 10.0.3
 
 * Tue Nov 12 2024 Jered Floyd <jered@redhat.com> 10.0.2-1
 - Update to upstream 10.0.2

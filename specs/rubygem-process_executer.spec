@@ -2,7 +2,7 @@
 %global gem_name process_executer
 
 Name: rubygem-%{gem_name}
-Version: 1.1.0
+Version: 1.2.0
 Release: %autorelease
 Summary: An API for executing commands in a sub process
 License: MIT
@@ -44,9 +44,9 @@ tar zxf %{SOURCE1} %{gem_name}-%{version}/spec --strip-components 1
 
 # Skip coverage test formatter, not available
 sed -i "s/require 'simplecov-lcov'//" spec/spec_helper.rb
+sed -i "s/require 'simplecov-rspec'//" spec/spec_helper.rb
 sed -i "s/, SimpleCov::Formatter::LcovFormatter//" spec/spec_helper.rb
-
-
+sed -i "s/\s*SimpleCov::.*$//" spec/spec_helper.rb
 
 
 %build
@@ -74,7 +74,7 @@ rspec spec
 %exclude %{gem_instdir}/.rubocop.yml
 %exclude %{gem_instdir}/.tool-versions
 %exclude %{gem_instdir}/.yardopts
-%license %{gem_instdir}/LICENSE.md
+%license %{gem_instdir}/LICENSE.txt
 %{gem_libdir}
 %exclude %{gem_cache}
 %{gem_spec}
@@ -83,6 +83,10 @@ rspec spec
 %files doc
 %doc %{gem_docdir}
 %exclude %{gem_instdir}/.rspec
+%exclude %{gem_instdir}/.commitlintrc.yml
+%exclude %{gem_instdir}/.husky/commit-msg
+%exclude %{gem_instdir}/package.json
+
 %doc %{gem_instdir}/CHANGELOG.md
 %{gem_instdir}/Gemfile
 %doc %{gem_instdir}/README.md

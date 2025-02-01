@@ -1,8 +1,8 @@
 %global git_url https://github.com/arvidn/libtorrent
  
 Name:		rb_libtorrent
-Version:	2.0.10
-Release:	5%{?dist}
+Version:	2.0.11
+Release:	1%{?dist}
 Summary:	A C++ BitTorrent library aiming to be the best alternative
 
 License:	BSD
@@ -174,6 +174,9 @@ install -p -m 0644 %{SOURCE1} ./README-renames.Fedora
 %{python3_sitearch}/libtorrent.cpython-*.so
 
 %changelog
+* Wed Jan 29 2025 Michael Cronenworth <mike@cchtml.com> - 2.0.11-1
+- Upgrade to 2.0.11
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.10-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

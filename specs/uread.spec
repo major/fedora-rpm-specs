@@ -35,7 +35,7 @@ little, or vis versa.
 cp -p %{SOURCE1} .
 
 %build
-export CFLAGS="$RPM_OPT_FLAGS"
+export CFLAGS="$RPM_OPT_FLAGS -std=gnu17"
 make %{?_smp_mflags}
 
 

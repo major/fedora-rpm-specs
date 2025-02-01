@@ -1,7 +1,7 @@
 %global pypi_name ramalama
 %global forgeurl  https://github.com/containers/%{pypi_name}
 # see ramalama/version.py
-%global version0  0.5.2
+%global version0  0.5.4
 %forgemeta
 
 %global summary   RamaLama is a command line tool for working with AI LLM models
@@ -15,7 +15,7 @@ Name:             python-%{pypi_name}
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version:          %{version0}
+Version:          0.5.4
 License:          MIT
 Release:          %{autorelease}
 Summary:          %{summary}
@@ -47,7 +47,7 @@ configure the system for AI themselves. After the initialization, RamaLama
 will run the AI Models within a container based on the OCI image.
 
 %package -n python%{python3_pkgversion}-%{pypi_name}
-Requires: podman
+Recommends: podman
 Summary: %{summary}
 Provides: %{pypi_name} = %{version}-%{release}
 
@@ -62,10 +62,8 @@ configure the system for AI themselves. After the initialization, RamaLama
 will run the AI Models within a container based on the OCI image.
 
 
-%if 0%{?fedora} >= 40
 %generate_buildrequires
 %pyproject_buildrequires
-%endif
 
 %prep
 %forgeautosetup -p1
@@ -83,7 +81,6 @@ will run the AI Models within a container based on the OCI image.
 %pyproject_check_import
 
 %files -n python%{python3_pkgversion}-%{pypi_name} -f %{pyproject_files}
-%license LICENSE
 %doc README.md
 %{_bindir}/%{pypi_name}
 %{bash_completions_dir}/%{pypi_name}
@@ -94,6 +91,7 @@ will run the AI Models within a container based on the OCI image.
 %{_datadir}/%{pypi_name}/ramalama.conf
 %{_mandir}/man1/ramalama*.1*
 %{_mandir}/man5/ramalama*.5*
+%{_mandir}/man7/ramalama*.7*
 
 %changelog
 %autochangelog

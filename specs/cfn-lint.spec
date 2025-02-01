@@ -1,6 +1,6 @@
 Name:           cfn-lint
 Summary:        CloudFormation Linter
-Version:        1.22.7
+Version:        1.23.1
 Release:        %autorelease
 
 # The entire source is MIT-0, except that some sources are derived from

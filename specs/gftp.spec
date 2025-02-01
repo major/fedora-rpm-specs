@@ -37,7 +37,7 @@ Install gftp if you need a graphical FTP client.
 ./autogen.sh
 %configure
 
-make CFLAGS="$RPM_OPT_FLAGS"
+make CFLAGS="$RPM_OPT_FLAGS -std=gnu17"
 
 %install
 rm -rf $RPM_BUILD_ROOT

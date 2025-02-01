@@ -1,7 +1,7 @@
 %global libauditver     3.0
-%global libsepolver     3.8-0.rc3
-%global libsemanagever  3.8-0.rc3
-%global libselinuxver   3.8-0.rc3
+%global libsepolver     3.8-1
+%global libsemanagever  3.8-1
+%global libselinuxver   3.8-1
 
 %global generatorsdir %{_prefix}/lib/systemd/system-generators
 
@@ -11,11 +11,11 @@
 Summary: SELinux policy core utilities
 Name:    policycoreutils
 Version: 3.8
-Release: 0.rc3.2%{?dist}
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 # https://github.com/SELinuxProject/selinux/wiki/Releases
-Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}-rc3/selinux-%{version}-rc3.tar.gz
-Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}-rc3/selinux-%{version}-rc3.tar.gz.asc
+Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}/selinux-%{version}.tar.gz
+Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}/selinux-%{version}.tar.gz.asc
 Source2: https://github.com/bachradsusi.gpg
 URL:     https://github.com/SELinuxProject/selinux
 Source13: system-config-selinux.png
@@ -92,7 +92,7 @@ to switch roles.
 
 %prep -p /usr/bin/bash
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -p 1 -n selinux-%{version}-rc3
+%autosetup -p 1 -n selinux-%{version}
 
 cp %{SOURCE13} gui/
 tar -xvf %{SOURCE14} -C python/sepolicy/

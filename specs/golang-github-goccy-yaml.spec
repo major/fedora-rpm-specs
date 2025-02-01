@@ -3,7 +3,7 @@
 
 # https://github.com/goccy/go-yaml
 %global goipath         github.com/goccy/go-yaml
-Version:                1.11.3
+Version:                1.15.15
 
 %gometa -L -f
 

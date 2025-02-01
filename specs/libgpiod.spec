@@ -1,8 +1,9 @@
-%global candidate rc3
+#global candidate rc0
+%global with_python 0
 
 Name:          libgpiod
 Version:       2.2
-Release:       0.2%{?candidate:.%{candidate}}%{?dist}
+Release:       1%{?candidate:.%{candidate}}%{?dist}
 Summary:       C library and tools for interacting with linux GPIO char device
 
 License:       LGPL-2.1-or-later
@@ -12,16 +13,24 @@ Source1:       gpiod-sysusers.conf
 
 BuildRequires: doxygen
 BuildRequires: gcc gcc-c++
+BuildRequires: gi-docgen
+BuildRequires: glib2-devel
+BuildRequires: gobject-introspection-devel
 BuildRequires: help2man
 BuildRequires: kernel-headers
 BuildRequires: kmod-devel
 BuildRequires: libgudev-devel
 BuildRequires: libstdc++-devel
 BuildRequires: make
+BuildRequires: pkgconf
+%if 0%{?with_python}
 BuildRequires: python3-build
 BuildRequires: python3-devel
+BuildRequires: python3-packaging
 BuildRequires: python3-setuptools
-BuildRequires: systemd-devel
+BuildRequires: python3-wheel
+%endif
+BuildRequires: systemd
 %{?sysusers_requires_compat}
 
 %description
@@ -62,6 +71,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %description glib
 GLib2 bindings for use with %{name}.
 
+%if 0%{?with_python}
 %package -n python3-%{name}
 Summary: Python 3 bindings for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
@@ -69,12 +79,15 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %description -n python3-%{name}
 Python 3 bindings for development with %{name}.
+%endif
 
 %package devel
 Summary: Development package for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: %{name}-c++ = %{version}-%{release}
+%if 0%{?with_python}
 Requires: python3-%{name} = %{version}-%{release}
+%endif
 
 %description devel
 Files for development with %{name}.
@@ -94,7 +107,9 @@ sed -i 's/--prefix=$(DESTDIR)$(prefix)/--root=$(DESTDIR) --prefix=$(prefix)/' bi
 	--disable-static \
 	--enable-bindings-cxx \
 	--enable-bindings-glib \
+%if 0%{?with_python}
 	--enable-bindings-python \
+%endif
 	%{nil}
 
 %make_build
@@ -105,8 +120,10 @@ sed -i 's/--prefix=$(DESTDIR)$(prefix)/--root=$(DESTDIR) --prefix=$(prefix)/' bi
 # Install sysusers file
 install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/gpiod.conf
 # Fix udev rule location
+%ifnarch %{ix86}
 mkdir -p %{buildroot}/%{_udevrulesdir}/
-mv %{buildroot}/usr/lib64/udev/rules.d/90-gpio.rules %{buildroot}/%{_udevrulesdir}/90-gpio.rules
+mv -f %{buildroot}/%{_libdir}/udev/rules.d/90-gpio.rules %{buildroot}/%{_udevrulesdir}/90-gpio.rules
+%endif
 # Remove libtool archives.
 find %{buildroot} -name '*.la' -delete
 
@@ -150,24 +167,32 @@ find %{buildroot} -name '*.la' -delete
 
 %files glib
 %{_libdir}/libgpiod-glib.so.1*
+%{_libdir}/girepository-1.0/Gpiodglib-1.0.typelib
 
+%if 0%{?with_python}
 %files -n python3-%{name}
 %{python3_sitearch}/gpiod/
 %{python3_sitearch}/gpiod-2.2.0.dist-info
+%endif
 
 %files devel
+%{_libdir}/%{name}*.so
+%{_libdir}/pkgconfig/libgpiod*.pc
+%{_libdir}/pkgconfig/gpiod-glib.pc
 %{_includedir}/gpiod.*
 %{_includedir}/gpiodcxx/
 %{_includedir}/generated-gpiodbus.h
 %{_includedir}/gpiod-glib.h
 %{_includedir}/gpiod-glib/
 %{_includedir}/gpiodbus.h
-%{_libdir}/pkgconfig/libgpiod*.pc
-%{_libdir}/pkgconfig/gpiod-glib.pc
-%{_libdir}/%{name}*.so
+%{_datadir}/gir-1.0/Gpiodglib-1.0.gir
 
 
 %changelog
+* Wed Jan 29 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.2-1
+- Update to 2.2
+- Disable python bindings (temporary)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-0.2.rc3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

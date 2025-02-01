@@ -9,7 +9,7 @@
 Summary: A program for synchronizing files over a network
 Name: rsync
 Version: 3.4.1
-Release: 2%{?prerelease}%{?dist}
+Release: 3%{?prerelease}%{?dist}
 URL: https://rsync.samba.org/
 
 Source0: https://download.samba.org/pub/rsync/src/rsync-%{version}%{?prerelease}.tar.gz
@@ -64,6 +64,15 @@ Requires: %{name} = %{version}-%{release}
 Rsync can be used to offer read only access to anonymous clients. This
 package provides the anonymous rsync service.
 
+%package rrsync
+Summary: A script to setup restricted rsync users via ssh logins
+BuildArch: noarch
+Requires: %{name} = %{version}-%{release}
+Requires: python3
+%description rrsync
+This subpackage provides rrsync script and its manpage. rrsync
+may be used to setup a restricted rsync users via ssh logins.
+
 %prep
 # TAG: for pre versions use
 
@@ -113,10 +122,8 @@ install -D -m644 %{SOURCE6} $RPM_BUILD_ROOT/%{_unitdir}/rsyncd@.service
 %license COPYING
 %doc support/ tech_report.tex
 %{_bindir}/%{name}
-%{_bindir}/r%{name}
 %{_bindir}/%{name}-ssl
 %{_mandir}/man1/%{name}.1*
-%{_mandir}/man1/r%{name}.1*
 %{_mandir}/man1/%{name}-ssl.1*
 %{_mandir}/man5/rsyncd.conf.5*
 %config(noreplace) %{_sysconfdir}/rsyncd.conf
@@ -126,6 +133,10 @@ install -D -m644 %{SOURCE6} $RPM_BUILD_ROOT/%{_unitdir}/rsyncd@.service
 %{_unitdir}/rsyncd.socket
 %{_unitdir}/rsyncd.service
 %{_unitdir}/rsyncd@.service
+
+%files rrsync
+%{_bindir}/r%{name}
+%{_mandir}/man1/r%{name}.1*
 
 %post daemon
 %systemd_post rsyncd.service
@@ -137,6 +148,9 @@ install -D -m644 %{SOURCE6} $RPM_BUILD_ROOT/%{_unitdir}/rsyncd@.service
 %systemd_postun_with_restart rsyncd.service
 
 %changelog
+* Thu Jan 30 2025 Michal Ruprich <mruprich@redhat.com> - 3.4.1-3
+- Moving rrsync to a subpackage to avoid the need for python3 in rsync
+
 * Tue Jan 28 2025 Michal Ruprich <mruprich@redhat.com> - 3.4.1-2
 - Fixing rrsync manpage
 

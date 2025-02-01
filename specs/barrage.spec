@@ -32,6 +32,7 @@ not that easy to get high scores.
 echo Icon=barrage >> barrage.desktop
 
 %build
+export CFLAGS="$CFLAGS -std=gnu17"
 %configure
 find . -type f -name 'Makefile' | xargs sed -i s/-Werror=format-security//g
 %make_build %{?_smp_mflags}

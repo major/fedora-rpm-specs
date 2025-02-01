@@ -1,5 +1,5 @@
 Name:           rebase-helper
-Version:        0.29.2
+Version:        0.29.3
 Release:        %autorelease
 Summary:        The tool that helps you to rebase your package to the latest version
 
@@ -12,7 +12,7 @@ BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  python%{python3_pkgversion}-devel
 
-BuildRequires:  python%{python3_pkgversion}-m2r
+BuildRequires:  pandoc
 BuildRequires:  python%{python3_pkgversion}-sphinx
 BuildRequires:  python%{python3_pkgversion}-sphinx_rtd_theme
 

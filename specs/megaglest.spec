@@ -59,6 +59,10 @@ Patch8:         e09ba53c436279588f769d6ce8852e74d58f8391.patch
 Patch9:         fbd0cfb17ed759d24aeb577a602b0d97f7895cc2.patch
 Patch10:        5801b1fafff8ad9618248d4d5d5c751fdf52be2f.patch
 Patch11:        789e1cdf371137b729e832e28a5feb6e97a3a243.patch
+# Add missing includes to fix build with GCC 15
+# https://github.com/MegaGlest/megaglest-source/pull/295
+# https://bugzilla.redhat.com/show_bug.cgi?id=2340839
+Patch12:        0001-Add-missing-string-includes-for-memcpy.patch
 
 
 %description
@@ -86,6 +90,7 @@ game at no cost.
 %patch -P9 -p1
 %patch -P10 -p1
 %patch -P11 -p1
+%patch -P12 -p1
 
 %build
 mkdir -p %{_vpath_builddir}
@@ -111,8 +116,8 @@ install -d %{buildroot}/%{_datadir}/%{name}
 %{_datadir}/%{name}/
 
 %changelog
-* Tue Jan 28 2025 Simone Caronni <negativo17@gmail.com> - 3.13.0-26
-- Rebuild for updated dependencies.
+* Thu Jan 30 2025 Adam Williamson <awilliam@redhat.com> - 3.13.0-26
+- Backport PR #295 to fix build with GCC 15 (#2340839)
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.0-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild

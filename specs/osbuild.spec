@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        138
+Version:        139
 
 %forgemeta
 
@@ -155,7 +155,7 @@ Conflicts: osbuild-composer <= 115
 # This version needs to get bumped every time the osbuild-dnf-json
 # version changes in an incompatible way. Packages like osbuild-composer
 # can depend on the exact API version this way
-Provides: osbuild-dnf-json-api = 7
+Provides: osbuild-dnf-json-api = 8
 
 %description    depsolve-dnf
 Contains depsolving capabilities for package managers.
@@ -318,6 +318,35 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Wed Jan 29 2025 Packit <hello@packit.dev> - 139-1
+Changes with 139
+----------------
+  * Add `--cache` flag as an alias for `--store` (#1985)
+    * Author: Achilleas Koutsou, Reviewers: Michael Vogt, Simon de Vlieger
+  * Gitlab CI: use F41 for OSTree tests (#1984)
+    * Author: Tomáš Hozza, Reviewers: Florian Schüller, Simon de Vlieger
+  * README: remove mailing list (#1982)
+    * Author: Florian Schüller, Reviewers: Ondřej Budai, Simon de Vlieger
+  * Test embedding containers with device nodes in ostree commits (RHEL-59716) (#1905)
+    * Author: Achilleas Koutsou, Reviewers: Dusty Mabe, Ondřej Budai
+  * modularity: depsolving (COMPOSER-2365) (#1933)
+    * Author: Simon de Vlieger, Reviewers: Nobody
+  * osbuild-image-info: don't fail on no systemd default target (HMS-5375) (#1988)
+    * Author: Tomáš Hozza, Reviewers: Brian C. Lane, Simon de Vlieger
+  * remove the nevra field from the depsolve (#1991)
+    * Author: Simon de Vlieger, Reviewers: Michael Vogt, Ondřej Budai
+  * spec: bump dnf json api version (#1990)
+    * Author: Simon de Vlieger, Reviewers: Michael Vogt, Tomáš Hozza
+  * spec: bump dnfjson api version (#1992)
+    * Author: Simon de Vlieger, Reviewers: Michael Vogt, Tomáš Hozza
+  * stages/mkfs.ext4: disable lazy_itable_init (#1980)
+    * Author: Albert Esteve, Reviewers: Achilleas Koutsou, Michael Vogt
+  * tools: add test that ensures we notice if the solver api breaks (#1993)
+    * Author: Michael Vogt, Reviewers: Simon de Vlieger, Tomáš Hozza
+
+— Somewhere on the Internet, 2025-01-29
+
+
 * Wed Jan 15 2025 Packit <hello@packit.dev> - 138-1
 Changes with 138
 ----------------

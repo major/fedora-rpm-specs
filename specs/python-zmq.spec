@@ -1,5 +1,5 @@
 Name:           python-zmq
-Version:        26.2.0
+Version:        26.2.1
 Release:        %autorelease
 Summary:        Python bindings for zeromq
 
@@ -15,6 +15,7 @@ Summary:        Python bindings for zeromq
 #   - zmq/ssh/forward.py, which is derived from a Paramiko demo, is
 #     LGPL-2.1-or-later
 #   - zmq/eventloop/zmqstream.py is Apache-2.0
+# See also the “Inherited licenses in pyzmq” section in CONTRIBUTING.md.
 License:        %{shrink:
                 BSD-3-Clause AND
                 LGPL-2.1-or-later AND
@@ -40,15 +41,6 @@ SourceLicense:  %{shrink:
 URL:            https://zeromq.org/languages/python/
 %global forgeurl https://github.com/zeromq/pyzmq
 Source:         %{forgeurl}/archive/v%{version}/pyzmq-%{version}.tar.gz
-
-# fix handling of tornado Apache license
-# https://github.com/zeromq/pyzmq/pull/2049
-#
-# Fixes:
-#
-# BUG: A file is licensed Apache-2.0, but the license text is not distributed
-# https://github.com/zeromq/pyzmq/issues/2048
-Patch:          %{forgeurl}/pull/2049.patch
 
 BuildRequires:  gcc
 # This package contains no C++ code, but the scikit-build-core backend checks
@@ -82,6 +74,7 @@ Summary:        %{summary}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_provides_for_importable_modules
 %py_provides    python3-zmq
 
+%if %[ %{defined fc42} || %{defined fc43} || %{defined fc44} ]
 # Beginning with Fedora 42, the binary packages are renamed from
 # python3-zmq/python3-zmq-tests to python3-pyzmq/python3-pyzmq-tests to match
 # the canonical package name. Ideally, the source package would also be called
@@ -97,6 +90,7 @@ Conflicts:      python3-zmq-tests < 25.1.1-29
 # clean upgrade path, and can be removed after Fedora 44 end-of-life.
 Obsoletes:      python3-pyzmq-tests < 26.2.0-1
 Conflicts:      python3-pyzmq-tests < 26.2.0-1
+%endif
 
 %description -n python3-pyzmq %{common_description}
 
@@ -130,7 +124,7 @@ sed -r \
 # https://scikit-build-core.readthedocs.io/en/latest/configuration.html
 %{pyproject_wheel \
     -Ccmake.define.PYZMQ_LIBZMQ_RPATH:BOOL=OFF \
-    -Ccmake.define.PYZMQ_LIBZMQ_NO_BUNDLE=ON \
+    -Ccmake.define.PYZMQ_NO_BUNDLE=ON \
     -Clogging.level=INFO \
     -Ccmake.verbose=true \
     -Ccmake.build-type="RelWithDebInfo"}

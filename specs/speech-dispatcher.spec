@@ -18,6 +18,8 @@ Source0:       https://github.com/brailcom/speechd/releases/download/%{version}/
 Source1:       http://www.freebsoft.org/pub/projects/sound-icons/sound-icons-0.1.tar.gz
 
 Patch1:        0001-Remove-pyxdg-dependency.patch
+Patch2:        4ba45da405fe8dba5ed56725d20a388d6d0269a4.patch
+Patch3:        de9588a29ed6deda8ced1bab98abccebfe1ee788.patch
 
 BuildRequires: alsa-lib-devel
 BuildRequires: desktop-file-utils

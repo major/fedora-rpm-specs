@@ -1,5 +1,5 @@
 Name:           rust
-Version:        1.84.0
+Version:        1.84.1
 Release:        %autorelease
 Summary:        The Rust Programming Language
 License:        (Apache-2.0 OR MIT) AND (Artistic-2.0 AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0 AND Unicode-DFS-2016)
@@ -139,11 +139,8 @@ Patch5:         0002-set-an-external-library-path-for-wasm32-wasi.patch
 # We don't want to use the bundled library in libsqlite3-sys
 Patch6:         rustc-1.84.0-unbundle-sqlite.patch
 
-# https://github.com/rust-lang/rust/pull/134240
-Patch7:         0001-Only-dist-llvm-objcopy-if-llvm-tools-are-enabled.patch
-
 # https://github.com/rust-lang/cc-rs/issues/1354
-Patch8:         0001-Only-translate-profile-flags-for-Clang.patch
+Patch7:         0001-Only-translate-profile-flags-for-Clang.patch
 
 ### RHEL-specific patches below ###
 
@@ -674,8 +671,7 @@ rm -rf %{wasi_libc_dir}/dlmalloc/
 %if %without bundled_sqlite3
 %patch -P6 -p1
 %endif
-%patch -P7 -p1
-%patch -P8 -p1 -d vendor/cc-1.2.5
+%patch -P7 -p1 -d vendor/cc-1.2.5
 
 %if %with disabled_libssh2
 %patch -P100 -p1

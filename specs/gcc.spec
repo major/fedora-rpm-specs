@@ -1,5 +1,5 @@
-%global DATE 20250125
-%global gitrev 971fa9cf8655e9ba26529620b624bac77d9a584b
+%global DATE 20250130
+%global gitrev 54feac44230391f6c2cdd77688075cbcb7ce0995
 %global gcc_version 15.0.1
 %global gcc_major 15
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -143,7 +143,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.4%{?dist}
+Release: %{gcc_release}.5%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -299,8 +299,9 @@ Patch9: gcc15-Wno-format-security.patch
 Patch10: gcc15-rh1574936.patch
 Patch11: gcc15-d-shared-libphobos.patch
 Patch12: gcc15-pr118206.patch
-Patch13: gcc15-d-deps.patch
-Patch14: gcc15-pr117231.patch
+Patch13: gcc15-pr117231.patch
+Patch14: gcc15-pr118671.patch
+Patch15: gcc15-pr118689.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -916,8 +917,9 @@ so that there cannot be any synchronization problems.
 %endif
 %patch -P11 -p0 -b .d-shared-libphobos~
 %patch -P12 -p0 -b .pr118206~
-%patch -P13 -p0 -b .d-deps~
-%patch -P14 -p0 -b .pr117231~
+%patch -P13 -p0 -b .pr117231~
+%patch -P14 -p0 -b .pr118671~
+%patch -P15 -p0 -b .pr118689~
 
 %patch -P50 -p0 -b .rh2155127~
 touch -r isl-0.24/m4/ax_prog_cxx_for_build.m4 isl-0.24/m4/ax_prog_cc_for_build.m4
@@ -3677,6 +3679,30 @@ end
 %endif
 
 %changelog
+* Thu Jan 30 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.5
+- update from trunk
+  - PRs c/116357, c++/57533, c++/114292, c++/116524, c++/117855, c++/118239,
+	c++/118285, c++/118632, c++/118655, c++/118673, d/118477,
+	fortran/58857, fortran/110993, fortran/118640, fortran/118683,
+	libstdc++/98749, libstdc++/118413, libstdc++/118563,
+	middle-end/118643, middle-end/118684, middle-end/118692,
+	middle-end/118695, modula2/116073, modula2/117737, modula2/118183,
+	other/118675, preprocessor/118168, rtl-optimization/118320,
+	rtl-optimization/118429, rtl-optimization/118638,
+	rtl-optimization/118662, target/114085, target/116860, target/117173,
+	target/117688, target/118103, target/118490, target/118642,
+	target/118646, target/118663, target/118696, testsuite/118127,
+	tree-optimization/112859, tree-optimization/114052,
+	tree-optimization/115347, tree-optimization/117270,
+	tree-optimization/117424, tree-optimization/117892,
+	tree-optimization/118505, tree-optimization/118637,
+	tree-optimization/118653
+- fix up C++ list conversion for #embed or large series of comma
+  separated small constants (PR c++/118671)
+- punt in niters clz/ctz creation if internal function can't be used
+  and frontend didn't build __builtin_c{l,t}z{,l,ll} builtins
+  (PR tree-optimization/118689)
+
 * Sat Jan 25 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.4
 - update from trunk
   - PRs c/118639, c++/105440, c++/107522, c++/107741, c++/115769, c++/116417,

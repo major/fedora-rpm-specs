@@ -19,7 +19,7 @@
 %undefine	prever
 %global	prerpmver	%(echo "%{?prever}" | sed -e 's|-||g')
 
-%global	baserelease	2
+%global	baserelease	3
 
 %if 0%{?usegitbare} >= 1
 # pre-master-42
@@ -141,7 +141,7 @@ It can be used for VLSI simulations as well.
 
 %package -n	tclspice
 Summary:	Tcl/Tk interface for ngspice
-BuildRequires:	tk-devel
+BuildRequires:	pkgconfig(tk) <= 8.999
 BuildRequires:	blt-devel
 
 %description -n	tclspice
@@ -501,6 +501,9 @@ popd
 %{_includedir}/ngspice/
 
 %changelog
+* Fri Jan 31 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 44.2-3
+- Use tk8 explicitly
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 44.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

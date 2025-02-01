@@ -2,7 +2,7 @@
 
 Name:		magic
 Version:	8.3.515
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A very capable VLSI layout tool
 
 # LICENSE: HPND-UC-export-US: https://gitlab.com/fedora/legal/fedora-license-data/-/issues/504
@@ -29,7 +29,7 @@ BuildRequires:	libGLw-devel
 BuildRequires:	libXext-devel
 BuildRequires:	libXi-devel
 BuildRequires:	libXmu-devel
-BuildRequires:	tk-devel
+BuildRequires:	pkgconfig(tk) <= 8.999
 BuildRequires:	m4
 BuildRequires:	desktop-file-utils
 %if 0%{?fedora}
@@ -176,6 +176,9 @@ rm -f %{buildroot}%{_mandir}/man1/extcheck.1*
 %doc	scmos/
 
 %changelog
+* Fri Jan 31 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.515-2
+- Use tk8 explicitly
+
 * Tue Jan 21 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.515-1
 - 8.3.515
 

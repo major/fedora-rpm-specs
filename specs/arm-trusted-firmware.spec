@@ -14,15 +14,19 @@
 
 Name:    arm-trusted-firmware
 Version: 2.12.0
-Release: 3%{?candidate:.%{candidate}}%{?dist}
+Release: 4%{?candidate:.%{candidate}}%{?dist}
 Summary: ARM Trusted Firmware
 License: BSD-3-clause
 URL:     https://github.com/TrustedFirmware-A/trusted-firmware-a
 Source0: %{url}/archive/v%{version}%{?candidate:-%{candidate}}.tar.gz#/%{pname}-%{version}%{?candidate:-%{candidate}}.tar.gz
 Source1: aarch64-bl31
 Patch1:  rk356x-scmi-clk-reset.patch
+# https://review.trustedfirmware.org/c/TF-A/trusted-firmware-a/+/34306
 Patch2:  0001-Fix-specifying-the-number-of-octects-in-a-character.patch
+# https://review.trustedfirmware.org/c/TF-A/trusted-firmware-a/+/34940
 Patch3:  0001-fix-imx_trdc.h-header-guard.patch
+# https://review.trustedfirmware.org/c/TF-A/trusted-firmware-a/+/34953
+Patch4:  0001-fix-zynqmp-fix-length-of-clock-name.patch
 
 %if %{with cross}
 BuildRequires: gcc-aarch64-linux-gnu
@@ -134,6 +138,9 @@ done
 %endif
 
 %changelog
+* Thu Jan 30 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.12.0-4
+- Enable Xilinx ZYNQMP and Versal platforms
+
 * Wed Jan 29 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.12.0-3
 - Add patch to fix FTBFS (rhbz#2339901)
 

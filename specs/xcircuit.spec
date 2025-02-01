@@ -5,7 +5,7 @@
 
 Name:			xcircuit
 Version:		%{short_version}.30
-Release:		13%{?dist}
+Release:		14%{?dist}
 Summary:		Electronic circuit schematic drawing program
 
 # Xw/		HPND unused
@@ -35,8 +35,8 @@ BuildRequires:	pkgconfig(fontconfig)
 BuildRequires:	libgs-devel
 BuildRequires:	libXpm-devel
 BuildRequires:	libXt-devel
-BuildRequires:	tcl-devel
-BuildRequires:	tk-devel
+BuildRequires:	pkgconfig(tcl) <= 8.999
+BuildRequires:	pkgconfig(tk) <= 8.999
 BuildRequires:	zlib-devel
 BuildRequires:	desktop-file-utils
 BuildRequires:	ngspice
@@ -121,6 +121,9 @@ desktop-file-install \
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Fri Jan 31 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.10.30-14
+- Use tk8 explicitly
+
 * Sun Jan 19 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.10.30-13
 - Fix for C23, include header properly
 

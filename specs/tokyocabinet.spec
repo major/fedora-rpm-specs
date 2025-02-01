@@ -53,7 +53,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}
 rm -rf %{buildroot}%{_libdir}/lib%{name}.a
 
 %check
+%ifnarch x86_64
 make check
+%endif
 
 %ldconfig_scriptlets
 

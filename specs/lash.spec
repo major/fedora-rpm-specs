@@ -68,7 +68,7 @@ sed -i 's|1.3.31|4.0.0|g' configure*
 %endif
 
 %build
-CFLAGS="$RPM_OPT_FLAGS -D_GNU_SOURCE" %configure --disable-static --disable-serv-inst
+CFLAGS="$RPM_OPT_FLAGS -D_GNU_SOURCE -std=gnu17" %configure --disable-static --disable-serv-inst
 %make_build
 
 

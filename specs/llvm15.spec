@@ -77,7 +77,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -100,6 +100,9 @@ Patch2:		0003-XFAIL-missing-abstract-variable.ll-test-on-ppc64le.patch
 # Needed to export clang-tblgen during the clang build, needed by the flang docs build.
 # TODO: Can be dropped for LLVM 16, see https://reviews.llvm.org/D131282.
 Patch3:		0001-Install-clang-tblgen.patch
+
+# Missing cstdint includes
+Patch4:     cstdint.patch
 
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
@@ -582,6 +585,9 @@ fi
 %endif
 
 %changelog
+* Thu Jan 30 2025 František Zatloukal <fzatlouk@redhat.com> - 15.0.7-13
+- Missing cstdint includes (RHBZ#2340791)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 15.0.7-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

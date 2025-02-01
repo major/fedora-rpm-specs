@@ -42,17 +42,21 @@ URL:		https://github.com/openvinotoolkit/openvino
 Source0:	%url/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:	https://github.com/openvinotoolkit/oneDNN/archive/c60a9946aa2386890e5c9f5587974facb7624227/onednn-c60a994.tar.gz
 Source2:	https://github.com/openvinotoolkit/mlas/archive/d1bc25ec4660cddd87804fcf03b2411b5dfb2e94/mlas-d1bc25e.tar.gz
-Source3:	dependencies.cmake
-Source4:	pyproject.toml
+Source3:	https://github.com/intel/level-zero-npu-extensions/archive/110f48ee8eda22d8b40daeeecdbbed0fc3b08f8b/level-zero-npu-extensions-110f48e.tar.gz
+Source4:	dependencies.cmake
+Source5:	pyproject.toml
 
 Patch0:		openvino-fedora.patch
 # Support numpy 2.2.0
-Patch1:         https://github.com/openvinotoolkit/openvino/pull/28039.patch
+Patch1:		https://github.com/openvinotoolkit/openvino/pull/28039.patch
+Patch2:		npu-level-zero.patch
 
 ExclusiveArch:	x86_64
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
+BuildRequires:	gflags-devel
+BuildRequires:	oneapi-level-zero-devel
 BuildRequires:	patchelf
 BuildRequires:	pugixml-devel
 BuildRequires:	pybind11-devel
@@ -64,6 +68,7 @@ BuildRequires:	numpy
 BuildRequires:	ShellCheck
 BuildRequires:	zlib-ng-compat-devel
 BuildRequires:	xbyak-devel
+BuildRequires:	yaml-cpp-devel
 BuildRequires:	tbb-devel
 # forked version of OpenVINO oneDNN does not have a proper version
 Provides:	bundled(onednn)
@@ -124,7 +129,7 @@ runtime.
 
 # Remove the thirdparty deps
 rm -rf thirdparty/*
-cp %{SOURCE3} thirdparty/
+cp %{SOURCE4} thirdparty/
 
 # Intel-cpu-plugin thirdparty deps
 tar xf %{SOURCE1}
@@ -132,9 +137,26 @@ cp -r oneDNN-*/* src/plugins/intel_cpu/thirdparty/onednn
 tar xf %{SOURCE2}
 cp -r mlas-*/* src/plugins/intel_cpu/thirdparty/mlas
 
+# Intel-npu-plugin thirdparty deps
+rm -rf src/plugins/intel_npu/thirdparty/yaml-cpp
+tar xf %{SOURCE3}
+cp -r level-*/* src/plugins/intel_npu/thirdparty/level-zero-ext
+
 # python:prep
 sed -i '/openvino-telemetry/d' src/bindings/python/requirements.txt
-cp %{SOURCE4} src/bindings/python
+cp %{SOURCE5} src/bindings/python
+
+# gcc 15 include cstdint
+sed -i '/#include <vector>.*/a#include <cstdint>' src/core/include/openvino/core/type/bfloat16.hpp
+sed -i '/#include <vector>.*/a#include <cstdint>' src/core/include/openvino/core/type/float16.hpp
+sed -i '/#include <vector>.*/a#include <cstdint>' src/core/include/openvino/core/type/float8_e4m3.hpp
+sed -i '/#include <vector>.*/a#include <cstdint>' src/core/include/openvino/core/type/float8_e5m2.hpp
+sed -i '/#include <vector>.*/a#include <cstdint>' src/core/include/openvino/core/type/float8_e8m0.hpp
+sed -i '/#include <vector>.*/a#include <cstdint>' src/core/include/openvino/core/type/float4_e2m1.hpp
+sed -i '/#include <vector>.*/a#include <cstdint>' src/core/dev_api/openvino/core/type/nf4.hpp
+sed -i '/#include <utility>.*/a#include <cstdint>' src/common/snippets/include/snippets/utils/debug_caps_config.hpp
+sed -i '/#include <utility>.*/a#include <cstdint>' src/plugins/intel_cpu/src/utils/debug_caps_config.h
+sed -i '/#include <vector>.*/a#include <cstdint>' src/plugins/intel_npu/src/plugin/npuw/partitioning/online/graph.hpp
 
 %build
 %cmake \
@@ -167,7 +189,9 @@ cp %{SOURCE4} src/bindings/python
 	-DENABLE_MLAS_FOR_CPU_DEFAULT=ON \
 	-DENABLE_INTEL_GNA=OFF \
 	-DENABLE_INTEL_GPU=OFF \
-	-DENABLE_INTEL_NPU=OFF \
+	-DENABLE_SYSTEM_LEVEL_ZERO=ON \
+	-DENABLE_INTEL_NPU=ON \
+	-DENABLE_NPU_PLUGIN_ENGINE=ON \
 	-DENABLE_ONEDNN_FOR_GPU=OFF \
 	-DENABLE_MULTI=ON \
 	-DENABLE_PROXY=ON \
@@ -230,6 +254,8 @@ LD_LIBRARY_PATH=$LD_LIBRARY_PATH:%{buildroot}%{_libdir} PYTHONPATH=%{buildroot}%
 %{_libdir}/%{name}-%{version}/lib%{name}_auto_batch_plugin.so
 %{_libdir}/%{name}-%{version}/lib%{name}_hetero_plugin.so
 %{_libdir}/%{name}-%{version}/lib%{name}_intel_cpu_plugin.so
+%{_libdir}/%{name}-%{version}/lib%{name}_intel_npu_plugin.so
+%{_bindir}/compile_tool
 
 %files -n lib%{name}-ir-frontend
 %{_libdir}/lib%{name}_ir_frontend.so.%{version}

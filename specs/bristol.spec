@@ -48,6 +48,7 @@ sed -i.sse 's/-msse -mfpmath=sse //g' bristol/Makefile.in
 %endif
 
 %build
+export CFLAGS="$CFLAGS -std=gnu17"
 autoreconf -if
 ./configure --prefix=%{_prefix} --libdir=%{_libdir} --enable-static=no --disable-version-check
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool

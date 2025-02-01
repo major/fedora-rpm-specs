@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.5.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 
 Summary:	Tk interface module using tcltklib
 # SPDX confirmred
@@ -24,7 +24,7 @@ BuildRequires:	gcc
 BuildRequires:	ruby(release)
 BuildRequires:	rubygems-devel
 BuildRequires:	ruby-devel
-BuildRequires:	tk-devel
+BuildRequires:	pkgconfig(tk) <= 8.999
 Obsoletes:		ruby-tcltk < 2.4.0
 # No provides for now
 
@@ -117,6 +117,9 @@ popd
 %doc	%lang(ja) %{gem_instdir}/MANUAL_tcltklib.ja
 
 %changelog
+* Fri Jan 31 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.1-4
+- Use tk8 explicitly
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

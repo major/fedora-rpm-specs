@@ -1,12 +1,10 @@
 Name:           perl-Text-BibTeX
-Version:        0.90
+Version:        0.91
 Release:        %autorelease
 Summary:        Interface to read and parse BibTeX files
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND Artistic-1.0-Perl AND ANTLR-PD
 URL:            https://metacpan.org/release/Text-BibTeX
 Source0:        https://cpan.metacpan.org/authors/id/A/AM/AMBS/Text-BibTeX-%{version}.tar.gz
-# Patch submitted upstream: https://github.com/ambs/Text-BibTeX/pull/39
-Patch0:         copy-zzpre_ast-prototype-to-match-defn.patch
 BuildRequires:  chrpath
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -53,7 +51,6 @@ entries, as well as other miscellaneous functions.
 
 %prep
 %setup -q -n Text-BibTeX-%{version}
-%patch 0 -p1
 chmod a-x scripts/* examples/*
 
 %build

@@ -12,7 +12,11 @@ URL:            http://www.foofus.net/jmk/medusa/medusa.html
 
 Source0:        https://github.com/jmk-foofus/%{name}/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
 
-BuildRequires:  afpfs-ng-devel
+# https://github.com/jmk-foofus/medusa/pull/72
+# https://bugzilla.redhat.com/show_bug.cgi?id=2340838
+# Fix build with GCC 15
+Patch:          0001-Fix-build-with-GCC-15-by-simplifying-libssh-callback.patch
+
 BuildRequires:  apr-devel
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -47,7 +51,7 @@ services. Some of the key features of Medusa are:
 %build
 autoreconf -vif
 %configure \
-    --enable-module-afp=yes \
+    --enable-module-afp=no \
     --with-default-mod-path=%{_libdir}/medusa/modules
 %make_build
 
@@ -62,8 +66,9 @@ autoreconf -vif
 %{_libdir}/%{name}
 
 %changelog
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-4.20240130git4e9be7e
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+* Thu Jan 30 2025 Adam Williamson <awilliam@redhat.com> - 2.3-4.20240130git4e9be7e
+- Backport PR #72 to fix build with GCC 15
+- Disable afpfs support as afpfs-ng has been retired
 
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.3-3.20240130git4e9be7e
 - convert license to SPDX

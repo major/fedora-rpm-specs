@@ -37,7 +37,7 @@ BuildRequires:  libfabric-devel
 BuildRequires:  libnl3-devel
 BuildRequires:  libuuid-devel
 BuildRequires:  numactl-devel
-%ifarch aarch64 ppc64le x86_64
+%ifarch aarch64 ppc64le x86_64 riscv64
 BuildRequires:  ucx-devel
 %endif
 %if ! 0%{?rhel}
@@ -151,7 +151,7 @@ CONFIGURE_OPTS=(
         --htmldir=%{_datadir}/%{name}/doc
         --with-hwloc
         --with-libfabric
-%ifarch aarch64 ppc64le x86_64
+%ifarch aarch64 ppc64le x86_64 riscv64
         --with-ucx
 %endif
 %if ! 0%{?rhel}

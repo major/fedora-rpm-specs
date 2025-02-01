@@ -1,7 +1,7 @@
 Summary:    A GNU utility for monitoring a program's use of system resources
 Name:       time
 Version:    1.9
-Release:    25%{?dist}
+Release:    26%{?dist}
 # src/time.c:               GPL-3.0-or-later
 # COPYING:                  GPL-3.0 text
 # doc/time.texi:            GFDL-1.3-no-invariants-or-later
@@ -66,6 +66,10 @@ Patch4:     time-1.9-drop-flawed-rss-test.patch
 # Fix formatting a trailing backslash, proposed to the upstream,
 # <https://lists.gnu.org/archive/html/bug-time/2024-01/msg00000.html>
 Patch5:     time-1.9-Fix-formatting-a-trailing-backslash-and-a-percent-si.patch
+# Fixes compiler error that occured after the switch to GCC15
+# <https://lists.gnu.org/archive/html/bug-time/2025-01/msg00000.html>
+Patch6:     time-1.9-Fix-compiling-with-GCC15.patch
+
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  bash
@@ -92,6 +96,7 @@ touch -d "$(sed -n -e '/^Date: /{s/^[^:]*: //;p}' %{PATCH2})" doc/time.texi
 %patch -P3 -p1
 %patch -P4 -p1
 %patch -P5 -p1
+%patch -P6 -p1
 # Correct version VERSION flag for doc/time.texi
 # <https://lists.gnu.org/archive/html/bug-time/2021-01/msg00000.html>
 printf '%{version}\n' > .tarball-version
@@ -117,6 +122,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 # time(1) manual page lives in man-pages package, bug #1612294.
 
 %changelog
+* Thu Jan 30 2025 Ondřej Pohořelský <opohorel@redhat.com> - 1.9-26
+- Fix compiling with GCC 15
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

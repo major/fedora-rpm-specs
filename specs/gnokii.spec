@@ -126,6 +126,7 @@ install -pm 644 %{SOURCE5} smsd2mail.sh
 install -pm 644 %{SOURCE6} README.smsd2mail
 
 %build
+export CFLAGS="$CFLAGS -std=gnu17"
 %configure --enable-security --disable-static --disable-rpath
 sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' -i libtool
 sed -e 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' -i libtool

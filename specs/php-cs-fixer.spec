@@ -7,16 +7,14 @@
 # Please, preserve the changelog entries
 #
 
-%bcond_with          generators
-
-%global gh_commit    85fd31cced824749a732e697acdd1a3d657312f0
+%global gh_commit    5c2f466ef3d7eba8af9463bcab829370b975333f
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2025-01-27
+%global gh_date      2025-01-30
 %global gh_owner     FriendsOfPHP
 %global gh_project   PHP-CS-Fixer
 
 Name:           php-cs-fixer
-Version:        3.68.3
+Version:        3.68.4
 Release:        1%{?dist}
 Summary:        PHP Coding Standards Fixer
 
@@ -34,9 +32,7 @@ BuildArch:      noarch
 BuildRequires:  php(language) >= 8.1
 BuildRequires:  php-cli
 BuildRequires:  php-json
-%if %{with generators}
 BuildRequires:  composer-generators >= 0.1.1
-%endif
 
 # see composer.json and makesrc.sh
 Requires:       php(language) >= 8.1
@@ -50,48 +46,6 @@ Requires:       php-mbstring
 # Package was renamed
 Obsoletes:      php-cs-fixer3 < 3.5
 Provides:       php-cs-fixer3 = %{version}
-
-%if %{without generators}
-# Bundled PHP libraries
-# License BSD-3-Clause
-Provides:       bundled(php-composer(sebastian/diff)) = 5.1.1
-# License MIT
-Provides:       bundled(php-composer(clue/ndjson-react)) = 1.3.0
-Provides:       bundled(php-composer(composer/pcre)) = 3.3.2
-Provides:       bundled(php-composer(composer/semver)) = 3.4.3
-Provides:       bundled(php-composer(composer/xdebug-handler)) = 3.0.5
-Provides:       bundled(php-composer(evenement/evenement)) = 3.0.2
-Provides:       bundled(php-composer(fidry/cpu-core-counter)) = 1.2.0
-Provides:       bundled(php-composer(psr/container)) = 2.0.2
-Provides:       bundled(php-composer(psr/event-dispatcher)) = 1.0.0
-Provides:       bundled(php-composer(psr/log)) = 2.0.0
-Provides:       bundled(php-composer(react/cache)) = 1.2.0
-Provides:       bundled(php-composer(react/child-process)) = 0.6.6
-Provides:       bundled(php-composer(react/dns)) = 1.13.0
-Provides:       bundled(php-composer(react/event-loop)) = 1.5.0
-Provides:       bundled(php-composer(react/promise)) = 3.2.0
-Provides:       bundled(php-composer(react/socket)) = 1.16.0
-Provides:       bundled(php-composer(react/stream)) = 1.4.0
-Provides:       bundled(php-composer(symfony/console)) = 6.4.17
-Provides:       bundled(php-composer(symfony/deprecation-contracts)) = 3.5.1
-Provides:       bundled(php-composer(symfony/event-dispatcher)) = 6.4.13
-Provides:       bundled(php-composer(symfony/event-dispatcher-contracts)) = 3.5.1
-Provides:       bundled(php-composer(symfony/filesystem)) = 6.4.13
-Provides:       bundled(php-composer(symfony/finder)) = 6.4.17
-Provides:       bundled(php-composer(symfony/options-resolver)) = 6.4.16
-Provides:       bundled(php-composer(symfony/polyfill-ctype)) = 1.31.0
-Provides:       bundled(php-composer(symfony/polyfill-intl-grapheme)) = 1.31.0
-Provides:       bundled(php-composer(symfony/polyfill-intl-normalizer)) = 1.31.0
-Provides:       bundled(php-composer(symfony/polyfill-mbstring)) = 1.31.0
-Provides:       bundled(php-composer(symfony/polyfill-php80)) = 1.31.0
-Provides:       bundled(php-composer(symfony/polyfill-php81)) = 1.31.0
-Provides:       bundled(php-composer(symfony/process)) = 6.4.15
-Provides:       bundled(php-composer(symfony/service-contracts)) = 3.5.1
-Provides:       bundled(php-composer(symfony/stopwatch)) = 6.4.13
-Provides:       bundled(php-composer(symfony/string)) = 6.4.15
-
-Provides:       php-composer(friendsofphp/php-cs-fixer) = %{version}
-%endif
 
 
 %description
@@ -112,28 +66,6 @@ projects. This tool does not only detect them, but also fixes them for you.
 %setup -q -n %{gh_project}-%{gh_commit}
 %patch -P0 -p1 -b .rpm
 
-%if %{without generators}
-: List bundled libraries and Licenses
-php -r '
-    $pkgs = file_get_contents("vendor/composer/installed.json");
-    $pkgs = json_decode($pkgs, true);
-    if (!is_array($pkgs) || !isset($pkgs["packages"])) {
-        echo "cant decode json file\n";
-        exit(3);
-    }
-    $res = [];
-    foreach($pkgs["packages"] as $pkg) {
-        $lic = implode(" and ", $pkg["license"]);
-        if (!isset($res[$lic])) $res[$lic] = [];
-        $res[$lic][] = sprintf("Provides:       bundled(php-composer(%s)) = %s", $pkg["name"], ltrim($pkg["version"], "v"));
-    }
-    ksort($res);
-    foreach($res as $lic => $lib) {
-        sort($lib);
-        printf("# License %s\n%s\n", $lic, implode("\n", $lib));
-    }
-'
-%endif
 
 %build
 # Empty build section, most likely nothing required.
@@ -164,6 +96,10 @@ PHP_CS_FIXER_IGNORE_ENV=1 ./%{name} --version | grep %{version}
 
 
 %changelog
+* Thu Jan 30 2025 Remi Collet <remi@remirepo.net> - 3.68.4-1
+- update to 3.68.4
+- always use composer-generators
+
 * Tue Jan 28 2025 Remi Collet <remi@remirepo.net> - 3.68.3-1
 - update to 3.68.3
 

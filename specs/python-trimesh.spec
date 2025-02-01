@@ -1,4 +1,6 @@
-%bcond blender 1
+# Temporarily omit the Blender dependency due to
+# https://bugzilla.redhat.com/show_bug.cgi?id=2342539
+%bcond blender %[ %{undefined fc42} && %{undefined fc43} ]
 %bcond skimage 1
 
 # Not yet packaged: https://pypi.org/project/pymeshlab/
@@ -6,7 +8,7 @@
 %bcond pymeshlab 0
 
 Name:           python-trimesh
-Version:        4.6.0
+Version:        4.6.1
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 

@@ -9,11 +9,12 @@
 Summary: Tools for certain user account management tasks
 Name: usermode
 Version: 1.114
-Release: 11%{?dist}
+Release: 12%{?dist}
 License: GPL-2.0-or-later
 URL: https://pagure.io/%{name}/
 Source: https://releases.pagure.org/%{name}/%{name}-%{version}.tar.xz
 Source1: config-util
+Patch1: fix-sast.patch
 Requires: pam, passwd, util-linux
 # https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/IJFYI5Q2BYZKIGDFS2WLOBDUSEGWHIKV/
 BuildRequires: make
@@ -53,6 +54,7 @@ graphical tools for certain account management tasks.
 
 %prep
 %setup -q
+%patch -P 1 -p 1
 
 %build
 %configure --with-selinux --without-fexecve %{!?with_gtk:--without-gtk}
@@ -87,7 +89,7 @@ done
 %files -f %{name}.lang
 %license COPYING
 %doc ChangeLog NEWS README
-%attr(4711,root,root) /usr/sbin/userhelper
+%attr(4711,root,root) /%{_sbindir}/userhelper
 %{_bindir}/consolehelper
 %{_mandir}/man8/userhelper.8*
 %{_mandir}/man8/consolehelper.8*
@@ -113,6 +115,9 @@ done
 %endif
 
 %changelog
+* Thu Jan 30 2025 Michal Hlavinka <mhlavink@redhat.com> - 1.114-12
+- fix static analysis issues and ftbfs
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.114-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

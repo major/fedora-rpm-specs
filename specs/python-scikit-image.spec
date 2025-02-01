@@ -3,7 +3,7 @@
 %global srcname scikit-image
 
 Name: python-scikit-image
-Version: 0.25.0
+Version: 0.25.1
 Release: 1%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
@@ -126,6 +126,9 @@ popd
 
 
 %changelog
+* Wed Jan 29 2025 Orion Poplawski <orion@nwra.com> - 0.25.1-1
+- Update to 0.25.1
+
 * Tue Jan 28 2025 Orion Poplawski <orion@nwra.com> - 0.25.0-1
 - Update to 0.25.0
 

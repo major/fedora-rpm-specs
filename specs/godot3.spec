@@ -17,8 +17,8 @@
 %define rdnsname %{urdnsname}3
 
 Name:           godot3
-Version:        3.5.2
-Release:        12%{?dist}
+Version:        3.6
+Release:        1%{?dist}
 Summary:        Multi-platform 2D and 3D game engine with a feature-rich editor (version 3)
 %if 0%{?mageia}
 Group:          Development/Tools
@@ -26,27 +26,23 @@ Group:          Development/Tools
 # Godot itself is MIT-licensed, the rest is from vendored thirdparty libraries
 License:        MIT and CC-BY and ASL 2.0 and BSD and zlib and OFL and Bitstream Vera and ISC and MPLv2.0
 URL:            https://godotengine.org
-Source0:        https://downloads.tuxfamily.org/godotengine/%{version}/%{uname}-%{uversion}.tar.xz
-Source1:        https://downloads.tuxfamily.org/godotengine/%{version}/%{uname}-%{uversion}.tar.xz.sha256
+Source0:        https://github.com/godotengine/godot-builds/releases/download/%{uversion}/%{uname}-%{uversion}.tar.xz
+Source1:        https://github.com/godotengine/godot-builds/releases/download/%{uversion}/%{uname}-%{uversion}.tar.xz.sha256
 
 Patch0:         godot3-dist-files-rebranding.patch
-# https://github.com/transmission/transmission/pull/6907
+# https://github.com/godotengine/godot/pull/97139
 Patch1:         godot3-miniupnp228.patch
+# https://github.com/godotengine/godot/pull/102023
+Patch2:         0001-embree-Fix-invalid-output-operators-raising-errors-w.patch
 
 # Upstream does not support those arches (for now)
 ExcludeArch:    ppc64 ppc64le s390x
-
-# See bundled section for explanations.
-%define system_bullet 0%{?mageia} || 0%{?fedora} >= 34
-%define system_embree 0%{?mageia} || (0%{?fedora} && 0%{?fedora} < 38)
 
 BuildRequires:  gcc-c++
 BuildRequires:  mbedtls-devel
 BuildRequires:  miniupnpc-devel
 BuildRequires:  pkgconfig(alsa)
-%if %{system_bullet}
 BuildRequires:  pkgconfig(bullet) >= 2.89
-%endif
 BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(libpcre2-32)
@@ -76,10 +72,8 @@ BuildRequires:  scons
 BuildRequires:  python3-scons
 %endif
 
-%if %{system_embree}
 %ifarch aarch64 x86_64
-BuildRequires:  embree-devel < 4
-%endif
+BuildRequires:  embree3-devel
 %endif
 
 # For desktop and appdata files validation
@@ -98,25 +92,18 @@ Requires:       hicolor-icon-theme
 # though that the `thirdparty` folder also contains code which is typically
 # not packaged in distros, and is probably best left bundled.
 
-%if ! %{system_bullet}
-# Needs at least bullet 2.89 (with a patch, see linked PR) or later (unpatched).
-# https://github.com/bulletphysics/bullet3/pull/2748
-Provides:       bundled(bullet) = 3.24
-%endif
-# Godot requires Embree 3, and recent Fedora upgraded to Embree 4 which breaks the API.
-Provides:       bundled(embree) = 3.13.0
 # Has some modifications for IPv6 support, upstream enet is unresponsive.
 # Should not be unbundled.
 # Cf: https://github.com/godotengine/godot/issues/6992
-Provides:       bundled(enet) = 1.3.17
+Provides:       bundled(enet) = 1.3.18
 # Upstream commit from 2016 (32d5ac49414a8914ec1e1f285f3f927c6e8ec29d),
 # newer than 1.0.0.27 which is the last tag.
 # Could be unbundled if packaged.
 Provides:       bundled(libwebm)
 # Has custom changes to support seeking in zip archives
 # Should not be unbundled.
-Provides:       bundled(minizip) = 1.2.12
-# Upstream commit ccdb1995134d340a93fb20e3a3d323ccb3838dd0, no releases.
+Provides:       bundled(minizip) = 1.3.1
+# Upstream commit 93ce879dc4c04a3ef1758428ec80083c38610b1f, no releases.
 # Could be unbundled if packaged.
 Provides:       bundled(nanosvg)
 %ifarch x86_64
@@ -127,7 +114,7 @@ Provides:       bundled(oidn) = 1.1.0
 # Could be unbundled if packaged.
 Provides:       bundled(squish) = 1.15
 # Could be unbundled if packaged.
-Provides:       bundled(tinyexr) = 1.0.1
+Provides:       bundled(tinyexr) = 1.0.8
 
 %description
 Godot 3 is an advanced, feature-packed, multi-platform 2D and 3D game engine.
@@ -219,14 +206,7 @@ simply by pointing to the location of the game's data package.
 %build
 # Needs to be in %%build so that system_libs stays in scope
 # We don't unbundle enet and minizip as they have necessary custom changes
-to_unbundle="freetype libogg libpng libtheora libvorbis libvpx libwebp mbedtls miniupnpc opus pcre2 wslay zlib zstd"
-
-%if %{system_bullet}
-to_unbundle+=" bullet"
-%endif
-%if %{system_embree}
-to_unbundle+=" embree"
-%endif
+to_unbundle="bullet embree freetype libogg libpng libtheora libvorbis libvpx libwebp mbedtls miniupnpc opus pcre2 wslay zlib zstd"
 
 system_libs=""
 for lib in $to_unbundle; do
@@ -240,7 +220,7 @@ done
 %define disable_modules module_denoise_enabled=no
 %endif
 
-%define _scons scons %{?_smp_mflags} "CCFLAGS=%{?build_cflags}" "LINKFLAGS=%{?build_ldflags}" $system_libs use_lto=yes use_static_cpp=no progress=no %{?disable_modules}
+%define _scons scons %{?_smp_mflags} "CCFLAGS=%{?build_cflags}" "LINKFLAGS=%{?build_ldflags}" $system_libs lto=full use_static_cpp=no progress=no %{?disable_modules}
 
 %if 0%{?fedora}
 export BUILD_NAME="fedora"
@@ -304,6 +284,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnsname}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnsname}.appdata.xml
 
 %changelog
+* Thu Jan 30 2025 Rémi Verschelde <akien@fedoraproject.org> - 3.6-1
+- Version 3.6-stable
+- Use system-provided embree3
+- Fix build with GCC 15
+
 * Tue Jan 28 2025 Simone Caronni <negativo17@gmail.com> - 3.5.2-12
 - Rebuild for updated dependencies.
 

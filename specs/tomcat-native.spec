@@ -41,7 +41,7 @@ cd native
 export CFLAGS="${CFLAGS} -DOPENSSL_NO_ENGINE"
 %configure \
     --with-apr=%{_bindir}/apr-1-config \
-    --with-java-home=%{java_home}
+    --with-java-home=%{_jvmdir}/java
 make %{?_smp_mflags}
 
 
@@ -66,6 +66,9 @@ rm -rf ${RPM_BUILD_ROOT}%{_includedir}/*.h
 
 
 %changelog
+* Thu Jan 30 2025 Dimitris Soumis <dsoumis@redhat.com> - 1:1.3.0-9
+- Resolves: rhbz#2341450 - Fix non-existing java-home
+
 * Tue Jul 30 2024 Dimitris Soumis <dsoumis@redhat.com> - 1:1.3.0-3
 - Resolves: rhbz#2301332
 
@@ -295,7 +298,7 @@ rm -rf ${RPM_BUILD_ROOT}%{_includedir}/*.h
 - 1.1.12.
 
 * Wed Dec 05 2007 Release Engineering <rel-eng at fedoraproject dot org> - 1.1.10-3
- - Rebuild for deps
+- Rebuild for deps
 
 * Wed Dec  5 2007 Ville Skyttä <ville.skytta@iki.fi> - 1.1.10-2
 - Rebuild.

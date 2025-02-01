@@ -1,12 +1,13 @@
 Summary:   Password cracker
 Name:      crack
 Version:   5.0a
-Release:   48%{?dist}
+Release:   49%{?dist}
 # Automatically converted from old format: Artistic clarified - review is highly recommended.
 License:   ClArtistic
 Source:    ftp://ftp.cerias.purdue.edu/pub/tools/unix/pwdutils/crack/%{name}5.0.tar.gz
 Patch0:    %{name}-chris.patch
 Patch1:    %{name}-FHS.patch
+Patch2:    %{name}-oldfun.patch
 URL:       https://dropsafe.crypticide.com/alecm/software/crack/c50-faq.html
 BuildRequires: words, gawk, gcc
 BuildRequires: make
@@ -36,6 +37,7 @@ sed -i -e 's/Reporter/CrackReporter/g' doc/gui.txt manual.html manual.txt
 sed -i 's|/usr/dict/|/usr/share/dict/|g' conf/dictgrps.conf
 # Alter script to use FHS layout
 %patch -P1 -p1 -b .FHS
+%patch -P2 -p1 -b .oldfun
 
 %build
 %global build_type_safety_c 0
@@ -78,6 +80,10 @@ fi
 
 
 %changelog
+* Thu Jan 30 2025 Christian Iseli <christian.iseli@epfl.ch> - 5.0a-49
+- Add patch to fix old function definition issues with GCC 15
+- Fix FTBFS (#2340004)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0a-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

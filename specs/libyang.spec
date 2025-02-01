@@ -11,11 +11,11 @@
 %endif
 
 Name: libyang
-Version: 2.1.148
-Release: 3%{?dist}
+Version: 3.7.8
+Release: 1%{?dist}
 Summary: YANG data modeling language library
 Url: https://github.com/CESNET/libyang
-Source: %{url}/archive/v%{version}.tar.gz
+Source: %{url}/archive/%{name}-%{version}.tar.gz
 License: BSD-3-Clause
 
 # disable tests failing on s390x
@@ -89,8 +89,8 @@ cp -a doc/html %{buildroot}/%{_docdir}/libyang/html
 
 %files
 %license LICENSE
-%{_libdir}/libyang.so.2
-%{_libdir}/libyang.so.2.*
+%{_libdir}/libyang.so.3
+%{_libdir}/libyang.so.3.*
 %{_datadir}/yang/modules/libyang/*.yang
 %dir %{_datadir}/yang/
 %dir %{_datadir}/yang/modules/
@@ -112,6 +112,9 @@ cp -a doc/html %{buildroot}/%{_docdir}/libyang/html
 %{_docdir}/libyang
 
 %changelog
+* Thu Jan 30 2025 Michal Ruprich <mruprich@redhat.com> - 3.7.8-1
+- New version 3.7.8
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.148-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

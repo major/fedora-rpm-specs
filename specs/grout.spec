@@ -4,7 +4,7 @@
 %global forgeurl https://github.com/DPDK/grout
 
 Name: grout
-Version: 0.5
+Version: 0.6
 Summary: Graph router based on DPDK
 License: BSD-3-Clause
 Group: System Environment/Daemons
@@ -14,7 +14,6 @@ Group: System Environment/Daemons
 URL: %{forgeurl}
 Release: %{autorelease}
 Source: %{forgesource}
-Patch: meson-install-all-binaries-in-PREFIX-bin.patch
 
 BuildRequires: dpdk-devel >= 24.11.1-2
 BuildRequires: gcc
@@ -27,7 +26,7 @@ BuildRequires: meson
 BuildRequires: ninja-build
 BuildRequires: numactl-devel
 BuildRequires: pkgconf
-BuildRequires: scdoc
+BuildRequires: golang-github-cpuguy83-md2man
 BuildRequires: socat
 BuildRequires: systemd
 

@@ -1,14 +1,14 @@
 %define ruby_inc %(pkg-config --cflags ruby)
-%define libsepolver 3.8-0.rc3
+%define libsepolver 3.8-1
 
 Summary: SELinux library and simple utilities
 Name: libselinux
 Version: 3.8
-Release: 0.rc3.1%{?dist}.3
+Release: 1%{?dist}
 License: LicenseRef-Fedora-Public-Domain
 # https://github.com/SELinuxProject/selinux/wiki/Releases
-Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}-rc3/libselinux-%{version}-rc3.tar.gz
-Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}-rc3/libselinux-%{version}-rc3.tar.gz.asc
+Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}/libselinux-%{version}.tar.gz
+Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}/libselinux-%{version}.tar.gz.asc
 Source2: https://github.com/bachradsusi.gpg
 Source3: selinuxconlist.8
 Source4: selinuxdefcon.8
@@ -92,7 +92,7 @@ needed for developing SELinux applications.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -p 2 -n libselinux-%{version}-rc3
+%autosetup -p 2 -n libselinux-%{version}
 
 %build
 export DISABLE_RPM="y"
@@ -219,14 +219,4 @@ rm -f %{buildroot}%{_mandir}/man8/togglesebool*
 %{ruby_vendorarchdir}/selinux.so
 
 %changelog
-* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8-0.rc3.1.3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.8-0.rc3.1.2
-- Rebuilt for the bin-sbin merge (2nd attempt)
-
-* Wed Jan 08 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.8-0.rc3.1.1
-- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.4
-
-
 %autochangelog

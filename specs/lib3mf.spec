@@ -2,7 +2,9 @@ Name:           lib3mf
 Version:        2.2.0
 Release:        %autorelease
 Summary:        Implementation of the 3D Manufacturing Format file standard
-License:        BSD-2-Clause
+# lib3mf is BSD-2-Clause
+# bundled Source/Libraries/cpp-base64/base64.cpp is Zlib
+License:        BSD-2-Clause AND Zlib
 URL:            https://3mf.io
 
 Source0:        https://github.com/3MFConsortium/lib3mf/archive/v%{version}/lib3mf-%{version}.tar.gz
@@ -12,6 +14,9 @@ Source0:        https://github.com/3MFConsortium/lib3mf/archive/v%{version}/lib3
 Patch289:       https://github.com/3MFConsortium/lib3mf/pull/289.patch
 #  - don't strip the library (breaks debuginfo)
 Patch290:       https://github.com/3MFConsortium/lib3mf/pull/290.patch
+
+# Fix build with GCC 15, #include <cstdint> for uint64_t definition
+Patch407:       https://github.com/3MFConsortium/lib3mf/pull/407.patch
 
 BuildRequires:  act
 BuildRequires:  cmake3
@@ -30,6 +35,10 @@ BuildRequires:  gtest-devel
 %if 0%{?fedora} >= 37 || 0%{?rhel} >= 10
 ExcludeArch:    %{ix86}
 %endif
+
+# See Source/Libraries/cpp-base64/base64.cpp
+# https://github.com/ReneNyffenegger/cpp-base64
+Provides:       bundled(cpp-base64) = 1.01.00
 
 # Get the pre-Fedora 33 behavior for now until diverged from EPEL 7
 %define __cmake_in_source_build 1
@@ -63,6 +72,12 @@ ln -s /usr/bin/act AutomaticComponentToolkit/bin/act.linux
 
 # c++11 does not work with gtest 1.13+
 sed -i 's/ -std=c++11//' CMakeLists.txt
+
+# remove unused bundled libraries
+rm {Include,Source}/Libraries/{libzip,zlib} -r
+sed -i -e 's|Libraries/libzip/zip.h|zip.h|' \
+       -e 's|Libraries/zlib/zlib.h|zlib.h|' \
+  {Include,Source}/Common/*/*
 
 
 %build

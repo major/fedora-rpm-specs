@@ -1,5 +1,5 @@
 Name:           fabtests
-Version:        1.18.0
+Version:        1.22.0
 Release:        %autorelease
 Summary:        Test suite for libfabric API
 # COPYING says the license is your choice of BSD or GPLv2.
@@ -8,6 +8,7 @@ License:        (BSD-2-Clause OR GPL-2.0-only) AND MIT
 Url:            https://github.com/ofiwg/libfabric
 Source:         https://github.com/ofiwg/libfabric/releases/download/v%{version}/%{name}-%{version}.tar.bz2
 Patch0:         0001-adjust-shebang-lines-in-rft_yaml_to_junit_xml-and-ru.patch
+Patch1:		0001-Fix-build-failure.patch
 BuildRequires:  libfabric-devel >= %{version}
 %ifarch %{valgrind_arches}
 BuildRequires:  valgrind-devel
@@ -23,6 +24,7 @@ fabric software library.
 %prep
 %setup -q -n %{name}-%{version}
 %patch -P0 -p2
+%patch -P1 -p2
 
 %build
 %configure \

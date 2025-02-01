@@ -101,6 +101,7 @@ This contains the directory common to all Denemo fonts.
 %autosetup -p1
 
 %build
+export CFLAGS="$CFLAGS -std=gnu17"
 autoupdate
 autoreconf -if
 %configure --enable-jack=yes --disable-binreloc --enable-guile_3_0=yes

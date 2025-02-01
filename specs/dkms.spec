@@ -1,14 +1,13 @@
 Summary:        Dynamic Kernel Module Support Framework
 Name:           dkms
-Version:        3.1.4
-Release:        4%{?dist}
+Version:        3.1.5
+Release:        1%{?dist}
 License:        GPL-2.0-or-later
 URL:            http://linux.dell.com/dkms
 
 BuildArch:      noarch
 
 Source0:        https://github.com/dell/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-Patch0:         0001-Fix-472-capture-error-output.patch
 
 BuildRequires:  make
 BuildRequires:  systemd
@@ -49,7 +48,9 @@ method for installing module RPMS as originally developed by Dell.
 %autosetup -p1
 
 %install
-make install-redhat DESTDIR=%{buildroot}
+make install-redhat \
+    SBIN=%{_bindir} \
+    DESTDIR=%{buildroot}
 
 sed -i -e 's/# modprobe_on_install="true"/modprobe_on_install="true"/g' %{buildroot}%{_sysconfdir}/%{name}/framework.conf
 
@@ -68,7 +69,7 @@ sed -i -e 's/# modprobe_on_install="true"/modprobe_on_install="true"/g' %{buildr
 %{_prefix}/lib/%{name}
 %{_prefix}/lib/kernel/install.d/40-%{name}.install
 %{_mandir}/man8/dkms.8*
-%{_sbindir}/%{name}
+%{_bindir}/%{name}
 %{_sharedstatedir}/%{name}
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}/framework.conf
@@ -78,6 +79,10 @@ sed -i -e 's/# modprobe_on_install="true"/modprobe_on_install="true"/g' %{buildr
 %{_unitdir}/%{name}.service
 
 %changelog
+* Thu Jan 30 2025 Simone Caronni <negativo17@gmail.com> - 3.1.5-1
+- Update to 3.1.5.
+- Move binary (https://fedoraproject.org/wiki/Changes/Unify_bin_and_sbin).
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

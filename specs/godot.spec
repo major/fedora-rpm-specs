@@ -16,7 +16,7 @@
 
 Name:           godot
 Version:        4.3
-Release:        5%{?dist}
+Release:        7%{?dist}
 Summary:        Multi-platform 2D and 3D game engine with a feature-rich editor
 %if 0%{?mageia}
 Group:          Development/Tools
@@ -25,15 +25,17 @@ Group:          Development/Tools
 # Automatically converted from old format: MIT and CC-BY and ASL 2.0 and BSD and zlib and OFL and Bitstream Vera and ISC and MPLv2.0 - review is highly recommended.
 License:        LicenseRef-Callaway-MIT AND LicenseRef-Callaway-CC-BY AND Apache-2.0 AND LicenseRef-Callaway-BSD AND Zlib AND LicenseRef-Callaway-OFL AND Bitstream-Vera AND ISC AND MPL-2.0
 URL:            https://godotengine.org
-Source0:        https://downloads.tuxfamily.org/godotengine/%{version}/%{?prerel:%{status}/}%{name}-%{uversion}.tar.xz
-Source1:        https://downloads.tuxfamily.org/godotengine/%{version}/%{?prerel:%{status}/}%{name}-%{uversion}.tar.xz.sha256
+Source0:        https://github.com/godotengine/godot-builds/releases/download/%{uversion}/%{name}-%{uversion}.tar.xz
+Source1:        https://github.com/godotengine/godot-builds/releases/download/%{uversion}/%{name}-%{uversion}.tar.xz.sha256
 
 # Preconfigure Blender and oidnDenoise paths to use system-installed versions.
 Patch0:         preconfigure-blender-oidn-paths.patch
 # https://github.com/godotengine/godot/pull/95658
 Patch1:         0001-OpenXR-Fix-support-for-building-against-distro-packa.patch
-# https://github.com/godotengine/godot/commit/4c72d599f0a171a96e47004239f42756115b723f
-Patch2:         %{name}-miniupnp228.patch
+# https://github.com/godotengine/godot/pull/97139
+Patch2:         0001-miniupnpc-Update-to-2.2.8-new-major-18.patch
+# https://github.com/godotengine/godot/pull/102022
+Patch3:         0001-Add-missing-cstdint-includes-for-GCC-15.patch
 
 # Upstream does not support this arch (for now)
 ExcludeArch:    s390x
@@ -234,7 +236,7 @@ for lib in $to_unbundle; do
     rm -rf thirdparty/$lib
 done
 
-%define _scons scons %{?_smp_mflags} "CCFLAGS=%{?build_cflags}" "LINKFLAGS=%{?build_ldflags}" arch=%{godot_arch} $system_libs use_lto=yes use_static_cpp=no debug_symbols=yes progress=no
+%define _scons scons %{?_smp_mflags} "CCFLAGS=%{?build_cflags}" "LINKFLAGS=%{?build_ldflags}" arch=%{godot_arch} $system_libs lto=full use_static_cpp=no debug_symbols=yes progress=no
 
 %if 0%{?fedora}
 export BUILD_NAME="fedora"
@@ -277,6 +279,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnsname}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnsname}.appdata.xml
 
 %changelog
+* Thu Jan 30 2025 Rémi Verschelde <akien@fedoraproject.org> - 4.3-7
+- Re-enable LTO, we were using an outdated option for it
+
+* Thu Jan 30 2025 Rémi Verschelde <akien@fedoraproject.org> - 4.3-6
+- Fix build with GCC 15
+
 * Tue Jan 28 2025 Simone Caronni <negativo17@gmail.com> - 4.3-5
 - Rebuild for updated dependencies.
 

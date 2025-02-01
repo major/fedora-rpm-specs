@@ -1,10 +1,10 @@
 Summary: SELinux binary policy manipulation library
 Name: libsepol
 Version: 3.8
-Release: 0.rc3.1%{?dist}.1
+Release: 1%{?dist}
 License: LGPL-2.1-or-later
-Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}-rc3/libsepol-%{version}-rc3.tar.gz
-Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}-rc3/libsepol-%{version}-rc3.tar.gz.asc
+Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}/libsepol-%{version}.tar.gz
+Source1: https://github.com/SELinuxProject/selinux/releases/download/%{version}/libsepol-%{version}.tar.gz.asc
 Source2: https://github.com/bachradsusi.gpg
 URL: https://github.com/SELinuxProject/selinux/wiki
 # $ git clone https://github.com/fedora-selinux/selinux.git
@@ -60,7 +60,7 @@ The libsepol-utils package contains the utilities
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -p 2 -n libsepol-%{version}-rc3
+%autosetup -p 2 -n libsepol-%{version}
 
 # sparc64 is an -fPIC arch, so we need to fix it here
 %ifarch sparc64
@@ -110,8 +110,4 @@ rm -rf ${RPM_BUILD_ROOT}%{_mandir}/ru/man8
 %{_mandir}/man8/chkcon.8.gz
 
 %changelog
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8-0.rc3.1.1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-
 %autochangelog

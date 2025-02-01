@@ -6,8 +6,8 @@
 %global cargo_install_lib 0
 
 Name:           vaultwarden
-Version:        1.32.7
-Release:        4%{?dist}
+Version:        1.33.0
+Release:        1%{?dist}
 Summary:        Unofficial Bitwarden compatible server
 
 ExcludeArch:    ppc64le s390x
@@ -55,7 +55,10 @@ Requires:       %{name}-web
 
 Patch:          remove-remote-git-patch.patch
 %if 0%{?rhel} == 9
-Patch:          remove-msrv.patch
+Patch:          remove-rust-version-check.patch
+Patch:          enable-unstable-apis.patch
+Patch:          fix-is_none_or.patch
+Patch:          fix-refutable-pattern-in-for-loop.patch
 %endif
 
 %{?sysusers_requires_compat}
@@ -160,6 +163,12 @@ install -Dp %{SOURCE2} %{buildroot}%{_unitdir}/%{name}.service
 
 
 %changelog
+* Thu Jan 30 2025 Jonathan Wright <jonathan@almalinux.org> - 1.33.0-1
+- update to 1.33.0 rhbz#2342073
+  Fix GHSA-f7r5-w49x-gxm3 Getting access to the Admin Panel via CSRF
+  Fix CVE-2025-24364 RCE in the admin panel
+  Fix CVE-2025-24365 escalation of privilege via variable confusion in OrgHeaders trait
+
 * Tue Jan 21 2025 Jonathan Wright <jonathan@almalinux.org> - 1.32.7-4
 - Set VW_VERSION env var during build and install rhbz#2338534
 

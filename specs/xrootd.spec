@@ -13,19 +13,12 @@
 
 Name:		xrootd
 Epoch:		1
-Version:	5.7.2
-Release:	4%{?dist}
+Version:	5.7.3
+Release:	1%{?dist}
 Summary:	Extended ROOT file server
 License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib
 URL:		https://xrootd.web.cern.ch
 Source0:	%{url}/download/v%{version}/%{name}-%{version}.tar.gz
-#		Fix errors in format strings
-#		https://github.com/xrootd/xrootd/pull/2380
-Patch0:		0001-Use-correct-format-for-size_t.patch
-Patch1:		0002-Mark-the-client-library-logging-routines-with-__attr.patch
-Patch2:		0003-Fix-format-errors-found-by-the-compiler.patch
-#		https://github.com/xrootd/xrootd/pull/2411
-Patch3:		0001-Fix-compilation-errors-with-GCC-15.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
@@ -262,10 +255,6 @@ This package contains the API documentation of the xrootd libraries.
 
 %prep
 %setup -q
-%patch -P0 -p1
-%patch -P1 -p1
-%patch -P2 -p1
-%patch -P3 -p1
 
 %build
 %cmake \
@@ -658,6 +647,10 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Wed Jan 29 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.7.3-1
+- Update to version 5.7.3
+- Drop patches accepted upstream
+
 * Thu Jan 23 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.7.2-4
 - Use CMAKE_BUILD_TYPE RelWithDebInfo to avoid -Werror in compiler flags
 

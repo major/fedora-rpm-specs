@@ -1,3 +1,8 @@
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
+%global build_type_safety_c 0
+
 Name:       wcstools
 Version:    3.9.7
 Release:    %autorelease
@@ -17,6 +22,10 @@ Patch:      wcstools-3.9.7_rename-libwcs-to-libwcstools.patch
 # new names in accordance to Debian renaming
 # see also fedora#1450190
 Patch:      wcstools-3.9.7_rename-binaries.patch
+
+# Since there's no way to reach out upstream other than email
+# and I don't get replies, this patch tries to fix build with GCC15
+Patch:      fix_gcc15-c++23.patch
 
 %description
 Wcstools is a set of software utilities, written in C, which create,
@@ -52,13 +61,6 @@ grep -rl '59 Temple Place, Suite 330, Boston, MA  02111-1307  USA' --include=*.{
 
 
 %build
-%if 0%{?epel} || 0%{?fedora} < 36
-CFLAGS="$RPM_OPT_FLAGS"
-CPPFLAGS="$RPM_OPT_FLAGS"
-export CFLAGS
-export CPPFLAGS
-%endif
-
 %make_build
 
 

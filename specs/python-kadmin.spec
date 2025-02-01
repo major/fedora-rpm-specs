@@ -36,7 +36,7 @@ Python %{python3_version} version.
 %autosetup -p1 -n python-%{modname}-%{commit}
 
 %build
-export CFLAGS="$CFLAGS -fcommon"
+export CFLAGS="$CFLAGS -fcommon -std=gnu17"
 %py3_build
 
 %install

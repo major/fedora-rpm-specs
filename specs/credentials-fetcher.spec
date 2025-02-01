@@ -3,7 +3,7 @@
 %global patch_version 6
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 4
+%global baserelease 5
 %define _unpackaged_files_terminate_build 0
 
 Name:           credentials-fetcher
@@ -19,10 +19,12 @@ Source0:        https://github.com/aws/credentials-fetcher/archive/refs/tags/v.%
 # https://github.com/aws/credentials-fetcher/pull/116
 # Cherry-picked to v.1.3.6 and re-created against the released archive
 Patch:          credentials-fetcher-1.3.6-fixprotobuf.patch
+# Bump dotnet-sdk to 8.0
+Patch:          credentials-fetcher-1.3.6-fix-dotnet-version.patch
 
 BuildRequires:  cmake3 make chrpath openldap-clients grpc-devel gcc-c++ glib2-devel jsoncpp-devel
 BuildRequires:  openssl-devel zlib-devel protobuf-devel re2-devel krb5-devel systemd-devel
-BuildRequires:  systemd-rpm-macros dotnet-sdk-6.0 grpc-plugins
+BuildRequires:  systemd-rpm-macros dotnet-sdk-8.0 grpc-plugins
 
 %if 0%{?amzn} >= 2023
 BuildRequires:  aws-sdk-cpp-devel aws-sdk-cpp aws-sdk-cpp-static
@@ -57,22 +59,28 @@ sed -r -i 's/(std=c\+\+)11/\117/' CMakeLists.txt
 %cmake_install
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_removing_rpath
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_rpath_for_internal_libraries
-chrpath --delete %{buildroot}/%{_sbindir}/credentials-fetcherd
+
+# https://fedoraproject.org/wiki/Changes/Unify_bin_and_sbin
+ls -al %{buildroot}/usr/sbin/credentials-fetcherd
+chrpath --delete %{buildroot}/usr/sbin/credentials-fetcherd
 
 %check
 # TBD: Run tests from top-level directory
 ctest3
 
 %files
-%{_sbindir}/credentials-fetcherd
+/usr/sbin/credentials-fetcherd
 %{_unitdir}/credentials-fetcher.service
 %license LICENSE
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/LicensingGuidelines/
 %doc CONTRIBUTING.md NOTICE README.md
-%attr(0700, -, -) %{_sbindir}/credentials_fetcher_utf16_private.exe
-%attr(0700, -, -) %{_sbindir}/credentials_fetcher_utf16_private.runtimeconfig.json
+%attr(0700, -, -) /usr/sbin/credentials_fetcher_utf16_private.exe
+%attr(0700, -, -) /usr/sbin/credentials_fetcher_utf16_private.runtimeconfig.json
 
 %changelog
+* Thu Jan 30 2025 Samiullah Mohammed <samiull@amazon.com> - 1.3.6-5
+- Bump dotnet sdk version
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

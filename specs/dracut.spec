@@ -7,8 +7,8 @@
 %global __requires_exclude pkg-config
 
 Name: dracut
-Version: 103
-Release: 3%{?dist}
+Version: 105
+Release: 1%{?dist}
 
 Summary: Initramfs generator using udev
 
@@ -25,30 +25,30 @@ Source1: https://www.gnu.org/licenses/lgpl-2.1.txt
 # feat(hwdb): add hwdb module to install hwdb.bin on demand
 # Author: Pavel Valena <pvalena@redhat.com>
 Patch1:  0001-feat-hwdb-add-hwdb-module-to-install-hwdb.bin-on-dem.patch
-# fix(rngd): install system service file
-# Author: Pavel Valena <pvalena@redhat.com>
-Patch2:  0002-fix-rngd-install-system-service-file.patch
 # revert: "fix(install.d): correctly install pre-genned image and die if no args"
 # Author: Pavel Valena <pvalena@redhat.com>
-Patch3:  0003-revert-fix-install.d-correctly-install-pre-genned-im.patch
+Patch2:  0002-revert-fix-install.d-correctly-install-pre-genned-im.patch
 # feat(kernel-install): do nothing when $KERNEL_INSTALL_INITRD_GENERATOR says so
 # Author: Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl>
-Patch4:  0004-feat-kernel-install-do-nothing-when-KERNEL_INSTALL_I.patch
+Patch3:  0003-feat-kernel-install-do-nothing-when-KERNEL_INSTALL_I.patch
 # fix(kernel-install): do not generate an initrd when one was specified
 # Author: Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl>
-Patch5:  0005-fix-kernel-install-do-not-generate-an-initrd-when-on.patch
-# revert: "fix(crypt): unlock encrypted devices by default during boot"
-# Author: Pavel Valena <pvalena@redhat.com>
-Patch6:  0006-revert-fix-crypt-unlock-encrypted-devices-by-default.patch
-# feat(fips-crypto-policies): make c-p follow FIPS mode automatically
-# Author: Clemens Lang <cllang@redhat.com>
-Patch7:  0007-feat-fips-crypto-policies-make-c-p-follow-FIPS-mode-.patch
-# fix(fips-crypto-policies): make it depend on fips dracut module
-# Author: Jo Zzsi <jozzsicsataban@gmail.com>
-Patch8:  0008-fix-fips-crypto-policies-make-it-depend-on-fips-drac.patch
+Patch4:  0004-fix-kernel-install-do-not-generate-an-initrd-when-on.patch
 # fix(pcsc): add libpcsclite_real.so.*
-# Author: Manuel Fombuena <fombuena@outlook.com>
-Patch9:  0009-fix-pcsc-add-libpcsclite_real-so.patch
+# Author: Pavel Valena <pvalena@redhat.com>
+Patch5:  0005-fix-pcsc-add-libpcsclite_real.so.patch
+# revert: "fix(rescue): make rescue always no-hostonly"
+# Author: Pavel Valena <pvalena@redhat.com>
+Patch6:  0006-revert-fix-rescue-make-rescue-always-no-hostonly.patch
+# feat: systemd-battery-check dracut module
+# Author: Jo Zzsi <jozzsicsataban@gmail.com>
+Patch7:  0007-feat-systemd-battery-check-dracut-module.patch
+# fix(systemd-ask-password): do not half-install systemd-ask-password-wall
+# Author: Jo Zzsi <jozzsicsataban@gmail.com>
+Patch8:  0008-fix-systemd-ask-password-do-not-half-install-systemd.patch
+# feat(systemd-battery-check): always include the module if possible
+# Author: Pavel Valena <pvalena@redhat.com>
+Patch9:  0009-feat-systemd-battery-check-always-include-the-module.patch
 
 # Please use source-git to work with this spec file:
 # HowTo: https://packit.dev/source-git/work-with-source-git
@@ -225,11 +225,19 @@ rm -fr -- $RPM_BUILD_ROOT/%{dracutlibdir}/modules.d/95znet
 rm -fr -- $RPM_BUILD_ROOT/%{dracutlibdir}/modules.d/00warpclock
 %endif
 
+# we don't want example configs
+rm -fr -- $RPM_BUILD_ROOT/%{dracutlibdir}/dracut.conf.d
+
+# we don't ship tests
+rm -fr -- $RPM_BUILD_ROOT/%{dracutlibdir}/test
+rm -fr -- $RPM_BUILD_ROOT/%{dracutlibdir}/modules.d/80test*
+
 mkdir -p $RPM_BUILD_ROOT/boot/dracut
 mkdir -p $RPM_BUILD_ROOT/var/lib/dracut/overlay
 mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/log
 touch $RPM_BUILD_ROOT%{_localstatedir}/log/dracut.log
 mkdir -p $RPM_BUILD_ROOT%{_sharedstatedir}/initramfs
+mkdir -p $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d
 
 install -m 0644 dracut.conf.d/fedora.conf.example $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/01-dist.conf
 rm -f $RPM_BUILD_ROOT%{_mandir}/man?/*suse*
@@ -277,6 +285,7 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %endif
 
 %{dracutlibdir}/modules.d/00bash
+%{dracutlibdir}/modules.d/00shell-interpreter
 %{dracutlibdir}/modules.d/00systemd
 %{dracutlibdir}/modules.d/00systemd-network-management
 %ifnarch s390 s390x
@@ -287,8 +296,10 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{dracutlibdir}/modules.d/01systemd-ac-power
 %{dracutlibdir}/modules.d/01systemd-ask-password
 %{dracutlibdir}/modules.d/01systemd-bsod
+%{dracutlibdir}/modules.d/01systemd-battery-check
 %{dracutlibdir}/modules.d/01systemd-coredump
 %{dracutlibdir}/modules.d/01systemd-creds
+%{dracutlibdir}/modules.d/01systemd-cryptsetup
 %{dracutlibdir}/modules.d/01systemd-hostnamed
 %{dracutlibdir}/modules.d/01systemd-initrd
 %{dracutlibdir}/modules.d/01systemd-integritysetup
@@ -312,7 +323,6 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{dracutlibdir}/modules.d/03rescue
 %{dracutlibdir}/modules.d/04watchdog
 %{dracutlibdir}/modules.d/04watchdog-modules
-%{dracutlibdir}/modules.d/05busybox
 %{dracutlibdir}/modules.d/06dbus-broker
 %{dracutlibdir}/modules.d/06dbus-daemon
 %{dracutlibdir}/modules.d/06rngd
@@ -326,9 +336,6 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{dracutlibdir}/modules.d/62bluetooth
 %{dracutlibdir}/modules.d/80lvmmerge
 %{dracutlibdir}/modules.d/80lvmthinpool-monitor
-%{dracutlibdir}/modules.d/80test
-%{dracutlibdir}/modules.d/80test-makeroot
-%{dracutlibdir}/modules.d/80test-root
 %{dracutlibdir}/modules.d/90btrfs
 %{dracutlibdir}/modules.d/90crypt
 %{dracutlibdir}/modules.d/90dm
@@ -344,7 +351,6 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{dracutlibdir}/modules.d/90ppcmac
 %{dracutlibdir}/modules.d/90pcmcia
 %{dracutlibdir}/modules.d/90qemu
-%{dracutlibdir}/modules.d/90systemd-cryptsetup
 %{dracutlibdir}/modules.d/91crypt-gpg
 %{dracutlibdir}/modules.d/91crypt-loop
 %{dracutlibdir}/modules.d/91fido2
@@ -381,6 +387,7 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{dracutlibdir}/modules.d/98syslog
 %{dracutlibdir}/modules.d/98usrmount
 %{dracutlibdir}/modules.d/99base
+%{dracutlibdir}/modules.d/99busybox
 %{dracutlibdir}/modules.d/99memstrack
 %{dracutlibdir}/modules.d/99fs-lib
 %{dracutlibdir}/modules.d/99shutdown
@@ -412,7 +419,6 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{dracutlibdir}/modules.d/35connman
 %{dracutlibdir}/modules.d/35network-manager
 %{dracutlibdir}/modules.d/40network
-%{dracutlibdir}/modules.d/45ifcfg
 %{dracutlibdir}/modules.d/90kernel-network-modules
 %{dracutlibdir}/modules.d/90qemu-net
 %{dracutlibdir}/modules.d/95cifs
@@ -450,6 +456,9 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 
 %files squash
 %{dracutlibdir}/modules.d/99squash
+%{dracutlibdir}/modules.d/95squash-erofs
+%{dracutlibdir}/modules.d/95squash-squashfs
+%{dracutlibdir}/modules.d/99squash-lib
 
 %files config-generic
 %{dracutlibdir}/dracut.conf.d/02-generic-image.conf
@@ -459,6 +468,9 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{_prefix}/lib/kernel/install.d/51-dracut-rescue.install
 
 %changelog
+* Wed Jan 29 2025 Pavel Valena <pvalena@redhat.com> - 105-1
+- build: upgrade to dracut 105
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 103-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

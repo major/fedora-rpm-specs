@@ -86,6 +86,7 @@ done
 
 
 %build
+export CFLAGS="$CFLAGS -std=gnu17"
 %configure --disable-static --disable-dependency-tracking
 make %{?_smp_mflags}
 

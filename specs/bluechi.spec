@@ -10,8 +10,8 @@
 
 
 Name:		bluechi
-Version:	0.9.0
-Release:	4%{?dist}
+Version:	0.9.1
+Release:	1%{?dist}
 Summary:	A systemd service controller for multi-nodes environments
 License:	LGPL-2.1-or-later AND CC0-1.0
 URL:		https://github.com/eclipse-bluechi/bluechi

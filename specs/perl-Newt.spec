@@ -1,7 +1,7 @@
 Summary: Perl bindings for the Newt library
 Name: perl-Newt
 Version: 1.08
-Release: 72%{?dist}
+Release: 73%{?dist}
 URL: https://metacpan.org/release/Newt-1.08
 Source: https://cpan.metacpan.org/authors/id/A/AM/AMEDINA/Newt-1.08.tar.gz
 Patch0: newt-perl-1.08-debian.patch
@@ -13,6 +13,7 @@ Patch5: perl-Newt-bz385751.patch
 Patch6: perl-Newt-1.08-export.patch
 Patch7: perl-Newt-1.08-pod.patch
 Patch8: perl-Newt-1.08-formdestroy.patch
+Patch9: perl-Newt-1.08-fix_pointer_type.patch
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires: newt-devel, perl-devel
@@ -38,6 +39,7 @@ library, which provides a color text mode user interface.
 %patch -P6 -p1 -b .export
 %patch -P7 -p1 -b .doc
 %patch -P8 -p1 -b .formdestroy
+%patch -P9 -p1 -b .pointertype
 rm -rf newtlib
 
 %build
@@ -60,6 +62,10 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/Newt*
 
 %changelog
+* Thu Jan 30 2025 Michal Josef Špaček <mspacek@redhat.com> - 1.08-73
+- Fix pointer type (rhbz#2341033)
+  Thanks Paul Howarth
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-72
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

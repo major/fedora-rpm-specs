@@ -1,6 +1,6 @@
 %if 0%{?fedora}
 %ifarch %{java_arches}
-%global with_jacop     1
+%global with_jacop     0
 %else
 %global with_jacop     0
 %endif
@@ -11,11 +11,7 @@
 
 %if 0%{?rhel}
 %global with_jacop     0
-%if 0%{?rhel} < 8
-%global with_gecode    1
-%else
 %global with_gecode    0
-%endif
 %global with_highs     0
 %global with_scip      0
 %endif
@@ -44,7 +40,7 @@ Summary: An open-source library for mathematical programming
 # GPL-2.0-or-later: src/asl/mkstemps.c (not included in the binary RPM)
 # GPL-3.0-or-later: src/gsl/default.c (not included in the binary RPM)
 License: SMLNJ AND BSD-2-Clause
-Release: 8%{?dist}
+Release: 9%{?dist}
 URL: https://mp.ampl.com/
 VCS: git:%{forgeurl}.git
 Source0: %{forgesource}
@@ -67,10 +63,6 @@ Patch7:  %{name}-expr-writer.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
-
-%if 0%{?with_jacop}
-Requires: jacop
-%endif
 
 # This package bundles an old copy of fmt.  The interface has changed
 # significantly since then, so porting is nontrivial.
@@ -97,6 +89,7 @@ BuildRequires: git-core
 BuildRequires: jacop
 BuildRequires: java-devel
 BuildRequires: make
+Requires: jacop
 %endif
 BuildRequires: %{blaslib}-devel
 %if 0%{?with_highs}
@@ -238,9 +231,7 @@ rm -rf %{buildroot}%{_datadir}
 %if 0%{?with_jacop}
 %{_bindir}/jacop
 %endif
-%if 0%{?with_jacop}
 %{_bindir}/scipmp
-%endif
 %{_bindir}/smpswriter
 %{_libdir}/libaslmp.so.3*
 %{_libdir}/libmp.so.3*
@@ -253,6 +244,11 @@ rm -rf %{buildroot}%{_datadir}
 %{_includedir}/mp
 
 %changelog
+* Thu Jan 30 2025 Antonio Trande <sagitter@fedoraproject.org.com> - 20240319-9
+- Make Jacop conditionally required (rhbz#2343005)
+- Disable Jacop (currently unmaintained)
+- Fix packaging of installed files
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20240319-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

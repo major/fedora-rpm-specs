@@ -82,6 +82,7 @@ develop programs that use the mhash library.
 autoconf
 
 %build
+export CFLAGS="$CFLAGS -std=gnu17"
 %configure --enable-shared %{?_with_static: --enable-static} %{!?_with_static: --disable-static}
 
 # If this exits, the multiarch patch needs an update.

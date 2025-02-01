@@ -131,7 +131,7 @@ sed -i "s@^#define TMPDIR \"/tmp\"@#define TMPDIR \"%{_var}/games/%{name}/tmp\"@
 %configure --localstatedir=%{_var}/games --disable-static
 
 #make %%{?_smp_mflags} # parallel build is broken
-make CFLAGS="$RPM_OPT_FLAGS"
+make CFLAGS="$RPM_OPT_FLAGS -std=gnu17"
 
 # Build the selinux policy file
 pushd SELinux
