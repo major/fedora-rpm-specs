@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 5.1.0
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Simple one-liner tests for common Rails functionality
 License: MIT
 URL: https://matchers.shoulda.io/
@@ -53,6 +53,10 @@ Patch12: rubygem-shoulda-matchers-6.4.0-Add-Ruby-3.4-support-spec.patch
 # https://github.com/rspec/rspec-rails/commit/efca5295a196d74c187ebd0349abd10903c68928
 Patch13: rubygem-shoulda-matchers-5.1.0-support-rspec-rails-7_1.patch
 
+# Enable sqlite3 2.x+
+# https://github.com/thoughtbot/shoulda-matchers/pull/1661
+Patch14: rubygem-shoulda-matchers-6.4.0-Enable-sqlite3-2-x-.patch
+
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -89,7 +93,7 @@ Documentation for %{name}.
 %patch 8 -p1
 %patch 11 -p1
 
-pushd %{_builddir}
+pushd %{builddir}
 %patch 0 -p1
 %patch 1 -p1
 %patch 2 -p1
@@ -101,6 +105,7 @@ pushd %{_builddir}
 %patch 10 -p1
 %patch 12 -p1
 %patch 13 -p1
+%patch 14 -p1
 popd
 
 %build
@@ -203,6 +208,9 @@ popd
 %{gem_instdir}/shoulda-matchers.gemspec
 
 %changelog
+* Thu Jan 30 2025 Vít Ondruch <vondruch@redhat.com> - 5.1.0-11
+- Enable sqlite3 2.x+
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

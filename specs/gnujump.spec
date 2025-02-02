@@ -29,6 +29,7 @@ you'll realize how addictive this is.
 %patch -P1 -p0 -b .orig
 
 %build
+export CFLAGS="$CFLAGS -std=gnu17"
 %configure
 make %{?_smp_mflags}
 

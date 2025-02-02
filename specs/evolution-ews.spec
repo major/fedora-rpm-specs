@@ -5,14 +5,12 @@
 %global libsoup_version 3.1.1
 
 Name: evolution-ews
-Version: 3.55.1
-Release: 3%{?dist}
+Version: 3.55.2
+Release: 1%{?dist}
 Summary: Evolution extension for Exchange Web Services
 License: LGPL-2.1-or-later
 URL: https://gitlab.gnome.org/GNOME/evolution/-/wikis/home
 Source: http://download.gnome.org/sources/%{name}/3.55/%{name}-%{version}.tar.xz
-
-Patch01: 0001-run-without-evolution.patch
 
 %global eds_evo_version %{version}
 
@@ -108,6 +106,9 @@ export CFLAGS="$RPM_OPT_FLAGS -Wno-deprecated-declarations"
 %files langpacks -f %{name}.lang
 
 %changelog
+* Fri Jan 31 2025 Milan Crha <mcrha@redhat.com> - 3.55.2-1
+- Update to 3.55.2
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.55.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

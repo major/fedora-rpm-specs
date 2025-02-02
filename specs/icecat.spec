@@ -9,7 +9,7 @@ ExcludeArch: %{ix86} %{arm}
 
 # Bundled cbindgen makes build slow.
 # Enable only if system cbindgen is not available.
-%global use_bundled_cbindgen  1
+%global use_bundled_cbindgen  0
 
 ####################
 
@@ -89,7 +89,7 @@ ExcludeArch: %{ix86} %{arm}
 %global disable_elfhack 1
 
 # Use clang?
-%global build_with_clang  0
+%global build_with_clang  1
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1908792
 # https://bugzilla.redhat.com/show_bug.cgi?id=2255254
@@ -175,6 +175,9 @@ Patch403: icecat-python3.11-open-U.patch
 Patch404: icecat-python3.11-regex-inline-flags.patch
 Patch412: mozilla-1337988.patch
 Patch422: mozilla-1580174-webrtc-popup.patch
+Patch425: icecat-115.19.0-fix_mz1912663.patch
+# Patch for GCC-15
+Patch426: icecat-115.19.0-fix_mz1917964.patch
 
 # Fix crash on ppc64le (mozilla#1512162)
 Patch423: mozilla-1512162.patch
@@ -270,6 +273,7 @@ BuildRequires:  clang-libs
 BuildRequires:  llvm-devel
 %endif
 BuildRequires: rust
+BuildRequires: rustfmt
 %if 0%{?pgo_wayland}
 BuildRequires:  mutter
 BuildRequires:  gsettings-desktop-schemas
@@ -376,6 +380,8 @@ tar -xf %{SOURCE5}
 %ifarch %{power64}
 %patch -P 423 -p 1 -b .1512162
 %endif
+%patch -P 425 -p 1 -b .1912663
+%patch -P 426 -p 1 -b .1917964
 
 %patch -P 54 -p 1 -b .1669639
 

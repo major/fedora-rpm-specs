@@ -28,7 +28,7 @@ permission/license that allows at _least_ redistribution of the firmware.
 
 %package        nonfree
 Summary:        Components of %{name} with non-free licenses
-License:        Redistributable, no modification permitted
+License:        LicenseRef-Fedora-Firmware
 Requires:       %{name}-filesystem = %{version}-%{release}
 
 %description    nonfree

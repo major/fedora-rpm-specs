@@ -53,9 +53,11 @@ typer-cli.}
 %package -n     python3-typer-slim
 Summary:        %{summary}
 
+%if %[ %{defined fc41} || %{defined fc42} || %{defined fc43} ]
 # Introduced in F41
 Obsoletes:      python3-typer < 0.12.1-1
 Conflicts:      python3-typer < 0.12.1-1
+%endif
 
 %description -n python3-typer-slim %{common_description}
 

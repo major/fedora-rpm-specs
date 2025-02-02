@@ -14,7 +14,7 @@
 Summary: Network UPS Tools
 Name: nut
 Version: 2.8.2.1
-Release: 4%{?dist}
+Release: 4%{?dist}.1.git20240703pr2505
 License: GPL-2.0-or-later AND GPL-3.0-or-later
 Url: https://www.networkupstools.org/
 Source: https://www.networkupstools.org/source/2.8/%{name}-%{version}.tar.gz
@@ -491,7 +491,7 @@ fi
 %{_libdir}/pkgconfig/libnutscan.pc
 
 %changelog
-* Wed Jan 29 2025 Michal Hlavinka <mhlavink@redhat.com> - 2.8.2.1-4
+* Wed Jan 29 2025 Michal Hlavinka <mhlavink@redhat.com> - 2.8.2.1-4.1.git20240703pr2505
 - fix ftbfs, make it build with unified bin/sbin
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.2.1-3.1.git20240703pr2505

@@ -20,7 +20,7 @@
 
 Name:           numpy
 Version:        2.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        A fast multidimensional array facility for Python
 
@@ -98,7 +98,7 @@ this package is a version of f2py that works properly with NumPy.
 %package -n python3-numpy-f2py
 Summary:        f2py for numpy
 Requires:       python3-numpy%{?_isa} = %{epoch}:%{version}-%{release}
-Requires:       python3-devel
+Suggests:       python3-devel
 Provides:       python3-f2py = %{version}-%{release}
 Obsoletes:      python3-f2py <= 2.45.241_1927
 %{?python_provide:%python_provide python3-numpy-f2py}
@@ -257,6 +257,9 @@ python3 runtests.py --no-build -- -ra -k 'not test_ppc64_ibm_double_double128 %{
 
 
 %changelog
+* Fri Jan 31 2025 Gwyn Ciesla <gwync@protonmail.com> - 1:2.2.2-2
+- Relax python3-devel requirement for f2py.
+
 * Sat Jan 18 2025 Gwyn Ciesla <gwync@protonmail.com> - 1:2.2.2-1
 - 2.2.2
 

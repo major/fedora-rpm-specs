@@ -15,7 +15,7 @@ ExcludeArch: %{ix86}
 Name:           psi4
 Epoch:          1
 Version:        1.9.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        An ab initio quantum chemistry package
 # Automatically converted from old format: LGPLv3 and MIT - review is highly recommended.
 License:        LGPL-3.0-only AND LicenseRef-Callaway-MIT
@@ -36,6 +36,8 @@ Patch4:         psi4-1.9.1-noecpgrad.patch
 Patch5:         psi4-1.9.1-nostrip.patch
 # Patch build system so that libxc 7.0.0 is accepted
 Patch6:         psi4-1.9.1-libxc7.patch
+# Add an include to fix the build error "uint64_t does not name a type"
+Patch7:         psi4-1.9.1-uint64.patch
 
 BuildRequires:  cmake
 BuildRequires:  bison-devel
@@ -126,13 +128,14 @@ and the quadrature grids.
 
 %prep
 %setup -q
-%patch 0 -p1 -b .libint2
-%patch 1 -p1 -b .python3
-%patch 2 -p1 -b .overflow
-%patch 3 -p1 -b .noqcetest
-%patch 4 -p1 -b .noecpgrad
-%patch 5 -p1 -b .nostrip
-%patch 6 -p1 -b .libxc7
+%patch -P0 -p1 -b .libint2
+%patch -P1 -p1 -b .python3
+%patch -P2 -p1 -b .overflow
+%patch -P3 -p1 -b .noqcetest
+%patch -P4 -p1 -b .noecpgrad
+%patch -P5 -p1 -b .nostrip
+%patch -P6 -p1 -b .libxc7
+%patch -P7 -p1 -b .uint64
 
 %build
 export F77=gfortran
@@ -185,6 +188,9 @@ ctest -L smoketests --output-on-failure
 %{_datadir}/psi4/
 
 %changelog
+* Fri Jan 31 2025 Susi Lehtola <jussilehtola@fedoraproject.org> - 1:1.9.1-6
+- Fix FTBFS on rawhide.
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.9.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

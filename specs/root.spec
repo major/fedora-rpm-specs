@@ -27,7 +27,7 @@
 %global rrr 1
 %endif
 
-%if %{?fedora}%{!?fedora:0} >= 40
+%if %{?fedora}%{!?fedora:0} >= 40 || %{?rhel}%{!?rhel:0} >= 10
 %global roofitmp 1
 %else
 %global roofitmp 0
@@ -39,7 +39,7 @@
 Name:		root
 Version:	6.34.02
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -89,6 +89,22 @@ Patch7:		%{name}-tmva-sofie-Fix-Tile-operator.patch
 #		Adjust test/stressGraphics.ref
 #		https://github.com/root-project/root/pull/17398
 Patch8:		%{name}-Adjust-test-stressGraphics.ref.patch
+#		Fix out of bounds error reported with gcc 15
+#		https://github.com/root-project/root/pull/17249
+Patch9:		%{name}-gpad-Fix-Debug-Assertion-Failure-in-libGpad.patch
+#		Missing includes for compiling with gcc 15
+#		https://github.com/root-project/root/pull/17443
+Patch10:	%{name}-Add-a-missing-include-to-RVirtualCanvasPainter.patch
+Patch11:	%{name}-Add-a-missing-include-to-RTensor.patch
+#		Conflicting declarations (gcc 15)
+#		https://github.com/root-project/root/pull/17455
+Patch12:	%{name}-Remove-redundant-and-conflicting-function-declaratio.patch
+#		Missing includes for compiling with gcc 15
+#		https://github.com/root-project/root/pull/17510
+Patch13:	%{name}-llvm-project-Backport-fix-for-compilation-issue-with.patch
+#		Fix out of bounds errors reported with gcc 15
+#		https://github.com/root-project/root/pull/17551
+Patch14:	%{name}-Fix-out-of-bounds-error-in-pyroot.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
@@ -1975,6 +1991,12 @@ This package contains utility functions for ntuples.
 %patch -P6 -p1
 %patch -P7 -p1
 %patch -P8 -p1
+%patch -P9 -p1
+%patch -P10 -p1
+%patch -P11 -p1
+%patch -P12 -p1
+%patch -P13 -p1
+%patch -P14 -p1
 
 # Remove bundled sources in order to be sure they are not used
 #  * afterimage
@@ -2558,11 +2580,11 @@ test-webgui-ping"
 #   0u
 #     Which is: 0
 #
-# test-stressgraphics-firefox-skip3d:
-# requires firefox...
-#
 # gtest-tree-treeplayer-treetreeplayertestUnit:
 # segmentation fault
+#
+# test-stressgraphics-firefox-skip3d:
+# requires firefox...
 #
 # tutorial-webcanv-fonts_ttf.cxx:
 # Requires web graphics
@@ -2574,8 +2596,8 @@ test-webgui-ping"
 # import xgboost as xgb
 excluded="${excluded}|\
 gtest-roofit-roofit-vectorisedPDFs-testLandau|\
-test-stressgraphics-firefox-skip3d|\
 gtest-tree-treeplayer-treetreeplayertestUnit|\
+test-stressgraphics-firefox-skip3d|\
 tutorial-webcanv-fonts_ttf.cxx|\
 tutorial-roofit-rf617_simulation_based_inference_multidimensional-py|\
 tutorial-roofit-rf618_mixture_models-py"
@@ -2607,20 +2629,18 @@ excluded="${excluded}|\
 gtest-tree-dataframe-dataframe-concurrency"
 %endif
 
-%ifarch aarch64
-# - tutorial-tmva-RBatchGenerator_filters_vectors-py
-#   Randomly segfaults
-#   *** Break *** segmentation violation
-excluded="${excluded}|\
-tutorial-tmva-RBatchGenerator_filters_vectors-py"
-%endif
-
 %ifarch %{power64}
 # - tutorial-roostats-IntervalExamples-py
 #   *** Break *** segmentation violation
 excluded="${excluded}|\
-gtest-tree-ntuple-v7-ntuple-evolution|\
 tutorial-roostats-IntervalExamples-py"
+
+%if %{?fedora}%{!?fedora:0} >= 42
+# - gtest-tree-ntuple-v7-ntuple-evolution
+#   waitpid() failed
+excluded="${excluded}|\
+gtest-tree-ntuple-v7-ntuple-evolution"
+%endif
 %endif
 
 %ifarch s390x
@@ -2649,8 +2669,8 @@ gtest-roofit-roofitcore-testLikelihoodGradientJob"
 # - gtest-tree-ntuple-v7-ntuple-multi-column
 # - gtest-tree-ntuple-v7-ntuple-packing
 # - gtest-tree-ntuple-v7-ntuple-parallel-writer
-# - gtest-tree-ntuple-v7-ntuple-project
 # - gtest-tree-ntuple-v7-ntuple-processor
+# - gtest-tree-ntuple-v7-ntuple-project
 # - gtest-tree-ntuple-v7-ntuple-show
 # - gtest-tree-ntuple-v7-ntuple-storage
 # - gtest-tree-ntuple-v7-ntuple-storage-daos
@@ -2700,8 +2720,8 @@ gtest-tree-ntuple-v7-ntuple-modelext|\
 gtest-tree-ntuple-v7-ntuple-multi-column|\
 gtest-tree-ntuple-v7-ntuple-packing|\
 gtest-tree-ntuple-v7-ntuple-parallel-writer|\
-gtest-tree-ntuple-v7-ntuple-project|\
 gtest-tree-ntuple-v7-ntuple-processor|\
+gtest-tree-ntuple-v7-ntuple-project|\
 gtest-tree-ntuple-v7-ntuple-show|\
 gtest-tree-ntuple-v7-ntuple-storage\$\$|\
 gtest-tree-ntuple-v7-ntuple-storage-daos|\
@@ -2735,6 +2755,16 @@ test-stresshistogram-interpreted"
 # - gtest-math-matrix-testMatrixTSparse
 excluded="${excluded}|\
 gtest-math-matrix-testMatrixTSparse"
+%endif
+
+%if %{?fedora}%{!?fedora:0} >= 42
+# Fail with gcc 15 due to changes in std::hash templates
+# - tutorial-roofit-*-py
+# - tutorial-roostats-*-py
+# https://github.com/root-project/root/issues/17456
+excluded="${excluded}|\
+tutorial-roofit-.*-py|\
+tutorial-roostats-.*-py"
 %endif
 
 # Filter out parts of tests that require remote network access
@@ -3659,6 +3689,11 @@ fi
 %endif
 
 %changelog
+* Fri Jan 31 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.34.02-5
+- Apply patches to fix build with gcc 15
+- Enable roofit-multiprocess for EPEL 10 (dependencies available)
+- Rebuild for pythia8 8.3.13
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.34.02-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

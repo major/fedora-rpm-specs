@@ -6,7 +6,7 @@
 Summary:        MySQL interface for Tcl
 Name:           tcl-mysqltcl
 Version:        3.052
-Release:        24%{?dist}
+Release:        26%{?dist}
 
 License:        MIT
 Source:         http://www.xdobry.de/mysqltcl/%{real_name}-%{version}.tar.gz
@@ -19,13 +19,17 @@ BuildRequires:  tcl-devel
 Requires:       tcl(abi) = %{tcl_version}
 Provides:       %{real_name} = %{version}-%{release}
 
+# Patch for Tcl 9 support - not upstreamed
+# https://bugzilla.redhat.com/show_bug.cgi?id=2337778
+Patch: 0001-use-tcl9-datastructures.patch
+
 %description
 Mysqltcl is an extension to the Tool Command Language (Tcl) that
 provides high-level access to a MySQL database server.
 
 
 %prep
-%setup -q -n mysqltcl-%{version}
+%autosetup -p1 -n mysqltcl-%{version}
 chmod -x generic/mysqltcl.c
 chmod 644 README ChangeLog COPYING AUTHORS README-msqltcl doc/mysqltcl.html
 
@@ -51,6 +55,12 @@ mv $RPM_BUILD_ROOT%{_libdir}/%{real_name}-%{version} $RPM_BUILD_ROOT%{tcl_sitear
 
 
 %changelog
+* Fri Jan 31 2025 Rene Plötz <renep@fedoraproject.org> - 3.052-26
+- Modified patch to support Tcl 8.x too
+
+* Fri Jan 31 2025 Rene Plötz <renep@fedoraproject.org> - 3.052-25
+- Add patch for building with Tcl 9
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.052-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

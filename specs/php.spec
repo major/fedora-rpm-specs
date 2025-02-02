@@ -61,7 +61,7 @@
 %bcond_without   lmdb
 
 %global upver        8.4.4
-%global rcver        RC1
+%global rcver        RC2
 
 Summary: PHP scripting language for creating dynamic web sites
 Name: php
@@ -1497,6 +1497,9 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Fri Jan 31 2025 Remi Collet <remi@remirepo.net> - 8.4.4~RC2-1
+- Update to 8.4.4RC2
+
 * Wed Jan 29 2025 Remi Collet <remi@remirepo.net> - 8.4.4~RC1-1
 - Update to 8.4.4RC1
 

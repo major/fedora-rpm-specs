@@ -1,6 +1,6 @@
 Name: sysrepo
-Version: 2.2.12
-Release: 7%{?dist}
+Version: 3.3.10
+Release: 1%{?dist}
 Summary: YANG-based configuration and operational data store
 Url: https://github.com/sysrepo/sysrepo
 Source: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -105,6 +105,7 @@ rm -rf /dev/shm/srsub_*
 %{_sysusersdir}/sysrepo.conf
 %{_libdir}/libsysrepo.so.7*
 %attr(0770,root,sysrepo) %{_sysconfdir}/sysrepo
+%{_datadir}/yang/modules/sysrepo/*.yang
 
 %files devel
 %{_libdir}/libsysrepo.so
@@ -128,6 +129,9 @@ rm -rf /dev/shm/srsub_*
 
 
 %changelog
+* Fri Jan 31 2025 Michal Ruprich <mruprich@redhat.com> - 3.3.10-1
+- New version 3.3.10
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.12-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

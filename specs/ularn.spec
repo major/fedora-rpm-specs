@@ -52,7 +52,7 @@ builddir=`pwd`
 ${builddir}/Makefile.u.SH
 cd ${builddir}
 mv Makefile.u Makefile
-CC="gcc $RPM_OPT_FLAGS -fcommon" make %{?_smp_mflags}
+CC="gcc $RPM_OPT_FLAGS -fcommon -std=gnu17" make %{?_smp_mflags}
 
 %install
 make install DESTDIR=$RPM_BUILD_ROOT

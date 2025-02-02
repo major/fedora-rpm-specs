@@ -1,13 +1,13 @@
 Name:    aisleriot
 Epoch:   1
-Version: 3.22.21
-Release: 9%{?dist}
+Version: 3.22.35
+Release: 1%{?dist}
 Summary: A collection of card games
 
 # Automatically converted from old format: GPLv3+ and LGPLv3+ and GFDL - review is highly recommended.
 License: GPL-3.0-or-later AND LGPL-3.0-or-later AND LicenseRef-Callaway-GFDL
 URL:     https://wiki.gnome.org/Apps/Aisleriot
-Source0: https://gitlab.gnome.org/GNOME/${name}/-/archive/%{version}/%{name}-%{version}.tar.bz2
+Source0: https://gitlab.gnome.org/GNOME/${name}/-/archive/%{version}/%{name}-%{version}.tar.xz
 Patch0:  aisleriot-3.22.19-appdata-namespace.patch
 
 BuildRequires: pkgconfig(gtk+-3.0)
@@ -55,7 +55,6 @@ rm %{buildroot}%{_libdir}/valgrind/aisleriot.supp
 %find_lang %{name} --with-gnome
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/sol.metainfo.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/sol.desktop
 
 %files -f %{name}.lang
@@ -73,6 +72,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/sol.desktop
 %{_mandir}/man6/sol.6*
 
 %changelog
+* Fri Jan 31 2025 nmontero <nmontero@redhat.com> - 1:3.22.35-1
+- Update to 3.22.35
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.22.21-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

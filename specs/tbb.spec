@@ -13,6 +13,9 @@ URL:     https://uxlfoundation.github.io/oneTBB/
 VCS:     git:%{giturl}.git
 
 Source0: %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
+# The koji builders do not have network access, and this file is not otherwise
+# available except from python3-docs (which is not in RHEL)
+Source1: https://docs.python.org/3/objects.inv
 # These two are downstream sources.
 Source7: tbbmalloc.pc
 Source8: tbbmalloc_proxy.pc
@@ -88,10 +91,13 @@ Python 3 TBB module.
 %prep
 %autosetup -p1 -n oneTBB-%{version}
 
-%if %{with py3docs}
 # Fix intersphinx mapping for Sphinx 8.x
 # Use local objects.inv for intersphinx
+%if %{with py3docs}
 sed -e "s|'\(https://docs\.python\.org\)/': None|'python': ('\1/3', '%{_docdir}/python3-docs/html/objects.inv')|" \
+    -i doc/conf.py doc/GSG/conf.py doc/main/conf.py
+%else
+sed -e "s|'\(https://docs\.python\.org\)/': None|'python': ('\1/3', '%{SOURCE1}')|" \
     -i doc/conf.py doc/GSG/conf.py doc/main/conf.py
 %endif
 

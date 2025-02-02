@@ -31,7 +31,7 @@ export CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS"
 
 
 %install
-%{make_install}
+%{make_install} SBINDIR=%{_sbindir}
 
 
 %files

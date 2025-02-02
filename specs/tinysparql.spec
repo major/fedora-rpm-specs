@@ -4,7 +4,7 @@
 
 Name:           tinysparql
 Version:        3.8~rc
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Desktop-neutral metadata database and search tool
 
 License:        GPL-2.0-or-later
@@ -162,6 +162,9 @@ This package contains the documentation for %{name}.
 
 
 %changelog
+* Fri Jan 31 2025 Nieves Montero <nmontero@redhat.com> - 3.8.rc-4
+- Version bump
+
 * Thu Jan 23 2025 Nieves Montero <nmontero@redhat.com> - 3.8.rc-3
 - Minor change in %files
 

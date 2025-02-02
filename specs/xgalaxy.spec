@@ -53,7 +53,7 @@ sed -i 's/XGalaga/XGalaxy/g' `grep -rls XGalaga .`
 
 
 %build
-export CFLAGS="$RPM_OPT_FLAGS -fsigned-char -DXF86VIDMODE"
+export CFLAGS="$RPM_OPT_FLAGS -fsigned-char -DXF86VIDMODE -std=gnu17"
 export LDFLAGS=-lXxf86vm
 ./configure --libdir=%{_libdir} --exec-prefix=%{_bindir} \
   --prefix=%{_datadir}/%{name}

@@ -65,7 +65,7 @@ done
   --disable-asm \
 %endif
 LDFLAGS="%{__global_ldflags}"
-CFLAGS="$RPM_OPT_FLAGS -fcommon"
+CFLAGS="$RPM_OPT_FLAGS -fcommon -std=gnu17"
 LDFLAGS="$LDFLAGS -lm"
 PYTHON="%{__python3}"
 

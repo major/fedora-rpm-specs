@@ -1,5 +1,5 @@
 Name:           tmt
-Version:        1.41.1
+Version:        1.42.1
 Release:        %autorelease
 Summary:        Test Management Tool
 
@@ -25,6 +25,7 @@ Obsoletes:      tmt-report-reportportal < %{version}-%{release}
 %endif
 
 Recommends:     bash-completion
+Recommends:	ansible-core
 
 %py_provides    python3-tmt
 
@@ -64,7 +65,7 @@ Obsoletes:      tmt-provision-container < %{version}-%{release}
 %endif
 Requires:       tmt == %{version}-%{release}
 Requires:       podman
-Requires:       (ansible or ansible-collection-containers-podman)
+Requires:       ansible-collection-containers-podman
 
 %description -n tmt+provision-container %_metapackage_description
 
@@ -78,7 +79,6 @@ Requires:       tmt == %{version}-%{release}
 Requires:       python3-testcloud >= 0.11.3
 Requires:       libvirt-daemon-config-network
 Requires:       openssh-clients
-Requires:       (ansible or ansible-core)
 # Recommend qemu system emulators for supported arches
 Recommends:     qemu-kvm-core
 %if 0%{?fedora}
@@ -169,6 +169,9 @@ install -pm 644 %{name}/steps/provision/mrack/mrack* %{buildroot}/etc/%{name}/
 %files -n tmt+all -f %{_pyproject_ghost_distinfo}
 
 %changelog
+* Fri Jan 31 2025 Packit <hello@packit.dev> - 1.42.1-1
+- Update to version 1.42.1
+
 * Mon Jan 27 2025 Packit <hello@packit.dev> - 1.41.1-1
 - Update to version 1.41.1
 

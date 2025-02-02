@@ -30,6 +30,7 @@ done
 sed -i 's|INSTALL_DATA = @INSTALL_DATA@|INSTALL_DATA = @INSTALL_DATA@ -p|' data/{gfx,sound}/Makefile.in 
 
 %build
+export CFLAGS="$CFLAGS -std=gnu17"
 %configure
 make %{?_smp_mflags}
 

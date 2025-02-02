@@ -226,7 +226,7 @@
 #region main package
 Name:		%{pkg_name_llvm}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	3%{?dist}
+Release:	5%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -346,6 +346,11 @@ Patch1801: 18-99273.patch
 # https://github.com/llvm/llvm-project/pull/114907
 Patch1802: 0001-profile-Use-base-vaddr-for-__llvm_write_binary_ids-n.patch
 Patch1903: 0001-profile-Use-base-vaddr-for-__llvm_write_binary_ids-n.patch
+
+# Fix an isel error triggered by Rust 1.85 on s390x
+# https://github.com/llvm/llvm-project/issues/124001
+Patch1803: 0001-SystemZ-Fix-ICE-with-i128-i64-uaddo-carry-chain.patch
+Patch1912: 0001-SystemZ-Fix-ICE-with-i128-i64-uaddo-carry-chain.patch
 
 %if 0%{?rhel} == 8
 %global python3_pkgversion 3.12
@@ -2308,6 +2313,58 @@ fi
 %define expand_includes() %{expand_generic -d %{_includedir} -i %{install_includedir} %*}
 %define expand_datas() %{expand_generic -d %{_datadir} -i %{install_datadir} %*}
 
+
+# The pretrans_rpmmove_dirs macro exists for packages to replace directories
+# with symbolic links which normally is not possible with RPM. The trick is to
+# use the generated scriptlet below to rename existing directories before
+# replacing them with a symbolic link.
+#
+# Make sure you call this macro at the end of a %%files section for a package.
+# This macro will then automatically add the %%ghost entries for the moved
+# paths for you.
+#
+# When building in compat mode, the pretrans_rpmmove_dirs macro does nothing.
+#
+# See this page for a detailed problem description:
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Directory_Replacement/
+%if %{with compat_build}
+%define pretrans_rpmmove_dirs(n:) %{nil}
+%else
+%define pretrans_rpmmove_dirs(n:) %{lua:
+local packagename = string.gsub(rpm.expand("%{-n*}"), "%s*", "")
+local paths_str = '"'..string.gsub(rpm.expand("%*"), "%s+", '",\\n"')
+paths_str = string.sub(paths_str,0,-4)
+
+for i = 1, rpm.expand("%#") do
+    print('%ghost '..string.gsub(rpm.expand([[%]]..i), "%s+", "")..'.rpmmoved\\n') \
+end
+
+print("\\n%pretrans -n " .. packagename .. " -p <lua> \\n")
+print("local paths={\\n")
+print(paths_str..'\\n')
+print("}\\n")
+print([[
+for _, path in ipairs(paths) do
+  st = posix.stat(path)
+  if st and st.type == "directory" then
+    status = os.rename(path, path .. ".rpmmoved")
+    if not status then
+      suffix = 0
+      while not status do
+        suffix = suffix + 1
+        status = os.rename(path .. ".rpmmoved", path .. ".rpmmoved." .. suffix)
+      end
+      os.rename(path, path .. ".rpmmoved")
+    end
+  end
+end
+]])
+-- Remove the following "end" and you'll get this error:
+-- error: invalid syntax in lua scriptlet: [string "%pretrans"]:20: unexpected symbol near '#'
+print("\\n%end")
+}
+%endif
+
 #region LLVM lit files
 %if %{with python_lit}
 %files -n python%{python3_pkgversion}-lit
@@ -2478,6 +2535,10 @@ fi
 
 %expand_datas opt-viewer
 
+%{pretrans_rpmmove_dirs -n %{pkg_name_llvm}
+  %{_datadir}/opt-viewer
+}
+
 %files -n %{pkg_name_llvm}-libs
 %license llvm/LICENSE.TXT
 %{expand_libs %{expand:
@@ -2515,6 +2576,12 @@ fi
     libLLVM.so
     cmake/llvm
 }}
+
+%{pretrans_rpmmove_dirs -n %{pkg_name_llvm}-devel
+  %{_includedir}/llvm-c
+  %{_includedir}/llvm
+  %{_libdir}/cmake/llvm
+}
 
 %files -n %{pkg_name_llvm}-doc
 %license llvm/LICENSE.TXT
@@ -2554,6 +2621,11 @@ fi
     libllvm_gtest_main.a
 }}
 %expand_includes llvm-gtest llvm-gmock
+
+%{pretrans_rpmmove_dirs -n %{pkg_name_llvm}-googletest
+  %{_includedir}/llvm-gmock
+  %{_includedir}/llvm-gtest
+}
 
 %if %{with snapshot_build}
 %files -n %{pkg_name_llvm}-build-stats
@@ -2615,6 +2687,13 @@ fi
 %{_datadir}/clang
 %endif
 
+%{pretrans_rpmmove_dirs -n %{pkg_name_clang}-devel
+  %{_includedir}/clang-c
+  %{_includedir}/clang
+  %{_libdir}/cmake/clang
+  %{_datadir}/clang
+}
+
 %files -n %{pkg_name_clang}-resource-filesystem
 %license clang/LICENSE.TXT
 %dir %{_prefix}/lib/clang/
@@ -2649,6 +2728,10 @@ fi
 %{python3_sitelib}/libscanbuild
 %endif
 
+%{pretrans_rpmmove_dirs -n %{pkg_name_clang}-analyzer
+  %{_datadir}/scan-build
+  %{_datadir}/scan-view
+}
 
 %files -n %{pkg_name_clang}-tools-extra
 %license clang-tools-extra/LICENSE.TXT
@@ -2713,6 +2796,10 @@ fi
 %files -n %{pkg_name_clang}-tools-extra-devel
 %license clang-tools-extra/LICENSE.TXT
 %expand_includes clang-tidy
+
+%{pretrans_rpmmove_dirs -n %{pkg_name_clang}-tools-extra-devel
+  %{_includedir}/clang-tidy
+}
 
 %files -n git-clang-format%{pkg_suffix}
 %license clang/LICENSE.TXT
@@ -2804,6 +2891,11 @@ fi
 %endif
 %endif
 
+%{pretrans_rpmmove_dirs -n %{pkg_name_libomp}-devel
+  %{_includedir}/offload
+  %{_libdir}/cmake/openmp
+}
+
 #endregion OPENMP files
 
 #region LLD files
@@ -2832,6 +2924,11 @@ fi
     liblldWasm.so
     cmake/lld
 }}
+
+%{pretrans_rpmmove_dirs -n %{pkg_name_lld}-devel
+  %{_includedir}/lld
+  %{_libdir}/cmake/lld
+}
 
 %files -n %{pkg_name_lld}-libs
 %license lld/LICENSE.TXT
@@ -2878,6 +2975,10 @@ fi
 
 %files -n %{pkg_name_lldb}-devel
 %expand_includes lldb
+
+%{pretrans_rpmmove_dirs -n %{pkg_name_lldb}-devel
+  %{_includedir}/lldb
+}
 
 %files -n python%{python3_pkgversion}-lldb
 %{python3_sitearch}/lldb
@@ -2932,6 +3033,12 @@ fi
     libmlir_runner_utils.so
     libMLIR*.so
 }}
+
+%{pretrans_rpmmove_dirs -n %{pkg_name_mlir}-devel
+  %{_includedir}/mlir-c
+  %{_includedir}/mlir
+  %{_libdir}/cmake/mlir
+}
 
 %files -n python%{python3_pkgversion}-%{pkg_name_mlir}
 %{python3_sitearch}/mlir/
@@ -3030,6 +3137,12 @@ fi
 %expand_libs libPolly.so
 %expand_includes polly
 %expand_libs cmake/polly
+
+%{pretrans_rpmmove_dirs -n %{pkg_name_polly}-devel
+  %{_includedir}/polly
+  %{_libdir}/cmake/polly
+}
+
 %endif
 #endregion polly files
 
@@ -3037,6 +3150,12 @@ fi
 
 #region changelog
 %changelog
+* Fri Jan 31 2025 Konrad Kleine <kkleine@redhat.com> - 19.1.7-5
+- Address installability issue with directories that were turned into symlinks
+
+* Thu Jan 30 2025 Josh Stone <jistone@redhat.com> - 19.1.7-4
+- Fix an isel error triggered by Rust 1.85 on s390x
+
 * Wed Jan 22 2025 Konrad Kleine <kkleine@redhat.com> - 19.1.7-3
 - Add polly
 

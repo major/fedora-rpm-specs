@@ -9,11 +9,12 @@
 %endif
 
 Name:           python-%{srcname}
-Version:        2.5
-Release:        10%{?dist}
+Version:        3.3
+Release:        1%{?dist}
 Summary:        CVSS2/3 library with interactive calculator
 
-License:        LGPL-3.0-or-later
+# The entire source code is LGPL-3.0+ except cvss/cvss4.py which is BSD-2-Clause
+License:        LGPL-3.0-or-later and BSD-2-Clause
 URL:            https://github.com/skontar/cvss
 Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
@@ -102,6 +103,10 @@ Python 3 version.
 %{_bindir}/cvss_calculator
 
 %changelog
+* Fri Jan 31 2025 Viliam Krizan <vkrizan@redhat.com> - 3.3-1
+- Update to version 3.3 with CVSSv4 support
+- CVSSv4 part is licensed under BSD-2-Clause
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

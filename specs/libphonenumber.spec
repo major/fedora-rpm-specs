@@ -1,5 +1,5 @@
 Name: libphonenumber
-Version: 8.13.52
+Version: 8.13.54
 Release: %autorelease
 Summary: Library to handle international phone numbers
 # The project itself is ASL 2.0 but contains files from Chromium which are BSD and MIT.
@@ -43,6 +43,8 @@ developing applications that use %{name}.
 # simply setting -DCMAKE_CXX_STANDARD=17 does not override this in practice.
 sed -r -i 's/\b(CMAKE_CXX_STANDARD[[:blank:]]+)11\b/\117/' \
     cpp/CMakeLists.txt tools/cpp/CMakeLists.txt
+
+sed -i 's/ -Werror//g'  cpp/CMakeLists.txt tools/cpp/CMakeLists.txt
 
 
 %build

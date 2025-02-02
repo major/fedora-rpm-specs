@@ -2,7 +2,7 @@
 %global visualcommit 309738759f39c19db3f08382b270fc8c1d1dd043
 
 Name:      mapnik
-Version:   4.0.4
+Version:   4.0.5
 Release:   %autorelease
 Summary:   Free Toolkit for developing mapping applications
 License:   LGPL-2.1-only

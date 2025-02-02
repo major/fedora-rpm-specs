@@ -3,13 +3,14 @@
 
 Name:		xreader
 Version:	4.2.3
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Simple document viewer
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
 URL:		https://github.com/linuxmint/%{name}
 Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:     kpathsea-header-files.patch
 
 ExcludeArch:    %{ix86}
 
@@ -98,8 +99,6 @@ This package adds configuration to use %{name} as a thumbnailer.
 %autosetup -p1
 
 %build
-export CFLAGS="$RPM_OPT_FLAGS -std=gnu17"
-LDFLAGS+=' -lX11 -lICE -lSM'
 %meson	\
  -Ddeprecated_warnings=false \
  -Ddjvu=true \
@@ -171,6 +170,9 @@ LDFLAGS+=' -lX11 -lICE -lSM'
 %doc %{_datadir}/doc/%{name}*
 
 %changelog
+* Fri Jan 31 2025 Leigh Scott <leigh123linux@gmail.com> - 4.2.3-3
+- rebuilt
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

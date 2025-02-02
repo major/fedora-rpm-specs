@@ -48,7 +48,7 @@ is worth a try.
 %build
 
 %configure
-make CFLAGS="$RPM_OPT_FLAGS -Wno-pointer-sign -fcommon" LIBS="-lm"
+make CFLAGS="$RPM_OPT_FLAGS -Wno-pointer-sign -fcommon -std=gnu17" LIBS="-lm"
 
 %install
 mkdir -p %{buildroot}%{_bindir}

@@ -47,6 +47,9 @@ Patch:          %{forgeurl}/pull/71.patch
 # Fixes failure to compile with GCC 15, where C23 is the default, so bool is a
 # keyword.
 Patch:          %{forgeurl}/pull/80.patch
+# Fix “1.1.6: build with GTKDOC_ENABLED=ON fails”
+# https://github.com/swami/libinstpatch/issues/65#issuecomment-2628456174
+Patch:          libinstpatch-1.1.6-gtkdoc.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -128,34 +131,14 @@ find examples -type f -name '*.py' -print -delete
 
 
 %conf
-# We cannot reliably build gtkdoc documentation at the same time as the
-# library. It appears that gtkdoc-scangobj attempts to link the library before
-# it is built.
-#
-# The best fix would be to find the missing dependency relationship or other
-# problem in the CMake build scripts, but this is not quite obvious.
-#
-# Historically this could be worked around by setting _smp_ncpus_max to 1, but
-# this has stopped working.
-#
-# Instead, we build with gtkdoc documentation disabled to get the library, then
-# enable the gtkdoc documentation and rebuild. This guarantees the library is
-# ready when gtkdoc-scangobj runs.
-#
-# See: 1.1.6: build with GTKDOC_ENABLED=ON fails
-#      https://github.com/swami/libinstpatch/issues/65
 %cmake \
-    -DGTKDOC_ENABLED:BOOL=OFF \
+    -DGTKDOC_ENABLED:BOOL=ON \
     -DINTROSPECTION_ENABLED:BOOL=\
 %{?with_introspection:ON}%{!?with_introspection:OFF} \
     -GNinja
 
 
 %build
-%cmake_build
-
-# Enable the GTK docs and build again.
-%{__cmake} %{_vpath_builddir} -DGTKDOC_ENABLED:BOOL=ON
 %cmake_build
 
 

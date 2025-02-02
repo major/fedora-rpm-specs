@@ -33,7 +33,7 @@ described in RFC6030 is supported.
 
 %package -n liboath
 Summary:          Library for OATH handling
-License:          LGPLv2+
+License:          LGPL-2.1-or-later
 # https://fedorahosted.org/fpc/ticket/174
 Provides:         bundled(gnulib)
 
@@ -44,7 +44,7 @@ HOTP algorithm (RFC4226) and the time-based TOTP algorithm (RFC6238).
 
 %package -n liboath-devel
 Summary:  Development files for liboath
-License:  LGPLv2+
+License:  LGPL-2.1-or-later
 Requires: liboath%{?_isa} = %{version}-%{release}
 
 %description -n liboath-devel
@@ -52,7 +52,7 @@ Development files for liboath.
 
 %package -n liboath-doc
 Summary:   Documentation files for liboath
-License:   LGPLv2+
+License:   LGPL-2.1-or-later
 Requires:  liboath = %{version}-%{release}
 Requires:  gtk-doc
 BuildArch: noarch
@@ -62,7 +62,7 @@ Documentation files for liboath.
 
 %package -n libpskc
 Summary:          Library for PSKC handling
-License:          LGPLv2+
+License:          LGPL-2.1-or-later
 Requires:         xml-common
 # https://fedorahosted.org/fpc/ticket/174
 Provides:         bundled(gnulib)
@@ -73,7 +73,7 @@ Container (PSKC) format described in RFC6030 is supported.
 
 %package -n libpskc-devel
 Summary:  Development files for libpskc
-License:  LGPLv2+
+License:  LGPL-2.1-or-later
 Requires: libpskc%{?_isa} = %{version}-%{release}
 
 %description -n libpskc-devel
@@ -81,7 +81,7 @@ Development files for libpskc.
 
 %package -n libpskc-doc
 Summary:   Documentation files for libpskc
-License:   LGPLv2+
+License:   LGPL-2.1-or-later
 Requires:  libpskc = %{version}-%{release}
 Requires:  gtk-doc
 BuildArch: noarch

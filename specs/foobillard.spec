@@ -40,7 +40,7 @@ FooBillard is still under development but the main physics is implemented.
 %build
 iconv -f iso-8859-1 -t utf-8 < ChangeLog > _
 mv _ ChangeLog
-./configure --prefix=%{_prefix} --disable-nvidia --enable-SDL CFLAGS="${RPM_OPT_FLAGS} -DUSE_SOUND" LDFLAGS="${RPM_LD_FLAGS}"
+./configure --prefix=%{_prefix} --disable-nvidia --enable-SDL CFLAGS="${RPM_OPT_FLAGS} -DUSE_SOUND -std=gnu17" LDFLAGS="${RPM_LD_FLAGS}"
 make %{?_smp_mflags}
 convert -resize 48x48 -background transparent -gravity center -extent 48x48 data/foobillard.png foobillard.png
 convert -resize 256x256 -background transparent -gravity center -extent 256x256 data/foobillard.png foobillard-256x256.png

@@ -6,13 +6,13 @@
 
 
 Name:           debootstrap
-Version:        1.0.137
-Release:        2%{?dist}
+Version:        1.0.140
+Release:        1%{?dist}
 Summary:        Debian GNU/Linux bootstrapper
 
 License:        MIT
 URL:            https://wiki.debian.org/Debootstrap
-Source0:        http://ftp.debian.org/debian/pool/main/d/debootstrap/debootstrap_%{version}%{?postfix:+%{postfix}}.tar.gz
+Source0:        https://ftp.debian.org/debian/pool/main/d/debootstrap/debootstrap_%{version}%{?postfix:+%{postfix}}.tar.gz
 
 BuildArch:      noarch
 
@@ -51,6 +51,10 @@ Debian GNU/Linux guest system.
 
 %install
 fakeroot %make_install VERSION="%{version}-%{release}"
+%if 0%{?fedora} > 41
+mkdir -p %{buildroot}%{_bindir}
+mv %{buildroot}/usr/sbin/* %{buildroot}%{_bindir}
+%endif
 
 # install manual page
 mkdir -p %{buildroot}%{_mandir}/man8
@@ -64,6 +68,11 @@ install -p -m 0644 debootstrap.8 %{buildroot}%{_mandir}/man8
 %{_mandir}/man8/debootstrap.8*
 
 %changelog
+* Fri Jan 31 2025 Packit <hello@packit.dev> - 1.0.140-1
+- Update to version 1.0.140
+- Resolves: rhbz#2329290
+- Fix sbin merge issue
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.137-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

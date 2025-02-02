@@ -1,8 +1,8 @@
 
 Name: qt6
 # This version MUST remain in sync with Qt6 versions!
-Version: 6.8.1
-Release: 5%{?dist}
+Version: 6.8.2
+Release: 1%{?dist}
 Summary: Qt6 meta package
 License: GPL-3.0-only
 URL:     https://getfedora.org/
@@ -212,6 +212,9 @@ echo "- Qt6 devel meta package" > %{buildroot}%{_docdir}/qt6-devel/README
 
 
 %changelog
+* Fri Jan 31 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-1
+- 6.8.2
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.8.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 %global         srcname     oci
 
 Name:           python-%{srcname}
-Version:        2.141.1
+Version:        2.143.1
 Release:        %autorelease
 Summary:        Oracle Cloud Infrastructure SDK for Python
 
@@ -40,7 +40,7 @@ Summary:        %{summary}
 %autosetup -n %{reponame}-%{version} -p1
 
 # Remove upper limits and pinned dependencies.
-sed -i -e 's/,[<= ]\+[0-9\.]\+//' -e 's/==/>=/' setup.py
+sed -i -e 's/,[<= ]\+[0-9\.]\+//' -e 's/==/>=/' pyproject.toml
 
 # Compatibility with pytest 7.4.0
 # reported upstream: https://github.com/oracle/oci-python-sdk/issues/565

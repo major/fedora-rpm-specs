@@ -19,9 +19,6 @@ BuildArch:      noarch
 
 BuildRequires:	make
 BuildRequires:  python%{python3_pkgversion}-devel
-# the package does not work with pytest 8
-# downstream issue: https://bugzilla.redhat.com/show_bug.cgi?id=2274104
-BuildRequires:  python%{python3_pkgversion}-pytest < 8
 BuildRequires:  python%{python3_pkgversion}-setuptools
 
 %if %{with doc}
@@ -61,6 +58,9 @@ rm tests/management/commands/test_mail_debug.py
 rm django_extensions/management/commands/shell_plus.py
 rm -r tests/management/commands/shell_plus_tests/
 %endif
+# Remove coverage
+sed -i /pytest-cov/d requirements-dev.txt
+sed -Ei 's/--cov[^ =]*[ =][^ =]+//g' setup.cfg
 
 %generate_buildrequires
 %pyproject_buildrequires -t
@@ -91,7 +91,10 @@ SELECTOR="not PipCheckerTests"
 SELECTOR+=" and not test_should_highlight_bash_syntax_without_name"
 %endif
 %pytest -v django_extensions tests \
-  -k "${SELECTOR}"
+  -k "${SELECTOR}" \
+  --ignore tests/test_dumpscript.py
+# run this separately, see https://github.com/django-extensions/django-extensions/issues/1871
+%pytest -v tests/test_dumpscript.py
 
 
 %files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}

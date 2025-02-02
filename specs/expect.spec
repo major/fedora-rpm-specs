@@ -5,11 +5,12 @@
 Summary: A program-script interaction and testing utility
 Name: expect
 Version: %{majorver}
-Release: 26%{?dist}
+Release: 27%{?dist}
 License: LicenseRef-Fedora-Public-Domain
 URL: https://core.tcl.tk/expect/index
 Source: http://downloads.sourceforge.net/%{name}/%{name}%{version}.tar.gz
-Buildrequires: gcc tcl-devel autoconf automake chrpath
+Buildrequires: gcc autoconf automake chrpath
+BuildRequires: tcl-devel < 1:9
 BuildRequires: make
 # Patch0: fixes change log file permissions
 Patch0: expect-5.43.0-log_file.patch
@@ -189,6 +190,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libexpect%{version}.so
 %{_mandir}/man1/tknewsbiff.1*
 
 %changelog
+* Fri Jan 31 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 5.45.4-27
+- Switch to the compat tcl8/tk8
+
 * Tue Jan 28 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 5.45.4-26
 - Fix FTBFS
 

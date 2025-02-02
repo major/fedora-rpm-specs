@@ -1,6 +1,6 @@
 Name: libnetconf2
-Version: 2.1.25
-Release: 9%{?dist}
+Version: 3.5.5
+Release: 1%{?dist}
 Summary: NETCONF protocol library
 Url: https://github.com/CESNET/libnetconf2
 Source: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -13,6 +13,7 @@ BuildRequires:  libssh-devel
 BuildRequires:  openssl-devel
 BuildRequires:  pam-devel
 BuildRequires:  pkgconfig(libyang) >= 2
+BuildRequires:  curl-devel
 
 %package devel
 Summary:    Headers of libnetconf2 library
@@ -43,6 +44,7 @@ servers. NETCONF is the NETwork CONFiguration protocol introduced by IETF.
 %license LICENSE
 %doc README.md FAQ.md
 %{_libdir}/libnetconf2.so.*
+%{_datadir}/yang/modules/libnetconf2/*.yang
 
 %files devel
 %doc CODINGSTYLE.md
@@ -54,6 +56,9 @@ servers. NETCONF is the NETwork CONFiguration protocol introduced by IETF.
 
 
 %changelog
+* Fri Jan 31 2025 Michal Ruprich <mruprich@redhat.com> - 3.5.5-1
+- New version 3.5.5
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.25-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

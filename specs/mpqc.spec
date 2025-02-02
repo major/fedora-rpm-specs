@@ -1,7 +1,7 @@
 Name:           mpqc
 Summary:        Ab-inito chemistry program
 Version:        2.3.1
-Release:        63%{?dist}
+Release:        64%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:            http://www.mpqc.org/
@@ -20,7 +20,9 @@ BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  libtool flex bison
 BuildRequires:  desktop-file-utils
-BuildRequires:  gcc-gfortran perl-generators tk doxygen
+BuildRequires:  gcc-gfortran perl-generators
+BuildRequires:  doxygen
+BuildRequires:  /usr/bin/wish
 BuildRequires:  libint-devel
 BuildRequires:  flexiblas-devel
 
@@ -197,6 +199,10 @@ done
 
 
 %changelog
+* Fri Jan 31 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.3.1-64
+- Use wish instead of tk for BuildRequires
+- F42: rebuild with wish in tk9
+
 * Mon Jan 20 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.3.1-63
 - Support C++17, remove deprecated exception specification
 

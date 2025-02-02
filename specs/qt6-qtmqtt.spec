@@ -3,8 +3,8 @@
 %global examples 1
 
 Name:           qt6-%{qt_module}
-Version:        6.8.1
-Release:        3%{?dist}
+Version:        6.8.2
+Release:        1%{?dist}
 Summary:        Qt6 - Mqtt module
 
 License:        GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -74,6 +74,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_qt6_examplesdir}
 
 %changelog
+* Fri Jan 31 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-1
+- 6.8.2
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.8.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

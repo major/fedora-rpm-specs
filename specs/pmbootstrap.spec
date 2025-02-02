@@ -1,7 +1,7 @@
 # Created by pyp2rpm-3.3.5
 
 Name:           pmbootstrap
-Version:        3.0.0
+Version:        3.2.0
 Release:        %autorelease
 Summary:        A sophisticated chroot/build/flash tool to develop and install postmarketOS
 
@@ -24,10 +24,17 @@ BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(wheel)
 
+BuildRequires:  /usr/bin/openssl
+BuildRequires:  git
+BuildRequires:  kpartx
+BuildRequires:  /usr/bin/ps
+
 Requires:       openssl
 Requires:       git
 Requires:       kpartx
 Requires:       util-linux
+Requires:       /usr/bin/ps
+
 
 %description
 Sophisticated chroot/build/flash tool to develop and install postmarketOS.

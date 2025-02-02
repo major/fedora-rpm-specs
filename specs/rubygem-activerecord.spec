@@ -4,7 +4,7 @@
 Name: rubygem-%{gem_name}
 Epoch: 1
 Version: 7.0.8
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Object-relational mapper framework (part of Rails)
 License: MIT
 URL: http://rubyonrails.org
@@ -37,6 +37,13 @@ Patch6: rubygem-activerecord-7.0.8-Replace-Mutex_m-by-MonitorMixin.patch
 # Ruby 3.4 `Hash#inspect` compatibility.
 # https://github.com/rails/rails/pull/53202/commits/2fc43621ff0b965d25b0140be0c9599baa52501b
 Patch7: rubygem-activerecord-8.0.0-Update-Active-Record-test-suite-for-Ruby-3-4-Hash-inspect.patch
+# Unlock Sqlite3 2.x+
+# https://github.com/rails/rails/issues/52309
+# https://github.com/rails/rails/commit/3271c4f6d221a73af801d7d57905f0cece374e05
+Patch8: rubygem-activerecord-7.1.4-Allow-sqlite3-to-float-to-version-2.patch
+# Sqlite3 2.x freezes some fields.
+# https://github.com/rails/rails/pull/50859
+Patch9: rubygem-activerecord-7.1.4-Don-t-mutate-row-arrays-that-come-back-from-the-database.patch
 
 # Database dump/load reuires the executable.
 Suggests: %{_bindir}/sqlite3
@@ -80,9 +87,11 @@ pushd %{_builddir}
 %patch 2 -p2
 %patch 4 -p2
 %patch 7 -p2
+%patch 9 -p2
 popd
 %patch 5 -p2
 %patch 6 -p2
+%patch 8 -p2
 
 %build
 gem build ../%{gem_name}-%{version}%{?prerelease}.gemspec
@@ -150,6 +159,9 @@ popd
 %{gem_instdir}/examples
 
 %changelog
+* Thu Jan 30 2025 Vít Ondruch <vondruch@redhat.com> - 1:7.0.8-7
+- Unlock Sqlite3 2.x+
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.0.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -32,6 +32,7 @@ sed -i.optflags -e '/^CFLAGS=/d' configure
 export GUILE=/usr/bin/guile1.8
 export GUILE_CONFIG=/usr/bin/guile1.8-config
 export GUILE_TOOLS=/usr/bin/guile1.8-tools
+export CFLAGS="$CFLAGS -std=gnu17"
 
 %configure
 make %{?_smp_mflags} 

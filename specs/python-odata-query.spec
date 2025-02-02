@@ -29,6 +29,8 @@ Summary:        %{summary}
 
 %prep
 %forgeautosetup
+# Unpin pytest version, if it doesn't work, the build will fail
+sed -i 's/pytest = { version = "^6.2 || ^7.0"/pytest = { version = ">=6.2"/' pyproject.toml
 
 
 %generate_buildrequires

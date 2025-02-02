@@ -138,6 +138,7 @@ For the most up to date manual content, use the on-line manual.
 sed -i -e 's|%hs|%s|g' locale/*.po
 
 %build
+export CFLAGS="$CFLAGS -std=gnu17"
 %if 0%{?rhel} == 7
 export WX_CONFIG=wx-config-3.0
 %endif

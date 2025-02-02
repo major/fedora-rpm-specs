@@ -2,8 +2,8 @@
 %bcond_without tests
 
 Name:           pytz
-Version:        2024.2
-Release:        2%{?dist}
+Version:        2025.1
+Release:        1%{?dist}
 Summary:        World Timezone Definitions for Python
 
 License:        MIT
@@ -32,7 +32,6 @@ Almost all (over 540) of the Olson timezones are supported.
 %package -n python3-%{name}
 Summary:        %summary
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 %if %{with tests}
 BuildRequires:  python3-pytest
 %endif
@@ -45,12 +44,16 @@ Requires:       tzdata
 %autosetup -p1
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
 rm -r %{buildroot}%{python3_sitelib}/pytz/zoneinfo
 
 
@@ -61,13 +64,14 @@ rm -r %{buildroot}%{python3_sitelib}/pytz/zoneinfo
 
 
 %files -n python3-pytz
-%license LICENSE.txt
 %doc README.rst
 %{python3_sitelib}/pytz/
-%{python3_sitelib}/*.egg-info/
-
+%{python3_sitelib}/pytz-%{version}.dist-info
 
 %changelog
+* Fri Jan 31 2025 Gwyn Ciesla <gwync@protonmail.com> - 2025.1-1
+- 2025.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

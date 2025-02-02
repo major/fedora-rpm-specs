@@ -37,12 +37,14 @@ one thing only: Sending HTTP requests. It does not provide any high level
 model abstractions over the API, does not handle redirects, multipart uploads,
 building authentication headers, transparent HTTP caching, URL parsing, etc.
 
+%pyproject_extras_subpkg -n python3-httpcore http2,socks
+
 %prep
 %autosetup -n %{pypi_name}-%{version}
 rm -rf %{pypi_name}.egg-info
 
 %generate_buildrequires
-%pyproject_buildrequires %{?with_tests:-x http2,socks}
+%pyproject_buildrequires -x http2,socks
 
 %build
 %pyproject_wheel

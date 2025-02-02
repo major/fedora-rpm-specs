@@ -15,8 +15,8 @@
 
 Summary: Qt6 - Quick3D Libraries and utilities
 Name:    qt6-%{qt_module}
-Version: 6.8.1
-Release: 5%{?dist}
+Version: 6.8.2
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -29,7 +29,6 @@ Source0: https://download.qt.io/development_releases/qt/%{majmin}/%{qt_version}/
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-src-%{version}.tar.xz
 %endif
 Patch0:  qtquick3d-fix-build-with-gcc11.patch
-Patch1:  qtquick3d-fix-build-with-gcc15.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -42,12 +41,12 @@ BuildRequires: qt6-qtdeclarative-devel
 BuildRequires: qt6-qtdeclarative-static
 BuildRequires: qt6-qtquicktimeline-devel
 BuildRequires: qt6-qtshadertools-devel
-%if 0%{system_assimp}
+%if 0%{?system_assimp}
 BuildRequires: pkgconfig(assimp) >= 5.0.0
 %else
 Provides:      bundled(assimp)
 %endif
-%if 0%{system_openxr}
+%if 0%{?system_openxr}
 BuildRequires: openxr-devel
 %else
 Provides:      bundled(openxr)
@@ -206,7 +205,7 @@ popd
 %endif
 
 %dir %{_qt6_libdir}/cmake/Qt6Quick3D/
-%if !0%{system_openxr}
+%if !0%{?system_openxr}
 %{_qt6_libdir}/cmake/Qt6BundledOpenXR/*.cmake
 %dir %{_qt6_libdir}/cmake/Qt6BundledOpenXR/
 %endif
@@ -236,7 +235,7 @@ popd
 %ifarch x86_64 aarch64
 %{_qt6_libdir}/libQt6BundledEmbree.a
 %endif
-%if !0%{system_openxr}
+%if !0%{?system_openxr}
 %{_qt6_libdir}/libQt6BundledOpenXR.a
 %endif
 %{_qt6_libdir}/libQt6Quick3DXr.prl
@@ -275,6 +274,9 @@ popd
 %endif
 
 %changelog
+* Fri Jan 31 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-1
+- 6.8.2
+
 * Tue Jan 21 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.1-5
 - Fix build against GCC 15 and unbundle assimp and openxr
 

@@ -1,6 +1,6 @@
 Name:       wasi-libc
 Summary:    C library implementation for WebAssembly System Interface
-Version:    24
+Version:    25
 Release:    %autorelease
 
 License:    Apache-2.0 WITH LLVM-exception AND Apache-2.0 AND MIT AND BSD-2-Clause
@@ -31,6 +31,10 @@ BuildRequires:  make
 # (and effectively undefine symbols like errno). Disable it.
 # See rhbz#2228297 for details.
 %global     __brp_llvm_compile_lto_elf %{nil}
+
+# brp-strip-static-archive breaks the archive index for wasm
+%global __brp_strip_static_archive %{nil}
+%global __brp_strip_lto %{nil}
 
 # WASI is a specific architecture; host (build machine) arch flags should not apply by default
 %global     build_cflags --target=wasm32-wasi -fstack-protector
@@ -74,12 +78,6 @@ make %{?_smp_mflags} %{wasi_make_flags} check-symbols
 
 %install
 %make_install %{wasi_make_flags}
-
-# brp-strip-static-archive breaks the archive index for wasm
-%global __os_install_post %{expand:
-    %__os_install_post
-    find %{buildroot}%{wasi_libdir} -type f -regex '.*\\.\\(a\\|rlib\\)' -print -exec llvm-ranlib '{}' ';'
-}
 
 %check
 # Bundled version checks

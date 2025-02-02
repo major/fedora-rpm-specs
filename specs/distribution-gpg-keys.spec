@@ -1,6 +1,6 @@
 Name:		distribution-gpg-keys
-Version:	1.107
-Release:	2%{?dist}
+Version:	1.108
+Release:	1%{?dist}
 Summary:	GPG keys of various Linux distributions
 
 License:	CC0-1.0
@@ -53,8 +53,10 @@ cp -a keys/* %{buildroot}%{_datadir}/%{name}/
 %{_datadir}/%{name}/copr
 
 %changelog
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.107-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+* Fri Jan 31 2025 Miroslav Suchý <msuchy@redhat.com> 1.108-1
+- update copr keys
+- alma: Add AlmaLinux 10 key
+- add Remi 2025 key
 
 * Wed Jan 15 2025 Miroslav Suchý <msuchy@redhat.com> 1.107-1
 - Add Fedora 44 key

@@ -1,9 +1,9 @@
-%global ALTERNATIVES %{_sbindir}/alternatives
+%global ALTERNATIVES %{_bindir}/alternatives
 
 Summary:  An archiving tool with ACL support
 Name: star
 Version: 1.6
-Release: 16%{?dist}
+Release: 17%{?dist}
 License: CDDL-1.0 AND GPL-2.0-only
 URL: http://freecode.com/projects/star
 Source: https://downloads.sourceforge.net/s-tar/%{name}-%{version}.tar.bz2
@@ -28,6 +28,7 @@ Patch4: star-1.5.2-rmt-rh-access.patch
 # ~> related to #968980
 Patch5: star-1.5.2-use-ssh-by-default.patch
 Patch6: star-configure-c99.patch
+Patch7: star-1.6-Change-the-sbin-install-dir-to-bin-due-to-Fedora-Cha.patch
 
 BuildRequires: make
 BuildRequires: libattr-devel libacl-devel libtool libselinux-devel
@@ -126,7 +127,7 @@ make install -s %make_flags
 ln -s star.1.gz ${RPM_BUILD_ROOT}%{_mandir}/man1/ustar.1
 mkdir -p ${RPM_BUILD_ROOT}%{_sysconfdir}
 mkdir -p ${RPM_BUILD_ROOT}%{_pkgdocdir}
-ln -s %{_sbindir}/rmt ${RPM_BUILD_ROOT}%{_sysconfdir}/rmt
+ln -s %{_bindir}/rmt ${RPM_BUILD_ROOT}%{_sysconfdir}/rmt
 install -p -m 644 COPYING star/README  CDDL.Schily.txt AN-* \
     ${RPM_BUILD_ROOT}%{_pkgdocdir}
 
@@ -191,17 +192,20 @@ fi
 
 %files -n rmt
 %general_docs
-%{_sbindir}/rmt
+%{_bindir}/rmt
 %{_mandir}/man1/rmt.1*
 %config %{_sysconfdir}/default/rmt
 # This symlink is used by cpio, star, spax, scpio, .. thus it is needed.  Even
-# if the cpio may be configured to use /sbin/rmt rather than /etc/rmt, star (and
+# if the cpio may be configured to use /bin/rmt rather than /etc/rmt, star (and
 # thus spax, ..) has the lookup path hardcoded to '/etc/rmt' (it means that even
 # non rpm based systems will try to look for /etc/rmt).  And - the conclusion is
 # - it does not make sense to fight against /etc/rmt symlink ATM (year 2013).
 %{_sysconfdir}/rmt
 
 %changelog
+* Thu Jan 30 2025 Lukas Javorsky <ljavorsk@redhat.com> - 1.6-17
+- Fix the install dir of `rmt` to /usr/bin due to Fedora Change
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -33,7 +33,7 @@
 %constrain_build -m 4096
 
 Name:           uv
-Version:        0.5.25
+Version:        0.5.26
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 

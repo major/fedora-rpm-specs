@@ -20,7 +20,7 @@
 
 Name:           libint
 Version:        1.2.1
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        A library for computing electron repulsion integrals efficiently
 # Libint is two things: a code generator, and a generated
 # library. This package builds and runs the compiler (GPLv3), and
@@ -35,6 +35,8 @@ Source0:        https://github.com/evaleev/libint/archive/%{commit}/libint-%{com
 Patch1:         libint-1.2.1-maxnode.patch
 # Use old-style soname
 Patch2:         libint-1.2.1-soname.patch
+# Compiler compatibility fixes
+Patch3:         https://github.com/evaleev/libint/pull/353.patch
 
 # Capabilities provided by library
 Provides:       libint(api)%{?_isa} = %{apiversion}
@@ -105,6 +107,7 @@ expressions. The derivatives are typically used in the calculation of forces.
 %setup -q -n %{name}-%{commit}
 %patch -P1 -p1 -b .maxnode
 %patch -P2 -p1 -b .soname
+%patch -P3 -p1 -b .gcc15
 libtoolize --copy --force
 aclocal -I lib/autoconf
 autoconf
@@ -171,6 +174,9 @@ EOF
 
 
 %changelog
+* Fri Jan 31 2025 Susi Lehtola <jussilehtola@fedoraproject.org> - 1.2.1-24
+- Fix FTBFS in rawhide.
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

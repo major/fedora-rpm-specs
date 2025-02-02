@@ -1,11 +1,11 @@
 Name:		pythia8
-Version:	8.3.12
-Release:	5%{?dist}
+Version:	8.3.13
+Release:	1%{?dist}
 Summary:	Pythia Event Generator for High Energy Physics
 
 License:	GPL-2.0-or-later
 URL:		https://pythia.org
-Source0:	https://pythia.org/download/pythia83/pythia8312.tgz
+Source0:	https://pythia.org/download/pythia83/pythia8313.tgz
 #		Link plugins to the shared library
 #		Remove rpath
 Patch0:		%{name}-makefile.patch
@@ -76,7 +76,7 @@ BuildArch:	noarch
 This package provides documentation for Pythia 8.
 
 %prep
-%setup -q -n pythia8312
+%setup -q -n pythia8313
 %patch -P0 -p1
 
 # Remove DOS end-of-line
@@ -149,6 +149,7 @@ echo 'Version: %{version}' >> \
 %files data
 %dir %{_datadir}/Pythia8
 %{_datadir}/Pythia8/pdfdata
+%{_datadir}/Pythia8/tunes
 %{_datadir}/Pythia8/xmldoc
 %license COPYING
 
@@ -163,6 +164,9 @@ echo 'Version: %{version}' >> \
 %license COPYING
 
 %changelog
+* Thu Jan 30 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.3.13-1
+- Update to version 8.3.13
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.12-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

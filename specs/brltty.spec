@@ -37,7 +37,7 @@
 
 Name: brltty
 Version: 6.7
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: LGPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later
 URL: http://brltty.app/
 Source0: http://brltty.app/archive/%{name}-%{version}.tar.xz
@@ -566,16 +566,22 @@ fi
 %{_bindir}/brltty-*
 %exclude %{_bindir}/brltty-minimal
 %{_libdir}/brltty/
-%if %{without java}
-%exclude %{_libdir}/brltty/libbrlttybba.so
-%exclude %{_libdir}/brltty/libbrlttybxw.so
-%exclude %{_libdir}/brltty/libbrlttyxa2.so
-%exclude %{_libdir}/brltty/libbrlttysen.so
-%exclude %{_libdir}/brltty/libbrlttyses.so
+%if %{with java}
 %exclude %{_libdir}/brltty/libbrlapi_java.so
+%endif
+# brlapi subpackage
+%exclude %{_libdir}/brltty/libbrlttybba.so
+# xw subpackage
+%exclude %{_libdir}/brltty/libbrlttybxw.so
+# at-spi2 subpackage
+%exclude %{_libdir}/brltty/libbrlttyxa2.so
+# espeak-ng subpackage
+%exclude %{_libdir}/brltty/libbrlttysen.so
+%if %{with espeak}
+%exclude %{_libdir}/brltty/libbrlttyses.so
+%endif
 %if %{with speech_dispatcher}
 %exclude %{_libdir}/brltty/libbrlttyssd.so
-%endif
 %endif
 %license LICENSE-LGPL
 %doc %{_mandir}/man[15]/brltty.*
@@ -675,6 +681,9 @@ fi
 %config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/brltty/Initramfs/cmdline
 
 %changelog
+* Fri Jan 31 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 6.7-7
+- Fix exclusions from main package
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.7-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

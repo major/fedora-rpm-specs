@@ -54,6 +54,9 @@ Release: %autorelease
 License: GPL-2.0-only
 URL: https://sourceware.org/lvm2
 Source0: https://sourceware.org/pub/lvm2/releases/LVM2.%{version}.tgz
+Patch1: 0001-vg_read-rescanning-DM-cache-after-taking-lock.patch
+Patch2: 0002-vg_read-matching-missed-empty-cache.patch
+Patch3: 0003-vg_read-correct-error-path-for-DM-cache-update.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -670,6 +673,9 @@ An extensive functional testsuite for LVM2.
 %endif
 
 %changelog
+* Fri Jan 31 2025 Marian Csontos <mcsontos@redhat.com> - 2.03.30-2
+- Fix race causing lvm2 does not recognize active devices.
+
 * Tue Jan 14 2025 Marian Csontos <mcsontos@redhat.com> - 2.03.30-1
 - Update to upstream version 2.03.30.
 - See WHATS_NEW and WHATS_NEW_DM for more information.

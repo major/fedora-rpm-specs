@@ -1,6 +1,6 @@
 Name:           perl-Text-CSV_XS
-Version:        1.59
-Release:        2%{?dist}
+Version:        1.60
+Release:        1%{?dist}
 Summary:        Comma-separated values manipulation routines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Text-CSV_XS
@@ -74,12 +74,18 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %{make_build} test
 
 %files
-%doc ChangeLog CONTRIBUTING.md README examples/
+%doc ChangeLog CONTRIBUTING.md examples/ README SECURITY.md
 %{perl_vendorarch}/Text/
 %{perl_vendorarch}/auto/Text/
 %{_mandir}/man3/Text::CSV_XS.3*
 
 %changelog
+* Fri Jan 31 2025 Paul Howarth <paul@city-fan.org> - 1.60-1
+- Update to 1.60 (rhbz#2343165)
+  - Add SECURITY.md
+  - CR/NL/CRNL inside quoted fields not affected by strict_eol
+  - Fix incorrect error 2014 (GH#62)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.59-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

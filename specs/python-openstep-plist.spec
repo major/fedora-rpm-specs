@@ -1,5 +1,5 @@
 Name:           python-openstep-plist
-Version:        0.4.0
+Version:        0.5.0
 Release:        %autorelease
 Summary:        ASCII plist parser written in Cython
 
@@ -10,25 +10,6 @@ License:        MIT
 SourceLicense:  %{license} AND BSD-3-Clause
 URL:            https://github.com/fonttools/openstep-plist
 Source:         %{pypi_source openstep_plist}
-
-# Add an empty [tool.setuptools_scm] section to pyproject.toml
-# https://github.com/fonttools/openstep-plist/pull/30
-#
-# Fixes:
-#
-# KeyError: 'setuptools_scm' when building the package
-# https://github.com/fonttools/openstep-plist/issues/29
-#
-# (Note that this was just a warning; the package builds without the patch.)
-Patch:          %{url}/pull/30.patch
-
-# Do not distribute Cython-generated C++ sources in binary wheels
-# https://github.com/fonttools/openstep-plist/pull/31
-Patch:          %{url}/pull/31.patch
-
-# Remove unused pytest-cython test dependency
-# https://github.com/fonttools/openstep-plist/pull/32
-Patch:          %{url}/pull/32.patch
 
 BuildSystem:            pyproject
 BuildOption(install):   -l openstep_plist

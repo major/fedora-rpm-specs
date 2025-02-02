@@ -7,7 +7,7 @@
 
 Name:		codeblocks
 Version:	20.03
-Release:	30%{?svnrelease}%{?dist}
+Release:	31%{?svnrelease}%{?dist}
 Summary:	An open source, cross platform, free C++ IDE
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:	GPL-3.0-or-later
@@ -21,6 +21,9 @@ Source0:	https://sourceforge.net/projects/%{name}/files/Sources/%{version}/%{nam
 Patch0:		codeblocks-autorev.patch
 # use distro compiler standards
 Patch1:		codeblocks-flags.patch
+# GCC 15 fixes
+Patch2:		0001-clangd_client-include-missing-header.patch
+Patch3:		0002-sdk-drop-including-ciso646.patch
 
 BuildRequires:	astyle-devel >= 3.1
 BuildRequires:	boost-devel
@@ -110,6 +113,8 @@ Additional Code::Blocks plug-ins.
 %setup -q
 %endif
 %patch -P 1 -p1
+%patch -P 2 -p1
+%patch -P 3 -p1
 
 
 %if %{snapshot}
@@ -143,9 +148,6 @@ rm -rf src/plugins/contrib/help_plugin/{bzip2,zlib}
 # Don't use rpath!
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
-# Work around https://bugzilla.redhat.com/show_bug.cgi?id=2331361
-sed -i 's|opt_duplicate_compiler_generated_deps=\$opt_preserve_dup_deps|opt_duplicate_compiler_generated_deps=:|g' libtool
-
 
 %make_build
 
@@ -346,6 +348,9 @@ rm -f %{buildroot}/%{pkgdatadir}/docs/index.ini
 
 
 %changelog
+* Fri Jan 31 2025 Dan Horák <dan[at]danny.cz> - 20.03-31.20241208svn13596
+- fix build with GCC 15 (rhbz#2339982)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20.03-30.20241208svn13596
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

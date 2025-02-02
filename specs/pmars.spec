@@ -44,7 +44,7 @@ rm doc_install/doc/pmars.6
 
 %build
 %global build_type_safety_c 0
-make -C src CFLAGS="%{optflags} -DEXT94 -DXWINGRAPHX -DPERMUTATE"
+make -C src CFLAGS="%{optflags} -DEXT94 -DXWINGRAPHX -DPERMUTATE -std=gnu17"
 
 
 %install

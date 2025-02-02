@@ -1,6 +1,6 @@
 Name:           ifm
-Version:        5.4
-Release:        13%{?dist}
+Version:        5.5
+Release:        1%{?dist}
 Summary:        Interactive Fiction Mapper
 
 License:        GPL-2.0-or-later
@@ -8,9 +8,7 @@ URL:            http://www.sentex.net/~dchapes/ifm/
 Source0:        http://www.ifarchive.org/if-archive/mapping-tools/ifm-%{version}.tar.gz
 Source1:        ifm.sh
 Patch1:         ifm-5.4-destdir.patch
-Patch2:         0001-Fix-variable-name-clash.patch
-Patch3:         0003-Rename-dumb-frotz-to-dfrotz.patch
-Patch4:         ifm-c99.patch
+Patch2:         0003-Rename-dumb-frotz-to-dfrotz.patch
 
 BuildRequires:  gcc
 BuildRequires:  flex
@@ -63,6 +61,9 @@ install -p -D -m 0755 contrib/rec2scr.pl %{buildroot}%{_bindir}/%{name}-rec2scr.
 %{vimfiles_root}/syntax/%{name}.vim
 
 %changelog
+* Fri Jan 31 2025 FeRD (Frank Dana) <ferdnyc@gmail.com> - 5.5-1
+- "New" (2022) upstream release
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

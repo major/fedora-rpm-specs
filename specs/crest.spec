@@ -14,8 +14,11 @@ Release:        9%{?dist}
 Summary:        Conformer-Rotamer Ensemble Sampling Tool: a driver for the xtb program
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
-URL:            https://xtb-docs.readthedocs.io/en/latest/crest.html
-Source0:        https://github.com/grimme-lab/crest/archive/v%{version}/crest-%{version}.tar.gz
+URL:            https://crest-lab.github.io/crest-docs/
+Source0:        https://github.com/crest-lab/crest/archive/v%{version}/crest-%{version}.tar.gz
+
+# Do not use "true" as a function name
+Patch0:         https://github.com/crest-lab/crest/pull/397.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-gfortran
@@ -56,6 +59,7 @@ Phys. Chem. Chem. Phys., 2020, 22, 7169-7192.
 
 %prep
 %setup -q
+%patch -P0 -p1 -b .notrue
 
 %build
 %meson -Dla_backend=custom -Dcustom_libraries=%{blaslib}%{blasvar}
@@ -74,6 +78,9 @@ Phys. Chem. Chem. Phys., 2020, 22, 7169-7192.
 %{_mandir}/man1/crest.1.*
 
 %changelog
+* Fri Jan 31 2025 Susi Lehtola <jussilehtola@fedoraproject.org> - 2.12-1
+- Fix FTBFS on rawhide.
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.12-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

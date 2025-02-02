@@ -279,9 +279,9 @@ BuildRequires: gdb
 BuildRequires: openssl-devel
 
 BuildRequires: tar
-BuildRequires: tcl-devel
+BuildRequires: tcl-devel < 1:9
 BuildRequires: tix-devel
-BuildRequires: tk-devel
+BuildRequires: tk-devel < 1:9
 
 %if %{with valgrind}
 BuildRequires: valgrind-devel

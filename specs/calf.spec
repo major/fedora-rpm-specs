@@ -1,3 +1,8 @@
+%if %{defined flatpak_runtime}
+%global _prefix /app/extensions/Plugins/Calf
+%global __brp_check_rpaths %{nil}
+%endif
+
 Name:		calf
 Version:	0.90.4
 Release:	2%{?dist}

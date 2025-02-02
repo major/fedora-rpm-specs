@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 7.0.8
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Tools for creating, working with, and running Rails applications
 License: MIT
 URL: http://rubyonrails.org
@@ -45,6 +45,11 @@ Patch8: rubygem-railties-8.0.0-Update-Railties-test-suite-for-Ruby-3-4-Hash-insp
 # Ruby 3.4 backtrace compatibility.
 # https://github.com/rails/rails/pull/51101
 Patch9: rubygem-railties-7.2.0-Update-test-suite-for-compatibility-with-Ruby-3-4-dev.patch
+# Unlock Sqlite3 2.x+
+# https://github.com/rails/rails/issues/52309
+# https://github.com/rails/rails/commit/3271c4f6d221a73af801d7d57905f0cece374e05
+Patch10: rubygem-railties-7.1.4-Allow-sqlite3-to-float-to-version-2.patch
+Patch11: rubygem-railties-7.1.4-Allow-sqlite3-to-float-to-version-2-tests.patch
 
 
 # Needed by `rails console`.
@@ -112,6 +117,7 @@ Documentation for %{name}.
 %setup -q -n %{gem_name}-%{version}%{?prerelease} -b1 -b2
 
 %patch 5 -p2
+%patch 10 -p2
 
 pushd %{_builddir}
 %patch 1 -p2
@@ -122,6 +128,7 @@ pushd %{_builddir}
 %patch 7 -p2
 %patch 8 -p2
 %patch 9 -p2
+%patch 11 -p2
 popd
 
 %build
@@ -271,6 +278,9 @@ popd
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Thu Jan 30 2025 Vít Ondruch <vondruch@redhat.com> - 7.0.8-8
+- Unlock Sqlite3 2.x+
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.8-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

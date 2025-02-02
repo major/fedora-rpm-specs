@@ -1,12 +1,14 @@
 Name:           nekovm
-Version:        2.3.0
-Release:        18%{?dist}
+Version:        2.4.0
+Release:        1%{?dist}
 Summary:        Neko embedded scripting language and virtual machine
 
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
+# https://haxe.org/foundation/open-source.html#neko-license
+License:        MIT AND LGPL-2.1-or-later
+
 URL:            https://nekovm.org/
-Source0:        https://github.com/HaxeFoundation/neko/archive/v2-3-0/neko-%{version}.tar.gz
+Source0:        https://github.com/HaxeFoundation/neko/archive/v2-4-0/neko-%{version}.tar.gz
+Patch:          neko_c23_bool.patch
 
 BuildRequires:  gcc
 BuildRequires:  cmake
@@ -14,8 +16,8 @@ BuildRequires:  ninja-build
 BuildRequires:  pkgconfig
 BuildRequires:  git
 BuildRequires:  gc-devel
-BuildRequires:  pcre-devel
-BuildRequires:  gtk2-devel
+BuildRequires:  pcre2-devel
+BuildRequires:  gtk3-devel
 BuildRequires:  mariadb-connector-c-devel openssl-devel
 BuildRequires:  sqlite-devel >= 3
 BuildRequires:  httpd-devel
@@ -64,8 +66,8 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q -n neko-2-3-0
-
+%setup -q -n neko-2-4-0
+%autopatch -p1
 
 %build
 # Avoid a compiler stack-overflow when building on 64 bit.
@@ -74,6 +76,7 @@ ulimit -s unlimited
 %cmake . \
     -G Ninja \
     -DRELOCATABLE=OFF \
+    -DCMAKE_SKIP_INSTALL_RPATH=ON \
     -DRUN_LDCONFIG=OFF \
     -DCMAKE_INSTALL_LIBDIR:PATH=%{_lib}
 %cmake_build
@@ -106,6 +109,13 @@ ulimit -s unlimited
 
 
 %changelog
+* Fri Jan 31 2025 Andy Li <andy@onthewings.net> - 2.4.0-1
+- New upstream version 2.4.0, which uses pcre2 (RHBZ#2128334)
+
+* Fri Jan 31 2025 Andy Li <andy@onthewings.net> - 2.3.0-19
+- Add neko_c23_bool.patch for C23 compatibility (RHBZ#2340914)
+- Update license
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

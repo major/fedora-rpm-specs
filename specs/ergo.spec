@@ -16,8 +16,11 @@ License:	GPL-3.0-or-later
 URL:		http://www.ergoscf.org
 Source0:	http://ergoscf.org/source/tarfiles/ergo-%{version}.tar.gz
 
+%if %{with flexiblas}
 BuildRequires:	%{blaslib}-devel
+%else
 BuildRequires:	blis-devel
+%endif
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
@@ -28,6 +31,8 @@ BuildRequires: make
 
 # Doesn't build on i686
 ExcludeArch: %{ix86}
+# There's a weird build failure on ppc64le: an invalid instruction in one of the tests
+ExcludeArch: ppc64le
 
 %description
 Ergo is a quantum chemistry program for large-scale self-consistent
@@ -81,7 +86,6 @@ export FFLAGS="${CFLAGS}"
 # Linker flags
 %if %{with flexiblas}
 export LIBS="-lflexiblas"
-export FLEXIBLAS=blis-openmp
 %else
 export LIBS="-lbliso"
 %endif

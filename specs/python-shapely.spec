@@ -1,5 +1,5 @@
 Name:           python-shapely
-Version:        2.0.6
+Version:        2.0.7
 Release:        %autorelease
 Summary:        Manipulation and analysis of geometric objects in the Cartesian plane
 
@@ -10,10 +10,6 @@ Summary:        Manipulation and analysis of geometric objects in the Cartesian 
 License:        BSD-3-Clause AND Unlicense AND MIT
 URL:            https://github.com/shapely/shapely
 Source:         %{pypi_source shapely}
-
-# Fix incompatible pointer type passed to GEOSPolygonize_r
-# https://github.com/shapely/shapely/pull/1945
-Patch:          %{url}/pull/1945.patch
 
 BuildRequires:  tomcli
 BuildRequires:  gcc
@@ -36,6 +32,9 @@ more information!}
 %package -n python3-shapely
 Summary:        Manipulation and analysis of geometric objects in the Cartesian plane
 
+# We first shipped Shapley 2.0 in Fedora 39, so the migration paths from F38
+# (which need to be present for three releases) can be dropped after F41.
+%if %{defined fc40} || %{defined fc41}
 # The [vectorized] extra has gone away in Shapely 2.0. We Provide the name of
 # the old vectorized extra metapackage since vectorized implementations are
 # always compiled in the base package, but we do not attempt to Provide
@@ -49,6 +48,7 @@ Obsoletes:      python3-shapely+vectorized < 2.0.0-1
 # in a local git repository to get the right version number in the dist-info
 # metadata. We find that the PDF documentation is not worth all that hassle!
 Obsoletes:      python-shapely-doc < 2.0.0-1
+%endif
 
 # The file src/kvec.h comes from klib
 # (https://github.com/attractivechaos/klib), which is intended to be used as a

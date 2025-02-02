@@ -1,19 +1,17 @@
 Name: netopeer2
-Version: 2.1.42
-Release: 8%{?dist}
+Version: 2.2.35
+Release: 1%{?dist}
 Summary: Netopeer2 NETCONF tools suite
 Url: https://github.com/CESNET/netopeer2
 Source: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source2: netopeer2-server.service
 License: BSD-3-Clause
 
-Patch1: fix-scripts.patch
-
 BuildRequires: gcc
 BuildRequires: cmake
-BuildRequires: pkgconfig(libyang) >= 2.0.194
-BuildRequires: pkgconfig(libnetconf2) >= 2.1.11
-BuildRequires: pkgconfig(sysrepo) >= 2.1.64
+BuildRequires: pkgconfig(libyang) >= 2.2.0
+BuildRequires: pkgconfig(libnetconf2) >= 3.5.4
+BuildRequires: pkgconfig(sysrepo) >= 2.12.0
 BuildRequires: sysrepo-tools
 BuildRequires: libcurl-devel
 BuildRequires: libssh-devel
@@ -28,7 +26,6 @@ BuildRequires: openssl-perl
 
 Requires: %{name}-server%{?_isa} = %{version}-%{release}
 Requires: %{name}-cli%{?_isa} = %{version}-%{release}
-
 
 %package server
 Summary: netopeer2 NETCONF server
@@ -74,24 +71,25 @@ a single established NETCONF session.
 
 %build
 %cmake -DCMAKE_BUILD_TYPE=RELWITHDEBINFO \
-       -DINSTALL_MODULES=OFF \
-       -DGENERATE_HOSTKEY=OFF \
-       -DMERGE_LISTEN_CONFIG=OFF \
-       -DSERVER_DIR=%{_libdir}/netopeer2-server
+       -DCMAKE_INSTALL_SYSCONFDIR=/etc \
+       -DSYSREPO_SETUP=OFF \
+       -DPIDFILE_PREFIX=/run \
+       -DSERVER_DIR=%{_sharedstatedir}/netopeer2-server
 %cmake_build
 
 %install
 %cmake_install
 install -D -p -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}/netopeer2-server.service
-mkdir -p -m=700 %{buildroot}%{_libdir}/netopeer2-server
+mkdir -p -m=700 %{buildroot}%{_sharedstatedir}/netopeer2-server
 
 %post server
 set -e
 export NP2_MODULE_DIR=%{_datadir}/yang/modules/netopeer2
 export NP2_MODULE_PERMS=600
 export NP2_MODULE_OWNER=root
+export LN2_MODULE_DIR=%{_datadir}/yang/modules/libnetconf2
 
-%{_datadir}/netopeer2/setup.sh
+%{_datadir}/netopeer2/scripts/setup.sh
 %{_datadir}/netopeer2/merge_hostkey.sh
 %{_datadir}/netopeer2/merge_config.sh
 
@@ -99,7 +97,7 @@ export NP2_MODULE_OWNER=root
 
 %preun server
 set -e
-%{_datadir}/netopeer2/remove.sh
+%{_datadir}/netopeer2/scripts/remove.sh
 
 
 %files
@@ -111,10 +109,11 @@ set -e
 %{_datadir}/man/man8/netopeer2-server.8.gz
 %{_unitdir}/netopeer2-server.service
 %{_datadir}/yang/modules/netopeer2/*.yang
-%{_datadir}/netopeer2/*.sh
+%{_datadir}/netopeer2/scripts/*.sh
+%{_sysconfdir}/pam.d/netopeer2.conf
 %dir %{_datadir}/yang/modules/netopeer2/
 %dir %{_datadir}/netopeer2/
-%dir %{_libdir}/netopeer2-server/
+%dir %{_sharedstatedir}/netopeer2-server/
 
 %files cli
 %license LICENSE
@@ -122,6 +121,9 @@ set -e
 %{_datadir}/man/man1/netopeer2-cli.1.gz
 
 %changelog
+* Fri Jan 31 2025 Michal Ruprich <mruprich@redhat.com> - 2.2.35-1
+- New version 2.2.35
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.42-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
