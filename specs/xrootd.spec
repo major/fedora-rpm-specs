@@ -14,7 +14,7 @@
 Name:		xrootd
 Epoch:		1
 Version:	5.7.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Extended ROOT file server
 License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib
 URL:		https://xrootd.web.cern.ch
@@ -50,6 +50,7 @@ BuildRequires:	libuuid-devel
 BuildRequires:	voms-devel
 BuildRequires:	scitokens-cpp-devel
 BuildRequires:	davix-devel
+BuildRequires:  libxcrypt-devel
 %if %{ceph}
 BuildRequires:	librados-devel
 BuildRequires:	libradosstriper-devel
@@ -647,6 +648,9 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1:5.7.3-2
+- Add explicit BR: libxcrypt-devel
+
 * Wed Jan 29 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.7.3-1
 - Update to version 5.7.3
 - Drop patches accepted upstream

@@ -17,7 +17,7 @@
 %undefine _strict_symbol_defs_build
 
 #global prever rc4
-%global baserelease 2
+%global baserelease 3
 %global mod_proxy_version 0.9.4
 %global mod_vroot_version 0.9.12
 
@@ -59,6 +59,7 @@ BuildRequires:		libidn2-devel
 BuildRequires:		%{libmemcached_pkg}-devel >= 0.41
 BuildRequires:		libpq-devel
 BuildRequires:		libsodium-devel >= 1.0
+BuildRequires:		libxcrypt-devel
 BuildRequires:		logrotate
 BuildRequires:		make
 BuildRequires:		mariadb-connector-c-devel
@@ -489,6 +490,9 @@ fi
 %{_mandir}/man1/ftpwho.1*
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1.3.8c-3
+- Add explicit BR: libxcrypt-devel
+
 * Fri Jan 17 2025 Paul Howarth <paul@city-fan.org> - 1.3.8c-2
 - Fixes for C23 compatibility
 - Update mod_vroot to 0.9.12

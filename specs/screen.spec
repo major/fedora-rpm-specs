@@ -4,12 +4,13 @@
 Summary:        A screen manager that supports multiple logins on one terminal
 Name:           screen
 Version:        5.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        GPL-3.0-or-later
 URL:            http://www.gnu.org/software/screen
 Requires(pre):  /usr/sbin/groupadd
 BuildRequires: make
 BuildRequires:  ncurses-devel pam-devel libutempter-devel autoconf texinfo
+BuildRequires:  libxcrypt-devel
 BuildRequires:  automake gcc
 # for %%_tmpfilesdir macro
 BuildRequires:  systemd
@@ -112,6 +113,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %endif
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 5.0.0-3
+- Add explicit BR: libxcrypt-devel
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

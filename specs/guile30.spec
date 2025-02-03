@@ -14,7 +14,7 @@
 
 Name: guile30
 Version: 3.0.9
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: A GNU implementation of Scheme for application extensibility
 # Automatically converted from old format: LGPLv3+ and MIT and Public Domain and GPL+ and GPLv3+ - review is highly recommended.
 License: LGPL-3.0-or-later AND LicenseRef-Callaway-MIT AND LicenseRef-Callaway-Public-Domain AND GPL-1.0-or-later AND GPL-3.0-or-later
@@ -26,6 +26,7 @@ BuildRequires: gettext-devel libunistring-devel pkgconfig(libffi) pkgconfig(bdw-
 BuildRequires: make gcc
 BuildRequires: autoconf 
 BuildRequires: pkgconfig
+BuildRequires: libxcrypt-devel
 Requires: coreutils
 
 # Guile ships a patched version of localcharset from gnulib
@@ -177,6 +178,9 @@ fi
 %{_includedir}/guile
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 3.0.9-6
+- Add explicit BR: libxcrypt-devel
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.9-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

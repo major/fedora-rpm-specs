@@ -12,7 +12,7 @@
 Summary: Apache Portable Runtime library
 Name: apr
 Version: 1.7.5
-Release: 2%{?dist}
+Release: 3%{?dist}
 # Apache-2.0: everything
 # ISC: network_io/apr-1.4.6/network_io/unix/inet_?to?.c
 # BSD-4-Clause-UC:  strings/apr_snprintf.c, strings/apr_fnmatch.c,
@@ -32,6 +32,7 @@ Patch3: apr-1.7.0-deepbind.patch
 Patch4: apr-1.7.2-autoconf.patch
 BuildRequires: gcc, autoconf, libtool, libuuid-devel, python3
 BuildRequires: make
+BuildRequires: libxcrypt-devel
 
 %description
 The mission of the Apache Portable Runtime (APR) is to provide a
@@ -135,6 +136,9 @@ popd
 %{_datadir}/aclocal/*.m4
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1.7.5-3
+- Add explicit BR: libxcrypt-devel
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

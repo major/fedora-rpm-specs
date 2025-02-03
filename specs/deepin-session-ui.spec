@@ -41,6 +41,7 @@ BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gio-unix-2.0)
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(libdeepin_pw_check)
+BuildRequires:  libxcrypt-devel
 BuildRequires:  libXext-devel
 
 Requires:       deepin-daemon

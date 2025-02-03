@@ -39,7 +39,7 @@
 Name:		root
 Version:	6.34.02
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -143,6 +143,7 @@ BuildRequires:	unixODBC-devel
 BuildRequires:	libGL-devel
 BuildRequires:	libGLU-devel
 BuildRequires:	libpq-devel
+BuildRequires:  libxcrypt-devel
 BuildRequires:	python%{python3_pkgversion}-devel >= 3.7
 BuildRequires:	python%{python3_pkgversion}-setuptools
 BuildRequires:	python%{python3_pkgversion}-numpy
@@ -3689,6 +3690,9 @@ fi
 %endif
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 6.34.02-6
+- Add explicit BR: libxcrypt-devel
+
 * Fri Jan 31 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.34.02-5
 - Apply patches to fix build with gcc 15
 - Enable roofit-multiprocess for EPEL 10 (dependencies available)

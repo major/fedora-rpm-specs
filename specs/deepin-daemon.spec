@@ -41,6 +41,7 @@ BuildRequires:  libnl3-devel
 BuildRequires:  libgudev-devel
 BuildRequires:  libinput-devel
 BuildRequires:  librsvg2-devel
+BuildRequires:  libxcrypt-devel
 BuildRequires:  libXcursor-devel
 BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  python3-gobject

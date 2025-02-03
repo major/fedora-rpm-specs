@@ -31,7 +31,7 @@
 Summary: Apache HTTP Server
 Name: httpd
 Version: 2.4.63
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://httpd.apache.org/
 Source0: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
 Source1: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2.asc
@@ -121,6 +121,7 @@ BuildRequires: zlib-devel, libselinux-devel, lua-devel, brotli-devel
 BuildRequires: apr-devel >= 1.5.0, apr-util-devel >= 1.5.0
 BuildRequires: openldap-devel
 BuildRequires: systemd-rpm-macros
+BuildRequires: libxcrypt-devel
 %if %{with pcre2}
 BuildRequires: pcre2-devel
 %endif
@@ -846,6 +847,9 @@ exit $rv
 %{_rpmconfigdir}/macros.d/macros.httpd
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 2.4.63-2
+- Add explicit BR: libxcrypt-devel
+
 * Fri Jan 24 2025 Luboš Uhliarik <luhliari@redhat.com> - 2.4.63-1
 - new version 2.4.63
 

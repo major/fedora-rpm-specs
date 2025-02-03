@@ -64,7 +64,7 @@
 
 Name:           plplot
 Version:        5.15.0
-Release:        76%{?dist}
+Release:        77%{?dist}
 Summary:        Library of functions for making scientific plots
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -87,6 +87,9 @@ Patch4:         plplot-python3.13.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2336933
 # https://sourceforge.net/p/plplot/plplot/merge-requests/7/
 Patch5:         plplot-numpy.patch
+# Fix test for signal()
+# https://sourceforge.net/p/plplot/plplot/merge-requests/8/
+Patch6:         plplot-signal.patch
 # Don't use -custom with ocamlc
 Patch7:         plplot-ocaml.patch
 # Fix safe-string new default in OCaml 4.06.
@@ -418,6 +421,7 @@ Requires:       wxGTK-devel%{?_isa}
 %patch -P3 -p1 -b .ocaml-rpath
 %patch -P4 -p1 -b .python3.13
 %patch -P5 -p1 -b .numpy
+%patch -P6 -p1 -b .signal
 %patch -P7 -p1 -b .ocaml
 %patch -P9 -p1 -b .safestring
 %patch -P10 -p1 -b .sip-path
@@ -782,6 +786,9 @@ export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/bindings/ocaml:$RPM_BUILD_ROOT%{_
 
 
 %changelog
+* Sat Feb 01 2025 Orion Poplawski <orion@nwra.com> - 5.15.0-77
+- Add patch to fix build with gcc 15 (FTBFS rhbz#2341081)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.0-76
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -14,7 +14,7 @@
 Summary:        OpenSource server implementation of the Jabber protocols
 Name:           jabberd
 Version:        2.6.1
-Release:        30%{?dist}
+Release:        31%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Source0:        https://github.com/jabberd2/jabberd2/releases/download/jabberd-%{version}/jabberd-%{version}.tar.xz
@@ -76,6 +76,7 @@ BuildRequires:          libgsasl-devel udns-devel
 BuildRequires:          http-parser-devel
 BuildRequires:          autoconf libtool
 BuildRequires: make
+BuildRequires: libxcrypt-devel
 Requires(post):         openssl
 Requires(pre):          shadow-utils
 Requires(preun):        shadow-utils
@@ -358,6 +359,9 @@ fi
 %attr(700, jabber, jabber) %{_var}/lib/%{name}
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 2.6.1-31
+- Add explicit BR: libxcrypt-devel
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

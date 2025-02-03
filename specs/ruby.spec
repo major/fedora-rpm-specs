@@ -177,7 +177,7 @@
 Summary: An interpreter of object-oriented scripting language
 Name: ruby
 Version: %{ruby_version}%{?development_release}
-Release: 22%{?dist}
+Release: 23%{?dist}
 # Licenses, which are likely not included in binary RPMs:
 # Apache-2.0:
 #   benchmark/gc/redblack.rb
@@ -297,6 +297,7 @@ BuildRequires: autoconf
 BuildRequires: gcc
 BuildRequires: make
 BuildRequires: libffi-devel
+BuildRequires: libxcrypt-devel
 BuildRequires: libyaml-devel
 BuildRequires: openssl-devel
 BuildRequires: zlib-devel
@@ -1881,6 +1882,9 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org>
+- Add explicit BR: libxcrypt-devel
+
 * Fri Jan 24 2025 Jarek Prokop <jprokop@redhat.com> - 3.4.1-22
 - Stop including <cstdbool> C++ header, it is deprecated since C++17.
   Resolves: rhbz#2336567

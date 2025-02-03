@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Version: 6.10.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: KDE Frameworks 6 Tier 3 integration with su
 
 License: CC0-1.0 AND GPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -21,6 +21,10 @@ BuildRequires:  cmake(KF6Pty)
 #BuildRequires:  libX11-devel
 BuildRequires:  qt6-qtbase-devel
 Requires:  kf6-filesystem
+
+%if 0%{?rhel} || 0%{?fedora} >= 42
+Requires:  sudo
+%endif
 
 %description
 
@@ -43,7 +47,10 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 
 %build
-%cmake_kf6
+%cmake_kf6 \
+%if 0%{?rhel} || 0%{?fedora} >= 42
+    -DKDESU_USE_SUDO_DEFAULT:BOOL=TRUE
+%endif
 %cmake_build
 
 
@@ -59,18 +66,22 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_kf6_datadir}/qlogging-categories6/*
 %{_kf6_libdir}/libKF6Su.so.*
 %{_kf6_libexecdir}/kdesu_stub
-%attr(2755,root,nobody) %{_kf6_libexecdir}/kdesud
+%{_kf6_libexecdir}/kdesud
 
 %files devel
 %{_kf6_includedir}/KDESu/
 %{_kf6_libdir}/libKF6Su.so
 %{_kf6_libdir}/cmake/KF6Su/
 %{_qt6_docdir}/*.tags
- 
+
 %files doc
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sat Feb 01 2025 Pavel Solovev <daron439@gmail.com> - 6.10.0-3
+- Drop sgid
+- Use sudo by default on f42+ and rhel
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

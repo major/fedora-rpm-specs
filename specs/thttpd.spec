@@ -3,7 +3,7 @@
 
 Name:           thttpd
 Version:        2.29
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        A tiny, turbo, throttleable lightweight HTTP server
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -20,6 +20,7 @@ Patch1:         thttpd-2.25b-CVE-2012-5640-check_crypt_return_value.patch
 Patch2:         thttpd-fix-world-readable-log.patch
 Patch3:         thttpd-c99.patch
 BuildRequires: make
+BuildRequires: libxcrypt-devel
 BuildRequires:  systemd gcc
 %{?systemd_requires}
 Requires(pre):  shadow-utils
@@ -146,6 +147,9 @@ EOF
 %dir /var/www
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 2.29-20
+- Add explicit BR: libxcrypt-devel
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.29-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

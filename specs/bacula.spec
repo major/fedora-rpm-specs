@@ -13,7 +13,7 @@
 
 Name:               bacula
 Version:            15.0.2
-Release:            3%{?dist}
+Release:            4%{?dist}
 Summary:            Cross platform network backup for Linux, Unix, Mac and Windows
 # See LICENSE for details
 # See https://gitlab.com/fedora/legal/fedora-license-data/-/issues/277
@@ -73,6 +73,7 @@ BuildRequires:      libstdc++-devel
 BuildRequires:      libxml2-devel
 BuildRequires:      libcap-devel
 BuildRequires:      libpq-devel
+BuildRequires:      libxcrypt-devel
 BuildRequires:      libzstd-devel
 BuildRequires:      lzo-devel
 BuildRequires:      make
@@ -676,6 +677,9 @@ exit 0
 %{_libdir}/nagios/plugins/check_bacula
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 15.0.2-4
+- Add explicit BR: libxcrypt-devel
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 15.0.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

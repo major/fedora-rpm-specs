@@ -1,7 +1,7 @@
 Summary: Interactive educational geometry software
 Name: drgeo
 Version: 1.1.0
-Release: 54%{?dist}
+Release: 55%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: http://www.ofset.org/drgeo
@@ -27,6 +27,7 @@ BuildRequires: libglade2-devel, intltool, gettext
 #BuildRequires: guile-devel
 BuildRequires: compat-guile18-devel
 BuildRequires: make
+BuildRequires: libxcrypt-devel
 
 %description
 Dr. Geo is an interactive geometry GUI application. It allows one to create
@@ -81,6 +82,9 @@ rmdir %{buildroot}%{_datadir}/texmacs/
 %{_datadir}/applications/drgeo.desktop
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1.1.0-55
+- Add explicit BR: libxcrypt-devel
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-54
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

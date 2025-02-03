@@ -1,5 +1,5 @@
 Name:            tree-sitter-java
-Version:         0.23.2
+Version:         0.23.5
 
 %global forgeurl https://github.com/tree-sitter/%{name}
 %forgemeta
@@ -21,6 +21,7 @@ BuildRequires:  /usr/bin/tree-sitter
 BuildRequires:  gcc
 BuildRequires:  libtree-sitter-devel
 BuildRequires:  make
+BuildRequires:  tree-sitter-cli >= 0.24.3
 
 %description
 %{desc}

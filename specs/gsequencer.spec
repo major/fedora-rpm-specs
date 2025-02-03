@@ -1,6 +1,6 @@
 Name:     gsequencer
 Version:  7.2.4
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  Audio processing engine
 # Automatically converted from old format: GPLv3+ and AGPLv3+ and GFDL - review is highly recommended.
 License:  GPL-3.0-or-later AND AGPL-3.0-or-later AND LicenseRef-Callaway-GFDL
@@ -12,6 +12,7 @@ BuildRequires:      libtool
 BuildRequires:      chrpath
 BuildRequires:      docbook-style-xsl
 BuildRequires:      gettext-devel
+BuildRequires:      libxcrypt-devel
 BuildRequires:      gtk-doc
 BuildRequires:      dblatex
 BuildRequires:      fop
@@ -153,6 +154,9 @@ Advanced Gtk+ Sequencer library development documentation.
 %{_datadir}/doc/libags-audio-doc/
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 7.2.4-2
+- Add explicit BR: libxcrypt-devel
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.4-1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

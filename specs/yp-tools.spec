@@ -1,7 +1,7 @@
 Summary: NIS (or YP) client programs
 Name: yp-tools
 Version: 4.2.3
-Release: 19%{?dist}
+Release: 20%{?dist}
 License: GPL-2.0-only
 
 URL: https://www.thkukuk.de/nis/nis/yp-tools/
@@ -15,6 +15,7 @@ Patch5: yp-tools-4.2.3-yppasswd.patch
 Patch6: yp-tools-4.2.3-yppasswd-exclamation_mark.patch
 
 BuildRequires: make
+BuildRequires: libxcrypt-devel
 BuildRequires: autoconf, automake, gettext-devel, libtool, libtirpc-devel, libnsl2-devel
 Requires: ypbind >= 3:2.4-2
 Requires: glibc
@@ -79,6 +80,9 @@ make DESTDIR="$RPM_BUILD_ROOT" INSTALL_PROGRAM=install install
 /var/yp/nicknames
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 4.2.3-20
+- Add explicit BR: libxcrypt-devel
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.3-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

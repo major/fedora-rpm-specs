@@ -7,7 +7,7 @@
 Summary:        Open Source IRC server
 Name:           unrealircd
 Version:        6.1.9.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 # UnrealIRCd declares itself as GPL-2.0-or-later as it's the common denominator for
 # a GPL-1.0-or-later and GPL-2.0-or-later mixture, breakdown of other source codes:
 # BSD-3-Clause: include/mempool.h and src/mempool.c
@@ -43,6 +43,7 @@ BuildRequires:  libsodium-devel >= 1.0.16
 BuildRequires:  c-ares-devel >= 1.6.0
 BuildRequires:  jansson-devel >= 2.0.0
 BuildRequires:  libcurl-devel
+BuildRequires:  libxcrypt-devel
 BuildRequires:  systemd-rpm-macros
 Requires(post): %{_bindir}/openssl
 %{?systemd_requires}
@@ -230,6 +231,9 @@ fi
 %endif
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 6.1.9.1-3
+- Add explicit BR: libxcrypt-devel
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.9.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

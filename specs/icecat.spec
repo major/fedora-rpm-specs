@@ -89,7 +89,7 @@ ExcludeArch: %{ix86} %{arm}
 %global disable_elfhack 1
 
 # Use clang?
-%global build_with_clang  1
+%global build_with_clang  0
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1908792
 # https://bugzilla.redhat.com/show_bug.cgi?id=2255254

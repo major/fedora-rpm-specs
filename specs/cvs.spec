@@ -14,7 +14,7 @@
 
 Name:       cvs
 Version:    1.11.23
-Release:    73%{?dist}
+Release:    74%{?dist}
 Summary:    Concurrent Versions System
 URL:        https://cvs.nongnu.org/
 # contrib/check_cvs.in:     check-cvs
@@ -377,6 +377,7 @@ BuildRequires:  gzip
 BuildRequires:  krb5-devel
 %endif
 BuildRequires:  libtool
+BuildRequires:  libxcrypt-devel
 BuildRequires:  make
 %if %{with cvs_enables_pam}
 BuildRequires:  pam-devel
@@ -618,6 +619,9 @@ exit 0
 
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1.11.23-74
+- Add explicit BR: libxcrypt-devel
+
 * Thu Jan 23 2025 Petr Pisar <ppisar@redhat.com> - 1.11.23-73
 - Fix building in ISO C23 with GCC 15 (bug #2340021)
 

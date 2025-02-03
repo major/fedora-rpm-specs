@@ -125,6 +125,7 @@ rm -f doc/build/html/.buildinfo
 %pyproject_save_files -l cvxopt
 
 %check
+export FLEXIBLAS=netlib
 %pytest -v
 
 %files -n python3-cvxopt -f %{pyproject_files}
@@ -138,6 +139,9 @@ rm -f doc/build/html/.buildinfo
 %doc examples/
 
 %changelog
+* Sat Feb  1 2025 Jerry James <loganjerry@gmail.com> - 1.3.2-8
+- Use the netlib blas library when testing
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

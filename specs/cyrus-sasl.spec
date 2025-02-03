@@ -64,6 +64,7 @@ BuildRequires: libdb-devel-static
 #build reqs for make check
 BuildRequires: python3 nss_wrapper socket_wrapper krb5-server
 BuildRequires: make
+BuildRequires: libxcrypt-devel
 Requires(pre): /usr/sbin/useradd /usr/sbin/groupadd
 Requires(postun): /usr/sbin/userdel /usr/sbin/groupdel
 Requires: /sbin/nologin

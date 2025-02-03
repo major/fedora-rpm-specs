@@ -13,7 +13,7 @@
 Name:             tcsh
 Summary:          An enhanced version of csh, the C shell
 Version:          6.24.14
-Release:          2%{?dist}
+Release:          3%{?dist}
 License:          BSD-3-Clause
 
 URL:              http://www.tcsh.org/
@@ -32,6 +32,7 @@ BuildRequires:    gcc
 BuildRequires:    git
 BuildRequires:    autoconf
 BuildRequires:    gettext-devel
+BuildRequires:    libxcrypt-devel
 BuildRequires:    ncurses-devel
 
 # =============================================================================
@@ -178,6 +179,9 @@ fi
 # =============================================================================
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 6.24.14-3
+- Add explicit BR: libxcrypt-devel
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.24.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

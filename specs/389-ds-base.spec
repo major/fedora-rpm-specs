@@ -387,6 +387,7 @@ BuildRequires:    libicu-devel
 BuildRequires:    pcre2-devel
 BuildRequires:    cracklib-devel
 BuildRequires:    json-c-devel
+BuildRequires:    libxcrypt-devel
 %if %{with clang}
 BuildRequires:    libatomic
 BuildRequires:    clang

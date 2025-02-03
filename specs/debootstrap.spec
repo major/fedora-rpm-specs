@@ -7,7 +7,7 @@
 
 Name:           debootstrap
 Version:        1.0.140
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Debian GNU/Linux bootstrapper
 
 License:        MIT
@@ -51,7 +51,7 @@ Debian GNU/Linux guest system.
 
 %install
 fakeroot %make_install VERSION="%{version}-%{release}"
-%if 0%{?fedora} > 41
+%if "%{_sbindir}" == "%{_bindir}"
 mkdir -p %{buildroot}%{_bindir}
 mv %{buildroot}/usr/sbin/* %{buildroot}%{_bindir}
 %endif
@@ -68,6 +68,9 @@ install -p -m 0644 debootstrap.8 %{buildroot}%{_mandir}/man8
 %{_mandir}/man8/debootstrap.8*
 
 %changelog
+* Sat Feb 01 2025 Sérgio Basto <sergio@serjux.com>
+- Fix sbin merge for all releases
+
 * Fri Jan 31 2025 Packit <hello@packit.dev> - 1.0.140-1
 - Update to version 1.0.140
 - Resolves: rhbz#2329290

@@ -2,7 +2,7 @@
 
 Name: libuser
 Version: 0.64
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: LGPL-2.0-or-later
 URL: https://pagure.io/libuser
 Source: libuser-%{version}.tar.gz
@@ -15,6 +15,7 @@ BuildRequires: pam-devel
 BuildRequires: popt-devel
 BuildRequires: cyrus-sasl-devel
 BuildRequires: libselinux-devel
+BuildRequires: libxcrypt-devel
 BuildRequires: openldap-devel
 BuildRequires: python3-devel
 %if 0%{?fedora} >= 41 || 0%{?rhel} >= 11
@@ -129,6 +130,9 @@ export PYTHONPATH
 %{_datadir}/gtk-doc/html/*
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 0.64-13
+- Add explicit BR: libxcrypt-devel
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.64-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

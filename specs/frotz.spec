@@ -1,6 +1,6 @@
-%global gitref d9676545fc072222d3b50742ee881f8c3570a62e
-%global gitdate 20250127
-%global shortref %(echo %{gitref} |cut -c1-8)
+#%%global gitref d9676545fc072222d3b50742ee881f8c3570a62e
+#%%global gitdate 20250127
+#%%global shortref %%(echo %%{gitref} |cut -c1-8)
 
 %if 0%{?shortref:1}
 %global buildref .%{gitdate}git%{shortref}
@@ -8,25 +8,17 @@
 
 
 Name:           frotz
-Version:        2.54
-Release:        9%{?buildref}%{?dist}
+Version:        2.55
+Release:        1%{?buildref}%{?dist}
 Summary:        Interactive fiction interpreter for Z-Machine (Infocom) games
 
 License:        GPL-2.0-or-later
 URL:            https://gitlab.com/DavidGriffith/frotz/
-#Source0:        https://gitlab.com/DavidGriffith/frotz/-/archive/%{version}/frotz-%{version}.tar.bz2
-Source0:        https://gitlab.com/DavidGriffith/frotz/-/archive/%{shortref}/frotz-%{shortref}.tar.gz
+Source0:        https://gitlab.com/DavidGriffith/frotz/-/archive/%{version}/frotz-%{version}.tar.bz2
 
 # Installing the X11 font would seem to be prohibited by the Fonts Policy
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/FontsPolicy/
 Patch0:         frotz-2.54-no_font_install.patch
-
-# Submitted upstream:
-# https://gitlab.com/DavidGriffith/frotz/-/merge_requests/215
-Patch1:         frotz-2.54-missing_include.patch
-# Submitted upstream:
-# https://gitlab.com/DavidGriffith/frotz/-/merge_requests/216
-Patch2:         frotz-2.54-curses_ordering.patch
 
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(ao)
@@ -74,7 +66,7 @@ This package contains the sfrotz GUI.
 
 
 %prep
-%autosetup -p1 -n frotz-%{shortref}
+%autosetup -p1
 
 
 %build
@@ -108,6 +100,9 @@ install -m0644 -D frotz.conf -t %{buildroot}%{_sysconfdir}
 
 
 %changelog
+* Sat Feb 01 2025 FeRD (Frank Dana) <ferdnyc@gmail.com> - 2.55-1
+- New upstream release; drop upstreamed patches
+
 * Wed Jan 29 2025 FeRD (Frank Dana) <ferdnyc@gmail.com> - 2.54-9
 - Build from git HEAD (with additional patches) to fix FTBFS on
   rawhide (RHBZ: 2340180)

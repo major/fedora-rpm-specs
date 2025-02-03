@@ -5,28 +5,37 @@
 %endif
 
 %define variants thr thr-ogl
-%define beta b6
+%define beta %nil
 
 Summary: Parallel / Multiprocessor Ray Tracing System
 Name: tachyon
-Version: 0.99
-Release: 0.31.%{beta}%{?dist}
+Version: 0.99.5
+Release: 1%{?beta}%{?dist}
 URL: http://jedi.ks.uiuc.edu/~johns/raytracer/
 Source0: http://jedi.ks.uiuc.edu/~johns/raytracer/files/%{version}%{beta}/%{name}-%{version}%{beta}.tar.gz
 # taken from Debian package
 Source1: %{name}.1
 Patch0: %{name}-rpm.patch
 Patch1: %{name}-shared.patch
-License: BSD with advertising
+# most sources are under BSD-3-Clause, except:
+# demosrc/stb_image.h: MIT and/or Unlicense
+# demosrc/stb_image_write.h: MIT and/or Unlicense
+# demosrc/tiny_obj_loader.h: MIT
+# demosrc/trackball.c: SGI-OpenGL
+# demosrc/trackball.h: SGI-OpenGL
+# docs/*.sty: LPPL
+# except:
+# docs/algorithm.sty: LGPL-2.0-or-later
+# docs/algorithmic.sty: LGPL-2.0-or-later
+License: BSD-3-Clause AND MIT AND ( MIT OR Unlicense ) AND LPPL AND SGI-OpenGL AND LGPL-2.0-or-later
 BuildRequires: make
-BuildRequires:  gcc
+BuildRequires: gcc
 BuildRequires: libGL-devel
 BuildRequires: libpng-devel
 BuildRequires: libjpeg-devel
 BuildRequires: latex2html
-BuildRequires: %{_bindir}/dvips
-BuildRequires: %{_bindir}/latex
-BuildRequires: %{_bindir}/pdflatex
+BuildRequires: texlive-dvips
+BuildRequires: texlive-latex
 
 %description
 A portable, high performance parallel ray tracing system with
@@ -70,18 +79,17 @@ This package contains documentation and example scenes for rendering
 with tachyon.
 
 %prep
-%setup -q -n %{name}
-%patch0 -p1 -b .r
-%patch1 -p1 -b .shared
+%autosetup -p1 -n %{name}
 find . -name CVS | xargs rm -r
 # executable sources
 chmod 644 src/hash.{c,h}
 chmod 644 src/pngfile.h
 chmod 644 demosrc/spaceball.c
 chmod 644 demosrc/trackball.{c,h}
-chmod 644 scenes/imaps/*
+# delete private symlinks
+rm -v scenes/{imaps,tpoly,vol}
 # work around unsupported -m32 gcc option
-%ifarch armv7hl aarch64
+%ifarch aarch64
 sed -i -e 's/-m32 //g' unix/Make-arch
 sed -i -e 's/-m64 //g' unix/Make-arch
 %endif
@@ -111,7 +119,6 @@ echo ".so tachyon.1" > $RPM_BUILD_ROOT%{_mandir}/man1/tachyon-ogl.1
 cp -a compile/%{target}-thr/libtachyon*.so $RPM_BUILD_ROOT%{_libdir}/
 install -pm644 src/{hash,tachyon{,_dep},util}.h $RPM_BUILD_ROOT%{_includedir}/tachyon/
 
-
 %files
 %attr(755,root,root) %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
@@ -133,6 +140,13 @@ install -pm644 src/{hash,tachyon{,_dep},util}.h $RPM_BUILD_ROOT%{_includedir}/ta
 %{_datadir}/tachyon
 
 %changelog
+* Fri Jan 17 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.99.5-1
+- update to 0.99.5
+- avoid using obsolete patchN macro
+- rebase patches and drop unused hunks
+- enumerate licenses and update License: tag
+- use package names instead of file references in BuildRequires
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.99-0.31.b6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

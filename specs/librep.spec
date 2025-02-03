@@ -1,6 +1,6 @@
 Name:           librep
 Version:        0.92.7
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        A lightweight Lisp environment
 License:        GPL-2.0-or-later
 URL:            http://sawfish.wikia.com/
@@ -12,6 +12,7 @@ BuildRequires:  gmp-devel
 BuildRequires:  gdbm-devel
 BuildRequires:  readline-devel
 BuildRequires:  libffi-devel
+BuildRequires:  libxcrypt-devel
 BuildRequires:  autoconf
 BuildRequires:  libtool
 BuildRequires:  texinfo
@@ -92,6 +93,9 @@ find %{buildroot}%{_libdir} -name \*.la -exec rm '{}' \;
 
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 0.92.7-27
+- Add explicit BR: libxcrypt-devel
+
 * Mon Jan 27 2025 Kim B. Heino <b@bbbs.net> - 0.92.7-26
 - Fix build on Fedora 42
 - Resolves: rhbz#2341627

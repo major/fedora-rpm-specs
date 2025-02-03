@@ -17,7 +17,7 @@
 
 Name: openldap
 Version: 2.6.9
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: LDAP support libraries
 License: OLDAP-2.8
 URL: http://www.openldap.org/
@@ -62,6 +62,7 @@ BuildRequires: groff
 BuildRequires: krb5-devel
 BuildRequires: libtool-ltdl-devel
 BuildRequires: libevent-devel
+BuildRequires: libxcrypt-devel
 BuildRequires: make
 BuildRequires: openssl-devel
 BuildRequires: perl(ExtUtils::Embed)
@@ -554,6 +555,9 @@ exit 0
 %endif
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 2.6.9-4
+- Add explicit BR: libxcrypt-devel
+
 * Fri Jan 24 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.6.9-3
 - Adjust file patterns for the sbin merge
 

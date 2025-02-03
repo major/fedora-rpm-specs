@@ -12,6 +12,7 @@ BuildRequires:	gcc-go
 BuildRequires:	libacl-devel
 BuildRequires:	libcap-devel
 BuildRequires:	libseccomp-devel
+BuildRequires:  libxcrypt-devel
 
 Requires:	tlpi-licenses
 

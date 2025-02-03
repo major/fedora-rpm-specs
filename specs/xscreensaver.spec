@@ -12,7 +12,7 @@
 %define split_getimage   1
 %endif
 
-%define baserelease    4
+%define baserelease    5
 
 %global use_clang_as_cc 0
 %global use_clang_analyze 0
@@ -154,6 +154,7 @@ BuildRequires:   gettext
 BuildRequires:   libtool
 BuildRequires:   pam-devel > %{pam_ver}
 BuildRequires:   sed
+BuildRequires:   libxcrypt-devel
 # Use pseudo symlink
 # BuildRequires:   xdg-utils
 BuildRequires:   xorg-x11-proto-devel
@@ -1193,6 +1194,9 @@ exit 0
 %endif
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1:6.09-5
+- Add explicit BR: libxcrypt-devel
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.09-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

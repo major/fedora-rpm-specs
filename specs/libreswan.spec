@@ -58,6 +58,7 @@ BuildRequires: libcap-ng-devel
 BuildRequires: libevent-devel
 BuildRequires: libseccomp-devel
 BuildRequires: libselinux-devel
+BuildRequires: libxcrypt-devel
 BuildRequires: make
 BuildRequires: nspr-devel
 BuildRequires: nss-devel >= %{nss_version}

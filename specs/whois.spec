@@ -32,6 +32,7 @@ BuildConflicts: pkgconfig(libidn2)
 %endif
 %if %{with whois_enables_mkpasswd}
 BuildRequires:  pkgconfig(libxcrypt) >= 4.1
+BuildRequires:  libxcrypt-devel
 %endif
 BuildRequires:  make
 BuildRequires:  perl-interpreter

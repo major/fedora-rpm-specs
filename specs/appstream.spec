@@ -2,19 +2,16 @@
 
 Summary: Utilities to generate, maintain and access the AppStream database
 Name:    appstream
-Version: 1.0.2
-Release: 5%{?dist}
+Version: 1.0.4
+Release: 1%{?dist}
 
 # lib LGPLv2+, tools GPLv2+
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 #URL:     http://www.freedesktop.org/wiki/Distributions/AppStream
 URL:     https://github.com/ximion/appstream
-Source0: http://www.freedesktop.org/software/appstream/releases/AppStream-%{version}.tar.xz
+Source0: https://www.freedesktop.org/software/appstream/releases/AppStream-%{version}.tar.xz
 
 # upstream patches
-# https://github.com/PackageKit/PackageKit/issues/720
-Patch0:  utils-explicitly-set-format-style-when-installing-catalog-metadata.patch
-
 
 # upstreamable patches
 
@@ -202,6 +199,9 @@ mv %{buildroot}%{_datadir}/metainfo/*.xml \
 
 
 %changelog
+* Sun Jan 19 2025 Pavel Solovev <daron439@gmail.com> - 1.0.4-1
+- Update to 1.0.4
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

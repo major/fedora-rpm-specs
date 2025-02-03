@@ -7,7 +7,7 @@
 
 Name:           conserver
 Version:        8.2.7
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Serial console server daemon/client
 
 License:        BSD-3-Clause AND Zlib
@@ -34,6 +34,7 @@ BuildRequires:  freeipmi-devel
 BuildRequires:  gcc
 BuildRequires:  gnupg2
 BuildRequires:  krb5-devel
+BuildRequires:  libxcrypt-devel
 BuildRequires:  make
 BuildRequires:  openssl-devel
 BuildRequires:  pam-devel
@@ -118,6 +119,9 @@ install -D -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/conserver.service
 %{_mandir}/man1/console.1*
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 8.2.7-12
+- Add explicit BR: libxcrypt-devel
+
 * Tue Jan 21 2025 Lukáš Zaoral <lzaoral@redhat.com> - 8.2.7-11
 - fix FTBFS with GCC 15 in C23 mode
 

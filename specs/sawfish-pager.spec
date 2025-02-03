@@ -1,6 +1,6 @@
 Name:           sawfish-pager
 Version:        0.90.4
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Pager for Sawfish window manager
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -11,6 +11,7 @@ BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  gmp-devel
 BuildRequires:  gtk2-devel
+BuildRequires:  libxcrypt-devel
 BuildRequires:  sawfish-devel >= 1.8.1
 Requires:       sawfish >= 1.8.1
 
@@ -44,6 +45,9 @@ make %{?_smp_mflags}
 
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 0.90.4-27
+- Add explicit BR: libxcrypt-devel
+
 * Mon Jan 27 2025 Kim B. Heino <b@bbbs.net> - 0.90.4-26
 - Rebuild for sawfish rebuild
 - Resolves: rhbz#2341323

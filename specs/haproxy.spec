@@ -8,7 +8,7 @@
 
 Name:           haproxy
 Version:        3.0.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        HAProxy reverse proxy for high availability environments
 
 License:        GPL-2.0-or-later
@@ -23,6 +23,7 @@ Source5:        %{name}.sysusers
 Source6:        halog.1
 
 BuildRequires:  gcc
+BuildRequires:  libxcrypt-devel
 BuildRequires:  lua-devel
 BuildRequires:  pcre2-devel
 BuildRequires:  openssl-devel
@@ -127,6 +128,9 @@ done
 %{_sysusersdir}/%{name}.conf
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 3.0.5-3
+- Add explicit BR: libxcrypt-devel
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

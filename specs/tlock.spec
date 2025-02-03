@@ -1,6 +1,6 @@
 Name:           tlock
 Version:        1.6
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Terminal lock
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -10,6 +10,7 @@ Source0:        http://pjp.dgplug.org/tools/%{name}-%{version}.tar.gz
 Patch0:         tlock-c99.patch
 
 BuildRequires: make
+BuildRequires: libxcrypt-devel
 BuildRequires:  gcc
 BuildRequires:  ncurses-devel pam-devel
 
@@ -54,6 +55,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/librpass.la
 %_mandir/man3/*
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1.6-24
+- Add explicit BR: libxcrypt-devel
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

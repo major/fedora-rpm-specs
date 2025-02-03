@@ -9,7 +9,7 @@
 
 Name:           frr
 Version:        10.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Routing daemon
 License:        GPL-2.0-or-later AND ISC AND LGPL-2.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND (GPL-2.0-or-later  OR ISC) AND MIT
 URL:            http://www.frrouting.org
@@ -48,6 +48,7 @@ BuildRequires:  grpc-plugins
 BuildRequires:  json-c-devel
 BuildRequires:  libcap-devel
 BuildRequires:  libtool
+BuildRequires:  libxcrypt-devel
 BuildRequires:  libyang-devel >= 2.0.0
 BuildRequires:  make
 BuildRequires:  ncurses
@@ -283,6 +284,9 @@ rm tests/lib/*grpc*
 %endif
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 10.2.1-2
+- Add explicit BR: libxcrypt-devel
+
 * Thu Jan 30 2025 Michal Ruprich <mruprich@redhat.com> - 10.2.1-1
 - New version 10.2.1
 

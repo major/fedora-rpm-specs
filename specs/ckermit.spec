@@ -3,7 +3,7 @@
 Summary:       The quintessential all-purpose communications program
 Name:          ckermit
 Version:       9.0.%{patchlevel}
-Release:       37%{?dist}
+Release:       38%{?dist}
 # Most of the package is under a three-clause BSD license, but the file
 # ckaut2.h appears to be covered by three licenses:
 #   The blanket license in COPYING.TXT and ckcmai.c, which is BSD three-clause
@@ -31,6 +31,7 @@ BuildRequires: gmp-devel >= 3.1.1
 BuildRequires: ncurses-devel
 BuildRequires: lockdev-devel >= 1.0.1-8
 BuildRequires: make
+BuildRequires: libxcrypt-devel
 
 Requires:      lockdev >= 1.0.1-8
 # NB There used to be a spurious "Obsoletes: gkermit" line here, but ckermit
@@ -89,6 +90,9 @@ install -D -m 0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/kermit/ckermit.phone
 %{_mandir}/man1/kermit.1*
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 9.0.302-38
+- Add explicit BR: libxcrypt-devel
+
 * Wed Jan 22 2025 David Cantrell <dcantrell@redhat.com> - 9.0.302-37
 - Add '-ansi -D_DEFAULT_SOURCE' to KFLAG variable to fix FTBFS (#2339971)
 

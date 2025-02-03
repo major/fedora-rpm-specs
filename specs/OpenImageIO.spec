@@ -1,9 +1,10 @@
 %undefine __cmake_in_source_build
-%global sover 3.0
+%global sover 2.5
 
 Name:           OpenImageIO
-Version:        3.0.0.3
-Release:        2%{?dist}
+Version:        2.5.16.0
+Release:        4%{?dist}
+Epoch:          1
 Summary:        Library for reading and writing images
 
 License:        BSD-3-Clause AND MIT
@@ -83,7 +84,7 @@ classes, utilities, and applications. Main features include:
 
 %package -n python3-openimageio
 Summary:        Python 3 bindings for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 %{?python_provide:%python_provide python3-openimageio}
 
 %description -n python3-openimageio
@@ -92,7 +93,7 @@ Python bindings for %{name}.
 
 %package utils
 Summary:        Command line utilities for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description utils
 Command-line tools to manipulate and get information on images using the
@@ -101,7 +102,7 @@ Command-line tools to manipulate and get information on images using the
 
 %package iv
 Summary:        %{name} based image viewer
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description iv
 A really nice image viewer, iv, based on %{name} classes (and so will work
@@ -110,11 +111,11 @@ with any formats for which plugins are available).
 
 %package devel
 Summary:        Documentation for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 # The next two are required due to the binaries having cmake targets exported, see:
 # https://bugzilla.redhat.com/show_bug.cgi?id=1959632
-Requires:       %{name}-iv%{?_isa} = %{version}-%{release}
-Requires:       %{name}-utils%{?_isa} = %{version}-%{release}
+Requires:       %{name}-iv%{?_isa} = %{epoch}:%{version}-%{release}
+Requires:       %{name}-utils%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:       opencv-devel
 %if 0%{?fedora} > 34
 Requires:       cmake(OpenEXR)
@@ -207,6 +208,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Tue Jan 28 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1:2.5.16.0-4
+- Roll back to 2.5.16.0 and add an Epoch
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

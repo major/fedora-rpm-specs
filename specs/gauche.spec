@@ -12,7 +12,7 @@
 
 Name:			gauche
 Version:		0.9.12
-Release:		8%{?dist}
+Release:		9%{?dist}
 Summary:		Scheme script interpreter with multibyte character handling
 
 License:		BSD-3-Clause AND MIT
@@ -26,6 +26,7 @@ ExcludeArch:	armv7hl
 
 BuildRequires:	gcc
 BuildRequires:	gdbm-devel
+BuildRequires:  libxcrypt-devel
 BuildRequires:	make
 BuildRequires:	mbedtls-devel
 BuildRequires:	openssl
@@ -163,6 +164,9 @@ LD_LIBRARY_PATH=`pwd`/src make check
 
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 0.9.12-9
+- Add explicit BR: libxcrypt-devel
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.12-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

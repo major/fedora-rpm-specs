@@ -21,6 +21,7 @@ BuildRequires: make
 BuildRequires: audit-libs-devel >= 1.0.6
 BuildRequires: gettext-devel
 BuildRequires: libselinux-devel
+BuildRequires: libxcrypt-devel
 BuildRequires: ncurses-devel
 BuildRequires: readline-devel
 BuildRequires: pam-devel

@@ -125,7 +125,7 @@
 
 Name:           pidgin
 Version:        2.14.13
-Release:        6%{?dist}
+Release:        7%{?dist}
 # Automatically converted from old format: BSD and GPLv2+ and GPLv2 and LGPLv2+ and MIT - review is highly recommended.
 License:        LicenseRef-Callaway-BSD AND GPL-2.0-or-later AND GPL-2.0-only AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-MIT
 # GPLv2+ - libpurple, finch, pidgin, most prpls
@@ -175,6 +175,7 @@ Summary:        A Gtk+ based multiprotocol instant messaging client
 # bogus value wont make it into a real package
 %global glib_ver %(pkg-config --modversion glib-2.0 2>/dev/null || echo -n "999" | cut -d. -f 1,2)
 BuildRequires: make
+BuildRequires: libxcrypt-devel
 BuildRequires:  glib2-devel
 Requires:       glib2 >= %{glib_ver}
 # Require exact libpurple
@@ -700,6 +701,9 @@ find %{buildroot}/%{_libdir}/purple-2 -name \*.so\* -printf '%f|' | sed -e 's/|$
 %endif
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 2.14.13-7
+- Add explicit BR: libxcrypt-devel
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.13-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

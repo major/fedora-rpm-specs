@@ -25,6 +25,7 @@ BuildRequires:	lksctp-tools-devel
 BuildRequires:	libatomic
 BuildRequires:	zlib-devel
 BuildRequires:	Judy-devel
+BuildRequires:  libxcrypt-devel
 
 %description
 Stress test a computer system in various ways. It was designed to exercise

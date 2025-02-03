@@ -6,7 +6,7 @@
 
 Name:           libapreq2
 Version:        2.17
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Apache HTTP request library
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -31,6 +31,7 @@ BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  mod_perl-devel >= 2.0.0-0.rc5
 BuildRequires: make
+BuildRequires: libxcrypt-devel
 Requires:       httpd-mmn = %{_httpd_mmn}
 Provides:       libapreq = %{version}-%{release}
 
@@ -172,6 +173,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 2.17-11
+- Add explicit BR: libxcrypt-devel
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.17-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

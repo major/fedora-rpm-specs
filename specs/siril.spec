@@ -2,11 +2,11 @@
 ExcludeArch:    %{ix86}
 
 %global forgeurl https://gitlab.com/free-astro/siril
-%global commit 764f1ca02a40c33bf5b2fd2a6a078e7a24242e01
+%global commit 94c459464fcad5bdf773bf56ead9c9b62096ce11
 %forgemeta
 
 Name:           siril
-Version:        1.3.3
+Version:        1.3.6
 Release:        %autorelease
 Summary:        Astronomical image processing software
 
@@ -27,8 +27,6 @@ License:        GPL-3.0-or-later AND GPL-2.0-or-later AND BSL-1.0 AND Zlib
 URL:            https://siril.org
 Source:         %{forgesource}
 
-#Patch1:         siril-1.0.2-opencv_flann.patch
-
 BuildRequires:  make
 BuildRequires:  cmake
 BuildRequires:  curl-devel
@@ -45,7 +43,8 @@ BuildRequires:  pkgconfig(ffms2)
 BuildRequires:  pkgconfig(fftw3)
 BuildRequires:  pkgconfig(gsl)
 BuildRequires:  pkgconfig(gtk+-3.0)
-BuildRequires:  pkgconfig(json-glib-1.0)
+BuildRequires:  pkgconfig(gtksourceview-4)
+BuildRequires:  pkgconfig(healpix_cxx)
 BuildRequires:  pkgconfig(libconfig)
 BuildRequires:  pkgconfig(libgit2)
 BuildRequires:  pkgconfig(libheif)
@@ -57,10 +56,13 @@ BuildRequires:  pkgconfig(libjxl)
 BuildRequires:  pkgconfig(libxisf)
 BuildRequires:  pkgconfig(rtprocess)
 BuildRequires:  pkgconfig(opencv)
+BuildRequires:  pkgconfig(yyjson)
 BuildRequires:  pkgconfig(wcslib)
 
 Recommends:     gvfs
+Recommends:     python3dist(astropy-healpix)
 
+Provides:       bundled(htmesh) = 1.0.0
 Provides:       bundled(kplot) = 0.1.14
 
 %description

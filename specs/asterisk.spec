@@ -51,7 +51,7 @@
 Summary:          The Open Source PBX
 Name:             asterisk
 Version:          18.12.1
-Release:          %{?_rc||?_beta:0.}1%{?_rc:.rc%{_rc}}%{?_beta:.beta%{_beta}}%{?dist}.12
+Release:          %{?_rc||?_beta:0.}1%{?_rc:.rc%{_rc}}%{?_beta:.beta%{_beta}}%{?dist}.13
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:          GPL-2.0-only
 URL:              http://www.asterisk.org/
@@ -113,6 +113,7 @@ BuildRequires:    autoconf
 BuildRequires:    automake
 BuildRequires:    gcc
 BuildRequires:    gcc-c++
+BuildRequires:    libxcrypt-devel
 BuildRequires:    ncurses
 BuildRequires:    perl
 
@@ -1695,6 +1696,9 @@ fi
 %endif
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 18.12.1-1.13
+- Add explicit BR: libxcrypt-devel
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 18.12.1-1.12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

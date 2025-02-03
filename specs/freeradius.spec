@@ -1,7 +1,7 @@
 Summary: High-performance and highly configurable free RADIUS server
 Name: freeradius
 Version: 3.2.5
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: http://www.freeradius.org/
 
@@ -49,6 +49,7 @@ BuildRequires: systemd-units
 BuildRequires: libtalloc-devel
 BuildRequires: chrpath
 BuildRequires: systemd-rpm-macros
+BuildRequires: libxcrypt-devel
 
 %if ! 0%{?rhel}
 BuildRequires: libyubikey-devel
@@ -902,6 +903,9 @@ EOF
 %attr(640,root,radiusd) %config(noreplace) /etc/raddb/mods-available/rest
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 3.2.5-6
+- Add explicit BR: libxcrypt-devel
+
 * Thu Jan 23 2025 Antonio Torres <antorres@redhat.com> - 3.2.5-5
 - Fix usage of /usr/sbin according to https://fedoraproject.org/wiki/Changes/Unify_bin_and_sbin
 

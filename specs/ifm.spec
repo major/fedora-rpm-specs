@@ -4,21 +4,24 @@ Release:        1%{?dist}
 Summary:        Interactive Fiction Mapper
 
 License:        GPL-2.0-or-later
-URL:            http://www.sentex.net/~dchapes/ifm/
-Source0:        http://www.ifarchive.org/if-archive/mapping-tools/ifm-%{version}.tar.gz
+URL:            https://git.sr.ht/~zondo/ifm
+Source0:        https://git.sr.ht/~zondo/ifm/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        ifm.sh
 Patch1:         ifm-5.4-destdir.patch
 Patch2:         0003-Rename-dumb-frotz-to-dfrotz.patch
+# Submitted upstream to maintainer zondo42@gmail.com
+Patch3:         ifm-5.5-libvars_vfuncs.patch
 
 BuildRequires:  gcc
+BuildRequires:  make
+BuildRequires:  automake
 BuildRequires:  flex
-BuildRequires:  perl-generators
 BuildRequires:  tk
 BuildRequires:  zlib-devel
-BuildRequires:  automake
+BuildRequires:  perl-generators
+BuildRequires:  python3-devel
 BuildRequires:  vim-filesystem
 BuildRequires:  emacs-common
-BuildRequires: make
 
 # For dfrotz, used by rec2scr.pl
 Recommends:     frotz

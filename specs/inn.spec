@@ -3,7 +3,7 @@
 Summary: The InterNetNews system, an Usenet news server
 Name: inn
 Version: 2.7.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 # most files are under ISC, except:
 # contrib/analyze-traffic.in: public-domain
 # contrib/mm_ckpasswd: GPL-2.0-or-later
@@ -52,6 +52,7 @@ BuildRequires: gcc
 BuildRequires: gdbm-devel
 BuildRequires: krb5-devel
 BuildRequires: libdb-devel
+BuildRequires: libxcrypt-devel
 BuildRequires: openssl
 BuildRequires: openssl-devel
 BuildRequires: pam-devel
@@ -586,6 +587,9 @@ fi
 %{_mandir}/man1/inews*
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 2.7.2-3
+- Add explicit BR: libxcrypt-devel
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

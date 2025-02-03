@@ -6,7 +6,7 @@
 
 Name:           tog-pegasus
 Version:        %{major_ver}.1
-Release:        78%{?dist}
+Release:        79%{?dist}
 Epoch:          2
 Summary:        OpenPegasus WBEM Services for Linux
 
@@ -117,6 +117,7 @@ BuildRequires:  procps, libstdc++, pam-devel
 BuildRequires:  openssl, openssl-devel
 BuildRequires:  bash, sed, grep, coreutils, procps, gcc, gcc-c++
 BuildRequires:  libstdc++, make, pam-devel
+BuildRequires:  libxcrypt-devel
 BuildRequires:  openssl-devel
 BuildRequires:  net-snmp-devel, openslp-devel
 BuildRequires:  systemd-units systemd-rpm-macros
@@ -575,6 +576,9 @@ fi
 
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 2:2.14.1-79
+- Add explicit BR: libxcrypt-devel
+
 * Mon Jan 27 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 2:2.14.1-78
 - Fix installation (bin and sbin unify)
 

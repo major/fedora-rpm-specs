@@ -13,6 +13,7 @@ URL:            https://regina-rexx.sourceforge.io
 Source:         https://sourceforge.net/projects/%{name}/files/%{name}/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
+BuildRequires:  libxcrypt-devel
 BuildRequires:  make
 BuildRequires:  ncurses-devel
 BuildRequires:  readline-devel

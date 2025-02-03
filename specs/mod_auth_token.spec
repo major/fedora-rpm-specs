@@ -1,6 +1,6 @@
 Name:           mod_auth_token
 Version:        1.0.5
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Token based URI access module for Apache
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -20,6 +20,7 @@ BuildRequires:  gcc
 BuildRequires:  httpd-devel
 BuildRequires:  libtool
 BuildRequires:  make
+BuildRequires:  libxcrypt-devel
 
 %description
 mod_auth_token allows you to generate URIS for a determined
@@ -55,6 +56,9 @@ autoreconf -fiv
 
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1.0.5-38
+- Add explicit BR: libxcrypt-devel
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

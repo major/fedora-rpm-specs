@@ -9,6 +9,7 @@ License:        MIT
 URL:            http://luaforge.net/projects/luaposix/
 Source0:        https://github.com/luaposix/luaposix/archive/v%{version}/lua-posix-%{version}.tar.gz
 BuildRequires:  gcc
+BuildRequires:  libxcrypt-devel
 BuildRequires:  lua-devel
 %{?lua_requires}
 

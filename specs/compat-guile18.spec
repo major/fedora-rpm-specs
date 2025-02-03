@@ -4,7 +4,7 @@
 Summary: A GNU implementation of Scheme for application extensibility
 Name: compat-guile18
 Version: %{mver}.8
-Release: 46%{?dist}
+Release: 47%{?dist}
 Source: ftp://ftp.gnu.org/pub/gnu/guile/guile-%{version}.tar.gz
 URL: http://www.gnu.org/software/guile/
 Patch1: guile-1.8.7-multilib.patch
@@ -18,6 +18,7 @@ BuildRequires: gcc libtool libtool-ltdl-devel gmp-devel readline-devel
 BuildRequires: gettext-devel
 BuildRequires: make
 BuildRequires: chrpath
+BuildRequires: libxcrypt-devel
 %{?with_emacs:BuildRequires: emacs}
 Provides: guile = 5:%{version}-7
 Provides: guile%{?_isa} = 5:%{version}-7
@@ -186,6 +187,9 @@ fi
 %{_includedir}/libguile.h
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1.8.8-47
+- Add explicit BR: libxcrypt-devel
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.8-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -44,7 +44,7 @@
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: %{openssh_rel}%{?dist}
+Release: %{openssh_rel}%{?dist}.1
 URL: http://www.openssh.com/portable.html
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz.asc
@@ -224,6 +224,7 @@ BuildRequires: systemd-rpm-macros
 BuildRequires: gcc make
 BuildRequires: p11-kit-devel
 BuildRequires: libfido2-devel
+BuildRequires: libxcrypt-devel
 Recommends: p11-kit
 Obsoletes: openssh-ldap < 8.3p1-4
 Obsoletes: openssh-cavs < 8.4p1-5
@@ -662,6 +663,9 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 9.9p1-8.1
+- Add explicit BR: libxcrypt-devel
+
 * Wed Jan 29 2025 FeRD (Frank Dana) <ferdnyc@gmail.com> - 9.9p1-8
 - Replace deprecated (since 8.7) ChallengeResponseAuthentication
   with KbdInteractiveAuthentication, in redhat sshd config

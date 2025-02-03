@@ -4,7 +4,7 @@
 %global goipath kitty
 
 Name:           kitty
-Version:        0.39.0
+Version:        0.39.1
 Release:        %autorelease
 Summary:        Cross-platform, fast, feature full, GPU based terminal emulator
 
@@ -30,8 +30,6 @@ Source4:        go-vendor-tools.toml
 # * https://github.com/kovidgoyal/kitty/pull/2088
 Source5:        https://raw.githubusercontent.com/kovidgoyal/kitty/46c0951751444e4f4994008f0d2dcb41e49389f4/kitty/data/%{name}.appdata.xml
 Source6:        https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/NerdFontsSymbolsOnly.tar.xz
-
-Patch:          https://github.com/kovidgoyal/kitty/commit/0ffaaff8a7ed72184f85992c842e482b7f3c1c3a.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

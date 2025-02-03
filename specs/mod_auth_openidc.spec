@@ -15,7 +15,7 @@
 
 Name:		mod_auth_openidc
 Version:	2.4.16.6
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	OpenID Connect auth module for Apache HTTP Server
 
 License:	Apache-2.0
@@ -23,6 +23,7 @@ URL:		https://github.com/OpenIDC/mod_auth_openidc
 Source0:	https://github.com/OpenIDC/mod_auth_openidc/releases/download/v%{version}/mod_auth_openidc-%{version}.tar.gz
 
 BuildRequires: make
+BuildRequires: libxcrypt-devel
 BuildRequires:  gcc
 BuildRequires:	httpd-devel
 BuildRequires:	openssl-devel
@@ -96,6 +97,9 @@ install -m 700 -d $RPM_BUILD_ROOT%{httpd_pkg_cache_dir}/cache
 %dir %attr(0700, apache, apache) %{httpd_pkg_cache_dir}/cache
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 2.4.16.6-3
+- Add explicit BR: libxcrypt-devel
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.16.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

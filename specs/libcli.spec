@@ -1,6 +1,6 @@
 Name: libcli
 Version: 1.10.7
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: A shared library for a Cisco-like cli
 License: LGPL-2.1-or-later
 URL: http://sites.dparrish.com/libcli
@@ -15,6 +15,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 BuildRequires:  gcc
 BuildRequires: make
+BuildRequires: libxcrypt-devel
 %description
 Libcli provides a shared library for including a Cisco-like command-line 
 interface into other software. It's a telnet interface which supports 
@@ -58,6 +59,9 @@ ln -s %{_libdir}/libcli.so.1.10 %{buildroot}%{_libdir}/libcli.so
 %{_includedir}/*.h
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1.10.7-11
+- Add explicit BR: libxcrypt-devel
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.7-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

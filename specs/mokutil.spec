@@ -1,6 +1,6 @@
 Name:           mokutil
 Version:        0.7.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Epoch:          2
 Summary:        Tool to manage UEFI Secure Boot MoK Keys
 License:        GPL-3.0-or-later
@@ -19,6 +19,7 @@ BuildRequires:  keyutils-libs-devel
 BuildRequires:  make
 BuildRequires:  openssl
 BuildRequires:  openssl-devel
+BuildRequires:  libxcrypt-devel
 Conflicts:      shim < 0.8-1%{?dist}
 Obsoletes:      mokutil < 0.2.0
 
@@ -47,6 +48,9 @@ mokutil provides a tool to manage keys for Secure Boot through the MoK
 %{_datadir}/bash-completion/completions/mokutil
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org>
+- Add explicit BR: libxcrypt-devel
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

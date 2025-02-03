@@ -7,7 +7,7 @@
 Name:           libprometheus-cpp
 Summary:        Prometheus Client Library for Modern C++
 Version:        1.2.4
-Release:        4%{?dev:%{dev}}%{?dist}
+Release:        5%{?dev:%{dev}}%{?dist}
 License:        MIT AND 0BSD
 Url:            https://github.com/jupp0r/%{githubname}
 Source:         %{url}/archive/v%{version}/%{tarball}-%{version}.tar.gz
@@ -17,6 +17,7 @@ BuildRequires:  civetweb-devel
 BuildRequires:  zlib-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  gmock-devel
+BuildRequires:  libxcrypt-devel
 
 %description
 This library aims to enable Metrics-Driven Development for C++ services. It
@@ -63,6 +64,9 @@ export GCC_COLORS=
 %{_libdir}/pkgconfig/%{githubname}-*.pc
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1.2.4-5
+- Add explicit BR: libxcrypt-devel
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

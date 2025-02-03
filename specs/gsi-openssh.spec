@@ -29,7 +29,7 @@
 Summary: An implementation of the SSH protocol with GSI authentication
 Name: gsi-openssh
 Version: %{openssh_ver}
-Release: %{openssh_rel}%{?dist}
+Release: %{openssh_rel}%{?dist}.1
 Provides: gsissh = %{version}-%{release}
 Obsoletes: gsissh < 5.8p2-2
 URL: http://www.openssh.com/portable.html
@@ -199,6 +199,7 @@ BuildRequires: systemd-rpm-macros
 BuildRequires: gcc make
 BuildRequires: p11-kit-devel
 BuildRequires: libfido2-devel
+BuildRequires: libxcrypt-devel
 Recommends: p11-kit
 
 %if %{kerberos5}
@@ -571,6 +572,9 @@ fi
 %ghost %attr(0644,root,root) %{_localstatedir}/lib/.gsissh-host-keys-migration
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 9.9p1-1.1
+- Add explicit BR: libxcrypt-devel
+
 * Mon Jan 20 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.9p1-1
 - Based on openssh-9.9p1-5.fc42 / openssh-9.9p1-1.fc41
 

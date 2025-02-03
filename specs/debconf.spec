@@ -185,6 +185,13 @@ for man in get-selections \
         install -m 644 doc/man/gen/debconf-$man.1 %{buildroot}/%{_mandir}/man1/debconf-$man.1
 done
 
+# Fix sbin merge for all releases
+%if "%{_sbindir}" == "%{_bindir}"
+     mkdir -p %{buildroot}%{_bindir}
+     mv %{buildroot}/usr/sbin/* %{buildroot}%{_bindir}
+%endif
+
+
 %find_lang debconf
 
 %files
@@ -267,6 +274,7 @@ done
 %changelog
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.87-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+- Fix sbin merge for all releases
 
 * Tue Jan 07 2025 Sérgio Basto <sergio@serjux.com> - 1.5.87-2
 - Drop debconf-gnome on epel 10 because we don't have perl-GTK3 package

@@ -60,6 +60,7 @@ Requires: /usr/sbin/sendmail
 
 BuildRequires: gcc
 BuildRequires: make
+BuildRequires: libxcrypt-devel
 
 %description
 Alpine -- an Alternatively Licensed Program for Internet

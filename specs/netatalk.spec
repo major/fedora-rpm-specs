@@ -1,7 +1,7 @@
 Name:              netatalk
 Epoch:             5
 Version:           4.0.8
-Release:           2%{?dist}
+Release:           3%{?dist}
 Summary:           Open Source Apple Filing Protocol(AFP) File Server
 # Automatically converted from old format: GPL+ and GPLv2 and GPLv2+ and LGPLv2+ and BSD and FSFUL and MIT - review is highly recommended.
 License:           GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD AND FSFUL AND LicenseRef-Callaway-MIT
@@ -34,6 +34,7 @@ BuildRequires:     libgcrypt-devel
 BuildRequires:     libretls-devel
 BuildRequires:     libtalloc-devel
 BuildRequires:     libtdb-devel
+BuildRequires:     libxcrypt-devel
 BuildRequires:     libxslt
 BuildRequires:     mariadb-connector-c-devel
 BuildRequires:     meson
@@ -348,6 +349,9 @@ find %{buildroot} \( -name '*.la' -o -name '*.a' \) -type f -delete -print
 %doc %{_pkgdocdir}/htmldocs
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 5:4.0.8-3
+- Add explicit BR: libxcrypt-devel
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5:4.0.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

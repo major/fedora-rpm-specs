@@ -9,7 +9,7 @@
 
 Name: crossfire
 Version: 1.71.0
-Release: 30%{?dist}
+Release: 31%{?dist}
 Summary: Server for hosting crossfire games
 # All files GPLv2+ except server/daemon.c which also has MIT attributions
 License: GPL-2.0-or-later and MIT
@@ -41,6 +41,7 @@ BuildRequires:  python3-devel
 BuildRequires:  autoconf flex
 BuildRequires:  systemd-rpm-macros
 BuildRequires: make
+BuildRequires: libxcrypt-devel
 Requires: %{name}-plugins
 
 Requires(post): systemd
@@ -338,6 +339,9 @@ fi
 
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1.71.0-31
+- Add explicit BR: libxcrypt-devel
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.71.0-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

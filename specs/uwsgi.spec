@@ -250,7 +250,7 @@
 
 Name:           uwsgi
 Version:        2.0.28
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -284,6 +284,7 @@ Patch15:        uwsgi_gcc15-signal-handler.patch
 
 BuildRequires:  curl, libxml2-devel, libuuid-devel, jansson-devel
 BuildRequires:  libyaml-devel, ruby-devel
+BuildRequires:  libxcrypt-devel
 %if %{with tcp_wrappers}
 BuildRequires:  tcp_wrappers-devel
 %endif
@@ -1966,6 +1967,9 @@ exit 0
 
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 2.0.28-5
+- Add explicit BR: libxcrypt-devel
+
 * Fri Jan 24 2025 Ralf Ertzinger <ralf@skytale.net> - 2.0.28-4
 - Fix type errors flagged by GCC15
 

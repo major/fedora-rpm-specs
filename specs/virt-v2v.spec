@@ -7,7 +7,7 @@
 Name:          virt-v2v
 Epoch:         1
 Version:       2.7.4
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -56,6 +56,7 @@ BuildRequires: libnbd-devel
 BuildRequires: libosinfo-devel
 BuildRequires: libvirt-daemon-kvm
 BuildRequires: libvirt-devel
+BuildRequires: libxcrypt-devel
 BuildRequires: libxml2-devel
 BuildRequires: pcre2-devel
 BuildRequires: perl(Sys::Guestfs)
@@ -310,6 +311,9 @@ done
 
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1:2.7.4-4
+- Add explicit BR: libxcrypt-devel
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.7.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

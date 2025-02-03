@@ -21,6 +21,14 @@ Source0:  https://github.com/neuronsimulator/%{name}/archive/%{commit}/%{name}-%
 # https://github.com/neuronsimulator/iv/pull/34
 Patch0:   0001-Set-soversion-for-shared-objects-on-Linux-builds.patch
 Patch1:   0002-Use-LIB_INSTALL_DIR-instead-of-hardcoding-lib.patch
+# Avoid function pointers of unspecified arguments
+# https://github.com/neuronsimulator/iv/pull/53
+#
+# Fixes:
+#
+# iv: FTBFS in Fedora rawhide/f42
+# https://bugzilla.redhat.com/show_bug.cgi?id=2300528
+Patch2:   %{url}/pull/53.patch
 
 BuildRequires:  cmake
 BuildRequires:  /usr/bin/libtoolize

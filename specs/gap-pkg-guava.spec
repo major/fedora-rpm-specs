@@ -2,7 +2,7 @@
 %global giturl  https://github.com/gap-packages/guava
 
 Name:           gap-pkg-%{pkgname}
-Version:        3.19
+Version:        3.20
 Release:        %autorelease
 Summary:        Computing with error-correcting codes
 
@@ -12,16 +12,10 @@ ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/guava/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/v%{version}/%{pkgname}-%{version}.tar.gz
-# Enable the optional Sonata code.  Upstream says to uncomment this code if
-# Sonata is available, and that is all this patch does.
-Patch:          %{name}-sonata.patch
 # Patch to fix C compiler warnings that indicate possible runtime problems.
 Patch:          %{name}-warning.patch
 # Use popcount instructions where available.
 Patch:          %{name}-popcount.patch
-# Avoid redefining bool for C23 compatibility
-# https://github.com/jamesjer/guava/commit/3dc3b1a2e1f5935fa105531ad9f4cf604aeefcb1
-Patch:          %{name}-bool.patch
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -32,7 +26,8 @@ BuildRequires:  make
 BuildRequires:  parallel
 
 Requires:       gap-core%{?_isa}
-Requires:       gap-pkg-sonata
+
+Recommends:     gap-pkg-sonata
 
 %global _docdir_fmt %{name}
 
@@ -107,15 +102,21 @@ cp -a *.g bin lib tbl tst %{buildroot}%{gap_archdir}/pkg/%{pkgname}
 %gap_copy_docs
 
 %check
-# The documentation tests cannot be run, as they require breaking out of
-# infinite loops.  See comments about a user interrupt.
+# Tests that generate random values often fail.
+# Only run the deterinistic tests.
 cd tst
 gap -l '%{buildroot}%{gap_archdir};' << EOF
 LoadPackage("guava");
-if Test("guava.tst", rec( compareFunction := "uptowhitespace" ) ) = false then GAP_EXIT_CODE(1); fi;
+if Test("bugfix.tst", rec( compareFunction := "uptowhitespace" ) ) = false then GAP_EXIT_CODE(1); fi;
 if Test("decoding.tst", rec( compareFunction := "uptowhitespace" ) ) = false then GAP_EXIT_CODE(1); fi;
-if Test("hadamard.tst", rec( compareFunction := "uptowhitespace" ) ) = false then GAP_EXIT_CODE(1); fi;
 if Test("external.tst", rec( compareFunction := "uptowhitespace" ) ) = false then GAP_EXIT_CODE(1); fi;
+if Test("guava.tst", rec( compareFunction := "uptowhitespace" ) ) = false then GAP_EXIT_CODE(1); fi;
+if Test("guava01.tst", rec( compareFunction := "uptowhitespace" ) ) = false then GAP_EXIT_CODE(1); fi;
+if Test("guava02.tst", rec( compareFunction := "uptowhitespace" ) ) = false then GAP_EXIT_CODE(1); fi;
+if Test("guava08.tst", rec( compareFunction := "uptowhitespace" ) ) = false then GAP_EXIT_CODE(1); fi;
+if Test("hadamard.tst", rec( compareFunction := "uptowhitespace" ) ) = false then GAP_EXIT_CODE(1); fi;
+if Test("QCLDPCCodeFromGroup.tst", rec( compareFunction := "uptowhitespace" ) ) = false then GAP_EXIT_CODE(1); fi;
+if Test("table.tst", rec( compareFunction := "uptowhitespace" ) ) = false then GAP_EXIT_CODE(1); fi;
 EOF
 
 %files

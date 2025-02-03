@@ -1,5 +1,5 @@
-%global DATE 20250130
-%global gitrev 54feac44230391f6c2cdd77688075cbcb7ce0995
+%global DATE 20250201
+%global gitrev 3e0244fe19596234d3e6cf38c4afa5ca638f4b8d
 %global gcc_version 15.0.1
 %global gcc_major 15
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -143,7 +143,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.5%{?dist}
+Release: %{gcc_release}.6%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -301,7 +301,6 @@ Patch11: gcc15-d-shared-libphobos.patch
 Patch12: gcc15-pr118206.patch
 Patch13: gcc15-pr117231.patch
 Patch14: gcc15-pr118671.patch
-Patch15: gcc15-pr118689.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -919,7 +918,6 @@ so that there cannot be any synchronization problems.
 %patch -P12 -p0 -b .pr118206~
 %patch -P13 -p0 -b .pr117231~
 %patch -P14 -p0 -b .pr118671~
-%patch -P15 -p0 -b .pr118689~
 
 %patch -P50 -p0 -b .rh2155127~
 touch -r isl-0.24/m4/ax_prog_cxx_for_build.m4 isl-0.24/m4/ax_prog_cc_for_build.m4
@@ -2424,28 +2422,20 @@ if [ $1 = 0 ]; then
   %{_sbindir}/update-alternatives --remove go %{_prefix}/bin/go.gcc
 fi
 
+%{?ldconfig:
 # Because glibc Prereq's libgcc and /sbin/ldconfig
 # comes from glibc, it might not exist yet when
 # libgcc is installed
 %post -n libgcc -p <lua>
-if posix.access ("/sbin/ldconfig", "x") then
-  local pid = posix.fork ()
-  if pid == 0 then
-    posix.exec ("/sbin/ldconfig")
-  elseif pid ~= -1 then
-    posix.wait (pid)
-  end
+if posix.access ("%ldconfig", "x") then
+  rpm.execute ("%ldconfig")
 end
 
 %postun -n libgcc -p <lua>
-if posix.access ("/sbin/ldconfig", "x") then
-  local pid = posix.fork ()
-  if pid == 0 then
-    posix.exec ("/sbin/ldconfig")
-  elseif pid ~= -1 then
-    posix.wait (pid)
-  end
+if posix.access ("%ldconfig", "x") then
+  rpm.execute ("%ldconfig")
 end
+}
 
 %ldconfig_scriptlets -n libstdc++
 
@@ -2480,6 +2470,8 @@ end
 %ldconfig_scriptlets -n libtsan
 
 %ldconfig_scriptlets -n liblsan
+
+%ldconfig_scriptlets -n libhwasan
 
 %ldconfig_scriptlets -n libgo
 
@@ -3679,6 +3671,16 @@ end
 %endif
 
 %changelog
+* Sat Feb  1 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.6
+- update from trunk
+  - PRs c++/117501, c++/117516, debug/100530, fortran/108454, fortran/118714,
+	ipa/117432, libstdc++/118156, middle-end/117498, modula2/115032,
+	rtl-optimization/116234, target/113689, target/115673,
+	tree-optimization/114277
+- use rpm.execute instead of posix.fork, posix.exec and posix.wait in libgcc
+  scriptlets; guard them on ldconfig macro existence and use that macro instead
+  of explicit /sbin/ldconfig (#2291927)
+
 * Thu Jan 30 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.5
 - update from trunk
   - PRs c/116357, c++/57533, c++/114292, c++/116524, c++/117855, c++/118239,

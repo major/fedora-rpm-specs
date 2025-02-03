@@ -1,6 +1,6 @@
 Name:           ldapvi
 Version:        1.7
-Release:        50%{?dist}
+Release:        51%{?dist}
 Summary:        An interactive LDAP client
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -29,6 +29,7 @@ Patch10: ldapvi-c99-5.patch
 
 
 BuildRequires: make
+BuildRequires: libxcrypt-devel
 BuildRequires:  gcc
 BuildRequires:  openldap-devel, ncurses-devel, readline-devel, pkgconfig
 BuildRequires:  libxslt, glib2-devel, openssl-devel
@@ -81,6 +82,9 @@ make DESTDIR=%{buildroot} install
 
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1.7-51
+- Add explicit BR: libxcrypt-devel
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 41%{?dist}
+Release: 42%{?dist}
 # Python is Python
 # pip MIT is and bundles:
 #   appdirs: MIT
@@ -266,6 +266,7 @@ BuildRequires: libffi-devel
 BuildRequires: libnsl2-devel
 BuildRequires: libtirpc-devel
 BuildRequires: libGL-devel
+BuildRequires: libxcrypt-devel
 BuildRequires: libX11-devel
 BuildRequires: make
 BuildRequires: ncurses-devel
@@ -2068,6 +2069,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 3.6.15-42
+- Add explicit BR: libxcrypt-devel
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.15-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

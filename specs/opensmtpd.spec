@@ -8,7 +8,7 @@
 Summary:	Free implementation of the server-side SMTP protocol as defined by RFC 5321
 Name:		opensmtpd
 Version:	7.6.0p1
-Release:	3%{?dist}
+Release:	4%{?dist}
 
 License:	ISC
 URL:		http://www.opensmtpd.org/
@@ -27,6 +27,7 @@ BuildRequires:	libdb-devel
 
 BuildRequires:	openssl-devel
 BuildRequires:	libevent-devel
+BuildRequires:  libxcrypt-devel
 BuildRequires:	zlib-devel
 BuildRequires:	coreutils
 BuildRequires:	bison
@@ -256,6 +257,9 @@ exit 0
 
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 7.6.0p1-4
+- Add explicit BR: libxcrypt-devel
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.6.0p1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

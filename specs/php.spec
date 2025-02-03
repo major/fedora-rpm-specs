@@ -66,7 +66,7 @@
 Summary: PHP scripting language for creating dynamic web sites
 Name: php
 Version: %{upver}%{?rcver:~%{rcver}}
-Release: 2%{?dist}
+Release: 3%{?dist}
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
 # TSRM is licensed under BSD
@@ -148,6 +148,7 @@ BuildRequires: smtpdaemon
 BuildRequires: pkgconfig(libedit)
 BuildRequires: pkgconfig(libpcre2-8) >= 10.30
 BuildRequires: pkgconfig(libxcrypt)
+BuildRequires: libxcrypt-devel
 BuildRequires: bzip2
 BuildRequires: perl-interpreter
 BuildRequires: autoconf
@@ -1497,6 +1498,9 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 8.4.4~RC2-3
+- Add explicit BR: libxcrypt-devel
+
 * Fri Jan 31 2025 Remi Collet <remi@remirepo.net> - 8.4.4~RC2-1
 - Update to 8.4.4RC2
 

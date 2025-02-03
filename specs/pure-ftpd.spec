@@ -1,6 +1,6 @@
 Name:       pure-ftpd
 Version:    1.0.51
-Release:    8%{?dist}
+Release:    9%{?dist}
 Summary:    Lightweight, fast and secure FTP server
 # Automatically converted from old format: BSD - review is highly recommended.
 License:    LicenseRef-Callaway-BSD
@@ -19,6 +19,7 @@ Patch1:     0002-fedora-specific-config-file.patch
 Provides:   ftpserver
 BuildRequires: make
 BuildRequires:  pam-devel, libcap-devel
+BuildRequires:  libxcrypt-devel
 %{!?_without_ldap:BuildRequires:  openldap-devel}
 %{!?_without_mysql:BuildRequires: mariadb-connector-c-devel}
 %{!?_without_pgsql:BuildRequires: libpq-devel}
@@ -219,6 +220,9 @@ fi
 
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1.0.51-9
+- Add explicit BR: libxcrypt-devel
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.51-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

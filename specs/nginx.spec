@@ -106,15 +106,20 @@ Patch3:            0004-Disable-ENGINE-support.patch
 # downstream patch - Compile perl module with O2
 Patch4:            0005-Compile-perl-module-with-O2.patch
 
+# Fix for "gzip filter failed to use preallocated memory" alerts
+# https://github.com/zlib-ng/zlib-ng/issues/811
+Patch5:            https://github.com/zlib-ng/patches/raw/5a036c0a00120c75ee573b27f4f44ade80d82ff2/nginx/1.26.2-zlib-ng.patch
+
 BuildRequires:     make
 BuildRequires:     gcc
 BuildRequires:     gnupg2
 %if 0%{?with_gperftools}
 BuildRequires:     gperftools-devel
 %endif
+BuildRequires:     libxcrypt-devel
 BuildRequires:     openssl%{?openssl_pkgversion}-devel
 BuildRequires:     pcre2-devel
-BuildRequires:     zlib-devel
+BuildRequires:     zlib-ng-devel
 
 Requires:          nginx-filesystem = %{epoch}:%{version}-%{release}
 %if 0%{?el7}

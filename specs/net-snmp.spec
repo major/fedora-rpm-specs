@@ -10,7 +10,7 @@
 Summary:    A collection of SNMP protocol tools and libraries
 Name:       net-snmp
 Version:    5.9.4
-Release:    10%{?dist}
+Release:    11%{?dist}
 Epoch:      1
 
 License:    MIT-CMU AND BSD-3-Clause AND MIT
@@ -66,6 +66,7 @@ Requires:        %{name}-agent-libs%{?_isa} = %{epoch}:%{version}-%{release}
 # should fire just after this package is installed.
 %{?systemd_requires}
 BuildRequires: make
+BuildRequires: libxcrypt-devel
 BuildRequires:   systemd
 BuildRequires:   gcc
 BuildRequires:   openssl-devel, bzip2-devel, elfutils-devel
@@ -514,6 +515,9 @@ LD_LIBRARY_PATH=%{buildroot}/%{_libdir} make test
 %{_libdir}/libnetsnmptrapd*.so.%{soname}*
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1:5.9.4-11
+- Add explicit BR: libxcrypt-devel
+
 * Thu Jan 23 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1:5.9.4-10
 - Fix file listings for https://fedoraproject.org/wiki/Changes/Unify_bin_and_sbin
 

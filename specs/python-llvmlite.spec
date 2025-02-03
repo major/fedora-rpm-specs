@@ -5,17 +5,12 @@
 # We can generate PDF documentation as a substitute.
 %bcond doc_pdf 1
 
-# While upstream now supports LLVM 15 on an “experimental” basis, sympy FTBFS
-# when we build with LLVM 15.
-%if 0%{?fedora} && 0%{?fedora} < 41
-%global llvm_compat 14
-%else
-# Still technically “experimental”:
+# For 0.44.0, LLVM 15 is the default. LLVM 16 support is “experimental;” we can
+# try it if we need to.
 %global llvm_compat 15
-%endif
 
 Name:           python-llvmlite
-Version:        0.43.0
+Version:        0.44.0
 Release:        %{autorelease}
 Summary:        Lightweight LLVM Python binding for writing JIT compilers
 
@@ -27,6 +22,11 @@ Summary:        Lightweight LLVM Python binding for writing JIT compilers
 #     830d88d4d89ee5596839de5b2c1f48426488841f:
 #     https://gitlab.com/fedora/legal/fedora-license-data/-/merge_requests/210
 #   - ffi/memorymanager.{h,cpp} are Apache-2.0 WITH LLVM-exception
+License:        %{shrink:
+                BSD-2-Clause AND
+                Apache-2.0 WITH LLVM-exception AND
+                LicenseRef-Fedora-Public-Domain
+                }
 # Additionally, the following does not affect the license of the binary RPMs:
 #   - conda-recipes/appveyor/run_with_env.cmd is CC0-1.0; for distribution in
 #     the source RPM, it is covered by “Existing uses of CC0-1.0 on code files
@@ -34,18 +34,13 @@ Summary:        Lightweight LLVM Python binding for writing JIT compilers
 #     of those files in those packages, continue to be allowed. We encourage
 #     Fedora package maintainers to ask upstreams to relicense such files.”
 #     https://gitlab.com/fedora/legal/fedora-license-data/-/issues/91#note_1151947383
-License:        %{shrink:
-                BSD-2-Clause AND
-                Apache-2.0 WITH LLVM-exception AND
-                LicenseRef-Fedora-Public-Domain
-                }
-
+SourceLicense:  %{license} AND CC0-1.0
 URL:            http://llvmlite.pydata.org/
 %global forgeurl https://github.com/numba/llvmlite
 Source:         %{forgeurl}/archive/v%{version}/llvmlite-%{version}.tar.gz
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-pytest
+BuildRequires:  %{py3_dist pytest}
 
 BuildRequires:  llvm%{llvm_compat}-devel
 BuildRequires:  gcc-c++
@@ -123,11 +118,11 @@ export LLVM_CONFIG="%{_libdir}/llvm%{llvm_compat}/bin/llvm-config"
 # https://github.com/numba/llvmlite/issues/923
 # https://github.com/felixonmars/archriscv-packages/blob/master/python-llvmlite/riscv64.patch
 export PYTEST_ADDOPTS="\
-	--deselect llvmlite/tests/test_binding.py::TestMCJit \
-	--deselect llvmlite/tests/test_binding.py::TestGlobalConstructors \
-	--deselect llvmlite/tests/test_binding.py::TestObjectFile::test_add_object_file \
-	--deselect llvmlite/tests/test_binding.py::TestOrcLLJIT \
-	--deselect llvmlite/tests/test_binding.py::TestDylib::test_bad_library"
+        --deselect llvmlite/tests/test_binding.py::TestMCJit \
+        --deselect llvmlite/tests/test_binding.py::TestGlobalConstructors \
+        --deselect llvmlite/tests/test_binding.py::TestObjectFile::test_add_object_file \
+        --deselect llvmlite/tests/test_binding.py::TestOrcLLJIT \
+        --deselect llvmlite/tests/test_binding.py::TestDylib::test_bad_library"
 %endif
 %{pytest} -vv llvmlite/tests
 %endif

@@ -14,6 +14,7 @@ BuildRequires:  flex
 BuildRequires:  gcc
 BuildRequires:  krb5-devel
 BuildRequires:  libtool
+BuildRequires:  libxcrypt-devel
 BuildRequires:  miniupnpc-devel
 BuildRequires:  pam-devel
 BuildRequires:  systemd

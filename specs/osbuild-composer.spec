@@ -25,7 +25,7 @@ It is compatible with composer-cli and cockpit-composer clients.
 }
 
 Name:           osbuild-composer
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An image building service based on osbuild
 
 # osbuild-composer doesn't have support for building i686 and armv7hl images
@@ -42,6 +42,7 @@ BuildRequires:  systemd
 BuildRequires:  krb5-devel
 BuildRequires:  python3-docutils
 BuildRequires:  make
+BuildRequires:  libxcrypt-devel
 # Build requirements of 'theproglottis/gpgme' package
 BuildRequires:  gpgme-devel
 BuildRequires:  libassuan-devel
@@ -696,6 +697,9 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 129-2
+- Add explicit BR: libxcrypt-devel
+
 * Wed Jan 22 2025 Packit <hello@packit.dev> - 129-1
 Changes with 129
 ----------------

@@ -1,7 +1,7 @@
 Summary: An ircII chat client
 Name: epic
 Version: 3.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch: 4
 License: BSD-3-Clause AND ISC AND LicenseRef-Fedora-Public-Domain
 Source0: ftp://ftp.epicsol.org/pub/epic/EPIC4-PRODUCTION/epic4-%{version}.tar.xz
@@ -19,6 +19,7 @@ URL: http://www.epicsol.org/
 BuildRequires: gcc
 BuildRequires: openssl-devel
 BuildRequires: ncurses-devel
+BuildRequires: libxcrypt-devel
 BuildRequires: make automake autoconf
 
 %description
@@ -83,6 +84,9 @@ rm -f $RPM_BUILD_ROOT/%{_libexecdir}/wserv
 %{_datadir}/epic/help/*
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 4:3.0-4
+- Add explicit BR: libxcrypt-devel
+
 * Mon Jan 27 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 4:3.0-3
 - Fix FTBFS
 

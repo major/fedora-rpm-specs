@@ -1,7 +1,7 @@
 Summary:        Action game in four spatial dimensions
 Name:           adanaxisgpl
 Version:        1.2.5
-Release:        50%{?dist}
+Release:        51%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 URL:            http://www.mushware.com/
@@ -22,6 +22,7 @@ BuildRequires:  libvorbis-devel
 BuildRequires:  pcre-devel
 BuildRequires:  SDL_mixer-devel
 BuildRequires: make
+BuildRequires: libxcrypt-devel
 
 %description
 Adanaxis is a fast-moving first person shooter set in deep space, where the
@@ -89,6 +90,9 @@ install -p -m 644 x11/icons/%{name}-48.png %{buildroot}%{_datadir}/icons/hicolor
 
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1.2.5-51
+- Add explicit BR: libxcrypt-devel
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

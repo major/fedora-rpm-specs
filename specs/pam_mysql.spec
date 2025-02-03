@@ -1,7 +1,7 @@
 Summary:       PAM module for auth UNIX users using MySQL data base
 Name:          pam_mysql
 Version:       1.0.0~beta1
-Release:       10%{?dist}
+Release:       11%{?dist}
 Epoch:         1
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
@@ -13,6 +13,7 @@ Patch:         0002-Remove-name-prefix-to-shared-library-is-named-pam_my.patch
 URL:           https://github.com/NigelCunningham/pam-MySQL
 BuildRequires: meson gcc
 BuildRequires: mariadb-connector-c-devel pam-devel
+BuildRequires: libxcrypt-devel
 Requires:      pam
 
 %description
@@ -38,6 +39,9 @@ iconv -f latin1 -t utf-8 -o AUTHORS AUTHORS.lame
 %{_libdir}/security/pam_mysql.so
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1:1.0.0~beta1-11
+- Add explicit BR: libxcrypt-devel
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0.0~beta1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           sawfish
 Version:        1.13.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        An extensible window manager for the X Window System
 License:        GPL-2.0-or-later AND Artistic-2.0
 # GPLv2+ is for Sawfish
@@ -16,6 +16,7 @@ BuildRequires:  libXft-devel
 BuildRequires:  libXtst-devel
 BuildRequires:  libICE-devel
 BuildRequires:  libSM-devel
+BuildRequires:  libxcrypt-devel
 BuildRequires:  autoconf
 BuildRequires:  libtool
 BuildRequires:  texinfo
@@ -116,6 +117,9 @@ desktop-file-validate %{buildroot}%{_datadir}/xsessions/sawfish-xfce.desktop
 
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1.13.0-11
+- Add explicit BR: libxcrypt-devel
+
 * Mon Jan 27 2025 Kim B. Heino <b@bbbs.net> - 1.13.0-10
 - Fix build on Fedora 42
 - Resolves: rhbz#2341322

@@ -3,7 +3,7 @@
 
 Name:           rapidsvn
 Version:        0.13.0
-Release:        0.20220209git%{shortcommit}%{?dist}
+Release:        0.20220210git%{shortcommit}%{?dist}
 Summary:        Graphical interface for the Subversion revision control system
 
 License:        GPL-3.0-or-later
@@ -20,6 +20,7 @@ Requires:       svncpp = %{version}
 BuildRequires: make
 BuildRequires:  apr-devel, apr-util-devel
 BuildRequires:  libtool >= 1.4.2
+BuildRequires:  libxcrypt-devel
 BuildRequires:  openldap-devel
 
 # For doc generation; rapidsvn needs the "dot" tool from graphviz
@@ -154,6 +155,9 @@ rm -f %{buildroot}%{_libdir}/librapidsvn.so
 %{_libdir}/libsvncpp.so
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 0.13.0-0.20220210git3a564e0
+- Add explicit BR: libxcrypt-devel
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-0.20220209git3a564e0
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

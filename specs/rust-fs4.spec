@@ -5,7 +5,7 @@
 %global crate fs4
 
 Name:           rust-fs4
-Version:        0.8.4
+Version:        0.9.1
 Release:        %autorelease
 Summary:        No libc, pure Rust cross-platform file locks
 
@@ -66,6 +66,30 @@ This package contains library source intended for building other packages which
 use the "async-std" feature of the "%{crate}" crate.
 
 %files       -n %{name}+async-std-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+fs-err-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+fs-err-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "fs-err" feature of the "%{crate}" crate.
+
+%files       -n %{name}+fs-err-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+fs-err-tokio-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+fs-err-tokio-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "fs-err-tokio" feature of the "%{crate}" crate.
+
+%files       -n %{name}+fs-err-tokio-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+sync-devel

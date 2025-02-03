@@ -1,7 +1,7 @@
 Summary: RADIUS protocol client library
 Name: freeradius-client
 Version: 1.1.7
-Release: 34%{?dist}
+Release: 35%{?dist}
 # For a breakdown of the licensing, see PACKAGE-LICENSING 
 # Automatically converted from old format: BSD and MIT - review is highly recommended.
 License: LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT
@@ -17,6 +17,7 @@ Patch3: freeradius-client-1.1.7-autoconf-c99.patch
 BuildRequires: gcc
 BuildRequires: make automake autoconf libtool
 BuildRequires: nettle-devel >= 2.7.1
+BuildRequires: libxcrypt-devel
 
 %description
 FreeRADIUS Client is a library for writing RADIUS Clients.
@@ -105,6 +106,9 @@ cp %{SOURCE3} %{buildroot}%{_datadir}/radiusclient/dictionary
 %{_sbindir}/radembedded
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1.1.7-35
+- Add explicit BR: libxcrypt-devel
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.7-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

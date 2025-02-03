@@ -2,7 +2,7 @@
 
 Name:     squid
 Version:  6.12
-Release:  4%{?dist}
+Release:  5%{?dist}
 Summary:  The Squid proxy caching server
 Epoch:    7
 # See CREDITS for breakdown of non GPLv2+ code
@@ -66,6 +66,7 @@ BuildRequires: libecap-devel
 #ip_user helper requires
 BuildRequires: gcc-c++
 BuildRequires: libtool libtool-ltdl-devel
+BuildRequires: libxcrypt-devel
 BuildRequires: perl-generators
 # For test suite
 BuildRequires: pkgconfig(cppunit)
@@ -315,6 +316,9 @@ fi
 
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 7:6.12-5
+- Add explicit BR: libxcrypt-devel
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7:6.12-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

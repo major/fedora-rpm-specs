@@ -1,6 +1,6 @@
 Name:       makepasswd
 Version:    0.5.3
-Release:    33%{?dist}
+Release:    34%{?dist}
 Summary:    Generates (pseudo-)random passwords of a desired length
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -9,6 +9,7 @@ URL:        https://github.com/khorben/makepasswd/
 Source0:    http://ftp.defora.org/pub/projects/makepasswd/%{name}-%{version}.tar.gz
 
 BuildRequires: make
+BuildRequires: libxcrypt-devel
 BuildRequires:  gcc
 BuildRequires:  docbook-style-xsl
 BuildRequires:  libxslt
@@ -46,6 +47,9 @@ install -D -p -m 644 doc/makepasswd.1 %{buildroot}%{_mandir}/man1/makepasswd.1
 
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 0.5.3-34
+- Add explicit BR: libxcrypt-devel
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

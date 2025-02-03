@@ -1,13 +1,12 @@
-%global	pver	20240905
+%global	pver	20250131
 
 Name:		mawk
 Version:	1.3.4
 Release:	4.%{pver}%{?dist}
 Epoch:		1
 Summary:	Interpreter for the AWK programming language
-# Automatically converted from old format: GPLv2 - review is highly recommended.
 License:	GPL-2.0-only
-BuildRequires: make
+BuildRequires:	make byacc
 BuildRequires:	gcc
 URL:		https://invisible-island.net/mawk/
 Source0:	https://invisible-island.net/archives/mawk/%{name}-%{version}-%{pver}.tgz
@@ -39,6 +38,10 @@ make install DESTDIR=%{buildroot} INSTALL='install -p'
 %{_mandir}/man7/mawk-*.7*
 
 %changelog
+* Sat Feb 01 2025 Thomas Dickey <dickey@invisible-island.net> - 1:1.3.4-1.20250131
+- upgrade to 1.3.4-20250131
+- add byacc to build dependencies
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.3.4-4.20240905
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

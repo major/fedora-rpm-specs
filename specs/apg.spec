@@ -3,7 +3,7 @@ Summary:		Automated Password Generator for random password generation
 Name:			apg
 
 Version:		2.3.0b
-Release:		48%{?dist}
+Release:		49%{?dist}
 License:		BSD-3-Clause
 URL:			http://www.adel.nursat.kz/%{name}/
 
@@ -17,6 +17,7 @@ Patch1:                 apg-2.3.0b-null-crypt.patch
 BuildRequires: systemd-units
 BuildRequires: gcc
 BuildRequires: make
+BuildRequires: libxcrypt-devel
 Requires(post): grep
 Requires(post): systemd-units
 Requires(preun): systemd-units
@@ -99,6 +100,9 @@ fi
 %{_unitdir}/%{name}.socket
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 2.3.0b-49
+- Add explicit BR: libxcrypt-devel
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0b-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

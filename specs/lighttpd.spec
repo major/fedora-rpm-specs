@@ -50,7 +50,7 @@
 Summary: Lightning fast webserver with light system requirements
 Name: lighttpd
 Version: 1.4.77
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: BSD-3-Clause
 URL: http://www.lighttpd.net/
 Source0: http://download.lighttpd.net/lighttpd/releases-1.4.x/lighttpd-%{version}.tar.xz
@@ -76,6 +76,7 @@ Requires(post): %{name}-mod_webdav
 %{?with_openssl:Requires(post): %{name}-mod_openssl}
 Provides: webserver
 BuildRequires: autoconf, automake, libtool, m4, pkg-config, /usr/bin/awk
+BuildRequires: libxcrypt-devel
 %{?with_pcre:BuildRequires: pcre-devel}
 %{?with_pcre2:BuildRequires: pcre2-devel}
 %{?with_nettle:BuildRequires: nettle-devel}
@@ -590,6 +591,9 @@ mkdir -p %{buildroot}%{_var}/lib/lighttpd/
 %attr(0700, lighttpd, lighttpd) %dir %{webroot}/
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1.4.77-3
+- Add explicit BR: libxcrypt-devel
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.77-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

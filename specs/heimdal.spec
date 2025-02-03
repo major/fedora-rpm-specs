@@ -4,7 +4,7 @@
 
 Name: heimdal
 Version: 7.8.0
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: A Kerberos 5 implementation without export restrictions
 # Automatically converted from old format: BSD and MIT - review is highly recommended.
 License: LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT
@@ -57,6 +57,7 @@ BuildRequires:  python3
 BuildRequires:  groff-base
 BuildRequires: systemd-units
 BuildRequires: make
+BuildRequires: libxcrypt-devel
 
 # Bundled libtommath (https://bugzilla.redhat.com/1118462)
 Provides: bundled(libtommath) = 0.42.0
@@ -429,6 +430,9 @@ fi
 %{_sysconfdir}/profile.d/%{name}.csh
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 7.8.0-13
+- Add explicit BR: libxcrypt-devel
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.8.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

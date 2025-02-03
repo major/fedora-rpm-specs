@@ -6,7 +6,7 @@
 
 Name: guile22
 Version: 2.2.7
-Release: 16%{?dist}
+Release: 17%{?dist}
 Summary: A GNU implementation of Scheme for application extensibility
 Source: ftp://ftp.gnu.org/pub/gnu/guile/guile-%{version}.tar.xz
 URL: http://www.gnu.org/software/guile/
@@ -15,6 +15,7 @@ License: LGPL-3.0-or-later
 BuildRequires: libtool libtool-ltdl-devel gmp-devel readline-devel
 BuildRequires: gettext-devel libunistring-devel libffi-devel gc-devel
 BuildRequires: make
+BuildRequires: libxcrypt-devel
 Requires: coreutils
 
 Provides: bundled(gnulib)
@@ -159,6 +160,9 @@ fi
 
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 2.2.7-17
+- Add explicit BR: libxcrypt-devel
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.7-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

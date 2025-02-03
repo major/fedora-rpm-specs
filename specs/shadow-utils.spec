@@ -1,7 +1,7 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
 Version: 4.17.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Epoch: 2
 License: BSD-3-Clause AND GPL-2.0-or-later
 URL: https://github.com/shadow-maint/shadow
@@ -53,6 +53,7 @@ BuildRequires: libeconf-devel
 BuildRequires: libselinux-devel >= 1.25.2-1
 BuildRequires: libsemanage-devel
 BuildRequires: libtool
+BuildRequires: libxcrypt-devel
 BuildRequires: libxslt
 BuildRequires: make
 BuildRequires: pam-devel
@@ -280,6 +281,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 2:4.17.0-5
+- Add explicit BR: libxcrypt-devel
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:4.17.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -55,7 +55,7 @@
 
 Name:           nbdkit
 Version:        1.41.9
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -93,6 +93,7 @@ BuildRequires:  git
 BuildRequires:  autoconf, automake, libtool
 
 BuildRequires:  make
+BuildRequires:  libxcrypt-devel
 BuildRequires:  gcc, gcc-c++
 BuildRequires:  %{_bindir}/pod2man
 BuildRequires:  pkgconfig(gnutls)
@@ -1522,6 +1523,9 @@ fi
 
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1.41.9-5
+- Add explicit BR: libxcrypt-devel
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.41.9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

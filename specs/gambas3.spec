@@ -20,7 +20,7 @@
 Name:		gambas3
 Summary:	IDE based on a basic interpreter with object extensions
 Version:	3.19.4
-Release:	3%{?dist}
+Release:	4%{?dist}
 License:	GPL-1.0-or-later
 URL:		http://gambas.sourceforge.net/
 Source0:	https://gitlab.com/gambas/gambas/-/archive/%{version}/gambas-%{version}.tar.bz2
@@ -75,6 +75,7 @@ BuildRequires:	fluidsynth-devel
 BuildRequires:	gtkglext-devel
 %endif
 BuildRequires: make
+BuildRequires: libxcrypt-devel
 
 # i686 stopped working cleanly with gcc14
 # and since it is 2024, I care a lot less about fixing it.
@@ -1942,6 +1943,9 @@ install -m 0644 -p main/mime/application-x-gambas3.xml %{buildroot}%{_datadir}/m
 %{_datadir}/%{name}/info/gb.xml.xslt.*
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 3.19.4-4
+- Add explicit BR: libxcrypt-devel
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.19.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

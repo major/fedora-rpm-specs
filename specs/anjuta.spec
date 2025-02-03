@@ -10,7 +10,7 @@
 Name:           anjuta
 Epoch:          1
 Version:        3.34.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        GNOME IDE for various programming languages (including C/C++, Python, Vala and JavaScript)
 
 License:        GPL-2.0-or-later
@@ -33,6 +33,7 @@ BuildRequires:  intltool
 BuildRequires:  libgda5-devel >= 5.1.0
 BuildRequires:  libgdl-devel >= 2.91.4
 BuildRequires:  libuuid-devel
+BuildRequires:  libxcrypt-devel
 BuildRequires:  neon-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl(Locale::gettext)
@@ -193,6 +194,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/anjuta.desktop
 %{_libdir}/libanjuta-3.so.*
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1:3.34.0-27
+- Add explicit BR: libxcrypt-devel
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.34.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

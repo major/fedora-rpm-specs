@@ -12,7 +12,7 @@
 
 Name:       mod_psgi
 Version:    0.0.1
-Release:    0.23.%{snapshot}git%{shortcommit}%{?dist}
+Release:    0.24.%{snapshot}git%{shortcommit}%{?dist}
 Summary:    Apache httpd plugin for handling PSGI applications
 # Automatically converted from old format: ASL 2.0
 License:    Apache-2.0
@@ -38,6 +38,7 @@ BuildRequires:  automake
 BuildRequires:  coreutils
 BuildRequires:  gcc
 BuildRequires:  httpd-devel
+BuildRequires:  libxcrypt-devel
 BuildRequires:  make
 BuildRequires:  perl-devel
 BuildRequires:  perl-interpreter
@@ -98,6 +99,9 @@ make test
 %{_httpd_moddir}/%{name}.so
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 0.0.1-0.24.20120822git9732348
+- Add explicit BR: libxcrypt-devel
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-0.23.20120822git9732348
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

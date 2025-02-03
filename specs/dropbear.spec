@@ -1,6 +1,6 @@
 Name:              dropbear
 Version:           2024.86
-Release:           2%{?dist}
+Release:           3%{?dist}
 Summary:           Lightweight SSH server and client
 License:           MIT
 URL:               https://matt.ucc.asn.au/dropbear/dropbear.html
@@ -14,6 +14,7 @@ BuildRequires:     gcc
 BuildRequires:     gnupg2
 BuildRequires:     libtomcrypt-devel
 BuildRequires:     libtommath-devel
+BuildRequires:     libxcrypt-devel
 BuildRequires:     pam-devel
 BuildRequires:     systemd
 # For triggerun
@@ -81,6 +82,9 @@ systemctl try-restart dropbear.service >/dev/null 2>&1 || :
 %{_mandir}/man8/*.8*
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 2024.86-3
+- Add explicit BR: libxcrypt-devel
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.86-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

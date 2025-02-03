@@ -1,7 +1,7 @@
 Name:           john
 Summary:        John the Ripper password cracker
 Version:        1.9.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 
 %bcond_without  check
 
@@ -37,6 +37,7 @@ Source2:        gpgkey-297AD21CF86C948081520C1805C027FD4BDC136E.gpg
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  gnupg2
+BuildRequires:  libxcrypt-devel
 
 %description
 John the Ripper is a fast password cracker (password security auditing
@@ -198,6 +199,9 @@ rm doc/INSTALL
 %{_libexecdir}/john/
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1.9.0-11
+- Add explicit BR: libxcrypt-devel
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

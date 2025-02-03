@@ -4,7 +4,7 @@
 Name: 		newscache
 Summary: 	Free cache server for USENET News
 Version: 	1.2
-Release: 	0.49.rc6%{?dist}
+Release: 	0.50.rc6%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
 URL:		http://www.linuxhacker.at/newscache/
@@ -17,6 +17,7 @@ Patch2:		newscache-1.2rc6-gcc43.patch
 Patch3:		socket++-1.12.12-drop_doc.patch
 Patch4:		newscache-glibc.patch
 BuildRequires: make
+BuildRequires: libxcrypt-devel
 BuildRequires:  gcc-c++
 BuildRequires:	libtool, texinfo, pam-devel
 BuildRequires:	systemd-units
@@ -158,6 +159,9 @@ exit 0
 
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1.2-0.50.rc6
+- Add explicit BR: libxcrypt-devel
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-0.49.rc6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

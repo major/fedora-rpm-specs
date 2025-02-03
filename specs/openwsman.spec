@@ -25,7 +25,7 @@
 
 Name:		openwsman
 Version:	2.7.2
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	Open source Implementation of WS-Management
 
 License:	BSD-3-Clause AND MIT
@@ -67,6 +67,7 @@ BuildRequires:	pkgconfig openssl-devel
 BuildRequires:	cmake
 BuildRequires:	systemd-units
 BuildRequires:	gcc gcc-c++
+BuildRequires:  libxcrypt-devel
 
 %description
 Openwsman is a project intended to provide an open-source
@@ -409,6 +410,9 @@ fi
 %endif
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 2.7.2-15
+- Add explicit BR: libxcrypt-devel
+
 * Thu Jan 23 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.7.2-14
 - Fix FTBFS with GCC 15, bin and sbin unification
 

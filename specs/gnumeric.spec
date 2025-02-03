@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.12.57
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Spreadsheet program for GNOME
 License:          GPL-2.0-only AND GPL-3.0-only AND LicenseRef-Callaway-LGPLv2+
 URL:              http://www.gnumeric.org
@@ -17,6 +17,7 @@ BuildRequires:    intltool
 BuildRequires:    itstool
 BuildRequires:    libappstream-glib
 BuildRequires:    libgda-ui-devel
+BuildRequires:    libxcrypt-devel
 BuildRequires:    make
 BuildRequires:    perl-devel
 BuildRequires:    perl-generators
@@ -144,6 +145,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1:1.12.57-3
+- Add explicit BR: libxcrypt-devel
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.12.57-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

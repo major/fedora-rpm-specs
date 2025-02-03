@@ -3,12 +3,13 @@
 Summary: Displays where a particular program in your path is located
 Name: which
 Version: 2.22
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-3.0-only
 Source0: http://ftp.gnu.org/gnu/which/%{name}-%{version}.tar.gz
 Source1: which2.sh
 Source2: which2.csh
 Patch0: which-2.21-warning.patch
+Patch1: which-2.22-regression.patch
 Url: https://savannah.gnu.org/projects/which/
 Requires: coreutils
 BuildRequires: make
@@ -46,6 +47,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %{_mandir}/man1/which.1*
 
 %changelog
+* Sat Feb 01 2025 Than Ngo <than@redhat.com> - 2.22-2
+- Fixed rhbz#2343113, regression
+
 * Mon Jan 27 2025 Than Ngo <than@redhat.com> - 2.22-1
 - Fixed rhbz#2342020, update to 2.22
 

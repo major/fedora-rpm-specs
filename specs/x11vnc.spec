@@ -5,7 +5,7 @@
 
 Name:           x11vnc
 Version:        0.9.16^%{gitdate}git%{shortcommit}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        VNC server for the current X11 session
 Summary(ru):    VNC-сервер для текущей сессии X11
 # COPYING:                  GPL-2.0-or-later text
@@ -75,6 +75,7 @@ BuildRequires:  libXfixes-devel
 BuildRequires:  libXinerama-devel
 BuildRequires:  libXrandr-devel
 BuildRequires:  libXtst-devel
+BuildRequires:  libxcrypt-devel
 BuildRequires:  make
 BuildRequires:  openssl-devel
 BuildRequires:  pkgconf-pkg-config
@@ -157,6 +158,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/x11vnc.desktop
 %{_mandir}/man1/x11vnc.1*
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 0.9.16^20230801gita61f364-5
+- Add explicit BR: libxcrypt-devel
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.16^20230801gita61f364-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

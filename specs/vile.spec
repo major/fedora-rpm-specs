@@ -1,6 +1,6 @@
 Name:		vile
 Version:	9.8za
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	VI Like Emacs
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:	GPL-2.0-only
@@ -8,6 +8,7 @@ URL:		https://invisible-island.net/vile/
 Source0:	https://invisible-island.net/archives/vile/current/%{name}-%{version}.tgz
 BuildRequires:	make
 BuildRequires:	ncurses-devel
+BuildRequires:  libxcrypt-devel
 BuildRequires:	flex
 BuildRequires:	gcc
 BuildRequires:	desktop-file-utils
@@ -115,6 +116,9 @@ popd
 
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 9.8za-6
+- Add explicit BR: libxcrypt-devel
+
 * Tue Jan 28 2025 Thomas E. Dickey <dickey@invisible-island.net> - 9.8za-1
 - Update to 9.8za
 

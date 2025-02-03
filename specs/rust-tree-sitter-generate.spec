@@ -2,26 +2,23 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate tree-sitter-loader
+%global crate tree-sitter-generate
 
-Name:           rust-tree-sitter-loader
+Name:           rust-tree-sitter-generate
 Version:        0.24.7
 Release:        %autorelease
-Summary:        Locates, builds, and loads tree-sitter grammars at runtime
+Summary:        Library for generating C source code from a tree-sitter grammar
 
 License:        MIT
-URL:            https://crates.io/crates/tree-sitter-loader
+URL:            https://crates.io/crates/tree-sitter-generate
 Source:         %{crates_source}
 # * Upstream license file - tree-sitter/tree-sitter#1520
 Source2:        https://github.com/tree-sitter/tree-sitter/raw/v%{version}/LICENSE#/LICENSE.upstream
-# Manually created patch for downstream crate metadata changes
-# * Disable feature 'wasm'
-Patch:          tree-sitter-loader-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Locates, builds, and loads tree-sitter grammars at runtime.}
+Library for generating C source code from a tree-sitter grammar.}
 
 %description %{_description}
 
@@ -49,30 +46,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+tree-sitter-highlight-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+tree-sitter-highlight-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "tree-sitter-highlight" feature of the "%{crate}" crate.
-
-%files       -n %{name}+tree-sitter-highlight-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+tree-sitter-tags-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+tree-sitter-tags-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "tree-sitter-tags" feature of the "%{crate}" crate.
-
-%files       -n %{name}+tree-sitter-tags-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

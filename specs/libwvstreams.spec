@@ -1,6 +1,6 @@
 Name: libwvstreams
 Version: 4.6.1
-Release: 46%{?dist}
+Release: 47%{?dist}
 Summary: WvStreams is a network programming library written in C++
 Source: http://wvstreams.googlecode.com/files/wvstreams-%{version}.tar.gz
 #fixed multilib issue (bug #192717)
@@ -26,6 +26,7 @@ URL: https://code.google.com/p/wvstreams/
 BuildRequires: gcc-c++
 BuildRequires: openssl-devel, pkgconfig, zlib-devel, readline-devel, dbus-devel
 BuildRequires: make
+BuildRequires: libxcrypt-devel
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
 
@@ -119,6 +120,9 @@ popd
 %ldconfig_scriptlets
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 4.6.1-47
+- Add explicit BR: libxcrypt-devel
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.1-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

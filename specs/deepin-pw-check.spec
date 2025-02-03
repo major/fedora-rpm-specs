@@ -24,6 +24,7 @@ BuildRequires:  pkgconfig(gdk-3.0)
 BuildRequires:  deepin-gettext-tools
 BuildRequires:  cracklib-devel
 BuildRequires:  iniparser-devel
+BuildRequires:  libxcrypt-devel
 
 %description
 In order to unify the authentication interface, this interface is designed to

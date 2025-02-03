@@ -17,7 +17,7 @@ OSTree commits. Uses osbuild under the hood.
 }
 
 Name:           image-builder
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An image building executable using osbuild
 ExcludeArch:    i686
 
@@ -36,6 +36,7 @@ BuildRequires:  gpgme-devel
 BuildRequires:  libassuan-devel
 # Build requirements of 'github.com/containers/storage' package
 BuildRequires:  device-mapper-devel
+BuildRequires:  libxcrypt-devel
 %if 0%{?fedora}
 # Build requirements of 'github.com/containers/storage' package
 BuildRequires:  btrfs-progs-devel
@@ -108,6 +109,9 @@ cd $PWD/_build/src/%{goipath}
 %{_bindir}/image-builder
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 7-2
+- Add explicit BR: libxcrypt-devel
+
 # the changelog is distribution-specific, therefore there's just one entry
 # to make rpmlint happy.
 

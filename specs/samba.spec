@@ -316,6 +316,7 @@ BuildRequires: libicu-devel
 BuildRequires: libcmocka-devel
 BuildRequires: libtirpc-devel
 BuildRequires: libuuid-devel
+BuildRequires: libxcrypt-devel
 BuildRequires: libxslt
 %if %{with lmdb}
 BuildRequires: lmdb

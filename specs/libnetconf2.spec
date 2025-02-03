@@ -1,6 +1,6 @@
 Name: libnetconf2
 Version: 3.5.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: NETCONF protocol library
 Url: https://github.com/CESNET/libnetconf2
 Source: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -10,6 +10,7 @@ License: LicenseRef-Callaway-BSD
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  libssh-devel
+BuildRequires:  libxcrypt-devel
 BuildRequires:  openssl-devel
 BuildRequires:  pam-devel
 BuildRequires:  pkgconfig(libyang) >= 2
@@ -56,6 +57,9 @@ servers. NETCONF is the NETwork CONFiguration protocol introduced by IETF.
 
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 3.5.5-2
+- Add explicit BR: libxcrypt-devel
+
 * Fri Jan 31 2025 Michal Ruprich <mruprich@redhat.com> - 3.5.5-1
 - New version 3.5.5
 

@@ -9,6 +9,9 @@ Summary:        C++ library for reading and generating ELF files
 License:        MIT
 URL:            http://elfio.sourceforge.net/
 Source0:        https://downloads.sf.net/elfio/elfio-%{version}.tar.gz
+# Add missing includes - fixes FTBFS rhbz 2340118
+# https://github.com/serge1/ELFIO/pull/148
+Patch0:         elfio-includes.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

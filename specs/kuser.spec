@@ -1,7 +1,7 @@
 Name:    kuser
 Summary: User Manager for KDE
 Version: 16.08.3
-Release: 25%{?dist}
+Release: 26%{?dist}
 
 # Automatically converted from old format: GPLv2+ and GFDL - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-GFDL
@@ -21,6 +21,7 @@ Patch100: kuser-16.04.0-fedora_defaults.patch
 BuildRequires: kdelibs4-devel >= 4.14
 BuildRequires: kdepimlibs4-devel >= 4.14
 BuildRequires: make
+BuildRequires: libxcrypt-devel
 
 Conflicts:      kdeadmin < 4.10.80
 Obsoletes:      kdeadmin < 4.10.80
@@ -63,6 +64,9 @@ desktop-file-validate %{buildroot}%{_kde4_datadir}/applications/kde4/%{name}.des
 
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 16.08.3-26
+- Add explicit BR: libxcrypt-devel
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 16.08.3-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

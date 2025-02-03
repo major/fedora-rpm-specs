@@ -88,6 +88,9 @@ BuildRequires:  pkgconfig(Qt6)
 BuildRequires:  pkgconfig(yaml-0.1)
 # zlib
 BuildRequires:  pkgconfig(zlib-ng)
+# crypt
+BuildRequires:  libxcrypt-devel
+
 # Doc building
 # Gated to Fedora as EL is currently missing tex(a4wide.sty)
 %if 0%{?fedora}

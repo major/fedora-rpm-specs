@@ -12,7 +12,7 @@
 Summary: The exim mail transfer agent
 Name: exim
 Version: 4.98
-Release: 5%{?dist}
+Release: 6%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 Url: https://www.exim.org/
@@ -73,6 +73,7 @@ BuildRequires: openldap-devel
 BuildRequires: openssl-devel
 BuildRequires: mariadb-connector-c-devel
 BuildRequires: libpq-devel
+BuildRequires: libxcrypt-devel
 BuildRequires: libXaw-devel
 BuildRequires: libXmu-devel
 BuildRequires: libXext-devel
@@ -496,6 +497,9 @@ fi
 %{_sysconfdir}/cron.daily/greylist-tidy.sh
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 4.98-6
+- Add explicit BR: libxcrypt-devel
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.98-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
