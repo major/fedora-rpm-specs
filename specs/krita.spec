@@ -13,7 +13,7 @@
 
 Name:           krita
 Version:        5.2.9
-Release:        1%{?dist}
+Release:        3%{?dist}
 
 Summary:        Krita is a sketching and painting program
 License:        GPL-2.0-or-later
@@ -222,6 +222,12 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.krita.des
 
 
 %changelog
+* Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 5.2.9-3
+- Rebuild with gsl 2.8
+
+* Sun Feb 02 2025 Sérgio Basto <sergio@serjux.com> - 5.2.9-2
+- Rebuild for jpegxl (libjxl) 0.11.1
+
 * Wed Jan 29 2025 Than Ngo <than@redhat.com> - 5.2.9-1
 - Fixed rhbz#2342751, Update to 5.2.9
 

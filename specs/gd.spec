@@ -133,7 +133,7 @@ fi
 
 %build
 # Provide a correct default font search path
-CFLAGS="$RPM_OPT_FLAGS -DDEFAULT_FONTPATH='\"\
+CFLAGS="-std=gnu17 $RPM_OPT_FLAGS -DDEFAULT_FONTPATH='\"\
 /usr/share/fonts/bitstream-vera:\
 /usr/share/fonts/dejavu:\
 /usr/share/fonts/default/Type1:\

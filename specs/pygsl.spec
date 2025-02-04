@@ -3,7 +3,7 @@
 
 Name:          pygsl
 Version:       2.4.0
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       %{sum}
 
 # The package is mostly GPL+ but there are two scripts
@@ -147,6 +147,9 @@ rm -fr html/.{buildinfo,doctrees}
 %doc examples/ html/
 
 %changelog
+* Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 2.4.0-4
+- Rebuild with gsl 2.8
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

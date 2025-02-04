@@ -10,11 +10,11 @@
 %global with_scim 0
 
 # Enable avif support (this broke before)
-%bcond_without avif
+%bcond avif 1
 
 Name:		efl
-Version:	1.27.0
-Release:	14%{?dist}
+Version:	1.28.0
+Release:	1%{?dist}
 Summary:	Collection of Enlightenment libraries
 # Automatically converted from old format: BSD and LGPLv2+ and GPLv2 and zlib - review is highly recommended.
 License:	LicenseRef-Callaway-BSD AND LicenseRef-Callaway-LGPLv2+ AND GPL-2.0-only AND Zlib
@@ -32,9 +32,6 @@ Patch3:		efl-1.27.0-sdl-version-build.patch
 
 # Handle incompatible pointer types in the bigendian cases
 Patch4:		efl-1.27.0-bigendian-gcc-fix.patch
-# Fix weird pointer to pointer issue on aarc64
-# Note: I am not 100% sure this is right.
-Patch5:		efl-1.27.0-pointerpointerfix.patch
 
 %ifnarch s390x
 BuildRequires:	libunwind-devel
@@ -191,8 +188,9 @@ Development files for EFL.
 %prep
 %autosetup -n %{name}-%{version} -p1
 
-
 %build
+export CFLAGS="%optflags -std=gnu17"
+export CXXFLAGS="%optflags -std=gnu++17"
 %{meson} \
  -Dxinput22=true \
  -Dsystemd=true \
@@ -246,11 +244,9 @@ find %{buildroot} -name '*.la' -delete
 %find_lang %{name}
 
 %post
-/sbin/ldconfig
 %systemd_user_post ethumb.service
 
 %postun
-/sbin/ldconfig
 %systemd_user_postun ethumb.service
 
 %preun
@@ -274,6 +270,7 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/ecore_wl2/
 %{_libdir}/libecore*.so.*
 %{_datadir}/ecore/
+%{_datadir}/ecore_con/
 %{_datadir}/ecore_imf/
 %{_datadir}/ecore_x/
 %{_libdir}/libector.so.*
@@ -551,6 +548,16 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/libexactness*.so
 
 %changelog
+* Sun Feb 02 2025 Robert-André Mauchin <zebob.m@gmail.com> - 1.28.0-1
+- Update to 1.28.0
+- Fix FTBFS by forcing std17
+- Close: rhbz#2337186
+- Fix: rhbz#2340116
+- Rebuild for jpegxl (libjxl) 0.11.1
+
+* Sun Feb 02 2025 Sérgio Basto <sergio@serjux.com> - 1.27.0-15
+- Rebuild for jpegxl (libjxl) 0.11.1
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.27.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

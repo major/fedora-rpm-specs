@@ -1,16 +1,11 @@
 Summary:	Gnome Partition Editor
 Name:		gparted
-Version:	1.6.0
+Version:	1.7.0
 Release:	%autorelease
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
 URL:		http://gparted.org
 Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
-
-# Backporting patches to fix reading exfat filesystems
-# https://gitlab.gnome.org/GNOME/gparted/-/issues/275
-Patch0:		35baa44e2f174504a20b22424285458d501dcda4.diff
-Patch1:		344e03439e1a79776b9cc7e6f65fccf3e6f656dd.diff
 
 BuildRequires:	gtkmm30-devel
 BuildRequires:	parted-devel

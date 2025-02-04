@@ -3,7 +3,7 @@
 %global xfceversion 4.16
 
 Name:           xfce4-notes-plugin
-Version:        1.11.1
+Version:        1.11.2
 Release:        %autorelease
 Summary:        Notes plugin for the Xfce panel
 

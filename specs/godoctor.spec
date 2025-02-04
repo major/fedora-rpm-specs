@@ -33,10 +33,10 @@ Patch:          0004-Skip-occurrence-test-that-uses-modules.patch
 Patch:          0005-Skip-tests-that-appear-to-be-broken.patch
 # https://github.com/godoctor/godoctor/pull/64
 Patch:          0006-Copy-existing-environment-when-loading-packages.patch
-# For under Go 1.20
-Patch:          0007-Revert-patch-to-showast-debug-output.patch
 # https://github.com/godoctor/godoctor/pull/66
-Patch:          0008-Fix-AST-test-on-Go-1.21.patch
+Patch:          0007-Fix-AST-test-on-Go-1.21.patch
+# https://github.com/godoctor/godoctor/pull/67
+Patch:          0008-Fix-some-non-constant-format-strings.patch
 
 BuildRequires:  golang(github.com/willf/bitset)
 BuildRequires:  golang(golang.org/x/tools/go/ast/astutil)
@@ -49,11 +49,7 @@ BuildRequires:  golang(golang.org/x/tools/go/loader)
 
 %prep
 %goprep
-%autopatch -p1 -M 5
-%if %{fedora} < 38
-%autopatch -p1 6
-%endif
-%autopatch -p1 7
+%autopatch -p1
 
 %build
 %gobuild -o %{gobuilddir}/bin/godoctor %{goipath}

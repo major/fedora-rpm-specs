@@ -1,6 +1,6 @@
 Name:           gcompris-qt
-Version:        4.3
-Release:        2%{?dist}
+Version:        25.0
+Release:        1%{?dist}
 Summary:        Educational software suite for children aged 2 to 10
 
 License:        AGPL-3.0-only
@@ -10,29 +10,36 @@ Source0:        https://download.kde.org/stable/gcompris/qt/src/%{name}-%{versio
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
-BuildRequires:  cmake(Qt5Qml)
-BuildRequires:  cmake(Qt5Quick)
-BuildRequires:  cmake(Qt5Gui)
-BuildRequires:  cmake(Qt5Multimedia)
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Svg)
-BuildRequires:  cmake(Qt5LinguistTools)
-BuildRequires:  cmake(Qt5Sensors)
-BuildRequires:  cmake(Qt5QuickControls2)
-BuildRequires:  cmake(Qt5Charts)
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  cmake(Qt6Qml)
+BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Multimedia)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6LinguistTools)
+BuildRequires:  cmake(Qt6Sensors)
+BuildRequires:  cmake(Qt6QuickControls2)
+BuildRequires:  cmake(Qt6QuickControls2Basic)
+BuildRequires:  cmake(Qt6QuickTemplates2)
+BuildRequires:  cmake(Qt6Charts)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6QmlWorkerScript)
+BuildRequires:  cmake(Qt6WaylandClient)
+BuildRequires:  wayland-devel
 BuildRequires:  openssl-devel
-BuildRequires:  kf5-kdoctools-devel
+BuildRequires:  kf6-kdoctools-devel
 BuildRequires:  gettext
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
-Requires:       qt5-qtmultimedia
-Requires:       qt5-qtquickcontrols 
-Requires:       qt5-qtquickcontrols2
-Requires:       qt5-qtgraphicaleffects
-Requires:       qt5-qtsvg
-Requires:       qt5-qtimageformats
-Requires:       qt5-qtcharts
+Requires:       qt6-qtmultimedia
+Requires:       qt6-qtdeclarative
+Requires:       qt6-qtsvg
+Requires:       qt6-qtimageformats
+Requires:       qt6-qtcharts
+Requires:       qt6-qtsensors
+Requires:       qt6-qtwayland
 Requires:       hicolor-icon-theme
 Requires:       %{name}-activities = %{version}-%{release}
 
@@ -68,7 +75,7 @@ More than 100 activities are available.
 
 %build
 # qml-box2d in not available in Fedora
-%cmake_kf5 \
+%cmake_kf6 \
   -DQML_BOX2D_MODULE=disabled
 %cmake_build
 
@@ -81,26 +88,29 @@ desktop-file-validate \
    %{buildroot}%{_datadir}/applications/org.kde.gcompris.desktop
 
 # Validate AppData file
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.gcompris.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.gcompris.appdata.xml
 
 %find_lang %{name} --all-name --with-qt --with-html
 
 
 %files -f %{name}.lang
-%{_kf5_bindir}/%{name}
-%dir %{_kf5_datadir}/%{name}
-%{_kf5_metainfodir}/org.kde.gcompris.appdata.xml
-%{_kf5_datadir}/applications/org.kde.gcompris.desktop
-%{_kf5_datadir}/icons/hicolor/*/apps/%{name}.*
+%{_kf6_bindir}/%{name}
+%dir %{_kf6_datadir}/%{name}
+%{_kf6_metainfodir}/org.kde.gcompris.appdata.xml
+%{_kf6_datadir}/applications/org.kde.gcompris.desktop
+%{_kf6_datadir}/icons/hicolor/*/apps/%{name}.*
 %license LICENSES/AGPL-3.0-only.txt LICENSES/GPL-3.0-or-later.txt
 %doc README 
 
 %files activities
-%{_kf5_datadir}/%{name}/rcc
+%{_kf6_datadir}/%{name}/rcc
 %license LICENSES/AGPL-3.0-only.txt LICENSES/GPL-3.0-or-later.txt
 
 
 %changelog
+* Sat Feb 01 2025 Andrea Musuruane <musuruan@gmail.com> - 25.0-1
+- Updated to new upstream release
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

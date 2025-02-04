@@ -5,7 +5,7 @@
 # https://gitlab.com/cznic/ccgo
 %global goipath         modernc.org/ccgo/v4
 %global forgeurl        https://gitlab.com/cznic/ccgo
-Version:                4.23.6
+Version:                4.23.16
 %global tag             v%{version}
 
 %gometa -f

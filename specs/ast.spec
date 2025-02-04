@@ -1,13 +1,13 @@
 Name:           ast
-Version:        9.2.10
-Release:        7%{?dist}
+Version:        9.2.12
+Release:        1%{?dist}
 Summary:        A Library for Handling World Coordinate Systems in Astronomy
 
 # proj.c proj.h wcsmath.h wcstrig.c wcstrig.h are LGPLv2+
 # Automatically converted from old format: LGPLv3+ and LGPLv2+ - review is highly recommended.
 License:        LGPL-3.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:            http://starlink.eao.hawaii.edu/starlink/AST
-Source0:        http://www.starlink.ac.uk/download/ast/ast-%{version}.tar.gz
+Source0:        https://github.com/Starlink/ast/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc-gfortran
 BuildRequires:  make
@@ -74,7 +74,8 @@ sed -i -e 's/675 Mass Ave, Cambridge, MA 02139/51 Franklin Street, Fifth Floor, 
 
 %build
 # Do not conflict with libast (bug #978262)
-%configure CPPFLAGS="-I%{_includedir}/star" --disable-static --libdir=%{_libdir}/%{name} --with-external_cminpack --with-external_pal
+# -std=gnu17 needed for gcc 15 compatibility https://github.com/Starlink/ast/issues/27
+%configure CPPFLAGS="-I%{_includedir}/star" CFLAGS="%{optflags} -std=gnu17" --disable-static --libdir=%{_libdir}/%{name} --with-external_cminpack --with-external_pal
 %make_build
 
 
@@ -116,6 +117,10 @@ make check
 
 
 %changelog
+* Sat Feb 01 2025 Orion Poplawski <orion@nwra.com> - 9.2.12-1
+- Update to 9.2.12
+- Set -std=gnu17 for gcc 15 compatibility (FTBFS rhbz#2339906)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.10-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

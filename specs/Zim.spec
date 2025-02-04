@@ -1,5 +1,5 @@
 Name:           Zim
-Version:        0.76.0
+Version:        0.76.1
 Release:        %autorelease
 Summary:        Desktop wiki & notekeeper
 
@@ -32,7 +32,7 @@ automatically. Creating a new page is as easy as linking to a non-existing
 page. Pages are ordered in a hierarchical structure that gives it the look
 and feel of an outliner. This tool is intended to keep track of TODO lists
 or to serve as a personal scratch book.
-
+fkini
 %prep
 %autosetup -p1 -n zim-%{version}
 

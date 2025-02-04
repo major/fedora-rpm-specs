@@ -1,7 +1,7 @@
 Summary:        Image loading, saving, rendering, and manipulation library
 Name:           imlib2
 Version:        1.12.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        Imlib2
 URL:            http://docs.enlightenment.org/api/imlib2/html/
 Source0:        http://downloads.sourceforge.net/enlightenment/%{name}-%{version}.tar.xz
@@ -130,6 +130,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f \{\} \;
 
 
 %changelog
+* Sun Feb 02 2025 Sérgio Basto <sergio@serjux.com> - 1.12.3-2
+- Rebuild for jpegxl (libjxl) 0.11.1
+
 * Mon Jan 27 2025 Carlos Rodriguez-Fernandez <carlosrodrifernandez@gmail.com> - 1.12.3-1
 - Update to 1.12.3
 

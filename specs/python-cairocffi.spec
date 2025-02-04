@@ -1,7 +1,7 @@
 %global srcname cairocffi
 
 Name:           python-cairocffi
-Version:        1.7.0
+Version:        1.7.1
 Release:        %autorelease
 Summary:        cffi-based cairo bindings for Python
 License:        BSD-3-Clause

@@ -42,6 +42,8 @@ Source10:       https://inkscape.org/~MarcJeanmougin/gpg/#/MarcJeanmougin.gpg
 # Fedora Color Palette, GIMP format, CC-BY 3.0
 Source100:      Fedora-Color-Palette.gpl
 
+# Fix member name - fixes FTBFS https://bugzilla.redhat.com/show_bug.cgi?id=2340648
+Patch0:         https://gitlab.com/inkscape/inkscape/-/merge_requests/6755.patch
 
 # Don't drop i686 until at least texlive no longer needs it -GC, 2023-08-10
 #%%if 0%%{?fedora} >= 39

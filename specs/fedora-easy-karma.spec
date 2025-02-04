@@ -1,6 +1,6 @@
 Name:           fedora-easy-karma
 Version:        0.55
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fedora update feedback made easy
 License:        GPL-2.0-or-later
 URL:            https://fedoraproject.org/wiki/Fedora_Easy_Karma
@@ -16,8 +16,11 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  make
 
-Requires:       python3-bodhi-client >= 6
-Requires:       python3-dnf
+Requires:       python3dist(bodhi-client) >= 6
+Requires:       python3dist(colored)
+Requires:       python3dist(dnf)
+Requires:       python3dist(munch)
+Requires:       python3dist(requests)
 
 
 %description
@@ -41,6 +44,10 @@ updates that you have currently installed.
 
 
 %changelog
+* Sun Feb 02 2025 Björn Esser <besser82@fedoraproject.org> - 0.55-2
+- List all python3dist requirements explicitly
+  Fixes: rhbz#2343397
+
 * Sat Jan 25 2025 Frantisek Zatloukal <fzatlouk@redhat.com> - 0.54-3
 - Drop python-fedora dependency
 

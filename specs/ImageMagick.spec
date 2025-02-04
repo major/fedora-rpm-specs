@@ -14,7 +14,7 @@
 Name:           ImageMagick
 Epoch:          1
 Version:        7.1.1.43
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        An X application for displaying and manipulating images
 
 %global VER %(foo=%{version}; echo ${foo:0:5})
@@ -423,6 +423,12 @@ rm PerlMagick/demo/Generic.ttf
 %endif
 
 %changelog
+* Sun Feb 02 2025 Sérgio Basto <sergio@serjux.com> - 1:7.1.1.43-3
+- Rebuild on side-tag
+
+* Sun Feb 02 2025 Sérgio Basto <sergio@serjux.com> - 1:7.1.1.43-2
+- Rebuild for jpegxl (libjxl) 0.11.1
+
 * Tue Jan 28 2025 Packit <hello@packit.dev> - 1:7.1.1.43-1
 - Update to version 7.1.1.43
 - Resolves: rhbz#2334042

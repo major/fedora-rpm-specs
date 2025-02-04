@@ -5,7 +5,7 @@
 # https://gitlab.com/cznic/sqlite
 %global goipath         modernc.org/sqlite
 %global forgeurl        https://gitlab.com/cznic/sqlite
-Version:                1.34.4
+Version:                1.34.5
 %global tag             v%{version}
 
 %gometa -f
@@ -26,6 +26,8 @@ Summary:        A port of SQLite/SQLite3 to Go without cgo
 License:        BSD-3-Clause
 URL:            %{gourl}
 Source:         %{gosource}
+Patch0001:      0001-Fix-ppc-build.patch
+Patch0002:      0002-Fix-s390x-build.patch
 
 # Not required on all architecures, so golang-modernc-libc dependency omits by
 # using __requires_exclude. Without this, Koji complains about differing noarch
@@ -39,6 +41,7 @@ BuildRequires:  golang(github.com/ncruces/go-strftime)
 
 %prep
 %goprep
+%autopatch -p1
 
 %generate_buildrequires
 %go_generate_buildrequires

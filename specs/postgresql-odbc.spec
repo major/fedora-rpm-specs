@@ -43,10 +43,11 @@ The upstream psqlodbc testsuite is distributed in '%{name}-tests'
 EOF
 
 %build
+export CFLAGS="$CFLAGS -std=gnu17"
 %configure --with-unixodbc --disable-dependency-tracking
 # GCC 10 defaults to -fno-common
 # https://gcc.gnu.org/gcc-10/changes.html (see C section)
-%make_build CFLAGS="%{optflags} -fcommon"
+%make_build CFLAGS="%{optflags} -fcommon -std=gnu17"
 
 
 %install
@@ -73,7 +74,7 @@ mv test/expected/wchar-char_1.out test/expected/wchar-char.out
 rm -rf test/expected/wchar-char_2.out
 rm -rf test/expected/wchar-char_3.out
 
-cd test && make installcheck %{_smp_mflags} CFLAGS="%{optflags} -fcommon" || {
+cd test && make installcheck %{_smp_mflags} CFLAGS="%{optflags} -fcommon -std=gnu17" || {
 	echo "=== trying to find all regression.diffs files in build directory ==="
 	find -name regression.diffs | while read line; do
 		cat "$line"

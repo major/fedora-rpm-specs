@@ -2,7 +2,7 @@
 
 Name:           openmsx
 Version:        20.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An emulator for the MSX home computer system
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -23,7 +23,8 @@ BuildRequires:  make
 BuildRequires:  python3
 BuildRequires:  SDL2_image-devel
 BuildRequires:  SDL2_ttf-devel
-BuildRequires:  tcl-devel >= 8.6.0
+# OpenMSX does not build with Tcl 9.0
+BuildRequires:  tcl-devel < 1:9
 BuildRequires:  zlib-devel
 Requires:       cbios-%{name}
 Requires:       hicolor-icon-theme
@@ -178,6 +179,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sat Feb 01 2025 Andrea Musuruane <musuruan@gmail.com> - 20.0-3
+- OpenMSX does not build with Tcl 9.0 (BZ #2337744)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

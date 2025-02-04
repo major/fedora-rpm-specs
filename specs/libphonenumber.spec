@@ -9,6 +9,11 @@ URL: https://github.com/google/libphonenumber/
 Source0: https://github.com/google/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch1:  libphonenumber-8.13.27-new-protobuf-cmake-logic.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+%if 0%{?fedora} > 41
+ExcludeArch:   %{ix86}
+%endif
+
 BuildRequires: abseil-cpp-devel
 BuildRequires: boost-devel
 BuildRequires: cmake

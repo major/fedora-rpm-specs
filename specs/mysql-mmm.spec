@@ -2,7 +2,7 @@
 
 Name: mysql-mmm
 Version: 2.2.1
-Release: 36%{?dist}
+Release: 37%{?dist}
 Summary: Multi-Master Replication Manager for MySQL
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -91,9 +91,9 @@ Full documentation can be found at:
 EOF
 
 
-%patch -P0 -p1
-%patch -P1 -p1
-%patch -P2 -p1
+%patch -P 0 -p1
+%patch -P 1 -p1
+%patch -P 2 -p1
 find . -type f -name "*.orig" -print0 | xargs -0r rm
 
 %build
@@ -174,6 +174,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Sun Feb 02 2025 David Beveridge <dave@bevhost.com> 2.2.1-37
+- fix patchN deprecated
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -14,10 +14,10 @@ Name:           GoldenCheetah
 %if 0%{?usesnapshot}
 Version:        3.6
 # Release:        0.19.%%{commitdate}git%%{shortcommit0}%%{?dist}
-Release:        0.31.RC4%{?dist}
+Release:        0.32.RC4%{?dist}
 %else
 Version:        3.6
-Release:        9%{?dist}
+Release:        10%{?dist}
 %endif
 Summary:        Cycling Performance Software
 Epoch:          1
@@ -159,6 +159,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %doc doc/user/*.pdf
 
 %changelog
+* Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 1:3.6-10
+- Rebuild with gsl 2.8
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.6-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

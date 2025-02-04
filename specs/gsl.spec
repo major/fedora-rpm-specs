@@ -1,7 +1,7 @@
 Summary: The GNU Scientific Library for numerical analysis
 Name: gsl
-Version: 2.7.1
-Release: 12%{?dist}
+Version: 2.8
+Release: 1%{?dist}
 URL: https://www.gnu.org/software/gsl/
 VCS: git://git.savannah.gnu.org/gsl.git
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -13,7 +13,6 @@ Patch0: gsl-1.10-lib64.patch
 # http://lists.gnu.org/archive/html/bug-gsl/2015-12/msg00012.html
 Patch1: gsl-tol.patch
 Patch2: gsl-test.patch
-Patch3: gsl-configure-c99.patch
 
 BuildRequires: gcc
 BuildRequires: gnupg2
@@ -27,8 +26,6 @@ numerical analysis, written in C.
 %package devel
 Summary: Libraries and the header files for GSL development
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: pkgconfig
-Requires: automake
 
 %description devel
 The gsl-devel package contains the header files necessary for 
@@ -40,7 +37,6 @@ developing programs using the GSL (GNU Scientific Library).
 %patch -P0 -p1 -b .lib64
 %patch -P1 -p1 -b .tol
 %patch -P2 -p1 -b .test
-%patch -P3 -p1
 
 %build
 # disable FMA
@@ -64,7 +60,7 @@ rm -f %{buildroot}%{_libdir}/*.la
 %doc AUTHORS ChangeLog NEWS README THANKS TODO
 %{_bindir}/gsl-histogram
 %{_bindir}/gsl-randist
-%{_libdir}/libgsl.so.27*
+%{_libdir}/libgsl.so.28*
 %{_libdir}/libgslcblas.so.0*
 %{_mandir}/man1/gsl-histogram.1*
 %{_mandir}/man1/gsl-randist.1*
@@ -81,6 +77,12 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_includedir}/gsl/
 
 %changelog
+* Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 2.8-1
+- Update to 2.8
+
+* Sat Feb  1 2025 Cristian Le <fedora@lecris.me> - 2.7.1-13
+- Removed pkgconfig and automake requirements from gsl-devel
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

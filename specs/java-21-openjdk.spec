@@ -335,7 +335,7 @@
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        7
-%global rpmrelease      %(echo "%autorelease" | sed 's;%{?dist};;')
+%global rpmrelease      6
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -370,7 +370,7 @@
 
 # parametrized macros are order-sensitive
 %global compatiblename  java-%{featurever}-%{origin}
-%global fullversion     %{compatiblename}-%{version}-%{release}
+%define fullversion()     %{expand:%{compatiblename}%{?1}-%{version}-%{release}}
 # images directories from upstream build
 %global jdkimage                jdk
 %global static_libs_image       static-libs
@@ -380,9 +380,9 @@
 %global static_libs_install_dir %{static_libs_arch_dir}/glibc
 
 # we can copy the javadoc to not arched dir, or make it not noarch
-%define uniquejavadocdir()    %{expand:%{fullversion}.%{_arch}%{?1}}
+%define uniquejavadocdir() %{expand:%{compatiblename}%{?1}}
 # main id and dir of this jdk
-%define uniquesuffix()        %{expand:%{fullversion}.%{_arch}%{?1}}
+%define uniquesuffix() %{expand:%{compatiblename}%{?1}}
 
 #################################################################
 # fix for https://bugzilla.redhat.com/show_bug.cgi?id=1111349
@@ -409,7 +409,6 @@
 %define etcjavadir()      %{expand:%{etcjavasubdir}/%{uniquesuffix -- %{?1}}}
 # Standard JPackage directories and symbolic links.
 %define sdkdir()        %{expand:%{uniquesuffix -- %{?1}}}
-%define jrelnk()        %{expand:jre-%{javaver}-%{origin}-%{version}-%{release}.%{_arch}%{?1}}
 
 %define sdkbindir()     %{expand:%{_jvmdir}/%{sdkdir -- %{?1}}/bin}
 %define jrebindir()     %{expand:%{_jvmdir}/%{sdkdir -- %{?1}}/bin}
@@ -459,112 +458,49 @@ ExcludeArch: %{ix86}
 # not-duplicated scriptlets for normal/debug packages
 %global update_desktop_icons /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
-%define save_alternatives() %{expand:
-  # warning! alternatives are localised!
-  # LANG=cs_CZ.UTF-8  alternatives --display java | head
-  # LANG=en_US.UTF-8  alternatives --display java | head
-  function nonLocalisedAlternativesDisplayOfMaster() {
-    LANG=en_US.UTF-8 alternatives --display "$MASTER"
-  }
-  function headOfAbove() {
-    nonLocalisedAlternativesDisplayOfMaster | head -n $1
-  }
-  MASTER="%{?1}"
-  LOCAL_LINK="%{?2}"
-  FAMILY="%{?3}"
-  rm -f %{_localstatedir}/lib/rpm-state/"$MASTER"_$FAMILY > /dev/null
-  if nonLocalisedAlternativesDisplayOfMaster > /dev/null ; then
-      if headOfAbove 1 | grep -q manual ; then
-        if headOfAbove 2 | tail -n 1 | grep -q %{compatiblename} ; then
-           headOfAbove 2  > %{_localstatedir}/lib/rpm-state/"$MASTER"_"$FAMILY"
-        fi
-      fi
-  fi
-}
-
-%define save_and_remove_alternatives() %{expand:
-  if [ "x$debug"  == "xtrue" ] ; then
-    set -x
-  fi
-  upgrade1_uninstal0=%{?3}
-  if [ "0$upgrade1_uninstal0" -gt 0 ] ; then # removal of this condition will cause persistence between uninstall
-    %{save_alternatives %{?1} %{?2} %{?4}}
-  fi
-  alternatives --remove  "%{?1}" "%{?2}"
-}
-
-%define set_if_needed_alternatives() %{expand:
-  MASTER="%{?1}"
-  FAMILY="%{?2}"
-  ALTERNATIVES_FILE="%{_localstatedir}/lib/rpm-state/$MASTER"_"$FAMILY"
-  if [ -e  "$ALTERNATIVES_FILE" ] ; then
-    rm "$ALTERNATIVES_FILE"
-    alternatives --set $MASTER $FAMILY
-  fi
-}
-
-
 %define post_script() %{expand:
 update-desktop-database %{_datadir}/applications &> /dev/null || :
 /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
-exit 0
 }
+
+# We want fastdebug and slowdebug alternatives to have a lower
+# priority than the normal alternatives, so the normal alternatives
+# are the default.
+# If the argument to this macro is non-nil, that is either -fastdebug
+# or -slowdebug, then priority_for will expand to a value one less
+# than the priority global.  If the argument to this macro is nil,
+# that is represents the non-debug or normal package, then the result
+# is the normal priority macro value.
+# This computation is done at RPM macro expansion time, rather than at
+# runtime, to keep scriptlets as simple as possible.
+%define priority_for() %{expand:%[%{?1:1}%{!?1:0} ? %{priority} - 1 : %{priority}]}
+
+%global man_comp .gz
 
 %define alternatives_java_install() %{expand:
 if [ "x$debug"  == "xtrue" ] ; then
   set -x
 fi
-PRIORITY=%{priority}
-if [ "%{?1}" == %{debug_suffix} ]; then
-  let PRIORITY=PRIORITY-1
-fi
-
-ext=.gz
-key=java
-alternatives \\
-  --install %{_bindir}/java $key %{jrebindir -- %{?1}}/java $PRIORITY  --family %{family} \\
+alternatives --install %{_bindir}/java java %{jrebindir -- %{?1}}/java %{priority_for -- %{?1}} \\
   --slave %{_jvmdir}/jre jre %{_jvmdir}/%{sdkdir -- %{?1}} \\
   --slave %{_bindir}/%{alt_java_name} %{alt_java_name} %{jrebindir -- %{?1}}/%{alt_java_name} \\
   --slave %{_bindir}/jcmd jcmd %{sdkbindir -- %{?1}}/jcmd \\
   --slave %{_bindir}/keytool keytool %{jrebindir -- %{?1}}/keytool \\
   --slave %{_bindir}/rmiregistry rmiregistry %{jrebindir -- %{?1}}/rmiregistry \\
-  --slave %{_mandir}/man1/java.1$ext java.1$ext \\
-  %{_mandir}/man1/java-%{uniquesuffix -- %{?1}}.1$ext \\
-  --slave %{_mandir}/man1/%{alt_java_name}.1$ext %{alt_java_name}.1$ext \\
-  %{_mandir}/man1/%{alt_java_name}-%{uniquesuffix -- %{?1}}.1$ext \\
-  --slave %{_mandir}/man1/jcmd.1$ext jcmd.1$ext \\
-  %{_mandir}/man1/jcmd-%{uniquesuffix -- %{?1}}.1$ext \\
-  --slave %{_mandir}/man1/keytool.1$ext keytool.1$ext \\
-  %{_mandir}/man1/keytool-%{uniquesuffix -- %{?1}}.1$ext \\
-  --slave %{_mandir}/man1/rmiregistry.1$ext rmiregistry.1$ext \\
-  %{_mandir}/man1/rmiregistry-%{uniquesuffix -- %{?1}}.1$ext
-
-%{set_if_needed_alternatives $key %{family}}
-
-for X in %{origin} %{javaver} ; do
-  key=jre_"$X"
-  alternatives --install %{_jvmdir}/jre-"$X" $key %{_jvmdir}/%{sdkdir -- %{?1}} $PRIORITY --family %{family}
-  %{set_if_needed_alternatives $key %{family}}
-done
-
-key=jre_%{javaver}_%{origin}
-alternatives --install %{_jvmdir}/jre-%{javaver}-%{origin} $key %{_jvmdir}/%{jrelnk -- %{?1}} $PRIORITY  --family %{family}
-%{set_if_needed_alternatives $key %{family}}
+  --slave %{_mandir}/man1/java.1%{man_comp} java.1%{man_comp} %{_mandir}/man1/java-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
+  --slave %{_mandir}/man1/%{alt_java_name}.1%{man_comp} %{alt_java_name}.1%{man_comp} %{_mandir}/man1/%{alt_java_name}-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
+  --slave %{_mandir}/man1/jcmd.1%{man_comp} jcmd.1%{man_comp} %{_mandir}/man1/jcmd-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
+  --slave %{_mandir}/man1/keytool.1%{man_comp} keytool.1%{man_comp} %{_mandir}/man1/keytool-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
+  --slave %{_mandir}/man1/rmiregistry.1%{man_comp} rmiregistry.1%{man_comp} %{_mandir}/man1/rmiregistry-%{uniquesuffix -- %{?1}}.1%{man_comp}
+alternatives --install %{_jvmdir}/jre-%{origin} jre_%{origin} %{_jvmdir}/%{sdkdir -- %{?1}} %{priority_for -- %{?1}}
+alternatives --install %{_jvmdir}/jre-%{javaver} jre_%{javaver} %{_jvmdir}/%{sdkdir -- %{?1}} %{priority_for -- %{?1}}
+alternatives --install %{_jvmdir}/jre-%{javaver}-%{origin} jre_%{javaver}_%{origin} %{_jvmdir}/%{sdkdir -- %{?1}} %{priority_for -- %{?1}}
 }
 
 %define post_headless() %{expand:
+%{alternatives_java_install -- %{?1}}
 update-desktop-database %{_datadir}/applications &> /dev/null || :
 /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
-
-# see pretrans where this file is declared
-# also see that pretrans is only for non-debug
-if [ ! "%{?1}" == %{debug_suffix} ]; then
-  if [ -f %{_libexecdir}/copy_jdk_configs_fixFiles.sh ] ; then
-    sh  %{_libexecdir}/copy_jdk_configs_fixFiles.sh %{rpm_state_dir}/%{name}.%{_arch}  %{_jvmdir}/%{sdkdir -- %{?1}}
-  fi
-fi
-
-exit 0
 }
 
 %define postun_script() %{expand:
@@ -573,39 +509,55 @@ if [ $1 -eq 0 ] ; then
     /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
     %{update_desktop_icons}
 fi
-exit 0
 }
 
-
-%define postun_headless() %{expand:
-  if [ "x$debug"  == "xtrue" ] ; then
-    set -x
-  fi
-  post_state=$1 # from postun, https://docs.fedoraproject.org/en-US/packaging-guidelines/Scriptlets/#_syntax
-  %{save_and_remove_alternatives  java  %{jrebindir -- %{?1}}/java $post_state %{family}}
-  %{save_and_remove_alternatives  jre_%{origin} %{_jvmdir}/%{sdkdir -- %{?1}} $post_state %{family}}
-  %{save_and_remove_alternatives  jre_%{javaver} %{_jvmdir}/%{sdkdir -- %{?1}} $post_state %{family}}
-  %{save_and_remove_alternatives  jre_%{javaver}_%{origin} %{_jvmdir}/%{jrelnk -- %{?1}} $post_state %{family}}
+# Perform alternatives removals in preun instead of postun so that we
+# are removing live symbolic links instead of dangling symbolic links,
+# even though the alternatives command does not seem to care.  The
+# documentation uses preun or postun without providing a rationale for
+# using one over the other:
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Alternatives/
+#
+# The [ $1 -eq 0 ] is an RPM scriptlet idiom meaning "only do the
+# following if this scriptlet is being run during a straight package
+# removal; in other words, do NOT do the following if this scriptlet
+# is being run as part of an upgrade transaction".
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Scriptlets/#_syntax
+%define preun_headless() %{expand:
+if [ "x$debug"  == "xtrue" ] ; then
+  set -x
+fi
+if [ $1 -eq 0 ]
+then
+  alternatives --remove java %{jrebindir -- %{?1}}/java
+  alternatives --remove jre_%{origin} %{_jvmdir}/%{sdkdir -- %{?1}}
+  alternatives --remove jre_%{javaver} %{_jvmdir}/%{sdkdir -- %{?1}}
+  alternatives --remove jre_%{javaver}_%{origin} %{_jvmdir}/%{sdkdir -- %{?1}}
+fi
 }
 
+# Invoke gtk-update-icon-cache in posttrans instead of post as an
+# optimization.  If other packages in the transaction install icons
+# and use this optimization, then invocations of gtk-update-icon-cache
+# will all happen in succession, and invocations after the first one
+# will notice that the cache is fresh and immediately succeed.  If
+# this were instead done in each package's post, then the icon cache
+# would be regenerated every time, rendering the whole transaction
+# slower.
+# See:
+# https://lists.fedoraproject.org/archives/list/packaging\
+# @lists.fedoraproject.org/thread/HXIIKIHBMT3HELPKWH2BAXRNIF7BPPJD/
+# and:
+# https://fedoraproject.org/wiki/Archive:PackagingDrafts/Icon_Cache
 %define posttrans_script() %{expand:
 %{update_desktop_icons}
 }
-
 
 %define alternatives_javac_install() %{expand:
 if [ "x$debug"  == "xtrue" ] ; then
   set -x
 fi
-PRIORITY=%{priority}
-if [ "%{?1}" == %{debug_suffix} ]; then
-  let PRIORITY=PRIORITY-1
-fi
-
-ext=.gz
-key=javac
-alternatives \\
-  --install %{_bindir}/javac $key %{sdkbindir -- %{?1}}/javac $PRIORITY  --family %{family} \\
+alternatives --install %{_bindir}/javac javac %{sdkbindir -- %{?1}}/javac %{priority_for -- %{?1}} \\
   --slave %{_jvmdir}/java java_sdk %{_jvmdir}/%{sdkdir -- %{?1}} \\
   --slave %{_bindir}/jlink jlink %{sdkbindir -- %{?1}}/jlink \\
   --slave %{_bindir}/jmod jmod %{sdkbindir -- %{?1}}/jmod \\
@@ -635,84 +587,59 @@ alternatives \\
   --slave %{_bindir}/jstatd jstatd %{sdkbindir -- %{?1}}/jstatd \\
   --slave %{_bindir}/jwebserver jwebserver %{sdkbindir -- %{?1}}/jwebserver \\
   --slave %{_bindir}/serialver serialver %{sdkbindir -- %{?1}}/serialver \\
-  --slave %{_mandir}/man1/jar.1$ext jar.1$ext \\
-  %{_mandir}/man1/jar-%{uniquesuffix -- %{?1}}.1$ext \\
-  --slave %{_mandir}/man1/jarsigner.1$ext jarsigner.1$ext \\
-  %{_mandir}/man1/jarsigner-%{uniquesuffix -- %{?1}}.1$ext \\
-  --slave %{_mandir}/man1/javac.1$ext javac.1$ext \\
-  %{_mandir}/man1/javac-%{uniquesuffix -- %{?1}}.1$ext \\
-  --slave %{_mandir}/man1/javadoc.1$ext javadoc.1$ext \\
-  %{_mandir}/man1/javadoc-%{uniquesuffix -- %{?1}}.1$ext \\
-  --slave %{_mandir}/man1/javap.1$ext javap.1$ext \\
-  %{_mandir}/man1/javap-%{uniquesuffix -- %{?1}}.1$ext \\
-  --slave %{_mandir}/man1/jconsole.1$ext jconsole.1$ext \\
-  %{_mandir}/man1/jconsole-%{uniquesuffix -- %{?1}}.1$ext \\
-  --slave %{_mandir}/man1/jdb.1$ext jdb.1$ext \\
-  %{_mandir}/man1/jdb-%{uniquesuffix -- %{?1}}.1$ext \\
-  --slave %{_mandir}/man1/jdeps.1$ext jdeps.1$ext \\
-  %{_mandir}/man1/jdeps-%{uniquesuffix -- %{?1}}.1$ext \\
-  --slave %{_mandir}/man1/jinfo.1$ext jinfo.1$ext \\
-  %{_mandir}/man1/jinfo-%{uniquesuffix -- %{?1}}.1$ext \\
-  --slave %{_mandir}/man1/jmap.1$ext jmap.1$ext \\
-  %{_mandir}/man1/jmap-%{uniquesuffix -- %{?1}}.1$ext \\
-  --slave %{_mandir}/man1/jps.1$ext jps.1$ext \\
-  %{_mandir}/man1/jps-%{uniquesuffix -- %{?1}}.1$ext \\
-  --slave %{_mandir}/man1/jpackage.1$ext jpackage.1$ext \\
-  %{_mandir}/man1/jpackage-%{uniquesuffix -- %{?1}}.1$ext \\
-  --slave %{_mandir}/man1/jrunscript.1$ext jrunscript.1$ext \\
-  %{_mandir}/man1/jrunscript-%{uniquesuffix -- %{?1}}.1$ext \\
-  --slave %{_mandir}/man1/jstack.1$ext jstack.1$ext \\
-  %{_mandir}/man1/jstack-%{uniquesuffix -- %{?1}}.1$ext \\
-  --slave %{_mandir}/man1/jstat.1$ext jstat.1$ext \\
-  %{_mandir}/man1/jstat-%{uniquesuffix -- %{?1}}.1$ext \\
-  --slave %{_mandir}/man1/jwebserver.1$ext jwebserver.1$ext \\
-  %{_mandir}/man1/jwebserver-%{uniquesuffix -- %{?1}}.1$ext \\
-  --slave %{_mandir}/man1/jstatd.1$ext jstatd.1$ext \\
-  %{_mandir}/man1/jstatd-%{uniquesuffix -- %{?1}}.1$ext \\
-  --slave %{_mandir}/man1/serialver.1$ext serialver.1$ext \\
-  %{_mandir}/man1/serialver-%{uniquesuffix -- %{?1}}.1$ext
-
-%{set_if_needed_alternatives  $key %{family}}
-
-for X in %{origin} %{javaver} ; do
-  key=java_sdk_"$X"
-  alternatives --install %{_jvmdir}/java-"$X" $key %{_jvmdir}/%{sdkdir -- %{?1}} $PRIORITY  --family %{family}
-  %{set_if_needed_alternatives  $key %{family}}
-done
-
-key=java_sdk_%{javaver}_%{origin}
-alternatives --install %{_jvmdir}/java-%{javaver}-%{origin} $key %{_jvmdir}/%{sdkdir -- %{?1}} $PRIORITY  --family %{family}
-%{set_if_needed_alternatives  $key %{family}}
+  --slave %{_mandir}/man1/jar.1%{man_comp} jar.1%{man_comp} %{_mandir}/man1/jar-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
+  --slave %{_mandir}/man1/jarsigner.1%{man_comp} jarsigner.1%{man_comp} %{_mandir}/man1/jarsigner-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
+  --slave %{_mandir}/man1/javac.1%{man_comp} javac.1%{man_comp} %{_mandir}/man1/javac-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
+  --slave %{_mandir}/man1/javadoc.1%{man_comp} javadoc.1%{man_comp} %{_mandir}/man1/javadoc-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
+  --slave %{_mandir}/man1/javap.1%{man_comp} javap.1%{man_comp} %{_mandir}/man1/javap-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
+  --slave %{_mandir}/man1/jconsole.1%{man_comp} jconsole.1%{man_comp} %{_mandir}/man1/jconsole-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
+  --slave %{_mandir}/man1/jdb.1%{man_comp} jdb.1%{man_comp} %{_mandir}/man1/jdb-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
+  --slave %{_mandir}/man1/jdeps.1%{man_comp} jdeps.1%{man_comp} %{_mandir}/man1/jdeps-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
+  --slave %{_mandir}/man1/jinfo.1%{man_comp} jinfo.1%{man_comp} %{_mandir}/man1/jinfo-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
+  --slave %{_mandir}/man1/jmap.1%{man_comp} jmap.1%{man_comp} %{_mandir}/man1/jmap-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
+  --slave %{_mandir}/man1/jps.1%{man_comp} jps.1%{man_comp} %{_mandir}/man1/jps-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
+  --slave %{_mandir}/man1/jpackage.1%{man_comp} jpackage.1%{man_comp} %{_mandir}/man1/jpackage-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
+  --slave %{_mandir}/man1/jrunscript.1%{man_comp} jrunscript.1%{man_comp} %{_mandir}/man1/jrunscript-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
+  --slave %{_mandir}/man1/jstack.1%{man_comp} jstack.1%{man_comp} %{_mandir}/man1/jstack-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
+  --slave %{_mandir}/man1/jstat.1%{man_comp} jstat.1%{man_comp} %{_mandir}/man1/jstat-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
+  --slave %{_mandir}/man1/jwebserver.1%{man_comp} jwebserver.1%{man_comp} %{_mandir}/man1/jwebserver-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
+  --slave %{_mandir}/man1/jstatd.1%{man_comp} jstatd.1%{man_comp} %{_mandir}/man1/jstatd-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
+  --slave %{_mandir}/man1/serialver.1%{man_comp} serialver.1%{man_comp} %{_mandir}/man1/serialver-%{uniquesuffix -- %{?1}}.1%{man_comp}
+alternatives --install %{_jvmdir}/java-%{origin} java_sdk_%{origin} %{_jvmdir}/%{sdkdir -- %{?1}} %{priority_for -- %{?1}}
+alternatives --install %{_jvmdir}/java-%{javaver} java_sdk_%{javaver} %{_jvmdir}/%{sdkdir -- %{?1}} %{priority_for -- %{?1}}
 }
 
 %define post_devel() %{expand:
+%{alternatives_javac_install -- %{?1}}
 update-desktop-database %{_datadir}/applications &> /dev/null || :
 /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
+}
 
-exit 0
+%define preun_devel() %{expand:
+if [ "x$debug"  == "xtrue" ] ; then
+  set -x
+fi
+if [ $1 -eq 0 ]
+then
+  alternatives --remove javac %{sdkbindir -- %{?1}}/javac
+  alternatives --remove java_sdk_%{origin} %{_jvmdir}/%{sdkdir -- %{?1}}
+  alternatives --remove java_sdk_%{javaver} %{_jvmdir}/%{sdkdir -- %{?1}}
+fi
 }
 
 %define postun_devel() %{expand:
-  if [ "x$debug"  == "xtrue" ] ; then
-    set -x
-  fi
-  post_state=$1 # from postun, https://docs.fedoraproject.org/en-US/packaging-guidelines/Scriptlets/#_syntax
-  %{save_and_remove_alternatives  javac %{sdkbindir -- %{?1}}/javac $post_state %{family}}
-  %{save_and_remove_alternatives  java_sdk_%{origin} %{_jvmdir}/%{sdkdir -- %{?1}} $post_state %{family}}
-  %{save_and_remove_alternatives  java_sdk_%{javaver} %{_jvmdir}/%{sdkdir -- %{?1}} $post_state %{family}}
-  %{save_and_remove_alternatives  java_sdk_%{javaver}_%{origin} %{_jvmdir}/%{sdkdir -- %{?1}} $post_state %{family}}
-
+if [ "x$debug"  == "xtrue" ] ; then
+  set -x
+fi
 update-desktop-database %{_datadir}/applications &> /dev/null || :
 
 if [ $1 -eq 0 ] ; then
     /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
     %{update_desktop_icons}
 fi
-exit 0
 }
 
 %define posttrans_devel() %{expand:
-%{alternatives_javac_install --  %{?1}}
 %{update_desktop_icons}
 }
 
@@ -720,73 +647,43 @@ exit 0
 if [ "x$debug"  == "xtrue" ] ; then
   set -x
 fi
-PRIORITY=%{priority}
-if [ "%{?1}" == %{debug_suffix} ]; then
-  let PRIORITY=PRIORITY-1
-fi
-  for X in %{origin} %{javaver} ; do
-    key=javadocdir_"$X"
-    alternatives --install %{_javadocdir}/java-"$X" $key %{_javadocdir}/%{uniquejavadocdir -- %{?1}}/api $PRIORITY --family %{family_noarch}
-    %{set_if_needed_alternatives $key %{family_noarch}}
-  done
-
-  key=javadocdir_%{javaver}_%{origin}
-  alternatives --install %{_javadocdir}/java-%{javaver}-%{origin} $key %{_javadocdir}/%{uniquejavadocdir -- %{?1}}/api $PRIORITY --family %{family_noarch}
-  %{set_if_needed_alternatives  $key %{family_noarch}}
-
-  key=javadocdir
-  alternatives --install %{_javadocdir}/java $key %{_javadocdir}/%{uniquejavadocdir -- %{?1}}/api $PRIORITY --family %{family_noarch}
-  %{set_if_needed_alternatives  $key %{family_noarch}}
-exit 0
+alternatives --install %{_javadocdir}/java-%{origin} javadocdir_%{origin} %{_javadocdir}/%{uniquejavadocdir -- %{?1}}/api %{priority_for -- %{?1}}
+alternatives --install %{_javadocdir}/java-%{javaver} javadocdir_%{javaver} %{_javadocdir}/%{uniquejavadocdir -- %{?1}}/api %{priority_for -- %{?1}}
+alternatives --install %{_javadocdir}/java javadocdir %{_javadocdir}/%{uniquejavadocdir -- %{?1}}/api %{priority_for -- %{?1}}
 }
 
-%define postun_javadoc() %{expand:
+%define preun_javadoc() %{expand:
 if [ "x$debug"  == "xtrue" ] ; then
   set -x
 fi
-  post_state=$1 # from postun, https://docs.fedoraproject.org/en-US/packaging-guidelines/Scriptlets/#_syntax
-  %{save_and_remove_alternatives  javadocdir  %{_javadocdir}/%{uniquejavadocdir -- %{?1}}/api $post_state %{family_noarch}}
-  %{save_and_remove_alternatives  javadocdir_%{origin} %{_javadocdir}/%{uniquejavadocdir -- %{?1}}/api $post_state %{family_noarch}}
-  %{save_and_remove_alternatives  javadocdir_%{javaver} %{_javadocdir}/%{uniquejavadocdir -- %{?1}}/api $post_state %{family_noarch}}
-  %{save_and_remove_alternatives  javadocdir_%{javaver}_%{origin} %{_javadocdir}/%{uniquejavadocdir -- %{?1}}/api $post_state %{family_noarch}}
-exit 0
+if [ $1 -eq 0 ]
+then
+  alternatives --remove javadocdir %{_javadocdir}/%{uniquejavadocdir -- %{?1}}/api
+  alternatives --remove javadocdir_%{origin} %{_javadocdir}/%{uniquejavadocdir -- %{?1}}/api
+  alternatives --remove javadocdir_%{javaver} %{_javadocdir}/%{uniquejavadocdir -- %{?1}}/api
+fi
 }
 
 %define alternatives_javadoczip_install() %{expand:
 if [ "x$debug"  == "xtrue" ] ; then
   set -x
 fi
-PRIORITY=%{priority}
-if [ "%{?1}" == %{debug_suffix} ]; then
-  let PRIORITY=PRIORITY-1
-fi
-  for X in %{origin} %{javaver} ; do
-    key=javadoczip_"$X"
-    alternatives --install %{_javadocdir}/java-"$X".zip $key %{_javadocdir}/%{uniquejavadocdir -- %{?1}}.zip $PRIORITY --family %{family_noarch}
-    %{set_if_needed_alternatives $key %{family_noarch}}
-  done
-
-  key=javadoczip_%{javaver}_%{origin}
-  alternatives --install %{_javadocdir}/java-%{javaver}-%{origin}.zip $key %{_javadocdir}/%{uniquejavadocdir -- %{?1}}.zip $PRIORITY --family %{family_noarch}
-  %{set_if_needed_alternatives  $key %{family_noarch}}
-
-  # Weird legacy filename for backwards-compatibility
-  key=javadoczip
-  alternatives --install %{_javadocdir}/java-zip $key %{_javadocdir}/%{uniquejavadocdir -- %{?1}}.zip $PRIORITY  --family %{family_noarch}
-  %{set_if_needed_alternatives  $key %{family_noarch}}
-exit 0
+alternatives --install %{_javadocdir}/java-%{origin}.zip javadoczip_%{origin} %{_javadocdir}/%{uniquejavadocdir -- %{?1}}.zip %{priority_for -- %{?1}}
+alternatives --install %{_javadocdir}/java-%{javaver}.zip javadoczip_%{javaver} %{_javadocdir}/%{uniquejavadocdir -- %{?1}}.zip %{priority_for -- %{?1}}
+# Weird legacy filename for backwards-compatibility
+alternatives --install %{_javadocdir}/java-zip javadoczip %{_javadocdir}/%{uniquejavadocdir -- %{?1}}.zip %{priority_for -- %{?1}}
 }
 
-%define postun_javadoc_zip() %{expand:
-  if [ "x$debug"  == "xtrue" ] ; then
-    set -x
-  fi
-  post_state=$1 # from postun, https://docs.fedoraproject.org/en-US/packaging-guidelines/Scriptlets/#_syntax
-  %{save_and_remove_alternatives  javadoczip  %{_javadocdir}/%{uniquejavadocdir -- %{?1}}.zip $post_state %{family_noarch}}
-  %{save_and_remove_alternatives  javadoczip_%{origin}  %{_javadocdir}/%{uniquejavadocdir -- %{?1}}.zip $post_state %{family_noarch}}
-  %{save_and_remove_alternatives  javadoczip_%{javaver}  %{_javadocdir}/%{uniquejavadocdir -- %{?1}}.zip $post_state %{family_noarch}}
-  %{save_and_remove_alternatives  javadoczip_%{javaver}_%{origin}  %{_javadocdir}/%{uniquejavadocdir -- %{?1}}.zip $post_state %{family_noarch}}
-exit 0
+%define preun_javadoc_zip() %{expand:
+if [ "x$debug"  == "xtrue" ] ; then
+  set -x
+fi
+if [ $1 -eq 0 ]
+then
+  alternatives --remove javadoczip %{_javadocdir}/%{uniquejavadocdir -- %{?1}}.zip
+  alternatives --remove javadoczip_%{origin} %{_javadocdir}/%{uniquejavadocdir -- %{?1}}.zip
+  alternatives --remove javadoczip_%{javaver} %{_javadocdir}/%{uniquejavadocdir -- %{?1}}.zip
+fi
 }
 
 %define files_jre() %{expand:
@@ -796,16 +693,16 @@ exit 0
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libjawt.so
 }
 
-
 %define files_jre_headless() %{expand:
+%{_jvmdir}/%{fullversion -- %{?1}}
 %license %{_jvmdir}/%{sdkdir -- %{?1}}/legal
+%doc %{_jvmdir}/%{sdkdir -- %{?1}}/NEWS	
 %doc %{_defaultdocdir}/%{uniquejavadocdir -- %{?1}}/NEWS
-%{_jvmdir}/%{sdkdir -- %{?1}}/NEWS
+%dir %{_defaultdocdir}/%{uniquejavadocdir -- %{?1}}
 %dir %{_sysconfdir}/.java/.systemPrefs
 %dir %{_sysconfdir}/.java
 %dir %{_jvmdir}/%{sdkdir -- %{?1}}
 %{_jvmdir}/%{sdkdir -- %{?1}}/release
-%{_jvmdir}/%{jrelnk -- %{?1}}
 %dir %{_jvmdir}/%{sdkdir -- %{?1}}/bin
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/java
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/%{alt_java_name}
@@ -876,7 +773,8 @@ exit 0
 %{_mandir}/man1/jcmd-%{uniquesuffix -- %{?1}}.1*
 %{_mandir}/man1/keytool-%{uniquesuffix -- %{?1}}.1*
 %{_mandir}/man1/rmiregistry-%{uniquesuffix -- %{?1}}.1*
-%{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}/
+%dir %{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}
+%{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}/*.so
 %ifarch %{share_arches}
 %attr(444, root, root) %{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}/classes.jsa
 %ifnarch %{ix86} %{arm32}
@@ -907,16 +805,16 @@ exit 0
  %{etcjavadir -- %{?1}}/conf/security/policy/README.txt
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/security/java.policy
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/security/java.security
-%config(noreplace) %{etcjavadir -- %{?1}}/conf/logging.properties
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/security/nss.fips.cfg
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/management/jmxremote.access
 # This is a config template, thus not config-noreplace
 %config  %{etcjavadir -- %{?1}}/conf/management/jmxremote.password.template
 %config  %{etcjavadir -- %{?1}}/conf/sdp/sdp.conf.template
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/management/management.properties
+%config(noreplace) %{etcjavadir -- %{?1}}/conf/jaxp.properties
+%config(noreplace) %{etcjavadir -- %{?1}}/conf/logging.properties
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/net.properties
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/sound.properties
-%config(noreplace) %{etcjavadir -- %{?1}}/conf/jaxp.properties
 %{_jvmdir}/%{sdkdir -- %{?1}}/conf
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/security
 %if %is_system_jdk
@@ -926,10 +824,7 @@ exit 0
 %ghost %{_bindir}/%{alt_java_name}
 %ghost %{_bindir}/jcmd
 %ghost %{_bindir}/keytool
-%ghost %{_bindir}/pack200
-%ghost %{_bindir}/rmid
 %ghost %{_bindir}/rmiregistry
-%ghost %{_bindir}/unpack200
 %ghost %{_jvmdir}/jre-%{origin}
 %ghost %{_jvmdir}/jre-%{javaver}
 %ghost %{_jvmdir}/jre-%{javaver}-%{origin}
@@ -987,24 +882,23 @@ exit 0
 %{_mandir}/man1/javadoc-%{uniquesuffix -- %{?1}}.1*
 %{_mandir}/man1/javap-%{uniquesuffix -- %{?1}}.1*
 %{_mandir}/man1/jconsole-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jcmd-%{uniquesuffix -- %{?1}}.1*
 %{_mandir}/man1/jdb-%{uniquesuffix -- %{?1}}.1*
+%{_mandir}/man1/jdeprscan-%{uniquesuffix -- %{?1}}.1*
 %{_mandir}/man1/jdeps-%{uniquesuffix -- %{?1}}.1*
+%{_mandir}/man1/jfr-%{uniquesuffix -- %{?1}}.1*
 %{_mandir}/man1/jinfo-%{uniquesuffix -- %{?1}}.1*
+%{_mandir}/man1/jlink-%{uniquesuffix -- %{?1}}.1*
 %{_mandir}/man1/jmap-%{uniquesuffix -- %{?1}}.1*
+%{_mandir}/man1/jmod-%{uniquesuffix -- %{?1}}.1*
 %{_mandir}/man1/jps-%{uniquesuffix -- %{?1}}.1*
 %{_mandir}/man1/jpackage-%{uniquesuffix -- %{?1}}.1*
 %{_mandir}/man1/jrunscript-%{uniquesuffix -- %{?1}}.1*
+%{_mandir}/man1/jshell-%{uniquesuffix -- %{?1}}.1*
 %{_mandir}/man1/jstack-%{uniquesuffix -- %{?1}}.1*
 %{_mandir}/man1/jstat-%{uniquesuffix -- %{?1}}.1*
 %{_mandir}/man1/jstatd-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/serialver-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jdeprscan-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jlink-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jmod-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jshell-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jfr-%{uniquesuffix -- %{?1}}.1*
 %{_mandir}/man1/jwebserver-%{uniquesuffix -- %{?1}}.1*
+%{_mandir}/man1/serialver-%{uniquesuffix -- %{?1}}.1*
 
 %if %{with_systemtap}
 %dir %{tapsetroot}
@@ -1028,19 +922,21 @@ exit 0
 %ghost %{_bindir}/jdb
 %ghost %{_bindir}/jdeps
 %ghost %{_bindir}/jdeprscan
+%ghost %{_bindir}/jfr
 %ghost %{_bindir}/jimage
 %ghost %{_bindir}/jinfo
 %ghost %{_bindir}/jmap
 %ghost %{_bindir}/jps
+%ghost %{_bindir}/jpackage
 %ghost %{_bindir}/jrunscript
 %ghost %{_bindir}/jshell
 %ghost %{_bindir}/jstack
 %ghost %{_bindir}/jstat
 %ghost %{_bindir}/jstatd
+%ghost %{_bindir}/jwebserver
 %ghost %{_bindir}/serialver
 %ghost %{_jvmdir}/java-%{origin}
 %ghost %{_jvmdir}/java-%{javaver}
-%ghost %{_jvmdir}/java-%{javaver}-%{origin}
 %endif
 %endif
 }
@@ -1071,25 +967,26 @@ exit 0
 %define files_javadoc() %{expand:
 %doc %{_javadocdir}/%{uniquejavadocdir -- %{?1}}
 %license %{_jvmdir}/%{sdkdir -- %{?1}}/legal
+%dir %{_jvmdir}/%{sdkdir -- %{?1}}
 %if %is_system_jdk
 %if %{is_release_build -- %{?1}}
 %ghost %{_javadocdir}/java
 %ghost %{_javadocdir}/java-%{origin}
 %ghost %{_javadocdir}/java-%{javaver}
-%ghost %{_javadocdir}/java-%{javaver}-%{origin}
 %endif
 %endif
 }
 
 %define files_javadoc_zip() %{expand:
 %doc %{_javadocdir}/%{uniquejavadocdir -- %{?1}}.zip
+%doc %{_javadocdir}/%{uniquejavadocdir -- %{?1}}
 %license %{_jvmdir}/%{sdkdir -- %{?1}}/legal
+%dir %{_jvmdir}/%{sdkdir -- %{?1}}
 %if %is_system_jdk
 %if %{is_release_build -- %{?1}}
 %ghost %{_javadocdir}/java-zip
 %ghost %{_javadocdir}/java-%{origin}.zip
 %ghost %{_javadocdir}/java-%{javaver}.zip
-%ghost %{_javadocdir}/java-%{javaver}-%{origin}.zip
 %endif
 %endif
 }
@@ -1130,18 +1027,11 @@ Requires: ca-certificates
 # Require javapackages-filesystem for ownership of /usr/lib/jvm/ and macros
 Requires: javapackages-filesystem
 # Require zone-info data provided by tzdata-java sub-package
-# 2022g required as of JDK-8297804
-Requires: tzdata-java >= 2022g
+# 2024a required as of JDK-8325150
+Requires: tzdata-java >= 2024a
 # for support of kernel stream control
 # libsctp.so.1 is being `dlopen`ed on demand
 Requires: lksctp-tools%{?_isa}
-%if ! 0%{?flatpak}
-# tool to copy jdk's configs - should be Recommends only, but then only dnf/yum enforce it,
-# not rpm transaction and so no configs are persisted when pure rpm -u is run. It may be
-# considered as regression
-Requires: copy-jdk-configs >= 4.0
-OrderWithRequires: copy-jdk-configs
-%endif
 # for printing support
 Requires: cups-libs
 # for system security properties
@@ -1363,20 +1253,20 @@ BuildRequires: tzdata-java >= 2022g
 BuildRequires: systemtap-sdt-devel
 %endif
 
-# Version in src/java.desktop/share/native/libfreetype/include/freetype/freetype.h
-Provides: bundled(freetype) = 2.12.1
+# Version in src/java.desktop/share/legal/freetype.md
+Provides: bundled(freetype) = 2.13.2
 # Version in src/java.desktop/share/native/libsplashscreen/giflib/gif_lib.h
-Provides: bundled(giflib) = 5.2.1
+Provides: bundled(giflib) = 5.2.2
 # Version in src/java.desktop/share/native/libharfbuzz/hb-version.h
-Provides: bundled(harfbuzz) = 4.4.1
+Provides: bundled(harfbuzz) = 8.2.2
 # Version in src/java.desktop/share/native/liblcms/lcms2.h
-Provides: bundled(lcms2) = 2.12.0
+Provides: bundled(lcms2) = 2.16.0
 # Version in src/java.desktop/share/native/libjavajpeg/jpeglib.h
 Provides: bundled(libjpeg) = 6b
 # Version in src/java.desktop/share/native/libsplashscreen/libpng/png.h
-Provides: bundled(libpng) = 1.6.37
-# We link statically against libstdc++ to increase portability
-BuildRequires: libstdc++-static
+Provides: bundled(libpng) = 1.6.43
+# Version in src/java.base/share/native/libzip/zlib/zlib.h
+Provides: bundled(zlib) = 1.3.1
 
 # this is always built, also during debug-only build
 # when it is built in debug-only this package is just placeholder
@@ -1757,7 +1647,7 @@ echo "Used %{version}.*portable:" >> %{repack_file}
 ls -l %{portablejvmdir} | grep "%{version}.*portable" >> %{repack_file} || echo "Not found!" >> %{repack_file}
 echo "Used portable.*%{version}:" >> %{repack_file}
 rpm -qa | grep "portable.*%{version}" >> %{repack_file} || echo "Not found!" >> %{repack_file}
-echo "Where this is %{fullversion}" >> %{repack_file}
+echo "Where this is %{fullversion %{nil}}" >> %{repack_file}
 portableNvr=`rpm -qa | grep %{name}-portable-misc-%{version} | sed "s/-misc-/-/" | sed "s/.%{_arch}.*//"`
 if [ "x${portableNvr}" == x ] ; then
   portableNvr=`rpm -qa | grep %{name}-portable-misc- | sed "s/-misc-/-/" | sed "s/.%{_arch}.*//"`" #incorrect!"
@@ -2053,10 +1943,6 @@ pushd ${jdk_image}
   done
 %endif
 
-  # Install version-ed symlinks
-  pushd $RPM_BUILD_ROOT%{_jvmdir}
-    ln -sf %{sdkdir -- $suffix} %{jrelnk -- $suffix}
-  popd
 
   # Install man pages
   install -d -m 755 $RPM_BUILD_ROOT%{_mandir}/man1
@@ -2125,6 +2011,9 @@ find $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/ -name "*.so" -exec chmod 7
 find $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/ -type d -exec chmod 755 {} \; ;
 find $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/legal -type f -exec chmod 644 {} \; ;
 
+pushd $RPM_BUILD_ROOT%{_jvmdir}
+  ln -srv %{sdkdir -- $suffix} %{fullversion -- $suffix}
+popd
 # end, dual install
 done
 
@@ -2204,153 +2093,166 @@ $JAVA_HOME/bin/javap -l java.nio.ByteBuffer | grep LocalVariableTable
 # build cycles check
 done
 
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Scriptlets/
+# recommends an explicit "exit 0" at the end of each scriptlet.  Keep
+# them in this section instead of in the parameterized macro
+# definitions, so that multiple macros can be called without worrying
+# about which one ends with "exit 0".
 %if %{include_normal_build}
-# intentionally only for non-debug
-%pretrans headless -p <lua>
--- see https://bugzilla.redhat.com/show_bug.cgi?id=1038092 for whole issue
--- see https://bugzilla.redhat.com/show_bug.cgi?id=1290388 for pretrans over pre
--- if copy-jdk-configs is in transaction, it installs in pretrans to temp
--- if copy_jdk_configs is in temp, then it means that copy-jdk-configs is in transaction  and so is
--- preferred over one in %%{_libexecdir}. If it is not in transaction, then depends
--- whether copy-jdk-configs is installed or not. If so, then configs are copied
--- (copy_jdk_configs from %%{_libexecdir} used) or not copied at all
-local posix = require "posix"
-
-if (os.getenv("debug") == "true") then
-  debug = true;
-  print("cjc: in spec debug is on")
-else
-  debug = false;
-end
-
-SOURCE1 = "%{rpm_state_dir}/copy_jdk_configs.lua"
-SOURCE2 = "%{_libexecdir}/copy_jdk_configs.lua"
-
-local stat1 = posix.stat(SOURCE1, "type");
-local stat2 = posix.stat(SOURCE2, "type");
-
-  if (stat1 ~= nil) then
-  if (debug) then
-    print(SOURCE1 .." exists - copy-jdk-configs in transaction, using this one.")
-  end;
-  package.path = package.path .. ";" .. SOURCE1
-else
-  if (stat2 ~= nil) then
-  if (debug) then
-    print(SOURCE2 .." exists - copy-jdk-configs already installed and NOT in transaction. Using.")
-  end;
-  package.path = package.path .. ";" .. SOURCE2
-  else
-    if (debug) then
-      print(SOURCE1 .." does NOT exists")
-      print(SOURCE2 .." does NOT exists")
-      print("No config files will be copied")
-    end
-  return
-  end
-end
-arg = nil ;  -- it is better to null the arg up, no meter if they exists or not, and use cjc as module in unified way, instead of relaying on "main" method during require "copy_jdk_configs.lua"
-cjc = require "copy_jdk_configs.lua"
-args = {"--currentjvm", "%{uniquesuffix %{nil}}", "--jvmdir", "%{_jvmdir %{nil}}", "--origname", "%{name}", "--origjavaver", "%{javaver}", "--arch", "%{_arch}", "--temp", "%{rpm_state_dir}/%{name}.%{_arch}"}
-cjc.mainProgram(args)
-
 %post
 %{post_script %{nil}}
+exit 0
+
+# Allow upgrades from packages that have /usr/lib/jvm/java-21-openjdk
+# as an alternatives symlink, without running into the known RPM
+# limitation when changing to a directory a symlink to a directory.
+# See also javadoc and javadoc-zip subpackages for
+# /usr/share/javadoc/java-21-openjdk, which was a symlink before.
+# /etc/java/java-21-openjdk is OK because it was always a directory.
+# Reference:
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Directory_Replacement/
+%define lua_delete_old_link() %{expand:
+path = "%{1}"
+st = posix.stat(path)
+if st and st.type == "link" then
+  os.remove(path)
+end
+}
+
+%pretrans headless -p <lua>
+%{lua_delete_old_link -- %{_jvmdir}/%{sdkdir -- %{?1}}}
 
 %post headless
 %{post_headless %{nil}}
+exit 0
 
 %postun
 %{postun_script %{nil}}
+exit 0
 
-%postun headless
-%{postun_headless %{nil}}
+%preun headless
+%{preun_headless %{nil}}
+exit 0
 
 %posttrans
 %{posttrans_script %{nil}}
-
-%posttrans headless
-%{alternatives_java_install %{nil}}
+exit 0
 
 %post devel
 %{post_devel %{nil}}
+exit 0
+
+%preun devel
+%{preun_devel %{nil}}
+exit 0
 
 %postun devel
 %{postun_devel %{nil}}
+exit 0
 
-%posttrans  devel
+%posttrans devel
 %{posttrans_devel %{nil}}
+exit 0
 
-%posttrans javadoc
+%pretrans javadoc -p <lua>
+%{lua_delete_old_link -- %{_jvmdir}/%{sdkdir -- %{?1}}}
+%{lua_delete_old_link -- %{_javadocdir}/%{uniquejavadocdir -- %{?1}}}
+
+%post javadoc
 %{alternatives_javadoc_install %{nil}}
+exit 0
 
-%postun javadoc
-%{postun_javadoc %{nil}}
+%preun javadoc
+%{preun_javadoc %{nil}}
+exit 0
 
-%posttrans javadoc-zip
+%pretrans javadoc-zip -p <lua>
+%{lua_delete_old_link -- %{_jvmdir}/%{sdkdir -- %{?1}}}
+%{lua_delete_old_link -- %{_javadocdir}/%{uniquejavadocdir -- %{?1}}}
+
+%post javadoc-zip
 %{alternatives_javadoczip_install %{nil}}
+exit 0
 
-%postun javadoc-zip
-%{postun_javadoc_zip %{nil}}
+%preun javadoc-zip
+%{preun_javadoc_zip %{nil}}
+exit 0
 %endif
 
 %if %{include_debug_build}
 %post slowdebug
 %{post_script -- %{debug_suffix_unquoted}}
+exit 0
 
 %post headless-slowdebug
 %{post_headless -- %{debug_suffix_unquoted}}
-
-%posttrans headless-slowdebug
-%{alternatives_java_install -- %{debug_suffix_unquoted}}
+exit 0
 
 %postun slowdebug
 %{postun_script -- %{debug_suffix_unquoted}}
+exit 0
 
-%postun headless-slowdebug
-%{postun_headless -- %{debug_suffix_unquoted}}
+%preun headless-slowdebug
+%{preun_headless -- %{debug_suffix_unquoted}}
+exit 0
 
 %posttrans slowdebug
 %{posttrans_script -- %{debug_suffix_unquoted}}
+exit 0
 
 %post devel-slowdebug
 %{post_devel -- %{debug_suffix_unquoted}}
+exit 0
+
+%preun devel-slowdebug
+%{preun_devel -- %{debug_suffix_unquoted}}
+exit 0
 
 %postun devel-slowdebug
 %{postun_devel -- %{debug_suffix_unquoted}}
+exit 0
 
-%posttrans  devel-slowdebug
+%posttrans devel-slowdebug
 %{posttrans_devel -- %{debug_suffix_unquoted}}
+exit 0
 %endif
 
 %if %{include_fastdebug_build}
 %post fastdebug
 %{post_script -- %{fastdebug_suffix_unquoted}}
+exit 0
 
 %post headless-fastdebug
 %{post_headless -- %{fastdebug_suffix_unquoted}}
+exit 0
 
 %postun fastdebug
 %{postun_script -- %{fastdebug_suffix_unquoted}}
+exit 0
 
-%postun headless-fastdebug
-%{postun_headless -- %{fastdebug_suffix_unquoted}}
+%preun headless-fastdebug
+%{preun_headless -- %{fastdebug_suffix_unquoted}}
+exit 0
 
 %posttrans fastdebug
 %{posttrans_script -- %{fastdebug_suffix_unquoted}}
-
-%posttrans headless-fastdebug
-%{alternatives_java_install -- %{fastdebug_suffix_unquoted}}
+exit 0
 
 %post devel-fastdebug
 %{post_devel -- %{fastdebug_suffix_unquoted}}
+exit 0
+
+%preun devel-fastdebug
+%{preun_devel -- %{fastdebug_suffix_unquoted}}
+exit 0
 
 %postun devel-fastdebug
 %{postun_devel -- %{fastdebug_suffix_unquoted}}
+exit 0
 
-%posttrans  devel-fastdebug
+%posttrans devel-fastdebug
 %{posttrans_devel -- %{fastdebug_suffix_unquoted}}
-
+exit 0
 %endif
 
 %if %{include_normal_build}
@@ -2362,11 +2264,8 @@ cjc.mainProgram(args)
 # placeholder
 %endif
 
-
 %if %{include_normal_build}
 %files headless
-# important note, see https://bugzilla.redhat.com/show_bug.cgi?id=1038092 for whole issue
-# all config/noreplace files (and more) have to be declared in pretrans. See pretrans
 %{files_jre_headless %{nil}}
 
 %files devel

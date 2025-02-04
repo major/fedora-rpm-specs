@@ -3,8 +3,8 @@
 %endif
 
 Name:           eccodes
-Version:        2.38.3
-Release:        2%{?dist}
+Version:        2.39.0
+Release:        1%{?dist}
 Summary:        WMO data format decoding and encoding
 
 # NOTE: dont use version 2.34.0
@@ -19,7 +19,7 @@ Summary:        WMO data format decoding and encoding
 # note that the test_data package provided on the ECMWF version
 # is unversioned, so use the download date to discriminate
 # between different versions.
-%global datapack_date    20240928
+%global datapack_date    20250202
 
 # latest fedora-38/rawhide grib_api version is 1.27.0-18
 # but this version number is to be updated as soon as we know
@@ -361,6 +361,9 @@ ctest3 -V %{?_smp_mflags}
 %doc %{_datadir}/doc/%{name}/
 
 %changelog
+* Sun Feb 02 2025 Jos de Kloe <josdekloe@gmail.com> - 2.39.0-1
+- Update to 2.39.0
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.38.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

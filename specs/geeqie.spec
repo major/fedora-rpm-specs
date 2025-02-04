@@ -37,6 +37,9 @@ Source2: 91EC400226201276E2ADCEC7D0DA6F44C936D1DA.gpg
 
 ExcludeArch: %{ix86}
 
+# for %%gpgverify
+BuildRequires: gnupg2
+BuildRequires: make
 BuildRequires: meson
 BuildRequires: gcc-c++
 BuildRequires: yelp-tools
@@ -59,7 +62,9 @@ BuildRequires: libwebp-devel
 BuildRequires: openjpeg2-devel
 BuildRequires: poppler-glib-devel
 BuildRequires: lua-devel
-BuildRequires: gettext intltool desktop-file-utils
+BuildRequires: gettext
+BuildRequires: intltool
+BuildRequires: desktop-file-utils
 BuildRequires: gnome-doc-utils
 BuildRequires: LibRaw-devel
 BuildRequires: gspell-devel
@@ -68,6 +73,9 @@ BuildRequires: webp-pixbuf-loader
 BuildRequires: ffmpegthumbnailer-devel
 %endif
 # BuildRequires: xvfb-run
+
+# Experimental, still disabled by default.
+#BuildRequires: libchamplain-gtk-devel >= 0.4
 
 # This is needed to generate one of the icc headers in the build
 # process. Kind of annoyingly, this is part of _vim_, but, eh,
@@ -83,13 +91,9 @@ Requires:      exiv2
 Requires:      fbida
 Requires:      ImageMagick
 Requires:      zenity
-BuildRequires: make
-# for %%gpgverify
-BuildRequires: gnupg2
-
-
-# Experimental, still disabled by default.
-#BuildRequires: libchamplain-gtk-devel >= 0.4
+%if 0%{?fedora} > 40
+Requires: gdk-pixbuf2-modules-extra%{?_isa}
+%endif
 
 
 %description

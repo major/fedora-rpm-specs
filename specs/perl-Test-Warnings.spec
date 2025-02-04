@@ -6,8 +6,8 @@
 %endif
 
 Name:		perl-Test-Warnings
-Version:	0.037
-Release:	2%{?dist}
+Version:	0.038
+Release:	1%{?dist}
 Summary:	Test for warnings and the lack of them
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-Warnings
@@ -32,6 +32,7 @@ BuildRequires:	perl(ExtUtils::MakeMaker)
 BuildRequires:	perl(File::Spec)
 BuildRequires:	perl(if)
 BuildRequires:	perl(lib)
+BuildRequires:	perl(Term::ANSIColor)
 BuildRequires:	perl(Test::More) >= 0.94
 %if %{with perl_Test_Warnings_enables_optional_test}
 # Optional Tests
@@ -91,13 +92,17 @@ make test
 %{_mandir}/man3/Test2::Warnings.3*
 
 %changelog
+* Sun Feb  2 2025 Paul Howarth <paul@city-fan.org> - 0.038-1
+- Update to 0.038
+  - Refrain from swapping out done_testing method if :no_end_test is configured
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.037-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
 * Mon Jan  6 2025 Paul Howarth <paul@city-fan.org> - 0.037-1
 - Update to 0.037
   - Remove unneeded use of Import::Into
-  - Fix tests that invoke Test::Warnings->import directly
+  - Fix for tests that invoke Test::Warnings->import directly
 
 * Sun Jan  5 2025 Paul Howarth <paul@city-fan.org> - 0.036-1
 - Update to 0.036

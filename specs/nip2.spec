@@ -6,6 +6,9 @@ Summary:	Interactive tool for working with large images
 License:	GPL-2.0-or-later
 URL:		https://libvips.github.io/libvips/
 Source0:	https://github.com/libvips/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+# Do not re-declare statfs(), declare function arguments
+# FTBFS https://bugzilla.redhat.com/show_bug.cgi?id=2340934
+Patch0:         https://github.com/libvips/nip2/pull/123.patch
 
 BuildRequires: make
 BuildRequires:	pkgconfig(vips)
@@ -36,16 +39,16 @@ GIMP should be used instead.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 
 %build
 %configure --disable-update-desktop
-make %{?_smp_mflags}
+%make_build
 
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
+%make_install
 
 # AppStream spec changed its install directory
 mv $RPM_BUILD_ROOT%{_datadir}/appdata $RPM_BUILD_ROOT%{_datadir}/metainfo

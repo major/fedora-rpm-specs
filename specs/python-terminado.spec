@@ -3,7 +3,7 @@
 # python2-tornado package is too old on EPEL
 
 Name:           python-%{srcname}
-Version:        0.18.0
+Version:        0.18.1
 Release:        %autorelease
 Summary:        Terminals served to term.js using Tornado websockets
 

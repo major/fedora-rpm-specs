@@ -3,7 +3,7 @@
 
 Name:      optee_os
 Version:   4.5.0
-Release:   0%{?dist}
+Release:   1%{?dist}
 Summary:   Trusted side of the TEE
 
 # The TEE core of optee_os is provided under the BSD 2-Clause license. But
@@ -48,12 +48,13 @@ such as u-boot. As such the binaries aren't of general interest to users.
 %build
 %undefine _auto_set_build_flags
 
-# For now only secure firmwares for TI platforms are built
 make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu- PLATFORM=k3-j721e CFG_ARM64_core=y O=out/k3-j721e
 make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu- PLATFORM=k3-j784s4 CFG_ARM64_core=y CFG_CONSOLE_UART=0x8 O=out/k3-j784s4
 make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu- PLATFORM=k3-am62x CFG_ARM64_core=y CFG_WITH_SOFTWARE_PRNG=y O=out/k3-am62x
 make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu- PLATFORM=rockchip-rk3399 CFG_ARM64_core=y O=out/rockchip-rk3399
 make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu- PLATFORM=sunxi-sun50i_a64 CFG_ARM64_core=y O=out/sunxi-sun50i_a64
+make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu- PLATFORM=versal CFG_ARM64_core=y O=out/versal
+make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE64="" CROSS_COMPILE=arm-linux-gnu- PLATFORM=zynqmp CFG_ARM64_core=y O=out/zynqmp
 
 %install
 mkdir -p %{buildroot}%{_datadir}/%{name}
@@ -80,6 +81,15 @@ install -p -m 0644 out/rockchip-rk3399/core/tee-pager_v2.bin /%{buildroot}%{_dat
 mkdir -p %{buildroot}%{_datadir}/%{name}/sunxi-sun50i_a64/
 install -p -m 0644 out/sunxi-sun50i_a64/core/tee-raw.bin /%{buildroot}%{_datadir}/%{name}/sunxi-sun50i_a64/
 install -p -m 0644 out/sunxi-sun50i_a64/core/tee-pager_v2.bin /%{buildroot}%{_datadir}/%{name}/sunxi-sun50i_a64/
+
+mkdir -p %{buildroot}%{_datadir}/%{name}/versal
+install -p -m 0644 out/versal/core/tee-raw.bin  /%{buildroot}%{_datadir}/%{name}/versal/
+install -p -m 0644 out/versal/core/tee-pager_v2.bin  /%{buildroot}%{_datadir}/%{name}/versal/
+
+mkdir -p %{buildroot}%{_datadir}/%{name}/zynqmp/
+install -p -m 0644 out/zynqmp/core/tee-raw.bin  /%{buildroot}%{_datadir}/%{name}/zynqmp/
+install -p -m 0644 out/zynqmp/core/tee-pager_v2.bin  /%{buildroot}%{_datadir}/%{name}/zynqmp/
+
 %endif
 
 %files -n optee-os-firmware-armv8
@@ -88,6 +98,9 @@ install -p -m 0644 out/sunxi-sun50i_a64/core/tee-pager_v2.bin /%{buildroot}%{_da
 %{_datadir}/%{name}
 
 %changelog
+* Thu Jan 30 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 4.5.0-1
+- Enable Xilinx ZYNQMP and Versal platforms
+
 * Wed Jan 22 2025 Enric Balletbo i Serra <eballetb@redhat.com> - 4.5.0-0
 - Update to 4.5.0
 

@@ -2,7 +2,7 @@
 
 Name:       kbibtex
 Version:    0.10.0
-Release:    9%{?dist}
+Release:    10%{?dist}
 Summary:    A BibTeX editor for KDE
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -65,7 +65,8 @@ developing programs using KBibTeX libraries.
 
 %prep
 %setup -q
-
+# Bump standard for libicu - FTBFS https://bugzilla.redhat.com/show_bug.cgi?id=2340688
+sed -i '/CMAKE_CXX_STANDARD/s/11/17/' CMakeLists.txt
 
 %build
 %{cmake_kf5}
@@ -106,6 +107,9 @@ desktop-file-validate  $RPM_BUILD_ROOT%{_kf5_datadir}/applications/*.desktop
 
 
 %changelog
+* Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 0.10.0-10
+- Bump C++ standard to 17 for libicu 76 support (FTBFS rhbz#2340688)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

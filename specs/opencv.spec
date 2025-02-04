@@ -57,7 +57,7 @@
 %bcond_with openexr
 %endif
 
-%bcond_without  va
+%bcond_without  libva
 %bcond_without  vulkan
 
 %define _lto_cflags %{nil}
@@ -211,7 +211,7 @@ BuildRequires:  lapack-devel
 %{?with_gdcm:BuildRequires: gdcm-devel}
 %{?with_libmfx:BuildRequires:  libvpl-devel}
 %{?with_clp:BuildRequires:  coin-or-Clp-devel}
-%{?with_va:BuildRequires:   libva-devel}
+%{?with_libva:BuildRequires:   libva-devel}
 %{?with_java:
 BuildRequires:  ant
 BuildRequires:  java-devel
@@ -496,7 +496,7 @@ install -pm 0644 %{S:4} .cache/ade/
  %{?with_gdcm: -DWITH_GDCM=ON } \
  %{?with_libmfx: -DWITH_MFX=ON  -DWITH_GAPI_ONEVPL=ON} \
  %{?with_clp: -DWITH_CLP=ON } \
- %{?with_va: -DWITH_VA=ON } \
+ %{?with_libva: -DWITH_VA=ON } \
  %{!?with_vtk: -DWITH_VTK=OFF} \
  %{?with_vulkan: -DWITH_VULKAN=ON -DVULKAN_INCLUDE_DIRS=%{_includedir}/vulkan }
 

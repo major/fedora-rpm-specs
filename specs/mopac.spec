@@ -13,7 +13,7 @@
 
 Name:           mopac
 Version:        23.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A semiempirical quantum chemistry program
 License:        LGPL-3.0-or-later
 URL:            http://openmopac.net
@@ -28,6 +28,8 @@ BuildRequires:  make
 
 # Turn off rpath
 Patch1:         mopac-22.0.5-rpath.patch
+# Fix FTBFS on rawhide, upstream issue #245
+Patch2:         mopac-23.0.3-intent.patch
 
 # For license file
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
@@ -53,6 +55,7 @@ This package contains MOPAC's development library.
 %prep
 %setup -q
 %patch -P1 -p1 -b .rpath
+%patch -P2 -p1 -b .intent
 
 %build
 %cmake -DENABLE_MKL=OFF -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=OFF \
@@ -83,6 +86,9 @@ export OMP_NUM_THREADS=1
 %{_includedir}/mopac.h
 
 %changelog
+* Sat Feb 01 2025 Susi Lehtola <jussilehtola@fedoraproject.org> - 23.0.3-2
+- Fix FTBFS on rawhide.
+
 * Thu Jan 30 2025 Susi Lehtola <jussilehtola@fedoraproject.org> - 23.0.3-1
 - Update to 23.0.3.
 

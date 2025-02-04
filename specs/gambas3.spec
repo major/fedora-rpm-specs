@@ -20,7 +20,7 @@
 Name:		gambas3
 Summary:	IDE based on a basic interpreter with object extensions
 Version:	3.19.4
-Release:	4%{?dist}
+Release:	5%{?dist}
 License:	GPL-1.0-or-later
 URL:		http://gambas.sourceforge.net/
 Source0:	https://gitlab.com/gambas/gambas/-/archive/%{version}/gambas-%{version}.tar.bz2
@@ -1943,6 +1943,9 @@ install -m 0644 -p main/mime/application-x-gambas3.xml %{buildroot}%{_datadir}/m
 %{_datadir}/%{name}/info/gb.xml.xslt.*
 
 %changelog
+* Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 3.19.4-5
+- Rebuild with gsl 2.8
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 3.19.4-4
 - Add explicit BR: libxcrypt-devel
 

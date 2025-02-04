@@ -39,7 +39,7 @@
 Name:		root
 Version:	6.34.02
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -3690,6 +3690,9 @@ fi
 %endif
 
 %changelog
+* Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 6.34.02-7
+- Rebuild with gsl 2.8
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 6.34.02-6
 - Add explicit BR: libxcrypt-devel
 

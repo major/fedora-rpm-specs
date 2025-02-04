@@ -1,6 +1,6 @@
 Name: pymol
 Summary: PyMOL Molecular Graphics System
-Version: 3.0.0
+Version: 3.1.0
 Release: %autorelease
 
 # Which files use following license:
@@ -15,9 +15,6 @@ Source0: https://github.com/schrodinger/pymol-open-source/archive/v%{version}/%{
 Source1: %{name}.png
 Source2: %{name}.desktop
 Source3: %{name}.appdata.xml
-
-# Set optimization level
-Patch0: %{name}-setup.py.patch
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1311626
 Patch1: %{name}-wmclass-main.patch
@@ -38,11 +35,11 @@ BuildRequires: mmtf-cpp-devel
 BuildRequires: msgpack-devel
 BuildRequires: netcdf-devel
 BuildRequires: catch2-devel
+BuildRequires: pyproject-rpm-macros
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
-BuildRequires: python3-simplejson
-BuildRequires: python3-mmtf
-BuildRequires: python3-numpy
+# pymol-3.1.0 exactly requires pytest-8.2.2 and pillow-10.3.0
+BuildRequires: python3-pytest
+BuildRequires: python3-pillow
 
 # Qt interface
 BuildRequires: python3-qt5-devel
@@ -52,11 +49,6 @@ BuildRequires: freeglut-devel
 BuildRequires: python3-pyside6-devel
 
 Requires: apbs%{?_isa}
-Requires: python3-numpy
-Requires: python3-mmtf
-Requires: python3-pmw
-Requires: python3-tkinter
-Requires: python3-PyQt4
 Requires: chemical-mime-data
 
 Provides: PyMOL%{?_isa} = 0:%{version}-%{release}
@@ -77,35 +69,23 @@ assist you in your research.
 
 ln -sr modules/web modules/pymol_web
 
+# Forcing numpy version
+sed -e 's|1.26.4,<2|1.26.4,<3|g' -i ./pyproject.toml
+
+%generate_buildrequires
+%pyproject_buildrequires -p
+
 %build
-export CXXFLAGS="%{optflags}"
-%py3_build -- --use-msgpackc=c++11 --use-openmp=yes --jobs `/usr/bin/getconf _NPROCESSORS_ONLN`
+%pyproject_wheel
 
 %install
-%py3_install -- --use-msgpackc=c++11 --use-openmp=yes --pymol-path=%{python3_sitearch}/%{name}
+%pyproject_install
+%pyproject_save_files %{name} chempy web pymol2 pymol_web pmg_tk pmg_qt
 
 # Create executable script for running PyMOL
 echo "#!/bin/sh" > pymol
 echo "export PYMOL_PATH=%{python3_sitearch}/%{name}" >> %{name}
 echo "exec %{__python3} %{python3_sitearch}/%{name}/__init__.py \"\$@\"" >> %{name}
-
-cp -a data examples test %{buildroot}%{python3_sitearch}/%{name}/
-
-rm -f %{buildroot}%{python3_sitearch}/%{name}/examples/devel/link_demo.py
-rm -f %{buildroot}%{python3_sitearch}/%{name}/examples/devel/particle01.py
-rm -f %{buildroot}%{python3_sitearch}/%{name}/examples/devel/particle02.py
-rm -f %{buildroot}%{python3_sitearch}/%{name}/test/inp/B03.py
-rm -f %{buildroot}%{python3_sitearch}/%{name}/test/inp/B05.py
-rm -f %{buildroot}%{python3_sitearch}/%{name}/test/inp/B11.py
-rm -f %{buildroot}%{python3_sitearch}/%{name}/test/ref/T01.log
-
-rm -f %{buildroot}%{python3_sitearch}/%{name}/pymol_path/examples/devel/link_demo.py
-rm -f %{buildroot}%{python3_sitearch}/%{name}/pymol_path/examples/devel/particle01.py
-rm -f %{buildroot}%{python3_sitearch}/%{name}/pymol_path/examples/devel/particle02.py
-rm -f %{buildroot}%{python3_sitearch}/%{name}/pymol_path/test/inp/B03.py
-rm -f %{buildroot}%{python3_sitearch}/%{name}/pymol_path/test/inp/B05.py
-rm -f %{buildroot}%{python3_sitearch}/%{name}/pymol_path/test/inp/B11.py
-rm -f %{buildroot}%{python3_sitearch}/%{name}/pymol_path/test/ref/T01.log
 
 mkdir -p %{buildroot}%{_bindir}
 install -p -m 755 pymol %{buildroot}%{_bindir}/
@@ -118,15 +98,11 @@ mkdir -p %{buildroot}%{_metainfodir}
 install -p -m 644 %{SOURCE3} %{buildroot}%{_metainfodir}/
 appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/*.appdata.xml
 
-%files
+%check
+%py3_check_import -t %{name} chempy web pymol2 pymol_web pmg_tk pmg_qt
+
+%files -n %{name} -f %{pyproject_files}
 %doc AUTHORS DEVELOPERS README.* ChangeLog
-%license LICENSE
-%{python3_sitearch}/*.egg-info
-%{python3_sitearch}/chempy/
-%{python3_sitearch}/pmg_tk/
-%{python3_sitearch}/pmg_qt/
-%{python3_sitearch}/%{name}/
-%{python3_sitearch}/%{name}2/
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_metainfodir}/%{name}.appdata.xml

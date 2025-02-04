@@ -2,7 +2,7 @@
 # package version, as a reminder of the need to rebuild dependent packages on
 # every update. See additional notes near the downstream ABI versioning patch.
 # It should be 0.MAJOR.MINOR without leading zeros, e.g. 22.03 → 0.22.3.
-%global downstream_so_version 0.24.11
+%global downstream_so_version 0.25.2
 
 %bcond alembic       1
 %bcond draco         1
@@ -27,7 +27,7 @@
 %bcond test          0
 
 Name:           usd
-Version:        24.11
+Version:        25.02
 Release:        %autorelease
 Summary:        3D VFX pipeline interchange file format
 
@@ -97,13 +97,6 @@ URL:            http://www.openusd.org/
 %global forgeurl https://github.com/PixarAnimationStudios/OpenUSD
 Source0:        %{forgeurl}/archive/v%{version}/OpenUSD-%{version}.tar.gz
 Source1:        org.openusd.usdview.desktop
-# Latest stb_image.patch that applies cleanly against 2.27:
-#   %%{forgeurl}/raw/8f9bb9563980b41e7695148b63bf09f7abd38a41/pxr/imaging/hio/stb/stb_image.patch
-# We treat this as a source file because it is applied separately during
-# unbundling. It has been hand-edited to apply to 2.28, where
-# stbi__unpremultiply_on_load_thread is already renamed to
-# stbi_set_unpremultiply_on_load_thread.
-Source2:        stb_image.patch
 
 # Downstream-only: add an SONAME version
 #
@@ -155,7 +148,13 @@ Patch:          0006-Downstream-only-use-the-system-libavif.patch
 
 # work: account for task_group_base interface change in oneTBB 2022.0.0
 # https://github.com/PixarAnimationStudios/OpenUSD/pull/3392
-Patch:          %{forgeurl}/pull/3392.patch
+# Merged as commit 534b22c12dc18203ab5b233792debca8bf843b2e.
+Patch:          %{forgeurl}/commit/534b22c12dc18203ab5b233792debca8bf843b2e.patch
+
+# Add missing #include <cstdint>
+# https://github.com/PixarAnimationStudios/OpenUSD/pull/3487
+# Fixes failure to compile with GCC 15
+Patch:          %{forgeurl}/pull/3487.patch
 
 # Base
 BuildRequires:  gcc-c++
@@ -424,7 +423,7 @@ ln -s %{_datadir}/fonts/google-roboto-mono \
 # Unbundle stb_image, stb_image_write, stb_image_resize:
 pushd pxr/imaging/hio/stb
 cp -p %{_usr}/include/stb_image.h .
-patch -p1 < '%{SOURCE2}'
+patch -p1 < stb_image.patch
 ln -svf %{_usr}/include/stb_image_resize.h \
     %{_usr}/include/stb_image_write.h ./
 popd

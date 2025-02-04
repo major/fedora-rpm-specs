@@ -1,6 +1,6 @@
 Name:           imv
 Version:        4.5.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Image viewer for X11 and Wayland
 
 License:        MIT
@@ -88,6 +88,9 @@ desktop-file-validate \
 %{_mandir}/man5/%{name}*
 
 %changelog
+* Sun Feb 02 2025 Sérgio Basto <sergio@serjux.com> - 4.5.0-5
+- Rebuild for jpegxl (libjxl) 0.11.1
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

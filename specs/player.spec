@@ -4,7 +4,7 @@
 
 Name:           player
 Version:        3.1.0
-Release:        61%{?dist}
+Release:        62%{?dist}
 Summary:        Cross-platform robot device interface and server
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
@@ -231,6 +231,9 @@ desktop-file-install \
 %{ruby_vendorarchdir}/*.so
 
 %changelog
+* Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 3.1.0-62
+- Rebuild with gsl 2.8
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-61
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

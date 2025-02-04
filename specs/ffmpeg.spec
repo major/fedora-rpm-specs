@@ -82,7 +82,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        7.0.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -857,6 +857,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}/examples
 %{_mandir}/man3/libswscale.3*
 
 %changelog
+* Sun Feb 02 2025 Sérgio Basto <sergio@serjux.com> - 7.0.2-12
+- Rebuild for jpegxl (libjxl) 0.11.1
+
 * Wed Jan 29 2025 Simone Caronni <negativo17@gmail.com> - 7.0.2-11
 - Rebuild for updated VapourSynth.
 

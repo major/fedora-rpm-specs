@@ -9,7 +9,7 @@
 
 Name:           ncl
 Version:        6.6.2
-Release:        49%{?dist}
+Release:        50%{?dist}
 Summary:        NCAR Command Language and NCAR Graphics
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -369,6 +369,9 @@ done
 
 
 %changelog
+* Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 6.6.2-50
+- Rebuild with gsl 2.8
+
 * Fri Jan 24 2025 Orion Poplawski <orion@nwra.com> - 6.6.2-49
 - Add patch to fix build with gcc 15 (FTBFS rhbz#2340908)
 

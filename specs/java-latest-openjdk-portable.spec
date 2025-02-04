@@ -335,9 +335,9 @@
 %endif
 
 # New Version-String scheme-style defines
-%global featurever 23
+%global featurever 24
 %global interimver 0
-%global updatever 2
+%global updatever 0
 %global patchver 0
 # buildjdkver is usually same as %%{featurever},
 # but in time of bootstrap of next jdk, it is featurever-1,
@@ -401,7 +401,7 @@
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        7
+%global buildver        34
 %global rpmrelease      %(echo "%autorelease" | sed 's;%{?dist};;')
 #%%global tagsuffix     %%{nil}
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
@@ -421,7 +421,7 @@
 # Release will be (where N is usually a number starting at 1):
 # - 0.N%%{?extraver}%%{?dist} for EA releases,
 # - N%%{?extraver}{?dist} for GA releases
-%global is_ga           1
+%global is_ga           0
 %if %{is_ga}
 %global build_type GA
 %global ea_designator ""
@@ -1135,6 +1135,8 @@ function buildjdk() {
     --with-debug-level=${debuglevel} \
     --with-native-debug-symbols="${debug_symbols}" \
     --enable-unlimited-crypto \
+    --enable-linkable-runtime \
+    --enable-keep-packaged-modules \
     --with-zlib=%{link_type} \
     --with-freetype=%{link_type} \
     --with-libjpeg=${link_opt} \
@@ -1638,14 +1640,14 @@ grep 'JavaCallWrapper::JavaCallWrapper' gdb.out
 $JAVA_HOME/bin/jar -tf $JAVA_HOME/lib/src.zip | grep 'sun.misc.Unsafe'
 
 # Check class files include useful debugging information
-$JAVA_HOME/bin/javap -l java.lang.Object | grep "Compiled from"
-$JAVA_HOME/bin/javap -l java.lang.Object | grep LineNumberTable
-$JAVA_HOME/bin/javap -l java.lang.Object | grep LocalVariableTable
+$JAVA_HOME/bin/javap -l -c java.lang.Object | grep "Compiled from"
+$JAVA_HOME/bin/javap -l -c java.lang.Object | grep LineNumberTable
+$JAVA_HOME/bin/javap -l -c java.lang.Object | grep LocalVariableTable
 
 # Check generated class files include useful debugging information
-$JAVA_HOME/bin/javap -l java.nio.ByteBuffer | grep "Compiled from"
-$JAVA_HOME/bin/javap -l java.nio.ByteBuffer | grep LineNumberTable
-$JAVA_HOME/bin/javap -l java.nio.ByteBuffer | grep LocalVariableTable
+$JAVA_HOME/bin/javap -l -c java.nio.ByteBuffer | grep "Compiled from"
+$JAVA_HOME/bin/javap -l -c java.nio.ByteBuffer | grep LineNumberTable
+$JAVA_HOME/bin/javap -l -c java.nio.ByteBuffer | grep LocalVariableTable
 
 # build cycles check
 done

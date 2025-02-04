@@ -22,7 +22,9 @@ Summary:        Golang ar archive file library
 
 License:        MIT
 URL:            %{gourl}
-Source0:        %{gosource}
+Source:         %{gosource}
+# https://github.com/blakesmith/ar/pull/13
+Patch:          0001-Fix-non-constant-format-strings.patch
 
 %description
 %{common_description}
@@ -31,6 +33,7 @@ Source0:        %{gosource}
 
 %prep
 %goprep
+%autopatch -p1
 
 %install
 %gopkginstall

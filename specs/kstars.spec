@@ -7,7 +7,7 @@ ExcludeArch:    %{ix86}
 Name:    kstars
 Summary: Desktop Planetarium
 Version: 3.7.4
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 # We have to use epoch now, KStars is no longer part of KDE Applications and
 # uses its own (lower) version now
@@ -170,6 +170,9 @@ fi
 
 
 %changelog
+* Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 1:3.7.4-5
+- Rebuild with gsl 2.8
+
 * Fri Jan 24 2025 Than Ngo <than@redhat.com> - 1:3.7.4-4
 - Fix rhbz#2340701, FTBFS
 

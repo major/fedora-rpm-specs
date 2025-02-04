@@ -3,9 +3,9 @@
 
 
 # Uncomment for special build to rebuild aom on bumped soname.
-#%%global new_soname 1
-%global sover_old 0.8
-%global sover 0.10
+%global new_soname 1
+%global sover_old 0.10
+%global sover 0.11
 
 %global gdk_pixbuf_moduledir $(pkgconf gdk-pixbuf-2.0 --variable=gdk_pixbuf_moduledir)
 
@@ -20,7 +20,7 @@ decoder).}
 
 Name:           jpegxl
 Epoch:          1
-Version:        0.10.4
+Version:        0.11.1
 Release:        %autorelease %{?new_soname:-p -e 0~sonamebump}
 Summary:        JPEG XL image format reference implementation
 
@@ -71,9 +71,9 @@ BuildRequires:  libjxl < %{epoch}:%{version}
 %endif
 
 # No official release
-Provides:       bundled(sjpeg) = 0-0.1.20210522git868ab55
+Provides:       bundled(sjpeg) = 0-0.1.20230608gite5ab130
 # Build system is Bazel, which is not packaged by Fedora
-Provides:       bundled(skcms) = 0-0.1.20210522git6437475
+Provides:       bundled(skcms) = 0-0.1.20240122git51b7f2a
 
 %description
 %common_description
@@ -177,6 +177,7 @@ rm -rf third_party/
 %if 0%{?new_soname}
 cp -p %{_libdir}/libjxl.so.%{sover_old}*     \
   %{_libdir}/libjxl_threads.so.%{sover_old}* \
+  %{_libdir}/libjxl_cms.so.%{sover_old}* \
   %{buildroot}%{_libdir}
 %endif
 
@@ -184,19 +185,17 @@ cp -p %{_libdir}/libjxl.so.%{sover_old}*     \
 %doc CONTRIBUTING.md CONTRIBUTORS README.md
 %{_bindir}/cjxl
 %{_bindir}/djxl
-%{_bindir}/cjpegli
-%{_bindir}/djpegli
 %{_bindir}/jxlinfo
 %{_mandir}/man1/cjxl.1*
 %{_mandir}/man1/djxl.1*
 
 %files -n libjxl-devtools
 %{_bindir}/djxl_fuzzer_corpus
-%{_bindir}/jpegli_dec_fuzzer_corpus
 %{_bindir}/butteraugli_main
 %{_bindir}/decode_and_encode
 %{_bindir}/display_to_hlg
 %{_bindir}/exr_to_pq
+%{_bindir}/icc_simplify
 %{_bindir}/pq_to_hlg
 %{_bindir}/render_hlg
 %{_bindir}/tone_map
@@ -218,10 +217,10 @@ cp -p %{_libdir}/libjxl.so.%{sover_old}*     \
 %{_libdir}/libjxl.so.%{sover}*
 %{_libdir}/libjxl_threads.so.%{sover}*
 %{_libdir}/libjxl_cms.so.%{sover}*
-%{_libdir}/libjxl_extras_codec.so.%{sover}*
 %if 0%{?new_soname}
 %{_libdir}/libjxl.so.%{sover_old}*
 %{_libdir}/libjxl_threads.so.%{sover_old}*
+%{_libdir}/libjxl_cms.so.%{sover_old}*
 %endif
 %dir %{_datadir}/thumbnailers
 %{_datadir}/thumbnailers/jxl.thumbnailer
@@ -233,7 +232,7 @@ cp -p %{_libdir}/libjxl.so.%{sover_old}*     \
 %{_libdir}/libjxl.so
 %{_libdir}/libjxl_threads.so
 %{_libdir}/libjxl_cms.so
-%{_libdir}/libjxl_extras_codec.so
+%{_libdir}/libjxl_extras_codec.a
 %{_libdir}/pkgconfig/libjxl.pc
 %{_libdir}/pkgconfig/libjxl_threads.pc
 %{_libdir}/pkgconfig/libjxl_cms.pc

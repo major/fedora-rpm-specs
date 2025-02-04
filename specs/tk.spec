@@ -5,7 +5,7 @@
 Summary: The graphical toolkit for the Tcl scripting language
 Name: tk
 Version: %{vers}
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch:   1
 License: TCL AND HPND-Pbmplus AND CC-BY-SA-3.0 AND MIT-open-group AND MIT
 URL: http://tcl.sourceforge.net
@@ -109,6 +109,9 @@ ln -s %{_bindir}/wish %{_bindir}/wish%{majorver} %{buildroot}%{_usr}/bin/
 %{_mandir}/man3/*
 
 %changelog
+* Sun Feb  2 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 1:9.0.0-3
+- Rebuilt for new gcc
+
 * Tue Jan 14 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 1:9.0.0-2
 - Disabled zipfs
 

@@ -7,7 +7,7 @@
 
 Name: darktable
 Version: 5.0.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 Summary: Utility to organize and develop raw images
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -247,6 +247,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.darkt
 %{_libexecdir}/darktable/tools/darktable-curve-tool-helper
 
 %changelog
+* Sun Feb 02 2025 Sérgio Basto <sergio@serjux.com> - 5.0.0-4
+- Rebuild for jpegxl (libjxl) 0.11.1
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

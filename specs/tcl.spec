@@ -9,7 +9,7 @@
 Summary: Tool Command Language, pronounced tickle
 Name: tcl
 Version: %{vers}
-Release: 6%{?dist}
+Release: 7%{?dist}
 Epoch: 1
 License: TCL AND GPL-3.0-or-later WITH Bison-exception-2.2 AND BSD-3-Clause
 URL: http://tcl.sourceforge.net/
@@ -155,7 +155,10 @@ ln -s %{_bindir}/tclsh %{_bindir}/tclsh%{majorver} %{buildroot}%{_usr}/bin/
 %{_libdir}/pkgconfig/tcl.pc
 
 %changelog
-* Tue Jan 14 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 1:9.0.0-1
+* Sun Feb  2 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 1:9.0.0-7
+- Rebuilt for new gcc
+
+* Tue Jan 14 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 1:9.0.0-6
 - New version
   Resolves: rhbz#2315280
 

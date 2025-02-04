@@ -1,7 +1,7 @@
 Summary:        Random number generator tester and timer
 Name:           dieharder
 Version:        3.31.1
-Release:        41%{?dist}
+Release:        42%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Source0:        http://www.phy.duke.edu/~rgb/General/%{name}/%{name}-%{version}.tgz
@@ -130,6 +130,9 @@ cp -p ChangeLog Copyright README COPYING NOTES %{name}.html manual/%{name}.pdf %
 %{_libdir}/*.so
 
 %changelog
+* Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 3.31.1-42
+- Rebuild with gsl 2.8
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.31.1-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

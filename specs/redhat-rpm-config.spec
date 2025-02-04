@@ -116,6 +116,7 @@ Requires: ansible-srpm-macros
 Requires: fpc-srpm-macros
 Requires: ghc-srpm-macros
 Requires: gnat-srpm-macros
+Requires: tree-sitter-srpm-macros
 Requires: qt5-srpm-macros
 Requires: zig-srpm-macros
 Requires: build-reproducibility-srpm-macros

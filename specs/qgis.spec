@@ -2,7 +2,7 @@
 
 Name:           qgis
 Version:        3.40.3
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
 # http://issues.qgis.org/issues/3789
@@ -130,7 +130,6 @@ Requires:       python3-psycopg2
 Requires:       python3-pygments
 Requires:       python3-PyYAML
 Requires:       python3-qscintilla-qt5
-Requires:       python3-qt5-webkit
 %{?_sip_api:Requires: python3-pyqt5-sip-api(%{_sip_api_major}) >= %{_sip_api}}
 Supplements:    %{name}%{?_isa} = %{version}-%{release}
 
@@ -300,6 +299,12 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 3.40.3-4
+- Rebuild with gsl 2.8
+
+* Sun Feb 02 2025 Sandro Mani <manisandro@gmail.com> - 3.40.3-3
+- Drop requires: python3-qt5-webkit
+
 * Fri Jan 31 2025 Sandro Mani <manisandro@gmail.com> - 3.40.3-2
 - Rebuild for dropped python-qt5-webkit
 

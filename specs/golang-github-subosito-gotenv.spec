@@ -21,6 +21,8 @@ Summary:        Load environment variables from `.env` or `io.Reader` in Go
 License:        MIT
 URL:            %{gourl}
 Source:         %{gosource}
+# Fix Go 1.22+
+Patch:          https://github.com/subosito/gotenv/pull/30.patch
 
 %description %{common_description}
 

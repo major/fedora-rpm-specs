@@ -4,8 +4,8 @@
 
 Summary: Gives a fake root environment
 Name: fakeroot
-Version: 1.36.2
-Release: 2%{?dist}
+Version: 1.37
+Release: 1%{?dist}
 # setenv.c: LGPLv2+
 # contrib/Fakeroot-Stat-1.8.8: Perl (GPL+ or Artistic)
 # the rest: GPLv3+
@@ -168,6 +168,10 @@ fi
 %ghost %{_libdir}/libfakeroot/libfakeroot-0.so
 
 %changelog
+* Thu Jan 23 2025 Packit <hello@packit.dev> - 1.37-1
+- Update to version 1.37
+- Resolves: rhbz#2341841
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.36.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

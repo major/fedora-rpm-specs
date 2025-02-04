@@ -10,7 +10,7 @@
 
 Name:           iv
 Version:        0.1
-Release:        0.11.%{checkout_date}git%{shortcommit}%{?dist}
+Release:        0.12.%{checkout_date}git%{shortcommit}%{?dist}
 Summary:        InterViews graphical library
 
 License:  MIT
@@ -128,6 +128,9 @@ popd
 %{_libdir}/cmake/iv/
 
 %changelog
+* Sun Feb 02 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 0.1-0.12.20200818git14890c4
+- Updated C23 patch
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.11.20200818git14890c4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

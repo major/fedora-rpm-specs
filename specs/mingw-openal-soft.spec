@@ -6,12 +6,12 @@
 %bcond_with qtgui
 
 Name:           mingw-%{pkgname}
-Version:        1.23.1
-Release:        7%{?dist}
+Version:        1.24.2
+Release:        1%{?dist}
 Summary:        Open Audio Library
 
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
+# See native spec
+License:        LGPL-2.0-or-later AND BSD-3-Clause AND GPL-2.0-or-later AND Apache-2.0 AND (LGPL-2.0-or-later AND BSD-3-Clause) AND MIT AND NCL AND MIT AND LicenseRef-Fedora-Public-Domain
 URL:            https://openal-soft.org/
 Source0:        https://openal-soft.org/openal-releases/openal-soft-%{version}.tar.bz2
 BuildArch:      noarch
@@ -103,7 +103,7 @@ This package provides the library for the Win64 target.
 
 
 %build
-%mingw_cmake . -DALSOFT_CPUEXT_NEON:BOOL=OFF
+%mingw_cmake . -DALSOFT_CPUEXT_NEON:BOOL=OFF -DALSOFT_UTILS=OFF -DALSOFT_EXAMPLES=OFF
 %mingw_make_build
 
 
@@ -117,10 +117,6 @@ install -Dpm644 alsoftrc.sample %{buildroot}%{mingw64_sysconfdir}/openal/alsoft.
 %files -n mingw32-%{pkgname}
 %license COPYING
 %{mingw32_bindir}/OpenAL32.dll
-%{mingw32_bindir}/alloopback.exe
-%{mingw32_bindir}/alrecord.exe
-%{mingw32_bindir}/altonegen.exe
-%{mingw32_bindir}/openal-info.exe
 %if %{with qtgui}
 %{mingw32_bindir}/alsoft-config.exe
 %endif
@@ -134,10 +130,6 @@ install -Dpm644 alsoftrc.sample %{buildroot}%{mingw64_sysconfdir}/openal/alsoft.
 %files -n mingw64-%{pkgname}
 %license COPYING
 %{mingw64_bindir}/OpenAL32.dll
-%{mingw64_bindir}/alloopback.exe
-%{mingw64_bindir}/alrecord.exe
-%{mingw64_bindir}/altonegen.exe
-%{mingw64_bindir}/openal-info.exe
 %if %{with qtgui}
 %{mingw64_bindir}/alsoft-config.exe
 %endif
@@ -149,6 +141,9 @@ install -Dpm644 alsoftrc.sample %{buildroot}%{mingw64_sysconfdir}/openal/alsoft.
 %{mingw64_datadir}/openal
 
 %changelog
+* Sun Feb 02 2025 Sandro Mani <manisandro@gmail.com> - 1.24.2-1
+- Update to 1.24.2
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.23.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

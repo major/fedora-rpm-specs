@@ -68,7 +68,7 @@ find . -type f -name .gitignore | xargs rm
 # complements symbol-versioning patch
 export SYMBOL_VERSION_PREFIX=RHPG_
 
-export CFLAGS="$CFLAGS -DOPENSSL_NO_ENGINE"
+export CFLAGS="$CFLAGS -DOPENSSL_NO_ENGINE -std=c17"
 # We don't build server nor client (e.g. /bin/psql) binaries in this package, so
 # we can disable some configure options.
 %configure \

@@ -1,17 +1,11 @@
 Name:		xrootd-s3-http
-Version:	0.1.8
-Release:	3%{?dist}
+Version:	0.2.1
+Release:	1%{?dist}
 Summary:	S3/HTTP filesystem plugins for XRootD
 
 License:	Apache-2.0
 URL:		https://github.com/PelicanPlatform/%{name}
 Source0:	%{url}/archive/refs/tags/v%{version}/%{name}-%{version}.tar.gz
-#		https://github.com/PelicanPlatform/xrootd-s3-http/pull/74
-Patch0:		0001-Include-algorithm-for-std-transform.patch
-#		https://github.com/PelicanPlatform/xrootd-s3-http/pull/79
-Patch1:		0001-Modernize-usage-of-CMake.patch
-#		https://github.com/PelicanPlatform/xrootd-s3-http/pull/83
-Patch2:		0001-Do-not-hardcode-the-build-type.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
@@ -33,9 +27,6 @@ and HTTP backends through an XRootD server.
 
 %prep
 %setup -q
-%patch -P0 -p1
-%patch -P1 -p1
-%patch -P2 -p1
 
 %build
 %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo \
@@ -62,6 +53,9 @@ and HTTP backends through an XRootD server.
 %license LICENSE
 
 %changelog
+* Sun Feb 02 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.2.1-1
+- Update to version 0.2.1
+
 * Fri Jan 24 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.1.8-3
 - Do not hardcode the build type
 - Use CMAKE_BUILD_TYPE RelWithDebInfo to avoid -Werror in compiler flags

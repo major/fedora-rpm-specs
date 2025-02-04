@@ -70,6 +70,7 @@ find . -type f -name .gitignore | xargs rm
 
 
 %build
+export CFLAGS="$CFLAGS -std=c17"
 # We don't build server nor client (e.g. /bin/psql) binaries in this package, so
 # we can disable some configure options.
 %configure \
