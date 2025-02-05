@@ -1,7 +1,7 @@
 %global srcname pyrtlsdr
 Name:             python-%{srcname}
 Version:          0.3.0
-Release:          8%{?dist}
+Release:          9%{?dist}
 Summary:          Python binding for librtlsdr
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:          GPL-3.0-only
@@ -16,7 +16,6 @@ Python binding for librtlsdr (a driver for Realtek RTL2832U based SDR's).
 Summary:          Python 3 binding for librtlsdr
 %{?python_provide:%python_provide python3-%{srcname}}
 BuildRequires:    python3-devel, python3-setuptools
-BuildRequires:    python3-pypandoc, python3-m2r
 # needed for librtlsdr
 Requires:         rtl-sdr
 # faster arrays
@@ -44,6 +43,9 @@ find . -name '*.py' | xargs sed -i '1s|^#!.*|#!%{__python3}|'
 %{python3_sitelib}/%{srcname}-%{version}-*.egg-info
 
 %changelog
+* Wed Jan 29 2025 Miro Hrončok <mhroncok@redhat.com> - 0.3.0-9
+- Remove unused BuildRequires on python3-m2r and python3-pypandoc
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

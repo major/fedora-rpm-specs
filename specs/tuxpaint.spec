@@ -9,6 +9,7 @@ License:        GPL-2.0-or-later
 URL:            http://www.tuxpaint.org/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Patch0:         desktop.patch
+Patch1:         includes.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -32,6 +33,7 @@ BuildRequires:	gperf
 BuildRequires:  ImageMagick
 BuildRequires:  libimagequant-devel
 BuildRequires:  xdg-utils
+BuildRequires:  perl-interpreter
 
 # This should guarantee the proper permissions on
 # all of the /usr/share/icons/hicolor/* directories.
@@ -52,6 +54,7 @@ Development files for tuxpaint extensions/plugins
 %prep
 %setup -q
 %patch -P 0 -p0 -b .desktop
+%patch -P 1 -p0 -b .includes
 
 sed -i -e '/\/gnome\/apps\/Graphics/d' Makefile
 find docs -type f -exec perl -pi -e 's/\r\n/\n/' {} \;
@@ -63,7 +66,7 @@ make PREFIX=%{_prefix} MAGIC_PREFIX=%{_libdir}/tuxpaint/plugins tp-magic-config
 %set_build_flags
 make %{?_smp_mflags} \
     PREFIX=%{_prefix} \
-    OPTFLAGS="$CFLAGS" \
+    OPTFLAGS="$CFLAGS -std=gnu17" \
     LDFLAGS="$LDFLAGS -L%{_libdir}" \
     MAGIC_CFLAGS="$CFLAGS \$(SDL_CFLAGS) -Isrc" \
     MAGIC_PREFIX=%{_libdir}/tuxpaint/plugins

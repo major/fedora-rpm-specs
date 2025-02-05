@@ -6,7 +6,7 @@
 
 Name:		linuxptp
 Version:	4.4
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	PTP implementation for Linux
 
 License:	GPL-2.0-or-later
@@ -161,6 +161,10 @@ fi
 %{_mandir}/man8/*.8*
 
 %changelog
+* Mon Feb 03 2025 Miroslav Lichvar <mlichvar@redhat.com> 4.4-4
+- update selinux policy to allow ptp4l to use generic netlink sockets
+- harden systemd services
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

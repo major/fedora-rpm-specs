@@ -2,8 +2,8 @@
 %global module tinyrpc
 
 Name:       python-%{library}
-Version:    1.1.4
-Release:    12%{?dist}
+Version:    1.1.7
+Release:    2%{?dist}
 Summary:    A modular RPC library
 License:    MIT
 URL:        https://github.com/mbr/%{library}
@@ -24,54 +24,61 @@ Documentation for tinyrpc library
 
 %package -n python3-%{library}
 Summary:    A modular RPC library
-%{?python_provide:%python_provide python3-%{library}}
 
 BuildRequires:  git
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
+BuildRequires:  python3-sphinx
+BuildRequires:  python3-sphinx_rtd_theme
+# For tests
+BuildRequires:  python3-pytest
 BuildRequires:  python3-gevent
 BuildRequires:  python3-msgpack
 BuildRequires:  python3-pika
-BuildRequires:  python3-py
-BuildRequires:  python3-pytest
-BuildRequires:  python3-requests
-BuildRequires:  python3-six
-BuildRequires:  python3-sphinx
-BuildRequires:  python3-sphinx_rtd_theme
 BuildRequires:  python3-werkzeug
 BuildRequires:  python3-zmq
-
-Requires:  python3-gevent
-Requires:  python3-requests
-Requires:  python3-six
-Requires:  python3-werkzeug
-Requires:  python3-zmq
 
 %description -n python3-%{library}
 tinyrpc is a library for making and handling RPC calls in python.
 
-%package -n python3-%{library}-tests
-Summary:    Tests for python2-tinyrpc library
 
+# gevent-websocket and jsonext are old and unmaintained
+%pyproject_extras_subpkg -n python3-%{library} gevent
+#        'httpclient': ['requests', 'websocket-client', 'gevent-websocket'],
+#pyproject_extras_subpkg -n python3-%{library} httpclient
+%pyproject_extras_subpkg -n python3-%{library} msgpack
+%pyproject_extras_subpkg -n python3-%{library} rabbitmq
+%pyproject_extras_subpkg -n python3-%{library} wsgi
+%pyproject_extras_subpkg -n python3-%{library} zmq
+
+%package -n python3-%{library}-tests
+Summary:    Tests for python3-tinyrpc library
+
+# Requirements are not generated automatically
 Requires:  python3-gevent
-Requires:  python3-py
-Requires:  python3-pytest
-Requires:  python3-requests
-Requires:  python3-six
+Requires:  python3-msgpack
+Requires:  python3-pika
 Requires:  python3-werkzeug
 Requires:  python3-zmq
 Requires:  python3-%{library} = %{version}-%{release}
 
 %description -n python3-%{library}-tests
-Tests for  python2-tinyrpc library
+Tests for  python3-tinyrpc library
 
 %prep
 %autosetup -n %{library}-%{version} -S git
-# requirements.txt is wrong, let's manage deps manually
-rm -f requirements.txt
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
+
+# Fix doc build with latest Sphinx
+sed -i "s#'https://docs.python.org/3/': None#'python': ('https://docs.python.org/3', None)#" docs/conf.py
+sed -i "s#'https://pyzmq.readthedocs.io/en/latest/': None#'pyzmq': ('https://pyzmq.readthedocs.io/en/latest/', None)#" docs/conf.py
+sed -i "s#'http://docs.python-requests.org/en/latest/': None#'python-requests': ('http://docs.python-requests.org/en/latest/', None)#" docs/conf.py
+sed -i "s#'http://werkzeug.pocoo.org/docs/': None#'werkzeug': ('http://werkzeug.pocoo.org/docs/', None)#" docs/conf.py
+sed -i "s#'http://www.gevent.org/': None#'gevent': ('http://www.gevent.org/', None)#" docs/conf.py
 
 # generate html docs
 sphinx-build docs build/sphinx/html
@@ -79,30 +86,36 @@ sphinx-build docs build/sphinx/html
 rm -rf build/sphinx/html/.{doctrees,buildinfo}
 
 %install
-%py3_install
-# Copy tests
+%pyproject_install
+%pyproject_save_files %{module}
+# Move tests
 mkdir -p %{buildroot}%%{python3_sitelib}/%{library}/tests
-cp -r tests %{buildroot}%{python3_sitelib}/%{library}/tests
+mv %{buildroot}%{python3_sitelib}/tests %{buildroot}%{python3_sitelib}/%{library}/tests
 
 %check
-export PYTHONPATH=.
-py.test-3 -rs
+%pytest -rs -v
 
 %files -n python-%{library}-doc
 %license LICENSE
 %doc build/sphinx/html README.rst
 
-%files -n python3-%{library}
+%files -n python3-%{library} -f %{pyproject_files}
 %license LICENSE
-%{python3_sitelib}/%{module}
-%{python3_sitelib}/%{module}-*.egg-info
-%exclude %{python3_sitelib}/%{module}/tests
 
 %files -n python3-%{library}-tests
 %license LICENSE
 %{python3_sitelib}/%{module}/tests
 
 %changelog
+* Mon Feb 03 2025 Javier Peña <jpena@redhat.com> 1.1.7-2
+- Fix doc build (#2329893)
+- Fix minor typos
+
+* Mon Feb 03 2025 Orion Poplawski <orion@nwra.com> - 1.1.7-1
+- Update to 1.1.7
+- Use pyproject macros
+- Add extras sub-packages
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

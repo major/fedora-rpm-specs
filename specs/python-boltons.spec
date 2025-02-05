@@ -1,14 +1,12 @@
 Name:           python-boltons
-Version:        24.0.0
-Release:        4%{?dist}
+Version:        25.0.0
+Release:        1%{?dist}
 Summary:        Functionality that should be in the standard library
 
 License:        BSD-3-Clause
 URL:            https://github.com/mahmoud/boltons
 %global pypi_name boltons
 Source:         %{pypi_source}
-# Fix for Python 3.13
-Patch:          https://github.com/mahmoud/boltons/pull/367.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -70,6 +68,9 @@ install -m644 docs/_build/man/boltons.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Mon Feb 03 2025 Orion Poplawski <orion@nwra.com> - 25.0.0-1
+- Update to 25.0.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

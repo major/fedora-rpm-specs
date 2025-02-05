@@ -1,5 +1,5 @@
 Name:           dtk6gui
-Version:        6.0.25
+Version:        6.0.27
 Release:        %autorelease
 Summary:        Deepin Toolkit, gui module for DDE look and feel
 License:        LGPL-3.0-or-later

@@ -3,7 +3,7 @@ Name: bwrap-oci
 Version: 0.1.2
 Release: 24%{?dist}
 Source0: %{url}/archive/%{name}-%{version}.tar.gz
-License: LGPLv2+
+License: LGPL-2.0-or-later
 URL: https://github.com/projectatomic/bwrap-oci
 
 Requires: bubblewrap

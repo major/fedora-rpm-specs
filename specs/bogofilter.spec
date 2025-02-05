@@ -5,7 +5,7 @@
 Summary: Fast anti-spam filtering by Bayesian statistical analysis
 Name: bogofilter
 Version: 1.2.5
-Release: 18%{?dist}
+Release: 19%{?dist}
 License: GPL-2.0-only
 URL: http://bogofilter.sourceforge.net/
 Source0: http://downloads.sourceforge.net/bogofilter/bogofilter-%{version}.tar.xz
@@ -57,14 +57,14 @@ main bogofilter package.
 %setup -q
 iconv -f iso-8859-1 -t utf-8 \
  doc/bogofilter-faq-fr.html > doc/bogofilter-faq-fr.html.utf8
-%{__mv} -f doc/bogofilter-faq-fr.html.utf8 \
+mv -f doc/bogofilter-faq-fr.html.utf8 \
  doc/bogofilter-faq-fr.html
 
 %if %{with_libdb_migration}
 # make a copy of the sources for the build with the libdb backend
-%{__mkdir} ../%{libdb_migration_build_dir}
-%{__cp} -r * ../%{libdb_migration_build_dir}/
-%{__mv} ../%{libdb_migration_build_dir} .
+mkdir ../%{libdb_migration_build_dir}
+cp -a * ../%{libdb_migration_build_dir}/
+mv ../%{libdb_migration_build_dir} .
 %endif
 
 %build
@@ -75,7 +75,7 @@ iconv -f iso-8859-1 -t utf-8 \
 %endif
 	%{nil}
 
-%{__make} %{?_smp_mflags}
+%make_build
 
 %if %{with_libdb_migration}
 pushd %{libdb_migration_build_dir}
@@ -89,27 +89,27 @@ elif [ -e /usr/lib/libdb-5.3.a ]; then
    BF_ZAP_LIBDB=zap
 fi
 %configure --disable-rpath --with-database=db BF_ZAP_LIBDB=${BF_ZAP_LIBDB} STATIC_DB="${STATIC_DB}" LIBS="${LIBS} ${STATIC_DB}"
-%{__make} %{?_smp_mflags}
+%make_build
 popd
 %endif
 
 %install
-%{__make} DESTDIR=%{buildroot} install
+%make_install
 
-%{__mv} -f %{buildroot}%{_sysconfdir}/bogofilter.cf.example \
+mv -f %{buildroot}%{_sysconfdir}/bogofilter.cf.example \
  %{buildroot}%{_sysconfdir}/bogofilter.cf
 
-%{__install} -d -m0755 rpm-doc/xml/ rpm-doc/html/
-%{__install} -m644 doc/*.xml rpm-doc/xml/
-%{__install} -m644 doc/*.html rpm-doc/html/
+install -d -m0755 rpm-doc/xml/ rpm-doc/html/
+install -m644 doc/*.xml rpm-doc/xml/
+install -m644 doc/*.html rpm-doc/html/
 
-%{__chmod} -x contrib/*
-%{__rm} -v contrib/bogogrep.o
-%{__rm} -rfv contrib/.deps
+chmod -x contrib/*
+rm -v contrib/bogogrep.o
+rm -rfv contrib/.deps
 
 %if %{with_libdb_migration}
 pushd %{libdb_migration_build_dir}
-%{__cp} -f src/bogoutil %{buildroot}/%{_bindir}/bogoutil-berkeley
+cp -f src/bogoutil %{buildroot}/%{_bindir}/bogoutil-berkeley
 
 cat >> %{buildroot}%{_bindir}/bogomigrate-berkeley << FOE
 #!/bin/bash
@@ -134,13 +134,14 @@ else
 fi
 FOE
 
-%{__chmod} a+x %{buildroot}%{_bindir}/bogomigrate-berkeley
+chmod a+x %{buildroot}%{_bindir}/bogomigrate-berkeley
 
 popd
 %endif
 
 %check
-%{__make} %{?_smp_mflags} check
+# Tests seem to use V or VERBOSE for something else, so cannot use %%make_build which defines it
+make %{?_smp_mflags} check
 
 %files bogoupgrade
 %{_bindir}/bogoupgrade
@@ -159,6 +160,9 @@ popd
 %exclude %{_mandir}/man1/bogoupgrade*
 
 %changelog
+* Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 1.2.5-19
+- Use cp -a to avoid triggering automake regen (FTBFS rhbz#2339939)
+
 * Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 1.2.5-18
 - Rebuild with gsl 2.8
 

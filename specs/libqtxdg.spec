@@ -2,7 +2,7 @@ Name:           libqtxdg
 Summary:        QtXdg, a Qt5 implementation of XDG standards
 Version:        4.1.0
 
-Release:        2%{?dist}
+Release:        3%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
 URL:            https://lxqt-project.org
@@ -14,11 +14,13 @@ BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(Qt6Svg)
 BuildRequires:  cmake(Qt6Xml)
 BuildRequires:  cmake(Qt6DBus)
-BuildRequires:  qt6-qtbase-private-devel
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gio-unix-2.0)
 BuildRequires:  file-devel
 BuildRequires:  lxqt-build-tools
+BuildRequires:  qt6-qtbase-private-devel
+%{?_qt6:Requires: %{_qt6}%{?_isa} = %{_qt6_version}}
+
 Requires:       xdg-user-dirs
 Requires:       xdg-utils
 Obsoletes:      libqtxdg-qt5 <= 1.1.0
@@ -67,6 +69,9 @@ Files used for developing and building software that uses qtxdg.
 %{_qt6_archdatadir}/plugins/iconengines/libQt6XdgIconPlugin.so
 
 %changelog
+* Mon Feb 03 2025 Jan Grulich <jgrulich@redhat.com> - 4.1.0-3
+- Rebuild (qt6)
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

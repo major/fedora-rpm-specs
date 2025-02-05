@@ -3,7 +3,7 @@
 
 Summary:   Library for reading Jcat files
 Name:      libjcat
-Version:   0.2.2
+Version:   0.2.3
 Release:   %autorelease
 License:   LGPL-2.1-or-later
 URL:       https://github.com/hughsie/%{name}

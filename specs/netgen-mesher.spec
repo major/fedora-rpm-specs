@@ -61,7 +61,7 @@ Patch7:         netgen-mesher_egg-info-version.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  tk-devel
+BuildRequires:  tk-devel < 1:9
 BuildRequires:  opencascade-devel
 BuildRequires:  libjpeg-turbo-devel
 BuildRequires:  metis-devel

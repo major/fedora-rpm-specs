@@ -35,7 +35,7 @@ them.
 %build
 autoreconf -vif
 sed -i /HAVE_LIBPNG/d configure
-export CPPFLAGS="$CPPFLAGS -fcommon"
+export CPPFLAGS="$CPPFLAGS -fcommon -std=gnu17"
 %configure --enable-gl --disable-cpu-opt --program-prefix='' --with-waddir=%{waddir} --disable-i386-asm
 
 make %{?_smp_mflags}

@@ -78,7 +78,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %package doc
 Summary: Documentation for %{name}
-License: GFDL
+License: GFDL-1.2-only
 Requires:  %{name} = %{version}-%{release}
 BuildArch: noarch
 # now ahead of kf5-libkcddb

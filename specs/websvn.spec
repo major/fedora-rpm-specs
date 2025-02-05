@@ -1,6 +1,6 @@
 Name:           websvn
 Version:        2.8.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Online subversion repository browser
 
 License:        GPL-2.0-or-later
@@ -17,9 +17,6 @@ Requires:       php >= 5.4.0
 Requires:       php-mbstring
 Requires:       php-xml
 Requires:       php-geshi
-%if 0%{?fedora}
-Requires:       php-erusev-parsedown
-%endif
 Requires:       php-pear(Archive_Tar)
 # Text_Diff is broken with PHP 8.
 # Use system diff instead where needed.
@@ -118,6 +115,10 @@ fi
 
 
 %changelog
+* Mon Feb 03 2025 Christian Krause <chkr@fedoraproject.org> - 2.8.4-4
+- Fix FailsToInstall in F42 due to orphaned package (php-erusev-parsedown)
+  by removing that dependency (RHBZ#2342582)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

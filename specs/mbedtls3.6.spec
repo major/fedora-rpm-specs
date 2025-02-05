@@ -53,8 +53,8 @@ sed -i 's|//\(#define MBEDTLS_THREADING_C\)|\1|' include/mbedtls/mbedtls_config.
 sed -i 's|//\(#define MBEDTLS_THREADING_PTHREAD\)|\1|' include/mbedtls/mbedtls_config.h
 
 %build
-export CFLAGS="%{optflags} -Wno-stringop-overflow -Wno-maybe-uninitialized"
-export CXXLAGS="%{optflags} -Wno-stringop-overflow -Wno-maybe-uninitialized"
+export CFLAGS="%{optflags} -Wno-error=unterminated-string-initialization -fzero-init-padding-bits=unions"
+export CXXLAGS="$CFLAGS"
 
 %cmake \
     -DCMAKE_BUILD_TYPE=Release \

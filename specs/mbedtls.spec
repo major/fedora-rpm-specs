@@ -3,13 +3,12 @@
 %endif
 
 Name: mbedtls
-Version: 3.6.2
-Release: 2%{?dist}
+Version: 2.28.8
+Release: 1%{?dist}
 Summary: Light-weight cryptographic and SSL/TLS library
 License: Apache-2.0
 URL: https://www.trustedfirmware.org/projects/mbed-tls
 Source0: https://github.com/Mbed-TLS/%{name}/archive/refs/tags/%{name}-%{version}.tar.bz2
-Patch0: mbedtls-gcc14.patch
 
 BuildRequires: make
 BuildRequires: gcc-c++
@@ -44,10 +43,10 @@ BuildArch:      noarch
 The %{name}-doc package contains documentation.
 
 %prep
-%autosetup -p1
+%autosetup
 
-sed -i 's|//\(#define MBEDTLS_THREADING_C\)|\1|' include/mbedtls/mbedtls_config.h
-sed -i 's|//\(#define MBEDTLS_THREADING_PTHREAD\)|\1|' include/mbedtls/mbedtls_config.h
+sed -i 's|//\(#define MBEDTLS_THREADING_C\)|\1|' include/mbedtls/config.h
+sed -i 's|//\(#define MBEDTLS_THREADING_PTHREAD\)|\1|' include/mbedtls/config.h
 
 %build
 export CFLAGS="%{optflags} -Wno-stringop-overflow -Wno-maybe-uninitialized"
@@ -60,7 +59,8 @@ export CXXLAGS="%{optflags} -Wno-stringop-overflow -Wno-maybe-uninitialized"
 	-DENABLE_PROGRAMS=OFF \
 	-DUSE_SHARED_MBEDTLS_LIBRARY=ON \
 	-DUSE_STATIC_MBEDTLS_LIBRARY=OFF \
-	-DGEN_FILES=OFF
+	-DGEN_FILES=OFF \
+	-DENABLE_TESTING=Off
 
 %cmake_build
 make apidoc
@@ -74,8 +74,8 @@ make apidoc
 # - https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/PDD6RNQMII472HXM4XAUUWWZKKBGHPTO/
 chmod 755 %{buildroot}%{_libdir}/*.so.*
 
-%check
-%ctest --output-on-failure --force-new-ctest-process --parallel 1
+# %check
+# %ctest --output-on-failure --force-new-ctest-process --parallel 1
 
 %ldconfig_scriptlets
 
@@ -89,7 +89,6 @@ chmod 755 %{buildroot}%{_libdir}/*.so.*
 %{_includedir}/mbedtls/
 %{_includedir}/psa/
 %{_includedir}/everest/
-%{_libdir}/cmake/MbedTLS/
 %{_libdir}/pkgconfig/
 %{_libdir}/*.so
 
@@ -97,21 +96,6 @@ chmod 755 %{buildroot}%{_libdir}/*.so.*
 %doc apidoc/*
 
 %changelog
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Tue Oct 15 2024 Morten Stevens <mstevens@fedoraproject.org> - 3.6.2-1
-- Update to 3.6.2
-
-* Tue Sep 03 2024 Morten Stevens <mstevens@fedoraproject.org> - 3.6.1-1
-- Update to 3.6.1
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Tue May 14 2024 Morten Stevens <mstevens@fedoraproject.org> - 3.6.0-1
-- Update to 3.6.0
-
 * Mon Apr 01 2024 Morten Stevens <mstevens@fedoraproject.org> - 2.28.8-1
 - Update to 2.28.8
 

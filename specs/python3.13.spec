@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: Python-2.0.1
 
 
@@ -265,8 +265,8 @@ BuildRequires: readline-devel
 BuildRequires: redhat-rpm-config >= 127
 BuildRequires: sqlite-devel
 BuildRequires: systemtap-sdt-devel
-BuildRequires: tcl-devel
-BuildRequires: tk-devel
+BuildRequires: tcl-devel < 1:9
+BuildRequires: tk-devel < 1:9
 BuildRequires: xz-devel
 BuildRequires: zlib-devel
 BuildRequires: /usr/bin/dtrace
@@ -882,6 +882,17 @@ BuildPython() {
   $ExtraConfigArgs \
   %{nil}
 
+%if 0%{?fedora} && 0%{?fedora} < 42
+  # Statically compile the _datetime module to mitigate:
+  #  Segfault when updating from 3.13.0 to 3.13.1 while Python is running
+  #  https://bugzilla.redhat.com/2333852
+  # Note that this is an incomplete workaround for the case we know about,
+  # we'd like to see the cause fixed properly in Python 3.14 upstream:
+  #  https://github.com/python/cpython/issues/128341
+  # This is only carried on Fedoras released before Python 3.13.1.
+  echo -e '*static*\n_datetime _datetimemodule.c' > Modules/Setup.local
+%endif
+
 %global flags_override EXTRA_CFLAGS="$MoreCFlags" CFLAGS_NODIST="$CFLAGS_NODIST $MoreCFlags"
 
 %if %{without bootstrap}
@@ -1412,7 +1423,9 @@ CheckPython freethreading
 %{1}/_ctypes.%{2}.so\
 %{1}/_curses.%{2}.so\
 %{1}/_curses_panel.%{2}.so\
+%if !(0%{?fedora} && 0%{?fedora} < 42)\
 %{1}/_datetime.%{2}.so\
+%endif\
 %{1}/_dbm.%{2}.so\
 %{1}/_gdbm.%{2}.so\
 %{1}/_decimal.%{2}.so\
@@ -1706,6 +1719,11 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Wed Jan 29 2025 Miro Hrončok <mhroncok@redhat.com> - 3.13.1-4
+- On Fedora 41 or older, statically build the _datetime module into libpython
+- This fixes a segfault when importing it from Python 3.13.0 updated to 3.13.1+ while running
+- Fixes: rhbz#2333852
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -35,6 +35,11 @@ Patch002: 0001-Added-man-page-for-the-Legacy-Printer-Application.patch
 Patch003: pappl-retrofit-use-after-free.patch
 # https://github.com/OpenPrinting/pappl-retrofit/pull/27
 Patch004: 0001-Use-PAPPL-configuration-options-from-file.patch
+# https://github.com/OpenPrinting/pappl-retrofit/pull/28
+Patch005: 0001-Fix-possible-unterminated-string.patch
+Patch006: 0001-cups-backends.c-Ensure-read-string-is-NULL-terminate.patch
+Patch007: 0001-Protect-_prASCII-from-negative-lengths.patch
+Patch008: 0001-Fix-potential-memory-leaks.patch
 
 
 # for autogen.sh - generating configure scripts
@@ -121,6 +126,10 @@ so such printer will be seen by CUPS.
 
 
 %build
+# needed for regenerating .in files, which contents might change across releases
+# f.e. BZ#2341000 was caused requiring automake-1.16 for unknown reason
+./autogen.sh
+
 %configure --enable-legacy-printer-app-as-daemon\
   --enable-shared\
   --disable-static\
@@ -183,6 +192,10 @@ make check
 %{_mandir}/man1/legacy-printer-app.1.gz
 
 %changelog
+* Mon Feb 03 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1.0b2-6
+- Fix FTBFS (fedora#2341000)
+- Fix issues reported by OSH
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0b2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

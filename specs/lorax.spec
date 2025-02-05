@@ -4,8 +4,8 @@
 %global forgeurl https://github.com/weldr/lorax
 
 Name:           lorax
-Version:        42.4
-Release:        2%{?dist}
+Version:        42.5
+Release:        1%{?dist}
 Summary:        Tool for creating the anaconda install images
 License:        GPL-2.0-or-later
 
@@ -145,9 +145,9 @@ make DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir} install
 %doc docs/*ks
 %{python3_sitelib}/pylorax
 %{python3_sitelib}/*.egg-info
-%{_sbindir}/lorax
-%{_sbindir}/mkefiboot
-%{_sbindir}/livemedia-creator
+%{_bindir}/lorax
+%{_bindir}/mkefiboot
+%{_bindir}/livemedia-creator
 %{_bindir}/mkksiso
 %{_bindir}/image-minimizer
 %dir %{_sysconfdir}/lorax
@@ -171,8 +171,12 @@ make DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir} install
 %{_datadir}/lorax/templates.d/*
 
 %changelog
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 42.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+* Mon Feb 03 2025 Brian C. Lane <bcl@redhat.com> 42.5-1
+- Remove sbin usage (bcl@redhat.com)
+- mkksiso: Replace existing inst.ks on the iso (bcl@redhat.com)
+- Dockerfile.test: Use fedora:latest instead of rawhide (bcl@redhat.com)
+- mkksiso: Fix rebuilding the efiboot.img on some systems (bcl@redhat.com)
+- Remove leftovers from xorg drop (jkonecny@redhat.com)
 
 * Fri Nov 22 2024 Brian C. Lane <bcl@redhat.com> 42.4-1
 - runtime-cleanup: Newer glibc installs into /usr/lib64 (bcl@redhat.com)

@@ -18,7 +18,7 @@ doesn't use TeX or its fonts in any way.
 %setup -q -c
 
 %build
-gcc %{optflags} -DAA mimetex.c gifsave.c -lm -o mimetex.cgi
+gcc %{optflags} -std=gnu17 -DAA mimetex.c gifsave.c -lm -o mimetex.cgi
 
 %install
 install -pDm755 mimetex.cgi %{buildroot}%{_localstatedir}/www/cgi-bin/%{name}.cgi

@@ -2,16 +2,16 @@
 %global python3_dbus_dir %(%{__python3} -c "import dbus.mainloop; print(dbus.mainloop.__path__[0])" 2>/dev/null || echo "%{python3_sitearch}/dbus/mainloop")
 %endif
 
-#define snap dev2412041050
+%define snap dev2502011625
 
 Summary: PyQt6 is Python bindings for Qt6
 Name:    python-pyqt6
-Version: 6.8.0
-Release: 2%{?dist}
+Version: 6.8.1
+Release: 0.1%{?dist}
 
 License: gpl-3.0-only
 Url:     http://www.riverbankcomputing.com/software/pyqt/
-Source0: https://pypi.python.org/packages/source/P/PyQt6/PyQt6-%{version}%{?snap:.%{snap}}.tar.gz
+Source0: https://pypi.python.org/packages/source/P/PyQt6/pyqt6-%{version}%{?snap:.%{snap}}.tar.gz
 Source1: macros.pyqt6
 
 BuildRequires: make
@@ -114,7 +114,7 @@ BuildArch: noarch
 
 
 %prep
-%autosetup -n PyQt6-%{version}%{?snap:.%{snap}} -p1
+%autosetup -n pyqt6-%{version}%{?snap:.%{snap}} -p1
 
 %build
 
@@ -241,6 +241,12 @@ sed -i \
 
 
 %changelog
+* Mon Feb 03 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.1-0.1^dev2502011625
+- Update to snapshot of 6.8.1
+
+* Mon Feb 03 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.0-3
+- Rebuild (qt6)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 %{?!with_python3:     %global with_python3     1}
 %{?!with_munin:       %global with_munin       1}
 %bcond_without dnstap
-%bcond_with    systemd
+%bcond_without systemd
 %bcond_without doh
 %if 0%{?rhel} && ! 0%{?epel}
 %bcond_with redis
@@ -68,6 +68,8 @@ Source24: unbound-local-root.conf
 Source25: openssl-sha1.conf
 Source26: remote-control-include.conf
 Source27: fedora-defaults.conf
+Source28: module-setup.sh
+Source29: unbound-initrd.conf
 
 # Downstream configuration changes
 Patch1:   unbound-fedora-config.patch
@@ -200,6 +202,14 @@ Conflicts: python2-unbound < 1.9.3
 Python 3 modules and extensions for unbound
 %endif
 
+%package dracut
+Summary: Unbound dracut module
+Requires: dracut%{?_isa}
+Requires: %{name}%{?_isa} = %{version}-%{release}
+
+%description dracut
+Unbound dracut module allowing use of Unbound for name resolution
+in initramfs.
 
 %prep
 %if 0%{?fedora}
@@ -378,6 +388,11 @@ install -p -m 0644 %{SOURCE27} %{buildroot}%{_datadir}/%{name}/
 # Link unbound-control-setup.8 manpage to unbound-control.8
 echo ".so man8/unbound-control.8" > %{buildroot}/%{_mandir}/man8/unbound-control-setup.8
 
+# install dracut module
+mkdir -p %{buildroot}%{_prefix}/lib/dracut/modules.d/99unbound
+
+install -p -m 0755 %{SOURCE28} %{buildroot}%{_prefix}/lib/dracut/modules.d/99unbound
+install -p -m 0644 %{SOURCE29} %{buildroot}%{_prefix}/lib/dracut/modules.d/99unbound
 
 %pre libs
 %sysusers_create_compat %{SOURCE20}
@@ -502,6 +517,9 @@ popd
 %{_sbindir}/unbound-host
 %{_sbindir}/unbound-streamtcp
 %{_mandir}/man1/unbound-*
+
+%files dracut
+%{_prefix}/lib/dracut/modules.d/99unbound
 
 %changelog
 %autochangelog

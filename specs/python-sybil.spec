@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        8.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Automated testing for the examples in your documentation
 
 License:        MIT
@@ -25,10 +25,8 @@ BuildRequires:  make
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-cov
 BuildRequires:  python3-testfixtures
 BuildRequires:  python3-pyyaml
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 This library provides a way to test examples in your documentation by parsing
@@ -56,6 +54,9 @@ sed -i "/seeddir/d" setup.py
 %{python3_sitelib}/%{pypi_name}/
 
 %changelog
+* Sun Feb  2 2025 Orion Poplawski <orion@nwra.com> - 8.0.0-3
+- Drop unneeded BR on python3-pytest-cov
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

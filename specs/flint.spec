@@ -1,6 +1,6 @@
 Name:           flint
-Version:        3.1.2
-Release:        4%{?dist}
+Version:        3.1.3
+Release:        1%{?dist}
 Summary:        Fast Library for Number Theory
 
 # LGPL-3.0-or-later: the project as a whole
@@ -11,9 +11,9 @@ Summary:        Fast Library for Number Theory
 #   src/mpn_extras/broadwell/x86_64-defs.m4
 # BSD-2-Clause: src/bernoulli/mod_p_harvey.c
 License:        LGPL-3.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later AND (LGPL-3.0-or-later OR GPL-2.0-or-later) AND BSD-2-Clause
-URL:            https://www.flintlib.org/
+URL:            https://flintlib.org/
 VCS:            git:https://github.com/flintlib/flint.git
-Source:         https://www.flintlib.org/%{name}-%{version}.tar.gz
+Source:         https://flintlib.org/download/%{name}-%{version}.tar.gz
 # Fix noreturn attribute in C23 mode
 Patch:          https://github.com/flintlib/flint/pull/2116.patch
 
@@ -91,6 +91,10 @@ sed -i 's/openblas/flexiblas/' configure
 
 
 %build
+# FLINT builds and passes all tests without this using GCC <= 14
+# Tests fail with incorrect answers using GCC >= 15.0
+CFLAGS='%{build_cflags} -fno-strict-aliasing'
+CXXFLAGS='%{build_cxxflags} -fno-strict-aliasing'
 %configure \
   --disable-arch \
   --disable-static \
@@ -107,6 +111,7 @@ make -C doc html
 
 
 %check
+export FLEXIBLAS=netlib
 make check
 
 
@@ -125,6 +130,12 @@ make check
 
 
 %changelog
+* Mon Feb  3 2025 Jerry James <loganjerry@gmail.com> - 3.1.3-1
+- Version 3.1.3
+- Update project URLs
+- Build with -fno-strict-aliasing to work around FTBFS with GCC 15
+- Test with the netlib BLAS implementation
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

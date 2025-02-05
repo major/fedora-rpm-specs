@@ -3,14 +3,14 @@
 Summary:        Cross platform C++ game library
 Name:           ClanLib1
 Version:        1.0.0
-Release:        45%{?dist}
-License:        zlib
+Release:        46%{?dist}
+License:        Zlib
 URL:            http://www.clanlib.org/
 Source0:        http://www.clanlib.org/download/releases-1.0/%{realname}-%{version}.tgz
 # Prebuild docs to avoid multilib conflicts. To regenerate, build and install
 # ClanLib without passing --disable-docs (requires perl, libxslt) and then:
-# mv $RPM_BUILD_ROOT%{_datadir}/doc/clanlib html
-# tar cvfz ClanLib-%{version}-generated-docs.tar.gz html
+# mv $RPM_BUILD_ROOT%%{_datadir}/doc/clanlib html
+# tar cvfz ClanLib-%%{version}-generated-docs.tar.gz html
 Source1:        ClanLib-%{version}-generated-docs.tar.gz
 Patch0:         ClanLib-0.8.0-gcc43.patch
 Patch1:         ClanLib-1.0.0-fullscreen-viewport.patch
@@ -18,29 +18,25 @@ Patch2:         ClanLib-1.0.0-libpng15.patch
 Patch3:         ClanLib-1.0.0-gcc6.patch
 Patch4:         ClanLib-1.0.0-NULL-not-defined.patch
 Patch5:         ClanLib-1.0.0-use-pthread_mutexattr_settype.patch
+Patch6:         ClanLib-1.0.0-gcc15.patch
 BuildRequires:  make gcc-c++
 BuildRequires:  libX11-devel libXi-devel libXmu-devel libGLU-devel libICE-devel
 BuildRequires:  libXext-devel libXxf86vm-devel libXt-devel xorg-x11-proto-devel
 BuildRequires:  libvorbis-devel mikmod-devel SDL-devel SDL_gfx-devel
 BuildRequires:  alsa-lib-devel libpng-devel libjpeg-devel
-# Obsoletes for upgrade path, no Provides as "ClanLib" will be provided
-# By the new ClanLib-2.x package
-Obsoletes:      ClanLib < %{version}-%{release}
 
 %description
 ClanLib is a cross platform C++ game library.
 
 
 %package devel
-Summary:        Development Libraries and Headers for ClanLib
+Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       libGLU-devel xorg-x11-proto-devel pkgconfig
-# Obsoletes for upgrade path, no Provides as "ClanLib-devel" will be provided
-# By the new ClanLib-devel-2.x package
-Obsoletes:      ClanLib-devel < %{version}-%{release}
 
 %description devel
-ClanLib development headers and libraries
+The %{name}-devel package contains libraries and header files for
+developing applications that use %{name}.
 
 
 %prep
@@ -51,6 +47,7 @@ mv NEWS.utf8 NEWS
 iconv -f iso8859-1 -t utf8 CREDITS -o CREDITS.utf8
 touch -r CREDITS.utf8 CREDITS
 mv CREDITS.utf8 CREDITS
+chmod -x NEWS CREDITS
 # fixup pc files
 sed -i 's|libdir=${exec_prefix}/lib|libdir=@libdir@|' pkgconfig/clan*.pc.in
 sed -i 's|Libs:   -L${libdir}|Libs:   -L${libdir}/%{realname}-1.0|' \
@@ -68,7 +65,7 @@ make %{?_smp_mflags}
 %install
 make install DESTDIR=$RPM_BUILD_ROOT
 rm $RPM_BUILD_ROOT%{_libdir}/*.la
-# put .so links in a subdir of %{libdir} so they don't conflict with
+# put .so links in a subdir of %%{libdir} so they don't conflict with
 # ClanLib06-devel .so links. The pkg-config files are patches to transparently
 # handle this for applications using us.
 mkdir -p $RPM_BUILD_ROOT%{_libdir}/%{realname}-1.0
@@ -99,6 +96,11 @@ done
 
 
 %changelog
+* Mon Feb  3 2025 Hans de Goede <hdegoede@redhat.com> - 1.0.0-46
+- Fix FTBFS (rhbz#2336002, rhbz#2339440)
+- Drop quite old "Obsoletes: ClanLib"
+- Fix rpmlint warnings
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

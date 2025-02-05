@@ -2,13 +2,13 @@
 %{!?tcl_sitearch: %global tcl_sitearch %{_libdir}/tcl%{tcl_version}}
 %{!?tcl_sitelib: %global tcl_sitelib %{_datadir}/tcl%{tcl_version}}
 %global tixmajor 8.4
-%global tcltkver 8.4.13
+%global tcltkver 1:8.4.13
 
 Summary: A set of extension widgets for Tk
 Name: tix
 Epoch: 1
 Version: %{tixmajor}.3
-Release: 43%{?dist}
+Release: 44%{?dist}
 License: TCL
 URL: http://tix.sourceforge.net/
 Source0: http://downloads.sourceforge.net/project/%{name}/%{name}/%{version}/Tix%{version}-src.tar.gz
@@ -20,12 +20,12 @@ Patch3: tix-implicit-int.patch
 Patch4: tix-configure-c99.patch
 Patch5: tix-c89.patch
 Requires: tcl(abi) = 8.6
-Requires: tcl >= %{tcltkver}, tcl-devel < 1:9
-Requires: tk >= %{tcltkver}, tk-devel < 1:9
+Requires: ((tcl >= %{tcltkver} with tcl < 1:9) or tcl8 >= %{tcltkver})
+Requires: ((tk >= %{tcltkver} with tk < 1:9) or tk8 >= %{tcltkver})
 Requires: /etc/ld.so.conf.d
 BuildRequires: make
-BuildRequires: tcl-devel >= %{tcltkver}, tcl-devel < 1:9
-BuildRequires: tk-devel >= %{tcltkver}, tk-devel < 1:9
+BuildRequires: (tcl-devel >= %{tcltkver} with tcl-devel < 1:9)
+BuildRequires: (tk-devel >= %{tcltkver} with tk-devel < 1:9)
 BuildRequires: libX11-devel
 BuildRequires: gcc
 
@@ -130,6 +130,11 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/Tix%{tixmajor}/license.terms
 %doc %{tcl_sitelib}/Tix%{tixmajor}
 
 %changelog
+* Fri Jan 31 2025 Miro Hrončok <mhroncok@redhat.com> - 1:8.4.3-44
+- Drop needles runtime requirements on tk-devel and tcl-devel
+- Make the package installable with tk/ctl 8 as well as tk8/tcl8 compat packages
+  Resolves: #2337797
+
 * Thu Jan 30 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 1:8.4.3-43
 - Switch to the compat tcl8/tk8
   Resolves: #2337797

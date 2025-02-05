@@ -13,7 +13,7 @@
 %global lagraph_version_major 1
 %global lagraphx_version_major 1
 %global ldl_version_major 3
-%global paru_version_major 0
+%global paru_version_major 1
 %global rbio_version_major 4
 %global spex_version_major 3
 %global spqr_version_major 4
@@ -47,8 +47,8 @@
 %global commit 6ab1e9eb9e67264218ffbdfc25010650da449a39
 
 Name:           suitesparse
-Version:        7.7.0
-Release:        3%{?dist}
+Version:        7.8.3
+Release:        1%{?dist}
 Summary:        A collection of sparse matrix libraries
 
 # See LICENSE.txt for a breakdown of all licenses:
@@ -466,6 +466,9 @@ done
 %doc Doc/*
 
 %changelog
+* Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 7.8.3-1
+- Update to 7.8.3
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.7.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

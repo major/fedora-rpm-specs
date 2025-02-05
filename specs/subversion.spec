@@ -1,39 +1,21 @@
 # Disable to avoid all the test suites
-
-%bcond_without tests
+%bcond tests 1
 
 # Disable automatic .la file removal
 %global __brp_remove_la_files %nil
 
-%if 0%{?rhel}
-%bcond_with kwallet
-%else
-%bcond_without kwallet
-%endif
-
-%if 0%{?fedora} > 32 || 0%{?rhel} > 8
-%bcond_with bdb
-%else
-%bcond_without bdb
-%endif
-
+%bcond bdb %[0%{?fedora} < 33 && 0%{?rhel} < 9]
 # Python 2 for F<32, Python 3 for F>=32 and RHEL>=9
-%if 0%{?fedora} < 32 && 0%{?rhel} < 9
-%bcond_without python2
-%bcond_with python3
-%bcond_without pyswig
-%bcond_without ruby
-%else
-%bcond_with python2
-%bcond_without python3
-%bcond_without pyswig
-%bcond_without ruby
-%endif
-
+%bcond python2 %[0%{?fedora} < 32 && 0%{?rhel} < 9]
+%bcond python3 %{without python2}
+%bcond pyswig 1
+# Java, Ruby bindings and KWallet are not enabled on RHEL
+%bcond kwallet %[0%{?fedora} != 0]
+%bcond ruby %[0%{?fedora} != 0]
 %ifarch %{java_arches}
-%bcond_without java
+%bcond java %[0%{?fedora} != 0]
 %else
-%bcond_with java
+%bcond java 0
 %endif
 
 %if %{with python2} == %{with python3}
@@ -60,7 +42,7 @@
 Summary: A Modern Concurrent Version Control System
 Name: subversion
 Version: 1.14.5
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: Apache-2.0
 URL: https://subversion.apache.org/
 Source0: https://downloads.apache.org/subversion/subversion-%{version}.tar.bz2
@@ -330,9 +312,15 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %if %{with pyswig}
 make install-swig-py %{swigdirs} DESTDIR=$RPM_BUILD_ROOT
 %endif
-make install-swig-pl-lib install-swig-rb DESTDIR=$RPM_BUILD_ROOT
+
+make install-swig-pl-lib DESTDIR=$RPM_BUILD_ROOT
+%if %{with ruby}
+make install-swig-rb DESTDIR=$RPM_BUILD_ROOT
+%endif
+
 make pure_vendor_install -C subversion/bindings/swig/perl/native \
         PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
+
 %if %{with java}
 make install-javahl-java install-javahl-lib javahl_javadir=%{_javadir} DESTDIR=$RPM_BUILD_ROOT
 %endif
@@ -455,7 +443,7 @@ export LD_LIBRARY_PATH=$RPM_BUILD_ROOT%{_libdir}
 export MALLOC_PERTURB_=171 MALLOC_CHECK_=3
 export LIBC_FATAL_STDERR_=1
 export PYTHON=%{svn_python}
-if ! make check CLEANUP=yes; then
+if ! make check CLEANUP=yes PARALLEL=${RPM_BUILD_NCPUS}; then
    : Test suite failure.
    cat fails.log
    cat tests.log
@@ -586,6 +574,10 @@ make check-javahl
 %endif
 
 %changelog
+* Mon Feb  3 2025 Joe Orton <jorton@redhat.com> - 1.14.5-7
+- enable parallelisation in "make check"
+- simplify build conditional definitions
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1.14.5-6
 - Add explicit BR: libxcrypt-devel
 

@@ -51,6 +51,9 @@ BuildRequires:  php(language) >= 8.1
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  sed
 
+# Auto-generate Provides from bundled php-composer libraries
+BuildRequires:  composer-generators
+
 # expand pear macros on install
 BuildRequires:  php-pear
 
@@ -94,136 +97,8 @@ Requires:       php-zip
 # the CA cert bundle is linked to from the config dir
 Requires:       %{_sysconfdir}/pki/tls/certs/ca-bundle.crt
 
-# Bundled composer libraries
-# generated with utils/get-bundled-versions.py
-# tar xf nextcloud-28.0.6.tar.bz2
-# cd nextcloud
-# ../utils/get-bundled-versions.py
-# many of these can be unbundled
-# I think utils/get-composer-requires.py is a tool to check if these are available on Fedora
-Provides: bundled(php-composer(christian-riesen/base32)) = 1.6.0
-Provides: bundled(php-composer(rullzer/easytotp)) = 0.1.4
-Provides: bundled(php-composer(adhocore/cli)) = 1.7.1
-Provides: bundled(php-composer(nextcloud/openapi-extractor)) = 1.0.0
-Provides: bundled(php-composer(nikic/php-parser)) = 5.1.0
-Provides: bundled(php-composer(phpstan/phpdoc-parser)) = 1.29.1
-Provides: bundled(php-composer(icewind/smb)) = 3.5.4
-Provides: bundled(php-composer(icewind/streams)) = 0.7.7
-Provides: bundled(php-composer(bamarni/composer-bin-plugin)) = 1.8.2
-Provides: bundled(php-composer(hexogen/kdtree)) = 0.2.6
-Provides: bundled(php-composer(amphp/amp)) = 2.6.4
-Provides: bundled(php-composer(amphp/byte-stream)) = 1.8.1
-Provides: bundled(php-composer(amphp/parallel)) = 1.4.3
-Provides: bundled(php-composer(amphp/parser)) = 1.1.0
-Provides: bundled(php-composer(amphp/process)) = 1.1.4
-Provides: bundled(php-composer(amphp/serialization)) = 1.0.0
-Provides: bundled(php-composer(amphp/sync)) = 1.4.2
-Provides: bundled(php-composer(bamarni/composer-bin-plugin)) = 1.8.2
-Provides: bundled(php-composer(league/flysystem)) = 2.5.0
-Provides: bundled(php-composer(league/mime-type-detection)) = 1.11.0
-Provides: bundled(php-composer(psr/log)) = 1.1.4
-Provides: bundled(php-composer(rubix/ml)) = 2.1.1
-Provides: bundled(php-composer(rubix/tensor)) = 2.2.3
-Provides: bundled(php-composer(symfony/polyfill-mbstring)) = 1.27.0
-Provides: bundled(php-composer(symfony/polyfill-php73)) = 1.26.0
-Provides: bundled(php-composer(symfony/polyfill-php80)) = 1.27.0
-Provides: bundled(php-composer(aws/aws-crt-php)) = 1.2.5
-Provides: bundled(php-composer(aws/aws-sdk-php)) = 3.311.2
-Provides: bundled(php-composer(bantu/ini-get-wrapper)) = 1.0.1
-Provides: bundled(php-composer(brick/math)) = 0.12.1
-Provides: bundled(php-composer(cweagans/composer-patches)) = 1.7.3
-Provides: bundled(php-composer(deepdiver/zipstreamer)) = 2.0.3
-Provides: bundled(php-composer(deepdiver1975/tarstreamer)) = 2.1.0
-Provides: bundled(php-composer(doctrine/cache)) = 2.2.0
-Provides: bundled(php-composer(doctrine/dbal)) = 3.9.1
-Provides: bundled(php-composer(doctrine/deprecations)) = 1.1.3
-Provides: bundled(php-composer(doctrine/event-manager)) = 2.0.1
-Provides: bundled(php-composer(doctrine/lexer)) = 3.0.1
-Provides: bundled(php-composer(egulias/email-validator)) = 4.0.2
-Provides: bundled(php-composer(fusonic/opengraph)) = 2.3.0
-Provides: bundled(php-composer(giggsey/libphonenumber-for-php-lite)) = 8.13.45
-Provides: bundled(php-composer(guzzlehttp/guzzle)) = 7.8.2
-Provides: bundled(php-composer(guzzlehttp/promises)) = 2.0.4
-Provides: bundled(php-composer(guzzlehttp/psr7)) = 2.7.0
-Provides: bundled(php-composer(guzzlehttp/uri-template)) = 1.0.3
-Provides: bundled(php-composer(icewind/searchdav)) = 3.1.0
-Provides: bundled(php-composer(icewind/streams)) = 0.7.7
-Provides: bundled(php-composer(justinrainbow/json-schema)) = 5.2.13
-Provides: bundled(php-composer(kornrunner/blurhash)) = 1.2.2
-Provides: bundled(php-composer(laravel/serializable-closure)) = 1.3.5
-Provides: bundled(php-composer(lcobucci/clock)) = 3.0.0
-Provides: bundled(php-composer(masterminds/html5)) = 2.9.0
-Provides: bundled(php-composer(mexitek/phpcolors)) = 1.0.4
-Provides: bundled(php-composer(microsoft/azure-storage-blob)) = 1.5.4
-Provides: bundled(php-composer(microsoft/azure-storage-common)) = 1.5.2
-Provides: bundled(php-composer(mlocati/ip-lib)) = 1.18.0
-Provides: bundled(php-composer(mtdowling/jmespath.php)) = 2.7.0
-Provides: bundled(php-composer(nextcloud/lognormalizer)) = 1.0.0
-Provides: bundled(php-composer(paragonie/constant_time_encoding)) = 2.7.0
-Provides: bundled(php-composer(pear/archive_tar)) = 1.5.0
-Provides: bundled(php-composer(pear/console_getopt)) = 1.4.3
-Provides: bundled(php-composer(pear/pear-core-minimal)) = 1.10.15
-Provides: bundled(php-composer(pear/pear_exception)) = 1.0.2
-Provides: bundled(php-composer(php-http/guzzle7-adapter)) = 1.0.0
-Provides: bundled(php-composer(php-http/httplug)) = 2.2.0
-Provides: bundled(php-composer(php-http/promise)) = 1.1.0
-Provides: bundled(php-composer(php-opencloud/openstack)) = 3.10.0
-Provides: bundled(php-composer(phpseclib/phpseclib)) = 2.0.47
-Provides: bundled(php-composer(pimple/pimple)) = 3.5.0
-Provides: bundled(php-composer(psr/cache)) = 3.0.0
-Provides: bundled(php-composer(psr/clock)) = 1.0.0
-Provides: bundled(php-composer(psr/container)) = 2.0.2
-Provides: bundled(php-composer(psr/event-dispatcher)) = 1.0.0
-Provides: bundled(php-composer(psr/http-client)) = 1.0.3
-Provides: bundled(php-composer(psr/http-factory)) = 1.1.0
-Provides: bundled(php-composer(psr/http-message)) = 1.1
-Provides: bundled(php-composer(psr/log)) = 2.0.0
-Provides: bundled(php-composer(punic/punic)) = 3.8.1
-Provides: bundled(php-composer(ralouphie/getallheaders)) = 3.0.3
-Provides: bundled(php-composer(sabre/dav)) = 4.6.0
-Provides: bundled(php-composer(sabre/event)) = 5.1.4
-Provides: bundled(php-composer(sabre/http)) = 5.1.10
-Provides: bundled(php-composer(sabre/uri)) = 2.3.3
-Provides: bundled(php-composer(sabre/vobject)) = 4.5.4
-Provides: bundled(php-composer(sabre/xml)) = 2.2.7
-Provides: bundled(php-composer(scssphp/scssphp)) = 1.12.1
-Provides: bundled(php-composer(spomky-labs/cbor-php)) = 3.1.0
-Provides: bundled(php-composer(spomky-labs/pki-framework)) = 1.2.1
-Provides: bundled(php-composer(stecman/symfony-console-completion)) = 0.13.0
-Provides: bundled(php-composer(symfony/console)) = 6.4.12
-Provides: bundled(php-composer(symfony/css-selector)) = 6.4.3
-Provides: bundled(php-composer(symfony/deprecation-contracts)) = 3.5.0
-Provides: bundled(php-composer(symfony/dom-crawler)) = 6.4.4
-Provides: bundled(php-composer(symfony/event-dispatcher)) = 6.4.8
-Provides: bundled(php-composer(symfony/event-dispatcher-contracts)) = 3.0.2
-Provides: bundled(php-composer(symfony/http-foundation)) = 6.4.12
-Provides: bundled(php-composer(symfony/mailer)) = 6.4.12
-Provides: bundled(php-composer(symfony/mime)) = 6.4.12
-Provides: bundled(php-composer(symfony/polyfill-ctype)) = 1.29.0
-Provides: bundled(php-composer(symfony/polyfill-intl-grapheme)) = 1.31.0
-Provides: bundled(php-composer(symfony/polyfill-intl-idn)) = 1.31.0
-Provides: bundled(php-composer(symfony/polyfill-intl-normalizer)) = 1.31.0
-Provides: bundled(php-composer(symfony/polyfill-mbstring)) = 1.31.0
-Provides: bundled(php-composer(symfony/polyfill-php80)) = 1.29.0
-Provides: bundled(php-composer(symfony/polyfill-php83)) = 1.31.0
-Provides: bundled(php-composer(symfony/polyfill-uuid)) = 1.31.0
-Provides: bundled(php-composer(symfony/process)) = 6.4.12
-Provides: bundled(php-composer(symfony/routing)) = 6.4.12
-Provides: bundled(php-composer(symfony/service-contracts)) = 3.0.2
-Provides: bundled(php-composer(symfony/string)) = 6.0.19
-Provides: bundled(php-composer(symfony/translation)) = 6.4.12
-Provides: bundled(php-composer(symfony/translation-contracts)) = 3.4.2
-Provides: bundled(php-composer(symfony/uid)) = 6.4.12
-Provides: bundled(php-composer(wapmorgan/mp3info)) = 0.1.0
-Provides: bundled(php-composer(web-auth/cose-lib)) = 4.4.0
-Provides: bundled(php-composer(web-auth/webauthn-lib)) = 4.9.1
-
-# OpenIconic icons bundled via sabre-dav
-Provides:       bundled(openiconic-fonts) = 1.0.0
-# jscolor bundled via themeing app
-Provides:       bundled(jscolor) = 2.0.4
 # jquery-ui-multiselect bundled via user_ldap app
-Provides:       bundled(jquery-ui-multiselect) = 0.3.1
+Provides:       bundled(jquery-ui-multiselect) = 1.13
 # zxcvbn bundled via core
 Provides:       bundled(zxcvbn) = 4.4.2
 
@@ -273,6 +148,7 @@ server.
 If you want the database to be on the same system as NextCloud itself, you must
 also install and enable a MySQL / MariaDB server package. See README.mysql for
 more details.
+
 
 %package postgresql
 Summary:        PostgreSQL database support for NextCloud

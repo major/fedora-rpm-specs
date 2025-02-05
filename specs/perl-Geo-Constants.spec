@@ -1,17 +1,23 @@
 Name:           perl-Geo-Constants
-Version:        0.06
-Release:        46%{?dist}
+Version:        0.07
+Release:        1%{?dist}
 Summary:        Standard Geo:: constants
 
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Geo-Constants
 Source0:        https://cpan.metacpan.org/authors/id/M/MR/MRDVT/Geo-Constants-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(base)
+BuildRequires:  perl(Exporter)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(strict)
+BuildRequires:  perl(Test::More)
+BuildRequires:  perl(warnings)
 
 %description
 %{summary}.
@@ -20,32 +26,26 @@ BuildRequires:  perl(ExtUtils::MakeMaker)
 %prep
 %setup -q -n Geo-Constants-%{version}
 
-
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
-
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} ';'
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null ';'
-chmod -R u+w $RPM_BUILD_ROOT/*
-
+%{make_install}
+%{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
 make test
 
-
-
 %files
-%doc CHANGES LICENSE README
+%doc Changes LICENSE README.md
 %{perl_vendorlib}/Geo/
-%{_mandir}/man3/*.3pm*
-
+%{_mandir}/man3/Geo::Constants.3pm*
 
 %changelog
+* Mon Feb 03 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.07-1
+- 0.07 bump (rhbz#2342509)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

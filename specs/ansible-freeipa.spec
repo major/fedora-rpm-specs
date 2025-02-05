@@ -11,8 +11,8 @@
 
 Summary: Roles and playbooks to deploy FreeIPA servers, replicas and clients
 Name: ansible-freeipa
-Version: 1.14.2
-Release: 2%{?dist}
+Version: 1.14.3
+Release: 1%{?dist}
 URL: https://github.com/freeipa/ansible-freeipa
 License: GPL-3.0-or-later
 Source: https://github.com/freeipa/ansible-freeipa/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
@@ -157,6 +157,11 @@ cp %{buildroot}/%{ansible_collections_dir}/%{collection_namespace}/%{collection_
 %{ansible_collections_dir}/%{collection_namespace}/%{collection_name}
 
 %changelog
+* Mon Feb  3 2025 Thomas Woerner <twoerner@redhat.com> - 1.14.3-1
+- Update to version 1.14.3
+  https://github.com/freeipa/ansible-freeipa/releases/tag/v1.14.3
+  - Fix management of AD objects for ipagroup
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

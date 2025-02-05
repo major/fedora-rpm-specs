@@ -29,7 +29,7 @@ fonts.
 %setup -q
 %py3_shebang_fix .
 
-sed -i -e "s|-Wall -O2|$RPM_OPT_FLAGS|" GNUmakefile.in
+sed -i -e "s|-Wall -O2|$RPM_OPT_FLAGS -std=gnu17|" GNUmakefile.in
 
 %patch -P 0 -p0
 %patch -P 1 -p0

@@ -274,9 +274,9 @@ BuildRequires: sqlite-devel
 BuildRequires: gdb
 
 BuildRequires: tar
-BuildRequires: tcl-devel
+BuildRequires: tcl-devel < 1:9
 BuildRequires: tix-devel
-BuildRequires: tk-devel
+BuildRequires: tk-devel < 1:9
 BuildRequires: tzdata
 
 %if %{with valgrind}

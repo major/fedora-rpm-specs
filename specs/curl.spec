@@ -7,7 +7,7 @@
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
 Version: 8.11.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version}.tar.xz
 Source1: https://curl.se/download/%{name}-%{version}.tar.xz.asc
@@ -21,6 +21,9 @@ Source2: mykey.asc
 # https://github.com/curl/curl/issues/15725
 # https://github.com/curl/curl/pull/15727
 Patch1: 0001-curl-8.11.1-eventfd.patch
+
+# Fix https://bugzilla.redhat.com/show_bug.cgi?id=2324130#c7
+Patch2: 0002-curl-8.11.1-TLS-check-connection-for-SSL-use-not-handler.patch
 
 # patch making libcurl multilib ready
 Patch101: 0101-curl-7.32.0-multilib.patch
@@ -416,6 +419,9 @@ rm -f ${RPM_BUILD_ROOT}%{_libdir}/libcurl.la
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Fri Jan 31 2025 Jan Macku <jamacku@redhat.com> - 8.11.1-4
+- TLS: check connection for SSL use, not handler (#2324130#c7)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.11.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

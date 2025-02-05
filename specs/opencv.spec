@@ -71,13 +71,13 @@
 %endif
 
 Name:           opencv
-Version:        4.10.0
+Version:        4.11.0
 %global javaver %(foo=%{version}; echo ${foo//./})
 %global majorver %(foo=%{version}; a=(${foo//./ }); echo ${a[0]} )
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        9%{?dist}
+Release:        1%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD-3-Clause AND Apache-2.0 AND ISC
@@ -95,7 +95,7 @@ Source1:        %{name}_contrib-clean-%{version}.tar.gz
 }
 Source3:        face_landmark_model.dat.xz
 # SRC=v0.1.2d.zip ; wget https://github.com/opencv/ade/archive/$SRC; mv $SRC $(md5sum $SRC | cut -d' ' -f1)-$SRC
-Source4:        dbb095a8bf3008e91edbbf45d8d34885-v0.1.2d.zip
+Source4:        962ce79e0b95591f226431f7b5f152cd-v0.1.2e.zip
 Source5:        xorg.conf
 %global wechat_commit 3487ef7cde71d93c6a01bb0b84aa0f22c6128f6b
 %global wechat_shortcommit %(c=%{wechat_commit}; echo ${c:0:7})
@@ -104,6 +104,7 @@ Source6:        https://github.com/WeChatCV/opencv_3rdparty/archive/%{wechat_com
 
 Patch0:         opencv-4.1.0-install_3rdparty_licenses.patch
 Patch3:         opencv.python.patch
+Patch4:         https://github.com/opencv/opencv/pull/26750.patch
 Patch5:         https://github.com/opencv/opencv/pull/26786.patch
 
 BuildRequires:  gcc-c++
@@ -404,6 +405,7 @@ popd &>/dev/null
 
 %patch -P 0 -p1 -b .install_3rdparty_licenses
 %patch -P 3 -p1 -b .python_install_binary
+%patch -P 4 -p1 -b .VSX_intrinsics
 %patch -P 5 -p1 -b .GCC15
 
 pushd %{name}_contrib-%{version}
@@ -581,6 +583,11 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 
 
 %changelog
+* Mon Feb 03 2025 Sérgio Basto <sergio@serjux.com> 4.11.0-1
+- Update to version 4.11.0
+- Resolves: rhbz#2336422
+- Add upstream patch to fix build on PPC64LE
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 - Add upstream patch to fix build on PPC64LE with GCC 15

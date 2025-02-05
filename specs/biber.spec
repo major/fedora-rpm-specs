@@ -3,9 +3,9 @@
 
 Name:           biber
 # Export $BCF_VERSION from lib/Biber/Constants.pm, bug #2048536
-%define bcfversion 3.10
-Version:        2.19
-Release:        7%{?dist}
+%define bcfversion 3.11
+Version:        2.20
+Release:        1%{?dist}
 Summary:        Command-line bibliographic manager, BibTeX replacement
 # bin/biber:        Artistic-2.0
 # data/texmap.xsl:  Artistic-2.0
@@ -21,6 +21,7 @@ Summary:        Command-line bibliographic manager, BibTeX replacement
 # etc/parser.dlg:   GPL-2.0-or-later (generated from etc/bibtex.g)
 # etc/tugboat.bib:  LicenseRef-Fedora-Public-Domain
 License:        Artistic-2.0
+SourceLicense:  %{license} AND (GPL-1.0-or-later OR Artistic-1.0-Perl) AND GPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain
 URL:            http://biblatex-biber.sourceforge.net/
 Source0:        https://github.com/plk/biber/archive/v%{version}.tar.gz
 # Not appropriate for upstream: http://github.com/plk/biber/pull/97
@@ -266,6 +267,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 
 
 %changelog
+* Mon Feb 03 2025 Petr Pisar <ppisar@redhat.com> - 2.20-1
+- 2.20 bump
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.19-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

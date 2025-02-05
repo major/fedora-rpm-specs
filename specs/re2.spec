@@ -152,32 +152,35 @@ cd python
 # is not yet a leaf package on that architecture. Instead, we skip the Python
 # tests on i686.
 #
-# The following directly-dependent packages are ExcludeArch: %%{ix86}
-# - bloaty
-# - ceph
-# - credentials-fetcher
-# - CuraEngine_grpc_definitions
-# - dnsdist
-# - libarrow
-# - mtxclient
-# - nheko
-# - onnx
-# - onnxruntime
-# - parlaylib
-# - perl-re-engine-RE2
-# - python-torchtext
+# The following directly-dependent packages are ExcludeArch: %%{ix86}:
+#   bloaty, ceph, credentials-fetcher, CuraEngine_grpc_definitions, dnsdist,
+#   libarrow, mtxclient, nheko, onnx, onnxruntime, parlaylib,
+#   perl-re-engine-RE2, python-torchtext
 #
 # The following are not (yet):
 # - grpc:
-#   Not blocked by: CuraEngine_grpc_definitions, buildbox, buildstream,
-#                   credentials-fetcher, frr
+#   Not blocked by: CuraEngine_grpc_definitions, bear, buildbox, buildstream,
+#                   ceph, credentials-fetcher, frr, libarrow, libphonenumber,
+#                   syslog-ng
+#     Note that syslog-ng does depend on grpc *and* builds on i686, but grpc
+#     support is disabled on i686, so all is well.
 #   Blocked by:
+#   - duplicity (indirect, via noarch intermediate packages:
+#     grpc <- python-google-api-core <- google-api-python-client <- duplicity)
+#     - Not blocked by: duply
+#     - Blocked by:
+#       - deja-dup
 #   - fastnetmon: https://src.fedoraproject.org/rpms/fastnetmon/pull-request/2
-#   TBD: Other reverse dependencies not yet evaluated
-# - libphonenumber: https://src.fedoraproject.org/rpms/libphonenumber/pull-request/24
-#   Not blocked by: chatty, evolution-data-server (builds on i686, but with
-#                   libphonenumber support disabled) kf5-kitinerary,
-#                   kitinerary, mmsd-tng, ncid, plasma-dialer, spacebar
+#   - matrix-synapse (indirect, via noarch intermediate package:
+#     grpc <- python-sentry-sdk <- matrix-synapse)
+#   - nanopb
+#   - perl-grpc-xs
+#   - qt6-qtgrpc
+#   TBD:
+#     There are many more packages that depend directly or indirectly on
+#     python3-grpcio in particular at install time, but not at build time. We
+#     must explore the entire tree looking for arched packages that build on
+#     i686.
 # Run the tests from the top-level directory to make sure we don’t accidentally
 # import the “un-built” package instead of the one in the buildroot.
 ln -s python/re2_test.py

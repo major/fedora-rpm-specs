@@ -1,7 +1,7 @@
 %global treesitter_so_version 0
 
 Name:           tree-sitter
-Version:        0.24.7
+Version:        0.25.1
 Release:        %autorelease
 Summary:        An incremental parsing system for programming tools
 
@@ -62,7 +62,7 @@ find %{buildroot}%{_libdir} -type f \( -name "*.la" -o -name "*.a" \) -delete -p
 
 %files -n lib%{name}
 %license LICENSE
-%doc README.md CHANGELOG.md
+%doc README.md
 %{_libdir}/libtree-sitter.so.%{treesitter_so_version}*
 
 %files -n lib%{name}-devel

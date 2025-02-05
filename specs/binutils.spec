@@ -6,8 +6,8 @@ Name: binutils%{?_with_debug:-debug}
 # A version number of X.XX.90 is a pre-release snapshot.
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
-Version: 2.43.90
-Release: 2%{?dist}
+Version: 2.44
+Release: 1%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -107,8 +107,8 @@ URL: https://sourceware.org/binutils
 # too many controversial patches so we stick with the official GNU version
 # instead.
 
-# %%define source official-release
-%define source pre-release
+%define source official-release
+# %%define source pre-release
 # %%define source snapshot
 # %%define source tarball
 
@@ -203,7 +203,7 @@ Source0: binutils-%{version}-%{commit_id}.tar.xz
 Source0: binutils-%{version}.tar.xz
 %endif
 %if "%{source}" == "official-release"
-Source0: https://ftp.gnu.org/gnu/binutils/binutils-%{version}.tar.xz
+Source0: https://ftp.gnu.org/gnu/binutils/binutils-with-gold-%{version}.tar.xz
 %endif
 
 Source1: binutils-2.19.50.0.1-output-format.sed
@@ -570,6 +570,8 @@ use by developers.  It is NOT INTENDED FOR PRODUCTION use.
 
 %if "%{source}" == "snapshot"
 %autosetup -p1 -n binutils-%{version}-%{commit_id}
+%elif "%{source}" == "official-release"
+%autosetup -p1 -n binutils-with-gold-%{version}
 %else
 %autosetup -p1 -n binutils-%{version}
 %endif
@@ -1417,6 +1419,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Mon Feb 03 2025 Nick Clifton <nickc@redhat.com> - 2.44-1
+- Rebase to official GNU Binutils 2.44 release
+
 * Mon Jan 27 2025 Nick Clifton <nickc@redhat.com> - 2.43.90-2
 - Enable separate-code by default for the RISC-V target.
 

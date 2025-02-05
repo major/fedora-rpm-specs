@@ -36,7 +36,7 @@ rm -f data/fonts/*.ttf
 
 
 %build
-export CPPFLAGS="$CPPFLAGS -fcommon"
+export CPPFLAGS="$CPPFLAGS -fcommon -std=gnu17"
 %configure
 make %{?_smp_mflags}
 

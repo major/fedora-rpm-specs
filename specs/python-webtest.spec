@@ -4,8 +4,8 @@
 %global with_tests 1
 
 Name:           python-webtest
-Version:        3.0.1
-Release:        3%{?dist}
+Version:        3.0.4
+Release:        1%{?dist}
 Summary:        Helper to test WSGI applications
 
 License:        MIT
@@ -89,6 +89,9 @@ rm -f docs/Makefile docs/conf.py docs/changelog.rst
 %{python3_sitelib}/WebTest-*.egg-info
 
 %changelog
+* Mon Feb 03 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.0.4-1
+- Update to upstream.
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

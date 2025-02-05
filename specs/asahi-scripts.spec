@@ -1,5 +1,5 @@
 Name:           asahi-scripts
-Version:        20250128
+Version:        20250130
 Release:        %autorelease
 Summary:        Miscellaneous admin scripts for Asahi Linux
 
@@ -121,7 +121,6 @@ grep -q 'asahi_firmware' && %{_sbindir}/asahi-fwupdate || :
 
 %files -n update-m1n1
 %license LICENSE
-%config(noreplace) %{_sysconfdir}/m1n1.conf
 %config(noreplace) %{_sysconfdir}/sysconfig/update-m1n1
 %{_sbindir}/update-m1n1
 

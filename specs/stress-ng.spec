@@ -1,5 +1,5 @@
 Name:		stress-ng
-Version:	0.18.09
+Version:	0.18.10
 Release:	%autorelease
 Summary:	Stress test a computer system in various ways
 
@@ -25,7 +25,7 @@ BuildRequires:	lksctp-tools-devel
 BuildRequires:	libatomic
 BuildRequires:	zlib-devel
 BuildRequires:	Judy-devel
-BuildRequires:  libxcrypt-devel
+BuildRequires:	libxcrypt-devel
 
 %description
 Stress test a computer system in various ways. It was designed to exercise

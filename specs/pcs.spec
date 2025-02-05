@@ -1,6 +1,6 @@
 Name: pcs
-Version: 0.11.8
-Release: 2%{?dist}
+Version: 0.12.0
+Release: 1%{?dist}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/LicensingGuidelines/
 # https://fedoraproject.org/wiki/Licensing:Main?rd=Licensing#Good_Licenses
 # GPL-2.0-only: pcs
@@ -11,33 +11,52 @@ Group: System Environment/Base
 Summary: Pacemaker/Corosync Configuration System
 BuildArch: noarch
 
-# When specifying a commit, use its long hash
-%global version_or_commit %{version}
-# %%global version_or_commit 10069ca47e5c9f4ac1abd8bc4cd99281ead047b7
+# Remove a tilde used by RPM to get the correct upstream version
+%global clean_version %(echo %{version} | sed 's/~//')
+
+# To build an official pcs release, comment out branch_or_commit
+# Use long commit hash or branch name to build an unreleased version
+# %%global branch_or_commit 1353dfbb3af82d77f4de17a3fa4cbde185bb2b2d
+%if 0%{?branch_or_commit:1}
+  %global version_or_commit %{branch_or_commit}
+%else
+  %global version_or_commit %{clean_version}
+%endif
 %global pcs_source_name %{name}-%{version_or_commit}
 
-# ui_commit can be determined by hash, tag or branch
-%global ui_commit 0.1.20
-%global ui_modules_version 0.1.20
-%global ui_src_name pcs-web-ui-%{ui_commit}
+# To build an official pcs-web-ui release, comment out ui_branch_or_commit
+# Last tagged version, also used as fallback version for untagged tarballs
+%global ui_version 0.1.22
+%global ui_modules_version 0.1.22
+# Use long commit hash or branch name to build an unreleased version
+# %%global ui_branch_or_commit 34372d1268f065ed186546f55216aaa2d7e76b54
+%if 0%{?ui_branch_or_commit:1}
+  %global ui_version_or_commit %{ui_branch_or_commit}
+%else
+  %global ui_version_or_commit %{ui_version}
+%endif
+%global ui_src_name pcs-web-ui-%{ui_version_or_commit}
+
 
 %global pyagentx_version  0.4.pcs.2
 %global dacite_version 1.8.1
 
-%global required_pacemaker_version 2.1.0
+%global required_pacemaker_version 3.0.0
 
 %global pcs_bundled_dir pcs_bundled
-%global pcsd_public_dir pcsd/public
-%global ui_build_dir_standalone build_standalone
-%global ui_build_dir_cockpit build_cockpit
-%global ui_cockpit_dest ha-cluster
-%global ui_appstream_metainfo org.clusterlabs.cockpit_pcs_web_ui.metainfo.xml
+%global pcsd_webui_dir %{_prefix}/lib/pcsd/public/ui
+
+%global cockpit_dir %{_datadir}/cockpit/
+%global metainfo_dir %{_datadir}/metainfo
+%global ui_metainfo_name org.clusterlabs.cockpit_pcs_web_ui.metainfo.xml
+%global ui_metainfo %{metainfo_dir}/%{ui_metainfo_name}
 
 %global pkg_pcs_snmp  pcs-snmp
+%global pkg_pcs_web_ui pcs-web-ui
 %global pkg_cockpit_ha_cluster cockpit-ha-cluster
 
 # prepend v for folder in GitHub link when using tagged tarball
-%if "%{version}" == "%{version_or_commit}"
+%if "%{clean_version}" == "%{version_or_commit}"
   %global v_prefix v
 %endif
 
@@ -47,15 +66,31 @@ Source0: %{url}/archive/%{?v_prefix}%{version_or_commit}/%{pcs_source_name}.tar.
 Source41: https://github.com/ondrejmular/pyagentx/archive/v%{pyagentx_version}/pyagentx-%{pyagentx_version}.tar.gz
 Source42: https://github.com/konradhalas/dacite/archive/v%{dacite_version}/dacite-%{dacite_version}.tar.gz
 
-Source100: https://github.com/ClusterLabs/pcs-web-ui/archive/%{ui_commit}/%{ui_src_name}.tar.gz
-Source101: https://github.com/ClusterLabs/pcs-web-ui/releases/download/%{ui_commit}/pcs-web-ui-node-modules-%{ui_modules_version}.tar.xz
+Source100: https://github.com/ClusterLabs/pcs-web-ui/archive/%{ui_version_or_commit}/%{ui_src_name}.tar.gz
+Source101: https://github.com/ClusterLabs/pcs-web-ui/releases/download/%{ui_version_or_commit}/pcs-web-ui-node-modules-%{ui_modules_version}.tar.xz
+
 
 # pcs patches: <= 200
-# Patch0: name.patch
-Patch0: overhaul-fence-agents-mocking.patch
+# Patch1: name.patch
+Patch1: show-info-page-instead-of-webui.patch
+Patch2: ruby-3.4-compatibility.patch
+Patch3: fix-install-on-systems-with-merged-bin-and-sbin.patch
 
 # ui patches: >200
 # Patch201: name-web-ui.patch
+Patch201: fix-filter-clones-by-agent-name-in-resource-tree.patch
+
+
+# Split pcs to pcs and pcs-web-ui, all packages that replace pcs must obsolete
+# the old monolithic package
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_one_to_many_replacement
+Obsoletes: pcs < 0.12.0
+# Web UI is an add-on that doesn't need to be installed for pcs to function.
+# Upgrades from before 0.12 will install it thanks to Obsoletes. But it will
+# be possible to uninstall web UI to disable it and then it will not be
+# installed during upgrades because it is a weak dependency.
+Recommends: %{pkg_pcs_web_ui} == %{version}-%{release}
+
 
 # git for patches
 BuildRequires: git-core
@@ -65,8 +100,9 @@ BuildRequires: automake
 BuildRequires: make
 # printf from coreutils is used in makefile, head is used in spec
 BuildRequires: coreutils
+# find is used in Makefile and also somewhere else
+BuildRequires: findutils
 # python for pcs
-BuildRequires: python3 >= 3.9
 BuildRequires: python3-dateutil >= 2.7.0
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
@@ -100,16 +136,16 @@ BuildRequires: rubygem(rexml)
 BuildRequires: rubygem-test-unit
 # for touching patch files (sanitization function)
 BuildRequires: diffstat
-# for post, preun and postun macros
-BuildRequires: systemd
+# for systemd scriptlet macros
+BuildRequires: systemd-rpm-macros
 # pam is used for authentication inside daemon (python ctypes)
 # needed for tier0 tests during build
 BuildRequires: pam
 # for working with qdevice certificates (certutil) - used in configure.ac
 BuildRequires: nss-tools
+# pcs now provides a pc file
+BuildRequires: pkgconfig
 
-# for building web ui
-BuildRequires: nodejs-npm
 
 # cluster stack packages for pkg-config
 # corosync has different package names on distributions but all provide
@@ -129,12 +165,11 @@ BuildRequires: libappstream-glib
 Requires: python3-cryptography
 Requires: python3-dateutil >= 2.7.0
 Requires: python3-lxml
-Requires: python3-setuptools
 Requires: python3-pycurl
 Requires: python3-pyparsing
 Requires: python3-tornado
 # ruby and gems for pcsd
-Requires: ruby >= 2.5.0
+Requires: ruby >= 3.3.0
 Requires: rubygem-backports
 Requires: rubygem-childprocess
 Requires: rubygem-ethon
@@ -144,7 +179,6 @@ Requires: rubygem-mustermann
 Requires: rubygem-puma
 Requires: rubygem-rack
 Requires: rubygem-rack-protection
-Requires: rubygem-rack-test
 Requires: rubygem-sinatra
 Requires: rubygem-tilt
 %if 0%{?fedora} || 0%{?rhel} >= 9
@@ -159,10 +193,6 @@ Requires: (corosync >= 3.0 if pacemaker)
 # pcs enables corosync encryption by default so we require libknet1-plugins-all
 Requires: (libknet1-plugins-all if corosync)
 Requires: pacemaker-cli >= %{required_pacemaker_version}
-# for post, preun and postun macros
-Requires(post): systemd
-Requires(preun): systemd
-Requires(postun): systemd
 # pam is used for authentication inside daemon (python ctypes)
 # more details: https://bugzilla.redhat.com/show_bug.cgi?id=1717113
 Requires: pam
@@ -173,7 +203,6 @@ Requires: nss-tools
 
 
 Provides: bundled(dacite) = %{dacite_version}
-
 
 # pcs-snmp subpackage definition
 %package -n %{pkg_pcs_snmp}
@@ -195,6 +224,22 @@ Requires: net-snmp
 
 Provides: bundled(pyagentx) = %{pyagentx_version}
 
+# pcs-web-ui subpackage definition
+%package -n %{pkg_pcs_web_ui}
+Summary: Standalone web UI for Pacemaker/Corosync Configuration System
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/LicensingGuidelines/
+# https://fedoraproject.org/wiki/Licensing:Main?rd=Licensing#Good_Licenses
+# GPL-2.0-only: pcs
+License: GPL-2.0-only
+URL: https://github.com/ClusterLabs/pcs
+
+# Split pcs to pcs and pcs-web-ui, all packages that replace pcs must obsolete
+# the old monolithic package
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_one_to_many_replacement
+Obsoletes: pcs < 0.12.0
+
+Requires: pcs = %{version}-%{release}
+
 # cockpit-ha-cluster subpackage definition
 %package -n %{pkg_cockpit_ha_cluster}
 Group: System Environment/Base
@@ -209,20 +254,26 @@ Requires: pcs = %{version}-%{release}
 Requires: cockpit-bridge
 
 
+
 %description
-pcs is a corosync and pacemaker configuration tool.  It permits users to
-easily view, modify and create pacemaker based clusters.
+pcs is a configuration tool for Corosync and Pacemaker. It permits users to
+easily view, modify and create high availability clusters based on Pacemaker.
+This package contains the pcs command-line utility and its server pcsd.
+
+%description -n %{pkg_pcs_web_ui}
+Provides standalone web UI for Pacemaker/Corosync Configuration System (pcs).
 
 %description -n %{pkg_pcs_snmp}
-SNMP agent that provides information about pacemaker cluster to the master agent
+SNMP agent that provides information about Pacemaker cluster to the main agent
 (snmpd).
 
 %description -n %{pkg_cockpit_ha_cluster}
 Cockpit application for managing Pacemaker based clusters. Uses
 Pacemaker/Corosync Configuration System (pcs) in the background.
 
-%prep
 
+
+%prep
 # -- following is inspired by python-simplejon.el5 --
 # Update timestamps on the files touched by a patch, to avoid non-equal
 # .pyc/.pyo files across the multilib peers within a build
@@ -266,20 +317,36 @@ update_times_patch(){
 #   * http://ftp.rpm.org/max-rpm/s1-rpm-inside-macros.html
 #   * https://rpm-software-management.github.io/rpm/manual/autosetup.html
 # patch web-ui sources
-%autosetup -D -T -b 100 -a 101 -S git -n %{ui_src_name} -N
+# -n <name> — Set Name of Build Directory
+# -T — Do Not Perform Default Archive Unpacking
+# -b <n> — Unpack The nth Sources Before Changing Directory
+# -a <n> — Unpack The nth Sources After Changing Directory
+# -N — disables automatic patch application, use autopatch to apply patches
+#
+# 1. unpack sources (-b 0)
+# 2. then cd into sources tree (the setup macro itself)
+# 3. then unpack node_modules into sources tree (-a 1).
+%autosetup -T -b 100 -a 101 -N -n %{ui_src_name}
 %autopatch -p1 -m 201
 # update_times_patch %%{PATCH201}
+update_times_patch %{PATCH201}
 
 # patch pcs sources
 %autosetup -S git -n %{pcs_source_name} -N
 %autopatch -p1 -M 200
-# update_times_patch %%{PATCH0}
-update_times_patch %{PATCH0}
+# update_times_patch %%{PATCH1}
+update_times_patch %{PATCH1}
+update_times_patch %{PATCH2}
+update_times_patch %{PATCH3}
 
 # generate .tarball-version if building from an untagged commit, not a released version
 # autogen uses git-version-gen which uses .tarball-version for generating version number
-%if "%{version}" != "%{version_or_commit}"
-  echo "%version+$(echo "%{version_or_commit}" | head -c 8)" > %{_builddir}/%{pcs_source_name}/.tarball-version
+%if "%{clean_version}" != "%{version_or_commit}"
+  echo "%{clean_version}+$(echo "%{version_or_commit}" | head -c 8)" > %{_builddir}/%{pcs_source_name}/.tarball-version
+%endif
+
+%if "x%{?ui_branch_or_commit}" != "x"
+  echo "%{ui_version}+$(echo "%{ui_branch_or_commit}" | head -c 8)" > %{_builddir}/%{ui_src_name}/.tarball-version
 %endif
 
 # prepare dirs/files necessary for building python bundles
@@ -288,47 +355,41 @@ cp -f %SOURCE41 rpm/
 cp -f %SOURCE42 rpm/
 
 
+
 %build
 %define debug_package %{nil}
 
+# We left off by setting up pcs, so we are in its directory now
 ./autogen.sh
 %{configure} --enable-local-build --enable-use-local-cache-only \
-  --enable-individual-bundling \
+  --enable-individual-bundling --enable-webui \
   --with-pcsd-default-cipherlist='PROFILE=SYSTEM' \
   --with-pcs-lib-dir="%{_prefix}/lib" PYTHON=%{__python3}
 make all
 
-# build pcs-web-ui
-export BUILD_USE_CURRENT_NODE_MODULES=true
+# Web UI installation
+# Switch to web ui folder first
+cd ../%{ui_src_name}
+./autogen.sh
+%{configure} \
+  --with-pcsd-webui-dir=%{pcsd_webui_dir} \
+  --with-cockpit-dir=%{cockpit_dir} \
+  --with-metainfo-dir=%{metainfo_dir}
+make all
 
-## standalone
-export BUILD_DIR=%{_builddir}/%{ui_src_name}/%{ui_build_dir_standalone}
-make -C %{_builddir}/%{ui_src_name} build
-
-## cockpit
-export BUILD_DIR=%{_builddir}/%{ui_src_name}/%{ui_build_dir_cockpit}
-export BUILD_FOR_COCKPIT=true
-make -C %{_builddir}/%{ui_src_name} build
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 pwd
 
-
+# Install cockpit pcs-web-ui
+cd ../%{ui_src_name}
 %make_install
-# install standalone pcs-web-ui
-cp -r %{_builddir}/%{ui_src_name}/%{ui_build_dir_standalone} \
-     ${RPM_BUILD_ROOT}%{_prefix}/lib/%{pcsd_public_dir}/ui
 
-# install cockpit pcs-web-ui
-mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/cockpit/%{ui_cockpit_dest}
-mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/metainfo
-cp -r %{_builddir}/%{ui_src_name}/%{ui_build_dir_cockpit}/* \
-     ${RPM_BUILD_ROOT}%{_datadir}/cockpit/%{ui_cockpit_dest}
-
-cp -r %{_builddir}/%{ui_src_name}/packages/app/%{ui_appstream_metainfo} \
-     ${RPM_BUILD_ROOT}%{_datadir}/metainfo/
+# Install pcs
+cd ../%{pcs_source_name}
+%make_install
 
 # prepare license files
 cp %{pcs_bundled_dir}/src/pyagentx-*/LICENSE.txt pyagentx_LICENSE.txt
@@ -339,9 +400,10 @@ cp %{pcs_bundled_dir}/src/dacite-*/LICENSE dacite_LICENSE
 cp %{pcs_bundled_dir}/src/dacite-*/README.md dacite_README.md
 
 
+
 %check
 # Run validation of cockpit metainfo
-appstream-util validate-relax --nonet ${RPM_BUILD_ROOT}%{_datadir}/metainfo/%{ui_appstream_metainfo}
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{ui_metainfo_name}
 
 # In the building environment LC_CTYPE is set to C which causes tests to fail
 # due to python prints a warning about it to stderr. The following environment
@@ -366,7 +428,7 @@ run_all_tests(){
 
   #run pcsd tests and remove them
   ruby \
-    -I$RPM_BUILD_ROOT%{_prefix}/lib/pcsd \
+    -I%{buildroot}%{_prefix}/lib/pcsd \
     -Ipcsd/test \
     pcsd/test/test_all_suite.rb
   test_result_ruby=$?
@@ -379,34 +441,31 @@ run_all_tests(){
 
 run_all_tests
 
+
+# Mark pcsd and pcs_snmp_agent for restart after upgrade
 %posttrans
-# Make sure the new version of the daemon is running.
-# Also, make sure to start pcsd-ruby if it hasn't been started or even
-# installed before. This is done by restarting pcsd.service.
-%{_bindir}/systemctl daemon-reload
-%{_bindir}/systemctl try-restart pcsd.service
+%systemd_posttrans_with_restart pcsd.service
+
+%posttrans -n %{pkg_pcs_snmp}
+%systemd_posttrans_with_restart pcs_snmp_agent.service
+
+# Restart pcsd if it is running to reload the Tornado app so it detects
+# presence or absence of the webui backend handler on install/update
+# of pcs-web-ui that contains it
+# Systemd will not pick-up on this change because pcs-web-ui doesn't contain
+# a unit file that would mark it for restart
+# https://fedoraproject.org/wiki/Changes/Restart_services_at_end_of_rpm_transaction
+%posttrans -n %{pkg_pcs_web_ui}
+systemctl try-restart pcsd.service
+
+# Runs only on pcs-web-ui uninstall
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Scriptlets/
+%postun -n %{pkg_pcs_web_ui}
+if [ $1 -eq 0 ] ; then
+  systemctl try-restart pcsd.service
+fi
 
 
-%post
-%systemd_post pcsd.service
-%systemd_post pcsd-ruby.service
-
-%post -n %{pkg_pcs_snmp}
-%systemd_post pcs_snmp_agent.service
-
-%preun
-%systemd_preun pcsd.service
-%systemd_preun pcsd-ruby.service
-
-%preun -n %{pkg_pcs_snmp}
-%systemd_preun pcs_snmp_agent.service
-
-%postun
-%systemd_postun_with_restart pcsd.service
-%systemd_postun_with_restart pcsd-ruby.service
-
-%postun -n %{pkg_pcs_snmp}
-%systemd_postun_with_restart pcs_snmp_agent.service
 
 %files
 %doc CHANGELOG.md
@@ -415,9 +474,10 @@ run_all_tests
 %license dacite_LICENSE
 %license COPYING
 %{python3_sitelib}/*
-%{_sbindir}/pcs
-%{_sbindir}/pcsd
+%{_bindir}/pcs
+%{_bindir}/pcsd
 %{_prefix}/lib/pcs/*
+%{_prefix}/lib/pkgconfig/pcs.pc
 %{_prefix}/lib/pcsd/*
 %{_unitdir}/pcsd.service
 %{_unitdir}/pcsd-ruby.service
@@ -438,8 +498,16 @@ run_all_tests
 %{_mandir}/man8/pcsd.*
 %exclude %{_prefix}/lib/pcs/pcs_snmp_agent
 %exclude %{_prefix}/lib/pcs/%{pcs_bundled_dir}/packages/pyagentx*
-%exclude %{_datadir}/cockpit
-%exclude %{_datadir}/metainfo/%{ui_appstream_metainfo}
+%exclude %{cockpit_dir}
+%exclude %{ui_metainfo}
+%exclude %{python3_sitelib}/pcs/daemon/app/webui
+%exclude %{pcsd_webui_dir}
+
+%files -n %{pkg_pcs_web_ui}
+%doc CHANGELOG.md
+%license COPYING
+%{python3_sitelib}/pcs/daemon/app/webui
+%{pcsd_webui_dir}
 
 %files -n %{pkg_pcs_snmp}
 %{_prefix}/lib/pcs/pcs_snmp_agent
@@ -455,11 +523,20 @@ run_all_tests
 %license pyagentx_LICENSE.txt
 
 %files -n %{pkg_cockpit_ha_cluster}
-%{_datadir}/cockpit/%{ui_cockpit_dest}
-%{_datadir}/metainfo/%{ui_appstream_metainfo}
+%{cockpit_dir}
+%{ui_metainfo}
+
 
 
 %changelog
+* Mon Jan 27 2025 Michal Pospíšil <mpospisi@redhat.com> - 0.12.0-1
+- Rebased pcs to the newest major version (see CHANGELOG.md)
+  Resolves: rhbz#2341012
+- New subpackage pcs-web-ui - enables standalone web UI when the subpackage is installed on the system (default), uninstall the subpackage to disable the web UI
+- Updated standalone web UI and HA Cluster Management Cockpit application to pcs-web-ui 0.1.22
+- Fixes for compatibility with Ruby 3.4
+  Resolves: rhbz#2331005
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

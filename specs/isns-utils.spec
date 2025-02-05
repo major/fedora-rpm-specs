@@ -1,19 +1,21 @@
 Name:           isns-utils
-Version:        0.101
-Release:        11%{?dist}
+Version:        0.103
+Release:        1%{?dist}
 Summary:        The iSNS daemon and utility programs
 
 License:        LGPL-2.1-or-later
 URL:            https://github.com/open-iscsi/open-isns
 Source0:        https://github.com/open-iscsi/open-isns/archive/v%{version}.tar.gz#/open-isns-%{version}.tar.gz
 Source1:        isnsd.service
+Patch1:         test_as_installed.patch
 
 BuildRequires:  gcc
-BuildRequires:  openssl-devel automake pkgconfig systemd-devel systemd
-BuildRequires: make
+BuildRequires:  pkgconfig systemd-devel systemd
+BuildRequires:  meson ninja-build
 Requires(post): systemd-units
 Requires(preun): systemd-units
 Requires(postun): systemd-units
+Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description
 The iSNS package contains the daemon and tools to setup a iSNS server,
@@ -40,16 +42,14 @@ Development files for iSNS
 
 
 %build
-%configure --enable-shared --disable-static
-%make_build
-
+%meson -Dsecurity=disabled -Dslp=disabled
+%meson_build
 
 %install
-%make_install
-make install_hdrs DESTDIR=%{buildroot}
-make install_lib DESTDIR=%{buildroot}
+%meson_install
 chmod 755 %{buildroot}%{_sbindir}/isns*
 chmod 755 %{buildroot}%{_libdir}/libisns.so.0
+chmod 700 %{buildroot}/var/lib/isns
 rm %{buildroot}%{_unitdir}/isnsd.service
 rm %{buildroot}%{_unitdir}/isnsd.socket
 install -p -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/isnsd.service
@@ -82,7 +82,7 @@ install -p -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/isnsd.service
 
 
 %files
-%doc COPYING README
+%doc COPYING README.md
 %{_sbindir}/isnsd
 %{_sbindir}/isnsadm
 %{_sbindir}/isnsdd
@@ -100,9 +100,13 @@ install -p -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/isnsd.service
 %dir %{_includedir}/libisns
 %{_includedir}/libisns/*.h
 %{_libdir}/libisns.so
+%{_libdir}/pkgconfig/libisns.pc
 
 
 %changelog
+* Mon Feb 03 2025 Chris Leech <cleech@redhat.com> - 0.101-12
+- Add explicit requires with version on subpackage isns-utils-lib
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.101-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -24,13 +24,13 @@
 # Upstream source information.
 %global upstream_owner    AdaCore
 %global upstream_name     aws
-%global upstream_version  25.0.0
+%global upstream_version  25.1.0
 %global upstream_gittag   v%{upstream_version}
 
 Name:           aws
 Epoch:          2
 Version:        %{upstream_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        The Ada Web Server
 
 License:        (GPL-3.0-or-later WITH GCC-exception-3.1 OR GPL-3.0-or-later WITH GNAT-exception) AND GPL-2.0-or-later WITH GNAT-exception
@@ -74,8 +74,6 @@ Patch:          %{name}-recommend-mailcap-for-mime-types.patch
 Patch:          %{name}-mime-types-comments.patch
 # [Fedora-specific] Use 'gnatcoll_core.gpr' instead of 'gnatcoll.gpr'.
 Patch:          %{name}-refine-dependencies-to-gnatcoll.patch
-# Backport from upstream commit 3e9df7f8712112d653884610c7518cace6c16e41:
-Patch:          aws-net-ssl__gnutls.adb-Properly-initialize-the-API.patch
 # Let GnuTLS rely on P11-kit's knowledge of what the system trust store is.
 # Don't use the Debian-oriented pathname of a file that would at best just add
 # the same set of certificates again:
@@ -442,6 +440,9 @@ sed --regexp-extended --in-place \
 ###############
 
 %changelog
+* Mon Feb 03 2025 Björn Persson <Bjorn@Rombobjörn.se> - 2:25.1.0-1
+- Updated to bugfix release 25.1.0.
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:25.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

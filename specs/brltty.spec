@@ -12,7 +12,7 @@
 # disable python2 by default
 %bcond python2 0
 
-%{!?tcl_version: %global tcl_version %(echo 'puts $tcl_version' | tclsh)}
+%{!?tcl_version: %global tcl_version %(echo 'puts $tcl_version' | tclsh8)}
 %{!?tcl_sitearch: %global tcl_sitearch %{_prefix}/%{_lib}/tcl%{tcl_version}}
 
 # with speech dispatcher iff on Fedora:
@@ -37,7 +37,7 @@
 
 Name: brltty
 Version: 6.7
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: LGPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later
 URL: http://brltty.app/
 Source0: http://brltty.app/archive/%{name}-%{version}.tar.xz
@@ -50,6 +50,8 @@ Patch1: brltty-6.3-loadLibrary.patch
 Patch2: brltty-6.3-libspeechd.patch
 # https://brltty.app/pipermail/brltty/2024-December/020462.html
 Patch3: brltty-6.6-path-separator-fix.patch
+# Until tcl-9 is supported by upstream
+Patch4: brltty-6.7-compat-tcl8.patch
 Summary: Braille display driver for Linux/Unix
 BuildRequires: byacc
 BuildRequires: glibc-kernheaders
@@ -259,6 +261,7 @@ pushd python2
 %patch -P 1 -p1 -b .loadLibrary
 %patch -P 2 -p1 -b .libspeechd
 %patch -P 3 -p1 -b .path-separator-fix
+%patch -P 4 -p1 -b .compat-tcl8
 
 # remove packaged binary file
 rm -f Programs/brltty-ktb
@@ -681,6 +684,10 @@ fi
 %config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/brltty/Initramfs/cmdline
 
 %changelog
+* Mon Feb  3 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 6.7-8
+- Rebuilt for tcl/tk change
+  Related: rhbz#2337691
+
 * Fri Jan 31 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 6.7-7
 - Fix exclusions from main package
 

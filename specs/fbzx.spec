@@ -1,9 +1,8 @@
 Name:           fbzx
 Version:        4.8.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A ZX Spectrum emulator for FrameBuffer
 
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            https://www.rastersoft.com/programas/fbzx.html
 Source0:        %{name}-%{version}-noroms.tar.gz
@@ -18,6 +17,8 @@ Source1:        %{name}-generate-tarball.sh
 Source2:        README_%{name}.Fedora
 # Debian man page
 Source3:        %{name}.1
+# Fix building with gcc 15
+Patch0:         %{name}-4.8.0-gcc15.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -34,7 +35,7 @@ the FrameBuffer or under X-Windows.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 # Fix Makefile
 sed -i 's/$(CXX) -o/$(CXX) $(CXXFLAGS) -o/' src/Makefile
@@ -85,6 +86,9 @@ install -p -m 644 %{SOURCE2} %{buildroot}%{_pkgdocdir}
 
 
 %changelog
+* Mon Feb 03 2025 Andrea Musuruane <musuruan@gmail.com> - 4.8.0-12
+- Fix FTBFS (BZ #2340154)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

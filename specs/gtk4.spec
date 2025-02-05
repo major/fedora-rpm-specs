@@ -26,7 +26,7 @@
 %endif
 
 Name:           gtk4
-Version:        4.17.3
+Version:        4.17.4
 Release:        %autorelease
 Summary:        GTK graphical user interface library
 

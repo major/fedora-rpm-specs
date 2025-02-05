@@ -7,8 +7,8 @@
 
 Name:           perl-YAML-LibYAML
 Epoch:          1
-Version:        0.902.0
-Release:        2%{?dist}
+Version:        0.903.0
+Release:        1%{?dist}
 Summary:        Perl YAML Serialization using XS and libyaml
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/YAML-LibYAML
@@ -159,6 +159,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Feb 03 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1:0.903.0-1
+- 0.903.0 bump (rhbz#2343445)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.902.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,19 +1,18 @@
 %global gem_name sqlite3
 
 Name: rubygem-%{gem_name}
-Version: 1.6.1
-Release: 9%{?dist}
+Version: 2.5.0
+Release: 1%{?dist}
 Summary: Allows Ruby scripts to interface with a SQLite3 database
-# Automatically converted from old format: BSD-3-Clause - review is highly recommended.
 License: BSD-3-Clause
 URL: https://github.com/sparklemotion/sqlite3-ruby
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# Lazy load mini_portile2 to avoid the dependency.
-# https://github.com/sparklemotion/sqlite3-ruby/pull/381
-Patch0: rubygem-sqlite3-1.6.1-Load-mini_portile2-only-when-needed.patch
-# Upstream fix for update test with sqlite 3.46 error msg change
-# https://github.com/sparklemotion/sqlite3-ruby/pull/504
-Patch1: rubygem-sqlite3-1.6.1-update-test-for-sqlite-3_46.patch
+# git clone https://github.com/sparklemotion/sqlite3-ruby.git && cd sqlite3-ruby
+# git archive -v -o sqlite3-2.5.0-test.tar.gz v2.5.0 test/
+Source1: %{gem_name}-%{version}-test.tar.gz
+# Fix (s390x) big endian tees failure.
+# https://github.com/sparklemotion/sqlite3-ruby/pull/616
+Patch0: rubygem-sqlite3-2.5.0-fix-tests-pass-on-bigendian-architecture.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby-devel
@@ -27,8 +26,6 @@ database.
 
 %package doc
 Summary: Documentation for %{name}
-# Automatically converted from old format: BSD and LGPLv2 - review is highly recommended.
-License: LicenseRef-Callaway-BSD AND LicenseRef-Callaway-LGPLv2
 Requires: %{name} = %{version}-%{release}
 BuildArch: noarch
 
@@ -36,18 +33,19 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version}
+%setup -q -n %{gem_name}-%{version} -b 1
 
 # Remove bundled SQLite right away.
 rm -rf ports
-%gemspec_remove_file "ports/archives/sqlite-autoconf-3410000.tar.gz"
+%gemspec_remove_file "ports/archives/sqlite-autoconf-3470200.tar.gz"
+
+( cd %{builddir}
+%patch 0 -p1
+)
 
 # This is not really runtime dependency, neither it is needed by official
 # prebuild platform specific packages.
 %gemspec_remove_dep -g mini_portile2 "~> 2.8.0"
-
-%patch 0 -p1
-%patch 1 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -73,6 +71,12 @@ rm -rf %{buildroot}%{gem_instdir}/ext/
 
 %check
 pushd .%{gem_instdir}
+ln -s %{_builddir}/test test
+
+# Fedora SQLite does not support URI.
+# https://github.com/sparklemotion/sqlite3-ruby/issues/611
+mv test/test_database_uri.rb{,.disable}
+
 ruby -I$(dirs +1)%{gem_extdir_mri}:lib:test -e 'Dir.glob "./test/test_*.rb", &method(:require)'
 popd
 
@@ -81,26 +85,28 @@ popd
 %{gem_extdir_mri}
 %exclude %{gem_instdir}/.*
 %license %{gem_instdir}/LICENSE
-# This does not apply to Fedora package, because it does not bundle the
-# SQLite3 library.
-%exclude %license %{gem_instdir}/LICENSE-DEPENDENCIES
 %{gem_libdir}
 %exclude %{gem_cache}
 %{gem_spec}
 
 %files doc
 %doc %{gem_docdir}
-%doc %{gem_instdir}/API_CHANGES.md
 %doc %{gem_instdir}/CHANGELOG.md
 %doc %{gem_instdir}/CONTRIBUTING.md
-%doc %{gem_instdir}/ChangeLog.cvs
-%{gem_instdir}/Gemfile
+%doc %{gem_instdir}/FAQ.md
+%doc %{gem_instdir}/INSTALLATION.md
 %doc %{gem_instdir}/README.md
 %{gem_instdir}/dependencies.yml
-%doc %{gem_instdir}/faq
-%{gem_instdir}/test
 
 %changelog
+* Mon Feb 03 2025 Vít Ondruch <vondruch@redhat.com> - 2.5.0-1
+- Update to SQLite3 2.5.0.
+  Resolves: rhbz#2182100
+
+* Thu Jan 30 2025 Vít Ondruch <vondruch@redhat.com> - 2.0.2-1
+- Update to sqlite 2.0.2.
+  Resolves: rhbz#2182100
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -84,9 +84,11 @@ Source14:          nginx-upgrade.8
 Source15:          macros.nginxmods.in
 Source16:          nginxmods.attr
 Source17:          nginx-ssl-pass-dialog
+Source18:          nginx@.service
 Source102:         nginx-logo.png
 Source200:         README.dynamic
 Source210:         UPGRADE-NOTES-1.6-to-1.10
+Source220:         instance.conf
 
 # removes -Werror in upstream build scripts.  -Werror conflicts with
 # -D_FORTIFY_SOURCE=2 causing warnings to turn into errors.
@@ -272,10 +274,10 @@ Requires:          zlib-devel
 cat %{S:2} %{S:3} %{S:4} %{S:5} %{S:6} > %{_builddir}/%{name}.gpg
 %{gpgverify} --keyring='%{_builddir}/%{name}.gpg' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
-cp %{SOURCE200} %{SOURCE210} %{SOURCE10} %{SOURCE12} .
+cp %{SOURCE200} %{SOURCE210} %{SOURCE10} %{SOURCE12} %{SOURCE18} %{SOURCE220} .
 
 %if 0%{?rhel} > 0 && 0%{?rhel} < 8
-sed -i -e 's#KillMode=.*#KillMode=process#g' nginx.service
+sed -i -e 's#KillMode=.*#KillMode=process#g' nginx.service nginx@.service
 sed -i -e 's#PROFILE=SYSTEM#HIGH:!aNULL:!MD5#' nginx.conf
 %endif
 
@@ -285,6 +287,13 @@ sed \
   -e 's|\(ngx_feature_libs="\)|\1-L%{_libdir}/openssl%{openssl_pkgversion} |' \
   -i auto/lib/openssl/conf
 %endif
+
+# Prepare template config for instances
+sed -e '/^error_log /s|error\.log|@INSTANCE@_error.log|' \
+    -e '/^pid /s|nginx\.pid|nginx-@INSTANCE@.pid|' \
+    -e '/^ *access_log/s|access\.log|@INSTANCE@_access.log|' \
+    nginx.conf >> instance.conf
+touch -r %{SOURCE12} instance.conf
 
 # Prepare sources for installation
 cp -a ../%{name}-%{version} ../%{name}-%{version}-%{release}-src
@@ -382,6 +391,8 @@ find %{buildroot} -type f -iname '*.so' -exec chmod 0755 '{}' \;
 
 install -p -D -m 0644 ./nginx.service \
     %{buildroot}%{_unitdir}/nginx.service
+install -p -D -m 0644 ./nginx@.service \
+    %{buildroot}%{_unitdir}/nginx@.service
 install -p -D -m 0644 %{SOURCE11} \
     %{buildroot}%{_sysconfdir}/logrotate.d/nginx
 
@@ -543,11 +554,12 @@ fi
 %{_mandir}/man8/nginx.8*
 %{_mandir}/man8/nginx-upgrade.8*
 %{_unitdir}/nginx.service
+%{_unitdir}/nginx@.service
 %{_libexecdir}/nginx-ssl-pass-dialog
 
 %files core
 %license LICENSE
-%doc CHANGES README README.dynamic
+%doc CHANGES README README.dynamic instance.conf
 %{_sbindir}/nginx
 %config(noreplace) %{_sysconfdir}/nginx/fastcgi.conf
 %config(noreplace) %{_sysconfdir}/nginx/fastcgi.conf.default

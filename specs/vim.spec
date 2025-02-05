@@ -432,8 +432,12 @@ perl -pi -e "s,bin/nawk,bin/awk,g" runtime/tools/mve.awk
 cd src
 autoconf
 
-export CFLAGS="%{optflags} -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_FORTIFY_SOURCE=2"
-export CXXFLAGS="%{optflags} -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_FORTIFY_SOURCE=2"
+# added -std=c17 because F42 uses c23 by default and dynamically loaded Ruby plugin fails to build
+# with c23 due using `()` for callback arguments to be able to use callbacks with different number
+# of arguments in one function
+# reported upstream as https://github.com/vim/vim/issues/16575
+export CFLAGS="%{optflags} -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_FORTIFY_SOURCE=2 -std=c17"
+export CXXFLAGS="%{optflags} -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_FORTIFY_SOURCE=2 -std=c17"
 
 cp -f os_unix.h os_unix.h.save
 
@@ -1049,6 +1053,9 @@ touch %{buildroot}/%{_datadir}/%{name}/vimfiles/doc/tags
 
 
 %changelog
+* Mon Feb 03 2025 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.1000-2
+- Fix FTBFS (fedora#2341508)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:9.1.1000-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

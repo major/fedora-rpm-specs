@@ -14,8 +14,8 @@
 
 Summary: Utility for determining file types
 Name: file
-Version: 5.45
-Release: 9%{?dist}
+Version: 5.46
+Release: 1%{?dist}
 
 # Main license is BSD-2-Clause-Darwin
 # Shipped exceptions:
@@ -46,8 +46,10 @@ Patch2: file-5.04-volume_key.patch
 # 2. https://github.com/file/file/commit/f7a65dbf1739a8f8671621e41c5648d1f7e9f6ae
 Patch3: file-5.45-readelf-limit-revert.patch
 
-# upstream commit: https://github.com/file/file/commit/218fdf813fd5ccecbb8887a1b62509cd1c6dd3a1
-Patch4: file-5.45-time-t.patch
+Patch4: file-5.46-fix-tests-rpm-magic.patch
+
+# upstream: https://github.com/file/file/commit/b874d520c592ecd55ebcae0d662dc6e54f5c5414
+Patch5: file-5.47-magic-entries.patch
 
 URL: https://www.darwinsys.com/file/
 Requires: file-libs%{?_isa} = %{version}-%{release}
@@ -230,6 +232,9 @@ make -C tests check
 %endif
 
 %changelog
+* Mon Feb 03 2025 Vincent Mihalkovic <vmihalko@redhat.com> - 5.46-1
+- New upstream release
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.45-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

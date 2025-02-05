@@ -37,7 +37,7 @@ done
 
 
 %build
-export CPPFLAGS="$CPPFLAGS -fcommon"
+export CPPFLAGS="$CPPFLAGS -fcommon -std=gnu17"
 %configure --disable-network --disable-sound
 make %{?_smp_mflags}
 

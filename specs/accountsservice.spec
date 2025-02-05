@@ -1,6 +1,6 @@
 Name:           accountsservice
 Version:        23.13.9
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        D-Bus interfaces for querying and manipulating user account information
 License:        GPL-3.0-or-later
 URL:            https://www.freedesktop.org/wiki/Software/AccountsService/
@@ -29,6 +29,7 @@ Requires:       shadow-utils
 # https://bugzilla.redhat.com/show_bug.cgi?id=2185850
 Patch10001:     0001-mocklibc-Fix-compiler-warning.patch
 Patch10002:     0002-user-manager-Fix-another-compiler-warning.patch
+Patch10003:     0003-act-user-Use-the-reentrant-interfaces-of-crypt-_gens.patch
 
 %description
 The accountsservice project provides a set of D-Bus interfaces for
@@ -115,6 +116,9 @@ mkdir -p $RPM_BUILD_ROOT%{_datadir}/accountsservice/interfaces/
 %{_datadir}/vala/vapi/accountsservice.*
 
 %changelog
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 23.13.9-8
+- Add patch to use the reentrant interfaces of libxcrypt
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 23.13.9-7
 - Add explicit BR: libxcrypt-devel
 

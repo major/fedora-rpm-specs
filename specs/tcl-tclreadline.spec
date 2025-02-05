@@ -6,7 +6,7 @@
 Summary:        GNU Readline extension for Tcl/Tk
 Name:           tcl-tclreadline
 Version:        2.4.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/flightaware/tclreadline
 Source0:        https://github.com/flightaware/%{pkgname}/archive/v%{version}/%{pkgname}-%{version}.tar.gz
@@ -78,6 +78,9 @@ TCLLIBPATH="$(pwd)/test/tcl%{tcl_version}" tclsh load.tcl
 %{_includedir}/%{pkgname}.h
 
 %changelog
+* Mon Feb  3 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 2.4.0-3
+- Rebuilt for tcl/tk
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -3,13 +3,15 @@
 
 Name:           python-%{pypi_name}
 Version:        3.0.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python datetimes made easy
 
 License:        MIT
 URL:            https://pendulum.eustace.io
 Source0:        https://github.com/sdispater/pendulum/archive/%{version}/pendulum-%{version}.tar.gz
 Patch0:         0001-Use-zoneinfo-instead-of-tzdata-package-to-retrieve-t.patch
+# https://github.com/python-pendulum/pendulum/commit/483443a
+Patch1:         0002-Backport-support-for-PyO3-0.22-and-Python-3.13.patch
 
 BuildRequires:  cargo-rpm-macros
 BuildRequires:  tomcli
@@ -88,6 +90,9 @@ cd rust
 %doc README.rst
 
 %changelog
+* Tue Jan 21 2025 Fabio Valentini <decathorpe@gmail.com> - 3.0.0-5
+- Backport support for PyO3 0.22 and Python 3.13.
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

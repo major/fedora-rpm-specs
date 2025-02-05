@@ -30,14 +30,15 @@ SourceLicense:  MPL-2.0 OR LGPL-2.1-or-later
 License:        (MPL-2.0 OR LGPL-2.1-or-later) AND BSD-2-Clause AND BSD-3-Clause AND GPL-3.0-or-later AND ISC AND MIT AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (MIT OR Apache-2.0 OR Zlib) AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
-URL:            https://gitlab.gnome.org/sophie-h/glycin
+URL:            https://gitlab.gnome.org/GNOME/glycin
 Source0:        https://download.gnome.org/sources/glycin/1.1/glycin-%{tarball_version}.tar.xz
 
 # fixup for issue that makes "cargo tree" fail to parse tests/Cargo.toml
 Patch:          0001-fix-invalid-crate-manifest-for-tests-workspace-membe.patch
-
-# relax jpegxl-rs dependency to allow building with versions 0.10.x where x >= 4
-Patch:          0002-loaders-relax-jpegxl-rs-dependency-from-0.10.3-to-0..patch
+# https://gitlab.gnome.org/GNOME/glycin/-/issues/101
+# https://gitlab.gnome.org/GNOME/glycin/-/merge_requests/143
+Patch:          0001-Update-glycin-jxl-to-0.11.1.patch
+Patch:          0002-loaders-relax-jpegxl-rs-dependency-from-0.11.1-to-0..patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -63,7 +64,7 @@ BuildRequires:  pkgconfig(libseccomp) >= 2.5.0
 BuildRequires:  pkgconfig(libheif) >= 1.17.0
 %endif
 %if %{with jpegxl}
-BuildRequires:  pkgconfig(libjxl) >= 0.10.0
+BuildRequires:  pkgconfig(libjxl) >= 0.11.0
 %endif
 
 %description

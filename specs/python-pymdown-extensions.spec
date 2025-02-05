@@ -9,6 +9,9 @@ Summary:        Extension pack for Python Markdown
 License:        MIT and BSD-2-Clause
 URL:            https://facelessuser.github.io/pymdown-extensions
 Source:         %{pypi_source pymdown_extensions}
+# Conditional compatibility for markdown 3.5 for el10 based on
+# https://github.com/facelessuser/pymdown-extensions/commit/722461c65829ed6bf45ae83934c04b2dbb691e12
+Patch:          pymdown-extensions-markdown-3.5.patch
 
 BuildArch:      noarch
  
@@ -34,6 +37,12 @@ Markdown.
 
 # Drop invalid entry that breaks the pyproject macros
 sed -i '/\.\[extra\]/d' pyproject.toml
+
+# EL10 only has markdown 3.5
+# https://issues.redhat.com/browse/RHEL-74397
+%if 0%{?el10}
+sed -i 's/"Markdown>=3.6"/"Markdown>=3.5"/' pyproject.toml
+%endif
 
 %generate_buildrequires
 %pyproject_buildrequires -t -x extra

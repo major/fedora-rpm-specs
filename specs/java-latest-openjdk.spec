@@ -1,3 +1,4 @@
+%define debug_package %{nil}
 # RPM conditionals so as to be able to dynamically produce
 # slowdebug/release builds. See:
 # http://rpm.org/user_doc/conditional_builds.html
@@ -285,9 +286,9 @@
 %endif
 
 # New Version-String scheme-style defines
-%global featurever 23
+%global featurever 24
 %global interimver 0
-%global updatever 2
+%global updatever 0
 %global patchver 0
 
 # We don't add any LTS designator for STS packages (Fedora and EPEL).
@@ -336,8 +337,8 @@
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        7
-%global rpmrelease      6
+%global buildver        34
+%global rpmrelease      1
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -355,7 +356,7 @@
 # Release will be (where N is usually a number starting at 1):
 # - 0.N%%{?extraver}%%{?dist} for EA releases,
 # - N%%{?extraver}{?dist} for GA releases
-%global is_ga           1
+%global is_ga           0
 %if %{is_ga}
 %global build_type GA
 %global ea_designator ""
@@ -580,6 +581,7 @@ alternatives --install %{_bindir}/javac javac %{sdkbindir -- %{?1}}/javac %{prio
   --slave %{_bindir}/jimage jimage %{sdkbindir -- %{?1}}/jimage \\
   --slave %{_bindir}/jinfo jinfo %{sdkbindir -- %{?1}}/jinfo \\
   --slave %{_bindir}/jmap jmap %{sdkbindir -- %{?1}}/jmap \\
+  --slave %{_bindir}/jnativescan jnativescan %{sdkbindir -- %{?1}}/jmap \\
   --slave %{_bindir}/jps jps %{sdkbindir -- %{?1}}/jps \\
   --slave %{_bindir}/jpackage jpackage %{sdkbindir -- %{?1}}/jpackage \\
   --slave %{_bindir}/jrunscript jrunscript %{sdkbindir -- %{?1}}/jrunscript \\
@@ -599,6 +601,7 @@ alternatives --install %{_bindir}/javac javac %{sdkbindir -- %{?1}}/javac %{prio
   --slave %{_mandir}/man1/jdeps.1%{man_comp} jdeps.1%{man_comp} %{_mandir}/man1/jdeps-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
   --slave %{_mandir}/man1/jinfo.1%{man_comp} jinfo.1%{man_comp} %{_mandir}/man1/jinfo-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
   --slave %{_mandir}/man1/jmap.1%{man_comp} jmap.1%{man_comp} %{_mandir}/man1/jmap-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
+  --slave %{_mandir}/man1/jnativescan.1%{man_comp} jnativescan.1%{man_comp} %{_mandir}/man1/jnativescan-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
   --slave %{_mandir}/man1/jps.1%{man_comp} jps.1%{man_comp} %{_mandir}/man1/jps-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
   --slave %{_mandir}/man1/jpackage.1%{man_comp} jpackage.1%{man_comp} %{_mandir}/man1/jpackage-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
   --slave %{_mandir}/man1/jrunscript.1%{man_comp} jrunscript.1%{man_comp} %{_mandir}/man1/jrunscript-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
@@ -780,8 +783,10 @@ fi
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}/*.so
 %ifarch %{share_arches}
 %attr(444, root, root) %{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}/classes.jsa
+%attr(444, root, root) %{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}/classes_coh.jsa
 %ifnarch %{ix86} %{arm32}
 %attr(444, root, root) %{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}/classes_nocoops.jsa
+%attr(444, root, root) %{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}/classes_nocoops_coh.jsa
 %endif
 %endif
 %dir %{etcjavasubdir}
@@ -797,7 +802,6 @@ fi
 %dir %{etcjavadir -- %{?1}}/conf/security/policy
 %dir %{etcjavadir -- %{?1}}/conf/security/policy/limited
 %dir %{etcjavadir -- %{?1}}/conf/security/policy/unlimited
-%config(noreplace) %{etcjavadir -- %{?1}}/lib/security/default.policy
 %config(noreplace) %{etcjavadir -- %{?1}}/lib/security/blocked.certs
 %config(noreplace) %{etcjavadir -- %{?1}}/lib/security/public_suffix_list.dat
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/security/policy/limited/exempt_local.policy
@@ -806,7 +810,6 @@ fi
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/security/policy/unlimited/default_local.policy
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/security/policy/unlimited/default_US_export.policy
  %{etcjavadir -- %{?1}}/conf/security/policy/README.txt
-%config(noreplace) %{etcjavadir -- %{?1}}/conf/security/java.policy
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/security/java.security
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/logging.properties
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/management/jmxremote.access
@@ -864,6 +867,7 @@ fi
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/jlink
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/jmap
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/jmod
+%{_jvmdir}/%{sdkdir -- %{?1}}/bin/jnativescan
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/jps
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/jpackage
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/jrunscript
@@ -893,6 +897,7 @@ fi
 %{_mandir}/man1/jlink-%{uniquesuffix -- %{?1}}.1*
 %{_mandir}/man1/jmap-%{uniquesuffix -- %{?1}}.1*
 %{_mandir}/man1/jmod-%{uniquesuffix -- %{?1}}.1*
+%{_mandir}/man1/jnativescan-%{uniquesuffix -- %{?1}}.1*
 %{_mandir}/man1/jps-%{uniquesuffix -- %{?1}}.1*
 %{_mandir}/man1/jpackage-%{uniquesuffix -- %{?1}}.1*
 %{_mandir}/man1/jrunscript-%{uniquesuffix -- %{?1}}.1*
@@ -2089,14 +2094,14 @@ readelf --debug-dump $STATIC_LIBS_HOME/libnet.a | grep Inet6AddressImpl.c
 $JAVA_HOME/bin/jar -tf $JAVA_HOME/lib/src.zip | grep 'sun.misc.Unsafe'
 
 # Check class files include useful debugging information
-$JAVA_HOME/bin/javap -l java.lang.Object | grep "Compiled from"
-$JAVA_HOME/bin/javap -l java.lang.Object | grep LineNumberTable
-$JAVA_HOME/bin/javap -l java.lang.Object | grep LocalVariableTable
+$JAVA_HOME/bin/javap -l -c java.lang.Object | grep "Compiled from"
+$JAVA_HOME/bin/javap -l -c java.lang.Object | grep LineNumberTable
+$JAVA_HOME/bin/javap -l -c java.lang.Object | grep LocalVariableTable
 
 # Check generated class files include useful debugging information
-$JAVA_HOME/bin/javap -l java.nio.ByteBuffer | grep "Compiled from"
-$JAVA_HOME/bin/javap -l java.nio.ByteBuffer | grep LineNumberTable
-$JAVA_HOME/bin/javap -l java.nio.ByteBuffer | grep LocalVariableTable
+$JAVA_HOME/bin/javap -l -c java.nio.ByteBuffer | grep "Compiled from"
+$JAVA_HOME/bin/javap -l -c java.nio.ByteBuffer | grep LineNumberTable
+$JAVA_HOME/bin/javap -l -c java.nio.ByteBuffer | grep LocalVariableTable
 
 # build cycles check
 done

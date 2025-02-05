@@ -1,7 +1,7 @@
 Summary:	Waveform Viewer
 Name:		gtkwave
 Version:	3.3.121
-Release:	4%{?dist}
+Release:	5%{?dist}
 License:	GPL-2.0-or-later
 URL:		http://gtkwave.sourceforge.net/
 Source0:	http://gtkwave.sourceforge.net/gtkwave-gtk3-%{version}.tar.gz
@@ -206,6 +206,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/io.github.
 %{_mandir}/man5/gtkwaverc.5*
 
 %changelog
+* Mon Feb  3 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 3.3.121-5
+- Rebuild for tcl/tk
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.121-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

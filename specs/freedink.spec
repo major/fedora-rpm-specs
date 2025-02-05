@@ -19,6 +19,7 @@ Source0:	https://ftp.gnu.org/gnu/freedink/freedink-%{version}.tar.gz
 Patch0:         sdl-android.patch
 Patch1:         gnulib.patch
 Patch2:         const.patch
+Patch3:         includes.patch
 ExcludeArch:    s390x
 
 Requires:	freedink-engine = %{version}-%{release} freedink-dfarc
@@ -67,6 +68,7 @@ This package contains the game engine alone.
 %autosetup -p0
 
 %build
+export CXXFLAGS="$CXXFLAGS -std=gnu17"
 # Using '--disable-embedded-resources' because 'rpmbuild' will remove
 # them anyway (so it can make the -debuginfo package -- too bad :/)
 %configure --disable-embedded-resources 

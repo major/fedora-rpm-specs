@@ -20,6 +20,9 @@ BuildRequires:  mingw32-filesystem >= 95
 BuildRequires:  mingw32-gcc-c++
 BuildRequires:  mingw64-filesystem >= 95
 BuildRequires:  mingw64-gcc-c++
+# mingw-libusbx was removed in F42
+Provides:       mingw-libusbx = %{version}-%{release}
+Obsoletes:      mingw-libusbx < %{version}-%{release}
 %endif
 
 %description
@@ -67,12 +70,16 @@ This package contains tests and examples for %{name}.
 %if %{with mingw}
 %package -n mingw32-%{name}
 Summary:       MinGW Windows %{name} library
+Provides:      mingw32-libusbx = %{version}-%{release}
+Obsoletes:     mingw32-libusbx < %{version}-%{release}
 
 %description -n mingw32-%{name}
 MinGW Windows %{name} library.
 
 %package -n mingw64-%{name}
 Summary:       MinGW Windows %{name} library
+Provides:      mingw64-libusbx = %{version}-%{release}
+Obsoletes:     mingw64-libusbx < %{version}-%{release}
 
 %description -n mingw64-%{name}
 MinGW Windows %{name} library.

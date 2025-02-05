@@ -6,7 +6,7 @@
 Name: totem
 Epoch: 1
 Version: 43.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Movie player for GNOME
 
 # Automatically converted from old format: GPLv2+ with exceptions - review is highly recommended.
@@ -19,6 +19,8 @@ Source0: https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version
 # https://bugzilla.redhat.com/show_bug.cgi?id=2176726
 # Fixes crash when trying to delete last video
 Patch: 0001-grilo-Fix-crash-when-deleting-video.patch
+# https://gitlab.gnome.org/GNOME/totem/-/merge_requests/410
+Patch: 0001-remove-broken-plugins.patch
 
 BuildRequires: pkgconfig(cairo)
 BuildRequires: pkgconfig(gnome-desktop-3.0)
@@ -147,7 +149,6 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Totem.de
 %{_libdir}/totem/plugins/opensubtitles
 %{_libdir}/totem/plugins/pythonconsole
 %endif
-%{_libdir}/totem/plugins/apple-trailers
 %{_libdir}/totem/plugins/autoload-subtitles
 %{_libdir}/totem/plugins/im-status
 %{_libdir}/totem/plugins/open-directory
@@ -160,7 +161,6 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Totem.de
 %{_libdir}/totem/plugins/screenshot
 %{_libdir}/totem/plugins/save-file
 %{_libdir}/totem/plugins/variable-rate
-%{_libdir}/totem/plugins/vimeo
 %{_libexecdir}/totem-gallery-thumbnailer
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.Totem.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.Totem-symbolic.svg
@@ -183,6 +183,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Totem.de
 %{_datadir}/gir-1.0/Totem-1.0.gir
 
 %changelog
+* Fri Jan 24 2025 Daniel Rusek <mail@asciiwolf.com> - 1:43.1-3
+- Removed now unused, broken apple-trailers and vimeo plugins
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:43.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

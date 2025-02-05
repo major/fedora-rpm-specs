@@ -160,6 +160,7 @@ install -Dpm0644 -t %{buildroot}%{_udevrulesdir} udev/80-m1n1.rules
 %files
 %license LICENSE 3rdparty_licenses/LICENSE.*
 %doc README.md
+%doc m1n1.conf.example
 %{_libdir}/%{name}
 
 %if %{with chainloading}

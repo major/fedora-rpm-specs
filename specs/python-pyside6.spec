@@ -10,7 +10,7 @@
 
 Name:           python-%{pypi_name}
 Version:        6.8.1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python bindings for the Qt 6 cross-platform application and UI framework
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -324,6 +324,9 @@ export LD_LIBRARY_PATH="%{buildroot}%{_libdir}"
 
 
 %changelog
+* Mon Feb 03 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.1.1-3
+- Rebuild (qt6)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.8.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

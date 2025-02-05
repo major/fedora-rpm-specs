@@ -109,7 +109,7 @@ sed -i \
 	dietfeatures.h
 %endif
 
-%global fixcflags	-fomit-frame-pointer -fno-exceptions -fno-asynchronous-unwind-tables %xtra_fixcflags -Os -g3 -Werror-implicit-function-declaration -Wno-unused -Wno-switch
+%global fixcflags	-fomit-frame-pointer -fno-exceptions -fno-asynchronous-unwind-tables %xtra_fixcflags -Os -g3 -Werror-implicit-function-declaration -Wno-unused -Wno-switch -std=gnu17
 %global basemakeflags	prefix=%pkglibdir BINDIR=%{_bindir} MAN1DIR=%{_mandir}/man1 CFLAGS="$RPM_OPT_FLAGS %fixcflags $XTRA_CFLAGS" PDIET=%pkglibdir STRIP=:
 %global makeflags	%basemakeflags
 

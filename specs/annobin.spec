@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.87
+Version: 12.88
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
@@ -532,6 +532,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Feb 03 2025 Nick Clifton  <nickc@redhat.com> - 12.88-1
+- Annocheck: Look for -fstack-clash-protection in DW_AT_producer string.  (RHEL-77328)
+
 * Tue Jan 28 2025 Nick Clifton  <nickc@redhat.com> - 12.87-1
 - Annocheck: Fix locating string notes (again).  Add exception for glibc benchmark tests.  (RHEL-76456)
 

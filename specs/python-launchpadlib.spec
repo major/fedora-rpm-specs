@@ -1,6 +1,6 @@
 %global pypi_name launchpadlib
 Name:           python-%{pypi_name}
-Version:        2.0.0
+Version:        2.1.0
 Release:        %autorelease
 Summary:        Script Launchpad through its web services interfaces
 

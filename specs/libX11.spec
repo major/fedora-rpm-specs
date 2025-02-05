@@ -4,8 +4,8 @@
 
 Summary: Core X11 protocol client library
 Name: libX11
-Version: 1.8.10
-Release: 3%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Version: 1.8.11
+Release: 1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 License: MIT AND X11
 URL: http://www.x.org
 
@@ -19,9 +19,6 @@ Source0: https://xorg.freedesktop.org/archive/individual/lib/%{name}-%{version}.
 
 
 Patch2: dont-forward-keycode-0.patch
-
-# https://gitlab.freedesktop.org/xorg/lib/libx11/-/merge_requests/264
-Patch:  264.patch
 
 BuildRequires: libtool
 BuildRequires: make
@@ -126,6 +123,9 @@ make %{?_smp_mflags} check
 %{_mandir}/man5/*.5*
 
 %changelog
+* Mon Feb 03 2025 José Expósito <jexposit@redhat.com> - 1.8.11-1
+- libX11 1.8.11
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

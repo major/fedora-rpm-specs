@@ -43,6 +43,16 @@ Summary:        %{name} development files
 
 Contains files needed for yggdrasil worker development.
 
+%package examples
+Summary:       %{name} example workers
+
+Requires: %{name} = %{version}-%{release}
+
+%description examples
+%{common_description}
+
+Contains example workers for yggdrasil.
+
 %gopkg
 
 %prep
@@ -57,7 +67,7 @@ Contains files needed for yggdrasil worker development.
 %undefine _auto_set_build_flags
 export %gomodulesmode
 %{?gobuilddir:export GOPATH="%{gobuilddir}:${GOPATH:+${GOPATH}:}%{?gopath}"}
-%meson "-Dgobuildflags=[%(echo %{expand:%gocompilerflags} | sed -e s/"^"/"'"/ -e s/" "/"', '"/g -e s/"$"/"'"/), '-tags', '"rpm_crashtraceback\ ${BUILDTAGS:-}"', '-a', '-v', '-x']" -Dgoldflags='%{?currentgoldflags} -B 0x%(head -c20 /dev/urandom|od -An -tx1|tr -d " \n") -compressdwarf=false -linkmode=external -extldflags "%{build_ldflags} %{?__golang_extldflags}"'
+%meson -Dexamples=True "-Dgobuildflags=[%(echo %{expand:%gocompilerflags} | sed -e s/"^"/"'"/ -e s/" "/"', '"/g -e s/"$"/"'"/), '-tags', '"rpm_crashtraceback\ ${BUILDTAGS:-}"', '-a', '-v', '-x']" -Dgoldflags='%{?currentgoldflags} -B 0x%(head -c20 /dev/urandom|od -An -tx1|tr -d " \n") -compressdwarf=false -linkmode=external -extldflags "%{build_ldflags} %{?__golang_extldflags}"'
 %meson_build
 
 %global gosupfiles ./ipc/com.redhat.Yggdrasil1.Dispatcher1.xml ./ipc/com.redhat.Yggdrasil1.Worker1.xml
@@ -92,19 +102,35 @@ export %gomodulesmode
 %license vendor/modules.txt
 %endif
 %doc CONTRIBUTING.md README.md
-%{_bindir}/*
+%{_bindir}/yggd
+%{_bindir}/yggctl
 %config(noreplace) %{_sysconfdir}/%{name}
-%{_unitdir}/*
-%{_userunitdir}/*
-%{_sysusersdir}/*
-%{_datadir}/bash-completion/completions/*
-%{_datadir}/dbus-1/{interfaces,system-services,system.d}/*
-%{_datadir}/doc/%{name}/*
-%{_mandir}/man1/*
+%{_unitdir}/yggdrasil-bus@.service
+%{_unitdir}/yggdrasil-bus@.socket
+%{_unitdir}/yggdrasil@.service
+%{_unitdir}/yggdrasil.service
+%{_userunitdir}/yggdrasil.service
+%{_sysusersdir}/yggdrasil.conf
+%{_datadir}/bash-completion/completions/yggd
+%{_datadir}/bash-completion/completions/yggctl
+%{_datadir}/dbus-1/interfaces/com.redhat.Yggdrasil1.xml
+%{_datadir}/dbus-1/interfaces/com.redhat.Yggdrasil1.Worker1.xml
+%{_datadir}/dbus-1/interfaces/com.redhat.Yggdrasil1.Dispatcher1.xml
+%{_datadir}/dbus-1/system.d/yggd.conf
+%{_datadir}/dbus-1/system-services/com.redhat.Yggdrasil1.service
+%{_datadir}/doc/%{name}/tags.toml
+%{_mandir}/man1/yggctl.1.gz
+%{_mandir}/man1/yggd.1.gz
 %attr(0755, yggdrasil, yggdrasil) %{_localstatedir}/lib/yggdrasil
 
 %files devel
-%{_libdir}/pkgconfig/*.pc
+%{_libdir}/pkgconfig/yggdrasil.pc
+
+%files examples
+%{_libexecdir}/yggdrasil/echo
+%{_datadir}/dbus-1/system.d/com.redhat.Yggdrasil1.Worker1.echo.conf
+%{_datadir}/dbus-1/system-services/com.redhat.Yggdrasil1.Worker1.echo.service
+%{_unitdir}/com.redhat.Yggdrasil1.Worker1.echo.service
 
 %gopkgfiles
 

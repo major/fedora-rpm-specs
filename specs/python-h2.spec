@@ -7,7 +7,7 @@ be embeddable in whatever program you choose to use, ensuring that you can
 speak HTTP/2 regardless of your programming paradigm.}
 
 Name:           python-h2
-Version:        4.1.0
+Version:        4.2.0
 Release:        %autorelease
 Summary:        HTTP/2 State-Machine based protocol implementation
 
@@ -17,8 +17,6 @@ VCS:            https://github.com/python-hyper/h2
 Source0:        %vcs/archive/v%{version}/%{srcname}-%{version}.tar.gz
 # downstream only patch
 Patch0:         0001-Fedora-tox-adjustments.patch
-# repr() changes in Python 3.11
-Patch1:         0001-Fix-repr-checks-for-Python-3.11.patch
 
 BuildArch:      noarch
 BuildRequires:  make

@@ -15,7 +15,7 @@
 Summary:  Dynamic host configuration protocol software
 Name:     dhcp
 Version:  4.4.3
-Release:  15%{?prever:.%prever}%{?patchver:.%patchver}%{?dist}
+Release:  16%{?prever:.%prever}%{?patchver:.%patchver}%{?dist}
 
 # We want to get rid of DHCP in favour of Kea package, because ISC has announced
 # the end of maintenance for ISC DHCP as of the end of 2022. No package depends
@@ -73,6 +73,7 @@ Patch27: 0027-Add-missed-sd-notify-patch-to-manage-dhcpd-with-syst.patch
 Patch28: 0028-Use-system-getaddrinfo-for-dhcp.patch
 Patch29: CVE-2021-25220.patch
 Patch30: 0030-bind-configure-c99.patch
+Patch31: 0031-Correct-declarations-of-ia_na_-no-match-and-ia_pd_-n.patch
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -543,6 +544,9 @@ done
 %attr(0644,root,root) %{_mandir}/man8/keama.8.gz
 
 %changelog
+* Fri Jan 24 2025 Stepan Broz <sbroz@redhat.com> - 12:4.4.3-16.P1
+- Correct function declarations in server/dhcpv6.c
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 12:4.4.3-15.P1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

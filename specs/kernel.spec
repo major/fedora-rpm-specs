@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.14.0
 %define specversion 6.14.0
 %define patchversion 6.14
-%define pkgrelease 0.rc0.20250130git72deda0abee6.11
+%define pkgrelease 0.rc1.15
 %define kversion 6
-%define tarfile_release 6.13-9485-g72deda0abee6
+%define tarfile_release 6.14-rc1
 # This is needed to do merge window version magic
 %define patchlevel 14
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.20250130git72deda0abee6.11%{?buildid}%{?dist}
+%define specrelease 0.rc1.15%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.14.0
 
@@ -4180,18 +4180,32 @@ fi\
 #
 #
 %changelog
-* Thu Jan 30 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.14.0-0.rc0.20250130git72deda0abee6.11]
-- Turn on CONFIG_DRM_ACCEL_AMDXDNA for Fedora (Justin M. Forbes)
-
-* Thu Jan 30 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc0.72deda0abee6.11]
-- s390/bitops: Use correct constraint for arch_test_bit() inline assembly (Heiko Carstens)
+* Mon Feb 03 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc1.15]
 - Add -fzero-init-padding-bits to bindgen_skip_cflags (Justin M. Forbes)
-- s390: Add '-std=gnu11' to decompressor and purgatory CFLAGS (Nathan Chancellor)
 - apply -Wno-error=unterminated-string-initialization temporarily (Thorsten Leemhuis)
 - x86/boot: Use '-std=gnu11' to fix build with GCC 15 (Nathan Chancellor)
-- kbuild: Use -fzero-init-padding-bits=all (Kees Cook)
 - include/linux: Adjust headers for C23 (Jakub Jelinek)
 - x86/insn_decoder_test: allow longer symbol-names (David Rheinsberg)
+
+* Mon Feb 03 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc1.14]
+- redhat: generalize rule for kunit and test kmod placement (Jan Stancek)
+- Linux v6.14.0-0.rc1
+
+* Sun Feb 02 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc0.a86bf2283d2c.13]
+- Linux v6.14.0-0.rc0.a86bf2283d2c
+
+* Sat Feb 01 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc0.60c828cf80c0.12]
+- Move CONFIG_PCI_REALLOC_ENABLE_AUTO out of common as they have diverged (Justin M. Forbes)
+- fedora: arm64: enable Silicon Mitus SM5502 Extcon driver (Sam Day)
+- fedora: arm64: enable Richtek RT5033 MFD+charger+regulator modules (Sam Day)
+- configs/fedora: Enable CONFIG_PCI_REALLOC_ENABLE_AUTO (Yanko Kaneti)
+- Enable CONFIG_INTEL_MEI_PXP and CONFIG_DRM_I915_PXP on rhel (Jocelyn Falempe)
+- Enable Intel Xe Graphics (Mika Penttilä)
+- Linux v6.14.0-0.rc0.60c828cf80c0
+
+* Fri Jan 31 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc0.69e858e0b8b2.11]
+- Turn on CONFIG_DRM_ACCEL_AMDXDNA for Fedora (Justin M. Forbes)
+- Linux v6.14.0-0.rc0.69e858e0b8b2
 
 * Thu Jan 30 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc0.72deda0abee6.10]
 - redhat/configs: disable CONFIG_AF_UNIX_OOB on RHEL (Marcelo Ricardo Leitner)

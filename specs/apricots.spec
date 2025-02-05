@@ -2,8 +2,8 @@
 %global debug_package %{nil}
 %define apricotsdir %{_datadir}/apricots
 Name: apricots
-Version:  0.2.7
-Release:  11%{?dist}
+Version:  0.2.9
+Release:  1%{?dist}
 Summary: 2D air combat game
 
 License: GPL-2.0-only
@@ -13,13 +13,11 @@ Source1: apricots.png
 #Icon created from screenshot on website
 Source2: apricots.desktop
 
-Patch0: noinline.patch
-
 BuildRequires: gcc gcc-c++
 BuildRequires: SDL2-devel
-BuildRequires: freealut-devel
 BuildRequires: desktop-file-utils
 BuildRequires: openal-soft-devel
+BuildRequires: alure-devel
 BuildRequires: autoconf automake
 BuildRequires: make
 ExcludeArch: ppc64le aarch64
@@ -32,8 +30,6 @@ and fun.
 %prep
 %setup -q
 
-%patch -P0 -p0
-
 %build
 ./bootstrap
 #Use %%configure once --as-needed is fixed, and fix debug at top of spec.
@@ -42,15 +38,11 @@ and fun.
 
 
 %install
-mkdir -p %{buildroot}%{_bindir}
-install -m 755 apricots/apricots %{buildroot}%{_bindir}
-mkdir -p %{buildroot}%{_datadir}/apricots
-install -m 644 apricots/*.wav %{buildroot}%{_datadir}/apricots
+%make_install
 mkdir -p %{buildroot}%{_sysconfdir}
-install -m 644 apricots/apricots.cfg %{buildroot}%{_sysconfdir}
+install -m 644 apricots/data/apricots.cfg %{buildroot}%{_sysconfdir}
+rm %{buildroot}%{_datadir}/apricots/apricots.cfg
 ln -s ../../..%{_sysconfdir}/apricots.cfg %{buildroot}%{_datadir}/apricots/apricots.cfg
-install -m 644 apricots/*.psf %{buildroot}%{_datadir}/apricots
-install -m 644 apricots/*.shapes %{buildroot}%{_datadir}/apricots
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
 desktop-file-install            \
@@ -73,6 +65,9 @@ install -p -m 644 %{SOURCE1} \
 
 
 %changelog
+* Mon Feb 03 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.2.9-1
+- 0.2.9
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

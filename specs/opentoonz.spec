@@ -3,7 +3,7 @@
 
 Name:    opentoonz
 Version: 1.7.1
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: 2D animation software
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -22,6 +22,7 @@ Patch5: opentoonz-1.7.1-kissfft-fix.patch
 Patch6: opentoonz-1.7.0-toonzrle-rm.patch
 Patch7: opentoonz-1.7.0-tzp-tiffiop-fix.patch
 Patch8: opentoonz-1.7.1-appdata.patch
+Patch9: opentoonz-1.7.1-funcptr-fix.patch
 
 BuildRequires: flexiblas-devel
 BuildRequires: boost-devel
@@ -138,6 +139,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Mon Feb 3 2025 Diego Herrera <dherrera@redhat.com> 1.7.1-15
+- Fix ambiguosly defined function pointers
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

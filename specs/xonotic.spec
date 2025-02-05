@@ -120,10 +120,10 @@ sed -i 's/nexuiz/xonotic/g' makefile makefile.inc
 export DP_FS_BASEDIR=%{_datadir}/xonotic
 #export DP_CRYPTO_STATIC_LIBDIR="." 
 #export DP_CRYPTO_RIJNDAEL_STATIC_LIBDIR="."
-make release OPTIM_RELEASE="$RPM_OPT_FLAGS" STRIP=:
-make cl-xonotic OPTIM_RELEASE="$RPM_OPT_FLAGS" STRIP=:
-make sdl-xonotic OPTIM_RELEASE="$RPM_OPT_FLAGS" STRIP=:
-make sv-xonotic OPTIM_RELEASE="$RPM_OPT_FLAGS" STRIP=:
+make release OPTIM_RELEASE="$RPM_OPT_FLAGS -std=gnu17" STRIP=:
+make cl-xonotic OPTIM_RELEASE="$RPM_OPT_FLAGS -std=gnu17" STRIP=:
+make sdl-xonotic OPTIM_RELEASE="$RPM_OPT_FLAGS -std=gnu17" STRIP=:
+make sv-xonotic OPTIM_RELEASE="$RPM_OPT_FLAGS -std=gnu17" STRIP=:
 
 %install
 rm -rf %{buildroot}

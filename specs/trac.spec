@@ -1,6 +1,6 @@
 Name:           trac
 Version:        1.6
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Enhanced wiki and issue tracking system
 License:        BSD-3-Clause
 URL:            http://trac.edgewall.com/
@@ -10,9 +10,11 @@ Source3:        trac.ini-environment_sample
 Source4:        %{name}-README.fedora
 Source5:        trac.wsgi
 
+Patch0:         changeset_17861.diff
+Patch1:         changeset_17862.diff
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-jinja2
 BuildRequires:  python3-markupsafe
 BuildRequires:  make
@@ -44,17 +46,25 @@ development more streamlined and effective.
 %prep
 %setup -q -n Trac-%{version}
 
+%patch -P 0 -p0
+%patch -P 1 -p0
+
 find contrib -type f -exec chmod -x '{}' \;
 # don't package windows specific files
 rm -f contrib/trac-post-commit-hook.cmd
 cp -a %{SOURCE4} README.fedora
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l '[Tt]rac*'
 
 install -dm 755 $RPM_BUILD_ROOT%{_var}/www/cgi-bin
 
@@ -71,16 +81,17 @@ install -dm 755 $RPM_BUILD_ROOT%{_sbindir}
 #%%check
 #PYTHONPATH=$(pwd) PYTHON=/usr/bin/python3 make test
 
-%files
-%license COPYING
+%files -f %{pyproject_files}
 %doc AUTHORS ChangeLog INSTALL* README* RELEASE* THANKS UPGRADE* contrib/
 %{_bindir}/trac-admin
 %{_bindir}/tracd
-%{python3_sitelib}/[Tt]rac*/
 %dir /etc/trac
 %config(noreplace) /etc/trac/*
 
 %changelog
+* Mon Feb 03 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.6-6
+- Patches for PG exception.
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

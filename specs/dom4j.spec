@@ -29,8 +29,8 @@
 #
 
 Name:           dom4j
-Version:        2.0.3
-Release:        14%{?dist}
+Version:        2.1.4
+Release:        1%{?dist}
 Epoch:          0
 Summary:        Open Source XML framework for Java
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -50,6 +50,7 @@ BuildRequires:  mvn(javax.xml.bind:jaxb-api)
 BuildRequires:  mvn(org.testng:testng)
 BuildRequires:  mvn(xerces:xercesImpl)
 BuildRequires:  mvn(xalan:xalan)
+BuildRequires:  mvn(xalan:serializer)
 
 %description
 dom4j is an Open Source XML framework for Java. dom4j allows you to read,
@@ -76,6 +77,7 @@ sed -i 's/runtime/compile/' pom.xml
 %pom_add_dep xalan:xalan::test
 %pom_add_dep org.testng:testng:6.8.21:test
 %pom_add_dep xerces:xercesImpl::test
+%pom_add_dep xalan:serializer
 
 # Remove support for code which depends on ancient / deprecated classes
 # xpp2 (deprecated and not developed since 2003)
@@ -115,6 +117,13 @@ rm src/test/java/org/dom4j/util/PerThreadSingletonTest.java
 
 
 %changelog
+* Mon Feb  3 2025 Hans de Goede <hdegoede@redhat.com> - 0:2.1.4-1
+- Update to latest upstream 2.1.4 release
+- Resolves FTBFS issues
+- Resolves: #2266640
+- Resolves: #2300627
+- Resolves: #2340089
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0:2.0.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

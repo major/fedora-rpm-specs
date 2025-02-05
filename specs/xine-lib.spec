@@ -1,3 +1,4 @@
+%global         build_type_safety_c 2
 %define         _legacy_common_support 1
 %global         plugin_abi  2.11
 %global         codecdir    %{_libdir}/codecs
@@ -350,6 +351,8 @@ mkdir -p %{buildroot}%{codecdir}
 %changelog
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.13-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+- Fix build using global build_type_safety_c 2 more information in
+  /usr/share/doc/redhat-rpm-config/buildflags.md "Controlling Type Safety"
 
 * Mon Dec 30 2024 Xavier Bachelot <xavier@bachelot.org>- 1.2.13-18
 - Rebuild for libnfs 6

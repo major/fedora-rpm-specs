@@ -3,7 +3,7 @@
 
 Summary:   Local caching server
 Name:      passim
-Version:   0.1.8
+Version:   0.1.9
 Release:   %autorelease
 License:   LGPL-2.1-or-later
 URL:       https://github.com/hughsie/%{name}
@@ -84,7 +84,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_datadir}/dbus-1/system.d/org.freedesktop.Passim.conf
 %{_datadir}/dbus-1/interfaces/org.freedesktop.Passim.xml
 %{_datadir}/dbus-1/system-services/org.freedesktop.Passim.service
-%{_datadir}/icons/hicolor/scalable/apps/org.freedesktop.Passim.png
+%{_datadir}/icons/hicolor/scalable/apps/org.freedesktop.Passim.svg
+%{_datadir}/icons/hicolor/128x128/apps/org.freedesktop.Passim.png
 %{_datadir}/metainfo/org.freedesktop.Passim.metainfo.xml
 %{_libdir}/girepository-1.0/Passim-1.0.typelib
 %{_libexecdir}/passimd

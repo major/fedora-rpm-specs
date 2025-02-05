@@ -1,9 +1,9 @@
 %global major_version 1
 %global minor_version 3
-%global patch_version 6
+%global patch_version 7
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 5
+%global baserelease 1
 %define _unpackaged_files_terminate_build 0
 
 Name:           credentials-fetcher
@@ -18,9 +18,11 @@ Source0:        https://github.com/aws/credentials-fetcher/archive/refs/tags/v.%
 # fix protobuf detection for modern protobuf
 # https://github.com/aws/credentials-fetcher/pull/116
 # Cherry-picked to v.1.3.6 and re-created against the released archive
-Patch:          credentials-fetcher-1.3.6-fixprotobuf.patch
+# Patch:          credentials-fetcher-1.3.6-fixprotobuf.patch
 # Bump dotnet-sdk to 8.0
-Patch:          credentials-fetcher-1.3.6-fix-dotnet-version.patch
+#Patch:          credentials-fetcher-1.3.6-fix-dotnet-version.patch
+# Disable integ-tests for Fedora, for now
+Patch:          credentials-fetcher-1.3.7-disable-integ-tests-for-Fedora.patch
 
 BuildRequires:  cmake3 make chrpath openldap-clients grpc-devel gcc-c++ glib2-devel jsoncpp-devel
 BuildRequires:  openssl-devel zlib-devel protobuf-devel re2-devel krb5-devel systemd-devel
@@ -30,9 +32,8 @@ BuildRequires:  systemd-rpm-macros dotnet-sdk-8.0 grpc-plugins
 BuildRequires:  aws-sdk-cpp-devel aws-sdk-cpp aws-sdk-cpp-static
 %endif
  
-Requires: bind-utils openldap openldap-clients awscli dotnet-runtime-6.0 jsoncpp
+Requires: bind-utils openldap openldap-clients awscli dotnet-runtime-8.0 jsoncpp
 
-# No one likes you i686
 ExclusiveArch: x86_64 aarch64 s390x
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/CMake/
@@ -78,6 +79,9 @@ ctest3
 %attr(0700, -, -) /usr/sbin/credentials_fetcher_utf16_private.runtimeconfig.json
 
 %changelog
+* Mon Feb 3 2025 Samiullah Mohammed <samiull@amazon.com> - 1.3.7-1
+- Fixes for 1.3.7
+
 * Thu Jan 30 2025 Samiullah Mohammed <samiull@amazon.com> - 1.3.6-5
 - Bump dotnet sdk version
 

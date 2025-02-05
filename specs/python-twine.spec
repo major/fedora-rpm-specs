@@ -5,11 +5,10 @@
 %bcond_with internet
 
 Name:           python-%{srcname}
-Version:        6.0.1
-Release:        2%{?dist}
+Version:        6.1.0
+Release:        1%{?dist}
 Summary:        Collection of utilities for interacting with PyPI
 
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 URL:            https://github.com/pypa/%{srcname}
 Source0:        %{pypi_source}
@@ -105,6 +104,10 @@ install -p -D -T -m 0644 docs/build/man/%{srcname}.1 %{buildroot}%{_mandir}/man1
 %{_bindir}/twine
 
 %changelog
+* Wed Jan 29 2025 Karolina Surma <ksurma@redhat.com> - 6.1.0-1
+- Update to 6.1.0
+- Fixes: rhbz#2339188
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -2,8 +2,8 @@
 %bcond_without perl_Attean_enables_optional_test
 
 Name:           perl-Attean
-Version:        0.034
-Release:        3%{?dist}
+Version:        0.035
+Release:        2%{?dist}
 Summary:        Semantic web framework
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Attean
@@ -13,6 +13,9 @@ Source0:        https://cpan.metacpan.org/authors/id/G/GW/GWILLIAMS/Attean-%{ver
 Patch0:         Attean-0.017-Canonize-shebangs.patch
 # Disable changelog generator and other not helpful dependencies
 Patch1:         Attean-0.034-Disable-unwanted-build-time-dependecies.patch
+# Add missing modules from a git tree, bug #2341871,
+# <https://github.com/kasei/attean/issues/174>
+Patch2:         Attean-0.035-Copy-missing-modules-from-a-git-tree.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -49,7 +52,6 @@ BuildRequires:  perl(HTTP::Response)
 BuildRequires:  perl(I18N::LangTags)
 BuildRequires:  perl(IRI) >= 0.005
 BuildRequires:  perl(JSON)
-BuildRequires:  perl(List::MoreUtils)
 BuildRequires:  perl(List::Util)
 BuildRequires:  perl(LWP::UserAgent)
 BuildRequires:  perl(Math::Cartesian::Product) >= 1.008
@@ -220,6 +222,12 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Feb 03 2025 Petr Pisar <ppisar@redhat.com> - 0.035-2
+- Add missing modules from a git tree (bug #2341871)
+
+* Mon Feb 03 2025 Petr Pisar <ppisar@redhat.com> - 0.035-1
+- 0.035 bump
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.034-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

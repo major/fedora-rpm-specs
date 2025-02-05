@@ -2,7 +2,7 @@
 # Upstream is currently using SVN
 # SVN path: http://svn.sourceforge.jp/svnroot/yash/yash/trunk
 
-%global		mainver		2.57
+%global		mainver		2.58
 %global		docver		%{mainver}
 
 %global		yashdocdir		%{_datadir}/doc/%{name}-doc
@@ -69,11 +69,7 @@ This package contains document files for %{name}.
 %build
 # This package use configure not based on autotools...
 # won't accept --libdir=
-env \
-	CC="%{__cc}" \
-	CFLAGS="%{optflags}" \
-	\
-	./configure \
+./configure \
 	--prefix=%{_prefix} \
 	--exec-prefix=%{_exec_prefix} \
 	--bindir=%{_bindir} \
@@ -138,6 +134,9 @@ exit 0
 %lang(ja)	%{yashdocdir}/ja/
 
 %changelog
+* Mon Feb 03 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.58-2
+- 2.58
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.57-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

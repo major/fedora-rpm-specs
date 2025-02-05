@@ -9,8 +9,8 @@ ExcludeArch: %{ix86}
 %global giturl https://github.com/garrigue/labltk
 
 Name:          ocaml-labltk
-Version:       8.06.14
-Release:       3%{?dist}
+Version:       8.06.15
+Release:       1%{?dist}
 
 Summary:       Tcl/Tk interface for OCaml
 
@@ -134,6 +134,10 @@ sed 's/8\.06\.6/%{version}/' support/META > \
 
 
 %changelog
+* Mon Feb 03 2025 Richard W.M. Jones <rjones@redhat.com> - 8.06.15-1
+- New upstream version 8.06.15
+- Includes Tcl 9 support (RHBZ#2337740)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.06.14-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
