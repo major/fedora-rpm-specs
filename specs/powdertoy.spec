@@ -9,7 +9,7 @@ URL: https://powdertoy.co.uk
 # src/lua/ is MIT
 License: GPL-3.0-only AND Apache-2.0 AND MIT
 
-Version: 99.1.380
+Version: 99.2.382
 Release: 1%{?dist}
 
 %global repo_owner The-Powder-Toy
@@ -146,6 +146,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rtld_name}.m
 
 
 %changelog
+* Tue Feb 04 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 99.2.382-1
+- Update to v99.2.382
+
 * Sat Jan 25 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 99.1.380-1
 - Update to v99.1.380
 

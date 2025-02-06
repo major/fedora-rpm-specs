@@ -2,9 +2,11 @@
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
+%global tracker_obsoletes_version 3.8
+
 Name:           tinysparql
 Version:        3.8~rc
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Desktop-neutral metadata database and search tool
 
 License:        GPL-2.0-or-later
@@ -35,7 +37,7 @@ BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  /usr/bin/dbus-run-session
 
 # renamed in F42
-Obsoletes:      tracker < 3.7.3-4
+Obsoletes:      tracker < %{tracker_obsoletes_version}
 Provides:       tracker = %{version}-%{release}
 Provides:       tracker%{?_isa} = %{version}-%{release}
 
@@ -67,7 +69,7 @@ Recommends:     %{name}%{?_isa} = %{version}-%{release}
 This package contains the libtinysparql library.
 
 # renamed in F42
-Obsoletes:      libtracker-sparql < 3.7.3-4
+Obsoletes:      libtracker-sparql < %{tracker_obsoletes_version}
 Provides:       libtracker-sparql = %{version}-%{release}
 Provides:       libtracker-sparql%{?_isa} = %{version}-%{release}
 
@@ -162,6 +164,9 @@ This package contains the documentation for %{name}.
 
 
 %changelog
+* Tue Feb 04 2025 Nieves Montero <nmontero@redhat.com> - 3.8.rc-5
+- Version bump
+
 * Fri Jan 31 2025 Nieves Montero <nmontero@redhat.com> - 3.8.rc-4
 - Version bump
 

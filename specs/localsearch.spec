@@ -31,7 +31,7 @@
 
 Name:           localsearch
 Version:        3.8~rc
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Localsearch and metadata extractors
 
 # The indexer is a mix of GPLv2 and LGPLv2+ code
@@ -86,7 +86,7 @@ BuildRequires:  pkgconfig(upower-glib)
 %endif
 
 # renamed in F42
-Obsoletes:      tracker-miners < 3.7.3-3
+Obsoletes:      tracker-miners < 3.8
 Provides:       tracker-miners = %{version}-%{release}
 Provides:       tracker-miners%{?_isa} = %{version}-%{release}
 
@@ -177,6 +177,9 @@ install -D -m 0755 %{SOURCE1} %{buildroot}%{_bindir}/%{name}-flatpak-fixup.sh
 
 
 %changelog
+* Tue Feb 04 2025 Nieves Montero <nmontero@redhat.com> - 3.8~rc-8
+- Bump the version of the tracker-miners obsoletes
+
 * Wed Jan 29 2025 Nieves Montero <nmontero@redhat.com> - 3.8~rc-7
 - Delete a Requires line
 

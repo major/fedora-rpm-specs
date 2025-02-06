@@ -204,7 +204,7 @@ Recommends:     %{name}-dri-drivers%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{re
 
 %package libGL-devel
 Summary:        Mesa libGL development package
-Requires:       %{name}-libGL%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       (%{name}-libGL%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release} if %{name}-libGL%{?_isa})
 Requires:       libglvnd-devel%{?_isa} >= 1:1.3.2
 Provides:       libGL-devel
 Provides:       libGL-devel%{?_isa}
@@ -225,7 +225,7 @@ Recommends:     %{name}-dri-drivers%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{re
 
 %package libEGL-devel
 Summary:        Mesa libEGL development package
-Requires:       %{name}-libEGL%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       (%{name}-libEGL%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release} if %{name}-libEGL%{?_isa})
 Requires:       libglvnd-devel%{?_isa} >= 1:1.3.2
 Requires:       %{name}-khr-devel%{?_isa}
 Provides:       libEGL-devel

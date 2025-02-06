@@ -19,11 +19,13 @@
 
 %global __cmake_in_source_build 1
 
+%global toolchain clang
+
 ExclusiveArch: x86_64
 
 Name:           hiprt
-Version:        2.4
-%global xver    6b6daf9
+Version:        2.5
+%global xver    cfa5e2a
 Release:        %autorelease -e %{xver}
 
 License:        Apache-2.0 AND BSD-3-Clause AND MIT AND NCSA
@@ -32,17 +34,16 @@ URL:            https://github.com/GPUOpen-LibrariesAndSDKs/%{upstreamname}
 Source0:        %{url}/archive/refs/tags/%{version}.%{xver}.tar.gz
 # https://github.com/GPUOpen-LibrariesAndSDKs/HIPRT/issues/22
 Patch0:         0001-hiprt-soversion.patch
-# https://github.com/GPUOpen-LibrariesAndSDKs/HIPRT/issues/21
-Patch1:         0001-hiprt-removed-parallel-jobs.patch
 # Not upstreamable, nvidia is not an option for fedora but is for upstream.
 Patch2:         0001-disable-cuda-test.patch
 
-BuildRequires:  clang(major) = 18
 BuildRequires:  cmake
+BuildRequires:  gcc-c++
 BuildRequires:  ninja-build
 BuildRequires:  python-unversioned-command
 BuildRequires:  python3-devel
-BuildRequires:  rocm-comgr-devel
+BuildRequires:  rocm-clang
+BuildRequires:  rocm-compilersupport-macros
 BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-runtime-devel
 
@@ -78,7 +79,9 @@ sed -i -e 's@-fvisibility=hidden@-fvisibility=default@' CMakeLists.txt
 %build
 
 %cmake -G Ninja $src \
-      -DCMAKE_BUILD_TYPE=%{build_type} \
+       -DCMAKE_BUILD_TYPE=%{build_type} \
+       -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/clang++ \
+       -DCMAKE_C_COMPILER=%rocmllvm_bindir/clang \
       -DBAKE_KERNEL=OFF \
       -DBITCODE=ON \
       -DPRECOMPILE=ON \

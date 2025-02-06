@@ -1,13 +1,13 @@
 %global srcname FormEncode
 
 Name:           python-formencode
-Version:        2.1.0
-Release:        7%{?dist}
+Version:        2.1.1
+Release:        1%{?dist}
 Summary:        HTML form validation, generation, and convertion package  
 # Automatically converted from old format: Python - review is highly recommended.
 License:        LicenseRef-Callaway-Python
 URL:            http://formencode.org/
-Source0:        https://files.pythonhosted.org/packages/source/F/%{srcname}/%{srcname}-%{version}.tar.gz
+Source0:        %pypi_source formencode
 BuildArch:      noarch
 
 ## For test suite
@@ -53,7 +53,7 @@ contains the locale files for localizing the message strings in code within the
 library.
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n formencode-%{version}
 
 
 %build
@@ -101,6 +101,9 @@ rm -rf $RPM_BUILD_ROOT%{python3_sitelib}/formencode/i18n
 %files -n python-formencode-langpacks -f %{srcname}.lang
 
 %changelog
+* Fri Jan 31 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.1.1-1
+- Update to upstream.
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

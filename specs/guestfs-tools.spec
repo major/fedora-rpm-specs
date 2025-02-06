@@ -16,7 +16,7 @@
 Summary:       Tools to access and modify virtual machine disk images
 Name:          guestfs-tools
 Version:       1.53.5
-Release:       3%{?dist}
+Release:       4%{?dist}
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
 
 # Build only for architectures that have a kernel
@@ -61,6 +61,7 @@ BuildRequires: ncurses-devel
 %ifarch x86_64
 BuildRequires: glibc-static
 %endif
+BuildRequires: ocaml >= 4.08
 BuildRequires: ocaml-libguestfs-devel
 BuildRequires: ocaml-findlib-devel
 BuildRequires: ocaml-gettext-devel
@@ -392,6 +393,9 @@ end
 
 
 %changelog
+* Tue Feb 04 2025 Richard W.M. Jones <rjones@redhat.com> - 1.53.5-4
+- Bump and rebuild (RHBZ#2340602)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.53.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

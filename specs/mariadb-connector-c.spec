@@ -7,7 +7,7 @@
 
 Name:           mariadb-connector-c
 Version:        3.4.3
-Release:        2%{?with_debug:.debug}%{?dist}
+Release:        10%{?with_debug:.debug}%{?dist}
 Summary:        The MariaDB Native Client library (C driver)
 License:        LGPL-2.1-or-later
 Source:         https://archive.mariadb.org/connector-c-%{version}/%{name}-%{version}-src.tar.gz
@@ -123,6 +123,8 @@ rm -r win win-iconv external/zlib
        -DWITH_SSL=OPENSSL \
        -DWITH_MYSQLCOMPAT=ON \
        -DPLUGIN_CLIENT_ED25519=DYNAMIC \
+\
+       -DDEFAULT_SSL_VERIFY_SERVER_CERT=OFF \
 \
        -DINSTALL_LAYOUT=RPM \
        -DINSTALL_BINDIR="bin" \
@@ -250,6 +252,9 @@ install -D -p -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/my.cnf.d/client.cnf
 #      Need to ensure, that the testsuite will also run properly on 'fedpkg local' buid, not damaging the host machine
 
 %changelog
+* Tue Feb 04 2025 Michal Schorm <mschorm@redhat.com> - 3.4.3-10
+- Disable option that requires all connections to be SSL encrypted by default
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

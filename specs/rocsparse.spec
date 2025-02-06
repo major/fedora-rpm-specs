@@ -1,6 +1,6 @@
 %global upstreamname rocSPARSE
 %global rocm_release 6.3
-%global rocm_patch 0
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -40,7 +40,7 @@
 
 Name:           rocsparse
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        SPARSE implementation for ROCm
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -169,6 +169,9 @@ fi
 %endif
 
 %changelog
+* Wed Jan 29 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-1
+- Update to 6.3.2
+
 * Mon Jan 20 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-4
 - multithread compress
 

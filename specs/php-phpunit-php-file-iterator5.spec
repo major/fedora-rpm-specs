@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-phpunit-php-file-iterator5
 #
-# Copyright (c) 2009-2024 Christof Damian, Remi Collet
+# Copyright (c) 2009-2025 Christof Damian, Remi Collet
 #
 # License: MIT
 # http://opensource.org/licenses/MIT
@@ -9,7 +9,7 @@
 #
 
 # disabled until phpunit11 available
-%bcond_with          tests
+%bcond_without       tests
 
 %global gh_commit    118cfaaa8bc5aef3287bf315b6060b1174754af6
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
@@ -28,7 +28,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        5.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        FilterIterator implementation based on a list of suffixes, version %{major}
 
 License:        BSD-3-Clause
@@ -111,6 +111,9 @@ exit $ret
 
 
 %changelog
+* Tue Feb  4 2025 Remi Collet <remi@remirepo.net> - 5.1.0-3
+- enable test suite
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

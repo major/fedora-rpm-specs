@@ -8,7 +8,7 @@ http requests and their responses.}
 
 Name:		python-%{srcname}
 Version:	1.0.8
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	HTTP server for pytest
 
 License:	MIT
@@ -17,12 +17,16 @@ Source0:	%{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
 Patch0:		pyproject.patch
 
+# https://fedoraproject.org/wiki/Changes/DeprecatePythonToml
+# Use tomllib instead of toml (used only in tests)
+# https://github.com/csernazs/pytest-httpserver/pull/377
+Patch1:		tomllib.patch
+
 BuildArch:	noarch
 
 BuildRequires:	python3-devel
 BuildRequires:	python3-pytest
 BuildRequires:	python3-requests
-BuildRequires:	python3-toml
 BuildRequires:	pyproject-rpm-macros
 
 %description
@@ -60,6 +64,10 @@ sed -i '/types-requests/d' pyproject.toml
 %doc README.md CHANGES.rst CONTRIBUTION.md
 
 %changelog
+* Tue Feb 04 2025 Miro Hrončok <mhroncok@redhat.com> - 1.0.8-7
+- Use tomllib instead of toml (used only in tests)
+- https://fedoraproject.org/wiki/Changes/DeprecatePythonToml
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

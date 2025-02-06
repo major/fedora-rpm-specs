@@ -7,7 +7,7 @@
 %endif
 
 Name:           gtk4-layer-shell
-Version:        1.0.2
+Version:        1.0.3
 Release:        %autorelease
 Summary:        Library to create panels and other desktop components for Wayland
 

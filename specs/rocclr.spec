@@ -6,7 +6,7 @@
 
 %global rocm_major 6
 %global rocm_minor 3
-%global rocm_patch 1
+%global rocm_patch 2
 %global rocm_release %{rocm_major}.%{rocm_minor}
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -46,7 +46,7 @@
 
 Name:           rocclr
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm Compute Language Runtime
 Url:            https://github.com/ROCm-Developer-Tools/clr
 License:        MIT
@@ -81,6 +81,9 @@ BuildRequires:  perl-generators
 BuildRequires:  gcc-c++
 BuildRequires:  hipcc
 BuildRequires:  libffi-devel
+%if 0%{?suse_version}
+BuildRequires:  libzstd-devel
+%endif
 BuildRequires:  perl
 %if 0%{?suse_version}
 BuildRequires:  pkgconfig(gl)
@@ -210,6 +213,11 @@ sed -i "/install(PROGRAMS.*{[Hh][Ii][Pp][Cc]/d" hipamd/CMakeLists.txt
 sed -i 's/^\(HTML_TIMESTAMP.*\)YES/\1NO/' \
     HIP-rocm-%{version}/docs/doxygen-input/doxy.cfg
 
+# Use cpack is not needed when we are doing the packaging here
+# Gets confused on TW
+sed -i -e 's@add_subdirectory(packaging)@#add_subdirectory(packaging)@' hipamd/CMakeLists.txt
+sed -i -e 's@add_subdirectory(packaging)@#add_subdirectory(packaging)@' opencl/CMakeLists.txt
+
 %build
 
 p=$PWD
@@ -327,6 +335,9 @@ fi
 %endif
 
 %changelog
+* Sun Feb 2 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-1
+- Update to 6.3.2
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

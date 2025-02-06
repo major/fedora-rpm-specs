@@ -3,7 +3,7 @@
 
 Name:    opentoonz
 Version: 1.7.1
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: 2D animation software
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -139,6 +139,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Tue Feb 04 2025 Sérgio Basto <sergio@serjux.com> - 1.7.1-16
+- Rebuild for opencv-4.11.0
+
 * Mon Feb 3 2025 Diego Herrera <dherrera@redhat.com> 1.7.1-15
 - Fix ambiguosly defined function pointers
 

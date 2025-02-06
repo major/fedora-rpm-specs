@@ -1,6 +1,6 @@
 # spec file for php-sebastian-global-state7
 #
-# SPDX-FileCopyrightText:  Copyright 2014-2024 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2014-2025 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -8,7 +8,7 @@
 #
 
 # disabled until phpunit11 available
-%bcond_with          tests
+%bcond_without       tests
 
 %global gh_commit    3be331570a721f9a4b5917f4209773de17f747d7
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
@@ -26,7 +26,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        7.0.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Snapshotting of global state, version %{major}
 
 License:        BSD-3-Clause
@@ -48,7 +48,7 @@ BuildRequires:  (php-composer(sebastian/recursion-context) >= 6.0     with php-c
 #        "ext-dom": "*",
 #        "phpunit/phpunit": "^10.0"
 BuildRequires:  php-dom
-BuildRequires:  phpunit10
+BuildRequires:  phpunit11
 %endif
 
 # from composer.json, "require": {
@@ -132,6 +132,9 @@ exit $ret
 
 
 %changelog
+* Tue Feb  4 2025 Remi Collet <remi@remirepo.net> - 7.0.2-3
+- enable test suite
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

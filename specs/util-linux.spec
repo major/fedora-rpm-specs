@@ -56,6 +56,9 @@ Source13: util-linux-su-l.pamd
 Source14: util-linux-runuser.pamd
 Source15: util-linux-runuser-l.pamd
 
+# temporary, will be in upstream >= v2.41
+Source16: util-linux-uuidd-sysusers.conf
+
 ### Obsoletes & Conflicts & Provides
 Conflicts: initscripts < 9.79-4
 Conflicts: bash-completion < 1:2.1-1
@@ -82,7 +85,8 @@ Obsoletes: util-linux-user < 2.39-1
 Provides: util-linux-user = %{version}-%{release}
 
 Requires(post): coreutils
-Requires: pam >= 1.1.3-7, /etc/pam.d/system-auth
+Requires: (pam >= 1.1.3-7 if systemd)
+Requires: (/etc/pam.d/system-auth if systemd)
 Requires: audit-libs >= 1.0.6
 Requires: libuuid = %{version}-%{release}
 Requires: libblkid = %{version}-%{release}
@@ -370,6 +374,8 @@ mkdir -p %{buildroot}%{_sysconfdir}/{pam.d,security/console.apps}
 # And a dirs uuidd needs that the makefiles don't create
 install -d %{buildroot}/run/uuidd
 install -d %{buildroot}/var/lib/libuuid
+
+install -m 644 -D %{SOURCE16} %{buildroot}%{_sysusersdir}/uuidd.conf
 
 # /etc/adjtime
 install -m 644 %{SOURCE5} %{buildroot}%{_sysconfdir}/adjtime
@@ -892,6 +898,7 @@ fi
 %dir %attr(2775, uuidd, uuidd) /run/uuidd
 %{compldir}/uuidd
 %{_tmpfilesdir}/uuidd-tmpfiles.conf
+%{_sysusersdir}/uuidd.conf
 
 
 %files -n libfdisk

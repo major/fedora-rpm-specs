@@ -1,6 +1,6 @@
 Name:           isns-utils
 Version:        0.103
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The iSNS daemon and utility programs
 
 License:        LGPL-2.1-or-later
@@ -82,7 +82,8 @@ install -p -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/isnsd.service
 
 
 %files
-%doc COPYING README.md
+%license COPYING
+%doc README.md
 %{_sbindir}/isnsd
 %{_sbindir}/isnsadm
 %{_sbindir}/isnsdd
@@ -94,6 +95,7 @@ install -p -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/isnsd.service
 %config(noreplace) %{_sysconfdir}/isns/*
 
 %files libs
+%license COPYING
 %{_libdir}/libisns.so.0
 
 %files devel
@@ -104,6 +106,9 @@ install -p -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/isnsd.service
 
 
 %changelog
+* Tue Feb 04 2025 Chris Leech <cleech@redhat.com> - 0.103-2
+- Upstream version 0.103
+
 * Mon Feb 03 2025 Chris Leech <cleech@redhat.com> - 0.101-12
 - Add explicit requires with version on subpackage isns-utils-lib
 

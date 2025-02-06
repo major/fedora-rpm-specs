@@ -15,16 +15,13 @@
 %bcond datetime_tests %{undefined rhel}
 
 Name:           babel
-Version:        2.16.0
+Version:        2.17.0
 Release:        %autorelease
 Summary:        Tools for internationalizing Python applications
 
 License:        BSD-3-Clause
 URL:            https://babel.pocoo.org/
 Source:         %{pypi_source}
-
-# https://github.com/python-babel/babel/pull/1155
-Patch:          0001-Adjust-docs-conf.py-to-add-compatibility-with-sphinx.patch
 
 BuildArch:      noarch
 
@@ -34,7 +31,7 @@ BuildRequires:  python3-devel
 BuildRequires:  coreutils
 # The Python test dependencies are not generated from tox.ini,
 # because it would require complex patching to be usable
-# and becasue we want to avoid the tox dependency in ELN/RHEL.
+# and because we want to avoid the tox dependency in ELN/RHEL.
 BuildRequires:  python3-pytest
 %if %{with datetime_tests}
 BuildRequires:  python3-freezegun

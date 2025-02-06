@@ -41,13 +41,12 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -p1 -a 1 -n %{realname}-%{version}
-iconv -f iso8859-1 -t utf8 NEWS -o NEWS.utf8
+iconv -f iso8859-1 -t utf8 NEWS > NEWS.utf8
 touch -r NEWS.utf8 NEWS
 mv NEWS.utf8 NEWS
-iconv -f iso8859-1 -t utf8 CREDITS -o CREDITS.utf8
+iconv -f iso8859-1 -t utf8 CREDITS > CREDITS.utf8
 touch -r CREDITS.utf8 CREDITS
 mv CREDITS.utf8 CREDITS
-chmod -x NEWS CREDITS
 # fixup pc files
 sed -i 's|libdir=${exec_prefix}/lib|libdir=@libdir@|' pkgconfig/clan*.pc.in
 sed -i 's|Libs:   -L${libdir}|Libs:   -L${libdir}/%{realname}-1.0|' \

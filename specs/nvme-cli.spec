@@ -5,7 +5,7 @@
 
 Name:           nvme-cli
 Version:        2.11
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        NVMe management command line interface
 
 License:        GPL-2.0-only
@@ -68,6 +68,30 @@ mv %{buildroot}%{_pkgdocdir}/nvme %{buildroot}%{_pkgdocdir}/html
 rm -rf %{buildroot}%{_pkgdocdir}/nvme
 
 
+%post
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Scriptlets/#_systemd
+%systemd_post nvmefc-boot-connections.service
+%systemd_post nvmf-autoconnect.service
+%systemd_post nvmf-connect@.service
+%systemd_post nvmf-connect-nbft.service
+if [ -S /run/udev/control ]; then
+    udevadm control --reload
+    udevadm trigger
+fi
+
+%preun
+%systemd_preun nvmefc-boot-connections.service
+%systemd_preun nvmf-autoconnect.service
+%systemd_preun nvmf-connect@.service
+%systemd_preun nvmf-connect-nbft.service
+
+%postun
+%systemd_postun nvmefc-boot-connections.service
+%systemd_postun nvmf-autoconnect.service
+%systemd_postun nvmf-connect@.service
+%systemd_postun nvmf-connect-nbft.service
+
+
 %files
 %license LICENSE
 %doc %{_pkgdocdir}
@@ -93,6 +117,10 @@ rm -rf %{buildroot}%{_pkgdocdir}/nvme
 
 
 %changelog
+* Tue Feb 04 2025 Tomas Bzatek <tbzatek@redhat.com> - 2.11-3
+- Add systemd units scriptlets
+- Reload udevd after installing udev rules
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

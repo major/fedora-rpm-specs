@@ -1,6 +1,6 @@
 Name: liburing
-Version: 2.8
-Release: 2%{?dist}
+Version: 2.9
+Release: 1%{?dist}
 Summary: Linux-native io_uring I/O access library
 License: (GPL-2.0-only WITH Linux-syscall-note OR MIT) AND (LGPL-2.0-or-later OR MIT)
 Source0: https://brick.kernel.dk/snaps/%{name}-%{version}.tar.gz
@@ -53,6 +53,9 @@ for the Linux-native io_uring.
 %{_mandir}/man7/*
 
 %changelog
+* Tue Feb 04 2025 Stefan Hajnoczi <stefanha@redhat.com> - 2.9-1
+- Update to liburing 2.9 (RHBZ#2343530)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

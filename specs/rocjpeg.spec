@@ -19,7 +19,7 @@
 
 Name:           rocjpeg
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A high-performance jpeg decode library for AMD’s GPUs
 
 Url:            https://github.com/ROCm/rocJPEG
@@ -77,6 +77,12 @@ sed -i -e 's@set(ROCM_PATH /opt/rocm@set(__ROCM_PATH /opt/rocm@' samples/*/CMake
 # Fix up test
 sed -i -e 's@{ROCM_PATH}/share@/usr/share@' test/CMakeLists.txt
 
+# cpack cruft in the middle of the configure, this breaks TW 
+sed -i -e 's@file(READ "/etc/os-release" OS_RELEASE)@#file(READ "/etc/os-release" OS_RELEASE)@'  CMakeLists.txt
+sed -i -e 's@string(REGEX MATCH "22.04" UBUNTU_22_FOUND ${OS_RELEASE})@#string(REGEX MATCH "22.04" UBUNTU_22_FOUND ${OS_RELEASE})@'  CMakeLists.txt
+sed -i -e 's@string(REGEX MATCH "SLES" SLES_FOUND ${OS_RELEASE})@#string(REGEX MATCH "SLES" SLES_FOUND ${OS_RELEASE})@' CMakeLists.txt
+sed -i -e 's@string(REGEX MATCH "Mariner" MARINER_FOUND ${OS_RELEASE})@#string(REGEX MATCH "Mariner" MARINER_FOUND ${OS_RELEASE})@' CMakeLists.txt
+
 %build
 
 %cmake \
@@ -87,6 +93,31 @@ sed -i -e 's@{ROCM_PATH}/share@/usr/share@' test/CMakeLists.txt
 %install
 %cmake_install
 
+if [ -f %{buildroot}%{_prefix}/share/doc/rocjpeg/LICENSE ]; then
+    rm %{buildroot}%{_prefix}/share/doc/rocjpeg/LICENSE
+fi
+if [ -f %{buildroot}%{_prefix}/share/doc/rocjpeg-asan/LICENSE ]; then
+    rm %{buildroot}%{_prefix}/share/doc/rocjpeg-asan/LICENSE
+fi
+if [ -f %{buildroot}%{_prefix}/share/doc/rocjpeg-dev/LICENSE ]; then
+    rm %{buildroot}%{_prefix}/share/doc/rocjpeg-dev/LICENSE
+fi
+if [ -f %{buildroot}%{_prefix}/share/doc/rocjpeg-test/LICENSE ]; then
+    rm %{buildroot}%{_prefix}/share/doc/rocjpeg-test/LICENSE
+fi
+if [ -f %{buildroot}%{_prefix}/share/doc/packages/rocjpeg/LICENSE ]; then
+    rm %{buildroot}%{_prefix}/share/doc/packages/rocjpeg/LICENSE
+fi
+if [ -f %{buildroot}%{_prefix}/share/doc/packages/rocjpeg-dev/LICENSE ]; then
+    rm %{buildroot}%{_prefix}/share/doc/packages/rocjpeg-dev/LICENSE
+fi
+if [ -f %{buildroot}%{_prefix}/share/doc/packages/rocjpeg-test/LICENSE ]; then
+    rm %{buildroot}%{_prefix}/share/doc/packages/rocjpeg-test/LICENSE
+fi
+if [ -f %{buildroot}%{_prefix}/share/doc/packages/rocjpeg-asan/LICENSE ]; then
+    rm %{buildroot}%{_prefix}/share/doc/packages/rocjpeg-asan/LICENSE
+fi
+
 # Need to install first
 %if %{with test}
 %check
@@ -94,8 +125,7 @@ sed -i -e 's@{ROCM_PATH}/share@/usr/share@' test/CMakeLists.txt
 %endif
 
 %files
-%license /usr/share/doc/%{name}/LICENSE
-%exclude /usr/share/doc/%{name}-*/LICENSE
+%license LICENSE
 %dir %{_docdir}/%{name}
 %{_libdir}/lib%{name}.so.0{,.*}
 
@@ -105,6 +135,9 @@ sed -i -e 's@{ROCM_PATH}/share@/usr/share@' test/CMakeLists.txt
 %{_datadir}/%{name}
 
 %changelog
+* Tue Feb 4 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-4
+- Fix TW build
+
 * Mon Jan 20 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-3
 - multithread compress
 

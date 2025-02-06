@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-sebastian-code-unit3
 #
-# SPDX-FileCopyrightText:  Copyright 2024 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2020-2025 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -8,7 +8,7 @@
 #
 
 # disabled until phpunit11 available
-%bcond_with          tests
+%bcond_without       tests
 
 # Sources
 %global gh_commit    ee88b0cdbe74cf8dd3b54940ff17643c0d6543ca
@@ -27,7 +27,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        3.0.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Collection of value objects that represent the PHP code units, version %{major}
 
 License:        BSD-3-Clause
@@ -122,6 +122,9 @@ exit $ret
 
 
 %changelog
+* Tue Feb  4 2025 Remi Collet <remi@remirepo.net> - 3.0.2-3
+- enable test suite
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

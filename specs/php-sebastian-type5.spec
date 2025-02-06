@@ -1,14 +1,14 @@
 # remirepo/fedora spec file for php-sebastian-type5
 #
-# Copyright (c) 2019-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2019-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 
 # disabled until phpunit11 available
-%bcond_with          tests
+%bcond_without       tests
 
 # github
 %global gh_commit    461b9c5da241511a2a0e8f240814fb23ce5c0aac
@@ -27,7 +27,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        5.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Collection of value objects that represent the types of the PHP type system, v%{major}
 
 License:        BSD-3-Clause
@@ -116,6 +116,9 @@ exit $ret
 
 
 %changelog
+* Tue Feb  4 2025 Remi Collet <remi@remirepo.net> - 5.1.0-3
+- enable test suite
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

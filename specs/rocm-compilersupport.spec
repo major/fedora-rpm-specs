@@ -6,7 +6,7 @@
 %global comgr_full_api_ver %{comgr_maj_api_ver}.8.0
 # Upstream tags are based on rocm releases:
 %global rocm_release 6.3
-%global rocm_patch 1
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 # What LLVM is upstream using (use LLVM_VERSION_MAJOR from llvm/CMakeLists.txt):
 %global llvm_maj_ver 18
@@ -51,13 +51,18 @@
 %global build_type DEBUG
 %else
 %global build_type RelWithDebInfo
-%global debug_package %{nil}
 %endif
+
+# Older hipcc was perl, it has been deprecated
+%bcond perl      0
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}
-Release:        37.rocm%{rocm_version}%{?dist}
+Release:        38.rocm%{rocm_version}%{?dist}
 Summary:        Various AMD ROCm LLVM related services
+%if 0%{?suse_version}
+Group:          Development/Languages/Other
+%endif
 
 Url:            https://github.com/ROCm/llvm-project
 # hipcc is MIT, comgr and device-libs are NCSA:
@@ -631,7 +636,7 @@ export LD_LIBRARY_PATH=$PWD/build-llvm-2/lib
        -DCMAKE_INSTALL_PREFIX=%{bundle_prefix} \
        -DCMAKE_INSTALL_RPATH=%{bundle_prefix}/lib \
        -DCMAKE_INSTALL_LIBDIR=lib \
-       -DCLANG_DEFAULT_LINKER=%{bundle_prefix}/bin/ld.lld \
+       -DCLANG_DEFAULT_LINKER=lld \
        -DLLVM_ENABLE_LLD=ON \
        -DLLVM_TOOL_COMPILER_RT_BUILD=ON \
        -DLLVM_TOOL_LIBCXXABI_BUILD=ON \
@@ -881,10 +886,15 @@ chmod a-x %{buildroot}%{bundle_prefix}/share/opt-viewer/style.css
 
 %endif
 
+%if %{with perl}
 # Fix perl module files installation:
 # Eventually upstream plans to deprecate Perl usage, see README.md
 mkdir -p %{buildroot}%{perl_vendorlib}
 mv %{buildroot}%{_bindir}/hip*.pm %{buildroot}%{perl_vendorlib}
+%else
+rm %{buildroot}%{_bindir}/hip*.pm
+rm %{buildroot}%{_bindir}/hip*.pl
+%endif
 
 #Clean up dupes:
 %if 0%{?fedora} || 0%{?suse_version}
@@ -924,9 +934,15 @@ mv %{buildroot}%{_bindir}/hip*.pm %{buildroot}%{perl_vendorlib}
 %files -n hipcc
 %license amd/hipcc/LICENSE.txt
 %doc amd/hipcc/README.md
-%{_bindir}/hipcc{,.pl,.bin}
-%{_bindir}/hipconfig{,.pl,.bin}
+%{_bindir}/hipcc
+%{_bindir}/hipconfig
+
+%if %{with perl}
+%{_bindir}/hipcc.pl
+%{_bindir}/hipconfig.pl
 %{perl_vendorlib}/hip*.pm
+%endif
+
 %if 0%{?rhel} || 0%{?fedora}
 %exclude %{_docdir}/hipcc
 %endif
@@ -1142,6 +1158,11 @@ mv %{buildroot}%{_bindir}/hip*.pm %{buildroot}%{perl_vendorlib}
 %{bundle_prefix}/lib/libc++.so.*
 %{bundle_prefix}/lib/libc++abi.so.*
 
+%if 0%{?suse_version}
+%post -n rocm-libc++ -p /sbin/ldconfig
+%postun -n rocm-libc++ -p /sbin/ldconfig
+%endif
+
 %files -n rocm-libc++-devel
 %{bundle_prefix}/include/c++/
 %{bundle_prefix}/lib/libc++.so
@@ -1155,6 +1176,12 @@ mv %{buildroot}%{_bindir}/hip*.pm %{buildroot}%{perl_vendorlib}
 %endif
 
 %changelog
+* Sat Feb 1 2025 Tom Rix <Tom.Rix@amd.com> - 18-38.rocm6.3.2
+- Update to 6.3.2
+- Do not use full path for linker
+- Enable debug info
+- Remove hipcc and hipconfig perl options
+
 * Sat Jan 25 2025 Tom Rix <Tom.Rix@amd.com> - 18-37.rocm6.3.1
 - Fix the fixed shebangs
 - clang is used to find the rocm install, change /opt/rocm -> /usr

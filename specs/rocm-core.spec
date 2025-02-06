@@ -1,11 +1,11 @@
 %global upstreamname rocm-core
 %global rocm_release 6.3
-%global rocm_patch 1
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 Name:           rocm-core
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A utility to get the ROCm release version
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -57,6 +57,9 @@ rm -rf %{buildroot}/%{_includedir}/%{name}
 %{_libdir}/cmake/%{name}/*.cmake
 
 %changelog
+* Wed Jan 29 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-1
+- Update to 6.3.2
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

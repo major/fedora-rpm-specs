@@ -6,7 +6,7 @@
 
 Name:               gfal2
 Version:            2.23.1
-Release:            3%{?dist}
+Release:            5%{?dist}
 Summary:            Grid file access library 2.0
 License:            Apache-2.0
 URL:                https://dmc-docs.web.cern.ch/dmc-docs/gfal2/gfal2.html

@@ -17,7 +17,7 @@ URL: https://www.python.org/
 %global prerel a4
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python-2.0.1
 
 
@@ -370,6 +370,10 @@ Patch448: 00448-gh-128916-do-not-set-so_reuseport-on-non--af_inet-sockets-gh-128
 # gh-128889: Zero out memory ctypes for generated struct layout tests (GH-128944)
 Patch449: 00449-gh-128889-zero-out-memory-ctypes-for-generated-struct-layout-tests-gh-128944.patch
 
+# 00450 # 4ab8663661748eb994c09e4ae89f59eb84c5d3ea
+# CVE-2025-0938: Disallow square brackets ([ and ]) in domain names for parsed URLs
+Patch450: 00450-cve-2025-0938-disallow-square-brackets-and-in-domain-names-for-parsed-urls.patch
+
 # (New patches go here ^^^)
 #
 # When adding new patches to "python" and "python3" in Fedora, EL, etc.,
@@ -513,12 +517,12 @@ Provides: bundled(mimalloc) = 2.12
 # We've filtered the automatic requirement out so libs are installable without
 # the main package. This however makes it pulled in by default.
 # See https://bugzilla.redhat.com/show_bug.cgi?id=1547131
-Recommends: %{pkgname}%{?_isa} = %{version}-%{release}
+Recommends: %{pkgname}%{?_isa}
 
 # tkinter is part of the standard library,
 # but it is torn out to save an unwanted dependency on tk and X11.
 # we recommend it when tk is already installed (for better UX)
-Recommends: (%{pkgname}-tkinter%{?_isa} = %{version}-%{release} if tk%{?_isa})
+Recommends: (%{pkgname}-tkinter%{?_isa} if tk%{?_isa})
 
 # The zoneinfo module needs tzdata
 Requires: tzdata
@@ -1713,6 +1717,10 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Tue Feb 04 2025 Charalampos Stratakis <cstratak@redhat.com> - 3.14.0~a4-2
+- Security fix for CVE-2025-0938
+- Fixes: rhbz#2343273
+
 * Mon Jan 20 2025 Karolina Surma <ksurma@redhat.com> - 3.14.0~a4-1
 - Update to Python 3.14.0a4
 

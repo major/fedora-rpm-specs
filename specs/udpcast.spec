@@ -1,13 +1,16 @@
 Name:          udpcast
 Summary:       UDP broadcast file distribution and installation
 Version:       20211207
-Release:       9%{?dist}
-# Automatically converted from old format: GPLv2+ and BSD - review is highly recommended.
-License:       GPL-2.0-or-later AND LicenseRef-Callaway-BSD
+Release:       10%{?dist}
+License:       GPL-2.0-or-later AND BSD-2-Clause-first-lines AND MPL-1.1
 URL:           http://udpcast.linux.lu/
 Source:        https://www.udpcast.linux.lu/download/%{name}-%{version}.tar.gz
+
 # Fix console.c:89:7: warning: ignoring return value of 'read'
 Patch1:        udpcast-20200328-read-warn.patch
+
+# Fix hardcoded sbin dir
+Patch2:        udpcast-20211207-makefile-in.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -59,6 +62,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Feb 04 2025 Lukáš Zapletal <lzap+rpm@redhat.com> - 20211207-10
+- Updated licenses
+- Fedora sbin–>bin patch
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20211207-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

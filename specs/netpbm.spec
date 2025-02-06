@@ -1,10 +1,9 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
-Version:         11.02.00
-Release:         10%{?dist}
+Version:         11.09.00
+Release:         1%{?dist}
 # See copyright_summary for details
-# Automatically converted from old format: BSD and GPLv2 and IJG and MIT and Public Domain - review is highly recommended.
-License:         LicenseRef-Callaway-BSD AND GPL-2.0-only AND IJG AND LicenseRef-Callaway-MIT AND LicenseRef-Callaway-Public-Domain
+License:         BSD-3-Clause AND GPL-2.0-only AND LGPL-2.1-or-later AND GPL-3.0-or-later AND IJG AND MIT AND NTP AND PostgreSQL AND LicenseRef-MIT-CRL-Xim AND LicenseRef-Fedora-Public-Domain
 URL: http://netpbm.sourceforge.net/
 # Source0 is prepared by
 # svn checkout https://svn.code.sf.net/p/netpbm/code/advanced netpbm-%%{version}
@@ -12,7 +11,6 @@ URL: http://netpbm.sourceforge.net/
 # svn checkout https://svn.code.sf.net/p/netpbm/code/trunk/test netpbm-%%{version}/test
 # and removing the .svn directories ( find -name "\.svn" -type d -print0 | xargs -0 rm -rf )
 Source0:         netpbm-%{version}.tar.xz
-Patch0:          netpbm-security-scripts.patch
 Patch1:          netpbm-security-code.patch
 Patch2:          netpbm-ppmfadeusage.patch
 Patch3:          netpbm-CVE-2017-2587.patch
@@ -29,11 +27,9 @@ Patch14:         netpbm-pamtojpeg2k.patch
 Patch15:         netpbm-manfix.patch
 Patch16:         netpbm-jasper.patch
 Patch17:         netpbm-libdir-so.patch
-Patch18:         netpbm-c99.patch
-Patch19:         netpbm-c99-2.patch
-Patch20:         netpbm-shlib-ldflags.patch
+Patch19:         netpbm-c99.patch
 
-BuildRequires: make
+BuildRequires:   make
 BuildRequires:   libjpeg-devel, libpng-devel, libtiff-devel, flex, gcc, jbigkit-devel
 BuildRequires:   libX11-devel, perl-generators, python3, jasper-devel, libxml2-devel
 BuildRequires:   perl(Config), perl(Cwd), perl(English), perl(Fcntl), perl(File::Basename)
@@ -232,6 +228,10 @@ popd
 %doc userguide/*
 
 %changelog
+* Tue Jan 28 2025 Josef Ridky <jridky@redhat.com> - 11.09.00-1
+- New upstream release 11.09.00 (#2218312)
+- Review and update license field
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 11.02.00-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

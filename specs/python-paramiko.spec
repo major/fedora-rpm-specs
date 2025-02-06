@@ -1,8 +1,8 @@
 %global srcname paramiko
 
 Name:          python-%{srcname}
-Version:       3.5.0
-Release:       2%{?dist}
+Version:       3.5.1
+Release:       1%{?dist}
 Summary:       SSH2 protocol library for python
 
 # No version specified
@@ -92,6 +92,12 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version}
 %doc html/ demos/
 
 %changelog
+* Tue Feb  4 2025 Paul Howarth <paul@city-fan.org> - 3.5.1-1
+- Update to 3.5.1 (rhbz#2343673)
+  - Private key material is now explicitly 'unpadded' during decryption,
+    removing a reliance on some lax OpenSSL behavior and making us compatible
+    with future Cryptography releases (GH#2490)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

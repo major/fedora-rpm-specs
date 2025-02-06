@@ -5,7 +5,7 @@
 %global cargo_install_lib 0
 
 Name:           sad
-Version:        0.4.31
+Version:        0.4.32
 Release:        %autorelease
 Summary:        CLI search and replace tool
 

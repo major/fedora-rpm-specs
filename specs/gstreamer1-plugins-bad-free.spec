@@ -15,7 +15,7 @@
 
 Name:           gstreamer1-plugins-bad-free
 Version:        1.24.11
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 # Automatically converted from old format: LGPLv2+ and LGPLv2 - review is highly recommended.
@@ -790,6 +790,9 @@ EOF
 
 
 %changelog
+* Tue Feb 04 2025 Sérgio Basto <sergio@serjux.com> - 1.24.11-3
+- Rebuild for opencv-4.11.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.24.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

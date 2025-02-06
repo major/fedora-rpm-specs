@@ -2,132 +2,44 @@
 %global debug_package %{nil}
 
 Name: rear
-Version: 2.7
-Release: 14%{?dist}
+Version: 2.9
+Release: 1%{?dist}
 Summary: Relax-and-Recover is a Linux disaster recovery and system migration tool
 URL: https://relax-and-recover.org
 
-License: GPL-3.0-or-later
+License: GPL-3.0-or-later AND LGPL-2.1-or-later
 
-#Source0: https://github.com/rear/rear/archive/%%{version}.tar.gz#/rear-%%{version}.tar.gz
-Source0: rear-%{version}-clean.tar.gz
+Source0: https://github.com/rear/rear/archive/%{version}/rear-%{version}.tar.gz
 # Add cronjob and systemd timer as documentation
 Source1: rear.cron
 Source2: rear.service
 Source3: rear.timer
-# doc/rear-release-notes.txt is CC-BY-ND-3.0, which is not an allowed license
-# for documentation. Therefore we use this Makefile to remove the file
-# before shipping it.
-# Download the upstream tarball and invoke "make rear-%%{version}-clean.tar.gz"
-# while in the tarball's directory:
-Source4: Makefile
+
+# Required for HTML user guide
+BuildRequires: asciidoctor
+BuildRequires: efi-srpm-macros
+# Needed for %%autosetup -S git
+BuildRequires: git-core
+BuildRequires: make
 
 ######################
 # upstream backports #
 ######################
-# pass -y to lvcreate instead of piping the output of yes
-# https://github.com/rear/rear/commit/bca0e7a92af16cb7fb82ef04401cdb3286068081
-Patch101: rear-bz2104005.patch
-
-# fix initrd generation on s390x
-# https://github.com/rear/rear/commit/6d1e5ab96213a0d79489c4296cd1f5a4be645597
-Patch102: rear-bz2130945.patch
-
-# do not use ':' as a field separator in pvdisplay output
-# https://github.com/rear/rear/commit/29e739ae7c0651f8f77c60846bfbe2b6c91baa29
-Patch103: rear-bz2091163.patch
-
-# do not autoformat DASDs on s390x
-# https://github.com/rear/rear/commit/015c1ffd9fa96b01882b068714d3bc3aae3b5168
-Patch104: s390-no-clobber-disks.patch
-
-# continue when extracting shrank files with tar
-# https://github.com/rear/rear/commit/41c2d9b1fbcece4b0890ab92e9f5817621917ad3
-Patch105: rear-device-shrinking-bz2223895.patch
-
-# add secure boot support for OUTPUT=USB
-# https://github.com/rear/rear/commit/46b29195bff7f93cf5bd4c2dd83d69e5676800cb
-Patch106: rear-uefi-usb-secureboot-bz2196445.patch
-
-# remove the lvmdevices file at the end of recovery
-# https://github.com/rear/rear/commit/5a8c5086bf3fc28236436ff3ef27196509f0375d
-Patch107: rear-remove-lvmdevices-bz2145014.patch
-
-# save LVM pool metadata volume size in disk layout
-# https://github.com/rear/rear/commit/f6af518baf3b5a4dc06bf8cfea262e627eee3e07
-Patch108: rear-save-lvm-poolmetadatasize-RHEL-6984.patch
-
-# skip useless xfs mount options when mounting during recovery
-# https://github.com/rear/rear/commit/ed4c78d5fe493ea368989d0086a733653692f5cb
-Patch109: rear-skip-useless-xfs-mount-options-RHEL-10478.patch
-
-# fix unusable recovery with newer systemd
-# https://github.com/rear/rear/commit/060fef89b6968f0c8f254e6f612eff839b83c057
-Patch110: rear-fix-compatibility-with-newer-systemd-bz2254871.patch
-
-# make initrd accessible only by root
-# https://github.com/rear/rear/commit/89b61793d80bc2cb2abe47a7d0549466fb087d16
-Patch111: rear-CVE-2024-23301.patch
-
-# copy the console= kernel arguments from the original system
-# https://github.com/rear/rear/commit/88f11d19d748fff3f36357ef1471ee75fbfacabb
-# https://github.com/rear/rear/commit/42e04f36f5f8eea0017915bb35e56ee285b394d7
-# https://github.com/rear/rear/commit/07da02143b5597b202e66c187e53103561018255
-Patch112: rear-copy-console-kernel-cmdline-from-host.patch
-
-# support saving and restoring hybrid BIOS/UEFI bootloader setup and clean
-# up bootloader detection
-# https://github.com/rear/rear/commit/096bfde5e234f5a803bae74f24e3821798022c7c
-# https://github.com/rear/rear/commit/ca99d855579cfcab37f985e2547a3187e0f0aeeb
-Patch113: rear-restore-hybrid-bootloader-RHEL-16864.patch
-
-# resolve libs for executable links in COPY_AS_IS
-# https://github.com/rear/rear/commit/9f859c13f5ba285cd1d5983c9b595975c21888d3
-Patch114: rear-resolve-libraries-for-symlinks-in-COPY_AS_IS-RHEL-15108.patch
-
-# skip invalid disk drives (zero sized, no media) when saving layout
-# https://github.com/rear/rear/commit/c08658d5a0260c3242bb817e77b9c6dadecd14f6
-Patch115: rear-skip-invalid-drives-RHEL-22863.patch
-
-# fix useless warning that libsystemd-core requires additional libraries
-# and ReaR recovery system needs additional libraries
-# https://github.com/rear/rear/commit/eb574592a21c7ca986393c4563fe5484b9f01454
-Patch116: rear-fix-libsystemd-ldd-warning.patch
-
-# fix IPv6 addresses in nfs:// and sshfs:// BACKUP/OUTPUT_URL
-# https://github.com/rear/rear/commit/8a10135bf958c03b4b5077fc7ae7761ad2a71eec
-Patch117: rear-fix-ipv6.patch
-
-# ALREADY INCLUDED IN REAR 2.7!
-# remove obsolete FAT16 options to avoid kernel warning
-# https://github.com/rear/rear/commit/9a6b9a109aa77afc6c96cf05bbd7988cf0310d61
-# Patch118: rear-no-fat-16.patch
-
-# fix booting on UEFI with multiple CDROM devices
-# https://github.com/rear/rear/commit/283efdaea10ff62dc94e968f74e1136b8384a954
-Patch119: rear-uefi-booting-with-multiple-cdrom-devices.patch
-
-# skip btrfs subvolumes when detecting ESP partitions
-# https://github.com/rear/rear/commit/c8409e1f2972e9cd87d9390ca0b52b908d1a872a
-Patch120: rear-skip-btrfs-subvolumes-when-detecting-ESP-partitions.patch
-
-# fix backup of btrfs subvolumes
-# https://github.com/rear/rear/commit/ec9080664303165799a215cef062826b65f6a6f8
-# https://github.com/rear/rear/commit/2da70f54936e5c558c9f607b1526b9b17f6501b1
-Patch121: rear-fix-backup-of-btrfs-subvolumes.patch
+# Patch101 - Patch121 Reserved
+# Empty...
 
 ######################
 # downstream patches #
 ######################
-# suggest to install grub-efi-x64-modules on x86_64 UEFI Fedora/RHEL machines
-Patch201: rear-bz1492177-warning.patch
+# No-longer applicable
+# Patch201: rear-bz1492177-warning.patch
 
 # avoid vgcfgrestore on unsupported volume types
 # https://github.com/pcahyna/rear/commit/5d5d1db3ca621eb80b9481924d1fc470571cfc09
 Patch202: rear-bz1747468.patch
 
-# skip deliberately broken symlinks in initrd on Fedora/RHEL
-Patch203: rear-bz2119501.patch
+# No-longer applicable
+# Patch203: rear-bz2119501.patch
 
 # additional fixes for NBU support
 Patch204: rear-bz2120736.patch
@@ -146,8 +58,6 @@ ExclusiveArch: %ix86 x86_64 ppc ppc64 ppc64le ia64 s390x
 # see the GitHub issue https://github.com/rear/rear/issues/629
 %ifarch %ix86 x86_64
 Requires: syslinux
-# We need mkfs.vfat for recreating EFI System Partition
-Recommends: dosfstools
 %endif
 %ifarch ppc ppc64 ppc64le
 # Called by grub2-install (except on PowerNV)
@@ -161,10 +71,14 @@ Requires:   s390utils-base
 Requires:   s390utils-core
 %endif
 
-# Required for HTML user guide
-BuildRequires: asciidoctor
-BuildRequires: git
-BuildRequires: make
+# See https://github.com/rhboot/efi-rpm-macros/blob/main/README
+%ifarch %{efi}
+# We need mkfs.vfat for recreating EFI System Partition
+Requires: dosfstools
+# Needed for ISO image creation
+Requires: grub2-efi-%{efi_arch}-modules
+%endif
+
 
 ### Mandatory dependencies:
 Requires: attr
@@ -212,10 +126,6 @@ Professional services and support are available.
 %prep
 %autosetup -p1 -S git
 
-### Add a specific os.conf so we do not depend on LSB dependencies
-%{?fedora:echo -e "OS_VENDOR=Fedora\nOS_VERSION=%{?fedora}" >etc/rear/os.conf}
-%{?rhel:echo -e "OS_VENDOR=RedHatEnterpriseServer\nOS_VERSION=%{?rhel}" >etc/rear/os.conf}
-
 # Change /lib to /usr/lib for COPY_AS_IS
 sed -E -e "s:([\"' ])/lib:\1/usr/lib:g" \
     -i usr/share/rear/prep/GNU/Linux/*include*.sh
@@ -234,7 +144,7 @@ sed -e 's:/lib/:/usr/lib/:g' \
 # and spurious changes will be seen.
 # Set the timezone to UTC as a workaround.
 # https://wiki.debian.org/ReproducibleBuilds/TimestampsInDocumentationGeneratedByAsciidoc
-TZ=UTC make doc
+TZ=UTC %make_build doc
 
 %install
 %make_install sbindir=%{_sbindir}
@@ -246,12 +156,9 @@ install -m 0644 %{SOURCE3} %{buildroot}%{_docdir}/%{name}/
 #-- FILES ---------------------------------------------------------------------#
 %files
 %license COPYING
-%doc MAINTAINERS README.adoc doc/user-guide/*.html
-# the only upstream *.txt file has an unacceptable license (CC-BY-ND-3.0)
-#%%doc doc/*.txt
+%doc MAINTAINERS README.md doc/user-guide doc/*.txt
 %dir %{_sysconfdir}/rear/
 %config(noreplace) %{_sysconfdir}/rear/local.conf
-%{_sysconfdir}/rear/os.conf
 %{_datadir}/rear/
 %{_docdir}/%{name}/rear.*
 %{_mandir}/man8/rear.8*
@@ -260,6 +167,15 @@ install -m 0644 %{SOURCE3} %{buildroot}%{_docdir}/%{name}/
 
 #-- CHANGELOG -----------------------------------------------------------------#
 %changelog
+* Tue Feb 04 2025 Lukáš Zaoral <lzaoral@redhat.com> - 2.9-1
+- rebase to version 2.9 (rhbz#2343296)
+- drop upstreamed patches
+- remove obsolete patch for rhbz2119501
+  - ReaR 2.7 and newer do not copy dangling symlinks in /lib/modules/*/
+- remove broken patch for rhbz1492177 (VERBOSE is a read-only var, so the script silently failed)
+  - install correct packages using proper RPM dependencies instead
+- rebase remaining patches
+
 * Tue Jan 21 2025 Lukáš Zaoral <lzaoral@redhat.com> - 2.7-14
 - fix FTBFS after F42 bin/sbin merge
 

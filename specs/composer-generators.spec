@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for composer-generators
 #
-# Copyright (c) 2024 Remi Collet
+# Copyright (c) 2024-2025 Remi Collet
 # License: GPL-2.0-or-later
 # https://www.gnu.org/licenses/gpl-2.0.en.html
 #
@@ -8,7 +8,7 @@
 #
 
 Name:           composer-generators
-Version:        0.1.1
+Version:        0.1.2
 Release:        1%{?dist}
 # Use same license than RPM
 License:        GPL-2.0-or-later
@@ -59,6 +59,9 @@ install -Dpm 644 composer.attr %{buildroot}%{_fileattrsdir}/composer.attr
 
 
 %changelog
+* Tue Feb  4 2025 Remi Collet <remi@remirepo.net> - 0.1.2-1
+- version 0.1.2
+
 * Mon Dec 30 2024 Remi Collet <remi@remirepo.net> - 0.1.1-1
 - version 0.1.1
 

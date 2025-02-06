@@ -13,8 +13,8 @@
 %bcond_with check_integration
 
 Name:           apt
-Version:        2.9.8
-Release:        2%{?dist}
+Version:        2.9.27
+Release:        1%{?dist}
 Summary:        Command-line package manager for Debian packages
 
 License:        GPL-2.0-or-later
@@ -315,6 +315,10 @@ exit 0
 %doc %{_docdir}/%{name}-utils
 
 %changelog
+* Mon Feb 03 2025 Packit <hello@packit.dev> - 2.9.27-1
+- Update to version 2.9.27
+- Resolves: rhbz#2319327
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

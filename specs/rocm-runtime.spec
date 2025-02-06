@@ -3,7 +3,7 @@
 %global enableimage 1
 %endif
 %global rocm_release 6.3
-%global rocm_patch 1
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %if 0%{?suse_version}
@@ -23,7 +23,7 @@
 
 Name:       rocm-runtime
 Version:    %{rocm_version}
-Release:    3%{?dist}
+Release:    1%{?dist}
 Summary:    ROCm Runtime Library
 
 License:    NCSA
@@ -161,6 +161,9 @@ fi
 %endif
 
 %changelog
+* Sun Feb 2 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-1
+- Update to 6.3.2
+
 * Sat Jan 18 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-3
 - gcc 15 include cstdint
 

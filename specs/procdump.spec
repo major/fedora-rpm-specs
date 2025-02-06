@@ -2,14 +2,14 @@
 %global repo_name ProcDump-for-Linux
 
 Name:           procdump
-Version:        3.3.0
+Version:        3.4.0
 Release:        1%{?dist}
 Summary:        Sysinternals process dump utility
 
 License:        MIT
 URL:            https://github.com/Microsoft/%{repo_name}
 Source:         %{url}/archive/%{version}/%{repo_name}-%{version}.tar.gz
-Patch1:         0001-Fix-clang-compilation-errors-due-to-variable-length-.patch
+Patch1:         0001-Monitor-remove-useless-variables-267.patch
 Patch2:         0002-CMake-Add-ability-to-use-system-installed-libbpf-rat.patch
 Patch3:         0003-cmake-Include-install-section-for-procdump-and-its-m.patch
 
@@ -26,8 +26,9 @@ Requires:       gdb >= 7.6.1
 %undefine _annotated_build
 %undefine _hardened_build
 
-# ProcDump does not support PPC64 (#163) and Aarch64 (#260) yet
-ExclusiveArch:    x86_64 ppc64le s390x
+# ProcDump does not support PPC64 (#163) and s390x.
+# For further information see ./ebpf/vmlinux.h.
+ExclusiveArch:    x86_64 aarch64
 
 %description
 ProcDump is a command-line utility whose primary purpose is monitoring an application
@@ -59,6 +60,10 @@ general process dump utility that you can embed in other scripts.
 
 
 %changelog
+* Tue Feb 04 2025 Julio Faracco <jfaracco@redhat.com> - 3.4.0-1
+- Add ARM64 support
+- Fix clang compilation errors due to variable length arrays
+
 * Wed Jan 22 2025 Julio Faracco <jfaracco@redhat.com> - 3.3.0-1
 - Adds improvements related to containerized workflows (3.3)
 - Adds mmap/munmap to resource tracking (3.2)
@@ -128,5 +133,5 @@ general process dump utility that you can embed in other scripts.
 - Add command line parameter (-w) for targetting the name of a process
 - Small bug fixes
 
-* Fri Oct 4 2019 Matěj Grabovský <mgrabovs@redhat.com> - 1.0.1-1
+* Fri Oct 04 2019 Matěj Grabovský <mgrabovs@redhat.com> - 1.0.1-1
 - Initial release

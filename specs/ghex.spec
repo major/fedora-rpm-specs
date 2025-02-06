@@ -95,7 +95,7 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/org.gnome.G
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 46.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
-* Mon Now 18 2024 Nieves Montero <nmontero@redhat.com> - 46.1-1
+* Mon Nov 18 2024 Nieves Montero <nmontero@redhat.com> - 46.1-1
 - Update to 46.1
 
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 46.0-2

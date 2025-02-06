@@ -64,7 +64,7 @@
 
 Name:           plplot
 Version:        5.15.0
-Release:        77%{?dist}
+Release:        78%{?dist}
 Summary:        Library of functions for making scientific plots
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -134,7 +134,9 @@ Obsoletes:      %{name}-java < %{version}-%{release}
 Obsoletes:      %{name}-java-devel < %{version}-%{release}
 %endif
 BuildRequires:  freetype-devel, qhull-devel , ncurses-devel
-BuildRequires:  gd-devel, tcl-devel, tk-devel
+BuildRequires:  gd-devel
+BuildRequires:  tcl-devel < 1:9
+BuildRequires:  tk-devel < 1:9
 %if %{with itcl}
 BuildRequires:  itcl-devel, itk-devel
 BuildRequires:  iwidgets
@@ -786,6 +788,9 @@ export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/bindings/ocaml:$RPM_BUILD_ROOT%{_
 
 
 %changelog
+* Tue Feb 04 2025 Orion Poplawski <orion@nwra.com> - 5.15.0-78
+- Explicitly require tcl/tk 8 (rhbz#2337726)
+
 * Sat Feb 01 2025 Orion Poplawski <orion@nwra.com> - 5.15.0-77
 - Add patch to fix build with gcc 15 (FTBFS rhbz#2341081)
 

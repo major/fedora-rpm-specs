@@ -19,8 +19,8 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-qtbase
-Version:        6.8.1
-Release:        3%{?dist}
+Version:        6.8.2
+Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtBase component
 # Can't make package noarch as it could lead to -DQT_HOST_PATH_CMAKE_DIR=%%{_libdir}/cmake ponting to the wrong libdir
 
@@ -556,6 +556,9 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 
 
 %changelog
+* Tue Feb 04 2025 Sandro Mani <manisandro@gmail.com> - 6.8.2-1
+- Update to 6.8.2
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.8.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

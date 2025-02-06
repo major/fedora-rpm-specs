@@ -91,7 +91,6 @@ BuildRequires:  curl-devel
 BuildRequires:  fftw-devel
 BuildRequires:  flex
 BuildRequires:  fltk-devel
-BuildRequires:  ftgl-devel
 BuildRequires:  gcc-c++
 BuildRequires:  gcc-gfortran
 BuildRequires:  ghostscript
@@ -113,7 +112,6 @@ BuildRequires:  libX11-devel
 BuildRequires:  llvm-devel
 BuildRequires:  mesa-libGL-devel
 BuildRequires:  mesa-libGLU-devel
-BuildRequires:  mesa-libOSMesa-devel
 BuildRequires:  ncurses-devel
 BuildRequires:  pcre2-devel
 BuildRequires:  portaudio-devel

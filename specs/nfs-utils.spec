@@ -2,7 +2,7 @@ Summary: NFS utilities and supporting clients and daemons for the kernel NFS ser
 Name: nfs-utils
 URL: http://linux-nfs.org/
 Version: 2.8.2
-Release: 0.rc3%{?dist}.5
+Release: 0.rc3%{?dist}.6
 Epoch: 1
 
 # group all 32bit related archs
@@ -274,7 +274,7 @@ fi
 %preun
 %systemd_preun nfs-client.target nfs-server.service
 if [ $1 -eq 0 ]; then
-    : >%{_localstatedir}/lib/rpm-state/nfs-server.cleanup
+    ( : >%{_localstatedir}/lib/rpm-state/nfs-server.cleanup ) || :
 fi
 
 %postun
@@ -446,6 +446,9 @@ rm -rf /etc/systemd/system/rpc-*.requires
 %{_mandir}/*/nfsiostat.8.gz
 
 %changelog
+* Wed Jan 22 2025 Scott Mayhew <smayhew@redhat.com> 2.8.2-0.rc3.6
+- Ensure the %preun scriptlet exits with a zero exit status
+
 * Fri Jan 17 2025 Steve Dickson <steved@redhat.com> 2.8.2-0.rc3.5
 - Updated to the latest RC release: nfs-utils-2-8-3-rc3
 

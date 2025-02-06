@@ -1,6 +1,6 @@
 %global upstreamname RCCL
 %global rocm_release 6.3
-%global rocm_patch 0
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -47,7 +47,7 @@
 
 Name:           rccl
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm Communication Collectives Library
 
 Url:            https://github.com/ROCm/rccl
@@ -186,6 +186,9 @@ fi
 %endif
 
 %changelog
+* Wed Jan 29 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-1
+- Update to 6.3.2
+
 * Sat Jan 18 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-3
 - Add gfx1200,gfx1201
 

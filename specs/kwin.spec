@@ -3,7 +3,7 @@
 
 Name:    kwin
 Version: 6.2.91
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Window manager
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -14,6 +14,12 @@ URL:     https://userbase.kde.org/KWin
 Source0: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz
 
 ## upstream patches
+# https://invent.kde.org/plasma/kwin/-/commit/8502be80d0c6f8b3e081efb8390b9793b43cca41
+# https://bugs.kde.org/show_bug.cgi?id=498837
+# https://bugzilla.redhat.com/show_bug.cgi?id=2338761
+# fix a bug that frequently caused Xwayland to exit abnormally
+# causing notifications and broken user switching
+Patch: 0001-xwayland-Keep-ready-fd-until-Xwayland-is-stopped.patch
 
 ## proposed patches
 
@@ -303,6 +309,9 @@ rm -v %{buildroot}%{_kf6_bindir}/kwin_x11 %{buildroot}%{_userunitdir}/plasma-kwi
 
 
 %changelog
+* Tue Feb 04 2025 Adam Williamson <awilliam@redhat.com> - 6.2.91-2
+- Backport fix for Xwayland crash issue (rhbz#2338761)
+
 * Thu Jan 23 2025 Steve Cossette <farchord@gmail.com> - 6.2.91-1
 - 6.2.91
 

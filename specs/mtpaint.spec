@@ -39,7 +39,7 @@ XPM, and XBM files.
 
 %package       handbook
 Summary:       Handbook for the mtpaint painting application
-License:       GFDL
+License:       GFDL-1.2-or-later
 Requires:      %{name} = %{version}-%{release}
 BuildArch:     noarch
 

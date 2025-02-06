@@ -1,7 +1,7 @@
 %define _legacy_common_support 1
 Name:           MagicPoint
 Version:        1.13a
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        X based presentation software
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -20,7 +20,8 @@ Patch8:         magicpoint-1.13a-giflib5.patch
 # libpng > 1.5.0 compatibility
 Patch9:         magicpoint-1.13a-libpng.patch
 Patch10:        magicpoint-1.13a-libmng-lib64.patch
-Patch11: MagicPoint-c99.patch
+Patch11:        MagicPoint-c99.patch
+Patch12:        magicpoint-1.13a-function-proto.patch
 BuildRequires:  make gcc
 BuildRequires:  giflib-devel libpng-devel libmng-devel fontconfig-devel 
 BuildRequires:  libXmu-devel libXft-devel m17n-lib-devel
@@ -37,10 +38,13 @@ create presentation files quickly with your favorite editor.
 
 %prep
 %autosetup -p1 -n magicpoint-%{version}
+iconv -f iso8859-1 -t utf8 sample/sample-fr.mgp > sample/sample-fr.mgp.utf8
+touch -r sample/sample-fr.mgp sample/sample-fr.mgp.utf8
+mv sample/sample-fr.mgp.utf8 sample/sample-fr.mgp
 
 
 %build
-RPM_OPT_FLAGS="$RPM_OPT_FLAGS -Wno-pointer-sign -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-function -D_DEFAULT_SOURCE"
+RPM_OPT_FLAGS="$RPM_OPT_FLAGS -Wno-pointer-sign -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-function -Wno-old-style-definition -Wno-stringop-truncation -Wno-stringop-overflow -D_DEFAULT_SOURCE"
 export CFLAGS="$RPM_OPT_FLAGS"
 # Stop configure from checking for non-existing m17n-config shell script
 export HAVE_M17NLIB="yes"
@@ -67,6 +71,9 @@ rm sample/.cvsignore sample/*akefile*
 
 
 %changelog
+* Tue Feb  4 2025 Hans de Goede <hdegoede@redhat.com> - 1.13a-42
+- Fix FTBFS (rhbz#2336251, rhbz#2339853)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.13a-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -547,10 +547,6 @@ For more information refer to the following publications:
    * "Device Drivers, Features, and Commands" chapter "Useful Linux commands"
    * "Using the dump tools"
 
-%pre base
-# check for zkeyadm group and create it
-getent group zkeyadm > /dev/null || groupadd -r zkeyadm
-
 %post base
 %systemd_post dumpconf.service
 
@@ -885,10 +881,6 @@ active TCP/IP connection between two Linux guest operating systems.
 - ts-shell:  Terminal server shell to authorize and control IUCV terminal
              connections for individual Linux users.
 
-%pre iucvterm
-# check for ts-shell group and create it
-getent group ts-shell > /dev/null || groupadd -r ts-shell
-
 %post iucvterm
 # /etc/shells is provided by "setup"
 grep -q '^/usr/bin/ts-shell$' /etc/shells \
@@ -1008,9 +1000,6 @@ and maintain CPACF activity counters.
 
 %postun cpacfstatsd
 %systemd_postun_with_restart cpacfstatsd.service
-
-%pre cpacfstatsd
-getent group cpacfstats >/dev/null || groupadd -r cpacfstats
 
 %files cpacfstatsd
 %{_bindir}/cpacfstats

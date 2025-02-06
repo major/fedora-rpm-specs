@@ -26,7 +26,7 @@
 
 # This package is named ardour8 to allow parallel installation with older versions of Ardour.
 Name:       ardour8
-Version:    8.10.0
+Version:    8.11.0
 
 Release:    %autorelease
 Summary:    Digital Audio Workstation

@@ -69,23 +69,18 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  hdf5-devel
 BuildRequires:  catch-devel
 # Technically optional, enabled by default
-BuildRequires:  boost-devel
 # Our choice vs. make
 BuildRequires:  ninja-build
 
-# Optional but included in Fedora, so we use these
-BuildRequires:  cmake(eigen3)
-BuildRequires:  cmake(xtensor)
-%ifnarch %{arm32}
+BuildRequires:  hdf5-devel
+# Optional but included in Fedora, so we use these. The -static versions are
+# required by guidelines for tracking header-only libraries
+BuildRequires:  boost-devel
+BuildRequires:  (cmake(eigen3) with eigen3-static)
+BuildRequires:  (cmake(xtensor) with xtensor-static)
 BuildRequires:  cmake(opencv)
-%endif
-# The -static versions are required by guidelines for tracking header-only
-# libraries
-BuildRequires:  eigen3-static
-BuildRequires:  xtensor-static
 
 %if %{with docs}
 BuildRequires:  doxygen
@@ -103,6 +98,12 @@ Provides:       %{name}-static%{?_isa} = %{version}-%{release}
 # Unarched version is needed since arched BuildRequires must not be used
 Provides:       %{name}-static = %{version}-%{release}
 
+Requires:       hdf5-devel
+# Optional, but we want -devel package users to have all features available.
+Requires:       boost-devel
+Requires:       (cmake(eigen3) with eigen3-static)
+Requires:       (cmake(xtensor) with xtensor-static)
+Requires:       cmake(opencv)
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -146,9 +147,7 @@ CXXFLAGS="${CXXFLAGS} -Wno-deprecated-declarations"
     -DHIGHFIVE_USE_BOOST:BOOL=TRUE \
     -DHIGHFIVE_USE_XTENSOR:BOOL=TRUE \
     -DHIGHFIVE_USE_EIGEN:BOOL=TRUE \
-%ifnarch %{arm32}
     -DHIGHFIVE_USE_OPENCV:BOOL=TRUE \
-%endif
     -DHIGHFIVE_EXAMPLES:BOOL=TRUE \
     -DHIGHFIVE_UNIT_TESTS:BOOL=%{?with_tests:TRUE}%{?!with_tests:FALSE} \
     -DHIGHFIVE_BUILD_DOCS:BOOL=%{?with_docs:TRUE}%{?!with_docs:FALSE} \

@@ -2,7 +2,7 @@
 # when rebasing check what they are using on
 # https://download.opensuse.org/repositories/openSUSE:/Tools/Fedora_41/src/
 # update the obsrel to match the upstream release number
-%global obsrel 428.1
+%global obsrel 430.1
 
 # osc plugin support
 %global osc_plugin_dir %{_prefix}/lib/osc-plugins
@@ -12,11 +12,11 @@
 %global obs_srcsvc_dir %{obsroot}/service
 
 # Real release number
-%global baserelease 2
+%global baserelease 1
 
 Name:           osc
 Summary:        Open Build Service Commander
-Version:        1.11.1
+Version:        1.12.0
 # Bump the release as necessary to ensure we're one level up from upstream
 Release:        %{obsrel}.%{baserelease}%{?dist}
 License:        GPL-2.0-or-later
@@ -136,6 +136,9 @@ python3 -m unittest
 %dir %{osc_plugin_dir}
 
 %changelog
+* Tue Feb 04 2025 Dan Čermák <dan.cermak@cgc-instruments.com> - 1.12.0-430.1.1
+- New upstream release 1.12.0, fixes rhbz#2343569
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.1-428.1.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

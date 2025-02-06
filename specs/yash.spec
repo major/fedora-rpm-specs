@@ -2,12 +2,12 @@
 # Upstream is currently using SVN
 # SVN path: http://svn.sourceforge.jp/svnroot/yash/yash/trunk
 
-%global		mainver		2.58
+%global		mainver		2.58.1
 %global		docver		%{mainver}
 
 %global		yashdocdir		%{_datadir}/doc/%{name}-doc
 
-%global		baserelease	2
+%global		baserelease	1
 %undefine		minorver
 %undefine       _changelog_trimtime
 
@@ -134,6 +134,9 @@ exit 0
 %lang(ja)	%{yashdocdir}/ja/
 
 %changelog
+* Tue Feb 04 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.58.1-1
+- 2.58.1
+
 * Mon Feb 03 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.58-2
 - 2.58
 

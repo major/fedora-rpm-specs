@@ -1,10 +1,9 @@
 Summary:      Advanced drum machine for GNU/Linux
 Name:         hydrogen
-Version:      1.2.3
-Release:      4%{?dist}
+Version:      1.2.4
+Release:      1%{?dist}
 URL:          http://www.hydrogen-music.org/
 Source0:      https://github.com/hydrogen-music/%{name}/archive/refs/tags/%{version}/%{name}-%{version}.tar.gz
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:      GPL-2.0-or-later
 
 Patch0:       %{name}-cxxflags.patch
@@ -38,8 +37,6 @@ professional yet simple and intuitive pattern-based drum programming.
 
 %package devel
 Summary:    Hydrogen header files
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
-License:    GPL-2.0-or-later
 Requires:   %{name}%{_isa} = %{version}-%{release}
 Obsoletes:  devel <= 0.9.7-9
 
@@ -95,6 +92,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.hydrogenmu
 %{_includedir}/hydrogen/
 
 %changelog
+* Tue Feb 04 2025 Nils Philippsen <nils@tiptoe.de> - 1.2.4-1
+- Update to 1.2.4
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

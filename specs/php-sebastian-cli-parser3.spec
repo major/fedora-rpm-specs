@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-sebastian-cli-parser3
 #
-# SPDX-FileCopyrightText:  Copyright 2020-2024 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2020-2025 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -8,7 +8,7 @@
 #
 
 # disabled until phpunit11 available
-%bcond_with          tests
+%bcond_without       tests
 
 # github
 %global gh_commit    15c5dd40dc4f38794d383bb95465193f5e0ae180
@@ -27,7 +27,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        3.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for parsing CLI options, version %{major}
 
 License:        BSD-3-Clause
@@ -110,6 +110,9 @@ exit $ret
 
 
 %changelog
+* Tue Feb  4 2025 Remi Collet <remi@remirepo.net> - 3.0.2-2
+- enable test suite
+
 * Wed Jul  3 2024 Remi Collet <remi@remirepo.net> - 3.0.2-1
 - update to 3.0.2
 

@@ -854,6 +854,7 @@ The package contains the LLDB Python module.
 Summary:	Multi-Level Intermediate Representation Overview
 License:	Apache-2.0 WITH LLVM-exception
 URL:		http://mlir.llvm.org
+Requires: %{pkg_name_llvm}-libs = %{version}-%{release}
 
 %description -n %{pkg_name_mlir}
 The MLIR project is a novel approach to building reusable and extensible
@@ -987,6 +988,7 @@ execution profile gathered by sampling profiler, such as Linux `perf` tool.
 Summary:	LLVM Framework for High-Level Loop and Data-Locality Optimizations
 License:	Apache-2.0 WITH LLVM-exception
 URL:	http://polly.llvm.org
+Requires: %{pkg_name_llvm}-libs = %{version}-%{release}
 
 # We no longer ship polly-doc.
 Obsoletes: %{pkg_name_polly}-doc < 20

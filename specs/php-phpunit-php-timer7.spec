@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-phpunit-php-timer7
 #
-# Copyright (c) 2010-2024 Christof Damian, Remi Collet
+# Copyright (c) 2010-2025 Christof Damian, Remi Collet
 #
 # License: MIT
 # http://opensource.org/licenses/MIT
@@ -9,7 +9,7 @@
 #
 
 # disabled until phpunit11 available
-%bcond_with          tests
+%bcond_without       tests
 
 %global gh_commit    3b415def83fbcb41f991d9ebf16ae4ad8b7837b3
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
@@ -28,7 +28,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        7.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        PHP Utility class for timing, version %{major}
 
 License:        BSD-3-Clause
@@ -109,6 +109,9 @@ exit $ret
 
 
 %changelog
+* Tue Feb  4 2025 Remi Collet <remi@remirepo.net> - 7.0.1-3
+- enable test suite
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

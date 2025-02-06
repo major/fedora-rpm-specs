@@ -9,7 +9,7 @@
 %global gdk_pixbuf2_version 2.35.5
 
 Name:           gtkmm4.0
-Version:        4.16.0
+Version:        4.17.0
 Release:        %autorelease
 Summary:        C++ interface for the GTK+ library
 

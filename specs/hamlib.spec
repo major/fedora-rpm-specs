@@ -1,11 +1,7 @@
-%if 0%{?fedora} || 0%{?rhel} >= 8
-%global tclver 8.6
-%global pyver 3
-%global swigver swig
+%if 0%{?fedora} >= 42
+%global tclver 9.0
 %else
-%global tclver 8.5
-%global pyver 2
-%global swigver swig3
+%global tclver 8.6
 %endif
 
 %global githash 028d750249ab00c8c362598c838b15e8aa6a2951
@@ -13,7 +9,7 @@
 
 Name:           hamlib
 Version:        4.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Run-time library to control radio transceivers and receivers
 
 License:        GPL-2.0-or-later and LGPL-2.0-or-later
@@ -41,7 +37,8 @@ BuildRequires:  libtool-ltdl-devel
 BuildRequires:  libusb1-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  pkgconfig
-BuildRequires:  python%{pyver}-devel
+BuildRequires:  python3-devel
+BuildRequires:  swig
 BuildRequires:  tcl-devel
 #for perl
 BuildRequires:  perl-devel
@@ -104,12 +101,12 @@ Provides:       hamlib-perl = %{version}-%{release}
 Hamlib PERL Language bindings to allow radio control from PERL scripts.
 
 
-%package -n python%{pyver}-%{name}
+%package -n python3-%{name}
 %{?python_provide:%python_provide python2-%{name}}
 Summary:        Hamlib radio control library Python binding
-Requires:       hamlib%{?_isa} = %{version}-%{release}, python%{pyver}
+Requires:       hamlib%{?_isa} = %{version}-%{release}, python3
 
-%description -n python%{pyver}-%{name}
+%description -n python3-%{name}
 Hamlib Python Language bindings to allow radio control from Python scripts.
 
 %package -n tcl-%{name}
@@ -230,7 +227,7 @@ make V=1 check
 %files -n perl-hamlib
 %{perl_vendorarch}/*
 
-%files -n python%{pyver}-%{name}
+%files -n python3-%{name}
 %if 0%{?fedora} || 0%{?rhel} >= 8
 %{python3_sitearch}/*.py*
 %{python3_sitearch}/_Hamlib.so
@@ -246,6 +243,9 @@ make V=1 check
 
 
 %changelog
+* Tue Feb 04 2025 Richard Shaw <hobbes1069@gmail.com> - 4.6-3
+- Update deps for Tcl/Tk 9.0.
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

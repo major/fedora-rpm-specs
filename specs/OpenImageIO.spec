@@ -3,7 +3,7 @@
 
 Name:           OpenImageIO
 Version:        2.5.16.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Epoch:          1
 Summary:        Library for reading and writing images
 
@@ -208,6 +208,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Tue Feb 04 2025 Sérgio Basto <sergio@serjux.com> - 1:2.5.16.0-5
+- Rebuild for opencv-4.11.0
+
 * Tue Jan 28 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1:2.5.16.0-4
 - Roll back to 2.5.16.0 and add an Epoch
 

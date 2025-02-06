@@ -3,7 +3,7 @@ Version:        1.4.0.7
 Release:        31%{?dist}
 Summary:        Programming language learning environment for stories, games, music and art
 
-License:        GPLv2 and ASL 2.0 and MIT and CC-BY-SA
+License:        GPL-2.0-only AND GPL-3.0-only AND MIT AND CC-BY-SA-3.0
 URL:            http://scratch.mit.edu
 Source0:        http://download.scratch.mit.edu/%{name}-%{version}.src.tar.gz
 # The following source file is not used in the build process, but together
@@ -41,7 +41,7 @@ full Scratch distribution.
 
 %package image
 Summary: The Scratch programming environment
-License: GPLv2 and ASL 2.0 and MIT
+License: GPL-2.0-only AND GPL-3.0-only AND MIT
 Requires: squeak-vm >= 4.10.2.2593
 BuildArch: noarch
 
@@ -55,7 +55,7 @@ This package contains the core Scratch programming environment.
 
 %package help
 Summary: Documentation for the Scratch programming language
-License: CC-BY-SA
+License: CC-BY-SA-3.0
 BuildArch: noarch
 
 %description help
@@ -66,7 +66,7 @@ from that.
 
 %package media
 Summary: The standard distribution of sprites and media for Scratch
-License: CC-BY-SA
+License: CC-BY-SA-3.0
 BuildArch: noarch
 
 %description media
@@ -76,7 +76,7 @@ Scratch programming language.
 
 %package projects
 Summary: The standard distribution of Scratch projects
-License: CC-BY-SA
+License: CC-BY-SA-3.0
 BuildArch: noarch
 
 %description projects
@@ -86,7 +86,6 @@ Scratch programming language.
 
 %package i18n
 Summary: Translations for the Scratch programming environment
-# Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 BuildArch: noarch
 
@@ -101,6 +100,8 @@ English
 %patch -P0 -p1
 %patch -P1 -p1
 
+# this project is under CC-BY-NC-2.5 that is not allowed in Fedora
+rm "Projects/Sensors and Motors/WeDo 3 Castle.sb"
 
 %build
 # since the Squeak VM version 4.10.2.2593 and greater includes all the

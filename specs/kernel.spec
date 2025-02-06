@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.14.0
 %define specversion 6.14.0
 %define patchversion 6.14
-%define pkgrelease 0.rc1.15
+%define pkgrelease 0.rc1.20250204git0de63bb7d919.16
 %define kversion 6
-%define tarfile_release 6.14-rc1
+%define tarfile_release 6.14-rc1-20-g0de63bb7d919
 # This is needed to do merge window version magic
 %define patchlevel 14
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc1.15%{?buildid}%{?dist}
+%define specrelease 0.rc1.20250204git0de63bb7d919.16%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.14.0
 
@@ -4180,12 +4180,15 @@ fi\
 #
 #
 %changelog
-* Mon Feb 03 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc1.15]
+* Tue Feb 04 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc1.0de63bb7d919.16]
 - Add -fzero-init-padding-bits to bindgen_skip_cflags (Justin M. Forbes)
 - apply -Wno-error=unterminated-string-initialization temporarily (Thorsten Leemhuis)
 - x86/boot: Use '-std=gnu11' to fix build with GCC 15 (Nathan Chancellor)
 - include/linux: Adjust headers for C23 (Jakub Jelinek)
 - x86/insn_decoder_test: allow longer symbol-names (David Rheinsberg)
+
+* Tue Feb 04 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc1.0de63bb7d919.15]
+- Linux v6.14.0-0.rc1.0de63bb7d919
 
 * Mon Feb 03 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc1.14]
 - redhat: generalize rule for kunit and test kmod placement (Jan Stancek)

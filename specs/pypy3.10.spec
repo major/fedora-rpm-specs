@@ -142,8 +142,8 @@ BuildRequires: python2.7
 BuildRequires:  gcc
 
 BuildRequires:  libffi-devel
-BuildRequires:  tcl-devel
-BuildRequires:  tk-devel
+BuildRequires:  tcl-devel < 1:9
+BuildRequires:  tk-devel < 1:9
 
 BuildRequires:  sqlite-devel
 

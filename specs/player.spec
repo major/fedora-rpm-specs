@@ -4,7 +4,7 @@
 
 Name:           player
 Version:        3.1.0
-Release:        62%{?dist}
+Release:        63%{?dist}
 Summary:        Cross-platform robot device interface and server
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
@@ -231,6 +231,9 @@ desktop-file-install \
 %{ruby_vendorarchdir}/*.so
 
 %changelog
+* Tue Feb 04 2025 Sérgio Basto <sergio@serjux.com> - 3.1.0-63
+- Rebuild for opencv-4.11.0
+
 * Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 3.1.0-62
 - Rebuild with gsl 2.8
 

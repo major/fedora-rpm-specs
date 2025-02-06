@@ -1,4 +1,7 @@
+## FIXME FIXME FIXME
 %define debug_package %{nil}
+## FIXME FIXME FIXME
+
 # RPM conditionals so as to be able to dynamically produce
 # slowdebug/release builds. See:
 # http://rpm.org/user_doc/conditional_builds.html
@@ -127,6 +130,8 @@
 %global svml_arches x86_64
 # Set of architectures with  libsimdsort.so
 %global simdsort_arches x86_64
+# Set of architectures with  libsleef.so
+%global sleef_arches aarch64
 # Set of architectures where we verify backtraces with gdb
 # s390x fails on RHEL 7 so we exclude it there
 %if (0%{?rhel} > 0 && 0%{?rhel} < 8)
@@ -767,6 +772,9 @@ fi
 %endif
 %ifarch %{svml_arches}
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libjsvml.so
+%endif
+%ifarch %{sleef_arches}
+%{_jvmdir}/%{sdkdir -- %{?1}}/lib/libsleef.so
 %endif
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libsyslookup.so
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libverify.so

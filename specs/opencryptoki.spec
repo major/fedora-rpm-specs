@@ -1,15 +1,31 @@
+%global use_sysusers 1
+
 Name: opencryptoki
 Summary: Implementation of the PKCS#11 (Cryptoki) specification v3.0
 Version: 3.24.0
-Release: 3%{?dist}
+Release: 5%{?dist}
 License: CPL-1.0
 URL: https://github.com/opencryptoki/opencryptoki
 Source0: https://github.com/opencryptoki/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1: opencryptoki.module
+Source2: opencryptoki.sysusers
+# split tmpfiles for image mode
+Source3: opencryptoki-ccatok.conf
+Source4: opencryptoki-icatok.conf
+Source5: opencryptoki-swtok.conf
+Source6: opencryptoki-tpmtok.conf
+Source7: opencryptoki-ep11tok.conf
+Source8: opencryptoki-icsftok.conf
+
 # fix install problem in buildroot
 Patch1: opencryptoki-3.24.0-p11sak.patch
+
+# change file ownership for image mode
+Patch2: opencryptoki-3.24.0-tmpfiles-image-mode.patch
+
 # upstream patches
-Patch2: opencryptoki-3.24.0-compile-error-due-to-incompatible-pointer-types.patch
+Patch100: opencryptoki-3.24.0-compile-error-due-to-incompatible-pointer-types.patch
+Patch101: opencryptoki-3.24.0-resource-leaks.patch
 
 Requires(pre): coreutils
 Requires: (selinux-policy >= 34.9-1 if selinux-policy-targeted)
@@ -29,6 +45,9 @@ BuildRequires: systemd-rpm-macros
 BuildRequires: libica-devel >= 3.3
 # for /usr/include/libudev.h
 BuildRequires: systemd-devel
+%endif
+%if %{use_sysusers}
+%{?sysusers_requires_compat}
 %endif
 Requires(pre): %{name}-libs%{?_isa} = %{version}-%{release}
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
@@ -202,6 +221,26 @@ configured with Enterprise PKCS#11 (EP11) firmware.
 %install
 %make_install CHGRP=/bin/true
 
+%if %{use_sysusers}
+# Install sysusers.d configuration
+install -p -D -m 0644 %{SOURCE2} %{buildroot}%{_sysusersdir}/%{name}.conf
+
+# Install tmpfiles.d config
+%ifarch s390 s390x
+install -p -D -m 0644 %{SOURCE4} %{SOURCE7} %{buildroot}%{_tmpfilesdir}/
+%endif
+
+%ifarch s390 s390x x86_64 ppc64le
+install -p -D -m 0644 %{SOURCE3} %{buildroot}%{_tmpfilesdir}/
+%endif
+
+%if 0%{?tmptok}
+install -p -D -m 0644 %{SOURCE6} %{buildroot}%{_tmpfilesdir}/
+%endif
+
+install -p -D -m 0644 %{SOURCE5} %{SOURCE8} %{buildroot}%{_tmpfilesdir}/
+%endif
+
 
 %pre
 # don't touch opencryptoki.conf even if it is unchanged due to new tokversion
@@ -213,8 +252,12 @@ if test $1 -gt 1 && test -f %{cfile} ; then
 fi
 
 %pre libs
+%if %{use_sysusers}
+%sysusers_create_compat %{SOURCE2}
+%else
 getent group pkcs11 >/dev/null || groupadd -r pkcs11
 getent passwd pkcsslotd >/dev/null || useradd -r -g pkcs11 -d /run/opencryptoki -s /sbin/nologin -c "Opencryptoki pkcsslotd user" pkcsslotd
+%endif
 exit 0
 
 %post
@@ -291,6 +334,9 @@ fi
 %{_libdir}/pkcs11/PKCS11_API.so
 %{_libdir}/pkcs11/stdll
 %dir %attr(770,root,pkcs11) %{_localstatedir}/log/opencryptoki
+%if %{use_sysusers}
+%{_sysusersdir}/%{name}.conf
+%endif
 
 %files devel
 %{_includedir}/%{name}/
@@ -301,6 +347,9 @@ fi
 %{_libdir}/opencryptoki/stdll/PKCS11_SW.so
 %dir %attr(770,root,pkcs11) %{_sharedstatedir}/%{name}/swtok/
 %dir %attr(770,root,pkcs11) %{_sharedstatedir}/%{name}/swtok/TOK_OBJ/
+%if %{use_sysusers}
+%{_tmpfilesdir}/%{name}-swtok.conf
+%endif
 
 %if 0%{?tmptok}
 %files tpmtok
@@ -308,6 +357,9 @@ fi
 %{_libdir}/opencryptoki/stdll/libpkcs11_tpm.*
 %{_libdir}/opencryptoki/stdll/PKCS11_TPM.so
 %dir %attr(770,root,pkcs11) %{_sharedstatedir}/%{name}/tpm/
+%if %{use_sysusers}
+%{_tmpfilesdir}/%{name}-tpmtok.conf
+%endif
 %endif
 
 %files icsftok
@@ -317,6 +369,9 @@ fi
 %{_libdir}/opencryptoki/stdll/libpkcs11_icsf.*
 %{_libdir}/opencryptoki/stdll/PKCS11_ICSF.so
 %dir %attr(770,root,pkcs11) %{_sharedstatedir}/%{name}/icsf/
+%if %{use_sysusers}
+%{_tmpfilesdir}/%{name}-icsftok.conf
+%endif
 
 %ifarch s390 s390x
 %files icatok
@@ -324,6 +379,9 @@ fi
 %{_libdir}/opencryptoki/stdll/PKCS11_ICA.so
 %dir %attr(770,root,pkcs11) %{_sharedstatedir}/%{name}/lite/
 %dir %attr(770,root,pkcs11) %{_sharedstatedir}/%{name}/lite/TOK_OBJ/
+%if %{use_sysusers}
+%{_tmpfilesdir}/%{name}-icatok.conf
+%endif
 %endif
 
 %ifarch s390 s390x x86_64 ppc64le
@@ -336,6 +394,9 @@ fi
 %{_libdir}/opencryptoki/stdll/PKCS11_CCA.so
 %dir %attr(770,root,pkcs11) %{_sharedstatedir}/%{name}/ccatok/
 %dir %attr(770,root,pkcs11) %{_sharedstatedir}/%{name}/ccatok/TOK_OBJ/
+%if %{use_sysusers}
+%{_tmpfilesdir}/%{name}-ccatok.conf
+%endif
 %endif
 
 %ifarch s390 s390x
@@ -351,10 +412,19 @@ fi
 %{_libdir}/opencryptoki/stdll/PKCS11_EP11.so
 %dir %attr(770,root,pkcs11) %{_sharedstatedir}/%{name}/ep11tok/
 %dir %attr(770,root,pkcs11) %{_sharedstatedir}/%{name}/ep11tok/TOK_OBJ/
+%if %{use_sysusers}
+%{_tmpfilesdir}/%{name}-ep11tok.conf
+%endif
 %endif
 
 
 %changelog
+* Tue Feb 04 2025 Than Ngo <than@redhat.com> - 3.24.0-5
+- Use tmpfiles to change file ownership for image mode
+
+* Tue Feb 04 2025 Than Ngo <than@redhat.com> - 3.24.0-4
+- Fix opencryptoki for image mode
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.24.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

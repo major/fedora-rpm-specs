@@ -1,5 +1,5 @@
-%global DATE 20250201
-%global gitrev 3e0244fe19596234d3e6cf38c4afa5ca638f4b8d
+%global DATE 20250204
+%global gitrev 785011ff892f91b1fedd8ba7812ff3203bc17b1a
 %global gcc_version 15.0.1
 %global gcc_major 15
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -143,7 +143,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.6%{?dist}
+Release: %{gcc_release}.7%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -299,8 +299,7 @@ Patch9: gcc15-Wno-format-security.patch
 Patch10: gcc15-rh1574936.patch
 Patch11: gcc15-d-shared-libphobos.patch
 Patch12: gcc15-pr118206.patch
-Patch13: gcc15-pr117231.patch
-Patch14: gcc15-pr118671.patch
+Patch13: gcc15-pr118671.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -916,8 +915,7 @@ so that there cannot be any synchronization problems.
 %endif
 %patch -P11 -p0 -b .d-shared-libphobos~
 %patch -P12 -p0 -b .pr118206~
-%patch -P13 -p0 -b .pr117231~
-%patch -P14 -p0 -b .pr118671~
+%patch -P13 -p0 -b .pr118671~
 
 %patch -P50 -p0 -b .rh2155127~
 touch -r isl-0.24/m4/ax_prog_cxx_for_build.m4 isl-0.24/m4/ax_prog_cc_for_build.m4
@@ -3671,6 +3669,17 @@ end
 %endif
 
 %changelog
+* Tue Feb  4 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.7
+- update from trunk
+  - PRs ada/118712, ada/118731, c/118742, c++/79786, c++/98893, c++/108205,
+	c++/109918, c++/114619, c++/116506, c++/116880, c++/116914,
+	c++/117114, c++/117778, c++/118265, c++/118470, c++/118491,
+	c++/118718, c++/118719, fortran/93289, lto/113207, middle-end/115913,
+	middle-end/116926, modula2/117411, modula2/118703,
+	rtl-optimization/111673, rtl-optimization/117248,
+	rtl-optimization/117611, target/116010, target/118713,
+	testsuite/116845, tree-optimization/117113, tree-optimization/118717
+
 * Sat Feb  1 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.6
 - update from trunk
   - PRs c++/117501, c++/117516, debug/100530, fortran/108454, fortran/118714,

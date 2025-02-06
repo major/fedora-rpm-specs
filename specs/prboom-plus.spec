@@ -42,7 +42,7 @@ Bash command line completion support for %{name}.
 
 %build
 pushd prboom2
-%cmake -DDOOMWADDIR=%{_datadir}/doom
+%cmake -DDOOMWADDIR=%{_datadir}/doom -DCMAKE_C_FLAGS="$CMAKE_C_FLAGS -std=gnu17 -fPIE"
 %cmake_build
 
 %install

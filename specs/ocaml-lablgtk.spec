@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/garrigue/lablgtk
 
 Name:           ocaml-lablgtk
-Version:        2.18.13
-Release:        16%{?dist}
+Version:        2.18.14
+Release:        1%{?dist}
 
 Summary:        Objective Caml interface to gtk+
 
@@ -20,11 +20,6 @@ Source:         %{giturl}/archive/%{version}/lablgtk-%{version}.tar.gz
 # Provide a definition of ml_rsvg_handle_new_gz for newer versions of librsvg
 # which do not explicitly expose an SVGZ interface.
 Patch:          %{name}-svgz.patch
-# Mark an intermediate file that we want to install as precious.
-# Fixes FTBFS with make 4.4.
-Patch:          %{name}-precious.patch
-# Adapt to OCaml 5
-Patch:          %{name}-ocaml5.patch
 # Adapt to new paths to Unix library in OCaml 5.1.0
 Patch:          %{name}-unix.patch
 
@@ -154,6 +149,10 @@ sed -i '/propcc/d;/varcc/d' .ofiles
 
 
 %changelog
+* Mon Feb  3 2025 Jerry James <loganjerry@gmail.com> - 2.18.14-1
+- Version 2.18.14
+- Drop upstreamed precious and ocaml5 patches
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.13-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

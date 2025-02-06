@@ -20,8 +20,8 @@
 %bcond_with  ndi
 
 Name:           mlt
-Version:        7.28.0
-Release:        7%{?dist}
+Version:        7.30.0
+Release:        1%{?dist}
 Summary:        Toolkit for broadcasters, video editors, media players, transcoders
 
 # mlt/src/win32/fnmatch.{c,h} are BSD-licensed.
@@ -30,9 +30,6 @@ Summary:        Toolkit for broadcasters, video editors, media players, transcod
 License:        GPL-3.0-only AND LicenseRef-Callaway-LGPLv2+
 URL:            http://www.mltframework.org/
 Source0:        https://github.com/mltframework/mlt/releases/download/v%{version}/%{name}-%{version}.tar.gz
-# export missing APIs on i686
-# https://github.com/mltframework/mlt/issues/1020
-Patch0:         mlt-version-script.patch
 Patch1:         gcc15.patch
 
 BuildRequires:  gcc-c++
@@ -285,6 +282,16 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 
 
 %changelog
+* Tue Feb 04 2025 Packit <hello@packit.dev> - 7.30.0-1
+- Update to version 7.30.0
+- Resolves: rhbz#2338931
+
+* Tue Feb 04 2025 Sérgio Basto <sergio@serjux.com> - 7.28.0-9
+- Rebuild to fix side-tag
+
+* Tue Feb 04 2025 Sérgio Basto <sergio@serjux.com> - 7.28.0-8
+- Rebuild for opencv-4.11.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.28.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 - Add mini patch for GCC 15

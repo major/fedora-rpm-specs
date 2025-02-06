@@ -1,8 +1,8 @@
 %define target avr
 
 Name:           %{target}-binutils
-Version:        2.43
-Release:        2%{?dist}
+Version:        2.44
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Cross Compiling GNU binutils targeted at %{target}
 License:        GPL-2.0-or-later
@@ -84,6 +84,9 @@ rm    $RPM_BUILD_ROOT%{_libdir}/lib*.a $RPM_BUILD_ROOT%{_libdir}/bfd-plugins/lib
 
 
 %changelog
+* Tue Feb 04 2025 Michal Hlavinka <mhlavink@redhat.com> - 1:2.44-1
+- updated to 2.44
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.43-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

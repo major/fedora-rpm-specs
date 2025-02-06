@@ -1,5 +1,5 @@
 Name:           dtk6widget
-Version:        6.0.25
+Version:        6.0.27
 Release:        %autorelease
 Summary:        Deepin base graphical widgets library
 License:        LGPL-3.0-or-later

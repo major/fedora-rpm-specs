@@ -4,8 +4,8 @@
 %global dist %{expand:%%{_dist}}
 
 Name:		shim
-Version:	15.6
-Release:	2%{?dist}
+Version:	15.8
+Release:	3%{?dist}
 Summary:	First-stage UEFI bootloader
 License:	BSD-3-Clause
 URL:		https://github.com/rhboot/shim/
@@ -107,6 +107,23 @@ install -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/dnf/protected.d/
 %endif
 
 %changelog
+* Tue Mar 19 2024 Peter Jones <pjones@redhat.com> - 15.8-3
+- Fix fbx64/mmx64 signing.
+  Related: rhbz#2189197
+
+* Tue Mar 12 2024 Peter Jones <pjones@redhat.com> - 15.8-2
+- Update to shim-15.8
+  Resolves: CVE-2023-40546
+  Resolves: CVE-2023-40547
+  Resolves: CVE-2023-40548
+  Resolves: CVE-2023-40549
+  Resolves: CVE-2023-40550
+  Resolves: CVE-2023-40551
+  Resolves: rhbz#2113005
+  Resolves: rhbz#2189197
+  Resolves: rhbz#2238884
+  Resolves: rhbz#2259264
+
 * Thu Jul 07 2022 Robbie Harwood <rharwood@redhat.com> - 15.6-2
 - Update aarch64 (only) with relocation fixes
 - Resolves: #2101248

@@ -7,7 +7,7 @@
 Name:          virt-v2v
 Epoch:         1
 Version:       2.7.4
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -44,7 +44,7 @@ BuildRequires: autoconf, automake, libtool
 BuildRequires: make
 BuildRequires: /usr/bin/pod2man
 BuildRequires: gcc
-BuildRequires: ocaml >= 4.04
+BuildRequires: ocaml >= 4.08
 
 BuildRequires: libguestfs-devel >= 1:1.49.8-1
 BuildRequires: augeas-devel
@@ -311,6 +311,9 @@ done
 
 
 %changelog
+* Tue Feb 04 2025 Richard W.M. Jones <rjones@redhat.com> - 1:2.7.4-5
+- Bump and rebuild (RHBZ#2341511)
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1:2.7.4-4
 - Add explicit BR: libxcrypt-devel
 

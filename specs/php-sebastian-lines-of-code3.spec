@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-sebastian-lines-of-code3
 #
-# SPDX-FileCopyrightText:  Copyright 2020-2024 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2020-2025 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -8,7 +8,7 @@
 #
 
 # disabled until phpunit11 available
-%bcond_with          tests
+%bcond_without       tests
 
 # github
 %global gh_commit    d36ad0d782e5756913e42ad87cb2890f4ffe467a
@@ -27,7 +27,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        3.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Counting the lines of code in PHP source code, version %{major}
 
 License:        BSD-3-Clause
@@ -96,7 +96,7 @@ touch vendor/autoload.php
 
 : Run upstream test suite
 ret=0
-for cmd in php php82 php83; do
+for cmd in php php82 php83 php84; do
   if which $cmd; then
    $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
      %{_bindir}/phpunit11 || ret=1
@@ -117,6 +117,9 @@ exit $ret
 
 
 %changelog
+* Tue Feb  4 2025 Remi Collet <remi@remirepo.net> - 3.0.1-3
+- enable test suite
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

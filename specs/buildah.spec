@@ -7,19 +7,14 @@
 %global debug_package   %{nil}
 %endif
 
-# RHEL's default %%gobuild macro doesn't account for the BUILDTAGS variable, so we
-# set it separately here and do not depend on RHEL's go-[s]rpm-macros package
-# until that's fixed.
-# c9s bz: https://bugzilla.redhat.com/show_bug.cgi?id=2227328
-# c8s bz: https://bugzilla.redhat.com/show_bug.cgi?id=2227331
-%if %{defined rhel}
-%define gobuild(o:) go build -buildmode pie -compiler gc -tags="rpm_crashtraceback libtrust_openssl ${BUILDTAGS:-}" -ldflags "-linkmode=external -compressdwarf=false ${LDFLAGS:-} -B 0x$(head -c20 /dev/urandom|od -An -tx1|tr -d ' \\n') -extldflags '%__global_ldflags'" -a -v -x %{?**};
-%endif
-
 %global gomodulesmode GO111MODULE=on
 
-%if 0%{defined fedora}
+%if %{defined fedora}
 %define build_with_btrfs 1
+%endif
+
+%if %{defined rhel}
+%define fips 1
 %endif
 
 %global git0 https://github.com/containers/%{name}
@@ -37,7 +32,7 @@ Epoch: 2
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 1.38.1
+Version: 1.39.0
 # The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0
 Release: %autorelease
@@ -124,9 +119,13 @@ export CGO_CFLAGS+=" -m64 -mtune=generic -fcf-protection=full"
 export CNI_VERSION=`grep '^# github.com/containernetworking/cni ' src/modules.txt | sed 's,.* ,,'`
 export LDFLAGS="-X main.buildInfo=`date +%s` -X main.cniVersion=${CNI_VERSION}"
 
-export BUILDTAGS="seccomp exclude_graphdriver_devicemapper $(hack/systemd_tag.sh) $(hack/libsubid_tag.sh)"
+export BUILDTAGS="seccomp $(hack/systemd_tag.sh) $(hack/libsubid_tag.sh)"
 %if !%{defined build_with_btrfs}
 export BUILDTAGS+=" btrfs_noversion exclude_graphdriver_btrfs"
+%endif
+
+%if %{defined fips}
+export BUILDTAGS+=" libtrust_openssl"
 %endif
 
 %gobuild -o bin/%{name} ./cmd/%{name}
@@ -150,6 +149,9 @@ rm %{buildroot}%{_datadir}/%{name}/test/system/tools/build/*
 
 #define license tag if not already defined
 %{!?_licensedir:%global license %doc}
+
+# Include check to silence rpmlint.
+%check
 
 %files
 %license LICENSE vendor/modules.txt

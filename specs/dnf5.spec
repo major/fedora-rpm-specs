@@ -1,29 +1,17 @@
 %global project_version_prime 5
 %global project_version_major 2
-%global project_version_minor 8
-%global project_version_micro 1
+%global project_version_minor 9
+%global project_version_micro 0
 
 %bcond dnf5_obsoletes_dnf %[0%{?fedora} > 40 || 0%{?rhel} > 10]
 
 Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
 Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
-Patch0:         0001-python3-libdnf5-Remove-superfluous-provides-for-pyth.patch
-Patch1:         0002-Remove-redundant-python_provide-statements.patch
-Patch2:         0003-Fix-plural-typo.patch
-Patch3:         0004-Fix-reporting-disk-space-to-be-freed-on-a-pure-packa.patch
-Patch4:         0005-Incorrect-library-name-in-libdnf5-cli.pc.patch
-Patch5:         0006-automatic-Substitute-variables-in-command_format.patch
-Patch6:         0007-Display-remaining-time-as-nonnegative-number.patch
-Patch7:         0008-doc-dnf-history-userinstalled-replaced-with-dnf-repo.patch
-Patch8:         0009-Own-var-lib-dnf-by-libdnf5.patch
-Patch9:         0010-Copr-plugin-Fix-resource-leak-in-load_all_configurat.patch
-Patch10:        0011-repo-Fix-logging-metadata-download-errors-handling.patch
-Patch11:        0012-automatic-Fix-end-of-lines-in-messages-sent-by-email.patch
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
@@ -89,6 +77,7 @@ Provides:       dnf5-command(versionlock)
 %bcond_without dnf5
 %bcond_without dnf5_plugins
 %bcond_without plugin_actions
+%bcond_without plugin_appstream
 %bcond_without plugin_rhsm
 %bcond_without python_plugins_loader
 
@@ -616,6 +605,24 @@ Libdnf5 plugin that allows to run actions (external executables) on hooks.
 %{_mandir}/man8/libdnf5-actions.8.*
 %endif
 
+# ========== libdnf5-plugin-appstream ==========
+
+%if %{with plugin_appstream}
+
+%package -n libdnf5-plugin-appstream
+Summary:        Libdnf5 plugin to install repo Appstream data
+License:        LGPL-2.1-or-later
+Requires:       libdnf5%{?_isa} = %{version}-%{release}
+BuildRequires:  pkgconfig(appstream) >= 0.16
+
+%description -n libdnf5-plugin-appstream
+Libdnf5 plugin that installs repository's Appstream data, for repositories which provide them.
+
+%files -n libdnf5-plugin-appstream
+%{_libdir}/libdnf5/plugins/appstream.so
+%config %{_sysconfdir}/dnf/libdnf5-plugins/appstream.conf
+
+%endif
 
 # ========== libdnf5-plugin-plugin_rhsm ==========
 
@@ -817,6 +824,7 @@ automatically and regularly from systemd timers, cron jobs or similar.
     -DWITH_LIBDNF5_CLI=%{?with_libdnf_cli:ON}%{!?with_libdnf_cli:OFF} \
     -DWITH_DNF5=%{?with_dnf5:ON}%{!?with_dnf5:OFF} \
     -DWITH_PLUGIN_ACTIONS=%{?with_plugin_actions:ON}%{!?with_plugin_actions:OFF} \
+    -DWITH_PLUGIN_APPSTREAM=%{?with_plugin_appstream:ON}%{!?with_plugin_appstream:OFF} \
     -DWITH_PLUGIN_RHSM=%{?with_plugin_rhsm:ON}%{!?with_plugin_rhsm:OFF} \
     -DWITH_PYTHON_PLUGINS_LOADER=%{?with_python_plugins_loader:ON}%{!?with_python_plugins_loader:OFF} \
     \
@@ -912,6 +920,45 @@ popd
 %ldconfig_scriptlets
 
 %changelog
+* Tue Feb 04 2025 Packit <hello@packit.dev> - 5.2.9.0-1
+- Update translations from weblate
+- automatic: Translate end-of-lines in email emitter by DNF
+- ruby: Fix swig namespacing in Ruby.
+- Correct Ruby %%module definition in swig files.
+- Documentation enhancements
+- Add a hint to `history info` without trans IDs when no match found
+- Add `--contains-pkgs=..` option to `history` `list` and `info`
+- During package download setup first add all downloads then handle local
+- Enhance `perform_control_sequences()` to handle colors
+- versionlock: Fix wildcards handling in `add` command
+- ruby: Implement Enumerable for libdnf5::advisory::AdvisorySet.
+- ruby: Implement Enumerable for libdnf5::rpm::ReldepList.
+- ruby: Implement Enumerable for libdnf5::rpm::PackageSet.
+- Implement each() for iterating over collection in ruby.
+- Add --json output to advisory info
+- I18N: Annotate indentation of the transaction summary
+- libdnf5: Load plugins with RTLD_NODELETE flag set
+- libdnf5: Add a plugin to download and install repo's Appstream data
+- Fix bash completion if colon is in the word to complete
+- Remove and rename global variables in bash completion
+- DNF5 bash completion: Offer package NAMEs in all cases
+- Bash completion: always offer NEVRAs for packages
+- repo: Fix logging metadata download errors handling
+- Copr plugin: Fix resource leak in load_all_configuration
+- Own /var/lib/dnf by libdnf5
+- Display remaining time as nonnegative number
+- automatic: Substitute variables in command_format
+- Bumb readthedocs ubuntu image version to fix the docs generation
+- automatic: add a default setting to not emit boring messages
+- Incorrect library name in libdnf5-cli.pc
+- Fix reporting disk space to be freed on a pure package removal
+- Support ProgressBar messages with wide characters
+- Add padding to ProgressBar messages to avoid overlapping
+- SWIG: support repo::DownloadCallbacks user_data
+- Remove redundant %%python_provide statements
+- python3-libdnf5: Remove superfluous provides for python-libdnf
+- Update pre-commit hooks to latest versions in F41
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.8.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

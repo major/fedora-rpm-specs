@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-phpunit-php-invoker5
 #
-# SPDX-FileCopyrightText:  Copyright 2011-2024 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2011-2025 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -8,7 +8,7 @@
 #
 
 # disabled until phpunit11 available
-%bcond_with          tests
+%bcond_without       tests
 
 %global gh_commit    c1ca3814734c07492b3d4c5f794f4b0995333da2
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
@@ -26,7 +26,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        5.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Invoke callables with a timeout, version %{major}
 
 License:        BSD-3-Clause
@@ -110,6 +110,9 @@ exit $ret
 
 
 %changelog
+* Tue Feb  4 2025 Remi Collet <remi@remirepo.net> - 5.0.1-3
+- enable test suite
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,10 +1,10 @@
-%global rawhide_release 42
+%global rawhide_release 43
 %global updates_testing_enabled 0
 
 Summary:        Fedora package repositories
 Name:           fedora-repos
-Version:        42
-Release:        0.4%{?eln:.eln%{eln}}
+Version:        43
+Release:        0.1%{?eln:.eln%{eln}}
 License:        MIT
 URL:            https://fedoraproject.org/
 
@@ -403,6 +403,9 @@ rm -f "$TMPRING"
 
 
 %changelog
+* Fri Jan 31 2025 Patrik Polakovic <patrik@alphamail.org> - 43-0.1
+- Rawhide is now F43
+
 * Wed Jan 10 2025 Samyak Jain <samyak.jn11@gmail.com> - 42-0.4
 - Add RPM-GPG-KEY-fedora-44-primary
 

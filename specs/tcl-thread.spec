@@ -3,7 +3,7 @@
 
 Name:           tcl-thread
 Version:        2.8.8
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Tcl Thread extension
 License:        TCL
 URL:            http://tcl.sourceforge.net
@@ -12,7 +12,8 @@ Patch0:         tcl-thread-x86_64-build.patch
 
 BuildRequires: make
 BuildRequires:  gcc
-BuildRequires:  tcl-devel
+BuildRequires:  tcl-devel < 1:9
+BuildRequires:  tk-devel < 1:9
 BuildRequires:  gdbm-devel
 Requires:       tcl(abi) = 8.6
 
@@ -50,6 +51,9 @@ chmod 755 %{buildroot}%{tcl_sitearch}/thread%{version}/libthread%{version}.so
 %{_includedir}/tclThread.h
 
 %changelog
+* Tue Feb 04 2025 Vasiliy N. Glazov <vascom2@gmail.com> - 2.8.8-7
+- Correct BRs
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

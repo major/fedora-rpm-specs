@@ -5,7 +5,7 @@
 %global crate rutabaga_gfx
 
 Name:           rust-rutabaga_gfx
-Version:        0.1.4
+Version:        0.1.5
 Release:        %autorelease
 Summary:        Handling virtio-gpu protocols
 
@@ -103,18 +103,6 @@ This package contains library source intended for building other packages which
 use the "virgl_renderer" feature of the "%{crate}" crate.
 
 %files       -n %{name}+virgl_renderer-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+vulkano-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+vulkano-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "vulkano" feature of the "%{crate}" crate.
-
-%files       -n %{name}+vulkano-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+x-devel

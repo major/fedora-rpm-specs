@@ -1,6 +1,6 @@
 Name:          libiio
 Version:       0.26
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Library for Industrial IO
 License:       LGPL-2.0-or-later
 URL:           https://analogdevicesinc.github.io/libiio/
@@ -63,30 +63,36 @@ Python 3 bindings for Industrial IO
 
 %prep
 %autosetup -p1
-sed -i 's/${LIBIIO_VERSION_MAJOR}-doc//' CMakeLists.txt
+sed -i 's#${LIBIIO_VERSION_MAJOR}-doc##' CMakeLists.txt
+sed -i 's#DESTINATION ${CMAKE_HTML_DEST_DIR}/${CMAKE_API_DEST_DIR}#DESTINATION ${CMAKE_HTML_DEST_DIR}##' CMakeLists.txt
 
 %build
-%cmake -DPYTHON_BINDINGS=on -DWITH_DOC=on -DWITH_MAN=on
+%cmake -DPYTHON_BINDINGS=on -DWITH_DOC=on -DWITH_MAN=on \
+       -DUDEV_RULES_INSTALL_DIR=%{_udevrulesdir}
+
 %cmake_build
 
 %install
 %cmake_install
 
+#hack: Fix man locations
+mv %{buildroot}%{_mandir}/man1/man/* %{buildroot}%{_mandir}/man1
+mv %{buildroot}%{_mandir}/man3/man/* %{buildroot}%{_mandir}/man3
+rmdir %{buildroot}%{_mandir}/man1/man %{buildroot}%{_mandir}/man3/man
 #Remove libtool archives.
 find %{buildroot} -name '*.la' -delete
 
-%ldconfig_scriptlets
 
 %files
 %license COPYING.txt
 %{_libdir}/%{name}.so.*
-/lib/udev/rules.d/90-libiio.rules
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%{_mandir}/man3/libiio*
+%{_udevrulesdir}/90-libiio.rules
 
 %files utils
 %{_bindir}/iio_*
-%{_sbindir}/iiod
+%{_bindir}/iiod
+%{_mandir}/man1/iio*
 
 %files devel
 %{_includedir}/iio.h
@@ -102,6 +108,9 @@ find %{buildroot} -name '*.la' -delete
 %{python3_sitelib}/pylibiio*
 
 %changelog
+* Tue Feb 04 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 0.26-3
+- Minor spec cleanups and fixes
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

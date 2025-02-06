@@ -11,7 +11,7 @@
 Summary:   Multi Router Traffic Grapher
 Name:      mrtg
 Version:   2.17.10
-Release:   10%{?dist}
+Release:   11%{?dist}
 URL:       http://oss.oetiker.ch/mrtg/
 Source0:   http://oss.oetiker.ch/mrtg/pub/mrtg-%{version}.tar.gz
 Source1:   http://oss.oetiker.ch/mrtg/pub/mrtg-%{version}.tar.gz.md5
@@ -151,7 +151,6 @@ install -D -p -m 0644 selinux/%{modulename}.if %{buildroot}%{_datadir}/selinux/d
 
 %post
 install -d -m 0755 -o root -g root /var/lock/mrtg
-restorecon /var/lock/mrtg
 %systemd_post mrtg.service
 
 %preun
@@ -176,7 +175,7 @@ fi
 
 if [ "$1" -le "1" ]; then # First install
    # the service needs to be restarted for the custom label to be applied
-   %systemd_postun_with_restart mrtg.service
+   %systemd_postun_with_restart mrtg.service &> /dev/null || :
 fi
 
 %postun selinux
@@ -209,10 +208,14 @@ fi
 %files selinux
 %{_datadir}/selinux/packages/%{selinuxtype}/%{modulename}.pp.*
 %{_datadir}/selinux/devel/include/distributed/%{modulename}.if
-%ghost %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{modulename}
+%ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{modulename}
 %endif
 
 %changelog
+* Tue Feb 04 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.17.10-11
+- Remove redundand restorecon call, redirect safe to ignore output
+  to /dev/null, mark module directory to avoid rpm verification
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.17.10-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

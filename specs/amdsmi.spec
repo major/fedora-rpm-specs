@@ -1,5 +1,5 @@
 %global rocm_release 6.3
-%global rocm_patch 1
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 %global upstreamname amdsmi
 
@@ -19,7 +19,7 @@
 
 Name:       amdsmi
 Version:    %{rocm_version}
-Release:    6%{?dist}
+Release:    1%{?dist}
 Summary:    AMD System Management Interface
 
 License:    NCSA AND MIT AND BSD-3-Clause
@@ -31,8 +31,6 @@ Source0:    %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.ta
 # found in the upstream kernel.
 %global esmi_ver 3.0.3
 Source1:    https://github.com/amd/esmi_ib_library/archive/refs/tags/esmi_pkg_ver-%{esmi_ver}.tar.gz
-# https://github.com/ROCm/amdsmi/pull/48
-Patch0:     0001-Do-not-automatically-download-kernel-header-amd_hsmp.patch
 Patch1:     0001-Fix-empty-return.patch
 Patch2:     0001-Include-cstdint-for-gcc-15.patch
 
@@ -164,6 +162,9 @@ rm %{buildroot}%{_libdir}/cmake/amd_smi/amd_smi-config.cmake
 %endif
 
 %changelog
+* Wed Jan 29 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-1
+- Update to 6.3.2
+
 * Fri Jan 17 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-6
 - Cleanup for suse
 

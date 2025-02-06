@@ -4,11 +4,11 @@ Version: 3.1.0
 Release: %autorelease
 
 # Which files use following license:
-# BSD: main license of open source PyMOL and some plugins
+# BSD-2-Clause AND BSD-3-Clause: main license of open source PyMOL and some plugins
 # MIT: modules/pymol_web/examples/sample13/jquery.js
 # Bitstream Vera: layer1/FontTTF.h
 # OFL: layer1/FontTTF2.h
-License: MIT-0 AND BSD AND Bitstream-Vera AND OFL-1.1
+License: MIT-0 AND BSD-2-Clause AND BSD-3-Clause AND Bitstream-Vera AND OFL-1.1
 URL: http://www.pymol.org
 Source0: https://github.com/schrodinger/pymol-open-source/archive/v%{version}/%{name}-open-source-%{version}.tar.gz
 Source1: %{name}.png

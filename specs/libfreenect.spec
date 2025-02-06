@@ -2,7 +2,7 @@
 
 Name:           libfreenect
 Version:        0.7.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Device driver for the Kinect
 # Core libfreenect is available as Apache-2.0 OR GPL-2.0-only
 #
@@ -185,6 +185,9 @@ mv %{buildroot}%{_libdir}/OpenNI2-FreenectDriver %{buildroot}%{_libdir}/openni2/
 %{_libdir}/openni2
 
 %changelog
+* Tue Feb 04 2025 Sérgio Basto <sergio@serjux.com> - 0.7.0-14
+- Rebuild for opencv-4.11.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

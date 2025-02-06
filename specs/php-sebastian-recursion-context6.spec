@@ -1,14 +1,14 @@
 # remirepo/fedora spec file for php-sebastian-recursion-context6
 #
-# Copyright (c) 2015-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2015-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 
 # disabled until phpunit11 available
-%bcond_with          tests
+%bcond_without       tests
 
 %global gh_commit    694d156164372abbd149a4b85ccda2e4670c0e16
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
@@ -26,7 +26,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        6.0.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Recursively process PHP variables, version %{major}
 
 License:        BSD-3-Clause
@@ -104,6 +104,9 @@ exit $ret
 
 
 %changelog
+* Tue Feb  4 2025 Remi Collet <remi@remirepo.net> - 6.0.2-4
+- enable test suite
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

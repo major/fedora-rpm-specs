@@ -18,7 +18,7 @@
 
 Name:           gcl
 Version:        2.6.14
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        GNU Common Lisp
 
 # LGPL-2.0-or-later:
@@ -54,7 +54,7 @@ Source3:        gcl.el
 # Upstream builds point releases for Debian, and uploads the patches directly
 # to the Debian Patch Tracker, but does not spin new tarballs.  These are the
 # upstream patches from https://sources.debian.org/patches/gcl/.
-%global patchdir %{version}-11
+%global patchdir %{version}-12
 Patch:          https://sources.debian.org/data/main/g/gcl/%{patchdir}/debian/patches/Version_2_6_15pre1
 Patch:          https://sources.debian.org/data/main/g/gcl/%{patchdir}/debian/patches/Version_2_6_15pre2
 Patch:          https://sources.debian.org/data/main/g/gcl/%{patchdir}/debian/patches/Version_2_6_15pre3
@@ -65,6 +65,7 @@ Patch:          https://sources.debian.org/data/main/g/gcl/%{patchdir}/debian/pa
 Patch:          https://sources.debian.org/data/main/g/gcl/%{patchdir}/debian/patches/Version_2_6_15pre8
 Patch:          https://sources.debian.org/data/main/g/gcl/%{patchdir}/debian/patches/Version_2_6_15pre9
 Patch:          https://sources.debian.org/data/main/g/gcl/%{patchdir}/debian/patches/Version_2_6_15pre10
+Patch:          https://sources.debian.org/data/main/g/gcl/%{patchdir}/debian/patches/Version_2_6_15pre11
 
 ### Fedora patches
 
@@ -103,6 +104,8 @@ Patch:          %{name}-2.6.12-infrastructure.patch
 Patch:          %{name}-2.6.12-extension.patch
 # Force building in C17 mode; the code is not ready for C23
 Patch:          %{name}-2.6.14-c17.patch
+# Adapt to Tcl/Tk 9.x
+Patch:          %{name}-2.6.14-tcl9.patch
 
 BuildRequires:  binutils-devel
 BuildRequires:  bzip2
@@ -256,6 +259,10 @@ rm -f /tmp/gazonk_* /tmp/gcl_*
 
 
 %changelog
+* Tue Feb  4 2025 Jerry James <loganjerry@gmail.com> - 2.6.14-11
+- Update to 2.6.15pre11 for bug fixes
+- Add patch for Tcl/Tk 9.x compatibility
+
 * Tue Jan 21 2025 Jerry James <loganjerry@gmail.com> - 2.6.14-10
 - Build in C17 mode
 

@@ -14,7 +14,7 @@ ExclusiveArch: %{qt5_qtwebengine_arches}
 Name:    digikam
 Summary: A digital camera accessing & photo management application
 Version: 8.5.0
-Release: 3%{?beta}%{?dist}
+Release: 4%{?beta}%{?dist}
 
 License: GPL-2.0-or-later
 URL:     http://www.digikam.org/
@@ -334,6 +334,9 @@ update-desktop-database -q &> /dev/null
 
 
 %changelog
+* Tue Feb 04 2025 Sérgio Basto <sergio@serjux.com> - 8.5.0-4
+- Rebuild for opencv-4.11.0
+
 * Sun Feb 02 2025 Sérgio Basto <sergio@serjux.com> - 8.5.0-3
 - Rebuild for jpegxl (libjxl) 0.11.1
 

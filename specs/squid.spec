@@ -1,8 +1,8 @@
 %define __perl_requires %{SOURCE98}
 
 Name:     squid
-Version:  6.12
-Release:  5%{?dist}
+Version:  6.13
+Release:  1%{?dist}
 Summary:  The Squid proxy caching server
 Epoch:    7
 # See CREDITS for breakdown of non GPLv2+ code
@@ -40,8 +40,6 @@ Patch204: squid-6.1-symlink-lang-err.patch
 Patch205: squid-6.1-crash-half-closed.patch
 # Upstream PR: https://github.com/squid-cache/squid/pull/1914
 Patch206: squid-6.11-ignore-wsp-after-chunk-size.patch
-# https://bugs.squid-cache.org/show_bug.cgi?id=5214
-Patch207: squid-6.12-large-upload-buffer-dies.patch
 
 # cache_swap.sh
 Requires: bash gawk
@@ -316,6 +314,9 @@ fi
 
 
 %changelog
+* Tue Feb 04 2025 Luboš Uhliarik <luhliari@redhat.com> - 7:6.13-1
+- new version 6.13
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 7:6.12-5
 - Add explicit BR: libxcrypt-devel
 

@@ -19,7 +19,7 @@
 
 Name:           rocdecode
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        High-performance video decode SDK for AMD GPUs
 
 Url:            https://github.com/ROCm/rocDecode
@@ -73,6 +73,10 @@ sed -i "s|\(llvm/bin/clang++\)|\1 CACHE STRING \"ROCm Compiler path\"|" \
 # https://github.com/ROCm/rocDecode/issues/477
 sed -i "s|/opt/amdgpu/include NO_DEFAULT_PATH|/usr/include|" cmake/FindLibva.cmake
 
+# cpack cruft in the middle of the configure, this breaks TW and is only used for ubuntu
+sed -i -e 's@file(READ "/etc/os-release" OS_RELEASE)@#file(READ "/etc/os-release" OS_RELEASE)@'  CMakeLists.txt
+sed -i -e 's@string(REGEX MATCH "22.04" UBUNTU_22_FOUND ${OS_RELEASE})@#string(REGEX MATCH "22.04" UBUNTU_22_FOUND ${OS_RELEASE})@'  CMakeLists.txt
+
 %build
 %cmake \
     -DCMAKE_CXX_COMPILER=hipcc \
@@ -82,14 +86,26 @@ sed -i "s|/opt/amdgpu/include NO_DEFAULT_PATH|/usr/include|" cmake/FindLibva.cma
 %install
 %cmake_install
 
+if [ -f %{buildroot}%{_prefix}/share/doc/rocdecode/LICENSE ]; then
+    rm %{buildroot}%{_prefix}/share/doc/rocdecode/LICENSE
+fi
+if [ -f %{buildroot}%{_prefix}/share/doc/rocdecode-asan/LICENSE ]; then
+    rm %{buildroot}%{_prefix}/share/doc/rocdecode-asan/LICENSE
+fi
+if [ -f %{buildroot}%{_prefix}/share/doc/packages/rocdecode/LICENSE ]; then
+    rm %{buildroot}%{_prefix}/share/doc/packages/rocdecode/LICENSE
+fi
+if [ -f %{buildroot}%{_prefix}/share/doc/packages/rocdecode-asan/LICENSE ]; then
+    rm %{buildroot}%{_prefix}/share/doc/packages/rocdecode-asan/LICENSE
+fi
+
 %if %{with test}
 %check
 %ctest
 %endif
 
 %files
-%license /usr/share/doc/%{name}/LICENSE
-%exclude /usr/share/doc/%{name}-*/LICENSE
+%license LICENSE
 %dir %{_docdir}/%{name}
 %{_libdir}/lib%{name}.so.0{,.*}
 
@@ -100,6 +116,9 @@ sed -i "s|/opt/amdgpu/include NO_DEFAULT_PATH|/usr/include|" cmake/FindLibva.cma
 %exclude %{_datadir}/%{name}/samples
 
 %changelog
+* Tue Feb 4 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-4
+- Fix TW build
+
 * Mon Jan 20 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-3
 - multithread compress
 
