@@ -13,11 +13,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.1
+%global general_version %{pybasever}.2
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 4%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -357,14 +357,6 @@ Source11: idle3.appdata.xml
 #
 # pypa/distutils integration: https://github.com/pypa/distutils/pull/70
 Patch251: 00251-change-user-install-location.patch
-
-# 00445 # d1a32daddefad32ceb93155552858c0a0311b23e
-# CVE-2024-12254: Ensure _SelectorSocketTransport.writelines pauses the protocol if needed
-#
-# Ensure _SelectorSocketTransport.writelines pauses the protocol if it reaches the high water mark as needed.
-#
-# Resolved upstream: https://github.com/python/cpython/issues/127655
-Patch445: 00445-cve-2024-12254-ensure-_selectorsockettransport-writelines-pauses-the-protocol-if-needed.patch
 
 # (New patches go here ^^^)
 #
@@ -1719,6 +1711,11 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Tue Feb 04 2025 Charalampos Stratakis <cstratak@redhat.com> - 3.13.2-1
+- Update to 3.13.2
+- Security fix for CVE-2025-0938
+- Fixes: rhbz#2343274
+
 * Wed Jan 29 2025 Miro Hrončok <mhroncok@redhat.com> - 3.13.1-4
 - On Fedora 41 or older, statically build the _datetime module into libpython
 - This fixes a segfault when importing it from Python 3.13.0 updated to 3.13.1+ while running

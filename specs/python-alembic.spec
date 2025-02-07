@@ -1,5 +1,5 @@
 Name:             python-alembic
-Version:          1.14.0
+Version:          1.14.1
 Release:          %autorelease
 Summary:          Database migration tool for SQLAlchemy
 
@@ -7,6 +7,10 @@ Summary:          Database migration tool for SQLAlchemy
 License:          MIT
 URL:              https://pypi.io/project/alembic
 Source0:          %{pypi_source alembic}
+
+# Specific to Fedora: The tzdata Python package is essentially just a copy of
+# the main tzdata package, we don’t need to have it.
+Patch:            python-alembic-1.14.1-no-tzdata-pkg.patch
 
 BuildArch:        noarch
 
@@ -17,6 +21,8 @@ BuildRequires:    python3-pytest
 %if %{undefined rhel}
 BuildRequires:    python3-pytest-xdist
 %endif
+
+BuildRequires:    tzdata
 
 %global _description %{expand:
 Alembic is a database migrations tool written by the author of SQLAlchemy. A
@@ -41,7 +47,17 @@ Summary:          %summary
 %description -n python3-alembic %_description
 
 
-%pyproject_extras_subpkg -n python3-alembic tz
+# Don’t use the %%pyproject_extras_subpkg macro, we want it to depend on the
+# main tzdata package, not python3dist(tzdata) (which we don’t have).
+
+%package -n python3-alembic+tz
+Summary: Metapackage for python3-alembic: tz extra
+Requires: python3-alembic = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires: tzdata
+
+%description -n python3-alembic+tz
+This is a metapackage bringing in tz extra requires for python3-alembic.
+It contains no code, just makes sure the dependencies are installed.
 
 
 %prep
@@ -51,7 +67,7 @@ Summary:          %summary
 rm -rvf docs/_static
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -r -i 's/^([[:blank:]]*(black|zimports))\b/# &/' tox.ini
-# Don't treat DeprecationWarnings as errros in tests
+# Don't treat DeprecationWarnings as errors in tests
 sed -i '/"error", category=DeprecationWarning/d' alembic/testing/warnings.py
 
 
@@ -95,6 +111,10 @@ ln -s alembic-%{python3_version}.1 %{buildroot}%{_mandir}/man1/alembic.1
 %{_mandir}/man1/alembic-3.1{,.*}
 %{_bindir}/alembic-%{python3_version}
 %{_mandir}/man1/alembic-%{python3_version}.1{,.*}
+
+
+%files -n python3-alembic+tz
+%ghost %{python3_sitelib}/*.dist-info
 
 
 %changelog

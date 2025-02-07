@@ -45,7 +45,7 @@ Sophisticated chroot/build/flash tool to develop and install postmarketOS.
 rm -rf %{name}.egg-info
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

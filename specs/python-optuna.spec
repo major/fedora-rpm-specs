@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A hyperparameter optimization framework
 
 License:        MIT AND BSD-3-Clause AND SunPro
@@ -40,7 +40,7 @@ Optuna can dynamically construct the search spaces for the hyperparameters.
 rm -rf %{pypi_name}.egg-info
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -58,6 +58,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}.dist-info/
 
 %changelog
+* Wed Feb 05 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.2.0-2
+- Drop BR -t
+
 * Thu Jan 23 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.2.0-1
 - 4.2.0
 

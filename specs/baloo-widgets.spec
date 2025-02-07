@@ -1,7 +1,7 @@
 Name:    baloo-widgets
 Summary: Widgets for Baloo
-Version: 24.12.1
-Release: 2%{?dist}
+Version: 24.12.2
+Release: 1%{?dist}
 
 # # KDE e.V. may determine that future LGPL versions are accepted
 License: LGPL-2.0-only OR LGPL-3.0-only
@@ -62,6 +62,9 @@ Requires: kf6-kio-devel
 
 
 %changelog
+* Wed Feb 05 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-1
+- 24.12.2
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

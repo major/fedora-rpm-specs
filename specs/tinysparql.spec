@@ -6,7 +6,7 @@
 
 Name:           tinysparql
 Version:        3.8~rc
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Desktop-neutral metadata database and search tool
 
 License:        GPL-2.0-or-later
@@ -64,12 +64,12 @@ Metadata indexers are provided by the localsearch package.
 Summary:        Libtinysparql library
 License:        LGPL-2.1-or-later
 Recommends:     %{name}%{?_isa} = %{version}-%{release}
+Obsoletes:      libtracker-sparql < %{tracker_obsoletes_version}
 
 %description -n libtinysparql
 This package contains the libtinysparql library.
 
 # renamed in F42
-Obsoletes:      libtracker-sparql < %{tracker_obsoletes_version}
 Provides:       libtracker-sparql = %{version}-%{release}
 Provides:       libtracker-sparql%{?_isa} = %{version}-%{release}
 
@@ -142,7 +142,7 @@ This package contains the documentation for %{name}.
 %{_libdir}/girepository-1.0/Tracker-3.0.typelib
 %{_libdir}/girepository-1.0/Tsparql-3.0.typelib
 %{_libdir}/libtinysparql-3.0.so.0*
-%{_libdir}/libtracker-sparql-3.0.so*
+%{_libdir}/libtracker-sparql-3.0.so.0*
 %{_libdir}/tinysparql-3.0/
 %{_datadir}/gir-1.0/Tracker-3.0.gir
 
@@ -150,6 +150,7 @@ This package contains the documentation for %{name}.
 %license COPYING COPYING.LGPL
 %{_includedir}/tinysparql-3.0/
 %{_libdir}/libtinysparql-3.0.so
+%{_libdir}/libtracker-sparql-3.0.so
 %{_libdir}/pkgconfig/tinysparql-3.0.pc
 %{_libdir}/pkgconfig/tracker-sparql-3.0.pc
 %{_datadir}/vala/vapi/tinysparql-3.0.deps
@@ -164,6 +165,9 @@ This package contains the documentation for %{name}.
 
 
 %changelog
+* Wed Feb 05 2025 Nieves Montero <nmontero@redhat.com> - 3.8.rc-6
+- Move Obsoletes line
+
 * Tue Feb 04 2025 Nieves Montero <nmontero@redhat.com> - 3.8.rc-5
 - Version bump
 

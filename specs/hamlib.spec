@@ -4,12 +4,12 @@
 %global tclver 8.6
 %endif
 
-%global githash 028d750249ab00c8c362598c838b15e8aa6a2951
+%global githash 0
 %global shorthash %(c=%{githash}; echo ${c:0:10})
 
 Name:           hamlib
-Version:        4.6
-Release:        3%{?dist}
+Version:        4.6.1
+Release:        1%{?dist}
 Summary:        Run-time library to control radio transceivers and receivers
 
 License:        GPL-2.0-or-later and LGPL-2.0-or-later
@@ -243,6 +243,9 @@ make V=1 check
 
 
 %changelog
+* Thu Feb 06 2025 Richard Shaw <hobbes1069@gmail.com> - 4.6.1-1
+- Update to 4.6.1.
+
 * Tue Feb 04 2025 Richard Shaw <hobbes1069@gmail.com> - 4.6-3
 - Update deps for Tcl/Tk 9.0.
 

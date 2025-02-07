@@ -1,7 +1,7 @@
 Name:    krfb
 Summary: Desktop sharing
-Version: 24.12.1
-Release: 2%{?dist}
+Version: 24.12.2
+Release: 1%{?dist}
 
 License: GPL-2.0-only AND LGPL-2.1-only AND GFDL-1.2-no-invariants-only
 URL:     https://www.kde.org/applications/network/krfb/
@@ -113,6 +113,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.krfb.desk
 
 
 %changelog
+* Wed Feb 05 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-1
+- 24.12.2
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -449,7 +449,7 @@ if ! make check CLEANUP=yes PARALLEL=${RPM_BUILD_NCPUS}; then
    cat tests.log
    exit 1
 fi
-if ! make check-swig-pl check-swig-rb; then
+if ! make check-swig-pl; then
    : Swig test failure.
    exit 1
 fi
@@ -459,7 +459,12 @@ if ! make check-swig-py; then
    exit 1
 fi
 %endif
-# check-swig-rb omitted: it runs svnserve
+%if %{with ruby}
+if ! make check-swig-rb; then
+   : Ruby swig test failure.
+   exit 1
+fi
+%endif
 %if %{with java}
 make check-javahl
 %endif

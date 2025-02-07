@@ -4,7 +4,7 @@
 Summary: Kernel analysis utility for live systems, netdump, diskdump, kdump, LKCD or mcore dumpfiles
 Name: crash
 Version: 8.0.6
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-3.0-only
 Source0: https://github.com/crash-utility/crash/archive/crash-%{version}.tar.gz
 Source1: http://ftp.gnu.org/gnu/gdb/gdb-10.2.tar.gz
@@ -24,6 +24,16 @@ Patch3: 0002-Fix-for-help-r-segfault-in-case-of-ramdump.patch
 Patch4: 0003-arm64-add-cpu-context-registers-to-better-support-gd.patch
 Patch5: 0004-x86_64-Mark-VC-stack-unavailable-when-CONFIG_AMD_MEM.patch
 Patch6: 0005-Fix-incorrect-bt-v-output-suggesting-overflow.patch
+Patch7: 0001-Doc-add-compilation-requirements-note-in-README.patch
+Patch8: 0002-Fix-net-a-option-on-Linux-6.13-and-later-kernels.patch
+Patch9: 0003-kmem-fix-the-determination-of-slab-page-due-to-inval.patch
+Patch10: 0004-Enhance-kmem-i-shared-to-display-or-not-shared-pages.patch
+Patch11: 0005-Fix-misleading-CPU-count-in-display_sys_stats.patch
+Patch12: 0006-arm64-add-pac-mask-to-better-support-gdb-stack-unwin.patch
+Patch13: 0007-x86_64-Fix-bt-S-I-segfault-issue.patch
+Patch14: 0008-Fix-build-failure-in-readline-lib.patch
+Patch15: 0009-tools.c-do-not-use-keywords-nullptr-as-a-variable-in.patch
+Patch16: 0010-Fix-build-failure-on-32bit-machine-i686.patch
 
 %description
 The core analysis suite is a self-contained tool that can be used to
@@ -50,6 +60,16 @@ offered by Mission Critical Linux, or the LKCD kernel patch.
 %patch -P 4 -p1
 %patch -P 5 -p1
 %patch -P 6 -p1
+%patch -P 7 -p1
+%patch -P 8 -p1
+%patch -P 9 -p1
+%patch -P 10 -p1
+%patch -P 11 -p1
+%patch -P 12 -p1
+%patch -P 13 -p1
+%patch -P 14 -p1
+%patch -P 15 -p1
+%patch -P 16 -p1
 
 %build
 
@@ -75,6 +95,18 @@ cp -p defs.h %{buildroot}%{_includedir}/crash
 %{_includedir}/*
 
 %changelog
+* Wed Feb 5 2025 Lianbo Jiang <lijiang@redhat.com> - 8.0.6-4
+- Doc: add compilation requirements note in README
+- Fix "net -a" option on Linux 6.13 and later kernels
+- kmem: fix the determination of slab page due to invalid page_type
+- Enhance "kmem -i[=shared]" to display(or not) shared pages
+- Fix misleading CPU count in display_sys_stats()
+- arm64: add pac mask to better support gdb stack unwind
+- x86_64: Fix 'bt -S/-I' segfault issue
+- Fix build failure in readline lib
+- tools.c: do not use keywords 'nullptr' as a variable in code
+- Fix build failure on 32bit machine(i686)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

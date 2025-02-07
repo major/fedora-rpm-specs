@@ -3,7 +3,7 @@
 
 Name: rear
 Version: 2.9
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Relax-and-Recover is a Linux disaster recovery and system migration tool
 URL: https://relax-and-recover.org
 
@@ -57,7 +57,7 @@ ExclusiveArch: %ix86 x86_64 ppc ppc64 ppc64le ia64 s390x
 # so that rear must be architecture dependent because ifarch conditions never match in case of "BuildArch: noarch"
 # see the GitHub issue https://github.com/rear/rear/issues/629
 %ifarch %ix86 x86_64
-Requires: syslinux
+Requires: syslinux-extlinux
 %endif
 %ifarch ppc ppc64 ppc64le
 # Called by grub2-install (except on PowerNV)
@@ -167,6 +167,10 @@ install -m 0644 %{SOURCE3} %{buildroot}%{_docdir}/%{name}/
 
 #-- CHANGELOG -----------------------------------------------------------------#
 %changelog
+* Wed Feb 05 2025 Lukáš Zaoral <lzaoral@redhat.com> - 2.9-2
+- require syslinux-extlinux which is necessary for USB devices bootable on
+  legacy BIOS
+
 * Tue Feb 04 2025 Lukáš Zaoral <lzaoral@redhat.com> - 2.9-1
 - rebase to version 2.9 (rhbz#2343296)
 - drop upstreamed patches

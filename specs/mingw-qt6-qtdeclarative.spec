@@ -457,6 +457,8 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/qt6/metatypes/qt6quicktestutilsprivate_relwithdebinfo_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6quickwidgets_relwithdebinfo_metatypes.json
 %{mingw32_libdir}/qt6/mkspecs/features/qmltypes.prf
+%{mingw32_libdir}/qt6/mkspecs/features/qmlcache.prf
+%{mingw32_libdir}/qt6/mkspecs/features/qtquickcompiler.prf
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_labsanimation.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_labsanimation_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_labsfolderlistmodel.pri
@@ -942,6 +944,8 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/qt6/metatypes/qt6quicktestutilsprivate_relwithdebinfo_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6quickwidgets_relwithdebinfo_metatypes.json
 %{mingw64_libdir}/qt6/mkspecs/features/qmltypes.prf
+%{mingw64_libdir}/qt6/mkspecs/features/qmlcache.prf
+%{mingw64_libdir}/qt6/mkspecs/features/qtquickcompiler.prf
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_labsanimation.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_labsanimation_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_labsfolderlistmodel.pri

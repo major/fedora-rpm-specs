@@ -429,6 +429,13 @@ Patch:          0001-Specify-noexcept-for-cdef-functions.patch
 # [Python] Do not call PyEval_InitThreads
 # https://github.com/grpc/grpc/pull/34857
 Patch:          %{forgeurl}/pull/34857.patch
+# Downstream-only: work around Distribution.tests_require removal
+#
+# This is not suitable for offering upstream because we are so far behind
+# upstream, and because it means test dependencies are no longer correctly
+# generated (but the alternative is for the package not to buiild with
+# setuptools 74+ at all).
+Patch:          0001-Downstream-only-work-around-Distribution.tests_requi.patch
 
 # Downstream-only patch to remove usage of coverage, per the packaging
 # guidelines.  This reduces the build-time dependencies, which slightly speeds

@@ -3,7 +3,7 @@
 %bcond render %{undefined el10}
 
 Name:           bids-schema
-Version:        1.0.0
+Version:        1.0.1
 Release:        %autorelease
 Summary:        BIDS schema description
 
@@ -51,7 +51,7 @@ Source0:        %{url}/archive/schema-%{srcversion}/bids-specification-schema-%{
 # tools/schemacode/src/bidsschematools/conftest.py, which contains code to download
 # these if they are not present.
 %global examples_url https://github.com/bids-standard/bids-examples
-%global examples_commit 507df6626dbbc555ae258ae286885d0a1b18391c
+%global examples_commit e52f77fcd1abe7f234ecaec3542082279b043f8a
 %global error_examples_url https://github.com/bids-standard/bids-error-examples
 %global error_examples_commit ac0a2f58f34ce284847dde5bd3b90d7ea048c141
 #

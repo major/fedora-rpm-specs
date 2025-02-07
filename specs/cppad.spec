@@ -29,7 +29,7 @@
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/
 Name:    cppad
 Version: %{year}0000.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: C++ Algorithmic Differentiation (AD), %{name}-devel and %{name}-doc
 #
 License: EPL-2.0 OR GPL-2.0-or-later
@@ -42,7 +42,7 @@ BuildRequires: cmake >= 3.0
 BuildRequires: make
 BuildRequires: python-xrst >= 2025.0
 BuildRequires: python-sphinx_rtd_theme
-BuildRequires: python-toml
+BuildRequires: python-tomli
 BuildRequires: python-sphinx-copybutton
 BuildRequires: python-pyspellchecker
 BuildRequires: python-furo
@@ -269,6 +269,9 @@ make %{?_smp_mflags} check
 %%clean
 # ----------------------------------------------------------------------------
 %changelog
+* Wed Feb 05 2025  <bradbell at seanet dot com> - 20250000.0-4
+- python-toml is deprecated, so current xrst-python uses python-tomli instead
+
 * Sun Jan 19 2025 Brad Bell <bradbell at seanet dot com> - 20250000.0-3
 - 1. Add the year macro and use it to define soversion and Version.
 - 2. Remove the cppad-doc subpackage because documantion for this stable 

@@ -1,6 +1,6 @@
 Name:           libmamba
 Version:        1.5.12
-Release:        2%{?dist}
+Release:        %autorelease
 Summary:        C++ API for mamba depsolving library
 
 License:        BSD-3-Clause
@@ -165,50 +165,4 @@ cp -p %{_vpath_builddir}/micromamba/micromamba.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.12-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Jan 03 2025 Orion Poplawski <orion@nwra.com> - 1.5.12-1
-- Update to 1.5.12
-
-* Sat Nov 30 2024 Orion Poplawski <orion@nwra.com> - 1.5.11-1
-- Update to 1.5.11
-
-* Tue Nov 26 2024 František Zatloukal <fzatlouk@redhat.com> - 1.5.10-3
-- Rebuilt for spdlog 1.15.0
-
-* Thu Oct 24 2024 Orion Poplawski <orion@nwra.com> - 1.5.10-2
-- Drop yaml-cpp patch
-
-* Fri Oct 18 2024 Orion Poplawski <orion@nwra.com> - 1.5.10-1
-- Update to 1.5.10
-
-* Fri Aug 02 2024 Orion Poplawski <orion@nwra.com> - 1.5.8-2
-- Add patch for fmt 11 support (FTBFS bz#2300904)
-
-* Tue Jul 30 2024 Orion Poplawski <orion@nwra.com> - 1.5.8-1
-- Update to 1.5.8
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.6-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 1.5.6-3
-- Rebuilt for Python 3.13
-
-* Tue May 21 2024 František Zatloukal <fzatlouk@redhat.com> - 1.5.6-2
-- Rebuilt for spdlog 1.14.1
-
-* Fri Feb 23 2024 Orion Poplawski <orion@nwra.com> - 1.5.6-1
-- Update to 1.5.6
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Dec 04 2023 Orion Poplawski <orion@nwra.com> - 1.5.3-2
-- Generate man page with help2man
-
-* Thu Nov 30 2023 Orion Poplawski <orion@nwra.com> - 1.5.3-1
-- Initial package
+%autochangelog

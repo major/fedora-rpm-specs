@@ -26,7 +26,7 @@
 Summary:        A multimedia engine
 Name:           xine-lib
 Version:        1.2.13
-Release:        19%{?snapshot:.%{date}hg%{revision}}%{?dist}
+Release:        20%{?snapshot:.%{date}hg%{revision}}%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://www.xine-project.org/
 %if ! 0%{?snapshot}
@@ -349,6 +349,9 @@ mkdir -p %{buildroot}%{codecdir}
 
 
 %changelog
+* Wed Feb 05 2025 Robert-André Mauchin <zebob.m@gmail.com> - 1.2.13-20
+- Rebuilt for aom 3.11.0
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.13-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 - Fix build using global build_type_safety_c 2 more information in

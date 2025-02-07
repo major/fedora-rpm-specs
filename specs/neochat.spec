@@ -1,6 +1,6 @@
 Name: neochat
-Version: 24.12.1
-Release: 2%{?dist}
+Version: 24.12.2
+Release: 1%{?dist}
 
 License: GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND BSD-3-Clause
 URL: https://invent.kde.org/network/%{name}
@@ -35,6 +35,7 @@ BuildRequires: cmake(KF6WindowSystem)
 BuildRequires: cmake(KF6StatusNotifierItem)
 BuildRequires: cmake(KF6DBusAddons)
 BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6IconThemes)
 
 BuildRequires: cmake(KQuickImageEditor)
 BuildRequires: cmake(QuotientQt6)
@@ -122,6 +123,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_kf6_datadir}/dbus-1/services/org.kde.neochat.service
 
 %changelog
+* Wed Feb 05 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-1
+- 24.12.2
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

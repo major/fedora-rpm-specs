@@ -2,7 +2,7 @@ Summary: NFS utilities and supporting clients and daemons for the kernel NFS ser
 Name: nfs-utils
 URL: http://linux-nfs.org/
 Version: 2.8.2
-Release: 0.rc3%{?dist}.6
+Release: 1.rc3%{?dist}
 Epoch: 1
 
 # group all 32bit related archs
@@ -303,9 +303,9 @@ rm -rf /etc/systemd/system/rpc-*.requires
 %dir %attr(700,rpcuser,rpcuser) %{_sharedstatedir}/nfs/statd
 %dir %attr(700,rpcuser,rpcuser) %{_sharedstatedir}/nfs/statd/sm
 %dir %attr(700,rpcuser,rpcuser) %{_sharedstatedir}/nfs/statd/sm.bak
-%ghost %attr(644,rpcuser,rpcuser) %{_statdpath}/state
-%config(noreplace) %{_sharedstatedir}/nfs/etab
-%config(noreplace) %{_sharedstatedir}/nfs/rmtab
+%ghost %attr(644,root,root) %{_statdpath}/state
+%ghost %attr(644,root,root) %{_sharedstatedir}/nfs/etab
+%ghost %attr(644,root,root) %{_sharedstatedir}/nfs/rmtab
 %config(noreplace) %{_sysconfdir}/request-key.d/id_resolver.conf
 %config(noreplace) %{_sysconfdir}/modprobe.d/lockd.conf
 %config(noreplace) %{_sysconfdir}/nfs.conf
@@ -366,7 +366,7 @@ rm -rf /etc/systemd/system/rpc-*.requires
 %dir %attr(700,rpcuser,rpcuser) %{_sharedstatedir}/nfs/statd
 %dir %attr(700,rpcuser,rpcuser) %{_sharedstatedir}/nfs/statd/sm
 %dir %attr(700,rpcuser,rpcuser) %{_sharedstatedir}/nfs/statd/sm.bak
-%ghost %attr(644,rpcuser,rpcuser) %{_statdpath}/state
+%ghost %attr(644,root,root) %{_statdpath}/state
 %config(noreplace) %{_sysconfdir}/nfsmount.conf
 %config(noreplace) %{_sysconfdir}/nfs.conf
 %config(noreplace) %{_sysconfdir}/request-key.d/id_resolver.conf
@@ -446,6 +446,9 @@ rm -rf /etc/systemd/system/rpc-*.requires
 %{_mandir}/*/nfsiostat.8.gz
 
 %changelog
+* Tue Feb  4 2025 Scott Mayhew <smayhew@redhat.com> 2.8.2-1.rc3
+- Address a few rpm verify issues
+
 * Wed Jan 22 2025 Scott Mayhew <smayhew@redhat.com> 2.8.2-0.rc3.6
 - Ensure the %preun scriptlet exits with a zero exit status
 

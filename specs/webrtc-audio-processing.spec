@@ -1,6 +1,6 @@
 Name:           webrtc-audio-processing
 Version:        1.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Library for echo cancellation
 
 License:        BSD-3-Clause
@@ -9,6 +9,11 @@ Source0:        http://freedesktop.org/software/pulseaudio/webrtc-audio-processi
 
 Patch0:         arches.patch
 Patch1:         65f002e.patch
+# Add missing #include for GCC 15
+#
+# Downstream-only because the package is significantly behind upstream, and the
+# code in question has changed quite a bit in the latest release.
+Patch2:         webrtc-audio-processing-1.3-gcc15.patch
 
 BuildRequires: meson
 BuildRequires: gcc gcc-c++
@@ -60,6 +65,9 @@ files for developing applications that use %{name}.
 
 
 %changelog
+* Tue Feb 04 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1.3-5
+- Patch for GCC 15 (fix RHBZ#2341533)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

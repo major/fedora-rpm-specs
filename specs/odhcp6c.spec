@@ -5,7 +5,7 @@
 
 Name: odhcp6c
 Version: 0
-Release: 0.26.%{date}git%{shortcommit}%{?dist}
+Release: 0.27.%{date}git%{shortcommit}%{?dist}
 Summary: Embedded DHCPv6 and RA client
 # License is GPLv2 except:
 # ./src/md5.c: ISC
@@ -19,6 +19,8 @@ URL: https://git.openwrt.org/?p=project/odhcp6c.git
 # git archive --format=tar.gz --prefix=odhcp6c-%%{commit}/ %%{commit} > ../odhcp6c-%%{commit}.tar.gz
 Source0: %{name}-%{commit}.tar.gz
 Source1: odhcp6c@.service
+# https://github.com/openwrt/odhcp6c/pull/95
+Patch: %{name}-0-Use-GNUInstallDirs-macros.patch
 BuildRequires: cmake
 BuildRequires: gcc
 %if 0%{?rhel}
@@ -33,8 +35,6 @@ Linux systems, especially routers. It compiles to only about 35 KB.
 
 %prep
 %autosetup -n %{name}-%{commit}
-# Fix RHBZ#2340955
-sed -rie 's/^install\((.*) sbin\/\)/install(\1 bin\/)/' %{_builddir}/%{name}-%{commit}/CMakeLists.txt
 
 %build
 %{cmake}
@@ -54,6 +54,9 @@ install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/odhcp6c@.service
 %{_unitdir}/odhcp6c@.service
 
 %changelog
+* Wed Feb 05 2025 Juan Orti Alcaine <jortialc@redhat.com> - 0-0.27.20250123gitffbb2d5
+- Improve patch to avoid hardcoded sbin dir
+
 * Thu Jan 23 2025 Juan Orti Alcaine <jortialc@redhat.com> - 0-0.26.20250123gitffbb2d5
 - Update to commit ffbb2d5
 - Patch sbin dir hardcoded in cmake file (RHBZ#2340955)

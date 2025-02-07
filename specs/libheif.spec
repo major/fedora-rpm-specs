@@ -5,7 +5,7 @@
 
 Name:           libheif
 Version:        1.19.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        HEIF and AVIF file format decoder and encoder
 
 License:        LGPL-3.0-or-later and MIT
@@ -167,6 +167,9 @@ multilibFileVersions %{buildroot}%{_includedir}/%{name}/heif_version.h
 
 
 %changelog
+* Wed Feb 05 2025 Robert-André Mauchin <zebob.m@gmail.com> - 1.19.5-3
+- Rebuilt for aom 3.11.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

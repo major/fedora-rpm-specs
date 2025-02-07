@@ -2,7 +2,7 @@
 
 Name:               python-%{modname}
 Version:            0.3.5
-Release:            30%{?dist}
+Release:            31%{?dist}
 Summary:            Logging utilities
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -48,7 +48,7 @@ are packaged here.
 %autosetup -n %{modname}-%{version} -p 1
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 # Remove bundled egg-info in case it exists
 rm -rf %{modname}.egg-info
@@ -73,6 +73,9 @@ rm -rf %{modname}.egg-info
 %{python3_sitelib}/%{modname}-%{version}.dist-info/
 
 %changelog
+* Wed Feb 05 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.3.5-31
+- Drop -t BR
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.5-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

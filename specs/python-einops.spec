@@ -69,7 +69,7 @@ rm einops/layers/tensorflow.py
 sed -i -e 's@import numpy.array_api as@import numpy as@' tests/*.py
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

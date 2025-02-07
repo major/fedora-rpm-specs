@@ -10,10 +10,10 @@
 Summary: Parallel / Multiprocessor Ray Tracing System
 Name: tachyon
 Version: 0.99.5
-Release: 1%{?beta}%{?dist}
+Release: 2%{?beta}%{?dist}
 URL: http://jedi.ks.uiuc.edu/~johns/raytracer/
 Source0: http://jedi.ks.uiuc.edu/~johns/raytracer/files/%{version}%{beta}/%{name}-%{version}%{beta}.tar.gz
-# taken from Debian package
+# generated with help2man and hand-edited
 Source1: %{name}.1
 Patch0: %{name}-rpm.patch
 Patch1: %{name}-shared.patch
@@ -140,6 +140,9 @@ install -pm644 src/{hash,tachyon{,_dep},util}.h $RPM_BUILD_ROOT%{_includedir}/ta
 %{_datadir}/tachyon
 
 %changelog
+* Wed Feb 05 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.99.5-2
+- ship an updated and better formatted manpage
+
 * Fri Jan 17 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.99.5-1
 - update to 0.99.5
 - avoid using obsolete patchN macro

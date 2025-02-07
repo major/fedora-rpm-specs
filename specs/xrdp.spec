@@ -23,7 +23,7 @@ Summary:   Open source remote desktop protocol (RDP) server
 Name:      xrdp
 Epoch:     1
 Version:   0.10.2
-Release:   8%{?dist}
+Release:   9%{?dist}
 # Automatically converted from old format: ASL 2.0 and GPLv2+ and MIT - review is highly recommended.
 License:   Apache-2.0 AND GPL-2.0-or-later AND LicenseRef-Callaway-MIT
 URL:       http://www.xrdp.org/
@@ -47,6 +47,7 @@ Patch6:    xrdp-0.9.18-vnc-uninit.patch
 %if 0%{?fedora} >= 32 || 0%{?rhel} >= 8
 Patch7:    xrdp-0.10.2-sesman-ini.patch
 %endif
+Patch8:    xrdp-0.10.2-utmpfix.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -142,6 +143,7 @@ CFLAGS="$RPM_OPT_FLAGS %{?_missing_braces} %{?_file_offset_bits}" \
 %if 0%{?fedora} || 0%{?rhel} > 8
            --enable-openh264 \
 %endif
+           --enable-utmp \
            --with-socketdir=%{_rundir}/%{name} \
            --with-imlib2
 
@@ -345,6 +347,9 @@ fi
 %{_datadir}/selinux/*/%{name}.pp
 
 %changelog
+* Thu Feb  6 2025 Bojan Smojver <bojan@rexursive.com> - 1:0.10.2~9
+- Add utmp support contributed upstream by Magnus Lewis-Smith
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.10.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

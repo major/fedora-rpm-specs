@@ -4,7 +4,7 @@
 
 Name:           sblim-gather
 Version:        2.2.9
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        SBLIM Gatherer
 
 License:        EPL-1.0
@@ -52,6 +52,9 @@ Patch11:        sblim-gather-2.2.9-covscan-fixes.patch
 Patch12:        sblim-gather-2.2.9-fix-use-of-temp-paths.patch
 # Patch13: fix FTBFS with GCC 15
 Patch13:        sblim-gather-2.2.9-gcc15-fix.patch
+# Patch14: suppress msg when repeated value is detected
+# see https://sourceforge.net/p/sblim/bugs/2739/
+Patch14:        sblim-gather-2.2.9-suppress-repeated-value-msg.patch
 
 Requires:       cim-server
 Requires(post): systemd
@@ -168,7 +171,6 @@ install -p -m 644 %{SOURCE6} $RPM_BUILD_ROOT%{_unitdir}/reposd.service
 %{_unitdir}/reposd.service
 %docdir %{_datadir}/doc/%{name}
 %{_bindir}/*
-%{_sbindir}/*
 %{_datadir}/doc/%{name}
 %{_tmpfilesdir}/sblim-gather.conf
 %ghost /var/run/gather
@@ -302,6 +304,10 @@ fi
 %ldconfig_postun provider
 
 %changelog
+* Wed Feb 05 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.2.9-38
+- Suppress msg when repeated value is detected
+- Fix bin/sbin merge related build warning
+
 * Wed Jan 22 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.2.9-37
 - Fix FTBFS with GCC 15
 

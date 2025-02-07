@@ -1,6 +1,6 @@
 Name:           rocm-rpm-macros
 Version:        6.3.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        ROCm RPM macros
 License:        GPL-2.0-or-later
 
@@ -108,6 +108,9 @@ cp -p modules/* %{buildroot}%{_datadir}/modulefiles/rocm/
 %endif
 
 %changelog
+* Thu Jan 23 2025 Christoph Junghans <junghans@votca.org> - 6.3.1-6
+- Add ROCM_INCLUDE to modules
+
 * Mon Jan 20 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-5
 - Move lib64/rocm creation to rocm-compilersupport
 

@@ -1,6 +1,6 @@
 Name:           quearcode
 Version:        0.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A tool for creating QR Codes
 
 License:        GPL-3.0-or-later
@@ -21,7 +21,7 @@ Convert strings and small files to QR Codes
 %setup -qn %{name}
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 ./t_build.sh
@@ -29,6 +29,7 @@ Convert strings and small files to QR Codes
 
 %install
 %pyproject_install
+%pyproject_save_files pyquearcode
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/appdata
 
 install -m 644 quearcode.appdata.xml $RPM_BUILD_ROOT%{_datadir}/appdata/
@@ -41,6 +42,10 @@ desktop-file-install \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications %{SOURCE1}
 
 
+%check
+%pyproject_check_import
+
+
 %files
 %doc COPYING README.md
 %{_bindir}/quearcode
@@ -51,6 +56,9 @@ desktop-file-install \
 %{python3_sitelib}/quearcode-%{version}.dist-info/
 
 %changelog
+* Wed Feb 05 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.4-2
+- Drop BR -t
+
 * Fri Jan 24 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.4-1
 - 0.4
 

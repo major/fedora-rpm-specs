@@ -52,6 +52,8 @@ Patch0: sane-backends-1.0.25-udev.patch
 Patch1: sane-backends-1.0.23-soname.patch
 # Fedora-specific (for now): make installed sane-config multi-lib aware again
 Patch2: sane-backends-1.0.23-sane-config-multilib.patch
+# https://gitlab.com/sane-project/backends/-/merge_requests/862
+Patch3: backends-gcc15-bool-kw.patch
 
 URL: http://www.sane-project.org
 
@@ -177,10 +179,10 @@ Requires: sane-backends-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 This package contains saned which is the daemon that allows remote clients to
 access image acquisition devices available on the local host.
 
+
 %prep
 %autosetup -S git
-# To avoid needing to run aclocal et al
-touch -r acinclude.m4 aclocal.m4 configure Makefile.in
+
 
 %build
 CFLAGS="%optflags -fno-strict-aliasing"
@@ -403,6 +405,9 @@ udevadm hwdb --update >/dev/null 2>&1 || :
 %{_unitdir}/saned@.service
 
 %changelog
+* Wed Feb 05 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1.3.1-2
+- sane-backends: FTBFS in Fedora rawhide/f42 (fedora#2341320)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

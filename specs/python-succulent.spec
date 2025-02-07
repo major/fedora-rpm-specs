@@ -17,8 +17,8 @@ the configuration, management, collection, and preprocessing of data collected
 via POST requests. }
 
 Name:           python-%{pypi_name}
-Version:        0.4.0
-Release:        2%{?dist}
+Version:        0.4.1
+Release:        1%{?dist}
 Summary:        Collect POST requests
 
 License:        MIT
@@ -96,6 +96,9 @@ toml-adapt -path pyproject.toml -a change -dep numpy -ver X
 %endif
 
 %changelog
+* Wed Feb 5 2025 Iztok Fister Jr. <iztok@iztok-jr-fister.eu> - 0.4.1-1
+- Update to 0.4.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           python-waitress
-Version:        3.0.1
+Version:        3.0.2
 Release:        %autorelease
 Summary:        Waitress WSGI server
 

@@ -216,10 +216,10 @@ autoconf
 	--enable-pref
 #sed -i -e 's/^\(hardcode_direct=\)$/\1yes/' -e 's/^\(hardcode_minus_L=\)$/\1no/' -e 's/^\(libext=\)$/\1"a"/' -e 's/^hardcode_libdir_flag_spec.*$'/'hardcode_libdir_flag_spec=" -D__LIBTOOL_IS_A_FOOL__ "/' libtool
 sed -i -e 's/^\(hardcode_direct=\)$/\1no/' -e 's/^\(hardcode_minus_L=\)$/\1no/' -e 's/^\(libext=\)$/\1"a"/' libtool
-LD_LIBRARY_PATH=$RPM_BUILD_DIR/%{name}-%{version}/uim/.libs make
+make
 
 %install
-LD_LIBRARY_PATH=$RPM_BUILD_DIR/%{name}-%{version}/uim/.libs make install DESTDIR=$RPM_BUILD_ROOT
+make install DESTDIR=$RPM_BUILD_ROOT
 %if 0%{?fedora} < 36
 # For XEmacs
 (cd emacs; make install DESTDIR=$RPM_BUILD_ROOT UIMEL_LISP_DIR=%{_datadir}/xemacs/site-packages/lisp/uim-el)

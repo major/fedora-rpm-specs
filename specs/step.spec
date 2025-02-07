@@ -1,7 +1,7 @@
 Name:    step
 Summary: Interactive Physics Simulator 
-Version: 24.12.1
-Release: 3%{?dist}
+Version: 24.12.2
+Release: 1%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://invent.kde.org/edu/%{name}
@@ -79,6 +79,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Wed Feb 05 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-1
+- 24.12.2
+
 * Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 24.12.1-3
 - Rebuild with gsl 2.8
 

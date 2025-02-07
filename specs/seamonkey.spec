@@ -35,7 +35,7 @@
 Name:           seamonkey
 Summary:        Web browser, e-mail, news, IRC client, HTML editor
 Version:        2.53.20
-Release:        3%{?dist}
+Release:        4%{?dist}
 URL:            http://www.seamonkey-project.org
 License:        MPL-2.0
 
@@ -507,6 +507,9 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}/mozilla/extensions/%{seamonkey_app_id}
 
 
 %changelog
+* Wed Feb 05 2025 Robert-André Mauchin <zebob.m@gmail.com> - 2.53.20-4
+- Rebuilt for aom 3.11.0
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.53.20-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

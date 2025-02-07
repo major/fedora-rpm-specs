@@ -1,11 +1,11 @@
-%{!?tcl_version: %global tcl_version %(echo 'puts $tcl_version' | tclsh)}
+%{!?tcl_version: %global tcl_version %(echo 'puts $tcl_version' | tclsh8)}
 %{!?tcl_sitearch: %global tcl_sitearch %{_libdir}/tcl%{tcl_version}}
 %global majorver 5.45.4
 
 Summary: A program-script interaction and testing utility
 Name: expect
 Version: %{majorver}
-Release: 27%{?dist}
+Release: 28%{?dist}
 License: LicenseRef-Fedora-Public-Domain
 URL: https://core.tcl.tk/expect/index
 Source: http://downloads.sourceforge.net/%{name}/%{name}%{version}.tar.gz
@@ -49,6 +49,8 @@ Patch104: expect-5.45-mkpasswd-man.patch
 Patch105: expect-5.45-format-security.patch
 Patch106: expect-configure-c99.patch
 Patch107: expect-c99.patch
+# Patch108: fix tclsh path for 'example' binaries (tcl8 compat package has no 'tclsh')
+Patch108: expect-5.45.4-tclsh8.patch
 
 %description
 Expect is a tcl application for automating and testing
@@ -107,6 +109,7 @@ of expectk.
 %patch -P105 -p0 -b .format-security
 %patch -P106 -p1 -b .configure-c99
 %patch -P 107 -p1
+%patch -P 108 -p1 -b .tclsh
 # -pkgpath.patch touch configure.in
 aclocal
 autoconf
@@ -190,6 +193,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libexpect%{version}.so
 %{_mandir}/man1/tknewsbiff.1*
 
 %changelog
+* Wed Feb 05 2025 Adam Williamson <awilliam@redhat.com> - 5.45.4-28
+- Fix tclsh path for 'example' binaries like unbuffer
+
 * Fri Jan 31 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 5.45.4-27
 - Switch to the compat tcl8/tk8
 

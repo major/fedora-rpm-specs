@@ -1,5 +1,5 @@
 %global sover           3
-%global aom_version     v3.9.0
+%global aom_version     v3.11.0
 
 %if 0%{?fedora} || 0%{?rhel} >= 9
 %ifarch x86_64
@@ -13,19 +13,13 @@
 %endif
 
 Name:       aom
-Version:    3.9.0
+Version:    3.11.0
 Release:    %autorelease
 Summary:    Royalty-free next-generation video format
 
 License:    BSD-3-Clause
 URL:        http://aomedia.org/
 Source:     https://aomedia.googlesource.com/%{name}/+archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-# This fixes a build error seen in gcc 15:
-# 3b63004 mkvparser/mkvparser.cc: add missing <cstdint> include
-# 
-# Bug: aomedia:35762267 https://aomedia.issues.chromium.org/issues/357622679
-# https://aomedia.googlesource.com/aom/+/e448dcd13a9f534c7291903e9ab18dfc4fea54ad%5E%21/
-Patch:      0001-update-libwebm-to-libwebm-1.0.0.31-10-g3b63004.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gcc

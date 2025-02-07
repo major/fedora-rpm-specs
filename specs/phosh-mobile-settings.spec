@@ -7,6 +7,8 @@ URL:		https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings
 Source:	https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings/-/archive/v%{version}/phosh-mobile-settings-v%{version}.tar.gz
 # FIXME: tests fail if build directory is used a XDG_RUNTIME_DIR
 Patch0:	shorter-xdg_runtime_dir-path.patch
+# https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings/-/merge_requests/181
+Patch1: 0001-tests-use-GSK_RENDERER-ngl.patch
 
 ExcludeArch:	i686
 

@@ -16,8 +16,8 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.8.1
-Release:        3%{?dist}
+Version:        6.8.2
+Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtTranslations component
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -94,6 +94,7 @@ Fedora Windows cross-compiler.
 %files -n mingw32-qt6-%{qt_module}
 %license LICENSES/*GPL*
 %dir %{mingw32_datadir}/qt6/translations/
+%{mingw32_libdir}/qt6/sbom/qttranslations-6.8.2.spdx
 %{mingw32_datadir}/qt6/translations/catalogs.json
 %{mingw32_datadir}/qt6/translations/*.qm
 
@@ -101,11 +102,15 @@ Fedora Windows cross-compiler.
 %files -n mingw64-qt6-%{qt_module}
 %license LICENSES/*GPL*
 %dir %{mingw64_datadir}/qt6/translations/
+%{mingw64_libdir}/qt6/sbom/qttranslations-6.8.2.spdx
 %{mingw64_datadir}/qt6/translations/catalogs.json
 %{mingw64_datadir}/qt6/translations/*.qm
 
 
 %changelog
+* Wed Feb 05 2025 Sandro Mani <manisandro@gmail.com> - 6.8.2-1
+- Update to 6.8.2
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.8.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

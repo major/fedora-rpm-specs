@@ -2,7 +2,7 @@
 %global maj 0
 
 Name:       lilv
-Version:    0.24.24
+Version:    0.24.26
 Release:    %autorelease
 Summary:    An LV2 Resource Description Framework Library
 
@@ -16,7 +16,7 @@ BuildRequires:  gnupg2
 BuildRequires:  meson
 BuildRequires:  doxygen
 BuildRequires:  graphviz
-BuildRequires:  pkgconfig(sord-0) >= 0.16.15
+BuildRequires:  pkgconfig(sord-0) >= 0.16.16
 BuildRequires:  pkgconfig(sratom-0) >= 0.6.10
 BuildRequires:  pkgconfig(lv2) >= 1.18.2
 BuildRequires:  pkgconfig(python3)
@@ -24,7 +24,7 @@ BuildRequires:  pkgconfig(serd-0) >= 0.30.10
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(sndfile) >= 1.0.0
-BuildRequires:  pkgconfig(zix-0) >= 0.4.0
+BuildRequires:  pkgconfig(zix-0) >= 0.6.0
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-sphinx_lv2_theme
 BuildRequires:  python3-sphinxygen

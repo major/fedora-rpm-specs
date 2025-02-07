@@ -3,7 +3,7 @@
 
 Name:           python-%{pkg_name}
 Version:        4.8.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Basic and Digest HTTP authentication for Flask routes
 
 License:        MIT
@@ -40,7 +40,7 @@ FlaskHTTPAuth Basic and Digest HTTP authentication for Flask routes.
 %autosetup -n %{pypi_name}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -67,6 +67,9 @@ popd
 %doc README.md
 
 %changelog
+* Wed Feb 05 2025 Javier Peña <jpena@redhat.com> - 4.8.0-5
+- Remove -t from pyproject_buildrequires
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

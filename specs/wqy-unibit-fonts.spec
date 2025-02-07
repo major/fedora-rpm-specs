@@ -7,7 +7,7 @@ BuildRequires:  bdftopcf
 BuildRequires:  perl-interpreter
 
 Version: 1.1.0
-Release: 36%{?dist}
+Release: 37%{?dist}
 URL:     http://wenq.org/enindex.cgi
 
 %global foundry           WQY
@@ -18,7 +18,6 @@ URL:     http://wenq.org/enindex.cgi
 %global fontfamily        Unibit
 %global fontsummary       WenQuanYi Unibit Bitmap Font
 %global fonts             *.pcf
-%global fontconfs         %{SOURCE10}
 %global fontdescription   %{expand:
 The Wen Quan Yi Unibit is designed as a dual-width (16x16,16x8) 
 bitmap font to provide the most complete international symbol 
@@ -61,6 +60,10 @@ make
 %fontfiles
 
 %changelog
+* Wed Feb  5 2025 Peng Wu <pwu@redhat.com> - 1.1.0-37
+- Fix build
+- Resolves: RHBZ#2341555
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

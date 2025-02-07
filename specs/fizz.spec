@@ -19,7 +19,7 @@
 %endif
 
 Name:           fizz
-Version:        2024.08.19.00
+Version:        2025.02.03.00
 Release:        %autorelease
 Summary:        A C++14 implementation of the TLS-1.3 standard
 
@@ -100,11 +100,12 @@ cd -
 %files
 %license LICENSE
 %{_bindir}/fizz
-%{_bindir}/fizz-bogoshim
 %{_libdir}/*.so.%{version}
 
 %files devel
 %doc CODE_OF_CONDUCT.md CONTRIBUTING.md README.md
+%{_bindir}/fizz-bogoshim
+%{_bindir}/fizz-encryptedrecordbench
 %{_includedir}/*
 %{_libdir}/*.so
 %{_libdir}/cmake/%{name}

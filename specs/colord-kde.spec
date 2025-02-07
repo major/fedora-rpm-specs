@@ -1,6 +1,6 @@
 Name:           colord-kde
-Version:        24.12.1
-Release:        2%{?dist}
+Version:        24.12.2
+Release:        1%{?dist}
 Summary:        Colord support for KDE
 
 License:        CC0-1.0 AND LGPL-3.0-or-later
@@ -64,6 +64,9 @@ desktop-file-validate %{buildroot}/%{_kf6_datadir}/applications/{colordkdeiccimp
 
 
 %changelog
+* Wed Feb 05 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-1
+- 24.12.2
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

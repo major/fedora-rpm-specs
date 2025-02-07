@@ -1,8 +1,8 @@
 Name:    filelight
 Summary: Graphical disk usage statistics
 Epoch:   1
-Version: 24.12.1
-Release: 2%{?dist}
+Version: 24.12.2
+Release: 1%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: GPL-2.0-only OR GPL-3.0-only
@@ -73,6 +73,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_sysconfdir}/xdg/filelightrc
 
 %changelog
+* Wed Feb 05 2025 Steve Cossette <farchord@gmail.com> - 1:24.12.2-1
+- 24.12.2
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:24.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

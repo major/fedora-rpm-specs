@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        139
+Version:        140
 
 %forgemeta
 
@@ -318,6 +318,25 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Tue Feb 04 2025 Packit <hello@packit.dev> - 140-1
+Changes with 140
+----------------
+  * Follow-up fixes to PR#1983 (HMS-5434) (#1999)
+    * Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * Manifest tests: replace `manifest-db` with `images` CI cache (HMS-5360) (#1983)
+    * Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * Update images dependency ref to latest (#1997)
+    * Author: SchutzBot, Reviewers: Simon de Vlieger, Tomáš Hozza
+  * osbuild-image-info: exit with non-zero value on empty report (#1987)
+    * Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * osbuild: add a mutex to the _jsonseq() writer (#1996)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * stages: add test for the new org.grub2.iso.legacy stage (#1960)
+    * Author: Michael Vogt, Reviewers: Brian C. Lane, Tomáš Hozza
+
+— Somewhere on the Internet, 2025-02-04
+
+
 * Wed Jan 29 2025 Packit <hello@packit.dev> - 139-1
 Changes with 139
 ----------------

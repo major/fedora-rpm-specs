@@ -33,7 +33,7 @@
 %constrain_build -m 4096
 
 Name:           uv
-Version:        0.5.26
+Version:        0.5.28
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -93,6 +93,7 @@ Summary:        An extremely fast Python package installer and resolver, written
 # licenses of the following bundled forks:
 #   - async_zip, Source100, is MIT.
 #   - pubgrub/version-ranges, Source200, is MPL-2.0.
+#   - astral-tokio-tar, Source300, is (MIT OR Apache-2.0)
 #   - tl, Source400, is MIT.
 #
 # (Apache-2.0 OR MIT) AND BSD-3-Clause
@@ -176,11 +177,22 @@ Source100:      %{async_zip_git}/archive/%{async_zip_rev}/rs-async-zip-%{async_z
 # We therefore bundle the fork as prescribed in
 #   https://docs.fedoraproject.org/en-US/packaging-guidelines/Rust/#_replacing_git_dependencies
 %global pubgrub_git https://github.com/astral-sh/pubgrub
-%global pubgrub_rev 648aa343486e5529953153781fc86025c73c4a61
-%global pubgrub_baseversion 0.2.1
-%global pubgrub_snapdate 20241220
+%global pubgrub_rev b70cf707aa43f21b32f3a61b8a0889b15032d5c4
+%global pubgrub_baseversion 0.3.0~alpha.1
+%global pubgrub_snapdate 20250202
 %global version_ranges_baseversion 0.1.1
 Source200:      %{pubgrub_git}/archive/%{pubgrub_rev}/pubgrub-%{pubgrub_rev}.tar.gz
+
+# Please consider publishing astral-tokio-tar on crates.io
+# https://github.com/astral-sh/uv/issues/11222
+#
+# For now, we bundle the fork as prescribed in
+#   https://docs.fedoraproject.org/en-US/packaging-guidelines/Rust/#_replacing_git_dependencies
+%global att_git https://github.com/astral-sh/tokio-tar
+%global att_rev efeaea927c7a40ee66121de2e1bebfd5d7a4a602
+%global att_baseversion 0.5.0
+%global att_snapdate 20250204
+Source300:      %{att_git}/archive/%{att_rev}/tokio-tar-%{att_rev}.tar.gz
 
 # For the time being, uv must use a fork of tl. See:
 #   Path back to using released tl crate dependency?
@@ -243,6 +255,11 @@ Patch101:       0002-Revert-Update-mod.rs.patch
 # after ron 0.9.x is released.
 Patch200:       0001-Downstream-only-Revert-feat-ensure-successful-round-.patch
 
+# This patch is for the forked, bundled astral-tokio-tar crate.
+#
+# Adapt directory permission test
+Patch300:       https://github.com/astral-sh/tokio-tar/pull/11.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
@@ -270,6 +287,11 @@ Provides:       bundled(crate(async_zip)) = %{async_zip_version}
 %global version_ranges_version %{version_ranges_baseversion}^%{pubgrub_snapinfo}
 Provides:       bundled(crate(pubgrub)) = %{pubgrub_version}
 Provides:       bundled(crate(version-ranges)) = %{version_ranges_version}
+# This is a fork of krata-tokio-tar, itself a fork of tokio-tar; see the notes
+# about Source300.
+%global att_snapinfo %{att_snapdate}git%{sub %{att_rev} 1 7}
+%global att_version %{att_baseversion}^%{att_snapinfo}
+Provides:       bundled(crate(krata-tokio-tar)) = %{att_version}
 # This is a fork of tl; see the notes about Source400.
 %global tl_snapinfo %{tl_snapdate}git%{sub %{tl_rev} 1 7}
 %global tl_version %{tl_baseversion}^%{tl_snapinfo}
@@ -449,6 +471,16 @@ tomcli set crates/pubgrub/Cargo.toml del workspace
 install -t LICENSE.bundled/version-ranges -D -p -m 0644 \
     crates/pubgrub/version-ranges/LICENSE
 git2path workspace.dependencies.version-ranges crates/pubgrub/version-ranges
+
+# See comments above Source300:
+%setup -q -T -D -b 300 -n uv-%{version}
+ln -s '../../tokio-tar-%{att_rev}' crates/astral-tokio-tar
+git2path workspace.dependencies.astral-tokio-tar crates/astral-tokio-tar
+pushd crates/astral-tokio-tar
+%autopatch -p1 -m300 -M399
+popd
+install -t LICENSE.bundled/astral-tokio-tar -D -p -m 0644 \
+    crates/astral-tokio-tar/LICENSE-*
 
 # See comments above Source400:
 %setup -q -T -D -b 400 -n uv-%{version}

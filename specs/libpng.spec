@@ -3,14 +3,17 @@
 Summary:       A library of functions for manipulating PNG image format files
 Name:          libpng
 Epoch:         2
-Version:       1.6.44
-Release:       2%{?dist}
+Version:       1.6.46
+Release:       1%{?dist}
 License:       zlib
 URL:           http://www.libpng.org/pub/png/
 
 Source0:       https://github.com/glennrp/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:       pngusr.dfa
+
+# test files regenerated with downstream zlib
 Source2:       pngtest.png
+Source3:       pngtest-cicp-display-p3_reencoded.png
 Patch0:        libpng-multilib.patch
 
 BuildRequires: gcc
@@ -65,6 +68,7 @@ cp -p %{SOURCE1} .
 # use regenerated pngtest.png as we have newer zlib that provides slightly
 # better compression which makes files differ and fail the pngtest-all test
 cp -p %{SOURCE2} .
+cp -p %{SOURCE3} contrib/testpngs/png-3/cicp-display-p3_reencoded.png
 
 %patch -P0 -p1
 
@@ -107,6 +111,9 @@ make check
 %{_bindir}/pngfix
 
 %changelog
+* Fri Jan 31 2025 Michal Hlavinka <mhlavink@redhat.com> - 2:1.6.46-1
+- updated to 1.6.46 (#2336284)
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.6.44-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

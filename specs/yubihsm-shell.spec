@@ -2,7 +2,7 @@
 
 Name:		yubihsm-shell
 Version:	2.6.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Tools to interact with YubiHSM 2
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -15,6 +15,8 @@ Source2:	gpgkey-9588EA0F.gpg
 Patch1: yubihsm-shell-2.6.0-incompatible-pointer.patch
 # https://github.com/Yubico/yubihsm-shell/pull/411
 Patch2:	yubihsm-shell-2.5.0-pcsc-lite.patch
+# https://github.com/Yubico/yubihsm-shell/pull/450
+Patch3:	yubihsm-shell-gcc15.patch
 
 BuildRequires:	cmake
 BuildRequires:	cppcheck
@@ -54,6 +56,7 @@ gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
 %setup -q
 %patch 1 -p1
 %patch 2 -p1
+%patch 3 -p1
 
 
 %build
@@ -115,6 +118,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/pkcs11/yubihsm_pkcs11.so
 
 
 %changelog
+* Wed Feb 05 2025 Jakub Jelen <jjelen@redhat.com> - 2.6.0-3
+- Fix gcc15 warnings (#2341598)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

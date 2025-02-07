@@ -1,5 +1,5 @@
 %global forgeurl    https://github.com/musicbrainz/picard/
-%global commit      dd05cd1498fd1c19e7f116f954d2f6aff15f1dca
+%global commit      998ee6fa057930b2c080f3c454a3e7d0045f7160
 
 %define setup              setup.py
 %define autoupdate_on      'disable-autoupdate', None
@@ -8,7 +8,7 @@
 %define selfauto_off       self.disable_autoupdate = True
 
 Name:           picard
-Version:        2.12.3
+Version:        2.13.1
 Release:        %autorelease
 Summary:        MusicBrainz-based audio tagger
 License:        GPL-2.0-or-later

@@ -1,4 +1,5 @@
 %define __perl_requires %{SOURCE98}
+%define version_underscore %(echo %{version} | tr '.' '_')
 
 Name:     squid
 Version:  6.13
@@ -9,8 +10,8 @@ Epoch:    7
 License:  GPL-2.0-or-later AND (LGPL-2.0-or-later AND MIT AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND BSD-4-Clause-UC AND LicenseRef-Fedora-Public-Domain AND Beerware)
 URL:      http://www.squid-cache.org
 
-Source0:  http://www.squid-cache.org/Versions/v6/squid-%{version}.tar.xz
-Source1:  http://www.squid-cache.org/Versions/v6/squid-%{version}.tar.xz.asc
+Source0:  https://github.com/squid-cache/squid/releases/download/SQUID_%{version_underscore}/squid-%{version}.tar.xz
+Source1:  https://github.com/squid-cache/squid/releases/download/SQUID_%{version_underscore}/squid-%{version}.tar.xz.asc
 Source2:  http://www.squid-cache.org/pgp.asc
 Source3:  squid.logrotate
 Source4:  squid.sysconfig

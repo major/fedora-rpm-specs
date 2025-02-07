@@ -1,5 +1,5 @@
 Name:           feedbackd
-Version:        0.6.0
+Version:        0.7.0
 Release:        %autorelease
 Summary:        Feedback library for GNOME
 

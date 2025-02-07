@@ -226,7 +226,7 @@
 #region main package
 Name:		%{pkg_name_llvm}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -1768,37 +1768,25 @@ rmdir %{buildroot}%{install_mandir}/man1
 rmdir %{buildroot}%{install_mandir}
 
 %if %{without compat_build}
+# We don't create directory symlinks, because RPM does not support
+# switching between a directory and a symlink, causing upgrade/downgrade issues.
+# Instead, recursively copy the directories while creating symlinks.
+copy_with_relative_symlinks() {
+    local src="$1"
+    local dest="$2"
+    mkdir -p "$dest"
+
+    # Change to source directory to simplify relative paths
+    (cd "$src" && \
+        find * -type d -exec mkdir -p "$dest/{}" \; && \
+        find * \( -type f -o -type l \) -exec ln -s --relative "$src/{}" "$dest/{}" \;)
+}
+
 # Add symlinks for libraries.
-mkdir -p %{buildroot}%{_libdir}
-for f in %{buildroot}%{install_libdir}/*; do
-  filename=`basename $f`
-  if [ "$filename" != "cmake" ]; then
-    ln -s ../../%{install_libdir}/$filename %{buildroot}/%{_libdir}/$filename
-  fi
-done
-# Special handling for cmake, as we don't own the cmake directory itself.
-mkdir -p %{buildroot}%{_libdir}/cmake
-for f in %{buildroot}%{install_libdir}/cmake/*; do
-  filename=`basename $f`
-  ln -s ../../../%{install_libdir}/cmake/$filename %{buildroot}/%{_libdir}/cmake/$filename
-done
-mkdir -p %{buildroot}%{_libexecdir}
-for f in %{buildroot}%{install_libexecdir}/*; do
-  filename=`basename $f`
-  ln -s ../../%{install_libexecdir}/$filename %{buildroot}/%{_libexecdir}/$filename
-done
-# Add symlinks for include directories.
-mkdir -p %{buildroot}%{_includedir}
-for f in %{buildroot}%{install_includedir}/*; do
-  filename=`basename $f`
-  ln -s ../../%{install_includedir}/$filename %{buildroot}/%{_includedir}/$filename
-done
-# Add symlinks for data directories.
-mkdir -p %{buildroot}%{_datadir}
-for f in %{buildroot}%{install_datadir}/*; do
-  filename=`basename $f`
-  ln -s ../../%{install_datadir}/$filename %{buildroot}/%{_datadir}/$filename
-done
+copy_with_relative_symlinks %{buildroot}%{install_libdir} %{buildroot}%{_libdir}
+copy_with_relative_symlinks %{buildroot}%{install_libexecdir} %{buildroot}%{_libexecdir}
+copy_with_relative_symlinks %{buildroot}%{install_includedir} %{buildroot}%{_includedir}
+copy_with_relative_symlinks %{buildroot}%{install_datadir} %{buildroot}%{_datadir}
 %endif
 
 # ghost presence for llvm-config, managed by alternatives.
@@ -2315,58 +2303,6 @@ fi
 %define expand_includes() %{expand_generic -d %{_includedir} -i %{install_includedir} %*}
 %define expand_datas() %{expand_generic -d %{_datadir} -i %{install_datadir} %*}
 
-
-# The pretrans_rpmmove_dirs macro exists for packages to replace directories
-# with symbolic links which normally is not possible with RPM. The trick is to
-# use the generated scriptlet below to rename existing directories before
-# replacing them with a symbolic link.
-#
-# Make sure you call this macro at the end of a %%files section for a package.
-# This macro will then automatically add the %%ghost entries for the moved
-# paths for you.
-#
-# When building in compat mode, the pretrans_rpmmove_dirs macro does nothing.
-#
-# See this page for a detailed problem description:
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Directory_Replacement/
-%if %{with compat_build}
-%define pretrans_rpmmove_dirs(n:) %{nil}
-%else
-%define pretrans_rpmmove_dirs(n:) %{lua:
-local packagename = string.gsub(rpm.expand("%{-n*}"), "%s*", "")
-local paths_str = '"'..string.gsub(rpm.expand("%*"), "%s+", '",\\n"')
-paths_str = string.sub(paths_str,0,-4)
-
-for i = 1, rpm.expand("%#") do
-    print('%ghost '..string.gsub(rpm.expand([[%]]..i), "%s+", "")..'.rpmmoved\\n') \
-end
-
-print("\\n%pretrans -n " .. packagename .. " -p <lua> \\n")
-print("local paths={\\n")
-print(paths_str..'\\n')
-print("}\\n")
-print([[
-for _, path in ipairs(paths) do
-  st = posix.stat(path)
-  if st and st.type == "directory" then
-    status = os.rename(path, path .. ".rpmmoved")
-    if not status then
-      suffix = 0
-      while not status do
-        suffix = suffix + 1
-        status = os.rename(path .. ".rpmmoved", path .. ".rpmmoved." .. suffix)
-      end
-      os.rename(path, path .. ".rpmmoved")
-    end
-  end
-end
-]])
--- Remove the following "end" and you'll get this error:
--- error: invalid syntax in lua scriptlet: [string "%pretrans"]:20: unexpected symbol near '#'
-print("\\n%end")
-}
-%endif
-
 #region LLVM lit files
 %if %{with python_lit}
 %files -n python%{python3_pkgversion}-lit
@@ -2537,10 +2473,6 @@ print("\\n%end")
 
 %expand_datas opt-viewer
 
-%{pretrans_rpmmove_dirs -n %{pkg_name_llvm}
-  %{_datadir}/opt-viewer
-}
-
 %files -n %{pkg_name_llvm}-libs
 %license llvm/LICENSE.TXT
 %{expand_libs %{expand:
@@ -2578,12 +2510,6 @@ print("\\n%end")
     libLLVM.so
     cmake/llvm
 }}
-
-%{pretrans_rpmmove_dirs -n %{pkg_name_llvm}-devel
-  %{_includedir}/llvm-c
-  %{_includedir}/llvm
-  %{_libdir}/cmake/llvm
-}
 
 %files -n %{pkg_name_llvm}-doc
 %license llvm/LICENSE.TXT
@@ -2623,11 +2549,6 @@ print("\\n%end")
     libllvm_gtest_main.a
 }}
 %expand_includes llvm-gtest llvm-gmock
-
-%{pretrans_rpmmove_dirs -n %{pkg_name_llvm}-googletest
-  %{_includedir}/llvm-gmock
-  %{_includedir}/llvm-gtest
-}
 
 %if %{with snapshot_build}
 %files -n %{pkg_name_llvm}-build-stats
@@ -2686,15 +2607,8 @@ print("\\n%end")
 %expand_bins clang-tblgen
 %dir %{install_datadir}/clang/
 %if %{without compat_build}
-%{_datadir}/clang
+%dir %{_datadir}/clang
 %endif
-
-%{pretrans_rpmmove_dirs -n %{pkg_name_clang}-devel
-  %{_includedir}/clang-c
-  %{_includedir}/clang
-  %{_libdir}/cmake/clang
-  %{_datadir}/clang
-}
 
 %files -n %{pkg_name_clang}-resource-filesystem
 %license clang/LICENSE.TXT
@@ -2729,11 +2643,6 @@ print("\\n%end")
 %{python3_sitelib}/libear
 %{python3_sitelib}/libscanbuild
 %endif
-
-%{pretrans_rpmmove_dirs -n %{pkg_name_clang}-analyzer
-  %{_datadir}/scan-build
-  %{_datadir}/scan-view
-}
 
 %files -n %{pkg_name_clang}-tools-extra
 %license clang-tools-extra/LICENSE.TXT
@@ -2784,24 +2693,21 @@ print("\\n%end")
 %{_emacs_sitestartdir}/clang-include-fixer.el
 %endif
 %expand_mans diagtool extraclangtools
-# Do not use expand_datas here, as we'll create a symlink for the clang dir.
-%{install_datadir}/clang/clang-format.py*
-%{install_datadir}/clang/clang-format-diff.py*
-%{install_datadir}/clang/clang-include-fixer.py*
-%{install_datadir}/clang/clang-tidy-diff.py*
-%{install_datadir}/clang/run-find-all-symbols.py*
+%{expand_datas %{expand:
+    clang/clang-format.py*
+    clang/clang-format-diff.py*
+    clang/clang-include-fixer.py*
+    clang/clang-tidy-diff.py*
+    clang/run-find-all-symbols.py*
+}}
 %if %{maj_ver} < 20
-%{install_datadir}/clang/clang-rename.py*
+%expand_datas /clang/clang-rename.py*
 %endif
 
 
 %files -n %{pkg_name_clang}-tools-extra-devel
 %license clang-tools-extra/LICENSE.TXT
 %expand_includes clang-tidy
-
-%{pretrans_rpmmove_dirs -n %{pkg_name_clang}-tools-extra-devel
-  %{_includedir}/clang-tidy
-}
 
 %files -n git-clang-format%{pkg_suffix}
 %license clang/LICENSE.TXT
@@ -2892,12 +2798,6 @@ print("\\n%end")
 %expand_includes offload
 %endif
 %endif
-
-%{pretrans_rpmmove_dirs -n %{pkg_name_libomp}-devel
-  %{_includedir}/offload
-  %{_libdir}/cmake/openmp
-}
-
 #endregion OPENMP files
 
 #region LLD files
@@ -2926,11 +2826,6 @@ print("\\n%end")
     liblldWasm.so
     cmake/lld
 }}
-
-%{pretrans_rpmmove_dirs -n %{pkg_name_lld}-devel
-  %{_includedir}/lld
-  %{_libdir}/cmake/lld
-}
 
 %files -n %{pkg_name_lld}-libs
 %license lld/LICENSE.TXT
@@ -2977,10 +2872,6 @@ print("\\n%end")
 
 %files -n %{pkg_name_lldb}-devel
 %expand_includes lldb
-
-%{pretrans_rpmmove_dirs -n %{pkg_name_lldb}-devel
-  %{_includedir}/lldb
-}
 
 %files -n python%{python3_pkgversion}-lldb
 %{python3_sitearch}/lldb
@@ -3035,12 +2926,6 @@ print("\\n%end")
     libmlir_runner_utils.so
     libMLIR*.so
 }}
-
-%{pretrans_rpmmove_dirs -n %{pkg_name_mlir}-devel
-  %{_includedir}/mlir-c
-  %{_includedir}/mlir
-  %{_libdir}/cmake/mlir
-}
 
 %files -n python%{python3_pkgversion}-%{pkg_name_mlir}
 %{python3_sitearch}/mlir/
@@ -3140,11 +3025,6 @@ print("\\n%end")
 %expand_includes polly
 %expand_libs cmake/polly
 
-%{pretrans_rpmmove_dirs -n %{pkg_name_polly}-devel
-  %{_includedir}/polly
-  %{_libdir}/cmake/polly
-}
-
 %endif
 #endregion polly files
 
@@ -3152,6 +3032,9 @@ print("\\n%end")
 
 #region changelog
 %changelog
+* Tue Feb 04 2025 Nikita Popov <npopov@redhat.com> - 19.1.7-6
+- Don't use directory symlinks
+
 * Fri Jan 31 2025 Konrad Kleine <kkleine@redhat.com> - 19.1.7-5
 - Address installability issue with directories that were turned into symlinks
 

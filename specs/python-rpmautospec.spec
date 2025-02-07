@@ -53,7 +53,7 @@ Release: %autorelease
 Summary: Package and CLI tool to generate release fields and changelogs
 License: MIT
 URL: https://github.com/fedora-infra/%{srcname}
-Source0: https://github.com/fedora-infra/%{srcname}/releases/download/%{version}/%{srcname}-%{version}.tar.gz
+Source0: %{pypi_source %{srcname}}
 
 %if 0%{!?pyproject_files:1}
 %global pyproject_files %{_builddir}/%{name}-%{version}-%{release}.%{_arch}-pyproject-files

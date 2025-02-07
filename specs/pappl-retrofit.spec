@@ -13,7 +13,7 @@
 
 Name: pappl-retrofit
 Version: 1.0b2
-Release: 6%{?dist}
+Release: 7%{?dist}
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
 # https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/message/A7GFSD6M3GYGSI32L2FC5KB22DUAEQI3/
@@ -40,6 +40,8 @@ Patch005: 0001-Fix-possible-unterminated-string.patch
 Patch006: 0001-cups-backends.c-Ensure-read-string-is-NULL-terminate.patch
 Patch007: 0001-Protect-_prASCII-from-negative-lengths.patch
 Patch008: 0001-Fix-potential-memory-leaks.patch
+# https://github.com/OpenPrinting/pappl-retrofit/pull/31
+Patch009: 0001-Fix-memory-leaks-from-compiled_re_list.patch
 
 
 # for autogen.sh - generating configure scripts
@@ -192,6 +194,9 @@ make check
 %{_mandir}/man1/legacy-printer-app.1.gz
 
 %changelog
+* Wed Feb 05 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1.0b2-7
+- fix memory leaks from CUPS array
+
 * Mon Feb 03 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1.0b2-6
 - Fix FTBFS (fedora#2341000)
 - Fix issues reported by OSH

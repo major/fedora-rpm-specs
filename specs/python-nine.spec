@@ -2,12 +2,12 @@
 
 Name:               python-nine
 Version:            1.1.0
-Release:            19%{?dist}
+Release:            20%{?dist}
 Summary:            Python 2 / 3 compatibility, like six, but favouring Python 3
 
 License:            LicenseRef-Fedora-Public-Domain
 URL:                http://pypi.python.org/pypi/nine
-Source0:            https://pypi.python.org/packages/source/n/%{modname}/%{modname}-%{version}.tar.gz
+Source0:            %pypi_source nine
 BuildArch:          noarch
 
 
@@ -15,7 +15,7 @@ BuildRequires:      python3-devel
 BuildRequires:      python3-setuptools
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 
 %global _description\
@@ -57,7 +57,7 @@ rm -rf %{modname}.egg-info
 %py3_install
 
 %check
-%tox
+%{py3_test_envvars} %{python3} -m unittest
 
 %files -n python3-nine
 %doc README.rst
@@ -67,6 +67,10 @@ rm -rf %{modname}.egg-info
 
 
 %changelog
+* Wed Feb 05 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 1.1.0-20
+- use pypi_source macro for source0
+- use unittest instead of tox, this package doesn't support tox
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

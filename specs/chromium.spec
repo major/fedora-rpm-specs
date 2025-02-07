@@ -152,7 +152,7 @@
 
 # enable|disable use_custom_libcxx
 %global use_custom_libcxx 0
-%if 0%{?rhel} || 0%{?fedora} == 39
+%if 0%{?rhel} || 0%{?fedora} == 40
 %global use_custom_libcxx 1
 %endif
 
@@ -197,6 +197,7 @@
 %global bundlelibdrm 1
 %global bundlefontconfig 1
 %global bundleffmpegfree 1
+%global bundlehighway 1
 # openjpeg2, need to update to 2.5.x
 %global bundlelibopenjpeg2 1
 %global bundlelibtiff 1
@@ -206,17 +207,10 @@
 %global bundleflac 0
 %global bundledoubleconversion 0
 %global bundlelibXNVCtrl 0
-%global bundlehighway 0
 %global bundlelibusbx 0
-%global bundlelibevent 0
 %global bundlelibsecret 0
 %global bundleopus 0
 %global bundlelcms2 0
-
-# workaround for build error on aarch64
-%ifarch aarch64
-%global bundlehighway 1
-%endif
 
 # workaround for build error
 # disable bundleminizip for Fedora > 39 due to switch to minizip-ng
@@ -282,7 +276,7 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 132.0.6834.159
+Version: 133.0.6943.53
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -322,10 +316,8 @@ Patch131: chromium-107-proprietary-codecs.patch
 Patch132: chromium-118-sigtrap_system_ffmpeg.patch
 # need for old ffmpeg 6.0/5.x on epel9 and fedora < 40
 Patch133: chromium-121-system-old-ffmpeg.patch
-# disable FFmpegAllowLists by default to allow external ffmpeg
-patch134: chromium-125-disable-FFmpegAllowLists.patch
 # revert, it causes build error: use of undeclared identifier 'AVFMT_FLAG_NOH264PARSE'
-Patch135: chromium-129-disable-H.264-video-parser-during-demuxing.patch
+Patch135: chromium-133-disable-H.264-video-parser-during-demuxing.patch
 
 # file conflict with old kernel on el8/el9
 Patch141: chromium-118-dma_buf_export_sync_file-conflict.patch
@@ -343,7 +335,7 @@ Patch305: chromium-124-el8-arm64-memory_tagging.patch
 Patch306: chromium-127-el8-ifunc-header.patch
 
 # workaround for build error due to old atk version on el8
-Patch307: chromium-129-el8-atk-compiler-error.patch
+Patch307: chromium-133-el8-atk-compiler-error.patch
 Patch308: chromium-132-el8-unsupport-clang-flags.patch
 Patch309: chromium-132-el8-unsupport-rustc-flags.patch
 Patch310: chromium-132-el8-clang18-build-error.patch
@@ -408,6 +400,7 @@ Patch385: 0002-Include-cstddef-to-fix-build.patch
 Patch386: 0004-third_party-crashpad-port-curl-transport-ppc64.patch
 
 Patch387: HACK-third_party-libvpx-use-generic-gnu.patch
+Patch388: 0001-third-party-hwy-wrong-include.patch
 Patch389: HACK-debian-clang-disable-base-musttail.patch
 
 Patch390: 0001-Add-ppc64-target-to-libaom.patch
@@ -678,9 +671,6 @@ BuildRequires: libXNVCtrl-devel
 BuildRequires:	git-core
 BuildRequires:	hwdata
 BuildRequires:	kernel-headers
-%if ! %{bundlelibevent}
-BuildRequires:	libevent-devel
-%endif
 BuildRequires:	libffi-devel
 
 %if ! %{bundleicu}
@@ -864,7 +854,6 @@ Provides: bundled(libaddressinput) = 0
 Provides: bundled(libdrm) = 2.4.85
 %endif
 
-Provides: bundled(libevent) = 1.4.15
 Provides: bundled(libjingle) = 9564
 
 %if %{bundlelibjpeg}
@@ -1038,7 +1027,6 @@ Qt6 UI for chromium.
 %patch -P131 -p1 -b .prop-codecs
 %patch -P132 -p1 -b .sigtrap_system_ffmpeg
 %patch -P133 -p1 -b .system-old-ffmpeg
-%patch -P134 -p1 -b .disable-FFmpegAllowLists
 %patch -P135 -p1 -b .disable-H.264-video-parser-during-demuxing
 %endif
 
@@ -1117,6 +1105,7 @@ Qt6 UI for chromium.
 %patch -P385 -p1 -b .0002-Include-cstddef-to-fix-build
 %patch -P386 -p1 -b .0004-third_party-crashpad-port-curl-transport-ppc64
 %patch -P387 -p1 -b .HACK-third_party-libvpx-use-generic-gnu
+%patch -P388 -p1 -b .0001-third-party-hwy-wrong-include.patch
 %patch -P389 -p1 -b .HACK-debian-clang-disable-base-musttail
 %patch -P390 -p1 -b .0001-Add-ppc64-target-to-libaom
 %patch -P391 -p1 -b .0001-Add-pregenerated-config-for-libaom-on-ppc64
@@ -1465,9 +1454,6 @@ system_libs=()
 %endif
 %if ! %{bundlelibdrm}
 	system_libs+=(libdrm)
-%endif
-%if ! %{bundlelibevent}
-	system_libs+=(libevent)
 %endif
 %if ! %{bundlelibjpeg}
 	system_libs+=(libjpeg)
@@ -1942,6 +1928,12 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %endif
 
 %changelog
+* Tue Feb 04 2025 Than Ngo <than@redhat.com> - 133.0.6943.53-1
+- Update to 133.0.6943.53
+  * CVE-2025-0444: Use after free in Skia
+  * CVE-2025-0445: Use after free in V8
+  * CVE-2025-0451: Inappropriate implementation in Extensions API
+
 * Wed Jan 29 2025 Than Ngo <than@redhat.com> - 132.0.6834.159-1
 - Updated to 132.0.6834.159
   * Medium CVE-2025-0762: Use after free in DevTools

@@ -1,7 +1,7 @@
 %global gittag 1.7.0
 Name:           tlp
 Version:        1.7.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Optimize laptop battery life
 License:        GPL-2.0-or-later
 URL:            https://linrunner.de/tlp
@@ -69,7 +69,8 @@ switching of bluetooth, NFC, Wi-Fi and WWAN radio devices on:
   TLP_NO_INIT=1 \
   TLP_WITH_ELOGIND=0 \
   TLP_SYSD=%{_unitdir} \
-  TLP_ULIB=%{_udevrulesdir}/..
+  TLP_ULIB=%{_udevrulesdir}/.. \
+  TLP_SBIN=%{_bindir}
 
 #Install manpages:
 make install-man DESTDIR=%{buildroot}
@@ -86,7 +87,6 @@ appstream-util validate-relax --nonet \
 %doc AUTHORS COPYING README.rst changelog
 %{_bindir}/*
 %exclude %{_bindir}/tlp-rdw
-%{_sbindir}/*
 %{_mandir}/man*/*
 %exclude %{_mandir}/man*/tlp-rdw*
 %{_datadir}/tlp
@@ -130,6 +130,9 @@ fi
 %systemd_postun_with_restart tlp.service
 
 %changelog
+* Wed Feb 05 2025 Sergi Jimenez <tripledes@fedoraproject.org> - 1.7.0-3
+- Fix RHBZ#2341445
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

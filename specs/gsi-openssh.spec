@@ -24,12 +24,12 @@
 %global libedit 1
 
 %global openssh_ver 9.9p1
-%global openssh_rel 1
+%global openssh_rel 3
 
 Summary: An implementation of the SSH protocol with GSI authentication
 Name: gsi-openssh
 Version: %{openssh_ver}
-Release: %{openssh_rel}%{?dist}.1
+Release: %{openssh_rel}%{?dist}
 Provides: gsissh = %{version}-%{release}
 Obsoletes: gsissh < 5.8p2-2
 URL: http://www.openssh.com/portable.html
@@ -84,7 +84,7 @@ Patch702: openssh-5.1p1-askpass-progress.patch
 #https://bugzilla.redhat.com/show_bug.cgi?id=198332
 Patch703: openssh-4.3p2-askpass-grab-info.patch
 #https://bugzilla.mindrot.org/show_bug.cgi?id=1635 (WONTFIX)
-Patch707: openssh-7.7p1-redhat.patch
+Patch707: openssh-8.7p1-redhat.patch
 # warn users for unsupported UsePAM=no (#757545)
 Patch711: openssh-7.8p1-UsePAM-warning.patch
 
@@ -177,6 +177,9 @@ Patch1016: openssh-9.9p1-separate-keysign.patch
 # upstream cf3e48ee8ba1beeccddd2f203b558fa102be67a2
 # upstream 0c3927c45f8a57b511c874c4d51a8c89414f74ef
 Patch1017: openssh-9.9p1-mlkembe.patch
+# upstream 3f02368e8e9121847727c46b280efc280e5eb615
+# upstream 67a115e7a56dbdc3f5a58c64b29231151f3670f5
+Patch1020: openssh-9.9p1-match-regression.patch
 
 # This is the patch that adds GSI support
 # Based on hpn_isshd-gsi.7.5p1b.patch from Globus upstream
@@ -347,6 +350,7 @@ gpgv2 --quiet --keyring %{SOURCE3} %{SOURCE1} %{SOURCE0}
 %patch -P 1015 -p1 -b .pam-rhost
 %patch -P 1016 -p1 -b .sep-keysign
 %patch -P 1017 -p1 -b .mlkembe
+%patch -P 1020 -p1 -b .match
 
 %patch -P 100 -p1 -b .coverity
 %patch -P 98 -p1 -b .gsi
@@ -362,7 +366,6 @@ autoreconf
 
 %build
 %set_build_flags
-CFLAGS="$CFLAGS"; export CFLAGS
 %if %{pie}
 %ifarch s390 s390x sparc sparcv9 sparc64
 CFLAGS="$CFLAGS -fPIC"
@@ -572,6 +575,12 @@ fi
 %ghost %attr(0644,root,root) %{_localstatedir}/lib/.gsissh-host-keys-migration
 
 %changelog
+* Wed Feb 05 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.9p1-3
+- Based on openssh-9.9p1-8.fc42
+
+* Wed Feb 05 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.9p1-2
+- Based on openssh-9.9p1-7.fc42 / openssh-9.9p1-2.fc41
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 9.9p1-1.1
 - Add explicit BR: libxcrypt-devel
 

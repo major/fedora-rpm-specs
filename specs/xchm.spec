@@ -27,7 +27,7 @@ content or just the topics' titles.
 %autosetup
 
 %build
-%configure --disable-dependency-tracking
+%configure
 %make_build
 
 %install

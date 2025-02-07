@@ -2,8 +2,8 @@
 ExcludeArch: %{ix86}
 
 Name:           galera
-Version:        26.4.20
-Release:        2%{?dist}
+Version:        26.4.21
+Release:        1%{?dist}
 Summary:        Synchronous multi-master wsrep provider (replication engine)
 
 License:        GPL-2.0-only
@@ -11,14 +11,13 @@ URL:            http://galeracluster.com/
 
 # Actually, the truth is, we do use galera source tarball provided by MariaDB on
 # following URL (without macros):
-#   https://archive.mariadb.org/mariadb-10.4.16/galera-26.4.6/src/galera-26.4.6.tar.gz
+#   https://archive.mariadb.org/mariadb-10.11/galera-26.4.21/src/galera-26.4.21.tar.gz
 
 Source0:        http://releases.galeracluster.com/source/%{name}-%{version}.tar.gz
 
 Patch0:         cmake_paths.patch
 Patch1:         docs.patch
 Patch2:         network.patch
-Patch3:         openssl_engine.patch
 
 BuildRequires:  boost-devel check-devel openssl-devel cmake systemd gcc-c++ asio-devel
 Requires(pre):  /usr/sbin/useradd
@@ -40,7 +39,6 @@ description of Galera replication engine see https://www.galeracluster.com web.
 %patch -P0 -p1
 %patch -P1 -p1
 %patch -P2 -p1
-%patch -P3 -p1
 
 %build
 %{set_build_flags}
@@ -142,6 +140,9 @@ unlink /etc/systemd/system/garb.service || :
 
 
 %changelog
+* Wed Feb 05 2025 Michal Schorm <mschorm@redhat.com> - 26.4.21-1
+- Rebase to 26.4.21
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 26.4.20-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

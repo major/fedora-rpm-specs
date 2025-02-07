@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.3.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        TPM 2.0 TSS Bindings for Python
 
 License:        BSD-2-Clause
@@ -11,6 +11,10 @@ URL:            https://github.com/tpm2-software/tpm2-pytss
 Source:         %{pypi_source %{pypi_name}}
 # https://github.com/tpm2-software/tpm2-pytss/pull/585
 Patch1:         %{name}-2.3.0-secp192.patch
+# https://github.com/tpm2-software/tpm2-pytss/pull/589
+Patch2:         %{name}-bsd.patch
+# https://github.com/tpm2-software/tpm2-pytss/pull/615
+Patch3:         %{name}-gcc15.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
@@ -59,9 +63,13 @@ Summary:        %{summary}
 
 %check
 %pyproject_check_import
+# The test test_tools_decode_tpml_tagged_tpm_property checks TPM2 revision which is not stable
+# In upstream this test as well as the tools are removed so I do not have any good way to fix it
 %ifarch s390x
 # this test does not work for some reason on the s390x as it times out
-%global testargs -k "not test_spi_helper_good"
+%global testargs -k "not test_spi_helper_good and not test_tools_decode_tpml_tagged_tpm_property"
+%else
+%global testargs -k "not test_tools_decode_tpml_tagged_tpm_property"
 %endif
 %pytest --import-mode=append %{?!rhel:-n 1} %{?testargs}
 
@@ -71,6 +79,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Wed Feb 05 2025 Jakub Jelen <jjelen@redhat.com> - 2.3.0-4
+- Fix build with gcc15 (#2341227)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

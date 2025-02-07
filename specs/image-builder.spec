@@ -7,7 +7,7 @@
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        9
+Version:        10
 
 %gometa
 
@@ -226,6 +226,17 @@ cd $PWD/_build/src/%{goipath}
 %{_bindir}/image-builder
 
 %changelog
+* Wed Feb 05 2025 Packit <hello@packit.dev> - 10-1
+Changes with 10
+----------------
+  * main: fix auto-detected distro that is non-visible, tweak order (#124)
+    * Author: Michael Vogt, Reviewers: Ondřej Budai
+  * main: reset the terminal properly on SIGINT (#125)
+    * Author: Michael Vogt, Reviewers: Ondřej Budai
+
+— Somewhere on the Internet, 2025-02-05
+
+
 * Mon Feb 03 2025 Packit <hello@packit.dev> - 9-1
 Changes with 9
 ----------------

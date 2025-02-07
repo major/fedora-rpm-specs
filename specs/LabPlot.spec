@@ -22,6 +22,8 @@ URL:            https://labplot.kde.org/
 #Source0:        https://invent.kde.org/education/labplot/-/archive/%%{version}/labplot-%%{version}.tar.bz2
 Source0:        https://invent.kde.org/education/labplot/-/archive/%{gitcommit}/labplot-%{gitcommit}.tar.bz2
 
+Patch0:         LabPlot-fix-compilation.patch
+
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  extra-cmake-modules

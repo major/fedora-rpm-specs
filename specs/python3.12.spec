@@ -13,11 +13,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.8
+%global general_version %{pybasever}.9
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 4%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -364,14 +364,6 @@ Patch251: 00251-change-user-install-location.patch
 # https://bodhi.fedoraproject.org/updates/FEDORA-2021-e152ce5f31
 # https://github.com/GrahamDumpleton/mod_wsgi/issues/730
 Patch371: 00371-revert-bpo-1596321-fix-threading-_shutdown-for-the-main-thread-gh-28549-gh-28589.patch
-
-# 00445 # d1a32daddefad32ceb93155552858c0a0311b23e
-# CVE-2024-12254: Ensure _SelectorSocketTransport.writelines pauses the protocol if needed
-#
-# Ensure _SelectorSocketTransport.writelines pauses the protocol if it reaches the high water mark as needed.
-#
-# Resolved upstream: https://github.com/python/cpython/issues/127655
-Patch445: 00445-cve-2024-12254-ensure-_selectorsockettransport-writelines-pauses-the-protocol-if-needed.patch
 
 # (New patches go here ^^^)
 #
@@ -1691,6 +1683,11 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Tue Feb 04 2025 Charalampos Stratakis <cstratak@redhat.com> - 3.12.9-1
+- Update to 3.12.9
+- Security fix for CVE-2025-0938
+- Fixes: rhbz#2343275
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 3.12.8-4
 - Add explicit BR: libxcrypt-devel
 

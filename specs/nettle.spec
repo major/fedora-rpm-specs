@@ -44,6 +44,7 @@ Source200:	gmp-6.2.1.tar.xz
 # Taken from the main gmp package
 Source201:	gmp-6.2.1-intel-cet.patch
 Source202:	gmp-6.2.1-zeroize-allocator.patch
+Source203:	gmp-6.2.1-c23.patch
 %endif
 
 BuildRequires: make
@@ -88,6 +89,7 @@ pushd bundled_gmp
 tar --strip-components=1 -xf %{SOURCE200}
 patch -p1 < %{SOURCE201}
 patch -p1 < %{SOURCE202}
+patch -p1 < %{SOURCE203}
 popd
 
 # Prevent -lgmp appearing in the compiler command line in dependent components

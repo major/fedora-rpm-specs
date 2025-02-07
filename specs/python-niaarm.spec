@@ -21,8 +21,8 @@ solved using the nature-inspired algorithms that come from the related
 framework called NiaPy.}
 
 Name:           python-%{pypi_name}
-Version:        0.3.12
-Release:        2%{?dist}
+Version:        0.4.0
+Release:        1%{?dist}
 Summary:        A minimalistic framework for numerical association rule mining
 
 # SPDX
@@ -107,6 +107,9 @@ install -D -t '%{buildroot}%{_mandir}/man1' -m 0644 %{pypi_name}.1
 %doc interest_measures.md CHANGELOG.md
 
 %changelog
+* Wed Feb 5 2025 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.4.0-1
+- Update to 0.4.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

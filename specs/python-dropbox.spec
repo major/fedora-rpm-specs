@@ -1,7 +1,7 @@
 %global pypi_name dropbox
 Name:           python-%{pypi_name}
 Version:        12.0.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Official Dropbox REST API Client
 License:        MIT
 
@@ -34,7 +34,7 @@ A Python library for Dropbox's HTTP-based Core and Datastore APIs.
 %patch -P 0 -p0
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -49,6 +49,9 @@ A Python library for Dropbox's HTTP-based Core and Datastore APIs.
 %{python3_sitelib}/%{pypi_name}-%{version}.dist-info/
 
 %changelog
+* Wed Feb 05 2025 Gwyn Ciesla <gwync@protonmail.com> - 12.0.2-5
+- Drop BR -t
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 12.0.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

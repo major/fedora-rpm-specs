@@ -11,12 +11,17 @@
 
 Name:              fastnetmon
 Version:           1.2.1
-Release:           21.%{date}git%{shortcommit0}%{?dist}
+Release:           22.%{date}git%{shortcommit0}%{?dist}
 
 Summary:           DDoS detection tool with sFlow, Netflow, IPFIX and port mirror support
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:           GPL-2.0-only
 URL:               https://fastnetmon.com
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+%if %{undefined fc40} && %{undefined fc41}
+ExcludeArch:       %{ix86}
+%endif
 
 Source0:           https://github.com/pavel-odintsov/fastnetmon/archive/%{commit0}.tar.gz
 Source1:           fastnetmon.sysusers
@@ -117,6 +122,9 @@ install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/fastnetmon.conf
 %doc README.md SECURITY.md THANKS.md
 
 %changelog
+* Sun Feb 02 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1.2.1-22.20220528git420e7b8
+- Drop i686 support (leaf package)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-21.20220528git420e7b8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

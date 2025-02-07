@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        2.0.1
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -15,7 +15,7 @@ BuildArch:      noarch
 #BuildRequires:  dos2unix
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %description
 Extract data from Excel spreadsheets (.xls and .xlsx, versions 2.0 onwards)
@@ -81,7 +81,7 @@ rm -rf $RPM_BUILD_ROOT%{_bindir}/runxlrd.py* \
   $RPM_BUILD_ROOT/%{python3_sitelib}/xlrd/examples
 
 %check
-%tox
+%{python3} -c 'import xlrd'
 
 %files -n python%{python3_pkgversion}-%{srcname}
 %license LICENSE
@@ -101,6 +101,9 @@ rm -rf $RPM_BUILD_ROOT%{_bindir}/runxlrd.py* \
 %endif
 
 %changelog
+* Wed Feb 05 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.0.1-21
+- This package has no test available, just import this module to test.
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

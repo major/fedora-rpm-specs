@@ -12,7 +12,7 @@
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.8.1
+Version:        6.8.2
 Release:        %autorelease
 Summary:        Qt6 for Windows - QtScxml component
 
