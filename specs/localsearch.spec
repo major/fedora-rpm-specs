@@ -31,7 +31,7 @@
 
 Name:           localsearch
 Version:        3.8~rc
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Localsearch and metadata extractors
 
 # The indexer is a mix of GPLv2 and LGPLv2+ code
@@ -177,6 +177,9 @@ install -D -m 0755 %{SOURCE1} %{buildroot}%{_bindir}/%{name}-flatpak-fixup.sh
 
 
 %changelog
+* Thu Feb 06 2025 Nieves Montero <nmontero@redhat.com> - 3.8~rc-9
+- Rebuild for the renaming of tracker to tinysparql
+
 * Tue Feb 04 2025 Nieves Montero <nmontero@redhat.com> - 3.8~rc-8
 - Bump the version of the tracker-miners obsoletes
 

@@ -14,8 +14,8 @@ coroutine is co_awaiting, the Qt event loop runs as usual, meaning that your
 application remains responsive.}
 
 Name: qcoro
-Version: 0.10.0
-Release: 8%{?dist}
+Version: 0.11.0
+Release: 1%{?dist}
 
 License: MIT
 Summary: C++ Coroutines for Qt
@@ -181,6 +181,9 @@ popd
 %endif
 
 %changelog
+* Thu Feb 06 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 0.11.0-1
+- 0.11.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

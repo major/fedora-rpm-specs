@@ -2,26 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate sequoia-gpg-agent
+%global crate pty-process
 
-Name:           rust-sequoia-gpg-agent
-Version:        0.5.1
+Name:           rust-pty-process
+Version:        0.4.0
 Release:        %autorelease
-Summary:        Library for interacting with GnuPG's gpg-agent
+Summary:        Spawn commands attached to a pty
 
-License:        LGPL-2.0-or-later
-URL:            https://crates.io/crates/sequoia-gpg-agent
+License:        MIT
+URL:            https://crates.io/crates/pty-process
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          sequoia-gpg-agent-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
-%if %{with check}
-BuildRequires:  /usr/bin/gpgconf
-%endif
 
 %global _description %{expand:
-A library for interacting with GnuPG's gpg-agent.}
+Spawn commands attached to a pty.}
 
 %description %{_description}
 
@@ -35,7 +30,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE.txt
+%license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -51,6 +47,30 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+async-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+async-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "async" feature of the "%{crate}" crate.
+
+%files       -n %{name}+async-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+tokio-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+tokio-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "tokio" feature of the "%{crate}" crate.
+
+%files       -n %{name}+tokio-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
@@ -59,8 +79,7 @@ use the "default" feature of the "%{crate}" crate.
 %cargo_generate_buildrequires
 
 %build
-# build with the default crypto backend (Nettle)
-%cargo_build -f sequoia-openpgp/crypto-nettle
+%cargo_build
 
 %install
 %cargo_install

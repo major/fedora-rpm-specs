@@ -1,94 +1,76 @@
-%global commit 5bc6841351a71569889e11f443a7948cb3ca64f0
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-
-%global with_tests 1
+%bcond tests 1
 
 Name:           python-webtest
 Version:        3.0.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Helper to test WSGI applications
 
 License:        MIT
 URL:            https://github.com/Pylons/webtest
-Source0:        https://github.com/Pylons/webtest/archive/%{version}.tar.gz
-#Source0:        https://github.com/Pylons/webtest/archive/%%{commit}/%%{name}-%%{shortcommit}.tar.gz
+Source:         %{pypi_source webtest}
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
-%if 0%{?with_tests}
-BuildRequires:  python3-pytest
-BuildRequires:  python3-beautifulsoup4
-BuildRequires:  python3-paste-deploy
-BuildRequires:  python3-pyquery
-BuildRequires:  python3-waitress
-BuildRequires:  python3-webob
-# only require legacy-cgi on on systems where it's present
-%if 0%{?fedora} > 40 || 0%{?rhel} > 9
-BuildRequires:  python3dist(legacy-cgi)
-%endif
-BuildRequires:  python3-WSGIProxy2
-# there is no sphinx-themes for rhel9, but it's not required to build
-%if 0%{?fedora} >= 33 || 0%{?rhel} > 9
-BuildRequires:  python3-pylons-sphinx-themes
-%endif
-%endif
+%global _description %{expand:
+WebTest wraps any WSGI application and makes it easy to send test requests to
+that application, without starting up an HTTP server.
 
-%global _description\
-WebTest wraps any WSGI application and makes it easy to send test\
-requests to that application, without starting up an HTTP server.\
-\
-This provides convenient full-stack testing of applications written\
-with any WSGI-compatible framework.
+This provides convenient full-stack testing of applications written with any
+WSGI-compatible framework.}
+
 
 %description %_description
 
+
 %package -n python3-webtest
-Summary:        Helper to test WSGI applications
+Summary:        %{summary}
 
-Requires:       python3-beautifulsoup4
-Requires:       python3-waitress
-Requires:       python3-webob
 
-%description -n python3-webtest
-WebTest wraps any WSGI application and makes it easy to send test
-requests to that application, without starting up an HTTP server.
-
-This provides convenient full-stack testing of applications written
-with any WSGI-compatible framework.
+%description -n python3-webtest %_description
 
 
 %prep
-%setup -q -n webtest-%{version}
-#%%autosetup -n webtest-%%{commit}
+%autosetup -n webtest-%{version}
 
-# Remove bundled egg info if it exists.
-rm -rf *.egg-info
+# remove coverage dependencies
+sed -e '/coverage/d' \
+    -e '/pytest-cov/d' \
+    -i setup.py
+
+
+%generate_buildrequires
+%pyproject_buildrequires %{?with_tests:-x tests}
+
 
 %build
-%py3_build
+%pyproject_wheel
 # remove files not needed in documentation
 rm -f docs/Makefile docs/conf.py docs/changelog.rst
-#cp -a CHANGELOG.rst docs/
+
 
 %install
-%{__rm} -rf %{buildroot}
-%py3_install
+%pyproject_install
+%pyproject_save_files webtest
 
 
-%if 0%{?with_tests}
 %check
+%if %{with tests}
 %pytest
+%else
+%pyproject_check_import
 %endif
 
-%files -n python3-webtest
+
+%files -n python3-webtest -f %{pyproject_files}
 %doc docs/* CHANGELOG.rst
-%{python3_sitelib}/webtest
-%{python3_sitelib}/WebTest-*.egg-info
+
 
 %changelog
+* Wed Feb 05 2025 Carl George <carlwgeorge@fedoraproject.org> - 3.0.4-2
+- Port to pyproject macros
+
 * Mon Feb 03 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.0.4-1
 - Update to upstream.
 

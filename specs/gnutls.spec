@@ -24,7 +24,11 @@ Patch: gnutls-3.8.8-tests-ktls-skip-tls12-chachapoly.patch
 %bcond_without fips
 %bcond_with tpm12
 %bcond_without tpm2
+%if 0%{?rhel} >= 9
+%bcond_with gost
+%else
 %bcond_without gost
+%endif
 %bcond_without certificate_compression
 %bcond_without liboqs
 %bcond_without tests
@@ -128,6 +132,11 @@ Source2: https://gnutls.org/gnutls-release-keyring.gpg
 Source100:	gmp-6.2.1.tar.xz
 # Taken from the main gmp package
 Source101:	gmp-6.2.1-intel-cet.patch
+Source102:	gmp-6.2.1-c23.patch
+%endif
+
+%if 0%{?rhel} >= 10
+Source201:	gnutls-3.8.8-tests-rsa-default.patch
 %endif
 
 # Wildcard bundling exception https://fedorahosted.org/fpc/ticket/174
@@ -258,7 +267,12 @@ mkdir -p bundled_gmp
 pushd bundled_gmp
 tar --strip-components=1 -xf %{SOURCE100}
 patch -p1 < %{SOURCE101}
+patch -p1 < %{SOURCE102}
 popd
+%endif
+
+%if 0%{?rhel} >= 10
+patch -p1 < %{SOURCE201}
 %endif
 
 %build

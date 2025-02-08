@@ -1,17 +1,17 @@
 # Use the forge macros to simplify packaging.
 # See https://fedoraproject.org/wiki/Forge-hosted_projects_packaging_automation 
-%global forgeurl https://github.com/orosp/ddiskit
+%global forgeurl https://gitlab.com/redhat/centos-stream/src/dup/ddiskit
 # When we no longer need to build against a git commit, 
 # Simply remove the commit variable and update the Version
 # Then forge will pick up the release
-%global commit de1f6847223085dcdd177e02a7298c835fae12a3
+%global commit d857c7726fd55e613bbd7af6c842ddfc80a9fdc8
 
 Name:           ddiskit
 Version:        3.6
 
 %forgemeta
 
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Tool for Red Hat Enterprise Linux Driver Update Disk creation
 
 License:        GPL-3.0-only
@@ -68,6 +68,9 @@ find %{buildroot} -size 0 -delete
 %config(noreplace) /etc/ddiskit.config
 
 %changelog
+* Thu Feb 06 2025 Eugene Syromiatnikov <esyr@redhat.com> - 3.6-29
+- Update to the latest version.
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -21,7 +21,7 @@
 
 Name: dbcsr
 # SONAME is based on major.minor version
-%global sover 2.7
+%global sover 2.8
 Version: %{sover}.0
 Release: %autorelease
 Summary: Distributed Block Compressed Sparse Row matrix library

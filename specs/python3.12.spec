@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python-2.0.1
 
 
@@ -1683,6 +1683,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Thu Feb 06 2025 Miro Hrončok <mhroncok@redhat.com> - 3.12.9-2
+- Rebuilt with mpdecimal 4.0.0
+
 * Tue Feb 04 2025 Charalampos Stratakis <cstratak@redhat.com> - 3.12.9-1
 - Update to 3.12.9
 - Security fix for CVE-2025-0938

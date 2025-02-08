@@ -1,6 +1,6 @@
 %global project_version_prime 5
 %global project_version_major 2
-%global project_version_minor 9
+%global project_version_minor 10
 %global project_version_micro 0
 
 %bcond dnf5_obsoletes_dnf %[0%{?fedora} > 40 || 0%{?rhel} > 10]
@@ -78,6 +78,7 @@ Provides:       dnf5-command(versionlock)
 %bcond_without dnf5_plugins
 %bcond_without plugin_actions
 %bcond_without plugin_appstream
+%bcond_without plugin_expired_pgp_keys
 %bcond_without plugin_rhsm
 %bcond_without python_plugins_loader
 
@@ -624,6 +625,23 @@ Libdnf5 plugin that installs repository's Appstream data, for repositories which
 
 %endif
 
+# ========== libdnf5-plugin-expired-pgp-keys ==========
+
+%if %{with plugin_expired_pgp_keys}
+%package -n libdnf5-plugin-expired-pgp-keys
+Summary:        Libdnf5 plugin for detecting and removing expired PGP keys
+License:        LGPL-2.1-or-later
+Requires:       libdnf5%{?_isa} = %{version}-%{release}
+
+%description -n libdnf5-plugin-expired-pgp-keys
+Libdnf5 plugin for detecting and removing expired PGP keys.
+
+%files -n libdnf5-plugin-expired-pgp-keys -f libdnf5-plugin-expired-pgp-keys.lang
+%{_libdir}/libdnf5/plugins/expired-pgp-keys.*
+%config %{_sysconfdir}/dnf/libdnf5-plugins/expired-pgp-keys.conf
+%{_mandir}/man8/libdnf5-expired-pgp-keys.8.*
+%endif
+
 # ========== libdnf5-plugin-plugin_rhsm ==========
 
 %if %{with plugin_rhsm}
@@ -825,6 +843,7 @@ automatically and regularly from systemd timers, cron jobs or similar.
     -DWITH_DNF5=%{?with_dnf5:ON}%{!?with_dnf5:OFF} \
     -DWITH_PLUGIN_ACTIONS=%{?with_plugin_actions:ON}%{!?with_plugin_actions:OFF} \
     -DWITH_PLUGIN_APPSTREAM=%{?with_plugin_appstream:ON}%{!?with_plugin_appstream:OFF} \
+    -DWITH_PLUGIN_EXPIRED_PGP_KEYS=%{?with_plugin_expired_pgp_keys:ON}%{!?with_plugin_expired_pgp_keys:OFF} \
     -DWITH_PLUGIN_RHSM=%{?with_plugin_rhsm:ON}%{!?with_plugin_rhsm:OFF} \
     -DWITH_PYTHON_PLUGINS_LOADER=%{?with_python_plugins_loader:ON}%{!?with_python_plugins_loader:OFF} \
     \
@@ -915,11 +934,29 @@ popd
 %find_lang libdnf5
 %find_lang libdnf5-cli
 %find_lang libdnf5-plugin-actions
+%find_lang libdnf5-plugin-expired-pgp-keys
 %find_lang libdnf5-plugin-rhsm
 
 %ldconfig_scriptlets
 
 %changelog
+* Thu Feb 06 2025 Packit <hello@packit.dev> - 5.2.10.0-1
+- Update translations from weblate
+- plugins: Provide the actual API version used
+- plugins: Check only major version of API for incompatibility
+- expired-pgp-keys: New plugin for detecting expired PGP keys
+- rpm_signature: Fix rpmdb_lookup comparison case mismatch
+- actions: Update with resolved hook
+- libdnf plugins: Add resolved hook
+- SWIG bindings for common::Message and common::EmptyMessage
+- EmptyMessage: class for passing an empty message
+- Message: base class for passing a message for formatting in the destination
+- utils::format: Support for user defined locale
+- SWIG bindings for utils::Locale
+- utils::Locale: class for passing C and CPP locale
+- utils::format: Support for formatting args according to BgettextMessage
+- bgettext: Add function b_gettextmsg_get_plural_id
+
 * Tue Feb 04 2025 Packit <hello@packit.dev> - 5.2.9.0-1
 - Update translations from weblate
 - automatic: Translate end-of-lines in email emitter by DNF

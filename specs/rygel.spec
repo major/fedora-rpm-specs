@@ -2,7 +2,7 @@
 
 Name:          rygel
 Version:       0.44.1
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       A collection of UPnP/DLNA services
 
 License:       LGPL-2.1-or-later AND CC-BY-SA-3.0
@@ -147,6 +147,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/rygel-preferences.de
 %{_datadir}/vala/vapi/rygel*.vapi
 
 %changelog
+* Thu Feb 06 2025 Nieves Montero <nmontero@redhat.com> - 0.44.1-3
+- Rebuild for the renaming of tracker to tinysparql
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.44.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

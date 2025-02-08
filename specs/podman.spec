@@ -24,6 +24,8 @@
 
 %if %{defined fedora}
 %define build_with_btrfs 1
+# qemu-system* isn't packageed for CentOS Stream / RHEL
+%define qemu 1
 %endif
 
 %if %{defined copr_username}
@@ -55,7 +57,7 @@ Epoch: 5
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 5.4.0~rc2
+Version: 5.4.0~rc3
 # The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0
 Release: %autorelease
@@ -142,6 +144,7 @@ Requires: %{name} = %{epoch}:%{version}-%{release}
 %if %{defined fedora}
 Requires: bats
 %endif
+Requires: attr
 Requires: jq
 Requires: skopeo
 Requires: nmap-ncat
@@ -187,7 +190,17 @@ when `%{_bindir}/%{name}sh` is set as a login shell or set as os.Args[0].
 Summary: Metapackage for setting up %{name} machine
 Requires: %{name} = %{epoch}:%{version}-%{release}
 Requires: gvisor-tap-vsock
-Requires: qemu
+%if %{defined qemu}
+%ifarch aarch64
+Requires: qemu-system-aarch64-core
+%endif
+%ifarch x86_64
+Requires: qemu-system-x86-core
+%endif
+%else
+Requires: qemu-kvm
+%endif
+Requires: qemu-img
 Requires: virtiofsd
 ExclusiveArch: x86_64 aarch64
 
@@ -295,6 +308,9 @@ ln -s ../virtiofsd %{buildroot}%{_libexecdir}/%{name}
 
 #define license tag if not already defined
 %{!?_licensedir:%global license %doc}
+
+# Include empty check to silence rpmlint warning
+%check
 
 %files -f %{name}.file-list
 %license LICENSE vendor/modules.txt

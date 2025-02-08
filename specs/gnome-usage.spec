@@ -6,7 +6,7 @@
 
 Name:		gnome-usage
 Version:	46.0
-Release:	3%{?dist}
+Release:	5%{?dist}
 Summary:	A GNOME app to view information about use of system resources
 
 License:	GPL-3.0-or-later AND CC0-1.0
@@ -59,6 +59,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Usage.deskt
 %{_metainfodir}/org.gnome.Usage.appdata.xml
 
 %changelog
+* Thu Feb 06 2025 Nieves Montero <nmontero@redhat.com> - 46.0-5
+- Rebuild for the renaming of tracker to tinysparql
+
+* Thu Feb 06 2025 Nieves Montero <nmontero@redhat.com> - 46.0-4
+- Rebuild for the renaming of tracker to tinysparql
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 46.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

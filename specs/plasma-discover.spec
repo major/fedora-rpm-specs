@@ -8,7 +8,7 @@
 
 Name:    plasma-discover
 Summary: KDE and Plasma resources management GUI
-Version: 6.2.91
+Version: 6.3.0
 Release: 2%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -20,6 +20,10 @@ Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%
 Source10: discoverrc
 
 ## upstream patches
+# Hide Plasma categories on a non-KDE desktop
+# Requested by Fedora Budgie (Cf. https://pagure.io/fedora-kde/SIG/issue/607)
+# Drop with 6.4
+Patch0: https://invent.kde.org/plasma/discover/-/commit/55ec79edc1892e9db5c8ab0743923387c56d1465.patch
 
 ## downstream patches
 # Adjust periodic refresh from 1/24hr to 1/12hr
@@ -311,6 +315,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.discover.desk
 
 
 %changelog
+* Thu Feb 06 2025 Neal Gompa <ngompa@fedoraproject.org> - 6.3.0-2
+- Backport patch to disable Plasma addons on non-KDE desktops
+
+* Thu Feb 06 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.0-1
+- 6.3.0
+
 * Fri Jan 24 2025 Steve Cossette <farchord@gmail.com> - 6.2.91-2
 - Drop the non-KDE DE patch for now as it makes Discover crash on start
 

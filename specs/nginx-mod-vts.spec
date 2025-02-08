@@ -3,7 +3,7 @@
 
 Name:           nginx-mod-vts
 Version:        0.2.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Nginx virtual host traffic status module
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -45,6 +45,9 @@ popd
 
 
 %changelog
+* Thu Feb 06 2025 Felix Kaechele <felix@kaechele.ca> - 0.2.3-3
+- Rebuild for nginx 1.26.3
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

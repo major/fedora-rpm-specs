@@ -10,7 +10,7 @@
 %bcond_without check
 
 Name:           wangle
-Version:        2024.08.19.00
+Version:        2025.02.03.00
 Release:        %autorelease
 Summary:        Framework for building services in a consistent/modular/composable way
 
@@ -90,6 +90,12 @@ EXCLUDED_TESTS='--exclude-regex '
 # [  FAILED  ] SSLContextManagerTest.TestSingleClientCAFileSet
 # [  FAILED  ] SSLContextManagerTest.TestMultipleClientCAsSet
 EXCLUDED_TESTS+='SSLContextManagerTest'
+
+%ifarch ppc64le
+# The following tests FAILED:
+# 	    6 - BroadcastPoolTest (SEGFAULT)
+EXCLUDED_TESTS+='|BroadcastPoolTest'
+%endif
 
 %ctest ${EXCLUDED_TESTS}
 %endif

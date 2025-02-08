@@ -1,13 +1,12 @@
 Summary: Library for producing small, fast columnar storage for Hadoop workloads
 Name:    liborc
-Version: 2.0.3
-Release: 3%{?dist}
+Version: 2.1.0
+Release: 1%{?dist}
 License: Apache-2.0
 URL:     http://orc.apache.org/
 Source: https://archive.apache.org/dist/orc/orc-%{version}/orc-%{version}.tar.gz
 Source1: https://archive.apache.org/dist/orc/orc-format-%{version}/orc-format-1.0.0.tar.gz
 Patch1:  0001-cmake.patch
-Patch2:  0002-c++-src-CpuInfoUtil.cc.patch
 # Apache ORC has numerous compile errors and apparently assumes a 64-bit
 # build and runtime environment. The only consumer of this package is 
 # Ceph (by way of Apache Arrow) which is also 64-bit only
@@ -122,6 +121,9 @@ rm -f %{buildroot}/%{_includedir}/orc/sargs/._*.hh
 %license LICENSE
 %doc README.md NOTICE
 %{_libdir}/liborc.so.*
+%{_libdir}/cmake/orc/orcConfig*
+%exclude %{_libdir}/cmake/orc/*
+%exclude %{_libdir}/orcTargets*
 
 %files devel
 %dir %{_includedir}/orc
@@ -131,6 +133,9 @@ rm -f %{buildroot}/%{_includedir}/orc/sargs/._*.hh
      %{_libdir}/liborc.so
 
 %changelog
+* Thu Feb 6 2025  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 2.1.0-1
+- Apache ORC 2.1.0
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

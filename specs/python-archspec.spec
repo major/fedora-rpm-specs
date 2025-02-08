@@ -38,7 +38,7 @@ rm -rf archspec/json/.git*
 
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 
 %build

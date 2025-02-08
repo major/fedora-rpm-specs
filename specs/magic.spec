@@ -1,8 +1,8 @@
 %undefine   __brp_mangle_shebangs
 
 Name:		magic
-Version:	8.3.515
-Release:	2%{?dist}
+Version:	8.3.517
+Release:	1%{?dist}
 Summary:	A very capable VLSI layout tool
 
 # LICENSE: HPND-UC-export-US: https://gitlab.com/fedora/legal/fedora-license-data/-/issues/504
@@ -100,8 +100,13 @@ sed -i scripts/configure \
 %build
 cd %{name}-%{version}
 
-export WISH_EXE=%{_bindir}/wish
+%if 0%{?fedora} >= 42
+WISH_EXE=$(ls -1d %{_bindir}/wish8.* | tail -n 1)
+%else
+WISH_EXE=%{_bindir}/wish
+%endif
 %configure \
+	--with-wish=$WISH_EXE \
 	--with-tcl=%{_libdir} \
 	--with-tk=%{_libdir} \
 	--with-tcllibs=%{_libdir} \
@@ -176,6 +181,13 @@ rm -f %{buildroot}%{_mandir}/man1/extcheck.1*
 %doc	scmos/
 
 %changelog
+* Thu Feb 06 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.517-1
+- 8.3.517
+
+* Wed Feb 05 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.516-1
+- 8.3.516
+- F-42 and above: specify tkversion explicitly with magic script
+
 * Fri Jan 31 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.515-2
 - Use tk8 explicitly
 

@@ -14,7 +14,7 @@ Patch2:  nss-mdns-local-heuristic-unit.patch
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: pkgconfig(check)
-Requires: avahi
+Requires: (avahi if systemd)
 Requires(preun,posttrans): authselect
 
 %description

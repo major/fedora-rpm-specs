@@ -1,20 +1,26 @@
-# versioned documentation for old releases
-%{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
+# Whether to package the compatibility .so from the previous release.
+# This installs self as a build dependency and copies the files.
+# Once disabled, it can only be built when the previous version is tagged in.
+# It is required to be able to rebuild Pythons with the new library.
+%bcond compat 0
 
 Name:           mpdecimal
-Version:        2.5.1
+Version:        4.0.0
 Release:        %autorelease
 Summary:        Library for general decimal arithmetic
 License:        BSD-2-Clause
 
-URL:            http://www.bytereef.org/mpdecimal/index.html
-Source0:        http://www.bytereef.org/software/mpdecimal/releases/mpdecimal-%{version}.tar.gz
-Source1:        http://speleotrove.com/decimal/dectest.zip
+URL:            https://www.bytereef.org/mpdecimal/index.html
+Source0:        https://www.bytereef.org/software/mpdecimal/releases/mpdecimal-%{version}.tar.gz
+Source1:        https://speleotrove.com/decimal/dectest.zip
 
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  unzip
+%if %{with compat}
+BuildRequires:  %{name}
+%endif
 
 %description
 The package contains a library libmpdec implementing General Decimal
@@ -40,71 +46,52 @@ Summary:        Development headers for mpdecimal library
 %description devel
 The package contains development headers for the mpdecimal library.
 
-%package        doc
-Summary:        Documentation for mpdecimal library
-# docs is FreeBSD-DOC
-# bundles underscore.js: MIT
-# bundles jquery: MIT
-# jquery bundles sizzle.js: MIT
-License:        FreeBSD-DOC AND MIT
-BuildArch:      noarch
-Provides:       bundled(js-jquery) = 3.4.1
-Provides:       bundled(js-underscore) = 1.3.1
-
-%description doc
-The package contains documentation for the mpdecimal library.
-
 %prep
 %autosetup
 unzip -d tests/testdata %{SOURCE1}
 
 %build
-# Force -ffat-lto-objects so that configure tests are assembled which
-# is required for ASM configure tests.  -ffat-lto-objects is the default
-# for F33, but will not be the default in F34
-#define _lto_cflags -flto=auto -ffat-lto-objects
-
-%configure
+%configure --disable-static
 # Set LDXXFLAGS to properly pass the buildroot
 # linker flags to the C++ extension.
-make %{?_smp_mflags} LDXXFLAGS="%{build_ldflags}"
+%make_build LDXXFLAGS="%{build_ldflags}"
 
 %check
-make check
+%make_build check
 
 %install
 %make_install
-rm -f %{buildroot}%{_libdir}/*.a
 
 # license will go into dedicated directory
-rm -f %{buildroot}%{_docdir}/%{name}/LICENSE.txt
+rm %{buildroot}%{_docdir}/%{name}/COPYRIGHT.txt
 
-# relocate documentation if versioned documentation is used
-if [ "%{_pkgdocdir}" != "%{_docdir}/%{name}" ]; then
-  install -d -m 0755 %{buildroot}%{_pkgdocdir}
-  mv -v %{buildroot}%{_docdir}/%{name}/* %{buildroot}%{_pkgdocdir}/
-fi
+%if %{with compat}
+cp -a %{_libdir}/libmpdec.so.2.5.1 %{buildroot}%{_libdir}/libmpdec.so.3
+%endif
 
 %files
-%license LICENSE.txt
+%doc README.txt CHANGELOG.txt
+%license COPYRIGHT.txt
 %{_libdir}/libmpdec.so.%{version}
+%{_libdir}/libmpdec.so.4
+%if %{with compat}
 %{_libdir}/libmpdec.so.3
+%endif
 
 %files -n %{name}++
 %{_libdir}/libmpdec++.so.%{version}
-%{_libdir}/libmpdec++.so.3
+%{_libdir}/libmpdec++.so.4
 
 %files devel
 %{_libdir}/libmpdec.so
 %{_libdir}/libmpdec++.so
 %{_includedir}/mpdecimal.h
 %{_includedir}/decimal.hh
-
-%files doc
-%license doc/LICENSE.txt
-%doc %{_pkgdocdir}
-
-%ldconfig_scriptlets
+%{_libdir}/pkgconfig/libmpdec.pc
+%{_libdir}/pkgconfig/libmpdec++.pc
+%{_mandir}/man3/libmpdec.3*
+%{_mandir}/man3/libmpdec++.3*
+%{_mandir}/man3/mpdecimal*.3*
 
 %changelog
 %autochangelog

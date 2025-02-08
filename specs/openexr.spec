@@ -22,6 +22,8 @@ BuildRequires:  libdeflate-devel
 Obsoletes:      OpenEXR < 2.5.3
 Provides:       OpenEXR = %{version}-%{release}
 
+ExcludeArch:    i686
+
 %description
 OpenEXR is an open-source high-dynamic-range floating-point image file format
 for high-quality image processing and storage. This document presents a brief

@@ -9,16 +9,20 @@
 Summary: Tool Command Language, pronounced tickle
 Name: tcl
 Version: %{vers}
-Release: 7%{?dist}
+Release: 8%{?dist}
 Epoch: 1
 License: TCL AND GPL-3.0-or-later WITH Bison-exception-2.2 AND BSD-3-Clause
 URL: http://tcl.sourceforge.net/
 Source0: http://downloads.sourceforge.net/sourceforge/tcl/tcl-core%{version}-src.tar.gz
 BuildRequires: make
-Buildrequires: autoconf
+BuildRequires: autoconf
 BuildRequires: gcc
 BuildRequires: zlib-devel
+%if 0%{?fedora}
 BuildRequires: libtommath-devel
+%else
+Provides: bundled(libtommath) = 1.3.0
+%endif
 Provides: tcl(abi) = %{majorver}
 Obsoletes: tcl-tcldict <= %{vers}
 Provides: tcl-tcldict = %{vers}
@@ -80,6 +84,7 @@ autoconf
 %endif
 --enable-symbols \
 --enable-shared \
+--with-system-libtommath%{!?fedora:=no} \
 --disable-rpath
 
 %make_build CFLAGS="%{optflags}" TCL_LIBRARY=%{_datadir}/%{name}%{majorver}
@@ -155,6 +160,9 @@ ln -s %{_bindir}/tclsh %{_bindir}/tclsh%{majorver} %{buildroot}%{_usr}/bin/
 %{_libdir}/pkgconfig/tcl.pc
 
 %changelog
+* Wed Feb 05 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1:9.0.0-8
+- Use system libtommath only on Fedora
+
 * Sun Feb  2 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 1:9.0.0-7
 - Rebuilt for new gcc
 

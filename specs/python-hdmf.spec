@@ -9,6 +9,11 @@
 #   https://pypi.org/project/schemasheets/
 #   https://pypi.org/project/oaklib/
 %bcond termset 0
+# [Feature]: Support zarr-python v3
+# https://github.com/hdmf-dev/hdmf-zarr/issues/202
+# Incompatible with Zarr 3
+# https://bugzilla.redhat.com/show_bug.cgi?id=2338926
+%bcond zarr 1
 
 %global desc %{expand:
 The Hierarchical Data Modeling Framework, or *HDMF* is a Python package
@@ -27,7 +32,7 @@ Documentation of HDMF can be found at https://hdmf.readthedocs.io}
 %global schema_version 1.8.0
 
 Name:           python-hdmf
-Version:        3.14.6
+Version:        4.0.0
 Release:        %autorelease
 Summary:        A package for standardizing hierarchical object data
 
@@ -45,16 +50,13 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 %if %{with tests}
-BuildRequires:  python3dist(pytest)
-# Enables an optional integration test with this library:
-BuildRequires:  python3dist(tqdm)
+# See the "test" extra; but since it contains linters, coverage analysis tools,
+# etc. that are unwanted under
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters,
+# we list test dependencies manually.
+BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist python-dateutil}
 %endif
-%if 0%{?fc40}
-# The zarr extra was removed in 1.14.2, but we patched it back in; see %%prep.
-BuildRequires:  tomcli
-%endif
-# This enables some optional tests.
-BuildRequires:  %{py3_dist zarr}
 
 %description %{desc}
 
@@ -65,7 +67,7 @@ Summary:        %{summary}
 %global schema_epoch 1
 BuildRequires:  hdmf-common-schema = %{schema_epoch}:%{schema_version}
 Requires:       hdmf-common-schema = %{schema_epoch}:%{schema_version}
-%if !0%{?fc40}
+%if %{without zarr}
 # The zarr extra was removed in 1.14.2; we patched it back in for compatibility
 # in F39/F40, but it is gone in F41, so we must Obsolete it. This can be
 # removed in F44 (three releases later).
@@ -74,11 +76,7 @@ Obsoletes:      python3-hdmf+zarr < 1.14.2-1
 
 %description -n python3-hdmf %{desc}
 
-%pyproject_extras_subpkg -n python3-hdmf tqdm %{?with_termset:termset}
-%if 0%{?fc40}
-# The zarr extra was removed in 1.14.2, but we patched it back in; see %%prep.
-%pyproject_extras_subpkg -n python3-hdmf zarr
-%endif
+%pyproject_extras_subpkg -n python3-hdmf tqdm %{?with_zarr:zarr} sparse %{?with_termset:termset}
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Directory_Replacement/#_scriptlet_to_replace_a_directory
 %pretrans -p <lua> -n python3-hdmf
@@ -100,25 +98,8 @@ end
 %forgeautosetup -p1
 rm -vrf src/hdmf/common/hdmf-common-schema/
 
-%if 0%{?fc40}
-# The zarr extra was removed in 1.14.2, via
-# https://github.com/hdmf-dev/hdmf/commit/539ecf47ad1ad70e23666f7a7d750d2d84535632,
-# which removed the extra and made the zarr dependency mandatory, and then
-# https://github.com/hdmf-dev/hdmf/commit/62edbe44892d10d199393eae3f6c7645a2689ea4,
-# which removed the mandatory dependency and just made the relevant tests
-# enable themselves if zarr was present.  We want to continue to deliver 1.14.x
-# bugfix updates without this minor breaking change (which upstream probably
-# did not consider breaking), so we restore the extra for stable releases.
-tomcli set pyproject.toml lists str \
-    project.optional-dependencies.zarr 'zarr>=2.12.0'
-%endif
-
 %generate_buildrequires
-%pyproject_buildrequires -x tqdm%{?with_termset:,termset}
-%if 0%{?fc40}
-# The zarr extra was removed in 1.14.2, but we patched it back in; see %%prep.
-%pyproject_buildrequires -x zarr
-%endif
+%pyproject_buildrequires -x tqdm%{?with_zarr:,zarr},sparse%{?with_termset:,termset}
 
 %build
 %pyproject_wheel
@@ -134,7 +115,7 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 
 %check
 %if %{with tests}
-%pytest -v
+%pytest -v -rs
 %endif
 
 %files -n python3-hdmf -f %{pyproject_files}

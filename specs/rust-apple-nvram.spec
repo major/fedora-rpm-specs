@@ -5,7 +5,7 @@
 %global crate apple-nvram
 
 Name:           rust-apple-nvram
-Version:        0.2.1
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Library to parse and write apple-formatted nvram entries
 

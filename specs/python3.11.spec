@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: Python-2.0.1
 
 
@@ -1646,6 +1646,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Thu Feb 06 2025 Miro Hrončok <mhroncok@redhat.com> - 3.11.11-4
+- Rebuilt with mpdecimal 4.0.0
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 3.11.11-3
 - Add explicit BR: libxcrypt-devel
 

@@ -2,8 +2,8 @@
 %global gem_name rails-dom-testing
 
 Name: rubygem-%{gem_name}
-Version: 2.0.3
-Release: 12%{?dist}
+Version: 2.2.0
+Release: 1%{?dist}
 Summary: Dom and Selector assertions for Rails applications
 License: MIT
 URL: https://github.com/rails/rails-dom-testing
@@ -59,6 +59,10 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Thu Feb 06 2025 Vít Ondruch <vondruch@redhat.com> - 2.2.0-1
+- Update to Rails::Dom::Testing 2.2.0.
+  Resolves: rhbz#2218961
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

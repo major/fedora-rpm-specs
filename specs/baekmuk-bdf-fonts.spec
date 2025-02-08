@@ -4,7 +4,7 @@
 %global catalogue    %{_sysconfdir}/X11/fontpath.d
 
 Version: 2.2
-Release: 40%{?dist}
+Release: 41%{?dist}
 URL:     http://kldp.net/projects/baekmuk/
 
 %global foundry           Baekmuk
@@ -19,8 +19,10 @@ URL:     http://kldp.net/projects/baekmuk/
 %global fontdescription   %{expand:
 This package provides the Korean Baekmuk bitmap fonts.
 }
+%global fontappstreams    %{SOURCE1}
 
 Source0:  http://kldp.net/frs/download.php/1428/%{fontname}-%{version}.tar.gz
+Source1:  org.fedoraproject.baekmuk-bdf-fonts.metainfo.xml
 Patch0:   baekmuk-bdf-fonts-fix-fonts-alias.patch
 BuildRequires:  mkfontdir bdftopcf
 
@@ -59,6 +61,10 @@ install -m 0444 bdf/fonts.alias $RPM_BUILD_ROOT%{fontdir}/
 %{catalogue}/%{name}
 
 %changelog
+* Wed Feb  5 2025 Peng Wu <pwu@redhat.com> - 2.2-41
+- Fix build
+- Resolves: RHBZ#2339920
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

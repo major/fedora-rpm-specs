@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.5.5
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: A simple, fast Mysql library for Ruby, binding to libmysql
 License: MIT
 URL: https://github.com/brianmario/mysql2
@@ -176,21 +176,7 @@ user:
   socket: ${MYSQL_TEST_SOCKET}
 EOF
 
-# Exclude example which are failing since mariadb-connector-c-3.4.1-1.fc42
-# has landed in Fedora.
-# https://bugzilla.redhat.com/show_bug.cgi?id=2323148
-# https://github.com/brianmario/mysql2/issues/1382
-EXCLUDE_EXAMPLES=$"Mysql2::Client#automatic_close should not close connections when running in a child process"
-EXCLUDE_EXAMPLES=$"${EXCLUDE_EXAMPLES}|Mysql2::Client#query should detect closed connection on query read error"
-EXCLUDE_EXAMPLES=$"${EXCLUDE_EXAMPLES}|Mysql2::Client#query should be impervious to connection-corrupting timeouts in #execute"
-EXCLUDE_EXAMPLES=$"${EXCLUDE_EXAMPLES}|Mysql2::Result streaming should raise an exception if streaming ended due to a timeout"
-# The following are actually hang.
-EXCLUDE_EXAMPLES=$"${EXCLUDE_EXAMPLES}|Mysql2::Client#query when a non-standard exception class is raised should handle Timeouts without leaving the connection hanging if reconnect is true"
-EXCLUDE_EXAMPLES=$"${EXCLUDE_EXAMPLES}|Mysql2::Client#query when a non-standard exception class is raised should handle Timeouts without leaving the connection hanging if reconnect is set to true after construction"
-
-EXAMPLE_MATCHES="^(?!${EXCLUDE_EXAMPLES}).*"
-
-rspec -Ilib:%{buildroot}%{gem_extdir_mri} -f d spec -E "${EXAMPLE_MATCHES}"
+rspec -Ilib:%{buildroot}%{gem_extdir_mri} -f d spec
 popd
 
 # Clean up
@@ -214,6 +200,11 @@ kill "$(cat "${MYSQL_TEST_PID_FILE}")"
 
 
 %changelog
+* Tue Feb 04 2025 Michal Schorm <mschorm@redhat.com> - 0.5.5-9
+- Re-enable test cases, the FTBFS due to mariadb-connector-c-3.4.1-1.fc42 was fixed in
+  mariadb-connector-c-3.4.3-10
+  Related: rhbz#2323148
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

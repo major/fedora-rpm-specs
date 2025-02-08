@@ -51,7 +51,7 @@ ExcludeArch: s390x
 %global  _hardened_build 1
 
 # Build release candidate
-%global upver        2.2.3
+%global upver        2.2.4
 #global rcver        rc0
 
 # el8 only
@@ -498,6 +498,9 @@ echo "Netdata config should be edited with %{_libexecdir}/%{name}/edit-config"
 
 
 %changelog
+* Tue Feb 04 2025 Didier Fabert <didier.fabert@gmail.com> 2.2.4-1
+- Update from upstream
+
 * Fri Jan 31 2025 Didier Fabert <didier.fabert@gmail.com> 2.2.3-1
 - Update from upstream
 

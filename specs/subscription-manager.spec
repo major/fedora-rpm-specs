@@ -95,7 +95,7 @@
 %global exclude_packages %{exclude_packages}"
 
 Name: subscription-manager
-Version: 1.30.4
+Version: 1.30.5
 Release: 1%{?dist}
 Summary: Tools and libraries for subscription and repository management
 %if 0%{?suse_version}
@@ -736,6 +736,10 @@ rm -f /var/lib/rhsm/cache/rhsm_icon.json
 rm -f /var/lib/rhsm/cache/content_access_mode.json
 
 %changelog
+* Tue Feb 04 2025 Packit <hello@packit.dev> - 1.30.5-1
+- Update to version 1.30.5
+- Resolves: rhbz#2343730
+
 * Wed Jan 22 2025 Packit <hello@packit.dev> - 1.30.4-1
 - Update to version 1.30.4
 - Resolves: rhbz#2339420

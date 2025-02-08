@@ -18,12 +18,19 @@ Summary: Library to handle RPG Maker 2000/2003 game data
 License: MIT AND BSD-2-Clause AND BSL-1.0
 
 Version: 0.8
-Release: 8%{?dist}
+Release: 9%{?dist}
 
 URL: https://github.com/EasyRPG/liblcf
 Source0: %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
 
 Patch0: 0000-unbundle-inih.patch
+
+# Backport from upstream:
+# https://github.com/EasyRPG/liblcf/commit/cd228281af2412e970c1a6c89aff02d68d0f1731
+Patch1: 0001-fix-compilation-error.patch
+
+# libicu 75+ requires C++17 (or newer).
+Patch2: 0002-cpp17.patch
 
 BuildRequires: cmake
 BuildRequires: doxygen
@@ -89,7 +96,7 @@ rm src/ini.cpp src/lcf/ini.h
 
 # liblcf bundles the "inih" library and exposes it as part of its API.
 # Symlink liblcf's "ini.h" file to the un-bundled library's version.
-ln -s %{_includedir}/ini.h %{buildroot}%{_includedir}/lcf/ini.h
+ln -sr %{buildroot}%{_includedir}/ini.h %{buildroot}%{_includedir}/lcf/ini.h
 
 
 %check
@@ -120,6 +127,9 @@ ln -s %{_includedir}/ini.h %{buildroot}%{_includedir}/lcf/ini.h
 
 
 %changelog
+* Thu Feb 06 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.8-9
+- Fix FTBFS
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

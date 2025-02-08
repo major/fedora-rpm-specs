@@ -14,7 +14,7 @@ URL:     http://terminus-font.sourceforge.net/
 #   – as they exist in the build root,
 #   — at the end of the %%build stage:
 # – legal files (licensing…)
-%global fontlicenses      OFL.txt
+%global fontlicenses      OFL.TXT
 # – exclusions from the “fontlicenses” list
 %global fontlicensesex    %{nil}
 # – documentation files

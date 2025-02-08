@@ -125,7 +125,7 @@ m     stapdev  stapdev
 Name: systemtap
 # PRERELEASE
 Version: 5.3~pre17373816g7a71d34b
-Release: 4%{?release_override}%{?dist}
+Release: 5%{?release_override}%{?dist}
 # for version, see also configure.ac
 
 
@@ -1342,6 +1342,9 @@ exit 0
 
 # PRERELEASE
 %changelog
+* Thu Feb 06 2025 Frank Ch. Eigler <fche@redhat.com> - 5.3~pre17373816g7a71d34b.5
+- Respin against dyninst 13 redux
+
 * Fri Jan 24 2025 Frank Ch. Eigler <fche@redhat.com> - 5.3~pre17373816g7a71d34b.3
 - Respin against dyninst 13, sans dyninst on i686.
 

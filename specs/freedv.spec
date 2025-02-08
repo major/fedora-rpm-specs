@@ -3,7 +3,7 @@
 
 Name:           freedv
 Version:        1.8.4
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        FreeDV Digital Voice
 License:        GPL-2.0-or-later
 
@@ -110,6 +110,9 @@ fi
 
 
 %changelog
+* Thu Feb 06 2025 Richard Shaw <hobbes1069@gmail.com> - 1.8.4-10
+- Rebuild for hamlib 4.6.
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

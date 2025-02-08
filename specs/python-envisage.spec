@@ -83,7 +83,7 @@ sed -i -e 's/\r//' docs/source/envisage_core_documentation/*.rst
 find -name .gitignore -delete
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 
 %build

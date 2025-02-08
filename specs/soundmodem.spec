@@ -1,6 +1,6 @@
 Name: soundmodem
 Version: 0.20
-Release: 34%{?dist}
+Release: 35%{?dist}
 Summary: Soundcard Packet Radio Modem
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -90,6 +90,9 @@ mv %{buildroot}%{_includedir}/simd.h %{buildroot}%{_includedir}/%{name}
 %{_includedir}/%{name}
 
 %changelog
+* Thu Feb 06 2025 Richard Shaw <hobbes1069@gmail.com> - 0.20-35
+- Rebuild for hamlib 4.6.
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

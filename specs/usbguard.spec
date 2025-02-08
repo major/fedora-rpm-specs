@@ -4,7 +4,7 @@
 
 Name:           usbguard
 Version:        1.1.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A tool for implementing USB device usage policy
 License:        GPL-2.0-or-later
 ## Not installed
@@ -41,6 +41,7 @@ BuildRequires: audit-libs-devel
 BuildRequires: systemd
 
 Patch1: usbguard-revert-catch.patch
+Patch2: tmpfiles.patch
 
 %description
 The USBGuard software framework helps to protect your computer against rogue USB
@@ -103,6 +104,7 @@ daemon.
 %setup -q -D -T -a 1
 
 %patch -P 1 -p1 -b .catch
+%patch -P 2 -p1 -b .tmpfiles
 
 # Remove bundled library sources before build
 rm -rf src/ThirdParty/{Catch,PEGTL}
@@ -180,6 +182,7 @@ find %{buildroot} \( -name '*.la' -o -name '*.a' \) -exec rm -f {} ';'
 %{_datadir}/man/man5/usbguard-rules.conf.5.gz
 %{_datadir}/man/man1/usbguard.1.gz
 %{_datadir}/bash-completion/completions/usbguard
+%attr(640,root,root) %{_tmpfilesdir}/usbguard.conf
 
 %files devel
 %{_includedir}/*
@@ -225,6 +228,9 @@ fi
 
 
 %changelog
+* Thu Feb 06 2025 Attila Lakatos <alakatos@redhat.com> - 1.1.3-4
+- Install usbguard-tmpfles.conf
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

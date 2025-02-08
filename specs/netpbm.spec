@@ -1,7 +1,7 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
 Version:         11.09.00
-Release:         1%{?dist}
+Release:         2%{?dist}
 # See copyright_summary for details
 License:         BSD-3-Clause AND GPL-2.0-only AND LGPL-2.1-or-later AND GPL-3.0-or-later AND IJG AND MIT AND NTP AND PostgreSQL AND LicenseRef-MIT-CRL-Xim AND LicenseRef-Fedora-Public-Domain
 URL: http://netpbm.sourceforge.net/
@@ -23,11 +23,12 @@ Patch9:          netpbm-xwdfix.patch
 Patch10:         netpbm-multilib.patch
 Patch11:         netpbm-glibc.patch
 Patch12:         netpbm-docfix.patch
-Patch14:         netpbm-pamtojpeg2k.patch
-Patch15:         netpbm-manfix.patch
-Patch16:         netpbm-jasper.patch
-Patch17:         netpbm-libdir-so.patch
-Patch19:         netpbm-c99.patch
+Patch13:         netpbm-pamtojpeg2k.patch
+Patch14:         netpbm-manfix.patch
+Patch15:         netpbm-jasper.patch
+Patch16:         netpbm-libdir-so.patch
+Patch17:         netpbm-c99.patch
+Patch18:         netpbm-shlib-ldflags.patch
 
 BuildRequires:   make
 BuildRequires:   libjpeg-devel, libpng-devel, libtiff-devel, flex, gcc, jbigkit-devel
@@ -228,6 +229,9 @@ popd
 %doc userguide/*
 
 %changelog
+* Thu Feb 06 2025 Josef Ridky <jridky@redhat.com> - 11.09.00-2
+- add LDFLAGS patch (RHEL-70899)
+
 * Tue Jan 28 2025 Josef Ridky <jridky@redhat.com> - 11.09.00-1
 - New upstream release 11.09.00 (#2218312)
 - Review and update license field

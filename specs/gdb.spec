@@ -41,11 +41,11 @@ Name: %{?scl_prefix}gdb
 # See timestamp of source gnulib installed into gnulib/ .
 %global snapgnulib 20220501
 %global tarname gdb-%{version}
-Version: 15.2
+Version: 16.2 
 
 # The release always contains a leading reserved number, start it at 1.
 # `upstream' is not a part of `name' to stay fully rpm dependencies compatible for the testing.
-Release: 7%{?dist}
+Release: 1%{?dist}
 
 License: GPL-3.0-or-later AND BSD-3-Clause AND FSFAP AND LGPL-2.1-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND GFDL-1.3-or-later AND LGPL-2.0-or-later WITH GCC-exception-2.0 AND GPL-3.0-or-later WITH GCC-exception-3.1 AND GPL-2.0-or-later WITH GNU-compiler-exception
 # Do not provide URL for snapshots as the file lasts there only for 2 days.
@@ -134,10 +134,6 @@ BuildRequires: gcc-c++
 # Cleanup any leftover testsuite processes as it may stuck mock(1) builds.
 #=push+jan
 Source2: gdb-orphanripper.c
-
-# Man page for gstack(1).
-#=push+jan
-Source3: gdb-gstack.man
 
 # /etc/gdbinit (from Debian but with Fedora compliant location).
 #=fedora
@@ -802,7 +798,6 @@ rm -rf $RPM_BUILD_ROOT/%{_libdir}/lib{bfd*,opcodes*,iberty*,ctf*,sframe*}
 
 # pstack obsoletion
 
-cp -p %{SOURCE3} $RPM_BUILD_ROOT%{_mandir}/man1/gstack.1
 ln -s gstack.1 $RPM_BUILD_ROOT%{_mandir}/man1/pstack.1
 ln -s gstack $RPM_BUILD_ROOT%{_bindir}/pstack
 
@@ -928,6 +923,17 @@ fi
 # endif scl
 
 %changelog
+* Tue Feb 04 2025 Alexandra Hájková <ahajkova@redhat.com> - 16.2-1
+- Rebase to FSF GDB 16.2.
+  Modified: gdb-add-rpm-suggestion-script.patch
+
+* Thu Jan 23 2025 Alexandra Hájková <ahajkova@redhat.com> - 16.1-1
+- Rebase to FSF GDB 16.1.
+  Dropped:
+  gdb-backport-buildid-related-changes.patch
+  gdb-catchpoint-re-set.patch
+  gdb-remove-qnx-neutrino-support.patch
+
 * Thu Jan 23 2025 Alexandra Hájková <ahajkova@redhat.com>
 - Remove upstreamed gdb-6.3-gstack-20050411.patch.
 

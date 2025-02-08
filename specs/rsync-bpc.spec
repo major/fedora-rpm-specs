@@ -10,12 +10,13 @@ Source0:        https://github.com/backuppc/rsync-bpc/releases/download/%{versio
 
 # Fix for building on CentOS 6 in COPR
 Patch0:         rsync-bpc-rsync_h.patch
-Patch1: rsync-bpc-configure-c99.patch
+Patch1:         rsync-bpc-configure-c99.patch
+Patch2:         rsync-bpc-gcc_15.patch
 
-BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  libacl-devel
 BuildRequires:  libattr-devel
+BuildRequires:  make
 BuildRequires:  popt-devel
 BuildRequires:  perl
 

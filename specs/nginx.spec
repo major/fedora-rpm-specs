@@ -61,7 +61,7 @@
 
 Name:              nginx
 Epoch:             2
-Version:           1.26.2
+Version:           1.26.3
 Release:           %autorelease
 
 Summary:           A high performance web server and reverse proxy server
@@ -85,6 +85,7 @@ Source15:          macros.nginxmods.in
 Source16:          nginxmods.attr
 Source17:          nginx-ssl-pass-dialog
 Source18:          nginx@.service
+Source19:          nginx.sysusers
 Source102:         nginx-logo.png
 Source200:         README.dynamic
 Source210:         UPGRADE-NOTES-1.6-to-1.10
@@ -107,10 +108,6 @@ Patch3:            0004-Disable-ENGINE-support.patch
 
 # downstream patch - Compile perl module with O2
 Patch4:            0005-Compile-perl-module-with-O2.patch
-
-# Fix for "gzip filter failed to use preallocated memory" alerts
-# https://github.com/zlib-ng/zlib-ng/issues/811
-Patch5:            https://github.com/zlib-ng/patches/raw/5a036c0a00120c75ee573b27f4f44ade80d82ff2/nginx/1.26.2-zlib-ng.patch
 
 BuildRequires:     make
 BuildRequires:     gcc
@@ -142,9 +139,8 @@ Recommends:        logrotate
 Requires:          %{name}-core = %{epoch}:%{version}-%{release}
 
 BuildRequires:     systemd
-Requires(post):    systemd
-Requires(preun):   systemd
-Requires(postun):  systemd
+BuildRequires:     systemd-rpm-macros
+%{?systemd_requires}
 # For external nginx modules
 Provides:          nginx(abi) = %{nginx_abiversion}
 
@@ -184,7 +180,7 @@ Meta package that installs all available nginx modules.
 %package filesystem
 Summary:           The basic directory layout for the Nginx server
 BuildArch:         noarch
-Requires(pre):     shadow-utils
+%{?sysusers_requires_compat}
 
 %description filesystem
 The nginx-filesystem package contains the basic directory layout
@@ -488,13 +484,12 @@ mkdir -p $RPM_BUILD_ROOT%{_libexecdir}
 install -m755 $RPM_SOURCE_DIR/nginx-ssl-pass-dialog \
         $RPM_BUILD_ROOT%{_libexecdir}/nginx-ssl-pass-dialog
 
+# install sysusers file
+install -p -D -m 0644 %{SOURCE19} %{buildroot}%{_sysusersdir}/nginx.conf
+
 
 %pre filesystem
-getent group %{nginx_user} > /dev/null || groupadd -r %{nginx_user}
-getent passwd %{nginx_user} > /dev/null || \
-    useradd -r -d %{_localstatedir}/lib/nginx -g %{nginx_user} \
-    -s /sbin/nologin -c "Nginx web server" %{nginx_user}
-exit 0
+%sysusers_create_compat %{SOURCE19}
 
 %post
 %systemd_post nginx.service
@@ -597,6 +592,7 @@ fi
 %dir %{_sysconfdir}/nginx/default.d
 %dir %{_sysconfdir}/systemd/system/nginx.service.d
 %dir %{_unitdir}/nginx.service.d
+%{_sysusersdir}/nginx.conf
 
 %if %{with geoip}
 %files mod-http-geoip

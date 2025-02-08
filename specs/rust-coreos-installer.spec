@@ -12,7 +12,7 @@
 
 Name:           rust-coreos-installer
 Version:        0.23.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Installer for Fedora CoreOS and RHEL CoreOS
 
 License:        Apache-2.0
@@ -181,6 +181,9 @@ mv %{buildroot}%{_bindir}/rdcore %{buildroot}%{dracutlibdir}/modules.d/50rdcore/
 %endif
 
 %changelog
+* Thu Feb 06 2025 Fabio Valentini <decathorpe@gmail.com> - 0.23.0-4
+- Rebuild for openssl crate >= v0.10.70 (RUSTSEC-2025-0004)
+
 * Sun Jan 19 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.23.0-3
 - Update s390utils dependency
 

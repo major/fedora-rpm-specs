@@ -4,7 +4,7 @@
 %global crate sequoia-sop
 
 Name:           rust-sequoia-sop
-Version:        0.36.0
+Version:        0.36.1
 Release:        %autorelease
 Summary:        Implementation of the Stateless OpenPGP Interface using Sequoia
 

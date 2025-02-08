@@ -1,6 +1,6 @@
 Name:           bijiben
 Version:        40.1
-Release:        12%{?dist}
+Release:        14%{?dist}
 Summary:        Simple Note Viewer
 
 # Bijiben is GPLv3+ apart a few files "LGPLv2 or LGPLv3"
@@ -92,6 +92,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Notes.deskt
 
 
 %changelog
+* Thu Feb 06 2025 Nieves Montero <nmontero@redhat.com> - 40.1-13
+- Rebuild for the renaming of tracker to tinysparql
+
+* Thu Feb 06 2025 Nieves Montero <nmontero@redhat.com> - 40.1-13
+- Version bump
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 40.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

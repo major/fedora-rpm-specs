@@ -16,7 +16,7 @@
 %bcond_with all_tests
 
 Name:           python-libcst
-Version:        1.4.0
+Version:        1.6.0
 Release:        %autorelease
 Summary:        A concrete syntax tree with AST-like properties for Python 3
 
@@ -24,11 +24,8 @@ Summary:        A concrete syntax tree with AST-like properties for Python 3
 License:        MIT AND (MIT AND PSF-2.0) AND Apache-2.0
 URL:            https://github.com/Instagram/LibCST
 Source:         %{pypi_source libcst}
-# * specify license in crates' metadata
-Patch:          https://github.com/Instagram/LibCST/pull/1189.patch#/libcst-license.diff
 # * drop unused, benchmark-only criterion dev-dependency
 Patch:          libcst-fix-metadata.diff
-# Optional patches (100+)
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  python3-devel

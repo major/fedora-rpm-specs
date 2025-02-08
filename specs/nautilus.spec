@@ -47,6 +47,8 @@ BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(tracker-sparql-3.0)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  /usr/bin/appstream-util
+# needed by test/automated/displayless
+BuildRequires:  localsearch
 
 Requires:       glib2%{_isa} >= %{glib2_version}
 Requires:       gnome-autoar%{_isa} >= %{gnome_autoar_version}
@@ -57,8 +59,8 @@ Requires:       libadwaita%{_isa} >= %{libadwaita_version}
 # the main binary links against libnautilus-extension.so
 # don't depend on soname, rather on exact version
 Requires:       %{name}-extensions%{_isa} = %{version}-%{release}
-# For the org.freedesktop.Tracker3.Miner.Files GSettings schema.
-Requires:       tracker-miners
+# For the org.freedesktop.Tracker3.Miner.Files GSettings schema
+Requires:       localsearch
 
 Provides:       bundled(libgd)
 

@@ -8,26 +8,27 @@
 # **** release metadata ****
 # populated by envsubst in newrelease
 %global crio_spec_name  cri-o1.32
-%global crio_spec_ver   1.32.0
-# %%global crio_commit     b7f3c240bcbda6fae8d43561694d18317e09e167
-%global crio_tag        v1.32.0
-%global golangver       1.23
+%global crio_spec_ver   1.32.1
+# Uncomment if needed for commit based release
+# %%global crio_commit     
+%global crio_tag        v1.32.1
+%global golangver       1.23.4
 
 # Related: github.com/cri-o/cri-o/issues/3684
-%global build_timestamp %(date -u +'%Y-%m-%dT%H:%M:%SZ')
-%global git_tree_state clean
-%global criocli_path '""'
+%global build_timestamp %(date -u +'%Y-%m-%dT%H:%M:%SZ')_Release:%{release}
 
 # set service name - removes dash from cri-o
 %global service_name    crio
 
 # Commit for the builds
-# %%global commit0 %{crio_commit}
+# Uncomment if needed for commit based release
+# %%global commit0 %%{crio_commit}
+%{?crio_commit:%global commit0 %{crio_commit}}
 
 # https://github.com/cri-o/cri-o
-%global goipath         github.com/cri-o/cri-o
-Version:                %{crio_spec_ver}
-%global tag             %{crio_tag}
+%global goipath           github.com/cri-o/cri-o
+Version:                  %{crio_spec_ver}
+%{!?commit0:%global tag   %{crio_tag}}
 
 %gometa -L -f
 
@@ -87,7 +88,7 @@ Conflicts:      %{service_name}
 %prep
 %goprep -A
 %setup -q -T -D -a1 %{forgesetupargs}
-%autopatch -p1
+# %%autopatch -p1
 
 %generate_buildrequires
 %go_vendor_license_buildrequires -c %{S:2}
@@ -98,13 +99,20 @@ sed -i 's/\/local//' contrib/systemd/%{service_name}-wipe.service
 
 # **********************************
 %build
+
+# See https://github.com/cri-o/cri-o/issues/8860. The linker setting
+# resolves the error noted in this issue. See
+# /usr/share/doc/redhat-rpm-config/buildflags.md for more information.
 %global __golang_extldflags -Wl,-z,undefs
 
 # buildtags, create global to reuse in check section
-%global buildtags  containers_image_ostree_stub $(hack/btrfs_installed_tag.sh) $(hack/btrfs_tag.sh) $(hack/openpgp_tag.sh) $(hack/seccomp_tag.sh) $(hack/selinux_tag.sh) $(hack/libsubid_tag.sh) exclude_graphdriver_devicemapper
+%global buildtags  $(hack/btrfs_installed_tag.sh) $(hack/btrfs_tag.sh) $(hack/seccomp_tag.sh) $(hack/selinux_tag.sh) $(hack/libsubid_tag.sh) exclude_graphdriver_devicemapper
 
 export GO_BUILDTAGS="%{buildtags}"
-export GO_LDFLAGS="-X  %{goipath}/internal/version.buildDate=%{build_timestamp}"
+export GO_LDFLAGS=" -X  %{goipath}/internal/version.buildDate=%{build_timestamp} "
+
+# remove default go macro ldflag settings for version, tag, commit
+%global currentgoldflags   %{nil}
 
 # crio currently only subdirectory
 %gobuild -o %{gobuilddir}/bin/%{service_name} %{goipath}/cmd/%{service_name}

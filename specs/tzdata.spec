@@ -1,9 +1,9 @@
 Summary: Timezone data
 Name: tzdata
-Version: 2024b
-%define tzdata_version 2024b
-%define tzcode_version 2024b
-Release: 2%{?dist}
+Version: 2025a
+%define tzdata_version 2025a
+%define tzcode_version 2025a
+Release: 1%{?dist}
 License: LicenseRef-Fedora-Public-Domain AND (GPL-2.0-only WITH ClassPath-exception-2.0)
 URL: https://www.iana.org/time-zones
 Source0: ftp://ftp.iana.org/tz/releases/tzdata%{tzdata_version}.tar.gz
@@ -11,8 +11,6 @@ Source1: ftp://ftp.iana.org/tz/releases/tzcode%{tzcode_version}.tar.gz
 
 Patch002: 0002-Fix-have-snprintf-error.patch
 Patch003: 0003-continue-to-ship-posixrules.patch
-Patch004: 0004-Fix-Apr-vs-April-2024b.patch
-Patch005: 0005-Improve-style-checks-for-months-2024b.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -44,8 +42,6 @@ This package contains timezone information for use by Java runtimes.
 %setup -q -c -a 1
 
 %patch -p1 -P 2
-%patch -p1 -P 4
-%patch -p1 -P 5
 %if 0%{?rhel}
 %patch -p1 -P 3
 %endif
@@ -150,6 +146,13 @@ echo ============END TESTING===========
 %{_datadir}/javazi-1.8
 
 %changelog
+* Tue Feb 04 2025 Patsy Griffin <patsy@redhat.com> - 2025a-1
+  Update to tzdata-2025a (#2338511)
+  - Paraguay is now permanently at -03. This impacts timestamps
+    starting on 2025-03-22.
+  - Includes improvements to pre-1991 data for the Philippines.
+  - Etc/Unknown is now reserved.
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024b-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 %global crate asahi-nvram
 
 Name:           rust-asahi-nvram
-Version:        0.2.1
+Version:        0.2.3
 Release:        %autorelease
 Summary:        Tool to read and write nvram variables on ARM Macs
 

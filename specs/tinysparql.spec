@@ -64,14 +64,14 @@ Metadata indexers are provided by the localsearch package.
 Summary:        Libtinysparql library
 License:        LGPL-2.1-or-later
 Recommends:     %{name}%{?_isa} = %{version}-%{release}
+
+# renamed in F42
 Obsoletes:      libtracker-sparql < %{tracker_obsoletes_version}
+Provides:       libtracker-sparql = %{version}-%{release}
+Provides:       libtracker-sparql%{?_isa} = %{version}-%{release}
 
 %description -n libtinysparql
 This package contains the libtinysparql library.
-
-# renamed in F42
-Provides:       libtracker-sparql = %{version}-%{release}
-Provides:       libtracker-sparql%{?_isa} = %{version}-%{release}
 
 
 %package        devel
@@ -166,7 +166,7 @@ This package contains the documentation for %{name}.
 
 %changelog
 * Wed Feb 05 2025 Nieves Montero <nmontero@redhat.com> - 3.8.rc-6
-- Move Obsoletes line
+- Move Obsoletes and Provides lines
 
 * Tue Feb 04 2025 Nieves Montero <nmontero@redhat.com> - 3.8.rc-5
 - Version bump

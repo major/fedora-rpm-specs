@@ -2,8 +2,8 @@
 %define _empty_manifest_terminate_build 0
 
 Name:           authselect
-Version:        1.5.0
-Release:        9%{?dist}
+Version:        1.5.1
+Release:        1%{?dist}
 Summary:        Configures authentication and identity sources from supported profiles
 URL:            https://github.com/authselect/authselect
 
@@ -24,16 +24,6 @@ Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 %{?rhel:%global default_profile local}
 
 # Patches
-Patch0001: 0001-sssd-reintroduce-with-files-access-provider.patch
-Patch0002: 0002-spec-modify-specfile-for-Fedora-40-and-RHEL-10-as-mi.patch
-Patch0003: 0003-po-update-translations.patch
-Patch0004: 0004-nis-install-nis-profile-conditionally.patch
-Patch0005: 0005-configure-drop-user-nsswitch.conf-support.patch
-Patch0006: 0006-configure-drop-authconfig-compat-tool.patch
-Patch0007: 0007-ci-remove-python-checks.patch
-Patch0008: 0008-pot-update-pot-files.patch
-Patch0009: 0009-profiles-merge-groups-records-with-SUCCESS-merge.patch
-Patch0010: 0010-spec-use-altfiles-with-success-merge-on-ostree-syste.patch
 
 # RHEL-only patches
 %if 0%{?rhel}
@@ -106,7 +96,6 @@ autoreconf -if
     --with-nis-profile \
 %endif
     %{nil}
-
 %make_build
 
 %check
@@ -258,6 +247,9 @@ done
 exit 0
 
 %changelog
+* Wed Feb 05 2025 Packit <hello@packit.dev> - 1.5.1-1
+- Update to version 1.5.1
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -51,7 +51,7 @@ Requires:      libadwaita >= %{libadwaita_version}
 Requires:      libmediaart
 Requires:      libnotify >= 0.7.6
 Requires:      libsoup3
-Requires:      libtracker-sparql3 >= %{tracker_sparql_version}
+Requires:      libtinysparql
 Requires:      pango
 Requires:      python3-cairo
 Requires:      python3-gobject >= %{pygobject_version}

@@ -1,5 +1,5 @@
 Name:    kwin-x11
-Version: 6.2.91
+Version: 6.3.0
 Release: 1%{?dist}
 Summary: KDE Window manager with X11 support
 
@@ -176,6 +176,9 @@ sed -i \
 
 
 %changelog
+* Fri Feb 07 2025 Kevin Kofler <Kevin@tigcc.ticalc.org> - 6.3.0-1
+- 6.3.0
+
 * Fri Jan 24 2025 Kevin Kofler <Kevin@tigcc.ticalc.org> - 6.2.91-1
 - 6.2.91
 

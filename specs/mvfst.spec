@@ -3,7 +3,7 @@
 %bcond_with all_tests
 
 Name:           mvfst
-Version:        2024.08.19.00
+Version:        2025.02.03.00
 Release:        %autorelease
 Summary:        An implementation of the QUIC transport protocol
 

@@ -19,6 +19,10 @@ Patch:		0001-Do-not-complain-to-your-friendly-local-distribution-.patch
 Patch:		0001-setup.py-do-not-require-libclang-and-swig.patch
 # Do install shared libraries in the python tree
 Patch:		0001-setup.py-do-not-bundle-c-and-c-libs-in-wheel.patch
+# Avoid core dump of python bindings with gcc15
+Patch:		0001-pdf_choice_widget_options2-avoid-core-dump-with-_GLI.patch
+# Do not apply CXXFLAGS to swig
+Patch:		0001-do-not-use-CXXFLAGS-with-swig.patch
 BuildRequires:	gcc gcc-c++ make binutils desktop-file-utils coreutils pkgconfig
 BuildRequires:	openjpeg2-devel desktop-file-utils
 BuildRequires:	libjpeg-devel freetype-devel libXext-devel curl-devel
@@ -99,7 +103,7 @@ echo > user.make "\
 	USE_SYSTEM_MUJS := no # build needs source anyways
 	USE_TESSERACT := yes
 	VENV_FLAG :=
-	build := debug
+	build := release
 	shared := yes
 	verbose := yes
 "
@@ -112,10 +116,11 @@ sed -i -e '/^install-shared-python:/s/ python//' Makefile
 %pyproject_buildrequires -R
 
 %build
-export XCFLAGS="%{optflags} -fPIC -DJBIG_NO_MEMENTO -DTOFU -DTOFU_CJK_EXT"
+export XCFLAGS="%{build_cflags} -fPIC -DJBIG_NO_MEMENTO -DTOFU -DTOFU_CJK_EXT"
+export XCXXFLAGS="%{build_cxxflags} -fPIC -DJBIG_NO_MEMENTO -DTOFU -DTOFU_CJK_EXT"
 make %{?_smp_mflags} shared c++
 # Use the same build directory which make uses:
-export MUPDF_SETUP_BUILD_DIR=build/shared-debug
+export MUPDF_SETUP_BUILD_DIR=build/shared-release
 # Use stable python directories:
 export MUPDF_SETUP_VERSION=%{version}
 %pyproject_wheel

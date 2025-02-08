@@ -79,7 +79,7 @@
 
 Name:           git
 Version:        2.48.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fast Version Control System
 License:        BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:            https://git-scm.com/
@@ -429,7 +429,9 @@ Summary:        Git repository browser
 BuildArch:      noarch
 Requires:       git = %{version}-%{release}
 Requires:       git-gui = %{version}-%{release}
-Requires:       tk >= 8.4
+# Keep gitk on tcl/tk 8.x until its ready for 9 (also see below in config.mk)
+# https://github.com/j6t/gitk/issues/5
+Requires:       tk8 >= 8.4
 %description -n gitk
 %{summary}.
 
@@ -587,6 +589,10 @@ gitwebdir = %{_localstatedir}/www/git
 DEFAULT_TEST_TARGET = prove
 GIT_PROVE_OPTS = --verbose --normalize %{?_smp_mflags} --formatter=TAP::Formatter::File
 GIT_TEST_OPTS = -x --verbose-log
+
+# Keep gitk on tcl/tk 8.x until its ready for 9 (see more above in gitk requires)
+TCLTK_PATH = wish8
+TCL_PATH = tclsh8
 EOF
 
 # Filter bogus perl requires
@@ -1040,6 +1046,9 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 %{?with_docs:%{_pkgdocdir}/git-svn.html}
 
 %changelog
+* Thu Feb  6 2025 Yanko Kaneti <yaneti@declera.com> - 2.48.1-3
+- Keep gitk on tcl/tk 8.x until its ready for 9
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.48.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

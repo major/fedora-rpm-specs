@@ -1,6 +1,6 @@
 Name:           jdependency
-Version:        2.11
-Release:        2%{?dist}
+Version:        2.12
+Release:        1%{?dist}
 Summary:        Class dependency analysis library for Java
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -54,6 +54,9 @@ Summary:        API documentation for %{name}
 %license LICENSE.txt
 
 %changelog
+* Fri Feb 07 2025 Sérgio Basto <sergio@serjux.com> - 2.12-1
+- Update jdependency to 2.12 (#2343406)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

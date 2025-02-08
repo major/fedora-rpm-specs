@@ -1,6 +1,6 @@
 Name:            cronolog
 Version:         1.6.2
-Release:         42%{?dist}
+Release:         43%{?dist}
 Summary:         Web log rotation program for Apache
 
 License:         Apache-1.0
@@ -10,6 +10,7 @@ BuildRequires:  gcc
 Patch1:          cronolog-largefile.patch
 Patch2:          cronolog-configure-c99.patch
 Patch3:          cronolog-c99.patch
+Patch4:          cronolog-gcc15.patch
 BuildRequires:          perl-generators
 BuildRequires: make
 
@@ -26,6 +27,7 @@ such as Apache, to split the access log into daily or monthly logs.
 %patch -P1
 %patch -P2 -p1
 %patch -P3 -p1
+%patch -P4 -p1
 
 %build
 %configure
@@ -35,7 +37,9 @@ such as Apache, to split the access log into daily or monthly logs.
 %make_install
 sed -i 's|/www/sbin|/usr/sbin|g' %{buildroot}/%{_mandir}/man1/*
 mkdir -p %{buildroot}/%{_bindir}
+if [ "%{_sbindir}" != "%{_bindir}" ]; then
 mv %{buildroot}/%{_sbindir}/cronosplit %{buildroot}/%{_bindir}
+fi
 rm -f %{buildroot}%{_infodir}/dir
 
 %files
@@ -46,6 +50,9 @@ rm -f %{buildroot}%{_infodir}/dir
 %{_infodir}/*
 
 %changelog
+* Sun Jan 26 2025 Peter Bieringer <pb@bieringer.de> - 1.6.2-43
+- Fix build and install compatibility issues (#2340013)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

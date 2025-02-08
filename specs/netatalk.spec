@@ -50,8 +50,8 @@ BuildRequires:     rpm
 BuildRequires:     sed
 BuildRequires:     systemd
 BuildRequires:     systemtap-sdt-devel
-BuildRequires:     tracker3
-BuildRequires:     tracker3-devel
+BuildRequires:     localsearch
+BuildRequires:     tinysparql-devel
 BuildRequires:     cups-devel
 
 Requires:     dconf
@@ -349,7 +349,10 @@ find %{buildroot} \( -name '*.la' -o -name '*.a' \) -type f -delete -print
 %doc %{_pkgdocdir}/htmldocs
 
 %changelog
-* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 5:4.0.8-3
+* Thu Feb 06 2025 Adam Williamson <awilliam@redhat.com> - 5:4.0.8-3
+- Update dependencies for rename of tracker to tinysparql
+
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org>
 - Add explicit BR: libxcrypt-devel
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5:4.0.8-2

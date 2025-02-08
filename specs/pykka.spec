@@ -2,7 +2,7 @@
 
 Name:             pykka
 Version:          4.0.2
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Python library that provides concurrency using actor model
 
 License:          Apache-2.0
@@ -20,6 +20,8 @@ build concurrent applications.
 Summary:        Python library that provides concurrency using actor model
 
 BuildRequires:    python3-devel
+BuildRequires:    python3-pytest
+BuildRequires:    python3-pytest-mock
 
 %description -n python3-%{pypi_name}
 Pykka is a Python implementation of the actor model. The actor
@@ -46,7 +48,7 @@ devhelp docs, and examples.
 %autosetup -p0
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -61,7 +63,7 @@ cp -rp docs/_build/devhelp %{buildroot}%{_datarootdir}/devhelp/%{pypi_name}
 %pyproject_save_files -L pykka
 
 %check
-%tox
+%pytest tests
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
@@ -74,6 +76,10 @@ cp -rp docs/_build/devhelp %{buildroot}%{_datarootdir}/devhelp/%{pypi_name}
 %exclude %{_datarootdir}/devhelp/%{pypi_name}/.*
 
 %changelog
+* Thu Feb  6 2025 Tobias Girstmair <t-fedora@girst.at> - 4.0.2-3
+- run tests through pytest
+- properly use %%pyproject_buildrequires
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:          dbus-parsec
 Version:       0.5.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       DBus PARSEC interface
 
 License:       EUPL-1.2
@@ -55,6 +55,9 @@ mv %{buildroot}%{_bindir}/dbus-parsec %{buildroot}%{_libexecdir}/
 %{_unitdir}/dbus-parsec.service
 
 %changelog
+* Thu Feb 06 2025 Fabio Valentini <decathorpe@gmail.com> - 0.5.0-3
+- Rebuild for openssl crate >= v0.10.70 (RUSTSEC-2025-0004)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

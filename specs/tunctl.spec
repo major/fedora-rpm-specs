@@ -1,13 +1,13 @@
 Name:           tunctl
 Version:        1.5
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Create and remove virtual network interfaces
 
 License:        GPL-1.0-or-later
 URL:            http://tunctl.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/tunctl/tunctl-%{version}.tar.gz
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  docbook-utils
 
@@ -30,7 +30,7 @@ make %{?_smp_mflags}
 
 
 %install
-make DESTDIR=%{buildroot} install
+make DESTDIR=%{buildroot} BIN_DIR=%{_sbindir} install
 
 
 %files
@@ -40,6 +40,9 @@ make DESTDIR=%{buildroot} install
 
 
 %changelog
+* Thu Feb 06 2025 Richard W.M. Jones <rjones@redhat.com> - 1.5-34
+- Set BIN_DIR to binary install directory
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

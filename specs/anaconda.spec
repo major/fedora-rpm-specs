@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 42.24
+Version: 42.26
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -490,6 +490,17 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Feb 06 2025 Packit <hello@packit.dev> - 42.26-1
+- Add systemd override to make /usr RW in Dracut (mkolman)
+- Update the boot options passed to initrd for dns confgiuration (rvykydal)
+- Fix calls to IsConnecting() (champetier.etienne)
+- Revert "dracut: Remove 'linear' from modules to load" (vtrefny)
+- Revert "Remove 'linear' from list of expected MD RAID levels" (vtrefny)
+- security: add a development note for certificates import in initramfs
+  (rvykydal)
+- security: do not issue warning on existing certificate file during dump
+  (rvykydal)
+
 * Tue Jan 28 2025 Packit <hello@packit.dev> - 42.24-1
 - network: pass NM global dns configuration to the installed system (rvykydal)
 - Improve sections structure in tests/README (jkonecny)

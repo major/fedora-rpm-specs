@@ -1,11 +1,11 @@
 Name:       opencc
-Version:    1.1.7
-Release:    3%{?dist}
+Version:    1.1.9
+Release:    1%{?dist}
 Summary:    Libraries for Simplified-Traditional Chinese Conversion
 License:    Apache-2.0
 URL:        https://github.com/BYVoid/OpenCC
 Source0:    https://github.com/BYVoid/OpenCC/archive/ver.%{version}.tar.gz#/OpenCC-ver.%{version}.tar.gz
-Patch0:     opencc-fixes-std-initializer-list.patch
+Patch0:     opencc-fixes-compile.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
@@ -46,8 +46,7 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q -n OpenCC-ver.%{version}
-%patch -P0 -p1 -b .compile
+%autosetup -n OpenCC-ver.%{version} -p1
 
 %build
 %cmake -DENABLE_GETTEXT:BOOL=ON -DBUILD_DOCUMENTATION:BOOL=ON -DUSE_SYSTEM_MARISA:BOOL=ON -DUSE_SYSTEM_RAPIDJSON:BOOL=ON
@@ -80,6 +79,10 @@ developing applications that use %{name}.
 %{_libdir}/cmake/opencc/OpenCC*.cmake
 
 %changelog
+* Thu Feb  6 2025 Peng Wu <pwu@redhat.com> - 1.1.9-1
+- Update to 1.1.9
+- Resolves: RHBZ#2340967
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

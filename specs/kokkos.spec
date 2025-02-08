@@ -35,7 +35,7 @@
 Name:           kokkos
 Version:        4.4.01
 %global         sover 4.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Kokkos C++ Performance Portability Programming
 # no support for 32-bit archs https://github.com/kokkos/kokkos/issues/2312
 ExcludeArch: i686 armv7hl
@@ -132,7 +132,7 @@ do
 	   -DCMAKE_CXX_FLAGS="%{rocm_cxxflags}" \
 	   -DCMAKE_CXX_STANDARD=17 \
 	   -DCMAKE_INSTALL_BINDIR=$ROCM_BIN \
-	   -DCMAKE_INSTALL_INCLUDEDIR=include/kokkos \
+	   -DCMAKE_INSTALL_INCLUDEDIR=$ROCM_INCLUDE/kokkos \
 	   -DCMAKE_INSTALL_LIBDIR=$ROCM_LIB \
 	   -DKokkos_ARCH_AMD_${ugpu}=ON \
 	   -DKokkos_ENABLE_AGGRESSIVE_VECTORIZATION=ON \
@@ -196,10 +196,14 @@ module purge
 %{_libdir}/rocm/gfx*/bin/nvcc_wrapper
 %{_libdir}/rocm/gfx*/bin/hpcbind
 %{_libdir}/rocm/gfx*/bin/kokkos_launch_compiler
+%{_libdir}/rocm/gfx*/include/kokkos
 %endif
 
 
 %changelog
+* Wed Feb 05 2025 Christoph Junghans <junghans@votca.org> - 4.4.01-4
+- Use ROCM_INCLUDE for install
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.01-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

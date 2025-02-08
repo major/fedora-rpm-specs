@@ -8,26 +8,27 @@
 # **** release metadata ****
 # populated by envsubst in newrelease
 %global crio_spec_name  cri-o1.31
-%global crio_spec_ver   1.31.4
-%global crio_commit     33d75981bee230f791709975125d7386fe2c530a
-%global crio_tag        v1.31.4
+%global crio_spec_ver   1.31.5
+# Uncomment if needed for commit based release
+# %%global crio_commit     
+%global crio_tag        v1.31.5
 %global golangver       1.22.2
 
 # Related: github.com/cri-o/cri-o/issues/3684
-%global build_timestamp %(date -u +'%Y-%m-%dT%H:%M:%SZ')
-%global git_tree_state clean
-%global criocli_path '""'
+%global build_timestamp %(date -u +'%Y-%m-%dT%H:%M:%SZ')_Release:%{release}
 
 # set service name - removes dash from cri-o
 %global service_name    crio
 
 # Commit for the builds
-%global commit0 %{crio_commit}
+# Uncomment if needed for commit based release
+# %%global commit0 %%{crio_commit}
+%{?crio_commit:%global commit0 %{crio_commit}}
 
 # https://github.com/cri-o/cri-o
-%global goipath         github.com/cri-o/cri-o
-Version:                %{crio_spec_ver}
-%global tag             %{crio_tag}
+%global goipath           github.com/cri-o/cri-o
+Version:                  %{crio_spec_ver}
+%{!?commit0:%global tag   %{crio_tag}}
 
 %gometa -L -f
 
@@ -87,7 +88,7 @@ Conflicts:      %{service_name}
 %prep
 %goprep -A
 %setup -q -T -D -a1 %{forgesetupargs}
-%autopatch -p1
+# %%autopatch -p1
 
 %generate_buildrequires
 %go_vendor_license_buildrequires -c %{S:2}
@@ -103,7 +104,10 @@ sed -i 's/\/local//' contrib/systemd/%{service_name}-wipe.service
 %global buildtags  $(hack/btrfs_installed_tag.sh) $(hack/btrfs_tag.sh) $(hack/seccomp_tag.sh) $(hack/selinux_tag.sh) $(hack/libsubid_tag.sh) exclude_graphdriver_devicemapper
 
 export GO_BUILDTAGS="%{buildtags}"
-export GO_LDFLAGS="-X %{goipath}/internal/pkg/criocli.DefaultsPath=%{criocli_path} -X  %{goipath}/internal/version.buildDate=%{build_timestamp} -X  %{goipath}/internal/version.gitCommit=%{commit0} -X  %{goipath}/internal/version.version=%{version} -X  %{goipath}/internal/version.gitTreeState=%{git_tree_state} "
+export GO_LDFLAGS=" -X  %{goipath}/internal/version.buildDate=%{build_timestamp} "
+
+# remove default go macro ldflag settings for version, tag, commit
+%global currentgoldflags   %{nil}
 
 # crio currently only subdirectory
 %gobuild -o %{gobuilddir}/bin/%{service_name} %{goipath}/cmd/%{service_name}

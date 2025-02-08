@@ -5,7 +5,7 @@
 %global crate sop
 
 Name:           rust-sop
-Version:        0.8.0
+Version:        0.8.1
 Release:        %autorelease
 Summary:        Rust Interface for the Stateless OpenPGP Interface
 
@@ -128,6 +128,18 @@ This package contains library source intended for building other packages which
 use the "cliv" feature of the "%{crate}" crate.
 
 %files       -n %{name}+cliv-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+libc-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+libc-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "libc" feature of the "%{crate}" crate.
+
+%files       -n %{name}+libc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

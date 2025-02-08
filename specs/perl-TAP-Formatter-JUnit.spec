@@ -1,6 +1,6 @@
 Name:           perl-TAP-Formatter-JUnit
-Version:        0.16
-Release:        8%{?dist}
+Version:        0.17
+Release:        1%{?dist}
 Summary:        Harness output delegate for JUnit output
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/TAP-Formatter-JUnit
@@ -79,6 +79,13 @@ make test
 %{_mandir}/man3/TAP::Formatter::JUnit::Session.3*
 
 %changelog
+* Thu Feb  6 2025 Paul Howarth <paul@city-fan.org> - 0.17-1
+- Update to 0.17 (rhbz#2344113)
+  - Bump minimum required Perl to 5.010; XML::Generator v1.11 now requires that
+    as a minimum acceptable Perl
+  - Skip BAIL_OUT test when using Test::Harness 3.45_01-3.48, as those versions
+    contained a bug that resulted in outputting a double summary (GH#15)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

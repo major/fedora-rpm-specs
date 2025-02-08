@@ -46,7 +46,7 @@ BuildRequires: pkgconfig(libsystemd)
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
 Version: 6.8.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -95,7 +95,12 @@ Patch56: qtbase-mysql.patch
 # fix FTBFS against libglvnd-1.3.4+
 Patch58: qtbase-libglvnd.patch
 
-## upstream patches
+# upstream patches
+Patch100: qtbase-qtlocale-try-to-survive-being-created-during-application-shut-down.patch
+Patch101: qtbase-qsystemlocale-bail-out-if-accessed-post-destruction.patch
+Patch102: qtbase-qlibraryinfo-speedup-checking-if-qt-conf-resource-exists.patch
+
+## upstream patches from Qt 6.9
 Patch150: qtbase-extract-emoji-data-from-unicode-files.patch
 Patch151: qtbase-introduce-emoji-segmenter-to-3rdparty-code.patch
 Patch152: qtbase-use-emoji-segmenter-to-apply-emoji-fonts-automatically.patch
@@ -104,6 +109,7 @@ Patch154: qtbase-skip-ad-hoc-handling-of-variation-selector-in-font-merging.patc
 Patch155: qtbase-fontconfig-dont-register-hardcoded-fonts-as-color-fonts.patch
 Patch156: qtbase-request-actual-font-family-request-in-final-color-font-fail-safe.patch
 Patch157: qtbase-fontconfig-fix-detection-of-color-fonts.patch
+
 
 # Do not check any files in %%{_qt6_plugindir}/platformthemes/ for requires.
 # Those themes are there for platform integration. If the required libraries are
@@ -903,6 +909,9 @@ make check -k ||:
 
 
 %changelog
+* Thu Feb 06 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-2
+- Backport recommended fixes for Qt 6.8.2
+
 * Fri Jan 31 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-1
 - 6.8.2
 

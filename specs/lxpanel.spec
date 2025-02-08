@@ -13,11 +13,11 @@
 %global	git_builddir	%{nil}
 
 %if 0%{?use_gitbare}
-%global	gittardate		20250124
-%global	gittartime		1010
+%global	gittardate		20250207
+%global	gittartime		1023
 
-%global	gitbaredate	20250123
-%global	git_rev		13a51958a92130674843d728805ebc39e12062ca
+%global	gitbaredate	20250131
+%global	git_rev		4dcce30a02b6112b869eabf1d226121f02ced16b
 %global	git_short		%(echo %{git_rev} | cut -c-8)
 %global	git_version	%{gitbaredate}git%{git_short}
 %endif
@@ -49,9 +49,6 @@ Source0:		http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{main_versi
 # Shell script to create tarball from git scm
 Source100:		create-tarball-from-git.sh
 Source101:		create-lxpanel-git-bare-tarball.sh
-
-# Fedora bug: https://bugzilla.redhat.com/show_bug.cgi?id=746063
-Patch0:		lxpanel-0.8.1-Fix-pager-scroll.patch
 
 # Patches reported upstream
 Patch52:		0002-SF-894-task-button-correctly-find-the-window-current.patch
@@ -168,8 +165,6 @@ git commit -m "base" -q
 cat %PATCH52 | git am
 cat %PATCH103 | git am
 
-%patch -P0 -p1 -b .revert
-
 %patch -P100 -p1 -b .default
 #%%patch101 -p1 -b .system-config-network
 %patch -P102 -p1 -b .zenity
@@ -229,6 +224,9 @@ cd ..
 %{_libdir}/pkgconfig/lxpanel.pc
 
 %changelog
+* Fri Feb 07 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.1^20250131git4dcce30a-1
+- Update to the latest git
+
 * Fri Jan 24 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.1^20250123git13a51958-1
 - Update to the latest git
 

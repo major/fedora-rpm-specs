@@ -1,6 +1,6 @@
 Name:           libldm
-Version:        0.2.4
-Release:        18%{?dist}%{?extra_release}
+Version:        0.2.5
+Release:        1%{?dist}%{?extra_release}
 Summary:        A tool to manage Windows dynamic disks
 
 # Automatically converted from old format: LGPLv3+ and GPLv3+ - review is highly recommended.
@@ -8,13 +8,21 @@ License:        LGPL-3.0-or-later AND GPL-3.0-or-later
 URL:            https://github.com/mdbooth/libldm 
 Source0:        https://github.com/mdbooth/libldm/archive/%{name}-%{version}.tar.gz
 
+# All upstream post-0.2.5
+Patch:          0001-Add-example-systemd-unit-file.patch
+Patch:          0002-ldmtool-fix-NULL-pointer-dereference.patch
+Patch:          0003-Add-ability-to-override-device-mapper-UUID.patch
+Patch:          0004-src-Fix-declaration-of-ldm_new.patch
+Patch:          0005-Update-gtkdocize.patch
+
+BuildRequires:  make
+BuildRequires:  gcc
 BuildRequires:  autoconf, automake, libtool
 BuildRequires:  glib2-devel >= 2.26.0
 BuildRequires:  json-glib-devel >= 0.14.0
 BuildRequires:  device-mapper-devel >= 1.0
 BuildRequires:  zlib-devel libuuid-devel readline-devel
 BuildRequires:  gtk-doc
-BuildRequires: make
 
 
 %description
@@ -36,7 +44,7 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q -n %{name}-%{name}-%{version}
+%autosetup -p1 -n %{name}-%{name}-%{version}
 sed -i -e 's/-Werror //' src/Makefile.*
 gtkdocize
 autoreconf -i
@@ -44,7 +52,7 @@ autoreconf -i
 
 %build
 %configure --disable-static --enable-gtk-doc
-make %{?_smp_mflags} V=1
+%make_build
 
 
 %install
@@ -52,11 +60,8 @@ make %{?_smp_mflags} V=1
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
-%ldconfig_scriptlets
-
-
 %files
-%doc COPYING.lgpl COPYING.gpl
+%license COPYING.lgpl COPYING.gpl
 %{_libdir}/*.so.*
 %{_bindir}/ldmtool
 %{_mandir}/man1/ldmtool.1.gz
@@ -70,6 +75,11 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Feb 06 2025 Richard W.M. Jones <rjones@redhat.com> - 0.2.5-1
+- New upstream version 0.2.5
+- Add some post-0.2.5 patches from upstream.
+- Some modernisation of the spec file.
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

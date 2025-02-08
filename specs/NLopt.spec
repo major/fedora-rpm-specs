@@ -3,7 +3,7 @@
 %global _fortify_level 2
 
 # Prevent accidental soname bumps.
-%global sover        0
+%global sover        1
 
 # Conditionals controlling the build.
 %global with_guile   1
@@ -16,11 +16,11 @@
 %endif
 %global guile_pkg    %(echo guile%{?guile_ver} | sed -e 's!\\\.!!g')
 
-%global relversion 2.9.1
+%global relversion 2.10.0
 Name:              NLopt
-Version:           2.9.1
+Version:           2.10.0
 %global tag        v%{version}
-Release:           2%{?dist}
+Release:           1%{?dist}
 Summary:           Open-Source library for nonlinear optimization
 
 # Get a lowercase name for virtual provides.
@@ -300,6 +300,10 @@ EOF
 %{python3_sitearch}/%{lc_name}-%{relversion}.dist-info/METADATA
 
 %changelog
+* Thu Feb 06 2025 Björn Esser <besser82@fedoraproject.org> - 2.10.0-1
+- Update to latest release 2.10.0
+  Fixes: rhbz#2343834
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
@@ -311,7 +315,7 @@ EOF
 
 * Sun Sep 29 2024 Benson Muite <benson_muite@emailplus.org> - 2.8.0^202409167cdebfe-1
 - Update to latest release
-- Update to Guile 3.0 for Guile subpackage 
+- Update to Guile 3.0 for Guile subpackage
 
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.7.1-21
 - convert license to SPDX

@@ -5,7 +5,7 @@ Version: 3.11.0
 
 #%%global prerelease .b2
 # prerelease, if defined, should be something like .a1, .b1, .b2.dev1, or .c2
-Release: 7%{?prerelease}%{?dist}
+Release: 8%{?prerelease}%{?dist}
 Epoch: 1
 License: LGPL-2.1-or-later
 %global realname blivet
@@ -22,6 +22,7 @@ Patch2: 0003-free_space_estimate-adjust-for-compression-on-btrfs.patch
 Patch3: 0004-consolidated-s390-device-configuration.patch
 Patch4: 0005-Align_sizes_up_for_growable_LVs.patch
 Patch5: 0006-Fix-crash-on-ppc64le-with-GPT.patch
+Patch6: 0007-Revert-Remove-support-for-the-MD-linear-RAID-level.patch
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -119,6 +120,9 @@ make DESTDIR=%{buildroot} install
 %{python3_sitelib}/*
 
 %changelog
+* Wed Feb 05 2025 Vojtech Trefny <vtrefny@redhat.com> - 3.11.0-8
+- Revert "Remove support for the MD linear RAID level"
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.11.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:    plasma-workspace-x11
 Summary: Xorg support for Plasma
-Version: 6.2.91
+Version: 6.3.0
 Release: 1%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -53,6 +53,7 @@ BuildRequires:  boost-devel
 BuildRequires:  pkgconfig(libusb)
 BuildRequires:  libbsd-devel
 BuildRequires:  pam-devel
+BuildRequires:  libxcrypt-devel
 BuildRequires:  lm_sensors-devel
 BuildRequires:  pciutils-devel
 BuildRequires:  pipewire-devel
@@ -215,6 +216,10 @@ sed -i \
 
 
 %changelog
+* Fri Feb 07 2025 Kevin Kofler <Kevin@tigcc.ticalc.org> - 6.3.0-1
+- 6.3.0
+- Add explicit BR: libxcrypt-devel
+
 * Fri Jan 24 2025 Kevin Kofler <Kevin@tigcc.ticalc.org> - 6.2.91-1
 - 6.2.91
 

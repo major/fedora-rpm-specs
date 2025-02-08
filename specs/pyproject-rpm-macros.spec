@@ -14,8 +14,8 @@ License:        MIT
 #   Increment Y and reset Z when new macros or features are added
 #   Increment Z when this is a bugfix or a cosmetic change
 # Dropping support for EOL Fedoras is *not* considered a breaking change
-Version:        1.16.4
-Release:        2%{?dist}
+Version:        1.17.0
+Release:        1%{?dist}
 
 # Macro files
 Source001:      macros.pyproject
@@ -167,6 +167,10 @@ export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856
 
 
 %changelog
+* Thu Jan 30 2025 Miro Hrončok <miro@hroncok.cz> - 1.17.0-1
+- Add the -M flag to %%pyproject_save_files
+- The flag can be used to indicate no Python modules should be saved
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

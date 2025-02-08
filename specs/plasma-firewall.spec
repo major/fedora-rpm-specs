@@ -4,7 +4,7 @@
 %bcond backend_ufw %[%{undefined rhel}]
 
 Name:    plasma-firewall
-Version: 6.2.91
+Version: 6.3.0
 Release: 1%{?dist}
 Summary: Control Panel for your system firewall
 
@@ -106,6 +106,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_firewall.desktop
 %endif
 
 %changelog
+* Thu Feb 06 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.0-1
+- 6.3.0
+
 * Thu Jan 23 2025 Steve Cossette <farchord@gmail.com> - 6.2.91-1
 - 6.2.91
 

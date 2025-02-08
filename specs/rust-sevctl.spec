@@ -5,7 +5,7 @@
 
 Name:           rust-sevctl
 Version:        0.6.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Administrative utility for AMD SEV
 
 License:        Apache-2.0
@@ -66,6 +66,9 @@ cp -pav %{SOURCE1} .
 %endif
 
 %changelog
+* Thu Feb 06 2025 Fabio Valentini <decathorpe@gmail.com> - 0.6.0-4
+- Rebuild for openssl crate >= v0.10.70 (RUSTSEC-2025-0004)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

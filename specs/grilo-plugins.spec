@@ -32,10 +32,10 @@ BuildRequires:	libarchive-devel
 BuildRequires:	libmediaart-devel
 BuildRequires:	libsoup3-devel
 BuildRequires:	lua-devel
+BuildRequires:  pkgconfig(tracker-sparql-3.0)
 BuildRequires:	rest-devel
 BuildRequires:	sqlite-devel
 BuildRequires:	totem-pl-parser-devel
-BuildRequires:	tracker3-devel
 BuildRequires:	json-glib-devel
 %if ! 0%{?rhel}
 BuildRequires:	libdmapsharing4-devel
