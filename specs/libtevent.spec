@@ -1,7 +1,7 @@
-%global talloc_version 2.4.2
+%global talloc_version 2.4.3
 
 Name:           libtevent
-Version:        0.16.1
+Version:        0.16.2
 Release:        %autorelease
 Summary:        The tevent library
 License:        LGPL-3.0-or-later

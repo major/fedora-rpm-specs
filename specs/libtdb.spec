@@ -1,5 +1,5 @@
 Name:            libtdb
-Version:         1.4.12
+Version:         1.4.13
 Release:         %autorelease
 Summary:         The tdb library
 License:         LGPL-3.0-or-later

@@ -6,11 +6,11 @@
 
 %global pypi_name pyside6
 %global camel_name PySide6
-%global qt6ver 6.8.1
+%global qt6ver 6.8.2
 
 Name:           python-%{pypi_name}
-Version:        6.8.1.1
-Release:        3%{?dist}
+Version:        6.8.2.1
+Release:        1%{?dist}
 Summary:        Python bindings for the Qt 6 cross-platform application and UI framework
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -34,7 +34,7 @@ BuildRequires:  python3-setuptools
 BuildRequires:  python3-wheel
 BuildRequires:  python3-packaging
 
-%if 0%{?fedora} >= 41
+%if 0%{?fedora} >= 43
 # for generating the documentation, see requirements-doc.txt
 BuildRequires:  graphviz
 BuildRequires:  python3-sphinx >= 7.4.7
@@ -245,7 +245,7 @@ cp %{__cmake_builddir}/sources/pyside6/PySide6/*.py sources/pyside6/PySide6/
 %{__python3} setup.py --qtpaths=%{_qt6_bindir}/qtpaths install_scripts --install-dir=%{buildroot}%{_bindir}
 for name in PySide6 shiboken6 shiboken6_generator; do
   mkdir -p %{buildroot}%{python3_sitearch}/$name-%{version}-py%{python3_version}.egg-info
-  cp -p $name.egg-info/{PKG-INFO,not-zip-safe,top_level.txt} \
+  cp -p $name.egg-info/{PKG-INFO,top_level.txt} \
         %{buildroot}%{python3_sitearch}/$name-%{version}-py%{python3_version}.egg-info/
   if [ -f $name.egg-info/entry_points.txt ]; then
     cp -p $name.egg-info/entry_points.txt %{buildroot}%{python3_sitearch}/$name-%{version}-py%{python3_version}.egg-info/
@@ -259,7 +259,7 @@ ln -sf %{_qt6_bindir}/{assistant,balsam,balsamui,designer,linguist,lrelease,lupd
 
 # Create scripts folders (this basically replicates prepare_packages() in build_scripts/main.py)
 mkdir -p %{buildroot}%{python3_sitelib}/%{camel_name}/scripts
-mv %{buildroot}%{_bindir}/{android_deploy.py,deploy_lib,deploy.py,metaobjectdump.py,project,project.py,pyside_tool.py,qml.py,qtpy2cpp_lib,qtpy2cpp.py,requirements-android.txt} %{buildroot}%{python3_sitelib}/%{camel_name}/scripts
+mv %{buildroot}%{_bindir}/{android_deploy.py,deploy_lib,deploy.py,metaobjectdump.py,project_lib,project.py,pyside_tool.py,qml.py,qtpy2cpp_lib,qtpy2cpp.py,requirements-android.txt} %{buildroot}%{python3_sitelib}/%{camel_name}/scripts
 mkdir -p %{buildroot}%{python3_sitelib}/shiboken6_generator/scripts
 mv %{buildroot}%{_bindir}/shiboken_tool.py %{buildroot}%{python3_sitelib}/shiboken6_generator/scripts
 
@@ -324,6 +324,9 @@ export LD_LIBRARY_PATH="%{buildroot}%{_libdir}"
 
 
 %changelog
+* Fri Feb 07 2025 Marie Loise Nolden <loise@kde.org> - 6.8.2.1-1
+- 6.8.2.1
+
 * Mon Feb 03 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.1.1-3
 - Rebuild (qt6)
 

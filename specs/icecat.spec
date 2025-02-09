@@ -89,7 +89,11 @@ ExcludeArch: %{ix86} %{arm}
 %global disable_elfhack 1
 
 # Use clang?
-%global build_with_clang  0
+%bcond_without toolchain_clang
+
+%if %{with toolchain_clang}
+%global toolchain clang
+%endif
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1908792
 # https://bugzilla.redhat.com/show_bug.cgi?id=2255254
@@ -98,7 +102,7 @@ ExcludeArch: %{ix86} %{arm}
 
 Name:    icecat
 Epoch:   2
-Version: 115.19.0
+Version: 115.20.0
 Release: %autorelease -e %{redhat_ver}
 Summary: GNU version of Firefox browser
 
@@ -260,17 +264,18 @@ BuildRequires: pulseaudio-libs-devel
 %endif
 BuildRequires: yasm
 BuildRequires: llvm
-BuildRequires: llvm-devel
-%if 0%{?build_with_clang}
+%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
 BuildRequires:  clang17
 BuildRequires:  clang17-libs
 BuildRequires:  llvm17-devel
-BuildRequires:  lld
 %global llvm_suffix -17
 %else
 BuildRequires:  clang
 BuildRequires:  clang-libs
 BuildRequires:  llvm-devel
+%endif
+%if "%toolchain" == "clang"
+BuildRequires:  lld
 %endif
 BuildRequires: rust
 BuildRequires: rustfmt
@@ -387,10 +392,8 @@ tar -xf %{SOURCE5}
 
 # PGO patches
 %if 0%{?build_with_pgo}
-%if !%{build_with_clang}
 %patch -P 600 -p 1 -b .pgo
 %patch -P 602 -p 1 -b .1516803
-%endif
 %endif
 %patch -P 603 -p1 -b .inline
 
@@ -473,11 +476,10 @@ echo "ac_add_options --disable-crashreporter" >> .mozconfig
 echo "ac_add_options --with-l10n-base=$PWD/l10n" >> .mozconfig
 %endif
 
-# Clang
-%if 0%{?build_with_clang}
-echo "ac_add_options --with-clang-path=`which clang%{?llvm_suffix}`" >> .mozconfig
-%endif
+%if "%toolchain" == "clang"
 echo "ac_add_options --with-libclang-path=`llvm-config%{?llvm_suffix} --libdir`" >> .mozconfig
+#echo "ac_add_options --with-clang-path=%%{_bindir}/clang%%{?llvm_suffix}" >> .mozconfig
+%endif
 
 %ifarch s390x
 echo "ac_add_options --disable-jit" >> .mozconfig
@@ -563,11 +565,12 @@ export MOZ_DEBUG_FLAGS=" "
 # We don't want firefox to use CK_GCM_PARAMS_V3 in nss
 MOZ_OPT_FLAGS="$MOZ_OPT_FLAGS -DNSS_PKCS11_3_0_STRICT"
 
-%if !0%{?build_with_clang}
+%if "%toolchain" != "clang"
 %ifarch s390x %{power64} %{arm64}
-MOZ_LINK_FLAGS="-Wl,--no-keep-memory -Wl,--reduce-memory-overheads -Wl,--print-memory-usage"
+MOZ_LINK_FLAGS="-Wl,--no-keep-memory -Wl,--reduce-memory-overheads"
 %endif
 %endif
+
 %ifarch s390x
 export RUSTFLAGS="-Cdebuginfo=0"
 %endif
@@ -581,20 +584,25 @@ export LIBDIR='%{_libdir}'
 export PKG_CONFIG="`which pkg-config`"
 export PYTHON='%{__python3}'
 
-%if 0%{?build_with_clang}
-export LLVM_PROFDATA="llvm-profdata"
-export AR="llvm-ar"
-export NM="llvm-nm"
-export RANLIB="llvm-ranlib"
+%if "%toolchain" == "clang"
+echo "export LLVM_PROFDATA=\"llvm-profdata\"" >> .mozconfig
+echo "export AR=\"llvm-ar\"" >> .mozconfig
+echo "export NM=\"llvm-nm\"" >> .mozconfig
+echo "export RANLIB=\"llvm-ranlib\"" >> .mozconfig
 echo "ac_add_options --enable-linker=lld" >> .mozconfig
 %else
-export CC=gcc
-export CXX=g++
-export AR="gcc-ar"
-export NM="gcc-nm"
-export RANLIB="gcc-ranlib"
+echo "export CC=gcc" >> .mozconfig
+echo "export CXX=g++" >> .mozconfig
+echo "export AR=\"gcc-ar\"" >> .mozconfig
+echo "export NM=\"gcc-nm\"" >> .mozconfig
+echo "export RANLIB=\"gcc-ranlib\"" >> .mozconfig
 %endif
+
+%if 0%{?build_with_pgo}
+echo "ac_add_options MOZ_PGO=1" >> .mozconfig
+# PGO build doesn't work with ccache
 export CCACHE_DISABLE=1
+%endif
 
 %if %{?less_optbuild}
 MOZ_SMP_FLAGS=-j1

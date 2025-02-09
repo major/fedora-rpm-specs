@@ -15,13 +15,12 @@
 
 %global major_version 3
 %global minor_version 4
-%global patch_version 4
-# https://github.com/mpimd-csc/flexiblas/issues/43
+%global patch_version 5
 %global laapi_version 3.12.0
 
 Name:           flexiblas
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        7%{?dist}
+Release:        1%{?dist}
 Summary:        A BLAS/LAPACK wrapper library with runtime exchangeable backends
 
 # LGPL-3.0-or-later
@@ -29,8 +28,9 @@ Summary:        A BLAS/LAPACK wrapper library with runtime exchangeable backends
 # contributed/ and test/ are BSD-3-Clause-Open-MPI
 License:        LGPL-3.0-or-later AND LGPL-2.0-or-later AND BSD-3-Clause-Open-MPI
 URL:            https://www.mpi-magdeburg.mpg.de/projects/%{name}
-Source0:        https://github.com/mpimd-csc/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:         0001-Fix-i386-bugs-in-detection.patch
+Source:         https://github.com/mpimd-csc/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+# https://github.com/mpimd-csc/flexiblas/issues/63
+Patch:          flexiblas-3.4.5-gemmtr.patch
 
 BuildRequires:  make, cmake, python
 BuildRequires:  gcc, gcc-fortran
@@ -308,10 +308,9 @@ find %{buildroot}%{_sysconfdir}/%{name}*.d/* -type f \
     -exec sed -i 's PThread -threads gI' {} \;
 
 %check
-# limit the number of threads < 12 for now, see:
-# https://github.com/OpenMathLib/OpenBLAS/issues/5050
-MAX_CORES=10; CORES=$(nproc)
-export OMP_NUM_THREADS=$((CORES > MAX_CORES ? MAX_CORES : CORES))
+# limit the number of threads
+# MAX_CORES=10; CORES=$(nproc)
+# export OMP_NUM_THREADS=$((CORES > MAX_CORES ? MAX_CORES : CORES))
 export CTEST_OUTPUT_ON_FAILURE=1
 export FLEXIBLAS_TEST=%{buildroot}%{_libdir}/%{name}/lib%{name}_%{default_backend}.so
 make -C build test
@@ -447,6 +446,10 @@ make -C build64 test
 %endif
 
 %changelog
+* Fri Jan 31 2025 Iñaki Úcar <iucar@fedoraproject.org> - 3.4.5-1
+- Update to 3.4.5
+- Remove thread limit for testing
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -10,7 +10,7 @@
 # `/opt/{namespace}/{versioned name}`.
 Name:       autoconf
 Version:    2.72
-Release:    4%{?dist}
+Release:    5%{?dist}
 
 # To help future rebase, the following licenses were seen in the following files/folders:
 # '*' is anything that was not explicitly listed earlier in the folder
@@ -52,6 +52,9 @@ Source0:    https://ftp.gnu.org/gnu/autoconf/autoconf-%{version}.tar.xz
 Source1:    config.site
 Source2:    autoconf-init.el
 URL:        https://www.gnu.org/software/autoconf/
+
+# From upstream 9ff9c567b1a7a7e66fa6523d4ceff142b86bddaa
+Patch:      0001-Keep-lmingwex-and-lmoldname-in-linker-flags-for-MinG.patch
 
 %if "%{name}" != "autoconf"
 # Set this to the sub-package base name, for "autoconf-latest"
@@ -222,6 +225,9 @@ install -p -m 755 enable.scl ${RPM_BUILD_ROOT}/%{_prefix}/enable
 
 
 %changelog
+* Fri Jan 31 2025 Frédéric Bérat <fberat@redhat.com> - 2.72-5
+- Backport: Keep "-lmingwex" and "-lmoldname" in linker flags for MinGW (BZ#2341043)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.72-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

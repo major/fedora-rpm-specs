@@ -1,12 +1,16 @@
 Name:           perl-RDF-RDFa-Generator
 Version:        0.204
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Generate data in RDFa
 # COPYRIGHT:    LicenseRef-Fedora-Public-Domain
 # other files:  GPL-1.0-or-later OR Artistic-1.0-Perl
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND LicenseRef-Fedora-Public-Domain
 URL:            https://metacpan.org/release/RDF-RDFa-Generator
 Source0:        https://cpan.metacpan.org/authors/id/K/KJ/KJETILK/RDF-RDFa-Generator-%{version}.tar.gz
+# Adjust tests to perl-Test-Warnings ≥ 0.034, bug #2341034, proposed upstream,
+# <https://github.com/perlrdf/p5-rdf-rdfa-generator/issues/7>,
+# Copied from Debian <https://salsa.debian.org/perl-team/modules/packages/librdf-rdfa-generator-perl/-/raw/66f400fda5cc281ed7b8131fbd983a8eb30cc10d/debian/patches/done_testing-conflict.patch>
+Patch0:         done_testing-conflict.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -60,7 +64,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n RDF-RDFa-Generator-%{version}
+%autosetup -p1 -n RDF-RDFa-Generator-%{version}
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
@@ -101,6 +105,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Feb 07 2025 Petr Pisar <ppisar@redhat.com> - 0.204-4
+- Adjust tests to perl-Test-Warnings ≥ 0.034 (bug #2341034)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.204-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

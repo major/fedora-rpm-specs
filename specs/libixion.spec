@@ -1,7 +1,7 @@
-%global apiversion 0.18
+%global apiversion 0.20
 
 Name: libixion
-Version: 0.19.0
+Version: 0.20.0
 Release: %autorelease
 Summary: A general purpose formula parser & interpreter library
 
@@ -9,15 +9,11 @@ License: MPL-2.0
 URL: https://gitlab.com/ixion/ixion
 Source0: https://kohei.us/files/ixion/src/%{name}-%{version}.tar.xz
 
-# _WIN32 is not defined when not on Windows.
-# https://gitlab.com/ixion/ixion/-/commit/7b1df6fc2b989d8a64edaa47fe04edea95c45174
-Patch0:  7b1df6fc2b989d8a64edaa47fe04edea95c45174.patch
-
 BuildRequires: boost-devel
 BuildRequires: gcc-c++
 BuildRequires: help2man
 BuildRequires: automake
-BuildRequires: pkgconfig(mdds-2.1)
+BuildRequires: pkgconfig(mdds-3.0)
 BuildRequires: pkgconfig(python3)
 BuildRequires: pkgconfig(spdlog)
 BuildRequires: make

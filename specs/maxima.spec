@@ -2,7 +2,7 @@ Summary: Symbolic Computation Program
 Name:    maxima
 Version: 5.47.0
 
-Release: 6%{?dist}
+Release: 7%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL:     http://maxima.sourceforge.net/
@@ -33,6 +33,9 @@ Patch53: matrixexp.patch
 # Use GMP arithmetic with sbcl (Void Linux)
 # https://gitlab.archlinux.org/archlinux/packaging/packages/maxima/-/raw/main/maxima-sbcl-gmp.patch
 Patch54: maxima-sbcl-gmp.patch
+
+# port xmaxima to Tcl 9.0 (rhbz#2337728)
+Patch55: maxima-tcl9.patch
 
 %define maxima_ver %{version}%{?beta}
 BuildRequires: make
@@ -134,7 +137,8 @@ BuildRequires: tex(latex)
 BuildRequires: tex(fullpage.sty)
 %endif
 # /usr/bin/wish
-BuildRequires: tk
+# tcl9.patch makes this incompatible with 8.6
+BuildRequires: tk >= 1:9.0
 # Needed for the sbcl tests
 BuildRequires: gnuplot
 
@@ -153,7 +157,8 @@ based on the original Macsyma developed at MIT in the 1970's.
 Summary: Tcl/Tk GUI interface for %{name}
 Requires: %{name} = %{version}-%{release}
 Obsoletes: %{name}-xmaxima < %{version}-%{release}
-Requires: tk
+# tcl9.patch makes this incompatible with 8.6
+Requires: tk >= 1:9.0
 Requires: xdg-utils
 %description gui
 Tcl/Tk GUI interface for %{name}
@@ -413,6 +418,9 @@ fi
 
 
 %changelog
+* Fri Feb 07 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 5.47.0-7
+- Fix for https://fedoraproject.org/wiki/Changes/TclTk9.0 (rhbz#2337728)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.47.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

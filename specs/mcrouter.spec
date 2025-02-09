@@ -8,7 +8,7 @@
 %endif
 
 %global forgeurl https://github.com/facebook/mcrouter
-%global tag 2024.02.19.00
+%global tag 2025.02.03.00
 %global date %(echo %{tag} | sed -e 's|.00$||' | sed -e 's|\\.||g')
 
 # lib/fbi/cpp/LowerBoundPrefixMap.cpp includes folly/container/tape.h
@@ -26,7 +26,9 @@ Source:         %{url}/archive/v%{tag}/%{name}-%{tag}.tar.gz
 # distutils deprecated in Python 3.10
 Patch:          %{name}-0.41.0-no_distutils.patch
 
-ExclusiveArch:  x86_64 aarch64 ppc64le
+# Temporarily drop ppc64le due to a bug in folly's F14Set fallback
+# rhbz#2344416
+ExclusiveArch:  x86_64 aarch64
 
 BuildRequires:  autoconf
 BuildRequires:  automake

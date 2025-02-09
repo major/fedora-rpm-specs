@@ -5,7 +5,9 @@ Summary:        A system for high-quality audio network performance over the Int
 
 License:        MIT and GPL-3.0-or-later and LGPL-3.0-only
 URL:            https://github.com/%{name}/%{name}
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+# https://github.com/jacktrip/jacktrip/pull/1375
+Patch:          jacktrip-2.5.1-libsamplerate.patch
 
 BuildRequires:  meson, cmake, gcc-c++
 BuildRequires:  python3-pyyaml, python3-jinja2
@@ -51,7 +53,7 @@ bidirectional, high quality, uncompressed audio signal steaming.
 %endif
     -Dnoupdater=true \
     -Drtaudio=enabled \
-    -Dlibsamplerate=disabled # https://github.com/jacktrip/jacktrip/issues/1380
+    -Dlibsamplerate=enabled # https://github.com/jacktrip/jacktrip/issues/1380
 %meson_build
 
 %install

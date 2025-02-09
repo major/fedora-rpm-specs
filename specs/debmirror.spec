@@ -1,6 +1,6 @@
 Name:       debmirror
-Version:    2.42
-Release:    2%{?dist}
+Version:    2.43
+Release:    1%{?dist}
 Summary:    Debian partial mirror script, with ftp and package pool support
 
 License:    GPL-2.0-or-later
@@ -51,6 +51,10 @@ pod2man %{name} %{buildroot}%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Fri Feb 07 2025 Packit <hello@packit.dev> - 2.43-1
+- Update to version 2.43
+- Resolves: rhbz#2335288
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.42-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

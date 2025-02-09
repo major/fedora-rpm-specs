@@ -273,8 +273,8 @@ BuildRequires: pkgconfig(harfbuzz)
 BuildRequires: pkgconfig(libeot)
 BuildRequires: pkgconfig(libepubgen-0.1)
 BuildRequires: pkgconfig(libqxp-0.0)
-BuildRequires: pkgconfig(liborcus-0.18)
-BuildRequires: pkgconfig(mdds-2.1)
+BuildRequires: pkgconfig(liborcus-0.20)
+BuildRequires: pkgconfig(mdds-3.0)
 BuildRequires: pkgconfig(zxing)
 BuildRequires: libnumbertext-devel
 BuildRequires: frozen-static

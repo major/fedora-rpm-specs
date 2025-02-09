@@ -1,12 +1,12 @@
 # remirepo/fedora spec file for php-tecnickcom-tc-lib-color
 #
-# SPDX-FileCopyrightText:  Copyright 2015-2024 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2015-2025 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    5fe3c1771ab577572b3304d11496745aff45db8e
+%global gh_commit    77d68d5206aef08ee0f3b69c0c6df4e559ad28bc
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
@@ -15,8 +15,8 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        2.2.7
-Release:        2%{?dist}
+Version:        2.2.8
+Release:        1%{?dist}
 Summary:        PHP library to manipulate various color representations
 
 License:        LGPL-3.0-or-later
@@ -86,7 +86,6 @@ require '%{buildroot}%{php_project}/autoload.php';
 EOF
 
 ret=0
-# TODO php84 https://github.com/tecnickcom/tc-lib-color/issues/14
 for cmdarg in php php81 php82 php83 php84; do
    if which $cmdarg; then
       set $cmdarg
@@ -112,6 +111,9 @@ exit $ret
 
 
 %changelog
+* Fri Feb  7 2025 Remi Collet <remi@remirepo.net> - 2.2.8-1
+- update to 2.2.8 (no change)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

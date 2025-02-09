@@ -15,13 +15,15 @@
 %global _static_builddir static_build
 
 Name:           proxygen
-Version:        2024.08.19.00
+Version:        2025.02.03.00
 Release:        %autorelease
 Summary:        A collection of C++ HTTP libraries including an easy to use HTTP server.
 
 License:        BSD-3-Clause
 URL:            https://github.com/facebook/proxygen
-Source:         %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.gz
+Source:         %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+# include <cstdint> for GCC 15 header changes. Will be in next release
+Patch:          %{name}-fix-headers-for-gcc15.diff
 
 ExclusiveArch:  x86_64 aarch64 ppc64le
 

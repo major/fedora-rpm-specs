@@ -135,9 +135,12 @@ popd
 rm ./rust/Cargo.lock
 
 # Create sysusers config files
-echo 'g zkeyadm' >s390utils-base.conf
-echo 'g ts-shell' >s390utils-iucvterm.conf
-echo 'g cpacfstats' >s390utils-cpacfstatsd.conf
+echo 'g zkeyadm' > s390utils-base.conf.usr
+echo 'g ts-shell' > s390utils-iucvterm.conf.usr
+echo 'g cpacfstats' > s390utils-cpacfstatsd.conf.usr
+
+# Create tmpfiles config files
+echo 'd /var/log/ts-shell 2770 root ts-shell' > s390utils-iucvterm.conf.tmp
 
 %build
 make \
@@ -245,7 +248,14 @@ install -p -m 644 %{SOURCE17} %{buildroot}%{_udevrulesdir}/81-ccw.rules
 # zipl.conf to be ghosted
 touch %{buildroot}%{_sysconfdir}/zipl.conf
 
-install -Dt %{buildroot}%{_sysusersdir}/ s390utils-{base,iucvterm,cpacfstatsd}.conf
+# install systemd sysusers and tmpfiles
+mkdir -p %{buildroot}{%{_sysusersdir},%{_tmpfilesdir}}/
+for f in s390utils-*.conf.usr; do
+    install -p $f %{buildroot}%{_sysusersdir}/$(basename -s .usr $f)
+done
+for f in s390utils-*.conf.tmp; do
+    install -p $f %{buildroot}%{_tmpfilesdir}/$(basename -s .tmp $f)
+done
 
 %endif
 
@@ -907,7 +917,8 @@ fi
 %{_sbindir}/chiucvallow
 %{_sbindir}/lsiucvallow
 %{_sysusersdir}/s390utils-iucvterm.conf
-%dir %attr(2770,root,ts-shell) /var/log/ts-shell
+%{_tmpfilesdir}/s390utils-iucvterm.conf
+%ghost %dir %attr(2770,root,ts-shell) /var/log/ts-shell
 %doc iucvterm/doc/ts-shell
 %{_mandir}/man1/iucvconn.1*
 %{_mandir}/man1/iucvtty.1*

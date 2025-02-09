@@ -5,13 +5,14 @@
 
 Name:           lxqt-wayland-session
 Version:        0.1.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Wayland session files for LXQt
 # See "LICENSE" for a breakdown of license usage
 License:        LGPL-2.1-only AND GPL-3.0-only AND MIT AND GPL-2.0-only AND BSD-3-Clause
 URL:            https://lxqt-project.org/
 
 Source0:        https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+Source1:        default-compositor-miriway
 
 Patch0:         0001-configuration-changes-for-default-labwc-session.patch
 Patch1:         0002-configuration-changes-for-default-wayfire-session.patch
@@ -19,6 +20,7 @@ Patch2:         0003-configuration-changes-for-default-niri-session.patch
 Patch3:         0004-configuration-adds-miriway-session.patch
 Patch4:         0005-configuration-changes-for-default-river-session.patch
 Patch5:         0006-configuration-changes-for-default-sway-session.patch
+Patch6:         0007-allow-setting-of-default-session.patch
 BuildArch:      noarch
 
 BuildRequires:  cmake
@@ -51,6 +53,24 @@ actually supported compositors.
 %{_datadir}/wayland-sessions/lxqt-wayland.desktop
 %{_datadir}/lxqt/wayland/firstrun/autostart
 %{_datadir}/lxqt/wallpapers/origami-dark-labwc.png
+
+
+%dnl ------------------------------------------------------------------
+%package -n     %{name}-default-compositor-miriway
+Summary:        Sets default compositor to miriway
+License:        GPL-3.0-or-later
+Requires:       %{name} = %{version}-%{release}
+Requires:       lxqt-miriway-session = %{version}-%{release}
+Provides:       %{name}-default-compositor
+Conflicts:      %{name}-default-compositor
+
+%description -n %{name}-default-compositor-miriway
+Sets the default compositor to miriway, and provides the miriway session
+setup
+
+%files -n %{name}-default-compositor-miriway
+%license COPYING
+%{_datadir}/lxqt/wayland/default-compositor
 
 %dnl ------------------------------------------------------------------
 
@@ -198,6 +218,7 @@ labwc as the Wayland compositor with LXQt.
 
 %prep
 %autosetup -n %{name}-%{version} -S git_am
+cp -a %{SOURCE1} default-compositor-miriway
 
 %build
 %cmake
@@ -205,6 +226,8 @@ labwc as the Wayland compositor with LXQt.
 
 %install
 %cmake_install
+
+install -m0644 default-compositor-miriway %{buildroot}%{_datadir}/lxqt/wayland/default-compositor
 
 %if ! %{with hyprland_session}
 # Drop hyprland session files
@@ -219,6 +242,10 @@ rm -v %{buildroot}%{_datadir}/lxqt/wayland/lxqt-niri.kdl
 %fdupes -s %{buildroot}%{_datadir}/themes/
 
 %changelog
+* Fri Feb 07 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 0.1.1-7
+- Add patch to enable setting of default wayland compositor
+- Added configuration file and subpackage for default session
+
 * Tue Jan 21 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 0.1.1-6
 - Added patches to adjust configurations in all sessions
 - Added patch to enable miriway session

@@ -16,8 +16,14 @@ Source7: macros.filesystem
 BuildRequires: iso-codes
 Requires(pre): setup
 
+# Last standalone version of basesystem was basesystem-11-22.fc42.
+# Use a version that is higher to preserve upgrades paths. We cannot use
+# our own Version, because it's lower.
+Provides: basesystem = 12-%{release}
+Obsoletes: basesystem < 11-30
+
 Provides:   filesystem-afs = %{version}-%{release}
-Obsoletes:  filesystem-afs <= 3.14-2
+Obsoletes:  filesystem-afs < 3.14-2
 
 %if %{with merged_sbin}
 # A virtual provides to indicate merged bin and sbin directories.

@@ -6,7 +6,7 @@
 
 Name:       bitcoin-core
 Version:    28.1
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    Peer to Peer Cryptographic Currency
 License:    MIT
 URL:        https://bitcoincore.org/
@@ -313,6 +313,9 @@ exit 0
 %{_userunitdir}/%{project_name}.service
 
 %changelog
+* Fri Feb 07 2025 Simone Caronni <negativo17@gmail.com> - 28.1-5
+- Rebuild for updated dependencies.
+
 * Tue Jan 28 2025 Simone Caronni <negativo17@gmail.com> - 28.1-4
 - Rebuild for updated dependencies.
 

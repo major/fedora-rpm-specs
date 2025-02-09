@@ -70,6 +70,9 @@ rm -f src_c/ffmovie.[ch]
 
 
 %build
+# Suppress runtime warning about disabled avx2 support, make support for
+# systems without explicit.
+export PYGAME_DETECT_AVX2=0
 %py3_build cython
 
 %install

@@ -1,4 +1,4 @@
-%global         soversion 3.0
+%global         soversion 3.2
 %global         patchversion 1
 
 Summary:        Easy to integrate Vulkan memory allocation library
@@ -17,6 +17,7 @@ BuildRequires:  vulkan-loader-devel
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
+BuildArch:      noarch
 
 %description
 The Vulkan Memory Allocator (VMA) library provides a simple and easy to
@@ -24,50 +25,39 @@ integrate API to help you allocate memory for Vulkan buffer and image storage.
 
 %package devel
 Summary:        The Vulkan Memory Allocator development package
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Provides:       %{name}-static = %{version}-%{release}
 
 %description devel
 The Vulkan Memory Allocator development package.
 
 %package doc
 Summary:        The Vulkan Memory Allocator documentation package
-BuildArch:      noarch
 
 %description doc
 The Vulkan Memory Allocator documentation package.
 
 %prep
 %autosetup -p1
-#Fix newer gcc issue (fixed upstream)
-sed -i '/#include <cstdint>/a #include <cstdio>' include/vk_mem_alloc.h
-#Fix install location (fixed upstream)
-sed -i 's|"lib"|"%{_libdir}"|' src/CMakeLists.txt
 #We don't need this :)
 rm -f bin/*.exe
-#Upstream distributes this as a static lib, so soname is not set by upstream:
-echo "set_target_properties(%{name} PROPERTIES VERSION %{version} SOVERSION %{soversion})" \
-    >> CMakeLists.txt
 #Delete pre-generated docs (we will regenerate):
 rm -r docs/html
 
 %build
-%cmake -DBUILD_DOCUMENTATION=ON
+%cmake -DVMA_BUILD_DOCUMENTATION=ON
 %cmake_build
 
 %install
 %cmake_install
 
-%files
+%files devel
 %license LICENSE.txt
 %doc CHANGELOG.md
-%{_libdir}/lib%{name}.so.%{soversion}{,.*}
-
-%files devel
-%{_libdir}/lib%{name}.so
 %{_includedir}/vk_mem_alloc.h
+%{_datadir}/cmake/%{name}
 
 %files doc
-%doc docs/html
+%doc %{_docdir}/%{name}
 
 %changelog
 %autochangelog

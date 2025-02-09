@@ -10,14 +10,14 @@
 
 %bcond_without       tests
 
-%if 0%{?fedora} == 39
+%if 0%{?fedora} == 39 || 0%{?fedora} == 40
 %bcond_without       defcmd
 %else
 %bcond_with          defcmd
 %endif
 
-%global gh_commit    1381c62769be4bb88fa4c5aec1366c7c66ca4f36
-%global gh_date      2025-01-31
+%global gh_commit    bd68a781d8e30348bc297449f5234b3458267ae8
+%global gh_date      2025-02-07
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -30,7 +30,7 @@
 %global ver_major    10
 %global ver_minor    5
 
-%global upstream_version 10.5.44
+%global upstream_version 10.5.45
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -135,19 +135,14 @@ Requires:       (php-composer(sebastian/version) >= 4.0.1             with php-c
 #        "ext-soap": "*",
 Suggests:       php-soap
 # recommends latest versions
-# Fedora 38+ only until 8.1 EOL
-%if 0%{?fedora} >= 38
 Recommends:     phpunit11
-%endif
+Recommends:     phpunit12
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
 # From phpcompatinfo report for version 10.0.0
-Requires:       php-reflection
 Requires:       php-openssl
 Requires:       php-pcntl
-Requires:       php-pcre
 Requires:       php-phar
-Requires:       php-spl
 
 %if 0%{?fedora} >= 39 || 0%{?rhel} >= 10
 Provides:       php-composer(phpunit/phpunit) = %{version}
@@ -270,6 +265,9 @@ exit $ret
 
 
 %changelog
+* Fri Feb  7 2025 Remi Collet <remi@remirepo.net> - 10.5.45-1
+- update to 10.5.45
+
 * Fri Jan 31 2025 Remi Collet <remi@remirepo.net> - 10.5.44-1
 - update to 10.5.44
 

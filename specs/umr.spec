@@ -9,6 +9,10 @@ License: MIT
 URL: https://gitlab.freedesktop.org/tomstdenis/umr
 Source0: https://gitlab.freedesktop.org/tomstdenis/%{name}/-/archive/%{version}/%{name}-%{version}.tar.gz
 
+# Upstream fixes to newer GCC
+#https://gitlab.freedesktop.org/tomstdenis/umr/-/commit/511d5b9bebd91346ee208dfffed304ed05890d8d
+Patch0: 0001-Fix-warnings-treewide.patch
+
 #Glibc is too old prior to EL7, enable rt linking to avoid compilation failure
 %if 0%{?rhel} && 0%{?rhel} < 7
 %global enablert 1

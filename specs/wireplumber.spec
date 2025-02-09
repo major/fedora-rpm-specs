@@ -1,6 +1,6 @@
 Name:       wireplumber
-Version:    0.5.7
-Release:    2%{?dist}
+Version:    0.5.8
+Release:    1%{?dist}
 Summary:    A modular session/policy manager for PipeWire
 
 License:    MIT
@@ -132,6 +132,9 @@ fi
 %{_datadir}/doc/wireplumber/
 
 %changelog
+* Fri Feb 07 2025 Wim Taymans <wtaymans@redhat.com> - 0.5.8-1
+- wireplumber 0.5.8
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

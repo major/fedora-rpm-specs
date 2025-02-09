@@ -1,22 +1,10 @@
 Name:           nvmetcli
 License:        Apache-2.0
 Summary:        An adminstration shell for NVMe storage targets
-Version:        0.7
-Release:        16%{?dist}
+Version:        0.8
+Release:        1%{?dist}
 URL:            ftp://ftp.infradead.org/pub/nvmetcli/
 Source:         ftp://ftp.infradead.org/pub/nvmetcli/%{name}-%{version}.tar.gz
-Patch00:        0001-nvmetcli-don-t-remove-ANA-Group-1-on-clear.patch
-Patch01:        0002-README-Update-URL-for-configshell-fb.patch
-Patch02:        0003-nvmetcli-Improve-IOError-handling-on-restore.patch
-Patch03:        0004-nvme.py-Explicit-close-is-redundant.patch
-Patch04:        0005-nvme.py-Sync-the-containing-directory.patch
-Patch05:        0006-nvme.py-Make-modprobe-work-for-kmod-lib-too.patch
-Patch06:        0007-test_nvmet.py-test_invalid_input-fails-for-py3.patch
-Patch07:        0008-nvmetcli-Report-save-name-correctly.patch
-Patch08:        0009-nvmetcli-Allow-different-devices-for-make-test.patch
-Patch09:        0010-nvmetcli-Correct-xrange-usage-for-py3.patch
-Patch10:        0011-nvmetcli-add-a-tcp-example-json.patch
-Patch11:        0012-Documentation-fix-typo.patch
 BuildArch:      noarch
 BuildRequires: make
 BuildRequires:  python3-devel python3-setuptools systemd-units asciidoc xmlto
@@ -24,6 +12,8 @@ Requires:       python3-configshell python3-kmod
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
+
+%define _sbindir %{_exec_prefix}/sbin
 
 %description
 This package contains the command line interface to the NVMe over Fabrics
@@ -66,6 +56,9 @@ install -m 644 Documentation/nvmetcli.8.gz %{buildroot}%{_mandir}/man8/
 %{_mandir}/man8/nvmetcli.8.gz
 
 %changelog
+* Fri Feb 07 2025 Maurizio Lombardi <mlombard@redhat.com> - 0.8-1
+- Update to version 0.8
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

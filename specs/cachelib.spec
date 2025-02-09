@@ -9,7 +9,7 @@
 %bcond_with check
 
 %global forgeurl https://github.com/facebook/CacheLib
-%global tag 2024.08.19.00
+%global tag 2025.02.03.00
 %global date %(echo %{tag} | sed -e 's|.00$||' | sed -e 's|\\.||g')
 # disable forge macro snapinfo generation
 # https://pagure.io/fedora-infra/rpmautospec/issue/240
@@ -27,10 +27,10 @@ Summary:        Pluggable caching engine for scale high performance cache servic
 License:        Apache-2.0
 URL:            %forgeurl
 Source:         %{url}/archive/v%{tag}/%{name}-%{tag}.tar.gz
-# allocator/nvmecache/NavySetup.cpp should not reference test code
-Patch:          %{name}-fix-libcachelib_allocator-MockDevice.diff
 # DeviceTest needs common/FdpNvme.cpp. Disable for now
 Patch:          %{name}-fix-DeviceTest-FDP.diff
+# incomplete dependencies, will sort out later
+Patch:          %{name}-disable-binary_trace_gen.diff
 # needed on EL8; its gtest does not come with cmake files
 Patch100:       %{name}-find-gtest.patch
 # Workaround for gcc issue (still needed on epel9 x86_64)

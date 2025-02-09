@@ -2,7 +2,7 @@
 %global __provides_exclude_from ^%{_libdir}/deepin-aiassistant/.*\\.so$
 
 Name:           deepin-calendar
-Version:        5.14.8
+Version:        6.5.1
 Release:        %autorelease
 Summary:        Calendar for Deepin Desktop Environment
 License:        GPL-3.0-or-later
@@ -13,18 +13,18 @@ BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  ninja-build
 
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5DBus)
-BuildRequires:  cmake(Qt5Svg)
-BuildRequires:  cmake(Qt5Gui)
-BuildRequires:  cmake(Qt5Widgets)
-BuildRequires:  cmake(Qt5Network)
-BuildRequires:  cmake(Qt5Sql)
-BuildRequires:  cmake(Qt5LinguistTools)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6Sql)
+BuildRequires:  cmake(Qt6LinguistTools)
 
-BuildRequires:  cmake(DtkWidget)
-BuildRequires:  cmake(DtkCore)
-BuildRequires:  cmake(DtkGui)
+BuildRequires:  cmake(Dtk6Core)
+BuildRequires:  cmake(Dtk6Gui)
+BuildRequires:  cmake(Dtk6Widget)
 
 BuildRequires:  pkgconfig(libical)
 
@@ -40,11 +40,10 @@ Calendar for Deepin Desktop Environment.
 %prep
 %autosetup -p1 -n %{repo}-%{version}
 
-sed -i 's|lib/deepin-aiassistant/serivce-plugins|${CMAKE_INSTALL_LIBDIR}/deepin-aiassistant/serivce-plugins|' \
-    schedule-plugin/CMakeLists.txt
+sed -i 's|lib/deepin-aiassistant/|${CMAKE_INSTALL_LIBDIR}/deepin-aiassistant/|' schedule-plugin/CMakeLists.txt
 
 %build
-%cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_SYSCONFDIR=%{_sysconfdir}
+%cmake -GNinja -DCMAKE_INSTALL_SYSCONFDIR=%{_sysconfdir}
 %cmake_build
 
 %install
@@ -52,10 +51,13 @@ sed -i 's|lib/deepin-aiassistant/serivce-plugins|${CMAKE_INSTALL_LIBDIR}/deepin-
 install -pDm644 calendar-client/assets/dde-calendar/calendar/common/dde-calendar.svg \
     %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/dde-calendar.svg
 
+%find_lang dde-calendar-service --with-qt --all-name
+%find_lang dde-calendar --with-qt --all-name
+
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
-%files
+%files -f dde-calendar-service.lang -f dde-calendar.lang
 %doc README.md
 %license LICENSE
 %{_bindir}/dde-calendar

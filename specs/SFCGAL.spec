@@ -1,11 +1,10 @@
 Summary: C++ wrapper library around CGAL for PostGIS
 Name: SFCGAL
-Version: 1.5.0
-Release: 3%{?dist}
-# Automatically converted from old format: LGPLv2 - review is highly recommended.
-License: LicenseRef-Callaway-LGPLv2
+Version: 2.0.0
+Release: 1%{?dist}
+License: LGPL-2.0-or-later
 URL: https://gitlab.com/Oslandia/SFCGAL/
-Source: https://gitlab.com/Oslandia/SFCGAL/-/archive/v%{version}/SFCGAL-v%{version}.tar.bz2
+Source: https://gitlab.com/sfcgal/SFCGAL/-/archive/v%{version}/SFCGAL-v%{version}.tar.bz2
 
 BuildRequires: CGAL-devel >= 5.6
 BuildRequires: gcc-c++
@@ -38,7 +37,7 @@ Development headers and libraries for SFCGAL.
 %autosetup -p0 -n SFCGAL-v%{version}
 
 %build
-%cmake -D LIB_INSTALL_DIR=%{_lib} -DBoost_NO_BOOST_CMAKE=BOOL:ON -DCMAKE_SKIP_RPATH:BOOL=YES
+%cmake -D LIB_INSTALL_DIR=%{_lib} -DBoost_NO_BOOST_CMAKE=BOOL:ON -DCMAKE_SKIP_RPATH:BOOL=YES -DSFCGAL_BUILD_DOC:BOOL=YES
 %cmake_build
 (cd doc; doxygen)
 
@@ -48,7 +47,7 @@ Development headers and libraries for SFCGAL.
 %files
 %doc AUTHORS README.md NEWS
 %license LICENSE
-%{_libdir}/libSFCGAL.so.1*
+%{_libdir}/libSFCGAL.so.2*
 
 %files devel
 %{_includedir}/SFCGAL
@@ -58,6 +57,10 @@ Development headers and libraries for SFCGAL.
 %doc example/ doc/html
 
 %changelog
+* Thu Jan 16 2025 Zenon Panoussis <oracle@provocation.net> - 2.0.0-1
+- Bump to 2.0.0
+- migrate the License tag to SPDX
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

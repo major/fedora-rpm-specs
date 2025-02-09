@@ -1,12 +1,12 @@
 # remirepo/fedora spec file for php-tecnickcom-tc-lib-barcode
 #
-# SPDX-FileCopyrightText:  Copyright 2015-2024 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2015-2025 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    cd5d8029eeaf6225b9ff4692364c4c473191e487
+%global gh_commit    8d65345d64cdcf8f5e254bd24f26c7e5f966befa
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
@@ -15,8 +15,8 @@
 %bcond_without       tests
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        2.4.2
-Release:        2%{?dist}
+Version:        2.4.3
+Release:        1%{?dist}
 Summary:        PHP library to generate linear and bidimensional barcodes
 
 License:        LGPL-3.0-or-later
@@ -137,6 +137,9 @@ exit $ret
 
 
 %changelog
+* Fri Feb  7 2025 Remi Collet <remi@remirepo.net> - 2.4.3-1
+- update to 2.4.3
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,15 +1,14 @@
 Name:           cockpit-image-builder
-Version:        v55
+Version:        59
 Release:        1%{?dist}
 Summary:        Image builder plugin for Cockpit
 
 License:        Apache-2.0
 URL:            http://osbuild.org/
-Source0:        https://github.com/osbuild/image-builder-frontend/releases/download/%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/osbuild/image-builder-frontend/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
-# Drop obsoletes until functional enough compared to cockpit-composer
-# Obsoletes:      cockpit-composer < 54
-# Provides:       cockpit-composer = %{version}-%{release}
+Obsoletes:      cockpit-composer < 54
+Provides:       cockpit-composer = %{version}-%{release}
 
 BuildArch:      noarch
 BuildRequires:  gettext
@@ -19,7 +18,7 @@ BuildRequires:  nodejs
 
 Requires:       cockpit
 Requires:       cockpit-files
-Requires:       osbuild-composer >= 103
+Requires:       osbuild-composer >= 131
 
 %description
 The image-builder-frontend generates custom images suitable for
@@ -49,6 +48,32 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %changelog
 # the changelog is distribution-specific, therefore there's just one entry
 # to make rpmlint happy.
+
+* Fri Feb 7 2025 Packit <hello@packit.dev> - 59-1
+Changes with 59
+----------------
+  * cockpit/spec: add obsoletes & fix release workflow (#2863)
+    * Author: Sanne Raymaekers, Reviewers: Nobody
+
+— Somewhere on the Internet, 2025-02-07
+
+
+* Fri Feb 7 2025 Packit <hello@packit.dev> - 58-1
+Changes with 58
+----------------
+  * api: add composer's cloudapi (HMS-5465) (#2855)
+    * Author: Sanne Raymaekers, Reviewers: Gianluca Zuccarelli
+  * cockpit plugin: enable all customizations and implement updating blueprints (HMS-5459) (#2848)
+    * Author: Sanne Raymaekers, Reviewers: Gianluca Zuccarelli, Klara Simickova
+  * cockpit: add basic test for the images table (#2814)
+    * Author: Sanne Raymaekers, Reviewers: Gianluca Zuccarelli, Klara Simickova
+  * devDeps: Manually bump vitest (HMS-5373) (#2784)
+    * Author: Klara Simickova, Reviewers: Sanne Raymaekers
+  * test: test hostname step on cockpit (#2861)
+    * Author: Sanne Raymaekers, Reviewers: Gianluca Zuccarelli
+
+— Somewhere on the Internet, 2025-02-07
+
 
 * Fri Jan 31 2025 Packit <hello@packit.dev> - v55-1
 Changes with 55

@@ -9,8 +9,8 @@ Summary:        High compatibility Gameboy Advance Emulator combining VBA builds
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
-Url:            http://www.vba-m.com
-Source0:        https://github.com/%{name}/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Url:            https://github.com/visualboyadvance-m/visualboyadvance-m
+Source0:        %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++

@@ -190,7 +190,7 @@ find . -name .gitignore -type f -delete -print
 find . -name .github    -type d -prune -exec rm -r {} \; -print
 
 # fix CLI upgrade advise on splash screen
-sed -i -e 's#./\(occ upgrade\)#sudo -u apache php /usr/share/nextcloud/\1#' core/templates/update.admin.php
+sed -i -e 's#\./\(occ upgrade\)#sudo -u apache php /usr/share/nextcloud/\1#' core/templates/update.admin.php
 
 # prepare package doc
 cp %{SOURCE300} README.%{distro}

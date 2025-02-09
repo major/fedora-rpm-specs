@@ -1,21 +1,24 @@
 # header-only library
 %global debug_package %{nil}
 
-%global apiversion 2.1
+%global apiversion 3.0
 
 Name: mdds
-Version: 2.1.1
+Version: 3.0.0
 Release: %autorelease
 Summary: A collection of multi-dimensional data structures and indexing algorithms
 
 License: MIT
 URL: https://gitlab.com/mdds/mdds
-Source0: http://kohei.us/files/%{name}/src/%{name}-%{version}.tar.bz2
+Source0: https://gitlab.com/mdds/mdds/-/archive/%{version}/mdds-%{version}.tar.bz2
+# https://gitlab.com/mdds/mdds/-/merge_requests/94
+Patch0:  include.patch
 
 BuildRequires: make
 BuildRequires: boost-devel
 BuildRequires: gcc-c++
 BuildRequires: autoconf
+BuildRequires: automake
 
 %description
 %{name} is a collection of multi-dimensional data structures and
@@ -42,10 +45,10 @@ It implements the following data structures:
 See README.md for a brief description of the structures.
 
 %prep
-%autosetup -p1
+%autosetup -p0
 
 %build
-autoconf
+./autogen.sh
 %configure
 
 %install

@@ -44,6 +44,14 @@ Patch1:		%{name}-register-volatile.patch
 Patch2:		%{name}-pts-access.patch
 # Do not call the deprecated siginterrupt function
 Patch3:		%{name}-siginterrupt.patch
+# Fix an iconv leak in stream.d
+Patch4:         %{name}-iconv-close.patch
+# Fix a memory leak in encoding.d
+# https://gitlab.com/gnu-clisp/clisp/-/merge_requests/11
+Patch5:		%{name}-encoding-leak.patch
+# Fix undefined behavior in rehash_symtab
+# https://gitlab.com/gnu-clisp/clisp/-/merge_requests/12
+Patch6:         %{name}-undefined-behavior.patch
 
 # Work around a problem inlining a function on ppc64le
 # See https://bugzilla.redhat.com/show_bug.cgi?id=2049371
@@ -136,8 +144,11 @@ cp -p %{SOURCE2} %{SOURCE3} src/po
 cp -p src/build-aux/config.rpath config.rpath.orig
 sed -i -e 's/${wl}-rpath ${wl}/-L/g' src/build-aux/config.rpath
 
-# Fix modules that need access to symbols in libgnu.a
-sed -i 's/\(${GLLIB_A}\) \(${LIBS}\)/-Wl,--whole-archive \1 -Wl,--no-whole-archive \2 -ldl/' src/makemake.in
+# Do not use -Werror, or we get build failures on every new gcc version
+sed -i '/CFLAGS -Werror/d' modules/berkeley-db/configure
+
+# Do not override our choice of optimization flags
+sed -i "/CFLAGS/s/'-O'/''/;/Z_XCFLAGS/s/' -O'//" src/makemake.in
 
 # When building modules, put -Wl,--as-needed before the libraries to link
 sed -i "s/CC='\${CC}'/CC='\${CC} -Wl,--as-needed'/" src/makemake.in
@@ -185,9 +196,9 @@ sed -i 's/9090/9096/g' tests/socket.tst
 	    --with-ffcall \
 	    --config \
 	    build \
-	    CPPFLAGS="-I/usr/include/libsvm" \
-	    CFLAGS="%{build_cflags} -Wa,--noexecstack" \
-	    LDFLAGS="-Wl,--as-needed -Wl,-z,relro -Wl,-z,noexecstack"
+	    CPPFLAGS='-I/usr/include/libsvm' \
+	    CFLAGS='%{build_cflags} -Wa,--noexecstack' \
+	    LDFLAGS='-Wl,--as-needed -Wl,-z,relro -Wl,-z,noexecstack'
 
 cd build
 # Workaround libtool reordering -Wl,--as-needed after all the libraries.
@@ -441,6 +452,11 @@ make -C build base-mod-check
 
 
 %changelog
+* Fri Feb  7 2025 Jerry James <loganjerry@gmail.com> - 2.49.95-3
+- Add patch to fix undefined behavior (rhbz#2339979)
+- Add two patches to fix memory leaks
+- Do not force -O1
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.49.95-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

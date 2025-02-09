@@ -20,13 +20,13 @@
 %endif
 
 #global         snapshot    1
-%global         date        20240508
-%global         revision    15289
+%global         date        20250206
+%global         revision    15304
 
 Summary:        A multimedia engine
 Name:           xine-lib
 Version:        1.2.13
-Release:        20%{?snapshot:.%{date}hg%{revision}}%{?dist}
+Release:        21%{?snapshot:.%{date}hg%{revision}}%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://www.xine-project.org/
 %if ! 0%{?snapshot}
@@ -48,6 +48,10 @@ Patch2:         xine-lib-1.2.13-ffmpeg6-compatibility_2.patch
 Patch3:         xine-lib-1.2.13-ffmpeg7-compatibility.patch
 # See: https://sourceforge.net/p/xine/xine-lib-1.2/ci/ea7071a960a1ca8719422e80e130994c8f549731/
 Patch4:         xine-lib-1.2.13-fix_libnfs6.patch
+# See:
+# https://sourceforge.net/p/xine/xine-lib-1.2/ci/a38be398e202da7b8e414969b74fbd65eb34798d/
+# https://sourceforge.net/p/xine/xine-lib-1.2/ci/b5fd08a878bb80072ba5b71e30391ab52698c22f/
+Patch5:         xine-lib-1.2.13-gcc_15.patch
 
 Provides:       xine-lib(plugin-abi) = %{plugin_abi}
 Provides:       xine-lib(plugin-abi)%{?_isa} = %{plugin_abi}
@@ -150,7 +154,11 @@ This package contains extra plugins for %{name}:
 
 
 %prep
-%autosetup -p1 %{?snapshot:-n %{name}-%{version}-%{date}hg%{revision}}
+%if ! 0%{?snapshot}
+%autosetup -p1
+%else
+%setup -n %{name}-%{version}-%{date}hg%{revision}
+%endif
 
 
 %build
@@ -349,6 +357,9 @@ mkdir -p %{buildroot}%{codecdir}
 
 
 %changelog
+* Fri Feb 07 2025 Xavier Bachelot <xavier@bachelot.org>- 1.2.13-21
+- Add upstream patch for gcc 15
+
 * Wed Feb 05 2025 Robert-André Mauchin <zebob.m@gmail.com> - 1.2.13-20
 - Rebuilt for aom 3.11.0
 

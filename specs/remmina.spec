@@ -2,7 +2,7 @@
 
 Name: remmina
 Version: 1.4.39
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Remote Desktop Client
 License: GPL-2.0-or-later and MIT
 URL: https://remmina.org
@@ -22,7 +22,10 @@ BuildRequires: gcc-c++
 BuildRequires: gettext
 BuildRequires: harfbuzz-devel
 BuildRequires: intltool
+%if 0%{?rhel} < 10
+# Upstream doesn't support KF6 yet https://gitlab.com/Remmina/Remmina/-/issues/3141
 BuildRequires: kf5-kwallet-devel
+%endif
 BuildRequires: libappstream-glib
 BuildRequires: libgcrypt-devel
 BuildRequires: libsodium-devel
@@ -38,7 +41,7 @@ BuildRequires: freerdp
 BuildRequires: pkgconfig(gtk+-3.0)
 BuildRequires: pkgconfig(json-glib-1.0)
 BuildRequires: pkgconfig(libsecret-1)
-%if 0%{?fedora} >= 37
+%if 0%{?fedora} >= 37 || 0%{?rhel} >= 10
 BuildRequires: pkgconfig(libsoup-3.0)
 %else
 BuildRequires: pkgconfig(libsoup-2.4)
@@ -50,11 +53,13 @@ BuildRequires: pkgconfig(libpcre2-8)
 BuildRequires: pkgconfig(spice-client-gtk-3.0)
 %endif
 BuildRequires: pkgconfig(vte-2.91)
+
 %if 0%{?fedora} >= 37
 BuildRequires: pkgconfig(webkit2gtk-4.1)
 %else
 BuildRequires: pkgconfig(webkit2gtk-4.0)
 %endif
+
 BuildRequires: pkgconfig(x11)
 BuildRequires: pkgconfig(xkbfile)
 BuildRequires: pkgconfig(libcurl)
@@ -169,6 +174,7 @@ computers in front of either large monitors or tiny net-books.
 This package contains the WWW plugin (web browser with authentication) for the
 Remmina remote desktop client.
 
+%if 0%{?rhel} < 10
 %package plugins-kwallet
 Summary: KDE Wallet plugin for Remmina Remote Desktop Client
 Requires: %{name}%{?_isa} = %{version}-%{release}
@@ -181,6 +187,7 @@ computers in front of either large monitors or tiny net-books.
 This package contains the KDE Wallet plugin for the Remmina remote desktop
 client. It will be activated automatically if KDE Wallet is installed and
 running.
+%endif
 
 %if 0%{?fedora} || 0%{?rhel} == 8
 %package plugins-x2go
@@ -236,7 +243,11 @@ that shows up under the display manager session menu.
     -DWITH_FREERDP3=ON \
     -DWITH_GCRYPT=ON \
     -DWITH_GETTEXT=ON \
+%if 0%{?rhel} < 10
     -DWITH_KF5WALLET=ON \
+%else
+    -DWITH_KF5WALLET=OFF \
+%endif
     -DWITH_KIOSK_SESSION=ON \
     -DWITH_LIBSSH=ON \
     -DWITH_NEWS=OFF \
@@ -318,8 +329,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 %files plugins-www
 %{_libdir}/remmina/plugins/remmina-plugin-www.so
 
+%if 0%{?rhel} < 10
 %files plugins-kwallet
 %{_libdir}/remmina/plugins/remmina-plugin-kwallet.so
+%endif
 
 %files plugins-python
 %{_libdir}/remmina/plugins/remmina-plugin-python_wrapper.so
@@ -340,6 +353,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 %{_mandir}/man1/remmina-gnome.1*
 
 %changelog
+* Fri Feb 07 2025 Daniel Milnes <daniel@daniel-milnes.uk> - 1.4.39-3
+- Add support for EPEL10 rhbz#2332346
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.39-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.14.0
 %define specversion 6.14.0
 %define patchversion 6.14
-%define pkgrelease 0.rc1.20250205git5c8c229261f1.17
+%define pkgrelease 0.rc1.20250207gitbb066fe812d6.19
 %define kversion 6
-%define tarfile_release 6.14-rc1-28-g5c8c229261f1
+%define tarfile_release 6.14-rc1-81-gbb066fe812d6
 # This is needed to do merge window version magic
 %define patchlevel 14
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc1.20250205git5c8c229261f1.17%{?buildid}%{?dist}
+%define specrelease 0.rc1.20250207gitbb066fe812d6.19%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.14.0
 
@@ -4180,12 +4180,19 @@ fi\
 #
 #
 %changelog
-* Wed Feb 05 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc1.5c8c229261f1.17]
+* Fri Feb 07 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc1.bb066fe812d6.19]
 - Add -fzero-init-padding-bits to bindgen_skip_cflags (Justin M. Forbes)
 - apply -Wno-error=unterminated-string-initialization temporarily (Thorsten Leemhuis)
 - x86/boot: Use '-std=gnu11' to fix build with GCC 15 (Nathan Chancellor)
 - include/linux: Adjust headers for C23 (Jakub Jelinek)
 - x86/insn_decoder_test: allow longer symbol-names (David Rheinsberg)
+
+* Fri Feb 07 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc1.bb066fe812d6.18]
+- fedora: enable USB device USB5744 (Peter Robinson)
+- Linux v6.14.0-0.rc1.bb066fe812d6
+
+* Thu Feb 06 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc1.92514ef226f5.17]
+- Linux v6.14.0-0.rc1.92514ef226f5
 
 * Wed Feb 05 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc1.5c8c229261f1.16]
 - rhel: enable FW_CACHE on RHEL (Dave Airlie)

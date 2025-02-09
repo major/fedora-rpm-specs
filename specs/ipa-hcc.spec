@@ -70,7 +70,7 @@
 
 Name:           %{package_name}
 Version:        0.18
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Hybrid Cloud Console extension for IPA
 
 BuildArch:      noarch
@@ -441,7 +441,8 @@ touch %{buildroot}%{_sysconfdir}/ipa/hcc.conf
 
 %make install_server_plugin install_registration_service
 %{__mkdir_p} %{buildroot}%{_sbindir}
-mv %{buildroot}%{_bindir}/ipa-hcc %{buildroot}%{_sbindir}/ipa-hcc
+# skip mv for unified bin/sbin (since f42)
+test -e %{buildroot}%{_sbindir}/ipa-hcc || mv %{buildroot}%{_bindir}/ipa-hcc %{buildroot}%{_sbindir}/ipa-hcc
 %py3_shebang_fix %{buildroot}%{_sbindir}/ipa-hcc
 %{__mkdir_p} %{buildroot}%{_sharedstatedir}/gssproxy
 touch %{buildroot}%{_sharedstatedir}/gssproxy/hcc-enrollment.keytab
@@ -595,10 +596,13 @@ install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/ipa-hcc.conf
 %endif
 
 %changelog
+* Fri Feb 7 2025 Fraser Tweedale <ftweedal@redhat.com> - 0.18-3
+- Fix build for unified sbin/bin
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
-* Sat Aug 10 2024 Fraser Tweedale <frase@frase.id.au> 0.18-1
+* Sat Aug 10 2024 Fraser Tweedale <ftweedal@redhat.com> 0.18-1
 - test: use RHEL with golang 1.21 for backend vm
 - test: fix idm-domains-backend-deploy after RBAC changes
 - chore: supress mypy errors in generated stubs

@@ -14,8 +14,15 @@
 
 %bcond_without check
 
+# use this to re-test running all tests
+%ifarch ppc64le
+%bcond_with all_tests
+%else
+%bcond_without all_tests
+%endif
+
 Name:           fbthrift
-Version:        2024.08.19.00
+Version:        2025.02.03.00
 Release:        %autorelease
 Summary:        Facebook's branch of Apache Thrift, including a new C++ server
 
@@ -24,7 +31,7 @@ URL:            https://github.com/facebook/fbthrift
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # revert the fix for https://github.com/facebook/fbthrift/issues/276
 # we don't want a mix of dynamic and static libraries
-Patch:          %{name}-fix-static-compiler_base.diff
+Patch:          %{name}-fix-static-libs.diff
 
 ExclusiveArch:  x86_64 aarch64 ppc64le riscv64
 
@@ -43,6 +50,7 @@ BuildRequires:  fizz-devel = %{version}
 BuildRequires:  folly-devel = %{version}
 BuildRequires:  mvfst-devel = %{version}
 BuildRequires:  wangle-devel = %{version}
+BuildRequires:  xxhash-devel
 # Test dependencies
 %if %{with check}
 BuildRequires:  gmock-devel
@@ -71,6 +79,7 @@ Thrift server.}
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       xxhash-devel
 Conflicts:      thrift-devel
 Obsoletes:      %{name}-static < 2022.02.28.00-1
 
@@ -128,22 +137,44 @@ cat %{SOURCE1} | patch -p1
 %else
   -Denable_tests=OFF
 %endif
+
+# [ 90%] Generating protocolconformance files. Output: /builddir/build/BUILD/fbthrift-2025.02.03.00-build/fbthrift-2025.02.03.00/redhat-linux-build/thrift/lib/cpp2/test/../../../conformance/if
+# cd /builddir/build/BUILD/fbthrift-2025.02.03.00-build/fbthrift-2025.02.03.00/redhat-linux-build/thrift/lib/cpp2/test && ../../../../bin/thrift1 --gen mstch_cpp2:frozen2,include_prefix=thrift/conformance/if -o /builddir/build/BUILD/fbthrift-2025.02.03.00-build/fbthrift-2025.02.03.00/redhat-linux-build/thrift/lib/cpp2/test/../../../conformance/if -I /builddir/build/BUILD/fbthrift-2025.02.03.00-build/fbthrift-2025.02.03.00 /builddir/build/BUILD/fbthrift-2025.02.03.00-build/fbthrift-2025.02.03.00/thrift/lib/cpp2/test/../../../conformance/if/protocol.thrift
+# Output path /builddir/build/BUILD/fbthrift-2025.02.03.00-build/fbthrift-2025.02.03.00/redhat-linux-build/thrift/lib/cpp2/test/../../../conformance/if is unusable or not a directory
+# make[2]: *** [thrift/lib/cpp2/test/CMakeFiles/protocolconformance-cpp2-target.dir/build.make:80: thrift/conformance/if/gen-cpp2/protocol_constants.h] Error 1
+mkdir -p %{__cmake_builddir}/thrift/conformance/if
+
 %cmake_build
 
 
 %install
 %cmake_install
 
+# TODO - need to disable these properly
+rm -rf %{buildroot}%{_prefix}/lib/fb-py-libs
+
 %if %{with python}
 # Delete RPATHs
 chrpath --delete \
-  $RPM_BUILD_ROOT%{python3_sitearch}/thrift/py3/*.so
+  %{buildroot}%{python3_sitearch}/thrift/py3/*.so
 %endif
 
 
 %if %{with check}
 %check
+%if %{with all_tests}
 %ctest
+%else
+
+EXCLUDED_TESTS='--exclude-regex '
+
+%ifarch ppc64le
+EXCLUDED_TESTS+='F14RoundTripTest\.RoundTrip'
+%endif
+
+%ctest -- ${EXCLUDED_TESTS}
+%endif
+
 %endif
 
 
@@ -154,6 +185,7 @@ chrpath --delete \
 
 %files devel
 %doc CODE_OF_CONDUCT.md CONTRIBUTING.md README.md
+%{_bindir}/ProtocolBench
 %{_includedir}/*
 %{_libdir}/*.so
 %{_libdir}/cmake/%{name}

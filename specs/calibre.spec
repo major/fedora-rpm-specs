@@ -3,7 +3,7 @@
 %global _python_bytecompile_extra 0
 
 Name:           calibre
-Version:        7.21.0
+Version:        7.25.0
 Release:        %autorelease
 Summary:        E-book converter and library manager
 # see COPYRIGHT file for a listing
@@ -18,8 +18,6 @@ Patch:          calibre-no-update.patch
 # Do not display multiple apps in desktop files, only the main app
 # This is so gnome-software only 'sees' calibre once.
 Patch:          calibre-nodisplay.patch
-
-Patch:          0001-Fix-build-with-std-gnu23.patch
 
 ExclusiveArch: aarch64 x86_64
 
@@ -97,6 +95,7 @@ BuildRequires:  python3-pyqt6-webengine-devel
 BuildRequires:  python3-fonttools
 BuildRequires:  python3-zstd
 BuildRequires:  python3dist(xxhash)
+BuildRequires:  pykakasi
 
 %{?pyqt6_requires}
 # once ^^ %%pyqt5_requires is everywhere, can drop python-qt5 dep below -- rex

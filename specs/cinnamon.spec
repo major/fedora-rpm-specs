@@ -15,8 +15,8 @@
 %global __python %{__python3}
 
 Name:           cinnamon
-Version:        6.4.6
-Release:        3%{?dist}
+Version:        6.4.7
+Release:        1%{?dist}
 Summary:        Window management and application launching for GNOME
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
@@ -349,6 +349,9 @@ EOF
 %endif
 
 %changelog
+* Sat Feb 08 2025 Leigh Scott <leigh123linux@gmail.com> - 6.4.7-1
+- Update to 6.4.7
+
 * Mon Jan 20 2025 Leigh Scott <leigh123linux@gmail.com> - 6.4.6-3
 - Add recommends tuned-ppd for power applet power levels
 

@@ -1,13 +1,11 @@
 Name:           atasm
-Version:        1.25
-Release:        3%{?dist}
+Version:        1.26
+Release:        1%{?dist}
 Summary:        6502 cross-assembler
 
-License:        GPL-2.0-or-later
+License:        GPL-2.0-or-later AND RSA-MD
 URL:            https://github.com/CycoPH/atasm
 Source0:        %{url}/archive/V%{version}.tar.gz#/%{name}-%{version}.tar.gz
-# upstream fixes
-Patch0:         %{name}-1.25-fixes.patch
 
 BuildRequires:  gcc
 BuildRequires:  zlib-devel
@@ -56,6 +54,9 @@ popd
 
 
 %changelog
+* Fri Feb 07 2025 Dan Horák <dan[at]danny.cz> - 1.26-1
+- update to 1.26 (rhbz#2344023)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.25-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

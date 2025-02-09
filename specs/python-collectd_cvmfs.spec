@@ -1,7 +1,7 @@
 %global forgeurl https://github.com/cvmfs/collectd-cvmfs
 
 Name:           python-collectd_cvmfs
-Version:        1.3.3
+Version:        1.3.4
 %global tag     %{version}
 %forgemeta
 Release:        %autorelease

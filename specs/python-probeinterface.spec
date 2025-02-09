@@ -4,8 +4,18 @@
 # We can generate PDF documentation as a substitute.
 %bcond doc_pdf 1
 
+# Tests failing--Maybe related to new Zarr version
+# https://github.com/SpikeInterface/probeinterface/issues/313
+#
+# Incompatible with Zarr 3
+# https://bugzilla.redhat.com/show_bug.cgi?id=2338932
+#
+# Turn this off to disable Zarr tests if we still are not compatible when it’s
+# time to ship Zarr 3.
+%bcond zarr 1
+
 Name:           python-probeinterface
-Version:        0.2.24
+Version:        0.2.25
 Release:        %autorelease
 Summary:        Handles probe layout, geometry, and wiring to device
 
@@ -28,6 +38,7 @@ Source2:        %{probe_url}/cambridgeneurotech/ASSY-156-P-1/ASSY-156-P-1.json
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  tomcli
 
 %if %{with doc_pdf}
 BuildRequires:  make
@@ -97,7 +108,13 @@ sed -r -i 's/(matplotlib)==/\1>=/' pyproject.toml
 # Drop coverage tools from test dependencies.
 #
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-sed -r -i 's/^([[:blank:]])(.*pytest-cov.*,)$/\1# \2/' pyproject.toml
+tomcli set pyproject.toml lists delitem --type regex \
+    project.optional-dependencies.test 'pytest-cov\b.*'
+
+%if %{without zarr}
+tomcli set pyproject.toml lists delitem --type regex \
+    project.optional-dependencies.test 'zarr\b.*'
+%endif
 
 # Pre-populate the probe definition cache
 PROBE_CACHE="${HOME}/.config/probeinterface/library"
@@ -131,11 +148,30 @@ PYTHONPATH='%{buildroot}%{python3_sitelib}' %make_build -C doc latex \
 
 
 %check
+# The probeinterface.testing module loads probe.json.schema, which doesn’t ship
+# with the wheel
+# https://github.com/SpikeInterface/probeinterface/issues/321
+#
+# A proposed solution is:
+#
+# Move probeinterface.testing out of the API; fixes #321
+# https://github.com/SpikeInterface/probeinterface/pull/322
+#
+# This is a temporary workaround:
+ln -s "${PWD}/resources/" '%{buildroot}%{python3_sitelib}/../resources'
+trap 'rm %{buildroot}%{python3_sitelib}/../resources' INT TERM EXIT
+
+%pyproject_check_import
+
 # Skip tests that unconditionally download probe interface definitions and
 # bypass the cache.
 # https://github.com/SpikeInterface/probeinterface/issues/70.
 k="${k-}${k+ and }not test_download_probeinterface_file"
 k="${k-}${k+ and }not test_get_from_cache"
+
+%if %{without zarr}
+k="${k-}${k+ and }not test_save_to_zarr"
+%endif
 
 %pytest -k "${k-}"
 

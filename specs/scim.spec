@@ -1,6 +1,6 @@
 Name:      scim
 Version:   1.4.18
-Release:   11%{?dist}
+Release:   12%{?dist}
 Summary:   Smart Common Input Method platform
 
 License:   LGPL-2.1-or-later
@@ -63,8 +63,8 @@ Obsoletes:  scim-bridge-qtimm < 0.4.2
 Obsoletes:  scim-bridge-qt4 < 0.4.15-3
 Provides:   scim-bridge = 0.4.17
 Obsoletes:  scim-bridge < 0.4.17
-Patch1:    scim-add-restart.patch
-Patch7:    scim_panel_gtk-emacs-cc-style.patch
+Patch7:     scim_panel_gtk-emacs-cc-style.patch
+Patch9:     scim-fixes-compile.patch
 
 %description
 SCIM is a user friendly and full featured input method user interface and
@@ -133,7 +133,7 @@ but their unicode codepoints.
 
 
 %prep
-%setup -q -a2
+%autosetup -a2 -p1
 
 cp -p scim-icons/icons/*.png data/icons
 cp -p scim-icons/pixmaps/*.png data/pixmaps
@@ -143,8 +143,6 @@ mv configs/config{,.orig}
 cp -p %{SOURCE3} configs/config
 mv configs/global{,.orig} 
 cp -p %{SOURCE4} configs/global
-
-%patch -P7 -p1 -b .7-emacs-ccmode~
 
 ./bootstrap
 
@@ -260,6 +258,10 @@ fi
 
 
 %changelog
+* Fri Feb  7 2025 Peng Wu <pwu@redhat.com> - 1.4.18-12
+- Fix build
+- Resolves: RHBZ#2341330
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.18-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -16,8 +16,8 @@
 %bcond_with          defcmd
 %endif
 
-%global gh_commit    3c3ae14c90f244cdda95028c3e469028e8d1c02c
-%global gh_date      2025-01-31
+%global gh_commit    e1cb706f019e2547039ca2c839898cd5f557ee5d
+%global gh_date      2025-02-07
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -30,12 +30,12 @@
 %global ver_major    11
 %global ver_minor    5
 
-%global upstream_version 11.5.6
+%global upstream_version 11.5.7
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
 License:        BSD-3-Clause
@@ -139,12 +139,9 @@ Recommends:     phpunit12
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
 # From phpcompatinfo report for version 10.0.0
-Requires:       php-reflection
 Requires:       php-openssl
 Requires:       php-pcntl
-Requires:       php-pcre
 Requires:       php-phar
-Requires:       php-spl
 
 %if 0%{?fedora} >= 39 || 0%{?rhel} >= 10
 Provides:       php-composer(phpunit/phpunit) = %{version}
@@ -294,6 +291,9 @@ exit $ret
 
 
 %changelog
+* Fri Feb  7 2025 Remi Collet <remi@remirepo.net> - 11.5.7-1
+- update to 11.5.7
+
 * Mon Feb  3 2025 Remi Collet <remi@remirepo.net> - 11.5.6-2
 - F-40: drop phpunit command, provided by phpunit10
 - EL-10: drop phpunit command, provided by phpunit12

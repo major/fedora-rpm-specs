@@ -59,7 +59,7 @@ code.
 %cmake -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON \
-    -DIWYU_RESOURCE_DIR='../lib/clang/%{llvmver}'
+    -DIWYU_RESOURCE_DIR='../../../lib/clang/%{llvmver}'
 %cmake_build
 
 %install

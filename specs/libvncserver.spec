@@ -2,8 +2,8 @@
 
 Summary:    Library to make writing a VNC server easy
 Name:       libvncserver
-Version:    0.9.14
-Release:    6%{?dist}
+Version:    0.9.15
+Release:    1%{?dist}
 
 # NOTE: --with-filetransfer => GPLv2
 License:    GPL-2.0-or-later
@@ -14,7 +14,6 @@ Source0:    https://github.com/LibVNC/libvncserver/archive/LibVNCServer-%{versio
 # https://github.com/LibVNC/libvncserver/pull/234
 Patch10: 0001-libvncserver-Add-API-to-add-custom-I-O-entry-points.patch
 Patch11: 0002-libvncserver-Add-channel-security-handlers.patch
-Patch12: ffmpeg.patch
 
 ## downstream patches
 Patch102: libvncserver-LibVNCServer-0.9.13-system-crypto-policy.patch
@@ -83,32 +82,16 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q -n %{name}-LibVNCServer-%{version}
-
-%patch -P10 -p1 -b .tls-1
-%patch -P11 -p1 -b .tls-2
-%patch -P12 -p1 -b .include_ffmpeg
-%patch -P102 -p1 -b .crypto_policy
+%autosetup -p1 -n %{name}-LibVNCServer-%{version}
 
 # Nuke bundled minilzo
-#rm common/base64.c
-#rm common/base64.h
-#rm common/crypto.h
-#rm common/crypto_included.c
-#rm common/crypto_libgcrypt.c
-rm common/crypto_openssl.c
-rm common/d3des.c
-rm common/d3des.h
-rm common/minilzo.h
-rm common/sha1.c
-rm common/sha.h
-rm common/sha-private.h
-#rm common/sockets.c
-#rm common/sockets.h
-#rm common/turbojpeg.c
-#rm common/turbojpeg.h
-#rm common/vncauth.c
-#rm common/zywrletemplate.c
+rm src/common/crypto_openssl.c
+rm src/common/d3des.c
+rm src/common/d3des.h
+rm src/common/minilzo.h
+rm src/common/sha1.c
+rm src/common/sha.h
+rm src/common/sha-private.h
 
 # Fix encoding
 for file in ChangeLog ; do
@@ -147,6 +130,9 @@ done
 
 
 %changelog
+* Fri Feb 07 2025 Sérgio Basto <sergio@serjux.com> - 0.9.15-1
+- Update libvncserver to 0.9.15 (#2155072)
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.14-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

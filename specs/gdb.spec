@@ -923,6 +923,15 @@ fi
 # endif scl
 
 %changelog
+* Fri Feb 06 2025 Andrew Burgess <aburgess@redhat.com>
+- Remove gdb-6.5-bz218379-ppc-solib-trampoline-test.patch.  There must
+  be upstream tests that 'next' over a libc call.  Additionally, it is
+  not clear to me exactly what bug is being tested for here.
+
+* Fri Feb 06 2025 Andrew Burgess <aburgess@redhat.com>
+- Remove gdb-gstack.man file.  This is no longer used.  There is an
+  upstream version of gstack which provides its own man page.
+
 * Tue Feb 04 2025 Alexandra Hájková <ahajkova@redhat.com> - 16.2-1
 - Rebase to FSF GDB 16.2.
   Modified: gdb-add-rpm-suggestion-script.patch

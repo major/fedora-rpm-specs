@@ -1,6 +1,3 @@
-# Enable Python dependency generation
-%{?python_enable_dependency_generator}
-
 %global desc \
 The KIWI boxed plugin provides support for self contained building \
 of images based on fast booting VM images.
@@ -8,8 +5,8 @@ of images based on fast booting VM images.
 %global srcname kiwi_boxed_plugin
 
 Name:           kiwi-boxed-plugin
-Version:        0.2.38
-Release:        2%{?dist}
+Version:        0.2.48
+Release:        1%{?dist}
 URL:            https://github.com/OSInside/kiwi-boxed-plugin
 Summary:        KIWI - Boxed Build Plugin
 License:        GPL-3.0-or-later
@@ -21,15 +18,8 @@ BuildRequires:  python3-setuptools
 
 # doc build requirements
 BuildRequires:  make
-BuildRequires:  python3dist(cerberus)
-%if 0%{?fedora} >= 41 || 0%{?rhel} >= 10
-BuildRequires:  python3dist(docopt-ng)
-%else
-BuildRequires:  python3dist(docopt)
-%endif
-BuildRequires:  python3dist(kiwi)
-BuildRequires:  python3dist(pyyaml)
-BuildRequires:  python3dist(requests)
+BuildRequires:  python3dist(sphinx)
+BuildRequires:  python3dist(sphinx-rtd-theme)
 
 Requires:       python3-%{name} = %{version}-%{release}
 Supplements:    (kiwi-cli and qemu-kvm)
@@ -52,16 +42,23 @@ This package provides the Python 3 library plugin.
 %prep
 %autosetup -n %{srcname}-%{version} -p1
 
-# Switch things to docopt-ng for Fedora 41+
-%if 0%{?fedora} >= 41 || 0%{?rhel} >= 10
-sed -e 's/docopt/docopt-ng>=0.9.0/' -i setup.py
+# Temporarily switch things back to docopt for everything but Fedora 41+
+# FIXME: Drop this hack as soon as we can...
+%if ! (0%{?fedora} >= 41 || 0%{?rhel} >= 10)
+sed -e 's/docopt-ng.*/docopt = ">=0.6.2"/' -i pyproject.toml
 %endif
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
+
+# Build man pages
+make -C doc man
 
 %install
-%py3_install
+%pyproject_install
 
 # Install documentation
 make buildroot=%{buildroot}/ docdir=%{_defaultdocdir}/ install
@@ -79,6 +76,9 @@ rm -f %{buildroot}%{_defaultdocdir}/python-%{srcname}/README
 %{python3_sitelib}/%{srcname}*
 
 %changelog
+* Fri Feb 07 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.2.48-1
+- Update to 0.2.48
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.38-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

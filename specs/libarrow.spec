@@ -30,8 +30,8 @@
 %bcond_without have_utf8proc
 
 Name:		libarrow
-Version:	18.0.0
-Release:	4%{?dist}
+Version:	19.0.0
+Release:	1%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
@@ -709,6 +709,8 @@ pushd cpp
 %endif
 %if %{with use_mimalloc}
   -DARROW_MIMALLOC:BOOL=ON \
+%else
+  -DARROW_MIMALLOC:BOOL=OFF \
 %endif
   -DARROW_ORC=ON \
   -DARROW_PARQUET:BOOL=ON \
@@ -823,6 +825,9 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Fri Feb 7 2025  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 19.0.0-1
+- Arrow 19.0.0 GA
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 18.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 
 Name:		console-setup
-Version:	1.233
-Release:	2%{?dist}
+Version:	1.234
+Release:	1%{?dist}
 Summary:	Tools for configuring the console using X Window System key maps
 
 # For a breakdown of the licensing, see COPYRIGHT, copyright, copyright.fonts and copyright.xkb
@@ -94,6 +94,10 @@ cp -a Fonts/fontsets Fonts/*.equivalents Fonts/*.set \
 
 
 %changelog
+* Fri Feb 07 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.234-1
+- Update to latest upstream version
+  Resolves: #2343490
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.233-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

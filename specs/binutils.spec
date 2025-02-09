@@ -7,7 +7,7 @@ Name: binutils%{?_with_debug:-debug}
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
 Version: 2.44
-Release: 1%{?dist}
+Release: 3%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -311,13 +311,21 @@ Patch19: binutils-gold-ignore-execstack-error.patch
 # Lifetime: Fixed in 2.44
 Patch20: binutils-fix-ar-test.patch
 
-# # Purpose:  Reverts commit 4f576180 which moves the .note.build-id section to the start of the file.
-# # Lifetime: TTEMPORARY
-# Patch98: binutils-revert-note-id-move.patch
+# Purpose:  Fix a seg fault in the AArch64 linker when building u-boot.
+# Lifetime: Fixed in 2.45
+Patch21: binutils-aarch64-small-plt0.patch
+
+#----------------------------------------------------------------------------
 
 # Purpose:  Suppress the x86 linker's p_align-1 tests due to kernel bug on CentOS-10
 # Lifetime: TEMPORARY
 Patch99: binutils-suppress-ld-align-tests.patch
+
+# Purpose: Disable GCS warnings when shared dependencies are not built with GCS
+# support
+# Lifetime: TEMPORARY
+Patch100: binutils-disable-gcs-report-dynamic.patch
+Patch101: binutils-disable-gcs-report-dynamic-tests.patch
 
 #----------------------------------------------------------------------------
 
@@ -1419,6 +1427,12 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Fri Feb 07 2025 Nick Clifton <nickc@redhat.com> - 2.44-3
+- Fix seg fault in AArch64 linker when building u-boot.  (#2326190)
+
+* Thu Feb 06 2025 Siddhesh Poyarekar <siddhesh@redhat.com> - 2.44-2
+- Default gcs-report-dynamic to NONE for Fedora.
+
 * Mon Feb 03 2025 Nick Clifton <nickc@redhat.com> - 2.44-1
 - Rebase to official GNU Binutils 2.44 release
 

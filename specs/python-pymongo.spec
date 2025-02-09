@@ -5,7 +5,7 @@
 
 Name:           python-pymongo
 Version:        4.9.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 License:        Apache-2.0
 Summary:        Python driver for MongoDB
@@ -85,7 +85,12 @@ contains the python3 version of this module.
 # - pymongo-auth-aws: needed for aws and encryption extras
 # - pymongocrypt: needed for encryption extra
 # - pykerberos: needed for gssapi extra
+# No snappy on i686
+%ifarch %{ix86}
+%pyproject_extras_subpkg -n python3-pymongo ocsp zstd
+%else
 %pyproject_extras_subpkg -n python3-pymongo ocsp snappy zstd
+%endif
 
 
 %prep
@@ -96,7 +101,11 @@ sed -i '/pytest-asyncio/s/0\.24\.0/0.23.0/' requirements/test.txt
 
 
 %generate_buildrequires
-%pyproject_buildrequires -t -x ocsp,snappy,test,zstd
+%ifarch %{ix86}
+%pyproject_buildrequires -x ocsp,test,zstd
+%else
+%pyproject_buildrequires -x ocsp,snappy,test,zstd
+%endif
 
 
 %build
@@ -116,7 +125,36 @@ rm doc/_build/html/.buildinfo
 
 
 %check
-%tox
+# Skip tests that require network/nameservers
+%pytest -v \
+  --deselect=test/asynchronous/test_client.py::AsyncClientUnitTest::test_connection_timeout_ms_propagates_to_DNS_resolver \
+  --deselect=test/asynchronous/test_client.py::AsyncClientUnitTest::test_detected_environment_logging \
+  --deselect=test/asynchronous/test_client.py::AsyncClientUnitTest::test_detected_environment_warning \
+  --deselect=test/test_client.py::ClientUnitTest::test_connection_timeout_ms_propagates_to_DNS_resolver \
+  --deselect=test/test_client.py::ClientUnitTest::test_detected_environment_logging \
+  --deselect=test/test_client.py::ClientUnitTest::test_detected_environment_warning \
+  --deselect=test/test_srv_polling.py::TestSrvPolling::test_10_all_dns_selected \
+  --deselect=test/test_srv_polling.py::TestSrvPolling::test_11_all_dns_selected \
+  --deselect=test/test_srv_polling.py::TestSrvPolling::test_12_new_dns_randomly_selected \
+  --deselect=test/test_srv_polling.py::TestSrvPolling::test_addition \
+  --deselect=test/test_srv_polling.py::TestSrvPolling::test_dns_failures \
+  --deselect=test/test_srv_polling.py::TestSrvPolling::test_dns_record_lookup_empty \
+  --deselect=test/test_srv_polling.py::TestSrvPolling::test_does_not_flipflop \
+  --deselect=test/test_srv_polling.py::TestSrvPolling::test_recover_from_initially_empty_seedlist \
+  --deselect=test/test_srv_polling.py::TestSrvPolling::test_recover_from_initially_erroring_seedlist \
+  --deselect=test/test_srv_polling.py::TestSrvPolling::test_removal \
+  --deselect=test/test_srv_polling.py::TestSrvPolling::test_replace_both_with_one \
+  --deselect=test/test_srv_polling.py::TestSrvPolling::test_replace_both_with_two \
+  --deselect=test/test_srv_polling.py::TestSrvPolling::test_replace_one \
+  --deselect=test/test_srv_polling.py::TestSrvPolling::test_srv_service_name \
+  --deselect=test/test_srv_polling.py::TestSrvPolling::test_srv_waits_to_poll \
+  --deselect=test/test_uri_spec.py::TestAllScenarios::test_test_uri_options_srv-options_SRV_URI_with_custom_srvServiceName \
+  --deselect=test/test_uri_spec.py::TestAllScenarios::test_test_uri_options_srv-options_SRV_URI_with_invalid_type_for_srvMaxHosts \
+  --deselect=test/test_uri_spec.py::TestAllScenarios::test_test_uri_options_srv-options_SRV_URI_with_negative_integer_for_srvMaxHosts \
+  --deselect=test/test_uri_spec.py::TestAllScenarios::test_test_uri_options_srv-options_SRV_URI_with_positive_srvMaxHosts_and_loadBalanced=false \
+  --deselect=test/test_uri_spec.py::TestAllScenarios::test_test_uri_options_srv-options_SRV_URI_with_srvMaxHosts \
+  --deselect=test/test_uri_spec.py::TestAllScenarios::test_test_uri_options_srv-options_SRV_URI_with_srvMaxHosts=0_and_loadBalanced=true \
+  --deselect=test/test_uri_spec.py::TestAllScenarios::test_test_uri_options_srv-options_SRV_URI_with_srvMaxHosts=0_and_replicaSet \
 
 
 %files doc
@@ -144,6 +182,10 @@ rm doc/_build/html/.buildinfo
 
 
 %changelog
+* Thu Feb 06 2025 Orion Poplawski <orion@nwra.com> - 4.9.1-3
+- Use pytest for tests
+- Drop snappy extra on i686
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

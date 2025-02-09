@@ -36,8 +36,6 @@
   %bcond_without OPENSSL_ENGINE
 %endif
 
-%{?!bind_uid:  %global bind_uid  25}
-%{?!bind_gid:  %global bind_gid  25}
 %{!?_pkgdocdir:%global _pkgdocdir %{_docdir}/%{name}-%{version}}
 %global        bind_dir          /var/named
 %global        chroot_prefix     %{bind_dir}/chroot
@@ -87,8 +85,8 @@ License:  MPL-2.0 AND ISC AND MIT AND BSD-3-Clause AND BSD-2-Clause
 #
 # Before rebasing bind, ensure bind-dyndb-ldap is ready to be rebuild and use side-tag with it.
 # Updating just bind will cause freeipa-dns-server package to be uninstallable.
-Version:  9.18.32
-Release:  6%{?dist}
+Version:  9.18.33
+Release:  1%{?dist}
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
 #
@@ -118,6 +116,7 @@ Source44: named-chroot-setup.service
 Source46: named-setup-rndc.service
 Source48: setup-named-softhsm.sh
 Source49: named-chroot.files
+Source50: named.sysusers
 
 # Common patches
 # FIXME: Is this still required?
@@ -136,8 +135,9 @@ Patch29: bind-9.20-nsupdate-tls-doc.patch
 Patch30: bind-9.20-nsupdate-tls-test.patch
 
 %{?systemd_ordering}
+# https://fedoraproject.org/wiki/Changes/RPMSuportForSystemdSysusers
+%{?sysusers_requires_compat}
 Requires:       coreutils
-Requires(pre):  shadow-utils
 Requires(post): shadow-utils
 Requires(post): glibc-common
 Requires(post): grep
@@ -207,12 +207,6 @@ BuildRequires:  python3-sphinx-latex latexmk texlive-xetex texlive-xindy
 %if %{with TSAN}
 BuildRequires: libtsan
 %endif
-
-# https://fedoraproject.org/wiki/Changes/RPMSuportForSystemdSysusers
-# since we don't follow the guidelines on how users and groups should
-# be created we must explicitly specify these provides
-Provides: user(named)
-Provides: group(named)
 
 %description
 BIND (Berkeley Internet Name Domain) is an implementation of the DNS
@@ -594,6 +588,9 @@ install -m 644 %{SOURCE38} ${RPM_BUILD_ROOT}%{_unitdir}
 install -m 644 %{SOURCE44} ${RPM_BUILD_ROOT}%{_unitdir}
 install -m 644 %{SOURCE46} ${RPM_BUILD_ROOT}%{_unitdir}
 
+mkdir -p ${RPM_BUILD_ROOT}%{_sysusersdir}
+install -m 644 %{SOURCE50} ${RPM_BUILD_ROOT}%{_sysusersdir}/named.conf
+
 mkdir -p ${RPM_BUILD_ROOT}%{_libexecdir}
 install -m 755 %{SOURCE41} ${RPM_BUILD_ROOT}%{_libexecdir}/setup-named-chroot.sh
 install -m 755 %{SOURCE42} ${RPM_BUILD_ROOT}%{_libexecdir}/generate-rndc-key.sh
@@ -706,8 +703,7 @@ install -m 644 %{SOURCE43} ${RPM_BUILD_ROOT}%{_sysconfdir}/rwtab.d/named
 
 %pre
 if [ "$1" -eq 1 ]; then
-  /usr/sbin/groupadd -g %{bind_gid} -f -r named >/dev/null 2>&1 || :;
-  /usr/sbin/useradd  -u %{bind_uid} -r -N -M -g named -s /sbin/nologin -d /var/named -c Named named >/dev/null 2>&1 || :;
+  %sysusers_create_compat %{SOURCE50}
 fi;
 :;
 
@@ -806,6 +802,7 @@ fi;
 %{_sysconfdir}/rwtab.d/named
 %{_unitdir}/named.service
 %{_unitdir}/named-setup-rndc.service
+%{_sysusersdir}/named.conf
 %{_bindir}/named-journalprint
 %{_bindir}/named-checkconf
 %{_bindir}/named-rrchecker
@@ -994,6 +991,12 @@ fi;
 %endif
 
 %changelog
+* Sun Feb 02 2025 Petr Menšík <pemensik@redhat.com> - 32:9.18.33-1
+- Update to 9.16.33 (rhbz#2342784)
+
+* Fri Jan 17 2025 Petr Menšík <pemensik@redhat.com> - 32:9.18.32-7
+- Add sysusers named user creation (rhbz#2105415)
+
 * Thu Jan 16 2025 Adam Williamson <awilliam@redhat.com> - 32:9.18.32-6
 - Rebuild again on mass rebuild tag so -4 doesn't override -5
 

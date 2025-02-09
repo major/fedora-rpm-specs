@@ -1,7 +1,7 @@
 %global srcname imageio
 
 Name: python-%{srcname}
-Version: 2.36.1
+Version: 2.37.0
 Release: %autorelease
 Summary: Python IO of image, video, scientific, and volumetric data formats.
 License: BSD-2-Clause

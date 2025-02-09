@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 35
+%global baserelease 37
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -368,8 +368,8 @@ Requires: glibc-common = %{version}-%{release}
 # Various components (regex, glob) have been imported from gnulib.
 Provides: bundled(gnulib)
 
-Requires(pre): basesystem
-Requires: basesystem
+Requires(pre): filesystem
+Requires: filesystem
 
 %ifarch %{ix86}
 # Automatically install the 32-bit variant if the 64-bit variant has
@@ -2377,6 +2377,12 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Fri Feb  7 2025 Florian Weimer <fweimer@redhat.com> - 2.40.9000-37
+- Add dependency on filesystem
+
+* Fri Feb  7 2025 Florian Weimer <fweimer@redhat.com> - 2.40.9000-36
+- Drop dependency on basesystem
+
 * Tue Jan 28 2025 DJ Delorie <dj@redhat.com> - 2.40.9000-35
 - Auto-sync with upstream branch master,
   commit 9b2f20dd54079afb68addf23685b039f1accd6e0.

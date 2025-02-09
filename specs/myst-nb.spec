@@ -5,7 +5,7 @@
 %global giturl  https://github.com/executablebooks/MyST-NB
 
 Name:           myst-nb
-Version:        1.1.2
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Jupyter Notebook Sphinx reader
 
@@ -53,7 +53,8 @@ sed -i 's/==\([*.[:digit:]]*\)//' pyproject.toml
 sed -e 's/9bc81205a14646a235d284d1b68223d17f30f7f1d3d8ed3e52cf47830b02e3bb/6b2036253586d5fc9698aafec0292cfad0dd12c9f8fefb3f6be255409b89ed39/g' \
     -e 's/a2e637020dfe58f670ba2c942d7a55e49ba48bed09312569ee15a84f5ac680cb/b99cf76118b984ae1e1a23821dd0793a98b20eb318387e0d64e45b6d7ce14a28/g' \
     -i tests/test_execute/test_complex_outputs_unrun_{auto,cache}.xml \
-       tests/test_execute/test_custom_convert_{auto,cache}.xml
+       tests/test_execute/test_custom_convert_{auto,cache}.xml \
+       tests/test_execute/test_custom_convert_multiple_extensions_{auto,cache}.xml
 %pyproject_buildrequires -x testing%{?with_doc:,rtd}
 
 %build

@@ -184,8 +184,8 @@
 # main package definition
 #################################################################################
 Name:		ceph
-Version:	19.2.0
-Release:	10%{?dist}
+Version:	19.2.1
+Release:	2%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -218,7 +218,6 @@ Patch0035:	0035-src-CMakeLists.txt.patch
 Patch0036:	0036-src-cephadm-build.py.patch
 Patch0040:	0040-gcc-14.patch
 Patch0041:	0041-src-mgr-PyModule.cc.patch
-Patch0042:	0042-src-common-dout.h.patch
 Patch0043:	0043_src_common_crc32c_ppc_asm.S.patch
 Patch0044:	0044_src_cpp_redis_CMakeLists.txt.patch
 Patch0045:	0045_src-commom-crc32c_ppc_fast_zero_asm.S.patch
@@ -492,9 +491,9 @@ BuildRequires:	python%{python3_pkgversion}-scipy
 BuildRequires:	python%{python3_pkgversion}-werkzeug
 BuildRequires:	python%{python3_pkgversion}-pyOpenSSL
 %endif
+BuildRequires:	jsonnet
 %if 0%{?suse_version}
 BuildRequires:	golang-github-prometheus-prometheus
-BuildRequires:	jsonnet
 BuildRequires:	libxmlsec1-1
 BuildRequires:	libxmlsec1-nss1
 BuildRequires:	libxmlsec1-openssl1
@@ -981,7 +980,6 @@ Requires:	parted
 Requires:	util-linux
 Requires:	xfsprogs
 Requires:	python%{python3_pkgversion}-setuptools
-Requires:	python%{python3_pkgversion}-packaging
 Requires:	python%{python3_pkgversion}-ceph-common = %{_epoch_prefix}%{version}-%{release}
 %description volume
 This package contains a tool to deploy OSD with different devices like
@@ -2723,6 +2721,12 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Fri Feb 7 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.1-1
+- ceph-19.2.1, rebuild w/ libarrow 19, liborc 2.1, f43-build-side-105129
+
+* Thu Feb 6 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.1-1
+- ceph-19.2.1 GA
+
 * Fri Jan 24 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.0-10
 - hack around cmake -std=gnu99 w/ userspace-rcu
 - use system version of gmock and gtest to avoid bundled brain damage

@@ -1,6 +1,6 @@
 Name:       libigloo
 Version:    0.9.2
-Release:    8%{?dist}
+Release:    9%{?dist}
 Summary:    C framework from Icecast
 # COPYING:                  LGPL-2.0 text
 # include/igloo/config.h:   LGPL-2.0-or-later
@@ -75,6 +75,9 @@ Source0:    https://downloads.xiph.org/releases/igloo/%{name}-%{version}.tar.gz
 # Make time test robusts against CPU scheduler whims, proposed to the
 # upstream, <https://gitlab.xiph.org/xiph/icecast-libigloo/-/issues/9>.
 Patch0:     libigloo-0.9.2-Fix-Make-now-r-now-time-test-tolerant-to-CPU-schedul.patch
+# Adapt to GCC 15, proposed to the upstream, bug #2340740,
+# <https://gitlab.xiph.org/xiph/icecast-libigloo/-/issues/10>
+Patch1:     libigloo-0.9.2-Adapt-to-ISO-C23.patch
 BuildRequires:  autoconf >= 2.67
 # autoconf-archive for ACX_PTHREAD macro
 BuildRequires:  autoconf-archive
@@ -203,6 +206,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Feb 07 2025 Petr Pisar <ppisar@redhat.com> - 0.9.2-9
+- Adapt to GCC 15 (bug #2340740)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

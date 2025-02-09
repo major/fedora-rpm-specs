@@ -145,3 +145,4 @@ rm -rf $RPM_BUILD_ROOT%{mingw64_datadir}/man
 %endif
 
 %changelog
+%autochangelog

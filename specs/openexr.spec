@@ -3,7 +3,7 @@
 
 Name:           openexr
 Version:        3.2.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Provides the specification and reference implementation of the EXR file format
 
 License:        BSD-3-Clause WITH AdditionRef-OpenEXR-Additional-IP-Rights-Grant OR Apache-2.0
@@ -21,8 +21,6 @@ BuildRequires:  libdeflate-devel
 
 Obsoletes:      OpenEXR < 2.5.3
 Provides:       OpenEXR = %{version}-%{release}
-
-ExcludeArch:    i686
 
 %description
 OpenEXR is an open-source high-dynamic-range floating-point image file format
@@ -116,6 +114,10 @@ EXCLUDE_REGEX='DWA[AB]Compression'
 # https://github.com/AcademySoftwareFoundation/openexr/issues/1175
 EXCLUDE_REGEX='ReadDeep|DWA[AB]Compression|testCompression|Rgba|SampleImages|SharedFrameBuffer'
 %endif
+%ifarch %{ix86}
+# https://github.com/AcademySoftwareFoundation/openexr/issues/1556#issuecomment-2600918549
+EXCLUDE_REGEX='Iex'
+%endif
 %ctest --exclude-regex "$EXCLUDE_REGEX"
 
 
@@ -153,6 +155,9 @@ EXCLUDE_REGEX='ReadDeep|DWA[AB]Compression|testCompression|Rgba|SampleImages|Sha
 
 
 %changelog
+* Fri Feb 07 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.2.4-5
+- Skip a test that fails on i686
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

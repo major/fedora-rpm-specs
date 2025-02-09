@@ -5,8 +5,8 @@
 
 Name:           nemo
 Summary:        File manager for Cinnamon
-Version:        6.4.3
-Release:        2%{?dist}
+Version:        6.4.4
+Release:        1%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
@@ -188,6 +188,9 @@ rm %{buildroot}%{_datadir}/nemo/search-helpers/pdf2txt.nemo_search_helper
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Sat Feb 08 2025 Leigh Scott <leigh123linux@gmail.com> - 6.4.4-1
+- Update to 6.4.4
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

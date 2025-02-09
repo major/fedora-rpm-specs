@@ -1,6 +1,6 @@
 # Upstream tags are based on rocm releases:
 %global rocm_release 6.3
-%global rocm_patch 1
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 # What LLVM is upstream using (use LLVM_VERSION_MAJOR from llvm/CMakeLists.txt):
@@ -135,6 +135,7 @@ cd openmp
        -DBUILD_SHARED=ON \
        -DClang_DIR=%{rocmllvm_cmakedir}/../clang \
        -DCMAKE_AR=%{rocmllvm_bindir}/llvm-ar \
+       -DCMAKE_BUILD_RPATH=%{rocmllvm_libdir} \
        -DCMAKE_INSTALL_RPATH=%{rocmllvm_libdir} \
        -DCMAKE_LINKER=%{rocmllvm_bindir}/ld.lld \
        -DCMAKE_RANLIB=%{rocmllvm_bindir}/llvm-ranlib \
@@ -161,8 +162,6 @@ cd openmp
        -DLIBOMP_ARCHER_SUPPORT=OFF \
        -DOPENMP_STANDALONE_BUILD=ON \
        -DOPENMP_LLVM_TOOLS_DIR=%{rocmllvm_bindir}
-
-export LD_LIBRARY_PATH=%{rocmllvm_libdir}
 
 %cmake_build
 
@@ -199,5 +198,8 @@ fi
 %{bundle_prefix}/lib/libomptarget.devicertl.a
 
 %changelog
+* Wed Jan 29 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-1
+- Update to 6.3.2
+
 * Thu Dec 26 2024 Tom Rix <Tom.Rix@amd.com> - 6.3.1-1
 - Initial version

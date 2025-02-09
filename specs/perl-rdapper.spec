@@ -1,6 +1,6 @@
 Name:           perl-rdapper
-Version:        1.05
-Release:        2%{?dist}
+Version:        1.06
+Release:        1%{?dist}
 Summary:        Simple console-based RDAP client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/App-rdapper
@@ -19,8 +19,7 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Getopt::Long)
 BuildRequires:  perl(JSON)
-BuildRequires:  perl(List::MoreUtils)
-BuildRequires:  perl(List::Util)
+BuildRequires:  perl(List::Util) >= 1.33
 BuildRequires:  perl(Net::ASN)
 BuildRequires:  perl(Net::DNS::Domain)
 BuildRequires:  perl(Net::IP)
@@ -34,8 +33,12 @@ BuildRequires:  perl(URI)
 BuildRequires:  perl(vars)
 # Tests:
 BuildRequires:  perl(Test::More)
+Requires:       perl(List::Util) >= 1.33
 # To support HTTPS
 Requires:       perl(LWP::Protocol::https)
+
+# Filter under-specfied dependencies
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(List::Util\\)$
 
 %description
 "rdapper" is a simple RDAP client. It uses Net::RDAP to retrieve data about
@@ -85,6 +88,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Feb 07 2025 Petr Pisar <ppisar@redhat.com> - 1.06-1
+- 1.06 bump
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

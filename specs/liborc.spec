@@ -6,7 +6,8 @@ License: Apache-2.0
 URL:     http://orc.apache.org/
 Source: https://archive.apache.org/dist/orc/orc-%{version}/orc-%{version}.tar.gz
 Source1: https://archive.apache.org/dist/orc/orc-format-%{version}/orc-format-1.0.0.tar.gz
-Patch1:  0001-cmake.patch
+Patch0001:	0001-cmake.patch
+Patch0002:	0002-c++-src-CpuInfoUtil.cc.patch
 # Apache ORC has numerous compile errors and apparently assumes a 64-bit
 # build and runtime environment. The only consumer of this package is 
 # Ceph (by way of Apache Arrow) which is also 64-bit only

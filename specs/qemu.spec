@@ -33,9 +33,6 @@
 %ifarch s390x
 %global kvm_package   system-s390x
 %endif
-%ifarch armv7hl
-%global kvm_package   system-arm
-%endif
 %ifarch aarch64
 %global kvm_package   system-aarch64
 %endif
@@ -65,6 +62,9 @@
 %global have_kvm 0
 %if 0%{?kvm_package:1}
 %global have_kvm 1
+%define obsoletes_package_kvm %{nil}
+%else
+%define obsoletes_package_kvm Obsoletes: %{name}-kvm < %{evr}
 %endif
 
 # Matches numactl ExcludeArch
@@ -361,6 +361,7 @@
 %{obsoletes_block_gluster} \
 %{obsoletes_block_rbd} \
 %{obsoletes_package_virtiofsd} \
+%{obsoletes_package_kvm} \
 Obsoletes: %{name}-system-cris <= %{epoch}:%{version}-%{release} \
 Obsoletes: %{name}-system-cris-core <= %{epoch}:%{version}-%{release} \
 Obsoletes: %{name}-system-lm32 <= %{epoch}:%{version}-%{release} \

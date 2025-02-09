@@ -10,7 +10,7 @@
 %bcond_with libsodium_crypt
 %endif
 
-%define patchlevel 1000
+%define patchlevel 1081
 
 %if %{?WITH_SELINUX:0}%{!?WITH_SELINUX:1}
 %define WITH_SELINUX 1
@@ -51,7 +51,7 @@ Summary: The VIM editor
 URL:     http://www.vim.org/
 Name: vim
 Version: %{baseversion}.%{patchlevel}
-Release: 2%{?dist}
+Release: 1%{?dist}
 Epoch: 2
 # swift.vim contains Apache 2.0 with runtime library exception:
 # which is taken as Apache-2.0 WITH Swift-exception - reported to legal as https://gitlab.com/fedora/legal/fedora-license-data/-/issues/188
@@ -597,7 +597,6 @@ mkdir -p %{buildroot}/%{_bindir}
 mkdir -p %{buildroot}/%{_datadir}/%{name}/vimfiles/{after,autoload,colors,compiler,doc,ftdetect,ftplugin,indent,keymap,lang,plugin,print,spell,syntax,tutor}
 mkdir -p %{buildroot}/%{_datadir}/%{name}/vimfiles/after/{autoload,colors,compiler,doc,ftdetect,ftplugin,indent,keymap,lang,plugin,print,spell,syntax,tutor}
 cp -f %{SOURCE7} %{buildroot}/%{_datadir}/%{name}/vimfiles/template.spec
-cp runtime/doc/uganda.txt LICENSE
 # Those aren't Linux info files but some binary files for Amiga:
 rm -f README*.info
 
@@ -798,6 +797,12 @@ mkdir -p %{buildroot}/%{_mandir}/man5
 echo ".so man1/vim.1" > %{buildroot}/%{_mandir}/man5/vimrc.5
 echo ".so man1/vi.1" > %{buildroot}/%{_mandir}/man5/virc.5
 touch %{buildroot}/%{_datadir}/%{name}/vimfiles/doc/tags
+
+# upstream now tries to install LICENSE and README into VIMDIR
+# but we ship them in licensedir and docdir, so we remove the dupes
+# from VIMDIR
+rm %{buildroot}%{_datadir}/%{name}/%{vimdir}/LICENSE
+rm %{buildroot}%{_datadir}/%{name}/%{vimdir}/README.txt
 
 
 # Refresh documentation helptags
@@ -1053,6 +1058,9 @@ touch %{buildroot}/%{_datadir}/%{name}/vimfiles/doc/tags
 
 
 %changelog
+* Fri Feb 07 2025 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.1081-1
+- patchlevel 1081
+
 * Mon Feb 03 2025 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.1000-2
 - Fix FTBFS (fedora#2341508)
 

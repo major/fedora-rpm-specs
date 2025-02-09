@@ -55,10 +55,13 @@
 
 # Older hipcc was perl, it has been deprecated
 %bcond perl      0
+# Enable ppc and aarch64 builds
+%bcond alt_arch  0
+
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}
-Release:        38.rocm%{rocm_version}%{?dist}
+Release:        39.rocm%{rocm_version}%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 %if 0%{?suse_version}
 Group:          Development/Languages/Other
@@ -103,8 +106,12 @@ Provides:       bundled(llvm-project) = %{llvm_maj_ver}
 ExclusiveArch:  x86_64
 %global targets_to_build "X86;AMDGPU"
 %else
-#Only the following architectures are useful for ROCm packages:
+%if %{with alt_arch}
 ExclusiveArch:  x86_64 aarch64 ppc64le
+%else
+ExclusiveArch:  x86_64
+%endif
+
 %ifarch x86_64
 %global targets_to_build "X86;AMDGPU"
 %endif
@@ -856,6 +863,9 @@ do
     mkdir -p %{buildroot}%{_libdir}/rocm/$gpu/bin
     mkdir -p %{buildroot}%{_libdir}/rocm/$gpu/include
 done
+mkdir -p %{buildroot}%{_libdir}/rocm/lib/cmake
+mkdir -p %{buildroot}%{_libdir}/rocm/bin
+mkdir -p %{buildroot}%{_libdir}/rocm/include
 
 rm -rf %{buildroot}%{_prefix}/hip
 if [ -f %{buildroot}%{_prefix}/share/doc/packages/rocm-compilersupport/LICENSE.TXT ]; then
@@ -963,6 +973,9 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %files -n rocm-llvm-filesystem
 %dir %{_libdir}/rocm
 # For rocm-rpm-modules
+%dir %{_libdir}/rocm/bin
+%dir %{_libdir}/rocm/include
+%dir %{_libdir}/rocm/lib
 %dir %{_libdir}/rocm/gfx8
 %dir %{_libdir}/rocm/gfx8/bin
 %dir %{_libdir}/rocm/gfx8/include
@@ -1176,6 +1189,10 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %endif
 
 %changelog
+* Thu Feb 6 2025 Tom Rix <Tom.Rix@amd.com> - 18-39.rocm6.3.2
+- Enable ppc and aarch64 with alt_arch
+- Add lib,include,bin for default module in filesystem
+
 * Sat Feb 1 2025 Tom Rix <Tom.Rix@amd.com> - 18-38.rocm6.3.2
 - Update to 6.3.2
 - Do not use full path for linker

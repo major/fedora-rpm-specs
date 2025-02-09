@@ -13,6 +13,9 @@ Source0:        %{url}/releases/download/v%{version}/bootupd-%{version}.crate
 Source1:        %{url}/releases/download/v%{version}/bootupd-%{version}-vendor.tar.zstd
 ExcludeArch:    %{ix86}
 
+Source2:        bootloader-update.service
+Patch0:         0001-migrate-static-grub-config-Add-GRUB-static-migration.patch
+
 # For now, see upstream
 BuildRequires: make
 BuildRequires:  openssl-devel
@@ -51,6 +54,7 @@ License:        Apache-2.0 AND (Apache-2.0 WITH LLVM-exception) AND BSD-3-Clause
 %{_bindir}/bootupctl
 %{_libexecdir}/bootupd
 %{_prefix}/lib/bootupd/grub2-static/
+%{_unitdir}/bootloader-update.service
 
 %prep
 %autosetup -n %{crate}-%{version} -p1 -a1
@@ -65,6 +69,8 @@ License:        Apache-2.0 AND (Apache-2.0 WITH LLVM-exception) AND BSD-3-Clause
 %install
 %make_install INSTALL="install -p -c"
 %{__make} install-grub-static DESTDIR=%{?buildroot} INSTALL="%{__install} -p"
+# See: https://github.com/coreos/bootupd/pull/838
+install -Dpm0644 -t "%{buildroot}%{_unitdir}" %{SOURCE2}
 
 %changelog
 %autochangelog

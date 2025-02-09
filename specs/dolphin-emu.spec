@@ -7,7 +7,7 @@
 #See provides(bundled) below for more info:
 %global bundled_libs Bochs_disasm cpp-optparse expr FatFs FreeSurround glslang imgui implot rangeset soundtouch tinygltf
 %global implot_version 0.16
-%global tinygltf_version 2.9.4
+%global tinygltf_version 2.9.5
 
 #JIT is only supported on x86_64 and aarch64:
 %ifarch x86_64 aarch64
@@ -15,7 +15,7 @@
 %endif
 
 Name:           dolphin-emu
-Version:        2409
+Version:        2412
 Release:        %autorelease
 Summary:        GameCube / Wii / Triforce Emulator
 
@@ -41,6 +41,16 @@ Source5:        https://github.com/syoyo/tinygltf/archive/refs/tags/v%{tinygltf_
 
 #https://github.com/dolphin-emu/dolphin/pull/12923
 Patch0:         https://github.com/dolphin-emu/dolphin/pull/12923/commits/aea92651c739890eb895c58e7f57891edb396b64.patch
+#https://github.com/dolphin-emu/dolphin/pull/13226
+Patch1:         https://github.com/dolphin-emu/dolphin/commit/ad24ddb6bb01ddaba19bf72e8eda5cae354701ae.patch
+Patch2:         https://github.com/dolphin-emu/dolphin/pull/13226/commits/84ab15e020a993286329e1fc0b0e47ffc3c0a536.patch
+#https://github.com/dolphin-emu/dolphin/pull/13262
+Patch3:         https://github.com/dolphin-emu/dolphin/commit/b79bdb13c05b4fcef23cd30b210d40662d28373b.patch
+Patch4:         https://github.com/dolphin-emu/dolphin/commit/825092ad33a2e7466e79520c1338d0bed56ca299.patch
+#https://github.com/dolphin-emu/dolphin/pull/13274
+Patch5:         https://github.com/dolphin-emu/dolphin/commit/f28e134c88ecbd30eed89606bca3c348047a3009.patch
+#https://github.com/dolphin-emu/dolphin/pull/13273
+Patch6:         0001-Fix-build-with-minizip-ng-4.0.8.patch
 
 ###Bundled code ahoy, I've added my best guess for versions and upstream urls
 ##The following isn't in Fedora yet:
@@ -169,7 +179,8 @@ gzip -dc %{SOURCE5} | tar -C Externals/tinygltf/tinygltf --strip-components=1 -x
 #Allow building with cmake macro
 sed -i '/CMAKE_C.*_FLAGS/d' CMakeLists.txt
 
-# Workaround to fix cmake bug with minizip-ng pkgconfig
+#Use system zlib (upstream doesn't like this for performance reasons):
+sed -i 's/add_subdirectory(\(.*zlib\)/dolphin_find_optional_system_library_pkgconfig(ZLIB zlib-ng ZLIB::ZLIB \1/' CMakeLists.txt
 sed -i 's/ZLIB::ZLIB/ZLIB::ZLIB z/' Source/Core/*/CMakeLists.txt
 
 #Font license, drop the install directory into thie file

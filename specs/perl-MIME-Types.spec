@@ -15,8 +15,8 @@
 %endif
 
 Name:           perl-MIME-Types
-Version:        2.26
-Release:        3%{?dist}
+Version:        2.27
+Release:        1%{?dist}
 Summary:        MIME types module for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MIME-Types
@@ -41,7 +41,6 @@ BuildRequires:  perl(Mojo::Base)
 %endif
 BuildRequires:  perl(overload)
 BuildRequires:  perl(strict)
-BuildRequires:  perl(vars)
 # Test Suite
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More) >= 0.88
@@ -51,7 +50,8 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Test::MinimumVersion)
 BuildRequires:  perl(Test::Pod) >= 1.00
 %endif
-# Runtime
+# Dependencies
+# (none)
 
 %description
 MIME types are used in many applications, for instance as part of e-mail
@@ -112,6 +112,11 @@ make test TEST_FILES="xt/*.t"
 %endif
 
 %changelog
+* Fri Feb  7 2025 Paul Howarth <paul@city-fan.org> - 2.27-1
+- Update to 2.27
+  - IANA updates
+  - Explicitly set $/ before reading the file by line
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.26-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
