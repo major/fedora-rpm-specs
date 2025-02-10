@@ -1,6 +1,6 @@
 Name:		topgit
-Version:	0.19.13
-Release:	10%{?dist}
+Version:	0.19.14
+Release:	1%{?dist}
 Summary:	A different patch queue manager
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:	GPL-2.0-only
@@ -66,6 +66,9 @@ make DEFAULT_TEST_TARGET=prove \
 
 
 %changelog
+* Sat Feb  8 2025 Thomas Moschny <thomas.moschny@gmx.de> - 0.19.14-1
+- Update to 0.19.14.
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.13-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

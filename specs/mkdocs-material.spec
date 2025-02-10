@@ -15,10 +15,15 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  sed
 
+# These pull in additional dependencies that enable optional features
+Recommends:     python3dist(mkdocs-material[git]) = %{version}
+Recommends:     python3dist(mkdocs-material[imaging]) = %{version}
+Recommends:     python3dist(mkdocs-material[recommended]) = %{version}
+
 %description
 This package provides a powerful documentation framework on top of MkDocs.
 
-%pyproject_extras_subpkg -n %{name} imaging
+%pyproject_extras_subpkg -n %{name} git,imaging,recommended
 
 %prep
 %autosetup -p1
@@ -27,7 +32,7 @@ This package provides a powerful documentation framework on top of MkDocs.
 sed -i 's/~=/>=/g' pyproject.toml
 
 %generate_buildrequires
-%pyproject_buildrequires -x imaging
+%pyproject_buildrequires -x git,imaging,recommended
 
 %build
 %pyproject_wheel

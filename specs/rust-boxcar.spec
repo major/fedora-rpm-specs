@@ -5,15 +5,17 @@
 %global crate boxcar
 
 Name:           rust-boxcar
-Version:        0.2.8
+Version:        0.2.9
 Release:        %autorelease
 Summary:        Concurrent, append-only vector
 
 License:        MIT
 URL:            https://crates.io/crates/boxcar
 Source:         %{crates_source}
+# Automatically generated patch to strip dependencies and normalize metadata
+Patch:          boxcar-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * Exclude benchmarks, since bench.rs carries an MIT license and this
+# * Exclude benchmarks, since bench.rs carries its own MIT license and this
 #   complicates packaging. We suggested this upstream in
 #   https://github.com/ibraheemdev/boxcar/pull/8, which was merged, but upstream
 #   subsequently decided to include benchmarks in published crates,

@@ -6,13 +6,17 @@ This package aims to simplify that and bring some DRY principle to python
 packaging.}
 
 Name:           python-setupmeta
-Version:        3.3.2
+Version:        3.6.1
 Release:        %{autorelease}
 Summary:        Simplify your setup.py
 
 License:        MIT
 URL:            https://pypi.org/pypi/setupmeta
-Source0:        %{pypi_source setupmeta}
+Source:         %{pypi_source setupmeta}
+
+# Allow for interpreters not named "python" in test_run_program
+# https://github.com/codrsquad/setupmeta/pull/88
+Patch:          https://github.com/codrsquad/setupmeta/pull/88.patch
 
 BuildArch:      noarch
 
@@ -21,21 +25,16 @@ BuildArch:      noarch
 %package -n python3-setupmeta
 Summary:        %{summary}
 BuildRequires:  python3-devel
+# Test dependencies
 BuildRequires:  python3-pytest
-BuildRequires:  python3-pep440
-BuildRequires:  python3-setuptools_scm
 BuildRequires:  git-core
 
 %description -n python3-setupmeta %_description
 
 %prep
-%autosetup -n setupmeta-%{version}
+%autosetup -n setupmeta-%{version} -p1
 
 %generate_buildrequires
-# required to make it not try to self-refer
-# this is deliberately in this section instead of %%prep to workaround
-# https://github.com/rpm-software-management/mock/issues/1246
-rm -rf setupmeta.egg-info
 %pyproject_buildrequires
 
 
@@ -44,16 +43,14 @@ rm -rf setupmeta.egg-info
 
 %install
 %pyproject_install
-%pyproject_save_files setupmeta
+%pyproject_save_files -l setupmeta
 
 %check
 # required for some tests
 git config --global user.email "you@example.com"
 git config --global user.name "Your Name"
 # test_check_dependencies: requires a virtualenv
-# test_version: requires a full git based project with their versioning scheme
-# test_scenario: ditto
-%{pytest} -k "not test_check_dependencies and not test_version and not test_scenario"
+%pytest -k "not test_check_dependencies"
 
 %files -n python3-setupmeta -f %{pyproject_files}
 %doc README.rst

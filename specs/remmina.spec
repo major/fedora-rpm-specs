@@ -54,7 +54,7 @@ BuildRequires: pkgconfig(spice-client-gtk-3.0)
 %endif
 BuildRequires: pkgconfig(vte-2.91)
 
-%if 0%{?fedora} >= 37
+%if 0%{?fedora} >= 37 || 0%{?rhel} >= 10
 BuildRequires: pkgconfig(webkit2gtk-4.1)
 %else
 BuildRequires: pkgconfig(webkit2gtk-4.0)

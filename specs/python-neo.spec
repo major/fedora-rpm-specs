@@ -30,7 +30,7 @@ Read the documentation at http://neo.readthedocs.io/}
 %global forgeurl  https://github.com/NeuralEnsemble/python-neo
 
 Name:       python-neo
-Version:    0.13.4
+Version:    0.14.0
 Release:    %autorelease
 Summary:    Represent electrophysiology data in Python
 
@@ -91,13 +91,6 @@ git config --global user.name "Your Name"
 # Unpack test data tar in ~
 pushd ~ && %{__tar} -xvf %{SOURCE1} && popd
 %endif
-
-# Drop upper bound from numpy and quantities.
-# Allow building with NumPy 2.x.
-sed -r \
-    -e 's/(numpy.*),<.*/\1",/' \
-    -e 's/(quantities.*),<.*/\1",/' \
-    -i pyproject.toml
 
 
 %generate_buildrequires

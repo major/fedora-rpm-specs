@@ -5,7 +5,7 @@
 %global crate sop
 
 Name:           rust-sop
-Version:        0.8.1
+Version:        0.8.2
 Release:        %autorelease
 Summary:        Rust Interface for the Stateless OpenPGP Interface
 

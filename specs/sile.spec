@@ -135,4 +135,4 @@ echo -n '\document{foo}' | ./sile - -o foo.pdf
 %{_libdir}/libtexpdf.so
 
 %changelog
-%autorelease
+%autochangelog

@@ -1,13 +1,11 @@
-%global tag     1.10-contrib.0
-
 Name:           sway-contrib
-Version:        1.10+contrib.0
+Version:        1.10.1
 Release:        %autorelease
 Summary:        Collection of user-contributed scripts for Sway
 
 License:        MIT
 URL:            https://github.com/OctopusET/sway-contrib
-Source:         %{url}/archive/%{tag}/%{name}-%{tag}.tar.gz
+Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  make
@@ -46,7 +44,7 @@ interface.
 
 
 %prep
-%autosetup -n %{name}-%{tag}
+%autosetup
 %py3_shebang_fix grimpicker/grimpicker *.py
 
 

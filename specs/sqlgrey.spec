@@ -1,6 +1,6 @@
 Name:           sqlgrey
 Version:        1.8.0
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Postfix grey-listing policy service
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -39,7 +39,7 @@ make %{?_smp_mflags}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make rh-install ROOTDIR=$RPM_BUILD_ROOT
+make rh-install ROOTDIR=$RPM_BUILD_ROOT SBINDIR=$RPM_BUILD_ROOT/usr/bin
 install -D -m 644 %{SOURCE1} $RPM_BUILD_ROOT%{_unitdir}/sqlgrey.service
 rm -rf $RPM_BUILD_ROOT%{_sysconfdir}/init.d/
 mkdir -p -m 755 $RPM_BUILD_ROOT%{_var}/lib
@@ -49,8 +49,8 @@ touch $RPM_BUILD_ROOT%{_var}/lib/sqlgrey/sqlgrey.db
 %files
 %doc Changelog CONTRIB COPYING FAQ HOWTO README* TODO
 %{_unitdir}/sqlgrey.service
-%{_sbindir}/sqlgrey
-%{_sbindir}/update_sqlgrey_config
+%{_bindir}/sqlgrey
+%{_bindir}/update_sqlgrey_config
 %{_bindir}/sqlgrey-logstats.pl
 %{_mandir}/man1/sqlgrey.1*
 %attr(-,sqlgrey,sqlgrey) %dir %{_var}/lib/sqlgrey
@@ -81,6 +81,9 @@ exit 0
 %systemd_postun_with_restart sqlgrey.service
 
 %changelog
+* Sat Feb 08 2025 Kevin Fenzi <kevin@scrye.com> - 1.8.0-31
+- Adjust to sbin/bin consolidation. Fixes FTBFS rhbz#2341376
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

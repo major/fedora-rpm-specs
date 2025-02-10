@@ -6,7 +6,7 @@
 
 Name:           python-%{srcname}
 Version:        5.9.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        The Jupyter Notebook format
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -15,6 +15,9 @@ URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        https://files.pythonhosted.org/packages/source/n/%{srcname}/%{srcname}-%{version}.tar.gz
 # Removed dependency on hatch-nodejs-version
 Patch0:         nbformat-build-test.patch
+# Remove dependency on pep440 (package will be retired)
+# https://github.com/jupyter/nbformat/pull/408
+Patch1:         drop-pep440-dependency.patch
 
 BuildArch:      noarch
 
@@ -71,6 +74,9 @@ sed -i "s/{VERSION}/%{version}/" pyproject.toml
 %{_bindir}/jupyter-trust
 
 %changelog
+* Wed Feb 08 2025 Sandro <devel@penguinpee.nl> - 5.9.2-8
+- Drop dependency on pep440
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

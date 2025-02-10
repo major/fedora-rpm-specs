@@ -1,8 +1,8 @@
 %global framework kio
 
 Name:    kf6-%{framework}
-Version: 6.10.0
-Release: 3%{?dist}
+Version: 6.11.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution for filesystem abstraction
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -22,9 +22,6 @@ Patch0:  0001-Give-the-kuriikwsfiltereng_private-a-VERSION-and-SOV.patch
 Patch101: kio-no-help-protocol.patch
 %endif
 
-# https://invent.kde.org/frameworks/kio/-/merge_requests/1779
-# Fix 'All supported files' for more than 3 filters
-Patch200: 1779.patch
 
 BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc-c++
@@ -185,6 +182,7 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_kf6_plugindir}/kio/
 %{_kf6_plugindir}/kded/
 %{_kf6_plugindir}/kiod/
+%{_kf6_plugindir}/kio_dnd/
 %{_kf6_datadir}/kf6/searchproviders/*.desktop
 %{_kf6_datadir}/applications/*.desktop
 %{_datadir}/dbus-1/services/org.kde.*.service
@@ -221,6 +219,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Fri Feb 07 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.11.0-1
+- 6.11.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.10.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

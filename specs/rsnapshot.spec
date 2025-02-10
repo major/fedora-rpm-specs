@@ -1,6 +1,6 @@
 Name:           rsnapshot
-Version:        1.4.5
-Release:        7%{?dist}
+Version:        1.5.1
+Release:        1%{?dist}
 Summary:        Local and remote filesystem snapshot utility
 License:        GPL-2.0-or-later
 URL:            https://rsnapshot.org/
@@ -30,7 +30,6 @@ BuildRequires:  perl(Test::Harness)
 BuildRequires:  perl(Test::More)
 
 Requires:       openssh-clients
-Requires:       perl(Lchown)
 Requires:       rsync
 
 %description
@@ -76,6 +75,9 @@ find utils/ -type f -print0 | xargs -r0 chmod 644
 %{_mandir}/man1/%{name}-diff.1*
 
 %changelog
+* Sun Feb 09 2025 Robert Scheck <robert@fedoraproject.org> - 1.5.1-1
+- Upgrade to 1.5.1 (#2342185)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

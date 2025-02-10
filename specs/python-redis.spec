@@ -4,7 +4,7 @@
 %global upstream_name redis
 
 Name:           python-%{upstream_name}
-Version:        5.2.0
+Version:        5.2.1
 Release:        %autorelease
 Summary:        Python interface to the Redis key-value store
 License:        MIT
@@ -53,8 +53,10 @@ rm tests/test_graph.py
 rm tests/test_json.py
 rm tests/test_timeseries.py
 rm tests/test_asyncio/test_bloom.py
+rm tests/test_asyncio/test_cluster.py
 rm tests/test_asyncio/test_graph.py
 rm tests/test_asyncio/test_json.py
+rm tests/test_asyncio/test_scripting.py
 rm tests/test_asyncio/test_timeseries.py
 
 %generate_buildrequires

@@ -149,7 +149,7 @@ cp /usr/include/CImg.h CImg.h
 make OPT_CFLAGS="%{optflags} -g" NOSTRIP=1 PREFIX=%{_prefix} LIB=%{_lib} cli lib libc
 
 cd ../gmic-qt
-%{qmake_qt5} CONFIG+=release GMIC_PATH=../src HOST=gimp3 gmic_qt.pro && %{make_build}
+%{qmake_qt5} CONFIG+=release GMIC_PATH=../src HOST=gimp gmic_qt.pro && %{make_build}
 %{qmake_qt5} CONFIG+=release GMIC_PATH=../src HOST=none gmic_qt.pro && %{make_build}
 
 cd ../zart
@@ -225,6 +225,7 @@ fi
 %{_datadir}/gmic/gmic_denoise_cnn.gmz
 %{_datadir}/gmic/gmic_fonts.gmz
 %{_datadir}/gmic/gmic_lightleaks.gmz
+%{_datadir}/gmic/gmic_scale2x_cnn.gmz
 
 %files libs
 %license COPYING COPYING-libcgmic
@@ -234,6 +235,8 @@ fi
 %changelog
 * Wed Jan 29 2025 josef radinger <cheese@nosuchhost.net> - 3.5.2-1
 - bump version
+- set HOST=gimp
+- add /usr/share/gmic/gmic_scale2x_cnn.gmz to gimp-subpackage
 
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild

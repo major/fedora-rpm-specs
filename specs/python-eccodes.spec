@@ -1,6 +1,6 @@
 Name:           python-eccodes
-Version:        2.38.1
-Release:        2%{?dist}
+Version:        2.39.2
+Release:        1%{?dist}
 Summary:        Python interface to the ecCodes GRIB and BUFR decoder/encoder
 License:        Apache-2.0
 
@@ -22,7 +22,6 @@ Patch3:         python-eccodes-disable-findlibs.patch
 # note that the fast bindings are arch dependent
 BuildRequires:  eccodes-devel
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 # needed to build the fast bindings
 BuildRequires:  python3-cffi
 # needed for checks/tests
@@ -58,18 +57,21 @@ files and BUFR 3 and 4 files.
 %package -n python3-eccodes
 Summary: %summary
 
-%{?python_provide:%python_provide python3-eccodes}
 
 %description -n python3-eccodes %_description
 
 %prep
 %autosetup -n eccodes-%{version} -p1
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l eccodes gribapi
 
 # NOTE:
 # this package includes 2 c header files named gribapi/eccodes.h and
@@ -96,22 +98,22 @@ rm -rf %sphinx_doc_path/.doctrees
 %{__python3} -m eccodes selfcheck
 %{__python3} -m pytest -v
 
-%files -n python3-eccodes
+%files -n python3-eccodes -f %{pyproject_files}
+%license  LICENSE
 %doc README.rst
 %doc %sphinx_doc_path
-%license LICENSE
-%{python3_sitearch}/eccodes-*-py*.egg-info
-%{python3_sitearch}/eccodes
-%{python3_sitearch}/gribapi
 
 
 %changelog
+* Sat Feb 08 2025 Jos de Kloe <josdekloe@gmail.com> 2.39.2-1
+- move to upstream release 2.39.2
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.38.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
 * Sun Oct 27 2024 Jos de Kloe <josdekloe@gmail.com> 2.38.1-1
 - move to upstream release 2.38.1
-  Note that upstream numbering scheme has changed so 1.7.1 jumped to 2.38.0
+  Note that upstream numbering scheme has changed so 1.7.1 jumped to 2.37.0
 
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild

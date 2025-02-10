@@ -1,5 +1,5 @@
 Name:           python-tox-uv
-Version:        1.22.1
+Version:        1.23.0
 Release:        %autorelease
 Summary:        Integration of uv with tox
 
@@ -36,8 +36,10 @@ Summary:        %{summary}
 sed -Ei '/"(devpi-process|covdefaults|diff-cover|pytest-cov)/d' pyproject.toml
 # Relax some build/test dependencies
 sed -Ei 's/"(hatchling|pytest(-mock)?)>=[^"]+"/"\1"/' pyproject.toml
+%if %{defined fc40}
 # And a runtime dependency, where we must be more careful
-sed -i 's/"packaging>=24.1"/"packaging>=23.1"/' pyproject.toml
+sed -i 's/"packaging>=24.2"/"packaging>=23.2"/' pyproject.toml
+%endif
 
 
 %generate_buildrequires

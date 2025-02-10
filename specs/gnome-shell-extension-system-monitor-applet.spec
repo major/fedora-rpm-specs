@@ -1,22 +1,22 @@
 %global extuuid    system-monitor-next@paradoxxx.zero.gmail.com
 %global extdir     %{_datadir}/gnome-shell/extensions/%{extuuid}
 %global gschemadir %{_datadir}/glib-2.0/schemas
-%global gitname    gnome-shell-system-monitor-applet
+%global gitname    gnome-shell-system-monitor-next-applet
 %global giturl     https://github.com/mgalgs/%{gitname}
 
 %{!?git_post_release_enabled: %global git_post_release_enabled 1}
 
 %if 0%{?git_post_release_enabled}
   # Git commit is needed for post-release version.
-  %global gitcommit 94916490f8ed1f47902af46cbde182013cd3f0b7
+  %global gitcommit d7f330de85ada013e6664a109af12bd7de0bc4e4
   %global gitshortcommit %(c=%{gitcommit}; echo ${c:0:7})
-  %global gitsnapinfo .20240904git%{gitshortcommit}
+  %global gitsnapinfo .20250207git%{gitshortcommit}
 %endif
 
 Name:           gnome-shell-extension-system-monitor-applet
 Epoch:          1
 Version:        38
-Release:        34%{?gitsnapinfo}%{?dist}
+Release:        35%{?gitsnapinfo}%{?dist}
 Summary:        A Gnome shell system monitor extension
 
 # The entire source code is GPLv3+ except convenience.js, which is BSD
@@ -89,6 +89,26 @@ fi
 
 
 %changelog
+* Fri Feb 07 2025 Nicolas Viéville <nicolas.vieville@uphf.fr> - 1:38-35.20250207gitd7f330d
+- Updated to last upstream commits
+- Add log level to sm_log
+- schema: Indent
+- util: Move sm_log to util
+- Improve non-existent sensors handling
+- Schema rename - migrating gnome settings as well
+- metadata.json: Update description
+- Make "System Monitor" action customizable
+- Makefile: Add zip-install target
+- Makefile: Clean up the extension reloading stuff
+- Rename schema definition files to match schema IDs
+- metadata.json: Update extension URL
+- Fixed Bug when detecting NVIDIA GPUs
+- Add fallback logic for locale
+- Drop "no migration" message
+- metadata.json: Note about prereqs
+- metadata.json: Tone down the rhetoric regarding update errors
+- Rename archive from git new repository name: gnome-shell-system-monitor-next-applet
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:38-34.20240904git9491649
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

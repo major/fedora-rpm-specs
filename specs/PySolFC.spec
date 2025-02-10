@@ -2,7 +2,7 @@
 
 Name:           PySolFC
 Version:        3.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A collection of solitaire card games
 License:        GPL-2.0-or-later
 URL:            https://pysolfc.sourceforge.io
@@ -16,6 +16,8 @@ BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  desktop-file-utils
 BuildRequires:  perl-interpreter
+BuildRequires:  tcl-devel < 1:9
+BuildRequires:  tk-devel < 1:9
 
 %if 0%{?fedora}
 # optional but nice to have but not available in any epel branch
@@ -29,8 +31,8 @@ Requires:       tile
 # used to get sound working with PulseAudio
 Requires:       python%{python3_pkgversion}-pygame
 # really required
-Requires:       tcl
-Requires:       tk
+Requires:       tcl < 1:9
+Requires:       tk < 1:9
 Requires:       tix
 Requires:       python%{python3_pkgversion}-tkinter
 Requires:       python%{python3_pkgversion}-imaging-tk
@@ -88,6 +90,9 @@ find "$RPM_BUILD_ROOT%{python3_sitelib}/pysollib" -name '*.py' | xargs -L1 perl 
 
 
 %changelog
+* Sat Feb 08 2025 Shlomi Fish <shlomif@shlomifish.org> 3.2.0-3
+- Update the build process for tcl 9 / tk 9
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

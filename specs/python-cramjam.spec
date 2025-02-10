@@ -1,7 +1,10 @@
 %bcond tests 1
 
+%global commit 61564e7761e38e5ec55e7939ccd6a276c2c55d11
+%global snapdate 20250104
+
 Name:           python-cramjam
-Version:        2.9.1
+Version:        2.10.0~%{snapdate}git%{sub %{commit} 1 7}
 Release:        %autorelease
 Summary:        Thin Python bindings to de/compression algorithms in Rust
 
@@ -29,13 +32,6 @@ Source0:        cramjam-%{commit}-filtered.tar.gz
 Source1:        get_source
 
 %endif
-
-# Updates for Maturin 1.8: add a version key in the project metadata
-# https://github.com/milesgranger/cramjam/pull/196
-Patch:          %{url}/pull/196.patch
-
-# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 
 BuildRequires:  python3-devel
 BuildRequires:  tomcli
@@ -91,6 +87,24 @@ tomcli set pyproject.toml false 'profile.release.strip'
 # which is not packaged for that reason.
 tomcli set Cargo.toml del 'features.generate-import-lib'
 
+# Downstream-only: patch out the wasm-compat feature, which is unnecessary and
+# would bring in unwanted dependencies
+tomcli set Cargo.toml del 'features.wasm32-compat'
+
+# Downstream-only: patch out the "experimental" feature and all of the features
+# related to blosc2 and isa-l support. We only want to build the Python
+# extension with the default features, and we only want maturin to check
+# dependencies for those features.
+blosc2_isal_features="$(
+  tomcli get Cargo.toml features -F newline-keys |
+    grep -E 'blosc2|ideflate|igzip|isal|izlib' |
+    tr '\n' ' '
+)"
+for feature in experimental ${blosc2_isal_features}
+do
+  tomcli set Cargo.toml del "features.${feature}"
+done
+
 # Downstream-only: remove all the static-linking features, and make the
 # dynamic-linking ones default, as we do in rust-libcramjam.
 static_features="$(
@@ -108,10 +122,6 @@ do
         "features.${binding}" "${binding}-static" "${binding}-shared"
   fi
 done
-
-# Downstream-only: patch out the wasm-compat feature, which requires an
-# unavailable blosc2 crate feature.
-tomcli set Cargo.toml del 'features.wasm32-compat'
 
 %cargo_prep
 
@@ -136,29 +146,18 @@ export RUSTFLAGS='%{build_rustflags}'
 %check
 %pyproject_check_import
 %if %{with tests}
-%ifarch s390x
-# Even after serious effort by upstream (see
-# https://github.com/milesgranger/blosc2-rs/issues/23), several blosc2-rs tests
-# still fail on s390x, and therefore blosc2-related tests may also fail in this
-# package. Making this package ExcludeArch would have a ripple effect on
-# a whole tree of packages that depend on it, and which probably do not even
-# use its blosc2 support. We consider that outcome even worse than shipping
-# broken blosc2 support on s390x. Note that the endianness issues are probably
-# in the C blosc2 library (and that the blosc2 package ignores any and all
-# test failures on s390x), and see also:
-# https://github.com/Blosc/c-blosc2/issues/467.
+# Test failures in test_variants_decompress_into with recent hypothesis
+# versions
+# https://github.com/milesgranger/cramjam/issues/201
 #
-# […]
-# E       cramjam.DecompressionError: Blosc2(InvalidHeader)
-# […]
-# tests/test_variants.py:55: DecompressionError
-k="${k-}${k+ and }not test_variants_different_dtypes[blosc2]"
-%endif
-# Some tests in test_variants.py may produce segmentation faults
-# https://github.com/milesgranger/cramjam/issues/190
-k="${k-}${k+ and }not (test_variants and [blosc2)"
+# It is hard to be really sure what is going on here. The failures are
+# concerning, and might (or might not) reflect a serious problem. Nevertheless,
+# since the problem appears to be linked to newer hypothesis versions, there’s
+# not reason to believe that the package has *new* problems. It *might* have
+# newly *revealed* problems. This merits further investigation.
+k="${k-}${k+ and }not test_variants_decompress_into"
 
-%pytest -k "${k-}" -v -n auto
+%pytest -k "${k-}" --ignore=benchmarks/test_bench.py -v -n auto
 %endif
 
 

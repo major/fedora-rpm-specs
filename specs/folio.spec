@@ -1,7 +1,7 @@
 %global app_id com.toolstack.Folio
 
 Name:           folio
-Version:        24.14
+Version:        25.01
 Release:        %autorelease
 Summary:        A markdown note-taking app for GNOME
 
@@ -9,7 +9,6 @@ License:        GPL-3.0-or-later
 URL:            https://github.com/toolstack/Folio
 Source0:        %{url}/archive/refs/tags/%{version}.tar.gz
 Patch0:         storage-location.patch
-Patch1:         ca-lang-fix.patch
 
 BuildRequires:  meson
 BuildRequires:  gcc

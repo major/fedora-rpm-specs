@@ -6,12 +6,12 @@
 %bcond mingw 1
 
 Name:           flatbuffers
-Version:        24.12.23
+Version:        25.1.24
 # The .so version is equal to the project version since upstream offers no ABI
 # stability guarantees. We manually repeat it here and and use the macro in the
 # file lists as a reminder to avoid undetected .so version bumps. See
 # https://github.com/google/flatbuffers/issues/7759.
-%global so_version 24.12.23
+%global so_version 25.1.24
 Release:        %autorelease
 Summary:        Memory efficient serialization library
 
@@ -23,7 +23,7 @@ License:        Apache-2.0
 URL:            https://google.github.io/flatbuffers
 %global forgeurl https://github.com/google/flatbuffers
 Source0:        %{forgeurl}/archive/v%{version}/%{name}-%{version}.tar.gz
-# Hand-written for Fedora in groff_man(7) format based on --help output
+# Hand-written for Fedora in groff_man(7) format based on docs/source/flatc.md
 Source1:        flatc.1
 
 # Adjust library installation under mingw
@@ -33,10 +33,6 @@ Patch:          flatbuffers_mingw-lib.patch
 # NumPy 2.x fix
 # https://github.com/google/flatbuffers/issues/8332
 Patch:          %{forgeurl}/pull/8346.patch
-
-# Fix a minor typo in flatc --help output
-# https://github.com/google/flatbuffers/pull/8468
-Patch:          %{forgeurl}/pull/8468.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

@@ -1,8 +1,8 @@
 %global framework kdesu
 
 Name:    kf6-%{framework}
-Version: 6.10.0
-Release: 3%{?dist}
+Version: 6.11.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 integration with su
 
 License: CC0-1.0 AND GPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -78,6 +78,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Fri Feb 07 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.11.0-1
+- 6.11.0
+
 * Sat Feb 01 2025 Pavel Solovev <daron439@gmail.com> - 6.10.0-3
 - Drop sgid
 - Use sudo by default on f42+ and rhel

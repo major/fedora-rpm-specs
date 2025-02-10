@@ -13,25 +13,6 @@
 # https://github.com/astral-sh/uv/issues/8970#issuecomment-2466794088.
 %bcond it 0
 
-# On some releases and architectures, Koji builders sometimes or always run out
-# of memory in the final linking step. This cannot be fixed by adding
-# "-C link-args=-Wl,--no-keep-memory" to the RUSTFLAGS (as that seems to have
-# no significant effect on memory requirements), nor can it be fixed by
-# reducing parallelism with e.g. the %%constrain_build macro (although we do
-# need this as well), since nothing else is happening at that point in the
-# build. See:
-# https://doc.rust-lang.org/rustc/codegen-options/index.html#debuginfo
-%global rustflags_debuginfo 1
-
-# As a separate limitation, memory exhaustion can occur on builders with very
-# many CPUs. Typical workspace crates peak out at 2-4 GB per rustc invocation.
-# The uv crate needs much more memory to compile (see the RUSTFLAGS adjustment
-# in %%build), but in practice it is also compiled alone after all the other
-# crates have finished, so it does not need to influence (and does not benefit
-# from) this setting. Even though some crates will require more than 3GB, the
-# average should be below that on many-core systems. Increase as needed.
-%constrain_build -m 4096
-
 Name:           uv
 Version:        0.5.29
 Release:        %autorelease
@@ -245,6 +226,25 @@ Patch200:       0001-Downstream-only-Revert-feat-ensure-successful-round-.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+
+# On some releases and architectures, Koji builders sometimes or always run out
+# of memory in the final linking step. This cannot be fixed by adding
+# "-C link-args=-Wl,--no-keep-memory" to the RUSTFLAGS (as that seems to have
+# no significant effect on memory requirements), nor can it be fixed by
+# reducing parallelism with e.g. the %%constrain_build macro (although we do
+# need this as well), since nothing else is happening at that point in the
+# build. See:
+# https://doc.rust-lang.org/rustc/codegen-options/index.html#debuginfo
+%global rustflags_debuginfo 1
+
+# As a separate limitation, memory exhaustion can occur on builders with very
+# many CPUs. Typical workspace crates peak out at 2-4 GB per rustc invocation.
+# The uv crate needs much more memory to compile (see the RUSTFLAGS adjustment
+# in %%build), but in practice it is also compiled alone after all the other
+# crates have finished, so it does not need to influence (and does not benefit
+# from) this setting. Even though some crates will require more than 3GB, the
+# average should be below that on many-core systems. Increase as needed.
+%constrain_build -m 4096
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  rust2rpm-helper

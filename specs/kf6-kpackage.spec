@@ -1,8 +1,8 @@
 %global framework kpackage
 
 Name:           kf6-%{framework}
-Version:        6.10.0
-Release:        2%{?dist}
+Version:        6.11.0
+Release:        1%{?dist}
 Summary:        KDE Frameworks 6 Tier 2 library to load and install packages as plugins
 
 License:        CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -73,6 +73,9 @@ mkdir -p %{buildroot}%{_kf6_datadir}/kpackage/
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Fri Feb 07 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.11.0-1
+- 6.11.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

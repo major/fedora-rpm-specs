@@ -45,6 +45,9 @@ BuildRequires:  cmake(KUnifiedPush)
 BuildRequires:  cmake(KF6Crash)
 
 BuildRequires:  cmake(MpvQt)
+# Should not be required, but mpv is built against it, so...
+BuildRequires:  jack-audio-connection-kit
+# ---
 BuildRequires:  pkgconfig(openssl)
 
 Requires:       hicolor-icon-theme

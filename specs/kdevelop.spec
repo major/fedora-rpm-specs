@@ -13,6 +13,9 @@ Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version
 Source10:       macros.kdevelop
 
 # upstreamable patches
+# https://invent.kde.org/kdevelop/kdevelop/-/merge_requests/725
+# https://fedoraproject.org/wiki/Changes/LLVM-20
+Patch0:         find-clang-f42.patch
 
 # upstream patches
 
@@ -236,6 +239,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.kde.kdevel
 %changelog
 * Wed Feb 05 2025 Steve Cossette <farchord@gmail.com> - 9:24.12.2-1
 - 24.12.2
+- Add patch to find clang builtins in F42+
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9:24.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild

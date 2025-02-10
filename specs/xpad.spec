@@ -1,12 +1,14 @@
 Name:           xpad
 Version:        5.8.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Sticky notepad for GTK
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            https://launchpad.net/xpad
 Source0:        https://launchpad.net/xpad/trunk/%{version}/+download/%{name}-%{version}.tar.bz2
+
+Patch1:         xpad-5.8.0-gettext-version.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -60,6 +62,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Feb 08 2025 Kevin Fenzi <kevin@scrye.com> - 5.8.0-10
+- Fix ftbfs. Fixes rhbz#2341579
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

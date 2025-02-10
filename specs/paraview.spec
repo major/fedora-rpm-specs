@@ -93,6 +93,11 @@ Source2:        FindPEGTL.cmake
 Patch0:         paraview-cmakedir.patch
 # Fix doc build with Sphinx 6
 Patch1:         paraview-sphinx6.patch
+# Fix build with gcc 15
+# https://gitlab.kitware.com/vtk/vtk-m/-/merge_requests/3271
+# https://gitlab.kitware.com/vtk/vtk-m/-/merge_requests/3272
+# FTBFS https://bugzilla.redhat.com/show_bug.cgi?id=2341002
+Patch2:         paraview-gcc15.patch
 # Fix build with newer freetype
 # https://gitlab.kitware.com/vtk/vtk/-/issues/18033
 Patch3:         paraview-freetype.patch

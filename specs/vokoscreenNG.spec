@@ -1,7 +1,7 @@
 %global forgeurl https://github.com/vkohaupt/vokoscreenNG
 
 Name:           vokoscreenNG
-Version:        4.4.2
+Version:        4.4.4
 %forgemeta
 Release:        %autorelease
 Summary:        Powerful screencast creator to record the screen
