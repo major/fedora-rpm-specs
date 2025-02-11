@@ -3,18 +3,15 @@
 
 Summary:   Qt support library for PackageKit
 Name:      PackageKit-Qt
-Version:   1.1.1
-Release:   8%{?dist}
+Version:   1.1.2
+Release:   1%{?dist}
 
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:   LicenseRef-Callaway-LGPLv2+
+License:   LGPL-2.1-only
 URL:       http://www.packagekit.org/
 
 Source0:   https://github.com/hughsie/PackageKit-Qt/archive/v%{version}.tar.gz
 
 # Upstream patches
-Patch0:    offline-ask-authorization.patch
-Patch1:    set-hints-before-transaction.patch
 
 BuildRequires: cmake
 BuildRequires: cmake(Qt6DBus)
@@ -115,6 +112,9 @@ popd
 
 
 %changelog
+* Sun Feb 09 2025 Steve Cossette <farchord@gmail.com> - 1.1.2-1
+- 1.1.2
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

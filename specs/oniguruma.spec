@@ -66,8 +66,6 @@ developing applications that use %{name}.
 # is that it ends up mixing and matching regexp bits between itself and glibc.
 # Disable LTO
 %define _lto_cflags %{nil}
-%dnl %global optflags_orig %optflags
-%dnl %global optflags %optflags_orig -std=gnu23
 
 %if 0%{?git_snapshot}
 autoreconf -fi

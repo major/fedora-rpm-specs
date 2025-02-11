@@ -43,6 +43,7 @@ Summary: %summary
 
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
+sed -i 's/--instafail//g' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -70,10 +71,13 @@ rm -rf html/.{doctrees,buildinfo}
         and not test_install_collection_from_disk
         and not test_load_plugins
         and not test_require_collection
+        and not test_install_collection
         and not test_install_collection_git
+        and not test_runtime_example
         and not test_runtime_has_playbook
         and not test_runtime_plugins
         and not test_runtime_scan_path
+        and not test_upgrade_collection
         '
     }
 %endif

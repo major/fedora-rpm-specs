@@ -1,54 +1,50 @@
 # Break dependency cycles by disabling certain optional dependencies.
-%bcond_with bootstrap
+%bcond bootstrap 0
 
 # Break aom dependency cycle:
 #   vmaf → aom → avif
 %if %{with bootstrap}
 # Build without aom
-%bcond_with aom
+%bcond aom 0
 # Build without SVT-AV1
-%bcond_with svt
+%bcond svt 0
 %else
 # Build with aom
-%bcond_without aom
+%bcond aom 1
 # Build SVT-AV1
-%bcond_without svt
+%bcond svt 1
 %endif
 
 %if (0%{?rhel} && 0%{?rhel} < 9) || 0%{?rhel} >= 10
-%bcond_with rav1e
+%bcond rav1e 0
 %else
-%bcond_without rav1e
+%bcond rav1e 1
 %endif
 %if 0%{?rhel} >= 10
-%bcond_with gtest
+%bcond gtest 0
 %else
-%bcond_without gtest
+%bcond gtest 1
 %endif
-%bcond_without check
+%bcond check 1
 
 Name:           libavif
-Version:        1.0.4
+Version:        1.1.1
 Release:        %autorelease
 Summary:        Library for encoding and decoding .avif files
 
 License:        BSD-2-Clause
 URL:            https://github.com/AOMediaCodec/libavif
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# Encode alpha as 4:2:0 with SVT. Fix build with SVT-AV1 2.0.0
-Patch0:         https://github.com/AOMediaCodec/libavif/commit/b10d2697e9ed2fb09cb722335ff4342c353612b8.patch
+Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 %{?with_check:%{?with_gtest:BuildRequires:  gtest-devel}}
 BuildRequires:  nasm
-%if %{with aom}
-BuildRequires:  pkgconfig(aom)
-%endif
+%{?with_aom:BuildRequires:  pkgconfig(aom)}
 BuildRequires:  pkgconfig(dav1d)
 BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libpng)
+BuildRequires:  pkgconfig(libyuv)
 %{?with_rav1e:BuildRequires:  pkgconfig(rav1e)}
 %{?with_svt:BuildRequires:  pkgconfig(SvtAv1Enc)}
 BuildRequires:  pkgconfig(zlib)
@@ -91,13 +87,13 @@ Avif-pixbuf-loader contains a plugin to load AVIF images in GTK+ applications.
 %build
 %cmake \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-    %{?with_aom:-DAVIF_CODEC_AOM=1} \
-    -DAVIF_CODEC_DAV1D=1 \
-    %{?with_rav1e:-DAVIF_CODEC_RAV1E=1} \
-    %{?with_svt:-DAVIF_CODEC_SVT=1} \
+    %{?with_aom:-DAVIF_CODEC_AOM=SYSTEM} \
+    -DAVIF_CODEC_DAV1D=SYSTEM \
+    %{?with_rav1e:-DAVIF_CODEC_RAV1E=SYSTEM} \
+    %{?with_svt:-DAVIF_CODEC_SVT=SYSTEM} \
     -DAVIF_BUILD_APPS=1 \
     -DAVIF_BUILD_GDK_PIXBUF=1 \
-    %{?with_check:-DAVIF_BUILD_TESTS=1 -DAVIF_ENABLE_GTEST=%{with gtest}}
+    %{?with_check:-DAVIF_BUILD_TESTS=1 %{?with_gtest:-DAVIF_GTEST=SYSTEM}}
 %cmake_build
 
 %install

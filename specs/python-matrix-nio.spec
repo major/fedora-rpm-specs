@@ -1,5 +1,5 @@
 Name:           python-matrix-nio
-Version:        0.25.0
+Version:        0.25.2
 Release:        %autorelease
 Summary:        A Matrix client library
 
@@ -37,14 +37,15 @@ BuildRequires:  python3-logbook
 %autosetup -n matrix_nio-%{version}
 # Update BRs
 sed \
-    -e 's/^aiohttp-socks.*/aiohttp-socks = "*"/' \
-    -e 's/^aiofiles.*/aiofiles = "*"/' \
-    -e 's/^cachetools.*/cachetools = "*"/' \
-    -e 's/^h11.*/h11 = "*"/' \
-    -e 's/^h2.*/h2 = "*"/' \
-    -e 's/^pycryptodome.*/pycryptodomex = "*"/' \
-    -e 's/^jsonschema.*/jsonschema = "*"/' \
+    -e 's/"aiohttp-socks.*"/"aiohttp-socks"/' \
+    -e 's/"aiofiles.*"/"aiofiles"/' \
+    -e 's/"cachetools.*"/"cachetools"/' \
+    -e 's/"h11.*"/"h11"/' \
+    -e 's/"h2.*"/"h2"/' \
+    -e 's/"pycryptodome.*"/"pycryptodomex"/' \
+    -e 's/"jsonschema.*"/"jsonschema"/' \
     -i pyproject.toml
+
 # Remove backup file
 rm -fv nio/events/room_events.py.orig
 

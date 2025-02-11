@@ -1,6 +1,6 @@
 Name:           python-ogr
-Version:        0.50.3
-Release:        2%{?dist}
+Version:        0.50.4
+Release:        1%{?dist}
 Summary:        One API for multiple git forges
 
 License:        MIT
@@ -47,6 +47,10 @@ One Git library to Rule!
 
 
 %changelog
+* Fri Feb 07 2025 Packit <hello@packit.dev> - 0.50.4-1
+- Trigger a new release to confirm the correct SPDX licence.
+- Resolves: rhbz#2336934
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.50.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

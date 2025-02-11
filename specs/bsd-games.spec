@@ -6,7 +6,7 @@
 Summary: Collection of text-based games
 Name: bsd-games
 Version: 2.17
-Release: 80%{?dist}
+Release: 81%{?dist}
 # Automatically converted from old format: BSD and BSD with advertising - review is highly recommended.
 License: LicenseRef-Callaway-BSD AND LicenseRef-Callaway-BSD-with-advertising
 URL: ftp://metalab.unc.edu/pub/Linux/games/
@@ -57,7 +57,6 @@ BuildRequires: libfl-static
 BuildRequires: flex-devel
 %endif
 BuildRequires: bison
-Requires(pre): shadow-utils
 
 %description
 Bsd-games includes adventure, arithmetic, atc, backgammon, battlestar,
@@ -98,6 +97,13 @@ popd
 %patch -P25 -p1 -b .c99
 %patch -P26 -p1 -b .atc
 %patch -P27 -p1 -b .fread_chk
+
+# Create a sysusers.d config file
+cat >bsd-games.sysusers.conf <<EOF
+g gamehack -
+g gamesail -
+g gamephant -
+EOF
 
 %build
 # We include a templatized configuration settings file to set
@@ -153,11 +159,7 @@ install -p -m 0644 acronyms* $RPM_BUILD_ROOT%{_datadir}/misc/
 mv $RPM_BUILD_ROOT%{_datadir}/misc/acronyms-o.real $RPM_BUILD_ROOT%{_datadir}/misc/acronyms-o
 popd
 
-%pre
-for group in gamehack gamesail gamephant; do
-    getent group $group >/dev/null || groupadd -r $group
-done
-exit 0
+install -m0644 -D bsd-games.sysusers.conf %{buildroot}%{_sysusersdir}/bsd-games.conf
 
 %files
 %{_bindir}/adventure
@@ -224,8 +226,12 @@ exit 0
 %config(noreplace) %attr(664,root,games) %{_var}/games/snakerawscores
 %config(noreplace) %attr(664,root,games) %{_var}/games/bsd-fbg.scores
 %doc AUTHORS COPYING ChangeLog ChangeLog.0 THANKS YEAR2000 README.hunt trek/USD.doc/trek.me
+%{_sysusersdir}/bsd-games.conf
 
 %changelog
+* Thu Jan 23 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.17-81
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.17-80
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

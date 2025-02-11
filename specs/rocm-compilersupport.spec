@@ -54,14 +54,14 @@
 %endif
 
 # Older hipcc was perl, it has been deprecated
-%bcond perl      0
+%bcond_with perl
 # Enable ppc and aarch64 builds
-%bcond alt_arch  0
+%bcond_with alt_arch
 
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}
-Release:        39.rocm%{rocm_version}%{?dist}
+Release:        40.rocm%{rocm_version}%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 %if 0%{?suse_version}
 Group:          Development/Languages/Other
@@ -156,34 +156,46 @@ libraries in the form of bit code. Specifically:
  - HIP built-in library
  - Heterogeneous Compute built-in library
 
-%package -n rocm-comgr
+ 
+%if 0%{?suse_version}
+# 15.6
+# rocm-comgr.x86_64: E: shlib-policy-name-error (Badness: 10000) libamd_comgr2
+# Your package contains a single shared library but is not named after its SONAME.
+%global comgr_name libamd_comgr2
+%else
+%global comgr_name rocm-comgr
+%endif
+
+%package -n %{comgr_name}
 Summary:        AMD ROCm LLVM Code Object Manager
 Provides:       comgr(major) = %{comgr_maj_api_ver}
 Provides:       rocm-comgr = %{comgr_full_api_ver}-%{release}
-%if %{with bundled_llvm}
-%endif
 
-%description -n rocm-comgr
+%description -n %{comgr_name}
 The AMD Code Object Manager (Comgr) is a shared library which provides
 operations for creating and inspecting code objects.
 
 %if 0%{?suse_version}
-%post -n rocm-comgr  -p /sbin/ldconfig
-%postun -n rocm-comgr -p /sbin/ldconfig
+%post -n %{comgr_name}  -p /sbin/ldconfig
+%postun -n %{comgr_name} -p /sbin/ldconfig
 %endif
 
-%package -n rocm-comgr-devel
+%package -n %{comgr_name}-devel
 Summary:        AMD ROCm LLVM Code Object Manager
-Requires:       rocm-comgr%{?_isa} = %{version}-%{release}
+Requires:       %{comgr_name}%{?_isa} = %{version}-%{release}
 %if %{without bundled_llvm}
 Requires:       clang-devel(major) = %{llvm_maj_ver}
 Requires:       llvm-devel(major) = %{llvm_maj_ver}
 %else
 Requires:       rocm-device-libs
 %endif
+%if 0%{?suse_version}
+Provides:       rocm-comgr-devel = %{version}-%{release}
+%endif
 
-%description -n rocm-comgr-devel
+%description -n %{comgr_name}-devel
 The AMD Code Object Manager (Comgr) development package.
+
 
 %package -n hipcc
 Summary:        HIP compiler driver
@@ -331,6 +343,7 @@ Development header files for clang tools.
 # ROCM LLD
 %package -n rocm-lld
 Summary:        The ROCm Linker
+Requires:      rocm-llvm-libs%{?_isa} = %{version}-%{release}
 
 %description -n rocm-lld
 %{summary}
@@ -643,6 +656,7 @@ export LD_LIBRARY_PATH=$PWD/build-llvm-2/lib
        -DCMAKE_INSTALL_PREFIX=%{bundle_prefix} \
        -DCMAKE_INSTALL_RPATH=%{bundle_prefix}/lib \
        -DCMAKE_INSTALL_LIBDIR=lib \
+       -DCMAKE_SKIP_INSTALL_RPATH=OFF \
        -DCLANG_DEFAULT_LINKER=lld \
        -DLLVM_ENABLE_LLD=ON \
        -DLLVM_TOOL_COMPILER_RT_BUILD=ON \
@@ -710,7 +724,8 @@ pushd .
        %{llvmrocm_devicelibs_config} \
        -DCMAKE_INSTALL_RPATH=%{bundle_prefix}/lib \
        -DCMAKE_INSTALL_PREFIX=%{_prefix} \
-       -DCMAKE_INSTALL_LIBDIR=%{_lib}
+       -DCMAKE_INSTALL_LIBDIR=%{_lib} \
+       -DCMAKE_SKIP_INSTALL_RPATH=OFF
 
 %cmake_build -j ${JOBS}
 popd
@@ -925,7 +940,7 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %endif
 
 
-%files -n rocm-comgr
+%files -n %{comgr_name}
 %license amd/comgr/LICENSE.txt
 %license amd/comgr/NOTICES.txt
 %doc amd/comgr/README.md
@@ -934,7 +949,7 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %exclude %{_docdir}/amd_comgr
 %endif
 
-%files -n rocm-comgr-devel
+%files -n %{comgr_name}-devel
 %dir %{_includedir}/amd_comgr
 %dir %{_libdir}/cmake/amd_comgr
 %{_includedir}/amd_comgr/amd_comgr.h
@@ -1189,6 +1204,9 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %endif
 
 %changelog
+* Fri Feb 7 2025 Tom Rix <Tom.Rix@amd.com> - 18-40.rocm6.3.2
+- Fix Suse 15.6
+
 * Thu Feb 6 2025 Tom Rix <Tom.Rix@amd.com> - 18-39.rocm6.3.2
 - Enable ppc and aarch64 with alt_arch
 - Add lib,include,bin for default module in filesystem

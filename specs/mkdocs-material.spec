@@ -1,24 +1,22 @@
 %global forgeurl https://github.com/squidfunk/mkdocs-material
 
 Name:           mkdocs-material
-Version:        9.5.48
+Version:        9.6.3
 Release:        %autorelease
 Summary:        Material design theme for MkDocs
 
 License:        MIT
 URL:            https://squidfunk.github.io/mkdocs-material
 Source:         %{forgeurl}/archive/%{version}/%{name}-%{version}.tar.gz
-# Drop mkdocs-material-extensions from requirements
-Patch:          %{forgeurl}/pull/7486.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  sed
 
 # These pull in additional dependencies that enable optional features
-Recommends:     python3dist(mkdocs-material[git]) = %{version}
-Recommends:     python3dist(mkdocs-material[imaging]) = %{version}
-Recommends:     python3dist(mkdocs-material[recommended]) = %{version}
+Recommends:     python3dist(mkdocs-material[git]) = %{version}-%{release}
+Recommends:     python3dist(mkdocs-material[imaging]) = %{version}-%{release}
+Recommends:     python3dist(mkdocs-material[recommended]) = %{version}-%{release}
 
 %description
 This package provides a powerful documentation framework on top of MkDocs.

@@ -8,14 +8,14 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/Chris00/ocaml-benchmark
 
 Name:           ocaml-benchmark
-Version:        1.6
-Release:        16%{?dist}
+Version:        1.7
+Release:        1%{?dist}
 Summary:        Benchmarking module for OCaml
 
 License:        LGPL-3.0-only WITH OCaml-LGPL-linking-exception
 URL:            https://chris00.github.io/ocaml-benchmark/doc/
 VCS:            git:%{giturl}.git
-Source0:        %{giturl}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  ocaml
 BuildRequires:  ocaml-dune
@@ -62,6 +62,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sun Feb 09 2025 Andy Li <andy@onthewings.net> - 1.7-1
+- New upstream release (RHBZ#2342924)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -14,11 +14,11 @@
 %global		git_builddir	%{nil}
 
 %if 0%{?use_gitbare}
-%global		gittardate		20240825
-%global		gittartime		1624
+%global		gittardate		20250209
+%global		gittartime		1612
 
-%global		gitbaredate	20240821
-%global		git_rev		83d90343ba7ed345f8c2f0e9d5b71e2fc88d1d6e
+%global		gitbaredate	20250128
+%global		git_rev		18bad9324b9e8990c73a67cee9b87d551d34be91
 %global		git_short		%(echo %{git_rev} | cut -c-8)
 %global		git_version	%{gitbaredate}git%{git_short}
 %endif
@@ -34,7 +34,7 @@
 
 Name:           menu-cache
 Version:        %{main_version}%{git_ver_rpm}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Caching mechanism for freedesktop.org compliant menus
 
 # SPDX confirmed
@@ -140,6 +140,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Sun Feb 09 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.1.0^20250128git18bad932-1
+- Update to the latest git
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0^20240821git83d90343-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

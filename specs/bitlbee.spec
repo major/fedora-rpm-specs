@@ -4,8 +4,11 @@ Summary:           IRC to other chat networks gateway
 Name:              bitlbee
 Version:           3.6
 Release:           17%{?dist}
-# Automatically converted from old format: GPLv2+ and MIT - review is highly recommended.
-License:           GPL-2.0-or-later AND LicenseRef-Callaway-MIT
+# BitlBee is GPL-2.0-or-later but uses other source codes, breakdown:
+# BSD-2-Clause: lib/json.[ch]
+# ISC: lib/ns_parse.c
+# LGPL-2.1-only: protocols/twitter/twitter{,_http,_lib}.[ch]
+License:           GPL-2.0-or-later AND BSD-2-Clause AND ISC AND LGPL-2.1-only
 URL:               https://www.bitlbee.org/
 Source0:           https://get.bitlbee.org/src/%{name}-%{version}.tar.gz
 Source1:           bitlbee.sysusersd
@@ -71,7 +74,7 @@ export PYTHON="%{_bindir}/python3"
 export CFLAGS="$RPM_OPT_FLAGS"
 ./configure \
   --prefix=%{_prefix} \
-  --bindir=%{_sbindir} \
+  --sbindir=%{_sbindir} \
   --etcdir=%{_sysconfdir}/%{name} \
   --mandir=%{_mandir} \
   --datadir=%{_datadir}/%{name} \

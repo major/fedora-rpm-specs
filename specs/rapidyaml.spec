@@ -33,6 +33,12 @@ Source2:        %{yamltest_url}/archive/v%{yamltest_date}/yaml-test-suite-%{yaml
 # Helper script to patch out unconditional download of dependencies in CMake
 Source10:       patch-no-download
 
+# update c4core
+# https://github.com/biojppm/rapidyaml/commit/33fd0f8b3b063aa49b6f4caf6f5ca4ffc1364947
+# This patch is just the part that adds an #include, fixing compatibility with
+# c4core 0.2.3.
+Patch:          rapidyaml-0.7.2-c4core-0.2.3.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 %if %{undefined fc40} && %{undefined fc41}
 ExcludeArch:    %{ix86}

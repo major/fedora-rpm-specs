@@ -10,7 +10,7 @@
 %bcond docs 1
 
 Name:           gegl04
-Version:        0.4.52
+Version:        0.4.54
 Release:        %autorelease
 Summary:        Graph based image processing framework
 
@@ -18,9 +18,6 @@ Summary:        Graph based image processing framework
 License:        GPL-3.0-or-later AND LGPL-3.0-or-later
 URL:            https://www.gegl.org/
 Source0:        http://download.gimp.org/pub/gegl/%{apiver}/gegl-%{version}.tar.xz
-# Include <stdio.h> for fprintf()
-# https://gitlab.gnome.org/GNOME/gegl/-/merge_requests/207
-Patch:          0001-Include-stdio.h-for-fprintf.patch
 
 BuildRequires:  chrpath
 BuildRequires:  enscript

@@ -5,7 +5,7 @@
 %bcond docs %{defined fedora}
 
 Name:		python-%{pypi_name}
-Version:	1.25.1
+Version:	1.25.3
 Release:	%autorelease
 Summary:	Python binding for MuPDF - a lightweight PDF and XPS viewer
 
@@ -111,6 +111,10 @@ SKIP="$SKIP and not test_3050"
 SKIP="$SKIP and not test_subset_fonts"
 # test_fit_springer depends on font library version (harfbuzz etc)
 SKIP="$SKIP and not test_fit_springer"
+# test_spikes uses a binary diff on rendered images
+SKIP="$SKIP and not test_spikes"
+# these compare renderings with system fonts or missing fonts
+SKIP="$SKIP and not test_1645 and not test_4180"
 %ifarch s390 s390x
 # test_3087 crashes on s390 s390x (bigendian mask problem?)
 SKIP="$SKIP and not test_3087"

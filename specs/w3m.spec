@@ -13,13 +13,7 @@ Release:  65.git%{gitdate}%{?dist}
 License:  MIT AND Unicode-DFS-2015
 URL:      http://w3m.sourceforge.net/
 BuildRequires:  ncurses-devel
-%if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires:  openssl-devel
-%else
-BuildRequires:  openssl11-devel
-# -Wnull-dereference requires GCC >= 6
-BuildRequires:  devtoolset-8-toolchain
-%endif
 BuildRequires:  perl-generators
 BuildRequires:  pkgconfig
 BuildRequires:  gettext-devel
@@ -59,9 +53,7 @@ w3m-img package as well.
 %package img
 Summary: Helper program to display the inline images for w3m
 BuildRequires:  gtk2-devel
-%if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires:  gdk-pixbuf2-xlib-devel
-%endif
 Requires: ImageMagick
 Requires: %{name}%{?_isa} = %{version}-%{release}
 
@@ -74,12 +66,7 @@ linux framebuffer.
 %autosetup -n %{name}-%{version}-git%{gitdate} -p1
 
 %build
-%if 0%{?rhel} == 7
-. /opt/rh/devtoolset-8/enable
-export SSL_CFLAGS="$(pkg-config --cflags-only-I openssl11)"
-export SSL_LIBS="$(pkg-config --libs-only-L openssl11)"
-%endif
-
+export CFLAGS="$CFLAGS -std=gnu17"
 %configure %{build_options}
 %make_build
 

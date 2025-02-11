@@ -1,6 +1,6 @@
 Name:		squeekboard
-Version:	1.42.0
-Release:	2%{?dist}
+Version:	1.43.1
+Release:	1%{?dist}
 Summary:	a Wayland virtual keyboard
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -8,6 +8,9 @@ License:	GPL-3.0-or-later
 URL:		https://gitlab.gnome.org/World/Phosh/squeekboard
 Source0:	https://gitlab.gnome.org/World/Phosh/squeekboard/-/archive/v%{version}/%{name}-v%{version}.tar.bz2
 Source1:	squeekboard.desktop
+# https://gitlab.gnome.org/World/Phosh/squeekboard/-/merge_requests/709
+# Patch also includes a revert of the xkbkeyboard 0.8 upgrade
+Patch0:		0001-Fixes-to-build-on-Fedora.patch
 
 BuildRequires:	gcc
 BuildRequires:	meson
@@ -22,6 +25,11 @@ BuildRequires:	pkgconfig(wayland-protocols) >= 1.12
 BuildRequires:	pkgconfig(libfeedback-0.0)
 BuildRequires:	pkgconfig(libbsd)
 BuildRequires:	desktop-file-utils
+
+Provides: %{_datadir}/applications/sm.puri.OSK0.desktop
+
+Requires(post): %{_sbindir}/alternatives
+Requires(postun): %{_sbindir}/alternatives
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
@@ -58,13 +66,30 @@ sed -i 's/X-X-Phosh/X-Phosh/g' %{buildroot}%{_datadir}/applications/sm.puri.Sque
 
 %find_lang %{name}
 
+touch %{buildroot}%{_datadir}/applications/sm.puri.OSK0.desktop
+
 %check
 # ensure standard Rust compiler flags are set
 export RUSTFLAGS="%build_rustflags"
 %meson_test
 desktop-file-validate %{buildroot}/%{_datadir}/applications/sm.puri.Squeekboard.desktop
 
+%post
+alternatives --install \
+    %{_datadir}/applications/sm.puri.OSK0.desktop \
+    phosh-osk \
+    %{_datadir}/applications/sm.puri.Squeekboard.desktop \
+    10
+
+%preun
+if [ $1 -eq 0 ] ; then
+  alternatives --remove \
+    phosh-osk \
+    %{_datadir}/applications/sm.puri.Squeekboard.desktop
+fi
+
 %files -f %{name}.lang
+%ghost %{_datadir}/applications/sm.puri.OSK0.desktop
 %{_bindir}/squeekboard
 %{_bindir}/squeekboard-entry
 %{_bindir}/squeekboard-test-layout
@@ -76,6 +101,11 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/sm.puri.Squeekboard.
 %license COPYING
 
 %changelog
+* Sun Feb 02 2025 Sam Day <me@samcday.com> - 1.43.1-1
+- Update to 1.43.1
+- Patch zbus dependency from 1.9 to to 4.x
+- Patch xkbkeyboard dependency from 0.8 to 0.7
+
 * Wed Jan 22 2025 David Bold <davidsch@fedoraproject.org> - 1.42.0-2
 - Disable building for i686
 

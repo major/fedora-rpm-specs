@@ -6,10 +6,10 @@
 
 Name:           c4core
 Summary:        C++ core utilities
-Version:        0.2.2
+Version:        0.2.3
 # This is the same as the version number. To prevent undetected soversion
 # bumps, we nevertheless express it separately.
-%global so_version 0.2.2
+%global so_version 0.2.3
 Release:        %autorelease
 
 URL:            https://github.com/biojppm/c4core
@@ -46,11 +46,8 @@ BuildRequires:  ninja-build
 
 # For each header-only library, the guidelines require us to BR the -static
 # package for tracking.
-BuildRequires:  debugbreak-devel
 BuildRequires:  debugbreak-static
-BuildRequires:  fast_float-devel
 BuildRequires:  fast_float-static
-BuildRequires:  doctest-devel
 BuildRequires:  doctest-static
 
 %global common_description %{expand:

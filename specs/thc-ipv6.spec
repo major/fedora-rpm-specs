@@ -9,15 +9,12 @@ License: LicenseRef-Callaway-AGPLv3-with-exceptions
 URL: https://github.com/vanhauser-thc/thc-ipv6
 Source0: https://github.com/vanhauser-thc/thc-ipv6/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0: https://github.com/vanhauser-thc/thc-ipv6/commit/5dea4ce77dbff19c53c027229365fd5aad4570d3.patch#/thc-ipv6-3.8-socket.patch
+Patch1: https://github.com/vanhauser-thc/thc-ipv6/pull/53.patch#/thc-ipv6-3.8-c23.patch
 
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: libpcap-devel
-%if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires: openssl-devel
-%else
-BuildRequires: openssl11-devel
-%endif
 BuildRequires: libnetfilter_queue-devel
 BuildRequires: perl-generators
 
@@ -29,14 +26,9 @@ and ICMPv6, including an easy to use packet factory library.
 %autosetup -p1
 
 %build
-%if 0%{?rhel} == 7
-OPENSSL_CFLAGS="$(pkg-config --cflags-only-I openssl11)"
-OPENSSL_LDFLAGS="$(pkg-config --libs-only-L openssl11)"
-%endif
-
 %make_build \
-  CFLAGS="%{optflags} $OPENSSL_CFLAGS -D_HAVE_SSL" \
-  LDFLAGS="%{?__global_ldflags} $OPENSSL_LDFLAGS -lpcap -lssl -lcrypto"
+  CFLAGS="%{optflags} -D_HAVE_SSL" \
+  LDFLAGS="%{?__global_ldflags} -lpcap -lssl -lcrypto"
 
 %install
 %make_install \

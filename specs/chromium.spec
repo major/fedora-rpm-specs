@@ -50,9 +50,6 @@
 %global build_headless 0
 %endif
 
-# enable|disable chrome-remote-desktop build
-%global build_remoting 0
-
 # set nodejs_version
 %global nodejs_version v20.6.1
 
@@ -103,8 +100,6 @@
 %global disable_bti 1
 %endif
 %endif
-
-%global build_clear_key_cdm 0
 
 # Disabled because of Google, starting with Chromium 88.
 %global userestrictedapikeys 0
@@ -318,6 +313,8 @@ Patch132: chromium-118-sigtrap_system_ffmpeg.patch
 Patch133: chromium-121-system-old-ffmpeg.patch
 # revert, it causes build error: use of undeclared identifier 'AVFMT_FLAG_NOH264PARSE'
 Patch135: chromium-133-disable-H.264-video-parser-during-demuxing.patch
+# Workaround for youtube stop working
+Patch136: chromium-133-workaround-system-ffmpeg-whitelist.patch
 
 # file conflict with old kernel on el8/el9
 Patch141: chromium-118-dma_buf_export_sync_file-conflict.patch
@@ -465,7 +462,7 @@ Source7: get_free_ffmpeg_source_files.py
 Source8: get_linux_tests_names.py
 # GNOME stuff
 Source9: chromium-browser.xml
-Source10: chrome-remote-desktop@.service
+Source10: chromium-browser.appdata.xml
 Source11: master_preferences
 
 %if ! %{system_nodejs}
@@ -933,31 +930,8 @@ Chromium is an open-source web browser, powered by WebKit (Blink).
 %package common
 Summary: Files needed for both the headless_shell and full Chromium
 
-# -common doesn't have chrome-remote-desktop bits
-# but we need to clean it up if it gets disabled again
-# NOTE: Check obsoletes version to be sure it matches
-%if ! %{build_remoting}
-Provides: chrome-remote-desktop = %{version}-%{release}
-Obsoletes: chrome-remote-desktop <= 81.0.4044.138
-%endif
-
 %description common
 %{summary}.
-
-%if %{build_remoting}
-%package -n chrome-remote-desktop
-Requires(pre): shadow-utils
-Requires(post): systemd
-Requires(preun): systemd
-Requires(postun): systemd
-Requires: xorg-x11-server-Xvfb
-Requires: python3-psutil
-Requires: chromium-common%{_isa} = %{version}-%{release}
-Summary: Remote desktop support for google-chrome & chromium
-
-%description -n chrome-remote-desktop
-Remote desktop support for google-chrome & chromium.
-%endif
 
 %package -n chromedriver
 Summary: WebDriver for Google Chrome/Chromium
@@ -1028,6 +1002,7 @@ Qt6 UI for chromium.
 %patch -P132 -p1 -b .sigtrap_system_ffmpeg
 %patch -P133 -p1 -b .system-old-ffmpeg
 %patch -P135 -p1 -b .disable-H.264-video-parser-during-demuxing
+%patch -P136 -p1 -b .workaround-system-ffmpeg-whitelist
 %endif
 
 %if 0%{?rhel} == 8 || 0%{?rhel} == 9
@@ -1073,6 +1048,7 @@ Qt6 UI for chromium.
 %endif
 
 %patch -P355 -p1 -b .hardware_destructive_interference_size
+
 %patch -P358 -p1 -b .rust-clang_lib
 
 %ifarch ppc64le
@@ -1530,10 +1506,6 @@ mkdir -p %{chromebuilddir} && cp -a $(which gn) %{chromebuilddir}/
 %{chromebuilddir}/gn --script-executable=%{chromium_pybin} gen --args="$CHROMIUM_CORE_GN_DEFINES $CHROMIUM_HEADLESS_GN_DEFINES" %{headlessbuilddir}
 %endif
 
-%if %{build_remoting}
-%{chromebuilddir}/gn --script-executable=%{chromium_pybin} gen --args="$CHROMIUM_CORE_GN_DEFINES $CHROMIUM_BROWSER_GN_DEFINES" %{remotingbuilddir}
-%endif
-
 %if %{build_headless}
 # Do headless first.
 %build_target %{headlessbuilddir} headless_shell
@@ -1544,16 +1516,6 @@ mkdir -p %{chromebuilddir} && cp -a $(which gn) %{chromebuilddir}/
 
 %if %{build_chromedriver}
 %build_target %{chromebuilddir} chromedriver
-%endif
-
-%if %{build_clear_key_cdm}
-%build_target %{chromebuilddir} clear_key_cdm
-%endif
-
-%build_target %{chromebuilddir} policy_templates
-
-%if %{build_remoting}
-%build_target %{remotingbuilddir} remoting_all
 %endif
 
 %install
@@ -1624,77 +1586,13 @@ pushd %{chromebuilddir}
 		cp -a libqt6_shim.so %{buildroot}%{chromium_path}
 	%endif
 
-	%if %{build_clear_key_cdm}
-		%ifarch x86_64
-			cp -a ClearKeyCdm/_platform_specific/linux_x64/libclearkeycdm.so %{buildroot}%{chromium_path}
-		%endif
-		%ifarch aarch64
-			cp -a ClearKeyCdm/_platform_specific/linux_arm64/libclearkeycdm.so %{buildroot}%{chromium_path}
-		%endif
-		%ifarch ppc64le
-			cp -a ClearKeyCdm/_platform_specific/linux_ppc64/libclearkeycdm.so %{buildroot}%{chromium_path}
-		%endif
-	%endif
-
 	%if %{build_chromedriver}
 		# chromedriver
 		cp -a chromedriver %{buildroot}%{chromium_path}/chromedriver
 		ln -s ../..%{chromium_path}/chromedriver %{buildroot}%{_bindir}/chromedriver
 	%endif
 
-	%if %{build_remoting}
-		# Remote desktop bits
-		mkdir -p %{buildroot}%{crd_path}
-	%endif
 popd
-
-%if %{build_remoting}
-	pushd %{remotingbuilddir}
-		# Hey, there is a library now.
-		cp -a libremoting_core.so %{buildroot}%{crd_path}/
-
-		# See remoting/host/installer/linux/Makefile for logic
-		mkdir -p %{buildroot}%{crd_path}/remoting_locales
-		cp -a remoting_native_messaging_host %{buildroot}%{crd_path}/native-messaging-host
-		cp -a remote_assistance_host %{buildroot}%{crd_path}/remote-assistance-host
-		cp -a remoting_locales/*.pak %{buildroot}%{crd_path}/remoting_locales/
-		cp -a remoting_me2me_host %{buildroot}%{crd_path}/chrome-remote-desktop-host
-		cp -a remoting_start_host %{buildroot}%{crd_path}/start-host
-		cp -a remoting_user_session %{buildroot}%{crd_path}/user-session
-		chmod +s %{buildroot}%{crd_path}/user-session
-
-		# chromium
-		mkdir -p %{buildroot}%{_sysconfdir}/chromium/native-messaging-hosts
-		# google-chrome
-		mkdir -p %{buildroot}%{_sysconfdir}/opt/chrome/
-		cp -a remoting/* %{buildroot}%{_sysconfdir}/chromium/native-messaging-hosts/
-		for i in %{buildroot}%{_sysconfdir}/chromium/native-messaging-hosts/*.json; do
-			sed -i 's|/opt/google/chrome-remote-desktop|%{crd_path}|g' $i
-		done
-		mkdir -p %{buildroot}%{_sysconfdir}/opt/chrome/native-messaging-hosts
-		pushd %{buildroot}%{_sysconfdir}/opt/chrome/native-messaging-hosts
-			for i in ../../../chromium/native-messaging-hosts/*; do
-				# rpm gets unhappy when we symlink here
-				cp -a $i .
-			done
-		popd
-	popd
-
-	mkdir -p %{buildroot}/var/lib/chrome-remote-desktop
-	touch %{buildroot}/var/lib/chrome-remote-desktop/hashes
-
-	mkdir -p %{buildroot}%{_sysconfdir}/pam.d/
-	pushd %{buildroot}%{_sysconfdir}/pam.d/
-		ln -s system-auth chrome-remote-desktop
-	popd
-
-   cp -a remoting/host/linux/linux_me2me_host.py %{buildroot}%{crd_path}/chrome-remote-desktop
-   cp -a remoting/host/installer/linux/is-remoting-session %{buildroot}%{crd_path}/
-
-   mkdir -p %{buildroot}%{_unitdir}
-   cp -a %{SOURCE10} %{buildroot}%{_unitdir}/
-   sed -i 's|@@CRD_PATH@@|%{crd_path}|g' %{buildroot}%{_unitdir}/chrome-remote-desktop@.service
-%endif
 
 %if %{build_headless}
 	pushd %{headlessbuilddir}
@@ -1715,9 +1613,6 @@ popd
 mkdir -p %{buildroot}%{_sysconfdir}/chromium/policies/managed
 mkdir -p %{buildroot}%{_sysconfdir}/chromium/policies/recommended
 
-cp -a out/Release/gen/chrome/app/policy/common/html/en-US/*.html .
-cp -a out/Release/gen/chrome/app/policy/linux/examples/chrome.json .
-
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/256x256/apps
 cp -a chrome/app/theme/chromium/product_logo_256.png %{buildroot}%{_datadir}/icons/hicolor/256x256/apps/%{chromium_browser_channel}.png
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/128x128/apps
@@ -1735,9 +1630,8 @@ install -m 0644 %{SOURCE11} %{buildroot}%{_sysconfdir}/%{name}/
 mkdir -p %{buildroot}%{_datadir}/applications/
 desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE4}
 
-install -D -m0644 chrome/installer/linux/common/chromium-browser/chromium-browser.appdata.xml \
-  ${RPM_BUILD_ROOT}%{_datadir}/metainfo/%{chromium_browser_channel}.appdata.xml
-appstream-util validate-relax --nonet ${RPM_BUILD_ROOT}%{_datadir}/metainfo/%{chromium_browser_channel}.appdata.xml
+install -D -m0644 %{SOURCE10} ${RPM_BUILD_ROOT}%{_datadir}/appdata/%{chromium_browser_channel}.appdata.xml
+appstream-util validate-relax --nonet ${RPM_BUILD_ROOT}%{_datadir}/appdata/%{chromium_browser_channel}.appdata.xml
 
 mkdir -p %{buildroot}%{_datadir}/gnome-control-center/default-apps/
 cp -a %{SOURCE9} %{buildroot}%{_datadir}/gnome-control-center/default-apps/
@@ -1757,39 +1651,12 @@ if selinuxenabled; then
 fi
 %endif
 
-%if %{build_remoting}
-%pretrans -n chrome-remote-desktop -p <lua> 
-path = "/etc/opt/chrome/native-messaging-hosts"
-st = posix.stat(path)
-if st and st.type == "link" then
-  os.remove(path)
-end
-%endif
-
-%if %{build_remoting}
-%pre -n chrome-remote-desktop
-getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-desktop
-
-%post -n chrome-remote-desktop
-%systemd_post chrome-remote-desktop@.service
-
-%preun -n chrome-remote-desktop
-%systemd_preun chrome-remote-desktop@.service
-
-%postun -n chrome-remote-desktop
-%systemd_postun_with_restart chrome-remote-desktop@.service
-%endif
-
 %files
 %doc AUTHORS README.fedora
-%doc chrome_policy_list.html *.json
 %license LICENSE
 %config(noreplace) %{_sysconfdir}/%{name}/chromium.conf
 %config %{_sysconfdir}/%{name}/master_preferences
 %config %{_sysconfdir}/%{name}/policies/
-%if %{build_remoting}
-%exclude %{_sysconfdir}/%{name}/native-messaging-hosts/*
-%endif
 %{_bindir}/%{chromium_browser_channel}
 %{chromium_path}/*.bin
 %{chromium_path}/chrome_*.pak
@@ -1801,7 +1668,7 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{_mandir}/man1/%{chromium_browser_channel}.*
 %{_datadir}/icons/hicolor/*/apps/%{chromium_browser_channel}.png
 %{_datadir}/applications/*.desktop
-%{_datadir}/metainfo/*.appdata.xml
+%{_datadir}/appdata/*.appdata.xml
 %{_datadir}/gnome-control-center/default-apps/chromium-browser.xml
 
 %if %{use_qt}
@@ -1815,9 +1682,6 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %endif
 
 %files common
-%if %{build_clear_key_cdm}
-%{chromium_path}/libclearkeycdm.so
-%endif
 %ifarch x86_64 aarch64 ppc64le
 %{chromium_path}/libvk_swiftshader.so*
 %{chromium_path}/libvulkan.so*
@@ -1899,24 +1763,6 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %files headless
 %{chromium_path}/headless_shell
 %{chromium_path}/headless_*.pak
-%endif
-
-%if %{build_remoting}
-%files -n chrome-remote-desktop
-%{crd_path}/chrome-remote-desktop
-%{crd_path}/chrome-remote-desktop-host
-%{crd_path}/is-remoting-session
-%{crd_path}/libremoting_core.so*
-%{crd_path}/native-messaging-host
-%{crd_path}/remote-assistance-host
-%{_sysconfdir}/pam.d/chrome-remote-desktop
-%{_sysconfdir}/chromium/native-messaging-hosts/*
-%{_sysconfdir}/opt/chrome/
-%{crd_path}/remoting_locales/
-%{crd_path}/start-host
-%{crd_path}/user-session
-%{_unitdir}/chrome-remote-desktop@.service
-/var/lib/chrome-remote-desktop/
 %endif
 
 %if %{build_chromedriver}

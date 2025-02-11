@@ -28,6 +28,12 @@ BuildRequires:	pkgconfig(gmobile) >= 0.1.0
 BuildRequires:	(pkgconfig(wlroots) >= 0.17.0 with pkgconfig(wlroots) < 0.18)
 BuildRequires:	pkgconfig(gsettings-desktop-schemas)
 BuildRequires:	pkgconfig(json-glib-1.0)
+# for xvfb-run in %check
+BuildRequires:	xorg-x11-server-Xvfb
+# tests need dbus-daemon, mutter gschemas and Xwayland
+BuildRequires:	dbus-daemon
+BuildRequires:	mutter-common
+BuildRequires:	xorg-x11-server-Xwayland
 
 ExcludeArch:	i686
 
@@ -44,6 +50,15 @@ pronounced like the English word fog.
 
 %install
 %meson_install
+
+# xdg-decoration test fails on s390x
+# timed-animations fails on ppc64le
+%ifnarch s390x ppc64le
+%check
+xvfb-run -s -noreset sh <<HERE
+%meson_test
+HERE
+%endif
 
 %files
 %doc README.md

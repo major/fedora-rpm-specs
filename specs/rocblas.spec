@@ -32,8 +32,9 @@
 %global build_test OFF
 %endif
 
-%if 0%{?rhel}
+%if 0%{?rhel} || 0%{?suse_version}
 # RHEL does not have a working tensile
+# OSB/SUSE is gets stuck on tensile taking a long time with 4 jobs
 %bcond_with tensile
 %else
 %bcond_without tensile

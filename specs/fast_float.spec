@@ -1,8 +1,3 @@
-# Test data is stored in a separate git repository. We should always use the
-# latest commit at the time of the release we are packaging.
-%global stf_commit 7cc512a7c60361ebe1baf54991d7905efdc62aa0
-%global stf_url https://github.com/fastfloat/supplemental_test_files
-
 # Build and run exhaustive tests?
 #
 # These really do take a long time—at least an hour on the fastest machines,
@@ -14,7 +9,7 @@
 
 Name:           fast_float
 Summary:        Fast & exact implementation of C++ from_chars for number types
-Version:        7.0.0
+Version:        8.0.0
 Release:        %autorelease
 
 URL:            https://github.com/fastfloat/fast_float
@@ -27,6 +22,10 @@ License:        Apache-2.0 OR MIT OR BSL-1.0
 SourceLicense:  (%{license}) AND Apache-2.0
 
 Source0:        %{url}/archive/v%{version}/fast_float-%{version}.tar.gz
+# Test data is stored in a separate git repository. We should always use the
+# latest commit at the time of the release we are packaging.
+%global stf_commit 7cc512a7c60361ebe1baf54991d7905efdc62aa0
+%global stf_url https://github.com/fastfloat/supplemental_test_files
 Source1:        %{stf_url}/archive/%{stf_commit}/supplemental_test_files-%{stf_commit}.tar.gz
 
 BuildRequires:  gcc-c++

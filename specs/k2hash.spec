@@ -10,7 +10,7 @@
 %global autosetup %setup -q
 %endif
 
-%global release_version 1.0.97
+%global release_version 1.0.98
 %global gittag v%{release_version}
 
 %if %{undefined make_check}

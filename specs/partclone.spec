@@ -76,6 +76,8 @@ sed -e '/^case\s/{N;/.*)/d}' -e '/^\s*;;$/,$d' -e 's/\(gcc\|obj\S\)/x86_64-linux
 %endif
 
 %build
+# https://github.com/Thomas-Tsai/partclone/issues/260, https://github.com/Thomas-Tsai/partclone/issues/263
+export CFLAGS="$RPM_OPT_FLAGS -std=gnu17"
 %configure \
   --enable-fuse \
   --enable-extfs \

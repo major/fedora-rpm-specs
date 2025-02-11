@@ -6,7 +6,7 @@
 
 Name:           libowfat
 Version:        0.30
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Reimplementation of libdjb 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -45,7 +45,7 @@ developing applications that use %{name}.
 sed -i '/^CFLAGS/d;s/install -m/install -pm/g' GNUmakefile
 
 %build
-%make_build -f GNUmakefile CFLAGS="%{optflags} -I." 
+%make_build -f GNUmakefile CFLAGS="-std=gnu99 %{optflags} -I." 
 
 %install
 make -f GNUmakefile install \
@@ -62,6 +62,9 @@ make -f GNUmakefile install \
 %{_mandir}/man3/**
 
 %changelog
+* Sun Feb 09 2025 Kevin Fenzi <kevin@scrye.com> - 0.30-29
+- Fix FTBFS. Fixes rhbz#2341625
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

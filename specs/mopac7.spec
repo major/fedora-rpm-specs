@@ -1,12 +1,16 @@
 Name:           mopac7
 Summary:        Semi-empirical quantum mechanics suite
 Version:        1.15
-Release:        48%{?dist}
+Release:        49%{?dist}
 # https://gitlab.com/fedora/legal/fedora-license-data/-/merge_requests/554
 # SPDX confirmed
 License:        LicenseRef-Fedora-Public-Domain
 URL:            http://sourceforge.net/projects/mopac7/
 Source0:        http://bioinformatics.org/ghemical/download/current/mopac7-%{version}.tar.gz
+# Support C99, support -Werror=implicit-function-declaration
+Patch0:         mopac7-1.15-c99-function-prototype.patch
+# Some type size fix
+Patch1:         mopac7-1.15-type-size.patch
 BuildRequires:  make
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -38,12 +42,13 @@ developing applications that use %{name}.
 %setup -q
 perl -pi -e "s#-lg2c##g" libmopac7.pc.in
 
+%patch -P0 -p1
+%patch -P1 -p1
+
 %build
 autoreconf -fiv
-# The f2c-generated sources are not compatible with C99.
-%global build_type_safety_c 0
 %set_build_flags
-CFLAGS="$CFLAGS -std=gnu89"
+
 %configure --disable-static
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
@@ -71,7 +76,7 @@ find tests -name 'Makefile*' -delete -print
 
 %files libs
 %license COPYING
-%{_libdir}/libmopac7.so.*
+%{_libdir}/libmopac7.so.1*
 
 %files devel
 %doc AUTHORS ChangeLog NEWS README
@@ -80,6 +85,10 @@ find tests -name 'Makefile*' -delete -print
 %{_libdir}/pkgconfig/libmopac7.pc
 
 %changelog
+* Sun Feb 09 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.15-49
+- Support C99, -Werror=implicit-function-declaration
+- Some type size fix (for 64bit)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

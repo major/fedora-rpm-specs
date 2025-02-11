@@ -1,10 +1,10 @@
 Name:		mupdf
 %global libname libmupdf
-Version:	1.25.2
+Version:	1.25.4
 %global pypiname mupdf
 # upstream prerelease versions tags need to be translated to Fedorian
 %global upversion %{version}
-%global soname 25.2
+%global soname 25.4
 Release:	%autorelease
 Summary:	A lightweight PDF viewer and toolkit
 License:	AGPL-3.0-or-later

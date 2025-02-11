@@ -1,6 +1,6 @@
 Name:           flatpak-rpm-macros
-Version:        39
-Release:        8%{?dist}
+Version:        42
+Release:        1%{?dist}
 Summary:        Macros for building RPMS for flatpaks
 Source0:        macros.flatpak.in
 Source1:        distutils.cfg
@@ -9,7 +9,7 @@ Source3:        fontconfig-flatpak.prov
 License:        MIT
 
 # Buildrequire these to satisfy Pyton byte-compilation hooks
-BuildRequires:  python3
+BuildRequires:  python3-devel
 
 %description
 The macros in this package set up the RPM build environment so built
@@ -26,12 +26,10 @@ sed -e 's|__LIB__|%{_lib}|g' \
 %install
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/rpm
 install -t $RPM_BUILD_ROOT%{_sysconfdir}/rpm -p -m 644 macros.flatpak
-for v in 3.12 ; do
-    mkdir -p $RPM_BUILD_ROOT%{_libdir}/python$v/distutils/
-    install -t $RPM_BUILD_ROOT%{_libdir}/python$v/distutils/ %{SOURCE1}
-done
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/xmvn/config.d
-install -t $RPM_BUILD_ROOT%{_datadir}/xmvn/config.d -m 644 %{SOURCE2}
+mkdir -p $RPM_BUILD_ROOT%{_libdir}/python%{python3_version}/distutils/
+install -t $RPM_BUILD_ROOT%{_libdir}/python%{python3_version}/distutils/ %{SOURCE1}
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/xdg/xmvn/config.d
+install -t $RPM_BUILD_ROOT%{_sysconfdir}/xdg/xmvn/config.d -m 644 %{SOURCE2}
 mkdir -p $RPM_BUILD_ROOT%{_rpmconfigdir}
 install -t $RPM_BUILD_ROOT%{_rpmconfigdir} -m 755 %{SOURCE3}
 
@@ -40,16 +38,30 @@ install -t $RPM_BUILD_ROOT%{_rpmconfigdir} -m 755 %{SOURCE3}
 # https://fedoraproject.org/wiki/Packaging:Guidelines#Packaging_of_Additional_RPM_Macros
 # but I believe is necessary to properly override macros that are otherwise set.
 %{_sysconfdir}/rpm/
-%{_libdir}/python*/distutils/distutils.cfg
-%{_datadir}/xmvn/config.d/flatpak.xml
+%{_libdir}/python%{python3_version}/distutils/distutils.cfg
+%{_sysconfdir}/xdg/xmvn/config.d/flatpak.xml
 %{_rpmconfigdir}/fontconfig-flatpak.prov
 
 %changelog
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 39-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+* Sun Feb 09 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 42-1
+- Bump version
 
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 39-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
+* Mon Sep 23 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 41-2
+- Update pandoc_datadir
+
+* Thu Aug 15 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 41-1
+- Bump version
+
+* Tue May 14 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 40-3
+- Define pandoc_datadir
+
+* Mon Apr 08 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 40-2
+- Override jurand macros
+
+* Wed Mar 27 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 40-1
+- Version bump for F40
+- Define JAVA_HOME, JAVACONFDIRS and %%__maven_path
+- Change xmvn configuration location
 
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 39-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
