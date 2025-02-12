@@ -5,7 +5,7 @@
 %if 0%{?use_git} < 1
 %if 0%{?use_gitbare} < 1
 # force
-%global		use_release	0.100
+%global		use_release	1
 %endif
 %endif
 
@@ -14,11 +14,11 @@
 %global		git_builddir	%{nil}
 
 %if 0%{?use_gitbare}
-%global		gittardate		20240825
-%global		gittartime		1657
+%global		gittardate		20250210
+%global		gittartime		1638
 
-%global		gitbaredate	20240821
-%global		git_rev		da62ee20d3707f5851331004fe2689fe69d46e45
+%global		gitbaredate	20241210
+%global		git_rev		116f89f71769b9a9852845f9308f73ba5de26bff
 %global		git_short		%(echo %{git_rev} | cut -c-8)
 %global		git_version	%{gitbaredate}git%{git_short}
 %endif
@@ -31,11 +31,11 @@
 
 %global		main_version	0.4.0
 
-#%%global		use_gcc_strict_sanitize	1
+%dnl	%global		use_gcc_strict_sanitize	1
 
 %undefine		_changelog_trimtime
 
-%global		baserelease	2
+%global		baserelease	1
 
 Name:			lxterminal
 Version:		%{main_version}%{git_ver_rpm}
@@ -189,6 +189,9 @@ cd ..
 
 
 %changelog
+* Mon Feb 10 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.4.0^20241210git116f89f7-1
+- Update to the latest git
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0^20240821gitda62ee20-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -2,9 +2,9 @@
 # changes, since clang releases are not ABI compatible between major
 # versions. See also https://bugzilla.redhat.com/1544964.
 
-Version:       4.30c
+Version:       4.31c
 %global forgeurl https://github.com/AFLplusplus/AFLplusplus/
-%global tag    v4.30c
+%global tag    v4.31c
 %forgemeta
 
 Name:          american-fuzzy-lop
@@ -12,7 +12,7 @@ Summary:       Practical, instrumentation-driven fuzzer for binary formats
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:       Apache-2.0
 
-Release:       2%{?dist}
+Release:       1%{?dist}
 URL:           %{forgeurl}
 Source0:       %{forgesource}
 
@@ -22,7 +22,9 @@ Source1:       hello.c
 # Only specific architectures are supported by upstream.
 # On non-x86 only afl-clang-fast* are built.
 # i686 support was silently removed in AFL++ 4.10c
-ExclusiveArch: x86_64 s390x
+# s390x was broken in 4.31c:
+# https://github.com/AFLplusplus/AFLplusplus/issues/2295
+ExclusiveArch: x86_64
 
 BuildRequires: gcc
 BuildRequires: gcc-plugin-devel
@@ -93,6 +95,10 @@ This subpackage contains clang and clang++ support for
 clang_optflags="$( echo '%{optflags}' | sed 's/-mtls-dialect=gnu2//' )"
 export CFLAGS="$clang_optflags"
 export CXXFLAGS="$clang_optflags"
+
+# GCC 15 breaks AFL builds, see:
+# https://github.com/AFLplusplus/AFLplusplus/issues/2292
+CFLAGS="$CFLAGS -std=gnu17"
 
 %ifnarch x86_64
 AFL_NO_X86=1 \
@@ -287,6 +293,9 @@ test -n '%{clang_major}'
 
 
 %changelog
+* Mon Feb 10 2025 Richard W.M. Jones <rjones@redhat.com> - 4.31c-1
+- New version 4.31c (RHBZ#2344642)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.30c-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

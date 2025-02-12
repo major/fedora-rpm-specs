@@ -1,17 +1,16 @@
-%bcond_with bootstrap
+%bcond bootstrap 0
 
 %global packname pdftools
-%global packver  3.3.3
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
-Version:          %{packver}
+Version:          3.4.1
 Release:          %autorelease
 Summary:          Text Extraction, Rendering and Converting of PDF Documents
 
 License:          MIT
 URL:              https://CRAN.R-project.org/package=%{packname}
-Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.tar.gz
+Source:           https://cran.r-project.org/src/contrib/%{packname}_%{version}.tar.gz
 
 # Here's the R view of the dependencies world:
 # Depends:
@@ -32,6 +31,7 @@ BuildRequires:    R-testthat
 %endif
 BuildRequires:    poppler-cpp-devel
 BuildRequires:    poppler-data
+BuildRequires:    tex(inconsolata.sty)
 
 %description
 Utilities based on 'libpoppler' for extracting text, fonts, attachments and

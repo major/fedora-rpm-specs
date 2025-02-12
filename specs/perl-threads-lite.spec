@@ -1,11 +1,13 @@
 Name:           perl-threads-lite
 Version:        0.034
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Actor model threading for Perl
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/threads-lite
 Source0:        https://cpan.metacpan.org/authors/id/L/LE/LEONT/threads-lite-%{version}.tar.gz
+# Adapt to GCC 15, bug #2341042, proposed upstream,
+# <https://github.com/Leont/threads-lite/pull/3>
+Patch0:         threads-lite-0.034-Fix-building-in-ISO-C23.patch
 # Tests halt on these platforms, bug #719874, CPAN RT#69354
 ExcludeArch:    aarch64 ppc ppc64 ppc64le
 BuildRequires:  findutils
@@ -41,7 +43,7 @@ threads.pm threads is that the threads are disconnected, except by message
 queues. It thus facilitates a message passing style of multi-threading.
 
 %prep
-%setup -q -n threads-lite-%{version}
+%autosetup -p1 -n threads-lite-%{version}
 
 %build
 perl Build.PL installdirs=vendor optimize="$RPM_OPT_FLAGS"
@@ -58,11 +60,18 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 %files
 %license LICENSE
 %doc Changes examples README
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/threads*
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/auto/threads
+%{perl_vendorarch}/auto/threads/lite
+%dir %{perl_vendorarch}/threads
+%{perl_vendorarch}/threads/lite
+%{perl_vendorarch}/threads/lite.pm
+%{_mandir}/man3/threads::lite.*
+%{_mandir}/man3/threads::lite::*
 
 %changelog
+* Mon Feb 10 2025 Petr Pisar <ppisar@redhat.com> - 0.034-37
+- Adapt to GCC 15 (bug #2341042)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.034-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

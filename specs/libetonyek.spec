@@ -8,8 +8,6 @@ Summary: A library for import of Apple iWork documents
 License: MPL-2.0
 URL: http://wiki.documentfoundation.org/DLP/Libraries/libetonyek
 Source: http://dev-www.libreoffice.org/src/%{name}/%{name}-%{version}.tar.xz
-# https://gerrit.libreoffice.org/c/libetonyek/+/181278
-Patch0: mdds3.patch
 
 BuildRequires: boost-devel
 BuildRequires: doxygen
@@ -24,7 +22,7 @@ BuildRequires: pkgconfig(librevenge-0.0)
 BuildRequires: pkgconfig(librevenge-generators-0.0)
 BuildRequires: pkgconfig(librevenge-stream-0.0)
 BuildRequires: pkgconfig(libxml-2.0)
-BuildRequires: pkgconfig(mdds-3.0)
+BuildRequires: pkgconfig(mdds-2.1)
 BuildRequires: pkgconfig(zlib)
 
 %description
@@ -55,10 +53,10 @@ Tools to transform Apple iWork documents into other formats. Currently
 supported: CSV, HTML, SVG, text, and raw.
 
 %prep
-%autosetup -p0
+%autosetup -p1
 
 %build
-%configure --disable-silent-rules --disable-static --disable-werror --with-mdds=3.0
+%configure --disable-silent-rules --disable-static --disable-werror --with-mdds=2.1
 sed -i \
     -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
     -e 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' \

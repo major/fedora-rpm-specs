@@ -8,10 +8,6 @@
 %bcond_with    SYSTEMTEST
 %bcond_without GSSTSIG
 %bcond_without JSON
-%if ! 0%{?rhel}
-# FIXME: Not ready. Should it be worked on?
-%bcond_with    DLZ
-%endif
 # New MaxMind GeoLite support
 %bcond_without GEOIP2
 # Disabled temporarily until kyua is fixed on rawhide, bug #1926779
@@ -86,7 +82,7 @@ License:  MPL-2.0 AND ISC AND MIT AND BSD-3-Clause AND BSD-2-Clause
 # Before rebasing bind, ensure bind-dyndb-ldap is ready to be rebuild and use side-tag with it.
 # Updating just bind will cause freeipa-dns-server package to be uninstallable.
 Version:  9.18.33
-Release:  1%{?dist}
+Release:  2%{?dist}
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
 #
@@ -161,11 +157,6 @@ BuildRequires:  jemalloc-devel
 BuildRequires:  gnupg2
 %endif
 BuildRequires:  libuv-devel
-%if %{with DLZ}
-BuildRequires:  openldap-devel
-BuildRequires:  sqlite-devel
-BuildRequires:  mariadb-connector-c-devel
-%endif
 %if %{with UNITTEST}
 # make unit dependencies
 BuildRequires:  libcmocka-devel
@@ -306,40 +297,6 @@ This package contains a tree of files which can be used as a
 chroot(2) jail for the named(8) program from the BIND package.
 Based on the code from Jan "Yenya" Kasprzak <kas@fi.muni.cz>
 
-
-%if %{with DLZ}
-%package dlz-filesystem
-Summary: BIND server filesystem DLZ module
-Requires: %{name}%{?_isa} = %{epoch}:%{version}-%{release}
-
-%description dlz-filesystem
-Dynamic Loadable Zones filesystem module for BIND server.
-
-%package dlz-ldap
-Summary: BIND server ldap DLZ module
-Requires: %{name}%{?_isa} = %{epoch}:%{version}-%{release}
-
-%description dlz-ldap
-Dynamic Loadable Zones LDAP module for BIND server.
-
-%package dlz-mysql
-Summary: BIND server mysql and mysqldyn DLZ modules
-Requires: %{name}%{?_isa} = %{epoch}:%{version}-%{release}
-Provides: %{name}-dlz-mysqldyn = %{epoch}:%{version}-%{release}
-Obsoletes: %{name}-dlz-mysqldyn < 32:9.16.6-3
-
-%description dlz-mysql
-Dynamic Loadable Zones MySQL module for BIND server.
-Contains also mysqldyn module with dynamic DNS updates (DDNS) support.
-
-%package dlz-sqlite3
-Summary: BIND server sqlite3 DLZ module
-Requires: %{name}%{?_isa} = %{epoch}:%{version}-%{release}
-
-%description dlz-sqlite3
-Dynamic Loadable Zones sqlite3 module for BIND server.
-%endif
-
 %if %{with DOC}
 %package doc
 Summary:   BIND 9 Administrator Reference Manual
@@ -412,12 +369,6 @@ autoreconf --force --install
 
 mkdir build
 
-%if %{with DLZ}
-# DLZ modules do not support oot builds. Copy files into build
-mkdir -p build/contrib/dlz
-cp -frp contrib/dlz/modules build/contrib/dlz/modules
-%endif
-
 pushd build
 LIBDIR_SUFFIX=
 export LIBDIR_SUFFIX
@@ -473,13 +424,6 @@ fmtutil-user --missing || :
   make doc
 %endif
 
-%if %{with DLZ}
-  pushd contrib/dlz/modules
-  for DIR in filesystem ldap mysql mysqldyn sqlite3; do
-    make -C $DIR CFLAGS="-fPIC -I../include $CFLAGS $LDFLAGS -DPTHREADS=1" LDFLAGS="$LDFLAGS"
-  done
-  popd
-%endif
 popd # build
 
 %unit_prepare_build build
@@ -605,23 +549,6 @@ install -m 644 %{SOURCE49} ${RPM_BUILD_ROOT}%{_sysconfdir}/named-chroot.files
 %if "%{_sbindir}" != "%{_bindir}"
 # Compatibility with previous major versions, only for selected binaries
 ln -s ../bin/{named-checkconf,named-checkzone,named-compilezone} %{buildroot}%{_sbindir}/
-%endif
-
-%if %{with DLZ}
-  pushd build
-  pushd contrib/dlz/modules
-  for DIR in filesystem ldap mysql mysqldyn sqlite3; do
-    %make_install -C $DIR libdir=%{_libdir}/bind
-  done
-  pushd ${RPM_BUILD_ROOT}/%{_libdir}/named
-    cp -s ../bind/dlz_*.so .
-  popd
-  mkdir -p doc/{mysql,mysqldyn}
-  cp -p mysqldyn/testing/README doc/mysqldyn/README.testing
-  cp -p mysqldyn/testing/* doc/mysqldyn
-  cp -p mysql/testing/* doc/mysql
-  popd
-  popd
 %endif
 
 # Remove libtool .la files:
@@ -959,26 +886,6 @@ fi;
 %dir %{chroot_prefix}/run/named
 %{chroot_prefix}%{_localstatedir}/run
 
-%if %{with DLZ}
-%files dlz-filesystem
-%{_libdir}/{named,bind}/dlz_filesystem_dynamic.so
-
-%files dlz-mysql
-%{_libdir}/{named,bind}/dlz_mysql_dynamic.so
-%doc build/contrib/dlz/modules/doc/mysql
-%{_libdir}/{named,bind}/dlz_mysqldyn_mod.so
-%doc build/contrib/dlz/modules/doc/mysqldyn
-
-%files dlz-ldap
-%{_libdir}/{named,bind}/dlz_ldap_dynamic.so
-%doc contrib/dlz/modules/ldap/testing/*
-
-%files dlz-sqlite3
-%{_libdir}/{named,bind}/dlz_sqlite3_dynamic.so
-%doc contrib/dlz/modules/sqlite3/testing/*
-
-%endif
-
 %if %{with DOC}
 %files doc
 %dir %{_pkgdocdir}
@@ -991,6 +898,9 @@ fi;
 %endif
 
 %changelog
+* Mon Feb 10 2025 Petr Menšík <pemensik@redhat.com> - 32:9.18.33-2
+- Permanently remove DLZ parts build
+
 * Sun Feb 02 2025 Petr Menšík <pemensik@redhat.com> - 32:9.18.33-1
 - Update to 9.16.33 (rhbz#2342784)
 

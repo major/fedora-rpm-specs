@@ -101,8 +101,8 @@ CXXFLAGS="$CXXFLAGS -mno-avx"
 %cmake_qt6 \
   -DQT_BUILD_EXAMPLES:BOOL=%{?examples:ON}%{!?examples:OFF} \
   -DQT_INSTALL_EXAMPLES_SOURCES=%{?examples:ON}%{!?examples:OFF} \
-  -DQT_FEATURE_system_assimp=%{?system_assimp:ON}%{!?system_assimp:OFF} \
-  -DQT_FEATURE_system_openxr=%{?system_openxr:ON}%{!?system_openxr:OFF}
+  -DFEATURE_system_assimp=%{?system_assimp:ON}%{!?system_assimp:OFF} \
+  -DFEATURE_system_openxr=%{?system_openxr:ON}%{!?system_openxr:OFF}
 
 %cmake_build
 

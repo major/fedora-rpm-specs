@@ -5,8 +5,8 @@ output to functions.}
 
 
 Name:           python-requre
-Version:        0.8.4
-Release:        6%{?dist}
+Version:        0.8.6
+Release:        1%{?dist}
 Summary:        Python library that allows re/store output of various objects for testing
 
 License:        MIT
@@ -34,7 +34,8 @@ Summary:        %{summary}
 
 
 %generate_buildrequires
-%pyproject_buildrequires
+# The -w flag is required for EPEL 9's older hatchling
+%pyproject_buildrequires %{?el9:-w}
 
 
 %build
@@ -56,6 +57,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Feb 10 2025 Packit <hello@packit.dev> - 0.8.6-1
+- Trigger a new release to fix the PyPI upload action.
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

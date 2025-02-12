@@ -1,16 +1,21 @@
 %{?mingw_package_header}
 
 %global origname sdl2-compat
-%global sdl3_minver 3.2.2
+%global sdl3_minver 3.2.4
 
 Name:           mingw-%{origname}
-Version:        2.30.52
-Release:        1%{?dist}
+Version:        2.32.50
+Release:        2%{?dist}
 Summary:        MinGW Windows port of SDL 2.0 runtime compatibility library using SDL 3.0
 # License of SDL-2.0 headers
 License:        Zlib and Apache-2.0 and MIT and BSD-3-Clause
 URL:            https://github.com/libsdl-org/%{origname}
 Source0:        %{url}/archive/release-%{version}/%{origname}-%{version}.tar.gz
+
+# Sync env vars properly
+Patch0:      %{url}/commit/f58c132840b51aac184d17593ab60d41b54c9ba9.patch
+# Fix strlen
+Patch1:      %{url}/commit/2347d5c89752c43107f9a0a8108a6b6ac46bbfa0.patch
 
 BuildRequires:  cmake
 BuildRequires:  git-core
@@ -35,7 +40,7 @@ BuildRequires:  mingw32-gcc
 BuildRequires:  mingw32-SDL3 >= %{sdl3_minver}
 # This replaces SDL2
 Obsoletes:      mingw32-SDL2 < 2.30.11-2
-Conflicts:      mingw32-SDL2 < 2.30.50~
+Conflicts:      mingw32-SDL2 < 2.32.50~
 Provides:       mingw32-SDL2 = %{version}
 # This dlopens SDL3 (?!), so manually depend on it
 Requires:       mingw32-SDL3 >= %{sdl3_minver}
@@ -58,7 +63,7 @@ BuildRequires:  mingw64-gcc
 BuildRequires:  mingw64-SDL3 >= %{sdl3_minver}
 # This replaces SDL2
 Obsoletes:      mingw64-SDL2 < 2.30.11-2
-Conflicts:      mingw64-SDL2 < 2.30.50~
+Conflicts:      mingw64-SDL2 < 2.32.50~
 Provides:       mingw64-SDL2 = %{version}
 # This dlopens SDL3 (?!), so manually depend on it
 Requires:       mingw64-SDL3 >= %{sdl3_minver}
@@ -126,6 +131,14 @@ rm -rf %{buildroot}%{mingw64_datadir}/aclocal
 
 
 %changelog
+* Mon Feb 10 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.32.50-2
+- Backport fixes from upstream
+  + Correctly handle SDL environment variables
+  + Fix to avoid over optimizing away internal strlen
+
+* Mon Feb 10 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.32.50-1
+- Update to 2.32.50
+
 * Mon Feb 03 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.30.52-1
 - Update to 2.30.52
 

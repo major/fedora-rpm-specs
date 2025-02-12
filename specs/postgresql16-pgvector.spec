@@ -21,7 +21,7 @@ Source0:	https://github.com/%{sname}/%{sname}/archive/refs/tags/v%{version}.tar.
 %if %?postgresql_default
 %global pkgname %{sname}
 %package -n %{pkgname}
-Summary: Reorganize tables in PostgreSQL databases without any locks
+Summary: Open-source vector similarity search for Postgres
 %else
 %global pkgname %name
 %endif

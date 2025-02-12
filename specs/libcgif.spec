@@ -1,13 +1,13 @@
 # remirepo/fedora spec file for libcgif
 #
-# Copyright (c) 2021-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2021-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 
-%global gh_commit   025ac5e56ea35be1d4c02d014e6d26e2eb9ccfa9
+%global gh_commit   2bcdaea1b134ff31acc893d2e5920e68c411d59b
 %global gh_short    %(c=%{gh_commit}; echo ${c:0:7})
 #global gh_date     20211001
 %global gh_owner    dloebl
@@ -17,15 +17,15 @@
 
 Name:          %{libname}
 Summary:       A fast and lightweight GIF encoder
-Version:       0.4.1
-Release:       3%{?dist}
+Version:       0.5.0
+Release:       1%{?dist}
 License:       MIT
 
 URL:           https://github.com/%{gh_owner}/%{gh_project}
 Source0:       https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{gh_project}-%{version}-%{gh_short}.tar.gz
 
 BuildRequires: gcc
-BuildRequires: meson
+BuildRequires: meson >= 0.56
 
 
 %description
@@ -90,6 +90,10 @@ for %{libname}.
 
 
 %changelog
+* Mon Feb 10 2025 Remi Collet <remi@remirepo.net> - 0.5.0-1
+- update to 0.5.0
+- re-license spec file to CECILL-2.1
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate cmake
 
 Name:           rust-cmake
-Version:        0.1.52
+Version:        0.1.54
 Release:        %autorelease
 Summary:        Build dependency for running cmake to build a native library
 

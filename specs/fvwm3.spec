@@ -1,5 +1,5 @@
 Name:		fvwm3
-Version:	1.1.1
+Version:	1.1.2
 Release:	%autorelease
 Summary:	Highly configurable multiple virtual desktop window manager
 # ./fvwm/screen.h "NTP License (legal disclaimer)",

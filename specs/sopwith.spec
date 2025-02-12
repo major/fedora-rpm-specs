@@ -1,19 +1,21 @@
 Name:           sopwith
-Version:        1.8.4
-Release:        22%{?dist}
+Version:        2.7.0
+Release:        1%{?dist}
 Summary:        SDL port of the sopwith game
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
-URL:            http://sdl-sopwith.sourceforge.net/
-Source0:        http://downloads.sourceforge.net/sdl-sopwith/sopwith-%{version}.tar.gz
+URL:            https://github.com/fragglet/sdl-sopwith/
+Source0:        https://github.com/fragglet/sdl-sopwith/archive/refs/tags/sdl-sopwith-%{version}.tar.gz
 Source1:        sopwith.png
-Patch0:         sopwith-sdl-video.patch
-Patch1:         sopwith-vid_vga.patch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
-BuildRequires:  gtk2-devel, SDL-devel, desktop-file-utils
+BuildRequires:  gtk2-devel
+BuildRequires:  SDL2-devel
+BuildRequires:  desktop-file-utils
+BuildRequires:  autoconf
+BuildRequires:  automake
 
 %description
 This is a port of the classic computer game "Sopwith" to run on modern
@@ -21,10 +23,8 @@ computers and operating systems.
 
 
 %prep
-%setup -q
-%patch -P0 -p1
-%patch -P1 -p1
-sed -i 's/\r//' doc/readme.txt
+%setup -q -n sdl-sopwith-sdl-sopwith-%{version}
+./autogen.sh
 
 
 %build
@@ -34,7 +34,7 @@ make %{?_smp_mflags}
 
 %install
 make DESTDIR=$RPM_BUILD_ROOT install
-rm -rf $RPM_BUILD_ROOT%{_docdir}/sopwith
+rm -rf $RPM_BUILD_ROOT%{_docdir}/sdl-sopwith
 
 cat > %{name}.desktop <<EOF
 [Desktop Entry]
@@ -56,14 +56,25 @@ mkdir -p $RPM_BUILD_ROOT%{_datadir}/pixmaps
 cp %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/pixmaps
 
 %files
-%doc AUTHORS COPYING FAQ NEWS README TODO doc/keys.txt doc/origdoc.txt doc/readme.txt
+%doc AUTHORS COPYING.md CODE_OF_CONDUCT.md ChangeLog FAQ.md NEWS.md PHILOSOPHY.md README.md TODO doc/origdoc.txt 
+%license COPYING.md
 %{_bindir}/sopwith
 %{_mandir}/man6/sopwith*
+%{_mandir}/man5/sopwith*
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
-
+%{_datadir}/icons/hicolor/*/apps/%{name}.*
+%{_datadir}/metainfo/*.xml
 
 %changelog
+* Sat Feb 08 2025 josef radinger <cheese@nosuchhost.net> - 2.7.0-1
+- bump version
+- source is now on github
+- patches 0+1 no lomger needed
+- add/remove/change several %%docs
+- switch to SDL2-devel
+- add manpages, icon + metainfo
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

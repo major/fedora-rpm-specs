@@ -11,14 +11,14 @@
 
 # support for apache / nginx / php-fpm
 %global with_phpfpm 1
-%global upstream_version     1.6.9
+%global upstream_version     1.6.10
 #global upstream_prever      rc
 
 %global roundcubedir %{_datadir}/roundcubemail
 %global _logdir /var/log  
 Name: roundcubemail
 Version:  %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:  2%{?dist}
+Release:  1%{?dist}
 Summary: Round Cube Webmail is a browser-based multilingual IMAP client
 
 # Since 0.8 beta, the main code has been GPLv3+ with exceptions and
@@ -54,6 +54,7 @@ BuildRequires: gnupg2
 BuildRequires: php(language) >= 7.3
 # For test
 BuildRequires: php-cli
+BuildRequires: composer-generators
 
 %if %{with_phpfpm}
 Requires:  webserver
@@ -123,52 +124,14 @@ Provides: bundled(js-lessjs) = 3.13.0
 Provides: bundled(js-publickey) = 0e011cb1
 # License LGPL
 Provides: bundled(js-openpgp) = 5.0.0
-Provides: bundled(js-tinymce) = 5.8.2
+Provides: bundled(js-tinymce) = 5.10.9
 # License MIT
 Provides: bundled(js-bootstrap) = 4.5.3
 Provides: bundled(js-codemirror) = 5.58.3
 Provides: bundled(js-jquery) = 3.5.1
 Provides: bundled(js-jstimezonedetect) = 1.0.7
 # License Unkown
-Provides: bundled(js-tinymce-langs) = 5.8.2
-
-# Bundled PHP libraries
-# see vendor/composer/installed.json
-# License BSD
-Provides: bundled(php-pear-auth-sasl) = v1.1.0
-# License BSD-2-Clause
-Provides: bundled(php-bacon-bacon-qr-code) = 2.0.8
-Provides: bundled(php-dasprid-enum) = 1.0.6
-Provides: bundled(php-pear-console-getopt) = v1.4.3
-Provides: bundled(php-pear-net-sieve) = 1.4.7
-Provides: bundled(php-pear-net-smtp) = 1.10.1
-Provides: bundled(php-pear-pear-exception) = v1.0.2
-# License BSD-3-Clause
-Provides: bundled(php-pear-mail-mime) = 1.10.12
-Provides: bundled(php-pear-pear-core-minimal) = v1.10.15
-# License GPL-2.0
-Provides: bundled(php-roundcube-rtf-html-php) = v2.2
-# License GPL-3.0+
-Provides: bundled(php-kolab-net-ldap3) = v1.1.5
-# License GPL-3.0-or-later
-Provides: bundled(php-roundcube-plugin-installer) = 0.3.8
-# License LGPL-2.1
-Provides: bundled(php-pear-crypt-gpg) = v1.6.9
-# License LGPL-3.0
-Provides: bundled(php-pear-net-ldap2) = v2.3.0
-# License MIT
-Provides: bundled(php-guzzlehttp-guzzle) = 7.9.2
-Provides: bundled(php-guzzlehttp-promises) = 2.0.3
-Provides: bundled(php-guzzlehttp-psr7) = 2.7.0
-Provides: bundled(php-masterminds-html5) = 2.7.6
-Provides: bundled(php-pear-console-commandline) = v1.2.6
-Provides: bundled(php-psr-http-client) = 1.0.3
-Provides: bundled(php-psr-http-factory) = 1.1.0
-Provides: bundled(php-psr-http-message) = 2.0
-Provides: bundled(php-ralouphie-getallheaders) = 3.0.3
-Provides: bundled(php-symfony-deprecation-contracts) = v2.5.3
-# License PHP License
-Provides: bundled(php-pear-net-socket) = v1.2.2
+Provides: bundled(js-tinymce-langs) = 5.10.9
 
 
 %description
@@ -187,9 +150,6 @@ CSS 2.
 
 %setup -q -n roundcubemail-%{upstream_version}%{?upstream_prever:-%{upstream_prever}}
 %patch -P1 -p1 -b .rpm
-
-: PHP bundled libraries
-php %{SOURCE5} vendor/composer/installed.json
 
 %if %{with internet}
 : JS bundled libraries
@@ -320,6 +280,10 @@ fi
 
 
 %changelog
+* Sun Feb  9 2025 Remi Collet <remi@remirepo.net> - 1.6.10-1
+- update to 1.6.10
+- always use composer-generators
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

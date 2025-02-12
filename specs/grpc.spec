@@ -1471,6 +1471,20 @@ grpc_tool
 murmur_hash
 %endif
 
+%ifarch ppc64le
+# Times out, apparently due to an unsafe combination of death tests and
+# threads:
+#
+# [WARNING]
+# /builddir/build/BUILD/grpc-1.48.4-build/grpc-1.48.4/third_party/googletest/googletest/src/gtest-death-test.cc:1124::
+# Death tests use fork(), which is unsafe particularly in a threaded context.
+# For this test, Google Test detected 4 threads. See
+# https://github.com/google/googletest/blob/master/docs/advanced.md#death-tests-and-threads
+# for more explanation and suggested solutions, especially if this is the last
+# message you see before your test times out.
+service_config
+%endif
+
 %ifarch x86_64 aarch64
 # Unexplained:
 #

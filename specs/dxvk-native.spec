@@ -1,6 +1,6 @@
 Name:           dxvk-native
-Version:        2.4
-Release:        3%{?dist}
+Version:        2.5.3
+Release:        1%{?dist}
 Summary:        Vulkan-based D3D11 and D3D9 implementation for Linux
 
 License:        Zlib
@@ -13,6 +13,7 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  meson >= 0.58
 BuildRequires:  glslang
+BuildRequires:  SDL3-devel
 BuildRequires:  SDL2-devel
 BuildRequires:  glfw-devel
 BuildRequires:  vulkan-loader-devel
@@ -21,6 +22,7 @@ BuildRequires:  mingw64-headers
 BuildRequires:  pkgconfig(libdisplay-info)
 
 Requires:       vulkan-loader%{?_isa}
+Requires:       SDL3%{?_isa}
 Requires:       SDL2%{?_isa}
 Requires:       glfw%{?_isa}
 
@@ -38,6 +40,7 @@ or to help with port bringup during development.
 %package devel
 Summary:        Development files used to build applications using %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       SDL3-devel%{?_isa}
 Requires:       SDL2-devel%{?_isa}
 Requires:       glfw-devel%{?_isa}
 Requires:       vulkan-loader-devel%{?_isa}
@@ -48,6 +51,10 @@ files for building applications that use %{name}.
 
 %prep
 %autosetup -n dxvk-%{version} -p1
+
+# Fix version construct
+# Fixed pending: https://github.com/doitsujin/dxvk/pull/4679
+sed -e "s/v%{version}/%{version}/" -i meson.build
 
 # Copy the MinGW DirectX headers to include/native/directx/
 cp %{mingw64_includedir}/d3d10_1.h include/native/directx
@@ -144,6 +151,9 @@ cp %{mingw64_includedir}/_mingw_unicode.h include/native/directx
 
 
 %changelog
+* Mon Feb 10 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.5.3-1
+- Update to 2.5.3
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

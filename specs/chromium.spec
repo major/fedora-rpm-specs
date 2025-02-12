@@ -333,12 +333,16 @@ Patch306: chromium-127-el8-ifunc-header.patch
 
 # workaround for build error due to old atk version on el8
 Patch307: chromium-133-el8-atk-compiler-error.patch
+# Fix build errors due to old clang18 in el 8/9 and f40
 Patch308: chromium-132-el8-unsupport-clang-flags.patch
 Patch309: chromium-132-el8-unsupport-rustc-flags.patch
 Patch310: chromium-132-el8-clang18-build-error.patch
+Patch311: chromium-133-clang18-template.patch
 
 # enable fstack-protector-strong
 Patch312: chromium-123-fstack-protector-strong.patch
+# build error stdarch_arm_crc32
+Patch313: chromium-133-rust-crc32fast.patch
 
 # add -ftrivial-auto-var-init=zero and -fwrapv
 Patch316: chromium-122-clang-build-flags.patch
@@ -1029,9 +1033,16 @@ Qt6 UI for chromium.
 %patch -P308 -p1 -b .el8-unsupport-clang-flags
 %patch -P309 -p1 -b .el8-unsupport-rustc-flags
 %patch -P310 -p1 -b .el8-clang18-build-error
+%patch -P311 -p1 -b .clang18-template
 %endif
 
 %patch -P312 -p1 -b .fstack-protector-strong
+
+%ifarch aarch64
+%if 0%{?rhel} == 8 || 0%{?rhel} == 9
+%patch -P313 -p1 -b .rust-crc32fast.patch
+%endif
+%endif
 
 %patch -P316 -p1 -b .clang-build-flags
 

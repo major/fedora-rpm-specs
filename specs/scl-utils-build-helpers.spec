@@ -9,8 +9,7 @@ Summary:        RPM macros and scripts for SCL maintainers
 
 BuildArch:      noarch
 
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://github.com/sclorg/scl-utils-build-helpers
 
 Source0:        README.md

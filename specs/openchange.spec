@@ -23,7 +23,7 @@
 
 Name: openchange
 Version: 2.3
-Release: 53%{?dist}
+Release: 54%{?dist}
 Summary: Provides access to Microsoft Exchange servers using native protocols
 License: GPL-3.0-or-later AND LicenseRef-Fedora-Public-Domain
 URL: http://www.openchange.org/
@@ -188,6 +188,7 @@ This package provides the server elements for OpenChange.
 %patch -P23 -p1 -b .samba-4.20
 
 %build
+export CFLAGS="-DSOURCE4_LIBRPC_INTERNALS=1 $CFLAGS"
 # Backup manually-written Makefile
 mv Makefile Makefile.bak
 # Provide fake Makefile.am for autoconf 2.71
@@ -338,6 +339,9 @@ cp -r apidocs/html/libmapi++/* $RPM_BUILD_ROOT%{_datadir}/devhelp/books/openchan
 %endif
 
 %changelog
+* Mon Feb 10 2025 Milan Crha <mcrha@redhat.com> - 2.3-54
+- Rebuilt against new Samba 4.22.0 rc1
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-53
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

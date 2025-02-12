@@ -1,7 +1,7 @@
 Summary: 3D multi-player tank battle game
 Name: bzflag
 Version: 2.4.26
-Release: 7%{?dist}
+Release: 8%{?dist}
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2
 URL: http://bzflag.org
@@ -27,7 +27,6 @@ BuildRequires: zlib-devel
 BuildRequires: sed
 BuildRequires: systemd
 Requires: opengl-games-utils
-Requires(pre): shadow-utils
 
 %description
 BZFlag is a 3D multi-player tank battle game  that  allows users to play
@@ -48,6 +47,11 @@ This package contains sample world maps for bzflag.
 
 %prep
 %setup -q -n %{name}-%{version}
+
+# Create a sysusers.d config file
+cat >bzflag.sysusers.conf <<EOF
+u bzflag - 'BZFlag game server' %{_datadir}/bzflag -
+EOF
 
 %build
 # Use PIE because bzflag/bzfs are networked server applications
@@ -112,19 +116,7 @@ EOF
 
 install -Dp -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/bzflag
 install -Dp -m 0644 %{SOURCE3} %{buildroot}%{_unitdir}/bzflag.service
-
-%pre
-getent group bzflag >/dev/null || groupadd -r bzflag
-if getent passwd bzflag >/dev/null; then
-    # provide a more meaningful GECOS field than the one introduced in 2.4.6-3
-    if [ "x`getent passwd bzflag | cut -d: -f5`" = 'xUseful comment about the purpose of this account' ]; then
-        usermod -c 'BZFlag game server' bzflag
-    fi
-else
-    useradd -r -g bzflag -d %{_datadir}/bzflag -s /sbin/nologin \
-    -c 'BZFlag game server' bzflag
-fi
-exit 0
+install -D -m0644 bzflag.sysusers.conf %{buildroot}%{_sysusersdir}/bzflag.conf
 
 %post
 %systemd_post bzflag.service
@@ -153,11 +145,15 @@ exit 0
 %{_mandir}/man*/*
 %{_sysconfdir}/sysconfig/bzflag
 %{_unitdir}/bzflag.service
+%{_sysusersdir}/bzflag.conf
 
 %files maps-sample
 %{_datadir}/bzflag/maps/*
 
 %changelog
+* Thu Jan 23 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.4.26-8
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.26-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

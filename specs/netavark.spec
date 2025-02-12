@@ -30,7 +30,7 @@ Epoch: 102
 %else
 Epoch: 2
 %endif
-Version: 1.13.1
+Version: 1.14.0
 Release: %autorelease
 # The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND BSD-3-Clause AND MIT
@@ -133,6 +133,7 @@ cd docs
 %dir %{_libexecdir}/podman
 %{_libexecdir}/podman/%{name}*
 %{_mandir}/man1/%{name}.1*
+%{_mandir}/man7/%{name}-firewalld.7*
 %{_unitdir}/%{name}-dhcp-proxy.service
 %{_unitdir}/%{name}-dhcp-proxy.socket
 %{_unitdir}/%{name}-firewalld-reload.service

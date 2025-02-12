@@ -1,6 +1,6 @@
 Summary:	The ASN.1 library used in GNUTLS
 Name:		libtasn1
-Version:	4.19.0
+Version:	4.20.0
 Release:	%autorelease
 
 # The libtasn1 library is LGPLv2+, utilities are GPLv3+
@@ -81,7 +81,7 @@ rm -f $RPM_BUILD_ROOT{%_libdir/*.la,%_infodir/dir}
 make check
 
 %files
-%license COPYING doc/COPYING*
+%license COPYING COPYING.LESSERv2
 %doc AUTHORS NEWS README.md
 %{_libdir}/*.so.6*
 

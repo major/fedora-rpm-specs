@@ -1,5 +1,5 @@
 Name: catatonit
-Version: 0.1.7
+Version: 0.2.1
 Summary: A signal-forwarding process manager for containers
 License: GPL-3.0-or-later
 Release: %autorelease
@@ -43,10 +43,9 @@ signalfd(2)) and has no additional features.
 
 %prep
 %autosetup -Sgit %{name}-%{version}
-sed -i '$d' configure.ac
 
 %build
-autoreconf -fi
+./autogen.sh
 %configure
 CFLAGS="%{optflags} -fPIE -D_GNU_SOURCE -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE"
 %{__make} %{?_smp_mflags}
@@ -64,6 +63,8 @@ install -dp %{buildroot}%{_libexecdir}/%{name}
 install -p %{name} %{buildroot}%{_libexecdir}/%{name}
 install -dp %{buildroot}%{_libexecdir}/podman
 ln -s %{_libexecdir}/%{name}/%{name} %{buildroot}%{_libexecdir}/podman/%{name}
+
+%check
 
 %files
 %license COPYING

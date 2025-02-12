@@ -3,7 +3,7 @@
 
 Name:		grass
 Version:	8.4.0
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	GRASS GIS - Geographic Resources Analysis Support System
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -97,8 +97,8 @@ Requires:	geos
 Requires:	libzstd
 Requires:	PDAL
 Requires:	PDAL-libs
-# fedora >= 34: Nothing
-%if (0%{?rhel} > 7 || 0%{?fedora} < 34)
+# fedora >= 34 or RHEL > 9: Nothing
+%if ( (0%{?rhel} > 7 && 0%{?rhel} < 10) || 0%{?fedora} < 34)
 Requires:	proj-datumgrid
 Requires:	proj-datumgrid-world
 %endif
@@ -340,6 +340,9 @@ fi
 %{_libdir}/%{name}%{shortver}/include
 
 %changelog
+* Mon Feb 10 2025 Markus Neteler <neteler@mundialis.de> - 8.4.0-6
+- EPEL10: fix proj-datumgrid condition
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.4.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

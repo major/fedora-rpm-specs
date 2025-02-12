@@ -3,7 +3,7 @@
 %global srcname photutils
 
 Name: python-%{srcname}
-Version: 1.11.0
+Version: 2.1.0
 Release: %autorelease
 Summary: Astropy affiliated package for image photometry tasks
 License: BSD-3-Clause

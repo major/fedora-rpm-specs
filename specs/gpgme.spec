@@ -11,7 +11,7 @@
 
 Name:           gpgme
 Summary:        GnuPG Made Easy - high level crypto API
-Version:        1.24.1
+Version:        1.24.2
 Release:        1%{?dist}
 
 # MIT: src/cJSON.{c,h} (used by gpgme-json)
@@ -330,6 +330,9 @@ popd
 %{python3_sitearch}/gpg/
 
 %changelog
+* Mon Feb 10 2025 Michal Hlavinka <mhlavink@redhat.com> - 1.24.2-1
+- updated to 1.24.2 (#2344637)
+
 * Tue Jan 21 2025 Michal Hlavinka <mhlavink@redhat.com> - 1.24.1-1
 - updated to 1.24.1 (#2330378)
 

@@ -3,9 +3,8 @@
 
 Name:       perl-Shell
 Version:    0.73
-Release:    28%{?dist}
+Release:    29%{?dist}
 Summary:    Run shell commands transparently within perl
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:        https://metacpan.org/release/Shell
 Source0:    https://cpan.metacpan.org/authors/id/F/FE/FERREIRA/Shell-%{version}.tar.gz
@@ -13,6 +12,7 @@ BuildArch:  noarch
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Run-time
 BuildRequires:  perl(:VERSION) >= 5.6
@@ -36,12 +36,27 @@ arguments are joined with a blank.
 This package is included as a show case, illustrating a few Perl features. It
 shouldn't be used for production programs.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(warnings)
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Shell-%{version}
-%if !%{with perl_Shell_enables_optional_tests}
+%if !%{with perl_shell_enables_optional_tests}
 rm t/99_pod.t
 perl -i -ne 'print $_ unless m{^t/99_pod\.t}' MANIFEST
 %endif
+# Correct shebangs
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#![\s./]*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -50,16 +65,35 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %install
 %{make_install}
 %{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+%if %{with perl_shell_enables_optional_tests}
+rm %{buildroot}%{_libexecdir}/%{name}/t/99pod.t
+%endif
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Shell.pm
+%{_mandir}/man3/Shell.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Mon Feb 10 2025 Petr Pisar <ppisar@redhat.com> - 0.73-29
+- Modernize a spec file
+- Package the tests
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.73-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

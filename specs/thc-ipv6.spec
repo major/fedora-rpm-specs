@@ -9,7 +9,7 @@ License: LicenseRef-Callaway-AGPLv3-with-exceptions
 URL: https://github.com/vanhauser-thc/thc-ipv6
 Source0: https://github.com/vanhauser-thc/thc-ipv6/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0: https://github.com/vanhauser-thc/thc-ipv6/commit/5dea4ce77dbff19c53c027229365fd5aad4570d3.patch#/thc-ipv6-3.8-socket.patch
-Patch1: https://github.com/vanhauser-thc/thc-ipv6/pull/53.patch#/thc-ipv6-3.8-c23.patch
+Patch1: https://github.com/vanhauser-thc/thc-ipv6/commit/c9617d5638196bd88336225a6abdfd45c3df0bcf.patch#/thc-ipv6-3.8-c23.patch
 
 BuildRequires: make
 BuildRequires: gcc

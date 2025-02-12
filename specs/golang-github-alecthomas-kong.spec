@@ -4,7 +4,7 @@
 
 # https://github.com/alecthomas/kong
 %global goipath         github.com/alecthomas/kong
-Version:                1.7.0
+Version:                1.8.0
 
 %gometa -f
 

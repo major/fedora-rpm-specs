@@ -1,6 +1,6 @@
 Name:           perl-UUID
 Version:        0.36
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Universally Unique Identifier library for Perl
 # README:       Artistic-2.0
 # ulib/md5.c:   (GPL-1.0-or-later OR Artistic-1.0-Perl) AND RSA-MD
@@ -11,6 +11,8 @@ Summary:        Universally Unique Identifier library for Perl
 License:        Artistic-2.0 AND (GPL-1.0-or-later OR Artistic-1.0-Perl) AND LicenseRef-Fedora-Public-Domain
 URL:            https://metacpan.org/release/UUID
 Source0:        https://cpan.metacpan.org/authors/id/J/JR/JRM/UUID-%{version}.tar.gz
+# Fix building with GCC 15, bug #2341040, CPAN RT#159112, proposed upstream
+Patch0:         UUID-0.36-c23.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -115,6 +117,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Feb 10 2025 Petr Pisar <ppisar@redhat.com> - 0.36-4
+- Fix building with GCC 15 (bug #2341040)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.36-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

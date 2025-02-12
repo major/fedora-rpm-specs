@@ -1,5 +1,5 @@
 Name:           python-watchfiles
-Version:        1.0.3
+Version:        1.0.4
 Release:        %autorelease
 Summary:        Simple, modern and high performance file watching and code reload in python
 # The main source code is under the MIT license.  See the license field of the
@@ -9,16 +9,16 @@ License:        MIT
 URL:            https://github.com/samuelcolvin/watchfiles
 Source:         %{pypi_source watchfiles}
 
-# Update notify from a 6.1.1 fork to 8.0.0
+# Update notify dependency to 8.0.0, bumping MSRV to 1.77
+# https://github.com/samuelcolvin/watchfiles/pull/327
 #
-# Includes:
-#   Use notify 7.0.0 instead of a fork of 6.1.1
-#   https://github.com/samuelcolvin/watchfiles/pull/322
-# (We take only the commit changing Cargo.toml, not the one updating
-# Cargo.lock.) Further updated for notify 8.0.0; see:
-#   Update notify dependency to 8.0.0, bumping MSRV to 1.77
-#   https://github.com/samuelcolvin/watchfiles/pull/327
-Patch:          0001-Update-notify-from-a-6.1.1-fork-to-8.0.0.patch
+# (We take only the commits changing Cargo.toml, not the ones updating
+# Cargo.lock and the CI configuration.)
+#
+# Update notify to version 8.0.0
+Patch:          %{url}/pull/327/commits/a3f7c8d61615d5831b60056aa8e0001a29989416.patch
+# Bump MSRV to 1.77 for notify 8.0.0
+Patch:          %{url}/pull/327/commits/d05eadcd47447f5abefbf5e158586aa820ecd13b.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  cargo-rpm-macros >= 24
@@ -60,10 +60,13 @@ License:        %{shrink:
 %autosetup -n watchfiles-%{version} -p1
 
 # Remove unnecessary Python test requirements
-sed -e '/^coverage\b/d' \
-    -e '/^pytest-pretty\b/d' \
-    -e '/^pytest-timeout\b/d' \
-    -i requirements/testing.in
+sed -e '/"coverage\b/d' \
+    -e '/"pytest-pretty\b/d' \
+    -e '/"pytest-timeout\b/d' \
+    -i pyproject.toml
+# Loosen the minimum maturin version for testing
+# https://bugzilla.redhat.com/show_bug.cgi?id=2329012
+sed -e 's/maturin>=1.8.1/maturin>=1.7.4/' -i pyproject.toml
 
 # Remove pytest timeout config
 sed -e '/timeout =/d' -i pyproject.toml
@@ -79,7 +82,7 @@ rm .cargo/config.toml
 
 
 %generate_buildrequires
-%pyproject_buildrequires requirements/testing.in
+%pyproject_buildrequires -g dev
 %cargo_generate_buildrequires
 
 
@@ -101,10 +104,15 @@ sed -e '/LICENSE/ s/^/%%license /' -i %{pyproject_files}
 
 
 %check
+# Since 1.0.4, this fails with old versions of anyio, with:
+#   !!!!!!!!!!!!!!!!!!!!!!!! KeyboardInterrupt: test error !!!!!!!!!!!!!!!!!!!!!!!!!
+# We can reproduce this in a checkout by: pip install anyio==3.7.1
+k="${k-}${k+ and }not test_awatch_interrupt_raise"
+
 # We must set the import mode during tests to avoid the watchfiles directory
 # (which will not have the compiled module) taking precedence for the import.
 # https://docs.pytest.org/en/7.4.x/explanation/pythonpath.html
-%pytest --import-mode append -v
+%pytest --import-mode append -k "${k-}" -v --full-trace
 
 
 %files -n python3-watchfiles -f %{pyproject_files}

@@ -1,11 +1,13 @@
+%global tarball_name xkbcommon
+
 Name:           libxkbcommon
-Version:        1.7.0
-Release:        6%{?gitdate:.%{gitdate}}%{?dist}
+Version:        1.8.0
+Release:        1%{?gitdate:.%{gitdate}}%{?dist}
 Summary:        X.Org X11 XKB parsing library
 License:        MIT AND X11 AND MIT-CMU
 URL:            http://www.x.org
 
-Source0:        https://xkbcommon.org/download/%{name}-%{version}.tar.xz
+Source0:        https://github.com/xkbcommon/libxkbcommon/archive/refs/tags/%{tarball_name}-%{version}.tar.gz
 BuildRequires:  gcc
 BuildRequires:  git meson
 BuildRequires:  byacc flex bison
@@ -60,7 +62,7 @@ Requires:       %{name}-utils%{?_isa} = %{version}-%{release}
 %{name}-x11-utils is a set of X11 utilities to analyze and test XKB parsing.
 
 %prep
-%autosetup -S git
+%autosetup -S git -n %{name}-%{tarball_name}-%{version}
 
 %build
 %meson -Denable-docs=false \
@@ -75,10 +77,8 @@ Requires:       %{name}-utils%{?_isa} = %{version}-%{release}
 
 %files
 %license LICENSE
-%{_libdir}/libxkbcommon.so.0.0.0
-%{_libdir}/libxkbcommon.so.0
-%{_libdir}/libxkbregistry.so.0.0.0
-%{_libdir}/libxkbregistry.so.0
+%{_libdir}/libxkbcommon.so.0*
+%{_libdir}/libxkbregistry.so.0*
 
 %files devel
 %{_libdir}/libxkbcommon.so
@@ -96,8 +96,7 @@ Requires:       %{name}-utils%{?_isa} = %{version}-%{release}
 %ldconfig_scriptlets x11
 
 %files x11
-%{_libdir}/libxkbcommon-x11.so.0.0.0
-%{_libdir}/libxkbcommon-x11.so.0
+%{_libdir}/libxkbcommon-x11.so.0*
 
 %files x11-devel
 %{_libdir}/libxkbcommon-x11.so
@@ -108,12 +107,14 @@ Requires:       %{name}-utils%{?_isa} = %{version}-%{release}
 %{_bindir}/xkbcli
 %{_libexecdir}/xkbcommon/xkbcli-compile-compose
 %{_libexecdir}/xkbcommon/xkbcli-compile-keymap
+%{_libexecdir}/xkbcommon/xkbcli-dump-keymap-wayland
 %{_libexecdir}/xkbcommon/xkbcli-how-to-type
 %{_libexecdir}/xkbcommon/xkbcli-interactive-evdev
 %{_libexecdir}/xkbcommon/xkbcli-interactive-wayland
 %{_libexecdir}/xkbcommon/xkbcli-list
 %{_mandir}/man1/xkbcli-compile-compose.1.gz
 %{_mandir}/man1/xkbcli-compile-keymap.1.gz
+%{_mandir}/man1/xkbcli-dump-keymap-wayland.1.gz
 %{_mandir}/man1/xkbcli-how-to-type.1.gz
 %{_mandir}/man1/xkbcli-interactive-evdev.1.gz
 %{_mandir}/man1/xkbcli-interactive-wayland.1.gz
@@ -123,9 +124,14 @@ Requires:       %{name}-utils%{?_isa} = %{version}-%{release}
 
 %files x11-utils
 %{_libexecdir}/xkbcommon/xkbcli-interactive-x11
+%{_libexecdir}/xkbcommon/xkbcli-dump-keymap-x11
 %{_mandir}/man1/xkbcli-interactive-x11.1.gz
+%{_mandir}/man1/xkbcli-dump-keymap-x11.1.gz
 
 %changelog
+* Mon Feb 10 2025 Peter Hutterer <peter.hutterer@redhat.com> - 1.8.0-1
+- libxkbcommon 1.8.0
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

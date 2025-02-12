@@ -2,8 +2,8 @@
 %bcond_without tests
 
 Name:           rpmlint
-Version:        2.6.1
-Release:        2%{?dist}
+Version:        2.7.0
+Release:        1%{?dist}
 Summary:        Tool for checking common errors in RPM packages
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/rpmlint
@@ -99,6 +99,9 @@ cp -a %{SOURCE1} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{buildroot}%{_sysconfdir}/xdg
 %{_bindir}/rpmlint
 
 %changelog
+* Mon Feb 10 2025 Tom Callaway <spot@fedoraproject.org> - 2.7.0-1
+- update to 2.7.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

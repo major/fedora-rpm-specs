@@ -40,14 +40,14 @@
 %endif
 
 Name:           wine
-Version:        10.0
+Version:        10.1
 Release:        1%{?dist}
 Summary:        A compatibility layer for windows applications
 
 License:        LGPL-2.1-or-later
 URL:            https://www.winehq.org/
-Source0:        https://dl.winehq.org/wine/source/10.0/wine-%{version}.tar.xz
-Source10:       https://dl.winehq.org/wine/source/10.0/wine-%{version}.tar.xz.sign
+Source0:        https://dl.winehq.org/wine/source/10.x/wine-%{version}.tar.xz
+Source10:       https://dl.winehq.org/wine/source/10.x/wine-%{version}.tar.xz.sign
 
 Source1:        wine.systemd
 Source2:        wine-README-Fedora
@@ -1732,6 +1732,7 @@ fi
 %{_libdir}/wine/%{winepedir}/windows.storage.applicationdata.dll
 %{_libdir}/wine/%{winepedir}/windows.system.profile.systemmanufacturers.dll
 %{_libdir}/wine/%{winepedir}/windows.ui.dll
+%{_libdir}/wine/%{winepedir}/windows.ui.xaml.dll
 %{_libdir}/wine/%{winepedir}/windows.web.dll
 %{_libdir}/wine/%{winepedir}/windowscodecs.dll
 %{_libdir}/wine/%{winepedir}/windowscodecsext.dll
@@ -2529,6 +2530,7 @@ fi
 %{_libdir}/wine/%{winesodir}/windows.storage.applicationdata.dll.so
 %{_libdir}/wine/%{winesodir}/windows.system.profile.systemmanufacturers.dll.so
 %{_libdir}/wine/%{winesodir}/windows.ui.so
+%{_libdir}/wine/%{winesodir}/windows.ui.xaml.dll.so
 %{_libdir}/wine/%{winesodir}/windows.web.dll.so
 %{_libdir}/wine/%{winesodir}/windowscodecs.dll.so
 %{_libdir}/wine/%{winesodir}/windowscodecsext.dll.so
@@ -2864,6 +2866,9 @@ fi
 %endif
 
 %changelog
+* Sun Feb 09 2025 Michael Cronenworth <mike@cchtml.com> - 10.1-1
+- version update
+
 * Wed Jan 22 2025 Michael Cronenworth <mike@cchtml.com> - 10.0-1
 - version update
 

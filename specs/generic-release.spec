@@ -3,7 +3,7 @@
 %if 0%{?fedora}
 %global dist_version %{fedora}
 %else
-%global dist_version 42
+%global dist_version 43
 %endif
 
 Summary:	Generic release files
@@ -190,6 +190,9 @@ install -Dm0644 %{SOURCE9} -t $RPM_BUILD_ROOT%{_prefix}/lib/systemd/user-preset/
 
 
 %changelog
+* Mon Feb 10 2025 Tom Callaway <spot@fedoraproject.org> - 43-0.1
+- bump to 43. no one sees me here.
+
 * Wed Aug 21 2024 Tom Callaway <spot@fedoraproject.org> - 42-0.1
 - bump to 42. oh yeah, thats the good stuff.
 

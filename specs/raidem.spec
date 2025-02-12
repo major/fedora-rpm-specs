@@ -1,6 +1,6 @@
 Name:           raidem
 Version:        0.3.1
-Release:        56%{?dist}
+Release:        57%{?dist}
 Summary:        2d top-down shoot'em up
 License:        zlib
 URL:            http://home.exetel.com.au/tjaden/raidem/
@@ -19,6 +19,7 @@ Patch6:         raidem-0.3.1-system-flags.patch
 Patch7:         raidem-0.3.1-Makefile-race-condition.patch
 Patch8:		raidem-0.3.1-enum.patch
 Patch9:		raidem-0.3.1-counter-dup.patch
+Patch10:	raidem-missedcast.patch
 BuildRequires: make
 BuildRequires:  gcc-objc glyph-keeper-allegro-devel freetype-devel adime-devel
 BuildRequires:  zziplib-devel libpng-devel AllegroOGG-devel
@@ -46,6 +47,7 @@ fun.
 %patch -P 7 -p1 -z .race-condition
 %patch -P 8 -p0 -z .enum
 %patch -P 9 -p0 -z .counter
+%patch -P 10 -p0 -z .missedcast
 # remove all included system libs, to avoid using the included system headers.
 mv lib/loadpng .
 rm -fr lib/*
@@ -87,6 +89,9 @@ install -p -m 644 %{SOURCE1} \
 
 
 %changelog
+* Mon Feb 10 2025 Bruno Wolff III <bruno@wolff.to> - 0.3.1-57
+- Fix missed cast caught by stricter checking
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-56
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

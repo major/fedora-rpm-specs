@@ -38,7 +38,7 @@
 %endif
 
 %global        shortver              1.18
-%global        fullver               %{shortver}.1
+%global        fullver               %{shortver}.2
 
 %if 0%{?use_release} >= 1
 %global        fedoraver             %{fullver}
@@ -51,7 +51,7 @@ Name:          gnome-commander
 # Downgrade 3 times, sorry...
 Epoch:         4
 Version:       %{fedoraver}
-Release:       3%{?dist}%{flagrel}
+Release:       1%{?dist}%{flagrel}
 Summary:       A nice and fast file manager for the GNOME desktop
 Summary(pl):   Menadżer plików dla GNOME oparty o Norton Commander'a (TM)
 Summary(sv):   GNOME Commander är en snabb och smidig filhanderare för GNOME
@@ -111,6 +111,7 @@ BuildRequires: pkgconfig(gtest)
 Requires:         meld
 Requires:         gnome-icon-theme-legacy
 %if 0%{?fedora} >= 41
+BuildRequires: gdk-pixbuf2-modules-extra
 Requires:      gdk-pixbuf2-modules-extra%{?_isa}
 %endif
 
@@ -305,6 +306,9 @@ popd
 %{_datadir}/pixmaps/%{name}/
 
 %changelog
+* Mon Feb 10 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4:1.18.2-1
+- 1.18.2
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4:1.18.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

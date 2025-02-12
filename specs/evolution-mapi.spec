@@ -9,7 +9,7 @@
 
 Name: evolution-mapi
 Version: 3.55.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Evolution extension for MS Exchange 2007 servers
 License: LGPL-2.1-or-later
 URL: https://gitlab.gnome.org/GNOME/evolution/-/wikis/home
@@ -110,6 +110,9 @@ export CFLAGS="$CFLAGS -Wno-deprecated-declarations"
 %files langpacks -f %{name}.lang
 
 %changelog
+* Mon Feb 10 2025 Milan Crha <mcrha@redhat.com> - 3.55.1-3
+- Rebuilt against new Samba 4.22.0 rc1
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.55.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

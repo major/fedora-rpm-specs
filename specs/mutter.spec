@@ -6,13 +6,13 @@
 %global pipewire_version 1.2.0
 %global lcms2_version 2.6
 %global colord_version 1.4.5
-%global libei_version 1.0.901
+%global libei_version 1.3.901
 %global mutter_api_version 16
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:          mutter
-Version:       48~alpha
+Version:       48~beta
 Release:       %autorelease
 Summary:       Window and compositing manager based on Clutter
 
@@ -71,6 +71,8 @@ BuildRequires: pkgconfig(libsystemd)
 BuildRequires: pkgconfig(xkeyboard-config)
 BuildRequires: desktop-file-utils
 BuildRequires: cvt
+BuildRequires: python3-argcomplete
+BuildRequires: python3-docutils
 # Bootstrap requirements
 BuildRequires: gettext-devel git-core
 BuildRequires: pkgconfig(libcanberra)
@@ -102,6 +104,7 @@ Requires: libinput%{?_isa} >= %{libinput_version}
 Requires: pipewire%{_isa} >= %{pipewire_version}
 Requires: startup-notification
 Requires: dbus
+Requires: python3-argcomplete
 
 # Need common
 Requires: %{name}-common = %{version}-%{release}
@@ -182,6 +185,9 @@ the functionality of the installed %{name} package.
 %{_libexecdir}/mutter-restart-helper
 %{_libexecdir}/mutter-x11-frames
 %{_mandir}/man1/mutter.1*
+%{_bindir}/gdctl
+%{_mandir}/man1/gdctl.1*
+%{_sysconfdir}/bash_completion.d/gdctl
 
 %files common
 %{_datadir}/GConf/gsettings/mutter-schemas.convert

@@ -10,7 +10,7 @@ Release:        8%{?dist}
 License:        GPL-1.0-only AND BSD-3-Clause AND ISC AND MirOS AND Unicode-DFS-2016
 URL:            https://www.mirbsd.org/jupp.htm
 Source0:        https://www.mirbsd.org/MirOS/dist/%{name}/joe-3.1%{name}%{version}.tgz
-Patch0: jupp-configure-c99.patch
+Patch0:         jupp-configure-c99.patch
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  ncurses-devel
@@ -31,6 +31,7 @@ functionality and a bracketed paste mode automatically used with Xterm.
 
 %build
 chmod +x configure
+export CFLAGS="$CFLAGS -std=gnu11"  # http://www.mirbsd.org/jupp.htm#build
 %configure --disable-termidx --sysconfdir=%{_sysconfdir}/%{name}
 %make_build sysconfjoesubdir=
 

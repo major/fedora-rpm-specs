@@ -1,13 +1,13 @@
 Name:      schismtracker
-Version:   20241226
-Release:   3%{?dist}
+Version:   20250208
+Release:   1%{?dist}
 Summary:   Sound module composer/player
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:   GPL-2.0-only
 URL:       http://schismtracker.org/
 Source0:   https://github.com/schismtracker/schismtracker/archive/%{version}.tar.gz
 
-Patch1:    desktop.patch
+#Patch1:    desktop.patch
 
 Excludearch:   s390x
 Requires:      hicolor-icon-theme
@@ -66,6 +66,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/schism.desktop
 %{_datadir}/pixmaps/schism*.png
 
 %changelog
+* Mon Jan 10 2025 josef radinger <cheese@nosuchhost.net> - 20250208-1
+- bump version
+- remove unneeded patch for dekstop-file (upstream fixed)
+
 * Wed Jan 29 2025 josef radinger <cheese@nosuchhost.net> - 20241226-3
 - cosmetic in spec-file
 - patch and validate desktop-file

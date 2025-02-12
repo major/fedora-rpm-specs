@@ -22,7 +22,7 @@ Epoch: 2
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 1.13.1
+Version: 1.14.0
 # The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND MIT AND Zlib
 Release: %autorelease

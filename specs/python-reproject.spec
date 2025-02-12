@@ -2,7 +2,7 @@
 %global sum Reproject astronomical images
 
 Name:           python-%{srcname}
-Version:        0.13.0
+Version:        0.14.1
 Release:        %autorelease
 Summary:        %{sum}
 
@@ -44,7 +44,7 @@ sed -i -e 's/oldest-supported-numpy/numpy/' -e 's/cython==3.0.4/cython>=3/' pypr
 # these fail in arm
 # reproject/healpix/tests/test_healpix.py::test_reproject_healpix_to_image_footprint[**]
 %ifarch aarch64
-%pyproject_check_import
+%pyproject_check_import -e '*.test*'
 %else
 pushd %{buildroot}/%{python3_sitearch}
   %pytest reproject

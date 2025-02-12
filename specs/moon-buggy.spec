@@ -10,10 +10,7 @@ Source2:         %{name}.desktop
 Source3:         %{name}-sound.desktop
 Patch0:          moon-buggy-1.0.51-pause.patch
 Patch1:          moon-buggy-1.0.51-sound.patch
-%if 0%{?rhel} && 0%{?rhel} <= 7
-Requires(post):  /sbin/install-info
-Requires(preun): /sbin/install-info
-%endif
+Patch2:          https://github.com/seehuhn/moon-buggy/pull/11.patch#/moon-buggy-1.0.51-c23.patch
 BuildRequires:   gcc, make, ncurses-devel, texinfo
 %if 0%{!?_without_sound:1}
 BuildRequires:   esound-devel, desktop-file-utils, autoconf, automake
@@ -34,6 +31,7 @@ years later by Jochen Voss.
 %patch -P0 -p1 -b .pause
 %if 0%{!?_without_sound:1}
 %patch -P1 -p1 -b .sound
+%patch -P2 -p1 -b .c23
 mv -f %{name}-%{version}/* .
 autoreconf -f -i
 %endif
@@ -69,16 +67,6 @@ iconv -f iso-8859-1 -t utf-8 -o TODO.utf8 TODO
 sed -i 's|\r$||g' TODO.utf8
 touch -c -r TODO TODO.utf8
 mv -f TODO.utf8 TODO
-
-%if 0%{?rhel} && 0%{?rhel} <= 7
-%post
-/sbin/install-info %{_infodir}/%{name}.info.gz %{_infodir}/dir || :
-
-%preun
-if [ $1 -eq 0 ]; then
-  /sbin/install-info --delete %{_infodir}/%{name}.info.gz %{_infodir}/dir || :
-fi
-%endif
 
 %files 
 %license COPYING

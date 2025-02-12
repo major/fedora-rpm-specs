@@ -61,6 +61,10 @@ This package contains utility programas provided by CFITSIO
 %autosetup -p1
 
 %build
+# Compile with an older std until upstream fixes it
+# https://bugzilla.redhat.com/show_bug.cgi?id=2339963
+# https://github.com/HEASARC/cfitsio/issues/36
+CFLAGS="$CFLAGS --std=gnu17"
 %configure --enable-reentrant -with-bzip2 --includedir=%{_includedir}/%{name}
 make %{?_smp_mflags}
 

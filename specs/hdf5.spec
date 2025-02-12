@@ -11,7 +11,7 @@
 #global snaprel -beta
 
 Name: hdf5
-Version: 1.14.5
+Version: 1.14.6
 Release: %autorelease
 Summary: A general purpose library and file format for storing scientific data
 License: BSD-3-Clause
@@ -340,15 +340,18 @@ mv %{buildroot}%{_libdir}/libhdf5_java.so %{buildroot}%{_libdir}/%{name}/
 
 
 %check
-%ifarch %{ix86} ppc64le riscv64 s390x
+%ifarch %{ix86}
 # i686: t_bigio test segfaults - https://github.com/HDFGroup/hdf5/issues/2510
-# ppc64le - t_multi_dset is flaky on ppc64le
-# riscv64: test failed https://github.com/HDFGroup/hdf5/issues/4056
-# s390x t_mpi fails with mpich
-make -C build check || :
 fail=0
 %else
-make -C build check
+fail=1
+%endif
+make -C build check || exit $fail
+%ifarch %{ix86} s390x
+# i686: t_bigio test segfaults - https://github.com/HDFGroup/hdf5/issues/2510
+# s390x t_mpi fails with mpich
+fail=0
+%else
 fail=1
 %endif
 # This will preserve generated .c files on errors if needed
@@ -362,12 +365,12 @@ for mpi in %{?mpi_list}
 do
   # t_pmulti_dset hangs sometimes with mpich-aarch64 so do not test on that architecture
   # https://github.com/HDFGroup/hdf5/issues/3768
-  if [ "$mpi-%{_arch}" != mpich-aarch64 ]
-  then
+#  if [ "$mpi-%{_arch}" != mpich-aarch64 ]
+#  then
     module load mpi/$mpi-%{_arch}
     make -C $mpi check || exit $fail
     module purge
-  fi
+#  fi
 done
 
 # I have no idea why those get installed. But it's easier to just

@@ -1,16 +1,13 @@
 Name: astromenace
-Version:  1.4.2
-Release:  12%{?dist}
+Version:  1.4.3
+Release:  1%{?dist}
 Summary: Hardcore 3D space shooter with spaceship upgrade possibilities  
 
 License: GPL-3.0-only
 URL: http://www.viewizard.com/
-Source0: https://github.com/viewizard/astromenace/archive/%{version}-1781/%{name}-%{version}.tar.gz
+Source0: https://github.com/viewizard/astromenace/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1: astromenace.desktop
 Source2: astromenace.png
-Patch0: includes.patch
-Patch1: astromenace-gcc13.patch
-Patch2: 39.patch
 ExcludeArch: ppc64 s390x
 
 BuildRequires: gcc
@@ -37,11 +34,7 @@ invaders chose the wrong galaxy to conquer and you are to prove it!
 Go ahead and make alien aggressors regret their insolence.
 
 %prep
-%setup -qn %{name}-%{version}-1781
-
-%patch -P0 -p0
-%patch -P1 -p1
-%patch -P2 -p1
+%setup -q
 
 %build
 %cmake %_vpath_srcdir -G Ninja -DDATADIR="%{_prefix}/share/astromenace"
@@ -113,6 +106,9 @@ EOF
 %{_datadir}/astromenace/
 
 %changelog
+* Mon Feb 10 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.4.3-1
+- 1.4.3
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 Name:        gpac
 Summary:     MPEG-4 multimedia framework
 Version:     2.4.0
-Release:     5%{?dist}
+Release:     6%{?dist}
 License:     LGPL-2.0-or-later
 URL:         https://gpac.io/
 Source0:     https://github.com/gpac/gpac/archive/v%{version}/gpac-%{version}.tar.gz
@@ -13,6 +13,7 @@ Patch0:      gpac-noopt.patch
 Patch1:      https://github.com/gpac/gpac/commit/8d7cac0bf9f9775cae1d43de7138206758f28b0c.patch#/gpac-ffmpeg6.patch
 Patch2:      https://github.com/gpac/gpac/commit/a005fd6eb7a9ede4d3356630cae3d6516c91b73e.patch#/gpac-fix-library-detection.patch
 Patch3:      https://github.com/gpac/gpac/commit/d9d5a145a5e1dc1aef44def91f99d1ee3f358dfa.patch#/gpac-lto-type-mismatch.patch
+Patch4:      https://github.com/gpac/gpac/commit/18863aa2176e423dae2a6d7e39ff6ed6a37b2b78.patch#/gpac-ffmpeg7.1.patch
 
 BuildRequires:  SDL2-devel
 BuildRequires:  a52dec-devel
@@ -178,6 +179,9 @@ rm %{buildroot}%{_includedir}/gpac/00_doxy.h
 
 
 %changelog
+* Mon Feb 10 2025 Dominik Mierzejewski <dominik@greysector.net> - 2.4.0-6
+- backport fix for building with FFmpeg 7.1 (rhbz#2344722)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

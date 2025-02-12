@@ -6,8 +6,8 @@
 %define __perl_provides %{nil}
 
 Name:           moodle
-Version:        4.5.1
-Release:       	2%{?dist}
+Version:        4.5.2
+Release:       	1%{?dist}
 Summary:        A Course Management System
 
 License:        GPL-2.0-or-later
@@ -35,10 +35,7 @@ Requires:	php-pear-OLE
 Requires:       php-pecl-xmlrpc
 Requires:	crontabs
 
-BuildRequires:  systemd
-Requires(post): systemd
-Requires(preun): systemd
-Requires(postun): systemd
+BuildRequires:  systemd-rpm-macros
 
 Provides: bundled(php-tcpdf)
 Provides: bundled(php-google-apiclient1)
@@ -174,6 +171,9 @@ end
 %{_datadir}/php/php-simplepie/moodle_simplepie.php
 
 %changelog
+* Fri Feb 07 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.5.2-1
+- 4.5.2
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

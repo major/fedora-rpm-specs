@@ -13,7 +13,7 @@ performance and functionality.}
 
 Name:		wavpack
 Summary:	A completely open audiocodec
-Version:	5.7.0
+Version:	5.8.1
 Release:	%autorelease
 License:	BSD-3-Clause AND BSD-2-Clause AND LicenseRef-Fedora-Public-Domain
 Url:		https://www.wavpack.com/

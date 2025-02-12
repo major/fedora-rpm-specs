@@ -1,17 +1,14 @@
-# Created by pyp2rpm-3.3.10
 %global srcname sphinx-autoapi
 %global srcname_ sphinx_autoapi
 
 Name:           python-%{srcname}
-Version:        3.2.1
+Version:        3.5.0
 Release:        %autorelease
 Summary:        Sphinx API documentation generator
 
 License:        MIT
 URL:            https://github.com/readthedocs/sphinx-autoapi
 Source:         %pypi_source %{srcname_}
-# https://github.com/readthedocs/sphinx-autoapi/pull/462
-Patch:          0001-Mark-tests-that-use-the-network.patch
 
 BuildArch:      noarch
 
@@ -37,6 +34,8 @@ Summary:        %{summary}
 
 %prep
 %autosetup -n %{srcname_}-%{version} -p1
+# This symlink is lost from the sdist.
+ln -s ../pyexample/example tests/python/pymovedconfpy/example
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -47,13 +46,15 @@ Summary:        %{summary}
 %install
 %pyproject_install
 
-%pyproject_save_files -l autoapi
+# Switch to -l when flit supports PEP639 (3.11, probably.)
+%pyproject_save_files -L autoapi
 
 %check
 %{pytest} -m 'not network'
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
+%license LICENSE.rst
 
 %changelog
 %autochangelog

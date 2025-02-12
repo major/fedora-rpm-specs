@@ -59,7 +59,7 @@ rm -rv src/3rdparty
 
 
 %build
-%cmake_qt6 -DQT_FEATURE_mng=ON
+%cmake_qt6 -DFEATURE_mng=ON
 
 %cmake_build
 

@@ -45,8 +45,8 @@
 
 Summary: An unwinding library
 Name: libunwind
-Version: 1.8.0
-Release: 6%{?dist}
+Version: 1.8.1
+Release: 1%{?dist}
 License: MIT
 URL: http://savannah.nongnu.org/projects/libunwind
 Source: https://github.com/libunwind/libunwind/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -56,8 +56,6 @@ Patch1: libunwind-arm-default-to-exidx.patch
 # Make libunwind.h multilib friendly
 Patch2: libunwind-1.3.1-multilib-fix.patch
 Patch5: libunwind-no-dl-iterate-phdr.patch
-# backport from https://github.com/libunwind/libunwind/commit/7e16c2d244b5b55550cc293f7a6f2a899285c93f
-Patch6: libunwind-remove-XFAIL-for-riscv64.patch
 
 ExclusiveArch: %{arm} aarch64 hppa ia64 mips ppc %{power64} s390x %{ix86} x86_64 riscv64
 
@@ -73,11 +71,18 @@ Libunwind provides a C ABI to determine the call-chain of a program.
 
 %package devel
 Summary: Development package for libunwind
-Requires: libunwind = %{version}-%{release}
+Requires: libunwind%{_isa} = %{version}-%{release}
 
 %description devel
 The libunwind-devel package includes the libraries and header files for
 libunwind.
+
+%package tests
+Summary: Test binaries for libunwind
+Requires: libunwind%{_isa} = %{version}-%{release}
+
+%description tests
+Test executables for libunwind. Not needed for library functionality.
 
 %prep
 %autosetup -p1 -n %{name}-%{version}
@@ -88,7 +93,8 @@ libunwind.
 %global _lto_cflags %{nil}
 %endif
 
-%global optflags %{optflags} -fcommon
+# tests/Gtest-nomalloc.c has some code that does not like C23.
+%global optflags %{optflags} -fcommon -std=gnu17
 aclocal
 libtoolize --force
 autoheader
@@ -137,7 +143,16 @@ echo ====================TESTING END=====================
 %{_includedir}/unwind.h
 %{_includedir}/libunwind*.h
 
+%files tests
+%{_libexecdir}/libunwind
+
 %changelog
+* Mon Feb 10 2025 Tom Callaway <spot@fedoraproject.org> - 1.8.1-1
+- update to 1.8.1
+- tighten requires to _isa
+- add tests subpackage
+- use -std=c17 because of Gtest-nomalloc.c
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
@@ -447,3 +462,4 @@ echo ====================TESTING END=====================
 * Mon Oct 06 2003  Jeff Johnston <jjohnstn@redhat.com>	0.92.1
 - Initial release
 
+libunwind = %{version}-%{release}

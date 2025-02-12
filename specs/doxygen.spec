@@ -7,12 +7,15 @@
 %global clang_support OFF
 %global build_wizard OFF
 %endif
+%global build_search %{xapian_core_support}
+%global system_spdlog ON
+%global system_sqlite3 ON
 
 Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   2
 Version: 1.13.2
-Release: 2%{?dist}
+Release: 4%{?dist}
 # No version is specified.
 License: GPL-2.0-or-later
 Url: https://github.com/doxygen
@@ -21,10 +24,17 @@ Source0: https://www.doxygen.nl/files/%{name}-%{version}.src.tar.gz
 Source1: doxywizard.desktop
 # these icons are part of doxygen and converted from doxywizard.ico
 Source2: doxywizard-icons.tar.xz
+Source3: README.rpm-packaging
+Source4: doxygen-unbundler
+
 # upstream fixes
+
 BuildRequires: %{_bindir}/python3
 BuildRequires: perl-interpreter, perl-open
 BuildRequires: texlive-bibtex
+BuildRequires: web-assets-devel
+# Building an RPM package typically needs unbundling of Javascript assets.
+Requires: (js-doxygen if redhat-rpm-config)
 
 %if ! 0%{?_module_build}
 BuildRequires: tex(dvips)
@@ -104,6 +114,12 @@ BuildRequires: clang-devel
 %else
 BuildRequires: gcc-c++ gcc
 %endif
+%if "%{system_spdlog}" == "ON"
+BuildRequires: spdlog-devel
+%endif
+%if "%{system_sqlite3}" == "ON"
+BuildRequires: sqlite-devel
+%endif
 Requires: perl-interpreter
 Requires: graphviz
 
@@ -113,6 +129,13 @@ reference manual (in LaTeX) from a set of documented source files. The
 documentation is extracted directly from the sources. Doxygen can
 also be configured to extract the code structure from undocumented
 source files.
+
+%package -n js-doxygen
+Summary: Javascript files used by Doxygen
+Requires: web-assets-filesystem
+BuildArch: noarch
+%description -n js-doxygen
+Javascript files for use by locally installed Doxygen documentation.
 
 %if  "x%{build_wizard}" == "xON"
 %package doxywizard
@@ -209,30 +232,21 @@ iconv --from=ISO-8859-1 --to=UTF-8 LANGUAGE.HOWTO > LANGUAGE.HOWTO.new
 touch -r LANGUAGE.HOWTO LANGUAGE.HOWTO.new
 mv LANGUAGE.HOWTO.new LANGUAGE.HOWTO
 
+cp %{SOURCE3} .
+
 %build
-%if  "x%{build_wizard}" == "xON"
 %cmake \
-      -DPYTHON_EXECUTABLE=%{_bindir}/python3 \
-      -Duse_libclang=%{clang_support} \
-      -Dbuild_doc=OFF \
-      -Dbuild_wizard=ON \
-      -Dbuild_xmlparser=ON \
-      -Dbuild_search=%{xapian_core_support} \
-      -DMAN_INSTALL_DIR=%{_mandir}/man1 \
-      -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} \
-      -DBUILD_SHARED_LIBS=OFF \
-%else
-%cmake \
-      -DPYTHON_EXECUTABLE=%{_bindir}/python3 \
-      -Duse_libclang=%{clang_support} \
-      -Dbuild_doc=OFF \
-      -Dbuild_wizard=OFF \
-      -Dbuild_xmlparser=ON \
-      -Dbuild_search=OFF \
-      -DMAN_INSTALL_DIR=%{_mandir}/man1 \
-      -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} \
-      -DBUILD_SHARED_LIBS=OFF \
-%endif
+	-Dbuild_wizard=%{build_wizard} \
+	-DBUILD_SHARED_LIBS=OFF \
+	-DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} \
+	-Dbuild_search=%{build_search} \
+	-Duse_libclang=%{clang_support} \
+	-DMAN_INSTALL_DIR=%{_mandir}/man1 \
+	-Dbuild_doc=OFF \
+	-DPYTHON_EXECUTABLE=%{_bindir}/python3 \
+	-Dbuild_xmlparser=ON \
+	-Duse_sys_sqlite3=%{system_sqlite3} \
+	-Duse_sys_spdlog=%{system_spdlog}
 
 %cmake_build %{?_smp_mflags}
 
@@ -263,11 +277,24 @@ rm -f %{buildroot}/%{_mandir}/man1/doxyindexer.1* %{buildroot}/%{_mandir}/man1/d
 # remove duplicate
 rm -rf %{buildroot}/%{_docdir}/packages
 
+# Install the asset files.
+install -m644 -D --target-directory=%{buildroot}%{_jsdir}/doxygen \
+  templates/html/*.js
+# Generate the macros file.  Expand version/release/%%_jsdir.
+mkdir -p %{buildroot}%{_rpmconfigdir}/macros.d
+cat > %{buildroot}%{_rpmconfigdir}/macros.d/macros.doxygen <<'EOF'
+%%doxygen_js_requires() Requires: js-doxygen >= %{version}-%{release}
+%%doxygen_unbundle_buildroot() %%{_rpmconfigdir}/redhat/doxygen-unbundler "%{_jsdir}" "%%{buildroot}" %%[ %%# == 0 ? "%%{_docdir}" : "%%1"]
+%%doxygen_unbundle() %{_rpmconfigdir}/redhat/doxygen-unbundler "%{_jsdir}" "" %%*
+EOF
+# Install the unbundler script.
+install -m755 -D --target-directory=%{buildroot}%{_rpmconfigdir}/redhat %{SOURCE4}
+
 %check
 %ctest
 
 %files
-%doc LANGUAGE.HOWTO README.md
+%doc LANGUAGE.HOWTO README.md README.rpm-packaging
 %license LICENSE
 %if ! 0%{?_module_build}
 %if "x%{?xapian_core_support}" == "xON"
@@ -281,6 +308,8 @@ rm -rf %{buildroot}/%{_docdir}/packages
 %{_mandir}/man1/doxyindexer.1*
 %{_mandir}/man1/doxysearch.1*
 %endif
+%{_rpmconfigdir}/macros.d/macros.doxygen
+%{_rpmconfigdir}/redhat/doxygen-unbundler
 %if "x%{build_wizard}" == "xON" 
 %files doxywizard
 %{_bindir}/doxywizard
@@ -289,12 +318,22 @@ rm -rf %{buildroot}/%{_docdir}/packages
 %{_datadir}/icons/hicolor/*/apps/doxywizard.png
 %endif
 
+%files -n js-doxygen
+%{_jsdir}/doxygen/*
+
 %if ! 0%{?_module_build}
 %files latex
 # intentionally left blank
 %endif
 
 %changelog
+* Mon Feb 10 2025 Than Ngo <than@redhat.com> - 2:1.13.2-4
+- built with system sqlite3 and spdlog 
+
+* Sat Feb 08 2025 Than Ngo <than@redhat.com> - 2:1.13.2-3
+- Introduce js-doxygen subpackage and unbundle Javascript during RPM builds
+- Use system spdlog and sqlite3
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.13.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

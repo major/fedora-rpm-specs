@@ -30,12 +30,25 @@
 %global build_prof_api OFF
 %endif
 
-%if 0%{?rhel} && 0%{?rhel} < 10
+%if 0%{?rhel} 
+%if %{rhel} < 10
 # No ocl-icd-devel in cs9
 %bcond_with ocl
 %else
 %bcond_without ocl
 %endif
+%endif
+%if 0%{?suse_version}
+%if %{suse_version} <= 1500
+%bcond_with ocl
+%else
+%bcond_without ocl
+%endif
+%endif
+%if 0%{?fedora}
+%bcond_without ocl
+%endif
+
 %if %{with ocl}
 %global build_ocl ON
 %else
@@ -46,7 +59,7 @@
 
 Name:           rocclr
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm Compute Language Runtime
 Url:            https://github.com/ROCm-Developer-Tools/clr
 License:        MIT
@@ -85,13 +98,26 @@ BuildRequires:  libffi-devel
 BuildRequires:  libzstd-devel
 %endif
 BuildRequires:  perl
-%if 0%{?suse_version}
-BuildRequires:  pkgconfig(gl)
-%elif 0%{?rhel} && 0%{?rhel} < 10
+
+%if 0%{?rhel}
+%if %{rhel} < 10
 BuildRequires:  libglvnd-devel
 %else
 BuildRequires:  pkgconfig(opengl)
 %endif
+%endif
+%if 0%{?suse_version}
+%if %{suse_version} <= 1500
+BuildRequires:  Mesa-libGL-devel
+BuildRequires:  Mesa-libEGL-devel
+%else
+BuildRequires:  pkgconfig(gl)
+%endif
+%endif
+%if 0%{?fedora}
+BuildRequires:  pkgconfig(opengl)
+%endif
+
 %if %{with ocl}
 BuildRequires:  pkgconfig(ocl-icd)
 %endif
@@ -155,6 +181,11 @@ Requires:       hipcc
 %description -n rocm-hip
 HIP is a C++ Runtime API and Kernel Language that allows developers to create
 portable applications for AMD and NVIDIA GPUs from the same source code.
+
+%if 0%{?suse_version}
+%post -n rocm-hip -p /sbin/ldconfig
+%postun -n rocm-hip -p /sbin/ldconfig
+%endif
 
 %package -n rocm-hip-devel
 Summary:        ROCm HIP development package
@@ -335,6 +366,9 @@ fi
 %endif
 
 %changelog
+* Mon Feb 10 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-2
+- Fix SLE 15.6
+
 * Sun Feb 2 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-1
 - Update to 6.3.2
 

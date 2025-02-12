@@ -45,7 +45,7 @@ Version: 16.2
 
 # The release always contains a leading reserved number, start it at 1.
 # `upstream' is not a part of `name' to stay fully rpm dependencies compatible for the testing.
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-3.0-or-later AND BSD-3-Clause AND FSFAP AND LGPL-2.1-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND GFDL-1.3-or-later AND LGPL-2.0-or-later WITH GCC-exception-2.0 AND GPL-3.0-or-later WITH GCC-exception-3.1 AND GPL-2.0-or-later WITH GNU-compiler-exception
 # Do not provide URL for snapshots as the file lasts there only for 2 days.
@@ -923,6 +923,11 @@ fi
 # endif scl
 
 %changelog
+* Mon Feb 10 2025 Andrew Burgess <aburgess@redhat.com>
+- Add core-target-open-segfault.patch and tui-wrefresh-issue.patch,
+  these backport upstream commits 2fc56106422 and 2b646bb8767
+  respectively, both fix regressiosn in GDB 16 vs GDB 15.
+
 * Fri Feb 06 2025 Andrew Burgess <aburgess@redhat.com>
 - Remove gdb-6.5-bz218379-ppc-solib-trampoline-test.patch.  There must
   be upstream tests that 'next' over a libc call.  Additionally, it is

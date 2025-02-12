@@ -1,4 +1,4 @@
-%global sdl3_minver 3.2.2
+%global sdl3_minver 3.2.4
 
 # Features disabled for RHEL
 %if 0%{?rhel}
@@ -8,8 +8,8 @@
 %endif
 
 Name:           sdl2-compat
-Version:        2.30.52
-Release:        1%{?dist}
+Version:        2.32.50
+Release:        2%{?dist}
 SourceLicense:  Zlib and Apache-2.0 and MIT and BSD-3-Clause
 Summary:        SDL 2.0 runtime compatibility library using SDL 3.0
 License:        Zlib
@@ -20,6 +20,10 @@ Source1:        SDL2_config.h
 Source2:        SDL2_revision.h
 
 # Backports from upstream (0001~0500)
+## Sync env vars properly
+Patch0001:      %{url}/commit/f58c132840b51aac184d17593ab60d41b54c9ba9.patch
+## Fix strlen
+Patch0002:      %{url}/commit/2347d5c89752c43107f9a0a8108a6b6ac46bbfa0.patch
 
 # Proposed patches (0501~1000)
 
@@ -35,7 +39,7 @@ BuildRequires:  mesa-libGL-devel
 BuildRequires:  mesa-libGLU-devel
 # This replaces SDL2
 Obsoletes:      SDL2 < 2.30.11-2
-Conflicts:      SDL2 < 2.30.50~
+Conflicts:      SDL2 < 2.32.50~
 Provides:       SDL2 = %{version}
 Provides:       SDL2%{?_isa} = %{version}
 # This dlopens SDL3 (?!), so manually depend on it
@@ -58,7 +62,7 @@ License:        Zlib and Apache-2.0 and MIT and BSD-3-Clause
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 # This replaces SDL2-devel
 Obsoletes:      SDL2-devel < 2.30.11-2
-Conflicts:      SDL2-devel < 2.30.50~
+Conflicts:      SDL2-devel < 2.32.50~
 Provides:       SDL2-devel = %{version}
 Provides:       SDL2-devel%{?_isa} = %{version}
 %if ! %{with static}
@@ -91,7 +95,7 @@ Summary:        Static library to develop SDL 2.0 applications using SDL 3.0
 Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
 # This replaces SDL2-static
 Obsoletes:      SDL2-static < 2.30.11-2
-Conflicts:      SDL2-static < 2.30.50~
+Conflicts:      SDL2-static < 2.32.50~
 Provides:       SDL2-static = %{version}
 Provides:       SDL2-static%{?_isa} = %{version}
 
@@ -166,6 +170,14 @@ install -p -m 644 %{SOURCE2} %{buildroot}%{_includedir}/SDL2/SDL_revision.h
 
 
 %changelog
+* Mon Feb 10 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.32.50-2
+- Backport fixes from upstream
+  + Correctly handle SDL environment variables
+  + Fix to avoid over optimizing away internal strlen
+
+* Mon Feb 10 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.32.50-1
+- Update to 2.32.50
+
 * Mon Feb 03 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.30.52-1
 - Update to 2.30.52
 

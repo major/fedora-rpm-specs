@@ -11,8 +11,7 @@
 %bcond_without docs
 
 # Clang is preferred: https://skia.org/docs/user/build/#supported-and-preferred-compilers
-# But it is broken due to https://bugzilla.redhat.com/show_bug.cgi?id=2341532
-#%%global toolchain clang
+%global toolchain clang
 
 # We run out of memory if building with LTO enabled on i686.
 %ifarch %{ix86}

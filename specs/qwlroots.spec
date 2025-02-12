@@ -1,17 +1,16 @@
 Name:           qwlroots
-Version:        0.1.0
+Version:        0.5.2
 Release:        %autorelease
 Summary:        Qt and QML bindings for wlroots
 License:        Apache-2.0 OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
 URL:            https://github.com/vioken/qwlroots
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-# fix to find ctest
-Patch0:         https://github.com/vioken/qwlroots/pull/233.patch
+Patch0:         https://github.com/vioken/qwlroots/pull/293.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  ninja-build
-BuildRequires:  pkgconfig(wlroots)
+BuildRequires:  wlroots-devel
 BuildRequires:  pkgconfig(wayland-server)
 BuildRequires:  pkgconfig(pixman-1)
 BuildRequires:  pkgconfig(wayland-protocols)
@@ -38,9 +37,7 @@ This package contains development files for %{name}.
 %autosetup -p1
 
 %build
-%cmake \
-    -GNinja \
-    -DPREFER_QT_5=OFF \
+%cmake -GNinja
 
 %cmake_build
 

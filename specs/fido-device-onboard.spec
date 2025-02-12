@@ -3,14 +3,13 @@
 %global combined_license Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR ISC OR MIT) AND (Apache-2.0 OR MIT) AND ((Apache-2.0 OR MIT) AND BSD-3-Clause) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND BSD-2-Clause AND BSD-3-Clause AND (CC0-1.0 OR Apache-2.0) AND (CC0-1.0 OR MIT-0 OR Apache-2.0) AND ISC AND MIT AND ((MIT OR Apache-2.0) AND Unicode-DFS-2016) AND (Apache-2.0 OR MIT OR Zlib) AND MPL-2.0 AND (Unlicense OR MIT)
 
 Name:           fido-device-onboard
-Version:        0.5.1
-Release:        3%{?dist}
+Version:        0.5.3
+Release:        1%{?dist}
 Summary:        A rust implementation of the FIDO Device Onboard Specification
 License:        BSD-3-Clause
 
 URL:            https://github.com/fdo-rs/fido-device-onboard-rs
 Source0:        %{url}/archive/v%{version}/%{name}-rs-%{version}.tar.gz
-# See make-vendored-tarfile.sh in upstream repo
 Source1:        %{name}-rs-%{version}-vendor-patched.tar.xz
 Patch1:         0001-Revert-chore-use-git-fork-for-aws-nitro-enclaves-cos.patch
 
@@ -313,6 +312,19 @@ Requires: fdo-init = %{version}-%{release}
 %systemd_postun_with_restart fdo-aio.service
 
 %changelog
+* Fri Feb 07 2025 Packit <hello@packit.dev> - 0.5.3-1
+## What's Changed
+ * chore: update CONTRIBUTING with additional deps by @miabbott in https://github.com/fdo-rs/fido-device-onboard-rs/pull/721
+ * Fix the aws-nitro-enclaves patches and serveral problems reported by clippy by @mmartinv in https://github.com/fdo-rs/fido-device-onboard-rs/pull/722
+ * New makefile targets by @mmartinv in https://github.com/fdo-rs/fido-device-onboard-rs/pull/725
+ * Packit changes by @mmartinv in https://github.com/fdo-rs/fido-device-onboard-rs/pull/726
+ * chore: bump openssl from 0.10.66 to 0.10.70 by @dependabot in https://github.com/fdo-rs/fido-device-onboard-rs/pull/733
+ * chore: bump for 0.5.3 release by @mmartinv in https://github.com/fdo-rs/fido-device-onboard-rs/pull/738
+
+
+ **Full Changelog**: https://github.com/fdo-rs/fido-device-onboard-rs/compare/v0.5.2...v0.5.3
+- Resolves: rhbz#2336848
+
 * Thu Feb 06 2025 Fabio Valentini <decathorpe@gmail.com> - 0.5.1-3
 - Rebuild for openssl crate >= v0.10.70 (RUSTSEC-2025-0004)
 

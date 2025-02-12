@@ -3,7 +3,7 @@
 %bcond render %{undefined el10}
 
 Name:           bids-schema
-Version:        1.0.1
+Version:        1.0.2
 Release:        %autorelease
 Summary:        BIDS schema description
 

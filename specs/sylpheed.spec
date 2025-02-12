@@ -87,6 +87,8 @@ This package contains development files for Sylpheed.
 %autosetup %{?prerelease:-n %{name}-%{version}%{?prerelease}} -p1
 
 %build
+%global optflags %{optflags} -std=gnu17
+
 %configure --disable-silent-rules \
     --enable-ssl --disable-updatecheck \
     --with-plugindir=%{_libdir}/%{name}/plugins \

@@ -5,20 +5,19 @@
 %bcond qpl      %[ 0%{?fedora} >= 41 && "%{_arch}" == "x86_64" ]
 %bcond selinux  1
 %bcond uuid     1
-%bcond xxhash   %[ 0%{?fedora} || (0%{?rhel} >= 9 && 0%{?rhel} < 10) ]
+%bcond xxhash   1
 %bcond zlib     1
 %bcond zstd     1
 
 Name:           erofs-utils
-Version:        1.8.4
-Release:        3%{?dist}
+Version:        1.8.5
+Release:        1%{?dist}
 
 Summary:        Utilities for working with EROFS
 License:        GPL-2.0-only AND GPL-2.0-or-later AND (GPL-2.0-only OR Apache-2.0) AND (GPL-2.0-or-later OR Apache-2.0) AND (GPL-2.0-only OR BSD-2-Clause) AND (GPL-2.0-or-later OR BSD-2-Clause) AND Unlicense
 URL:            https://erofs.docs.kernel.org/
 
 Source:         https://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs-utils.git/snapshot/%{name}-%{version}.tar.gz
-Patch:          https://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs-utils.git/patch/?id=06875b3f2182eab24b81083dfde542f778b201cc#/%{name}-1.8.4-fragdedupe-inode-support.patch
 
 BuildRequires:  %[ "%{toolchain}" == "clang" ? "clang compiler-rt" : "gcc" ]
 BuildRequires:  libtool
@@ -98,6 +97,9 @@ autoreconf -fi
 
 
 %changelog
+* Mon Feb 10 2025 David Michael <fedora.dm0@gmail.com> - 1.8.5-1
+- Update to the 1.8.5 release.
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

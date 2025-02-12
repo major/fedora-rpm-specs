@@ -4,7 +4,7 @@
 %global glib2_version %(pkg-config --modversion glib-2.0 2>/dev/null || echo bad)
 
 %global epoch_version 1
-%global real_version 1.51.6
+%global real_version 1.51.7
 %global rpm_version %{real_version}
 %global release_version 1
 %global snapshot %{nil}
@@ -503,6 +503,7 @@ Group: System Environment/Base
 %if %{with split_ifcfg_rh}
 Requires: %{name}-initscripts-ifcfg-rh
 %endif
+Requires: ipcalc
 BuildArch: noarch
 Provides: %{name}-config-routing-rules = %{epoch}:%{version}-%{release}
 Obsoletes: %{name}-config-routing-rules < 1:1.31.0
@@ -589,7 +590,6 @@ Preferably use nmcli instead.
 %else
 	-Ddhclient=no \
 %endif
-	-Ddhcpcanon=no \
 	-Ddhcpcd=no \
 	-Dcrypto=gnutls \
 %if %{with debug}
@@ -1064,6 +1064,9 @@ fi
 
 
 %changelog
+* Mon Feb 10 2025 Beniamino Galvani <bgalvani@redhat.com> - 1.51.7-1
+- Update to 1.51.7 release (development)
+
 * Mon Jan 20 2025 Beniamino Galvani <bgalvani@redhat.com> - 1.51.6-1
 - Update to 1.51.6 release (development)
 

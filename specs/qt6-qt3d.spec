@@ -78,7 +78,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %cmake_qt6 \
   -DQT_BUILD_EXAMPLES:BOOL=%{?examples:ON}%{!?examples:OFF} \
   -DQT_INSTALL_EXAMPLES_SOURCES=%{?examples:ON}%{!?examples:OFF} \
-  -DQT_FEATURE_qt3d_system_assimp=%{?bundled_assimp:OFF}%{!?bundled_assimp:ON}
+  -DFEATURE_qt3d_system_assimp=%{?bundled_assimp:OFF}%{!?bundled_assimp:ON}
 
 %cmake_build
 

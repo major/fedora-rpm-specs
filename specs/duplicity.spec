@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           duplicity
-Version:        3.0.3.2
+Version:        3.0.4
 Release:        %autorelease
 Summary:        Encrypted bandwidth-efficient backup using rsync algorithm
 
@@ -50,6 +50,7 @@ BuildRequires:  python3dist(setuptools-scm)
 BuildRequires:  python3dist(fasteners)
 BuildRequires:  python3dist(pexpect)
 BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pycodestyle)
 
 %description
 Duplicity incrementally backs up files and directory by encrypting
@@ -108,7 +109,7 @@ rm -rf %{buildroot}%{_docdir}/duplicity-%{version}/README-REPO.md
 # https://gitlab.com/duplicity/duplicity/-/issues/820
 %ifnarch ppc64le
 %check
-%pytest
+%pytest -k 'not test_pylint and not test_black'
 %endif
 %endif
 

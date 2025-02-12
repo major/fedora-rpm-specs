@@ -1,3 +1,6 @@
+%bcond tests 1
+%bcond all_tests 0
+
 %global srcname tmuxp
 
 Name:           python-%{srcname}
@@ -21,6 +24,14 @@ through simple configuration files.}
 %package -n python3-%{srcname}
 Summary:	%{summary}
 BuildRequires:  python3-devel
+%if %{with tests}
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(docutils)
+BuildRequires:  python3dist(pytest-mock)
+BuildRequires:  python3dist(pytest-rerunfailures)
+BUildRequires:  python3dist(sphinx)
+BuildRequires:  python3dist(typing-extensions)
+%endif
 
 %description -n python3-%{srcname} %_description
 
@@ -44,6 +55,12 @@ BuildRequires:  python3-devel
 
 %check
 %pyproject_check_import
+PYTHONPATH=src %pytest -v \
+%if %{without all_tests}
+  --deselect tests/workspace/test_builder.py::test_window_shell
+%else
+%nil
+%endif
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}

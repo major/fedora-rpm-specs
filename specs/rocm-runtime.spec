@@ -1,3 +1,13 @@
+%if 0%{?suse_version}
+# 15.6
+# rocm-runtime.x86_64: E: shlib-policy-name-error (Badness: 10000) libhsa-runtime64-1
+# Your package contains a single shared library but is not named after its SONAME.
+%global runtime_name libhsa-runtime64-1
+%else
+%global runtime_name rocm-runtime
+%endif
+%global forge_name rocm-runtime
+
 #Image support is x86 only
 %ifarch x86_64
 %global enableimage 1
@@ -21,14 +31,14 @@
 %global gcc_major_str %{nil}
 %endif
 
-Name:       rocm-runtime
+Name:       %{runtime_name}
 Version:    %{rocm_version}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    ROCm Runtime Library
 
 License:    NCSA
 URL:        https://github.com/ROCm/ROCR-Runtime
-Source0:    %{url}/archive/rocm-%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:    %{url}/archive/rocm-%{version}.tar.gz#/%{forge_name}-%{version}.tar.gz
 
 ExclusiveArch:  x86_64
 
@@ -43,13 +53,18 @@ BuildRequires:  rocm-device-libs
 %if 0%{?suse_version}
 BuildRequires:  libelf-devel
 BuildRequires:  libnuma-devel
+%if %{suse_version} > 1500
 BuildRequires:  xxd
+%else
+BuildRequires:  vim
+%endif
 %else
 BuildRequires:  elfutils-libelf-devel
 BuildRequires:  numactl-devel
 BuildRequires:  vim-common
 %endif
 
+Provides:   rocm-runtime = %{version}-%{release}
 Obsoletes:  hsakmt < 6.3
 
 %description
@@ -63,6 +78,7 @@ applications to launch compute kernels directly to the graphics hardware.
 Summary: ROCm Runtime development files
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Provides:  hsakmt-devel = %{version}-%{release}
+Provides:  rocm-runtime-devel = %{version}-%{release}
 
 %description devel
 ROCm Runtime development files
@@ -119,8 +135,8 @@ cd libhsakmt/tests/kfdtest
 
 if [ -f %{buildroot}%{_prefix}/share/doc/hsa-runtime64/LICENSE.md ]; then
     rm %{buildroot}%{_prefix}/share/doc/hsa-runtime64/LICENSE.md
-elif [ -f %{buildroot}%{_prefix}/share/doc/packages/rocm-runtime/LICENSE.md ]; then
-    rm %{buildroot}%{_prefix}/share/doc/packages/rocm-runtime/LICENSE.md
+elif [ -f %{buildroot}%{_prefix}/share/doc/packages/%{name}/LICENSE.md ]; then
+    rm %{buildroot}%{_prefix}/share/doc/packages/%{name}/LICENSE.md
 fi
 
 if [ -f %{buildroot}%{_libdir}/libhsakmt.a ]; then
@@ -161,6 +177,9 @@ fi
 %endif
 
 %changelog
+* Sun Feb 9 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-2
+- Fix SLE 15.6
+
 * Sun Feb 2 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-1
 - Update to 6.3.2
 

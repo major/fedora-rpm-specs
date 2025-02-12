@@ -365,6 +365,8 @@ elif [ -f /etc/grub.d/01_users ] && \
 	    > /boot/grub2/user.cfg
     fi
 fi
+# ensure we exit 0
+:
 
 %post tools
 %systemd_user_post grub-boot-success.timer
@@ -425,11 +427,12 @@ if test -f ${EFI_HOME}/grubenv; then
     mv --force ${EFI_HOME}/grubenv ${GRUB_HOME}/grubenv
 fi
 
-mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg
+# ensure we exit 0
+mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg || :
 
 %if 0%{with_efi_arch}
 %posttrans efi-%{efiarch}
-/usr/lib/bootloader/install_bootloader %{grub_efi_dir} %{efi_esp_dir}
+/usr/lib/bootloader/install_bootloader %{grub_efi_dir} %{efi_esp_dir} || :
 %endif
 
 %files common -f grub.lang

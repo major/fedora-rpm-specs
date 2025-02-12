@@ -1,6 +1,6 @@
 Name: ck
-Version: 0.7.1
-Release: 8%{?dist}
+Version: 0.7.2
+Release: 1%{?dist}
 Summary: Library for high performance concurrent programming
 
 License: BSD-2-clause AND Apache-2.0 AND BSD-3-clause
@@ -86,6 +86,11 @@ TIMEOUT_KILL=$((TIMEOUT+100))
     sed -e '/^\s*brlock\s/ d' -e '/^\s*cohort\s/ d' -e '/^\s*rwlock\s/ d' \
         -e '/^\s*epoch\s/ d' -i regressions/Makefile
 %endif
+%ifarch s390x
+    # epoch test ends up in a very long/infinite loop
+    sed -e '/^\s*epoch\s/ d' -i regressions/Makefile
+%endif
+
 # Protect builders against hard lock
 time timeout -k $TIMEOUT_KILL $TIMEOUT \
     make check CORES=${CORES} SEQUENCE_CORES=${SEQUENCE_CORES}
@@ -101,13 +106,17 @@ time timeout -k $TIMEOUT_KILL $TIMEOUT \
 %{_mandir}/man3/*.3.gz
 
 %changelog
+* Mon Feb 10 2025 Ales Nezbeda <anezbeda@redhat.com> - 0.7.2-1
+- Update to 0.7.2
+- Disable long running test on s390x
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 
-* Fri May 31 2025 Ales Nezbeda <anezbeda@redhat.com> - 0.7.1-6
+* Fri May 31 2024 Ales Nezbeda <anezbeda@redhat.com> - 0.7.1-6
 - Fix test code for big endian
 - Disable long running test on ARM
 

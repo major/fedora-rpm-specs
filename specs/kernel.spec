@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.14.0
 %define specversion 6.14.0
 %define patchversion 6.14
-%define pkgrelease 0.rc1.20250207gitbb066fe812d6.19
+%define pkgrelease 0.rc2.22
 %define kversion 6
-%define tarfile_release 6.14-rc1-81-gbb066fe812d6
+%define tarfile_release 6.14-rc2
 # This is needed to do merge window version magic
 %define patchlevel 14
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc1.20250207gitbb066fe812d6.19%{?buildid}%{?dist}
+%define specrelease 0.rc2.22%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.14.0
 
@@ -230,6 +230,8 @@ Summary: The Linux kernel
 %define with_libperf   %{?_without_libperf:   0} %{?!_without_libperf:   1}
 # tools
 %define with_tools     %{?_without_tools:     0} %{?!_without_tools:     1}
+# ynl
+%define with_ynl      %{?_without_ynl:      0} %{?!_without_ynl:      1}
 # kernel-debuginfo
 %define with_debuginfo %{?_without_debuginfo: 0} %{?!_without_debuginfo: 1}
 # kernel-abi-stablelists
@@ -761,6 +763,11 @@ BuildRequires: pciutils-devel
 BuildRequires: libnl3-devel
 %endif
 %endif
+
+%if %{with_tools} && %{with_ynl}
+BuildRequires: python3-pyyaml python3-jsonschema python3-pip python3-setuptools
+%endif
+
 %if %{with_tools} || %{signmodules} || %{signkernel}
 BuildRequires: openssl-devel
 %endif
@@ -3066,6 +3073,19 @@ chmod +x tools/perf/check-headers.sh
 %endif
 
 %if %{with_tools}
+
+%if %{with_ynl}
+pushd tools/net/ynl
+export PIP_CONFIG_FILE=/tmp/pip.config
+cat <<EOF > $PIP_CONFIG_FILE
+[install]
+no-index = true
+no-build-isolation = false
+EOF
+%{tools_make} %{?_smp_mflags} DESTDIR=$RPM_BUILD_ROOT install
+popd
+%endif
+
 %ifarch %{cpupowerarchs}
 # cpupower
 # make sure version-gen.sh is executable.
@@ -3954,6 +3974,12 @@ fi\
 %config(noreplace) %{_sysconfdir}/logrotate.d/kvm_stat
 %{_bindir}/page_owner_sort
 %{_bindir}/slabinfo
+%if %{with_ynl}
+%{_bindir}/ynl*
+%{_docdir}/ynl
+%{_datadir}/ynl
+%{python3_sitelib}/pyynl*
+%endif
 
 %if %{with_debuginfo}
 %files -f %{package_name}-tools-debuginfo.list -n %{package_name}-tools-debuginfo
@@ -3963,12 +3989,18 @@ fi\
 %files -n %{package_name}-tools-libs
 %{_libdir}/libcpupower.so.1
 %{_libdir}/libcpupower.so.0.0.1
+%endif
 
 %files -n %{package_name}-tools-libs-devel
+%ifarch %{cpupowerarchs}
 %{_libdir}/libcpupower.so
 %{_includedir}/cpufreq.h
 %{_includedir}/cpuidle.h
 %{_includedir}/powercap.h
+%endif
+%if %{with_ynl}
+%{_libdir}/libynl*
+%{_includedir}/ynl
 %endif
 
 %files -n rtla
@@ -4180,12 +4212,22 @@ fi\
 #
 #
 %changelog
-* Fri Feb 07 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc1.bb066fe812d6.19]
-- Add -fzero-init-padding-bits to bindgen_skip_cflags (Justin M. Forbes)
+* Mon Feb 10 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc2.22]
 - apply -Wno-error=unterminated-string-initialization temporarily (Thorsten Leemhuis)
-- x86/boot: Use '-std=gnu11' to fix build with GCC 15 (Nathan Chancellor)
 - include/linux: Adjust headers for C23 (Jakub Jelinek)
 - x86/insn_decoder_test: allow longer symbol-names (David Rheinsberg)
+
+* Mon Feb 10 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc2.21]
+- Linux v6.14.0-0.rc2
+
+* Sun Feb 09 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc1.9946eaf552b1.20]
+- Linux v6.14.0-0.rc1.9946eaf552b1
+
+* Sat Feb 08 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc1.8f6629c004b1.19]
+- redhat/configs: amend USB_ONBOARD_DEV_USB5744 (Eric Chanudet)
+- redhat/configs: automotive: Disable SYSIPC and MQUEUE configs (Dorinda Bassey)
+- redhat: kernel.spec: add ynl to kernel-tools (Jan Stancek)
+- Linux v6.14.0-0.rc1.8f6629c004b1
 
 * Fri Feb 07 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc1.bb066fe812d6.18]
 - fedora: enable USB device USB5744 (Peter Robinson)

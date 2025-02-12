@@ -1,5 +1,5 @@
 Name:           perl-Crypt-OpenSSL-PKCS10
-Version:        0.34
+Version:        0.35
 Release:        1%{?dist}
 Summary:        Perl interface to OpenSSL for PKCS10
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -94,6 +94,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Feb 10 2025 Michal Josef Špaček <mspacek@redhat.com> - 0.35-1
+- 0.35 bump (rhbz#2343874)
+
 * Mon Jan 27 2025 Michal Josef Špaček <mspacek@redhat.com> - 0.34-1
 - 0.34 bump (rhbz#2342050)
 

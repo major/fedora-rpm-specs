@@ -1,6 +1,6 @@
 Name:           perl-Sys-Virt
-Version:        10.9.0
-Release:        2%{?dist}
+Version:        11.0.0
+Release:        1%{?dist}
 Summary:        Represent and manage a libvirt hypervisor connection
 License:        GPL-2.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Sys-Virt
@@ -9,7 +9,7 @@ Source0:        https://cpan.metacpan.org/authors/id/D/DA/DANBERR/Sys-Virt-v%{ve
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
-BuildRequires:  git
+BuildRequires:  git-core
 BuildRequires:  libvirt-devel >= %{version}
 BuildRequires:  perl-devel
 %if 0%{?fedora} || 0%{?rhel} > 7
@@ -97,6 +97,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Feb 10 2025 Jitka Plesnikova <jplesnik@redhat.com> - 11.0.0-1
+- 11.0.0 bump (rhbz#2344348)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

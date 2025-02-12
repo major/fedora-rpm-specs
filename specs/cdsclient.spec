@@ -43,6 +43,9 @@ sed -i -e '1 s|python|python3|' catClient.py
 
 
 %build
+# Compile with an older std until upstream fixes it
+# Mail to upstream on 2025-02-12
+CFLAGS="$CFLAGS --std=gnu17"
 %configure 
 make %{?_smp_mflags}
 

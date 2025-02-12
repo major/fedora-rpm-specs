@@ -2,8 +2,37 @@
 # So, let's run all tests by default.
 %bcond tests 1
 
-# Use forge macros for pulling from GitLab
+Name:           python-xnat
+Version:        0.7.0
+Release:        %autorelease
+Summary:        XNAT client that exposes XNAT objects/functions as python objects/functions
+
 %global forgeurl https://gitlab.com/radiology/infrastructure/xnatpy
+%global tag %{version}
+%forgemeta
+
+License:        Apache-2.0
+URL:            %forgeurl
+Source0:        %forgesource
+# xnat4tests is not available in Fedora. It's currently not possible to
+# package it either, since it's licensed under CC0-1.0
+# https://github.com/Australian-Imaging-Service/xnat4tests/issues/17
+Patch:          no_xnat4tests.patch
+# Exclude tests from wheel.
+# https://gitlab.com/radiology/infrastructure/xnatpy/-/merge_requests/51
+Patch:          %{url}/-/merge_requests/51.patch
+
+BuildArch:      noarch
+
+BuildRequires:  python3-devel
+# For setting up git repo allowing `versioningit` to determine version
+BuildRequires:  git-core
+BuildRequires:  help2man
+%if %{with tests}
+BuildRequires:  python3-pytest
+BuildRequires:  python3-pytest-mock
+BuildRequires:  python3-requests-mock
+%endif
 
 %global desc %{expand: \
 XNAT client that exposes XNAT objects/functions as python
@@ -14,55 +43,21 @@ functionality can still be accessed via the connection object which has
 get, head, put, post, delete methods for more directly calling the REST
 API.}
 
-Name:           python-xnat
-Version:        0.6.2
-Release:        %autorelease
-Summary:        XNAT client that exposes XNAT objects/functions as python objects/functions
-# Only expand forge macros in fedora >= 40 since %%forgesource is broken
-# in older releases.
-# Use `fedpkg ... mockbuild --srpm-mock ...` when building for >=40 on
-# system <40
-%if %{fedora} >= 40
-%forgemeta
-%endif
-License:        Apache-2.0
-URL:            %forgeurl
-# The %%forgesource macro only works correctly in rawhide for group URLs
-%if %{fedora} >= 40
-Source0:        %forgesource
-%else
-Source0:        https://gitlab.com/radiology/infrastructure/xnatpy/-/archive/%{version}/xnatpy-%{version}.tar.bz2
-%endif
-# xnat4tests is not available in Fedora. It's currently not possible to
-# package it either, since it's licensed under CC0-1.0
-# https://github.com/Australian-Imaging-Service/xnat4tests/issues/17
-Patch:          no_xnat4tests.patch
-
-BuildArch:      noarch
-
 %description
 %{desc}
 
 %package -n python3-xnat
 Summary:        %{summary}
 
-BuildRequires: python3-devel
-BuildRequires: help2man
-%if %{with tests}
-BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-mock
-BuildRequires:  python3-requests-mock
-%endif
-
 %description -n python3-xnat
 %{desc}
 
 %prep
-%autosetup -p1 -n xnatpy-%{version}
+%forgeautosetup -p1 -S git
 
 # Strip version constraints
 # We are either ahead or behind
-sed -r -i 's/[~<>=]=[0-9.]*//g' requirements.txt
+sed -r -i 's/[~<>=]=[0-9.]*//g' requirements.txt pyproject.toml
 
 # remove shebang from non executable scripts
 sed -i '1d' xnat/scripts/copy_project.py
@@ -71,6 +66,11 @@ sed -i '1d' xnat/scripts/import_experiment_dir.py
 
 # Don't try to import docker (we are not using it)
 sed -i '/import docker/d' xnat/tests/test_import.py
+
+# Commit everything then tag allowing `versioningit` to do its "magic"
+git add --all
+git commit -m "Downstream changes"
+git tag %{version}
 
 %generate_buildrequires
 %pyproject_buildrequires -r requirements.txt
@@ -99,8 +99,6 @@ done
 # Funtional tests require xnat4tests.
 %pytest -v -m 'not docker_test and not functional_test'
 %else
-# Import test currently fails
-# https://gitlab.com/radiology/infrastructure/xnatpy/-/issues/57
 %pyproject_check_import
 %endif
 

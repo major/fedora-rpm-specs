@@ -64,7 +64,7 @@
 
 Name: sssd
 Version: %{downstream_version}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: System Security Services Daemon
 License: GPL-3.0-or-later
 URL: https://github.com/SSSD/sssd/
@@ -1193,6 +1193,9 @@ fi
 %systemd_postun_with_restart sssd.service
 
 %changelog
+* Mon Feb 10 2025 Alexey Tikhonov <atikhono@redhat.com> - 2.10.2-2
+- Rebuild against Samba 4.22.0 rc1 (f43-build-side-105065)
+
 * Wed Jan 29 2025 Pavel Březina <pbrezina@redhat.com> - 2.10.2-1
 - Rebase to SSSD 2.10.2
 

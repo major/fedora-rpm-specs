@@ -81,8 +81,8 @@
 Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
-Version:        7.0.2
-Release:        13%{?dist}
+Version:        7.1
+Release:        1%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -103,9 +103,6 @@ Patch1:         ffmpeg-codec-choice.patch
 # Allow to build with fdk-aac-free
 # See https://bugzilla.redhat.com/show_bug.cgi?id=1501522#c112
 Patch2:         ffmpeg-allow-fdk-aac-free.patch
-# Fixes for Mesa 24.0.6+ / 24.1.4+ VA-API
-Patch9:         0001-lavc-vaapi_decode-Make-it-possible-to-send-multiple-.patch
-Patch10:        0002-lavc-vaapi_av1-Avoid-sending-the-same-slice-buffer-m.patch
 
 # Add first_dts getter to libavformat for Chromium
 # See: https://bugzilla.redhat.com/show_bug.cgi?id=2240127
@@ -857,6 +854,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}/examples
 %{_mandir}/man3/libswscale.3*
 
 %changelog
+* Fri Feb 07 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 7.1-1
+- Rebase to 7.1 (rhbz#2273572)
+
 * Wed Feb 05 2025 Robert-André Mauchin <zebob.m@gmail.com> - 7.0.2-13
 - Rebuilt for aom 3.11.0
 

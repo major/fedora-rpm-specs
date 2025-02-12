@@ -1,6 +1,6 @@
 Name:           iotop-c
 Version:        1.27
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Simple top-like I/O monitor (implemented in C)
 
 License:        GPL-2.0-or-later
@@ -54,6 +54,9 @@ V=1 STRIP=: BINDIR=$RPM_BUILD_ROOT%{_bindir} %make_install
 %{_mandir}/man8/iotop.8*
 
 %changelog
+* Mon Feb 10 2025 Michal Hlavinka <mhlavink@redhat.com> - 1.27-4
+- rebuild
+
 * Wed Jan 22 2025 Michal Hlavinka <mhlavink@redhat.com> - 1.27-3
 - update for bin and sbin merge https://fedoraproject.org/wiki/Changes/Unify_bin_and_sbin
 

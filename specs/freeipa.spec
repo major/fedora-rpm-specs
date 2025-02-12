@@ -97,7 +97,7 @@
 # 0.7.16: https://github.com/drkjam/netaddr/issues/71
 %global python_netaddr_version 0.7.16
 # Require 4.20.0 for libndr4
-%global samba_version 2:4.20.0
+%global samba_version 2:4.22.0
 
 # 38.28 or later includes passkey-related fixes
 %global selinux_policy_version 38.28-1
@@ -200,7 +200,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        9%{?rc_version:.%rc_version}%{?dist}
+Release:        10%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -1869,6 +1869,9 @@ fi
 %endif
 
 %changelog
+* Mon Feb 10 2025 Alexander Bokovoy <abokovoy@redhat.com> - 4.12.2-10
+- Rebuild for Samba 4.22.0 RC1
+
 * Mon Jan 27 2025 Alexander Bokovoy <abokovoy@redhat.com> - 4.12.2-9
 - Do not pass OAuth2 client secret for public clients (freeipa#9734)
 - Fix upgrade for two-way trust to Active Directory (freeipa#9471 post-fix)

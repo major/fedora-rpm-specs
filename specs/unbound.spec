@@ -438,7 +438,7 @@ popd
 %doc doc/CREDITS doc/FEATURES
 %{_unitdir}/%{name}.service
 %{_unitdir}/%{name}-keygen.service
-%attr(0755,unbound,unbound) %dir %{_rundir}/%{name}
+%attr(0775,unbound,root) %dir %{_rundir}/%{name}
 %attr(0644,root,root) %{_tmpfilesdir}/unbound.conf
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}/unbound.conf
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}/openssl-sha1.conf

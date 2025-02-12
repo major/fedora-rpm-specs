@@ -1,5 +1,5 @@
 Name:           perl-YAML-PP
-Version:        0.38.1
+Version:        0.39.0
 Release:        1%{?dist}
 Summary:        YAML 1.2 processor
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -145,6 +145,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Feb 10 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.39.0-1
+- 0.39.0 bump (rhbz#2344598)
+
 * Tue Jan 28 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.38.1-1
 - 0.38.1 bump (rhbz#2342356)
 
