@@ -1,5 +1,5 @@
 Name:           python-quart-trio
-Version:        0.11.1
+Version:        0.12.0
 Release:        %autorelease
 Summary:        A Quart extension to provide trio support
 
@@ -13,8 +13,6 @@ Source:         %{url}/archive/%{version}/quart-trio-%{version}.tar.gz
 # 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Downstream-only-patch-out-coverage-analysis.patch
-# Avoid depending on exceptiongroup backport package on Python 3.11 and later
-Patch:          %{url}/pull/16.patch
 
 BuildArch:      noarch
 

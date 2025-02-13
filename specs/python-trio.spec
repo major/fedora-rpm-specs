@@ -12,18 +12,12 @@ right.}
 
 
 Name:           python-trio
-Version:        0.23.1
+Version:        0.28.0
 Release:        %autorelease
 Summary:        A friendly Python library for async concurrency and I/O
 License:        Apache-2.0 OR MIT
 URL:            https://github.com/python-trio/trio
 Source:         %pypi_source trio
-
-# Python 3.13 support
-# Manually rebased from https://github.com/python-trio/trio/pull/2959
-Patch:          python3.13-PR-2959.patch
-# Manually rebased from https://github.com/python-trio/trio/pull/3005
-Patch:          python3.13-PR-3005.patch
 
 BuildArch:      noarch
 
@@ -54,14 +48,13 @@ BuildRequires:  python3-pytest
 
 %install
 %pyproject_install
-%pyproject_save_files trio
+%pyproject_save_files -l trio
 
 
 %check
 # https://github.com/python-trio/trio/issues/2863
-# https://github.com/python-trio/trio/pull/2870
 # https://docs.pytest.org/en/stable/explanation/goodpractices.html#tests-as-part-of-application-code
-%pytest --pyargs trio -p trio._tests.pytest_plugin --verbose --skip-optional-imports
+%pytest --pyargs trio --verbose --skip-optional-imports
 
 
 %files -n python3-trio -f %{pyproject_files}

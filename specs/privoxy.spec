@@ -7,14 +7,13 @@
 
 Name: privoxy
 Version: 4.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Privacy enhancing proxy
 License: GPL-2.0-or-later
 Source0: http://downloads.sourceforge.net/ijbswa/%{name}-%{version}-%{beta_or_stable}-src.tar.gz
 Source1: privoxy.service
 Source2: privoxy.logrotate
 URL: http://www.privoxy.org/
-Requires(pre): shadow-utils
 BuildRequires: make
 BuildRequires: libtool autoconf pcre2-devel zlib-devel systemd
 
@@ -30,6 +29,12 @@ Privoxy is based on the Internet Junkbuster.
 
 %prep
 %setup -q -n %{name}-%{version}-%{beta_or_stable}
+
+# Create a sysusers.d config file
+cat >privoxy.sysusers.conf <<EOF
+g privoxy %{privoxy_gid}
+u privoxy %{privoxy_uid}:%{privoxy_gid} - %{privoxyconf} -
+EOF
 
 %build
 rm -rf autom4te.cache
@@ -63,13 +68,7 @@ touch %{buildroot}%{_sysconfdir}/privoxy/user.filter
 mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/logrotate.d
 cp -p %{SOURCE2} $RPM_BUILD_ROOT/%{_sysconfdir}/logrotate.d/%{name}
 
-
-%pre
-# Add user/group on install
-if [ $1 -eq "1" ]; then
-    %{_sbindir}/groupadd -g %{privoxy_gid} %{name} > /dev/null 2>&1 ||:
-    %{_sbindir}/useradd -u %{privoxy_uid} -g %{privoxy_gid} -d %{privoxyconf} -r -s "/sbin/nologin" %{name} > /dev/null 2>&1 ||:
-fi
+install -m0644 -D privoxy.sysusers.conf %{buildroot}%{_sysusersdir}/privoxy.conf
 
 
 %post
@@ -101,8 +100,12 @@ fi
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %doc README AUTHORS ChangeLog LICENSE 
 %doc doc
+%{_sysusersdir}/privoxy.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.0.0-2
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 23 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.0.0-1
 - 4.0.0
 

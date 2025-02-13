@@ -20,6 +20,9 @@ Patch:          %{url}/pull/327/commits/a3f7c8d61615d5831b60056aa8e0001a29989416
 # Bump MSRV to 1.77 for notify 8.0.0
 Patch:          %{url}/pull/327/commits/d05eadcd47447f5abefbf5e158586aa820ecd13b.patch
 
+# Downstream-only: allow a slightly older pytest to support EPEL10
+Patch:          0001-Downstream-only-allow-a-slightly-older-pytest-to-sup.patch
+
 BuildRequires:  python3-devel
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -104,11 +107,6 @@ sed -e '/LICENSE/ s/^/%%license /' -i %{pyproject_files}
 
 
 %check
-# Since 1.0.4, this fails with old versions of anyio, with:
-#   !!!!!!!!!!!!!!!!!!!!!!!! KeyboardInterrupt: test error !!!!!!!!!!!!!!!!!!!!!!!!!
-# We can reproduce this in a checkout by: pip install anyio==3.7.1
-k="${k-}${k+ and }not test_awatch_interrupt_raise"
-
 # We must set the import mode during tests to avoid the watchfiles directory
 # (which will not have the compiled module) taking precedence for the import.
 # https://docs.pytest.org/en/7.4.x/explanation/pythonpath.html

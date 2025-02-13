@@ -1,111 +1,108 @@
 %global goipath github.com/charmbracelet/gum
 
 Name:           gum
-Version:        0.14.5
+Version:        0.15.2
 Release:        %autorelease
 Summary:        Tool for glamorous shell scripts
 # main source code is MIT
-# see comments above provides tags for bundled license breakdown
+# BSD-3-Clause:
+#   - golang(github.com/atotto/clipboard)
+#   - golang(github.com/gorilla/css)
+#   - golang(github.com/microcosm-cc/bluemonday)
+#   - golang(golang.org/x/exp)
+#   - golang(golang.org/x/net)
+#   - golang(golang.org/x/sync)
+#   - golang(golang.org/x/sys)
+#   - golang(golang.org/x/term)
+#   - golang(golang.org/x/text)
+# MIT:
+#   - golang(github.com/alecthomas/kong)
+#   - golang(github.com/alecthomas/mango-kong)
+#   - golang(github.com/aymanbagabas/go-osc52/v2)
+#   - golang(github.com/aymerick/douceur)
+#   - golang(github.com/charmbracelet/bubbles)
+#   - golang(github.com/charmbracelet/bubbletea)
+#   - golang(github.com/charmbracelet/glamour)
+#   - golang(github.com/charmbracelet/lipgloss)
+#   - golang(github.com/charmbracelet/log)
+#   - golang(github.com/charmbracelet/x/ansi)
+#   - golang(github.com/charmbracelet/x/editor)
+#   - golang(github.com/charmbracelet/x/term)
+#   - golang(github.com/dlclark/regexp2)
+#   - golang(github.com/dustin/go-humanize)
+#   - golang(github.com/erikgeiser/coninput)
+#   - golang(github.com/go-logfmt/logfmt)
+#   - golang(github.com/lucasb-eyer/go-colorful)
+#   - golang(github.com/Masterminds/semver/v3)
+#   - golang(github.com/mattn/go-isatty)
+#   - golang(github.com/mattn/go-localereader)
+#   - golang(github.com/mattn/go-runewidth)
+#   - golang(github.com/muesli/ansi)
+#   - golang(github.com/muesli/cancelreader)
+#   - golang(github.com/muesli/mango)
+#   - golang(github.com/muesli/reflow)
+#   - golang(github.com/muesli/roff)
+#   - golang(github.com/muesli/termenv)
+#   - golang(github.com/rivo/uniseg)
+#   - golang(github.com/sahilm/fuzzy)
+#   - golang(github.com/yuin/goldmark)
+#   - golang(github.com/yuin/goldmark-emoji)
+# MIT AND OFL-1.1:
+#   - golang(github.com/alecthomas/chroma/v2)
 License:        BSD-3-Clause AND MIT AND OFL-1.1
 URL:            https://github.com/charmbracelet/gum
+Source0:        %{url}/archive/v%{version}/gum-%{version}.tar.gz
+
+# see create-vendor-tarball.sh for how to create this
+Source1:        gum-%{version}-vendor.tar.gz
+
+# script that creates vendor tarball
+Source100:      create-vendor-tarball.sh
 
 BuildRequires:  go-rpm-macros
 ExclusiveArch:  %{golang_arches_future}
 
-# see create-vendor-tarball.sh for how to create this
-Source0:        gum-%{version}-vendored.tar.gz
-
-# Script that creates vendor tarball
-Source100:      create-vendor-tarball.sh
-
-BuildRequires:  golang
-
-# MIT AND OFL-1.1
 Provides:       bundled(golang(github.com/alecthomas/chroma/v2)) = 2.14.0
-# MIT
-Provides:       bundled(golang(github.com/alecthomas/kong)) = 0.9.0
-# MIT
+Provides:       bundled(golang(github.com/alecthomas/kong)) = 1.6.1
 Provides:       bundled(golang(github.com/alecthomas/mango-kong)) = 0.1.0
-# BSD-3-Clause
 Provides:       bundled(golang(github.com/atotto/clipboard)) = 0.1.4
-# MIT
 Provides:       bundled(golang(github.com/aymanbagabas/go-osc52/v2)) = 2.0.1
-# MIT
 Provides:       bundled(golang(github.com/aymerick/douceur)) = 0.2.0
-# MIT
-Provides:       bundled(golang(github.com/catppuccin/go)) = 0.2.0
-# MIT
 Provides:       bundled(golang(github.com/charmbracelet/bubbles)) = 0.20.0
-# MIT
-Provides:       bundled(golang(github.com/charmbracelet/bubbletea)) = 1.1.0
-# MIT
+Provides:       bundled(golang(github.com/charmbracelet/bubbletea)) = e0515bc
 Provides:       bundled(golang(github.com/charmbracelet/glamour)) = 0.8.0
-# MIT
-Provides:       bundled(golang(github.com/charmbracelet/huh)) = 0.6.0
-# MIT
-Provides:       bundled(golang(github.com/charmbracelet/lipgloss)) = 0.13.0
-# MIT
+Provides:       bundled(golang(github.com/charmbracelet/lipgloss)) = ecc1bd0
 Provides:       bundled(golang(github.com/charmbracelet/log)) = 0.4.0
-# MIT
-Provides:       bundled(golang(github.com/charmbracelet/x/ansi)) = 0.2.3
-# MIT
-Provides:       bundled(golang(github.com/charmbracelet/x/exp/strings)) = 212f7b0
-# MIT
-Provides:       bundled(golang(github.com/charmbracelet/x/term)) = 0.2.0
-# MIT
+Provides:       bundled(golang(github.com/charmbracelet/x/ansi)) = 0.8.0
+Provides:       bundled(golang(github.com/charmbracelet/x/editor)) = 0.1.0
+Provides:       bundled(golang(github.com/charmbracelet/x/term)) = 0.2.1
 Provides:       bundled(golang(github.com/dlclark/regexp2)) = 1.11.0
-# MIT
 Provides:       bundled(golang(github.com/dustin/go-humanize)) = 1.0.1
-# MIT
 Provides:       bundled(golang(github.com/erikgeiser/coninput)) = 1c3628e
-# MIT
 Provides:       bundled(golang(github.com/go-logfmt/logfmt)) = 0.6.0
-# BSD-3-Clause
 Provides:       bundled(golang(github.com/gorilla/css)) = 1.0.1
-# MIT
 Provides:       bundled(golang(github.com/lucasb-eyer/go-colorful)) = 1.2.0
-# MIT
+Provides:       bundled(golang(github.com/Masterminds/semver/v3)) = 3.3.1
 Provides:       bundled(golang(github.com/mattn/go-isatty)) = 0.0.20
-# MIT
 Provides:       bundled(golang(github.com/mattn/go-localereader)) = 0.0.1
-# MIT
 Provides:       bundled(golang(github.com/mattn/go-runewidth)) = 0.0.16
-# BSD-3-Clause
 Provides:       bundled(golang(github.com/microcosm-cc/bluemonday)) = 1.0.27
-# MIT
-Provides:       bundled(golang(github.com/mitchellh/hashstructure/v2)) = 2.0.2
-# MIT
 Provides:       bundled(golang(github.com/muesli/ansi)) = 276c624
-# MIT
 Provides:       bundled(golang(github.com/muesli/cancelreader)) = 0.2.2
-# MIT
 Provides:       bundled(golang(github.com/muesli/mango)) = 0.2.0
-# MIT
 Provides:       bundled(golang(github.com/muesli/reflow)) = 0.3.0
-# MIT
 Provides:       bundled(golang(github.com/muesli/roff)) = 0.1.0
-# MIT
-Provides:       bundled(golang(github.com/muesli/termenv)) = 98d742f
-# MIT
+Provides:       bundled(golang(github.com/muesli/termenv)) = 0d230cb
 Provides:       bundled(golang(github.com/rivo/uniseg)) = 0.4.7
-# MIT
 Provides:       bundled(golang(github.com/sahilm/fuzzy)) = 0.1.1
-# MIT
 Provides:       bundled(golang(github.com/yuin/goldmark)) = 1.7.4
-# MIT
-Provides:       bundled(golang(github.com/yuin/goldmark-emoji)) = 1.0.3
-# BSD-3-Clause
+Provides:       bundled(golang(github.com/yuin/goldmark-emoji)) = 1.0.4
 Provides:       bundled(golang(golang.org/x/exp)) = 7f521ea
-# BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/net)) = 0.27.0
-# BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/sync)) = 0.8.0
-# BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/sys)) = 0.25.0
-# BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/term)) = 0.22.0
-# BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/text)) = 0.18.0
+Provides:       bundled(golang(golang.org/x/net)) = 0.33.0
+Provides:       bundled(golang(golang.org/x/sync)) = 0.10.0
+Provides:       bundled(golang(golang.org/x/sys)) = 0.28.0
+Provides:       bundled(golang(golang.org/x/term)) = 0.27.0
+Provides:       bundled(golang(golang.org/x/text)) = 0.21.0
 
 
 %description
@@ -114,7 +111,7 @@ in your scripts and aliases without writing any Go code!
 
 
 %prep
-%autosetup
+%autosetup -a 1
 mkdir -p src/$(dirname %{goipath})
 ln -s $PWD src/%{goipath}
 
@@ -123,7 +120,6 @@ sed -e '/Version = / s/""/"%{version}"/' -i main.go
 
 
 %build
-export GO111MODULE=off
 export GOPATH=$PWD
 %gobuild -o bin/gum %{goipath}
 

@@ -1,7 +1,7 @@
 Name:          lxqt-config
 Summary:       Config tools for LXQt desktop suite
-Version:       2.1.0
-Release:       3%{?dist}
+Version:       2.1.1
+Release:       1%{?dist}
 License:       LGPL-2.1-only
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -120,6 +120,9 @@ desktop-file-edit \
 %{_datadir}/lxqt/translations/lxqt-config/lxqt-config_ast.qm
 
 %changelog
+* Tue Feb 11 2025 Steve Cossette <farchord@gmail.com> - 2.1.1-1
+- 2.1.1
+
 * Sun Feb 02 2025 Steve Cossette <farchord@gmail.com> - 2.1.0-3
 - Rebuild for Qt incompatibility
 

@@ -9,7 +9,7 @@
 
 Name:           omniORB
 Version:        4.3.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A robust high performance CORBA ORB for C++ and Python
 
 License:        LGPL-2.0-or-later
@@ -34,7 +34,6 @@ Requires(postun): systemd
 %else
 Requires(post): chkconfig
 Requires(preun): chkconfig
-Requires(pre):  shadow-utils
 # This is for /sbin/service
 Requires(postun): initscripts
 %endif
@@ -96,6 +95,11 @@ sed -i '1s=^#!/usr/bin/\(python\|env python\)[0-9.]*=#!%{__python3}=' \
   ./src/tool/omniidl/python3/scripts/omniidlrun.py \
   ./src/tool/omniidl/python3/omniidl/main.py
 
+# Create a sysusers.d config file
+cat >omniorb.sysusers.conf <<EOF
+u omniORB - 'OmniNames Naming Service' %{_sharedstatedir}/%{name} -
+EOF
+
 %build
 # Per guidelines: if the same functionality is provided regardless of the interpreter version, only the python 3 version should be packaged
 export PYTHON=%{__python3}
@@ -144,14 +148,10 @@ mkdir -p %{buildroot}%{_mandir}/man8
 install -m 0644 man8/* %{buildroot}%{_mandir}/man8/
 popd
 
+install -m0644 -D omniorb.sysusers.conf %{buildroot}%{_sysusersdir}/omniorb.conf
+
 %ldconfig_scriptlets
 
-%pre servers
-getent group %{name} >/dev/null || groupadd -r %{name}
-getent passwd %{name} >/dev/null || \
-useradd -r -g %{name} -d %{_sharedstatedir}/%{name} -s /sbin/nologin \
--c "OmniNames Naming Service" %{name}
-exit 0
 
 %if 0%{?with_systemd}
 %post servers
@@ -209,6 +209,7 @@ fi
 %{_bindir}/omniMapper
 %{_bindir}/%{nameserver}
 %{_mandir}/man8/*
+%{_sysusersdir}/omniorb.conf
 
 %files devel
 %doc doc/
@@ -241,6 +242,9 @@ fi
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.3.2-8
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

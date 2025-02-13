@@ -12,7 +12,7 @@
 Version: 0.68.5.1
 Name: flow-tools
 Summary: Tool set for working with NetFlow data
-Release: 43%{?dist}
+Release: 44%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD 
 URL: http://code.google.com/p/%{name}/
@@ -37,7 +37,6 @@ BuildRequires: doxygen
 %if 0%{?fedora} >= 31
 BuildRequires: /usr/bin/2to3
 %endif
-Requires(pre): shadow-utils
 BuildRequires: systemd-rpm-macros
 BuildRequires: make
 Provides: group(%username)
@@ -119,6 +118,11 @@ sed -i '1s|^#!.*perl|#!/usr/bin/perl|' utils/*
 # Fix mariadb-connector-c detection
 sed -i s/my_init/mysql_init/g configure
 
+# Create a sysusers.d config file
+cat >flow-tools.sysusers.conf <<EOF
+u flow-tools - '%{gecos}' %{homedir} -
+EOF
+
 %build
 %configure \
   --localstatedir=%{_localstatedir}/%{name} \
@@ -144,12 +148,8 @@ install -m 0644 %SOURCE1 $RPM_BUILD_ROOT%{_unitdir}/flow-capture.service
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig
 install -m 0644 %SOURCE2 $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/flow-capture
 
-%pre
-getent group %{username} >/dev/null || groupadd -r %{username}
-getent passwd %{username} >/dev/null || \
-    useradd -r -g %{username} -d %{homedir} -s /sbin/nologin \
-    -c '%{gecos}' %{username}
-exit 0
+install -m0644 -D flow-tools.sysusers.conf %{buildroot}%{_sysusersdir}/flow-tools.conf
+
 
 
 %post
@@ -221,6 +221,7 @@ exit 0
 %attr(-,flow-tools,flow-tools) %{_localstatedir}/%{name}/
 %dir %{_datadir}/%{name}/
 %{_datadir}/%{name}/*
+%{_sysusersdir}/flow-tools.conf
 
 %files devel
 %{_libdir}/*.so
@@ -236,6 +237,9 @@ exit 0
 %doc docs/*.html ChangeLog.old TODO INSTALL SECURITY
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.68.5.1-44
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.68.5.1-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

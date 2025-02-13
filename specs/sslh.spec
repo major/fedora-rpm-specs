@@ -9,7 +9,7 @@
 
 Name:    sslh
 Version: 1.21c
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Applicative protocol(SSL/SSH) multiplexer
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -48,7 +48,6 @@ BuildRequires: psmisc
 BuildRequires: tcp_wrappers-devel
 %endif
 
-Requires(pre):    shadow-utils
 %{?systemd_requires}
 
 %description
@@ -68,6 +67,11 @@ comes from its original function to serve SSH and HTTPS on the same port.
 
 %prep
 %autosetup -n %{name}-%{gh_commit} -p1
+
+# Create a sysusers.d config file
+cat >sslh.sysusers.conf <<EOF
+u sslh - 'SSLH daemon' /dev/null -
+EOF
 
 %build
 ./genver.sh >version.h
@@ -114,6 +118,8 @@ FreeBind=true
 WantedBy=sockets.target
 EOF
 
+install -m0644 -D sslh.sysusers.conf %{buildroot}%{_sysusersdir}/sslh.conf
+
 %check
 %if %{with_tests}
 # Use right ip6 localhost for Fedora
@@ -122,12 +128,6 @@ sed -i 's/ip6-localhost/localhost6/g' t
 make test
 %endif
 
-%pre
-getent group %{name} >/dev/null || groupadd -r %{name}
-getent passwd %{name} >/dev/null || \
-    useradd -r -g %{name} -d /dev/null -s /sbin/nologin \
-    -c "SSLH daemon" %{name}
-exit 0
 
 %post
 %systemd_post sslh.service
@@ -148,11 +148,15 @@ exit 0
 %{_unitdir}/%{name}.socket
 %config(noreplace) %attr(0644,root,root) %{_sysconfdir}/%{name}.cfg
 %config(noreplace) %attr(0644,root,root) %{_sysconfdir}/sysconfig/%{name}
+%{_sysusersdir}/sslh.conf
 
 
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.21c-12
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.21c-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

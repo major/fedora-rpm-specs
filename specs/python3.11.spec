@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: Python-2.0.1
 
 
@@ -330,6 +330,10 @@ Patch371: 00371-revert-bpo-1596321-fix-threading-_shutdown-for-the-main-thread-g
 # On Linux 6.9, apparently, the /dev/vsock device is now available but
 # get_cid() returns VMADDR_CID_ANY (-1).
 Patch438: 00438-fix-threadedvsocksocketstreamtest-gh-119465-gh-119479-119484.patch
+
+# 00450 # 4ab8663661748eb994c09e4ae89f59eb84c5d3ea
+# CVE-2025-0938: Disallow square brackets ([ and ]) in domain names for parsed URLs
+Patch450: 00450-cve-2025-0938-disallow-square-brackets-and-in-domain-names-for-parsed-urls.patch
 
 # (New patches go here ^^^)
 #
@@ -1646,6 +1650,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Mon Feb 10 2025 Charalampos Stratakis <cstratak@redhat.com> - 3.11.11-5
+- Security fix for CVE-2025-0938
+- Fixes: rhbz#2343272
+
 * Thu Feb 06 2025 Miro Hrončok <mhroncok@redhat.com> - 3.11.11-4
 - Rebuilt with mpdecimal 4.0.0
 

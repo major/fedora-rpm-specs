@@ -5,7 +5,7 @@
 Name: libcupsfilters
 Epoch: 1
 Version: 2.1.0
-Release: 2%{?dist}
+Release: 5%{?dist}
 Summary: Library for developing printing filters
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -16,6 +16,7 @@ Source0: %{URL}/releases/download/%{version}/%{name}-%{version}.tar.gz
 
 
 # Patches
+Patch001: 0001-Fix-issues-reported-by-OpenScanHub-79.patch
 
 
 # for generating configure and Makefile scripts in autogen.h
@@ -193,6 +194,12 @@ rm -f %{buildroot}%{_pkgdocdir}/{LICENSE,COPYING,NOTICE}
 
 
 %changelog
+* Tue Feb 11 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.1.0-5
+- rebuilt with Poppler 25.02.0
+
+* Tue Feb 11 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.1.0-4
+- fix important issues reported by OSH
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

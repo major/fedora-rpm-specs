@@ -4,21 +4,19 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/aantron/luv
 
 Name:           ocaml-luv
-Version:        0.5.12
-Release:        18%{?dist}
+Version:        0.5.14
+Release:        1%{?dist}
 Summary:        OCaml binding to libuv for cross-platform asynchronous I/O
 
 License:        MIT
 URL:            https://aantron.github.io/luv/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/releases/download/%{version}/luv-%{version}.tar.gz
-# Fix incompatible pointer type errors with ocaml-cyptes 0.23.0
-Patch:          %{name}-incompatible-pointer-type.patch
 
 BuildRequires:  ocaml >= 4.03.0
 BuildRequires:  ocaml-alcotest-devel >= 0.8.1
 BuildRequires:  ocaml-ctypes-devel >= 0.14.0
-BuildRequires:  ocaml-dune >= 2.0.0
+BuildRequires:  ocaml-dune >= 2.7.0
 BuildRequires:  pkgconfig(libuv)
 
 %description
@@ -40,7 +38,7 @@ The %{name}-devel package contains libraries and signature
 files for developing applications that use %{name}.
 
 %prep
-%autosetup -n luv-%{version} -p1
+%autosetup -n luv-%{version}
 
 # Remove spurious executable bits
 find . -type f -exec chmod 0644 {} +
@@ -64,6 +62,10 @@ export LUV_USE_SYSTEM_LIBUV=yes
 %files devel -f .ofiles-devel
 
 %changelog
+* Sun Feb 09 2025 Andy Li <andy@onthewings.net> - 0.5.14-1
+- New upstream release (RHBZ#2263490)
+- Drop ocaml-luv-incompatible-pointer-type.patch, fixed upstream
+
 * Wed Jan 22 2025 Jerry James <loganjerry@gmail.com> - 0.5.12-18
 - Bump and rebuild (rhbz#2338802)
 

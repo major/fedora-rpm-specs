@@ -51,6 +51,10 @@ Summary:            %{summary}
 %prep
 %autosetup -n %{modname}-%{version} -p1
 
+# asyncio.iscoroutinefunction() is deprecated in Python 3.14 and will be removed
+# in Python 3.16. Use inspect.iscoroutinefunction() instead
+# Also sent upstream: https://github.com/kevin1024/vcrpy/pull/910
+sed -i "s/from asyncio/from inspect/" vcr/cassette.py
 
 %generate_buildrequires
 %pyproject_buildrequires

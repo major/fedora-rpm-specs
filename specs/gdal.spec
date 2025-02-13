@@ -51,7 +51,7 @@
 
 Name:          gdal
 Version:       3.10.1
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -73,6 +73,8 @@ Source5:       %{name}-cleaner.sh
 Patch0:        gdal_utils.patch
 # Fix passing incompatible pointer type
 Patch1:        gdal_incompatible-pointer-types.patch
+# Fix build against Poppler 25.02.00
+Patch2:        https://github.com/OSGeo/gdal/commit/9b99975d327d67394b6be03b22bd40c7e83db0cb.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -645,6 +647,9 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 
 
 %changelog
+* Tue Feb 11 2025 Sandro Mani <manisandro@gmail.com> - 3.10.1-3
+- Rebuild (poppler)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

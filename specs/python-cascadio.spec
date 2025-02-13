@@ -3,7 +3,7 @@
 %bcond tests %{without bootstrap}
 
 Name:           python-cascadio
-Version:        0.0.15
+Version:        0.0.16
 Release:        %autorelease
 Summary:        Convert STEP files to GLB using OpenCASCADE
 
@@ -53,7 +53,6 @@ Summary:        %{summary}
 
 %prep
 %autosetup -n cascadio-%{version} -p1
-# DEBUG
 # The CMake scripts shipped with the system VTK try to find HDF5 by compiling
 # and linking a C program; we need to enable the C language in the top-level
 # project in order for this to work.

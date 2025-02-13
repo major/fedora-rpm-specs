@@ -1,12 +1,10 @@
 Name:           python-jupyter-events
-Version:        0.11.0
+Version:        0.12.0
 Release:        %autorelease
 Summary:        Jupyter Event System library
 License:        BSD-3-Clause
 URL:            https://jupyter.org
 Source:         %{pypi_source jupyter_events}
-# Compatibility of tests with older json-logger
-Patch:          https://github.com/jupyter/jupyter_events/pull/110.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
 # Manual test deps - upstream contains coverage, pre-commit, …

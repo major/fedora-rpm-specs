@@ -3,7 +3,7 @@
 
 Name:           gnokii
 Version:        0.6.31
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        Linux/Unix tool suite for various mobile phones
 
 License:        GPL-2.0-or-later
@@ -53,7 +53,6 @@ BuildRequires:  readline-devel
 BuildRequires:  perl(XML::Parser) intltool
 BuildRequires:  make
 BuildRequires:  chrpath
-Requires(pre):  %{_sbindir}/groupadd
 
 %description
 Gnokii provides tools and a user space driver for use with mobile
@@ -74,7 +73,6 @@ from/in computer and more other features.
 %package        smsd
 Summary:        Gnokii SMS daemon
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires(pre):  %{_sbindir}/useradd
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
@@ -124,6 +122,14 @@ Requires:       pkgconfig
 %patch -P5 -p1
 install -pm 644 %{SOURCE5} smsd2mail.sh
 install -pm 644 %{SOURCE6} README.smsd2mail
+
+# Create sysusers.d config files
+cat >gnokii.sysusers.conf <<EOF
+g gnokii -
+EOF
+cat >gnokii-smsd.sysusers.conf <<EOF
+u gnokii - "Gnokii system user" - -
+EOF
 
 %build
 export CFLAGS="$CFLAGS -std=gnu17"
@@ -180,14 +186,10 @@ mv $RPM_BUILD_ROOT%{_datadir}/doc/gnokii/ temporary-gnokii-docs/
 # Use last resort to remove -rpath usage that can't be removed from Makefiles
 chrpath --delete $RPM_BUILD_ROOT%{_bindir}/{gnokii,gnokiid,gnokii-smsd,xgnokii}
 
+install -m0644 -D gnokii.sysusers.conf %{buildroot}%{_sysusersdir}/gnokii.conf
+install -m0644 -D gnokii-smsd.sysusers.conf %{buildroot}%{_sysusersdir}/gnokii-smsd.conf
+
 %find_lang %{name}
-
-%pre
-getent group %{name} > /dev/null || %{_sbindir}/groupadd -r %{name}
-
-%pre smsd
-getent passwd %{name} > /dev/null || %{_sbindir}/useradd -r -M -d / \
-  -g %{name} -s /sbin/nologin -c "Gnokii system user" %{name}
 
 %ldconfig_scriptlets
 
@@ -213,6 +215,7 @@ getent passwd %{name} > /dev/null || %{_sbindir}/useradd -r -M -d / \
 %{_mandir}/man1/sendsms.1*
 %{_mandir}/man8/gnokiid.8*
 %{_mandir}/man8/mgnokiidev.8*
+%{_sysusersdir}/gnokii.conf
 
 %files -n xgnokii
 %doc xgnokii/ChangeLog xgnokii/README.vcard
@@ -230,6 +233,7 @@ getent passwd %{name} > /dev/null || %{_sbindir}/useradd -r -M -d / \
 %{_mandir}/man8/gnokii-smsd.8*
 %dir %{_libdir}/smsd/
 %{_libdir}/smsd/libsmsd_file.so
+%{_sysusersdir}/gnokii-smsd.conf
 
 %files smsd-pgsql
 %doc smsd/sms.tables.pq.sql
@@ -250,6 +254,9 @@ getent passwd %{name} > /dev/null || %{_sbindir}/useradd -r -M -d / \
 %{_libdir}/pkgconfig/xgnokii.pc
 
 %changelog
+* Thu Jan 23 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.6.31-45
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.31-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -3,7 +3,6 @@
 # to disable or enable specific features
 %bcond_without userflags
 %bcond_with runautogen
-%bcond_without systemd
 
 %global gitver %{?numcomm:.%{numcomm}}%{?alphatag:.%{alphatag}}%{?dirty:.%{dirty}}
 %global gittarver %{?numcomm:.%{numcomm}}%{?alphatag:-%{alphatag}}%{?dirty:-%{dirty}}
@@ -11,7 +10,7 @@
 Name: corosync-qdevice
 Summary: The Corosync Cluster Engine Qdevice
 Version: 3.0.3
-Release: 7%{?gitver}%{?dist}
+Release: 9%{?gitver}%{?dist}
 License: BSD-3-Clause
 URL: https://github.com/corosync/corosync-qdevice
 Source0: https://github.com/corosync/corosync-qdevice/releases/download/v%{version}%{?gittarver}/%{name}-%{version}%{?gittarver}.tar.gz
@@ -21,14 +20,9 @@ Requires: corosync >= 2.4.0
 Requires: corosynclib >= 2.4.0
 Requires: nss-tools
 
-%if %{with systemd}
 %{?systemd_requires}
 BuildRequires: systemd
 BuildRequires: systemd-devel
-%else
-Requires(post): /sbin/chkconfig
-Requires(preun): /sbin/chkconfig
-%endif
 
 # Build bits
 BuildRequires: gcc
@@ -46,6 +40,11 @@ BuildRequires: make
 %prep
 %setup -q -n %{name}-%{version}%{?gittarver}
 
+# Create a sysusers.d config file
+cat >corosync-qnetd.sysusers.conf <<EOF
+u coroqnetd - 'User for corosync-qnetd' - -
+EOF
+
 %build
 %if %{with runautogen}
 ./autogen.sh
@@ -55,9 +54,7 @@ BuildRequires: make
 %if %{with userflags}
 	--enable-user-flags \
 %endif
-%if %{with systemd}
 	--enable-systemd \
-%endif
 	--enable-qdevices \
 	--enable-qnetd \
 	--with-initddir=%{_initrddir} \
@@ -80,41 +77,23 @@ install -p -m 644 init/corosync-qdevice.sysconfig.example \
 install -p -m 644 init/corosync-qnetd.sysconfig.example \
    %{buildroot}%{_sysconfdir}/sysconfig/corosync-qnetd
 
-%if %{with systemd}
 sed -i -e 's/^#User=/User=/' \
    %{buildroot}%{_unitdir}/corosync-qnetd.service
-%else
-sed -i -e 's/^COROSYNC_QNETD_RUNAS=""$/COROSYNC_QNETD_RUNAS="coroqnetd"/' \
-   %{buildroot}%{_sysconfdir}/sysconfig/corosync-qnetd
-%endif
+
+install -m0644 -D corosync-qnetd.sysusers.conf %{buildroot}%{_sysusersdir}/corosync-qnetd.conf
 
 %description
 This package contains the Corosync Cluster Engine Qdevice, script for creating
 NSS certificates and an init script.
 
 %post
-%if %{with systemd} && 0%{?systemd_post:1}
 %systemd_post corosync-qdevice.service
-%else
-if [ $1 -eq 1 ]; then
-	/sbin/chkconfig --add corosync-qdevice || :
-fi
-%endif
 
 %preun
-%if %{with systemd} && 0%{?systemd_preun:1}
 %systemd_preun corosync-qdevice.service
-%else
-if [ $1 -eq 0 ]; then
-	/sbin/service corosync-qdevice stop &>/dev/null || :
-	/sbin/chkconfig --del corosync-qdevice || :
-fi
-%endif
 
 %postun
-%if %{with systemd} && 0%{?systemd_postun:1}
 %systemd_postun corosync-qdevice.service
-%endif
 
 %files
 %license LICENSE
@@ -125,11 +104,7 @@ fi
 %{_sbindir}/corosync-qdevice-net-certutil
 %{_sbindir}/corosync-qdevice-tool
 %config(noreplace) %{_sysconfdir}/sysconfig/corosync-qdevice
-%if %{with systemd}
 %{_unitdir}/corosync-qdevice.service
-%else
-%{_initrddir}/corosync-qdevice
-%endif
 %{_mandir}/man8/corosync-qdevice-tool.8*
 %{_mandir}/man8/corosync-qdevice-net-certutil.8*
 %{_mandir}/man8/corosync-qdevice.8*
@@ -149,45 +124,22 @@ The Corosync Cluster Engine Qdevice
 %package -n corosync-qnetd
 Summary: The Corosync Cluster Engine Qdevice Network Daemon
 Requires: nss-tools
-Requires(pre): shadow-utils
 
-%if %{with systemd}
 %{?systemd_requires}
-%endif
 
 %description -n corosync-qnetd
 This package contains the Corosync Cluster Engine Qdevice Network Daemon,
 script for creating NSS certificates and an init script.
 
-%pre -n corosync-qnetd
-getent group coroqnetd >/dev/null || groupadd -r coroqnetd
-getent passwd coroqnetd >/dev/null || \
-    useradd -r -g coroqnetd -d / -s /sbin/nologin -c "User for corosync-qnetd" coroqnetd
-exit 0
 
 %post -n corosync-qnetd
-%if %{with systemd} && 0%{?systemd_post:1}
 %systemd_post corosync-qnetd.service
-%else
-if [ $1 -eq 1 ]; then
-	/sbin/chkconfig --add corosync-qnetd || :
-fi
-%endif
 
 %preun -n corosync-qnetd
-%if %{with systemd} && 0%{?systemd_preun:1}
 %systemd_preun corosync-qnetd.service
-%else
-if [ $1 -eq 0 ]; then
-	/sbin/service corosync-qnetd stop &>/dev/null || :
-	/sbin/chkconfig --del corosync-qnetd || :
-fi
-%endif
 
 %postun -n corosync-qnetd
-%if %{with systemd} && 0%{?systemd_postun:1}
 %systemd_postun corosync-qnetd.service
-%endif
 
 %files -n corosync-qnetd
 %license LICENSE
@@ -197,16 +149,20 @@ fi
 %{_bindir}/corosync-qnetd-certutil
 %{_bindir}/corosync-qnetd-tool
 %config(noreplace) %{_sysconfdir}/sysconfig/corosync-qnetd
-%if %{with systemd}
 %{_unitdir}/corosync-qnetd.service
-%else
-%{_initrddir}/corosync-qnetd
-%endif
 %{_mandir}/man8/corosync-qnetd-tool.8*
 %{_mandir}/man8/corosync-qnetd-certutil.8*
 %{_mandir}/man8/corosync-qnetd.8*
+%{_sysusersdir}/corosync-qnetd.conf
 
 %changelog
+* Tue Feb 11 2025 Jan Friesse <jfriesse@redhat.com> - 3.0.3-9
+- Change sysusers.d config file name to corosync-qnetd.conf
+- Remove support for non-systemd builds
+
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.0.3-8
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

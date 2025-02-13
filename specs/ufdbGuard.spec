@@ -1,6 +1,6 @@
 Name:		ufdbGuard
 Version:	1.35.8
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	A URL filter for squid
 URL:		https://www.urlfilterdb.com/
 License:	GPL-2.0-only
@@ -29,7 +29,6 @@ BuildRequires: openssl-devel
 BuildRequires: openssl-devel-engine
 BuildRequires: bind-utils
 BuildRequires: wget
-Requires(pre): shadow-utils
 Requires: logrotate
 
 %description
@@ -46,6 +45,11 @@ You can also make your own URL database for ufdbGuard.
 
 iconv -c --from-code=ISO-8859-1 --to-code=UTF-8 -o CHANGELOG.new CHANGELOG
 mv CHANGELOG.new CHANGELOG
+
+# Create a sysusers.d config file
+cat >ufdbguard.sysusers.conf <<EOF
+u ufdb - 'ufdbGuard URL filter' /var/lib/ufdbguard -
+EOF
 
 %build
 INSTALL_PROGRAM=./install-sh %configure \
@@ -94,13 +98,9 @@ echo 'd /var/run/ufdbguard 0750 ufdb ufdb -' > \
     %{buildroot}/usr/lib/tmpfiles.d/ufdbGuard.conf
 %endif
 
+install -m0644 -D ufdbguard.sysusers.conf %{buildroot}%{_sysusersdir}/ufdbguard.conf
 
-%pre
-getent group ufdb >/dev/null || groupadd -r ufdb
-getent passwd ufdb >/dev/null || \
-    useradd -r -g ufdb -d /var/lib/ufdbguard -s /sbin/nologin \
-    -c "ufdbGuard URL filter" ufdb
-exit 0
+
 
 %post
 %systemd_post ufdbguard.service
@@ -130,8 +130,12 @@ exit 0
 %if %{with tmpfiles}
 %config(noreplace) %{_tmpfilesdir}/ufdbGuard.conf
 %endif
+%{_sysusersdir}/ufdbguard.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.35.8-5
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.35.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

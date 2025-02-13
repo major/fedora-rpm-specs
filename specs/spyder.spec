@@ -1,5 +1,5 @@
 Name:           spyder
-Version:        6.0.3
+Version:        6.0.4
 Release:        %autorelease
 Summary:        Scientific Python Development Environment
 
@@ -7,7 +7,16 @@ Summary:        Scientific Python Development Environment
 %global tag v%{version_no_tilde %{quote:%nil}}
 %forgemeta
 
-License:        MIT
+# Spyder is licensed under MIT with the exception of the following
+# code, which is licensed BSD-3-Clause.
+#
+# spyder/widgets/calltip.py
+# spyder/utils/introspection/module_completion.py
+# spyder/plugins/editor/utils/kill_ring.py
+# spyder/plugins/help/utils/conf.py
+# spyder/plugins/help/utils/sphinxify.py
+# spyder/plugins/help/utils/js/collapse_sections.js
+License:        MIT AND BSD-3-Clause
 URL:            https://www.spyder-ide.org/
 Source:         %forgesource
 

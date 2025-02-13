@@ -1,6 +1,6 @@
 Name:           perl-SDL
 Version:        2.548
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Simple DirectMedia Layer for Perl
 # COPYING:                      GPL-2.0 text
 # lib/pods/SDL.pod:             GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -54,6 +54,10 @@ Patch2:         SDL-2.548-Adapt-to-perl-5.37.1.patch
 # Fix reference counting an event filter callback, bug #2272636,
 # proposed to the upstream, <https://github.com/PerlGameDev/SDL/pull/308>
 Patch3:         SDL-2.548-Fix-reference-counting-in-set_event_filter.patch
+# Adapt to GCC 15, bug #2341036,
+# <https://github.com/PerlGameDev/SDL/issues/294>, proposed upstream
+# <https://github.com/PerlGameDev/SDL/pull/309>
+Patch4:         SDL-2.548-Fix-building-in-ISO-C23.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  libGLU-devel
@@ -182,6 +186,9 @@ find %{buildroot} -type f -name '*.bs' -a -size 0 -delete
 %{_mandir}/man3/Module::Build::SDL.*
 
 %changelog
+* Tue Feb 11 2025 Petr Pisar <ppisar@redhat.com> - 2.548-27
+- Adapt to GCC 15 (bug #2341036)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.548-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

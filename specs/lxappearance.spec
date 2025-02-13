@@ -16,11 +16,11 @@
 %global		git_builddir	%{nil}
 
 %if 0%{?use_gitbare}
-%global		gittardate		20240825
-%global		gittartime		1714
+%global		gittardate		20250211
+%global		gittartime		1538
 
-%global		gitbaredate	20240817
-%global		git_rev		95d5b02e901b0bf33c5ab037a88b8c054a3f818f
+%global		gitbaredate	20241025
+%global		git_rev		b51af4c5bb1eb4393847ea883c05af3c6bec9b26
 %global		git_short		%(echo %{git_rev} | cut -c-8)
 %global		git_version	%{gitbaredate}git%{git_short}
 %endif
@@ -36,7 +36,7 @@
 
 Name:			lxappearance
 Version:		%{main_version}%{git_ver_rpm}
-Release:		3%{?dist}
+Release:		1%{?dist}
 Summary:		Feature-rich GTK+ theme switcher for LXDE
 
 # SPDX confirmed
@@ -191,6 +191,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Tue Feb 11 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.6.3^20241025gitb51af4c5-1
+- Update to the latest git
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3^20240817git95d5b02e-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

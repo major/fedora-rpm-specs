@@ -46,7 +46,6 @@ BuildRequires: pkgconfig(sane-backends)
 Requires: color-filesystem
 BuildRequires: systemd, systemd-rpm-macros
 %{?systemd_requires}
-%{?sysusers_requires_compat}
 Requires: colord-libs%{?_isa} = %{version}-%{release}
 
 # Self-obsoletes to fix the multilib upgrade path
@@ -140,8 +139,6 @@ touch $RPM_BUILD_ROOT%{_localstatedir}/lib/colord/storage.db
 
 %find_lang %{name}
 
-%pre
-%sysusers_create_compat %{SOURCE1}
 
 %post
 %systemd_post colord.service

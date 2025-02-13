@@ -36,7 +36,7 @@
 
 Name:             radicale
 Version:          %{radicale_version}
-Release:          %{radicale_release}%{?gittag}%{?dist}.1
+Release:          %{radicale_release}%{?gittag}%{?dist}.2
 Summary:          A simple CalDAV (calendar) and CardDAV (contact) server
 License:          GPL-3.0-or-later
 URL:              https://radicale.org
@@ -81,7 +81,6 @@ Conflicts:        radicale < 3.0.0
 Conflicts:        radicale2
 
 Requires:         python3-%{radicale_package_name} = %{version}-%{release}
-Requires(pre):    shadow-utils
 %{?systemd_requires}
 Suggests:         %{radicale_package_name}-selinux = %{version}-%{release}
 
@@ -202,6 +201,11 @@ sed -i 's|\(/var/run\)|%{_rundir}|' SELinux/%{name}.fc
 # restore original version after applying patches
 %{__sed} -i 's|version = "%{radicale_major}.dev"|version = "%{radicale_version}"|' pyproject.toml
 
+# Create a sysusers.d config file
+cat >radicale.sysusers.conf <<EOF
+u radicale - 'Radicale service account' %{_sharedstatedir}/%{name} -
+EOF
+
 
 %build
 %pyproject_wheel
@@ -286,6 +290,8 @@ install -d %{buildroot}%{_datarootdir}/logwatch/default.conf/services/
 install -p -m 644 contrib/logwatch/%{name} %{buildroot}%{_datarootdir}/logwatch/scripts/services/
 install -p -m 644 contrib/logwatch/%{name}-journald.conf %{buildroot}%{_datarootdir}/logwatch/default.conf/services/%{name}.conf
 
+install -m0644 -D radicale.sysusers.conf %{buildroot}%{_sysusersdir}/radicale.conf
+
 
 %check
 PYTHONPATH=%{buildroot}%{python3_sitelib}
@@ -321,12 +327,6 @@ rm -rf %{buildroot}%{_sharedstatedir}/%{name}/collection-root
 rm -rf %{buildroot}%{_sharedstatedir}/%{name}/.Radicale.lock
 
 
-%pre -n %{radicale_package_name}
-getent group %{name} >/dev/null || groupadd -r %{name}
-getent passwd %{name} >/dev/null || \
-    useradd -r -g %{name} -d %{_sharedstatedir}/%{name} -s /sbin/nologin \
-    -c "Radicale service account" %{name}
-exit 0
 
 
 %post -n %{radicale_package_name}
@@ -419,6 +419,7 @@ fi
 %dir %attr(755, %{name}, %{name}) %{_rundir}/%{name}
 
 %{_libexecdir}/%{name}
+%{_sysusersdir}/radicale.conf
 
 
 %files -n %{radicale_package_name}-selinux
@@ -443,6 +444,9 @@ fi
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.4.1-2.2
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 09 2025 Peter Bieringer <pb@bieringer.de> - 3.4.1-1
 - Update to 3.4.1
 

@@ -12,10 +12,10 @@
 %global soversion 2
 
 Name:           mopac
-Version:        23.0.3
-Release:        2%{?dist}
+Version:        23.1.0
+Release:        1%{?dist}
 Summary:        A semiempirical quantum chemistry program
-License:        LGPL-3.0-or-later
+License:        Apache-2.0
 URL:            http://openmopac.net
 Source0:        https://github.com/openmopac/mopac/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -28,8 +28,6 @@ BuildRequires:  make
 
 # Turn off rpath
 Patch1:         mopac-22.0.5-rpath.patch
-# Fix FTBFS on rawhide, upstream issue #245
-Patch2:         mopac-23.0.3-intent.patch
 
 # For license file
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
@@ -55,7 +53,6 @@ This package contains MOPAC's development library.
 %prep
 %setup -q
 %patch -P1 -p1 -b .rpath
-%patch -P2 -p1 -b .intent
 
 %build
 %cmake -DENABLE_MKL=OFF -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=OFF \
@@ -77,7 +74,7 @@ export OMP_NUM_THREADS=1
 %{_bindir}/mopac-param
 
 %files libs
-%license COPYING COPYING.lesser
+%license LICENSE
 %doc README.md AUTHORS.rst
 %{_libdir}/libmopac.so.%{soversion}*
 
@@ -86,6 +83,9 @@ export OMP_NUM_THREADS=1
 %{_includedir}/mopac.h
 
 %changelog
+* Tue Feb 11 2025 Susi Lehtola <jussilehtola@fedoraproject.org> - 23.1.0-1
+- Update to 23.1.0, changing the license to the more permissive Apache-2.0.
+
 * Sat Feb 01 2025 Susi Lehtola <jussilehtola@fedoraproject.org> - 23.0.3-2
 - Fix FTBFS on rawhide.
 

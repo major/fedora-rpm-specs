@@ -9,7 +9,7 @@
 
 Name:          parsec
 Version:       1.4.1
-Release:       3%{?candidate:.%{candidate}}%{?dist}
+Release:       4%{?candidate:.%{candidate}}%{?dist}
 Summary:       The PARSEC daemon
 
 SourceLicense: Apache-2.0
@@ -25,7 +25,6 @@ Patch1:        parsec-fix-metadata.diff
 BuildRequires: rust-packaging
 BuildRequires: systemd
 Requires: tpm2-tss >= 4.0.0
-Requires(pre): shadow-utils
 Requires(pre): tpm2-tss >= 4.0.0
 %{?systemd_requires}
 
@@ -43,6 +42,13 @@ center and at the edge.
 %generate_buildrequires
 %cargo_generate_buildrequires -f %{enabled_cargo_features}
 
+# Create a sysusers.d config file
+cat >parsec.sysusers.conf <<EOF
+g parsec-clients -
+u parsec - 'PARSEC service' /var/lib/parsec -
+m parsec parsec-clients
+EOF
+
 %build
 %cargo_build -f %{enabled_cargo_features}
 %{cargo_license_summary}
@@ -59,19 +65,13 @@ install -d -m0755 %{buildroot}%{_localstatedir}/lib/parsec/mappings
 install -d -m0755 %{buildroot}%{_libexecdir}
 mv %{buildroot}%{_bindir}/parsec %{buildroot}%{_libexecdir}/
 
+install -m0644 -D parsec.sysusers.conf %{buildroot}%{_sysusersdir}/parsec.conf
+
 %if %{with check}
 %check
 %cargo_test -f %{enabled_cargo_features} -- -- --skip real_ --skip loop_ --skip travis_
 %endif
 
-%pre
-getent group parsec >/dev/null || groupadd -r parsec
-# For PARSEC consumers
-getent group parsec-clients >/dev/null || groupadd -r parsec-clients
-getent passwd parsec >/dev/null || \
-    useradd -r -g parsec -G tss -G parsec-clients -d /var/lib/parsec -s /sbin/nologin \
-    -c "PARSEC service" parsec
-exit 0
 
 %post
 %systemd_post parsec.service
@@ -93,8 +93,12 @@ exit 0
 %{_libexecdir}/parsec
 %{_tmpfilesdir}/parsec.conf
 %{_unitdir}/parsec.service
+%{_sysusersdir}/parsec.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.4.1-4
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

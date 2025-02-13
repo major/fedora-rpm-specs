@@ -12,11 +12,11 @@
 %global		git_builddir	%{nil}
 
 %if 0%{?use_gitbare}
-%global		gittardate		20240825
-%global		gittartime		1707
+%global		gittardate		20250211
+%global		gittartime		1608
 
-%global		gitbaredate	20240823
-%global		git_rev		744715450dbd6d11da9e4585a093ddb55faac976
+%global		gitbaredate	20241127
+%global		git_rev		fde013ecb9b910fdbd7b28411c9c47eedb37c099
 %global		git_short		%(echo %{git_rev} | cut -c-8)
 %global		git_version	%{gitbaredate}git%{git_short}
 
@@ -29,7 +29,7 @@
 
 Name:			lxrandr
 Version:		%{main_version}%{git_ver_rpm}
-Release:		2%{?dist}
+Release:		1%{?dist}
 Summary:		Simple monitor configuration tool
 
 # SPDX confirmed
@@ -135,6 +135,9 @@ cd ..
 
 
 %changelog
+* Tue Feb 11 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.2^20241127gitfde013ec-1
+- Update to the latest git
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2^20240823git74471545-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

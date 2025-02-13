@@ -3,7 +3,7 @@
 
 Name:       rwhoisd 
 Version:    1.5.9.6
-Release:    33%{?dist}
+Release:    34%{?dist}
 Summary:    ARIN's Referral WHOIS server
 # common/strerror.c:                GPL-2.0-or-later (libiberty)
 # LICENSE:                          GPL-2.0 text
@@ -17,7 +17,7 @@ Summary:    ARIN's Referral WHOIS server
 # tools/tcpd_wrapper/strcasecmp.c:  BSD-4.3TAHOE
 License:    GPL-2.0-or-later AND GPL-2.0-or-later WITH Bison-exception-1.24 AND Spencer-86 AND LicenseRef-Fedora-Public-Domain
 SourceLicense:  %{license} AND FSFUL AND TCP-wrappers AND BSD-4.3TAHOE
-URL:        http://projects.arin.net/rwhois/
+URL:        https://projects.arin.net/rwhois/
 Source0:    %{url}ftp/%{name}-%{version}.tar.gz
 Source1:    %{name}.service
 # Install database to /var
@@ -42,6 +42,9 @@ Patch8:     %{name}-1.5.9.6-c99.patch
 # Fix a signal handler return value, proposed to an upstream,
 # <https://github.com/arineng/rwhoisd/pull/3>
 Patch9:     %{name}-1.5.9.6-Fix-a-return-value-of-signal-handlers.patch
+# Fix building with GCC 15, bug #2341316, proposed upstream
+# <https://github.com/arineng/rwhoisd/pull/5>
+Patch10:    %{name}-1.5.9.6-Adapt-to-ISO-C23.patch
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  coreutils
@@ -159,6 +162,10 @@ exit 0
 %{_localstatedir}/%{name}/samples
 
 %changelog
+* Tue Feb 11 2025 Petr Pisar <ppisar@redhat.com> - 1.5.9.6-34
+- Fix building with GCC 15 (bug #2341316)
+- Update URL in the RPM package metadata
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1.5.9.6-33
 - Add explicit BR: libxcrypt-devel
 

@@ -8,7 +8,7 @@
 Summary: A getty replacement for use with data and fax modems
 Name: mgetty
 Version: 1.2.1
-Release: 24%{?dist}
+Release: 25%{?dist}
 Source: ftp://mgetty.greenie.net/pub/mgetty/source/1.2/mgetty-%{version}.tar.gz
 Source1: ftp://mgetty.greenie.net/pub/mgetty/source/1.2/mgetty-%{version}.tar.gz.asc
 Source2: logrotate.mgetty
@@ -71,7 +71,6 @@ Summary: Provides support for sending faxes over a modem
 Requires: mgetty = %{version}
 Requires: coreutils
 Requires: netpbm-progs
-Requires(pre): /usr/sbin/useradd
 Conflicts: hylafax+
 
 %package voice
@@ -152,6 +151,11 @@ rm -r voice/libmgsm
 %patch -P 31 -p1 -b .c99
 %patch -P 32 -p1 -b .gcc15-stdc23
 
+# Create a sysusers.d config file
+cat >mgetty.sysusers.conf <<EOF
+u fax %SENDFAX_UID 'mgetty fax spool user' /var/spool/fax -
+EOF
+
 %build
 %define makeflags CFLAGS="$RPM_OPT_FLAGS -Wall -DAUTO_PPP -D_FILE_OFFSET_BITS=64 -DHAVE_LOCKDEV -fno-strict-aliasing" LIBS="-llockdev" prefix=%{_prefix} spool=%{_var}/spool BINDIR=%{_bindir} SBINDIR=%{_sbindir} LIBDIR=%{_libdir}/mgetty+sendfax HELPDIR=%{_libdir}/mgetty+sendfax CONFDIR=%{_sysconfdir}/mgetty+sendfax MANDIR=%{_mandir} MAN1DIR=%{_mandir}/man1 MAN4DIR=%{_mandir}/man4 MAN5DIR=%{_mandir}/man5 MAN8DIR=%{_mandir}/man8 INFODIR=%{_infodir} ECHO='"echo -e"' INSTALL=%{__install}
 make %{makeflags}
@@ -213,6 +217,8 @@ rm -f %{buildroot}%{_bindir}/cutbl
 # remove file conflict with netpbm:
 rm -f %{buildroot}%{_bindir}/g3topbm
 
+install -m0644 -D mgetty.sysusers.conf %{buildroot}%{_sysusersdir}/mgetty.conf
+
 %post
 %systemd_post mgetty@.service
 
@@ -223,9 +229,6 @@ rm -f %{buildroot}%{_bindir}/g3topbm
 %systemd_postun_with_restart mgetty@.service
 exit 0
 
-%pre sendfax
-getent group fax >/dev/null || groupadd -g %SENDFAX_UID -r fax
-getent passwd fax >/dev/null || useradd -r -u %SENDFAX_UID -g fax -d /var/spool/fax -s /sbin/nologin -c "mgetty fax spool user" fax
 
 %post sendfax
 %systemd_post faxrunqd.service
@@ -309,6 +312,7 @@ exit 0
 %config(noreplace) %{_sysconfdir}/logrotate.d/sendfax
 # faxrunqd unit file
 %{_unitdir}/faxrunqd.service
+%{_sysusersdir}/mgetty.conf
 
 %files voice
 %doc voice/doc/* voice/Announce voice/ChangeLog voice/Readme
@@ -383,6 +387,9 @@ exit 0
 %{_mandir}/man1/viewfax.1*
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.2.1-25
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 24 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1.2.1-24
 - fix FTBFS (fedora#2340846)
 

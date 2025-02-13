@@ -1,6 +1,6 @@
 %global upstreamname hipfort
-%global rocm_release 6.2
-%global rocm_patch 4
+%global rocm_release 6.3
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with debug
@@ -23,7 +23,6 @@ License:        MIT
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
 Patch0:         0001-Handle-cmake-DBUILD_SHARED_LIBS-ON.patch
 Patch1:         0001-Generalize-hipfc-to-other-linux-distros.patch
-Patch2:         0001-remove-rocblas_strmm_outofplace.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++

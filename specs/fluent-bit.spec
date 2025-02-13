@@ -1,6 +1,6 @@
 Name: fluent-bit
-Version: 3.0.4
-Release: 4%{?dist}
+Version: 3.2.5
+Release: 1%{?dist}
 Summary: Fluent Bit is a super fast, lightweight, and highly scalable logging and metrics processor and forwarder.
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
@@ -10,6 +10,7 @@ Source0: https://github.com/fluent/%{name}/archive/v%{version}/%{name}-%{version
 Patch0: fluent-bit-cmake-c99.patch
 Patch1: fluent-bit-cmake-c99-2.patch
 Patch3: 0002-Bypass-incompatible-pointer-types-for-Kubernetes-Eve.patch
+Patch4: librdkafka-no-openssl-engine.patch
 
 
 BuildRequires: pkgconfig
@@ -29,8 +30,17 @@ BuildRequires: gnutls-devel
 BuildRequires: openssl-devel
 BuildRequires: cyrus-sasl-devel
 BuildRequires: libyaml-devel
-BuildRequires: netcat
 BuildRequires: openssl
+
+%if 0%{?rhel} <= 9
+BuildRequires: netcat
+%endif
+
+%if 0%{?fedora} >= 41
+BuildRequires: openssl-devel-engine
+BuildRequires: netcat
+%endif
+
 %{?systemd_requires}
 
 # Exclude armv7hl temporarily because of failing runtime tests
@@ -60,6 +70,7 @@ Fluent Bit is a high performance and multi-platform log forwarder.
     -DFLB_TLS=On\
     -DFLB_HTTP_SERVER=On\
     -DCMAKE_INSTALL_SYSCONFDIR=%{_sysconfdir}\
+    -DCMAKE_C_STANDARD=17\
     -DSYSTEMD_UNITDIR=%{_unitdir}
 
 %cmake_build
@@ -93,6 +104,9 @@ rm -rvf %{buildroot}%{_includedir}
 %exclude /usr/lib64/libluajit.a
 
 %changelog
+* Wed Jan 29 2025 Owen Valentine <omv@meta.com> - 3.2.5-1
+- Update to 3.2.5
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

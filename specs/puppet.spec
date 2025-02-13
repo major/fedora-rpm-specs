@@ -4,7 +4,7 @@
 
 Name:           puppet
 Version:        8.6.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Network tool for managing many disparate systems
 License:        Apache-2.0
 URL:            https://puppet.com
@@ -83,6 +83,11 @@ find -type f -exec \
     -e 's|/var/log/puppetlabs/puppet|%{_localstatedir}/log/%{name}|' \
   '{}' +
 
+# Create a sysusers.d config file
+cat >puppet.sysusers.conf <<EOF
+u puppet 52 'Puppet' - -
+EOF
+
 %install
 ruby install.rb --destdir=%{buildroot} \
  --bindir=%{_bindir} \
@@ -104,8 +109,9 @@ done
 
 install -Dp -m0644 %{SOURCE15} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
 
-%{__install} -d -m0755 %{buildroot}%{_unitdir}
+install -d -m0755 %{buildroot}%{_unitdir}
 install -Dp -m0644 ext/systemd/puppet.service %{buildroot}%{_unitdir}/%{name}.service
+install -D -m0644 puppet.sysusers.conf %{buildroot}%{_sysusersdir}/puppet.conf
 
 # Note(hguemar): Conflicts with config file from hiera package
 rm %{buildroot}%{_sysconfdir}/%{name}/hiera.yaml
@@ -196,12 +202,8 @@ rm %{buildroot}%{_datadir}/%{name}/ext/{build_defaults.yaml,project_data.yaml}
 %config(noreplace) %attr(644, root, root) %{_sysconfdir}/logrotate.d/%{name}
 
 %ghost %attr(755, puppet, puppet) %{_rundir}/%{name}
+%{_sysusersdir}/puppet.conf
 
-%pre
-getent group puppet &>/dev/null || groupadd -r puppet -g 52 &>/dev/null
-getent passwd puppet &>/dev/null || \
-useradd -r -u 52 -g puppet -s /sbin/nologin \
- -c "Puppet" puppet &>/dev/null
 
 %post
 %systemd_post %{name}.service
@@ -210,6 +212,9 @@ useradd -r -u 52 -g puppet -s /sbin/nologin \
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Thu Jan 23 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 8.6.0-4
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

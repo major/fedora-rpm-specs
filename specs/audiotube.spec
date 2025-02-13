@@ -2,7 +2,7 @@
 
 Name:           audiotube
 Version:        24.12.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Summary:        AudioTube can search YouTube Music, list albums and artists, play automatically generated playlists, albums and allows to put your own playlist together.
@@ -48,8 +48,11 @@ Requires:   kf6-kirigami-addons%{?_isa}
 Requires:   kf6-purpose%{?_isa}
 Requires:   qt6-qt5compat%{?_isa}
 Requires:   qt6-qtmultimedia%{?_isa}
+%if %{undefined flatpak}
+# these are provided by a flatpak extension
 Requires:   python3-ytmusicapi
 Requires:   yt-dlp
+%endif
 
 %description
 %{summary}.
@@ -79,6 +82,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 
 
 %changelog
+* Tue Feb 11 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 24.12.2-2
+- Modify dependencies in flatpak builds
+
 * Wed Feb 05 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-1
 - 24.12.2
 

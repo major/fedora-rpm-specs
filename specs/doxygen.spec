@@ -2,20 +2,21 @@
 %global xapian_core_support ON
 %global clang_support OFF
 %global build_wizard ON
+%global system_spdlog ON
 %else
 %global xapian_core_support OFF
 %global clang_support OFF
 %global build_wizard OFF
+%global system_spdlog OFF
 %endif
 %global build_search %{xapian_core_support}
-%global system_spdlog ON
 %global system_sqlite3 ON
 
 Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   2
 Version: 1.13.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 # No version is specified.
 License: GPL-2.0-or-later
 Url: https://github.com/doxygen
@@ -116,9 +117,15 @@ BuildRequires: gcc-c++ gcc
 %endif
 %if "%{system_spdlog}" == "ON"
 BuildRequires: spdlog-devel
+%else
+# SPDLOG_VER* defined in deps/spdlog/include/spdlog/version.h
+Provides: bundled(spdlog) = 1.14.1
 %endif
 %if "%{system_sqlite3}" == "ON"
 BuildRequires: sqlite-devel
+%else
+# SQLITE_VERSION defined in deps/sqlite3/sqlite3.h
+Provides: bundled(sqlite) = 3.42.0
 %endif
 Requires: perl-interpreter
 Requires: graphviz
@@ -327,6 +334,9 @@ install -m755 -D --target-directory=%{buildroot}%{_rpmconfigdir}/redhat %{SOURCE
 %endif
 
 %changelog
+* Tue Feb 11 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 2:1.13.2-5
+- Use bundled spdlog on RHEL
+
 * Mon Feb 10 2025 Than Ngo <than@redhat.com> - 2:1.13.2-4
 - built with system sqlite3 and spdlog 
 

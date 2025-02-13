@@ -1,6 +1,6 @@
 Name:           transmission
 Version:        4.0.6
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A lightweight GTK+ BitTorrent client
 # See COPYING. This licensing situation is... special.
 License:        MIT and GPL-2.0-only
@@ -69,7 +69,6 @@ Command line version of Transmission BitTorrent client.
 %package daemon
 Summary:       Transmission daemon
 Requires:      transmission-common%{?_isa}
-Requires(pre): shadow-utils
 BuildRequires: systemd
 %description daemon
 Transmission BitTorrent client daemon.
@@ -92,12 +91,6 @@ Recommends:    libcanberra-gtk3%{?_isa}
 %description qt
 Qt graphical interface of Transmission BitTorrent client.
 
-%pre daemon
-getent group transmission >/dev/null || groupadd -r transmission
-getent passwd transmission >/dev/null || \
-useradd -r -g transmission -d %{_sharedstatedir}/transmission -s /sbin/nologin \
-        -c "transmission daemon account" transmission
-exit 0
 
 %prep
 %autosetup -p1
@@ -114,6 +107,11 @@ sed -i 's|Icon=%{name}-qt|Icon=%{name}|g' qt/%{name}-qt.desktop
 # convert to UTF encoding
 iconv --from=ISO-8859-1 --to=UTF-8 AUTHORS > AUTHORS.new
 mv AUTHORS.new AUTHORS
+
+# Create a sysusers.d config file
+cat >transmission.sysusers.conf <<EOF
+u transmission - 'transmission daemon account' %{_sharedstatedir}/transmission -
+EOF
 
 %build
 
@@ -146,6 +144,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}-gtk.desktop
 desktop-file-install \
                 --dir=%{buildroot}%{_datadir}/applications/  \
                   qt/%{name}-qt.desktop
+
+install -m0644 -D transmission.sysusers.conf %{buildroot}%{_sysusersdir}/transmission.conf
 
 %post daemon
 %systemd_post transmission-daemon.service
@@ -183,6 +183,7 @@ desktop-file-install \
 %{_unitdir}/transmission-daemon.service
 %attr(-,transmission, transmission)%{_sharedstatedir}/transmission/
 %doc %{_mandir}/man1/transmission-daemon*
+%{_sysusersdir}/transmission.conf
 
 %files gtk -f %{name}-gtk.lang
 %{_bindir}/transmission-gtk
@@ -196,6 +197,9 @@ desktop-file-install \
 %doc %{_mandir}/man1/transmission-qt.*
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.0.6-6
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Tue Jan 28 2025 Simone Caronni <negativo17@gmail.com> - 4.0.6-5
 - Rebuild for updated dependencies.
 

@@ -1,6 +1,6 @@
 Name:           tetrinetx
 Version:        1.13.16
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        The GNU TetriNET server
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -12,7 +12,6 @@ Source2:        tetrinetx.logrotate
 Source3:        tetrinetx.service
 Source4:        %{name}-tmpfiles.conf
 
-Requires(pre):  shadow-utils
 %{?systemd_requires}
 BuildRequires:  gcc
 BuildRequires:  systemd-rpm-macros
@@ -43,6 +42,11 @@ sed -i "s:game\\.log:%{_localstatedir}/log/tetrinetx/game\\.log:;
         s:game\\.pid:%{_localstatedir}/run/tetrinetx/game\\.pid:;
         s:game\\.winlist:%{_localstatedir}/games/tetrinetx/game\\.winlist:g;
         s:\"game:\"%{_sysconfdir}/tetrinetx/game:g" src/config.h
+
+# Create a sysusers.d config file
+cat >tetrinetx.sysusers.conf <<EOF
+u tetrinetx - 'Tetrinetx service account' %{_localstatedir}/games/tetrinetx -
+EOF
 
 
 %build
@@ -77,12 +81,9 @@ mkdir -p %{buildroot}%{_tmpfilesdir}/
 install -p -m 644 %{SOURCE4} %{buildroot}%{_tmpfilesdir}/%{name}.conf
 mkdir -p %{buildroot}%{_localstatedir}/run/tetrinetx
 
+install -m0644 -D tetrinetx.sysusers.conf %{buildroot}%{_sysusersdir}/tetrinetx.conf
 
-%pre
-getent group tetrinetx >/dev/null || groupadd -r tetrinetx
-getent passwd tetrinetx >/dev/null || \
-    useradd -r -g tetrinetx -d %{_localstatedir}/games/tetrinetx -M -s /sbin/nologin \
-    -c "Tetrinetx service account" tetrinetx
+
 
 %post
 %systemd_post tetrinetx.service
@@ -106,9 +107,13 @@ getent passwd tetrinetx >/dev/null || \
 %dir %attr(-,tetrinetx,tetrinetx) %{_localstatedir}/run/tetrinetx/
 %{_tmpfilesdir}/%{name}.conf
 %config(noreplace) %{_sysconfdir}/tetrinetx/*
+%{_sysusersdir}/tetrinetx.conf
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.13.16-43
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.16-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

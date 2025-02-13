@@ -997,11 +997,6 @@ ignore="${ignore-} --ignore-glob=tests/test_tutorial/test_sql_databases/test_tut
 # dependencies in practice. Upstream deals with this by tightly controlling
 # dependency versions in CI.
 warningsfilter="${warningsfilter-} -W ignore::DeprecationWarning"
-# E       trio.TrioDeprecationWarning: trio.MultiError is deprecated since Trio
-# 0.22.0; use BaseExceptionGroup (on Python 3.11 and later) or
-# exceptiongroup.BaseExceptionGroup (earlier versions) instead
-# (https://github.com/python-trio/trio/issues/2211)
-warningsfilter="${warningsfilter-} -W ignore::trio.TrioDeprecationWarning"
 
 # Various tests give:
 #

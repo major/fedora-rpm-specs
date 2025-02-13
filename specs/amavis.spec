@@ -4,7 +4,7 @@
 Summary:        Email filter with virus scanner and spamassassin support
 Name:           amavis
 Version:        2.13.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 # LDAP schema is GFDL-1.2-or-later, some helpers are BSD-2-Clause, core is GPL-2.0-or-later
 License:        GPL-2.0-or-later AND BSD-2-Clause AND GFDL-1.2-or-later
 URL:            https://gitlab.com/amavis/amavis
@@ -173,8 +173,6 @@ install -p -D -m 0644 %{SOURCE11} %{buildroot}%{_sysusersdir}/amavis.conf
 
 install -p -D -m 0644 %{SOURCE12} %{buildroot}%{_sysconfdir}/sysconfig/amavisd
 
-%pre
-%sysusers_create_compat %{SOURCE11}
 
 %preun
 %systemd_preun amavisd.service
@@ -240,6 +238,9 @@ install -p -D -m 0644 %{SOURCE12} %{buildroot}%{_sysconfdir}/sysconfig/amavisd
 %doc README_FILES conf/amavisd.conf-* conf/amavisd-custom.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.13.1-4
+- Drop call to %sysusers_create_compat
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

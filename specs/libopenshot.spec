@@ -1,11 +1,11 @@
 # Try opting-out of LTO, due to test failures
 %define _lto_cflags %{nil}
 
-%global soversion 26
+%global soversion 27
 
 Name:           libopenshot
-Version:        0.3.3
-Release:        7%{?dist}
+Version:        0.4.0
+Release:        1%{?dist}
 Summary:        Library for creating and editing videos
 
 # See .reuse/dep5 for details
@@ -32,7 +32,7 @@ BuildRequires:  unittest-cpp-devel
 BuildRequires:  cppzmq-devel
 BuildRequires:  zeromq-devel
 BuildRequires:  jsoncpp-devel
-BuildRequires:  libopenshot-audio-devel >= 0.3.2
+BuildRequires:  libopenshot-audio-devel >= %{version}
 BuildRequires:  catch-devel
 BuildRequires:  python3-distutils-extra
 BuildRequires:  python3-setuptools
@@ -111,6 +111,9 @@ rm -rf third_party/jsoncpp
 %{ruby_vendorarchdir}/openshot.so
 
 %changelog
+* Tue Feb 11 2025 Sérgio Basto <sergio@serjux.com> - 0.4.0-1
+- Update libopenshot to 0.4.0
+
 * Tue Feb 04 2025 Sérgio Basto <sergio@serjux.com> - 0.3.3-7
 - Rebuild for opencv-4.11.0
 

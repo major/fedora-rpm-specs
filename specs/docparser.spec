@@ -1,5 +1,5 @@
 Name:           docparser
-Version:        1.0.11
+Version:        1.0.16
 Release:        %autorelease
 Summary:        A document parser library ported from document2html
 
@@ -18,6 +18,7 @@ URL:            https://github.com/linuxdeepin/docparser
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
+BuildRequires:  cmake
 BuildRequires:  pkgconfig(poppler-cpp)
 BuildRequires:  pkgconfig(libzip)
 BuildRequires:  pkgconfig(pugixml)
@@ -25,28 +26,27 @@ BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(uuid)
 BuildRequires:  pkgconfig(tinyxml2)
-BuildRequires:  pkgconfig(Qt5Core)
 
 %description
 This file content analysis library is provided for the full-text search function
 of document management.
 
-%package devel
+%package        devel
 Summary:        Development package for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
-%description devel
+%description    devel
 Header files and libraries for %{name}.
 
 %prep
 %autosetup
 
 %build
-%qmake_qt5 LIB_INSTALL_DIR=%{_libdir}
-%make_build
+%cmake
+%cmake_build
 
 %install
-%make_install INSTALL_ROOT=%{buildroot}
+%cmake_install
 
 %files
 %license LICENSE.txt

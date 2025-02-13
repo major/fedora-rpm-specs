@@ -16,7 +16,6 @@ BuildRequires: gstreamer1-plugins-base-devel
 BuildRequires: totem-pl-parser-devel
 BuildRequires: systemd
 BuildRequires: make
-Requires(pre): shadow-utils
 Requires(post): systemd-units systemd-sysv
 Requires(preun): systemd-units
 Requires(postun): systemd-units
@@ -48,6 +47,11 @@ files.
 %prep
 %autosetup -p1
 
+# Create a sysusers.d config file
+cat >dmapd.sysusers.conf <<EOF
+u dmapd - 'dmapd Daemon' - -
+EOF
+
 %build
 %configure                                      \
 	--disable-static                        \
@@ -66,6 +70,8 @@ mkdir -p %{buildroot}%{_localstatedir}/cache/dmapd/DPAP
 mkdir -p %{buildroot}%{_localstatedir}/run/dmapd
 install -D -p -m 644 distro/dmapd.conf %{buildroot}%{_sysconfdir}/dmapd.conf
 
+install -m0644 -D dmapd.sysusers.conf %{buildroot}%{_sysusersdir}/dmapd.conf
+
 %files 
 %{_libdir}/*.so.0
 %{_libdir}/*.so.%{version}
@@ -79,11 +85,8 @@ install -D -p -m 644 distro/dmapd.conf %{buildroot}%{_sysconfdir}/dmapd.conf
 %{_mandir}/*/*
 %{_unitdir}/dmapd.service
 %doc AUTHORS COPYING ChangeLog INSTALL NEWS README FAQ 
+%{_sysusersdir}/dmapd.conf
 
-%pre
-getent group dmapd >/dev/null || groupadd -r dmapd
-getent passwd dmapd >/dev/null || useradd -r -g dmapd -d / -s /sbin/nologin -c "dmapd Daemon" dmapd
-exit 0
 
 %post
 /sbin/ldconfig

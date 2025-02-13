@@ -1,5 +1,5 @@
 Name:           cockpit-image-builder
-Version:        59
+Version:        60
 Release:        1%{?dist}
 Summary:        Image builder plugin for Cockpit
 
@@ -48,6 +48,29 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %changelog
 # the changelog is distribution-specific, therefore there's just one entry
 # to make rpmlint happy.
+
+* Tue Feb 11 2025 Packit <hello@packit.dev> - 60-1
+Changes with 60
+----------------
+  * CreateImageWizard: default to major releases on prem (#2879)
+    * Author: Sanne Raymaekers, Reviewers: Gianluca Zuccarelli
+  * Update Konflux references (#2866)
+    * Author: red-hat-konflux[bot], Reviewers: Klara Simickova
+  * Wizard: Gate services on OpenSCAP step behind flag (HMS-5406) (#2808)
+    * Author: Klara Simickova, Reviewers: Michal Gold
+  * build(deps): bump @redhat-cloud-services/frontend-components-notifications from 4.1.1 to 4.1.16 (HMS-5482) (#2876)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump @babel/core from 7.26.0 to 7.26.8 (HMS-5483) (#2875)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump @babel/preset-env from 7.26.0 to 7.26.8 (HMS-5485) (#2869)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump @typescript-eslint/eslint-plugin from 8.21.0 to 8.24.0 (HMS-5484) (#2874)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * dependabot: Increase limit of opened pull requests (HMS-5486) (#2867)
+    * Author: Klara Simickova, Reviewers: Michal Gold
+
+— Somewhere on the Internet, 2025-02-11
+
 
 * Fri Feb 7 2025 Packit <hello@packit.dev> - 59-1
 Changes with 59

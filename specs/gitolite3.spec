@@ -9,7 +9,7 @@
 Name:           gitolite3
 Epoch:          1
 Version:        3.6.13
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Highly flexible server for git directory version tracker
 
 License:        GPL-2.0-only AND CC-BY-SA-1.0
@@ -25,7 +25,6 @@ BuildRequires:      perl-generators
 Provides:       perl(%{name}) = %{version}-%{release}
 Requires:       git
 Requires:       openssh-clients
-Requires(pre):  shadow-utils
 Recommends:       subversion
 
 %description
@@ -45,6 +44,11 @@ elsewhere in the doc/ directory.
 %prep
 %setup -qn gitolite-%{version}
 cp %{SOURCE1} .
+
+# Create a sysusers.d config file
+cat >gitolite3.sysusers.conf <<EOF
+u gitolite3 - 'git repository hosting' %{gitolite_homedir} /bin/sh
+EOF
 
 
 %build
@@ -70,14 +74,9 @@ ln -s %{_datadir}/%{name}/gitolite $RPM_BUILD_ROOT%{_bindir}/gitolite
 # empty authorized_keys file
 touch $RPM_BUILD_ROOT%{gitolite_homedir}/.ssh/authorized_keys
 
+install -m0644 -D gitolite3.sysusers.conf %{buildroot}%{_sysusersdir}/gitolite3.conf
 
-%pre
-# Add "gitolite" user per https://fedoraproject.org/wiki/Packaging:UsersAndGroups
-getent group %{name} >/dev/null || groupadd -r %{name}
-getent passwd %{name} >/dev/null || \
-useradd -r -g %{name} -d %{gitolite_homedir} -s /bin/sh \
-        -c "git repository hosting" %{name}
-exit 0
+
 
 
 %files
@@ -89,9 +88,13 @@ exit 0
 %attr(750,%{name},%{name}) %dir %{gitolite_homedir}/.ssh
 %config(noreplace) %attr(640,%{name},%{name}) %{gitolite_homedir}/.ssh/authorized_keys
 %doc gitolite3-README-fedora COPYING README.markdown CHANGELOG
+%{_sysusersdir}/gitolite3.conf
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:3.6.13-7
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.6.13-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

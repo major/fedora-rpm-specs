@@ -70,6 +70,11 @@ PYTHONPATH='%{buildroot}%{python3_sitelib}' \
 # These require network access (DNS)
 k="${k-}${k+ and }not test_async_proxy_close"
 k="${k-}${k+ and }not test_sync_proxy_close"
+
+# ResourceWarning in test_write_timeout[trio] with trio >=0.27
+# https://github.com/encode/httpx/discussions/3498
+k="${k-}${k+ and }not test_write_timeout[trio]"
+
 %pytest -k "${k-}" -v
 %endif
 

@@ -5,7 +5,7 @@
 
 Name:           lpf
 Version:        0.3
-Release:        12%{?rel}%{?dist}
+Release:        13%{?rel}%{?dist}
 Summary:        Local package factory - build non-redistributable rpms
 
 # Icon from iconarchive.com
@@ -29,11 +29,9 @@ Requires:       polkit
 Requires:       procps-ng
 Requires:       rpmdevtools
 Requires:       rpm-build
-Requires:       shadow-utils
 Requires:       sudo
 Requires:       dnf
 Requires:       zenity
-Requires(pre):  shadow-utils
 #for lpf-gui
 Requires:      python3-gobject-base
 
@@ -53,6 +51,11 @@ Besides being interactive the operation is similar to akmod and dkms.
 %autosetup -p1
 #-n lpf-%%{commit}
 
+# Create a sysusers.d config file
+cat >lpf.sysusers.conf <<EOF
+u pkg-build - 'lpf local package build user' /var/lib/lpf -
+EOF
+
 
 %build
 
@@ -61,16 +64,12 @@ Besides being interactive the operation is similar to akmod and dkms.
 make DESTDIR=%{buildroot} install
 desktop-file-validate %{buildroot}%{_datadir}/applications/lpf.desktop
 
+install -m0644 -D lpf.sysusers.conf %{buildroot}%{_sysusersdir}/lpf.conf
+
 %check
 appstream-util validate-relax --nonet appdata/lpf-gui.appdata.xml
 
 
-%pre
-getent group pkg-build >/dev/null || groupadd -r pkg-build
-getent passwd pkg-build >/dev/null || \
-    useradd -r -g pkg-build -d /var/lib/lpf -s /sbin/nologin \
-        -c "lpf local package build user" pkg-build
-exit 0
 
 
 %files
@@ -88,9 +87,13 @@ exit 0
 %{_libexecdir}/lpf-kill-pgroup
 %attr(440, root, root) %config(noreplace) %{_sysconfdir}/sudoers.d/pkg-build
 %attr(2775, pkg-build, pkg-build)/var/lib/lpf
+%{_sysusersdir}/lpf.conf
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.3-13
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

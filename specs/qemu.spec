@@ -429,6 +429,7 @@ Source27: kvm.conf
 Source30: kvm-s390x.conf
 Source31: kvm-x86.conf
 Source36: README.tests
+Source37: qemu.sysusers
 
 # Skip failing test in copr
 # https://gitlab.com/qemu-project/qemu/-/issues/2541
@@ -2151,6 +2152,8 @@ rm -rf %{static_buildroot}
 # endif !tools_only
 %endif
 
+install -m0644 -D %{SOURCE37} %{buildroot}%{_sysusersdir}/qemu.conf
+
 
 
 %check
@@ -2238,12 +2241,6 @@ popd
 
 
 %if !%{tools_only}
-%post common
-getent group kvm >/dev/null || groupadd -g 36 -r kvm
-getent group qemu >/dev/null || groupadd -g 107 -r qemu
-getent passwd qemu >/dev/null || \
-useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
-  -c "qemu user" qemu
 
 
 
@@ -2443,6 +2440,7 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 # Fedora specific
 %{_datadir}/applications/qemu.desktop
 %exclude %{_datadir}/%{name}/qemu-nsis.bmp
+%{_sysusersdir}/qemu.conf
 
 
 %files tests

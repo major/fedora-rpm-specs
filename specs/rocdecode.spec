@@ -1,3 +1,9 @@
+%if 0%{?suse_version}
+%global rocdecode_name librocdecode0
+%else
+%global rocdecode_name rocdecode
+%endif
+
 %global upstreamname rocDecode
 
 %global rocm_release 6.3
@@ -17,9 +23,9 @@
 %define _source_payload	w7T0.xzdio
 %define _binary_payload	w7T0.xzdio
 
-Name:           rocdecode
+Name:           %{rocdecode_name}
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        High-performance video decode SDK for AMD GPUs
 
 Url:            https://github.com/ROCm/rocDecode
@@ -46,6 +52,7 @@ BuildRequires:  mesa-va-drivers
 
 # Rocdecode isn't useful without AMD's mesa va drivers:
 Requires:     mesa-va-drivers
+Provides:     rocdecode = %{version}-%{release}
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -54,9 +61,15 @@ ExclusiveArch:  x86_64
 rocDecode is a high-performance video decode SDK for AMD GPUs. Using the
 rocDecode API, you can access the video decoding features available on your GPU.
 
+%if 0%{?suse_version}
+%post -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
+%endif
+
 %package devel
 Summary:        The rocDecode development package
 Requires: %{name}%{?_isa} = %{version}-%{release}
+Provides:     rocdecode-devel = %{version}-%{release}
 
 %description devel
 The rocDecode development package.
@@ -92,11 +105,11 @@ fi
 if [ -f %{buildroot}%{_prefix}/share/doc/rocdecode-asan/LICENSE ]; then
     rm %{buildroot}%{_prefix}/share/doc/rocdecode-asan/LICENSE
 fi
-if [ -f %{buildroot}%{_prefix}/share/doc/packages/rocdecode/LICENSE ]; then
-    rm %{buildroot}%{_prefix}/share/doc/packages/rocdecode/LICENSE
+if [ -f %{buildroot}%{_prefix}/share/doc/packages/%{name}/LICENSE ]; then
+    rm %{buildroot}%{_prefix}/share/doc/packages/%{name}/LICENSE
 fi
-if [ -f %{buildroot}%{_prefix}/share/doc/packages/rocdecode-asan/LICENSE ]; then
-    rm %{buildroot}%{_prefix}/share/doc/packages/rocdecode-asan/LICENSE
+if [ -f %{buildroot}%{_prefix}/share/doc/packages/%{name}-asan/LICENSE ]; then
+    rm %{buildroot}%{_prefix}/share/doc/packages/%{name}-asan/LICENSE
 fi
 
 %if %{with test}
@@ -106,16 +119,18 @@ fi
 
 %files
 %license LICENSE
-%dir %{_docdir}/%{name}
-%{_libdir}/lib%{name}.so.0{,.*}
+%{_libdir}/librocdecode.so.0{,.*}
 
 %files devel
-%{_libdir}/lib%{name}.so
-%{_includedir}/%{name}
-%{_datadir}/%{name}
-%exclude %{_datadir}/%{name}/samples
+%{_libdir}/librocdecode.so
+%{_includedir}/rocdecode
+%{_datadir}/rocdecode
+%exclude %{_datadir}/rocdecode/samples
 
 %changelog
+* Tue Feb 11 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-5
+- Fix SLE 15.6
+
 * Tue Feb 4 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-4
 - Fix TW build
 

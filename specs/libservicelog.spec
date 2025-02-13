@@ -1,6 +1,6 @@
 Name:          libservicelog
 Version:       1.1.19
-Release:       13%{?dist}
+Release:       14%{?dist}
 Summary:       Servicelog Database and Library
 
 #v29_notify_gram.c v29_notify_gram.h are GPLv2+
@@ -14,7 +14,6 @@ Patch0: libservicelog-1.1.9-libs.patch
 
 BuildRequires: sqlite-devel autoconf libtool bison librtas-devel flex
 BuildRequires: make
-Requires(pre): shadow-utils
 
 # because of librtas-devel
 ExclusiveArch: ppc %{power64}
@@ -39,6 +38,11 @@ Contains header files for building with libservicelog.
 %setup -q
 %patch 0 -p1 -b .libs
 
+# Create a sysusers.d config file
+cat >libservicelog.sysusers.conf <<EOF
+g service -
+EOF
+
 %build
 autoreconf -fiv
 %configure --disable-static
@@ -53,11 +57,11 @@ make CFLAGS="$CFLAGS" %{?_smp_mflags}
 make install DESTDIR=%{buildroot}
 rm -f %{buildroot}%{_libdir}/*.la
 
+install -m0644 -D libservicelog.sysusers.conf %{buildroot}%{_sysusersdir}/libservicelog.conf
+
 %check
 make check || true
 
-%pre
-getent group service >/dev/null || /usr/sbin/groupadd -r service
 
 %post -p /sbin/ldconfig
 
@@ -70,6 +74,7 @@ getent group service >/dev/null || /usr/sbin/groupadd -r service
 %{_libdir}/libservicelog-*.so.*
 %dir %attr(755, root, service) /var/lib/servicelog
 %config(noreplace) %verify(not md5 size mtime) %attr(644,root,service) /var/lib/servicelog/servicelog.db
+%{_sysusersdir}/libservicelog.conf
 
 %files devel
 %{_includedir}/servicelog-1
@@ -78,6 +83,9 @@ getent group service >/dev/null || /usr/sbin/groupadd -r service
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.1.19-14
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.19-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

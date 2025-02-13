@@ -1,6 +1,6 @@
 Name:           teeworlds
 Version:        0.7.5
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Online multi-player platform 2D shooter
 
 # zlib: src/engine/externals/md5/*
@@ -47,7 +47,6 @@ The controls are heavily inspired by the FPS genre of computer games.
 Summary:        Server for %{name}
 Requires:       %{name}-data = %{version}
 Provides:       bundled(md5)
-Requires(pre):  shadow-utils
 %{?systemd_requires}
 BuildRequires:  systemd
 
@@ -75,6 +74,11 @@ sed -i -e "/_mm_pause/d" src/engine/client/client.cpp
 %endif
 sed -i "s/\/usr/\%{_prefix}/g" src/engine/shared/storage.cpp
 
+# Create a sysusers.d config file
+cat >teeworlds.sysusers.conf <<EOF
+u teeworlds - '%{name} server daemon account' %{_sysconfdir}/%{name} -
+EOF
+
 %build
 %cmake . -B%{_vpath_builddir} -GNinja -DCMAKE_BUILD_TYPE=RELEASE \
   -DPREFER_BUNDLED_LIBS=OFF \
@@ -95,13 +99,7 @@ install -Dpm0664 %{S:6} %{buildroot}%{_sysconfdir}/%{name}/tdm.cfg
 install -Dpm0664 %{S:7} %{buildroot}%{_sysconfdir}/%{name}/ctf.cfg
 ln -sf %{_datadir}/fonts/dejavu-sans-fonts/DejaVuSans.ttf %{buildroot}%{_datadir}/%{name}/data/fonts/DejaVuSans.ttf
 
-%pre server
-getent group teeworlds >/dev/null || groupadd -f -r teeworlds
-if ! getent passwd teeworlds >/dev/null ; then
-      useradd -r -g teeworlds -d %{_sysconfdir}/%{name} -s /sbin/nologin \
-              -c "%{name} server daemon account" teeworlds
-fi
-exit 0
+install -m0644 -D teeworlds.sysusers.conf %{buildroot}%{_sysusersdir}/teeworlds.conf
 
 %post server
 %systemd_post %{name}-server@dm.service
@@ -137,8 +135,12 @@ exit 0
 %{_bindir}/%{name}-srv
 %{_unitdir}/%{name}-server@.service
 %attr(-,teeworlds,teeworlds)%{_sysconfdir}/%{name}/
+%{_sysusersdir}/teeworlds.conf
 
 %changelog
+* Thu Jan 23 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.7.5-17
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.5-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

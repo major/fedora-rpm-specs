@@ -1,6 +1,6 @@
 Name:           lordsawar
 Version:        0.3.2
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Turn-based strategy game in a fantasy setting
 
 # This is used for prereleases and such
@@ -22,6 +22,11 @@ Source0:        http://download.savannah.gnu.org/releases/%{name}/%{name}-%{rel_
 # Reserve doesn't actually make vectors bigger, it is used to make resizing 
 # more efficient. resize is needed to actually make it bigger.
 Patch4:         assert.patch
+# The following is a fix for something gcc starting flagging related to
+# array initialization in a constructor. I don't think the flagged
+# reference was even needed, since the name was copied over explicitly
+# in the constructor.
+Patch5:		lordsawar-armynameinit.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gtkmm30-devel gettext desktop-file-utils gstreamermm-devel
@@ -39,6 +44,7 @@ LordsAWar! is a turn-based strategy game set in a fantasy setting.
 #%patch2 -p1
 #%patch3 -p1
 %patch -P4
+%patch -P5 -p0
 sed -i.orig -e "s/Comment=Play a clone of Warlords II/Comment=Play a turn-based strategy game/" dat/lordsawar.desktop.in.in
 
 
@@ -81,6 +87,9 @@ mv $RPM_BUILD_ROOT%{_datadir}/appdata/%{name}-appdata.xml $RPM_BUILD_ROOT%{_data
 %{_mandir}/man6/lordsawar.6*
 
 %changelog
+* Mon Feb 10 2025 Bruno Wolff III <bruno@wolff.to> - 0.3.2-16
+- Fix for problem found by stricter gcc checking
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,3 +1,9 @@
+%if 0%{?suse_version}
+%global rocjpeg_name librocjpeg0
+%else
+%global rocjpeg_name rocjpeg
+%endif
+
 %global upstreamname rocJPEG
 
 %global rocm_release 6.3
@@ -17,9 +23,9 @@
 %define _source_payload	w7T0.xzdio
 %define _binary_payload	w7T0.xzdio
 
-Name:           rocjpeg
+Name:           %{rocjpeg_name}
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A high-performance jpeg decode library for AMD’s GPUs
 
 Url:            https://github.com/ROCm/rocJPEG
@@ -43,6 +49,7 @@ BuildRequires:  mesa-va-drivers
 
 # Rocjpeg isn't useful without AMD's mesa va drivers:
 Requires:     mesa-va-drivers
+Provides:     rocjpeg = %{version}-%{release}
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -52,9 +59,15 @@ rocJPEG is a high performance JPEG decode SDK for AMD GPUs. Using
 the rocJPEG API, you can access the JPEG decoding features available
 on your GPU.
 
+%if 0%{?suse_version}
+%post -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
+%endif
+
 %package devel
 Summary:        The development package for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
+Provides:     rocjpeg-devel = %{version}-%{release}
 
 %description devel
 The rocJPEG development package.
@@ -105,17 +118,17 @@ fi
 if [ -f %{buildroot}%{_prefix}/share/doc/rocjpeg-test/LICENSE ]; then
     rm %{buildroot}%{_prefix}/share/doc/rocjpeg-test/LICENSE
 fi
-if [ -f %{buildroot}%{_prefix}/share/doc/packages/rocjpeg/LICENSE ]; then
-    rm %{buildroot}%{_prefix}/share/doc/packages/rocjpeg/LICENSE
+if [ -f %{buildroot}%{_prefix}/share/doc/packages/%{name}/LICENSE ]; then
+    rm %{buildroot}%{_prefix}/share/doc/packages/%{name}/LICENSE
 fi
-if [ -f %{buildroot}%{_prefix}/share/doc/packages/rocjpeg-dev/LICENSE ]; then
-    rm %{buildroot}%{_prefix}/share/doc/packages/rocjpeg-dev/LICENSE
+if [ -f %{buildroot}%{_prefix}/share/doc/packages/%{name}-dev/LICENSE ]; then
+    rm %{buildroot}%{_prefix}/share/doc/packages/%{name}-dev/LICENSE
 fi
-if [ -f %{buildroot}%{_prefix}/share/doc/packages/rocjpeg-test/LICENSE ]; then
-    rm %{buildroot}%{_prefix}/share/doc/packages/rocjpeg-test/LICENSE
+if [ -f %{buildroot}%{_prefix}/share/doc/packages/%{name}-test/LICENSE ]; then
+    rm %{buildroot}%{_prefix}/share/doc/packages/%{name}-test/LICENSE
 fi
-if [ -f %{buildroot}%{_prefix}/share/doc/packages/rocjpeg-asan/LICENSE ]; then
-    rm %{buildroot}%{_prefix}/share/doc/packages/rocjpeg-asan/LICENSE
+if [ -f %{buildroot}%{_prefix}/share/doc/packages/%{name}-asan/LICENSE ]; then
+    rm %{buildroot}%{_prefix}/share/doc/packages/%{name}-asan/LICENSE
 fi
 
 # Need to install first
@@ -126,15 +139,17 @@ fi
 
 %files
 %license LICENSE
-%dir %{_docdir}/%{name}
-%{_libdir}/lib%{name}.so.0{,.*}
+%{_libdir}/librocjpeg.so.0{,.*}
 
 %files devel
-%{_libdir}/lib%{name}.so
-%{_includedir}/%{name}
-%{_datadir}/%{name}
+%{_libdir}/librocjpeg.so
+%{_includedir}/rocjpeg
+%{_datadir}/rocjpeg
 
 %changelog
+* Tue Feb 11 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-5
+- Fix SLE 15.6
+
 * Tue Feb 4 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-4
 - Fix TW build
 

@@ -1,5 +1,5 @@
 Name:          pgrouting
-Version:       3.7.2
+Version:       3.7.3
 Release:       1%{?dist}
 Summary:       Provides routing functionality to PostGIS / PostgreSQL
 License:       GPL-2.0-or-later AND BSL-1.0 AND MIT
@@ -50,6 +50,9 @@ geospatial routing functionality.
 %{_datadir}/pgsql/extension/pgrouting.control
 
 %changelog
+* Fri Feb 10 2025 Carlos Rodriguez-Fernandez <carlosrodrifernandez@gmail.com> - 3.7.3-1
+- Update to version 3.7.3 (rhbz#2326180)
+
 * Fri Feb 07 2025 Carlos Rodriguez-Fernandez <carlosrodrifernandez@gmail.com> - 3.7.2-1
 - Update to version 3.7.2
 

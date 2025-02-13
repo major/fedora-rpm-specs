@@ -4,7 +4,7 @@
 %global libusdm_soversion 0
 Name:             qatlib
 Version:          24.09.0
-Release:          6%{?dist}
+Release:          7%{?dist}
 Summary:          Intel QuickAssist user space library
 # The entire source code is released under BSD.
 # For a breakdown of inbound licenses see the INSTALL file.
@@ -12,7 +12,6 @@ License:          BSD-3-Clause AND ( BSD-3-Clause OR GPL-2.0-only )
 URL:              https://github.com/intel/%{name}
 Source0:          https://github.com/intel/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires:    systemd gcc make autoconf automake libtool systemd-devel openssl-devel zlib-devel nasm numactl-devel
-Requires(pre):    shadow-utils
 Recommends:       qatlib-service
 # https://bugzilla.redhat.com/show_bug.cgi?id=1897661
 ExcludeArch:      %{arm} aarch64 %{power64} s390x i686
@@ -59,6 +58,11 @@ QuickAssist Technology user space library (qatlib).
 %prep
 %autosetup -p1
 
+# Create a sysusers.d config file
+cat >qatlib.sysusers.conf <<EOF
+g qat -
+EOF
+
 %build
 autoreconf -vif
 %configure --enable-legacy-algorithms
@@ -75,9 +79,8 @@ rm %{buildroot}/%{_libdir}/libusdm.la
 rm %{buildroot}/%{_libdir}/libqat.a
 rm %{buildroot}/%{_libdir}/libusdm.a
 
-%pre
-getent group qat >/dev/null || groupadd -r qat
-exit 0
+install -m0644 -D qatlib.sysusers.conf %{buildroot}%{_sysusersdir}/qatlib.conf
+
 
 %post          service
 %systemd_post qat.service
@@ -93,6 +96,7 @@ exit 0
 %license LICENSE*
 %{_libdir}/libqat.so.%{libqat_soversion}*
 %{_libdir}/libusdm.so.%{libusdm_soversion}*
+%{_sysusersdir}/qatlib.conf
 
 %files         devel
 %{_libdir}/libqat.so
@@ -134,6 +138,9 @@ exit 0
 %{_mandir}/man8/qat_init.sh.8*
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 24.09.0-7
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 23 2025 Giovanni Cabiddu <giovanni.cabiddu@intel.com> - 24.09.0-6
 - Add patch to remove hardcoded installation path to fix the build on F42
 

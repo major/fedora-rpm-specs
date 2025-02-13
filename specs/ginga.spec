@@ -16,7 +16,7 @@ panning and zooming windows, star catalog access, cuts, star pick/fwhm,
 thumbnails, etc.}
 
 Name:           ginga
-Version:        5.1.0
+Version:        5.2.0
 Release:        %autorelease
 Summary:        %{sum}
 # License breakdown
@@ -58,7 +58,7 @@ Examples for %{name}
 
 %prep
 %autosetup
-sed -i -e s/opencv-python/opencv/ -e s/python-magic.*/file-magic/ setup.cfg
+sed -i -e s/opencv-python-headless/opencv/ -e s/python-magic.*/file-magic/ setup.cfg
 
 %generate_buildrequires
 %pyproject_buildrequires -x recommended -x qt5

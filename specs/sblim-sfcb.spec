@@ -8,7 +8,7 @@ Name: sblim-sfcb
 Summary: Small Footprint CIM Broker
 URL: http://sblim.wiki.sourceforge.net/
 Version: 1.4.9
-Release: 33%{?dist}
+Release: 34%{?dist}
 License: EPL-1.0
 Source0: http://downloads.sourceforge.net/sblim/%{name}-%{version}.tar.bz2
 Source1: sfcb.service
@@ -83,6 +83,12 @@ Programming Interface (CMPI).
 %patch -P9 -p1 -b .fix-ppc-optimization-level
 %patch -P10 -p1 -b .docdir-license
 
+# Create a sysusers.d config file
+cat >sblim-sfcb.sysusers.conf <<EOF
+g sfcb -
+m root sfcb
+EOF
+
 %build
 %configure --enable-debug --enable-uds --enable-ssl --enable-pam --enable-ipv6 \
     --enable-slp --enable-large_volume_support --enable-optimized-enumeration --enable-relax-mofsyntax \
@@ -117,9 +123,7 @@ echo "%{_libdir}/sfcb/*.so" >> _pkg_list
 
 cat _pkg_list
 
-%pre
-/usr/bin/getent group sfcb >/dev/null || /usr/sbin/groupadd -r sfcb
-/usr/sbin/usermod -a -G sfcb root > /dev/null 2>&1 || :
+install -m0644 -D sblim-sfcb.sysusers.conf %{buildroot}%{_sysusersdir}/sblim-sfcb.conf
 
 %post 
 %{_datadir}/sfcb/genSslCert.sh %{_sysconfdir}/sfcb &>/dev/null || :
@@ -133,13 +137,14 @@ cat _pkg_list
 %postun
 /sbin/ldconfig
 %systemd_postun_with_restart sblim-sfcb.service
-if [ $1 -eq 0 ]; then
-        /usr/sbin/groupdel sfcb > /dev/null 2>&1 || :;
-fi;
 
 %files -f _pkg_list
+%{_sysusersdir}/sblim-sfcb.conf
 
 %changelog
+* Thu Jan 23 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.4.9-34
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.9-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

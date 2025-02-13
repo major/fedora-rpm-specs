@@ -5,7 +5,7 @@
 #global vsuffix d
 
 Name:           python-jupytext
-Version:        1.16.6
+Version:        1.16.7
 Release:        %autorelease
 Summary:        Save Jupyter notebooks as text documents or scripts
 

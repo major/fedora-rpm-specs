@@ -16,7 +16,7 @@ than all other static analysis frameworks for Python.}
 %global typeshed_commit     ae9d4f4b21bb5e1239816c301da7b1ea904b44c3
 
 Name:           python-jedi
-Version:        0.19.1
+Version:        0.19.2
 Release:        %autorelease
 Summary:        An auto completion tool for Python that can be used for text editors
 
@@ -30,10 +30,6 @@ URL:            https://jedi.readthedocs.org
 Source0:        https://github.com/davidhalter/jedi/archive/v%{version}/jedi-%{version}.tar.gz
 Source1:        https://github.com/davidhalter/django-stubs/archive/%{django_stubs_commit}/django-stubs-%{django_stubs_commit}.tar.gz
 Source2:        https://github.com/davidhalter/typeshed/archive/%{typeshed_commit}/typeshed-%{typeshed_commit}.tar.gz
-# https://github.com/davidhalter/jedi/pull/2008
-Patch:          0001-Merge-branch-ensure-unique-subprocess-reference-ids.patch
-# https://github.com/davidhalter/jedi/pull/2003
-Patch:          0002-Merge-branch-python-3.13.patch
 BuildArch:      noarch
 
 %description %{common_description}

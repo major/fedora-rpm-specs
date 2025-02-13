@@ -4,7 +4,7 @@
 
 Name: libsmbios
 Version: 2.4.3
-Release: 16%{?dist}
+Release: 17%{?dist}
 Summary: Libsmbios C/C++ shared libraries
 
 License: GPL-2.0-or-later or OSL-2.1
@@ -66,6 +66,7 @@ asset tag.
 %package -n smbios-utils-python
 Summary: Python executables that use libsmbios
 Requires: python3-smbios = %{version}-%{release}
+BuildArch: noarch
 
 %description -n smbios-utils-python
 Get BIOS information, such as System product name, product id, service tag and
@@ -107,18 +108,15 @@ chmod +x ./configure
 mkdir -p out/libsmbios_c
 %make_build CFLAGS+="%{optflags} -Werror" 2>&1 | tee build-%{_arch}.log
 
-echo \%doc _build/build-%{_arch}.log > buildlogs.txt
-
 %check
 runtest() {
     mkdir _$1$2
     pushd _$1$2
     ../configure
-    make -e $1 CFLAGS="$CFLAGS -DDEBUG_OUTPUT_ALL" 2>&1 | tee $1$2.log
-    touch -r ../configure.ac $1$2-%{_arch}.log
-    make -e $1 2>&1 | tee $1$2.log
+    make -e $1 CFLAGS="$CFLAGS -DDEBUG_OUTPUT_ALL"
+    touch -r ../configure.ac
+    make -e $1
     popd
-    echo \%doc _$1$2/$1$2-%{_arch}.log >> _build/buildlogs.txt
 }
 
 VALGRIND="strace -f" runtest check strace > /dev/null || echo FAILED strace check
@@ -132,11 +130,6 @@ TOPDIR=..
 rm -f %{buildroot}/%{_libdir}/lib*.{la,a}
 find %{buildroot}/%{_includedir} out/libsmbios_c -exec touch -r $TOPDIR/configure.ac {} \;
 
-mv out/libsmbios_c    out/libsmbios_c-%{_arch}
-
-# https://fedoraproject.org/wiki/Changes/No_more_automagic_Python_bytecompilation_phase_3
-%py_byte_compile %{python3} %{buildroot}%{python3_sitearch}/
-
 rename %{pot_file}.mo %{lang_dom}.mo $(find %{buildroot}/%{_datadir} -name %{pot_file}.mo)
 %find_lang %{lang_dom}
 
@@ -147,9 +140,9 @@ rename %{pot_file}.mo %{lang_dom}.mo $(find %{buildroot}/%{_datadir} -name %{pot
 %license COPYING-GPL COPYING-OSL
 %{_libdir}/libsmbios_c.so.*
 
-%files -n libsmbios-devel -f _build/buildlogs.txt
+%files -n libsmbios-devel
 %license src/bin/getopts_LICENSE.txt src/include/smbios_c/config/boost_LICENSE_1_0_txt
-%doc README.md _build/out/libsmbios_c-%{_arch}
+%doc _build/out/libsmbios_c
 %{_includedir}/smbios_c
 %{_libdir}/libsmbios_c.so
 %{_libdir}/pkgconfig/*.pc
@@ -199,6 +192,9 @@ rename %{pot_file}.mo %{lang_dom}.mo $(find %{buildroot}/%{_datadir} -name %{pot
 %{_datadir}/smbios-utils
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.4.3-17
+- Drop build logs from package payload and make python subpackage noarch
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.3-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

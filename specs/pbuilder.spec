@@ -1,6 +1,6 @@
 Name:           pbuilder
 Version:        0.231.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Personal package builder for Debian packages
 
 License:        GPL-2.0-or-later
@@ -68,6 +68,11 @@ dependencies.
 # Adjust ccache path
 sed -i 's|/usr/lib/ccache|%{_libdir}/ccache|g' pbuilderrc
 
+# Create a sysusers.d config file
+cat >pbuilder.sysusers.conf <<EOF
+u pbuilder - '%{name}' %{_localstatedir}/run/%{name} -
+EOF
+
 
 %build
 %make_build
@@ -98,13 +103,9 @@ install -Dpm 0644 %{SOURCE7} %{buildroot}%{_sysconfdir}/pbuilderrc
 # Copy README.fedora to root
 cp -a %{SOURCE1} README.fedora
 
+install -m0644 -D pbuilder.sysusers.conf %{buildroot}%{_sysusersdir}/pbuilder.conf
 
-%pre
-getent group %{name} > /dev/null || groupadd -r %{name}
-getent passwd %{name} > /dev/null || \
-  useradd -r -g %{name} -d %{_localstatedir}/run/%{name} -s /sbin/nologin \
-    -c "%{name}" %{name}
-exit 0
+
 
 
 %check
@@ -138,9 +139,13 @@ make check
 %{_docdir}/pbuilder/*
 # The ccache folder needs to be owned by the pbuilder user
 %attr(0755,%{name},root) %{_localstatedir}/cache/%{name}/ccache
+%{_sysusersdir}/pbuilder.conf
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.231.1-5
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.231.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

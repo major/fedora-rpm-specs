@@ -3,7 +3,7 @@
 Name:		lizardfs
 Summary:	Distributed, fault tolerant file system
 Version:	3.12.0
-Release:	29%{?dist}
+Release:	30%{?dist}
 # LizardFS is under GPLv3 while crcutil is under ASL 2.0 and there's one header,
 # src/common/coroutine.h, under the Boost license
 # Automatically converted from old format: GPLv3 and ASL 2.0 and Boost - review is highly recommended.
@@ -127,12 +127,6 @@ LizardFS command line administration utility.
 # Scriptlets - master
 ############################################################
 
-%pre master
-getent group %{liz_group} >/dev/null || groupadd -r %{liz_group}
-getent passwd %{liz_user} >/dev/null || \
-	useradd -r -g %{liz_group} -d %{liz_datadir} -s /sbin/nologin \
-	-c "LizardFS System Account" %{liz_user}
-exit 0
 
 %post master
 %systemd_post lizardfs-master.service
@@ -214,6 +208,11 @@ for i in src/cgi/cgiserv.py.in src/cgi/chart.cgi.in src/cgi/lizardfs-cgiserver.p
 	sed -i 's@#!/usr/bin/env python3@#!/usr/bin/python3@' $i
 done
 
+# Create a sysusers.d config file
+cat >lizardfs.sysusers.conf <<EOF
+u mfs - 'LizardFS System Account' %{liz_datadir} -
+EOF
+
 
 %build
 # Build code taken almost completely ./configure, but with some changes to use
@@ -260,6 +259,8 @@ install -m644 %{SOURCE1} %{buildroot}%{_sysconfdir}/pam.d/lizardfs
 mkdir -p %{buildroot}%{_sysconfdir}/security/limits.d
 install -m644 %{SOURCE2} %{buildroot}%{_sysconfdir}/security/limits.d/95-lizardfs.conf
 
+install -m0644 -D lizardfs.sysusers.conf %{buildroot}%{_sysusersdir}/lizardfs.conf
+
 
 %files master
 %doc NEWS README.md UPGRADE
@@ -292,6 +293,7 @@ install -m644 %{SOURCE2} %{buildroot}%{_sysconfdir}/security/limits.d/95-lizardf
 %config %{liz_confdir}/globaliolimits.cfg.dist
 %config(noreplace) %{_sysconfdir}/pam.d/lizardfs
 %config(noreplace) %{_sysconfdir}/security/limits.d/95-lizardfs.conf
+%{_sysusersdir}/lizardfs.conf
 
 
 %files metalogger
@@ -413,6 +415,9 @@ install -m644 %{SOURCE2} %{buildroot}%{_sysconfdir}/security/limits.d/95-lizardf
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.12.0-30
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.12.0-29
 - Fix FTBFS
 

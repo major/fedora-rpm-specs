@@ -1,5 +1,5 @@
 # download path contains version without the last (fourth) digit
-%global libo_version 25.2.0
+%global libo_version 25.2.1
 %global prerelease 1
 # Should contain .alphaX / .betaX, if this is pre-release (actually
 # pre-RC) version. The pre-release string is part of tarball file names,
@@ -82,7 +82,7 @@ ExcludeArch:    %{ix86}
 Summary:        Free Software Productivity Suite
 Name:           libreoffice
 Epoch:          1
-Version:        %{libo_version}.3
+Version:        %{libo_version}.1
 %if %{defined libo_prerelease} && 0%{?libo_prerelease} != 0
 Release:        %autorelease -e %(e=%{libo_prerelease}; echo ${e:1})
 %else
@@ -273,8 +273,8 @@ BuildRequires: pkgconfig(harfbuzz)
 BuildRequires: pkgconfig(libeot)
 BuildRequires: pkgconfig(libepubgen-0.1)
 BuildRequires: pkgconfig(libqxp-0.0)
-BuildRequires: pkgconfig(liborcus-0.20)
-BuildRequires: pkgconfig(mdds-3.0)
+BuildRequires: pkgconfig(liborcus-0.18)
+BuildRequires: pkgconfig(mdds-2.1)
 BuildRequires: pkgconfig(zxing)
 BuildRequires: libnumbertext-devel
 BuildRequires: frozen-static
@@ -325,6 +325,7 @@ Patch12: cflags.patch
 Patch500: 0001-disable-libe-book-support.patch
 # https://lists.freedesktop.org/archives/libreoffice/2023-September/090948.html
 Patch501: kahansum_test_fix_for_aarc64_s390x.patch
+Patch502: 89285dd.diff
 
 %global instdir %{_libdir}
 %global baseinstdir %{instdir}/libreoffice
@@ -1093,6 +1094,8 @@ mv -f redhat.soc extras/source/palettes/standard.soc
 %ifarch aarch64 s390x ppc64le
 %patch -P 501 -p1
 %endif
+
+%patch -P 502 -p1
 
 # Temporarily disable failing tests
 %ifarch ppc64le

@@ -261,7 +261,6 @@ BuildRequires: %{python_name}-sphinx
 
 # Creation of Users / Groups
 BuildRequires:  systemd-rpm-macros
-%{?sysusers_requires_compat}
 
 # Booth requires this
 Provides:      pacemaker-ticket-support = 2.0
@@ -575,10 +574,6 @@ fi
 
 %postun cli
 %systemd_postun_with_restart crm_mon.service
-
-%pre -n %{pkgname_pcmk_libs}
-%sysusers_create_compat %{SOURCE1}
-exit 0
 
 %ldconfig_scriptlets -n %{pkgname_pcmk_libs}
 %ldconfig_scriptlets cluster-libs

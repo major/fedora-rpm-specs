@@ -1244,7 +1244,11 @@ rust_sysroot_absolute="$(rustc --print sysroot)"
 
 # set clang version
 clang_version="$(clang --version | sed -n 's/clang version //p' | cut -d. -f1)"
+%if 0%{?fedora} > 42
+clang_base_path="/usr"
+%else
 clang_base_path="$(clang --version | grep InstalledDir | cut -d' ' -f2 | sed 's#/bin##')"
+%endif
 
 # Core defines are flags that are true for both the browser and headless.
 CHROMIUM_CORE_GN_DEFINES=""

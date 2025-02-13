@@ -5,7 +5,7 @@
 Summary:	Tool to prevent unauthorized usage of IP addresses
 Name:		ip-sentinel
 Version:	0.12
-Release:	1931%{?dist}
+Release:	1932%{?dist}
 License:	GPL-2.0-only
 URL:		http://www.nongnu.org/ip-sentinel/
 Source0:	http://savannah.nongnu.org/download/ip-sentinel/%{name}-%{version}.tar.bz2
@@ -24,7 +24,6 @@ Obsoletes: ip-sentinel-minit < %{version}-%{release}
 Provides: ip-sentinel-minit = %{version}-%{release}
 Obsoletes: ip-sentinel-upstart < %{version}-%{release}
 Provides: ip-sentinel-upstart = %{version}-%{release}
-Requires(pre):  shadow-utils
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
@@ -42,6 +41,11 @@ invalid MAC, rendering the IP unreachable.
 %setup -q
 %patch -P0 -p0 -b .pidfile
 %patch -P1 -p0
+
+# Create a sysusers.d config file
+cat >ip-sentinel.sysusers.conf <<EOF
+u ip-sentinel - 'IP sentinel user' %{homedir} -
+EOF
 
 %build
 %configure --enable-release \
@@ -62,17 +66,13 @@ rm -rf $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/ip-sentinel
 
 install -Dpm 755 %{SOURCE2} $RPM_BUILD_ROOT%{_unitdir}/ip-sentinel.service
 
+install -m0644 -D ip-sentinel.sysusers.conf %{buildroot}%{_sysusersdir}/ip-sentinel.conf
+
 %check
 make check
 
 
 
-%pre
-getent group ip-sentinel >/dev/null || groupadd -r ip-sentinel
-getent passwd ip-sentinel >/dev/null || \
-    useradd -r -g ip-sentinel -d %{homedir} -s /sbin/nologin \
-    -c "IP sentinel user" ip-sentinel
-exit 0
 
 %post
 %systemd_post ip-sentinel.service
@@ -101,8 +101,12 @@ exit 0
 %{_unitdir}/ip-sentinel.service
 %{_sysconfdir}/sysconfig/ip-sentinel
 %attr(-,root,%username) %homedir
+%{_sysusersdir}/ip-sentinel.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.12-1932
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-1931
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

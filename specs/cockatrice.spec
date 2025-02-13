@@ -1,4 +1,4 @@
-%global		gittag0			2023-09-14-Release-2.9.0
+%global		gittag0			2025-02-10-Release-2.10.0
 
 %define			lang_subpkg() \
 %package		langpack-%{1}\
@@ -15,7 +15,7 @@ Supplements:	(%{name} = %{version}-%{release} and langpacks-%{1})\
 %{_datadir}/oracle/translations/oracle_%{1}.qm
 
 Name:		cockatrice
-Version:	2.9.0
+Version:	2.10.0
 Release:	%autorelease
 Summary:	A cross-platform virtual tabletop software for multi-player card games
 
@@ -33,10 +33,6 @@ URL:		https://%{name}.github.io
 Source0:	https://github.com/%{name}/%{name}/archive/%{gittag0}.tar.gz
 Source1:	cockatrice.appdata.xml
 Patch0:		cockatrice-ea9e966330-fix-desktop-entry-files.patch
-# Support MacOS 12 & 13. Support Protobuf 23. Deprecate MacOS 11. (#4884)
-# https://github.com/Cockatrice/Cockatrice/commit/ee674cb0cfa42875eef1a0a80597840816ad86ea
-# Backported to the 2.9.0 release
-Patch1:         cockatrice-ee674cb0cf-protobuf-23.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	cmake >= 3.1
@@ -92,7 +88,6 @@ This package provides utilities required by both cockatrice and servatrice.
 %prep
 %setup -q -n Cockatrice-%{gittag0}
 %patch -P 0
-%patch -P 1 -p1
 find . -iname "*.h" -exec chmod a-x "{}" \;
 find . -iname "*.cpp" -exec chmod a-x "{}" \;
 # The API for Protobuf v4 (23.x) requires at least C++14. When compiled as

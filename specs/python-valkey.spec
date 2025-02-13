@@ -1,5 +1,5 @@
 Name:           python-valkey
-Version:        6.0.2
+Version:        6.1.0b2
 Release:        %autorelease
 Summary:        The Python interface to the Valkey key-value store
 License:        MIT

@@ -3,10 +3,11 @@ Summary: Serialize the output of CLI tools and file-types to structured JSON
 License: MIT
 
 Version: 1.25.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 URL: https://github.com/kellyjonbrazil/%{name}
 Source0: %{URL}/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch0:  https://github.com/kellyjonbrazil/jc/pull/639.patch#/jc-fix-py314-typing.diff
 
 BuildArch: noarch
 
@@ -75,6 +76,10 @@ TZ="America/Los_Angeles" ./runtests.sh
 
 
 %changelog
+* Fri Feb 07 2025 Michel Lind <salimma@fedoraproject.org> - 1.25.4-3
+- Add patch to handle removal of `typing.ByteString` in Python 3.14
+- Resolves: RHBZ#2331343
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.25.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

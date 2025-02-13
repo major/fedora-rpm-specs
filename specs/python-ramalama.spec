@@ -1,7 +1,7 @@
 %global pypi_name ramalama
 %global forgeurl  https://github.com/containers/%{pypi_name}
 # see ramalama/version.py
-%global version0  0.5.5
+%global version0  0.6.0
 %forgemeta
 
 %global summary   RamaLama is a command line tool for working with AI LLM models
@@ -15,7 +15,7 @@ Name:             python-%{pypi_name}
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version:          0.5.5
+Version:          0.6.0
 License:          MIT
 Release:          %{autorelease}
 Summary:          %{summary}

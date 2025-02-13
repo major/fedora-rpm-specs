@@ -3,7 +3,7 @@
 
 Name:          libgpiod
 Version:       2.2
-Release:       1%{?candidate:.%{candidate}}%{?dist}
+Release:       2%{?candidate:.%{candidate}}%{?dist}
 Summary:       C library and tools for interacting with linux GPIO char device
 
 License:       LGPL-2.1-or-later
@@ -31,7 +31,6 @@ BuildRequires: python3-setuptools
 BuildRequires: python3-wheel
 %endif
 BuildRequires: systemd
-%{?sysusers_requires_compat}
 
 %description
 libgpiod is a C library and tools for interacting with the linux GPIO character 
@@ -129,8 +128,6 @@ find %{buildroot} -name '*.la' -delete
 
 %ldconfig_scriptlets
 
-%pre
-%sysusers_create_compat %{SOURCE1}
 
 %post manager
 %systemd_user_post gpio-manager.service
@@ -189,6 +186,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.2-2
+- Drop call to %sysusers_create_compat
+
 * Wed Jan 29 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.2-1
 - Update to 2.2
 - Disable python bindings (temporary)

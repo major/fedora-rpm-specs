@@ -1,6 +1,6 @@
 Name:           sanlock
 Version:        3.9.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A shared storage lock manager
 License:	GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:            https://pagure.io/sanlock/
@@ -68,6 +68,7 @@ install -D -m 0644 init.d/wdmd.sysconfig \
 
 install -Dd -m 0755 $RPM_BUILD_ROOT/etc/wdmd.d
 
+%if 0%{?fedora} < 42
 %pre
 # As libvirt does, install a sysusers file, but also directly
 # create the user and group to avoid rpm installation errors
@@ -78,6 +79,7 @@ getent passwd sanlock > /dev/null || /usr/sbin/useradd \
     -u 179 -c "sanlock" -s /sbin/nologin -r \
     -g 179 -d /run/sanlock sanlock
 /usr/sbin/usermod -a -G disk sanlock
+%endif
 
 %post
 %systemd_post wdmd.service sanlock.service
@@ -155,6 +157,9 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/libsanlock_client.pc
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.9.5-3
+- Drop %%pre scriptlets to create users and groups
+
 * Mon Jan 27 2025 David Teigland <teigland@redhat.com> - 3.9.5-2
 - retry
 
@@ -167,7 +172,7 @@ developing applications that use %{name}.
 * Sun Jan 12 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.9.4-2
 - Rebuilt for the bin-sbin merge (2nd attempt)
 
-* Wed Aug 09 2024 David Teigland <teigland@redhat.com> - 3.9.4-1
+* Fri Aug 09 2024 David Teigland <teigland@redhat.com> - 3.9.4-1
 - new upstream release, adopt sysusers
 
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.3-4

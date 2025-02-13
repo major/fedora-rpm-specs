@@ -1,7 +1,7 @@
 %global srcname cppy
 
 Name:           python-%{srcname}
-Version:        1.3.0
+Version:        1.3.1
 Release:        %autorelease
 Summary:        C++ headers for C extension development
 

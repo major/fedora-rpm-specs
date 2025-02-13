@@ -28,6 +28,8 @@ Patch0:         unrealircd-6.0.6-crypto-policy.patch
 Patch1:         unrealircd-6.1.8-geoip.patch
 # Same options like in unrealircd(ctl) shell script
 Patch2:         unrealircd-6.0.3-unrealircdctl.patch
+# https://bugs.unrealircd.org/view.php?id=6495
+Patch3:         https://github.com/unrealircd/unrealircd/commit/72af36d2a34cc75b0879c7e291a52f017a06ad08.patch#/unrealircd-6.1.9-c23.patch
 BuildRequires:  gnupg2
 BuildRequires:  gcc
 BuildRequires:  make
@@ -82,6 +84,7 @@ touch -c -r doc/conf/examples/example.conf{.crypto-policy,}
 %patch -P1 -p1 -b .geoip
 touch -c -r doc/conf/modules.default.conf{.geoip,}
 %patch -P2 -p1 -b .unrealircdctl
+%patch -P3 -p1 -b .c23
 
 # Ensure the bundled PCRE2 tarball matches the version in this spec file
 ! tar tfz extras/pcre2.tar.gz | grep -E -m 1 -v '^pcre2-%{pcre2}/'

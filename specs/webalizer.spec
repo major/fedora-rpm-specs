@@ -10,7 +10,7 @@
 Name: webalizer
 Summary: A flexible Web server log file analysis program
 Version: 2.23_08
-Release: 27%{?dist}
+Release: 28%{?dist}
 URL: http://www.mrunix.net/webalizer/
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -33,7 +33,6 @@ BuildRequires: make
 BuildRequires:  gcc
 BuildRequires: gd-devel, %{db_devel}, bzip2-devel
 BuildRequires: GeoIP-devel
-Requires(pre): shadow-utils
 Requires: httpd, crontabs
 
 %description
@@ -54,6 +53,11 @@ Web traffic is coming from easy.
 %patch -P23 -p1 -b .sample_add_search_engines
 %patch -P24 -p1 -b .sample_typo
 %patch -P25 -p1 -b .gcc10_common_support
+
+# Create a sysusers.d config file
+cat >webalizer.sysusers.conf <<EOF
+u webalizer - 'Webalizer' %{_localstatedir}/www/usage -
+EOF
 
 %build
 #CPPFLAGS="-I%{_includedir}/db4" ; export CPPFLAGS
@@ -83,12 +87,8 @@ install -p -m 644 %{SOURCE4} \
 
 rm -f %{buildroot}%{_sysconfdir}/webalizer.conf.sample
 
-%pre
-getent group webalizer >/dev/null || groupadd -r webalizer
-getent passwd webalizer >/dev/null || \
-    useradd -r -g webalizer -d %{_localstatedir}/www/usage -s /sbin/nologin \
-    -c "Webalizer" webalizer
-exit 0
+install -m0644 -D webalizer.sysusers.conf %{buildroot}%{_sysusersdir}/webalizer.conf
+
 
 %files
 %doc README
@@ -101,8 +101,12 @@ exit 0
 %attr(-, webalizer, root) %dir %{_localstatedir}/www/usage
 %attr(-, webalizer, root) %dir %{_localstatedir}/lib/webalizer
 %attr(-, webalizer, root) %{_localstatedir}/www/usage/*.png
+%{_sysusersdir}/webalizer.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.23_08-28
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.23_08-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

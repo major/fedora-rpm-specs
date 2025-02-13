@@ -22,7 +22,7 @@ Summary: CUPS printing system
 Name: cups
 Epoch: 1
 Version: 2.4.11
-Release: 10%{?dist}
+Release: 11%{?dist}
 # backend/failover.c - BSD-3-Clause
 # cups/md5* - Zlib
 # scheduler/colorman.c - Apache-2.0 WITH LLVM-exception AND BSD-2-Clause
@@ -181,6 +181,8 @@ Requires: %{name}-filesystem = %{epoch}:%{version}-%{release}
 Requires: cups-filters
 Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: dbus
+# uses user+group lp
+Requires: setup
 Requires: systemd
 
 # Requires working PrivateTmp (bug #807672)
@@ -837,6 +839,9 @@ rm -f %{cups_serverbin}/backend/smb
 %{_mandir}/man7/ippeveps.7.gz
 
 %changelog
+* Tue Feb 11 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.11-11
+- require setup for user+group lp
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.4.11-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

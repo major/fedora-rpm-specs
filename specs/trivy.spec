@@ -82,6 +82,9 @@ skiptest Test_dbWorker_update TestFSCache_GetBlob TestFSCache_MissingBlobs
 %endif
 # Panicing for unknown reason
 skiptest Test_rpmArchiveAnalyzer_Analyze
+%ifarch %{ix86}
+skiptest TestArtifact_InspectWithMaxImageSize
+%endif
 
 # Terraform tests attempt to connect to the terraform registry
 find pkg/iac/scanners/terraform*/ -name '*_test.go' -print -delete

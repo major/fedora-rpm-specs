@@ -128,20 +128,6 @@ if posix.access("/usr/bin/newaliases", "x") then
     end
   end
 end
--- Ensure pre-allocated users and groups are created immediately on upgrades.
-if posix.access("/usr/bin/systemd-sysusers", "x") then
-  if rpm.spawn ~= nil then
-    rpm.spawn({"/usr/bin/systemd-sysusers"}, {stderr='/dev/null'})
-  else
-    local pid = posix.fork()
-    if pid == 0 then
-      posix.redirect2null(2)
-      posix.exec("/usr/bin/systemd-sysusers")
-    elseif pid > 0 then
-      posix.wait(pid)
-    end
-  end
-end
 -- Ensure pre-allocated tmpfiles are created immediately on upgrades.
 if posix.access("/usr/bin/systemd-tmpfiles", "x") then
   if rpm.spawn ~= nil then

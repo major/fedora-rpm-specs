@@ -4,7 +4,7 @@
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20250109
+Version:	20250211
 Release:	1%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL-1.0-or-later AND GPL-2.0-or-later AND MIT AND LicenseRef-Callaway-Redistributable-no-modification-permitted
@@ -555,6 +555,60 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Tue Feb 11 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250211-1
+- Update to 20250211
+- i915: Update Xe2LPD DMC to v2.28
+- ASoC: tas2781: Add regbin firmware by index for single device
+- rtl_bt: Update RTL8852B BT USB FW to 0x0474_842D
+- iwlwifi: add Bz/gl/ty/So/Ma FW for core93-123 release
+- iwlwifi: update cc/Qu/QuZ firmwares for core93-82 release
+- ASoC: tas2781: Add dsp firmware for new projects
+- amdgpu: DMCUB update for DCN401
+- ath12k: WCN7850 hw2.0: update board-2.bin
+- ath12k: QCN9274 hw2.0: update to WLAN.WBE.1.4.1-00199-QCAHKSWPL_SILICONZ-1
+- ath12k: QCN9274 hw2.0: update board-2.bin
+- ath11k: WCN6750 hw1.0: update board-2.bin
+- ath11k: QCN9074 hw1.0: update to WLAN.HK.2.9.0.1-02146-QCAHKSWPL_SILICONZ-1
+- ath11k: QCA6698AQ hw2.1: add to WLAN.HSP.1.1-04479-QCAHSPSWPL_V1_V2_SILICONZ_IOE-1
+- ath11k: QCA6698AQ hw2.1: add board-2.bin
+- ath11k: QCA6390 hw2.0: update board-2.bin
+- ath11k: QCA2066 hw2.1: update to WLAN.HSP.1.1-03926.13-QCAHSPSWPL_V2_SILICONZ_CE-2.52297.6
+- ath11k: QCA2066 hw2.1: update board-2.bin
+- ath11k: IPQ8074 hw2.0: update to WLAN.HK.2.9.0.1-02146-QCAHKSWPL_SILICONZ-1
+- ath11k: IPQ6018 hw1.0: update to WLAN.HK.2.7.0.1-02409-QCAHKSWPL_SILICONZ-1
+- ath11k: add device-specific firmware for QCM6490 boards
+- qca: add more WCN3950 1.3 NVM files
+- qca: add firmware for WCN3950 chips
+- qca: move QCA6390 firmware to separate section
+- qca: restore licence information for WCN399x firmware
+- qca: Update Bluetooth WCN6750 1.1.0-00476 firmware to 1.1.3-00069
+- qcom:x1e80100: Support for Lenovo T14s G6 Qualcomm platform
+- Update FW files for MRVL SD8997 chips
+- i915: Update Xe2LPD DMC to v2.27
+- qca: Update Bluetooth WCN6856 firmware 2.1.0-00642 to 2.1.0-00650
+- rtl_bt: Update RTL8852B BT USB FW to 0x049B_5037
+- amdgpu: Update ISP FW for isp v4.1.1
+- QCA: Add Bluetooth firmware for QCA6698
+- amlogic: update firmware for w265s2
+- mediatek MT7925: update bluetooth firmware to 20250113153307
+- update firmware for MT7925 WiFi device
+- amdgpu: LOTS of firmware updates
+- qcom: update SLPI firmware for RB5 board
+- amdgpu: DMCUB updates for various AMDGPU ASICs
+- qcom: add DSP firmware for SA8775p platform
+- qcom: correct venus firmware versions
+- qcom: add missing version information
+- Update firmware (v10) for mt7988 internal
+- iwlwifi: add Bz FW for core90-93 release
+- wilc3000: add firmware for WILC3000 WiFi device
+- rtw89: 8852b: update fw to v0.29.29.8
+- rtw89: 8852c: update fw to v0.27.122.0
+- rtw89: 8922a: update fw to v0.35.54.0
+- rtw89: 8852bt: update fw to v0.29.110.0
+- rtw89: 8852b: update fw to v0.29.29.7
+- cirrus: cs35l56: Correct some links to address the correct amp instance
+- Update firmware file for Intel Bluetooth Magnetar/BlazarU/Solar core
+
 * Fri Jan 10 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250109-1
 - Update to 20250109
 - cirrus: cs35l41: Add Firmware for Ayaneo system 1f660105

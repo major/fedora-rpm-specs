@@ -1,3 +1,9 @@
+%if 0%{?suse_version}
+%global rocrand_name librocrand1
+%else
+%global rocrand_name rocrand
+%endif
+
 %global upstreamname rocRAND
 
 %global rocm_release 6.3
@@ -37,9 +43,9 @@
 %define _source_payload	w7T0.xzdio
 %define _binary_payload	w7T0.xzdio
 
-Name:           rocrand
+Name:           %{rocrand_name}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ROCm random number generator
 
 Url:            https://github.com/ROCm/rocRAND
@@ -54,7 +60,6 @@ BuildRequires:  rocm-compilersupport-macros
 BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocm-rpm-macros-modules
 
 %if %{with test}
 BuildRequires:  gtest-devel
@@ -64,7 +69,7 @@ BuildRequires:  gtest-devel
 BuildRequires:  doxygen
 %endif
 
-Requires:       rocm-rpm-macros-modules
+Provides:       rocrand = %{version}-%{release}
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -77,9 +82,15 @@ The rocRAND library is implemented in the HIP programming language and
 optimized for AMD's latest discrete GPUs. It is designed to run on top of AMD's
 Radeon Open Compute ROCm runtime, but it also works on CUDA enabled GPUs.
 
+%if 0%{?suse_version}
+%post -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
+%endif
+
 %package devel
 Summary:        The rocRAND development package
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Provides:       rocrand-devel = %{version}-%{release}
 
 %description devel
 The rocRAND development package.
@@ -97,34 +108,26 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
 
 %build
-for gpu in %{rocm_gpu_list}
-do
-    module load rocm/$gpu
-    %cmake \
-	-DCMAKE_CXX_COMPILER=hipcc \
-	-DCMAKE_C_COMPILER=hipcc \
-	-DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
-	-DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
-	-DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
-        -DCMAKE_BUILD_TYPE=%build_type \
-	-DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
-	   -DCMAKE_SKIP_RPATH=ON \
-           -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
-	   -DROCM_SYMLINK_LIBS=OFF \
-	   -DAMDGPU_TARGETS=${ROCM_GPUS} \
-	   -DCMAKE_INSTALL_LIBDIR=$ROCM_LIB \
-	   -DCMAKE_INSTALL_BINDIR=$ROCM_BIN \
-           -DBUILD_TEST=%build_test
+%cmake \
+    -DCMAKE_CXX_COMPILER=hipcc \
+    -DCMAKE_C_COMPILER=hipcc \
+    -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
+    -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
+    -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
+    -DCMAKE_BUILD_TYPE=%build_type \
+    -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
+    -DCMAKE_SKIP_RPATH=ON \
+    -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
+    -DROCM_SYMLINK_LIBS=OFF \
+    -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
+    -DCMAKE_INSTALL_LIBDIR=%_libdir \
+    -DBUILD_TEST=%build_test
 
-    %cmake_build
-    module purge
-done
+%cmake_build
 
 %install
-for gpu in %{rocm_gpu_list}
-do
-    %cmake_install
-done
+%cmake_install
+
 echo s@%{buildroot}@@ > br.sed
 find %{buildroot}%{_libdir} -name '*.so.*.[0-9]' | sed -f br.sed >  %{name}.files
 find %{buildroot}%{_libdir} -name '*.so.[0-9]'   | sed -f br.sed >> %{name}.files
@@ -152,15 +155,19 @@ fi
 %license LICENSE.txt
 
 %files devel -f %{name}.devel
-%dir %{_libdir}/cmake/%{name}
-%dir %{_includedir}/%{name}
-%{_includedir}/%{name}/*
+%dir %{_libdir}/cmake/rocrand
+%dir %{_includedir}/rocrand
+%{_includedir}/rocrand/*
 
 %if %{with test}
-%files test -f %{name}.test
+%files test -f rocrand.test
 %endif
 
 %changelog
+* Mon Feb 10 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-4
+- Remove split building
+- Fix SLE 15.6
+
 * Mon Jan 20 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-3
 - multithread compress
 

@@ -12,7 +12,7 @@
 
 Name:           flatpak
 Version:        1.16.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Application deployment framework for desktop apps
 
 License:        LGPL-2.1-or-later
@@ -23,10 +23,6 @@ Source0:        https://github.com/flatpak/flatpak/releases/download/%{version}/
 # Add Fedora flatpak repositories
 Source1:        flatpak-add-fedora-repos.service
 %endif
-
-# systemd-sysusers config. Only used for the %%pre macro. Must be kept in sync
-# with the config from upstream sources.
-Source2:        flatpak.sysusers.conf
 
 # ostree not on i686 for RHEL 10
 # https://github.com/containers/composefs/pull/229#issuecomment-1838735764
@@ -74,8 +70,6 @@ BuildRequires:  /usr/bin/socat
 BuildRequires:  /usr/bin/xdg-dbus-proxy
 BuildRequires:  /usr/bin/xmlto
 BuildRequires:  /usr/bin/xsltproc
-
-%{?sysusers_requires_compat}
 
 Requires:       appstream%{?_isa} >= %{appstream_version}
 Requires:       bubblewrap >= %{bubblewrap_version}
@@ -185,9 +179,6 @@ install -D -t %{buildroot}%{_unitdir} %{SOURCE1}
 
 %find_lang %{name}
 
-%pre
-%sysusers_create_compat %{SOURCE2}
-
 
 %if 0%{?fedora}
 %post
@@ -296,6 +287,9 @@ fi
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.16.0-3
+- Drop call to %%sysusers_create_compat
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

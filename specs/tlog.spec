@@ -20,7 +20,7 @@
 
 Name:           tlog
 Version:        14
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Terminal I/O logger
 
 %if "%{_vendor}" == "debbuild"
@@ -60,7 +60,6 @@ Requires:         systemd-sysv
 Requires(preun):  systemd
 Requires(post):   systemd
 Requires(postun): systemd
-%{?sysusers_requires_compat}
 %endif
 
 %else
@@ -141,8 +140,6 @@ install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/%{name}.conf
 %config(noreplace) %{_sysconfdir}/%{name}/%{name}-play.conf
 %{_sysusersdir}/%{name}.conf
 
-%pre
-%sysusers_create_compat %{SOURCE1}
 
 %post
 /sbin/ldconfig
@@ -159,6 +156,9 @@ systemd-tmpfiles --create %{name}.conf >/dev/null 2>&1 || :
 /sbin/ldconfig
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 14-5
+- Drop call to %sysusers_create_compat
+
 * Thu Jan 23 2025 Justin Stephenson <jstephen@redhat.com> - 14-4
 - Resolves: https://bugzilla.redhat.com/show_bug.cgi?id=2341444
 

@@ -51,8 +51,8 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-cp -pav %{SOURCE2} .
 %cargo_prep
+cp -pav %{SOURCE2} %{buildroot}/%{crate_instdir}
 
 %generate_buildrequires
 %cargo_generate_buildrequires

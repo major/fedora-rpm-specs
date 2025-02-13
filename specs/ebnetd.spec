@@ -7,7 +7,7 @@
 
 Name:		ebnetd
 Version:	1.0
-Release:	53%{?dist}
+Release:	54%{?dist}
 License:	GPL-2.0-or-later
 URL:		http://www.sra.co.jp/people/m-kasahr/ebnetd/
 # For systemd.macros
@@ -49,7 +49,6 @@ This package contains a EBNET protocol server.
 
 %package common
 Summary:		Common package for ebnetd families
-Requires(pre):		shadow-utils
 %{?systemd_requires}
 
 %description common
@@ -84,6 +83,11 @@ Note that ebhttpd can't be used for generic WWW purposes.
 %autosetup -p1
 cp -p %{SOURCE1} .
 autoreconf -i # to remove the unnecessary checking like g++
+
+# Create a sysusers.d config file
+cat >ebnetd.sysusers.conf <<EOF
+u ebnetd - '%{gecos}' %{homedir} -
+EOF
 
 %build
 %configure --disable-static --enable-ipv6 --with-eb-conf=%{_libdir}/eb.conf --with-logdir=%{_localstatedir}/log/ebnetd --localstatedir=%{base_homedir}
@@ -129,6 +133,8 @@ mkdir -p $RPM_BUILD_ROOT%{homedir} || :
 # remove unnecessary files
 rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 
+install -m0644 -D ebnetd.sysusers.conf %{buildroot}%{_sysusersdir}/ebnetd.conf
+
 
 %post
 %systemd_post ebnetd.socket
@@ -139,10 +145,6 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %postun
 %systemd_postun_with_restart ebnetd.socket ebnetd-instances.target
 
-%pre common
-getent group %{username} > /dev/null || groupadd -r %{username}
-getent passwd %{username} > /dev/null || useradd -r -g %{username} -d %{homedir} -s /sbin/nologin -c '%{gecos}' %{username}
-exit 0
 
 %post	-n ndtpd
 %systemd_post ndtpd.socket
@@ -183,6 +185,7 @@ exit 0
 %attr (-, ebnetd, ebnetd) %{homedir}
 %attr (-, ebnetd, ebnetd) %{_localstatedir}/run/ebnetd
 %{_tmpfilesdir}/%{name}.conf
+%{_sysusersdir}/ebnetd.conf
 
 %files -n ndtpd
 %{_sbindir}/ndtp*
@@ -201,6 +204,9 @@ exit 0
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.0-54
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Tue Jan 28 2025 Akira TAGOH <tagoh@redhat.com> - 1.0-53
 - Fix FTBFS
   Resolves: rhbz#2340109

@@ -7,7 +7,7 @@
 # Please preserve changelog entries
 #
 # Github
-%global gh_commit    59b3f8ffa2eab9c8258e8638d97c3e37fac9a80e
+%global gh_commit    134921bfca9b02d8f374c48381451da1d98402f9
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     Yoast
 %global gh_project   PHPUnit-Polyfills
@@ -18,13 +18,13 @@
 %global ns_vendor    Yoast
 %global ns_project   PHPUnitPolyfills
 # don't change major version used in package name
-%global major        3
+%global major        4
 %bcond_without       tests
 %global php_home     %{_datadir}/php
 
 Name:           php-%{pk_vendor}-%{pk_project}
-Version:        3.1.0
-Release:        2%{?dist}
+Version:        4.0.0
+Release:        1%{?dist}
 Summary:        Set of polyfills for changed PHPUnit functionality, version %{major}
 
 License:        BSD-3-Clause
@@ -35,10 +35,14 @@ Source1:        makesrc.sh
 
 BuildArch:      noarch
 %if %{with tests}
-BuildRequires:  php(language) >= 7.0
+BuildRequires:  php(language) >= 7.1
 BuildRequires:  php-reflection
 # From composer.json, "require-dev": {
 #        "yoast/yoastcs": "^2.3.0"
+%if 0%{?fedora} >= 41 || 0%{?rhel} >= 10
+BuildRequires:  phpunit12
+BuildRequires:  phpunit11
+%endif
 # phpunit10 is not supported
 BuildRequires:  phpunit9
 BuildRequires:  phpunit8
@@ -46,9 +50,9 @@ BuildRequires:  phpunit8
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer.json, "require": {
-#               "php": ">=7.0",
-#               "phpunit/phpunit": "^6.4.4 || ^7.0 || ^8.0 || ^9.0 || ^11.0"
-Requires:       php(language) >= 7.0
+#               "php": ">=7.1",
+#               "phpunit/phpunit": "^7.5 || ^8.0 || ^9.0 || ^11.0 || ^12.0"
+Requires:       php(language) >= 7.1
 # from phpcompatinfo report on version 0.2.0
 Requires:       php-reflection
 
@@ -112,6 +116,13 @@ if [ -x %{_bindir}/phpunit11 ]; then
     fi
   done
 fi
+if [ -x %{_bindir}/phpunit12 ]; then
+  for cmd in php  php83 php84; do
+    if which $cmd; then
+      $cmd %{_bindir}/phpunit11 --no-coverage || ret=1
+    fi
+  done
+fi
 
 exit $ret
 %endif
@@ -125,6 +136,12 @@ exit $ret
 
 
 %changelog
+* Mon Feb 10 2025 Remi Collet <remi@remirepo.net> - 4.0.0-1
+- update to 4.0.0
+- move to /usr/share/php/Yoast/PHPUnitPolyfills4
+- raise dependency on PHP 7.1
+- add phpunit12
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

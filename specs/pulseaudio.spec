@@ -34,7 +34,7 @@
 Name:           pulseaudio
 Summary:        Improved Linux Sound Server
 Version:        %{pa_major}%{?pa_minor:.%{pa_minor}}
-Release:        5%{?snap:.%{snap}git%{shortcommit}}%{?dist}
+Release:        6%{?snap:.%{snap}git%{shortcommit}}%{?dist}
 License:        LGPL-2.1-or-later
 URL:            http://www.freedesktop.org/wiki/Software/PulseAudio
 %if 0%{?gitrel}
@@ -126,7 +126,6 @@ BuildRequires:  pkgconfig(gstreamer-rtp-1.0) >= 1.16.0
 
 # retired along with -libs-zeroconf, add Obsoletes here for lack of anything better
 Obsoletes:      padevchooser < 1.0
-Requires(pre):  shadow-utils
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       rtkit
 
@@ -278,6 +277,13 @@ sed -i.PACKAGE_VERSION -e "s|^PACKAGE_VERSION=.*|PACKAGE_VERSION=\'%{version}\'|
 #endif
 %endif
 
+# Create a sysusers.d config file
+cat >pulseaudio.sysusers.conf <<EOF
+g pulse-access -
+g pulse-rt -
+u pulse 171 'PulseAudio System Daemon' %{_localstatedir}/run/pulse -
+EOF
+
 
 %build
 %meson \
@@ -352,6 +358,8 @@ rm -fv $RPM_BUILD_ROOT%{_bindir}/pa-info
 
 %find_lang %{name}
 
+install -m0644 -D pulseaudio.sysusers.conf %{buildroot}%{_sysusersdir}/pulseaudio.conf
+
 
 %check
 %if 0%{?tests}
@@ -373,19 +381,6 @@ fi
 
 
 %if 0%{?enable_daemon}
-
-%pre
-getent group pulse-access >/dev/null || groupadd -r pulse-access
-getent group pulse-rt >/dev/null || groupadd -r pulse-rt
-getent group pulse >/dev/null || groupadd -f -g 171 -r pulse
-if ! getent passwd pulse >/dev/null ; then
-    if ! getent passwd 171 >/dev/null ; then
-      useradd -r -u 171 -g pulse -d %{_localstatedir}/run/pulse -s /sbin/nologin -c "PulseAudio System Daemon" pulse
-    else
-      useradd -r -g pulse -d %{_localstatedir}/run/pulse -s /sbin/nologin -c "PulseAudio System Daemon" pulse
-    fi
-fi
-exit 0
 
 %posttrans
 # handle renamed module-cork-music-on-phone => module-role-cork
@@ -529,6 +524,7 @@ systemctl --no-reload preset --global pulseaudio.socket >/dev/null 2>&1 || :
 %dir %{_datadir}/zsh/
 %dir %{_datadir}/zsh/site-functions/
 %{_datadir}/zsh/site-functions/_pulseaudio
+%{_sysusersdir}/pulseaudio.conf
 
 %files qpaeq
 %{_bindir}/qpaeq
@@ -668,6 +664,9 @@ systemctl --no-reload preset --global pulseaudio.socket >/dev/null 2>&1 || :
 
 
 %changelog
+* Thu Jan 23 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 17.0-6
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 17.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,10 +1,12 @@
 Name:           hpx
 Version:        1.10.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        General Purpose C++ Runtime System
 License:        BSL-1.0
 URL:            https://hpx.stellar-group.org/
 Source0:        https://github.com/STEllAR-GROUP/hpx/archive/%{version}/%{name}-%{version}.tar.gz
+# Upstream patch to be used by kokkos, https://github.com/kokkos/kokkos/pull/7331#discussion_r1951626331
+Patch0:         hpx_handle.patch
 
 BuildRequires:  gcc-c++ >= 4.9
 BuildRequires:  gperftools-devel
@@ -274,6 +276,9 @@ done
 %{_libdir}/lib*.so*
 
 %changelog
+* Tue Feb 11 2025 Christoph Junghans <junghans@votca.org> - 1.10.0-6
+- Add upstream patch for custom hpx_handle
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

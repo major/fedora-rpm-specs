@@ -2,7 +2,7 @@ Name:           dionaea
 Version:        0.11.0
 Summary:        Low interaction honeypot
 # Show as the RPM release number (keep same number line for tarball and git builds)
-%global         baserelease     3
+%global         baserelease     4
 
 %if 0%{?rhel}
 # Group needed for EPEL
@@ -181,7 +181,6 @@ Requires(preun): initscripts
 Requires(postun): initscripts
 %endif
 
-Requires(pre): shadow-utils
 
 %description
 Dionaea is low interaction honeypot. It is meant to be a nepenthes successor,
@@ -265,6 +264,11 @@ sed -i -e 's|#!/bin/python3|#!/usr/bin/python3|g; s|#!/usr/bin/env python3|#!/us
     modules/python/util/logsql2postgres.py \
     modules/python/util/gnuplotsql.py \
     modules/python/util/updateccs.py
+
+# Create a sysusers.d config file
+cat >dionaea.sysusers.conf <<EOF
+u dionaea - 'Dionaea honeypot' /home/dionaea -
+EOF
 
 
 
@@ -351,6 +355,8 @@ touch %{buildroot}%{_sharedstatedir}/%{name}/sipaccounts.sqlite
 rm -f %{buildroot}/usr/share/doc/dionaea/LICENSE \
     %{buildroot}/usr/share/doc/dionaea/LICENSE.openssl
 
+install -m0644 -D dionaea.sysusers.conf %{buildroot}%{_sysusersdir}/dionaea.conf
+
 
 
 # ============= Scriptlets ==========================================================
@@ -381,11 +387,6 @@ rm -f %{buildroot}/usr/share/doc/dionaea/LICENSE \
 %endif
 
 
-%pre
-getent group dionaea >/dev/null || groupadd -r dionaea || :
-getent passwd dionaea >/dev/null || \
-    useradd -r -g dionaea -d /home/dionaea -s /sbin/nologin \
-    -c "Dionaea honeypot" dionaea || :
 
 
 
@@ -423,6 +424,7 @@ getent passwd dionaea >/dev/null || \
 %else
 %{_initrddir}/*
 %endif
+%{_sysusersdir}/dionaea.conf
 
 
 
@@ -441,6 +443,9 @@ getent passwd dionaea >/dev/null || \
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.11.0-4.20210228git4e459f1
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-3.20210228git4e459f1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

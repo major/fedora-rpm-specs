@@ -9,7 +9,7 @@
 
 Name: crossfire
 Version: 1.71.0
-Release: 31%{?dist}
+Release: 32%{?dist}
 Summary: Server for hosting crossfire games
 # All files GPLv2+ except server/daemon.c which also has MIT attributions
 License: GPL-2.0-or-later and MIT
@@ -125,6 +125,11 @@ sed -i 's#    (void) open ("/", O_RDONLY);#    (void) open ("/var/log/crossfire/
 # Change the location of the tmp directory
 sed -i "s@^#define TMPDIR \"/tmp\"@#define TMPDIR \"%{_var}/games/%{name}/tmp\"@" include/config.h
 
+# Create a sysusers.d config file
+cat >crossfire.sysusers.conf <<EOF
+u crossfire - 'Daemon account for the crossfire server' %{_datadir}/%{name} -
+EOF
+
 %build
 # Change the localstatedir so that the variable data files are
 # put in /var/games/crossfire instead of /var/crossfire.  This is
@@ -218,13 +223,9 @@ install -pD -m 0644 %{SOURCE8} $RPM_BUILD_ROOT%{logwatch_conf}/logfiles/%{name}.
 install -pD -m 0755 %{SOURCE9} $RPM_BUILD_ROOT%{logwatch_scripts}/services/%{name}
 install -pD -m 0644 %{SOURCE10} $RPM_BUILD_ROOT%{logwatch_conf}/services/%{name}.conf
 
+install -m0644 -D crossfire.sysusers.conf %{buildroot}%{_sysusersdir}/crossfire.conf
 
-%pre
-getent group crossfire >/dev/null || groupadd -r crossfire
-getent passwd crossfire >/dev/null || \
-useradd -r -g crossfire -d %{_datadir}/%{name} -s /sbin/nologin \
-    -c "Daemon account for the crossfire server" crossfire
-exit 0
+
 
 %post
 if [ $1 -eq 1 ] ; then 
@@ -313,6 +314,7 @@ fi
 %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
 %{_mandir}/man6/*
 %{_unitdir}/%{name}.service
+%{_sysusersdir}/crossfire.conf
 
 %files doc
 %doc doc/Developers doc/playbook* doc/scripts doc/spell-docs doc/spoiler doc/spoiler-html doc/*.txt
@@ -339,6 +341,9 @@ fi
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.71.0-32
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1.71.0-31
 - Add explicit BR: libxcrypt-devel
 

@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/zyantific/zycore-c
-Version:        1.5.0
+Version:        1.5.2
 %forgemeta
 
 %global sover %{echo %{version} | cut -d '.' -f 1,2}

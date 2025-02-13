@@ -1,6 +1,6 @@
 Name:           openiked
 Version:        7.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A free Internet Key Exchange (IKEv2) implementation
 
 License:        ISC
@@ -46,8 +46,6 @@ install -p -m644 %{SOURCE5} %{buildroot}%{_unitdir}/openiked-keygen.target
 %{__cmake_builddir}/regress/dh/dhtest
 %{__cmake_builddir}/regress/parser/test_parser
 
-%pre
-%sysusers_create_compat %{SOURCE2}
 
 %post
 %systemd_post openiked.service
@@ -87,6 +85,9 @@ install -p -m644 %{SOURCE5} %{buildroot}%{_unitdir}/openiked-keygen.target
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 7.3-6
+- Drop call to %sysusers_create_compat
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

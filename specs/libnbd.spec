@@ -17,11 +17,11 @@
 %global verify_tarball_signature 1
 
 # The source directory.
-%global source_directory 1.21-development
+%global source_directory 1.22-stable
 
 Name:           libnbd
-Version:        1.21.6
-Release:        3%{?dist}
+Version:        1.22.0
+Release:        1%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -376,6 +376,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Tue Feb 11 2025 Richard W.M. Jones <rjones@redhat.com> - 1.22.0-1
+- New upstream stable version 1.22.0
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.21.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

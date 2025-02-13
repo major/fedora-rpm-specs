@@ -3,7 +3,7 @@
 %{?commit:%global shortcommit %(c=%{commit}; echo ${c:0:7})}
 
 Name:           asahi-audio
-Version:        2.5%{?commit:^%{date}git%{shortcommit}}
+Version:        2.6%{?commit:^%{date}git%{shortcommit}}
 Release:        %autorelease
 Summary:        PipeWire DSP profiles for Apple Silicon machines
 License:        MIT

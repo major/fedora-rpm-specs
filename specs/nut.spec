@@ -14,7 +14,7 @@
 Summary: Network UPS Tools
 Name: nut
 Version: 2.8.2.1
-Release: 4%{?dist}.1.git20240703pr2505
+Release: 5%{?dist}.1.git20240703pr2505
 License: GPL-2.0-or-later AND GPL-3.0-or-later
 Url: https://www.networkupstools.org/
 Source: https://www.networkupstools.org/source/2.8/%{name}-%{version}.tar.gz
@@ -25,11 +25,12 @@ Patch2: nut-2.8.0-piddir-owner.patch
 Patch9: nut-2.6.5-rmpidf.patch
 Patch15: nut-c99-strdup.patch
 
-Requires(pre): shadow-utils
 Requires(post): coreutils systemd
 Requires(preun): systemd
 Requires(postun): coreutils systemd
 Recommends: nut-xml
+Requires: group(dialout)
+Requires: group(tty)
 
 BuildRequires: make
 BuildRequires: autoconf
@@ -90,12 +91,12 @@ live status tracking on web pages, and more.
 Summary: Network UPS Tools client monitoring utilities
 Requires(post): systemd
 Requires(preun): systemd
-Requires(pre): shadow-utils
 %if %{with python2}
 Requires: pygtk2, pygtk2-libglade
 #only for python and gui part
 %endif
-#Requires:
+Requires: group(dialout)
+Requires: group(tty)
 
 %description client
 This package includes the client utilities that are required to monitor a
@@ -105,7 +106,6 @@ attached to a different computer on the network.
 %package cgi
 Summary: CGI utilities for the Network UPS Tools
 Requires: %{name}-client = %{version}-%{release} webserver
-Requires(pre): shadow-utils
 
 %description cgi
 This package includes CGI programs for accessing UPS status via a web
@@ -143,6 +143,13 @@ find . -mtime -1 -print0 | xargs -0 touch --reference %{SOURCE0}
 
 # fix python site packages check
 sed -i 's|\(PYTHON3\?_SITE_PACKAGES=\)".*"|\1"%{python3_sitelib}"|' m4/nut_check_python.m4
+
+# Create a sysusers.d config file
+cat >nut.sysusers.conf <<EOF
+u nut %{nut_uid} 'Network UPS Tools' %{_localstatedir}/lib/ups /bin/false
+m nut dialout
+m nut tty
+EOF
 
 %build
 %if 0%{?fedora} > 38
@@ -250,11 +257,9 @@ ln -s %{_datadir}/nut/nut-monitor/nut-monitor %{buildroot}%{_bindir}/nut-monitor
 touch %{buildroot}/%{piddir}/upsmon.pid
 chmod 0644 %{buildroot}/%{piddir}/upsmon.pid
 
-%pre
-/usr/sbin/useradd -c "Network UPS Tools" -u %{nut_uid}  \
-        -s /bin/false -r -d %{_localstatedir}/lib/ups %{name} 2> /dev/null || :
-/usr/sbin/usermod -G dialout,tty %{name}
+install -m0644 -D nut.sysusers.conf %{buildroot}%{_sysusersdir}/nut.conf
 
+%pre
 # do not let upsmon run during upgrade rhbz#916472
 # phase 1: stop upsmon before upsd changes
 if [ "$1" = "2" ]; then
@@ -273,15 +278,7 @@ fi
 %postun
 %systemd_postun_with_restart nut-driver.target nut-server.service
 
-%pre client
-/usr/sbin/useradd -c "Network UPS Tools" -u %{nut_uid} \
-        -s /bin/false -r -d %{_localstatedir}/lib/ups %{name} 2> /dev/null || :
-/usr/sbin/usermod -G dialout,tty %{name}
 
-%pre cgi
-/usr/sbin/useradd -c "Network UPS Tools" -u %{nut_uid} \
-        -s /bin/false -r -d %{_localstatedir}/lib/ups %{name} 2> /dev/null || :
-/usr/sbin/usermod -G dialout,tty %{name}
 
 %post client
 %systemd_post nut-monitor.service nut.target
@@ -414,6 +411,7 @@ fi
 %{_mandir}/man8/upsdrvctl.8.gz
 %{_mandir}/man8/upsdrvsvcctl.8.gz
 %{_mandir}/man8/usbhid-ups.8.gz
+%{_sysusersdir}/nut.conf
 
 %files client
 %license COPYING LICENSE-GPL2 LICENSE-GPL3
@@ -457,6 +455,7 @@ fi
 %{_datadir}/pixmaps/nut-monitor.png
 %{_datadir}/applications/nut-monitor.desktop
 %endif
+%{_sysusersdir}/nut.conf
 
 %files cgi
 %config(noreplace) %attr(644,root,root) %{_sysconfdir}/ups/hosts.conf
@@ -491,6 +490,9 @@ fi
 %{_libdir}/pkgconfig/libnutscan.pc
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.8.2.1-5.1.git20240703pr2505
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Wed Jan 29 2025 Michal Hlavinka <mhlavink@redhat.com> - 2.8.2.1-4.1.git20240703pr2505
 - fix ftbfs, make it build with unified bin/sbin
 

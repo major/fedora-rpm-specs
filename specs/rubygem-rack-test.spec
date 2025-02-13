@@ -1,30 +1,26 @@
 %global gem_name rack-test
 
 Name: rubygem-%{gem_name}
-Version: 1.1.0
-Release: 12%{?dist}
+Version: 2.2.0
+Release: 1%{?dist}
 Summary: Simple testing API built on Rack
 License: MIT
-URL: http://github.com/rack-test/rack-test
+URL: https://github.com/rack/rack-test
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# git clone https://github.com/rack-test/rack-test.git && cd rack-test
-# git archive -v -o rack-test-1.1.0-spec.tar.gz v1.1.0 spec/
+# git clone https://github.com/rack/rack-test.git && cd rack-test
+# git archive -v -o rack-test-2.2.0-spec.tar.gz v2.2.0 spec/
 Source1: %{gem_name}-%{version}-spec.tar.gz
-# https://github.com/rack/rack-test/commit/8e5a77b0e962a4c7bff45c5899eedf49c511c80c
-# Adjust to ruby3.4 Hash#inspect formatting change
-Patch0:  rack-test-8e5a77b-ruby34-hash-inspect-change.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby >= 2.2.2
-BuildRequires: rubygem(rspec)
-BuildRequires: rubygem(sinatra)
+BuildRequires: rubygem(minitest)
+BuildRequires: rubygem(rack)
 BuildArch: noarch
 
 %description
 Rack::Test is a small, simple testing API for Rack apps. It can be used on its
 own or as a reusable starting point for Web frameworks and testing libraries
-to build on. Most of its initial functionality is an extraction of Merb 1.0's
-request helpers feature.
+to build on.
 
 
 %package doc
@@ -37,10 +33,6 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n  %{gem_name}-%{version} -b 1
-(
-cd %{_builddir}
-%patch -P0 -p1
-)
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -58,21 +50,16 @@ cp -a .%{gem_dir}/* \
 
 
 %check
-pushd .%{gem_instdir}
-ln -s %{_builddir}/spec spec
+( cd .%{gem_instdir}
+cp -a %{builddir}/spec spec
 
-# We don't care about code coverage.
-sed -i '/simplecov/,/^end$/ s/^/#/' spec/spec_helper.rb
+# Avoid minitest-global_expectations in exchange of lot of deprecation warnings.
+# https://github.com/rack/rack/pull/1394
+mkdir -p spec/minitest/global_expectations
+echo 'require "minitest/autorun"' > spec/minitest/global_expectations/autorun.rb
 
-# Don't use Bundler.
-sed -i "/require 'bundler\/setup'/ s/^/#/" spec/spec_helper.rb
-
-# Workaround test error due to Rack 2.2.0+ changes.
-# https://github.com/rack/rack-test/issues/260
-sed -i "/expect(body).to receive(:close)/ s/^/#/" spec/rack/test_spec.rb
-
-rspec spec
-popd
+ruby -Ispec -e 'Dir.glob "./spec/**/*_spec.rb", &method(:require)'
+)
 
 %files
 %dir %{gem_instdir}
@@ -87,6 +74,10 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Mon Feb 10 2025 Vít Ondruch <vondruch@redhat.com> - 2.2.0-1
+- Update to Rack::Test 2.2.0
+  rhbz#2100911
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

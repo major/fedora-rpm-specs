@@ -4,8 +4,8 @@
 %bcond_without perl_CryptX_enables_optional_test
 
 Name:           perl-CryptX
-Version:        0.084
-Release:        2%{?dist}
+Version:        0.085
+Release:        1%{?dist}
 Summary:        Cryptographic toolkit
 # src/ltc/*:    Unlicense
 # src/ltm/*:    Unlicense
@@ -154,6 +154,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Feb 11 2025 Xavier Bachelot <xavier@bachelot.org> - 0.085-1
+- Update to 0.085 (RHBZ#2344451)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.084-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

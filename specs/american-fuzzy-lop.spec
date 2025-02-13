@@ -19,6 +19,10 @@ Source0:       %{forgesource}
 # For running the tests:
 Source1:       hello.c
 
+# Fix for:
+# https://github.com/AFLplusplus/AFLplusplus/issues/2292#issuecomment-2650461922
+Patch:         https://github.com/AFLplusplus/AFLplusplus/commit/65b99d25e1a41aad90f015a583c6a786f99a07b6.patch
+
 # Only specific architectures are supported by upstream.
 # On non-x86 only afl-clang-fast* are built.
 # i686 support was silently removed in AFL++ 4.10c
@@ -95,10 +99,6 @@ This subpackage contains clang and clang++ support for
 clang_optflags="$( echo '%{optflags}' | sed 's/-mtls-dialect=gnu2//' )"
 export CFLAGS="$clang_optflags"
 export CXXFLAGS="$clang_optflags"
-
-# GCC 15 breaks AFL builds, see:
-# https://github.com/AFLplusplus/AFLplusplus/issues/2292
-CFLAGS="$CFLAGS -std=gnu17"
 
 %ifnarch x86_64
 AFL_NO_X86=1 \
@@ -293,6 +293,9 @@ test -n '%{clang_major}'
 
 
 %changelog
+* Tue Feb 11 2025 Richard W.M. Jones <rjones@redhat.com> - 4.31c-2
+- Add upstream fix for GCC 15, remove -std hack.
+
 * Mon Feb 10 2025 Richard W.M. Jones <rjones@redhat.com> - 4.31c-1
 - New version 4.31c (RHBZ#2344642)
 

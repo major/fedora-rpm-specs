@@ -1,13 +1,13 @@
-%global commit0 28e913e7114dae485747ccd8f9fd436ada2195f0
+%global commit0 2828df54594673653a641ab551caf6c6b1bfeee5
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
-%global snapdate 20250121
+%global snapdate 20250211
 
 %global srcname migen
 
 Name:           python-%{srcname}
 Version:        0.9.2
-Release:        30.%{snapdate}git%{shortcommit0}%{?dist}
+Release:        31.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        A Python toolbox for building complex digital hardware
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -45,7 +45,7 @@ and elegant digital hardware designs.
 sed -r -i 's/(migen_version = ).*/\1"%{version}-%{release}"/' doc/conf.py
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -57,9 +57,6 @@ PYTHONPATH=. sphinx-build-3 -b man doc _build/man
 %pyproject_save_files %{srcname}
 install -Dpm644 -t %{buildroot}%{_mandir}/man1 _build/man/%{srcname}.1
 
-%check
-%tox
-
 # Note that there is no %%files section for the unversioned python module
 %files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
@@ -67,7 +64,12 @@ install -Dpm644 -t %{buildroot}%{_mandir}/man1 _build/man/%{srcname}.1
 %{_mandir}/man1/%{srcname}.1*
 
 %changelog
-* Tue Jan 21 2025 Gabriel Somlo <gsomlo@gmail.com> - 0.9.2-26.20250121git28e913e
+* Tue Feb 11 2025 Gabriel Somlo <gsomlo@gmail.com> - 0.9.2-31.20250211git2828df5
+- remove -t from pyproject_buildrequires
+- remove tox checks section
+- update to newer snapshot
+
+* Tue Jan 21 2025 Gabriel Somlo <gsomlo@gmail.com> - 0.9.2-30.20250121git28e913e
 - update to newer snapshot
 
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-29.20240716git66f5963

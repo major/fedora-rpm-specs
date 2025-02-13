@@ -1472,6 +1472,16 @@ murmur_hash
 %endif
 
 %ifarch ppc64le
+# Unexplained
+#
+# Times out at:
+# [ RUN      ] RlsEnd2endTest.RlsAuthorityDeathTest
+#
+# Confirmed in 1.48.1 2025-02-10
+rls_end2end
+%endif
+
+%ifarch ppc64le
 # Times out, apparently due to an unsafe combination of death tests and
 # threads:
 #
@@ -1482,6 +1492,8 @@ murmur_hash
 # https://github.com/google/googletest/blob/master/docs/advanced.md#death-tests-and-threads
 # for more explanation and suggested solutions, especially if this is the last
 # message you see before your test times out.
+#
+# Confirmed in 1.48.1 2025-02-09
 service_config
 %endif
 

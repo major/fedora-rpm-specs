@@ -1,27 +1,26 @@
 %global srcname anyio
 
-%if %{defined fedora}
-# As of 2022-03-04, neither EL9 or EPEL9 have python3-uvloop
-%bcond_without tests
-# As of 2022-03-04, neither EL9 or EPEL9 have python3-sphinx-autodoc-typehints
-%bcond_without docs
-%endif
-
 %global common_description %{expand:
 AnyIO is an asynchronous networking and concurrency library that works on top
 of either asyncio or trio.  It implements trio-like structured concurrency (SC)
 on top of asyncio, and works in harmony with the native SC of trio itself.}
 
 Name:           python-%{srcname}
-Version:        3.7.1
-Release:        6%{?dist}
+Version:        4.8.0
+Release:        1%{?dist}
 Summary:        Compatibility layer for multiple asynchronous event loop implementations
 License:        MIT
 URL:            https://github.com/agronholm/anyio
-Source:         %pypi_source
+Source:         %{pypi_source %{srcname}}
+
+# Downstream-only: remove the hard test dependency on exceptiongroup
+#
+# This can’t be sent upstream because it uses syntax introduced in Python 3.11.
+Patch:          0001-Downstream-only-remove-the-hard-test-dependency-on-e.patch
 
 BuildArch:      noarch
 
+BuildRequires:  tomcli
 
 %description %{common_description}
 
@@ -29,6 +28,11 @@ BuildArch:      noarch
 %package -n python3-%{srcname}
 Summary:        %{summary}
 BuildRequires:  python3-devel
+# Sphinx-generated HTML documentation is not suitable for packaging; see
+# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
+# We could perhaps generate PDF documentation as a substitute, but instead we
+# simply drop the -doc subpackage.
+Obsoletes:      python-%{srcname}-doc < 3.7.1-7
 
 
 %description -n python3-%{srcname} %{common_description}
@@ -37,71 +41,45 @@ BuildRequires:  python3-devel
 %pyproject_extras_subpkg -n python3-%{srcname} trio
 
 
-%if %{with docs}
-%package -n python-%{srcname}-doc
-Summary:        anyio documentation
-
-
-%description -n python-%{srcname}-doc
-Documentation for anyio
-%endif
-
-
 %prep
 %autosetup -n %{srcname}-%{version} -p1
 
-# disable coverage test requirement
-sed -e '/"coverage/d' -i pyproject.toml
-
-# relax the trio version for trio extra
-# some tests fail with trio for now
-# we might need to upgrade to
-# https://github.com/agronholm/anyio/commit/082169494be46f2f6d32db2c8950ba374504e048 or later
-sed -i 's/"trio < 0.22"/"trio"/' pyproject.toml
-
-# despite the prescense of a pytest "network" marker, socket tests still fail
-# without internet access
-rm tests/test_sockets.py
+# - Disable coverage test requirement
+#   https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+# - Drop test dependency on python3dist(truststore), not packaged
+# - Drop test dependency on python3dist(uvloop), packaged but outdated and
+#   FTBFS, https://bugzilla.redhat.com/show_bug.cgi?id=2307494,
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2341233
+tomcli set pyproject.toml lists delitem --type regex --no-first \
+    project.optional-dependencies.test '(coverage|truststore|uvloop)\b.*'
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x trio%{?with_tests:,test}%{?with_docs:,doc}
+%pyproject_buildrequires -x trio,test
 
 
 %build
 %pyproject_wheel
-%if %{with docs}
-# generate html docs
-PYTHONPATH=${PWD} sphinx-build-3 docs html
-# remove the sphinx-build leftovers
-rm -rf html/.{doctrees,buildinfo}
-%endif
 
 
 %install
 %pyproject_install
-%pyproject_save_files %{srcname}
+%pyproject_save_files -l %{srcname}
 
 
-%if %{with tests}
 %check
-# tests deselected with -k fail with trio 0.22
-%pytest -Wdefault -m "not network" -k "not ((trio and exception_group) or test_properties)"
-%endif
+%pytest -Wdefault -m "not network" -k "${k-}" -rsx -v
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
 
 
-%if %{with docs}
-%files -n python-%{srcname}-doc
-%doc html
-%license LICENSE
-%endif
-
-
 %changelog
+* Mon Feb 10 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.8.0-1
+- Stop generating HTML documentation; Obsolete the -doc subpackage
+- Update to 4.8.0 (close RHBZ#2236330)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -12,7 +12,7 @@
 Summary:        WLAN detector, sniffer and IDS
 Name:           kismet
 Version:        %_rpmversion
-Release:        8%{?dist}
+Release:        9%{?dist}
 License:        GPL-2.0-or-later
 URL:            http://www.kismetwireless.net/
 Source0:        http://www.kismetwireless.net/code/%{name}-%_version.tar.xz
@@ -62,6 +62,11 @@ sed -i \
 
 sed -i s/@VERSION@/%{version}/g packaging/kismet.pc.in
 
+# Create a sysusers.d config file
+cat >kismet.sysusers.conf <<EOF
+g kismet -
+EOF
+
 %build
 
 export ac_cv_lib_uClibcpp_main=no # we do not want to build against uClibc++, even when available
@@ -77,8 +82,8 @@ export LDFLAGS='-Wl,--as-needed'
 %install
 BIN=$RPM_BUILD_ROOT/bin ETC=$RPM_BUILD_ROOT/etc %{__make} suidinstall DESTDIR=%{?buildroot} INSTALL="%{__install} -p"
 
-%pre
-getent group kismet >/dev/null || groupadd -f -r kismet
+install -m0644 -D kismet.sysusers.conf %{buildroot}%{_sysusersdir}/kismet.conf
+
 
 %files
 %doc README*
@@ -109,8 +114,12 @@ getent group kismet >/dev/null || groupadd -f -r kismet
 %attr(4755,root,root) %{_bindir}/kismet_cap_ti_cc_2540
 %{_datadir}/kismet
 %{_libdir}/pkgconfig/kismet.pc
+%{_sysusersdir}/kismet.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.0.2023.07.R1-9
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2023.07.R1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -50,7 +50,7 @@
 Summary: Lightning fast webserver with light system requirements
 Name: lighttpd
 Version: 1.4.77
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: BSD-3-Clause
 URL: http://www.lighttpd.net/
 Source0: http://download.lighttpd.net/lighttpd/releases-1.4.x/lighttpd-%{version}.tar.xz
@@ -315,7 +315,6 @@ WebDAV module for lighttpd.
 %package filesystem
 Summary: The basic directory layout for lighttpd
 BuildArch: noarch
-Requires(pre): /usr/sbin/useradd
 
 %description filesystem
 The lighttpd-filesystem package contains the basic directory layout
@@ -326,6 +325,11 @@ for the directories.
 %prep
 %setup -q
 %patch -P 0 -p0 -b .defaultconf
+
+# Create a sysusers.d config file
+cat >lighttpd.sysusers.conf <<EOF
+u lighttpd - 'lighttpd web server' %{webroot} -
+EOF
 
 %build
 autoreconf -if
@@ -411,9 +415,8 @@ echo 'D /run/lighttpd 0750 lighttpd lighttpd -' > \
 
 mkdir -p %{buildroot}%{_var}/lib/lighttpd/
 
-%pre filesystem
-/usr/sbin/useradd -s /sbin/nologin -M -r -d %{webroot} \
-    -c 'lighttpd web server' lighttpd &>/dev/null || :
+install -m0644 -D lighttpd.sysusers.conf %{buildroot}%{_sysusersdir}/lighttpd.conf
+
 
 %post
 %systemd_post lighttpd.service
@@ -589,8 +592,12 @@ mkdir -p %{buildroot}%{_var}/lib/lighttpd/
 %attr(0750, lighttpd, lighttpd) %{_var}/lib/lighttpd/
 %attr(0750, lighttpd, lighttpd) %{_var}/log/lighttpd/
 %attr(0700, lighttpd, lighttpd) %dir %{webroot}/
+%{_sysusersdir}/lighttpd.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.4.77-4
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1.4.77-3
 - Add explicit BR: libxcrypt-devel
 

@@ -4,7 +4,7 @@
 Name: 		newscache
 Summary: 	Free cache server for USENET News
 Version: 	1.2
-Release: 	0.50.rc6%{?dist}
+Release: 	0.51.rc6%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
 URL:		http://www.linuxhacker.at/newscache/
@@ -22,7 +22,6 @@ BuildRequires:  gcc-c++
 BuildRequires:	libtool, texinfo, pam-devel
 BuildRequires:	systemd-units
 
-Requires(pre): shadow-utils
 Requires(post):	systemd-units
 Requires(preun): systemd-units
 Requires(postun): systemd-units
@@ -57,6 +56,11 @@ pushd too/deep/socket++-%{socketver}
 popd
 
 %patch -P4 -p1
+
+# Create a sysusers.d config file
+cat >newscache.sysusers.conf <<EOF
+u news - 'News user' /etc/news -
+EOF
 
 %build
 
@@ -122,13 +126,9 @@ EOF
 chmod 755 %{name}
 popd
 
+install -m0644 -D newscache.sysusers.conf %{buildroot}%{_sysusersdir}/newscache.conf
 
-%pre
 
-getent group news >/dev/null || groupadd -r news
-getent passwd news >/dev/null || \
-    useradd -r -g news -d /etc/news -s /sbin/nologin -c 'News user' news
-exit 0
 
 
 %post
@@ -156,9 +156,13 @@ exit 0
 %doc AUTHORS COPYING NEWS README THANKS TODO
 %doc doc/newscache*.txt etc/*-dist
 %{_mandir}/*/*
+%{_sysusersdir}/newscache.conf
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.2-0.51.rc6
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1.2-0.50.rc6
 - Add explicit BR: libxcrypt-devel
 

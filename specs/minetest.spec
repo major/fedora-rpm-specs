@@ -2,7 +2,7 @@
 %global minetest_game_version 5.8.0
 Name:     minetest
 Version:  5.10.0
-Release:  3%{?dist}
+Release:  4%{?dist}
 Summary:  Multiplayer infinite-world block sandbox with survival mode
 
 # Automatically converted from old format: LGPLv2+ and CC-BY-SA - review is highly recommended.
@@ -70,7 +70,6 @@ mode, mods. Public multiplayer servers are available.
 %package server
 Summary:  Minetest multiplayer server
 
-Requires(pre):    shadow-utils
 Requires(post):   systemd
 Requires(preun):  systemd
 Requires(postun): systemd
@@ -101,6 +100,11 @@ rm -vrf lib/jsoncpp lib/lua lib/gmp
 find . -name .gitignore -print -delete
 find . -name .travis.yml -print -delete
 find . -name .luacheckrc -print -delete
+
+# Create a sysusers.d config file
+cat >minetest.sysusers.conf <<EOF
+u minetest - 'Minetest multiplayer server' %{_sharedstatedir}/%{name} /bin/bash
+EOF
 
 %build
 %ifarch aarch64
@@ -173,12 +177,8 @@ rm -rf %{buildroot}%{_datadir}/doc/luanti
 
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/net.%{name}.%{name}.metainfo.xml
 
-%pre server
-getent group %{name} >/dev/null || groupadd -r %{name}
-getent passwd %{name} >/dev/null || \
-    useradd -r -g %{name} -d %{_sharedstatedir}/%{name} -s /bin/bash \
-    -c "Minetest multiplayer server" %{name}
-exit 0
+install -m0644 -D minetest.sysusers.conf %{buildroot}%{_sysusersdir}/minetest.conf
+
 
 %post server
 %systemd_post %{name}@default.service
@@ -216,6 +216,7 @@ exit 0
 %config(noreplace) %attr(-,minetest,minetest)%{_sysconfdir}/%{name}/
 %attr(-,minetest,minetest)%{_sysconfdir}/sysconfig/%{name}/
 %{_mandir}/man6/luantiserver.*
+%{_sysusersdir}/minetest.conf
 
 %files data-common
 %license doc/lgpl-2.1.txt
@@ -223,6 +224,9 @@ exit 0
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 5.10.0-4
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.10.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

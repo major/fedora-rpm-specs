@@ -8,7 +8,7 @@ the openpyxl project but is now a standalone module.
 
 Name:           python-%{pypi_name}
 Version:        1.1.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -27,7 +27,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
 BuildRequires:  python3-lxml
-Requires:       python3-jdcal
+Requires:       python3-lxml
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
@@ -59,6 +59,9 @@ py.test-%{python3_version}
 %{python3_sitelib}/%{pypi_name}/
 
 %changelog
+* Tue Feb 11 2025 Julien Enselme <jujens@jujens.eu> - 1.1.0-12
+- Remove useless jdcal dependency.
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

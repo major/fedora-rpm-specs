@@ -17,7 +17,7 @@
 Name:           zabbix
 Epoch:          1
 Version:        7.2.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Open-source monitoring solution for your IT infrastructure
 
 # TODO - Note additional licenses in src/go when we start building with go
@@ -176,7 +176,6 @@ Requires:            %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:            %{name}-server-implementation = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:            fping
 Requires:            traceroute
-Requires(pre):       shadow-utils
 Requires(post):      systemd
 Requires(preun):     systemd
 Requires(postun):    systemd
@@ -211,7 +210,6 @@ Zabbix server compiled to use PostgreSQL
 %package agent
 Summary:             Zabbix agent
 Requires:            %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires(pre):       shadow-utils
 Requires(post):      systemd
 Requires(preun):     systemd
 Requires(postun):    systemd
@@ -224,7 +222,6 @@ Summary:             Zabbix proxy common files
 BuildArch:           noarch
 Requires:            %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:            %{name}-proxy-implementation = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires(pre):       shadow-utils
 Requires(post):      systemd
 Requires(preun):     systemd
 Requires(postun):    systemd
@@ -395,6 +392,11 @@ sed -i \
 # Install README file
 install -m 0644 -p %{SOURCE16} .
 
+# Create a sysusers.d config file
+cat >zabbix.sysusers.conf <<EOF
+u zabbix - 'Zabbix Monitoring System' %{_sharedstatedir}/zabbix -
+EOF
+
 
 %build
 
@@ -552,6 +554,8 @@ install -D -m 0644 %{name}.pp.bz2 %{buildroot}%{_datadir}/selinux/packages/%{sel
 install -D -p -m 0644 selinux/%{name}.if %{buildroot}%{_datadir}/selinux/devel/include/distributed/%{name}.if
 %endif
 
+install -m0644 -D zabbix.sysusers.conf %{buildroot}%{_sysusersdir}/zabbix.conf
+
 
 %post server
 %systemd_post zabbix-server.service
@@ -651,12 +655,6 @@ fi
 %selinux_relabel_post -s %{selinuxtype}
 %endif
 
-%pre agent
-getent group zabbix > /dev/null || groupadd -r zabbix
-getent passwd zabbix > /dev/null || \
-    useradd -r -g zabbix -d %{_sharedstatedir}/zabbix -s /sbin/nologin \
-    -c "Zabbix Monitoring System" zabbix
-:
 
 %post agent
 %systemd_post zabbix-agent.service
@@ -797,6 +795,7 @@ fi
 %{_unitdir}/zabbix-agent.service
 %{_sbindir}/zabbix_agentd
 %{_mandir}/man8/zabbix_agentd.8*
+%{_sysusersdir}/zabbix.conf
 
 %files proxy
 %doc misc/snmptrap/zabbix_trap_receiver.pl
@@ -838,6 +837,9 @@ fi
 %files web-pgsql
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:7.2.2-3
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

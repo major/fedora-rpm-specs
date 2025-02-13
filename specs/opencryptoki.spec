@@ -3,7 +3,7 @@
 Name: opencryptoki
 Summary: Implementation of the PKCS#11 (Cryptoki) specification v3.0
 Version: 3.24.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: CPL-1.0
 URL: https://github.com/opencryptoki/opencryptoki
 Source0: https://github.com/opencryptoki/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -45,9 +45,6 @@ BuildRequires: systemd-rpm-macros
 BuildRequires: libica-devel >= 3.3
 # for /usr/include/libudev.h
 BuildRequires: systemd-devel
-%endif
-%if %{use_sysusers}
-%{?sysusers_requires_compat}
 %endif
 Requires(pre): %{name}-libs%{?_isa} = %{version}-%{release}
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
@@ -252,9 +249,7 @@ if test $1 -gt 1 && test -f %{cfile} ; then
 fi
 
 %pre libs
-%if %{use_sysusers}
-%sysusers_create_compat %{SOURCE2}
-%else
+%if ! %{use_sysusers}
 getent group pkcs11 >/dev/null || groupadd -r pkcs11
 getent passwd pkcsslotd >/dev/null || useradd -r -g pkcs11 -d /run/opencryptoki -s /sbin/nologin -c "Opencryptoki pkcsslotd user" pkcsslotd
 %endif
@@ -419,6 +414,9 @@ fi
 
 
 %changelog
+* Tue Feb 11 2025 Than Ngo <than@redhat.com> - 3.24.0-6
+- Remove call to %sysusers_create_compat
+
 * Tue Feb 04 2025 Than Ngo <than@redhat.com> - 3.24.0-5
 - Use tmpfiles to change file ownership for image mode
 

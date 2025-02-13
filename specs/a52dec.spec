@@ -6,10 +6,9 @@ License:    GPL-2.0-only
 URL:        http://liba52.sourceforge.net
 Source0:    %{url}/files/%{name}-%{version}.tar.gz
 Patch0:     a52dec-configure-optflags.patch
-Patch1:     a52dec-0.7.4-rpath64.patch
 Patch2:     liba52-silence.patch
-Patch3:     a52dec-configure-c99.patch
 
+BuildRequires: autoconf automake libtool
 BuildRequires: gcc
 BuildRequires: make
 
@@ -49,8 +48,10 @@ developing applications that use liba52-devel.
 %prep
 %autosetup -p1
 
-sed -i -e 's/-prefer-non-pic/-prefer-pic/' \
-  configure liba52/configure.incl
+sed -i -e 's/-prefer-non-pic/-prefer-pic/' liba52/configure.incl
+
+# regenerate autotools
+autoreconf -fiv
 
 # Convert to utf-8
 for file in AUTHORS; do

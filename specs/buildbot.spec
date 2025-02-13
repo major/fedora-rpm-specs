@@ -21,7 +21,7 @@
 
 Name:           buildbot
 Version:        4.2.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary:        Build/test automation system
 License:        GPL-2.0-only
@@ -122,7 +122,6 @@ inconvenienced by the failure.
 
 %package master
 Summary:        Build/test automation system master
-Requires(pre):  shadow-utils
 Recommends:     %{name}-www = %{version}-%{release}
 %if ! %{with docs}
 Obsoletes:      %{name}-doc < %{version}-%{release}
@@ -138,12 +137,6 @@ inconvenienced by the failure.
 This package contains only the buildmaster implementation.
 The buildbot-worker package contains the buildworker.
 
-%pre master
-getent group buildbot-master >/dev/null || groupadd -r buildbot-master
-getent passwd buildbot-master >/dev/null || \
-    useradd -r -g buildbot-master -d %{_sharedstatedir}/buildbot/master -s /sbin/nologin \
-    -c "Service account for the Buildbot master" buildbot-master
-exit 0
 
 %post master
 for master in $(systemctl list-units 'buildbot-master@*.service' --all --plain --no-legend | cut -d '@' -f 2 | cut -d '.' -f 1); do
@@ -164,6 +157,7 @@ done
 %{_unitdir}/buildbot-master@.service
 
 # ---------------------------------------------------------------------
+%{_sysusersdir}/buildbot.conf
 
 %if %{with ec2}
 %package master-ec2
@@ -255,7 +249,6 @@ worker support.
 
 %package worker
 Summary:        Build/test automation system worker
-Requires(pre):  shadow-utils
 %if ! %{with docs}
 Obsoletes:      %{name}-doc < %{version}-%{release}
 %endif
@@ -331,6 +324,11 @@ Summary:        Buildbot documentation
 cd ..
 cd buildbot_worker-%{version}
 
+# Create a sysusers.d config file
+cat >buildbot.sysusers.conf <<EOF
+u buildbot-master - 'Service account for the Buildbot master' %{_sharedstatedir}/buildbot/master -
+EOF
+
 %build
 %py3_build
 
@@ -389,6 +387,7 @@ tar xf docs/docs.tgz --strip-components=1 -C %{buildroot}%{_pkgdocdir}
 pushd ../%{name}_worker-%{version}
 %py3_install
 install -Dpm0644 -t %{buildroot}%{_mandir}/man1 docs/buildbot-worker.1
+install -m0644 -D buildbot.sysusers.conf %{buildroot}%{_sysusersdir}/buildbot.conf
 popd
 
 # Purge windows-only files
@@ -400,12 +399,16 @@ cp -a %{S:10} %{S:11} %{buildroot}%{_unitdir}
 mkdir -p %{buildroot}%{_sharedstatedir}/buildbot/{master,worker}
 
 
+
 %if %{with check}
 %check
 trial buildbot.test
 %endif
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.2.1-4
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

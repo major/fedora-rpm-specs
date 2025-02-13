@@ -3,7 +3,7 @@
 Summary:          Fast NTLM authentication proxy with tunneling
 Name:             cntlm
 Version:          0.92.3
-Release:          30%{?dist}
+Release:          31%{?dist}
 License:          GPL-2.0-or-later
 
 URL:              http://cntlm.sourceforge.net/
@@ -17,7 +17,6 @@ Patch1: cntlm-c99.patch
 BuildRequires:    gcc
 BuildRequires:    make
 BuildRequires:    systemd
-Requires(pre):    shadow-utils
 %{?systemd_requires}
 
 
@@ -31,6 +30,11 @@ contains detailed information.
 
 %prep
 %autosetup -p1
+
+# Create a sysusers.d config file
+cat >cntlm.sysusers.conf <<EOF
+u cntlm - '%{name} daemon' %{_localstatedir}/run/%{name} -
+EOF
 
 
 %build
@@ -47,13 +51,9 @@ install -D -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}/%{name}.service
 
 install -D -d -m 0755 %{buildroot}/run/%{name}/
 
+install -m0644 -D cntlm.sysusers.conf %{buildroot}%{_sysusersdir}/cntlm.conf
 
-%pre
-getent group %{name} > /dev/null || groupadd -r %{name}
-getent passwd %{name} > /dev/null || \
-  useradd -r -g %{name} -d %{_localstatedir}/run/%{name} -s /sbin/nologin \
-    -c "%{name} daemon" %{name}
-exit 0
+
 
 
 %post
@@ -78,9 +78,13 @@ exit 0
 %{_tmpfilesdir}/%{name}.conf
 %{_unitdir}/%{name}.service
 %attr(755, %{name}, %{name}) %dir /run/%{name}/
+%{_sysusersdir}/cntlm.conf
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.92.3-31
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.92.3-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

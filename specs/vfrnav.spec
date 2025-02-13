@@ -1,6 +1,6 @@
 Name:           vfrnav
 Version:        20230429
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        VFR/IFR Navigation
 
 License:        GPL-2.0-or-later
@@ -238,6 +238,11 @@ This package contains a webservice for the CFMU Autorouter.
 %autosetup -p1
 autoreconf -fiv
 
+# Create a sysusers.d config file
+cat >vfrnav.sysusers.conf <<EOF
+u vfrnav - 'Special user account to be used by vfrnav cfmuautoroute/cfmuvalidate services' /var/lib/vfrnav -
+EOF
+
 %build
 CXXFLAGS=`echo %optflags | sed -e 's/-O2//'`
 export CXXFLAGS
@@ -315,11 +320,8 @@ rm -f $RPM_BUILD_ROOT/%{_datadir}/icons/hicolor/32x32/apps/wetterdl.png
 rm -f $RPM_BUILD_ROOT/%{_datadir}/icons/hicolor/48x48/apps/wetterdl.png
 %endif
 
-%pre validatorservice
-getent group vfrnav &>/dev/null || groupadd -r vfrnav
-getent passwd vfrnav &>/dev/null || \
-useradd -g vfrnav -d /var/lib/vfrnav -M -r -s /sbin/nologin \
-    -c "Special user account to be used by vfrnav cfmuautoroute/cfmuvalidate services" vfrnav
+install -m0644 -D vfrnav.sysusers.conf %{buildroot}%{_sysusersdir}/vfrnav.conf
+
 
 %post selinux
 /usr/sbin/semodule -i %{_datadir}/selinux/packages/%{name}/%{name}.pp >/dev/null 2>&1 || :
@@ -460,6 +462,7 @@ fi
 %dir %attr(0755,vfrnav,vfrnav) /run/vfrnav
 %dir %attr(0750,vfrnav,vfrnav) /run/vfrnav/validator
 %dir %attr(0750,vfrnav,vfrnav) /var/lib/vfrnav
+%{_sysusersdir}/vfrnav.conf
 
 %files selinux
 %{_datadir}/selinux/packages/%{name}/vfrnav.pp
@@ -475,6 +478,9 @@ fi
 %endif
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 20230429-19
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 20230429-18
 - Rebuild with gsl 2.8
 

@@ -1,7 +1,7 @@
 %define _hardened_build 1
 Name:           liquidwar
 Version:        5.6.5
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Multiplayer wargame with liquid armies
 License:        GPL-2.0-or-later
 URL:            http://www.ufoot.org/liquidwar/v5
@@ -36,7 +36,6 @@ format.
 %package server
 Summary:        Network game server for the LiquidWar game
 Requires:       %{name} = %{version}-%{release}
-Requires(pre):  /usr/sbin/useradd
 
 %description server
 This package contains the server for hosting network LiquidWar games.
@@ -54,6 +53,11 @@ for i in de dk fr; do
   iconv -f ISO-8859-1 -t UTF8 README.$i > $i
   mv $i README.$i
 done
+
+# Create a sysusers.d config file
+cat >liquidwar.sysusers.conf <<EOF
+u liquidwar - 'LiquidWar Server' %{_datadir}/%{name} -
+EOF
 
 
 %build
@@ -107,12 +111,11 @@ install -p -D -m 644 %{SOURCE2} \
 install -p -D -m 644 %{SOURCE3} \
         $RPM_BUILD_ROOT/%{_sysconfdir}/logrotate.d/%{name}-server
 
+install -m0644 -D liquidwar.sysusers.conf %{buildroot}%{_sysusersdir}/liquidwar.conf
+
 %pre server
 user_uid=`id -u %{name} 2>/dev/null`
 if [ x"$user_uid" = x ] ; then
-    /usr/sbin/useradd -r -s /sbin/nologin -d %{_datadir}/%{name} -M \
-            -c 'LiquidWar Server' \
-            %{name} >/dev/null || :
 fi
 
 %post server
@@ -145,9 +148,13 @@ fi
 %{_unitdir}/liquidwar-server.service
 %config(noreplace) %{_sysconfdir}/sysconfig/%{name}-server
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}-server
+%{_sysusersdir}/liquidwar.conf
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 5.6.5-19
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.5-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -851,11 +851,6 @@ fi
 # reload to pick up any changes to systemd files
 /bin/systemctl daemon-reload >$output 2>&1 || :
 
-# https://fedoraproject.org/wiki/Packaging:UsersAndGroups#Soft_static_allocation
-# Soft static allocation for UID and GID
-# sysusers.d format https://fedoraproject.org/wiki/Changes/Adopting_sysusers.d_format
-%sysusers_create_compat %{SOURCE4}
-
 # Reload our sysctl before we restart (if we can)
 sysctl --system &> $output; true
 

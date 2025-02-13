@@ -9,7 +9,7 @@
 Summary:   Xwayland
 Name:      xorg-x11-server-Xwayland
 Version:   24.1.5
-Release:   1%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
+Release:   2%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
 
 URL:       http://www.x.org
 %if 0%{?gitdate}
@@ -17,6 +17,10 @@ Source0:   https://gitlab.freedesktop.org/xorg/%{pkgname}/-/archive/%{commit}/%{
 %else
 Source0:   https://www.x.org/pub/individual/xserver/%{pkgname}-%{version}.tar.xz
 %endif
+
+# Fix a regression with gamescope
+# https://gitlab.freedesktop.org/xorg/xserver/-/issues/1790
+Patch:     0001-Revert-xwayland-Don-t-run-key-behaviors-and-actions.patch
 
 License:   MIT
 
@@ -133,6 +137,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/pkgconfig/xwayland.pc
 
 %changelog
+* Tue Feb 11 2025 Olivier Fourdan <ofourdan@redhat.com> - 24.1.5-2
+- Fix a regression with keyboard modifiers due to a bug in gamescope
+
 * Wed Feb  5 2025 Olivier Fourdan <ofourdan@redhat.com> - 24.1.5-1
 - xwayland 24.1.5
 

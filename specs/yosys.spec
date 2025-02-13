@@ -1,10 +1,10 @@
-%global commit0 e456f2e9724394fc34c899d59a1cb0ee578e96b3
+%global commit0 6f9c515a222b322d8d3605e09eb69e7023e61e70
 %global shortcommit0 %%(c=%%{commit0}; echo ${c:0:7})
 
-%global snapdate 20250121
+%global snapdate 20250211
 
 Name:           yosys
-Version:        0.49
+Version:        0.50
 Release:        1.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Yosys Open SYnthesis Suite, including Verilog synthesizer
 License:        ISC and MIT
@@ -173,6 +173,9 @@ make test ABCEXTERNAL=%{_bindir}/abc SEED=314159265359
 
 
 %changelog
+* Tue Feb 11 2025 Gabriel Somlo <gsomlo@gmail.com> - 0.50.1.20250211git6f9c515
+- update to 0.50 snapshot
+
 * Tue Jan 21 2025 Gabriel Somlo <gsomlo@gmail.com> - 0.49.1.20250121gite456f2e
 - update to 0.49 snapshot (incl. fix for tcl 9.0, see BZ 2337817)
 

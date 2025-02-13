@@ -5,7 +5,7 @@ Summary:        Actor model threading for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/threads-lite
 Source0:        https://cpan.metacpan.org/authors/id/L/LE/LEONT/threads-lite-%{version}.tar.gz
-# Adapt to GCC 15, bug #2341042, proposed upstream,
+# Adapt to GCC 15, bug #2341042, in upstream after 0.034,
 # <https://github.com/Leont/threads-lite/pull/3>
 Patch0:         threads-lite-0.034-Fix-building-in-ISO-C23.patch
 # Tests halt on these platforms, bug #719874, CPAN RT#69354

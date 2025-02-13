@@ -2,7 +2,7 @@
 
 Name:           %{pack}
 Version:        0.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Service for creating bootable USB storage devices at community conference kiosks
 
 # The syncstar project is licensed under AGPL-3.0-or-later license, except for the following files
@@ -36,7 +36,7 @@ visitors can avail its services.
 %autosetup -n %{pack}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -45,15 +45,16 @@ visitors can avail its services.
 %pyproject_install
 %pyproject_save_files %{pack}
 
-%check
-%tox
-
 %files -f %{pyproject_files}
 %doc README.md
 %license LICENSE
 %{_bindir}/%{name}
 
 %changelog
+* Tue Feb 11 2025 Akashdeep Dhar <t0xic0der@fedoraproject.org> - 0.2.2-2
+- Temporarily disabled the buildtime checks until an approach is finalized
+- See https://lists.fedoraproject.org/archives/list/python-devel@lists.fedoraproject.org/thread/ZSHSHZKVA4XJQBJD7FMMCALKN4UP5SAJ/
+
 * Mon Jan 27 2025 Akashdeep Dhar <t0xic0der@fedoraproject.org> - 0.2.2-1
 - Fourth release for SyncStar project
 - More information can be found on https://github.com/gridhead/syncstar/releases/tag/0.2.2

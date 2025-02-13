@@ -250,6 +250,9 @@ git commit --all --amend --no-edit > /dev/null
 # ---------------
 
 %build
+%set_build_flags
+# code uses a custom-defined bool type, incompatible with C23
+export CFLAGS="$CFLAGS -std=gnu17"
 # --enable-dynamic
 #     ... enables dynamically loaded drivers
 #

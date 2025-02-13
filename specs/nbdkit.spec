@@ -51,11 +51,11 @@
 %global verify_tarball_signature 1
 
 # The source directory.
-%global source_directory 1.41-development
+%global source_directory 1.42-stable
 
 Name:           nbdkit
-Version:        1.41.9
-Release:        5%{?dist}
+Version:        1.42.0
+Release:        1%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -1523,6 +1523,9 @@ fi
 
 
 %changelog
+* Tue Feb 11 2025 Richard W.M. Jones <rjones@redhat.com> - 1.42.0-1
+- New upstream stable branch version 1.42.0
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1.41.9-5
 - Add explicit BR: libxcrypt-devel
 

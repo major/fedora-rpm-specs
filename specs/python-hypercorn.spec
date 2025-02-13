@@ -70,12 +70,6 @@ install -d %{buildroot}%{_mandir}/man1
 
 
 %check
-# This test requires a current python-trio, but updating it has been blocked by
-# various compatibility issues; see
-# https://src.fedoraproject.org/rpms/python-trio/pull-request/6 and
-# https://bugzilla.redhat.com/show_bug.cgi?id=2254476.
-k="${k-}${k+ and }not test_startup_failure"
-
 %tox -- -- -v -k "${k-}"
 
 

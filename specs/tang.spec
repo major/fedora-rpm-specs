@@ -38,7 +38,6 @@ Requires:       llhttp
 Requires:       grep
 Requires:       sed
 
-Requires(pre):  shadow-utils
 
 %description
 Tang is a small daemon for binding data to the presence of a third party.
@@ -62,9 +61,6 @@ install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/tang.conf
 %endif
     %{nil}
 
-%pre
-%sysusers_create_compat %{SOURCE1}
-exit 0
 
 %post
 %systemd_post %{name}d.socket

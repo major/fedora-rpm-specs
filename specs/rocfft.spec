@@ -1,3 +1,9 @@
+%if 0%{?suse_version}
+%global rocfft_name librocfft0
+%else
+%global rocfft_name rocfft
+%endif
+
 %global upstreamname rocFFT
 
 %global rocm_release 6.3
@@ -39,9 +45,9 @@
 %define _source_payload	w7T0.xzdio
 %define _binary_payload	w7T0.xzdio
 
-Name:           rocfft
+Name:           %{rocfft_name}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -58,7 +64,6 @@ BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-rpm-macros
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocm-rpm-macros-modules
 
 %if %{with test}
 BuildRequires:  gtest-devel
@@ -85,6 +90,11 @@ Patch0: 0001-cmake-use-gnu-installdirs.patch
 
 %description
 A library for computing Fast Fourier Transforms (FFT), part of ROCm.
+
+%if 0%{?suse_version}
+%post -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
+%endif
 
 %package devel
 Summary:        The rocFFT development package
@@ -114,20 +124,15 @@ export LDFLAGS="${LDFLAGS} -pie"
 # OpenMP tests are disabled because upstream sets rpath in that case without
 # a way to skip
 
-for gpu in %{rocm_gpu_list}
-do
-    module load rocm/$gpu
-
-    %cmake \
-	-DCMAKE_CXX_COMPILER=hipcc \
-	-DCMAKE_C_COMPILER=hipcc \
-	-DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
-	-DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
-	-DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
-	-DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
-	-DAMDGPU_TARGETS=${ROCM_GPUS} \
-    -DCMAKE_INSTALL_LIBDIR=$ROCM_LIB \
-    -DCMAKE_INSTALL_BINDIR=$ROCM_BIN \
+%cmake \
+    -DCMAKE_CXX_COMPILER=hipcc \
+    -DCMAKE_C_COMPILER=hipcc \
+    -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
+    -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
+    -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
+    -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
+    -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
+    -DCMAKE_INSTALL_LIBDIR=%_libdir \
     -DBUILD_CLIENTS_TESTS_OPENMP=OFF \
     -DBUILD_CLIENTS_TESTS=%{build_test} \
     -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
@@ -137,15 +142,10 @@ do
     -DROCM_SYMLINK_LIBS=OFF \
     -DSQLITE_USE_SYSTEM_PACKAGE=ON
 
-    %cmake_build
-    module purge
-done
+%cmake_build
 
 %install
-for gpu in %{rocm_gpu_list}
-do
-    %cmake_install
-done
+%cmake_install
 
 # we don't need the rocfft_rtc_helper binary, don't package it
 find %{buildroot} -type d -name "%{rocfft_version}" -print0 | xargs -0 -I {} /usr/bin/rm -rf "{}"
@@ -172,15 +172,19 @@ fi
 %license LICENSE.md
 
 %files devel -f %{name}.devel
-%dir %{_libdir}/cmake/%{name}
-%dir %{_includedir}/%{name}
-%{_includedir}/%{name}/*
+%dir %{_libdir}/cmake/rocfft
+%dir %{_includedir}/rocfft
+%{_includedir}/rocfft/*
 
 %if %{with test}
 %files test -f %{name}.test
 %endif
 
 %changelog
+* Tue Feb 11 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-4
+- Remove multi build
+- Fix SLE 15.6
+
 * Mon Jan 20 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-3
 - multithread compress
 

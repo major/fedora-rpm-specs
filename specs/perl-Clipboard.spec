@@ -1,5 +1,5 @@
 Name:           perl-Clipboard
-Version:        0.31
+Version:        0.32
 Release:        1%{?dist}
 Summary:        Copy and paste with any OS
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -60,6 +60,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Clipboard*
 
 %changelog
+* Tue Feb 11 2025 Xavier Bachelot <xavier@bachelot.org> - 0.32-1
+- Update to 0.32 (RHBZ#2344626)
+
 * Thu Jan 23 2025 Xavier Bachelot <xavier@bachelot.org> - 0.31-1
 - Update to 0.31 (RHBZ#2339212)
 

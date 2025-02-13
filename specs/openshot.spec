@@ -1,11 +1,11 @@
 %global distname %{name}-qt
 %global distrdnn org.openshot.OpenShot
 
-%global minlibver 0.3.2
+%global minlibver 0.4.0
 
 Name:           openshot
-Version:        3.2.1
-Release:        3%{?dist}
+Version:        3.3.0
+Release:        1%{?dist}
 Summary:        Create and edit videos and movies
 License:        GPL-3.0-or-later and Apache-2.0 and MIT and CC-BY-SA-4.0
 URL:            http://www.openshot.org
@@ -129,6 +129,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Tue Feb 11 2025 Sérgio Basto <sergio@serjux.com> - 3.3.0-1
+- Update openshot to 3.3.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

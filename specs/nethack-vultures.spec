@@ -1,6 +1,6 @@
 Name:           nethack-vultures
 Version:        2.1.2
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        NetHack - Vulture's Eye and Vulture's Claw
 
 License:        NGPL
@@ -20,6 +20,9 @@ Patch8:         make-bison.patch
 Patch9:         nethack-vultures-c99.patch
 Patch10:	objtype.patch
 Patch11:	doorfix.patch
+Patch12:	system.patch
+# Prototype mismatch for what looks like an unused function/feature
+Patch13:	botl-unused.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -67,8 +70,10 @@ Claw, which is based on the Slash'Em core.
 %patch -P7 -p0 -b .parser-fix
 %patch -P8 -p0 -b .make-bison
 %patch -P9 -p1
-%patch 10 -p0
-%patch 11 -p0
+%patch -P10 -p0
+%patch -P11 -p0
+%patch -P12 -p0
+%patch -P13 -p0
 sed -i -e 's|/usr/games/lib/nethackdir|%{_prefix}/games/vultureseye|g' \
     nethack/doc/{nethack,recover}.6 nethack/include/config.h
 sed -i -e 's|/var/lib/games/nethack|%{_var}/games/vultureseye|g' \
@@ -203,6 +208,10 @@ done
 
 
 %changelog
+* Tue Feb 11 2025 Bruno Wolff III <bruno@wolff.to> - 2.1.2-42
+- Newer gcc seems to have changed detection of system type in includes
+- Bad prototype for unused function
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

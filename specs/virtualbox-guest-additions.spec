@@ -1,17 +1,20 @@
 Name:       virtualbox-guest-additions
-Version:    7.1.4
-Release:    2%{?dist}
+Version:    7.1.6
+Release:    1%{?dist}
 Summary:    VirtualBox Guest Additions
 License:    GPL-3.0-only AND (GPL-3.0-only OR CDDL-1.0)
 URL:        https://www.virtualbox.org/wiki/VirtualBox
 
-Source0:    https://download.virtualbox.org/virtualbox/%{version}/VirtualBox-%{version}.tar.bz2
+Source0:    https://download.virtualbox.org/virtualbox/%{version}/VirtualBox-%{version}a.tar.bz2
 Source1:    vboxservice.service
 Source3:    VirtualBox-60-vboxguest.rules
 Source4:    vboxclient.service
 Source5:    mount.vboxsf
 
 Patch60:    VirtualBox-7.0.2-xclient-cleanups.patch
+#from Gentoo
+Patch80:    029_virtualbox-7.1.4_C23.patch
+
 
 BuildRequires:  gcc-c++
 BuildRequires:  kBuild >= 0.1.9998.r3093
@@ -85,6 +88,15 @@ rm -r src/libs/libvorbis-1.3.*/
 rm -r src/libs/libogg-1.3.*/
 rm -r src/libs/libtpms-0.9.*/
 
+# Create a sysusers.d config file
+cat >virtualbox-guest-additions.sysusers.conf <<EOF
+# Group "vboxsf" for Shared Folders access.
+# All users which want to access the auto-mounted Shared Folders
+# have to be added to this group.
+g vboxsf -
+u vboxadd -:1 - /var/run/vboxadd -
+EOF
+
 
 %build
 ./configure --only-additions --disable-kmods
@@ -149,14 +161,9 @@ install -p -m 0644 -D %{SOURCE1} %{buildroot}%{_unitdir}/vboxservice.service
 install -p -m 0644 -D %{SOURCE3} %{buildroot}%{_udevrulesdir}/60-vboxguest.rules
 install -p -m 0644 -D %{SOURCE4} %{buildroot}%{_unitdir}/vboxclient.service
 
+install -m0644 -D virtualbox-guest-additions.sysusers.conf %{buildroot}%{_sysusersdir}/virtualbox-guest-additions.conf
 
-%pre
-# Add a group "vboxsf" for Shared Folders access
-# All users which want to access the auto-mounted Shared Folders have to
-# be added to this group.
-getent group vboxsf >/dev/null || groupadd -r vboxsf 2>&1
-getent passwd vboxadd >/dev/null || \
-    useradd -r -g 1 -d /var/run/vboxadd -s /sbin/nologin vboxadd 2>&1
+
 
 %post
 %systemd_post vboxclient.service
@@ -186,9 +193,17 @@ getent passwd vboxadd >/dev/null || \
 %{_unitdir}/vboxclient.service
 %{_unitdir}/vboxservice.service
 %{_udevrulesdir}/60-vboxguest.rules
+%{_sysusersdir}/virtualbox-guest-additions.conf
 
 
 %changelog
+* Wed Feb 12 2025 Sérgio Basto <sergio@serjux.com> - 7.1.6-1
+- Update virtualbox-guest-additions to 7.1.6 (#2339180)
+- Add 029_virtualbox-7.1.4_C23.patch
+
+* Wed Jan 29 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 7.1.4-3
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

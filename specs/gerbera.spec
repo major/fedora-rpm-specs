@@ -1,6 +1,6 @@
 Name:           gerbera
 Version:        2.4.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        UPnP Media Server
 License:        GPL-2.0-only AND MIT AND OFL-1.1
 Url:            https://gerbera.io
@@ -26,7 +26,6 @@ BuildRequires:  libmatroska-devel
 BuildRequires:  spdlog-devel
 BuildRequires:  pugixml-devel
 BuildRequires:  mariadb-connector-c-devel
-%{?sysusers_requires_compat}
 %{?systemd_ordering}
 BuildRequires:  systemd
 BuildRequires:  systemd-devel
@@ -90,8 +89,6 @@ create 644 gerbera gerbera
 EOF
 
 
-%pre
-%sysusers_create_compat %{SOURCE2}
 
 %post
 %systemd_post gerbera.service
@@ -122,6 +119,9 @@ EOF
 %config(noreplace) %{_datadir}/%{name}/js/common.js
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.4.1-3
+- Drop call to %sysusers_create_compat
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

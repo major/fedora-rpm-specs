@@ -48,7 +48,6 @@ Requires:       coreutils
 Requires:       jose >= 8
 Requires:       curl
 Requires:       jq
-Requires(pre):  shadow-utils
 Requires(post): systemd
 Requires:       clevis-pin-tpm2
 
@@ -138,14 +137,6 @@ install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/clevis.conf
 desktop-file-validate \
   %{buildroot}/%{_sysconfdir}/xdg/autostart/%{name}-luks-udisks2.desktop
 %meson_test
-
-%pre
-%sysusers_create_compat %{SOURCE1}
-# Add clevis user to tss group.
-if getent group tss >/dev/null && ! groups %{name} | grep -q "\btss\b"; then
-    usermod -a -G tss %{name} &>/dev/null
-fi
-exit 0
 
 %files
 %license COPYING

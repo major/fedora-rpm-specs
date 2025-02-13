@@ -1,12 +1,12 @@
 # We bundle cadiback because it has been modified by the cryptominisat team to
 # present a library interface to cryptominisat
 %global cadiurl     https://github.com/meelgroup/cadiback
-%global cadicommit  69255f55e411207c4bdea02c6c2ab1ef29740ce1
+%global cadicommit  ea65a9442fc2604ee5f4ffd0f0fdd0bf481d5b42
 %global shortcommit %(c=%{cadicommit}; echo ${c:0:7})
 %global giturl      https://github.com/msoos/cryptominisat
 
 Name:           cryptominisat
-Version:        5.11.22
+Version:        5.12.1
 Release:        %autorelease
 Summary:        SAT solver
 
@@ -23,10 +23,8 @@ Patch:          %{name}-picosat.patch
 Patch:          %{name}-python-library.patch
 # Use tomllib instead of tomli
 Patch:          %{name}-toml.patch
-## Post 5.11.22-release bug fixes
-# https://github.com/msoos/cryptominisat/commit/2905d6d9a755e9f20ec4a4c22f7f27070c4455e7
-# https://github.com/msoos/cryptominisat/commit/1d735b6ce0e3d17cdec182db491646fc89aa8cf4
-Patch:          %{name}-remove-old-api.patch
+# Use zlib-ng instead of zlib
+Patch:          %{name}-zlib-ng.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -40,7 +38,7 @@ BuildRequires:  gperftools-devel
 BuildRequires:  help2man
 BuildRequires:  make
 BuildRequires:  picosat-devel
-BuildRequires:  pkgconfig(zlib)
+BuildRequires:  pkgconfig(zlib-ng)
 BuildRequires:  python3-devel
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
@@ -58,7 +56,7 @@ solver. Highlights:
 Summary:        Header files for developing with %{name}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       cadical-devel%{?_isa}
-Requires:       zlib-devel%{?_isa}
+Requires:       zlib-ng-devel%{?_isa}
 
 %description devel
 Header files for developing applications that use %{name}.
@@ -165,7 +163,7 @@ sed -i 's,/builddir.*cadiback/,%{_libdir}/,' %{buildroot}%{_libdir}/cmake/crypto
 %doc AUTHORS
 %license LICENSE.txt
 %{_libdir}/libcadiback.so.0*
-%{_libdir}/libcryptominisat5.so.5.11
+%{_libdir}/libcryptominisat5.so.5.12
 
 %files -n python3-pycryptosat -f %{pyproject_files}
 %doc python/README.md

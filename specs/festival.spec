@@ -301,6 +301,11 @@ you can also interface with Festival in via the shell or with BSD sockets.
 %patch -P104 -p1 -b .siteinit
 %patch -P105 -p1
 
+# Create a sysusers.d config file
+cat >festival.sysusers.conf <<EOF
+u festival - 'festival Daemon' - -
+EOF
+
 %build
 
 # build the main program
@@ -418,6 +423,8 @@ cp -a src/include/* $RPM_BUILD_ROOT%{_includedir}/festival
 mkdir -p $RPM_BUILD_ROOT%{_unitdir}
 install -p -m 644 %{SOURCE230} $RPM_BUILD_ROOT%{_unitdir}/
 
+install -m0644 -D festival.sysusers.conf %{buildroot}%{_sysusersdir}/festival.conf
+
 %files
 %doc ACKNOWLEDGMENTS NEWS README.md
 %license COPYING COPYING.poslex COPYING.cmudict
@@ -431,11 +438,8 @@ install -p -m 644 %{SOURCE230} $RPM_BUILD_ROOT%{_unitdir}/
 %{_libexecdir}/festival
 %{_mandir}/man1/*
 %{_unitdir}/festival.service
+%{_sysusersdir}/festival.conf
 
-%pre
-getent group festival >/dev/null || groupadd -r festival
-getent passwd festival >/dev/null || useradd -r -g festival -d / -s /sbin/nologin -c "festival Daemon" festival
-exit 0
 
 %post
 %systemd_post festival.service

@@ -7,7 +7,7 @@
 # Please preserve changelog entries
 #
 # Github
-%global gh_commit    0b31ce834facf03b8b44b6587e65b3cf1d7cfb94
+%global gh_commit    e6faedf5e34cea4438e341f660e2f719760c531d
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     Yoast
 %global gh_project   PHPUnit-Polyfills
@@ -23,8 +23,8 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-%{pk_vendor}-%{pk_project}1
-Version:        1.1.3
-Release:        2%{?dist}
+Version:        1.1.4
+Release:        1%{?dist}
 Summary:        Set of polyfills for changed PHPUnit functionality, version 1
 
 License:        BSD-3-Clause
@@ -121,6 +121,9 @@ exit $ret
 
 
 %changelog
+* Mon Feb 10 2025 Remi Collet <remi@remirepo.net> - 1.1.4-1
+- update to 1.1.4
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

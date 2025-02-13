@@ -4,7 +4,7 @@
 Summary:           Client to update dynamic DNS host entries
 Name:              ddclient
 Version:           4.0.0
-Release:           1%{?dist}
+Release:           2%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:           GPL-2.0-or-later
 URL:               https://ddclient.net/
@@ -24,7 +24,6 @@ BuildRequires:     perl-generators
 BuildRequires:     perl(Sys::Hostname)
 BuildRequires:     perl(version)
 BuildRequires:     systemd
-Requires(pre):     shadow-utils
 Requires(post):    systemd
 Requires(preun):   systemd
 Requires(postun):  systemd
@@ -64,6 +63,11 @@ the failed updates and sending update status to syslog and through e-mail.
 sed -e 's|^mail=|#mail=|' -i ddclient.conf.in
 ./autogen
 
+# Create a sysusers.d config file
+cat >ddclient.sysusers.conf <<EOF
+u ddclient - 'Dynamic DNS Client' %{_localstatedir}/cache/%{name} -
+EOF
+
 
 %build
 %configure --runstatedir=%{rundir}
@@ -93,15 +97,13 @@ touch $RPM_BUILD_ROOT%{cachedir}/%{name}.cache
 # Correct permissions for later usage in %doc
 chmod 644 sample-*
 
+install -m0644 -D ddclient.sysusers.conf %{buildroot}%{_sysusersdir}/ddclient.conf
+
 
 %check
 make VERBOSE=1 check
 
 
-%pre
-getent group %{name} > /dev/null || %{_sbindir}/groupadd -r %{name}
-getent passwd %{name} > /dev/null || %{_sbindir}/useradd -r -g %{name} -d %{_localstatedir}/cache/%{name} -s /sbin/nologin -c "Dynamic DNS Client" %{name}
-exit 0
 
 %post
 %systemd_post %{name}.service
@@ -137,9 +139,13 @@ fi
 %attr(0700,%{name},%{name}) %dir %{cachedir}
 %attr(0600,%{name},%{name}) %ghost %{cachedir}/%{name}.cache
 %ghost %attr(0755,%{name},%{name}) %dir %{rundir}
+%{_sysusersdir}/ddclient.conf
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.0.0-2
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Wed Jan 22 2025 Scott Talbert <swt@techie.net> - 4.0.0-1
 - Update to new upstream release 4.0.0 (#2334061)
 

@@ -3,8 +3,8 @@
 %global pkgname opencv
 
 Name:          mingw-%{pkgname}
-Version:       4.10.0
-Release:       5%{?dist}
+Version:       4.11.0
+Release:       1%{?dist}
 Summary:       MinGW Windows OpenCV library
 
 BuildArch:     noarch
@@ -207,9 +207,9 @@ rm -f %{buildroot}%{mingw64_prefix}/{LICENSE,setup_vars_opencv4.cmd}
 
 %files -n mingw32-%{pkgname}
 %license install_licenses/*
-%{mingw32_bindir}/libopencv_*4100.dll
+%{mingw32_bindir}/libopencv_*4110.dll
 %{mingw32_includedir}/opencv4/
-%{mingw32_libdir}/libopencv_*4100.dll.a
+%{mingw32_libdir}/libopencv_*4110.dll.a
 %{mingw32_libdir}/cmake/OpenCV/
 %{mingw32_datadir}/opencv4
 
@@ -222,9 +222,9 @@ rm -f %{buildroot}%{mingw64_prefix}/{LICENSE,setup_vars_opencv4.cmd}
 
 %files -n mingw64-%{pkgname}
 %license install_licenses/*
-%{mingw64_bindir}/libopencv_*4100.dll
+%{mingw64_bindir}/libopencv_*4110.dll
 %{mingw64_includedir}/opencv4/
-%{mingw64_libdir}/libopencv_*4100.dll.a
+%{mingw64_libdir}/libopencv_*4110.dll.a
 %{mingw64_libdir}/cmake/OpenCV/
 %{mingw64_datadir}/opencv4
 
@@ -236,6 +236,9 @@ rm -f %{buildroot}%{mingw64_prefix}/{LICENSE,setup_vars_opencv4.cmd}
 
 
 %changelog
+* Tue Feb 11 2025 Sandro Mani <manisandro@gmail.com> - 4.11.0-1
+- Update to 4.11.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

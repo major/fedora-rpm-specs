@@ -102,7 +102,6 @@ Requires:      %{name}-lib = %{epoch}:%{version}-%{release}
 %if 0%{?fedora} || 0%{?rhel} > 7
 Recommends:    tomcat-native >= %{native_version}
 %endif
-Requires(pre):    shadow-utils
 Requires(post):   systemd
 Requires(preun):  systemd
 Requires(postun): systemd
@@ -202,6 +201,11 @@ find . -type f \( -name "*.bat" -o -name "*.class" -o -name Thumbs.db -o -name "
 %mvn_package ":tomcat-jsp-api" tomcat-jsp-api
 %mvn_alias "org.apache.tomcat:tomcat-jsp-api" "jakarta.servlet:jakarta.servlet.jsp"
 %mvn_package ":tomcat-servlet-api" tomcat-servlet-api
+
+# Create a sysusers.d config file
+cat >tomcat.sysusers.conf <<EOF
+u tomcat %{tcuid} 'Apache Tomcat' %{homedir} -
+EOF
 
 
 %build
@@ -401,16 +405,7 @@ popd
 
 %mvn_install
 
-%pre
-# add the tomcat user and group
-getent group tomcat >/dev/null || %{_sbindir}/groupadd -f -g %{tcuid} -r tomcat
-if ! getent passwd tomcat >/dev/null ; then
-    if ! getent passwd %{tcuid} >/dev/null ; then
-        %{_sbindir}/useradd -r -u %{tcuid} -g tomcat -d %{homedir} -s /sbin/nologin -c "Apache Tomcat" tomcat
-        # Tomcat uses a reserved ID, so there should never be an else
-    fi
-fi
-exit 0
+install -m0644 -D tomcat.sysusers.conf %{buildroot}%{_sysusersdir}/tomcat.conf
 
 %post
 # install but don't activate
@@ -476,6 +471,7 @@ exit 0
 %{homedir}/work
 %{homedir}/logs
 %{homedir}/conf
+%{_sysusersdir}/tomcat.conf
 
 %files admin-webapps
 %defattr(0664,root,tomcat,0755)

@@ -5,7 +5,7 @@
 
 Name:          tpm2-tss
 Version:       4.1.3
-Release:       6%{?candidate:.%{candidate}}%{?dist}
+Release:       7%{?candidate:.%{candidate}}%{?dist}
 Summary:       TPM2.0 Software Stack
 
 # The entire source code is under BSD except implementation.h and tpmb.h which
@@ -40,7 +40,6 @@ BuildRequires: pkgconfig
 BuildRequires: systemd
 BuildRequires: systemd-rpm-macros
 BuildRequires: libuuid-devel
-Requires(pre): shadow-utils
 
 %description
 tpm2-tss is a software stack supporting Trusted Platform Module(TPM) 2.0 system
@@ -79,9 +78,6 @@ find %{buildroot}%{_libdir} -type f -name \*.la -delete
 rm %{buildroot}%{_sysusersdir}/tpm2-tss.conf
 install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/tpm2-tss.conf
 
-%pre
-%sysusers_create_compat %{SOURCE1}
-exit 0
 
 %ldconfig_scriptlets
 
@@ -159,6 +155,9 @@ use tpm2-tss.
 %{_mandir}/man7/tss2*.7.gz
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.1.3-7
+- Drop call to %sysusers_create_compat
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

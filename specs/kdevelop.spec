@@ -4,7 +4,7 @@ Name:           kdevelop
 Summary:        Integrated Development Environment for C++/C
 Epoch:          9
 Version:        24.12.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPL-2.0-only
 URL:            https://www.kdevelop.org/
 Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
@@ -105,10 +105,10 @@ BuildRequires:  subversion-devel
 Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: astyle
 Requires: cmake
-Requires: clang-tools-extra
 Requires: cppcheck
 Requires: git
 Requires: konsole-part
+Recommends: clang-tools-extra
 Recommends: clazy
 Recommends: heaptrack
 Recommends: meson
@@ -237,6 +237,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.kde.kdevel
 %{rpm_macros_dir}/macros.kdevelop
 
 %changelog
+* Tue Feb 11 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 9:24.12.2-2
+- Soften clang-tools-extra dependency
+
 * Wed Feb 05 2025 Steve Cossette <farchord@gmail.com> - 9:24.12.2-1
 - 24.12.2
 - Add patch to find clang builtins in F42+

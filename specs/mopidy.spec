@@ -2,7 +2,7 @@
 
 Name:           mopidy
 Version:        4.0.0~a2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        An extensible music server written in Python
 
 License:        Apache-2.0
@@ -33,7 +33,6 @@ Requires:       gstreamer1-plugins-good
 Requires:       python3-tornado
 Requires:       python3-Pykka >= 4.0.0
 Requires:       python3-requests
-Requires(pre):  shadow-utils
 Suggests:       mopidy-mpd
 
 %description
@@ -60,6 +59,11 @@ Documentation for Mopidy, an extensible music server written in Python.
 %generate_buildrequires
 %pyproject_buildrequires -p
 
+# Create a sysusers.d config file
+cat >mopidy.sysusers.conf <<EOF
+u mopidy - '%{summary}' %{homedir} -
+EOF
+
 %build
 %pyproject_wheel
 
@@ -81,15 +85,11 @@ install -p -D -m 0644 extra/mopidyctl/mopidyctl.8 %{buildroot}%{_mandir}/man8/mo
 install -p -D -m 0644 extra/systemd/mopidy.service %{buildroot}%{_unitdir}/%{name}.service
 install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_datadir}/%{name}/conf.d/mopidy.conf
 
+install -m0644 -D mopidy.sysusers.conf %{buildroot}%{_sysusersdir}/mopidy.conf
+
 %check
 %tox
 
-%pre
-getent group %{name} >/dev/null || groupadd -r %{name}
-getent passwd %{name} >/dev/null || \
-    useradd -r -g %{name} -d %{homedir} -s /sbin/nologin \
-    -c "%{summary}" %{name}
-exit 0
 
 %post
 %systemd_post %{name}.service
@@ -117,12 +117,16 @@ exit 0
 %{_mandir}/man1/%{name}.1.*
 %{_mandir}/man8/mopidyctl.8.*
 %{_datadir}/%{name}/conf.d/mopidy.conf
+%{_sysusersdir}/mopidy.conf
 
 %files doc
 %doc docs/_build/html
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.0.0~a2-4
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0~a2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

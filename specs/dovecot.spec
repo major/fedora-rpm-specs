@@ -6,7 +6,7 @@ Name: dovecot
 Epoch: 1
 Version: 2.3.21.1
 %global prever %{nil}
-Release: 5%{?dist}
+Release: 6%{?dist}
 #dovecot itself is MIT, a few sources are PD, pigeonhole is LGPLv2
 License: MIT AND LGPL-2.1-only
 
@@ -101,7 +101,6 @@ BuildRequires: gettext-devel
 Requires: openssl >= 0.9.7f-4
 
 # Package includes an initscript service file, needs to require initscripts package
-Requires(pre): shadow-utils
 Requires: systemd
 Requires(post): systemd-units
 Requires(preun): systemd-units
@@ -324,9 +323,6 @@ popd
 
 
 %pre
-#dovecot uid and gid are reserved, see /usr/share/doc/setup-*/uidgid 
-%sysusers_create_compat %{SOURCE16}
-
 # do not let dovecot run during upgrade rhbz#134325
 if [ "$1" = "2" ]; then
   rm -f %restart_flag
@@ -526,6 +522,9 @@ make check
 %{_libdir}/%{name}/dict/libdriver_pgsql.so
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:2.3.21.1-6
+- Drop call to %sysusers_create_compat
+
 * Wed Feb 05 2025 Michal Hlavinka <mhlavink@redhat.com> - 1:2.3.21.1-5
 - fix sysusers config file name
 

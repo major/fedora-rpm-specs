@@ -12,7 +12,7 @@
 # disable python2 by default
 %bcond python2 0
 
-%{!?tcl_version: %global tcl_version %(echo 'puts $tcl_version' | tclsh8)}
+%{!?tcl_version: %global tcl_version %(echo 'puts $tcl_version' | tclsh)}
 %{!?tcl_sitearch: %global tcl_sitearch %{_prefix}/%{_lib}/tcl%{tcl_version}}
 
 # with speech dispatcher iff on Fedora:
@@ -37,7 +37,7 @@
 
 Name: brltty
 Version: 6.7
-Release: 8%{?dist}
+Release: 10%{?dist}
 License: LGPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later
 URL: http://brltty.app/
 Source0: http://brltty.app/archive/%{name}-%{version}.tar.xz
@@ -50,8 +50,11 @@ Patch1: brltty-6.3-loadLibrary.patch
 Patch2: brltty-6.3-libspeechd.patch
 # https://brltty.app/pipermail/brltty/2024-December/020462.html
 Patch3: brltty-6.6-path-separator-fix.patch
-# Until tcl-9 is supported by upstream
-Patch4: brltty-6.7-compat-tcl8.patch
+# https://github.com/brltty/brltty/commit/249f36e5da4b60dee33e9207b41c5a3b135a670e
+# also required by Tcl 9.0
+Patch4: brltty-6.7-utf8.patch
+# https://github.com/brltty/brltty/commit/c657726a5e03d53a037632e6068d0c2273950b36
+Patch5: brltty-6.7-tcl9.patch
 Summary: Braille display driver for Linux/Unix
 BuildRequires: byacc
 BuildRequires: glibc-kernheaders
@@ -59,7 +62,6 @@ BuildRequires: gcc
 BuildRequires: bluez-libs-devel
 BuildRequires: systemd
 BuildRequires: systemd-rpm-macros
-%{?sysusers_requires_compat}
 BuildRequires: lua-devel
 BuildRequires: gettext
 BuildRequires: at-spi2-core-devel
@@ -149,7 +151,7 @@ This package provides the eSpeak-NG driver for BRLTTY.
 %package -n brlapi
 Version: %{api_version}
 Summary: Application Programming Interface for BRLTTY
-Requires(pre): glibc-common, shadow-utils
+Requires(pre): glibc-common
 Requires(post): coreutils, util-linux
 %description -n brlapi
 This package provides the run-time support for the Application
@@ -178,7 +180,7 @@ which directly accesses a refreshable braille display.
 %package -n tcl-brlapi
 Version: %{api_version}
 Requires: brlapi%{?_isa} = %{api_version}-%{release}
-BuildRequires: tcl-devel < 1:9
+BuildRequires: tcl-devel
 Summary: Tcl binding for BrlAPI
 %description -n tcl-brlapi
 This package provides the Tcl binding for BrlAPI.
@@ -258,10 +260,7 @@ installer.
 mv %{name}-%{version} python2
 
 pushd python2
-%patch -P 1 -p1 -b .loadLibrary
-%patch -P 2 -p1 -b .libspeechd
-%patch -P 3 -p1 -b .path-separator-fix
-%patch -P 4 -p1 -b .compat-tcl8
+%autopatch -p1
 
 # remove packaged binary file
 rm -f Programs/brltty-ktb
@@ -546,8 +545,6 @@ find %{buildroot}%{_datadir} -type d -name 'Java' | xargs rm -rf
 %postun
 %systemd_postun_with_restart brltty.service
 
-%pre -n brlapi
-%sysusers_create_compat %{SOURCE4}
 
 %post -n brlapi
 if [ ! -e %{_sysconfdir}/brlapi.key ]; then
@@ -684,6 +681,13 @@ fi
 %config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/brltty/Initramfs/cmdline
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 6.7-10
+- Drop call to %sysusers_create_compat
+
+* Tue Feb 11 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 6.7-9
+- Built for tcl 9.0
+  Related: rhbz#2337691
+
 * Mon Feb  3 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 6.7-8
 - Rebuilt for tcl/tk change
   Related: rhbz#2337691

@@ -2,19 +2,21 @@
 
 Name:           git-up
 Version:        2.2.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A more friendly "git pull" in Python
 
 License:        MIT
 URL:            https://github.com/msiemens/PyGitUp
 Source0:        %{pypi_source}
 Source1:        https://raw.githubusercontent.com/msiemens/PyGitUp/v%{version}/LICENCE
+
+# pytest 8 compatibility
+# https://github.com/msiemens/PyGitUp/pull/135
+Patch:          135.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
-# Test dependencies:
-# the package does not work with pytest 8
-# downstream issue: https://bugzilla.redhat.com/show_bug.cgi?id=2272982
-BuildRequires:  python3dist(pytest) < 8
+BuildRequires:  python3dist(pytest)
 
 %description
 PyGitUp is a Python port of aanand/git-up. It not only fully covers the
@@ -22,7 +24,7 @@ abilities of git-up and should be a drop-in replacement, but also extends it
 slightly.
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -p1 -n %{pypi_name}-%{version}
 cp %{SOURCE1} .
 
 %generate_buildrequires
@@ -51,6 +53,10 @@ fi
 %exclude %{python3_sitelib}/PyGitUp/tests
 
 %changelog
+* Fri Jan 31 2025 Miro Hrončok <mhroncok@redhat.com> - 2.2.0-10
+- Fix build with pytest 8
+- Fixes: rhbz#2272982
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

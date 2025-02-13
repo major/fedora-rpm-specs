@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -35,7 +35,6 @@ Source9:	strtoull_test.c
 Source10:	20-grub.install
 Source11:	grub.patches
 Source12:	sbat.csv.in
-Source21:	install_bootloader
 
 %include %{SOURCE1}
 
@@ -385,7 +384,7 @@ fi
 %posttrans common
 set -eu
 
-EFI_HOME=%{grub_efi_dir}
+EFI_HOME=%{efi_esp_dir}
 GRUB_HOME=/boot/grub2
 ESP_PATH=/boot/efi
 
@@ -430,11 +429,6 @@ fi
 # ensure we exit 0
 mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg || :
 
-%if 0%{with_efi_arch}
-%posttrans efi-%{efiarch}
-/usr/lib/bootloader/install_bootloader %{grub_efi_dir} %{efi_esp_dir} || :
-%endif
-
 %files common -f grub.lang
 %dir %{_libdir}/grub/
 %dir %{_datarootdir}/grub/
@@ -448,8 +442,8 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg || :
 %dir /boot/grub2/themes/system
 %attr(0700,root,root) %dir /boot/grub2
 %exclude /boot/grub2/*
-%dir %attr(0700,root,root) %{grub_version_dir}
-%exclude %{grub_version_dir}/*
+%dir %attr(0700,root,root) %{efi_esp_dir}
+%exclude %{efi_esp_dir}/*
 %ghost %config(noreplace) %verify(not size mode md5 mtime) /boot/grub2/grubenv
 %license COPYING
 %doc THANKS
@@ -611,6 +605,9 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg || :
 %endif
 
 %changelog
+* Tue Feb 11 2025 Nicolas Frayer <nfrayer@redhat.com> 2.12-23
+- Revert commit for bootloader update proposal for now as not all components are ready
+
 * Tue Feb 4 2025 Marta Lewandowska <mlewando@redhat.com> - 2.12-22
 - Phase 1 of the bootloader updates proposal implementation
 - https://fedoraproject.org/wiki/Changes/BootLoaderUpdatesPhase1

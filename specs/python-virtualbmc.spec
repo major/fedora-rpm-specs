@@ -2,7 +2,7 @@
 
 Name: python-%{srcname}
 Version: 3.1.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: A virtual BMC for controlling virtual machines using IPMI commands
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
@@ -34,7 +34,6 @@ A virtual BMC for controlling virtual machines using IPMI commands.
 %package -n python3-%{srcname}
 Summary: A virtual BMC for controlling virtual machines using IPMI commands
 Suggests: python3-%{srcname}-doc
-Requires(pre): shadow-utils
 %{?python_provide:%python_provide python3-%{srcname}}
 
 %description -n python3-%{srcname}
@@ -73,8 +72,6 @@ install -d -m 750 %{buildroot}%{_sharedstatedir}/vbmcd
 %check
 PYTHON=%{__python3} stestr run
 
-%pre -n python3-%{srcname}
-%sysusers_create_compat %{SOURCE3}
 
 %post -n python3-%{srcname}
 %systemd_post vbmcd.service
@@ -107,6 +104,9 @@ PYTHON=%{__python3} stestr run
 %doc doc/build/html
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.1.0-9
+- Drop call to %sysusers_create_compat
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

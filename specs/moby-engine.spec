@@ -321,8 +321,6 @@ skiptest \
 %endif
 
 
-%pre
-%sysusers_create_compat %{S:100}
 
 
 %post

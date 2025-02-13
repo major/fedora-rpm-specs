@@ -9,7 +9,7 @@ spyder-IDE maintainers.
 }
 
 Name:           python-%{short_name}
-Version:        1.12.0
+Version:        1.12.2
 Release:        %autorelease
 Summary:        Python implementation of language server protocol
 

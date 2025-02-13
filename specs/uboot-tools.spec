@@ -1,4 +1,4 @@
-#global candidate rc0
+%global candidate rc1
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -6,8 +6,8 @@
 %endif
 
 Name:     uboot-tools
-Version:  2025.01
-Release:  3%{?candidate:.%{candidate}}%{?dist}
+Version:  2025.04
+Release:  0.2%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -115,7 +115,7 @@ do
     cp /usr/share/arm-trusted-firmware/sun50i_h6/bl31.bin builds/$(echo $board)/atf-bl31
     cp /usr/share/crust-firmware/h6/scp.bin builds/$(echo $board)/
   fi
-  sun50i_h616=(orangepi_zero2 orangepi_zero2w orangepi_zero3 transpeed-8k618-t x96_mate)
+  sun50i_h616=(anbernic_rg35xx_h700 orangepi_zero2 orangepi_zero2w orangepi_zero3 transpeed-8k618-t x96_mate)
   if [[ " ${sun50i_h616[*]} " == *" $board "* ]]; then
     echo "Board: $board using sun50i_h616"
     cp /usr/share/arm-trusted-firmware/sun50i_h616/bl31.bin builds/$(echo $board)/atf-bl31
@@ -135,6 +135,11 @@ do
     echo "Board: $board using rk3399"
     cp /usr/share/arm-trusted-firmware/rk3399/* builds/$(echo $board)/
     cp builds/$(echo $board)/bl31.elf builds/$(echo $board)/atf-bl31
+  fi
+  zynqmp=(xilinx_zynqmp_kria xilinx_zynqmp_virt)
+  if [[ " ${zynqmp[*]} " == *" $board "* ]]; then
+    echo "Board: $board using zynqmp"
+    cp /usr/share/arm-trusted-firmware/zynqmp/bl31.bin builds/$(echo $board)/atf-bl31
   fi
   # End ATF
 
@@ -163,9 +168,16 @@ do
  done
 done
 
-# Just for xilinx_zynqmp_virt
-install -pD -m 0644 builds/xilinx_zynqmp_virt/u-boot.itb %{buildroot}%{_datadir}/uboot/xilinx_zynqmp_virt/u-boot.itb
-install -pD -m 0644 builds/xilinx_zynqmp_virt/spl/boot.bin %{buildroot}%{_datadir}/uboot/xilinx_zynqmp_virt/boot.bin
+# Just for xilinx_zynqmp
+for board in "xilinx_zynqmp_kria xilinx_zynqmp_virt"
+do
+ for file in u-boot.itb spl/boot.bin
+ do
+  if [ -f builds/$(echo $board)/$(echo $file) ]; then
+    install -pD -m 0644 builds/$(echo $board)/$(echo $file) %{buildroot}%{_datadir}/uboot/$(echo $board)/$(echo $file)
+  fi
+ done
+done
 
 # For Apple M-series we also need the nodtb variant
 install -pD -m 0644 builds/apple_m1/u-boot-nodtb.bin %{buildroot}%{_datadir}/uboot/apple_m1/u-boot-nodtb.bin
@@ -176,11 +188,6 @@ do
   rm -f %{buildroot}%{_datadir}/uboot/$(echo $board)/u-boot.dtb
   if [ -f %{buildroot}%{_datadir}/uboot/$(echo $board)/u-boot-sunxi-with-spl.bin ]; then
     rm -f %{buildroot}%{_datadir}/uboot/$(echo $board)/u-boot{,-dtb}.*
-    rm -f %{buildroot}%{_datadir}/uboot/$(echo $board)/sunxi-spl.bin
-  fi
-  if [ -f %{buildroot}%{_datadir}/uboot/$(echo $board)/idbloader.img ]; then
-    rm -f %{buildroot}%{_datadir}/uboot/$(echo $board)/u-boot.bin
-    rm -f %{buildroot}%{_datadir}/uboot/$(echo $board)/u-boot{,-dtb}.img
   fi
 done
 %endif
@@ -218,6 +225,9 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Tue Feb 11 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2025.04-0.2.rc1
+- Update to 2025.05 RC1
+
 * Tue Jan 28 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2025.01-3
 - Add new fdt_add_pubkey tool
 
