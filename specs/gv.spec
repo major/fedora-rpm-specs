@@ -4,10 +4,11 @@ Version: 3.7.4
 Release: 36%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
-%if 0%{?fedora} || 0%{?rhel} >= 8
-Requires: ghostscript-x11
-%else
+# X11 built into ghostscript starting with 10.0
+%if 0%{?fedora} || 0%{?rhel} >= 10
 Requires: ghostscript
+%else
+Requires: ghostscript-x11
 %endif
 URL: http://www.gnu.org/software/gv/
 Source0: ftp://ftp.gnu.org/gnu/gv/gv-%{version}.tar.gz

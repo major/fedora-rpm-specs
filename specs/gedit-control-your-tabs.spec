@@ -1,3 +1,6 @@
+# https://github.com/jefferyto/gedit-control-your-tabs/issues/21
+%global debug_package %{nil}
+
 %global appname controlyourtabs
 %global uuid    com.thingsthemselves.gedit.plugins.%{appname}
 
@@ -5,7 +8,6 @@ Name:           gedit-control-your-tabs
 Version:        0.5.1
 Release:        %autorelease
 Summary:        Gedit plugin to switch between document tabs using
-BuildArch:      noarch
 
 License:        GPL-2.0-or-later
 URL:            https://github.com/jefferyto/gedit-control-your-tabs

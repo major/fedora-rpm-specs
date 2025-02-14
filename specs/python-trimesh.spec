@@ -6,7 +6,7 @@
 %bcond pymeshlab 0
 
 Name:           python-trimesh
-Version:        4.6.1
+Version:        4.6.2
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 

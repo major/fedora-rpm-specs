@@ -67,7 +67,6 @@ This package contains libraries and header files for Groonga.
 Summary:        Common files for the Groonga server and the Groonga HTTP server
 License:        LGPL-2.1-only
 Requires:       %{name}%{?isa} = %{version}-%{release}
-Requires(pre):  shadow-utils
 
 %description    server-common
 This package provides common settings for server use.
@@ -76,7 +75,6 @@ This package provides common settings for server use.
 Summary:        Groonga GQTP server
 License:        LGPL-2.1-only
 Requires:       %{name}-server-common%{?isa} = %{version}-%{release}
-Requires(pre):  shadow-utils
 Requires(post): systemd
 Requires(preun):systemd
 
@@ -87,7 +85,6 @@ This package contains the Groonga GQTP server.
 Summary:        Groonga HTTP server
 License:        LGPL-2.1-only AND BSD-3-Clause
 Requires:       %{name}-server-common%{?isa} = %{version}-%{release}
-Requires(pre):  shadow-utils
 Requires(post): systemd
 Requires(preun):systemd
 
@@ -162,6 +159,11 @@ rm vendor/*.tar.gz
 rm vendor/*.rb
 rm -rf vendor/{lz4,rapidjson-1.1.0}
 
+# Create a sysusers.d config file
+cat >groonga.sysusers.conf <<EOF
+u groonga - 'groonga' %{_localstatedir}/lib/groonga -
+EOF
+
 %build
 %cmake \
   -GNinja \
@@ -233,15 +235,13 @@ cat <<EOC > %{buildroot}%{_sysconfdir}/munin/plugin-conf.d/groonga
   env.gqtp_query_log_path %{_localstatedir}/log/groonga/query-gqtp.log
 EOC
 
+install -m0644 -D groonga.sysusers.conf %{buildroot}%{_sysusersdir}/groonga.conf
+
 %post munin-plugins
 %{_sbindir}/munin-node-configure --shell --remove-also | grep -e 'groonga_' | sh
 %systemd_postun munin-node
 
 %pre server-common
-getent group groonga >/dev/null || groupadd -r groonga
-getent passwd groonga >/dev/null || \
-       useradd -r -g groonga -d %{_localstatedir}/lib/groonga -s /sbin/nologin \
-    -c 'groonga' groonga
 if [ $1 = 1 ] ; then
   mkdir -p %{_localstatedir}/log/groonga
   mkdir -p %{_localstatedir}/lib/groonga/db
@@ -316,6 +316,7 @@ fi
 
 %files server-common
 %config(noreplace) %{_sysconfdir}/tmpfiles.d/groonga.conf
+%{_sysusersdir}/groonga.conf
 
 %files server-gqtp
 %config(noreplace) %{_sysconfdir}/groonga/

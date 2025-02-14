@@ -24,7 +24,7 @@
 Summary: Scanner access software
 Name: sane-backends
 Version: 1.3.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 # backend/coolscan*, backend/epson2*, backend/epsonds*, backend/magicolor*, backend/kodakaio* -
 # GPL-2.0-only
 # backend/qcam* - MIT AND GPL-2.0-or-later WITH SANE-exception
@@ -307,8 +307,12 @@ udevadm hwdb --update >/dev/null 2>&1 || :
 
 %ldconfig_scriptlets libs
 
+# remove the pre daemon scriptlet for creating sysusers once F41 goes EOL
+# because the step is done automatically by RPM in F42 and newer
+%if 0%{?fedora} < 42
 %pre daemon
 %sysusers_create_compat %{SOURCE6}
+%endif
 
 %post daemon
 %systemd_post saned.socket
@@ -405,6 +409,9 @@ udevadm hwdb --update >/dev/null 2>&1 || :
 %{_unitdir}/saned@.service
 
 %changelog
+* Wed Feb 12 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1.3.1-3
+- drop daemon %%pre scriptlet for F42 and newer
+
 * Wed Feb 05 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1.3.1-2
 - sane-backends: FTBFS in Fedora rawhide/f42 (fedora#2341320)
 

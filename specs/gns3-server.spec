@@ -6,7 +6,7 @@
 
 Name:           gns3-server
 Version:        2.2.53
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Graphical Network Simulator 3
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -65,6 +65,11 @@ sed -i -r 's/async-timeout>=5.0.1,<5.1/async-timeout>=4.0.2/' requirements.txt
 sed -i -r 's/sentry-sdk.*//g' requirements.txt
 sed -i -r 's/truststore.*//g' requirements.txt
 
+# Create a sysusers.d config file
+cat >gns3-server.sysusers.conf <<EOF
+u gns3 - 'gns3 server' /var/lib/gns3 -
+EOF
+
 %build
 %py3_build
 
@@ -90,6 +95,10 @@ mkdir -p  %{buildroot}%{_sharedstatedir}/gns3
 rm -fv %{buildroot}/%{python3_sitelib}/gns3server/disks/OVMF_CODE.fd
 rm -fv %{buildroot}/%{python3_sitelib}/gns3server/disks/OVMF_VARS.fd
 
+%if 0%{?fedora} >= 42
+install -m0644 -D gns3-server.sysusers.conf %{buildroot}%{_sysusersdir}/gns3-server.conf
+%endif
+
 %check
 
 
@@ -105,17 +114,22 @@ rm -fv %{buildroot}/%{python3_sitelib}/gns3server/disks/OVMF_VARS.fd
 %{_bindir}/gns3loopback
 %{_unitdir}/gns3.service
 %dir %attr(0755,gns3,gns3) %{_sharedstatedir}/gns3
+%if 0%{?fedora} >= 42
+%{_sysusersdir}/gns3-server.conf
+%endif
 
 %files doc
 %license LICENSE
 %doc docs/_build/html
 
+%if 0%{?fedora} < 42
 %pre
 getent group gns3 >/dev/null || groupadd -r gns3
 getent passwd gns3 >/dev/null || \
        useradd -r -g gns3 -d /var/lib/gns3 -s /sbin/nologin \
                -c "gns3 server" gns3
 exit 0
+%endif
 
 %post
 [ -d "/var/lib/gns3" ] && chown -R gns3:gns3 %{_sharedstatedir}/gns3
@@ -132,6 +146,13 @@ cp -fp %{_datadir}/edk2/ovmf/OVMF_VARS.fd %{python3_sitelib}/gns3server/disks/OV
 %systemd_postun_with_restart gns3.service
 
 %changelog
+* Wed Feb 12 2025 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.53-3
+- sysusers.d config file for F42+
+- https://fedoraproject.org/wiki/Changes/RPMSuportForSystemdSysusers
+
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.2.53-2
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Wed Jan 22 2025 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.53-1
 - Update to 2.2.53
 

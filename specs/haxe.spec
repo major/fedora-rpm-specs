@@ -5,8 +5,8 @@ ExcludeArch: %{ix86}
 %global commit_hx3compat f1f18201e5c0479cb5adf5f6028788b37f37b730
 
 Name:           haxe
-Version:        4.3.4
-Release:        8%{?dist}
+Version:        4.3.6
+Release:        1%{?dist}
 Summary:        Multi-target universal programming language
 
 # As described in https://haxe.org/foundation/open-source.html:
@@ -20,7 +20,7 @@ Summary:        Multi-target universal programming language
 #     * pcre - LGPLv2+
 #     * everything else - LGPLv2.1+
 # Automatically converted from old format: GPLv2+ and MIT and LGPLv2+ - review is highly recommended.
-License:        GPL-2.0-or-later AND LicenseRef-Callaway-MIT AND LicenseRef-Callaway-LGPLv2+
+License:        GPL-2.0-or-later AND MIT AND LGPL-2.0-or-later
 
 URL:            https://haxe.org/
 
@@ -42,7 +42,7 @@ BuildRequires:  ocaml-xml-light-devel
 BuildRequires:  ocaml-extlib-devel >= 1.7.8
 BuildRequires:  ocaml-ptmap-devel
 BuildRequires:  ocaml-sha-devel
-BuildRequires:  ocaml-luv-devel >= 0.5.12
+BuildRequires:  ocaml-luv-devel >= 0.5.13
 BuildRequires:  zlib-devel
 BuildRequires:  pcre2-devel
 BuildRequires:  pkgconfig(libuv)
@@ -127,6 +127,11 @@ popd
 %{_datadir}/%{name}/
 
 %changelog
+* Wed Feb 12 2025 Andy Li <andy@onthewings.net> - 4.3.6-1
+- New upstream version 4.3.6. (RHBZ#2298764)
+- Replaced haxe-ocaml5.3.patch with the commit from upstream.
+- Update License.
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

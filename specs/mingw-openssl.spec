@@ -15,8 +15,8 @@
 %global run_tests 0
 
 Name:           mingw-openssl
-Version:        3.2.2
-Release:        4%{?dist}
+Version:        3.2.4
+Release:        1%{?dist}
 Summary:        MinGW port of the OpenSSL toolkit
 
 License:        OpenSSL
@@ -144,6 +144,18 @@ Patch117: 0117-ignore-unknown-sigalgorithms-groups.patch
 # Patch120: 0120-Allow-disabling-of-SHA1-signatures.patch
 # From CentOS 9
 Patch121: 0121-FIPS-cms-defaults.patch
+# [PATCH 50/50] Assign IANA numbers for hybrid PQ KEX Porting the fix
+#  in https://github.com/openssl/openssl/pull/22803
+Patch122: 0122-Assign-IANA-numbers-for-hybrid-PQ-KEX.patch
+# https://github.com/openssl/openssl/issues/24577
+Patch124: 0124-PBMAC1-PKCS12-FIPS-support.patch
+# Downstream patch: enforce PBMAC1 in FIPS mode
+Patch125: 0125-PBMAC1-PKCS12-FIPS-default.patch
+# https://github.com/openssl/openssl/issues/25127
+Patch126: 0126-pkeyutl-encap.patch
+# https://github.com/openssl/openssl/issues/25056
+Patch127: 0127-speedup-SSL_add_cert_subjects_to_stack.patch
+Patch128: 0128-SAST-findings.patch
 
 # MinGW patches
 # Attempt to compute openssl modules dir dynamically from executable path if not set by OPENSSL_MODULES
@@ -151,6 +163,7 @@ Patch1000: openssl_compute_moddir.patch
 
 BuildArch:      noarch
 
+BuildRequires:  git
 BuildRequires:  make
 BuildRequires:  lksctp-tools-devel
 BuildRequires:  perl-interpreter
@@ -274,7 +287,7 @@ Static version of the MinGW port of the OpenSSL toolkit.
 
 
 %prep
-%autosetup -p1 -n openssl-%{version}
+%autosetup -S git -n openssl-%{version}
 
 cp %{SOURCE12} crypto/ec/
 cp %{SOURCE13} test/
@@ -552,6 +565,9 @@ mkdir -m700 %{buildroot}%{ucrt64_sysconfdir}/pki/CA/private
 
 
 %changelog
+* Wed Feb 12 2025 Sandro Mani <manisandro@gmail.com> - 3.2.4-1
+- Update to 3.2.4
+
 * Mon Jan 20 2025 Sandro Mani <manisandro@gmail.com> - 3.2.2-4
 - Rebuild
 

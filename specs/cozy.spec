@@ -5,7 +5,7 @@ Summary: Modern audiobook player
 License: GPL-3.0-or-later
 
 Version: 1.3.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 URL: https://cozy.geigi.de
 Source0: https://github.com/geigi/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -41,7 +41,6 @@ BuildRequires: python3dist(inject) >= %{req_py_inject}
 BuildRequires: python3dist(mutagen)
 BuildRequires: python3dist(peewee) >= %{req_py_peewee}
 BuildRequires: python3dist(pygobject)
-BuildRequires: python3dist(pytest-runner)
 BuildRequires: python3dist(pytest-mock)
 BuildRequires: python3dist(pytz)
 BuildRequires: python3dist(requests)
@@ -147,6 +146,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rtld_name}.desktop
 
 
 %changelog
+* Wed Feb 12 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1.3.0-5
+- Remove spurious BuildRequires on python-pytest-runner
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

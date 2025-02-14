@@ -897,6 +897,7 @@ fi
 %{_mandir}/man1/javadoc-%{uniquesuffix -- %{?1}}.1*
 %{_mandir}/man1/javap-%{uniquesuffix -- %{?1}}.1*
 %{_mandir}/man1/jconsole-%{uniquesuffix -- %{?1}}.1*
+%{_mandir}/man1/jcmd-%{uniquesuffix -- %{?1}}.1*
 %{_mandir}/man1/jdb-%{uniquesuffix -- %{?1}}.1*
 %{_mandir}/man1/jdeprscan-%{uniquesuffix -- %{?1}}.1*
 %{_mandir}/man1/jdeps-%{uniquesuffix -- %{?1}}.1*
@@ -935,6 +936,7 @@ fi
 %ghost %{_bindir}/javadoc
 %ghost %{_bindir}/javap
 %ghost %{_bindir}/jconsole
+%ghost %{_bindir}/jcmd
 %ghost %{_bindir}/jdb
 %ghost %{_bindir}/jdeps
 %ghost %{_bindir}/jdeprscan

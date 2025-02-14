@@ -11,11 +11,11 @@
 %global		git_builddir	%{nil}
 
 %if 0%{?use_gitbare}
-%global		gittardate		20241008
-%global		gittartime		0911
+%global		gittardate		20250212
+%global		gittartime		2356
 
-%global		gitbaredate	20240818.1
-%global		git_rev		1efbde2ac9db0f3099b2a06314aba856a2d67287
+%global		gitbaredate	20241011
+%global		git_rev		4dbf512562ff00df2c3476f52f1e568d7c873090
 %global		git_short		%(echo %{git_rev} | cut -c-8)
 %global		git_version	%{gitbaredate}git%{git_short}
 %endif
@@ -30,12 +30,12 @@
 
 Name:			gpicview
 Version:		%{main_version}%{git_ver_rpm}
-Release:		2%{?dist}
+Release:		1%{?dist}
 Summary:		Simple and fast Image Viewer for X
 
 # SPDX confirmed
 License:		GPL-2.0-or-later
-URL:			http://lxde.sourceforge.net/gpicview/
+URL:			https://github.com/lxde/%{name}/
 %if 0%{?use_gitbare}
 Source0:		%{name}-%{gittardate}T%{gittartime}.tar.gz
 %endif
@@ -146,6 +146,9 @@ cd ..
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed Feb 12 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.2.6^20241011git4dbf5125-1
+- Update to the latest git
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.6^20240818.1git1efbde2a-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

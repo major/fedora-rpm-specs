@@ -1,10 +1,10 @@
 %global rdnn    com.raggesilver.BlackBox
 
-%global commit      7df8c0e211467ae31f9ef1377db773c771f0370b
+%global commit      bb1ce17d374bb339eca2c0200744012feef44c53
 %global shortcommit %{sub %{commit} 1 7}
 
 Name:           blackbox-terminal
-Version:        0.15.0~^1.%{shortcommit}
+Version:        0.15.0~^2.%{shortcommit}
 Release:        %autorelease
 Summary:        Elegant and customizable terminal for GNOME
 # Entire source code is GPL-3.0-or-later except src/utils/Terminal.vala which
@@ -45,7 +45,7 @@ Black Box is an elegant and customizable terminal for GNOME.
 
 
 %prep
-%autosetup -n blackbox-%{commit} -p 1
+%autosetup -p 1 -n blackbox-%{commit}
 
 
 %build

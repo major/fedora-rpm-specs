@@ -5,7 +5,7 @@
 Name: libcupsfilters
 Epoch: 1
 Version: 2.1.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Library for developing printing filters
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -16,7 +16,10 @@ Source0: %{URL}/releases/download/%{version}/%{name}-%{version}.tar.gz
 
 
 # Patches
+# https://github.com/OpenPrinting/libcupsfilters/pull/79
 Patch001: 0001-Fix-issues-reported-by-OpenScanHub-79.patch
+# https://github.com/OpenPrinting/libcupsfilters/pull/80
+Patch002: 0001-bannertopdf.c-Fix-segfault-when-printing-banners-tes.patch
 
 
 # for generating configure and Makefile scripts in autogen.h
@@ -194,6 +197,9 @@ rm -f %{buildroot}%{_pkgdocdir}/{LICENSE,COPYING,NOTICE}
 
 
 %changelog
+* Wed Feb 12 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.1.0-6
+- fix bannertopdf regression
+
 * Tue Feb 11 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.1.0-5
 - rebuilt with Poppler 25.02.0
 

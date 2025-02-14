@@ -23,7 +23,7 @@ Summary:   Open source remote desktop protocol (RDP) server
 Name:      xrdp
 Epoch:     1
 Version:   0.10.2
-Release:   9%{?dist}
+Release:   10%{?dist}
 # Automatically converted from old format: ASL 2.0 and GPLv2+ and MIT - review is highly recommended.
 License:   Apache-2.0 AND GPL-2.0-or-later AND LicenseRef-Callaway-MIT
 URL:       http://www.xrdp.org/
@@ -71,7 +71,6 @@ BuildRequires: checkpolicy, selinux-policy-devel
 BuildRequires: %{_hardlink}
 
 BuildRequires: systemd-rpm-macros
-%{?sysusers_requires_compat}
 
 # tigervnc-server-minimal provides Xvnc (default for now)
 # xorgxrdp is another back end, depends on specific Xorg binary, omit
@@ -199,8 +198,6 @@ done
 
 %{__install} -p -D -m 0644 %{SOURCE9} %{buildroot}%{_sysusersdir}/xrdp.conf
 
-%pre
-%sysusers_create_compat %{SOURCE9}
 
 %post
 %{?ldconfig}
@@ -347,6 +344,9 @@ fi
 %{_datadir}/selinux/*/%{name}.pp
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:0.10.2-10
+- Drop call to %sysusers_create_compat
+
 * Thu Feb  6 2025 Bojan Smojver <bojan@rexursive.com> - 1:0.10.2~9
 - Add utmp support contributed upstream by Magnus Lewis-Smith
 

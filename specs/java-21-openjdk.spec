@@ -882,6 +882,7 @@ fi
 %{_mandir}/man1/javadoc-%{uniquesuffix -- %{?1}}.1*
 %{_mandir}/man1/javap-%{uniquesuffix -- %{?1}}.1*
 %{_mandir}/man1/jconsole-%{uniquesuffix -- %{?1}}.1*
+%{_mandir}/man1/jcmd-%{uniquesuffix -- %{?1}}.1*
 %{_mandir}/man1/jdb-%{uniquesuffix -- %{?1}}.1*
 %{_mandir}/man1/jdeprscan-%{uniquesuffix -- %{?1}}.1*
 %{_mandir}/man1/jdeps-%{uniquesuffix -- %{?1}}.1*
@@ -919,6 +920,7 @@ fi
 %ghost %{_bindir}/javadoc
 %ghost %{_bindir}/javap
 %ghost %{_bindir}/jconsole
+%ghost %{_bindir}/jcmd
 %ghost %{_bindir}/jdb
 %ghost %{_bindir}/jdeps
 %ghost %{_bindir}/jdeprscan
@@ -1181,7 +1183,8 @@ Group:   Development/Languages
 # The test code includes copies of NSS under the Mozilla Public License v2.0
 # The PCSClite headers are under a BSD with advertising license
 # The elliptic curve cryptography (ECC) source code is licensed under the LGPLv2.1 or any later version
-License:  ASL 1.1 and ASL 2.0 and BSD and BSD with advertising and GPL+ and GPLv2 and GPLv2 with exceptions and IJG and LGPLv2+ and MIT and MPLv2.0 and Public Domain and W3C and zlib and ISC and FTL and RSA
+# Automatically converted from old format: ASL 1.1 and ASL 2.0 and BSD and BSD with advertising and GPL+ and GPLv2 and GPLv2 with exceptions and IJG and LGPLv2+ and MIT and MPLv2.0 and Public Domain and W3C and zlib and ISC and FTL and RSA - review is highly recommended.
+License:  Apache-1.1 AND Apache-2.0 AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-BSD-with-advertising AND GPL-1.0-or-later AND GPL-2.0-only AND LicenseRef-Callaway-GPLv2-with-exceptions AND IJG AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-MIT AND MPL-2.0 AND LicenseRef-Callaway-Public-Domain AND W3C AND Zlib AND ISC AND FTL AND LicenseRef-RSA
 URL:      http://openjdk.java.net/
 
 # Use 'icedtea_sync.sh' to update the following

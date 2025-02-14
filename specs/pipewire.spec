@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 1
+%global baserelease 2
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -127,11 +127,9 @@ BuildRequires:  libcanberra-devel
 BuildRequires:  libuv-devel
 BuildRequires:  speexdsp-devel
 BuildRequires:  systemd-rpm-macros
-%{?sysusers_requires_compat}
 BuildRequires:  libebur128-devel
 BuildRequires:  fftw-devel
 
-Requires(pre):  shadow-utils
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       systemd
 Requires:       rtkit
@@ -528,8 +526,6 @@ echo "test failed"
 %{!?tests_nonfatal:exit $TESTS_ERROR}
 fi
 
-%pre
-%sysusers_create_compat %{SOURCE1}
 
 %post
 %systemd_user_post pipewire.service
@@ -893,6 +889,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.3.82-2
+- Drop call to %sysusers_create_compat
+
 * Thu Feb 06 2025 Wim Taymans <wtaymans@redhat.com> - 1.3.82-1
 - Update version to 1.3.82
 

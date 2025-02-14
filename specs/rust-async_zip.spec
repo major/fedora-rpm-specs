@@ -16,7 +16,9 @@ Source:         %{crate}-%{version}-clean.crate
 #   then "./gen_clean_tarball.sh" for new versions
 Source10:       gen_clean_tarball.sh
 # Manually created patch for downstream crate metadata changes
-# * drop dev-dependencies that are only required for compiling examples
+# * drop some dev-dependencies that are only required for compiling examples
+# * allow sanitize-filename 0.6,
+#   https://github.com/Majored/rs-async-zip/pull/153
 Patch:          async_zip-fix-metadata.diff
 # * compile and run large-file tests only on 64-bit architectures: they don't
 #   compile and would not work on 32-bit architectures

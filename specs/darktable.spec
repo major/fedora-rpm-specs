@@ -6,8 +6,8 @@
 ###
 
 Name: darktable
-Version: 5.0.0
-Release: 4%{?dist}
+Version: 5.0.1
+Release: 1%{?dist}
 
 Summary: Utility to organize and develop raw images
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -247,6 +247,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.darkt
 %{_libexecdir}/darktable/tools/darktable-curve-tool-helper
 
 %changelog
+* Wed Feb 12 2025 Germano Massullo <germano.massullo@gmail.com> - 5.0.1-1
+- 5.0.1 release
+
 * Sun Feb 02 2025 Sérgio Basto <sergio@serjux.com> - 5.0.0-4
 - Rebuild for jpegxl (libjxl) 0.11.1
 

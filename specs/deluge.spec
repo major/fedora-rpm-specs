@@ -1,6 +1,6 @@
 Name:           deluge
 Version:        2.1.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A GTK+ BitTorrent client with support for DHT, UPnP, and PEX
 # Automatically converted from old format: GPLv3 with exceptions - review is highly recommended.
 License:        LicenseRef-Callaway-GPLv3-with-exceptions
@@ -104,13 +104,17 @@ Summary:    The Deluge daemon
 # Automatically converted from old format: GPLv3 with exceptions - review is highly recommended.
 License:    LicenseRef-Callaway-GPLv3-with-exceptions
 Requires:   %{name}-common = %{version}-%{release}
-Requires(pre): shadow-utils
 
 %description daemon
 Files for the Deluge daemon
 
 %prep
 %autosetup -p1
+
+# Create a sysusers.d config file
+cat >deluge.sysusers.conf <<EOF
+u deluge - 'deluge daemon account' %{_sharedstatedir}/%{name} -
+EOF
 
 %build
 %py3_build
@@ -159,6 +163,8 @@ pushd %{buildroot}
 ## Now we move that list back to our sources, so that '%%files -f' can find it
 ## properly.
 popd && mv %{buildroot}/%{name}.lang .
+
+install -m0644 -D deluge.sysusers.conf %{buildroot}%{_sysusersdir}/deluge.conf
 
 %files
 
@@ -214,13 +220,8 @@ popd && mv %{buildroot}/%{name}.lang .
 %{_unitdir}/%{name}-daemon.service
 %attr(-,%{name}, %{name})%{_sharedstatedir}/%{name}/
 %{_mandir}/man?/%{name}d*
+%{_sysusersdir}/deluge.conf
 
-%pre daemon
-getent group %{name} >/dev/null || groupadd -r %{name}
-getent passwd %{name} >/dev/null || \
-useradd -r -g %{name} -d %{_sharedstatedir}/%{name} -s /sbin/nologin \
-        -c "deluge daemon account" %{name}
-exit 0
 
 
 %post daemon
@@ -242,6 +243,9 @@ exit 0
 %systemd_postun_with_restart deluge-web.service
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.1.1-12
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

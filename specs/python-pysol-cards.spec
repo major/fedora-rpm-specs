@@ -2,8 +2,8 @@
 %global pypi_name pysol-cards
 
 Name:           python-%{pypi_name}
-Version:        0.18.0
-Release:        2%{?dist}
+Version:        0.18.1
+Release:        1%{?dist}
 Summary:        Deal PySol FC Cards
 License:        MIT
 URL:            https://fc-solve.shlomifish.org/
@@ -11,10 +11,7 @@ Source0:        %{pypi_source pysol_cards}
 BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-pbr >= 2
-BuildRequires:  python%{python3_pkgversion}-random2
 BuildRequires:  python%{python3_pkgversion}-setuptools
-BuildRequires:  python%{python3_pkgversion}-six
 
 %description
 The pysol-cards python module allows the python developer to generate the
@@ -41,7 +38,6 @@ sed -i '/^#! \/usr\/bin\/env python$/d' pysol_cards/*.py
 # Must do the default python version install last because
 # the scripts in /usr/bin are overwritten with every setup.py install.
 %py3_install
-rm -rf %{buildroot}/%{_bindir}
 
 %files -n python%{python3_pkgversion}-%{pypi_name}
 %license LICENSE
@@ -50,6 +46,10 @@ rm -rf %{buildroot}/%{_bindir}
 %{python3_sitelib}/pysol_cards-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Feb 12 2025 Shlomi Fish <shlomif@shlomifish.org> 0.18.1-1
+- Update to 0.18.1 (#2344838)
+- Remove no-longer-needed spec directives.
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

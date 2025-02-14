@@ -6,8 +6,8 @@
 
 
 Name:           mariadb-connector-c
-Version:        3.4.3
-Release:        10%{?with_debug:.debug}%{?dist}
+Version:        3.4.4
+Release:        1%{?with_debug:.debug}%{?dist}
 Summary:        The MariaDB Native Client library (C driver)
 License:        LGPL-2.1-or-later
 Source:         https://archive.mariadb.org/connector-c-%{version}/%{name}-%{version}-src.tar.gz
@@ -252,6 +252,9 @@ install -D -p -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/my.cnf.d/client.cnf
 #      Need to ensure, that the testsuite will also run properly on 'fedpkg local' buid, not damaging the host machine
 
 %changelog
+* Wed Feb 12 2025 Michal Schorm <mschorm@redhat.com> - 3.4.4-1
+- rebuilt
+
 * Tue Feb 04 2025 Michal Schorm <mschorm@redhat.com> - 3.4.3-10
 - Disable option that requires all connections to be SSL encrypted by default
 

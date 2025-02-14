@@ -1,5 +1,5 @@
 %global repo_name vcpkg-tool
-%global repo_tag 2025-01-11
+%global repo_tag 2025-02-11
 
 Name: vcpkg
 Version: %(echo %{repo_tag} | sed 's/-/./g')
@@ -54,7 +54,7 @@ Fedora can't ship the official Git repository with recipes for various
 reasons (especially legal), so you'll need to manually clone it into
 the \$HOME/.local/share/%{name} directory (the path can be changed in
 the %{_sysconfdir}/profile.d/%{name}.sh file):
-git clone https://github.com/microsoft/%{name} \$VCPKG_ROOT
+git clone https://github.com/microsoft/%{name}.git \$VCPKG_ROOT
 
 You will have to update it manually too:
 git -C \$VCPKG_ROOT pull

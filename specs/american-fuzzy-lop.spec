@@ -4,7 +4,7 @@
 
 Version:       4.31c
 %global forgeurl https://github.com/AFLplusplus/AFLplusplus/
-%global tag    v4.31c
+%global commit 4f3812f00d3245c480d4eecfe4b674be1ec6fb7c
 %forgemeta
 
 Name:          american-fuzzy-lop
@@ -12,23 +12,17 @@ Summary:       Practical, instrumentation-driven fuzzer for binary formats
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:       Apache-2.0
 
-Release:       1%{?dist}
+Release:       3%{?dist}
 URL:           %{forgeurl}
 Source0:       %{forgesource}
 
 # For running the tests:
 Source1:       hello.c
 
-# Fix for:
-# https://github.com/AFLplusplus/AFLplusplus/issues/2292#issuecomment-2650461922
-Patch:         https://github.com/AFLplusplus/AFLplusplus/commit/65b99d25e1a41aad90f015a583c6a786f99a07b6.patch
-
 # Only specific architectures are supported by upstream.
 # On non-x86 only afl-clang-fast* are built.
 # i686 support was silently removed in AFL++ 4.10c
-# s390x was broken in 4.31c:
-# https://github.com/AFLplusplus/AFLplusplus/issues/2295
-ExclusiveArch: x86_64
+ExclusiveArch: x86_64 s390x
 
 BuildRequires: gcc
 BuildRequires: gcc-plugin-devel
@@ -293,8 +287,11 @@ test -n '%{clang_major}'
 
 
 %changelog
+* Wed Feb 12 2025 Richard W.M. Jones <rjones@redhat.com> - 4.31c-3
+- Switch to dev branch to fix s390x build
+
 * Tue Feb 11 2025 Richard W.M. Jones <rjones@redhat.com> - 4.31c-2
-- Add upstream fix for GCC 15, remove -std hack.
+- Add upstream fix for GCC 15, remove -std hack
 
 * Mon Feb 10 2025 Richard W.M. Jones <rjones@redhat.com> - 4.31c-1
 - New version 4.31c (RHBZ#2344642)

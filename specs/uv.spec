@@ -14,7 +14,7 @@
 %bcond it 0
 
 Name:           uv
-Version:        0.5.29
+Version:        0.5.30
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -215,6 +215,8 @@ Patch:          0002-Downstream-only-Use-zlib-ng-on-all-architectures.patch
 # https://github.com/astral-sh/uv/issues/3642
 Patch100:       0001-Revert-Update-zip-requirement-from-0.6.3-to-2.1.5.patch
 Patch101:       0002-Revert-Update-mod.rs.patch
+# Update sanitize-filename requirement from 0.5 to 0.6
+Patch102:       https://github.com/Majored/rs-async-zip/pull/153.patch
 
 # This patch is for the forked, bundled pubgrub crate.
 #
@@ -583,6 +585,13 @@ tomcli set crates/uv/Cargo.toml del dependencies.tracing-durations-export
 # #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
 # tomcli set crates/uv/Cargo.toml str dev-dependencies.foocrate.version 0.1.2
 
+# mailparse
+#   wanted: 0.16.0
+#   currently packaged: 0.15.0
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2344596
+tomcli set Cargo.toml str workspace.dependencies.mailparse.version \
+    '>=0.15.0, <0.17.0'
+
 # unicode-width
 #   wanted: 0.1.13
 #   currently packaged: 0.1.12 (or 0.1.13+really0.1.12)
@@ -713,6 +722,14 @@ skip="${skip-} --skip remote_metadata::remote_metadata_with_and_without_cache"
 #           4 │+invalid value: string "§invalid#+#*Ä", expected relative URL without a base
 # ────────────┴───────────────────────────────────────────────────────────────────
 skip="${skip-} --skip metadata::requires_dist::test::invalid_url"
+
+%if %[ %{defined fc41} || %{defined fc40} || %{defined el10} || %{defined el9} ]
+# Trivial difference in snapshots: packages appear in a different order.
+skip="${skip-} --skip lock::tests::missing_dependency_source_unambiguous"
+skip="${skip-} --skip lock::tests::missing_dependency_version_dynamic"
+skip="${skip-} --skip lock::tests::missing_dependency_source_version_unambiguous"
+skip="${skip-} --skip lock::tests::missing_dependency_version_unambiguous"
+%endif
 
 %cargo_test -- -- --exact ${skip-}
 %endif

@@ -9,7 +9,7 @@
 
 Name:           lttng-tools
 Version:        2.13.14
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        GPL-2.0-only AND LGPL-2.1-only
 URL:            http://lttng.org
 Summary:        LTTng control and utility programs
@@ -18,6 +18,7 @@ Source1:        http://lttng.org/files/lttng-tools/%{name}-%{version}.tar.bz2.as
 # gpg2 --export --export-options export-minimal 7F49314A26E0DE78427680E05F1B2A0789F12B11 > gpgkey-7F49314A26E0DE78427680E05F1B2A0789F12B11.gpg
 Source2:        gpgkey-7F49314A26E0DE78427680E05F1B2A0789F12B11.gpg
 Source3:        lttng-sessiond.service
+Source4:        lttng-tools.sysusers.conf
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -38,7 +39,6 @@ BuildRequires:  hostname
 BuildRequires:  kmod
 BuildRequires:  procps-ng
 
-Requires(pre):  shadow-utils
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
@@ -101,9 +101,8 @@ install -D -m644 %{_sourcedir}/lttng-sessiond.service %{buildroot}%{_unitdir}/lt
 # Install upstream bash auto completion for lttng
 install -D -m644 extras/lttng-bash_completion %{buildroot}%{_sysconfdir}/bash_completion.d/lttng
 
-%pre
-getent group tracing >/dev/null || groupadd -r tracing
-exit 0
+install -m0644 -D %SOURCE4 %{buildroot}%{_sysusersdir}/lttng-tools.conf
+
 
 %post
 /sbin/ldconfig
@@ -171,6 +170,7 @@ exit 0
 %{_unitdir}/lttng-sessiond.service
 %{_sysconfdir}/bash_completion.d/
 %{_datadir}/xml/lttng/session.xsd
+%{_sysusersdir}/lttng-tools.conf
 
 %files -n %{name}-devel
 %{_mandir}/man3/lttng-health-check.3.gz
@@ -189,6 +189,9 @@ exit 0
 %endif
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.13.14-3
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

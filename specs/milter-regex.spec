@@ -1,13 +1,13 @@
-# Milter header files package name
-%if (0%{?rhel} && 0%{?rhel} <= 7) || (0%{?fedora} && 0%{?fedora} <= 25)
-%global milter_devel_package sendmail-devel
+# Use sysusers from Fedora 43 onwards
+%if (0%{?rhel} && 0%{?rhel} <= 10) || (0%{?fedora} && 0%{?fedora} <= 42)
+%global use_sysusers 0
 %else
-%global milter_devel_package sendmail-milter-devel
+%global use_sysusers 1
 %endif
 
 Name:		milter-regex
 Version:	2.7
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	Milter plug-in for regular expression filtering
 License:	BSD-2-Clause
 URL:		http://www.benzedrine.ch/milter-regex.html
@@ -22,10 +22,12 @@ BuildRequires:	coreutils
 BuildRequires:	gcc
 BuildRequires:	groff
 BuildRequires:	make
-BuildRequires:	%milter_devel_package >= 8.13
 BuildRequires:	sed
+BuildRequires:	sendmail-milter-devel >= 8.13
 BuildRequires:	systemd
+%if !%{use_sysusers}
 Requires(pre):	shadow-utils
+%endif
 %{?systemd_requires}
 
 %description
@@ -41,6 +43,11 @@ sed -i -e	's|/etc/milter-regex\.conf|%{_sysconfdir}/mail/milter-regex.conf|;
 
 # Copy out the license text from the source code
 head -n +31 milter-regex.c > LICENSE
+
+# Create a sysusers.d config file
+cat >milter-regex.sysusers.conf <<EOF
+u mregex - 'Regex Milter' %{_localstatedir}/spool/milter-regex -
+EOF
 
 %build
 make %{?_smp_mflags} -f Makefile.linux \
@@ -60,15 +67,21 @@ install -p -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/milter-regex.service
 install -p -m 644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/milter-regex
 install -p -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/mail/milter-regex.conf
 
+%if %{use_sysusers}
+install -m0644 -D milter-regex.sysusers.conf %{buildroot}%{_sysusersdir}/milter-regex.conf
+%endif
+
 # Create a ghost sock file so we can remove it on package deletion
 : > %{buildroot}%{_localstatedir}/spool/milter-regex/sock
 
+%if !%{use_sysusers}
 %pre
 getent group mregex >/dev/null || groupadd -r mregex
 getent passwd mregex >/dev/null || \
 	useradd -r -g mregex -d %{_localstatedir}/spool/milter-regex \
 		-s /sbin/nologin -c "Regex Milter" mregex
 exit 0
+%endif
 
 %post
 %systemd_post milter-regex.service
@@ -88,8 +101,16 @@ exit 0
 %dir %attr(755,root,mregex) %{_localstatedir}/spool/milter-regex/
 %ghost %{_localstatedir}/spool/milter-regex/sock
 %{_mandir}/man8/milter-regex.8*
+%if %{use_sysusers}
+%{_sysusersdir}/milter-regex.conf
+%endif
 
 %changelog
+* Wed Feb 12 2025 Paul Howarth <paul@city-fan.org> - 2.7-17
+- Drop EL-7 support
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+  (from F-43 onwards)
+
 * Fri Jan 17 2025 Paul Howarth <paul@city-fan.org> - 2.7-16
 - Build with -std=gnu17 due to issues with milter API (#2336394)
 

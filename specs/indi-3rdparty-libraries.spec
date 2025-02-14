@@ -1,7 +1,7 @@
 %global libapogee_pkg indi-3rdparty-libapogee
 %global libfli_pkg indi-3rdparty-libfli
 
-%global indi_version 2.1.1
+%global indi_version 2.1.2
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

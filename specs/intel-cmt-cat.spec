@@ -7,7 +7,7 @@ including, Cache Monitoring Technology (CMT), Memory Bandwidth Monitoring
 
 Name:		intel-cmt-cat
 Version:	24.05
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Intel cache monitoring and allocation technology config tool
 
 License:	BSD-3-Clause
@@ -17,6 +17,9 @@ Source: 	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:		0001-alter-install-paths.patch
 Patch1:		0002-remove-build-and-install-of-examples.patch
 Patch2:		0003-allow-debian-flags-to-be-added.patch
+Patch3:		0004-lib-Fix-MBR-value-for-non-SNC-machines.patch
+Patch4:		0005-lib-fix-variable-types-in-common.c-pqos_read.patch
+Patch5:		0006-lib-Fix-calloc-arguments-that-are-in-the-wrong-order.patch
 
 ExclusiveArch:	x86_64
 
@@ -41,7 +44,7 @@ Development files.
 %make_build
 
 %install
-%make_install
+%make_install BIN_DIR="%{buildroot}%{_bindir}" SBIN_DIR="%{buildroot}%{_sbindir}"
 
 %ldconfig_scriptlets
 
@@ -66,6 +69,9 @@ Development files.
 %{_libdir}/libpqos.so
 
 %changelog
+* Wed Feb 12 2025 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 24.05-4
+- Merging upstream patches and Rawhide FTBFS fix
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.05-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

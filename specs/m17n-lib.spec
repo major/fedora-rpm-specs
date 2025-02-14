@@ -6,7 +6,7 @@
 %endif
 
 Name:           m17n-lib
-Version:        1.8.4
+Version:        1.8.5
 Release:        %autorelease
 Summary:        Multilingual text library
 
@@ -14,7 +14,6 @@ License:        LGPL-2.1-or-later
 URL:            http://www.nongnu.org/m17n/
 Source0:        http://download.savannah.gnu.org/releases/m17n/%{name}-%{version}.tar.gz
 Patch0:         %{name}-1.8.0-multilib.patch
-Patch1:         %{name}-1.8.4-fix-build.patch
 
 BuildRequires: make
 BuildRequires:  m17n-db-devel libthai-devel
@@ -30,7 +29,7 @@ BuildRequires:  automake libtool
 Provides: bundled(gnulib)
 
 %if %{with anthy}
-BuildRequires:  anthy-devel
+BuildRequires:  anthy-unicode-devel
 %endif
 
 Requires:       m17n-db

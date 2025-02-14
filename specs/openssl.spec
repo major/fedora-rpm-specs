@@ -28,8 +28,8 @@ print(string.sub(hash, 0, 16))
 
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
-Version: 3.2.2
-Release: 14%{?dist}
+Version: 3.2.4
+Release: 1%{?dist}
 Epoch: 1
 Source: openssl-%{version}.tar.gz
 Source2: Makefile.certificate
@@ -154,8 +154,6 @@ Patch121: 0121-FIPS-cms-defaults.patch
 # [PATCH 50/50] Assign IANA numbers for hybrid PQ KEX Porting the fix
 #  in https://github.com/openssl/openssl/pull/22803
 Patch122: 0122-Assign-IANA-numbers-for-hybrid-PQ-KEX.patch
-# HKDF regression with older provider implementations
-Patch123: 0123-kdf-Preserve-backward-compatibility-with-older-provi.patch
 # https://github.com/openssl/openssl/issues/24577
 Patch124: 0124-PBMAC1-PKCS12-FIPS-support.patch
 # Downstream patch: enforce PBMAC1 in FIPS mode
@@ -165,21 +163,6 @@ Patch126: 0126-pkeyutl-encap.patch
 # https://github.com/openssl/openssl/issues/25056
 Patch127: 0127-speedup-SSL_add_cert_subjects_to_stack.patch
 Patch128: 0128-SAST-findings.patch
-# https://github.com/openssl/openssl/pull/24717
-Patch129: 0129-Fix-SSL_select_next_proto.patch
-Patch130: 0130-More-correctly-handle-a-selected_len-of-0-when-proce.patch
-Patch131: 0131-Use-correctly-formatted-ALPN-data-in-tserver.patch
-Patch132: 0132-Clarify-the-SSL_select_next_proto-documentation.patch
-Patch133: 0133-Add-a-test-for-SSL_select_next_proto.patch
-Patch134: 0134-Allow-an-empty-NPN-ALPN-protocol-list-in-the-tests.patch
-Patch135: 0135-Correct-return-values-for-tls_construct_stoc_next_pr.patch
-Patch136: 0136-Add-ALPN-validation-in-the-client.patch
-Patch137: 0137-Add-explicit-testing-of-ALN-and-NPN-in-sslapitest.patch
-Patch138: 0138-Add-a-test-for-an-empty-NextProto-message.patch
-# https://github.com/openssl/openssl/commit/05f360d9e849a1b277db628f1f13083a7f8dd04f
-Patch139: 0139-CVE-2024-6119.patch
-# https://github.com/openssl/openssl/pull/26197
-Patch140: 0140-prov_no-cache.patch
 
 License: Apache-2.0
 URL: http://www.openssl.org/
@@ -557,6 +540,10 @@ ln -s /etc/crypto-policies/back-ends/openssl_fips.config $RPM_BUILD_ROOT%{_sysco
 %ldconfig_scriptlets libs
 
 %changelog
+* Wed Feb 12 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.2.4-1
+- Rebase to 3.2.4
+  Resolves: CVE-2024-12797
+
 * Wed Jan 29 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.2.2-14
 - Fixup for loading default cipher string
   Resolves: rhbz#2342801

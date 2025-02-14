@@ -43,8 +43,8 @@ URL:            https://zeromq.org/languages/python/
 Source:         %{forgeurl}/archive/v%{version}/pyzmq-%{version}.tar.gz
 
 BuildRequires:  gcc
-# This package contains no C++ code, but the scikit-build-core backend checks
-# for a C++ compiler.
+# This package contains no C++ code, but there are some checks in
+# CMakeLists.txt that need a C++ compiler.
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(libzmq)
 BuildRequires:  python3-devel

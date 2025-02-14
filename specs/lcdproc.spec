@@ -5,7 +5,7 @@
 Summary:        Display real-time system information on a 20x4 back-lit LCD
 Name:           lcdproc
 Version:        0.5.9
-Release:        24.%{commitdate}git%{shortcommit}%{?dist}
+Release:        25.%{commitdate}git%{shortcommit}%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 URL:            http://lcdproc.org
@@ -132,8 +132,6 @@ for f in LCDd.conf lcdproc.conf ; do
 done
 
 
-%pre
-%sysusers_create_compat %{SOURCE7}
 
 
 %post
@@ -164,6 +162,9 @@ done
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.5.9-25.20210209git5c21e8c
+- Drop call to %sysusers_create_compat
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.9-24.20210209git5c21e8c
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

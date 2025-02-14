@@ -1,18 +1,6 @@
-# This package builds a daemon-application,
-# thus we build with full hardening.
-%global _hardened_build 1
-
-# Systemd or SysV?
-%if 0%{?fedora} || 0%{?rhel} >= 7
-%global with_systemd 1
-%endif # 0%{?fedora} || 0%{?rhel} >= 7
-
-# Setup _pkgdocdir if not defined already.
-%{!?_pkgdocdir:%global _pkgdocdir	%{_docdir}/%{name}-%{version}}
-
 Name:		icecast
 Version:	2.4.4
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	ShoutCast compatible streaming media server
 
 # admin/xspf.xsl:	GPLv2+
@@ -37,11 +25,10 @@ Summary:	ShoutCast compatible streaming media server
 License:	GPL-2.0-or-later AND GPL-2.0-only AND LicenseRef-Callaway-BSD
 URL:		http://www.%{name}.org/
 Source0:	https://downloads.xiph.org/releases/%{name}/%{name}-%{version}.tar.gz
-Source1:	%{name}.init
-Source2:	%{name}.logrotate
-Source3:	%{name}.service
-Source4:	%{name}.xml
-Source5:	status3.xsl
+Source1:	%{name}.logrotate
+Source2:	%{name}.service
+Source3:	%{name}.xml
+Source4:	status3.xsl
 # Respect a system crypto policy, bug #1645612
 Patch0:		icecast-2.4.4-Respect-a-default-cipher-list-defined-by-the-SSL-lib.patch
 
@@ -59,21 +46,10 @@ BuildRequires:	libxml2-devel
 BuildRequires:	libxslt-devel
 BuildRequires:	openssl-devel
 BuildRequires:	speex-devel
+BuildRequires:	systemd-rpm-macros
 
 Requires:	mailcap
-
-Requires(pre):	shadow-utils
-
-%if 0%{?with_systemd}
-BuildRequires:	systemd
-
-%{?systemd_requires}
-%else # 0%{?with_systemd}
-Requires(post):		/sbin/chkconfig
-Requires(preun):	/sbin/chkconfig
-Requires(preun):	/sbin/service
-Requires(postun):	/sbin/service
-%endif # 0%{?with_systemd}
+%systemd_requires
 
 Provides:	streaming-server
 
@@ -101,6 +77,10 @@ This package contains the documentation files for %{name}.
 %{_bindir}/find doc/ -type f | xargs %{__chmod} 0644
 %{__cp} -a doc/ html/
 %{_bindir}/find html/ -name 'Makefile*' | xargs %{__rm} -f
+# Create a sysusers.d config file
+cat >icecast.sysusers.conf <<EOF
+u icecast - '%{name} streaming server' /usr/share/%{name} -
+EOF
 autoreconf -f
 
 
@@ -122,91 +102,56 @@ autoreconf -f
 
 %install
 %make_install
-%{__rm} -fr %{buildroot}%{_datadir}/%{name}/doc
-%{__rm} -fr %{buildroot}%{_docdir}/%{name}
-%if 0%{?with_systemd}
-%{__install} -Dpm 0644 %{SOURCE3} %{buildroot}%{_unitdir}/%{name}.service
-%else # 0%{?with_systemd}
-%{__install} -Dpm 0755 %{SOURCE1} %{buildroot}%{_initrddir}/%{name}
-%endif # 0%{?with_systemd}
-%{__install} -Dpm 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
-%{__install} -Dpm 0640 %{SOURCE4} %{buildroot}%{_sysconfdir}/%{name}.xml
-%{__install} -Dpm 0644 %{SOURCE5} %{buildroot}%{_datadir}/%{name}/web/status3.xsl
-%{__mkdir} -p %{buildroot}%{_localstatedir}/log/%{name}	\
-	%{buildroot}%{_localstatedir}/run/%{name}	\
-	%{buildroot}%{_pkgdocdir}/{conf,examples}
-%{__cp} -a html/ AUTHORS ChangeLog COPYING NEWS TODO %{buildroot}%{_pkgdocdir}
-%if 0%{?fedora} || 0%{?rhel} >= 7
-%{__rm} -f %{buildroot}%{_pkgdocdir}/COPYING
-%endif # 0%{?fedora} || 0%{?rhel} >= 7
-%{__cp} -a conf/*.dist %{buildroot}%{_pkgdocdir}/conf
-%{__cp} -a examples/%{name}_auth-1.0.tar.gz %{buildroot}%{_pkgdocdir}/examples
-
-
-%pre
-%{_bindir}/getent passwd %{name} >/dev/null ||					\
-	%{_sbindir}/useradd -M -r -d /usr/share/%{name} -s /sbin/nologin	\
-		-c "%{name} streaming server" %{name} > /dev/null 2>&1 || :
-exit 0
+rm -fr %{buildroot}%{_datadir}/%{name}/doc
+rm -fr %{buildroot}%{_docdir}/%{name}
+install -Dpm 0644 %{SOURCE2} %{buildroot}%{_unitdir}/%{name}.service
+install -Dpm 0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
+install -Dpm 0640 %{SOURCE3} %{buildroot}%{_sysconfdir}/%{name}.xml
+install -Dpm 0644 %{SOURCE4} %{buildroot}%{_datadir}/%{name}/web/status3.xsl
+install -Dpm 0644 icecast.sysusers.conf %{buildroot}%{_sysusersdir}/icecast.conf
+mkdir -p %{buildroot}%{_localstatedir}/log/%{name}	\
+	 %{buildroot}%{_pkgdocdir}/{conf,examples}
+cp -a html/ AUTHORS ChangeLog NEWS TODO %{buildroot}%{_pkgdocdir}
+cp -a conf/*.dist %{buildroot}%{_pkgdocdir}/conf
+cp -a examples/%{name}_auth-1.0.tar.gz %{buildroot}%{_pkgdocdir}/examples
 
 
 %post
-%if 0%{?with_systemd}
 %systemd_post %{name}.service
-%else # 0%{?with_systemd}
-/sbin/chkconfig --add %{name}
-%endif # 0%{?with_systemd}
 
 
 %preun
-%if 0%{?with_systemd}
 %systemd_preun %{name}.service
-%else # 0%{?with_systemd}
-if [ $1 = 0 ]; then
-	/sbin/service %{name} stop >/dev/null 2>&1
-	/sbin/chkconfig --del %{name}
-fi
-%endif # 0%{?with_systemd}
 
 
 %postun
-%if 0%{?with_systemd}
 %systemd_postun_with_restart %{name}.service
-%else # 0%{?with_systemd}
-if [ "$1" -ge "1" ]; then
-	/sbin/service %{name} condrestart >/dev/null 2>&1
-fi
-%endif # 0%{?with_systemd}
 
 
 %files
 %config(noreplace) %attr(-,root,%{name}) %{_sysconfdir}/%{name}.xml
 %dir %attr(-,%{name},%{name}) %{_localstatedir}/log/%{name}
 %doc %dir %{_pkgdocdir}
-%if 0%{?fedora} || 0%{?rhel} >= 7
 %license COPYING
-%else  # 0%{?fedora} || 0%{?rhel} >= 7
-%doc %{_pkgdocdir}/COPYING
-%endif # 0%{?fedora} || 0%{?rhel} >= 7
 %{_bindir}/%{name}
 %{_datadir}/%{name}
 %{_sysconfdir}/logrotate.d/%{name}
-%if 0%{?with_systemd}
+%{_sysusersdir}/icecast.conf
 %{_unitdir}/%{name}.service
-%else # 0%{?with_systemd}
-%dir %attr(-,%{name},%{name}) %{_localstatedir}/run/%{name}
-%{_initrddir}/%{name}
-%endif # 0%{?with_systemd}
 
 
 %files doc
-%if 0%{?fedora} || 0%{?rhel} >= 7
 %license %{_datadir}/licenses/%{name}*
-%endif # 0%{?fedora} || 0%{?rhel} >= 7
 %doc %{_pkgdocdir}
 
 
 %changelog
+* Wed Feb 12 2025 Björn Esser <besser82@fedoraproject.org> - 2.4.4-20
+- Remove old cruft from spec file
+
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.4.4-20
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.4-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

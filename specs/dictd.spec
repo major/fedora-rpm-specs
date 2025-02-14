@@ -7,7 +7,7 @@
 Summary:   DICT protocol (RFC 2229) server and command-line client
 Name:      dictd
 Version:   1.13.1
-Release:   6%{?dist}
+Release:   7%{?dist}
 License:   GPL-2.0-only AND GPL-2.0-or-later AND GPL-1.0-or-later AND GPL-3.0-or-later AND MIT AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 Source0:   https://github.com/cheusov/dictd/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:   dictd.service
@@ -32,7 +32,6 @@ BuildRequires: gcc
 BuildRequires: pkgconfig(systemd)
 BuildRequires: checkpolicy, selinux-policy-devel
 
-Requires(pre): shadow-utils
 
 %description
 Command-line client for the DICT protocol.  The Dictionary Server
@@ -61,6 +60,11 @@ More information can be found in the INSTALL file in this package.
 autoreconf -fv
 mkdir SELinux
 cp -p %{SOURCE2} SELinux
+
+# Create a sysusers.d config file
+cat >dictd.sysusers.conf <<EOF
+u dictd - 'dictd dictionary server' %{homedir} -
+EOF
 
 %build
 pushd SELinux
@@ -91,6 +95,8 @@ do
     %{buildroot}%{_datadir}/selinux/${selinuxvariant}/dictd2.pp
 done
 
+install -m0644 -D dictd.sysusers.conf %{buildroot}%{_sysusersdir}/dictd.conf
+
 
 %post server
 %systemd_post dictd.service
@@ -101,12 +107,6 @@ done
 %postun server
 %systemd_postun_with_restart dictd.service
 
-%pre
-getent group %{username} >/dev/null || groupadd -r %{username}
-getent passwd %{username} >/dev/null || \
-    useradd -r -g %{username} -d %{homedir} -s /sbin/nologin \
-    -c "dictd dictionary server" %{username}
-exit 0
 
 %files
 %doc ANNOUNCE COPYING README doc/rfc2229.txt doc/security.doc
@@ -139,12 +139,16 @@ exit 0
 %{_mandir}/man1/dictzip.1*
 %{_mandir}/man8/dictd.8*
 %attr(0644,root,root) %{_unitdir}/dictd.service
+%{_sysusersdir}/dictd.conf
 %{homedir}
 %config(noreplace) %{_sysconfdir}/dictd.conf
 %doc SELinux
 %{_datadir}/selinux/*/dictd2.pp
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.13.1-7
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Wed Jan 29 2025 Carlos Rodriguez-Fernandez <carlosrodrifernandez@gmail.com> - 1.13.1-6
 - Set default client configuration to use dict.org
 

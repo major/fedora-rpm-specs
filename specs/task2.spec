@@ -35,6 +35,10 @@ This package provides the taskv2 compatibility package.
 %prep
 %autosetup -n %{upstream_name}-%{version}
 
+# add #include <cstdint>
+sed -i '/<Pig.h>/ a #include <cstdint>' src/libshared/src/JSON.h
+grep -C4 -nri "<cstdint>" src/libshared/src/JSON.h
+
 %build
 %cmake -DTASK_RCDIR=share/%{upstream_name}
 %cmake_build

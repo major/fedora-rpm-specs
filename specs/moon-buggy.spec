@@ -10,7 +10,7 @@ Source2:         %{name}.desktop
 Source3:         %{name}-sound.desktop
 Patch0:          moon-buggy-1.0.51-pause.patch
 Patch1:          moon-buggy-1.0.51-sound.patch
-Patch2:          https://github.com/seehuhn/moon-buggy/pull/11.patch#/moon-buggy-1.0.51-c23.patch
+Patch2:          https://github.com/seehuhn/moon-buggy/commit/c929f2c1bdd173686b295a003e4f6dda5f0fa98a.patch#/moon-buggy-1.0.51-c23.patch
 BuildRequires:   gcc, make, ncurses-devel, texinfo
 %if 0%{!?_without_sound:1}
 BuildRequires:   esound-devel, desktop-file-utils, autoconf, automake

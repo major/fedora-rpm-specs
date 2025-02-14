@@ -20,7 +20,7 @@ ExcludeArch:    %{ix86}
 %global build_tests 1
 
 Name:       libindi
-Version:    2.1.1
+Version:    2.1.2
 Release:    %autorelease
 Summary:    Instrument Neutral Distributed Interface
 
@@ -32,10 +32,6 @@ License:    GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later and BSD
 
 URL:        http://www.indilib.org
 Source0:    https://github.com/indilib/indi/archive/v%{version}/indi-%{version}.tar.gz
-
-# Fix build with GCC15 / C++23
-# https://github.com/indilib/indi/pull/2165
-Patch:      fix_gcc15-c++23.patch
 
 BuildRequires: cmake
 BuildRequires: libev-devel

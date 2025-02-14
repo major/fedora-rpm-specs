@@ -2,7 +2,7 @@
 SOCKS proxy connector for aiohttp. SOCKS4(a) and SOCKS5 are supported.
 
 Name:           python-aiohttp-socks
-Version:        0.8.4
+Version:        0.10.1
 Release:        %autorelease
 Summary:        SOCKS proxy connector for aiohttp
 

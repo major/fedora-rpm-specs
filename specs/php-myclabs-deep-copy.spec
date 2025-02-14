@@ -1,14 +1,14 @@
 # remirepo/fedora spec file for php-myclabs-deep-copy
 #
-# Copyright (c) 2015-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2015-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 %bcond_without       tests
 
-%global gh_commit    123267b2c49fbf30d78a7b2d333f6be754b94845
+%global gh_commit    024473a478be9df5fdaca2c793f2232fe788e414
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     myclabs
 %global gh_project   DeepCopy
@@ -17,8 +17,8 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-myclabs-deep-copy%{major}
-Version:        1.12.1
-Release:        2%{?dist}
+Version:        1.13.0
+Release:        1%{?dist}
 
 Summary:        Create deep copies (clones) of your objects
 
@@ -120,6 +120,10 @@ exit $ret
 
 
 %changelog
+* Wed Feb 12 2025 Remi Collet <remi@remirepo.net> - 1.13.0-1
+- update to 1.13.0
+- re-license spec file to CECILL-2.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

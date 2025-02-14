@@ -7,13 +7,13 @@ be developed that will work with both libraries. It was developed initially for\
 the openpyxl project but is now a standalone module.
 
 Name:           python-%{pypi_name}
-Version:        1.1.0
-Release:        12%{?dist}
+Version:        2.0.0
+Release:        1%{?dist}
 Summary:        %{sum}
 
 License:        MIT
 URL:            https://pypi.python.org/pypi/%{pypi_name}
-Source0:        https://foss.heptapod.net/openpyxl/et_xmlfile/-/archive/1.1/et_xmlfile-1.1.0.tar.gz
+Source0:        https://foss.heptapod.net/openpyxl/et_xmlfile/-/archive/2.0.0/et_xmlfile-2.0.0.tar.gz
 
 BuildArch:      noarch
 
@@ -24,10 +24,10 @@ BuildArch:      noarch
 %package -n     python3-%{pypi_name}
 Summary:        %{sum}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-pytest
-BuildRequires:  python3-lxml
-Requires:       python3-lxml
+BuildRequires:  %py3_dist setuptools
+BuildRequires:  %py3_dist pytest
+BuildRequires:  %py3_dist lxml
+Requires:       %py3_dist lxml
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
@@ -35,7 +35,7 @@ Requires:       python3-lxml
 
 
 %prep
-%setup -q -n %{pypi_name}-1.1-de1a42079e168f8d3b2ff987785b353e0a892ee3
+%autosetup -n %{pypi_name}-%{version}
 
 
 %build
@@ -47,18 +47,19 @@ Requires:       python3-lxml
 
 
 %check
-pwd
-ls -R
-py.test-%{python3_version}
+%pytest
 
 
 %files -n python3-%{pypi_name}
 %license LICENCE.rst
-%doc README.rst
+%doc README.rst doc/
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 %{python3_sitelib}/%{pypi_name}/
 
 %changelog
+* Wed Feb 12 2025 Julien Enselme <jujens@jujens.eu> - 2.0.0-1
+- Update to 2.0.0 (#2321825)
+
 * Tue Feb 11 2025 Julien Enselme <jujens@jujens.eu> - 1.1.0-12
 - Remove useless jdcal dependency.
 
@@ -171,4 +172,4 @@ py.test-%{python3_version}
 - Add tests
 
 * Mon Nov 9 2015 Julien Enselme <jujens@jujens.eu> - 1.0.1-1
-- Inital package
+- Initial package

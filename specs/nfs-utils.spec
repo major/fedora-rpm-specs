@@ -2,7 +2,7 @@ Summary: NFS utilities and supporting clients and daemons for the kernel NFS ser
 Name: nfs-utils
 URL: http://linux-nfs.org/
 Version: 2.8.2
-Release: 1.rc6%{?dist}
+Release: 1.rc6%{?dist}.1
 Epoch: 1
 
 # group all 32bit related archs
@@ -22,6 +22,11 @@ Patch103: nfs-utils-2.3.1-systemd-gssproxy-restart.patch
 Patch104: nfs-utils-2.3.3-man-tcpwrappers.patch
 Patch105: nfs-utils-2.3.3-nfsconf-usegssproxy.patch
 Patch106: nfs-utils-2.4.2-systemd-svcgssd.patch
+
+%global rpcuser_uid 29
+
+# Using the 16-bit value of -2 for the nfsnobody uid and gid
+%global nfsnobody_uid 65534
 
 Provides: exportfs    = %{epoch}:%{version}-%{release}
 Provides: nfsstat     = %{epoch}:%{version}-%{release}
@@ -165,6 +170,11 @@ find . -name "*.orig" | xargs rm -f
 # Change shebangs
 find -name \*.py -exec sed -r -i '1s|^#!\s*/usr/bin.*python.*|#!%{__python3}|' {} \;
 
+# Create a sysusers.d config file
+cat >nfs-utils.sysusers.conf <<EOF
+u rpcuser %{rpcuser_uid} 'RPC Service User' /var/lib/nfs -
+EOF
+
 %build
 sh -x autogen.sh
 %global _statdpath /var/lib/nfs/statd
@@ -224,6 +234,8 @@ install -m 644 %{SOURCE4} $RPM_BUILD_ROOT%{_sysconfdir}/nfsmount.conf.d
 # Some files get installed in /sbin, move them under /usr.
 mv -v $RPM_BUILD_ROOT/sbin/* $RPM_BUILD_ROOT%{_sbindir}/
 
+install -m0644 -D nfs-utils.sysusers.conf %{buildroot}%{_sysusersdir}/nfs-utils.conf
+
 %pre
 # move files so the running service will have this applied as well
 for x in gssd idmapd ; do
@@ -231,25 +243,6 @@ for x in gssd idmapd ; do
 		mv /var/lock/subsys/rpc.$x /var/lock/subsys/rpc$x
     fi
 done
-
-%global rpcuser_uid 29
-# Create rpcuser gid as long as it does not already exist
-cat /etc/group | cut -d':' -f 1 | grep --quiet rpcuser 2>/dev/null
-if [ "$?" -eq 1 ]; then
-    /usr/sbin/groupadd -g %{rpcuser_uid} rpcuser >/dev/null 2>&1 || :
-fi
-
-# Create rpcuser uid as long as it does not already exist.
-cat /etc/passwd | cut -d':' -f 1 | grep --quiet rpcuser 2>/dev/null
-if [ "$?" -eq 1 ]; then
-    /usr/sbin/useradd -l -c "RPC Service User" -r -g %{rpcuser_uid} \
-        -s /sbin/nologin -u %{rpcuser_uid} -d /var/lib/nfs rpcuser >/dev/null 2>&1 || :
-else
- /usr/sbin/usermod -u %{rpcuser_uid} -g %{rpcuser_uid} rpcuser >/dev/null 2>&1 || :
-fi 
-
-# Using the 16-bit value of -2 for the nfsnobody uid and gid
-%global nfsnobody_uid 65534
 
 # Nowadays 'nobody/65534' user/group are included in setup rpm. But on
 # systems installed previously, nobody/99 might be present, with user
@@ -347,6 +340,7 @@ rm -rf /etc/systemd/system/rpc-*.requires
 %{_sbindir}/mount.nfs4
 %{_sbindir}/umount.nfs
 %{_sbindir}/umount.nfs4
+%{_sysusersdir}/nfs-utils.conf
 
 %files -n libnfsidmap
 %doc support/nfsidmap/AUTHORS support/nfsidmap/README support/nfsidmap/COPYING
@@ -446,6 +440,9 @@ rm -rf /etc/systemd/system/rpc-*.requires
 %{_mandir}/*/nfsiostat.8.gz
 
 %changelog
+* Sat Feb  8 2025 Zbigniew Jedrzejewski-Szmek <zbyszek@in.waw.pl> - 2.8.2-1.rc6.1
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Feb  6 2025 Steve Dickson <steved@redhat.com> 2.8.2-1.rc6
 - Updated to the latest RC release: nfs-utils-2-8-3-rc6
 

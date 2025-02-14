@@ -2,7 +2,7 @@
 
 Name:           pypolicyd-spf
 Version:        3.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        SPF Policy Server for Postfix (Python implementation)
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -47,6 +47,11 @@ Milter for pypolicyd-spf.
 %{__mv} data/share/doc/python-policyd-spf/README.per_user_whitelisting .
 %{__mv} data/etc/python-policyd-spf/policyd-spf.conf.commented .
 
+# Create a sysusers.d config file
+cat >pypolicyd-spf.sysusers.conf <<EOF
+u pyspf-milter - - /run/pyspf-milter -
+EOF
+
 %build
 %pyproject_wheel
 
@@ -70,9 +75,8 @@ Milter for pypolicyd-spf.
 %{__mkdir_p} %{buildroot}%{_tmpfilesdir}
 %{__install} -m 0644 %{SOURCE1} %{buildroot}%{_tmpfilesdir}/%{name}.conf
 
-%pre
-/usr/sbin/useradd -r -M -s /sbin/nologin -d /run/pyspf-milter \
-    pyspf-milter &>/dev/null || :
+install -m0644 -D pypolicyd-spf.sysusers.conf %{buildroot}%{_sysusersdir}/pypolicyd-spf.conf
+
 
  
 %files
@@ -89,6 +93,7 @@ Milter for pypolicyd-spf.
 %pycached %{python3_sitelib}/spf_engine/__init__.py
 %pycached %{python3_sitelib}/spf_engine/policy*.py
 %pycached %{python3_sitelib}/spf_engine/config.py
+%{_sysusersdir}/pypolicyd-spf.conf
 
 
 %files milter
@@ -102,6 +107,9 @@ Milter for pypolicyd-spf.
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.1.0-3
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

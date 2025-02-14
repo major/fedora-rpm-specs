@@ -1,15 +1,40 @@
 # NOTE: en/English is in the main package
-# LANGUAGES: ca,Catalan cs,Czech da,Danish de,German el,Greek en_GB,British_English es,Spanish fa,Farsi fi,Finnish fr,French hr,Croatian hu,Hungarian it,Italian ja,Japanese ko,Korean lt,Lithuanian nl,Dutch nn,Norwegian_Nynorsk pt,Portuguese pt_BR,Brazilian_Portuguese ro,Romanian ru,Russian sl,Slovenian sv,Swedish uk,Ukrainian zh_CN,Simplified_Chinese
-%global gimpsubver 2.0
+# LANGUAGES: bg,Bulgarian ca,Catalan cs,Czech da,Danish de,German el,Greek en_GB,British_English es,Spanish fa,Farsi fi,Finnish fr,French hr,Croatian hu,Hungarian it,Italian ja,Japanese ko,Korean lt,Lithuanian nl,Dutch nn,Norwegian_Nynorsk pl,Polish pt,Portuguese pt_BR,Brazilian_Portuguese ro,Romanian ru,Russian sl,Slovenian sv,Swedish tr,Turkish uk,Ukrainian zh_CN,Simplified_Chinese
+
+%constrain_build -m 6144
+
+%global gimpsubver 3.0
 
 Summary: Help files for GIMP
 Name: gimp-help
-Version: 2.10.34
+Version: 2.99.0~20250212git2b4f24e36
 Release: %autorelease
 License: GFDL-1.2-invariants-only
 URL: https://docs.gimp.org/
-Source0: https://download.gimp.org/pub/gimp/help/gimp-help-%{version}.tar.bz2
 BuildArch: noarch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2318369
+ExcludeArch: s390x
+
+# Compute some version related macros.
+
+# In the case of a snapshot version (e.g. "Version: 2.99.19^20240814git256e0ca5a0"), this computes
+# the "plain" version (as defined in upstream sources), %%snapshot and %%git_rev macros. In the case
+# of a normal release, %%plain_version will be the same as %%version.
+%global plain_version %{lua:
+    local plain_version = (string.gsub(macros.version, '^(.*)[%^~].*$', '%1'))
+    print(plain_version)
+    if plain_version ~= macros.version then
+        macros.snapshot = (string.gsub(macros.version, '^.*[%^~](.*)$', '%1'))
+        macros.git_rev = (string.gsub(macros.snapshot, '^.*git(.*)$', '%1'))
+    end
+}
+
+%if ! %defined snapshot
+Source0: https://download.gimp.org/pub/gimp/help/gimp-help-%{version}.tar.xz
+%else
+Source0: gimp-help-%{plain_version}-git%{git_rev}.tar.xz
+%endif
+
 BuildRequires: dblatex
 # BuildRequires: docbook2odf [orphaned]
 BuildRequires: docbook-style-xsl
@@ -17,23 +42,29 @@ BuildRequires: gnome-doc-utils
 BuildRequires: libxml2-python3
 BuildRequires: libxslt
 BuildRequires: pkgconfig >= 0.9.0
-BuildRequires: gimp-devel >= 2:2.10
+BuildRequires: gimp-devel >= 2:3.0.0~RC1
 BuildRequires: gettext
 BuildRequires: graphviz
 BuildRequires: pngnq
 BuildRequires: pngcrush
 BuildRequires: python3
 BuildRequires: make
-Requires: gimp >= 2:2.10
+Requires: gimp >= 2:3.0.0~RC1
 # BEGIN: OBSOLETE LANGUAGES
-Obsoletes: gimp-help-pl < 2.10.0-1%{?dist}
-Conflicts: gimp-help-pl < 2.10.0-1%{?dist}
 # END: OBSOLETE LANGUAGES
 %description
 This package contains a user manual written for the GNU Image Manipulation
 Program.
 
 # BEGIN: LANGUAGE SUB PACKAGES
+%package bg
+Summary: Bulgarian (bg) language support for gimp-help
+Requires: %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Supplements: (%{name} = %{?epoch:%{epoch}:}%{version}-%{release} and langpacks-bg)
+
+%description bg
+Bulgarian language support for gimp-help.
+
 %package ca
 Summary: Catalan (ca) language support for gimp-help
 Requires: %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
@@ -178,6 +209,14 @@ Supplements: (%{name} = %{?epoch:%{epoch}:}%{version}-%{release} and langpacks-n
 %description nn
 Norwegian Nynorsk language support for gimp-help.
 
+%package pl
+Summary: Polish (pl) language support for gimp-help
+Requires: %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Supplements: (%{name} = %{?epoch:%{epoch}:}%{version}-%{release} and langpacks-pl)
+
+%description pl
+Polish language support for gimp-help.
+
 %package pt
 Summary: Portuguese (pt) language support for gimp-help
 Requires: %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
@@ -226,6 +265,14 @@ Supplements: (%{name} = %{?epoch:%{epoch}:}%{version}-%{release} and langpacks-s
 %description sv
 Swedish language support for gimp-help.
 
+%package tr
+Summary: Turkish (tr) language support for gimp-help
+Requires: %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Supplements: (%{name} = %{?epoch:%{epoch}:}%{version}-%{release} and langpacks-tr)
+
+%description tr
+Turkish language support for gimp-help.
+
 %package uk
 Summary: Ukrainian (uk) language support for gimp-help
 Requires: %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
@@ -245,11 +292,13 @@ Simplified Chinese language support for gimp-help.
 # END: LANGUAGE SUB PACKAGES
 
 %prep
-%setup -q
+%setup -q -n gimp-help-%{plain_version}
 
 %build
 %configure
-make %{?_smp_mflags}
+# Building gimp-help in parallel is flaky 😬. Do as much as possible in parallel, then attempt to
+# fix.
+make -k %{?_smp_mflags} || make
 
 %install
 make DESTDIR=%{buildroot} install
@@ -277,10 +326,11 @@ popd
 %files
 %dir %{_datadir}/gimp/%{gimpsubver}/help
 %{_datadir}/gimp/%{gimpsubver}/help/en
-%doc AUTHORS ChangeLog NEWS README TERMINOLOGY
+%doc AUTHORS ChangeLog NEWS README.md TERMINOLOGY
 %license COPYING
 
 # BEGIN: LANGUAGE FILE LISTS
+%files bg -f files.list.bg
 %files ca -f files.list.ca
 %files cs -f files.list.cs
 %files da -f files.list.da
@@ -299,12 +349,14 @@ popd
 %files lt -f files.list.lt
 %files nl -f files.list.nl
 %files nn -f files.list.nn
+%files pl -f files.list.pl
 %files pt -f files.list.pt
 %files pt_BR -f files.list.pt_BR
 %files ro -f files.list.ro
 %files ru -f files.list.ru
 %files sl -f files.list.sl
 %files sv -f files.list.sv
+%files tr -f files.list.tr
 %files uk -f files.list.uk
 %files zh_CN -f files.list.zh_CN
 # END: LANGUAGE FILE LISTS

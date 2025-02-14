@@ -131,7 +131,7 @@ server also needs to have the amanda-client package installed.
 %build
 ./autogen
 
-export MAILER=/usr/bin/mail CFLAGS="$RPM_OPT_FLAGS -fPIE" LDFLAGS="$RPM_LD_FLAGS -pie"
+export MAILER=/usr/bin/mail CFLAGS="$RPM_OPT_FLAGS -fPIE -std=c17" LDFLAGS="$RPM_LD_FLAGS -pie"
 %configure --enable-shared \
            --enable-manpage-build \
            --disable-rpath \
@@ -201,6 +201,11 @@ pushd ${RPM_BUILD_ROOT}
 popd
 rm -rf $RPM_BUILD_ROOT/usr/share/amanda
 find $RPM_BUILD_ROOT -name \*.la | xargs rm
+
+pushd $RPM_BUILD_ROOT/usr/bin
+rm amandad
+ln -s ../%_lib/amandad
+popd
 
 %check
 make check

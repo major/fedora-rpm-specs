@@ -1,8 +1,15 @@
 # systemd-rpm-macros split out from systemd at Fedora 30
-%if (0%{?fedora} && 0%{?fedora} <= 29) || 0%{?rhel}
+%if (0%{?fedora} && 0%{?fedora} <= 29) || (0%{?rhel} && 0%{?rhel} <= 8)
 %global systemd_rpm_macros systemd
 %else
 %global systemd_rpm_macros systemd-rpm-macros
+%endif
+
+# Use sysusers from Fedora 43 onwards
+%if (0%{?rhel} && 0%{?rhel} <= 10) || (0%{?fedora} && 0%{?fedora} <= 42)
+%global use_sysusers 0
+%else
+%global use_sysusers 1
 %endif
 
 # Build hardened (PIE) where possible
@@ -11,7 +18,7 @@
 Summary:	Small, fast daemon to serve DNSBLs
 Name:		rbldnsd
 Version:	0.998b
-Release:	16%{?dist}
+Release:	17%{?dist}
 License:	GPL-2.0-or-later
 URL:		https://rbldnsd.io/
 Source0:	https://rbldnsd.io/dwl/rbldnsd-%{version}.tgz
@@ -27,7 +34,9 @@ BuildRequires:	make
 BuildRequires:	sed
 BuildRequires:	%{systemd_rpm_macros}
 BuildRequires:	zlib-devel
+%if !%{use_sysusers}
 Requires(pre):	shadow-utils
+%endif
 Requires:	gawk
 %{?systemd_requires}
 
@@ -49,6 +58,11 @@ sed -i	-e 's@/var/lib/rbldns\([/ ]\)@%{_localstatedir}/lib/rbldnsd\1@g' \
 	-e 's@\(-r/[a-z/]*\) -b@\1 -q -b@g' contrib/debian/rbldnsd.default
 cp -p %{SOURCE2} %{SOURCE3} %{SOURCE4} ./
 
+# Create a sysusers.d config file
+cat >rbldnsd.sysusers.conf <<EOF
+u rbldns - 'rbldns daemon' %{_localstatedir}/lib/rbldnsd -
+EOF
+
 %build
 # this is not an autotools-generated configure script, and does not support --libdir
 CFLAGS="%{optflags}" \
@@ -64,13 +78,18 @@ install -p -m 644 rbldnsd.8				%{buildroot}%{_mandir}/man8/
 install -p -m 644 contrib/debian/rbldnsd.default	%{buildroot}%{_sysconfdir}/sysconfig/rbldnsd
 install -p -m 644 rbldnsd.conf				%{buildroot}/etc/systemd/
 install -p -m 755 rbldnsctl				%{buildroot}%{_sbindir}/
+%if %{use_sysusers}
+install -m0644 -D rbldnsd.sysusers.conf %{buildroot}%{_sysusersdir}/rbldnsd.conf
+%endif
 
+%if !%{use_sysusers}
 %pre
 getent group rbldns >/dev/null || groupadd -r rbldns
 getent passwd rbldns >/dev/null || \
 	useradd -r -g rbldns -d %{_localstatedir}/lib/rbldnsd \
 		-s /sbin/nologin -c "rbldns daemon" rbldns
 exit 0
+%endif
 
 %post
 systemctl daemon-reload &>/dev/null || :
@@ -99,8 +118,15 @@ fi
 %doc README.systemd
 %config(noreplace) %{_sysconfdir}/systemd/rbldnsd.conf
 %{_sbindir}/rbldnsctl
+%if %{use_sysusers}
+%{_sysusersdir}/rbldnsd.conf
+%endif
 
 %changelog
+* Wed Feb 12 2025 Paul Howarth <paul@city-fan.org> - 0.998b-17
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+  from Fedora 43 onwards
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.998b-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

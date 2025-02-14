@@ -14,7 +14,7 @@ URL:            %{forgeurl}
 # FIXME: is this a bug in the tagging scheme or forgesource macro?
 Source0:        %{forgeurl}/releases/download/%{name}-%{baseversion}/%{name}-%{baseversion}.tar.gz
 
-Patch001: ktls-utils-0.12-pre.patch
+Patch001: ktls-utils-1.0-rc1.patch
 
 BuildRequires:  bash systemd-rpm-macros
 BuildRequires:  gcc make coreutils

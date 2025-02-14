@@ -11,11 +11,11 @@
 %global		git_builddir	%{nil}
 
 %if 0%{?use_gitbare}
-%global		gittardate		20240901
-%global		gittartime		1558
+%global		gittardate		20250212
+%global		gittartime		2332
 
-%global		gitbaredate	20240817
-%global		git_rev		e61107ccad2c3a1c80641ed1696e1ee9fd8e66b5
+%global		gitbaredate	20241025
+%global		git_rev		50c71e45cb7154d2f6f3cc63c988a3fe21fdafdb
 %global		git_short		%(echo %{git_rev} | cut -c-8)
 %global		git_version	%{gitbaredate}git%{git_short}
 %endif
@@ -30,7 +30,7 @@
 
 Name:			lxmusic
 Version:		%{main_version}%{git_ver_rpm}
-Release:		2%{?dist}
+Release:		1%{?dist}
 Summary:		Lightweight XMMS2 client with simple user interface
 
 License:		GPL-2.0-or-later
@@ -174,6 +174,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Wed Feb 12 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.4.7^20241025git50c71e45-1
+- Update to the latest git
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.7^20240817gite61107cc-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -18,9 +18,6 @@
 # hipcc does not support some clang flags
 %global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host-fcf-protection/')
 
-# $gpu will be evaluated in the loops below
-%global _vpath_builddir %{_vendor}-%{_target_os}-build-${gpu}
-
 %bcond_with debug
 %if %{with debug}
 %global build_type DEBUG
@@ -47,7 +44,7 @@
 
 Name:           %{rocfft_name}
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -81,7 +78,7 @@ Requires:  rocm-hip-devel
 BuildRequires:  python3-sphinx
 %endif
 
-Requires:       rocm-rpm-macros-modules
+Provides:       rocfft = %{version}-%{release}
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -99,6 +96,7 @@ A library for computing Fast Fourier Transforms (FFT), part of ROCm.
 %package devel
 Summary:        The rocFFT development package
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Provides:       rocfft-devel = %{version}-%{release}
 
 %description devel
 The rocFFT development package.
@@ -181,6 +179,9 @@ fi
 %endif
 
 %changelog
+* Wed Feb 12 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-5
+- Fix provides
+
 * Tue Feb 11 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-4
 - Remove multi build
 - Fix SLE 15.6

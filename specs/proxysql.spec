@@ -1,6 +1,6 @@
 Summary:       A high-performance MySQL proxy
 Name:          proxysql
-Version:       2.6.2
+Version:       2.7.2
 Release:       %autorelease
 # Proxysql Google group for free community support: https://groups.google.com/g/proxysql
 URL:           https://proxysql.com/
@@ -64,6 +64,8 @@ Source0:       https://github.com/sysown/proxysql/archive/refs/tags/v%{version}.
 # https://github.com/sysown/proxysql/issues/3564
 Source1:       proxysql.1
 
+Source2:       0007-Fix-gcc-15.patch
+
 %description
 ProxySQL is a high performance, high availability, protocol aware proxy for
 MySQL and forks (like Percona Server and MariaDB).
@@ -93,10 +95,19 @@ MySQL and forks (like Percona Server and MariaDB).
 # Remove sources of debundled libraries
 rm -r deps/{libssl,pcre,curl,lz4,libev,libconfig,libdaemon,sqlite3}
 
+# Create a sysusers.d config file
+cat >proxysql.sysusers.conf <<EOF
+u proxysql - 'ProxySQL' /var/lib/proxysql -
+EOF
+
+# Patch 0007
+mv %{SOURCE2} deps/mariadb-client-library/ma_global.h.patch
+
 %build
 export GIT_VERSION=%{version}
 %global _configure :
 %configure help
+CXXFLAGS="$CXXFLAGS -Wno-error=cpp -Wno-error=template-body"
 export CPPFLAGS=$CXXFLAGS
 %make_build
 
@@ -115,10 +126,8 @@ install -p -D -m 0644 doc/internal/*.txt -t %{buildroot}%{_docdir}/proxysql
 install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_mandir}/man1/%{name}.1
 install -d -m 0755 %{buildroot}%{_sharedstatedir}/proxysql
 
-%pre
-/usr/sbin/groupadd -r proxysql >/dev/null 2>&1 || :
-/usr/sbin/useradd  -g proxysql -r -d /var/lib/proxysql -s /sbin/nologin \
-    -c "ProxySQL" proxysql >/dev/null 2>&1 || :
+install -m0644 -D proxysql.sysusers.conf %{buildroot}%{_sysusersdir}/proxysql.conf
+
 
 %post
 %systemd_post proxysql.service
@@ -139,6 +148,7 @@ install -d -m 0755 %{buildroot}%{_sharedstatedir}/proxysql
 %{_mandir}/man1/proxysql.1*
 %attr(-,proxysql,proxysql) %{_sharedstatedir}/proxysql/
 %attr(-,proxysql,root) %config(noreplace) %{_sysconfdir}/proxysql.cnf
+%{_sysusersdir}/proxysql.conf
 
 %changelog
 %autochangelog

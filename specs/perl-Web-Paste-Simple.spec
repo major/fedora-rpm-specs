@@ -1,10 +1,10 @@
 Name:           perl-Web-Paste-Simple
 Version:        0.002
-Release:        30%{?dist}
+Release:        32%{?dist}
 Summary:        Simple PSGI-based pastebin-like web site
-# CONTRIBUTING:             GPL+ or Artistic or CC-BY-SA
-# lib/Web/Paste/Simple.pm   GPL+ or Artistic
-License:        (GPL+ or Artistic) and (GPL+ or Artistic or CC-BY-SA)
+# CONTRIBUTING:             GPL-1.0-or-later OR Artistic-1.0-Perl OR CC-BY-SA-2.0-UK
+# lib/Web/Paste/Simple.pm   GPL-1.0-or-later OR Artistic-1.0-Perl
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND ((GPL-1.0-or-later OR Artistic-1.0-Perl) OR CC-BY-SA-2.0-UK)
 URL:            https://metacpan.org/release/Web-Paste-Simple
 Source0:        https://cpan.metacpan.org/modules/by-module/Web/Web-Paste-Simple-%{version}.tar.gz
 Source1:        web-paste-simple.service
@@ -40,7 +40,7 @@ BuildRequires:  perl(Test::More) >= 0.61
 Requires:       perl(Moo) >= 1.000000
 
 # Filter under-specified dependencies
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Moo\\)$
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Moo|Test::More)\\)$
 
 %description
 Web::Paste::Simple is a lightweight PSGI application for operating
@@ -49,25 +49,39 @@ JavaScript library. It should be fast enough for deployment via CGI.
 
 %package server
 Summary:        Simple pastebin-like web server
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 # unit directory ownership
 Requires:       systemd
+%if (0%{?fedora} && 0%{?fedora} < 42) || (0%{?rhel} && 0%{?rhel} < 11)
 Requires(pre):  shadow-utils
+%endif
 
 %description server
 This is web-paste-simple daemon for Web::Paste::Simple web service.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(Test::More) >= 0.61
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %global storage %{_sharedstatedir}/webpastesimple
 
 %prep
-%setup -q -n Web-Paste-Simple-%{version}
-%patch -P0 -p1
-%patch -P1 -p1
+%autosetup -p1 -n Web-Paste-Simple-%{version}
 # Set storage path for the daemon
 sed -e '/^ExecStart=/iEnvironment=WEB_PASTE_SIMPLE_STORAGE=%{storage}' \
     < %{SOURCE1} > web-paste-simple.service
+
+# Create a sysusers.d config file
+cat >perl-Web-Paste-Simple-server.sysusers <<EOF
+u webpastesimple - 'web-paste-simple daemon' %{storage} -
+EOF
 
 %build
 perl Makefile.PL NO_PACKLIST=1 NO_PERLLOCAL=1 INSTALLDIRS=vendor
@@ -81,19 +95,33 @@ perl Makefile.PL NO_PACKLIST=1 NO_PERLLOCAL=1 INSTALLDIRS=vendor
 install -d %{buildroot}%{_unitdir}
 install -m 0644 web-paste-simple.service %{buildroot}%{_unitdir}
 install -d %{buildroot}%{storage}
+install -m0644 -D perl-Web-Paste-Simple-server.sysusers %{buildroot}%{_sysusersdir}/perl-Web-Paste-Simple-server.conf
+
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
+%{_fixperms} %{buildroot}/*
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %post server
 %systemd_post apache-httpd.service
 
+%if (0%{?fedora} && 0%{?fedora} < 42) || (0%{?rhel} && 0%{?rhel} < 11)
 %pre server
 getent group webpastesimple >/dev/null || groupadd -r webpastesimple
 getent passwd webpastesimple >/dev/null || \
     useradd -r -g webpastesimple -d %{storage} -s /sbin/nologin \
         -c "web-paste-simple daemon" webpastesimple
 exit 0
+%endif
 
 %preun server
 %systemd_preun apache-httpd.service
@@ -104,15 +132,29 @@ exit 0
 %files
 %license LICENSE
 %doc Changes CONTRIBUTING COPYRIGHT CREDITS README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Web
+%dir %{perl_vendorlib}/Web/Paste
+%{perl_vendorlib}/Web/Paste/Simple.pm
+%{_mandir}/man3/Web::Paste::Simple.*
 
 %files server
-%{_bindir}/*
-%{_unitdir}/*
+%{_bindir}/web-paste-simple.psgi
+%{_unitdir}/web-paste-simple.service
 %dir %attr(750, webpastesimple, webpastesimple) %{storage}
+%{_sysusersdir}/perl-Web-Paste-Simple-server.conf
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Wed Feb 12 2025 Petr Pisar <ppisar@redhat.com> - 0.002-32
+- Fix creating users on Fedora < 42
+
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.002-31
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+- Convert a license tag to SPDX
+- Package the tests
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.002-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

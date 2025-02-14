@@ -1,14 +1,13 @@
 Summary: Console-based network traffic monitor
 Name: vnstat
 Version: 2.10
-Release: 7%{?dist}
+Release: 8%{?dist}
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL: http://humdi.net/vnstat/
 Source0: http://humdi.net/vnstat/vnstat-%{version}.tar.gz
 Patch0: vnstat.service.patch
-Requires(pre): shadow-utils
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
@@ -43,6 +42,11 @@ sed -i -e "s,/var/run/,/run/vnstat/,g; \
 	s,MaxBandwidth 100,MaxBandwidth 0,g;" \
 	cfg/vnstat.conf
 
+# Create a sysusers.d config file
+cat >vnstat.sysusers.conf <<EOF
+u vnstat - 'vnStat user' %{_localstatedir}/lib/%{name} -
+EOF
+
 %build
 %{configure}
 %{__make} %{?_smp_mflags} CFLAGS="$RPM_OPT_FLAGS" all
@@ -66,11 +70,8 @@ sed -i -e "s,/var/run/,/run/vnstat/,g; \
 D /run/vnstat 0700 vnstat vnstat
 END
 
-%pre
-getent group %{name} > /dev/null || groupadd -r %{name}
-getent passwd %{name} > /dev/null || useradd -r -g %{name} -M \
-  -d %{_localstatedir}/lib/%{name} -s /sbin/nologin -c "vnStat user" %{name}
-exit 0
+install -m0644 -D vnstat.sysusers.conf %{buildroot}%{_sysusersdir}/vnstat.conf
+
 
 %post
 %systemd_post vnstat.service
@@ -94,6 +95,7 @@ exit 0
 %{_sbindir}/vnstatd
 %attr(-,vnstat,vnstat)%dir /run/%{name}/
 %attr(-,vnstat,vnstat)%{_localstatedir}/lib/%{name}
+%{_sysusersdir}/vnstat.conf
 
 %files vnstati
 %license COPYING
@@ -101,6 +103,9 @@ exit 0
 %{_bindir}/vnstati
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.10-8
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           KoboDeluxe
 Version:        0.5.1
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        Third person scrolling 2D shooter
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -20,7 +20,6 @@ BuildRequires:  gcc-c++
 BuildRequires:  SDL_image-devel desktop-file-utils libappstream-glib
 BuildRequires: make
 Requires:       hicolor-icon-theme
-Requires(pre):  shadow-utils
 
 %description
 Kobo Deluxe is a 3'rd person  scrolling 2D shooter with a simple
@@ -41,6 +40,11 @@ iconv -f ISO-8859-1 -t UTF8 README > tmp;         mv tmp README
 iconv -f ISO-8859-1 -t UTF8 ChangeLog > tmp;      mv tmp ChangeLog
 iconv -f ISO2022JP -t UTF8 README.jp > tmp;       mv tmp README.jp
 iconv -f ISO2022JP -t UTF8 README.xkobo.jp > tmp; mv tmp README.xkobo.jp
+
+# Create a sysusers.d config file
+cat >kobodeluxe.sysusers.conf <<EOF
+g kobodl -
+EOF
 
 
 
@@ -69,9 +73,8 @@ install -p -m 644 %{SOURCE5} $RPM_BUILD_ROOT%{_datadir}/appdata
 appstream-util validate-relax --nonet \
   $RPM_BUILD_ROOT%{_datadir}/appdata/%{name}.appdata.xml
 
-%pre
-getent group kobodl >/dev/null || groupadd -r kobodl
-exit 0
+install -m0644 -D kobodeluxe.sysusers.conf %{buildroot}%{_sysusersdir}/kobodeluxe.conf
+
 
 %files
 %doc ChangeLog COPYING* README README.jp README.xkobo.jp README.sfont 
@@ -83,9 +86,13 @@ exit 0
 %{_datadir}/appdata/%{name}.appdata.xml
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
+%{_sysusersdir}/kobodeluxe.conf
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.5.1-45
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

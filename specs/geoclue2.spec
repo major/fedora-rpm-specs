@@ -1,6 +1,6 @@
 Name:           geoclue2
-Version:        2.7.0
-Release:        7%{?dist}
+Version:        2.7.2
+Release:        2%{?dist}
 Summary:        Geolocation service
 
 License:        GPL-2.0-or-later
@@ -8,8 +8,13 @@ URL:            http://www.freedesktop.org/wiki/Software/GeoClue/
 Source0:        https://gitlab.freedesktop.org/geoclue/geoclue/-/archive/%{version}/geoclue-%{version}.tar.bz2
 Source1:        geoclue2.sysusers
 
+# Backport from upstream
+## Generated with: git format-patch -N --stdout 2.7.2...master > geoclue-2.7.2-git41-backports.patch
+Patch0:         geoclue-2.7.2-git41-backports.patch
+
 BuildRequires:  avahi-glib-devel
 BuildRequires:  gettext
+BuildRequires:  git-core
 BuildRequires:  glib2-devel
 BuildRequires:  gobject-introspection-devel
 BuildRequires:  gtk-doc
@@ -69,11 +74,18 @@ The %{name}-demos package contains demo applications that use %{name}.
 
 
 %prep
-%autosetup -p1 -n geoclue-%{version}
+%autosetup -n geoclue-%{version} -S git_am
+
+
+%conf
+%meson \
+       -Ddbus-srv-user=geoclue \
+       -Ddefault-wifi-url="https://api.beacondb.net/v1/geolocate" \
+       -Ddefault-wifi-submit-url="https://api.beacondb.net/v2/geosubmit" \
+       %{nil}
 
 
 %build
-%meson -Ddbus-srv-user=geoclue
 %meson_build
 
 
@@ -105,12 +117,12 @@ exit 0
 %config %{_sysconfdir}/geoclue/
 %dir %{_libexecdir}/geoclue-2.0
 %dir %{_libexecdir}/geoclue-2.0/demos
-%{_sysconfdir}/dbus-1/system.d/org.freedesktop.GeoClue2.conf
-%{_sysconfdir}/dbus-1/system.d/org.freedesktop.GeoClue2.Agent.conf
 %{_sysconfdir}/xdg/autostart/geoclue-demo-agent.desktop
 %{_libexecdir}/geoclue
-%{_datadir}/polkit-1/rules.d/org.freedesktop.GeoClue2.rules
+%{_datadir}/dbus-1/system.d/org.freedesktop.GeoClue2.conf
+%{_datadir}/dbus-1/system.d/org.freedesktop.GeoClue2.Agent.conf
 %{_datadir}/dbus-1/system-services/org.freedesktop.GeoClue2.service
+%{_datadir}/polkit-1/rules.d/org.freedesktop.GeoClue2.rules
 %{_datadir}/applications/geoclue-demo-agent.desktop
 %{_mandir}/man5/geoclue.5*
 %{_unitdir}/geoclue.service
@@ -146,6 +158,14 @@ exit 0
 
 
 %changelog
+* Wed Feb 12 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.7.2-2
+- Add BeaconDB geosubmit URL
+
+* Wed Feb 12 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.7.2-1
+- Update to 2.7.2
+- Backport fixes from upstream to use BeaconDB
+- Use BeaconDB for the default location services source
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           rpcbind
 Version:        1.2.7
-Release:        1.rc1%{?dist}.3
+Release:        1.rc1%{?dist}.4
 Summary:        Universal Addresses to RPC Program Number Mapper
 License:        BSD-3-Clause
 URL:            http://nfsv4.bullopensource.org
@@ -18,12 +18,10 @@ Conflicts: man-pages < 2.43-12
 BuildRequires: make
 BuildRequires: automake, autoconf, libtool, systemd, systemd-devel
 BuildRequires: libtirpc-devel, quota-devel
-Requires(pre): coreutils shadow-utils
+Requires(pre): coreutils
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd coreutils
-Provides: user(rpc)
-Provides: group(rpc)
 
 Patch001: rpcbind-1.2.8-rc1.patch
 
@@ -48,6 +46,11 @@ RPC calls on a server on that machine.
 
 %prep
 %autosetup -p1
+
+# Create a sysusers.d config file
+cat >rpcbind.sysusers.conf <<EOF
+u rpc 32 'Rpcbind Daemon' /var/lib/rpcbind -
+EOF
 
 %build
 autoreconf -fisv
@@ -80,19 +83,7 @@ ln -sf ../bin/rpcbind
 ln -sf ../bin/rpcinfo
 %endif
 
-%pre
-
-# Softly static allocate the rpc uid and gid.
-getent group rpc >/dev/null || groupadd -f -g 32 -r rpc
-if ! getent passwd rpc >/dev/null ; then
-	if ! getent passwd 32 >/dev/null ; then
-	   useradd -l -c "Rpcbind Daemon" -d /var/lib/rpcbind  \
-	      -g rpc -M -s /sbin/nologin -o -u 32 rpc > /dev/null 2>&1
-	else
-	   useradd -l -c "Rpcbind Daemon" -d /var/lib/rpcbind  \
-	      -g rpc -M -s /sbin/nologin rpc > /dev/null 2>&1
-	fi
-fi
+install -m0644 -D rpcbind.sysusers.conf %{buildroot}%{_sysusersdir}/rpcbind.conf
 
 %post
 %systemd_post rpcbind.service rpcbind.socket
@@ -125,8 +116,12 @@ fi
 %{_unitdir}/%{name}.socket
 %{_tmpfilesdir}/%{name}.conf
 %attr(0700, %{rpcbind_user_group}, %{rpcbind_user_group}) %dir %{rpcbind_state_dir}
+%{_sysusersdir}/rpcbind.conf
 
 %changelog
+* Wed Jan 29 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.2.7-1.rc1.4
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.7-1.rc1.3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

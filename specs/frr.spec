@@ -9,7 +9,7 @@
 
 Name:           frr
 Version:        10.2.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Routing daemon
 License:        GPL-2.0-or-later AND ISC AND LGPL-2.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND (GPL-2.0-or-later  OR ISC) AND MIT
 URL:            http://www.frrouting.org
@@ -70,7 +70,6 @@ BuildRequires:  protobuf-c-devel
 Requires:       ncurses
 Requires:       net-snmp
 Requires(post): hostname
-%{?sysusers_requires_compat}
 Requires(post): systemd
 Requires(postun): systemd
 Requires(preun): systemd
@@ -195,8 +194,6 @@ find %{buildroot} -type f -name "*.la" -delete -print
 rm %{buildroot}%{_libdir}/frr/*.so
 rm -r %{buildroot}%{_includedir}/frr/
 
-%pre
-%sysusers_create_compat %{SOURCE2}
 
 %post
 %systemd_post frr.service
@@ -284,6 +281,9 @@ rm tests/lib/*grpc*
 %endif
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 10.2.1-3
+- Drop call to %sysusers_create_compat
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 10.2.1-2
 - Add explicit BR: libxcrypt-devel
 

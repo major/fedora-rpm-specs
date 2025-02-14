@@ -1,6 +1,6 @@
 Name:             tntnet
 Version:          3.0
-Release:          12%{?dist}
+Release:          13%{?dist}
 Summary:          A web application server for web applications
 Epoch:            1
 
@@ -23,7 +23,6 @@ BuildRequires:    perl-generators
 BuildRequires:    zip
 BuildRequires:    zlib-devel
 BuildRequires:    systemd-units
-Requires(pre):    shadow-utils
 Requires(post):   systemd-units
 Requires(preun):  systemd-units
 Requires(postun): systemd-units
@@ -42,6 +41,11 @@ Development files for %{name}
 %prep
 %autosetup -p0
 
+# Create a sysusers.d config file
+cat >tntnet.sysusers.conf <<EOF
+u tntnet - 'User' %{_localstatedir}/lib/%{name} -
+EOF
+
 %build
 %configure --disable-static
 %make_build
@@ -58,15 +62,11 @@ install -Dpm 644 %{SOURCE1} %{buildroot}/%{_unitdir}/%{name}.service
 # Find and remove all la files
 find %{buildroot} -type f -name "*.la" -exec rm -f {} ';'
 
+install -m0644 -D tntnet.sysusers.conf %{buildroot}%{_sysusersdir}/tntnet.conf
+
 %check
 test/tntnet-test
 
-%pre
-getent group %{name} > /dev/null || groupadd -r %{name}
-getent passwd %{name} > /dev/null || \
-    useradd -r -g %{name} -d %{_localstatedir}/lib/%{name} -s /sbin/nologin \
-    -c "User" %{name}
-exit 0
 
 %post
 /sbin/ldconfig
@@ -96,6 +96,7 @@ exit 0
 %{_mandir}/man7/ecpp.7.gz
 %{_mandir}/man7/tntnet.xml.7.gz
 %{_mandir}/man8/tntnet.8.gz
+%{_sysusersdir}/tntnet.conf
 
 %files devel
 %{_bindir}/tntnet-project
@@ -106,6 +107,9 @@ exit 0
 %{_datadir}/%{name}/template/
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:3.0-13
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

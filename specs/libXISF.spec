@@ -1,5 +1,9 @@
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+# all packages requiring libXISF are now disabled on i686
+ExcludeArch:    %{ix86}
+
 Name:           libXISF
-Version:        0.2.12
+Version:        0.2.13
 Release:        %autorelease
 Summary:        Library to load and write XISF format
 License:        GPL-3.0-or-later

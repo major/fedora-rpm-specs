@@ -4,7 +4,7 @@
 Summary: An authorization framework
 Name: polkit
 Version: 126
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: LGPL-2.0-or-later
 URL: https://github.com/polkit-org/polkit
 Source0: https://github.com/polkit-org/polkit/archive/refs/tags/%{version}.tar.gz
@@ -27,7 +27,6 @@ Requires: dbus
 Recommends: polkit-pkla-compat
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 %{?systemd_requires}
-%{?sysusers_requires_compat}
 
 Obsoletes: PolicyKit <= 0.10
 Provides: PolicyKit = 0.11
@@ -100,8 +99,6 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 
 %find_lang polkit-1
 
-%pre
-%sysusers_create_compat %{SOURCE1}
 
 %post
 # The implied (systemctl preset) will fail and complain, but the macro hides
@@ -161,6 +158,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/girepository-1.0/*.typelib
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 126-3
+- Drop call to %sysusers_create_compat
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 126-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

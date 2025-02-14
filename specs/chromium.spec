@@ -357,6 +357,9 @@ Patch353: chromium-127-aarch64-duplicate-case-value.patch
 # remove flag split-threshold-for-reg-with-hint, it's not supported in clang <= 17
 Patch354: chromium-126-split-threshold-for-reg-with-hint.patch
 
+# fix build error with new pipewire in f43
+Patch356: chromium-133-pipewire-cast.patch
+
 # fix build error: no member named 'hardware_destructive_interference_size' in namespace 'std'
 Patch355: chromium-130-hardware_destructive_interference_size.patch
 
@@ -1059,6 +1062,10 @@ Qt6 UI for chromium.
 %endif
 
 %patch -P355 -p1 -b .hardware_destructive_interference_size
+
+%if 0%{?fedora} > 42
+%patch -P356 -p1 -b .pipewire-cast
+%endif
 
 %patch -P358 -p1 -b .rust-clang_lib
 

@@ -1,10 +1,9 @@
 # Created by pyp2rpm-3.3.10
 %global pypi_name optuna
-%global pypi_version 4.2.0
 
 Name:           python-%{pypi_name}
-Version:        4.2.0
-Release:        2%{?dist}
+Version:        4.2.1
+Release:        1%{?dist}
 Summary:        A hyperparameter optimization framework
 
 License:        MIT AND BSD-3-Clause AND SunPro
@@ -35,7 +34,7 @@ code written with Optuna enjoys high modularity, and the user of
 Optuna can dynamically construct the search spaces for the hyperparameters.
 
 %prep
-%autosetup -n %{pypi_name}-%{pypi_version}
+%autosetup -n %{pypi_name}-%{version}
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
 
@@ -58,6 +57,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}.dist-info/
 
 %changelog
+* Wed Feb 12 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.2.1-1
+- 4.2.1
+
 * Wed Feb 05 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.2.0-2
 - Drop BR -t
 

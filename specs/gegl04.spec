@@ -78,6 +78,8 @@ BuildRequires:  pkgconfig(libtiff-4) >= 4.0.0
 #     CACHED ON: August 11th, 2012
 Provides:       bundled(poly2tri-c)
 Obsoletes:      gegl03 < 0.3.31
+# This is optional as it's large and can cause issues with some HW.
+Recommends: %{name}-matting-levin%{?_isa}
 
 %description
 GEGL (Generic Graphics Library) is a graph based image processing framework.
@@ -97,6 +99,12 @@ Conflicts:      %{name}-devel < 0.4.2
 The %{name}-devel package contains libraries and header files for
 developing applications that use GEGL API version %{apiver}.
 
+%package        matting-levin
+Summary:        Matting Levin foreground select plugin for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description    matting-levin
+The Matting Levin foreground select plugin for %{name}.
 
 %if %{with docs}
 %package        devel-docs
@@ -154,6 +162,7 @@ chrpath --delete %{buildroot}%{_libdir}/gegl-%{apiver}/*.so
 %{_libdir}/libgegl-npd-%{apiver}.so
 %{_libdir}/libgegl-sc-%{apiver}.so
 %{_libdir}/girepository-1.0/Gegl-%{apiver}.typelib
+%exclude %{_libdir}/gegl-%{apiver}/matting-levin.so
 
 %if ! 0%{?rhel}
 %ifarch aarch64 %{ix86} x86_64
@@ -161,6 +170,9 @@ chrpath --delete %{buildroot}%{_libdir}/gegl-%{apiver}/*.so
 %{_datadir}/gegl-%{apiver}/lua/
 %endif
 %endif
+
+%files matting-levin
+%{_libdir}/gegl-%{apiver}/matting-levin.so
 
 %files devel
 %{_includedir}/gegl-%{apiver}/

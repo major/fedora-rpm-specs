@@ -17,6 +17,8 @@ VCS:            git:%{giturl}.git
 Source:         %{giturl}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 # Adapt to rapidjson 1.1.0
 Patch:          %{name}-rapidjson.patch
+# Fix FTBFS with GCC 15
+Patch:          %{name}-gcc15.patch
 
 BuildRequires:  elinks
 BuildRequires:  flamegraph

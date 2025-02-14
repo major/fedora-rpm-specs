@@ -1,7 +1,7 @@
 Summary: Transparent SMTP/LMTP proxy filter using spamassassin
 Name: spampd
 Version: 2.61
-Release: 11%{?dist}
+Release: 12%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: http://www.worlddesign.com/index.cfm/rd/mta/spampd.htm
@@ -19,7 +19,6 @@ BuildRequires: systemd-units
 
 Requires: perl(Net::Server)
 
-Requires(pre): /usr/sbin/useradd
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
@@ -42,6 +41,11 @@ indicating it's spam and why.
 %{__rm} -f spampd.html
 %{__chmod} -x changelog.txt
 %{__cp} %{SOURCE2} .
+
+# Create a sysusers.d config file
+cat >spampd.sysusers.conf <<EOF
+u spampd - - /var/spool/spampd -
+EOF
 
 
 %build
@@ -66,11 +70,10 @@ pod2html --infile=spampd.pod --outfile=spampd.html
 # Home directory
 %{__mkdir_p} %{buildroot}/var/spool/spampd
 
+install -m0644 -D spampd.sysusers.conf %{buildroot}%{_sysusersdir}/spampd.conf
 
 
-%pre
-/usr/sbin/useradd -r -M -s /sbin/nologin -d /var/spool/spampd \
-    spampd &>/dev/null || :
+
 
 %post
 %systemd_post spampd.service
@@ -88,9 +91,13 @@ pod2html --infile=spampd.pod --outfile=spampd.html
 %{_sbindir}/spampd
 %{_mandir}/man8/spampd.8*
 %attr(0750,spampd,spampd) /var/spool/spampd
+%{_sysusersdir}/spampd.conf
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.61-12
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.61-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:       rwhoisd 
 Version:    1.5.9.6
-Release:    34%{?dist}
+Release:    36%{?dist}
 Summary:    ARIN's Referral WHOIS server
 # common/strerror.c:                GPL-2.0-or-later (libiberty)
 # LICENSE:                          GPL-2.0 text
@@ -56,12 +56,15 @@ BuildRequires:  libxcrypt-devel
 BuildRequires:  tcp_wrappers-devel
 %endif
 BuildRequires:  systemd
+BuildRequires:  systemd-rpm-macros
 # cat executed by rwhois_repack
 Requires:       %{_bindir}/cat
 # sort executed by rwhois_indexer
 Requires:       %{_bindir}/sort
-Requires(pre):      shadow-utils
 %{?systemd_requires}
+%if (0%{?fedora} && 0%{?fedora} < 42) || (0%{?rhel} && 0%{?rhel} < 11)
+Requires(pre):  shadow-utils
+%endif
 
 %description
 This server is a reference implementation of the server side of the RWhois
@@ -87,6 +90,11 @@ find tools/tcpd_wrapper -depth -mindepth 1 \! -name Makefile.in -delete
 # Keep System V8 regexp library
 # TODO: port to GNU glibc
 autoreconf
+
+# Create a sysusers.d config file
+cat >sysusers.conf <<EOF
+u rwhoisd - 'rwhoisd daemon' %{_localstatedir}/%{name} -
+EOF
 
 %build
 %global _hardened_build 1
@@ -123,13 +131,16 @@ install -m 0644 -t '%{buildroot}%{_sysconfdir}' sample.data/rwhoisd.root
 install -m 0644 -t '%{buildroot}%{_localstatedir}/%{name}/' \
     sample.data/rwhoisd.auth_area
 install -d -m 0775 "%{buildroot}%{_localstatedir}/%{name}/register-spool"
+install -m0644 -D sysusers.conf %{buildroot}%{_sysusersdir}/%{name}.conf
 
+%if (0%{?fedora} && 0%{?fedora} < 42) || (0%{?rhel} && 0%{?rhel} < 11)
 %pre
 getent group %{name} >/dev/null || groupadd -r %{name}
 getent passwd %{name} >/dev/null || \
     useradd -r -g %{name} -d %{_localstatedir}/%{name} -s /sbin/nologin \
     -c "rwhoisd daemon" %{name}
 exit 0
+%endif
 
 %post
 %systemd_post %{name}.service
@@ -156,12 +167,19 @@ exit 0
 %config(noreplace) %{_sysconfdir}/%{name}.root
 %dir %{_localstatedir}/%{name}
 %config(noreplace) %{_localstatedir}/%{name}/%{name}.auth_area
-%attr(775,root,%{name}) %dir %{_localstatedir}/%{name}/register-spool
+%attr(775,root,rwhoisd) %dir %{_localstatedir}/%{name}/register-spool
+%{_sysusersdir}/%{name}.conf
 
 %files example
 %{_localstatedir}/%{name}/samples
 
 %changelog
+* Wed Feb 12 2025 Petr Pisar <ppisar@redhat.com> - 1.5.9.6-36
+- Fix creating users on Fedora < 42
+
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.5.9.6-35
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Tue Feb 11 2025 Petr Pisar <ppisar@redhat.com> - 1.5.9.6-34
 - Fix building with GCC 15 (bug #2341316)
 - Update URL in the RPM package metadata

@@ -3,7 +3,7 @@
 
 Name:    kwin
 Version: 6.3.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Window manager
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -14,6 +14,10 @@ URL:     https://userbase.kde.org/KWin
 Source0: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz
 
 ## upstream patches
+
+# core/outputlayer: guard against null m_output (Causes crashes on X11)
+# https://invent.kde.org/plasma/kwin/-/commit/c97bc26ca9de8b1462f6ccb05fb2dafe01cd82cb
+Patch0:  c97bc26ca9de8b1462f6ccb05fb2dafe01cd82cb.patch
 
 ## proposed patches
 
@@ -303,6 +307,9 @@ rm -v %{buildroot}%{_kf6_bindir}/kwin_x11 %{buildroot}%{_userunitdir}/plasma-kwi
 
 
 %changelog
+* Wed Feb 12 2025 Steve Cossette <farchord@gmail.com> - 6.3.0-2
+- Added patch for critical X11 crash
+
 * Thu Feb 06 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.0-1
 - 6.3.0
 

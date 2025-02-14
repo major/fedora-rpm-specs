@@ -12,7 +12,7 @@
 %global soversion 2
 
 Name:           mopac
-Version:        23.1.0
+Version:        23.1.1
 Release:        1%{?dist}
 Summary:        A semiempirical quantum chemistry program
 License:        Apache-2.0
@@ -83,6 +83,9 @@ export OMP_NUM_THREADS=1
 %{_includedir}/mopac.h
 
 %changelog
+* Wed Feb 12 2025 Susi Lehtola <jussilehtola@fedoraproject.org> - 23.1.1-1
+- Update to 23.1.1.
+
 * Tue Feb 11 2025 Susi Lehtola <jussilehtola@fedoraproject.org> - 23.1.0-1
 - Update to 23.1.0, changing the license to the more permissive Apache-2.0.
 

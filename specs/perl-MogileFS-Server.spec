@@ -1,19 +1,19 @@
 %global cpan_name MogileFS-Server
 Name:       perl-%{cpan_name}
 Version:    2.73
-Release:    25%{?dist}
+Release:    26%{?dist}
 Summary:    Server part of the MogileFS distributed file system
-# LICENSE:      GPL+ or Artistic
-# mogautomount: GPL+ or Artistic
+# LICENSE:      GPL-1.0-or-later OR Artistic-1.0-Perl
+# mogautomount: GPL-1.0-or-later OR Artistic-1.0-Perl
 # mogstored:    "Same terms as Perl itself.  Artistic/GPLv2, at your choosing"
 # mogilefsd:    "Same terms as Perl itself.  Artistic/GPLv2, at your choosing"
 # There are two readings of the "Same terms as Perl itself.  Artistic/GPLv2,
 # at your choosing":
-#   (GPL+ or Artistic) and (GPLv2 or Artistic)
-#   (GPL+ or Artistic) or (GPLv2 or Artistic)
-# Author clarified that he wants "(GPL+ or Artistic)". The "GPLv2" was a mistake.
-# MogileFS-Server-license_clarification:        GPL+ or Artistic
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
+#   (GPL-1.0-or-later OR Artistic-1.0-Perl) AND (GPL-2.0-only OR Artistic-1.0-Perl)
+#   (GPL-1.0-or-later OR Artistic-1.0-Perl) OR (GPL-2.0-only OR Artistic-1.0-Perl)
+# Author clarified that he wants "(GPL-1.0-or-later OR Artistic-1.0-Perl)".
+# The "GPL-2.0-only" was a mistake.
+# MogileFS-Server-license_clarification:        GPL-1.0-or-later OR Artistic-1.0-Perl
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:        https://metacpan.org/release/%{cpan_name}
 Source0:    https://cpan.metacpan.org/authors/id/D/DO/DORMANDO/%{cpan_name}-%{version}.tar.gz
@@ -35,8 +35,8 @@ BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
-BuildRequires:  sed
 BuildRequires:  systemd
+BuildRequires:  systemd-rpm-macros
 # Run-time:
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
@@ -106,7 +106,9 @@ Summary:        MogileFS tracker daemon
 Requires:       mogilefsd-storage = %{version}-%{release}
 Recommends:     mogilefsd-storage-mysql = %{version}-%{release}
 Requires(pre):      glibc-common
+%if (0%{?fedora} && 0%{?fedora} < 42) || (0%{?rhel} && 0%{?rhel} < 11)
 Requires(pre):      shadow-utils
+%endif
 Requires(post):     systemd
 Requires(preun):    systemd
 Requires(postun):   systemd
@@ -151,7 +153,9 @@ Requires:       perl(Pod::Usage)
 # sysstat for iostat program
 Requires:       sysstat
 Requires(pre):      glibc-common
+%if (0%{?fedora} && 0%{?fedora} < 42) || (0%{?rhel} && 0%{?rhel} < 11)
 Requires(pre):      shadow-utils
+%endif
 Requires(post):     systemd
 Requires(preun):    systemd
 Requires(postun):   systemd
@@ -201,13 +205,19 @@ Perlbal back-end for mogstored, the MogileFS storage daemon.
 
 
 %prep
-%setup -q -n %{cpan_name}-%{version}
-%patch -P0 -p1
-%patch -P1 -p1
+%autosetup -p1 -n %{cpan_name}-%{version}
 cp -p %{SOURCE5} %{SOURCE6} %{SOURCE7} .
-# Remove test that interfere with system service
+# Remove test that interfere with a system service
 rm t/mogstored-shutdown.t
-sed -i -e '/^t\/mogstored-shutdown\.t/d' MANIFEST
+perl -i -ne 'print $_ unless m{^t\/mogstored-shutdown\.t}' MANIFEST
+
+# Create sysusers.d config files
+cat >mogilefsd.sysusers <<EOF
+u mogilefsd - 'MogileFS tracker daemon' - -
+EOF
+cat >mogstored.sysusers <<EOF
+u mogstored - 'MogileFS storage daemon' - -
+EOF
 
 
 %build
@@ -230,6 +240,9 @@ install -p -m0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/sysconfig
 
 install -d -m0770 %{buildroot}%{_localstatedir}/mogdata
 
+install -m0644 -D mogilefsd.sysusers %{buildroot}%{_sysusersdir}/mogilefsd.conf
+install -m0644 -D mogstored.sysusers %{buildroot}%{_sysusersdir}/mogstored.conf
+
 %check
 # SQLite back-end fails in mock. MySQL or PostgreSQL in mock is also no-go.
 # make test MOGTEST_DBTYPE=SQLite
@@ -237,12 +250,14 @@ install -d -m0770 %{buildroot}%{_localstatedir}/mogdata
 make test
 
 
+%if (0%{?fedora} && 0%{?fedora} < 42) || (0%{?rhel} && 0%{?rhel} < 11)
 %pre -n mogilefsd
 getent group mogilefsd >/dev/null || groupadd -r mogilefsd
 getent passwd mogilefsd >/dev/null || \
     useradd -r -g mogilefsd -d / -s /sbin/nologin \
         -c "MogileFS tracker daemon" mogilefsd
 exit 0
+%endif
 
 %post -n mogilefsd
 %systemd_post mogilefsd.service
@@ -254,12 +269,14 @@ exit 0
 %systemd_postun_with_restart mogilefsd.service
 
 
+%if (0%{?fedora} && 0%{?fedora} < 42) || (0%{?rhel} && 0%{?rhel} < 11)
 %pre -n mogstored
 getent group mogstored >/dev/null || groupadd -r mogstored
 getent passwd mogstored >/dev/null || \
     useradd -r -g mogstored -d / -s /sbin/nologin \
         -c "MogileFS storage daemon" mogstored
 exit 0
+%endif
 
 %post -n mogstored
 %systemd_post mogstored.service
@@ -285,6 +302,7 @@ exit 0
 %dir %{_sysconfdir}/mogilefs
 %config(noreplace) %attr(0640,root,mogilefsd) %{_sysconfdir}/mogilefs/mogilefsd.conf
 %{_unitdir}/mogilefsd.service
+%{_sysusersdir}/mogilefsd.conf
 
 %files -n mogilefsd-storage-mysql
 %{_mandir}/man3/MogileFS::Store::MySQL.*
@@ -314,6 +332,7 @@ exit 0
 %config(noreplace) %{_sysconfdir}/sysconfig/mogstored
 %{_unitdir}/mogstored.service
 %dir %attr(-,mogstored,mogstored) %{_localstatedir}/mogdata
+%{_sysusersdir}/mogstored.conf
 
 %files -n mogstored-backend-apache
 %{perl_vendorlib}/Mogstored/HTTPServer/Apache.pm
@@ -331,6 +350,9 @@ exit 0
 %{perl_vendorlib}/Mogstored/HTTPServer/Perlbal.pm
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.73-26
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.73-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

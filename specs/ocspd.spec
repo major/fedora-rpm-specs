@@ -4,7 +4,7 @@
 
 Name:		ocspd
 Version:	1.9.0
-Release:	33%{?alphatag:.}%{?alphatag}%{?dist}
+Release:	34%{?alphatag:.}%{?alphatag}%{?dist}
 Summary:	OpenCA OCSP Daemon
 License:	Apache-1.0
 Source:		http://downloads.sourceforge.net/openca/openca-ocspd-%{version}%{revision}.tar.gz
@@ -25,7 +25,6 @@ Patch13:	ocspd-1.9.0-openssl11.patch
 URL:		http://www.openca.org/projects/ocspd
 Obsoletes:	openca-ocspd <= %{version}-%{release}
 Provides:	openca-ocspd = %{version}-%{release}
-Requires(pre):	shadow-utils
 BuildRequires:	make
 BuildRequires:	gcc
 BuildRequires:	openssl-devel
@@ -66,6 +65,11 @@ Mozilla/Firefox/Thunderbird/Apache).
 %patch -P12 -p1 -b .noformat
 %patch -P13 -p1 -b .openssl11
 
+#	Create a sysusers.d config file.
+cat > ocspd.sysusers.conf <<EOF
+u ocspd - 'OCSP Responder' %{_sysconfdir}/ocspd -
+EOF
+
 
 #-------------------------------------------------------------------------------
 %build
@@ -80,7 +84,7 @@ autoconf
 
 
 %ifarch alpha
-	ARCH_FLAGS="--host=alpha-redhat-linux"
+	ARCH_FLAGS='--host=alpha-redhat-linux'
 %endif
 
 
@@ -92,26 +96,20 @@ make %{?_smp_mflags}
 %install
 #-------------------------------------------------------------------------------
 
-make DESTDIR="${RPM_BUILD_ROOT}" install
+make DESTDIR='%{buildroot}' install
 
 #	Remove SysV init scripts directory.
 
-rm -rf "${RPM_BUILD_ROOT}%{_initrddir}"
+rm -rf '%{buildroot}%{_initrddir}'
 
 #	Install systemd service script.
 
-mkdir -p "${RPM_BUILD_ROOT}%{_unitdir}/"
-cp -a "%{SOURCE1}" "${RPM_BUILD_ROOT}%{_unitdir}/"
+mkdir -p '%{buildroot}%{_unitdir}/'
+cp -a '%{SOURCE1}' '%{buildroot}%{_unitdir}/'
 
-#-------------------------------------------------------------------------------
-%pre
-#-------------------------------------------------------------------------------
+#	Install sysusers config file.
 
-getent group ocspd >/dev/null || groupadd -r ocspd
-getent passwd ocspd >/dev/null ||
-	useradd -r -g ocspd -d "%{_sysconfdir}/ocspd"			\
-		-s /sbin/nologin -c "OCSP Responder" ocspd
-exit 0
+install -m 644 -D ocspd.sysusers.conf '%{buildroot}%{_sysusersdir}/ocspd.conf'
 
 
 #-------------------------------------------------------------------------------
@@ -156,14 +154,18 @@ exit 0
 %config(noreplace) %{_sysconfdir}/sysconfig/*
 %{_mandir}/*/*
 %{_unitdir}/*
+%{_sysusersdir}/ocspd.conf
 
 
 #-------------------------------------------------------------------------------
 %changelog
+#-------------------------------------------------------------------------------
+
+* Wed Feb 12 2025 Patrick Monnerat <patrick@monnerat.net> 1.9.0-34
+- Add sysusers.d config file to allow rpm to create users/groups automatically.
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-#-------------------------------------------------------------------------------
 
 * Tue Jul 23 2024 Patrick Monnerat <patrick@monnerat.net> 1.9.0-32
 - BR openssl-devel-engine for Fedora >= 41.

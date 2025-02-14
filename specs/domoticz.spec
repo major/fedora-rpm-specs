@@ -3,7 +3,7 @@
 
 Name:		domoticz
 Version:	2024.7
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Open source Home Automation System
 
 # Automatically converted from old format: GPLv3+ and ASL 2.0 and Boost and BSD and MIT - review is highly recommended.
@@ -44,7 +44,6 @@ BuildRequires:	systemd-devel
 BuildRequires:	tinyxpath-devel
 BuildRequires:	zlib-devel
 
-Requires(pre):	shadow-utils
 Requires(post):	systemd
 Requires(postun):	systemd
 Requires(preun):	systemd
@@ -104,6 +103,12 @@ sed -i 's/sTypeSetPoint/sTypeSetpoint/g' hardware/ZWaveBase.cpp
 rm -rf sqlite/
 rm -rf tinyxpath/
 cp -p %{SOURCE3} ./appversion.h
+
+# Create a sysusers.d config file
+cat >domoticz.sysusers.conf <<EOF
+u domoticz - 'Domoticz Home Automation Server' %{_datadir}/%{name} -
+m domoticz dialout
+EOF
 
 
 %build
@@ -203,6 +208,8 @@ ln -s %{_sharedstatedir}/%{name}/templates \
 # Byte compile the default plugin
 %py_byte_compile %{__python3} %{buildroot}%{_datadir}/%{name}/plugins/AwoxSMP
 
+install -m0644 -D domoticz.sysusers.conf %{buildroot}%{_sysusersdir}/domoticz.conf
+
 
 %pretrans
 # Handle directory move for a few releases
@@ -210,10 +217,6 @@ rm -rf %{_datadir}/%{name}/www/templates
 
 
 %pre
-getent group domoticz >/dev/null || groupadd -r domoticz
-getent passwd domoticz >/dev/null || \
-useradd -r -g domoticz -d %{_datadir}/%{name} -s /sbin/nologin \
--c "Domoticz Home Automation Server" domoticz
 # For OpenZWave USB access (/dev/ttyACM#)
 usermod -G domoticz,dialout domoticz
 
@@ -238,9 +241,13 @@ usermod -G domoticz,dialout domoticz
 %{_datadir}/%{name}/
 %attr(0755,domoticz,domoticz) %{_sharedstatedir}/%{name}/
 %{_unitdir}/%{name}.service
+%{_sysusersdir}/domoticz.conf
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2024.7-4
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

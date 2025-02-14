@@ -95,7 +95,6 @@ Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 %upstream_name_compat %{upstream_name}
 Requires: coreutils util-linux
 %{?systemd_requires}
-%{?sysusers_requires_compat}
 
 %description
 DHCP implementation from Internet Systems Consortium, Inc. that features fully
@@ -275,9 +274,15 @@ install -dm 0755 %{buildroot}/run/kea/
 
 install -Dpm 0644 %{S:15} %{buildroot}%{_tmpfilesdir}/kea.conf
 
+# Create log dir /var/log/kea for logging, since kea user can't create log files in /var/log
+mkdir -p %{buildroot}%{_localstatedir}/log/kea
+sed -i -e 's|log\/|log\/kea\/|g' \
+    %{buildroot}%{_sysconfdir}/kea/kea-dhcp4.conf \
+    %{buildroot}%{_sysconfdir}/kea/kea-dhcp6.conf \
+    %{buildroot}%{_sysconfdir}/kea/kea-dhcp-ddns.conf \
+    %{buildroot}%{_sysconfdir}/kea/kea-ctrl-agent.conf
+#    %{buildroot}%{_sysconfdir}/kea/kea-netconf.conf  # TODO: no support for netconf/sysconf yet
 
-%pre
-%sysusers_create_compat %{S:16}
 
 %post
 # Kea runs under kea user instead of root now, but if its files got altered, their new
@@ -337,6 +342,7 @@ install -Dpm 0644 %{S:15} %{buildroot}%{_tmpfilesdir}/kea.conf
 %dir %attr(0755,kea,kea) %{_rundir}/kea/
 %{_tmpfilesdir}/kea.conf
 %{_sysusersdir}/kea.conf
+%dir %attr(0750,kea,kea) %{_localstatedir}/log/kea
 
 %files doc
 %dir %{_pkgdocdir}

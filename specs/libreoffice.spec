@@ -273,8 +273,8 @@ BuildRequires: pkgconfig(harfbuzz)
 BuildRequires: pkgconfig(libeot)
 BuildRequires: pkgconfig(libepubgen-0.1)
 BuildRequires: pkgconfig(libqxp-0.0)
-BuildRequires: pkgconfig(liborcus-0.18)
-BuildRequires: pkgconfig(mdds-2.1)
+BuildRequires: pkgconfig(liborcus-0.20)
+BuildRequires: pkgconfig(mdds-3.0)
 BuildRequires: pkgconfig(zxing)
 BuildRequires: libnumbertext-devel
 BuildRequires: frozen-static
@@ -1155,6 +1155,8 @@ sed -i -e /CppunitTest_sw_layoutwriter4/d sw/Module_sw.mk
 sed -i -e /CppunitTest_sw_tiledrendering2/d sw/Module_sw.mk
 sed -i -e /CppunitTest_sc_pdf_export/d sc/Module_sc.mk
 
+sed -i s/mdds-2.1/mdds-3.0/g configure
+sed -i s/liborcus-0.18/liborcus-0.20/g configure
 
 %build
 # path to external tarballs

@@ -1,6 +1,6 @@
 Name:           inadyn-mt
 Version:        2.28.10
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Dynamic DNS Client
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -25,7 +25,6 @@ BuildRequires: make
 Obsoletes:      inadyn < %{version}
 Provides:       inadyn = %{version}-%{release}
 
-Requires(pre):    shadow-utils
 Requires(post):   systemd-units
 Requires(preun):  systemd-units
 Requires(postun): systemd-units
@@ -53,6 +52,11 @@ should then fill in /etc/inadyn.conf with the appropriate detail
 %patch -P2 -p1 -b .gcc10
 %patch -P3 -p1 -b .c99
 %patch -P4 -p1 -b .c23
+
+# Create a sysusers.d config file
+cat >inadyn-mt.sysusers.conf <<EOF
+u inadyn - 'Dynamic DNS client' /var/cache/inadyn-mt -
+EOF
 
 %build
 rm -rf bin/
@@ -86,12 +90,8 @@ install -p %{SOURCE3} ${RPM_BUILD_ROOT}%{_prefix}/lib/NetworkManager/dispatcher.
 
 mkdir -p $RPM_BUILD_ROOT/var/cache/inadyn-mt
 
-%pre
-getent group inadyn >/dev/null || groupadd -r inadyn
-getent passwd inadyn >/dev/null || \
-    useradd -r -g inadyn -d /var/cache/inadyn-mt -s /sbin/nologin \
-    -c "Dynamic DNS client" inadyn
-exit 0
+install -m0644 -D inadyn-mt.sysusers.conf %{buildroot}%{_sysusersdir}/inadyn-mt.conf
+
 
 %post
 %systemd_post inadyn.service
@@ -113,8 +113,12 @@ exit 0
 %{_prefix}/lib/NetworkManager/
 %{_datadir}/%{name}/
 %attr(755,inadyn,inadyn) %dir /var/cache/inadyn-mt/
+%{_sysusersdir}/inadyn-mt.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.28.10-24
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Wed Jan 22 2025 Michael Cronenworth <mike@cchtml.com> - 2.28.10-23
 - C23 compatibility fixes
 

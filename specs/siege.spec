@@ -6,8 +6,11 @@ Summary:        HTTP regression testing and benchmarking utility
 License:        GPL-3.0-or-later
 URL:            http://www.joedog.org/JoeDog/Siege
 Source0:        http://download.joedog.org/siege/%{name}-%{version}.tar.gz
+Source1:        shell.m4
 Patch0:         siege-4.1.7-bindir.patch
 
+BuildRequires:  autoconf
+BuildRequires:  automake
 BuildRequires:  make
 BuildRequires:  openssl-devel
 BuildRequires:  zlib-devel
@@ -28,8 +31,12 @@ simulated users. Those users place the web-server "under siege."
 %autosetup
 # Better default for log file (Bug 644631)
 sed -i.orig doc/siegerc.in -e 's/^# logfile = *$/logfile = ${HOME}\/siege.log/'
+rm -f *.m4
+install -pm0644 %{SOURCE1} acinclude.m4
+autoreconf -fiv
 
 %build
+export CFLAGS="-std=gnu17 %{build_cflags}"
 %configure --sysconfdir=%{_sysconfdir}/siege
 %make_build
 
@@ -53,6 +60,10 @@ mkdir -p %{buildroot}%{_sysconfdir}/siege
 %config(noreplace) %{_sysconfdir}/siege/siegerc
 
 %changelog
+* Wed Feb 12 2025 Björn Esser <besser82@fedoraproject.org> - 4.1.7-2
+- Fix FTBFS
+  Closes: rhbz#2341347
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           mirrormanager2
 Version:        1.0.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Mirror management application
 
 # Most MirrorManager files are licensed under the MIT license. Some
@@ -66,7 +66,6 @@ Requires:  %{name}-filesystem = %{version}-%{release}
 Requires:  %{name}-lib = %{version}-%{release}
 Requires:  python%{python3_pkgversion}-geoip2
 Requires:  logrotate
-Requires(pre):  shadow-utils
 
 %description crawler
 Install the crawler for MirrorManager, crawling all the mirrors to find out
@@ -80,7 +79,6 @@ BuildArch:      noarch
 Requires:  %{name}-filesystem = %{version}-%{release}
 Requires:  %{name}-lib = %{version}-%{release}
 Requires:  logrotate
-Requires(pre):  shadow-utils
 
 %description backend
 Install a number of utility scripts to be used manually or in cron jobs to
@@ -134,6 +132,11 @@ Base directories used by multiple subpackages
 
 %generate_buildrequires
 %pyproject_buildrequires
+
+# Create a sysusers.d config file
+cat >mirrormanager2.sysusers.conf <<EOF
+u mirrormanager - 'MirrorManager' %{_localstatedir}/lib/mirrormanager -
+EOF
 
 %build
 # Recreating protobuf output
@@ -216,13 +219,9 @@ sed -e "s|#!/usr/bin/env python.*|#!%{__python3}|" -i \
     $RPM_BUILD_ROOT/%{_datadir}/mirrormanager2/*.py \
     $RPM_BUILD_ROOT/%{python3_sitelib}/mirrormanager2/lib/umdl.py
 
+install -m0644 -D mirrormanager2.sysusers.conf %{buildroot}%{_sysusersdir}/mirrormanager2.conf
 
-%pre crawler
-getent group mirrormanager >/dev/null || groupadd -r mirrormanager
-getent passwd mirrormanager >/dev/null || \
-    useradd -r -g mirrormanager -d %{_localstatedir}/lib/mirrormanager -s /sbin/nologin \
-    -c "MirrorManager" mirrormanager
-exit 0
+
 
 %pre backend
 getent group mirrormanager >/dev/null || groupadd -r mirrormanager
@@ -274,6 +273,7 @@ MM2_SKIP_NETWORK_TESTS=1 %{pytest} tests
 %attr(755,mirrormanager,mirrormanager) %dir %{_localstatedir}/log/mirrormanager
 %attr(755,mirrormanager,mirrormanager) %dir %{_localstatedir}/log/mirrormanager/crawler
 %{_bindir}/mm2_crawler
+%{_sysusersdir}/mirrormanager2.conf
 
 
 %files backend
@@ -308,6 +308,9 @@ MM2_SKIP_NETWORK_TESTS=1 %{pytest} tests
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.0.0-11
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

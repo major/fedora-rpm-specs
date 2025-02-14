@@ -277,12 +277,14 @@ sed -i.PACKAGE_VERSION -e "s|^PACKAGE_VERSION=.*|PACKAGE_VERSION=\'%{version}\'|
 #endif
 %endif
 
+%if 0%{?enable_daemon}
 # Create a sysusers.d config file
 cat >pulseaudio.sysusers.conf <<EOF
 g pulse-access -
 g pulse-rt -
 u pulse 171 'PulseAudio System Daemon' %{_localstatedir}/run/pulse -
 EOF
+%endif
 
 
 %build
@@ -340,6 +342,8 @@ popd
 # upstream should use udev.pc
 mkdir -p $RPM_BUILD_ROOT%{_prefix}/lib/udev/rules.d
 mv -fv $RPM_BUILD_ROOT/lib/udev/rules.d/90-pulseaudio.rules $RPM_BUILD_ROOT%{_prefix}/lib/udev/rules.d
+# Install the sysusers.d config file
+install -m0644 -D pulseaudio.sysusers.conf %{buildroot}%{_sysusersdir}/pulseaudio.conf
 %endif
 
 %if 0%{?gdm_hooks}
@@ -357,8 +361,6 @@ rm -fv $RPM_BUILD_ROOT%{_bindir}/pa-info
 %endif
 
 %find_lang %{name}
-
-install -m0644 -D pulseaudio.sysusers.conf %{buildroot}%{_sysusersdir}/pulseaudio.conf
 
 
 %check

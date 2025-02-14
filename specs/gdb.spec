@@ -928,12 +928,12 @@ fi
   these backport upstream commits 2fc56106422 and 2b646bb8767
   respectively, both fix regressiosn in GDB 16 vs GDB 15.
 
-* Fri Feb 06 2025 Andrew Burgess <aburgess@redhat.com>
+* Fri Feb 07 2025 Andrew Burgess <aburgess@redhat.com>
 - Remove gdb-6.5-bz218379-ppc-solib-trampoline-test.patch.  There must
   be upstream tests that 'next' over a libc call.  Additionally, it is
   not clear to me exactly what bug is being tested for here.
 
-* Fri Feb 06 2025 Andrew Burgess <aburgess@redhat.com>
+* Fri Feb 07 2025 Andrew Burgess <aburgess@redhat.com>
 - Remove gdb-gstack.man file.  This is no longer used.  There is an
   upstream version of gstack which provides its own man page.
 

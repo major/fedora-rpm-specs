@@ -2,24 +2,13 @@
 %global forgeurl https://github.com/alexandrebarachant/pyRiemann
 
 Name:           python-pyriemann
-Version:        0.7
+Version:        0.8
 Release:        %autorelease
 Summary:        Riemannian Geometry for Python
 %forgemeta
 License:        BSD-3-Clause
 URL:            %forgeurl
-Source0:        %forgesource
-
-# Error in MinCovDet covariance estimator with sklearn 1.6.0
-# https://github.com/pyRiemann/pyRiemann/pull/335
-#
-# This should be fixed in scikit-learn 1.6.2 by:
-#
-# FIX Restore support for n_samples == n_features in MinCovDet.
-# https://github.com/scikit-learn/scikit-learn/pull/30483
-#
-# Rebased on 0.7.
-Patch:         0001-Error-in-MinCovDet-covariance-estimator-with-sklearn.patch
+Source:         %forgesource
 
 # This package has had architecture-dependent test failures in the past, e.g.
 # “One test failure on s390x”

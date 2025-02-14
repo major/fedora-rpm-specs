@@ -43,7 +43,6 @@ Provides:       bundled(tango-icon-theme)
 BuildRequires:  systemd
 
 # Want to create a user for gitit.
-Requires(pre):  shadow-utils
 
 # Begin cabal-rpm deps:
 BuildRequires:  ghc-Cabal-devel
@@ -241,6 +240,11 @@ This package provides the Haskell %{name} profiling library.
 %setup -q
 # End cabal-rpm setup
 
+# Create a sysusers.d config file
+cat >gitit.sysusers.conf <<EOF
+u gitit - 'Account for gitit wiki service' %{_sharedstatedir}/gitit -
+EOF
+
 
 %build
 # Begin cabal-rpm build:
@@ -269,12 +273,8 @@ cp -a %SOURCE2 %{buildroot}%{_unitdir}
 # which is why it's created in the package.
 mkdir -p %{buildroot}%{_sharedstatedir}/gitit/wiki
 
-%pre
-getent group gitit >/dev/null || groupadd -r gitit
-getent passwd gitit >/dev/null || \
-    useradd -r -g gitit -d %{_sharedstatedir}/gitit -s /sbin/nologin \
-    -c "Account for gitit wiki service" gitit
-exit 0
+install -m0644 -D gitit.sysusers.conf %{buildroot}%{_sysusersdir}/gitit.conf
+
 
 %post
 %systemd_post gitit.service
@@ -298,6 +298,7 @@ exit 0
 # (I guess the alternative is to try and make the directories in %post).
 %attr(-,gitit,gitit) %dir %{_sharedstatedir}/gitit/
 %attr(-,gitit,gitit) %dir %{_sharedstatedir}/gitit/wiki/
+%{_sysusersdir}/gitit.conf
 
 
 %files common

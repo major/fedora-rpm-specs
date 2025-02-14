@@ -1,14 +1,13 @@
 %{?mingw_package_header}
 
 Name:           mingw-libtasn1
-Version:        4.19.0
-Release:        8%{?dist}
+Version:        4.20.0
+Release:        1%{?dist}
 Summary:        MinGW Windows libtasn1 library
 
 # The libtasn1 library is LGPLv2+, utilities are GPLv3+;
 # we are only packaging the library.
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            http://www.gnu.org/software/libtasn1/
 Source0:        http://ftp.gnu.org/gnu/libtasn1/libtasn1-%{version}.tar.gz
 Source1:        http://ftp.gnu.org/gnu/libtasn1/libtasn1-%{version}.tar.gz.sig
@@ -84,14 +83,14 @@ rm -f %{buildroot}%{mingw64_bindir}/*.exe
 
 
 %files -n mingw32-libtasn1
-%license COPYING doc/COPYING.LESSER
+%license COPYING COPYING.LESSERv2
 %{mingw32_bindir}/libtasn1-6.dll
 %{mingw32_includedir}/libtasn1.h
 %{mingw32_libdir}/libtasn1.dll.a
 %{mingw32_libdir}/pkgconfig/libtasn1.pc
 
 %files -n mingw64-libtasn1
-%license COPYING doc/COPYING.LESSER
+%license COPYING COPYING.LESSERv2
 %{mingw64_bindir}/libtasn1-6.dll
 %{mingw64_includedir}/libtasn1.h
 %{mingw64_libdir}/libtasn1.dll.a
@@ -99,6 +98,9 @@ rm -f %{buildroot}%{mingw64_bindir}/*.exe
 
 
 %changelog
+* Wed Feb 12 2025 Sandro Mani <manisandro@gmail.com> - 4.20.0-1
+- Update to 4.20.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.19.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

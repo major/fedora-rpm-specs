@@ -1,5 +1,3 @@
-%global _hardened_build 1
-
 Name:           fido
 Version:        1.1.5
 Release:        23%{?dist}
@@ -10,21 +8,15 @@ License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:            http://www.joedog.org/%{name}-home/
 Source0:        http://download.joedog.org/%{name}/%{name}-%{version}.tar.gz
 
-#Upstream whants to keep the static library
-Patch6:         %{name}-shared-library.patch
+#Upstream wants to keep the static library
+Patch0:         %{name}-shared-library.patch
 
-%{?el5:BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)}
+BuildRequires:  libtool
+BuildRequires:  libjoedog-devel
+BuildRequires:  make
+BuildRequires:  systemd-rpm-macros
 
-%if 0%{?fedora} || 0%{?rhel} >= 7
-BuildRequires:    systemd
 %{?systemd_requires}
-%else
-Requires(post):  /sbin/chkconfig
-Requires(preun): /sbin/chkconfig
-Requires(preun): initscripts
-%endif
-BuildRequires:   libtool, libjoedog-devel
-BuildRequires: make
 
 
 %description
@@ -34,10 +26,7 @@ user-defined script.
 
 
 %prep
-%setup -q
-
-%patch -P6
-
+%autosetup -p 0
 rm -f *.m4
 rm -rf include/joedog/*.h
 sed -i -e 's/AC_PROG_SHELL//' configure.ac
@@ -45,27 +34,15 @@ autoreconf --install --force
 
 
 %build
+export CFLAGS="-std=gnu17 %{build_cflags}"
 %configure
-make %{?_smp_mflags}
+%make_build
 
 
 %install
-%if 0%{?el5}
-rm -rf %{buildroot}
-make install DESTDIR=%{buildroot}
-%else
 %make_install
-%endif
 
-%if 0%{?fedora} || 0%{?rhel} >= 7
-#systemd
 install -D -p -m 0644 utils/%{name}.service %{buildroot}%{_unitdir}/%{name}.service
-%else
-#SysVinit
-install -D -p -m 0644 utils/%{name}-redhat-config %{buildroot}%{_sysconfdir}/sysconfig/%{name}
-%{?el6:install -D -p -m 0755 utils/%{name}-redhat-start %{buildroot}%{_initddir}/%{name}}
-%{?el5:install -D -p -m 0755 utils/%{name}-redhat-start %{buildroot}%{_initrddir}/%{name}}
-%endif
 
 #prepare sample configs for doc
 for _file in doc/*.conf
@@ -80,52 +57,35 @@ sed -e 's/^verbose  = true/verbose = false/' \
 rm -f %{buildroot}%{_sysconfdir}/%{name}/%{name}.conf.sample
 
 
-
 %files
-%doc ChangeLog README.md COPYING
+%doc ChangeLog README.md
 %doc doc/*.sample
+%license COPYING
+%config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
 %{_sbindir}/%{name}
 %{_mandir}/man*/*
 %{_sysconfdir}/%{name}/rules
-%config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
-
-%if 0%{?fedora} || 0%{?rhel} >= 7
-#systemd
 %{_unitdir}/%{name}.service
 
 
 %post
 %systemd_post %{name}.service
 
+
 %preun
 %systemd_preun %{name}.service
 
+
 %postun
 %systemd_postun_with_restart %{name}.service
-%else
-#SysVinit
-%config(noreplace) %{_sysconfdir}/sysconfig/%{name}
-
-%{?el6:%{_initddir}/%{name}}
-%{?el5:%{_initrddir}/%{name}}
-
-%post
-/sbin/chkconfig --add %{name}
-
-%preun
-if [ $1 -eq 0 ] ; then
-    /sbin/service %{name} stop >/dev/null 2>&1
-    /sbin/chkconfig --del %{name}
-fi
-
-%postun
-if [ "$1" -ge "1" ] ; then
-    /sbin/service %{name} condrestart >/dev/null 2>&1 || :
-fi
-%endif
 
 
 %changelog
+* Wed Feb 12 2025 Björn Esser <besser82@fedoraproject.org> - 1.1.5-23
+- Drop old cruft from spec file
+- Fix FTBFS
+  Closes: rhbz#2340158
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

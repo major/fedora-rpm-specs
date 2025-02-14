@@ -3,7 +3,7 @@
 Summary: Frozen Bubble arcade game
 Name: frozen-bubble
 Version: 2.2.1
-Release: 0.50.beta1%{?dist}
+Release: 0.51.beta1%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL: http://www.frozen-bubble.org/
@@ -68,6 +68,11 @@ Frozen Bubble network game server.
 # Change the example server configuration file to be a working one, which only
 # launches a LAN server and doesn't try to register itself on the Internet
 %{__sed} -ie "s#^a .*#z\nq\nL#" server/init/fb-server.conf
+
+# Create a sysusers.d config file
+cat >frozen-bubble.sysusers.conf <<EOF
+u fbubble - - %{_datadir}/%{name} -
+EOF
 
 
 %build
@@ -147,6 +152,8 @@ SentUpstream: 2014-09-17
 </application>
 EOF
 
+install -m0644 -D frozen-bubble.sysusers.conf %{buildroot}%{_sysusersdir}/frozen-bubble.conf
+
 %check
 ./Build test
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/frozen-bubble.appdata.xml
@@ -154,8 +161,6 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/frozen-bu
 
 
 %post server
-/usr/sbin/useradd -r -s /sbin/nologin -d %{_datadir}/%{name} fbubble \
-    &>/dev/null || :
 %systemd_post fb-server.service
 
 %preun server
@@ -183,9 +188,13 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/frozen-bu
 %config(noreplace) %{_sysconfdir}/fb-server.conf
 %{_unitdir}/fb-server.service
 %{_bindir}/fb-server
+%{_sysusersdir}/frozen-bubble.conf
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.2.1-0.51.beta1
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-0.50.beta1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

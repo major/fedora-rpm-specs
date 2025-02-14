@@ -2,7 +2,7 @@
 %global simple_name qtpy
 
 Name:           python-%{pypi_name}
-Version:        2.4.2
+Version:        2.4.3
 Release:        %autorelease
 Summary:        Provides an abstraction layer on top of the various Qt bindings
 

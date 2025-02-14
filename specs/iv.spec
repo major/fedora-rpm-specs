@@ -3,32 +3,19 @@
 # https://github.com/neuronsimulator/iv/issues/15: -Wchar-subscript
 
 
-%global commit 14890c412662cd7d0c4bce1d777473a904168647
+%global commit 17d8a70ca4cfb98f54c9e5f6cb38b9191f585c78
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
-%global checkout_date 20200818
+%global checkout_date 20250212
 
 Name:           iv
 Version:        0.1
-Release:        0.12.%{checkout_date}git%{shortcommit}%{?dist}
+Release:        0.13.%{checkout_date}git%{shortcommit}%{?dist}
 Summary:        InterViews graphical library
 
 License:  MIT
 URl:      https://github.com/neuronsimulator/%{name}
 Source0:  https://github.com/neuronsimulator/%{name}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
-
-# Mark libraries and let them be installed in the correct default folder
-# https://github.com/neuronsimulator/iv/pull/34
-Patch0:   0001-Set-soversion-for-shared-objects-on-Linux-builds.patch
-Patch1:   0002-Use-LIB_INSTALL_DIR-instead-of-hardcoding-lib.patch
-# Avoid function pointers of unspecified arguments
-# https://github.com/neuronsimulator/iv/pull/53
-#
-# Fixes:
-#
-# iv: FTBFS in Fedora rawhide/f42
-# https://bugzilla.redhat.com/show_bug.cgi?id=2300528
-Patch2:   %{url}/pull/53.patch
 
 BuildRequires:  cmake
 BuildRequires:  /usr/bin/libtoolize
@@ -128,6 +115,9 @@ popd
 %{_libdir}/cmake/iv/
 
 %changelog
+* Wed Feb 12 2025 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.1-0.13.20250212git17d8a70c
+- Update to latest snapshot, drop patches
+
 * Sun Feb 02 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 0.1-0.12.20200818git14890c4
 - Updated C23 patch
 

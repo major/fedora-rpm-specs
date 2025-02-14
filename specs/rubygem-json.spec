@@ -1,12 +1,12 @@
 %global	gem_name	json
 
-%global	pkg_version_num		2.9.1
+%global	pkg_version_num		2.10.1
 %dnl		%global	pkg_version_alpha
-%global	gem_version		%{pkg_version_num}%{?pkg_version_alpha:.%pkg_version_alpha}
+%global	gem_version()		%{pkg_version_num}%{?pkg_version_alpha:.%pkg_version_alpha}
 
 Name:           rubygem-%{gem_name}
 Version:        %{pkg_version_num}%{?pkg_version_alpha:~%pkg_version_alpha}
-Release:        3%{?dist}
+Release:        1%{?dist}
 
 Summary:        A JSON implementation in Ruby
 
@@ -136,6 +136,9 @@ popd
 
 
 %changelog
+* Tue Feb 11 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.10.1-1
+- 2.10.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

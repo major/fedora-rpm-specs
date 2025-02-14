@@ -9,6 +9,9 @@ URL:            http://pmt.sourceforge.net/%{name}/
 Source0:        http://downloads.sourceforge.net/pmt/%{name}-%{version}-nolib.tar.xz
 # from Debian sid.
 Source1:        %{name}.sgml
+# Fix building with libpng >= 1.6.42
+# https://github.com/glennrp/pmt/pull/2
+Patch:          https://patch-diff.githubusercontent.com/raw/glennrp/pmt/pull/2.patch#/pngcrush-1.8.13-fix-undeclared-identifier.patch
 BuildRequires:  docbook-utils
 BuildRequires:  gcc
 BuildRequires:  libpng-devel
@@ -23,7 +26,7 @@ remove unwanted ancillary chunks, or to add certain chunks including gAMA,
 tRNS, iCCP, and textual chunks. 
 
 %prep
-%setup -q -n %{name}-%{version}-nolib
+%autosetup -n %{name}-%{version}-nolib
 cp %{SOURCE1} . 
 
 %build

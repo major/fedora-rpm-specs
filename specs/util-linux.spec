@@ -477,13 +477,6 @@ mv -v %{buildroot}/usr/sbin/* %{buildroot}/usr/bin/
 %systemd_postun_with_restart fstrim.timer
 %systemd_postun fstrim.service
 
-%pre -n uuidd
-getent group uuidd >/dev/null || groupadd -r uuidd
-getent passwd uuidd >/dev/null || \
-useradd -r -g uuidd -d /var/lib/libuuid -s /sbin/nologin \
-    -c "UUID generator helper daemon" uuidd
-exit 0
-
 # Please, keep uuidd running after installation! Note that systemd_post is
 # "systemctl preset" and it enable/disable service only.
 %post -n uuidd

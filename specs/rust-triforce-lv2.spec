@@ -24,7 +24,7 @@ arrays.}
 
 %description %{_description}
 
-%package     -n %{crate}
+%package     -n lv2-triforce
 Summary:        %{summary}
 # Apache-2.0
 # GPL-2.0-or-later
@@ -34,10 +34,14 @@ Summary:        %{summary}
 License:        Apache-2.0 AND GPL-2.0-or-later AND MIT AND (MIT OR Apache-2.0) AND (Zlib OR Apache-2.0 OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 Requires:       lv2
+# Drop after f42 is EOL
+Provides:       %{crate} = %{version}-%{release}
+Provides:       %{crate}%{?_isa} = %{version}-%{release}
+Obsoletes:      %{crate} < 0.1.1-2
 
-%description -n %{crate} %{_description}
+%description -n lv2-triforce %{_description}
 
-%files       -n %{crate}
+%files       -n lv2-triforce
 %license LICENCE.txt
 %license LICENSE.dependencies
 %doc README.md

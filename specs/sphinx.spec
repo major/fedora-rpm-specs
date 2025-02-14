@@ -20,7 +20,7 @@
 
 Name:		sphinx
 Version:	2.2.11
-Release:	32%{?dist}
+Release:	33%{?dist}
 Summary:	Free open-source SQL full-text search engine
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -45,7 +45,6 @@ Requires(preun):	systemd
 Requires(postun):	systemd
 
 # Users and groups
-Requires(pre):		shadow-utils
        
 
 %description
@@ -134,6 +133,12 @@ done
 
 # Fix file not UTF8
 iconv -f iso8859-1 -t utf-8 doc/%{name}.txt > doc/%{name}.txt.conv && mv -f doc/%{name}.txt.conv doc/%{name}.txt
+
+# Create a sysusers.d config file
+cat >sphinx.sysusers.conf <<EOF
+g sphinx -
+u sphinx - 'Sphinx Search' %{sphinx_home} /bin/bash
+EOF
 
 %build
 %if %{__isa_bits} == 64
@@ -233,13 +238,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 # clean-up .a archives
 find $RPM_BUILD_ROOT -name '*.a' -exec rm -f {} ';'
 
+install -m0644 -D sphinx.sysusers.conf %{buildroot}%{_sysusersdir}/sphinx.conf
 
-%pre
-getent group %{sphinx_group} >/dev/null || groupadd -r %{sphinx_group}
-getent passwd %{sphinx_user} >/dev/null || \
-useradd -r -g %{sphinx_group} -d %{sphinx_home} -s /bin/bash \
--c "Sphinx Search" %{sphinx_user}
-exit 0
+
 
 %post
 %systemd_post searchd.service
@@ -282,6 +283,7 @@ chown -R %{sphinx_user}:root %{_localstatedir}/lib/%{name}/
 %dir %attr(0755, %{sphinx_user}, root) %{_localstatedir}/run/%{name}
 %dir %attr(0755, %{sphinx_user}, root) %{_localstatedir}/lib/%{name}
 %{_mandir}/man1/*
+%{_sysusersdir}/sphinx.conf
 
 %files -n libsphinxclient
 %doc COPYING %{?with_java: api/java} api/ruby api/*.php api/*.py api/libsphinxclient/README
@@ -302,6 +304,9 @@ chown -R %{sphinx_user}:root %{_localstatedir}/lib/%{name}/
 %{_datadir}/php/*
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.2.11-33
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.11-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

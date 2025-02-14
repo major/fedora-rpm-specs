@@ -19,6 +19,10 @@ to InfluxDB 1.7 or earlier instances, use the python-influxdb package.\
 
 %description   %_description
 
+
+%pyproject_extras_subpkg -n python3-influxdb-client ciso async extra
+
+
 %package -n python3-influxdb-client
 Summary:       %{summary}
 
@@ -28,8 +32,18 @@ Summary:       %{summary}
 %prep
 %forgesetup
 
+# python-aiocsv currently not in Fedora.
+# Add to fedora once tests are working
+# https://github.com/MKuranowski/aiocsv/issues/33
+sed -i "s/'aiocsv[>=]=.*//" setup.py
+
+# Relax some versioning
+sed -i "s/'aiohttp[>=]=.*'/'aiohttp'/" setup.py
+sed -i "s/'ciso8601[>=]=.*'/'ciso8601'/" setup.py
+sed -i "s/'reactivex\s*[>=]=\s*.*'/'reactivex'/" setup.py
+
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires -x ciso -x async -x extra
 
 
 %build
@@ -42,7 +56,8 @@ Summary:       %{summary}
 
 
 %check
-%tox
+# All tests require an influxdb running on the localhost to connect to.
+%pyproject_check_import
 
 
 %files -n python3-influxdb-client -f %{pyproject_files}

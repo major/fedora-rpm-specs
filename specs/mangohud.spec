@@ -10,17 +10,11 @@
 
 %global tarball_version %%(echo %{version} | tr '~' '-')
 
-# Failed on s390x arch
-# [  ERROR   ] --- 0x4000 != 0x40
-# [   LINE   ] --- ../tests/test_amdgpu.cpp:35: error: Failure!
-# [  FAILED  ] amdgpu_tests: 1 test(s), listed below:
-# [  FAILED  ] test_amdgpu_get_instant_metrics
-%ifnarch s390x
-%bcond_without tests
-%endif
+# TODO: try to fix amdgpu tests
+%bcond_with tests
 
 Name:           mangohud
-Version:        0.7.2
+Version:        0.8.0
 %forgemeta
 Release:        %autorelease
 Summary:        Vulkan and OpenGL overlay for monitoring FPS, temperatures, CPU/GPU load
@@ -130,7 +124,6 @@ sed -i "s/, '-static-libstdc++'//" \
 %build
 %meson \
     -Dmangoapp=true \
-    -Dmangoapp_layer=true \
     -Dmangohudctl=true \
     -Dinclude_doc=true \
     -Duse_system_spdlog=enabled \

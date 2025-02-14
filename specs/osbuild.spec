@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        140
+Version:        141
 
 %forgemeta
 
@@ -318,6 +318,31 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Wed Feb 12 2025 Packit <hello@packit.dev> - 141-1
+Changes with 141
+----------------
+  * Add initial CODEOWNERS file (#2004)
+    * Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Michael Vogt, Simon de Vlieger
+  * Revert "ostree: introduce optional subpath feature" (#2010)
+    * Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Michael Vogt, Tomáš Hozza
+  * Tools/osbuild-image-info: make read_selinux_ctx_mismatch more robust (#2007)
+    * Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * Update snapshots to 20250201 (#1998)
+    * Author: SchutzBot, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  * kernel-cmdline: add size check (#2005)
+    * Author: Albert Esteve, Reviewers: Simon de Vlieger, Tomáš Hozza
+  * osbuild-image-info: rework analyse_iso() (HMS-5376) (#1981)
+    * Author: Tomáš Hozza, Reviewers: Nobody
+  * stages/coreos.live-artifacts: add erofs support (#2002)
+    * Author: Nikita Dubrovski, Reviewers: Achilleas Koutsou, Dusty Mabe
+  * stages/kernel-cmdline: add max cmdline option (#2006)
+    * Author: Albert Esteve, Reviewers: Michael Vogt, Tomáš Hozza
+  * stages: Where is mandatory in systemd.unit.create (#2000)
+    * Author: Achilleas Koutsou, Reviewers: Michael Vogt, Tomáš Hozza
+
+— Somewhere on the Internet, 2025-02-12
+
+
 * Tue Feb 04 2025 Packit <hello@packit.dev> - 140-1
 Changes with 140
 ----------------

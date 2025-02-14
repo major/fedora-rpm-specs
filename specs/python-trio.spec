@@ -54,7 +54,13 @@ BuildRequires:  python3-pytest
 %check
 # https://github.com/python-trio/trio/issues/2863
 # https://docs.pytest.org/en/stable/explanation/goodpractices.html#tests-as-part-of-application-code
-%pytest --pyargs trio --verbose --skip-optional-imports
+%pytest \
+%if %{defined el10}
+    --import-mode=append \
+%endif
+    --pyargs trio \
+    --verbose \
+    --skip-optional-imports
 
 
 %files -n python3-trio -f %{pyproject_files}

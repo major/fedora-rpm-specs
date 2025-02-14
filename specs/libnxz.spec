@@ -4,7 +4,7 @@
 
 Name:		libnxz
 Version:	0.64
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Zlib implementation for POWER processors
 License:    Apache-2.0 OR GPL-2.0-or-later
 Url:		https://github.com/libnxz/power-gzip
@@ -48,6 +48,11 @@ application that use %{name}.
 %prep
 %autosetup -p1 -n power-gzip-%{version}
 
+# Create a sysusers.d config file
+cat >libnxz.sysusers.conf <<EOF
+g nx-gzip -
+EOF
+
 %build
 %configure --enable-zlib-api
 %make_build
@@ -63,8 +68,8 @@ fi
 %install
 %make_install
 
-%pre
-%{_sbindir}/groupadd -r -f nx-gzip
+install -m0644 -D libnxz.sysusers.conf %{buildroot}%{_sysusersdir}/libnxz.conf
+
 
 %files
 %{_libdir}/%{soname}
@@ -72,6 +77,7 @@ fi
 %license %{_docdir}/%{name}/APACHE-2.0.txt
 %license %{_docdir}/%{name}/gpl-2.0.txt
 %doc README.md
+%{_sysusersdir}/libnxz.conf
 
 %files devel
 %{_includedir}/libnxz.h
@@ -82,6 +88,9 @@ fi
 %{_libdir}/libnxz.la
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.64-8
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.64-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

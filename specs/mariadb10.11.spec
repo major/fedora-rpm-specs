@@ -243,7 +243,7 @@ BuildRequires:    systemd systemd-devel
 BuildRequires:    zlib-devel
 %{?with_lz4:BuildRequires:    lz4-devel >= 1.6}
 %{?with_bzip2:BuildRequires:    bzip2-devel}
-%{?with_lzma:BuildRequires:    lzma-sdk-devel}
+%{?with_lzma:BuildRequires:    xz-devel}
 %{?with_lzo:BuildRequires:    lzo-devel}
 %{?with_snappy:BuildRequires:    snappy-devel}
 %{?with_zstd:BuildRequires:    libzstd-devel}

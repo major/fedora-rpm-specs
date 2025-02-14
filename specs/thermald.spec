@@ -3,7 +3,7 @@
 %bcond qt %[%{undefined rhel} || 0%{?rhel} < 10]
 
 Name:		thermald
-Version:	2.5.8
+Version:	2.5.9
 Release:	%autorelease
 Summary:	Thermal Management daemon
 
@@ -30,7 +30,6 @@ BuildRequires:  gtk-doc
 Requires:	dbus%{?_isa}
 
 Requires(pre):	glibc-common
-Requires(pre):	shadow-utils
 
 %{?systemd_requires}
 
@@ -152,6 +151,11 @@ EOF
 
 NO_CONFIGURE=1 ./autogen.sh
 
+# Create a sysusers.d config file
+cat >thermald.sysusers.conf <<EOF
+g power -
+EOF
+
 
 %build
 %configure									\
@@ -197,6 +201,8 @@ install -Dpm 0644 fedora_addons/%{name}-monitor.svg			\
 	%{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}-monitor.svg
 %endif
 
+install -m0644 -D thermald.sysusers.conf %{buildroot}%{_sysusersdir}/thermald.conf
+
 
 %check
 %if %{with qt}
@@ -204,9 +210,6 @@ install -Dpm 0644 fedora_addons/%{name}-monitor.svg			\
 %endif
 
 
-%pre
-getent group power >/dev/null || groupadd -r power
-exit 0
 
 
 %post
@@ -234,6 +237,7 @@ exit 0
 %{_sbindir}/%{name}
 %{_tmpfilesdir}/%{name}.conf
 %{_unitdir}/%{name}.service
+%{_sysusersdir}/thermald.conf
 
 
 %if %{with qt}

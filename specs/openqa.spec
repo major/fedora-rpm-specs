@@ -100,7 +100,7 @@
 
 Name:           openqa
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        OS-level automated testing framework
 # openQA is mostly GPLv2+. some scripts and bundled Node modules are
 # MIT, ace-builds is BSD-3-Clause
@@ -580,6 +580,8 @@ fi
 %{_datadir}/openqa/lib/OpenQA/Scheduler/
 %{_datadir}/openqa/lib/OpenQA/Schema/
 %{_datadir}/openqa/lib/OpenQA/WebAPI/
+%exclude %{_datadir}/openqa/lib/OpenQA/WebAPI/Plugin/FedoraMessaging.pm
+%exclude %{_datadir}/openqa/lib/OpenQA/WebAPI/Plugin/FedoraUpdateRestart.pm
 %{_datadir}/openqa/lib/OpenQA/WebSockets/
 %{_datadir}/openqa/templates
 %{_datadir}/openqa/public

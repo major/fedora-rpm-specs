@@ -29,7 +29,7 @@
 %global webcam_pkg indi-3rdparty-webcam
 %global weewx_pkg indi-3rdparty-weewx-json
 
-%global indi_version 2.1.1
+%global indi_version 2.1.2
 
 # Define boolean to quickly set option and dependencies for
 # unit tests
@@ -54,10 +54,6 @@ Source1:        generate-drivers-tarball.sh
 
 # Patch for building with libahp-xc >=1.4.4
 Patch:          ahp-xc-1.4.4.patch
-
-# Fix build with GCC15 / C++23
-# https://github.com/indilib/indi-3rdparty/pull/1031
-Patch:          fix_gcc15-c++23.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -665,6 +661,7 @@ find . -mindepth 2 -name CMakeLists.txt \
 %files -n %{gphoto_pkg}
 %license indi-gphoto/COPYING.LIB
 %doc indi-gphoto/AUTHORS indi-gphoto/README
+%{_bindir}/gphoto_camera_test
 %{_bindir}/indi_canon_ccd
 %{_bindir}/indi_fuji_ccd
 %{_bindir}/indi_gphoto_ccd
