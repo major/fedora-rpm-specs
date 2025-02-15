@@ -25,7 +25,7 @@ end}
 
 Name:             grafana
 Version:          10.2.6
-Release:          10%{?dist}
+Release:          11%{?dist}
 Summary:          Metrics dashboard and graph editor
 License:          AGPL-3.0-only
 URL:              https://grafana.org
@@ -107,7 +107,11 @@ BuildRequires:    openssl-devel
 
 # grafana-server service daemon uses systemd
 %{?systemd_requires}
+
+%if 0%{?fedora} >= 42
+%elif 0%{?fedora} || 0%{?rhel} >= 9
 Requires(pre):    shadow-utils
+%endif
 
 # Grafana queries the mime database (through mime.TypeByExtension, in a unit test and at runtime)
 BuildRequires:    shared-mime-info
@@ -886,8 +890,11 @@ do
 done
 cd -
 
+%if 0%{?fedora} >= 42
+%elif 0%{?fedora} || 0%{?rhel} >= 9
 %pre
 %sysusers_create_compat %{SOURCE3}
+%endif
 
 %preun
 %systemd_preun grafana-server.service
@@ -1025,6 +1032,9 @@ fi
 %{_datadir}/selinux/*/grafana.pp
 
 %changelog
+* Thu Feb 13 2025 Sam Feifer <sfeifer@redhat.com> - 10.2.6-11
+- Conditionally drop call to %sysusers_create_compat
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.2.6-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

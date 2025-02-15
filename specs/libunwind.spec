@@ -46,7 +46,7 @@
 Summary: An unwinding library
 Name: libunwind
 Version: 1.8.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: MIT
 URL: http://savannah.nongnu.org/projects/libunwind
 Source: https://github.com/libunwind/libunwind/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -56,6 +56,8 @@ Patch1: libunwind-arm-default-to-exidx.patch
 # Make libunwind.h multilib friendly
 Patch2: libunwind-1.3.1-multilib-fix.patch
 Patch5: libunwind-no-dl-iterate-phdr.patch
+# Fix C23 issue
+Patch6: https://github.com/libunwind/libunwind/commit/457612f470f8c0e718cdf7f14ef1ecb583f3b3a6.patch
 
 ExclusiveArch: %{arm} aarch64 hppa ia64 mips ppc %{power64} s390x %{ix86} x86_64 riscv64
 
@@ -93,8 +95,7 @@ Test executables for libunwind. Not needed for library functionality.
 %global _lto_cflags %{nil}
 %endif
 
-# tests/Gtest-nomalloc.c has some code that does not like C23.
-%global optflags %{optflags} -fcommon -std=gnu17
+%global optflags %{optflags} -fcommon
 aclocal
 libtoolize --force
 autoheader
@@ -113,7 +114,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 mv -f $RPM_BUILD_ROOT%{_libdir}/libunwind-ptrace.a $RPM_BUILD_ROOT%{_libdir}/libunwind-ptrace.a-save
 rm -f $RPM_BUILD_ROOT%{_libdir}/libunwind*.a
 mv -f $RPM_BUILD_ROOT%{_libdir}/libunwind-ptrace.a-save $RPM_BUILD_ROOT%{_libdir}/libunwind-ptrace.a
-rm -f $RPM_BUILD_ROOT%{_libdir}/libunwind-ptrace*.so*
+
+# The tests want this one.
+# rm -f $RPM_BUILD_ROOT%{_libdir}/libunwind-ptrace*.so*
 
 # fix multilib conflicts
 touch -r NEWS $RPM_BUILD_ROOT%{_includedir}/libunwind.h
@@ -147,6 +150,10 @@ echo ====================TESTING END=====================
 %{_libexecdir}/libunwind
 
 %changelog
+* Thu Feb 13 2025 Tom Callaway <spot@fedoraproject.org> - 1.8.1-2
+- package libunwind-ptrace.so.0 for the tests
+- apply upstream fix for C23 issue
+
 * Mon Feb 10 2025 Tom Callaway <spot@fedoraproject.org> - 1.8.1-1
 - update to 1.8.1
 - tighten requires to _isa

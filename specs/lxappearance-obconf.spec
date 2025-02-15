@@ -14,11 +14,11 @@
 %global		git_builddir	%{nil}
 
 %if 0%{?use_gitbare}
-%global		gittardate		20231201
-%global		gittartime		1031
+%global		gittardate		20250213
+%global		gittartime		1633
 
-%global		gitbaredate	20231121
-%global		git_rev		f663dca570562d5dfb7ab31a9035e51f29591eef
+%global		gitbaredate	20241011
+%global		git_rev		b3e2dc866a670919991c53ecf37b971b2a6e8899
 %global		git_short		%(echo %{git_rev} | cut -c-8)
 %global		git_version	%{gitbaredate}git%{git_short}
 %endif
@@ -33,7 +33,7 @@
 
 Name:			lxappearance-obconf
 Version:		%{main_version}%{git_ver_rpm}
-Release:		5%{?dist}
+Release:		1%{?dist}
 Summary:		Plugin to configure Openbox inside LXAppearance
 
 # SPDX confirmed
@@ -132,6 +132,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Feb 13 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.2.3^20241011gitb3e2dc86-1
+- Update to the latest git
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3^20231121gitf663dca5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -12,7 +12,7 @@ sha256sum:close()
 print(string.sub(hash, 0, 16))
 }
 
-Version: 3.8.8
+Version: 3.8.9
 Release: %{?autorelease}%{!?autorelease:1%{?dist}}
 Patch: gnutls-3.2.7-rpath.patch
 
@@ -30,7 +30,7 @@ Patch: gnutls-3.8.8-tests-ktls-skip-tls12-chachapoly.patch
 %bcond_without gost
 %endif
 %bcond_without certificate_compression
-%bcond_without liboqs
+%bcond_without leancrypto
 %bcond_without tests
 
 %if 0%{?fedora} && 0%{?fedora} < 38
@@ -68,13 +68,13 @@ BuildRequires: readline-devel, libtasn1-devel >= 4.3
 %if %{with certificate_compression}
 BuildRequires: zlib-devel, brotli-devel, libzstd-devel
 %endif
-%if %{with liboqs}
-BuildRequires: liboqs-devel
-%endif
 %if %{with bootstrap}
 BuildRequires: automake, autoconf, gperf, libtool, texinfo
 %endif
 BuildRequires: nettle-devel >= 3.10
+%if %{with leancrypto}
+BuildRequires: meson
+%endif
 %if %{with tpm12}
 BuildRequires: trousers-devel >= 0.3.11.2
 %endif
@@ -137,6 +137,10 @@ Source102:	gmp-6.2.1-c23.patch
 
 %if 0%{?rhel} >= 10
 Source201:	gnutls-3.8.8-tests-rsa-default.patch
+%endif
+
+%if %{with leancrypto}
+Source300:	leancrypto-1.2.0.tar.gz
 %endif
 
 # Wildcard bundling exception https://fedorahosted.org/fpc/ticket/174
@@ -278,6 +282,13 @@ patch -p1 < %{SOURCE201}
 %build
 %define _lto_cflags %{nil}
 
+%if %{with leancrypto}
+mkdir -p bundled_leancrypto
+pushd bundled_leancrypto
+tar --strip-components=1 -xf %{SOURCE300}
+popd
+%endif
+
 %if %{with bundled_gmp}
 pushd bundled_gmp
 autoreconf -ifv
@@ -287,6 +298,39 @@ popd
 
 export GMP_CFLAGS="-I$PWD/bundled_gmp"
 export GMP_LIBS="$PWD/bundled_gmp/.libs/libgmp.a"
+%endif
+
+%if %{with leancrypto}
+pushd bundled_leancrypto
+%set_build_flags
+meson setup -Dprefix="$PWD/install" -Dlibdir="$PWD/install/lib" \
+        -Ddefault_library=static \
+        -Dascon=disabled -Dascon_keccak=disabled \
+        -Dbike_5=disabled -Dbike_3=disabled -Dbike_1=disabled \
+        -Dkyber_x25519=disabled -Ddilithium_ed25519=disabled \
+        -Dx509_parser=disabled -Dx509_generator=disabled \
+        -Dpkcs7_parser=disabled -Dpkcs7_generator=disabled \
+        -Dsha2-256=disabled \
+        -Dchacha20=disabled -Dchacha20_drng=disabled \
+        -Ddrbg_hash=disabled -Ddrbg_hmac=disabled \
+        -Dhash_crypt=disabled \
+        -Dhmac=disabled -Dhkdf=disabled \
+        -Dkdf_ctr=disabled -Dkdf_fb=disabled -Dkdf_dpi=disabled \
+        -Dpbkdf2=disabled \
+        -Dkmac_drng=disabled -Dcshake_drng=disabled \
+        -Dhotp=disabled -Dtotp=disabled \
+        -Daes_block=disabled -Daes_cbc=disabled -Daes_ctr=disabled \
+        -Daes_kw=disabled -Dapps=disabled \
+        _build
+meson compile -C _build
+meson install -C _build
+
+popd
+
+export LEANCRYPTO_DIR="$PWD/bundled_leancrypto/install"
+
+export LEANCRYPTO_CFLAGS="-I$LEANCRYPTO_DIR/include"
+export LEANCRYPTO_LIBS="$LEANCRYPTO_DIR/lib/libleancrypto.a"
 %endif
 
 %if %{with bootstrap}
@@ -308,6 +352,7 @@ export FIPS_MODULE_NAME="$OS_NAME ${OS_VERSION_ID%%.*} %name"
 
 mkdir native_build
 pushd native_build
+
 %global _configure ../configure
 %configure \
 %if %{with fips}
@@ -355,15 +400,18 @@ pushd native_build
 %else
 	   --without-zlib --without-brotli --without-zstd \
 %endif
-%if %{with liboqs}
-           --with-liboqs \
+%if %{with leancrypto}
+           --with-leancrypto \
 %else
-           --without-liboqs \
+           --without-leancrypto \
 %endif
            --disable-rpath \
            --with-default-priority-string="@SYSTEM"
 
 %make_build
+%if %{with leancrypto}
+sed -i '/^Requires.private:/s/leancrypto[ ,]*//g' lib/gnutls.pc
+%endif
 popd
 
 %if %{with mingw}
@@ -479,7 +527,7 @@ popd
 %{_libdir}/.libgnutls.so.30*.hmac
 %endif
 %doc README.md AUTHORS NEWS THANKS
-%license LICENSE doc/COPYING doc/COPYING.LESSER
+%license COPYING COPYING.LESSERv2
 
 %files c++
 %{_libdir}/libgnutlsxx.so.*
@@ -523,7 +571,7 @@ popd
 
 %if %{with mingw}
 %files -n mingw32-%{name}
-%license LICENSE doc/COPYING doc/COPYING.LESSER
+%license COPYING COPYING.LESSERv2
 %{mingw32_bindir}/certtool.exe
 %{mingw32_bindir}/gnutls-cli-debug.exe
 %{mingw32_bindir}/gnutls-cli.exe
@@ -541,7 +589,7 @@ popd
 %{mingw32_includedir}/gnutls/
 
 %files -n mingw64-%{name}
-%license LICENSE doc/COPYING doc/COPYING.LESSER
+%license COPYING COPYING.LESSERv2
 %{mingw64_bindir}/certtool.exe
 %{mingw64_bindir}/gnutls-cli-debug.exe
 %{mingw64_bindir}/gnutls-cli.exe

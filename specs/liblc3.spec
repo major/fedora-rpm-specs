@@ -1,5 +1,5 @@
 Name:          liblc3
-Version:       1.1.2
+Version:       1.1.3
 Release:       1%{?dist}
 Summary:       Low Complexity Communication Codec (LC3)
 
@@ -70,6 +70,9 @@ the %{name} library.
 %{_bindir}/elc3
 
 %changelog
+* Thu Feb 13 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1.1.3-1
+- Update to 1.1.3
+
 * Mon Feb 03 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1.1.2-1
 - Update to 1.1.2
 

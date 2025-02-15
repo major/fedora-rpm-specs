@@ -12,7 +12,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        131
+Version:        132
 
 %gometa
 
@@ -124,8 +124,8 @@ Provides: bundled(golang(github.com/containerd/errdefs)) = 0.3.0
 Provides: bundled(golang(github.com/containerd/errdefs/pkg)) = 0.3.0
 Provides: bundled(golang(github.com/containerd/stargz-snapshotter/estargz)) = 0.15.1
 Provides: bundled(golang(github.com/containerd/typeurl/v2)) = 2.2.0
-Provides: bundled(golang(github.com/containers/common)) = 0.60.4
-Provides: bundled(golang(github.com/containers/image/v5)) = 5.32.2
+Provides: bundled(golang(github.com/containers/common)) = 0.61.1
+Provides: bundled(golang(github.com/containers/image/v5)) = 5.33.1
 Provides: bundled(golang(github.com/containers/libtrust)) = c1716e8
 Provides: bundled(golang(github.com/containers/ocicrypt)) = 1.2.0
 Provides: bundled(golang(github.com/containers/storage)) = 1.56.1
@@ -230,7 +230,7 @@ Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.0
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.11.1
 Provides: bundled(golang(github.com/openshift-online/ocm-sdk-go)) = 0.1.438
 Provides: bundled(golang(github.com/oracle/oci-go-sdk/v54)) = 54.0.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.112.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.115.0
 Provides: bundled(golang(github.com/osbuild/osbuild-composer/pkg/splunk_logger)) = 0239db5
 Provides: bundled(golang(github.com/osbuild/pulp-client)) = 0.1.0
 Provides: bundled(golang(github.com/ostreedev/ostree-go)) = 719684c
@@ -246,9 +246,9 @@ Provides: bundled(golang(github.com/prometheus/procfs)) = 0.15.1
 Provides: bundled(golang(github.com/rivo/uniseg)) = 0.4.7
 Provides: bundled(golang(github.com/secure-systems-lab/go-securesystemslib)) = 0.8.0
 Provides: bundled(golang(github.com/segmentio/ksuid)) = 1.0.4
-Provides: bundled(golang(github.com/sigstore/fulcio)) = 1.4.5
+Provides: bundled(golang(github.com/sigstore/fulcio)) = 1.6.4
 Provides: bundled(golang(github.com/sigstore/rekor)) = 1.3.6
-Provides: bundled(golang(github.com/sigstore/sigstore)) = 1.8.7
+Provides: bundled(golang(github.com/sigstore/sigstore)) = 1.8.9
 Provides: bundled(golang(github.com/sirupsen/logrus)) = 1.9.3
 Provides: bundled(golang(github.com/skratchdot/open-golang)) = eef8423
 Provides: bundled(golang(github.com/sony/gobreaker)) = dd874f9
@@ -256,7 +256,7 @@ Provides: bundled(golang(github.com/spf13/cobra)) = 1.8.1
 Provides: bundled(golang(github.com/spf13/pflag)) = 1.0.5
 Provides: bundled(golang(github.com/stefanberger/go-pkcs11uri)) = 7828495
 Provides: bundled(golang(github.com/stretchr/testify)) = 1.10.0
-Provides: bundled(golang(github.com/sylabs/sif/v2)) = 2.18.0
+Provides: bundled(golang(github.com/sylabs/sif/v2)) = 2.19.1
 Provides: bundled(golang(github.com/tchap/go-patricia/v2)) = 2.3.1
 Provides: bundled(golang(github.com/titanous/rocacheck)) = afe7314
 Provides: bundled(golang(github.com/ubccr/kerby)) = 412be7b
@@ -328,11 +328,10 @@ export PATH=$PWD/_bin${PATH:+:$PATH}
 export GOPATH=$GO_BUILD_PATH:%{gopath}
 export GOFLAGS+=" -mod=vendor"
 %endif
-%if 0%{?fedora}
-# Fedora disables Go modules by default, but we want to use them.
-# Undefine the macro which disables it to use the default behavior.
+
+# Fedora and RHEL versions disable Go modules by default, but we want to use them.
+# Unconditionally undefine the macro which disables it to use the default behavior.
 %undefine gomodulesmode
-%endif
 
 # btrfs-progs-devel is not available on RHEL
 %if 0%{?rhel}
@@ -697,6 +696,21 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Feb 12 2025 Packit <hello@packit.dev> - 132-1
+Changes with 132
+----------------
+  * Add support for advanced partitioning customizations (COMPOSER-2399) (#4535)
+    * Author: Achilleas Koutsou, Reviewers: Tomáš Hozza
+  * ITM26 last-minute fixes (#4609)
+    * Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Michael Vogt, Simon de Vlieger
+  * cloudapi download (#4590)
+    * Author: Brian C. Lane, Reviewers: Gianluca Zuccarelli, Tomáš Hozza
+  * go.mod: update to latest images@v0.115.0 (#4599)
+    * Author: Achilleas Koutsou, Reviewers: Tomáš Hozza
+
+— Somewhere on the Internet, 2025-02-12
+
+
 * Wed Feb 05 2025 Packit <hello@packit.dev> - 131-1
 Changes with 131
 ----------------

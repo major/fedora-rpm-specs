@@ -1,7 +1,13 @@
 %global srcname pyudev
+%if 0%{?rhel} > 9
+%bcond_with qt
+%else
+%bcond_without qt
+%endif
+
 Name:             python-%{srcname}
 Version:          0.24.3
-Release:          4%{?dist}
+Release:          5%{?dist}
 Summary:          A libudev binding
 
 License:          LGPL-2.1-or-later
@@ -36,6 +42,7 @@ properties and attributes or monitor devices, including asynchronous
 monitoring with threads, or within the event loops of Qt, Glib or wxPython.
 The binding supports CPython 3 and PyPy.
 
+%if %{with qt}
 %package -n python3-%{srcname}-qt4
 Summary:          Qt4 integration for pyudev
 
@@ -59,6 +66,7 @@ Qt5 integration for pyudev.
 
 This package provides a module pyudev.pyqt5 that contains classes for
 integrating a pyudev monitor with the Qt5 main loop.
+%endif
 
 %prep
 %autosetup -n %{srcname}-%{version}
@@ -86,6 +94,7 @@ rm -rf pyudev.egg-info
 %exclude %{python3_sitelib}/pyudev/wx.py
 %exclude %{python3_sitelib}/pyudev/__pycache__/wx.*
 
+%if %{with qt}
 %files -n python3-%{srcname}-qt4
 %license COPYING
 %{python3_sitelib}/pyudev/pyqt4.py
@@ -95,8 +104,12 @@ rm -rf pyudev.egg-info
 %license COPYING
 %{python3_sitelib}/pyudev/pyqt5.py
 %{python3_sitelib}/pyudev/__pycache__/pyqt5.*
+%endif
 
 %changelog
+* Thu Feb 13 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 0.24.3-5
+- Dropped Qt RPM subpackages on RHEL > 9
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.24.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

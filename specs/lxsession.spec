@@ -15,11 +15,11 @@
 %global		git_builddir	%{nil}
 
 %if 0%{?use_gitbare}
-%global		gittardate		20240825
-%global		gittartime		1603
+%global		gittardate		20250213
+%global		gittartime		2350
 
-%global		gitbaredate	20240821
-%global		git_rev		95e902d76758e09f9226abd39163aadd5cd50bc1
+%global		gitbaredate	20241019
+%global		git_rev		c72db4f8c06c2d6be6dcb13fad838f619f51f8a7
 %global		git_short		%(echo %{git_rev} | cut -c-8)
 %global		git_version	%{gitbaredate}git%{git_short}
 
@@ -32,7 +32,7 @@
 
 Name:			lxsession
 Version:		%{main_version}%{git_ver_rpm}
-Release:		2%{?dist}
+Release:		1%{?dist}
 Summary:		Lightweight X11 session manager
 Summary(de):	Leichtgewichtiger X11 Sitzungsverwalter
 
@@ -304,6 +304,9 @@ cd ..
 %{_datadir}/%{name}/ui/lxpolkit.ui
 
 %changelog
+* Thu Feb 13 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.5^20241019gitc72db4f8-1
+- Update to the latest git
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5^20240821git95e902d7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

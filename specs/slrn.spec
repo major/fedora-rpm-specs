@@ -1,15 +1,36 @@
 Summary: A threaded Internet news reader
 Name: slrn
 Version: 1.0.3a
-Release: 18%{?dist}
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
+Release: 19%{?dist}
+# COPYRIGHT:    GPL-2.0-or-later
+# src:          GPL-2.0-or-later
+# src/vms.c:    "donated for use in slrn by Andrew Greer"
+## Not in any binary package
+# autoconf/config.guess:        GPL-3.0-or-later WITH Autoconf-exception-generic-3.0
+# autoconf/config.rpath:        FSFULLR
+# autoconf/config.sub:          GPL-3.0-or-later WITH Autoconf-exception-generic-3.0
+# autoconf/include/ax_lib_socket_nsl.m4:    FSFAP
+# autoconf/include/gettext.m4:  GPL-1.0-or-later
+# autoconf/include/iconv.m4:    FSFULLR
+# autoconf/include/lib-ld.m4:   FSFULLR
+# autoconf/include/lib-link.m4: FSFULLR
+# autoconf/include/lib-prefix.m4:   FSFULLR
+# autoconf/include/mkdirp.m4:   FSFULLR
+# autoconf/include/nls.m4:      FSFULLR
+# autoconf/include/po.m4:       FSFULLR
+# autoconf/include/progtest.m4: FSFULLR
+# autoconf/install.sh:          HPND-sell-variant
+# configure:    FSFUL AND FSFAP AND FSFULLR
+# contrib/cleanscore:       GPL-2.0-or-later
+# po/Makefile.in.in:        "copied and used freely without restrictions"
 License: GPL-2.0-or-later
-URL: http://slrn.sourceforge.net/
-Source0: http://jedsoft.org/releases/%{name}/%{name}-%{version}.tar.bz2
+SourceLicense:  %{license} AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND GPL-1.0-or-later AND HPND-sell-variant AND FSFULLR AND FSFUL AND FSFAP
+URL: https://slrn.sourceforge.net/
+Source0: https://jedsoft.org/releases/%{name}/%{name}-%{version}.tar.bz2
 Source1: slrn-pull-expire
 Source2: slrnpull.log
 Source4: README.rpm-slrnpull
-Source5: http://jedsoft.org/releases/%{name}/%{name}-%{version}.tar.bz2.asc
+Source5: https://jedsoft.org/releases/%{name}/%{name}-%{version}.tar.bz2.asc
 # 2016-06-09:
 # Merged GPG keys from https://rg3.github.io/youtube-dl/download.html in one file
 # gpg --export  --export-options export-minimal "428D F5D6 3EF0 7494 BB45 5AC0 EBF0 1804 BCF0 5F6B" \
@@ -26,9 +47,12 @@ BuildRequires: make
 BuildRequires: inews
 BuildRequires: openssl-devel, gcc
 BuildRequires: slang-devel >= 2.2.3
+BuildRequires: systemd-rpm-macros
 # Some s-lang scripts (smime.sl) use slsh interpreter
 Requires:      slang-slsh
+%if (0%{?fedora} && 0%{?fedora} < 42) || (0%{?rhel} && 0%{?rhel} < 11)
 Requires(pre): shadow-utils
+%endif
 # For source verification with gpgv
 BuildRequires:  gnupg2
 
@@ -65,6 +89,13 @@ done
 
 chmod 644 doc/slrnpull/* contrib/*
 
+# Create a sysusers.d config file
+# Static UID and GID defined by /usr/share/doc/setup-*/uidgid
+cat >slrn.sysusers.conf <<EOF
+g news 13
+u news 9 'news user' - -
+EOF
+
 %build
 %configure \
     --with-ssl=%{_prefix} \
@@ -100,12 +131,16 @@ install -p -m644 %{SOURCE4} doc/slrnpull/README.rpm
 # remove unpackaged files from the buildroot
 rm -rf $RPM_BUILD_ROOT%{_datadir}/doc/slrn
 
+install -m0644 -D slrn.sysusers.conf %{buildroot}%{_sysusersdir}/slrn.conf
+
+%if (0%{?fedora} && 0%{?fedora} < 42) || (0%{?rhel} && 0%{?rhel} < 11)
 # Static UID and GID defined by /usr/share/doc/setup-*/uidgid
 %pre
 getent group news >/dev/null || groupadd -r -g 13 news
 getent passwd news >/dev/null || \
   useradd -r -u 9 -g news -d / -s /sbin/nologin -c "news user" news
 exit 0
+%endif
 
 %files -f %{name}.lang
 %license COPYING COPYRIGHT
@@ -116,6 +151,7 @@ exit 0
 %{_bindir}/slrn
 %{_datadir}/slrn
 %{_mandir}/man1/slrn.1*
+%{_sysusersdir}/slrn.conf
 
 %files pull
 %doc doc/slrnpull/*
@@ -128,6 +164,9 @@ exit 0
 %{_mandir}/man1/slrnpull.1*
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.0.3a-19
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3a-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

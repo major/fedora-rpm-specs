@@ -8,7 +8,7 @@
 Name:          gr-funcube
 URL:           https://github.com/dl1ksv/gr-funcube
 Version:       3.10.0~rc3^%{git_suffix}
-Release:       4%{?dist}
+Release:       5%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 BuildRequires: cmake
@@ -57,6 +57,11 @@ Documentation files for gr-funcube.
 %prep
 %autosetup -p1 -n %{name}-%{git_commit}
 
+# Create a sysusers.d config file
+cat >gr-funcube.sysusers.conf <<EOF
+g rtlsdr -
+EOF
+
 %build
 %cmake -DENABLE_DOXYGEN=on -DGR_PKG_DOC_DIR=%{_docdir}/%{name}
 %cmake_build
@@ -72,15 +77,10 @@ Documentation files for gr-funcube.
 # udev rule
 install -Dpm 0644 %{S:1} %{buildroot}%{_udevrulesdir}/10-funcube.rules
 
+install -m0644 -D gr-funcube.sysusers.conf %{buildroot}%{_sysusersdir}/gr-funcube.conf
+
 %ldconfig_scriptlets
 
-%pre
-# sharing group with the rtl-sdr package not to introduce new group
-# todo: consolidate also with the uhd package (usrp group) to have one generic
-# group e.g. 'sdr' for this class of devices
-getent group rtlsdr >/dev/null || \
-  %{_sbindir}/groupadd -r rtlsdr >/dev/null 2>&1
-exit 0
 
 %files
 %exclude %{_docdir}/%{name}/html
@@ -91,6 +91,7 @@ exit 0
 %{python3_sitearch}/funcube
 %{_datadir}/gnuradio/grc/blocks/*
 %{_udevrulesdir}/10-funcube.rules
+%{_sysusersdir}/gr-funcube.conf
 
 %files devel
 %{_includedir}/funcube
@@ -102,6 +103,9 @@ exit 0
 %doc %{_docdir}/%{name}/xml
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.10.0~rc3^20240726gitcbda6c6c-5
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.0~rc3^20240726gitcbda6c6c-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

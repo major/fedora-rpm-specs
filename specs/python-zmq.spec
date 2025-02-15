@@ -141,6 +141,14 @@ mkdir -p _empty
 cd _empty
 ln -s ../tests/ ../pytest.ini ./
 
+# With Python 3.14, in test_process_teardown, while spawning the multiprocess
+# forkserver child:
+#   ModuleNotFoundError: No module named 'tests'
+# This doesn’t really make sense to report upstream because the problem doesn’t
+# happen when running tests against an editable install in a virtualenv as they
+# do. Adding the working directory to PYTHONPATH is a workaround.
+export PYTHONPATH="%{buildroot}%{python3_sitearch}:${PWD}"
+
 %pytest -v -rs tests/
 
 

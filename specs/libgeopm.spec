@@ -53,6 +53,12 @@ Requires:	python3dist(geopmpy)
 %prep
 %autosetup -p1 -n geopm-%{version}
 
+# gcc 15 include cstdint
+sed -i '/#include <vector>.*/a#include <cstdint>' libgeopm/include/geopm/Agent.hpp
+sed -i '/#include <array>.*/a#include <cstdint>' libgeopm/src/ProfileIOGroup.hpp
+sed -i '/#include <memory>.*/a#include <cstdint>' libgeopm/src/RecordFilter.hpp
+sed -i '/#include <regex>.*/a#include <iomanip>' libgeopmd/test/geopm_test.cpp
+
 pushd %{name}
 echo %{version} > VERSION
 autoreconf -vif

@@ -5,7 +5,7 @@
 
 Name:           sstp-client
 Version:        1.0.18
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Secure Socket Tunneling Protocol(SSTP) Client
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -23,7 +23,6 @@ BuildRequires:  ppp-devel >= 2.5.0
 # ppp 2.5.0 patches require autoreconf, drop this when a new version
 # is released and those patches are dropped
 BuildRequires:  autoconf automake libtool
-Requires(pre):  shadow-utils
 # PPP bumps location of the libraries with every new release.
 Requires:       ppp = %{ppp_version}
 
@@ -55,6 +54,11 @@ developing applications that use %{name}.
 %prep
 %autosetup -p1
 
+# Create a sysusers.d config file
+cat >sstp-client.sysusers.conf <<EOF
+u sstpc - 'Secure Socket Tunneling Protocol(SSTP) Client' %{_localstatedir}/run/%{commonname} -
+EOF
+
 %build
 # for ppp 2.5.0 patches
 autoreconf -fi
@@ -78,22 +82,12 @@ rm -frv %{buildroot}%{_docdir}
 
 find %{buildroot} -name '*.la' -delete -print
 
+install -m0644 -D sstp-client.sysusers.conf %{buildroot}%{_sysusersdir}/sstp-client.conf
+
 %check
 make check
 
-%pre
-getent group %{commonname} >/dev/null || groupadd -r %{commonname}
-getent passwd %{commonname} >/dev/null || \
-    useradd -r -g %{commonname} \
-    -d %{_localstatedir}/run/%{commonname} \
-    -s /sbin/nologin \
-    -c "Secure Socket Tunneling Protocol(SSTP) Client" %{commonname}
-exit 0
-
-%ldconfig_post
-
 %postun
-%{?ldconfig}
 rm -rf %{_localstatedir}/run/%{commonname}
 
 %files
@@ -103,6 +97,7 @@ rm -rf %{_localstatedir}/run/%{commonname}
 %{_libdir}/libsstp_api-0.so
 %{_libdir}/pppd/%{ppp_version}/sstp-pppd-plugin.so
 %{_mandir}/man8/sstpc.8*
+%{_sysusersdir}/sstp-client.conf
 
 %files devel
 %doc DEVELOPERS
@@ -111,6 +106,9 @@ rm -rf %{_localstatedir}/run/%{commonname}
 %{_libdir}/pkgconfig/sstp-client-1.0.pc
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.0.18-10
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.18-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

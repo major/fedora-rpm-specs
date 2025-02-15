@@ -49,8 +49,8 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        332
-Release:        2%{?dist}
+Version:        333
+Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
 %if 0%{?fedora} >= 41 || 0%{?rhel}
@@ -83,7 +83,6 @@ BuildRequires: krb5-devel >= 1.11
 BuildRequires: libxslt-devel
 BuildRequires: glib-networking
 BuildRequires: sed
-BuildRequires: libxcrypt-devel
 
 BuildRequires: glib2-devel >= 2.50.0
 # this is for runtimedir in the tls proxy ace21c8879
@@ -318,7 +317,7 @@ Provides: bundled(npm(@patternfly/patternfly)) = 5.4.2
 Provides: bundled(npm(@patternfly/react-core)) = 5.4.12
 Provides: bundled(npm(@patternfly/react-icons)) = 5.4.2
 Provides: bundled(npm(@patternfly/react-styles)) = 5.4.1
-Provides: bundled(npm(@patternfly/react-table)) = 5.4.13
+Provides: bundled(npm(@patternfly/react-table)) = 5.4.14
 Provides: bundled(npm(@patternfly/react-tokens)) = 5.4.1
 Provides: bundled(npm(@xterm/addon-canvas)) = 0.7.0
 Provides: bundled(npm(@xterm/xterm)) = 5.5.0
@@ -600,6 +599,9 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Feb 13 2025 Packit <hello@packit.dev> - 333-1
+- various bug fixes and improvements
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 332-2
 - Add explicit BR: libxcrypt-devel
 

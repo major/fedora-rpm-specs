@@ -1,10 +1,9 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so$
 
 Name:           texworks
-Version:        0.6.9
+Version:        0.6.10
 Release:        %autorelease
 Summary:        A simple IDE for authoring TeX documents
-
 License:        GPL-2.0-or-later
 URL:            https://tug.org/texworks/
 Source0:        https://github.com/TeXworks/texworks/archive/release-%{version}/texworks-release-%{version}.tar.gz
@@ -51,7 +50,7 @@ deliver a similarly integrated, easy-to-use environment for users on all
 platforms, especially GNU/Linux and Windows.
 
 %prep
-%autosetup -p1 -n texworks-release-%{version}
+%autosetup -p1 -n %{name}-release-%{version}
 
 %build
 %cmake \
@@ -70,8 +69,6 @@ platforms, especially GNU/Linux and Windows.
 rm %{buildroot}%{_docdir}/%{name}/COPYING
 
 %check
-# https://koji.fedoraproject.org/koji/taskinfo?taskID=111182097
-# https://kojipkgs.fedoraproject.org//work/tasks/2208/111182208/build.log
 # https://github.com/TeXworks/texworks/issues/1035
 %ifarch s390x
 xvfb-run -a bash -c "%ctest -E test_poppler-qt6"
@@ -84,14 +81,14 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.xml
 
 %files
 %license COPYING
-%doc %{_docdir}/%{name}/
-%{_bindir}/%{name}
-%dir %{_libdir}/%{name}
-%{_libdir}/%{name}/*.so
-%{_mandir}/man1/%{name}.1*
-%{_datadir}/applications/%{name}.desktop
+%doc %{_docdir}/texworks/
+%{_bindir}/texworks
+%dir %{_libdir}/texworks
+%{_libdir}/texworks/*.so
+%{_mandir}/man1/texworks.1*
+%{_datadir}/applications/org.tug.texworks.desktop
 %{_datadir}/icons/hicolor/*/apps/TeXworks.png
-%{_datadir}/metainfo/texworks.appdata.xml
+%{_datadir}/metainfo/org.tug.texworks.metainfo.xml
 
 %changelog
 %autochangelog

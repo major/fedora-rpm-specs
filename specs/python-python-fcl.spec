@@ -28,7 +28,7 @@
 # apparently defunct project. See
 #   https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_library_naming
 Name:           python-python-fcl
-Version:        0.7.0.6
+Version:        0.7.0.8
 Release:        %autorelease
 Summary:        Python bindings for the Flexible Collision Library
 
@@ -49,12 +49,9 @@ Source2:        %{fcl_forgeurl}/archive/v%{fcl_version}/fcl-%{fcl_version}.tar.g
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
-# Support Cython 3
-# https://github.com/BerkeleyAutomation/python-fcl/pull/77
-Patch0:         %{url}/pull/77.patch
 # Downstream-only patch to *allow* bundling libccd/fcl:
 # Add environment variables to control bundling
-Patch1:         0001-Add-environment-variables-to-control-bundling.patch
+Patch0:         0001-Add-environment-variables-to-control-bundling.patch
 
 # Patches for bundled libccd, based on https://src.fedoraproject.org/rpms/libccd/
 #

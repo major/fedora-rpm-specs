@@ -10,7 +10,7 @@
 
 Name:           BackupPC
 Version:        4.4.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        High-performance backup system
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -79,7 +79,6 @@ Requires:       perl-Time-modules
 Requires:       samba-client
 Requires:       %{_sbindir}/sendmail
 
-Requires(pre):  shadow-utils
 %if 0%{?_with_systemd}
 Requires(post): shadow-utils
 %{?systemd_requires}
@@ -159,6 +158,11 @@ for m in Net/FTP; do
   rm -rf lib/$m
   sed -i "\@lib/$m@d" configure.pl 
 done
+
+# Create a sysusers.d config file
+cat >backuppc.sysusers.conf <<EOF
+u backuppc - - %{_localstatedir}/lib/%{name} -
+EOF
 
 
 %build
@@ -241,9 +245,9 @@ install -pm 0755 BackupPC_Admin %{buildroot}%{_libexecdir}/%{name}/
 mkdir -p %{buildroot}%{_datadir}/selinux/packages/%{name}
 install -m 0644 selinux/%{name}.pp %{buildroot}%{_datadir}/selinux/packages/%{name}/%{name}.pp
 
+install -m0644 -D backuppc.sysusers.conf %{buildroot}%{_sysusersdir}/backuppc.conf
 
-%pre
-%{_sbindir}/useradd -d %{_localstatedir}/lib/%{name} -r -s /sbin/nologin backuppc 2> /dev/null || :
+
 
 %preun
 %if 0%{?_with_systemd}
@@ -329,9 +333,13 @@ fi
 %attr(4750,backuppc,apache) %{_libexecdir}/%{name}/BackupPC_Admin
 %attr(-,backuppc,root) %{_localstatedir}/lib/%{name}/
 %{_datadir}/selinux/packages/%{name}/%{name}.pp
+%{_sysusersdir}/backuppc.conf
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.4.0-19
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

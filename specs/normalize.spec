@@ -15,6 +15,8 @@ Patch0:   normalize-0.7.7-audiofile.patch
 Patch1:   normalize-0.7.7-autoreconf.patch
 # fix building without XMMS
 Patch2:   normalize-0.7.7-no-xmms.patch
+# fix building with GCC 15
+Patch3:   normalize-0.7.7-gcc15.patch
 
 BuildRequires:  audiofile-devel
 BuildRequires:  flac
@@ -77,6 +79,7 @@ make check
 %changelog
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.7-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+- fix building with GCC 15 (resolves rhbz#2340940) (Dominik Mierzejewski)
 
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.7-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild

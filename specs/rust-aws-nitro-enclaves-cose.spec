@@ -16,6 +16,9 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop unused features with missing dependencies
 Patch:          aws-nitro-enclaves-cose-fix-metadata.diff
+# Make CoseError thread safe
+# * https://github.com/awslabs/aws-nitro-enclaves-cose/pull/115
+Patch:          aws-nitro-enclaves-cose-fix-errors.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

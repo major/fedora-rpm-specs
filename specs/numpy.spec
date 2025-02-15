@@ -19,8 +19,8 @@
 %global modname numpy
 
 Name:           numpy
-Version:        2.2.2
-Release:        2%{?dist}
+Version:        2.2.3
+Release:        1%{?dist}
 Epoch:          1
 Summary:        A fast multidimensional array facility for Python
 
@@ -34,7 +34,6 @@ License:        BSD-3-Clause AND MIT AND Apache-2.0 AND (Zlib OR BSL-1.0)
 URL:            http://www.numpy.org/
 Source0:        https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:        https://numpy.org/doc/%(echo %{version} | cut -d. -f1-2)/numpy-html.zip
-Patch0:         2445.patch
 
 %description
 NumPy is a general-purpose array-processing package designed to
@@ -257,6 +256,9 @@ python3 runtests.py --no-build -- -ra -k 'not test_ppc64_ibm_double_double128 %{
 
 
 %changelog
+* Wed Feb 12 2025 Gwyn Ciesla <gwync@protonmail.com> - 1:2.2.3-1
+- 2.2.3
+
 * Fri Jan 31 2025 Gwyn Ciesla <gwync@protonmail.com> - 1:2.2.2-2
 - Relax python3-devel requirement for f2py.
 

@@ -1,6 +1,6 @@
 Name:           direwolf
 Version:        1.7
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Sound Card-based AX.25 TNC
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -23,7 +23,6 @@ BuildRequires:  hamlib-devel
 BuildRequires:  systemd systemd-devel
 
 Requires:       ax25-tools ax25-apps
-Requires(pre):  shadow-utils
 
 
 %description
@@ -38,6 +37,13 @@ others.
 
 %prep
 %autosetup -p 1
+
+# Create a sysusers.d config file
+cat >direwolf.sysusers.conf <<EOF
+u direwolf -:audio 'Direwolf Sound Card-based AX.25 TNC' %{_datadir}/%{name} -
+m direwolf audio
+m direwolf dialout
+EOF
 
 
 %build
@@ -94,6 +100,8 @@ mkdir -p ${RPM_BUILD_ROOT}%{_pkgdocdir}/telem/
 mv ${RPM_BUILD_ROOT}%{_bindir}/telem* ${RPM_BUILD_ROOT}%{_pkgdocdir}/telem/
 chmod 0644 ${RPM_BUILD_ROOT}%{_pkgdocdir}/telem/*
 
+install -m0644 -D direwolf.sysusers.conf %{buildroot}%{_sysusersdir}/direwolf.conf
+
 
 %package -n %{name}-doc
 Summary:        Documentation for Dire Wolf
@@ -125,6 +133,7 @@ others.
 %config(noreplace) %attr(0644,root,root) %{_sysconfdir}/%{name}.conf
 %config(noreplace) %attr(0644,root,root) %{_sysconfdir}/logrotate.d/%{name}
 %dir %attr(0755, %{name}, %{name}) /var/log/%{name}
+%{_sysusersdir}/direwolf.conf
 
 %files -n %{name}-doc
 %{_pkgdocdir}/*.pdf
@@ -132,15 +141,12 @@ others.
 
 # At install, create a user in group audio (so can open sound card device files)
 # and in group dialout (so can open serial device files)
-%pre
-getent group direwolf >/dev/null || groupadd -r direwolf
-getent passwd direwolf >/dev/null || \
-    useradd -r -g audio -G audio,dialout -d %{_datadir}/%{name} -s /sbin/nologin \
-	    -c "Direwolf Sound Card-based AX.25 TNC" direwolf
-exit 0
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.7-9
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Feb 06 2025 Richard Shaw <hobbes1069@gmail.com> - 1.7-8
 - Rebuild for hamlib 4.6.
 

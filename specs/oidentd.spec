@@ -3,7 +3,7 @@
 Summary:    RFC 1413-compliant identification server with NAT support
 Name:       oidentd
 Version:    3.1.0
-Release:    7%{?dist}
+Release:    8%{?dist}
 # COPYING:                  GPL-2.0 text
 # COPYING.DOC:              GFDL-1.3 text
 # doc/book/src/download.md:                                 GFDL-1.3-no-invariants-or-later
@@ -90,7 +90,7 @@ Source4:    oidentd.sysconfig
 # Use sysconfig options in a per-connection unit file, not suitable for
 # the upstream
 Patch0:     oidentd-3.1.0-Make-per-connection-unit-file-similar-to-Fedora-long.patch
-Patch1: oidentd-configure-c-compatibility.patch
+Patch1:     oidentd-configure-c-compatibility.patch
 BuildRequires:  autoconf
 BuildRequires:  automake
 # ylwrap script is a sh script
@@ -109,7 +109,9 @@ BuildRequires:  rubygem-asciidoctor
 # sed called by ylwrap
 BuildRequires:  sed
 BuildRequires:  systemd-rpm-macros
+%if (0%{?fedora} && 0%{?fedora} < 42) || (0%{?rhel} && 0%{?rhel} < 11)
 Requires(pre):  shadow-utils
+%endif
 Provides:       identd = %{version}-%{release}
 
 %description
@@ -141,6 +143,11 @@ rm doc/*.{5,8}
 # Remove VCS files
 rm doc/book/.gitignore
 
+# Create a sysusers.d config file
+cat >oidentd.sysusers <<EOF
+u oidentd - 'oidentd daemon' - -
+EOF
+
 %build
 autoreconf -fi
 %configure \
@@ -158,12 +165,15 @@ install -D -p -m 0644 %{SOURCE3} %{buildroot}%{_unitdir}/oidentd.service
 install -D -p -m 0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/sysconfig/oidentd
 install -D -p -m 0644 contrib/systemd/oidentd.socket %{buildroot}%{_unitdir}/
 install -D -p -m 0644 contrib/systemd/oidentd\@.service %{buildroot}%{_unitdir}/
+install -m0644 -D oidentd.sysusers %{buildroot}%{_sysusersdir}/oidentd.conf
 
+%if (0%{?fedora} && 0%{?fedora} < 42) || (0%{?rhel} && 0%{?rhel} < 11)
 %pre
 getent group oidentd >/dev/null || groupadd -r oidentd
 getent passwd oidentd >/dev/null || \
     useradd -r -g oidentd -d / -s /sbin/nologin -c "oidentd daemon" oidentd
 exit 0
+%endif
 
 %post
 %systemd_post oidentd.service
@@ -188,8 +198,12 @@ exit 0
 %{_sbindir}/oidentd
 %{_mandir}/man5/oidentd*
 %{_mandir}/man8/oidentd.*
+%{_sysusersdir}/oidentd.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.1.0-8
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

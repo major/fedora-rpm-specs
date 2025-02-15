@@ -4,6 +4,9 @@
 # Needed to link against poppler
 %global build_cxxflags %{build_cxxflags} -std=c++20
 
+# Needed because of C23 incompatible changes
+%global build_cflags %{build_cflags} -std=gnu17
+
 # This component depends on ancient and super-abandoned things.
 # But they're alive again, sortof...
 %global gtkopengl 1
@@ -14,13 +17,13 @@
 # Gambas3 does not like fortify flags
 %undefine _fortify_level
 
-# Qt6 is coming but isn't here yet
-%global qt6 0
+# Qt6 is here
+%global qt6 1
 
 Name:		gambas3
 Summary:	IDE based on a basic interpreter with object extensions
-Version:	3.19.4
-Release:	5%{?dist}
+Version:	3.20.1
+Release:	2%{?dist}
 License:	GPL-1.0-or-later
 URL:		http://gambas.sourceforge.net/
 Source0:	https://gitlab.com/gambas/gambas/-/archive/%{version}/gambas-%{version}.tar.bz2
@@ -148,8 +151,8 @@ Recommends:	pngquant, translate-shell, git, subversion
 Requires:	%{name}-runtime = %{version}-%{release}
 Requires:	%{name}-dev-tools = %{version}-%{release}
 Requires:	%{name}-gb-clipper = %{version}-%{release}
-Requires:	%{name}-gb-db = %{version}-%{release}
-Requires:	%{name}-gb-db-form = %{version}-%{release}
+Requires:	%{name}-gb-db2 = %{version}-%{release}
+Requires:	%{name}-gb-db2-form = %{version}-%{release}
 Requires:	%{name}-gb-desktop = %{version}-%{release}
 Requires:	%{name}-gb-desktop-x11 = %{version}-%{release}
 Requires:	%{name}-gb-eval-highlight = %{version}-%{release}
@@ -218,6 +221,13 @@ Requires:	%{name}-runtime = %{version}-%{release}
 %description gb-clipper
 %{summary}
 
+%package gb-clipper2
+Summary:	Gambas3 component package for clipper2
+Requires:	%{name}-runtime = %{version}-%{release}
+
+%description gb-clipper2
+%{summary}
+
 %package gb-complex
 Summary:	Gambas3 component package for complex
 Requires:	%{name}-runtime = %{version}-%{release}
@@ -277,6 +287,13 @@ Requires:	%{name}-runtime = %{version}-%{release}
 %description gb-db
 %{summary}
 
+%package gb-db2
+Summary:	Gambas3 component package for db2
+Requires:	%{name}-runtime = %{version}-%{release}
+
+%description gb-db2
+%{summary}
+
 %package gb-db-form
 Summary:	Gambas3 component package for db-form
 Requires:	%{name}-runtime = %{version}-%{release}
@@ -284,6 +301,15 @@ Requires:	%{name}-gb-db = %{version}-%{release}
 Requires:	%{name}-gb-form = %{version}-%{release}
 
 %description gb-db-form
+%{summary}
+
+%package gb-db2-form
+Summary:	Gambas3 component package for db2-form
+Requires:	%{name}-runtime = %{version}-%{release}
+Requires:	%{name}-gb-db2 = %{version}-%{release}
+Requires:	%{name}-gb-form = %{version}-%{release}
+
+%description gb-db2-form
 %{summary}
 
 %package gb-db-mysql
@@ -294,6 +320,14 @@ Requires:	%{name}-gb-db =	%{version}-%{release}
 %description gb-db-mysql
 %{summary}
 
+%package gb-db2-mysql
+Summary:        Gambas3 component package for db2-mysql
+Requires:	%{name}-runtime = %{version}-%{release}
+Requires:	%{name}-gb-db2 = %{version}-%{release}
+
+%description gb-db2-mysql
+%{summary}
+
 %package gb-db-odbc
 Summary:	Gambas3 component package for db-odbc
 Requires:	%{name}-runtime = %{version}-%{release}
@@ -302,12 +336,28 @@ Requires:	%{name}-gb-db =	%{version}-%{release}
 %description gb-db-odbc
 %{summary}
 
+%package gb-db2-odbc
+Summary:	Gambas3 component package for db2-odbc
+Requires:	%{name}-runtime = %{version}-%{release}
+Requires:	%{name}-gb-db2 = %{version}-%{release}
+
+%description gb-db2-odbc
+%{summary}
+
 %package gb-db-postgresql
 Summary:	Gambas3 component package for db-postgresql
 Requires:	%{name}-runtime = %{version}-%{release}
 Requires:	%{name}-gb-db =	%{version}-%{release}
 
 %description gb-db-postgresql
+%{summary}
+
+%package gb-db2-postgresql
+Summary:        Gambas3 component package for db2-postgresql
+Requires:	%{name}-runtime = %{version}-%{release}
+Requires:	%{name}-gb-db2 = %{version}-%{release}
+
+%description gb-db2-postgresql
 %{summary}
 
 %package gb-db-sqlite2
@@ -324,6 +374,14 @@ Requires:	%{name}-runtime = %{version}-%{release}
 Requires:	%{name}-gb-db =	%{version}-%{release}
 
 %description gb-db-sqlite3
+%{summary}
+
+%package gb-db2-sqlite3
+Summary:        Gambas3 component package for db2-sqlite3
+Requires:	%{name}-runtime = %{version}-%{release}
+Requires:	%{name}-gb-db2 = %{version}-%{release}
+
+%description gb-db2-sqlite3
 %{summary}
 
 %package gb-desktop
@@ -924,14 +982,6 @@ Requires:	%{name}-gb-qt6 = %{version}-%{release}
 %description gb-qt6-wayland
 %{summary}
 
-%package gb-qt6-webkit
-Summary:	Gambas3 component package for qt6-webkit
-Requires:	%{name}-runtime = %{version}-%{release}
-Requires:	%{name}-gb-qt6 = %{version}-%{release}
-
-%description gb-qt6-webkit
-%{summary}
-
 %package gb-qt6-webview
 Summary:	Gambas3 component package for qt6-webview
 Requires:	%{name}-runtime = %{version}-%{release}
@@ -1330,6 +1380,10 @@ install -m 0644 -p main/mime/application-x-gambas3.xml %{buildroot}%{_datadir}/m
 %{_libdir}/%{name}/gb.clipper.*
 %{_datadir}/%{name}/info/gb.clipper.*
 
+%files gb-clipper2
+%{_libdir}/%{name}/gb.clipper2.*
+%{_datadir}/%{name}/info/gb.clipper2.*
+
 %files gb-complex
 %{_libdir}/%{name}/gb.complex.*
 %{_datadir}/%{name}/info/gb.complex.*
@@ -1369,22 +1423,47 @@ install -m 0644 -p main/mime/application-x-gambas3.xml %{buildroot}%{_datadir}/m
 %{_datadir}/%{name}/info/gb.db.info
 %{_datadir}/%{name}/info/gb.db.list
 
+%files gb-db2
+%{_libdir}/%{name}/gb.db2.component
+%{_libdir}/%{name}/gb.db2.gambas
+# %%{_libdir}/%%{name}/gb.db2.la
+# %%{_libdir}/%%{name}/gb.db2.so*
+%{_datadir}/%{name}/info/gb.db2.info
+%{_datadir}/%{name}/info/gb.db2.list
+
 %files gb-db-form
 %{_libdir}/%{name}/gb.db.form.*
 %{_datadir}/%{name}/control/gb.db.form/
 %{_datadir}/%{name}/info/gb.db.form.*
 
+%files gb-db2-form
+%{_libdir}/%{name}/gb.db2.form.*
+%{_datadir}/%{name}/control/gb.db2.form/
+%{_datadir}/%{name}/info/gb.db2.form.*
+
 %files gb-db-mysql
 %{_libdir}/%{name}/gb.db.mysql.*
 %{_datadir}/%{name}/info/gb.db.mysql.*
+
+%files gb-db2-mysql
+%{_libdir}/%{name}/gb.db2.mysql.*
+%{_datadir}/%{name}/info/gb.db2.mysql.*
 
 %files gb-db-odbc
 %{_libdir}/%{name}/gb.db.odbc.*
 %{_datadir}/%{name}/info/gb.db.odbc.*
 
+%files gb-db2-odbc
+%{_libdir}/%{name}/gb.db2.odbc.*
+%{_datadir}/%{name}/info/gb.db2.odbc.*
+
 %files gb-db-postgresql
 %{_libdir}/%{name}/gb.db.postgresql.*
 %{_datadir}/%{name}/info/gb.db.postgresql.*
+
+%files gb-db2-postgresql
+%{_libdir}/%{name}/gb.db2.postgresql.*
+%{_datadir}/%{name}/info/gb.db2.postgresql.*
 
 %files gb-db-sqlite2
 %{_libdir}/%{name}/gb.db.sqlite2.*
@@ -1393,6 +1472,10 @@ install -m 0644 -p main/mime/application-x-gambas3.xml %{buildroot}%{_datadir}/m
 %files gb-db-sqlite3
 %{_libdir}/%{name}/gb.db.sqlite3.*
 %{_datadir}/%{name}/info/gb.db.sqlite3.*
+
+%files gb-db2-sqlite3
+%{_libdir}/%{name}/gb.db2.sqlite3.*
+%{_datadir}/%{name}/info/gb.db2.sqlite3.*
 
 %files gb-dbus
 %{_libdir}/%{name}/gb.dbus.*
@@ -1793,11 +1876,6 @@ install -m 0644 -p main/mime/application-x-gambas3.xml %{buildroot}%{_datadir}/m
 %{_libdir}/%{name}/gb.qt6.wayland.*
 %{_datadir}/%{name}/info/gb.qt6.wayland.*
 
-%files gb-qt6-webkit
-%{_libdir}/%{name}/gb.qt6.webkit.*
-%{_datadir}/%{name}/control/gb.qt6.webkit*
-%{_datadir}/%{name}/info/gb.qt6.webkit.*
-
 %ifnarch ppc64le s390x
 %files gb-qt6-webview
 %{_libdir}/%{name}/gb.qt6.webview.*
@@ -1943,6 +2021,12 @@ install -m 0644 -p main/mime/application-x-gambas3.xml %{buildroot}%{_datadir}/m
 %{_datadir}/%{name}/info/gb.xml.xslt.*
 
 %changelog
+* Thu Feb 13 2025 Tom Callaway <spot@fedoraproject.org> 3.20.1-2
+- rebuild for poppler
+
+* Mon Feb 10 2025 Tom Callaway <spot@fedoraproject.org> 3.20.1-1
+- update to 3.20.1
+
 * Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 3.19.4-5
 - Rebuild with gsl 2.8
 

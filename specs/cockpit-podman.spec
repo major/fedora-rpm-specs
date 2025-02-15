@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-podman
-Version:        100
+Version:        101
 Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPL-2.1-or-later
@@ -92,6 +92,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Thu Feb 13 2025 Packit <hello@packit.dev> - 101-1
+- automatically start podman.socket
+
 * Wed Jan 29 2025 Packit <hello@packit.dev> - 100-1
 - Automatically start podman.socket
 - Identify quadlets by a 'service' label

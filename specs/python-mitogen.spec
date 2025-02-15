@@ -8,8 +8,8 @@
 %global pkgname %{srcname}
 
 Name:           python-%{pkgname}
-Version:        0.3.19
-Release:        2%{?dist}
+Version:        0.3.22
+Release:        1%{?dist}
 Summary:        Distributed self-replicating programs in Python
 
 License:        LicenseRef-Callaway-BSD
@@ -70,6 +70,9 @@ rm -r mitogen/compat ansible_mitogen/compat
 %{python3_sitelib}/%{eggname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Feb 14 2025 Fabian Affolter <mail@fabian-affolter.ch> - 0.3.22-1
+- Update to latest upstream release (closes rhbz#2336106)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.19-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

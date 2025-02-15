@@ -19,7 +19,7 @@
 %global FULLTESTS 0
 
 Name:           mpi4py
-Version:        4.0.2
+Version:        4.0.3
 Release:        1%{?dist}
 Summary:        Python bindings of the Message Passing Interface (MPI)
 
@@ -231,6 +231,9 @@ mv build mpich
 
 
 %changelog
+* Thu Feb 13 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.0.3-1
+- 4.0.3
+
 * Mon Feb 03 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.0.2-1
 - 4.0.2
 

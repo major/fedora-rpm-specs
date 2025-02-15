@@ -41,7 +41,7 @@
 Summary: A widely used Mail Transport Agent (MTA)
 Name: sendmail
 Version: 8.18.1
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: sendmail-8.23 AND MIT AND MIT-CMU AND BSD-3-Clause AND CDDL-1.0 AND BSD-4-Clause AND BSD-4-Clause-UC AND PostgreSQL AND ISC AND HPND-sell-variant AND mailprio
 URL: http://www.sendmail.org/
 
@@ -122,7 +122,6 @@ Provides: MTA smtpdaemon server(smtp)
 Requires(post): systemd coreutils %{_sbindir}/alternatives %{_bindir}/openssl
 Requires(preun): systemd %{_sbindir}/alternatives
 Requires(postun): systemd coreutils %{_sbindir}/alternatives
-Requires(pre): shadow-utils
 Requires: procmail
 Requires: bash >= 2.0
 Requires: setup >= 2.5.31-1
@@ -234,6 +233,12 @@ for f in RELEASE_NOTES contrib/etrn.0; do
 done
 
 sed -i 's|/usr/local/bin/perl|%{_bindir}/perl|' contrib/*.pl
+
+# Create a sysusers.d config file
+cat >sendmail.sysusers.conf <<EOF
+u mailnull 47 - %{spooldir}/mqueue %{smshell}
+u smmsp 51 - %{spooldir}/mqueue %{smshell}
+EOF
 
 %build
 %set_build_flags
@@ -512,18 +517,9 @@ for m in man8/hoststat.8 man8/purgestat.8; do
 		echo ".so man8/sendmail.8" > %{buildroot}%{_mandir}/$m
 done
 
-%pre
-getent group mailnull >/dev/null || \
-  groupadd -g 47 -r mailnull >/dev/null 2>&1
-getent passwd mailnull >/dev/null || \
-  useradd -u 47 -g mailnull -d %{spooldir}/mqueue -r \
-  -s %{smshell} mailnull >/dev/null 2>&1
-getent group smmsp >/dev/null || \
-  groupadd -g 51 -r smmsp >/dev/null 2>&1
-getent passwd smmsp >/dev/null || \
-  useradd -u 51 -g smmsp -d %{spooldir}/mqueue -r \
-  -s %{smshell} smmsp >/dev/null 2>&1
+install -m0644 -D sendmail.sysusers.conf %{buildroot}%{_sysusersdir}/sendmail.conf
 
+%pre
 # hack to turn sbin/makemap and man8/makemap.8.gz into alternatives symlink
 # (part of the rhbz#1219178 fix), this could be probably dropped in f25+
 [ -h /usr/sbin/makemap ] || rm -f /usr/sbin/makemap || :
@@ -711,6 +707,7 @@ exit 0
 %if "%{with_sasl2}" == "yes"
 %config(noreplace) %{_sysconfdir}/sasl2/Sendmail.conf
 %endif
+%{_sysusersdir}/sendmail.conf
 
 %files cf
 %doc %{sendmailcf}/README
@@ -749,6 +746,9 @@ exit 0
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 8.18.1-9
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Tue Jan 21 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 8.18.1-8
 - Built with gnu17 C standard
   Resolves: rhbz#2336394

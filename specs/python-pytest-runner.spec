@@ -6,7 +6,7 @@
 
 Name:           python-%{modulename}
 Version:        4.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Invoke py.test as distutils command with dependency resolution
 
 License:        MIT
@@ -17,6 +17,7 @@ Source0:        https://files.pythonhosted.org/packages/source/p/%{modulename}/%
 BuildArch: noarch
 
 # deprecated upstream, see https://github.com/pytest-dev/pytest-runner/blob/main/README.rst#deprecation-notice
+# https://fedoraproject.org/wiki/Changes/DeprecatePythonPytestRunner
 Provides:       deprecated()
 
 %global _description \
@@ -35,6 +36,10 @@ BuildRequires:  python3-setuptools_scm
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-venv
 %endif
+
+# deprecated upstream, see https://github.com/pytest-dev/pytest-runner/blob/main/README.rst#deprecation-notice
+# https://fedoraproject.org/wiki/Changes/DeprecatePythonPytestRunner
+Provides:       deprecated()
 
 %description -n python3-%{modulename} %{_description}
 
@@ -63,6 +68,10 @@ Python 3 version.
 %{python3_sitelib}/__pycache__/ptr.*
 
 %changelog
+* Thu Feb 13 2025 Michel Lind <salimma@fedoraproject.org> - 4.0-27
+- Link to approved Change Proposal for deprecating python-pytest-runner
+- Also mark python3-pytest-runner subpackage as deprecated
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -226,7 +226,7 @@
 #region main package
 Name:		%{pkg_name_llvm}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -315,6 +315,7 @@ Patch1908: cstdint.patch
 
 #region BOLT patches
 Patch1909: 0001-19-PATCH-Bolt-CMake-Don-t-export-bolt-libraries-in-LLVM.patch
+Patch1913: 0001-BOLT-Use-getMainExecutable-126698.patch
 #endregion BOLT patches
 
 #region polly patches
@@ -3061,8 +3062,11 @@ fi
 
 #region changelog
 %changelog
+* Wed Feb 12 2025 Nikita Popov <npopov@redhat.com> - 19.1.7-8
+- Backport bolt fix (rhbz#2344830)
+
 * Wed Feb 12 2025 Nikita Popov <npopov@redhat.com> - 19.1.7-7
-- Introduce llvm-resource-directory
+- Introduce llvm-resource-filesystem
 
 * Tue Feb 04 2025 Nikita Popov <npopov@redhat.com> - 19.1.7-6
 - Don't use directory symlinks

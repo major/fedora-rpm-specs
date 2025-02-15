@@ -1,6 +1,6 @@
 Name:           sigil
-Version:        2.2.1
-Release:        4%{?dist}
+Version:        2.4.2
+Release:        1%{?dist}
 Summary:        WYSIWYG ebook editor
 # Automatically converted from old format: GPL-3.0-or-later AND Apache-2.0 - review is highly recommended.
 License:        GPL-3.0-or-later AND Apache-2.0
@@ -18,16 +18,15 @@ BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  cmake
 
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Network)
-BuildRequires:  cmake(Qt5WebEngine)
-BuildRequires:  cmake(Qt5WebEngineWidgets)
-BuildRequires:  cmake(Qt5Widgets)
-BuildRequires:  cmake(Qt5Xml)
-BuildRequires:  cmake(Qt5Concurrent)
-BuildRequires:  cmake(Qt5PrintSupport)
-BuildRequires:  cmake(Qt5LinguistTools)
-BuildRequires:  cmake(Qt5Svg)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6WebEngineCore)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Xml)
+BuildRequires:  cmake(Qt6Concurrent)
+BuildRequires:  cmake(Qt6PrintSupport)
+BuildRequires:  cmake(Qt6LinguistTools)
+BuildRequires:  cmake(Qt6Svg)
 
 BuildRequires:  pkgconfig
 BuildRequires:  pkgconfig(zlib)
@@ -150,6 +149,10 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Tue Feb 11 2025 Marek Kasik <mkasik@redhat.com> - 2.4.2-1
+- New upstream release 2.4.2
+- Resolves: rhbz#2307477
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

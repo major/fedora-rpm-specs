@@ -1,7 +1,7 @@
 Name:		wfview
 URL:		https://gitlab.com/eliggett/wfview/
 Version:	1.64
-Release:	4%{?dist}
+Release:	5%{?dist}
 License:	GPL-3.0-only
 BuildRequires:	make
 BuildRequires:	gcc-c++
@@ -22,7 +22,6 @@ BuildRequires:	portaudio-devel
 BuildRequires:	rtaudio-devel
 BuildRequires:	speexdsp-devel
 BuildRequires:	systemd-rpm-macros
-%{?sysusers_requires_compat}
 BuildRequires:	hicolor-icon-theme
 Requires:	hicolor-icon-theme
 Summary:	Software for the control of Icom radios
@@ -106,9 +105,6 @@ install -Dpm 0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/wfserver.conf
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.%{name}.%{name}.metainfo.xml
 
-%pre
-# Add user and groups if necessary
-%sysusers_create_compat %{SOURCE1}
 
 %post
 %systemd_post wfserver.service
@@ -135,6 +131,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.%{name}.%{
 %{_metainfodir}/org.wfview.wfview.metainfo.xml
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.64-5
+- Drop call to %sysusers_create_compat
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.64-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

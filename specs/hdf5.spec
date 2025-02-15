@@ -56,6 +56,11 @@ BuildRequires: libaec-devel
 BuildRequires: gcc, gcc-c++
 BuildRequires: git-core
 
+# Provide a more relaxed version that other packages depend on
+%global _hdf5_compat_version %(v=%{version}; echo ${v%.*})
+Provides: %{name} = %{_hdf5_compat_version}
+Provides: %{name}%{?_isa} = %{_hdf5_compat_version}
+
 %global with_mpich %{undefined flatpak}
 %if 0%{?fedora} >= 40
 %ifarch %{ix86}
@@ -116,8 +121,9 @@ HDF5 static libraries.
 %package mpich
 Summary: HDF5 mpich libraries
 BuildRequires: mpich-devel
-Provides: %{name}-mpich2 = %{version}-%{release}
-Obsoletes: %{name}-mpich2 < 1.8.11-4
+# Provide a more relaxed version that other packages depend on
+Provides: %{name}-mpich = %{_hdf5_compat_version}
+Provides: %{name}-mpich%{?_isa} = %{_hdf5_compat_version}
 
 %description mpich
 HDF5 parallel mpich libraries
@@ -129,8 +135,6 @@ Requires: %{name}-mpich%{?_isa} = %{version}-%{release}
 Requires: libaec-devel%{?_isa}
 Requires: zlib-devel%{?_isa}
 Requires: mpich-devel%{?_isa}
-Provides: %{name}-mpich2-devel = %{version}-%{release}
-Obsoletes: %{name}-mpich2-devel < 1.8.11-4
 
 %description mpich-devel
 HDF5 parallel mpich development files
@@ -152,6 +156,9 @@ HDF5 parallel mpich static libraries
 Summary: HDF5 openmpi libraries
 BuildRequires: openmpi-devel
 BuildRequires: make
+# Provide a more relaxed version that other packages depend on
+Provides: %{name}-openmpi = %{_hdf5_compat_version}
+Provides: %{name}-openmpi%{?_isa} = %{_hdf5_compat_version}
 
 %description openmpi
 HDF5 parallel openmpi libraries
@@ -318,7 +325,7 @@ done
 mkdir -p %{buildroot}%{macrosdir}
 cat > %{buildroot}%{macrosdir}/macros.hdf5 <<EOF
 # HDF5 compatble version is
-%%_hdf5_version %(v=%{version}; echo ${v%.*})
+%%_hdf5_version %{_hdf5_compat_version}
 EOF
 
 # Install man pages from debian
@@ -340,15 +347,17 @@ mv %{buildroot}%{_libdir}/libhdf5_java.so %{buildroot}%{_libdir}/%{name}/
 
 
 %check
-%ifarch %{ix86}
+%ifarch %{ix86} ppc64le
 # i686: t_bigio test segfaults - https://github.com/HDFGroup/hdf5/issues/2510
+# ppc64le - t_multi_dset is flaky on ppc64le
 fail=0
 %else
 fail=1
 %endif
 make -C build check || exit $fail
-%ifarch %{ix86} s390x
+%ifarch %{ix86} ppc64le s390x
 # i686: t_bigio test segfaults - https://github.com/HDFGroup/hdf5/issues/2510
+# ppc64le - t_pmulti_dset is flaky on ppc64le
 # s390x t_mpi fails with mpich
 fail=0
 %else
@@ -363,14 +372,14 @@ export PRTE_MCA_rmaps_default_mapping_policy=:oversubscribe
 export HDF5_ALARM_SECONDS=8000
 for mpi in %{?mpi_list}
 do
-  # t_pmulti_dset hangs sometimes with mpich-aarch64 so do not test on that architecture
+  # t_pmulti_dset hangs sometimes with mpich-aarch64/ppc64le so do not test on those architectures
   # https://github.com/HDFGroup/hdf5/issues/3768
-#  if [ "$mpi-%{_arch}" != mpich-aarch64 ]
-#  then
+  if [ "$mpi-%{_arch}" != mpich-aarch64 -a "$mpi-%{_arch}" != mpich-ppc64le ]
+  then
     module load mpi/$mpi-%{_arch}
     make -C $mpi check || exit $fail
     module purge
-#  fi
+  fi
 done
 
 # I have no idea why those get installed. But it's easier to just

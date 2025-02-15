@@ -5,7 +5,7 @@
 
 Name:           iguanaIR
 Version:        1.1.0
-Release:        42%{?dist}
+Release:        43%{?dist}
 Epoch:          2
 Summary:        Driver for Iguanaworks USB IR transceiver
 
@@ -109,6 +109,11 @@ patch -l -p2 --fuzz 2 < %{SOURCE20}
 cd ..
 patch  -p1 --fuzz 2 < %{SOURCE21}
 
+# Create a sysusers.d config file
+cat >iguanair.sysusers.conf <<EOF
+u iguanair - 'Iguanaworks IR Daemon' %{_localstatedir}/run/%{name} -
+EOF
+
 
 
 %build
@@ -175,13 +180,9 @@ EOF
 install -m 755 -d $RPM_BUILD_ROOT/run/%{name}
 install -m 644 -D %{SOURCE5} $RPM_BUILD_ROOT/etc/logrotate.d/%{name}
 
+install -m0644 -D iguanair.sysusers.conf %{buildroot}%{_sysusersdir}/iguanair.conf
 
-%pre
-getent group iguanair >/dev/null || groupadd -r iguanair
-getent passwd iguanair >/dev/null || \
-    useradd -r -g iguanair -d %{_localstatedir}/run/%{name} -s /sbin/nologin \
-    -c "Iguanaworks IR Daemon" iguanair
-exit 0
+
 
 %post
 %systemd_post %{name}.service
@@ -214,6 +215,7 @@ exit 0
 %if 0%{fedora} < 30
 %{_libdir}/python2.7/*
 %endif
+%{_sysusersdir}/iguanair.conf
 
 %files devel
 %{_includedir}/%{name}.h
@@ -233,6 +235,9 @@ exit 0
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2:1.1.0-43
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.1.0-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

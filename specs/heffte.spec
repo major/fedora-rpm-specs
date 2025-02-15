@@ -1,7 +1,7 @@
 Name:           heffte
 Version:        2.4.1
 %global         sover 2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Highly Efficient FFT for Exascale
 
 License:        BSD-3-Clause
@@ -67,6 +67,9 @@ This package contains %{name} libraries compiled with openmpi.
 Summary:    Openmpi development headers and libraries for %{name}
 Requires:   %{name}-openmpi%{?_isa} = %{version}-%{release}
 Requires:   openmpi-devel
+%if %{with rocm}
+Requires:  rocfft-devel
+%endif
 
 %description openmpi-devel
 %{heffte_desc}
@@ -85,6 +88,9 @@ This package contains %{name} libraries compiled with mpich.
 Summary:    Mpich development headers and libraries for %{name}
 Requires:   %{name}-mpich%{?_isa} = %{version}-%{release}
 Requires:   mpich-devel
+%if %{with rocm}
+Requires:  rocfft-devel
+%endif
 
 %description mpich-devel
 %{heffte_desc}
@@ -202,6 +208,9 @@ done
 %{_datadir}/%{name}/docs
 
 %changelog
+* Fri Feb 14 2025 Christoph Junghans <junghans@votca.org> - 2.4.1-5
+- Add missing rocfft-devel dep
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

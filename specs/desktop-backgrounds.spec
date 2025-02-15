@@ -1,11 +1,11 @@
 %global rh_backgrounds_version 15
 %global waves_version 0.1.2
-%global fedora_release_name f41
+%global fedora_release_name f42
 %global gnome_default default
-%global picture_ext png
+%global picture_ext jxl
 
 Name:           desktop-backgrounds
-Version:        41.0.0
+Version:        42.0.0
 Release:        %autorelease
 Summary:        Desktop backgrounds
 
@@ -16,7 +16,7 @@ Source3:        README.Propaganda
 Source5:        waves-%{waves_version}.tar.bz2
 Source6:        FedoraWaves-metadata.desktop
 BuildArch:      noarch
-%if "x%{?picture_ext}" != "xpng"
+%if "x%{?picture_ext}" != "xjxl"
 BuildRequires:   ImageMagick
 BuildRequires:   %{fedora_release_name}-backgrounds-base
 %endif
@@ -145,21 +145,21 @@ ln -s ../../../../backgrounds/waves/waves-wide-3-night.png 1920x1200.png
 mkdir -p %{buildroot}%{_datadir}/glib-2.0/schemas
 /bin/echo '[org.gnome.desktop.background:Budgie]' > \
     %{buildroot}%{_datadir}/glib-2.0/schemas/30_budgie_org.gnome.desktop.background.fedora.gschema.override
-/bin/echo "picture-uri='file://%{_datadir}/backgrounds/%{fedora_release_name}/%{gnome_default}/%{fedora_release_name}-01-day.png'" >> \
+/bin/echo "picture-uri='file://%{_datadir}/backgrounds/%{fedora_release_name}/%{gnome_default}/%{fedora_release_name}-01-day.%{picture_ext}'" >> \
     %{buildroot}%{_datadir}/glib-2.0/schemas/30_budgie_org.gnome.desktop.background.fedora.gschema.override
-/bin/echo "picture-uri-dark='file://%{_datadir}/backgrounds/%{fedora_release_name}/%{gnome_default}/%{fedora_release_name}-01-night.png'" >> \
+/bin/echo "picture-uri-dark='file://%{_datadir}/backgrounds/%{fedora_release_name}/%{gnome_default}/%{fedora_release_name}-01-night.%{picture_ext}'" >> \
     %{buildroot}%{_datadir}/glib-2.0/schemas/30_budgie_org.gnome.desktop.background.fedora.gschema.override
 
 /bin/echo '[org.gnome.desktop.screensaver:Budgie]' > \
     %{buildroot}%{_datadir}/glib-2.0/schemas/30_budgie_org.gnome.desktop.screensaver.fedora.gschema.override
-/bin/echo "picture-uri='file://%{_datadir}/backgrounds/%{fedora_release_name}/%{gnome_default}/%{fedora_release_name}-01-day.png'" >> \
+/bin/echo "picture-uri='file://%{_datadir}/backgrounds/%{fedora_release_name}/%{gnome_default}/%{fedora_release_name}-01-day.%{picture_ext}'" >> \
     %{buildroot}%{_datadir}/glib-2.0/schemas/30_budgie_org.gnome.desktop.screensaver.fedora.gschema.override
-/bin/echo "picture-uri-dark='file://%{_datadir}/backgrounds/%{fedora_release_name}/%{gnome_default}/%{fedora_release_name}-01-night.png'" >> \
+/bin/echo "picture-uri-dark='file://%{_datadir}/backgrounds/%{fedora_release_name}/%{gnome_default}/%{fedora_release_name}-01-night.%{picture_ext}'" >> \
     %{buildroot}%{_datadir}/glib-2.0/schemas/30_budgie_org.gnome.desktop.screensaver.fedora.gschema.override
 
 /bin/echo '[x.dm.slick-greeter:Budgie]' > \
     %{buildroot}%{_datadir}/glib-2.0/schemas/30_budgie_x.dm.slick_greeter.fedora.gschema.override
-/bin/echo "background='file://%{_datadir}/backgrounds/%{fedora_release_name}/%{gnome_default}/%{fedora_release_name}-01-day.png'" >> \
+/bin/echo "background='file://%{_datadir}/backgrounds/%{fedora_release_name}/%{gnome_default}/%{fedora_release_name}-01-day.%{picture_ext}'" >> \
     %{buildroot}%{_datadir}/glib-2.0/schemas/30_budgie_x.dm.slick_greeter.fedora.gschema.override
 
 #   for GNOME
@@ -167,9 +167,9 @@ mkdir -p %{buildroot}%{_datadir}/glib-2.0/schemas
 mkdir -p %{buildroot}%{_datadir}/glib-2.0/schemas
 /bin/echo '[org.gnome.desktop.background]' > \
     %{buildroot}%{_datadir}/glib-2.0/schemas/10_org.gnome.desktop.background.fedora.gschema.override
-/bin/echo "picture-uri='file://%{_datadir}/backgrounds/%{fedora_release_name}/%{gnome_default}/%{fedora_release_name}-01-day.png'" >> \
+/bin/echo "picture-uri='file://%{_datadir}/backgrounds/%{fedora_release_name}/%{gnome_default}/%{fedora_release_name}-01-day.%{picture_ext}'" >> \
     %{buildroot}%{_datadir}/glib-2.0/schemas/10_org.gnome.desktop.background.fedora.gschema.override
-/bin/echo "picture-uri-dark='file://%{_datadir}/backgrounds/%{fedora_release_name}/%{gnome_default}/%{fedora_release_name}-01-night.png'" >> \
+/bin/echo "picture-uri-dark='file://%{_datadir}/backgrounds/%{fedora_release_name}/%{gnome_default}/%{fedora_release_name}-01-night.%{picture_ext}'" >> \
     %{buildroot}%{_datadir}/glib-2.0/schemas/10_org.gnome.desktop.background.fedora.gschema.override
 
 # Use the Fedora background on the GNOME lockscreen as well. Would be awesome to
@@ -179,50 +179,50 @@ mkdir -p %{buildroot}%{_datadir}/glib-2.0/schemas
 
 /bin/echo '[org.gnome.desktop.screensaver]' > \
     %{buildroot}%{_datadir}/glib-2.0/schemas/10_org.gnome.desktop.screensaver.fedora.gschema.override
-/bin/echo "picture-uri='file://%{_datadir}/backgrounds/%{fedora_release_name}/%{gnome_default}/%{fedora_release_name}-01-day.png'" >> \
+/bin/echo "picture-uri='file://%{_datadir}/backgrounds/%{fedora_release_name}/%{gnome_default}/%{fedora_release_name}-01-day.%{picture_ext}'" >> \
     %{buildroot}%{_datadir}/glib-2.0/schemas/10_org.gnome.desktop.screensaver.fedora.gschema.override
-/bin/echo "picture-uri-dark='file://%{_datadir}/backgrounds/%{fedora_release_name}/%{gnome_default}/%{fedora_release_name}-01-night.png'" >> \
+/bin/echo "picture-uri-dark='file://%{_datadir}/backgrounds/%{fedora_release_name}/%{gnome_default}/%{fedora_release_name}-01-night.%{picture_ext}'" >> \
     %{buildroot}%{_datadir}/glib-2.0/schemas/10_org.gnome.desktop.screensaver.fedora.gschema.override
 
 #   for KDE, this is handled in kde-settings
 #   for XFCE, LXDE, etc.
 
-%if "x%{?picture_ext}" == "xpng"
+%if "x%{?picture_ext}" == "xjxl"
   (cd %{buildroot}%{_datadir}/backgrounds/images;
-  ln -s ../%{fedora_release_name}/default/%{fedora_release_name}-01-day.png \
-      default.png
-  ln -s ../%{fedora_release_name}/default/%{fedora_release_name}-01-day.png \
-      default-5_4.png
-  ln -s ../%{fedora_release_name}/default/%{fedora_release_name}-01-day.png \
-      default-16_9.png
-  ln -s ../%{fedora_release_name}/default/%{fedora_release_name}-01-day.png \
-      default-16_10.png
+  ln -s ../%{fedora_release_name}/default/%{fedora_release_name}-01-day.%{picture_ext} \
+      default.%{picture_ext}
+  ln -s ../%{fedora_release_name}/default/%{fedora_release_name}-01-day.%{picture_ext} \
+      default-5_4.%{picture_ext}
+  ln -s ../%{fedora_release_name}/default/%{fedora_release_name}-01-day.%{picture_ext} \
+      default-16_9.%{picture_ext}
+  ln -s ../%{fedora_release_name}/default/%{fedora_release_name}-01-day.%{picture_ext} \
+      default-16_10.%{picture_ext}
 
-  ln -s ../%{fedora_release_name}/default/%{fedora_release_name}-01-night.png \
-      default-dark.png
-  ln -s ../%{fedora_release_name}/default/%{fedora_release_name}-01-night.png \
-      default-dark-5_4.png
-  ln -s ../%{fedora_release_name}/default/%{fedora_release_name}-01-night.png \
-      default-dark-16_9.png
-  ln -s ../%{fedora_release_name}/default/%{fedora_release_name}-01-night.png \
-      default-dark-16_10.png
+  ln -s ../%{fedora_release_name}/default/%{fedora_release_name}-01-night.%{picture_ext} \
+      default-dark.%{picture_ext}
+  ln -s ../%{fedora_release_name}/default/%{fedora_release_name}-01-night.%{picture_ext} \
+      default-dark-5_4.%{picture_ext}
+  ln -s ../%{fedora_release_name}/default/%{fedora_release_name}-01-night.%{picture_ext} \
+      default-dark-16_9.%{picture_ext}
+  ln -s ../%{fedora_release_name}/default/%{fedora_release_name}-01-night.%{picture_ext} \
+      default-dark-16_10.%{picture_ext}
 
   cd ..
   ln -s ./%{fedora_release_name}/default/%{fedora_release_name}-01-day.png \
-      default.png
+      default.%{picture_ext}
   ln -s ./%{fedora_release_name}/default/%{fedora_release_name}-01-night.png \
-      default-dark.png
+      default-dark.%{picture_ext}
   )
 %else
   (cd %{buildroot}%{_datadir}/backgrounds/images;
   convert %{_datadir}/backgrounds/%{fedora_release_name}/default/%{fedora_release_name}.%{picture_ext} \
-        -alpha off default.png
+        -alpha off default.jxl
   convert %{_datadir}/backgrounds/%{fedora_release_name}/default/%{fedora_release_name}.%{picture_ext} \
-        -alpha off default-5_4.png
+        -alpha off default-5_4.jxl
   convert %{_datadir}/backgrounds/%{fedora_release_name}/default/%{fedora_release_name}.%{picture_ext} \
-        -alpha off default-16_9.png
+        -alpha off default-16_9.jxl
   convert %{_datadir}/backgrounds/%{fedora_release_name}/default/%{fedora_release_name}.%{picture_ext} \
-        -alpha off default-16_10.png
+        -alpha off default-16_10.jxl
   )
 %endif
 
@@ -268,8 +268,8 @@ mkdir -p %{buildroot}%{_datadir}/glib-2.0/schemas
 %files compat
 %dir %{_datadir}/backgrounds/images/
 %{_datadir}/backgrounds/images/default*
-%{_datadir}/backgrounds/default.png
-%{_datadir}/backgrounds/default-dark.png
+%{_datadir}/backgrounds/default.%{picture_ext}
+%{_datadir}/backgrounds/default-dark.%{picture_ext}
 %{_datadir}/backgrounds/default.xml
 
 %changelog

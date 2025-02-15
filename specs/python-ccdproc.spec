@@ -2,7 +2,7 @@
 %global summary Astropy affiliated package for reducing optical/IR CCD data
 
 Name:           python-%{srcname}
-Version:        2.4.2
+Version:        2.4.3
 Release:        %autorelease
 Summary:        %{summary}
 
@@ -45,8 +45,10 @@ BuildRequires:  python3-setuptools
 %pyproject_check_import -t
 
 %files -n python3-%{srcname} -f %{pyproject_files}
-%license LICENSE.rst licenses/LICENSE_STSCI_TOOLS.txt
-%doc CHANGES.rst README.rst
+# https://github.com/astropy/ccdproc/issues/872
+#license LICENSE.rst licenses/LICENSE_STSCI_TOOLS.txt
+%license LICENSE.rst 
+%doc AUTHORS.rst README.rst
 
 %changelog
 %autochangelog

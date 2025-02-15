@@ -1,38 +1,37 @@
-Name: libsixel
-Version: 1.10.3
-Release: 7%{?dist}
-Summary: SIXEL encoding and decoding
+Name:           libsixel
+Version:        1.10.5
+Release:        %autorelease
+Summary:        SIXEL encoding and decoding
 
-License: MIT
-URL: https://github.com/libsixel/libsixel
-Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0: meson.patch
+License:        MIT
+URL:            https://github.com/libsixel/libsixel
+Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires: gcc
-BuildRequires: meson
-BuildRequires: pkgconfig(gdlib)
-BuildRequires: pkgconfig(libjpeg)
-BuildRequires: pkgconfig(libpng)
+BuildRequires:  gcc
+BuildRequires:  meson
+BuildRequires:  pkgconfig(gdlib)
+BuildRequires:  pkgconfig(libjpeg)
+BuildRequires:  pkgconfig(libpng)
 
 %description
 An encoder/decoder implementation for DEC SIXEL graphics.
 
 %package devel
-Summary: Development files for %{name}
-Requires: %{name}%{?_isa} = %{version}-%{release}
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
 %{summary}.
 
 %package utils
-Summary: SIXEL encoder and decoder utilities
-Requires: %{name}%{?_isa} = %{version}-%{release}
+Summary:        SIXEL encoder and decoder utilities
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description utils
 %{summary}.
 
 %prep
-%autosetup -n %{name}-%{version} -p1
+%autosetup -p1
 
 %build
 %meson -Dtests=enabled
@@ -40,7 +39,6 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %install
 %meson_install
-rm %{buildroot}/%{_libdir}/libsixel.a
 
 %check
 %meson_test
@@ -68,23 +66,4 @@ rm %{buildroot}/%{_libdir}/libsixel.a
 %{zsh_completions_dir}/_img2sixel
 
 %changelog
-* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.3-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.3-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.3-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Aug 30 2023 ErrorNoInternet <errornointernet@envs.net> - 1.10.3-3
-- Enabled tests
-
-* Wed Aug 30 2023 ErrorNoInternet <errornointernet@envs.net> - 1.10.3-2
-- Fix a few package review issues
-
-* Sat Jul 29 2023 ErrorNoInternet <errornointernet@envs.net> - 1.10.3-1
-- Initial packaging
+%autochangelog

@@ -30,7 +30,7 @@ URL:              https://www.dogtagpki.org
 # The entire source code is GPLv2 except for 'pki-tps' which is LGPLv2
 License:          GPL-2.0-only AND LGPL-2.0-only
 Version:          %{major_version}.%{minor_version}.%{update_version}
-Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}
+Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.1
 
 # To create a tarball from a version tag:
 # $ git archive \
@@ -638,7 +638,6 @@ Requires:         mvn(org.dogtagpki.jss:jss-tomcat) >= 5.5.0
 Requires:         systemd
 Requires(post):   systemd-units
 Requires(postun): systemd-units
-Requires(pre):    shadow-utils
 
 # pki-healthcheck depends on the following library
 %if 0%{?rhel}
@@ -1196,6 +1195,12 @@ fi
 %mvn_package org.dogtagpki.pki:pki-console        pki-console
 %endif
 
+# Create a sysusers.d config file
+cat >dogtag-pki.sysusers.conf <<EOF
+g pkiuser %{pki_gid}
+u pkiuser %{pki_uid} 'Certificate System' %{pki_homedir} -
+EOF
+
 ################################################################################
 %build
 ################################################################################
@@ -1538,16 +1543,9 @@ xmlstarlet edit --inplace \
 
 %if %{with server}
 
+install -m0644 -D dogtag-pki.sysusers.conf %{buildroot}%{_sysusersdir}/dogtag-pki.conf
+
 %pre -n %{product_id}-server
-
-# create PKI group if it doesn't exist
-getent group %{pki_groupname} >/dev/null || groupadd -f -g %{pki_gid} -r %{pki_groupname}
-
-# create PKI user if it doesn't exist
-if ! getent passwd %{pki_username} >/dev/null ; then
-    useradd -r -u %{pki_uid} -g %{pki_groupname} -d %{pki_homedir} -s /sbin/nologin -c "Certificate System" %{pki_username}
-fi
-
 # create PKI home directory if it doesn't exist
 if [ ! -d %{pki_homedir} ] ; then
     cp -ar /etc/skel %{pki_homedir}
@@ -1817,6 +1815,7 @@ fi
 %{_mandir}/man8/pki-healthcheck.8.gz
 %{_datadir}/pki/setup/
 %{_datadir}/pki/server/
+%{_sysusersdir}/dogtag-pki.conf
 
 %if %{without maven}
 %{_datadir}/java/pki/pki-server.jar
@@ -2008,6 +2007,9 @@ fi
 
 ################################################################################
 %changelog
+* Thu Jan 23 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 11.6.0-0.3.alpha1.1
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Adam Williamson <awilliam@redhat.com> - 11.6.0-0.3.alpha1
 - Rebuild on mass rebuild tag to make that process happy
 

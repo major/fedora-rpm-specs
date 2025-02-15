@@ -19,6 +19,7 @@ BuildRequires: which
 BuildRequires: xwayland-run
 BuildRequires: mutter
 BuildRequires: mesa-dri-drivers
+BuildRequires: mesa-libEGL
 
 %description
 Zenity lets you display Gtk+ dialog boxes from the command line and through

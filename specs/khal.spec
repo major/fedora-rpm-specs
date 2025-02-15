@@ -15,6 +15,8 @@ Source0:    https://files.pythonhosted.org/packages/source/k/%{name}/%{name}-%{v
 # a blog of the changelog. We only need the manpage. We also fix a Makefile error
 # which happens when using .tar.gz
 Patch0:     khal-0.8.2-sphinx-docfix.patch
+# https://github.com/pimutils/khal/pull/1365
+Patch1:     khal-0.11.3-intersphinx-fix.patch
 BuildArch:  noarch
 
 BuildRequires: make

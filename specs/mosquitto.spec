@@ -2,7 +2,7 @@
 
 Name:           mosquitto
 Version:        2.0.20
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Open Source MQTT v5/v3.1.x Broker
 
 License:        EPL-2.0
@@ -20,7 +20,9 @@ BuildRequires:  libwebsockets-devel
 BuildRequires:  libxslt
 BuildRequires:  cmake
 BuildRequires:  openssl-devel
-BuildRequires:  openssl-devel-engine
+%if 0%{?fedora}
+  BuildRequires:  openssl-devel-engine
+%endif
 BuildRequires:  systemd-devel
 %if 0%{?with_tests}
 BuildRequires:  CUnit-devel
@@ -88,7 +90,6 @@ make test
 %license LICENSE.txt 
 %doc ChangeLog.txt CONTRIBUTING.md README.md
 %{_bindir}/%{name}*
-%{_sbindir}/%{name}
 %{_libdir}/libmosquitto*.so.1
 %{_libdir}/libmosquitto*.so.%{version}
 %{_libdir}/mosquitto_dynamic_security.so
@@ -108,6 +109,9 @@ make test
 %{_mandir}/man3/libmosquitto.3.*
 
 %changelog
+* Thu Feb 13 2025 Fabian Affolter <mail@fabian-affolter.ch> - 2.0.20-5
+- Only add openssl-devel-engine for Fedora
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.20-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,3 +1,9 @@
+%if 0%{?suse_version}
+%global rocsparse_name librocsparse1
+%else
+%global rocsparse_name rocsparse
+%endif
+
 %global upstreamname rocSPARSE
 %global rocm_release 6.3
 %global rocm_patch 2
@@ -6,9 +12,6 @@
 %global toolchain rocm
 # hipcc does not support some clang flags
 %global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/')
-
-# $gpu will be evaluated in the loops below
-%global _vpath_builddir %{_vendor}-%{_target_os}-build-${gpu}
 
 %bcond_with debug
 %if %{with debug}
@@ -38,15 +41,12 @@
 %define _source_payload	w7T0.xzdio
 %define _binary_payload	w7T0.xzdio
 
-Name:           rocsparse
+Name:           %{rocsparse_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        SPARSE implementation for ROCm
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
-
-# Only x86_64 works right now:
-ExclusiveArch:  x86_64
 
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
 Patch0:         0001-rocsparse-offload-compress.patch
@@ -59,7 +59,6 @@ BuildRequires:  rocm-compilersupport-macros
 BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocm-rpm-macros-modules
 BuildRequires:  rocprim-static
 
 %if %{with compress}
@@ -74,7 +73,10 @@ BuildRequires:  python3-pyyaml
 BuildRequires:  rocblas-devel
 %endif
 
-Requires:       rocm-rpm-macros-modules
+Provides:       rocsparse = %{version}-%{release}
+
+# Only x86_64 works right now:
+ExclusiveArch:  x86_64
 
 %description
 rocSPARSE exposes a common interface that provides Basic
@@ -84,9 +86,15 @@ ROCm runtime and toolchains. rocSPARSE is created using
 the HIP programming language and optimized for AMD's
 latest discrete GPUs.
 
+%if 0%{?suse_version}
+%post -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
+%endif
+
 %package devel
 Summary:        Libraries and headers for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Provides:       rocsparse-devel = %{version}-%{release}
 
 %description devel
 %{summary}
@@ -104,41 +112,30 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
 
 %build
-for gpu in %{rocm_gpu_list}
-do
-    module load rocm/$gpu
-    %cmake \
-	-DCMAKE_CXX_COMPILER=hipcc \
-	-DCMAKE_C_COMPILER=hipcc \
-	-DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
-	-DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
-	-DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
-           -DCMAKE_BUILD_TYPE=%build_type \
-	   -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
-	   -DCMAKE_SKIP_RPATH=ON \
-	   -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
-	   -DROCM_SYMLINK_LIBS=OFF \
-	   -DHIP_PLATFORM=amd \
-	   -DAMDGPU_TARGETS=$ROCM_GPUS \
-	   -DCMAKE_INSTALL_LIBDIR=$ROCM_LIB \
-	   -DCMAKE_INSTALL_BINDIR=$ROCM_BIN \
-	   -DBUILD_OFFLOAD_COMPRESS=%{build_compress} \
-	   -DBUILD_CLIENTS_BENCHMARKS=%{build_test} \
-	   -DBUILD_CLIENTS_TESTS=%{build_test} \
-	   -DBUILD_CLIENTS_TESTS_OPENMP=OFF \
-	   -DBUILD_FORTRAN_CLIENTS=OFF
-
-    %cmake_build
-    module purge
-done
+%cmake \
+    -DCMAKE_CXX_COMPILER=hipcc \
+    -DCMAKE_C_COMPILER=hipcc \
+    -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
+    -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
+    -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
+    -DCMAKE_BUILD_TYPE=%build_type \
+    -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
+    -DCMAKE_SKIP_RPATH=ON \
+    -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
+    -DROCM_SYMLINK_LIBS=OFF \
+    -DHIP_PLATFORM=amd \
+    -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
+    -DCMAKE_INSTALL_LIBDIR=%_libdir \
+    -DBUILD_OFFLOAD_COMPRESS=%{build_compress} \
+    -DBUILD_CLIENTS_BENCHMARKS=%{build_test} \
+    -DBUILD_CLIENTS_TESTS=%{build_test} \
+    -DBUILD_CLIENTS_TESTS_OPENMP=OFF \
+    -DBUILD_FORTRAN_CLIENTS=OFF
 
 %cmake_build
 
 %install
-for gpu in %{rocm_gpu_list}
-do
-    %cmake_install
-done
+%cmake_install
 
 echo s@%{buildroot}@@ > br.sed
 find %{buildroot}%{_libdir} -name '*.so.*.[0-9]' | sed -f br.sed >  %{name}.files
@@ -160,15 +157,19 @@ fi
 
 %files devel -f %{name}.devel
 %doc README.md
-%dir %{_libdir}/cmake/%{name}
-%dir %{_includedir}/%{name}
-%{_includedir}/%{name}/*
+%dir %{_libdir}/cmake/rocsparse
+%dir %{_includedir}/rocsparse
+%{_includedir}/rocsparse/*
 
 %if %{with test}
 %files test -f %{name}.test
 %endif
 
 %changelog
+* Wed Feb 12 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-2
+- Remove multi build
+- Fix SLE 15.6
+
 * Wed Jan 29 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-1
 - Update to 6.3.2
 

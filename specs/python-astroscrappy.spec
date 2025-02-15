@@ -9,6 +9,8 @@ Summary:        Cosmic Ray Annihilation
 License:        BSD-3-Clause
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source:         %{pypi_source}
+# https://github.com/astropy/astroscrappy/issues/94
+Patch:          fix-c23.patch
 
 BuildRequires:  gcc
 ExcludeArch: %{ix86}
@@ -26,10 +28,6 @@ BuildRequires:  python3-devel
 
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
-
-# Fedora doesn't have numpy 2.0 yet
-# but tests seem ok to use current version
-sed -i pyproject.toml -e 's|"numpy>=2.0.0rc1"|"numpy"|'
 
 %generate_buildrequires
 %pyproject_buildrequires -x test

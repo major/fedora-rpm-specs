@@ -7,20 +7,15 @@
 %global debug_package %{nil}
 %endif
 
-# RHEL's default %%gobuild macro doesn't account for the BUILDTAGS variable, so we
-# set it separately here and do not depend on RHEL's go-[s]rpm-macros package
-# until that's fixed.
-# c9s bz: https://bugzilla.redhat.com/show_bug.cgi?id=2227328
-# c8s bz: https://bugzilla.redhat.com/show_bug.cgi?id=2227331
-%if %{defined rhel}
-%define gobuild(o:) go build -buildmode pie -compiler gc -tags="rpm_crashtraceback libtrust_openssl ${BUILDTAGS:-}" -ldflags "-linkmode=external -compressdwarf=false ${LDFLAGS:-} -B 0x$(head -c20 /dev/urandom|od -An -tx1|tr -d ' \\n') -extldflags '%__global_ldflags'" -a -v -x %{?**};
-%endif
-
 %global gomodulesmode GO111MODULE=on
 
 # No btrfs on RHEL
 %if %{defined fedora}
 %define build_with_btrfs 1
+%endif
+
+%if %{defined rhel}
+%define fips 1
 %endif
 
 # Only used in official koji builds
@@ -43,7 +38,7 @@ Epoch: %{conditional_epoch}
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 1.17.0
+Version: 1.18.0
 # The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0
 Release: %autorelease
@@ -127,6 +122,10 @@ export BUILDTAGS="$BASEBUILDTAGS $(hack/btrfs_tag.sh) $(hack/btrfs_installed_tag
 export BUILDTAGS="$BASEBUILDTAGS btrfs_noversion exclude_graphdriver_btrfs"
 %endif
 
+%if %{defined fips}
+export BUILDTAGS="$BUILDTAGS libtrust_openssl"
+%endif
+
 # unset LDFLAGS earlier set from set_build_flags
 LDFLAGS=''
 
@@ -145,6 +144,10 @@ cp -pav systemtest/* %{buildroot}/%{_datadir}/%{name}/test/system/
 
 #define license tag if not already defined
 %{!?_licensedir:%global license %doc}
+
+# Include this to silence rpmlint.
+# Especially annoying if you use syntastic vim plugin.
+%check
 
 %files
 %license LICENSE

@@ -1,12 +1,12 @@
 %undefine __cmake_in_source_build
 
 Name:         davix
-Version:      0.8.9
+Version:      0.8.10
 Release:      1%{?dist}
 Summary:      Toolkit for HTTP-based file management
 License:      LGPL-2.1-or-later AND LGPL-2.0-or-later AND BSD-2-Clause AND MIT AND Apache-2.0 AND curl
 URL:          https://dmc-docs.web.cern.ch/dmc-docs/davix.html
-Source0:      https://github.com/cern-fts/davix/releases/download/R_0_8_9/davix-0.8.9.tar.gz
+Source0:      https://github.com/cern-fts/davix/releases/download/R_0_8_10/davix-0.8.10.tar.gz
 
 BuildRequires:      gcc-c++
 BuildRequires:      python3
@@ -151,6 +151,9 @@ rm %{buildroot}%{_pkgdocdir}/LICENSE
 %license LICENSE
 
 %changelog
+* Thu Feb 13 2025 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 0.8.10-1
+- New upstream release 0.8.10
+
 * Fri Jan 31 2025 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 0.8.9-1
 - New upstream release 0.8.9
 

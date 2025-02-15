@@ -46,7 +46,7 @@ BuildRequires: pkgconfig(libsystemd)
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
 Version: 6.8.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -109,7 +109,8 @@ Patch154: qtbase-skip-ad-hoc-handling-of-variation-selector-in-font-merging.patc
 Patch155: qtbase-fontconfig-dont-register-hardcoded-fonts-as-color-fonts.patch
 Patch156: qtbase-request-actual-font-family-request-in-final-color-font-fail-safe.patch
 Patch157: qtbase-fontconfig-fix-detection-of-color-fonts.patch
-
+Patch158: qtbase-support-variation-selector-when-emoji-segmenter-is-disabled.patch
+Patch159: qtbase-treat-variation-selectors-as-ignorable-chars.patch
 
 # Do not check any files in %%{_qt6_plugindir}/platformthemes/ for requires.
 # Those themes are there for platform integration. If the required libraries are
@@ -909,6 +910,9 @@ make check -k ||:
 
 
 %changelog
+* Thu Feb 13 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-3
+- Fix rendering of combined emojis
+
 * Thu Feb 06 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-2
 - Backport recommended fixes for Qt 6.8.2
 

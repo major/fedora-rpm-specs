@@ -1,13 +1,17 @@
+%global forgeurl https://github.com/toreanderson/clatd
+
 Name:		clatd
-Version:	1.6
-Release:	6%{?dist}
+Version:	2.0.0
+Release:	2%{?dist}
 Summary:	CLAT / SIIT-DC Edge Relay implementation for Linux
 
 License:	MIT
 URL:		https://github.com/toreanderson/clatd
-Source0:	https://github.com/toreanderson/%{name}/archive/v%{version}.tar.gz
+VCS:		git:%{forgeurl}
+Source0:	%{forgeurl}/archive/refs/tags/v%{version}.tar.gz
 
 BuildArch:	noarch
+BuildRequires:	make
 BuildRequires:	perl-interpreter
 BuildRequires:	coreutils
 BuildRequires:	%{_bindir}/pod2man
@@ -38,25 +42,24 @@ translated back to IPv4 before being routed to the IPv4 internet.
 %prep
 %setup -q v%{release}.tar.gz
 
+# Unified sbin/bin from fedora 42
+%if 0%{?fedora} > 41
+sed -i 's/sbin/bin/' Makefile
+%endif
+sed -i 's,(SYSCONFDIR)/NetworkManager,(PREFIX)/lib/NetworkManager,g' Makefile
+sed -i "s,%{_sbindir}/clatd,%{_sbindir}/clatd -c %{_sysconfdir}/%{name}.conf," scripts/*
+
 %build
-pod2man	--name %{name} \
-	--center "clatd - a CLAT implementation for Linux" \
-	--section 8 \
-	README.pod %{name}.8
-gzip %{name}.8
-echo '# Default clatd.conf
-# See clatd(8) for a list of config directives' > %{name}.conf
-
-sed -i "s,%{_sbindir}/clatd,%{_sbindir}/clatd -c %{_sysconfdir}/%{name}.conf," \
-	scripts/*
-
+echo -e '# Default clatd.conf\n# See clatd(8) for a list of config directives' > %{name}.conf
 
 %install
-install -p -D -m0755 %{name} %{buildroot}%{_sbindir}/%{name}
-install -p -D -m0644 %{name}.8.gz %{buildroot}%{_mandir}/man8/%{name}.8.gz
+mkdir -p %{buildroot}%{_sbindir}
+mkdir -p %{buildroot}%{_mandir}/man8
+mkdir -p %{buildroot}%{_prefix}/lib/NetworkManager/dispatcher.d
+
+%make_install
+
 install -p -D -m0644 %{name}.conf %{buildroot}%{_sysconfdir}/%{name}.conf
-install -d -m 0755 %{buildroot}%{_prefix}/lib/NetworkManager/dispatcher.d/
-install -m 0755 scripts/%{name}.networkmanager %{buildroot}%{_prefix}/lib/NetworkManager/dispatcher.d/50-%{name}
 install -p -D -m0644 scripts/%{name}.systemd %{buildroot}%{_unitdir}/%{name}.service
 
 
@@ -67,17 +70,25 @@ install -p -D -m0644 scripts/%{name}.systemd %{buildroot}%{_unitdir}/%{name}.ser
 %files
 %{_sbindir}/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}.conf
-%{_prefix}/lib/NetworkManager
-#dir #{_prefix}/lib/NetworkManager
-#dir #{_prefix}/lib/NetworkManager/dispatcher.d
-#{_prefix}/lib/NetworkManager/dispatcher.d/50-clatd
+%{_prefix}/lib/NetworkManager/dispatcher.d/50-clatd
 %doc README.pod
 %{_mandir}/man8/*.8*
 %license LICENCE
 %{_unitdir}/%{name}.service
 
+# Unfortunately, there is no NetworkManager subpackage providing these
+%dir %{_prefix}/lib/NetworkManager
+%dir %{_prefix}/lib/NetworkManager/dispatcher.d
+
 
 %changelog
+* Thu Feb 13 2025 Ingvar Hagelund <ingvar@redpill-linpro.com> - 2.0.0-2
+- Unified sbin/bin from f42
+
+* Mon Feb 10 2025 Ingvar Hagelund <ingvar@redpill-linpro.com> - 2.0.0-1
+- New upstream release 2.0.0
+- Use more of upstream Makefile for build/install
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

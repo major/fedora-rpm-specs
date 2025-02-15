@@ -1,7 +1,7 @@
 Summary: High-performance and highly configurable free RADIUS server
 Name: freeradius
 Version: 3.2.5
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: http://www.freeradius.org/
 
@@ -59,7 +59,7 @@ BuildRequires: ykclient-devel
 # Require OpenSSL version we built with, or newer, to avoid startup failures
 # due to runtime OpenSSL version checks.
 Requires: openssl >= %(rpm -q --queryformat '%%{EPOCH}:%%{VERSION}' openssl)
-Requires(pre): shadow-utils glibc-common
+Requires(pre): glibc-common
 Requires(post): systemd-sysv
 Requires(post): systemd-units
 # Needed for certificate generation as upstream bootstrap script isn't
@@ -355,11 +355,6 @@ Please reference that document.
 All documentation is in the freeradius-doc sub-package.
 
 EOF
-
-
-# Make sure our user/group is present prior to any package or subpackage installation
-%pre
-%sysusers_create_compat %{SOURCE105}
 
 %preun
 %systemd_preun radiusd.service
@@ -903,6 +898,9 @@ EOF
 %attr(640,root,radiusd) %config(noreplace) /etc/raddb/mods-available/rest
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.2.5-7
+- Drop call to %sysusers_create_compat
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 3.2.5-6
 - Add explicit BR: libxcrypt-devel
 

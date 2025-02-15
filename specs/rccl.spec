@@ -1,3 +1,9 @@
+%if 0%{?suse_version}
+%global rccl_name librccl1
+%else
+%global rccl_name rccl
+%endif
+
 %global upstreamname RCCL
 %global rocm_release 6.3
 %global rocm_patch 2
@@ -40,14 +46,10 @@
 # On 6.2
 # Problems reported with gfx10, removing gfx10 and default (gfx10 and gfx11) from build list
 #
-# Handle with a custom gpu list
-# Because this package is a leaf, set it to the minimum until there is a request for
-# more support or it is used by another package
-%global rccl_gpu_list "gfx90a:xnack+;gfx90a:xnack-;gfx1100;gfx1101;gfx1102;gfx1200;gfx1201"
 
-Name:           rccl
+Name:           %{rccl_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        4%{?dist}
 Summary:        ROCm Communication Collectives Library
 
 Url:            https://github.com/ROCm/rccl
@@ -62,6 +64,7 @@ Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{ro
 
 BuildRequires:  cmake
 BuildRequires:  hipify
+BuildRequires:  gcc-c++
 BuildRequires:  rocm-cmake
 BuildRequires:  rocm-comgr-devel
 BuildRequires:  rocm-core-devel
@@ -75,6 +78,7 @@ BuildRequires:  gtest-devel
 %endif
 
 Requires:       %{name}-data = %{version}-%{release}
+Provides:       rccl = %{version}-%{release}
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -96,9 +100,15 @@ algorithms and have been optimized for throughput and latency. For
 best performance, small operations can be either batched into
 larger operations or aggregated through the API.
 
+%if 0%{?suse_version}
+%post -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
+%endif
+
 %package devel
 Summary:        Headers and libraries for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Provides:       rccl-devel = %{version}-%{release}
 
 %description devel
 Headers and libraries for %{name}
@@ -120,7 +130,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
-%autosetup -p1 -n %{name}-rocm-%{version}
+%autosetup -p1 -n rccl-rocm-%{version}
 
 # Allow user to set AMDGPU_TARGETS
 sed -i -e '/AMD GPU targets to compile for/d' CMakeLists.txt
@@ -140,9 +150,9 @@ sed -i -e 's@rocm-core/rocm_version.h@rocm_version.h@' src/include/hip_rocm_vers
     -DCMAKE_EXPORT_COMPILE_COMMANDS=%{build_compile_db} \
     -DCMAKE_SKIP_RPATH=ON \
     -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
-    -DCMAKE_INSTALL_LIBDIR=%{_libdir} \
     -DROCM_SYMLINK_LIBS=OFF \
-    -DAMDGPU_TARGETS=%{rccl_gpu_list} \
+    -DAMDGPU_TARGETS=%{rocm_gpu_list_rccl} \
+    -DCMAKE_INSTALL_LIBDIR=%{_libdir} \
     -DHIP_PLATFORM=amd \
     -DRCCL_ROCPROFILER_REGISTER=OFF
 
@@ -161,31 +171,38 @@ find %{buildroot}%{_libdir} -name '*.cmake'      | sed -f br.sed >> %{name}.deve
 find %{buildroot}           -name '%{name}*'     | sed -f br.sed >  %{name}.test
 %endif
 
-if [ -f %{buildroot}%{_prefix}/share/doc/%{name}/LICENSE.txt ]; then
-    rm %{buildroot}%{_prefix}/share/doc/%{name}/LICENSE.txt
+if [ -f %{buildroot}%{_prefix}/share/doc/rccl/LICENSE.txt ]; then
+    rm %{buildroot}%{_prefix}/share/doc/rccl/LICENSE.txt
 fi
 
 %files -f %{name}.files
 %license LICENSE.txt
 
 %files data
-%dir %{_datadir}/%{name}
-%dir %{_datadir}/%{name}/msccl-algorithms
-%dir %{_datadir}/%{name}/msccl-unit-test-algorithms
-%{_datadir}/%{name}/msccl-algorithms/*.xml
-%{_datadir}/%{name}/msccl-unit-test-algorithms/*.xml
+%dir %{_datadir}/rccl
+%dir %{_datadir}/rccl/msccl-algorithms
+%dir %{_datadir}/rccl/msccl-unit-test-algorithms
+%{_datadir}/rccl/msccl-algorithms/*.xml
+%{_datadir}/rccl/msccl-unit-test-algorithms/*.xml
 
 %files devel -f %{name}.devel
 %doc README.md
-%dir %{_includedir}/%{name}
-%dir %{_libdir}/cmake/%{name}
-%{_includedir}/%{name}/*
+%dir %{_includedir}/rccl
+%dir %{_libdir}/cmake/rccl
+%{_includedir}/rccl/*
 
 %if %{with test}
 %files test -f %{name}.test
 %endif
 
 %changelog
+* Thu Feb 13 2025 Tom Rix <Tom.Rix@amd.com> 6.3.2-3
+- Use rpm macros gpu list
+- Fix SLE 15.6
+
+* Wed Feb 5 2025 Tom Rix <Tom.Rix@amd.com> 6.3.2-2
+- Fix TW build
+
 * Wed Jan 29 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-1
 - Update to 6.3.2
 

@@ -1,6 +1,6 @@
 Name:           Field3D
 Version:        1.7.3
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Library for storing voxel data
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -77,6 +77,9 @@ pushd %{_vpath_builddir}
 
 
 %changelog
+* Thu Feb 13 2025 Orion Poplawski <orion@nwra.com> - 1.7.3-33
+- Rebuild with hdf5 1.14.6
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:		ogdi
 Version:	4.1.1
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Open Geographic Datastore Interface
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
@@ -17,7 +17,7 @@ BuildRequires:	make
 BuildRequires:	gcc
 BuildRequires:	zlib-devel
 BuildRequires:	expat-devel
-BuildRequires:	tcl-devel
+BuildRequires:	tcl-devel < 1:9
 BuildRequires:	libtirpc-devel
 
 # ODBC driver has been removed in 4.1.1 without replacement
@@ -70,7 +70,7 @@ export CFG=debug # for -g
 
 # removal of -D_FORTIFY_SOURCE from preprocessor flags seems not needed any more
 # ogdits-3.1 test suite produces same result with and without the flag
-export CFLAGS="$RPM_OPT_FLAGS -DDONT_TD_VOID -DUSE_TERMIO"
+export CFLAGS="$RPM_OPT_FLAGS -DDONT_TD_VOID -DUSE_TERMIO -std=gnu17"
 %configure \
 	--with-binconfigs \
 	--with-expat \
@@ -163,6 +163,10 @@ touch -r ogdi-config.in %{buildroot}%{_bindir}/%{name}-config
 
 
 %changelog
+* Thu Feb 13 2025 Dan Horák <dan[at]danny.cz> - 4.1.1-5
+- work around GCC 15 / C23 build failure (rhbz#2340957)
+- work around Tcl 9 build failure (rhbz#2337742)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

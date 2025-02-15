@@ -5,7 +5,7 @@
 %global test_data_rls 1271107ccad72c320bc7dc8aefd767cba550101a
 
 Name:           python-%{pypi_name}
-Version:        4.8.1
+Version:        5.0.1
 Release:        %autorelease
 Summary:        MaxMind GeoIP2 API
 

@@ -5,7 +5,7 @@
 # https://gitlab.com/cznic/gc
 %global goipath         modernc.org/gc/v2
 %global forgeurl        https://gitlab.com/cznic/gc
-Version:                2.6.1
+Version:                2.6.3
 %global tag             v%{version}
 
 %gometa -f
@@ -23,9 +23,6 @@ Summary:        Package gc is a Go compiler front end. Work in progess
 License:        BSD-3-Clause
 URL:            %{gourl}
 Source:         %{gosource}
-# Fix build on Go 1.24.
-# Submitted upstream as https://gitlab.com/cznic/gc/-/merge_requests/2
-Patch0001:      0001-Fix-build-with-Go-1.24.patch
 
 %description %{common_description}
 
@@ -33,7 +30,6 @@ Patch0001:      0001-Fix-build-with-Go-1.24.patch
 
 %prep
 %goprep
-%autopatch -p1
 find . ! \( -name v2 -o -name _build -o -name AUTHORS -o -name CONTRIBUTORS -o -name GO-LICENSE -o -name LICENSE \) -maxdepth 1 -exec rm -rvf {} \;
 mv v2/* .
 

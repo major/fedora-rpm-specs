@@ -7,7 +7,7 @@
 
 # https://github.com/google/fscrypt
 %global goipath         github.com/google/fscrypt
-Version:                0.3.4
+Version:                0.3.5
 
 %gometa -f
 
@@ -21,7 +21,7 @@ provides a uniform interface for creating and modifying encrypted directories.}
 %global godocs          CODE_OF_CONDUCT.md CONTRIBUTING.md NEWS.md README.md
 
 Name:           fscrypt
-Release:        7%{?dist}
+Release:        1%{?dist}
 Summary:        Go tool for managing Linux filesystem encryption
 
 License:        Apache-2.0
@@ -49,7 +49,7 @@ This is the PAM module associated with %{name}.
 
 %prep
 %goprep
-%autopatch -p1
+%dnl %autopatch -p1
 
 %generate_buildrequires
 %go_generate_buildrequires
@@ -75,13 +75,7 @@ install -m 0644 -vp %{SOURCE1}          %{buildroot}%{_pam_vendordir}/%{name}
 
 %if %{with check}
 %check
-%ifarch x86_64
 %gocheck
-%else
-# Tests fail on non-x86_64 arches
-# Cf. https://github.com/google/fscrypt/issues/382
-( %gocheck ) || :
-%endif
 %endif
 
 %files
@@ -98,6 +92,9 @@ install -m 0644 -vp %{SOURCE1}          %{buildroot}%{_pam_vendordir}/%{name}
 %gopkgfiles
 
 %changelog
+* Fri Feb 14 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.3.5-1
+- Update to 0.3.5
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

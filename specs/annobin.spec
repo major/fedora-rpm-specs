@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.90
+Version: 12.91
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
@@ -532,6 +532,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Feb 13 2025 Nick Clifton  <nickc@redhat.com> - 12.91-1
+- Annocheck: Fix resource leak.  (RHEL-79253)
+
 * Wed Feb 12 2025 Nick Clifton  <nickc@redhat.com> - 12.90-1
 - Annocheck: Fix double free. Add special handling for COMBOOT modules.
 

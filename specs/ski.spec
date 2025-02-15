@@ -1,19 +1,11 @@
 Name:           ski
-Version:        1.4.0
-Release:        6%{?dist}
+Version:        1.5.0
+Release:        1%{?dist}
 Summary:        IA-64 user and system mode simulator
 
 License:        GPL-2.0-only and GPL-2.0-or-later
 URL:            https://github.com/trofi/ski
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# https://github.com/trofi/ski/pull/3
-Patch1:         ski-1.3.2-header.patch
-# https://github.com/trofi/ski/commit/027b69d20b1e1c737bd41f0b936aae0055a1e8a1
-Patch2:         ski-c99-2.patch
-Patch3: ski-c99-3.patch
-Patch4: ski-c99-4.patch
-Patch5: ski-c99-5.patch
-Patch6: ski-c99-6.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -21,8 +13,12 @@ ExcludeArch:    %{ix86}
 ExcludeArch:    aarch64
 
 BuildRequires:  make
-BuildRequires:  libglade2-devel ncurses-devel elfutils-libelf-devel libgnomeui-devel motif-devel
-BuildRequires:  automake autoconf libtool gperf bison flex
+BuildRequires:  elfutils-libelf-devel
+BuildRequires:  ncurses-devel
+BuildRequires:  automake autoconf libtool
+BuildRequires:  autoconf-archive
+BuildRequires:  gperf
+BuildRequires:  bison flex
 BuildRequires:  libtool-ltdl-devel
 BuildRequires:  gcc
 Obsoletes: %{name}-libs < 1.4.0
@@ -40,7 +36,7 @@ The Ski IA-64 user and system simulator originally developed by HP.
 %build
 ./autogen.sh
 
-%configure --with-x11 --with-gtk --enable-shared --disable-static
+%configure
 %make_build
 
 
@@ -52,17 +48,20 @@ The Ski IA-64 user and system simulator originally developed by HP.
 %license COPYING
 %doc AUTHORS NEWS README TODO ChangeLog
 %doc doc/ski-notes.html doc/manual/*.pdf
-%config(noreplace) %{_sysconfdir}/X11/app-defaults/*
 %{_bindir}/ski
-%{_bindir}/bski*
-%{_bindir}/gski
-%{_bindir}/xski
+%{_bindir}/bski
+%{_bindir}/bskinc
 %{_bindir}/ski-fake-xterm
-%{_mandir}/man1/*
-%{_datadir}/%{name}
+%{_mandir}/man1/ski.1*
+%{_mandir}/man1/bski.1*
+%{_mandir}/man1/bskinc.1*
 
 
 %changelog
+* Thu Feb 13 2025 Dan Horák <dan[at]danny.cz> - 1.5.0-1
+- updated to 1.5.0
+- fixes GCC 15 FTBFS (rhbz#2341356)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

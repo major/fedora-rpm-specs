@@ -39,7 +39,6 @@ BuildRequires: autoconf automake libtool
 
 Requires:         firewalld-filesystem
 Requires:         environment(modules)
-Requires(pre):    shadow-utils
 Requires(post):   systemd
 Requires(preun):  systemd
 Requires(postun): systemd
@@ -89,6 +88,11 @@ mkdir SELinux
 cp -p %{SOURCE3} %{SOURCE4} %{SOURCE5} SELinux
 mkdir fedora
 cp -p %{SOURCE6} %{SOURCE7} %{SOURCE9} %{SOURCE10} %{SOURCE11} fedora
+
+# Create a sysusers.d config file
+cat >icecream.sysusers.conf <<EOF
+u icecc - 'Icecream distributed compiler' %{_localstatedir}/cache/icecream -
+EOF
 
 %build
 ./autogen.sh
@@ -172,19 +176,14 @@ if [ $? == 0  -a "${SELINUXTYPE}" == %1 -a -f ${FILE_CONTEXT}.%{name} ]; then \
 	rm -f ${FILE_CONTEXT}.%name; \
 fi;
 
+install -m0644 -D icecream.sysusers.conf %{buildroot}%{_sysusersdir}/icecream.conf
+
 %pre
 %if %{with selinux}
 for selinuxvariant in %{selinux_variants}; do
 	%saveFileContext ${selinuxvariant}
 done
 %endif
-
-getent group icecc >/dev/null || groupadd -r icecc
-getent passwd icecc >/dev/null || \
-	useradd -r -g icecc -d %{_localstatedir}/cache/icecream \
-	-s /sbin/nologin -c "Icecream distributed compiler" icecc
-exit 0
-
 %post
 /sbin/ldconfig
 %if %{with selinux}
@@ -265,6 +264,7 @@ exit 0
 %{?with_selinux:%{_datadir}/selinux/*/icecream.pp}
 %{_prefix}/lib/firewalld/services/icecream.xml
 %{_prefix}/lib/firewalld/services/icecream-scheduler.xml
+%{_sysusersdir}/icecream.conf
 
 %files devel
 %dir %{_includedir}/icecc/

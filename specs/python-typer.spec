@@ -54,7 +54,8 @@ typer-cli.}
 Summary:        %{summary}
 
 %if %[ %{defined fc41} || %{defined fc42} || %{defined fc43} ]
-# Introduced in F41
+# The python3-typer-slim package was introduced in F41; it corresponds roughly
+# to the python3-typer (vs. python3-typer+all) in F40.
 Obsoletes:      python3-typer < 0.12.1-1
 Conflicts:      python3-typer < 0.12.1-1
 %endif
@@ -68,6 +69,13 @@ Summary:        %{summary}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_requiring_base_package
 Requires:       python3-typer-cli = %{version}-%{release}
 Requires:       python3-typer-slim = %{version}-%{release}
+
+%if %[ %{defined fc41} || %{defined fc42} || %{defined fc43} ]
+# The python3-typer+all metapackage package was removed in F41; since
+# python3-typer-slim was introduced, python3-typer is the closest replacement.
+Obsoletes:      python3-typer+all < 0.12.1-1
+Conflicts:      python3-typer+all < 0.12.1-1
+%endif
 
 %description -n python3-typer %{common_description}
 

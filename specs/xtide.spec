@@ -2,11 +2,17 @@
 #%%define          betatag   dev-20160114
 %define          dwfdate   20241229
 
-%define          baserelease 9
+%define          baserelease 10
 
 
 %define          rel        %{?betatag:0.}%{baserelease}%{?betatag:.%(echo %betatag | sed -e 's|-||g')}
 
+%if 0%{?fedora} >= 42
+%global          use_systemd_sysusers  1
+%else
+# Drop this when F41 gets EOF
+%global          use_systemd_sysusers  0
+%endif
 
 Summary:         Calculate tide all over the world
 Name:            xtide
@@ -60,7 +66,9 @@ Requires:        xorg-x11-fonts-misc
 Requires:        xtide-common = %{version}-%{release}
 Requires:        libxtide%{?_isa} = %{version}-%{release}
 
+%if ! %{use_systemd_sysusers}
 Requires(pre):      shadow-utils
+%endif
 Requires(preun):    systemd
 Requires(postun):   systemd
 Requires(post):     systemd
@@ -163,6 +171,13 @@ sed -i.rpath configure \
 sed -i.rpath ltmain.sh \
 	-e 's|\$finalize_rpath|\$finalize_no_rpath|' \
 	%{nil}
+
+%if %{use_systemd_sysusers}
+# Create a sysusers.d config file
+cat >xtide.sysusers.conf <<EOF
+u xttpd - 'XTide web server' %{_sysconfdir}/%{name} -
+EOF
+%endif
 
 %build
 %configure \
@@ -268,6 +283,10 @@ cp -a harmonics-dwf-%{dwfdate}/[A-Z]* \
 # 3 cleanup
 rm -rf $RPM_BUILD_ROOT%{_libdir}/libxtide.{a,la}
 
+%if %{use_systemd_sysusers}
+install -m0644 -D xtide.sysusers.conf %{buildroot}%{_sysusersdir}/xtide.conf
+%endif
+
 %post
 %systemd_post xttpd.socket xttpd.service
 exit 0
@@ -278,6 +297,7 @@ exit 0
 
 
 %pre
+%if ! %{use_systemd_sysusers}
 getent group xttpd &>/dev/null || \
    %{_sbindir}/groupadd -r xttpd
 getent passwd xttpd &> /dev/null || \
@@ -288,6 +308,7 @@ getent passwd xttpd &> /dev/null || \
    -r \
    -s /sbin/nologin \
    xttpd 2>/dev/null
+%endif
 exit 0
 
 %preun
@@ -339,8 +360,17 @@ exit 0
 
 %{_sbindir}/xttpd
 %{_datadir}/man/man8/xttpd.8*
+%if %{use_systemd_sysusers}
+%{_sysusersdir}/xtide.conf
+%endif
 
 %changelog
+* Thu Feb 13 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.15.5-10
+- Only apply Systemd Sysusers.d usage for F-42+
+
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.15.5-10
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

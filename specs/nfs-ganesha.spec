@@ -123,7 +123,7 @@ Requires: openSUSE-release
 
 Name:		nfs-ganesha
 Version:	6.5
-Release:	2%{?dev:%{dev}}%{?dist}
+Release:	3%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
 Url:		https://github.com/nfs-ganesha/nfs-ganesha/wiki
@@ -235,8 +235,6 @@ BuildRequires: python3-sphinx
 %endif
 %endif
 Requires(post): psmisc
-Requires(pre): /usr/sbin/useradd
-Requires(pre): /usr/sbin/groupadd
 
 %if ( 0%{?fedora} >= 30 || 0%{?rhel} >= 8 )
 Requires: nfs-ganesha-selinux = %{version}-%{release}
@@ -566,6 +564,11 @@ Development headers and auxiliary files for developing with %{name}.
 tar xpf %{SOURCE1}
 %autosetup -p1
 
+# Create a sysusers.d config file
+cat >nfs-ganesha.sysusers.conf <<EOF
+u ganesha - 'NFS-Ganesha Daemon' %{_rundir}/ganesha -
+EOF
+
 %build
 export VERBOSE=1
 mv ../prometheus-cpp-lite-%{prometh_ver_long}/* ./src/monitoring/prometheus-cpp-lite
@@ -712,6 +715,8 @@ rm -f %{buildroot}/%{python3_sitelib}/Ganesha/QtUI/__init__.*
 rm -rf %{buildroot}/%{python3_sitelib}/Ganesha/QtUI/__pycache__
 %endif
 
+install -m0644 -D ../nfs-ganesha.sysusers.conf %{buildroot}%{_sysusersdir}/nfs-ganesha.conf
+
 %post
 %if ( 0%{?suse_version} )
 %service_add_post nfs-ganesha.service nfs-ganesha-lock.service nfs-ganesha-config.service
@@ -730,10 +735,6 @@ restorecon %{_localstatedir}/log/ganesha
 %endif
 killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 
-%pre
-getent group ganesha > /dev/null || groupadd -r ganesha
-getent passwd ganesha > /dev/null || useradd -r -g ganesha -d %{_rundir}/ganesha -s /sbin/nologin -c "NFS-Ganesha Daemon" ganesha
-exit 0
 
 %preun
 %if ( 0%{?suse_version} )
@@ -778,6 +779,7 @@ exit 0
 %{_mandir}/*/ganesha-cache-config.8.gz
 %{_mandir}/*/ganesha-log-config.8.gz
 %endif
+%{_sysusersdir}/nfs-ganesha.conf
 
 %if ( 0%{?with_rados_recov} )
 %files rados-grace
@@ -968,6 +970,9 @@ exit 0
 %endif
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 6.5-3
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

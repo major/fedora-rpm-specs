@@ -1,11 +1,17 @@
-%global neo_major 24
-%global neo_minor 35
-%global neo_build 30872.32
+%global neo_major 25
+%global neo_minor 05
+%global neo_build 32567.12
 
 Name: intel-compute-runtime
 Version: %{neo_major}.%{neo_minor}.%{neo_build}
 Release: %autorelease
 Summary: Compute API support for Intel graphics
+
+%if 0%{?rhel}
+%global patch_new_headers  0
+%else
+%global patch_new_headers  1
+%endif
 
 %global _lto_cflags %{nil}
 %global optflags %{optflags} -Wno-error=maybe-uninitialized
@@ -14,12 +20,10 @@ License: MIT
 URL: https://github.com/intel/compute-runtime
 Source0: %{url}/archive/%{version}/compute-runtime-%{version}.tar.gz
 
-# https://github.com/intel/compute-runtime/pull/761
-# CL/GL sharing fixups
-Patch01: 761.patch
-
 # Support opencl-headers-2024.10.24
-Patch02: 0001-CL-Headers-2024.10.24.patch
+%if 0%{?patch_new_headers}
+Patch01: 0001-CL-Headers-2024.10.24.patch
+%endif
 
 # This is just for Intel GPUs
 ExclusiveArch:  x86_64
@@ -95,6 +99,13 @@ interfaces to offload accelerator devices. Its programming interface can be tail
 needs and can be adapted to support broader set of languages features such as function pointers,
 virtual functions, unified memory, and I/O capabilities..
 
+%package -n    intel-level-zero-devel
+Summary:       oneAPI L0 support implementation for Intel GPUs - Devel Files
+Requires:      intel-level-zero%{?_isa} = %{version}-%{release}
+
+%description -n intel-level-zero-devel
+Devel files for developing against intel-level-zero (oneAPI L0 support implementation for Intel GPUs).
+
 %prep
 %autosetup -p1 -n compute-runtime-%{version}
 
@@ -102,8 +113,10 @@ virtual functions, unified memory, and I/O capabilities..
 rm -rv third_party/sse2neon
 
 # bundled CL headers are leaking into the build
+%if 0%{?patch_new_headers}
 rm -rv third_party/opencl_headers/CL
 ln -s /usr/include/CL/ third_party/opencl_headers/CL
+%endif
 
 %build
 # -DNEO_DISABLE_LD_GOLD=1 for https://bugzilla.redhat.com/show_bug.cgi?id=2043178 and https://bugzilla.redhat.com/show_bug.cgi?id=2043758
@@ -115,7 +128,9 @@ ln -s /usr/include/CL/ third_party/opencl_headers/CL
     -DSKIP_UNIT_TESTS=1 \
     -DNEO_DISABLE_LD_GOLD=1 \
     -DKHRONOS_GL_HEADERS_DIR="/usr/include/GL/" \
+%if 0%{?patch_new_headers}
     -DKHRONOS_HEADERS_DIR="/usr/include/CL/" \
+%endif
     -DNEO_DRM_HEADERS_DIR="/usr/src/kernels/`rpm -q --queryformat '%{Version}-%{Release}.%{Arch}\n' kernel-devel | tail -n1`/include/uapi/drm/" \
     -DNEO_I915_HEADERS_DIR="/usr/src/kernels/`rpm -q --queryformat '%{Version}-%{Release}.%{Arch}\n' kernel-devel | tail -n1`/include/uapi/drm/" \
     -DNEO_XE_HEADERS_DIR="/usr/src/kernels/`rpm -q --queryformat '%{Version}-%{Release}.%{Arch}\n' kernel-devel | tail -n1`/include/uapi/drm/" \
@@ -142,7 +157,10 @@ popd
 %files -n intel-level-zero
 %license LICENSE.md
 %{_libdir}/libze_intel_gpu.so.*
-%{_includedir}/level_zero/zet_intel_gpu_debug.h
+
+%files -n intel-level-zero-devel
+%{_includedir}/level_zero/*.h
+%{_includedir}/level_zero/driver_experimental/*.h
 
 %files -n intel-ocloc
 %license LICENSE.md

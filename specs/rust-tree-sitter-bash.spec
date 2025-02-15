@@ -12,8 +12,11 @@ Summary:        Bash grammar for tree-sitter
 License:        MIT
 URL:            https://crates.io/crates/tree-sitter-bash
 Source:         %{crates_source}
-Source2:         https://raw.githubusercontent.com/tree-sitter/tree-sitter-bash/refs/tags/v%{version}/LICENSE
+# * include license file
+# * https://github.com/tree-sitter/tree-sitter-bash/pull/286
+Source1:        https://raw.githubusercontent.com/tree-sitter/tree-sitter-bash/refs/tags/v%{version}/LICENSE
 # Manually created patch for downstream crate metadata changes
+# * include LICENSE
 Patch:          tree-sitter-bash-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -52,7 +55,8 @@ use the "default" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-cp -pav %{SOURCE2} %{buildroot}/%{crate_instdir}
+# copy in license file
+cp -p %{SOURCE1} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

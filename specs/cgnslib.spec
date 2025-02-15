@@ -7,7 +7,7 @@
 
 Name:           cgnslib
 Version:        4.5.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Computational Fluid Dynamics General Notation System
 License:        Zlib
 URL:            http://www.cgns.org/
@@ -404,6 +404,9 @@ ctest || :
 
 
 %changelog
+* Thu Feb 13 2025 Orion Poplawski <orion@nwra.com> - 4.5.0-4
+- Rebuild with hdf5 1.14.6
+
 * Tue Jan 28 2025 Sandro Mani <manisandro@gmail.com> - 4.5.0-3
 - Build with -DCGNS_ENABLE_SCOPING=ON to avoid symbol collisions with gmsh
 

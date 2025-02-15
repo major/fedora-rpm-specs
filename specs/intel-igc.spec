@@ -1,4 +1,4 @@
-%global vc_commit 4daa8d19b44a6fcb8e5f7e87a276363d3dab4b75
+%global vc_commit 9d255266e1df8f1dc5d11e1fbb03213acfaa4fc7
 %global vc_shortcommit %(c=%{vc_commit}; echo ${c:0:7})
 
 %global optflags %{optflags} -w
@@ -9,13 +9,13 @@
 %endif
 
 Name: intel-igc
-Version: 1.0.17791.18
+Version: 2.7.8
 Release: %autorelease
 Summary: Intel Graphics Compiler for OpenCL
 
 License: MIT
 URL: https://github.com/intel/intel-graphics-compiler
-Source0: %{url}/archive/igc-%{version}/igc-%{version}.tar.gz
+Source0: %{url}/archive/v%{version}/v%{version}.tar.gz
 Source1: https://github.com/intel/vc-intrinsics/archive/%{vc_commit}/vc-intrinsics-%{vc_shortcommit}.tar.gz
 
 # This is just for Intel GPUs
@@ -73,7 +73,7 @@ Library files for Intel Graphics Compiler for OpenCL.
 %prep
 tar -xf %{SOURCE1}
 
-%autosetup -n intel-graphics-compiler-igc-%{version} -p1
+%autosetup -n intel-graphics-compiler-%{version} -p1
 
 %build
 %cmake \
@@ -108,20 +108,19 @@ tar -xf %{SOURCE1}
 
 %files
 %{_bindir}/iga{32,64}
-%{_bindir}/GenX_IR
 
 %files libs
 %license LICENSE.md
-%license %{_libdir}/igc/NOTICES.txt
-%dir %{_libdir}/igc/
-%{_libdir}/libiga{32,64}.so.1{,.*}
-%{_libdir}/libigc.so.1{,.*}
-%{_libdir}/libigdfcl.so.1{,.*}
+%license %{_libdir}/igc2/NOTICES.txt
+%dir %{_libdir}/igc2/
+%{_libdir}/libiga{32,64}.so.2.*
+%{_libdir}/libigc.so.2.*+*
+%{_libdir}/libigdfcl.so.2.*
 
 %files devel
-%{_libdir}/libiga{32,64}.so
-%{_libdir}/libigc.so
-%{_libdir}/libigdfcl.so
+%{_libdir}/libiga{32,64}.so.2
+%{_libdir}/libigc.so.2
+%{_libdir}/libigdfcl.so.2
 %{_includedir}/igc
 %{_includedir}/iga
 %{_includedir}/visa

@@ -14,7 +14,7 @@
 %bcond it 0
 
 Name:           uv
-Version:        0.5.30
+Version:        0.5.31
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 

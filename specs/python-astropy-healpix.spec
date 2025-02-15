@@ -2,18 +2,13 @@
 %global modname astropy_healpix
 
 Name:           python-%{srcname}
-Version:        1.0.3
+Version:        1.1.0
 Release:        %autorelease
 Summary:        HEALPix for Astropy
 
 License:        BSD-3-Clause
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        %{pypi_source astropy_healpix}
-# https://github.com/astropy/astropy-healpix/issues/183
-# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1026012
-# https://salsa.debian.org/debian-astro-team/astropy-healpix/-/blob/master/debian/patches/Temporarily-disable-tests-that-fail-due-to-limited-FP-pre.patch
-Patch0:         astropy_healpix-0.7-disable-FP-limited-test.patch
-
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
 
@@ -37,10 +32,6 @@ Summary: %{summary}
 
 # Remove egg files from source
 rm -r %{modname}.egg-info
-
-# Drop version constraint from numpy. Allow building with NumPy 1.x.
-# Current stable branches still require that.
-sed -r -i 's/(numpy).*"/\1"/' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires -x test

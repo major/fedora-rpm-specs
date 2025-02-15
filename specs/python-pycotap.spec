@@ -3,11 +3,11 @@
 
 Name:           python-%{pypi_name}
 Version:        1.3.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A tiny test runner that outputs TAP results to standard output
 
 License:        MIT
-URL:            https://el-tramo.be/pycotap
+URL:            https://github.com/remko/pycotap
 Source0:        %{pypi_source}
 BuildArch:      noarch
 
@@ -16,7 +16,7 @@ BuildRequires:  python3dist(setuptools)
 
 %description
 pycotap is a simple Python test runner for unit tests that outputs Test Anything
-Protocol results directly to standard output.Contrary to other TAP runners
+Protocol results directly to standard output. Contrary to other TAP runners
 for Python, pycotap prints TAP (and *only* TAP) to standard output
 instead of to a separate file, allowing you to pipe it directly to TAP pretty
 printers and processors.
@@ -27,7 +27,7 @@ Summary:        %{summary}
 
 %description -n python3-%{pypi_name}
 pycotap is a simple Python test runner for unit tests that outputs Test Anything
-Protocol results directly to standard output.Contrary to other TAP runners
+Protocol results directly to standard output. Contrary to other TAP runners
 for Python, pycotap prints TAP (and *only* TAP) to standard output
 instead of to a separate file, allowing you to pipe it directly to TAP pretty
 printers and processors.
@@ -50,6 +50,9 @@ find %{buildroot}/%{python3_sitelib} -name '*.py' | xargs sed -i '/^#!/d'
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Feb 13 2025 Shlomi Fish <shlomif@shlomifish.org> 1.3.1-5
+- Update URL.
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

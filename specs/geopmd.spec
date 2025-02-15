@@ -49,7 +49,6 @@ Summary:        Python bindings for libgeopmd
 
 %prep
 %autosetup -p1 -n geopm-%{version}
-sed -i 's/usr\/bin/usr\/sbin/g' libgeopmd/geopm.service
 
 pushd %{prj_name}
 echo %{version} > %{prj_name}/VERSION
@@ -65,8 +64,6 @@ pushd %{prj_name}
 %py3_install
 mkdir -p %{buildroot}%{_sysconfdir}/geopm
 chmod 0700 %{buildroot}%{_sysconfdir}/geopm
-mkdir -p %{buildroot}%{_sbindir}
-mv %{buildroot}{%{_bindir},%{_sbindir}}/geopmd
 popd
 install -D -p -m 644 libgeopmd/io.github.geopm.xml %{buildroot}%{_datadir}/dbus-1/interfaces/io.github.geopm.xml
 install -D -p -m 644 libgeopmd/io.github.geopm.conf %{buildroot}%{_datadir}/dbus-1/system.d/io.github.geopm.conf
@@ -82,7 +79,7 @@ popd
 %doc README.md
 %{_bindir}/geopmaccess
 %{_bindir}/geopmsession
-%{_sbindir}/geopmd
+%{_bindir}/geopmd
 %dir %{_sysconfdir}/geopm
 %{_datadir}/dbus-1/interfaces/io.github.geopm.xml
 %{_datadir}/dbus-1/system.d/io.github.geopm.conf

@@ -1,9 +1,8 @@
 Name:    scottfree
 Version: 1.14
-Release: 32%{?dist}
+Release: 33%{?dist}
 Summary: Interpreter for Scott Adams format text adventure games
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL:     http://ifarchive.org/if-archive/scott-adams/interpreters/scottfree/
 Source0: http://ifarchive.org/if-archive/scott-adams/interpreters/scottfree/ScottFree.tar.gz
@@ -22,6 +21,8 @@ Patch2: %{name}-1.14-format_strings.patch
 # https://salsa.debian.org/games-team/scottfree/blob/master/debian/patches/04_968375.patch
 Patch3: %{name}-1.14-fscanf.patch
 Patch4: scottfree-c99.patch
+# Fix building with gcc 15
+Patch5: %{name}-1.14-gcc15.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -63,6 +64,9 @@ install -p -m 644 %{SOURCE1} %{buildroot}%{_mandir}/man6/
 
 
 %changelog
+* Thu Feb 13 2025 Andrea Musuruane <musuruan@gmail.com> - 1.14-33
+- Fix FTBFS (BZ #2341333)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

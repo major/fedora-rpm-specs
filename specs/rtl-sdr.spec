@@ -14,14 +14,13 @@ Name:             rtl-sdr
 URL:              http://sdr.osmocom.org/trac/wiki/rtl-sdr
 #Version:          0.6.0^%%{git_suffix}
 Version:          2.0.1
-Release:          4%{?dist}
+Release:          5%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:          GPL-2.0-or-later
 BuildRequires:    gcc
 BuildRequires:    cmake
 BuildRequires:    libusbx-devel
 #BuildRequires:    libusb1-devel
-Requires(pre):    shadow-utils
 Requires(pre):    glibc-common
 Summary:          SDR utilities for Realtek RTL2832 based DVB-T dongles
 #Source0:          https://github.com/steve-m/librtlsdr/archive/%%{git_commit}/librtlsdr-%%{git_commit}.tar.gz
@@ -46,6 +45,11 @@ Development files for rtl-sdr.
 rm -f src/getopt/*
 rmdir src/getopt
 
+# Create a sysusers.d config file
+cat >rtl-sdr.sysusers.conf <<EOF
+g rtlsdr -
+EOF
+
 %build
 %cmake -DDETACH_KERNEL_DRIVER=ON
 %cmake_build
@@ -60,10 +64,8 @@ rm -f %{buildroot}%{_libdir}/*.a
 sed -i 's/GROUP="plugdev"/GROUP="rtlsdr"/' ./rtl-sdr.rules
 install -Dpm 644 ./rtl-sdr.rules %{buildroot}%{_prefix}/lib/udev/rules.d/10-rtl-sdr.rules
 
-%pre
-getent group rtlsdr >/dev/null || \
-  %{_sbindir}/groupadd -r rtlsdr >/dev/null 2>&1
-exit 0
+install -m0644 -D rtl-sdr.sysusers.conf %{buildroot}%{_sysusersdir}/rtl-sdr.conf
+
 
 %ldconfig_scriptlets
 
@@ -73,6 +75,7 @@ exit 0
 %{_bindir}/*
 %{_libdir}/*.so.*
 %{_prefix}/lib/udev/rules.d/10-rtl-sdr.rules
+%{_sysusersdir}/rtl-sdr.conf
 
 %files devel
 %{_includedir}/*
@@ -81,6 +84,9 @@ exit 0
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.0.1-5
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

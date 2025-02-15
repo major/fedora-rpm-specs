@@ -132,11 +132,11 @@ This package contains  supplemental wallpapers for XFCE
 
 %build
 %make_build %{?with_extras:SUBDIRS="default extras"}
-# Fix permission
-chmod 644 %{buildroot}%{_datadir}/wallpapers/%{Bg_Name}/metadata.json
 
 %install
 %make_install %{?with_extras:SUBDIRS="default extras"}
+# Fix permission
+chmod 644 %{buildroot}%{_datadir}/wallpapers/%{Bg_Name}/metadata.json
 
 %files
 %doc

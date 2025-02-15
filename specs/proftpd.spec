@@ -49,6 +49,7 @@ Patch11:		mod_proxy-old-openssl.patch
 Patch12:		proftpd-1.3.8c-no-engine.patch
 Patch13:		proftpd-1.3.8b-format-overflow.patch
 Patch14:		proftpd-1.3.8c-c23.patch
+Patch15:		https://github.com/proftpd/proftpd/commit/9b2b4a3e.patch
 
 BuildRequires:		coreutils
 BuildRequires:		gcc
@@ -252,6 +253,10 @@ mv contrib/README contrib/README.contrib
 # Fix for C23 compatibility
 # These are already non-issues in proftpd 1.3.9 upstream
 %patch -P 14 -p0 -b .c23
+
+# Avoid NULL pointer dereferences in mod_ls (CVE-2024-57392)
+# https://github.com/proftpd/proftpd/issues/1866
+%patch -P 15 -p1 -b .CVE-2024-57392
 
 # Tweak logrotate script for systemd compatibility (#802178)
 sed -i -e '/killall/s/test.*/systemctl try-reload-or-restart proftpd.service/' \
@@ -490,7 +495,9 @@ fi
 %{_mandir}/man1/ftpwho.1*
 
 %changelog
-* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1.3.8c-3
+* Thu Feb 13 2025 Paul Howarth <paul@city-fan.org> - 1.3.8c-3
+- Avoid NULL pointer dereferences in mod_ls (CVE-2024-57392)
+  - https://github.com/proftpd/proftpd/issues/1866
 - Add explicit BR: libxcrypt-devel
 
 * Fri Jan 17 2025 Paul Howarth <paul@city-fan.org> - 1.3.8c-2

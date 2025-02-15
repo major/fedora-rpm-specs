@@ -6,7 +6,7 @@
 %global cargo_install_lib 0
 
 Name:           vaultwarden
-Version:        1.33.0
+Version:        1.33.2
 Release:        1%{?dist}
 Summary:        Unofficial Bitwarden compatible server
 
@@ -54,6 +54,7 @@ BuildRequires:  systemd-rpm-macros
 Requires:       %{name}-web
 
 Patch:          remove-remote-git-patch.patch
+Patch:          downgrade_diesel_version.patch
 %if 0%{?rhel} == 9
 Patch:          remove-rust-version-check.patch
 Patch:          enable-unstable-apis.patch
@@ -163,6 +164,10 @@ install -Dp %{SOURCE2} %{buildroot}%{_unitdir}/%{name}.service
 
 
 %changelog
+* Mon Feb 10 2025 Jonathan Wright <jonathan@almalinux.org> - 1.33.2-1
+- update to 1.33.2 rhbz#2343535
+  Fix CVE-2025-0977 ssl::select_next_proto use after free rhbz#2344558
+
 * Thu Jan 30 2025 Jonathan Wright <jonathan@almalinux.org> - 1.33.0-1
 - update to 1.33.0 rhbz#2342073
   Fix GHSA-f7r5-w49x-gxm3 Getting access to the Admin Panel via CSRF

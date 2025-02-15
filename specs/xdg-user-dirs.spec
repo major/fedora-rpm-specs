@@ -3,29 +3,40 @@
 
 Name:		xdg-user-dirs
 Version:	0.18
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Handles user special directories
 
 License:	GPL-2.0-or-later AND MIT
 URL:		https://freedesktop.org/wiki/Software/xdg-user-dirs
 Source0:	https://user-dirs.freedesktop.org/releases/%{name}-%{version}.tar.gz
 
-BuildRequires: make
-BuildRequires:  gcc
-BuildRequires:	gettext
-BuildRequires:  docbook-style-xsl
-BuildRequires:  libxslt
-Requires:      %{_sysconfdir}/xdg/autostart
+# Backports from upstream
+Patch0001:	0001-Add-a-systemd-service-to-run-xdg-user-dirs-update.patch
+Patch0002:	0002-Install-systemd-service-file.patch
+
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	make
+BuildRequires:	gcc
+BuildRequires:	gettext-devel
+BuildRequires:	git-core
+BuildRequires:	docbook-style-xsl
+BuildRequires:	libxslt
+BuildRequires:	systemd-rpm-macros
+Requires:	%{_sysconfdir}/xdg/autostart
 
 %description
 Contains xdg-user-dirs-update that updates folders in a users
 homedirectory based on the defaults configured by the administrator.
 
 %prep
-%setup -q
+%autosetup -S git_am
+
+%conf
+autoreconf -fiv
+%configure
 
 %build
-%configure
 %make_build
 
 %install
@@ -43,9 +54,14 @@ homedirectory based on the defaults configured by the administrator.
 %{_sysconfdir}/xdg/autostart/*
 %{_mandir}/man1/*
 %{_mandir}/man5/*
+%{_userunitdir}/xdg-user-dirs.service
 
 
 %changelog
+* Thu Feb 13 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.18-7
+- Backport patches to install systemd units to fix initialization races (#2319081)
+- Fix minor spec formatting inconsistencies
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

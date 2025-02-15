@@ -18,7 +18,7 @@ Name:    ppp
 # These all need to be patched (if necessary) and rebuilt for new
 # versions of ppp.
 Version: 2.5.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: The Point-to-Point Protocol daemon
 License: bsd-3-clause AND zlib AND licenseref-fedora-public-domain AND bsd-attribution-hpnd-disclaimer AND bsd-4.3tahoe AND bsd-4-clause-uc AND apache-2.0 AND lgpl-2.0-or-later AND (gpl-2.0-or-later OR bsd-2-clause OR bsd-3-clause OR bsd-4-clause) AND gpl-2.0-or-later AND xlock AND gpl-1.0-or-later AND mackerras-3-clause-acknowledgment AND mackerras-3-clause AND hpnd-fenneberg-Livingston AND sun-ppp AND hpnd-inria-imag AND sun-ppp-2000
 URL:     http://www.samba.org/ppp
@@ -62,8 +62,6 @@ Requires: glibc >= 2.0.6
 Requires: /etc/pam.d/system-auth
 Requires: libpcap >= 14:0.8.3-6
 Requires: systemd
-Requires(pre): /usr/bin/getent
-Requires(pre): /usr/sbin/groupadd
 
 # Subpackage removed and obsoleted in F40
 Obsoletes: network-scripts-ppp < %{version}-%{release}
@@ -87,6 +85,11 @@ This package contains the header files for building plugins for ppp.
 %autosetup -p1 -n %{name}-%{name}-%{version}
 
 tar -xJf %{SOURCE12}
+
+# Create a sysusers.d config file
+cat >ppp.sysusers.conf <<EOF
+g dip 40
+EOF
 
 %build
 autoreconf -fi
@@ -141,8 +144,8 @@ popd
 mv %{buildroot}/usr/sbin/ppp-watch %{buildroot}%{_bindir}/
 %endif
 
-%pre
-/usr/bin/getent group dip >/dev/null 2>&1 || /usr/sbin/groupadd -r -g 40 dip >/dev/null 2>&1 || :
+install -m0644 -D ppp.sysusers.conf %{buildroot}%{_sysusersdir}/ppp.conf
+
 
 %post
 %tmpfiles_create ppp.conf
@@ -186,6 +189,7 @@ mv %{buildroot}/usr/sbin/ppp-watch %{buildroot}%{_bindir}/
 %config(noreplace) %{_sysconfdir}/pam.d/ppp
 %config(noreplace) %{_sysconfdir}/logrotate.d/ppp
 %{_tmpfilesdir}/ppp.conf
+%{_sysusersdir}/ppp.conf
 
 %files devel
 %{_includedir}/pppd
@@ -193,6 +197,9 @@ mv %{buildroot}/usr/sbin/ppp-watch %{buildroot}%{_bindir}/
 %{_libdir}/pkgconfig/pppd.pc
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.5.1-5
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 2.5.1-4
 - Add explicit BR: libxcrypt-devel
 

@@ -1,5 +1,5 @@
 Name:           nox
-Version:        2024.10.09
+Version:        2025.02.09
 Release:        %autorelease
 Summary:        Flexible test automation
 
@@ -20,10 +20,6 @@ file for configuration.
 
 %prep
 %autosetup -p1 -n nox-%{version}
-# Fix test compatibility with Python 3.12.8+
-# Fixed upstream in https://github.com/wntrblm/nox/commit/28bbaa
-# but the patch does not apply cleanly.
-sed -i '/@mock.patch("sys.platform", "win32")/d' tests/test_command.py
 
 %generate_buildrequires
 %pyproject_buildrequires -r -x tox_to_nox
@@ -36,7 +32,13 @@ sed -i '/@mock.patch("sys.platform", "win32")/d' tests/test_command.py
 %pyproject_save_files nox
 
 %check
-%pytest -k "not test__create_venv_options[nox.virtualenv.CondaEnv.create-conda-CondaEnv]"
+# Skipped tests:
+# - test__create_venv_options requires conda
+# - test_main_requires requires alternative Python interpreters
+# - test_noxfile_script_mode installs from PyPI
+%pytest -k "not test__create_venv_options[nox.virtualenv.CondaEnv.create-conda-CondaEnv] and \
+            not test_main_requires[sessions2-expected_order2] and not test_main_requires[sessions1-expected_order1] and\
+            not test_noxfile_script_mode"
 
 %files -f %{pyproject_files}
 %{_bindir}/nox
@@ -46,7 +48,7 @@ sed -i '/@mock.patch("sys.platform", "win32")/d' tests/test_command.py
 
 %pyproject_extras_subpkg -n nox tox_to_nox
 %pycached %{python3_sitelib}/nox/tox_to_nox.py
-%{python3_sitelib}/nox/tox_to_nox.jinja2
+%{python3_sitelib}/nox/tox4_to_nox.jinja2
 %{_bindir}/tox-to-nox
 
 %changelog

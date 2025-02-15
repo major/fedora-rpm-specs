@@ -204,7 +204,7 @@ find $RPM_BUILD_ROOT -name \*.la | xargs rm
 
 pushd $RPM_BUILD_ROOT/usr/bin
 rm amandad
-ln -s ../%_lib/amandad
+ln -s ../%_lib/amanda/amandad
 popd
 
 %check

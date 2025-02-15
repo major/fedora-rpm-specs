@@ -32,6 +32,13 @@
 %define silent --silent
 
 %if %{defined rhel}
+%if %{rhel} < 10
+  %define rhelcfg rhel-9
+  %define RHELCFG RHEL-9
+%else
+  %define rhelcfg rhel-10
+  %define RHELCFG RHEL-10
+%endif
 %define build_ovmf 0
 %define build_aarch64 0
 %ifarch x86_64
@@ -104,6 +111,7 @@ Source80: edk2-build.py
 Source81: edk2-build.fedora
 Source82: edk2-build.fedora.platforms
 Source83: edk2-build.rhel-9
+Source84: edk2-build.rhel-10
 
 Source90: DBXUpdate-%{DBXDATE}.x64.bin
 Source91: DBXUpdate-%{DBXDATE}.ia32.bin
@@ -127,9 +135,11 @@ Patch0016: 0016-OvmfPkg-PlatformInitLib-enable-x2apic-mode-if-needed.patch
 %if 0%{?fedora} >= 38 || 0%{?rhel} >= 10
 Patch0017: 0017-silence-.-has-a-LOAD-segment-with-RWX-permissions-wa.patch
 %endif
-Patch0018: 0018-xen-pcd-lib-override.patch
-Patch0019: 0019-MdePkg-BaseFdtLib-fix-build-with-gcc-15.patch
-Patch0020: 0020-BaseTools-Pccts-set-C-standard.patch
+Patch0018: 0018-MdePkg-BaseFdtLib-fix-build-with-gcc-15.patch
+Patch0019: 0019-BaseTools-Pccts-set-C-standard.patch
+Patch0020: 0020-OvmfPkg-OvmfXen-use-PeiPcdLib-for-PEI_CORE.patch
+Patch0021: 0021-OvmfPkg-MicroVM-use-PeiPcdLib-for-PEI_CORE.patch
+Patch0022: 0022-OvmfPkg-make-legacy-direct-kernel-loader-code-nx-cle.patch
 
 
 # needed by %prep
@@ -357,7 +367,7 @@ cp -a -- \
    %{SOURCE45} %{SOURCE46} %{SOURCE47} %{SOURCE48} \
    %{SOURCE50} \
    %{SOURCE60} \
-   %{SOURCE80} %{SOURCE81} %{SOURCE82} %{SOURCE83} \
+   %{SOURCE80} %{SOURCE81} %{SOURCE82} %{SOURCE83} %{SOURCE84} \
    %{SOURCE90} %{SOURCE91} \
    .
 
@@ -408,17 +418,17 @@ python3 CryptoPkg/Library/OpensslLib/configure.py
 %if %{build_ovmf}
 %if %{defined rhel}
 
-./edk2-build.py --config edk2-build.rhel-9 %{?silent} --release-date "$RELEASE_DATE" -m ovmf
-virt-fw-vars --input   RHEL-9/ovmf/OVMF_VARS.fd \
-             --output  RHEL-9/ovmf/OVMF_VARS.secboot.fd \
+./edk2-build.py --config edk2-build.%{rhelcfg} %{?silent} --release-date "$RELEASE_DATE" -m ovmf
+virt-fw-vars --input   %{RHELCFG}/ovmf/OVMF_VARS.fd \
+             --output  %{RHELCFG}/ovmf/OVMF_VARS.secboot.fd \
              --set-dbx DBXUpdate-%{DBXDATE}.x64.bin \
              --enroll-redhat --secure-boot
-virt-fw-vars --input   RHEL-9/ovmf/OVMF.inteltdx.fd \
-             --output  RHEL-9/ovmf/OVMF.inteltdx.secboot.fd \
+virt-fw-vars --input   %{RHELCFG}/ovmf/OVMF.inteltdx.fd \
+             --output  %{RHELCFG}/ovmf/OVMF.inteltdx.secboot.fd \
              --set-dbx DBXUpdate-%{DBXDATE}.x64.bin \
              --enroll-redhat --secure-boot
-build_iso RHEL-9/ovmf
-cp DBXUpdate-%{DBXDATE}.x64.bin RHEL-9/ovmf
+build_iso %{RHELCFG}/ovmf
+cp DBXUpdate-%{DBXDATE}.x64.bin %{RHELCFG}/ovmf
 
 %else
 
@@ -445,7 +455,7 @@ build_iso Fedora/ovmf-ia32
 cp DBXUpdate-%{DBXDATE}.x64.bin Fedora/ovmf
 cp DBXUpdate-%{DBXDATE}.ia32.bin Fedora/ovmf-ia32
 
-for raw in */{ovmf,experimental}/*_4M*.fd; do
+for raw in */ovmf/*_4M*.fd; do
     qcow2="${raw%.fd}.qcow2"
     qemu-img convert -f raw -O qcow2 -o cluster_size=4096 -S 4096 "$raw" "$qcow2"
     rm -f "$raw"
@@ -480,7 +490,7 @@ done
 
 %if %{build_aarch64}
 %if %{defined rhel}
-./edk2-build.py --config edk2-build.rhel-9 %{?silent} --release-date "$RELEASE_DATE" -m armvirt
+./edk2-build.py --config edk2-build.%{rhelcfg} %{?silent} --release-date "$RELEASE_DATE" -m armvirt
 %else
 ./edk2-build.py --config edk2-build.fedora %{?silent} --release-date "$RELEASE_DATE" -m armvirt
 ./edk2-build.py --config edk2-build.fedora.platforms %{?silent} -m aa64
@@ -535,7 +545,7 @@ install BaseTools/Scripts/GccBase.lds \
 # install firmware images
 mkdir -p %{buildroot}%{_datadir}/%{name}
 %if %{defined rhel}
-cp -av RHEL-9/* %{buildroot}%{_datadir}/%{name}
+cp -av %{RHELCFG}/* %{buildroot}%{_datadir}/%{name}
 %else
 cp -av Fedora/* %{buildroot}%{_datadir}/%{name}
 %endif
@@ -767,7 +777,6 @@ done
 %if %{build_aarch64}
 %{_datadir}/%{name}/experimental/*.raw
 %endif
-%{_datadir}/%{name}/experimental/*.qcow2
 %{_datadir}/%{name}/experimental/*.pcrlock
 
 %files ovmf-xen

@@ -56,6 +56,18 @@ Requires:	geopmd
 %prep
 %autosetup -p1 -n geopm-%{version}
 
+# gcc 15 include cstdint
+sed -i '/#include <cmath>.*/a#include <cstdint>' libgeopmd/src/Cpuid.cpp
+sed -i '/#include <cmath>.*/a#include <cstdint>' libgeopmd/contrib/json11/json11.cpp
+sed -i '/#include <memory>.*/a#include <cstdint>' libgeopmd/include/geopm/Cpuid.hpp
+sed -i '/#include <functional>.*/a#include <cstdint>' libgeopmd/src/SSTIOGroup.hpp
+sed -i '/#include <memory>.*/a#include <cstdint>' libgeopmd/src/SSTControl.hpp
+sed -i '/#include <memory>.*/a#include <cstdint>' libgeopmd/src/SSTSignal.hpp
+sed -i '/#include <vector>.*/a#include <cstdint>' libgeopmd/src/SDBus.hpp
+sed -i '/#include <regex>.*/a#include <iomanip>' libgeopmd/test/geopm_test.cpp
+sed -i '/#include <algorithm>.*/a#include <iomanip>' libgeopmd/test/MSRIOGroupTest.cpp
+sed -i 's/struct sigaction newact;/struct sigaction newact = {};/g' libgeopmd/test/POSIXSignalTest.cpp
+
 pushd %{name}
 echo %{version} > VERSION
 autoreconf -vif

@@ -2,9 +2,9 @@
 %undefine __cmake_in_source_build
 
 %global commit da33770d22b404d7333e46e26495eaca0c5a6d8a
-%global gittag 5.8.0
+%global gittag 5.9.0
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global baserelease 5
+%global baserelease 2
 
 ExclusiveArch:  %{ix86} x86_64 aarch64
 
@@ -15,19 +15,20 @@ ExclusiveArch:  %{ix86} x86_64 aarch64
 %endif
 Summary:        Tool to record and replay execution of applications
 Name:           rr
-Version:        5.8.0
+Version:        5.9.0
 Release:        %{baserelease}%{?dist}
 # The entire source code is MIT with the exceptions of
 # files in following directories:
-#   third-party/blake2       CC0
-#   third-party/gdb          BSD
-#   third-party/proc-service BSD
-# Automatically converted from old format: MIT and CC0 and BSD - review is highly recommended.
-License:        LicenseRef-Callaway-MIT AND CC0-1.0 AND LicenseRef-Callaway-BSD
+#   src/external/tree.h            BSD-2-Clause
+#   src/test/dlchecksum.c          Zlib
+#   third-party/blake2             CC0-1.0
+#   third-party/gdb                FSFAP-no-warranty-disclaimer
+#   third-party/proc-service       BSD-2-Clause
+#   third-party/zen-pmu-workaround GPL-2.0-only
+License:        MIT AND BSD-2-Clause AND Zlib AND CC0-1.0 AND FSFAP-no-warranty-disclaimer and GPL-2.0-only
 URL:            http://rr-project.org
 
 Source: https://github.com/rr-debugger/rr/archive/%{gittag}/%{name}-%{version}.tar.gz
-Patch1: rr-gcc15.patch
 
 %if  0%{?rhel} == 7
 BuildRequires: cmake3
@@ -45,6 +46,8 @@ BuildRequires: man-pages
 BuildRequires: capnproto capnproto-libs capnproto-devel
 BuildRequires: patchelf
 BuildRequires: zlib-devel
+BuildRequires: libzstd-devel
+BuildRequires: lldb
 
 %description
 rr is a lightweight tool for recording and replaying execution
@@ -55,6 +58,7 @@ For more information, please visit http://rr-project.org
 Summary: Testsuite for checking rr functionality
 Requires: rr
 Requires: gdb
+Requires: lldb
 Requires: python3
 %if  0%{?rhel} == 7
 Requires: python36-pexpect
@@ -110,6 +114,7 @@ patchelf --set-rpath '%{_libdir}/rr/' %{buildroot}%{_libdir}/rr/testsuite/obj/bi
 %{_bindir}/signal-rr-recording.sh
 %{_bindir}/rr-collect-symbols.py
 %{_datadir}/bash-completion/completions/rr
+%{_datadir}/zsh/site-functions/_rr
 %dir %{_datadir}/rr
 %{_datadir}/rr/*.xml
 
@@ -126,6 +131,13 @@ patchelf --set-rpath '%{_libdir}/rr/' %{buildroot}%{_libdir}/rr/testsuite/obj/bi
 %license LICENSE
 
 %changelog
+* Thu Feb 13 2025 William Cohen <wcohen@redhat.com> - 5.9.0-2
+- Add dependency for libzstd-devel and lldb.
+
+* Thu Feb 13 2025 William Cohen <wcohen@redhat.com> - 5.9.0-1
+- Rebase to rr-5.9.0.
+- Review and update the license SPDX.
+
 * Thu Jan 23 2025 William Cohen <wcohen@redhat.com> - 5.8.0-5
 - Fix FTBFS issue with gcc-15.
 

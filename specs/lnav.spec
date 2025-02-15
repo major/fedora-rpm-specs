@@ -1,19 +1,20 @@
 Name:          lnav
-Version:       0.12.3
-Release:       2%{?dist}
+Version:       0.12.4
+Release:       1%{?dist}
 Summary:       Curses-based tool for viewing and analyzing log files
 # Automatically converted from old format: BSD - review is highly recommended.
 License:       LicenseRef-Callaway-BSD
 
 URL:           http://lnav.org
-Source0:       https://github.com/tstack/lnav/releases/download/v%{version}/%{name}-%{version}.tar.bz2
+Source0:       https://github.com/tstack/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.bz2
 
 BuildRequires: bzip2-devel
 BuildRequires: gcc-c++
 BuildRequires: libarchive-devel
 BuildRequires: libcurl-devel
+BuildRequires: libunistring-devel
 BuildRequires: make
-BuildRequires: ncurses-devel
+BuildRequires: notcurses-devel
 BuildRequires: openssh
 BuildRequires: openssl-devel
 BuildRequires: pcre2-devel
@@ -50,6 +51,10 @@ quickly and efficiently zero in on problems.
 
 
 %changelog
+* Thu Feb 13 2025 Peter Schiffer <peter+fedora@pschiffer.eu> - 0.12.4-1
+- resolves: #2343439
+  updated to 0.12.4
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

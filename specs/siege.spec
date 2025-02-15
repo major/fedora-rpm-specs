@@ -1,13 +1,18 @@
 Name:           siege
 Version:        4.1.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        HTTP regression testing and benchmarking utility
 
 License:        GPL-3.0-or-later
 URL:            http://www.joedog.org/JoeDog/Siege
 Source0:        http://download.joedog.org/siege/%{name}-%{version}.tar.gz
-Source1:        shell.m4
 Patch0:         siege-4.1.7-bindir.patch
+
+# https://github.com/JoeDog/siege/pull/242
+Patch1:         siege-4.1.7-Drop-outdated-macro-definitions.patch
+Patch2:         siege-4.1.7-Add-needed-macro-definitions-in-subdir.patch
+Patch3:         siege-4.1.7-Remove-obsolete-stuff-from-configure.ac.patch
+Patch4:         siege-4.1.7-Drop-unneeded-TIME_WITH_SYS_TIME-conditional.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -28,12 +33,11 @@ It allows the user hit a web server with a configurable number of concurrent
 simulated users. Those users place the web-server "under siege."
 
 %prep
-%autosetup
+%autosetup -p 1
 # Better default for log file (Bug 644631)
 sed -i.orig doc/siegerc.in -e 's/^# logfile = *$/logfile = ${HOME}\/siege.log/'
 rm -f *.m4
-install -pm0644 %{SOURCE1} acinclude.m4
-autoreconf -fiv
+autoreconf --force --install --verbose --warnings=no-syntax
 
 %build
 export CFLAGS="-std=gnu17 %{build_cflags}"
@@ -60,6 +64,9 @@ mkdir -p %{buildroot}%{_sysconfdir}/siege
 %config(noreplace) %{_sysconfdir}/siege/siegerc
 
 %changelog
+* Thu Feb 13 2025 Björn Esser <besser82@fedoraproject.org> - 4.1.7-3
+- Backport patches from upstream PR to fix build with libtool >= 2.5.4
+
 * Wed Feb 12 2025 Björn Esser <besser82@fedoraproject.org> - 4.1.7-2
 - Fix FTBFS
   Closes: rhbz#2341347

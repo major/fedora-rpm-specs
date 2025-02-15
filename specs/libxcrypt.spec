@@ -111,8 +111,14 @@
 %global _configure "$(realpath ../configure)"
 
 
+# Create config.cache to speedup the run of
+# the configure script for the compat package.
+%global config_cache %(mktemp -tu %{name}-XXXXXXXXXXXXXXXX-config.cache)
+
+
 # Common configure options.
 %global common_configure_options           \\\
+  --cache-file=%{config_cache}             \\\
   --disable-failure-tokens                 \\\
   --disable-silent-rules                   \\\
   --enable-shared                          \\\
@@ -168,7 +174,7 @@ fi                                          \
 
 Name:           libxcrypt
 Version:        4.4.38
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Extended crypt library for descrypt, md5crypt, bcrypt, and others
 
 # For explicit license breakdown, see the
@@ -390,6 +396,7 @@ EOF
 
 
 %build
+touch %{config_cache}
 mkdir -p %{_vpath_builddir}
 
 # Build the default system library.
@@ -419,6 +426,7 @@ pushd %{_vpath_builddir}-compat
 %make_build
 popd
 %endif
+rm -f %{config_cache}
 
 
 %install
@@ -541,6 +549,9 @@ done
 
 
 %changelog
+* Thu Feb 13 2025 Björn Esser <besser82@fedoraproject.org> - 4.4.38-5
+- Use config.cache to speedup the build process of the compat package
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.38-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

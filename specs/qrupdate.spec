@@ -1,4 +1,4 @@
-%if 0%{?fedora} >= 33
+%if 0%{?fedora} || 0%{?rhel} >= 9
 %global blaslib flexiblas
 %else
 %global blaslib openblas
@@ -6,7 +6,7 @@
 
 Name:		qrupdate
 Version:	1.1.2
-Release:	32%{?dist}
+Release:	33%{?dist}
 Summary:	A Fortran library for fast updates of QR and Cholesky decompositions
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:	GPL-3.0-or-later
@@ -58,6 +58,9 @@ make test FC=gfortran FFLAGS="%{optflags} -fimplicit-none -funroll-loops -fallow
 
 
 %changelog
+* Tue Feb 11 2025 Orion Poplawski <orion@nwra.com> - 1.1.2-33
+- Build with flexiblas on EL9+ (bz#2257317)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

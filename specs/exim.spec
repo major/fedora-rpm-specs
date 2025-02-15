@@ -12,7 +12,7 @@
 Summary: The exim mail transfer agent
 Name: exim
 Version: 4.98
-Release: 6%{?dist}
+Release: 7%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 Url: https://www.exim.org/
@@ -21,7 +21,6 @@ Provides: MTA smtpd smtpdaemon server(smtp)
 Requires(post): %{_sbindir}/restorecon %{_sbindir}/alternatives systemd
 Requires(preun): %{_sbindir}/alternatives systemd
 Requires(postun): %{_sbindir}/alternatives systemd
-Requires(pre): %{_sbindir}/groupadd, %{_sbindir}/useradd
 %if %{with clamav}
 BuildRequires: clamd
 %endif
@@ -199,6 +198,12 @@ for f in $(ls -dp cve-* | grep -v '/\|\(\.txt\)$'); do
 done
 popd
 
+# Create a sysusers.d config file
+cat >exim.sysusers.conf <<EOF
+u exim 93 - %{_var}/spool/exim -
+m exim mail
+EOF
+
 %build
 %ifnarch s390 s390x sparc sparcv9 sparcv9v sparc64 sparc64v
 	export PIE=-fpie
@@ -331,12 +336,12 @@ install -m755 %{SOURCE22} $RPM_BUILD_ROOT/%_sysconfdir/cron.daily/greylist-tidy.
 install -m644 %{SOURCE23} $RPM_BUILD_ROOT/%_sysconfdir/exim/trusted-configs
 touch $RPM_BUILD_ROOT/%_var/spool/exim/db/greylist.db
 
+install -m0644 -D exim.sysusers.conf %{buildroot}%{_sysusersdir}/exim.conf
+
 %check
 build-`scripts/os-type`-`scripts/arch-type`/exim -C src/configure.default -bV
 
 %pre
-%{_sbindir}/groupadd -g 93 exim 2>/dev/null
-%{_sbindir}/useradd -d %{_var}/spool/exim -s %{_sbindir}/nologin -G mail -M -r -u 93 -g exim exim 2>/dev/null
 # Copy TLS certs from old location to new -- don't move them, because the
 # config file may be modified and may be pointing to the old location.
 if [ ! -f /etc/pki/tls/certs/exim.pem -a -f %{_datadir}/ssl/certs/exim.pem ] ; then
@@ -445,6 +450,7 @@ fi
 %attr(0755,root,root) %ghost /usr/lib/sendmail
 %ghost %{_sysconfdir}/pam.d/smtp
 %ghost %{_mandir}/man1/mailq.1.gz
+%{_sysusersdir}/exim.conf
 
 %files mysql
 %{_libdir}/exim/%{version}-%{release}/lookups/mysql.so
@@ -497,6 +503,9 @@ fi
 %{_sysconfdir}/cron.daily/greylist-tidy.sh
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.98-7
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 4.98-6
 - Add explicit BR: libxcrypt-devel
 

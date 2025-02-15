@@ -1,6 +1,6 @@
 Name:           stalonetray
 Version:        0.8.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A stand alone notification area
 
 # License is only mentioned in COPYING
@@ -15,6 +15,9 @@ BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  libX11-devel
 
+# Needed until upstream generates proper tarballs.
+BuildRequires: autoconf automake docbook-xsl xsltproc
+
 %description
 The stalonetray is a STAnd-aLONE system TRAY (notification area).
 It has minimal build and run-time dependencies: the Xlib only. The XEMBED
@@ -25,6 +28,11 @@ support is planned. Stalonetray runs under virtually any window manager.
 %patch -P0 -p1 -b .error-format
 
 %build
+# https://github.com/kolbusa/stalonetray/issues/35
+aclocal
+autoheader
+autoconf
+automake --add-missing
 %configure
 make %{?_smp_mflags}
 
@@ -35,7 +43,7 @@ install -D -m644 stalonetrayrc.sample %{buildroot}%{_sysconfdir}/stalonetrayrc
 
 
 %files
-%doc AUTHORS ChangeLog COPYING NEWS README TODO
+%doc AUTHORS BUGS COPYING NEWS README.md TODO
 %doc stalonetrayrc.sample stalonetray.html stalonetray.xml
 %{_sysconfdir}/stalonetrayrc
 %{_bindir}/stalonetray
@@ -43,6 +51,9 @@ install -D -m644 stalonetrayrc.sample %{buildroot}%{_sysconfdir}/stalonetrayrc
 
 
 %changelog
+* Thu Feb 13 2025 Ben Boeckel <fedora@me.benboeckel.net> - 0.8.5-5
+- Run autoreconf until upstream makes proper source artifacts
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

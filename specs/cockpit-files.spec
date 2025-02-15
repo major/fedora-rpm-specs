@@ -1,5 +1,5 @@
 Name: cockpit-files
-Version: 15
+Version: 16
 Release: 1%{?dist}
 Summary: A filesystem browser for Cockpit
 License: LGPL-2.1-or-later
@@ -18,6 +18,9 @@ BuildRequires:  libappstream-glib
 BuildRequires: gettext
 
 Requires: cockpit-bridge >= 318
+
+# Replace the older cockpit-navigator provided by 45Drives
+Obsoletes: cockpit-navigator < 0.5.11
 
 Provides: bundled(npm(@patternfly/patternfly)) = 5.4.2
 Provides: bundled(npm(@patternfly/react-core)) = 5.4.12
@@ -66,11 +69,14 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 %files
 %doc README.md
-%license LICENSE dist/index.js.LEGAL.txt dist/index.css.LEGAL.txt
+%license LICENSE dist/index.js.LEGAL.txt
 %{_datadir}/cockpit/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Thu Feb 13 2025 Packit <hello@packit.dev> - 16-1
+- support copy&pasting with administrator privileges
+
 * Wed Jan 29 2025 Packit <hello@packit.dev> - 15-1
 - Show user and group information in the footer
 

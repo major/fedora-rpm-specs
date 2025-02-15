@@ -10,9 +10,10 @@ URL:            https://github.com/Delgan/loguru
 # The GitHub archive contains CHANGELOG.rst, which the PyPI sdist lacks.
 Source:         %{url}/archive/%{version}/loguru-%{version}.tar.gz
 
-# Downstream patch: do not depend on pytest-mypy-plugins
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-Patch:          0001-Downstream-patch-do-not-depend-on-pytest-mypy-plugin.patch
+# Fix deprecation warning raised by tests with Python 3.14
+# https://github.com/Delgan/loguru/pull/1298
+# Cherry-picked to 0.7.3
+Patch:          0001-Fix-deprecation-warning-raised-by-tests-with-Python-.patch
 
 BuildArch:      noarch
 

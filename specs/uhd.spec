@@ -31,7 +31,7 @@ Name:           uhd
 URL:            http://github.com/EttusResearch/uhd
 Version:        4.7.0.0
 %global images_ver %{version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 BuildRequires:  make
@@ -63,7 +63,7 @@ BuildRequires:  tar
 BuildRequires:  sdcc
 BuildRequires:  sed
 %endif
-Requires(pre):  shadow-utils, glibc-common
+Requires(pre):  glibc-common
 Requires:       python3-tkinter
 Summary:        Universal Hardware Driver for Ettus Research products
 Source0:        %{url}/archive/v%{version}/uhd-%{version}.tar.gz
@@ -133,6 +133,11 @@ rm -rf images/winusb_driver
 
 # fix python shebangs
 find . -type f -name "*.py" -exec sed -i '/^#!/ s|.*|#!%{__python3}|' {} \;
+
+# Create a sysusers.d config file
+cat >uhd.sysusers.conf <<EOF
+g usrp -
+EOF
 
 %build
 # firmware
@@ -229,12 +234,10 @@ mv %{buildroot}%{_prefix}/epan %{buildroot}%{_libdir}/wireshark/plugins/%{wiresh
 # add directory for modules
 mkdir -p %{buildroot}%{_libdir}/uhd/modules
 
+install -m0644 -D uhd.sysusers.conf %{buildroot}%{_sysusersdir}/uhd.conf
+
 %ldconfig_scriptlets
 
-%pre
-getent group usrp >/dev/null || \
-  %{_sbindir}/groupadd -r usrp >/dev/null 2>&1
-exit 0
 
 %files
 %exclude %{_docdir}/%{name}/doxygen
@@ -255,6 +258,7 @@ exit 0
 %{_datadir}/uhd
 %{python3_sitearch}/uhd
 %{python3_sitearch}/usrp_mpm
+%{_sysusersdir}/uhd.conf
 
 %files firmware
 %dir %{_datadir}/uhd/images
@@ -280,6 +284,9 @@ exit 0
 %endif
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.7.0.0-5
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

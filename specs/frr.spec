@@ -9,7 +9,7 @@
 
 Name:           frr
 Version:        10.2.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Routing daemon
 License:        GPL-2.0-or-later AND ISC AND LGPL-2.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND (GPL-2.0-or-later  OR ISC) AND MIT
 URL:            http://www.frrouting.org
@@ -49,13 +49,14 @@ BuildRequires:  json-c-devel
 BuildRequires:  libcap-devel
 BuildRequires:  libtool
 BuildRequires:  libxcrypt-devel
-BuildRequires:  libyang-devel >= 2.0.0
+BuildRequires:  libyang-devel >= 2.1.128
 BuildRequires:  make
 BuildRequires:  ncurses
 BuildRequires:  ncurses-devel
 BuildRequires:  net-snmp-devel
 BuildRequires:  pam-devel
 BuildRequires:  patch
+BuildRequires:  pcre2-devel
 BuildRequires:  perl-XML-LibXML
 BuildRequires:  perl-generators
 BuildRequires:  python3-devel
@@ -120,7 +121,7 @@ autoreconf -ivf
 
 %configure \
     --sbindir=%{frr_libdir} \
-    --sysconfdir=%{_sysconfdir}/frr \
+    --sysconfdir=%{_sysconfdir} \
     --libdir=%{_libdir}/frr \
     --libexecdir=%{_libexecdir}/frr \
     --localstatedir=/var \
@@ -133,8 +134,6 @@ autoreconf -ivf
     --enable-group=frr \
     --enable-vty-group=frrvty \
     --enable-rtadv \
-    --disable-exampledir \
-    --enable-systemd=yes \
     --enable-static=no \
     --disable-ldpd \
     --disable-babeld \
@@ -142,6 +141,7 @@ autoreconf -ivf
     --with-yangmodelsdir=%{_datadir}/frr-yang/ \
     --with-crypto=openssl \
     --enable-fpm \
+    --enable-pcre2posix \
     %{?with_grpc:--enable-grpc}
 
 %make_build MAKEINFO="makeinfo --no-split" PYTHON=%{__python3}
@@ -157,8 +157,8 @@ bzip2 -9 selinux/%{name}.pp
 
 %install
 mkdir -p %{buildroot}%{_sysconfdir}/{frr,rc.d/init.d,sysconfig,logrotate.d,pam.d,default} \
-         %{buildroot}%{_localstatedir}/log/frr %{buildroot}%{_infodir} \
-         %{buildroot}%{_unitdir}
+         %{buildroot}%{_localstatedir}/log/frr %{buildroot}%{_localstatedir}/lib/frr \
+         %{buildroot}%{_infodir} %{buildroot}%{_unitdir}
 
 mkdir -p -m 0755 %{buildroot}%{_libdir}/frr
 mkdir -p %{buildroot}%{_tmpfilesdir}
@@ -249,6 +249,7 @@ rm tests/lib/*grpc*
 %license COPYING
 %doc doc/mpls
 %dir %attr(750,frr,frr) %{_sysconfdir}/frr
+%dir %attr(755,frr,frr) %{_localstatedir}/lib/frr
 %dir %attr(755,frr,frr) %{_localstatedir}/log/frr
 %dir %attr(755,frr,frr) /run/frr
 %{_infodir}/*info*
@@ -281,6 +282,13 @@ rm tests/lib/*grpc*
 %endif
 
 %changelog
+* Thu Feb 13 2025 Alexey Kurov <nucleo@fedoraproject.org> - 10.2.1-4
+- Removed unrecognized options enable-systemd and disable-exampledir
+- Fixed sysconfdir option warning
+- Added option for support of PCRE2
+- Own local state file dir
+- Minimum libyang version 2.1.128
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 10.2.1-3
 - Drop call to %sysusers_create_compat
 

@@ -185,7 +185,7 @@
 #################################################################################
 Name:		ceph
 Version:	19.2.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -1391,6 +1391,11 @@ This package provides a Ceph hardware monitoring agent.
 %prep
 %autosetup -p1
 
+# Create a sysusers.d config file
+cat >ceph.sysusers.conf <<EOF
+u cephadm - 'cephadm user for mgr/cephadm' %{_sharedstatedir}/cephadm /bin/bash
+EOF
+
 %build
 
 %if 0%{with cephfs_java}
@@ -1588,6 +1593,8 @@ install -m 0644 -D COPYING %{buildroot}%{_docdir}/ceph/COPYING
 install -m 0644 -D etc/sysctl/90-ceph-osd.conf %{buildroot}%{_sysctldir}/90-ceph-osd.conf
 install -m 0755 -D src/tools/rbd_nbd/rbd-nbd_quiesce %{buildroot}%{_libexecdir}/rbd-nbd/rbd-nbd_quiesce
 
+install -m 0644 -D ceph.sysusers.conf %{buildroot}%{_sysusersdir}/ceph.conf
+
 mkdir -p %{buildroot}%{_sharedstatedir}/cephadm
 chmod 0700 %{buildroot}%{_sharedstatedir}/cephadm
 mkdir -p %{buildroot}%{_sharedstatedir}/cephadm/.ssh
@@ -1736,22 +1743,13 @@ fi
 %{?ldconfig}
 %systemd_postun ceph.target
 
-%pre -n cephadm
-getent group cephadm >/dev/null || groupadd -r cephadm
-getent passwd cephadm >/dev/null || useradd -r -g cephadm -s /bin/bash -c "cephadm user for mgr/cephadm" -d %{_sharedstatedir}/cephadm cephadm
-exit 0
-
-%if ! 0%{?suse_version}
-%postun -n cephadm
-[ $1 -ne 0 ] || userdel cephadm || :
-%endif
-
 %files -n cephadm
 %{_bindir}/cephadm
 %{_mandir}/man8/cephadm.8*
 %attr(0700,cephadm,cephadm) %dir %{_sharedstatedir}/cephadm
 %attr(0700,cephadm,cephadm) %dir %{_sharedstatedir}/cephadm/.ssh
 %config(noreplace) %attr(0600,cephadm,cephadm) %{_sharedstatedir}/cephadm/.ssh/authorized_keys
+%{_sysusersdir}/ceph.conf
 
 %files common
 %dir %{_docdir}/ceph
@@ -2721,6 +2719,9 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Sat Feb  8 2025 Zbigniew Jedrzejewski-Szmek <zbyszek@in.waw.pl> - 2:19.2.1-3
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Feb 7 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.1-1
 - ceph-19.2.1, rebuild w/ libarrow 19, liborc 2.1, f43-build-side-105129
 

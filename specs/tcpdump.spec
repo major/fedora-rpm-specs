@@ -4,10 +4,9 @@ Summary: A network traffic monitoring tool
 Name: tcpdump
 Epoch: 14
 Version: 4.99.5
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND BSD-4-Clause-UC AND ISC AND NTP
 URL: http://www.tcpdump.org
-Requires(pre): shadow-utils
 BuildRequires: make
 BuildRequires: automake openssl-devel libpcap-devel git-core gcc
 BuildRequires: systemd-rpm-macros
@@ -78,9 +77,6 @@ install -p -D -m 0644 %{SOURCE3} ${RPM_BUILD_ROOT}%{_sysusersdir}/tcpdump.conf
 sed -i 's/\(\.TH[a-zA-Z ]*\)[1-9]\(.*\)/\18\2/' \
 	${RPM_BUILD_ROOT}%{_mandir}/man8/*
 
-%pre
-%sysusers_create_compat %{SOURCE3}
-exit 0
 
 %files
 %license LICENSE
@@ -92,6 +88,9 @@ exit 0
 %{_mandir}/man8/tcpdump.8*
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 14:4.99.5-4
+- Drop call to %sysusers_create_compat
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 14:4.99.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

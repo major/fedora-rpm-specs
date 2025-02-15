@@ -3,7 +3,7 @@
 
 Name:           nexus
 Version:        4.4.3
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Libraries and tools for the NeXus scientific data file format
 
 # The entire source code is GPLv2+ except nxdir which is MIT
@@ -119,6 +119,9 @@ rm %{buildroot}%{_libdir}/libNeXusCPP.a
 
 
 %changelog
+* Thu Feb 13 2025 Orion Poplawski <orion@nwra.com> - 4.4.3-20
+- Rebuild with hdf5 1.14.6
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.3-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

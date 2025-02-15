@@ -1,6 +1,6 @@
 Name:           ncview
-Version:        2.1.10
-Release:        5%{?dist}
+Version:        2.1.11
+Release:        1%{?dist}
 Summary:        A visual browser for netCDF format files
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -8,8 +8,8 @@ URL:            https://cirrus.ucsd.edu/ncview/
 Source0:        https://cirrus.ucsd.edu/~pierce/ncview/ncview-%{version}.tar.gz
 # Remove RPATH
 Patch0:         ncview-rpath.patch
-# Fix const args
-Patch1:         ncview-const.patch
+# Fix compilation with gcc 15
+Patch1:         ncview-fixes.patch
 
 BuildRequires: make
 BuildRequires:  xorg-x11-proto-devel libXaw-devel libXt-devel libXext-devel
@@ -64,6 +64,9 @@ chrpath -l -d %{buildroot}%{_bindir}/ncview
 
 
 %changelog
+* Wed Feb 12 2025 Orion Poplawski <orion@nwra.com> - 2.1.11-1
+- Update to 2.1.11
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.10-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
