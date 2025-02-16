@@ -7,7 +7,7 @@
 
 Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
@@ -21,6 +21,9 @@ Requires:       dnf-data
 Recommends:     (dnf5-plugins if dnf-plugins-core)
 Recommends:     bash-completion
 Requires:       coreutils
+%if 0%{?fedora} > 41
+Recommends:     (libdnf5-plugin-expired-pgp-keys if gnupg2)
+%endif
 
 %if 0%{?fedora} || 0%{?rhel} > 10
 Provides:       microdnf = %{version}-%{release}
@@ -632,6 +635,7 @@ Libdnf5 plugin that installs repository's Appstream data, for repositories which
 Summary:        Libdnf5 plugin for detecting and removing expired PGP keys
 License:        LGPL-2.1-or-later
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
+Requires:       gnupg2
 
 %description -n libdnf5-plugin-expired-pgp-keys
 Libdnf5 plugin for detecting and removing expired PGP keys.
@@ -940,6 +944,9 @@ popd
 %ldconfig_scriptlets
 
 %changelog
+* Fri Feb 14 2025 Jan Kolarik <jkolarik@redhat.com> - 5.2.10.0-2
+- Recommend expired-pgp-keys plugin by default on F42+
+
 * Thu Feb 06 2025 Packit <hello@packit.dev> - 5.2.10.0-1
 - Update translations from weblate
 - plugins: Provide the actual API version used

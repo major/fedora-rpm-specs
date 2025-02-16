@@ -509,6 +509,9 @@ Source5:          https://fedorapeople.org/groups/389ds/libdb-5.3.28-59.tar.bz2
 %endif
 
 Patch:            0001-Issue-6544-logconv.py-python3-magic-conflicts-with-p.patch
+Patch:            0002-Issue-6489-After-log-rotation-refresh-the-FD-pointer.patch
+Patch:            0003-Issue-6554-During-import-of-entries-without-nsUnique.patch
+Patch:            0004-Issue-6555-Potential-crash-when-deleting-a-replicate.patch
 
 %description
 389 Directory Server is an LDAPv3 compliant server.  The base package includes

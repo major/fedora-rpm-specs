@@ -1,8 +1,8 @@
 # SUSE guys use OBS to automatically handle release numbers,
 # when rebasing check what they are using on
-# https://download.opensuse.org/repositories/openSUSE:/Tools/Fedora_41/src/
+# https://download.opensuse.org/repositories/openSUSE:/Tools/Fedora_42/src/
 # update the obsrel to match the upstream release number
-%global obsrel 430.1
+%global obsrel 432.1
 
 # osc plugin support
 %global osc_plugin_dir %{_prefix}/lib/osc-plugins
@@ -16,7 +16,7 @@
 
 Name:           osc
 Summary:        Open Build Service Commander
-Version:        1.12.0
+Version:        1.12.1
 # Bump the release as necessary to ensure we're one level up from upstream
 Release:        %{obsrel}.%{baserelease}%{?dist}
 License:        GPL-2.0-or-later
@@ -136,6 +136,9 @@ python3 -m unittest
 %dir %{osc_plugin_dir}
 
 %changelog
+* Fri Feb 14 2025 Dan Čermák <dan.cermak@cgc-instruments.com> - 1.12.1-432.1.1
+- New upstream release 1.12.1, fixes rhbz#2345576
+
 * Tue Feb 04 2025 Dan Čermák <dan.cermak@cgc-instruments.com> - 1.12.0-430.1.1
 - New upstream release 1.12.0, fixes rhbz#2343569
 

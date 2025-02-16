@@ -13,9 +13,9 @@
 %endif
 
 Name:           vdr-scraper2vdr
-Version:        1.1.2
+Version:        1.1.3
 #Release:        15.%%{gitdate}git%%{shortcommit0}%%{?dist}
-Release:        11%{?dist}
+Release:        10%{?dist}
 Summary:        A client plugin which provides scraped metadata from EPGD to other plugins
 License:        GPL-1.0-or-later
 URL:            https://github.com/horchi/scraper2vdr
@@ -24,7 +24,6 @@ Source0:        https://github.com/horchi/scraper2vdr/archive/refs/tags/%{versio
 Source1:        %{name}.conf
 # https://www.vdr-portal.de/index.php?attachment/44795-scraper2vdr-serienposter-statt-banner-diff/
 Patch0:         scraper2vdr_serienposter_statt_banner.diff
-Patch1:         vdr-scraper2vdr-EventID.patch
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -76,6 +75,9 @@ install -Dpm 644 %{SOURCE1} \
 %config(noreplace) %{vdr_configdir}/plugins/%{pname}/epg.dat
 
 %changelog
+* Fri Feb 14 2025 Martin Gansser <martinkg@fedoraproject.org> - 1.1.3-1
+- Update to 1.1.3
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:		phoc
-Version:	0.44.1
+Version:	0.45.0
 Release:	%{autorelease}
 Summary:	Display compositor designed for phones
 
@@ -11,21 +11,21 @@ BuildRequires:	gcc
 BuildRequires:	meson
 BuildRequires:	cmake
 
-BuildRequires:	pkgconfig(gio-2.0) >= 2.70
-BuildRequires:	pkgconfig(glib-2.0) >= 2.70
-BuildRequires:	pkgconfig(gobject-2.0) >= 2.70a
+BuildRequires:	pkgconfig(gio-2.0) >= 2.80
+BuildRequires:	pkgconfig(glib-2.0) >= 2.80
+BuildRequires:	pkgconfig(gobject-2.0) >= 2.80
 BuildRequires:	pkgconfig(glesv2)
 BuildRequires:	pkgconfig(gnome-desktop-3.0) >= 3.26
 BuildRequires:	pkgconfig(libinput)
 BuildRequires:	pkgconfig(libudev)
 BuildRequires:	pkgconfig(libdrm)
-BuildRequires:	pkgconfig(pixman-1)
+BuildRequires:	pkgconfig(pixman-1) >= 0.43.4
 BuildRequires:	pkgconfig(wayland-client)
 BuildRequires:	pkgconfig(wayland-protocols) >= 1.15
 BuildRequires:	pkgconfig(wayland-server)
 BuildRequires:	pkgconfig(xkbcommon)
 BuildRequires:	pkgconfig(gmobile) >= 0.1.0
-BuildRequires:	(pkgconfig(wlroots) >= 0.17.0 with pkgconfig(wlroots) < 0.18)
+BuildRequires:	pkgconfig(wlroots-0.18)
 BuildRequires:	pkgconfig(gsettings-desktop-schemas)
 BuildRequires:	pkgconfig(json-glib-1.0)
 # for xvfb-run in %check

@@ -6,7 +6,7 @@
 # or
 # rpmbuild --rebuild --with testsuite samba.src.rpm
 #
-%bcond_with testsuite
+%bcond testsuite 0
 
 # Build with internal talloc, tevent, tdb
 #
@@ -14,132 +14,97 @@
 # or
 # rpmbuild --rebuild --with=testsuite --with=includelibs samba.src.rpm
 #
-%bcond_with includelibs
+%bcond includelibs 0
 
 # fedpkg mockbuild --with=ccache
-%bcond_with ccache
+%bcond ccache 0
 
 # ctdb is enabled by default, you can disable it with: --without clustering
-%bcond_without clustering
+%bcond clustering 1
 
 # Define _make_verbose if it doesn't exist (RHEL8)
 %{!?_make_verbose:%define _make_verbose V=1 VERBOSE=1}
 
 # Build with Active Directory Domain Controller support by default on Fedora
 %if 0%{?fedora}
-%bcond_without dc
+%bcond dc 1
 %else
-%bcond_with dc
+%bcond dc 0
 %endif
 
 # Build a libsmbclient package by default
-%bcond_without libsmbclient
+%bcond libsmbclient 1
 
 # Build a libwbclient package by default
-%bcond_without libwbclient
+%bcond libwbclient 1
 
 # Build with winexe by default
 %if 0%{?rhel}
 
 %ifarch x86_64
-%bcond_without winexe
+%bcond winexe 1
 %else
-%bcond_with winexe
+%bcond winexe 0
 #endifarch
 %endif
 
 %else
-%bcond_without winexe
+%bcond winexe 1
 %endif
 
 # Build vfs_ceph module and ctdb cepth mutex helper by default on 64bit Fedora
 %if 0%{?fedora}
 
 %ifarch aarch64 ppc64le s390x x86_64 riscv64
-%bcond_without vfs_cephfs
-%bcond_without ceph_mutex
+%bcond vfs_cephfs 1
+%bcond ceph_mutex 1
 %else
-%bcond_with vfs_cephfs
-%bcond_with ceph_mutex
+%bcond vfs_cephfs 0
+%bcond ceph_mutex 0
 #endifarch
 %endif
 
 %else
-%bcond_with vfs_cephfs
-%bcond_with ceph_mutex
+%bcond vfs_cephfs 0
+%bcond ceph_mutex 0
 #endif fedora
-%endif
-
-# Build vfs_gluster module by default on 64bit Fedora
-%global is_rhgs 0
-%if "%{dist}" == ".el7rhgs" || "%{dist}" == ".el8rhgs"
-%global is_rhgs 1
 %endif
 
 %if 0%{?fedora}
 
 %ifarch aarch64 ppc64le s390x x86_64 riscv64
-%bcond_without vfs_glusterfs
+%bcond vfs_glusterfs 1
 %else
-%bcond_with vfs_glusterfs
+%bcond vfs_glusterfs 0
 #endifarch
-%endif
-
-#else rhel
-%else
-
-%if 0%{?is_rhgs}
-# Enable on rhgs x86_64
-%ifarch x86_64
-%bcond_without vfs_glusterfs
-%else
-%bcond_with vfs_glusterfs
-#endifarch
-%endif
-%else
-%bcond_with vfs_glusterfs
-#endif is_rhgs
 %endif
 
 #endif fedora
 %endif
 
 # Build vfs_io_uring module by default on 64bit Fedora
-%if 0%{?fedora} || 0%{?rhel} >= 8
-
 %ifarch aarch64 ppc64le s390x x86_64 riscv64
-%bcond_without vfs_io_uring
+%bcond vfs_io_uring 1
 %else
-%bcond_with vfs_io_uring
+%bcond vfs_io_uring 0
 #endifarch
-%endif
-
-%else
-%bcond_with vfs_io_uring
-#endif fedora || rhel >= 8
 %endif
 
 # Build the ctdb-pcp-pmda package by default on Fedora, except for i686 where
 # pcp is no longer supported
 %if 0%{?fedora}
 %ifnarch i686
-%bcond_without pcp_pmda
+%bcond pcp_pmda 1
 %endif
 %else
-%bcond_with pcp_pmda
+%bcond pcp_pmda 0
 %endif
 
 # Build the etcd helpers by default on Fedora
 %if 0%{?fedora}
-%bcond_without etcd_mutex
+%bcond etcd_mutex 1
 %else
-%bcond_with etcd_mutex
-%endif
-
-%if 0%{?fedora} || 0%{?rhel} >= 9
-%bcond_without gpupdate
-%else
-%bcond_with gpupdate
+%bcond etcd_mutex 0
 %endif
 
 %ifarch aarch64 ppc64le s390x x86_64
@@ -379,9 +344,7 @@ BuildRequires: librados-devel
 BuildRequires: python3-etcd
 %endif
 
-%if %{with gpupdate}
 BuildRequires: cepces-certmonger >= 0.3.8
-%endif
 
 # pidl requirements
 BuildRequires: perl(ExtUtils::MakeMaker)
@@ -775,7 +738,6 @@ Samba VFS module for GlusterFS integration.
 %endif
 
 ### GPUPDATE
-%if %{with gpupdate}
 %package gpupdate
 Summary: Samba GPO support for clients
 Requires: cepces-certmonger
@@ -788,9 +750,6 @@ Requires: python3-%{name}-dc = %{samba_depver}
 %description gpupdate
 This package provides the samba-gpupdate tool to apply Group Policy Objects
 (GPO) on Samba clients.
-
-#endif with gpupdate
-%endif
 
 ### KRB5-PRINTING
 %package krb5-printing
@@ -1540,11 +1499,6 @@ for i in \
     ; do
     rm -f %{buildroot}$i
 done
-%endif
-
-%if %{without gpupdate}
-rm -f %{buildroot}%{_sbindir}/samba-gpupdate
-rm -f %{buildroot}%{_mandir}/man8/samba-gpupdate.8*
 %endif
 
 %if %{without vfs_glusterfs}
@@ -2444,12 +2398,9 @@ fi
 %endif
 
 ### GPUPDATE
-%if %{with gpupdate}
 %files gpupdate
 %{_mandir}/man8/samba-gpupdate.8*
 %{_sbindir}/samba-gpupdate
-#endif with gpupdate
-%endif
 
 ### KRB5-PRINTING
 %files krb5-printing
@@ -3062,6 +3013,7 @@ fi
 
 %if %{with includelibs}
 %{_libdir}/samba/libpyldb-util.cpython*.so
+%{_libdir}/samba/libpytalloc-util.cpython*.so
 
 %{python3_sitearch}/__pycache__/_ldb_text*.pyc
 %{python3_sitearch}/__pycache__/_tdb_text*.pyc
@@ -3070,8 +3022,7 @@ fi
 %{python3_sitearch}/_tdb_text.py
 %{python3_sitearch}/_tevent.cpython*.so
 %{python3_sitearch}/ldb.cpython*.so
-#FIXME why is it missing?
-#%{python3_sitearch}/talloc.cpython*.so
+%{python3_sitearch}/talloc.cpython*.so
 %{python3_sitearch}/tdb.cpython*.so
 %{python3_sitearch}/tevent.py
 #endif with includelibs
@@ -3941,6 +3892,7 @@ fi
 %endif
 
 %files -n libldb
+%license lib/ldb/LICENSE
 %{_libdir}/libldb.so.*
 %dir %{_libdir}/samba
 %{_libdir}/samba/libldb-key-value-private-samba.so

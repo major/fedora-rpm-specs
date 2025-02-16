@@ -326,6 +326,7 @@ Patch500: 0001-disable-libe-book-support.patch
 # https://lists.freedesktop.org/archives/libreoffice/2023-September/090948.html
 Patch501: kahansum_test_fix_for_aarc64_s390x.patch
 Patch502: 89285dd.diff
+Patch503: 5d5de7f.diff
 
 %global instdir %{_libdir}
 %global baseinstdir %{instdir}/libreoffice
@@ -1096,6 +1097,7 @@ mv -f redhat.soc extras/source/palettes/standard.soc
 %endif
 
 %patch -P 502 -p1
+%patch -P 503 -p1
 
 # Temporarily disable failing tests
 %ifarch ppc64le

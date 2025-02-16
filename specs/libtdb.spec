@@ -64,6 +64,7 @@ zcat %{SOURCE0} | gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} -
 %make_install
 
 %files
+%license LICENSE
 %{_libdir}/libtdb.so.*
 
 %files devel

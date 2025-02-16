@@ -160,9 +160,6 @@ sed -i "
 
 %mvn_alias :maven-resolver-provider :maven-aether-provider
 
-%pom_remove_plugin :plexus-component-metadata maven-model-builder
-%pom_add_plugin org.eclipse.sisu:sisu-maven-plugin maven-model-builder
-
 %build
 %mvn_build -- -Dproject.build.sourceEncoding=UTF-8
 

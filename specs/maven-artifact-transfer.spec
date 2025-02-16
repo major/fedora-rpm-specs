@@ -15,6 +15,8 @@ Source0:        https://repo1.maven.org/maven2/org/apache/maven/shared/%{name}/%
 Patch:          0001-Compatibility-with-Maven-3.0.3-and-later.patch
 Patch:          0002-Remove-support-for-maven-3.0.X.patch
 Patch:          0003-Port-to-maven-3.8.1.patch
+# From upstream commit 75a99b21
+Patch:          0004-Bump-maven-shared-components-from-34-to-37.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap

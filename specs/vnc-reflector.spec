@@ -1,9 +1,10 @@
 Name:       vnc-reflector
 Version:    1.2.4 
-Release:    40%{?dist}
+Release:    41%{?dist}
 Summary:    A specialized, multiplexing vnc proxy server
-# Automatically converted from old format: BSD - review is highly recommended.
-License:    LicenseRef-Callaway-BSD 
+# LICENSE:  BSD-3-Clause
+# region.c: MIT-open-group AND SMLNJ
+License:    BSD-3-Clause AND MIT-open-group AND SMLNJ
 URL:        http://sourceforge.net/projects/vnc-reflector
 Source0:    http://dl.sf.net/vnc-reflector/vnc_reflector-%{version}.tar.gz
 # Bug #569350, submitted to upstream
@@ -17,6 +18,9 @@ Patch2:     %{name}-1.2.4-unionfix.patch
 # Respect compiler and linker flags, submitted to upstream
 # <https://sourceforge.net/p/vnc-reflector/bugs/9/>
 Patch3:     %{name}-1.2.4-Respect-external-CFLAGS-and-LDFLAGS.patch
+# Adapt to GCC 15, bug #2341514, porposed upstream
+# <>https://sourceforge.net/p/vnc-reflector/bugs/10/
+Patch4:     %{name}-1.2.4-Port-to-ISO-C23.patch
 BuildRequires:  coreutils
 BuildRequires:  gcc
 BuildRequires:  libjpeg-devel
@@ -34,20 +38,25 @@ efficiently with large number of clients.
 %patch -P1 -p0
 %patch -P2 -p0
 %patch -P3 -p1
+%patch -P4 -p1
 
 %build
-make %{?_smp_mflags} CFLAGS="$RPM_OPT_FLAGS" LDFLAGS='%{__global_ldflags}'
+%{make_build} CFLAGS="$RPM_OPT_FLAGS" LDFLAGS='%{__global_ldflags}'
 
 %install
-# no install target in the makefile....
+# No install target in the makefile.
 install -D -t %{buildroot}%{_bindir} vncreflector
 
 %files
 %license LICENSE
 %doc README ChangeLog
-%{_bindir}/*
+%{_bindir}/vncreflector
 
 %changelog
+* Fri Feb 14 2025 Petr Pisar <ppisar@redhat.com> - 1.2.4-41
+- Adapt to GCC 15 (bug #2341514)
+- Correct a license tag to "BSD-3-Clause AND MIT-open-group AND SMLNJ"
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -174,7 +174,7 @@ fi                                          \
 
 Name:           libxcrypt
 Version:        4.4.38
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Extended crypt library for descrypt, md5crypt, bcrypt, and others
 
 # For explicit license breakdown, see the
@@ -191,6 +191,8 @@ Patch0000:      %{url}/pull/205.patch#/%{name}-%{version}-crypt-Properly-initial
 Patch0001:      %{url}/commit/4450c48701c8.patch#/%{name}-%{version}-C23-memset_explicit.patch
 # Patch 3000 - 5999: Backported patches from pull requests.
 Patch3000:      %{url}/commit/ba67911314f5.patch#/%{name}-%{version}-Make-crypt-and-crypt_gensalt-use-thread-local-output.patch
+Patch3001:      %{url}/commit/f23fb625b611.patch#/%{name}-%{version}-Add-sm3crypt-backend.patch
+Patch3002:      %{url}/commit/e0d7cf9c9faf.patch#/%{name}-%{version}-Add-sm3-yescrypt-backend-and-tests.patch
 # Patch 6000 - 9999: Downstream patches.
 
 BuildRequires:  autoconf
@@ -549,6 +551,9 @@ done
 
 
 %changelog
+* Fri Feb 14 2025 Björn Esser <besser82@fedoraproject.org> - 4.4.38-6
+- Backport upstream patches to add sm3{,-yescrypt} backend and tests
+
 * Thu Feb 13 2025 Björn Esser <besser82@fedoraproject.org> - 4.4.38-5
 - Use config.cache to speedup the build process of the compat package
 

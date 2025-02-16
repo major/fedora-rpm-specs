@@ -52,6 +52,8 @@ API documentation for %{name}.
 sed -i 's|localRepository,\ "junit/junit/3.8.1/junit-3.8.1.jar"|"%(find-jar junit || find-jar javapackages-bootstrap/junit)"|' src/test/java/org/apache/maven/plugin/compiler/CompilerMojoTestCase.java
 
 %build
+# JAVA_HOME must be exported because unit tests make use of it for locating javac executable
+export JAVA_HOME=%{java_home}
 %mvn_build
 
 %install

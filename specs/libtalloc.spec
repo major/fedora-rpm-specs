@@ -75,6 +75,7 @@ doxygen doxy.config
 cp -a doc/man/man3 %{buildroot}%{_mandir}
 
 %files
+%license LICENSE
 %{_libdir}/libtalloc.so.*
 
 %files devel

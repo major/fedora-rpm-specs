@@ -14,6 +14,8 @@ Source0:        https://repo1.maven.org/maven2/org/apache/maven/plugin-testing/%
 Patch:          0001-Port-to-plexus-utils-3.0.21.patch
 Patch:          0002-Port-to-current-maven-artifact.patch
 Patch:          0003-Port-to-maven-3.8.1.patch
+# From upstream commit 43b8eaaf
+Patch:          0004-Stabilize-project.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap

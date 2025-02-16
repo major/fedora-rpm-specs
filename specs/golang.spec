@@ -100,8 +100,8 @@
 
 # Comment out go_prerelease and go_patch as needed
 %global go_api 1.24
-%global go_prerelease rc3
-#global go_patch 4
+#global go_prerelease rc3
+%global go_patch 0
 
 %global go_version %{go_api}%{?go_patch:.%{go_patch}}%{?go_prerelease:~%{go_prerelease}}
 %global go_source %{go_api}%{?go_patch:.%{go_patch}}%{?go_prerelease}
@@ -141,13 +141,13 @@ Provides: bundled(golang(golang.org/x/arch)) = 0.12.0
 Provides: bundled(golang(golang.org/x/build)) = 0.0.0.20241205234318.b850320af2a4
 Provides: bundled(golang(golang.org/x/crypto)) = 0.30.0
 Provides: bundled(golang(golang.org/x/mod)) = 0.22.0
-Provides: bundled(golang(golang.org/x/net)) = 0.32.1.0.20241206180132.552d8ac903a1
+Provides: bundled(golang(golang.org/x/net)) = 0.32.1.0.20250121202134.9a960c88dd98
 Provides: bundled(golang(golang.org/x/sync)) = 0.10.0
 Provides: bundled(golang(golang.org/x/sys)) = 0.28.0
 Provides: bundled(golang(golang.org/x/telemetry)) = 0.0.0.20241204182053.c0ac0e154df3
 Provides: bundled(golang(golang.org/x/term)) = 0.27.0
 Provides: bundled(golang(golang.org/x/text)) = 0.21.0
-Provides: bundled(golang(golang.org/x/tools)) = 0.28.0
+Provides: bundled(golang(golang.org/x/tools)) = 0.28.1.0.20250131145412.98746475647e
 Provides: bundled(golang(rsc.io/markdown)) = 0.0.0.20240306144322.0bf8f97ee8ef
 
 Requires:       %{name}-bin = %{version}-%{release}

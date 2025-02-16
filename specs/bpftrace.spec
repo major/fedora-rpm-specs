@@ -2,7 +2,7 @@
 
 Name:           bpftrace
 Version:        0.22.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        High-level tracing language for Linux eBPF
 License:        Apache-2.0
 
@@ -11,7 +11,7 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # Arches will be included as upstream support is added and dependencies are
 # satisfied in the respective arches
-ExclusiveArch:  x86_64 %{power64} aarch64 s390x
+ExclusiveArch:  x86_64 %{power64} aarch64 s390x riscv64
 
 BuildRequires:  gcc-c++
 BuildRequires:  bison
@@ -91,6 +91,9 @@ find %{buildroot}%{_datadir}/%{name}/tools -type f -exec \
 
 
 %changelog
+* Thu Feb 13 2025 David Abdurachmanov <davidlt@rivosinc.com> - 0.22.1-2
+- Enable riscv64
+
 * Wed Jan 29 2025 Augusto Caringi <acaringi@redhat.com> - 0.22.1-1
 - Rebased to version 0.22.1
 

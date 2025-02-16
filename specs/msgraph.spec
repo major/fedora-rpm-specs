@@ -1,12 +1,12 @@
 %global glib2_minver 2.28
 
-%global apimajor 0
-%global apiver %{apimajor}.1
+%global apimajor 1
+%global apiver %{apimajor}
 %global somajor 1
 
 Name:           msgraph
-Version:        0.2.3
-Release:        3%{?dist}
+Version:        0.3.3
+Release:        1%{?dist}
 Summary:        Library to access MS Graph API for Microsoft 365
 
 License:        LGPL-3.0-or-later
@@ -81,10 +81,13 @@ developing applications that use %{name}.
 %{_datadir}/gir-1.0/Msg-%{apimajor}.gir
 
 %files doc
-%{_docdir}/msgraph-0/
+%{_docdir}/msgraph-%{apimajor}/
 
 
 %changelog
+* Fri Feb 14 2025 Ondrej Holy <oholy@redhat.com> - 0.3.3-1
+- Update to 0.3.3
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

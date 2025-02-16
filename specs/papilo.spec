@@ -13,7 +13,7 @@
 %global giturl  https://github.com/scipopt/papilo/
 
 Name:           papilo
-Version:        2.4.0
+Version:        2.4.1
 Release:        %autorelease
 Summary:        Parallel presolve for integer and linear optimization
 
@@ -37,8 +37,8 @@ Patch:          %{name}-vector-bounds.patch
 ExcludeArch:    %{ix86}
 
 BuildRequires:  boost-devel
+BuildRequires:  catch-devel
 BuildRequires:  cmake
-BuildRequires:  cmake(catch2)
 BuildRequires:  cmake(tbb)
 BuildRequires:  gcc-c++
 BuildRequires:  help2man

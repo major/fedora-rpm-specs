@@ -5,7 +5,7 @@
 %global crate libcst_derive
 
 Name:           rust-libcst_derive
-Version:        1.5.1
+Version:        1.6.0
 Release:        %autorelease
 Summary:        Proc macro helpers for libcst
 

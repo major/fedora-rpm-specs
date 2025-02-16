@@ -6,7 +6,7 @@
 %endif
 
 Name:           soplex
-Version:        7.1.2
+Version:        7.1.3
 Release:        %autorelease
 Summary:        Sequential object-oriented simplex
 
@@ -126,7 +126,6 @@ sed -i 's/ -Wno-strict-overflow//' CMakeLists.txt Makefile
 
 # Turn off HTML timestamps for repeatable builds
 sed -i '/HTML_TIMESTAMP/s/YES/NO/' doc/soplex.dxy
-sed -i 's/ on \$date//' doc/soplexfooter.html
 
 # Ensure the bundled copy of zstr is not used
 rm -fr src/soplex/external/zstr

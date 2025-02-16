@@ -1,11 +1,11 @@
 Summary:  A python module for system storage configuration
 Name: python-blivet
 Url: https://storageapis.wordpress.com/projects/blivet
-Version: 3.11.0
+Version: 3.12.0
 
 #%%global prerelease .b2
 # prerelease, if defined, should be something like .a1, .b1, .b2.dev1, or .c2
-Release: 8%{?prerelease}%{?dist}
+Release: 1%{?prerelease}%{?dist}
 Epoch: 1
 License: LGPL-2.1-or-later
 %global realname blivet
@@ -17,19 +17,12 @@ Source1: http://github.com/storaged-project/blivet/releases/download/%{realname}
 Patch0: 0001-remove-btrfs-plugin.patch
 %endif
 
-Patch1: 0002-Do-not-raise-libblockdev-errors-in-FSMinSize-tasks.patch
-Patch2: 0003-free_space_estimate-adjust-for-compression-on-btrfs.patch
-Patch3: 0004-consolidated-s390-device-configuration.patch
-Patch4: 0005-Align_sizes_up_for_growable_LVs.patch
-Patch5: 0006-Fix-crash-on-ppc64le-with-GPT.patch
-Patch6: 0007-Revert-Remove-support-for-the-MD-linear-RAID-level.patch
-
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
 %global partedver 1.8.1
 %global pypartedver 3.10.4
 %global utillinuxver 2.15.1
-%global libblockdevver 3.2.0
+%global libblockdevver 3.3.0
 %global libbytesizever 0.3
 %global pyudevver 0.18
 %global s390utilscorever 2.31.0
@@ -120,6 +113,9 @@ make DESTDIR=%{buildroot} install
 %{python3_sitelib}/*
 
 %changelog
+* Fri Feb 14 2025 Packit <hello@packit.dev> - 1:3.12.0-1
+- Update to version 3.12.0
+
 * Wed Feb 05 2025 Vojtech Trefny <vtrefny@redhat.com> - 3.11.0-8
 - Revert "Remove support for the MD linear RAID level"
 

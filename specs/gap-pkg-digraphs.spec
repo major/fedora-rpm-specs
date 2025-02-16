@@ -2,7 +2,7 @@
 %global giturl  https://github.com/digraphs/Digraphs
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.9.0
+Version:        1.10.0
 Release:        %autorelease
 Summary:        GAP package for digraphs and multidigraphs
 
@@ -65,6 +65,7 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %prep
 %autosetup -n %{pkgname}-%{version} -p1
 
+%conf
 # Make sure the bundled planarity is not used
 rm -fr extern/edge-addition-planarity-suite-Version_3.0.1.0
 

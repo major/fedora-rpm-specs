@@ -15,7 +15,7 @@
 
 Name:           lxdm
 Version:        %{main_version}%{?git_version:^%{?git_version}}
-Release:        6%{?dist}
+Release:        8%{?dist}
 Summary:        Lightweight X11 Display Manager
 
 # src/*.c	GPL-3.0-or-later
@@ -73,8 +73,10 @@ Requires:       pam
 Requires:       /sbin/shutdown
 Requires:       desktop-backgrounds-compat
 Requires:		%{_bindir}/ssh-agent
-# Loading webp format img requires the below
-Requires:       webp-pixbuf-loader%{?_isa}
+# Loading jpegxl format img requires the below
+%if 0%{?fedora} >= 42
+Requires:       jxl-pixbuf-loader%{?_isa}
+%endif
 # needed for anaconda to boot into runlevel 5 after install
 Provides:       service(graphical-login) = lxdm
 
@@ -100,12 +102,10 @@ KDM in LXDE distros. It's still in very early stage of development.
 # Reset X after logout (bug 1269917)
 sed -i.reset data/lxdm.conf.in \
 	-e '\@reset@s|^.*$|reset=1|' 
-# Fedora 37 changed default background file format
-# This is reverted, even on F-38
-#%%if 0%{?fedora} >= 37
-%if 0
-sed -i.f37 data/lxdm.conf.in \
-	-e '\@bg=@s|default.png|default.webp|'
+# Fedora 42 changed default background file format
+%if 0%{?fedora} >= 42
+sed -i.f42 data/lxdm.conf.in \
+	-e '\@bg=@s|default.png|default.jxl|'
 %endif
 
 install -cpm 644 \
@@ -199,6 +199,10 @@ install -m644 -p -D %{SOURCE2} %{buildroot}%{_unitdir}-preset/83-fedora-lxdm.pre
 
 
 %changelog
+* Fri Feb 14 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.3^20220831git2d4ba970-8
+- F42 switches default background from png to jxl
+- Require jpegxl gdk-pixbuf loader
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3^20220831git2d4ba970-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

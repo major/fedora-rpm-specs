@@ -1,14 +1,14 @@
 %global pypi_name pbr
 # Disable bootstrap
-%bcond bootstrap 1
+%bcond bootstrap 0
 
 # EPEL does not have the necessary testing dependencies
 # During the bootstrap the test dependencies are not ready yet
 %bcond tests %[%{defined fedora} && %{without bootstrap}]
 
 Name:           python-%{pypi_name}
-Version:        6.0.0
-Release:        2%{?dist}
+Version:        6.1.1
+Release:        1%{?dist}
 Summary:        Python Build Reasonableness
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -92,6 +92,9 @@ export PYTHONDONTWRITEBYTECODE=1
 %{_bindir}/pbr-3
 
 %changelog
+* Fri Feb 14 2025 Joel Capitao <jcapitao@redhat.com> - 6.1.1-1
+- Update to 6.1.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

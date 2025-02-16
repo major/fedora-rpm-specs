@@ -1,5 +1,5 @@
-%global git_date 20250124
-%global git_commit 4d262e79be1cd15c84cad55ad88c53a2d7712e85
+%global git_date 20250214
+%global git_commit ff7551bbb3011f17cb8c6aac03f64682dde14c21
 %{?git_commit:%global git_commit_hash %(c=%{git_commit}; echo ${c:0:7})}
 
 %global _python_bytecompile_extra 0
@@ -34,7 +34,7 @@ BuildRequires: make
 BuildRequires: sequoia-policy-config
 BuildRequires: systemd-rpm-macros
 
-Conflicts: openssl-libs < 3.0.2-2
+Conflicts: openssl-libs < 3.2.2-13
 Conflicts: nss < 3.105
 Conflicts: libreswan < 3.28
 Conflicts: openssh < 9.9
@@ -52,16 +52,12 @@ such as SSL/TLS libraries.
 Summary: Tool to switch between crypto policies
 Requires: %{name} = %{version}-%{release}
 Recommends: (grubby if kernel)
-Provides: fips-mode-setup = %{version}-%{release}
 
 %description scripts
 This package provides a tool update-crypto-policies, which applies
 the policies provided by the crypto-policies package. These can be
 either the pre-built policies from the base package or custom policies
 defined in simple policy definition files.
-
-The package also provides a tool fips-mode-setup, which can be used
-to enable or disable the system FIPS mode.
 
 %prep
 %setup -q -n fedora-crypto-policies-%{git_commit_hash}-%{git_commit}
@@ -228,6 +224,8 @@ end
 %pre
 # Drop removed javasystem backend; can be dropped in F43
 rm -f "%{_sysconfdir}/crypto-policies/back-ends/javasystem.config" 2>/dev/null || :
+# Drop removed openssl backend; can be dropped in F44
+rm -f "%{_sysconfdir}/crypto-policies/back-ends/openssl.config" 2>/dev/null || :
 exit 0
 
 %posttrans scripts
@@ -289,12 +287,15 @@ exit 0
 %{_mandir}/man8/update-crypto-policies.8*
 %{_datarootdir}/crypto-policies/python
 
-%{_bindir}/fips-mode-setup
-%{_bindir}/fips-finish-install
-%{_mandir}/man8/fips-mode-setup.8*
-%{_mandir}/man8/fips-finish-install.8*
-
 %changelog
+* Fri Feb 14 2025 Alexander Sosedkin <asosedkin@redhat.com> - 20250214-1.gitff7551b
+- openssl: use both names for P384-MLKEM1024
+- gnutls: drop kyber (switching to leancrypto took it away)
+- fips-mode-setup: remove (Changes/RemoveFipsModeSetup)
+
+* Wed Jan 29 2025 Alexander Sosedkin <asosedkin@redhat.com> - 20250129-1.gite614154
+- openssl: stop generating `openssl` in favour of `opensslcnf`
+
 * Fri Jan 24 2025 Alexander Sosedkin <asosedkin@redhat.com> - 20250124-1.git4d262e7
 - openssl: stricter enabling of Ciphersuites
 - openssl: make use of -CBC and -AESGCM keywords

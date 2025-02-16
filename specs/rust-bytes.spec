@@ -5,7 +5,7 @@
 %global crate bytes
 
 Name:           rust-bytes
-Version:        1.9.0
+Version:        1.10.0
 Release:        %autorelease
 Summary:        Types and traits for working with bytes
 
@@ -48,6 +48,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+extra-platforms-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+extra-platforms-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "extra-platforms" feature of the "%{crate}" crate.
+
+%files       -n %{name}+extra-platforms-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel

@@ -6,8 +6,8 @@
 
 Summary: Config files for KDE
 Name:    kde-settings
-Version: 41.2
-Release: 3%{?dist}
+Version: 42.0
+Release: 1%{?dist}
 
 License: MIT
 URL:     https://pagure.io/fedora-kde/kde-settings
@@ -242,6 +242,10 @@ test -f %{_datadir}/wallpapers/F%{version_maj} || ls -l %{_datadir}/wallpapers
 
 
 %changelog
+* Fri Feb 14 2025 Neal Gompa <ngompa@fedoraproject.org> - 42.0-1
+- Bump for F42 backgrounds
+- Cleanup and sync profile.d shell scripts
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 41.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

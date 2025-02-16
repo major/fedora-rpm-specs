@@ -1,8 +1,8 @@
-# Milter header files package name
-%if (0%{?rhel} && 0%{?rhel} <= 7) || (0%{?fedora} && 0%{?fedora} <= 25)
-%global milter_devel_package sendmail-devel
+# Use sysusers from Fedora 43 onwards
+%if (0%{?rhel} && 0%{?rhel} <= 10) || (0%{?fedora} && 0%{?fedora} <= 42)
+%global use_sysusers 0
 %else
-%global milter_devel_package sendmail-milter-devel
+%global use_sysusers 1
 %endif
 
 # Do a hardened build where possible
@@ -11,7 +11,7 @@
 Summary:	Milter (mail filter) for spamassassin
 Name:		spamass-milter
 Version:	0.4.0
-Release:	29%{?dist}
+Release:	30%{?dist}
 License:	GPL-2.0-or-later
 URL:		http://savannah.nongnu.org/projects/spamass-milt/
 Source0:	http://savannah.nongnu.org/download/spamass-milt/spamass-milter-%{version}.tar.gz
@@ -25,7 +25,6 @@ Source22:	spamass-milter-sysconfig.systemd
 Source23:	spamass-milter-postfix-sysconfig.systemd
 # Patches submitted upstream:
 # http://savannah.nongnu.org/bugs/?29326
-Patch2:		spamass-milter-0.4.0-authuser.patch
 Patch3:		spamass-milter-0.4.0-rcvd.patch
 Patch4:		spamass-milter-0.4.0-bits.patch
 Patch5:		spamass-milter-0.4.0-group.patch
@@ -38,13 +37,15 @@ Patch11:	spamass-milter-0.4.0-rundir.patch
 BuildRequires:	coreutils
 BuildRequires:	gcc-c++
 BuildRequires:	make
-BuildRequires:	%milter_devel_package
+BuildRequires:	sendmail-milter-devel
 BuildRequires:	spamassassin
 Requires:	spamassassin, /usr/sbin/sendmail
 # Needed for ownership of %%{_tmpfilesdir}
 Requires:	systemd
 
+%if !%{use_sysusers}
 Requires(pre): glibc-common, shadow-utils
+%endif
 BuildRequires: systemd
 Requires(post): coreutils, systemd
 Requires(preun): systemd
@@ -92,19 +93,16 @@ cp -p %{SOURCE3} spamass-milter-postfix-tmpfs.conf
 # Local patch for initscript and socket paths
 %patch -P 10 -b .pathnames
 
-# Add -I option to ignore (don't check) mail from authenticated users
-# (#437506, #496767) http://savannah.nongnu.org/bugs/?21046
-# Note: upstream introduced a similar -a option in version 0.4.0, so this
-# option is retained only in builds prior to Fedora 22 for compatibility
-%if (0%{?rhel} && 0%{?rhel} <= 7) || (0%{?fedora} && 0%{?fedora} <= 21)
-%patch -P 2 -b .authuser
-%endif
-
 # With systemd, the runtime directory is /run rather than /var/run
 %patch -P 11 -b .rundir
 
 # Copy in systemd files
 cp -p %{SOURCE20} %{SOURCE21} %{SOURCE22} %{SOURCE23} .
+
+# Create a sysusers.d config file
+cat >spamass-milter.sysusers.conf <<EOF
+u sa-milt - 'SpamAssassin Milter' %{_localstatedir}/lib/spamass-milter -
+EOF
 
 %build
 export SENDMAIL=/usr/sbin/sendmail
@@ -137,14 +135,19 @@ install -m 644 spamass-milter-postfix-tmpfs.conf \
 : > %{buildroot}/run/spamass-milter/spamass-milter.sock
 : > %{buildroot}/run/spamass-milter/postfix/sock
 
+# sysusers config
+%if %{use_sysusers}
+install -m0644 -D spamass-milter.sysusers.conf %{buildroot}%{_sysusersdir}/spamass-milter.conf
+%endif
+
+%if !%{use_sysusers}
 %pre
 getent group sa-milt >/dev/null || groupadd -r sa-milt
 getent passwd sa-milt >/dev/null || \
 	useradd -r -g sa-milt -d %{_localstatedir}/lib/spamass-milter \
 		-s /sbin/nologin -c "SpamAssassin Milter" sa-milt
-# Fix homedir for upgrades
-usermod --home %{_localstatedir}/lib/spamass-milter sa-milt &>/dev/null
 exit 0
+%endif
 
 %post
 if [ $1 -eq 1 ]; then
@@ -185,6 +188,9 @@ usermod -a -G postfix sa-milt || :
 %{_unitdir}/spamass-milter.service
 %{_unitdir}/spamass-milter-root.service
 %{_sbindir}/spamass-milter
+%if %{use_sysusers}
+%{_sysusersdir}/spamass-milter.conf
+%endif
 %dir %attr(-,sa-milt,sa-milt) %{_localstatedir}/lib/spamass-milter/
 %dir %attr(-,sa-milt,sa-milt) /run/spamass-milter/
 %ghost %attr(-,sa-milt,sa-milt) /run/spamass-milter/spamass-milter.sock
@@ -197,6 +203,12 @@ usermod -a -G postfix sa-milt || :
 %ghost %attr(-,sa-milt,postfix) /run/spamass-milter/postfix/sock
 
 %changelog
+* Fri Feb 14 2025 Paul Howarth <paul@city-fan.org> - 0.4.0-30
+- Drop EL-7 support
+- Drop homedir fix for upgrades from packages built in 2009 and earlier
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+  (from F-43 onwards)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

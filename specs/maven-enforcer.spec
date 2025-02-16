@@ -85,9 +85,6 @@ find -name '*.java' -exec sed -i 's/\r//' {} +
 find -name EvaluateBeanshell.java -delete
 
 %pom_remove_dep :bsh enforcer-rules
-%pom_add_dep javax.annotation:javax.annotation-api maven-enforcer-plugin
-
-%pom_add_plugin org.eclipse.sisu:sisu-maven-plugin maven-enforcer-plugin
 
 %build
 # Use system version of maven-enforcer-plugin instead of reactor version

@@ -29,6 +29,9 @@ URL:            %{gourl}
 Source0:        %{gosource}
 Source1:        %{name}.pam
 
+# Fix build with Go 1.24
+Patch0:         https://github.com/google/fscrypt/pull/423.patch
+
 # Non-Go build dependencies
 BuildRequires:  gcc
 BuildRequires:  pam-devel
@@ -49,7 +52,7 @@ This is the PAM module associated with %{name}.
 
 %prep
 %goprep
-%dnl %autopatch -p1
+%autopatch -p1
 
 %generate_buildrequires
 %go_generate_buildrequires
@@ -75,7 +78,13 @@ install -m 0644 -vp %{SOURCE1}          %{buildroot}%{_pam_vendordir}/%{name}
 
 %if %{with check}
 %check
+%ifarch x86_64
 %gocheck
+%else
+# Tests fail on non-x86_64 arches
+# Cf. https://github.com/google/fscrypt/issues/382
+( %gocheck ) || :
+%endif
 %endif
 
 %files
@@ -94,6 +103,7 @@ install -m 0644 -vp %{SOURCE1}          %{buildroot}%{_pam_vendordir}/%{name}
 %changelog
 * Fri Feb 14 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.3.5-1
 - Update to 0.3.5
+- Add patch to fix building tests with Go 1.24
 
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild

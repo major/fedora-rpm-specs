@@ -226,7 +226,7 @@
 #region main package
 Name:		%{pkg_name_llvm}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -497,10 +497,12 @@ lit is a tool used by the LLVM project for executing its test suites.
 
 #region LLVM packages
 
-%package -n %{pkg_name_llvm}-resource-filesystem
+%package -n %{pkg_name_llvm}-filesystem
 Summary: Filesystem package that owns the versioned llvm prefix
+# Was renamed immediately after introduction.
+Obsoletes: %{pkg_name_llvm}-resource-filesystem < 20
 
-%description -n %{pkg_name_llvm}-resource-filesystem
+%description -n %{pkg_name_llvm}-filesystem
 This packages owns the versioned llvm prefix directory: $libdir/llvm$version
 
 %package -n %{pkg_name_llvm}-devel
@@ -541,14 +543,14 @@ Documentation for the LLVM compiler infrastructure.
 
 %package -n %{pkg_name_llvm}-libs
 Summary:	LLVM shared libraries
-Requires:	%{pkg_name_llvm}-resource-filesystem%{?_isa} = %{version}-%{release}
+Requires:	%{pkg_name_llvm}-filesystem%{?_isa} = %{version}-%{release}
 
 %description -n %{pkg_name_llvm}-libs
 Shared libraries for the LLVM compiler infrastructure.
 
 %package -n %{pkg_name_llvm}-static
 Summary:	LLVM static libraries
-Requires:	%{pkg_name_llvm}-resource-filesystem%{?_isa} = %{version}-%{release}
+Requires:	%{pkg_name_llvm}-filesystem%{?_isa} = %{version}-%{release}
 Conflicts:	%{pkg_name_llvm}-devel < 8
 
 Provides:	llvm-static(major) = %{maj_ver}
@@ -558,7 +560,7 @@ Static libraries for the LLVM compiler infrastructure.
 
 %package -n %{pkg_name_llvm}-cmake-utils
 Summary: CMake utilities shared across LLVM subprojects
-Requires: %{pkg_name_llvm}-resource-filesystem%{?_isa} = %{version}-%{release}
+Requires: %{pkg_name_llvm}-filesystem%{?_isa} = %{version}-%{release}
 
 %description -n %{pkg_name_llvm}-cmake-utils
 CMake utilities shared across LLVM subprojects.
@@ -575,7 +577,7 @@ Provides:	llvm-test(major) = %{maj_ver}
 LLVM regression tests.
 
 %package -n %{pkg_name_llvm}-googletest
-Requires: %{pkg_name_llvm}-resource-filesystem%{?_isa} = %{version}-%{release}
+Requires: %{pkg_name_llvm}-filesystem%{?_isa} = %{version}-%{release}
 Summary: LLVM's modified googletest sources
 
 %description -n %{pkg_name_llvm}-googletest
@@ -727,7 +729,7 @@ Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA OR MIT
 
-Requires: clang-resource-filesystem%{?_isa} = %{version}-%{release}
+Requires: %{pkg_name_clang}-resource-filesystem%{?_isa} = %{version}-%{release}
 Provides: compiler-rt(major) = %{maj_ver}
 
 %description -n %{pkg_name_compiler_rt}
@@ -759,7 +761,7 @@ Summary: OpenMP header files
 URL: http://openmp.llvm.org
 
 Requires: %{pkg_name_libomp}%{?_isa} = %{version}-%{release}
-Requires: clang-resource-filesystem%{?_isa} = %{version}-%{release}
+Requires: %{pkg_name_clang}-resource-filesystem%{?_isa} = %{version}-%{release}
 
 Provides: libomp-devel(major) = %{maj_ver}
 
@@ -981,7 +983,7 @@ Static library for LLVM libunwind.
 Summary:	A post-link optimizer developed to speed up large applications
 License:	Apache-2.0 WITH LLVM-exception
 URL:		https://github.com/llvm/llvm-project/tree/main/bolt
-Requires:	%{pkg_name_llvm}-resource-filesystem%{?_isa} = %{version}-%{release}
+Requires:	%{pkg_name_llvm}-filesystem%{?_isa} = %{version}-%{release}
 
 # As hinted by bolt documentation
 Recommends:     gperftools-devel
@@ -2337,7 +2339,7 @@ fi
 
 #region LLVM files
 
-%files -n %{pkg_name_llvm}-resource-filesystem
+%files -n %{pkg_name_llvm}-filesystem
 %dir %{install_prefix}
 %dir %{install_bindir}
 %dir %{install_includedir}
@@ -3062,6 +3064,9 @@ fi
 
 #region changelog
 %changelog
+* Fri Feb 14 2025 Nikita Popov <npopov@redhat.com> - 19.1.7-9
+- Rename llvm-resource-filesystem -> llvm-filesystem
+
 * Wed Feb 12 2025 Nikita Popov <npopov@redhat.com> - 19.1.7-8
 - Backport bolt fix (rhbz#2344830)
 

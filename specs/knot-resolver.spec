@@ -7,7 +7,7 @@
 
 Name:           knot-resolver
 Version:        5.7.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Caching full DNS Resolver
 
 License:        GPL-3.0-or-later
@@ -66,7 +66,6 @@ BuildRequires:  lmdb-devel
 Requires:       lua-basexx
 Requires:       lua-psl
 Requires:       lua-http
-Requires(pre):  shadow-utils
 %endif
 %if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires:  pkgconfig(lmdb)
@@ -75,7 +74,6 @@ Requires:       lua5.1-basexx
 Requires:       lua5.1-cqueues
 Requires:       lua5.1-http
 Recommends:     lua5.1-psl
-Requires(pre):  shadow-utils
 %endif
 
 # we do not build HTTP module on SuSE so the build requires is not needed
@@ -167,6 +165,11 @@ gpg2 --verify %{SOURCE1} %{SOURCE0}
 %endif
 %setup -q -n %{name}-%{version}
 
+# Create a sysusers.d config file
+cat >knot-resolver.sysusers.conf <<EOF
+u knot-resolver - 'Knot Resolver' %{_sysconfdir}/knot-resolver -
+EOF
+
 %build
 CFLAGS="%{optflags}" LDFLAGS="%{?__global_ldflags}" meson build_rpm \
 %if "x%{?rhel}" == "x"
@@ -224,10 +227,9 @@ install -m 755 -d %{buildroot}/%{_pkgdocdir}
 mv %{buildroot}/%{_datadir}/doc/%{name}/* %{buildroot}/%{_pkgdocdir}/
 %endif
 
-%pre
-getent group knot-resolver >/dev/null || groupadd -r knot-resolver
-getent passwd knot-resolver >/dev/null || useradd -r -g knot-resolver -d %{_sysconfdir}/knot-resolver -s /sbin/nologin -c "Knot Resolver" knot-resolver
+install -m0644 -D knot-resolver.sysusers.conf %{buildroot}%{_sysusersdir}/knot-resolver.conf
 
+%pre
 %if "x%{?rhel}" == "x"
 # upgrade-4-to-5
 if [ -f %{_unitdir}/kresd.socket ] ; then
@@ -349,6 +351,7 @@ fi
 %{_libdir}/knot-resolver/kres_modules/watchdog.lua
 %{_libdir}/knot-resolver/kres_modules/workarounds.lua
 %{_mandir}/man8/kresd.8.gz
+%{_sysusersdir}/knot-resolver.conf
 
 %files devel
 %{_includedir}/libkres
@@ -378,6 +381,9 @@ fi
 %endif
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 5.7.4-4
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

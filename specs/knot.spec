@@ -8,7 +8,7 @@
 Summary:	High-performance authoritative DNS server
 Name:		knot
 Version:	3.4.4
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL-3.0-or-later
 URL:		https://www.knot-dns.cz
 Source0:	https://secure.nic.cz/files/knot-dns/%{name}-%{version}.tar.xz
@@ -148,6 +148,11 @@ gpg2 --verify %{SOURCE1} %{SOURCE0}
 %endif
 %autosetup -p1
 
+# Create a sysusers.d config file
+cat >knot.sysusers.conf <<EOF
+u knot - 'Knot DNS server' %{_sharedstatedir}/knot -
+EOF
+
 %build
 # disable debug code (causes unused warnings)
 CFLAGS="%{optflags} -DNDEBUG -Wno-unused"
@@ -205,14 +210,12 @@ install -d -m 0770 -D %{buildroot}%{_sharedstatedir}/knot
 # remove libarchive files
 find %{buildroot} -type f -name "*.la" -delete -print
 
+install -m0644 -D knot.sysusers.conf %{buildroot}%{_sysusersdir}/knot.conf
+
 %check
 V=1 make check
 
 %pre
-getent group knot >/dev/null || groupadd -r knot
-getent passwd knot >/dev/null || \
-  useradd -r -g knot -d %{_sharedstatedir}/knot -s /sbin/nologin \
-  -c "Knot DNS server" knot
 %if 0%{?suse_version}
 %service_add_pre knot.service
 %endif
@@ -273,6 +276,7 @@ getent passwd knot >/dev/null || \
 %{_mandir}/man8/knotc.*
 %{_mandir}/man8/knotd.*
 %ghost %attr(770,root,knot) %dir %{_rundir}/knot
+%{_sysusersdir}/knot.conf
 
 %files utils
 %{_bindir}/kdig
@@ -324,6 +328,9 @@ getent passwd knot >/dev/null || \
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Thu Jan 23 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.4.4-2
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 23 2025 Jakub Ružička <jakub.ruzicka@nic.cz> - 3.4.4-1
 - Update to 3.4.4
 

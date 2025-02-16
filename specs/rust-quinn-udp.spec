@@ -5,7 +5,7 @@
 %global crate quinn-udp
 
 Name:           rust-quinn-udp
-Version:        0.5.9
+Version:        0.5.10
 Release:        %autorelease
 Summary:        UDP sockets with ECN information for the QUIC transport protocol
 

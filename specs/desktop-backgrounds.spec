@@ -208,9 +208,9 @@ mkdir -p %{buildroot}%{_datadir}/glib-2.0/schemas
       default-dark-16_10.%{picture_ext}
 
   cd ..
-  ln -s ./%{fedora_release_name}/default/%{fedora_release_name}-01-day.png \
+  ln -s ./%{fedora_release_name}/default/%{fedora_release_name}-01-day.%{picture_ext} \
       default.%{picture_ext}
-  ln -s ./%{fedora_release_name}/default/%{fedora_release_name}-01-night.png \
+  ln -s ./%{fedora_release_name}/default/%{fedora_release_name}-01-night.%{picture_ext} \
       default-dark.%{picture_ext}
   )
 %else

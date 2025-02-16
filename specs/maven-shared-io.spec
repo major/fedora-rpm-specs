@@ -14,6 +14,8 @@ Source0:        https://repo1.maven.org/maven2/org/apache/maven/shared/%{name}/%
 
 # Rejected upstream: https://issues.apache.org/jira/browse/MSHARED-490
 Patch:          0001-Fix-running-tests-with-Maven-3.3.9.patch
+# From upstream commit: https://github.com/apache/maven-shared-io/commit/5e37cfb2f0fa79e77a9cd627278e28b4d45aa5f8
+Patch:          0002-Fix-incorrect-parent-relativePath.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap

@@ -22,6 +22,15 @@ Patch:          %{url}/commit/7f5f97e9d042d9b9d9acf1cdcc9738fe99c792c5.patch
 # Fix warning (description_file)
 # https://github.com/gugarosa/opytimark/commit/25d9adb743c8483c0f2ae41f56c8872fdd44977f
 Patch:          %{url}/commit/25d9adb743c8483c0f2ae41f56c8872fdd44977f.patch
+# Reduce exact floating-point equality comparisons in the tests
+# https://github.com/gugarosa/opytimark/pull/4
+#
+# Fixes:
+#
+# python-opytimark fails to build with Python 3.14: test_jennrich_sampson:
+# assert np.float64(124.36218236181412) == 124.36218236181409
+# https://bugzilla.redhat.com/show_bug.cgi?id=2345715
+Patch:          %{url}/pull/4.patch
 
 BuildArch:      noarch
 

@@ -1,20 +1,13 @@
 %{?python_enable_dependency_generator}
 
 Name:           pungi
-Version:        4.8.0
-Release:        3%{?dist}
+Version:        4.9.0
+Release:        1%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPL-2.0-only
 URL:            https://pagure.io/pungi
 Source0:        https://pagure.io/releases/%{name}/%{name}-%{version}.tar.bz2
-# https://pagure.io/pungi/pull-request/1810
-# Use container and bootable-container productmd types
-Patch:          1810.patch
-# https://pagure.io/pungi/pull-request/1812
-# https://pagure.io/releng/issue/12474
-# Avoid crashing if command output cannot be decoded as utf-8
-Patch:          0002-Protect-against-decoding-errors-with-subprocess-text.patch
 
 BuildRequires:  make
 BuildRequires:  python3-pytest
@@ -146,6 +139,16 @@ gzip _build/man/pungi.1
 %{_bindir}/%{name}-cache-cleanup
 
 %changelog
+* Fri Feb 14 2025 Lubomír Sedlář <lsedlar@redhat.com> - 4.9.0-1
+- buildinstall: Add support for rootfs-type lorax option (lsedlar)
+- scm: Stop trying to download src arch (lsedlar)
+- extra_isos: Provide arch to extra files getter (lsedlar)
+- Move temporary buildinstall download to work/ (lsedlar)
+- Download extra files from container registry (lsedlar)
+- Remove python 2.7 dependencies from setup.py (lsedlar)
+- util: Drop dead code (lsedlar)
+- Directly import mock from unittest (lsedlar)
+
 * Thu Jan 16 2025 Adam Williamson <awilliam@redhat.com> - 4.8.0-3
 - Backport PR #1812 to fix crash on subprocess unicode decode error
 

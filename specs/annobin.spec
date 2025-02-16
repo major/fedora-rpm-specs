@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.91
+Version: 12.92
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
@@ -532,6 +532,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Feb 14 2025 Nick Clifton  <nickc@redhat.com> - 12.92-1
+- Annocheck: Do not rely upon libelf's ability to detect links to separate debuginfo files.  (RHEL-79264)
+
 * Thu Feb 13 2025 Nick Clifton  <nickc@redhat.com> - 12.91-1
 - Annocheck: Fix resource leak.  (RHEL-79253)
 

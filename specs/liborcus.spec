@@ -102,7 +102,7 @@ API documentation for %{name}.
 %endif
 
 %build
-./autogen.sh
+NOCONFIGURE=1 ./autogen.sh
 %configure --disable-debug --disable-silent-rules --disable-static \
     --disable-werror --with-pic %{?condopts}
 sed -i \

@@ -2324,8 +2324,10 @@ update_gconv_modules_cache ()
 %endif
 
 %files utils
+%if %{without bootstrap}
 %{_bindir}/memusage
 %{_bindir}/memusagestat
+%endif
 %{_bindir}/mtrace
 %{_bindir}/pcprofiledump
 %{_bindir}/xtrace

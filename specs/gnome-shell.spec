@@ -8,7 +8,7 @@
 %endif
 
 Name:           gnome-shell
-Version:        48~alpha
+Version:        48~beta
 Release:        %autorelease
 Summary:        Window management and application launching for GNOME
 
@@ -27,13 +27,6 @@ Patch: 0001-status-keyboard-Add-a-catch-around-reload-call.patch
 Patch: 0002-status-keyboard-Load-keyboard-from-system-settings-i.patch
 Patch: 0003-status-keyboard-Use-gnome-desktop-API-for-getting-de.patch
 
-# Fix some things to be in Utilities
-# https://gitlab.gnome.org/GNOME/gnome-shell/-/merge_requests/3607
-Patch: 0001-data-List-Characters-and-Logs-in-the-Utilities-group.patch
-# Fix ordering in Utilities
-# https://gitlab.gnome.org/GNOME/gnome-shell/-/merge_requests/3609
-Patch: 0002-data-Correct-Utilities-category-ordering-add-comment.patch
-
 
 %define eds_version 3.45.1
 %define gnome_desktop_version 44.0-7
@@ -42,9 +35,9 @@ Patch: 0002-data-Correct-Utilities-category-ordering-add-comment.patch
 %define gjs_version 1.73.1
 %define gtk4_version 4.0.0
 %define adwaita_version 1.5.0
-%define mutter_version 48~alpha
+%define mutter_version 48~beta
 %define polkit_version 0.100
-%define gsettings_desktop_schemas_version 48~alpha
+%define gsettings_desktop_schemas_version 48~beta
 %define ibus_version 1.5.2
 %define gnome_bluetooth_version 1:42.3
 %define gstreamer_version 1.4.5

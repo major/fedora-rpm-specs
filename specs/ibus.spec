@@ -62,7 +62,7 @@
 Name:           ibus
 Version:        1.5.32~beta2
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -71,6 +71,7 @@ Source1:        https://github.com/ibus/%name/releases/download/%{source_version
 Source2:        %{name}-xinput
 Source3:        %{name}.conf.5
 # Patch0:         %%{name}-HEAD.patch
+Patch0:         %{name}-HEAD.patch
 # Under testing #1349148 #1385349 #1350291 #1406699 #1432252 #1601577
 Patch1:         %{name}-1385349-segv-bus-proxy.patch
 
@@ -335,8 +336,6 @@ fi
 # cp client/gtk2/ibusimcontext.c client/gtk3/ibusimcontext.c || :
 # cp client/gtk2/ibusim.c client/gtk3/ibusim.c || :
 # cp client/gtk2/ibusimcontext.c client/gtk4/ibusimcontext.c || :
-cp client/gtk2/ibusimcontext.c client/gtk3/ibusimcontext.c || :
-cp client/gtk2/ibusimcontext.c client/gtk4/ibusimcontext.c || :
 
 
 # prep test
@@ -636,6 +635,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Fri Feb 14 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.32~beta2-2
+- Resolves #2342280 Fix ibus start with verbose typo
+
 * Fri Feb 07 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.32~beta2-1
 - Implement compose key with Wayland input-method protocol
 - Implement %L in compose file for EN compose keys

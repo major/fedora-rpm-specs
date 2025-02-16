@@ -18,7 +18,7 @@
 
 Name: %{repo}
 Epoch: 2
-Version: 1.2.4
+Version: 1.2.5
 Release: %autorelease
 Summary: CLI for running Open Containers
 License: Apache-2.0 and BSD-2-Clause and BSD-3-Clause and MIT

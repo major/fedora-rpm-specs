@@ -1,3 +1,9 @@
+%if 0%{?suse_version}
+%global hipblas_name libhipblas2
+%else
+%global hipblas_name hipblas
+%endif
+
 %global upstreamname hipBLAS
 %global rocm_release 6.3
 %global rocm_patch 0
@@ -6,9 +12,6 @@
 %global toolchain rocm
 # hipcc does not support some clang flags
 %global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/')
-
-# $gpu will be evaluated in the loops below             
-%global _vpath_builddir %{_vendor}-%{_target_os}-build-${gpu}
 
 %bcond_with debug
 %if %{with debug}
@@ -35,9 +38,9 @@
 %define _source_payload	w7T0.xzdio
 %define _binary_payload	w7T0.xzdio
 
-Name:           hipblas
+Name:           %{hipblas_name}
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        ROCm BLAS marshalling library
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -59,7 +62,6 @@ BuildRequires:  rocm-compilersupport-macros
 BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocm-rpm-macros-modules
 BuildRequires:  rocsolver-devel
 
 %if %{with test}
@@ -75,7 +77,7 @@ BuildRequires:  python3-pyyaml
 %endif
 %endif
 
-Requires:       rocm-rpm-macros-modules
+Provides:       hipblas = %{version}-%{release}
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -89,10 +91,16 @@ application. hipBLAS exports an interface that does not require
 the client to change, regardless of the chosen backend. Currently,
 hipBLAS supports rocBLAS and cuBLAS as backends.
 
+%if 0%{?suse_version}
+%post -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
+%endif
+
 %package devel
 Summary:        Libraries and headers for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       hipblas-common-devel
+Provides:       hipblas-devel = %{version}-%{release}
 
 %description devel
 %{summary}
@@ -114,40 +122,30 @@ sed -i -e 's@find_package(Git REQUIRED)@#find_package(Git REQUIRED)@' library/CM
 
 %build
 
-for gpu in %{rocm_gpu_list}
-do
-    module load rocm/$gpu
-    %cmake \
-	-DCMAKE_CXX_COMPILER=hipcc \
-	-DCMAKE_C_COMPILER=hipcc \
-	-DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
-	-DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
-	-DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
-           -DCMAKE_BUILD_TYPE=%build_type \
-	   -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
-	   -DCMAKE_SKIP_RPATH=ON \
-	   -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
-	   -DROCM_SYMLINK_LIBS=OFF \
-	   -DHIP_PLATFORM=amd \
-	   -DAMDGPU_TARGETS=${ROCM_GPUS} \
-	   -DCMAKE_INSTALL_LIBDIR=$ROCM_LIB \
-	   -DCMAKE_INSTALL_BINDIR=$ROCM_BIN \
-	   -DBUILD_CLIENTS_BENCHMARKS=%{build_test} \
-	   -DBUILD_CLIENTS_TESTS=%{build_test} \
-	   -DBUILD_CLIENTS_TESTS_OPENMP=OFF \
-	   -DBUILD_FORTRAN_CLIENTS=OFF \
-	   -DBLAS_LIBRARY=cblas
+%cmake \
+    -DCMAKE_CXX_COMPILER=hipcc \
+    -DCMAKE_C_COMPILER=hipcc \
+    -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
+    -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
+    -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
+    -DCMAKE_BUILD_TYPE=%build_type \
+    -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
+    -DCMAKE_SKIP_RPATH=ON \
+    -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
+    -DROCM_SYMLINK_LIBS=OFF \
+    -DHIP_PLATFORM=amd \
+    -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
+    -DCMAKE_INSTALL_LIBDIR=%_libdir \
+    -DBUILD_CLIENTS_BENCHMARKS=%{build_test} \
+    -DBUILD_CLIENTS_TESTS=%{build_test} \
+    -DBUILD_CLIENTS_TESTS_OPENMP=OFF \
+    -DBUILD_FORTRAN_CLIENTS=OFF \
+    -DBLAS_LIBRARY=cblas
 
-    %cmake_build
-    module purge
-done
+%cmake_build
 
 %install
-
-for gpu in %{rocm_gpu_list}
-do
-    %cmake_install
-done
+%cmake_install
 
 echo s@%{buildroot}@@ > br.sed
 find %{buildroot}%{_libdir} -name '*.so.*.[0-9]' | sed -f br.sed >  %{name}.files
@@ -165,15 +163,19 @@ fi
 
 %files devel -f %{name}.devel
 %doc README.md
-%dir %{_libdir}/cmake/%{name}
-%dir %{_includedir}/%{name}
-%{_includedir}/%{name}/*
+%dir %{_libdir}/cmake/hipblas
+%dir %{_includedir}/hipblas
+%{_includedir}/hipblas/*
 
 %if %{with test}
 %files test -f %{name}.test
 %endif
 
 %changelog
+* Fri Feb 14 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-5
+- remove multi build
+- Fix SLE 15.6
+
 * Mon Jan 20 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-4
 - multhread compress
 

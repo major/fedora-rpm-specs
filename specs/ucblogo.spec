@@ -1,14 +1,11 @@
 Name:           ucblogo
-Version:        6.2.4
+Version:        6.2.5
 Release:        1%{?dist}
 Summary:        An interpreter for the Logo programming language
 
 License:        GPL-3.0-or-later
 Source:         https://github.com/jrincayc/ucblogo-code/archive/version_%{version}/ucblogo-%{version}.tar.gz
-Patch1: ucb-logo-c99-1.patch
-Patch2: ucb-logo-c99-2.patch
-Patch3: compile-flags.patch
-Patch4: function-pointers.patch
+Patch1: compile-flags.patch
 
 URL:            https://people.eecs.berkeley.edu/~bh/logo.html
 BuildRequires:  make
@@ -60,7 +57,7 @@ Requires:       %{name} = %{version}-%{release}
 This package contains the x11 binary for ucblogo.
 
 %prep
-%autosetup -p1 -n %{name}-code-version_%{version}
+%autosetup -p1 -n %{name}-%{version}
 
 
 %build
@@ -122,6 +119,9 @@ fi
 %{_bindir}/ucblogo-x11
 
 %changelog
+* Thu Feb 13 2025 Joshua Cogliati <jrincayc@yahoo.com> - 6.2.5-1
+- Update to release 6.2.5
+
 * Fri Jan 24 2025 Benson Muite <benson_muite@emailplus.org> 6.2.4-1
 - Update to release 6.2.4
 - Fix failure to build errors

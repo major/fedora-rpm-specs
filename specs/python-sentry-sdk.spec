@@ -17,11 +17,14 @@
 # no_huey: huey is not packaged.
 # no_huggingface_hub: huggingface_hub is not packaged.
 # no_langchain: langchain is not packaged.
+# no_launchdarkly: launchdarkly is not packaged.
 # no_litestar: litestar is not packaged.
 # no_loguru: loguru is not packaged.
 # no_mockupdb: mockupdb is not packaged. It is unmaintained: https://github.com/mongodb-labs/mongo-mockup-db.
 # no_newrelic: newrelic is not packaged.
 # no_openai: openai is not packaged.
+# no_openfeature: openfeature is not packaged.
+# no_opentelemetry: opentelemetry-distro is not packaged anymore.
 # no_potel: opentelemetry-experimental is not packaged.
 # no_pyspark: pyspark is not packaged.
 # no_quart: quart is not packaged.
@@ -30,6 +33,7 @@
 # no_starlite: starlite is not packaged.
 # no_strawberry: strawberry is not packaged.
 # no_trytond: trytond is not packaged.
+# no_unleash: UnleashClient is not packaged.
 
 # old_graphene: graphene in Fedora 41 is too old (Sentry SDK wants 3.3, Fedora 41 has 3.0b6).
 # new_werkzeug: werkzeug in Fedora 41 is too new (Sentry SDK wants < 2.1.0, Fedora 41 has 3.0.3).
@@ -39,7 +43,7 @@
 %bcond network_tests 0
 
 %global forgeurl https://github.com/getsentry/sentry-python
-Version:        2.17.0
+Version:        2.21.0
 %global tag %{version}
 %forgemeta
 
@@ -49,33 +53,37 @@ Summary:        The new Python SDK for Sentry.io
 License:        MIT
 URL:            https://sentry.io/for/python/
 Source0:        %{forgesource}
-# Upstream PR: https://github.com/getsentry/sentry-python/pull/3598
-Patch0:         0001-tests-reorder-to-unpin-pytest.patch
 # Downstream-only: unpin virtualenv
 #
 # Upstream wants a old virtualenv to allow an old pip for compatibility
 # with old celery and httpx, but we must work with what we have.
-Patch1:         0001-Downstream-only-unpin-virtualenv.patch
-# Prefer python_multipart import over multipart
-# https://github.com/getsentry/sentry-python/pull/3710
+Patch0:         0001-Downstream-only-unpin-virtualenv.patch
+
+# Downstream-only: add django.contrib.admin to INSTALLED_APPS
 #
-# Merged as:
-#
-# fix(starlette): Prefer python_multipart import over multipart (#3710)
-# https://github.com/getsentry/sentry-python/commit/000c8e6c4eedf046c601b81d5d8d82f92115eddd
-#
-# This avoids a PendingDeprecationError in the tests when using the multipart
-# import name with python-multipart 0.0.13 or later.
-Patch2:         %{forgeurl}/commit/000c8e6c4eedf046c601b81d5d8d82f92115eddd.patch
+# In contrast with upstream, tox environment pyX.XX-gevent is executed
+# with django and djangorestframework installed. djangorestframework
+# imports django.contrib.admindocs which in turn imports
+# django.contrib.admin:
+# https://github.com/encode/django-rest-framework/blob/c7a7eae551528b6887614df816c8a26df70272d6/rest_framework/schemas/generators.py#L10C6-L10C30
+# https://github.com/django/django/blame/2d4add11fd57b05f7ea48e8b3e89e743c9871aa3/django/contrib/admindocs/views.py#L7
+# Then, when gevent.monkey.patch_all is called, DefaultAdminSite._setup
+# tries to get config for admin app, which is not present in sentry's
+# testing suite app:
+# https://github.com/django/django/blob/2d4add11fd57b05f7ea48e8b3e89e743c9871aa3/django/contrib/admin/sites.py#L605
+# The easiest option is to add it there.
+Patch1:         0002-Add-django.contrib.admin-to-INSTALLED_APPS-to-fix-te.patch
+
+# Downstream-only: remove `propagate_traces` deprecation warning from celery
+# integration, as it causes many tests to fail (celery is pre-installed 
+# because of presence in tox env, while testing in upstream for all tox envs,
+# except one, is celery-free).
+Patch2:         0003-Remove-propagate_traces-deprecation-warning.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
 %if %{with tests}
-%if 0%{?fedora} == 39
 BuildRequires:  postgresql-test-rpm-macros
-%else
-BuildRequires:  postgresql15-test-rpm-macros
-%endif
 BuildRequires:  python3dist(botocore)
 BuildRequires:  python3dist(certifi)
 BuildRequires:  python3dist(djangorestframework)
@@ -95,6 +103,7 @@ BuildRequires:  python3dist(pytest-localserver)
 BuildRequires:  python3dist(python-multipart)
 BuildRequires:  python3dist(requests)
 BuildRequires:  python3dist(responses)
+BuildRequires:  python3dist(typer)
 BuildRequires:  python3dist(wheel)
 %if %{with network_tests}
 BuildRequires:  python3dist(boto3)
@@ -128,9 +137,8 @@ Summary:        %{summary}
   asyncpg
   celery
   django
-  falcon
   fastapi
-  opentelemetry
+  falcon
   pure_eval
   sqlalchemy
   starlette
@@ -145,12 +153,16 @@ Summary:        %{summary}
 # huey: no_huey
 # huggingface_hub: no_huggingface_hub
 # langchain: no_langchain
+# launchdarkly: no_launchdarkly
 # litestar: no_litestar
 # loguru: no_loguru
 # openai: no_openai
+# openfeature: no_openfeature
+# opentelemetry: no_opentelemetry
 # quart: no_quart
 # sanic: no_sanic
 # starlite: no_starlite
+# unleash: no_unleash
 %global components_excluded %{shrink:
   anthropic
   arq
@@ -159,12 +171,16 @@ Summary:        %{summary}
   huey
   huggingface_hub
   langchain
+  launchdarkly
   loguru
   litestar
   openai
+  openfeature
+  opentelemetry
   quart
   sanic
   starlite
+  unleash
   %{nil}}
 
 # List of names of extras included (if not present in components)
@@ -176,7 +192,6 @@ Summary:        %{summary}
   httpx
   pymongo
   rq
-  opentelemetry-experimental
   %{nil}}
 
 # List of names of extras excluded (if not present in components_excluded)
@@ -184,12 +199,14 @@ Summary:        %{summary}
 # clickhouse-driver: no_clickhouse_driver
 # http2: no_httpcore_http2
 # pyspark: no_pyspark
+# opentelemetry-experimental: no_opentelemetry
 %global extras_excluded %{shrink:
   %{components_excluded}
   celery-redbeat
   clickhouse-driver
   http2
   pyspark
+  opentelemetry-experimental
   %{nil}}
 
 %define toxenvs_by_components %{expand:%(echo %{components} | sed "s/^/%{toxenv}-/;s/ / %{toxenv}-/g")}
@@ -201,6 +218,7 @@ Summary:        %{summary}
   %{toxenv}-cloud_resource_context
   %{toxenv}-gevent
   %{toxenv}-grpc
+  %{toxenv}-typer
   %{nil}
 }
 
@@ -274,7 +292,7 @@ Summary:        %{summary}
 # Verify that all extras are defined against setup.py.
 defined_extra=$(echo "%extras_excluded" "%extras" | xargs -n1 | sort -u)
 setup_py_extra=$(cat setup.py | sed -n '/extras_require/,/}/p' | sed 's/    //g' | sed '$ s/.$/\nprint("\\n".join(extras_require))/' | python3 -)
-diff <(echo "$defined_extra") <(echo "$setup_py_extra")
+diff <(echo "$defined_extra" | sed "s/_/-/g") <(echo "$setup_py_extra" | sed "s/_/-/g")
 
 sed -r -i 's/psycopg2-binary/psycopg2/' tox.ini
 
@@ -327,15 +345,19 @@ skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.gql"  # no_g
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.huey"  # no_huey
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.huggingface_hub"  # no_huggingface_hub
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.langchain"  # no_langchain
+skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.launchdarkly"  # no_launchdarkly
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.litestar"  # no_litestar
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.loguru"  # no_loguru
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.openai"  # no_openai
+skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.openfeature"  # no_openfeature
+skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.opentelemetry*"  # no_opentelemetry
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.quart"  # no_quart
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.ray"  # no_ray
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.sanic"  # no_sanic
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.starlite"  # no_starlite
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.strawberry"  # no_strawberry
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.trytond"  # no_trytond
+skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.unleash"  # no_unleash
 
 %if %{without tests}
 skip_import_check="${skip_import_check-} -e sentry_sdk.db.explain_plan.sqlalchemy"
@@ -352,7 +374,6 @@ skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.flask"
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.graphene"
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.grpc*"
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.httpx"
-skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.opentelemetry*"
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.pure_eval"
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.pymongo"
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.pyramid"
@@ -389,6 +410,7 @@ deselect="${deselect-} --deselect=tests/integrations/aiohttp/test_aiohttp.py::te
 deselect="${deselect-} --deselect=tests/integrations/requests/test_requests.py::test_omit_url_data_if_parsing_fails"
 deselect="${deselect-} --deselect=tests/integrations/requests/test_requests.py::test_crumb_capture"
 deselect="${deselect-} --deselect=tests/integrations/stdlib/test_httplib.py::test_span_origin"
+deselect="${deselect-} --deselect=tests/integrations/stdlib/test_httplib.py::test_http_timeout"
 ignore="${ignore-} --ignore=tests/integrations/boto3"
 ignore="${ignore-} --ignore=tests/integrations/httpx"
 ignore="${ignore-} --ignore=tests/integrations/socket"
@@ -437,6 +459,14 @@ deselect="${deselect-} --deselect=tests/profiler/test_continuous_profiler.py::te
 deselect="${deselect-} --deselect=tests/profiler/test_transaction_profiler.py::test_profile_captured"
 deselect="${deselect-} --deselect=tests/test_metrics.py::test_timing"
 deselect="${deselect-} --deselect=tests/test_metrics.py::test_timing_decorator"
+
+# These tests depends on http2 extra for httpcore Python package.
+# https://src.fedoraproject.org/rpms/python-httpcore/pull-request/7
+# has been merged, but update is still not published.
+deselect="${deselect-} --deselect=tests/test_client.py::test_proxy"
+deselect="${deselect-} --deselect=tests/test_transport.py::test_two_way_ssl_authentication"
+deselect="${deselect-} --deselect=tests/test_transport.py::test_http2_with_https_dsn"
+deselect="${deselect-} --deselect=tests/test_transport.py::test_no_http2_with_http_dsn"
 
 defined_toxenvs=$(echo "%toxenvs_excluded" "%toxenvs" | xargs -n1 | sort -u)
 tox_ini_toxenvs=$(cat tox.ini | sed -r -n 's/[[:blank:]]*(.*):[[:blank:]]*TESTPATH=.*/%{default_toxenv}-\1/p' | xargs -n1 | sort -u)

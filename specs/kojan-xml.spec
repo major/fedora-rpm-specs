@@ -11,10 +11,14 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://github.com/mizdebsk/kojan-xml/archive/refs/tags/1.0.1.tar.gz#/%{name}-%{version}.tar.gz
 
+%if %{with bootstrap}
+BuildRequires:  javapackages-bootstrap
+%else
 BuildRequires:  maven-local
 BuildRequires:  mvn(io.kojan:kojan-parent:pom:)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
 BuildRequires:  mvn(org.xmlunit:xmlunit-assertj3)
+%endif
 
 %description
 The Kojan XML library is used to model data according to the

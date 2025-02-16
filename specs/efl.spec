@@ -14,7 +14,7 @@
 
 Name:		efl
 Version:	1.28.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Collection of Enlightenment libraries
 # Automatically converted from old format: BSD and LGPLv2+ and GPLv2 and zlib - review is highly recommended.
 License:	LicenseRef-Callaway-BSD AND LicenseRef-Callaway-LGPLv2+ AND GPL-2.0-only AND Zlib
@@ -548,6 +548,9 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/libexactness*.so
 
 %changelog
+* Fri Feb 14 2025 Tom Callaway <spot@fedoraproject.org> - 1.28.0-2
+- rebuild for poppler
+
 * Sun Feb 02 2025 Robert-André Mauchin <zebob.m@gmail.com> - 1.28.0-1
 - Update to 1.28.0
 - Fix FTBFS by forcing std17

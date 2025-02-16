@@ -3,7 +3,7 @@
 Name:           up-imapproxy
 Summary:        University of Pittsburgh IMAP Proxy
 Version:        1.2.8
-Release:        0.31.20250101svn15036%{?dist}
+Release:        0.32.20250101svn15036%{?dist}
 License:        GPL-2.0-or-later
 URL:            http://www.imapproxy.org
 # The source for this package was pulled from upstream's vcs.  Use the
@@ -20,7 +20,6 @@ Patch3:         up-imapproxy-c99.patch
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  openssl-devel ncurses-devel
-Requires(pre): shadow-utils
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
@@ -60,6 +59,11 @@ sed -i \
     -e 's/^\(foreground_mode\) .*/\1 yes/' \
     scripts/imapproxy.conf
 
+# Create a sysusers.d config file
+cat >up-imapproxy.sysusers.conf <<EOF
+u imapproxy - 'IMAP proxy service' /var/lib/imapproxy -
+EOF
+
 %build
 %configure CFLAGS="%{optflags} -std=gnu17"
 [ -d bin ] || mkdir bin
@@ -76,12 +80,8 @@ install -D -m 0755 bin/* $RPM_BUILD_ROOT%{_sbindir}
 # Use a private chroot directory, also home directory for private user
 install -d -m 0755 $RPM_BUILD_ROOT/var/lib/imapproxy
 
-%pre
-getent group imapproxy >/dev/null || groupadd -r imapproxy
-getent passwd imapproxy >/dev/null || \
-    useradd -r -g imapproxy -d /var/lib/imapproxy -s /sbin/nologin \
-    -c "IMAP proxy service" imapproxy
-exit 0
+install -m0644 -D up-imapproxy.sysusers.conf %{buildroot}%{_sysusersdir}/up-imapproxy.conf
+
 
 %post
 %systemd_post imapproxy.service
@@ -100,8 +100,12 @@ exit 0
 %{_sbindir}/in.imapproxyd
 %{_sbindir}/pimpstat
 %dir /var/lib/imapproxy
+%{_sysusersdir}/up-imapproxy.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.2.8-0.32.20250101svn15036
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Tue Jan 21 2025 Chris Adams <linux@cmadams.net> - 1.2.8-0.31.20250101svn15036
 - update to latest SVN
 - explicitly set C level (due to config function handling)

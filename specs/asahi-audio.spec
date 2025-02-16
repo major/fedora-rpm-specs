@@ -3,7 +3,7 @@
 %{?commit:%global shortcommit %(c=%{commit}; echo ${c:0:7})}
 
 Name:           asahi-audio
-Version:        2.6%{?commit:^%{date}git%{shortcommit}}
+Version:        3.0%{?commit:^%{date}git%{shortcommit}}
 Release:        %autorelease
 Summary:        PipeWire DSP profiles for Apple Silicon machines
 License:        MIT
@@ -22,6 +22,7 @@ Requires:       wireplumber >= 0.5.1-2
 Requires:       pipewire-module-filter-chain-lv2
 Requires:       lsp-plugins-lv2 >= 1.2.13-2
 Requires:       lv2-bankstown >= 1.1.0
+Requires:       lv2-triforce
 Recommends:     speakersafetyd
 
 %description

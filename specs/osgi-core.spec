@@ -61,8 +61,6 @@ mv META-INF/maven/org.osgi/osgi.core/pom.xml .
   </plugins>
 </build>'
 
-%pom_add_dep org.osgi:osgi.annotation::provided
-
 %mvn_alias : org.osgi:org.osgi.core
 
 %build

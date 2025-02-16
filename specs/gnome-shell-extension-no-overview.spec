@@ -2,7 +2,7 @@
 %global uuid        %{extension}@fthx
 
 Name:           gnome-shell-extension-%{extension}
-Version:        47
+Version:        48
 Release:        %autorelease
 Summary:        GNOME Shell extension for no overview at start-up
 License:        GPL-3.0-only
@@ -12,7 +12,6 @@ Source0:        https://github.com/fthx/no-overview/archive/refs/tags/v%{version
 Source1:        https://raw.githubusercontent.com/fthx/no-overview/main/LICENSE#/%{extension}-LICENSE
 Source2:        https://raw.githubusercontent.com/fthx/no-overview/main/README.md#/%{extension}-README.md
 #Patch0:         %%{name}-HEAD.patch
-Patch0:         %{name}-HEAD.patch
 BuildArch:      noarch
 # rhbz#2001561 Delete to require gnome-shell-extension-common
 #Requires:       gnome-shell-extension-common

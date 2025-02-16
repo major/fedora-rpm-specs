@@ -57,6 +57,9 @@ environment.
 
 %package kerberos
 Summary:        Configuration to connect via kerberos to Fedora
+
+Requires:       (fedora-packager = %{version}-%{release} if fedora-packager)
+
 # This is the version in which SNI was fixed
 %if 0%{?fedora}
 Requires:       krb5-workstation >= 1.14.3-4

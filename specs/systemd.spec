@@ -73,9 +73,6 @@ Source0:        https://github.com/systemd/systemd/archive/%{commit}/%{name}-%{s
 %else
 Source0:        https://github.com/systemd/systemd/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
 %endif
-# This file must be available before %%prep.
-# It is generated during systemd build and can be found in build/src/core/.
-Source1:        triggers.systemd
 Source2:        split-files.py
 Source3:        purge-nobody-user
 Source4:        test_sysusers_defined.py
@@ -256,6 +253,8 @@ Requires(meta): (%{name}-rpm-macros = %{version}-%{release} if rpm-build)
 Requires:       %{name}-libs%{_isa} = %{version}-%{release}
 %{?fedora:Recommends:     %{name}-networkd = %{version}-%{release}}
 %{?fedora:Recommends:     %{name}-resolved = %{version}-%{release}}
+Requires:       %{name}-shared%{_isa} = %{version}-%{release}
+Requires:       %{name}-sysusers%{_isa} = %{version}-%{release}
 Recommends:     diffutils
 Requires:       (util-linux-core or util-linux)
 Provides:       /bin/systemctl
@@ -267,7 +266,7 @@ Provides:       system-setup-keyboard = 0.9
 # systemd-sysv-convert was removed in f20: https://fedorahosted.org/fpc/ticket/308
 Obsoletes:      systemd-sysv < 206
 # self-obsoletes so that dnf will install new subpackages on upgrade (#1260394)
-Obsoletes:      %{name} < 249~~
+Obsoletes:      systemd < 257.3-4
 Provides:       systemd-sysv = 206
 Conflicts:      initscripts < 9.56.1
 %if 0%{?fedora}
@@ -293,8 +292,6 @@ Obsoletes:      timedatex < 0.6-3
 Provides:       timedatex = 0.6-3
 Conflicts:      %{name}-standalone-tmpfiles
 Provides:       %{name}-tmpfiles = %{version}-%{release}
-Conflicts:      %{name}-standalone-sysusers
-Provides:       %{name}-sysusers = %{version}-%{release}
 Conflicts:      %{name}-standalone-shutdown
 Provides:       %{name}-shutdown = %{version}-%{release}
 
@@ -374,6 +371,13 @@ Provides:       nss-myhostname%{_isa} = 0.4
 %description libs
 Libraries for systemd and udev.
 
+%package shared
+Summary:        Internal systemd shared library
+License:        LGPL-2.1-or-later AND MIT
+
+%description shared
+Internal libraries used by various systemd binaries.
+
 %package pam
 Summary:        systemd PAM module
 Requires:       %{name} = %{version}-%{release}
@@ -391,6 +395,15 @@ Just the definitions of rpm macros.
 See
 https://docs.fedoraproject.org/en-US/packaging-guidelines/Scriptlets/#_systemd
 for information how to use those macros.
+
+%package sysusers
+Summary:        systemd-sysusers program
+Requires:       %{name}-shared%{_isa} = %{version}-%{release}
+Conflicts:      %{name}-standalone-sysusers
+Obsoletes:      systemd < 257.3-4
+
+%description sysusers
+This package contains the systemd-sysusers program.
 
 %package devel
 Summary:        Development headers for systemd
@@ -884,12 +897,8 @@ CONFIGURE_OPTS=(
 
 %meson_build
 
-new_triggers=%{_vpath_builddir}/src/rpm/triggers.systemd.sh
-if ! diff -u %{SOURCE1} ${new_triggers}; then
-   echo -e "\n\n\nWARNING: triggers.systemd in Source1 is different!"
-   echo -e "      cp $PWD/${new_triggers} %{SOURCE1}\n\n\n"
-   sleep 5
-fi
+# Include the triggers
+cp %{_vpath_builddir}/src/rpm/triggers.systemd.sh %{specpartsdir}/triggers.specpart
 
 sed -r 's|/system/|/user/|g' %{SOURCE16} >10-timeout-abort.conf.user
 
@@ -1095,8 +1104,6 @@ meson test -C %{_vpath_builddir} -t 6 --print-errorlogs
 %endif
 
 #############################################################################################
-
-%include %{SOURCE1}
 
 # This macro is newly added upstream so we can't rely on it being always being available
 # in the systemd-rpm-macros yet so we define it ourselves.
@@ -1331,9 +1338,15 @@ fi
 %files libs -f .file-list-libs
 %license LICENSE.LGPL2.1
 
+%files shared -f .file-list-shared
+%license LICENSE.LGPL2.1
+%license LICENSES/MIT.txt
+
 %files pam -f .file-list-pam
 
 %files rpm-macros -f .file-list-rpm-macros
+
+%files sysusers -f .file-list-sysusers
 
 %files resolved -f .file-list-resolve
 

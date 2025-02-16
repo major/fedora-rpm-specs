@@ -11,6 +11,9 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        http://repo1.maven.org/maven2/org/apache/maven/shared/%{name}/%{version}/%{name}-%{version}-source-release.zip
 
+# From upstream commit 1b5c81a7
+Patch:          0001-MSHARED-1374-Upgrade-parent-pom-to-41.patch
+
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else

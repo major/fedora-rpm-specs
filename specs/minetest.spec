@@ -1,21 +1,21 @@
 %global irr_version 1.9.0mt13
 %global minetest_game_version 5.8.0
 Name:     minetest
-Version:  5.10.0
-Release:  4%{?dist}
+Version:  5.11.0
+Release:  1%{?dist}
 Summary:  Multiplayer infinite-world block sandbox with survival mode
 
 # Automatically converted from old format: LGPLv2+ and CC-BY-SA - review is highly recommended.
 License:  LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-CC-BY-SA
 URL:      https://luanti.org
 
-Source0:  https://github.com/minetest/minetest/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:  https://github.com/luanti-org/luanti/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:  %{name}.desktop
 Source2:  %{name}@.service
 Source3:  %{name}.rsyslog
 Source4:  %{name}.logrotate
 Source5:  %{name}.README
-Source6:  https://github.com/minetest/minetest_game/archive/%{minetest_game_version}/%{name}_game-%{minetest_game_version}.tar.gz
+Source6:  https://github.com/luanti-org/minetest_game/archive/%{minetest_game_version}/%{name}_game-%{minetest_game_version}.tar.gz
 Source7:  http://www.gnu.org/licenses/lgpl-2.1.txt
 Source8:  default.conf
 #Source9:  https://github.com/minetest/irrlicht/archive/%%{irr_version}/%%{name}-%%{irr_version}.tar.gz
@@ -85,7 +85,7 @@ Summary:  Minetest common data between client and server
 Minetest common data. This package is shared between minetest server and client.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n luanti-%{version}
 
 #pushd lib
 #tar xf %%{SOURCE9}
@@ -224,6 +224,9 @@ install -m0644 -D minetest.sysusers.conf %{buildroot}%{_sysusersdir}/minetest.co
 
 
 %changelog
+* Fri Feb 14 2025 Gwyn Ciesla <gwync@protonmail.com> - 5.11.0-1
+- 5.11.0
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 5.10.0-4
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

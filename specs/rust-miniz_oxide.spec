@@ -5,13 +5,16 @@
 %global crate miniz_oxide
 
 Name:           rust-miniz_oxide
-Version:        0.8.3
+Version:        0.8.4
 Release:        %autorelease
 Summary:        DEFLATE compression and decompression library rewritten in Rust based on miniz
 
 License:        MIT OR Zlib OR Apache-2.0
 URL:            https://crates.io/crates/miniz_oxide
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop unused, benchmark-only criterion dev-dependency
+Patch:          miniz_oxide-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

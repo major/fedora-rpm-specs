@@ -42,7 +42,7 @@
 Summary: A Modern Concurrent Version Control System
 Name: subversion
 Version: 1.14.5
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: Apache-2.0
 URL: https://subversion.apache.org/
 Source0: https://downloads.apache.org/subversion/subversion-%{version}.tar.bz2
@@ -443,6 +443,10 @@ export LD_LIBRARY_PATH=$RPM_BUILD_ROOT%{_libdir}
 export MALLOC_PERTURB_=171 MALLOC_CHECK_=3
 export LIBC_FATAL_STDERR_=1
 export PYTHON=%{svn_python}
+
+: Run svnauthz to avoid regeneration during test suite.
+tools/server-side/svnauthz --version || exit 1
+
 if ! make check CLEANUP=yes PARALLEL=${RPM_BUILD_NCPUS}; then
    : Test suite failure.
    cat fails.log
@@ -579,6 +583,9 @@ make check-javahl
 %endif
 
 %changelog
+* Wed Feb  5 2025 Joe Orton <jorton@redhat.com> - 1.14.5-8
+- try to avoid build failures on ELN again
+
 * Mon Feb  3 2025 Joe Orton <jorton@redhat.com> - 1.14.5-7
 - enable parallelisation in "make check"
 - simplify build conditional definitions

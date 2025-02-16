@@ -101,7 +101,6 @@ BuildRequires:	rubygem-ronn-ng
 Recommends:		gnutls-utils
 Recommends:		iproute
 Recommends:		pam
-Requires(pre):		shadow-utils
 %if %{use_systemd}
 Requires(post):		systemd
 Requires(preun):	systemd
@@ -142,6 +141,11 @@ sed -i 's/run-as-group = nogroup/run-as-group = nobody/g' tests/data/*.config
 echo "int main() { return 77; }" > tests/valid-hostname.c
 %endif
 
+# Create a sysusers.d config file
+cat >ocserv.sysusers.conf <<EOF
+u ocserv - 'ocserv' %{_localstatedir}/lib/ocserv -
+EOF
+
 %build
 
 %if 0%{?rhel} && 0%{?rhel} <= 6
@@ -172,10 +176,6 @@ autoreconf -fvi
 make %{?_smp_mflags}
 
 %pre
-getent group ocserv &>/dev/null || groupadd -r ocserv
-getent passwd ocserv &>/dev/null || \
-	/usr/sbin/useradd -r -g ocserv -s /sbin/nologin -c ocserv \
-		-d %{_localstatedir}/lib/ocserv ocserv
 mkdir -p %{_sysconfdir}/pki/ocserv/public
 mkdir -p -m 700 %{_sysconfdir}/pki/ocserv/private
 mkdir -p %{_sysconfdir}/pki/ocserv/cacerts
@@ -226,6 +226,8 @@ install -D -m 0755 %{SOURCE11} %{buildroot}/%{_initrddir}/%{name}
 
 %make_install
 
+install -m0644 -D ocserv.sysusers.conf %{buildroot}%{_sysusersdir}/ocserv.conf
+
 %files
 %defattr(-,root,root,-)
 
@@ -256,6 +258,7 @@ install -D -m 0755 %{SOURCE11} %{buildroot}/%{_initrddir}/%{name}
 %else
 %{_initrddir}/%{name}
 %endif
+%{_sysusersdir}/ocserv.conf
 
 %changelog
 %autochangelog

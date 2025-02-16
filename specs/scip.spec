@@ -1,5 +1,5 @@
 Name:           scip
-Version:        9.2.0
+Version:        9.2.1
 Release:        %autorelease
 Summary:        Solving Constraint Integer Programs
 

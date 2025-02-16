@@ -3,7 +3,7 @@
 
 Name:           sddm
 Version:        0.21.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 License:        GPL-2.0-or-later
 Summary:        QML based desktop and login manager
 
@@ -84,10 +84,12 @@ BuildRequires:  systemd-rpm-macros
 Obsoletes: kde-settings-sddm < 20-5
 
 %if 0%{?fedora}
-# for /usr/share/backgrounds/default.png
+# for /usr/share/backgrounds/default.{jxl,png}
 BuildRequires: desktop-backgrounds-compat
 BuildRequires: GraphicsMagick
 Requires: desktop-backgrounds-compat
+# for jxl support
+Requires: kf6-kimageformats%{?_isa}
 # for /usr/share/pixmaps/system-logo-white.png
 Requires: system-logos
 %endif
@@ -154,12 +156,20 @@ A collection of sddm themes, including: elarun, maldives, maya
 %autosetup -p1 %{?commitdate:-n %{name}-%{commit}}
 
 %if 0%{?fedora}
+bg_file_ext="jxl"
+if [ -f "/usr/share/backgrounds/default.png" ]; then
+bg_file_ext="png"
+fi
 #FIXME/TODO: use version on filesystem instead of using a bundled copy
-cp -v /usr/share/backgrounds/default.png  \
-      src/greeter/theme/background.png
-ls -sh src/greeter/theme/background.png
-gm mogrify -resize 1920x1200 src/greeter/theme/background.png
-ls -sh src/greeter/theme/background.png
+cp -v "/usr/share/backgrounds/default.${bg_file_ext}"  \
+      "src/greeter/theme/background.${bg_file_ext}"
+ls -sh "src/greeter/theme/background.${bg_file_ext}"
+gm mogrify -resize 1920x1200 "src/greeter/theme/background.${bg_file_ext}"
+ls -sh "src/greeter/theme/background.${bg_file_ext}"
+
+if [ "$bg_file_ext" != "png" ]; then
+sed -e "s/background.png/background.${bg_file_ext}/g" -i src/greeter/theme/{Main.qml,theme.conf}
+fi
 %endif
 
 
@@ -286,6 +296,9 @@ ln -sr %{buildroot}%{_bindir}/sddm-greeter-qt6 %{buildroot}%{_bindir}/sddm-greet
 
 
 %changelog
+* Sat Feb 15 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.21.0-8
+- Adapt to backgrounds in JPEG-XL format
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

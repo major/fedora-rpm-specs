@@ -9,26 +9,23 @@ Source0:	http://guichaz.free.fr/gliv/files/%{name}-%{version}.tar.bz2
 Source1:	gliv.desktop
 Source2:	gliv.applications
 Patch1:		gliv-0001-Something-is-always-bigger-than-nothing-NULL.patch
+Patch2:		gliv-0002-bool-is-a-reserved-word-in-a-new-ANSI-C.patch
 BuildRequires:	desktop-file-utils
 BuildRequires:	gcc
 BuildRequires:	gtk2-devel >= 2.6.0
 BuildRequires:	gtkglext-devel >= 0.7.0
 BuildRequires:	make
 
-
 %description
 GLiv is an OpenGL image viewer. GLiv is very fast and smooth at rotating,
 panning and zooming if you have an OpenGL accelerated graphics board.
 
-
 %prep
 %autosetup -p1
-
 
 %build
 %configure
 %make_build
-
 
 %install
 %make_install
@@ -52,7 +49,6 @@ desktop-file-install \
 %{_datadir}/applications/*gliv.desktop
 %{_datadir}/application-registry/gliv.applications
 %{_datadir}/pixmaps/gliv.png
-
 
 %changelog
 %autochangelog

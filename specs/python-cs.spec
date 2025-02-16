@@ -1,15 +1,19 @@
 %global forgeurl https://github.com/ngine-io/cs
-Version:        3.3.0
+Version:        3.3.1
 %forgemeta
 
 Name:           python-cs
 Release:        %autorelease
 Summary:        A simple, yet powerful CloudStack API client for python and the command-line
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            %{forgeurl}
 Source0:        %{forgesource}
+
+# Remove pytest-runner
+# https://github.com/ngine-io/cs/pull/141
+# https://fedoraproject.org/wiki/Changes/DeprecatePythonPytestRunner
+Patch:          %{forgeurl}/pull/141.patch
 
 BuildArch:      noarch
 
@@ -39,9 +43,6 @@ Conflicts: clearsilver
 
 %prep
 %forgeautosetup
-
-# Remove unnecessary shebang
-sed -i '/#! \/usr\/bin\/env python/d' cs/client.py
 
 
 %generate_buildrequires

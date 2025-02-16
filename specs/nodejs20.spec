@@ -48,7 +48,7 @@
 %global nodejs_epoch 1
 %global nodejs_major 20
 %global nodejs_minor 18
-%global nodejs_patch 2
+%global nodejs_patch 3
 # nodejs_soversion - from NODE_MODULE_VERSION in src/node_version.h
 %global nodejs_soversion 115
 %global nodejs_abi %{nodejs_soversion}
@@ -75,7 +75,7 @@
 
 # c-ares - from deps/cares/include/ares_version.h
 # https://github.com/nodejs/node/pull/9332
-%global c_ares_version 1.33.1
+%global c_ares_version 1.34.4
 
 # llhttp - from deps/llhttp/include/llhttp.h
 %global llhttp_version 8.1.2
@@ -102,7 +102,7 @@
 # " this line just fixes syntax highlighting for vim that is confused by the above and continues literal
 
 # simdutf from deps/simdutf/simdutf.h
-%global simdutf_version 5.5.0
+%global simdutf_version 5.6.4
 
 # OpenSSL minimum version
 %global openssl11_minimum 1:1.1.1
@@ -325,7 +325,7 @@ Provides: bundled(simdutf) = %{simdutf_version}
 
 # Upstream has added a new URL parser that has no option to build as a shared
 # library (19.7.0+)
-Provides: bundled(ada) = 2.9.0
+Provides: bundled(ada) = 2.9.2
 
 
 # undici and cjs-module-lexer ship with pre-built WASM binaries.

@@ -78,6 +78,7 @@ install -d -m0755 %{buildroot}%{_mandir}
 cp -a doc/man/man3 %{buildroot}%{_mandir}
 
 %files
+%license LICENSE
 %{_libdir}/libtevent.so.*
 
 %files devel

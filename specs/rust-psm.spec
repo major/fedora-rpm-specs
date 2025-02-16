@@ -5,7 +5,7 @@
 %global crate psm
 
 Name:           rust-psm
-Version:        0.1.24
+Version:        0.1.25
 Release:        %autorelease
 Summary:        Portable Stack Manipulation: stack manipulation and introspection routines
 

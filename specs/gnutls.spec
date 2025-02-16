@@ -71,7 +71,7 @@ BuildRequires: zlib-devel, brotli-devel, libzstd-devel
 %if %{with bootstrap}
 BuildRequires: automake, autoconf, gperf, libtool, texinfo
 %endif
-BuildRequires: nettle-devel >= 3.10
+BuildRequires: nettle-devel >= 3.10.1
 %if %{with leancrypto}
 BuildRequires: meson
 %endif

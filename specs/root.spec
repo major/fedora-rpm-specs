@@ -37,9 +37,9 @@
 %global __provides_exclude_from ^%{python3_sitearch}/lib.*\\.so$
 
 Name:		root
-Version:	6.34.02
+Version:	6.34.04
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	7%{?dist}
+Release:	1%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -77,34 +77,15 @@ Patch2:		%{name}-dont-install-minicern.patch
 Patch3:		%{name}-no-export-python-modules.patch
 #		Run some test on 32 bit that upstream has disabled
 Patch4:		%{name}-32bit-tests.patch
-#		Fix compilation of TMVA SOFIE parser on s390x
-#		https://github.com/root-project/root/pull/17307
-Patch5:		%{name}-Fix-compilation-on-s390x.patch
-#		Make -DCLAD_SOURCE_DIR option work
-#		https://github.com/root-project/root/pull/17308
-Patch6:		%{name}-Make-DCLAD_SOURCE_DIR-option-work.patch
-#		Fix segmentation fault during testing on ix86
-#		https://github.com/root-project/root/pull/17314
-Patch7:		%{name}-tmva-sofie-Fix-Tile-operator.patch
 #		Adjust test/stressGraphics.ref
 #		https://github.com/root-project/root/pull/17398
-Patch8:		%{name}-Adjust-test-stressGraphics.ref.patch
+Patch5:		%{name}-Adjust-test-stressGraphics.ref.patch
 #		Fix out of bounds error reported with gcc 15
 #		https://github.com/root-project/root/pull/17249
-Patch9:		%{name}-gpad-Fix-Debug-Assertion-Failure-in-libGpad.patch
-#		Missing includes for compiling with gcc 15
-#		https://github.com/root-project/root/pull/17443
-Patch10:	%{name}-Add-a-missing-include-to-RVirtualCanvasPainter.patch
-Patch11:	%{name}-Add-a-missing-include-to-RTensor.patch
-#		Conflicting declarations (gcc 15)
-#		https://github.com/root-project/root/pull/17455
-Patch12:	%{name}-Remove-redundant-and-conflicting-function-declaratio.patch
-#		Missing includes for compiling with gcc 15
-#		https://github.com/root-project/root/pull/17510
-Patch13:	%{name}-llvm-project-Backport-fix-for-compilation-issue-with.patch
+Patch6:		%{name}-gpad-Fix-Debug-Assertion-Failure-in-libGpad.patch
 #		Fix out of bounds errors reported with gcc 15
 #		https://github.com/root-project/root/pull/17551
-Patch14:	%{name}-Fix-out-of-bounds-error-in-pyroot.patch
+Patch7:		%{name}-Fix-out-of-bounds-error-in-pyroot.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
@@ -143,7 +124,7 @@ BuildRequires:	unixODBC-devel
 BuildRequires:	libGL-devel
 BuildRequires:	libGLU-devel
 BuildRequires:	libpq-devel
-BuildRequires:  libxcrypt-devel
+BuildRequires:	libxcrypt-devel
 BuildRequires:	python%{python3_pkgversion}-devel >= 3.7
 BuildRequires:	python%{python3_pkgversion}-setuptools
 BuildRequires:	python%{python3_pkgversion}-numpy
@@ -1991,13 +1972,6 @@ This package contains utility functions for ntuples.
 %patch -P5 -p1
 %patch -P6 -p1
 %patch -P7 -p1
-%patch -P8 -p1
-%patch -P9 -p1
-%patch -P10 -p1
-%patch -P11 -p1
-%patch -P12 -p1
-%patch -P13 -p1
-%patch -P14 -p1
 
 # Remove bundled sources in order to be sure they are not used
 #  * afterimage
@@ -2581,8 +2555,9 @@ test-webgui-ping"
 #   0u
 #     Which is: 0
 #
+# gtest-tree-treeplayer-ttreeindex-clone
 # gtest-tree-treeplayer-treetreeplayertestUnit:
-# segmentation fault
+# Randomly fail - can't open file that was just created - race condition?
 #
 # test-stressgraphics-firefox-skip3d:
 # requires firefox...
@@ -2597,6 +2572,7 @@ test-webgui-ping"
 # import xgboost as xgb
 excluded="${excluded}|\
 gtest-roofit-roofit-vectorisedPDFs-testLandau|\
+gtest-tree-treeplayer-ttreeindex-clone|\
 gtest-tree-treeplayer-treetreeplayertestUnit|\
 test-stressgraphics-firefox-skip3d|\
 tutorial-webcanv-fonts_ttf.cxx|\
@@ -3690,6 +3666,13 @@ fi
 %endif
 
 %changelog
+* Fri Feb 14 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.34.04-1
+- Update to 6.34.04
+- Drop patches accepted upstream or previously backported
+
+* Fri Feb 14 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 6.34.02-8
+- Rebuilt for libarrow 19
+
 * Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 6.34.02-7
 - Rebuild with gsl 2.8
 

@@ -60,8 +60,6 @@ for pom in asm asm-analysis asm-commons asm-test asm-tree asm-util; do
   %pom_xpath_inject pom:parent '<relativePath>..</relativePath>' ${pom}
 done
 
-%pom_add_dep org.ow2.asm:asm-tree:%{version} asm-analysis
-
 # Don't ship poms used for build only
 %mvn_package :aggregator __noinstall
 %mvn_package :tools-retrofitter __noinstall

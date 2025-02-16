@@ -1,28 +1,17 @@
-# Milter header files package name
-%if 0%{?fedora} > 25 || 0%{?rhel} > 7
-%global milter_devel_package sendmail-milter-devel
+# Use sysusers from Fedora 43 onwards
+%if (0%{?rhel} && 0%{?rhel} <= 10) || (0%{?fedora} && 0%{?fedora} <= 42)
+%global use_sysusers 0
 %else
-%global milter_devel_package sendmail-devel
-%endif
-
-# Don't support legacy GeoIP library from F-32, EPEL-8 onwards
-# Support libmaxminddb instead
-%if 0%{?fedora} > 31 || 0%{?rhel} > 7
-%global geoip_support		0
-%global maxminddb_support	1
-%else
-%global geoip_support		1
-%global maxminddb_support	0
+%global use_sysusers 1
 %endif
 
 Summary:		Milter for greylisting, the next step in the spam control war
 Name:			milter-greylist
 Version:		4.6.4
-Release:		16%{?dist}
+Release:		17%{?dist}
 # License is like BSD-4-Clause but without the 4th clause
 # We use spamd.c but not queue.h
 # See READNE for details
-# Automatically converted from old format: BSD with advertising - review is highly recommended.
 License:		LicenseRef-Callaway-BSD-with-advertising
 URL:			http://hcpnet.free.fr/milter-greylist/
 Source0:		ftp://ftp.espci.fr/pub/milter-greylist/milter-greylist-%{version}.tgz
@@ -37,27 +26,23 @@ BuildRequires:		coreutils
 BuildRequires:		curl-devel
 BuildRequires:		flex
 BuildRequires:		gcc
-%if %{geoip_support}
-BuildRequires:		GeoIP-devel
-%endif
-%if %{maxminddb_support}
 BuildRequires:		libmaxminddb-devel
-%endif
 BuildRequires:		libspf2-devel
 BuildRequires:		m4
 BuildRequires:		make
-BuildRequires:		%milter_devel_package
 BuildRequires:		perl-interpreter
 BuildRequires:		sed
+BuildRequires:		sendmail-milter-devel
 
 # Scriptlet dependencies
 BuildRequires:		systemd
+%if !%{use_sysusers}
 Requires(pre):		shadow-utils
+%endif
 %{?systemd_requires}
 
-%if %{maxminddb_support}
+# Dependencies
 Recommends:		geolite2-country
-%endif
 
 %description
 Greylisting is a new method of blocking significant amounts of spam at
@@ -75,7 +60,7 @@ This package provides a greylist filter for sendmail's milter API.
 # * Specify pidfile in initscript rather than config file
 # * Specify socket in config file rather than initscript
 # * Specify grmilter as the user to run the dæmon as
-# * Specify the GeoIP/GeoIP2 database location
+# * Specify the GeoIP2 database location
 %patch -P0
 
 # Re-code docs as UTF8
@@ -83,22 +68,11 @@ This package provides a greylist filter for sendmail's milter API.
 
 # Work around warning about _BSD_SOURCE being deprecated in favor
 # of _DEFAULT_SOURCE breaking build due to use of -Werror
-# (patch breaks builds with EL < 7)
-%if 0%{?fedora} > 20 || 0%{?rhel} > 6
 %patch -P2
-%endif
 
 # Work around issues with ISC libbind and AI_ADDRCONFIG
 # http://tech.groups.yahoo.com/group/milter-greylist/message/5048
 %patch -P4 -p1
-
-# Drop GeoIP configuration if we don't support it
-%if ! %{geoip_support}
-perl -i -ne 'print $_ unless m{^geoipdb }' greylist.conf
-%endif
-%if ! %{maxminddb_support}
-perl -i -ne 'print $_ unless m{^geoip2db }' greylist.conf
-%endif
 
 # README.fedora
 install -p -m 644 %{SOURCE1} .
@@ -116,6 +90,10 @@ for i in `find -type f`; do
     rm -f "$i".tmp
 done
 
+# Create a sysusers.d config file
+cat >milter-greylist.sysusers.conf <<EOF
+u grmilter - 'Greylist-milter user' %{_localstatedir}/lib/milter-greylist -
+EOF
 
 %build
 # Harden the build if supported
@@ -130,12 +108,7 @@ export LDFLAGS="-Wl,-z,now -Wl,-z,relro %{__global_ldflags} -Wl,--as-needed $LDL
 	--enable-spamassassin			\
 	--with-drac-db=%{_localstatedir}/lib/milter-greylist/drac/drac.db \
 	--with-libcurl				\
-%if %{geoip_support}
-	--with-libGeoIP				\
-%endif
-%if %{maxminddb_support}
 	--with-libmaxminddb			\
-%endif
 	--with-libspf2				\
 	--with-user=grmilter
 
@@ -151,6 +124,11 @@ install -d -m 755 %{buildroot}{/run/milter-greylist,%{_localstatedir}/lib/milter
 # Create a dummy socket so we can %%ghost it and remove it on uninstall
 touch %{buildroot}/run/milter-greylist/milter-greylist.sock
 
+# sysusers config
+%if %{use_sysusers}
+install -m0644 -D milter-greylist.sysusers.conf %{buildroot}%{_sysusersdir}/milter-greylist.conf
+%endif
+
 # Initscript
 install -D -p -m 0644 %{SOURCE20} %{buildroot}%{_unitdir}/milter-greylist.service
 
@@ -160,6 +138,7 @@ cat << EOF > %{buildroot}%{_prefix}/lib/tmpfiles.d/milter-greylist.conf
 d /run/milter-greylist 0710 root mail
 EOF
 
+%if !%{use_sysusers}
 %pre
 # Create account for milter-greylist to run as
 getent group grmilter >/dev/null || groupadd -r grmilter
@@ -167,6 +146,7 @@ getent passwd grmilter >/dev/null || \
 	useradd -r -g grmilter -d %{_localstatedir}/lib/milter-greylist -s /sbin/nologin \
 	 -c "Greylist-milter user" grmilter
 exit 0
+%endif
 
 %post
 %systemd_post milter-greylist.service
@@ -189,9 +169,17 @@ exit 0
 %{_mandir}/man8/milter-greylist.8*
 %ghost /run/milter-greylist/milter-greylist.sock
 %{_prefix}/lib/tmpfiles.d/milter-greylist.conf
+%if %{use_sysusers}
+%{_sysusersdir}/milter-greylist.conf
+%endif
 %{_unitdir}/milter-greylist.service
 
 %changelog
+* Fri Feb 14 2025 Paul Howarth <paul@city-fan.org> - 4.6.4-17
+- Drop EL-7 support
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+  (from F-43 onwards)
+
 * Fri Jan 17 2025 Paul Howarth <paul@city-fan.org> - 4.6.4-16
 - Build with -std=gnu17 due to issues with milter API (#2336394)
 

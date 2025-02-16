@@ -26,6 +26,11 @@ BuildRequires:  systemd-rpm-macros
 ExclusiveArch:  aarch64 riscv64 ppc64le %{x86_64}
 
 Requires:       %{name}-data = %{version}-%{release}
+# These should not be pulled in on x86_64 as they can cause a loop and prevent
+# any binary from successfully executing (#2344770)
+%ifnarch %{x86_64}
+Recommends:     %{name}-binfmts = %{version}-%{release}
+%endif
 %ifarch aarch64
 Requires(post): %{_sbindir}/update-alternatives
 Requires(postun): %{_sbindir}/update-alternatives
@@ -38,6 +43,18 @@ Summary:        Common files for %{name}
 BuildArch:      noarch
 
 %description    data %{common_description}
+
+This package provides common data files for box64.
+
+%ifnarch %{x86_64}
+%package        binfmts
+Summary:        binfmt_misc handler configurations for box64
+
+%description    binfmts %{common_description}
+
+This package provides binfmt_misc handler configurations to use box64 to
+execute x86_64 binaries.
+%endif
 
 %ifarch aarch64
 %package        adlink
@@ -418,8 +435,6 @@ sed 's:${CMAKE_INSTALL_PREFIX}/bin/${BOX64}:%{_bindir}/%{name}:' \
   < system/box32.conf.cmake > system/box32.conf
 sed 's:${CMAKE_INSTALL_PREFIX}/bin/${BOX64}:%{_bindir}/%{name}:' \
   < system/box64.conf.cmake > system/box64.conf
-install -Dpm0644 -t %{buildroot}%{_binfmtdir} system/box32.conf
-install -Dpm0644 -t %{buildroot}%{_binfmtdir} system/box64.conf
 install -Dpm0644 -t %{buildroot}%{_sysconfdir} system/box64.box64rc
 %else
 %cmake_install
@@ -731,10 +746,14 @@ fi
 %doc %lang(cn) README_CN.md
 %doc %lang(uk) README_UK.md
 %doc docs/*.md docs/img
-%{_binfmtdir}/box32.conf
-%{_binfmtdir}/box64.conf
 %{_mandir}/man1/box64.1*
 %config(noreplace) %{_sysconfdir}/box64.box64rc
+
+%ifnarch %{x86_64}
+%files binfmts
+%{_binfmtdir}/box32.conf
+%{_binfmtdir}/box64.conf
+%endif
 
 %changelog
 %autochangelog

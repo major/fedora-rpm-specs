@@ -6,7 +6,7 @@
 Version: %{baseversion}.%{patchlevel}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-3.0-or-later
 Url: https://www.gnu.org/software/bash
 Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -139,6 +139,9 @@ echo %{release} > _patchlevel
 rm y.tab.*
 
 %build
+# GCC 15 defaults to `-std=gnu23` which breaks compilation
+export CFLAGS+="-std=gnu17"
+
 autoconf
 %configure --with-bash-malloc=no --with-afs
 
@@ -329,6 +332,10 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Feb 13 2025 Siteshwar Vashisht <svashisht@redhat.com> - 5.2.37-3
+- Fix FTBFS in Fedora rawhide/f42
+  Resolves: #2339923
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.37-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

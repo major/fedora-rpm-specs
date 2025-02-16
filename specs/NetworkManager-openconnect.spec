@@ -24,7 +24,7 @@
 Summary:   NetworkManager VPN plugin for openconnect
 Name:      NetworkManager-openconnect
 Version:   1.2.10
-Release:   7%{?dist}
+Release:   8%{?dist}
 License:   GPL-2.0-or-later AND LGPL-2.1-only
 URL:       http://www.gnome.org/projects/NetworkManager/
 Source:    https://download.gnome.org/sources/NetworkManager-openconnect/1.2/%{name}-%{version}.tar.xz
@@ -60,8 +60,6 @@ Requires: openconnect      >= %{openconnect_version}
 Requires: dbus-common
 Obsoletes: NetworkManager-openconnect < 1.2.3-0
 
-Requires(pre): %{_sbindir}/useradd
-Requires(pre): %{_sbindir}/groupadd
 
 %global __provides_exclude ^libnm-.*\\.so
 
@@ -81,6 +79,11 @@ the OpenConnect client with NetworkManager (GNOME files).
 
 %prep
 %autosetup -p1
+
+# Create a sysusers.d config file
+cat >networkmanager-openconnect.sysusers.conf <<EOF
+u nm-openconnect - 'NetworkManager user for OpenConnect' - -
+EOF
 
 %build
 %configure \
@@ -104,11 +107,8 @@ rm -f %{buildroot}%{_libdir}/NetworkManager/lib*.la
 
 %find_lang %{name}
 
-%pre
-%{_sbindir}/groupadd -r nm-openconnect &>/dev/null || :
-%{_sbindir}/useradd  -r -s /sbin/nologin -d / -M \
-                     -c 'NetworkManager user for OpenConnect' \
-                     -g nm-openconnect nm-openconnect &>/dev/null || :
+install -m0644 -D networkmanager-openconnect.sysusers.conf %{buildroot}%{_sysusersdir}/networkmanager-openconnect.conf
+
 
 %if 0%{?rhel} && 0%{?rhel} <= 7
 %post
@@ -134,6 +134,7 @@ fi
 %{_libexecdir}/nm-openconnect-service-openconnect-helper
 %doc AUTHORS ChangeLog NEWS
 %license COPYING
+%{_sysusersdir}/networkmanager-openconnect.conf
 
 %files gnome
 %{_libexecdir}/nm-openconnect-auth-dialog
@@ -151,6 +152,9 @@ fi
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.2.10-8
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.10-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -6,7 +6,7 @@ It allows you to store configuration separate from your code, as per
 The Twelve-Factor App (https://12factor.net/config) methodology.}
 
 Name:       python-%{srcname}
-Version:    14.1.0
+Version:    14.1.1
 Release:    %autorelease
 Summary:    Python library for parsing environment variables
 License:    MIT

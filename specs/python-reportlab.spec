@@ -6,7 +6,7 @@
 %bcond_without tests
 
 Name:           python-%{pypi_name}
-Version:        4.3.0
+Version:        4.3.1
 Release:        %autorelease
 Summary:        Library for generating PDFs and graphics
 License:        BSD-3-Clause AND BSD-4-Clause AND MIT

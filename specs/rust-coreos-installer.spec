@@ -5,14 +5,14 @@
 %global cargo_install_lib 0
 
 %global dracutlibdir %{_prefix}/lib/dracut
-%global dracutcommit a4be31dde8cfb3e5d579c3c5cef9205a704d03b5
+%global dracutcommit 09e3518fb6c49e0a14bf99eca5b9ab1e0ce672e1
 %global dracutshortcommit %(c=%{dracutcommit}; echo ${c:0:7})
 
 %global crate coreos-installer
 
 Name:           rust-coreos-installer
 Version:        0.23.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Installer for Fedora CoreOS and RHEL CoreOS
 
 License:        Apache-2.0
@@ -182,6 +182,9 @@ mv %{buildroot}%{_bindir}/rdcore %{buildroot}%{dracutlibdir}/modules.d/50rdcore/
 %endif
 
 %changelog
+* Thu Feb 10 2024 Sebastian Mayr <fedora@smayr.name> - 0.23.0-6
+- Bump dracut version to 09e3518 to fix mmcblk/nvme device installs
+
 * Thu Feb 06 2025 Aashish Radhakrishnan<aaradhak@redhat.com> - 0.23.0-5
 - Backport patch that adds F43 signing key
 
@@ -380,7 +383,7 @@ mv %{buildroot}%{_bindir}/rdcore %{buildroot}%{dracutlibdir}/modules.d/50rdcore/
 - Fix hardcoded library path
 
 * Tue Mar 16 2021 Sohan Kunkerkar <skunkerk@redhat.com> - 0.8.0-1
-- New release 
+- New release
 
 * Mon Mar 01 2021 Fabio Valentini <decathorpe@gmail.com> - 0.7.2-5
 - Backport trivial commit d94715c to allow building with nix 0.20.

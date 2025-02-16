@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        22
+Version:        24
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -119,6 +119,11 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Fri Feb 14 2025 Packit <hello@packit.dev> - 24-1
+- cockpit-storage-integration: fix using top level btrfs volume for root mount point (rhbz#2336489)
+- infra: add logic for reporting test results to fedora wiki
+- Other test and infra improvements
+
 * Wed Jan 22 2025 Packit <hello@packit.dev> - 22-1
 - Ensure that URL path is always set when loading the app (rhbz#2336488)
 - Parse hidden_webui_pages option from anaconda.conf
