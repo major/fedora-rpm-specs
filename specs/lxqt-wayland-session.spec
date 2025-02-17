@@ -5,7 +5,7 @@
 
 Name:           lxqt-wayland-session
 Version:        0.1.1
-Release:        7%{?dist}
+Release:        9%{?dist}
 Summary:        Wayland session files for LXQt
 # See "LICENSE" for a breakdown of license usage
 License:        LGPL-2.1-only AND GPL-3.0-only AND MIT AND GPL-2.0-only AND BSD-3-Clause
@@ -135,6 +135,7 @@ License:        GPL-3.0-or-later
 Requires:       %{name} = %{version}-%{release}
 Requires:       river
 Recommends:     swaybg
+Recommends:     jxl-pixbuf-loader
 Supplements:    (%{name} and river)
 
 %description -n lxqt-river-session
@@ -153,6 +154,7 @@ License:        MIT
 Requires:       %{name} = %{version}-%{release}
 Requires:       sway
 Recommends:     swaybg
+Recommends:     jxl-pixbuf-loader
 Supplements:    (%{name} and sway)
 
 %description -n lxqt-sway-session
@@ -171,6 +173,7 @@ License:        MIT
 Requires:       %{name} = %{version}-%{release}
 Requires:       wayfire
 Recommends:     swaybg
+Recommends:     jxl-pixbuf-loader
 Supplements:    (%{name} and wayfire)
 
 %description -n lxqt-wayfire-session
@@ -191,6 +194,7 @@ Requires:       labwc >= 0.7.2
 Requires:       swaybg
 Requires:       swayidle
 Requires:       swaylock
+Requires:       jxl-pixbuf-loader
 Supplements:    (%{name} and labwc)
 
 %description -n lxqt-labwc-session
@@ -242,6 +246,12 @@ rm -v %{buildroot}%{_datadir}/lxqt/wayland/lxqt-niri.kdl
 %fdupes -s %{buildroot}%{_datadir}/themes/
 
 %changelog
+* Sun Feb 16 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 0.1.1-9
+- Adjusted session configs for new jxl wallpapers
+
+* Sat Feb 15 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.1.1-8
+- Refresh miriway session patch to match upstream submission
+
 * Fri Feb 07 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 0.1.1-7
 - Add patch to enable setting of default wayland compositor
 - Added configuration file and subpackage for default session

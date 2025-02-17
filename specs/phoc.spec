@@ -28,7 +28,7 @@ BuildRequires:	pkgconfig(gmobile) >= 0.1.0
 BuildRequires:	pkgconfig(wlroots-0.18)
 BuildRequires:	pkgconfig(gsettings-desktop-schemas)
 BuildRequires:	pkgconfig(json-glib-1.0)
-# for xvfb-run in %check
+# tests needs xvfb-run
 BuildRequires:	xorg-x11-server-Xvfb
 # tests need dbus-daemon, mutter gschemas and Xwayland
 BuildRequires:	dbus-daemon

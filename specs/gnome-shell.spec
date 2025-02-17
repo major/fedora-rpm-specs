@@ -44,6 +44,8 @@ Patch: 0003-status-keyboard-Use-gnome-desktop-API-for-getting-de.patch
 %define pipewire_version 0.3.49
 %define gnome_settings_daemon_version 3.37.1
 
+%define major_version %(c=%{version}; echo $c | cut -d. -f1 | cut -d~ -f1)
+
 BuildRequires:  pkgconfig(bash-completion)
 BuildRequires:  gcc
 BuildRequires:  meson
@@ -147,6 +149,7 @@ Requires:     webkitgtk6.0%{?_isa}
 ExcludeArch:    %{ix86}
 %endif
 
+Provides:       gnome-shell(api) = %{major_version}
 Provides:       desktop-notification-daemon = %{version}-%{release}
 Provides:       PolicyKit-authentication-agent = %{version}-%{release}
 Provides:       bundled(gvc)

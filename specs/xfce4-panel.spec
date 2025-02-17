@@ -10,7 +10,7 @@
 %global _with_vala 0
 
 Name:           xfce4-panel
-Version:        4.20.0
+Version:        4.20.3
 Release:        %autorelease
 Summary:        Next generation panel for Xfce
 
@@ -27,6 +27,7 @@ Source2:        xfce4-clock.svg
 BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  gtk3-devel
+BuildRequires:  xfce4-dev-tools
 BuildRequires:  libxfce4ui-devel >= %{xfceversion}
 BuildRequires:  xfconf-devel >= %{xfceversion}
 BuildRequires:  garcon-devel >= 0.6.0

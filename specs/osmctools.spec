@@ -2,7 +2,7 @@
 
 Name:           osmctools
 Version:        0.9
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Tools to manipulate OpenStreetMap files
 
 # Debian man pages are GPLv2+
@@ -14,6 +14,8 @@ Source0:        https://gitlab.com/osm-c-tools/osmctools/repository/archive.tar.
 Source1:        osmconvert.1
 Source2:        osmfilter.1
 Source3:        osmupdate.1
+# Fix building with gcc 15
+Patch0:         %{name}-0.9-gcc15.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -34,7 +36,7 @@ Programs include:
 
 
 %prep
-%autosetup -n %{name}-%{version}-%{commit}
+%autosetup -n %{name}-%{version}-%{commit} -p1
 
 
 %build
@@ -65,6 +67,9 @@ done
 
 
 %changelog
+* Fri Feb 14 2025 Andrea Musuruane <musuruan@gmail.com> - 0.9-18
+- Fix FTBFS (BZ #2340989)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

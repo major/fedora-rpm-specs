@@ -1,7 +1,7 @@
 %global srcname modules-gui
 Name:           mogui
 Version:        0.2.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Graphical User Interface for Environment Modules
 
 # icon files are licensed under CC-BY-SA-3.0 terms
@@ -23,7 +23,7 @@ users selecting modules to load and save module collections.
 %autosetup -p1 -n %{srcname}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -68,6 +68,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %{_metainfodir}/%{name}.metainfo.xml
 
 %changelog
+* Sat Feb 15 2025 Xavier Delaruelle <xavier.delaruelle@cea.fr> - 0.2.2-6
+- Remove pyproject_buildrequires "-t" option as no Tox config is present
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

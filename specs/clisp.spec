@@ -45,13 +45,24 @@ Patch2:		%{name}-pts-access.patch
 # Do not call the deprecated siginterrupt function
 Patch3:		%{name}-siginterrupt.patch
 # Fix an iconv leak in stream.d
-Patch4:         %{name}-iconv-close.patch
+Patch4:		%{name}-iconv-close.patch
 # Fix a memory leak in encoding.d
 # https://gitlab.com/gnu-clisp/clisp/-/merge_requests/11
 Patch5:		%{name}-encoding-leak.patch
 # Fix undefined behavior in rehash_symtab
 # https://gitlab.com/gnu-clisp/clisp/-/merge_requests/12
-Patch6:         %{name}-undefined-behavior.patch
+Patch6:		%{name}-undefined-behavior.patch
+# Fix undefined behavior in SORT
+Patch7:		%{name}-undefined-behavior-sort.patch
+# Fix undefined behavior in interpret_bytecode_
+Patch8:		%{name}-undefined-behavior-eval.patch
+# Fix undefined behavior in pr_array
+Patch9:		%{name}-undefined-behavior-io.patch
+# Fix misaligned memory accesses on ppc64le
+Patch10:	%{name}-ppc64le-alignment.patch
+# Fix some mismatched readline function declarations
+# https://gitlab.com/gnu-clisp/clisp/-/merge_requests/13
+Patch11:	%{name}-readline.patch
 
 # Work around a problem inlining a function on ppc64le
 # See https://bugzilla.redhat.com/show_bug.cgi?id=2049371
@@ -452,6 +463,11 @@ make -C build base-mod-check
 
 
 %changelog
+* Fri Feb 14 2025 Jerry James <loganjerry@gmail.com> - 2.49.95-3
+- Add patches to fix more undefined behavior
+- Fix misaligned memory accesses on ppc64le
+- Fix mismatched readline function declarations
+
 * Fri Feb  7 2025 Jerry James <loganjerry@gmail.com> - 2.49.95-3
 - Add patch to fix undefined behavior (rhbz#2339979)
 - Add two patches to fix memory leaks

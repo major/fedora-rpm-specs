@@ -50,8 +50,8 @@
 
 
 Name:          gdal
-Version:       3.10.1
-Release:       4%{?dist}
+Version:       3.10.2
+Release:       1%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -73,8 +73,6 @@ Source5:       %{name}-cleaner.sh
 Patch0:        gdal_utils.patch
 # Fix passing incompatible pointer type
 Patch1:        gdal_incompatible-pointer-types.patch
-# Fix build against Poppler 25.02.00
-Patch2:        https://github.com/OSGeo/gdal/commit/9b99975d327d67394b6be03b22bd40c7e83db0cb.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -647,6 +645,9 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 
 
 %changelog
+* Sat Feb 15 2025 Sandro Mani <manisandro@gmail.com> - 3.10.2-1
+- Update to 3.10.2
+
 * Fri Feb 14 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.10.1-4
 - Rebuilt for libarrow 19
 

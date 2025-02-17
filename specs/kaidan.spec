@@ -1,8 +1,7 @@
-# https://invent.kde.org/network/kaidan/-/issues/479
 %bcond check 0
 
 Name:           kaidan
-Version:        0.10.1
+Version:        0.11.0
 Release:        %autorelease
 Summary:        A XMPP client based on KDE Framework
 
@@ -24,30 +23,30 @@ BuildRequires:  cmake
 BuildRequires:  ninja-build
 BuildRequires:  extra-cmake-modules
 
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Concurrent)
-BuildRequires:  cmake(Qt5Qml)
-BuildRequires:  cmake(Qt5Quick)
-BuildRequires:  cmake(Qt5Svg)
-BuildRequires:  cmake(Qt5Sql)
-BuildRequires:  cmake(Qt5QuickControls2)
-BuildRequires:  cmake(Qt5Xml)
-BuildRequires:  cmake(Qt5Multimedia)
-BuildRequires:  cmake(Qt5Positioning)
-BuildRequires:  cmake(Qt5Location)
-BuildRequires:  cmake(Qt5LinguistTools)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Concurrent)
+BuildRequires:  cmake(Qt6Qml)
+BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  cmake(Qt6Sql)
+BuildRequires:  cmake(Qt6QuickControls2)
+BuildRequires:  cmake(Qt6Xml)
+BuildRequires:  cmake(Qt6Multimedia)
+BuildRequires:  cmake(Qt6Positioning)
+BuildRequires:  cmake(Qt6Location)
+BuildRequires:  cmake(Qt6Test)
 
-BuildRequires:  cmake(KF5KIO)
-BuildRequires:  cmake(KF5CoreAddons)
-BuildRequires:  cmake(KF5Kirigami2)
-BuildRequires:  cmake(KF5KirigamiAddons)
-BuildRequires:  cmake(KF5Notifications)
-BuildRequires:  kf5-rpm-macros
 
-BuildRequires:  cmake(ZXing)
-BuildRequires:  cmake(QXmpp)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6Kirigami2)
+BuildRequires:  cmake(KF6Prison)
+BuildRequires:  cmake(KF6Crash)
+BuildRequires:  cmake(KF6KirigamiAddons)
+BuildRequires:  cmake(KF6Notifications)
+BuildRequires:  cmake(KF6QQC2DesktopStyle)
+
+BuildRequires:  cmake(QXmppQt6)
 BuildRequires:  libicu-devel
-BuildRequires:  cmake(KF5QQC2DesktopStyle)
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
@@ -60,14 +59,14 @@ Provides:       bundled(hsluv-c)
 Provides:       bundled(SingleApplication)
 
 # QML module dependencies
-Requires:       kf5-kirigami2%{?_isa}
-Requires:       kf5-kirigami2-addons%{?_isa}
-Requires:       kf5-kquickcharts%{?_isa}
-Requires:       qt5-qtgraphicaleffects%{?_isa}
-Requires:       qt5-qtquickcontrols2%{?_isa}
-Requires:       qt5-qtwebchannel%{?_isa}
-Requires:       qt5-qtwebengine%{?_isa}
-Requires:       kquickimageeditor-qt5%{?_isa}
+Requires:       kf6-kirigami2%{?_isa}
+Requires:       kf6-kirigami2-addons%{?_isa}
+Requires:       kf6-kquickcharts%{?_isa}
+Requires:       qt6-qtgraphicaleffects%{?_isa}
+Requires:       qt6-qtquickcontrols2%{?_isa}
+Requires:       qt6-qtwebchannel%{?_isa}
+Requires:       qt6-qtwebengine%{?_isa}
+Requires:       kquickimageeditor-qt6%{?_isa}
 Requires:       hicolor-icon-theme
 
 %description
@@ -80,13 +79,14 @@ and the Qt-based XMPP library QXmpp.
 %autosetup -p1 -n %{name}-v%{version}
 
 %build
-%cmake_kf5 \
+%cmake \
     -GNinja \
     -DUSE_KNOTIFICATIONS=ON \
 %if %{with check}
     -DBUILD_TESTING=ON \
+%else
+    -DBUILD_TESTS=OFF \
 %endif
-    -DBUILD_TESTS=ON \
 
 %cmake_build
 
@@ -106,13 +106,14 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %files -f %{name}.lang
 %license LICENSES/*
 %doc README.md
-%{_bindir}/%{name}
+%{_bindir}/kaidan
 %{_datadir}/applications/im.kaidan.kaidan.desktop
-%{_metainfodir}/im.kaidan.kaidan.appdata.xml
 %{_datadir}/icons/hicolor/128x128/apps/kaidan.png
 %{_datadir}/icons/hicolor/scalable/apps/kaidan.svg
-%{_datadir}/knotifications5/kaidan.notifyrc
-%{_datadir}/%{name}/
+%{_datadir}/kaidan/
+%{_datadir}/knotifications6/kaidan.notifyrc
+%{_datadir}/metainfo/im.kaidan.kaidan.appdata.xml
+%{_datadir}/qlogging-categories6/kaidan.categories
 
 %changelog
 %autochangelog

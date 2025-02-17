@@ -8,6 +8,8 @@ URL:            https://www.gnu.org/software/libffcall/
 VCS:            git:https://git.savannah.gnu.org/git/libffcall.git
 Source:         https://ftp.gnu.org/gnu/libffcall/lib%{name}-%{version}.tar.gz
 Patch:          configure.patch
+# Update powerpc64 callback function.  Fixes clisp FTBFS.
+Patch:          %{name}-ppc64le.patch
 
 BuildRequires:  gcc
 BuildRequires:  gnulib-devel

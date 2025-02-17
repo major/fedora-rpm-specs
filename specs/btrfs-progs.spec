@@ -2,8 +2,8 @@
 %{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
 
 Name:           btrfs-progs
-Version:        6.12
-Release:        3%{?dist}
+Version:        6.13
+Release:        1%{?dist}
 Summary:        Userspace programs for btrfs
 
 License:        GPL-2.0-only
@@ -159,6 +159,10 @@ popd
 %{python3_sitearch}/btrfsutil-*.egg-info/
 
 %changelog
+* Fri Feb 14 2025 Packit <hello@packit.dev> - 6.13-1
+- Update to version 6.13
+- Resolves: rhbz#2345871
+
 * Fri Jan 24 2025 Neal Gompa <ngompa@centosproject.org> - 6.12-3
 - Add RHEL-only downstream patch to disable raid56 modes for now
 

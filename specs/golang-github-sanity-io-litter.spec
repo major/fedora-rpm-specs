@@ -5,7 +5,7 @@
 
 # https://github.com/sanity-io/litter
 %global goipath         github.com/sanity-io/litter
-Version:                1.5.6
+Version:                1.5.7
 
 %gometa
 

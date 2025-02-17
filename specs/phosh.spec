@@ -2,7 +2,7 @@
 %global libcall_ui_version 0.1.4
 
 Name:		phosh
-Version:	0.44.1
+Version:	0.45.0
 Release:	%autorelease
 Summary:	Graphical shell for mobile devices
 License:	GPL-3.0-or-later
@@ -38,7 +38,7 @@ BuildRequires:	pkgconfig(gtk+-3.0) >= 3.24.36
 BuildRequires:	pkgconfig(gtk+-wayland-3.0) >= 3.22
 BuildRequires:	pkgconfig(gudev-1.0)
 BuildRequires:	pkgconfig(libfeedback-0.0) >= 0.4.0
-BuildRequires:	pkgconfig(libhandy-1) >= 1.1.90
+BuildRequires:	pkgconfig(libhandy-1) >= 1.8.0
 BuildRequires:	pkgconfig(libnm) >= 1.14
 BuildRequires:	pkgconfig(polkit-agent-1) >= 0.122
 BuildRequires:	pkgconfig(libsoup-3.0) >= 3.6
@@ -127,7 +127,7 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE4}
 %find_lang %{name}
 
 %{__install} -Dpm 0644 data/phosh.service %{buildroot}%{_unitdir}/phosh.service
-rm %{buildroot}%{_libdir}/libphosh-0.44.a
+rm %{buildroot}%{_libdir}/libphosh-0.45.a
 
 %check
 desktop-file-validate \
@@ -173,6 +173,7 @@ SH
 %{_libdir}/phosh/plugins/upcoming-events.plugin
 %{_libdir}/phosh/plugins/wifi-hotspot-quick-setting.plugin
 %{_libdir}/phosh/plugins/pomodoro-quick-setting.plugin
+%{_libdir}/phosh/plugins/scaling-quick-setting.plugin
 %{_libdir}/phosh/plugins/libphosh-plugin-caffeine-quick-setting.so
 %{_libdir}/phosh/plugins/libphosh-plugin-calendar.so
 %{_libdir}/phosh/plugins/libphosh-plugin-dark-mode-quick-setting.so
@@ -185,6 +186,7 @@ SH
 %{_libdir}/phosh/plugins/libphosh-plugin-upcoming-events.so
 %{_libdir}/phosh/plugins/libphosh-plugin-wifi-hotspot-quick-setting.so
 %{_libdir}/phosh/plugins/libphosh-plugin-pomodoro-quick-setting.so
+%{_libdir}/phosh/plugins/libphosh-plugin-scaling-quick-setting.so
 %{_libdir}/phosh/plugins/prefs/libphosh-plugin-prefs-emergency-info.so
 %{_libdir}/phosh/plugins/prefs/libphosh-plugin-prefs-ticket-box.so
 %{_libdir}/phosh/plugins/prefs/libphosh-plugin-prefs-upcoming-events.so
@@ -201,12 +203,12 @@ SH
 
 %files -n libphosh
 %{_libdir}/girepository-1.0/Phosh-0.typelib
-%{_libdir}/libphosh-0.44.so.0
+%{_libdir}/libphosh-0.45.so.0
 
 %files -n libphosh-devel
-%{_includedir}/libphosh-0.44
-%{_libdir}/libphosh-0.44.so
-%{_libdir}/pkgconfig/libphosh-0.44.pc
+%{_includedir}/libphosh-0.45
+%{_libdir}/libphosh-0.45.so
+%{_libdir}/pkgconfig/libphosh-0.45.pc
 
 %changelog
 %autochangelog

@@ -12,14 +12,14 @@
 %global api_majorver 0
 
 Name:           libxfce4windowing
-Version:        4.20.0
-Release:        3%{?dist}
+Version:        4.20.2
+Release:        1%{?dist}
 Summary:        Windowing concept abstraction library for X11 and Wayland
 
 License:        LGPL-2.1-or-later
 URL:            https://docs.xfce.org/xfce/libxfce4windowing/start
 #VCS:            git:https://gitlab.xfce.org/xfce/{name}.git
-Source0:        http://archive.xfce.org/xfce/%{xfceversion}/src/%{name}-%{version}.tar.bz2
+Source0:        http://archive.xfce.org/src/xfce/%{name}/%{xfceversion}/%{name}-%{version}.tar.bz2
 
 BuildRequires:  bzip2
 BuildRequires:  gcc
@@ -104,6 +104,10 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sat Feb 15 2025 Mukundan Ragavan <nonamedotc@fedoraproject.org> - 4.20.2-1
+- Update to v4.20.2
+- Update source to correct location
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.20.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

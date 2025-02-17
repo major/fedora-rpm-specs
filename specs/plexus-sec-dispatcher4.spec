@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
-Name:           plexus-sec-dispatcher
-Version:        2.0
+Name:           plexus-sec-dispatcher4
+Version:        4.0.3
 Release:        %autorelease
 Summary:        Plexus Security Dispatcher Component
 License:        Apache-2.0
@@ -16,11 +16,14 @@ Source1:        https://www.apache.org/licenses/LICENSE-2.0.txt
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
-BuildRequires:  mvn(junit:junit)
+BuildRequires:  mvn(javax.inject:javax.inject)
 BuildRequires:  mvn(org.codehaus.modello:modello-maven-plugin)
-BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
+BuildRequires:  mvn(org.codehaus.plexus:plexus:pom:)
+BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.inject)
 BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
-BuildRequires:  mvn(org.sonatype.plexus:plexus-cipher)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
+BuildRequires:  mvn(org.slf4j:slf4j-api:2.0.16)
+BuildRequires:  mvn(org.slf4j:slf4j-simple:2.0.16)
 %endif
 
 %description
@@ -34,19 +37,11 @@ API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
-
 cp %{SOURCE1} .
-
-%pom_remove_parent
-
-%pom_xpath_inject 'pom:project' '<groupId>org.codehaus.plexus</groupId>'
-
-%mvn_file : plexus/%{name}
-
-%mvn_alias org.codehaus.plexus: org.sonatype.plexus:
+%mvn_compat_version : 4.0.3
 
 %build
-%mvn_build -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
+%mvn_build
 
 %install
 %mvn_install

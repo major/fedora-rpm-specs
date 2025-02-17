@@ -5,7 +5,7 @@
 
 Name:       cryptlib
 Version:    3.4.8  
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    Security library and toolkit for encryption and authentication services    
 
 License:    Sleepycat and OpenSSL and BSD-3-Clause   
@@ -26,6 +26,7 @@ Source8:    https://senderek.ie/fedora/claes.sig
 # soname is now libcl.so.3.4
 Patch0:     m64patch
 Patch1:     gcc15patch
+Patch2:     riscv64patch
 
 ExclusiveArch: x86_64 aarch64 ppc64le riscv64
 
@@ -154,6 +155,7 @@ cd %{name}-%{version}
 
 %patch 0 -p1
 %patch 1 -p1
+%patch 2 -p1
 
 # enable ADDFLAGS
 sed -i '97s/-I./-I. \$(ADDFLAGS)/' makefile
@@ -357,6 +359,8 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/clsmime.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Sat Feb 15 2025 Ralf Senderek <innovation@senderek.ie> 3.4.8-6
+- add riscv64patch
 
 * Fri Feb 07 2025 Ralf Senderek <innovation@senderek.ie> 3.4.8-5
 - update cryptlib-tests

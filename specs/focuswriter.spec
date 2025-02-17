@@ -1,12 +1,10 @@
 Name:           focuswriter
-Version:        1.8.9
-Release:        2%{?dist}
+Version:        1.8.10
+Release:        1%{?dist}
 Summary:        A full screen, distraction-free writing program
 License:        GPL-3.0-or-later
 URL:            http://gottcode.org/%{name}/
 Source0:        http://gottcode.org/%{name}/%{name}-%{version}.tar.bz2
-
-Patch0:         0001-Remove-icon-from-AppData.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  desktop-file-utils
@@ -17,6 +15,7 @@ BuildRequires:  qt6-qtbase-devel
 BuildRequires:  qt6-qttools-devel
 BuildRequires:  qt6-qtmultimedia-devel
 BuildRequires:  hunspell-devel
+BuildRequires:  gettext-devel
 
 %description
 A full screen, distraction-free writing program. You can customize your
@@ -49,6 +48,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 %{_mandir}/man1/%{name}.1.gz
 
 %changelog
+* Sat Feb 15 2025 Vojtech Trefny <vtrefny@redhat.com> - 1.8.10-1
+- Update to 1.8.10
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

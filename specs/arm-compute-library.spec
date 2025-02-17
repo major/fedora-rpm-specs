@@ -58,6 +58,11 @@ Contains documentations and examples for %{name}.
 # remove .bazel files
 find . -name *.bazel -exec rm -f '{}' \;
 
+# gcc 15 include cstdint
+sed -i '/#include <memory>.*/a#include <cstdint>' arm_compute/core/CPP/CPPTypes.h
+sed -i '/#include <cstddef>.*/a#include <cstdint>' arm_compute/runtime/MemoryRegion.h
+sed -i '1i #include <cstdint>' tests/framework/instruments/hwc_names.hpp
+
 %build
 scons %{?_smp_mflags} os=linux \
 	build=native \

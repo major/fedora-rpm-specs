@@ -30,25 +30,12 @@ BuildRequires: pkgconfig(xcb)
 BuildRequires: pkgconfig(xkbcommon)
 BuildRequires: pkgconfig(libsfdo-basedir)
 
-Requires:   hicolor-icon-theme
-Requires:   xorg-x11-server-Xwayland
-Requires:   xdg-desktop-portal-wlr
-# Upstream recommendations
-# https://github.com/labwc/labwc?tab=readme-ov-file#7-integration
-# See integration[1] for further details.
-# [1]: https://labwc.github.io/integration.html
-Recommends: bemenu                                %dnl # Launchers
-Recommends: swaylock                              %dnl # Screen locker
-Suggests:   alacritty                             %dnl # Terminal. See: https://github.com/labwc/labwc?tab=readme-ov-file#6-usage
-Suggests:   fuzzel wofi                           %dnl # Launchers
-Suggests:   grim                                  %dnl # Screen-shooter
-Suggests:   swaybg                                %dnl # Background image
-Suggests:   waybar, yambar, lavalauncher, sfwbar  %dnl # Panel
-Suggests:   wf-recorder                           %dnl # Screen recorder
-Suggests:   wlopm, kanshi, wlr-randr              %dnl # Output managers
-# Downstream useful stuff which already packaged in Fedora
-Suggests:   foot                                  %dnl # Terminal
-Suggests:   wdisplays                             %dnl # GUI display configurator for wlroots compositors
+Requires:      mesa-dri-drivers
+Requires:      xorg-x11-server-Xwayland
+Requires:      xdg-desktop-portal-wlr
+
+Conflicts:     %{name} < 0.8.2-3
+Obsoletes:     %{name} < 0.8.2-3
 
 %description
 Labwc stands for Lab Wayland Compositor, where lab can mean any of the
@@ -74,6 +61,36 @@ approach and coding style.
 Labwc has no reliance on any particular Desktop Environment, Desktop Shell or
 session. Nor does it depend on any UI toolkits such as Qt or GTK.
 
+%package session
+Summary:       A Wayland window-stacking compositor - session files
+Requires:      %{name} = %{version}-%{release}
+Requires:      hicolor-icon-theme
+# Upstream recommendations
+# https://github.com/labwc/labwc?tab=readme-ov-file#7-integration
+# See integration[1] for further details.
+# [1]: https://labwc.github.io/integration.html
+Recommends:    bemenu                                %dnl # Launchers
+Recommends:    swaylock                              %dnl # Screen locker
+Suggests:      alacritty                             %dnl # Terminal. See: https://github.com/labwc/labwc?tab=readme-ov-file#6-usage
+Suggests:      fuzzel wofi                           %dnl # Launchers
+Suggests:      grim                                  %dnl # Screen-shooter
+Suggests:      swaybg                                %dnl # Background image
+Suggests:      waybar, yambar, lavalauncher, sfwbar  %dnl # Panel
+Suggests:      wf-recorder                           %dnl # Screen recorder
+Suggests:      wlopm, kanshi, wlr-randr              %dnl # Output managers
+# Downstream useful stuff which already packaged in Fedora
+Suggests:      foot                                  %dnl # Terminal
+Suggests:      wdisplays                             %dnl # GUI display configurator for wlroots compositors
+
+Conflicts:     %{name} < 0.8.2-3
+Obsoletes:     %{name} < 0.8.2-3
+
+BuildArch:     noarch
+
+%description session
+This package provides the labwc session files to run labwc as a
+standalone environment.
+
 
 %prep
 %forgeautosetup -p1
@@ -95,13 +112,14 @@ session. Nor does it depend on any UI toolkits such as Qt or GTK.
 %license LICENSE
 %doc NEWS.md
 %{_bindir}/%{name}
-%{_datadir}/wayland-sessions/%{name}.desktop
-%{_datadir}/icons/hicolor/*/*/%{name}*.svg
 %{_docdir}/%{name}/*
 %{_mandir}/man1/*.1*
 %{_mandir}/man5/*.5*
 %{_datadir}/xdg-desktop-portal/labwc-portals.conf
 
+%files session
+%{_datadir}/wayland-sessions/%{name}.desktop
+%{_datadir}/icons/hicolor/*/*/%{name}*.svg
 
 %changelog
 %autochangelog

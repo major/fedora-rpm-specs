@@ -1,12 +1,12 @@
 %global git 1
-%global commit 9defefae9fbcb6958cddbfa778c1ea8605da8b8b
-%global date 20230922
+%global commit 121ab150b3577b666c79a79f4a511798d7ad2432
+%global date 20250625
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Summary: Modular Assembler
 Name: yasm
 Version: 1.3.0^%{date}git%{shortcommit}
-Release: 3%{?dist}
+Release: 1%{?dist}
 # See COPYING for the detail, there is quite a lot!
 # Bitvect is (GPL-1.0-or-later AND GPL-2.0-or-later OR Artistic-1.0-Perl OR LGPL-2.0-or-later
 # Everything else is BSD. Either 2 or 3 clause.
@@ -17,6 +17,8 @@ URL: http://yasm.tortall.net/
 Source: https://github.com/yasm/yasm/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 # https://github.com/yasm/yasm/issues/270
 Patch0: yasm-tests.patch
+# https://github.com/yasm/yasm/issues/283
+Patch1: yasm-gcc15.patch
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: python3
@@ -63,6 +65,7 @@ Install this package if you need to rebuild applications that use yasm.
 %ifarch i686
 %patch 0 -p1
 %endif
+%patch 1 -p1
 autoreconf -I m4 -fiv
 %else
 %setup -q
@@ -100,8 +103,12 @@ make check
 
 
 %changelog
+* Sat Feb 15 2025 Dominik Mierzejewski <dominik@greysector.net> - 1.3.0^20250625git121ab15-1
+- update to git 121ab15
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0^20230922git9defefa-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+- fix build with GCC 15
 
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0^20230922git9defefa-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild

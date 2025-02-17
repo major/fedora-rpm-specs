@@ -33,9 +33,9 @@
 %endif
 
 Name:           kokkos
-Version:        4.4.01
-%global         sover 4.4
-Release:        4%{?dist}
+Version:        4.5.01
+%global         sover 4.5
+Release:        1%{?dist}
 Summary:        Kokkos C++ Performance Portability Programming
 # no support for 32-bit archs https://github.com/kokkos/kokkos/issues/2312
 ExcludeArch: i686 armv7hl
@@ -201,6 +201,9 @@ module purge
 
 
 %changelog
+* Fri Feb 14 2025 Cezary Skrzyński <cezary.skrzynski@ng-analytics.com> - 4.5.01-1
+- Version bump to v4.5.01 (bug #2264022)
+
 * Wed Feb 05 2025 Christoph Junghans <junghans@votca.org> - 4.4.01-4
 - Use ROCM_INCLUDE for install
 

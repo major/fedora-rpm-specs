@@ -1,29 +1,27 @@
 Name:           perl-Net-MQTT-Simple
-Version:        1.28
-Release:        8%{?dist}
+Version:        1.31
+Release:        1%{?dist}
 Summary:        Minimal MQTT version 3 interface
 
 # Chosen from https://opensource.org/licenses/alphabetical
 # as allowed by the original licence text
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-MQTT-Simple
 Source0:        https://cpan.metacpan.org/authors/id/J/JU/JUERD/Net-MQTT-Simple-%{version}.tar.gz
 
 BuildArch:      noarch
 
 BuildRequires:  make
-BuildRequires:  perl
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-
+BuildRequires:  perl(base)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(Getopt::Long)
 BuildRequires:  perl(IO::Socket::IP)
-BuildRequires:  perl(Test::More)
+BuildRequires:  perl(IO::Socket::SSL)
 BuildRequires:  perl(strict)
+BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
-
-Requires:       perl(IO::Socket::IP)
 
 %{?perl_default_filter}
 
@@ -38,24 +36,28 @@ functionality is provided.
 
 %build
 export PERL_MM_USE_DEFAULT=yes
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 --no-online-tests
-make %{?_smp_mflags} OPTIMIZE="%{optflags}"
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 --no-online-tests
+%make_build OPTIMIZE="%{optflags}"
 
 %install
-make pure_install DESTDIR=%{buildroot}
-%{_fixperms} %{buildroot}
+%make_install
+%{_fixperms} %{buildroot}/*
 
 %check
 make test
 
 %files
 %doc Changes README
-%{perl_vendorlib}/Net
-%{_bindir}/*
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Net/
+%{_bindir}/mqtt-simple
+%{_mandir}/man1/mqtt-simple.1*
+%{_mandir}/man3/Net::MQTT::Simple*.3*
 
 %changelog
+* Thu Feb 13 2025 Xavier Bachelot <xavier@bachelot.org> - 1.31-1
+- Update to 1.31 (RHBZ#2243849)
+- Clean up specfile
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.28-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

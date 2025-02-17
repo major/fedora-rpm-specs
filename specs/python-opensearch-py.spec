@@ -30,6 +30,9 @@ Summary:        %{summary}
 %prep
 %autosetup -n opensearch_py-%{version}
 
+# Fedora patches certifi anyway to use system certs
+sed -i 's/"certifi>=.*"/"certifi"/' setup.py
+
 %generate_buildrequires
 %pyproject_buildrequires -x async -x kerberos
 

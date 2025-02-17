@@ -3,7 +3,7 @@
 
 Name:           sddm
 Version:        0.21.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 License:        GPL-2.0-or-later
 Summary:        QML based desktop and login manager
 
@@ -168,7 +168,7 @@ gm mogrify -resize 1920x1200 "src/greeter/theme/background.${bg_file_ext}"
 ls -sh "src/greeter/theme/background.${bg_file_ext}"
 
 if [ "$bg_file_ext" != "png" ]; then
-sed -e "s/background.png/background.${bg_file_ext}/g" -i src/greeter/theme/{Main.qml,theme.conf}
+sed -e "s/background.png/background.${bg_file_ext}/g" -i src/greeter/theme.qrc src/greeter/theme/{Main.qml,theme.conf}
 fi
 %endif
 
@@ -296,6 +296,9 @@ ln -sr %{buildroot}%{_bindir}/sddm-greeter-qt6 %{buildroot}%{_bindir}/sddm-greet
 
 
 %changelog
+* Sat Feb 15 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.21.0-9
+- Fix embedding correct background in default theme
+
 * Sat Feb 15 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.21.0-8
 - Adapt to backgrounds in JPEG-XL format
 

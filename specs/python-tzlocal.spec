@@ -1,5 +1,5 @@
 Name:           python-tzlocal
-Version:        5.2
+Version:        5.3
 Release:        %autorelease
 Summary:        A Python module that tries to figure out what your local timezone is
 

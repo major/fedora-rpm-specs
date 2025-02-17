@@ -31,6 +31,11 @@ Source20:        https://raw.githubusercontent.com/mpurland/%{name}/master/polyg
 
 Patch:           https://github.com/official-%{name}/%{srcname}/commit/1776448917e49b922a762d2d08c00a3f3be10205.patch#/001-fix-for-gcc-15.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+%if 0%{?fedora} >= 42
+ExcludeArch:    %{ix86}
+%endif
+
 BuildRequires:  gcc-c++
 BuildRequires:  make
 
@@ -74,34 +79,76 @@ sed -e 's,\(EngineDir = \).*,\1%{_bindir},' \
 # the explicit macro invocation has no further effect).
 %set_build_flags
 
-# default to general-64, which also works for s390x
-%global sfarch general-64
+# Conditionals based on x86_64 microarchitecture levels provide a bit of
+# future-proofing and a convenient place to write explanatory comments.  Theys
+# also have the benefit of improving compatibility with some downstreams;
+# https://github.com/AlmaLinux/ALESCo/pull/2#issuecomment-2637811851 and the
+# following discussion.
+#
+# As of this writing, EPELs do not yet set the RPM architecture to anything
+# other than x86_64, although Fedora and/or EPEL might change this in the
+# future. (For now, Fedora’s baseline *is* x86_64.)
 
+%ifarch x86_64_v4
+# Requires AVX512F and AVX512BW.
+%global sfarch x86-64-avx512
+%endif
+
+# Requires PEXT, which we believe to be present in some form on all hardware
+# that supports BMI2 (which is part of x86_64-v3). On some machines
+# (particularly CPUs using the Zen 2 architecture) PEXT is microcode, and this
+# implementation is not as fast as expected, but this is still probably a good
+# compromise for x86_64-v3 overall.
+%ifarch x86_64_v3
+%global sfarch x86-64-bmi2
+%endif
 %ifarch x86_64
 %if 0%{?rhel} >= 10
-# RHEL10 requires x86_64v3.
+# x86_64-v3 baseline, even if the RPM architecture is just x86_64
 %global sfarch x86-64-bmi2
-%elif 0%{?rhel} == 9
-# RHEL9 requires x86_64v2.
+%endif
+%endif
+
+%ifarch x86_64_v2
 %global sfarch x86-64-sse41-popcnt
-%else
-# RHEL < 9, or not RHEL (i.e., Fedora)
+%endif
+%ifarch x86_64
+%if 0%{?rhel} == 9
+# x86_64-v2 baseline, even if the RPM architecture is just x86_64
+%global sfarch x86-64-sse41-popcnt
+%endif
+%endif
+
+%if %{undefined sfarch}
+%ifarch x86_64 %{?x86_64}
+# Plain x86_64 (v1), or some other version not covered above.
 %global sfarch x86-64
 %endif
 %endif
+
+# We can remove this once Fedora 41 reaches end-of life, as that will be the
+# last place 32-bit packages are built.
 %ifarch i686
 # Since 32-bit packages are multilib-only, we can assume x86_64 hardware and
 # therefore SSE2.
 %global sfarch x86-32-sse2
 %endif
+
 %ifarch ppc64le
 %global sfarch ppc-64
 %endif
+
 %ifarch aarch64
 %global sfarch armv8
 %endif
+
 %ifarch riscv64
 %global sfarch riscv64
+%endif
+
+%if %{undefined sfarch}
+# default to general-64, which also works for s390x
+%global sfarch general-64
 %endif
 
 # NOTE: The upstream Makefile adds some flags on top of the Fedora ones.
@@ -123,6 +170,7 @@ sed -e 's,\(EngineDir = \).*,\1%{_bindir},' \
 sed -r -i 's/-O3//' src/Makefile
 %endif
 %endif
+
 %make_build -C src profile-build ARCH=%sfarch \
     EXTRACXXFLAGS="%{build_cxxflags}" \
     EXTRALDFLAGS="%{build_ldflags}"

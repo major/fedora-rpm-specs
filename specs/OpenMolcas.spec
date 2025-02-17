@@ -1,9 +1,9 @@
 # git commit appears in the directory name of the tarball...
-%global commit f643684aa4a440f47f7853e4148f2ea03f951426
+%global commit bd63d2168b911f0dc2f7ea00013cb2b37bf41d95
 
 Name:           OpenMolcas
-Version:        24.10
-Release:        3%{?dist}
+Version:        25.02
+Release:        1%{?dist}
 Summary:        A multiconfigurational quantum chemistry software package
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2
@@ -14,8 +14,6 @@ Source0:        https://gitlab.com/Molcas/OpenMolcas/-/archive/v%{version}/%{nam
 Patch0:         OpenMolcas-23.06-fedora.patch
 # Read python modules from system directory
 Patch1:         OpenMolcas-19.11-pymodule.patch
-# Patch for libxc 7
-Patch2:         https://gitlab.com/Molcas/OpenMolcas/-/merge_requests/728.patch
 
 # OpenMolcas is only supported on 64-bit architectures
 ExclusiveArch:  x86_64 aarch64 ppc64le s390x
@@ -65,7 +63,6 @@ therefore not included in OpenMolcas.
 %setup -q -n %{name}-v%{version}-%{commit}
 %patch -P0 -p1 -b .fedora
 %patch -P1 -p1 -b .pymodule
-%patch -P2 -p1 -b .libxc7
 
 # Name of OpenBLAS library to use is
 %if 0%{?fedora} >= 33
@@ -144,6 +141,9 @@ cp -p Tools/pymolcas/pymolcas.py %{buildroot}%{_bindir}/pymolcas
 %{_bindir}/pymolcas
 
 %changelog
+* Sat Feb 15 2025 Susi Lehtola <jussilehtola@fedoraproject.org> - 25.02-1
+- Update to 25.02.
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

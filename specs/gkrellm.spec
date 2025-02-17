@@ -32,7 +32,7 @@ Summary:        The GNU Krell Monitors Server
 # systemd >= 186 for scriptlet macros
 BuildRequires:  systemd >= 186
 BuildRequires: make
-Requires(pre):  shadow-utils systemd
+Requires(pre):  systemd
 Requires(post,preun,postun): systemd
 
 
@@ -58,6 +58,11 @@ for i in gkrellmd.1 gkrellm.1 README Changelog.OLD Changelog-plugins.html \
    sed -i -e "s@/usr/lib/gkrellm2*/plugins@%{_libdir}/gkrellm2/plugins@" $i
    sed -i -e "s@/usr/local/lib/gkrellm2*/plugins@/usr/local/%{_lib}/gkrellm2/plugins@" $i
 done
+
+# Create a sysusers.d config file
+cat >gkrellm.sysusers.conf <<EOF
+u gkrellmd - 'GNU Krell daemon' - -
+EOF
 
 
 %build
@@ -86,12 +91,9 @@ make install DESTDIR=%{buildroot} PREFIX=%{_prefix} \
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
+install -m0644 -D gkrellm.sysusers.conf %{buildroot}%{_sysusersdir}/gkrellm.conf
 
-%pre daemon
-getent group gkrellmd >/dev/null || groupadd -r gkrellmd
-getent passwd gkrellmd >/dev/null || \
-useradd -r -g gkrellmd -M -d / -s /sbin/nologin -c "GNU Krell daemon" gkrellmd
-:
+
 
 %post daemon
 %systemd_post gkrellmd.service
@@ -125,6 +127,7 @@ useradd -r -g gkrellmd -M -d / -s /sbin/nologin -c "GNU Krell daemon" gkrellmd
 %{_sbindir}/gkrellmd
 %{_mandir}/man1/gkrellmd.*
 %config(noreplace) %{_sysconfdir}/gkrellmd.conf
+%{_sysusersdir}/gkrellm.conf
 
 
 %changelog

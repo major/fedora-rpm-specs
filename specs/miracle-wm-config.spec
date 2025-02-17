@@ -1,10 +1,10 @@
-%global commit cece62d8f565e57f74188227eddaaac212320acc
-%global commitdate 20241021
+%global commit df9267abcc4da890a2e89fc7fc7e83d0d9f95571
+%global commitdate 20250215
 %global shortcommit %{sub %{commit} 1 7}
 
 Name:           miracle-wm-config
 Version:        0~git.%{commitdate}.1.%{shortcommit}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Miracle Window Manager system configuration
 
 License:        GPL-3.0-or-later
@@ -12,6 +12,7 @@ URL:            https://pagure.io/fedora-miracle/miracle-wm-config
 Source0:        %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
 
 Requires:       desktop-backgrounds-compat
+Requires:       jxl-pixbuf-loader
 Requires:       miracle-wm >= 0.3.5
 Requires:       swaybg
 Requires:       swaylock
@@ -98,6 +99,9 @@ install -pm 0644 sddm/miracle-wm.conf %{buildroot}%{_prefix}/lib/sddm/sddm.conf.
 
 
 %changelog
+* Sat Feb 15 2025 Neal Gompa <ngompa@fedoraproject.org> - 0~git.20250215.1.df9267a-1
+- Bump to new git snapshot
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0~git.20241021.1.cece62d-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

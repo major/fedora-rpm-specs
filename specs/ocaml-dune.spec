@@ -590,6 +590,9 @@ cd -
 %files -n ocaml-xdg-devel -f .ofiles-xdg-devel
 
 %changelog
+* Thu Jan 23 2025 Jerry James <loganjerry@gmail.com> - 3.17.2-1
+- Version 3.17.2
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.17.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

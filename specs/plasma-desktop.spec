@@ -6,7 +6,7 @@
 Name:    plasma-desktop
 Summary: Plasma Desktop shell
 Version: 6.3.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/%{name}
@@ -90,6 +90,11 @@ BuildRequires:  plasma-workspace-devel
 BuildRequires:  cmake(PlasmaActivities)
 BuildRequires:  cmake(PlasmaActivitiesStats)
 BuildRequires:  cmake(Plasma)
+
+# For theming info
+# /usr/share/backgrounds/default.{jxl,png}
+BuildRequires:  desktop-backgrounds-compat
+
 
 # Optional
 %if 0%{?fedora}
@@ -225,8 +230,10 @@ Requires:       qt6-qtvirtualkeyboard
 # org.kde.plasma.*
 # The dependency is with 3 version numbers due to upstream occasional respins containing an etra number (i.e: 6.0.5.1)
 Requires:       plasma-workspace >= %{maj_ver_kf6}.%{min_ver_kf6}
-# /usr/share/backgrounds/default.png
+# /usr/share/backgrounds/default.{jxl,png}
 Requires:       desktop-backgrounds-compat
+# for jxl support
+Requires:       kf6-kimageformats
 BuildArch: noarch
 
 %description -n sddm-breeze
@@ -261,7 +268,11 @@ cp -alf %{buildroot}%{_datadir}/sddm/themes/breeze/ \
 install -m644 -p breeze-fedora/* \
         %{buildroot}%{_datadir}/sddm/themes/01-breeze-fedora/
 # Set Fedora background
-sed -i -e 's|^background=.*$|background=/usr/share/backgrounds/default.png|g' %{buildroot}%{_datadir}/sddm/themes/01-breeze-fedora/theme.conf
+bg_file_ext="jxl"
+if [ -f "/usr/share/backgrounds/default.png" ]; then
+bg_file_ext="png"
+fi
+sed -i -e "s|^background=.*$|background=/usr/share/backgrounds/default.${bg_file_ext}|g" %{buildroot}%{_datadir}/sddm/themes/01-breeze-fedora/theme.conf
 # Set Fedora distro vendor logo
 sed -i -e 's|^showlogo=.*$|showlogo=shown|g' %{buildroot}%{_datadir}/sddm/themes/01-breeze-fedora/theme.conf
 sed -i -e 's|^logo=.*$|logo=%{_datadir}/pixmaps/fedora_whitelogo.svg|g' %{buildroot}%{_datadir}/sddm/themes/01-breeze-fedora/theme.conf
@@ -346,6 +357,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 
 
 %changelog
+* Sat Feb 15 2025 Neal Gompa <ngompa@fedoraproject.org> - 6.3.0-2
+- Adapt to backgrounds in JPEG-XL format
+
 * Thu Feb 06 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.0-1
 - 6.3.0
 

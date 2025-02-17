@@ -4,7 +4,7 @@
 %global crate oxipng
 
 Name:           rust-oxipng
-Version:        9.1.3
+Version:        9.1.4
 Release:        %autorelease
 Summary:        Lossless PNG compression optimizer
 
@@ -13,18 +13,15 @@ URL:            https://crates.io/crates/oxipng
 Source:         %{crates_source}
 # * We need the GitHub archive, in addition to the .crate from crates.io,
 #   because the crate does not contain the xtask/ directory required for
-#   generating a man page. However, because of some dubiously-licensed test
-#   files (https://github.com/shssoichiro/oxipng/issues/655), we must use a
-#   filtered version of the GitHub archive, obtained by running the script in
-#   Source11. We have asked upstream to simply include the contents of xtask/ in
-#   the published crates, https://github.com/shssoichiro/oxipng/issues/654.
-Source10:       https://github.com/shssoichiro/oxipng/archive/v%{version}/oxipng-%{version}-filtered.tar.gz
-# * Script used to obtain Source10: ./get_source %%{version}
-Source11:       get_source
+#   generating a man page. As noted in
+#   https://github.com/shssoichiro/oxipng/issues/654, there are technical
+#   obstacles to including this in the crate. This source also includes the
+#   tests/ directory, which allows us to run tests.
+Source10:       https://github.com/shssoichiro/oxipng/archive/v%{version}/oxipng-%{version}.tar.gz
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          oxipng-fix-metadata-auto.diff
-# * Fix manpage for --zi
-Patch10:        https://github.com/shssoichiro/oxipng/pull/653.patch
+# Manually created patch for downstream crate metadata changes
+Patch:          oxipng-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -151,6 +148,18 @@ use the "sanity-checks" feature of the "%{crate}" crate.
 %files       -n %{name}+sanity-checks-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+system-libdeflate-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+system-libdeflate-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "system-libdeflate" feature of the "%{crate}" crate.
+
+%files       -n %{name}+system-libdeflate-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+zopfli-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -165,21 +174,13 @@ use the "zopfli" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Unpacks to oxipng-%%{version}/, *inside* the extracted crate
-%setup -q -T -D -a 10 -c -n %{crate}-%{version}
-
-# Required for generating the man page:
-#
-# Note that the mangen xtask has its own dependencies, so we must run
+# Copy in the xtask/ directory from the GitHub archive, required for generating
+# the man page. Remove upstream’s lock file, which we cannot respect. Note
+# that the mangen xtask has its own dependencies, so we must run
 # %%cargo_generate_buildrequires in the xtask directory if we are to invoke it
 # in the build.
-mv -v oxipng-%{version}/xtask ./
-# We can’t respect upstream’s lock file, though:
+tar -xzvf '%{SOURCE10}' --strip-components=1 oxipng-%{version}/xtask
 rm xtask/Cargo.lock
-
-# Demonstrate that sources from GitHub are not used to build the executable:
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Rust/#_package_sources
-rm -r -v oxipng-%{version}
 %cargo_prep
 
 %generate_buildrequires
@@ -203,6 +204,10 @@ install -t "${mandest}" -D -p -m 0644 "${mansrc}"
 
 %if %{with check}
 %check
+# Copy in the tests/ directory, which gives us some actual tests. We do this
+# here rather than in %%prep in order to prove that nothing from tests/
+# contributes to the binary RPMs.
+tar -xzvf '%{SOURCE10}' --strip-components=1 oxipng-%{version}/tests
 %cargo_test
 %endif
 

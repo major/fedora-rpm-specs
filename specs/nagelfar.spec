@@ -1,8 +1,8 @@
-%global versionnodot 133
+%global versionnodot 135
 
 Name:           nagelfar
-Version:        1.3.3
-Release:        9%{?dist}
+Version:        1.3.5
+Release:        1%{?dist}
 Summary:        Syntax checker for Tcl
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -16,8 +16,6 @@ Patch0:         use-datadir-to-store-aux-files.patch
 Patch1:         tclsh-as-shebang.patch
 # Add script to test Nagelfar installation
 Patch2:         script-to-test-install.patch
-# Add Tcl 9.0 support
-Patch3:         tcl9-work.patch
 
 BuildArch:      noarch
 
@@ -40,7 +38,6 @@ simple code coverage analysis.
 %patch -P0
 %patch -P1
 %patch -P2
-%patch -P3
 chmod +x test_nagelfar.sh
 
 %build
@@ -54,8 +51,12 @@ mv syntaxbuild.tcl %{buildroot}%{_datadir}/%{name}/
 mv syntaxdb86.tcl %{buildroot}%{_datadir}/%{name}/
 mv syntaxdb87.tcl %{buildroot}%{_datadir}/%{name}/
 mv syntaxdb90.tcl %{buildroot}%{_datadir}/%{name}/
-# default syntaxdb points to current Tcl version (9.0)
+# default syntaxdb points to Tcl 9.0 version on Fedora>=42, Tcl 8.6 elsewhere
+%if 0%{?fedora} >= 42
 ln -s syntaxdb90.tcl %{buildroot}%{_datadir}/%{name}/syntaxdb.tcl
+%else
+ln -s syntaxdb86.tcl %{buildroot}%{_datadir}/%{name}/syntaxdb.tcl
+%endif
 
 mkdir -p %{buildroot}%{_bindir}
 mv nagelfar.tcl %{buildroot}%{_bindir}/
@@ -93,6 +94,10 @@ mv {doc/,}syntaxtokens.txt
 
 
 %changelog
+* Sat Feb 15 2025 Xavier Delaruelle <xavier.delaruelle@cea.fr> - 1.3.5-1
+- Update to 1.3.5 (#2344515)
+- Default syntaxdb points to Tcl 9.0 on Fedora>=42 and to Tcl 8.6 elsewhere
+
 * Sat Jan 25 2025 Xavier Delaruelle <xavier.delaruelle@cea.fr> - 1.3.3-9
 - Add patch that drops Tcl 8.5 and adds Tcl 9.0 support (patch extracted from
   upstream commits)

@@ -1,5 +1,5 @@
 Name:           ocaml-pcre2
-Version:        8.0.2
+Version:        8.0.3
 Release:        %autorelease
 Summary:        OCaml bindings to the pcre2 library
 
