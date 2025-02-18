@@ -10,7 +10,7 @@
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
 
-%global	baserelease	1
+%global	baserelease	2
 %global	alphatag		.rc2
 
 
@@ -64,6 +64,7 @@ BuildRequires:	pkgconfig(dbusmenu-gtk3-0.4)
 BuildRequires:	pkgconfig(fftw3)
 BuildRequires:	pkgconfig(gnome-vfs-2.0)
 BuildRequires:	pkgconfig(indicator3-0.4)
+BuildRequires:	pkgconfig(json-c)
 BuildRequires:	pkgconfig(libexif)
 BuildRequires:	pkgconfig(libgnome-menu-3.0)
 BuildRequires:	pkgconfig(libgnomeui-2.0)
@@ -419,6 +420,9 @@ popd
 %{_datadir}/cairo-dock/plug-ins/Dbus/CDApplet.h
 
 %changelog
+* Sun Feb 16 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.99^20250214git2fabf99-2.rc2
+- Add BR: json-c for weather module
+
 * Fri Feb 14 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.99^20250214git2fabf99-1.rc2
 - Update to the latest git (20250214git2fabf99)
 

@@ -5,7 +5,7 @@
 
 Name:           lxqt-wayland-session
 Version:        0.1.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Wayland session files for LXQt
 # See "LICENSE" for a breakdown of license usage
 License:        LGPL-2.1-only AND GPL-3.0-only AND MIT AND GPL-2.0-only AND BSD-3-Clause
@@ -37,6 +37,10 @@ BuildRequires:  cmake(lxqt)
 BuildRequires:  cmake(KF6WindowSystem)
 
 Requires:       desktop-backgrounds-compat
+# Require the default compositor
+Requires:       %{name}-default-compositor
+# We prefer miriway
+Suggests:       %{name}-default-compositor-miriway
 
 %description
 Files needed for the LXQt Wayland Session: Wayland session start script,
@@ -246,6 +250,9 @@ rm -v %{buildroot}%{_datadir}/lxqt/wayland/lxqt-niri.kdl
 %fdupes -s %{buildroot}%{_datadir}/themes/
 
 %changelog
+* Sun Feb 16 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.1.1-10
+- Ensure the default compositor configuration is installed
+
 * Sun Feb 16 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 0.1.1-9
 - Adjusted session configs for new jxl wallpapers
 

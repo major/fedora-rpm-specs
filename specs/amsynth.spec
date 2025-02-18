@@ -67,7 +67,7 @@ Requires: %{name}-data = %{version}-%{release}
 Obsoletes: vst-amsynth-plugins < 1.6.0
 
 %description -n vst-amsynth-plugin
-Amsynth plugin for the vst protocl
+Amsynth plugin for the vst protocol
 
 
 %prep

@@ -1,5 +1,5 @@
 Name:           papirus-icon-theme
-Version:        20240501
+Version:        20250201
 Release:        %autorelease
 Summary:        Free and open source SVG icon theme based on Paper Icon Set
 
@@ -10,14 +10,14 @@ Summary:        Free and open source SVG icon theme based on Paper Icon Set
 # The rest is GPL-3.0-only; see AUTHORS
 License:        GPL-3.0-only AND CC-BY-SA-4.0 AND LGPL-3.0-or-later
 URL:            https://github.com/PapirusDevelopmentTeam/papirus-icon-theme
-Source0:        %url/archive/%{version}/%{name}-%{version}.tar.gz
+Source:         %url/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  make
 
 Obsoletes:      papirus-icon-theme < 20240501-2
-Suggests:       papirus-icon-theme-dark = %{?epoch:%{epoch}:}%{version}-%{release}
-Suggests:       papirus-icon-theme-light = %{?epoch:%{epoch}:}%{version}-%{release}
+Recommends:     papirus-icon-theme-dark = %{?epoch:%{epoch}:}%{version}-%{release}
+Recommends:     papirus-icon-theme-light = %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description
 Papirus is a free and open source SVG icon theme for Linux, based on Paper

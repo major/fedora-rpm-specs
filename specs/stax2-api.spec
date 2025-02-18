@@ -1,3 +1,5 @@
+%bcond_with bootstrap
+
 Name:           stax2-api
 Version:        4.2.2
 Release:        %autorelease
@@ -12,9 +14,12 @@ Source0:        %{url}/archive/%{name}-%{version}.tar.gz
 # From upstream commit 67d5988
 Patch:          0001-Add-BSD-2-license-file.patch
 
+%if %{with bootstrap}
+BuildRequires:  javapackages-bootstrap
+%else
 BuildRequires:  maven-local
-BuildRequires:  mvn(com.fasterxml:oss-parent:pom:)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
+%endif
 
 %description
 Stax2 API is an extension to standard Java Streaming API for XML
@@ -28,6 +33,7 @@ This package contains the API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
+%pom_remove_parent
 %pom_xpath_remove pom:Import-Package
 %pom_remove_plugin :maven-javadoc-plugin
 %pom_remove_plugin :moditect-maven-plugin

@@ -1,8 +1,8 @@
 # Review at https://bugzilla.redhat.com/show_bug.cgi?id=452395
 
 Name:           lxlauncher
-Version:        0.2.5
-Release:        21%{?dist}
+Version:        0.2.6
+Release:        1%{?dist}
 Summary:        Open source replacement for Launcher on the EeePC
 
 # src/exo-wrap-table.c	LGPL-2.0-or-later
@@ -10,7 +10,7 @@ Summary:        Open source replacement for Launcher on the EeePC
 # SPDX confirmed
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:            http://lxde.org/
-Source0:        http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{version}.tar.xz
+Source0:        https://github.com/lxde/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -18,6 +18,7 @@ BuildRequires:  pkgconfig(gtk+-2.0)
 BuildRequires:  pkgconfig(libstartup-notification-1.0)
 BuildRequires:  pkgconfig(libmenu-cache)
 BuildRequires:  pkgconfig(x11)
+BuildRequires:  automake
 BuildRequires:  gettext
 BuildRequires:  intltool
 
@@ -30,13 +31,14 @@ LXLauncher is part of LXDE, the Lightweight X11 Desktop Environment.
 
 %prep
 %setup -q
+sh autogen.sh
 
 
 %build
 %configure --disable-silent-rules
 # workaround for FTBFS #539147 and #661008
 #touch -r po/Makefile po/stamp-it
-make %{?_smp_mflags}
+%make_build
 
 
 %install
@@ -65,6 +67,9 @@ mkdir -m 755 $RPM_BUILD_ROOT%{_datadir}/%{name}/icons
 
 
 %changelog
+* Sun Feb 16 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.2.6-1
+- 0.2.6
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

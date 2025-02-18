@@ -1,5 +1,5 @@
 %global git 0
-%global commit 570c9d190fee556c62e5bd0a9c6797c4dffcc271
+%global commit c10219da9e366addec5aa2be8883fe9c419d91a0
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -13,9 +13,9 @@
 
 Name:           lammps
 %if %{git}
-Version:        20241119^%{shortcommit}
+Version:        20250204^%{shortcommit}
 %else
-Version:        20241119
+Version:        20250204
 %endif
 %global         uversion %(v=%{version}; \
                   patch=${v##*.}; [[ $v = $patch ]] && patch= \
@@ -25,9 +25,8 @@ Version:        20241119
                   m=${v:4:2};
                   y=${v:0:4};
                   echo $([[ -z $patch ]] && echo patch || echo stable)_${d#0}${months[${m#0}]}${y}$([[ -n $patch ]] && echo _update${patch}))
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Molecular Dynamics Simulator
-# Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 Url:            https://www.lammps.org/
 %if %{git}
@@ -78,7 +77,7 @@ BuildRequires:  readline-devel
 %global         with_kokkos 1
 # kokkos needs a lot of memory
 %global         _smp_mflags -j1
-BuildRequires:  kokkos-devel >= 4.3
+BuildRequires:  kokkos-devel >= 4.5
 %endif
 %endif
 Requires:       %{name}-data
@@ -375,6 +374,10 @@ done
 %config %{_sysconfdir}/profile.d/lammps.*
 
 %changelog
+* Sat Feb 15 2025 Richard Berger <richard.berger@outlook.com> - 20250204-1
+- Version bump to 20250204
+- Bump Kokkos requirement to 4.5.01
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20241119-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

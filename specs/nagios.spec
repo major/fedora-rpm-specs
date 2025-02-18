@@ -6,7 +6,7 @@
 
 Name:           nagios
 Version:        4.4.14
-Release:        7%{?dist}
+Release:        8%{?dist}
 
 Summary: Host/service/network monitoring program
 
@@ -126,7 +126,6 @@ files for Nagios. Development files are built as a separate package.
 
 %package common
 Summary:        Provides common directories, uid and gid among nagios-related packages
-Requires(pre):  shadow-utils
 Requires(post): shadow-utils
 Provides:       user(nagios)
 Provides:       group(nagios)
@@ -184,6 +183,11 @@ Various contributed items used by plugins and other tools.
 %autosetup -p1 -n nagioscore-nagios-%{version}
 
 install -p -m 0644 %{SOURCE10} %{SOURCE11} %{SOURCE12} html/images/logos/
+
+# Create a sysusers.d config file
+cat >nagios.sysusers.conf <<EOF
+u nagios - - %{_localstatedir}/spool/%{name} -
+EOF
 
 
 %build
@@ -327,10 +331,8 @@ install -p -m 644 contrib/eventhandlers/redundancy-scenario1/handle-master-proc-
 # Fix permissions #2275532
 chmod -R g-w %{buildroot}%{_datadir}/%{name} %{buildroot}%{_libdir}/%{name} %{buildroot}%{_sysconfdir} %{buildroot}%{_sbindir}
 
-%pre common
-getent group nagios >/dev/null || groupadd -r nagios
-getent passwd nagios >/dev/null || useradd -r -g nagios -d %{_localstatedir}/spool/%{name} -s /sbin/nologin nagios
-exit 0
+install -m0644 -D nagios.sysusers.conf %{buildroot}%{_sysusersdir}/nagios.conf
+
 
 
 %post
@@ -451,6 +453,7 @@ fi
 %attr(0755,root,root) %dir %{_libdir}/%{name}/plugins
 %attr(0755,root,root) %dir %{_libdir}/%{name}/plugins/eventhandlers/
 %attr(0755,nagios,nagios) %dir %{_localstatedir}/spool/%{name}
+%{_sysusersdir}/nagios.conf
 
 
 %files devel
@@ -472,6 +475,9 @@ fi
 %{_libdir}/%{name}/cgi/
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.4.14-8
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.14-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

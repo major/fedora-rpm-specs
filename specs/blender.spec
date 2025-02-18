@@ -267,10 +267,10 @@ BuildRequires:  pkgconfig(tbb) = 2020.3
 BuildRequires:  potrace-devel
 
 # Audio stuff
+BuildRequires:  jack-audio-connection-kit-devel
 BuildRequires:  pkgconfig(ao)
 BuildRequires:  pkgconfig(flac)
 BuildRequires:  pkgconfig(freealut)
-BuildRequires:  pkgconfig(jack)
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(ogg)
 BuildRequires:  pkgconfig(opus)

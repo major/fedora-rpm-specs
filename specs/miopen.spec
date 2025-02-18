@@ -9,9 +9,6 @@
 # build_cxxflags does not honor CMAKE_BUILD_TYPE, strip out -g
 %global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/' -e 's/-g / /' )
 
-# $gpu will be evaluated in the loops below             
-%global _vpath_builddir %{_vendor}-%{_target_os}-build-${gpu}
-
 %bcond_with debug
 %if %{with debug}
 %global build_type DEBUG
@@ -49,7 +46,7 @@
 
 Name:           miopen
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        AMD's Machine Intelligence Library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND BSD-2-Clause AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
@@ -84,7 +81,6 @@ BuildRequires:  rocm-comgr-devel
 BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocm-rpm-macros-modules
 BuildRequires:  rocrand-devel
 BuildRequires:  roctracer-devel
 BuildRequires:  pkgconfig(sqlite3)
@@ -101,8 +97,6 @@ BuildRequires:  pkgconfig(bzip2)
 BuildRequires:  gmock-devel
 BuildRequires:  gtest-devel
 %endif
-
-Requires:       rocm-rpm-macros-modules
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -189,56 +183,44 @@ fi
 LINK_MEM=32
 LINK_JOBS=`eval "expr 1 + ${MEM_GB} / ${LINK_MEM}"`
 
-for gpu in %{rocm_gpu_list}
-do
-    module load rocm/$gpu
-    %cmake -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
-	   -DCMAKE_CXX_COMPILER=hipcc \
-	   -DCMAKE_C_COMPILER=hipcc \
-	   -DROCM_SYMLINK_LIBS=OFF \
-	   -DHIP_PLATFORM=amd \
-	   -DAMDGPU_TARGETS=$ROCM_GPUS \
-	   -DCMAKE_INSTALL_LIBDIR=$ROCM_LIB \
-	   -DCMAKE_INSTALL_BINDIR=$ROCM_BIN \
-           -DBUILD_TESTING=%{build_test} \
-           -DCMAKE_BUILD_TYPE=%{build_type} \
-	   -DCMAKE_SKIP_RPATH=ON \
-           -DBoost_USE_STATIC_LIBS=OFF \
-           -DMIOPEN_PARALLEL_COMPILE_JOBS=$COMPILE_JOBS \
-           -DMIOPEN_PARALLEL_LINK_JOBS=$LINK_JOBS \
-           -DMIOPEN_BACKEND=HIP \
-           -DMIOPEN_BUILD_DRIVER=OFF \
-	   -DMIOPEN_ENABLE_AI_IMMED_MODE_FALLBACK=OFF \
-	   -DMIOPEN_ENABLE_AI_KERNEL_TUNING=OFF \
-	   -DMIOPEN_TEST_ALL=%{build_test} \
-	   -DMIOPEN_USE_HIPBLASLT=OFF \
-           -DMIOPEN_USE_MLIR=OFF \
-           -DMIOPEN_USE_COMPOSABLEKERNEL=OFF
+%cmake -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
+       -DCMAKE_CXX_COMPILER=hipcc \
+       -DCMAKE_C_COMPILER=hipcc \
+       -DROCM_SYMLINK_LIBS=OFF \
+       -DHIP_PLATFORM=amd \
+       -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
+       -DCMAKE_INSTALL_LIBDIR=%_libdir \
+       -DBUILD_TESTING=%{build_test} \
+       -DCMAKE_BUILD_TYPE=%{build_type} \
+       -DCMAKE_SKIP_RPATH=ON \
+       -DBoost_USE_STATIC_LIBS=OFF \
+       -DMIOPEN_PARALLEL_COMPILE_JOBS=$COMPILE_JOBS \
+       -DMIOPEN_PARALLEL_LINK_JOBS=$LINK_JOBS \
+       -DMIOPEN_BACKEND=HIP \
+       -DMIOPEN_BUILD_DRIVER=OFF \
+       -DMIOPEN_ENABLE_AI_IMMED_MODE_FALLBACK=OFF \
+       -DMIOPEN_ENABLE_AI_KERNEL_TUNING=OFF \
+       -DMIOPEN_TEST_ALL=%{build_test} \
+       -DMIOPEN_USE_HIPBLASLT=OFF \
+       -DMIOPEN_USE_MLIR=OFF \
+       -DMIOPEN_USE_COMPOSABLEKERNEL=OFF
 
-    %cmake_build
+%cmake_build
 
 %if %{with test}
-    %cmake_build -t tests
+%cmake_build -t tests
 %endif
-
-    module purge
-done
 
 %if %{with test}
 %if %{with check}
 %check
-gpu=%{gpu_test}
-module load rocm/$gpu
 %cmake_build -t test
-module purge
 %endif
 %endif
 
 %install
-for gpu in %{rocm_gpu_list}
-do
-    %cmake_install
-done
+%cmake_install
+
 echo s@%{buildroot}@@ > br.sed
 find %{buildroot}%{_libdir} -name '*.so.*.[0-9]' | sed -f br.sed >  %{name}.files
 find %{buildroot}%{_libdir} -name '*.so.[0-9]'   | sed -f br.sed >> %{name}.files
@@ -268,6 +250,9 @@ fi
 %endif
 
 %changelog
+* Sun Feb 16 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-2
+- Remove multi build
+
 * Wed Jan 29 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-1
 - Update to 6.3.2
 

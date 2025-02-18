@@ -35,6 +35,7 @@ from Lua.
 
 %package javadoc
 Summary:        API documentation for %{name}
+BuildArch:      noarch
 
 %description javadoc
 API documentation for %{name}.

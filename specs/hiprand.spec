@@ -1,3 +1,9 @@
+%if 0%{?suse_version}
+%global hiprand_name libhiprand1
+%else
+%global hiprand_name hiprand
+%endif
+
 %global upstreamname hipRAND
 
 %global rocm_release 6.3
@@ -33,9 +39,9 @@
 %define _source_payload	w7T0.xzdio
 %define _binary_payload	w7T0.xzdio
 
-Name:           hiprand
+Name:           %{hiprand_name}
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        HIP random number generator
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -60,6 +66,8 @@ BuildRequires:  gtest-devel
 BuildRequires:  doxygen
 %endif
 
+Provides:       hiprand = %{version}-%{release}
+
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
 
@@ -70,10 +78,16 @@ into the backend and results back to the application. hipRAND exports an
 interface that does not require the client to change, regardless of the chosen
 backend. Currently, hipRAND supports either rocRAND or cuRAND.
 
+%if 0%{?suse_version}
+%post -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
+%endif
+
 %package devel
 Summary:        The hipRAND development package
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       rocrand-devel
+Provides:       hiprand-devel = %{version}-%{release}
 
 %description devel
 The hipRAND development package.
@@ -94,35 +108,26 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 sed -i '/INSTALL_RPATH/d' CMakeLists.txt
 
 %build
-for gpu in %{rocm_gpu_list}
-do
-    module load rocm/$gpu
 
-    %cmake \
-	-DCMAKE_CXX_COMPILER=hipcc \
-	-DCMAKE_C_COMPILER=hipcc \
-	-DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
-	-DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
-	-DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
-           -DCMAKE_BUILD_TYPE=%{build_type} \
-           -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
-           -DCMAKE_SKIP_RPATH=ON \
-           -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
-           -DAMDGPU_TARGETS=${ROCM_GPUS} \
-           -DCMAKE_INSTALL_LIBDIR=$ROCM_LIB \
-           -DCMAKE_INSTALL_BINDIR=$ROCM_BIN \
-           -DBUILD_TEST=%{build_test} \
-           -DROCM_SYMLINK_LIBS=OFF
+%cmake \
+    -DCMAKE_CXX_COMPILER=hipcc \
+    -DCMAKE_C_COMPILER=hipcc \
+    -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
+    -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
+    -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
+    -DCMAKE_BUILD_TYPE=%{build_type} \
+    -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
+    -DCMAKE_SKIP_RPATH=ON \
+    -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
+    -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
+    -DCMAKE_INSTALL_LIBDIR=%_libdir \
+    -DBUILD_TEST=%{build_test} \
+    -DROCM_SYMLINK_LIBS=OFF
 
-           %cmake_build
-    module purge
-done
+%cmake_build
 
 %install
-for gpu in %{rocm_gpu_list}
-do
-    %cmake_install
-done
+%cmake_install
 
 echo s@%{buildroot}@@ > br.sed
 find %{buildroot}%{_libdir} -name '*.so.*.[0-9]' | sed -f br.sed >  %{name}.files
@@ -145,15 +150,19 @@ fi
 %license LICENSE.txt
 
 %files devel -f %{name}.devel
-%dir %{_libdir}/cmake/%{name}
-%dir %{_includedir}/%{name}
-%{_includedir}/%{name}/*
+%dir %{_libdir}/cmake/hiprand
+%dir %{_includedir}/hiprand
+%{_includedir}/hiprand/*
 
 %if %{with test}
 %files test -f %{name}.test
 %endif
 
 %changelog
+* Tue Feb 11 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-5
+- Remove split building
+- Fix SLE 15.6
+
 * Mon Jan 20 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-4
 - multithread compress
 

@@ -6,7 +6,7 @@
 %{?haskell_setup}
 
 Name:           ghc-%{pkg_name}
-Version:        0.2.0
+Version:        0.2.1
 Release:        %autorelease
 Summary:        Library for Fedora release versions
 
@@ -38,7 +38,7 @@ BuildRequires:  ghc-safe-prof
 %description
 This library provides the Branch and Release data types and various associated
 metadata functions for Fedora releases (Fedora and EPEL) needed for packaging
-development and building. It uses current release data from Fedora Bodhi.
+development and building. It caches current release data from Fedora Bodhi.
 
 
 %package devel

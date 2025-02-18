@@ -93,7 +93,7 @@ Requires: crypto-policies
 Requires: p11-kit-trust
 Requires: libtasn1 >= 4.3
 # always bump when a nettle release is packaged
-Requires: nettle >= 3.10
+Requires: nettle >= 3.10.1
 %if %{with tpm12}
 Recommends: trousers >= 0.3.11.2
 %endif

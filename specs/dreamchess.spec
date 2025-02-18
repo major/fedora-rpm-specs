@@ -9,9 +9,9 @@ Name:           dreamchess
 Version:        0.3.0%{?cdate0:~%{cdate0}git}
 Release:        4%{?dist}
 Summary:        Portable chess game
-# GPLv2+ generally for most of sources
-# but BSD for dreamchess/src/include/gamegui/queue.h
-License:        GPLv3+ and BSD
+# GPL-3.0-or-later generally for most of sources
+# but BSD-3-Clause for dreamchess/src/include/gamegui/queue.h
+License:        GPL-3.0-or-later AND BSD-3-Clause
 URL:            https://www.%{name}.org/
 %if 0%{?cdate0}
 Source0:        https://github.com/%{name}/%{name}/archive/%{commit0}.tar.gz#/%{name}-%{commit0}.tar.gz
@@ -60,7 +60,6 @@ A moderately strong chess engine as a sub-package: Dreamer.
 
 %package engine
 Summary:        A moderately strong chess engine for the game DreamChess
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 Provides:       chessprogram
 

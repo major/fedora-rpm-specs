@@ -1,12 +1,14 @@
 Name:           jwm
-Version:        2.4.2
-Release:        7%{?dist}
+Version:        2.4.6
+Release:        1%{?dist}
 Summary:        Joe's Window Manager
 
 License:        MIT
 URL:            http://joewing.net/projects/jwm/
-Source0:        https://github.com/joewing/jvm/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/joewing/jwm/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{name}.desktop
+
+Patch0:		gettext_021.patch
 
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -47,7 +49,7 @@ JWM supports MWM and Extended Window Manager Hints (EWMH).
 Note that the Fedora package is built with all supported features enabled.
 
 %prep
-%autosetup
+%autosetup -p1
 
 # Preserve timestamps in installation
 sed -i -e 's|install -m|install -pm|g' Makefile.in
@@ -75,6 +77,9 @@ install -Dpm0644 %{SOURCE1} %{buildroot}%{_datadir}/xsessions/
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sun Feb 16 2025 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 2.4.6-1
+- Update to 2.4.6 (RHBZ #2137051 and #2340682)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

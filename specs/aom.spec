@@ -1,5 +1,5 @@
 %global sover           3
-%global aom_version     v3.11.0
+%global aom_version     v3.12.0
 
 %if 0%{?fedora} || 0%{?rhel} >= 9
 %ifarch x86_64
@@ -13,7 +13,7 @@
 %endif
 
 Name:       aom
-Version:    3.11.0
+Version:    3.12.0
 Release:    %autorelease
 Summary:    Royalty-free next-generation video format
 

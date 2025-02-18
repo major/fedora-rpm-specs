@@ -5,7 +5,7 @@
 %global crate alacritty_terminal
 
 Name:           rust-alacritty_terminal
-Version:        0.24.2
+Version:        0.25.0
 Release:        %autorelease
 Summary:        Library for writing terminal emulators
 

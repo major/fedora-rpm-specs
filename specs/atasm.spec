@@ -3,7 +3,7 @@ Version:        1.26
 Release:        1%{?dist}
 Summary:        6502 cross-assembler
 
-License:        GPL-2.0-or-later AND RSA-MD
+License:        GPL-2.0-or-later
 URL:            https://github.com/CycoPH/atasm
 Source0:        %{url}/archive/V%{version}.tar.gz#/%{name}-%{version}.tar.gz
 

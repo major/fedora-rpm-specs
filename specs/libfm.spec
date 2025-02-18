@@ -18,11 +18,11 @@
 %global         main_version	1.3.2
 
 %if 0%{?use_gitbare}
-%global		gittardate		20250207
-%global		gittartime		1425
+%global		gittardate		20250216
+%global		gittartime		1627
 
-%global		gitbaredate	20250114
-%global		git_rev		493571d155040f13f61feff6dfbca731e5664543
+%global		gitbaredate	20250215
+%global		git_rev		9ea11dca56c039f0d659e243a8b9a5a95c10b6d4
 %global		git_short		%(echo %{git_rev} | cut -c-8)
 %global		git_version	%{gitbaredate}git%{git_short}
 
@@ -491,6 +491,9 @@ fi
 %endif
 
 %changelog
+* Sun Feb 16 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.2^20250215git9ea11dca-1
+- Update to the latest git
+
 * Fri Feb 07 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.2^20250114git493571d1-1
 - Update to the latest git
 

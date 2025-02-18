@@ -14,7 +14,7 @@
 Summary:       The Jack Audio Connection Kit
 Name:          jack-audio-connection-kit
 Version:       1.9.22
-Release:       8%{?dist}
+Release:       9%{?dist}
 # The entire source (~500 files) is a mixture of these three licenses
 # Automatically converted from old format: GPLv2 and GPLv2+ and LGPLv2+ - review is highly recommended.
 License:       GPL-2.0-only AND GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
@@ -47,7 +47,6 @@ BuildRequires: opus-devel
 BuildRequires: pkgconfig
 BuildRequires: python3
 
-Requires(pre): shadow-utils
 Requires:      pam
 
 Obsoletes:     %{name}-example-clients < 1.9.22
@@ -87,6 +86,11 @@ Small example clients that use the Jack Audio Connection Kit.
 
 %prep
 %autosetup -p1 -n jack2-%{version}
+
+# Create a sysusers.d config file
+cat >jack-audio-connection-kit.sysusers.conf <<EOF
+g jackuser -
+EOF
 
 %build
 %set_build_flags
@@ -130,9 +134,8 @@ install -p -m644 %{SOURCE2} jack.pa
 # Fix permissions of the modules
 chmod 755 %{buildroot}%{_libdir}/jack/*.so %{buildroot}%{_libdir}/libjack*.so.*.*.*
 
-%pre
-getent group %groupname > /dev/null || groupadd -r %groupname
-exit 0
+install -m0644 -D jack-audio-connection-kit.sysusers.conf %{buildroot}%{_sysusersdir}/jack-audio-connection-kit.conf
+
 
 %files
 %doc ChangeLog.rst README.rst README_NETJACK2
@@ -147,6 +150,7 @@ exit 0
 %config(noreplace) %{_sysconfdir}/security/limits.d/*.conf
 
 %{_mandir}/man1/jackd*.1*
+%{_sysusersdir}/jack-audio-connection-kit.conf
 
 %files dbus
 %{_bindir}/jackdbus
@@ -162,6 +166,9 @@ exit 0
 %{_libdir}/pkgconfig/jack.pc
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.9.22-9
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.22-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

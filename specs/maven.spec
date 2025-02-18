@@ -180,7 +180,7 @@ install -d -m 755 %{buildroot}%{_datadir}/bash-completion/completions/
 
 cp -a $M2_HOME/{bin,lib,boot} %{buildroot}%{homedir}/
 %if %{without bootstrap}
-xmvn-subst -s -R %{buildroot} -s %{buildroot}%{homedir}
+xmvn-subst -s -R %{buildroot} %{buildroot}%{homedir}
 %endif
 
 # maven uses this hardcoded path in its launcher to locate jansi so we symlink it

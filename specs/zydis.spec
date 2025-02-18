@@ -1,4 +1,4 @@
-Version:        4.1.0
+Version:        4.1.1
 %global sover %{echo %{version} | cut -d '.' -f 1,2}
 
 Name:           zydis

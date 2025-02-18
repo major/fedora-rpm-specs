@@ -4,7 +4,6 @@ Name:           kaidan
 Version:        0.11.0
 Release:        %autorelease
 Summary:        A XMPP client based on KDE Framework
-
 License:        GPL-3.0-or-later AND MIT AND Apache-2.0 AND CC-BY-SA-4.0 AND LGPL-2.0-or-later
 URL:            https://invent.kde.org/network/kaidan
 Source0:        %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
@@ -62,8 +61,6 @@ Provides:       bundled(SingleApplication)
 Requires:       kf6-kirigami2%{?_isa}
 Requires:       kf6-kirigami2-addons%{?_isa}
 Requires:       kf6-kquickcharts%{?_isa}
-Requires:       qt6-qtgraphicaleffects%{?_isa}
-Requires:       qt6-qtquickcontrols2%{?_isa}
 Requires:       qt6-qtwebchannel%{?_isa}
 Requires:       qt6-qtwebengine%{?_isa}
 Requires:       kquickimageeditor-qt6%{?_isa}
@@ -92,7 +89,6 @@ and the Qt-based XMPP library QXmpp.
 
 %install
 %cmake_install
-
 %find_lang %{name} --with-qt
 
 %check

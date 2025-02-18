@@ -5,7 +5,7 @@ output to functions.}
 
 
 Name:           python-requre
-Version:        0.8.6
+Version:        0.9.0
 Release:        1%{?dist}
 Summary:        Python library that allows re/store output of various objects for testing
 
@@ -57,6 +57,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Feb 14 2025 Packit <hello@packit.dev> - 0.9.0-1
+- Supports recording of the requests done by `httpx` via `record_httpx()` and `recording_httpx()` decorators. (#297)
+
 * Mon Feb 10 2025 Packit <hello@packit.dev> - 0.8.6-1
 - Trigger a new release to fix the PyPI upload action.
 

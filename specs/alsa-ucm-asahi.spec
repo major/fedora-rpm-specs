@@ -32,11 +32,13 @@ The ALSA Use Case Manager configuration (and topologies) for Apple silicon devic
 
 %install
 install -dm 755 %{buildroot}%{_datadir}/alsa/ucm2/conf.d/
+cp -a ucm2/conf.d/aop_audio/ %{buildroot}%{_datadir}/alsa/ucm2/conf.d/
 cp -a ucm2/conf.d/macaudio/ %{buildroot}%{_datadir}/alsa/ucm2/conf.d/
 
 %files
 %license LICENSE.asahi
 %doc README.asahi
+%{_datadir}/alsa/ucm2/conf.d/aop_audio/
 %{_datadir}/alsa/ucm2/conf.d/macaudio/
 
 %changelog

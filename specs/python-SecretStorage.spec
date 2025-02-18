@@ -19,7 +19,7 @@ BuildRequires:  python3-devel
 # Test dependencies
 %if %{with tests}
 BuildRequires:  /usr/bin/dbus-launch
-BuildRequires:  /usr/bin/xvfb-run
+BuildRequires:  xwayland-run
 BuildRequires:  libsecret-mock-service
 BuildRequires:  python3-dbus
 BuildRequires:  python3-gobject-base
@@ -98,7 +98,7 @@ find build -name 'doctrees' -type d -print -exec rm -r '{}' +
 %if %{with tests}
 export %{py3_test_envvars}
 for MOCK in /usr/share/libsecret/mock-service-{normal,only-plain,lock}.py; do
-  xvfb-run -a dbus-launch --exit-with-session %{python3} tests/run_tests.py ${MOCK}
+  xwfb-run -- dbus-launch --exit-with-session %{python3} tests/run_tests.py ${MOCK}
 done
 %endif
 

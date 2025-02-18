@@ -2,8 +2,8 @@
 %global pypi_name yarl
 
 Name:           python-%{pypi_name}
-Version:        1.13.1
-Release:        2%{?dist}
+Version:        1.18.3
+Release:        1%{?dist}
 Summary:        Python module to handle URLs
 
 License:        Apache-2.0
@@ -13,6 +13,7 @@ Source0:        https://github.com/aio-libs/yarl/archive/v%{version}/%{pypi_name
 BuildRequires:  gcc
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(cython)
+BuildRequires:  python3dist(hypothesis)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-xdist)
 
@@ -41,12 +42,17 @@ sed -r -e 's/(-.*cov.*$)/#\1/g' -i pytest.ini
 %pyproject_save_files -l %{pypi_name}
 
 %check
-%pytest -v --ignore tests/test_quoting.py -k 'not test_no_host' tests
+# Ignore the benchmark tests which require pytest_codspeed which is not
+# packaged in Fedora.
+%pytest -v --ignore tests/test_quoting_benchmarks.py --ignore tests/test_url_benchmarks.py tests
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc CHANGES.rst README.rst
 
 %changelog
+* Fri Feb 14 2025 Romain Geissler <romain.geissler@amadeus.com> - 1.18.3-1
+- Update to 1.18.3
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

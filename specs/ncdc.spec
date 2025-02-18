@@ -2,8 +2,8 @@
 %bcond_without geoip
 
 Name:           ncdc
-Version:        1.23
-Release:        7%{?dist}
+Version:        1.24.1
+Release:        1%{?dist}
 Summary:        Modern and lightweight direct connect client
 
 License:        MIT
@@ -45,6 +45,9 @@ friendly ncurses interface.
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sun Feb 16 2025 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 1.24.1-1
+- Update to 1.24.1 (RHBZ#2130163 and #2340906)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.23-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

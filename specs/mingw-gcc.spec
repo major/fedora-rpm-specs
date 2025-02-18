@@ -14,14 +14,14 @@
 # Run the testsuite
 %global enable_tests 0
 
-%global DATE 20240801
-%global gitrev 43d4666d3d94934f11857a2fb9122c575be81801
-%global gcc_version 14.1.1
-%global gcc_major 14
+%global DATE 20250204
+%global gitrev 785011ff892f91b1fedd8ba7812ff3203bc17b1a
+%global gcc_version 15.0.1
+%global gcc_major 15
 
 Name:           mingw-gcc
-Version:        14.2.1
-Release:        4%{?dist}
+Version:        %{gcc_version}
+Release:        1%{?dist}
 Summary:        MinGW Windows cross-compiler (GCC) for C
 
 # Sync with native 'gcc' package
@@ -638,6 +638,7 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 %{mingw32_libdir}/libssp_nonshared.a
 %{mingw32_libdir}/libstdc++fs.a
 %{mingw32_libdir}/libstdc++exp.a
+%{mingw32_libdir}/libstdc++.modules.json
 %{_prefix}/lib/gcc/%{mingw32_target}/%{version}/crtbegin.o
 %{_prefix}/lib/gcc/%{mingw32_target}/%{version}/crtend.o
 %{_prefix}/lib/gcc/%{mingw32_target}/%{version}/crtfastmath.o
@@ -685,6 +686,7 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 %{mingw64_libdir}/libssp_nonshared.a
 %{mingw64_libdir}/libstdc++fs.a
 %{mingw64_libdir}/libstdc++exp.a
+%{mingw64_libdir}/libstdc++.modules.json
 %{_prefix}/lib/gcc/%{mingw64_target}/%{version}/crtbegin.o
 %{_prefix}/lib/gcc/%{mingw64_target}/%{version}/crtend.o
 %{_prefix}/lib/gcc/%{mingw64_target}/%{version}/crtfastmath.o
@@ -732,6 +734,7 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 %{ucrt64_libdir}/libssp_nonshared.a
 %{ucrt64_libdir}/libstdc++fs.a
 %{ucrt64_libdir}/libstdc++exp.a
+%{ucrt64_libdir}/libstdc++.modules.json
 %{_prefix}/lib/gcc/%{ucrt64_target}/%{version}/crtbegin.o
 %{_prefix}/lib/gcc/%{ucrt64_target}/%{version}/crtend.o
 %{_prefix}/lib/gcc/%{ucrt64_target}/%{version}/crtfastmath.o
@@ -984,6 +987,9 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 
 
 %changelog
+* Sun Feb 16 2025 Sandro Mani <manisandro@gmail.com> - 15.0.1-1
+- Update to 15.0.1 (20250204)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 14.2.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

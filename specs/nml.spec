@@ -1,4 +1,4 @@
-Version:        0.7.5
+Version:        0.7.6
 
 %global forgeurl https://github.com/OpenTTD/nml
 %global tag      %{version}

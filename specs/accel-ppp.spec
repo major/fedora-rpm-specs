@@ -8,6 +8,7 @@ Source:         https://github.com/accel-ppp/%{name}/archive/%{version}/%{name}-
 Patch0:		0001-Use-PCRE2-instead-of-PCRE.patch
 Patch1:		0002-Add-Fedora-CPack-option.patch
 Patch2:		0003-Allow-building-in-source-directory-needed-for-EPEL8.patch
+Patch3:		0004-Add-EPEL-10-CPack-option.patch
 ExcludeArch:	%{ix86}
 
 BuildRequires:  cmake

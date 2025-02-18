@@ -5,7 +5,7 @@
 
 Name:           wlroots
 Version:        0.18.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A modular Wayland compositor library
 
 # Source files/overall project licensed as MIT, but
@@ -40,6 +40,8 @@ Source3:        examples.meson.build
 # Fedora patches
 # Following patch is required for phoc.
 Patch:          Revert-layer-shell-error-on-0-dimension-without-anch.patch
+# Needed by phoc 0.45.0+, can be dropped in wlroots 0.18.3
+Patch:          https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/4985.patch
 
 BuildRequires:  gcc
 BuildRequires:  glslang
@@ -140,6 +142,9 @@ install -pm0644 -D '%{SOURCE3}' '%{buildroot}/%{_pkgdocdir}/examples/meson.build
 
 
 %changelog
+* Sat Feb 15 2025 Sam Day <me@samcday.com> - 0.18.2-4
+- Add wlroots!4985 patch needed by phoc 0.45.0
+
 * Mon Feb 10 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.18.2-3
 - Rebuild for libdisplay-info 0.2.0
 

@@ -13,11 +13,11 @@
 %global	git_builddir	%{nil}
 
 %if 0%{?use_gitbare}
-%global	gittardate		20250214
-%global	gittartime		1031
+%global	gittardate		20250216
+%global	gittartime		1636
 
-%global	gitbaredate	20250207
-%global	git_rev		e4e9b89ca26aa0adef81d8984c072c4725c52c82
+%global	gitbaredate	20250215
+%global	git_rev		56103c8344a808c8a110ed99fdebdaf1218460ac
 %global	git_short		%(echo %{git_rev} | cut -c-8)
 %global	git_version	%{gitbaredate}git%{git_short}
 %endif
@@ -224,6 +224,9 @@ cd ..
 %{_libdir}/pkgconfig/lxpanel.pc
 
 %changelog
+* Sun Feb 16 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.1^20250215git56103c83-1
+- Update to the latest git
+
 * Fri Feb 14 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.1^20250207gite4e9b89c-1
 - Update to the latest git
 

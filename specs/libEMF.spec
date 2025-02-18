@@ -2,9 +2,11 @@ Summary:	A library for generating Enhanced Metafiles
 Summary(pl):	Biblioteka do generowania plików w formacie Enhanced Metafile
 Name:		libEMF
 Version:	1.0.13
-Release:	14%{?dist}
-# Automatically converted from old format: LGPLv2+ and GPLv2+ - review is highly recommended.
-License:	LicenseRef-Callaway-LGPLv2+ AND GPL-2.0-or-later
+Release:	15%{?dist}
+# include/libEMF/emf.h: LGPL-2.1-or-later
+# libemf/libemf.{cpp,h}: LGPL-2.1-or-later
+# src/printemf.c: GPL-2.0-or-later
+License:	LGPL-2.1-or-later AND GPL-2.0-or-later
 URL:		http://libemf.sourceforge.net/
 Source0:	https://downloads.sourceforge.net/project/libemf/libemf/%{version}/libemf-%{version}.tar.gz
 Patch:		add-riscv64-support.patch
@@ -28,7 +30,7 @@ zaimplementowany bardzo ograniczony podzbiór GDI.
 %package devel
 Summary:	libEMF header files
 Summary(pl):	Pliki nagłówkowe libEMF
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}%{_isa} = %{version}-%{release}
 Requires:	libstdc++-devel
 
 %description devel
@@ -45,19 +47,15 @@ Pliki nagłówkowe libEMF.
 	--disable-static \
 	--enable-editing
 
-make %{?_smp_mflags}
+%make_build
 
 %install
 export CPPROG="cp -p"
-make install \
-	DESTDIR=$RPM_BUILD_ROOT
-
-rm $RPM_BUILD_ROOT%{_libdir}/libEMF.la
+%make_install
+rm %{buildroot}%{_libdir}/libEMF.la
 
 %check
-make check
-
-%ldconfig_scriptlets
+%make_build check
 
 %files
 %license COPYING COPYING.LIB
@@ -71,6 +69,11 @@ make check
 %{_includedir}/libEMF
 
 %changelog
+* Sun Feb 16 2025 Dominik Mierzejewski <dominik@greysector.net> - 1.0.13-15
+- use proper SPDX identifier for LGPLv2+ (verified against sources)
+- use modern spec macros where applicable
+- make -devel subpackage dependency on main package archful
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.13-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

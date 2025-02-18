@@ -1,7 +1,7 @@
 Name:         lxqt-session
 Summary:      Main session for LXQt desktop suite
 Version:      2.1.1
-Release:      4%{?dist}
+Release:      6%{?dist}
 License:      LGPL-2.1-only
 URL:          https://lxqt-project.org/
 Source0:      https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -35,18 +35,36 @@ BuildRequires:  pkgconfig(libproc2)
 BuildRequires:  qtxdg-tools
 BuildRequires:  perl
 
-Requires:     dbus-x11
-Requires:     openbox-theme-mistral-thin
 #Needs Updated
 #Requires:      lxqt-themes-fedora
 
-%if 0%{?fedora}
 # use pcmanfm-qt for default desktop
 Recommends:   pcmanfm-qt
-%endif
+
+# We want the Wayland session installed
+Requires:     lxqt-wayland-session
+
+# Retain this for now
+Recommends:   lxqt-x11-session
+
+# For package split of x11 session
+Conflicts:    %{name} < 2.1.1-5
+Obsoletes:    %{name} < 2.1.1-5
 
 %description
 %{summary}.
+
+%package -n lxqt-x11-session
+BuildArch:    noarch
+Summary:      Files for LXQt X11 session
+Requires:     openbox-theme-mistral-thin
+Requires:     %{name} = %{version}-%{release}
+Requires:     dbus-x11
+Recommends:   xscreensaver
+Conflicts:    %{name} < 2.1.1-5
+Obsoletes:    %{name} < 2.1.1-5
+%description -n lxqt-x11-session
+This package provides the LXQt X11 session files.
 
 %package l10n
 BuildArch:    noarch
@@ -85,20 +103,22 @@ sed -i 's/cursor_theme=whiteglass/cursor_theme=breeze_cursors/g;/General/a windo
 %{_bindir}/lxqt-session
 %{_bindir}/lxqt-config-session
 %{_bindir}/lxqt-leave
-%{_bindir}/startlxqt
 %{_datadir}/applications/*.desktop
-%config(noreplace) %{_sysconfdir}/xdg/autostart/lxqt-xscreensaver-autostart.desktop
 %config(noreplace) %{_sysconfdir}/lxqt/session.conf
 %config(noreplace) %{_sysconfdir}/lxqt/lxqt.conf
 %{_datadir}/lxqt/lxqt.conf
 %{_datadir}/lxqt/session.conf
 %{_datadir}/lxqt/windowmanagers.conf
-%{_datadir}/xsessions/lxqt.desktop
-%{_mandir}/man1/startlxqt.1.gz
 %{_mandir}/man1/lxqt-config-session*
 %{_mandir}/man1/lxqt-leave*
 %{_mandir}/man1/lxqt-session*
 %{_datadir}/lxqt/waylandwindowmanagers.conf
+
+%files -n lxqt-x11-session
+%config(noreplace) %{_sysconfdir}/xdg/autostart/lxqt-xscreensaver-autostart.desktop
+%{_bindir}/startlxqt
+%{_datadir}/xsessions/lxqt.desktop
+%{_mandir}/man1/startlxqt.1*
 
 %files l10n -f lxqt-session.lang -f lxqt-leave.lang -f lxqt-config-session.lang
 %license LICENSE
@@ -115,6 +135,12 @@ sed -i 's/cursor_theme=whiteglass/cursor_theme=breeze_cursors/g;/General/a windo
 %{_datadir}/lxqt/translations/lxqt-session/lxqt-session_arn.qm
 
 %changelog
+* Sun Feb 16 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.1.1-6
+- Ensure the Wayland session is installed
+
+* Sun Feb 16 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.1.1-5
+- Split X11 session into its own subpackage
+
 * Fri Jan 24 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 2.1.1-4
 - Add miriway option
 

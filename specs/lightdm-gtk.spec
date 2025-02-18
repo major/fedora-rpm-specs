@@ -1,7 +1,7 @@
 Summary:        LightDM GTK Greeter
 Name:           lightdm-gtk
 Version:        2.0.8
-Release:        12%{?dist}
+Release:        13%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            https://github.com/Xubuntu/lightdm-gtk-greeter
@@ -34,12 +34,19 @@ Provides:       lightdm-greeter = 1.2
 Requires:       lightdm%{?_isa}
 
 # for default background/wallpaper
+%if 0%{?fedora} >= 42
+%global bg_file_ext jxl
+Requires:       jxl-pixbuf-loader
+%else
+%global bg_file_ext png
+%endif
+
 %if 0%{?fedora} || 0%{?rhel} >= 8
-%global background %{_datadir}/backgrounds/default.png
+%global background %{_datadir}/backgrounds/default.%{bg_file_ext}
 Requires:       desktop-backgrounds-compat
 %endif
 %if 0%{?rhel} && 0%{?rhel} < 8
-%global background %{_datadir}/backgrounds/day.jpg
+%global background %{_datadir}/backgrounds/day.%{bg_file_ext}
 Requires:       system-logos
 %endif
 # owner of HighContrast gtk/icon themes
@@ -108,6 +115,12 @@ rm -fv %{buildroot}%{_docdir}/lightdm-gtk-greeter/sample-lightdm-gtk-greeter.css
 
 
 %changelog
+* Sun Feb 16 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.0.8-13
+- Fix backgound selection for backward compatibility
+
+* Sun Feb 16 2025 Sean Mottles <seanmottles@posteo.net> - 2.0.8-13
+- Update lightdm-gtk.spec - switch to JXL default background images
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

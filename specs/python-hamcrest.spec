@@ -2,17 +2,16 @@
 %global origname PyHamcrest
 
 Name:           python-%{modname}
-Version:        2.0.3
-Release:        9%{?dist}
+Version:        2.1.0
+Release:        1%{?dist}
 Summary:        Hamcrest matchers for Python
 
 License:        BSD-3-Clause
 URL:            https://github.com/hamcrest/PyHamcrest
 Source0:        %{url}/archive/V%{version}/%{name}-%{version}.tar.gz
 
-# https://numpy.org/devdocs/release/1.20.0-notes.html#using-the-aliases-of-builtin-types-like-np-int-is-deprecated
-# https://github.com/hamcrest/PyHamcrest/pull/218
-Patch0:		numpy-1.20.0-alias-depr.patch	
+# Numpy 2.x patch replacing shorthands (float_, complex_, etc.)
+Patch:          https://github.com/hamcrest/PyHamcrest/pull/248.patch
 
 BuildArch:      noarch
 
@@ -40,9 +39,13 @@ Python 3 version.
 %autosetup -n %{origname}-%{version} -p1
 
 %generate_buildrequires
+# Let hatch-vcs/setuptools_scm determine version outside of SCM
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_buildrequires
 
 %build
+# Let hatch-vcs/setuptools_scm determine version outside of SCM
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_wheel
 
 %install
@@ -55,6 +58,11 @@ Python 3 version.
 %files -n python3-%{modname} -f %{pyproject_files}
 
 %changelog
+* wed Jan 22 2025 Sandro <devel@penguinpee.nl> - 2.1.0-1
+- Update to 2.1.0 (RHBZ#2245624)
+- Support NumPy 2.x
+- Close RHBZ#2341160
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

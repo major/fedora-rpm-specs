@@ -2,8 +2,8 @@
 %global _docdir_fmt %{name}
 
 Name:           python-iniparse
-Version:        0.5
-Release:        11%{?dist}
+Version:        0.5.1
+Release:        1%{?dist}
 Summary:        Accessing and Modifying INI files
 
 # From LICENSE:
@@ -14,10 +14,6 @@ Summary:        Accessing and Modifying INI files
 License:        MIT AND Python-2.0.1
 URL:            https://github.com/candlepin/python-iniparse
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-# https://github.com/candlepin/python-iniparse/pull/24
-Patch6:         0006-Fix-compatibility-issues-with-Python-3.11.patch
-# https://github.com/candlepin/python-iniparse/pull/29
-Patch7:         0001-Fix-tests-with-python-3.12.1.patch
 
 BuildArch: noarch
 
@@ -43,10 +39,6 @@ Summary:        %{summary}
 %autosetup -p1
 chmod -c -x html/index.html
 
-# Compatibility patch with Python 3.13+ which has removed unittest.makeSuite()
-# Reported upstream: https://github.com/candlepin/python-iniparse/issues/31
-sed -i "s/unittest.makeSuite(\([[:alnum:]_]\+\), 'test')/unittest.defaultTestLoader.loadTestsFromTestCase(\1)/g" $(grep -rl makeSuite)
-
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -66,6 +58,9 @@ rm -vfr %{buildroot}%{_docdir}/*
 %doc README.md Changelog html/
 
 %changelog
+* Mon Jan 20 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.5.1-1
+- Update to 0.5.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

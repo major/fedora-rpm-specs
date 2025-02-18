@@ -2,8 +2,8 @@
 %global fonts font(amiri) font(dejavusans) font(dejavusansmono) font(dejavuserif) font(widelands) font(gargi) font(wenquanyimicrohei) font(frankruehlclm)
 
 Name:           widelands
-Version:        1.2
-Release:        3%{?dist}
+Version:        1.2.1
+Release:        1%{?dist}
 Summary:        Open source realtime-strategy game
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -20,9 +20,10 @@ Patch1:         widelands-1.2-build20-gcc10.patch
 # at glew 2.3, or maybe backport:
 # https://github.com/nigels-com/glew/commit/715afa0ff56c0eb12c23938b80aa2813daa10d81
 Patch2:         widelands-1.0-make-sdl2-use-x11.patch
-Patch3:         widelands-1.2-gcc13.patch
+Patch3:         widelands-1.2.1-gcc13.patch
 Patch4:         widelands-1.1-f37-sys-minizip-buildfix.patch
-Patch5:         widelands-1.1-disable-some-tests.patch
+Patch5:         widelands-1.2.1-disable-some-tests.patch
+Patch6:         widelands-1.2.1-gcc15.patch
 
 BuildRequires: asio-devel
 BuildRequires: SDL2-devel
@@ -55,7 +56,7 @@ perhaps will have a thought, what Widelands is all about.
 
 
 %prep
-%setup -q
+%setup -q -n widelands
 %patch -P0 -p1
 %patch -P1 -p1
 %patch -P2 -p1
@@ -64,6 +65,7 @@ perhaps will have a thought, what Widelands is all about.
 %ifarch s390x
 %patch -P5 -p1
 %endif
+%patch -P6 -p1
 
 
 %build
@@ -143,6 +145,14 @@ ln -s $(fc-match -f "%{file}" "monospace:italic") \
   usr/share/%{name}/i18n/fonts/dejavu-fonts/DejaVuSansMono-Oblique.ttf
 ln -s $(fc-match -f "%{file}" "monospace:bold:italic") \
   usr/share/%{name}/i18n/fonts/dejavu-fonts/DejaVuSansMono-BoldOblique.ttf
+ln -s $(fc-match -f "%{file}" "DejaVuSansCondensed") \
+  usr/share/%{name}/i18n/fonts/dejavu-fonts/DejaVuSansCondensed.ttf
+ln -s $(fc-match -f "%{file}" "DejaVuSansCondensed:bold") \
+  usr/share/%{name}/i18n/fonts/dejavu-fonts/DejaVuSansCondensed-Bold.ttf
+ln -s $(fc-match -f "%{file}" "DejaVuSansCondensed:italic") \
+  usr/share/%{name}/i18n/fonts/dejavu-fonts/DejaVuSansCondensed-Oblique.ttf
+ln -s $(fc-match -f "%{file}" "DejaVuSansCondensed:bold:italic") \
+  usr/share/%{name}/i18n/fonts/dejavu-fonts/DejaVuSansCondensed-BoldOblique.ttf
 
 # Chinese fonts
 rm -r usr/share/%{name}/i18n/fonts/MicroHei
@@ -199,6 +209,10 @@ popd
 
 
 %changelog
+* Sun Feb 16 2025 Peter Hanecak <hany@hany.sk> - 1.2.1-1
+- New upstream release 1.2 (rhbz#2322776)
+- Generate font file symlinks also for DejaVuSansCondensed (rhbz#2334803)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -11,13 +11,21 @@
 
 Name:           erofs-utils
 Version:        1.8.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        Utilities for working with EROFS
 License:        GPL-2.0-only AND GPL-2.0-or-later AND (GPL-2.0-only OR Apache-2.0) AND (GPL-2.0-or-later OR Apache-2.0) AND (GPL-2.0-only OR BSD-2-Clause) AND (GPL-2.0-or-later OR BSD-2-Clause) AND Unlicense
 URL:            https://erofs.docs.kernel.org/
 
 Source:         https://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs-utils.git/snapshot/%{name}-%{version}.tar.gz
+# Backports from upstream dev branch
+Patch0001:      0001-erofs-utils-mkfs-fragment-gracefully-exit-if-tempora.patch
+Patch0002:      0002-erofs-utils-mkfs-reduce-default-dict-size-for-LZMA.patch
+Patch0003:      0003-erofs-utils-mkfs-add-missing-errno-0-before-strto-u-.patch
+Patch0004:      0004-erofs-utils-lib-get-rid-of-tmpfile.patch
+Patch0005:      0005-erofs-utils-mkfs-add-per-segment-reaper-for-multi-th.patch
+Patch0006:      0006-erofs-utils-avoid-overly-large-temporary-buffers-for.patch
+Patch0007:      0007-erofs-utils-lib-shorten-EROFS_FRAGMENT_INMEM_SZ_MAX.patch
 
 BuildRequires:  %[ "%{toolchain}" == "clang" ? "clang compiler-rt" : "gcc" ]
 BuildRequires:  libtool
@@ -97,6 +105,9 @@ autoreconf -fi
 
 
 %changelog
+* Sun Feb 16 2025 Neal Gompa <ngompa@fedoraproject.org> - 1.8.5-2
+- Backport fixes to handle low memory environments
+
 * Mon Feb 10 2025 David Michael <fedora.dm0@gmail.com> - 1.8.5-1
 - Update to the 1.8.5 release.
 

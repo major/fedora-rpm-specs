@@ -2,7 +2,7 @@ Name:		xbase
 Summary: 	XBase compatible database library
 Version: 	3.1.2
 Release: 	33%{?dist}
-License: 	LGPLv2+
+License: 	LGPL-2.1-or-later
 URL:		http://linux.techass.com/projects/xdb/
 Source0:	http://downloads.sourceforge.net/xdb/%{name}64-%{version}.tar.gz
 Patch0:		xbase-3.1.2-fixconfig.patch
@@ -39,7 +39,6 @@ Headers and libraries for compiling programs that use the XBase library.
 
 %package utils
 Summary: XBase utilities / tools
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 Provides: xbase64-utils = %{version}-%{release}
 Requires: %{name} = %{version}-%{release}

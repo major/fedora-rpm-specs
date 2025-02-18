@@ -9,8 +9,16 @@ Version:        1.0.10
 Release:        11%{?git_suffix}%{?dist}
 Summary:        AirSpy host tools and library
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
-License:        GPL-2.0-or-later
+# following is LGPL-2.1-or-later
+# airspy-tools/getopt/getopt.*
+# following is BSD-3-Clause
+# libairspy/src/airspy.*
+# libairspy/src/airspy_commands.h
+# following is MIT
+# libairspy/src/filters.h
+# libairspy/iqconverter_*
+# everything else is GPL-2.0-or-later
+License:        GPL-2.0-or-later AND MIT AND BSD-3-Clause AND LGPL-2.1-or-later
 URL:            http://airspy.com/
 #Source:        https://github.com/airspy/%%{name}/archive/%%{git_commit}/%%{name}-%%{git_suffix}.tar.gz
 Source:         https://github.com/airspy/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -29,7 +37,7 @@ source software radio platform.
 
 %package devel
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-License:        MIT and BSD
+License:        MIT AND BSD-3-Clause
 Summary:        Development files for %{name}
 
 %description devel

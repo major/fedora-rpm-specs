@@ -1,13 +1,16 @@
-%global lib_ver 14.0.0
-%global so_ver 14
+%global lib_ver 16.0.0
+%global so_ver 16
 Name:		simdutf
-Version:	6.0.3
+Version:	6.2.0
 Release:	%autorelease
 Summary:	Unicode validation and transcoding at billions of characters per second
 
 License:	Apache-2.0 AND BSD-3-Clause
 URL:		https://github.com/simdutf/simdutf
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+# convert_utf32_to_utf16be_with_errors_tests fail on s390x
+Patch0:		https://github.com/simdutf/simdutf/pull/667.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
@@ -29,7 +32,7 @@ The package contains libraries and header files for developing applications
 that use %{name}.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 %cmake \

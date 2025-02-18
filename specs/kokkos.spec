@@ -35,13 +35,12 @@
 Name:           kokkos
 Version:        4.5.01
 %global         sover 4.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Kokkos C++ Performance Portability Programming
 # no support for 32-bit archs https://github.com/kokkos/kokkos/issues/2312
 ExcludeArch: i686 armv7hl
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        Apache-2.0 WITH LLVM-exception
 URL:            https://github.com/kokkos/kokkos
 Source0:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz
 
@@ -201,6 +200,9 @@ module purge
 
 
 %changelog
+* Sat Feb 15 2025 Richard Berger <richard.berger@outlook.com> - 4.5.01-2
+- update license to Apache-2.0 WITH LLVM-exception
+
 * Fri Feb 14 2025 Cezary Skrzyński <cezary.skrzynski@ng-analytics.com> - 4.5.01-1
 - Version bump to v4.5.01 (bug #2264022)
 

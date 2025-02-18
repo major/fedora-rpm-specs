@@ -1,6 +1,6 @@
-%global		use_release	0
+%global		use_release	1
 %global		use_git		0
-%global		use_gitbare	1
+%global		use_gitbare	0
 
 %if 0%{?use_git} < 1
 %if 0%{?use_gitbare} < 1
@@ -29,7 +29,7 @@
 %endif
 
 
-%global		main_version	1.1.0
+%global		main_version	1.1.1
 
 
 Name:           menu-cache
@@ -44,7 +44,7 @@ URL:            http://lxde.org
 Source0:        %{name}-%{gittardate}T%{gittartime}.tar.gz
 %endif
 %if 0%{?use_release}
-Source0:        http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{version}.tar.xz
+Source0:        https://github.com/lxde/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 %endif
 Source1:        create-menu-cache-git-bare-tarball.sh
 
@@ -52,11 +52,9 @@ BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(libfm-extra)
-%if 0%{?use_gitbare} >= 1
 BuildRequires:	automake
 BuildRequires:	gtk-doc
 BuildRequires:	libtool
-%endif
 BuildRequires:  /usr/bin/git
 
 %description
@@ -97,9 +95,7 @@ git add .
 git commit -m "base" -q
 %endif
 
-%if 0%{?use_gitbare}
 sh autogen.sh
-%endif
 
 %build
 %if 0%{?use_gitbare}
@@ -140,6 +136,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Sun Feb 16 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.1.1-1
+- 1.1.1
+
 * Sun Feb 09 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.1.0^20250128git18bad932-1
 - Update to the latest git
 

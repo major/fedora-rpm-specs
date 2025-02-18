@@ -7,8 +7,8 @@
 # No more antlr-C++ or Java on i686
 ExcludeArch: %{ix86}
 
-# No eccodes or grib_api on EL9 s390x
-%if 0%{?rhel} >= 9 && "%{_arch}" == "s390x"
+# No eccodes on s390x
+%ifarch s390x
 %bcond_with grib
 %else
 %bcond_without grib
@@ -30,7 +30,7 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:           gdl
-Version:        1.0.6
+Version:        1.1.1
 Release:        %autorelease
 Summary:        GNU Data Language
 
@@ -44,6 +44,9 @@ Source4:        xorg.conf
 # Build with system antlr library.  Request for upstream change here:
 # https://sourceforge.net/tracker/index.php?func=detail&aid=2685215&group_id=97659&atid=618686
 Patch1:         gdl-antlr.patch
+# Always build plplot statically
+# https://github.com/gnudatalanguage/gdl/pull/1996
+Patch2:         gdl-static.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  antlr-C++
@@ -55,6 +58,10 @@ BuildRequires:  eigen3-static
 BuildRequires:  expat-devel
 BuildRequires:  fftw-devel
 BuildRequires:  glpk-devel
+# For plplot freetype build
+BuildRequires:  gnu-free-mono-fonts
+BuildRequires:  gnu-free-sans-fonts
+BuildRequires:  gnu-free-serif-fonts
 BuildRequires:  GraphicsMagick-c++-devel
 BuildRequires:  gsl-devel
 BuildRequires:  hdf-static
@@ -66,7 +73,6 @@ BuildRequires:  libtiff-devel
 BuildRequires:  libtirpc-devel
 BuildRequires:  ncurses-devel
 BuildRequires:  netcdf-devel
-BuildRequires:  plplot-wxGTK-devel >= 5.11
 BuildRequires:  proj-devel
 BuildRequires:  pslib-devel
 BuildRequires:  python%{python3_pkgversion}-devel
@@ -76,14 +82,10 @@ BuildRequires:  readline-devel
 # Not yet possible to build with external dSFMT
 #BuildRequires:  dSFMT-devel
 Provides:       bundled(dSFMT)
+Provides:       bundled(plplot) = 5.15.0
 BuildRequires:  shapelib-devel
 %if %{with grib}
-# eccodes not available on these arches
-%ifnarch i686 s390x
 BuildRequires:  eccodes-devel
-%else
-BuildRequires:  grib_api-devel
-%endif
 %endif
 %if %{with qhull}
 BuildRequires:  qhull-devel
@@ -98,10 +100,6 @@ BuildRequires:  xorg-x11-drv-dummy
 BuildRequires:  metacity
 %endif
 BuildRequires: make
-# Needed to pull in drivers
-Requires:       plplot
-# Widgets use wx
-Recommends:     plplot-wxGTK
 Requires:       %{name}-common = %{version}-%{release}
 Provides:       %{name}-runtime = %{version}-%{release}
 # Need to match hdf5 compile time version
@@ -117,6 +115,9 @@ Systems Inc.
 %package        common
 Summary:        Common files for GDL
 Requires:       %{name}-runtime = %{version}-%{release}
+Requires:       gnu-free-mono-fonts
+Requires:       gnu-free-sans-fonts
+Requires:       gnu-free-serif-fonts
 BuildArch:      noarch
 
 %description    common
@@ -130,8 +131,6 @@ Provides: %{name}-python = %{version}-%{release}
 Provides: %{name}-python%{?_isa} = %{version}-%{release}
 Obsoletes: %{name}-python < %{version}-%{release}
 Summary:        GDL python module
-# Needed to pull in drivers
-Requires:       plplot
 Requires:       %{name}-common = %{version}-%{release}
 Provides:       %{name}-runtime = %{version}-%{release}
 
@@ -145,9 +144,7 @@ rm -rf src/antlr src/libdivide.h
 # Not yet possible to build with external dSFMT
 #rm -r src/dSFMT
 %patch -P1 -p1 -b .antlr
-
-# Find grib_api on architectures where needed
-sed -i -e '/find_library(GRIB_LIBRARIES/s/eccodes/eccodes grib_api/' CMakeModules/FindGrib.cmake
+%patch -P2 -p1 -b .static
 
 pushd src
 for f in *.g
@@ -163,6 +160,7 @@ popd
    -DGEOTIFF_INCLUDE_DIR=%{_includedir}/libgeotiff \\\
    -DGRIB=ON \\\
    -DOPENMP=ON \\\
+   -DPL_FREETYPE_FONT_PATH:PATH="/usr/share/fonts/gnu-free" \\\
    -DPYTHON_EXECUTABLE=%{__python} \\\
    -DWXWIDGETS=ON \\\
    %{!?with_grib:-DGRIB=OFF} \\\
@@ -210,7 +208,7 @@ install -m 0644 %SOURCE2 $RPM_BUILD_ROOT%{_sysconfdir}/profile.d
 # EL8 s390x missing xorg-x11-drv-dummy
 %if ! ( 0%{?rhel} >= 8 && "%{_arch}" == "s390x" )
 %check
-export GDL_DRV_DIR=$RPM_BUILD_ROOT%{_libdir}/gnudatalanguage
+export PLPLOT_LIB=$RPM_BUILD_ROOT%{_datadir}/gnudatalanguage
 cd build
 cp %SOURCE4 .
 if [ -x /usr/libexec/Xorg ]; then
@@ -227,23 +225,28 @@ export DISPLAY=:99
 
 metacity &
 sleep 2
+# test_tic_toc is unstable everywhere - https://github.com/gnudatalanguage/gdl/issues/209
 # byte_conversion/bytscl - https://github.com/gnudatalanguage/gdl/issues/1079
 # test_l64 - https://github.com/gnudatalanguage/gdl/issues/1075
 # test_elmhes/formats - https://github.com/gnudatalanguage/gdl/issues/1833
+# test_bugs_poly2d fails on non-x86_64 - https://github.com/gnudatalanguage/gdl/issues/1993
 %ifarch aarch64
-failing_tests="test_(byte_conversion|bytscl|elmhes|formats)"
+failing_tests="test_(bugs_poly2d|byte_conversion|bytscl|elmhes|formats|tic_toc)"
 %endif
 %ifarch ppc64le
 # gaussfit - https://github.com/gnudatalanguage/gdl/issues/1695
-failing_tests="test_(byte_conversion|bytscl|elmhes|formats|finite|gaussfit|matrix_multiply)"
+failing_tests="test_(bugs_poly2d|byte_conversion|bytscl|elmhes|formats|finite|gaussfit|matrix_multiply|tic_toc)"
 %endif
 %ifarch riscv64
-failing_tests="test_(byte_conversion|bytscl|elmhes|formats|finite|tic_toc)"
+failing_tests="test_(bugs_poly2d|byte_conversion|bytscl|elmhes|formats|finite|tic_toc)"
 %endif
 %ifarch s390x
 # test_hdf5 - https://github.com/gnudatalanguage/gdl/issues/1488
 # save_restore - https://github.com/gnudatalanguage/gdl/issues/1655
-failing_tests="test_(byte_conversion|bytsc|elmhes|formats|hdf5|tic_toc|save_restore)"
+failing_tests="test_(bugs_poly2d|byte_conversion|bytsc|elmhes|formats|hdf5|tic_toc|save_restore)"
+%endif
+%ifarch x86_64
+failing_tests="test_tic_toc"
 %endif
 make test VERBOSE=1 ARGS="-V -E '$failing_tests'"
 make test VERBOSE=1 ARGS="-V -R '$failing_tests' --timeout 600" || :
@@ -257,7 +260,6 @@ cat xorg.log
 %doc AUTHORS HACKING NEWS README
 %config(noreplace) %{_sysconfdir}/profile.d/gdl.*sh
 %{_bindir}/gdl
-%{_libdir}/gnudatalanguage/
 %{_mandir}/man1/gdl.1*
 
 %files common

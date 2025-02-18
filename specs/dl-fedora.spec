@@ -2,10 +2,10 @@
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Haskell/
 
 # requires net access
-%bcond_with tests
+%bcond tests 0
 
 Name:           dl-fedora
-Version:        1.2.1
+Version:        1.3
 Release:        %autorelease
 Summary:        Fedora image download tool
 
@@ -23,6 +23,7 @@ BuildRequires:  ghc-base-devel
 BuildRequires:  ghc-bytestring-devel
 BuildRequires:  ghc-directory-devel
 BuildRequires:  ghc-extra-devel
+BuildRequires:  ghc-fedora-releases-devel
 BuildRequires:  ghc-filepath-devel
 BuildRequires:  ghc-http-client-devel
 BuildRequires:  ghc-http-client-tls-devel

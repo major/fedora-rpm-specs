@@ -35,6 +35,9 @@ theme.  Pulls in themes for GNOME, KDE, Mate and Xfce desktops.
 %package        base
 Summary:        Base images for Fedora  %{relnum} default background
 License:        CC-BY-SA-4.0
+# Ensure JXL loaders are installed for GTK and Qt
+Requires:       (jxl-pixbuf-loader if gdk-pixbuf2)
+Requires:       (kf6-kimageformats if qt6-qtbase-gui)
 
 %description    base
 This package contains base images for Fedora  %{relnum} default background.

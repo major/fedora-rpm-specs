@@ -1,20 +1,25 @@
 # Review:       https://bugzilla.redhat.com/487973
 
 Name:           lxmenu-data
-Version:        0.1.5
-Release:        20%{?dist}
+Version:        0.1.6
+Release:        1%{?dist}
 Summary:        Data files for the LXDE menu
 
 # SPDX confirmed
 License:        LGPL-2.0-or-later
 URL:            http://lxde.org
-Source0:        http://downloads.sourceforge.net/lxde/%{name}-%{version}.tar.xz
+Source0:        https://github.com/lxde/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        lxmenu-data-0.1-COPYING
 Patch0:         lxmenu-data-0.1.1-menu.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  intltool >= 0.40.0
+BuildRequires:  automake
+BuildRequires:  gtk-doc
+BuildRequires:  libtool
+# AM_GLIB_GNU_GETTEXT in glib-gettext.m4
+BuildRequires:  pkgconfig(glib-2.0)
 Requires:       redhat-menus
 BuildArch:      noarch
 
@@ -25,21 +30,18 @@ the freedesktop-org menu spec. Currently it's used by LXPanel and LXLauncher.
 
 %prep
 %setup -q
-%patch -P0 -p1 -b .orig
-# install correct license
-rm -f COPYING
-cp %{SOURCE1} COPYING
+#%%patch -P0 -p1 -b .orig
+sh autogen.sh
 
 
 %build
 %configure
-make %{?_smp_mflags}
+%make_build
 
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT
-
+%make_install
 
 
 %files
@@ -51,6 +53,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Feb 16 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.1.6-1
+- 0.1.6
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
