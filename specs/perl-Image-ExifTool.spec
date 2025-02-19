@@ -1,6 +1,6 @@
 Name:		perl-Image-ExifTool
-Version:	12.70
-Release:	5%{?dist}
+Version:	13.10
+Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:	Utility for reading and writing image meta info
 URL:		http://www.sno.phy.queensu.ca/%7Ephil/exiftool/
@@ -34,6 +34,7 @@ BuildRequires:	perl(Encode)
 BuildRequires:	perl(POSIX)
 # Time::HiRes not used at tests
 BuildRequires:	perl(Time::Local)
+BuildRequires:	perl(Time::Piece)
 # Win32::API not used on Linux
 # Win32::API not used on Linux
 Requires:	perl(FileHandle)
@@ -81,6 +82,10 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Mon Feb 17 2025 Tom Callaway <spot@fedoraproject.org> - 13.10-1
+- update to latest stable (13.10)
+- add BR for perl-Time-Piece for test
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 12.70-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

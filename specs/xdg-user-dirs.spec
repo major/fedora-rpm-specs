@@ -3,7 +3,7 @@
 
 Name:		xdg-user-dirs
 Version:	0.18
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Handles user special directories
 
 License:	GPL-2.0-or-later AND MIT
@@ -45,6 +45,16 @@ autoreconf -fiv
 %find_lang %name
 
 
+%post
+%systemd_user_post xdg-user-dirs.service
+
+%preun
+%systemd_user_preun xdg-user-dirs.service
+
+%postun
+%systemd_user_postun_with_reload xdg-user-dirs.service
+
+
 %files -f %{name}.lang
 %license COPYING
 %doc NEWS AUTHORS README
@@ -58,6 +68,9 @@ autoreconf -fiv
 
 
 %changelog
+* Mon Feb 17 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.18-8
+- Add scriptlets for systemd user unit
+
 * Thu Feb 13 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.18-7
 - Backport patches to install systemd units to fix initialization races (#2319081)
 - Fix minor spec formatting inconsistencies

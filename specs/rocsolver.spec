@@ -1,3 +1,9 @@
+%if 0%{?suse_version}
+%global rocsolver_name librocsolver0
+%else
+%global rocsolver_name rocsolver
+%endif
+
 %global upstreamname rocSOLVER
 %global rocm_release 6.3
 %global rocm_patch 0
@@ -7,9 +13,6 @@
 # hipcc does not support some clang flags
 # build_cxxflags does not honor CMAKE_BUILD_TYPE, strip out -g
 %global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/' -e 's/-g / /')
-
-# $gpu will be evaluated in the loops below
-%global _vpath_builddir %{_vendor}-%{_target_os}-build-${gpu}
 
 %bcond_with debug
 %if %{with debug}
@@ -46,9 +49,9 @@
 %define _source_payload	w7T0.xzdio
 %define _binary_payload	w7T0.xzdio
 
-Name:           rocsolver
+Name:           %{rocsolver_name}
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Next generation LAPACK implementation for ROCm platform
 Url:            https://github.com/ROCm/rocSOLVER
 
@@ -75,7 +78,6 @@ BuildRequires:  rocm-compilersupport-macros
 BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocm-rpm-macros-modules
 BuildRequires:  rocprim-devel
 BuildRequires:  rocsparse-devel
 
@@ -90,13 +92,21 @@ BuildRequires:  gtest-devel
 BuildRequires:  lapack-static
 %endif
 
+Provides:       rocsolver = %{version}-%{release}
+
 %description
 rocSOLVER is a work-in-progress implementation of a subset
 of LAPACK functionality on the ROCm platform.
 
+%if 0%{?suse_version}
+%post -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
+%endif
+
 %package devel
 Summary: Libraries and headers for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Provides:       rocsolver-devel = %{version}-%{release}
 
 %description devel
 %{summary}
@@ -149,36 +159,27 @@ if [ "$LINK_JOBS" -lt "$JOBS" ]; then
     JOBS=$LINK_JOBS
 fi
 
-for gpu in %{rocm_gpu_list}
-do
-    module load rocm/$gpu
-    %cmake \
-	-DCMAKE_CXX_COMPILER=hipcc \
-	-DCMAKE_C_COMPILER=hipcc \
-	-DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
-	-DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
-	-DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
-           -DCMAKE_BUILD_TYPE=%{build_type} \
-	   -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
-	   -DCMAKE_SKIP_RPATH=ON \
-	   -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
-	   -DROCM_SYMLINK_LIBS=OFF \
-	   -DHIP_PLATFORM=amd \
-	   -DAMDGPU_TARGETS=$ROCM_GPUS \
-	   -DCMAKE_INSTALL_LIBDIR=$ROCM_LIB \
-	   -DCMAKE_INSTALL_BINDIR=$ROCM_BIN \
-	   -DBUILD_OFFLOAD_COMPRESS=%{build_compress} \
-           -DBUILD_CLIENTS_TESTS=%{build_test}
+%cmake \
+    -DCMAKE_CXX_COMPILER=hipcc \
+    -DCMAKE_C_COMPILER=hipcc \
+    -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
+    -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
+    -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
+    -DCMAKE_BUILD_TYPE=%{build_type} \
+    -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
+    -DCMAKE_SKIP_RPATH=ON \
+    -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
+    -DROCM_SYMLINK_LIBS=OFF \
+    -DHIP_PLATFORM=amd \
+    -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
+    -DCMAKE_INSTALL_LIBDIR=%_libdir \
+    -DBUILD_OFFLOAD_COMPRESS=%{build_compress} \
+    -DBUILD_CLIENTS_TESTS=%{build_test}
 
-    %cmake_build -j ${JOBS}
-    module purge
-done
+%cmake_build -j ${JOBS}
 
 %install
-for gpu in %{rocm_gpu_list}
-do
-    %cmake_install
-done
+%cmake_install
 
 echo s@%{buildroot}@@ > br.sed
 find %{buildroot}%{_libdir} -name '*.so.*.[0-9]' | sed -f br.sed >  %{name}.files
@@ -200,15 +201,19 @@ fi
 
 %files devel -f %{name}.devel
 %doc README.md
-%dir %{_libdir}/cmake/%{name}
-%dir %{_includedir}/%{name}
-%{_includedir}/%{name}/*
+%dir %{_libdir}/cmake/rocsolver
+%dir %{_includedir}/rocsolver
+%{_includedir}/rocsolver/*
 
 %if %{with test}
 %files test -f %{name}.test
 %endif
 
 %changelog
+* Thu Feb 13 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-5
+- Remove multibuild
+- Fix SLE 15.6
+
 * Tue Jan 21 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-4
 - multithread compress
 

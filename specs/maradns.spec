@@ -1,6 +1,6 @@
 Name:		maradns
 Version:	3.5.0036
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Authoritative and recursive DNS server made with security in mind
 
 Source0:	http://www.maradns.org/download/3.5/%{version}/%{name}-%{version}.tar.xz
@@ -15,7 +15,6 @@ BuildRequires: make
 BuildRequires:	gcc
 %{?systemd_requires}
 BuildRequires:	systemd
-Requires(pre):	shadow-utils
 
 %description
 MaraDNS is a package that implements the Domain Name Service (DNS), an
@@ -29,6 +28,11 @@ essential internet service. MaraDNS has the following advantages:
 %prep
 %setup -q
 %autopatch -p1
+
+# Create a sysusers.d config file
+cat >maradns.sysusers.conf <<EOF
+u maradns - 'MaraDns chroot user' /etc/maradns -
+EOF
 
 %build
 
@@ -88,6 +92,8 @@ install -p -D -m 0644 -t %{buildroot}%{_unitdir}/ \
 	build/maradns-zoneserver.service \
 	build/maradns-deadwood.service
 
+install -m0644 -D maradns.sysusers.conf %{buildroot}%{_sysusersdir}/maradns.conf
+
 %files
 %doc doc/en/credits.txt doc/en/faq.txt doc/en/{examples,tutorial,html}
 %license COPYING
@@ -116,16 +122,7 @@ install -p -D -m 0644 -t %{buildroot}%{_unitdir}/ \
 %{_mandir}/man5/mararc.5*
 %{_mandir}/man8/maradns.8*
 %{_mandir}/man8/zoneserver.8*
-
-
-%pre
-if [ $1 -eq 1 ]; then
-	getent group maradns >/dev/null || groupadd -r maradns
-	getent passwd maradns >/dev/null || \
-	useradd -r -g maradns -d /etc/maradns -s /sbin/nologin \
-		-c "MaraDns chroot user" maradns
-	exit 0
-fi
+%{_sysusersdir}/maradns.conf
 
 
 %post
@@ -148,6 +145,9 @@ fi
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.5.0036-7
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0036-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

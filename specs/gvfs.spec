@@ -2,7 +2,7 @@
 %global fuse_version 3.0.0
 %global glib2_version 2.70.0
 %global gsettings_desktop_schemas_version 3.33.0
-%global goa_version 3.17.1
+%global goa_version 3.53.1
 %global gudev_version 147
 %global libarchive_version 3.0.22
 %global libcdio_paranoia_version 0.78.2
@@ -22,13 +22,21 @@
 
 Name:    gvfs
 Version: 1.56.1
-Release: 4%{?dist}
+Release: 6%{?dist}
 Summary: Backends for the gio framework in GLib
 
 License: LGPL-2.0-or-later AND GPL-3.0-only AND MPL-2.0 AND BSD-3-Clause-Sun
 
 URL:     https://wiki.gnome.org/Projects/gvfs
 Source0: https://download.gnome.org/sources/gvfs/1.56/gvfs-%{version}.tar.xz
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2344605
+Patch: onedrive-Use-presentation-id-as-host-user.patch
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2341788
+Patch: nfs-Fail-append-with-G_IO_ERROR_IS_DIRECTORY-when-di.patch
+Patch: nfs-Set-intitial_offset-when-appending.patch
+Patch: nfs-Support-libnfs-6-backport-to-1.56.patch
 
 BuildRequires: meson
 BuildRequires: gcc
@@ -430,6 +438,12 @@ killall -USR1 gvfsd >&/dev/null || :
 
 
 %changelog
+* Mon Feb 17 2025 Ondrej Holy <oholy@redhat.com> - 1.56.1-6
+- Add support for libnfs 6 (#2344605)
+
+* Mon Feb 17 2025 Ondrej Holy <oholy@redhat.com> - 1.56.1-5
+- Fix OneDrive URI handling after GOA update (#2344605)
+
 * Wed Jan 22 2025 Adam Williamson <awilliam@redhat.com> - 1.56.1-4
 - Rebuild against libnfs (again, previous one never made it to Rawhide)
 

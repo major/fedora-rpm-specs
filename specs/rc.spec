@@ -25,6 +25,7 @@ This is a re-implementation for Unix, by Byron Rakitzis, of the Plan 9 shell.
 autoreconf --force --install
 
 %build
+export CFLAGS="$CFLAGS -Dbool=boolean"  # https://github.com/rakitzis/rc/issues/113
 %configure --with-edit=gnu
 %make_build
 

@@ -1,12 +1,17 @@
+%global forgeurl https://github.com/actor-framework/actor-framework
+Version:        1.0.2
+%global commit aea399b2532a02811e6bbb3138a750237c869b16
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%forgemeta
+
 Name:           actor-framework
-Version:        1.0.1
 Release:        %autorelease
 Summary:        An Open Source Implementation of the Actor Model in C++
 
 # https://github.com/actor-framework/actor-framework/issues/1410#issuecomment-1547459576
 License:        BSD-3-Clause
 URL:            https://github.com/actor-framework/actor-framework
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        %{forgesource}
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -38,7 +43,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 This package contains example files for %{name}.
 
 %prep
-%autosetup -p1
+%forgeautosetup -p1
 
 %build
 %cmake \

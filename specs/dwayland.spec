@@ -6,6 +6,8 @@ License:        (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:            https://github.com/linuxdeepin/dwayland
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
+Patch0:         dwayland-5.25.0-unsigned-types.patch
+
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  extra-cmake-modules

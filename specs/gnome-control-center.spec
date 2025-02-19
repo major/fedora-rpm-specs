@@ -2,7 +2,7 @@
 %define gnome_online_accounts_version 3.51.0
 %define glib2_version 2.76.6
 %define gnome_desktop_version 44.0-7
-%define gsd_version 41.0
+%define gsd_version 48~beta
 %define gsettings_desktop_schemas_version 47
 %define upower_version 0.99.8
 %define gtk4_version 4.15.2
@@ -16,7 +16,7 @@
 %bcond malcontent %[!0%{?rhel}]
 
 Name:           gnome-control-center
-Version:        48~alpha
+Version:        48~beta
 Release:        %autorelease
 Summary:        Utilities to configure the GNOME desktop
 

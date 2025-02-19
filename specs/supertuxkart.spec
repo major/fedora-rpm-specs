@@ -5,7 +5,7 @@
 
 Name:           supertuxkart
 Version:        1.4
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Kids 3D go-kart racing game featuring Tux
 # Font licensing
 # [unbundled] GNU FreeFont - GPLv3
@@ -21,6 +21,7 @@ Source2:        supertuxkart-0.7.3-license-clarification.txt
 Patch0:         0c2b81ac1f9ff29f5012a98f530880b87f416337.patch
 Patch1:         8544f19b59208ae93fc3db0cf41bd386c6aefbcb.patch
 Patch2:         stk-gcc13.patch
+Patch3:         defaultgpu.patch
 
 BuildRequires: make
 BuildRequires: gcc-c++
@@ -121,6 +122,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*%{name}.desktop
 %{_datadir}/%{name}/
 
 %changelog
+* Mon Feb 17 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.4-12
+- Disable PrefersNonDefaultGPU=true, 2346005.
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

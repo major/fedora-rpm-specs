@@ -1,6 +1,6 @@
 Name:          gimagereader
 Version:       3.4.2
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       A front-end to tesseract-ocr
 
 License:       GPL-3.0-or-later
@@ -36,10 +36,10 @@ BuildRequires: json-glib-devel
 BuildRequires: poppler-glib-devel
 BuildRequires: python3-gobject
 
-BuildRequires: poppler-qt5-devel
-BuildRequires: qt5-qtbase-devel
-BuildRequires: qtspell-qt5-devel
-BuildRequires: quazip-qt5-devel
+BuildRequires: poppler-qt6-devel
+BuildRequires: qt6-qtbase-devel
+BuildRequires: qtspell-qt6-devel
+BuildRequires: quazip-qt6-devel
 
 Requires:      hicolor-icon-theme
 Requires:      gvfs
@@ -107,7 +107,7 @@ Common files for %{name}.
 %cmake_build
 
 %define _vpath_builddir %{_target_platform}-qt
-%cmake -DINTERFACE_TYPE=qt5 -DENABLE_VERSIONCHECK=0 -DMANUAL_DIR="%{_defaultdocdir}/%{name}-common"
+%cmake -DINTERFACE_TYPE=qt6 -DENABLE_VERSIONCHECK=0 -DMANUAL_DIR="%{_defaultdocdir}/%{name}-common"
 %cmake_build
 
 
@@ -119,9 +119,9 @@ Common files for %{name}.
 %cmake_install
 
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-gtk.desktop
-desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-qt5.desktop
+desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-qt6.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}-gtk.appdata.xml
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}-qt5.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}-qt6.appdata.xml
 
 %find_lang %{name}
 
@@ -141,11 +141,14 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}-q
 %{_datadir}/glib-2.0/schemas/org.gnome.%{name}.gschema.xml
 
 %files qt
-%{_bindir}/%{name}-qt5
-%{_datadir}/metainfo/%{name}-qt5.appdata.xml
-%{_datadir}/applications/%{name}-qt5.desktop
+%{_bindir}/%{name}-qt6
+%{_datadir}/metainfo/%{name}-qt6.appdata.xml
+%{_datadir}/applications/%{name}-qt6.desktop
 
 %changelog
+* Mon Feb 17 2025 Sandro Mani <manisandro@gmail.com> - 3.4.2-7
+- Switch to qt6
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

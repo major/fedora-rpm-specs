@@ -37,7 +37,7 @@
 
 Name:           hipblaslt
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        ROCm general matrix operations beyond BLAS
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -49,7 +49,6 @@ BuildRequires:  gcc-c++
 BuildRequires:  git
 BuildRequires:  hipblas-devel
 BuildRequires:  hipcc
-BuildRequires:  msgpack-devel
 BuildRequires:  rocblas-devel
 BuildRequires:  rocminfo
 BuildRequires:  rocm-cmake
@@ -60,6 +59,12 @@ BuildRequires:  rocm-llvm-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
 BuildRequires:  rocm-smi
+
+%if 0%{?suse_version}
+BuildRequires:  msgpack-cxx-devel
+%else
+BuildRequires:  msgpack-devel
+%endif
 
 # For tensilelite
 BuildRequires:  python3-devel
@@ -146,12 +151,16 @@ sed -i -e 's@APPEND CMAKE_PREFIX_PATH@APPEND NO_CMAKE_PREFIX_PATH@'            C
 sed -i -e 's@-lgfortran -lflang -lflangrti@-lgfortran@'                        clients/gtest/CMakeLists.txt
 %endif
 
+%if 0%{?suse_version}
+sed -i -e 's@msgpack REQUIRED@msgpack-cxx REQUIRED@' tensilelite/Tensile/Source/lib/CMakeLists.txt
+%endif
+
 %build
 
 # Do a manual install instead of cmake's virtualenv
 cd tensilelite
 TL=$PWD
-%{python3} setup.py install --root $TL
+/usr/bin/python3 setup.py install --root $TL
 cd ..
 
 # Should not have to do this
@@ -194,12 +203,15 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
 %install
 %cmake_install
 
+if [ -f %{buildroot}%{_prefix}/share/doc/hipblaslt/LICENSE.md ]; then
+    rm %{buildroot}%{_prefix}/share/doc/hipblaslt/LICENSE.md
+fi
+
 %files
 %dir %{_libdir}/cmake/%{name}/
 %dir %{_libdir}/%{name}/
 %dir %{_libdir}/%{name}/library/
 %license LICENSE.md
-%exclude %{_docdir}/%{name}/LICENSE.md
 %{_libdir}/lib%{name}.so.*
 %{_libdir}/%{name}/library/*
 
@@ -215,6 +227,9 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
 %endif
 
 %changelog
+* Mon Feb 17 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-5
+- Fix for TW
+
 * Thu Jan 23 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-4
 - Add gfx1200,gfx1201
 - multithread compress

@@ -1,6 +1,6 @@
 Name:           sqlgrey
 Version:        1.8.0
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Postfix grey-listing policy service
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -13,7 +13,6 @@ BuildArch:      noarch
 
 Requires:               postfix
 Requires:               perl(DBD::SQLite)
-Requires(pre): shadow-utils
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
@@ -34,6 +33,11 @@ to 90% of junk mails (spam and virus) before they reach your Postfix server
 %patch -P0 -p1
 %patch -P1 -p1
 
+# Create a sysusers.d config file
+cat >sqlgrey.sysusers.conf <<EOF
+u sqlgrey - 'SQLgrey server' /var/lib/sqlgrey -
+EOF
+
 %build
 make %{?_smp_mflags}
 
@@ -45,6 +49,8 @@ rm -rf $RPM_BUILD_ROOT%{_sysconfdir}/init.d/
 mkdir -p -m 755 $RPM_BUILD_ROOT%{_var}/lib
 mkdir -m 750 $RPM_BUILD_ROOT%{_var}/lib/sqlgrey
 touch $RPM_BUILD_ROOT%{_var}/lib/sqlgrey/sqlgrey.db
+
+install -m0644 -D sqlgrey.sysusers.conf %{buildroot}%{_sysusersdir}/sqlgrey.conf
 
 %files
 %doc Changelog CONTRIB COPYING FAQ HOWTO README* TODO
@@ -63,13 +69,8 @@ touch $RPM_BUILD_ROOT%{_var}/lib/sqlgrey/sqlgrey.db
 %config(noreplace) %{_sysconfdir}/sqlgrey/*.regexp
 # Warning admins to not touch the above files
 %attr(644,root,root) %config %{_sysconfdir}/sqlgrey/README
+%{_sysusersdir}/sqlgrey.conf
 
-%pre
-getent group sqlgrey >/dev/null || groupadd -r sqlgrey
-getent passwd sqlgrey >/dev/null || \
-    useradd -r -g sqlgrey -d /var/lib/sqlgrey -s /sbin/nologin \
-    -c "SQLgrey server" sqlgrey
-exit 0
 
 %post
 %systemd_post sqlgrey.service
@@ -81,6 +82,9 @@ exit 0
 %systemd_postun_with_restart sqlgrey.service
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.8.0-32
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sat Feb 08 2025 Kevin Fenzi <kevin@scrye.com> - 1.8.0-31
 - Adjust to sbin/bin consolidation. Fixes FTBFS rhbz#2341376
 

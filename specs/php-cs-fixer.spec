@@ -7,14 +7,14 @@
 # Please, preserve the changelog entries
 #
 
-%global gh_commit    7bedb718b633355272428c60736dc97fb96daf27
+%global gh_commit    630a59448c00729bc235d5e95cfedefeaca37523
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2025-01-30
+%global gh_date      2025-02-14
 %global gh_owner     FriendsOfPHP
 %global gh_project   PHP-CS-Fixer
 
 Name:           php-cs-fixer
-Version:        3.68.5
+Version:        3.69.0
 Release:        1%{?dist}
 Summary:        PHP Coding Standards Fixer
 
@@ -66,6 +66,9 @@ projects. This tool does not only detect them, but also fixes them for you.
 %setup -q -n %{gh_project}-%{gh_commit}
 %patch -P0 -p1 -b .rpm
 
+# Fix version
+sed -e '/VERSION/s/3.68.6-DEV/%{version}/' -i src/Console/Application.php
+
 
 %build
 # Empty build section, most likely nothing required.
@@ -83,6 +86,7 @@ install -Dpm755 %{name} %{buildroot}%{_bindir}/%{name}
 
 %check
 sed -e 's:%{_datadir}:%{buildroot}%{_datadir}:' -i %{name}
+PHP_CS_FIXER_IGNORE_ENV=1 ./%{name} --version
 PHP_CS_FIXER_IGNORE_ENV=1 ./%{name} --version | grep %{version}
 
 
@@ -96,6 +100,9 @@ PHP_CS_FIXER_IGNORE_ENV=1 ./%{name} --version | grep %{version}
 
 
 %changelog
+* Mon Feb 17 2025 Remi Collet <remi@remirepo.net> - 3.69.0-1
+- update to 3.69.0
+
 * Fri Jan 31 2025 Remi Collet <remi@remirepo.net> - 3.68.5-1
 - update to 3.68.5
 

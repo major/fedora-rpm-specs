@@ -1,7 +1,7 @@
 %global giturl  https://github.com/mirage/ocaml-crunch
 
 Name:           ocaml-crunch
-Version:        3.3.1
+Version:        4.0.0
 Release:        %autorelease
 Summary:        Convert a filesystem into a static OCaml module
 

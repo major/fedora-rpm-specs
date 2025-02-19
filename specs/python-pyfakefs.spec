@@ -1,8 +1,8 @@
 %global package_name pyfakefs
 
 Name:           python-%{package_name}
-Version:        5.6.0
-Release:        2%{?dist}
+Version:        5.7.4
+Release:        1%{?dist}
 Summary:        pyfakefs implements a fake file system that mocks the Python file system modules.
 License:        Apache-2.0
 URL:            http://pyfakefs.org
@@ -53,6 +53,9 @@ rm -f {,test-}requirements.txt
 %{python3_sitelib}/*.egg-info
 
 %changelog
+* Mon Feb 17 2025 Orion Poplawski <orion@nwra.com> - 5.7.4-1
+- Update to 5.7.4
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

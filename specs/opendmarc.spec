@@ -24,7 +24,6 @@ Patch: 0001-Fix-gcc15-stricter-check-for-headers.patch
 
 # Required for all versions
 Requires: lib%{name}%{?_isa} = %{version}-%{release}
-Requires(pre): shadow-utils
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: make
@@ -84,6 +83,12 @@ required for developing applications against libopendmarc.
 
 %prep
 %autosetup -p1 -n OpenDMARC-rel-opendmarc-1-4-2
+
+# Create a sysusers.d config file
+cat >opendmarc.sysusers.conf <<EOF
+u opendmarc - 'OpenDMARC Milter' %{_rundir}/%{name} -
+m opendmarc mail
+EOF
 
 %build
 autoreconf -v -i
@@ -159,12 +164,8 @@ cp -R contrib/rddmarc/ %{buildroot}%{_datadir}/%{name}/contrib
 rm -f %{buildroot}%{_datadir}/%{name}/contrib/rddmarc/Makefile*
 rm -f %{buildroot}%{_datadir}/%{name}/db/Makefile*
 
-%pre
-getent group %{name} >/dev/null || groupadd -r %{name}
-getent passwd %{name} >/dev/null || \
-	useradd -r -g %{name} -G mail -d %{_rundir}/%{name} -s /sbin/nologin \
-	-c "OpenDMARC Milter" %{name}
-exit 0
+install -m0644 -D opendmarc.sysusers.conf %{buildroot}%{_sysusersdir}/opendmarc.conf
+
 
 %post
 %systemd_post %{name}.service
@@ -192,6 +193,7 @@ exit 0
 %dir %attr(710,%{name},mail) %{_rundir}/%{name}
 %dir %attr(-,%{name},%{name}) %{_sysconfdir}/%{name}
 %attr(0644,root,root) %{_unitdir}/%{name}.service
+%{_sysusersdir}/opendmarc.conf
 
 %files -n opendmarc-tools
 %{_sbindir}/opendmarc-expire

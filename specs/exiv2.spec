@@ -1,7 +1,7 @@
 Name:           exiv2
-Version:        0.28.3
+Version:        0.28.4
 Release:        %autorelease
-Summary:        Exif and Iptc metadata manipulation library
+Summary:        Exif, IPTC and XMP metadata manipulation library
 
 # GPL-2.0-or-later: main library
 # BSD-3-Clause: xmpsdk/ 
@@ -57,7 +57,7 @@ Requires:     %{name}-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 
 
 %package      libs
-Summary:      Exif and Iptc metadata manipulation library
+Summary:      Exif, IPTC and XMP metadata manipulation library
 # not strictly required, but convenient and expected
 %if 0%{?rhel} && 0%{?rhel} <= 7
 Requires:     %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}

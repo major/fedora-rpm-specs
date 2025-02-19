@@ -14,7 +14,7 @@
 
 Name:           rocwmma
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm Matrix Multiple and Accumulate library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -23,7 +23,6 @@ Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{ro
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  ninja-build
 BuildRequires:  rocm-cmake
 BuildRequires:  rocm-comgr-devel
 BuildRequires:  rocm-hip-devel
@@ -75,6 +74,9 @@ Provides:       %{name}-static = %{version}-%{release}
 %{_includedir}/%{name}/*
 
 %changelog
+* Mon Feb 17 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-2
+- Remove ninja-build dependency
+
 * Thu Feb 6 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-1
 - Initial package
 

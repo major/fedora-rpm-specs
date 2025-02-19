@@ -25,9 +25,6 @@
 %ifarch x86_64
 %bcond_without rocm
 %endif
-%bcond_with rocm_loop
-%global rocm_default_gpu default
-%global rocm_gpu_list gfx9
 
 # For testing distributed+rccl etc.
 %bcond_with rccl
@@ -180,12 +177,10 @@ BuildRequires:  rocm-core-devel
 BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocm-rpm-macros-modules
 BuildRequires:  rocthrust-devel
 BuildRequires:  roctracer-devel
 
 Requires:       amdsmi
-Requires:       rocm-rpm-macros-modules
 
 %endif
 
@@ -235,15 +230,6 @@ PyTorch is a Python package that provides two high-level features:
 
 You can reuse your favorite Python packages such as NumPy, SciPy,
 and Cython to extend PyTorch when needed.
-
-%if %{with rocm_loop}
-%package -n python3-%{pypi_name}-rocm-gfx9
-Summary:        %{name} for ROCm gfx9
-
-%description -n python3-%{pypi_name}-rocm-gfx9
-%{summary}
-
-%endif
 
 %if %{with test}
 %package -n python3-%{pypi_name}-test
@@ -567,24 +553,8 @@ export DEVICE_LIB_PATH=${RESOURCE_DIR}/amdgcn/bitcode
 
 # pytorch uses clang, not hipcc
 export HIP_CLANG_PATH=%{rocmllvm_bindir}
-
-gpu=%{rocm_default_gpu}
-module load rocm/$gpu
-export PYTORCH_ROCM_ARCH=$ROCM_GPUS
+export PYTORCH_ROCM_ARCH=%{rocm_gpu_list_default}
 %py3_build
-mv build build-${gpu}
-module purge
-
-%if %{with rocm_loop}
-for gpu in %{rocm_gpu_list}
-do
-    module load rocm/$gpu
-    export PYTORCH_ROCM_ARCH=$ROCM_GPUS
-    %py3_build
-    mv build build-${gpu}
-    module purge
-done
-%endif
 
 %else
 
@@ -603,28 +573,8 @@ export DEVICE_LIB_PATH=${RESOURCE_DIR}/amdgcn/bitcode
 
 # pytorch uses clang, not hipcc
 export HIP_CLANG_PATH=%{rocmllvm_bindir}
-
-gpu=%{rocm_default_gpu}
-module load rocm/$gpu
-export PYTORCH_ROCM_ARCH=$ROCM_GPUS
-mv build-${gpu} build
+export PYTORCH_ROCM_ARCH=%{rocm_gpu_list_default}
 %py3_install
-mv build build-${gpu}
-module purge
-
-%if %{with rocm_loop}
-for gpu in %{rocm_gpu_list}
-do
-    module load rocm/$gpu
-    export PYTORCH_ROCM_ARCH=$ROCM_GPUS
-    mv build-${gpu} build
-    # need to customize the install location, so replace py3_install
-    %{__python3} %{py_setup} %{?py_setup_args} install -O1 --skip-build --root %{buildroot} --prefix /usr/lib64/rocm/${gpu} %{?*}
-    rm -rfv %{buildroot}/usr/lib/rocm/${gpu}/bin/__pycache__
-    mv build build-${gpu}
-    module purge
-done
-%endif
 
 %else
 
@@ -649,16 +599,6 @@ done
 %{python3_sitearch}/%{pypi_name}-*.egg-info
 %{python3_sitearch}/functorch
 %{python3_sitearch}/torchgen
-
-%if %{with rocm}
-%if %{with rocm_loop}
-
-%files -n python3-%{pypi_name}-rocm-gfx9
-%{_libdir}/rocm/gfx9/bin/*
-%{_libdir}/rocm/gfx9/lib64/*
-
-%endif
-%endif
 
 %changelog
 %autochangelog

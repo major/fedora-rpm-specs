@@ -48,21 +48,15 @@ Patch34:        dsniff-2.4-pcap_init.patch
 Patch35:        dsniff-configure-c99.patch
 BuildRequires:  gcc
 BuildRequires:  libnet-devel
-%if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires:  openssl-devel
-%else
-BuildRequires:  openssl11-devel
-%endif
 BuildRequires:  libnids-devel
 BuildRequires:  glib2-devel
 BuildRequires:  libpcap-devel
 BuildRequires:  libdb-devel
 BuildRequires:  libXmu-devel
-%if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires:  rpcgen
 BuildRequires:  libtirpc-devel
 BuildRequires:  libnsl2-devel
-%endif
 BuildRequires:  make
 
 %description
@@ -75,55 +69,10 @@ active monkey-in-the-middle attacks against redirected SSH and HTTPS sessions
 by exploiting weak bindings in ad-hoc PKI.
 
 %prep
-%setup -q
-%patch -P0 -p1 -b .time_h
-%patch -P1 -p1 -b .mailsnarf
-%patch -P2 -p1 -b .pcap_dump
-%patch -P3 -p1 -b .multiple_intf
-%patch -P4 -p1 -b .amd64_fix
-%patch -P5 -p1 -b .urlsnarf_zeropad
-%patch -P6 -p1 -b .libnet_11
-%patch -P7 -p1 -b .checksum
-%patch -P8 -p1 -b .openssl_098
-%patch -P9 -p1 -b .sshcrypto
-%patch -P10 -p1 -b .sysconf_clocks
-%patch -P11 -p1 -b .urlsnarf_escape
-%patch -P12 -p1 -b .string_header
-%patch -P13 -p1 -b .arpa_inet_header
-%patch -P14 -p1 -b .pop_with_version
-%patch -P15 -p1 -b .obsolete_time
-%patch -P16 -p1 -b .checksum_libnids
-%patch -P17 -p1 -b .fedora_dirs
-%patch -P18 -p1 -b .glib2
-%patch -P19 -p1 -b .link_layer_offset
-%patch -P20 -p1 -b .tds_decoder
-%patch -P21 -p1 -b .msgsnarf_segfault
-%patch -P22 -p1 -b .urlsnarf_timestamp
-%patch -P23 -p1 -b .arpspoof_reverse
-%patch -P24 -p1 -b .arpspoof_multiple
-%patch -P25 -p1 -b .arpspoof_hwaddr
-%patch -P26 -p1 -b .modernize_pop
-%patch -P27 -p1 -b .libnet_name2addr4
-%patch -P28 -p1 -b .pntohl_shift
-%patch -P29 -p1 -b .rpc_segfault
-%patch -P30 -p1 -b .openssl_110
-%patch -P31 -p1 -b .remote_typo
-%patch -P32 -p1 -b .smp_mflags
-%if 0%{?fedora} || 0%{?rhel} >= 8
-%patch -P33 -p1 -b .libtirpc
-%endif
-%patch -P34 -p1 -b .pcap_init
-%patch -P35 -p1
+%autosetup -p1
 
 %build
-%if 0%{?rhel} == 7
-sed \
-  -e 's|include/openssl/|include/openssl11/openssl/|g' \
-  -e 's|\(SSLINC="\)-I${prefix}/include|\1$(pkg-config --cflags openssl11)|g' \
-  -e 's|\(SSLLIB="\)-L${prefix}/lib -lssl -lcrypto|\1$(pkg-config --libs openssl11)|g' \
-  -i configure
-%endif
-
+export CFLAGS="$CFLAGS -std=gnu17"
 %configure
 %make_build
 

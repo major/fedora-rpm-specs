@@ -51,7 +51,7 @@
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
 Version: 6.8.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -92,10 +92,14 @@ Patch110: qtwebengine-webrtc-system-openh264.patch
 Patch111: qtwebengine-blink-system-openh264.patch
 Patch112: qtwebengine-media-system-openh264.patch
 
+## ppc64le port
+Patch200: qtwebengine-6.7-ppc64.patch
+Patch201: qtwebengine-chromium-ppc64.patch
+
 # handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
 # FIXME use/update qt6_qtwebengine_arches
 # 32-bit arches not supported (https://bugreports.qt.io/browse/QTBUG-102143)
-ExclusiveArch: aarch64 x86_64
+ExclusiveArch: aarch64 x86_64 ppc64le
 
 BuildRequires: cmake
 BuildRequires: make
@@ -391,6 +395,13 @@ popd
 %patch -P111 -p1 -b .blink-system-openh264
 %patch -P112 -p1 -b .media-system-openh264
 
+# ppc64le support
+%patch -P200 -p1
+pushd src/3rdparty/chromium
+%patch -P201 -p1
+popd
+
+
 # delete all "toolprefix = " lines from build/toolchain/linux/BUILD.gn, as we
 # never cross-compile in native Fedora RPMs, fixes ARM and aarch64 FTBFS
 sed -i -e '/toolprefix = /d' -e 's/\${toolprefix}//g' \
@@ -675,6 +686,9 @@ done
 %endif
 
 %changelog
+* Mon Feb 17 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-2
+- Bump build for ppc64le enablement
+
 * Fri Jan 31 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-1
 - 6.8.2
 

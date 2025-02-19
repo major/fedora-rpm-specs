@@ -72,10 +72,15 @@ sed -i -e 's@POSITION_INDEPENDENT_CODE ON@POSITION_INDEPENDENT_CODE ON SOVERSION
 
 %cmake \
     -DWHISPER_BUILD_TESTS=ON \
-    -DWHISPER_NO_AVX=ON \
-    -DWHISPER_NO_AVX2=ON \
-    -DWHISPER_NO_FMA=ON \
-    -DWHISPER_NO_F16C=ON
+    -DGGML_NATIVE=OFF \
+    -DGGML_AVX=OFF \
+    -DGGML_AVX2=OFF \
+    -DGGML_AVX512=OFF \
+    -DGGML_AVX512_VBMI=OFF \
+    -DGGML_AVX512_VNNI=OFF \
+    -DGGML_AVX512_BF16=OFF \
+    -DGGML_FMA=OFF \
+    -DGGML_F16C=OFF
     
 %cmake_build
 
@@ -85,6 +90,7 @@ sed -i -e 's@POSITION_INDEPENDENT_CODE ON@POSITION_INDEPENDENT_CODE ON SOVERSION
 find %{buildroot} -name 'whisper.pc' -delete
 
 %check
+# FIXME: Tests have been disabled in upstream sources since v1.7.0
 %ctest
 
 %files

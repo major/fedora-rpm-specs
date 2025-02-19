@@ -8,8 +8,8 @@
 # This is stable release:
 #%%global rcversion RC1
 Name:       pcre2
-Version:    10.44
-Release:    %{?rcversion:0.}1%{?rcversion:.%rcversion}%{?dist}.2
+Version:    10.45
+Release:    %{?rcversion:0.}1%{?rcversion:.%rcversion}%{?dist}
 %global     myversion %{version}%{?rcversion:-%rcversion}
 Summary:    Perl-compatible regular expression library
 # the library:                          BSD with exceptions
@@ -46,14 +46,15 @@ Summary:    Perl-compatible regular expression library
 # testdata:                             Public Domain
 License:    BSD-3-Clause AND FSFULLR AND X11 AND GPL-2.0-or-later AND FSFAP AND FSFUL AND GPL-3.0-or-later
 URL:        https://www.pcre.org/
-Source0:    https://github.com/PCRE2Project/pcre2/releases/download/pcre2-%{version}/pcre2-%{version}.tar.bz2
-Source1:    https://github.com/PCRE2Project/pcre2/releases/download/pcre2-%{version}/pcre2-%{version}.tar.bz2.sig
-Source2:    https://ftp.pcre.org/pub/pcre/Public-Key
+Source0:    https://github.com/PCRE2Project/pcre2/releases/download/pcre2-%{version}/pcre2-%{myversion}.tar.bz2
+Source1:    https://github.com/PCRE2Project/pcre2/releases/download/pcre2-%{version}/pcre2-%{myversion}.tar.bz2.sig
+# This New-Public-Key was retrieved using
+# gpg2 --export --export-options export-minimal A95536204A3BB489715231282A98E77EB6F24CA8 > New-Public-Key
+# The GPG key changed with the new upstream maintainer
+# More in https://github.com/PCRE2Project/pcre2/blob/master/SECURITY.md
+Source2:    https://ftp.pcre.org/pub/pcre/New-Public-Key
 # Do no set RPATH if libdir is not /usr/lib
 Patch0:     pcre2-10.10-Fix-multilib.patch
-# Upstream commit: https://github.com/PCRE2Project/pcre2/commit/57906628d7babd27c01eb1c085d3e0cdd512189a
-# Fixes the failing tests on 32-bit arch (i686)
-Patch1:     pcre2-10.44-pcre2test-memory-reports-only-compiled-memory-usage.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -238,11 +239,11 @@ make %{?_smp_mflags} check VERBOSE=yes
 
 %files static
 %{_libdir}/*.a
-%license COPYING LICENCE
+%license COPYING LICENCE.md
 
 %files syntax
-%license COPYING LICENCE
-%doc AUTHORS ChangeLog NEWS
+%license COPYING LICENCE.md
+%doc AUTHORS.md ChangeLog NEWS
 %{_mandir}/man3/pcre2.*
 %{_mandir}/man3/pcre2compat.*
 %{_mandir}/man3/pcre2limits.*
@@ -260,6 +261,10 @@ make %{?_smp_mflags} check VERBOSE=yes
 %{_mandir}/man1/pcre2test.*
 
 %changelog
+* Wed Feb 05 2025 Lukas Javorsky <ljavorsk@redhat.com> - 10.45-1
+- Rebase to version 10.45
+- Upstream has changed it's owner and with that the GPG signatures
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.44-1.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

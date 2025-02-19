@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 Name:           ocaml-lablgl
 Epoch:          1
 Version:        1.07
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        LablGL is an OpenGL interface for Objective Caml
 License:        BSD-3-Clause
 
@@ -12,14 +12,23 @@ URL:            https://github.com/garrigue/lablgl
 VCS:            git:%{url}.git
 Source0:        %{url}/archive/v%{version}/lablgl-%{version}.tar.gz
 
-# Adapt to OCaml 5
-Patch0:         %{name}-ocaml5.patch
 # Fix a use-after-free bug
 # https://github.com/garrigue/lablgl/pull/5
-Patch1:         %{name}-use-after-free.patch
+Patch:          0001-Avoid-possible-use-after-free-in-Togl.patch
 # Fix a build error with the Modern C initiative
 # https://github.com/garrigue/lablgl/pull/6
-Patch2:         %{name}-mismatched-types.patch
+Patch:          0002-Fix-mismatched-pointer-types-for-GCC-14.patch
+# https://github.com/garrigue/lablgl/pull/11
+Patch:          0003-Add-a-gitignore-file-to-ignore-various-generated-fil.patch
+# Adapt to OCaml 5
+# https://github.com/garrigue/lablgl/pull/10
+Patch:          0004-Update-Tk-code-for-OCaml-5.patch
+# Fix for Tcl/Tk 9.0
+# https://github.com/garrigue/lablgl/pull/12
+Patch:          0005-Togl-Remove-useless-definition-of-NULL.patch
+Patch:          0006-Togl-Remove-use-of-some-Tcl-Tk-macros.patch
+Patch:          0007-Togl-Pass-object-style-parameters-to-Tk_ConfigureWid.patch
+Patch:          0008-Togl-Replace-Tk_-functions-with-new-Tcl_-equivalents.patch
 
 BuildRequires:  make
 BuildRequires:  freeglut-devel 
@@ -137,6 +146,9 @@ popd
 
 
 %changelog
+* Mon Feb 17 2025 Richard W.M. Jones <rjones@redhat.com> - 1:1.07-16
+- Fix for Tcl/Tk 9.0 (RHBZ#2343941)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.07-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

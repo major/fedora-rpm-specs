@@ -1,14 +1,12 @@
 %define _hardened_build 1
 Name:           bochs
-Version:        2.8
-Release:        3%{?dist}
+Version:        3.0
+Release:        1%{?dist}
 Summary:        Portable x86 PC emulator
 License:        LGPL-2.0-or-later
 URL:            http://bochs.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Patch0: %{name}-0001_bx-qemu.patch
-Patch3: %{name}-0008_qemu-bios-provide-gpe-_l0x-methods.patch
-Patch4: %{name}-0009_qemu-bios-pci-hotplug-support.patch
 Patch7: %{name}-nonet-build.patch
 # Update configure for aarch64 (bz #925112)
 Patch8: bochs-aarch64.patch
@@ -82,10 +80,7 @@ Header and source files from bochs source.
 %prep
 %setup -q
 %patch -P 0 -p1
-%patch -P 3 -p1
-%patch -P 4 -p1
 %patch -P 7 -p0 -z .nonet
-%patch -P 11 -p0
 
 # Fix up some man page paths.
 sed -i -e 's|/usr/local/share/|%{_datadir}/|' doc/man/*.*
@@ -151,7 +146,7 @@ ln -s %{_prefix}/share/seavgabios/vgabios-qxl.bin $RPM_BUILD_ROOT%{_prefix}/shar
 ln -s %{_prefix}/share/seavgabios/vgabios-stdvga.bin $RPM_BUILD_ROOT%{_prefix}/share/bochs/vgabios-stdvga
 ln -s %{_prefix}/share/seavgabios/vgabios-vmware.bin $RPM_BUILD_ROOT%{_prefix}/share/bochs/vgabios-vmware
 %ifnarch %{ix86} x86_64
-rm -rf $RPM_BUILD_ROOT%{_prefix}/share/bochs/*{BIOS,bios}*
+rm -rf $RPM_BUILD_ROOT%{_prefix}/share/bochs/*{BIOS,bios,i440fx}*
 %endif
 install -m 755 bochs-debugger bochs-gdb $RPM_BUILD_ROOT%{_bindir}
 mv $RPM_BUILD_ROOT%{_docdir}/bochs _installed-docs
@@ -192,6 +187,8 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/bochs/SeaVGABIOS-README
 %{_datadir}/bochs/VGABIOS*
 %{_datadir}/bochs/bios.bin-1.13.0
 %{_datadir}/bochs/SeaBIOS-README
+%{_datadir}/bochs/README-i440fx
+%{_datadir}/bochs/i440fx.bin
 %endif
 
 
@@ -205,6 +202,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/bochs/SeaVGABIOS-README
 %{_prefix}/include/bochs/
 
 %changelog
+* Mon Feb 17 2025 Gwyn Ciesla <gwync@protonmail.com> - 3.0-1
+- 3.0
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

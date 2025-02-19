@@ -8,7 +8,7 @@
 %global snaprel %%{?snapdate:.git%%{snapdate}.%%{shortcommit}}
 
 # for rpmdev-bumpspec
-%global baserelease 0.3
+%global baserelease 0.4
 
 Name:       ipsilon
 Version:    3.0.5
@@ -59,7 +59,6 @@ Requires:       python3-sqlalchemy
 Requires:       open-sans-fonts
 Requires:       font(fontawesome)
 Requires:       pam
-Requires(pre):  shadow-utils
 
 %description base
 The Ipsilon IdP server without installer
@@ -261,6 +260,11 @@ Provides a theme for Ipsilon used for openSUSE Accounts.
 %autosetup -p1
 %endif
 
+# Create a sysusers.d config file
+cat >ipsilon.sysusers.conf <<EOF
+u ipsilon - 'Ipsilon Server' %{_sharedstatedir}/ipsilon -
+EOF
+
 
 %build
 %py3_build
@@ -288,12 +292,8 @@ cp %{buildroot}%{_datadir}/ipsilon/templates/install/pam/ipsilon.pamd %{buildroo
 #  2. It increases build time a lot
 #  3. It adds more build dependencies (namely postgresql server and client libraries)
 
-%pre base
-getent group ipsilon >/dev/null || groupadd -r ipsilon
-getent passwd ipsilon >/dev/null || \
-    useradd -r -g ipsilon -d %{_sharedstatedir}/ipsilon -s /sbin/nologin \
-    -c "Ipsilon Server" ipsilon
-exit 0
+install -m0644 -D ipsilon.sysusers.conf %{buildroot}%{_sysusersdir}/ipsilon.conf
+
 
 
 %files filesystem
@@ -384,6 +384,7 @@ exit 0
 %dir %attr(0750,ipsilon,apache) %{_localstatedir}/cache/ipsilon
 %config(noreplace) %{_sysconfdir}/pam.d/ipsilon
 %dir %{_datadir}/ipsilon/themes
+%{_sysusersdir}/ipsilon.conf
 
 %files client
 %license COPYING
@@ -468,6 +469,9 @@ exit 0
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.0.5-0.4.git20241202.01109c1
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Mon Jan 20 2025 Kevin Fenzi <kevin@scrye.com> - 3.0.5-0.3.git20241202.01109c1
 - Fix fallout due to /sbin merge.
 

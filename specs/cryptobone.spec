@@ -2,8 +2,8 @@
 %global _hardened_build 1
 
 Name:       cryptobone
-Version:    1.6   
-Release:    9%{?dist}
+Version:    1.7   
+Release:    1%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 # Automatically converted from old format: BSD-3-Clause and Sleepycat and OpenSSL - review is highly recommended.
@@ -12,9 +12,8 @@ URL:        https://crypto-bone.com
 Source0:    https://crypto-bone.com/release/source/cryptobone-%{version}.tar.gz       
 Source1:    https://crypto-bone.com/release/source/cryptobone-%{version}.tar.gz.asc
 Source2:    gpgkey-3274CB29956498038A9C874BFBF6E2C28E9C98DD.asc
-Patch1:     fedorapatch
 
-ExclusiveArch: x86_64 ppc64le aarch64
+ExclusiveArch: x86_64 ppc64le aarch64 riscv64
 
 BuildRequires: libbsd-devel
 BuildRequires: gcc
@@ -56,15 +55,6 @@ additional protection can be achieved by using an external device for storing
 encryption keys. This external device can be another Linux computer dedicated
 to this task or a Beagle Bone or a Raspberry Pi.  (https://crypto-bone.com)
 
-# The cryptobone package uses the cryptlib library as a private library.
-# As the cryptobone is based on only a very small part of cryptlib,
-# essentially the symmetric encryption enveloping only, and because the
-# reduction of complexity is one of cryptobone's main goals, the 
-# software links to a reduced, minimalistic version of cryptlib.
-# Because the fully-fledged cryptlib uses the the name libcl.so this
-# reduced cryptlib uses a different name (libclr.so) to avoid confusion.
-
-
 %prep
 KEYRING=$(echo %{SOURCE2})
 KEYRING=${KEYRING%%.asc}.gpg
@@ -75,8 +65,6 @@ gpg2 --homedir .gnupg --no-default-keyring --keyring $KEYRING --verify %{SOURCE1
 
 
 %setup 
-# this patch disables the use of libclr.so.3.4.5
-%patch -P1 -p1
 
 %build
 
@@ -201,9 +189,11 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+* Mon Feb 17 2025 Ralf Senderek <innovation@senderek.ie> - 1.7-1
+- fixing bugs and selinux
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
 
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 1.6-8
 - convert license to SPDX

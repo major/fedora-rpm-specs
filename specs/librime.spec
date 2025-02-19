@@ -1,5 +1,5 @@
 Name:           librime
-Version:        1.13.0
+Version:        1.13.1
 Release:        1%{?dist}
 Summary:        Rime Input Method Engine Library
 
@@ -106,6 +106,10 @@ popd
 
 
 %changelog
+* Mon Feb 17 2025 Peng Wu <pwu@redhat.com> - 1.13.1-1
+- Update to 1.13.1
+- Resolves: RHBZ#2345966
+
 * Wed Feb  5 2025 Peng Wu <pwu@redhat.com> - 1.13.0-1
 - Update to 1.13.0
 - Resolves: RHBZ#2339469

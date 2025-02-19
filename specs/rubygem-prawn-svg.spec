@@ -1,14 +1,12 @@
 %global gem_name prawn-svg
 
 Name: rubygem-%{gem_name}
-Version: 0.35.1
-Release: 3%{?dist}
+Version: 0.36.2
+Release: 1%{?dist}
 Summary: SVG renderer for Prawn PDF library
 License: MIT
 URL: http://github.com/mogest/prawn-svg
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# https://github.com/mogest/prawn-svg/pull/171
-Patch0:  %{gem_name}-pr171-support-new-rexml-invalid-xml-handling.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -33,7 +31,6 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n  %{gem_name}-%{version}
-%patch -P0 -p1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -76,6 +73,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Mon Feb 17 2025 Sergi Jimenez <tripledes@fedoraproject.org> - 0.36.2-1
+- Bump to version 0.36.2
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.35.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

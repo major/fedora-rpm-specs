@@ -13,8 +13,8 @@
 %bcond_with toolchain_gcc
 
 Name:           zpaqfranz
-Version:        60.10
-Release:        2%{?dist}
+Version:        61.1
+Release:        1%{?dist}
 Summary:        Advanced multiversioned archiver with hardware acceleration
 # LICENSE:  MIT text
 # man/LICENSE:  Unlicense text
@@ -22,6 +22,7 @@ Summary:        Advanced multiversioned archiver with hardware acceleration
 # zpaqfranz.cpp:    MIT
 # zpaqfranz.cpp parts from zpaq:    LicenseRef-Fedora-Public-Domain
 #               <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/306>
+#               <https://gitlab.com/fedora/legal/fedora-license-data/-/merge_requests/728>
 # zpaqfranz.cpp parts from libtom/libtomcrypt: Unlicense
 # zpaqfranz.cpp parts from salsa20: LicenseRef-Fedora-Public-Domain
 # zpaqfranz.cpp parts from 7-zip:   LicenseRef-Fedora-Public-Domain
@@ -52,16 +53,24 @@ Summary:        Advanced multiversioned archiver with hardware acceleration
 #       ZSFX/libzpaq.cpp using mingw
 ## Not used at build time and not in any binary package
 # man/zpaqfranz.1:      LicenseRef-Fedora-Public-Domain (built from man/zpaqfranz.pod)
+# zpaqfranz.cpp parts from cURL: curl
 # ZSFX/libzpaq.cpp: MIT AND Unlicense AND LicenseRef-Fedora-Public-Domain
 #       (a subset and an old version of zpaqfranz.cpp)
 # ZSFX/LICENSE:     MIT text
 # ZSFX/zsfx.cpp:    MIT
 License:        MIT AND Apache-2.0 AND BSD-2-Clause AND Ferguson-Twofish AND Unlicense AND Zlib AND LicenseRef-Fedora-Public-Domain
+SourceLicense:  %{license} AND curl
 URL:            https://github.com/fcorbelli/%{name}
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+# Unbundle curl.h and fix loading curl libary, probably not suitable for
+# the upstream.
+Patch0:         zpaqfranz-61.1-Unbundle-curl.h-and-fix-curl-DSO-name.patch
 BuildRequires:  coreutils
 BuildRequires:  gcc-c++
+BuildRequires:  libcurl-devel
 BuildRequires:  perl-podlators
+# rpm-build for elfdeps tool
+BuildRequires:  rpm-build
 BuildRequires:  sed
 # libdivsufsort-lite-2.00 is bundled to libzpaq.cpp from
 # <https://libdivsufsort.googlecode.com/files/libdivsufsort-lite.zip> that
@@ -72,6 +81,12 @@ Provides:       bundled(libdivsufsort-lite) = 2.00
 # Unknown version of lz4 is bundeld to libzpaq.cpp from
 # <https://github.com/lz4/lz4>.
 Provides:       bundled(lz4)
+# For cURL library with SFTP support. It's dlopened at run-time as an optional
+# feature.
+Recommends:     libcurl-full
+%if 0%(/usr/lib/rpm/elfdeps --provides %{_libdir}/libcurl.so.4 >/dev/null 2>&1 && echo 1)
+Recommends:     %(/usr/lib/rpm/elfdeps --provides %{_libdir}/libcurl.so.4)
+%endif
 
 %description
 This is a Swiss army knife for backup and disaster recovery with deduplicated
@@ -110,6 +125,7 @@ sed -n -e '/^Credits and copyrights and licenses/,/^   _____ _____/ p' \
 %ifarch s390x
     -DBIG \
 %endif
+    -DSFTP \
     zpaqfranz.cpp %{?__global_ldflags} -pthread -o zpaqfranz
 pod2man --utf8 man/zpaqfranz.pod man/zpaqfranz.1
 
@@ -131,6 +147,9 @@ install -m 0644 -D -t %{buildroot}%{_mandir}/man1 man/zpaqfranz.1
 %{_mandir}/man1/zpaqfranz.1*
 
 %changelog
+* Mon Feb 17 2025 Petr Pisar <ppisar@redhat.com> - 61.1-1
+- 61.1 bump
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 60.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

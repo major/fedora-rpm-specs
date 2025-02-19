@@ -1,6 +1,6 @@
 Name:           gram_grep
 Summary:        Search text using a grammar, lexer, or straight regex
-Version:        0.9.1
+Version:        0.9.2
 Release:        %autorelease
 
 # Since dependencies lexertl17, parsertl17, and wildcardtl are header-only, we
@@ -25,6 +25,7 @@ BuildRequires:  cmake
 BuildRequires:  ninja-build
 BuildRequires:  dos2unix
 
+BuildRequires:  boost-devel
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_packaging_header_only_libraries
 BuildRequires:  lexertl17-static
 BuildRequires:  parsertl17-static

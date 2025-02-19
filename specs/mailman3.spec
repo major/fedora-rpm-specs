@@ -5,7 +5,7 @@
 
 Name:           mailman3
 Version:        %{baseversion}%{?prerelease:~%{prerelease}}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The GNU mailing list manager
 
 License:        GPL-3.0-or-later
@@ -47,7 +47,6 @@ BuildRequires:  hardlink
 # Scriptlets
 BuildRequires:  systemd-rpm-macros
 %{?systemd_requires}
-%{?sysusers_requires_compat}
 
 
 %description
@@ -154,9 +153,6 @@ venv/bin/python -m nose2 -v || :
 
 
 %pre
-# User & Group
-%sysusers_create_compat %{SOURCE7}
-
 # SELinux
 for selinuxvariant in %{selinux_variants}; do
     %selinux_relabel_pre -s ${selinuxvariant}
@@ -213,6 +209,9 @@ done
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.3.9-3
+- Drop call to %sysusers_create_compat
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

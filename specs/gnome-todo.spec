@@ -1,14 +1,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-todo
-Version:        41.0
-Release:        12%{?dist}
+Version:        43.0
+Release:        1%{?dist}
 Summary:        Personal task manager for GNOME
 
 License:        GPL-3.0-or-later
-URL:            https://git.gnome.org/browse/gnome-todo/
-Source0:        https://download.gnome.org/sources/%{name}/41/%{name}-%{tarball_version}.tar.xz
-Patch0:         gnome-todo-41.0-libportal-0.5.patch
+URL:            https://gitlab.gnome.org/World/Endeavour/
+Source0:        https://gitlab.gnome.org/World/Endeavour/-/archive/%{tarball_version}/Endeavour-%{tarball_version}.tar.bz2
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -21,7 +20,7 @@ BuildRequires:  pkgconfig(gtk4)
 BuildRequires:  pkgconfig(libadwaita-1)
 BuildRequires:  pkgconfig(libecal-2.0) >= 3.33.2
 BuildRequires:  pkgconfig(libedataserver-1.2)
-BuildRequires:  pkgconfig(libedataserverui-1.2)
+BuildRequires:  pkgconfig(libedataserverui4-1.0)
 BuildRequires:  pkgconfig(libpeas-1.0)
 BuildRequires:  pkgconfig(libportal-gtk4)
 BuildRequires:  pkgconfig(rest-0.7)
@@ -40,7 +39,7 @@ Summary:        Development files needed to write plugins for GNOME To Do
 %{summary}.
 
 %prep
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1 -n Endeavour-%{tarball_version}
 
 %build
 %meson
@@ -48,16 +47,16 @@ Summary:        Development files needed to write plugins for GNOME To Do
 
 %install
 %meson_install
-%find_lang %{name} --with-gnome
+%find_lang endeavour --with-gnome
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Todo.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.gnome.Todo.appdata.xml
 
-%files -f %{name}.lang
+%files -f endeavour.lang
 %license COPYING
-%doc NEWS README.md
-%{_bindir}/gnome-todo
+%doc README.md
+%{_bindir}/endeavour
 %{_datadir}/applications/org.gnome.Todo.desktop
 %{_datadir}/metainfo/org.gnome.Todo.appdata.xml
 %{_datadir}/dbus-1/services/org.gnome.Todo.service
@@ -67,11 +66,14 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.gnome
 %{_libdir}/girepository-1.0/Gtd-1.0.typelib
 
 %files devel
-%{_includedir}/gnome-todo/
-%{_libdir}/pkgconfig/gnome-todo.pc
+%{_includedir}/endeavour/
+%{_libdir}/pkgconfig/endeavour.pc
 %{_datadir}/gir-1.0/Gtd-1.0.gir
 
 %changelog
+* Mon Feb 17 2025 Milan Crha <mcrha@redhat.com> - 43.0-1
+- Update to 43.0
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 41.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

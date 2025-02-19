@@ -12,10 +12,21 @@
 %endif
 
 %global main_version 0.5.3
+%global use_lxdm_user  0
+%if 0%{?fedora} >= 42
+%global use_lxdm_user  1
+%endif
+
+%if %{use_lxdm_user}
+%global tempfiles_user lxdm
+%else
+%global tempfiles_user root
+%endif
+
 
 Name:           lxdm
 Version:        %{main_version}%{?git_version:^%{?git_version}}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Lightweight X11 Display Manager
 
 # src/*.c	GPL-3.0-or-later
@@ -41,7 +52,6 @@ Source5:        lxdm_conf_login
 # Fedora pam setting
 # F-39: remove pam_console.so (bug 1822227, bug 2166692)
 Source10:		pam.lxdm
-Source11:		pam.lxdm.f38
 
 # Shell script to create tarball from git scm
 Source100:      create-tarball-from-git.sh
@@ -109,15 +119,12 @@ sed -i.f42 data/lxdm.conf.in \
 %endif
 
 install -cpm 644 \
-%if 0%{?fedora} >= 39
 	%{SOURCE10} \
-%else
-	%{SOURCE11} \
-%endif
 	pam/lxdm
 
 cat << EOF > tempfiles.lxdm.conf
-d /run/%{name} 0755 root root
+d /run/%{name} 0755 %{tempfiles_user} %{tempfiles_user}
+d %{_localstatedir}/lib/%{name} 0755 %{tempfiles_user} %{tempfiles_user}
 EOF
 
 %build
@@ -128,6 +135,13 @@ EOF
 	--disable-consolekit \
 	%{nil}
 make %{?_smp_mflags}
+
+%if %{use_lxdm_user}
+cat > %{name}.sysusers.conf <<EOF
+#Type Name ID GECOS         Home directory Shell
+u     %{name} -  'LXDM daemon' %{_localstatedir}/lib/%{name} -
+EOF
+%endif
 
 %install
 make install DESTDIR=%{buildroot} INSTALL='install -p'
@@ -143,6 +157,9 @@ install -Dpm 644 tempfiles.lxdm.conf %{buildroot}%{_prefix}/lib/tmpfiles.d/lxdm.
 
 install -Dpm 644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
 install -m644 -p -D %{SOURCE2} %{buildroot}%{_unitdir}-preset/83-fedora-lxdm.preset
+%if %{use_lxdm_user}
+install -Dpm 644 %{name}.sysusers.conf %{buildroot}%{_sysusersdir}/%{name}.conf
+%endif
 
 
 %post
@@ -172,8 +189,11 @@ install -m644 -p -D %{SOURCE2} %{buildroot}%{_unitdir}-preset/83-fedora-lxdm.pre
 %config(noreplace) %attr(755,root,root) %{_sysconfdir}/%{name}/PreLogin
 %config(noreplace) %attr(755,root,root) %{_sysconfdir}/%{name}/PreReboot
 %config(noreplace) %attr(755,root,root) %{_sysconfdir}/%{name}/PreShutdown
-%config %attr(640,root,root) %{_sysconfdir}/%{name}/lxdm.conf
+%config %attr(640,%{tempfiles_user},%{tempfiles_user}) %{_sysconfdir}/%{name}/lxdm.conf
 %config(noreplace) %{_sysconfdir}/pam.d/%{name}
+%if %{use_lxdm_user}
+%{_sysusersdir}/%{name}.conf
+%endif
 
 %{_bindir}/%{name}-config
 %{_sbindir}/%{name}
@@ -189,16 +209,19 @@ install -m644 -p -D %{SOURCE2} %{buildroot}%{_unitdir}-preset/83-fedora-lxdm.pre
 %{_datadir}/%{name}/themes/
 
 %{_tmpfilesdir}/lxdm.conf
-%dir /run/%{name}
+%dir %attr(-,%{tempfiles_user},%{tempfiles_user}) /run/%{name}
 
 %{_unitdir}/lxdm.service
 %{_unitdir}-preset/83-fedora-lxdm.preset
 
-%dir %{_localstatedir}/lib/%{name}
-%config(noreplace) %verify(not md5 size mtime) %{_localstatedir}/lib/%{name}/%{name}.conf
+%dir %attr(-,%{tempfiles_user},%{tempfiles_user}) %{_localstatedir}/lib/%{name}
+%config(noreplace) %verify(not md5 size mtime) %attr(-,%{tempfiles_user},%{tempfiles_user}) %{_localstatedir}/lib/%{name}/%{name}.conf
 
 
 %changelog
+* Mon Feb 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.3^20220831git2d4ba970-9
+- Create lxdm user for greeter process, and make lxdm user own needed directories
+
 * Fri Feb 14 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.3^20220831git2d4ba970-8
 - F42 switches default background from png to jxl
 - Require jpegxl gdk-pixbuf loader

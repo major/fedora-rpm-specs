@@ -1,7 +1,7 @@
-%global gittag 1.7.0
+%global gittag 1.8.0
 Name:           tlp
-Version:        1.7.0
-Release:        3%{?dist}
+Version:        1.8.0
+Release:        1%{?dist}
 Summary:        Optimize laptop battery life
 License:        GPL-2.0-or-later
 URL:            https://linrunner.de/tlp
@@ -35,7 +35,7 @@ without the need to delve deeper into technical details.
 
 TLP’s default settings are already optimized for battery life and implement
 Powertop’s recommendations out of the box. Moreover TLP is highly
-customizable to fulfil specific user requirements.
+customizable to fulfill specific user requirements.
 
 Settings are organized into two profiles, allowing to adjust between
 savings and performance independently for battery (BAT) and AC operation.
@@ -43,7 +43,7 @@ In addition TLP can enable or disable Bluetooth, NFC, Wi-Fi and WWAN radio
 devices on boot.
 
 For ThinkPads and selected other laptops it provides a unified way
-to configure charge thresholds and recalibrate the battery.
+to configure charge thresholds and re-calibrate the battery.
 
 %package rdw
 Summary:        Radio device wizard for TLP
@@ -130,6 +130,10 @@ fi
 %systemd_postun_with_restart tlp.service
 
 %changelog
+* Mon Feb 17 2025 Sergi Jimenez <tripledes@fedoraproject.org> - 1.8.0-1
+- Bump version to 1.8.0
+- Closes RHBZ#2310404
+
 * Wed Feb 05 2025 Sergi Jimenez <tripledes@fedoraproject.org> - 1.7.0-3
 - Fix RHBZ#2341445
 

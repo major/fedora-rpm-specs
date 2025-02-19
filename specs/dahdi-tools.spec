@@ -3,7 +3,7 @@
 
 Name:           dahdi-tools
 Version:        %{tools_version}
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Userspace tools to configure the DAHDI kernel modules
 
 # Automatically converted from old format: GPLv2 and LGPLv2 - review is highly recommended.
@@ -50,8 +50,6 @@ Requires:        dahdi-tools-libs%{?_isa} = %{version}-%{release}
 %if 0%{?fedora} || 0%{?rhel} >= 8
 Requires:        systemd-udev
 %endif
-Requires(pre):   %{_sbindir}/useradd
-Requires(pre):   %{_sbindir}/groupadd
 
 Conflicts:       zaptel-utils
 
@@ -102,6 +100,11 @@ sed -i -e \
    's/59 Temple Place, Suite 330, Boston, MA  02111-1307/51 Franklin St, Boston, MA 02110/' \
    LICENSE
 
+# Create a sysusers.d config file
+cat >dahdi-tools.sysusers.conf <<EOF
+u dahdi - 'DAHDI User' /usr/share/dahdi -
+EOF
+
 
 %build
 autoreconf -fi
@@ -124,10 +127,8 @@ chrpath --delete %{buildroot}%{_sbindir}/dahdi_cfg
 mkdir -p %{buildroot}%{_unitdir}
 install -D -p -m 0644 dahdi.service %{buildroot}%{_unitdir}/dahdi.service
 
-%pre
-%{_sbindir}/groupadd -r dahdi &>/dev/null || :
-%{_sbindir}/useradd  -r -s /sbin/nologin -d /usr/share/dahdi -M \
-                               -c 'DAHDI User' -g dahdi dahdi &>/dev/null || :
+install -m0644 -D dahdi-tools.sysusers.conf %{buildroot}%{_sysusersdir}/dahdi-tools.conf
+
 
 %post
 %systemd_post dahdi.service
@@ -211,6 +212,7 @@ install -D -p -m 0644 dahdi.service %{buildroot}%{_unitdir}/dahdi.service
 %{_sbindir}/xtalk_send
 %{_mandir}/man8/xtalk_send.8.gz
 %{_unitdir}/dahdi.service
+%{_sysusersdir}/dahdi-tools.conf
 
 %files libs
 %license LICENSE LICENSE.LGPL
@@ -222,6 +224,9 @@ install -D -p -m 0644 dahdi.service %{buildroot}%{_unitdir}/dahdi.service
 %{_libdir}/*.so
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.11.1-35
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.1-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

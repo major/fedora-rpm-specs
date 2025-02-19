@@ -11,15 +11,15 @@
 %global pcre2_version 10.21
 
 Name:           vte291
-Version:        0.78.2
-Release:        3%{?dist}
+Version:        0.79.0
+Release:        1%{?dist}
 Summary:        GTK terminal emulator library
 
 # libvte-2.91.so is generated from LGPLv2+ and MIT sources
 License:        GPL-3.0-or-later AND LGPL-3.0-or-later AND MIT AND X11 AND CC-BY-4.0
 
 URL:            https://wiki.gnome.org/Apps/Terminal/VTE
-Source0:        https://download.gnome.org/sources/vte/0.78/vte-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/vte/0.79/vte-%{version}.tar.xz
 
 BuildRequires:  pkgconfig(fribidi) >= %{fribidi_version}
 BuildRequires:  pkgconfig(gio-2.0) >= %{glib2_version}
@@ -33,6 +33,7 @@ BuildRequires:  pkgconfig(liblz4)
 BuildRequires:  pkgconfig(libpcre2-8) >= %{pcre2_version}
 BuildRequires:  pkgconfig(libsystemd) >= %{libsystemd_version}
 BuildRequires:  pkgconfig(pango) >= %{pango_version}
+BuildRequires:  fast_float-devel
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
 BuildRequires:  gi-docgen
@@ -137,6 +138,11 @@ sed -i -e "/^vte_systemduserunitdir =/s|vte_prefix|'/usr'|" meson.build
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/Vte-2.91.typelib
 %{_userunitdir}/vte-spawn-.scope.d
+%{_datadir}/vte-2.91/terminfo/x/xterm-256color
+%{_datadir}/applications/vte-gtk3.desktop
+%{_datadir}/xdg-terminals/vte-gtk3.desktop
+%{_datadir}/applications/vte-gtk4.desktop
+%{_datadir}/xdg-terminals/vte-gtk4.desktop
 
 %files gtk4
 %{_libdir}/libvte-%{apiver}-gtk4.so.0*
@@ -174,6 +180,9 @@ sed -i -e "/^vte_systemduserunitdir =/s|vte_prefix|'/usr'|" meson.build
 %{_sysconfdir}/profile.d/vte.sh
 
 %changelog
+* Wed Feb 12 2025 nmontero <nmontero@redhat.com> - 0.79.90-1
+- Update to 0.79.0
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.78.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

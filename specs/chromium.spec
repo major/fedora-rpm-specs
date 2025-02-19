@@ -126,12 +126,8 @@
 %undefine _debugsource_packages
 %endif
 
-# %%{nil} for Stable; -beta for Beta; -dev for Devel
-# dash in -beta and -dev is intentional !
-%global chromium_channel %{nil}
 %global chromium_menu_name Chromium
-%global chromium_browser_channel chromium-browser%{chromium_channel}
-%global chromium_path %{_libdir}/chromium-browser%{chromium_channel}
+%global chromium_path %{_libdir}/chromium-browser
 %global crd_path %{_libdir}/chrome-remote-desktop
 
 # We don't want any libs in these directories to generate Provides
@@ -270,7 +266,7 @@
 %global chromoting_client_id %nil
 %endif
 
-Name:	chromium%{chromium_channel}
+Name:	chromium
 Version: 133.0.6943.98
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
@@ -459,7 +455,7 @@ Source0: chromium-%{version}-clean.tar.xz
 Source1: README.fedora
 Source2: chromium.conf
 Source3: chromium-browser.sh
-Source4: %{chromium_browser_channel}.desktop
+Source4: chromium-browser.desktop
 # Also, only used if you want to reproduce the clean tarball.
 Source5: clean_ffmpeg.sh
 Source6: chromium-latest.py
@@ -1549,7 +1545,7 @@ mkdir -p %{buildroot}%{_bindir} \
 
 # install system wide chromium config
 cp -a %{SOURCE2} %{buildroot}%{_sysconfdir}/%{name}/%{name}.conf
-cp -a %{SOURCE3} %{buildroot}%{chromium_path}/%{chromium_browser_channel}.sh
+cp -a %{SOURCE3} %{buildroot}%{chromium_path}/chromium-browser.sh
 
 %if ! %{use_vaapi}
 # remove vaapi flags
@@ -1557,22 +1553,11 @@ echo "# system wide chromium flags" > %{buildroot}%{_sysconfdir}/%{name}/%{name}
 %endif
 
 export BUILD_TARGET=`cat /etc/redhat-release`
-export CHROMIUM_PATH=%{chromium_path}
-export CHROMIUM_BROWSER_CHANNEL=%{chromium_browser_channel}
 
-sed -i "s|@@BUILD_TARGET@@|$BUILD_TARGET|g" %{buildroot}%{chromium_path}/%{chromium_browser_channel}.sh
-sed -i "s|@@CHROMIUM_PATH@@|$CHROMIUM_PATH|g" %{buildroot}%{chromium_path}/%{chromium_browser_channel}.sh
-sed -i "s|@@CHROMIUM_BROWSER_CHANNEL@@|$CHROMIUM_BROWSER_CHANNEL|g" %{buildroot}%{chromium_path}/%{chromium_browser_channel}.sh
+sed -i "s|@@BUILD_TARGET@@|$BUILD_TARGET|g" %{buildroot}%{chromium_path}/chromium-browser.sh
+sed -i "s|@@EXTRA_FLAGS@@||g" %{buildroot}%{chromium_path}/chromium-browser.sh
 
-%if "%{chromium_channel}" == "%{nil}"
-	sed -i "s|@@EXTRA_FLAGS@@||g" %{buildroot}%{chromium_path}/%{chromium_browser_channel}.sh
-%else
-	# Enable debug outputs for beta and dev channels
-	export EXTRA_FLAGS="--enable-logging=stderr --v=2"
-	sed -i "s|@@EXTRA_FLAGS@@|$EXTRA_FLAGS|g" %{buildroot}%{chromium_path}/%{chromium_browser_channel}.sh
-%endif
-
-ln -s ../..%{chromium_path}/%{chromium_browser_channel}.sh %{buildroot}%{_bindir}/%{chromium_browser_channel}
+ln -s ../..%{chromium_path}/chromium-browser.sh %{buildroot}%{_bindir}/chromium-browser
 mkdir -p %{buildroot}%{_mandir}/man1/
 
 pushd %{chromebuilddir}
@@ -1586,12 +1571,12 @@ pushd %{chromebuilddir}
 		cp -a libvulkan.so.1 %{buildroot}%{chromium_path}
 		cp -a vk_swiftshader_icd.json %{buildroot}%{chromium_path}
 	%endif
-	cp -a chrome %{buildroot}%{chromium_path}/%{chromium_browser_channel}
+	cp -a chrome %{buildroot}%{chromium_path}/chromium-browser
 	cp -a chrome_sandbox %{buildroot}%{chromium_path}/chrome-sandbox
 	cp -a chrome_crashpad_handler %{buildroot}%{chromium_path}/chrome_crashpad_handler
-	cp -a ../../chrome/app/resources/manpage.1.in %{buildroot}%{_mandir}/man1/%{chromium_browser_channel}.1
-	sed -i "s|@@PACKAGE@@|%{chromium_browser_channel}|g" %{buildroot}%{_mandir}/man1/%{chromium_browser_channel}.1
-	sed -i "s|@@MENUNAME@@|%{chromium_menu_name}|g" %{buildroot}%{_mandir}/man1/%{chromium_browser_channel}.1
+	cp -a ../../chrome/app/resources/manpage.1.in %{buildroot}%{_mandir}/man1/chromium-browser.1
+	sed -i "s|@@PACKAGE@@|chromium-browser|g" %{buildroot}%{_mandir}/man1/chromium-browser.1
+	sed -i "s|@@MENUNAME@@|%{chromium_menu_name}|g" %{buildroot}%{_mandir}/man1/chromium-browser.1
 
 	# V8 initial snapshots
 	# https://code.google.com/p/chromium/issues/detail?id=421063
@@ -1636,15 +1621,15 @@ mkdir -p %{buildroot}%{_sysconfdir}/chromium/policies/managed
 mkdir -p %{buildroot}%{_sysconfdir}/chromium/policies/recommended
 
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/256x256/apps
-cp -a chrome/app/theme/chromium/product_logo_256.png %{buildroot}%{_datadir}/icons/hicolor/256x256/apps/%{chromium_browser_channel}.png
+cp -a chrome/app/theme/chromium/product_logo_256.png %{buildroot}%{_datadir}/icons/hicolor/256x256/apps/chromium-browser.png
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/128x128/apps
-cp -a chrome/app/theme/chromium/product_logo_128.png %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/%{chromium_browser_channel}.png
+cp -a chrome/app/theme/chromium/product_logo_128.png %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/chromium-browser.png
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/64x64/apps
-cp -a chrome/app/theme/chromium/product_logo_64.png %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/%{chromium_browser_channel}.png
+cp -a chrome/app/theme/chromium/product_logo_64.png %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/chromium-browser.png
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/48x48/apps
-cp -a chrome/app/theme/chromium/product_logo_48.png %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/%{chromium_browser_channel}.png
+cp -a chrome/app/theme/chromium/product_logo_48.png %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/chromium-browser.png
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/24x24/apps
-cp -a chrome/app/theme/chromium/product_logo_24.png %{buildroot}%{_datadir}/icons/hicolor/24x24/apps/%{chromium_browser_channel}.png
+cp -a chrome/app/theme/chromium/product_logo_24.png %{buildroot}%{_datadir}/icons/hicolor/24x24/apps/chromium-browser.png
 
 # Install the master_preferences file
 install -m 0644 %{SOURCE11} %{buildroot}%{_sysconfdir}/%{name}/
@@ -1652,8 +1637,8 @@ install -m 0644 %{SOURCE11} %{buildroot}%{_sysconfdir}/%{name}/
 mkdir -p %{buildroot}%{_datadir}/applications/
 desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE4}
 
-install -D -m0644 %{SOURCE10} ${RPM_BUILD_ROOT}%{_datadir}/appdata/%{chromium_browser_channel}.appdata.xml
-appstream-util validate-relax --nonet ${RPM_BUILD_ROOT}%{_datadir}/appdata/%{chromium_browser_channel}.appdata.xml
+install -D -m0644 %{SOURCE10} ${RPM_BUILD_ROOT}%{_datadir}/appdata/chromium-browser.appdata.xml
+appstream-util validate-relax --nonet ${RPM_BUILD_ROOT}%{_datadir}/appdata/chromium-browser.appdata.xml
 
 mkdir -p %{buildroot}%{_datadir}/gnome-control-center/default-apps/
 cp -a %{SOURCE9} %{buildroot}%{_datadir}/gnome-control-center/default-apps/
@@ -1666,10 +1651,10 @@ cp %{SOURCE1} .
 # Set SELinux labels - semanage itself will adjust the lib directory naming
 # But only do it when selinux is enabled, otherwise, it gets noisy.
 if selinuxenabled; then
-	semanage fcontext -a -t bin_t /usr/lib/%{chromium_browser_channel} &>/dev/null || :
-	semanage fcontext -a -t bin_t /usr/lib/%{chromium_browser_channel}/%{chromium_browser_channel}.sh &>/dev/null || :
+	semanage fcontext -a -t bin_t /usr/lib/chromium-browser &>/dev/null || :
+	semanage fcontext -a -t bin_t /usr/lib/chromium-browser/chromium-browser.sh &>/dev/null || :
 	semanage fcontext -a -t chrome_sandbox_exec_t /usr/lib/chrome-sandbox &>/dev/null || :
-	restorecon -R -v %{chromium_path}/%{chromium_browser_channel} &>/dev/null || :
+	restorecon -R -v %{chromium_path}/chromium-browser &>/dev/null || :
 fi
 %endif
 
@@ -1679,16 +1664,16 @@ fi
 %config(noreplace) %{_sysconfdir}/%{name}/chromium.conf
 %config %{_sysconfdir}/%{name}/master_preferences
 %config %{_sysconfdir}/%{name}/policies/
-%{_bindir}/%{chromium_browser_channel}
+%{_bindir}/chromium-browser
 %{chromium_path}/*.bin
 %{chromium_path}/chrome_*.pak
 %{chromium_path}/chrome_crashpad_handler
 %{chromium_path}/resources.pak
-%{chromium_path}/%{chromium_browser_channel}
-%{chromium_path}/%{chromium_browser_channel}.sh
+%{chromium_path}/chromium-browser
+%{chromium_path}/chromium-browser.sh
 %attr(4755, root, root) %{chromium_path}/chrome-sandbox
-%{_mandir}/man1/%{chromium_browser_channel}.*
-%{_datadir}/icons/hicolor/*/apps/%{chromium_browser_channel}.png
+%{_mandir}/man1/chromium-browser.*
+%{_datadir}/icons/hicolor/*/apps/chromium-browser.png
 %{_datadir}/applications/*.desktop
 %{_datadir}/appdata/*.appdata.xml
 %{_datadir}/gnome-control-center/default-apps/chromium-browser.xml

@@ -7,11 +7,11 @@
 # Copyright (c) 2022 Red Hat GmbH
 # Author: Stefano Brivio <sbrivio@redhat.com>
 
-%global git_hash 4f2c8e79130ef3d6132e34c49746e397745f9d73
+%global git_hash a1e48a02ff3550eb7875a7df6726086e9b3a1213
 %global selinuxtype targeted
 
 Name:		passt
-Version:	0^20250121.g4f2c8e7
+Version:	0^20250217.ga1e48a0
 Release:	2%{?dist}
 Summary:	User-mode networking daemons for virtual machines and namespaces
 License:	GPL-2.0-or-later AND BSD-3-Clause
@@ -108,9 +108,11 @@ fi
 %{_bindir}/passt
 %{_bindir}/pasta
 %{_bindir}/qrap
+%{_bindir}/passt-repair
 %{_mandir}/man1/passt.1*
 %{_mandir}/man1/pasta.1*
 %{_mandir}/man1/qrap.1*
+%{_mandir}/man1/passt-repair.1*
 %ifarch x86_64
 %{_bindir}/passt.avx2
 %{_mandir}/man1/passt.avx2.1*
@@ -124,6 +126,9 @@ fi
 %{_datadir}/selinux/packages/%{selinuxtype}/pasta.pp
 
 %changelog
+* Mon Feb 17 2025 Stefano Brivio <sbrivio@redhat.com> - 0^20250217.ga1e48a0-1
+- Upstream changes: https://passt.top/passt/log/?qt=range&q=2025_01_21.4f2c8e7..2025_02_17.a1e48a0
+
 * Tue Jan 21 2025 Stefano Brivio <sbrivio@redhat.com> - 0^20250121.g4f2c8e7-1
 - Upstream changes: https://passt.top/passt/log/?qt=range&q=2024_12_11.09478d5..2025_01_21.4f2c8e7
 

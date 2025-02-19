@@ -5,7 +5,7 @@
 %global crate libphosh
 
 Name:           rust-libphosh
-Version:        0.0.5
+Version:        0.0.6
 Release:        %autorelease
 Summary:        Rust bindings for libphosh
 

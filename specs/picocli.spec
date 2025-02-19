@@ -1,8 +1,15 @@
+%bcond_with bootstrap
+
+%if %{without bootstrap} && %{undefined rhel}
+%bcond_without picocli_shell
+%else
+%bcond_with picocli_shell
+%endif
+
 Name:           picocli
-Version:        4.7.4
-Release:        8%{?dist}
+Version:        4.7.6
+Release:        %autorelease
 Summary:        Java command line parser with both an annotations API and a programmatic API
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 URL:            https://github.com/remkop/picocli
 BuildArch:      noarch
@@ -14,13 +21,20 @@ Source2:        https://repo1.maven.org/maven2/info/picocli/%{name}-codegen/%{ve
 Source3:        https://repo1.maven.org/maven2/info/picocli/%{name}-shell-jline2/%{version}/%{name}-shell-jline2-%{version}.pom
 Source4:        https://repo1.maven.org/maven2/info/picocli/%{name}-shell-jline3/%{version}/%{name}-shell-jline3-%{version}.pom
 
+%if %{with bootstrap}
+BuildRequires:  javapackages-bootstrap
+%else
 BuildRequires:  maven-local
-BuildRequires:  mvn(jline:jline)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
+BuildRequires:  mvn(org.fusesource.jansi:jansi)
+%endif
+%if %{with picocli_shell}
+BuildRequires:  mvn(jline:jline)
 BuildRequires:  mvn(org.jline:jline-builtins)
 BuildRequires:  mvn(org.jline:jline-console)
 BuildRequires:  mvn(org.jline:jline-reader)
 BuildRequires:  mvn(org.jline:jline-terminal-jansi)
+%endif
 
 %description
 Picocli is a modern library and framework, written in Java, that contains both
@@ -43,6 +57,8 @@ The annotation processor allows many of the tools to be invoked automatically as
 part of the build without configuration. If a tool does not have an annotation
 processor wrapper (yet), it can be invoked on the command line, and can be
 scripted to be invoked automatically as part of building your project.
+
+%if %{with picocli_shell}
 
 %package -n %{name}-shell-jline2
 Summary:        Easily build interactive shell applications with JLine 2 and picocli
@@ -80,8 +96,10 @@ Given an array of Strings, picocli can execute a command or subcommand.
 Combining these two libraries makes it easy to build powerful interactive shell
 applications.
 
+%endif
+
 %prep
-%autosetup
+%autosetup -p1 -C
 # note:
 # picocli is a gradle project, we need to transform it to maven.
 # here, we create a parent pom according to maven project aggregation. (see 
@@ -121,8 +139,10 @@ cp -p %{SOURCE1} pom.xml
     <module>%{name}</module>
     <module>%{name}-tests</module>
     <module>%{name}-codegen</module>
+%if %{with picocli_shell}
     <module>%{name}-shell-jline2</module>
     <module>%{name}-shell-jline3</module>
+%endif
   </modules>'
 
 # picocli: set the name to picocli
@@ -248,25 +268,25 @@ cp -p %{SOURCE1} %{name}-tests/pom.xml
 %pom_add_dep info.picocli:picocli:%{version}:compile %{name}-tests
 %pom_add_dep org.fusesource.jansi:jansi %{name}-tests
 
-# don't install parent pom
+# don't install parent pom and tests module
 %mvn_package :%{name}-parent __noinstall
+%mvn_package :%{name}-tests __noinstall
 
 %build
-%mvn_build -s -f -j -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
+%mvn_build -s -f -j
 
 %install
 %mvn_install
 
 %files -n %{name} -f .mfiles-%{name}
-%{_datadir}/maven-metadata/picocli-picocli-tests.xml
-%{_javadir}/picocli/picocli-tests.jar
-%{_mavenpomdir}/picocli/picocli-tests.pom
 %license LICENSE
 %doc README.md RELEASE-NOTES.md
 
 %files -n %{name}-codegen -f .mfiles-%{name}-codegen
 %license LICENSE
 %doc %{name}-codegen/README.adoc
+
+%if %{with picocli_shell}
 
 %files -n %{name}-shell-jline2 -f .mfiles-%{name}-shell-jline2
 %license LICENSE
@@ -276,91 +296,7 @@ cp -p %{SOURCE1} %{name}-tests/pom.xml
 %license LICENSE
 %doc %{name}-shell-jline3/README.md
 
+%endif
+
 %changelog
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.4-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 4.7.4-7
-- convert license to SPDX
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.4-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 4.7.4-5
-- Rebuilt for java-21-openjdk as system jdk
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Mon Jun 26 2023 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 4.7.4-1
-- Update to version 4.7.4
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jul 08 2022 Jiri Vanek <jvanek@redhat.com> - 4.6.3-2
-- Rebuilt for Drop i686 JDKs
-
-* Wed Feb 09 2022 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 4.6.3-1
-- Update to 4.6.3 (#2052464)
-- Introduce new BR: jline-reader and jline-builtins
-
-* Sat Feb 05 2022 Jiri Vanek <jvanek@redhat.com> - 4.6.2-4
-- Rebuilt for java-17-openjdk as system jdk
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Nov 16 2021 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 4.6.2-2
-- Enable picocli-tests
-
-* Sun Nov 07 2021 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 4.6.2-1
-- New upstream release 4.6.2
-- Remove javadoc package
-
-* Mon Oct 04 2021 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 4.6.1-17
-- Remove BR bnd-maven-plugin
-- Remove rpmautospec
-
-* Sun Sep 12 2021 Didik Supriadi <didiksupriadi41@gmail.com> - 4.6.1-16
-- Add metadata manifest for all modules
-
-* Fri Sep 03 2021 Didik Supriadi <didiksupriadi41@gmail.com> - 4.6.1-15
-- Don't perform annotation processing
-
-* Tue Aug 31 2021 Didik Supriadi <didiksupriadi41@gmail.com> - 4.6.1-14
-- Enable osgi bundle
-
-* Tue Aug 31 2021 Didik Supriadi <didiksupriadi41@gmail.com> - 4.6.1-13
-- Use javadoc_package macro
-
-* Sat Aug 07 2021 Didik Supriadi <didiksupriadi41@gmail.com> - 4.6.1-12
-- Define doc in spec
-
-* Sat Aug 07 2021 Didik Supriadi <didiksupriadi41@gmail.com> - 4.6.1-11
-- Use -f option to skip tests
-
-* Tue Jul 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.1-5
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jul 16 2021 Jerry James <loganjerry@gmail.com> - 4.6.1-4
-- Add picocli-shell-jline3
-
-* Fri Jul 16 2021 Didik Supriadi <didiksupriadi41@gmail.com> - 4.6.1-3
-- Add picocli-shell-jline2
-
-* Wed Jul 14 2021 Didik Supriadi <didiksupriadi41@gmail.com> - 4.6.1-2
-- Add picocli-parent and picocli-codegen
-
-* Tue Jul 06 2021 Didik Supriadi <didiksupriadi41@gmail.com> - 4.6.1-1
-- First picocli package
+%autochangelog

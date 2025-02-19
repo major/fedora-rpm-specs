@@ -3,9 +3,6 @@
 
 %global crate snpguest
 
-# compile and run tests only on supported architectures
-%global supported_arches x86_64
-
 Name:           rust-snpguest
 Version:        0.8.2
 Release:        %autorelease
@@ -14,8 +11,9 @@ Summary:        AMD SEV-SNP guest utility tool
 License:        Apache-2.0
 URL:            https://crates.io/crates/snpguest
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
 # * Drop vendored feature from openssl dependency
-Patch2:         snpguest-drop-vendored-openssl.diff
+Patch:          snpguest-fix-metadata.diff
 
 # SEV is an AMD x86_64 CPU feature so doesn't make sense to
 # try to build on other arches
@@ -47,6 +45,7 @@ Summary:        %{summary}
 # Unlicense OR MIT
 # Zlib OR Apache-2.0 OR MIT
 License:        ((Apache-2.0 OR MIT) AND BSD-3-Clause) AND ((MIT OR Apache-2.0) AND Unicode-DFS-2016) AND Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR ISC OR MIT) AND (Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND ISC AND (ISC AND MIT AND OpenSSL) AND MIT AND (MIT OR Apache-2.0) AND (MIT OR Apache-2.0 OR Zlib) AND MPL-2.0 AND (Unlicense OR MIT) AND (Zlib OR Apache-2.0 OR MIT)
+# LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}
 
@@ -64,9 +63,7 @@ License:        ((Apache-2.0 OR MIT) AND BSD-3-Clause) AND ((MIT OR Apache-2.0) 
 %cargo_generate_buildrequires
 
 %build
-%ifarch %{supported_arches}
 %cargo_build
-%endif
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 
@@ -74,10 +71,8 @@ License:        ((Apache-2.0 OR MIT) AND BSD-3-Clause) AND ((MIT OR Apache-2.0) 
 %cargo_install
 
 %if %{with check}
-%ifarch %{supported_arches}
 %check
 %cargo_test
-%endif
 %endif
 
 %changelog

@@ -2,31 +2,29 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate libphosh-sys
+%global crate ironrdp-dvc
 
-Name:           rust-libphosh-sys
-Version:        0.0.6
+Name:           rust-ironrdp-dvc
+Version:        0.1.2
 Release:        %autorelease
-Summary:        FFI bindings for libphosh
+Summary:        DRDYNVC implementation and traits to implement dynamic virtual channels
 
-License:        MIT
-URL:            https://crates.io/crates/libphosh-sys
+# Upstream license specification: MIT/Apache-2.0
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/ironrdp-dvc
 Source:         %{crates_source}
 
-ExcludeArch:    %{ix86}
-
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  pkgconfig(libphosh-0.45)
 
 %global _description %{expand:
-FFI bindings for libphosh.}
+DRDYNVC static channel implementation and traits to implement dynamic
+virtual channels.}
 
 %description %{_description}
 
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(libphosh-0.45)
 
 %description    devel %{_description}
 
@@ -34,7 +32,10 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -47,6 +48,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

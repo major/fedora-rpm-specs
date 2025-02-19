@@ -51,7 +51,7 @@
 Summary:          The Open Source PBX
 Name:             asterisk
 Version:          18.12.1
-Release:          %{?_rc||?_beta:0.}1%{?_rc:.rc%{_rc}}%{?_beta:.beta%{_beta}}%{?dist}.13
+Release:          %{?_rc||?_beta:0.}1%{?_rc:.rc%{_rc}}%{?_beta:.beta%{_beta}}%{?dist}.14
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:          GPL-2.0-only
 URL:              http://www.asterisk.org/
@@ -259,8 +259,6 @@ Provides:         bundled(jansson) = 2.11
 BuildRequires:    libgcrypt
 BuildRequires: make
 
-Requires(pre):    %{_sbindir}/useradd
-Requires(pre):    %{_sbindir}/groupadd
 
 Requires(post):   systemd-units
 Requires(post):   systemd-sysv
@@ -746,6 +744,11 @@ chmod -x contrib/scripts/dbsep.cgi
 %{__perl} -pi -e 's/^MENUSELECT_APPS=(.*)$/MENUSELECT_APPS=\1 app_voicemail_imap/g' menuselect.makeopts
 %endif
 
+# Create a sysusers.d config file
+cat >asterisk.sysusers.conf <<EOF
+u asterisk - 'Asterisk User' /var/lib/asterisk -
+EOF
+
 %build
 
 export CFLAGS="%{optflags}"
@@ -943,10 +946,8 @@ rm -f %{buildroot}%{_sysconfdir}/asterisk/motif.conf
 rm -f %{buildroot}%{_sysconfdir}/asterisk/ooh323.conf
 %endif
 
-%pre
-%{_sbindir}/groupadd -r asterisk &>/dev/null || :
-%{_sbindir}/useradd  -r -s /sbin/nologin -d /var/lib/asterisk -M \
-                               -c 'Asterisk User' -g asterisk asterisk &>/dev/null || :
+install -m0644 -D asterisk.sysusers.conf %{buildroot}%{_sysusersdir}/asterisk.conf
+
 
 %post
 if [ $1 -eq 1 ] ; then
@@ -1374,6 +1375,7 @@ fi
 %attr(0755,asterisk,asterisk) %dir %{astvarrundir}
 
 %{_datarootdir}/asterisk/scripts/
+%{_sysusersdir}/asterisk.conf
 
 %files ael
 %attr(0640,asterisk,asterisk) %config(noreplace) %{_sysconfdir}/asterisk/extensions.ael
@@ -1696,6 +1698,9 @@ fi
 %endif
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 18.12.1-1.14
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 18.12.1-1.13
 - Add explicit BR: libxcrypt-devel
 

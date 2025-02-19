@@ -1,8 +1,8 @@
 %{?mingw_package_header}
 
 Name:           mingw-gdb
-Version:        15.2
-Release:        2%{?dist}
+Version:        16.2
+Release:        1%{?dist}
 Summary:        MinGW Windows port of the GDB debugger
 
 # Same License tag as the native gdb package has:
@@ -93,9 +93,9 @@ rm -rf %{buildroot}%{mingw32_mandir}/
 rm -rf %{buildroot}%{mingw64_datadir}/info/
 rm -rf %{buildroot}%{mingw64_mandir}/
 
-# Remove unusefull gdb-add-index script
-rm %{buildroot}%{mingw64_bindir}/gdb-add-index
-rm %{buildroot}%{mingw32_bindir}/gdb-add-index
+# Remove unusefull gdb-add-index, gstack scripts
+rm %{buildroot}%{mingw64_bindir}/{gdb-add-index,gstack}
+rm %{buildroot}%{mingw32_bindir}/{gdb-add-index,gstack}
 
 
 %files -n mingw32-gdb
@@ -112,6 +112,9 @@ rm %{buildroot}%{mingw32_bindir}/gdb-add-index
 
 
 %changelog
+* Sun Feb 16 2025 Sandro Mani <manisandro@gmail.com> - 16.2-1
+- Update to 16.2
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 15.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

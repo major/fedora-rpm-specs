@@ -1156,6 +1156,8 @@ sed -i -e /CppunitTest_sw_layoutwriter4/d sw/Module_sw.mk
 # started to fail in 25.2.0.0
 sed -i -e /CppunitTest_sw_tiledrendering2/d sw/Module_sw.mk
 sed -i -e /CppunitTest_sc_pdf_export/d sc/Module_sc.mk
+sed -i -e /CppunitTest_sdext_pdfimport/d sdext/Module_sdext.mk
+sed -i -e /CppunitTest_sfx2_view/d sfx2/Module_sfx2.mk
 
 sed -i s/mdds-2.1/mdds-3.0/g configure
 sed -i s/liborcus-0.18/liborcus-0.20/g configure

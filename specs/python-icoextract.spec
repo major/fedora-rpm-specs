@@ -1,13 +1,13 @@
 # Created by pyp2rpm-3.3.8
 %global pypi_name icoextract
-%global pypi_version 0.1.4
+%global pypi_version 0.1.5
 
 # NOTE: 'icoextract' itself required for tests
 %bcond_with tests
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        11%{?dist}
+Release:        %autorelease
 Summary:        Windows PE EXE icon extractor
 
 License:        MIT
@@ -103,29 +103,4 @@ popd
 
 
 %changelog
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 0.1.4-9
-- Rebuilt for Python 3.13
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.1.4-5
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Mon Aug 15 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 0.1.4-3
-- Initial package
+%autochangelog

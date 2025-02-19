@@ -17,8 +17,8 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:    ga
-Version: 5.8.2
-Release: 10%{?dist}
+Version: 5.9
+Release: 1%{?dist}
 Summary: Global Arrays Toolkit
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
@@ -26,7 +26,7 @@ Source: https://github.com/GlobalArrays/ga/releases/download/v%{version}/ga-%{ve
 URL: http://github.com/GlobalArrays/ga
 ExclusiveArch: %{ix86} x86_64 %{arm} aarch64 ppc64le riscv64
 BuildRequires: openmpi-devel, %{mpich_name}-devel, gcc-c++, gcc-gfortran
-BuildRequires: %{blaslib}-devel, openssh-clients, dos2unix
+BuildRequires: %{blaslib}-devel, openssh-clients, dos2unix, perl
 
 %define ga_desc_base \
 The Global Arrays (GA) toolkit provides an efficient and portable \
@@ -123,9 +123,11 @@ done
 
 
 %build
+# https://github.com/GlobalArrays/ga/issues/359
+# Set -std=gnu17 to avoid gcc-15 ma compilation errors
 %define doBuild \
 export LIBS="-lscalapack -l%{blaslib}" && \
-export CFLAGS="%{optflags} -O1" && \
+export CFLAGS="%{optflags} -std=gnu17 -O1" && \
 export CXXFLAGS="%{optflags} -O1" && \
 export FFLAGS="%{optflags} -O1" && \
 cd %{name}-%{version}-$MPI_COMPILER_NAME && \
@@ -233,6 +235,11 @@ cd ..
 %{_libdir}/openmpi/lib/lib*.a
 
 %changelog
+* Fri Feb 07 2025 Marcin Dulak <marcindulak@fedoraproject.org> - 5.9-1
+- Add br perl
+- New upstream release
+- Set -std=gnu17 to avoid gcc-15 ma compilation errors
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

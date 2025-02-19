@@ -33,6 +33,9 @@ Summary:        Package dependency solver
 License:        BSD-3-Clause
 URL:            https://github.com/openSUSE/libsolv
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+# Fix building with GCC 15, bug #2340762, in upstream after 0.7.31,
+# <https://github.com/openSUSE/libsolv/pull/580>
+Patch0:         libsolv-0.7.31-Fix-building-in-ISO-C23.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++

@@ -1,11 +1,20 @@
 Name:           pyp2rpm
 Version:        3.3.10
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Convert Python packages to RPM SPECFILES
 
 License:        MIT
 URL:            https://pypi.python.org/pypi/pyp2rpm
 Source0:        https://files.pythonhosted.org/packages/source/p/%{name}/%{name}-%{version}.tar.gz
+
+# Replace pytest-runner with pytest for testing pyp2rpm
+# https://github.com/fedora-python/pyp2rpm/pull/300
+#
+# https://fedoraproject.org/wiki/Changes/DeprecatePythonPytestRunner
+#
+# This version of the patch does not include changes to tox.ini, which is not
+# present in the PyPI sdist.
+Patch:          0001-Replace-pytest-runner-with-pytest-for-testing-pyp2rp.patch
 
 BuildArch:      noarch
  
@@ -14,7 +23,6 @@ BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(virtualenv-api)
 BuildRequires:  python3dist(jinja2)
 BuildRequires:  python3dist(click)
-BuildRequires:  python3dist(pytest-runner)
 
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(flexmock) >= 0.9.3
@@ -60,6 +68,9 @@ PYTHONPATH="." py.test-3 -vv -m "not webtest" -k "not TestMetadataExtractor"
 
 
 %changelog
+* Thu Feb 13 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.3.10-7
+- Remove pytest-runner dependency
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.10-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

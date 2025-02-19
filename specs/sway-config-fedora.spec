@@ -1,9 +1,10 @@
 %bcond  initialsetup %[0%{?fedora} >= 40 || 0%{?rhel} >= 10]
 %bcond  sddm 1
 %global sway_ver 1.8
+%global bg_format %[ 0%{?fedora} >= 42 ? "jxl" : "png" ]
 
 Name:           sway-config-fedora
-Version:        0.4.2
+Version:        0.4.3
 Release:        %autorelease
 Summary:        Fedora Sway Spin configuration for Sway
 
@@ -43,6 +44,9 @@ Requires: /usr/bin/pkill
 Requires: brightnessctl >= 0.5.1-11
 Requires: desktop-backgrounds-compat
 Requires: grimshot
+%if "%{bg_format}" == "jxl"
+Requires: jxl-pixbuf-loader
+%endif
 Requires: lxqt-policykit
 Requires: playerctl
 Requires: pulseaudio-utils
@@ -79,6 +83,9 @@ Provides:       sddm-greeter-displayserver
 Conflicts:      sddm-greeter-displayserver
 
 Requires:       desktop-backgrounds-compat
+%if "%{bg_format}" == "jxl"
+Requires:       kf6-kimageformats
+%endif
 Requires:       sddm >= 0.20.0
 Requires:       sway >= %{sway_ver}
 
@@ -93,11 +100,14 @@ to use Sway for the greeter display server.
 
 
 %build
-%make_build
+%make_build \
+    PREFIX='%{_prefix}' \
+    BACKGROUND='%{_datadir}/backgrounds/default.%{bg_format}'
 
 
 %install
-%make_install PREFIX='%{_prefix}' \
+%make_install \
+    PREFIX='%{_prefix}' \
     WITH_INITIALSETUP='%[%{with initialsetup}?"yes":"no"]' \
     WITH_SDDM='%[%{with sddm}?"yes":"no"]'
 

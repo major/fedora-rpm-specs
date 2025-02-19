@@ -4,7 +4,7 @@
 %global glib2_version %(pkg-config --modversion glib-2.0 2>/dev/null || echo bad)
 
 %global epoch_version 1
-%global real_version 1.51.7
+%global real_version 1.51.90
 %global rpm_version %{real_version}
 %global release_version 1
 %global snapshot %{nil}
@@ -182,6 +182,7 @@ Source8: readme-ifcfg-rh.txt
 Source9: readme-ifcfg-rh-migrated.txt
 
 #Patch1: 0001-some.patch
+Patch: 0001-dnsconfd-fixes.patch
 
 Requires(post): systemd
 Requires(post): systemd-udev
@@ -1064,6 +1065,10 @@ fi
 
 
 %changelog
+* Mon Feb 17 2025 Beniamino Galvani <bgalvani@redhat.com> - 1.51.90-1
+- Update to 1.52-rc1 release (1.51.90)
+- Fix state handling in the dnsconfd DNS plugin
+
 * Mon Feb 10 2025 Beniamino Galvani <bgalvani@redhat.com> - 1.51.7-1
 - Update to 1.51.7 release (development)
 

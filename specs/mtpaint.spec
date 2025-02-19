@@ -3,7 +3,7 @@
 Summary:       Painting program for creating icons and pixel-based artwork
 Name:          mtpaint
 Version:       3.50
-Release:       15%{?dist}
+Release:       16%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 URL:           http://mtpaint.sourceforge.net/
@@ -14,6 +14,8 @@ Patch1:        mtpaint-3.31-png.patch
 Patch2:        mtpaint-3.40-strip.patch
 Patch3:        mtpaint-3.40-yad.patch
 Patch4:        mtpaint-configure-c99.patch
+Patch5:        mtpaint-3.50-exp10.patch
+Patch6:        mtpaint-3.50-decl.patch
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: giflib-devel
@@ -55,7 +57,7 @@ dos2unix -k mtpaint_handbook-%{version}/docs/{en_GB,cs}/*.html
 
 %build
 # This is not a "normal" configure
-export CFLAGS="%{optflags} -fPIC -fcommon"
+export CFLAGS="%{optflags} -fPIC -fcommon -Wno-incompatible-pointer-types"
 export LDFLAGS="%{?__global_ldflags} -fPIC"
 ./configure \
     --prefix=%{_prefix} \
@@ -123,6 +125,9 @@ EOF
 %license %{name}_handbook-%{version}/COPYING
 
 %changelog
+* Sun Feb 16 2025 Terje Rosten <terje.rosten@ntnu.no> - 3.50-16
+- Fix build issue
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.50-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

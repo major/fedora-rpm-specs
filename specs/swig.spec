@@ -46,7 +46,8 @@
 %else
 %{!?guile:%global guile 1}
 %{!?octave:%global octave 1}
-%{!?Rlang:%global Rlang 1}
+# R-core requires tcl < 9.0.0
+%{!?Rlang:%global Rlang 0}
 %bcond_without build_ccache_swig
 %endif
 
@@ -68,7 +69,7 @@
 Summary: Connects C/C++/Objective C to some high-level programming languages
 Name:    swig
 Version: 4.3.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL-3.0-or-later AND BSD-3-Clause
 URL:     https://www.swig.org/
 Source0: http://downloads.sourceforge.net/project/swig/swig/swig-%{version}/swig-%{version}.tar.gz
@@ -107,7 +108,7 @@ BuildRequires: boost-devel
 # Need when Source/CParse/parser.y is patched
 BuildRequires: bison
 %if %{tcl}
-BuildRequires: tcl-devel
+BuildRequires: tcl-devel >= 9.0.0
 %endif
 %if %{guile}
 BuildRequires: guile-devel
@@ -365,6 +366,9 @@ install -pm 644 Tools/swig.gdb %{buildroot}%{_datadir}/%{name}/gdb
 %{_datadir}/%{name}/gdb
 
 %changelog
+* Mon Feb 17 2025 Jitka Plesnikova <jplesnik@redhat.com> - 4.3.0-5
+- Disable R tests, because they need tcl < 9
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

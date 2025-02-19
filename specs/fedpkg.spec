@@ -5,7 +5,7 @@
 
 Name:           fedpkg
 Version:        1.45
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Fedora utility for working with dist-git
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -47,6 +47,7 @@ Patch30:        0030-Fix-tests-on-EPEL-9-10.patch
 Patch31:        0031-Add-setuptools-to-dependencies-for-Python-3.12.patch
 Patch32:        0032-Update-expired-token-exception-instructions.patch
 Patch33:        0033-Clone-epel10-branches-with-clone-B.patch
+Patch34:        0034-Update-expired-token-exception-instructions.patch
 
 BuildRequires:  pkgconfig
 BuildRequires:  bash-completion
@@ -129,6 +130,9 @@ mv %{buildroot}%{compdir}/fedpkg.bash %{buildroot}%{compdir}/fedpkg
 
 
 %changelog
+* Mon Feb 17 2025 Ondřej Nosek <onosek@redhat.com> - 1.45-8
+- Patch: Update expired token exception instructions
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.45-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

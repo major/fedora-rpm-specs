@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.14.0
 %define specversion 6.14.0
 %define patchversion 6.14
-%define pkgrelease 0.rc2.20250211gitfebbc555cf0f.23
+%define pkgrelease 0.rc3.29
 %define kversion 6
-%define tarfile_release 6.14-rc2-34-gfebbc555cf0f
+%define tarfile_release 6.14-rc3
 # This is needed to do merge window version magic
 %define patchlevel 14
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc2.20250211gitfebbc555cf0f.23%{?buildid}%{?dist}
+%define specrelease 0.rc3.29%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.14.0
 
@@ -4212,10 +4212,54 @@ fi\
 #
 #
 %changelog
-* Tue Feb 11 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc2.febbc555cf0f.23]
+* Mon Feb 17 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc3.29]
 - apply -Wno-error=unterminated-string-initialization temporarily (Thorsten Leemhuis)
 - include/linux: Adjust headers for C23 (Jakub Jelinek)
 - x86/insn_decoder_test: allow longer symbol-names (David Rheinsberg)
+
+* Mon Feb 17 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc3.28]
+- efi,lockdown: fix kernel lockdown on Secure Boot (Ondrej Mosnacek) {CVE-2025-1272}
+- Linux v6.14.0-0.rc3
+
+* Sun Feb 16 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc2.ad1b832bf1cf.27]
+- Linux v6.14.0-0.rc2.ad1b832bf1cf
+
+* Sat Feb 15 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc2.7ff71e6d9239.26]
+- fedora: Update vbox drivers (Peter Robinson)
+- Drop the s390x CONFIG_REGMAP from RHEL pending as upstream removed the dep (Justin M. Forbes)
+- Linux v6.14.0-0.rc2.7ff71e6d9239
+
+* Fri Feb 14 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc2.128c8f96eb86.25]
+- fedora: arm64: enable RT5616 codec (Marcin Juszkiewicz)
+- Linux v6.14.0-0.rc2.128c8f96eb86
+
+* Thu Feb 13 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc2.4dc1d1bec898.24]
+- Revert "nvme: Return BLK_STS_TARGET if the DNR bit is set" (Benjamin Marzinski)
+- Revert "nvme: allow local retry and proper failover for REQ_FAILFAST_TRANSPORT" (Benjamin Marzinski)
+- Revert "nvme: decouple basic ANA log page re-read support from native multipathing" (Benjamin Marzinski)
+- Revert "nvme: nvme_mpath_init remove multipath check" (Benjamin Marzinski)
+- redhat/configs: automotive: Disable CONFIG_FS_DAX config (Dorinda Bassey)
+- config: update CONFIG_LSM to match upstream (Ryan Sullivan)
+- redhat: configs: enable CONFIG_INTEL_ISH_FIRMWARE_DOWNLOADER for RHEL (David Arcari)
+- redhat/Makefile: Add help text for target dist-dump-variables (Eder Zulian)
+- media: ov08x40: Don't log ov08x40_check_hwcfg() errors twice (Hans de Goede)
+- media: ov08x40: Add missing '\n' to ov08x40_check_hwcfg() error messages (Hans de Goede)
+- media: ov08x40: Add missing ov08x40_identify_module() call on stream-start (Hans de Goede)
+- media: ov08x40: Improve ov08x40_[read|write]_reg() error returns (Hans de Goede)
+- media: ov08x40: Improve ov08x40_identify_module() error logging (Hans de Goede)
+- media: ov08x40: Move ov08x40_identify_module() function up (Hans de Goede)
+- media: ov08x40: Get clock on ACPI platforms too (Hans de Goede)
+- media: ov08x40: Get reset GPIO and regulators on ACPI platforms too (Hans de Goede)
+- media: ov08x40: Move fwnode_graph_get_next_endpoint() call up (Hans de Goede)
+- media: ov08x40: Properly turn sensor on/off when runtime-suspended (Hans de Goede)
+- redhat: update self-test-data for new default RHJOBS value (Patrick Talbert)
+- set a more reasonable default for number of jobs (Thorsten Leemhuis)
+- Linux v6.14.0-0.rc2.4dc1d1bec898
+
+* Wed Feb 12 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc2.09fbf3d50205.23]
+- redhat: automotive: define CONFIG_RH_AUTOMOTIVE (Scott Weaver)
+- redhat/configs: disable CONFIG_TCP_AO on RHEL (Sabrina Dubroca)
+- Linux v6.14.0-0.rc2.09fbf3d50205
 
 * Tue Feb 11 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc2.febbc555cf0f.22]
 - Linux v6.14.0-0.rc2.febbc555cf0f

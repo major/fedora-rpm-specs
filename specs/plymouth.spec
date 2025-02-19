@@ -11,6 +11,10 @@ Source2: charge.plymouth
 # Revert https://gitlab.freedesktop.org/plymouth/plymouth/-/commit/48881ba
 # to fix console display on minimal installs
 # https://bugzilla.redhat.com/show_bug.cgi?id=2269385
+# This bug should also be fixed by:
+# https://gitlab.freedesktop.org/plymouth/plymouth/-/commit/d2ab367e12423646d3a6bb35d16570f8e3126234
+# https://gitlab.freedesktop.org/plymouth/plymouth/-/commit/1e206268df99d28e9fb3d3cf8379a553abb05af0
+# Drop this Fedora patch on next rebase to latest upstream
 Patch: 0001-Revert-src-Hide-console-text-when-splash-is-requeste.patch
 
 # https://gitlab.freedesktop.org/plymouth/plymouth/-/commit/10ac8d2dc927b112ce6aeb06bc73d9c46550954c
@@ -20,14 +24,14 @@ Patch: 0001-ply-boot-splash-Set-unbuffered-input-when-creating-a.patch
 
 # Revert patch to immediately switch to text mode on first renderer plugin error
 # Fixes unwanted text mode when drm-plugin init races with simpledrm unregistration
-# https://gitlab.freedesktop.org/plymouth/plymouth/-/merge_requests/319
+# https://gitlab.freedesktop.org/plymouth/plymouth/-/merge_requests/319 (merged)
 # https://bugzilla.redhat.com/show_bug.cgi?id=2270030
 Patch: 0001-ply-device-manager-Revert-Fall-back-to-text-plugin-i.patch
 
 # Probe simpledrm immediately instead of waiting for udev_device_get_is_initialized ()
 # to return true. This fixes users getting the text splash on laptops with somewhat
 # slower CPUs combined with loading the amdgpu module which may take 7+ seconds
-# https://gitlab.freedesktop.org/plymouth/plymouth/-/merge_requests/323/
+# https://gitlab.freedesktop.org/plymouth/plymouth/-/merge_requests/323/ (merged)
 # https://bugzilla.redhat.com/show_bug.cgi?id=2183743
 # https://bugzilla.redhat.com/show_bug.cgi?id=2274770
 Patch: plymouth-24.004.60-immediately-probe-simpledrm.patch
@@ -37,6 +41,25 @@ Patch: plymouth-24.004.60-immediately-probe-simpledrm.patch
 # This fixes:
 # https://bugzilla.redhat.com/show_bug.cgi?id=2282384
 Patch: 0001-renderers-Do-not-assume-all-keyboards-have-LEDs.patch
+
+# Fix Dvorak layout icon not showing when the evdev keyboard driver is used
+# https://gitlab.freedesktop.org/plymouth/plymouth/-/merge_requests/341 (merged)
+# https://bugzilla.redhat.com/show_bug.cgi?id=2341810
+Patch: 0001-ply-keymap-icon-Make-Dvorak-check-case-insensitive.patch
+
+# https://gitlab.freedesktop.org/plymouth/plymouth/-/commit/792fe7474a02a1facacdd52e0dcf9053da4b1f6e
+# Fix for the label plugin not finding fonts
+Patch: 0001-label-freetype-fix-fallback-not-working-when-fc-matc.patch
+
+# 2 tweaks for hidpi scale factor calculations
+# https://gitlab.freedesktop.org/plymouth/plymouth/-/commit/acf97c73670b80a65329aaa35e40438d86fca3c6
+# https://gitlab.freedesktop.org/plymouth/plymouth/-/commit/3b8e918479f47a845d4f88d281f7dfe412195628
+Patch: plymouth-24.004.60-device-scale-fixes.patch
+
+# A set of 5 patches to make use-simpledrm configurable from the config file
+# https://gitlab.freedesktop.org/plymouth/plymouth/-/merge_requests/342
+# https://bugzilla.redhat.com/show_bug.cgi?id=2346150
+Patch: plymouth-24.004.60-use_simpledrm-config.patch
 
 BuildRequires: meson
 BuildRequires: system-logos
@@ -252,6 +275,8 @@ Plymouth. It features a small spinner on a dark background.
 %autosetup -p1
 # Change the default theme
 sed -i -e 's/spinner/bgrt/g' src/plymouthd.defaults
+# Use simpledrm /dev/dri/card# by default
+echo UseSimpledrm=1 >> src/plymouthd.defaults
 
 %if 0%{?rhel} > 9
 find -type f -exec sed -i -e 's/Cantarell/Red Hat Text/g' {} \;

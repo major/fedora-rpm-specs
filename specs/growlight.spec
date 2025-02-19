@@ -42,12 +42,14 @@ are available.
 
 %install
 %cmake_install
+mkdir -vp %{buildroot}%{_bindir}
+mv -v %{buildroot}/usr/sbin/* %{buildroot}%{_bindir}
 
 %files
 %doc README.md
 %license COPYING
-%{_sbindir}/growlight
-%{_sbindir}/growlight-readline
+%{_bindir}/growlight
+%{_bindir}/growlight-readline
 %{_mandir}/man8/*.8*
 %{_datadir}/%{name}
 

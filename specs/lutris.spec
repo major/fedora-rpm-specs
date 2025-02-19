@@ -8,6 +8,9 @@ Summary:        Install and play any video game easily
 License:        GPL-3.0-only
 URL:            http://%{name}.net
 Source0:        https://github.com/%{name}/%{name}/archive/refs/tags/v%{version}.tar.gz
+# Patch to fix upstream python-evdev update to 1.9.0 what broke the startup if installed 
+# https://github.com/lutris/lutris/pull/5935
+Patch0:         0001-fix-with-evdev-ver-1.9.0-InputDevice.fn-is-dropped.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  python3-devel

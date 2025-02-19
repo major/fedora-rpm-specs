@@ -1,3 +1,9 @@
+%if 0%{?suse_version}
+%global rocblas_name librocblas4
+%else
+%global rocblas_name rocblas
+%endif
+
 %global upstreamname rocBLAS
 %global rocm_release 6.3
 %global rocm_patch 0
@@ -6,9 +12,6 @@
 %global toolchain rocm
 # hipcc does not support some clang flags
 %global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/')
-
-# $gpu will be evaluated in the loops below             
-%global _vpath_builddir %{_vendor}-%{_target_os}-build-${gpu}
 
 %bcond_with debug
 %if %{with debug}
@@ -32,7 +35,7 @@
 %global build_test OFF
 %endif
 
-%if 0%{?rhel} || 0%{?suse_version}
+%if 0%{?rhel}
 # RHEL does not have a working tensile
 # OSB/SUSE is gets stuck on tensile taking a long time with 4 jobs
 %bcond_with tensile
@@ -55,9 +58,9 @@
 %define _source_payload	w7T0.xzdio
 %define _binary_payload	w7T0.xzdio
 
-Name:           rocblas
+Name:           %{rocblas_name}
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        BLAS implementation for ROCm
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT AND BSD-3-Clause
@@ -74,7 +77,6 @@ BuildRequires:  rocm-compilersupport-macros
 BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocm-rpm-macros-modules
 
 %if %{with tensile}
 %if 0%{?suse_version}
@@ -98,7 +100,7 @@ BuildRequires:  rocminfo
 BuildRequires:  rocm-smi-devel
 %endif
 
-Requires:       rocm-rpm-macros-modules
+Provides:       rocblas = %{version}-%{release}
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -108,9 +110,15 @@ rocBLAS is the AMD library for Basic Linear Algebra Subprograms
 (BLAS) on the ROCm platform. It is implemented in the HIP
 programming language and optimized for AMD GPUs.
 
+%if 0%{?suse_version}
+%post -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
+%endif
+
 %package devel
 Summary:        Libraries and headers for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Provides:       rocblas-devel = %{version}-%{release}
 
 %description devel
 %{summary}
@@ -141,44 +149,36 @@ export TENSILE_ROCM_OFFLOAD_BUNDLER_PATH=${CLANG_PATH}/clang-offload-bundler
 # Work around problem with koji's ld
 export HIPCC_LINK_FLAGS_APPEND=-fuse-ld=lld
 
-for gpu in %{rocm_gpu_list}
-do
-    module load rocm/$gpu
-    %cmake \
-	-DCMAKE_CXX_COMPILER=hipcc \
-	-DCMAKE_C_COMPILER=hipcc \
-	-DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
-	-DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
-	-DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
-           -DCMAKE_BUILD_TYPE=%{build_type} \
-	   -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
-	   -DCMAKE_SKIP_RPATH=ON \
-	   -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
-	   -DROCM_SYMLINK_LIBS=OFF \
-	   -DHIP_PLATFORM=amd \
-	   -DAMDGPU_TARGETS=${ROCM_GPUS} \
-	   -DCMAKE_INSTALL_LIBDIR=$ROCM_LIB \
-	   -DCMAKE_INSTALL_BINDIR=$ROCM_BIN \
-	   -DBUILD_CLIENTS_BENCHMARKS=%{build_test} \
-	   -DBUILD_CLIENTS_TESTS=%{build_test} \
-	   -DBUILD_CLIENTS_TESTS_OPENMP=OFF \
-	   -DBUILD_FORTRAN_CLIENTS=OFF \
-	   -DBLAS_LIBRARY=cblas \
-	   -DBUILD_OFFLOAD_COMPRESS=%{build_compress} \
-	   -DBUILD_WITH_HIPBLASLT=OFF \
-	   -DTensile_COMPILER=hipcc \
-	   -DBUILD_WITH_TENSILE=%{build_tensile} \
-	   -DBUILD_WITH_PIP=OFF
+%cmake \
+    -DCMAKE_CXX_COMPILER=hipcc \
+    -DCMAKE_C_COMPILER=hipcc \
+    -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
+    -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
+    -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
+    -DCMAKE_BUILD_TYPE=%{build_type} \
+    -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
+    -DCMAKE_SKIP_RPATH=ON \
+    -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
+    -DROCM_SYMLINK_LIBS=OFF \
+    -DHIP_PLATFORM=amd \
+    -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
+    -DCMAKE_INSTALL_LIBDIR=%_libdir \
+    -DBUILD_CLIENTS_BENCHMARKS=%{build_test} \
+    -DBUILD_CLIENTS_TESTS=%{build_test} \
+    -DBUILD_CLIENTS_TESTS_OPENMP=OFF \
+    -DBUILD_FORTRAN_CLIENTS=OFF \
+    -DBLAS_LIBRARY=cblas \
+    -DBUILD_OFFLOAD_COMPRESS=%{build_compress} \
+    -DBUILD_WITH_HIPBLASLT=OFF \
+    -DTensile_COMPILER=hipcc \
+    -DBUILD_WITH_TENSILE=%{build_tensile} \
+    -DBUILD_WITH_PIP=OFF
 
-    %cmake_build
-    module purge
-done
+%cmake_build
 
 %install
-for gpu in %{rocm_gpu_list}
-do
-    %cmake_install
-done
+%cmake_install
+
 echo s@%{buildroot}@@ > br.sed
 find %{buildroot}%{_libdir} -name '*.so.*.[0-9]' | sed -f br.sed >  %{name}.files
 find %{buildroot}%{_libdir} -name '*.so.[0-9]'   | sed -f br.sed >> %{name}.files
@@ -195,21 +195,25 @@ fi
 %files -f %{name}.files
 %license LICENSE.md
 %if %{with tensile}
-%dir %{_libdir}/%{name}
-%dir %{_libdir}/%{name}/library
+%dir %{_libdir}/rocblas
+%dir %{_libdir}/rocblas/library
 %endif
 
 %files devel -f %{name}.devel
 %doc README.md
-%dir %{_libdir}/cmake/%{name}
-%dir %{_includedir}/%{name}
-%{_includedir}/%{name}/*
+%dir %{_libdir}/cmake/rocblas
+%dir %{_includedir}/rocblas
+%{_includedir}/rocblas/*
 
 %if %{with test}
 %files test -f %{name}.test
 %endif
 
 %changelog
+* Tue Feb 11 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-5
+- Remove multibuild
+- Fix SLE 15.6
+
 * Sat Jan 18 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-4
 - multithread rpm compress
 

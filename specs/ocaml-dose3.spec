@@ -27,6 +27,8 @@ Patch:          0003-Depend-on-the-math-library.patch
 Patch:          0004-OCaml-5-compatibility.patch
 # ocamlgraph 2.1.0 adds a blank line to the end of its output, breaking tests
 Patch:          0005-OCamlgraph-2.1.0-adds-a-newline.patch
+# A bugfix in ocaml-re 1.13.3 broke dose3
+Patch:          0006-Re-1.13.3-changes.patch
 
 BuildRequires:  ocaml
 BuildRequires:  ocaml-dune
@@ -126,10 +128,7 @@ cp -a doc/manpages/*.5 %{buildroot}%{_mandir}/man5/
 cp -a doc/manpages/*.1 %{buildroot}%{_mandir}/man1/
 
 %check
-# dose3 7.0.0 has many failures in the test suite, and for unclear
-# reasons these only sometimes cause dune check to fail.  Disable for
-# now, and consider enabling again later.
-%dune_check ||:
+%dune_check
 
 %files -f .ofiles
 %license COPYING

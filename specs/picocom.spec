@@ -3,7 +3,7 @@
 
 Name:           picocom
 Version:        2024.07
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Minimal serial communications program
 
 License:        GPL-2.0-or-later
@@ -14,7 +14,6 @@ BuildRequires: gcc
 BuildRequires: golang-github-cpuguy83-md2man
 
 # for groupadd
-Requires(pre):  shadow-utils
 
 %description
 As its name suggests, [picocom] is a minimal dumb-terminal emulation
@@ -31,6 +30,11 @@ stripped).
 %prep
 %autosetup -n %{name}-%{upstreamversion}
 
+# Create a sysusers.d config file
+cat >picocom.sysusers.conf <<EOF
+g dialout 18
+EOF
+
 %build
 make CC="%{__cc}" CFLAGS="$RPM_OPT_FLAGS -DUSE_CUSTOM_BAUD" %{_smp_mflags} UUCP_LOCK_DIR=/run/lock/picocom
 make doc
@@ -43,17 +47,20 @@ install -m 755 picocom $RPM_BUILD_ROOT%{_bindir}/
 install -m 644 picocom.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 mkdir -p $RPM_BUILD_ROOT/run/lock/picocom
 
-%pre
-getent group dialout >/dev/null || groupadd -g 18 -r -f dialout
-exit 0
+install -m0644 -D picocom.sysusers.conf %{buildroot}%{_sysusersdir}/picocom.conf
+
 
 %files
 %doc CONTRIBUTORS LICENSE.txt README.md
 %dir %attr(0775,root,dialout) /run/lock/picocom
 %{_bindir}/picocom
 %{_mandir}/man1/*
+%{_sysusersdir}/picocom.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2024.07-3
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.07-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

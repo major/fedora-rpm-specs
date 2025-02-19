@@ -9,7 +9,7 @@ Source0:        %url/archive/vulkan-sdk-%{version}.tar.gz#/Vulkan-Loader-sdk-%{v
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  cmake3
+BuildRequires:  cmake
 BuildRequires:  ninja-build
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  vulkan-headers = %{version}
@@ -26,13 +26,7 @@ Obsoletes:      vulkan < %{version}-%{release}
 Provides:       vulkan-filesystem = %{version}-%{release}
 Obsoletes:      vulkan-filesystem < %{version}-%{release}
 
-%if 0%{?fedora} <= 27
-%ifarch x86_64 i686 
-Requires:       mesa-vulkan-drivers%{?_isa}
-%endif
-%else
 Recommends:     mesa-vulkan-drivers%{?_isa}
-%endif
 
 %description
 This project provides the Khronos official Vulkan ICD desktop 

@@ -1,6 +1,6 @@
 Name:           gtkgreet
 Version:        0.8
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        GTK based greeter for greetd
 
 License:        GPL-3.0-only
@@ -20,6 +20,7 @@ BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(gtk-layer-shell-0)
 BuildRequires:  pkgconfig(json-c)
 BuildRequires:  pkgconfig(scdoc) >= 1.9.7
+BuildRequires:  sed
 
 Requires:       greetd >= 0.6
 Provides:       greetd-greeter = 0.6
@@ -66,6 +67,13 @@ install -D -m755 -vp %{SOURCE104} %{buildroot}%{_sysconfdir}/gtkgreet/gtkgreet-r
 mkdir -p %{buildroot}%{_sysconfdir}/greetd
 touch %{buildroot}%{_sysconfdir}/greetd/environments
 
+%if 0%{?fedora} >= 42
+sed -e 's/default\.png/default.jxl/' -i \
+    %{buildroot}%{_sysconfdir}/gtkgreet/gtkgreet-sway.conf \
+    %{buildroot}%{_sysconfdir}/gtkgreet/gtkgreet-wayfire.ini \
+    %{buildroot}%{_sysconfdir}/gtkgreet/gtkgreet-river-init
+%endif
+
 
 %post
 # initialize list of session commands
@@ -90,6 +98,9 @@ exit 0
 
 
 %changelog
+* Mon Feb 17 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.8-6
+- Switch to JXL for Fedora 42 backgrounds
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global pypi_name Pykka
 
 Name:             pykka
-Version:          4.1.2
+Version:          4.2.0
 Release:          1%{?dist}
 Summary:          Python library that provides concurrency using actor model
 
@@ -36,7 +36,7 @@ BuildRequires:  make
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-sphinxcontrib-devhelp
 BuildRequires:  python3-sphinx_rtd_theme
-BuildRequires:  python3-toml
+BuildRequires:  python3-tomli
 
 Requires:       devhelp
 
@@ -76,6 +76,9 @@ cp -rp docs/_build/devhelp %{buildroot}%{_datarootdir}/devhelp/%{pypi_name}
 %exclude %{_datarootdir}/devhelp/%{pypi_name}/.*
 
 %changelog
+* Mon Feb 17 2025 Tobias Girstmair <t-fedora@girst.at> - 4.2.0-1
+- Update to latest release
+
 * Sun Feb 16 2025 Tobias Girstmair <t-fedora@girst.at> - 4.1.2-1
 - Update to latest release for Python 3.14 support (RHBZ#2345521)
 

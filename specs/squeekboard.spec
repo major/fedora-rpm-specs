@@ -1,16 +1,61 @@
 Name:		squeekboard
 Version:	1.43.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	a Wayland virtual keyboard
 
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
-License:	GPL-3.0-or-later
+# The entire source is GPL-3.0-or-later, except:
+#
+# GPL-2.0-or-later:
+#   - eek/*, except eek/layersurface.{c,h} which are still GPL-3.0-or-later
+# HPND-sell-variant:
+#   - protocols/text-input-unstable-v3.xml
+#   - protocols/wlr-layer-shell-unstable-v1.xml
+# LGPL-2.0-or-later:
+#   - src/style.rs
+# MIT:
+#   - protocols/input-method-unstable-v2.xml
+#   - protocols/virtual-keyboard-unstable-v1.xml
+# MIT OR Apache-2.0:
+#   - src/assert_matches.rs
+#   - src/float_ord.rs
+SourceLicense:	%{shrink:
+                GPL-3.0-or-later AND
+                HPND-sell-variant AND
+                LGPL-2.0-or-later AND
+                MIT AND
+                (MIT OR Apache-2.0)
+                }
+# This includes everything from SourceLicense, plus the licenses of Rust
+# libraries statically linked into the executable. To obtain the following
+# list of licenses, build the package and note the output of
+# %%{cargo_license_summary}. A full breakdown is in LICENSES.dependencies.
+#
+# Apache-2.0 OR BSL-1.0
+# Apache-2.0 OR MIT
+# Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+# BSD-2-Clause OR Apache-2.0 OR MIT
+# MIT
+# MIT OR Apache-2.0
+# MIT OR Apache-2.0 OR Zlib
+# Unlicense OR MIT
+License:	%{shrink:
+                GPL-3.0-or-later AND
+                HPND-sell-variant AND
+                LGPL-2.0-or-later AND
+                MIT AND
+                (Apache-2.0 OR BSL-1.0) AND
+                (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
+                (BSD-2-Clause OR Apache-2.0 OR MIT) AND
+                (MIT OR Apache-2.0) AND
+                (MIT OR Apache-2.0 OR Zlib) AND
+                (Unlicense OR MIT)
+                }
 URL:		https://gitlab.gnome.org/World/Phosh/squeekboard
 Source0:	https://gitlab.gnome.org/World/Phosh/squeekboard/-/archive/v%{version}/%{name}-v%{version}.tar.bz2
 Source1:	squeekboard.desktop
+# treewide: Upgrade zbus to 4.x
 # https://gitlab.gnome.org/World/Phosh/squeekboard/-/merge_requests/709
-# Patch also includes a revert of the xkbkeyboard 0.8 upgrade
-Patch0:		0001-Fixes-to-build-on-Fedora.patch
+Patch:		%{url}/-/merge_requests/709.patch
 
 BuildRequires:	gcc
 BuildRequires:	meson
@@ -51,6 +96,9 @@ rm -f Cargo.lock
 export RUSTFLAGS="%build_rustflags"
 %meson
 %meson_build
+
+%cargo_license_summary
+%{cargo_license} > LICENSE.dependencies
 
 %install
 %meson_install
@@ -98,9 +146,13 @@ fi
 %{_datadir}/glib-2.0/schemas/sm.puri.Squeekboard.gschema.xml
 %{_sysconfdir}/xdg/autostart/squeekboard.desktop
 %doc README.md
-%license COPYING
+%license COPYING LICENSE.dependencies
 
 %changelog
+* Fri Feb 14 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1.43.1-2
+- Stop patching for xkbcommon 0.7 (rebuild with xkbcommon 0.8)
+- Properly document licenses of the source and of Rust dependencies
+
 * Sun Feb 02 2025 Sam Day <me@samcday.com> - 1.43.1-1
 - Update to 1.43.1
 - Patch zbus dependency from 1.9 to to 4.x

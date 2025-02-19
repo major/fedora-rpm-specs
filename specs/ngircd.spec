@@ -1,6 +1,6 @@
 Name:           ngircd
 Version:        27
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Next Generation IRC Daemon
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -28,7 +28,6 @@ Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
 
-Requires(pre): shadow-utils
 
 %description
 ngIRCd is a free open source daemon for Internet Relay Chat (IRC), 
@@ -37,6 +36,11 @@ scratch and is not based upon the original IRCd like many others.
 
 %prep
 %autosetup -p1
+
+# Create a sysusers.d config file
+cat >ngircd.sysusers.conf <<EOF
+u ngircd - 'Next Generation IRC Daemon' /tmp/ -
+EOF
 
 %build
 %configure \
@@ -65,15 +69,11 @@ rm %{buildroot}%{_docdir}/ngircd/INSTALL.md
 mkdir -p %{buildroot}%{_tmpfilesdir}
 echo d /run/ngircd 0750 ngircd ngircd - > %{buildroot}%{_tmpfilesdir}/ngircd.conf
 
+install -m0644 -D ngircd.sysusers.conf %{buildroot}%{_sysusersdir}/ngircd.conf
+
 %check
 make check
 
-%pre
-getent group ngircd >/dev/null || groupadd -r ngircd
-getent passwd ngircd >/dev/null || \
-    useradd -r -g ngircd -d /tmp/ -s /sbin/nologin \
-    -c "Next Generation IRC Daemon" ngircd
-exit 0
 
 %post
 %systemd_post ngircd.service
@@ -96,8 +96,12 @@ exit 0
 %{_mandir}/man5/ngircd.conf*
 %{_mandir}/man8/ngircd.8*
 %{_tmpfilesdir}/ngircd.conf
+%{_sysusersdir}/ngircd.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 27-5
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 27-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

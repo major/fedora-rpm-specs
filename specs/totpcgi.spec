@@ -10,7 +10,7 @@
 
 Name:       totpcgi
 Version:    0.6.0
-Release:    0.22.20190713git%{?dist}
+Release:    0.23.20190713git%{?dist}
 Summary:    A centralized totp solution based on google-authenticator
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -65,6 +65,12 @@ This package includes SELinux policy for totpcgi and totpcgi-provisioning.
 
 %prep
 %autosetup -n totp-cgi-%{commit} -p1
+
+# Create a sysusers.d config file
+cat >totpcgi.sysusers.conf <<EOF
+u totpcgi - 'Totpcgi user' /var/lib/totpcgi -
+u totpcgiprov - 'Totpcgi provisioning user' /etc/totpcgi -
+EOF
 
 
 %build
@@ -133,13 +139,9 @@ sed -i -e 's|/usr/bin/env python|/usr/bin/python3|' %{buildroot}/var/www/totpcgi
 sed -i -e 's|/usr/bin/env python|/usr/bin/python3|' %{buildroot}/var/www/totpcgi-provisioning/index.cgi
 sed -i -e 's|/usr/bin/env python|/usr/bin/python3|' %{buildroot}/usr/bin/totpprov
 
-%pre -n python3-totpcgi
-# We always add both the totpcgi and totpcgi-provisioning user
-/usr/sbin/useradd -c "Totpcgi user" \
-    -M -s /sbin/nologin -d /var/lib/totpcgi %{totpcgiuser} 2> /dev/null || :
-/usr/sbin/useradd -c "Totpcgi provisioning user" \
-    -M -s /sbin/nologin -d /etc/totpcgi %{totpcgiprovuser} 2> /dev/null || :
+install -m0644 -D totpcgi.sysusers.conf %{buildroot}%{_sysusersdir}/totpcgi.conf
 
+%pre -n python3-totpcgi
 # For some reason the labeling doesn't always happen correctly
 # force it if fixfiles exists
 %post
@@ -195,6 +197,7 @@ fi
 %config(noreplace) %attr(-, -, %{totpcgiprovuser}) %{_sysconfdir}/totpcgi/provisioning.conf
 %{_bindir}/*
 %{_mandir}/*/*
+%{_sysusersdir}/totpcgi.conf
 
 %files provisioning
 %dir %attr(-, %{totpcgiprovuser}, %{totpcgiprovuser}) %{_localstatedir}/www/totpcgi-provisioning
@@ -210,6 +213,9 @@ fi
 
 
 %changelog
+* Sat Jan 25 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.6.0-0.23.20190713git
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-0.22.20190713git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

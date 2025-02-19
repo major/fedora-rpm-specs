@@ -1,8 +1,8 @@
 %bcond_without docs
 
 Name:     open62541
-Version:  1.4.8
-Release:  2%{?dist}
+Version:  1.4.10
+Release:  1%{?dist}
 Summary:  OPC UA implementation
 License:  MPL-2.0
 URL:      http://open62541.org
@@ -112,6 +112,9 @@ cd -
 %endif
 
 %changelog
+* Mon Feb 17 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1.4.10-1
+- Update to 1.4.10
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

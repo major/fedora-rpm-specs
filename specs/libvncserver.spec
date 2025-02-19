@@ -3,7 +3,7 @@
 Summary:    Library to make writing a VNC server easy
 Name:       libvncserver
 Version:    0.9.15
-Release:    1%{?dist}
+Release:    3%{?dist}
 
 # NOTE: --with-filetransfer => GPLv2
 License:    GPL-2.0-or-later
@@ -14,6 +14,8 @@ Source0:    https://github.com/LibVNC/libvncserver/archive/LibVNCServer-%{versio
 # https://github.com/LibVNC/libvncserver/pull/234
 Patch10: 0001-libvncserver-Add-API-to-add-custom-I-O-entry-points.patch
 Patch11: 0002-libvncserver-Add-channel-security-handlers.patch
+Patch13: 0003-Install-examples_in_datadir.patch
+Patch14: 0004-libvncclient-fix-memory-leak-in-CompressClipData.patch
 
 ## downstream patches
 Patch102: libvncserver-LibVNCServer-0.9.13-system-crypto-policy.patch
@@ -21,7 +23,6 @@ Patch102: libvncserver-LibVNCServer-0.9.13-system-crypto-policy.patch
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  pkgconfig(gnutls)
-BuildRequires:  pkgconfig(sdl2)
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xdamage)
@@ -35,10 +36,6 @@ BuildRequires:  pkgconfig(zlib)
 BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libpng)
 #BuildRequires:  pkgconfig(lzo2)
-BuildRequires:  pkgconfig(libavformat)
-BuildRequires:  pkgconfig(libavcodec)
-BuildRequires:  pkgconfig(libavutil)
-BuildRequires:  pkgconfig(libswscale)
 BuildRequires:  gettext-devel
 BuildRequires:  libgcrypt-devel
 BuildRequires:  lzo-devel
@@ -48,18 +45,23 @@ BuildRequires:  pkgconfig(libssl)
 # Additional deps for --with-x11vnc, see https://bugzilla.redhat.com/show_bug.cgi?id=864947
 BuildRequires:  pkgconfig(avahi-client)
 BuildRequires:  pkgconfig(ice)
-BuildRequires:  pkgconfig(x11)
-BuildRequires:  pkgconfig(xdamage)
-BuildRequires:  pkgconfig(xext)
-BuildRequires:  pkgconfig(xfixes)
 BuildRequires:  pkgconfig(xi)
-BuildRequires:  pkgconfig(xinerama)
-BuildRequires:  pkgconfig(xrandr)
-BuildRequires:  pkgconfig(xtst)
 
 # For %%check
 BuildRequires:  xorg-x11-xauth
 BuildRequires:  zlib-devel
+
+# For Examples
+BuildRequires:  pkgconfig(libavformat)
+BuildRequires:  pkgconfig(libavcodec)
+BuildRequires:  pkgconfig(libavutil)
+BuildRequires:  pkgconfig(libswscale)
+BuildRequires:  pkgconfig(xcb)
+BuildRequires:  pkgconfig(xcb-keysyms)
+BuildRequires:  pkgconfig(sdl2)
+BuildRequires:  gtk2-devel
+BuildRequires:  qt5-qtbase-devel
+BuildRequires:  qt5-qttools-devel
 
 %description
 LibVNCServer makes writing a VNC server (or more correctly, a program exporting
@@ -80,6 +82,12 @@ Requires:   zlib-devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
+%package        examples
+Summary:        Examples for %{name}
+Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
+
+%description    examples
+This package contains examples making use of %{name}.
 
 %prep
 %autosetup -p1 -n %{name}-LibVNCServer-%{version}
@@ -102,7 +110,7 @@ done
 
 
 %build
-%cmake
+%cmake -DCMAKE_CXX_COMPILER=/usr/bin/g++
 
 %cmake_build
 
@@ -120,7 +128,6 @@ done
 %{_libdir}/libvncserver.so.%{version}
 
 %files devel
-#{_bindir}/libvncserver-config
 %{_includedir}/rfb/
 %{_libdir}/libvncclient.so
 %{_libdir}/libvncserver.so
@@ -128,8 +135,17 @@ done
 %{_libdir}/pkgconfig/libvncserver.pc
 %{_libdir}/cmake/LibVNCServer/*.cmake
 
+%files examples
+%{_datadir}/libvncserver
+
 
 %changelog
+* Sat Feb 08 2025 Sérgio Basto <sergio@serjux.com> - 0.9.15-3
+- Add upstream patch fix-memory-leak-in-CompressClipData
+
+* Sat Feb 08 2025 Sérgio Basto <sergio@serjux.com> - 0.9.15-2
+- Add examples
+
 * Fri Feb 07 2025 Sérgio Basto <sergio@serjux.com> - 0.9.15-1
 - Update libvncserver to 0.9.15 (#2155072)
 

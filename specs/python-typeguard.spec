@@ -3,7 +3,7 @@
 %bcond mypy 1
 
 Name:           python-typeguard
-Version:        4.4.1
+Version:        4.4.2
 Release:        %autorelease
 Summary:        Run-time type checker for Python
 
@@ -11,11 +11,6 @@ Summary:        Run-time type checker for Python
 License:        MIT
 URL:            https://github.com/agronholm/typeguard
 Source:         %{pypi_source typeguard}
-
-# Fixes for Python 3.14 and PEP 649
-# https://github.com/agronholm/typeguard/pull/492
-# Rebased on 4.4.1, with documentation changes removed
-Patch:          typeguard-4.4.1-python-3.14.patch
 
 BuildSystem:            pyproject
 BuildOption(install):   -l typeguard

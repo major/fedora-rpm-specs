@@ -2,14 +2,6 @@
 %global toolchain rocm
 # hipcc does not support some clang flags
 %global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/')
-# $gpu will be evaluated in the loops below
-%global _vpath_builddir %{_vendor}-%{_target_os}-build-${gpu}
-# Need a GPU to test while building
-%bcond_with test
-%if %{with test}
-# Do not build everything, assumes your testing gpu if gfx10* or gfx11*
-%global rocm_gpu_list default
-%endif
 
 Name:           magma
 Version:        2.8.0
@@ -54,9 +46,6 @@ BuildRequires:  rocm-core-devel
 BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocm-rpm-macros-modules
-
-Requires:       rocm-rpm-macros-modules
 
 # MIT
 # Just the hipify-perl file is taken and it is very old
@@ -100,7 +89,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 # Add some more gfx's
 # https://bitbucket.org/icl/magma/issues/76/a-few-new-rocm-gpus
-sed -i -e 's@1032 1033@1032 1033 1100 1101 1102 1103@' Makefile
+sed -i -e 's@1032 1033@1032 1033 1100 1101 1102 1103 1150 1151 1152 1200 1201@' Makefile
 
 # Remove some tests,
 sed -i -e '/testing_zgenerate.cpp/d' testing/Makefile.src
@@ -135,35 +124,24 @@ export HIP_CLANG_PATH=`hipconfig -l`
 RESOURCE_DIR=`${HIP_CLANG_PATH}/clang -print-resource-dir`
 export DEVICE_LIB_PATH=${RESOURCE_DIR}/amdgcn/bitcode
 
+echo "BACKEND = hip"                          > make.inc
+echo "FORT = false"                          >> make.inc
+echo "GPU_TARGET = gfx900;gfx906:xnack-;gfx908:xnack-;gfx90a:xnack+;gfx90a:xnack-;gfx942;gfx1010;gfx1012;gfx1030;gfx1031;gfx1035;gfx1100;gfx1101;gfx1102;gfx1103;gfx1150;gfx1151;gfx1152;gfx1200;gfx1201" >> make.inc
 
-for gpu in %{rocm_gpu_list}
-do
-    module load rocm/$gpu
+make generate
 
-    echo "BACKEND = hip"              > make.inc
-    echo "FORT = false"              >> make.inc
-    echo "GPU_TARGET = ${ROCM_GPUS}" >> make.inc
+%cmake -G Ninja \
+       -DBLA_VENDOR=FlexiBLAS \
+       -DCMAKE_CXX_COMPILER=hipcc \
+       -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
+       -DCMAKE_INSTALL_LIBDIR=%_libdir \
+       -DMAGMA_ENABLE_HIP=ON \
+       -DUSE_FORTRAN=OFF
 
-    make generate
-
-    %cmake -G Ninja \
-	   -DBLA_VENDOR=FlexiBLAS \
-           -DCMAKE_CXX_COMPILER=hipcc \
-           -DCMAKE_INSTALL_LIBDIR=$ROCM_LIB \
-           -DCMAKE_INSTALL_BINDIR=$ROCM_BIN \
-           -DGPU_TARGET=${ROCM_GPUS} \
-           -DMAGMA_ENABLE_HIP=ON \
-           -DUSE_FORTRAN=OFF
-
-    %cmake_build
-    module purge
-done
+%cmake_build
 
 %install
-for gpu in %{rocm_gpu_list}
-do
-    %cmake_install
-done
+%cmake_install
 
 echo s@%{buildroot}@@ > br.sed
 find %{buildroot}%{_libdir} -name '*.so.*.[0-9]' | sed -f br.sed >  %{name}.files
@@ -172,8 +150,6 @@ find %{buildroot}%{_libdir} -name '*.so'         | sed -f br.sed >  %{name}.deve
 
 %if %{with test}
 %check
-gpu=default
-%{_vpath_builddir}/testing/testing_sgemm
 # Results should be something like
 # % MAGMA 2.8.0 svn 32-bit magma_int_t, 64-bit pointer.
 # % HIP runtime 60140093, driver 60140093. OpenMP threads 12. 

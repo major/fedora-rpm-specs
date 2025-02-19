@@ -1,5 +1,6 @@
 %global forgeurl        https://github.com/wummel/patool
-%global commit          ab64562c8cdac34dfd69fcb6e30c8c0014282d11
+Version:                3.1.3
+%global tag             3.1.3
 
 %forgemeta
 
@@ -27,22 +28,13 @@ The archive formats TAR, ZIP, BZIP2 and GZIP are supported natively and do
 not require helper applications to be installed.}
 
 Name:           patool
-Version:        1.12
-Release:        %autorelease -p
+Release:        %autorelease
 Summary:        Portable command line archive file manager
 
 License:        GPL-3.0-or-later
 URL:            http://wummel.github.io/patool/
 Source:         %{forgesource}
-
-# Move _patool_configdata.py to patoolib to avoid it being in the top-level namespace
-Patch:          patool-1.12-install__patool_configdata_in_private_namespace.patch
-# Star arguments are inheriting from tar ones, but the commands are actually
-# slightly differents. Fixed by adding Star own arguments list.
-Patch:          patool-1.12-fix_star_options.patch
-# Zopfli test: test compression instead of erroneously testing decompression
-# which zopfli doesn't do
-Patch:          patool-1.12-fix_zopfli_test.patch
+Patch:          patool-3.1.3-fix_star_options.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -168,20 +160,17 @@ Python 3 sub-package.
 %install
 %pyproject_install
 %pyproject_save_files %{name}ib
-
-install -Dpm0644 patool.bash-completion %{buildroot}%{bash_completions_dir}/%{name}
+mkdir -p %{buildroot}%{_mandir}/man1/
+install -Dpm 0644 doc/patool.1 %{buildroot}%{_mandir}/man1/patool.1
 
 %check
-# Mime test fails
-rm tests/test_mime.py
-%tox
+%pytest
 
 %files
 %license COPYING
-%doc README.md
+%doc README.md doc/*.md doc/changelog.txt
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1.*
-%{bash_completions_dir}/%{name}
 
 %files -n python3-%{name} -f %{pyproject_files}
 %doc README.md

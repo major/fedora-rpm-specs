@@ -1,6 +1,6 @@
 Name:		perl-Module-Find
-Version:	0.16
-Release:	8%{?dist}
+Version:	0.17
+Release:	1%{?dist}
 Summary:	Find and use installed modules in a (sub)category
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Module-Find
@@ -27,7 +27,7 @@ BuildRequires:	perl(Test::More)
 BuildRequires:	perl(Test::CPAN::Meta)
 BuildRequires:	perl(Test::Pod) >= 1.14
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.04
-# Runtime
+# Dependencies
 Requires:	perl(Exporter)
 
 %description
@@ -61,6 +61,11 @@ make test
 %{_mandir}/man3/Module::Find.3*
 
 %changelog
+* Mon Feb 17 2025 Paul Howarth <paul@city-fan.org> - 0.17-1
+- Update to 0.17
+  - Avoid warnings when extracting the distribution tarball, which prevented
+    installation under cpanm and other tools (GH#13, CPAN RT#148978)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
