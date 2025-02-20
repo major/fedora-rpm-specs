@@ -1,5 +1,5 @@
 Name:    powerdevil
-Version: 6.3.0
+Version: 6.3.1
 Release: 1%{?dist}
 Summary: Manages the power consumption settings of a Plasma Shell
 
@@ -151,6 +151,9 @@ rm -fv %{buildroot}/%{_libdir}/libpowerdevil{configcommonprivate,core,ui}.so
 %{_kf6_datadir}/qlogging-categories6/brightness.categories
 
 %changelog
+* Tue Feb 18 2025 Steve Cossette <farchord@gmail.com> - 6.3.1-1
+- 6.3.1
+
 * Thu Feb 06 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.0-1
 - 6.3.0
 

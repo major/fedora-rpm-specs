@@ -14,6 +14,8 @@ Source0:        %{name}-%{version}-free.tar.xz
 #Source0:        http://downloads.sourceforge.net/%%{name}/%%{name}-%%{version}.tar.xz
 #Source1:        http://downloads.sourceforge.net/%%{name}/%%{name}-%%{version}.tar.xz.asc
 
+Patch0:         scribus-1.6.3-poppler-25.02.0.patch
+
 BuildRequires:  boost-devel
 BuildRequires:  cmake
 BuildRequires:  cups-devel

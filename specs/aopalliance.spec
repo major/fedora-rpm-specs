@@ -45,10 +45,10 @@ API documentation for %{name}.
 %build
 export CLASSPATH=
 export OPT_JAR_LIST=:
-%{ant} -Dbuild.sysclasspath=only jar javadoc -Dant.build.javac.source=1.8 -Dant.build.javac.target=1.8
+%ant -Dbuild.sysclasspath=only jar javadoc -Dant.build.javac.source=1.8 -Dant.build.javac.target=1.8
 
 # Inject OSGi manifest required by Eclipse.
-jar umf %{SOURCE2} build/%{name}.jar
+%jar umf %{SOURCE2} build/%{name}.jar
 
 %install
 %mvn_file : %{name}

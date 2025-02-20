@@ -6,6 +6,7 @@ Summary:	Authoritative and recursive DNS server made with security in mind
 Source0:	http://www.maradns.org/download/3.5/%{version}/%{name}-%{version}.tar.xz
 # http://maradns.samiam.org/download/patches/3rd_party/Thomasz-Torcz-systemd-2013-10-14.patch
 Patch0:		%{name}-0001-add-systemd-unit-files.patch
+Patch1:		%{name}-0002-fix-prototypes-and-signal-handlers.patch
 # parts of MaraDNS – the files in coLunacyDNS/lunacy – are under MIT (Lua) license,
 # but we don't package them
 License:	BSD-2-Clause

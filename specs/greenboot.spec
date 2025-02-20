@@ -1,8 +1,8 @@
 %global debug_package %{nil}
 
 Name:               greenboot
-Version:            0.15.7
-Release:            2%{?dist}
+Version:            0.15.8
+Release:            1%{?dist}
 Summary:            Generic Health Check Framework for systemd
 License:            LGPL-2.1-or-later
 
@@ -13,7 +13,7 @@ License:            LGPL-2.1-or-later
 URL:                https://github.com/%{repo_owner}/%{repo_name}
 Source0:            https://github.com/%{repo_owner}/%{repo_name}/archive/%{repo_tag}.tar.gz
 
-ExcludeArch: s390x
+ExcludeArch: s390x {%ix86}
 BuildRequires:      systemd-rpm-macros
 %{?systemd_requires}
 Requires:           systemd >= 240
@@ -176,6 +176,33 @@ fi
 %{_prefix}/lib/%{name}/check/required.d/02_watchdog.sh
 
 %changelog
+* Tue Feb 18 2025 Packit <hello@packit.dev> - 0.15.8-1
+## What's Changed
+ * ci: add ci test for pull request by @yih-redhat in https://github.com/fedora-iot/greenboot/pull/164
+ * ci: add more wait time for fallback by @yih-redhat in https://github.com/fedora-iot/greenboot/pull/167
+ * ci: fix ansible check failure by @yih-redhat in https://github.com/fedora-iot/greenboot/pull/169
+ * ci: add test case of bootc anaconda iso by @yih-redhat in https://github.com/fedora-iot/greenboot/pull/171
+ * test github token by @yih-redhat in https://github.com/fedora-iot/greenboot/pull/174
+ * update github action by @yih-redhat in https://github.com/fedora-iot/greenboot/pull/177
+ * Update greenboot-ci.yaml by @yih-redhat in https://github.com/fedora-iot/greenboot/pull/179
+ * ci: fix iso case failure by @yih-redhat in https://github.com/fedora-iot/greenboot/pull/173
+ * ci: add support for fedora rawhide by @yih-redhat in https://github.com/fedora-iot/greenboot/pull/181
+ * ci: fix rahide failure by @yih-redhat in https://github.com/fedora-iot/greenboot/pull/183
+ * ci: fix podman retry issue by @yih-redhat in https://github.com/fedora-iot/greenboot/pull/185
+ * ci: add centos-stream-9 support by @yih-redhat in https://github.com/fedora-iot/greenboot/pull/187
+ * ci: add rhel 9.6 support by @yih-redhat in https://github.com/fedora-iot/greenboot/pull/190
+ * ci: fix rhel 9.6 anaconda case failure by @yih-redhat in https://github.com/fedora-iot/greenboot/pull/193
+ * ci: fix secret error by @yih-redhat in https://github.com/fedora-iot/greenboot/pull/195
+ * specfile: Stop building on ix86 by @travier in https://github.com/fedora-iot/greenboot/pull/197
+ * rollback: if no bootc, fallback to rpm-ostree by @runcom in https://github.com/fedora-iot/greenboot/pull/199
+ * fix:fail early for any required script failure by @say-paul in https://github.com/fedora-iot/greenboot/pull/198
+ * Release 0.15.8 by @runcom in https://github.com/fedora-iot/greenboot/pull/202
+
+## New Contributors
+ * @travier made their first contribution in https://github.com/fedora-iot/greenboot/pull/197
+
+ **Full Changelog**: https://github.com/fedora-iot/greenboot/compare/v0.15.7...v0.15.8
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:           guacamole-server
 Version:        1.5.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Server-side native components that form the Guacamole proxy
 License:        Apache-2.0
 URL:            https://guacamole.apache.org/
@@ -17,7 +17,10 @@ Source1:        %{name}.service
 Source2:        %{name}.sysusersd
 # Add compatibility with FFMPEG 7.0
 # https://github.com/apache/guacamole-server/pull/518
-Patch1:         0001-Add-compatibility-with-FFMPEG-7.0.patch
+Patch0:         0001-Add-compatibility-with-FFMPEG-7.0.patch
+# Correct flag comparison in "guac_rwlock_acquire_write_lock" function
+# https://github.com/apache/guacamole-server/pull/508
+Patch1:         https://github.com/apache/guacamole-server/commit/91351aae6d6f3a9f0ae00278d49ab6d596a4a6fe.patch#/guacamole-server-1.5.5-guac_rwlock_acquire_write_lock.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -248,6 +251,10 @@ install -p -m 644 -D %{SOURCE2} %{buildroot}%{_sysusersdir}/guacd.conf
 %attr(750,%{username},%{username}) %{_sharedstatedir}/guacd/
 
 %changelog
+* Tue Feb 18 2025 Robert Scheck <robert@fedoraproject.org> - 1.5.5-6
+- Add upstream patch for microphone input to fix flag comparison
+  in "guac_rwlock_acquire_write_lock" function (GUACAMOLE-1940)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

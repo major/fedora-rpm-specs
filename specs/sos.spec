@@ -1,6 +1,6 @@
 Summary: A set of tools to gather troubleshooting information from a system
 Name: sos
-Version: 4.8.2
+Version: 4.9.0
 Release: %autorelease
 Source0: https://github.com/sosreport/sos/archive/%{version}.tar.gz
 License: GPL-2.0-only
@@ -27,6 +27,9 @@ Recommends: python3-boto3
 # Address duplicate man pages
 BuildRequires:  fdupes
 %endif
+
+# Sent upstream: https://github.com/sosreport/sos/pull/3934
+Patch1: 0001-license-Update-FSF-address-in-license-text.patch
 
 %description
 Sos is a set of tools that gathers information about system
@@ -77,19 +80,17 @@ rm -rf %{buildroot}/usr/config/
 %files
 %if 0%{?fedora} >= 39
 %{_bindir}/sos
-%{_bindir}/sosreport
-%{_bindir}/sos-collector
 %else
 %{_sbindir}/sos
-%{_sbindir}/sosreport
-%{_sbindir}/sos-collector
 %endif
+%dir /etc/sos
 %dir /etc/sos/cleaner
 %dir /etc/sos/presets.d
 %dir /etc/sos/extras.d
 %dir /etc/sos/groups.d
 %{_tmpfilesdir}/%{name}.conf
-%{python3_sitelib}/*
+%{python3_sitelib}/sos/
+%{python3_sitelib}/sos-*info/
 %{_mandir}/man1/*
 %{_mandir}/man5/*
 %doc AUTHORS README.md

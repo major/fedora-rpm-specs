@@ -250,7 +250,7 @@
 
 Name:           uwsgi
 Version:        2.0.28
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -267,6 +267,7 @@ Source3:        emperor.ini
 Source4:        https://github.com/unbit/%{docrepo}/archive/%{commit}/%{docrepo}-%{shortcommit}.tar.gz
 Source5:        README.Fedora
 Source7:        uwsgi.tmpfiles
+Source8:        uwsgi.sysusers
 
 # When adding patches please add to the end, don't
 # reuse intermediate numbers
@@ -372,7 +373,6 @@ Obsoletes:      uwsgi-routers <= 2.0.6
 Obsoletes:      uwsgi-plugin-erlang <= 1.9.20-1
 Obsoletes:      uwsgi-plugin-admin <= 2.0.6
 
-Requires(pre):    shadow-utils
 %{?systemd_requires}
 
 %filter_requires_in %{_usrsrc}
@@ -1500,13 +1500,7 @@ install -D -p -m 0644 %{SOURCE7} %{buildroot}%{_tmpfilesdir}/uwsgi.conf
 install -D -p -m 0755 apache2/.libs/mod_proxy_uwsgi.so %{buildroot}%{_httpd_moddir}/mod_proxy_uwsgi.so
 %endif
 
-
-%pre
-getent group uwsgi >/dev/null || groupadd -r uwsgi
-getent passwd uwsgi >/dev/null || \
-    useradd -r -g uwsgi -d /run/uwsgi -s /sbin/nologin \
-    -c "uWSGI daemon user" uwsgi
-exit 0
+install -m0644 -D %{SOURCE8} %{buildroot}%{_sysusersdir}/uwsgi.conf
 
 %post
 %systemd_post uwsgi.service
@@ -1526,6 +1520,7 @@ exit 0
 %dir %{_sysconfdir}/uwsgi.d
 %doc README README.Fedora CHANGELOG
 %license LICENSE
+%{_sysusersdir}/uwsgi.conf
 
 %files -n uwsgi-devel
 %{_includedir}/uwsgi
@@ -1967,6 +1962,9 @@ exit 0
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.0.28-6
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 2.0.28-5
 - Add explicit BR: libxcrypt-devel
 

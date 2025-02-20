@@ -16,8 +16,8 @@
 %bcond_with          defcmd
 %endif
 
-%global gh_commit    e1cb706f019e2547039ca2c839898cd5f557ee5d
-%global gh_date      2025-02-07
+%global gh_commit    c9bd61aab12f0fc5e82ecfe621ff518a1d1f1049
+%global gh_date      2025-02-18
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -30,7 +30,7 @@
 %global ver_major    11
 %global ver_minor    5
 
-%global upstream_version 11.5.7
+%global upstream_version 11.5.8
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -156,7 +156,7 @@ It is an instance of the xUnit architecture for unit testing frameworks.
 This package provides the version %{ver_major} of PHPUnit,
 available using the %{name} command.
 
-Documentation: https://phpunit.readthedocs.io/
+Documentation: https://phpunit.de/documentation.html
 
 
 %prep
@@ -291,6 +291,9 @@ exit $ret
 
 
 %changelog
+* Tue Feb 18 2025 Remi Collet <remi@remirepo.net> - 11.5.8-1
+- update to 11.5.8
+
 * Fri Feb  7 2025 Remi Collet <remi@remirepo.net> - 11.5.7-1
 - update to 11.5.7
 

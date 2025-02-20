@@ -1205,9 +1205,12 @@ Support for using an existing CEPH cluster as a mutex helper for CTDB
 %package -n libldb
 Summary: A schema-less, ldap like, API and database
 License: LGPL-3.0-or-later
+%if %{without includelibs}
 Requires: libtalloc%{?_isa} >= %{talloc_version}
 Requires: libtdb%{?_isa} >= %{tdb_version}
 Requires: libtevent%{?_isa} >= %{tevent_version}
+# /endif without includelibs
+%endif
 
 Provides: bundled(libreplace)
 Obsoletes: libldb < 0:2.10
@@ -1223,9 +1226,12 @@ servers, or use local tdb databases.
 Summary: Developer tools for the LDB library
 License: LGPL-3.0-or-later
 Requires: libldb%{?_isa} = %{samba_depver}
+%if %{without includelibs}
 Requires: libtdb-devel%{?_isa} >= %{tdb_version}
 Requires: libtalloc-devel%{?_isa} >= %{talloc_version}
 Requires: libtevent-devel%{?_isa} >= %{tevent_version}
+# /endif without includelibs
+%endif
 
 Obsoletes: libldb-devel < 0:2.10
 Provides: libldb-devel = 0:2.10
@@ -1250,7 +1256,10 @@ Tools to manage LDB files
 Summary: Python bindings for the LDB library
 License: LGPL-3.0-or-later
 Requires: libldb%{?_isa} = %{samba_depver}
+%if %{without includelibs}
 Requires: python3-tdb%{?_isa} >= %{tdb_version}
+# /endif without includelibs
+%endif
 Requires: samba-client-libs = %{samba_depver}
 %{?python_provide:%python_provide python3-ldb}
 

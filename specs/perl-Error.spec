@@ -1,7 +1,7 @@
 Name:           perl-Error
 Epoch:          1
-Version:        0.17029
-Release:        17%{?dist}
+Version:        0.17030
+Release:        1%{?dist}
 Summary:        Error/exception handling in an OO-ish way
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND X11
 URL:            https://metacpan.org/release/Error
@@ -69,6 +69,10 @@ make test
 %{_mandir}/man3/Error::Simple.3*
 
 %changelog
+* Tue Feb 18 2025 Paul Howarth <paul@city-fan.org> - 1:0.17030-1
+- Update to 0.17030 (rhbz#2346218)
+  - Fix die/warn hooks for perl 5.41.9 changes (GH#4)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.17029-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

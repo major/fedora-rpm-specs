@@ -2,26 +2,18 @@
 %bcond x11 0
 
 Name:    kwin
-Version: 6.3.0
-Release: 3%{?dist}
+Version: 6.3.1
+Release: 1%{?dist}
 Summary: KDE Window manager
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:     https://userbase.kde.org/KWin
 
 %global plasma_version %(echo %{version} | cut -d. -f1-3)
-#Source0: http://download.kde.org/%{stable_kf6}/plasma/%{plasma_version}/%{name}-%{version}.tar.xz
+
 Source0: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz
 
 ## upstream patches
-
-# core/outputlayer: guard against null m_output (Causes crashes on X11)
-# https://invent.kde.org/plasma/kwin/-/commit/c97bc26ca9de8b1462f6ccb05fb2dafe01cd82cb
-Patch0:  c97bc26ca9de8b1462f6ccb05fb2dafe01cd82cb.patch
-
-# Fix to lower pipewire version requirement on 6.3
-# https://invent.kde.org/plasma/kwin/-/merge_requests/7155
-Patch1:  7155.patch
 
 ## proposed patches
 
@@ -311,6 +303,9 @@ rm -v %{buildroot}%{_kf6_bindir}/kwin_x11 %{buildroot}%{_userunitdir}/plasma-kwi
 
 
 %changelog
+* Tue Feb 18 2025 Steve Cossette <farchord@gmail.com> - 6.3.1-1
+- 6.3.1
+
 * Fri Feb 14 2025 Steve Cossette <farchord@gmail.com> - 6.3.0-3
 - Added pipewire fix to build on lower versions (F40)
 

@@ -6,12 +6,12 @@
 %bcond mingw 1
 
 Name:           flatbuffers
-Version:        25.1.24
+Version:        25.2.10
 # The .so version is equal to the project version since upstream offers no ABI
 # stability guarantees. We manually repeat it here and and use the macro in the
 # file lists as a reminder to avoid undetected .so version bumps. See
 # https://github.com/google/flatbuffers/issues/7759.
-%global so_version 25.1.24
+%global so_version 25.2.10
 Release:        %autorelease
 Summary:        Memory efficient serialization library
 

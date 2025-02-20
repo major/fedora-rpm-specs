@@ -29,8 +29,8 @@
 
 Name:           freerdp
 Epoch:          2
-Version:        3.10.3
-Release:        3%{?dist}
+Version:        3.12.0
+Release:        1%{?dist}
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 
 # The effective license is Apache-2.0 but:
@@ -46,6 +46,11 @@ URL:            http://www.freerdp.com/
 # Run the ./freerdp_download_and_repack.sh script to prepare tarball.
 Source0:        FreeRDP-%{version}-repack.tar.gz
 Source1:        freerdp_download_and_repack.sh
+
+Patch:          locale-keyboard-fix-loading-from-file.patch
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2344338
+Patch:          macro-fix-use-of-WINPR_DEPRECATED.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -218,6 +223,7 @@ find . -name "*.c" -exec chmod 664 {} \;
     -DWITH_TIMEZONE_COMPILED=OFF \
     -DWITH_TIMEZONE_FROM_FILE=ON \
     -DWITH_URIPARSER=%{?_with_uriparser:ON}%{?!_with_uriparser:OFF} \
+    -DWITH_VERBOSE_WINPR_ASSERT=OFF \
     -DWITH_VIDEO_FFMPEG=%{?_with_ffmpeg:ON}%{?!_with_ffmpeg:OFF} \
     -DWITH_WAYLAND=ON \
     -DWITH_WEBVIEW=%{?_with_webview:ON}%{?!_with_webview:OFF} \
@@ -369,6 +375,11 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools3.pc
 
 %changelog
+* Mon Feb 17 2025 Ondrej Holy <oholy@redhat.com> - 2:3.12.0-1
+- Update to 3.12.0 (#2344203, #2344301)
+- Fix use of WINPR_DEPRECATED (#2344338)
+- Disable runtime checks
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:3.10.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

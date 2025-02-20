@@ -1,6 +1,6 @@
 Name:    bluedevil
 Summary: Bluetooth stack for KDE
-Version: 6.3.0
+Version: 6.3.1
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later
@@ -93,6 +93,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.bluedevil
 
 
 %changelog
+* Tue Feb 18 2025 Steve Cossette <farchord@gmail.com> - 6.3.1-1
+- 6.3.1
+
 * Thu Feb 06 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.0-1
 - 6.3.0
 

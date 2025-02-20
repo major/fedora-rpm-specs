@@ -5,8 +5,8 @@
 %bcond server 1
 
 Name:           tigervnc
-Version:        1.14.1
-Release:        5%{?dist}
+Version:        1.15.0
+Release:        1%{?dist}
 Summary:        A TigerVNC remote display system
 
 %global _hardened_build 1
@@ -32,7 +32,6 @@ Patch2:         tigervnc-sbin-bin-merge.patch
 %endif
 
 # Upstream patches
-Patch50:        tigervnc-vncsession-move-existing-log-to-log-old-if-present.patch
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -196,7 +195,6 @@ runs properly under an environment with SELinux enabled.
 %endif
 
 # Upstream patches
-%patch -P50 -p1 -b .vncsession-move-existing-log-to-log-old-if-present.patch
 
 %if %{with server}
 cp -r /usr/share/xorg-x11-server-source/* unix/xserver
@@ -239,7 +237,7 @@ mkdir -p %{__cmake_builddir}
 pushd unix/xserver
 
 %if 0%{?fedora} > 32 || 0%{?rhel} >= 9
-sed -i 's@TIGERVNC_BUILDDIR=${TIGERVNC_SRCDIR}@TIGERVNC_BUILDDIR=${TIGERVNC_SRCDIR}/%{_target_platform}@g' hw/vnc/Makefile.am
+sed -i 's@TIGERVNC_BUILDDIR=${top_builddir}/\.\./\.\.@TIGERVNC_BUILDDIR=${TIGERVNC_SRCDIR}/%{_target_platform}@g' hw/vnc/Makefile.am
 %endif
 
 autoreconf -fiv
@@ -405,6 +403,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Tue Feb 18 2025 Jan Grulich <jgrulich@redhat.com> - 1.15.0-1
+- 1.15.0
+
 * Tue Jan 21 2025 Jan Grulich <jgrulich@redhat.com> - 1.14.1-5
 - Adjust paths for vncsession binary for /sbin and /bin merge
 

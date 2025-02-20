@@ -8,6 +8,8 @@ License:        GPL-3.0-or-later
 URL:            https://github.com/linuxdeepin/dde-file-manager
 Source0:        %{url}/archive/%{version}/%{repo}-%{version}.tar.gz
 
+Patch0:         deepin-file-manager-6.0.56-uint8_t.patch
+
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  ninja-build

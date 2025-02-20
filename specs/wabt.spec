@@ -71,6 +71,10 @@ rm wasm2c/spec/select.txt
 %ifarch ppc64le
 rm spec/conversions.txt
 rm spec/simd_conversions.txt
+# https://github.com/WebAssembly/wabt/issues/2542
+%if 0%{?fedora} > 41
+rm wasm2c/spec/float_exprs.txt
+%endif
 rm wasm2c/spec/simd_address.txt
 rm wasm2c/spec/simd_f32x4_arith.txt
 rm wasm2c/spec/simd_f32x4_pmin_pmax.txt
@@ -200,6 +204,7 @@ test/run-tests.py -v --bindir %{_vpath_builddir} --timeout=1200 %{?_smp_mflags}
 %changelog
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.36-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+- skip failing test on ppc64le with GCC 15 (Dominik Mierzejewski)
 
 * Mon Sep 09 2024 Dominik Mierzejewski <dominik@greysector.net> 1.0.36-1
 - update to 1.0.36 (#2246227)

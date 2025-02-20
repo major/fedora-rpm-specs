@@ -32,10 +32,11 @@
 
 %global ibus_xinit_condition %ibus_panel_condition
 # FIXME: How to write a condition with multiple lines
-%global ibus_panel_condition (%pcd1 or %pcd2 or %pcd3)
+%global ibus_panel_condition (%pcd1 or %pcd2 or %pcd3 or %pcd4)
 %global pcd1 budgie-desktop or cinnamon or deepin-desktop or i3
 %global pcd2 lxqt-session or lxsession or mate-panel or phosh
 %global pcd3 plasma-workspace or sugar or xfce4-session
+%global pcd4 cosmic-panel or hyprland or sway
 
 %if %with_pkg_config
 %if %{with gtk2}
@@ -62,7 +63,7 @@
 Name:           ibus
 Version:        1.5.32~beta2
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -635,6 +636,10 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Wed Feb 19 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.32~beta2-3
+- Fix SEGV in Xorg without IBusWaylandIM
+- Update ibus_panel_condition for Wayland desktops
+
 * Fri Feb 14 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.32~beta2-2
 - Resolves #2342280 Fix ibus start with verbose typo
 

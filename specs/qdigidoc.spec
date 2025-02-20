@@ -8,7 +8,7 @@
 
 Name:           qdigidoc
 Version:        4.6.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Estonian digital signature and encryption application
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -139,6 +139,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/ee.ria.qdigidoc4.des
 %{_datadir}/nautilus-python/extensions/*
 
 %changelog
+* Tue Feb 18 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.6.0-6
+- Rebuilt for flatbuffers 25.2.10
+
 * Sat Feb 08 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.6.0-5
 - Rebuilt for flatbuffers 25.1.24
 

@@ -39,12 +39,12 @@
 %{?static_openssl:%global static_libcrypto 1}
 
 %global openssh_ver 9.9p1
-%global openssh_rel 8
+%global openssh_rel 9
 
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: %{openssh_rel}%{?dist}.1
+Release: %{openssh_rel}%{?dist}
 URL: http://www.openssh.com/portable.html
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz.asc
@@ -200,6 +200,9 @@ Patch1017: openssh-9.9p1-mlkembe.patch
 # upstream 3f02368e8e9121847727c46b280efc280e5eb615
 # upstream 67a115e7a56dbdc3f5a58c64b29231151f3670f5
 Patch1020: openssh-9.9p1-match-regression.patch
+# upstream 6ce00f0c2ecbb9f75023dbe627ee6460bcec78c2
+# upstream 0832aac79517611dd4de93ad0a83577994d9c907
+Patch1021: openssh-9.9p2-error_processing.patch
 
 License: BSD-3-Clause AND BSD-2-Clause AND ISC AND SSH-OpenSSH AND ssh-keyscan AND sprintf AND LicenseRef-Fedora-Public-Domain AND X11-distribute-modifications-variant
 Requires: /sbin/nologin
@@ -357,7 +360,6 @@ gpgv2 --quiet --keyring %{SOURCE3} %{SOURCE1} %{SOURCE0}
 %patch -P 951 -p1 -b .pkcs11-uri
 %patch -P 953 -p1 -b .scp-ipv6
 %patch -P 962 -p1 -b .crypto-policies
-#%patch -P 963 -p1 -b .openssl-evp
 %patch -P 964 -p1 -b .openssl-kdf
 %patch -P 965 -p1 -b .visibility
 %patch -P 966 -p1 -b .x11-ipv6
@@ -385,6 +387,7 @@ gpgv2 --quiet --keyring %{SOURCE3} %{SOURCE1} %{SOURCE0}
 %patch -P 1016 -p1 -b .sep-keysign
 %patch -P 1017 -p1 -b .mlkembe
 %patch -P 1020 -p1 -b .match
+%patch -P 1021 -p1 -b .errcode_set
 
 %patch -P 100 -p1 -b .coverity
 
@@ -663,6 +666,12 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
+* Tue Feb 18 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.9p1-9
+- Fix regression of Match directive processing
+- Fix missing error codes set and invalid error code checks in OpenSSH. It
+  prevents memory exhaustion attack and a MITM attack when VerifyHostKeyDNS
+  is on (CVE-2025-26465, CVE-2025-26466).
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 9.9p1-8.1
 - Add explicit BR: libxcrypt-devel
 

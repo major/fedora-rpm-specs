@@ -8,8 +8,8 @@
 
 Name:    plasma-discover
 Summary: KDE and Plasma resources management GUI
-Version: 6.3.0
-Release: 3%{?dist}
+Version: 6.3.1
+Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/discover
@@ -319,6 +319,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.discover.desk
 
 
 %changelog
+* Tue Feb 18 2025 Steve Cossette <farchord@gmail.com> - 6.3.1-1
+- 6.3.1
+
 * Sun Feb 09 2025 Alessandro Astone <ales.astone@gmail.com> - 6.3.0-3
 - Temporarily disable GNU compiler extensions
   + workaround for rhbz#2342065

@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        24
+Version:        25
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -119,6 +119,9 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Tue Feb 18 2025 Packit <hello@packit.dev> - 25-1
+- Add support for setting keyboard
+
 * Fri Feb 14 2025 Packit <hello@packit.dev> - 24-1
 - cockpit-storage-integration: fix using top level btrfs volume for root mount point (rhbz#2336489)
 - infra: add logic for reporting test results to fedora wiki

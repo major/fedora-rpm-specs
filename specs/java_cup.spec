@@ -67,8 +67,8 @@ find -name parser.cup -delete
 %ant javadoc
 
 # inject OSGi manifests
-jar ufm dist/java-cup-%{pkg_version}.jar %{SOURCE2}
-jar ufm dist/java-cup-%{pkg_version}-runtime.jar %{SOURCE4}
+%jar ufm dist/java-cup-%{pkg_version}.jar %{SOURCE2}
+%jar ufm dist/java-cup-%{pkg_version}-runtime.jar %{SOURCE4}
 
 %install
 %mvn_artifact %{name}:%{name}:%{version} dist/java-cup-%{pkg_version}.jar

@@ -42,20 +42,20 @@ License:        LGPL-2.1-or-later AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
 SourceLicense:  %{license} AND LGPL-2.1-only AND (GPL-3.0-only OR LGPL-2.0-only OR CC-BY-SA-3.0) AND OFL-1.1-RFN
 URL:            http://sdl.perl.org/
 Source0:        https://cpan.metacpan.org/authors/id/F/FR/FROGGS/SDL-%{version}.tar.gz
-# Fix an implicit function declaration, proposed to the upstream,
+# Fix an implicit function declaration, in upstream after 2.548,
 # bug #2177189, <https://github.com/PerlGameDev/SDL/pull/299>.
 Patch0:         SDL-2.548-Fix-implicit-declaration-of-_calc_offset.patch
 # Unbundle Gentium Book Basic font, not suitable for the upstream, the file is
-# delete in %%prep section.
+# deleted in %%prep section.
 Patch1:         SDL-2.548-Unbundle-Gentium-Book-Basic-regular-font.patch
-# Adapt to perl 5.37.1, proposed to upstream,
+# Adapt to perl 5.37.1, in upstream after 2.548,
 # <https://github.com/PerlGameDev/SDL/issues/303>
 Patch2:         SDL-2.548-Adapt-to-perl-5.37.1.patch
 # Fix reference counting an event filter callback, bug #2272636,
-# proposed to the upstream, <https://github.com/PerlGameDev/SDL/pull/308>
+# in upstream after 2.548, <https://github.com/PerlGameDev/SDL/pull/308>
 Patch3:         SDL-2.548-Fix-reference-counting-in-set_event_filter.patch
 # Adapt to GCC 15, bug #2341036,
-# <https://github.com/PerlGameDev/SDL/issues/294>, proposed upstream
+# <https://github.com/PerlGameDev/SDL/issues/294>, in upstream after 2.548,
 # <https://github.com/PerlGameDev/SDL/pull/309>
 Patch4:         SDL-2.548-Fix-building-in-ISO-C23.patch
 BuildRequires:  coreutils

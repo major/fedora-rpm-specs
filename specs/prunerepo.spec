@@ -1,8 +1,15 @@
 Name:    prunerepo
-Version: 1.25
+Version: 1.26
 Summary: Remove old packages from rpm-md repository
-Release: 8%{?dist}
+Release: 1%{?dist}
 Url: https://pagure.io/prunerepo
+
+
+%if 0%{?rhel} > 10 || 0%{?fedora} > 40
+%bcond_without dnf5
+%else
+%bcond_with dnf5
+%endif
 
 # Source is created by:
 # git clone %%url && cd prunerepo
@@ -18,11 +25,20 @@ BuildRequires: python3-rpm
 BuildRequires: createrepo_c
 BuildRequires: asciidoc
 BuildRequires: findutils
-BuildRequires: python3-dnf
+%if %{with dnf5}
+BuildRequires: dnf5-command(repoquery)
+BuildRequires: python3-libdnf5
+Requires: dnf5-command(repoquery)
+%else
+BuildRequires: dnf-command(repoquery)
 BuildRequires: dnf-plugins-core
+Requires: dnf-command(repoquery)
+# F40 needs this explicit requirement
+Requires: /usr/bin/dnf
+BuildRequires: /usr/bin/dnf
+%endif
 BuildRequires: coreutils
 Requires: createrepo_c
-Requires: dnf-plugins-core
 Requires: python3-rpm
 Requires: python3
 
@@ -65,26 +81,10 @@ install -p -m 644 man/prunerepo.1 %{buildroot}/%{_mandir}/man1/
 %{_mandir}/man1/prunerepo.1*
 
 %changelog
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.25-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.25-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 1.25-6
-- Rebuilt for Python 3.13
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.25-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.25-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.25-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.25-2
-- Rebuilt for Python 3.12
+* Tue Feb 18 2025 Pavel Raiskup <praiskup@redhat.com> 1.26-1
+- dnf5 compat: Use file:// in baseurls explicitly
+- pair_srpm_rpm: migrate to DNF5, keep DNF4 backward compat
+- pair_srpm_rpm: use a correct specifier for logging strings
 
 * Tue Jun 06 2023 Pavel Raiskup <praiskup@redhat.com> 1.25-1
 - PruneRepoAnalyzer to use the temporary cachedir, too

@@ -2,7 +2,7 @@
 %global pkgname pytest-doctestplus
 
 Name:           python-%{pkgname}
-Version:        1.3.0
+Version:        1.4.0
 Release:        %autorelease
 Summary:        Pytest plugin with advanced doctest features
 

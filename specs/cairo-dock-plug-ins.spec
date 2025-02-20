@@ -4,13 +4,13 @@
 %global	core_least_ver	3.5.99
 
 %global	use_git	1
-%global	gitdate	20250214
-%global	githash	2fabf995462603ec40db60c25d664817fc0fb756
+%global	gitdate	20250218
+%global	githash	d591880a3912419fe320e46a075f1fa1cb75e7ad
 %global	shorthash	%(c=%{githash} ; echo ${c:0:7})
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
 
-%global	baserelease	2
+%global	baserelease	1
 %global	alphatag		.rc2
 
 
@@ -420,6 +420,9 @@ popd
 %{_datadir}/cairo-dock/plug-ins/Dbus/CDApplet.h
 
 %changelog
+* Tue Feb 18 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.99^20250218gitd591880-1.rc2
+- Update to the latest git (20250218gitd591880)
+
 * Sun Feb 16 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.99^20250214git2fabf99-2.rc2
 - Add BR: json-c for weather module
 

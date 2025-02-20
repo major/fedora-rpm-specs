@@ -1,7 +1,7 @@
 %global pypi_name myst-parser
 
 Name:           python-%{pypi_name}
-Version:        4.0.0
+Version:        4.0.1
 Release:        %autorelease
 Summary:        A commonmark compliant parser, with bridges to docutils & sphinx
 
@@ -9,12 +9,6 @@ Summary:        A commonmark compliant parser, with bridges to docutils & sphinx
 License:        MIT
 URL:            https://github.com/executablebooks/MyST-Parser
 Source0:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
-
-# Fix the expected test output
-Patch:          https://github.com/executablebooks/MyST-Parser/pull/973.patch
-
-# Patch for compatibility with Sphinx 8
-Patch:          https://github.com/executablebooks/MyST-Parser/pull/993.patch
 
 BuildArch:      noarch
 

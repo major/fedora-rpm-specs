@@ -40,6 +40,7 @@ rendered image data.
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       cmake%{?_isa}
+Requires:       imath-devel%{?_isa}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for developing

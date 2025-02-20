@@ -6,8 +6,8 @@ Name: binutils%{?_with_debug:-debug}
 # A version number of X.XX.90 is a pre-release snapshot.
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
-Version: 2.44
-Release: 3%{?dist}
+Version: 2.44.50
+Release: 1%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -107,9 +107,9 @@ URL: https://sourceware.org/binutils
 # too many controversial patches so we stick with the official GNU version
 # instead.
 
-%define source official-release
+# %%define source official-release
 # %%define source pre-release
-# %%define source snapshot
+%define source snapshot
 # %%define source tarball
 
 # For snapshots and tarballs an extension is used to indicate the commit ID.
@@ -117,7 +117,7 @@ URL: https://sourceware.org/binutils
 # correctly.  Note %%(echo) is used because you cannot directly set a
 # spec variable to a hexadecimal string value.
 
-# %%define commit_id %%(echo "f832531609d")
+%define commit_id %(echo "1256b9860f3")
 
 #----End of Configure Options------------------------------------------------
 
@@ -193,17 +193,17 @@ URL: https://sourceware.org/binutils
 
 #----------------------------------------------------------------------------
 
-%if "%{source}" == "tarball"
-Source0: binutils-%{version}-%{commit_id}.tar.xz
-%endif
-%if "%{source}" == "snapshot"
-Source0: binutils-%{version}-%{commit_id}.tar.xz
+%if "%{source}" == "official-release"
+Source0: https://ftp.gnu.org/gnu/binutils/binutils-with-gold-%{version}.tar.xz
 %endif
 %if "%{source}" == "pre-release"
 Source0: binutils-%{version}.tar.xz
 %endif
-%if "%{source}" == "official-release"
-Source0: https://ftp.gnu.org/gnu/binutils/binutils-with-gold-%{version}.tar.xz
+%if "%{source}" == "snapshot"
+Source0: binutils-with-gold-%{version}-%{commit_id}.tar.xz
+%endif
+%if "%{source}" == "tarball"
+Source0: binutils-%{version}-%{commit_id}.tar.xz
 %endif
 
 Source1: binutils-2.19.50.0.1-output-format.sed
@@ -577,7 +577,7 @@ use by developers.  It is NOT INTENDED FOR PRODUCTION use.
 %prep
 
 %if "%{source}" == "snapshot"
-%autosetup -p1 -n binutils-%{version}-%{commit_id}
+%autosetup -p1 -n binutils-with-gold-%{version}-%{commit_id}
 %elif "%{source}" == "official-release"
 %autosetup -p1 -n binutils-with-gold-%{version}
 %else
@@ -1427,6 +1427,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Tue Feb 18 2025 Nick Clifton <nickc@redhat.com> - 2.44.50-1
+- Rebase to commit 1256b9860f3
+
 * Fri Feb 07 2025 Nick Clifton <nickc@redhat.com> - 2.44-3
 - Fix seg fault in AArch64 linker when building u-boot.  (#2326190)
 

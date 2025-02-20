@@ -1,4 +1,4 @@
-%global candidate rc1
+%global candidate rc2
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -7,7 +7,7 @@
 
 Name:     uboot-tools
 Version:  2025.04
-Release:  0.2%{?candidate:.%{candidate}}%{?dist}
+Release:  0.3%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -27,7 +27,7 @@ Patch3:   uefi-initial-find_fdt_location-for-finding-the-DT-on-disk.patch
 Patch4:   disable-VBE-by-default.patch
 Patch5:   enable-bootmenu-by-default.patch
 # Should be upstream but it's taking time
-#Patch6:   Add-video-damage-tracking.patch
+Patch6:   Add-video-damage-tracking.patch
 
 # Device improvments
 # RPi
@@ -225,6 +225,9 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Tue Feb 11 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2025.04-0.3.rc2
+- Update to 2025.05 RC2
+
 * Tue Feb 11 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2025.04-0.2.rc1
 - Update to 2025.05 RC1
 

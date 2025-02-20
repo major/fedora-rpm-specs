@@ -1238,7 +1238,7 @@ popd
 # Configure sphinx:
 # Build man-pages but no HTML docs using sphinx
 %global cmake_config_args %{cmake_config_args} \\\
-	-DSPHINX_EXECUTABLE=%{_bindir}/sphinx-build-3 \\\
+	-DSPHINX_EXECUTABLE=/usr/bin/sphinx-build-3 \\\
 	-DSPHINX_OUTPUT_HTML:BOOL=OFF \\\
 	-DSPHINX_OUTPUT_MAN:BOOL=ON \\\
 	-DSPHINX_WARNINGS_AS_ERRORS=OFF

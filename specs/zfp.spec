@@ -3,13 +3,15 @@
 
 Name:           zfp
 Version:        1.0.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Library for compressed numerical arrays with high throughput R/W random access
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://computation.llnl.gov/projects/floating-point-compression
 Source0:        https://github.com/LLNL/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+# Fix setup.py syntax and add pyproject.toml.
+Patch:          https://github.com/LLNL/%{name}/pull/237.patch
 
 BuildRequires:  cmake3
 BuildRequires:  gcc-c++
@@ -52,17 +54,36 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 
+%package     -n python3-zfpy
+Summary:        zfp compression in Python
+
+BuildRequires:  python3-devel
+
+%description -n python3-zfpy
+The python3-zfpy package contains a Python library for using %{name}.
+
+
 %prep
-%setup -q
+%autosetup -p1
+
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
 %cmake3 -DCMAKE_SKIP_INSTALL_RPATH=YES -DHAVE_LIBM_MATH=YES
 %cmake3_build
 
+export LDFLAGS="$LDFLAGS -L$PWD/%{_vpath_builddir}/%{_lib}/"
+%pyproject_wheel
+
 
 %install
 %cmake3_install
+
+%pyproject_install
+%pyproject_save_files -l zfpy
 
 
 %ldconfig_scriptlets
@@ -80,8 +101,13 @@ developing applications that use %{name}.
 %{_libdir}/libzfp.so
 %{_libdir}/cmake/zfp/
 
+%files -n python3-zfpy -f %{pyproject_files}
+
 
 %changelog
+* Tue Jan 21 2025 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.0.1-6
+- Add Python subpackage
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -14,10 +14,10 @@ URL: https://www.python.org/
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
 %global general_version %{pybasever}.0
-%global prerel a4
+%global prerel a5
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 3%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -57,28 +57,28 @@ License: Python-2.0.1
 # This needs to be manually updated when we update Python.
 # Explore the sources tarball (you need the version before %%prep is executed):
 #  $ tar -tf Python-%%{upstream_version}.tar.xz | grep whl
-%global pip_version 24.3.1
+%global pip_version 25.0.1
 %global setuptools_version 67.6.1
 %global wheel_version 0.43.0
 # All of those also include a list of indirect bundled libs:
 # pip
 #  $ %%{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/ensurepip/_bundled/pip-*.whl pip/_vendor/vendor.txt)
 %global pip_bundled_provides %{expand:
-Provides: bundled(python3dist(cachecontrol)) = 0.14
+Provides: bundled(python3dist(cachecontrol)) = 0.14.1
 Provides: bundled(python3dist(certifi)) = 2024.8.30
 Provides: bundled(python3dist(distlib)) = 0.3.9
 Provides: bundled(python3dist(distro)) = 1.9
-Provides: bundled(python3dist(idna)) = 3.7
-Provides: bundled(python3dist(msgpack)) = 1.0.8
-Provides: bundled(python3dist(packaging)) = 24.1
-Provides: bundled(python3dist(platformdirs)) = 4.2.2
+Provides: bundled(python3dist(idna)) = 3.10
+Provides: bundled(python3dist(msgpack)) = 1.1
+Provides: bundled(python3dist(packaging)) = 24.2
+Provides: bundled(python3dist(platformdirs)) = 4.3.6
 Provides: bundled(python3dist(pygments)) = 2.18
-Provides: bundled(python3dist(pyproject-hooks)) = 1
+Provides: bundled(python3dist(pyproject-hooks)) = 1.2
 Provides: bundled(python3dist(requests)) = 2.32.3
 Provides: bundled(python3dist(resolvelib)) = 1.0.1
-Provides: bundled(python3dist(rich)) = 13.7.1
+Provides: bundled(python3dist(rich)) = 13.9.4
 Provides: bundled(python3dist(setuptools)) = 70.3
-Provides: bundled(python3dist(tomli)) = 2.0.1
+Provides: bundled(python3dist(tomli)) = 2.2.1
 Provides: bundled(python3dist(truststore)) = 0.10
 Provides: bundled(python3dist(typing-extensions)) = 4.12.2
 Provides: bundled(python3dist(urllib3)) = 1.26.20
@@ -351,28 +351,16 @@ Source11: idle3.appdata.xml
 # pypa/distutils integration: https://github.com/pypa/distutils/pull/70
 Patch251: 00251-change-user-install-location.patch
 
-# 00448 # e145ddea32596809c4222b05444c645eed2ea3af
-# gh-128916: Do not set `SO_REUSEPORT` on non-`AF_INET*` sockets (GH-128933)
+# 00451 # 6b2c3f979219408cc0d48262c31f14a7da418ae2
+# gh-130030: Fix crash on 32-bit Linux with free threading (gh-130043)
 #
-# * gh-128916: Do not set `SO_REUSEPORT` on non-`AF_INET*` sockets
+# The `gc_get_refs` assertion needs to be after we check the alive and
+# unreachable bits. Otherwise, `ob_tid` may store the actual thread id
+# instead of the computed `gc_refs`, which may trigger the assertion if
+# the `ob_tid` looks like a negative value.
 #
-# Do not attempt to set ``SO_REUSEPORT`` on sockets of address familifies other
-# than ``AF_INET`` and ``AF_INET6``, as it is meaningless with these address
-# families, and the call with fail with Linux kernel 6.12.9 and newer.
-#
-# * Apply suggestions from code review
-#
-#
-# ---------
-Patch448: 00448-gh-128916-do-not-set-so_reuseport-on-non--af_inet-sockets-gh-128933.patch
-
-# 00449 # ddd832ac88676343c94b57af00f892928d2c242d
-# gh-128889: Zero out memory ctypes for generated struct layout tests (GH-128944)
-Patch449: 00449-gh-128889-zero-out-memory-ctypes-for-generated-struct-layout-tests-gh-128944.patch
-
-# 00450 # 4ab8663661748eb994c09e4ae89f59eb84c5d3ea
-# CVE-2025-0938: Disallow square brackets ([ and ]) in domain names for parsed URLs
-Patch450: 00450-cve-2025-0938-disallow-square-brackets-and-in-domain-names-for-parsed-urls.patch
+# Also fix a few type warnings on 32-bit systems.
+Patch451: 00451-gh-130030-fix-crash-on-32-bit-linux-with-free-threading-gh-130043.patch
 
 # (New patches go here ^^^)
 #
@@ -1264,8 +1252,8 @@ CheckPython() {
   # test.test_concurrent_futures.test_deadlock tends to time out on s390x and ppc64le in
   # freethreading{,-debug} build, skipping it to shorten the build time
   # see: https://github.com/python/cpython/issues/121719
-  # test_init_pyvenv_cfg is failing since 3.14.0a4, the issue is known upstream:
-  # https://github.com/python/cpython/issues/128690
+  # test_external_inspection sometimes fails on freethreading-debug
+  # see: https://github.com/python/cpython/issues/130035
   LD_LIBRARY_PATH=$ConfDir $ConfDir/python -m test.regrtest \
     -wW --slowest %{_smp_mflags} \
     %ifarch riscv64
@@ -1275,7 +1263,7 @@ CheckPython() {
     %endif
     -i test_freeze_simple_script \
     -i test_check_probes \
-    -i test_init_pyvenv_cfg \
+    -i test_external_inspection \
     %ifarch %{mips64}
     -x test_ctypes \
     %endif
@@ -1717,6 +1705,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Wed Feb 12 2025 Karolina Surma <ksurma@redhat.com> - 3.14.0~a5-1
+- Update to Python 3.14.0a5
+
 * Thu Feb 06 2025 Miro Hrončok <mhroncok@redhat.com> - 3.14.0~a4-3
 - Rebuilt with mpdecimal 4.0.0
 

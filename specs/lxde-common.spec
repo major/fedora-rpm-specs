@@ -21,7 +21,7 @@
 
 Name:			lxde-common
 Version:		0.99.2
-Release:		27%{?git_version:.%{?git_version}}%{?dist}
+Release:		28%{?git_version:.%{?git_version}}%{?dist}
 Summary:		Default configuration files for LXDE
 
 # SPDX confirmed
@@ -96,12 +96,10 @@ Desktop Environment.
 # patched with patch 100.
 sed -i 's|id=fedora-|id=|' lxpanel/panel.in
 
-# Fedora 37 changed default background file format
-# This is reverted, even on F-38
-#%%if 0%{?fedora} >= 37
-%if 0
-sed -i.f37 pcmanfm/pcmanfm.conf.in \
-	-e '\@wallpaper=@s|default.png|default.webp|'
+# Fedora 43 changed default background file format
+%if 0%{?fedora} >= 42
+sed -i.f43 pcmanfm/pcmanfm.conf.in \
+	-e '\@wallpaper=@s|default.png|default.jxl|'
 %endif
 
 # Calling autotools must be done before executing
@@ -169,6 +167,9 @@ install -cpm 0644 %{SOURCE11} %{buildroot}%{_sysconfdir}/xdg/lxsession/libfm/lib
 
 
 %changelog
+* Tue Feb 18 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.99.2-28
+- F-42+: change background image to jxl (ref: bug 2345684)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.2-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

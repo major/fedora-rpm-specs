@@ -1,6 +1,6 @@
 Name:    libkscreen
 Summary: KDE display configuration library
-Version: 6.3.0
+Version: 6.3.1
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later
@@ -88,6 +88,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Tue Feb 18 2025 Steve Cossette <farchord@gmail.com> - 6.3.1-1
+- 6.3.1
+
 * Thu Feb 06 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.3.0-1
 - 6.3.0
 

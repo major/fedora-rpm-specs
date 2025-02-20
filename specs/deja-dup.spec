@@ -1,6 +1,6 @@
 Name:           deja-dup
-Version:        46.1
-Release:        5%{?dist}
+Version:        47.0
+Release:        1%{?dist}
 Summary:        Simple backup tool and frontend for duplicity
 
 License:        GPL-3.0-or-later
@@ -75,6 +75,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.metain
 %{_datadir}/help/*
 
 %changelog
+* Mon Feb 17 2025 Gwyn Ciesla <gwync@protonmail.com> - 47.0-1
+- 47.0
+
 * Thu Jan 23 2025 Gwyn Ciesla <gwync@protonmail.com> - 46.1-5
 - Drop PyDrive2 requires.
 

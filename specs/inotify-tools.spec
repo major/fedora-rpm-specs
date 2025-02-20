@@ -1,6 +1,6 @@
 Name:           inotify-tools
 Version:        4.23.9.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Command line utilities for inotify
 
 # GPL-2.0-only: the project as a whole
@@ -9,6 +9,7 @@ Summary:        Command line utilities for inotify
 License:        GPL-2.0-only AND GPL-2.0-only WITH Linux-syscall-note AND LGPL-2.1-or-later
 URL:            https://github.com/inotify-tools/inotify-tools
 Source0:        https://github.com/inotify-tools/inotify-tools/archive/%{version}/inotify-tools-%{version}.tar.gz
+Patch0:         too-many-args.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  autoconf
@@ -31,7 +32,7 @@ This package contains headers and libraries required to build applications
 that use the libinotifytools library.
 
 %prep
-%setup -q
+%autosetup -p1
 
 
 %build
@@ -88,6 +89,11 @@ rm -rf %{buildroot}/%{_datadir}/doc/
 
 
 %changelog
+* Wed Feb 19 2025 Jan Kratochvil <jan@jankratochvil.net> - 4.23.9.0-4
+- Fix memory corruption with too many arguments
+  https://bugzilla.redhat.com/show_bug.cgi?id=2345921
+- Use %%autosetup
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.23.9.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 %global srcname_ sphinx_autoapi
 
 Name:           python-%{srcname}
-Version:        3.5.0
+Version:        3.6.0
 Release:        %autorelease
 Summary:        Sphinx API documentation generator
 

@@ -429,7 +429,7 @@ mv build/lib0/ant-junit4.jar build/lib/
 
 for jar in build/lib/*.jar; do
   # Make sure that installed JARs are not empty
-  jar tf ${jar} | grep -E -q '.*\.class'
+  %jar tf ${jar} | grep -E -q '.*\.class'
 
   jarname=$(basename $jar .jar)
 

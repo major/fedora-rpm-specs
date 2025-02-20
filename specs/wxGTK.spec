@@ -2,10 +2,11 @@
 %global wxbasename wxBase
 %global gtk3dir bld_gtk3
 %global sover 0
+%bcond_without tests
 
 Name:           wxGTK
 Version:        3.2.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GTK port of the wxWidgets GUI library
 License:        LGPL-2.0-or-later WITH WxWindows-exception-3.1
 URL:            https://www.wxwidgets.org/
@@ -40,12 +41,14 @@ BuildRequires:  graphviz
 BuildRequires:  libsecret-devel
 BuildRequires:  libcurl-devel
 # For Tests
+%if %{with tests}
 BuildRequires:  glibc-langpack-en
 BuildRequires:  mesa-dri-drivers
 BuildRequires:  xclock
 BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  python3-httpbin
 BuildRequires:  vulkan-loader
+%endif
 
 # Can be removed in Fedora 42
 Provides:       wxGTK3 = %version-%{release}
@@ -242,6 +245,7 @@ mv %{buildroot}%{_datadir}/bakefile/presets/*.* %{buildroot}%{_datadir}/bakefile
 %find_lang wxstd-3.2
 
 %check
+%if %{with tests}
 pushd %{gtk3dir}/tests
 make %{?_smp_mflags}
 python3 -m httpbin.core &
@@ -267,6 +271,7 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} wxUSE_XVFB=1 xvfb-run -a \
 %endif
   ~wxHtmlPrintout::Pagination
 popd
+%endif
 
 %post -n %{wxbasename}-devel
 if [ -f %{_bindir}/wx-config ] && [ ! -h %{_bindir}/wx-config ] ; then
@@ -342,6 +347,9 @@ fi
 %doc html
 
 %changelog
+* Tue Feb 18 2025 Scott Talbert <swt@techie.net> - 3.2.6-3
+- Add conditional for disabling tests
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -51,7 +51,7 @@ need libxc version > 3
 
 Name:			nwchem
 Version:		%{major_version}
-Release:		3%{?dist}
+Release:		4%{?dist}
 Summary:		Delivering High-Performance Computational Chemistry to Science
 
 # Automatically converted from old format: ECL 2.0 - review is highly recommended.
@@ -59,14 +59,8 @@ License:		ECL-2.0
 URL:			https://nwchemgit.github.io/
 # Nwchem changes naming convention of tarballs very often!
 Source0:		https://github.com/nwchemgit/nwchem/archive/%{git_hash}.tar.gz
-# Patch for implicit declaration of function ‘Py_SetProgramName' in Python 3.13 https://github.com/nwchemgit/nwchem/issues/950
-
-# https://fedoraproject.org/wiki/Packaging:Guidelines#Compiler_flags
-# One needs to patch gfortran/gcc makefiles in order to use
-# $RPM_OPT_FLAGS (= %%optflags), but an attempt resulted in broken
-# executables http://koji.fedoraproject.org/koji/taskinfo?taskID=6429073
-# even after removing the -Werror=format-security flag
-# https://bugzilla.redhat.com/show_bug.cgi?id=1037075
+# Patch for gcc-15 "error: expected identifier or '(' before 'false'" https://github.com/nwchemgit/nwchem/issues/1072
+Patch0:                 nwchem-7.2.3-hdbm.c.patch
 
 
 %global PKG_TOP ${RPM_BUILD_DIR}/%{name}-%{git_hash}
@@ -185,6 +179,7 @@ This package contains the data files.
 
 %prep
 %setup -q -n %{name}-%{git_hash}
+%patch -P 0 -p0
 
 # See bundling discussion at https://github.com/nwchemgit/nwchem/discussions/905
 # remove the whole src/libext
@@ -229,8 +224,9 @@ sed -i '/libxc_waterdimer_bmk/d' QA/dolibxctests.mpi
 # base settings
 echo "# see https://nwchemgit.github.io/Compiling-NWChem.html" > settings.sh
 echo export NWCHEM_TARGET=%{NWCHEM_TARGET} >> settings.sh
-#
-echo export CC=gcc >> settings.sh
+# https://github.com/nwchemgit/nwchem/issues/1082
+# Use -std=gnu17 to avoid md5wrap.c:48:5: error: too many arguments to function ‘MD5Init’; expected 0, have 1
+echo export CC="'gcc -std=gnu17'" >> settings.sh
 echo export FC=gfortran >> settings.sh
 # https://nwchemgit.github.io/Special_AWCforum/st/id1590/Nwchem-dev.revision26704-src.201....html
 %if 0%{?fedora} >= 21 || 0%{?rhel} >= 9
@@ -527,6 +523,10 @@ mv QA.orig QA
 
 
 %changelog
+* Mon Feb 17 2025 Marcin Dulak <marcindulak@fedoraproject.org> - 7.2.3-4
+- Patch for gcc-15 "error: expected identifier or '(' before 'false'"
+- Use gcc -std=gnu17 to avoid md5wrap.c:48:5: error: too many arguments to function ‘MD5Init’
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

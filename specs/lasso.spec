@@ -1,14 +1,12 @@
 %global with_java 0
-%if 0%{?el7}%{?el8}
+%if 0%{?el8}
 %global with_php 1
 %else
 %global with_php 0
 %endif
 %global with_perl 1
-%global with_python2 0
-%global with_python3 0
+%global with_python3 1
 %global with_wsf 0
-%global obsolete_old_lang_subpackages 0
 %global default_sign_algo "rsa-sha1"
 %global min_hash_algo "sha1"
 
@@ -16,28 +14,12 @@
 %global default_sign_algo "rsa-sha256"
 %endif
 
-%if 0%{?rhel} >= 9
+%if 0%{?fedora} >= 42 || 0%{?rhel} >= 9
 %global min_hash_algo "sha256"
 %endif
 
 %if %{with_php}
-%if "%{php_version}" < "5.6"
-%global ini_name     %{name}.ini
-%else
 %global ini_name     40-%{name}.ini
-%endif
-%endif
-
-%if 0%{?el7}
-  %global obsolete_old_lang_subpackages 1
-%endif
-
-%if 0%{?el7}
-  %global with_python2 1
-%endif
-
-%if 0%{?fedora} || 0%{?rhel} >= 8
-  %global with_python3 1
 %endif
 
 %global configure_args %{nil}
@@ -60,11 +42,7 @@
 %endif
 
 %if %{with_php}
-  %if 0%{?fedora} || 0%{?rhel} > 7
-    %global configure_args %{configure_args} --enable-php5=no --enable-php7=yes --with-php7-config-dir=%{php_inidir}
-  %else
-    %global configure_args %{configure_args} --enable-php5=yes --with-php5-config-dir=%{php_inidir} --enable-php7=no
-  %endif
+  %global configure_args %{configure_args} --enable-php5=no --enable-php7=yes --with-php7-config-dir=%{php_inidir}
 %else
   %global configure_args %{configure_args} --enable-php5=no --enable-php7=no
 %endif
@@ -73,7 +51,7 @@
   %global configure_args %{configure_args} --enable-wsf --with-sasl2=%{_prefix}/sasl2
 %endif
 
-%if !%{with_python2} && !%{with_python3}
+%if !%{with_python3}
   %global configure_args %{configure_args} --disable-python
 %endif
 
@@ -81,7 +59,7 @@
 Summary: Liberty Alliance Single Sign On
 Name: lasso
 Version: 2.8.2
-Release: 15%{?dist}
+Release: 16%{?dist}
 License: GPL-2.0-or-later
 URL: https://lasso.entrouvert.org/
 Source: https://dev.entrouvert.org/lasso/lasso-%{version}.tar.gz
@@ -99,6 +77,8 @@ Patch6: 3e6f9076e19368b29a932373955a5dccd2f3cc46.patch
 Patch7: lasso-2.8.2-python_313.patch
 # fix build with automake-1.17
 Patch8: automake-version.patch
+# GCC 15 (https://git.entrouvert.org/entrouvert/lasso/pulls/27.patch)
+Patch9: lasso-2.8.2-gcc15.patch
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -111,15 +91,9 @@ BuildRequires: libtool-ltdl-devel
 BuildRequires: libxml2-devel
 BuildRequires: make
 BuildRequires: openssl-devel
-%if 0%{?el7}
-BuildRequires: python
-BuildRequires: python2-six
-%endif
-%if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires: python3
 BuildRequires: python3-six
 BuildRequires: (python3-setuptools if python3 >= 3.12)
-%endif
 BuildRequires: swig
 BuildRequires: xmlsec1-devel
 BuildRequires: xmlsec1-openssl-devel
@@ -175,11 +149,6 @@ BuildRequires: jpackage-utils
 Requires: java-headless
 Requires: jpackage-utils
 Requires: %{name}%{?_isa} = %{version}-%{release}
-%if %{obsolete_old_lang_subpackages}
-Provides: %{name}-java = %{version}-%{release}
-Provides: %{name}-java%{?_isa} = %{version}-%{release}
-Obsoletes: %{name}-java < %{version}-%{release}
-%endif
 
 %description -n java-%{name}
 Java language bindings for the lasso (Liberty Alliance Single Sign On) library.
@@ -199,24 +168,6 @@ PHP language bindings for the lasso (Liberty Alliance Single Sign On) library.
 
 %endif
 
-%if %{with_python2}
-%package -n python2-%{name}
-%{?python_provide:%python_provide python2-%{name}}
-Summary: Liberty Alliance Single Sign On (lasso) Python bindings
-BuildRequires: python2-devel
-%{?el7:BuildRequires: python-lxml}
-Requires: python2
-Requires: %{name}%{?_isa} = %{version}-%{release}
-%if %{obsolete_old_lang_subpackages}
-Provides: %{name}-python = %{version}-%{release}
-Provides: %{name}-python%{?_isa} = %{version}-%{release}
-Obsoletes: %{name}-python < %{version}-%{release}
-%endif
-
-%description -n python2-%{name}
-Python language bindings for the lasso (Liberty Alliance Single Sign On)
-library.
-%endif
 
 %if %{with_python3}
 %package -n python3-%{name}
@@ -234,7 +185,7 @@ library.
 
 %prep
 %setup -q
-%{!?el7:%patch -P 01 -p1}
+%patch -P 01 -p1
 %patch -P 02 -p1
 %patch -P 3 -p1
 %patch -P 4 -p1
@@ -242,28 +193,17 @@ library.
 %patch -P 6 -p1
 %patch -P 7 -p1
 %patch -P 8 -p1
+%patch -P 9 -p1
 
 # Remove any python script shebang lines (unless they refer to python3)
 sed -i -E -e '/^#![[:blank:]]*(\/usr\/bin\/env[[:blank:]]+python[^3]?\>)|(\/usr\/bin\/python[^3]?\>)/d' \
   `grep -r -l -E '^#![[:blank:]]*(/usr/bin/python[^3]?)|(/usr/bin/env[[:blank:]]+python[^3]?)' *`
 
 %build
-%{?with_java:export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk}
-./autogen.sh
-%if 0%{?with_python2}
-  %configure %{configure_args} --with-python=%{__python2}
-  pushd lasso
-  %make_build CFLAGS="%{optflags}"
-  popd
-  pushd bindings/python
-  %make_build CFLAGS="%{optflags}"
-  make check CK_TIMEOUT_MULTIPLIER=5
-  mkdir py2
-  mv lasso.py .libs/_lasso.so py2
-  popd
-  make clean
+%if 0%{?with_java}
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk
 %endif
-
+./autogen.sh
 %if 0%{?with_python3}
   %configure %{configure_args} --with-python=%{__python3}
 %else
@@ -278,13 +218,6 @@ make check CK_TIMEOUT_MULTIPLIER=10
 %make_install exec_prefix=%{_prefix}
 find %{buildroot} -type f -name '*.la' -exec rm -f {} \;
 find %{buildroot} -type f -name '*.a' -exec rm -f {} \;
-
-%if 0%{?with_python2}
-  # Install Python 2 files saved from first build
-  install -d -m 0755 %{buildroot}/%{python2_sitearch}
-  install -m 0644 bindings/python/py2/lasso.py %{buildroot}/%{python2_sitearch}
-  install -m 0755 bindings/python/py2/_lasso.so %{buildroot}/%{python2_sitearch}
-%endif
 
 # Perl subpackage
 %if %{with_perl}
@@ -338,12 +271,6 @@ rm -fr %{buildroot}%{_docdir}/%{name}
 %{_datadir}/php/%{name}/lasso.php
 %endif
 
-%if %{with_python2}
-%files -n python2-%{name}
-%{python2_sitearch}/lasso.py*
-%{python2_sitearch}/_lasso.so
-%endif
-
 %if %{with_python3}
 %files -n python3-%{name}
 %{python3_sitearch}/lasso.py*
@@ -352,6 +279,12 @@ rm -fr %{buildroot}%{_docdir}/%{name}
 %endif
 
 %changelog
+* Tue Feb 18 2025 Xavier Bachelot <xavier@bachelot.org> - 2.8.2-16
+- Drop EL7/python2 support
+- Set min_hash_algo to sha256 for f42+
+- Fix conditional around JAVA_HOME export
+- Add patch to fix build with gcc15
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

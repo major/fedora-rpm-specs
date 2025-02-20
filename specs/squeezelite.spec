@@ -46,7 +46,6 @@ BuildRequires:   pulseaudio-libs-devel
 BuildRequires:   soxr-devel
 BuildRequires:   systemd
 
-Requires(pre):   shadow-utils
 %{?systemd_requires}
 
 
@@ -57,6 +56,12 @@ used in place of dedicated Squeezebox network music playing hardware.
 
 %prep
 %forgesetup
+
+# Create a sysusers.d config file
+cat >squeezelite.sysusers.conf <<EOF
+u squeezelite - 'Squeezelite headless streaming music client' %{_sharedstatedir}/%{name} -
+m squeezelite audio
+EOF
 
 
 %build
@@ -83,6 +88,8 @@ install -p -D -t %{buildroot}/%{_mandir}/man1 -m 0644 doc/%{name}.1
 install -p -D -t %{buildroot}/%{_mandir}/man7 -m 0644 %{name}.service.7
 mkdir -p %{buildroot}/%{_sharedstatedir}/%{name}
 
+install -m0644 -D squeezelite.sysusers.conf %{buildroot}%{_sysusersdir}/squeezelite.conf
+
 
 %files
 %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
@@ -95,15 +102,9 @@ mkdir -p %{buildroot}/%{_sharedstatedir}/%{name}
 %{_bindir}/%{name}-pulse
 %{_unitdir}/%{name}.service
 %{_userunitdir}/%{name}.service
+%{_sysusersdir}/squeezelite.conf
 
 
-%pre
-getent group %{name} >/dev/null || groupadd -r %{name}
-getent passwd %{name} >/dev/null || \
-    useradd -r -g %{name} -G audio -d %{_sharedstatedir}/%{name} \
-        -s /sbin/nologin -c "Squeezelite headless streaming music client" \
-        %{name}
-exit 0
 
 
 %post

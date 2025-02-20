@@ -1,24 +1,13 @@
-%global _with_bootstrap %{defined el10}
-
 %bcond_with bootstrap
 
 Name:           python-uvloop
-Version:        0.19.0
+Version:        0.21.0
 Release:        %autorelease
 Summary:        Ultra fast implementation of asyncio event loop on top of libuv
 
 License:        MIT OR Apache-2.0
 URL:            https://github.com/MagicStack/uvloop
 Source:         %{url}/archive/v%{version}/uvloop-%{version}.tar.gz
-
-# Fix compatibility with Cython 3.
-Patch:          https://github.com/MagicStack/uvloop/pull/587.patch
-
-# Fix build with Python 3.13: _Py_RestoreSignals() has been moved to internals
-Patch:          https://github.com/MagicStack/uvloop/pull/604.patch
-
-# Fix test_create_server_4 with Python 3.12.5
-Patch:          https://github.com/MagicStack/uvloop/pull/614.patch
 
 BuildRequires:  gcc
 BuildRequires:  libuv-devel
@@ -63,18 +52,11 @@ sed -r -i \
     -e 's/~=/>=/' \
     pyproject.toml
 
-%if %{without bootstrap}
-# We don’t have aiohttp==3.9.0b0; see if we can make do with the packaged
-# version.
-sed -r -i 's/aiohttp==3.9.0b0;/aiohttp>=3.9.0b0;/' pyproject.toml
-%else
+%if %{with bootstrap}
 # Avoid the circular dependency with python-aiohttp in bootstrap mode, it is
 # used only inside a test in uvloop.
 sed -r -i '/aiohttp/d' pyproject.toml
 %endif
-
-# Require Cython 3.x
-sed -i 's/\(Cython\)(>=0.29.36,<0.30.0)/\1>=3/' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires -x test

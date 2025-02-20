@@ -4,7 +4,7 @@
 Name:           perl-Crypt-SSLeay
 Summary:        OpenSSL glue that provides LWP with HTTPS support
 Version:        0.72
-Release:        45%{?dist}
+Release:        46%{?dist}
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Crypt-SSLeay
 Source0:        https://cpan.metacpan.org/authors/id/N/NA/NANIS/Crypt-SSLeay-%{version}.tar.gz
@@ -34,7 +34,7 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 BuildRequires:  pkgconfig(openssl)
 # Run-time:
-BuildRequires:  /etc/pki/tls/certs/ca-bundle.crt
+BuildRequires:  /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
 BuildRequires:  perl(Carp)
 # DynaLoader not needed if XSLoader is available
 BuildRequires:  perl(Exporter)
@@ -56,7 +56,7 @@ BuildRequires:  perl(HTTP::Request)
 BuildRequires:  perl(LWP::Protocol::https) >= 6.02
 BuildRequires:  perl(LWP::UserAgent)
 %endif
-Requires:       /etc/pki/tls/certs/ca-bundle.crt
+Requires:       /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
 Requires:       perl(XSLoader)
 
 %global __provides_exclude %{?__provides_exclude:__provides_exclude|}^perl\\(DB\\)
@@ -96,7 +96,7 @@ chmod -R u+w %{buildroot}/*
 chmod -R 644 eg/*
 chmod -R 644 certs/*
 rm certs/ca-bundle.crt
-ln -s /etc/pki/tls/certs/ca-bundle.crt certs/ca-bundle.crt
+ln -s /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem certs/ca-bundle.crt
 
 %check
 make test
@@ -111,6 +111,9 @@ make test
 %{_mandir}/man3/Net::SSL.3pm*
 
 %changelog
+* Tue Feb 18 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.72-46
+- Change path to certificates file (bz#2338978)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.72-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

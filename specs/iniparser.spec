@@ -1,11 +1,11 @@
 Name:          iniparser
-Version:       4.2.5
-Release:       2%{?dist}
+Version:       4.2.6
+Release:       1%{?dist}
 Summary:       C library for parsing "INI-style" files
 
 License:       MIT
-URL:           https://github.com/ndevilla/%{name}
-Source0:       https://github.com/ndevilla/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+URL:           https://gitlab.com/%{name}/%{name}
+Source0:       https://gitlab.com/%{name}/%{name}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
 
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -33,7 +33,7 @@ Requires:      %{name}-devel = %{version}-%{release}
 Static library (.a) version of libiniparser.
 
 %prep
-%autosetup
+%autosetup -n %{name}-v%{version}
 
 %build
 %cmake -DBUILD_TESTS=ON -DBUILD_EXAMPLES=ON
@@ -68,6 +68,10 @@ rm -rf %{buildroot}%{_docdir}/%{name}/examples
 %{_libdir}/libiniparser.a
 
 %changelog
+* Tue Feb 18 2025 David Cantrell <dcantrell@redhat.com> - 4.2.6-1
+- Upgrade to iniparser-4.2.6 (#2345965)
+- Upstream moved to gitlab.com
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

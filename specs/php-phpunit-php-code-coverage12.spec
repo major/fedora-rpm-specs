@@ -10,11 +10,11 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    69dde560510151f7d04315fac6c72016cc5d7bc8
+%global gh_commit    2e3038bff41d56114e5396151060f5ac9d2d6751
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner    sebastianbergmann
 %global gh_project   php-code-coverage
-%global gh_date      2025-02-08
+%global gh_date      2025-02-18
 # Packagist
 %global pk_vendor    phpunit
 %global pk_project   php-code-coverage
@@ -25,8 +25,8 @@
 %global ver_major    12
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        12.0.2
-Release:        2%{?dist}
+Version:        12.0.3
+Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
 # SPDX: Main license is BSD-3-Clause
@@ -189,6 +189,9 @@ exit $ret
 
 
 %changelog
+* Tue Feb 18 2025 Remi Collet <remi@remirepo.net> - 12.0.3-1
+- update to 12.0.3
+
 * Mon Feb 10 2025 Remi Collet <remi@remirepo.net> - 12.0.2-2
 - enable test suite
 

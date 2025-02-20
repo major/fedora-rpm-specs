@@ -1,7 +1,7 @@
 Summary: Screen lock and screen saver
 Name: xlockmore
 Version: 5.77
-Release: 4%{?dist}
+Release: 5%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 URL: http://sillycycle.com/xlockmore.html
@@ -43,6 +43,10 @@ GTK based frontend for xlockmore.
 
 %build
 %configure --with-crypt --enable-pam --enable-syslog --disable-setuid --disable-mb
+
+# Work around BZ#2341574
+sed -i 's/^CC =.*/\0 -std=c17/' xglock/Makefile
+
 %{__make} %{?_smp_mflags}
 
 %install
@@ -102,6 +106,9 @@ desktop-file-install \
 %{_bindir}/xglock
 
 %changelog
+* Tue Feb 18 2025 Martin Cermak <mcermak@redhat.com> - 5.77-5
+- Updated for FTBFS (#2341574)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.77-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

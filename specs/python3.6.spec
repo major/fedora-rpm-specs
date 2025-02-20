@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 42%{?dist}
+Release: 43%{?dist}
 # Python is Python
 # pip MIT is and bundles:
 #   appdirs: MIT
@@ -799,6 +799,10 @@ Patch444: 00444-security-fix-for-cve-2024-11168.patch
 # (it has to be named "sinpi", not "sinPi", cf. e.g.
 # https://en.cppreference.com/w/c/experimental/fpext4).
 Patch446: 00446-Resolve-sinpi-name-clash-with-libm.patch
+
+# 00450 # 31aa7c11975e890489e31d8b293c3f92d3ea1180
+# CVE-2025-0938: Disallow square brackets ([ and ]) in domain names for parsed URLs
+Patch450: 00450-cve-2025-0938-disallow-square-brackets-and-in-domain-names-for-parsed-urls.patch
 
 # (New patches go here ^^^)
 #
@@ -2069,6 +2073,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Fri Feb 14 2025 Charalampos Stratakis <cstratak@redhat.com> - 3.6.15-43
+- Security fix CVE-2025-0938
+- Fixes: rhbz#2343277
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 3.6.15-42
 - Add explicit BR: libxcrypt-devel
 

@@ -1,7 +1,7 @@
 %global srcname astroquery
 
 Name:           python-%{srcname}
-Version:        0.4.7
+Version:        0.4.9.post1
 Release:        %autorelease
 Summary:        Python module to access astronomical online data resources
 
@@ -44,7 +44,7 @@ to access online Astronomical data.
 %pyproject_save_files astroquery
 
 %check
-%pyproject_check_import -e '*.test*' -e '*.conftest'
+%pyproject_check_import -e '*.test*' -e '*.conftest' -e '*.dace'
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst

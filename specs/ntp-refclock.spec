@@ -2,17 +2,17 @@
 
 Name:		ntp-refclock
 Version:	0.6
-Release:	7%{?dist}
+Release:	9%{?dist}
 Summary:	Drivers for hardware reference clocks
 License:	BSD-2-Clause AND NTP AND BSD-3-Clause AND BSD-4-Clause AND Beerware
 URL:		https://github.com/mlichvar/ntp-refclock
 Source0:	https://github.com/mlichvar/ntp-refclock/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:	https://downloads.nwtime.org/ntp/4.2.8/ntp-%{ntp_version}.tar.gz
 Patch0:		ntp-refclock-configure-c99.patch
+Patch1:		ntp-refclock-md5cast.patch
 
 BuildRequires:	gcc make systemd pps-tools-devel
 
-Requires(pre):	shadow-utils
 Requires:	udev
 %{?systemd_requires}
 
@@ -39,6 +39,7 @@ for p in $preserve_timestamps ; do
     touch -r $p $p.timestamp
 done
 %patch -P0 -p1 -b .c99
+%patch -P1 -p1 -b .md5cast
 for p in $preserve_timestamps ; do
     touch -r $p.timestamp $p
     rm $p.timestamp
@@ -47,6 +48,11 @@ popd
 
 # Refer to packaged documentation for drivers
 sed -i 's|<https:.*refclock.html>|in %{_pkgdocdir}/drivers/|' ntp-refclock.8
+
+# Create a sysusers.d config file
+cat >ntp-refclock.sysusers.conf <<EOF
+u ntp-refclock - 'Reference clock driver' - -
+EOF
 
 %build
 export CFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing -fno-strict-overflow"
@@ -93,13 +99,8 @@ install -m 644 -p examples/ntp-refclock.service \
 	$RPM_BUILD_ROOT%{_unitdir}/ntp-refclock.service
 install -m 644 -p examples/pps-ldattach@.service \
 	$RPM_BUILD_ROOT%{_unitdir}/pps-ldattach@.service
-
-%pre
-getent group %{name} >/dev/null || groupadd -r %{name}
-getent passwd %{name} >/dev/null || \
-	useradd -r -g %{name} -d / -s /sbin/nologin \
-		-c "Reference clock driver" %{name}
-:
+install -m 644 -D ntp-refclock.sysusers.conf \
+	$RPM_BUILD_ROOT%{_sysusersdir}/ntp-refclock.conf
 
 %post
 %systemd_post ntp-refclock.service
@@ -118,8 +119,15 @@ getent passwd %{name} >/dev/null || \
 %{_sbindir}/%{name}
 %{_mandir}/man8/%{name}.8*
 %{_unitdir}/*.service
+%{_sysusersdir}/ntp-refclock.conf
 
 %changelog
+* Tue Feb 18 2025 Miroslav Lichvar <mlichvar@redhat.com> 0.6-9
+- fix FTBFS due to missing casts
+
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.6-8
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

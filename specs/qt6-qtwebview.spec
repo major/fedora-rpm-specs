@@ -5,16 +5,14 @@
 Summary: Qt6 - WebView component
 Name:    qt6-%{qt_module}
 Version: 6.8.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
 %global majmin %(echo %{version} | cut -d. -f1-2)
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-src-%{version}.tar.xz
 
-# FIXME use/update qt6_qtwebengine_arches
-# 32-bit arches not supported (https://bugreports.qt.io/browse/QTBUG-102143)
-ExclusiveArch: aarch64 x86_64
+%{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
 
 BuildRequires: gcc-c++
 BuildRequires: cmake
@@ -100,6 +98,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Tue Feb 18 2025 Steve Cossette <farchord@gmail.com> - 6.8.2-2
+- Fix package to use qtwebengine arches
+
 * Fri Jan 31 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-1
 - 6.8.2
 

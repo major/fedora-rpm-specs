@@ -342,7 +342,7 @@
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        34
+%global buildver        36
 %global rpmrelease      1
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
@@ -361,7 +361,7 @@
 # Release will be (where N is usually a number starting at 1):
 # - 0.N%%{?extraver}%%{?dist} for EA releases,
 # - N%%{?extraver}{?dist} for GA releases
-%global is_ga           0
+%global is_ga           1
 %if %{is_ga}
 %global build_type GA
 %global ea_designator ""
@@ -1654,6 +1654,9 @@ tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.slowdebug.jdk.%{
 tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.slowdebug.static-libs.%{_arch}.tar.xz
 %endif
 %endif
+
+# there was a bug in 24+36 which accidenatlly added windows man pages
+rm -v %{compatiblename}*%{version}*portable*jdk.%{_arch}/man/man1/{jabswitch,jaccessinspector,jaccesswalker,kinit,klist,ktab}.1
 
 # print out info abot binaries used for repack. The version-less fallbacks are for development only, where can be cheated environment
 echo "Those RPMs are just repacking portable tarballs extracted from portable RPMs" > %{repack_file}

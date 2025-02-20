@@ -119,11 +119,13 @@ This package contains files for developing against libglycin-gtk4.
 
 
 %prep
-%autosetup -n glycin-%{tarball_version} -p1
+%autosetup -n glycin-%{tarball_version} -N
 
 %if %{with bundled_rust_deps}
+%autopatch -p1 -M 0
 %cargo_prep -v vendor
 %else
+%autopatch -p1
 rm -rf vendor
 %cargo_prep
 %endif

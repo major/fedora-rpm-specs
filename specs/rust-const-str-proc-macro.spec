@@ -2,23 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate blake2b_simd
+%global crate const-str-proc-macro
 
-Name:           rust-blake2b_simd
-Version:        1.0.3
+Name:           rust-const-str-proc-macro
+Version:        0.6.2
 Release:        %autorelease
-Summary:        Pure Rust BLAKE2b implementation with dynamic SIMD
+Summary:        Compile-time string operations
 
 License:        MIT
-URL:            https://crates.io/crates/blake2b_simd
+URL:            https://crates.io/crates/const-str-proc-macro
 Source:         %{crates_source}
-# * add missing license text: https://github.com/oconnor663/blake2_simd/pull/31
-Source2:        https://github.com/oconnor663/blake2_simd/raw/refs/tags/1.0.3/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A pure Rust BLAKE2b implementation with dynamic SIMD.}
+Compile-time string operations.}
 
 %description %{_description}
 
@@ -48,34 +46,45 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+std-devel
+%package     -n %{name}+heck-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+std-devel %{_description}
+%description -n %{name}+heck-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
+use the "heck" feature of the "%{crate}" crate.
 
-%files       -n %{name}+std-devel
+%files       -n %{name}+heck-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+uninline_portable-devel
+%package     -n %{name}+http-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+uninline_portable-devel %{_description}
+%description -n %{name}+http-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "uninline_portable" feature of the "%{crate}" crate.
+use the "http" feature of the "%{crate}" crate.
 
-%files       -n %{name}+uninline_portable-devel
+%files       -n %{name}+http-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+regex-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+regex-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "regex" feature of the "%{crate}" crate.
+
+%files       -n %{name}+regex-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-cp -p %{SOURCE2} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

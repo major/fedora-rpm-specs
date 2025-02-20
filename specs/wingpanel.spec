@@ -1,21 +1,17 @@
 %global appname io.elementary.wingpanel
 
-%global commit      0baabaed455102ac300ab67c12d44ee6647006fe
-%global shortcommit %(c=%{commit}; echo ${c:0:7}) 
-%global commitdate  20241219
-
 %global _description %{expand:
 Stylish top panel that holds indicators and spawns an application
 launcher.}
 
 Name:           wingpanel
-Version:        8.0.1^%{commitdate}.git%{shortcommit}
+Version:        8.0.2
 Release:        %autorelease
 Summary:        Stylish top panel
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later
 
 URL:            https://github.com/elementary/wingpanel
-Source0:        %{url}/archive/%{commit}/wingpanel-%{shortcommit}.tar.gz
+Source0:        %{url}/archive/%{version}/wingpanel-%{version}.tar.gz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -62,7 +58,7 @@ This package contains the files required for developing for wingpanel.
 
 
 %prep
-%autosetup -n wingpanel-%{commit} -p1
+%autosetup -n wingpanel-%{version} -p1
 
 
 %build

@@ -1,20 +1,15 @@
 %global pypi_name trio-websocket
 %global pypi_name_underscore %(echo "%{pypi_name}" | tr '-' '_')
 
-# Upcoming release plans?
-# https://github.com/python-trio/trio-websocket/issues/195
-%global commit 4247cd594356d9c1c3911856540faad6f8ca33a8
-%global snapdate 20250130
-
 Name: python-%{pypi_name}
 Summary: WebSocket implementation focused on safety and correctness
 License: MIT
 
-Version: 0.12.0~dev^%{snapdate}%{sub %{commit} 1 7}
+Version: 0.12.1
 Release: 1%{?dist}
 
 URL: https://github.com/python-trio/trio-websocket
-Source: %{URL}/archive/%{commit}/%{pypi_name}-%{commit}.tar.gz
+Source: %{URL}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 
 BuildArch: noarch
 
@@ -56,7 +51,7 @@ for %{pypi_name}.
 
 
 %prep
-%autosetup -p1 -n %{pypi_name}-%{commit}
+%autosetup -p1 -n %{pypi_name}-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -89,6 +84,12 @@ rm docs/build/html/.buildinfo
 
 
 %changelog
+* Tue Feb 18 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.12.1-1
+- Update to v0.12.1
+
+* Mon Feb 17 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 0.12.0-1
+- Update to 0.12.0 (close RHBZ#2346049)
+
 * Tue Feb 11 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 0.12.0~dev^202501304247cd5-1
 - Update to a snapshot for compatibility with trio>=0.25
 

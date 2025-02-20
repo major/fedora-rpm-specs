@@ -19,6 +19,10 @@
     %global     have_vidix  0
 %endif
 
+%if 0%{fedora} >= 41 || 0%{?rhel}
+%global _without_w32dll 1
+%endif
+
 #global         snapshot    1
 %global         date        20250206
 %global         revision    15304
@@ -181,6 +185,7 @@ autoreconf -fiv
     --with-libflac \
     --without-esound \
     --with-wavpack \
+%{?_without_w32dll:    --enable-w32dll=no} \
     --with-real-codecs-path=%{codecdir} \
     --with-w32-path=%{codecdir}
 
@@ -273,7 +278,7 @@ mkdir -p %{buildroot}%{codecdir}
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_decode_to_spdif.so
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_decode_vdpau.so
 %ifarch %{ix86}
-%{_libdir}/xine/plugins/%{plugin_abi}/xineplug_decode_w32dll.so
+%{!?_without_w32dll:%{_libdir}/xine/plugins/%{plugin_abi}/xineplug_decode_w32dll.so}
 %endif
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_dmx_asf.so
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_dmx_audio.so
@@ -359,6 +364,7 @@ mkdir -p %{buildroot}%{codecdir}
 %changelog
 * Fri Feb 07 2025 Xavier Bachelot <xavier@bachelot.org>- 1.2.13-21
 - Add upstream patch for gcc 15
+- Disable w32dll for F42+
 
 * Wed Feb 05 2025 Robert-André Mauchin <zebob.m@gmail.com> - 1.2.13-20
 - Rebuilt for aom 3.11.0

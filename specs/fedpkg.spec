@@ -5,7 +5,7 @@
 
 Name:           fedpkg
 Version:        1.45
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Fedora utility for working with dist-git
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -48,6 +48,9 @@ Patch31:        0031-Add-setuptools-to-dependencies-for-Python-3.12.patch
 Patch32:        0032-Update-expired-token-exception-instructions.patch
 Patch33:        0033-Clone-epel10-branches-with-clone-B.patch
 Patch34:        0034-Update-expired-token-exception-instructions.patch
+Patch35:        0035-releases-info-should-always-show-the-same-order.patch
+Patch36:        0036-Python-3.13-environment-and-renew-testing-image.patch
+Patch37:        0037-Fix-unittests-when-building-for-ELN-target.patch
 
 BuildRequires:  pkgconfig
 BuildRequires:  bash-completion
@@ -130,6 +133,11 @@ mv %{buildroot}%{compdir}/fedpkg.bash %{buildroot}%{compdir}/fedpkg
 
 
 %changelog
+* Tue Feb 18 2025 Ondřej Nosek <onosek@redhat.com> - 1.45-9
+- `releases-info` should always show the same order
+- Python 3.13 environment and renew testing image
+- Fix unittests when building for ELN target
+
 * Mon Feb 17 2025 Ondřej Nosek <onosek@redhat.com> - 1.45-8
 - Patch: Update expired token exception instructions
 

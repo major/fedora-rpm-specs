@@ -17,16 +17,16 @@
 %endif
 
 Name:           ibus-anthy
-Version:        1.5.16
+Version:        1.5.17
 Release:        %autorelease
 Summary:        The Anthy engine for IBus input platform
 License:        GPL-2.0-or-later
 URL:            https://github.com/ibus/ibus/wiki
-Source0:        https://github.com/ibus/ibus-anthy/releases/download/%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/ibus/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
+Source1:        https://github.com/ibus/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz.sum#/%{name}.tar.gz.sum
 
 # Upstreamed patches.
 # Patch0:         %%{name}-HEAD.patch
-Patch0:         %{name}-HEAD.patch
 Patch1:         %{name}-1938129-default-hiragana.patch
 
 BuildRequires:  anthy-unicode-devel
@@ -88,6 +88,11 @@ the functionality of the installed %{name} package.
 
 
 %prep
+SAVED_SUM=$(grep sha512sum %SOURCE1 | awk '{print $2}')
+MY_SUM=$(sha512sum %SOURCE0 | awk '{print $1}')
+if test x"$SAVED_SUM" != x"$MY_SUM" ; then
+    abort
+fi
 %autosetup -S git
 
 %build

@@ -1,12 +1,25 @@
+%if 0%{?suse_version}
+%{?!python_module:%define python_module() python3-%{**}}
+%else
+%global python_files -n python3-tensile-devel
+%define python_sitelib %python3_sitelib
+%define python_subpackages %nil
+%define python_alternative %nil
+%endif
+
 %global upstreamname Tensile
 
 %global rocm_release 6.3
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
+%if 0%{?suse_version}
+Name:           python-tensile-devel
+%else
 Name:           python-tensile
+%endif
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        6%{?dist}
 Summary:        Tool for creating benchmark-driven backend libraries for GEMMs
 
 URL:            https://github.com/ROCmSoftwarePlatform/Tensile
@@ -21,17 +34,27 @@ Patch5:         0005-Add-gfx1152.patch
 Patch6:         0006-Add-gfx1150.patch
 
 BuildRequires:  fdupes
-BuildRequires:  python3-devel
 %if 0%{?suse_version}
-# TW
-BuildRequires:  python311-setuptools
+BuildRequires:  python-rpm-macros
+BuildRequires:  %{python_module setuptools}
+Requires:       hipcc
+Requires:       rocminfo
+Requires:       %{python_module joblib}
+Requires:       %{python_module msgpack}
+Requires:       %{python_module PyYAML}
+Requires(post): update-alternatives
+Requires(postun): update-alternatives
+Requires:       python-rich
+Provides:       python3-tensile = %{version}-%{release}
 %else
+BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
 %endif
 
 # Straight python, but only usable for ROCm which is only on x86_64
 BuildArch:      noarch
 ExclusiveArch:  x86_64
+%python_subpackages
 
 %description
 Tensile is a tool for creating benchmark-driven backend libraries for GEMMs,
@@ -40,25 +63,18 @@ contractions on a GPU. The Tensile library is mainly used as backend library to
 rocBLAS. Tensile acts as the performance backbone for a wide variety of
 'compute' applications running on AMD GPUs.
 
+%if 0%{?fedora}
 # There are headers and code as part of the code generation.
 # This make rpm checkers unhappy
 %package -n python3-tensile-devel
 Summary:        Tool for creating benchmark-driven backend libraries for GEMMs
-%if 0%{?fedora}
+
 Requires:       cmake-filesystem
-%endif
 Requires:       hipcc
 Requires:       rocminfo
-%if 0%{?suse_version}
-# TW
-Requires:       python311-joblib
-Requires:       python311-msgpack
-Requires:       python311-PyYAML
-%else
 Requires:       python3dist(joblib)
 Requires:       python3dist(msgpack)
 Requires:       python3dist(pyyaml)
-%endif
 Provides:       python3-tensile
 
 %description -n python3-tensile-devel
@@ -67,7 +83,7 @@ GEMM-like problems (such as batched GEMM), and general N-dimensional tensor
 contractions on a GPU. The Tensile library is mainly used as backend library to
 rocBLAS. Tensile acts as the performance backbone for a wide variety of
 'compute' applications running on AMD GPUs.
-
+%endif
 
 %prep
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
@@ -96,9 +112,11 @@ sed -i -e 's@if not ignoreCacheCheck and derivedAsmCaps@if False and derivedAsmC
 
 %build
 %py3_build
+%{?python_build: %python_build}
 
 %install
 %py3_install
+%{?python_install: %python_install}
 
 mkdir -p %{buildroot}%{_datadir}/cmake/Tensile
 mv %{buildroot}%{_prefix}/cmake/* %{buildroot}%{_datadir}/cmake/Tensile/
@@ -117,22 +135,59 @@ rm -rf %{buildroot}%{python3_sitelib}/%{upstreamname}/Tests
 rm %{buildroot}%{python3_sitelib}/%{upstreamname}/cmake/*.cmake
 cp %{buildroot}%{_datadir}/cmake/Tensile/*.cmake %{buildroot}%{python3_sitelib}/%{upstreamname}/cmake/
 
-%files -n python3-tensile-devel
+%if 0%{?suse_version}
+%python_clone -a %{buildroot}%{_bindir}/Tensile
+%python_clone -a %{buildroot}%{_bindir}/TensileBenchmarkCluster
+%python_clone -a %{buildroot}%{_bindir}/TensileCreateLibrary
+%python_clone -a %{buildroot}%{_bindir}/TensileGetPath
+%python_clone -a %{buildroot}%{_bindir}/TensileRetuneLibrary
+%python_clone -a %{buildroot}%{_datadir}/cmake/Tensile/TensileConfig.cmake
+%python_clone -a %{buildroot}%{_datadir}/cmake/Tensile/TensileConfigVersion.cmake
+
+
+%post
+%python_install_alternative Tensile
+%python_install_alternative TensileBenchmarkCluster
+%python_install_alternative TensileCreateLibrary
+%python_install_alternative TensileGetPath
+%python_install_alternative TensileRetuneLibrary
+
+%postun
+%python_uninstall_alternative Tensile
+%python_uninstall_alternative TensileBenchmarkCluster
+%python_uninstall_alternative TensileCreateLibrary
+%python_uninstall_alternative TensileGetPath
+%python_uninstall_alternative TensileRetuneLibrary
+
+%endif
+
+
+%files %{python_files}
 %if 0%{?suse_version}
 # Should not have to do this
 %dir %{_datadir}/cmake
 %endif
 %dir %{_datadir}/cmake/Tensile
-%dir %{python3_sitelib}/%{upstreamname}
-%dir %{python3_sitelib}/%{upstreamname}*.egg-info
+%dir %{python_sitelib}/%{upstreamname}
+%dir %{python_sitelib}/%{upstreamname}*.egg-info
 %doc README.md
 %license LICENSE.md
-%{_bindir}/%{upstreamname}*
-%{_datadir}/cmake/Tensile/*.cmake
-%{python3_sitelib}/%{upstreamname}/*
-%{python3_sitelib}/%{upstreamname}*.egg-info/*
+%python_alternative %{_bindir}/Tensile
+%python_alternative %{_bindir}/TensileBenchmarkCluster
+%python_alternative %{_bindir}/TensileCreateLibrary
+%python_alternative %{_bindir}/TensileGetPath
+%python_alternative %{_bindir}/TensileRetuneLibrary
+%python_alternative %{_datadir}/cmake/Tensile/*.cmake
+%{python_sitelib}/%{upstreamname}/*
+%{python_sitelib}/%{upstreamname}*.egg-info/*
 
 %changelog
+* Tue Feb 18 2025 Christian Goll <cgoll@suse.com> 6.3.0-6
+- Fix TW
+
+* Fri Feb 14 2025 Tom Rix <Tom.Rix@amd.com> 6.3.0-5
+- Fix SLE 15.6
+
 * Sat Feb 8 2025 Tom Rix <Tom.Rix@amd.com> 6.3.0-4
 - Remove check
 - Reduce files
