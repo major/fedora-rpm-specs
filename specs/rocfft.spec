@@ -44,7 +44,7 @@
 
 Name:           %{rocfft_name}
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -97,6 +97,7 @@ A library for computing Fast Fourier Transforms (FFT), part of ROCm.
 Summary:        The rocFFT development package
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Provides:       rocfft-devel = %{version}-%{release}
+Requires:       rocm-hip-devel
 
 %description devel
 The rocFFT development package.
@@ -179,6 +180,9 @@ fi
 %endif
 
 %changelog
+* Fri Feb 14 2025 Christoph Junghans <junghans@votca.org> - 6.3.0-6
+- Add missing dep on rocm-hic-devel
+
 * Wed Feb 12 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-5
 - Fix provides
 

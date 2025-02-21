@@ -12,6 +12,7 @@ Summary:   A fast and lightweight IDE using GTK3
 License:   GPL-2.0-or-later AND LicenseRef-Callaway-MIT
 URL:       http://www.geany.org/
 Source0:   http://download.geany.org/%{name}-%{version}.tar.bz2
+Patch0:    geany-2.0-gcc15.patch
 
 BuildRequires: gcc gcc-c++
 BuildRequires: python3-docutils
@@ -67,7 +68,7 @@ This package contains the header files and pkg-config file needed for building
 Geany plug-ins. You do not need to install this package to use Geany.
 
 %prep
-%setup -q
+%autosetup -p1
 
 # remove waf since this isn't needed for the build, we're building the package
 # with autotools
@@ -158,6 +159,7 @@ EOF
 %changelog
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+- Fix build with patch from Gentoo
 
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0-5
 - convert license to SPDX

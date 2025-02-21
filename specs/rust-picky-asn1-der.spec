@@ -5,7 +5,7 @@
 %global crate picky-asn1-der
 
 Name:           rust-picky-asn1-der
-Version:        0.5.1
+Version:        0.5.2
 Release:        %autorelease
 Summary:        ASN.1-DER subset for serde
 

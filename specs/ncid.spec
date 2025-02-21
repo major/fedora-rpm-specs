@@ -1,12 +1,13 @@
 Name:       ncid
 Version:    1.17
-Release:    7%{?dist}
+Release:    8%{?dist}
 Summary:    Network Caller ID server, client and gateways
 Requires:   logrotate
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:    GPL-3.0-or-later
 Url:        http://ncid.sourceforge.net
 Source0:    https://sourceforge.net/projects/ncid/files/%{name}/%{version}/%{name}-%{version}-src.tar.gz
+Patch0:     ncid-exec-wish-fix.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 %if !%{defined fc40} && !%{defined fc41}
@@ -110,7 +111,7 @@ the Festival text-to-speech voice synthesis system.
 
 %prep
 
-%autosetup -n %{name}
+%autosetup -n %{name} -p1
 
 %build
 make %{?_smp_mflags} EXTRA_CFLAGS="$RPM_OPT_FLAGS" libdir libcdir

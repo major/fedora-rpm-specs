@@ -172,6 +172,8 @@ API documentation for %{name}.
 
 #%pom_xpath_inject "pom:dependency[pom:artifactId='guice']" "<scope>provided</scope>" extensions
 
+%mvn_alias :guice :::classes:
+
 %build
 #%mvn_alias "com.google.inject.extensions:" "org.sonatype.sisu.inject:"
 

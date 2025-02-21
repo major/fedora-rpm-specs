@@ -1,7 +1,7 @@
 Summary: Screen lock and screen saver
 Name: xlockmore
-Version: 5.77
-Release: 5%{?dist}
+Version: 5.81
+Release: 1%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 URL: http://sillycycle.com/xlockmore.html
@@ -41,11 +41,19 @@ GTK based frontend for xlockmore.
 
 %{__sed} -i -e "s,/lib,/%{_lib},g;s,-Wno-format,,g;" configure
 
+# See README for X(M)LOCKLDFLAGS explanation
+%{__sed} -i "/^XLOCKLDFLAGS$/d" configure
+%{__sed} -i "/^XMLOCKLDFLAGS$/d" configure
+
 %build
 %configure --with-crypt --enable-pam --enable-syslog --disable-setuid --disable-mb
 
 # Work around BZ#2341574
 sed -i 's/^CC =.*/\0 -std=c17/' xglock/Makefile
+
+# See README for X(M)LOCKLDFLAGS explanation
+sed -i 's/@XLOCKLDFLAGS@//' modes/Makefile
+sed -i 's/@XMLOCKLDFLAGS@//' xmlock/Makefile
 
 %{__make} %{?_smp_mflags}
 
@@ -106,6 +114,9 @@ desktop-file-install \
 %{_bindir}/xglock
 
 %changelog
+* Wed Feb 19 2025 Martin Cermak <mcermak@redhat.com> - 5.81-1
+- Updated to 5.81 (#1837169)
+
 * Tue Feb 18 2025 Martin Cermak <mcermak@redhat.com> - 5.77-5
 - Updated for FTBFS (#2341574)
 

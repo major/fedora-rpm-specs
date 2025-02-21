@@ -22,6 +22,9 @@ Patch0:         0c2b81ac1f9ff29f5012a98f530880b87f416337.patch
 Patch1:         8544f19b59208ae93fc3db0cf41bd386c6aefbcb.patch
 Patch2:         stk-gcc13.patch
 Patch3:         defaultgpu.patch
+Patch4:         c46e1ce457529cc575543eb9186702216913fccd.patch
+# https://github.com/supertuxkart/stk-code/pull/5310
+Patch5:         includes.patch
 
 BuildRequires: make
 BuildRequires: gcc-c++

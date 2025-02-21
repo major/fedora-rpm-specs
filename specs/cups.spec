@@ -22,7 +22,7 @@ Summary: CUPS printing system
 Name: cups
 Epoch: 1
 Version: 2.4.11
-Release: 11%{?dist}
+Release: 12%{?dist}
 # backend/failover.c - BSD-3-Clause
 # cups/md5* - Zlib
 # scheduler/colorman.c - Apache-2.0 WITH LLVM-exception AND BSD-2-Clause
@@ -534,22 +534,30 @@ sed -i.rpmsave '/^\s*<Location \/admin>/a\  AuthType Default\n  Require user @SY
 # required for systemd units
 %systemd_post %{name}.path %{name}.socket %{name}.service
 
+%pre client
+# remove alternatives workaround once C11S is released
+%if 0%{?fedora} >= 42 || 0%{?rhel} > 10
+  %if %{use_alternatives}
+    %{_sbindir}/alternatives --remove-follower print %{_bindir}/lpr.cups print-lpc
+  %endif
+%endif
+
 %post client
 %if %{use_alternatives}
-/usr/sbin/alternatives --install %{_bindir}/lpr print %{_bindir}/lpr.cups 40 \
-	 --slave %{_bindir}/lp print-lp %{_bindir}/lp.cups \
-	 --slave %{_bindir}/lpq print-lpq %{_bindir}/lpq.cups \
-	 --slave %{_bindir}/lprm print-lprm %{_bindir}/lprm.cups \
-	 --slave %{_bindir}/lpstat print-lpstat %{_bindir}/lpstat.cups \
-	 --slave %{_bindir}/cancel print-cancel %{_bindir}/cancel.cups \
-	 --slave %{_sbindir}/lpc print-lpc %{_sbindir}/lpc.cups \
-	 --slave %{_mandir}/man1/cancel.1.gz print-cancelman %{_mandir}/man1/cancel-cups.1.gz \
-	 --slave %{_mandir}/man1/lp.1.gz print-lpman %{_mandir}/man1/lp-cups.1.gz \
-	 --slave %{_mandir}/man8/lpc.8.gz print-lpcman %{_mandir}/man8/lpc-cups.8.gz \
-	 --slave %{_mandir}/man1/lpq.1.gz print-lpqman %{_mandir}/man1/lpq-cups.1.gz \
-	 --slave %{_mandir}/man1/lpr.1.gz print-lprman %{_mandir}/man1/lpr-cups.1.gz \
-	 --slave %{_mandir}/man1/lprm.1.gz print-lprmman %{_mandir}/man1/lprm-cups.1.gz \
-	 --slave %{_mandir}/man1/lpstat.1.gz print-lpstatman %{_mandir}/man1/lpstat-cups.1.gz || :
+%{_sbindir}/alternatives --install %{_bindir}/lpr print %{_bindir}/lpr.cups 40 \
+	 --follower %{_bindir}/lp print-lp %{_bindir}/lp.cups \
+	 --follower %{_bindir}/lpq print-lpq %{_bindir}/lpq.cups \
+	 --follower %{_bindir}/lprm print-lprm %{_bindir}/lprm.cups \
+	 --follower %{_bindir}/lpstat print-lpstat %{_bindir}/lpstat.cups \
+	 --follower %{_bindir}/cancel print-cancel %{_bindir}/cancel.cups \
+	 --follower %{_sbindir}/lpc print-lpc %{_sbindir}/lpc.cups \
+	 --follower %{_mandir}/man1/cancel.1.gz print-cancelman %{_mandir}/man1/cancel-cups.1.gz \
+	 --follower %{_mandir}/man1/lp.1.gz print-lpman %{_mandir}/man1/lp-cups.1.gz \
+	 --follower %{_mandir}/man8/lpc.8.gz print-lpcman %{_mandir}/man8/lpc-cups.8.gz \
+	 --follower %{_mandir}/man1/lpq.1.gz print-lpqman %{_mandir}/man1/lpq-cups.1.gz \
+	 --follower %{_mandir}/man1/lpr.1.gz print-lprman %{_mandir}/man1/lpr-cups.1.gz \
+	 --follower %{_mandir}/man1/lprm.1.gz print-lprmman %{_mandir}/man1/lprm-cups.1.gz \
+	 --follower %{_mandir}/man1/lpstat.1.gz print-lpstatman %{_mandir}/man1/lpstat-cups.1.gz || :
 %endif
 
 %post lpd
@@ -839,6 +847,9 @@ rm -f %{cups_serverbin}/backend/smb
 %{_mandir}/man7/ippeveps.7.gz
 
 %changelog
+* Wed Feb 19 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.11-12
+- fix upgrade path for lpc after sbin->bin change (fedora#2346160)
+
 * Tue Feb 11 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.11-11
 - require setup for user+group lp
 

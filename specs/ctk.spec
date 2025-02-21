@@ -11,6 +11,8 @@ URL: https://commontk.org/
 Source: https://github.com/commontk/CTK/archive/%{version}/CTK-%{version}.tar.gz
 
 Patch: ctk-0.1.20171224git71799c2-fix_qreal_cast.patch
+# backported fix for dcmtk
+Patch: 0001-fix-for-dcmtk-3.6.9.patch
 
 BuildRequires: gcc-c++
 

@@ -9,7 +9,7 @@ Version:        42.0.0
 Release:        %autorelease
 Summary:        Desktop backgrounds
 
-License:        LGPL-2.0-only
+License:        LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later
 Source0:        redhat-backgrounds-%{rh_backgrounds_version}.tar.bz2
 Source2:        Propaganda-1.0.0.tar.gz
 Source3:        README.Propaganda
@@ -40,7 +40,6 @@ Summary:        The default Fedora wallpaper from Budgie desktop
 Requires:       %{fedora_release_name}-backgrounds-budgie
 Requires:       gsettings-desktop-schemas >= 2.91.92
 Provides:       system-backgrounds-budgie = %{version}-%{release}
-License:        CC-BY-SA
 
 %description    budgie
 The desktop-backgrounds-budgie package sets default background in budgie.
@@ -52,7 +51,6 @@ Requires:       %{fedora_release_name}-backgrounds-gnome
 # see gnome bz #633983
 Requires:       gsettings-desktop-schemas >= 2.91.92
 Provides:       system-backgrounds-gnome = %{version}-%{release}
-License:        CC-BY-SA
 
 %description    gnome
 The desktop-backgrounds-gnome package sets default background in gnome.
@@ -61,7 +59,6 @@ The desktop-backgrounds-gnome package sets default background in gnome.
 Summary:        The default Fedora wallpaper for less common DEs
 Requires:       %{fedora_release_name}-backgrounds-base
 Provides:       system-backgrounds-compat = %{version}-%{release}
-License:        CC-BY-SA
 
 %description    compat
 The desktop-backgrounds-compat package contains file-names used

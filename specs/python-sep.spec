@@ -1,7 +1,7 @@
 %global srcname sep
 
 Name: python-%{srcname}
-Version: 1.4.0
+Version: 1.4.1
 Release: %autorelease
 Summary: Astronomical source extraction and photometry in Python
 
@@ -12,8 +12,6 @@ License: MIT AND LGPL-3.0-only AND BSD-3-Clause
 
 URL: http://sep.readthedocs.org/
 Source0: %{pypi_source}
-# https://github.com/sep-developers/sep/issues/165
-Patch: sep_version.patch
 
 BuildRequires: gcc
 BuildRequires: python3-devel
@@ -44,8 +42,6 @@ functions and classes. These operate directly on in-memory numpy arrays
 %autosetup -n %{srcname}-%{version}
 # Unpin setuptools
 sed -i -e "s/setuptools>=61.0, <72.2.0/setuptools/"  pyproject.toml
-# https://github.com/sep-developers/sep/issues/165
-mv src/_version.py src/sep_version.py
 
 %generate_buildrequires
 %pyproject_buildrequires -e py-linux
@@ -56,7 +52,7 @@ mv src/_version.py src/sep_version.py
 %install
 %pyproject_install
 
-%pyproject_save_files sep sep_version
+%pyproject_save_files sep
 
 %check
 %ifarch s390x

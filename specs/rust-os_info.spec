@@ -5,7 +5,7 @@
 %global crate os_info
 
 Name:           rust-os_info
-Version:        3.9.2
+Version:        3.10.0
 Release:        %autorelease
 Summary:        Detect the operating system type and version
 

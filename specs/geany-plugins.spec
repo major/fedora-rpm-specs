@@ -13,17 +13,26 @@ Source0:        http://plugins.geany.org/geany-plugins/geany-plugins-%{version}.
 # Fix various warnings in projectorganizer
 Patch0:         https://github.com/geany/geany-plugins/pull/1315.patch
 Patch1:         https://github.com/geany/geany-plugins/pull/1334.patch
+Patch2:         geany-plugins-2.0-gcc15.patch
 
-BuildRequires:  geany-devel >= %{req_geany_ver} geany-libgeany >= %{req_geany_ver}
-BuildRequires:  gettext intltool pkgconfig
-BuildRequires:  enchant2-devel >= 2.2 gtkspell3-devel >= 2.0
+BuildRequires:  geany-devel >= %{req_geany_ver}
+BuildRequires:  geany-libgeany >= %{req_geany_ver}
+BuildRequires:  gettext
+BuildRequires:  intltool
+BuildRequires:  pkgconfig
+BuildRequires:  enchant2-devel >= 2.2
+BuildRequires:  gtkspell3-devel >= 2.0
 BuildRequires:  libxml2-devel >= 2.6.27
 BuildRequires:  ctpl-devel >= 0.3
 BuildRequires:  gpgme-devel
 BuildRequires:  vte291-devel
-BuildRequires:  libtool cppcheck
+BuildRequires:  libtool
+BuildRequires:  cppcheck
 BuildRequires:  vala
-BuildRequires:  gtk3-devel, libwnck3-devel, GConf2-devel, glib2-devel
+BuildRequires:  libwnck3-devel
+BuildRequires:  pkgconfig(gconf-2.0)
+BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(gtk+-3.0)
 
 %description
 Plugins for Geany. Plugins included are:
@@ -81,7 +90,6 @@ Obsoletes: geany-plugins-debugger <= 1.31
 Obsoletes: geany-plugins-devhelp <= 2.0
 Obsoletes: geany-plugins-geanylua < 1.25
 Obsoletes: geany-plugins-geanypy <= 1.31
-Obsoletes: geany-plugins-markdown <= 1.29
 Obsoletes: geany-plugins-multiterm <= 1.31
 Obsoletes: geany-plugins-scope <= 1.31
 
@@ -597,7 +605,6 @@ BuildRequires: libsoup-devel
 UpdateChecker is a plugin for Geany, which is able to check whether there is
 a more recent version of Geany available.
 
-
 %package vimode
 Summary:   Vim-mode plugin for Geany
 Requires:  geany-plugins-common = %{version}-%{release}
@@ -662,10 +669,10 @@ automatically inserts a matching snippet after you type an opening tag.
 
 %prep
 %autosetup -p1
-autoreconf -fiv
 
 
 %build
+autoreconf -fiv
 %configure --docdir=%{geany_plug_docdir}
 %make_build
 
@@ -684,7 +691,7 @@ find $RPM_BUILD_ROOT -type f -empty -delete
 
 
 %files common -f %{name}.lang
-#%doc NEWS README
+%doc NEWS README
 %dir %{_datadir}/%{name}/
 %dir %{_datadir}/doc/geany-plugins/
 %doc %{_datadir}/doc/geany-plugins/README
@@ -714,7 +721,6 @@ find $RPM_BUILD_ROOT -type f -empty -delete
 %{_libdir}/geany/commander.so
 
 %files debugger
-%defattr(-,root,root,-)
 %doc %{geany_plug_docdir}/debugger
 %{_datadir}/%{name}/debugger/
 %{_libdir}/geany/debugger.so
@@ -749,7 +755,6 @@ find $RPM_BUILD_ROOT -type f -empty -delete
 %{_libdir}/geany/latex.so
 
 #%files geanylua
-#%defattr(-,root,root,-)
 #%doc %{geany_plug_docdir}/geanylua/
 #%{_libdir}/geany/geanylua.so
 #%{_datadir}/%{name}/geanylua/
@@ -802,7 +807,6 @@ find $RPM_BUILD_ROOT -type f -empty -delete
 %{_libdir}/geany/lipsum.so
 
 %files markdown
-%defattr(-,root,root,-)
 %doc %{geany_plug_docdir}/markdown/
 %{_libdir}/geany/markdown.so
 
@@ -828,7 +832,6 @@ find $RPM_BUILD_ROOT -type f -empty -delete
 %{_libdir}/geany/projectorganizer.so
 
 %files scope
-%defattr(-,root,root,-)
 %doc %{geany_plug_docdir}/scope/
 %{_datadir}/geany-plugins/scope/
 %{_libdir}/geany/scope.so
@@ -877,6 +880,7 @@ find $RPM_BUILD_ROOT -type f -empty -delete
 %changelog
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+- Fix the build with geany-plugins-2.0-gcc15.patch from Gentoo
 
 * Tue Jan 14 2025 Pete Walter <pwalter@fedoraproject.org> - 2.0-10
 - Rebuild for libgit2 1.9.x

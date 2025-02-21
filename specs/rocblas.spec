@@ -60,7 +60,7 @@
 
 Name:           %{rocblas_name}
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        BLAS implementation for ROCm
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT AND BSD-3-Clause
@@ -149,6 +149,8 @@ export TENSILE_ROCM_OFFLOAD_BUNDLER_PATH=${CLANG_PATH}/clang-offload-bundler
 # Work around problem with koji's ld
 export HIPCC_LINK_FLAGS_APPEND=-fuse-ld=lld
 
+TP=`/usr/bin/TensileGetPath`
+
 %cmake \
     -DCMAKE_CXX_COMPILER=hipcc \
     -DCMAKE_C_COMPILER=hipcc \
@@ -172,6 +174,7 @@ export HIPCC_LINK_FLAGS_APPEND=-fuse-ld=lld
     -DBUILD_WITH_HIPBLASLT=OFF \
     -DTensile_COMPILER=hipcc \
     -DBUILD_WITH_TENSILE=%{build_tensile} \
+    -DTensile_DIR=${TP}/cmake \
     -DBUILD_WITH_PIP=OFF
 
 %cmake_build
@@ -210,6 +213,9 @@ fi
 %endif
 
 %changelog
+* Wed Feb 19 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-6
+- Use tensile cmake from the python location
+
 * Tue Feb 11 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-5
 - Remove multibuild
 - Fix SLE 15.6

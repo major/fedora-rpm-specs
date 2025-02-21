@@ -14,6 +14,7 @@ Source2: gmp.h
 Source3: gmp-mparam.h
 Patch2: gmp-6.0.0-debuginfo.patch
 Patch3: gmp-intel-cet.patch
+Patch4: gmp-6.3.0-c23.patch
 
 # * Main sources are dual licensed under LGPL-3.0-or-later and GPL-2.0-or-later
 #   Either only one may be active or both simultaneously.

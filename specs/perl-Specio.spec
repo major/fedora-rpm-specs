@@ -6,12 +6,12 @@
 %endif
 
 Name:		perl-Specio
-Version:	0.49
-Release:	2%{?dist}
+Version:	0.50
+Release:	1%{?dist}
 Summary:	Type constraints and coercions for Perl
 # lib/Specio/PartialDump.pm:	GPL-1.0-or-later OR Artistic-1.0-Perl
 #				<https://github.com/houseabsolute/Specio/issues/17>
-# other files:			Artistic-2.0
+# Other files:			Artistic-2.0
 License:	Artistic-2.0 AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
 URL:		https://metacpan.org/release/Specio
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Specio-%{version}.tar.gz
@@ -161,6 +161,11 @@ make test
 %{_mandir}/man3/Test::Specio.3*
 
 %changelog
+* Wed Feb 19 2025 Paul Howarth <paul@city-fan.org> - 0.50-1
+- Update to 0.50
+  - Fixed a bug in the Int type that caused it to accept numbers like
+    124512.000000000123, which when stringified, are stringified as integers
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.49-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

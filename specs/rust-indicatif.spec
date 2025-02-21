@@ -5,7 +5,7 @@
 %global crate indicatif
 
 Name:           rust-indicatif
-Version:        0.17.9
+Version:        0.17.11
 Release:        %autorelease
 Summary:        Progress bar and cli reporting library for Rust
 
@@ -160,7 +160,7 @@ use the "vt100" feature of the "%{crate}" crate.
 %if %{with check}
 %check
 # * skip a brittle test that fails depending on load
-%cargo_test -- -- --skip style::tests::wide_element_style
+%cargo_test -- -- --exact --skip style::tests::wide_element_style
 %endif
 
 %changelog

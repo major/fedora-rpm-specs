@@ -1,8 +1,8 @@
 %define waddir  %{_datadir}/doom
 
 Name:           deutex
-Version:        5.2.2
-Release:        13%{?dist}
+Version:        5.2.3
+Release:        1%{?dist}
 Summary:        DOOM wad file manipulator
 
 # All files LGPLv2+ or GPLv2+ except ./src/lzw.c which is MIT
@@ -47,6 +47,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Feb 19 2025 Gwyn Ciesla <gwync@protonmail.com> - 5.2.3-1
+- 5.2.3
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

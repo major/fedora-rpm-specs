@@ -1,6 +1,6 @@
 %global major_version 3
 %global minor_version 4
-%global teeny_version 1
+%global teeny_version 2
 %global major_minor_version %{major_version}.%{minor_version}
 
 %global ruby_version %{major_minor_version}.%{teeny_version}
@@ -121,9 +121,9 @@
 %global drb_version 2.2.1
 %global getoptlong_version 0.2.1
 %global net_ftp_version 0.3.8
-%global net_imap_version 0.5.4
+%global net_imap_version 0.5.6
 %global net_pop_version 0.1.2
-%global net_smtp_version 0.5.0
+%global net_smtp_version 0.5.1
 %global nkf_version 0.2.0
 %global matrix_version 0.4.2
 %global minitest_version 5.25.4
@@ -278,12 +278,6 @@ Patch6: ruby-2.7.0-Initialize-ABRT-hook.patch
 # Disable syntax_suggest test suite, which tries to download its dependencies.
 # https://bugs.ruby-lang.org/issues/19297
 Patch9: ruby-3.3.0-Disable-syntax-suggest-test-case.patch
-# Don't include <cstdbool> header in C++ environment.
-# https://bugs.ruby-lang.org/issues/21024
-# https://github.com/ruby/ruby/pull/12628
-# See discussion on Ruby 3.5 PR
-# https://github.com/ruby/ruby/pull/12551#discussion_r1913285350
-Patch10: ruby-3.4.2-Bug-21024-cstdbool-header-has-been-useless.patch
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 %{?with_rubypick:Suggests: rubypick}
@@ -776,7 +770,6 @@ analysis result in RBS format, a standard type description format for Ruby
 %patch 4 -p1
 %patch 6 -p1
 %patch 9 -p1
-%patch 10 -p1
 
 # Provide an example of usage of the tapset:
 cp -a %{SOURCE3} .
@@ -1882,7 +1875,11 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 
 
 %changelog
-* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org>
+* Wed Feb 19 2025 Vít Ondruch <vondruch@redhat.com> - 3.4.2-23
+- Upgrade to Ruby 3.4.2.
+  Resolves: rhbz#2345875
+
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 3.4.1-23
 - Add explicit BR: libxcrypt-devel
 
 * Fri Jan 24 2025 Jarek Prokop <jprokop@redhat.com> - 3.4.1-22

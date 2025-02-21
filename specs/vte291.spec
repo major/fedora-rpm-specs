@@ -11,7 +11,7 @@
 %global pcre2_version 10.21
 
 Name:           vte291
-Version:        0.79.0
+Version:        0.79.90
 Release:        1%{?dist}
 Summary:        GTK terminal emulator library
 
@@ -180,6 +180,9 @@ sed -i -e "/^vte_systemduserunitdir =/s|vte_prefix|'/usr'|" meson.build
 %{_sysconfdir}/profile.d/vte.sh
 
 %changelog
+* Wed Feb 19 2025 nmontero <nmontero@redhat.com> - 0.79.90-1
+- Update to 0.79.90
+
 * Wed Feb 12 2025 nmontero <nmontero@redhat.com> - 0.79.90-1
 - Update to 0.79.0
 

@@ -1,9 +1,18 @@
+%if 0%{?suse_version}
+# 15.6
+# rocm-core.x86_64: E: shlib-policy-name-error (Badness: 10000) librocm-core1
+# Your package contains a single shared library but is not named after its SONAME.
+%global core_name librocm-core1
+%else
+%global core_name rocm-core
+%endif
+
 %global upstreamname rocm-core
 %global rocm_release 6.3
-%global rocm_patch 2
+%global rocm_patch 3
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
-Name:           rocm-core
+Name:           %{core_name}
 Version:        %{rocm_version}
 Release:        1%{?dist}
 Summary:        A utility to get the ROCm release version
@@ -15,15 +24,23 @@ Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{ro
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 
+Provides:       rocm-core = %{version}-%{release}
+
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
 
 %description
 %{summary}
 
+%if 0%{?suse_version}
+%post -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
+%endif
+
 %package devel
 Summary:        Libraries and headers for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Provides:       rocm-core-devel = %{version}-%{release}
 
 %description devel
 %{summary}
@@ -43,20 +60,28 @@ rm -rf %{buildroot}/%{_libdir}/rocmmod
 rm -rf %{buildroot}/%{_docdir}/*/LICENSE.txt
 rm -rf %{buildroot}/%{_libexecdir}/%{name}
 
-mv  %{buildroot}/%{_includedir}/%{name}/*.h %{buildroot}/%{_includedir}/
-rm -rf %{buildroot}/%{_includedir}/%{name}
+mv  %{buildroot}/%{_includedir}/rocm-core/*.h %{buildroot}/%{_includedir}/
+rm -rf %{buildroot}/%{_includedir}/rocm-core
+
+find %{buildroot} -type f -name 'runpath_to_rpath.py' -exec rm {} \;
 
 %files
 %license copyright
-%{_libdir}/lib%{name}.so.*
+%{_libdir}/librocm-core.so.*
 
 %files devel
-%dir %{_libdir}/cmake/%{name}
+%dir %{_libdir}/cmake/rocm-core
 %{_includedir}/*.h
-%{_libdir}/lib%{name}.so
-%{_libdir}/cmake/%{name}/*.cmake
+%{_libdir}/librocm-core.so
+%{_libdir}/cmake/rocm-core/*.cmake
 
 %changelog
+* Wed Feb 19 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.3-1
+- Update to 6.3.3
+
+* Mon Feb 10 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-2
+- Fix SLE 15.6
+
 * Wed Jan 29 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-1
 - Update to 6.3.2
 

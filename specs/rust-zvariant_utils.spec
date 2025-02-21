@@ -5,7 +5,7 @@
 %global crate zvariant_utils
 
 Name:           rust-zvariant_utils
-Version:        3.0.2
+Version:        3.2.0
 Release:        %autorelease
 Summary:        Various utilities used internally by the zvariant crate
 

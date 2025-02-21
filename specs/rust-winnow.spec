@@ -5,7 +5,7 @@
 %global crate winnow
 
 Name:           rust-winnow
-Version:        0.6.24
+Version:        0.7.2
 Release:        %autorelease
 Summary:        Byte-oriented, zero-copy, parser combinators library
 
@@ -17,6 +17,9 @@ Source:         %{crates_source}
 # * drop unused, benchmark-only criterion dev-dependency
 # * drop dev-dependencies which are only needed for example binaries
 Patch:          winnow-fix-metadata.diff
+# * fix tests for running without debug_assertions:
+#   https://github.com/winnow-rs/winnow/pull/743
+Patch:          743.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

@@ -16,6 +16,8 @@ BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.google.inject:guice)
+BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
+BuildRequires:  mvn(org.codehaus.plexus:plexus-xml)
 BuildRequires:  mvn(org.codehaus.plexus:plexus:pom:)
 BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.inject)
 BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.plexus)
@@ -34,6 +36,8 @@ API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
+%pom_add_dep org.codehaus.plexus:plexus-utils
+%pom_add_dep org.codehaus.plexus:plexus-xml
 
 # Some tests rely on Jakarta Injection API, which is not packaged
 rm src/test/java/org/codehaus/plexus/testing/TestJakartaComponent.java

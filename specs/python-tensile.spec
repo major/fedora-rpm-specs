@@ -19,7 +19,7 @@ Name:           python-tensile-devel
 Name:           python-tensile
 %endif
 Version:        %{rocm_version}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Tool for creating benchmark-driven backend libraries for GEMMs
 
 URL:            https://github.com/ROCmSoftwarePlatform/Tensile
@@ -133,7 +133,7 @@ rm -rf %{buildroot}%{python3_sitelib}/%{upstreamname}/Tests
 
 # rm hard links and replace
 rm %{buildroot}%{python3_sitelib}/%{upstreamname}/cmake/*.cmake
-cp %{buildroot}%{_datadir}/cmake/Tensile/*.cmake %{buildroot}%{python3_sitelib}/%{upstreamname}/cmake/
+mv %{buildroot}%{_datadir}/cmake/Tensile/*.cmake %{buildroot}%{python3_sitelib}/%{upstreamname}/cmake/
 
 %if 0%{?suse_version}
 %python_clone -a %{buildroot}%{_bindir}/Tensile
@@ -141,9 +141,6 @@ cp %{buildroot}%{_datadir}/cmake/Tensile/*.cmake %{buildroot}%{python3_sitelib}/
 %python_clone -a %{buildroot}%{_bindir}/TensileCreateLibrary
 %python_clone -a %{buildroot}%{_bindir}/TensileGetPath
 %python_clone -a %{buildroot}%{_bindir}/TensileRetuneLibrary
-%python_clone -a %{buildroot}%{_datadir}/cmake/Tensile/TensileConfig.cmake
-%python_clone -a %{buildroot}%{_datadir}/cmake/Tensile/TensileConfigVersion.cmake
-
 
 %post
 %python_install_alternative Tensile
@@ -158,16 +155,10 @@ cp %{buildroot}%{_datadir}/cmake/Tensile/*.cmake %{buildroot}%{python3_sitelib}/
 %python_uninstall_alternative TensileCreateLibrary
 %python_uninstall_alternative TensileGetPath
 %python_uninstall_alternative TensileRetuneLibrary
-
 %endif
 
 
 %files %{python_files}
-%if 0%{?suse_version}
-# Should not have to do this
-%dir %{_datadir}/cmake
-%endif
-%dir %{_datadir}/cmake/Tensile
 %dir %{python_sitelib}/%{upstreamname}
 %dir %{python_sitelib}/%{upstreamname}*.egg-info
 %doc README.md
@@ -177,11 +168,13 @@ cp %{buildroot}%{_datadir}/cmake/Tensile/*.cmake %{buildroot}%{python3_sitelib}/
 %python_alternative %{_bindir}/TensileCreateLibrary
 %python_alternative %{_bindir}/TensileGetPath
 %python_alternative %{_bindir}/TensileRetuneLibrary
-%python_alternative %{_datadir}/cmake/Tensile/*.cmake
 %{python_sitelib}/%{upstreamname}/*
 %{python_sitelib}/%{upstreamname}*.egg-info/*
 
 %changelog
+* Wed Feb 19 2025 Tom Rix <Tom.Rix@amd.com> 6.3.0-7
+- Fix cmake links in TW
+
 * Tue Feb 18 2025 Christian Goll <cgoll@suse.com> 6.3.0-6
 - Fix TW
 

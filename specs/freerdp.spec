@@ -185,6 +185,7 @@ find . -name "*.c" -exec chmod 664 {} \;
 %build
 %cmake \
     -DBUILD_TESTING=ON \
+    -DBUILD_TESTING_NO_H264=ON \
     -DCMAKE_SKIP_INSTALL_RPATH=ON \
     -DCMAKE_INSTALL_LIBDIR:PATH=%{_lib} \
     -DWITH_ALSA=ON \

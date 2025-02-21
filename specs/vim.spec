@@ -10,7 +10,7 @@
 %bcond_with libsodium_crypt
 %endif
 
-%define patchlevel 1081
+%define patchlevel 1122
 
 %if %{?WITH_SELINUX:0}%{!?WITH_SELINUX:1}
 %define WITH_SELINUX 1
@@ -1058,6 +1058,9 @@ rm %{buildroot}%{_datadir}/%{name}/%{vimdir}/README.txt
 
 
 %changelog
+* Wed Feb 19 2025 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.1122-1
+- patchlevel 1122
+
 * Fri Feb 07 2025 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.1081-1
 - patchlevel 1081
 

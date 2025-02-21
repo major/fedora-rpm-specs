@@ -18,20 +18,27 @@
 %global         main_version	1.3.2
 
 %if 0%{?use_gitbare}
-%global		gittardate		20250216
-%global		gittartime		1627
+%global		gittardate		20250219
+%global		gittartime		1523
+%define		use_gitcommit_as_rel		0
 
-%global		gitbaredate	20250215
-%global		git_rev		9ea11dca56c039f0d659e243a8b9a5a95c10b6d4
+%global		gitbaredate	20250218
+%global		git_rev		13e5c3eb6186c62c60ce449ed01a49c89b3adaa0
 %global		git_short		%(echo %{git_rev} | cut -c-8)
 %global		git_version	%{gitbaredate}git%{git_short}
 
+%if 0%{?use_gitcommit_as_rel}
 %global		git_ver_rpm	^%{git_version}
 %global		git_builddir	-%{git_version}
+%else
+%global		git_ver_rpm	%{nil}
+%global		git_builddir	%{nil}
+%endif
+
 %endif
 
 
-%global		main_version	1.3.2
+%global		main_version	1.4.0
 
 %global         bootstrap   0
 %global         build_doc   1
@@ -220,6 +227,10 @@ git init
 %setup -q -c -T -n %{name}-%{main_version}%{git_builddir} -a 0
 git clone ./%{name}.git/
 cd %{name}
+
+%if !%{use_gitcommit_as_rel}
+git checkout -b fedora-%{version} %{version}
+%endif
 
 # Restore timestamps
 set +x
@@ -491,6 +502,9 @@ fi
 %endif
 
 %changelog
+* Wed Feb 19 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.0-1
+- 1.4.0
+
 * Sun Feb 16 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.2^20250215git9ea11dca-1
 - Update to the latest git
 

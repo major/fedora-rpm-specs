@@ -2,7 +2,7 @@
 # The default version will own /usr/bin/node and friends
 %global nodejs_pkg_major 22
 
-%if 0%{?fedora} == 41 || 0%{?fedora} == 42 || 0%{?rhel} == 11
+%if (0%{?fedora} >= 41 && 0%{?fedora} <= 43) || 0%{?rhel} == 11
 %global nodejs_default %{nodejs_pkg_major}
 %endif
 
@@ -52,8 +52,8 @@
 # than a Fedora release lifecycle.
 %global nodejs_epoch 1
 %global nodejs_major 22
-%global nodejs_minor 13
-%global nodejs_patch 1
+%global nodejs_minor 14
+%global nodejs_patch 0
 # nodejs_soversion - from NODE_MODULE_VERSION in src/node_version.h
 %global nodejs_soversion 127
 %global nodejs_abi %{nodejs_soversion}
@@ -95,7 +95,7 @@
 %global nghttp3_version 1.6.0
 
 # ngtcp2 from deps/ngtcp2/ngtcp2/lib/includes/ngtcp2/version.h
-%global ngtcp2_version 1.9.1
+%global ngtcp2_version 1.10.0
 
 # ICU - from tools/icu/current_ver.dep
 %global icu_major 76
@@ -107,7 +107,7 @@
 # " this line just fixes syntax highlighting for vim that is confused by the above and continues literal
 
 # simdutf from deps/simdutf/simdutf.h
-%global simdutf_version 5.6.4
+%global simdutf_version 6.0.3
 
 # OpenSSL minimum version
 %global openssl11_minimum 1:1.1.1
@@ -167,6 +167,7 @@ Source202: nodejs.pc.in
 Source203: v8.pc.in
 
 Patch: 0001-Remove-unused-OpenSSL-config.patch
+Patch: 0002-Fix-Missing-OPENSSL_NO_ENGINE-Guard.patch
 
 %if 0%{?nodejs_default}
 %global pkgname nodejs

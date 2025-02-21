@@ -40,11 +40,6 @@ ExcludeArch: armv7hl
 %define libnotify_version 0.4
 %define _default_patch_fuzz 2
 
-# There are still build problems on s390x, see
-# https://koji.fedoraproject.org/koji/taskinfo?taskID=55048351
-# https://bugzilla.redhat.com/show_bug.cgi?id=1897522
-ExcludeArch: s390x
-
 # libvpx is too new for Firefox 65
 %define system_jpeg        1
 
@@ -92,13 +87,13 @@ ExcludeArch: s390x
 
 Summary:        Mozilla Thunderbird mail/newsgroup client
 Name:           thunderbird
-Version:        128.6.1
+Version:        128.7.1
 Release:        1%{?dist}
 URL:            http://www.mozilla.org/projects/thunderbird/
 License:        MPL-2.0 OR GPL-2.0-or-later OR LGPL-2.0-or-later
 Source0:        https://archive.mozilla.org/pub/thunderbird/releases/%{version}%{?pre_version}/source/thunderbird-%{version}%{?pre_version}.source.tar.xz
 %if %{build_langpacks}
-Source1:        thunderbird-langpacks-%{version}%{?pre_version}-20250128.tar.xz
+Source1:        thunderbird-langpacks-%{version}%{?pre_version}-20250219.tar.xz
 %endif
 Source3:        get-calendar-langpacks.sh
 Source4:        cbindgen-vendor.tar.xz
@@ -131,6 +126,8 @@ Patch53:        firefox-gcc-build.patch
 Patch71:        0001-GLIBCXX-fix-for-GCC-12.patch
 Patch78:        firefox-i686-build.patch
 Patch79:        firefox-gcc-13-build.patch
+Patch80:        build-swgl-gcc15-D221744.diff
+Patch81:        build-swgl-gcc15-D222067.diff
 
 # PPC fix
 
@@ -322,6 +319,8 @@ debug %{name}, you want to install %{name}-debuginfo instead.
 %patch -P71 -p1 -b .0001-GLIBCXX-fix-for-GCC-12
 %patch -P78 -p1 -b .firefox-i686
 %patch -P79 -p1 -b .firefox-gcc-13-build
+%patch -P80 -p1 -b .swgl-gcc15-1
+%patch -P81 -p1 -b .swgl-gcc15-2
 
 %patch -P 1200 -p1 -b .rustflags-commasplit
 
@@ -452,17 +451,6 @@ EOL
 
 env CARGO_HOME=.cargo cargo install cbindgen
 export PATH=`pwd`/.cargo/bin:$PATH
-%endif
-
-%if 0%{?big_endian}
-  echo "Generate big endian version of config/external/icu/data/icud58l.dat"
-  icupkg -tb config/external/icu/data/icudt67l.dat config/external/icu/data/icudt67b.dat
-  ls -l config/external/icu/data
-  rm -f config/external/icu/data/icudt*l.dat
-#  ./mach python intl/icu_sources_data.py .
-#  ls -l config/external/icu/data
-#  rm -f config/external/icu/data/icudt*l.dat
-#  cat /tmp/icu*
 %endif
 
 mkdir -p %{nodewrapperdir} || :
@@ -766,6 +754,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #===============================================================================
 
 %changelog
+* Wed Feb 19 2025 Jan Horak <jhorak@redhat.com> - 128.7.1-1
+- Update to 128.7.1 build1
+
 * Tue Jan 28 2025 Eike Rathke <erack@redhat.com> - 128.6.1-1
 - Update to 128.6.1
 

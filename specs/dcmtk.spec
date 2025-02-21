@@ -6,22 +6,21 @@
 # Odd number releases are dev snapshots, so we will stick to even number
 # (official releases) only.
 
-%global abi_version 17
+%global abi_version 19
 
 %bcond_with charls2
 
 Name: dcmtk
 Summary: Offis DICOM Toolkit (DCMTK)
-Version: 3.6.7
+Version: 3.6.9
 
 # soname version is "abi_version.version"
 # https://github.com/DCMTK/dcmtk/blob/master/CMake/dcmtkPrepare.cmake#L78
 %global soname_version %{abi_version}.%{version}
 
-Release: 9%{?dist}
-# Automatically converted from old format: BSD - review is highly recommended.
-License: LicenseRef-Callaway-BSD
-Source: https://dicom.offis.de/download/dcmtk/dcmtk367/dcmtk-3.6.7.tar.gz
+Release: 1%{?dist}
+License: BSD
+Source: https://dicom.offis.de/download/dcmtk/dcmtk369/dcmtk-%{version}.tar.gz
 URL: http://dicom.offis.de/dcmtk.php.en
 
 # Downstream fixes
@@ -29,6 +28,7 @@ URL: http://dicom.offis.de/dcmtk.php.en
 # charls version 2 includes a regression: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=923433
 %if %{with charls2}
 # not merged upstream yet: https://github.com/DCMTK/dcmtk/pull/18
+# were generated against 3.6.7, not yet updated for 3.6.8
 Patch:      0001-Use-system-CharLS-include.patch
 Patch:      0002-Add-FindCharLS.patch
 Patch:      0003-Find-and-include-CharLS.patch
@@ -46,13 +46,16 @@ Patch:      0014-Define-BYTE-for-CharLS.patch
 Patch:      0015-Update-colorTransformation-for-CharLS-2.patch
 Patch:      0016-Update-JpegLsEncode-for-CharLS-2.patch
 %endif
-# https://github.com/sanjayankur31/dcmtk/tree/fedora-3.6.7
-# https://forum.dcmtk.org/viewtopic.php?t=5084
-Patch:      0017-Increase-sleep-for-tests.patch
 
-# Upstream fixes
-# https://github.com/DCMTK/dcmtk/commit/c34f4e46e672ad21accf04da0dc085e43be6f5e1
-Patch:      0018-CVE-2022-43272-Fixed-memory-leak-in-single-process-mode.patch
+# Upstream fixes, backported to 3.6.9:
+# https://github.com/sanjayankur31/dcmtk/tree/fedora-3.6.9
+
+# Increase sleep in tests
+# https://forum.dcmtk.org/viewtopic.php?t=5084
+Patch:      0001-Increase-sleep-for-tests.patch
+
+# place in correct locations
+Patch:      0002-chore-undo-changes-to-standard-dirs.patch
 
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -194,6 +197,8 @@ rm -rf %{_vpath_builddir}/dcmtls/tests/
 %{_libdir}/libdcmtract.so.%{soname_version}
 %{_libdir}/libdcmwlm.so.%{abi_version}
 %{_libdir}/libdcmwlm.so.%{soname_version}
+%{_libdir}/libdcmxml.so.%{abi_version}
+%{_libdir}/libdcmxml.so.%{soname_version}
 %{_libdir}/libi2d.so.%{abi_version}
 %{_libdir}/libi2d.so.%{soname_version}
 %{_libdir}/libijg16.so.%{abi_version}
@@ -202,12 +207,16 @@ rm -rf %{_vpath_builddir}/dcmtls/tests/
 %{_libdir}/libijg12.so.%{soname_version}
 %{_libdir}/libijg8.so.%{abi_version}
 %{_libdir}/libijg8.so.%{soname_version}
+%{_libdir}/liboficonv.so.%{abi_version}
+%{_libdir}/liboficonv.so.%{soname_version}
 %{_libdir}/liboflog.so.%{abi_version}
 %{_libdir}/liboflog.so.%{soname_version}
 %{_libdir}/libofstd.so.%{abi_version}
 %{_libdir}/libofstd.so.%{soname_version}
 %dir %{_sysconfdir}/%{name}
+%config(noreplace) %{_sysconfdir}/%{name}/consolog.cfg
 %config(noreplace) %{_sysconfdir}/%{name}/dcmpstat.cfg
+%config(noreplace) %{_sysconfdir}/%{name}/dcmqrprf.cfg
 %config(noreplace) %{_sysconfdir}/%{name}/dcmqrscp.cfg
 %config(noreplace) %{_sysconfdir}/%{name}/printers.cfg
 %config(noreplace) %{_sysconfdir}/%{name}/storescp.cfg
@@ -242,14 +251,19 @@ rm -rf %{_vpath_builddir}/dcmtls/tests/
 %{_libdir}/libdcmtls.so
 %{_libdir}/libdcmtract.so
 %{_libdir}/libdcmwlm.so
+%{_libdir}/libdcmxml.so
 %{_libdir}/libi2d.so
 %{_libdir}/libijg16.so
 %{_libdir}/libijg12.so
 %{_libdir}/libijg8.so
+%{_libdir}/liboficonv.so
 %{_libdir}/liboflog.so
 %{_libdir}/libofstd.so
 
 %changelog
+* Mon Feb 10 2025 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 3.6.9-1
+- Update to 3.6.9 (rh#2297944)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.7-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

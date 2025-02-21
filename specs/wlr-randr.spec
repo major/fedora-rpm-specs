@@ -1,8 +1,6 @@
-%global forgeurl https://git.sr.ht/~emersion/wlr-randr
-
 Name:           wlr-randr
-Version:        0.4.1
-Release:        3%{?dist}
+Version:        0.5.0
+Release:        1%{?dist}
 Summary:        An xrandr clone for wlroots compositors
 
 # Overall project license: MIT
@@ -12,15 +10,16 @@ Summary:        An xrandr clone for wlroots compositors
 # files by the `wayland-scanner` binary during build and doesn't alter the main
 # license of the binary.
 License:        MIT
-URL:            https://sr.ht/~emersion/wlr-randr/
-Source0:        %{forgeurl}/refs/download/v%{version}/%{name}-%{version}.tar.gz
-Source1:        %{forgeurl}/refs/download/v%{version}/%{name}-%{version}.tar.gz.sig
+URL:            https://gitlab.freedesktop.org/emersion/wlr-randr
+Source0:        %{url}/-/releases/v%{version}/downloads/%{name}-%{version}.tar.gz
+Source1:        %{url}/-/releases/v%{version}/downloads/%{name}-%{version}.tar.gz.sig
 # 0FDE7BE0E88F5E48: emersion <contact@emersion.fr>
 Source2:        https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rkjfnghbjxug6b19#/gpgkey-0FDE7BE0E88F5E48.gpg
 
 BuildRequires:  gcc
 BuildRequires:  gnupg2
 BuildRequires:  meson
+BuildRequires:  pkgconfig(scdoc)
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-scanner)
 
@@ -42,8 +41,13 @@ wlr-randr is an xrandr clone for wlroots compositors
 %license LICENSE
 %doc README.md
 %{_bindir}/wlr-randr
+%{_mandir}/man1/wlr-randr.1*
 
 %changelog
+* Tue Feb 18 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.5.0-1
+- Update to 0.5.0 (#2346463)
+- Update upstream URL
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

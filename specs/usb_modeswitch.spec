@@ -1,27 +1,27 @@
-%define source_name	usb-modeswitch
+%define source_name usb-modeswitch
 
-Name:		usb_modeswitch
-Version:	2.6.1
-Release:	12%{?dist}
-Summary:	USB Modeswitch gets mobile broadband cards in operational mode
-Summary(de):	USB Modeswitch aktiviert UMTS-Karten
-License:	GPL-2.0-or-later
-URL:		http://www.draisberghof.de/usb_modeswitch/
+Name:       usb_modeswitch
+Version:    2.6.2
+Release:    1%{?dist}
+Summary:    USB Modeswitch gets mobile broadband cards in operational mode
+Summary(de):    USB Modeswitch aktiviert UMTS-Karten
+License:    GPL-2.0-or-later
+URL:        http://www.draisberghof.de/usb_modeswitch/
 
-Source0:	http://www.draisberghof.de/%{name}/%{source_name}-%{version}.tar.bz2
-Source1:	http://www.draisberghof.de/usb_modeswitch/device_reference.txt
+Source0:    http://www.draisberghof.de/%{name}/%{source_name}-%{version}.tar.bz2
+Source1:    http://www.draisberghof.de/usb_modeswitch/device_reference.txt
 
 # Submitted upstream (2014-11-24)
 Patch0: device_reference-utf8.patch
 
 BuildRequires: make
 BuildRequires:  gcc
-BuildRequires:	libusbx-devel
+BuildRequires:  libusbx-devel
 # "tcl" or "jimsh"), use the light-weight installation:
-#BuildRequires:	jimtcl-devel
-BuildRequires:	systemd
-Requires:	usb_modeswitch-data >= 20121109
-Requires:	systemd
+#BuildRequires: jimtcl-devel
+BuildRequires:  systemd
+Requires:   usb_modeswitch-data >= 20121109
+Requires:   systemd
 
 %description
 USB Modeswitch brings up your datacard into operational mode. When plugged
@@ -30,7 +30,7 @@ installation files. This tool deactivates this cdrom-device and enables
 the real communication device. It supports most devices built and
 sold by Huawei, T-Mobile, Vodafone, Option, ZTE, Novatel.
 
-%description	-l de
+%description    -l de
 USB Modeswitch deaktiviert die CDROM-Emulation einiger UMTS-Karten.
 Dadurch erkennt Linux die Datenkarte und kann damit Internet-
 Verbindungen aufbauen. Die gängigen Karten von Huawei, T-Mobile,
@@ -52,10 +52,11 @@ cp -f %{SOURCE1} device_reference.txt
 
 
 %install
-mkdir -p $RPM_BUILD_ROOT%{_unitdir}
+mkdir -p %{buildroot}%{_unitdir}
 %make_install \
-	SYSDIR=$RPM_BUILD_ROOT%{_unitdir} \
-	UDEVDIR=$RPM_BUILD_ROOT%{_prefix}/lib/udev
+    SYSDIR=%{buildroot}%{_unitdir} \
+    SBINDIR=%{buildroot}%{_sbindir} \
+    UDEVDIR=%{buildroot}%{_udevrulesdir}
 
 
 %files
@@ -63,7 +64,7 @@ mkdir -p $RPM_BUILD_ROOT%{_unitdir}
 %{_sbindir}/usb_modeswitch_dispatcher
 %{_mandir}/man1/usb_modeswitch.1.gz
 %{_mandir}/man1/usb_modeswitch_dispatcher.1.gz
-%{_prefix}/lib/udev/usb_modeswitch
+%{_udevrulesdir}/usb_modeswitch
 %{_unitdir}/usb_modeswitch@.service
 %config(noreplace) %{_sysconfdir}/usb_modeswitch.conf
 %doc README ChangeLog device_reference.txt
@@ -71,6 +72,11 @@ mkdir -p $RPM_BUILD_ROOT%{_unitdir}
 
 
 %changelog
+* Thu Feb 20 2025 Sérgio Basto <sergio@serjux.com> - 2.6.2-1
+- Update usb_modeswitch to 2.6.2
+- Resolves: rhbz#2346392
+- Fix build related to /usr/sbin move
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

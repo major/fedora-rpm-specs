@@ -13,6 +13,8 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://github.com/eclipse-sisu/sisu-project/archive/refs/tags/milestones/0.9.0.M3.tar.gz#/sisu-%{version}.tar.gz
 
+Patch:          0001-Add-ASM-support-for-Java-24-and-25.patch
+
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
@@ -71,7 +73,8 @@ API documentation for %{name}.
 %pom_disable_module org.eclipse.sisu.plexus.extender
 
 %pom_remove_dep :junit-bom
-%pom_remove_dep :plexus-xml org.eclipse.sisu.plexus
+%pom_change_dep :plexus-utils :::provided org.eclipse.sisu.plexus
+%pom_change_dep :plexus-xml :::provided org.eclipse.sisu.plexus
 
 %pom_remove_plugin -r :bnd-maven-plugin
 %pom_remove_plugin -r :maven-jar-plugin

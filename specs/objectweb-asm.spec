@@ -22,6 +22,8 @@ Source7:        https://repo1.maven.org/maven2/org/ow2/asm/asm-util/%{version}/a
 Source9:        generate-tarball.sh
 Source10:       tools-retrofitter.pom
 
+Patch:          0001-Add-support-of-Java-25.patch
+
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else

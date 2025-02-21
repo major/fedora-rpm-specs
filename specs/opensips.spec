@@ -5,7 +5,7 @@
 
 Summary:  Open Source SIP Server
 Name:     opensips
-Version:  3.5.3
+Version:  3.5.4
 Release:  %autorelease
 License:  GPL-2.0-or-later
 Source0:  https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -35,10 +35,8 @@ BuildRequires: pcre-devel
 BuildRequires: systemd-units
 
 # Users and groups
-Requires(pre): shadow-utils
 Requires(post): systemd
 Requires(preun): systemd
-Requires(postun): systemd
 
 Obsoletes: %{name}-auth_diameter
 Obsoletes: %{name}-event_datagram
@@ -957,8 +955,6 @@ mkdir -p %{buildroot}%{_localstatedir}/run/%{name}
 install -D -p -m 644 packaging/redhat_fedora/%{name}.sysconfig %{buildroot}%{_sysconfdir}/sysconfig/%{name}
 
 
-%pre
-%sysusers_create_compat %{SOURCE3}
 
 %post
 %systemd_post %{name}.service

@@ -6,7 +6,7 @@ Name:		python-metakernel
 #		Running rpmdev-bumpspec on this specfile will update all the
 #		release tags automatically
 Version:	0.30.2
-Release:	5%{?dist}
+Release:	7%{?dist}
 %global pkgversion %{version}
 %global pkgrelease %{release}
 Summary:	Metakernel for Jupyter
@@ -76,7 +76,7 @@ This package contains the documentation of python-metakernel.
 
 %package -n python3-metakernel-python
 Version:	0.19.1
-Release:	71%{?dist}
+Release:	72%{?dist}
 Summary:	A Python kernel for Jupyter/IPython
 %py_provides	python3-metakernel-python
 Requires:	python3-metakernel = %{pkgversion}-%{pkgrelease}
@@ -87,7 +87,7 @@ A Python kernel for Jupyter/IPython, based on MetaKernel.
 
 %package -n python3-metakernel-echo
 Version:	0.19.1
-Release:	71%{?dist}
+Release:	72%{?dist}
 Summary:	A simple echo kernel for Jupyter/IPython
 %py_provides	python3-metakernel-echo
 Requires:	python3-metakernel = %{pkgversion}-%{pkgrelease}
@@ -134,7 +134,7 @@ PYTHONPATH=metakernel_echo \
 %check
 # The completion magic test checks for the existence of ~/.bashrc
 touch ~/.bashrc
-PYTHONPATH=metakernel_python ipcluster start -n=3 &
+PYTHONPATH=metakernel_python ipcluster start -n 3 --location localhost &
 pid=$!
 # The version of jupyter-client in Fedora 39/40 calls datetime.utcnow()
 # Ignore DeprecationWarning from Python 3.12 due to this
@@ -182,6 +182,12 @@ wait $pid
 %{_datadir}/jupyter/kernels/python3-metakernel-echo
 
 %changelog
+* Wed Feb 19 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.30.2-7
+- Properly bump package versions
+
+* Wed Feb 19 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.30.2-6
+- Start ipcluster with explicit --location localhost
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.30.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

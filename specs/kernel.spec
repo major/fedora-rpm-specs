@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.14.0
 %define specversion 6.14.0
 %define patchversion 6.14
-%define pkgrelease 0.rc3.29
+%define pkgrelease 0.rc3.20250219git6537cfb395f3.31
 %define kversion 6
-%define tarfile_release 6.14-rc3
+%define tarfile_release 6.14-rc3-60-g6537cfb395f3
 # This is needed to do merge window version magic
 %define patchlevel 14
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc3.29%{?buildid}%{?dist}
+%define specrelease 0.rc3.20250219git6537cfb395f3.31%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.14.0
 
@@ -4212,10 +4212,23 @@ fi\
 #
 #
 %changelog
-* Mon Feb 17 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc3.29]
+* Wed Feb 19 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc3.6537cfb395f3.31]
 - apply -Wno-error=unterminated-string-initialization temporarily (Thorsten Leemhuis)
 - include/linux: Adjust headers for C23 (Jakub Jelinek)
 - x86/insn_decoder_test: allow longer symbol-names (David Rheinsberg)
+
+* Wed Feb 19 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc3.6537cfb395f3.30]
+- redhat/configs: automotive: disable VFIO_PLATFORM (Eric Chanudet)
+- Revert "Merge: redhat/configs: automotive: Disable SYSIPC config" (Dorinda Bassey)
+- redhat/configs: Enable CONFIG_KASAN_INLINE for RT debug kernel (Waiman Long)
+- redhat/configs: Move CONFIG_PROVE_RAW_LOCK_NESTING to common/debug (Waiman Long)
+- redhat/configs: Move all the lock debugging Kconfig's to common (Waiman Long)
+- redhat/configs: Enable CONFIG_BLK_CGROUP_PUNT_BIO for RHEL (Neal Gompa) [RHEL-79711]
+- Linux v6.14.0-0.rc3.6537cfb395f3
+
+* Tue Feb 18 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc3.2408a807bfc3.29]
+- fedora: pending: drop USB_ONBOARD_DEV_USB5744 (Peter Robinson)
+- Linux v6.14.0-0.rc3.2408a807bfc3
 
 * Mon Feb 17 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc3.28]
 - efi,lockdown: fix kernel lockdown on Secure Boot (Ondrej Mosnacek) {CVE-2025-1272}

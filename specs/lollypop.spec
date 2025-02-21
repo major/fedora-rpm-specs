@@ -39,7 +39,10 @@ Requires:       pango
 Requires:       totem-pl-parser
 Requires:       gstreamer1-plugins-good
 Requires:       libhandy1 >= 1.5
+%if %{undefined flatpak}
+# managed by an extension for flatpaks
 Requires:       yt-dlp
+%endif
 # last.fm support
 BuildArch:      noarch
 Obsoletes:      lollypop-cli < 1.0.6

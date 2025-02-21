@@ -4,7 +4,7 @@
 %global bash_completion_dir %(pkg-config --variable=completionsdir bash-completion || echo /etc/bash_completion.d)
 
 Name:            cifs-utils
-Version:         7.1
+Version:         7.2
 Release:         %autorelease
 Summary:         Utilities for mounting and managing CIFS mounts
 
@@ -23,8 +23,6 @@ Requires(preun): /usr/sbin/alternatives
 Recommends: %{name}-info%{?_isa} = %{version}-%{release}
 
 Source0:         https://download.samba.org/pub/linux-cifs/cifs-utils/%{name}-%{version}.tar.bz2
-
-Patch0: smbinfo-bash-completion.patch
 
 %description
 The SMB/CIFS protocol is a standard file sharing protocol widely deployed

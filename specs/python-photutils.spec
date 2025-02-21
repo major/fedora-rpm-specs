@@ -3,7 +3,7 @@
 %global srcname photutils
 
 Name: python-%{srcname}
-Version: 2.1.0
+Version: 2.2.0
 Release: %autorelease
 Summary: Astropy affiliated package for image photometry tasks
 License: BSD-3-Clause
@@ -33,7 +33,7 @@ BuildRequires: python3-devel
 Recommends: %{py3_dist scipy}  >= 1.7.2
 Recommends: %{py3_dist scikit-image} >= 0.19   
 Recommends: %{py3_dist scikit-learn} >= 1.0
-Recommends: %{py3_dist matplotlib} >= 3.5
+Recommends: %{py3_dist matplotlib} >= 3.7
 
 %description -n python3-%{srcname} %_description
 

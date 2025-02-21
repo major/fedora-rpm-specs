@@ -8,10 +8,11 @@ Summary:        Python module (C extension and plain Python) implementing Aho-Co
 License:        BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 URL:            https://github.com/WojciechMula/pyahocorasick
 Source:         %url/archive/%{version}/%{pypi_name}-%{version}.tar.gz
+# Fix big-endian results.
+Patch:          https://github.com/WojciechMula/pyahocorasick/pull/193.patch
 
-# https://github.com/WojciechMula/pyahocorasick/issues/142
-# https://github.com/WojciechMula/pyahocorasick/blob/master/README.rst
-ExclusiveArch:  x86_64 %{arm64} ppc64le riscv64
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -60,6 +61,8 @@ This package is providing the documentation for %{pypi_name}.
 %pyproject_buildrequires
 
 %build
+# https://github.com/WojciechMula/pyahocorasick/issues/199
+export CFLAGS="%{build_cflags} -std=c99"
 %pyproject_wheel
 
 # generate html docs

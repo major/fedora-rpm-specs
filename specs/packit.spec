@@ -6,7 +6,7 @@
 %endif
 
 Name:           packit
-Version:        1.1.0
+Version:        1.1.1
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -78,6 +78,10 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Fri Feb 14 2025 Packit <hello@packit.dev> - 1.1.1-1
+- Packit doesn't attempt to upload git-tracked remote sources (for example a [GPG keyring](https://docs.fedoraproject.org/en-US/packaging-guidelines/#_verifying_signatures)) to lookaside cache anymore when syncing release. (#2518)
+- Resolves: rhbz#2345745
+
 * Sun Feb 02 2025 Packit <hello@packit.dev> - 1.1.0-1
 - Thanks to the work of [Bryan Elee](https://github.com/rxbryan) (as part of his Google Summer of Code work) and [Dan Čermák](https://github.com/dcermak), there is a new `packit build in-obs` CLI command to trigger a build in [OBS](https://build.opensuse.org/). (#2067)
 - Resolves: rhbz#2343396

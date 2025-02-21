@@ -1,6 +1,6 @@
 Name:           ntpsec
 Version:        1.2.3
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        NTP daemon and utilities
 
 License:        NTP AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND ISC AND Apache-2.0 AND Beerware
@@ -27,7 +27,6 @@ BuildRequires:  waf
 # the newer version
 %global waf python3 waf
 
-Requires(pre):  shadow-utils
 %{?systemd_requires}
 
 Conflicts:      ntp ntp-perl ntpdate
@@ -123,16 +122,17 @@ touch .%{_localstatedir}/lib/ntp/ntp.drift
 mkdir -p .%{_prefix}/lib/systemd/ntp-units.d
 echo 'ntpd.service' > .%{_prefix}/lib/systemd/ntp-units.d/60-ntpd.list
 
+# Create a sysusers.d config file (UID/GID is inherited from the ntp package)
+mkdir -p .%{_sysusersdir}
+cat > .%{_sysusersdir}/ntpsec.conf <<EOF
+u ntp 38 - %{_localstatedir}/lib/ntp -
+EOF
+
 popd
 
 %check
 %{waf} check
 
-%pre
-# UID/GID inherited from the ntp package
-/usr/sbin/groupadd -g 38 ntp 2> /dev/null || :
-/usr/sbin/useradd -u 38 -g 38 -s /sbin/nologin -M -r \
-        -d %{_localstatedir}/lib/ntp ntp 2>/dev/null || :
 
 %post
 %systemd_post ntpd.service ntp-wait.service
@@ -192,8 +192,12 @@ sed -i.bak -E '/^restrict/s/no(e?peer|trap)//g' %{_sysconfdir}/ntp.conf
 %dir %attr(-,ntp,ntp) %{_localstatedir}/log/ntpstats
 %{python3_sitearch}/ntp-*.egg-info
 %{python3_sitearch}/ntp
+%{_sysusersdir}/ntpsec.conf
 
 %changelog
+* Wed Feb 19 2025 Miroslav Lichvar <mlichvar@redhat.com> 1.2.3-11
+- add sysusers.d config file
+
 * Thu Jan 16 2025 Zbigniew Jedrzejewski-Szmek <zbyszek@in.waw.pl> - 1.2.3-10
 - Also add Provides:/usr/sbin/ntpdate (rhbz#2338300)
 

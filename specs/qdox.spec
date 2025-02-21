@@ -76,7 +76,7 @@ jflex -d src/main/java/com/thoughtworks/qdox/parser/impl src/grammar/commentlexe
 %mvn_build -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
 
 # Inject OSGi manifests
-jar ufm target/%{name}-%{version}.jar %{SOURCE1}
+%jar ufm target/%{name}-%{version}.jar %{SOURCE1}
 
 %install
 %mvn_install

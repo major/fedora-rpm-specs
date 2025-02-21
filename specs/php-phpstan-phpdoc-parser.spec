@@ -9,7 +9,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    51087f87dcce2663e1fed4dfd4e56eccd580297e
+%global gh_commit    9b30d6fd026b2c132b3985ce6b23bec09ab3aa68
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     phpstan
 %global gh_project   phpdoc-parser
@@ -19,7 +19,7 @@
 %global major        %nil
 
 Name:           php-%{gh_owner}-%{gh_project}%{major}
-Version:        2.0.2
+Version:        2.1.0
 Release:        1%{?dist}
 Summary:        PHPDoc parser with support for nullable, intersection and generic types
 
@@ -127,6 +127,9 @@ exit $ret
 
 
 %changelog
+* Wed Feb 19 2025 Remi Collet <remi@remirepo.net> - 2.1.0-1
+- update to 2.1.0
+
 * Tue Feb 18 2025 Remi Collet <remi@remirepo.net> - 2.0.2-1
 - update to 2.0.2
 

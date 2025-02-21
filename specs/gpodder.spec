@@ -1,6 +1,6 @@
 Name:           gpodder
 Version:        3.11.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Podcast receiver/catcher written in Python
 # Mostly GPL-3.0-or-later, but some files use something different
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND ISC
@@ -37,9 +37,10 @@ Requires:       python3-requests
 # https://github.com/gpodder/gpodder/pull/1571
 Requires:       python3-zombie-imp
 Requires:       hicolor-icon-theme
-Requires:       yt-dlp
 Requires:       /usr/bin/xdg-open
 Recommends:     python3-html5lib
+Recommends:     (yt-dlp or youtube-dl)
+Suggests:       yt-dlp
 %description
 gPodder is a Podcast receiver/catcher written in Python, using GTK. 
 It manages podcast feeds for you and automatically downloads all 
@@ -93,6 +94,9 @@ desktop-file-install --delete-original          \
 %{python3_sitelib}/%{name}*.dist-info
 
 %changelog
+* Wed Feb 19 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 3.11.5-3
+- Update yt-dlp dependency
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

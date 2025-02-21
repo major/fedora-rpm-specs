@@ -3,8 +3,8 @@
 
 Name:           gthumb
 Epoch:          1
-Version:        3.12.6
-Release:        6%{?dist}
+Version:        3.12.7
+Release:        2%{?dist}
 Summary:        Image viewer, editor, organizer
 
 License:        GPL-2.0-or-later
@@ -36,7 +36,7 @@ BuildRequires:  pkgconfig(librsvg-2.0)
 BuildRequires:  pkgconfig(libsecret-1)
 BuildRequires:  pkgconfig(libsoup-2.4)
 BuildRequires:  pkgconfig(libwebp)
-BuildRequires:  pkgconfig(webkit2gtk-4.0)
+BuildRequires:  pkgconfig(webkit2gtk-4.1)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  gcc gcc-c++
 BuildRequires:  gettext
@@ -97,6 +97,12 @@ package.
 %{_datadir}/aclocal/gthumb.m4
 
 %changelog
+* Wed Feb 19 2025 nmontero <nmontero@redhat.com> - 1:3.12.7-2
+- Bump release
+
+* Wed Feb 19 2025 nmontero <nmontero@redhat.com> - 1:3.12.7-1
+- Update to 3.12.7
+
 * Sun Feb 02 2025 Sérgio Basto <sergio@serjux.com> - 1:3.12.6-6
 - Rebuild for jpegxl (libjxl) 0.11.1
 

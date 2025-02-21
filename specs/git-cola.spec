@@ -1,5 +1,5 @@
 Name:           git-cola
-Version:        4.8.1
+Version:        4.11.0
 Release:        %autorelease
 Summary:        A sleek and powerful git GUI
 
@@ -23,6 +23,7 @@ Requires:       git
 Requires:       hicolor-icon-theme
 Requires:       python%{python3_pkgversion}dist(qtpy)
 
+Recommends:     python%{python3_pkgversion}dist(notify2)
 Recommends:     python%{python3_pkgversion}dist(send2trash) >= 1.7.1
 
 %ifarch %{qt6_qtwebengine_arches}
@@ -57,8 +58,12 @@ make %{makeopts} doc
 %pyproject_install
 %pyproject_save_files cola
 %py_byte_compile %{__python3} %{buildroot}%{_datadir}/git-cola/lib/
-make DESTDIR=%{buildroot} prefix=%{_prefix} %{makeopts} install-doc
-make DESTDIR=%{buildroot} prefix=%{_prefix} %{makeopts} install-html
+make DESTDIR=%{buildroot} prefix=%{_prefix} %{makeopts} \
+  install-desktop-files \
+  install-doc \
+  install-html \
+  install-icons \
+  install-metainfo
 
 
 %check
@@ -68,7 +73,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/git-dag.desktop
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdata.xml
 
 %files
-%doc COPYING COPYRIGHT README.md
+%license LICENSE
+%doc README.md
 %{_bindir}/cola
 %{_bindir}/git-*
 %{_datadir}/applications/git*.desktop

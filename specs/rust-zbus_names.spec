@@ -5,7 +5,7 @@
 %global crate zbus_names
 
 Name:           rust-zbus_names
-Version:        4.1.0
+Version:        4.2.0
 Release:        %autorelease
 Summary:        Collection of D-Bus bus names types
 

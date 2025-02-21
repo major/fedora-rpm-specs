@@ -10,14 +10,15 @@
 %endif
 
 Name:           vdr-epg-daemon
-Version:        1.3.24
-Release:        9%{?dist}
+Version:        1.3.29
+Release:        1%{?dist}
 Summary:        A daemon to download EPG data from internet and manage it in a mysql database
 License:        GPL-1.0-or-later AND GPL-2.0-only AND LicenseRef-Callaway-BSD
 URL:            https://github.com/horchi/vdr-epg-daemon
 Source0:        https://github.com/horchi/vdr-epg-daemon/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 # fix: Optimization flags are not honored.
 Patch0:         %{name}-makefile.patch
+Patch1:         webdo.patch
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -135,6 +136,10 @@ mkdir -p %{buildroot}%{_libdir}/mariadb/plugin
 %{vdr_resdir}/epgd/
 
 %changelog
+* Wed Feb 19 2025 Martin Gansser <martinkg@fedoraproject.org> - 1.3.29-1
+- Update to 1.3.29
+- Add webdo.patch to define eloAlways
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.24-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

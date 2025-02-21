@@ -7,7 +7,7 @@
 Summary: Config files for KDE
 Name:    kde-settings
 Version: 42.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: MIT
 URL:     https://pagure.io/fedora-kde/kde-settings
@@ -17,9 +17,6 @@ Source1: COPYING
 BuildArch: noarch
 
 BuildRequires: kde-filesystem
-# xdg-user-dirs hackery
-BuildRequires: desktop-file-utils
-BuildRequires: xdg-user-dirs
 # ssh-agent.service
 BuildRequires: systemd-rpm-macros
 Source10: ssh-agent.sh
@@ -144,18 +141,6 @@ mkdir -p %{buildroot}%{_datadir}/wallpapers
 ln -s F%{version_maj} %{buildroot}%{_datadir}/wallpapers/Fedora
 %endif
 
-%if 0%{?flatpak} == 0
-# xdg-user-dirs HACK
-cp -a %{_sysconfdir}/xdg/autostart/xdg-user-dirs.desktop \
-      xdg-user-dirs-kde.desktop
-mkdir -p %{buildroot}%{_sysconfdir}/xdg/autostart
-desktop-file-install \
-  xdg-user-dirs-kde.desktop \
-  --dir=%{buildroot}%{_sysconfdir}/xdg/autostart \
-  --remove-key=X-GNOME-Autostart-Phase \
-  --add-only-show-in=KDE
-%endif
-
 %if 0%{?rhel} && 0%{?rhel} < 9
 # for rhel 8 and older with older noto fonts
 sed -e "s/Noto Sans Mono/Noto Mono/g" \
@@ -209,9 +194,6 @@ test -f %{_datadir}/wallpapers/F%{version_maj} || ls -l %{_datadir}/wallpapers
 
 %files plasma
 %{_datadir}/plasma/shells/org.kde.plasma.desktop/contents/updates/00-start-here-2.js
-%if 0%{?flatpak} == 0
-%{_sysconfdir}/xdg/autostart/xdg-user-dirs-kde.desktop
-%endif
 %{_sysconfdir}/xdg/plasma-workspace/env/env.sh
 %{_sysconfdir}/xdg/plasma-workspace/env/gtk2_rc_files.sh
 %{_sysconfdir}/xdg/plasma-workspace/env/gtk3_scrolling.sh
@@ -242,6 +224,9 @@ test -f %{_datadir}/wallpapers/F%{version_maj} || ls -l %{_datadir}/wallpapers
 
 
 %changelog
+* Wed Feb 19 2025 Neal Gompa <ngompa@fedoraproject.org> - 42.0-2
+- Drop xdg-user-dirs hack as it's no longer needed
+
 * Fri Feb 14 2025 Neal Gompa <ngompa@fedoraproject.org> - 42.0-1
 - Bump for F42 backgrounds
 - Cleanup and sync profile.d shell scripts

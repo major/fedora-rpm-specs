@@ -25,7 +25,7 @@
 
 Name:          mathgl
 Version:       8.0.1
-Release:       18%{?dist}
+Release:       19%{?dist}
 Summary:       Cross-platform library for making high-quality scientific graphics
 Summary(de):   Plattformübergreifende Bibliothek für hochwertige wissenschaftliche Graphiken
 Summary(ru):   Библиотека для осуществления высококачественной визуализации данных
@@ -71,6 +71,9 @@ Patch10: mathgl-libharu2.4.patch
 
 # Use flexiblas instead of gslcblas
 Patch11:       mathgl-flexiblas.patch
+
+# Update to lates numpy.i
+Patch12:       mathgl-8.0.1_numpy.patch
 
 Requires:      %{name}-common = %{version}-%{release}
 
@@ -354,6 +357,7 @@ done
 %patch -P9 -p1 -b .norebuild_l10n
 %patch -P10 -p1 -b .libharu2.4
 %patch -P11 -p1 -b .flexiblas
+%patch -P12 -p1 -b .numpy
 
 # Fix hardcoded Python version
 #sed -i -e 's,3\.[0-9],%{python3_version},g' \
@@ -630,6 +634,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/mgllab.desktop
 %endif
 
 %changelog
+* Wed Feb 19 2025 Dmitrij S. Kryzhevich <kryzhev@ispms.ru> - 8.0.1-19
+- Update numpy.i to latest from python-numpy.
+
 * Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 8.0.1-18
 - Rebuild with gsl 2.8
 

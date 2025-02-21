@@ -27,7 +27,7 @@
 
 Name:		0ad
 Version:	0.0.26
-Release:	28%{?dist}
+Release:	29%{?dist}
 # BSD License:
 #	build/premake/*
 #	libraries/source/miniupnpc/*		(not built/used)
@@ -290,6 +290,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/0ad.desktop
 %{_mandir}/man6/*.6*
 
 %changelog
+* Tue Feb 18 2025 Dennis Gilmore <dennis@ausil.us> - 0.0.26-29
+- Rebuild for updated dependencies.
+
 * Tue Jan 28 2025 Simone Caronni <negativo17@gmail.com> - 0.0.26-28
 - Rebuild for updated dependencies.
 

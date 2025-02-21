@@ -39,7 +39,7 @@
 Name:		root
 Version:	6.34.04
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -86,6 +86,9 @@ Patch6:		%{name}-gpad-Fix-Debug-Assertion-Failure-in-libGpad.patch
 #		Fix out of bounds errors reported with gcc 15
 #		https://github.com/root-project/root/pull/17551
 Patch7:		%{name}-Fix-out-of-bounds-error-in-pyroot.patch
+#		Fix roofit/roostats test failures with gcc 15
+#		https://github.com/root-project/root/pull/17702
+Patch8:		%{name}-PyROOT-Add-__hash_not_enabled-to-names-from-std-name.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
@@ -1972,6 +1975,7 @@ This package contains utility functions for ntuples.
 %patch -P5 -p1
 %patch -P6 -p1
 %patch -P7 -p1
+%patch -P8 -p1
 
 # Remove bundled sources in order to be sure they are not used
 #  * afterimage
@@ -2732,16 +2736,6 @@ test-stresshistogram-interpreted"
 # - gtest-math-matrix-testMatrixTSparse
 excluded="${excluded}|\
 gtest-math-matrix-testMatrixTSparse"
-%endif
-
-%if %{?fedora}%{!?fedora:0} >= 42
-# Fail with gcc 15 due to changes in std::hash templates
-# - tutorial-roofit-*-py
-# - tutorial-roostats-*-py
-# https://github.com/root-project/root/issues/17456
-excluded="${excluded}|\
-tutorial-roofit-.*-py|\
-tutorial-roostats-.*-py"
 %endif
 
 # Filter out parts of tests that require remote network access
@@ -3666,6 +3660,9 @@ fi
 %endif
 
 %changelog
+* Wed Feb 19 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.34.04-2
+- Fix roofit/roostats test failures with gcc 15
+
 * Fri Feb 14 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.34.04-1
 - Update to 6.34.04
 - Drop patches accepted upstream or previously backported

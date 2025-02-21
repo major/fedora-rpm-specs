@@ -174,9 +174,8 @@ gpgv2 --keyring ./gpg-keyring.gpg %{SOURCE1} %{SOURCE0}
 # set it to a value which we know will be suppressed.
 sed -i -e 's|^libdir=@libdir@$|libdir=@exec_prefix@/lib|g' src/gpgme-config.in
 
-# The build machinery does not support Python 3.9+ yet
-# https://github.com/gpg/gpgme/pull/4
-sed -i 's/3.8/%{python3_version}/g' configure
+# The build machinery does not support the newest Pythons
+sed -i 's/3.13/%{python3_version}/g' configure
 
 %build
 # People neeed to learn that you can't run autogen.sh anymore

@@ -63,6 +63,8 @@ API documentation for %{name}.
 
 %pom_remove_dep -r com.google.testing.compile:compile-testing
 rm core/src/test/java/org/moditect/test/AddModuleInfoTest.java
+# Test fails with early-access versions of Java
+rm core/src/test/java/org/moditect/internal/parser/JavaVersionHelperTest.java
 
 %build
 %mvn_build -- -Dproject.build.sourceEncoding=UTF-8

@@ -2,19 +2,19 @@
 %bcond_with x264
 
 %global forgeurl0      https://github.com/WiVRn/WiVRn
-%global tag0           v0.22
-%global date           20241206
+%global tag0           v0.23.2
+%global date           20250215
 
 # WiVRn is based on Monado, we need the full source
 # Monado base source (find in CMakeLists.txt FetchContent_Declare(monado))
 %global forgeurl1      https://gitlab.freedesktop.org/monado/monado
-%global commit1        aa2b0f9f1d638becd6bb9ca3c357ac2561a36b07
+%global commit1        529aa5b092b592714812b4685aa0454a3cfb120e
 %global monado_version 24.0.0
 
 %forgemeta
 
 Name:           wivrn
-Version:        0.22
+Version:        0.23.2
 Release:        %autorelease
 Summary:        An OpenXR streaming application to a standalone headset
 
@@ -78,37 +78,40 @@ Source0:        %{forgesource0}
 # License: GPL-3.0-or-later
 Source1:        %{forgeurl1}/-/archive/%{commit1}/monado-src-%{commit1}.tar.bz2
 
-# Check for new/removed patches when updating: https://github.com/WiVRn/WiVRn/tree/master/patches/monado (check the tag)
+# Check for new/removed patches when updating: https://github.com/WiVRn/WiVRn/tree/master/patches/monado/ (check the tag)
+# For tagged releases: https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%%{tag0}/patches/monado/
+# For commit releases: https://raw.githubusercontent.com/WiVRn/WiVRn/%%{commit0}/patches/monado/
 # downstream-only - WiVRn specific Monado patches
 Patch0001:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0001-c-multi-early-wake-of-compositor.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0003:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0003-ipc-server-Always-listen-to-stdin.patch
+Patch0002:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0002-ipc-server-Always-listen-to-stdin.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0004:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0004-Use-extern-socket-fd.patch
+Patch0003:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0003-Use-extern-socket-fd.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0005:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0005-distortion-images.patch
+Patch0004:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0004-c-render-Add-storage-usage-to-distortion-mesh.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0006:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0006-environment-blend-mode.patch
+Patch0005:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0005-change-environment-blend-mode-selection-logic.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0008:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0008-Use-mipmaps-for-distortion-shader.patch
+Patch0006:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0006-Use-mipmaps-for-distortion-shader.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0009:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0009-convert-to-YCbCr-in-monado.patch
+Patch0007:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0007-Convert-to-YCbCr-in-Monado.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0010:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0010-d-solarxr-Add-SolarXR-WebSockets-driver.patch
+Patch0009:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0009-Revert-a-bindings-improve-reproducibility-of-binding.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0011:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0011-Revert-a-bindings-improve-reproducibility-of-binding.patch
-# downstream-only - WiVRn specific Monado patches
-Patch0012:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0012-store-alpha-channel-in-layer-1.patch
-
-# https://github.com/WiVRn/WiVRn/issues/210
-Patch1000:      wivrn-v0.22-appstream.patch
+Patch0010:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0010-store-alpha-channel-in-layer-1.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
+BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc-c++
+BuildRequires:  gettext-devel
 BuildRequires:  git
 BuildRequires:  glslc
+BuildRequires:  kf6-kcoreaddons-devel
+BuildRequires:  kf6-ki18n-devel
+BuildRequires:  kf6-kiconthemes-devel
+BuildRequires:  kf6-kirigami-devel
 BuildRequires:  libappstream-glib
 BuildRequires:  librsvg2-tools
 BuildRequires:  ninja-build
@@ -151,6 +154,7 @@ BuildRequires:  pkgconfig(percetto)
 %endif
 BuildRequires:  pkgconfig(Qt6)
 BuildRequires:  pkgconfig(Qt6Linguist)
+BuildRequires:  pkgconfig(Qt6Quick)
 BuildRequires:  pkgconfig(realsense2)
 BuildRequires:  pkgconfig(sdl2)
 BuildRequires:  pkgconfig(vulkan)
@@ -162,6 +166,8 @@ BuildRequires:  pkgconfig(wayland-scanner)
 BuildRequires:  pkgconfig(x264)
 %endif
 BuildRequires:  pkgconfig(xrandr)
+BuildRequires:  qcoro-qt6-devel
+BuildRequires:  qt6qml(org.kde.desktop)
 BuildRequires:  systemd-rpm-macros
 
 Requires:       android-tools
@@ -169,11 +175,13 @@ Requires:       firewalld-filesystem
 Requires:       hicolor-icon-theme
 Requires:       opencomposite
 Requires:       openxr
+Requires:       qt6qml(org.kde.desktop)
 
 Provides:       bundled(monado) = %{monado_version}
 
-# no big-endian support
-ExcludeArch:    s390x
+# no big-endian support, vulkan 32bit headers broken
+# https://github.com/WiVRn/WiVRn/issues/271
+ExcludeArch:    s390x %{ix86}
 
 %description
 WiVRn wirelessly connects a standalone VR headset to a Linux computer.
@@ -183,7 +191,7 @@ on the computer.
 Supports a wide range of headsets such as:
 
 Quest 1 / 2 / Pro / 3 / 3S
-Pico Neo 3 / 4
+Pico Neo 4
 HTC Vive Focus 3 / HTC Vive XR elite
 and most other Android based headsets
 
@@ -197,18 +205,15 @@ tar -xvf %{SOURCE1} --strip-components 1 -C _deps/monado-src
 # Apply WiVRn downstream patches
 pushd _deps/monado-src
 %patch -P0001 -p1
+%patch -P0002 -p1
 %patch -P0003 -p1
 %patch -P0004 -p1
 %patch -P0005 -p1
 %patch -P0006 -p1
-%patch -P0008 -p1
+%patch -P0007 -p1
 %patch -P0009 -p1
 %patch -P0010 -p1
-%patch -P0011 -p1
-%patch -P0012 -p1
 popd
-
-%patch -P1000 -p1
 
 
 %build
@@ -248,13 +253,14 @@ popd
 install -m 0755 -vd %{buildroot}%{_sysconfdir}/ld.so.conf.d
 echo "%{_libdir}/%{name}" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}.conf
 
+%find_lang %{name}-dashboard
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.wivrn.wivrn.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
-%files
+%files -f %{name}-dashboard.lang
 %license COPYING LICENSE-OFL-1.1 _deps/monado-src/LICENSES/*
 %doc README.md docs/
 %caps(cap_sys_nice=ep) %{_bindir}/wivrn-server

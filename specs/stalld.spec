@@ -1,6 +1,6 @@
 Name:		stalld
 Version:	1.19.8
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Daemon that finds starving tasks and gives them a temporary boost
 
 License:	GPL-2.0-or-later AND GPL-2.0-only
@@ -66,8 +66,13 @@ export CPPFLAGS="$CPPFLAGS -DGLIBC_HAS_SCHED_ATTR"
 %systemd_postun_with_restart %{name}.service
 
 %changelog
-* Tue Jan 28 2025 Clark Williams <williams@redhat.com> - 1.19.8
-- Added glibc41 fix to source tree, removed patch 
+* Wed Feb 19 2025 Clark Williams <williams@redhat.com> - 1.19.8-2
+- sync up with other builds
+
+* Wed Feb 19 2025 Clark Williams <williams@redhat.com> - 1.19.8
+- Fix incorrect DAEMON_UMASK value
+- Add 'errexit' to throttlectl.sh
+- Added glibc41 fix to source tree, removed patch
 - stalld.h:  fix prototype mis-match with cleanup_regex()
 
 * Tue Jan 21 2025 Clark Williams <williams@redhat.com> - 1.19.7

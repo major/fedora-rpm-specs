@@ -1,5 +1,5 @@
 Name:           python-tiktoken
-Version:        0.8.0
+Version:        0.9.0
 Release:        %autorelease
 Summary:        tiktoken is a fast BPE tokeniser for use with OpenAI's models
 # Statically linked deps and their licenses.
@@ -52,7 +52,7 @@ Summary:        %{summary}
 
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -f python
 %pyproject_buildrequires
 
 

@@ -19,7 +19,6 @@ Patch0:   nodownload.patch
 # https://github.com/cmuparlay/parlaylib/issues/46
 ExcludeArch:  aarch64 s390x arm-hfp ppc64le i686
 
-BuildRequires:  abseil-cpp-devel
 BuildRequires:  cmake
 BuildRequires:  clang-tools-extra-devel
 BuildRequires:  gcc-c++

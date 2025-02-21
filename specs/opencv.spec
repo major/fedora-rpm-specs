@@ -77,7 +77,7 @@ Version:        4.11.0
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD-3-Clause AND Apache-2.0 AND ISC
@@ -106,6 +106,21 @@ Patch0:         opencv-4.1.0-install_3rdparty_licenses.patch
 Patch3:         opencv.python.patch
 Patch4:         https://github.com/opencv/opencv/pull/26750.patch
 Patch5:         https://github.com/opencv/opencv/pull/26786.patch
+# backport all PNG patches from 4.11.0 to 45aa502549 - fixes issues
+# including complete failure to read PNGs on s390x (big-endian)
+# https://bugzilla.redhat.com/show_bug.cgi?id=2345306
+# https://github.com/opencv/opencv/issues/26913
+Patch6:         0001-Merge-pull-request-26739-from-vrabaud-png_leak.patch
+Patch7:         0002-Fix-remaining-bugs-in-PNG-reader.patch
+Patch8:         0003-Merge-pull-request-26782-from-vrabaud-png_leak.patch
+Patch9:         0004-Move-the-checks-to-read_chunk.patch
+Patch10:        0005-minor-improvement-for-better-code-readibility.patch
+Patch11:        0006-Merge-pull-request-26835-from-sturkmen72-patch-4.patch
+Patch12:        0007-fix-for-large-tEXt-chunk.patch
+Patch13:        0008-Merge-pull-request-26854-from-vrabaud-png_leak.patch
+Patch14:        0009-Merge-pull-request-26872-from-sturkmen72-ImageEncode.patch
+Patch15:        0010-Merge-pull-request-26915-from-mshabunin-fix-png-be.patch
+
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake >= 2.6.3
@@ -407,6 +422,16 @@ popd &>/dev/null
 %patch -P 3 -p1 -b .python_install_binary
 %patch -P 4 -p1 -b .VSX_intrinsics
 %patch -P 5 -p1 -b .GCC15
+%patch -P 6 -p1 -b .png1
+%patch -P 7 -p1 -b .png2
+%patch -P 8 -p1 -b .png3
+%patch -P 9 -p1 -b .png4
+%patch -P 10 -p1 -b .png5
+%patch -P 11 -p1 -b .png6
+%patch -P 12 -p1 -b .png7
+%patch -P 13 -p1 -b .png8
+%patch -P 14 -p1 -b .png9
+%patch -P 15 -p1 -b .png10
 
 pushd %{name}_contrib-%{version}
 #patch1 -p1 -b .install_cvv
@@ -583,6 +608,10 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 
 
 %changelog
+* Tue Feb 18 2025 Adam Williamson <awilliam@redhat.com> - 4.11.0-2
+- Backport all post-4.11.0 PNG fixes, including big-endian fix
+- Resolves: rhbz#2345306
+
 * Mon Feb 03 2025 Sérgio Basto <sergio@serjux.com> 4.11.0-1
 - Update to version 4.11.0
 - Resolves: rhbz#2336422

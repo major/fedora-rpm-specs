@@ -48,7 +48,7 @@
 
 Name:		pcmanfm
 Version:	%{main_version}%{git_ver_rpm}
-Release:	2%{?dist}%{flagrel}
+Release:	3%{?dist}%{flagrel}
 Summary:	Extremly fast and lightweight file manager
 
 # SPDX confirmed
@@ -238,6 +238,9 @@ cd ..
 %{_includedir}/pcmanfm-modules.h
 
 %changelog
+* Wed Feb 19 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.2^20241216gita8ae14c5-3
+- Rebuild with libfm 1.4.0 for date format option
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2^20241216gita8ae14c5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

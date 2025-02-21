@@ -1,11 +1,16 @@
 Name:		python-ipyparallel
 Version:	9.0.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Interactive Parallel Computing with IPython
 
 License:	BSD-3-Clause
 URL:		https://github.com/ipython/ipyparallel
 Source0:	%pypi_source ipyparallel
+
+#		https://github.com/ipython/ipyparallel/pull/917
+Patch0:		0001-Check-that-MongoDB-server-is-responding.patch
+#		https://github.com/ipython/ipyparallel/pull/926
+Patch1:		0001-Don-t-fail-a-test-because-there-are-no-public-IP-add.patch
 
 BuildArch:	noarch
 BuildRequires:	make
@@ -55,6 +60,8 @@ This package contains the tests of python3-ipyparallel.
 
 %prep
 %setup -q -n ipyparallel-%{version}
+%patch -P0 -p1
+%patch -P1 -p1
 
 rm ipyparallel/labextension/schemas/ipyparallel-labextension/package.json.orig
 
@@ -76,7 +83,6 @@ mv %{buildroot}%{_prefix}%{_sysconfdir} %{buildroot}%{_sysconfdir}
 # The version of jupyter-client in Fedora 39/40 calls datetime.utcnow()
 # Ignore DeprecationWarning from Python 3.12 due to this
 %pytest -v --color=no \
-    -k 'not TestMongoBackend' \
     -W "ignore:datetime.datetime.utcnow() is deprecated:DeprecationWarning"
 
 %files -n python3-ipyparallel
@@ -108,6 +114,9 @@ mv %{buildroot}%{_prefix}%{_sysconfdir} %{buildroot}%{_sysconfdir}
 %{python3_sitelib}/ipyparallel/tests
 
 %changelog
+* Wed Feb 19 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.0.0-5
+- Do not fail test when there are no public IP addresses
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

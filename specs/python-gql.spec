@@ -9,6 +9,10 @@ License:        MIT
 URL:            https://github.com/graphql-python/gql
 Source0:        %{pypi_source}
 Patch0:         https://github.com/graphql-python/gql/commit/b066e8944b0da0a4bbac6c31f43e5c3c7772cd51.patch
+# Remove deprecated mock dependency
+# https://github.com/graphql-python/gql/commit/7090972280820e14772cca74fdc3e067bf89e7b1.patch
+Patch1:         drop-deprecated-mock.patch
+
 
 BuildArch:      noarch
 
@@ -55,7 +59,6 @@ sed -i 's/"pytest-asyncio==.*",/"pytest-asyncio",/' setup.py
 sed -i 's/"pytest-console-scripts==.*",/"pytest-console-scripts",/' setup.py
 sed -i 's/"pytest-cov==.*",/"pytest-cov",/' setup.py
 sed -i 's/"parse==.*",/"parse",/' setup.py
-sed -i 's/"mock==.*",/"mock",/' setup.py
 sed -i 's/"vcrpy==.*",/"vcrpy",/' setup.py
 
 %generate_buildrequires

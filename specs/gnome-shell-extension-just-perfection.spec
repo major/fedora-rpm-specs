@@ -2,7 +2,7 @@
 %global uuid            %{extension}-desktop@%{extension}
 
 Name:           gnome-shell-extension-%{extension}
-Version:        30.0
+Version:        34.0
 Release:        %autorelease
 Summary:        GNOME Shell extension to change behavior and disable UI elements
 License:        GPL-3.0-only

@@ -7,12 +7,11 @@ Name:           herbstluftwm
 Version:        0.9.5
 Release:        %autorelease
 Summary:        A manual tiling window manager
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD
 URL:            http://herbstluftwm.org
 #Source0:        https://github.com/%%{name}/%%{name}/archive/%%{commit}/%%{name}-%%{shortcommit}.tar.gz
 Source0:        http://herbstluftwm.org/tarballs/%{name}-%{version}.tar.gz
-Patch0:         %{name}-gcc11.patch
+Patch0:         0.9.5-cstdint-gcc15.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++

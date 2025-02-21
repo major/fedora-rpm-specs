@@ -1,27 +1,18 @@
-%global candidate rc3
-
 Name:           kicad
 Version:        9.0.0
-Release:        0.2.%{candidate}%{?dist}
+Release:        1%{?dist}
 Epoch:          1
 Summary:        EDA software suite for creation of schematic diagrams and PCBs
 
 License:        GPL-3.0-or-later
 URL:            https://www.kicad.org
 
-# Source0:        https://gitlab.com/kicad/code/kicad/-/archive/%%{version}/kicad-%%{version}.tar.gz
-# Source1:        https://gitlab.com/kicad/services/kicad-doc/-/archive/%%{version}/kicad-doc-%%{version}.tar.gz
-# Source2:        https://gitlab.com/kicad/libraries/kicad-templates/-/archive/%%{version}/kicad-templates-%%{version}.tar.gz
-# Source3:        https://gitlab.com/kicad/libraries/kicad-symbols/-/archive/%%{version}/kicad-symbols-%%{version}.tar.gz
-# Source4:        https://gitlab.com/kicad/libraries/kicad-footprints/-/archive/%%{version}/kicad-footprints-%%{version}.tar.gz
-# Source5:        https://gitlab.com/kicad/libraries/kicad-packages3D/-/archive/%%{version}/kicad-packages3D-%%{version}.tar.gz
-
-Source0:        https://gitlab.com/kicad/code/kicad/-/archive/%{version}-%{candidate}/kicad-%{version}-%{candidate}.tar.gz
-Source1:        https://gitlab.com/kicad/services/kicad-doc/-/archive/%{version}-%{candidate}/kicad-doc-%{version}-%{candidate}.tar.gz
-Source2:        https://gitlab.com/kicad/libraries/kicad-templates/-/archive/%{version}-%{candidate}/kicad-templates-%{version}-%{candidate}.tar.gz
-Source3:        https://gitlab.com/kicad/libraries/kicad-symbols/-/archive/%{version}-%{candidate}/kicad-symbols-%{version}-%{candidate}.tar.gz
-Source4:        https://gitlab.com/kicad/libraries/kicad-footprints/-/archive/%{version}-%{candidate}/kicad-footprints-%{version}-%{candidate}.tar.gz
-Source5:        https://gitlab.com/kicad/libraries/kicad-packages3D/-/archive/%{version}-%{candidate}/kicad-packages3D-%{version}-%{candidate}.tar.gz
+Source0:        https://gitlab.com/kicad/code/kicad/-/archive/%{version}/kicad-%{version}.tar.gz
+Source1:        https://gitlab.com/kicad/services/kicad-doc/-/archive/%{version}/kicad-doc-%{version}.tar.gz
+Source2:        https://gitlab.com/kicad/libraries/kicad-templates/-/archive/%{version}/kicad-templates-%{version}.tar.gz
+Source3:        https://gitlab.com/kicad/libraries/kicad-symbols/-/archive/%{version}/kicad-symbols-%{version}.tar.gz
+Source4:        https://gitlab.com/kicad/libraries/kicad-footprints/-/archive/%{version}/kicad-footprints-%{version}.tar.gz
+Source5:        https://gitlab.com/kicad/libraries/kicad-packages3D/-/archive/%{version}/kicad-packages3D-%{version}.tar.gz
 
 # https://gitlab.com/kicad/code/kicad/-/issues/237
 ExclusiveArch:  x86_64 aarch64 ppc64le
@@ -89,7 +80,7 @@ Requires:       kicad >= 9.0.0
 
 %package        doc
 Summary:        Documentation for KiCad
-License:        GPLv3+ or CC-BY
+License:        GPL-3.0-or-later or CC-BY
 BuildArch:      noarch
 
 %description    doc
@@ -97,31 +88,7 @@ Documentation for KiCad.
 
 
 %prep
-# The -rc2 source tar has a root directory that includes the -rc2
-# name component, so we have to account for that.
-%setup -n %{name}-%{version}-%{candidate} -q
-
-# The doc repo will create a tar with -rc2 in the root dir name.  We
-# rename the dir to remove the -rc2 portion.  The remaining tars need
-# similar adjustments.
-%setup -n kicad-%{version}-%{candidate} -q -D -T -a 1
-mv kicad-doc-%{version}-%{candidate} kicad-doc-%{version}
-
-%setup -n kicad-%{version}-%{candidate} -q -D -T -a 2
-mv kicad-templates-%{version}-%{candidate} kicad-templates-%{version}
-
-%setup -n kicad-%{version}-%{candidate} -q -D -T -a 3
-mv kicad-symbols-%{version}-%{candidate} kicad-symbols-%{version}
-
-%setup -n kicad-%{version}-%{candidate} -q -D -T -a 4
-mv kicad-footprints-%{version}-%{candidate} kicad-footprints-%{version}
-
-%setup -n kicad-%{version}-%{candidate} -q -D -T -a 5
-mv kicad-packages3D-%{version}-%{candidate} kicad-packages3D-%{version}
-
-# Once we get beyond the rc stage, we will be able to replace the above
-# with:
-#%%setup -q -a 1 -a 2 -a 3 -a 4 -a 5
+%setup -q -a 1 -a 2 -a 3 -a 4 -a 5
 
 %build
 
@@ -252,6 +219,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Wed Feb 19 2025 Steven A. Falco <stevenfalco@gmail.com> - 1:9.0.0-1
+- Update to 9.0.0
+
 * Sat Feb 08 2025 Steven A. Falco <stevenfalco@gmail.com> - 1:9.0.0-0.2.rc3
 - Update to 9.0.0-rc3
 

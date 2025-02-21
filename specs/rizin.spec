@@ -1,7 +1,7 @@
 Name:           rizin
 Summary:        UNIX-like reverse engineering framework and command-line tool-set
 Version:        0.7.4
-%global         baserelease     3
+%global         baserelease     5
 URL:            https://rizin.re/
 VCS:            https://github.com/rizinorg/rizin
 
@@ -183,6 +183,12 @@ information
 
 
 %changelog
+* Wed Feb 19 2025 Peter Oliver <rpm@mavit.org.uk> - 0.7.4-5
+- Rebuild against tree-sitter-0.25.2-3.fc43
+
+* Mon Feb 03 2025 Peter Oliver <rpm@mavit.org.uk> - 0.7.4-4
+- Rebuild against tree-sitter-0.25.1-6.fc42
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

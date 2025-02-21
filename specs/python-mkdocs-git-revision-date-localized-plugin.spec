@@ -12,6 +12,9 @@ Source:         %{pypi_source mkdocs_git_revision_date_localized_plugin}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+%if 0%{?fc41} || 0%{?el10}
+BuildRequires:  sed
+%endif
 %if %{with tests}
 BuildRequires:  git-core
 %endif
@@ -33,6 +36,9 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n mkdocs_git_revision_date_localized_plugin-%{version}
+%if 0%{?fc41} || 0%{?el10}
+sed -i 's:setuptools>=70.0:setuptools>=69.0:' pyproject.toml
+%endif
 
 %generate_buildrequires
 %pyproject_buildrequires -x all,base,dev
