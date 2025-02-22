@@ -128,7 +128,7 @@
 #                    default is 1).
 %global samba_release %autorelease
 
-%global pre_release rc2
+%global pre_release rc3
 %if "x%{?pre_release}" != "x"
 %global samba_release %autorelease -p -e %pre_release
 %endif
@@ -3511,9 +3511,11 @@ fi
 %dir %{python3_sitearch}/samba/tests/ndr
 %{python3_sitearch}/samba/tests/ndr/gkdi.py
 %{python3_sitearch}/samba/tests/ndr/gmsa.py
+%{python3_sitearch}/samba/tests/ndr/sd.py
 %dir %{python3_sitearch}/samba/tests/ndr/__pycache__
 %{python3_sitearch}/samba/tests/ndr/__pycache__/gkdi.*.pyc
 %{python3_sitearch}/samba/tests/ndr/__pycache__/gmsa.*.pyc
+%{python3_sitearch}/samba/tests/ndr/__pycache__/sd.*.pyc
 %{python3_sitearch}/samba/tests/ndr/__pycache__/wbint.*.pyc
 %{python3_sitearch}/samba/tests/ndr/wbint.py
 %{python3_sitearch}/samba/tests/netbios.py

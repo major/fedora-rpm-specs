@@ -5,9 +5,12 @@
 %bcond_without toolsonly
 %endif
 
+# Set it to "opensbi" (stable) or "opensbi-unstable" (unstable, git)
+%global opensbi opensbi
+
 Name:     uboot-tools
 Version:  2025.04
-Release:  0.3%{?candidate:.%{candidate}}%{?dist}
+Release:  0.4%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -16,6 +19,7 @@ URL:      http://www.denx.de/wiki/U-Boot
 ExcludeArch: s390x
 Source0:  https://ftp.denx.de/pub/u-boot/u-boot-%{version}%{?candidate:-%{candidate}}.tar.bz2
 Source1:  aarch64-boards
+Source2:  riscv64-boards
 
 # This is now legacy, most devices use bootflow, we keep this for the laggards
 Patch1:   uefi-distro-load-FDT-from-any-partition-on-boot-device.patch
@@ -62,6 +66,9 @@ BuildRequires:  xxd
 %endif
 %endif
 Requires:       dtc
+%ifarch riscv64
+BuildRequires:  %{opensbi}
+%endif
 
 %description
 This package contains a few U-Boot utilities - mkimage for creating boot images
@@ -76,12 +83,21 @@ BuildArch:   noarch
 %description -n uboot-images-armv8
 U-Boot firmware binaries for aarch64 boards
 %endif
+
+%ifarch riscv64
+%package     -n uboot-images-riscv64
+Summary:     U-Boot firmware images for riscv64 boards
+BuildArch:   noarch
+
+%description -n uboot-images-riscv64
+U-Boot firmware binaries for riscv64 boards
+%endif
 %endif
 
 %prep
 %autosetup -p1 -n u-boot-%{version}%{?candidate:-%{candidate}}
 
-cp %SOURCE1 .
+cp %SOURCE1 %SOURCE2 .
 
 %build
 mkdir builds
@@ -90,7 +106,12 @@ mkdir builds
 %make_build HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE="" tools-all O=builds/
 
 %if %{with toolsonly}
-%ifarch aarch64
+# OpenSBI firmware is distributed in U-Boot SPL images
+%ifarch riscv64
+export OPENSBI=%{_datadir}/%{opensbi}/generic/firmware/fw_dynamic.bin
+%endif
+
+%ifarch aarch64 riscv64
 for board in $(cat %{_arch}-boards)
 do
   echo "Building board: $board"
@@ -181,6 +202,19 @@ done
 
 # For Apple M-series we also need the nodtb variant
 install -pD -m 0644 builds/apple_m1/u-boot-nodtb.bin %{buildroot}%{_datadir}/uboot/apple_m1/u-boot-nodtb.bin
+%endif
+
+%ifarch riscv64
+for board in $(ls builds)
+do
+ for file in u-boot.itb spl/u-boot-spl.bin spl/u-boot-spl.bin.normal.out
+ do
+  if [ -f builds/$(echo $board)/$(echo $file) ]; then
+    install -pD -m 0644 builds/$(echo $board)/$(echo $file) %{buildroot}%{_datadir}/uboot/$(echo $board)/$(echo $file)
+  fi
+ done
+done
+%endif
 
 # Bit of a hack to remove binaries we don't use as they're large
 for board in $(ls builds)
@@ -190,7 +224,6 @@ do
     rm -f %{buildroot}%{_datadir}/uboot/$(echo $board)/u-boot{,-dtb}.*
   fi
 done
-%endif
 %endif
 
 for tool in dumpimage env/fw_printenv fdt_add_pubkey fit_check_sign fit_info gdb/gdbcont gdb/gdbsend gen_eth_addr gen_ethaddr_crc ifwitool img2srec kwboot mkeficapsule mkenvimage mkimage mksunxiboot ncb proftool sunxi-spl-image-builder
@@ -222,9 +255,19 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %dir %{_datadir}/uboot/
 %{_datadir}/uboot/*
 %endif
+
+%ifarch riscv64
+%files -n uboot-images-riscv64
+%license Licenses/*
+%dir %{_datadir}/uboot/
+%{_datadir}/uboot/*
+%endif
 %endif
 
 %changelog
+* Tue Feb 18 2025 David Abdurachmanov <davidlt@rivosinc.com> - 1:2025.04-0.4.rc2
+- Add support for riscv64
+
 * Tue Feb 11 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2025.04-0.3.rc2
 - Update to 2025.05 RC2
 

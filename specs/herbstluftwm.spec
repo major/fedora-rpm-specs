@@ -7,7 +7,7 @@ Name:           herbstluftwm
 Version:        0.9.5
 Release:        %autorelease
 Summary:        A manual tiling window manager
-License:        BSD
+License:        BSD-2-Clause
 URL:            http://herbstluftwm.org
 #Source0:        https://github.com/%%{name}/%%{name}/archive/%%{commit}/%%{name}-%%{shortcommit}.tar.gz
 Source0:        http://herbstluftwm.org/tarballs/%{name}-%{version}.tar.gz

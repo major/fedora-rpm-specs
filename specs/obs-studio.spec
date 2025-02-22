@@ -25,7 +25,7 @@
 
 
 %global obswebsocket_version 5.5.4
-%global obsbrowser_commit 082a0a2d1c393f66dc68b62fa402ca23d4c02dbe
+%global obsbrowser_commit 4023fad79e2e9ff277b706432fe33eddbdab6d6a
 %global cef_version 6533
 
 #global commit ad859a3f66daac0d30eebcc9b07b0c2004fb6040
@@ -33,8 +33,8 @@
 #global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           obs-studio
-Version:        31.0.0
-Release:        2%{?dist}
+Version:        31.0.1
+Release:        1%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -359,6 +359,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
+* Thu Feb 20 2025 Neal Gompa <ngompa@fedoraproject.org> - 31.0.1-1
+- Update to 31.0.1
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 31.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

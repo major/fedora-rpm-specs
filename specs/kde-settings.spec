@@ -7,7 +7,7 @@
 Summary: Config files for KDE
 Name:    kde-settings
 Version: 42.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: MIT
 URL:     https://pagure.io/fedora-kde/kde-settings
@@ -34,7 +34,7 @@ Obsoletes: kde-settings-ksplash < 24-2
 Obsoletes: kde-settings-minimal < 24-3
 
 Requires: kde-filesystem
-Requires: xdg-user-dirs
+Requires: xdg-user-dirs >= 0.18-9
 ## add breeze deps here? probably, need more too -- rex
 Requires: breeze-icon-theme
 # Baseline mimeapps associations, e.g. LibreOffice
@@ -224,6 +224,9 @@ test -f %{_datadir}/wallpapers/F%{version_maj} || ls -l %{_datadir}/wallpapers
 
 
 %changelog
+* Thu Feb 20 2025 Neal Gompa <ngompa@fedoraproject.org> - 42.0-3
+- Bump minimum xdg-user-dirs package version to require systemd unit
+
 * Wed Feb 19 2025 Neal Gompa <ngompa@fedoraproject.org> - 42.0-2
 - Drop xdg-user-dirs hack as it's no longer needed
 

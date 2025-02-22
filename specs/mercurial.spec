@@ -9,8 +9,8 @@
 
 Summary: A fast, lightweight Source Control Management system
 Name: mercurial
-Version: 6.9.1
-Release: 2%{?dist}
+Version: 6.9.2
+Release: 1%{?dist}
 
 # Release: 1.rc1%%{?dist}
 
@@ -248,6 +248,9 @@ rm -rf %{buildroot}%{python3_sitearch}/mercurial/locale
 
 
 %changelog
+* Thu Feb 20 2025 Mads Kiilerich <mads@kiilerich.com> - 6.9.2-1
+- mercurial 6.9.2
+
 * Mon Jan 20 2025 Mads Kiilerich <mads@kiilerich.com> - 6.9.1-2
 - There is no need for TLS configuration with modern Python
 

@@ -1,8 +1,8 @@
 %global somajor 4
 
 Name:           transactional-update
-Version:        4.8.3
-Release:        2%{?dist}
+Version:        5.0.0
+Release:        1%{?dist}
 Summary:        Transactional Updates with btrfs and snapshots
 
 License:        GPL-2.0-or-later and LGPL-2.1-or-later
@@ -59,6 +59,7 @@ with btrfs and snapshots.
 %{_unitdir}/create-dirs-from-rpmdb.service
 %{_libexecdir}/prepare-nextroot-for-softreboot
 %{_unitdir}/prepare-nextroot-for-softreboot.service
+%{_libexecdir}/snapper/plugins/50-etc
 
 #--------------------------------------------------------------------
 
@@ -99,7 +100,6 @@ Summary:        Dracut module for supporting transactional updates
 License:        GPL-2.0-or-later
 Supplements:    (tukit and kernel)
 Requires:       tukit = %{version}-%{release}
-BuildArch:      noarch
 
 %description -n dracut-%{name}
 This package contains the dracut modules for handling early boot aspects
@@ -111,6 +111,7 @@ for transactional updates.
 %dir %{_prefix}/lib/dracut
 %dir %{_prefix}/lib/dracut/modules.d
 %{_prefix}/lib/dracut/modules.d/50transactional-update/
+%{_libexecdir}/transactional-update-sync-etc-state
 
 #--------------------------------------------------------------------
 
@@ -155,6 +156,9 @@ transactional updates using btrfs snapshots.
 %prep
 %autosetup -p1
 
+# use libexecdir for snapper stuff
+find -type f -exec sed -i -e "s|lib/snapper|libexec/snapper|g" {} ';'
+
 
 %build
 autoreconf -fiv
@@ -179,6 +183,9 @@ rm -rf %{buildroot}%{_docdir}
 
 
 %changelog
+* Thu Feb 20 2025 Neal Gompa <ngompa@fedoraproject.org> - 5.0.0-1
+- Rebase to 5.0.0 (RH#2067019)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

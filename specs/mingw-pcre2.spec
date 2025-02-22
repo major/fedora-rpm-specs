@@ -3,8 +3,8 @@
 %global pkgname pcre2
 
 Name:          mingw-%{pkgname}
-Version:       10.44
-Release:       3%{?dist}
+Version:       10.45
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 License:       BSD-3-Clause
@@ -127,7 +127,7 @@ chmod 0644 %{buildroot}%{mingw64_libdir}/*.dll.a
 
 # Win32
 %files -n mingw32-%{pkgname}
-%license LICENCE
+%license COPYING
 %{mingw32_bindir}/pcre2grep.exe
 %{mingw32_bindir}/pcre2test.exe
 %{mingw32_bindir}/pcre2-config
@@ -144,7 +144,7 @@ chmod 0644 %{buildroot}%{mingw64_libdir}/*.dll.a
 %{mingw32_includedir}/pcre2posix.h
 
 %files -n mingw32-%{pkgname}-static
-%license LICENCE
+%license COPYING
 %{mingw32_libdir}/libpcre2-8.a
 %{mingw32_libdir}/libpcre2-16.a
 %{mingw32_libdir}/libpcre2-32.a
@@ -152,7 +152,7 @@ chmod 0644 %{buildroot}%{mingw64_libdir}/*.dll.a
 
 # Win64
 %files -n mingw64-%{pkgname}
-%license LICENCE
+%license COPYING
 %{mingw64_bindir}/pcre2grep.exe
 %{mingw64_bindir}/pcre2test.exe
 %{mingw64_bindir}/pcre2-config
@@ -169,7 +169,7 @@ chmod 0644 %{buildroot}%{mingw64_libdir}/*.dll.a
 %{mingw64_includedir}/pcre2posix.h
 
 %files -n mingw64-%{pkgname}-static
-%license LICENCE
+%license COPYING
 %{mingw64_libdir}/libpcre2-8.a
 %{mingw64_libdir}/libpcre2-16.a
 %{mingw64_libdir}/libpcre2-32.a
@@ -177,6 +177,9 @@ chmod 0644 %{buildroot}%{mingw64_libdir}/*.dll.a
 
 
 %changelog
+* Thu Feb 20 2025 Sandro Mani <manisandro@gmail.com> - 10.45-1
+- Update to 10.45
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.44-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-libpng
-Version:        1.6.46
+Version:        1.6.47
 Release:        1%{?dist}
 Summary:        MinGW Windows Libpng library
 
@@ -132,6 +132,9 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Thu Feb 20 2025 Sandro Mani <manisandro@gmail.com> - 1.6.47-1
+- Update to 1.6.47
+
 * Fri Feb 07 2025 Sandro Mani <manisandro@gmail.com> - 1.6.46-1
 - Update to 1.6.46
 

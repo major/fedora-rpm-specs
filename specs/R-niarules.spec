@@ -2,11 +2,11 @@
 
 %global packname niarules
 %global rlibdir  %{_datadir}/R/library
-%global ver 0.1.0
+%global ver 0.2.0
 
 Name:             R-%{packname}
 Version:          %{ver}
-Release:          4%{?dist}
+Release:          1%{?dist}
 License:          MIT
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source:           %{url}&version=%{version}#/%{packname}_%{ver}.tar.gz
@@ -60,6 +60,9 @@ export LANG=C.UTF-8
 %doc %{rlibdir}/%{packname}/extdata/
 
 %changelog
+* Thu Feb 20 2025 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.2.0-1
+- Update to 0.2.0
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

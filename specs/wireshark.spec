@@ -5,8 +5,8 @@
 
 Summary:	Network traffic analyzer
 Name:		wireshark
-Version:	4.4.3
-Release:	2%{?dist}
+Version:	4.4.4
+Release:	1%{?dist}
 Epoch:		1
 License:	BSD-1-Clause AND BSD-2-Clause AND BSD-3-Clause AND MIT AND GPL-2.0-or-later AND LGPL-2.0-or-later AND Zlib AND ISC AND (BSD-3-Clause OR GPL-2.0-only) AND (GPL-2.0-or-later AND Zlib)
 Url:		http://www.wireshark.org/
@@ -275,6 +275,9 @@ fi
 %{_libdir}/cmake/%{name}/*.cmake
 
 %changelog
+* Thu Feb 20 2025 Michal Ruprich <mruprich@redhat.com> - 1:4.4.4-1
+- New version 4.4.4
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:4.4.3-2
 - Drop call to %sysusers_create_compat
 

@@ -2,8 +2,8 @@
 %{?mingw_package_header}
 
 Name:          mingw-objfw
-Version:       1.2.3
-Release:       2%{?dist}
+Version:       1.2.4
+Release:       1%{?dist}
 Summary:       MinGW port of ObjFW
 
 License:       LGPL-3.0-only

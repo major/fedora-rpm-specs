@@ -1,5 +1,5 @@
-%global glibcsrcdir glibc-2.40.9000-827-g9b2f20dd54
-%global glibcversion 2.40.9000
+%global glibcsrcdir glibc-2.41.9000-100-g6d24313e4a
+%global glibcversion 2.41.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
 #
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 37
+%global baserelease 1
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2379,6 +2379,113 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Thu Feb 20 2025 Carlos O'Donell <carlos@redhat.com> - 2.41.9000-1
+- Auto-sync with upstream branch master,
+  commit 6d24313e4a4098f7c469e119784bfbbfdb1ec749.
+- manual: Mark setlogmask as AS-unsafe and AC-unsafe.
+- AArch64: Add SVE memset
+- x86 (__HAVE_FLOAT128): Defined to 0 for Intel SYCL compiler [BZ #32723]
+- manual: Document setlogmask as MT-safe.
+- math: Consolidate acosf and asinf internal tables
+- math: Consolidate acospif and asinpif internal tables
+- math: Consolidate cospif and sinpif internal tables
+- htl: don't export __pthread_default_rwlockattr anymore.
+- htl: move pthread_rwlock_init into libc.
+- htl: move pthread_rwlock_destroy into libc.
+- htl: move pthread_rwlock_{rdlock, timedrdlock, timedwrlock, wrlock, clockrdlock, clockwrlock} into libc.
+- htl: move pthread_rwlock_unlock into libc.
+- htl: move pthread_rwlock_tryrdlock, pthread_rwlock_trywrlock into libc.
+- htl: move pthread_rwlockattr_getpshared, pthread_rwlockattr_setpshared into libc.
+- htl: move pthread_rwlockattr_destroy into libc.
+- htl: move pthread_rwlockattr_init into libc.
+- htl: move __pthread_default_rwlockattr into libc.
+- Fix tst-aarch64-pkey to handle ENOSPC as not supported
+- Increase the amount of data tested in stdio-common/tst-fwrite-bz29459.c
+- elf: Keep using minimal malloc after early DTV resize (bug 32412)
+- libio: Initialize _total_written for all kinds of streams
+- malloc: Add size check when moving fastbin->tcache
+- nss: Improve network number parsers (bz 32573, 32575)
+- nptl: Remove unused __g_refs comment.
+- advisories: Fix up GLIBC-SA-2025-0001
+- AArch64: Improve codegen for SVE powf
+- AArch64: Improve codegen for SVE pow
+- AArch64: Improve codegen for SVE erfcf
+- Aarch64: Improve codegen in SVE exp and users, and update expf_inline
+- Aarch64: Improve codegen in SVE asinh
+- math: Improve layout of exp/exp10 data
+- assert: Add test for CVE-2025-0395
+- math: Consolidate coshf and sinhf internal tables
+- math: Consolidate acoshf and asinhf internal tables
+- math: Use tanpif from CORE-MATH
+- math: Use sinpif from CORE-MATH
+- math: Use cospif from CORE-MATH
+- math: Use atanpif from CORE-MATH
+- math: Use atan2pif from CORE-MATH
+- math: Use asinpif from CORE-MATH
+- math: Use acospif from CORE-MATH
+- benchtests: Add tanpif
+- benchtests: Add sinpif
+- benchtests: Add cospif
+- benchtests: Add atanpif
+- benchtests: Add atan2pif
+- benchtests: Add asinpif
+- benchtests: Add acospif
+- hurd: Replace char foo[1024] with string_t
+- hurd: Drop useless buffer initialization in ttyname*
+- mig_strncpy: ensure destination string is null terminated
+- htl: stop exporting __pthread_default_barrierattr.
+- htl: move pthread_barrier_wait into libc.
+- htl: move pthread_barrier_init into libc.
+- htl: move pthread_barrier_destroy into libc.
+- htl: move pthread_barrierattr_getpshared, pthread_barrierattr_setpshared into libc.
+- htl: move pthread_barrierattr_init into libc.
+- htl: move pthread_barrierattr_destroy into libc.
+- htl: move __pthread_default_barrierattr into libc.
+- manual: Update signal descriptions
+- libio: Replace __LP64__ with __WORDSIZE
+- powerpc64le: Also avoid IFUNC for __mempcpy
+- elf: Build dl-tls.o with early startup symbol redirections
+- manual: make @manpageurl more specific to each output
+- math: Fix tanf for some inputs (BZ 32630)
+- elf: Use _dl_find_object instead of _dl_find_dso_for_object in dlopen
+- elf: Add fast path to dlopen for fully-opened maps
+- elf: Determine the caller link map in _dl_open
+- elf: Merge __dl_libc_freemem into __rtld_libc_freeres
+- elf: Add l_soname accessor function for DT_SONAME values
+- elf: Split _dl_lookup_map, _dl_map_new_object from _dl_map_object
+- hurd: Use the new __proc_reauthenticate_complete protocol
+- elf: Do not add a copy of _dl_find_object to libc.so
+- htl: move pthread_setcancelstate into libc.
+- math: Fix sinhf for some inputs (BZ 32627)
+- math: Fix log10p1f internal table value (BZ 32626)
+- manual: Safety annotations for timespec_get and timespec_getres
+- sh: Fix tst-guard1 build
+- manual: Add links to POSIX Semaphores man-pages documentation
+- manual: Consolidate POSIX Semaphores docs in Threads chapter
+- ld.so: Decorate BSS mappings
+- nptl: Add support for setup guard pages with MADV_GUARD_INSTALL
+- nptl: Correct stack size attribute when stack grows up [BZ #32574]
+- manual: Update compatibility note on flushing of line-oriented files
+- htl: move pthread_setcanceltype into libc.
+- htl: move pthread_mutex_consistent, pthread_mutex_consistent_np into libc.
+- htl: move pthread_mutex_destroy into libc.
+- htl: move pthread_mutex_getprioceiling, pthread_mutex_setprioceiling into libc
+- htl: move pthread_mutex_{lock, unlock, trylock, timedlock, clocklock}
+- htl: move pthread_mutex_init into libc.
+- htl: remove leftover for pthread_mutexattr_settype
+- Add test of input file flushing / offset issues
+- Fix fflush handling for mmap files after ungetc (bug 32535)
+- Fix fseek handling for mmap files after ungetc or fflush (bug 32529)
+- Make fflush (NULL) flush input files (bug 32369)
+- Make fclose seek input file to right offset (bug 12724)
+- Fix fflush after ungetc on input file (bug 5994)
+- libio: Add a new fwrite test that evaluates partial writes
+- libio: Start to return errors when flushing fwrite's buffer [BZ #29459]
+- Add new tests for fopen
+- Increase version to 2.41.9000, add new section to NEWS
+- Create ChangeLog.old/ChangeLog.30
+- Bump version to 2.41
+
 * Fri Feb  7 2025 Florian Weimer <fweimer@redhat.com> - 2.40.9000-37
 - Add dependency on filesystem
 

@@ -784,6 +784,5 @@ fi
 %files devel
 %{_includedir}/emacs-module.h
 
-
 %changelog
 %autochangelog

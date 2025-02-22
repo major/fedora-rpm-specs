@@ -5,7 +5,7 @@
 Summary: The graphical toolkit for the Tcl scripting language
 Name: tk
 Version: %{vers}
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch:   1
 License: TCL AND HPND-Pbmplus AND CC-BY-SA-3.0 AND MIT-open-group AND MIT
 URL: http://tcl.sourceforge.net
@@ -65,7 +65,7 @@ make install -C unix INSTALL_ROOT=%{buildroot} TK_LIBRARY=%{_datadir}/%{name}%{m
 ln -s wish%{majorver} %{buildroot}%{_bindir}/wish
 
 # for linking with -l%%{name}
-ln -s lib%{name}%{majorver}.so %{buildroot}%{_libdir}/lib%{name}.so
+ln -s libtcl%{major}%{name}%{majorver}.so %{buildroot}%{_libdir}/lib%{name}.so
 
 mkdir -p %{buildroot}/%{_includedir}/%{name}-private/{generic/ttk,unix}
 find generic unix -name "*.h" -exec cp -p '{}' %{buildroot}/%{_includedir}/%{name}-private/'{}' ';'
@@ -109,6 +109,9 @@ ln -s %{_bindir}/wish %{_bindir}/wish%{majorver} %{buildroot}%{_usr}/bin/
 %{_mandir}/man3/*
 
 %changelog
+* Thu Feb 20 2025 Orion Poplawski <orion@nwra.com> - 1:9.0.0-4
+- Fix target for libtk.so
+
 * Sun Feb  2 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 1:9.0.0-3
 - Rebuilt for new gcc
 

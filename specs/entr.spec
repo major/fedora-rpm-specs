@@ -1,6 +1,6 @@
 Name:           entr
-Version:        5.6
-Release:        3%{?dist}
+Version:        5.7
+Release:        1%{?dist}
 Summary:        Run arbitrary commands when files change
 
 # The entire source code is ISC except missing/sys/event.h which is BSD-2-Clause
@@ -10,6 +10,11 @@ Source0:        %{url}/code/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  make
+# Required for make check
+BuildRequires:  procps-ng
+BuildRequires:  tmux
+BuildRequires:  vim
+BuildRequires:  git-core
 
 %description
 A utility for running arbitrary commands when files change. Uses inotify to
@@ -29,6 +34,9 @@ export LDFLAGS="%{?__global_ldflags}"
 export PREFIX=%{_prefix}
 %make_install
 
+%check
+make test
+make check
 
 %files
 %license LICENSE
@@ -37,6 +45,10 @@ export PREFIX=%{_prefix}
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Feb 20 2025 Lubomír Sedlář <lsedlar@redhat.com> - 5.7-1
+- New upstream release 5.7
+- Enable tests again
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

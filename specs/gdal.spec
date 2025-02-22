@@ -51,7 +51,7 @@
 
 Name:          gdal
 Version:       3.10.2
-Release:       1%{?dist}
+Release:       3%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -73,6 +73,8 @@ Source5:       %{name}-cleaner.sh
 Patch0:        gdal_utils.patch
 # Fix passing incompatible pointer type
 Patch1:        gdal_incompatible-pointer-types.patch
+# Add definitions of missing int16_t and int32_t
+Patch2:        gdal-3.10.2-integer-types.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -645,6 +647,12 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 
 
 %changelog
+* Thu Feb 20 2025 Marek Kasik <mkasik@redhat.com> - 3.10.2-3
+- Add definitions of missing int16_t and int32_t
+
+* Thu Feb 20 2025 Marek Kasik <mkasik@redhat.com> - 3.10.2-2
+- Rebuild for libarrow 19 in poppler's sidetag
+
 * Sat Feb 15 2025 Sandro Mani <manisandro@gmail.com> - 3.10.2-1
 - Update to 3.10.2
 

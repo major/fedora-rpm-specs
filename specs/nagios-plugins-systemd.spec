@@ -1,6 +1,6 @@
 %global nagiospluginsdir %{_libdir}/nagios/plugins
 Name:           nagios-plugins-systemd
-Version:        4.1.1
+Version:        5.0.0
 Release:        %autorelease
 Summary:        Nagios Plugin - check_systemd
 

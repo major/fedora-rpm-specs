@@ -32,14 +32,14 @@
 %global compat_ver %{compat_maj_ver}.1.8
 %endif
 
-# Compat builds do not include python-lit and lldb
+# Compat builds do not include python-lit
 %if %{with compat_build}
 %bcond_with python_lit
-%bcond_with lldb
 %else
 %bcond_without python_lit
-%bcond_without lldb
 %endif
+
+%bcond_without lldb
 
 %if %{without compat_build} && 0%{?fedora} >= 41
 %ifarch %{ix86}
@@ -213,9 +213,8 @@
 #endregion LLD globals
 
 #region LLDB globals
-%global pkg_name_lldb lldb
+%global pkg_name_lldb lldb%{pkg_suffix}
 #endregion LLDB globals
-#endregion globals
 
 #region MLIR globals
 %global pkg_name_mlir mlir%{pkg_suffix}
@@ -234,12 +233,13 @@
 #region polly globals
 %global pkg_name_polly polly%{pkg_suffix}
 #endregion polly globals
+#endregion globals
 
 #region packages
 #region main package
 Name:		%{pkg_name_llvm}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -541,8 +541,8 @@ Requires:	%{pkg_name_llvm}-test%{?_isa} = %{version}-%{release}
 Requires:	%{pkg_name_llvm}-googletest%{?_isa} = %{version}-%{release}
 
 
-Requires(post):	%{_sbindir}/alternatives
-Requires(postun):	%{_sbindir}/alternatives
+Requires(post):	alternatives
+Requires(postun):	alternatives
 
 Provides:	llvm-devel(major) = %{maj_ver}
 
@@ -793,8 +793,8 @@ URL: http://openmp.llvm.org
 %package -n %{pkg_name_lld}
 Summary:	The LLVM Linker
 
-Requires(post): %{_sbindir}/update-alternatives
-Requires(preun): %{_sbindir}/update-alternatives
+Requires(post): alternatives
+Requires(preun): alternatives
 
 Requires: %{pkg_name_lld}-libs = %{version}-%{release}
 Provides: lld(major) = %{maj_ver}
@@ -847,7 +847,9 @@ License:	Apache-2.0 WITH LLVM-exception OR NCSA
 URL:		http://lldb.llvm.org/
 
 Requires:	%{pkg_name_clang}-libs%{?_isa} = %{version}-%{release}
+%if %{without compat_build}
 Requires:	python%{python3_pkgversion}-lldb
+%endif
 
 %description -n %{pkg_name_lldb}
 LLDB is a next generation, high-performance debugger. It is built as a set
@@ -862,6 +864,7 @@ Requires:	%{pkg_name_lldb}%{?_isa} = %{version}-%{release}
 %description -n %{pkg_name_lldb}-devel
 The package contains header files for the LLDB debugger.
 
+%if %{without compat_build}
 %package -n python%{python3_pkgversion}-lldb
 %{?python_provide:%python_provide python%{python3_pkgversion}-lldb}
 Summary:	Python module for LLDB
@@ -875,6 +878,7 @@ Obsoletes: python3-lldb < 18.9
 
 %description -n python%{python3_pkgversion}-lldb
 The package contains the LLDB Python module.
+%endif
 %endif
 #endregion LLDB packages
 
@@ -1113,6 +1117,13 @@ Polly header files.
 
 #endregion COMPILER-RT preparation
 
+#region lldb preparation
+# Compat builds don't build python bindings, but should still build man pages.
+%if %{with compat_build}
+sed -i 's/LLDB_ENABLE_PYTHON/TRUE/' lldb/docs/CMakeLists.txt
+%endif
+#endregion
+
 #region libcxx preparation
 %if %{with libcxx}
 %py3_shebang_fix libcxx/utils/
@@ -1263,9 +1274,9 @@ popd
 
 #region lldb options
 %if %{with lldb}
-	%global cmake_config_args %{cmake_config_args} -DLLDB_DISABLE_CURSES:BOOL=OFF
-	%global cmake_config_args %{cmake_config_args} -DLLDB_DISABLE_LIBEDIT:BOOL=OFF
-	%global cmake_config_args %{cmake_config_args} -DLLDB_DISABLE_PYTHON:BOOL=OFF
+%if %{with compat_build}
+	%global cmake_config_args %{cmake_config_args} -DLLDB_ENABLE_PYTHON=OFF
+%endif
 %ifarch ppc64le
 	%global cmake_config_args %{cmake_config_args} -DLLDB_TEST_USER_ARGS=--skip-category=watchpoint
 %endif
@@ -1614,6 +1625,7 @@ mv %{buildroot}{%{install_datadir}/clang,%{_emacs_sitestartdir}}/clang-rename.el
 
 # Not sure where to put these python modules for the compat build.
 rm -Rf %{buildroot}%{install_libdir}/{libear,libscanbuild}
+rm %{buildroot}%{install_bindir}/scan-build-py
 
 # Not sure where to put the emacs integration files for the compat build.
 rm -Rf %{buildroot}%{install_datadir}/clang/*.el
@@ -1721,6 +1733,7 @@ install -D -m 644 -t  %{buildroot}%{install_mandir}/man1/ lld/docs/ld.lld.1
 %if %{with lldb}
 %multilib_fix_c_header --file %{install_includedir}/lldb/Host/Config.h
 
+%if %{without compat_build}
 # Move python package out of llvm prefix.
 mkdir -p %{buildroot}%{python3_sitearch}
 mv %{buildroot}%{install_prefix}/%{_lib}/python%{python3_version}/site-packages/lldb %{buildroot}/%{python3_sitearch}
@@ -1731,6 +1744,7 @@ rmdir %{buildroot}%{install_prefix}/%{_lib}/python%{python3_version}
 liblldb=$(basename $(readlink -e %{buildroot}%{install_libdir}/liblldb.so))
 ln -vsf "../../../llvm%{maj_ver}/lib/${liblldb}" %{buildroot}%{python3_sitearch}/lldb/_lldb.so
 %py_byte_compile %{__python3} %{buildroot}%{python3_sitearch}/lldb
+%endif
 %endif
 #endregion LLDB installation
 
@@ -2265,9 +2279,9 @@ cp %{_vpath_builddir}/.ninja_log %{buildroot}%{_datadir}
 %endif
 
 %post -n %{pkg_name_llvm}-devel
-%{_sbindir}/update-alternatives --install %{_bindir}/llvm-config-%{maj_ver} llvm-config-%{maj_ver} %{install_bindir}/llvm-config %{__isa_bits}
+update-alternatives --install %{_bindir}/llvm-config-%{maj_ver} llvm-config-%{maj_ver} %{install_bindir}/llvm-config %{__isa_bits}
 %if %{without compat_build}
-%{_sbindir}/update-alternatives --install %{_bindir}/llvm-config llvm-config %{install_bindir}/llvm-config %{__isa_bits}
+update-alternatives --install %{_bindir}/llvm-config llvm-config %{install_bindir}/llvm-config %{__isa_bits}
 
 # During the upgrade from LLVM 16 (F38) to LLVM 17 (F39), we found out the
 # main llvm-devel package was leaving entries in the alternatives system.
@@ -2275,14 +2289,14 @@ cp %{_vpath_builddir}/.ninja_log %{buildroot}%{_datadir}
 for v in 14 15 16; do
   if [[ -e %{_bindir}/llvm-config-$v
         && "x$(%{_bindir}/llvm-config-$v --version | awk -F . '{ print $1 }')" != "x$v" ]]; then
-    %{_sbindir}/update-alternatives --remove llvm-config-$v %{install_bindir}/llvm-config%{exec_suffix}-%{__isa_bits}
+    update-alternatives --remove llvm-config-$v %{install_bindir}/llvm-config%{exec_suffix}-%{__isa_bits}
   fi
 done
 %endif
 
 %postun -n %{pkg_name_llvm}-devel
 if [ $1 -eq 0 ]; then
-  %{_sbindir}/update-alternatives --remove llvm-config%{exec_suffix} %{install_bindir}/llvm-config
+  update-alternatives --remove llvm-config%{exec_suffix} %{install_bindir}/llvm-config
 fi
 %if %{without compat_build}
 # When upgrading between minor versions (i.e. from x.y.1 to x.y.2), we must
@@ -2292,17 +2306,17 @@ fi
 # compat package.
 if [[ $1 -eq 0
       || "x$(%{_bindir}/llvm-config%{exec_suffix} --version | awk -F . '{ print $1 }')" != "x%{maj_ver}" ]]; then
-  %{_sbindir}/update-alternatives --remove llvm-config-%{maj_ver} %{install_bindir}/llvm-config%{exec_suffix}-%{__isa_bits}
+  update-alternatives --remove llvm-config-%{maj_ver} %{install_bindir}/llvm-config%{exec_suffix}-%{__isa_bits}
 fi
 %endif
 
 %if %{without compat_build}
 %post -n %{pkg_name_lld}
-%{_sbindir}/update-alternatives --install %{_bindir}/ld ld %{_bindir}/ld.lld 1
+update-alternatives --install %{_bindir}/ld ld %{_bindir}/ld.lld 1
 
 %postun -n %{pkg_name_lld}
 if [ $1 -eq 0 ] ; then
-  %{_sbindir}/update-alternatives --remove ld %{_bindir}/ld.lld
+  update-alternatives --remove ld %{_bindir}/ld.lld
 fi
 %endif
 #endregion misc
@@ -2681,7 +2695,6 @@ fi
     scan-build
     analyze-build
     intercept-build
-    scan-build-py
 }}
 %{expand_libexecs %{expand:
     ccc-analyzer
@@ -2694,6 +2707,7 @@ fi
 %expand_datas scan-view scan-build
 %expand_mans scan-build
 %if %{without compat_build}
+%expand_bins scan-build-py
 %{python3_sitelib}/libear
 %{python3_sitelib}/libscanbuild
 %endif
@@ -2927,8 +2941,10 @@ fi
 %files -n %{pkg_name_lldb}-devel
 %expand_includes lldb
 
+%if %{without compat_build}
 %files -n python%{python3_pkgversion}-lldb
 %{python3_sitearch}/lldb
+%endif
 %endif
 #endregion LLDB files
 
@@ -3086,6 +3102,9 @@ fi
 
 #region changelog
 %changelog
+* Thu Feb 20 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 19.1.7-10
+- Do not rely on alternatives path
+
 * Fri Feb 14 2025 Nikita Popov <npopov@redhat.com> - 19.1.7-9
 - Rename llvm-resource-filesystem -> llvm-filesystem
 

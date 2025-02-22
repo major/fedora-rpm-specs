@@ -11,8 +11,8 @@
 %endif
 
 Name:           fedora-license-data
-Version:        1.64
-Release:        2%{?dist}
+Version:        1.65
+Release:        1%{?dist}
 Summary:        Fedora Linux license data
 
 License:        CC0-1.0
@@ -128,8 +128,11 @@ make check-grammar
 
 
 %changelog
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.64-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+* Thu Feb 20 2025 Miroslav Suchý <msuchy@redhat.com> 1.65-1
+- Add BSD-3-Clause WITH AdditionRef-WebM-patent license
+- add public domain dedication in desktop-backgrouds
+- mark OFL-1.1-RFN and OFL-1.1-no-RFN as equal
+- ultrapermissive dedication of broda from crosswords package
 
 * Thu Jan 09 2025 Miroslav Suchý <msuchy@redhat.com> 1.64-1
 - add copyleft-next-0.3.1 license

@@ -1,10 +1,9 @@
-%global eppic_ver e8844d3793471163ae4a56d8f95897be9e5bd554
+%global eppic_ver 63c2a2072464d774097a1a6cc1d2e98290f89c49
 %global eppic_shortver %(c=%{eppic_ver}; echo ${c:0:7})
-%global enable_epic 0
 Name: makedumpfile
 Version: 1.7.6
 Summary: make a small dumpfile of kdump
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: GPL-2.0-only
 URL: https://github.com/makedumpfile/makedumpfile
@@ -34,39 +33,34 @@ makedumpfile is a tool to compress and filter out unneeded data from kernel
 dumps to reduce its file size. It is typically used with the kdump mechanism.
 
 %prep
-%autosetup -p1
-tar -z -x -v -f %{SOURCE1}
+%autosetup -p1 -a 0 -a 1
 sed -r -i 's|/usr/sbin|%_sbindir|g' Makefile
 
 %build
 %make_build LINKTYPE=dynamic USELZO=on USESNAPPY=on USEZSTD=on
-
-%if 0%{enable_epic}
 %make_build -C eppic-%{eppic_ver}/libeppic
 %make_build LDFLAGS="$LDFLAGS -Ieppic-%{eppic_ver}/libeppic -Leppic-%{eppic_ver}/libeppic" eppic_makedumpfile.so
-%endif
 
 %install
 %make_install
 install -m 644 -D makedumpfile.conf %{buildroot}/%{_sysconfdir}/makedumpfile.conf.sample
 rm %{buildroot}/%{_sbindir}/makedumpfile-R.pl
 
-%if 0%{enable_epic}
 install -m 755 -D eppic_makedumpfile.so %{buildroot}/%{_libdir}/eppic_makedumpfile.so
-%endif
 
 %files
 %{_sbindir}/makedumpfile
 %{_mandir}/man5/makedumpfile.conf.5*
 %{_mandir}/man8/makedumpfile.8*
 %{_sysconfdir}/makedumpfile.conf.sample
-%if 0%{enable_epic}
 %{_libdir}/eppic_makedumpfile.so
-%endif
 %{_datadir}/makedumpfile/
 %license COPYING
 
 %changelog
+* Thu Feb 20 2025 Coiby Xu <coxu@redhat.com> - 1.7.6-4
+- update to upstream eppic
+
 * Tue Feb 18 2025 Coiby Xu <coxu@redhat.com> - 1.7.6-3
 - fix gcc-15 compiling error (bz2340813)
 

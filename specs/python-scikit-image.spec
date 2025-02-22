@@ -3,7 +3,7 @@
 %global srcname scikit-image
 
 Name: python-scikit-image
-Version: 0.25.1
+Version: 0.25.2
 Release: 1%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
@@ -15,7 +15,7 @@ URL: http://scikit-image.org/
 Source0: https://github.com/scikit-image/scikit-image/archive/v%{version}/%{srcname}-%{version}.tar.gz
 # Select extra test data - you can build the package locally and then run:
 # tar cJvf scikit-image-data.tar.xz -C scikit-image-0.21.0/scikit-image/0.21.0 .
-Source1: scikit-image-data-20240618.tar.xz
+Source1: scikit-image-data-20250220.tar.xz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -126,6 +126,9 @@ popd
 
 
 %changelog
+* Thu Feb 20 2025 Sergio Pascual <sergiopr@fedoraproject.org> - 0.25.2-1
+- Update to 0.25.2
+
 * Wed Jan 29 2025 Orion Poplawski <orion@nwra.com> - 0.25.1-1
 - Update to 0.25.1
 
@@ -365,4 +368,5 @@ popd
 
 * Thu Apr 18 2013 Sergio Pascual <sergiopr@fedoraproject.org> - 0.9.3-1
 - Initial spec file
+
 

@@ -21,7 +21,7 @@
 # We have to bundle the linbox package.  It has global constructors that cause
 # the same problem as libfplll.
 
-%global emacscommit 90ce16a15ea1f4fad08e8ba0b74b5045f4a72e8f
+%global emacscommit f0bb736dff7bbf30d143ecc68700ee747263a35d
 %global emacsurl    https://github.com/Macaulay2/M2-emacs
 %global emacsshort  %(cut -b -7 <<< %{emacscommit})
 %global m2url       https://github.com/Macaulay2/M2
@@ -50,8 +50,8 @@
 
 Summary: System for algebraic geometry and commutative algebra
 Name:    Macaulay2
-Version: 1.24.05
-Release: 6%{?dist}
+Version: 1.24.11
+Release: 1%{?dist}
 
 # GPL-2.0-only OR GPL-3.0-only:
 #   - the project as a whole
@@ -180,23 +180,23 @@ Source20: etags.sh
 ## BUNDLED code
 # Normaliz must sometimes be bundled due to version differences
 %if ! %system_normaliz
-%global normalizver 3.9.2
+%global normalizver 3.10.4
 Source100: http://www.math.uiuc.edu/Macaulay2/Downloads/OtherSourceCode/normaliz-%{normalizver}.tar.gz
 Provides:  bundled(normaliz) = %{normalizver}
 %endif
 
 # MPFR is bundled because it must be built with different threading options
-%global mpfrver 4.1.0
-Source101: http://www.mpfr.org/mpfr-%{mpfrver}/mpfr-%{mpfrver}.tar.xz
+%global mpfrver 4.2.1
+Source101: https://www.mpfr.org/mpfr-%{mpfrver}/mpfr-%{mpfrver}.tar.gz
 Provides:  bundled(mpfr) = %{mpfrver}
 
 # FLINT is bundled because it must be linked with the specially-built MPFR
-%global flintver 2.8.4
-Source102: http://www.flintlib.org/flint-%{flintver}.tar.gz
+%global flintver 3.1.3
+Source102: https://flintlib.org/download/flint-%{flintver}.tar.gz
 Provides:  bundled(flint) = %{flintver}
 
 # FACTORY is bundled because it must be built with special options
-%global factoryver 4.3.0
+%global factoryver 4.4.0
 Source103: https://www.singular.uni-kl.de/ftp/pub/Math/Factory/factory-%{factoryver}.tar.gz
 Provides:  bundled(factory) = %{factoryver}
 
@@ -207,8 +207,8 @@ Source104: https://github.com/Macaulay2/mathicgb/tarball/%{mathicgbcommit}/mathi
 Provides:  bundled(mathicgb) = %{mathicgbver}
 
 # GTEST is bundled because MATHICGB refuses to build otherwise
-%global gtestver 1.10.0
-Source105: https://macaulay2.com/Downloads/OtherSourceCode/gtest-%{gtestver}.tar.gz
+%global gtestver 1.11.0
+Source105: https://github.com/google/googletest/archive/release-%{gtestver}/gtest-%{gtestver}.tar.gz
 
 # MEMTAILOR is bundled because it causes garbage collector crashes otherwise
 %global memtailorver 1.0
@@ -228,20 +228,19 @@ Source108: https://github.com/linbox-team/linbox/releases/download/v%{linboxver}
 Provides:  bundled(linbox) = %{linboxver}
 
 ## PATCHES FOR BUNDLED code
-# Fix a buffer overflow and some constness issues
-# https://github.com/linbox-team/linbox/pull/307
+# This is a conglomeration of all current patches for the Fedora linbox package
 Source200: linbox-1.7.0.patch
-# MPFR bug fixes from mpfr upstream.
-Source201: mpfr-4.1.0.patch
+# Fix a header bug in flint
+Source201: flint-3.1.3.patch
 
 ## FAKE library tarballs that convince Macaulay2 to use the system versions
-Source300: frobby_v0.9.0.tar.gz
+Source300: frobby_v0.9.5.tar.gz
 Source301: cddlib-094m.tar.gz
 Source302: lapack-3.9.0.tgz
 Source303: 4ti2-1.6.10.tar.gz
 Source304: libfplll-5.2.0.tar.gz
 Source305: gfan0.6.2.tar.gz
-Source306: givaro-4.1.1.tar.gz
+Source306: givaro-4.2.0.tar.gz
 Source307: lrslib-071a.tar.gz
 Source308: TOPCOM-0.17.8.tar.gz
 Source309: cohomCalg-0.32.tar.gz
@@ -265,9 +264,9 @@ Patch5: %{name}-1.17-configure.patch
 Patch6: %{name}-1.16-rightarrow.patch
 # Fix LTO warnings about mismatched declarations and definitions
 Patch7: %{name}-1.18-lto.patch
-# Avoid accessing invalid vector elements
-# https://github.com/Macaulay2/M2/issues/3316
-Patch8: %{name}-1.24-vector-overrun.patch
+# Fix a build error due to mismatched options to codim
+# https://github.com/Macaulay2/M2/pull/3651
+Patch8: %{name}-1.24-codim-option.patch
 
 BuildRequires: 4ti2
 BuildRequires: appstream
@@ -279,11 +278,13 @@ BuildRequires: chrpath
 BuildRequires: cohomCalg
 BuildRequires: csdp-tools
 BuildRequires: desktop-file-utils
+BuildRequires: diffutils
 %if 0%{?fedora}
 BuildRequires: doxygen-latex
 %else
 BuildRequires: doxygen
 %endif
+BuildRequires: e-antic-devel
 BuildRequires: eigen3-static
 # etags
 BuildRequires: emacs
@@ -305,12 +306,13 @@ BuildRequires: libappstream-glib
 BuildRequires: libfplll-static
 BuildRequires: libfrobby-devel
 BuildRequires: libgfan-devel
-BuildRequires: libnormaliz-devel >= 3.9.2
+BuildRequires: libnormaliz-devel >= 3.10.4
 BuildRequires: libtool
 BuildRequires: lrslib-devel
 BuildRequires: lrslib-utils
 BuildRequires: make
 BuildRequires: mpsolve-devel
+BuildRequires: msolve
 BuildRequires: msolve-devel
 BuildRequires: nauty
 BuildRequires: normaliz
@@ -318,7 +320,7 @@ BuildRequires: ntl-devel
 BuildRequires: ocl-icd-devel
 BuildRequires: pari-devel
 BuildRequires: pkgconfig(atomic_ops)
-BuildRequires: pkgconfig(bdw-gc) >= 8.0.4
+BuildRequires: pkgconfig(bdw-gc) >= 8.2.6
 BuildRequires: pkgconfig(cddlib)
 BuildRequires: pkgconfig(expat)
 BuildRequires: pkgconfig(fflas-ffpack)
@@ -364,6 +366,7 @@ Requires: TOPCOM
 Requires: xdg-utils
 
 Recommends: mathicgb
+Recommends: msolve
 Recommends: scip
 
 %if 0%{?common}
@@ -427,12 +430,14 @@ tar -C submodules/mathic -xf %{SOURCE107} --strip-components=1
 
 ## patches for bundled code
 sed -e 's,--with-blas,&=%{_includedir}/flexiblas --with-ntl,' \
+    -e 's/3\.0\.0/%{flintver}/' \
+    -e 's/\(LICENSEFILES = \).*/\1COPYING COPYING.LESSER/' \
+    -e 's/-pedantic-errors/& -fno-strict-aliasing/' \
     -i libraries/flint/Makefile.in
+cp -p %{SOURCE201} libraries/flint/patch-%{flintver}
+sed -i 's/^# \(PATCHFILE\)/\1/' libraries/flint/Makefile.in
 cp -p %{SOURCE200} libraries/linbox/patch-%{linboxver}
 sed -i 's/^#\(PATCHFILE\)/\1/' libraries/linbox/Makefile.in
-sed -e '/^TARFILE =/iPATCHFILE = @abs_srcdir@/patch-$(VERSION)' \
-    -i libraries/mpfr/Makefile.in
-cp -p %{SOURCE201} libraries/mpfr/patch-%{mpfrver}
 
 ## fake library tarballs
 install -p -m644 %{SOURCE300} %{SOURCE301} %{SOURCE302} %{SOURCE303} \
@@ -447,6 +452,15 @@ sed -i 's,install \(lib.*\.a\),ln -s %{_libdir}/\1,' libraries/lapack/Makefile.i
 ## fake givaro submodule
 tar -C submodules/givaro --strip-components=1 -xzf %{SOURCE306}
 
+## flint submodule
+tar -C submodules/flint --strip-components=1 -xzf %{SOURCE102}
+cd submodules/flint
+patch -p1 < %{SOURCE201}
+cd -
+
+## gtest submodule
+tar -C submodules/googletest --strip-components=1 -xzf %{SOURCE105}
+
 %patch -P0 -p1 -b .optflags
 %patch -P1 -p1 -b .ulimit
 %patch -P2 -p1 -b .default_make_targets
@@ -459,8 +473,10 @@ ln -s %{_datadir}/factory \
 %patch -P5 -p1 -b .configure
 %patch -P6 -p1 -b .rightarrow
 %patch -P7 -p1 -b .lto
-%patch -P8 -p1 -b .vector
+%patch -P8 -p1 -b .codim
 
+
+%conf
 # repeatable builds: inject a node name
 sed -i 's,`uname -n`,build.fedoraproject.org,' configure.ac
 
@@ -478,66 +494,55 @@ sed -e 's/BUILD_cddlib=yes/BUILD_cddlib=no/' \
     -e 's,-lfplll,%{_libdir}/libfplll.a -lqd,' \
     -e 's,`\$PKG_CONFIG --libs givaro`,%{_libdir}/libgivaro.a,' \
     -e 's,-lgivaro,%{_libdir}/libgivaro.a,' \
-    -e 's,-llapack -lrefblas,-lflexiblas,' \
+    -e 's,-lrefblas,-lflexiblas,' \
+    -e 's,-llapack,-lflexiblas,' \
     -e 's,\$added_fclibs != yes,"$added_fclibs" != yes,' \
     -i configure.ac
 
-# We call it flint.  Upstream calls it flint2.
-sed -i 's/\(LIBNAME = flint\)2/\1/' libraries/flint/Makefile.in
-
-# Cannot do git submodule operations on a koji builder
-sed -i 's/git-checkout-in-\$1, git-checkout-warning-for-\$1//' GNUmakefile.in
-
 # Avoid obsolescence warnings
-sed -i 's/egrep/grep -E/g' GNUmakefile.in Makefile Macaulay2/bin/Makefile.in \
+sed -i 's/egrep/grep -E/g' Makefile.in Macaulay2/bin/Makefile.in \
     Macaulay2/tests/Makefile{,.test}.in libraries/Makefile.library.in
 sed -i 's/fgrep/grep -F/g' Macaulay2/util/linkexec-alternative
+
+# Do not try to download tarballs
+sed -i '/^fetch: download-enabled/d' libraries/Makefile.library.in
+
+# Do not try to fetch sources with git
+sed -i 's/^\(fetch:\) update-submodule/\1/' libraries/Makefile.library.in
 
 # (re)generate configure
 autoreconf -fi .
 
 
 %build
-%ifarch s390x
-# For as yet unknown reasons, when this package is built with optimization
-# level -O2 on s390x, the mathicgb code accesses out-of-bounds array elements.
-# In addition, valgrind shows accesses to uninitialized elements of arrays
-# that should not have any uninitialized elements.  The code eventually
-# segfaults.
-optflags=$(sed 's/-O2/-O/g' <<< "%{build_cflags}")
-%else
-optflags="%{build_cflags}"
-%endif
-
 # Let the configure script find lrslib utilities
 module load lrslib-%{_arch}
 
 ## configure macro currently broken, due to some odd prefix-checks.  probably fixable -- Rex
 mkdir -p BUILD/%{_target_platform}
-pushd BUILD/%{_target_platform}
+cd BUILD/%{_target_platform}
 CPPFLAGS="$CPPFLAGS -I%{_includedir}/cddlib -I%{_includedir}/frobby" \
-CFLAGS="$optflags -fsigned-char" \
-CXXFLAGS="$optflags -fsigned-char" \
+CFLAGS='%{build_cflags} -fsigned-char' \
+CXXFLAGS='%{build_cflags} -fsigned-char' \
 LIBS="-lflexiblas" \
 ../../configure \
   --build=%{_build} \
   --host=%{_host} \
   --with-issue=%{ISSUE} \
   --prefix=%{_prefix} \
-  --disable-dumpdata \
   --enable-shared \
-  --disable-fc-lib-ldflags \
   --disable-strip \
   --enable-fplll \
   --enable-linbox \
-  --with-integer-package=gmp \
+  --with-blas=flexiblas \
+  --with-lapack=flexiblas \
   --with-unbuilt-programs="cddplus nauty" \
   --enable-build-libraries="mpfr flint factory lapack fplll givaro linbox gtest"
   # The list of libraries and submodules above should include only those that:
   # 1. We bundle (mpfr, flint, factory, and linbox)
   # 2. We sneakily substitute one library for another (lapack -> flexiblas)
   # 3. Have to be linked with the static library (fplll and givaro)
-popd
+cd -
 
 # link with static libraries when global constructors run prior to GC
 # initialization.  Otherwise, unloading the shared object causes a crash.
@@ -594,11 +599,11 @@ appstreamcli validate --no-net --explain \
     %{buildroot}%{_metainfodir}/com.macaulay2.macaulay2.metainfo.xml
 
 # Byte compile the Emacs files, and move the documentation
-pushd %{buildroot}%{_emacs_sitelispdir}/macaulay2
+cd %{buildroot}%{_emacs_sitelispdir}/macaulay2
 mv M2-emacs* %{buildroot}%{_pkgdocdir}
 mv README.md %{buildroot}%{_pkgdocdir}/README-emacs.md
 %{_emacs_bytecompile} *.el
-popd
+cd -
 
 ## unpackaged files
 # info dir
@@ -635,6 +640,15 @@ make check -C BUILD/%{_target_platform}/Macaulay2/bin
 
 
 %changelog
+* Thu Feb 20 2025 Jerry James <loganjerry@gmail.com> - 1.24.11-1
+- Version 1.24.11
+- Drop upstreamed vector overrun patch
+- Add patch to fix mismatched options to codim
+- BR e-antic-devel
+- BR and Recommend msolve
+- Move configuration steps to %%conf
+- Remove pessimization on s390x
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.24.05-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

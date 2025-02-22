@@ -3,7 +3,7 @@
 Name:           linbox
 Version:        1.7.0
 %global so_version 0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        C++ Library for High-Performance Exact Linear Algebra
 
 License:        LGPL-2.1-or-later
@@ -171,6 +171,9 @@ LD_LIBRARY_PATH=$PWD/linbox/.libs %make_build check -j1
 
 
 %changelog
+* Thu Feb 20 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1.7.0-12
+- Rebuilt for givaro 4.2.1
+
 * Fri Jan 17 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1.7.0-11
 - Patch for GCC 15
 

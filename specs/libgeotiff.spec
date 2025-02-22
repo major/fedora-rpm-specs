@@ -5,8 +5,8 @@
 %endif
 
 Name:          libgeotiff
-Version:       1.7.3
-Release:       4%{?dist}
+Version:       1.7.4
+Release:       1%{?dist}
 
 Summary:       GeoTIFF format library
 License:       MIT
@@ -16,7 +16,6 @@ Source:        http://download.osgeo.org/geotiff/%{name}/%{name}-%{version}.tar.
 # Honour GEOTIFF_INCLUDE_SUBDIR
 # Add version suffix to mingw library
 # Fix cmake module install dir
-# Don't install docs
 Patch0:        libgeotiff_cmake.patch
 
 BuildRequires: cmake
@@ -105,14 +104,14 @@ BuildArch:     noarch
 
 %build
 # Native build
-%cmake -DGEOTIFF_BIN_SUBDIR=bin -DCMAKE_INSTALL_INCLUDEDIR=%{_includedir}/%{name}
+%cmake -DGEOTIFF_BIN_SUBDIR=bin -DCMAKE_INSTALL_INCLUDEDIR=%{_includedir}/%{name} -DBUILD_DOC=OFF
 %cmake_build
 
 %if %{with mingw}
 # MinGW build
 MINGW32_CMAKE_ARGS=-DCMAKE_INSTALL_INCLUDEDIR=%{mingw32_includedir}/%{name} \
 MINGW64_CMAKE_ARGS=-DCMAKE_INSTALL_INCLUDEDIR=%{mingw64_includedir}/%{name} \
-%mingw_cmake
+%mingw_cmake -DBUILD_DOC=OFF
 %mingw_make_build
 %endif
 
@@ -134,7 +133,7 @@ includedir=%{_includedir}/%{name}
 
 Name: %{name}
 Description: GeoTIFF file format library
-Version: 1.7.3
+Version: 1.7.4
 Libs: -L\${libdir} -lgeotiff
 Cflags: -I\${includedir}
 EOF
@@ -149,7 +148,7 @@ includedir=%{mingw32_includedir}/%{name}
 
 Name: %{name}
 Description: GeoTIFF file format library
-Version: 1.7.3
+Version: 1.7.4
 Libs: -L\${libdir} -lgeotiff
 Cflags: -I\${includedir}
 EOF
@@ -163,7 +162,7 @@ includedir=%{mingw64_includedir}/%{name}
 
 Name: %{name}
 Description: GeoTIFF file format library
-Version: 1.7.3
+Version: 1.7.4
 Libs: -L\${libdir} -lgeotiff
 Cflags: -I\${includedir}
 EOF
@@ -223,6 +222,9 @@ EOF
 
 
 %changelog
+* Thu Feb 20 2025 Sandro Mani <manisandro@gmail.com> - 1.7.4-1
+- Update to 1.7.4
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

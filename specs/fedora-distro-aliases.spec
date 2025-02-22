@@ -1,6 +1,6 @@
 Name:           fedora-distro-aliases
-Version:        1.5
-Release:        2%{?dist}
+Version:        1.6
+Release:        1%{?dist}
 Summary:        Aliases for active Fedora releases
 
 License:        GPL-2.0-or-later
@@ -56,8 +56,8 @@ Summary:        %{summary}
 
 
 %changelog
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+* Thu Feb 20 2025 Jakub Kadlcik <frostyx@email.cz> 1.6-1
+- Account for `frozen` release state (nforro@redhat.com)
 
 * Mon Oct 07 2024 Jakub Kadlcik <frostyx@email.cz> 1.5-1
 - Implement a caching mechanism (frostyx@email.cz)

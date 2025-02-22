@@ -5,7 +5,7 @@
 
 Name:           smplayer
 Version:        24.5.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 License:        GPL-2.0-or-later
@@ -43,7 +43,9 @@ BuildRequires:  qtsingleapplication-qt5-devel
 BuildRequires:  pkgconfig(zlib)
 Requires:       hicolor-icon-theme
 Requires:       mpv
-Requires:       yt-dlp
+Recommends:     (yt-dlp or youtube-dl)
+Suggests:       yt-dlp
+
 Provides:       bundled(mongoose) = 6.11
 Provides:       bundled(libmaia) = 0.9.0
 
@@ -155,6 +157,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Wed Feb 19 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 24.5.0-4
+- Update yt-dlp dependency
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

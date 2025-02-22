@@ -17,13 +17,15 @@
 %bcond gtest %[ !0%{?rhel} ]
 
 Name:           zstd
-Version:        1.5.6
-Release:        3%{?dist}
+Version:        1.5.7
+Release:        1%{?dist}
 Summary:        Zstd compression library
 
 License:        BSD-3-Clause AND GPL-2.0-only
 URL:            https://github.com/facebook/zstd
 Source0:        https://github.com/facebook/zstd/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+
+Patch1:         man-pages-1.5.7.patch
 
 BuildRequires:  make
 BuildRequires:  gcc %{?with_gtest:gtest-devel}
@@ -68,6 +70,7 @@ Static variant of the Zstd library.
 %prep
 %setup -q
 find -name .gitignore -delete
+%patch 1 -p1
 
 %build
 export CFLAGS="$RPM_OPT_FLAGS"
@@ -135,6 +138,9 @@ install -D -m644 programs/%{name}.1 %{buildroot}%{_mandir}/man1/p%{name}.1
 %ldconfig_scriptlets -n lib%{name}
 
 %changelog
+* Thu Feb 20 2025 Pádraig Brady <P@draigBrady.com> - 1.5.7-1
+- latest upstream
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

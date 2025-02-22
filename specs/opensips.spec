@@ -1,4 +1,4 @@
-%global git_commit 051e1c4ccdec8041c508452253701fb7c07f9be5
+%global git_commit 5ebf81d1d8755a9728c02405e6c6402379c177f4
 %global _hardened_build 1
 
 %global EXCLUDE_MODULES cachedb_cassandra %{!?_with_oracle:db_oracle} launch_darkly osp python sngtc tls_wolfssl
@@ -20,6 +20,8 @@ Patch006: opensips-0006-libcouchbase-API-v3.patch
 Patch007: opensips-0007-Guard-VERSIONTYPE.patch
 Patch008: opensips-0008-A-new-string-transformation.patch
 Patch009: opensips-0009-Fix-pointer-type.patch
+Patch010: opensips-0010-Fix-FTBFS-with-recent-GCC.patch
+Patch011: opensips-0011-Both-true-and-false-are-now-reserved-words-in-a-mode.patch
 
 URL:      https://opensips.org
 
@@ -926,6 +928,7 @@ LOCALBASE=/usr NICER=0 CFLAGS="%{optflags} -fgnu89-inline" LDFLAGS="%{?__global_
 make install TLS=1 LIBDIR=%{_lib} \
   exclude_modules="%EXCLUDE_MODULES" \
   basedir=%{buildroot} prefix=%{_prefix} \
+  bin_dir=bin \
   cfg_prefix=%{buildroot} \
   DBTEXTON=yes # fixed dbtext documentation installation
 
@@ -963,8 +966,8 @@ install -D -p -m 644 packaging/redhat_fedora/%{name}.sysconfig %{buildroot}%{_sy
 %systemd_preun %{name}.service
 
 %files
-%{_sbindir}/opensips
-%{_sbindir}/osipsconfig
+%{_bindir}/opensips
+%{_bindir}/osipsconfig
 
 %attr(750,%{name},%{name}) %dir %{_sysconfdir}/opensips
 %attr(750,%{name},%{name}) %dir %{_sysconfdir}/opensips/tls

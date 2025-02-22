@@ -2,35 +2,24 @@
 %global gem_name thor
 
 Name: rubygem-%{gem_name}
-Version: 1.2.1
-Release: 9%{?dist}
+Version: 1.3.2
+Release: 1%{?dist}
 Summary: Thor is a toolkit for building powerful command-line interfaces
 License: MIT
 URL: http://whatisthor.com/
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # The test suite is not shipped with the gem, you may check it out like so:
-# git clone https://github.com/erikhuda/thor.git --no-checkout
-# cd thor && git archive -v -o thor-1.2.1-spec.txz v1.2.1 spec/
-Source1: %{gem_name}-%{version}-spec.txz
-# Fix rspec-mocks 3.10.3+ compatibility.
-# https://github.com/rails/thor/pull/779/commits/f87021fee1023457bf693dae95ccfe765c3bff61
-Patch0: rubygem-thor-1.2.1-Fix-expectations-for-ruby-3-treatment-of-hash-arg.patch
-# Fix rspec-expectations 3.11.0+ compatibility.
-# https://github.com/rails/thor/pull/782/commits/3da3b44afdf2fa0bd618b87c5d862e9def1d5f4f
-Patch1: rubygem-thor-1.2.1-Fix-rspec-mocks-3.11.0-compatibility.patch
-# https://github.com/rails/thor/pull/789
-# did_you_mean behavior changed in ruby3.2
-Patch2: rubygem-thor-1.2.1-did_you_mean-ruby32.patch
-# https://github.com/rails/thor/commit/e43a9cd1f9d25ada999e19508216c6052344502f
-# Support ruby3.4 error msg formatting change
-Patch3: rubygem-thor-1.2.1-ruby34-error-formatting.patch
-# ruby package has just soft dependency on rubygem(io-console), while
-# Thor always requires it.
-Requires: rubygem(io-console)
+# git clone https://github.com/rails/thor.git --no-checkout
+# cd thor && git archive -v -o thor-1.3.2-spec.tar.gz v1.3.2 spec/
+Source1: %{gem_name}-%{version}-spec.tar.gz
+# Support Ruby 3.4 Hash#inspect change.
+# https://github.com/rails/thor/commit/9d7aef1db1666ecc382eeaa5549361a0aa956567
+Patch0: rubygem-thor-1.3.2-Support-Ruby-3-4-Hash-inspect-change.patch
+# Thor lazy loads rubygem(io-console).
+Recommends: rubygem(io-console)
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
-BuildRequires: rubygem(io-console)
 BuildRequires: rubygem(rake)
 BuildRequires: rubygem(rspec)
 BuildRequires: rubygem(webmock)
@@ -50,14 +39,11 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version} -b1
+%setup -q -n %{gem_name}-%{version} -b 1
 
-%patch 2 -p1
-pushd %{_builddir}
+( cd %{builddir}
 %patch 0 -p1
-%patch 1 -p1
-%patch 3 -p1
-popd
+)
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -83,16 +69,14 @@ find %{buildroot}%{gem_instdir}/bin -type f | \
   xargs -n 1 sed -i -e 's"^#!/usr/bin/env ruby"#!/usr/bin/ruby"'
 
 %check
-pushd .%{gem_instdir}
-cp -r %{_builddir}/spec .
+( cd .%{gem_instdir}
+cp -a %{builddir}/spec .
 
 # kill simplecov dependency
 sed -i '/simplecov/,/end/ s/^/#/' spec/helper.rb
 
-# Thor does not specify encoding of its imputs, what might cause issues.
-# https://github.com/erikhuda/thor/issues/645
-LC_ALL=C.UTF-8 rspec -rreadline spec
-popd
+rspec spec
+)
 
 %files
 %dir %{gem_instdir}
@@ -111,6 +95,10 @@ popd
 %{gem_instdir}/thor.gemspec
 
 %changelog
+* Thu Feb 20 2025 Vít Ondruch <vondruch@redhat.com> - 1.3.2-1
+- Update to Thor 1.3.2.
+- Resolves: rhbz#2203310
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

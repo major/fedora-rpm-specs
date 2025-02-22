@@ -18,14 +18,14 @@ Summary: Dependency injection, the Python way
 License: Apache-2.0
 
 Version: 5.2.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 URL: https://github.com/ivankorobkov/python-%{pypi_name}
 Source0: %pypi_source
 
 BuildRequires: python3-devel
 BuildRequires: python3dist(setuptools)
-BuildRequires: python3dist(pytest-runner)
+BuildRequires: python3dist(pytest)
 
 BuildArch: noarch
 
@@ -67,6 +67,9 @@ BuildArch: noarch
 
 
 %changelog
+* Thu Feb 20 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 5.2.1-5
+- Replace spurious/obsolete BuildRequires on python-pytest-runner
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

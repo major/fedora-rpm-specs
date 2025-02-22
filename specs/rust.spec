@@ -1,8 +1,8 @@
 Name:           rust
-Version:        1.84.1
+Version:        1.85.0
 Release:        %autorelease
 Summary:        The Rust Programming Language
-License:        (Apache-2.0 OR MIT) AND (Artistic-2.0 AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0 AND Unicode-DFS-2016)
+License:        (Apache-2.0 OR MIT) AND (Artistic-2.0 AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0 AND Unicode-3.0)
 # ^ written as: (rust itself) and (bundled libraries)
 URL:            https://www.rust-lang.org
 
@@ -14,9 +14,9 @@ ExclusiveArch:  %{rust_arches}
 # To bootstrap from scratch, set the channel and date from src/stage0.json
 # e.g. 1.59.0 wants rustc: 1.58.0-2022-01-13
 # or nightly wants some beta-YYYY-MM-DD
-%global bootstrap_version 1.83.0
-%global bootstrap_channel 1.83.0
-%global bootstrap_date 2024-11-28
+%global bootstrap_version 1.84.0
+%global bootstrap_channel 1.84.0
+%global bootstrap_date 2025-01-09
 
 # Only the specified arches will use bootstrap binaries.
 # NOTE: Those binaries used to be uploaded with every new release, but that was
@@ -44,8 +44,8 @@ ExclusiveArch:  %{rust_arches}
 # We can also choose to just use Rust's bundled LLVM, in case the system LLVM
 # is insufficient.  Rust currently requires LLVM 18.0+.
 %global min_llvm_version 18.0.0
-%global bundled_llvm_version 19.1.5
-#global llvm_compat_version 17
+%global bundled_llvm_version 19.1.7
+#global llvm_compat_version 18
 %global llvm llvm%{?llvm_compat_version}
 %bcond_with bundled_llvm
 
@@ -112,7 +112,7 @@ ExclusiveArch:  %{rust_arches}
 # Detect non-stable channels from the version, like 1.74.0~beta.1
 %{lua: do
   local version = rpm.expand("%{version}")
-  local version_channel, subs = string.gsub(version, "^.*~(%w+).*$", "%1", 1)
+  local version_channel, subs = version:gsub("^.*~(%w+).*$", "%1", 1)
   rpm.define("channel " .. (subs ~= 0 and version_channel or "stable"))
   rpm.define("rustc_package rustc-" .. version_channel .. "-src")
 end}
@@ -137,7 +137,7 @@ Patch4:         0001-bootstrap-allow-disabling-target-self-contained.patch
 Patch5:         0002-set-an-external-library-path-for-wasm32-wasi.patch
 
 # We don't want to use the bundled library in libsqlite3-sys
-Patch6:         rustc-1.84.0-unbundle-sqlite.patch
+Patch6:         rustc-1.85.0-unbundle-sqlite.patch
 
 # https://github.com/rust-lang/cc-rs/issues/1354
 Patch7:         0001-Only-translate-profile-flags-for-Clang.patch
@@ -151,7 +151,7 @@ Source102:      cargo_vendor.attr
 Source103:      cargo_vendor.prov
 
 # Disable cargo->libgit2->libssh2 on RHEL, as it's not approved for FIPS (rhbz1732949)
-Patch100:       rustc-1.84.0-disable-libssh2.patch
+Patch100:       rustc-1.85.0-disable-libssh2.patch
 
 # Get the Rust triple for any architecture and ABI.
 %{lua: function rust_triple(arch, abi)
@@ -202,7 +202,7 @@ end}
 %endif
 %global all_targets %{?mingw_targets} %{?wasm_targets} %{?extra_targets}
 %define target_enabled() %{lua:
-  print(string.find(rpm.expand(" %{all_targets} "), rpm.expand(" %1 "), 1, true) or 0)
+  print(rpm.expand(" %{all_targets} "):find(rpm.expand(" %1 "), 1, true) or 0)
 }
 
 %if %defined bootstrap_arches
@@ -210,7 +210,7 @@ end}
 # Also define bootstrap_source just for the current target.
 %{lua: do
   local bootstrap_arches = {}
-  for arch in string.gmatch(rpm.expand("%{bootstrap_arches}"), "%S+") do
+  for arch in rpm.expand("%{bootstrap_arches}"):gmatch("%S+") do
     table.insert(bootstrap_arches, arch)
   end
   local base = rpm.expand("https://static.rust-lang.org/dist/%{bootstrap_date}")
@@ -671,7 +671,7 @@ rm -rf %{wasi_libc_dir}/dlmalloc/
 %if %without bundled_sqlite3
 %patch -P6 -p1
 %endif
-%patch -P7 -p1 -d vendor/cc-1.2.5
+%patch -P7 -p1 -d vendor/cc-1.2.6
 
 %if %with disabled_libssh2
 %patch -P100 -p1

@@ -1,6 +1,6 @@
 Name:           asymptote
-Version:        2.89
-Release:        5%{?dist}
+Version:        3.00
+Release:        1%{?dist}
 Summary:        Descriptive vector graphics language
 
 # LGPL-3.0-or-later: the project as a whole
@@ -42,9 +42,13 @@ Patch0:         asymptote-2.84-settings.patch
 # This doesn't need to go upstream. We put the info file in the topdir, not a subdir, so we need this fix.
 Patch1:         asymptote-2.73-info-path-fix.patch
 # Link with flexiblas instead of gslcblas
-Patch2:         asymptote-2.89-flexiblas.patch
+Patch2:         asymptote-3.00-flexiblas.patch
 # Unbundle glew
-Patch3:         asymptote-2.89-unbundle-glew.patch
+Patch3:         asymptote-3.00-unbundle-glew.patch
+# Fix lspcpp compile
+Patch4:		asymptote-3.00-lspcpp-compilefix.patch
+# Fix gc linking
+Patch5:		asymptote-3.00-gc-link-fix.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  bison, flex
@@ -85,6 +89,7 @@ Requires:       hicolor-icon-theme
 Requires:       librsvg2-tools
 Requires:       tex(latex)
 Requires:       texlive-dvisvgm
+Requires:       tex(type1cm.sty)
 Requires:       python3-qt5
 Requires:       python3-cson
 Requires:       python3-numpy
@@ -108,6 +113,8 @@ that LaTeX does for scientific text.
 %patch -P1 -p1 -b .path-fix
 %patch -P2 -p1 -b .flexiblas
 %patch -P3 -p1 -b .glew
+%patch -P4 -p1 -b .compilefix
+%patch -P5 -p1 -b .gcfix
 sed -i 's/\r//' doc/CAD1.asy
 
 # Make sure the bundled glew cannot be used
@@ -121,8 +128,9 @@ autoreconf -i
 %build
 export CPPFLAGS='-I%{_includedir}/eigen3 -I%{_includedir}/tirpc'
 export LIBS='-lflexiblas '
-%configure --enable-gc=system --with-docdir=%{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}/} --with-latex=%{_texmf}/tex/latex --with-context=%{_texmf}/tex/context/ --enable-lsp --enable-offscreen
+%configure --enable-gc --with-docdir=%{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}/} --with-latex=%{_texmf}/tex/latex --with-context=%{_texmf}/tex/context/ --enable-lsp --enable-offscreen
 %make_build
+make doc/version.texi
 cd doc/
 make all
 
@@ -196,6 +204,9 @@ chmod 755 %{buildroot}%{_datadir}/%{name}/{asy-kate.sh,asymptote.py}
 %{_emacs_sitelispdir}/%{name}/
 
 %changelog
+* Thu Feb 20 2025 Tom Callaway <spot@fedoraproject.org> - 3.00-1
+- update to 3.00
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.89-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

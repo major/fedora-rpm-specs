@@ -3,7 +3,7 @@
 
 Name:		xdg-user-dirs
 Version:	0.18
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Handles user special directories
 
 License:	GPL-2.0-or-later AND MIT
@@ -23,6 +23,10 @@ BuildRequires:	git-core
 BuildRequires:	docbook-style-xsl
 BuildRequires:	libxslt
 BuildRequires:	systemd-rpm-macros
+%if 0%{?fedora} && 0%{?fedora} < 42
+BuildRequires:  desktop-file-utils
+%endif
+
 Requires:	%{_sysconfdir}/xdg/autostart
 
 %description
@@ -44,7 +48,12 @@ autoreconf -fiv
 
 %find_lang %name
 
+%if 0%{?fedora} && 0%{?fedora} < 42
+desktop-file-edit --remove-key=X-systemd-skip %{buildroot}%{_sysconfdir}/xdg/autostart/xdg-user-dirs.desktop
+rm -rf %{buildroot}%{_userunitdir}
+%endif
 
+%if ! (0%{?fedora} && 0%{?fedora} < 42)
 %post
 %systemd_user_post xdg-user-dirs.service
 
@@ -53,6 +62,7 @@ autoreconf -fiv
 
 %postun
 %systemd_user_postun_with_reload xdg-user-dirs.service
+%endif
 
 
 %files -f %{name}.lang
@@ -64,10 +74,15 @@ autoreconf -fiv
 %{_sysconfdir}/xdg/autostart/*
 %{_mandir}/man1/*
 %{_mandir}/man5/*
+%if ! (0%{?fedora} && 0%{?fedora} < 42)
 %{_userunitdir}/xdg-user-dirs.service
+%endif
 
 
 %changelog
+* Thu Feb 20 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.18-9
+- Do not install the systemd unit on <F42
+
 * Mon Feb 17 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.18-8
 - Add scriptlets for systemd user unit
 

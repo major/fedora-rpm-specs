@@ -10,7 +10,7 @@ Version:        %{shortversion}
 Release:        %autorelease
 Summary:        A practical and portable Scheme system
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            http://call-cc.org
 Source0:        http://code.call-cc.org/releases/%{shortversion}/%{name}-%{version}.tar.gz
 Patch0:         make_cflags_work.patch

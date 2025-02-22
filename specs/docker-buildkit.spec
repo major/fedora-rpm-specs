@@ -3,7 +3,8 @@
 
 # https://github.com/moby/buildkit
 %global goipath         github.com/moby/buildkit
-Version:                0.19.0
+Version:                0.20.0
+%global tag             v%{gsub %{version} ~ -}
 
 %gometa -L -f
 
@@ -71,13 +72,14 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %if %{with check}
 # skip specific tests that fail with 'operation not permitted'.
 for test in \
-            "TestGetRemotes" \
-            "TestExtractOnMutable" \
-            "TestMergeOp" \
-            "TestDiffOp" \
-            "TestCLIIntegration" \
-            "TestSnapshotExtract" \
-            "TestJobsIntegration" \
+           "TestGetRemotes" \
+           "TestExtractOnMutable" \
+           "TestMergeOp" \
+           "TestDiffOp" \
+           "TestCLIIntegration" \
+           "TestSnapshotExtract" \
+           "TestJobsIntegration" \
+           "TestGhaCacheIntegration" \
 ; do
 awk -i inplace '/^func.*'"$test"'\(/ { print; print "\tt.Skip(\"disabled failing test\")"; next}1' $(grep -rl $test)
 done

@@ -2,7 +2,7 @@
 %bcond autoreconf 1
 
 Name:           givaro
-Version:        4.2.0
+Version:        4.2.1
 %global so_version 9
 Release:        %autorelease
 Summary:        C++ library for arithmetic and algebraic computations
@@ -58,27 +58,6 @@ SourceLicense:  %{shrink:
 URL:            https://casys.gricad-pages.univ-grenoble-alpes.fr/givaro/
 %global forgeurl https://github.com/linbox-team/givaro
 Source:         %{forgeurl}/releases/download/v%{version}/givaro-%{version}.tar.gz
-
-# Add missing #include <cstdint> for (u)int64_t
-# Fixes failure to compile on GCC 13.
-# https://github.com/linbox-team/givaro/pull/218
-Patch:          %{forgeurl}/pull/218.patch
-# Temporary GCC 14 workaround
-#
-# Fixes https://github.com/linbox-team/givaro/issues/226 “GCC 14: No match
-# for operator= for Givaro::ZRing<Givaro::Integer>”
-#
-# Recommended in
-# https://github.com/linbox-team/givaro/issues/226#issuecomment-1908853755
-Patch:          0001-Temporary-GCC-14-workaround.patch
-# Fix build using GCC 15
-# https://github.com/linbox-team/givaro/pull/233
-#
-# Fixes:
-#
-# Build failure with GCC-15
-# https://github.com/linbox-team/givaro/issues/232
-Patch:          %{forgeurl}/pull/233.patch
 
 %if %{with autoreconf}
 BuildRequires:  autoconf

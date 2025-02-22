@@ -1,7 +1,7 @@
 Summary: A utility for converting amounts from one unit to another
 Name: units
 Version: 2.24
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source: https://ftp.gnu.org/gnu/units/%{name}-%{version}.tar.gz
 URL: https://www.gnu.org/software/units/units.html
 License: GPL-3.0-or-later
@@ -31,7 +31,9 @@ well as conversions such as Fahrenheit to Celsius.
 %autosetup -p1
 
 %build
-%configure
+# Use C17 standard to avoid compilation errors
+# We will revert this change once the upstream adopts the latest C standard
+%configure CFLAGS="$RPM_OPT_FLAGS -std=c17"
 %make_build
 
 %install
@@ -58,6 +60,9 @@ make check
 %{_mandir}/man1/*
 
 %changelog
+* Thu Feb 20 2025 Jan Macku <jamacku@redhat.com> - 2.24-3
+- Use C17 standard to avoid compilation errors (#2341484)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.24-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

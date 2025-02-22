@@ -1,6 +1,6 @@
 Name:           perl-IP-Geolocation-MMDB
-Version:        1.011
-Release:        1%{?dist}
+Version:        1.012
+Release:        2%{?dist}
 Summary:        Read MaxMind DB files
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/IP-Geolocation-MMDB
@@ -13,10 +13,12 @@ BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.16
-BuildRequires:  perl(Alien::libmaxminddb)
+# We use pkgconf instead
+#BuildRequires:  perl(Alien::libmaxminddb)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
+BuildRequires:  pkgconfig(libmaxminddb) >= 1.2.0
 # Runtime:
 BuildRequires:  perl(Math::BigInt) >= 1.999806
 BuildRequires:  perl(XSLoader)
@@ -64,6 +66,13 @@ make test
 %{_mandir}/man3/IP::Geolocation::MMDB::Metadata.3*
 
 %changelog
+* Thu Feb 20 2025 Andreas Vögele <andreas@andreasvoegele.com> - 1.012-2
+- Depend on pkgconfig(libmaxminddb) instead of libmaxminddb-devel
+
+* Thu Feb 20 2025 Andreas Vögele <andreas@andreasvoegele.com> - 1.012-1
+- Update to 1.012
+- Depend on libmaxminddb-devel and pkgconf instead of perl(Alien::libmaxminddb)
+
 * Sun Jan 26 2025 Andreas Vögele <andreas@andreasvoegele.com> - 1.011-1
 - Update to 1.011
 

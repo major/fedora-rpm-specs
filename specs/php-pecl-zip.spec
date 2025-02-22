@@ -1,22 +1,24 @@
 # Fedora spec file for php-pecl-zip
 #
-# Copyright (c) 2013-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2013-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 
 %global pecl_name        zip
+%global pie_vend         pecl
+%global pie_proj         zip
 %global ini_name         40-%{pecl_name}.ini
-%global upstream_version 1.22.4
+%global upstream_version 1.22.5
 #global upstream_prever  RC6
 %global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
 
 Summary:      A ZIP archive management extension
 Name:         php-pecl-zip
 Version:      %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:      3%{?dist}
+Release:      1%{?dist}
 License:      PHP-3.01
 URL:          https://pecl.php.net/package/zip
 
@@ -36,6 +38,7 @@ Requires:     php(api) = %{php_core_api}
 
 Provides:     php-pecl(%{pecl_name}) = %{version}
 Provides:     php-pecl(%{pecl_name})%{?_isa} = %{version}
+Provides:     php-pie(%{pie_vend}/%{pie_proj}) = %{version}
 Provides:     php-%{pecl_name} = %{version}-%{release}
 Provides:     php-%{pecl_name}%{?_isa} = %{version}-%{release}
 
@@ -121,6 +124,10 @@ TEST_PHP_EXECUTABLE=%{__php} \
 
 
 %changelog
+* Thu Feb 20 2025 Remi Collet <remi@remirepo.net> - 1.22.5-1
+- update to 1.22.5
+- re-license spec file to CECILL-2.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

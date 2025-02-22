@@ -375,6 +375,18 @@ if [ -x /sbin/udevadm ]; then
 /sbin/udevadm trigger --subsystem-match=net --action=change || true
 /sbin/udevadm trigger --subsystem-match=infiniband_mad --action=change || true
 fi
+ystemd_post rdma-load-modules@rdma.service
+%systemd_post rdma-load-modules@infiniband.service
+%systemd_post rdma-load-modules@roce.service
+
+%preun -n rdma-core
+%systemd_preun rdma-load-modules@rdma.service
+%systemd_preun rdma-load-modules@infiniband.service
+%systemd_preun rdma-load-modules@roce.service
+%postun -n rdma-core
+%systemd_postun_with_restart rdma-load-modules@rdma.service
+%systemd_postun_with_restart rdma-load-modules@infiniband.service
+%systemd_postun_with_restart rdma-load-modules@roce.service
 
 %post -n ibacm
 %systemd_post ibacm.service

@@ -1,16 +1,16 @@
+%global srcname bpython
+
 Name:          bpython
 Summary:       Fancy curses interface to the Python interactive interpreter
-Version:       0.24
-Release:       10%{?dist}
+Version:       0.25
+Release:       1%{?dist}
 URL:           http://www.bpython-interpreter.org/
 License:       MIT
 Source0:       https://github.com/bpython/bpython/archive/%{version}-release.tar.gz
 BuildArch:     noarch
 BuildRequires: desktop-file-utils
 BuildRequires: make
-BuildRequires: python3-blessed
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 BuildRequires: python3-sphinx
 %description
 bpython is a fancy interface to the Python interpreter for Unix-like
@@ -76,15 +76,19 @@ operating systems. It has the following features:
 
 %prep
 %autosetup -n %{name}-%{version}-release
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%{py3_build}
+%pyproject_wheel
 pushd doc/sphinx/
 make man
 popd
 
 %install
-%{py3_install}
+%pyproject_install
+%pyproject_save_files -l %{srcname}
+
 # backwards compatibility links python3
 ln -s bpython %{buildroot}/%{_bindir}/bpython3
 ln -s bpython-curses %{buildroot}/%{_bindir}/bpython3-curses
@@ -101,12 +105,12 @@ install -m0644 -p -D doc/sphinx/build/man/bpython-config.5 \
 %doc theme/light.theme theme/sample.theme theme/windows.theme
 %{_bindir}/bpdb
 %{_bindir}/bpython
-%{_bindir}/bpython-curses
 %{_bindir}/bpdb3
 %{_bindir}/bpython3
 %{_bindir}/bpython3-curses
 %{_bindir}/python3-bpython
-%{python3_sitelib}/bpython*/
+%{python3_sitelib}/bpython/
+%{python3_sitelib}/bpython-%{version}.dist-info/
 %{python3_sitelib}/bpdb/
 %{_mandir}/man1/bpython.1*
 %{_mandir}/man5/bpython-config.5*
@@ -118,6 +122,9 @@ install -m0644 -p -D doc/sphinx/build/man/bpython-config.5 \
 %{_bindir}/bpython-urwid
 
 %changelog
+* Thu Feb 20 2025 Terje Rosten <terjeros@gmail.com> - 0.25-1
+- 0.25
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

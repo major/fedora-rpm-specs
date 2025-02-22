@@ -3,7 +3,7 @@
 
 %global app_root %{_datadir}/%{name}
 %global gem_name sugarjar
-%global version 1.1.2
+%global version 1.1.3
 
 %global common_description %{expand:
 Sugarjar is a utility to help making working with git
@@ -95,6 +95,9 @@ rm -rf %{buildroot}
 %{gem_spec}
 
 %changelog
+* Thu Feb 20 2025 Phil Dibowitz <phil@ipom.com> - 1.1.3-1
+- New upstream version
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

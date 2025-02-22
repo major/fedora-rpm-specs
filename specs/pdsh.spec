@@ -1,11 +1,12 @@
 Name: pdsh
 Version: 2.34
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: Parallel remote shell program
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 Url: https://github.com/chaos/pdsh/
 Source0: https://github.com/chaos/pdsh/releases/download/pdsh-2.33/pdsh-%{version}.tar.gz
+Patch0: pdsh-2.34-fix-c23.patch
 Requires: pdsh-rcmd
 BuildRequires: make
 BuildRequires: autoconf, automake, libtool
@@ -14,8 +15,7 @@ BuildRequires: perl-generators
 # Enabling and disabling pdsh options
 #  defaults:
 #  enabled:  readline, rsh, ssh, dshgroup, netgroup, debug, nodeupdown, genders
-#            torque
-#  disabled: rms, mrsh, qshell, mqshell, xcpu, nodeattr, machines, slurm
+#  disabled: rms, mrsh, qshell, mqshell, xcpu, nodeattr, machines, slurm, torque
 #
 #  To build the various module subpackages, pass --with <pkg> on
 #   the rpmbuild command line (if your rpm is a recent enough version)
@@ -38,7 +38,6 @@ BuildRequires: perl-generators
 %{!?_with_debug: %{!?_without_debug: %global _with_debug --with-debug}}
 %{!?_with_nodeupdown: %{!?_without_nodeupdown: %global _with_nodeupdown --with-nodeupdown}}
 %{!?_with_genders: %{!?_without_genders: %global _with_genders --with-genders}}
-%{!?_with_torque: %{!?_without_torque: %global _with_torque --with-torque}}
 # These are default DISABLED.
 %{!?_with_rms: %{!?_without_rms: %global _without_rms --without-rms}}
 %{!?_with_mrsh: %{!?_without_mrsh: %global _without_mrsh --without-mrsh}}
@@ -48,6 +47,7 @@ BuildRequires: perl-generators
 %{!?_with_nodeattr: %{!?_without_nodeattr: %global _without_nodeattr --without-nodeattr}}
 %{!?_with_machines: %{!?_without_machines: %global _without_machines --without-machines}}
 %{!?_with_slurm: %{!?_without_slurm: %global _without_slurm --without-slurm}}
+%{!?_with_torque: %{!?_without_torque: %global _without_torque --without-torque}}
 
 #
 # If "--with debug" is set compile with --enable-debug
@@ -224,6 +224,7 @@ Pdsh module providing support for running pdsh on Torque nodes.
 
 %prep
 %setup -q
+%patch -P0 -p1 -b .fixc23
 chmod +x configure
 
 %build
@@ -392,6 +393,10 @@ fi
 %endif
 
 %changelog
+* Thu Feb 20 2025 Tom Callaway <spot@fedoraproject.org> - 2.34-15
+- disable torque
+- conditionalize bool enum for c17 or older
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.34-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
