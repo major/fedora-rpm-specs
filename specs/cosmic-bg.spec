@@ -7,12 +7,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit fd44edf79b5ffbced27540fd222e37aa05daeeba
-%global commitdatestring 2024-10-09 22:47:25 +0200
-%global cosmic_minver 1.0.0~alpha.5.1
+%global commit b6adf25075383c0e606658a7309919a9b092ee54
+%global commitdatestring 2025-02-05 19:11:19 +0100
+%global cosmic_minver 1.0.0~alpha.6
 
 Name:           cosmic-bg
-Version:        1.0.0~alpha.5.1
+Version:        1.0.0~alpha.6
 Release:        %autorelease
 Summary:        Background manager for the COSMIC Desktop Environment
 
@@ -37,7 +37,6 @@ BuildRequires:  wayland-devel
 BuildRequires:  libxkbcommon-devel
 BuildRequires:  just
 BuildRequires:  desktop-file-utils
-BuildRequires:  desktop-backgrounds-compat
 
 Requires:       cosmic-icon-theme >= %{cosmic_minver}
 Requires:       desktop-backgrounds-compat
@@ -78,11 +77,7 @@ export VERGEN_GIT_SHA="%{commit}"
 just rootdir=%{buildroot} prefix=%{_prefix} install
 
 # Set default background to system branding
-if [ -f "/usr/share/backgrounds/default-dark.png" ]; then
 sed -e 's|source: Path(".*"),|source: Path("/usr/share/backgrounds/default-dark.png"),|' -i %{buildroot}%{_datadir}/cosmic/com.system76.CosmicBackground/v1/all
-else
-sed -e 's|source: Path(".*"),|source: Path("/usr/share/backgrounds/default-dark.jxl"),|' -i %{buildroot}%{_datadir}/cosmic/com.system76.CosmicBackground/v1/all
-fi
 
 # Set default setting for backgrounds on all displays
 echo "true" > %{buildroot}%{_datadir}/cosmic/com.system76.CosmicBackground/v1/same-on-all 

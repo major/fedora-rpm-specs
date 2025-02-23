@@ -2,7 +2,7 @@
 %global tag %{version}
 
 Name:       labwc
-Version:    0.8.2
+Version:    0.8.3
 %forgemeta
 Release:    %autorelease
 Summary:    A Wayland window-stacking compositor

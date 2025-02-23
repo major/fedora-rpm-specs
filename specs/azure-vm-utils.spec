@@ -1,5 +1,5 @@
 Name:           azure-vm-utils
-Version:        0.4.0
+Version:        0.5.0
 Release:        %autorelease
 Summary:        Core utilities and configuration for Linux VMs on Azure
 
@@ -7,13 +7,11 @@ License:        MIT
 URL:            https://github.com/Azure/%{name}
 Source:         %{url}/archive/v%{version}/%{name}-v%{version}.tar.gz
 
-# Allow the binary install to be configurable
-# https://github.com/Azure/azure-vm-utils/pull/50
-Patch:          0001-cmake-Allow-the-install-directory-to-be-configurable.patch
-
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(libudev)
+BuildRequires:  json-c-devel
+BuildRequires:  libcmocka-devel
 
 Provides:       azure-nvme-utils = %{version}-%{release}
 Obsoletes:      azure-nvme-utils < 0.1.3-3
@@ -32,6 +30,8 @@ configuration to support Linux VMs on Azure.
 %install
 %cmake_install
 install -D -m 0755 initramfs/dracut/modules.d/97azure-disk/module-setup.sh %{buildroot}%{_prefix}/lib/dracut/modules.d/97azure-disk/module-setup.sh
+rm %{buildroot}%{_bindir}/azure-vm-utils-selftest
+rm %{buildroot}%{_mandir}/man8/azure-vm-utils-selftest.8
 
 %check
 %ctest

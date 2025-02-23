@@ -1,7 +1,7 @@
 Name:		xmbdfed
 Summary: 	Bitmap Font Editor
 Version:	4.7
-Release:	38%{?dist}
+Release:	39%{?dist}
 License:	MIT
 Source0:	http://crl.nmsu.edu/~mleisher/%{name}-%{version}.tar.bz2
 Source1:	http://crl.nmsu.edu/~mleisher/%{name}.png
@@ -12,6 +12,7 @@ Patch2:		xmbdfed-4.7-staticfix.patch
 Patch3:		xmbdfed-4.7-getline.patch
 Patch4:		xmbdfed-4.7-format-security.patch
 Patch5:		xmbdfed-4.7-gcc10.patch
+Patch6:		xmbdfed-4.7-gcc15.patch
 URL:		http://crl.nmsu.edu/~mleisher/xmbdfed.html
 BuildRequires: make
 BuildRequires:  gcc
@@ -39,6 +40,7 @@ editing font properties. The editor works natively with BDF fonts.
 %patch -P3 -p1 -b .getline
 %patch -P4 -p1 -b .format-security
 %patch -P5 -p1 -b .gcc10
+%patch -P6 -p1 -b .gcc15
 
 %build
 make %{?_smp_mflags} CFLAGS="%{optflags}"
@@ -64,6 +66,10 @@ desktop-file-install					\
 %{_mandir}/man1/xmbdfed*
 
 %changelog
+* Fri Feb 21 2025 Tom Callaway <spot@fedoraproject.org> - 4.7-39
+- am i wrong for keeping a motif app alive in 2025? No, it is the kids who are wrong.
+- uh, apply fix for compiling with c23 (gcc15)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.7-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

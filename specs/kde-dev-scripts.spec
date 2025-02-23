@@ -1,7 +1,7 @@
 Name:    kde-dev-scripts
 Summary: KDE SDK scripts
 Version: 24.12.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-only AND BSD-2-Clause
 URL:     https://invent.kde.org/sdk/%{name}.git
@@ -135,6 +135,9 @@ rm -fv %{buildroot}%{_kf6_bindir}/krazy-licensecheck
 
 
 %changelog
+* Fri Feb 21 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-2
+- Rebuild for ppc64le enablement
+
 * Wed Feb 05 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-1
 - 24.12.2
 

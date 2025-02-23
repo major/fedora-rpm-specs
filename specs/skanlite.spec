@@ -1,6 +1,6 @@
 Name:           skanlite
 Version:        24.12.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Lightweight scanning program
 # Actually: GPLv2 or GPLv3 or any later Version approved by KDE e.V.
 License:        GPL-2.0-only OR GPL-3.0-only
@@ -61,6 +61,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.kde.
 
 
 %changelog
+* Fri Feb 21 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-2
+- Rebuild for ppc64le enablement
+
 * Wed Feb 05 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-1
 - 24.12.2
 

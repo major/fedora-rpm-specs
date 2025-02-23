@@ -13,7 +13,7 @@
 # For rc, beta, alpha releases substitute tilde (~) for dash (-)
 # in version0. tag0 reverses the substitution
 # e.g.  global version0        27.4.0~rc.4
-%global version0        27.5.1
+%global version0        28.0.0
 %global tag0            v%{gsub %{version0} ~ -}
 
 # https://github.com/docker/cli
@@ -216,6 +216,11 @@ VERSION=%{version} \
 GOPATH=%{gobuilddir} \
     bash -x ./hack/make.sh dynbinary
 
+# build man pages using Makefile in man subdirectory
+pushd man
+GO_MD2MAN=go-md2man %make_build all
+popd
+
 # docker-cli
 cd %{cli_dir}
 %make_build dynbinary \
@@ -241,6 +246,7 @@ install -Dpm 0644 moby-engine-systemd-sysusers.conf %{buildroot}%{_sysusersdir}/
 install -Dpm 0644 contrib/udev/80-docker.rules -t %{buildroot}%{_udevrulesdir}
 # Install nano syntax
 install -Dpm 644 contrib/syntax/nano/Dockerfile.nanorc -t %{buildroot}%{_datadir}/nano/
+install -Dpm 644 man/man8/*.8 -t %{buildroot}%{_mandir}/man8/
 
 # docker-cli
 cd %{cli_dir}
@@ -255,7 +261,6 @@ install -Dpm 644 contrib/completion/fish/docker.fish -t %{buildroot}%{fish_compl
 # Install manpages
 install -Dpm 644 man/man1/*.1 -t %{buildroot}%{_mandir}/man1/
 install -Dpm 644 man/man5/*.5 -t %{buildroot}%{_mandir}/man5/
-install -Dpm 644 man/man8/*.8 -t %{buildroot}%{_mandir}/man8/
 cd -
 
 # moby-filesystem
@@ -289,6 +294,9 @@ cd %{engine_dir}
 skiptest \
     "TestSCTP4Proxy" \
     %dnl Failed to enter netns: operation not permitted
+    %dnl "TestSCTP4ProxyNoListener"
+    %dnl "TestSCTP6ProxyNoListener"
+    %dnl network_proxy_linux_test.go:73: protocol not supported; fails in COPR rawhide
     "TestIfaceAddrs" \
     %dnl failed to mount resolved path: operation not permitted
     "TestJoinGoodSymlink" \
@@ -344,6 +352,7 @@ skiptest \
 %{_udevrulesdir}/80-docker.rules
 %{_unitdir}/docker.service
 %{_unitdir}/docker.socket
+%{_mandir}/man8/dockerd.8*
 
 
 %files nano
@@ -359,7 +368,6 @@ skiptest \
 %{_bindir}/docker
 %{_mandir}/man1/docker*.1*
 %{_mandir}/man5/{Dockerfile,docker-config-json}.5*
-%{_mandir}/man8/dockerd.8*
 %{bash_completions_dir}/docker
 %{fish_completions_dir}/docker.fish
 %{zsh_completions_dir}/_docker

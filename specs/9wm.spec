@@ -1,7 +1,9 @@
+%undefine _annotated_build
+
 Name:		9wm
 Summary:	Emulation of the Plan 9 window manager 8 1/2
 Version:	1.4.2
-Release:	4%{?dist}
+Release:	5%{?dist}
 License:	MIT
 Source0:	https://github.com/9wm/9wm/archive/%{version}.tar.gz
 Source1:	9wm.desktop
@@ -22,7 +24,7 @@ decorations or title-bars. Or icons.  And it's click-to-type.
 %setup -q -n 9wm-%{version}
 
 %build
-%make_build CFLAGS="$RPM_OPT_FLAGS -DSHAPE"
+CFLAGS="$RPM_OPT_FLAGS" %make_build
 
 %install
 mkdir -p %{buildroot}%{_bindir} %{buildroot}%{_mandir}/man1
@@ -39,6 +41,10 @@ desktop-file-install					\
 %{_mandir}/man1/9wm.*
 
 %changelog
+* Fri Feb 21 2025 Tom Callaway <spot@fedoraproject.org> - 1.4.2-5
+- do not override 9wm's default CFLAGS (while preserving Fedora's optflags)
+  Thanks to Jacob Adams.
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

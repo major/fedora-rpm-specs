@@ -1,6 +1,6 @@
 Name:    grantleetheme
 Version: 24.12.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE PIM library for Grantlee template system
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -73,6 +73,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Fri Feb 21 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-2
+- Rebuild for ppc64le enablement
+
 * Wed Feb 05 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-1
 - 24.12.2
 

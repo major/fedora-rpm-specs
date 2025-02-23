@@ -1,6 +1,6 @@
 Name: neochat
 Version: 24.12.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND BSD-3-Clause
 URL: https://invent.kde.org/network/%{name}
@@ -123,6 +123,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_kf6_datadir}/dbus-1/services/org.kde.neochat.service
 
 %changelog
+* Fri Feb 21 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-2
+- Rebuild for ppc64le enablement
+
 * Wed Feb 05 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-1
 - 24.12.2
 

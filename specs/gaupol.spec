@@ -1,27 +1,25 @@
 %bcond tests 1
 
-# Not (yet) in EPEL10, https://bugzilla.redhat.com/show_bug.cgi?id=2315454
-%bcond gspell %{expr:!0%{?el10}}
+%bcond gspell 1
 
 # Default preview video player on non-Windows systems. Also supported are
 # mplayer (not packaged in Fedora) and vlc.
 # Not (yet) in EPEL10
-%bcond mpv %{expr:!0%{?el10}}
-# Not (yet) in EPEL10, https://bugzilla.redhat.com/show_bug.cgi?id=2315454
-%bcond vlc %{expr:!0%{?el10}}
+%bcond mpv %{undefined el10}
+%bcond vlc 1
 
 # The rich-dependency trick for an arch-dependent dependency on
 # gstreamer1-svt-vp9 in a noarch package works well in Fedora, but it causes
 # problems on EPEL10, perhaps due to something to do with alternative Python
 # stacks. It’s easiest just to omit this weak dependency in EPEL10.
-%bcond vp9 %{expr:!0%{?el10}}
+%bcond vp9 %{undefined el10}
 
 # We do not have xvfb-run in EPEL10. We can use xwfb-run or wlheadless-run
 # instead, but a number of tests crash with no useful output, so we only do
 # that where we have no choice. Interactive testing in a GNOME/Wayland session
 # in Fedora does not show any obvious issues, so the problems appear to be
 # specific to xwayland-run.
-%bcond x11 %{expr:!0%{?el10}}
+%bcond x11 %{undefined el10}
 
 Name:           gaupol
 Version:        1.15
@@ -106,7 +104,7 @@ BuildRequires:  xorg-x11-server-Xvfb
 %else
 # Some tests crash, but this is the way of the future.
 BuildRequires:  xwayland-run
-%if 0%{?el10}
+%if %{defined el10}
 # The available compositor for xwayland-run in EPEL10 is mutter; it fails with
 # “Unable to initialize the Clutter backend: no available drivers found.”
 # unless we explicitly depend on mesa-dri-drivers. See
@@ -347,7 +345,7 @@ appstreamcli validate --no-net --explain \
 # >       assert 200 < deft < cust
 # E       assert 615 < 615
 k="${k-}${k+ and }not (TestModule and test_char_to_px__font)"
-%if 0%{?el10}
+%if %{defined el10}
 # >       assert 50 < deft < 200
 # E       assert 200 < 200
 k="${k-}${k+ and }not (TestModule and test_lines_to_px__font)"
@@ -366,7 +364,7 @@ k="${k-}${k+ and }not TestSpellChecker"
 %if %{with x11}
 %global __pytest xvfb-run -- pytest
 %else
-%if 0%{?el10}
+%if %{defined el10}
 # EPEL10 has mutter but not weston, which is the default when there is no
 # configuration). This is supposed to be handled by the default configuration
 # in /usr/share/wlheadless/wlheadless.conf, but the packaged wlheadless-run has

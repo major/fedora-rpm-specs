@@ -19,6 +19,7 @@ Source:         %{crates_source}
 # * drop unused, benchmark-only criterion dev-dependency
 # * drop unused support for building the crate as a Python extension module
 Patch:          libcst-fix-metadata.diff
+Patch:          0001-Adapt-to-minor-API-break-in-chic-due-to-annotate-sni.patch
 
 BuildRequires:  cargo-rpm-macros >= 26
 

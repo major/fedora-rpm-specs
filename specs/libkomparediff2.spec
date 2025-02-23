@@ -4,7 +4,7 @@
 Name:    libkomparediff2
 Summary: Library to compare files and strings
 Version: 24.12.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Library: GPLv2+ (some files LGPLv2+), CMake scripts: BSD
 License: GPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-3-Clause
@@ -81,6 +81,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Feb 21 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-2
+- Rebuild for ppc64le enablement
+
 * Wed Feb 05 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-1
 - 24.12.2
 

@@ -62,6 +62,7 @@ BuildRequires:  tex(latex) tex(epsf.tex)
 BuildRequires:  tex(cm-super-t1.enc)
 BuildRequires:  tex(media9.sty)
 BuildRequires:  tex(parskip.sty)
+BuildRequires:  tex(type1cm.sty)
 BuildRequires:  texlive-dvisvgm
 BuildRequires:  ghostscript >= 9.55
 BuildRequires:  texinfo-tex
@@ -89,7 +90,6 @@ Requires:       hicolor-icon-theme
 Requires:       librsvg2-tools
 Requires:       tex(latex)
 Requires:       texlive-dvisvgm
-Requires:       tex(type1cm.sty)
 Requires:       python3-qt5
 Requires:       python3-cson
 Requires:       python3-numpy

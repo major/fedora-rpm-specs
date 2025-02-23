@@ -1,15 +1,22 @@
 Name:               python-slackclient
 Version:            3.34.0
-Release:            2%{?dist}
+Release:            3%{?dist}
 Summary:            Slack Developer Kit for Python
 
 # SPDX
 License:            MIT
 URL:                https://github.com/slackapi/python-slack-sdk
 Source0:            %{url}/archive/v%{version}/python-slack-sdk-%{version}.tar.gz
+
+# Remove pytest-runner from build-system.requires
+# https://github.com/slackapi/python-slack-sdk/pull/1659
+# https://fedoraproject.org/wiki/Changes/DeprecatePythonPytestRunner
+Patch:              %{url}/pull/1659.patch
+
 BuildArch:          noarch
 
 BuildRequires:      python3-devel
+BuildRequires:      python3-pytest
 BuildRequires:      python3-aiohttp
 BuildRequires:      python3-websockets
 BuildRequires:      python3-websocket-client
@@ -32,7 +39,7 @@ Obsoletes: python3-slackclient+optional < 3.26.2-1
 %{summary}.
 
 %prep
-%autosetup -n python-slack-sdk-%{version} -p0
+%autosetup -n python-slack-sdk-%{version} -p1
 # Remove prebuilt HTML documentation with bundled and precompiled JavaScript
 rm -rf docs docs-v*
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
@@ -77,6 +84,9 @@ k="${k-}${k+ and }not test_start_raises_an_error_if_rtm_ws_url_is_not_returned"
 %doc README.md
 
 %changelog
+* Sat Feb 22 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.34.0-3
+- Remove pytest-runner from build-system.requires
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.34.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -10,12 +10,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 93997f83a5b4178ce3d6bf8aec2f8114be10d381
-%global commitdatestring 2025-01-14 09:37:46 +0100
-%global cosmic_minver 1.0.0~alpha.5.1
+%global commit a821b5a778c082ff9589eafbc165f3a8893f4a8c
+%global commitdatestring 2025-02-20 19:25:22 +0100
+%global cosmic_minver 1.0.0~alpha.6
 
 Name:           xdg-desktop-portal-cosmic
-Version:        1.0.0~alpha.5.1
+Version:        1.0.0~alpha.6
 Release:        %autorelease
 Summary:        XDG Desktop Portals for the COSMIC Desktop Environment
 
@@ -31,6 +31,9 @@ Source0:        https://github.com/pop-os/xdg-desktop-portal-cosmic/archive/epoc
 Source1:        vendor-%{version_no_tilde}.tar.gz
 # * mv vendor-config-%%{version_no_tilde}.toml ..
 Source2:        vendor-config-%{version_no_tilde}.toml
+
+# https://github.com/pop-os/xdg-desktop-portal-cosmic/pull/141
+Patch: https://patch-diff.githubusercontent.com/raw/pop-os/xdg-desktop-portal-cosmic/pull/141.patch
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  rustc

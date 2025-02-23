@@ -1,12 +1,18 @@
 Name:           miriway
-Version:        24.11
-Release:        2%{?dist}
+Version:        24.11.1
+Release:        1%{?dist}
 Summary:        Simple Wayland compositor built on Mir
 
 License:        GPL-3.0-only
 URL:            https://miriway.github.io/
 Source0:        https://github.com/Miriway/Miriway/archive/v%{version}/Miriway-%{version}.tar.gz
 Source1:        anaconda-initial-setup-run-gui-backend
+
+# Backports from upstream
+## Add "always-on-top" action and keybinding
+Patch0001:      0001-always-on-top-144.patch
+## Add environment variable to customize SSD behavior
+Patch0002:      0001-Add-MIRIWAY_DECORATIONS-environment-variable-to-cust.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -120,6 +126,10 @@ install -pm 0755 %{S:1} %{buildroot}%{_libexecdir}/initial-setup/run-gui-backend
 
 
 %changelog
+* Fri Feb 21 2025 Neal Gompa <ngompa@fedoraproject.org> - 24.11.1-1
+- Update to 24.11.1
+- Backport fixes from upstream for LXQt Wayland
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

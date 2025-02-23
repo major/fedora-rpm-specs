@@ -3,7 +3,7 @@
 
 # https://github.com/docker/compose/v2
 %global goipath         github.com/docker/compose/v2
-Version:                2.33.0
+Version:                2.33.1
 
 %gometa -L -f
 
@@ -34,7 +34,7 @@ BuildRequires:  moby-rpm-macros
 # (where `docker` is provided by docker-cli and not podman-docker)
 # should be reported to the podman maintainers.
 Requires:       (docker-cli or podman-docker)
-Suggests:       docker-cli
+Suggests:       docker-cli >= 28.0.0
 # Ensure that %%{moby_cli_plugins_dir} is owned when podman-docker is installed
 # by Requiring moby-filesystem explicitly.
 Requires:       moby-filesystem

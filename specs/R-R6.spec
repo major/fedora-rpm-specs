@@ -1,12 +1,12 @@
 %global packname R6
-%global packver 2.5.1
+%global packver 2.6.1
 
 %global __suggests_exclude ^R\\((pryr)\\)
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          12%{?dist}
-Source0:          ftp://cran.r-project.org/pub/R/contrib/main/%{packname}_%{packver}.tar.gz
+Release:          1%{?dist}
+Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.tar.gz
 License:          MIT
 URL:              http://cran.r-project.org/web/packages/R6/index.html
 Summary:          Classes with Reference Semantics
@@ -60,6 +60,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/R/library/R.css
 %{_datadir}/R/library/%{packname}/help
 
 %changelog
+* Fri Feb 21 2025 Tom Callaway <spot@fedoraproject.org> - 2.6.1-1
+- update to 2.6.1
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

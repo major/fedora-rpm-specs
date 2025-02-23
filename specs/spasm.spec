@@ -74,6 +74,8 @@ This package contains the spasm shared library.
 %package     -n libspasm-devel
 Summary:        Development files for libspasm
 
+Requires:       libspasm%{?_isa} = %{version}-%{release}
+
 %description -n libspasm-devel %_desc
 
 This package contains headers and library links for developing

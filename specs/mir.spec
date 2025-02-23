@@ -12,13 +12,21 @@
 
 Name:           mir
 Version:        2.19.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Next generation Wayland display server toolkit
 
 # mircommon is LGPL-2.1-only/LGPL-3.0-only, everything else is GPL-2.0-only/GPL-3.0-only
 License:        (GPL-2.0-only or GPL-3.0-only) and (LGPL-2.1-only or LGPL-3.0-only)
 URL:            https://mir-server.io/
 Source0:        https://github.com/canonical/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
+
+# Backports from upstream
+## Various fixes to improve the LXQt experience on Mir
+## Cf. https://github.com/canonical/mir/issues/3761#issuecomment-2672071707
+## Cf. https://bugzilla.redhat.com/show_bug.cgi?id=2346973
+Patch0001:      0001-Check-we-have-a-buffer-size-before-using-it.patch
+Patch0002:      0002-Relax-check-for-implicit-grab.patch
+Patch0003:      0003-Workaround-for-LXQt-panel.patch
 
 BuildRequires:  git-core
 BuildRequires:  gcc-c++
@@ -280,6 +288,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 
 
 %changelog
+* Fri Feb 21 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.19.3-3
+- Backport fixes for LXQt Wayland
+
 * Wed Jan 22 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.19.3-2
 - Rebuilt for gtest 1.15.2
 

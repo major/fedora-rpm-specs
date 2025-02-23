@@ -10,11 +10,13 @@
 Summary: The WebAssembly Binary Toolkit
 Name: wabt
 Version: 1.0.36
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: https://github.com/WebAssembly/wabt
 Source0: https://github.com/WebAssembly/wabt/archive/%{version}/%{name}-%{version}.tar.gz
 Source1: https://github.com/WebAssembly/testsuite/archive/%{ts_commit}/%{name}-testsuite-%{ts_shortcommit}.tar.gz
 Source2: https://github.com/WebAssembly/wasm-c-api/archive/%{wc_commit}/%{name}-wasm-c-api-%{wc_shortcommit}.tar.gz
+# increase test timeout to avoid failures
+Patch0: %{name}-test-timeout.patch
 License: Apache-2.0
 BuildRequires: cmake3
 BuildRequires: gcc-c++
@@ -46,6 +48,7 @@ mv third_party/wasm-c-api{-%{wc_commit},}
 rmdir third_party/testsuite
 tar xzf %{S:1} -C third_party
 mv third_party/testsuite{-%{ts_commit},}
+%patch 0 -p1 -b .timeout
 pushd test
 # https://github.com/WebAssembly/wabt/issues/1044
 %ifarch i686
@@ -71,88 +74,25 @@ rm wasm2c/spec/select.txt
 %ifarch ppc64le
 rm spec/conversions.txt
 rm spec/simd_conversions.txt
-# https://github.com/WebAssembly/wabt/issues/2542
-%if 0%{?fedora} > 41
-rm wasm2c/spec/float_exprs.txt
-%endif
 rm wasm2c/spec/simd_address.txt
 rm wasm2c/spec/simd_f32x4_arith.txt
 rm wasm2c/spec/simd_f32x4_pmin_pmax.txt
 rm wasm2c/spec/simd_splat.txt
 %endif
-# https://github.com/WebAssembly/wabt/issues/2070
-# https://github.com/WebAssembly/wabt/issues/2240
-%ifarch s390x
-rm wasm2c/spec/address.txt
-rm wasm2c/spec/endianness.txt
-rm wasm2c/spec/exception-handling/imports.txt
+%if 0%{?fedora} > 41
+%ifarch ppc64le s390x
+# https://github.com/WebAssembly/wabt/issues/2542
 rm wasm2c/spec/float_exprs.txt
-rm wasm2c/spec/float_memory.txt
-rm wasm2c/spec/imports.txt
-rm wasm2c/spec/left-to-right.txt
-rm wasm2c/spec/memory.txt
-rm wasm2c/spec/memory_redundancy.txt
-rm wasm2c/spec/memory_trap.txt
-rm wasm2c/spec/memory64/address.txt
-rm wasm2c/spec/memory64/address64.txt
-rm wasm2c/spec/memory64/endianness64.txt
-rm wasm2c/spec/memory64/float_memory64.txt
-rm wasm2c/spec/memory64/memory.txt
-rm wasm2c/spec/memory64/memory_redundancy64.txt
-rm wasm2c/spec/memory64/memory_trap64.txt
-rm wasm2c/spec/memory64/memory64.txt
-rm wasm2c/spec/memory64/simd_address.txt
-rm wasm2c/spec/multi-memory/address0.txt
-rm wasm2c/spec/multi-memory/address1.txt
-rm wasm2c/spec/multi-memory/float_exprs1.txt
-rm wasm2c/spec/multi-memory/float_memory0.txt
-rm wasm2c/spec/multi-memory/imports.txt
-rm wasm2c/spec/multi-memory/imports1.txt
-rm wasm2c/spec/multi-memory/imports2.txt
-rm wasm2c/spec/multi-memory/load.txt
-rm wasm2c/spec/multi-memory/load0.txt
-rm wasm2c/spec/multi-memory/memory.txt
-rm wasm2c/spec/multi-memory/memory-multi.txt
-rm wasm2c/spec/multi-memory/memory_trap1.txt
-rm wasm2c/spec/simd_address.txt
-rm wasm2c/spec/simd_align.txt
-rm wasm2c/spec/simd_const.txt
-rm wasm2c/spec/simd_f32x4.txt
-rm wasm2c/spec/simd_f32x4_arith.txt
-rm wasm2c/spec/simd_f64x2.txt
-rm wasm2c/spec/simd_f64x2_arith.txt
-rm wasm2c/spec/simd_i16x8_arith.txt
-rm wasm2c/spec/simd_i16x8_arith2.txt
-rm wasm2c/spec/simd_i16x8_cmp.txt
-rm wasm2c/spec/simd_i16x8_sat_arith.txt
-rm wasm2c/spec/simd_i32x4_arith.txt
-rm wasm2c/spec/simd_i32x4_arith2.txt
-rm wasm2c/spec/simd_i32x4_cmp.txt
-rm wasm2c/spec/simd_i64x2_arith.txt
-rm wasm2c/spec/simd_i64x2_arith2.txt
-rm wasm2c/spec/simd_i8x16_arith.txt
-rm wasm2c/spec/simd_i8x16_cmp.txt
-rm wasm2c/spec/simd_i8x16_sat_arith.txt
-rm wasm2c/spec/simd_lane.txt
-rm wasm2c/spec/simd_load.txt
-rm wasm2c/spec/simd_load16_lane.txt
-rm wasm2c/spec/simd_load32_lane.txt
-rm wasm2c/spec/simd_load64_lane.txt
-rm wasm2c/spec/simd_load_extend.txt
-rm wasm2c/spec/simd_load_splat.txt
-rm wasm2c/spec/simd_load_zero.txt
-rm wasm2c/spec/simd_store.txt
-rm wasm2c/spec/simd_store16_lane.txt
-rm wasm2c/spec/simd_store32_lane.txt
-rm wasm2c/spec/simd_store64_lane.txt
-rm wasm2c/spec/simd_store8_lane.txt
-rm wasm2c/spec/threads/atomic.txt
+%endif
 %endif
 popd
 %endif
 
 %build
-%cmake3 -DUSE_SYSTEM_GTEST=ON
+%cmake3 -DUSE_SYSTEM_GTEST=ON \
+%ifarch i686
+    -DWASM2C_CFLAGS="-msse2 -mfpmath=sse"
+%endif
 %cmake3_build
 
 %install
@@ -160,10 +100,9 @@ popd
 
 %if %{with check}
 %check
-%ifarch i686
-export WASM2C_CFLAGS="-msse2 -mfpmath=sse"
-%endif
-test/run-tests.py -v --bindir %{_vpath_builddir} --timeout=1200 %{?_smp_mflags}
+# See https://github.com/WebAssembly/wabt/blob/main/.github/workflows/build.yml#L261
+cmake --build redhat-linux-build --verbose --target run-unittests %{?_smp_mflags}
+cmake --build redhat-linux-build --verbose --target run-tests %{?_smp_mflags}
 %endif
 
 %files
@@ -202,9 +141,14 @@ test/run-tests.py -v --bindir %{_vpath_builddir} --timeout=1200 %{?_smp_mflags}
 %{_mandir}/man1/wat2wasm.1*
 
 %changelog
+* Fri Feb 21 2025 Dominik Mierzejewski <dominik@greysector.net> 1.0.36-3
+- use upstream way of running tests
+- run unit tests
+- re-enable most tests on s390x now that they pass
+- skip failing test on ppc64le and s390x with GCC 15
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.36-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-- skip failing test on ppc64le with GCC 15 (Dominik Mierzejewski)
 
 * Mon Sep 09 2024 Dominik Mierzejewski <dominik@greysector.net> 1.0.36-1
 - update to 1.0.36 (#2246227)

@@ -1,9 +1,5 @@
-# Missing dependencies in EPEL10:
-#   - python3dist(markdown-it-py)
-%bcond render %{undefined el10}
-
 Name:           bids-schema
-Version:        1.0.2
+Version:        1.0.3
 Release:        %autorelease
 Summary:        BIDS schema description
 
@@ -51,7 +47,7 @@ Source0:        %{url}/archive/schema-%{srcversion}/bids-specification-schema-%{
 # tools/schemacode/src/bidsschematools/conftest.py, which contains code to download
 # these if they are not present.
 %global examples_url https://github.com/bids-standard/bids-examples
-%global examples_commit e52f77fcd1abe7f234ecaec3542082279b043f8a
+%global examples_commit 5e6fa0ccba46c9701c4aba154b412542d616186c
 %global error_examples_url https://github.com/bids-standard/bids-error-examples
 %global error_examples_commit ac0a2f58f34ce284847dde5bd3b90d7ea048c141
 #
@@ -117,7 +113,7 @@ Features:
   • simple CLI bindings (e.g. bst export)
 
 
-%pyproject_extras_subpkg -n python3-bidsschematools %{?with_render:render} expressions
+%pyproject_extras_subpkg -n python3-bidsschematools render expressions
 
 
 %prep
@@ -137,7 +133,7 @@ rm -rf src/js/ src/css/
 
 %generate_buildrequires
 pushd tools/schemacode >/dev/null
-%pyproject_buildrequires -x %{?with_render:render,}expressions
+%pyproject_buildrequires -x render,expressions
 popd >/dev/null
 
 
@@ -221,11 +217,7 @@ install -t '%{buildroot}%{_docdir}/python3-bidsschematools' -D -p -m 0644 \
 verfile='%{_datadir}/bids-schema/versions/%{bidsversion}/schema/SCHEMA_VERSION'
 [ '%{srcversion}' = "$(cat "%{buildroot}${verfile}")" ]
 
-%pyproject_check_import %{?!with_render:-e bidsschematools.render*}
-
-%if %{without render}
-ignore="${ignore-} --ignore-glob=tools/schemacode/src/bidsschematools/tests/test_render_*"
-%endif
+%pyproject_check_import
 
 # These tests require example files that were filtered out for license reasons.
 k="${k-}${k+ and }not test_bids_datasets[hcp_example_bids]"

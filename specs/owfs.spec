@@ -13,7 +13,7 @@
 
 Name:		owfs
 Version:	3.2p4
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	1-Wire Virtual File System
 
 # some parts licensed differently, see http://owfs.org/index.php?page=license
@@ -113,7 +113,6 @@ Requires: %{name}-server
 Summary: Back-end server (daemon) for 1-wire control
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 Requires: firewalld-filesystem
-Requires(pre): shadow-utils
 BuildRequires: firewalld-filesystem
 BuildRequires: libftdi-devel
 
@@ -189,6 +188,11 @@ sed -i -e 's/) Makefile.PL/& INSTALLDIRS=vendor/' \
 	module/swig/perl5/Makefile.am \
 	module/ownet/perl5/Makefile.am
 
+# Create a sysusers.d config file
+cat >owfs.sysusers.conf <<EOF
+u ow - '1-wire file-system (OWFS) utilities account' /var/empty -
+EOF
+
 
 %build
 ./bootstrap
@@ -225,13 +229,8 @@ rm -f %{buildroot}/usr/local/lib64/perl5/auto/OWNet/.packlist
 
 install -Dm 0644 %{SOURCE1} %{buildroot}%{_prefix}/lib/firewalld/services/owserver.xml
 
-%pre server
-# TODO: migrate to systemd-sysusers when guidelines are ready
-getent group ow >/dev/null || groupadd -r ow
-getent passwd ow >/dev/null || \
-    useradd -r -g ow -d /var/empty -s /sbin/nologin \
-    -c "1-wire file-system (OWFS) utilities account" ow
-exit 0
+install -m0644 -D owfs.sysusers.conf %{buildroot}%{_sysusersdir}/owfs.conf
+
 
 
 %post fs
@@ -345,6 +344,7 @@ exit 0
 %{_unitdir}/owserver.service
 %{_unitdir}/owserver.socket
 %{_prefix}/lib/firewalld/services/owserver.xml
+%{_sysusersdir}/owfs.conf
 
 
 %files tap
@@ -376,6 +376,9 @@ exit 0
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.2p4-11
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2p4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

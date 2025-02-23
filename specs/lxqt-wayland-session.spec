@@ -5,7 +5,7 @@
 
 Name:           lxqt-wayland-session
 Version:        0.1.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Wayland session files for LXQt
 # See "LICENSE" for a breakdown of license usage
 License:        LGPL-2.1-only AND GPL-3.0-only AND MIT AND GPL-2.0-only AND BSD-3-Clause
@@ -100,7 +100,10 @@ compositor with LXQt.
 Summary:        Session files for LXQt-miriway
 License:        GPL-3.0-or-later
 Requires:       %{name} = %{version}-%{release}
-Requires:       miriway
+# For flag to customize decoration preference
+Requires:       miriway >= 24.11.1-1
+# For mir fixes for LXQt
+Requires:       mir-server-libs >= 2.19.3-3
 Supplements:    (%{name} and miriway)
 
 %description -n lxqt-miriway-session
@@ -250,6 +253,9 @@ rm -v %{buildroot}%{_datadir}/lxqt/wayland/lxqt-niri.kdl
 %fdupes -s %{buildroot}%{_datadir}/themes/
 
 %changelog
+* Fri Feb 21 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.1.1-11
+- Refresh miriway session patch with latest version of upstream submission
+
 * Sun Feb 16 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.1.1-10
 - Ensure the default compositor configuration is installed
 

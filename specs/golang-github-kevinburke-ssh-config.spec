@@ -4,7 +4,7 @@
 
 # https://github.com/kevinburke/ssh_config
 %global goipath         github.com/kevinburke/ssh_config
-Version:                1.2.0
+Version:                1.3
 
 %gometa
 
@@ -23,7 +23,7 @@ you want to retrieve ("Port"). The keywords are case insensitive.}
 %global godocs          AUTHORS.txt CHANGELOG.md README.md
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        %autorelease
 Summary:        Go parser for ssh_config files
 
 License:        MIT
@@ -52,73 +52,4 @@ Source:         %{gosource}
 %gopkgfiles
 
 %changelog
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jun 22 2023 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 1.2-4
-- Use go_generate_buildrequires
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri May 06 2022 Dominik Mierzejewski <rpm@greysector.net> - 1.2-1
-- update to 1.2 (fixes rhbz#2070735)
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Apr 21 2021 Dominik Mierzejewski <rpm@greysector.net> - 1.1-1
-- update to 1.1 (fixes rhbz#1943852)
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-4
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Fri Sep 27 2019 Dominik Mierzejewski <dominik@greysector.net> - 1.0-1
-- update to 1.0 (#1742298)
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sat Apr 27 22:54:10 CEST 2019 Robert-André Mauchin <zebob.m@gmail.com> - 0.5-2
-- Update to new macros
-
-* Sat Apr 06 01:14:14 CEST 2019 Robert-André Mauchin <zebob.m@gmail.com> - 0.5-1
-- Release 0.5 (#1695256)
-
-* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Tue Oct 23 2018 Nicolas Mailhot <nim@fedoraproject.org> - 0.4-3
-- redhat-rpm-config-123 triggers bugs in gosetup, remove it from Go spec files as it’s just an alias
-- https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/message/RWD5YATAYAFWKIDZBB7EB6N5DAO4ZKFM/
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Mon Apr 02 2018 Dominik Mierzejewski <dominik@greysector.net> - 0.4-1
-- First package for Fedora
+%autochangelog

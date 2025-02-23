@@ -14,6 +14,9 @@ URL:            https://crates.io/crates/tokio-uring
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 Patch:          tokio-uring-fix-metadata.diff
+# * upstream patch to avoid setting unsupported flags for Unix domain sockets:
+#   backport of https://github.com/tokio-rs/tokio-uring/pull/325
+Patch:          0001-UnixListener-do-not-set-unsupported-reuse_port-flag.patch
 
 BuildRequires:  rust-packaging >= 21
 

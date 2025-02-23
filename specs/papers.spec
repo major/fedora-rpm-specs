@@ -11,7 +11,7 @@
 %global __provides_exclude_from ^(%{_libdir}/papers/.*\\.so|%{_libdir}/nautilus/extensions-4/.*\\.so)$
 
 Name:           papers
-Version:        47.0
+Version:        47.3
 Release:        %autorelease
 Summary:        View multipage documents
 
@@ -28,19 +28,14 @@ SourceLicense:  GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND 
 # MIT AND (MIT OR Apache-2.0)
 # MIT OR Apache-2.0
 # Unlicense OR MIT
-License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT AND libtiff AND (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND BSD-3-Clause AND (Unlicense OR MIT)
+# Zlib
+License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT AND Zlib AND libtiff AND (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND BSD-3-Clause AND (Unlicense OR MIT)
 URL:            https://gitlab.gnome.org/GNOME/Incubator/papers
 Source:         https://download.gnome.org/sources/papers/47/papers-%{tarball_version}.tar.xz
-%if 0%{?bundled_rust_deps}
 # To generate vendored cargo sources:
 #   tar xf papers-%%{tarball_version}.tar.xz ; pushd papers-%%{tarball_version}/shell-rs ; \
 #   cargo vendor && tar Jcvf ../../papers-%%{tarball_version}-vendor.tar.xz ../shell-rs/vendor/ ; popd
 Source1:        papers-%{tarball_version}-vendor.tar.xz
-%endif
-
-# Fix the build with glib-macros 0.20.3
-# https://gitlab.gnome.org/GNOME/Incubator/papers/-/merge_requests/366
-Patch:          0001-shell-rs-Use-RefCell-replace-rather-than-glib-Proper.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

@@ -1279,7 +1279,7 @@ install -D -p -m 644 packaging/redhat_fedora/%{name}.sysconfig %{buildroot}%{_sy
 %doc docdir/README.cpl_c
 
 %files db_berkeley
-%{_sbindir}/bdb_recover
+%{_bindir}/bdb_recover
 %{_libdir}/opensips/modules/db_berkeley.so
 %dir %{_datadir}/opensips/db_berkeley
 %dir %{_datadir}/opensips/db_berkeley/opensips
@@ -1298,7 +1298,7 @@ install -D -p -m 644 packaging/redhat_fedora/%{name}.sysconfig %{buildroot}%{_sy
 
 %if 0%{?_with_oracle}
 %files db_oracle
-%{_sbindir}/opensips_orasel
+%{_bindir}/opensips_orasel
 %{_libdir}/opensips/modules/db_oracle.so
 %dir %{_datadir}/opensips/oracle
 %{_datadir}/opensips/oracle/*

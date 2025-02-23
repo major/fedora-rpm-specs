@@ -1,20 +1,37 @@
+%global __provides_exclude ^(libsndfile[.]so.*)$
+%global __requires_exclude_from (^libstdc[+][+].so([(][)][(]64bit[)])$|^libstdc[+][+].so$)
+%global __requires_exclude %{__requires_exclude_from}|libc.so
+%global __requires_exclude %{__requires_exclude}|libc.so()(64bit)
+%global __requires_exclude %{__requires_exclude}|libc.so(LIBC)
+%global __requires_exclude %{__requires_exclude}|libc.so(LIBC)(64bit)
+%global __requires_exclude %{__requires_exclude}|libdl.so
+%global __requires_exclude %{__requires_exclude}|libdl.so()(64bit)
+%global __requires_exclude %{__requires_exclude}|libm.so
+%global __requires_exclude %{__requires_exclude}|libm.so()(64bit)
+%global __requires_exclude %{__requires_exclude}|libm.so(LIBC)
+%global __requires_exclude %{__requires_exclude}|libm.so(LIBC)(64bit)
+
 Name:		faust
-Version:	0.9.46
-Release:	30%{?dist}
+Version:	2.77.3
+Release:	1%{?dist}
 Summary:	Compiled language for real-time audio signal processing
 # Examples are BSD
 # The rest is GPLv2+
-License:	GPL-2.0-or-later AND MIT
-URL:		http://faust.grame.fr/
-Source0:	http://downloads.sourceforge.net/project/faudiostream/%{name}-%{version}.tar.gz
-# Build osclib as a shared library
-Patch0:		faust-osclib-shared.patch
-# gcc-4.7 compile fix
-Patch1:		faust-gcc47.patch
+License:	GPL-2.0-or-later AND MIT AND GPL-3.0-or-later AND BSD-3-Clause AND LGPL-3.0-or-later AND LGPL-2.1-or-later AND Apache-2.0 AND AML AND BSL-1.0
+URL:		https://faust.grame.fr/
+Source0:	https://github.com/grame-cncm/faust/releases/download/%{version}/%{name}-%{version}.tar.gz
+Patch0:         includes.patch
+
 BuildRequires:  gcc-c++
-BuildRequires:	doxygen
-BuildRequires:	graphviz
-BuildRequires: make
+BuildRequires:  doxygen
+BuildRequires:  graphviz
+BuildRequires:  make
+BuildRequires:  libmicrohttpd-devel
+BuildRequires:  llvm-devel
+BuildRequires:  cmake
+BuildRequires:  zlib-devel
+BuildRequires:  libxml2-devel
+BuildRequires:  ncurses-static
 
 %description
 Faust AUdio STreams is a functional programming language for real-time audio
@@ -87,25 +104,7 @@ for KDE's Kate/Kwrite.
 
 %prep
 %setup -q
-%patch -P0 -p1
-%patch -P1 -p1
-
-# For installation in the correct location and for preserving timestamps:
-# The Makefile normally puts noarch files in $prefix/lib. We change
-# this to $prefix/share
-# Also don't build the osclib until upstream supports shared libs
-#	-e '/osclib/d'				\
-sed -i	-e 's|/lib/|/share/|g'			\
-	-e 's| -r | -pr |'			\
-	-e 's| -m | -pm |'			\
-	Makefile
-sed -i 's|/lib|/share|g' compiler/parser/enrobage.cpp
-sed -i 's|install |install -pm 755 |' tools/faust2appls/Makefile
-
-# Fix optflags
-sed -i 's|-O3|%{optflags} -fPIC	|' compiler/Makefile.unix \
-			architecture/osclib/faust/Makefile \
-			architecture/osclib/oscpack/Makefile
+%patch -P 0 -p0
 
 # Fix permissions
 chmod -x compiler/draw/device/SVGDev.* architecture/VST/PkgInfo
@@ -114,13 +113,13 @@ chmod -x tools/faust2pd/faust2*
 
 # Fix encoding
 for i in examples syntax-highlighting; do
-	iconv -f iso8859-1 -t utf8 $i/README -o tmpfile
-	touch -r $i/README tmpfile
-	mv -f tmpfile $i/README
+	iconv -f iso8859-1 -t utf8 $i/README.md -o tmpfile
+	touch -r $i/README.md tmpfile
+	mv -f tmpfile $i/README.md
 done
 
 # To distinguish doc files
-for i in changelog license readme; do
+for i in changelog license; do
 	mv architecture/osclib/faust/$i.txt architecture/osclib/faust/$i.faustOSC.txt
 done
 for i in CHANGES LICENSE README TODO; do
@@ -130,7 +129,7 @@ done
 
 %build
 # Build the main executable
-make PREFIX=%{_prefix} LIBDIR=%{_libdir} %{?_smp_mflags}
+make all PREFIX=%{_prefix} LIBDIR=%{_libdir} %{?_smp_mflags}
 
 
 %install
@@ -139,49 +138,63 @@ mkdir -p %{buildroot}%{_datadir}/%{name}
 make install PREFIX=%{_prefix} LIBDIR=%{_libdir} INCLUDEDIR=%{_includedir} DESTDIR=%{buildroot}
 
 # Sort out the documentation
-mv documentation/faust-quick-reference-src/illustrations/ documentation
-rm -fr documentation/faust-quick-reference-src
+mv documentation/misc/* documentation
+rm -fr documentation/faust-quick-reference-src documentation/misc
 
 # Install tools
-cp -a tools/%{name}2sc-*/%{name}2sc %{buildroot}%{_bindir}
-mv tools/%{name}2sc-*/README README.supercollider
 
 cp -a tools/%{name}2appls/%{name}2* %{buildroot}%{_bindir}
-mv tools/%{name}2appls/README README.appls
+mv tools/%{name}2appls/README.md README.appls
 
 # Install the kate plugin
 mkdir -p %{buildroot}%{_datadir}/kde4/apps/katepart/syntax/
 cp -a syntax-highlighting/%{name}.xml \
 	%{buildroot}%{_datadir}/kde4/apps/katepart/syntax/
 
+find %{buildroot} -type f -name '*.a' -print0 | xargs -0 rm
 
 %ldconfig_scriptlets osclib
 
 %files
-%doc COPYING README examples WHATSNEW
+%doc COPYING.txt README.md examples WHATSNEW.md
 %{_bindir}/%{name}
+%{_bindir}/encoderunitypackage
+%{_bindir}/faust-config
+%{_bindir}/faustoptflags
+%{_bindir}/faustpath
+%{_bindir}/faustremote
+%{_bindir}/filename2ident
+%{_bindir}/sound2reader
+%{_bindir}/usage.sh
 %{_datadir}/%{name}/
 
 %files osclib
-%doc architecture/osclib/*.txt architecture/osclib/faust/*.txt architecture/osclib/oscpack/*.txt
-%{_libdir}/*.so.*
+%doc architecture/osclib/*.md architecture/osclib/faust/*.txt architecture/osclib/oscpack/*.txt
+%{_prefix}/lib/libOSCFaust.so.1*
+%{_prefix}/lib/libfaust.so.2*
+%{_prefix}/lib/libfaustmachine.so.0*
+%{_prefix}/lib/libfaustmachine.so.1*
+%{_prefix}/lib/libHTTPDFaust.so.0*
+%{_mandir}/man1/faust.1*
 
 %files osclib-devel
-%{_libdir}/*.so
-%{_includedir}/*.h
+%{_prefix}/lib/*.so
+%{_includedir}/faust/
 
 %files doc
 %doc documentation/* 
 
 %files tools
-%doc tools/README README.supercollider README.appls tools/%{name}2pd
+%doc README.appls tools/%{name}2pd
 %{_bindir}/%{name}2*
 
 %files kate
-%doc syntax-highlighting/README
 %{_datadir}/kde4/apps/katepart/syntax/%{name}.xml
 
 %changelog
+* Mon Feb 17 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.77.3-1
+- 2.77.3
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.46-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

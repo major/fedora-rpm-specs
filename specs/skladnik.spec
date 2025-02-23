@@ -2,7 +2,7 @@
 
 Name:           skladnik
 Version:        24.12.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Warehouse keeper game
 # GPL: code
 # GFDL: docs
@@ -76,6 +76,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.meta
 
 
 %changelog
+* Fri Feb 21 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-2
+- Rebuild for ppc64le enablement
+
 * Wed Feb 05 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-1
 - 24.12.2
 

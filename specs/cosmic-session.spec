@@ -10,12 +10,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 6e48e124434e394683b0048a9c0f2f5fca562189
-%global commitdatestring 2025-01-14 21:57:19 +0100
-%global cosmic_minver 1.0.0~alpha.5.1
+%global commit 6d16513d77db627b93332f4ad5125c47f4fedea3
+%global commitdatestring 2025-02-20 11:24:54 -0700
+%global cosmic_minver 1.0.0~alpha.6
 
 Name:           cosmic-session
-Version:        1.0.0~alpha.5.1
+Version:        1.0.0~alpha.6
 Release:        %autorelease
 Summary:        Session manager for the COSMIC desktop environment
 
@@ -59,16 +59,17 @@ Requires:       cosmic-randr >= %{cosmic_minver}
 Requires:       cosmic-screenshot >= %{cosmic_minver}
 Requires:       cosmic-settings >= %{cosmic_minver}
 Requires:       cosmic-settings-daemon >= %{cosmic_minver}
+Requires:       cosmic-term >= %{cosmic_minver}
 Requires:       cosmic-workspaces >= %{cosmic_minver}
 Requires:       xdg-desktop-portal-cosmic >= %{cosmic_minver}
-Requires:       mozilla-fira-mono-fonts
-Requires:       mozilla-fira-sans-fonts
+Requires:       open-sans-fonts
+Requires:       google-noto-sans-mono-fonts
 Requires:       xorg-x11-server-Xwayland
 Recommends:     cosmic-wallpapers >= %{cosmic_minver}
 
 # Include the distribution extra desktop configuration
-#   while not a hard requirement, this ensures users have a fedora-like experience.
-Recommends:     system-cosmic-config 
+#   this ensures users have a fedora-like experience.
+Requires:       system-cosmic-config 
 
 %global _description %{expand:
 The session manager for the COSMIC desktop environment.}

@@ -21,7 +21,7 @@ zcfan is a zero-configuration fan control daemon for ThinkPads.
 
 %build
 %set_build_flags
-%make_build
+%make_build prefix=%{_prefix}
 
 %install
 %make_install DESTDIR=%{buildroot} prefix=%{_prefix}

@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-omake
 Version:        0.10.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Build system with automated dependency analysis
 
 # License breakdown:
@@ -52,6 +52,9 @@ License:        MIT AND LGPL-2.1-only WITH OCaml-LGPL-linking-exception AND GPL-
 URL:            http://projects.camlcity.org/projects/omake.html
 VCS:            git:%{giturl}.git
 Source0:        %{giturl}/archive/omake-%{version}.tar.gz
+# clamp build date to SOURCE_DATE_EPOCH for reproducibility,
+# see https://reproducible-builds.org/docs/source-date-epoch/
+Patch0:         https://github.com/ocaml-omake/omake/pull/163.patch#/ocaml-omake-clamp-date-in-magic.diff
 
 # omake can be used on non-OCaml projects (RHBZ#548536).
 Provides:       omake
@@ -86,7 +89,7 @@ features many additional enhancements, including the following.
 
 
 %prep
-%autosetup -n omake-omake-%{version}
+%autosetup -n omake-omake-%{version} -p1
 
 # Look in the right place for hevea.sty
 sed -i 's,\$(HEVEA_DIR)\(/hevea\.sty\),%{_texmf_main}/tex/latex/hevea\1,' doc/OMakefile
@@ -137,6 +140,9 @@ chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man1/omake.1
 
 
 %changelog
+* Thu Feb 13 2025 Michel Lind <salimma@fedoraproject.org> - 0.10.7-3
+- Make build more reproducible by clamping the build date in `omake_magic.ml`
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

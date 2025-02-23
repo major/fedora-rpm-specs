@@ -2,7 +2,7 @@
 
 Name:           kalm
 Version:        24.12.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Breathing techniques app
 # LGPL: code
 # CC0: metadata
@@ -67,6 +67,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.appd
 
 
 %changelog
+* Fri Feb 21 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-2
+- Rebuild for ppc64le enablement
+
 * Wed Feb 05 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-1
 - 24.12.2
 
