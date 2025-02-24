@@ -1,11 +1,14 @@
+%global commit 233ebaca4b6d63b642e00f93030cb1bff8432855
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+
 Name:           canl-c
 Version:        3.0.0
-Release:        21%{?dist}
-Summary:        EMI Common Authentication library - bindings for C
+Release:        22.20250222git%{shortcommit}%{?dist}
+Summary:        Common Authentication library - bindings for C
 
 License:        Apache-2.0
-URL:            http://www.eu-emi.eu
-Source:         http://scientific.zcu.cz/emi/emi.canl.c/%{name}-%{version}.tar.gz
+URL:            https://github.com/CESNET/canl-c
+Source:         https://github.com/CESNET/%{name}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 
 BuildRequires:  bison
 BuildRequires:  c-ares-devel
@@ -23,36 +26,36 @@ BuildRequires:  tex(lastpage.sty)
 BuildRequires:  tex(multirow.sty)
 
 %description
-This is the C part of the EMI caNl -- the Common Authentication Library.
+This is the C part of the caNl -- the Common Authentication Library.
 
 
 %package        devel
-Summary:        Development files for EMI caNl
+Summary:        Development files for caNl
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       krb5-devel%{?_isa}
 
 %description    devel
-This package contains development libraries and header files for EMI caNl.
+This package contains development libraries and header files for caNl.
 
 
 %package        doc
-Summary:        API documentation for EMI caNl
+Summary:        API documentation for caNl
 BuildArch:      noarch
 
 %description    doc
-This package contains API documentation for EMI caNl.
+This package contains API documentation for caNl.
 
 
 %package        examples
-Summary:        Example programs of EMI caNl
+Summary:        Example programs of caNl
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    examples
-This package contains client and server examples of EMI caNl.
+This package contains client and server examples of caNl.
 
 
 %prep
-%setup -q
+%autosetup -n %{name}-%{commit}
 
 
 %build
@@ -91,6 +94,10 @@ rm -f %{buildroot}%{_libdir}/*.la
 
 
 %changelog
+* Sat Feb 22 2025 František Dvořák <valtri@civ.zcu.cz> - 3.0.0-22.20250222git233ebac
+- Update project and source URL
+- Fix build with gcc 15 (#2339956)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

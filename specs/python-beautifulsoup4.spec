@@ -8,14 +8,13 @@
 %endif
 
 Name:           python-beautifulsoup4
-Version:        4.12.3
-Release:        9%{?dist}
+Version:        4.13.3
+Release:        1%{?dist}
 Summary:        HTML/XML parser for quick-turnaround applications like screen-scraping
 License:        MIT
 URL:            http://www.crummy.com/software/BeautifulSoup/
 Source0:        https://files.pythonhosted.org/packages/source/b/beautifulsoup4/beautifulsoup4-%{version}.tar.gz
 # https://git.launchpad.net/beautifulsoup/commit/?id=9786a62726de5a8caba10021c4d4a58c8a3e9e3f
-Patch1:         soupsieve26.patch
 Patch11:        beautifulsoup4-4.12-disable-soupsieve.patch
 
 BuildArch:      noarch
@@ -95,6 +94,9 @@ sed -i "s/strip_cdata=False,//" bs4/builder/_lxml.py
 %{python3_sitelib}/bs4
 
 %changelog
+* Sat Feb 22 2025 Terje Rosten <terjeros@gmail.com> - 4.13.3-1
+- 4.13.3
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.12.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

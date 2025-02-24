@@ -3,7 +3,7 @@
 
 Name:           geany-plugins
 Version:        2.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Plugins for Geany
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -14,6 +14,11 @@ Source0:        http://plugins.geany.org/geany-plugins/geany-plugins-%{version}.
 Patch0:         https://github.com/geany/geany-plugins/pull/1315.patch
 Patch1:         https://github.com/geany/geany-plugins/pull/1334.patch
 Patch2:         geany-plugins-2.0-gcc15.patch
+# Add support for webkit2gtk-4.1
+Patch3:         https://github.com/geany/geany-plugins/pull/1295.patch
+Patch4:         https://github.com/geany/geany-plugins/pull/1335.patch
+Patch5:         https://github.com/geany/geany-plugins/commit/a9914c7df9729cf8db4c5e9f5f20082c68fd158c.patch
+Patch6:         https://github.com/geany/geany-plugins/commit/a235afb4c6286a5221d12891b2ec374cbe182446.patch
 
 BuildRequires:  geany-devel >= %{req_geany_ver}
 BuildRequires:  geany-libgeany >= %{req_geany_ver}
@@ -487,7 +492,8 @@ files.
 %package markdown
 Summary:       Real time preview for Markdown documents
 Requires:      geany-plugins-common = %{version}-%{release}
-BuildRequires: webkit2gtk4.1-devel
+BuildRequires: pkgconfig(webkit2gtk-4.1)
+BuildRequires: python3-docutils
 Provides:      geany-plugins-markdown >= 1.34
 
 %description markdown
@@ -631,7 +637,7 @@ reasonably complete Vim mode implementation featuring:
 Summary:   Preview and Debug Web documents from within Geany using WebKit
 Group:     Development/Tools
 Requires:  geany-plugins-common = %{version}-%{release}
-BuildRequires: webkit2gtk3-devel
+BuildRequires: pkgconfig(webkit2gtk-4.1)
 
 %description webhelper
 WebHelper is a plugin for Geany that provides some web development
@@ -878,6 +884,9 @@ find $RPM_BUILD_ROOT -type f -empty -delete
 
 
 %changelog
+* Mon Feb 17 2025 Sérgio Basto <sergio@serjux.com> - 2.0-12
+- Rebuilt with webkitgtk6.0-devel markdown plugin
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 - Fix the build with geany-plugins-2.0-gcc15.patch from Gentoo

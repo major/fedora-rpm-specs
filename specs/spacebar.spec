@@ -1,7 +1,7 @@
 Name:           spacebar
 Epoch:          1
 Version:        6.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv2+ and GPLv3 and GPLv2
 Summary:        Messaging app for Plasma Mobile
 Url:            https://invent.kde.org/plasma-mobile/spacebar
@@ -9,7 +9,6 @@ Source:         https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}
 
 ExclusiveArch:  %{java_arches}
 
-BuildRequires:  abseil-cpp-devel
 BuildRequires:  appstream
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -86,6 +85,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_sysconfdir}/xdg/autostart/org.kde.%{name}.daemon.desktop
 
 %changelog
+* Tue Feb 18 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1:6.3.1-2
+- Remove the BuildRequires on abseil-cpp
+
 * Tue Feb 18 2025 Steve Cossette <farchord@gmail.com> - 1:6.3.1-1
 - 6.3.1
 

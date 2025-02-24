@@ -101,8 +101,6 @@ install -Dpm0644 -t %{buildroot}%{_datadir}/%{name}/sdk sdk/perfetto.{h,cc}
 %post
 %systemd_post traced.service traced-probes.service
 
-%pre
-%sysusers_create_compat %{SOURCE2}
 
 %preun
 %systemd_preun traced.service traced-probes.service

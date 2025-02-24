@@ -4,11 +4,10 @@
 
 Name:           mingw-%{base}
 Version:        1.1.1
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Theora Video Compression Codec
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            http://www.theora.org
 Source0:        http://downloads.xiph.org/releases/theora/%{base}-%{version}.tar.xz
 # native package and upstream SVN r18268
@@ -22,7 +21,9 @@ Patch2:         libtheora-1.1.1-libm.patch
 # upstream SVN r16712
 Patch3:         libtheora-1.1.1-libadd.patch
 # https://trac.xiph.org/ticket/2141
+# https://gitlab.xiph.org/xiph/theora/-/issues/2141
 Patch4:         mingw-libtheora-1.1.1-rint.patch
+Patch5:         mingw-libtheora-getopt.patch
 
 BuildArch:      noarch
 
@@ -113,6 +114,7 @@ This package is MinGW compiled theora tools for the Win64 target.
 %patch -P2 -p1
 %patch -P3 -p1
 %patch -P4 -p1
+%patch -P5 -p1
 
 # no custom CFLAGS please
 sed -i 's/CFLAGS="$CFLAGS $cflags_save"/CFLAGS="$cflags_save"/g' configure.ac
@@ -182,6 +184,10 @@ rm -fv %{buildroot}/%{mingw64_libdir}/*.la
 
 
 %changelog
+* Sat Feb 22 2025 František Dvořák <valtri@civ.zcu.cz> - 1.1.1-26
+- Fix build on recent MinGW with included getopt
+- Update license after migration to SPDX
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

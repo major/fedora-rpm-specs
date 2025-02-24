@@ -12,7 +12,7 @@ specific code.
 
 Name:           python-wxpython4
 Version:        4.2.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        %{sum}
 # wxPython is licensed under the wxWidgets license.  The only exception is
 # the pubsub code in wx/lib/pubsub which is BSD licensed.  Note: wxPython
@@ -24,6 +24,7 @@ License:        LGPL-2.0-or-later WITH WxWindows-exception-3.1 AND BSD-2-Clause
 URL:            https://www.wxpython.org/
 Source0:        https://files.pythonhosted.org/packages/source/w/%{srcname}/%{srcname}-%{version}.tar.gz
 Patch:          fix-datetime-docs.patch
+Patch:          https://github.com/wxWidgets/Phoenix/commit/de9aa4be5bb49adf82991c7582ea3c42ed505bf7.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  doxygen
@@ -157,6 +158,9 @@ xvfb-run -a %{__python3} build.py test --pytest_timeout=60 --extra_pytest="-k $S
 
 
 %changelog
+* Sat Feb 22 2025 Scott Talbert <swt@techie.net> - 4.2.2-3
+- Fix FTBFS w/ sip 6.10.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

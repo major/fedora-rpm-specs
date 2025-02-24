@@ -14,8 +14,7 @@ License:        MIT
 URL:            https://crates.io/crates/compact_str
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Remove borsh, markup, and sqlx/sqlx-* features that require unpackaged
-#   dependencies
+# * Drop unused support for borsh, diesel, markup, and sqlx
 Patch:          compact_str-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -74,18 +73,6 @@ This package contains library source intended for building other packages which
 use the "bytes" feature of the "%{crate}" crate.
 
 %files       -n %{name}+bytes-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+diesel-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+diesel-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "diesel" feature of the "%{crate}" crate.
-
-%files       -n %{name}+diesel-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+proptest-devel

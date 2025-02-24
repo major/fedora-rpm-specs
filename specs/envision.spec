@@ -1,9 +1,9 @@
 %bcond_without check
 %global cargo_install_lib  0
-%global envision_version   2.0.0
+%global envision_version   2.0.1
 %global forgeurl           https://gitlab.com/gabmus/envision
 %global tag                %{envision_version}
-%global date               20241209
+%global date               20241210
 %forgemeta
 
 
@@ -221,6 +221,131 @@ to encounter unexpected behavior that while in VR might cause motion
 sickness or physical injury. Be very careful while in VR using this app!
 
 
+%package wivrn
+
+Summary:        WiVRn Build Dependencies for Envision
+Requires:       %{name} = %{version}-%{release}
+# Sync with https://src.fedoraproject.org/rpms/wivrn/raw/rawhide/f/wivrn.spec
+Requires:       boost-devel
+Requires:       cmake
+Requires:       desktop-file-utils
+Requires:       extra-cmake-modules
+Requires:       gcc-c++
+Requires:       gettext-devel
+Requires:       git
+Requires:       glslc
+Requires:       kf6-kcoreaddons-devel
+Requires:       kf6-ki18n-devel
+Requires:       kf6-kiconthemes-devel
+Requires:       kf6-kirigami-devel
+Requires:       libappstream-glib
+Requires:       librsvg2-tools
+Requires:       ninja-build
+Requires:       openxr-devel
+Requires:       python
+Requires:       pkgconfig(avahi-client)
+Requires:       pkgconfig(avahi-glib)
+Requires:       pkgconfig(bluez)
+Requires:       pkgconfig(CLI11)
+Requires:       pkgconfig(dbus-1)
+Requires:       pkgconfig(eigen3)
+Requires:       pkgconfig(glslang)
+Requires:       pkgconfig(gstreamer-1.0)
+Requires:       pkgconfig(gstreamer-app-1.0)
+Requires:       pkgconfig(gstreamer-video-1.0)
+Requires:       pkgconfig(hidapi-libusb)
+Requires:       pkgconfig(libavcodec)
+Requires:       pkgconfig(libavfilter)
+Requires:       pkgconfig(libavutil)
+Requires:       pkgconfig(libbsd)
+Requires:       pkgconfig(libcap)
+Requires:       pkgconfig(libcjson)
+Requires:       pkgconfig(libdrm)
+Requires:       pkgconfig(libjpeg)
+Requires:       pkgconfig(libnotify)
+Requires:       pkgconfig(libpipewire-0.3)
+Requires:       pkgconfig(libudev)
+Requires:       pkgconfig(libusb-1.0)
+Requires:       pkgconfig(libuvc)
+Requires:       pkgconfig(libswscale)
+Requires:       pkgconfig(libva)
+Requires:       pkgconfig(nlohmann_json)
+Requires:       pkgconfig(opencv)
+Requires:       pkgconfig(openhmd)
+Requires:       pkgconfig(openssl)
+Requires:       pkgconfig(openvr)
+Requires:       pkgconfig(Qt6)
+Requires:       pkgconfig(Qt6Linguist)
+Requires:       pkgconfig(Qt6Quick)
+Requires:       pkgconfig(realsense2)
+Requires:       pkgconfig(sdl2)
+Requires:       pkgconfig(vulkan)
+Requires:       pkgconfig(wayland-client)
+Requires:       pkgconfig(wayland-eglstream)
+Requires:       pkgconfig(wayland-protocols)
+Requires:       pkgconfig(wayland-scanner)
+Requires:       pkgconfig(xrandr)
+Requires:       qcoro-qt6-devel
+Requires:       qt6qml(org.kde.desktop)
+Requires:       android-tools
+Requires:       firewalld-filesystem
+Requires:       hicolor-icon-theme
+Requires:       qt6qml(org.kde.desktop)
+
+%description wivrn
+Build dependencies for WiVRn. Install this to automatically
+bring in all needed dependencies for building WiVRn.
+
+
+%package monado
+
+Summary:        Monado Build Dependencies for Envision
+Requires:       %{name} = %{version}-%{release}
+# Sync with https://jsteffan.fedorapeople.org/imrsv/monado.spec
+Requires:       cmake
+Requires:       gcc-c++
+Requires:       glslc
+Requires:       ninja-build
+Requires:       pkgconfig(bluez)
+Requires:       pkgconfig(dbus-1)
+Requires:       pkgconfig(dri)
+Requires:       pkgconfig(eigen3)
+Requires:       pkgconfig(glslang)
+Requires:       pkgconfig(gstreamer-1.0)
+Requires:       pkgconfig(gstreamer-app-1.0)
+Requires:       pkgconfig(gstreamer-video-1.0)
+Requires:       pkgconfig(hidapi-libusb)
+Requires:       pkgconfig(libavcodec)
+Requires:       pkgconfig(libbsd)
+Requires:       pkgconfig(libcjson)
+Requires:       pkgconfig(libdrm)
+Requires:       pkgconfig(libjpeg)
+# ONNX only for x86_64, ppc64le and aarch64
+%ifnarch s390x %{arm} %{ix86}
+Requires:       pkgconfig(libonnxruntime)
+%endif
+Requires:       pkgconfig(libudev)
+Requires:       pkgconfig(libusb-1.0)
+Requires:       pkgconfig(libuvc)
+Requires:       pkgconfig(opencv)
+Requires:       pkgconfig(openhmd)
+Requires:       pkgconfig(openvr)
+Requires:       pkgconfig(openxr)
+Requires:       pkgconfig(realsense2)
+Requires:       pkgconfig(sdl2)
+Requires:       pkgconfig(vulkan)
+Requires:       pkgconfig(wayland-client)
+Requires:       pkgconfig(wayland-eglstream)
+Requires:       pkgconfig(wayland-protocols)
+Requires:       pkgconfig(wayland-scanner)
+Requires:       pkgconfig(xrandr)
+Requires:       pkgconfig(zlib)
+
+%description monado
+Build dependencies for Monado. Install this to automatically
+bring in all needed dependencies for building Monado.
+
+
 %prep
 %forgeautosetup -p1
 %cargo_prep
@@ -244,8 +369,7 @@ sickness or physical injury. Be very careful while in VR using this app!
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.gabmus.envision.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %if %{with check}
-#https://gitlab.com/gabmus/envision/-/issues/158
-#%%meson_test
+%meson_test
 %endif
 
 
@@ -259,6 +383,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_datarootdir}/icons/hicolor/scalable/apps/org.gabmus.envision.svg
 %{_datarootdir}/icons/hicolor/symbolic/apps/org.gabmus.envision-symbolic.svg
 %{_metainfodir}/org.gabmus.envision.appdata.xml
+
+%files wivrn
+
+%files monado
 
 
 %changelog

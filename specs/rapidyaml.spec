@@ -7,10 +7,10 @@
 
 Name:           rapidyaml
 Summary:        A library to parse and emit YAML, and do it fast
-Version:        0.7.2
+Version:        0.8.0
 # This is the same as the version number. To prevent undetected soversion
 # bumps, we nevertheless express it separately.
-%global so_version 0.7.2
+%global so_version 0.8.0
 Release:        %autorelease
 
 # SPDX
@@ -33,16 +33,8 @@ Source2:        %{yamltest_url}/archive/v%{yamltest_date}/yaml-test-suite-%{yaml
 # Helper script to patch out unconditional download of dependencies in CMake
 Source10:       patch-no-download
 
-# update c4core
-# https://github.com/biojppm/rapidyaml/commit/33fd0f8b3b063aa49b6f4caf6f5ca4ffc1364947
-# This patch is just the part that adds an #include, fixing compatibility with
-# c4core 0.2.3.
-Patch:          rapidyaml-0.7.2-c4core-0.2.3.patch
-
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-%if %{undefined fc40} && %{undefined fc41}
 ExcludeArch:    %{ix86}
-%endif
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -51,7 +43,7 @@ BuildRequires:  c4project
 # the Python extension build unconditionally uses ninja.
 BuildRequires:  ninja-build
 
-BuildRequires:  cmake(c4core)
+BuildRequires:  cmake(c4core) >= 0.2.5
 
 %if %{with tests}
 BuildRequires:  cmake(c4fs)

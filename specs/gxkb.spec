@@ -1,5 +1,5 @@
 Name: gxkb
-Version: 0.9.5
+Version: 0.9.6
 Release: %autorelease
 Summary: X11 keyboard indicator and switcher
 

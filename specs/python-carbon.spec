@@ -7,7 +7,7 @@ a storage back-end.}
 
 Name:           python-%{srcname}
 Version:        1.1.10
-Release:        11%{?dist}
+Release:        12%{?dist}
 
 Summary:        Back-end data caching and persistence daemon for Graphite
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -54,7 +54,6 @@ BuildRequires:	systemd
 %package -n python3-%{srcname}
 Summary:        %{summary}
 Requires:	logrotate
-Requires(pre):	shadow-utils
 Requires(post):   systemd
 Requires(preun):  systemd
 Requires(postun): systemd
@@ -95,6 +94,11 @@ sed -i -e 's/^import mock/from unittest import mock/' \
 
 %generate_buildrequires
 %pyproject_buildrequires -r
+
+# Create a sysusers.d config file
+cat >python-carbon.sysusers.conf <<EOF
+u carbon - 'Carbon cache daemon' %{_localstatedir}/lib/carbon -
+EOF
 
 
 %build
@@ -154,12 +158,9 @@ done
 chmod 755 %{buildroot}%{python3_sitelib}/carbon/amqp_listener.py
 chmod 755 %{buildroot}%{python3_sitelib}/carbon/amqp_publisher.py
 
+install -m0644 -D python-carbon.sysusers.conf %{buildroot}%{_sysusersdir}/python-carbon.conf
 
-%pre -n python3-%{srcname}
-getent group carbon >/dev/null || groupadd -r carbon
-getent passwd carbon >/dev/null || \
-    useradd -r -g carbon -d %{_localstatedir}/lib/carbon \
-    -s /sbin/nologin -c "Carbon cache daemon" carbon
+
 
 
 %post -n python3-%{srcname}
@@ -218,9 +219,13 @@ getent passwd carbon >/dev/null || \
 %{_unitdir}/carbon-aggregator@.service
 %{_unitdir}/carbon-cache@.service
 %{_unitdir}/carbon-relay@.service
+%{_sysusersdir}/python-carbon.conf
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.1.10-12
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.10-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

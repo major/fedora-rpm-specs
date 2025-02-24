@@ -1,7 +1,7 @@
 Summary:        Dynamic Kernel Module Support Framework
 Name:           dkms
 Version:        3.1.5
-Release:        1%{?dist}
+Release:        %autorelease
 License:        GPL-2.0-or-later
 URL:            http://linux.dell.com/dkms
 
@@ -10,7 +10,12 @@ BuildArch:      noarch
 Source0:        https://github.com/dell/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires:  make
+
+%if 0%{?rhel} && 0%{?rhel} < 10
 BuildRequires:  systemd
+%else
+BuildRequires:  systemd-rpm-macros
+%endif
 
 Requires:       coreutils
 Requires:       cpio
@@ -34,9 +39,11 @@ Requires:       (kernel-devel-matched if kernel-core)
 Requires:       (kernel-rt-devel if kernel-rt-core)
 Requires:       (kernel-rt-debug-devel if kernel-rt-debug-core)
 
-Requires(post):     systemd
-Requires(preun):    systemd
-Requires(postun):   systemd
+%if 0%{?rhel} && 0%{?rhel} < 10
+%{?systemd_requires}
+%else
+%{?systemd_ordering}
+%endif
 
 Recommends:     openssl
 
@@ -79,69 +86,4 @@ sed -i -e 's/# modprobe_on_install="true"/modprobe_on_install="true"/g' %{buildr
 %{_unitdir}/%{name}.service
 
 %changelog
-* Thu Jan 30 2025 Simone Caronni <negativo17@gmail.com> - 3.1.5-1
-- Update to 3.1.5.
-- Move binary (https://fedoraproject.org/wiki/Changes/Unify_bin_and_sbin).
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Mon Dec 30 2024 Simone Caronni <negativo17@gmail.com> - 3.1.4-3
-- Fix patch application.
-
-* Mon Dec 30 2024 Simone Caronni <negativo17@gmail.com> - 3.1.4-2
-- Fix for #2333382.
-
-* Thu Dec 19 2024 Simone Caronni <negativo17@gmail.com> - 3.1.4-1
-- Update to 3.1.4.
-
-* Fri Nov 29 2024 Simone Caronni <negativo17@gmail.com> - 3.1.3-1
-- Update to 3.1.3, fixes removal of leftover folders when uninstalling kernel.
-- Trim changelog.
-
-* Tue Nov 26 2024 Simone Caronni <negativo17@gmail.com> - 3.1.2-1
-- Update to 3.1.2.
-
-* Mon Oct 21 2024 Simone Caronni <negativo17@gmail.com> - 3.1.1-1
-- Update to 3.1.1.
-
-* Sat Oct 05 2024 Simone Caronni <negativo17@gmail.com> - 3.1.0-2
-- Add fix from upstream.
-
-* Tue Oct 01 2024 Simone Caronni <negativo17@gmail.com> - 3.1.0-1
-- Update to 3.1.0.
-
-* Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 3.0.13-3
-- convert license to SPDX
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.13-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Wed Mar 06 2024 Simone Caronni <negativo17@gmail.com> - 3.0.13-1
-- Update to 3.0.13.
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.12-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.12-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Sep 28 2023 Simone Caronni <negativo17@gmail.com> - 3.0.12-1
-- Update to 3.0.12.
-- Drop support for building from snapshots in SPEC file.
-- Trim changelog.
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.11-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue May 02 2023 Simone Caronni <negativo17@gmail.com> - 3.0.11-1
-- Update to 3.0.11.
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.10-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Tue Jan 10 2023 Simone Caronni <negativo17@gmail.com> - 3.0.10-2
-- Recommend OpenSSL for MOK key management.
-
-* Tue Jan 03 2023 Simone Caronni <negativo17@gmail.com> - 3.0.10-1
-- Update to 3.0.10.
+%autochangelog

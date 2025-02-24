@@ -6,7 +6,7 @@
 
 Name:           gridsite
 Version:        3.0.0
-Release:        0.32.20240125git%{shortcommit}%{?dist}
+Release:        0.33.20240125git%{shortcommit}%{?dist}
 Summary:        Grid Security for the Web, Web platforms for Grids
 
 #  - src/gsexec.c ASL 2.0 (not used)
@@ -125,8 +125,8 @@ cp -p %{SOURCE5} .
 
 # change cgi scripts location
 mkdir -p %{buildroot}%{_libexecdir}/gridsite/cgi-bin
-mv %{buildroot}%{_sbindir}/*.cgi %{buildroot}%{_libexecdir}/gridsite/cgi-bin
-rmdir %{buildroot}%{_sbindir}
+mv %{buildroot}%{_usr}/sbin/*.cgi %{buildroot}%{_libexecdir}/gridsite/cgi-bin
+rmdir %{buildroot}%{_usr}/sbin
 
 # Remove static libs
 rm  %{buildroot}/%{_libdir}/libgridsite.a
@@ -246,6 +246,9 @@ mkdir -p %{buildroot}%{_sysconfdir}/grid-security/vomsdir
 
 
 %changelog
+* Sat Feb 22 2025 František Dvořák <valtri@civ.zcu.cz> - 3.0.0-0.33.20240125git1200598
+- Update due to bin and sbin merge (#2340575)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-0.32.20240125git1200598
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -11,8 +11,8 @@
 ExcludeArch:    %{ix86}
 
 Name:           unison
-Version:        2.53.5
-Release:        5%{?dist}
+Version:        2.53.7
+Release:        1%{?dist}
 Summary:        File Synchronizer
 
 %global         forgeurl https://github.com/bcpierce00/%{name}/
@@ -62,7 +62,6 @@ changes in each replica to the other.
 %if %{with gtk}
 %package        gtk
 Summary:        Unison File Synchronizer GTK interface
-Requires:       gdk-pixbuf2-modules-extra
 Requires:       hicolor-icon-theme
 %description    gtk
 %{summary}.
@@ -151,6 +150,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %endif
 
 %changelog
+* Sat Feb 22 2025 Matthew Krupcale <mkrupcale@gmail.com> - 2.53.7-1
+- Update to v2.53.7
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.53.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

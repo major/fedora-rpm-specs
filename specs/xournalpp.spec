@@ -4,10 +4,9 @@
 %global         profiling 1
 
 Name:           xournalpp
-Version:        1.2.5
+Version:        1.2.6
 Release:        %autorelease
 Summary:        Handwriting note-taking software with PDF annotation support
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
 URL:            https://github.com/%{name}/%{name}
 Source:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz

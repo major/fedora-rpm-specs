@@ -5,7 +5,7 @@
 %global crate libz-rs-sys
 
 Name:           rust-libz-rs-sys
-Version:        0.4.1
+Version:        0.4.2
 Release:        %autorelease
 Summary:        Memory-safe zlib implementation written in rust
 

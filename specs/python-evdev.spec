@@ -1,5 +1,5 @@
 Name:           python-evdev
-Version:        1.9.0
+Version:        1.9.1
 Release:        %autorelease
 Summary:        Python bindings for the Linux input handling subsystem
 

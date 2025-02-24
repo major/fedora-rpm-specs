@@ -44,6 +44,11 @@ Requires:       python3-cryptography
 %forgeautosetup
 %{__install} -m 644 %{SOURCE2} .
 
+# Create a sysusers.d config file
+cat >python-bucky.sysusers.conf <<EOF
+u bucky - 'Bucky daemon' - -
+EOF
+
 
 %build
 %py3_build
@@ -59,21 +64,11 @@ rm -rf %{_bindir}/bucky
 %{__mkdir_p} %{buildroot}%{_sysconfdir}/bucky
 %{__install} -m 644 %{SOURCE1} %{buildroot}%{_sysconfdir}/bucky/bucky.conf
 
-
-%pre
-getent group bucky >/dev/null || groupadd -r bucky
-getent passwd bucky >/dev/null || \
-    useradd -r -g bucky -d / \
-    -s /sbin/nologin -c "Bucky daemon" bucky
+install -m0644 -D python-bucky.sysusers.conf %{buildroot}%{_sysusersdir}/python-bucky.conf
 
 
-%postun
-if [ $1 = 0 ]; then
-  getent passwd bucky >/dev/null && \
-      userdel -r bucky 2>/dev/null
-fi
 
- 
+
 %files -n python3-bucky
 %license LICENSE
 %doc THANKS README.rst python-bucky-supervisord-example.conf
@@ -83,6 +78,7 @@ fi
 %config(noreplace) %{_sysconfdir}/bucky/bucky.conf
 %{python3_sitelib}/bucky/
 %{python3_sitelib}/bucky-%{version}-py%{python3_version}.egg-info
+%{_sysusersdir}/python-bucky.conf
 
 
 %changelog

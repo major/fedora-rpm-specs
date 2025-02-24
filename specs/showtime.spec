@@ -1,25 +1,24 @@
-%global gitcommit 5579430fdc337d460589a2c404a4a070c906e8e1
-%global gitdate 20241104.080500
-%global shortcommit %(c=%{gitcommit}; echo ${c:0:7})
-
 %global glib2_version 2.79.0
 %global gtk4_version 4.15.0
 %global libadwaita_version 1.6~beta
 
-Name:           showtime
-Version:        48.0~%{gitdate}.%{shortcommit}
+%global interim_pkg_ver beta.1
 
-Release:        3%{?dist}
+Name:           showtime
+Version:        48.0~20250201.%{interim_pkg_ver}
+
+Release:        1%{?dist}
 Summary:        Modern video player built using GTK4
 
 License:        GPL-3.0-or-later
 URL:            https://apps.gnome.org/Showtime/
 
-%global tarball_version %%(echo %{version} | tr '~' '.')
-%global major_version %%(cut -d "." -f 1 <<<%{tarball_version})
+# Altered this macro a bit. We added a '.0' to the version. That needed to be removed from the download url.
+%global tarball_version %(echo %{version} | tr '~' '.' | sed 's/\.0//')
+%global major_version %(cut -d "." -f 1 <<<%{tarball_version})
 
-# Source0:        https://download.gnome.org/sources/%%{name}/%%{major_version}/%%{name}-%%{tarball_version}.tar.xz
-Source0:        https://gitlab.gnome.org/GNOME/Incubator/%{name}/-/archive/%{gitcommit}/%{name}-%{gitcommit}.tar.gz
+# Modify this once the package is released
+Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-48.%{interim_pkg_ver}.tar.xz
 
 BuildArch:      noarch
 
@@ -50,7 +49,7 @@ language and subtitle tracks, and screenshots — everything you
 need for a straightforward viewing experience.
 
 %prep
-%autosetup -p1 -n %{name}-%{gitcommit}
+%autosetup -p1 -n %{name}-48.%{interim_pkg_ver}
 
 %build
 %meson
@@ -77,6 +76,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %{_datadir}/showtime/
 
 %changelog
+* Sat Feb 22 2025 Steve Cossette <farchord@gmail.com> - 48.0~20250201.beta.1-1
+- Update to 48.0-beta1
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 48.0~20241104.080500.5579430-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

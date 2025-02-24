@@ -3,10 +3,10 @@
 %global srcname platformio-core
 
 # Tests require Internet access
-%bcond_with tests
+%bcond tests 0
 
 Name:           python-%{pypi_name}
-Version:        6.1.16
+Version:        6.1.17
 Release:        %autorelease
 Summary:        Professional collaborative platform for embedded development
 
@@ -18,25 +18,6 @@ Source:         %{forgeurl}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 Patch1:         platformio-default-telemetry-off.patch
 # Fedora: neuter update logic for platformio itself
 Patch2:         platformio-short-circuit-upgrades.patch
-# Allow Starlette 0.40.x
-# https://github.com/platformio/platformio-core/pull/5000
-# https://github.com/platformio/platformio-core/commit/cade63fba570ffb7381f5e24350fddd41c64c0f4
-Patch3:         %{forgeurl}/commit/cade63fba570ffb7381f5e24350fddd41c64c0f4.patch
-# Update dependencies.py
-# https://github.com/platformio/platformio-core/commit/a4276b4ea63e8701cfa9c05d820d5dfe61c17409
-# (Allows Starlette 0.41.x)
-Patch4:         %{forgeurl}/commit/a4276b4ea63e8701cfa9c05d820d5dfe61c17409.patch
-# Update deps
-# https://github.com/platformio/platformio-core/commit/07e7dc47174679fdc6402e899df450a154fd242d
-# (Allows uvicorn 0.32.x)
-Patch5:         %{forgeurl}/commit/07e7dc47174679fdc6402e899df450a154fd242d.patch
-# Update deps
-# https://github.com/platformio/platformio-core/commit/90fc36cf2d328309c985af57854e8f59a3aedbb4
-# (Allows Starlette 0.42.x and uvicorn 0.34.x)
-Patch6:         %{forgeurl}/commit/90fc36cf2d328309c985af57854e8f59a3aedbb4.patch
-# Allow starlette versions through 0.45
-# https://github.com/platformio/platformio-core/pull/5059
-Patch7:         %{forgeurl}/pull/5059.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

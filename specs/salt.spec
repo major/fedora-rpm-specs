@@ -60,7 +60,6 @@ Requires: python3-tornado
 
 BuildRequires: systemd-rpm-macros
 BuildRequires: python3-devel
-%{?sysusers_requires_compat}
 
 %description
 Salt is a distributed remote execution system used to execute commands and
@@ -306,8 +305,6 @@ mkdir -p %{buildroot}%{_sysconfdir}/%{name}/gpgkeys
 %preun api
 %systemd_preun %{name}-api.service
 
-%pre master
-%sysusers_create_compat %{SOURCE22}
 
 %post master
 chown salt:salt %{_sysconfdir}/%{name}/gpgkeys -R

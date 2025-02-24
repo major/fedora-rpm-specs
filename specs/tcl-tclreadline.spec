@@ -5,12 +5,13 @@
 
 Summary:        GNU Readline extension for Tcl/Tk
 Name:           tcl-tclreadline
-Version:        2.4.0
-Release:        3%{?dist}
+Version:        2.4.1
+Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/flightaware/tclreadline
 Source0:        https://github.com/flightaware/%{pkgname}/archive/v%{version}/%{pkgname}-%{version}.tar.gz
 Patch0:         tcl-tclreadline-2.4.0-libdir.patch
+Patch1:         https://github.com/flightaware/tclreadline/pull/62.patch#/tcl-tclreadline-2.4.1-version.patch
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  tcl-devel
@@ -78,6 +79,9 @@ TCLLIBPATH="$(pwd)/test/tcl%{tcl_version}" tclsh load.tcl
 %{_includedir}/%{pkgname}.h
 
 %changelog
+* Sat Feb 22 2025 Robert Scheck <robert@fedoraproject.org> 2.4.1-1
+- Upgrade to 2.4.1 (#2346744)
+
 * Mon Feb  3 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 2.4.0-3
 - Rebuilt for tcl/tk
 

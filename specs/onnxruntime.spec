@@ -124,11 +124,12 @@ Documentation files for the %{name} package
 %prep
 %autosetup -p1
 
+# Downstream-only: do not pin the version of abseil-cpp; use what we have.
+sed -r -i 's/(FIND_PACKAGE_ARGS[[:blank:]]+)[0-9]{8}/\1/' \
+    cmake/external/abseil-cpp.cmake
+
 mkdir -p ./redhat-linux-build/_deps/utf8_range-subbuild/utf8_range-populate-prefix/src/
 mv %{SOURCE1} ./redhat-linux-build/_deps/utf8_range-subbuild/utf8_range-populate-prefix/src/%{utf8_range_commit}.zip
-
-python3 onnxruntime/core/flatbuffers/schema/compile_schema.py --flatc /usr/bin/flatc
-python3 onnxruntime/lora/adapter_format/compile_schema.py --flatc /usr/bin/flatc
 
 %build
 # Broken test in aarch64
@@ -136,8 +137,9 @@ python3 onnxruntime/lora/adapter_format/compile_schema.py --flatc /usr/bin/flatc
 rm -v onnxruntime/test/optimizer/nhwc_transformer_test.cc
 %endif
 
-# Re-generate flatbuffer headers
-%{__python3} onnxruntime/core/flatbuffers/schema/compile_schema.py --flatc %{_bindir}/flatc
+# Re-compile flatbuffers schemas with the system flatc
+%{python3} onnxruntime/core/flatbuffers/schema/compile_schema.py --flatc /usr/bin/flatc
+%{python3} onnxruntime/lora/adapter_format/compile_schema.py --flatc /usr/bin/flatc
 
 # -Werror is too strict and brittle for distribution packaging.
 CXXFLAGS+="-Wno-error"

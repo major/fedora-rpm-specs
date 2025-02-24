@@ -6,7 +6,7 @@
 %global crate async-std-resolver
 
 Name:           rust-async-std-resolver
-Version:        0.24.3
+Version:        0.24.4
 Release:        %autorelease
 Summary:        DNS resolver implementation based on async-std and Hickory DNS
 
