@@ -1,5 +1,5 @@
 Name:           cpr
-Version:        1.11.0
+Version:        1.11.2
 Release:        %autorelease
 Summary:        C++ Requests: Curl for People, a spiritual port of Python Requests
 

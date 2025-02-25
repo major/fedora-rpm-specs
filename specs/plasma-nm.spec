@@ -1,7 +1,7 @@
 Name:    plasma-nm
 Summary: Plasma for managing network connections
 Version: 6.3.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/%{name}
@@ -180,7 +180,14 @@ Requires:       NetworkManager-iodine
 
 
 %build
-%cmake_kf6 %{!?with_openconnect:-DBUILD_OPENCONNECT=OFF}
+%cmake_kf6 \
+  %{!?with_openconnect:-DBUILD_OPENCONNECT=OFF} \
+%if 0%{?fedora} >= 42
+%dnl workaround for rhbz#2342065
+  -DCMAKE_CXX_EXTENSIONS:BOOL=OFF \
+%endif
+  %{nil}
+
 %cmake_build
 
 
@@ -284,6 +291,10 @@ rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_openco
 %endif
 
 %changelog
+* Sun Feb 23 2025 Neal Gompa <ngompa@fedoraproject.org> - 6.3.1-2
+- Temporarily disable GNU compiler extensions
+  + workaround for rhbz#2342065
+
 * Tue Feb 18 2025 Steve Cossette <farchord@gmail.com> - 6.3.1-1
 - 6.3.1
 

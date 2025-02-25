@@ -1,11 +1,10 @@
 Name:           qwlroots
-Version:        0.5.2
+Version:        0.5.3
 Release:        %autorelease
 Summary:        Qt and QML bindings for wlroots
 License:        Apache-2.0 OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
 URL:            https://github.com/vioken/qwlroots
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:         https://github.com/vioken/qwlroots/pull/293.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

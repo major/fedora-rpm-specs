@@ -64,11 +64,14 @@ cd src
 
 # See http://lists.gnu.org/archive/html/bug-prolog/2016-08/msg00006.html
 # for the discussion on adding '--disable-regs'
+
+# `-std=gnu17` is required as GCC 15 defaults to C23, which is not yet supported.
+# See also https://gcc.gnu.org/gcc-15/porting_to.html#c23.
 %configure \
       --with-install-dir=$RPM_BUILD_ROOT%{_libdir}/gprolog-%{version} \
       --without-links-dir --without-examples-dir \
       --with-doc-dir=dist-doc \
-      --with-c-flags="$RPM_OPT_FLAGS" \
+      --with-c-flags="$RPM_OPT_FLAGS -std=gnu17" \
 %ifarch %{ix86}
       --disable-regs
 %endif

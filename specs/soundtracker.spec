@@ -1,6 +1,9 @@
+# FIXME later: sountracker mixes types in some callbacks, so work-around for now:
+%global build_type_safety_c 2
+
 Name:    soundtracker
-Version: 1.0.4
-Release: 5%{?dist}
+Version: 1.0.5
+Release: 1%{?dist}
 
 Summary: Sound module composer/player
 
@@ -9,6 +12,7 @@ License:   GPL-2.0-or-later
 URL:       http://www.soundtracker.org/
 Source0:   http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
 Patch0:    soundtracker-1.0.2.1-else.patch
+Patch1:    soundtracker-1.0.5-gcc15.patch
 
 BuildRequires: autoconf
 BuildRequires: gcc
@@ -27,6 +31,7 @@ format. The user interface makes use of GTK2.
 %prep
 %setup -q
 %patch -P 0 -p1
+%patch -P 1 -p1
 
 %build
 %configure
@@ -52,6 +57,11 @@ format. The user interface makes use of GTK2.
 %{_datadir}/pixmaps/%{name}-icon.png
 
 %changelog
+* Sun Feb 23 2025 Peter Hanecak <hany@hany.sk> - 1.0.5-1
+- Update to 1.0.5
+- build_type_safety_c lowered to work around several "incompatible pointer type"
+  errors
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

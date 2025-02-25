@@ -4,7 +4,7 @@
 
 Name: elfutils
 Version: 0.192
-%global baserelease 8
+%global baserelease 9
 Release: %{baserelease}%{?dist}
 URL: http://elfutils.org/
 %global source_url ftp://sourceware.org/pub/elfutils/%{version}/
@@ -117,6 +117,9 @@ Patch7: elfutils-0.192-ATOMIC_VAR_INIT.patch
 
 # New DWARF5 language constants
 Patch8: elfutils-0.192-more-dwarf5-lang.patch
+
+# debuginfod-client.c: Avoid freeing uninitialized value
+patch9: elfutils-0.192-imasig-fail-free.patch
 
 %description
 Elfutils is a collection of utilities, including stack (to show
@@ -538,9 +541,11 @@ exit 0
 %systemd_postun_with_restart debuginfod.service
 
 %changelog
+* Sun Feb 23 2025 Mark Wielaard <mjw@fedoraproject.org> - 0.192-9
+- Add elfutils-0.192-imasig-fail-free.patch
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.192-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
 
 * Mon Dec 2 2024 Mark Wielaard <mjw@fedoraproject.org> - 0.192-7
 - Add elfutils-0.192-ATOMIC_VAR_INIT.patch

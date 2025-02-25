@@ -1,6 +1,6 @@
 Name:    kitinerary
 Version: 24.12.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A library containing itinerary data model and itinerary extraction code
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND ODbL-1.0
@@ -103,6 +103,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 
 %changelog
+* Sun Feb 23 2025 Neal Gompa <ngompa@fedoraproject.org> - 24.12.2-4
+- Rebuild for poppler 25.02.0 again
+
 * Fri Feb 21 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-3
 - Rebuild for ppc64le enablement
 

@@ -1,8 +1,6 @@
-%bcond wireplumber %[0%{?fedora} >= 40]
-
 Name:           waybar
-Version:        0.11.0
-Release:        3%{?dist}
+Version:        0.12.0
+Release:        1%{?dist}
 Summary:        Highly customizable Wayland bar for Sway and Wlroots based compositors
 # Source files/overall project licensed as MIT, but
 # - BSL-1.0
@@ -23,8 +21,6 @@ Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 #  - Remove several modules from the config
 #  - Switch font to monospace
 Patch:          waybar-fedora-config-changes.patch
-# https://github.com/Alexays/Waybar/issues/3597
-Patch:          %{url}/commit/0006e471.patch#/waybar-0.11.0-fix-std-bad_cast-in-tray-module.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -38,7 +34,7 @@ BuildRequires:  pkgconfig(dbusmenu-gtk3-0.4)
 BuildRequires:  pkgconfig(fmt) >= 8.1.1
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
 BuildRequires:  pkgconfig(gio-unix-2.0)
-BuildRequires:  pkgconfig(gtk-layer-shell-0)
+BuildRequires:  pkgconfig(gtk-layer-shell-0) >= 0.9.0
 BuildRequires:  pkgconfig(gtkmm-3.0)
 BuildRequires:  pkgconfig(jack)
 BuildRequires:  pkgconfig(jsoncpp)
@@ -58,9 +54,7 @@ BuildRequires:  pkgconfig(upower-glib)
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-cursor)
 BuildRequires:  pkgconfig(wayland-protocols)
-%if %{with wireplumber}
 BuildRequires:  pkgconfig(wireplumber-0.5)
-%endif
 BuildRequires:  pkgconfig(xkbregistry)
 
 Enhances:       sway
@@ -76,8 +70,7 @@ Recommends:     font(fontawesome6brands)
 %build
 %meson \
     -Dcava=disabled  \
-    -Dsndio=disabled \
-    %{!?with_wireplumber:-Dwireplumber=disabled}
+    -Dsndio=disabled
 %meson_build
 
 %install
@@ -104,6 +97,9 @@ Recommends:     font(fontawesome6brands)
 %{_userunitdir}/%{name}.service
 
 %changelog
+* Sun Feb 23 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.12.0-1
+- Update to 0.12.0 (#2346964)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

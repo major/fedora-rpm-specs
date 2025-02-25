@@ -38,6 +38,7 @@ Source1:        https://github.com/google/googletest/archive/release-1.12.1.tar.
 Source2:        https://pyyaml.org/download/libyaml/yaml-0.2.5.tar.gz
 Source3:        https://download.lammps.org/thirdparty/opencl-loader-2024.05.09.tar.gz
 Source4:        https://github.com/spglib/spglib/archive/refs/tags/v1.11.2.1.tar.gz#/spglib-1.11.2.1.tar.gz
+Patch0:         https://github.com/lammps/lammps/commit/4d453a65e6728760d3eeb0e88ea2ad8a49d790e1.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 # mpi is broken on s390x see, bug #2322073
@@ -212,9 +213,9 @@ cd python
 
 %prep
 %if %{git}
-%setup -q -n %{name}-%{commit}
+%autosetup -p1 -n %{name}-%{commit}
 %else
-%setup -q -n %{name}-%{uversion}
+%autosetup -p1 -n %{name}-%{uversion}
 %endif
 
 %build

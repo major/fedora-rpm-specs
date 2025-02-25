@@ -1,5 +1,5 @@
 Name:		endless-sky
-Version:	0.10.11
+Version:	0.10.12
 Release:	1%{?dist}
 Summary:	Space exploration, trading, and combat game
 
@@ -13,7 +13,6 @@ Source1:	endless-sky-wrapper
 # Patch not submitted upstream. Upstream conforms to Debian packaging
 # standards where the use of /usr/games is acceptable.
 Patch0:		endless-sky-0.10.0-remove-games-path.patch
-Patch1:         10952.patch
 
 Requires:	%{name}-data = %{version}-%{release}
 BuildRequires:	cmake
@@ -97,6 +96,9 @@ rm -f %{buildroot}%{_datadir}/doc/endless-sky/license.txt
 
 
 %changelog
+* Sun Feb 23 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.10.12-1
+- 0.10.12
+
 * Mon Jan 27 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.10.11-1
 - 0.10.11
 

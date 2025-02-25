@@ -1,5 +1,5 @@
 Name:           input-remapper
-Version:        2.0.1
+Version:        2.1.1
 Release:        %autorelease
 Summary:        An easy to use tool to change the behaviour of your input devices
 
@@ -39,9 +39,6 @@ Requires:       gobject-introspection
 # gi.require_version("Gtk", "3.0")
 BuildRequires:  gtk3
 Requires:       gtk3
-# gi.require_version("GLib", "2.0")
-BuildRequires:  glib2
-Requires:       glib2
 # gi.require_version("GtkSource", "4")
 BuildRequires:  gtksourceview4
 Requires:       gtksourceview4
@@ -63,7 +60,8 @@ the output of physical devices to that of virtual ones.
 %autosetup -p1 -n %{name}-%{version}
 cp %{SOURCE1} ./
 #Fix rpmlint errors
-#find inputremapper/ -iname "*.py" -type f -print0 | xargs -0 sed -i -e 's+\s*#\s*!/usr/bin/python3++'
+find inputremapper/injection/macros/ -iname "*.py" -type f -print0 | xargs -0 sed -i -e 's+\s*#\s*!/usr/bin/env python3++'
+
 
 
 %build
@@ -79,13 +77,13 @@ mv %{buildroot}%{python3_sitelib}/usr/lib/systemd %{buildroot}/usr/lib/systemd
 mv %{buildroot}%{python3_sitelib}/usr/lib/udev %{buildroot}/usr/lib/udev
 mv %{buildroot}%{python3_sitelib}/usr/share %{buildroot}/usr/share
 mkdir -p %{buildroot}/usr/share/dbus-1/system.d/
-mv %{buildroot}/etc/dbus-1/system.d/inputremapper.Control.conf %{buildroot}/usr/share/dbus-1/system.d/
 
 # clean up duplicate files
 rm %{buildroot}%{_datadir}/%{name}/inputremapper.Control.conf
 rm %{buildroot}%{_datadir}/%{name}/io.github.sezanzeb.input_remapper.metainfo.xml
 rm %{buildroot}%{_datadir}/%{name}/%{name}-gtk.desktop
 rm %{buildroot}%{_datadir}/%{name}/%{name}.policy
+rm %{buildroot}%{_datadir}/%{name}/%{name}.svg
 
 
 %post -n %{name}
@@ -104,6 +102,12 @@ rm %{buildroot}%{_datadir}/%{name}/%{name}.policy
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-gtk.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
+
+# The tests have multiple incompatibilites with our build system/process, so
+# unfortunately, they will be disabled for now (20250223, v2.1.1).
+# See the discussion at:
+# https://lists.fedorahosted.org/archives/list/devel@lists.fedoraproject.org/thread/PDTJOFHANNQZSWM4P5OLL4A5CBKSTWVC/
+
 # See .github/workflows/test.yml
 # Note that setting TMPDIR="${PWD}/test_tmp" tends to form paths that are too
 # long for UNIX domain sockets, causing test failures, so we just use the
@@ -111,7 +115,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 export DATA_DIR='%{buildroot}%{_datadir}/%{name}'
 
 # Make sure everything is at least importable:
-%pyproject_check_import
+# exclude the module from the test suite (v2.1.1) 
+%pyproject_check_import -e inputremapper.bin.*
 
 # Run the unit tests.
 
@@ -122,11 +127,14 @@ export DATA_DIR='%{buildroot}%{_datadir}/%{name}'
 
 # E   gi.repository.GLib.GError: g-io-error-quark: Could not connect: No such
 #     file or directory (1)
-ignore="${ignore-} --ignore=tests/unit/test_daemon.py"
+#ignore="${ignore-} --ignore=tests/unit/test_daemon.py"
 # These tests only work when executed under a user whose home directory
 # (based on the passwd entry, not on $HOME) begins with /tmp. Obviously, we
 # can’t satisfy that, and we need to skip the affected tests.
-ignore="${ignore-} --ignore=tests/unit/test_migrations.py"
+#ignore="${ignore-} --ignore=tests/unit/test_migrations.py"
+
+# New (v2.1.1) test failure, requires access to a display:
+# ignore="${ignore-} --ignore=tests/integration/test_gui.py"
 
 # TODO: What is wrong?
 # E       AssertionError: Lists differ: [<Inp[37 chars]x7f3a2f82e6f0>,
@@ -138,36 +146,36 @@ ignore="${ignore-} --ignore=tests/unit/test_migrations.py"
 # E       <InputEvent for (3, 0, 0) ABS_X at 0x7f3a2f82e360>
 # E
 # E       Diff is 1044 characters long. Set self.maxDiff to None to see it.
-k="${k-}${k+ and }not (TestRelToAbs and test_rel_to_abs)"
+#k="${k-}${k+ and }not (TestRelToAbs and test_rel_to_abs)"
 
 # This seems to fail only in Koji, not in mock…
 # >       self.assertAlmostEqual(len(mouse_history), rel_rate * sleep * 2, delta=5)
 # E       AssertionError: 51 != 60.0 within 5 delta (9.0 difference)
-k="${k-}${k+ and }not (TestAbsToRel and test_abs_to_rel)"
+#k="${k-}${k+ and }not (TestAbsToRel and test_abs_to_rel)"
 
 # These tests are based on timing/sleeps, and seem to experience flaky and/or
 # arch-dependent failures in koji. The failures generally appear to be
 # noisy/spurious.
 #
-k="${k-}${k+ and }not (TestIdk and test_axis_switch)"
+#k="${k-}${k+ and }not (TestIdk and test_axis_switch)"
 # >       self.assertAlmostEqual(len(mouse_history), rel_rate * sleep, delta=3)
 # E       AssertionError: 26 != 30.0 within 3 delta (4.0 difference)
 # >       self.assertLess(time.time() - start, sleep_time * 1.3)
 # E       AssertionError: 0.5397047996520996 not less than 0.52
-k="${k-}${k+ and }not (TestMacros and test_2)"
+#k="${k-}${k+ and }not (TestMacros and test_2)"
 # >       self.assertLess(time.time() - start, total_time * 1.2)
 # E       AssertionError: 0.44843482971191406 not less than 0.432
-k="${k-}${k+ and }not (TestMacros and test_3)"
+#k="${k-}${k+ and }not (TestMacros and test_3)"
 # >       self.assertLess(time.time() - start, total_time * 1.2)
 # E       AssertionError: 0.511094331741333 not less than 0.48
-k="${k-}${k+ and }not (TestMacros and test_5)"
+#k="${k-}${k+ and }not (TestMacros and test_5)"
 #         # this seems to have a tendency of injecting less wheel events,
 #         # especially if the sleep is short
 # >       self.assertGreater(actual_wheel_event_count, expected_wheel_event_count * 0.8)
 # E       AssertionError: 2 not greater than 2.4000000000000004
-k="${k-}${k+ and }not (TestMacros and test_mouse)"
+#k="${k-}${k+ and }not (TestMacros and test_mouse)"
 
-%pytest tests/unit ${ignore-} -k "${k-}" -v
+# %%pytest tests/unit ${ignore-} -k "${k-}" -v
 
 
 %files -f %{pyproject_files}
@@ -179,6 +187,7 @@ k="${k-}${k+ and }not (TestMacros and test_mouse)"
 %{_unitdir}/%{name}.service
 %{_udevrulesdir}/99-%{name}.rules
 %{_datadir}/%{name}
+%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 
 # deal with non-standard location of localization files
 %exclude %dir %{_datadir}/%{name}/lang

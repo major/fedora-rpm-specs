@@ -1,6 +1,6 @@
 Name:           plasma-settings
-Version:        24.02.0
-Release:        4%{?dist}
+Version:        25.02.0
+Release:        1%{?dist}
 # Automatically converted from old format: BSD and CC0 and GPLv2 and GPLv2+ and GPLv3 and GPLv3+ and LGPLv2 and LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-BSD AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LicenseRef-Callaway-LGPLv2 AND LicenseRef-Callaway-LGPLv2+
 Summary:        Convergent Plasma Mobile settings application
@@ -29,6 +29,9 @@ BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6Service)
 BuildRequires:  cmake(KF6KCMUtils)
 BuildRequires:  cmake(KF6KirigamiAddons)
+BuildRequires:  cmake(KF6Crash)
+BuildRequires:  cmake(KF6ItemViews)
+BuildRequires:  cmake(KF6ItemModels)
 
 BuildRequires:  pkgconfig(gobject-2.0)
 
@@ -54,6 +57,7 @@ modules are provided separately, by plasma-nm.
 
 %check
 desktop-file-validate %{buildroot}/%{_kf6_datadir}/applications/org.kde.mobile.plasmasettings.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.mobile.plasmasettings.metainfo.xml
 
 %files -f %{name}.lang
 %doc README.md
@@ -61,8 +65,13 @@ desktop-file-validate %{buildroot}/%{_kf6_datadir}/applications/org.kde.mobile.p
 %{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.mobile.plasmasettings.svg
 %{_kf6_bindir}/plasma-settings
 %{_kf6_datadir}/applications/org.kde.mobile.plasmasettings.desktop
+%{_kf6_metainfodir}/org.kde.mobile.plasmasettings.metainfo.xml
+%{_kf6_datadir}/plasma-settings/
 
 %changelog
+* Mon Feb 24 2025 Steve Cossette <farchord@gmail.com> - 25.02.0-1
+- 25.02.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.02.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

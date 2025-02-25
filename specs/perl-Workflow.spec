@@ -1,5 +1,5 @@
 Name:           perl-Workflow
-Version:        2.03
+Version:        2.05
 Release:        1%{?dist}
 Summary:        Simple, flexible system to implement work-flows
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -97,6 +97,9 @@ systems.
 %{_mandir}/man3/*
 
 %changelog
+* Sun Feb 23 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 2.05-1
+- Update to 2.05
+
 * Sun Jan 26 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 2.03-1
 - Update to 2.03
 

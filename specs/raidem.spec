@@ -1,6 +1,6 @@
 Name:           raidem
 Version:        0.3.1
-Release:        57%{?dist}
+Release:        58%{?dist}
 Summary:        2d top-down shoot'em up
 License:        zlib
 URL:            http://home.exetel.com.au/tjaden/raidem/
@@ -89,6 +89,9 @@ install -p -m 644 %{SOURCE1} \
 
 
 %changelog
+* Sun Feb 23 2025 Antonio Trande <sagitter@fedoraproject.org> - 0.3.1-58
+- Rebuild for gnustep-base 1.31.0
+
 * Mon Feb 10 2025 Bruno Wolff III <bruno@wolff.to> - 0.3.1-57
 - Fix missed cast caught by stricter checking
 

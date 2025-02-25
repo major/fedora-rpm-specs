@@ -1,6 +1,6 @@
 Name:           taskd
 Version:        1.1.0
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Secure server providing multi-user, multi-client access to task data
 License:        MIT
 URL:            https://github.com/goldenHairDafo/taskd/
@@ -51,6 +51,11 @@ merely synchronizing data.
 
 cp -a %{SOURCE4} .
 
+# Create a sysusers.d config file
+cat >taskd.sysusers.conf <<EOF
+u taskd - 'Task Server system user' %{_sharedstatedir}/taskd/ /usr/bin/sh
+EOF
+
 
 %build
 %cmake
@@ -85,13 +90,9 @@ cp -a %{SOURCE2} %{buildroot}%{_sharedstatedir}/taskd/config
 
 rm -r %{buildroot}%{_datadir}/doc/taskd/
 
-%pre
-getent group taskd >/dev/null || groupadd -r taskd
-getent passwd taskd >/dev/null || \
-    useradd -r -g taskd -d %{_sharedstatedir}/taskd/ -s /usr/bin/sh \
-    -c "Task Server system user" taskd
-exit 0
+install -m0644 -D taskd.sysusers.conf %{buildroot}%{_sysusersdir}/taskd.conf
 
+%pre
 # Systemd scriptlets
 %if 0%{?rhel} && 0%{?rhel} <= 6
 # No systemd for el6
@@ -134,8 +135,12 @@ exit 0
 %{_unitdir}/taskd.service
 %{_prefix}/lib/firewalld/services/taskd.xml
 %endif
+%{_sysusersdir}/taskd.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.1.0-26
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

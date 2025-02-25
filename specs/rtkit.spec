@@ -17,7 +17,6 @@ BuildRequires:    dbus-devel >= 1.2
 BuildRequires:    libcap-devel
 BuildRequires:    polkit-devel
 BuildRequires:    autoconf automake libtool
-%{?sysusers_requires_compat}
 Source0:          http://0pointer.de/public/%{name}-%{version}.tar.xz
 Source1:          rtkit.sysusers
 Patch:            rtkit-mq_getattr.patch
@@ -61,8 +60,6 @@ rmdir %{buildroot}%{_sysconfdir}/dbus-1/system.d
 rmdir %{buildroot}%{_sysconfdir}/dbus-1
 rmdir %{buildroot}%{_sysconfdir}
 
-%pre
-%sysusers_create_compat %{SOURCE1}
 
 %post
 %systemd_post rtkit-daemon.service

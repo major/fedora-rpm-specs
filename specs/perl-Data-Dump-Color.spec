@@ -1,11 +1,10 @@
 Name:           perl-Data-Dump-Color
-Version:        0.249
-Release:        7%{?dist}
+Version:        0.250
+Release:        1%{?dist}
 Summary:        Like Data::Dump, but with color
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
-URL:            https://metacpan.org/release/Data-Dump-Color
+URL:            https://metacpan.org/dist/Data-Dump-Color
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PERLANCAR/Data-Dump-Color-%{version}.tar.gz
 BuildArch:      noarch
 # build requirements
@@ -44,8 +43,6 @@ Requires:       perl(Data::Dump::Filtered)
 Requires:       perl(Data::Dump::FilterContext)
 Requires:       perl(MIME::Base64)
 
-%global __requires_exclude %{?__requires_exclude:__requires_exclude|}^perl\\(Win32::Console::ANSI\\)
-
 %description
 This module aims to be a drop-in replacement for Data::Dump. It adds colors
 to dumps. For more information, see Data::Dump. This documentation explains
@@ -76,6 +73,10 @@ what's different between this module and Data::Dump.
 %{_mandir}/man1/*
 
 %changelog
+* Sun Feb 23 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 0.250-1
+- Update to 0.250
+- Remove Win32::Console::ANSI requirement exclusion (no longer needed)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.249-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

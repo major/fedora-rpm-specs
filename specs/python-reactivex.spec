@@ -12,6 +12,13 @@ URL:            https://github.com/ReactiveX/RxPY
 Source0:        %{pypi_source reactivex}
 Source1:        %{url}/archive/v%{version}/RxPy-%{version}.tar.gz
 
+# python 3.14 support rhbz#2327987
+#               https://github.com/ReactiveX/RxPY/pull/716
+Patch0:         backport-716.patch
+
+# Part of       https://github.com/ReactiveX/RxPY/pull/722
+Patch1:         https://github.com/ReactiveX/RxPY/commit/9a6a5cddc907120ff521a2938415527bfd03e5ef.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 
@@ -35,8 +42,10 @@ Summary: %{summary}
 
 
 %prep
-%autosetup -n reactivex-%{version}
+%setup -n reactivex-%{version}
 tar -xf %{SOURCE1} RxPY-%{version}/tests --strip-components=1
+%patch -P 0 -p1
+%patch -P 1 -p1
 
 
 %generate_buildrequires

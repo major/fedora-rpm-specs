@@ -1,6 +1,6 @@
 Name:           perl-Net-Patricia
 Version:        1.22
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Patricia Trie perl module for fast IP address lookups
 # The entire source code is GPLv2+ except libpatricia/ which is BSD
 # Automatically converted from old format: GPLv2+ and BSD - review is highly recommended.
@@ -9,6 +9,7 @@ URL:            https://metacpan.org/release/Net-Patricia
 Source0:        https://cpan.metacpan.org/modules/by-module/Net/Net-Patricia-%{version}.tar.gz
 # Fix building on systems without libsnl, bug #1534596, CPAN RT#124088
 Patch0:         Net-Patricia-1.22-Do-not-link-to-nsl-library.patch
+Patch1:         perl-Net-Patricia-c99.patch
 BuildRequires:  gcc
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -49,6 +50,7 @@ lookups within the BSD kernel since the 4.3 Reno release.
 %prep
 %setup -q -n Net-Patricia-%{version}
 %patch -P0 -p1
+%patch -P1 -p1
 
 %build
 %{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS"
@@ -76,6 +78,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Feb 23 2025 Kevin Fenzi <kevin@scrye.com> - 1.22-43
+- Add patch to fix FTBFS from Paul Howarth. Fixes rhbz#2341032
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.22-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

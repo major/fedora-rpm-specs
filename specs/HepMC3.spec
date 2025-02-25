@@ -3,7 +3,7 @@
 
 Name:		HepMC3
 Version:	3.3.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	C++ Event Record for Monte Carlo Generators
 
 #		HepMC3 itself is LGPLv3+
@@ -11,6 +11,8 @@ Summary:	C++ Event Record for Monte Carlo Generators
 License:	LGPL-3.0-or-later AND MPL-2.0
 URL:		https://hepmc.web.cern.ch/hepmc
 Source0:	%{url}/releases/%{name}-%{version}.tar.gz
+#		Valgrind suppression file for memory leak in dlopen (EPEL 10)
+Source1:	valgrind-epel10.supp
 #		https://gitlab.cern.ch/hepmc/HepMC3/-/merge_requests/357
 Patch0:		0001-Do-not-require-the-static-libzstd-library-to-be-pres.patch
 Patch1:		0002-Fix-for-a-Conditional-jump-or-move-depends-on-uninit.patch
@@ -168,6 +170,11 @@ This package provides HepMC manuals and examples.
 %patch -P0 -p1
 %patch -P1 -p1
 %patch -P2 -p1
+
+%if %{?rhel}%{!?rhel:0} == 10
+sed 's!MEMORYCHECK_COMMAND_OPTIONS "!&--suppressions=%{SOURCE1} !' \
+    -i test/CMakeLists.txt
+%endif
 
 %build
 %cmake \
@@ -352,6 +359,9 @@ rm %{buildroot}%{_includedir}/%{name}/bxzstr/LICENSE
 %license COPYING
 
 %changelog
+* Sun Feb 23 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.0-5
+- Suppress a valgrind error from dlopen on EPEL 10
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

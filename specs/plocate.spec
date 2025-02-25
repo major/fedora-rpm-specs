@@ -64,8 +64,6 @@ install -p -D -m 0644 -t %{buildroot}%{_sysconfdir}/ updatedb.conf
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Scriptlets/#_saving_state_between_scriptlets.
 %global plocate_start_now %{_localstatedir}/lib/rpm-state/plocate_start_now
 
-%pre
-%sysusers_create_compat %{SOURCE1}
 
 %post
 %systemd_post plocate-updatedb.service plocate-updatedb.timer

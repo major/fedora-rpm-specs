@@ -1,6 +1,6 @@
 Name:           vit
 %global forgeurl https://github.com/scottkosty/%{name}
-Version:        2.3.2
+Version:        2.3.3
 Release:        %autorelease
 Summary:        Visual Interactive Taskwarrior full-screen terminal interface
 

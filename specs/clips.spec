@@ -4,7 +4,7 @@ Summary:	Language for developing expert systems
 Name:		clips
 # Versioning scheme changed 6.31 -> 6.4.1
 Epoch:    1
-Version:	6.4.1
+Version:	6.4.2
 %global stripped_version %{lua: print((rpm.expand("%{version}"):gsub("%.", "")))}
 
 Release:	%{autorelease}
@@ -121,7 +121,7 @@ ln -s libclips.so.%{sover} %{buildroot}/%{_libdir}/libclips.so
 %{_bindir}/clips
 
 %files libs
-%{_libdir}/*.so.*
+%{_libdir}/*.so.%{sover}
 %license readme.txt
 
 %files devel

@@ -1,30 +1,18 @@
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch: %{ix86}
 
-%ifnarch %{ocaml_native_compiler}
-%global debug_package %{nil}
-%endif
-
 Name:           ocamlify
-Version:        0.0.2
-Release:        48%{?dist}
+Version:        0.1.0
+Release:        1%{?dist}
 Summary:        Include files in OCaml code
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 URL:            https://github.com/gildor478/ocamlify
 VCS:            git:%{url}.git
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-
-# rerun `oasis setup` using OASIS 0.4.11
-Patch0:         oasis-setup.patch
-
-# Changes for OCaml 5.x compatibility
-Patch1:         %{name}-ocaml5.patch
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  ocaml
-BuildRequires:  ocaml-compiler-libs
-BuildRequires:  ocaml-ocamlbuild
-BuildRequires:  ocaml-findlib
+BuildRequires:  ocaml-dune
 BuildRequires:  ocaml-camlp-streams-devel
 BuildRequires:  help2man
 
@@ -35,21 +23,15 @@ OCaml file. It allows embedding external resources as OCaml code.
 
 
 %prep
-%autosetup -p1
-
-# Generate debuginfo
-echo true: debug >> _tags
+%autosetup
 
 
 %build
-ocaml -I +camlp-streams setup.ml -configure \
-    --destdir $RPM_BUILD_ROOT \
-    --prefix %{_prefix}
-ocaml -I +camlp-streams setup.ml -build
+%dune_build
 
 
 %install
-ocaml -I +camlp-streams setup.ml -install
+%dune_install
 
 # generate manpage
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1/
@@ -59,18 +41,22 @@ help2man $RPM_BUILD_ROOT%{_bindir}/ocamlify \
     --version-string %{version} \
     --no-info
 
+
 %check
-ocaml -I +camlp-streams setup.ml -test
+%dune_check
 
 
-%files
-%doc README.txt
+%files -f .ofiles -f .ofiles-devel
+%doc README.md
 %license COPYING.txt
-%{_bindir}/ocamlify
 %{_mandir}/man1/ocamlify.1*
 
 
 %changelog
+* Sun Feb 23 2025 Andy Li <andy@onthewings.net> - 0.1.0-1
+- New upstream version. (RHBZ#2347156)
+- Remove patches that are not needed anymore.
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

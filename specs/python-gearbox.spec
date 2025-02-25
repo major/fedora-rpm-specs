@@ -3,7 +3,7 @@
 %global modname gearbox
 
 Name:               python-gearbox
-Version:            0.2.2
+Version:            0.3.2
 Release:            %autorelease
 Summary:            Command line toolkit born as a PasteScript replacement for TurboGears2
 
@@ -14,6 +14,8 @@ Source0:            %pypi_source
 BuildArch:          noarch
 
 BuildRequires:      python3-devel
+BuildRequires:      python3-pytest
+BuildRequires:      python3-legacy-cgi
 
 %global _description\
 gearbox is a paster command replacement for TurboGears2. It has been\
@@ -34,7 +36,7 @@ web framework, while still being backward compatible with the existing
 TurboGears projects.
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -t
 
 %prep
 %setup -q -n %{modname}-%{version}
@@ -48,6 +50,9 @@ rm -rf %{modname}.egg-info
 %install
 %pyproject_install
 %pyproject_save_files %{modname}
+
+%check
+%pytest
 
 %files -n python3-gearbox -f %{pyproject_files}
 %doc README.rst

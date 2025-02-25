@@ -21,6 +21,10 @@ Patch0: %{name}-use_system-wide_crypto-policies.patch
 
 Patch1: %{name}-fix_GCC15.patch
 
+Patch2: %{name}-fix_ending_tag_mismatch.patch
+
+Patch3: %{name}-1.31.0-fix_s390x.patch
+
 BuildRequires: gcc
 BuildRequires: gcc-objc
 BuildRequires: libffi-devel >= 3.0.9
@@ -33,6 +37,7 @@ BuildRequires: avahi-compat-libdns_sd-devel
 BuildRequires: gmp-devel
 BuildRequires: texi2html texinfo-tex
 BuildRequires: libicu-devel
+BuildRequires: libcurl-devel
 BuildRequires: texi2html
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
@@ -95,7 +100,14 @@ headers too.
 This package contains the documentation for %{name}
 
 %prep
-%autosetup -p1
+%autosetup -N
+
+%patch -P 0 -p1 -b .backup
+%patch -P 1 -p1 -b .backup
+%patch -P 2 -p1 -b .backup
+%ifarch s390x
+%patch -P 3 -p1 -b .backup
+%endif
 
 iconv -f iso-8859-1 -t utf-8 ChangeLog.2 -o ChangeLog.2.utf8
 mv ChangeLog.2.utf8 ChangeLog.2
@@ -103,7 +115,6 @@ mv ChangeLog.2.utf8 ChangeLog.2
 %build
 ffi_include=$(pkg-config --cflags-only-I libffi | sed -e 's/^\-\I//')
 export LDFLAGS="%{__global_ldflags}"
-export OBJCFLAGS="-std=gnu17"
 %gnustep_configure --disable-ffcall --with-ffi-include="$ffi_include"
 
 %gnustep_make -n
@@ -134,6 +145,7 @@ export GNUSTEP_CONFIG_FILE=$(pwd)/GNUstep.conf
 %{_bindir}/HTMLLinker
 %{_bindir}/autogsdoc
 %{_bindir}/cvtenc
+%{_bindir}/classes
 %{_bindir}/defaults
 %{_bindir}/gdnc
 %{_bindir}/gdomap
@@ -159,9 +171,14 @@ export GNUSTEP_CONFIG_FILE=$(pwd)/GNUstep.conf
 %{gnustep_libraries}/
 %{_libdir}/libgnustep-base.so.1.31
 %{_libdir}/libgnustep-base.so.%{version}
+%dir %{_libdir}/GNUstep/Tools
+%dir %{_libdir}/GNUstep/Tools/Resources
+%dir %{_libdir}/GNUstep/Tools/Resources/autogsdoc
+%{_libdir}/GNUstep/Tools/Resources/autogsdoc/default-styles.css
 
 %files devel
 %{_includedir}/Foundation/
+%{_includedir}/CoreFoundation/
 %{_includedir}/GNUstepBase/
 %{_libdir}/libgnustep-base.so
 %{_libdir}/pkgconfig/gnustep-base.pc

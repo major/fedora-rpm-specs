@@ -30,7 +30,7 @@
 %bcond x86_debug 0
 
 Name:       fex-emu
-Version:    2501%{?commit:^%{date}git%{commit}}
+Version:    2502%{?commit:^%{date}git%{commit}}
 Release:    %autorelease
 Summary:    Fast usermode x86 and x86-64 emulator for ARM64
 
@@ -61,18 +61,16 @@ SourceLicense: %{fex_license} %{sysroot_license}
 local externals = {
   { name="Catch2", ref="8ac8190", owner="catchorg", version="3.5.3", license="BSL-1.0", bcond="check" },
   { name="cpp-optparse", ref="eab4212", owner="Sonicadvance1", path="../Source/Common/cpp-optparse", license="MIT" },
-  { name="drm-headers", ref="8efb6dc", owner="FEX-Emu", package="kernel", version="6.11", license="GPL-2.0-only" },
+  { name="drm-headers", ref="0675d2f", owner="FEX-Emu", package="kernel", version="6.13", license="GPL-2.0-only" },
   --Exclude these altogether for now, as they're prebuilt binaries only needed for the integration tests
   --{ name="fex-gcc-target-tests-bins", ref="442678a", owner="FEX-Emu", license="GPL-2.0-or-later", bcond="integration" },
   --{ name="fex-gvisor-tests-bins", ref="71349ae", owner="FEX-Emu", license="Apache-2.0", bcond="integration" },
   --{ name="fex-posixtest-bins", ref="9ae2963", owner="FEX-Emu", package="posixtest", version="1.5.2", license="GPL-2.0-or-later", bcond="integration" },
   { name="fmt", ref="873670b", owner="fmtlib", version="11.0.2", license="MIT" },
-  --Excluded as we use the FEXConfig Qt backend instead
-  --{ name="imgui", ref="4c986ec", owner="Sonicadvance1", version="1.73", license="MIT" },
   { name="jemalloc", ref="02ca52b", owner="FEX-Emu", version="5.3.0", license="MIT" },
   { name="jemalloc", ref="4043539", owner="FEX-Emu", path="jemalloc_glibc", version="5.3.0", license="MIT" },
   { name="robin-map", ref="d5683d9", owner="FEX-Emu", version="1.3.0", license="MIT" },
-  { name="vixl", ref="a90f5d5", owner="FEX-Emu", version="5.1.0", license="BSD-3-Clause" },
+  { name="vixl", ref="3180ab6", owner="FEX-Emu", version="5.1.0", license="BSD-3-Clause" },
   { name="Vulkan-Headers", ref="29f979e", owner="KhronosGroup", package="vulkan-headers", version="1.3.296", license="Apache-2.0" },
   { name="xbyak", ref="c68cc53", owner="herumi", version="7.09", license="BSD-3-Clause", bcond="x86_debug" },
   { name="xxhash", ref="bbb27a5", owner="Cyan4973", version="0.8.2", license="BSD-2-Clause" },
@@ -214,7 +212,7 @@ cp -p %SOURCE1 .
 %{lua: print_setup_externals()}
 
 # This is done after so we can patch the bundled libraries if needed
-%autopatch -p1
+#autopatch -p1
 
 # Ensure library soversion is set
 sed -i FEXCore/Source/CMakeLists.txt \
@@ -232,7 +230,6 @@ sed -i FEXCore/Source/CMakeLists.txt \
 
 %build
 %cmake -G Ninja \
-    -DUSE_FEXCONFIG_TOOLKIT=qt \
     -DENABLE_OFFLINE_TELEMETRY=OFF \
 %ifarch %{x86_64}
     -DENABLE_X86_HOST_DEBUG=ON \

@@ -30,7 +30,6 @@ BuildRequires:  util-linux
 
 
 %{?systemd_requires}
-%{?sysusers_requires_compat}
 
 %description
 MUNGE (MUNGE Uid 'N' Gid Emporium) is an authentication service for creating
@@ -101,8 +100,6 @@ touch %{buildroot}%{_rundir}/munge/munged.pid
 %endif
 
 
-%pre
-%sysusers_create_compat %{SOURCE3}
 
 %preun
 %systemd_preun munge.service

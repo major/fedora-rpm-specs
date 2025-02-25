@@ -1,6 +1,6 @@
 %define debug_package %{nil}
 Name:           lutris
-Version:        0.5.18
+Version:        0.5.19
 Release:        %autorelease
 Summary:        Install and play any video game easily
 
@@ -8,9 +8,6 @@ Summary:        Install and play any video game easily
 License:        GPL-3.0-only
 URL:            http://%{name}.net
 Source0:        https://github.com/%{name}/%{name}/archive/refs/tags/v%{version}.tar.gz
-# Patch to fix upstream python-evdev update to 1.9.0 what broke the startup if installed 
-# https://github.com/lutris/lutris/pull/5935
-Patch0:         0001-fix-with-evdev-ver-1.9.0-InputDevice.fn-is-dropped.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  python3-devel
@@ -98,14 +95,14 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications share/applicatio
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
 %{_datadir}/applications/net.%{name}.Lutris.desktop
-%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
-%{_datadir}/icons/hicolor/16x16/apps/%{name}.png
-%{_datadir}/icons/hicolor/22x22/apps/%{name}.png
-%{_datadir}/icons/hicolor/24x24/apps/%{name}.png
-%{_datadir}/icons/hicolor/32x32/apps/%{name}.png
-%{_datadir}/icons/hicolor/48x48/apps/%{name}.png
-%{_datadir}/icons/hicolor/64x64/apps/%{name}.png
-%{_datadir}/icons/hicolor/128x128/apps/%{name}.png
+%{_datadir}/icons/hicolor/scalable/apps/net.lutris.Lutris.svg
+%{_datadir}/icons/hicolor/16x16/apps/net.lutris.Lutris.png
+%{_datadir}/icons/hicolor/22x22/apps/net.lutris.Lutris.png
+%{_datadir}/icons/hicolor/24x24/apps/net.lutris.Lutris.png
+%{_datadir}/icons/hicolor/32x32/apps/net.lutris.Lutris.png
+%{_datadir}/icons/hicolor/48x48/apps/net.lutris.Lutris.png
+%{_datadir}/icons/hicolor/64x64/apps/net.lutris.Lutris.png
+%{_datadir}/icons/hicolor/128x128/apps/net.lutris.Lutris.png
 %{_datadir}/man/man1/%{name}.1.gz
 %{_metainfodir}/net.lutris.Lutris.metainfo.xml
 # Some files being missed by the Python macros

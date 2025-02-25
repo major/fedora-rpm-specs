@@ -75,6 +75,11 @@ for f in %{buildroot}%{_binfmtdir}/binfmt-dispatcher-*.conf; do mv "$f" "$(dirna
 mv %{buildroot}%{_sysconfdir}/binfmt-dispatcher.toml %{buildroot}%{_prefix}/lib/binfmt-dispatcher.d/00-default.toml
 %endif
 
+%postun      -n %{crate}
+if [ $1 -eq 0 ]; then
+/bin/systemctl try-restart systemd-binfmt.service
+fi
+
 %if %{with check}
 %check
 %cargo_test

@@ -1,7 +1,7 @@
 Summary: OpenVPN plugin for LDAP authentication
 Name: openvpn-auth-ldap
 Version: 2.0.4
-Release: 17%{?dist}
+Release: 18%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 URL: https://github.com/threerings/openvpn-auth-ldap
@@ -74,6 +74,9 @@ install -D -p -m 0600 auth-ldap.conf \
 
 
 %changelog
+* Sun Feb 23 2025 Antonio Trande <sagitter@fedoraproject.org> - 2.0.4-18
+- Rebuild for gnustep-base 1.31.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 #TODO: Run test suite (see debian/rules)
 
 Name:           qgis
-Version:        3.40.3
-Release:        4%{?dist}
+Version:        3.42.0
+Release:        1%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
 # http://issues.qgis.org/issues/3789
@@ -235,6 +235,8 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 # QGIS shows the following files in the GUI, including the license text
 %doc %{_datadir}/%{name}/doc/
 %dir %{_datadir}/%{name}/i18n/
+%{_datadir}/%{name}/i18n/qgis_zh-Hans.qm
+%{_datadir}/%{name}/i18n/qgis_zh-Hant.qm
 %{_libdir}/lib%{name}_native.so.*
 %{_libdir}/lib%{name}_app.so.*
 %{_libdir}/lib%{name}_analysis.so.*
@@ -299,6 +301,9 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Sat Feb 22 2025 Sandro Mani <manisandro@gmail.com> - 3.42.0-1
+- Update to 3.42.0
+
 * Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 3.40.3-4
 - Rebuild with gsl 2.8
 

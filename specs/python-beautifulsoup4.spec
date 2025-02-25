@@ -9,13 +9,13 @@
 
 Name:           python-beautifulsoup4
 Version:        4.13.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        HTML/XML parser for quick-turnaround applications like screen-scraping
 License:        MIT
 URL:            http://www.crummy.com/software/BeautifulSoup/
 Source0:        https://files.pythonhosted.org/packages/source/b/beautifulsoup4/beautifulsoup4-%{version}.tar.gz
 # https://git.launchpad.net/beautifulsoup/commit/?id=9786a62726de5a8caba10021c4d4a58c8a3e9e3f
-Patch11:        beautifulsoup4-4.12-disable-soupsieve.patch
+Patch11:        beautifulsoup4-4.13-disable-soupsieve.patch
 
 BuildArch:      noarch
 # html5lib BR just for test coverage
@@ -94,6 +94,10 @@ sed -i "s/strip_cdata=False,//" bs4/builder/_lxml.py
 %{python3_sitelib}/bs4
 
 %changelog
+* Sun Feb 23 2025 Terje Rosten <terjeros@gmail.com> - 4.13.3-2
+- Update soupsieve disablement patch for 4.13
+  (Yaakov Selkowitz <yselkowi@redhat.com>)
+
 * Sat Feb 22 2025 Terje Rosten <terjeros@gmail.com> - 4.13.3-1
 - 4.13.3
 

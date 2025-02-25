@@ -1,5 +1,5 @@
 Name:           borgmatic
-Version:        1.9.10
+Version:        1.9.12
 Release:        %autorelease
 Summary:        Simple Python wrapper script for borgbackup
 

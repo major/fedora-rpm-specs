@@ -35,9 +35,9 @@
 %global build_test OFF
 %endif
 
-%if 0%{?rhel}
+%if 0%{?rhel} || 0%{?suse_version} && 0%{?suse_version} < 1699
 # RHEL does not have a working tensile
-# OSB/SUSE is gets stuck on tensile taking a long time with 4 jobs
+# SLE does not have a working tensile
 %bcond_with tensile
 %else
 %bcond_without tensile
@@ -58,9 +58,14 @@
 %define _source_payload	w7T0.xzdio
 %define _binary_payload	w7T0.xzdio
 
+# SUSE/OSB times out because -O is added to the make args
+# This accumulates all the output from the long running tensile
+# jobs.
+%global _make_output_sync %{nil}
+
 Name:           %{rocblas_name}
 Version:        %{rocm_version}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        BLAS implementation for ROCm
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT AND BSD-3-Clause
@@ -80,11 +85,16 @@ BuildRequires:  rocm-rpm-macros
 
 %if %{with tensile}
 %if 0%{?suse_version}
+# ATM only TW has this package
 BuildRequires:  msgpack-cxx-devel
+BuildRequires:  python311-tensile-devel
+# OBS vm times out without console output
+%global tensile_verbose 2
 %else
 BuildRequires:  msgpack-devel
+BuildRequires:  python3dist(tensile)
+%global tensile_verbose 1
 %endif
-BuildRequires:  python3-tensile
 %endif
 
 %if %{with compress}
@@ -149,7 +159,22 @@ export TENSILE_ROCM_OFFLOAD_BUNDLER_PATH=${CLANG_PATH}/clang-offload-bundler
 # Work around problem with koji's ld
 export HIPCC_LINK_FLAGS_APPEND=-fuse-ld=lld
 
+%if %{with tensile}
 TP=`/usr/bin/TensileGetPath`
+%endif
+
+CORES=`lscpu | grep 'Core(s)' | awk '{ print $4 }'`
+if [ ${CORES}x = x ]; then
+    CORES=1
+fi
+# Try again..
+if [ ${CORES} = 1 ]; then
+    CORES=`lscpu | grep '^CPU(s)' | awk '{ print $2 }'`
+    if [ ${CORES}x = x ]; then
+	CORES=4
+    fi
+fi
+
 
 %cmake \
     -DCMAKE_CXX_COMPILER=hipcc \
@@ -160,6 +185,7 @@ TP=`/usr/bin/TensileGetPath`
     -DCMAKE_BUILD_TYPE=%{build_type} \
     -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
     -DCMAKE_SKIP_RPATH=ON \
+    -DCMAKE_VERBOSE_MAKEFILE=ON \
     -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
     -DROCM_SYMLINK_LIBS=OFF \
     -DHIP_PLATFORM=amd \
@@ -173,6 +199,8 @@ TP=`/usr/bin/TensileGetPath`
     -DBUILD_OFFLOAD_COMPRESS=%{build_compress} \
     -DBUILD_WITH_HIPBLASLT=OFF \
     -DTensile_COMPILER=hipcc \
+    -DTensile_CPU_THREADS=${CORES} \
+    -DTensile_VERBOSE=%{tensile_verbose} \
     -DBUILD_WITH_TENSILE=%{build_tensile} \
     -DTensile_DIR=${TP}/cmake \
     -DBUILD_WITH_PIP=OFF
@@ -213,6 +241,9 @@ fi
 %endif
 
 %changelog
+* Sun Feb 23 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-7
+- Use tensile verbosity to avoid OSB timeout
+
 * Wed Feb 19 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-6
 - Use tensile cmake from the python location
 

@@ -6,7 +6,7 @@
 %endif
 
 Name:           packit
-Version:        1.1.1
+Version:        1.2.0
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -78,6 +78,10 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Sun Feb 23 2025 Packit <hello@packit.dev> - 1.2.0-1
+- Packit reloads spec file after `create-archive` to keep user changes. (#2533)
+- Resolves: rhbz#2347179
+
 * Fri Feb 14 2025 Packit <hello@packit.dev> - 1.1.1-1
 - Packit doesn't attempt to upload git-tracked remote sources (for example a [GPG keyring](https://docs.fedoraproject.org/en-US/packaging-guidelines/#_verifying_signatures)) to lookaside cache anymore when syncing release. (#2518)
 - Resolves: rhbz#2345745

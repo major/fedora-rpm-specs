@@ -1,12 +1,16 @@
 Name:           electron-cash
 Version:        4.4.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A lightweight Bitcoin Cash client
 
 License:        MIT
 URL:            https://electroncash.org/
 Source0:        https://github.com/Electron-Cash/Electron-Cash/releases/download/%{version}/electron_cash-%{version}.tar.gz
 Source1:        https://github.com/Electron-Cash/keys-n-hashes/raw/master/sigs-and-sums/%{version}/win-linux/electron_cash-%{version}.tar.gz.asc
+
+Source3:        https://raw.githubusercontent.com/Electron-Cash/Electron-Cash/refs/tags/4.4.2/electroncash/paymentrequest.proto
+Source4:        https://raw.githubusercontent.com/Electron-Cash/Electron-Cash/refs/tags/4.4.2/electroncash_plugins/fusion/protobuf/fusion.proto
+
 #Sun 15 Dec 2019, exported the upstream gpg key using the command:
 #gpg2 --armor --export --export-options export-minimal D56C110F4555F371AEEFCB254FD06489EFF1DDE1 D465135F97D0047E18E99DC321810A542031C02C > gpgkey-electron-cash.gpg
 Source2:        gpgkey-electron-cash.gpg
@@ -20,6 +24,7 @@ BuildRequires:  python3-setuptools
 BuildRequires:  python3-qt5-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
+BuildRequires:  protobuf-compiler
 
 BuildRequires:  libappstream-glib
 BuildRequires:  gnupg2
@@ -35,7 +40,7 @@ Requires:       python3-psutil
 Requires:       python3-cryptography
 Requires:       python3-zxing-cpp >= 2.0.0
 
-Requires:       libsecp256k1 >= 0.20.9
+Requires:       libsecp256k1
 Requires:       zbar
 Requires:       tor
 
@@ -65,6 +70,13 @@ rm -rfv ./packages/
 
 %build
 pyrcc5 icons.qrc -o electroncash_gui/qt/icons_rc.py
+
+#Re-compile the protobuf description files
+install -D %{SOURCE3} electroncash/paymentrequest.proto
+install -D %{SOURCE4} electroncash_plugins/fusion/protobuf/fusion.proto
+protoc --proto_path=electroncash/ --python_out=electroncash/ electroncash/paymentrequest.proto
+protoc --proto_path=electroncash_plugins/fusion/protobuf/ --python_out=electroncash_plugins/fusion/ electroncash_plugins/fusion/protobuf/fusion.proto
+
 %{py3_build}
 
 %install
@@ -104,6 +116,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.elect
 %{python3_sitelib}/Electron_Cash-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sun Feb 23 2025 Jonny Heggheim <hegjon@gmail.com> - 4.4.2-3
+- Re-compile the protobuf description files
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
