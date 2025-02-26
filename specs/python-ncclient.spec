@@ -5,7 +5,7 @@
 %bcond doc_pdf 1
 
 Name:           python-ncclient
-Version:        0.6.16
+Version:        0.6.17
 Release:        %autorelease
 Summary:        Python library for the NETCONF protocol
 
@@ -18,9 +18,6 @@ Summary:        Python library for the NETCONF protocol
 License:        Apache-2.0 AND Unlicense
 URL:            https://github.com/ncclient/ncclient
 Source:         %{url}/archive/v%{version}/ncclient-%{version}.tar.gz
-# Drop the pytest-runner dependency
-# https://github.com/ncclient/ncclient/pull/613
-Patch:          %{url}/pull/613.patch
 
 BuildSystem:            pyproject
 BuildOption(install):   -l ncclient

@@ -9,12 +9,15 @@
 Summary:	Ruby binding of GLib-2.x
 Name:		rubygem-%{gem_name}
 Version:	4.2.7
-Release:	1%{?dist}
+Release:	2%{?dist}
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
 License:	LGPL-2.1-or-later
 URL:		http://ruby-gnome2.sourceforge.jp/
 Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
+# https://github.com/ruby-gnome/ruby-gnome/issues/1664
+# https://github.com/ruby-gnome/ruby-gnome/commit/4479e5a93f53f3e77b51dc106f693ffa2259df0d
+Patch0:	rubygem-glib2-GH1664-unref-in-weak_notify.patch
 # F-19 %%_bindir/ruby wrapper pollutes environ, which makes
 # g_spawn_async() test failure
 Patch100:	rubygem-glib2-3.5.1-rubywrapper-pollutes-env.patch
@@ -83,6 +86,7 @@ rubygem-%{gem_name}
 mv ../%{gem_name}-%{version}.gemspec .
 
 # Patches and etc
+%patch -P0 -p2
 %patch -P100 -p1
 
 # Make pkg-config devel dependency (not runtime)
@@ -229,6 +233,9 @@ popd
 
 
 %changelog
+* Sun Feb 23 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.7-2
+- Backport upstream fix for g_object_unref issue in weak_notify
+
 * Thu Jan 30 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.7-1
 - 4.2.7
 

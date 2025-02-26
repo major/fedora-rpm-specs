@@ -4,12 +4,11 @@
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
-Version:          1.9.0
-Release:          10%{?dist}
+Version:          1.9.2
+Release:          1%{?dist}
 Summary:          High Performance CommonMark and Github Markdown Rendering in R
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:          LicenseRef-Callaway-BSD
+License:          BSD-2-Clause
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{version}.tar.gz
 
@@ -29,7 +28,7 @@ BuildRequires:    R-xml2
 %endif
 
 # Note, this is the GitHub-Flavored Markdown fork, not the one in Fedora.
-Provides: bundled(cmark) = 0.28.3.gfm.19
+Provides: bundled(cmark) = 0.29.0.gfm.13
 
 %description
 The CommonMark specification defines a rationalized version of markdown
@@ -80,6 +79,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-examples
 
 
 %changelog
+* Thu Feb 20 2025 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 1.9.2-1
+- Update to 1.9.2
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

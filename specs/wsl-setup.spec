@@ -52,7 +52,7 @@ ln -s ..%{_prefix}/lib/wsl-distribution.conf %{buildroot}%{_sysconfdir}/wsl-dist
 # https://learn.microsoft.com/en-us/windows/wsl/build-custom-distro#systemd-recommendations
 install -Dpm0644 %{SOURCE6} %{buildroot}%{_tmpfilesdir}/%{name}.conf
 
-# WSL provides a Wayland and PulseAudio docket as well, which are expected to be in
+# WSL provides a Wayland and PulseAudio socket as well, which are expected to be in
 # the user's runtime directory. This configuration sets up the links for each user.
 install -Dpm0644 %{SOURCE7} %{buildroot}%{_user_tmpfilesdir}/%{name}.conf
 

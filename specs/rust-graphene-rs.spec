@@ -5,7 +5,7 @@
 %global crate graphene-rs
 
 Name:           rust-graphene-rs
-Version:        0.20.7
+Version:        0.20.9
 Release:        %autorelease
 Summary:        Rust bindings for the Graphene library
 

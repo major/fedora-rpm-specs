@@ -2,7 +2,7 @@
 %define libname libnmstate
 
 Name:           nmstate
-Version:        2.2.40
+Version:        2.2.41
 Release:        %autorelease
 Summary:        Declarative network manager API
 License:        Apache-2.0 AND LGPL-2.1-or-later
@@ -36,8 +36,8 @@ BuildRequires:  (crate(serde_json/default) >= 1.0 with crate(serde_json/default)
 BuildRequires:  (crate(serde_yaml/default) >= 0.9 with crate(serde_yaml/default) < 1.0)
 BuildRequires:  (crate(uuid/v4) >= 1.1 with crate(uuid/v4) < 2.0)
 BuildRequires:  (crate(uuid/v5) >= 1.1 with crate(uuid/v5) < 2.0)
-BuildRequires:  (crate(zbus/default) >= 1.9 with crate(zbus/default) < 2.0)
-BuildRequires:  (crate(zvariant/default) >= 2.10 with crate(zvariant/default) < 3.0)
+BuildRequires:  (crate(zbus/default) >= 5.1 with crate(zbus/default) < 6.0)
+BuildRequires:  (crate(zvariant/default) >= 5.1 with crate(zvariant/default) < 6.0)
 BuildRequires:  (crate(nix/default) >= 0.26 with crate(nix/default) < 0.27)
 BuildRequires:  (crate(toml/default) >= 0.8 with crate(toml/default) < 0.9)
 BuildRequires:  (crate(tokio/default) >= 1.3 with crate(tokio/default) < 2.0)
@@ -136,9 +136,9 @@ Summary:        Rust crate of nmstate with query_apply feature
 BuildArch:      noarch
 License:        Apache-2.0
 # https://bugzilla.redhat.com/show_bug.cgi?id=2161128
-Requires:  (crate(nispor/default) >= 1.2.12 with crate(nispor/default) < 2.0)
-Requires:  (crate(nix/default) >= 0.24 with crate(nix/default) < 0.25)
-Requires:  (crate(zbus/default) >= 1.9 with crate(zbus/default) < 2.0)
+Requires:  (crate(nispor/default) >= 1.2.17 with crate(nispor/default) < 2.0)
+Requires:  (crate(nix/default) >= 0.26 with crate(nix/default) < 0.27)
+Requires:  (crate(zbus/default) >= 5.1 with crate(zbus/default) < 6.0)
 
 %description -n rust-%{name}+query_apply-devel
 This package contains library source intended for building other packages

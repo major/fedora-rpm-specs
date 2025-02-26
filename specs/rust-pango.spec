@@ -5,7 +5,7 @@
 %global crate pango
 
 Name:           rust-pango
-Version:        0.20.7
+Version:        0.20.9
 Release:        %autorelease
 Summary:        Rust bindings for the Pango library
 
@@ -129,6 +129,18 @@ This package contains library source intended for building other packages which
 use the "v1_54" feature of the "%{crate}" crate.
 
 %files       -n %{name}+v1_54-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v1_56-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+v1_56-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v1_56" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v1_56-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

@@ -1,6 +1,6 @@
 Name:		xbiso
 Version:	0.6.1
-Release:	35%{?dist}
+Release:	36%{?dist}
 Summary:	ISO extraction utility for xdvdfs images
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -10,6 +10,7 @@ Patch0:		xbiso-0.6.1-destdir.patch
 Patch1:		xbiso-0.6.1-ftplib4.patch
 Patch2:		xbiso-configure-c99.patch
 Patch3:		xbiso-c99.patch
+Patch4:		xbiso-c23.patch
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:	ftplib-devel
@@ -23,6 +24,7 @@ xbiso is an ISO extraction utility for xdvdfs images.
 %patch -P1 -p1 -b .ftplib4
 %patch -P2 -p1
 %patch -P3 -p1
+%patch -P4 -p1
 
 %build
 %configure
@@ -39,6 +41,9 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %{_bindir}/xbiso
 
 %changelog
+* Mon Feb 24 2025 Tom Callaway <spot@fedoraproject.org> - 0.6.1-36
+- fix empty function declarations to fix compile against C23 (gcc15)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 %global crate gobject-sys
 
 Name:           rust-gobject-sys
-Version:        0.20.7
+Version:        0.20.9
 Release:        %autorelease
 Summary:        FFI bindings to libgobject-2.0
 
@@ -181,7 +181,7 @@ use the "v2_80" feature of the "%{crate}" crate.
 %package     -n %{name}+v2_82-devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(gobject-2.0) >= 2.81
+Requires:       pkgconfig(gobject-2.0) >= 2.82
 
 %description -n %{name}+v2_82-devel %{_description}
 
@@ -189,6 +189,19 @@ This package contains library source intended for building other packages which
 use the "v2_82" feature of the "%{crate}" crate.
 
 %files       -n %{name}+v2_82-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v2_84-devel
+Summary:        %{summary}
+BuildArch:      noarch
+Requires:       pkgconfig(gobject-2.0) >= 2.83
+
+%description -n %{name}+v2_84-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v2_84" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v2_84-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

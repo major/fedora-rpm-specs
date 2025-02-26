@@ -6,7 +6,7 @@
 
 Name:		oidc-agent
 Version:	5.2.3
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Managing OpenID Connect tokens on the command line
 
 License:	MIT AND ISC AND LGPL-2.1-or-later AND BSD-2-Clause
@@ -25,7 +25,7 @@ BuildRequires:	libmicrohttpd-devel
 BuildRequires:	glib2-devel
 BuildRequires:	qrencode-devel
 BuildRequires:	gtk3-devel
-%if %{?fedora}%{!?fedora:0}
+%if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 10
 %global webkitgtk webkit2gtk-4.1
 BuildRequires:	webkit2gtk4.1-devel
 %else
@@ -181,6 +181,9 @@ ln -s liboidc-agent.so.%{version} %{buildroot}%{_libdir}/liboidc-agent.so
 %{_libdir}/liboidc-agent.so
 
 %changelog
+* Mon Feb 24 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 5.2.3-3
+- Use webkit2gtk-4.1 (EPEL 10)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

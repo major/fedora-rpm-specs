@@ -2,12 +2,14 @@
 %bcond_with bootstrap
 
 Name:           python-conda-index
-Version:        0.4.0
+Version:        0.5.0
 Release:        %autorelease
 Summary:        Create repodata.json for collections of conda packages
 License:        BSD-3-Clause
 URL:            https://github.com/conda/conda-index
 Source0:        https://github.com/conda/conda-index/archive/%{version}/conda-index-%{version}.tar.gz
+# Fix for tests with updated conda-build
+Patch:          https://github.com/conda/conda-index/commit/8cb985ac8fc2df52183748fb2fb0cf6ac065a431.patch
 BuildRequires:  make
 BuildArch:      noarch
 
@@ -62,14 +64,14 @@ make man
 
 %install
 %pyproject_install
-%pyproject_save_files conda_index
+%pyproject_save_files -L conda_index
 mkdir -p %{buildroot}%{_mandir}/man1
 install -m644 build/man/conda-index.1 %{buildroot}%{_mandir}/man1/
 
 
 %if %{without bootstrap}
 %check
-py.test-%{python3_version} -v
+%pytest -v -W ignore::DeprecationWarning
 %endif
 
 

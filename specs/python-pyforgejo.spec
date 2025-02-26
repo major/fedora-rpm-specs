@@ -1,17 +1,14 @@
 %global pypi_name pyforgejo
-%global pypi_version 1.0.2
 
 Name:           python-%{pypi_name}
-Version:        %{pypi_version}
-Release:        3%{?dist}
+Version:        2.0.0
+Release:        1%{?dist}
 Summary:        A client library for accessing the Forgejo API
 
 License:        MIT
 
 URL:            https://codeberg.org/harabat/pyforgejo
 Source0:        %{pypi_source %pypi_name}
-
-Patch0:         httpx-pin.patch
 
 BuildArch:      noarch
 
@@ -29,7 +26,7 @@ Summary:        %{summary}
 A client library for accessing the Forgejo API
 
 %prep
-%autosetup -n %{pypi_name}-%{pypi_version} -p0
+%autosetup -n %{pypi_name}-%{version} -p0
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -50,6 +47,9 @@ A client library for accessing the Forgejo API
 %license LICENSE
 
 %changelog
+* Mon Feb 24 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.0.0-1
+- 2.0.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

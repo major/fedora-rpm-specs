@@ -8,14 +8,21 @@
 Summary:       GNU Emacs text editor
 Name:          emacs
 Epoch:         1
-Version:       29.4
+Version:       30.1
 Release:       %autorelease
 License:       GPL-3.0-or-later AND CC0-1.0
 URL:           https://www.gnu.org/software/emacs/
+%if %{lua: print(select(3, string.find(rpm.expand('%version'), '%d+%.(%d+)')))} == 0
+Source0:       https://alpha.gnu.org/gnu/emacs/pretest/emacs-%{version}.tar.xz
+Source1:       https://alpha.gnu.org/gnu/emacs/pretest/emacs-%{version}.tar.xz.sig
+%else
 Source0:       https://ftp.gnu.org/gnu/emacs/emacs-%{version}.tar.xz
 Source1:       https://ftp.gnu.org/gnu/emacs/emacs-%{version}.tar.xz.sig
-Source2:       https://keys.openpgp.org/vks/v1/by-fingerprint/17E90D521672C04631B1183EE78DAE0F3115E06B
-Source3:       https://keys.openpgp.org/vks/v1/by-fingerprint/CEA1DE21AB108493CC9C65742E82323B8F4353EE
+%endif
+Source100:     https://keys.openpgp.org/vks/v1/by-fingerprint/17E90D521672C04631B1183EE78DAE0F3115E06B
+Source101:     https://keys.openpgp.org/vks/v1/by-fingerprint/CEA1DE21AB108493CC9C65742E82323B8F4353EE
+Source102:     https://keys.openpgp.org/vks/v1/by-fingerprint/12BB9B400EE3F77282864D18272B5C54E015416A
+
 Source4:       dotemacs.el
 Source5:       site-start.el
 Source6:       default.el
@@ -37,25 +44,15 @@ Patch:         emacs-libdir-vs-systemd.patch
 Patch:         emacs-desktop.patch
 Patch:         emacs-pgtk-on-x-error-message.patch
 
-# Skip failing tests (patches taken from Emacs Git)
-Patch:         0001-Fix-failing-help-fns-test.patch
-Patch:         0001-Fix-flymake-tests-with-GCC-14.patch
-
-# Fix intermittently failing test (https://debbugs.gnu.org/cgi/bugreport.cgi?bug=72073)
-Patch:         0001-Fix-wdired-test-unfinished-edit-01-when-temp-dirname.patch
-
 # Fix intermittently failing test (https://debbugs.gnu.org/cgi/bugreport.cgi?bug=72120)
-Patch:         0001-Fix-intermittent-failure-of-dired-test-bug27243-02.patch
 Patch:         0004-Try-harder-to-stabalise-dired-test-bug27243-02.patch
 
 # Skip intermittently failing tests
-Patch:         0002-Test-eshell-test-subcommand-reset-in-pipeline-is-uns.patch
 Patch:         0003-Mark-multiple-mml-sec-tests-as-unstable-when-built-i.patch
 
 # Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2276822
 # (https://debbugs.gnu.org/cgi/bugreport.cgi?bug=63555).  If GDK ever
 # gets any new backends, this patch may need extending.
-Patch:         0001-Apply-display-kluge-for-PGTK-too.patch
 Patch:         0002-Fall-back-to-the-terminal-from-pure-GTK-when-no-disp.patch
 
 BuildRequires: alsa-lib-devel
@@ -76,7 +73,6 @@ BuildRequires: gnutls-devel
 BuildRequires: gtk3-devel
 BuildRequires: gzip
 BuildRequires: harfbuzz-devel
-BuildRequires: jansson-devel
 BuildRequires: libacl-devel
 BuildRequires: libappstream-glib
 BuildRequires: libgccjit-devel
@@ -268,7 +264,7 @@ Development header files for Emacs.
 
 
 %prep
-cat '%{SOURCE2}' '%{SOURCE3}' > keyring
+cat '%{SOURCE100}' '%{SOURCE101}' '%{SOURCE102}' > keyring
 %{gpgverify} --keyring=keyring --signature='%{SOURCE1}' --data='%{SOURCE0}'
 rm keyring
 
@@ -313,14 +309,15 @@ export CFLAGS="-DMAIL_USE_LOCKF %{build_cflags}"
 %if %{with lucid}
 # Build Lucid binary
 cd build-lucid
-%configure --program-suffix=-lucid \
+%configure  \
+           --disable-gc-mark-trace \
+           --program-suffix=-lucid \
            --with-cairo \
            --with-dbus \
            --with-gif \
            --with-gpm=no \
            --with-harfbuzz \
            --with-jpeg \
-           --with-json \
            --with-modules \
            --with-native-compilation=aot \
            --with-png \
@@ -342,8 +339,9 @@ cd ..
 %if %{with nw}
 # Build binary without X support
 cd build-nw
-%configure --program-suffix=-nw \
-           --with-json \
+%configure \
+           --disable-gc-mark-trace \
+           --program-suffix=-nw \
            --with-modules \
            --with-native-compilation=aot \
            --with-sqlite3 \
@@ -361,14 +359,15 @@ cd ..
 %if %{with gtkx11}
 # Build GTK/X11 binary
 cd build-gtk+x11
-%configure --program-suffix=-gtk+x11 \
+%configure  \
+           --disable-gc-mark-trace \
+           --program-suffix=-gtk+x11 \
            --with-cairo \
            --with-dbus \
            --with-gif \
            --with-gpm=no \
            --with-harfbuzz \
            --with-jpeg \
-           --with-json \
            --with-modules \
            --with-native-compilation=aot \
            --with-png \
@@ -388,13 +387,14 @@ cd ..
 
 # Build pure GTK binary
 cd build-pgtk
-%configure --with-cairo \
+%configure  \
+           --disable-gc-mark-trace \
+           --with-cairo \
            --with-dbus \
            --with-gif \
            --with-gpm=no \
            --with-harfbuzz \
            --with-jpeg \
-           --with-json \
            --with-modules \
            --with-native-compilation=aot \
            --with-pgtk \
@@ -551,6 +551,8 @@ for info_f in %info_files; do
 done
 # info.gz is a rename of info.info.gz and thus needs special handling
 echo "%{_infodir}/info*" >> info-filelist
+# elisp.info.gz has additional files
+echo "%{_infodir}/elisp_type_hierarchy*" >> info-filelist
 
 # Put the lists together after filtering  ./usr to /usr
 sed -i -e "s|\.%{_prefix}|%{_prefix}|" *-files

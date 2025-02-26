@@ -2,7 +2,7 @@
 %global forgeurl https://github.com/daizutabi/mkapi
 
 Name:           python-mkapi
-Version:        3.0.23
+Version:        4.0.1
 Release:        %autorelease
 Summary:        Plugin for MkDocs to generate API documentation
 

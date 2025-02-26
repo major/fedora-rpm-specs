@@ -1,10 +1,11 @@
 Name:      optee_client
-Version:   4.4.0
-Release:   2%{?dist}
+Version:   4.5.0
+Release:   1%{?dist}
 Summary:   OP-TEE Client API and supplicant
 License:   BSD
 URL:       https://www.trustedfirmware.org/
 Source:    https://github.com/OP-TEE/optee_client/archive/%{version}/%{name}-%{version}.tar.gz
+Patch1:    optee_client-fix-systemd-instdir.patch
 
 # TrustZone is an ARM specific technology
 ExclusiveArch: aarch64
@@ -12,6 +13,7 @@ BuildRequires: cmake
 BuildRequires: gcc
 BuildRequires: libuuid-devel
 BuildRequires: make
+BuildRequires: systemd
 
 %description
 OP-TEE is an open source Trusted Execution Enviroment (TEE) implementing the
@@ -45,6 +47,8 @@ Development file for optee_client
 %{_libdir}/libseteec.so.0*
 %{_libdir}/libteeacl.so.0*
 %{_libdir}/libteec.so.2*
+%{_udevrulesdir}/optee-udev.rules
+%{_unitdir}/tee-supplicant@.service
 
 %files devel
 %{_includedir}/ck_debug.h
@@ -58,6 +62,9 @@ Development file for optee_client
 %{_libdir}/libteec.so
 
 %changelog
+* Mon Feb 24 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 4.5.0-1
+- Update to 4.5.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

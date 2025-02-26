@@ -1,17 +1,13 @@
 Name:             freeipmi
-Version:          1.6.14
+Version:          1.6.15
 Release:          %autorelease
 Summary:          IPMI remote console and system management software
 License:          GPL-3.0-or-later
-URL:              http://www.gnu.org/software/freeipmi/
-Source0:          http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
+URL:              https://www.gnu.org/software/freeipmi/
+Source0:          https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
 Source1:          bmc-watchdog.service
 Source2:          ipmidetectd.service
 Source3:          ipmiseld.service
-
-# https://github.com/chu11/freeipmi-mirror/commit/41d0d70f09b4becfceef0517543cbf335c0e927a
-Patch1:           0001-ipmi-config-fix-incorrect-output-of-IPv6_Dynamic_Add.patch
-
 BuildRequires:    libgcrypt-devel texinfo systemd 
 %{?systemd_requires}
 BuildRequires:    gcc
@@ -20,8 +16,9 @@ BuildRequires:    automake
 BuildRequires:    autoconf
 BuildRequires:    libtool
 
-
-Patch0:           c99.patch
+# https://lists.gnu.org/archive/html/freeipmi-devel/2025-02/msg00000.html
+# https://github.com/chu11/freeipmi-mirror/commit/ececf09d6128cbff65e9048f19d191e87f111059
+Patch0:           c23.patch
 
 %description
 The FreeIPMI project provides "Remote-Console" (out-of-band) and

@@ -343,7 +343,7 @@
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        36
-%global rpmrelease      1
+%global rpmrelease      2
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -704,7 +704,7 @@ fi
 }
 
 %define files_jre_headless() %{expand:
-%{_jvmdir}/%{fullversion -- %{?1}}
+%doc %{_defaultdocdir}/%{uniquejavadocdir --   %{?1}}/%{fullversion -- %{nil}}.specfile
 %license %{_jvmdir}/%{sdkdir -- %{?1}}/legal
 %doc %{_jvmdir}/%{sdkdir -- %{?1}}/NEWS	
 %doc %{_defaultdocdir}/%{uniquejavadocdir -- %{?1}}/NEWS
@@ -848,7 +848,6 @@ fi
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Directory_Replacement/
 %ghost %{_jvmdir}/%{sdkdir -- %{?1}}/conf.rpmmoved
 %ghost %{_jvmdir}/%{sdkdir -- %{?1}}/lib/security.rpmmoved
-%{_jvmdir}/%{sdkdir -- %{?1}}/%{repack_file}
 }
 
 %define files_devel() %{expand:
@@ -1950,7 +1949,8 @@ cp -a ${jdk_image} $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}
 cp -a ${src_image} $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources
 cp -a ${misc_image}/%{generated_sources_name} $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}
 cp -a ${misc_image}/alt-java $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/bin
-cp %{repack_file} $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/
+install -d -m 755 $RPM_BUILD_ROOT%{_defaultdocdir}/%{uniquejavadocdir -- $suffix}
+cp %{repack_file} $RPM_BUILD_ROOT%{_defaultdocdir}/%{uniquejavadocdir --  $suffix}/%{fullversion -- %{nil}}.specfile
 
 pushd ${jdk_image}
 
@@ -2037,9 +2037,6 @@ find $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/ -name "*.so" -exec chmod 7
 find $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/ -type d -exec chmod 755 {} \; ;
 find $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/legal -type f -exec chmod 644 {} \; ;
 
-pushd $RPM_BUILD_ROOT%{_jvmdir}
-  ln -srv %{sdkdir -- $suffix} %{fullversion -- $suffix}
-popd
 # end, dual install
 done
 

@@ -40,7 +40,7 @@
 %endif
 
 Name:           wine
-Version:        10.1
+Version:        10.2
 Release:        1%{?dist}
 Summary:        A compatibility layer for windows applications
 
@@ -773,21 +773,14 @@ unset PKG_CONFIG_PATH
 
 # setup for alternatives usage
 %ifarch x86_64 aarch64
-%ifarch aarch64
 mv %{buildroot}%{_bindir}/wine %{buildroot}%{_bindir}/wine64
-mv %{buildroot}%{_bindir}/wine-preloader %{buildroot}%{_bindir}/wine64-preloader
-%endif
 mv %{buildroot}%{_bindir}/wineserver %{buildroot}%{_bindir}/wineserver64
 %endif
 %ifarch %{ix86} %{arm}
 mv %{buildroot}%{_bindir}/wine %{buildroot}%{_bindir}/wine32
 mv %{buildroot}%{_bindir}/wineserver %{buildroot}%{_bindir}/wineserver32
 %endif
-%ifnarch aarch64 x86_64
-mv %{buildroot}%{_bindir}/wine-preloader %{buildroot}%{_bindir}/wine32-preloader
-%endif
 touch %{buildroot}%{_bindir}/wine
-touch %{buildroot}%{_bindir}/wine-preloader
 touch %{buildroot}%{_bindir}/wineserver
 mv %{buildroot}%{_libdir}/wine/%{winepedir}/dxgi.dll %{buildroot}%{_libdir}/wine/%{winepedir}/wine-dxgi.dll
 mv %{buildroot}%{_libdir}/wine/%{winepedir}/d3d8.dll %{buildroot}%{_libdir}/wine/%{winepedir}/wine-d3d8.dll
@@ -979,20 +972,13 @@ popd
 
 # clean readme files
 pushd documentation
-for lang in it hu sv es pt pt_br;
-do iconv -f iso8859-1 -t utf-8 README.$lang > \
- README.$lang.conv && mv -f README.$lang.conv README.$lang
+for lang in de es fi fr hu it ja ko nl no pt_br pt ru sv tr uk zh_cn;
+do iconv -f iso8859-1 -t utf-8 README-$lang.md > \
+ README-$lang.md.conv && mv -f README-$lang.md.conv README-$lang.md
 done;
 popd
 
 rm -f %{buildroot}%{_initrddir}/wine
-
-# wine makefiles are currently broken and don't install the wine man page
-install -p -m 0644 loader/wine.man %{buildroot}%{_mandir}/man1/wine.1
-install -p -m 0644 loader/wine.de.UTF-8.man %{buildroot}%{_mandir}/de.UTF-8/man1/wine.1
-install -p -m 0644 loader/wine.fr.UTF-8.man %{buildroot}%{_mandir}/fr.UTF-8/man1/wine.1
-mkdir -p %{buildroot}%{_mandir}/pl.UTF-8/man1
-install -p -m 0644 loader/wine.pl.UTF-8.man %{buildroot}%{_mandir}/pl.UTF-8/man1/wine.1
 
 # install and validate AppData file
 mkdir -p %{buildroot}/%{_metainfodir}/
@@ -1012,16 +998,15 @@ fi
 %posttrans core
 # handle upgrades for a few package updates
 rm -f %{_libdir}/wine/%{winepedir}/d3d8.dll
+rm -f %{_bindir}/wine-preloader
 %ifarch x86_64 aarch64
 %{_sbindir}/alternatives --install %{_bindir}/wine \
-  wine %{_bindir}/wine64 10 \
-  --slave %{_bindir}/wine-preloader wine-preloader %{_bindir}/wine64-preloader
+  wine %{_bindir}/wine64 10
 %{_sbindir}/alternatives --install %{_bindir}/wineserver \
   wineserver %{_bindir}/wineserver64 20
 %else
 %{_sbindir}/alternatives --install %{_bindir}/wine \
-  wine %{_bindir}/wine32 20 \
-  --slave %{_bindir}/wine-preloader wine-preloader %{_bindir}/wine32-preloader
+  wine %{_bindir}/wine32 20
 %{_sbindir}/alternatives --install %{_bindir}/wineserver \
   wineserver %{_bindir}/wineserver32 10
 %endif
@@ -1078,7 +1063,7 @@ fi
 %doc README.md
 %doc VERSION
 # do not include huge changelogs .OLD .ALPHA .BETA (#204302)
-%doc documentation/README.*
+%doc documentation/README-*
 %{_bindir}/msidb
 %{_bindir}/winedump
 %{_libdir}/wine/%{winepedir}/explorer.exe
@@ -1103,7 +1088,6 @@ fi
 
 %ifarch %{ix86} %{arm}
 %{_bindir}/wine32
-%{_bindir}/wine32-preloader
 %{_bindir}/wineserver32
 %endif
 
@@ -1111,12 +1095,8 @@ fi
 %{_bindir}/wine64
 %{_bindir}/wineserver64
 %endif
-%ifarch x86_64 aarch64
-%{_bindir}/wine64-preloader
-%endif
 
 %ghost %{_bindir}/wine
-%ghost %{_bindir}/wine-preloader
 %ghost %{_bindir}/wineserver
 
 %dir %{_libdir}/wine
@@ -1172,6 +1152,7 @@ fi
 %{_libdir}/wine/%{winepedir}/start.exe
 %{_libdir}/wine/%{winepedir}/tasklist.exe
 %{_libdir}/wine/%{winepedir}/termsv.exe
+%{_libdir}/wine/%{winepedir}/timeout.exe
 %{_libdir}/wine/%{winepedir}/view.exe
 %{_libdir}/wine/%{winepedir}/wevtutil.exe
 %{_libdir}/wine/%{winepedir}/where.exe
@@ -1729,6 +1710,7 @@ fi
 %{_libdir}/wine/%{winepedir}/windows.perception.stub.dll
 %{_libdir}/wine/%{winepedir}/windows.security.authentication.onlineid.dll
 %{_libdir}/wine/%{winepedir}/windows.security.credentials.ui.userconsentverifier.dll
+%{_libdir}/wine/%{winepedir}/windows.storage.dll
 %{_libdir}/wine/%{winepedir}/windows.storage.applicationdata.dll
 %{_libdir}/wine/%{winepedir}/windows.system.profile.systemmanufacturers.dll
 %{_libdir}/wine/%{winepedir}/windows.ui.dll
@@ -1736,6 +1718,8 @@ fi
 %{_libdir}/wine/%{winepedir}/windows.web.dll
 %{_libdir}/wine/%{winepedir}/windowscodecs.dll
 %{_libdir}/wine/%{winepedir}/windowscodecsext.dll
+%{_libdir}/wine/%{winesodir}/wine
+%{_libdir}/wine/%{winesodir}/wine-preloader
 %{_libdir}/wine/%{winesodir}/winebth.so
 %{_libdir}/wine/%{winepedir}/winebth.sys
 %{_libdir}/wine/%{winepedir}/winebus.sys
@@ -1965,6 +1949,7 @@ fi
 %{_libdir}/wine/%{winesodir}/plugplay.exe.so
 %{_libdir}/wine/%{winesodir}/progman.exe.so
 %{_libdir}/wine/%{winesodir}/taskmgr.exe.so
+%{_libdir}/wine/%{winesodir}/timeout.exe.so
 %{_libdir}/wine/%{winesodir}/winebrowser.exe.so
 %{_libdir}/wine/%{winesodir}/winecfg.exe.so
 %{_libdir}/wine/%{winesodir}/winedbg.exe.so
@@ -2527,6 +2512,7 @@ fi
 %{_libdir}/wine/%{winesodir}/windows.perception.stub.dll.so
 %{_libdir}/wine/%{winesodir}/windows.security.authentication.onlineid.dll.so
 %{_libdir}/wine/%{winesodir}/windows.security.credentials.ui.userconsentverifier.dll.so
+%{_libdir}/wine/%{winesodir}/windows.storage.dll.so
 %{_libdir}/wine/%{winesodir}/windows.storage.applicationdata.dll.so
 %{_libdir}/wine/%{winesodir}/windows.system.profile.systemmanufacturers.dll.so
 %{_libdir}/wine/%{winesodir}/windows.ui.so
@@ -2866,6 +2852,9 @@ fi
 %endif
 
 %changelog
+* Mon Feb 24 2025 Michael Cronenworth <mike@cchtml.com> - 10.2-1
+- version update
+
 * Sun Feb 09 2025 Michael Cronenworth <mike@cchtml.com> - 10.1-1
 - version update
 

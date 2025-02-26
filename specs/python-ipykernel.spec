@@ -48,6 +48,10 @@ Recommends:     python%{python3_pkgversion}-pillow
 # See https://github.com/ipython/ipykernel/pull/767
 sed -i '/"debugpy/d' pyproject.toml
 
+# Remove test dependencies on pre-commit (used for linting) and pytest-cov; see
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters.
+sed -i -r '/"(pre-commit|pytest-cov)/d' pyproject.toml
+
 %generate_buildrequires
 %pyproject_buildrequires %{?with_tests:-x test}
 

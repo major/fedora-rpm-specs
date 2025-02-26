@@ -5,7 +5,7 @@
 %global crate glib
 
 Name:           rust-glib
-Version:        0.20.7
+Version:        0.20.9
 Release:        %autorelease
 Summary:        Rust bindings for the GLib library
 
@@ -276,6 +276,18 @@ This package contains library source intended for building other packages which
 use the "v2_82" feature of the "%{crate}" crate.
 
 %files       -n %{name}+v2_82-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v2_84-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+v2_84-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v2_84" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v2_84-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

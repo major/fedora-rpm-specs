@@ -4,7 +4,7 @@
 %global crate cargo-insta
 
 Name:           rust-cargo-insta
-Version:        1.42.0
+Version:        1.42.1
 Release:        %autorelease
 Summary:        Review tool for the insta snapshot testing library for Rust
 

@@ -37,8 +37,6 @@ BuildRequires:  check-devel
 
 Requires:       logrotate
 
-Patch1: aide-verbose.patch
-
 %description
 AIDE (Advanced Intrusion Detection Environment) is a file integrity
 checker and intrusion detection program.
@@ -47,8 +45,6 @@ checker and intrusion detection program.
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 cp -a %{S:4} .
-
-%patch -R -P 1 -p1 -b .verbose
 
 %build
 #autoreconf -ivf

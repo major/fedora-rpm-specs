@@ -19,14 +19,14 @@
 
 Summary: A text mode mail user agent
 Name: mutt
-Version: 2.2.13
-Release: 4%{?dist}
+Version: 2.2.14
+Release: 1%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
 License: GPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain
 # hg snapshot created from http://dev.mutt.org/hg/mutt
-Source: ftp://ftp.mutt.org/pub/%{name}/%{name}-%{version}.tar.gz
+Source: http://ftp.mutt.org/pub/%{name}/%{name}-%{version}.tar.gz
 Source1: mutt_ldap_query
 Patch1: mutt-1.10.0-muttrc.patch
 Patch2: mutt-1.8.0-cabundle.patch
@@ -189,7 +189,7 @@ rm -f %{buildroot}%{_mandir}/man5/mmdf.5*
 rm -rf %{buildroot}%{_pkgdocdir}
 
 # remove /usr/share/info/dir
-rm %{buildroot}%{_infodir}/dir
+rm -f %{buildroot}%{_infodir}/dir
 
 # provide muttrc.local(5): the same as muttrc(5)
 ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
@@ -219,6 +219,9 @@ ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Mon Feb 24 2025 Michal Hlavinka <mhlavink@redhat.com> - 5:2.2.14-1
+- updated to 2.2.14 (#2346767)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5:2.2.13-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.14.0
 %define specversion 6.14.0
 %define patchversion 6.14
-%define pkgrelease 0.rc3.20250219git6537cfb395f3.31
+%define pkgrelease 0.rc4.36
 %define kversion 6
-%define tarfile_release 6.14-rc3-60-g6537cfb395f3
+%define tarfile_release 6.14-rc4
 # This is needed to do merge window version magic
 %define patchlevel 14
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc3.20250219git6537cfb395f3.31%{?buildid}%{?dist}
+%define specrelease 0.rc4.36%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.14.0
 
@@ -4212,10 +4212,27 @@ fi\
 #
 #
 %changelog
-* Wed Feb 19 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc3.6537cfb395f3.31]
+* Mon Feb 24 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc4.36]
 - apply -Wno-error=unterminated-string-initialization temporarily (Thorsten Leemhuis)
 - include/linux: Adjust headers for C23 (Jakub Jelinek)
 - x86/insn_decoder_test: allow longer symbol-names (David Rheinsberg)
+
+* Mon Feb 24 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc4.35]
+- redhat/configs: Enable Mediatek Bluetooth USB drivers (Bastien Nocera)
+- redhat/configs: Disable CONFIG_PKEY for zfcpdump configs (Mete Durlu) [RHEL-78341]
+- Linux v6.14.0-0.rc4
+
+* Sun Feb 23 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc3.27102b38b8ca.34]
+- Linux v6.14.0-0.rc3.27102b38b8ca
+
+* Sat Feb 22 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc3.ff202c5028a1.33]
+- Linux v6.14.0-0.rc3.ff202c5028a1
+
+* Fri Feb 21 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc3.334426094588.32]
+- Linux v6.14.0-0.rc3.334426094588
+
+* Thu Feb 20 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc3.87a132e73910.31]
+- Linux v6.14.0-0.rc3.87a132e73910
 
 * Wed Feb 19 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc3.6537cfb395f3.30]
 - redhat/configs: automotive: disable VFIO_PLATFORM (Eric Chanudet)

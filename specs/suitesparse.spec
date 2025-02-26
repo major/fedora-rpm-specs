@@ -47,7 +47,7 @@
 %global commit 6ab1e9eb9e67264218ffbdfc25010650da449a39
 
 Name:           suitesparse
-Version:        7.8.3
+Version:        7.9.0
 Release:        1%{?dist}
 Summary:        A collection of sparse matrix libraries
 
@@ -466,6 +466,9 @@ done
 %doc Doc/*
 
 %changelog
+* Tue Feb 25 2025 Orion Poplawski <orion@nwra.com> - 7.9.0-1
+- Update to 7.9.0
+
 * Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 7.8.3-1
 - Update to 7.8.3
 

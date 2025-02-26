@@ -3,11 +3,21 @@ Version:        1.14.2
 Summary:        A library for changing configuration files
 License:        LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND Kazlib AND GPL-2.0-or-later AND BSD-2-Clause AND LicenseRef-Fedora-Public-Domain
 
-%global forgeurl https://github.com/hercules-team/%{name}
-%global commit 2de06e0519bb8daf047191e46a9672e1d16b1955
+# Upstream Augeas is missing several important fixes which affect
+# Fedora.  For this reason I have taken the regrettable but hopefully
+# temporary step of forking upstream with some extra patches, here:
+# https://github.com/rwmjones/augeas/tree/fedora-43
+
+# Based on:
+#%%global forgeurl https://github.com/hercules-team/%%{name}
+#%%global commit cd37b0945385705afb936caa9d2fd9a7388bb441
+
+# But actually:
+%global forgeurl https://github.com/rwmjones/%{name}
+%global commit 6ee1282259f46e5e44e5bb69d9fa0cf2a255b07d
 %forgemeta
 
-Release:        0.2%{?dist}
+Release:        0.3%{?dist}
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 
@@ -190,6 +200,12 @@ rm -f $RPM_BUILD_ROOT/usr/bin/dump
 %endif
 
 %changelog
+* Mon Feb 24 2025 Richard W.M. Jones <rjones@redhat.com> - 1.14.2-0.3
+- Move to fork of Augeas which contains a small number of PRs:
+- lenses/tmpfiles.aug: Permit '$' character in /usr/lib/tmpfiles.d/*.conf
+- lenses/multipath.aug: Support all possible values for find_multipaths
+- lenses/systemd.aug: Allow "+"(fullprivileges) command flag
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.2-0.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

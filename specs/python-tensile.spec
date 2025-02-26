@@ -19,7 +19,7 @@ Name:           python-tensile-devel
 Name:           python-tensile
 %endif
 Version:        %{rocm_version}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Tool for creating benchmark-driven backend libraries for GEMMs
 
 URL:            https://github.com/ROCmSoftwarePlatform/Tensile
@@ -44,8 +44,8 @@ Requires:       %{python_module msgpack}
 Requires:       %{python_module PyYAML}
 Requires(post): update-alternatives
 Requires(postun): update-alternatives
-Requires:       python-rich
-Provides:       python3-tensile = %{version}-%{release}
+# Not available on SLE, tensile does not cope
+Recommends:     python-rich
 %else
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
@@ -75,7 +75,6 @@ Requires:       rocminfo
 Requires:       python3dist(joblib)
 Requires:       python3dist(msgpack)
 Requires:       python3dist(pyyaml)
-Provides:       python3-tensile
 
 %description -n python3-tensile-devel
 Tensile is a tool for creating benchmark-driven backend libraries for GEMMs,
@@ -172,6 +171,9 @@ mv %{buildroot}%{_datadir}/cmake/Tensile/*.cmake %{buildroot}%{python3_sitelib}/
 %{python_sitelib}/%{upstreamname}*.egg-info/*
 
 %changelog
+* Thu Feb 20 2025 Tom Rix <Tom.Rix@amd.com> 6.3.0-8
+- Remove python-rich suse requires
+
 * Wed Feb 19 2025 Tom Rix <Tom.Rix@amd.com> 6.3.0-7
 - Fix cmake links in TW
 

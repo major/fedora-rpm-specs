@@ -20,6 +20,8 @@ Source0:    %forgesource
 # All changes are here
 # https://github.com/sanjayankur31/elephant/tree/fedora-0.11.1
 Patch0:     0001-use-fedora-build-flags.patch
+# Fix for numpy 2
+Patch:      https://patch-diff.githubusercontent.com/raw/NeuralEnsemble/elephant/pull/656.diff
 
 # python-pyedflib does not support s390x, so the complete dep tree needs to also exclude it
 # https://src.fedoraproject.org/rpms/python-pyedflib/blob/rawhide/f/python-pyedflib.spec
@@ -80,6 +82,9 @@ done
 echo >> requirements/requirements-tests.txt
 cat requirements/requirements-extras.txt >> requirements/requirements-tests.txt
 
+# Drop `nixio` test requirement.
+sed  -r -i '/nixio/d' requirements/requirements-tests.txt
+
 
 %generate_buildrequires
 %pyproject_buildrequires -r requirements/requirements-tests.txt
@@ -122,9 +127,11 @@ k="${k:-}${k:+ and }not test_multitaper_psd_against_nitime"
 k="${k:-}${k:+ and }not test_WPLI_"
 k="${k:-}${k:+ and }not test_victor_purpura_matlab_comparison_"
 k="${k:-}${k:+ and }not test_pairwise_spectral_granger"
-k="${k:-}${k:+ and }not test_sttc_validation_test"
 k="${k:-}${k:+ and }not test_total_spiking_probability_edges"
 %endif
+
+# Requires `nixio` in addition to network.
+k="${k:-}${k:+ and }not test_sttc_validation_test"
 
 %pytest -v ${k+-k }"${k-}"
 

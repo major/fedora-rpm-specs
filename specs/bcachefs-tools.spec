@@ -73,6 +73,9 @@ BuildRequires:  clang-devel
 BuildRequires:  llvm-devel
 %endif
 
+# Rust parts FTBFS on 32-bit arches
+ExcludeArch:    %{ix86} %{arm32}
+
 %description
 The bcachefs-tools package provides all the userspace programs needed to create,
 check, modify and correct any inconsistencies in the bcachefs filesystem.
@@ -165,6 +168,7 @@ rm -rf %{buildroot}%{_sbindir}/*.fuse.bcachefs
 * Thu Feb 13 2025 Neal Gompa <ngompa@fedoraproject.org> - 1.20.0-1
 - Update to 1.20.0
 - Backport fix to build with GCC 15
+- Drop 32-bit architectures as they FTBFS on the Rust parts
 
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild

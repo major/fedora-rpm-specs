@@ -21,7 +21,7 @@ provides a uniform interface for creating and modifying encrypted directories.}
 %global godocs          CODE_OF_CONDUCT.md CONTRIBUTING.md NEWS.md README.md
 
 Name:           fscrypt
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Go tool for managing Linux filesystem encryption
 
 License:        Apache-2.0
@@ -31,6 +31,8 @@ Source1:        %{name}.pam
 
 # Fix build with Go 1.24
 Patch0:         https://github.com/google/fscrypt/pull/423.patch
+# Fix non-x86 arches
+Patch1:         https://github.com/google/fscrypt/pull/426.patch
 
 # Non-Go build dependencies
 BuildRequires:  gcc
@@ -78,13 +80,7 @@ install -m 0644 -vp %{SOURCE1}          %{buildroot}%{_pam_vendordir}/%{name}
 
 %if %{with check}
 %check
-%ifarch x86_64
 %gocheck
-%else
-# Tests fail on non-x86_64 arches
-# Cf. https://github.com/google/fscrypt/issues/382
-( %gocheck ) || :
-%endif
 %endif
 
 %files
@@ -101,6 +97,9 @@ install -m 0644 -vp %{SOURCE1}          %{buildroot}%{_pam_vendordir}/%{name}
 %gopkgfiles
 
 %changelog
+* Mon Feb 24 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.3.5-2
+- Backport fix for tests on non-x86 arches
+
 * Fri Feb 14 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.3.5-1
 - Update to 0.3.5
 - Add patch to fix building tests with Go 1.24

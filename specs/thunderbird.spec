@@ -507,7 +507,7 @@ echo "ac_add_options --enable-linker=gold" >> .mozconfig
 MOZ_LINK_FLAGS="$MOZ_LINK_FLAGS -L%{_libdir}"
 %endif
 %ifarch %{arm} %{ix86} %{s390x}
-export RUSTFLAGS="-Cdebuginfo=0"
+RUSTFLAGS=`echo $RUSTFLAGS | sed -e 's/opt-level=3/opt-level=2/' -e 's/debuginfo=2/debuginfo=0/'`
 %endif
 # We don't want thunderbird to use CK_GCM_PARAMS_V3 in nss
 MOZ_OPT_FLAGS="$MOZ_OPT_FLAGS -DNSS_PKCS11_3_0_STRICT"

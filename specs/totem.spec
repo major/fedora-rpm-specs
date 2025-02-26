@@ -6,7 +6,7 @@
 Name: totem
 Epoch: 1
 Version: 43.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Movie player for GNOME
 
 # Automatically converted from old format: GPLv2+ with exceptions - review is highly recommended.
@@ -21,6 +21,8 @@ Source0: https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version
 Patch: 0001-grilo-Fix-crash-when-deleting-video.patch
 # https://gitlab.gnome.org/GNOME/totem/-/merge_requests/410
 Patch: 0001-remove-broken-plugins.patch
+# https://gitlab.gnome.org/GNOME/totem/-/merge_requests/422
+Patch: 0001-add-new-AVI-mime-type.patch
 
 BuildRequires: pkgconfig(cairo)
 BuildRequires: pkgconfig(gnome-desktop-3.0)
@@ -183,6 +185,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Totem.de
 %{_datadir}/gir-1.0/Totem-1.0.gir
 
 %changelog
+* Thu Feb 20 2025 Daniel Rusek <mail@asciiwolf.com> - 1:43.1-4
+- Added new canonical mime-type for AVI files
+
 * Fri Jan 24 2025 Daniel Rusek <mail@asciiwolf.com> - 1:43.1-3
 - Removed now unused, broken apple-trailers and vimeo plugins
 

@@ -1,10 +1,10 @@
 Name:		xloadimage
 Summary: 	Image viewer and processor
 Version:	4.1
-Release:	39%{?dist}
+Release:	40%{?dist}
 License:	MIT
 Source0:	ftp://ftp.x.org/R5contrib/%{name}.%{version}.tar.gz
-# Patches 0-18 come from Debian 4.1-16.1
+# Patches with number prefix come from Debian
 # Many thanks to all those who have done work on this package over the years
 Patch0:		01_libjpeg-support.dpatch
 Patch1:		02_png-support.dpatch
@@ -33,6 +33,13 @@ Patch23:	xloadimage-4.1-png-1.5.patch
 Patch24:	xloadimage-4.1-fix-mem-leak.patch
 Patch25:	xloadimage-4.1-sub-second-delay.patch
 Patch26:	xloadimage-c99.patch
+Patch27:	22-include.patch
+Patch28:	27_shrink-should-not-zoom-upwards.patch
+Patch29:	28_correct-scaling-fullscreen.patch
+Patch30:	29_fix-manpage-hyphens.patch
+Patch31:	32_fix-spelling.patch
+# There is no real upstream for xloadimage anymore, so this work probably stays here forever.
+Patch32:	xloadimage-4.1-c23.patch
 URL:		http://www.frostbytes.com/~jimf/xloadimage.html
 %if 0%{?fedora} >= 18
 BuildRequires:  gcc
@@ -88,6 +95,12 @@ dithered automatically).
 %patch -P24 -p1 -b .fix-mem-leak
 %patch -P25 -p1 -b .sub-second-delay
 %patch -P26 -p1
+%patch -P27 -p1
+%patch -P28 -p1
+%patch -P29 -p1
+%patch -P30 -p1
+%patch -P31 -p1
+%patch -P32 -p1 -b .c23
 
 chmod +x configure
 
@@ -127,6 +140,10 @@ cp -a %{buildroot}%{_mandir}/man1/xloadimage.1x %{buildroot}%{_mandir}/man1/xvie
 %{_mandir}/man1/*
 
 %changelog
+* Mon Feb 24 2025 Tom Callaway <spot@fedoraproject.org> - 4.1-40
+- bring over more Debian patches
+- apply a lot of cleanups for c23 support
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

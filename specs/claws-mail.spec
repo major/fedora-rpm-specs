@@ -1,4 +1,4 @@
-%global pluginapi 4.3.0.0
+%global pluginapi 4.3.1.0
 
 # dillo plugin crashes
 # Gtk-WARNING **: xx:xx:xx.xxx: GtkSocket: only works under X11
@@ -25,8 +25,8 @@ Obsoletes: claws-mail-plugin-gdata < 4.2.0-1
 %endif
 
 Name:           claws-mail
-Version:        4.3.0
-Release:        7%{?dist}
+Version:        4.3.1
+Release:        1%{?dist}
 Summary:        Email client and news reader based on GTK+
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -94,6 +94,8 @@ BuildRequires:  gcc-c++
 
 BuildRequires:  pkgconfig(librsvg-2.0) >= 2.39.0
 BuildRequires:  pkgconfig(cairo) >= 1.0.0
+
+BuildRequires:  pkgconfig(ayatana-appindicator3-0.1)
 
 # for TLS SNI capable libetpan
 Requires: libetpan%{?_isa} >= 1.9.2
@@ -649,6 +651,10 @@ touch -r NEWS %{buildroot}%{_includedir}/%{name}/config.h
 
 
 %changelog
+* Mon Feb 24 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 4.3.1-1
+- Update to 4.3.1.
+- Add BR pkgconfig(ayatana-appindicator3-0.1)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -111,6 +111,9 @@ Patch0: login-lastlog-create.patch
 # https://github.com/coreos/console-login-helper-messages/issues/60
 Patch1: login-default-motd-file.patch
 
+# Backport better support for erofs on ppc64le
+Patch2: 0001-blkid-allow-up-to-64k-erofs-block-sizes.patch
+
 %description
 The util-linux package contains a large variety of low-level system
 utilities that are necessary for a Linux system to function. Among

@@ -10,8 +10,8 @@
 %global _kf5_iconsdir %{_datadir}/icons
 
 Name:       smb4k
-Version:    3.2.92
-Release:    2%{?dist}
+Version:    4.0.0
+Release:    1%{?dist}
 Summary:    The SMB/CIFS Share Browser for KDE
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -25,6 +25,8 @@ BuildRequires:  gettext
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 BuildRequires:  kf6-rpm-macros
+BuildRequires:  cmake(KDSoap-qt6)
+BuildRequires:  cmake(KDSoapWSDiscoveryClient)
 BuildRequires:  cmake(KF6Config)
 BuildRequires:  cmake(KF6Auth)
 BuildRequires:  cmake(KF6DocTools)
@@ -66,11 +68,6 @@ Requires:   cifs-utils
 
 %{?_qt6_version:Requires: qt6-qtbase%{?_isa} >= %{_qt6_version}}
 
-# on F15 we need remove old smb4k-devel
-Obsoletes: smb4k-devel < 1.0.0
-Obsoletes: kde-plasma-smb4k < 2.0.0
-
-
 %description
 Smb4K is an SMB/CIFS share browser for KDE. It uses the Samba software suite to
 access the SMB/CIFS shares of the local network neighborhood. Its purpose is to
@@ -81,7 +78,7 @@ provide a program that's easy to use and has as many features as possible.
 %autosetup -p1
 
 %build
-%{cmake_kf6} -Wno-dev
+%{cmake_kf6} -Wno-dev -DSMB4K_WITH_WS_DISCOVERY=ON
 
 %cmake_build
 
@@ -108,8 +105,6 @@ appstream-util validate-relax --nonet %{buildroot}/%{_kf6_metainfodir}/*.appdata
 %ctest
 %endif
 
-%ldconfig_scriptlets
-
 %files -f %{name}.lang
 %doc AUTHORS BUGS ChangeLog README.md
 %license LICENSES/*
@@ -130,6 +125,11 @@ appstream-util validate-relax --nonet %{buildroot}/%{_kf6_metainfodir}/*.appdata
 %{_kf6_qmldir}/org/kde/smb4k/
 
 %changelog
+* Tue Feb 04 2025 Packit <hello@packit.dev> - 4.0.0-1
+- New release 4.0.0
+- Spec cleanup
+- Enable WS-Discovery (#2345324)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.92-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

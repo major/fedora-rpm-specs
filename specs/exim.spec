@@ -11,8 +11,8 @@
 
 Summary: The exim mail transfer agent
 Name: exim
-Version: 4.98
-Release: 7%{?dist}
+Version: 4.98.1
+Release: 1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 Url: https://www.exim.org/
@@ -503,6 +503,13 @@ fi
 %{_sysconfdir}/cron.daily/greylist-tidy.sh
 
 %changelog
+* Mon Feb 24 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 4.98.1-1
+- New version
+  Resolves: rhbz#2346977
+- Fixed possible remote SQL injection
+  Resolves: CVE-2025-26794
+- Updated exim maintainers keyring
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.98-7
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

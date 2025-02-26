@@ -11,7 +11,7 @@
 %global __provides_exclude_from ^(%{_libdir}/papers/.*\\.so|%{_libdir}/nautilus/extensions-4/.*\\.so)$
 
 Name:           papers
-Version:        47.3
+Version:        48~beta
 Release:        %autorelease
 Summary:        View multipage documents
 
@@ -31,7 +31,7 @@ SourceLicense:  GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND 
 # Zlib
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT AND Zlib AND libtiff AND (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND BSD-3-Clause AND (Unlicense OR MIT)
 URL:            https://gitlab.gnome.org/GNOME/Incubator/papers
-Source:         https://download.gnome.org/sources/papers/47/papers-%{tarball_version}.tar.xz
+Source:         https://download.gnome.org/sources/papers/48/papers-%{tarball_version}.tar.xz
 # To generate vendored cargo sources:
 #   tar xf papers-%%{tarball_version}.tar.xz ; pushd papers-%%{tarball_version}/shell-rs ; \
 #   cargo vendor && tar Jcvf ../../papers-%%{tarball_version}-vendor.tar.xz ../shell-rs/vendor/ ; popd
@@ -68,6 +68,7 @@ BuildRequires:  pkgconfig(libsecret-1)
 BuildRequires:  pkgconfig(libtiff-4)
 BuildRequires:  pkgconfig(poppler-glib)
 BuildRequires:  pkgconfig(sysprof-capture-4)
+BuildRequires:  pkgconfig(libspelling-1)
 BuildRequires:  /usr/bin/appstream-util
 BuildRequires:  /usr/bin/desktop-file-validate
 
@@ -136,16 +137,16 @@ This package brings the Papers thumbnailer independently from Papers.
 %autosetup -p1 -n papers-%{tarball_version} %{?bundled_rust_deps:-a1}
 
 %if 0%{?bundled_rust_deps}
-%cargo_prep -v shell-rs/vendor
+%cargo_prep -v shell/vendor
 %else
-rm shell-rs/Cargo.lock
+rm shell/Cargo.lock
 %cargo_prep
 %endif
 
 
 %if !0%{?bundled_rust_deps}
 %generate_buildrequires
-cd shell-rs
+cd shell
 %cargo_generate_buildrequires -a -t
 cd ~-
 %endif
@@ -160,7 +161,7 @@ cd ~-
 
 %meson_build
 
-cd shell-rs
+cd shell
 %cargo_license_summary -a
 %{cargo_license -a} > LICENSE.dependencies
 %if 0%{?bundled_rust_deps}
@@ -171,10 +172,6 @@ cd ~-
 
 %install
 %meson_install
-
-# Remove unused symbolic link
-rm $RPM_BUILD_ROOT%{_libdir}/libppsshell-4.0.so
-
 %find_lang papers --with-gnome
 
 
@@ -188,13 +185,11 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %files -f papers.lang
 %doc README.md
 %license COPYING
-%license shell-rs/LICENSE.dependencies
+%license shell/LICENSE.dependencies
 %if 0%{?bundled_rust_deps}
-%license shell-rs/cargo-vendor.txt
+%license shell/cargo-vendor.txt
 %endif
 %{_bindir}/papers
-# internal library not used by other apps, which is why it is not in -libs
-%{_libdir}/libppsshell-4.0.so.4{,.*}
 %{_datadir}/applications/org.gnome.Papers.desktop
 %{_datadir}/glib-2.0/schemas/org.gnome.Papers.gschema.xml
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.Papers.svg
@@ -213,7 +208,6 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %endif
 %{_metainfodir}/papers-pdfdocument.metainfo.xml
 %{_metainfodir}/papers-tiffdocument.metainfo.xml
-%{_metainfodir}/papers-xpsdocument.metainfo.xml
 
 %files devel
 %{_includedir}/papers/

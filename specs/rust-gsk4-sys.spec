@@ -6,7 +6,7 @@
 %global crate gsk4-sys
 
 Name:           rust-gsk4-sys
-Version:        0.9.5
+Version:        0.9.6
 Release:        %autorelease
 Summary:        FFI bindings of GSK 4
 
@@ -89,7 +89,7 @@ use the "v4_14" feature of the "%{crate}" crate.
 %package     -n %{name}+v4_16-devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(gtk4) >= 4.15
+Requires:       pkgconfig(gtk4) >= 4.16
 
 %description -n %{name}+v4_16-devel %{_description}
 
@@ -97,6 +97,19 @@ This package contains library source intended for building other packages which
 use the "v4_16" feature of the "%{crate}" crate.
 
 %files       -n %{name}+v4_16-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v4_18-devel
+Summary:        %{summary}
+BuildArch:      noarch
+Requires:       pkgconfig(gtk4) >= 4.17
+
+%description -n %{name}+v4_18-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v4_18" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v4_18-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+v4_2-devel

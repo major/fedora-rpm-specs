@@ -1,5 +1,5 @@
 Name:           dovecot-fts-xapian
-Version:        1.9
+Version:        1.9.1
 Release:        1%{?dist}
 Summary:        Dovecot FTS plugin based on Xapian
 
@@ -43,8 +43,14 @@ rm %{buildroot}%{_libdir}/dovecot/lib21_fts_xapian_plugin.la
 %license COPYING
 %doc AUTHORS README.md
 %{_libdir}/dovecot/lib21_fts_xapian_plugin.so
+%{_libdir}/dovecot/settings/lib21_fts_xapian_settings.so
+%{_libdir}/dovecot/settings/lib21_fts_xapian_settings.so.0
+%{_libdir}/dovecot/settings/lib21_fts_xapian_settings.so.0.0.0
 
 %changelog
+* Thu Feb 20 2025 Arjen Heidinga <dexter@beetjevreemd.nl> - 1.9.1
+- Rebase to 1.9.1
+
 * Thu Feb 13 2025 Clemens Lang <cllang@redhat.com> - 1.9-1
 - Rebase to 1.9
 

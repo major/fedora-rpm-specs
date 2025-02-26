@@ -3,14 +3,14 @@
 %global modname repoze.who
 
 Name:           python-repoze-who
-Version:        3.0.0
-Release:        4%{?dist}
+Version:        3.1.0
+Release:        1%{?dist}
 Summary:        An identification and authentication framework for WSGI
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://pypi.python.org/pypi/%{modname}
-Source0:        https://pypi.python.org/packages/source/r/%{modname}/%{modname}-%{version}.tar.gz
+Source0:        %pypi_source repoze_who
 BuildArch:      noarch
 
 BuildRequires:      python3-devel
@@ -49,7 +49,7 @@ user can or cannot perform the operation implied by the request).  This is
 considered to be the domain of the WSGI application.
 
 %prep
-%setup -q -n %{modname}-%{version}
+%setup -q -n repoze_who-%{version}
 
 # Remove bundled egg-info in case it exists
 rm -rf %{modname}.egg-info
@@ -75,6 +75,9 @@ rm -rf %{modname}.egg-info
 
 
 %changelog
+* Mon Feb 24 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.1.0-1
+- Update to upstream.
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

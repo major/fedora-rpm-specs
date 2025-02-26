@@ -2,8 +2,8 @@
 %undefine __cmake3_in_source_build
 
 Name: scitokens-cpp
-Version: 1.1.2
-Release: 3%{?dist}
+Version: 1.1.3
+Release: 2%{?dist}
 Summary: C++ Implementation of the SciTokens Library
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
@@ -75,6 +75,12 @@ Requires: %{name}%{?_isa} = %{version}
 %dir %{_includedir}/scitokens
 
 %changelog
+* Mon Feb 24 2025 Derek Weitzel <dweitzel@unl.edu> - 1.1.3-2
+- Fix source file
+
+* Mon Feb 24 2025 Derek Weitzel <dweitzel@unl.edu> - 1.1.3-1
+- Include cstdint import for jwt library to support newer compilers
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

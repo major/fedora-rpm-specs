@@ -5,7 +5,7 @@
 %global crate gsk4
 
 Name:           rust-gsk4
-Version:        0.9.5
+Version:        0.9.6
 Release:        %autorelease
 Summary:        Rust bindings of the GSK 4 library
 
@@ -93,6 +93,18 @@ This package contains library source intended for building other packages which
 use the "v4_16" feature of the "%{crate}" crate.
 
 %files       -n %{name}+v4_16-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v4_18-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+v4_18-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v4_18" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v4_18-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+v4_2-devel

@@ -55,7 +55,7 @@
 
 Name:           nbdkit
 Version:        1.42.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -1030,13 +1030,7 @@ export LIBGUESTFS_TRACE=1
 
 %make_build check || {
     cat tests/test-suite.log
-
-# Too many tests fail after when bin-sbin merge:
-# supermin: ext2fs_namei: parent directory not found: /usr/bin: File not found by ext2_lookup
-# Ignore the result for now.
-%if "%{_sbindir}" != "%{_bindir}"
     exit 1
-%endif
   }
 popd
 %endif
@@ -1523,6 +1517,9 @@ fi
 
 
 %changelog
+* Mon Feb 24 2025 Richard W.M. Jones <rjones@redhat.com> - 1.42.0-2
+- Reenable tests
+
 * Tue Feb 11 2025 Richard W.M. Jones <rjones@redhat.com> - 1.42.0-1
 - New upstream stable branch version 1.42.0
 

@@ -69,7 +69,7 @@
 
 %global major_version 3
 %global minor_version 31
-%global patch_version 5
+%global patch_version 6
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
 %global baserelease 1
@@ -588,6 +588,10 @@ popd
 
 
 %changelog
+* Mon Feb 24 2025 Björn Esser <besser82@fedoraproject.org> - 3.31.6-1
+- cmake-3.31.6
+  Fixes rhbz#2347346
+
 * Fri Jan 24 2025 Björn Esser <besser82@fedoraproject.org> - 3.31.5-1
 - cmake-3.31.5
   Fixes rhbz#2341786

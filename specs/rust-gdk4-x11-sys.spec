@@ -6,7 +6,7 @@
 %global crate gdk4-x11-sys
 
 Name:           rust-gdk4-x11-sys
-Version:        0.9.5
+Version:        0.9.6
 Release:        %autorelease
 Summary:        FFI bindings of GDK4 X11
 
@@ -64,7 +64,7 @@ use the "v4_10" feature of the "%{crate}" crate.
 %package     -n %{name}+v4_16-devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(gtk4-x11) >= 4.15
+Requires:       pkgconfig(gtk4-x11) >= 4.16
 
 %description -n %{name}+v4_16-devel %{_description}
 
@@ -72,6 +72,19 @@ This package contains library source intended for building other packages which
 use the "v4_16" feature of the "%{crate}" crate.
 
 %files       -n %{name}+v4_16-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v4_18-devel
+Summary:        %{summary}
+BuildArch:      noarch
+Requires:       pkgconfig(gtk4-x11) >= 4.17
+
+%description -n %{name}+v4_18-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v4_18" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v4_18-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+v4_4-devel

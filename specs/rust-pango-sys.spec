@@ -6,7 +6,7 @@
 %global crate pango-sys
 
 Name:           rust-pango-sys
-Version:        0.20.7
+Version:        0.20.9
 Release:        %autorelease
 Summary:        FFI bindings to libpango-1.0
 
@@ -116,7 +116,7 @@ use the "v1_50" feature of the "%{crate}" crate.
 %package     -n %{name}+v1_52-devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(pango) >= 1.51
+Requires:       pkgconfig(pango) >= 1.52
 
 %description -n %{name}+v1_52-devel %{_description}
 
@@ -129,7 +129,7 @@ use the "v1_52" feature of the "%{crate}" crate.
 %package     -n %{name}+v1_54-devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(pango) >= 1.53
+Requires:       pkgconfig(pango) >= 1.54
 
 %description -n %{name}+v1_54-devel %{_description}
 
@@ -137,6 +137,19 @@ This package contains library source intended for building other packages which
 use the "v1_54" feature of the "%{crate}" crate.
 
 %files       -n %{name}+v1_54-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v1_56-devel
+Summary:        %{summary}
+BuildArch:      noarch
+Requires:       pkgconfig(pango) >= 1.55
+
+%description -n %{name}+v1_56-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v1_56" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v1_56-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

@@ -15,8 +15,8 @@
 %bcond_without zstd
 
 Name:		kmod
-Version:	33
-Release:	3%{?dist}
+Version:	34
+Release:	1%{?dist}
 Summary:	Linux kernel module management utilities
 
 # https://docs.fedoraproject.org/en-US/legal/license-field/#_no_effective_license_analysis
@@ -77,9 +77,9 @@ BuildRequires:	zlib-devel
 %if %{with xz}
 BuildRequires:	xz-devel
 %endif
-BuildRequires:  scdoc
+BuildRequires:  scdoc gtk-doc
 BuildRequires:  openssl-devel
-BuildRequires:  make automake
+BuildRequires:  make automake libtool
 %if %{with zstd}
 BuildRequires:  libzstd-devel
 %endif
@@ -125,6 +125,7 @@ applications that wish to load or unload Linux kernel modules.
 %autosetup -p1
 
 %build
+autoreconf --install
 %configure \
   --with-openssl \
 %if %{with zlib}
@@ -148,13 +149,6 @@ ln -s modprobe.d.5.gz modprobe.conf.5.gz
 popd
 
 find %{buildroot} -type f -name "*.la" -delete
-
-mkdir -p $RPM_BUILD_ROOT%{_sbindir}
-for i in modprobe modinfo insmod rmmod depmod lsmod; do
-  # kmod now installs the links into bindir by itself
-  rm $RPM_BUILD_ROOT%{_bindir}/$i
-  ln -sf --relative $RPM_BUILD_ROOT%{_bindir}/kmod $RPM_BUILD_ROOT%{_sbindir}/$i
-done
 
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/modprobe.d
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/depmod.d
@@ -183,6 +177,8 @@ install -m 0644 %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/depmod.d/dist.conf
 %{_sbindir}/weak-modules
 %endif
 %{_datadir}/bash-completion/
+%{_datadir}/fish/vendor_functions.d/*
+%{_datadir}/zsh/site-functions/*
 %if %{with dist_conf}
 %{_sysconfdir}/depmod.d/dist.conf
 %endif
@@ -203,6 +199,10 @@ install -m 0644 %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/depmod.d/dist.conf
 %{_libdir}/libkmod.so
 
 %changelog
+* Mon Feb 24 2025 Josh Boyer <jwboyer@fedoraproject.org>
+- New upstream v34
+- Resolves: rhbz#2347049
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 33-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %bcond tests 1
 
-%global commit 61564e7761e38e5ec55e7939ccd6a276c2c55d11
-%global snapdate 20250104
+%global commit cdc7d307d0f592f89b3319a7037fd875a5371ef3
+%global snapdate 20250222
 
 Name:           python-cramjam
 Version:        2.10.0~%{snapdate}git%{sub %{commit} 1 7}
@@ -32,6 +32,10 @@ Source0:        cramjam-%{commit}-filtered.tar.gz
 Source1:        get_source
 
 %endif
+
+# Bump libcramjam -> 0.7 (in Cargo.toml, to match Cargo.lock)
+# https://github.com/milesgranger/cramjam/pull/203
+Patch:          %{url}/pull/203.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  tomcli

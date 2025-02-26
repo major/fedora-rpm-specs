@@ -13,8 +13,8 @@
 
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
-Version:        2.35.0
-Release:        5%{?dist}
+Version:        2.36.0
+Release:        1%{?dist}
 Epoch:          2
 # MIT covers nearly all the files, except init files
 License:        MIT AND LGPL-2.1-or-later
@@ -48,7 +48,7 @@ Patch1:         s390-tools-zipl-blscfg-rpm-nvr-sort.patch
 
 # build fix
 # https://github.com/ibm-s390-linux/s390-tools/pull/180
-Patch99:       s390utils-%{version}-gcc15-zipl.patch
+Patch99:       s390utils-2.35.0-gcc15-zipl.patch
 
 # upstream fixes/updates
 #Patch100:       s390utils-%%{version}-fedora.patch
@@ -124,7 +124,7 @@ be used together with the zSeries (s390) Linux kernel and device drivers.
 %prep
 %autosetup -n s390-tools-%{version} -p1
 
-%if 0%{?rhel}
+%if 1%{?rhel}
 pushd rust
 tar xf %{SOURCE1}
 %cargo_prep -v vendor
@@ -281,12 +281,18 @@ done
 %{_bindir}/genprotimg
 %{_bindir}/pvattest
 %{_bindir}/pvextract-hdr
+%{_bindir}/pvimg
 %{_bindir}/pvsecret
 %{_mandir}/man1/genprotimg.1*
 %{_mandir}/man1/pvattest.1*
+%{_mandir}/man1/pvattest-check.1*
 %{_mandir}/man1/pvattest-create.1*
 %{_mandir}/man1/pvattest-perform.1*
 %{_mandir}/man1/pvattest-verify.1*
+%{_mandir}/man1/pvimg.1*
+%{_mandir}/man1/pvimg-create.1*
+%{_mandir}/man1/pvimg-info.1*
+%{_mandir}/man1/pvimg-test.1*
 %{_mandir}/man1/pvsecret-add.1*
 %{_mandir}/man1/pvsecret-create-association.1*
 %{_mandir}/man1/pvsecret-create-meta.1*
@@ -296,7 +302,7 @@ done
 %{_mandir}/man1/pvsecret-verify.1*
 %{_mandir}/man1/pvsecret.1*
 %dir %{_datadir}/s390-tools
-%{_datadir}/s390-tools/genprotimg/
+%{_datadir}/s390-tools/pvimg/
 
 #
 # enf of multi-arch section
@@ -426,6 +432,7 @@ BuildRequires:  cryptsetup-devel >= 2.0.3
 BuildRequires:  json-c-devel
 BuildRequires:  rpm-devel
 BuildRequires:  libxml2-devel
+BuildRequires:  libnl3-devel
 
 
 %description base
@@ -600,6 +607,7 @@ For more information refer to the following publications:
 %{_sbindir}/lstape
 %{_sbindir}/lszcrypt
 %{_sbindir}/lszfcp
+%{_sbindir}/opticsmon
 %{_sbindir}/pai
 %{_sbindir}/qetharp
 %{_sbindir}/qethconf
@@ -620,9 +628,11 @@ For more information refer to the following publications:
 %{_sbindir}/zipl-switch-to-blscfg
 %{_sbindir}/znetconf
 %{_sbindir}/zpcictl
+%{_bindir}/cpacfinfo
 %{_bindir}/dump2tar
 %{_bindir}/genprotimg
 %{_bindir}/pvapconfig
+%{_bindir}/pvimg
 %{_bindir}/mk-s390image
 %{_bindir}/pvattest
 %{_bindir}/pvextract-hdr
@@ -630,6 +640,7 @@ For more information refer to the following publications:
 %{_bindir}/zkey
 %{_bindir}/zkey-cryptsetup
 %{_unitdir}/dumpconf.service
+%{_unitdir}/opticsmon.service
 %ghost %config(noreplace) %{_sysconfdir}/zipl.conf
 %config(noreplace) %{_sysconfdir}/sysconfig/dumpconf
 %{_sysconfdir}/mdevctl.d/*
@@ -650,13 +661,19 @@ For more information refer to the following publications:
 %dir %{_libdir}/zkey
 %{_libdir}/zkey/zkey-ekmfweb.so
 %{_libdir}/zkey/zkey-kmip.so
+%{_mandir}/man1/cpacfinfo.1*
 %{_mandir}/man1/dump2tar.1*
 %{_mandir}/man1/genprotimg.1*
 %{_mandir}/man1/pvapconfig.1*
 %{_mandir}/man1/pvattest.1*
+%{_mandir}/man1/pvattest-check.1*
 %{_mandir}/man1/pvattest-create.1*
 %{_mandir}/man1/pvattest-perform.1*
 %{_mandir}/man1/pvattest-verify.1*
+%{_mandir}/man1/pvimg.1*
+%{_mandir}/man1/pvimg-create.1*
+%{_mandir}/man1/pvimg-info.1*
+%{_mandir}/man1/pvimg-test.1*
 %{_mandir}/man1/pvsecret-add.1*
 %{_mandir}/man1/pvsecret-create-association.1*
 %{_mandir}/man1/pvsecret-create-meta.1*
@@ -699,6 +716,7 @@ For more information refer to the following publications:
 %{_mandir}/man8/lstape.8*
 %{_mandir}/man8/lszcrypt.8*
 %{_mandir}/man8/lszfcp.8*
+%{_mandir}/man8/opticsmon.8*
 %{_mandir}/man8/pai.8*
 %{_mandir}/man8/qetharp.8*
 %{_mandir}/man8/qethconf.8*
@@ -738,7 +756,7 @@ BuildArch:      noarch
 
 %files se-data
 %dir %{_datadir}/s390-tools
-%{_datadir}/s390-tools/genprotimg/
+%{_datadir}/s390-tools/pvimg/
 
 #
 # *********************** s390-tools osasnmpd package  ***********************
@@ -1089,6 +1107,9 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Mon Feb 24 2025 Dan Horák <dan[at]danny.cz> - 2:2.36.0-1
+- rebased to 2.36.0 (rhbz#2330787)
+
 * Thu Feb 06 2025 Fabio Valentini <decathorpe@gmail.com> - 2:2.35.0-5
 - Rebuild for openssl crate >= v0.10.70 (RUSTSEC-2025-0004)
 

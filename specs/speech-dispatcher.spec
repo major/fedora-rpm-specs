@@ -5,8 +5,8 @@
 %endif
 
 Name:          speech-dispatcher
-Version:       0.11.5
-Release:       9%{?dist}
+Version:       0.12.0
+Release:       1%{?dist}
 Summary:       To provide a high-level device independent layer for speech synthesis
 
 # Almost all files are under GPL-2.0-or-later, however
@@ -18,8 +18,8 @@ Source0:       https://github.com/brailcom/speechd/releases/download/%{version}/
 Source1:       http://www.freebsoft.org/pub/projects/sound-icons/sound-icons-0.1.tar.gz
 
 Patch1:        0001-Remove-pyxdg-dependency.patch
-Patch2:        4ba45da405fe8dba5ed56725d20a388d6d0269a4.patch
-Patch3:        de9588a29ed6deda8ced1bab98abccebfe1ee788.patch
+#Patch2:        4ba45da405fe8dba5ed56725d20a388d6d0269a4.patch
+#Patch3:        de9588a29ed6deda8ced1bab98abccebfe1ee788.patch
 
 BuildRequires: alsa-lib-devel
 BuildRequires: desktop-file-utils
@@ -42,6 +42,7 @@ BuildRequires: python3-devel
 BuildRequires: python3-setuptools
 BuildRequires: systemd-rpm-macros
 BuildRequires: texinfo
+BuildRequires: systemd-devel
 
 Requires:      %{name}-espeak-ng%{?_isa} = %{version}-%{release}
 Requires(post): systemd
@@ -153,7 +154,8 @@ tar xf %{SOURCE1}
 	--with-kali=no --with-baratinoo=no --with-ibmtts=no --with-voxin=no \
 	--sysconfdir=%{_sysconfdir} --with-default-audio-method=pulse \
 	--with-module-bindir=%{_libdir}/speech-dispatcher-modules/ \
-	--with-systemdsystemunitdir=%{_unitdir}
+	--with-systemdsystemunitdir=%{_unitdir} \
+	--with-systemduserunitdir=%{_prefix}/lib/systemd/user/
 
 %make_build
 
@@ -219,17 +221,23 @@ rm %{buildroot}%{_libdir}/speech-dispatcher-modules/sd_festival
 %{_libdir}/speech-dispatcher-modules/sd_cicero
 %{_libdir}/speech-dispatcher-modules/sd_dummy
 %{_libdir}/speech-dispatcher-modules/sd_generic
+%{_libdir}/speech-dispatcher-modules/sd_openjtalk
+
 %dir %{_libdir}/speech-dispatcher
 %{_libdir}/speech-dispatcher/spd*.so
 %{_datadir}/sounds/speech-dispatcher
 %{_mandir}/man1/speech-dispatcher.1*
 %dir %attr(0700, root, root) %{_localstatedir}/log/speech-dispatcher/
 %{_unitdir}/speech-dispatcherd.service
+%{_prefix}/lib/systemd/user/speech-dispatcher.service
+%{_prefix}/lib/systemd/user/speech-dispatcher.socket
 
 %files libs
 %license COPYING.LGPL
 %{_libdir}/libspeechd.so.2
 %{_libdir}/libspeechd.so.2.6.0
+%{_libdir}/libspeechd_module.so.0
+%{_libdir}/libspeechd_module.so.0.0.0
 
 %files devel
 %{_includedir}/*
@@ -267,6 +275,9 @@ rm %{buildroot}%{_libdir}/speech-dispatcher-modules/sd_festival
 %{python3_sitearch}/speechd*
 
 %changelog
+* Mon Feb 24 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.12.0-1
+- 0.12.0
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

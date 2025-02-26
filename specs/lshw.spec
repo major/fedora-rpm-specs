@@ -5,7 +5,7 @@
 Summary:       Hardware lister
 Name:          lshw
 Version:       B.02.20
-Release:       5%{?dist}
+Release:       6%{?dist}
 License:       GPL-2.0-only
 URL:           http://ezix.org/project/wiki/HardwareLiSter
 Source0:       http://www.ezix.org/software/files/lshw-%{version}.tar.gz
@@ -62,7 +62,9 @@ format.
 %cmake_install
 %if %{with gui}
 install -m0644 -D %{SOURCE1} %{buildroot}%{_mandir}/man1/lshw-gui.1
+%if 0%{?fedora} < 42
 ln -s gtk-lshw %{buildroot}%{_sbindir}/lshw-gui
+%endif
 %endif
 # translations seems borken, remove for now
 #find_lang %{name}
@@ -91,7 +93,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata
 %license COPYING
 %{_bindir}/lshw-gui
 %{_sbindir}/gtk-lshw
+%if 0%{?fedora} < 42
 %{_sbindir}/lshw-gui
+%endif
 %{_mandir}/man1/lshw-gui.1*
 %dir %{_datadir}/lshw
 %{_datadir}/lshw/artwork
@@ -104,6 +108,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata
 %endif
 
 %changelog
+* Mon Feb 24 2025 Terje Rosten <terjeros@gmail.com> - B.02.20-6
+- Unbreak sbin merge
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - B.02.20-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

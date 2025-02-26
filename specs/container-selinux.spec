@@ -30,12 +30,12 @@ Name: container-selinux
 %if %{defined copr_build}
 Epoch: 102
 %else
-Epoch: 2
+Epoch: 4
 %endif
 # Keep Version in upstream specfile at 0. It will be automatically set
 # to the correct value by Packit for copr and koji builds.
 # IGNORE this comment if you're looking at it in dist-git.
-Version: 2.234.2
+Version: 2.235.0
 Release: %autorelease
 License: GPL-2.0-only
 URL: https://github.com/containers/%{name}

@@ -6,9 +6,7 @@ Summary:	Wayland forwarding proxy
 License:	MIT
 URL:		https://gitlab.freedesktop.org/mstoeckl/%{name}
 Source0:	https://gitlab.freedesktop.org/mstoeckl/%{name}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
-%if 0%{?rhel}
 Source1:	waypipe.1
-%endif
 
 BuildRequires:	gcc
 BuildRequires:	meson

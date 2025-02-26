@@ -27,9 +27,17 @@ Source1:    info.json
 # * Script used to obtain Source0: ./get_source %%{version}
 Source2:    get_source
 
+# Remove deprecated pytest-runner dependency
+# https://github.com/G-Node/nixpy/pull/547
+# Rebased on 1.5.4, without changes to GitHub CI configuration
+# https://fedoraproject.org/wiki/Changes/DeprecatePythonPytestRunner
+Patch:          0001-Remove-deprecated-pytest-runner-dependency.patch
+
 BuildArch:      noarch
 # No need for nix, they're uncoupling it from the C++
 # https://github.com/G-Node/nixpy/pull/276
+
+BuildRequires:  python3-devel
 
 %description
 The NIX project started as an initiative within the Electrophysiology Task
@@ -44,19 +52,12 @@ a storage backend.
 
 %package -n python3-nixio
 Summary:        %{summary}
-BuildRequires:  python3-devel
-# use tests_require which is deprecated
-BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist pytest-runner}
-BuildRequires:  %{py3_dist scipy}
-BuildRequires:  %{py3_dist pillow}
-BuildRequires:  %{py3_dist matplotlib}
 
 %description -n python3-nixio
 %{description}
 
 %prep
-%autosetup -n nixpy-%{version}
+%autosetup -n nixpy-%{version} -p1
 
 # it sets examples_path based on the name of the cwd
 sed -i "s/nixpy/nixpy-%{version}/" nixio/test/test_doc_examples.py
@@ -64,14 +65,14 @@ sed -i "s/nixpy/nixpy-%{version}/" nixio/test/test_doc_examples.py
 cp %{SOURCE1} nixio/info.json -v -p
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x test
 
 %build
 %pyproject_wheel
 
 %install
 %pyproject_install
-%pyproject_save_files nixio
+%pyproject_save_files -l nixio
 
 %check
 # These require the removed lenna.png sample file:

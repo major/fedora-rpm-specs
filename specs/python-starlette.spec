@@ -80,24 +80,7 @@ Summary:        %{summary}
 
 
 %check -a
-# E       trio.TrioDeprecationWarning: The `cancellable=` keyword argument to
-#         `trio.to_thread.run_sync` is deprecated since Trio 0.23.0; use
-#         `abandon_on_cancel=` instead
-#         (https://github.com/python-trio/trio/issues/2841)
-warningsfilter="${warningsfilter-} -W ignore::trio.TrioDeprecationWarning"
-# E           DeprecationWarning: 'asyncio.set_event_loop' is deprecated and
-#             slated for removal in Python 3.16
-# These generally come from anyio; the only way we can fix them is to update
-# the python-anyio package.
-warningsfilter="${warningsfilter-} -W ignore:'asyncio.set_event_loop':DeprecationWarning"
-
-# E       Failed: DID NOT WARN. No warnings of type (<class
-#         'DeprecationWarning'>, <class 'PendingDeprecationWarning'>) were
-#         emitted.
-# E       The list of emitted warnings is: [].
-k="${k-}${k+ and }not test_lifespan_with_on_events"
-
-%pytest ${warningsfilter-} -k "${k-}" -v
+%pytest -v
 
 
 %files -n python3-starlette -f %{pyproject_files}

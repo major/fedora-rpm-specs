@@ -1,13 +1,11 @@
 Name:           fennel
-Version:        1.5.1
+Version:        1.5.3
 Release:        %autorelease
 Summary:        A Lisp that compiles to Lua
 
 License:        MIT
 URL:            https://fennel-lang.org/
 Source:         https://git.sr.ht/~technomancy/fennel/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
-# https://lists.sr.ht/~technomancy/fennel/patches/54721
-Patch:          fennel-skip-irc-if-no-git.diff
 
 BuildArch:      noarch
 

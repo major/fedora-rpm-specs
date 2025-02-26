@@ -1,6 +1,6 @@
 Name:           openfortivpn
-Version:        1.22.0
-Release:        4%{?dist}
+Version:        1.23.1
+Release:        1%{?dist}
 Summary:        Client for PPP+SSL VPN tunnel services
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -47,6 +47,9 @@ make %{?_smp_mflags} V=1
 
 
 %changelog
+* Mon Feb 24 2025 Adrien Vergé - 1.23.1-1
+- Update to latest upstream version
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
@@ -65,16 +68,16 @@ make %{?_smp_mflags} V=1
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.21.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
-* Mon Nov 13 2023 Adrien Vergé <adrienverge@gmail.com> - 1.21.0-2
+* Mon Nov 13 2023 Adrien Vergé - 1.21.0-2
 - Add configure options for built-in resolvconf support, see https://github.com/adrienverge/openfortivpn/issues/1141#issuecomment-1806834236
 
-* Mon Nov 13 2023 Adrien Vergé <adrienverge@gmail.com> - 1.21.0-1
+* Mon Nov 13 2023 Adrien Vergé - 1.21.0-1
 - Update to latest upstream version
 
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
-* Thu Jan 26 2023 Adrien Vergé <adrienverge@gmail.com> - 1.19.0-1
+* Thu Jan 26 2023 Adrien Vergé - 1.19.0-1
 - Update to latest upstream version
 
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-6
@@ -89,10 +92,10 @@ make %{?_smp_mflags} V=1
 * Tue Sep 14 2021 Sahana Prasad <sahana@redhat.com> - 1.17.0-3
 - Rebuilt with OpenSSL 3.0.0
 
-* Sat Aug 21 2021 Adrien Vergé <adrienverge@gmail.com> - 1.17.0-2
+* Sat Aug 21 2021 Adrien Vergé - 1.17.0-2
 - Re-enable resolvconf, fixes https://bugzilla.redhat.com/show_bug.cgi?id=1983017
 
-* Sat Aug 21 2021 Adrien Vergé <adrienverge@gmail.com> - 1.17.0-1
+* Sat Aug 21 2021 Adrien Vergé - 1.17.0-1
 - Update to latest upstream version
 
 * Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.1-5
@@ -108,7 +111,7 @@ make %{?_smp_mflags} V=1
 * Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
 
-* Mon Jun 01 2020 Adrien Vergé <adrienverge@gmail.com> - 1.14.1-1
+* Mon Jun 01 2020 Adrien Vergé - 1.14.1-1
 - Update to latest upstream version
 - Switch build requirements xyz-devel to pkgconfig(xyz)
 - Add missing LICENSE.OpenSSL license file
@@ -118,16 +121,16 @@ make %{?_smp_mflags} V=1
 - Update to latest upstream version
 - Re-enable systemd
 
-* Mon Mar 23 2020 Adrien Vergé <adrienverge@gmail.com> - 1.13.1-1
+* Mon Mar 23 2020 Adrien Vergé - 1.13.1-1
 - Update to latest upstream version
 
-* Wed Feb 26 2020 Adrien Vergé <adrienverge@gmail.com> - 1.12.0-1
+* Wed Feb 26 2020 Adrien Vergé - 1.12.0-1
 - Update to latest upstream version
 
 * Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
-* Thu Nov 28 2019 Adrien Vergé <adrienverge@gmail.com> - 1.11.0-1
+* Thu Nov 28 2019 Adrien Vergé - 1.11.0-1
 - Update to latest upstream version
 
 * Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-2
@@ -148,16 +151,16 @@ make %{?_smp_mflags} V=1
 * Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
 
-* Sun Dec 16 2018 Adrien Vergé <adrienverge@gmail.com> - 1.8.1-1
+* Sun Dec 16 2018 Adrien Vergé - 1.8.1-1
 - Update to latest upstream version
 
-* Tue Dec 11 2018 Adrien Vergé <adrienverge@gmail.com> - 1.8.0-1
+* Tue Dec 11 2018 Adrien Vergé - 1.8.0-1
 - Update to latest upstream version
 
 * Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
-* Wed Feb 21 2018 Adrien Vergé <adrienverge@gmail.com> - 1.6.0-2
+* Wed Feb 21 2018 Adrien Vergé - 1.6.0-2
 - Add gcc to BuildRequires
 
 * Wed Feb 21 2018 Lubomir Rintel <lkundrak@v3.sk> - 1.6.0-1
@@ -175,25 +178,25 @@ make %{?_smp_mflags} V=1
 * Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
-* Tue Feb 7 2017 Adrien Vergé <adrienverge@gmail.com> - 1.3.0-2
+* Tue Feb 7 2017 Adrien Vergé - 1.3.0-2
 - Fix compiler error, see https://github.com/adrienverge/openfortivpn/issues/81
 
-* Tue Feb 7 2017 Adrien Vergé <adrienverge@gmail.com> - 1.3.0-1
+* Tue Feb 7 2017 Adrien Vergé - 1.3.0-1
 - Update to latest upstream version
 
-* Thu Sep 29 2016 Adrien Vergé <adrienverge@gmail.com> - 1.2.0-1
+* Thu Sep 29 2016 Adrien Vergé - 1.2.0-1
 - Update to latest upstream version
 
-* Sun Feb 14 2016 Adrien Vergé <adrienverge@gmail.com> - 1.1.4-1
+* Sun Feb 14 2016 Adrien Vergé - 1.1.4-1
 - Update to latest upstream version
 
 * Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
-* Sat Dec 26 2015 Adrien Vergé <adrienverge@gmail.com> - 1.1.3-1
+* Sat Dec 26 2015 Adrien Vergé - 1.1.3-1
 - Update to latest upstream version
 
-* Sat Dec 05 2015 Adrien Vergé <adrienverge@gmail.com> - 1.1.2-1
+* Sat Dec 05 2015 Adrien Vergé - 1.1.2-1
 - Update to latest upstream version
 
 * Mon Oct 05 2015 Lubomir Rintel <lkundrak@v3.sk> - 1.1.0-1

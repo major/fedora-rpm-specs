@@ -4,7 +4,7 @@
 %global debug_package %{nil}
 
 # Project sub name
-%global pname trusted-firmware-a
+%global pname trusted-firmware-a-lts
 
 # This is a noarch package that can be built on any host architecture.
 # The default configuration is to allow building only on aarch64 via
@@ -13,12 +13,12 @@
 %bcond_with cross
 
 Name:    arm-trusted-firmware
-Version: 2.12.0
-Release: 4%{?candidate:.%{candidate}}%{?dist}
+Version: 2.12.1
+Release: 1%{?candidate:.%{candidate}}%{?dist}
 Summary: ARM Trusted Firmware
 License: BSD-3-clause
 URL:     https://github.com/TrustedFirmware-A/trusted-firmware-a
-Source0: %{url}/archive/v%{version}%{?candidate:-%{candidate}}.tar.gz#/%{pname}-%{version}%{?candidate:-%{candidate}}.tar.gz
+Source0: %{url}/archive/v%{version}%{?candidate:-%{candidate}}.tar.gz#/%{pname}-v%{version}%{?candidate:-%{candidate}}.tar.gz
 Source1: aarch64-bl31
 Patch1:  rk356x-scmi-clk-reset.patch
 # https://review.trustedfirmware.org/c/TF-A/trusted-firmware-a/+/34306
@@ -63,7 +63,7 @@ such as u-boot. As such the binaries aren't of general interest to users.
 %endif
 
 %prep
-%autosetup -n %{pname}-%{version}%{?candidate:-%{candidate}} -p1
+%autosetup -n %{pname}-v%{version}%{?candidate:-%{candidate}} -p1
 
 cp %SOURCE1 .
 
@@ -138,6 +138,9 @@ done
 %endif
 
 %changelog
+* Mon Feb 24 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.12.1-1
+- Update to 2.12.1
+
 * Thu Jan 30 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.12.0-4
 - Enable Xilinx ZYNQMP and Versal platforms
 

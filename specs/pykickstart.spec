@@ -4,7 +4,7 @@
 %bcond_with signed
 
 Name:      pykickstart
-Version:   3.62
+Version:   3.63
 Release:   1%{?dist}
 License:   GPL-2.0-only
 Summary:   Python utilities for manipulating kickstart files.
@@ -75,6 +75,15 @@ LC_ALL=C make PYTHON=%{__python3} test-no-coverage
 %{python3_sitelib}/pykickstart*.egg-info
 
 %changelog
+* Mon Feb 24 2025 Brian C. Lane <bcl@redhat.com> - 3.63-1
+- Do not remove "md" prefix from RAID names (vtrefny)
+- Add Fedora 43 support (bcl)
+- workflows: Switch to ubuntu-latest (bcl)
+- Update formatting of certificate section documentation (rvykydal)
+- Update %certificate documentation with not about bundles (rvykydal)
+- Fix formatting of %certificate documentation example (rvykydal)
+- Update %certificate section documentation (rvykydal)
+
 * Wed Jan 29 2025 Brian C. Lane <bcl@redhat.com> - 3.62-1
 - Make %%certificate section option --dir mandatory. (rvykydal)
   Resolves: rhbz#2342762
