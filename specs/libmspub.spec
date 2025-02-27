@@ -10,6 +10,7 @@ URL: http://wiki.documentfoundation.org/DLP/Libraries/libmspub
 Source: http://dev-www.libreoffice.org/src/%{name}/%{name}-%{version}.tar.xz
 
 Patch0: gcc10.patch
+Patch1: includes.patch
 
 BuildRequires: boost-devel
 BuildRequires: doxygen

@@ -6,7 +6,7 @@
 %global crate native-tls
 
 Name:           rust-native-tls
-Version:        0.2.13
+Version:        0.2.14
 Release:        %autorelease
 Summary:        Wrapper over a platform's native TLS implementation
 

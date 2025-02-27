@@ -1,22 +1,22 @@
 # remirepo/fedora spec file for php-mock-integration2
 #
-# Copyright (c) 2016-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2016-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    ec6a00a8129d50ed0f07907c91e3274ca4ade877
+%global gh_commit    0ea2fb4b69598eed8a300271f8e8117b143c7b2c
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2024-02-10
+%global gh_date      2025-02-25
 %global gh_owner     php-mock
 %global gh_project   php-mock-integration
 %global with_tests   0%{!?_without_tests:1}
 %global major        2
 
 Name:           php-mock-integration%{major}
-Version:        2.3.0
-Release:        3%{?dist}
+Version:        2.4.0
+Release:        1%{?dist}
 Summary:        Integration package for PHP-Mock
 
 License:        WTFPL
@@ -28,12 +28,15 @@ BuildArch:      noarch
 BuildRequires:  php(language) >= 7.4
 %if %{with_tests}
 # from composer.json, "require-dev": {
-#        "phpunit/phpunit": "^5.7.27 || ^6 || ^7 || ^8 || ^9 || ^10 || ^11"
+#        "phpunit/phpunit": "^5.7.27 || ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12"
 BuildRequires: (php-composer(php-mock/php-mock)         >= 2.5 with php-composer(php-mock/php-mock)         < 3)
 BuildRequires: phpunit8
 BuildRequires: phpunit9
 BuildRequires: phpunit10
-# TODO phpunit11 but requires php 8.2
+%if 0%{?fedora} || 0%{?rhel} >= 10
+BuildRequires: phpunit11
+BuildRequires: phpunit12
+%endif
 %endif
 # For autoloader
 BuildRequires: php-composer(fedora/autoloader)
@@ -41,10 +44,10 @@ BuildRequires: php-composer(fedora/autoloader)
 # from composer.json, "require": {
 #        "php": ">=5.6",
 #        "php-mock/php-mock": "^2.5",
-#        "phpunit/php-text-template": "^1 || ^2|| ^3 || ^4"
+#        "phpunit/php-text-template": "^1 || ^2|| ^3 || ^4 || ^5"
 Requires:       php(language) >= 5.6
 Requires:      (php-composer(php-mock/php-mock)         >= 2.5 with php-composer(php-mock/php-mock)         < 3)
-Requires:      (php-composer(phpunit/php-text-template) >= 1   with php-composer(phpunit/php-text-template) < 5)
+Requires:      (php-composer(phpunit/php-text-template) >= 1   with php-composer(phpunit/php-text-template) < 6)
 # From phpcompatinfo report from version 2.0.0
 # only core and standard
 
@@ -85,7 +88,7 @@ EOF
 
 ret=0
 if [ -x %{_bindir}/phpunit8 ]; then
-  for cmd in php php80 php81 php82;do
+  for cmd in php php80 php81 php82 php83 php84;do
     if which $cmd; then
       $cmd %{_bindir}/phpunit8 --verbose || ret=1
     fi
@@ -93,7 +96,7 @@ if [ -x %{_bindir}/phpunit8 ]; then
 fi
 
 if [ -x %{_bindir}/phpunit9 ]; then
-  for cmd in php php80 php81 php82 php83;do
+  for cmd in php php80 php81 php82 php83 php84;do
     if which $cmd; then
       $cmd %{_bindir}/phpunit9 --verbose || ret=1
     fi
@@ -101,7 +104,7 @@ if [ -x %{_bindir}/phpunit9 ]; then
 fi
 
 if [ -x %{_bindir}/phpunit10 ]; then
-  for cmd in php php81 php82php83;do
+  for cmd in php php81 php82 php83 php84;do
     if which $cmd; then
       $cmd %{_bindir}/phpunit10 || ret=1
     fi
@@ -109,7 +112,15 @@ if [ -x %{_bindir}/phpunit10 ]; then
 fi
 
 if [ -x %{_bindir}/phpunit11 ]; then
-  for cmd in php php82 php83;do
+  for cmd in php php82 php83 php84;do
+    if which $cmd; then
+      $cmd %{_bindir}/phpunit10 || ret=1
+    fi
+  done
+fi
+
+if [ -x %{_bindir}/phpunit12 ]; then
+  for cmd in php php83 php84;do
     if which $cmd; then
       $cmd %{_bindir}/phpunit10 || ret=1
     fi
@@ -129,6 +140,10 @@ exit $ret
 
 
 %changelog
+* Tue Feb 25 2025 Remi Collet <remi@remirepo.net> - 2.4.0-1
+- update to 2.4.0
+- re-license spec file to CECILL-2.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

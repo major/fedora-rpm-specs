@@ -6,7 +6,7 @@
 %global crate rand_distr
 
 Name:           rust-rand_distr
-Version:        0.5.0
+Version:        0.5.1
 Release:        %autorelease
 Summary:        Sampling from random number distributions
 

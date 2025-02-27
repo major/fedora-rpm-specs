@@ -12,7 +12,7 @@ Version:                3.0.5
 Backend to talk to YubiHSM 2}
 
 Name:           yubihsm-connector
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        YubiHSM Connector
 
 # Upstream license specification: Apache-2.0
@@ -32,7 +32,6 @@ Source3:        %{name}-vendor-%{version}.tar.gz
 %endif
 
 %{?systemd_requires}
-Requires(pre):  shadow-utils
 BuildRequires:  compiler(go-compiler)
 BuildRequires:  systemd-rpm-macros
 #BuildRequires:  git
@@ -70,6 +69,11 @@ mkdir -p %{_builddir}/%{name}-%{version}/_build
 mv %{_builddir}/src %{_builddir}/%{name}-%{version}/_build/src
 %endif
 
+# Create a sysusers.d config file
+cat >yubihsm-connector.sysusers.conf <<EOF
+u yubihsm-connector - 'YubiHSM connector account' - -
+EOF
+
 %build
 export GO111MODULE=off
 %if 0%{?fedora}
@@ -93,6 +97,8 @@ install -Dpm 0644  deb/yubihsm-connector.yaml %{buildroot}%{_sysconfdir}/yubihsm
 install -Dpm 0644  deb/yubihsm-connector.service %{buildroot}%{_unitdir}/yubihsm-connector.service
 install -Dpm 0644  deb/70-yubihsm-connector.rules %{buildroot}%{_udevrulesdir}/70-yubihsm-connector.rules
 
+install -m0644 -D yubihsm-connector.sysusers.conf %{buildroot}%{_sysusersdir}/yubihsm-connector.conf
+
 %if %{with check}
 %check
 %if 0%{?fedora}
@@ -105,13 +111,6 @@ go test -v
 %endif
 %endif
 
-%pre
-getent group yubihsm-connector >/dev/null || groupadd -r yubihsm-connector
-getent passwd yubihsm-connector >/dev/null || \
-    useradd -r -g yubihsm-connector -M -s /sbin/nologin \
-    -c "YubiHSM connector account" yubihsm-connector \
-    --system
-exit 0
 
 %post
 %systemd_post yubihsm-connector.service
@@ -128,8 +127,12 @@ exit 0
 %config(noreplace) %{_sysconfdir}/yubihsm-connector.yaml
 %{_unitdir}/yubihsm-connector.service
 %{_udevrulesdir}/70-yubihsm-connector.rules
+%{_sysusersdir}/yubihsm-connector.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.0.5-8
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -7,6 +7,9 @@ Summary:        Low-level, pure Python DBus protocol wrapper
 License:        MIT
 URL:            https://gitlab.com/takluyver/jeepney
 Source0:        %pypi_source
+# https://bugzilla.redhat.com/show_bug.cgi?id=2327982
+# https://gitlab.com/takluyver/jeepney/-/issues/33
+Patch0:         python3.14.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -36,7 +39,7 @@ and integration modules for different event loops.
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p 1
 
 %generate_buildrequires
 %pyproject_buildrequires

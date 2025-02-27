@@ -141,11 +141,6 @@ BuildRequires:  ocaml-ocamldoc
 BuildRequires:  pkgconfig(tcl)
 BuildRequires:  pkgconfig(lua)
 %endif
-# Only needed until the following bug gets fixed in boost:
-# https://bugzilla.redhat.com/show_bug.cgi?id=2297642
-%if 0%{?fedora} >= 41
-BuildRequires:  openssl-devel-engine
-%endif
 %if 0%{verify_tarball_signature}
 BuildRequires:  gnupg2
 %endif

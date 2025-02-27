@@ -506,8 +506,10 @@ echo "ac_add_options --enable-linker=gold" >> .mozconfig
 # __global_ldflags that normally sets this.
 MOZ_LINK_FLAGS="$MOZ_LINK_FLAGS -L%{_libdir}"
 %endif
-%ifarch %{arm} %{ix86} %{s390x}
-RUSTFLAGS=`echo $RUSTFLAGS | sed -e 's/opt-level=3/opt-level=2/' -e 's/debuginfo=2/debuginfo=0/'`
+
+%ifarch %{arm} %{ix86} s390x
+RUSTFLAGS=`echo $RUSTFLAGS | sed -e 's/opt-level=3/opt-level=2/g' -e 's/debuginfo=2/debuginfo=0/g'`
+export RUSTFLAGS=$RUSTFLAGS
 %endif
 # We don't want thunderbird to use CK_GCM_PARAMS_V3 in nss
 MOZ_OPT_FLAGS="$MOZ_OPT_FLAGS -DNSS_PKCS11_3_0_STRICT"
@@ -515,6 +517,7 @@ MOZ_OPT_FLAGS="$MOZ_OPT_FLAGS -DNSS_PKCS11_3_0_STRICT"
 echo "export CFLAGS=\"$MOZ_OPT_FLAGS\"" >> .mozconfig
 echo "export CXXFLAGS=\"$MOZ_OPT_FLAGS\"" >> .mozconfig
 echo "export LDFLAGS=\"$MOZ_LINK_FLAGS\"" >> .mozconfig
+echo "export RUSTFLAGS=\"$RUSTFLAGS\"" >> .mozconfig
 
 %if "%toolchain" == "clang"
 echo "export LLVM_PROFDATA=\"llvm-profdata\"" >> .mozconfig

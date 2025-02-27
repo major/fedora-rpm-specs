@@ -1,7 +1,7 @@
 Summary: 3D multi-player tank battle game
 Name: bzflag
-Version: 2.4.26
-Release: 8%{?dist}
+Version: 2.4.28
+Release: 1%{?dist}
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2
 URL: http://bzflag.org
@@ -151,6 +151,9 @@ install -D -m0644 bzflag.sysusers.conf %{buildroot}%{_sysusersdir}/bzflag.conf
 %{_datadir}/bzflag/maps/*
 
 %changelog
+* Tue Feb 25 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.4.28-1
+- 2.4.28
+
 * Thu Jan 23 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.4.26-8
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

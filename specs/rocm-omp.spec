@@ -21,7 +21,7 @@
 
 Name:           rocm-omp
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm OpenMP
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -33,7 +33,9 @@ Patch3:         0001-Remove-err_drv_duplicate_config-check.patch
 BuildRequires:  binutils-devel
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
+%if 0%{?fedora} || 0%{?suse_version}
 BuildRequires:  fdupes
+%endif
 BuildRequires:  libffi-devel
 BuildRequires:  libzstd-devel
 BuildRequires:  perl
@@ -170,8 +172,10 @@ cd openmp
 cd openmp
 %cmake_install
 
-# Clean up dupes:
+#Clean up dupes:
+%if 0%{?fedora} || 0%{?suse_version}
 %fdupes %{buildroot}%{_prefix}
+%endif
 
 if [ -d %{buildroot}%{bundle_prefix}/lib/omptest ]; then
     rm -rf %{buildroot}%{bundle_prefix}/lib/omptest
@@ -198,6 +202,9 @@ fi
 %{bundle_prefix}/lib/libomptarget.devicertl.a
 
 %changelog
+* Tue Feb 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-2
+- Disable fdupes on RHEL
+
 * Wed Jan 29 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-1
 - Update to 6.3.2
 

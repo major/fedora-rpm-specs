@@ -3,13 +3,14 @@
 
 Name: pwkickstart
 Version: %{gittag}
-Release: 17%{?dist}
+Release: 18%{?dist}
 Summary: Helps to generate kickstart passwords
 License: MIT
 URL: https://github.com/lzap/pwkickstart
 Source0: https://github.com/lzap/%{name}/archive/%{gittag}.tar.gz
 
 Requires:	python3
+Requires:	python3-crypt-r
 
 BuildRequires:	txt2man
 
@@ -32,6 +33,9 @@ install -m 644 -D %{name}.1 %{buildroot}/%{_mandir}/man1/%{name}.1
 %license LICENSE
 
 %changelog
+* Tue Feb 25 2025 Lukáš Zapletal <lzap+rpm@redhat.com> - 1.0.3-18
+- Added python3-crypt-r dependency
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

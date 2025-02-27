@@ -8,6 +8,7 @@ Summary: An ODF generator library
 License: LGPL-2.1-or-later OR MPL-2.0
 URL: https://sourceforge.net/p/libwpd/wiki/libodfgen/
 Source: http://downloads.sourceforge.net/libwpd/%{name}-%{version}.tar.xz
+Patch0: includes.patch
 
 BuildRequires: doxygen
 BuildRequires: gcc-c++

@@ -41,7 +41,7 @@
 
 Name:           wine
 Version:        10.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A compatibility layer for windows applications
 
 License:        LGPL-2.1-or-later
@@ -1001,12 +1001,12 @@ rm -f %{_libdir}/wine/%{winepedir}/d3d8.dll
 rm -f %{_bindir}/wine-preloader
 %ifarch x86_64 aarch64
 %{_sbindir}/alternatives --install %{_bindir}/wine \
-  wine %{_bindir}/wine64 10
+  wine %{_bindir}/wine64 20
 %{_sbindir}/alternatives --install %{_bindir}/wineserver \
   wineserver %{_bindir}/wineserver64 20
 %else
 %{_sbindir}/alternatives --install %{_bindir}/wine \
-  wine %{_bindir}/wine32 20
+  wine %{_bindir}/wine32 10
 %{_sbindir}/alternatives --install %{_bindir}/wineserver \
   wineserver %{_bindir}/wineserver32 10
 %endif
@@ -2852,6 +2852,9 @@ fi
 %endif
 
 %changelog
+* Tue Feb 25 2025 Michael Cronenworth <mike@cchtml.com> - 10.2-2
+- Change x86_64 default alternatives from wine32 to wine64
+
 * Mon Feb 24 2025 Michael Cronenworth <mike@cchtml.com> - 10.2-1
 - version update
 

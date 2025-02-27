@@ -5,7 +5,7 @@
 %global crate log
 
 Name:           rust-log
-Version:        0.4.25
+Version:        0.4.26
 Release:        %autorelease
 Summary:        Lightweight logging facade for Rust
 

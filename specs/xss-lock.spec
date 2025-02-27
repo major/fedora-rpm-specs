@@ -11,7 +11,6 @@ Version:	0.3.0^20140302git1e158fb20108
 Release:	%autorelease
 Summary:	Use external locker as X screen saver
 
-#Group:		
 License:	MIT
 Url:		https://bitbucket.org/raymonad/xss-lock
 Source0:	https://bitbucket.org/raymonad/%{name}/get/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz

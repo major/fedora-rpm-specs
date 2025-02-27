@@ -5,7 +5,7 @@
 %global crate string_cache_codegen
 
 Name:           rust-string_cache_codegen
-Version:        0.5.3
+Version:        0.5.4
 Release:        %autorelease
 Summary:        Codegen library for string-cache, developed as part of the Servo project
 

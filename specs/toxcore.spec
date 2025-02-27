@@ -6,7 +6,7 @@ security and privacy easy to obtain for regular users. It uses NaCl
 for its encryption and authentication.}
 
 Name:           toxcore
-Version:        0.2.19
+Version:        0.2.20
 Release:        %autorelease
 Summary:        Peer to peer instant messenger
 
@@ -25,11 +25,11 @@ BuildRequires:  pkgconfig(vpx)
 
 %description %{common_description}
 
-%package devel
+%package        devel
 Summary:        Development files for Toxcore
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
-%description devel
+%description    devel
 %{common_description}
 
 This package contains Toxcore development files.

@@ -1,6 +1,6 @@
 Name:          gpsbabel
-Version:       1.9.0
-Release:       8%{?dist}
+Version:       1.10.0
+Release:       1%{?dist}
 Summary:       A tool to convert between various formats used by GPS devices
 
 License:       GPL-2.0-or-later
@@ -11,7 +11,9 @@ Source0:       gpsbabel-%{version}.tar.gz
 Source2:       %{name}.png
 
 # No automatic phone home by default (RHBZ 668865)
-Patch2:        0002-No-solicitation.patch
+Patch1: 0001-No-solicitation.patch
+# Upstream patch
+Patch2: 0002-add-cmake-option-upgrade-chk-and-stats-reporting.patch
 
 BuildRequires: libusb1-devel
 BuildRequires: zlib-devel
@@ -19,14 +21,17 @@ BuildRequires: desktop-file-utils
 BuildRequires: shapelib-devel
 BuildRequires: cmake
 
-BuildRequires: qt5-qtbase-devel
-BuildRequires: qt5-qtserialport-devel
-%ifarch %{qt5_qtwebengine_arches}
-# HACK: Don't build GUI on archs not supported by qtwebengine
+BuildRequires: qt6-qtbase-devel
+BuildRequires: qt6-qtserialport-devel
+## FIXME: Why isn't qt6-linguist enough and qt6-qttools-devel required?
+BuildRequires: qt6-qttools-devel
+BuildRequires: qt6-qt5compat-devel
+%ifarch %{qt6_qtwebengine_arches}
+## HACK: Don't build GUI on archs not supported by qtwebengine
 %global build_gui 1
-BuildRequires: qt5-qtwebchannel-devel
-BuildRequires: qt5-qtwebengine-devel
-BuildRequires: qt5-qttranslations
+BuildRequires: qt6-qtwebchannel-devel
+BuildRequires: qt6-qtwebengine-devel
+BuildRequires: qt6-qttranslations
 %endif
 
 %description
@@ -38,9 +43,9 @@ to another.
 Summary:        Qt GUI interface for GPSBabel
 License:        GPL-2.0-or-later
 Requires:       %{name} = %{version}-%{release}
-# pull-in qt5 standard translations.
+# pull-in qt6 standard translations.
 # Otherwise items such as "Close", "Open" won't be translated
-Requires:       qt5-qttranslations
+Requires:       qt6-qttranslations
 
 %description gui
 Qt GUI interface for GPSBabel
@@ -48,11 +53,12 @@ Qt GUI interface for GPSBabel
 
 %prep
 %setup -q -n %{name}-%{version}
-
-%patch -P 2 -p1
+%patch -P1 -p1
+%patch -P2 -p1
 
 %build
 %cmake \
+  -DGPSBABEL_UPGRADE_CHECK=false \
   -DGPSBABEL_WITH_LIBUSB=pkgconfig \
   -DGPSBABEL_WITH_ZLIB=pkgconfig \
   -DGPSBABEL_WITH_SHAPELIB=pkgconfig \
@@ -98,6 +104,10 @@ install -m 0644 -p %{SOURCE2} %{buildroot}%{_datadir}/icons/hicolor/256x256/apps
 %endif
 
 %changelog
+* Wed Feb 26 2025 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.10.0-1
+- Upstream update.
+- Switch to qt6.
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

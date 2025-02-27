@@ -11,9 +11,29 @@ Summary:        Framework for managing and maintaining multi-language pre-commit
 License:        MIT
 URL:            https://pre-commit.com
 %global forgeurl https://github.com/pre-commit/pre-commit
-Source:         %{forgeurl}/archive/v%{version}/pre-commit-%{version}.tar.gz
+Source0:        %{forgeurl}/archive/v%{version}/pre-commit-%{version}.tar.gz
+
+# Man pages hand-written for Fedora in groff_man(7) format based on --help:
+Source100:       pre-commit.1
+Source101:       pre-commit-autoupdate.1
+Source102:       pre-commit-clean.1
+Source103:       pre-commit-gc.1
+Source104:       pre-commit-help.1
+Source105:       pre-commit-init-templatedir.1
+Source106:       pre-commit-install.1
+Source107:       pre-commit-install-hooks.1
+Source108:       pre-commit-migrate-config.1
+Source109:       pre-commit-run.1
+Source110:       pre-commit-sample-config.1
+Source111:       pre-commit-try-repo.1
+Source112:       pre-commit-uninstall.1
+Source113:       pre-commit-validate-config.1
+Source114:       pre-commit-validate-manifest.1
 
 BuildArch:      noarch
+
+# Much functionality relies on invoking git commands.
+Requires:       git-core
 
 BuildRequires:  git-core
 BuildRequires:  python3-devel
@@ -45,6 +65,11 @@ sed -r '/^(covdefaults|coverage)\b/d' requirements-dev.txt |
 %install
 %pyproject_install
 %pyproject_save_files -l pre_commit
+
+install -t %{buildroot}%{_mandir}/man1 -p -m 0644 -D \
+    %{SOURCE100} %{SOURCE101} %{SOURCE102} %{SOURCE103} %{SOURCE104} \
+    %{SOURCE105} %{SOURCE106} %{SOURCE107} %{SOURCE108} %{SOURCE109} \
+    %{SOURCE110} %{SOURCE111} %{SOURCE112} %{SOURCE113} %{SOURCE114}
 
 
 %check
@@ -80,6 +105,7 @@ k="${k-}${k+ and }not test_local_python_repo"
 %files -f %{pyproject_files}
 %doc README.md CHANGELOG.md CONTRIBUTING.md
 %{_bindir}/pre-commit
+%{_mandir}/man1/pre-commit*.1*
 
 
 %changelog

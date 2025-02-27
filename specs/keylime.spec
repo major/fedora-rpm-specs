@@ -62,7 +62,6 @@ License: MIT
 Conflicts: keylime < 6.3.0-3
 
 Requires(pre): python3-jinja2
-Requires(pre): shadow-utils
 Requires: procps-ng
 Requires: tpm2-tss
 Requires: openssl
@@ -243,9 +242,6 @@ EOF
 
 install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/%{name}.conf
 
-%pre base
-%sysusers_create_compat %{SOURCE1}
-exit 0
 
 %post base
 /usr/bin/keylime_upgrade_config --component ca --component logging >/dev/null

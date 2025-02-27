@@ -9,11 +9,29 @@
 
 Name:    GConf2
 Version: 3.2.6
-Release: 44%{?dist}
+Release: 45%{?dist}
 Summary: A process-transparent configuration system
-
-# Automatically converted from old format: LGPLv2+ and GPLv2+ - review is highly recommended.
-License: LicenseRef-Callaway-LGPLv2+ AND GPL-2.0-or-later
+# COPYING:                                  GPL-2.0 text
+# defaults/gconf-defaults-main.c:           GPL-2.0-or-later
+# gsettings/gconfsettingsbackend-module.c:  LGPL-2.0-or-later
+## Used at built-time but not in any binary package
+# aclocal.m4:                   FSFULLRWD AND FSFULLR AND
+#                               GPL-2.0-or-later WITH Libtool-exception AND
+#                               GPL-2.0-or-later WITH Autoconf-exception-generic AND
+#                               GPL-1.0-or-later WITH Autoconf-exception-generic
+# config.guess:                 GPL-3.0-or-later WITH Autoconf-exception-generic-3.0
+# config.sub:                   GPL-3.0-or-later WITH Autoconf-exception-generic-3.0
+# configure:                    FSFUL AND GPL-2.0-or-later WITH Libtool-exception
+# depcomp:                      GPL-2.0-or-later WITH Autoconf-exception-generic
+# gsettings/Makefile.in:        FSFULLRWD
+# install-sh:                   X11 AND LicenseRef-Fedora-Public-Domain
+# ltmain.sh:                    GPL-2.0-or-later WITH Libtool-exception
+# missing:                      GPL-2.0-or-later WITH Autoconf-exception-generic
+# po/Makefile.in.in:            "This file may be copied and used freely without restrictions."
+## Not used at all
+# INSTALL:                      FSFAP
+License: LGPL-2.0-or-later AND GPL-2.0-or-later
+SourceLicense: %{license} AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND GPL-2.0-or-later WITH Autoconf-exception-generic AND GPL-2.0-or-later WITH Libtool-exception AND GPL-1.0-or-later WITH Autoconf-exception-generic AND FSFULLRWD AND FSFULLR AND FSFUL AND FSFAP AND X11 AND LicenseRef-Fedora-Public-Domain
 URL:     https://gitlab.gnome.org/Archive/gconf/
 Source0: https://download.gnome.org/sources/GConf/3.2/GConf-%{version}.tar.xz
 Source1: macros.gconf2
@@ -107,7 +125,7 @@ mkdir -p %{buildroot}%{_datadir}/GConf/gsettings
 %{?ldconfig}
 
 if [ $1 -gt 1 ]; then
-    if ! fgrep -q gconf.xml.system %{_sysconfdir}/gconf/2/path; then
+    if ! grep -q -F gconf.xml.system %{_sysconfdir}/gconf/2/path; then
         sed -i -e 's@xml:readwrite:$(HOME)/.gconf@&\n\n# Location for system-wide settings.\nxml:readonly:/etc/gconf/gconf.xml.system@' %{_sysconfdir}/gconf/2/path
     fi
 fi
@@ -127,12 +145,12 @@ fi
 %{_bindir}/gconf-merge-tree
 %{_bindir}/gconftool-2
 %{_libexecdir}/gconfd-2
-%{_libdir}/*.so.*
+%{_libdir}/libgconf-2.so.4{,.*}
 %{_libdir}/GConf/2/*.so
 %dir %{_datadir}/sgml
 %{_datadir}/sgml/gconf
 %{_datadir}/GConf
-%{_mandir}/man1/*
+%{_mandir}/man1/gconftool-2.*
 %dir %{_libdir}/GConf
 %dir %{_libdir}/GConf/2
 %{_rpmconfigdir}/macros.d/macros.gconf2
@@ -147,14 +165,21 @@ fi
 %{_libdir}/girepository-1.0
 
 %files devel
-%{_libdir}/*.so
+%{_libdir}/libgconf-2.so
 %{_includedir}/gconf
-%{_datadir}/aclocal/*.m4
+%{_datadir}/aclocal/gconf-2.m4
+%dir %{_datadir}/gtk-doc
+%dir %{_datadir}/gtk-doc/html
 %{_datadir}/gtk-doc/html/gconf
-%{_libdir}/pkgconfig/*
-%{_datadir}/gir-1.0
+%{_libdir}/pkgconfig/gconf-2.0.pc
+%dir %{_datadir}/gir-1.0
+%{_datadir}/gir-1.0/GConf-2.0.gir
 
 %changelog
+* Tue Feb 25 2025 Petr Pisar <ppisar@redhat.com> - 3.2.6-45
+- Correct a license to "LGPL-2.0-or-later AND GPL-2.0-or-later"
+- Correct directories ownership
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.6-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
@@ -181,7 +206,7 @@ fi
 
 * Tue Aug 02 2022 Michael Catanzaro <mcatanzaro@redhat.com> - 3.2.6-36
 - Remove GIO GSettings backend, GLib should not load obsolete extensions
-- Move build stuff from %prep to %build
+- Move build stuff from %%prep to %%build
 
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.6-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild

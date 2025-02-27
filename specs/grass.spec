@@ -2,8 +2,8 @@
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
 Name:		grass
-Version:	8.4.0
-Release:	6%{?dist}
+Version:	8.4.1
+Release:	1%{?dist}
 Summary:	GRASS GIS - Geographic Resources Analysis Support System
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -97,11 +97,6 @@ Requires:	geos
 Requires:	libzstd
 Requires:	PDAL
 Requires:	PDAL-libs
-# fedora >= 34 or RHEL > 9: Nothing
-%if ( (0%{?rhel} > 7 && 0%{?rhel} < 10) || 0%{?fedora} < 34)
-Requires:	proj-datumgrid
-Requires:	proj-datumgrid-world
-%endif
 Requires:	python3
 %if 0%{?rhel} == 7
 # EPEL7
@@ -340,6 +335,12 @@ fi
 %{_libdir}/%{name}%{shortver}/include
 
 %changelog
+* Mon Feb 24 2025 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 8.4.1-1
+- Update to 8.4.1 (#2347356)
+
+* Sat Feb 22 2025 Markus Neteler <neteler@mundialis.de> - 8.4.0-7
+- drop outdated proj-datumgrid condition
+
 * Mon Feb 10 2025 Markus Neteler <neteler@mundialis.de> - 8.4.0-6
 - EPEL10: fix proj-datumgrid condition
 

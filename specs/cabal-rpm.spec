@@ -34,6 +34,7 @@ BuildRequires:  ghc-filepath-devel
 BuildRequires:  ghc-http-client-devel
 BuildRequires:  ghc-http-client-tls-devel
 BuildRequires:  ghc-http-query-devel
+BuildRequires:  ghc-safe-devel
 BuildRequires:  ghc-simple-cabal-devel
 BuildRequires:  ghc-simple-cmd-devel
 BuildRequires:  ghc-simple-cmd-args-devel

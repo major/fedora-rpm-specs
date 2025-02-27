@@ -25,6 +25,9 @@ BuildRequires:  python3dist(twisted)
 %endif
 
 Patch:          disable-pip-in-tox.patch
+# Fix doc build with Sphinx 8.
+# https://github.com/twisted/constantly/pull/46
+Patch:          fix-build-sphinx-8.patch
 
 
 %description %{common_description}

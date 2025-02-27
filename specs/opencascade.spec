@@ -5,7 +5,7 @@
 
 Name:           opencascade
 Version:        7.8.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        SDK intended for development of applications dealing with 3D CAD data
 
 # https://dev.opencascade.org/resources/licensing
@@ -21,11 +21,10 @@ Source5:        occ-64.png
 Source6:        occ-48.png
 
 Patch0:         occt-config.patch
-# Support VTK 9.2 - mainly moving X11 headers after vtk ones
-# https://tracker.dev.opencascade.org/view.php?id=33164
-# https://gitlab.kitware.com/vtk/vtk/-/issues/18683
-#Patch1:         opencascade-vtk.patch
 Patch1:         occt-invalid_conversion.patch
+# OCCT imports too many vtk components
+# https://github.com/Open-Cascade-SAS/OCCT/issues/387
+Patch2:         occt-vtk.patch
 
 
 # Utilities
@@ -334,6 +333,9 @@ sed -i "s/\\\\\${OCCT_INSTALL_BIN_LETTER}//g" %{buildroot}%{_libdir}/cmake/openc
 
 
 %changelog
+* Tue Feb 25 2025 Orion Poplawski <orion@nwra.com> - 7.8.1-5
+- Add patck to fix build with vtk 9.3
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.8.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

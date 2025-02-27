@@ -1,6 +1,6 @@
 Name:           sigil
 Version:        2.4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        WYSIWYG ebook editor
 # Automatically converted from old format: GPL-3.0-or-later AND Apache-2.0 - review is highly recommended.
 License:        GPL-3.0-or-later AND Apache-2.0
@@ -39,7 +39,7 @@ BuildRequires:  libappstream-glib
 
 # For the plugins
 Requires:       python3-pillow python3-cssselect python3-cssutils
-Requires:       python3-html5lib python3-lxml python3-qt5
+Requires:       python3-html5lib python3-lxml python3-pyside6
 Requires:       python3-regex python3-chardet python3-six
 Requires:       hicolor-icon-theme
 Recommends:     FlightCrew-sigil-plugin
@@ -47,7 +47,7 @@ Recommends:     FlightCrew-sigil-plugin
 Provides:       bundled(gumbo) = 0.9.2
 Provides:       bundled(nodejs-mathjax) = 2.75
 
-ExclusiveArch: %{qt5_qtwebengine_arches}
+ExclusiveArch: %{qt6_qtwebengine_arches}
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:   %{ix86}
 
@@ -103,7 +103,7 @@ rm -rf 3rdparty/{minizip,zlib,hunspell,pcre2}
 
 
 %build
-%cmake -DUSE_QT5=1 -DUSE_SYSTEM_LIBS=1 -DSYSTEM_LIBS_REQUIRED=1 \
+%cmake -DUSE_SYSTEM_LIBS=1 -DSYSTEM_LIBS_REQUIRED=1 \
   -DDISABLE_UPDATE_CHECK=1 -DINSTALL_HICOLOR_ICONS=1 \
   -DINSTALL_BUNDLED_DICTS=0 -DSHARE_INSTALL_PREFIX:PATH=%{_prefix}
 %cmake_build
@@ -149,6 +149,10 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Tue Feb 25 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.4.2-2
+- Fix dependencies for Qt6 switchover
+- Rebuild for ppc64le enablement
+
 * Tue Feb 11 2025 Marek Kasik <mkasik@redhat.com> - 2.4.2-1
 - New upstream release 2.4.2
 - Resolves: rhbz#2307477

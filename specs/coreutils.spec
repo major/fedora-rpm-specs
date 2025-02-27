@@ -1,7 +1,7 @@
 Summary: A set of basic GNU tools commonly used in shell scripts
 Name:    coreutils
 Version: 9.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 # some used parts of gnulib are under various variants of LGPL
 License: GPL-3.0-or-later AND GFDL-1.3-no-invariants-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later
 Url:     https://www.gnu.org/software/coreutils/
@@ -35,6 +35,10 @@ Patch104: coreutils-df-direct.patch
 # ls: fix crash with --context
 # https://git.savannah.gnu.org/cgit/coreutils.git/patch/?id=915004f403cb25fadb207ddfdbe6a2f43bd44fac
 Patch105: coreutils-9.6-ls-selinux-crash.patch
+
+# who: fix -m with guessed tty names (rhbz#2343998)
+# https://git.savannah.gnu.org/cgit/coreutils.git/patch/?id=24450e5eecf012bc1ea8cab8d677a45fa42c1778
+Patch106: coreutils-9.6-who-m-systemd.patch
 
 # (sb) lin18nux/lsb compliance - multibyte functionality patch
 Patch800: coreutils-i18n.patch
@@ -282,6 +286,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %license COPYING
 
 %changelog
+* Tue Feb 25 2025 Lukáš Zaoral <lzaoral@redhat.com> - 9.6-2
+- fix 'who -m' with guessed tty names (rhbz#2343998)
+
 * Mon Jan 20 2025 Lukáš Zaoral <lzaoral@redhat.com> - 9.6-1
 - rebase to latest upstream version (rhbz#2338620)
 - sync i18n patch with SUSE (Kudos to Berny Völker!)

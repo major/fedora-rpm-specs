@@ -2,7 +2,7 @@
 %global giturl  https://github.com/gap-packages/smallsemi
 
 Name:           gap-pkg-%{pkgname}
-Version:        0.7.1
+Version:        0.7.2
 Release:        %autorelease
 Summary:        GAP library of small semigroups
 

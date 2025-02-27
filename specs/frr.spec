@@ -9,7 +9,7 @@
 
 Name:           frr
 Version:        10.2.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Routing daemon
 License:        GPL-2.0-or-later AND ISC AND LGPL-2.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND (GPL-2.0-or-later  OR ISC) AND MIT
 URL:            http://www.frrouting.org
@@ -282,6 +282,9 @@ rm tests/lib/*grpc*
 %endif
 
 %changelog
+* Tue Feb 25 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 10.2.1-5
+- Rebuilt for abseil-cpp-20250127.0
+
 * Thu Feb 13 2025 Alexey Kurov <nucleo@fedoraproject.org> - 10.2.1-4
 - Removed unrecognized options enable-systemd and disable-exampledir
 - Fixed sysconfdir option warning

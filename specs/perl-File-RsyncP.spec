@@ -1,6 +1,6 @@
 Name:       perl-File-RsyncP
 Version:    0.76
-Release:    19%{?dist}
+Release:    20%{?dist}
 Summary:    A perl implementation of an Rsync client
 # https://fedoraproject.org/wiki/Licensing:FAQ?rd=Licensing/FAQ#What_about_the_RSA_license_on_their_MD5_implementation.3F_Isn.27t_that_GPL-incompatible.3F
 License:    GPL-2.0-only AND GPL-3.0-only AND ( GPL-1.0-or-later OR Artistic-1.0-Perl )
@@ -9,6 +9,8 @@ Source0:    https://cpan.metacpan.org/authors/id/C/CB/CBARRATT/File-RsyncP-%{ver
 # Adapt a configure check to GCC 12, bug #2046804, CPAN RT#141822
 Patch0:     File-RsyncP-0.76-Fix-configure-check-with-optimizing-and-lto-enabled-.patch
 Patch1:     perl-File-RsyncP-configure-c99.patch
+# Adapt to GCC 15, bug #2341029, CPAN RT#158680, proposed upstream
+Patch2:     File-RsyncP-0.76-c23.patch
 # Build
 BuildRequires: coreutils
 BuildRequires: findutils
@@ -66,6 +68,9 @@ make test
 %{_mandir}/man3/File*
 
 %changelog
+* Tue Feb 25 2025 Petr Pisar <ppisar@redhat.com> - 0.76-20
+- Adapt to GCC 15 (bug #2341029)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.76-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

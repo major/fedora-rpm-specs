@@ -1,12 +1,14 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
 Version: 2.6.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1: blivet-gui_event.conf
 License: GPL-2.0-or-later
 BuildArch: noarch
 URL: http://github.com/storaged-project/blivet-gui
+
+Patch0:  0001-Set-LUKS-format-before-creating-the-LUKS-device.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
@@ -74,6 +76,9 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Tue Feb 25 2025 Vojtech Trefny <vtrefny@redhat.com> - 2.6.0-3
+- Set LUKS format before creating the LUKS device (#2332338)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

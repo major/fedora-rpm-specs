@@ -5,7 +5,7 @@ Name: python-%{pypi_name}
 Summary: WebSocket implementation focused on safety and correctness
 License: MIT
 
-Version: 0.12.1
+Version: 0.12.2
 Release: 1%{?dist}
 
 URL: https://github.com/python-trio/trio-websocket
@@ -84,6 +84,9 @@ rm docs/build/html/.buildinfo
 
 
 %changelog
+* Tue Feb 25 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.12.2-1
+- Update to v0.12.2
+
 * Tue Feb 18 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.12.1-1
 - Update to v0.12.1
 

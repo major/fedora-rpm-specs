@@ -39,7 +39,7 @@
 %{?static_openssl:%global static_libcrypto 1}
 
 %global openssh_ver 9.9p1
-%global openssh_rel 9
+%global openssh_rel 10
 
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
@@ -202,6 +202,7 @@ Patch1017: openssh-9.9p1-mlkembe.patch
 Patch1020: openssh-9.9p1-match-regression.patch
 # upstream 6ce00f0c2ecbb9f75023dbe627ee6460bcec78c2
 # upstream 0832aac79517611dd4de93ad0a83577994d9c907
+# added https://www.openwall.com/lists/oss-security/2025/02/22/1
 Patch1021: openssh-9.9p2-error_processing.patch
 
 License: BSD-3-Clause AND BSD-2-Clause AND ISC AND SSH-OpenSSH AND ssh-keyscan AND sprintf AND LicenseRef-Fedora-Public-Domain AND X11-distribute-modifications-variant
@@ -666,6 +667,10 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
+* Tue Feb 25 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.9p1-9.1
+- Some minor fixes from Rocky Linux
+  https://www.openwall.com/lists/oss-security/2025/02/22/1
+
 * Tue Feb 18 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.9p1-9
 - Fix regression of Match directive processing
 - Fix missing error codes set and invalid error code checks in OpenSSH. It

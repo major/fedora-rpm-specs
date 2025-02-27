@@ -5,7 +5,7 @@
 
 Name:           fedpkg
 Version:        1.45
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Fedora utility for working with dist-git
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -51,6 +51,9 @@ Patch34:        0034-Update-expired-token-exception-instructions.patch
 Patch35:        0035-releases-info-should-always-show-the-same-order.patch
 Patch36:        0036-Python-3.13-environment-and-renew-testing-image.patch
 Patch37:        0037-Fix-unittests-when-building-for-ELN-target.patch
+Patch38:        0038-Dynamically-exclude-Rawhide-branch-from-fedpkg-branc.patch
+Patch39:        0039-Do-not-auto-request-EPEL-x.y-modules.patch
+Patch40:        0040-Don-t-allow-to-request-repositories-in-modules-names.patch
 
 BuildRequires:  pkgconfig
 BuildRequires:  bash-completion
@@ -133,6 +136,11 @@ mv %{buildroot}%{compdir}/fedpkg.bash %{buildroot}%{compdir}/fedpkg
 
 
 %changelog
+* Wed Feb 26 2025 Ondřej Nosek <onosek@redhat.com> - 1.45-10
+- Dynamically exclude Rawhide branch from fedpkg branching
+- Do not auto-request EPEL x.y modules
+- Don't allow to request repositories in modules/ namespace
+
 * Tue Feb 18 2025 Ondřej Nosek <onosek@redhat.com> - 1.45-9
 - `releases-info` should always show the same order
 - Python 3.13 environment and renew testing image

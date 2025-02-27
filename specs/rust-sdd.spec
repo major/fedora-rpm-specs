@@ -5,7 +5,7 @@
 %global crate sdd
 
 Name:           rust-sdd
-Version:        3.0.5
+Version:        3.0.7
 Release:        %autorelease
 Summary:        Containers and utilities for concurrent and asynchronous programming
 

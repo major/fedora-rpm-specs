@@ -39,6 +39,8 @@ Source14: ipv6-down.initscripts
 
 # Fedora-specific
 Patch0: ppp-2.5.0-use-change-resolv-function.patch
+# Fix build with GCC 15
+Patch1: ppp-2.5.1-gcc15.patch
 
 BuildRequires: libtool
 BuildRequires: autoconf

@@ -4,7 +4,7 @@
 %global crate procs
 
 Name:           rust-procs
-Version:        0.14.8
+Version:        0.14.9
 Release:        %autorelease
 Summary:        Modern replacement for ps
 
@@ -15,7 +15,7 @@ Source:         %{crates_source}
 Patch:          procs-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * remove docker feature / dockworker dependency
-# * update which from 6 to 7: upstream commit c4316ed
+# * relax directories dependency to allow building with both v5 and v6
 Patch:          procs-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -37,7 +37,17 @@ Summary:        %{summary}
 # MIT OR Zlib OR Apache-2.0
 # MPL-2.0
 # Unlicense OR MIT
-License:        MIT AND Apache-2.0 AND MPL-2.0 AND Unicode-DFS-2016 AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (MIT OR Zlib OR Apache-2.0) AND (Unlicense OR MIT)
+License:        %{shrink:
+    MIT AND
+    Apache-2.0 AND
+    MPL-2.0 AND
+    Unicode-DFS-2016 AND
+    (0BSD OR MIT OR Apache-2.0) AND
+    (Apache-2.0 OR MIT) AND
+    (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
+    (MIT OR Zlib OR Apache-2.0) AND
+    (Unlicense OR MIT)
+}
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}

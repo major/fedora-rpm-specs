@@ -239,7 +239,7 @@
 #region main package
 Name:		%{pkg_name_llvm}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -665,6 +665,8 @@ Requires: %{pkg_name_clang}-libs = %{version}-%{release}
 Requires: %{pkg_name_clang}%{?_isa} = %{version}-%{release}
 # The clang CMake files reference tools from clang-tools-extra.
 Requires: %{pkg_name_clang}-tools-extra%{?_isa} = %{version}-%{release}
+# The clang cmake package depends on the LLVM cmake package.
+Requires: %{pkg_name_llvm}-devel%{?_isa} = %{version}-%{release}
 Provides: clang-devel(major) = %{maj_ver}
 # For the clangd language server contained in this subpackage,
 # add a Provides so users can just run "dnf install clangd."
@@ -3102,6 +3104,9 @@ fi
 
 #region changelog
 %changelog
+* Tue Feb 25 2025 Nikita Popov <npopov@redhat.com> - 19.1.7-11
+- Add clang-devel -> llvm-devel dep (rhbz#2342979)
+
 * Thu Feb 20 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 19.1.7-10
 - Do not rely on alternatives path
 

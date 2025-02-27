@@ -1,22 +1,22 @@
 # remirepo/fedora spec file for php-mock2
 #
-# SPDX-FileCopyrightText:  Copyright 2016-2024 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2016-2025 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    8f58972dce4de5a804dc0459383a11bc651416cf
+%global gh_commit    406752143e97e3da8765f414f658e72bbcbe15d7
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2024-12-09
+%global gh_date      2025-02-21
 %global gh_owner     php-mock
 %global gh_project   php-mock
 %global with_tests   0%{!?_without_tests:1}
 %global major        2
 
 Name:           php-mock%{major}
-Version:        2.5.1
-Release:        2%{?dist}
+Version:        2.6.0
+Release:        1%{?dist}
 Summary:        PHP-Mock can mock built-in PHP functions
 
 License:        WTFPL
@@ -28,21 +28,24 @@ BuildArch:      noarch
 BuildRequires:  php(language) >= 7.4
 %if %{with_tests}
 # from composer.json, "require-dev": {
-#        "phpunit/phpunit": "^5.7 || ^6.5 || ^7.5 || ^8.0 || ^9.0 || ^10.0|| ^11.0",
+#        "phpunit/phpunit": "^5.7 || ^6.5 || ^7.5 || ^8.0 || ^9.0 || ^10.0|| ^11.0 || ^12.0",
 #        "squizlabs/php_codesniffer": "^3.5"
 BuildRequires: phpunit8
 BuildRequires: phpunit9
 BuildRequires: phpunit10
-# TODO phpunit11 but requires php 8.2
+%if 0%{?fedora} || 0%{?rhel} >= 10
+BuildRequires: phpunit11
+BuildRequires: phpunit12
+%endif
 %endif
 # For autoloader
 BuildRequires: php-composer(fedora/autoloader)
 
 # from composer.json, "require": {
 #        "php": "^5.6 || ^7.0 || ^8.0",
-#        "phpunit/php-text-template": "^1 || ^2 || ^3 || ^4")
+#        "phpunit/php-text-template": "^1 || ^2 || ^3 || ^4 || ^5")
 Requires:       php(language) >= 5.6
-Requires:      (php-composer(phpunit/php-text-template) >= 1   with php-composer(phpunit/php-text-template) < 5)
+Requires:      (php-composer(phpunit/php-text-template) >= 1   with php-composer(phpunit/php-text-template) < 6)
 # From phpcompatinfo report from version 2.0.0
 Requires:       php-date
 Requires:       php-reflection
@@ -81,7 +84,15 @@ require_once '%{_datadir}/php/Fedora/Autoloader/autoload.php';
 
 \Fedora\Autoloader\Autoload::addPsr4('phpmock\\', __DIR__);
 \Fedora\Autoloader\Autoload::addPsr4('phpmock\\', dirname(dirname(__DIR__)) . '/tests/phpmock%{major}');
-if (PHP_VERSION_ID >= 80200) {
+if (PHP_VERSION_ID >= 80300) {
+	$deps = [
+        '%{_datadir}/php/SebastianBergmann/Template5/autoload.php',
+        '%{_datadir}/php/SebastianBergmann/Template4/autoload.php',
+        '%{_datadir}/php/SebastianBergmann/Template3/autoload.php',
+        '%{_datadir}/php/SebastianBergmann/Template2/autoload.php',
+        '%{_datadir}/php/Text/Template/Autoload.php',
+    ];
+} else if (PHP_VERSION_ID >= 80200) {
 	$deps = [
         '%{_datadir}/php/SebastianBergmann/Template4/autoload.php',
         '%{_datadir}/php/SebastianBergmann/Template3/autoload.php',
@@ -164,6 +175,16 @@ if [ -x %{_bindir}/phpunit11 ]; then
 	  fi
 	done
 fi
+
+if [ -x %{_bindir}/phpunit12 ]; then
+	for cmd in php php83 php84;do
+	  if which $cmd; then
+		$cmd %{_bindir}/phpunit11 \
+		  --filter '^((?!(testDefiningAfterCallingUnqualified|testEnable)).)*$' \
+		  --bootstrap %{buildroot}%{_datadir}/tests/phpmock2/autoload.php rpm/tests || ret=1
+	  fi
+	done
+fi
 exit $ret
 %else
 : bootstrap build with test suite disabled
@@ -179,6 +200,9 @@ exit $ret
 
 
 %changelog
+* Tue Feb 25 2025 Remi Collet <remi@remirepo.net> - 2.6.0-1
+- update to 2.6.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

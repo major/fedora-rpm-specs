@@ -1,10 +1,10 @@
-%{!?tcl_version: %global tcl_version %(echo 'puts $tcl_version' | tclsh)}
+%{!?tcl_version: %global tcl_version %(echo 'puts $tcl_version' | tclsh8)}
 %{!?tcl_sitearch: %global tcl_sitearch %{_libdir}/tcl%{tcl_version}}
 %global realname trf
 
 Name:		tcl-%{realname}
 Version:	2.1.4
-Release:	33%{?dist}
+Release:	34%{?dist}
 Summary:	Tcl extension providing "transformer" commands
 License:	TCL AND BSD-3-Clause AND LGPL-2.1-or-later AND GPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND OpenSSL
 URL:		http://tcltrf.sourceforge.net
@@ -21,10 +21,13 @@ Source1:	http://labs.calyptix.com/haval-1.1.tar.gz
 Patch0:		trf2.1.3-havalfixes.patch
 Patch1:		trf2.1.4-noripemd.patch
 Patch2:		trf2.1.4-loadman-type-fix.patch
+Patch3:		trf2.1.4-c23.patch
+# Patch4:		trf2.1.4-no-ansi-args.patch
 Provides:	%{realname} = %{version}-%{release}
 BuildRequires:  make
 BuildRequires:  gcc
-BuildRequires:	tcl-devel, tk-devel, zlib-devel, bzip2-devel, openssl-devel
+# This ancient code doesn't work with tcl 9.
+BuildRequires:	tcl8-devel, tk8-devel, zlib-devel, bzip2-devel, openssl-devel
 Requires:	tcl(abi) = 8.6
 Requires:	bzip2, zlib, openssl
 
@@ -56,6 +59,7 @@ popd
 %patch -P0 -p1 -b .haval
 %patch -P1 -p1 -b .ripemd
 %patch -P2 -p1 -b .type-fix
+%patch -P3 -p1 -b .c23
 
 # Get rid of incorrect ripemd docs
 rm -rf doc/digest/ripemd.inc doc/man/ripemd128.n doc/man/ripemd160.n doc/ripemd128.man doc/tmml/ripemd128.tmml doc/tmml/ripemd160.tmml
@@ -82,6 +86,10 @@ rm -rf %{buildroot}%{tcl_sitearch}/Trf%{version}/*.a
 %{_includedir}/trfDecls.h
 
 %changelog
+* Tue Feb 25 2025 Tom Callaway <spot@fedoraproject.org> - 2.1.4-34
+- fix for C23
+- force tcl8
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

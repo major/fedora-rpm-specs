@@ -1,6 +1,6 @@
 Name:           fonts-compare
-Version:        1.5.4
-Release:        2%{?dist}
+Version:        1.5.5
+Release:        1%{?dist}
 Summary:        Tool to compare fonts for a language
 
 License:        GPL-2.0-or-later
@@ -77,6 +77,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.github.sudipshil9
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 
 %changelog
+* Tue Feb 25 2025 Sudip Shil <sshil@redhat.com> - 1.5.5-1
+- Added support for multi-script text handling, auto-enable fallback like 안녕하세요 آپکیسہیں? শুভ সকল।
+- add feature in fonts-compare like fonts-compare --text "Hello こんにちは 你好"
+- the text can be ASCII or non-ASCII, it will work for both
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

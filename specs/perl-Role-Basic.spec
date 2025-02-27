@@ -1,6 +1,6 @@
 Name:           perl-Role-Basic
-Version:        0.13
-Release:        33%{?dist}
+Version:        0.16
+Release:        1%{?dist}
 Summary:        Just roles. Nothing else
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Role-Basic
@@ -11,10 +11,10 @@ BuildRequires:  perl-generators
 BuildRequires:  perl(B)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Data::Dumper)
-BuildRequires:  perl(Storable)
+BuildRequires:  perl(Storable) >= 2.15
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
-BuildRequires:  perl(Module::Build)
+BuildRequires:  perl(Module::Build) >= 0.42
 BuildRequires:  perl(Test::More)
 
 %description
@@ -44,6 +44,9 @@ mv Changes~ Changes
 %{_mandir}/man3/*
 
 %changelog
+* Tue Feb 25 2025 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.16-1
+- Upstream update.
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

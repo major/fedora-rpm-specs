@@ -42,6 +42,11 @@ Patch2:     0001-xf86-dri2-Use-va_gl-as-vdpau_driver-for-Intel-i965-G.patch
 # because the display-managers are not ready yet, do not upstream
 Patch3:     0001-Fedora-hack-Make-the-suid-root-wrapper-always-start-.patch
 
+# https://bugzilla.redhat.com/show_bug.cgi?id=2347345
+# https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/1608
+# https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/1824
+Patch4:     0001-dri2-Protect-against-dri2ClientPrivate-assertion-fai.patch
+
 BuildRequires:  bison
 BuildRequires:  flex
 BuildRequires:  gawk
@@ -415,6 +420,9 @@ find %{buildroot} -type f -name '*.la' -delete
 
 
 %changelog
+* Tue Feb 25 2025 Olivier Fourdan <releng@fedoraproject.org> - 21.1.15-3
+- Fix DRI2 failure (#2347345)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 21.1.15-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

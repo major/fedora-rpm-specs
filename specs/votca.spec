@@ -56,7 +56,10 @@ BuildRequires:  python3-espresso-openmpi
 %if %{with_gmx}
 BuildRequires:  gromacs
 %endif
+# no lammps on s390x as mpi is broken
+%ifnarch s390x
 BuildRequires:  lammps
+%endif
 BuildRequires:  python3-cma
 BuildRequires:  python3-pytest
 BuildRequires:  gnuplot

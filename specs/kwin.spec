@@ -2,7 +2,7 @@
 %bcond x11 0
 
 Name:    kwin
-Version: 6.3.1
+Version: 6.3.2
 Release: 1%{?dist}
 Summary: KDE Window manager
 
@@ -303,6 +303,9 @@ rm -v %{buildroot}%{_kf6_bindir}/kwin_x11 %{buildroot}%{_userunitdir}/plasma-kwi
 
 
 %changelog
+* Tue Feb 25 2025 Steve Cossette <farchord@gmail.com> - 6.3.2-1
+- 6.3.2
+
 * Tue Feb 18 2025 Steve Cossette <farchord@gmail.com> - 6.3.1-1
 - 6.3.1
 

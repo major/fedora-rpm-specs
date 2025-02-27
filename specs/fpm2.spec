@@ -1,11 +1,10 @@
 Summary: Password manager with GTK3 GUI
 Name: fpm2
-Version: 0.90
-Release: 14%{?dist}
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
+Version: 0.90.1
+Release: 1%{?dist}
 License: GPL-2.0-or-later
-Source: http://als.regnet.cz/%{name}/download/%{name}-%{version}.tar.xz
-URL: http://als.regnet.cz/fpm2/
+Source: https://als.regnet.cz/%{name}/download/%{name}-%{version}.tar.xz
+URL: https://als.regnet.cz/fpm2/
 BuildRequires: gtk3-devel, libxml2-devel, nettle-devel, desktop-file-utils, gettext, intltool, gcc
 BuildRequires: make
 
@@ -55,6 +54,10 @@ desktop-file-install \
 %{_datadir}/icons/hicolor/*/apps/fpm2.png
 
 %changelog
+* Tue Feb 25 2025 Aleš Koval <als@regnet.cz> - 0.90.1-1
+- Update to 0.90.1
+- Fix FTBFS (#2340169)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.90-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,12 +1,12 @@
 %global inst_xinput %{_sbindir}/update-alternatives --install %{_sysconfdir}/X11/xinit/xinputrc xinputrc %{_sysconfdir}/X11/xinit/xinput.d/uim.conf 50
 %global uninst_xinput %{_sbindir}/update-alternatives --remove xinputrc %{_sysconfdir}/X11/xinit/xinput.d/uim.conf
-%global srcver	1.8.9
+%global srcver	1.9.0
 
 %bcond_with	canna
 
 Name:		uim
-Version:	1.8.9
-Release:	10%{?dist}
+Version:	1.9.0
+Release:	1%{?dist}
 # uim itself is licensed under BSD
 # scm/py.scm, helper/eggtrayicon.[ch], qt/pref-kseparator.{cpp,h}
 #   and qt/chardict/chardict-kseparator.{cpp,h} is licensed under LGPLv2+
@@ -34,8 +34,6 @@ Source0:	https://github.com/uim/uim/releases/download/%{version}/uim-%{version}.
 Source1:	xinput.d-uim
 Source2:	uim-init.el
 Patch1:		uim-emacs-utf8.patch
-Patch2:		uim-configure-c99.patch
-Patch3:		uim-fix-emacs29.patch
 Patch4:		uim-ftbfs.patch
 
 
@@ -210,7 +208,7 @@ autoconf
 	--enable-kde4-applet \
 	--with-curl \
 	--with-expat \
-	--enable-openssl --with-ssl-engine \
+	--disable-openssl \
 	--with-sqlite3 \
 	--with-lispdir=%{_datadir}/emacs/site-lisp \
 	--enable-pref
@@ -384,7 +382,6 @@ fi
 %{_libdir}/uim/plugin/libuim-fileio.so
 %{_libdir}/uim/plugin/libuim-lolevel.so
 %{_libdir}/uim/plugin/libuim-look.so
-# %%{_libdir}/uim/plugin/libuim-openssl.so
 %{_libdir}/uim/plugin/libuim-process.so
 %{_libdir}/uim/plugin/libuim-socket.so
 %{_libdir}/uim/plugin/libuim-sqlite3.so
@@ -498,6 +495,12 @@ fi
 %dir %{_datadir}/uim
 
 %changelog
+* Tue Feb 25 2025 Akira TAGOH <tagoh@redhat.com> - 1.9.0-1
+- New upstream release.
+  Resolves: rhbz#2347165
+- Disable OpenSSL support.
+  OpenSSL plugin isn't packaged. should be no harm.
+
 * Wed Jan 29 2025 Akira TAGOH <tagoh@redhat.com> - 1.8.9-10
 - Fix FTBFS
   Resolves: rhbz#2341480

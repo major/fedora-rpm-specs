@@ -1,6 +1,6 @@
 Name:    pcp
 Version: 6.3.2
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: System-level performance monitoring and performance management
 License: GPL-2.0-or-later AND LGPL-2.1-or-later AND CC-BY-3.0
 URL:     https://pcp.io
@@ -110,7 +110,7 @@ ExcludeArch: %{ix86}
 
 # support for pmdabcc, check bcc.spec for supported architectures of bcc
 %if 0%{?fedora} >= 25 || 0%{?rhel} > 6
-%ifarch x86_64 %{power64} aarch64 s390x
+%ifarch x86_64 %{power64} aarch64 s390x riscv64
 %global disable_bcc 0
 %else
 %global disable_bcc 1
@@ -121,7 +121,7 @@ ExcludeArch: %{ix86}
 
 # support for pmdabpf, check bcc.spec for supported architectures of libbpf-tools
 %if 0%{?fedora} >= 37 || 0%{?rhel} > 8
-%ifarch x86_64 %{power64} aarch64 s390x
+%ifarch x86_64 %{power64} aarch64 s390x riscv64
 %global disable_bpf 0
 %else
 %global disable_bpf 1
@@ -132,7 +132,7 @@ ExcludeArch: %{ix86}
 
 # support for pmdabpftrace, check bpftrace.spec for supported architectures of bpftrace
 %if 0%{?fedora} >= 30 || 0%{?rhel} > 7
-%ifarch x86_64 %{power64} aarch64 s390x
+%ifarch x86_64 %{power64} aarch64 s390x riscv64
 %global disable_bpftrace 0
 %else
 %global disable_bpftrace 1
@@ -3606,6 +3606,9 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
+* Fri Jan 31 2025 David Abdurachmanov <davidlt@rivosinc.com> - 6.3.2-6
+- Expand riscv64 configuration
+
 * Wed Jan 29 2025 William Cohen <wcohen@redhat.com> - 6.3.2-5
 - Backport GCC15 fixes (BZ #2341011)
 

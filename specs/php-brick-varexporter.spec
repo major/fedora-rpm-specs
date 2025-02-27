@@ -1,13 +1,13 @@
 # remirepo/fedora spec file for php-brick-varexporter
 #
-# Copyright (c) 2020-2023 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2020-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 # Github
-%global gh_commit    84b2a7a91f69aa5d079aec5a0a7256ebf2dceb6b
+%global gh_commit    af98bfc2b702a312abbcaff37656dbe419cec5bc
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     brick
 %global gh_project   varexporter
@@ -19,8 +19,8 @@
 %global ns_project   VarExporter
 
 Name:           php-%{pk_vendor}-%{pk_name}
-Version:        0.5.0
-Release:        3%{?dist}
+Version:        0.6.0
+Release:        1%{?dist}
 Summary:        A powerful alternative to var_export
 
 License:        MIT
@@ -31,25 +31,25 @@ Source1:        makesrc.sh
 
 BuildArch:      noarch
 
-BuildRequires:  php(language) >= 7.4
+BuildRequires:  php(language) >= 8.1
 BuildRequires: (php-composer(nikic/php-parser) >= 5.0   with php-composer(nikic/php-parser) < 6)
 BuildRequires:  php-reflection
 BuildRequires:  php-date
 BuildRequires:  php-pcre
 BuildRequires:  php-spl
 # From composer.json, "require-dev": {
-#    "phpunit/phpunit": "^9.3",
+#    "phpunit/phpunit": "^10.5",
 #    "php-coveralls/php-coveralls": "^2.2",
-#    "psalm/phar": "5.21.1"
-BuildRequires:  phpunit9 >= 9.3
-%global phpunit %{_bindir}/phpunit9
+#    "vimeo/psalm": "6.8.4"
+BuildRequires:  phpunit10 >= 10.5
+%global phpunit %{_bindir}/phpunit10
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer.json, "require": {
-#    "php": "^7.4 || ^8.0",
+#    "php": "^8.1",
 #    "nikic/php-parser": "^5.0"
-Requires:       php(language) >= 7.2
+Requires:       php(language) >= 8.1
 Requires:      (php-composer(nikic/php-parser) >= 5.0   with php-composer(nikic/php-parser) < 6)
 # From phpcompatifo report for 0.3.2
 Requires:       php-reflection
@@ -106,12 +106,11 @@ EOF
 
 : Run upstream test suite
 ret=0
-for cmdarg in "php %{phpunit}" php80 php81 php82 php83; do
+for cmdarg in "php %{phpunit}" php81 php82 php83 php84; do
   if which $cmdarg; then
     set $cmdarg
-    $1 ${2:-%{_bindir}/phpunit9} \
-      --no-coverage \
-      --verbose || ret=1
+    $1 ${2:-%{_bindir}/phpunit10} \
+      --no-coverage || ret=1
   fi
 done
 exit $ret
@@ -125,6 +124,11 @@ exit $ret
 
 
 %changelog
+* Tue Feb 25 2025 Remi Collet <remi@remirepo.net> - 0.6.0-1
+- update to 0.6.0
+- re-license spec file to CECILL-2.1
+- raise dependency on PHP 8.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

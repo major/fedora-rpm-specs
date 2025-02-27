@@ -4,8 +4,8 @@
 %bcond_with perl_libwww_perl_enables_internet_test
 
 Name:           perl-libwww-perl
-Version:        6.77
-Release:        3%{?dist}
+Version:        6.78
+Release:        1%{?dist}
 Summary:        A Perl interface to the World-Wide Web
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/libwww-perl
@@ -211,6 +211,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Feb 25 2025 Michal Josef Špaček <mspacek@redhat.com> - 6.78-1
+- 6.78 bump (rhbz#2346731)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.77-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

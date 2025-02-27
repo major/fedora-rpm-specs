@@ -4,7 +4,7 @@
 %bcond torch 1
 
 Name:           python-ratinabox
-Version:        1.15.2
+Version:        1.15.3
 Release:        %autorelease
 Summary:        A package for simulating motion and ephys data in continuous environments
 

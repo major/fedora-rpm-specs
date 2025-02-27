@@ -1,6 +1,6 @@
 Name:       odcs
-Version:    0.8.1
-Release:    4%{?dist}
+Version:    0.9.0
+Release:    1%{?dist}
 Summary:    The On Demand Compose Service
 
 
@@ -17,7 +17,6 @@ BuildRequires:    help2man
 BuildRequires:    python3-libmodulemd
 BuildRequires:    gobject-introspection
 BuildRequires:    systemd
-BuildRequires:    pungi
 BuildRequires:    python3-devel
 BuildRequires:    python3-requests-gssapi
 BuildRequires:    python3-productmd
@@ -195,6 +194,13 @@ export ODCS_DEVELOPER_ENV=1
 
 
 %changelog
+* Tue Feb 25 2025 Haibo Lin <hlin@redhat.com> - 0.9.0-1
+- server: Add `odcs-manager metrics` command
+- server: Add cleanup command to odcs-manager
+- server: Fix black complaints
+- server: Allow , in NVR input
+- README: explain ODCS project future
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

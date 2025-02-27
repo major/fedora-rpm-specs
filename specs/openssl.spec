@@ -29,7 +29,7 @@ print(string.sub(hash, 0, 16))
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
 Version: 3.2.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 1
 Source: openssl-%{version}.tar.gz
 Source2: Makefile.certificate
@@ -220,6 +220,7 @@ Summary: Files for development of applications which will use OpenSSL and use de
 Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: %{name}-devel%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: pkgconfig
+Provides: deprecated()
 
 %description devel-engine
 OpenSSL is a toolkit for supporting cryptography. The openssl-devel-engine
@@ -230,7 +231,6 @@ use deprecated OpenSSL ENGINE functionality.
 Summary: Perl scripts provided with OpenSSL
 Requires: perl-interpreter
 Requires: %{name}%{?_isa} = %{epoch}:%{version}-%{release}
-Provides: deprecated()
 
 %description perl
 OpenSSL is a toolkit for supporting cryptography. The openssl-perl
@@ -540,6 +540,10 @@ ln -s /etc/crypto-policies/back-ends/openssl_fips.config $RPM_BUILD_ROOT%{_sysco
 %ldconfig_scriptlets libs
 
 %changelog
+* Tue Feb 25 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.2.4-2
+- Deprecating a proper subpackage
+  Related: rhbz#2276420
+
 * Wed Feb 12 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.2.4-1
 - Rebase to 3.2.4
   Resolves: CVE-2024-12797

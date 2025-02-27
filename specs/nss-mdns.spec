@@ -3,7 +3,7 @@ Version: 0.15.1
 Release: %autorelease
 Summary: glibc plugin for .local name resolution
 
-License: LGPL-2.1+
+License: LGPL-2.1-or-later
 URL: https://github.com/avahi/nss-mdns
 Source0: %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 

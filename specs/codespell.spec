@@ -13,7 +13,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3dist(chardet)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-dependency)
-BuildRequires:  aspell-en
 
 %description
 codespell fixes common misspellings in text files. It's designed primarily for

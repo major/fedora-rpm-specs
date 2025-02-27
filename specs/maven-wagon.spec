@@ -69,6 +69,11 @@ API documentation for %{name}.
 %pom_disable_module wagon-ssh-external wagon-providers
 %pom_disable_module wagon-webdav-jackrabbit wagon-providers
 
+# Adjust dependency scopes for better interoperability with Maven 4
+%pom_change_dep :jcl-over-slf4j :::test wagon-providers/wagon-http
+%pom_change_dep :slf4j-api :::provided wagon-providers/wagon-http-shared
+%pom_change_dep -r :plexus-utils :::provided
+
 %pom_remove_plugin :maven-shade-plugin wagon-providers/wagon-http
 
 %mvn_file ":wagon-{*}" %{name}/@1

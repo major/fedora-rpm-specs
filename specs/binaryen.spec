@@ -4,8 +4,8 @@
 
 Summary:       Compiler and toolchain infrastructure library for WebAssembly
 Name:          binaryen
-Version:       121
-Release:       2%{?dist}
+Version:       122
+Release:       1%{?dist}
 
 URL:           https://github.com/WebAssembly/binaryen
 Source0:       %{url}/archive/version_%{version}/%{name}-version_%{version}.tar.gz
@@ -62,13 +62,15 @@ effective:
 rmdir test/spec/testsuite
 tar xzf %{S:1} -C test/spec
 mv test/spec/testsuite{-%{wats_commit},}
+# v8 tests cannot be executed because we don't have v8 in Fedora
+rm -rv test/lit/d8
 %endif
 
 %build
 %cmake \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_LIBDIR=%{_libdir}/%{name} \
-    -DCMAKE_INSTALL_RPATH=\\\$ORIGIN/../%{_lib}/%{name} \
+    -DCMAKE_INSTALL_RPATH=\$ORIGIN/../%{_lib}/%{name} \
     -DENABLE_WERROR=OFF \
 
 %cmake_build
@@ -106,6 +108,12 @@ rm -v %{buildroot}%{_bindir}/binaryen-unittests
 %{_libdir}/%{name}/libbinaryen.so
 
 %changelog
+* Mon Feb 24 2025 Dominik Mierzejewski <dominik@greysector.net> - 122-1
+- update to 122 (resolves rhbz#2342841)
+- rebase patch for using system GTest
+- fix setting the RPATH to private shared library
+- skip v8 tests (not available in Fedora)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 121-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 # Installed library version
-%global lib_version 2407.0.0
+%global lib_version 2501.0.0
 
 Name:           abseil-cpp
-Version:        20240722.1
+Version:        20250127.0
 Release:        1%{?dist}
 Summary:        C++ Common Libraries
 
@@ -24,9 +24,15 @@ License:        Apache-2.0 AND LicenseRef-Fedora-Public-Domain
 URL:            https://abseil.io
 Source:         https://github.com/abseil/abseil-cpp/archive/%{version}/%{name}-%{version}.tar.gz
 
-# container/internal: Explicitly include <cstdint>
-# https://github.com/abseil/abseil-cpp/pull/1739
-Patch:          https://github.com/abseil/abseil-cpp/pull/1739.patch
+# Disable the DestroyedCallsFail test on GCC due to flakiness.
+# https://github.com/abseil/abseil-cpp/commit/f004e6c0a9a25e16fd2a1ae671a9cacfa79625b4
+#
+# Fixes:
+#
+# [Bug]: In 20250127.0, flaky failures of Table.DestroyedCallsFail fails in
+# absl_raw_hash_set_test
+# https://github.com/abseil/abseil-cpp/issues/1834
+Patch:          https://github.com/abseil/abseil-cpp/commit/f004e6c0a9a25e16fd2a1ae671a9cacfa79625b4.patch
 
 BuildRequires:  cmake
 # The default make backend would work just as well; ninja is observably faster
@@ -184,6 +190,7 @@ skips="${skips})$"
 %{_libdir}/libabsl_log_internal_message.so.%{lib_version}
 %{_libdir}/libabsl_log_internal_nullguard.so.%{lib_version}
 %{_libdir}/libabsl_log_internal_proto.so.%{lib_version}
+%{_libdir}/libabsl_log_internal_structured_proto.so.%{lib_version}
 %{_libdir}/libabsl_log_severity.so.%{lib_version}
 %{_libdir}/libabsl_log_sink.so.%{lib_version}
 %{_libdir}/libabsl_low_level_hash.so.%{lib_version}
@@ -218,6 +225,7 @@ skips="${skips})$"
 %{_libdir}/libabsl_throw_delegate.so.%{lib_version}
 %{_libdir}/libabsl_time.so.%{lib_version}
 %{_libdir}/libabsl_time_zone.so.%{lib_version}
+%{_libdir}/libabsl_tracing_internal.so.%{lib_version}
 %{_libdir}/libabsl_utf8_for_code_point.so.%{lib_version}
 %{_libdir}/libabsl_vlog_config_internal.so.%{lib_version}
 
@@ -253,6 +261,9 @@ skips="${skips})$"
 %{_libdir}/pkgconfig/absl_*.pc
 
 %changelog
+* Tue Feb 04 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 20250127.0-1
+- Update to 20250127.0 (close RHBZ#2343779)
+
 * Fri Jan 24 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 20240722.1-1
 - Update to 20240722.1 (close RHBZ#2341808)
 

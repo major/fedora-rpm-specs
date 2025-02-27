@@ -1,6 +1,9 @@
+# This code is old and ugly.
+%global optflags %{optflags} -std=gnu17
+
 Name:          volpack
 Version:       1.0c7
-Release:       33%{?dist}
+Release:       34%{?dist}
 Summary:       Portable library for fast volume rendering
 License:       BSD-3-Clause
 URL:           http://amide.sourceforge.net
@@ -84,6 +87,9 @@ popd
 
 
 %changelog
+* Tue Feb 25 2025 Tom Callaway <spot@fedoraproject.org> - 1.0c7-34
+- force -std=gnu17 for compilation, this code is old and nasty
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0c7-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

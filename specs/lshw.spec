@@ -62,7 +62,7 @@ format.
 %cmake_install
 %if %{with gui}
 install -m0644 -D %{SOURCE1} %{buildroot}%{_mandir}/man1/lshw-gui.1
-%if 0%{?fedora} < 42
+%if "%{_sbindir}" != "%{_bindir}"
 ln -s gtk-lshw %{buildroot}%{_sbindir}/lshw-gui
 %endif
 %endif
@@ -93,7 +93,7 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata
 %license COPYING
 %{_bindir}/lshw-gui
 %{_sbindir}/gtk-lshw
-%if 0%{?fedora} < 42
+%if "%{_sbindir}" != "%{_bindir}"
 %{_sbindir}/lshw-gui
 %endif
 %{_mandir}/man1/lshw-gui.1*

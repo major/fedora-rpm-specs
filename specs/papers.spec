@@ -33,8 +33,8 @@ License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND 
 URL:            https://gitlab.gnome.org/GNOME/Incubator/papers
 Source:         https://download.gnome.org/sources/papers/48/papers-%{tarball_version}.tar.xz
 # To generate vendored cargo sources:
-#   tar xf papers-%%{tarball_version}.tar.xz ; pushd papers-%%{tarball_version}/shell-rs ; \
-#   cargo vendor && tar Jcvf ../../papers-%%{tarball_version}-vendor.tar.xz ../shell-rs/vendor/ ; popd
+#   tar xf papers-%%{tarball_version}.tar.xz ; pushd papers-%%{tarball_version}/shell ; \
+#   cargo vendor && tar Jcvf ../../papers-%%{tarball_version}-vendor.tar.xz ../shell/vendor/ ; popd
 Source1:        papers-%{tarball_version}-vendor.tar.xz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -139,16 +139,14 @@ This package brings the Papers thumbnailer independently from Papers.
 %if 0%{?bundled_rust_deps}
 %cargo_prep -v shell/vendor
 %else
-rm shell/Cargo.lock
 %cargo_prep
+rm shell/Cargo.lock
 %endif
 
 
 %if !0%{?bundled_rust_deps}
 %generate_buildrequires
-cd shell
 %cargo_generate_buildrequires -a -t
-cd ~-
 %endif
 
 
@@ -161,13 +159,11 @@ cd ~-
 
 %meson_build
 
-cd shell
 %cargo_license_summary -a
 %{cargo_license -a} > LICENSE.dependencies
 %if 0%{?bundled_rust_deps}
 %cargo_vendor_manifest
 %endif
-cd ~-
 
 
 %install
@@ -185,9 +181,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %files -f papers.lang
 %doc README.md
 %license COPYING
-%license shell/LICENSE.dependencies
+%license LICENSE.dependencies
 %if 0%{?bundled_rust_deps}
-%license shell/cargo-vendor.txt
+%license cargo-vendor.txt
 %endif
 %{_bindir}/papers
 %{_datadir}/applications/org.gnome.Papers.desktop

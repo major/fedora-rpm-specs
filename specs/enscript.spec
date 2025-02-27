@@ -39,6 +39,9 @@ Patch16: 0001-enscript-newencodings.patch
 # present in enscript
 # gnulib CVE: https://bugzilla.redhat.com/show_bug.cgi?id=1635896
 Patch17: enscript-CVE-vasnprintf.patch
+# C23 takes empty brackets in declaration as no arguments, have to define args and their types
+# https://savannah.gnu.org/bugs/index.php?66845
+Patch18: enscript-c23.patch
 
 # gcc is no longer in buildroot by default
 BuildRequires: gcc
@@ -75,6 +78,7 @@ includes many options for customizing printouts
 %patch -P 16 -p1 -b .newencodings
 # CVE in gnulib
 %patch -P 17 -p1 -b .vasnprintf
+%patch -P 18 -p1 -b .c23
 
 %{__tar} -C states/hl -zxf %{SOURCE1} ruby.st
 install -pm 644 %{SOURCE2} states/hl/php.st
@@ -120,6 +124,9 @@ done
 %config(noreplace) %{_sysconfdir}/enscript.cfg
 
 %changelog
+* Tue Feb 25 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1.6.6-36
+- enscript: FTBFS in Fedora rawhide/f42 (fedora#2340127)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.6-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

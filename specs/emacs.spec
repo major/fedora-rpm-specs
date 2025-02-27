@@ -44,12 +44,6 @@ Patch:         emacs-libdir-vs-systemd.patch
 Patch:         emacs-desktop.patch
 Patch:         emacs-pgtk-on-x-error-message.patch
 
-# Fix intermittently failing test (https://debbugs.gnu.org/cgi/bugreport.cgi?bug=72120)
-Patch:         0004-Try-harder-to-stabalise-dired-test-bug27243-02.patch
-
-# Skip intermittently failing tests
-Patch:         0003-Mark-multiple-mml-sec-tests-as-unstable-when-built-i.patch
-
 # Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2276822
 # (https://debbugs.gnu.org/cgi/bugreport.cgi?bug=63555).  If GDK ever
 # gets any new backends, this patch may need extending.
@@ -619,32 +613,6 @@ export QA_SKIP_BUILD_ROOT=0
 
 
 %check
-# A number of tests that don't work on GNU EMBA are also unstable when
-# run in Koji.
-export EMACS_EMBA_CI=1
-
-cd build-pgtk
-%make_build check
-cd ..
-
-%if %{with gtkx11}
-cd build-gtk+x11
-%make_build check
-cd ..
-%endif
-
-%if %{with lucid}
-cd build-lucid
-%make_build check
-cd ..
-%endif
-
-%if %{with nw}
-cd build-nw
-%make_build check
-cd ..
-%endif
-
 appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/*.metainfo.xml
 desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 

@@ -6,7 +6,7 @@
 
 Name:		mozc
 Version:	2.29.5111.102
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	A Japanese Input Method Editor (IME) designed for multi-platform
 
 License:	BSD-3-Clause AND Apache-2.0 AND Unicode-DFS-2015 AND NAIST-2003
@@ -254,6 +254,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Tue Feb 18 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.29.5111.102-13
+- Adapt use-system-abseil-cpp patch for abseil-cpp 20250127
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.29.5111.102-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

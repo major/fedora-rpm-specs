@@ -4,9 +4,8 @@ Release:        %autorelease
 Summary:        Portable OpenBSD ksh, based on the Public Domain Korn Shell
 
 # The main license is "public domain", with some support files
-# being under ISC and BSD license.
-# Automatically converted from old format: Public Domain and ISC and BSD - review is highly recommended.
-License:        LicenseRef-Callaway-Public-Domain AND ISC AND LicenseRef-Callaway-BSD
+# being under ISC and BSD-3-Clause license.
+License:        LicenseRef-Fedora-Public-Domain AND ISC AND BSD-3-Clause
 URL:            https://github.com/ibara/%{name}
 Source0:        https://github.com/ibara/%{name}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
 

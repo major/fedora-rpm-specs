@@ -3,7 +3,7 @@
 %global patch_version 7
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 1
+%global baserelease 2
 %define _unpackaged_files_terminate_build 0
 
 Name:           credentials-fetcher
@@ -79,6 +79,9 @@ ctest3
 %attr(0700, -, -) /usr/sbin/credentials_fetcher_utf16_private.runtimeconfig.json
 
 %changelog
+* Tue Feb 25 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1.3.7-2
+- Rebuilt for abseil-cpp-20250127.0
+
 * Mon Feb 3 2025 Samiullah Mohammed <samiull@amazon.com> - 1.3.7-1
 - Fixes for 1.3.7
 

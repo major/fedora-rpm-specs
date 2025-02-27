@@ -3,16 +3,13 @@
 
 Name:           krdp
 Summary:        Desktop sharing using RDP
-Version:        6.3.1
-Release:        2%{?dist}
+Version:        6.3.2
+Release:        1%{?dist}
 
 License:        LGPL-2.1-only OR LGPL-3.0-only
 URL:            https://invent.kde.org/plasma/krdp
 Source0:        https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
-# Fix systemd startup
-# https://invent.kde.org/plasma/krdp/-/commit/ad393302a1e17889067fd139c28962b4b3791fc1
-Patch0:         ad393302a1e17889067fd139c28962b4b3791fc1.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -109,6 +106,9 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Tue Feb 25 2025 Steve Cossette <farchord@gmail.com> - 6.3.2-1
+- 6.3.2
+
 * Wed Feb 19 2025 Steve Cossette <farchord@gmail.com> - 6.3.1-2
 - Fix systemd startup
 

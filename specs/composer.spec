@@ -8,9 +8,7 @@
 #
 
 
-%bcond_with          generators
-
-%global gh_commit    ae208dc1e182bd45d99fcecb956501da212454a1
+%global gh_commit    937c775a644bd7d2c3dfbb352747488463a6e673
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_branch    2.0-dev
 %global gh_owner     composer
@@ -18,7 +16,7 @@
 %global api_version  2.6.0
 %global run_version  2.2.2
 
-%global upstream_version 2.8.5
+%global upstream_version 2.8.6
 #global upstream_prever  RC1
 #global upstream_lower   rc1
 
@@ -54,9 +52,7 @@ BuildRequires:  php(language) >= 7.2.5
 BuildRequires:  php-cli
 BuildRequires:  php-json
 BuildRequires:  pkgconfig(bash-completion)
-%if %{with generators}
 BuildRequires:  composer-generators
-%endif
 
 # From composer.json, "require": {
 #        "php": "^7.2.5 || ^8.0",
@@ -111,40 +107,6 @@ Requires:       php-tokenizer
 Requires:       php-xsl
 Requires:       php-zlib
 
-# Bundled libraries
-%if %{without generators}
-# License MIT
-Provides:       bundled(php-composer(composer/ca-bundle)) = 1.5.5
-Provides:       bundled(php-composer(composer/class-map-generator)) = 1.5.0
-Provides:       bundled(php-composer(composer/metadata-minifier)) = 1.0.0
-Provides:       bundled(php-composer(composer/pcre)) = 2.3.2
-Provides:       bundled(php-composer(composer/semver)) = 3.4.3
-Provides:       bundled(php-composer(composer/spdx-licenses)) = 1.5.8
-Provides:       bundled(php-composer(composer/xdebug-handler)) = 3.0.5
-Provides:       bundled(php-composer(justinrainbow/json-schema)) = 5.3.0
-Provides:       bundled(php-composer(psr/container)) = 1.1.1
-Provides:       bundled(php-composer(psr/log)) = 1.1.4
-Provides:       bundled(php-composer(react/promise)) = 3.2.0
-Provides:       bundled(php-composer(seld/jsonlint)) = 1.11.0
-Provides:       bundled(php-composer(seld/phar-utils)) = 1.2.1
-Provides:       bundled(php-composer(seld/signal-handler)) = 2.0.2
-Provides:       bundled(php-composer(symfony/console)) = 5.4.47
-Provides:       bundled(php-composer(symfony/deprecation-contracts)) = 2.5.4
-Provides:       bundled(php-composer(symfony/filesystem)) = 5.4.45
-Provides:       bundled(php-composer(symfony/finder)) = 5.4.45
-Provides:       bundled(php-composer(symfony/polyfill-ctype)) = 1.31.0
-Provides:       bundled(php-composer(symfony/polyfill-intl-grapheme)) = 1.31.0
-Provides:       bundled(php-composer(symfony/polyfill-intl-normalizer)) = 1.31.0
-Provides:       bundled(php-composer(symfony/polyfill-mbstring)) = 1.31.0
-Provides:       bundled(php-composer(symfony/polyfill-php73)) = 1.31.0
-Provides:       bundled(php-composer(symfony/polyfill-php80)) = 1.31.0
-Provides:       bundled(php-composer(symfony/polyfill-php81)) = 1.31.0
-Provides:       bundled(php-composer(symfony/process)) = 5.4.47
-Provides:       bundled(php-composer(symfony/service-contracts)) = 2.5.4
-Provides:       bundled(php-composer(symfony/string)) = 5.4.47
-# Composer library
-Provides:       php-composer(composer/composer) = %{version}
-%endif
 # Special internal for Plugin API
 Provides:       php-composer(composer-plugin-api) = %{api_version}
 Provides:       php-composer(composer-runtime-api) = %{run_version}
@@ -165,28 +127,6 @@ Documentation: https://getcomposer.org/doc/
 find . \( -name \*.rpm -o -name \*noxdg \) -delete -print
 
 rm vendor/composer/ca-bundle/res/cacert.pem
-
-%if %{without generators}
-: List bundled libraries and Licenses
-php -r '
-	$pkgs = file_get_contents("vendor/composer/installed.json");
-	$pkgs = json_decode($pkgs, true);
-	if (!is_array($pkgs) || !isset($pkgs["packages"])) {
-        echo "cant decode json file\n";
-		exit(3);
-	}
-	$res = [];
-    foreach($pkgs["packages"] as $pkg) {
-		$lic = implode(" and ", $pkg["license"]);
-		if (!isset($res[$lic])) $res[$lic] = [];
-		$res[$lic][] = sprintf("Provides:       bundled(php-composer(%s)) = %s", $pkg["name"], trim($pkg["version"], "v"));
-	}
-	foreach($res as $lic => $lib) {
-		sort($lib);
-		printf("# License %s\n%s\n", $lic, implode("\n", $lib));
-	}
-'
-%endif
 
 : fix reported version
 sed -e '/BRANCH_ALIAS_VERSION/s/@package_branch_alias_version@//' \
@@ -265,6 +205,9 @@ php -r '
 
 
 %changelog
+* Tue Feb 25 2025 Remi Collet <remi@remirepo.net> - 2.8.6-1
+- update to 2.8.6
+
 * Tue Jan 21 2025 Remi Collet <remi@remirepo.net> - 2.8.5-1
 - update to 2.8.5
 

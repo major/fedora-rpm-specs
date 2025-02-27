@@ -1,9 +1,11 @@
 %global appname CorsixTH
 %global uuid    com.corsixth.%{appname}
-%global tarball_version %%(echo %{version} | tr '~' '-')
+%global forgeurl https://github.com/CorsixTH/CorsixTH
+%global tag v%{version}
 
 Name:           corsix-th
-Version:        0.67
+Version:        0.68.0
+%forgemeta
 Release:        %autorelease
 Summary:        Open source clone of Theme Hospital
 
@@ -13,18 +15,19 @@ Summary:        Open source clone of Theme Hospital
 # GPLv3+:       SpriteEncoder
 # Automatically converted from old format: MIT and BSD and GPLv3+ - review is highly recommended.
 License:        LicenseRef-Callaway-MIT AND LicenseRef-Callaway-BSD AND GPL-3.0-or-later
-URL:            https://github.com/CorsixTH/CorsixTH
-Source0:        %{url}/archive/v%{tarball_version}/%{name}-%{tarball_version}.tar.gz
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
-BuildRequires:  cmake >= 3.10
+BuildRequires:  cmake >= 3.14
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
 BuildRequires:  libappstream-glib
 BuildRequires:  lua-devel >= 5.4.2
 BuildRequires:  ninja-build
 
-BuildRequires:  pkgconfig(SDL2_mixer)
 BuildRequires:  pkgconfig(freetype2)
+BuildRequires:  pkgconfig(libcurl)
+BuildRequires:  pkgconfig(SDL2_mixer)
 BuildRequires:  pkgconfig(sdl2)
 
 %if 0%{?fedora} <= 33
@@ -73,7 +76,7 @@ Package contains data files for %{name}.
 
 
 %prep
-%autosetup -n %{appname}-%{tarball_version} -p1
+%forgeautosetup -p1
 
 
 %build

@@ -1,12 +1,10 @@
 Name:           tslib
-Version:        1.22
-Release:        12%{?dist}
+Version:        1.23
+Release:        1%{?dist}
 Summary:        Touchscreen Access Library
 License:        LGPL-2.1-only
 URL:            https://github.com/kergoth/tslib
 Source0:        https://github.com/kergoth/tslib/releases/download/%{version}/tslib-%{version}.tar.bz2
-# https://github.com/libts/tslib/commit/bec90dfaca8273b9c53268c6c0af1576695bc72c
-Patch0:         tslib-1.22-check-pointer-before-calling-sprintf.patch
 BuildRequires:  make
 BuildRequires:  libtool, autoconf, automake
 BuildRequires:  SDL2-devel
@@ -34,7 +32,6 @@ developing applications that use %{name}.
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch -P0 -p1 -b .check-pointer-before-calling-sprintf
 ./autogen.sh
 
 %build
@@ -65,6 +62,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/tslib.pc
 
 %changelog
+* Tue Feb 25 2025 Tom Callaway <spot@fedoraproject.org> - 1.23-1
+- update to 1.23
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.22-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

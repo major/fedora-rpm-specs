@@ -1,7 +1,7 @@
 Name: evolution-rspam
 Summary: Evolution Plugin for reporting spam
 Version: 0.6.0
-Release: 47%{?dist}
+Release: 48%{?dist}
 License: GPL-2.0-or-later
 Source: http://gnome.eu.org/%{name}-%{version}.tar.xz
 URL: http://gnome.eu.org/evo/index.php/Report_as_Spam
@@ -19,12 +19,13 @@ Patch9: evolution-rspam-0.6.0-fix-po-charset.patch
 Patch10: evolution-rspam-0.6.0-no-gtkuimanager.patch
 Patch11: evolution-rspam-0.6.0-spamcop-flush-outbox-on-send.patch
 Patch12: evolution-rspam-0.6.0-gcc-changes.patch
+Patch13: evolution-rspam-0.6.0-drop-gconf-requirement.patch
 
 Requires: perl-Razor-Agent
 Requires: pyzor
 Requires: evolution >= 3.55.1
 
-BuildRequires: gettext, evolution-devel >= 3.55.1, perl(XML::Parser), intltool, GConf2-devel
+BuildRequires: gettext, evolution-devel >= 3.55.1, perl(XML::Parser), intltool
 BuildRequires: autoconf, automake, gnome-common, libtool
 BuildRequires: make
 
@@ -66,6 +67,9 @@ find %{buildroot} -name \*\.la -print | xargs rm -f
 %doc TODO
 
 %changelog
+* Tue Feb 25 2025 Milan Crha <mcrha@redhat.com> - 0.6.0-48
+- Remove build dependency on GConf2-devel
+
 * Wed Jan 22 2025 Milan Crha <mcrha@redhat.com> - 0.6.0-47
 - Add patch to fix build with a new gcc
 

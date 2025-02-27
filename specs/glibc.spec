@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.41.9000-100-g6d24313e4a
+%global glibcsrcdir glibc-2.41.9000-117-g935563754b
 %global glibcversion 2.41.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 1
+%global baserelease 2
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2379,6 +2379,27 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Tue Feb 25 2025 Arjun Shankar <arjun@redhat.com> - 2.41.9000-2
+- Auto-sync with upstream branch master,
+  commit 935563754bb5e1f16b9edb392d6c80c6827ddfca:
+- AArch64: Remove LP64 and ILP32 ifdefs
+- AArch64: Simplify lrint
+- AArch64: Remove AARCH64_R macro
+- AArch64: Cleanup pointer mangling
+- AArch64: Remove PTR_REG defines
+- AArch64: Remove PTR_ARG/SIZE_ARG defines
+- stdlib: Add single-threaded fast path to rand()
+- Increase the amount of data tested in stdio-common/tst-fwrite-pipe.c
+- posix: Rewrite cpuset tests
+- support: Add support_next_to_fault_before support function
+- math: Fix `unknown type name '__float128'` for clang 3.4 to 3.8.1 (bug 32694)
+- nptl: clear the whole rseq area before registration
+- aarch64: Add GCS test with signal handler
+- aarch64: Add GCS tests for dlopen
+- aarch64: Add GCS tests for transitive dependencies
+- aarch64: Add tests for Guarded Control Stack
+- aarch64: Add configure checks for GCS support
+
 * Thu Feb 20 2025 Carlos O'Donell <carlos@redhat.com> - 2.41.9000-1
 - Auto-sync with upstream branch master,
   commit 6d24313e4a4098f7c469e119784bfbbfdb1ec749.

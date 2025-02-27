@@ -21,7 +21,7 @@
 
 Name:           rocm-rpp
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm Performace Primatives for computer vision
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
@@ -39,7 +39,9 @@ BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  half-devel
 BuildRequires:  ninja-build
+%if 0%{?fedora}
 BuildRequires:  opencv-devel
+%endif
 BuildRequires:  rocm-cmake
 BuildRequires:  rocm-comgr-devel
 BuildRequires:  rocm-compilersupport-macros
@@ -115,6 +117,9 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{_libdir}/librpp.so.1.*.*
 
 
 %changelog
+* Tue Feb 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-3
+- Remove opencv for RHEL
+
 * Sun Jan 19 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-2
 - build requires gcc-c++
 - Add gfx12

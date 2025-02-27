@@ -5,7 +5,7 @@
 %global crate scc
 
 Name:           rust-scc
-Version:        2.2.5
+Version:        2.3.3
 Release:        %autorelease
 Summary:        Containers and utilities for concurrent and asynchronous programming
 
@@ -20,7 +20,7 @@ Patch:          scc-fix-metadata.diff
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-High performance containers and utilities for concurrent and
+High-performance containers and utilities for concurrent and
 asynchronous programming.}
 
 %description %{_description}

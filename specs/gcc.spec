@@ -1,5 +1,5 @@
-%global DATE 20250204
-%global gitrev 785011ff892f91b1fedd8ba7812ff3203bc17b1a
+%global DATE 20250225
+%global gitrev c22206a9eb8110a2e8890b2851c5c170e1323889
 %global gcc_version 15.0.1
 %global gcc_major 15
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -143,7 +143,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.7%{?dist}
+Release: %{gcc_release}.8%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -298,8 +298,6 @@ Patch8: gcc15-no-add-needed.patch
 Patch9: gcc15-Wno-format-security.patch
 Patch10: gcc15-rh1574936.patch
 Patch11: gcc15-d-shared-libphobos.patch
-Patch12: gcc15-pr118206.patch
-Patch13: gcc15-pr118671.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -914,8 +912,6 @@ so that there cannot be any synchronization problems.
 %patch -P10 -p0 -b .rh1574936~
 %endif
 %patch -P11 -p0 -b .d-shared-libphobos~
-%patch -P12 -p0 -b .pr118206~
-%patch -P13 -p0 -b .pr118671~
 
 %patch -P50 -p0 -b .rh2155127~
 touch -r isl-0.24/m4/ax_prog_cxx_for_build.m4 isl-0.24/m4/ax_prog_cc_for_build.m4
@@ -2722,7 +2718,7 @@ end
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/riscv_crypto.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/riscv_bitmanip.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/riscv_th_vector.h
-%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/riscv_cmo.h
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/sifive_vector.h
 %endif
 %if %{build_libasan}
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/sanitizer
@@ -3669,6 +3665,57 @@ end
 %endif
 
 %changelog
+* Tue Feb 25 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.8
+- update from trunk
+  - PRs analyzer/118300, c/117023, c/119000, c++/66519, c++/66878, c++/70037,
+	c++/70536, c++/82794, c++/82936, c++/83144, c++/86769, c++/86933,
+	c++/94100, c++/96364, c++/101740, c++/102455, c++/107637, c++/110345,
+	c++/113800, c++/115586, c++/116379, c++/117106, c++/117324,
+	c++/118053, c++/118190, c++/118282, c++/118304, c++/118306,
+	c++/118319, c++/118574, c++/118661, c++/118763, c++/118773,
+	c++/118807, c++/118822, c++/118833, c++/118846, c++/118849,
+	c++/118856, c++/118876, c++/118923, c++/118981, c++/188574, d/111628,
+	debug/118790, driver/117739, fortran/24878, fortran/47485,
+	fortran/48958, fortran/56423, fortran/59252, fortran/107635,
+	fortran/115271, fortran/116829, fortran/117430, fortran/118080,
+	fortran/118159, fortran/118740, fortran/118745, fortran/118750,
+	fortran/118845, fortran/118862, go/118746, ipa/118097, jit/118780,
+	libfortran/114618, libstdc++/100612, libstdc++/111050,
+	libstdc++/115209, libstdc++/118160, libstdc++/118559,
+	libstdc++/118701, libstdc++/118811, libstdc++/118855,
+	libstdc++/118865, lto/118125, middle-end/107067, middle-end/113525,
+	middle-end/116351, middle-end/117263, middle-end/118288,
+	middle-end/118950, middle-end/118993, modula2/115112, modula2/118761,
+	modula2/118978, other/116613, other/118919, rtl-optimization/102150,
+	rtl-optimization/108840, rtl-optimization/115568,
+	rtl-optimization/115932, rtl-optimization/116028,
+	rtl-optimization/116244, rtl-optimization/117081,
+	rtl-optimization/117082, rtl-optimization/117239,
+	rtl-optimization/117506, rtl-optimization/117922,
+	rtl-optimization/118497, sarif-replay/118792, sarif-replay/118881,
+	target/69374, target/86660, target/94282, target/109093,
+	target/109780, target/113331, target/114516, target/114522,
+	target/115123, target/115478, target/115703, target/117674,
+	target/117991, target/118089, target/118146, target/118248,
+	target/118540, target/118561, target/118601, target/118623,
+	target/118685, target/118764, target/118768, target/118771,
+	target/118772, target/118776, target/118806, target/118813,
+	target/118815, target/118825, target/118828, target/118832,
+	target/118835, target/118843, target/118844, target/118872,
+	target/118878, target/118936, testsuite/116604, testsuite/116986,
+	testsuite/118754, tree-optimization/82142, tree-optimization/86270,
+	tree-optimization/90579, tree-optimization/98028,
+	tree-optimization/98845, tree-optimization/108357,
+	tree-optimization/110449, tree-optimization/115538,
+	tree-optimization/117790, tree-optimization/118521,
+	tree-optimization/118706, tree-optimization/118727,
+	tree-optimization/118749, tree-optimization/118756,
+	tree-optimization/118805, tree-optimization/118817,
+	tree-optimization/118852, tree-optimization/118895,
+	tree-optimization/118915, tree-optimization/118954,
+	tree-optimization/118973
+- drop on riscv riscv_cmo.h header from file list, add sifive_vector.h
+
 * Tue Feb  4 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.7
 - update from trunk
   - PRs ada/118712, ada/118731, c/118742, c++/79786, c++/98893, c++/108205,

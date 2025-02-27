@@ -1,7 +1,7 @@
 Name:    plasma-nm
 Summary: Plasma for managing network connections
-Version: 6.3.1
-Release: 2%{?dist}
+Version: 6.3.2
+Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/%{name}
@@ -291,6 +291,9 @@ rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_openco
 %endif
 
 %changelog
+* Tue Feb 25 2025 Steve Cossette <farchord@gmail.com> - 6.3.2-1
+- 6.3.2
+
 * Sun Feb 23 2025 Neal Gompa <ngompa@fedoraproject.org> - 6.3.1-2
 - Temporarily disable GNU compiler extensions
   + workaround for rhbz#2342065
