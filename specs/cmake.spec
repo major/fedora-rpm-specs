@@ -67,15 +67,15 @@
 # Setup _vpath_builddir if not defined already
 %{!?_vpath_builddir:%global _vpath_builddir %{_target_platform}}
 
-%global major_version 3
-%global minor_version 31
-%global patch_version 6
+%global major_version 4
+%global minor_version 0
+%global patch_version 0
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
 %global baserelease 1
 
 # Set to RC version if building RC, else comment out.
-#%%global rcsuf rc3
+%global rcsuf rc2
 
 %if 0%{?rcsuf:1}
 %global pkg_version %{major_version}.%{minor_version}.%{patch_version}~%{rcsuf}
@@ -508,6 +508,8 @@ NO_TEST="$NO_TEST|Qt5Autogen.ManySources|Qt5Autogen.MocInclude|Qt5Autogen.MocInc
 # Test failing on Fedora 41, only.
 NO_TEST="$NO_TEST|RunCMake.Make|RunCMake.BuildDepends|Qt6Autogen.RerunMocBasic|Qt6Autogen.RerunRccDepends"
 %endif
+# Drop for v4.0.0-final
+NO_TEST="$NO_TEST|RunCMake.LinkWarningAsError"
 bin/ctest%{?name_suffix} %{?_smp_mflags} -V -E "$NO_TEST" --output-on-failure
 ## do this only periodically, not for every build -- besser82 20221102
 # Keep an eye on failing tests
@@ -588,6 +590,9 @@ popd
 
 
 %changelog
+* Wed Feb 26 2025 Björn Esser <besser82@fedoraproject.org> - 4.0.0~rc2-1
+- cmake-4.0.0-rc2
+
 * Mon Feb 24 2025 Björn Esser <besser82@fedoraproject.org> - 3.31.6-1
 - cmake-3.31.6
   Fixes rhbz#2347346

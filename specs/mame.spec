@@ -1,7 +1,7 @@
 #The debug build is disabled by default, please use # --with debug to override
 %bcond_with debug
 
-%global baseversion 274
+%global baseversion 275
 
 %undefine _auto_set_build_flags
 

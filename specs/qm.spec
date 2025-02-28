@@ -10,7 +10,7 @@
 %global selinuxtype targeted
 %global moduletype services
 %global modulenames qm
-%global seccomp_json /usr/share/%{modulenames}/seccomp.json
+%global seccomp_json /usr/share/%{modulenames}/seccomp-no-rt.json
 %global setup_tool %{_prefix}/share/%{modulenames}/setup
 
 %global _installscriptdir %{_prefix}/lib/%{modulenames}
@@ -42,7 +42,7 @@ Epoch: 101
 # Keep Version in upstream specfile at 0. It will be automatically set
 # to the correct value by Packit for copr and koji builds.
 # IGNORE this comment if you're looking at it in dist-git.
-Version: 0.6.9
+Version: 0.7.0
 %if %{defined autorelease}
 Release: %autorelease
 %else
@@ -61,6 +61,7 @@ BuildRequires: git-core
 BuildRequires: pkgconfig(systemd)
 BuildRequires: selinux-policy >= %_selinux_policy_version
 BuildRequires: selinux-policy-devel >= %_selinux_policy_version
+BuildRequires: bluechi-selinux
 
 Requires: iptables
 Requires: parted
@@ -71,7 +72,6 @@ Requires(post): selinux-policy-targeted >= %_selinux_policy_version
 Requires(post): policycoreutils
 Requires(post): libselinux-utils
 Requires: podman >= %{podman_epoch}:4.5
-Requires: bluechi-agent
 Requires: jq
 
 %description
@@ -156,6 +156,9 @@ fi
 %ghost %{_installscriptdir}/rootfs/*
 
 %changelog
+* Wed Feb 26 2025 Packit <hello@packit.dev> - 0.7.0-1
+- Update to version 0.7.0
+
 * Sat Jan 04 2025 Packit <hello@packit.dev> - 0.6.9-1
 - Update to version 0.6.9
 

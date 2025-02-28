@@ -16,8 +16,8 @@
 
 Summary:    X.Org X11 X server
 Name:       xorg-x11-server
-Version:    21.1.15
-Release:    2%{?dist}
+Version:    21.1.16
+Release:    1%{?dist}
 URL:        http://www.x.org
 # SPDX
 License:    Adobe-Display-PostScript AND BSD-3-Clause AND DEC-3-Clause AND HPND AND HPND-sell-MIT-disclaimer-xserver AND HPND-sell-variant AND ICU AND ISC AND MIT AND MIT-open-group AND NTP AND SGI-B-2.0 AND SMLNJ AND X11 AND X11-distribute-modifications-variant
@@ -41,11 +41,6 @@ Patch1:     0001-xfree86-use-modesetting-driver-by-default-on-GeForce.patch
 Patch2:     0001-xf86-dri2-Use-va_gl-as-vdpau_driver-for-Intel-i965-G.patch
 # because the display-managers are not ready yet, do not upstream
 Patch3:     0001-Fedora-hack-Make-the-suid-root-wrapper-always-start-.patch
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2347345
-# https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/1608
-# https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/1824
-Patch4:     0001-dri2-Protect-against-dri2ClientPrivate-assertion-fai.patch
 
 BuildRequires:  bison
 BuildRequires:  flex
@@ -420,7 +415,12 @@ find %{buildroot} -type f -name '*.la' -delete
 
 
 %changelog
-* Tue Feb 25 2025 Olivier Fourdan <releng@fedoraproject.org> - 21.1.15-3
+* Wed Feb 26 2025 Olivier Fourdan <ofourdan@redhat.com> - 21.1.16-1
+- Update to xserver 21.1.16 (#2347558)
+- CVE fix for: CVE-2025-26594, CVE-2025-26595, CVE-2025-26596, CVE-2025-26597,
+               CVE-2025-26598, CVE-2025-26599, CVE-2025-26600, CVE-2025-26601
+
+* Tue Feb 25 2025 Olivier Fourdan <ofourdan@redhat.com> - 21.1.15-3
 - Fix DRI2 failure (#2347345)
 
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 21.1.15-2

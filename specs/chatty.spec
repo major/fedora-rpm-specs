@@ -1,9 +1,9 @@
 %global _build_id_links none
 %global __requires_exclude ^libjabber\\.so.*$
-%global libcmatrix_version 0.0.2
+%global libcmatrix_version 0.0.3
 
 Name:    chatty
-Version: 0.8.5
+Version: 0.8.6
 Release: %{autorelease}
 Summary: A libpurple messaging client
 
@@ -18,6 +18,8 @@ Source1: https://source.puri.sm/Librem5/libcmatrix/-/archive/v%{libcmatrix_versi
 # We do not want to provide a private library, which is from another
 # project, to be used in other packages.
 Patch0:  0001-hacky-hack.patch
+# https://gitlab.gnome.org/World/Chatty/-/merge_requests/1459
+Patch1:  fix-metainfo.patch
 
 ExcludeArch:    i686
 
@@ -30,7 +32,6 @@ BuildRequires:  dbus-x11
 BuildRequires:  itstool
 BuildRequires:  pkgconfig(libebook-contacts-1.2)
 BuildRequires:  pkgconfig(libebook-1.2) >= 3.42.0
-BuildRequires:  pkgconfig(libfeedback-0.0)
 BuildRequires:  pkgconfig(libadwaita-1) >= 1.5
 BuildRequires:  pkgconfig(gtk4) >= 4.12
 BuildRequires:  pkgconfig(gio-2.0) >= 2.66
@@ -76,6 +77,7 @@ cp `pkg-config --variable=plugindir purple`/libjabber.so.0 /tmp/libjabber.so
 
 %setup -a1 -n Chatty-v%{version}
 %patch -P 0 -p1
+%patch -P 1 -p1
 
 rm -rf subprojects/libcmatrix
 mv libcmatrix-v%{libcmatrix_version} subprojects/libcmatrix
@@ -112,6 +114,7 @@ echo "%{_libdir}/chatty" > %{buildroot}/%{_sysconfdir}/ld.so.conf.d/chatty.conf
 %{_datadir}/glib-2.0/schemas/sm.puri.Chatty.gschema.xml
 %{_datadir}/applications/sm.puri.Chatty.desktop
 %{_datadir}/icons/hicolor/*/apps/sm.puri.Chatty*.svg
+%{_datadir}/dbus-1/services/sm.puri.Chatty.service
 %{_metainfodir}/sm.puri.Chatty.metainfo.xml
 %dir %{_datadir}/bash-completion
 %dir %{_datadir}/bash-completion/completions

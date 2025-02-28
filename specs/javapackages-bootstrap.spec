@@ -13,7 +13,7 @@
 %global launchersPath %{_libexecdir}/%{name}
 
 Name:           javapackages-bootstrap
-Version:        1.20.0
+Version:        1.21.0
 Release:        %autorelease
 Summary:        A means of bootstrapping Java Packages Tools
 # For detailed info see the file javapackages-bootstrap-PACKAGE-LICENSING
@@ -42,6 +42,7 @@ Source:         build-helper-maven-plugin.tar.zst
 Source:         byte-buddy.tar.zst
 Source:         cdi.tar.zst
 Source:         cglib.tar.zst
+Source:         chhorz-javadoc-parser.tar.zst
 Source:         common-annotations-api.tar.zst
 Source:         commons-beanutils.tar.zst
 Source:         commons-cli.tar.zst
@@ -60,6 +61,7 @@ Source:         extra-enforcer-rules.tar.zst
 Source:         felix-parent-pom.tar.zst
 Source:         felix-utils.tar.zst
 Source:         fusesource-pom.tar.zst
+Source:         gson.tar.zst
 Source:         guava.tar.zst
 Source:         guice.tar.zst
 Source:         hamcrest.tar.zst
@@ -77,10 +79,13 @@ Source:         jctools.tar.zst
 Source:         jdom.tar.zst
 Source:         jdom2.tar.zst
 Source:         jflex.tar.zst
+Source:         jline3.tar.zst
 Source:         jsoup.tar.zst
 Source:         jsr-305.tar.zst
 Source:         junit4.tar.zst
 Source:         junit5.tar.zst
+Source:         kojan-parent.tar.zst
+Source:         kojan-xml.tar.zst
 Source:         log4j.tar.zst
 Source:         mail-api.tar.zst
 Source:         maven-antrun-plugin.tar.zst
@@ -103,6 +108,7 @@ Source:         maven-plugin-testing.tar.zst
 Source:         maven-plugin-tools.tar.zst
 Source:         maven-remote-resources-plugin.tar.zst
 Source:         maven-resolver.tar.zst
+Source:         maven-resolver2.tar.zst
 Source:         maven-resources-plugin.tar.zst
 Source:         maven-shared-incremental.tar.zst
 Source:         maven-shared-io.tar.zst
@@ -112,6 +118,7 @@ Source:         maven-surefire.tar.zst
 Source:         maven-verifier.tar.zst
 Source:         maven-wagon.tar.zst
 Source:         maven.tar.zst
+Source:         maven4.tar.zst
 Source:         mockito.tar.zst
 Source:         modello.tar.zst
 Source:         moditect.tar.zst
@@ -122,28 +129,36 @@ Source:         opentest4j.tar.zst
 Source:         osgi-annotation.tar.zst
 Source:         osgi-cmpn.tar.zst
 Source:         osgi-core.tar.zst
+Source:         picocli.tar.zst
 Source:         plexus-archiver.tar.zst
 Source:         plexus-build-api.tar.zst
+Source:         plexus-build-api0.tar.zst
 Source:         plexus-cipher.tar.zst
 Source:         plexus-classworlds.tar.zst
 Source:         plexus-compiler.tar.zst
 Source:         plexus-containers.tar.zst
+Source:         plexus-interactivity.tar.zst
 Source:         plexus-interpolation.tar.zst
 Source:         plexus-io.tar.zst
 Source:         plexus-languages.tar.zst
 Source:         plexus-pom.tar.zst
 Source:         plexus-resources.tar.zst
 Source:         plexus-sec-dispatcher.tar.zst
+Source:         plexus-sec-dispatcher4.tar.zst
 Source:         plexus-testing.tar.zst
 Source:         plexus-utils.tar.zst
+Source:         plexus-utils4.tar.zst
 Source:         plexus-xml.tar.zst
 Source:         qdox.tar.zst
 Source:         servlet-api.tar.zst
 Source:         sisu.tar.zst
 Source:         slf4j.tar.zst
+Source:         slf4j2.tar.zst
+Source:         stax2-api.tar.zst
 Source:         testng.tar.zst
 Source:         univocity-parsers.tar.zst
 Source:         velocity-engine.tar.zst
+Source:         woodstox.tar.zst
 Source:         xmlunit.tar.zst
 Source:         xmvn-generator.tar.zst
 Source:         xmvn.tar.zst
@@ -206,7 +221,7 @@ install -D -p -m 644 downstream/xmvn-generator/src/main/rpm/xmvngen.attr %{build
 echo '
 %%__xmvngen_debug 1
 %%__xmvngen_libjvm %{javaHomePath}/lib/server/libjvm.so
-%%__xmvngen_classpath %{artifactsPath}/%{name}/xmvn-generator.jar:%{artifactsPath}/%{name}/asm.jar:%{artifactsPath}/%{name}/commons-compress.jar:%{artifactsPath}/%{name}/commons-io.jar:%{artifactsPath}/%{name}/xmvn-mojo.jar:%{artifactsPath}/%{name}/maven-model.jar:%{artifactsPath}/%{name}/plexus-utils.jar
+%%__xmvngen_classpath %{artifactsPath}/%{name}/xmvn-generator.jar:%{artifactsPath}/%{name}/asm.jar:%{artifactsPath}/%{name}/commons-compress.jar:%{artifactsPath}/%{name}/commons-io.jar:%{artifactsPath}/%{name}/xmvn-mojo.jar:%{artifactsPath}/%{name}/kojan-xml.jar:%{artifactsPath}/%{name}/maven-model.jar:%{artifactsPath}/%{name}/plexus-utils.jar
 %%__xmvngen_provides_generators org.fedoraproject.xmvn.generator.filesystem.FilesystemGeneratorFactory org.fedoraproject.xmvn.generator.jpscript.JPackageScriptGeneratorFactory org.fedoraproject.xmvn.generator.jpms.JPMSGeneratorFactory org.fedoraproject.xmvn.generator.maven.MavenGeneratorFactory
 %%__xmvngen_requires_generators org.fedoraproject.xmvn.generator.filesystem.FilesystemGeneratorFactory org.fedoraproject.xmvn.generator.jpscript.JPackageScriptGeneratorFactory org.fedoraproject.xmvn.generator.maven.MavenGeneratorFactory
 %%__xmvngen_post_install_hooks org.fedoraproject.xmvn.generator.transformer.TransformerHookFactory

@@ -1,8 +1,8 @@
 # remirepo/fedora spec file for php-brick-math
 #
-# Copyright (c) 2020-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2020-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
@@ -10,7 +10,7 @@
 %bcond_without tests
 
 # Github
-%global gh_commit    f510c0a40911935b77b86859eb5223d58d660df1
+%global gh_commit    901eddb1e45a8e0f689302e40af871c181ecbe40
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     brick
 %global gh_project   math
@@ -22,8 +22,8 @@
 %global ns_project   Math
 
 Name:           php-%{pk_vendor}-%{pk_name}
-Version:        0.12.1
-Release:        3%{?dist}
+Version:        0.12.2
+Release:        1%{?dist}
 Summary:        Arbitrary-precision arithmetic library
 
 License:        MIT
@@ -35,14 +35,12 @@ Source1:        makesrc.sh
 BuildArch:      noarch
 
 BuildRequires:  php(language) >= 8.1
-BuildRequires:  php-pcre
-BuildRequires:  php-spl
 BuildRequires:  php-bcmath
 BuildRequires:  php-gmp
 # From composer.json, "require-dev": {
 #        "phpunit/phpunit": "^10.1",
 #        "php-coveralls/php-coveralls": "^2.2",
-#        "vimeo/psalm": "^5.16.0"
+#        "vimeo/psalm": "^6.8.8"
 %if %{with tests}
 BuildRequires:  phpunit10 >= 10.1
 %global phpunit %{_bindir}/phpunit10
@@ -54,8 +52,7 @@ BuildRequires:  php-fedora-autoloader-devel
 #        "php": "^8.0"
 Requires:       php(language) >= 8.1
 # From phpcompatifo report for 0.9.1
-Requires:       php-pcre
-Requires:       php-spl
+# Only pcre and spl
 # See Brick\Math\Internal\Calculator::detect()
 Requires:      (php-gmp or php-bcmath)
 
@@ -104,7 +101,7 @@ ret=0
 # don't test Native with is terribly slow, as bcmath/gmp are set as mandatory
 for calc in GMP BCMath; do
   export CALCULATOR=$calc
-  for cmdarg in "php %{phpunit}" php81 php82 php83; do
+  for cmdarg in "php %{phpunit}" php81 php82 php83 php84; do
     if which $cmdarg; then
       set $cmdarg
       $1 ${2:-%{_bindir}/phpunit10} \
@@ -125,6 +122,10 @@ exit $ret
 
 
 %changelog
+* Wed Feb 26 2025 Remi Collet <remi@remirepo.net> - 0.12.2-1
+- update to 0.12.2
+- re-license spec file to CECILL-2.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

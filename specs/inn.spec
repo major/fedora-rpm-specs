@@ -3,7 +3,7 @@
 Summary: The InterNetNews system, an Usenet news server
 Name: inn
 Version: 2.7.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 # most files are under ISC, except:
 # contrib/analyze-traffic.in: public-domain
 # contrib/mm_ckpasswd: GPL-2.0-or-later
@@ -77,7 +77,6 @@ Recommends: perl(GD)
 Recommends: perl(subs)
 Recommends: uucp
 %endif
-Requires(pre): shadow-utils
 Requires: bash >= 2.0
 Requires: coreutils
 Requires: grep
@@ -135,6 +134,12 @@ This package contains dynamic libraries provided by INN project
 %prep
 gpgv2 --keyring %{S:3} %{S:1} %{S:0}
 %autosetup -p1
+
+# Create a sysusers.d config file
+cat >inn.sysusers.conf <<EOF
+g news 13
+u news 9 'News server user' /etc/news -
+EOF
 
 %build
 %configure \
@@ -282,18 +287,14 @@ EOF
 install -dm755 %{buildroot}%{_sysconfdir}/rsyslog.d
 install -pm644 %{S:30} %{buildroot}%{_sysconfdir}/rsyslog.d/inn.conf
 
+install -m0644 -D inn.sysusers.conf %{buildroot}%{_sysusersdir}/inn.conf
+
 %check
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} make -C tests test
 
 %global inn_units_with_restart innd.service innd-expire.timer innd-nntpsend.timer innd-rnews.timer
 %global inn_units innd-expire.service innd-nntpsend.service innd-rnews.service
 
-%pre -n inews
-getent group news >/dev/null || groupadd -g 13 -r news
-getent passwd news >/dev/null || \
-useradd -r -u 9 -g news -d /etc/news  \
--c "News server user" news
-exit 0
 
 %pre
 getent group news >/dev/null || groupadd -g 13 -r news
@@ -585,8 +586,12 @@ fi
 %{_bindir}/inews
 %attr(0755,root,root) %{_libexecdir}/news/inews
 %{_mandir}/man1/inews*
+%{_sysusersdir}/inn.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.7.2-4
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 2.7.2-3
 - Add explicit BR: libxcrypt-devel
 

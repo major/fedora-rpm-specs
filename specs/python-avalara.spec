@@ -2,7 +2,7 @@
 %global pkgname avalara
 
 Name:           python-avalara
-Version:        24.12.0
+Version:        25.1.0
 Release:        1%{?dist}
 Summary:        AvaTax Python SDK
 

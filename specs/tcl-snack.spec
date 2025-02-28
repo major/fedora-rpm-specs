@@ -6,9 +6,12 @@
 %{!?tcl_sitearch: %global tcl_sitearch %{_libdir}/tcl%{tcl_version}}
 %global realname snack
 
+# ugly old code
+%global optflags %{optflags} -std=gnu17
+
 Name:		tcl-%{realname}
 Version:	2.2.10
-Release:	62%{?dist}
+Release:	63%{?dist}
 Summary:	Sound toolkit
 # generic/snackDecls.h, generic/snackStubInit.c and generic/snackStubLib.c 
 # are under the TCL "license.terms", a copy of which can be found in the tcl package.
@@ -42,7 +45,8 @@ Patch10:	snack2.2.10-python3-setuptools.patch
 Patch11:	snack2.2.10-const-fix.patch
 BuildRequires:	make
 BuildRequires:	gcc-c++
-BuildRequires:	tcl-devel, tk-devel, libogg-devel, libvorbis-devel
+# does not support tcl9, probably never will
+BuildRequires:	tcl8-devel, tk8-devel, libogg-devel, libvorbis-devel
 BuildRequires:	libXft-devel
 BuildRequires:	alsa-lib-devel
 BuildRequires:	python3-devel, python3-setuptools
@@ -148,6 +152,10 @@ install -p unix/snackConfig.sh %{buildroot}%{_libdir}
 %{python3_sitelib}/__pycache__/tkSnack*
 
 %changelog
+* Wed Feb 26 2025 Tom Callaway <spot@fedoraproject.org> - 2.2.10-63
+- force -std=gnu17 for ugly old code
+- force build against tcl8/tk8
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.10-62
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

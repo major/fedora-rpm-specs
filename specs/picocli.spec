@@ -26,14 +26,12 @@ BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
-BuildRequires:  mvn(org.fusesource.jansi:jansi)
 %endif
 %if %{with picocli_shell}
 BuildRequires:  mvn(jline:jline)
-BuildRequires:  mvn(org.jline:jline-builtins)
 BuildRequires:  mvn(org.jline:jline-console)
 BuildRequires:  mvn(org.jline:jline-reader)
-BuildRequires:  mvn(org.jline:jline-terminal-jansi)
+BuildRequires:  mvn(org.jline:jline-terminal)
 %endif
 
 %description
@@ -137,7 +135,6 @@ cp -p %{SOURCE1} pom.xml
 %pom_xpath_inject pom:project '
   <modules>
     <module>%{name}</module>
-    <module>%{name}-tests</module>
     <module>%{name}-codegen</module>
 %if %{with picocli_shell}
     <module>%{name}-shell-jline2</module>
@@ -150,10 +147,9 @@ cp -p %{SOURCE1} pom.xml
 
 # picocli-shell-jline3: fedora has a split jline3, so split up the dependency
 %pom_remove_dep org.jline:jline %{name}-shell-jline3
-%pom_add_dep org.jline:jline-builtins %{name}-shell-jline3
 %pom_add_dep org.jline:jline-console %{name}-shell-jline3
 %pom_add_dep org.jline:jline-reader %{name}-shell-jline3
-%pom_add_dep org.jline:jline-terminal-jansi %{name}-shell-jline3
+%pom_add_dep org.jline:jline-terminal %{name}-shell-jline3
 
 %pom_add_plugin org.codehaus.mojo:build-helper-maven-plugin:3.2.0 %{name} '
   <executions>
@@ -259,18 +255,8 @@ cp -p %{SOURCE1} pom.xml
     </archive>
   </configuration>'
 
-# Test modules (for code that atleast shown at picocli's README)
-mkdir -p %{name}-tests/src/main/java/picocli
-mv %{name}/src/test/java/picocli/{Demo.java,CustomLayoutDemo.java,Size.java,WindowsJansiDemo.java} %{name}-tests/src/main/java/picocli
-cp -p %{SOURCE1} %{name}-tests/pom.xml
-%pom_xpath_set pom:artifactId %{name}-tests %{name}-tests
-%pom_xpath_set pom:name %{name}-tests %{name}-tests
-%pom_add_dep info.picocli:picocli:%{version}:compile %{name}-tests
-%pom_add_dep org.fusesource.jansi:jansi %{name}-tests
-
 # don't install parent pom and tests module
 %mvn_package :%{name}-parent __noinstall
-%mvn_package :%{name}-tests __noinstall
 
 %build
 %mvn_build -s -f -j

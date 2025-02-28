@@ -1,0 +1,299 @@
+%global maven_version_suffix 4
+
+%bcond_with bootstrap
+
+%global bundled_slf4j_version 1.7.36
+%global homedir %{_datadir}/maven%{?maven_version_suffix}
+%global confdir %{_sysconfdir}/maven%{?maven_version_suffix}
+
+%global xversion 4.0.0-rc-2
+
+Name:           maven4
+Epoch:          1
+Version:        4.0.0~rc.2
+Release:        %autorelease
+Summary:        Java project management and project comprehension tool
+# maven itself is Apache-2.0
+# bundled slf4j is MIT
+License:        Apache-2.0 AND MIT
+URL:            https://maven.apache.org/
+BuildArch:      noarch
+ExclusiveArch:  %{java_arches} noarch
+
+Source0:        https://archive.apache.org/dist/maven/maven-4/%{xversion}/source/apache-maven-%{xversion}-src.tar.gz
+Source1:        maven-bash-completion
+Source2:        mvn.1
+
+Patch:          0001-Adapt-mvn-script.patch
+# Downstream-specific, avoids build-dependency on logback
+Patch:          0002-Invoke-logback-via-reflection.patch
+
+%if %{with bootstrap}
+BuildRequires:  javapackages-bootstrap
+%else
+BuildRequires:  maven-local
+BuildRequires:  mvn(com.fasterxml.woodstox:woodstox-core)
+BuildRequires:  mvn(com.google.inject:guice)
+BuildRequires:  mvn(com.google.inject:guice::classes:)
+BuildRequires:  mvn(commons-cli:commons-cli)
+BuildRequires:  mvn(javax.annotation:javax.annotation-api)
+BuildRequires:  mvn(javax.inject:javax.inject)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-assembly-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-failsafe-plugin)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-api:2.0.5)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-connector-basic:2.0.5)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-impl:2.0.5)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-spi:2.0.5)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-transport-apache:2.0.5)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-transport-file:2.0.5)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-transport-jdk:2.0.5)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-transport-wagon:2.0.5)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-util:2.0.5)
+BuildRequires:  mvn(org.apache.maven.wagon:wagon-file)
+BuildRequires:  mvn(org.apache.maven.wagon:wagon-http)
+BuildRequires:  mvn(org.apache.maven.wagon:wagon-provider-api)
+BuildRequires:  mvn(org.apache.maven:maven-parent:pom:)
+BuildRequires:  mvn(org.codehaus.modello:modello-maven-plugin)
+BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
+BuildRequires:  mvn(org.codehaus.plexus:plexus-classworlds)
+BuildRequires:  mvn(org.codehaus.plexus:plexus-interactivity-api)
+BuildRequires:  mvn(org.codehaus.plexus:plexus-interpolation)
+BuildRequires:  mvn(org.codehaus.plexus:plexus-sec-dispatcher:4.0.3)
+BuildRequires:  mvn(org.codehaus.plexus:plexus-utils:4.0.1)
+BuildRequires:  mvn(org.codehaus.plexus:plexus-xml)
+BuildRequires:  mvn(org.codehaus.woodstox:stax2-api)
+BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.inject)
+BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.inject::no_asm:)
+BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.plexus)
+BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
+BuildRequires:  mvn(org.jline:jansi-core)
+BuildRequires:  mvn(org.jline:jline-builtins)
+BuildRequires:  mvn(org.jline:jline-console-ui)
+BuildRequires:  mvn(org.jline:jline-reader)
+BuildRequires:  mvn(org.jline:jline-style)
+BuildRequires:  mvn(org.jline:jline-terminal-jni)
+BuildRequires:  mvn(org.ow2.asm:asm)
+BuildRequires:  mvn(org.slf4j:jcl-over-slf4j:2.0.16)
+BuildRequires:  mvn(org.slf4j:slf4j-api:2.0.16)
+BuildRequires:  mvn(org.slf4j:slf4j-simple:2.0.16)
+%endif
+
+# XXX
+#BuildRequires:  mvn(org.slf4j:slf4j-simple::sources:) = %{bundled_slf4j_version}
+%if %{without bootstrap}
+BuildRequires:  mvn(org.slf4j:slf4j-simple::sources:)
+%endif
+
+Requires: %{name}-lib = %{epoch}:%{version}-%{release}
+Requires: %{name}-jdk-binding
+Suggests: %{name}-openjdk21 = %{epoch}:%{version}-%{release}
+
+Requires(post): alternatives
+Requires(postun): alternatives
+
+%description
+Maven is a software project management and comprehension tool. Based on the
+concept of a project object model (POM), Maven can manage a project's build,
+reporting and documentation from a central piece of information.
+
+%package lib
+Summary:        Core part of Maven
+# If XMvn is part of the same RPM transaction then it should be
+# installed first to avoid triggering rhbz#1014355.
+OrderWithRequires: xmvn-minimal
+
+# Maven upstream uses patched version of SLF4J.  They unpack
+# slf4j-simple-sources.jar, apply non-upstreamable, Maven-specific
+# patch (using a script written in Groovy), compile and package as
+# maven-slf4j-provider.jar, together with Maven-specific additions.
+Provides:       bundled(slf4j) = %{bundled_slf4j_version}
+
+# JAR symlinks in lib directory
+Requires:       aopalliance
+Requires:       apache-commons-cli
+Requires:       apache-commons-codec
+Requires:       google-gson
+Requires:       google-guice
+Requires:       guava
+Requires:       httpcomponents-client
+Requires:       httpcomponents-core
+Requires:       jakarta-annotations
+Requires:       jakarta-inject1.0
+Requires:       jcl-over-slf4j2
+Requires:       jline
+Requires:       maven-resolver2
+Requires:       maven-wagon
+Requires:       objectweb-asm
+Requires:       plexus-containers-component-annotations
+Requires:       plexus-interactivity
+Requires:       plexus-interpolation
+Requires:       plexus-sec-dispatcher4
+Requires:       plexus-utils4
+Requires:       plexus-xml
+Requires:       sisu
+Requires:       slf4j2
+Requires:       stax2-api
+Requires:       woodstox-core
+
+%description lib
+Core part of Apache Maven that can be used as a library.
+
+%{?javadoc_package}
+
+%prep
+%autosetup -p1 -C
+
+%pom_add_dep org.codehaus.plexus:plexus-utils:4.0.1 impl/maven-cli
+%pom_add_dep org.codehaus.plexus:plexus-xml:4.0.4 impl/maven-cli
+%pom_add_dep org.codehaus.plexus:plexus-utils:4.0.1 compat/maven-resolver-provider
+%pom_add_dep org.codehaus.plexus:plexus-xml:4.0.4 compat/maven-resolver-provider
+
+%pom_remove_dep -r :junit-bom
+%pom_remove_dep -r :mockito-bom
+%pom_remove_plugin -r :maven-enforcer-plugin
+%pom_remove_plugin :bom-builder3 apache-maven
+
+%pom_remove_dep :jline-terminal-ffm impl/maven-jline
+%pom_remove_dep :jline-terminal-ffm apache-maven
+%pom_remove_dep -r :logback-classic
+
+%pom_disable_module maven-executor impl
+
+find -name '*.java' -exec sed -i 's/\r//' {} +
+find -name 'pom.xml' -exec sed -i 's/\r//' {} +
+
+sed -i "s/@{maven_version_suffix}/%{?maven_version_suffix}/" apache-maven/src/assembly/maven/bin/mvn
+
+# not really used during build, but a precaution
+find -name '*.jar' -not -path '*/test/*' -delete
+find -name '*.class' -delete
+find -name '*.bat' -delete
+
+#sed -i 's:\r::' apache-maven/src/conf/settings.xml
+
+# Downloads dependency licenses from the Internet and aggregates them.
+# We already ship the licenses in their respective packages.
+rm apache-maven/src/main/appended-resources/META-INF/LICENSE.vm
+
+# Disable plugins which are not useful for us
+%pom_remove_plugin -r :apache-rat-plugin
+%pom_remove_plugin -r :buildnumber-maven-plugin
+sed -i "
+/buildNumber=/ {
+  s/=.*/=Red Hat %{version}-%{release}/
+  s/%{dist}$//
+}
+/timestamp=/ d
+" `find -name build.properties`
+
+%mvn_package :apache-maven __noinstall
+%mvn_package ::mdo: __noinstall
+
+%mvn_compat_version : 4.0.0-rc-2
+
+%build
+%mvn_build -f -- -Dproject.build.sourceEncoding=UTF-8
+
+mkdir m2home
+(cd m2home
+    tar --delay-directory-restore -xvf ../apache-maven/target/*tar.gz
+)
+
+
+%install
+%mvn_install
+
+export M2_HOME=$(pwd)/m2home/apache-maven-%{xversion}%{?ver_add}
+
+install -d -m 755 %{buildroot}%{homedir}/conf
+install -d -m 755 %{buildroot}%{confdir}
+install -d -m 755 %{buildroot}%{_datadir}/bash-completion/completions/
+
+cp -a $M2_HOME/{bin,lib,boot} %{buildroot}%{homedir}/
+%if %{without bootstrap}
+xmvn-subst -s -R %{buildroot} %{buildroot}%{homedir}
+%endif
+
+find %{buildroot}%{homedir} -name \*.so -print -delete
+
+install -p -m 644 %{SOURCE2} %{buildroot}%{homedir}/bin/
+gzip -9 %{buildroot}%{homedir}/bin/mvn.1
+install -p -m 644 %{SOURCE1} %{buildroot}%{_datadir}/bash-completion/completions/mvn%{?maven_version_suffix}
+mv $M2_HOME/bin/m2.conf %{buildroot}%{_sysconfdir}/m2%{?maven_version_suffix}.conf
+ln -sf %{_sysconfdir}/m2%{?maven_version_suffix}.conf %{buildroot}%{homedir}/bin/m2.conf
+mv $M2_HOME/conf/maven.properties %{buildroot}%{confdir}/
+ln -sf %{confdir}/maven.properties %{buildroot}%{homedir}/conf/
+mv $M2_HOME/conf/settings.xml %{buildroot}%{confdir}/
+ln -sf %{confdir}/settings.xml %{buildroot}%{homedir}/conf/settings.xml
+mv $M2_HOME/conf/logging %{buildroot}%{confdir}/
+ln -sf %{confdir}/logging %{buildroot}%{homedir}/conf
+
+# Ghosts for alternatives
+install -d -m 755 %{buildroot}%{_bindir}/
+install -d -m 755 %{buildroot}%{_mandir}/man1/
+touch %{buildroot}%{_bindir}/{mvn,mvnenc,mvnDebug}
+touch %{buildroot}%{_mandir}/man1/{mvn,mvnenc,mvnDebug}.1
+
+# Versioned commands and manpages
+%if 0%{?maven_version_suffix:1}
+ln -s %{homedir}/bin/mvn %{buildroot}%{_bindir}/mvn%{maven_version_suffix}
+ln -s %{homedir}/bin/mvnenc %{buildroot}%{_bindir}/mvnenc%{maven_version_suffix}
+ln -s %{homedir}/bin/mvnDebug %{buildroot}%{_bindir}/mvnDebug%{maven_version_suffix}
+ln -s %{homedir}/bin/mvn.1.gz %{buildroot}%{_mandir}/man1/mvn%{maven_version_suffix}.1.gz
+ln -s %{homedir}/bin/mvnenc.1.gz %{buildroot}%{_mandir}/man1/mvnenc%{maven_version_suffix}.1.gz
+ln -s %{homedir}/bin/mvnDebug.1.gz %{buildroot}%{_mandir}/man1/mvnDebug%{maven_version_suffix}.1.gz
+%endif
+
+# JDK bindings
+install -d -m 755 %{buildroot}%{_javaconfdir}/
+ln -sf %{_jpbindingdir}/maven%{?maven_version_suffix}.conf %{buildroot}%{_javaconfdir}/maven%{?maven_version_suffix}.conf
+echo JAVA_HOME=%{_jvmdir}/jre-21-openjdk >%{buildroot}%{_javaconfdir}/maven%{?maven_version_suffix}-openjdk21.conf
+%jp_binding --verbose --variant openjdk21 --ghost maven%{?maven_version_suffix}.conf --target %{_javaconfdir}/maven%{?maven_version_suffix}-openjdk21.conf --provides %{name}-jdk-binding --requires java-21-openjdk-headless --recommends java-21-openjdk-devel
+touch %{buildroot}%{_javaconfdir}/maven%{?maven_version_suffix}-unbound.conf
+%jp_binding --verbose --variant unbound --ghost maven%{?maven_version_suffix}.conf --target %{_javaconfdir}/maven%{?maven_version_suffix}-unbound.conf --provides %{name}-jdk-binding
+
+%post
+update-alternatives --install %{_bindir}/mvn mvn %{homedir}/bin/mvn %{?maven_alternatives_priority}0 \
+--slave %{_bindir}/mvnenc mvnenc %{homedir}/bin/mvnenc \
+--slave %{_bindir}/mvnDebug mvnDebug %{homedir}/bin/mvnDebug \
+--slave %{_mandir}/man1/mvn.1.gz mvn1 %{homedir}/bin/mvn.1.gz \
+--slave %{_mandir}/man1/mvnenc.1.gz mvn1 %{homedir}/bin/mvnenc.1.gz \
+--slave %{_mandir}/man1/mvnDebug.1.gz mvnDebug1 %{homedir}/bin/mvn.1.gz \
+
+%postun
+if [[ $1 -eq 0 ]]; then update-alternatives --remove mvn %{homedir}/bin/mvn; fi
+
+%files lib -f .mfiles
+%doc README.md
+%license LICENSE NOTICE
+%{homedir}
+%exclude %{homedir}/bin/mvn*
+%dir %{confdir}
+%dir %{confdir}/logging
+%config %{_javaconfdir}/maven%{?maven_version_suffix}*.conf
+%config(noreplace) %{_sysconfdir}/m2%{?maven_version_suffix}.conf
+%config(noreplace) %{confdir}/maven.properties
+%config(noreplace) %{confdir}/settings.xml
+%config(noreplace) %{confdir}/logging/simplelogger.properties
+
+%files
+%{homedir}/bin/mvn*
+%ghost %{_bindir}/mvn
+%ghost %{_bindir}/mvnenc
+%ghost %{_bindir}/mvnDebug
+%{_datadir}/bash-completion
+%ghost %{_mandir}/man1/mvn.1.gz
+%ghost %{_mandir}/man1/mvnenc.1.gz
+%ghost %{_mandir}/man1/mvnDebug.1.gz
+%if 0%{?maven_version_suffix:1}
+%{_bindir}/mvn%{maven_version_suffix}
+%{_bindir}/mvnenc%{maven_version_suffix}
+%{_bindir}/mvnDebug%{maven_version_suffix}
+%{_mandir}/man1/mvn%{maven_version_suffix}.1.gz
+%{_mandir}/man1/mvnenc%{maven_version_suffix}.1.gz
+%{_mandir}/man1/mvnDebug%{maven_version_suffix}.1.gz
+%endif
+
+%changelog
+%autochangelog

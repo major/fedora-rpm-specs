@@ -11,11 +11,11 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    418c59fd080954f8c4aa5631d9502ecda2387118
+%global gh_commit    14d63fbcca18457e49c6f8bebaa91a87e8e188d7
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner    sebastianbergmann
 %global gh_project   php-code-coverage
-%global gh_date      2024-12-11
+%global gh_date      2025-02-25
 # Packagist
 %global pk_vendor    phpunit
 %global pk_project   php-code-coverage
@@ -26,8 +26,8 @@
 %global ver_major    11
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        11.0.8
-Release:        2%{?dist}
+Version:        11.0.9
+Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
 # SPDX: Main license is BSD-3-Clause
@@ -44,7 +44,7 @@ BuildArch:      noarch
 BuildRequires:  php(language) >= 8.2
 BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 %if %{with tests}
-BuildRequires:  (php-composer(nikic/php-parser)                   >= 5.3.1  with php-composer(nikic/php-parser)                   < 6)
+BuildRequires:  (php-composer(nikic/php-parser)                   >= 5.4.0  with php-composer(nikic/php-parser)                   < 6)
 BuildRequires:  (php-composer(phpunit/php-file-iterator)          >= 5.1.0  with php-composer(phpunit/php-file-iterator)          < 6)
 BuildRequires:  (php-composer(phpunit/php-text-template)          >= 4.0.1  with php-composer(phpunit/php-text-template)          < 5)
 BuildRequires:  (php-composer(sebastian/code-unit-reverse-lookup) >= 4.0.1  with php-composer(sebastian/code-unit-reverse-lookup) < 5)
@@ -53,18 +53,14 @@ BuildRequires:  (php-composer(sebastian/environment)              >= 7.2.0  with
 BuildRequires:  (php-composer(sebastian/lines-of-code)            >= 3.0.1  with php-composer(sebastian/lines-of-code)            < 4)
 BuildRequires:  (php-composer(sebastian/version)                  >= 5.0.2  with php-composer(sebastian/version)                  < 6)
 BuildRequires:  (php-composer(theseer/tokenizer)                  >= 1.2.3  with php-composer(theseer/tokenizer)                  < 2)
-BuildRequires:  php-date
 BuildRequires:  php-dom
 BuildRequires:  php-json
 BuildRequires:  php-libxml
-BuildRequires:  php-pcre
-BuildRequires:  php-reflection
-BuildRequires:  php-spl
 BuildRequires:  php-tokenizer
 BuildRequires:  php-xmlwriter
 # From composer.json, "require-dev": {
-#        "phpunit/phpunit": "^11.5.0"
-BuildRequires:  phpunit11 >= 11.5.0
+#        "phpunit/phpunit": "^11.5.2"
+BuildRequires:  phpunit11 >= 11.5.2
 BuildRequires:  php-xdebug
 %endif
 
@@ -73,7 +69,7 @@ BuildRequires:  php-xdebug
 #        "ext-dom": "*",
 #        "ext-libxml": "*",
 #        "ext-xmlwriter": "*",
-#        "nikic/php-parser": "^5.3.1",
+#        "nikic/php-parser": "^5.4.0",
 #        "phpunit/php-file-iterator": "^5.1.0",
 #        "phpunit/php-text-template": "^4.0.1",
 #        "sebastian/code-unit-reverse-lookup": "^4.0.1",
@@ -86,7 +82,7 @@ Requires:       php(language) >= 8.2
 Requires:       php-dom
 Requires:       php-libxml
 Requires:       php-xmlwriter
-Requires:       (php-composer(nikic/php-parser)                   >= 5.3.1  with php-composer(nikic/php-parser)                   < 6)
+Requires:       (php-composer(nikic/php-parser)                   >= 5.4.0  with php-composer(nikic/php-parser)                   < 6)
 Requires:       (php-composer(phpunit/php-file-iterator)          >= 5.1.0  with php-composer(phpunit/php-file-iterator)          < 6)
 Requires:       (php-composer(phpunit/php-text-template)          >= 4.0.1  with php-composer(phpunit/php-text-template)          < 5)
 Requires:       (php-composer(sebastian/code-unit-reverse-lookup) >= 4.0.1  with php-composer(sebastian/code-unit-reverse-lookup) < 5)
@@ -101,11 +97,7 @@ Requires:       (php-composer(theseer/tokenizer)                  >= 1.2.3  with
 Suggests:       php-xdebug
 Recommends:     php-pcov
 # From phpcompatinfo report for version 10.0.0
-Requires:       php-date
 Requires:       php-json
-Requires:       php-pcre
-Requires:       php-reflection
-Requires:       php-spl
 Requires:       php-tokenizer
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
@@ -202,6 +194,10 @@ exit $ret
 
 
 %changelog
+* Wed Feb 26 2025 Remi Collet <remi@remirepo.net> - 11.0.9-1
+- update to 11.0.9
+- raise dependency on nikic/php-parser 5.4.0
+
 * Tue Feb  4 2025 Remi Collet <remi@remirepo.net> - 11.0.8-2
 - enable test suite
 

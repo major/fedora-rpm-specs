@@ -42,6 +42,14 @@ Patch4:         0004-wxi-update-ICU.patch
 Patch10:        0010-wxi-update-for-rawhide.patch
 Patch11:        0011-wxi-update-for-rawhide.patch
 Patch12:        0012-wxi-openjpeg2-is-now-part-of-openjpeg.patch
+Patch14:        0014-wxi-curl-depends-on-libpsl-now.patch
+Patch15:        0015-wxi-drop-p11-kit.patch
+Patch16:        0016-wxi-usbx-usb1.patch
+Patch17:        0017-wxi-update-ICU.patch
+Patch18:        0018-wxi-sdl2-sdl2-compat.patch
+Patch19:        0019-wxi-bump-openexr.patch
+Patch20:        0020-wxi-bump-gstreamer1-plugins-bad-free.patch
+Patch21:        0021-wxi-update-openal-soft.patch
 
 Requires:       libgsf >= 1.14.24-2
 
@@ -179,8 +187,8 @@ BuildRequires:  mingw32-libtiff
 BuildRequires:  mingw64-libtiff
 BuildRequires:  mingw32-libunistring
 BuildRequires:  mingw64-libunistring
-BuildRequires:  mingw32-libusbx
-BuildRequires:  mingw64-libusbx
+BuildRequires:  mingw32-libusb1
+BuildRequires:  mingw64-libusb1
 BuildRequires:  mingw32-libvirt-glib
 BuildRequires:  mingw64-libvirt-glib
 BuildRequires:  mingw32-libvirt
@@ -205,8 +213,6 @@ BuildRequires:  mingw32-opus
 BuildRequires:  mingw64-opus
 BuildRequires:  mingw32-orc
 BuildRequires:  mingw64-orc
-BuildRequires:  mingw32-p11-kit
-BuildRequires:  mingw64-p11-kit
 BuildRequires:  mingw32-pango
 BuildRequires:  mingw64-pango
 BuildRequires:  mingw32-portablexdr
@@ -215,6 +221,8 @@ BuildRequires:  mingw32-readline
 BuildRequires:  mingw64-readline
 BuildRequires:  mingw32-rest
 BuildRequires:  mingw64-rest
+BuildRequires:  mingw32-sdl2-compat
+BuildRequires:  mingw64-sdl2-compat
 BuildRequires:  mingw32-speex
 BuildRequires:  mingw64-speex
 BuildRequires:  mingw32-spice-glib

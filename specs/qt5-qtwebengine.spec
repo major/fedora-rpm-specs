@@ -48,7 +48,7 @@
 Summary: Qt5 - QtWebEngine components
 Name:    qt5-qtwebengine
 Version: 5.15.18
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -136,7 +136,6 @@ BuildRequires: cmake
 BuildRequires: bison
 BuildRequires: flex
 BuildRequires: gcc-c++
-BuildRequires: binutils-gold
 # gn links statically (for now)
 BuildRequires: libstdc++-static
 BuildRequires: git-core
@@ -429,11 +428,7 @@ export NINJA_PATH=%{__ninja}
 
 %{qmake_qt5} \
   %{?debug_config:CONFIG+="%{debug_config}}" \
-%ifarch riscv64
   CONFIG+="link_pulseaudio" \
-%else
-  CONFIG+="link_pulseaudio use_gold_linker" \
-%endif
   QMAKE_EXTRA_ARGS+="-system-webengine-ffmpeg -system-webengine-webp -system-webengine-opus" \
   QMAKE_EXTRA_ARGS+="-webengine-kerberos -webengine-python-version python3" \
   %{?use_system_libicu:QMAKE_EXTRA_ARGS+="-system-webengine-icu"} \
@@ -582,6 +577,9 @@ done
 %{_qt5_examplesdir}/
 
 %changelog
+* Wed Feb 26 2025 Jan Grulich <jgrulich@redhat.com> - 5.15.18-3
+- Switch to ld.bfd
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.18-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

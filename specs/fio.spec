@@ -1,6 +1,6 @@
 Name:		fio
-Version:	3.37
-Release:	4%{?dist}
+Version:	3.39
+Release:	1%{?dist}
 Summary:	Multithreaded IO generation tool
 
 License:	GPL-2.0-only
@@ -61,6 +61,7 @@ BuildRequires:	libcufile.so.0()(64bit)
 %ifnarch %{arm}
 BuildRequires:	numactl-devel
 BuildRequires:	librdmacm-devel
+BuildRequires:  libnl3-devel
 %endif
 BuildRequires: make
 
@@ -281,6 +282,10 @@ make install prefix=%{_prefix} mandir=%{_mandir} libdir=%{_libdir}/fio DESTDIR=$
 %endif
 
 %changelog
+* Mon Feb 24 2025 Pavel Reichl <preichl@redhat.com> - 3.39-1
+- Update to upstream version
+- Related: rhbz#2316181
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.37-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -2,25 +2,26 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate zerofrom-derive
+%global crate rsconf
 
-Name:           rust-zerofrom-derive
-Version:        0.1.6
+Name:           rust-rsconf
+Version:        0.2.2
 Release:        %autorelease
-Summary:        Custom derive for the zerofrom crate
+Summary:        Sane autoconf for rust
 
-License:        Unicode-3.0
-URL:            https://crates.io/crates/zerofrom-derive
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/rsconf
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Patch out the "zf_derive" example to avoid a circular dependency on the
-#   zerofrom crate.
-Patch:          zerofrom-derive-fix-metadata.diff
+
+# Backport license files
+Patch:          https://github.com/mqudsi/rsconf/commit/6bd2a72bd0abea3726a6b7c9d2cec91890f1a84c.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  gcc
 
 %global _description %{expand:
-Custom derive for the zerofrom crate.}
+A sane autoconf for rust. build.rs helpers for testing for system
+headers, libraries, and symbols.}
 
 %description %{_description}
 
@@ -34,7 +35,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -52,8 +54,6 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Avoid a circular dependency on the zerofrom crate
-rm examples/zf_derive.rs
 %cargo_prep
 
 %generate_buildrequires

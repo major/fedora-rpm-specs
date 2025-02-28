@@ -14,6 +14,7 @@ Source21:       toolchains-openjdk21.xml
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
+BuildRequires:  maven
 %else
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.beust:jcommander)
@@ -135,7 +136,7 @@ API documentation for %{name}.
 # Copy Maven home packaged as RPM instead of unpacking Maven binary
 # tarball with maven-dependency-plugin
 %pom_remove_plugin :maven-dependency-plugin
-maven_home=$(realpath $(dirname $(realpath $(%{?jpb_env} type -p mvn)))/..)
+maven_home=%{_datadir}/maven
 mver=$(sed -n '/<mavenVersion>/{s/.*>\(.*\)<.*/\1/;p}' \
            xmvn-parent/pom.xml)
 mkdir -p target/dependency/
@@ -165,7 +166,7 @@ rm -f %{name}-${version}/bin/*
 %mvn_install
 
 version=4.*
-maven_home=$(realpath $(dirname $(realpath $(%{?jpb_env} type -p mvn)))/..)
+maven_home=%{_datadir}/maven
 
 install -d -m 755 %{buildroot}%{_datadir}/%{name}
 cp -r%{?with_bootstrap:L} %{name}-${version}/* %{buildroot}%{_datadir}/%{name}/
@@ -187,6 +188,7 @@ done
 # copy over maven boot and lib directories
 cp -r%{?with_bootstrap:L} ${maven_home}/boot/* %{buildroot}%{_datadir}/%{name}/boot/
 cp -r%{?with_bootstrap:L} ${maven_home}/lib/* %{buildroot}%{_datadir}/%{name}/lib/
+ln -sf %{_prefix}/lib/jansi/libjansi.so %{buildroot}%{_datadir}/%{name}/lib/jansi-native/
 
 # possibly recreate symlinks that can be automated with xmvn-subst
 %if %{without bootstrap}

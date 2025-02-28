@@ -1,6 +1,6 @@
 Name:           minidlna
 Version:        1.3.3
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Lightweight DLNA/UPnP-AV server targeted at embedded systems
 
 # see minidlna-licensing-breakdown.txt for complete breakdown
@@ -38,7 +38,6 @@ BuildRequires:  sqlite-devel
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  zlib-devel
 Recommends:     logrotate
-Requires(pre):  shadow-utils
 %{?systemd_requires}
 
 %description
@@ -107,8 +106,6 @@ install -d -m 755 %{buildroot}%{_localstatedir}/log/%{name}/
 %find_lang %{name}
 
 
-%pre
-%sysusers_create_compat %{SOURCE5}
 
 
 %post
@@ -141,6 +138,9 @@ install -d -m 755 %{buildroot}%{_localstatedir}/log/%{name}/
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.3.3-11
+- Drop call to %sysusers_create_compat
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

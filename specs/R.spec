@@ -335,8 +335,8 @@ export JAVA_HOME=%{_jvmdir}/jre
   --with-system-tre \
   --with-blas=%{blaslib}%{blasvar} \
   --with-lapack \
-  --with-tcl-config=%{_libdir}/tclConfig.sh \
-  --with-tk-config=%{_libdir}/tkConfig.sh \
+  --with-tcl-config=/usr/%{_lib}/tclConfig.sh \
+  --with-tk-config=/usr/%{_lib}/tkConfig.sh \
   --enable-R-shlib \
   --enable-prebuilt-html \
   --enable-R-profiling \

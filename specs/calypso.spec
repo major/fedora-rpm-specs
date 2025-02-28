@@ -6,7 +6,7 @@
 
 Name: calypso
 Version: 2.0
-Release: 0.18.%{date}git%{shortcommit}%{?dist}
+Release: 0.19.%{date}git%{shortcommit}%{?dist}
 Summary: Free and open-source CalDAV calendar server
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
@@ -28,7 +28,6 @@ BuildRequires: systemd-rpm-macros
 BuildRequires: git-core
 BuildRequires: python3-pytest
 %endif
-Requires(pre): shadow-utils
 Requires(post): git-core
 Requires: git-core
 Requires: python3-lockfile
@@ -48,6 +47,11 @@ patches to Radicale but was eventually split off as a separate project.
 %setup -q -n %{name}-%{commit}
 %patch -P0 -p1 -b .daemon
 
+# Create a sysusers.d config file
+cat >calypso.sysusers.conf <<EOF
+u calypso - 'CalDAV/CardDAV server with git storage' %{_sharedstatedir}/calypso -
+EOF
+
 %build
 %py3_build
 
@@ -59,17 +63,13 @@ install -Dpm644 %{S:2} %{buildroot}%{_sysconfdir}/calypso/config
 install -Dpm644 %{S:3} %{buildroot}%{_sysconfdir}/pam.d/calypso
 install -Dpm644 %{S:4} %{buildroot}%{_unitdir}/calypso.service
 
+install -m0644 -D calypso.sysusers.conf %{buildroot}%{_sysusersdir}/calypso.conf
+
 %if %{with check}
 %check
 %pytest
 %endif
 
-%pre
-getent group calypso >/dev/null || groupadd -r calypso
-getent passwd calypso >/dev/null || \
-    useradd -r -g calypso -d %{_sharedstatedir}/calypso -s /sbin/nologin \
-    -c "CalDAV/CardDAV server with git storage" calypso
-exit 0
 
 %preun
 %systemd_preun calypso.service
@@ -103,8 +103,12 @@ fi
 %{python3_sitelib}/calypso-%{version}-py%{python3_version}.egg-info
 %{python3_sitelib}/calypso
 %dir %attr(0750,calypso,calypso) %{_sharedstatedir}/calypso
+%{_sysusersdir}/calypso.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.0-0.19.20190429git7317d88
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-0.18.20190429git7317d88
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

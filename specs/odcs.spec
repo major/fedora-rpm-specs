@@ -1,6 +1,6 @@
 Name:       odcs
 Version:    0.9.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    The On Demand Compose Service
 
 
@@ -44,7 +44,6 @@ BuildRequires:    python3-tomli
 
 %{?systemd_requires}
 
-Requires(pre): shadow-utils
 Requires:    systemd
 Requires:    pungi
 Requires:    python3-requests-gssapi
@@ -111,6 +110,11 @@ Command line client for sending requests to ODCS.
 %prep
 %autosetup -p1
 
+# Create a sysusers.d config file
+cat >odcs.sysusers.conf <<EOF
+u odcs - 'On Demand Compose Service user' - -
+EOF
+
 %build
 %py3_build
 
@@ -136,13 +140,9 @@ install -p -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/
 install -d -m 0755 %{buildroot}%{_datadir}/odcs
 install -p -m 0644 server/contrib/odcs.wsgi %{buildroot}%{_datadir}/odcs
 
+install -m0644 -D odcs.sysusers.conf %{buildroot}%{_sysusersdir}/odcs.conf
 
-%pre
-getent group odcs >/dev/null || groupadd -r odcs
-getent passwd odcs >/dev/null || \
-    useradd -r -g odcs -s /sbin/nologin \
-    -c "On Demand Compose Service user" odcs
-exit 0
+
 
 %post
 %systemd_post odcs-backend.service
@@ -191,9 +191,13 @@ export ODCS_DEVELOPER_ENV=1
 %exclude %{_sysconfdir}/odcs/*.py[co]
 %exclude %{_sysconfdir}/odcs/__pycache__
 %exclude %{python3_sitelib}/odcs/__pycache__
+%{_sysusersdir}/odcs.conf
 
 
 %changelog
+* Tue Feb 25 2025 Zbigniew Jedrzejewski-Szmek <zbyszek@in.waw.pl> - 0.9.0-2
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Tue Feb 25 2025 Haibo Lin <hlin@redhat.com> - 0.9.0-1
 - server: Add `odcs-manager metrics` command
 - server: Add cleanup command to odcs-manager

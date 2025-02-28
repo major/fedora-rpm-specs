@@ -1,7 +1,7 @@
 Summary: A spam filter for Usenet news servers
 Name: cleanfeed
 Version: 20020501
-Release: 34%{?dist}
+Release: 35%{?dist}
 # Confirmed with upstream, website
 License: Artistic-2.0
 URL: http://www.bofh.it/~md/cleanfeed/
@@ -11,7 +11,6 @@ Patch1: cleanfeed-20020501-ro.patch
 BuildArch: noarch
 BuildRequires: perl-generators
 BuildRequires: sed
-Requires(pre): shadow-utils
 
 %description
 Cleanfeed is an automatic spam filter for Usenet news servers and
@@ -29,16 +28,15 @@ news server.
 %patch -P0 -p1 -b .rh
 %patch -P1 -p1
 
+# Create a sysusers.d config file
+cat >cleanfeed.sysusers.conf <<EOF
+u news - 'cleanfeed user' %{_sysconfdir}/news -
+EOF
+
 %build
 sed '1 i #!/usr/bin/perl' cleanfeed > filter_innd.pl
 
 %pre
-getent group news >/dev/null || groupadd -r news
-getent passwd news >/dev/null || \
-    useradd -r -g news -d %{_sysconfdir}/news -s /sbin/nologin \
-    -c "cleanfeed user" news
-exit 0
-
 %install
 mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/news
 mkdir -p $RPM_BUILD_ROOT/%{_datadir}/news/bin/filter
@@ -47,6 +45,8 @@ install -m 0644 bad_* $RPM_BUILD_ROOT/%{_sysconfdir}/news/
 install -m 0755 filter_innd.pl \
 	$RPM_BUILD_ROOT/%{_datadir}/news/bin/filter/filter_innd.pl
 
+install -m0644 -D cleanfeed.sysusers.conf %{buildroot}%{_sysusersdir}/cleanfeed.conf
+
 %files
 %license LICENSE
 %doc CHANGES README HACKING TODO
@@ -54,8 +54,12 @@ install -m 0755 filter_innd.pl \
 %attr(-,news,news) %config(noreplace)  %{_sysconfdir}/news/bad_*
 %attr(755,news,news) %dir %{_datadir}/news/bin/filter
 %attr(-,news,news) %{_datadir}/news/bin/filter/filter_innd.pl
+%{_sysusersdir}/cleanfeed.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 20020501-35
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20020501-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

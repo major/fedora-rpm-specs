@@ -51,7 +51,7 @@
 
 Name:          gdal
 Version:       3.10.2
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -647,6 +647,9 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 
 
 %changelog
+* Wed Feb 26 2025 Sandro Mani <manisandro@gmail.com> - 3.10.2-4
+- Rebuild (poppler)
+
 * Thu Feb 20 2025 Marek Kasik <mkasik@redhat.com> - 3.10.2-3
 - Add definitions of missing int16_t and int32_t
 

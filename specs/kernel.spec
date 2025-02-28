@@ -120,7 +120,7 @@ Summary: The Linux kernel
 
 # Default compression algorithm
 %global compression xz
-%global compression_flags --compress
+%global compression_flags --compress --check=crc32 --lzma2=dict=1MiB
 %global compext xz
 
 %if 0%{?fedora}
@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.14.0
 %define specversion 6.14.0
 %define patchversion 6.14
-%define pkgrelease 0.rc4.36
+%define pkgrelease 0.rc4.20250226gitac9c34d1e45a.38
 %define kversion 6
-%define tarfile_release 6.14-rc4
+%define tarfile_release 6.14-rc4-52-gac9c34d1e45a
 # This is needed to do merge window version magic
 %define patchlevel 14
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc4.36%{?buildid}%{?dist}
+%define specrelease 0.rc4.20250226gitac9c34d1e45a.38%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.14.0
 
@@ -4212,10 +4212,21 @@ fi\
 #
 #
 %changelog
-* Mon Feb 24 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc4.36]
+* Wed Feb 26 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc4.ac9c34d1e45a.38]
 - apply -Wno-error=unterminated-string-initialization temporarily (Thorsten Leemhuis)
 - include/linux: Adjust headers for C23 (Jakub Jelinek)
 - x86/insn_decoder_test: allow longer symbol-names (David Rheinsberg)
+
+* Wed Feb 26 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc4.ac9c34d1e45a.37]
+- Linux v6.14.0-0.rc4.ac9c34d1e45a
+
+* Tue Feb 25 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc4.36]
+- Revert "Merge: redhat/configs: automotive: Disable POSIX_MQUEUE config (Dorinda Bassey)
+- redhat/configs: enable in kernel compression/decompression of compressed modules (Herton R. Krzesinski)
+- redhat: change compression flags for xz (Herton R. Krzesinski)
+- redhat/configs: automotive: Turn off ACPI Processor package for aarch64 (Enric Balletbo i Serra)
+- redhat/configs: automotive: Disable L2TP Protocol (Dorinda Bassey)
+- redhat/configs: automotive: Disable TIPC Protocol (Dorinda Bassey)
 
 * Mon Feb 24 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc4.35]
 - redhat/configs: Enable Mediatek Bluetooth USB drivers (Bastien Nocera)

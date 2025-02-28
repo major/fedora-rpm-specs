@@ -4,7 +4,7 @@
 # %%{_libdir}/pypy%%{pyversion} (see e.g. pypy3.7 or pypy3.8 for inspiration).
 %global basever 7.3
 Name:           pypy
-Version:        %{basever}.18
+Version:        %{basever}.19
 %global pyversion 2.7
 Release:        %autorelease
 Summary:        Python implementation with a Just-In-Time compiler
@@ -219,10 +219,6 @@ Patch394: 394-cve-2022-45061-cpu-denial-of-service-via-inefficient-idna-decoder.
 #
 # Backported from Python 3.12
 Patch399: 399-cve-2023-24329.patch
-
-# Upstream backports:
-# Fix build with -Wincompatible-pointer-types
-Patch501: https://github.com/pypy/pypy/commit/1a0d436048.patch
 
 # Build-time requirements:
 

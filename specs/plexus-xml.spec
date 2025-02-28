@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           plexus-xml
-Version:        3.0.1
+Version:        4.0.4
 Release:        %autorelease
 Summary:        Plexus XML Utilities
 # Licensing breakdown:
@@ -15,10 +15,14 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://github.com/codehaus-plexus/%{name}/archive/%{name}-%{version}.tar.gz
 
+# From upstream commit 1f1ff6f
+Patch:          0001-Upgrade-to-Maven-4.0.0-rc-2.patch
+
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
+BuildRequires:  mvn(org.apache.maven:maven-xml:4.0.0-rc-2)
 BuildRequires:  mvn(org.codehaus.plexus:plexus:pom:)
 %endif
 

@@ -10,6 +10,8 @@ Source0:        http://savannah.nongnu.org/download/%{name}/%{name}-%{version}.t
 # Possible security fix, at minimum it's a DoS.
 # Upstream commit d72956a6de228c91d1fc48fd15448fadea9ab6cf
 Patch1:         0001-wrestool-Fix-get_resource_id_quoted-to-return-heap-a.patch
+# Fix build for GCC 15
+Patch2:         0002-gcc15.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -33,6 +35,7 @@ libraries.
 %setup -q
 
 %patch 1 -p1
+%patch 2 -p1
 
 autoreconf -i
 

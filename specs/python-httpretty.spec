@@ -33,6 +33,10 @@ Patch4:         test_handle_slashes.patch
 Patch5:         chunked_requests_handled_by_urllib3.patch  
 # Mock socket.shutdown for compatibility with urllib3 >= 2.3
 Patch6:         https://github.com/gabrielfalcao/HTTPretty/pull/485.patch
+# python 3.14 changes
+# functools.partial is now a method descriptor https://github.com/python/cpython/issues/121027
+# instead of utcnow() use datetime.datetime.now(tz=datetime.UTC)
+Patch7:         remove_deprecations_in_python_3_13.patch
 
 BuildArch:      noarch
 

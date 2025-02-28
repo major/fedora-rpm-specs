@@ -5,7 +5,7 @@
 
 Name:           mingw-python-%{pkg_name}
 Summary:        MinGW Python %{pkg_name}
-Version:        1.17.2
+Version:        1.18.1
 Release:        1%{?dist}
 BuildArch:      noarch
 
@@ -83,6 +83,9 @@ rm -rf pyqtbuild/bundle/dlls/
 
 
 %changelog
+* Wed Feb 26 2025 Sandro Mani <manisandro@gmail.com> - 1.18.1-1
+- Update to 1.18.1
+
 * Sun Feb 09 2025 Sandro Mani <manisandro@gmail.com> - 1.17.2-1
 - Update to 1.17.2
 

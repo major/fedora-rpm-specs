@@ -32,6 +32,18 @@ BuildRequires:  python3-devel
 
 sed -e '/^addopts/d' -i pytest.ini
 
+# Upstream maintains grammar files for individual Python versions.
+# To ease testing with the next Python version, we copy the previous grammar
+# if the current one is not found.
+# If this doesn't work, the tests should fail.
+cd parso/python
+%global python3_version_nodots_previous %[0%{?python3_version_nodots} - 1]
+if [[ ! -f grammar%{python3_version_nodots}.txt &&
+        -f grammar%{python3_version_nodots_previous}.txt ]]; then
+  cp -a grammar%{python3_version_nodots_previous}.txt grammar%{python3_version_nodots}.txt
+fi
+cd -
+
 
 %generate_buildrequires
 %pyproject_buildrequires -x testing

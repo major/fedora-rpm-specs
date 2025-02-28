@@ -141,12 +141,6 @@
 %global __provides_exclude_from ^(%{chromium_path}/.*\\.so|%{chromium_path}/.*\\.so.*)$
 %global __requires_exclude ^(%{chromium_path}/.*\\.so|%{chromium_path}/.*\\.so.*)$
 
-# enable|disable use_custom_libcxx
-%global use_custom_libcxx 0
-%if 0%{?rhel} || 0%{?fedora} == 40
-%global use_custom_libcxx 1
-%endif
-
 # enable|disable control flow integrity support
 %global cfi 0
 %ifarch x86_64 aarch64
@@ -267,7 +261,7 @@
 %endif
 
 Name:	chromium
-Version: 133.0.6943.126
+Version: 133.0.6943.141
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -317,7 +311,6 @@ Patch141: chromium-118-dma_buf_export_sync_file-conflict.patch
 
 # add correct path for Qt6Gui header and libs
 Patch150: chromium-124-qt6.patch
-Patch151: chromium-131-qt-ui.patch
 
 # revert, it causes ramdom crash on aarch64
 Patch300: chromium-131-revert-decommit-pooled-pages-by-default.patch
@@ -340,6 +333,9 @@ Patch312: chromium-123-fstack-protector-strong.patch
 # build error stdarch_arm_crc32
 Patch313: chromium-133-rust-crc32fast.patch
 
+# warning: unknown warning option '-Wno-nontrivial-memcall'
+Patch314: chromium-134-clang-unknown-option.patch
+
 # add -ftrivial-auto-var-init=zero and -fwrapv
 Patch316: chromium-122-clang-build-flags.patch
 
@@ -353,11 +349,11 @@ Patch353: chromium-127-aarch64-duplicate-case-value.patch
 # remove flag split-threshold-for-reg-with-hint, it's not supported in clang <= 17
 Patch354: chromium-126-split-threshold-for-reg-with-hint.patch
 
-# fix build error with new pipewire in f43
-Patch356: chromium-133-pipewire-cast.patch
-
 # fix build error: no member named 'hardware_destructive_interference_size' in namespace 'std'
 Patch355: chromium-130-hardware_destructive_interference_size.patch
+
+# fix build error with new pipewire in f43
+Patch356: chromium-133-pipewire-cast.patch
 
 # set clang_lib path
 Patch358: chromium-127-rust-clanglib.patch
@@ -606,10 +602,6 @@ BuildRequires: libappstream-glib
 %if %{bootstrap}
 # gn needs these
 BuildRequires: libstdc++-static
-%endif
-
-%if ! %{use_custom_libcxx}
-BuildRequires: libcxx-devel
 %endif
 
 # Fedora tries to use system libs whenever it can.
@@ -1012,10 +1004,7 @@ Qt6 UI for chromium.
 %patch -P141 -p1 -b .dma_buf_export_sync_file-conflict
 %endif
 
-%if 0%{?rhel} > 9 || 0%{?fedora} > 39
 %patch -P150 -p1 -b .qt6
-%patch -P151 -p1 -b .qt-ui
-%endif
 
 %ifarch aarch64 ppc64le
 %patch -P300 -p1 -R -b .revert-decommit-pooled-pages-by-default
@@ -1039,10 +1028,11 @@ Qt6 UI for chromium.
 
 %ifarch aarch64
 %if 0%{?rhel} == 8 || 0%{?rhel} == 9
-%patch -P313 -p1 -b .rust-crc32fast.patch
+%patch -P313 -p1 -b .rust-crc32fast
 %endif
 %endif
 
+%patch -P314 -p1 -b .clang-unknown-option
 %patch -P316 -p1 -b .clang-build-flags
 
 %if %{disable_bti}
@@ -1208,22 +1198,8 @@ CFLAGS="$FLAGS"
 CXXFLAGS="$FLAGS"
 %endif
 
-%if ! %{use_custom_libcxx}
-CXXFLAGS="$FLAGS -stdlib=libc++"
-LDFLAGS="$LDFLAGS -stdlib=libc++"
-%endif
-
 %ifarch ppc64le
 CXXFLAGS+=' -faltivec-src-compat=mixed -Wno-deprecated-altivec-src-compat'
-%endif
-
-# reduce the size of relocations
-%if 0%{?fedora} || 0%{?rhel} > 9
-LDFLAGS="$LDFLAGS -Wl,-z,pack-relative-relocs"
-RUSTFLAGS=${RUSTFLAGS/--cap-lints/-Clink-arg=-Wl,-z,pack-relative-relocs --cap-lints}
-%if ! %{enable_debug}
-RUSTFLAGS=${RUSTFLAGS/debuginfo=?/debuginfo=0}
-%endif
 %endif
 
 export CC=clang
@@ -1233,8 +1209,6 @@ export NM=llvm-nm
 export READELF=llvm-readelf
 export CFLAGS
 export CXXFLAGS
-export LDFLAGS
-export RUSTFLAGS
 
 # need for error: the option `Z` is only accepted on the nightly compiler
 export RUSTC_BOOTSTRAP=1
@@ -1309,9 +1283,6 @@ CHROMIUM_CORE_GN_DEFINES+=' icu_use_data_file=true'
 CHROMIUM_CORE_GN_DEFINES+=' target_os="linux"'
 CHROMIUM_CORE_GN_DEFINES+=' current_os="linux"'
 CHROMIUM_CORE_GN_DEFINES+=' treat_warnings_as_errors=false'
-%if ! %{use_custom_libcxx}
-CHROMIUM_CORE_GN_DEFINES+=' use_custom_libcxx=false'
-%endif
 CHROMIUM_CORE_GN_DEFINES+=' enable_iterator_debugging=false'
 CHROMIUM_CORE_GN_DEFINES+=' enable_vr=false'
 CHROMIUM_CORE_GN_DEFINES+=' build_dawn_tests=false enable_perfetto_unittests=false'
@@ -1781,6 +1752,9 @@ fi
 %endif
 
 %changelog
+* Wed Feb 26 2025 Than Ngo <than@redhat.com> - 133.0.6943.141-1
+- Update to 133.0.6943.141
+
 * Wed Feb 19 2025 Than Ngo <than@redhat.com> - 133.0.6943.126-1
 - Update to 133.0.6943.126
   * CVE-2025-0999: Heap buffer overflow in V8

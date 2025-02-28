@@ -32,14 +32,14 @@
 # norootforbuild
 
 %global major 2
-%global minor 54
-%global update 1
+%global minor 55
+%global update 0
 
 Name:           cim-schema
 Url:            http://www.dmtf.org/
 Summary:        Common Information Model (CIM) Schema
 Version:        %{major}.%{minor}.%{update}
-Release:        6%{?dist}
+Release:        1%{?dist}
 License:        LicenseRef-DMTF
 Source0:        http://www.dmtf.org/standards/cim/cim_schema_v%{major}%{minor}%{update}/cim_schema_%{version}Experimental-MOFs.zip
 Source1:        http://www.dmtf.org/standards/cim/cim_schema_v%{major}%{minor}%{update}/cim_schema_%{version}Experimental-Doc.zip
@@ -99,6 +99,9 @@ cp -a %{SOURCE2} $RPM_BUILD_ROOT/%{_docdir}/%{name}
 %doc ../%{name}-docs/*
 
 %changelog
+* Wed Feb 26 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.55.0-1
+- Update to CIM Schema 2.55.0, including experimental classes
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.54.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

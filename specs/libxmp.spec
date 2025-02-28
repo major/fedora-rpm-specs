@@ -1,7 +1,7 @@
 %global abi 4
 
 Name: libxmp
-Version: 4.6.1
+Version: 4.6.2
 Release: %autorelease
 Summary: A multi-format module playback library
 Source0: https://downloads.sourceforge.net/project/xmp/libxmp/%{version}/libxmp-%{version}.tar.gz

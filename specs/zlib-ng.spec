@@ -118,7 +118,7 @@ _EOF_
 # defining BUILD_SHARED_LIBS disables the static library
 %undefine _cmake_shared_libs
 # Disable new strategies in order to keep compatibility with zlib.
-%cmake %{cmake_param} -DZLIB_COMPAT=ON -DWITH_NEW_STRATEGIES=OFF
+%cmake %{cmake_param} -DZLIB_COMPAT=ON -DWITH_NEW_STRATEGIES=OFF -DCMAKE_POSITION_INDEPENDENT_CODE=ON
 %cmake_build
 %endif
 

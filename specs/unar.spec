@@ -2,7 +2,7 @@
 
 Name:           unar
 Version:        1.10.8
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Multi-format extractor
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -65,6 +65,9 @@ popd
 %{_datadir}/bash-completion/completions/*
 
 %changelog
+* Wed Feb 26 2025 Adam Williamson <awilliam@redhat.com> - 1.10.8-12
+- Really rebuild for gnustep-base 1.31.0
+
 * Sun Feb 23 2025 Antonio Trande <sagitter@fedoraproject.org> - 1.10.8-11
 - Rebuild for gnustep-base 1.31.0
 

@@ -105,7 +105,6 @@ ExclusiveArch:  x86_64 aarch64
 %global _lto_cflags %nil
 
 BuildRequires:  cmake
-BuildRequires:  binutils-gold
 BuildRequires:  eigen3-devel
 BuildRequires:  flexiblas-devel
 BuildRequires:  fmt-devel
@@ -483,7 +482,6 @@ export USE_CUDA=OFF
 export USE_FAKELOWP=OFF
 export USE_FBGEMM=OFF
 export USE_FLASH_ATTENTION=OFF
-export USE_GOLD_LINKER=ON
 export USE_GLOO=OFF
 export USE_ITT=OFF
 export USE_KINETO=OFF

@@ -1,5 +1,5 @@
 %global basever 7.3
-%global micro 17
+%global micro 19
 #global pre ...
 %global pyversion 3.10
 Name:           pypy%{pyversion}
@@ -111,13 +111,6 @@ Patch7: 007-remove-startup-message.patch
 # to be added to privent compilation error.
 # https://fedoraproject.org/wiki/Changes/Replace_glibc_libcrypt_with_libxcrypt
 Patch9: 009-add-libxcrypt-support.patch
-
-# Fix test_concurrent_futures hangs
-# https://github.com/pypy/pypy/issues/4994
-Patch10: https://github.com/pypy/pypy/commit/c979537760.patch
-Patch11: https://github.com/pypy/pypy/commit/93e561bee4.patch
-Patch12: https://github.com/pypy/pypy/commit/a624ac9d22.patch
-Patch13: https://github.com/pypy/pypy/commit/f5aa2f6713.patch
 
 # Build-time requirements:
 
@@ -262,7 +255,7 @@ Provides: bundled(libmpdec) = %{libmpdec_version}
 }
 
 # Find the version in lib_pypy/cffi-XXX.dist-info/METADATA
-Provides: bundled(python3dist(cffi)) = 1.17.0
+Provides: bundled(python3dist(cffi)) = 1.18.0
 
 # Find the version in lib_pypy/cffi/_pycparser/__init__.py
 Provides: bundled(python3dist(pycparser)) = 2.22
@@ -516,7 +509,6 @@ cp -a LICENSE %{packaged_prefix}/%{_lib}/pypy%{pyversion}
 rm -r %{packaged_prefix}/%{_lib}/pypy%{pyversion}/_blake2/impl
 rm -r %{packaged_prefix}/%{_lib}/pypy%{pyversion}/_libmpdec
 rm -r %{packaged_prefix}/%{_lib}/pypy%{pyversion}/_sha3/kcp
-rm -r %{packaged_prefix}/%{_lib}/pypy%{pyversion}/_cffi_ssl/_cffi_src/openssl/src
 rm    %{packaged_prefix}/%{_lib}/pypy%{pyversion}/_pypy_*.c
 
 # Create the prefix and move stuff into it

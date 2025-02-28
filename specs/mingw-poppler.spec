@@ -3,8 +3,8 @@
 %global pkgname poppler
 
 Name:          mingw-%{pkgname}
-Version:       24.08.0
-Release:       3%{?dist}
+Version:       25.02.0
+Release:       1%{?dist}
 Summary:       MinGW Windows Poppler library
 
 License:       (GPL-2.0-only OR GPL-3.0-only) AND GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT
@@ -14,8 +14,6 @@ Source0:       http://poppler.freedesktop.org/%{pkgname}-%{version}.tar.xz
 
 # Downstream fix for CVE-2017-9083 (#1453200)
 Patch1:        poppler_CVE-2017-9083.patch
-# Backport fix for CVE-2024-56378
-Patch2:        https://gitlab.freedesktop.org/poppler/poppler/-/commit/ade9b5ebed44b0c15522c27669ef6cdf93eff84e.patch
 
 BuildRequires: make
 BuildRequires: cmake
@@ -182,7 +180,7 @@ rm -f %{buildroot}%{mingw64_bindir}/*.exe
 %files -n mingw32-%{pkgname}
 %license COPYING
 %doc README.md
-%{mingw32_bindir}/libpoppler-140.dll
+%{mingw32_bindir}/libpoppler-146.dll
 %{mingw32_includedir}/poppler/
 %exclude %{mingw32_includedir}/poppler/cpp/
 %exclude %{mingw32_includedir}/poppler/glib/
@@ -209,7 +207,7 @@ rm -f %{buildroot}%{mingw64_bindir}/*.exe
 %{mingw32_libdir}/pkgconfig/poppler-qt6.pc
 
 %files -n mingw32-%{pkgname}-cpp
-%{mingw32_bindir}/libpoppler-cpp-1.dll
+%{mingw32_bindir}/libpoppler-cpp-2.dll
 %{mingw32_includedir}/poppler/cpp/
 %{mingw32_libdir}/libpoppler-cpp.dll.a
 %{mingw32_libdir}/pkgconfig/poppler-cpp.pc
@@ -217,7 +215,7 @@ rm -f %{buildroot}%{mingw64_bindir}/*.exe
 %files -n mingw64-%{pkgname}
 %license COPYING
 %doc README.md
-%{mingw64_bindir}/libpoppler-140.dll
+%{mingw64_bindir}/libpoppler-146.dll
 %{mingw64_includedir}/poppler/
 %exclude %{mingw64_includedir}/poppler/cpp/
 %exclude %{mingw64_includedir}/poppler/glib/
@@ -244,13 +242,16 @@ rm -f %{buildroot}%{mingw64_bindir}/*.exe
 %{mingw64_libdir}/pkgconfig/poppler-qt6.pc
 
 %files -n mingw64-%{pkgname}-cpp
-%{mingw64_bindir}/libpoppler-cpp-1.dll
+%{mingw64_bindir}/libpoppler-cpp-2.dll
 %{mingw64_includedir}/poppler/cpp/
 %{mingw64_libdir}/libpoppler-cpp.dll.a
 %{mingw64_libdir}/pkgconfig/poppler-cpp.pc
 
 
 %changelog
+* Wed Feb 26 2025 Sandro Mani <manisandro@gmail.com> - 25.02.0-1
+- Update to 25.02.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.08.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

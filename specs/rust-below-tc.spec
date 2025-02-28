@@ -2,25 +2,24 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate zerofrom-derive
+%global crate below-tc
 
-Name:           rust-zerofrom-derive
-Version:        0.1.6
+Name:           rust-below-tc
+Version:        0.9.0
 Release:        %autorelease
-Summary:        Custom derive for the zerofrom crate
+Summary:        TC crate for below
 
-License:        Unicode-3.0
-URL:            https://crates.io/crates/zerofrom-derive
+License:        Apache-2.0
+URL:            https://crates.io/crates/below-tc
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Patch out the "zf_derive" example to avoid a circular dependency on the
-#   zerofrom crate.
-Patch:          zerofrom-derive-fix-metadata.diff
+# * include license file
+# * https://github.com/facebookincubator/below/pull/8242
+Source2:        https://raw.githubusercontent.com/facebookincubator/below/refs/tags/v0.9.0/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Custom derive for the zerofrom crate.}
+TC crate for below.}
 
 %description %{_description}
 
@@ -52,9 +51,9 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Avoid a circular dependency on the zerofrom crate
-rm examples/zf_derive.rs
 %cargo_prep
+# copy in license file
+cp -p %{SOURCE2} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires
