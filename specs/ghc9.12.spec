@@ -1,5 +1,5 @@
 # Start: prod settings
-# all *bcond_without* for production builds:
+# all bcond 1 for production builds:
 # - performance build (disable for quick build)
 %ifarch s390x
 # https://bugzilla.redhat.com/show_bug.cgi?id=2329744
@@ -34,11 +34,11 @@
 %global file_io_ver 0.1.5
 %global ghc_bignum_ver 1.3
 %global ghc_compact_ver 0.1.0.0
-%global ghc_experimental_ver 9.1201.0
+%global ghc_version_for_lib 9.1201.0
 %global ghc_platform_ver 0.1.0.0
 %global ghc_toolchain_ver 0.1.0.0
 %global haddock_api_ver 2.30.0
-%global hpc_ver 0.7.0.1
+%global hpc_ver 0.7.0.2
 %global rts_ver 1.0.2
 %global xhtml_ver 3000.2.2.1
 
@@ -59,6 +59,7 @@
 %bcond ld_gold 0
 
 # 9.12 needs llvm 13-19
+# note the llvm backend is unsupported for ppc64le
 # rhel9 binutils too old for llvm13:
 # https://bugzilla.redhat.com/show_bug.cgi?id=2141054
 # https://gitlab.haskell.org/ghc/ghc/-/issues/22427
@@ -71,12 +72,10 @@
 %global ghc_unregisterized_arches s390 %{mips}
 
 Name: %{ghc_name}
-Version: 9.12.1
+Version: 9.12.1.20250219
 # Since library subpackages are versioned:
 # - release can only be reset if *all* library versions get bumped simultaneously
-#   (sometimes after a major release)
-# - minor release numbers for a branch should be incremented monotonically
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -336,7 +335,7 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -l BSD-3-Clause Cabal-syntax-%{Cabal_ver}
 %ghc_lib_subpackage -d -l %BSDHaskellReport array-0.5.8.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport -c gmp-devel%{?_isa},libffi-devel%{?_isa},numactl-devel%{?_isa} base-%{base_ver}
-%ghc_lib_subpackage -d -l BSD-3-Clause binary-0.8.9.2
+%ghc_lib_subpackage -d -l BSD-3-Clause binary-0.8.9.3
 %ghc_lib_subpackage -d -l BSD-3-Clause bytestring-0.12.2.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport containers-0.7
 %ghc_lib_subpackage -d -l %BSDHaskellReport deepseq-1.5.1.0
@@ -350,9 +349,9 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -x -l BSD-3-Clause ghc-boot-%{ghc_version_override}
 %ghc_lib_subpackage -d -l BSD-3-Clause ghc-boot-th-%{ghc_version_override}
 %ghc_lib_subpackage -d -x -l BSD-3-Clause ghc-compact-%{ghc_compact_ver}
-%ghc_lib_subpackage -d -x -l BSD-3-Clause ghc-experimental-%{ghc_experimental_ver}
+%ghc_lib_subpackage -d -x -l BSD-3-Clause ghc-experimental-%{ghc_version_for_lib}
 %ghc_lib_subpackage -d -x -l BSD-3-Clause ghc-heap-%{ghc_version_override}
-%ghc_lib_subpackage -d -l BSD-3-Clause ghc-internal-9.1201.0
+%ghc_lib_subpackage -d -l BSD-3-Clause ghc-internal-%{ghc_version_for_lib}
 # see below for ghc-prim
 %ghc_lib_subpackage -d -x -l BSD-3-Clause ghc-platform-%{ghc_platform_ver}
 %ghc_lib_subpackage -d -x -l BSD-3-Clause ghc-toolchain-%{ghc_toolchain_ver}
@@ -364,14 +363,14 @@ This provides the hadrian tool which can be used to build ghc.
 # see below for integer-gmp
 %ghc_lib_subpackage -d -l BSD-3-Clause mtl-2.3.1
 %ghc_lib_subpackage -d -l BSD-3-Clause os-string-2.0.7
-%ghc_lib_subpackage -d -l BSD-3-Clause parsec-3.1.17.0
+%ghc_lib_subpackage -d -l BSD-3-Clause parsec-3.1.18.0
 %ghc_lib_subpackage -d -l BSD-3-Clause pretty-1.1.3.6
 %ghc_lib_subpackage -d -l %BSDHaskellReport process-1.6.25.0
 # see below for rts
 %ghc_lib_subpackage -d -l BSD-3-Clause semaphore-compat-1.0.0
 %ghc_lib_subpackage -d -l BSD-3-Clause stm-2.5.3.1
 %ghc_lib_subpackage -d -l BSD-3-Clause template-haskell-2.23.0.0
-%ghc_lib_subpackage -d -l BSD-3-Clause -c ncurses-devel%{?_isa} terminfo-0.4.1.6
+%ghc_lib_subpackage -d -l BSD-3-Clause -c ncurses-devel%{?_isa} terminfo-0.4.1.7
 %ghc_lib_subpackage -d -l BSD-3-Clause text-2.1.2
 %ghc_lib_subpackage -d -l BSD-3-Clause time-1.14
 %ghc_lib_subpackage -d -l BSD-3-Clause transformers-0.6.1.2
@@ -574,7 +573,7 @@ echo "%%dir %ghclibplatform" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
 %ghc_gen_filelists ghc-bignum %{ghc_bignum_ver}
 %ghc_gen_filelists ghc-boot %{ghc_version_override}
 %ghc_gen_filelists ghc-compact %{ghc_compact_ver}
-%ghc_gen_filelists ghc-experimental %{ghc_experimental_ver}
+%ghc_gen_filelists ghc-experimental %{ghc_version_for_lib}
 %ghc_gen_filelists ghc-heap %{ghc_version_override}
 %ghc_gen_filelists ghc-platform %{ghc_platform_ver}
 %ghc_gen_filelists ghc-toolchain %{ghc_toolchain_ver}
@@ -676,6 +675,7 @@ echo 'main = putStrLn "Foo"' > testghc/foo.hs
 $GHC testghc/foo.hs -o testghc/foo -dynamic
 [ "$(testghc/foo)" = "Foo" ]
 rm testghc/*
+# no GHC calling convention in LLVM's PowerPC target code
 # https://gitlab.haskell.org/ghc/ghc/-/issues/25667
 %ifnarch ppc64le
 echo 'main = putStrLn "Foo"' > testghc/foo.hs
@@ -864,6 +864,10 @@ make test
 
 
 %changelog
+* Tue Feb 25 2025 Jens Petersen  <petersen@redhat.com> - 9.12.1.20250219-4
+- 9.12.2 RC1
+- https://downloads.haskell.org/~ghc/9.12.1.20250219/docs/users_guide/9.12.2-notes.html
+
 * Sun Jan 19 2025 Jens Petersen <petersen@redhat.com> - 9.12.1-3
 - fix hp2ps failure with gcc15 C23
 - setup llvm compiler for all archs not just those defaulting to llvm backend

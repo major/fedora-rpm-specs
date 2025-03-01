@@ -1,22 +1,13 @@
-# Currently, the version of python-pymongo in Rawhide is too old; at least
-# 4.4.0 is required. See: https://bugzilla.redhat.com/show_bug.cgi?id=1823014
-%bcond bson 0
-
-# Not currently in EPEL10:
-%bcond cbor2 %{expr:%{undefined el10}}
-
-# Not currently in EPEL10:
-%bcond msgpack %{expr:%{undefined el10}}
-
-# Not currently in EPEL10:
-%bcond msgspec %{expr:%{undefined el10}}
-
-# Not currently in EPEL10:
-%bcond orjson %{expr:%{undefined el10}}
+# Requires python-pymongo 4.4.0 or later.
+%bcond bson %[ %{undefined fc42} && %{undefined fc41} ]
+%bcond cbor2 1
+%bcond msgpack 1
+%bcond msgspec 1
+%bcond orjson 1
 
 # Beginning with Fedora 42, we no longer bother with building Sphinx-generated
 # PDF documentation.
-%bcond doc_pdf %{expr:%{defined fc41}}
+%bcond doc_pdf %{defined fc41}
 
 %global commit ae806749f02502be1a8c073fd81050c04aa56c96
 %global snapdate 20241004

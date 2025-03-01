@@ -14,7 +14,7 @@
 %bcond it 0
 
 Name:           uv
-Version:        0.6.2
+Version:        0.6.3
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -23,6 +23,10 @@ Summary:        An extremely fast Python package installer and resolver, written
 # Apache-2.0:
 #   - crates/uv-python/src/libc.rs contains code derived from
 #     crate(glibc_version)
+#   - crates/uv-requirements-txt/src/shquote.rs contains code derived from
+#     crate(r-shquote); the original code was (Apache-2.0 OR
+#     LGPL-2.1-or-later), but the vendored copy cites only the Apache-2.0
+#     option.
 #
 # Apache-2.0 OR BSD-2-Clause:
 #   - crates/uv-pep440/ is vendored and forked from crate(pep440_rs)
@@ -207,6 +211,10 @@ Patch:          0001-Downstream-only-unpin-libz-ng-sys.patch
 # (Also, this helps with weird maturin-related dependency-resolution issues.)
 Patch:          0002-Downstream-only-Use-zlib-ng-on-all-architectures.patch
 
+# Vendor r-shquote's unquote implementation
+# https://github.com/astral-sh/uv/pull/11812
+Patch:          %{url}/pull/11812.patch
+
 # These patches are for the forked, bundled async_zip crate.
 #
 # Revert "Update zip requirement from 0.6.3 to 2.1.5"
@@ -319,6 +327,11 @@ Provides:       bundled(crate(rattler_installs_packages)) = 0.9.0
 # 5e1002dc7a3c39c0d72631cc488bef2fc5fea0fb, although it would be equally
 # correct to reference any of several slightly later commits.
 Provides:       bundled(crate(glibc_version)) = 0.1.2^20221117git5e1002d
+
+# crates/uv-requirements-txt/src/shquote.rs
+# The unquote implementation is vendored from the r-shquote crate because it is
+# unmaintained upstream, https://github.com/astral-sh/uv/issues/11780.
+Provides:       bundled(crate(r-shquote)) = 0.1.1
 
 # The contents of crates/uv-virtualenv/src/activator/ are a bundled and
 # slightly forked copy of a subset of https://pypi.org/project/virtualenv; see

@@ -11,6 +11,7 @@
     MANDIR=%{_mandir} \\\
     PREFIX=%{_prefix} \\\
     INITSYSTEM=systemd \\\
+    SBINDIR=%{_sbindir} \\\
     SHELL_BINARY=%{_bindir}/sh \\\
     USE_DNSSEC=true \\\
     USE_LABELED_IPSEC=true \\\
@@ -29,7 +30,7 @@
 Name: libreswan
 Summary: Internet Key Exchange (IKEv1 and IKEv2) implementation for IPsec
 # version is generated in the release script
-Version: 5.1
+Version: 5.2
 Release: %autorelease
 # The code in lib/libswan/nss_copies.c is under MPL-2.0, while the
 # rest is under GPL-2.0-or-later
@@ -45,7 +46,6 @@ Source5: https://download.libreswan.org/cavs/ikev2.fax.bz2
 %endif
 
 Patch1: libreswan-4.15-ipsec_import.patch
-Patch2: libreswan-5.1-gcc15.patch
 
 BuildRequires: audit-libs-devel
 BuildRequires: bison
@@ -162,11 +162,6 @@ install -m 0644 packaging/fedora/libreswan-sysctl.conf \
 echo "include %{_sysconfdir}/ipsec.d/*.secrets" \
     > %{buildroot}%{_sysconfdir}/ipsec.secrets
 rm -fr %{buildroot}%{_sysconfdir}/rc.d/rc*
-
-%if "%{_sbindir}" == "%{_bindir}"
-# make install gets the target directory wrong
-mv -v %{buildroot}/usr/sbin/ipsec %{buildroot}/%{_bindir}/
-%endif
 
 %if 0%{with_cavstests}
 %check

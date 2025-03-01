@@ -8,6 +8,10 @@ URL: http://www.litech.org/radvd/
 Source0: %{url}dist/%{name}-%{version}.tar.xz
 Source1: radvd.sysusers
 
+# allow glibc strlcpy, avoid libbsd dependency
+Patch0: https://github.com/radvd-project/radvd/pull/256.patch
+Patch1: https://github.com/radvd-project/radvd/pull/262.patch
+
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: bison
@@ -18,10 +22,8 @@ BuildRequires: check-devel
 BuildRequires: systemd
 BuildRequires: systemd-rpm-macros
 %{?systemd_requires}
-%{?sysusers_requires_compat}
 BuildRequires: autoconf
 BuildRequires: automake
-BuildRequires: libbsd-devel
 
 %description
 radvd is the router advertisement daemon for IPv6.  It listens to router
@@ -36,6 +38,7 @@ services.
 
 %prep
 %autosetup -p1
+autoreconf -fiv
 
 for F in CHANGES; do
     iconv -f iso-8859-1 -t utf-8 < "$F" > "${F}.new"
@@ -79,8 +82,6 @@ make check
 %preun
 %systemd_preun radvd.service
 
-%pre
-%sysusers_create_compat %{SOURCE1}
 
 %files
 %doc CHANGES COPYRIGHT INTRO.html README TODO

@@ -558,7 +558,7 @@ rm %{buildroot}%{_datadir}/icons/hicolor/scalable/mimetypes/emacs-document23.svg
 # Install native compiled Lisp of all builds
 (TOPDIR=${PWD}
  cd %{buildroot}
- find ".%{native_lisp}/$(ls -1 build-pgtk/native-lisp)" \
+ find ".%{native_lisp}/$(ls $TOPDIR/build-pgtk/native-lisp)" \
       \( -type f -name '*eln' -fprintf "$TOPDIR/pgtk-filelist" "%%%%attr(755,-,-) %%p\n" \) \
       -o \( -type d -fprintf "$TOPDIR/pgtk-dirlist" "%%%%dir %%p\n" \)
 )
@@ -568,7 +568,7 @@ echo "%{emacs_libexecdir}/emacs-$(./build-pgtk/src/emacs --fingerprint).pdmp" \
 %if %{with gtkx11}
 (TOPDIR=${PWD}
  cd %{buildroot}
- find ".%{native_lisp}/$(ls -1 build-gtk+x11/native-lisp)" \
+ find ".%{native_lisp}/$(ls $TOPDIR/build-gtk+x11/native-lisp)" \
       \( -type f -name '*eln' -fprintf "$TOPDIR/gtk+x11-filelist" "%%%%attr(755,-,-) %%p\n" \) \
       -o \( -type d -fprintf "$TOPDIR/gtk+x11-dirlist" "%%%%dir %%p\n" \)
 )
@@ -579,7 +579,7 @@ echo "%{emacs_libexecdir}/emacs-$(./build-gtk+x11/src/emacs --fingerprint).pdmp"
 %if %{with lucid}
 (TOPDIR=${PWD}
  cd %{buildroot}
- find ".%{native_lisp}/$(ls -1 build-lucid/native-lisp)" \
+ find ".%{native_lisp}/$(ls $TOPDIR/build-lucid/native-lisp)" \
       \( -type f -name '*eln' -fprintf "$TOPDIR/lucid-filelist" "%%%%attr(755,-,-) %%p\n" \) \
       -o \( -type d -fprintf "$TOPDIR/lucid-dirlist" "%%%%dir %%p\n" \)
 )
@@ -590,7 +590,7 @@ echo "%{emacs_libexecdir}/emacs-$(./build-lucid/src/emacs --fingerprint).pdmp" \
 %if %{with nw}
 (TOPDIR=${PWD}
  cd %{buildroot}
- find ".%{native_lisp}/$(ls -1 build-nw/native-lisp)" \
+ find ".%{native_lisp}/$(ls $TOPDIR/build-nw/native-lisp)" \
       \( -type f -name '*eln' -fprintf "$TOPDIR/nw-filelist" "%%%%attr(755,-,-) %%p\n" \) \
       -o \( -type d -fprintf "$TOPDIR/nw-dirlist" "%%%%dir %%p\n" \)
 )
@@ -603,11 +603,13 @@ sed -i -e "s|\.%{native_lisp}|%{native_lisp}|" *-filelist *-dirlist
 
 # remove exec permissions from eln files to prevent the debuginfo extractor from
 # trying to extract debuginfo from them
-find %{buildroot}%{_libdir}/ -name '*eln' -type f | xargs chmod -x
+find %{buildroot}%{native_lisp}/ -name '*.eln' -type f -print0 \
+    | xargs -0 chmod -x
 
 # ensure native files are newer than byte-code files
 # see: https://bugzilla.redhat.com/show_bug.cgi?id=2157979#c11
-find %{buildroot}%{_libdir}/ -name '*eln' -type f | xargs touch
+find %{buildroot}%{native_lisp}/ -name '*.eln' -type f -print0 \
+    | xargs -0 touch
 
 export QA_SKIP_BUILD_ROOT=0
 

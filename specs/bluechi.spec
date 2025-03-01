@@ -10,7 +10,7 @@
 
 
 Name:		bluechi
-Version:	0.9.1
+Version:	0.10.1
 Release:	1%{?dist}
 Summary:	A systemd service controller for multi-nodes environments
 License:	LGPL-2.1-or-later AND CC0-1.0
@@ -23,6 +23,7 @@ BuildRequires:	gcc
 # Meson needs to detect C++, because part of inih library (which we don't use) provides C++ functionality
 BuildRequires:	gcc-c++
 BuildRequires:	meson
+BuildRequires:	libselinux-devel
 BuildRequires:	systemd-devel
 BuildRequires:	systemd-rpm-macros
 BuildRequires:	golang-github-cpuguy83-md2man
@@ -33,8 +34,8 @@ BuildRequires: sed
 %endif
 
 %description
-BlueChi is a systemd service controller for multi-node environments with a
-predefined number of nodes and with a focus on highly regulated environments
+BlueChi is a systemd service controller for multi-nodes environements with a
+predefined number of nodes and with a focus on highly regulated environment
 such as those requiring functional safety (for example in cars).
 
 
@@ -57,10 +58,9 @@ Obsoletes:	bluechi < 0.7.0
 Provides:	bluechi = %{version}-%{release}
 
 %description controller
-BlueChi is a systemd service controller for multi-node environments with a
+BlueChi is a systemd service controller for multi-nodes environements with a
 predefined number of nodes and with a focus on highly regulated environment
 such as those requiring functional safety (for example in cars).
-
 This package contains the controller service.
 
 %post controller
@@ -92,6 +92,11 @@ This package contains the controller service.
 %{_unitdir}/bluechi-controller.service
 %{_unitdir}/bluechi-controller.socket
 
+# Create UDS directory on install and setup tmpfile for reboots
+%dir %{_rundir}/bluechi
+%attr(700, root, root) %{_rundir}/bluechi
+%{_tmpfilesdir}/%{name}.conf
+
 
 #####################
 ### bluechi-agent ###
@@ -110,10 +115,9 @@ Obsoletes:	hirte-agent < 0.6.0
 Provides:	hirte-agent = %{version}-%{release}
 
 %description agent
-BlueChi is a systemd service controller for multi-node environments with a
+BlueChi is a systemd service controller for multi-nodes environements with a
 predefined number of nodes and with a focus on highly regulated environment
 such as those requiring functional safety (for example in cars).
-
 This package contains the node agent.
 
 %post agent
@@ -184,11 +188,15 @@ if [ $1 -eq 1 ]; then
 fi
 %selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/bluechi.pp.bz2
 restorecon -R %{_bindir}/bluechi* &> /dev/null || :
+restorecon -R %{_rundir}/bluechi/ &> /dev/null || :
+restorecon -R %{_localstatedir}/%{_rundir}/bluechi/ &> /dev/null || :
 
 %postun selinux
 if [ $1 -eq 0 ]; then
    %selinux_modules_uninstall -s %{selinuxtype} bluechi
    restorecon -R %{_bindir}/bluechi* &> /dev/null || :
+   restorecon -R %{_rundir}/bluechi/ &> /dev/null || :
+   restorecon -R %{_localstatedir}/%{_rundir}/bluechi/ &> /dev/null || :
 fi
 
 
@@ -341,6 +349,9 @@ build-scripts/generate-unit-tests-code-coverage.sh %{_vpath_builddir} %{buildroo
 
 
 %changelog
+* Thu Feb 27 2025 Packit <hello@packit.dev> - 0.10.1-1
+- Update to version 0.10.1
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

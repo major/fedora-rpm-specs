@@ -250,6 +250,7 @@ ExcludeArch: %{ix86}
 # Add -DOMPI_SKIP_MPICXX to work around issue with MPI linkage and exodus
 # https://gitlab.kitware.com/paraview/paraview/-/issues/20060
 %global paraview_cmake_options \\\
+        -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \\\
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \\\
         -DCMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING="-DNDEBUG -DOMPI_SKIP_MPICXX" \\\
         -DOpenGL_GL_PREFERENCE=GLVND \\\

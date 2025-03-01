@@ -105,6 +105,9 @@ autoreconf -fiv
 sed -i '/#include <limits.h>/a #include <math.h>' src/ucs/time/time.h
 
 %build
+# may be fixed in 1.19.0
+%set_build_flags
+export CFLAGS="$CFLAGS -std=gnu17"
 
 %define _with_arg()   %{expand:%%{?with_%{1}:--with-%{2}}%%{!?with_%{1}:--without-%{2}}}
 %define _enable_arg() %{expand:%%{?with_%{1}:--enable-%{2}}%%{!?with_%{1}:--disable-%{2}}}

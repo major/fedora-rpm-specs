@@ -10,7 +10,7 @@
 Name:		svxlink
 Epoch:		2
 Version:	%{main_version}
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Repeater controller and EchoLink (simplex or repeater)
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -20,6 +20,10 @@ Source0:	https://github.com/sm0svx/svxlink/archive/%{version}/%{name}-%{version}
 Source1:	https://github.com/sm0svx/svxlink-sounds-en_US-heather/releases/download/%{version}/svxlink-sounds-en_US-heather-16k-%{version}.tar.bz2
 
 Source4:	%{name}-tmpfs.conf
+
+# src/svxlink/svxlink/EventHandler.cpp:485:31:
+# error: invalid conversion from ‘void*’ to ‘char*’ [-fpermissive]
+Patch0:		svxlink-24.02-fpermissive.patch
 
 BuildRequires:	make
 BuildRequires:	cmake libsigc++-devel libsigc++20-devel qt-devel
@@ -152,6 +156,7 @@ then be connected to the reflector using normal logic linking.
 %prep
 %setup -q -n %{name}-%{main_version}
 %setup -q -D -T -a 1 -n %{name}-%{main_version}
+%patch 0 -p1
 
 %build
 %cmake -DLOCAL_STATE_DIR=%{_localstatedir} -DWITH_SYSTEMD=1 \
@@ -334,6 +339,10 @@ exit 0
 %{_unitdir}/svxreflector.service
 
 %changelog
+* Thu Feb 27 2025 Björn Esser <besser82@fedoraproject.org> - 2:24.02-5
+- Rebuild (jsoncpp)
+- Add patch to fix build error for fpermissive
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:24.02-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: Tool for controlling tape drives
 Name: mt-st
-Version: 1.7
-Release: 8%{?dist}
+Version: 1.8
+Release: 1%{?dist}
 License: GPL-1.0-or-later
 URL: https://github.com/iustin/mt-st
 Source0: https://github.com/iustin/mt-st/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -31,7 +31,7 @@ make CFLAGS="%{build_cflags}" LDFLAGS="%{build_ldflags}"
 
 %install
 COMPLETIONDIR=%{buildroot}%{bash_completions_dir}
-%make_install EXEC_PREFIX=/usr COMPLETIONINSTALLDIR=$COMPLETIONDIR
+%make_install EXEC_PREFIX=/usr COMPLETIONINSTALLDIR=$COMPLETIONDIR SBINDIR=%{buildroot}%{_bindir}
 install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/stinit.service
 cd $COMPLETIONDIR
 mv mt-st mt
@@ -50,7 +50,7 @@ mv mt-st mt
 %files
 %doc COPYING README.md stinit.def.examples
 %{_bindir}/mt
-%{_sbindir}/stinit
+%{_bindir}/stinit
 %{_mandir}/man1/mt.1*
 %{_mandir}/man8/stinit.8*
 %{_unitdir}/stinit.service
@@ -58,6 +58,10 @@ mv mt-st mt
 
 
 %changelog
+* Thu Feb 27 2025 Dan Horák <dan[at]danny.cz> - 1.8-1
+- rebased to 1.8
+- update for https://fedoraproject.org/wiki/Changes/Unify_bin_and_sbin (rhbz#2340890)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

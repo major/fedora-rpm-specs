@@ -7,7 +7,7 @@
 Summary: NetworkManager VPN plugin for SSH
 Name: NetworkManager-ssh
 Version: 1.2.13
-Release: 4%{?dist}
+Release: 5%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: https://github.com/danfruehauf/NetworkManager-ssh
@@ -70,13 +70,6 @@ make %{?_smp_mflags}
 make install DESTDIR=%{buildroot} INSTALL="%{__install} -p"
 mkdir -p %{buildroot}%{_prefix}/lib/NetworkManager/VPN
 %{__cp} -p ./nm-ssh-service.name %{buildroot}%{_prefix}/lib/NetworkManager/VPN/
-
-%if %with gtk4
-%{__rm} -f %{buildroot}%{_libdir}/NetworkManager/libnm-gtk3-vpn-plugin-ssh-editor.so
-%else
-%{__rm} -f %{buildroot}%{_libdir}/NetworkManager/libnm-gtk4-vpn-plugin-ssh-editor.so
-%endif
-
 %{__rm} -f %{buildroot}%{_libdir}/NetworkManager/lib*.la
 
 %find_lang %{name}
@@ -92,14 +85,16 @@ mkdir -p %{buildroot}%{_prefix}/lib/NetworkManager/VPN
 %files -n NetworkManager-ssh-gnome
 %{_libdir}/NetworkManager/libnm-vpn-plugin-ssh.so
 %{_datadir}/appdata/network-manager-ssh.metainfo.xml
+%{_libdir}/NetworkManager/libnm-gtk3-vpn-plugin-ssh-editor.so
 
 %if %with gtk4
 %{_libdir}/NetworkManager/libnm-gtk4-vpn-plugin-ssh-editor.so
-%else
-%{_libdir}/NetworkManager/libnm-gtk3-vpn-plugin-ssh-editor.so
 %endif
 
 %changelog
+* Fri Feb 28 2025 Dan Fruehauf <malkodan@gmail.com> - 1.2.13-5
+- GTK3/GTK4 adjustments
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.13-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

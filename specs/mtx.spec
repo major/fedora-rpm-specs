@@ -1,6 +1,6 @@
 Name: mtx
 Version: 1.3.12
-Release: 34%{?dist}
+Release: 35%{?dist}
 Summary: SCSI media changer control program
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -10,7 +10,10 @@ Patch0: %{name}-1.3.12-destdir.patch
 # http://mtx.opensource-sw.net/bugs/view.php?id=13
 # https://bugzilla.redhat.com/show_bug.cgi?id=538403
 Patch1: %{name}-1.3.12-argc.patch
-URL: http://mtx.sourceforge.net/
+# update for GCC 15 / C23
+Patch2: %{name}-1.3.12-bool.patch
+#URL: http://mtx.sourceforge.net/
+URL: https://github.com/mtx-org/mtx
 BuildRequires: make
 BuildRequires: gcc
 
@@ -31,6 +34,7 @@ tape at a time, you should install MTX.
 
 %patch -P0 -p2 -b .destdir
 %patch -P1 -p2 -b .argc
+%patch -P2 -p1 -b .bool
 
 # remove exec permission
 chmod a-x contrib/config_sgen_solaris.sh contrib/mtx-changer
@@ -38,12 +42,11 @@ chmod a-x contrib/config_sgen_solaris.sh contrib/mtx-changer
 
 %build
 %configure
-make %{?_smp_mflags}
+%make_build
 
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
-
+%make_install
 
 
 %files
@@ -54,6 +57,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Feb 27 2025 Dan Horák <dan[at]danny.cz> 1.3.12-35
+- update for GCC 15 / C23 (rhbz#2340892)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.12-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

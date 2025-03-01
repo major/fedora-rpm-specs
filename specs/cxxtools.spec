@@ -1,6 +1,6 @@
 Name:           cxxtools
 Version:        3.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A collection of general-purpose C++ classes
 Epoch:          1
 
@@ -14,12 +14,16 @@ Patch2:         %{name}-%{version}-i686.patch
 Patch3:         %{name}-%{version}-ppc64le.patch
 # fix error: aggregate 'tm tim' has incomplete type and cannot be defined
 Patch4:         %{name}-%{version}-timer.patch
+# fix assertion with GLIBCXX_ASSERTIONS (upstream patch)
+Patch5:         0001-fix-for-possible-crash-in-cxxtools-Connectable.patch
 
 BuildRequires:  make
 BuildRequires:  automake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  openssl-devel
+# test requirement:
+BuildRequires:  tzdata
 Provides:       bundled(md5-polstra)
 
 %description
@@ -63,8 +67,8 @@ find -name "*.h" -exec chmod -x {} \;
 # Find and remove all la files
 find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
-#%%check
-#    test/alltests
+%%check
+    test/alltests
 
 %ldconfig_scriptlets
 
@@ -82,6 +86,10 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 %{_includedir}/cxxtools/
 
 %changelog
+* Thu Feb 27 2025 Michael J Gruber <mjg@fedoraproject.org> - 1:3.0-15
+- reenable test suite
+- fix assert with _GLIBCXX_ASSERTIONS
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

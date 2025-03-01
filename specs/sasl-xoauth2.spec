@@ -1,6 +1,6 @@
 Name:           sasl-xoauth2
 Version:        0.26
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The xoauth2 plugin for cyrus-sasl
 
 License:        Apache-2.0
@@ -36,17 +36,19 @@ relays from Postfix.
 %setup -q -n %{name}-release-%{version}
 
 %build
-%if 0%{?rhel} < 8
+%if 0%{?rhel} && 0%{?rhel} < 8
 %cmake3 -DCMAKE_INSTALL_SYSCONFDIR=%{_sysconfdir}
 %cmake3_build
 %else
-%cmake -DCMAKE_INSTALL_SYSCONFDIR=%{_sysconfdir}
+%cmake \
+  -DCMAKE_INSTALL_SYSCONFDIR=%{_sysconfdir} \
+  -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_build
 %endif
 
 
 %install
-%if 0%{?rhel} < 8
+%if 0%{?rhel} && 0%{?rhel} < 8
 %cmake3_install
 %else
 %cmake_install
@@ -70,6 +72,10 @@ relays from Postfix.
 %{_mandir}/man1/%{name}-tool.1.gz
 
 %changelog
+* Thu Feb 27 2025 Björn Esser <besser82@fedoraproject.org> - 0.26-3
+- Rebuild (jsoncpp)
+- Explicitly set CMAKE_POLICY_VERSION_MINIMUM=3.5
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

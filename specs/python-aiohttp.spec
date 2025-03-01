@@ -1,7 +1,11 @@
 %bcond tests 1
+# Not yet in EPEL10: https://bugzilla.redhat.com/show_bug.cgi?id=2331004
+%bcond gunicorn %{undefined el10}
+# Not yet in EPEL10: https://bugzilla.redhat.com/show_bug.cgi?id=2332434
+%bcond uvloop %{undefined el10}
 
 Name:           python-aiohttp
-Version:        3.10.11
+Version:        3.11.13
 Release:        %autorelease
 Summary:        Python HTTP client/server for asyncio
 
@@ -16,9 +20,14 @@ Patch:          0001-Unbundle-llhttp.patch
 
 BuildRequires:  gcc
 
+%if 0%{?el10}
+# Fixes for CVE-2024-27982 were backported in llhttp-9.1.3-9.el10.
+BuildRequires:  llhttp-devel >= 9.1.3-9
+%else
 # CVE-2024-27982 requires >= 9.2.1. The actual lower bound is based on the
 # version that upstream bundles/vendors.
 BuildRequires:  llhttp-devel >= 9.2.1
+%endif
 
 BuildRequires:  python3-devel
 
@@ -33,6 +42,10 @@ with middlewares and pluggable routing.}
 Summary:        %{summary}
 
 Recommends:     python3-aiohttp+speedups
+%if 0%{?el10}
+# Fixes for CVE-2024-27982 were backported in llhttp-9.1.3-9.el10.
+Requires:       llhttp >= 9.1.3-9
+%endif
 
 %description -n python3-aiohttp %{common_description}
 
@@ -45,6 +58,12 @@ rm -rv vendor/llhttp
 # Disable test coverage reports
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -r -i '/--cov=|-p pytest_cov/d' setup.cfg
+%if %{without gunicorn}
+sed -r -i 's/^gunicorn/# &/' requirements/base.in
+%endif
+%if %{without uvloop}
+sed -r -i 's/^uvloop/# &/' requirements/base.in
+%endif
 # Comment out:
 #   - optional test dependencies that are not yet packaged or are useless here
 #   - coverage and benchmarking dependenecies
@@ -71,20 +90,15 @@ sed -i 's/"-W", "error"/"-W", "error", "-W", "ignore::DeprecationWarning"/' test
 # Recreate removed Cython files using commands extracted from the Makefile.
 # We don't run make directly, as it pip-installs Cython.
 #
-# We don't need a real git checkout, but we do need a .git directory to help
-# certain scripts find the root of the source tree.
-mkdir -p .git
 # See the aiohttp/_find_header.c target in the Makefile; this also generates
 # _headers.pyi.
 %{python3} tools/gen.py
-# Now we can invoke Cython.
-%{python3} -m cython -3 aiohttp/*.pyx -I aiohttp
-# Now we need to remove the .git directory again, because its presence will
-# lead the actual build astray, something like:
-#   Install submodules when building from git clone
-#   Hint:
-#     git submodule update --init
-rm -rvf .git
+# Now we can invoke Cython. Again, see the Makefile.
+%{python3} -m cython -3 \
+    aiohttp/*.pyx \
+    aiohttp/_websocket/*.pyx \
+    aiohttp/_websocket/reader_c.py \
+    -I aiohttp
 # Now we can actually proceed with building the package.
 %pyproject_wheel
 
@@ -93,7 +107,13 @@ rm -rvf .git
 %pyproject_save_files -l aiohttp
 
 %check
-%if %{with tests}
+%if %{without tests}
+# - aiohttp.worker requires gunicorn (a test dependency)
+# - aiohttp.pytest_plugin requires pytest (a test dependency)
+%{pyproject_check_import -e aiohttp.worker -e aiohttp.pytest_plugin}
+%else
+%{pyproject_check_import \
+    %{?!with_gunicorn: -e aiohttp.worker } }
 # Fixes problems importing compiled extensions from subprocesses.
 export PYTHONSAFEPATH=1
 # We do not want to run benchmarks (and we patched out their dependencies)
@@ -109,25 +129,38 @@ k="${k-}${k+ and }not test_invalid_idna"
 # take to import the package. This is not something we need to care about
 # downstream.
 k="${k-}${k+ and }not test_import_time"
-# A warning comes from our version of uvloop that is not one of the ignored
-# types.
-#   UserWarning: enum class uv_fs_event not importable from uvloop.includes.uv.
-#   You are probably using a cpdef enum declared in a .pxd file that does not
-#   have a .py  or .pyx file.
-k="${k-}${k+ and }not test_no_warnings[aiohttp.pytest_plugin]"
 # This depends on the exact compressed byte stream, which doesn’t match
 # upstream’s expectation due to
 # https://fedoraproject.org/wiki/Changes/ZlibNGTransition.
 k="${k-}${k+ and }not test_send_compress_text"
+%if %{without gunicorn}
+k="${k-}${k+ and }not test_no_warnings[aiohttp.worker]"
+%if 0%{?el10}
+# Fixes for CVE-2024-27982 were backported in llhttp-9.1.3-9.el10, but there
+# are still some behavior changes compared to 9.2.0. Hopefully, none of these
+# is consequential.
+#
+# E       Failed: DID NOT RAISE <class 'aiohttp.http_exceptions.BadHttpMessage'>
+#
+# expectation = <_pytest.python_api.RaisesContext object at 0x7f2da7979b80>
+# hdr        = b''
+# pad1       = b''
+# pad2       = b''
+# parser     = <aiohttp._http_parser.HttpRequestParser object at 0x7f2da7412c40>
+# text       = b'GET /test HTTP/1.1\r\n: value\r\n\r\n'
+k="${k-}${k+ and }not test_invalid_header_spacing[c-parser-pyloop-pre-empty-post-empty-name-empty]"
+# E       Failed: DID NOT RAISE <class 'aiohttp.http_exceptions.BadHttpMessage'>
+#
+# parser     = <aiohttp._http_parser.HttpRequestParser object at 0x7f708b61af00>
+# text       = b'GET /test HTTP/1.1\r\n:test\r\n\r\n'
+k="${k-}${k+ and }not test_empty_header_name[c-parser-pyloop]"
+%endif
+%endif
 %pytest -Wdefault ${ignore-} -k "${k-}" -m 'not dev_mode'
-%else
-# aiohttp.worker requires gunicorn
-%pyproject_check_import -e aiohttp.pytest_plugin -e aiohttp.worker
 %endif
 
 %files -n python3-aiohttp -f %{pyproject_files}
 %doc CHANGES.rst
-%doc HISTORY.rst
 %doc README.rst
 
 %changelog

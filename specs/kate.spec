@@ -7,7 +7,7 @@
 Name:    kate
 Summary: Advanced Text Editor
 Version: 24.12.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # kwrite LGPLv2+
 # kate: app LGPLv2, plugins, LGPLv2 and LGPLv2+ and GPLv2+
@@ -105,7 +105,7 @@ Requires: %{name}-libs = %{version}-%{release}
 %find_lang all --all-name --with-html --with-man
 
 grep plugin all.lang > plugins.lang
-grep kwrite all.lang > kwrite.lang
+grep -E '(kate.mo|kwrite)' all.lang > kwrite.lang
 cat all.lang plugins.lang kwrite.lang | sort | uniq -u > kate.lang
 
 
@@ -177,6 +177,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Tue Feb 25 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 24.12.2-3
+- Ship translations in kwrite
+
 * Fri Feb 21 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-2
 - Rebuild for ppc64le enablement
 

@@ -6,6 +6,8 @@ License:        MIT AND PSF-2.0
 BuildArch:      noarch
 URL:            https://github.com/davidhalter/parso
 Source:         %{pypi_source parso}
+# https://github.com/davidhalter/parso/pull/229
+Patch:          0001-ENH-add-grammar-file-for-py314-229.patch
 
 %global common_description %{expand:
 Parso is a Python parser that supports error recovery and round-trip parsing

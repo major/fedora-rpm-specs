@@ -1,11 +1,11 @@
 Name:           yle-dl
-Version:        20250126
+Version:        20250227
 Release:        %autorelease
 Summary:        Download videos from Yle servers
 
 License:        GPL-3.0-or-later
 URL:            https://aajanki.github.io/yle-dl/index-en.html
-Source:         https://github.com/aajanki/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+Source:         https://github.com/aajanki/%{name}/archive/releases/%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 # Depends on archful python3-xattr which excludes i686
@@ -31,7 +31,7 @@ format.
 
 
 %prep
-%autosetup -p1 -n %{name}-%{version}
+%autosetup -p1 -n %{name}-releases-%{version}
 
 
 %generate_buildrequires

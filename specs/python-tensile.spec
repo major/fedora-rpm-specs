@@ -19,7 +19,7 @@ Name:           python-tensile-devel
 Name:           python-tensile
 %endif
 Version:        %{rocm_version}
-Release:        8%{?dist}
+Release:        10%{?dist}
 Summary:        Tool for creating benchmark-driven backend libraries for GEMMs
 
 URL:            https://github.com/ROCmSoftwarePlatform/Tensile
@@ -32,20 +32,25 @@ Patch3:         0003-Add-gfx1103.patch
 Patch4:         0004-Add-gfx1035.patch
 Patch5:         0005-Add-gfx1152.patch
 Patch6:         0006-Add-gfx1150.patch
+Patch7:         0001-Handle-a-missing-joblib.patch
+Patch8:         0001-serialize-reading-logic-files.patch
 
+%if 0%{?fedora} || 0%{?suse_version}
 BuildRequires:  fdupes
+%endif
+
 %if 0%{?suse_version}
 BuildRequires:  python-rpm-macros
 BuildRequires:  %{python_module setuptools}
 Requires:       hipcc
 Requires:       rocminfo
+%if %{suse_version} >= 1699
 Requires:       %{python_module joblib}
+%endif
 Requires:       %{python_module msgpack}
 Requires:       %{python_module PyYAML}
 Requires(post): update-alternatives
 Requires(postun): update-alternatives
-# Not available on SLE, tensile does not cope
-Recommends:     python-rich
 %else
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
@@ -63,7 +68,7 @@ contractions on a GPU. The Tensile library is mainly used as backend library to
 rocBLAS. Tensile acts as the performance backbone for a wide variety of
 'compute' applications running on AMD GPUs.
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel}
 # There are headers and code as part of the code generation.
 # This make rpm checkers unhappy
 %package -n python3-tensile-devel
@@ -72,8 +77,10 @@ Summary:        Tool for creating benchmark-driven backend libraries for GEMMs
 Requires:       cmake-filesystem
 Requires:       hipcc
 Requires:       rocminfo
+%if 0%{?fedora}
 Requires:       python3dist(joblib)
 Requires:       python3dist(msgpack)
+%endif
 Requires:       python3dist(pyyaml)
 
 %description -n python3-tensile-devel
@@ -109,6 +116,11 @@ sed -i -e 's@globalParameters["IgnoreAsmCapCache"] = False@globalParameters["Ign
 sed -i -e 's@arguments["IgnoreAsmCapCache"] = args.IgnoreAsmCapCache@arguments["IgnoreAsmCapCache"] = True@' Tensile/TensileCreateLibrary.py
 sed -i -e 's@if not ignoreCacheCheck and derivedAsmCaps@if False and derivedAsmCaps@' Tensile/Common.py
 
+# Reduce requirements
+sed -i -e '/joblib/d' requirements.*
+sed -i -e '/rich/d' requirements.*
+sed -i -e '/msgpack/d' requirements.*
+
 %build
 %py3_build
 %{?python_build: %python_build}
@@ -128,7 +140,9 @@ rm %{buildroot}%{_bindir}/tensile*
 rm -rf %{buildroot}%{python3_sitelib}/%{upstreamname}/Tests
 
 #Clean up dupes:
+%if 0%{?fedora} || 0%{?suse_version}
 %fdupes %{buildroot}%{_prefix}
+%endif
 
 # rm hard links and replace
 rm %{buildroot}%{python3_sitelib}/%{upstreamname}/cmake/*.cmake
@@ -171,6 +185,12 @@ mv %{buildroot}%{_datadir}/cmake/Tensile/*.cmake %{buildroot}%{python3_sitelib}/
 %{python_sitelib}/%{upstreamname}*.egg-info/*
 
 %changelog
+* Thu Feb 27 2025 Tom Rix <Tom.Rix@amd.com> 6.3.0-10
+- Fix RHEL
+
+* Wed Feb 26 2025 Tom Rix <Tom.Rix@amd.com> 6.3.0-9
+- Handle missing joblib
+
 * Thu Feb 20 2025 Tom Rix <Tom.Rix@amd.com> 6.3.0-8
 - Remove python-rich suse requires
 

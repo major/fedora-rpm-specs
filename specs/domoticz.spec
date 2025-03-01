@@ -3,7 +3,7 @@
 
 Name:		domoticz
 Version:	2024.7
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Open source Home Automation System
 
 # Automatically converted from old format: GPLv3+ and ASL 2.0 and Boost and BSD and MIT - review is highly recommended.
@@ -245,6 +245,9 @@ usermod -G domoticz,dialout domoticz
 
 
 %changelog
+* Thu Feb 27 2025 Björn Esser <besser82@fedoraproject.org> - 2024.7-5
+- Rebuild (jsoncpp)
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2024.7-4
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

@@ -100,6 +100,13 @@ Provides:       bundled(python3dist(tempita))
 
 %if %{with tests}
 %check
+%if 0%{?__isa_bits} < 64
+# On 32-bit platforms, with their inherent ~4GB/process address space
+# limitation, at least test_many_expressions fails due to memory exhaustion
+# unless we reduce the debuginfo level (RHBZ#2339845).
+export CFLAGS="${CFLAGS} -g1"
+%endif
+
 # run.pstats_profile_test* fails on Python 3.12
 #   https://github.com/cython/cython/issues/5470
 # run.numpy_parallel fails on i686

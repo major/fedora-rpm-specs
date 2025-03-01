@@ -1,11 +1,15 @@
 Name:           radiotray-ng
 Version:        0.2.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Internet radio player
 
 License:        GPL-3.0-or-later
 URL:            https://github.com/ebruck/radiotray-ng
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+# radiotray-ng-0.2.9/include/radiotray-ng/i_radiotray_ng.hpp:76:37:
+#   error: ‘uint32_t’ has not been declared
+Patch0:         radiotray-ng-0.2.9-include_cstdint.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake3
@@ -28,7 +32,7 @@ Requires:       hicolor-icon-theme
 %{summary}.
 
 %prep
-%autosetup
+%autosetup -p 1
 # Correct build flags
 sed -i 's|-Wall -Wextra -Werror -Wpedantic|%{optflags}|' CMakeLists.txt
 sed -i '/execute_process(COMMAND lsb_release/d' package/CMakeLists.txt
@@ -74,6 +78,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/rtng-bookmark-editor.
 
 
 %changelog
+* Thu Feb 27 2025 Björn Esser <besser82@fedoraproject.org> - 0.2.9-3
+- Rebuild (jsoncpp)
+- Add patch to fix missing include
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,11 +1,11 @@
 Name:           TurboGears2
-Version:        2.4.3
-Release:        19%{?dist}
+Version:        2.5.0
+Release:        1%{?dist}
 Summary:        Next generation front-to-back web development megaframework
 
 License:        MIT
 URL:            http://www.turbogears.org
-Source0:        https://files.pythonhosted.org/packages/source/T/%{name}/%{name}-%{version}.tar.gz
+Source0:        %pypi_source turbogears2
 
 BuildArch:      noarch
 
@@ -68,7 +68,7 @@ Requires:       python3-zope-sqlalchemy >= 0.4
 %description -n python3-%{name} %{_description}
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -n turbogears2-%{version}
 
 
 %build
@@ -89,6 +89,9 @@ rm -fr %{buildroot}%{python3_sitelib}/tests
 %{python3_sitelib}/tg/
 
 %changelog
+* Wed Feb 19 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.5.0-1
+- Update to upstream
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.3-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

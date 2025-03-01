@@ -1,7 +1,7 @@
 %global basever 7.3
 %global micro 19
 #global pre ...
-%global pyversion 3.10
+%global pyversion 3.11
 Name:           pypy%{pyversion}
 Version:        %{basever}.%{micro}%{?pre:~%{pre}}
 %global version_ %{basever}.%{micro}%{?pre}
@@ -66,7 +66,7 @@ ExcludeArch:    %{ix86}
 # We refer to this subdir of the source tree in a few places during the build:
 %global goal_dir pypy/goal
 
-%if 0%{?fedora} && 0%{?fedora} < 42
+%if 0%{?fedora} >= 42
 # REMINDER: When updating the main pypy3 version for a certain Fedora release
 # make sure to update the python-classroom group in https://pagure.io/fedora-comps/
 #   1. locate comps-fXX.xml.in for each affected Fedora release
@@ -196,6 +196,7 @@ Obsoletes: pypy3 < 7.3.4-4
 Conflicts: pypy3 < %{version}-%{release}
 Obsoletes: pypy3.7 < 7.3.9-20
 Obsoletes: pypy3.8 < 7.3.11-20
+Obsoletes: pypy3.9 < 7.3.16-20
 %endif
 
 # This prevents ALL subpackages built from this spec to require
@@ -234,13 +235,14 @@ Provides: pypy3-libs%{?_isa} = %{version}-%{release}
 Obsoletes: pypy3-libs < 7.3.4-4
 Obsoletes: pypy3.7-libs < 7.3.9-20
 Obsoletes: pypy3.8-libs < 7.3.11-20
+Obsoletes: pypy3.9-libs < 7.3.16-20
 %endif
 
 %if %{with rpmwheels}
 Requires: python-setuptools-wheel
 Requires: python-pip-wheel
 %else
-Provides: bundled(python3dist(pip)) = 23.0.1
+Provides: bundled(python3dist(pip)) = 24.0
 Provides: bundled(python3dist(setuptools)) = 65.5.0
 %endif
 
@@ -279,6 +281,7 @@ Provides: pypy3-test = %{version}-%{release}
 Provides: pypy3-test%{?_isa} = %{version}-%{release}
 Obsoletes: pypy3.7-test < 7.3.9-20
 Obsoletes: pypy3.8-test < 7.3.11-20
+Obsoletes: pypy3.9-test < 7.3.16-20
 %endif
 
 %description test
@@ -297,6 +300,7 @@ Provides: pypy3-devel%{?_isa} = %{version}-%{release}
 Obsoletes: pypy3-devel < 7.3.4-4
 Obsoletes: pypy3.7-devel < 7.3.9-20
 Obsoletes: pypy3.8-devel < 7.3.11-20
+Obsoletes: pypy3.9-devel < 7.3.16-20
 %endif
 
 Supplements: tox
@@ -658,7 +662,7 @@ CheckPyPy() {
 
     # Use regrtest to explicitly list all tests:
     ( ./$ExeName -c \
-         "from test.libregrtest.runtest import findtests; print('\n'.join(findtests()))"
+         "from test.libregrtest.findtests import findtests; print('\n'.join(findtests()))"
     ) > testnames.txt
 
     # Skip some tests:
@@ -679,6 +683,9 @@ CheckPyPy() {
       # The only test that seems to have timed out in that log is
       # test_multiprocessing, so skip it for now:
       SkipTest test_multiprocessing
+
+      # https://github.com/pypy/pypy/issues/5228
+      SkipTest test_signal
 
     echo "== Test names =="
     cat testnames.txt

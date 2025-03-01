@@ -27,7 +27,7 @@
 
 Name:		raceintospace
 Version:	2.0.0
-Release:	14%{?extra:.%extra}%{?dist}
+Release:	15%{?extra:.%extra}%{?dist}
 Summary:	Race into Space game
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -97,7 +97,7 @@ export CXXFLAGS="$CFLAGS"
 %autosetup -p1 -n %{name}-%{pkgversion}
 
 %build
-%cmake -DBUILD_PHYSFS=OFF
+%cmake -DBUILD_PHYSFS=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_build
 pushd doc/manual
 pandoc -o manual.html manual.md
@@ -125,6 +125,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.raceintosp
 %doc doc/manual
 
 %changelog
+* Thu Feb 27 2025 Björn Esser <besser82@fedoraproject.org> - 2.0.0-15.rc1
+- Rebuild (jsoncpp)
+- Explicitly set CMAKE_POLICY_VERSION_MINIMUM=3.5
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-14.rc1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

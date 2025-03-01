@@ -7,7 +7,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           glycin
-Version:        1.1.4
+Version:        1.1.6
 Release:        %autorelease
 Summary:        Sandboxed image rendering
 
@@ -27,7 +27,20 @@ SourceLicense:  MPL-2.0 OR LGPL-2.1-or-later
 # MPL-2.0 OR LGPL-2.1-or-later
 # Unlicense OR MIT
 # Zlib OR Apache-2.0 OR MIT
-License:        (MPL-2.0 OR LGPL-2.1-or-later) AND BSD-2-Clause AND BSD-3-Clause AND GPL-3.0-or-later AND ISC AND MIT AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (MIT OR Apache-2.0 OR Zlib) AND (Unlicense OR MIT)
+License:        %{shrink:
+    (MPL-2.0 OR LGPL-2.1-or-later) AND
+    BSD-2-Clause AND
+    BSD-3-Clause AND
+    GPL-3.0-or-later AND
+    ISC AND
+    MIT AND
+    (0BSD OR MIT OR Apache-2.0) AND
+    (Apache-2.0 OR MIT) AND
+    (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
+    (BSD-2-Clause OR Apache-2.0 OR MIT) AND
+    (MIT OR Apache-2.0 OR Zlib) AND
+    (Unlicense OR MIT)
+}
 # LICENSE.dependencies contains a full license breakdown
 
 URL:            https://gitlab.gnome.org/GNOME/glycin

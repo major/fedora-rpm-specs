@@ -1,6 +1,6 @@
 Name:           celluloid
 Version:        0.27
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A simple GTK+ frontend for mpv
 
 License:        GPL-3.0-or-later
@@ -19,9 +19,11 @@ BuildRequires:  libappstream-glib
 BuildRequires:  pkgconfig(epoxy)
 BuildRequires:  mpv-libs-devel
 BuildRequires:  pkgconfig(libadwaita-1)
-Requires:       yt-dlp
 Requires:       hicolor-icon-theme
 Requires:       dbus-common
+# missing transitive dependency of mpv-libs
+Recommends:     (yt-dlp or youtube-dl)
+Suggests:       yt-dlp
 
 Provides:       gnome-mpv = %{version}-%{release}
 Obsoletes:      gnome-mpv < 0.17
@@ -61,6 +63,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.celluloid_p
  %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Wed Feb 19 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.27-4
+- Update yt-dlp dependency
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.27-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 Name: opencryptoki
 Summary: Implementation of the PKCS#11 (Cryptoki) specification v3.0
 Version: 3.24.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: CPL-1.0
 URL: https://github.com/opencryptoki/opencryptoki
 Source0: https://github.com/opencryptoki/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -414,6 +414,9 @@ fi
 
 
 %changelog
+* Thu Feb 27 2025 Than Ngo <than@redhat.com> - 3.24.0-7
+- Fix, opencryptoki tokens are deleted on reboot
+
 * Tue Feb 11 2025 Than Ngo <than@redhat.com> - 3.24.0-6
 - Remove call to %sysusers_create_compat
 

@@ -12,6 +12,11 @@ License:        LGPL-2.1-or-later
 URL:            https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas
 Source0:        https://download.gnome.org/sources/%{name}/47/%{name}-%{tarball_version}.tar.xz
 Source1:        org.gnome.desktop.interface.rhel.gschema.override
+# Revert default font to Cantarell for now, as we do not yet have
+# adwaita-fonts packaged. This avoids falling through to noto (which
+# means openQA needs a whole bunch of new needles that'd be obsolete
+# as soon as adwaita-fonts is done)
+Patch:          0001-Revert-schemas-Switch-to-Adwaita-Fonts.patch
 
 BuildRequires:  gettext
 BuildRequires:  glib2-devel >= 2.31.0
@@ -25,6 +30,7 @@ Requires: glib2 >= 2.31.0
 Recommends: font(redhattextvf)
 Recommends: font(redhatmonovf)
 %else
+# FIXME this needs changing when we do switch to adwaita-fonts
 Recommends: font(cantarell)
 Recommends: font(sourcecodepro)
 %endif

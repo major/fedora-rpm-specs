@@ -49,7 +49,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        333
+Version:        334
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
@@ -309,15 +309,12 @@ Provides: cockpit-networkmanager = %{version}-%{release}
 Provides: cockpit-selinux = %{version}-%{release}
 Provides: cockpit-sosreport = %{version}-%{release}
 %endif
-%if 0%{?fedora}
-Recommends: (reportd if abrt)
-%endif
 
 Provides: bundled(npm(@patternfly/patternfly)) = 5.4.2
-Provides: bundled(npm(@patternfly/react-core)) = 5.4.12
+Provides: bundled(npm(@patternfly/react-core)) = 5.4.13
 Provides: bundled(npm(@patternfly/react-icons)) = 5.4.2
 Provides: bundled(npm(@patternfly/react-styles)) = 5.4.1
-Provides: bundled(npm(@patternfly/react-table)) = 5.4.14
+Provides: bundled(npm(@patternfly/react-table)) = 5.4.15
 Provides: bundled(npm(@patternfly/react-tokens)) = 5.4.1
 Provides: bundled(npm(@xterm/addon-canvas)) = 0.7.0
 Provides: bundled(npm(@xterm/xterm)) = 5.5.0
@@ -334,7 +331,7 @@ Provides: bundled(npm(loose-envify)) = 1.4.0
 Provides: bundled(npm(object-assign)) = 4.1.1
 Provides: bundled(npm(prop-types)) = 15.8.1
 Provides: bundled(npm(react-dom)) = 18.3.1
-Provides: bundled(npm(react-dropzone)) = 14.3.5
+Provides: bundled(npm(react-dropzone)) = 14.3.6
 Provides: bundled(npm(react-is)) = 16.13.1
 Provides: bundled(npm(react)) = 18.3.1
 Provides: bundled(npm(remarkable)) = 2.0.1
@@ -343,7 +340,7 @@ Provides: bundled(npm(sprintf-js)) = 1.0.3
 Provides: bundled(npm(tabbable)) = 6.2.0
 Provides: bundled(npm(throttle-debounce)) = 5.0.2
 Provides: bundled(npm(tslib)) = 2.8.1
-Provides: bundled(npm(uuid)) = 11.0.5
+Provides: bundled(npm(uuid)) = 11.1.0
 
 %description system
 This package contains the Cockpit shell and system configuration interfaces.
@@ -599,6 +596,9 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Feb 27 2025 Packit <hello@packit.dev> - 334-1
+- https://issues.redhat.com/browse/RHEL-32834
+
 * Thu Feb 13 2025 Packit <hello@packit.dev> - 333-1
 - various bug fixes and improvements
 

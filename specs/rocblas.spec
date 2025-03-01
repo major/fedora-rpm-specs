@@ -35,13 +35,7 @@
 %global build_test OFF
 %endif
 
-%if 0%{?rhel} || 0%{?suse_version} && 0%{?suse_version} < 1699
-# RHEL does not have a working tensile
-# SLE does not have a working tensile
-%bcond_with tensile
-%else
 %bcond_without tensile
-%endif
 %if %{with tensile}
 %global build_tensile ON
 %else
@@ -65,7 +59,7 @@
 
 Name:           %{rocblas_name}
 Version:        %{rocm_version}
-Release:        7%{?dist}
+Release:        10%{?dist}
 Summary:        BLAS implementation for ROCm
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT AND BSD-3-Clause
@@ -85,15 +79,25 @@ BuildRequires:  rocm-rpm-macros
 
 %if %{with tensile}
 %if 0%{?suse_version}
-# ATM only TW has this package
-BuildRequires:  msgpack-cxx-devel
+%if %{suse_version} < 1699
+BuildRequires:  python3-tensile-devel
+%else
 BuildRequires:  python311-tensile-devel
+%endif
 # OBS vm times out without console output
 %global tensile_verbose 2
+%global tensile_library_format yaml
+%else
+BuildRequires:  python3dist(tensile)
+%if 0%{?rhel}
+%global tensile_verbose 2
+%global tensile_library_format yaml
 %else
 BuildRequires:  msgpack-devel
-BuildRequires:  python3dist(tensile)
 %global tensile_verbose 1
+%global tensile_library_format msgpack
+%endif
+
 %endif
 %endif
 
@@ -128,6 +132,7 @@ programming language and optimized for AMD GPUs.
 %package devel
 Summary:        Libraries and headers for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       cmake(hip)
 Provides:       rocblas-devel = %{version}-%{release}
 
 %description devel
@@ -200,6 +205,7 @@ fi
     -DBUILD_WITH_HIPBLASLT=OFF \
     -DTensile_COMPILER=hipcc \
     -DTensile_CPU_THREADS=${CORES} \
+    -DTensile_LIBRARY_FORMAT=%{tensile_library_format} \
     -DTensile_VERBOSE=%{tensile_verbose} \
     -DBUILD_WITH_TENSILE=%{build_tensile} \
     -DTensile_DIR=${TP}/cmake \
@@ -241,6 +247,15 @@ fi
 %endif
 
 %changelog
+* Thu Feb 25 2025 Cristian Le <git@lecris.dev> - 6.3.0-10
+- Add hip requirement to devel package
+
+* Thu Feb 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-9
+- Enable tensile for RHEL
+
+* Wed Feb 26 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-8
+- Enable tensile for SUSE
+
 * Sun Feb 23 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-7
 - Use tensile verbosity to avoid OSB timeout
 

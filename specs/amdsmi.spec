@@ -19,7 +19,7 @@
 
 Name:       amdsmi
 Version:    %{rocm_version}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    AMD System Management Interface
 
 License:    NCSA AND MIT AND BSD-3-Clause
@@ -129,8 +129,6 @@ fi
 strip %{buildroot}/%{python3_sitelib}/amdsmi/*.so
 # E: non-executable-script .../amdsmi_cli/amdsmi_cli_exceptions.py 644 /usr/bin/env python3
 chmod a+x %{buildroot}/%{_libexecdir}/amdsmi_cli/amdsmi_*.py
-# RPM has a problem with this file
-rm %{buildroot}%{_libdir}/cmake/amd_smi/amd_smi-config.cmake
 
 %if 0%{?suse_version}
 %post   -p /sbin/ldconfig
@@ -162,6 +160,9 @@ rm %{buildroot}%{_libdir}/cmake/amd_smi/amd_smi-config.cmake
 %endif
 
 %changelog
+* Thu Feb 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.3-2
+- Install amd_smi-config.cmake
+
 * Wed Feb 19 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.3-1
 - Update to 6.3.3
 

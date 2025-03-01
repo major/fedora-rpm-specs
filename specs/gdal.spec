@@ -51,7 +51,7 @@
 
 Name:          gdal
 Version:       3.10.2
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -81,6 +81,7 @@ BuildRequires: gcc-c++
 
 BuildRequires: armadillo-devel
 BuildRequires: bison
+BuildRequires: blosc-devel
 BuildRequires: cfitsio-devel
 BuildRequires: CharLS-devel
 BuildRequires: curl-devel
@@ -647,6 +648,9 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 
 
 %changelog
+* Thu Feb 27 2025 Laurențiu Nicola <lnicola@dend.ro> - 3.10.2-5
+- Enable blosc
+
 * Wed Feb 26 2025 Sandro Mani <manisandro@gmail.com> - 3.10.2-4
 - Rebuild (poppler)
 

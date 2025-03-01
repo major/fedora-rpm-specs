@@ -7,7 +7,7 @@
 %global forgeurl https://github.com/pydantic/pydantic-settings
 
 Name:           python-pydantic-settings
-Version:        2.8.0
+Version:        2.8.1
 %forgemeta
 Release:        1%{?dist}
 Summary:        Settings management using pydantic
@@ -72,6 +72,9 @@ ignore="${ignore-} --ignore tests/test_source_azure_key_vault.py"
 
 
 %changelog
+* Thu Feb 27 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.8.1-1
+- Update to 2.8.1 (close RHBZ#2348704)
+
 * Sat Feb 22 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.8.0-1
 - Update to 2.8.0 (close RHBZ#2346958)
 

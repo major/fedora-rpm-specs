@@ -24,11 +24,13 @@ Patch:          0001-Bump-aioitertools-from-0.11.0-to-0.12.0.patch
 # respectively
 # https://github.com/python-openapi/openapi-core/pull/933
 Patch:          0002-Allow-Starlette-0.41.x-and-FastAPI-0.115.x.patch
-# Allow Starlette 0.45.x
+# Allow Starlette 0.45.x and 0.46.x
 #
-# We can’t offer this upstream until a released version of FastAPI
-# officially supports Starlette 0.45.x.
-Patch:          0003-Allow-Starlette-0.45.x.patch
+# We can’t offer this upstream until upstream updates to at least FastAPI
+# 0.115.7 (https://github.com/python-openapi/openapi-core/pull/957) for
+# 0.45.x, and until a released version of FastAPI officially supports
+# Starlette 0.46.x.
+Patch:          0003-Allow-Starlette-0.45.x-and-0.46.x.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

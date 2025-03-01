@@ -2,25 +2,29 @@
 %bcond_without openal
 
 %global fver v%{version}
-# Automatically converted from old format: Artistic 2.0 and BSD and Giftware and LGPLv2+ and Public Domain and zlib - review is highly recommended.
-%define ags_license Artistic-2.0 AND LicenseRef-Callaway-BSD and Giftware AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-Public-Domain AND Zlib
-%if %{without freetype}
-%define license_full %{ags_license} AND FTL
-%else
-%define license_full %{ags_license}
-%endif
+# avoid building bundled libraries as shared
+%undefine _cmake_shared_libs
 
 Name: ags
 Summary: Engine for creating and running videogames of adventure (quest) genre
-Version: 3.6.1.30
+Version: 3.6.2.7
 URL:     http://www.adventuregamestudio.co.uk/site/ags/
-Release: 2%{?dist}
+Release: 1%{?dist}
 Source0: https://github.com/adventuregamestudio/ags/archive/%{fver}/ags-%{fver}.tar.gz
-# unbundle freetype
-Patch2:  %{name}-use-system-freetype.patch
-# use openal-soft
-Patch3:  %{name}-use-openal.patch
-License: %{license_full}
+# https://github.com/richgel999/miniz/issues/249
+Source1: FindMiniz.cmake
+Patch0: ags-use-system-libraries.patch
+# Most code is under Artistic-2.0, except:
+# Common/libsrc/aastr-0.1.1: Giftware-like (https://gitlab.com/fedora/legal/fedora-license-data/-/issues/631)
+# Common/libsrc/alfont-2.0.9: FTL
+# Engine/libsrc/apeg-1.2.1: MPEG-SSG
+# Engine/libsrc/glad: Apache-2.0 AND MIT-Khronos-old
+# Engine/libsrc/libcda-0.5: Zlib
+# Plugins/agsblend/agsblend: MIT
+# Plugins/agspalrender/agspalrender/raycast.{cpp,h}: BSD-2-Clause
+# Plugins/AGSSpriteFont: CC0-1.0
+# libsrc/allegro: Giftware
+License: Artistic-2.0 AND Giftware AND FTL AND MPEG-SSG AND Apache-2.0 AND MIT-Khronos-old AND Zlib AND MIT AND BSD-2-Clause AND CC0-1.0
 %if %{with freetype}
 BuildRequires: freetype-devel
 %else
@@ -33,6 +37,7 @@ BuildRequires: openal-soft-devel
 # https://github.com/icculus/mojoAL (zlib)
 Provides: bundled(mojoal)
 %endif
+BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: glm-devel
 # for KHR/khrplatform.h
@@ -41,6 +46,7 @@ BuildRequires: libogg-devel
 BuildRequires: libtheora-devel
 BuildRequires: libvorbis-devel
 BuildRequires: make
+BuildRequires: miniz-devel
 BuildRequires: SDL2-devel
 BuildRequires: SDL2_sound-devel
 BuildRequires: tinyxml2-devel
@@ -68,12 +74,8 @@ since continued to be developed by contributors.
 
 %prep
 %setup -q
-%if %{with freetype}
-%patch -P2 -p1 -b .noft
-%endif
-%if %{with openal}
-%patch -P3 -p1 -b .openal
-%endif
+%patch 0 -p1 -b .orig
+cp -p %{S:1} CMake/
 # delete unused bundled stuff
 pushd Common/libinclude
 rm -r ogg
@@ -88,12 +90,15 @@ rmdir googletest
 popd
 pushd Engine/libsrc
 rm -r glad{,-gles2}/include/KHR
+ln -s /usr/include/KHR glad/include
+ln -s /usr/include/KHR glad-gles2/include
 rm -r ogg
 rm -r theora
 rm -r vorbis
 popd
 pushd libsrc
 rm -r glm
+rm -r miniz
 %if %{with openal}
 rm -r mojoAL
 %endif
@@ -104,12 +109,24 @@ touch -r Changes.txt Changes.txt.utf-8 && \
 mv Changes.txt.utf-8 Changes.txt
 
 %build
-%set_build_flags
-export CFLAGS="$CFLAGS -Wno-error=format-truncation"
-%make_build -C Engine
+%cmake \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DAGS_USE_LOCAL_SDL2=TRUE \
+    -DAGS_USE_LOCAL_SDL2_SOUND=TRUE \
+    -DAGS_USE_LOCAL_OGG=TRUE \
+    -DAGS_USE_LOCAL_VORBIS=TRUE \
+    -DAGS_USE_LOCAL_THEORA=TRUE \
+    -DAGS_USE_SYSTEM_GLM=TRUE \
+    -DAGS_USE_SYSTEM_TINYXML2=TRUE \
+    -DAGS_USE_SYSTEM_MINIZ=TRUE \
+%if %{with freetype}
+    -DAGS_USE_SYSTEM_FREETYPE=TRUE \
+%endif
+
+%cmake_build
 
 %install
-make V=1 -C Engine PREFIX=%{buildroot}%{_prefix} install
+%cmake_install
 
 %files
 %license License.txt
@@ -117,6 +134,16 @@ make V=1 -C Engine PREFIX=%{buildroot}%{_prefix} install
 %{_bindir}/ags
 
 %changelog
+* Fri Feb 28 2025 Dominik Mierzejewski <dominik@greysector.net> - 3.6.2.7-1
+- update to 3.6.2.7
+- switch build system to cmake
+- unbundle miniz
+- update SPDX expression in License: field after review
+
+* Thu Feb 27 2025 Dominik Mierzejewski <dominik@greysector.net> - 3.6.1.31-1
+- update to 3.6.1.31
+- fix build with C23 (resolves rhbz#2336273)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.1.30-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

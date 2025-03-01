@@ -2,7 +2,7 @@
 
 Name:       usb_modeswitch
 Version:    2.6.2
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    USB Modeswitch gets mobile broadband cards in operational mode
 Summary(de):    USB Modeswitch aktiviert UMTS-Karten
 License:    GPL-2.0-or-later
@@ -56,7 +56,7 @@ mkdir -p %{buildroot}%{_unitdir}
 %make_install \
     SYSDIR=%{buildroot}%{_unitdir} \
     SBINDIR=%{buildroot}%{_sbindir} \
-    UDEVDIR=%{buildroot}%{_udevrulesdir}
+    UDEVDIR=%{buildroot}%{_prefix}/lib/udev
 
 
 %files
@@ -64,7 +64,7 @@ mkdir -p %{buildroot}%{_unitdir}
 %{_sbindir}/usb_modeswitch_dispatcher
 %{_mandir}/man1/usb_modeswitch.1.gz
 %{_mandir}/man1/usb_modeswitch_dispatcher.1.gz
-%{_udevrulesdir}/usb_modeswitch
+%{_prefix}/lib/udev/usb_modeswitch
 %{_unitdir}/usb_modeswitch@.service
 %config(noreplace) %{_sysconfdir}/usb_modeswitch.conf
 %doc README ChangeLog device_reference.txt
@@ -72,6 +72,10 @@ mkdir -p %{buildroot}%{_unitdir}
 
 
 %changelog
+* Thu Feb 27 2025 Sérgio Basto <sergio@serjux.com> - 2.6.2-2
+- Revert the move of usb_modeswitch to /usr/lib/udev/rules.d, usb_modeswitch is
+  not an rule
+
 * Thu Feb 20 2025 Sérgio Basto <sergio@serjux.com> - 2.6.2-1
 - Update usb_modeswitch to 2.6.2
 - Resolves: rhbz#2346392

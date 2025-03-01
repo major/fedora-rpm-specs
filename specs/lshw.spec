@@ -5,7 +5,7 @@
 Summary:       Hardware lister
 Name:          lshw
 Version:       B.02.20
-Release:       6%{?dist}
+Release:       8%{?dist}
 License:       GPL-2.0-only
 URL:           http://ezix.org/project/wiki/HardwareLiSter
 Source0:       http://www.ezix.org/software/files/lshw-%{version}.tar.gz
@@ -108,6 +108,12 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata
 %endif
 
 %changelog
+* Thu Feb 27 2025 Terje Rosten <terjeros@gmail.com> - B.02.20-8
+- Work with newer cmake
+
+* Thu Feb 27 2025 Terje Rosten <terjeros@gmail.com> - B.02.20-7
+- Redo sbin merge logic (Yaakov Selkowitz <yselkowi@redhat.com>)
+
 * Mon Feb 24 2025 Terje Rosten <terjeros@gmail.com> - B.02.20-6
 - Unbreak sbin merge
 

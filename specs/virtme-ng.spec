@@ -8,9 +8,8 @@
 %endif
 
 %global forgeurl https://github.com/arighi/virtme-ng
-%global commit f1c27d9ee496e5eac820f77d2f9063816dbb65be
 
-Version:        1.32
+Version:        1.33
 %forgemeta
 Name:           virtme-ng
 Release:        %autorelease

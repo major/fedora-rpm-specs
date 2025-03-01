@@ -1,5 +1,5 @@
 Name:           python-blosc2
-Version:        2.7.1
+Version:        3.1.1
 Release:        %autorelease
 Summary:        Python wrapper for the Blosc2 compression library
 License:        BSD-3-Clause
@@ -8,8 +8,8 @@ Source:         https://github.com/Blosc/python-blosc2/archive/v%{version}/pytho
 
 BuildRequires:  python3-devel
 BuildRequires:  gcc-g++
-BuildRequires:  ninja-build
 BuildRequires:  blosc2-devel >= 2.13.1
+BuildRequires:  tomcli
 
 ExcludeArch:    %{ix86}
 
@@ -33,29 +33,17 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1
-
-# This seems to be the best way to prevent the "bespoke build system" from doing
-# a git clone.
-rmdir blosc2/c-blosc2
-
-# Did I say "bespoke build system"? Who needs configuration options.
-# Configuration options are for woosies.
-sed -r -i '/include_package_data=.*/a cmake_args=["-DUSE_SYSTEM_BLOSC2:BOOL=ON"],' \
-    setup.py
-
-# Those dependencies are generated incorrectly
-sed -r -i 's/"(cmake|ninja)",//g;
-           s/oldest-supported-//g;
-           s/numpy>=2.*"/numpy"/;
-          ' pyproject.toml
-# NumPy is already specified in `pyproject.toml`.
-sed -r -i '/numpy/d' requirements-test-wheels.txt
+# Remove the numpy version constraint
+tomcli set pyproject.toml lists replace "build-system.requires" "numpy.*" "numpy"
+# Remove torch tests for now
+tomcli set pyproject.toml lists delitem "project.optional-dependencies.test" "torch"
 
 %generate_buildrequires
-%pyproject_buildrequires requirements-test-wheels.txt
+%pyproject_buildrequires -x test
 
 %build
-export VERBOSE=1
+export USE_SYSTEM_BLOSC2=ON
+export SKBUILD_CMAKE_BUILD_TYPE=RelWithDebInfo
 %pyproject_wheel
 
 %install

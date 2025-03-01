@@ -1,7 +1,7 @@
 %undefine   __brp_mangle_shebangs
 
 Name:		magic
-Version:	8.3.520
+Version:	8.3.522
 Release:	1%{?dist}
 Summary:	A very capable VLSI layout tool
 
@@ -14,8 +14,8 @@ Summary:	A very capable VLSI layout tool
 License:	HPND-UC-export-US AND TCL AND HPND
 URL:		http://opencircuitdesign.com/%{name}/index.html
 
-%dnl	Source:	http://opencircuitdesign.com/%{name}/archive/%{name}-%{version}.tgz
-Source:	https://github.com/RTimothyEdwards/magic/archive/%{version}/%{name}-%{version}.tar.gz
+Source:	http://opencircuitdesign.com/%{name}/archive/%{name}-%{version}.tgz
+%dnl Source:	https://github.com/RTimothyEdwards/magic/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 Patch1:	%{name}-7.4.35-64bit.patch
@@ -182,6 +182,9 @@ rm -f %{buildroot}%{_mandir}/man1/extcheck.1*
 %doc	scmos/
 
 %changelog
+* Thu Feb 27 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.522-1
+- 8.3.522
+
 * Mon Feb 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.520-1
 - 8.3.520
 

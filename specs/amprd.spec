@@ -40,7 +40,7 @@ dos2unix minGlue.h
 make %{?_smp_mflags} CFLAGS="%{optflags} %{?cflags_harden}" LDFLAGS="%{?__global_ldflags} %{?ldflags_harden}"
 
 %install
-make %{?_smp_mflags} DESTDIR=%{buildroot} install
+make %{?_smp_mflags} DESTDIR=%{buildroot} SBINDIR=%{buildroot}%{_sbindir} install
 
 # Systemd
 install -Dpm 644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service

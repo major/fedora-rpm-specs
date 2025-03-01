@@ -35,7 +35,7 @@
 
 Name:           R
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A language for data analysis and graphics
 
 License:        GPL-2.0-or-later
@@ -196,9 +196,6 @@ Requires:       gcc-gfortran
 Requires:       gcc-c++
 Requires:       make
 Requires:       pkgconfig
-# Until upstream adds support for tcl/tk 9
-Requires:       tcl-devel < 1:9
-Requires:       tk-devel < 1:9
 Requires:       pcre2-devel
 Requires:       bzip2-devel
 Requires:       xz-devel
@@ -951,6 +948,9 @@ TZ="Europe/Paris" make check
 %{_libdir}/libRmath.a
 
 %changelog
+* Thu Feb 27 2025 Iñaki Úcar <iucar@fedoraproject.org> - 4.4.2-5
+- Remove requirement on tck/tk devel packages
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

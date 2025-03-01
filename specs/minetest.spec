@@ -2,7 +2,7 @@
 %global minetest_game_version 5.8.0
 Name:     minetest
 Version:  5.11.0
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  Multiplayer infinite-world block sandbox with survival mode
 
 # Automatically converted from old format: LGPLv2+ and CC-BY-SA - review is highly recommended.
@@ -224,6 +224,9 @@ install -m0644 -D minetest.sysusers.conf %{buildroot}%{_sysusersdir}/minetest.co
 
 
 %changelog
+* Thu Feb 27 2025 Björn Esser <besser82@fedoraproject.org> - 5.11.0-2
+- Rebuild (jsoncpp)
+
 * Fri Feb 14 2025 Gwyn Ciesla <gwync@protonmail.com> - 5.11.0-1
 - 5.11.0
 

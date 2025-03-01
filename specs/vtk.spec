@@ -543,6 +543,7 @@ find vtk-examples -type f | xargs chmod -R a-x
 
 
 %global vtk_cmake_options \\\
+ -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \\\
  -DCMAKE_INSTALL_DOCDIR=share/doc/%{name} \\\
  -DCMAKE_INSTALL_JARDIR=share/java \\\
  -DCMAKE_INSTALL_LIBDIR:PATH=%{_lib} \\\

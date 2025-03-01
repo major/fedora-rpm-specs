@@ -35,6 +35,8 @@ computer use more power than necessary while it is idle.
 
 %prep
 %autosetup -p1
+# https://www.gnu.org/software/gettext/manual/html_node/autopoint-Invocation.html
+sed -i -e 's|AM_GNU_GETTEXT_VERSION|AM_GNU_GETTEXT_REQUIRE_VERSION|' configure.ac
 
 echo "v%{version}" > version-long
 echo '"v%{version}"' > version-short

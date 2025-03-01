@@ -116,6 +116,7 @@ sed -i '/simplehmd/d' samples/drivers/drivers/CMakeLists.txt
 %build
 # Build library
 %cmake \
+  -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
   -DBUILD_SHARED=ON \
   -DUSE_SYSTEM_JSONCPP=ON
 %cmake_build
@@ -154,6 +155,7 @@ done
 # Build samples
 pushd samples
 %cmake \
+  -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
   -DSKIP_STEAMVR_CHECK=ON \
   -DUSE_SYSTEM_SDL2=ON \
   -DUSE_SYSTEM_VULKAN=ON

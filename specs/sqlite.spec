@@ -22,6 +22,7 @@ Source1: http://www.sqlite.org/%{year}/sqlite-doc-%{docver}.zip
 Source2: http://www.sqlite.org/%{year}/sqlite-autoconf-%{realver}.tar.gz
 # Support a system-wide lemon template
 Patch1: sqlite-3.6.23-lemon-system-template.patch
+Patch2: sqlite-3.49.0-fix-lemon-missing-cflags.patch
 
 BuildRequires: make
 BuildRequires: gcc gcc-c++
@@ -169,6 +170,7 @@ This package contains the analysis program for %{name}.
 %prep
 %setup -q -a1 -n %{name}-src-%{realver}
 %patch -P 1 -p1
+%patch -P 2 -p1
 
 # The atof test is failing on the i686 architecture, when binary configured with
 # --enable-rtree option. Failing part is text->real conversion and

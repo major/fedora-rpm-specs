@@ -1,3 +1,5 @@
+%{?sle15_python_module_pythons}
+
 %global upstreamname hipBLASLt
 %global rocm_release 6.3
 %global rocm_patch 1
@@ -37,7 +39,7 @@
 
 Name:           hipblaslt
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        7%{?dist}
 Summary:        ROCm general matrix operations beyond BLAS
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -67,11 +69,19 @@ BuildRequires:  msgpack-devel
 %endif
 
 # For tensilelite
+%if 0%{?suse_version}
+BuildRequires:  python-rpm-macros
+BuildRequires:  %{python_module joblib}
+BuildRequires:  %{python_module msgpack}
+BuildRequires:  %{python_module PyYAML}
+BuildRequires:  %{python_module setuptools}
+%else
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(joblib)
 BuildRequires:  python3dist(msgpack)
 BuildRequires:  python3dist(pyyaml)
 BuildRequires:  python3dist(setuptools)
+%endif
 
 %if %{with test}
 BuildRequires:  gcc-gfortran
@@ -151,8 +161,13 @@ sed -i -e 's@APPEND CMAKE_PREFIX_PATH@APPEND NO_CMAKE_PREFIX_PATH@'            C
 sed -i -e 's@-lgfortran -lflang -lflangrti@-lgfortran@'                        clients/gtest/CMakeLists.txt
 %endif
 
-%if 0%{?suse_version}
+%if 0%{?suse_version} >= 1600
 sed -i -e 's@msgpack REQUIRED@msgpack-cxx REQUIRED@' tensilelite/Tensile/Source/lib/CMakeLists.txt
+%endif
+
+%if 0%{?sle_version} == 150600
+sed -i 's@#!/usr/bin/env python3@#!/usr/bin/python3.11@' tensilelite/Tensile/bin/Tensile*
+sed -i 's@python3@python3.11@'  clients/common/hipblaslt_gentest.py cmake/virtualenv.cmake tensilelite/Tensile/Ops/gen_assembly.sh 
 %endif
 
 %build
@@ -160,7 +175,11 @@ sed -i -e 's@msgpack REQUIRED@msgpack-cxx REQUIRED@' tensilelite/Tensile/Source/
 # Do a manual install instead of cmake's virtualenv
 cd tensilelite
 TL=$PWD
+%if 0%{?suse_version}
+%python_exec setup.py install --root $TL
+%else
 /usr/bin/python3 setup.py install --root $TL
+%endif
 cd ..
 
 # Should not have to do this
@@ -173,8 +192,13 @@ export TENSILE_ROCM_OFFLOAD_BUNDLER_PATH=${CLANG_PATH}/clang-offload-bundler
 
 # Look for the just built tensilelite
 export PATH=${TL}/%{_bindir}:$PATH
+%if 0%{?suse_version}
+%{?python_expand} export PYTHONPATH=${TL}%{$python_sitelib}:$PYTHONPATH
+%{?python_expand} export Tensile_DIR=${TL}%{$python_sitelib}/Tensile
+%else
 export PYTHONPATH=${TL}%{python3_sitelib}:$PYTHONPATH
 export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
+%endif
 # Uncomment and see if the path is sane
 # TensileGetPath
 
@@ -196,7 +220,11 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
        -DBUILD_WITH_TENSILE=ON \
        -DTensile_COMPILER=hipcc \
        -DTensile_LIBRARY_FORMAT=msgpack \
-       -DVIRTUALENV_BIN_DIR=%{_bindir} 
+       -DVIRTUALENV_BIN_DIR=%{_bindir} \
+%if 0%{?sle_version} == 150600
+       -DPYTHON_EXECUTABLE:FILEPATH=python3.11 \
+%endif
+       %{nil}
 
 %cmake_build
 
@@ -227,6 +255,12 @@ fi
 %endif
 
 %changelog
+* Thu Feb 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-7
+- Fix fedora
+
+* Tue Feb 25 2025 Christian Goll <cgoll@suse.com> - 6.3.1-6
+- use python3.11 for 15.6 builds
+
 * Mon Feb 17 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-5
 - Fix for TW
 

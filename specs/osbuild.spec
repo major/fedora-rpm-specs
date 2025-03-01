@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        141
+Version:        142
 
 %forgemeta
 
@@ -318,6 +318,43 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Wed Feb 26 2025 Packit <hello@packit.dev> - 142-1
+Changes with 142
+----------------
+  * GH/update-images: fix missing quote in the script (#2018)
+    * Author: Tomáš Hozza, Reviewers: Ondřej Budai, Simon de Vlieger
+  * Pin CI workflows to ubuntu 24.04 (#2013)
+    * Author: Brian C. Lane, Reviewers: Florian Schüller, Simon de Vlieger
+  * Rework `osbuild-depsolve-dnf` tests (HMS-5509) (#2016)
+    * Author: Tomáš Hozza, Reviewers: Michael Vogt, Simon de Vlieger
+  * Update images dependency ref to latest (#2019)
+    * Author: SchutzBot, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  * Update images dependency ref to latest (#2028)
+    * Author: SchutzBot, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  * Update snapshots to 20250218 (#2024)
+    * Author: SchutzBot, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  * monitor: limit the amount of data sent in JSONSeqMontior.result() (#2015)
+    * Author: Michael Vogt, Reviewers: Simon de Vlieger, Tomáš Hozza
+  * org.osbuild.cloud-init: add new datasources and network section (#2014)
+    * Author: Sanne Raymaekers, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  * stages/coreos.live-artifacts: update comments/names to reflect erofs related changes (#2011)
+    * Author: Nikita Dubrovski, Reviewers: Dusty Mabe, Michael Vogt
+  * stages/coreos.live-artifacts: use /var/tmp for mkfs.erofs (#2020)
+    * Author: Dusty Mabe, Reviewers: Michael Vogt, Tomáš Hozza
+  * stages: add basic qemu cmdline test (#2022)
+    * Author: Michael Vogt, Reviewers: Simon de Vlieger, Tomáš Hozza
+  * stages: add more options to qemu vmdk disk type (#2017)
+    * Author: Dusty Mabe, Reviewers: Michael Vogt, Simon de Vlieger
+  * stages: add tests to org.osbuild.ovf (#1986)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  * stages: ensure dirs for dracut configs are available (#2026)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * stages: replace "logger" binary in the dracut chroot (#2008)
+    * Author: Michael Vogt, Reviewers: Simon de Vlieger, Tomáš Hozza
+
+— Somewhere on the Internet, 2025-02-26
+
+
 * Wed Feb 12 2025 Packit <hello@packit.dev> - 141-1
 Changes with 141
 ----------------

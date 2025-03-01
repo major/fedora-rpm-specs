@@ -45,7 +45,7 @@
 %global sum_zh FastAPI 框架
 
 Name:           python-fastapi
-Version:        0.115.8
+Version:        0.115.9
 Release:        %autorelease
 Summary:        %{sum_en}
 
@@ -59,6 +59,10 @@ BuildArch:      noarch
 # Downstream-only: run test_fastapi_cli without coverage
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Downstream-only-run-test_fastapi_cli-without-coverag.patch
+
+# ⬆️ Bump Starlette to allow up to 0.46.0: >=0.40.0,<0.47.0
+# https://github.com/fastapi/fastapi/pull/13426
+Patch:          %{url}/pull/13426.patch
 
 BuildRequires:  python3-devel
 
@@ -88,7 +92,7 @@ BuildRequires:  %{py3_dist PyJWT} >= 2.8
 %endif
 BuildRequires:  %{py3_dist pyyaml} >= 5.3.1
 BuildRequires:  %{py3_dist passlib[bcrypt]} >= 1.7.2
-BuildRequires:  %{py3_dist inline-snapshot} >= 0.18.1
+BuildRequires:  %{py3_dist inline-snapshot} >= 0.19.3
 # This is still needed in the tests even if we do not have sqlmodel to bring it
 # in as an indirect dependency.
 BuildRequires:  %{py3_dist sqlalchemy}
@@ -997,22 +1001,6 @@ ignore="${ignore-} --ignore-glob=tests/test_tutorial/test_sql_databases/test_tut
 # dependencies in practice. Upstream deals with this by tightly controlling
 # dependency versions in CI.
 warningsfilter="${warningsfilter-} -W ignore::DeprecationWarning"
-
-# Various tests give:
-#
-# E ResourceWarning: unclosed database in <sqlite3.Connection object at 0x[…]>
-#
-# …resulting in:
-#
-# /usr/lib/python3.13/site-packages/_pytest/unraisableexception.py:85:
-# PytestUnraisableExceptionWarning
-#
-# We would like to report these upstream (i.e., create a “discussion” since
-# upstream uses those to gatekeep creating actual issues), but we cannot
-# reproduce them in a virtualenv since running the tests the way upstream
-# recommends results in hundreds of "TypeError: ('parser', <class 'module'>)"
-# errors. Let’s wait and see what happens.
-warningsfilter="${warningsfilter-} -W ignore::pytest.PytestUnraisableExceptionWarning"
 
 %pytest ${warningsfilter-} -k "${k-}" ${ignore-}
 

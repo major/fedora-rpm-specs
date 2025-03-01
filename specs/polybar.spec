@@ -32,6 +32,8 @@ Source0:        %{url1}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        %{url1}/i3ipcpp/archive/%{commit1}/i3ipcpp-%{shortcommit1}.tar.gz
 Source2:        %{url1}/xpp/archive/%{commit2}/xpp-%{shortcommit2}.tar.gz
 
+Patch0:         polybar-3.7.2-include-cstdint.patch
+
 BuildRequires:  cmake >= 3.5
 BuildRequires:  gcc-c++
 BuildRequires:  git-core
@@ -72,6 +74,8 @@ scripting.
 
 mv i3ipcpp-%{commit1}/* lib/i3ipcpp
 mv xpp-%{commit2}/*     lib/xpp
+
+%patch 0 -p1
 
 
 %build

@@ -61,7 +61,7 @@
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}
-Release:        40.rocm%{rocm_version}%{?dist}
+Release:        41.rocm%{rocm_version}%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 %if 0%{?suse_version}
 Group:          Development/Languages/Other
@@ -272,6 +272,7 @@ Requires:      rocm-llvm-libs%{?_isa} = %{version}-%{release}
 %package -n rocm-llvm-devel
 Summary:       Libraries and header files for ROCm LLVM
 Requires:      rocm-llvm%{?_isa} = %{version}-%{release}
+Requires:      zlib-devel
 
 %description -n rocm-llvm-devel
 %{summary}
@@ -1204,6 +1205,9 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %endif
 
 %changelog
+* Wed Feb 26 2025 Tom Rix <Tom.Rix@amd.com> - 18-41.rocm6.3.2
+- Add zlib requires
+
 * Fri Feb 7 2025 Tom Rix <Tom.Rix@amd.com> - 18-40.rocm6.3.2
 - Fix Suse 15.6
 

@@ -61,9 +61,9 @@
 %global dbus_python_version 0.83.0
 
 Name:           ibus
-Version:        1.5.32~beta2
+Version:        1.5.32~rc1
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -72,7 +72,6 @@ Source1:        https://github.com/ibus/%name/releases/download/%{source_version
 Source2:        %{name}-xinput
 Source3:        %{name}.conf.5
 # Patch0:         %%{name}-HEAD.patch
-Patch0:         %{name}-HEAD.patch
 # Under testing #1349148 #1385349 #1350291 #1406699 #1432252 #1601577
 Patch1:         %{name}-1385349-segv-bus-proxy.patch
 
@@ -636,6 +635,12 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Thu Feb 27 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.32~rc1-1
+- Use gdk_init() instead of gtk_init() in ibus-x11
+- Revert "Do not load en-US compose table by default"
+- Call IBus.init() importing Python IBus module
+- Some bug fixes
+
 * Wed Feb 19 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.32~beta2-3
 - Fix SEGV in Xorg without IBusWaylandIM
 - Update ibus_panel_condition for Wayland desktops

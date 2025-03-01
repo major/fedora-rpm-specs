@@ -2,8 +2,6 @@
 %bcond_without xz
 # build with plugins?
 %bcond_without plugins
-# build with libarchive? (needed for rpm2archive)
-%bcond_without libarchive
 # build with libimaevm.so
 %bcond_without libimaevm
 # build with fsverity support?
@@ -26,9 +24,9 @@
 
 %define rpmhome /usr/lib/rpm
 
-%global rpmver 4.20.0
+%global rpmver 4.20.1
 #global snapver rc1
-%global baserelease 8
+%global baserelease 1
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -79,9 +77,7 @@ BuildRequires: libacl-devel
 %if %{with xz}
 BuildRequires: xz-devel >= 4.999.8
 %endif
-%if %{with libarchive}
 BuildRequires: libarchive-devel
-%endif
 %if %{with zstd}
 BuildRequires: libzstd-devel
 %endif
@@ -134,11 +130,6 @@ rpm-4.19.91-weak-user-group.patch
 0001-Revert-Add-a-deprecation-warning-for-clamp_mtime_to_.patch
 
 # Patches already upstream:
-# Silence extra output on rpmspeq query on Buildsystem specs
-# https://github.com/rpm-software-management/rpm/pull/3414
-# Fixes: Regression: addtional output in rpmspec with -q
-# https://github.com/rpm-software-management/rpm/issues/3413
-0001-Silence-extra-output-on-rpmspec-query-on-Buildsystem.patch
 
 # These are not yet upstream
 rpm-4.7.1-geode-i686.patch
@@ -377,7 +368,6 @@ cmake \
       %{!?with_plugins:-DENABLE_PLUGINS=OFF} \
       %{?with_fsverity:-DWITH_FSVERITY=ON} \
       %{?with_libimaevm:-DWITH_IMAEVM=ON} \
-      %{!?with_libarchive:-DWITH_ARCHIVE=OFF} \
       %{!?with_check:-DENABLE_TESTSUITE=OFF} \
       -DRPM_VENDOR=redhat \
   ..
@@ -626,7 +616,10 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
-* Wed Jan 22 2025 Panu Matilai <pmatilai@redhat.com> - 4.20.0-8
+* Wed Feb 26 2025 Michal Domonkos <mdomonko@redhat.com> - 4.20.1-1
+- Rebase to 4.20.1
+
+* Wed Jan 22 2025 Panu Matilainen <pmatilai@redhat.com> - 4.20.0-8
 - Enable rpm sysusers.d integration via native systemd-sysusers for
   https://fedoraproject.org/wiki/Changes/RPMSuportForSystemdSysusers
 

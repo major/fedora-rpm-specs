@@ -6,12 +6,12 @@
 # Avoid accidental so-name bumps.
 # ATTENTION!!!  You need to run a bootstrap build
 # of cmake *BEFORE* bumping the so-name here!
-%global sover 25
+%global sover 26
 
 
 Name:           jsoncpp
-Version:        1.9.5
-Release:        9%{?dist}
+Version:        1.9.6
+Release:        1%{?dist}
 Summary:        JSON library implemented in C++
 
 License:        LicenseRef-Fedora-Public-Domain OR MIT
@@ -133,6 +133,9 @@ hardlink -cfv %{buildroot}%{_docdir}/%{name}
 
 
 %changelog
+* Thu Feb 27 2025 Björn Esser <besser82@fedoraproject.org> - 1.9.6-1
+- Update to version 1.9.6 (Fixes rhbz#2311852)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

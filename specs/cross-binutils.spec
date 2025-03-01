@@ -67,7 +67,7 @@
 
 Name: %{cross}-binutils
 Version: 2.43.1
-Release: 3%{?dist}
+Release: 5%{?dist}
 Summary: A GNU collection of cross-compilation binary utilities
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
@@ -182,6 +182,10 @@ Patch19: binutils-gold-ignore-execstack-error.patch
 # Purpose:  Fix the ar test of non-deterministic archives.
 # Lifetime: Fixed in 2.44
 Patch20: binutils-fix-ar-test.patch
+
+# Purpose:  Fix a seg fault in the AArch64 linker when building u-boot.
+# Lifetime: Fixed in 2.45
+Patch21: binutils-aarch64-small-plt0.patch
 
 # Purpose:  Suppress the x86 linker's p_align-1 tests due to kernel bug on CentOS-10
 # Lifetime: TEMPORARY
@@ -303,7 +307,6 @@ cd %{srcdir}
 %patch -P05 -p1
 %patch -P06 -p1
 %patch -P07 -p1
-#%patch -P08 -p1
 %patch -P09 -p1
 %patch -P10 -p1
 %patch -P11 -p1
@@ -315,6 +318,7 @@ cd %{srcdir}
 %patch -P18 -p1
 %patch -P19 -p1
 %patch -P20 -p1
+%patch -P21 -p1
 %patch -P99 -p1
 
 # We cannot run autotools as there is an exact requirement of autoconf-2.59.
@@ -445,7 +449,7 @@ function config_target () {
     esac
 
     echo $arch: target is $target
-    export CFLAGS="$RPM_OPT_FLAGS -Wno-unused-const-variable"
+    export CFLAGS="$RPM_OPT_FLAGS -Wno-unused-const-variable -std=gnu11"
     CARGS=
 
     case $target in i?86*|sparc*|ppc*|s390*|sh*|arm*|aarch64*|riscv*)
@@ -801,6 +805,12 @@ cd -
 %do_files xtensa-linux-gnu	%{build_xtensa}
 
 %changelog
+* Wed Feb 26 2025 Nick Clifton <nickc@redhat.com> - 2.43.1-5
+- Fix seg fault in AArch64 linker when building u-boot.  (#2326190)
+
+* Wed Feb 26 2025 Nick Clifton <nickc@redhat.com> - 2.43.1-4
+- Add -std=gnu11 to CFLAGS to support the use of static_assert in the sources.
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.43.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

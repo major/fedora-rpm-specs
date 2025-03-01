@@ -17,7 +17,7 @@ physical devices (tracker, etc.) used in a virtual-reality (VR) system.}
 
 Name:           vrpn
 Version:        07.35
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Virtual-Reality Peripheral Network
 
 # According to upstream, linking to the wiiuse (GPLv3+) and gpm (GPLv2+)
@@ -126,6 +126,7 @@ sed -i 's:/usr/local/bin:%{_bindir}:g' vrpn_Connection.C
 
 %build
 %cmake \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
     -DOpenGL_GL_PREFERENCE=GLVND \
     -DVRPN_GPL_SERVER=ON \
     -DBUILD_TESTING=ON \
@@ -199,6 +200,10 @@ mv %{buildroot}/%{_datadir}/%{name}-%{version}/%{name}.cfg.sample .
 %endif
 
 %changelog
+* Thu Feb 27 2025 Björn Esser <besser82@fedoraproject.org> - 07.35-7
+- Rebuild (jsoncpp)
+- Explicitly set CMAKE_POLICY_VERSION_MINIMUM=3.5
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 07.35-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

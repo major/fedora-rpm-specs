@@ -1,5 +1,5 @@
 Name:           python-starlette
-Version:        0.45.3
+Version:        0.46.0
 Release:        %autorelease
 Summary:        The little ASGI library that shines
 
@@ -21,17 +21,6 @@ Source:         https://github.com/encode/starlette/archive/%{version}/starlette
 #
 # We can (and must!) remove this once python-httpx is upgraded to 0.28.x.
 Patch:          0001-Revert-test-adjustments-from-5ccbc62175eece867b49811.patch
-
-# Get iscoroutinefunction() from inspect rather than asyncio
-# https://github.com/encode/starlette/pull/2855
-#
-# Fixes:
-#
-# python-starlette fails to build with Python 3.14: DeprecationWarning:
-# 'asyncio.iscoroutinefunction' is deprecated and slated for removal in Python
-# 3.16
-# https://bugzilla.redhat.com/show_bug.cgi?id=2342563
-Patch:          https://github.com/encode/starlette/pull/2855.patch
 
 BuildSystem:            pyproject
 BuildOption(install):   -l starlette

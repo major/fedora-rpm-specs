@@ -7,7 +7,7 @@
 
 Name:           mariadb-connector-c
 Version:        3.4.4
-Release:        1%{?with_debug:.debug}%{?dist}
+Release:        2%{?with_debug:.debug}%{?dist}
 Summary:        The MariaDB Native Client library (C driver)
 License:        LGPL-2.1-or-later
 Source:         https://archive.mariadb.org/connector-c-%{version}/%{name}-%{version}-src.tar.gz
@@ -21,6 +21,11 @@ Patch1:         testsuite.patch
 %endif
 
 Patch2:         gcc-15.patch
+
+# Patches cherry-picked from the latest upstream git content
+# They will be part of the next upstream release, at which point we can remove them from here
+Patch3:         upstream-d4eec05d00ce77d2bab3848ff49d04acf0ed2cc0.patch
+Patch4:         upstream-bbf07912ecad6b82d7d37313482cea95e6793297.patch
 
 %if 0%{?flatpak}
 Requires:       %{name}-config = %{version}-%{release}
@@ -95,6 +100,8 @@ and require this package, so the /etc/my.cnf file is present.
 %patch -P1 -p1
 %endif
 %patch -P2 -p1
+%patch -P3 -p1
+%patch -P4 -p1
 
 # Remove unsused parts
 rm -r win win-iconv external/zlib

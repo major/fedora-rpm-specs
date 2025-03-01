@@ -11,8 +11,8 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:           ocaml-gettext
-Version:        0.4.2
-Release:        24%{?dist}
+Version:        0.5.0
+Release:        2%{?dist}
 Summary:        OCaml library for i18n
 
 License:        LGPL-2.1-or-later with OCaml-LGPL-linking-exception
@@ -21,23 +21,16 @@ VCS:            git:%{url}.git
 
 Source0:        %{url}/archive/v%{version}.tar.gz
 
-# Updates for OCaml 5.  Based in part on
-# https://github.com/gildor478/ocaml-gettext/pull/24
-Patch0:         %{name}-ocaml5.patch
-# Adapt to changes in camomile 2.0
-# https://github.com/gildor478/ocaml-gettext/pull/27
-Patch1:         %{name}-camomile2.patch
-# Two tests that are supposed to fail raise different errors under OCaml 5.2.0
-Patch2:         %{name}-ocaml5.2.patch
-# Updates for OCaml 5.3
-# https://github.com/gildor478/ocaml-gettext/pull/29
-Patch3:         %{name}-ocaml5.3.patch
-
 BuildRequires:  ocaml >= 4.03.0
-BuildRequires:  ocaml-fileutils-devel >= 0.4.4-4
+BuildRequires:  ocaml-fileutils-devel >= 0.6.6-1
 BuildRequires:  ocaml-dune >= 1.11.0
 BuildRequires:  ocaml-dune-configurator-devel
+BuildRequires:  ocaml-dune-site-devel
 BuildRequires:  ocaml-cppo
+# This was orphaned and dropped from Fedora back in 2023, but may be
+# needed to run the tests.
+# https://github.com/gildor478/ocaml-gettext/issues/35
+#BuildRequires: ocaml-seq-devel
 BuildRequires:  docbook-style-xsl
 BuildRequires:  libxslt
 BuildRequires:  libxml2
@@ -70,9 +63,8 @@ Constraints :
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-
-# BZ 446919.
-Requires:       ocaml-fileutils-devel%{?_isa} >= 0.4.0
+Requires:       ocaml-fileutils-devel%{?_isa} >= 0.6.6
+Requires:       ocaml-dune-site-devel%{?_isa}
 
 
 %description    devel
@@ -107,6 +99,9 @@ signature files for developing applications that use
 
 %prep
 %autosetup -p1
+
+# Remove ocaml-seq dependency.  See note above.
+sed -i 's/ seq / /' test/dune
 
 %if %{without camomile}
 # Remove dependency on camomile.
@@ -158,6 +153,15 @@ cat .ofiles-gettext-stub-devel >> .ofiles-gettext-devel
 
 
 %changelog
+* Thu Feb 27 2025 Richard W.M. Jones <rjones@redhat.com> - 0.5.0-2
+- Add dependency from devel to ocaml-dune-site-devel.
+  https://src.fedoraproject.org/rpms/ocaml-gettext/pull-request/3#comment-249424
+
+* Wed Feb 26 2025 Richard W.M. Jones <rjones@redhat.com> - 0.5.0-1
+- New version 0.5.0
+- New dependency ocaml-dune-site-devel (copied from opam).
+- Remove upstream patches.
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

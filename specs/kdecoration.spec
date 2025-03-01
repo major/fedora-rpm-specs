@@ -43,8 +43,10 @@ mkdir -p %{buildroot}%{_kf6_qtplugindir}/org.kde.kdecoration2/
 
 %files
 %license LICENSES/*.txt
-%{_kf6_libdir}/libkdecorations3.so.*
-%{_kf6_libdir}/libkdecorations3private.so.*
+%{_kf6_libdir}/libkdecorations3.so.6
+%{_kf6_libdir}/libkdecorations3.so.%{version}
+%{_kf6_libdir}/libkdecorations3private.so.2
+%{_kf6_libdir}/libkdecorations3private.so.%{version}
 %{_datadir}/locale/*/LC_MESSAGES/kdecoration.mo
 
 %files devel

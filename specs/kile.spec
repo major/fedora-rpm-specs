@@ -47,7 +47,10 @@ BuildRequires: cmake(Okular6)
 BuildRequires: pkgconfig(poppler-qt6)
 
 Requires: konsole-part
+%if %{undefined flatpak}
+# texlive is provided as an SDK extension for flatpaks
 Requires: tex(latex)
+%endif
 
 ## Optional/recommended, but not absolutely required.
 #Requires: dvipdfmx

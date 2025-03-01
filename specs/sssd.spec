@@ -64,7 +64,7 @@
 
 Name: sssd
 Version: %{downstream_version}
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: System Security Services Daemon
 License: GPL-3.0-or-later
 URL: https://github.com/SSSD/sssd/
@@ -72,6 +72,7 @@ Source0: %{url}/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
 Source1: sssd.sysusers
 
 ### Patches ###
+Patch0001: 0001-configure-Require-valgrind-devel-when-valgrind-is-en.patch
 
 ### Dependencies ###
 
@@ -171,7 +172,9 @@ BuildRequires: systemtap-sdt-dtrace
 %endif
 BuildRequires: uid_wrapper
 BuildRequires: po4a
+%ifarch %{valgrind_arches}
 BuildRequires: valgrind-devel
+%endif
 %if %{build_subid}
 BuildRequires: shadow-utils-subid-devel
 %endif
@@ -1193,6 +1196,9 @@ fi
 %systemd_postun_with_restart sssd.service
 
 %changelog
+* Thu Feb 27 2025 Andrea Bolognani <abologna@redhat.com> - 2.10.2-3
+- Fix riscv64 build (thanks David Abdurachmanov)
+
 * Mon Feb 10 2025 Alexey Tikhonov <atikhono@redhat.com> - 2.10.2-2
 - Rebuild against Samba 4.22.0 rc1 (f43-build-side-105065)
 

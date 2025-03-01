@@ -2,7 +2,7 @@
 %global srcname isort
 
 Name:               python-%{modname}
-Version:            6.0.0
+Version:            6.0.1
 Release:            1%{?dist}
 Summary:            Python utility / library to sort Python imports
 
@@ -56,6 +56,9 @@ ln -s %{modname}-3 %{buildroot}%{_bindir}/%{modname}
 %{_bindir}/%{modname}-identify-imports
 
 %changelog
+* Thu Feb 27 2025 Gwyn Ciesla <gwync@protonmail.com> - 6.0.1-1
+- 6.0.1
+
 * Tue Jan 28 2025 Gwyn Ciesla <gwync@protonmail.com> - 6.0.0-1
 - 6.0.0
 

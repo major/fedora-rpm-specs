@@ -2,7 +2,7 @@
 
 Name:           libarchive
 Version:        3.7.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A library for handling streaming archive formats
 
 # Licenses:
@@ -43,6 +43,9 @@ BuildRequires: make
 # loaded, which breaks the RIPEMD-160 test. This patch disables the RIPEMD-160
 # support explicitly.
 Patch0001: 0001-Drop-rmd160-from-OpenSSL.patch
+# Upstream commit: https://github.com/libarchive/libarchive/commit/82912103214506316bd9990d73f33d743d55f570
+# Fixes the CVE-2024-57970
+Patch0002: 0002-Handle-truncation-in-the-middle-of-a-GNU-long-linkna.patch
 
 %description
 Libarchive is a programming library that can create and read several different
@@ -241,6 +244,9 @@ run_testsuite
 
 
 %changelog
+* Tue Feb 18 2025 Lukas Javorsky <ljavorsk@redhat.com> - 3.7.7-3
+- Fix for CVE-2024-57970
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

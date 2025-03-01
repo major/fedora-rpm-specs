@@ -1,6 +1,6 @@
 Name:           vfrnav
 Version:        20230429
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        VFR/IFR Navigation
 
 License:        GPL-2.0-or-later
@@ -478,6 +478,9 @@ fi
 %endif
 
 %changelog
+* Thu Feb 27 2025 Björn Esser <besser82@fedoraproject.org> - 20230429-20
+- Rebuild (jsoncpp)
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 20230429-19
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

@@ -25,7 +25,7 @@
 
 Name:           roctracer
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        7%{?dist}
 Summary:        ROCm Tracer Callback/Activity Library for Performance tracing AMD GPUs
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -34,7 +34,6 @@ Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{ro
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  python3-cppheaderparser
 BuildRequires:  rocm-cmake
 BuildRequires:  rocm-comgr-devel
 BuildRequires:  rocm-compilersupport-macros
@@ -44,8 +43,14 @@ BuildRequires:  rocm-rpm-macros
 
 %if 0%{?suse_version}
 BuildRequires:  libatomic1
+%if %{suse_version} < 1699
+BuildRequires:  python3-cppheaderparser
+%else
+BuildRequires:  python313-cppheaderparser
+%endif
 %else
 BuildRequires:  libatomic
+BuildRequires:  python3-cppheaderparser
 %endif
 
 %if %{with doc}
@@ -89,6 +94,11 @@ ROC-tracer
   * roctxMark
   * roctxRangePush
   * roctxRangePop
+
+%if 0%{?suse_version}
+%post -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
+%endif
 
 %package devel
 Summary:        The %{name} development package
@@ -175,6 +185,12 @@ rm -rf rm %{buildroot}%{_datadir}/html
 %endif
 
 %changelog
+* Mon Feb 24 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-7
+- Specialize python-cppheaderparser for tw
+
+* Thu Feb 13 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-6
+- Fix SLE 15.6
+
 * Wed Feb 5 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-5
 - Fix TW build
 

@@ -27,7 +27,9 @@ BuildRequires:  redis
 %endif
 BuildRequires:  sed
 # Needed for memory check
+%ifarch %{valgrind_arches}
 BuildRequires:  valgrind
+%endif
 
 %global _description %{expand:
 As Sogou`s C++ server engine, Sogou C++ Workflow supports almost all back-end

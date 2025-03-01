@@ -3,7 +3,7 @@
 %endif
 
 Name:       mock-core-configs
-Version:    42.1
+Version:    42.2
 Release:    1%{?dist}
 Summary:    Mock core config files basic chroots
 
@@ -22,7 +22,7 @@ BuildArch:  noarch
 Provides: mock-configs
 
 # distribution-gpg-keys contains GPG keys used by mock configs
-Requires:   distribution-gpg-keys >= 1.107
+Requires:   distribution-gpg-keys >= 1.110
 # specify minimal compatible version of mock
 Requires:   mock >= 5.4.post1
 Requires:   mock-filesystem
@@ -119,6 +119,10 @@ almalinux)
   # AlmaLinux configs look like 'alma+epel'
   distro_id=alma
   ;;
+ol)
+  # Oracle Linux uses 'oraclelinux' as the file prefix
+  distro_id=oraclelinux
+  ;;
 esac
 cfg=$distro_id+epel-$ver-$mock_arch.cfg
 %endif
@@ -149,6 +153,20 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
+* Thu Feb 27 2025 Miroslav Suchý <msuchy@redhat.com> 42.2-1
+- fix: expand Oracle Linux distro_id from ol to oraclelinux
+  (avi.miller@oracle.com)
+- Navy Linux 8 configuration fixes (adil@linux.com)
+- EuroLinux end-of-life (praiskup@redhat.com)
+- bugfix: upgrade openeuler chroots to latest release and fix gpg check failed
+  in 20.03 (pkwarcraft@gmail.com)
+- Add Azure Linux 3 configuration (negativo17@gmail.com)
+- Add Azure Linux 2 configuration (negativo17@gmail.com)
+- Add Kylin 10 configuration files (negativo17@gmail.com)
+- Add AlmaLinux Kitten 10 + EPEL 10 configs (ngompa@almalinux.org)
+- Add AlmaLinux Kitten 10 configs (ngompa@almalinux.org)
+- Add openSUSE Leap 15.6, move openSUSE Leap 15.5 to eol (negativo17@gmail.com)
+
 * Thu Jan 16 2025 Pavel Raiskup <praiskup@redhat.com> 42.1-1
 - branch fedora-42 configs, move rawhide to releasever=43
 
@@ -689,5 +707,3 @@ fi
 
 * Thu Sep 07 2017 Miroslav Suchý <msuchy@redhat.com> 27.1-1
 - Split from Mock package.
-
-
