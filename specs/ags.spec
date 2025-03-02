@@ -15,7 +15,7 @@ Source0: https://github.com/adventuregamestudio/ags/archive/%{fver}/ags-%{fver}.
 Source1: FindMiniz.cmake
 Patch0: ags-use-system-libraries.patch
 # Most code is under Artistic-2.0, except:
-# Common/libsrc/aastr-0.1.1: Giftware-like (https://gitlab.com/fedora/legal/fedora-license-data/-/issues/631)
+# Common/libsrc/aastr-0.1.1: LicenseRef-Fedora-UltraPermissive
 # Common/libsrc/alfont-2.0.9: FTL
 # Engine/libsrc/apeg-1.2.1: MPEG-SSG
 # Engine/libsrc/glad: Apache-2.0 AND MIT-Khronos-old
@@ -24,7 +24,7 @@ Patch0: ags-use-system-libraries.patch
 # Plugins/agspalrender/agspalrender/raycast.{cpp,h}: BSD-2-Clause
 # Plugins/AGSSpriteFont: CC0-1.0
 # libsrc/allegro: Giftware
-License: Artistic-2.0 AND Giftware AND FTL AND MPEG-SSG AND Apache-2.0 AND MIT-Khronos-old AND Zlib AND MIT AND BSD-2-Clause AND CC0-1.0
+License: Artistic-2.0 AND LicenseRef-Fedora-UltraPermissive AND FTL AND MPEG-SSG AND Apache-2.0 AND MIT-Khronos-old AND Zlib AND MIT AND BSD-2-Clause AND CC0-1.0 AND Giftware
 %if %{with freetype}
 BuildRequires: freetype-devel
 %else

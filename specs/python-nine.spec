@@ -1,8 +1,8 @@
 %global modname nine
 
 Name:               python-nine
-Version:            1.1.0
-Release:            20%{?dist}
+Version:            1.2.0
+Release:            1%{?dist}
 Summary:            Python 2 / 3 compatibility, like six, but favouring Python 3
 
 License:            LicenseRef-Fedora-Public-Domain
@@ -12,7 +12,7 @@ BuildArch:          noarch
 
 
 BuildRequires:      python3-devel
-BuildRequires:      python3-setuptools
+BuildRequires:      python3-pytest
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -45,28 +45,32 @@ Summary:            %{summary}
 %description -n python3-nine  %_description
 
 %prep
-%setup -q -n %{modname}-%{version}
+%autosetup -n %{modname}-%{version}
 
 # Remove bundled egg-info in case it exists
 rm -rf %{modname}.egg-info
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files nine
 
 %check
-%{py3_test_envvars} %{python3} -m unittest
+%pytest
 
-%files -n python3-nine
+%files -n python3-nine -f %{pyproject_files}
 %doc README.rst
 %license LICENSE.rst
-%{python3_sitelib}/%{modname}/
-%{python3_sitelib}/%{modname}-%{version}*
 
 
 %changelog
+* Fri Feb 28 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 1.2.0-1
+- Update to upstream
+- Fix python3.14 compatibility (rhbz#2343977)
+- Migrate to pyproject macros
+
 * Wed Feb 05 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 1.1.0-20
 - use pypi_source macro for source0
 - use unittest instead of tox, this package doesn't support tox

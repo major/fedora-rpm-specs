@@ -4,8 +4,8 @@
 %bcond_without perl_Object_Pad_enables_optional_test
 
 Name:           perl-Object-Pad
-Version:        0.819
-Release:        2%{dist}
+Version:        0.820
+Release:        1%{dist}
 Summary:        Simple syntax for lexical slot-based objects
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Object-Pad
@@ -219,6 +219,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Feb 28 2025 Petr Pisar <ppisar@redhat.com> - 0.820-1
+- 0.820 bump
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.819-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

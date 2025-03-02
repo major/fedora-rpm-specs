@@ -1,17 +1,15 @@
 %global pname   remote
 %global __provides_exclude_from ^%{vdr_libdir}/.*\\.so.*$
 # version we want to build against
-%global vdr_version 2.6.3
+%global vdr_version 2.6.9
 # Set vdr_version based on Fedora version
 %if 0%{?fedora} >= 42
-%global vdr_version 2.7.2
-%elif 0%{?fedora} >= 40
-%global vdr_version 2.6.9
+%global vdr_version 2.7.4
 %endif
 
 Name:           vdr-%{pname}
 Version:        0.7.0
-Release:        35%{?dist}
+Release:        37%{?dist}
 Summary:        Extended remote control plugin for VDR
 License:        GPL-1.0-or-later
 URL:            http://www.escape-edv.de/endriss/vdr/
@@ -73,7 +71,10 @@ usermod -a -G input %{vdr_user} || :
 %{vdr_libdir}/libvdr-%{pname}.so.%{vdr_apiversion}
 
 %changelog
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-35
+* Fri Feb 28 2025 Martin Gansser <martinkg@fedoraproject.org> - 0.7.0-37
+- Rebuilt for new VDR API version 2.7.4
+
+* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
 * Wed Oct 09 2024 Martin Gansser <martinkg@fedoraproject.org> - 0.7.0-35

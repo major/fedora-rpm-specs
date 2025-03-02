@@ -3,7 +3,7 @@
 %global _license COPYING COPYING.LGPL-2.1 COPYING.LGPL-3.0 LICENSE_CCBYSA
 
 Name:       yaru-theme
-Version:    24.04.2
+Version:    24.10.4
 %forgemeta
 Release:    %autorelease
 Summary:    Ubuntu community theme "yaru"
@@ -179,8 +179,6 @@ end
 %{_datadir}/gnome-shell/modes/yaru.json
 %{_datadir}/gnome-shell/theme/Yaru*/
 %{_datadir}/themes/Yaru-*/index.theme
-%{_datadir}/themes/Yaru-bark-dark/gnome-shell
-%{_datadir}/themes/Yaru-bark/gnome-shell
 %{_datadir}/themes/Yaru-blue-dark/gnome-shell
 %{_datadir}/themes/Yaru-blue/gnome-shell
 %{_datadir}/themes/Yaru-dark/gnome-shell
@@ -196,30 +194,32 @@ end
 %{_datadir}/themes/Yaru-red/gnome-shell
 %{_datadir}/themes/Yaru-sage-dark/gnome-shell
 %{_datadir}/themes/Yaru-sage/gnome-shell
-%{_datadir}/themes/Yaru-viridian-dark/gnome-shell
-%{_datadir}/themes/Yaru-viridian/gnome-shell
+%{_datadir}/themes/Yaru-wartybrown-dark/gnome-shell
+%{_datadir}/themes/Yaru-wartybrown/gnome-shell
+%{_datadir}/themes/Yaru-yellow-dark/gnome-shell
+%{_datadir}/themes/Yaru-yellow/gnome-shell
 %{_datadir}/themes/Yaru/gnome-shell
 %{_datadir}/themes/Yaru/index.theme
 %dir %{_datadir}/themes/Yaru
-%dir %{_datadir}/themes/Yaru-bark-dark
-%dir %{_datadir}/themes/Yaru-bark
-%dir %{_datadir}/themes/Yaru-blue-dark
 %dir %{_datadir}/themes/Yaru-blue
+%dir %{_datadir}/themes/Yaru-blue-dark
 %dir %{_datadir}/themes/Yaru-dark
-%dir %{_datadir}/themes/Yaru-magenta-dark
 %dir %{_datadir}/themes/Yaru-magenta
-%dir %{_datadir}/themes/Yaru-olive-dark
+%dir %{_datadir}/themes/Yaru-magenta-dark
 %dir %{_datadir}/themes/Yaru-olive
-%dir %{_datadir}/themes/Yaru-prussiangreen-dark
+%dir %{_datadir}/themes/Yaru-olive-dark
 %dir %{_datadir}/themes/Yaru-prussiangreen
-%dir %{_datadir}/themes/Yaru-purple-dark
+%dir %{_datadir}/themes/Yaru-prussiangreen-dark
 %dir %{_datadir}/themes/Yaru-purple
-%dir %{_datadir}/themes/Yaru-red-dark
+%dir %{_datadir}/themes/Yaru-purple-dark
 %dir %{_datadir}/themes/Yaru-red
-%dir %{_datadir}/themes/Yaru-sage-dark
+%dir %{_datadir}/themes/Yaru-red-dark
 %dir %{_datadir}/themes/Yaru-sage
-%dir %{_datadir}/themes/Yaru-viridian-dark
-%dir %{_datadir}/themes/Yaru-viridian
+%dir %{_datadir}/themes/Yaru-sage-dark
+%dir %{_datadir}/themes/Yaru-wartybrown
+%dir %{_datadir}/themes/Yaru-wartybrown-dark
+%dir %{_datadir}/themes/Yaru-yellow
+%dir %{_datadir}/themes/Yaru-yellow-dark
 %ghost %{_datadir}/themes/Yaru-dark/gnome-shell.rpmmoved/
 
 %files -n yaru-gtk2-theme

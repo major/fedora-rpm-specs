@@ -61,7 +61,7 @@
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}
-Release:        41.rocm%{rocm_version}%{?dist}
+Release:        42.rocm%{rocm_version}%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 %if 0%{?suse_version}
 Group:          Development/Languages/Other
@@ -1205,6 +1205,9 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %endif
 
 %changelog
+* Fri Feb 28 2025 Tom Rix <Tom.Rix@amd.com> - 18-42.rocm6.3.2
+- Do not use cmake CMP0053
+
 * Wed Feb 26 2025 Tom Rix <Tom.Rix@amd.com> - 18-41.rocm6.3.2
 - Add zlib requires
 

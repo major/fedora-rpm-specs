@@ -116,6 +116,8 @@ sed -i -e '/strlcpy/d' include/magma_auxiliary.h
 sed -i -e 's@magma_strlcpy@strlcpy@' control/trace.cpp
 rm control/strlcpy.cpp
 
+# Policy CMP0037 may not be set to OLD behavior because this version of CMake
+sed -i -e 's@cmake_policy( SET CMP0037 OLD)@#cmake_policy( SET CMP0037 OLD)@' CMakeLists.txt
 %build
 
 export HIP_PATH=`hipconfig -p`

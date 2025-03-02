@@ -31,11 +31,11 @@
 
 %global major_version 4
 %global minor_version 4
-%global patch_version 2
+%global patch_version 3
 
 Name:           R
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        A language for data analysis and graphics
 
 License:        GPL-2.0-or-later
@@ -43,7 +43,6 @@ URL:            https://www.r-project.org
 Source0:        https://cran.r-project.org/src/base/R-4/R-%{version}.tar.gz
 # see https://bugzilla.redhat.com/show_bug.cgi?id=1324145
 Patch0:         R-3.3.0-fix-java_path-in-javareconf.patch
-Patch1:         R-4.4.2-gcc15-noreturn.patch
 
 BuildRequires:  gcc-gfortran
 BuildRequires:  gcc-c++
@@ -141,31 +140,31 @@ Provides:       R(ABI) = %{bootstrap_abi}
 }
 %add_submodule  base %{version}
 %add_submodule  boot 1.3-31
-%add_submodule  class 7.3-22
-%add_submodule  cluster 2.1.6
+%add_submodule  class 7.3-23
+%add_submodule  cluster 2.1.8
 %add_submodule  codetools 0.2-20
 %add_submodule  compiler %{version}
 %add_submodule  datasets %{version}
-%add_submodule  foreign 0.8-87
+%add_submodule  foreign 0.8-88
 %add_submodule  graphics %{version}
 %add_submodule  grDevices %{version}
 %add_submodule  grid %{version}
-%add_submodule  KernSmooth 2.23-24
+%add_submodule  KernSmooth 2.23-26
 %add_submodule  lattice 0.22-6
-%add_submodule  MASS 7.3-61
-%add_submodule  Matrix 1.7-1
+%add_submodule  MASS 7.3-64
+%add_submodule  Matrix 1.7-2
 Obsoletes:      R-Matrix < 0.999375-7
 %add_submodule  methods %{version}
 %add_submodule  mgcv 1.9-1
-%add_submodule  nlme 3.1-166
-%add_submodule  nnet 7.3-19
+%add_submodule  nlme 3.1-167
+%add_submodule  nnet 7.3-20
 %add_submodule  parallel %{version}
-%add_submodule  rpart 4.1.23
-%add_submodule  spatial 7.3-17
+%add_submodule  rpart 4.1.24
+%add_submodule  spatial 7.3-18
 %add_submodule  splines %{version}
 %add_submodule  stats %{version}
 %add_submodule  stats4 %{version}
-%add_submodule  survival 3.7-0
+%add_submodule  survival 3.8-3
 %add_submodule  tcltk %{version}
 %add_submodule  tools %{version}
 %add_submodule  translations %{version}
@@ -218,7 +217,7 @@ Recommends:     tex(inconsolata.sty)
 Recommends:     qpdf
 %endif
 
-Provides:       R-Matrix-devel = 1.7.1
+Provides:       R-Matrix-devel = 1.7.2
 Obsoletes:      R-Matrix-devel < 0.999375-7
 
 %ifarch %{java_arches}
@@ -307,7 +306,6 @@ from the R project.  This package provides the static libRmath library.
 %prep
 %setup -q
 %patch -P0 -p1 -b .fixpath
-%patch -P1 -p1 -b .noreturn
 
 %build
 # Comment out default R_LIBS_SITE (since R 4.2) and set our own as always
@@ -948,6 +946,9 @@ TZ="Europe/Paris" make check
 %{_libdir}/libRmath.a
 
 %changelog
+* Fri Feb 28 2025 Iñaki Úcar <iucar@fedoraproject.org> - 4.4.3-1
+- Update to 4.4.3
+
 * Thu Feb 27 2025 Iñaki Úcar <iucar@fedoraproject.org> - 4.4.2-5
 - Remove requirement on tck/tk devel packages
 

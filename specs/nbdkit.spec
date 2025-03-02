@@ -55,7 +55,7 @@
 
 Name:           nbdkit
 Version:        1.42.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -549,7 +549,7 @@ This package is a BitTorrent plugin for %{name}.
 Summary:        VMware VDDK plugin for %{name}
 Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 # https://bugzilla.redhat.com/show_bug.cgi?id=1931818
-Requires:       libxcrypt-compat
+Requires:       libxcrypt-compat%{?_isa}
 
 %description vddk-plugin
 This package is a plugin for %{name} which connects to
@@ -1512,6 +1512,9 @@ fi
 
 
 %changelog
+* Fri Feb 28 2025 Björn Esser <besser82@fedoraproject.org> - 1.42.0-3
+- Change Requires: libxcrypt-compat to be archful
+
 * Mon Feb 24 2025 Richard W.M. Jones <rjones@redhat.com> - 1.42.0-2
 - Reenable tests
 

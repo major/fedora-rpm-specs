@@ -3,34 +3,36 @@
 #
 # remirepo spec file for php-pecl-mongodb
 #
-# Copyright (c) 2015-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2015-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 
 %global pecl_name         mongodb
+%global pie_vend          mongodb
+%global pie_proj          mongodb-extension
 # After 40-smbclient.ini, see https://jira.mongodb.org/browse/PHPC-658
 %global ini_name          50-%{pecl_name}.ini
 
-%global upstream_version  1.20.1
+%global upstream_version  1.21.0
 #global upstream_prever   RC1
 #global upstream_lower    ~rc1
 %global sources           %{pecl_name}-%{upstream_version}%{?upstream_prever}
 
 # Required versions from config.m4
-%global minimal_libmongo  1.28.1
-%global minimal_libcrypt  1.11.0
+%global minimal_libmongo  1.30.1
+%global minimal_libcrypt  1.12.0
 
 # Build dependencies
-%global system_libmongo   1.28.1
-%global system_libcrypt   1.11.0
+%global system_libmongo   1.30
+%global system_libcrypt   1.12
 
 Summary:        MongoDB driver for PHP
 Name:           php-pecl-%{pecl_name}
 Version:        %{upstream_version}%{?upstream_lower}
-Release:        2%{?dist}
+Release:        1%{?dist}
 License:        Apache-2.0
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
@@ -38,7 +40,7 @@ Source0:        https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upst
 ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc
-BuildRequires:  php-devel >= 7.4
+BuildRequires:  php-devel >= 8.1
 BuildRequires:  php-pear
 BuildRequires:  php-json
 BuildRequires:  pkgconfig(libbson-1.0)    >= %{system_libmongo}
@@ -50,8 +52,10 @@ Requires:       php(api) = %{php_core_api}
 Requires:       php-json%{?_isa}
 
 # Don't provide php-mongodb which is the pure PHP library
-Provides:       php-pecl(%{pecl_name})         = %{version}
-Provides:       php-pecl(%{pecl_name})%{?_isa} = %{version}
+Provides:       php-pecl(%{pecl_name})           = %{version}
+Provides:       php-pecl(%{pecl_name})%{?_isa}   = %{version}
+Provides:       php-pie(%{pie_vend}/%{pie_proj}) = %{version}
+Provides:       php-%{pie_vend}-%{pie_proj}      = %{version}
 
 
 %description
@@ -153,6 +157,14 @@ OPT="-n"
 
 
 %changelog
+* Fri Feb 28 2025 Remi Collet <remi@remirepo.net> - 1.21.0-1
+- update to 1.21.0
+- raise dependency on PHP 8.1
+- raise dependency on libbson and libmongc 1.30
+- raise dependency on libmongocrypt 1.12
+- re-license spec file to CECILL-2.1
+- add pie virtual provides
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

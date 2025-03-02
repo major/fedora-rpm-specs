@@ -8,13 +8,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:		ptyxis
-Version:	47.10
+Version:	48.rc
 Release:	%autorelease
 Summary:	A container oriented terminal for GNOME
 
 License:	GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-3.0-or-later AND LGPL-2.0-or-later AND CC0-1.0
 URL:		https://gitlab.gnome.org/chergert/ptyxis
-Source0:	https://download.gnome.org/sources/%{name}/47/%{name}-%{tarball_version}.tar.xz
+Source0:	https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
 Source1:	org.gnome.Ptyxis.fedora.gschema.override
 
 BuildRequires:	pkgconfig(gio-unix-2.0) >= %{glib2_version}

@@ -25,16 +25,16 @@
 %global vdr_user  vdr
 %global vdr_group video
 # From APIVERSION in config.h
-%global apiver    5
+%global apiver    6
 
 Name:           vdr
-Version:        2.7.3
-Release:        3%{?dist}
+Version:        2.7.4
+Release:        1%{?dist}
 Summary:        Video Disk Recorder
 
 License:        GPL-2.0-or-later
 URL:            http://www.tvdr.de/
-# Get vdr source from http://git.tvdr.de/?p=vdr.git;a=snapshot;h=refs/tags/2.7.3;sf=tbz2
+# Get vdr source from http://git.tvdr.de/?p=vdr.git;a=snapshot;h=refs/tags/2.7.4;sf=tbz2
 Source0:        %{name}-%{version}.tar.bz2
 Source1:        %{name}.service
 Source2:        %{name}.sysconfig
@@ -68,12 +68,9 @@ Patch3:         %{name}-1.7.21-plugin-missing.patch
 Patch4:         %{name}-2.4.0-paths.patch
 # http://vdrportal.de/board/thread.php?postid=343665#post343665
 Patch5:         12_osdbase-maxitems.patch
-
-# https://www.vdr-portal.de/forum/index.php?thread/136501-vdr-2-7-3-bei-radioaufnahmen-werden-viele-fehler-gez%C3%A4hlt/&postID=1375464#post1375464
-Patch6:         %{name}-2.7.3-remux-radio.patch
-
 # Sent upstream 2016-06-17
-Patch15:        %{name}-1.7.37-fedora-pkgconfig.patch
+### Patch15:       %%{name}-1.7.37-fedora-pkgconfig.patch
+Patch15:        %{name}-2.7.4-fedora-pkgconfig.patch
 # https://www.vdr-portal.de/index.php?attachment/44831-vdr-2-4-6-clearobsoletechannels-diff
 Patch99:        %{name}-2.4.6-ClearObsoleteChannels2.diff
 
@@ -198,7 +195,6 @@ sed \
     -e 's|__VIDEODIR__|%{videodir}|'   \
     %{PATCH4} | %{__patch} -p1
 %patch 5 -p1
-%patch 6 -p0
 %patch 15 -p1
 %patch 99 -p1
 
@@ -552,6 +548,10 @@ systemctl daemon-reload
 
 
 %changelog
+* Wed Feb 26 2025 Martin Gansser <martinkg@fedoraproject.org> - 2.7.4-1
+- Update to 2.7.4
+- Add vdr-2.7.4-fedora-pkgconfig.patch
+
 * Fri Jan 24 2025 Martin Gansser <martinkg@fedoraproject.org> - 2.7.3-3
 - Fix FTBFS #2341505
 

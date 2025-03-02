@@ -161,34 +161,6 @@ Source0:    README
 %obsolete_ticket https://bugzilla.redhat.com/show_bug.cgi?id=2260493
 %obsolete perl-Test-Apocalypse 1.006-30
 
-# Remove in F41
-# TeXLive sometimes just kills off components without notice, so there is no ticket.
-# These items were removed with TeXLive 2023 (first in Fedora 39) and have no replacement.
-%obsolete_ticket Ishouldfileaticket
-%obsolete texlive-elegantbook svn64122-67
-%obsolete texlive-elegantnote svn62989-67
-%obsolete texlive-elegantpaper svn62989-67
-%obsolete texlive-tablestyles svn34495.0-67
-%obsolete texlive-tablestyles-doc svn34495.0-67
-%obsolete texlive-pgf-cmykshadings svn52635-67
-
-# Remove in F41
-%obsolete_ticket https://src.fedoraproject.org/rpms/jython/c/5b613bd06ba08cea22e9906646b3a37aca4280c1?branch=rawhide
-%obsolete jython 2.7.1-17
-
-# Remove in F41
-%obsolete_ticket https://src.fedoraproject.org/rpms/sssd/c/cf3c8f20eeb0e7fe8cc2cfb0d02db9e5f9ddf04e?branch=rawhide
-%obsolete sssd-libwbclient 2.3.1-3
-%obsolete sssd-libwbclient-devel 2.3.1-3
-
-# Remove in F41
-%obsolete_ticket https://src.fedoraproject.org/rpms/giada/c/bcbd322f7822524ebd7f02cbeb5b04cc8a7cec1d?branch=rawhide
-%obsolete giada 0.22.0-5
-
-# Remove in F41
-%obsolete_ticket https://src.fedoraproject.org/rpms/R-rgdal/c/c68d42d4e56b976be3a50adcbb65efdfc36b8318?branch=f39
-%obsolete R-rgdal 1.6.7-3
-
 # Remove in F42
 %obsolete_ticket https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/LAE5JLO3KYVQVSF776H4QLY6DTAUQHWR/
 %obsolete celestia 1.7.0~320231229.git6899839-6

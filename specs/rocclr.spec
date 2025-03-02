@@ -59,7 +59,7 @@
 
 Name:           rocclr
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm Compute Language Runtime
 Url:            https://github.com/ROCm-Developer-Tools/clr
 License:        MIT
@@ -249,6 +249,9 @@ sed -i 's/^\(HTML_TIMESTAMP.*\)YES/\1NO/' \
 sed -i -e 's@add_subdirectory(packaging)@#add_subdirectory(packaging)@' hipamd/CMakeLists.txt
 sed -i -e 's@add_subdirectory(packaging)@#add_subdirectory(packaging)@' opencl/CMakeLists.txt
 
+# cmake version
+sed -i -e 's@cmake_minimum_required(VERSION 3.3)@cmake_minimum_required(VERSION 3.5)@' hipamd/src/hiprtc/cmake/hiprtc-config.cmake.in
+
 %build
 
 p=$PWD
@@ -366,6 +369,9 @@ fi
 %endif
 
 %changelog
+* Fri Feb 28 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-3
+- cmake changed
+
 * Mon Feb 10 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-2
 - Fix SLE 15.6
 

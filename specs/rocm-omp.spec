@@ -21,7 +21,7 @@
 
 Name:           rocm-omp
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm OpenMP
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -74,6 +74,9 @@ sed -i -e 's@LIBOMPTARGET_DEVICE_ARCHITECTURES "all"@LIBOMPTARGET_DEVICE_ARCHITE
 
 # rm llvm-project bits we do not need
 rm -rf {bolt,clang,compiler-rt,flang,libc,libclc,libcxx,libcxxabi,libunwind,lld,lldb,llvm-libgcc,mlir,polly,pst,runtimes,utils}
+
+# cmake changed
+sed -i -e 's@cmake_minimum_required(VERSION 3.0 FATAL_ERROR)@cmake_minimum_required(VERSION 3.5 FATAL_ERROR)'@ openmp/libomptarget/*/CMakeLists.txt
 
 %build
 
@@ -202,6 +205,9 @@ fi
 %{bundle_prefix}/lib/libomptarget.devicertl.a
 
 %changelog
+* Fri Feb 28 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-3
+- cmake changed
+
 * Tue Feb 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-2
 - Disable fdupes on RHEL
 

@@ -10,7 +10,7 @@
 %bcond_without tests
 
 # Github
-%global gh_commit    901eddb1e45a8e0f689302e40af871c181ecbe40
+%global gh_commit    866551da34e9a618e64a819ee1e01c20d8a588ba
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     brick
 %global gh_project   math
@@ -22,7 +22,7 @@
 %global ns_project   Math
 
 Name:           php-%{pk_vendor}-%{pk_name}
-Version:        0.12.2
+Version:        0.12.3
 Release:        1%{?dist}
 Summary:        Arbitrary-precision arithmetic library
 
@@ -122,6 +122,9 @@ exit $ret
 
 
 %changelog
+* Fri Feb 28 2025 Remi Collet <remi@remirepo.net> - 0.12.3-1
+- update to 0.12.3
+
 * Wed Feb 26 2025 Remi Collet <remi@remirepo.net> - 0.12.2-1
 - update to 0.12.2
 - re-license spec file to CECILL-2.1

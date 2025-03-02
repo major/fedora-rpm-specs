@@ -6,7 +6,7 @@
 %global crate blake3
 
 Name:           rust-blake3
-Version:        1.6.0
+Version:        1.6.1
 Release:        %autorelease
 Summary:        BLAKE3 hash function
 

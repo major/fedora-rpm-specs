@@ -1,9 +1,9 @@
 #region globals
 #region version
-%global maj_ver 19
+%global maj_ver 20
 %global min_ver 1
-%global patch_ver 7
-#global rc_ver 4
+%global patch_ver 0
+%global rc_ver 3
 
 %bcond_with snapshot_build
 %if %{with snapshot_build}
@@ -28,8 +28,8 @@
 %bcond_without check
 
 %if %{with bundle_compat_lib}
-%global compat_maj_ver 18
-%global compat_ver %{compat_maj_ver}.1.8
+%global compat_maj_ver 19
+%global compat_ver %{compat_maj_ver}.1.7
 %endif
 
 # Compat builds do not include python-lit
@@ -239,7 +239,7 @@
 #region main package
 Name:		%{pkg_name_llvm}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	11%{?dist}
+Release:	1%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -3104,6 +3104,9 @@ fi
 
 #region changelog
 %changelog
+* Thu Feb 27 2025 Nikita Popov <npopov@redhat.com> - 20.1.0~rc3-1
+- Update to LLVM 20 rc 3
+
 * Tue Feb 25 2025 Nikita Popov <npopov@redhat.com> - 19.1.7-11
 - Add clang-devel -> llvm-devel dep (rhbz#2342979)
 

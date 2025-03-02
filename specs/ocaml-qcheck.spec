@@ -8,8 +8,8 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/c-cube/qcheck
 
 Name:           ocaml-qcheck
-Version:        0.23
-Release:        3%{?dist}
+Version:        0.24
+Release:        1%{?dist}
 Summary:        QuickCheck inspired property-based testing for OCaml
 
 License:        BSD-2-Clause
@@ -18,6 +18,9 @@ VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Expose a dependency on the math library so RPM can see it
 Patch:          %{name}-mathlib.patch
+# Work around asciidoc errors due to unspecified language
+# https://github.com/c-cube/qcheck/issues/325
+Patch:          %{name}-asciidoc.patch
 
 BuildRequires:  asciidoc
 BuildRequires:  ocaml >= 4.08.0
@@ -197,6 +200,10 @@ asciidoc README.adoc
 %files -n ocaml-ppx-deriving-qcheck-devel -f .ofiles-ppx_deriving_qcheck-devel
 
 %changelog
+* Fri Feb 28 2025 Jerry James <loganjerry@gmail.com> - 0.24-1
+- Version 0.24
+- Add patch to work around asciidoc errors
+
 * Thu Feb 13 2025 Jerry James <loganjerry@gmail.com> - 0.23-3
 - Rebuild for ocaml-ppxlib 0.35.0
 

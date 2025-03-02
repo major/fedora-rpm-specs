@@ -8,7 +8,7 @@
 
 Name:           wget2
 Version:        2.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An advanced file and recursive website downloader
 
 # Documentation is GFDL
@@ -25,6 +25,9 @@ Patch0001:      0001-use-signed-char-ascii.patch
 # -O and -nc together truncate existing file and cause data loss
 # rhbz#2298879
 Patch0002:      0002-dont-truncate-no-clobber.patch
+# Add --show-progress as alias for --force-progress for wget1 compat
+# rhbz#2348997
+Patch0003:      0003-Add-show-progress.patch
 
 # Buildsystem build requirements
 BuildRequires:  autoconf
@@ -124,7 +127,7 @@ the system provider of wget.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -p1 -S git
+%autosetup -S git_am
 
 
 %build
@@ -187,6 +190,10 @@ echo ".so man1/%{name}.1" > %{buildroot}%{_mandir}/man1/wget.1
 
 
 %changelog
+* Fri Feb 28 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.2.0-3
+- Backport support for --show-progress flag
+  Resolves: rhbz#2348997
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

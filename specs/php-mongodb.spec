@@ -1,8 +1,8 @@
 # remirepo/fedora spec file for php-mongodb
 #
-# Copyright (c) 2015-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2015-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
@@ -10,21 +10,21 @@
 # disabled for https://fedoraproject.org/wiki/Changes/MongoDB_Removal
 %bcond_with          tests
 
-%global gh_commit    75da9ea3b63d97b05e0e8648d8c09a17bc54c0b6
+%global gh_commit    d216a5bfc62c9b63ba3523565a35856ab91f78d9
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     mongodb
 %global gh_project   mongo-php-library
 %global psr0         MongoDB
 
-%global upstream_version 1.20.0
+%global upstream_version 1.21.0
 #global upstream_prever  alpha1
 #global upstream_lower   alpha1
 
-%global ext_version      1.20.0
+%global ext_version      1.21.0
 
 Name:           php-%{gh_owner}
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        MongoDB driver library
 
 License:        Apache-2.0
@@ -39,35 +39,31 @@ Patch0:         %{name}-rpm.patch
 BuildArch:      noarch
 BuildRequires:  php(language) >= 8.1
 BuildRequires:  php-cli
-BuildRequires:  php-reflection
-BuildRequires:  php-date
 BuildRequires:  php-dom
 BuildRequires:  php-hash
 BuildRequires:  php-json
-BuildRequires:  php-spl
 BuildRequires: (php-composer(psr/log)                >= 1.1.4 with php-composer(psr/log)                < 4)
 %if %{with tests}
 BuildRequires:  mongodb-server >= 2.4
 BuildRequires:  php-pecl(mongodb) >= %{ext_version}
 # From composer.json, "require-dev": {
 #        "doctrine/coding-standard": "^12.0",
-#        "rector/rector": "^0.19",
+#        "phpunit/phpunit": "^10.5.35",
+#        "rector/rector": "^1.2",
 #        "squizlabs/php_codesniffer": "^3.7",
-#        "symfony/phpunit-bridge": "^5.2",
-#        "vimeo/psalm": "^5.13"
-%global phpunit %{_bindir}/phpunit9
-BuildRequires:  %{phpunit}
+#        "vimeo/psalm": "6.5.*"
+%global phpunit %{_bindir}/phpunit10
+BuildRequires:  phpunit10 >= 10.5.35
 %endif
 # For autoloader
 BuildRequires:  php-composer(fedora/autoloader)
 
 # From composer.json, "require": {
-#        "php": "^7.4 || ^8.0"
+#        "php": "^8.1"
 #        "ext-hash": "*",
 #        "ext-json": "*",
-#        "ext-mongodb": "^1.18.0",
+#        "ext-mongodb": "^1.21.0",
 #        "composer-runtime-api": "^2.0",
-#        "symfony/polyfill-php73": "^1.27",
 #        "psr/log": "^1.1.4|^2|^3",
 #        "symfony/polyfill-php80": "^1.27",
 #        "symfony/polyfill-php81": "^1.27"
@@ -77,9 +73,7 @@ Requires:       php-json
 Requires:       php-pecl(mongodb) >= %{ext_version}
 Requires:      (php-composer(psr/log)                >= 1.1.4 with php-composer(psr/log)                < 4)
 # From phpcompatinfo report for 1.8.0
-Requires:       php-reflection
-Requires:       php-date
-Requires:       php-spl
+# Only reflection, php-date, spl
 # For autoloader
 Requires:       php-composer(fedora/autoloader)
 
@@ -165,15 +159,14 @@ cat << 'EOF' | tee tests/bootstrap.php
 require_once '%{buildroot}%{_datadir}/php/%{psr0}/autoload.php';
 // Test suite
 \Fedora\Autoloader\Autoload::addPsr4('MongoDB\\Tests\\', __DIR__);
-require_once __DIR__ . '/PHPUnit/Functions.php
 EOF
 
 : Run the test suite
 ret=0
-for cmdarg in "php %{phpunit}" php80 php81 php82; do
+for cmdarg in "php %{phpunit}" php81 php82 php83 php83; do
   if which $cmdarg; then
     set $cmdarg
-    $1 ${2:-%{_bindir}/phpunit9} --verbose || ret=1
+    $1 ${2:-%{_bindir}/phpunit10} --verbose || ret=1
   fi
 done
 
@@ -194,6 +187,11 @@ exit $ret
 
 
 %changelog
+* Fri Feb 28 2025 Remi Collet <remi@remirepo.net> - 1.21.0-1
+- update to 1.21.0
+- re-license spec file to CECILL-2.1
+- raise dependency on mongodb extension version 1.21
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

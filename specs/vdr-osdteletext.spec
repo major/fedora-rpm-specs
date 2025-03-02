@@ -1,17 +1,15 @@
 %global pname   osdteletext
 %global __provides_exclude_from ^%{vdr_plugindir}/.*\\.so.*$
 # version we want to build against
-%global vdr_version 2.6.3
+%global vdr_version 2.6.9
 # Set vdr_version based on Fedora version
 %if 0%{?fedora} >= 42
-%global vdr_version 2.7.2
-%elif 0%{?fedora} >= 40
-%global vdr_version 2.6.9
+%global vdr_version 2.7.4
 %endif
 
 Name:           vdr-%{pname}
 Version:        2.3.1
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        OSD teletext plugin for VDR
 
 License:        GPL-2.0-or-later
@@ -65,6 +63,9 @@ install -Dpm 644 teletext2.ttf \
 %attr(-,%{vdr_user},root) %{vdr_rundir}/%{pname}/
 
 %changelog
+* Fri Feb 28 2025 Martin Gansser <martinkg@fedoraproject.org> - 2.3.1-19
+- Rebuilt for new VDR API version 2.7.4
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

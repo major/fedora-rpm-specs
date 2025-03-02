@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-httpx
-Version:        0.27.2
+Version:        0.28.1
 Release:        %autorelease
 Summary:        Next-generation HTTP client for Python
 

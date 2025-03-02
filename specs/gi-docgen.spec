@@ -5,7 +5,7 @@
 %bcond doc_pdf 1
 
 Name:           gi-docgen
-Version:        2024.1
+Version:        2025.3
 Release:        %autorelease
 Summary:        Documentation tool for GObject-based libraries
 

@@ -4,7 +4,7 @@ Summary:        A C++ JIT assembler for x86
 Name:           xbyak
 License:        BSD-3-Clause
 
-Version:        7.23
+Version:        7.24.1
 Release:        %autorelease
 
 URL:            https://github.com/herumi/xbyak

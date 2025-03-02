@@ -41,7 +41,7 @@ Epoch: 101
 # Keep Version in upstream specfile at 0. It will be automatically set
 # to the correct value by Packit for copr and koji builds.
 # IGNORE this comment if you're looking at it in dist-git.
-Version: 0.7.1
+Version: 0.7.2
 %if %{defined autorelease}
 Release: %autorelease
 %else
@@ -110,7 +110,8 @@ install -d %{buildroot}%{_sysconfdir}/containers/containers.conf.d
 # Execute the script to create seccomp rules after the package is installed
 /usr/share/qm/create-seccomp-rules
 /usr/share/qm/comment-tz-local # FIX-ME GH-issue: 367
-modprobe ip_tables # podmand netavark requires at host to load
+# podmand netavark requires at host to load or let's ignore in case host don't have it and proceed with the installation
+modprobe ip_tables || true
 
 %preun
 if [ $1 = 0 ]; then
@@ -157,6 +158,9 @@ fi
 %ghost %{_installscriptdir}/rootfs/*
 
 %changelog
+* Fri Feb 28 2025 Packit <hello@packit.dev> - 0.7.2-1
+- Update to version 0.7.2
+
 * Thu Feb 27 2025 Packit <hello@packit.dev> - 0.7.1-1
 - Update to version 0.7.1
 

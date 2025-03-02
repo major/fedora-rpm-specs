@@ -13,7 +13,7 @@
 
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
-Version:        2.36.0
+Version:        2.37.0
 Release:        1%{?dist}
 Epoch:          2
 # MIT covers nearly all the files, except init files
@@ -24,7 +24,9 @@ Source0:        https://github.com/ibm-s390-linux/s390-tools/archive/v%{version}
 #   tar xf s390-tools-%%{version}.tar.gz ; pushd s390-tools-%%{version}/rust ; \
 #   rm -f Cargo.lock && cargo vendor && \
 #   tar Jvcf ../../s390-tools-%%{version}-rust-vendor.tar.xz vendor/ ; popd
+%if 0%{?rhel}
 Source1:        s390-tools-%{version}-rust-vendor.tar.xz
+%endif
 Source5:        https://fedorapeople.org/cgit/sharkcz/public_git/utils.git/tree/zfcpconf.sh
 Source7:        https://fedorapeople.org/cgit/sharkcz/public_git/utils.git/tree/zfcp.udev
 Source12:       https://fedorapeople.org/cgit/sharkcz/public_git/utils.git/tree/dasd.udev
@@ -45,10 +47,6 @@ Source25:       91-zipl.install
 # change the defaults to match Fedora environment
 Patch0:         s390-tools-zipl-invert-script-options.patch
 Patch1:         s390-tools-zipl-blscfg-rpm-nvr-sort.patch
-
-# build fix
-# https://github.com/ibm-s390-linux/s390-tools/pull/180
-Patch99:       s390utils-2.35.0-gcc15-zipl.patch
 
 # upstream fixes/updates
 #Patch100:       s390utils-%%{version}-fedora.patch
@@ -88,6 +86,9 @@ BuildRequires:  rust-toolset
 BuildRequires:  crate(anstream)
 BuildRequires:  crate(anstyle-query)
 BuildRequires:  crate(anyhow)
+BuildRequires:  crate(base64)
+BuildRequires:  crate(bit-set)
+BuildRequires:  crate(bitvec)
 BuildRequires:  crate(byteorder)
 BuildRequires:  crate(cfg-if)
 BuildRequires:  crate(clap)
@@ -95,6 +96,8 @@ BuildRequires:  crate(clap_complete)
 BuildRequires:  crate(clap_derive)
 BuildRequires:  crate(colorchoice)
 BuildRequires:  crate(curl)
+BuildRequires:  crate(deku)
+BuildRequires:  crate(enum_dispatch)
 BuildRequires:  crate(is-terminal)
 BuildRequires:  crate(lazy_static)
 BuildRequires:  crate(libc)
@@ -102,13 +105,17 @@ BuildRequires:  crate(log)
 BuildRequires:  crate(mockito)
 BuildRequires:  crate(openssl)
 BuildRequires:  crate(openssl-probe)
+BuildRequires:  crate(proc-macro-crate)
+BuildRequires:  crate(proptest)
+BuildRequires:  crate(rusty-fork)
 BuildRequires:  crate(serde)
 BuildRequires:  crate(serde_derive)
 BuildRequires:  crate(serde_test)
 BuildRequires:  crate(serde_yaml)
 BuildRequires:  crate(strsim)
 BuildRequires:  crate(terminal_size)
-BuildRequires:  crate(thiserror) < 2
+BuildRequires:  crate(thiserror)
+BuildRequires:  crate(wait-timeout)
 BuildRequires:  crate(zerocopy)
 BuildRequires:  rust-packaging
 %endif
@@ -124,7 +131,7 @@ be used together with the zSeries (s390) Linux kernel and device drivers.
 %prep
 %autosetup -n s390-tools-%{version} -p1
 
-%if 1%{?rhel}
+%if 0%{?rhel}
 pushd rust
 tar xf %{SOURCE1}
 %cargo_prep -v vendor
@@ -296,9 +303,11 @@ done
 %{_mandir}/man1/pvsecret-add.1*
 %{_mandir}/man1/pvsecret-create-association.1*
 %{_mandir}/man1/pvsecret-create-meta.1*
+%{_mandir}/man1/pvsecret-create-retrievable.1*
 %{_mandir}/man1/pvsecret-create.1*
 %{_mandir}/man1/pvsecret-list.1*
 %{_mandir}/man1/pvsecret-lock.1*
+%{_mandir}/man1/pvsecret-retrieve.1*
 %{_mandir}/man1/pvsecret-verify.1*
 %{_mandir}/man1/pvsecret.1*
 %dir %{_datadir}/s390-tools
@@ -677,9 +686,11 @@ For more information refer to the following publications:
 %{_mandir}/man1/pvsecret-add.1*
 %{_mandir}/man1/pvsecret-create-association.1*
 %{_mandir}/man1/pvsecret-create-meta.1*
+%{_mandir}/man1/pvsecret-create-retrievable.1*
 %{_mandir}/man1/pvsecret-create.1*
 %{_mandir}/man1/pvsecret-list.1*
 %{_mandir}/man1/pvsecret-lock.1*
+%{_mandir}/man1/pvsecret-retrieve.1*
 %{_mandir}/man1/pvsecret-verify.1*
 %{_mandir}/man1/pvsecret.1*
 %{_mandir}/man1/zkey.1*
@@ -1107,6 +1118,9 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Thu Feb 27 2025 Jakub Čajka <jcajka@redhat.com> - 2:2.37.0-1
+- rebased to 2.37.0 (rhbz#2330787)
+
 * Mon Feb 24 2025 Dan Horák <dan[at]danny.cz> - 2:2.36.0-1
 - rebased to 2.36.0 (rhbz#2330787)
 

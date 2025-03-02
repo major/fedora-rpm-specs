@@ -3,7 +3,7 @@
 %bcond_with     tests
 
 Name:           oci-cli
-Version:        3.51.8
+Version:        3.51.9
 Release:        %autorelease
 Summary:        Command Line Interface for Oracle Cloud Infrastructure 
 

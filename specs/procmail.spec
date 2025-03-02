@@ -42,8 +42,8 @@ forward certain incoming mail automatically to someone.
 find examples -type f | xargs chmod 644
 
 %build
-make RPM_OPT_FLAGS="$(getconf LFS_CFLAGS)" autoconf.h
-make RPM_OPT_FLAGS="$RPM_OPT_FLAGS %{?hardened_flags} -Wno-comments $(getconf LFS_CFLAGS)"
+make RPM_OPT_FLAGS="$(getconf LFS_CFLAGS) -std=gnu89" autoconf.h
+make RPM_OPT_FLAGS="$RPM_OPT_FLAGS %{?hardened_flags} -Wno-comments $(getconf LFS_CFLAGS) -std=gnu89"
 
 %install
 rm -rf ${RPM_BUILD_ROOT}

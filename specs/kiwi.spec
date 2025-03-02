@@ -8,7 +8,7 @@ and cloud systems like Xen, KVM, VMware, EC2 and more.
 
 
 Name:           kiwi
-Version:        10.2.11
+Version:        10.2.12
 Release:        1%{?dist}
 URL:            http://osinside.github.io/kiwi/
 Summary:        Flexible operating system image builder
@@ -17,8 +17,8 @@ License:        GPL-3.0-or-later
 Source0:        https://files.pythonhosted.org/packages/source/k/%{name}/%{name}-%{version}.tar.gz
 
 # Backports from upstream
-## See: https://bugzilla.redhat.com/show_bug.cgi?id=2347374
-Patch0001:      https://github.com/OSInside/kiwi/commit/d0e58643c5a488faf44971f38a6c66cce89b0dda.patch
+## See: https://bugzilla.redhat.com/show_bug.cgi?id=2348919
+Patch0001:      https://github.com/OSInside/kiwi/commit/8223834da811594b0b2f22e6ec2dc2e20a37163f.patch
 
 # Fedora-specific patches
 ## Use buildah instead of umoci by default for OCI image builds
@@ -598,6 +598,10 @@ done
 
 
 %changelog
+* Fri Feb 28 2025 Neal Gompa <ngompa@fedoraproject.org> - 10.2.12-1
+- Update to 10.2.12
+- Backport fix to configure CHRP properly for ppc64le live images
+
 * Tue Feb 25 2025 Neal Gompa <ngompa@fedoraproject.org> - 10.2.11-1
 - Update to 10.2.11
 - Backport fix to configure grub2 properly for ppc64le live images

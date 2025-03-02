@@ -1,16 +1,14 @@
 %global pname   skinenigmang
 # version we want to build against
-%global vdr_version 2.6.3
+%global vdr_version 2.6.9
 # Set vdr_version based on Fedora version
 %if 0%{?fedora} >= 42
-%global vdr_version 2.7.2
-%elif 0%{?fedora} >= 40
-%global vdr_version 2.6.9
+%global vdr_version 2.7.4
 %endif
 
 Name:           vdr-%{pname}
 Version:        0.1.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A skin for VDR based on the Enigma text2skin add on
 
 License:        GPL-1.0-or-later
@@ -68,6 +66,9 @@ cp -a skinenigmang/{flags,icons} $RPM_BUILD_ROOT%{vdr_resdir}
 %{vdr_resdir}/icons
 
 %changelog
+* Fri Feb 28 2025 Martin Gansser <martinkg@fedoraproject.org> - 0.1.5-3
+- Rebuilt for new VDR API version 2.7.4
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

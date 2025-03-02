@@ -1,24 +1,21 @@
-## This macro activates/deactivates debug option
-%global without_debug 1
 # version we want to build against
-%global vdr_version 2.6.3
+%global vdr_version 2.6.9
 # Set vdr_version based on Fedora version
 %if 0%{?fedora} >= 42
-%global vdr_version 2.7.2
-%elif 0%{?fedora} >= 40
-%global vdr_version 2.6.9
+%global vdr_version 2.7.4
 %endif
 
 Name:           vdr-epg-daemon
 Version:        1.3.29
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        A daemon to download EPG data from internet and manage it in a mysql database
 License:        GPL-1.0-or-later AND GPL-2.0-only AND LicenseRef-Callaway-BSD
 URL:            https://github.com/horchi/vdr-epg-daemon
 Source0:        https://github.com/horchi/vdr-epg-daemon/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 # fix: Optimization flags are not honored.
 Patch0:         %{name}-makefile.patch
-Patch1:         webdo.patch
+# https://github.com/horchi/vdr-epg-daemon/commit/27a7034e7c7819ab8103fc8f8af66834d61577f9.patch
+Patch1:         27a7034e7c7819ab8103fc8f8af66834d61577f9.patch
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -136,6 +133,12 @@ mkdir -p %{buildroot}%{_libdir}/mariadb/plugin
 %{vdr_resdir}/epgd/
 
 %changelog
+* Thu Feb 27 2025 Martin Gansser <martinkg@fedoraproject.org> - 1.3.29-3
+- Rebuilt for new VDR API version 2.7.4
+
+* Thu Feb 20 2025 Martin Gansser <martinkg@fedoraproject.org> - 1.3.29-2
+- Add patch with last changes
+
 * Wed Feb 19 2025 Martin Gansser <martinkg@fedoraproject.org> - 1.3.29-1
 - Update to 1.3.29
 - Add webdo.patch to define eloAlways

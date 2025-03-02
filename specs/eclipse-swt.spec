@@ -9,7 +9,7 @@ Epoch:                  1
 
 Name:           eclipse-swt
 Version:        %{major_version}.%{minor_version}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Eclipse SWT: The Standard Widget Toolkit for GTK+
 %forgemeta
 
@@ -80,7 +80,7 @@ cd %{swtsrcdir}
 
 # Build native part
 export SWT_LIB_DEBUG=1
-export CFLAGS="${RPM_OPT_FLAGS}"
+export CFLAGS="${RPM_OPT_FLAGS} -std=gnu17"
 export LFLAGS="${RPM_LD_FLAGS}"
 ant -f buildSWT.xml build_local -Dbuild_dir=Eclipse\ SWT\ PI/gtk/library -Dtargets="-gtk3 install" -Dclean= -Dcflags="${RPM_OPT_FLAGS}" -Dlflags="${RPM_LD_FLAGS}"
 
@@ -115,6 +115,9 @@ cp -a %{swtsrcdir}/*.so %{buildroot}/%{_libdir}/%{name}
 %license NOTICE
 
 %changelog
+* Thu Feb 27 2025 Sérgio Basto <sergio@serjux.com> - 1:4.29-8
+- Fix GCC build, compiling with -std=gnu17
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.29-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

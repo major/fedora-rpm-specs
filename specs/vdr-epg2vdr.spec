@@ -1,15 +1,13 @@
 # version we want to build against
-%global vdr_version 2.6.3
+%global vdr_version 2.6.9
 # Set vdr_version based on Fedora version
 %if 0%{?fedora} >= 42
-%global vdr_version 2.7.2
-%elif 0%{?fedora} >= 40
-%global vdr_version 2.6.9
+%global vdr_version 2.7.4
 %endif
 
 Name:           vdr-epg2vdr
 Version:        1.2.17
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A plugin to retrieve EPG data from a mysql database into VDR
 
 License:        GPL-1.0-or-later
@@ -65,6 +63,9 @@ chmod 0755 %{buildroot}/%{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
 %{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
 
 %changelog
+* Fri Feb 28 2025 Martin Gansser <martinkg@fedoraproject.org> - 1.2.17-2
+- Rebuilt for new VDR API version 2.7.4
+
 * Tue Feb 18 2025 Martin Gansser <martinkg@fedoraproject.org> - 1.2.17-1
 - Update to 1.2.17
 

@@ -1,7 +1,7 @@
 %global pypi_name pytest-httpx
 
 Name:           python-%{pypi_name}
-Version:        0.30.0
+Version:        0.35.0
 Release:        %autorelease
 Summary:        Send responses to httpx
 
@@ -21,8 +21,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-asyncio)
 
-%{?python_provide:%python_provide python3-%{pypi_name}}
-
 %description -n python3-%{pypi_name}
 httpx_mock pytest fixture will make sure every httpx request will be
 replied to with user provided responses.
@@ -31,21 +29,20 @@ replied to with user provided responses.
 %autosetup -n pytest_httpx-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
 
 %install
 %pyproject_install
-%pyproject_save_files pytest_httpx
+%pyproject_save_files -l pytest_httpx
 
 %check
 %pytest -v tests
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md
-%license LICENSE
 
 %changelog
 %autochangelog

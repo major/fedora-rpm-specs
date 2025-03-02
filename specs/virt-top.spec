@@ -2,8 +2,8 @@
 ExcludeArch: %{ix86}
 
 Name:           virt-top
-Version:        1.1.1
-Release:        24%{?dist}
+Version:        1.1.2
+Release:        1%{?dist}
 Summary:        Utility like top(1) for displaying virtualization stats
 License:        GPL-2.0-or-later
 
@@ -27,18 +27,6 @@ Source4:        libguestfs.keyring
 # included in RHEL builds.
 Patch1:         virt-top-1.0.9-processcsv-documentation.patch
 
-# Fix "Input/output error" in journal (RHBZ#2148798)
-Patch2:         0001-virt-top-fix-to-explicitly-disconnect-from-libvirtd.patch
-
-# Fix problem parsing init-file.
-Patch3:         0002-virt-top-fix-to-parse-init-file-correctly.patch
-
-# Fix libxml2 2.12.1 build problems.
-Patch4:         0003-src-Include-libxml-parser.h.patch
-
-# Fix linking problems on bytecode-only architectures
-Patch5:         virt-top-1.1.1-ocaml-bytecode.patch
-
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  ocaml >= 3.10.2
@@ -48,7 +36,11 @@ BuildRequires:  ocaml-findlib-devel
 BuildRequires:  ocaml-curses-devel >= 1.0.3-7
 BuildRequires:  ocaml-calendar-devel
 BuildRequires:  ocaml-libvirt-devel >= 0.6.1.5
+%if 0%{?fedora} <= 42
+# Disable ocaml-gettext-devel in Rawhide temporarily.
+# https://src.fedoraproject.org/rpms/ocaml-gettext/pull-request/3
 BuildRequires:  ocaml-gettext-devel >= 0.3.3
+%endif
 BuildRequires:  ocaml-fileutils-devel
 # For msgfmt:
 BuildRequires:  gettext
@@ -77,12 +69,6 @@ different virtualization systems.
 
 %if 0%{?rhel} >= 6
 %patch -P1 -p1
-%endif
-%patch -P2 -p1
-%patch -P3 -p1
-%patch -P4 -p1
-%ifnarch %{ocaml_native_compiler}
-%patch -P5 -p1
 %endif
 
 # "ocamlfind byte" has been removed as an alias
@@ -136,8 +122,9 @@ install -m 0644 processcsv.py.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 
 
 %changelog
-* Thu Feb 27 2025 Richard W.M. Jones <rjones@redhat.com> - 1.1.1-24
-- Bump and rebuild for ocaml-gettext 0.5.0
+* Fri Feb 28 2025 Richard W.M. Jones <rjones@redhat.com> - 1.1.2-1
+- New upstream version 1.1.2
+- Disable gettext support in Fedora Rawhide
 
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild

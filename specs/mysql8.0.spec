@@ -1,6 +1,6 @@
 # Name of the package without any prefixes
 %global majorname mysql
-%global package_version 8.0.40
+%global package_version 8.0.41
 %define majorversion %(echo %{package_version} | cut -d'.' -f1-2 )
 %global pkgnamepatch mysql
 
@@ -19,7 +19,7 @@
 # The last version on which the full testsuite has been run
 # In case of further rebuilds of that version, don't require full testsuite to be run
 # run only "main" suite
-%global last_tested_version 8.0.40
+%global last_tested_version 8.0.41
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 
@@ -102,7 +102,7 @@
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          3%{?with_debug:.debug}%{?dist}
+Release:          1%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -508,8 +508,6 @@ rm -r extra/zstd
 # Three files from the lz4 bundle tree are still needed.
 # They are the 'xxhash' library with custom extension to it.
 find extra/lz4 -type f ! \( -name 'xxhash.c' -o -name 'xxhash.h' -o -name 'my_xxhash.h' \) -delete
-# Only used in MySQL Router, which we don't build
-rm -r extra/duktape
 # Needed for unit tests (different from MTR tests), which we doesn't run, as they doesn't work on some architectures: #1989847
 rm -r extra/googletest
 rm -r extra/abseil
@@ -1106,6 +1104,9 @@ fi
 %endif
 
 %changelog
+* Fri Feb 28 2025 Michal Schorm <mschorm@redhat.com> - 8.0.41-1
+- Rebase to MySQL 8.0.41
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.40-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -33,6 +33,11 @@ emulator library.
 %prep
 %setup -q -n %{srcname}-%{version}
 
+# Remove test dependencies on pre-commit (used for linting) and pytest-cov; see
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters.
+sed -i -r 's/"pre-commit", //' pyproject.toml
+sed -i -r '/"pytest-cov"/d' pyproject.toml
+
 %if 0%{?rhel} == 9
 sed -i 's/hatchling>=1.5/hatchling>=0.25/g' pyproject.toml
 %endif

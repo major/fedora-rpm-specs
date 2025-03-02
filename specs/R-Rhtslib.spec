@@ -3,7 +3,7 @@
 
 Name:		R-%{packname}
 Version:	2.4.1
-Release:	3%{dist}
+Release:	4%{dist}
 Summary:	HTSlib high-throughput sequencing library as an R package
 License:	LGPL-2.0-or-later
 URL:		http://www.bioconductor.org/packages/release/bioc/html/Rhtslib.html
@@ -12,8 +12,11 @@ Patch0:		R-Rhtslib-zlibbioc.patch
 Patch1:		R-Rhtslib-buildroot-fix.patch
 BuildRequires:	R-devel >= 3.0.0 bzip2-devel zlib-devel xz-devel libcurl-devel
 
+# Do not check for Provides in internal shared libraries
+%global __provides_exclude_from ^%{rlibdir}/%{packname}/usrlib/.*\\.so.*$
+
 %description
-This package provides version 1.7 of the 'HTSlib' C library for
+This package provides version 1.15.1 of the 'HTSlib' C library for
 high-throughput sequence analysis. The package is primarily useful to
 developers of other R packages who wish to make use of HTSlib. Motivation and
 instructions for use of this package are in the vignette,
@@ -67,6 +70,10 @@ rm -f %{buildroot}%{rlibdir}/R.css
 %{rlibdir}/%{packname}/usrlib/*.a
 
 %changelog
+* Wed Feb 26 2025 John Marshall <jmarshall@hey.com> - 2.4.1-4
+- Avoid incorrect "Provides: libhts.so.3" from internal shared library
+- Update description to reflect that 2.4.1 contains HTSlib 1.15.1
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

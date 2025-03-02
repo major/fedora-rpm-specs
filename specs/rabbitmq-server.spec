@@ -6,8 +6,8 @@
 
 
 Name: rabbitmq-server
-Version: 4.0.5
-Release: 3%{?dist}
+Version: 4.0.7
+Release: 1%{?dist}
 License: MPL-2.0
 Source0: https://github.com/rabbitmq/rabbitmq-server/releases/download/v%{version}/%{name}_%{version}.orig.tar.xz
 Source1: https://github.com/rabbitmq/rabbitmq-server/releases/download/v%{version}/%{name}_%{version}.orig.tar.xz.asc
@@ -186,6 +186,9 @@ done
 
 
 %changelog
+* Fri Feb 28 2025 Robert Scheck <robert@fedoraproject.org> - 4.0.7-1
+- Ver. 4.0.7
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

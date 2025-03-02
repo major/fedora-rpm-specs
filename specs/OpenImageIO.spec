@@ -3,7 +3,7 @@
 
 Name:           OpenImageIO
 Version:        2.5.16.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Epoch:          1
 Summary:        Library for reading and writing images
 
@@ -208,6 +208,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Mon Feb 24 2025 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 2.5.16.0-6
+- Rebuild for dcmtk 3.6.9
+
 * Tue Feb 04 2025 Sérgio Basto <sergio@serjux.com> - 1:2.5.16.0-5
 - Rebuild for opencv-4.11.0
 

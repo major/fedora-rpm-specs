@@ -5,7 +5,7 @@
 
 Name:           nss-pam-ldapd
 Version:        0.9.10
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        An nsswitch module which uses directory servers
 License:        LGPL-2.0-or-later
 URL:            http://arthurdejong.org/nss-pam-ldapd/
@@ -18,6 +18,7 @@ Source4:        nslcd.service
 # plus, we don't ship the python utilities
 Patch0001:      0001-Disable-pylint-tests.patch
 Patch0002:      0002-Watch-for-uint32_t-overflows.patch
+Patch0003:      0003-bool-name.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -110,6 +111,10 @@ getent passwd nslcd > /dev/null || \
 %systemd_postun_with_restart nslcd.service
 
 %changelog
+* Fri Feb 28 2025 Tomas Halman <thalman@redhat.com> - 0.9.10-19
+- Fix variable name (bool) conflicting with new C compiler
+  Resolves: RHBZ#2340942
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.10-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,17 +1,15 @@
 Summary:   NSS library for MySQL
 Name:      libnss-mysql
-Version:   1.5
-Release:   53%{?dist}
-Source0:   http://prdownloads.sourceforge.net/libnss-mysql/libnss-mysql-%{version}.tar.gz
-Source1:   README
-Source2:   nsswitch.conf
-Patch1:    libnss-mysql-multiarch.patch
-Patch2:    libnss-mysql-mariadb10.2.patch
-URL:       http://libnss-mysql.sourceforge.net
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
-License:   GPL-2.0-or-later
+Version:   1.7.1
+Release:   1%{?dist}
 
-BuildRequires: mariadb-connector-c-devel, libtool, autoconf, automake
+License:   GPL-2.0-or-later
+URL:       https://github.com/saknopper/libnss-mysql
+Source0:   https://github.com/saknopper/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+Source1:   nsswitch.conf
+
+BuildRequires: mariadb-connector-c-devel
+BuildRequires: libtool, autoconf, automake
 BuildRequires: make
 BuildRequires: authselect, authselect-libs
 
@@ -68,22 +66,27 @@ else
   echo "Missing authselect default profile!"
   exit 1
 fi
-cp -af %{SOURCE1} %{SOURCE2} $RPM_BUILD_ROOT%{authselect_vendor}/
+cp -af %{SOURCE1} $RPM_BUILD_ROOT%{authselect_vendor}/
 
 %ldconfig_scriptlets
 
 %files
-%exclude %{_libdir}/libnss_mysql.la
+%exclude %{_libdir}/libnss_mysql.a
 %exclude %{_libdir}/*.so
 %{_libdir}/*.so.*
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/libnss-mysql.cfg
 %attr(0600,root,root) %config(noreplace) %{_sysconfdir}/libnss-mysql-root.cfg
-%doc README ChangeLog AUTHORS THANKS NEWS COPYING FAQ DEBUGGING UPGRADING TODO
+%doc README ChangeLog AUTHORS THANKS NEWS FAQ DEBUGGING UPGRADING
 %doc sample
+%license COPYING
 %dir %{_datadir}/authselect/vendor/%{name}
 %{_datadir}/authselect/vendor/%{name}/*
 
 %changelog
+* Fri Feb 28 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 1.7.1-1
+- Switch to a maintained version by saknopper
+- Drop patches already applied
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-53
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
