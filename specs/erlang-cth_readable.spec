@@ -1,7 +1,7 @@
 %global realname cth_readable
 
 Name:     erlang-%{realname}
-Version:  1.6.0
+Version:  1.6.1
 Release:  %autorelease
 Summary:  Common test hooks for more readable erlang logs
 License:  BSD-3-Clause

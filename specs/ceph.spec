@@ -185,7 +185,7 @@
 #################################################################################
 Name:		ceph
 Version:	19.2.1
-Release:	4%{?dist}
+Release:	5%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -229,6 +229,7 @@ Patch0050:	0050-src-rgw-driver-posix-zpp_bits.h.patch
 Patch0051:	0051-src-googletest-nosharedlibs.patch
 Patch0052:	0052-src-tracing.patch
 Patch0053:	0053-src-test-neorados-common_tests.h.patch
+Patch0054:	0054-cmake-4.patch
 
 # ceph 14.0.1 does not support 32-bit architectures, bugs #1727788, #1727787
 ExcludeArch:	i686 armv7hl
@@ -2719,6 +2720,9 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Sat Mar 1 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.1-5
+- rebuild w/ cmake-4
+
 * Mon Feb 17 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.1-4
 - ceph-19.2.1, rebuild w/ libarrow 19, liborc 2.1, f43-build-side-105129
 

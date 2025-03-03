@@ -3,7 +3,7 @@
 %global debug_package %{nil}
 
 Name:           Lmod
-Version:        8.7.57
+Version:        8.7.58
 Release:        %autorelease
 Summary:        Environmental Modules System in Lua
 

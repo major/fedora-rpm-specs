@@ -1,5 +1,5 @@
 Name:           python-blosc2
-Version:        3.1.1
+Version:        3.2.0
 Release:        %autorelease
 Summary:        Python wrapper for the Blosc2 compression library
 License:        BSD-3-Clause
@@ -8,7 +8,7 @@ Source:         https://github.com/Blosc/python-blosc2/archive/v%{version}/pytho
 
 BuildRequires:  python3-devel
 BuildRequires:  gcc-g++
-BuildRequires:  blosc2-devel >= 2.13.1
+BuildRequires:  blosc2-devel >= 2.17.0
 BuildRequires:  tomcli
 
 ExcludeArch:    %{ix86}
@@ -36,7 +36,7 @@ Summary:        %{summary}
 # Remove the numpy version constraint
 tomcli set pyproject.toml lists replace "build-system.requires" "numpy.*" "numpy"
 # Remove torch tests for now
-tomcli set pyproject.toml lists delitem "project.optional-dependencies.test" "torch"
+tomcli set pyproject.toml lists delitem "project.optional-dependencies.test" "torch.*"
 
 %generate_buildrequires
 %pyproject_buildrequires -x test

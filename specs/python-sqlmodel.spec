@@ -4,7 +4,7 @@
 # package.
 
 Name:           python-sqlmodel
-Version:        0.0.22
+Version:        0.0.23
 Release:        %autorelease
 Summary:        SQL databases in Python, designed for simplicity, compatibility, and robustness
 

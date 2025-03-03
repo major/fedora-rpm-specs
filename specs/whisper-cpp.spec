@@ -19,8 +19,20 @@ Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz#/whisper.cpp-%{versi
 ExclusiveArch:  x86_64 aarch64 ppc64le
 %global toolchain clang
 
+# OpenVINO only supports x86_64 and aarch64
+# Presently, Fedora only packages it on x86_64
+%ifarch x86_64
+# FIXME: Enable OpenVINO backend on 1.7.2 and later
+%bcond_with openvino
+%else
+%bcond_with openvino
+%endif
+
 BuildRequires:  cmake
 BuildRequires:  clang
+%if %{with openvino}
+BuildRequires:	openvino-devel
+%endif
 
 %description
 High-performance inference of OpenAI's Whisper automatic speech
@@ -72,6 +84,9 @@ sed -i -e 's@POSITION_INDEPENDENT_CODE ON@POSITION_INDEPENDENT_CODE ON SOVERSION
 
 %cmake \
     -DWHISPER_BUILD_TESTS=ON \
+%if %{with openvino}
+    -DWHISPER_OPENVINO=1 \
+%endif
     -DGGML_NATIVE=OFF \
     -DGGML_AVX=OFF \
     -DGGML_AVX2=OFF \

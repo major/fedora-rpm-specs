@@ -1,9 +1,9 @@
 
-%global commit 90a976491d3847657396456e0e94d7dc48d35996
+%global commit 0cf86c9b37b67907bcd85ffe8758925d4a0f5784
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           spirv-llvm-translator
-Version:        19.1.1
+Version:        19.1.5
 Release:        %autorelease
 Summary:        LLVM to SPIRV Translator
 
@@ -73,7 +73,7 @@ This package contains the standalone llvm to spirv tool.
 
 %files devel
 %dir %{_includedir}/LLVMSPIRVLib/
-%{_includedir}/LLVMSPIRVLib/
+%{_includedir}/LLVMSPIRVLib/*
 %{_libdir}/libLLVMSPIRVLib.so
 %{_libdir}/pkgconfig/LLVMSPIRVLib.pc
 

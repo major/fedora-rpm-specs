@@ -69,7 +69,8 @@ sed -i -e 's@TARGET_LINK_LIBRARIES(nnpack PRIVATE psimd)@#TARGET_LINK_LIBRARIES(
 sed -i -e 's@TARGET_LINK_LIBRARIES(nnpack PRIVATE fp16)@#TARGET_LINK_LIBRARIES(nnpack PRIVATE fp16)@' CMakeLists.txt
 sed -i -e 's@TARGET_LINK_LIBRARIES(nnpack_reference_layers PUBLIC fp16)@#TARGET_LINK_LIBRARIES(nnpack_reference_layers PUBLIC fp16)@' CMakeLists.txt
 
-
+# cmake version changed
+sed -i -e 's@CMAKE_MINIMUM_REQUIRED(VERSION 2.8.12 FATAL_ERROR)@CMAKE_MINIMUM_REQUIRED(VERSION 3.5 FATAL_ERROR)@' CMakeLists.txt
 
 %build
 %cmake \

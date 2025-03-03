@@ -50,8 +50,7 @@ Requires:       dhcp-client
 Requires:       libkrun >= 1.9.8-1
 Requires:       passt
 Requires:       socat
-Requires:       sommelier
-Requires:       wireplumber
+Requires:       (wireplumber if pipewire)
 
 %description -n %{crate} %{_description}
 

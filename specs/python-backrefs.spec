@@ -2,8 +2,8 @@
 %global pypi_name backrefs
 
 Name:           python-%{pypi_name}
-Version:        5.7.post1
-Release:        3%{?dist}
+Version:        5.8
+Release:        1%{?dist}
 Summary:        A wrapper around re and regex that adds additional back references
 
 License:        MIT
@@ -61,6 +61,9 @@ py.test-3
 %doc README.md
 
 %changelog
+* Sat Mar 01 2025 Parag Nemade <pnemade AT redhat DOT com> - 5.8-1
+- Update to 5.8 version (#2347547)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.post1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

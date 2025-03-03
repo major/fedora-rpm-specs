@@ -45,7 +45,7 @@
 %global sum_zh FastAPI 框架
 
 Name:           python-fastapi
-Version:        0.115.9
+Version:        0.115.10
 Release:        %autorelease
 Summary:        %{sum_en}
 
@@ -60,9 +60,9 @@ BuildArch:      noarch
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Downstream-only-run-test_fastapi_cli-without-coverag.patch
 
-# ⬆️ Bump Starlette to allow up to 0.46.0: >=0.40.0,<0.47.0
-# https://github.com/fastapi/fastapi/pull/13426
-Patch:          %{url}/pull/13426.patch
+# Allow httpx 0.28.x, relax pins
+# https://github.com/fastapi/fastapi/pull/13114
+Patch:          %{url}/pull/13114.patch
 
 BuildRequires:  python3-devel
 

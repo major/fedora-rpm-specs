@@ -1,7 +1,7 @@
 %global realname certifi
 
 Name:     erlang-%{realname}
-Version:  2.13.0
+Version:  2.14.0
 Release:  %autorelease
 BuildArch:noarch
 Summary:  Dummy certifi (certificate bundle) package for erlang

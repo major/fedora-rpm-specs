@@ -1,6 +1,6 @@
 Name:           google-authenticator
-Version:        1.09
-Release:        12%{?dist}
+Version:        1.11
+Release:        1%{?dist}
 Summary:        One-time pass-code support using open standards
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -51,6 +51,9 @@ make check
 
 
 %changelog
+* Sat Mar 01 2025 Marcel Haerry <mh+fedora@scrit.ch> - 1.11-1
+* Update to latest upstream: https://github.com/google/google-authenticator-libpam/releases/tag/1.11
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.09-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -68,6 +68,9 @@ sed -i -e "s@'std=c++17',@'std=c++17','-I../src',@" python/setup.py
 # gcc 15 include cstdint
 sed -i '/#include <utility>.*/a#include <cstdint>' src/sentencepiece_processor.h
 
+# cmake version
+sed -i -e 's@cmake_minimum_required(VERSION 3.1 FATAL_ERROR)@cmake_minimum_required(VERSION 3.5 FATAL_ERROR)@' CMakeLists.txt
+
 %build
 %cmake \
     -GNinja \

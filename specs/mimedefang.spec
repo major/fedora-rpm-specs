@@ -1,7 +1,7 @@
 Summary:        E-mail filtering framework using Sendmail's Milter interface
 Name:           mimedefang
-Version:        3.4.1
-Release:        8%{?dist}
+Version:        3.6
+Release:        1%{?dist}
 # {event{,_tcp}.{c,h},eventpriv.h} are GPL-2.0-or-later, rest is GPL-2.0-only
 License:        GPL-2.0-only AND GPL-2.0-or-later
 URL:            https://mimedefang.org/
@@ -14,6 +14,7 @@ Source5:        mimedefang-multiplexor.service
 Source6:        mimedefang-wrapper
 Source7:        mimedefang.tmpfilesd
 Source8:        mimedefang.sysusersd
+Patch0:         https://github.com/The-McGrail-Foundation/MIMEDefang/commit/7379afce07b19c04a1927172ddd2ebb9213d87fa.patch#/mimedefang-3.6-tests.patch
 BuildRequires:  gnupg2
 BuildRequires:  gcc
 BuildRequires:  make
@@ -33,13 +34,8 @@ BuildRequires:  perl(Sys::Hostname)
 BuildRequires:  perl(Sys::Syslog)
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  %{_sbindir}/sendmail
-%if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires:  sendmail-milter-devel >= 8.12.0
 Recommends:     perl(Mail::SpamAssassin) >= 1.6
-%else
-BuildRequires:  sendmail-devel >= 8.12.0
-Requires:       perl(Mail::SpamAssassin) >= 1.6
-%endif
 Requires(post): perl(Digest::SHA)
 %{?systemd_requires}
 %{?sysusers_requires_compat}
@@ -48,9 +44,7 @@ Requires(post): perl(Digest::SHA)
 %if 0%{!?_without_tests:1}
 BuildRequires:  %{_bindir}/prove
 BuildRequires:  perl(HTML::Parser)
-%if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires:  perl(Mail::DKIM::ARC::Signer) >= 0.44
-%endif
 BuildRequires:  perl(Mail::DKIM::Signer)
 BuildRequires:  perl(Net::SMTP)
 BuildRequires:  perl(Test::Class)
@@ -71,15 +65,19 @@ could cause problems, for example, with encrypted or signed messages.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%setup -q
+%autosetup -p1
 cp -pf %{SOURCE3} .
 
 %build
+%if 0%{?fedora} > 41 || 0%{?rhel} > 10
+export CFLAGS="$CFLAGS -std=gnu17"  # RHBZ#2336394, comment #4
+%endif
+
 %configure --with-milterlib=%{_libdir} --with-user=defang --disable-anti-virus
 %make_build
 
 %install
-%make_install %{?el7:INSTALL='install -p'} INSTALL_STRIP_FLAG='' install-redhat
+%make_install INSTALL_STRIP_FLAG='' install-redhat
 
 # Fix config file, create log directory and remove duplicate
 sed -e '1d' -i $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{name}
@@ -102,13 +100,6 @@ touch -c -r gen-ip-validator.pl $RPM_BUILD_ROOT%{_bindir}/gen-ip-validator.pl
 
 # Only for regression tests; depends on Test::Class, Test::Most and Net::SMTP
 find $RPM_BUILD_ROOT \( -name Unit.pm -o -name "*::Unit.3" \) -exec rm -f {} \;
-
-# ARC (Authenticated Received Chain) support requires Mail::DKIM >= 0.44
-%if 0%{?rhel} == 7
-rm -f t/arc.t
-find $RPM_BUILD_ROOT \( -name ARC.pm -o -name "*::ARC.3" \) -exec rm -f {} \;
-find $RPM_BUILD_ROOT%{_prefix} -type d -depth -exec rmdir {} 2> /dev/null \;
-%endif
 
 %if 0%{!?_without_tests:1}
 %check
@@ -172,6 +163,9 @@ fi
 %dir %attr(0750,defang,defang) %{_localstatedir}/spool/MD-Quarantine/
 
 %changelog
+* Sat Mar 01 2025 Robert Scheck <robert@fedoraproject.org> 3.6-1
+- Upgrade to 3.6 (#2301647)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:           rizin
 Summary:        UNIX-like reverse engineering framework and command-line tool-set
 Version:        0.7.4
-%global         baserelease     5
+Release:        %autorelease
 URL:            https://rizin.re/
 VCS:            https://github.com/rizinorg/rizin
 
@@ -9,7 +9,6 @@ VCS:            https://github.com/rizinorg/rizin
 %global         gitname         rizin
 %global         shortversion    %(c=%{version}; echo ${c} | cut -d'.' -f-2)
 
-Release:        %{baserelease}%{?dist}
 Source0:        https://github.com/%{gituser}/%{gitname}/releases/download/v%{version}/%{name}-src-v%{version}.tar.xz
 
 License:        LGPL-3.0-or-later AND GPL-2.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND MIT AND Apache-2.0 AND MPL-2.0 AND Zlib

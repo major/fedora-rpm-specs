@@ -107,6 +107,9 @@ that use %{name}-mpich.
 %prep
 %autosetup -p1 -n %{name}-%{commit0}
 
+# cmake version change
+sed -i -e 's@cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)@cmake_minimum_required(VERSION 3.5 FATAL_ERROR)@' CMakeLists.txt
+
 %build
 %define gloo_cmake_options -DUSE_IBVERBS=ON -DUSE_LIBUV=OFF -DUSE_REDIS=ON
 

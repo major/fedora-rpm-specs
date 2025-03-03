@@ -10,20 +10,15 @@ Source1:        amavisd-milter.service
 Source2:        amavisd-milter.sysconfig
 BuildRequires:  gcc
 BuildRequires:  make
-%if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires:  sendmail-milter-devel >= 8.12.0
 BuildRequires:  systemd-rpm-macros
-%else
-BuildRequires:  sendmail-devel >= 8.12.0
-BuildRequires:  systemd
-%endif
+Requires:       amavis
 %{?systemd_requires}
-Requires:       amavisd-new
 
 %description
-The amavisd-milter is a sendmail milter (mail filter) for amavisd-new
-2.4.3 (and above) and sendmail 8.13 (and above) which use the new AM.PDP
-protocol.
+The amavisd-milter is a sendmail milter (mail filter) for amavisd-new or
+amavis 2.4.3 (and above) and sendmail 8.13 (and above) which use the new
+AM.PDP protocol.
 
 Run 'usermod -a -G amavis postfix' when using Postfix and amavisd-milter
 via the unix socket.
@@ -32,6 +27,10 @@ via the unix socket.
 %setup -q
 
 %build
+%if 0%{?fedora} > 41 || 0%{?rhel} > 10
+export CFLAGS="$CFLAGS -std=gnu17"  # RHBZ#2336394, comment #4
+%endif
+
 %configure \
   --localstatedir=/run/amavisd \
   --with-working-dir=%{_localstatedir}/spool/amavisd/tmp
@@ -41,8 +40,8 @@ via the unix socket.
 %make_install
 
 # Install systemd unit file
-install -D -p -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{name}
-install -D -p -m 644 %{SOURCE1} $RPM_BUILD_ROOT%{_unitdir}/%{name}.service
+install -D -p -m 0644 %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{name}
+install -D -p -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_unitdir}/%{name}.service
 
 %post
 %systemd_post %{name}.service

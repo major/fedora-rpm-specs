@@ -1,5 +1,5 @@
 Name:           blosc2
-Version:        2.15.2
+Version:        2.17.0
 Release:        %autorelease
 Summary:        High performance compressor optimized for binary data
 

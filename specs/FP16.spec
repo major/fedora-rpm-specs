@@ -1,6 +1,6 @@
-%global commit0 0a92994d729ff76a58f692d3028ca1b64b145d91
+%global commit0 98b0a46bce017382a6351a19577ec43a715b6835
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20210317
+%global date0 20240619
 
 %bcond_with check
 
@@ -15,9 +15,6 @@ BuildArch:      noarch
 
 URL:            https://github.com/Maratyszcza/%{name}
 Source0:        %{url}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
-# https://github.com/Maratyszcza/FP16/pull/24
-Patch0:         0001-Remove-psimd-for-libraries-to-link.patch
-Patch1:         0002-Introduce-cmake-option-FP16_USE_SYSTEM_LIBS.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -78,16 +75,11 @@ Header-only library for conversion to/from half-precision floating point formats
 %install
 %cmake_install
 
-mkdir -p %{buildroot}%{python3_sitelib}/fp16
-mv %{buildroot}%{_includedir}/fp16/*.py %{buildroot}%{python3_sitelib}/fp16
-
 %files devel
 %license LICENSE
 %doc README.md
 %{_includedir}/fp16.h
 %{_includedir}/fp16/
-%{python3_sitelib}/fp16/*
-# Not needed
 %exclude %{_includedir}/fp16/psimd.h
 
 

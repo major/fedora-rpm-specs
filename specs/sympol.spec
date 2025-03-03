@@ -5,7 +5,7 @@
 
 Name:           sympol
 Version:        0.1.9
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Symmetric polyhedra tool
 
 # GPL-2.0-or-later: the code
@@ -80,7 +80,7 @@ sed -i 's/{Boost_LIBRARIES}/& pthread/' sympol/CMakeLists.txt
 sed -i 's/{GMP_LIBRARIES}/& pthread/' test/CMakeLists.txt
 
 %build
-%cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo
+%cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_build
 
 %install
@@ -109,6 +109,9 @@ done
 %{_includedir}/%{name}/
 
 %changelog
+* Sat Mar  1 2025 Jerry James <loganjerry@gmail.com> - 0.1.9-39
+- Adapt to cmake 4
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

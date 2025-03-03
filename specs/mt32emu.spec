@@ -10,6 +10,7 @@ Summary:        C/C++ library for emulating Roland MT-32, CM-32L and LAPC-I synt
 License:        LGPL-2.1-or-later AND BSD-3-Clause
 URL:            http://munt.sourceforge.net/
 Source0:        https://github.com/munt/munt/archive/refs/tags/lib%{name}_%{version_}.tar.gz
+Patch:          0000-Updated-CMake-scripts-for-compatibility-with-CMake-3.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++

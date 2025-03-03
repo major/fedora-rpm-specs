@@ -14,8 +14,8 @@
 %endif
 
 Name:           python-dateparser
-Version:        1.1.7
-Release:        8%{?dist}
+Version:        1.2.1
+Release:        1%{?dist}
 Summary:        Python parser for human readable dates
 
 License:        BSD-3-Clause
@@ -98,15 +98,15 @@ BuildRequires:  python3dist(sphinx-rtd-theme)
 %autosetup -p1 -n dateparser-%{version}
 
 %if %{without calendars}
-sed -r -i 's/(extras = .*)calendars,?/\1/' tox.ini
+sed -r -i '/\<calendars\>/d' tox.ini
 %endif
 
 %if %{without fasttext}
-sed -r -i 's/(extras = .*)fasttext,?/\1/' tox.ini
+sed -r -i '/\<fasttext\>/d' tox.ini
 %endif
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-sed -r -i 's/^(flake8|pytest-cov)\b/# &/' tests/requirements.txt
+sed -r -i '/\<pytest-cov\>/d' tox.ini
 sed -r -i 's/--cov[^[:blank:]]+//g' tox.ini
 
 cat >> docs/conf.py <<'EOF'
@@ -118,10 +118,8 @@ EOF
 
 
 %generate_buildrequires
-%if !0%{?fc37} && !0%{?fc36}
-%global toxenv -e latest
-%endif
-%pyproject_buildrequires -t %{?toxenv} %{?with_calendars:-x calendar }%{?with_fasttext:-x fasttext }-x langdetect
+%global toxenv -e all
+%pyproject_buildrequires -t %{?toxenv} %{?with_calendars:-x calendar }%{?with_fasttext:-x fasttext }-x langdetect dateparser_scripts/requirements.txt
 
 
 %build
@@ -162,6 +160,13 @@ ignore="${ignore-} --ignore=dateparser/custom_language_detection/fasttext.py"
 ignore="${ignore-} --ignore=tests/test_language_detect.py"
 %endif
 
+# Fuzzing tests requires atheris which is not packaged in fedora.
+# --ignore does not seem to prevent doctest collection in fuzzing/
+rm -vf fuzzing/dateparser_fuzzer.py
+rm -vf fuzzing/fuzz_helpers.py
+ignore="${ignore-} --ignore=fuzzing/dateparser_fuzzer.py"
+ignore="${ignore-} --ignore=fuzzing/fuzz_helpers.py"
+
 # From the docstring containing this doctest:
 #   In the example below, since no day information is present, the day is
 #   assumed to be current day ``16`` from *current date* (which is June 16,
@@ -177,24 +182,6 @@ k="${k-}${k+ and }not (DateDataParser and get_date_data)"
 #                   ^
 #   SyntaxError: '(' was never closed
 k="${k-}${k+ and }not search_dates"
-
-# TODO: What is going wrong?
-#   E   AssertionError: Lists differ: [('20[28 chars] 3, 11, 0, 0)),
-#       ('October', datetime.datetime([71 chars] 0))] != [('20[28 chars] 3, 10,
-#       0, 0)), ('October', datetime.datetime([71 chars] 0))]
-k="${k-}${k+ and }not (TestTranslateSearch and test_relative_base_setting_1_en)"
-#   E   AssertionError: Lists differ: [('20[28 chars] 3, 11, 0, 0)),
-#       ('July 13th', datetime.datetim[70 chars] 0))] != [('20[28 chars] 3, 10,
-#       0, 0)), ('July 13th', datetime.datetim[70 chars] 0))]
-k="${k-}${k+ and }not (TestTranslateSearch and test_splitting_of_not_parsed_1_en)"
-#   E   AssertionError: Lists differ: [('20[28 chars] 3, 11, 0, 0)),
-#       ('July 12th', datetime.datetim[123 chars] 0))] != [('20[28 chars] 3,
-#       10, 0, 0)), ('July 12th', datetime.datetim[123 chars] 0))]
-k="${k-}${k+ and }not (TestTranslateSearch and test_splitting_of_not_parsed_5_en)"
-#   E   AssertionError: Lists differ: [('19[28 chars] 3, 11, 0, 0)), ('1939',
-#       datetime.datetime(1939, 3, 11, 0, 0))] != [('19[28 chars] 3, 10, 0,
-#       0)), ('1939', datetime.datetime(1939, 3, 10, 0, 0))]
-k="${k-}${k+ and }not (TestTranslateSearch and test_splitting_of_not_parsed_6_en)"
 
 %tox -- -- ${ignore-} -k "${k-}" -v
 
@@ -222,6 +209,9 @@ k="${k-}${k+ and }not (TestTranslateSearch and test_splitting_of_not_parsed_6_en
 
 
 %changelog
+* Sat Mar 01 2025 Romain Geissler <romain.geissler@amadeus.com> - 1.2.1-1
+- Update to 1.2.1 (close RHBZ#2336931)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.7-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global forgeurl https://github.com/squidfunk/mkdocs-material
 
 Name:           mkdocs-material
-Version:        9.6.5
+Version:        9.6.6
 Release:        %autorelease
 Summary:        Material design theme for MkDocs
 

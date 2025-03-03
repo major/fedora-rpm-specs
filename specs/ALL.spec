@@ -1,7 +1,7 @@
 Name:           ALL
 Version:        0.9.3
 %global         sover 0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A Load Balancing Library (ALL)
 
 # stb_arr.h is public domain
@@ -49,6 +49,7 @@ This package contains %{name} libraries compiled with openmpi.
 Summary:    Openmpi development headers and libraries for %{name}
 Requires:   %{name}-openmpi%{?_isa} = %{version}-%{release}
 Requires:   openmpi-devel
+Requires:   vtk-openmpi-devel
 
 %description openmpi-devel
 %{all_desc}
@@ -67,6 +68,7 @@ This package contains %{name} libraries compiled with mpich.
 Summary:    Mpich development headers and libraries for %{name}
 Requires:   %{name}-mpich%{?_isa} = %{version}-%{release}
 Requires:   mpich-devel
+Requires:   vtk-mpich-devel
 
 %description mpich-devel
 %{all_desc}
@@ -156,6 +158,9 @@ done
 %{_docdir}/%{name}/html
 
 %changelog
+* Sat Mar 01 2025 Christoph Junghans <junghans@votca.org> - 0.9.3-5
+- Add missing vtk-devel dep
+
 * Sun Feb 23 2025 Christoph Junghans <junghans@votca.org> - 0.9.3-4
 - Fix duplicated files and stb usage
 

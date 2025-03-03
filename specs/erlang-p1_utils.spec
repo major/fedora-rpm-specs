@@ -1,7 +1,7 @@
 %global srcname p1_utils
 
 Name:       erlang-%{srcname}
-Version:    1.0.26
+Version:    1.0.27
 Release:    %autorelease
 BuildArch:  noarch
 License:    Apache-2.0

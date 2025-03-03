@@ -1,7 +1,7 @@
 %global sover 15
 
 Name: log4cxx
-Version: 1.3.1
+Version: 1.4.0
 Release: %autorelease
 Summary: A port to C++ of the Log4j project
 

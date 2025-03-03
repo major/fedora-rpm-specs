@@ -1,5 +1,5 @@
-%global DATE 20250225
-%global gitrev c22206a9eb8110a2e8890b2851c5c170e1323889
+%global DATE 20250301
+%global gitrev 504a13588c3919101c7409909bbe2c6af9dcb829
 %global gcc_version 15.0.1
 %global gcc_major 15
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -143,7 +143,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.8%{?dist}
+Release: %{gcc_release}.9%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -298,6 +298,9 @@ Patch8: gcc15-no-add-needed.patch
 Patch9: gcc15-Wno-format-security.patch
 Patch10: gcc15-rh1574936.patch
 Patch11: gcc15-d-shared-libphobos.patch
+Patch12: gcc15-pr118953.patch
+Patch13: gcc15-pr119002.patch
+Patch14: gcc15-pr119006.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -912,6 +915,9 @@ so that there cannot be any synchronization problems.
 %patch -P10 -p0 -b .rh1574936~
 %endif
 %patch -P11 -p0 -b .d-shared-libphobos~
+%patch -P12 -p0 -b .pr118953~
+%patch -P13 -p0 -b .pr119002~
+%patch -P14 -p0 -b .pr119006~
 
 %patch -P50 -p0 -b .rh2155127~
 touch -r isl-0.24/m4/ax_prog_cxx_for_build.m4 isl-0.24/m4/ax_prog_cc_for_build.m4
@@ -3665,6 +3671,25 @@ end
 %endif
 
 %changelog
+* Sat Mar  1 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.9
+- update from trunk
+  - PRs c/114870, c/119001, c++/110822, c++/114913, c++/118516, c++/118928,
+	c++/118986, c++/119038, c++/119045, d/116961, d/118654,
+	fortran/108233, fortran/108369, fortran/118730, fortran/118789,
+	ipa/111245, ipa/118243, jit/117047, libstdc++/93059, libstdc++/104606,
+	libstdc++/105609, libstdc++/106612, libstdc++/112490,
+	libstdc++/112803, libstdc++/118083, lto/91299, middle-end/66279,
+	middle-end/115871, middle-end/118819, middle-end/118860,
+	middle-end/119021, rtl-optimization/116336, rtl-optimization/117712,
+	rtl-optimization/119002, target/107635, target/109189, target/115458,
+	target/118931, target/118940, testsuite/115028, testsuite/116143,
+	translation/118991, tree-optimization/87984, tree-optimization/116855,
+	tree-optimization/118464, tree-optimization/119030
+- fix ranger related miscompilation (PR tree-optimization/118953)
+- fix miscompilation of floating point comparisons if NaNs can appear
+  (#2346233, PR rtl-optimization/119002)
+- fix ICF related miscompilation (PR ipa/119006)
+
 * Tue Feb 25 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.8
 - update from trunk
   - PRs analyzer/118300, c/117023, c/119000, c++/66519, c++/66878, c++/70037,

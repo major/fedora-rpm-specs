@@ -1,6 +1,6 @@
 Name:           tetrinetx
 Version:        1.13.16
-Release:        43%{?dist}
+Release:        42%{?dist}
 Summary:        The GNU TetriNET server
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -52,7 +52,7 @@ EOF
 %build
 %undefine _fortify_level
 cd src
-./compile.linux "%{optflags}"
+./compile.linux "%{optflags} -std=gnu17"
 cd ..
 
 
@@ -98,7 +98,6 @@ install -m0644 -D tetrinetx.sysusers.conf %{buildroot}%{_sysusersdir}/tetrinetx.
 %doc AUTHORS ChangeLog README README.qirc.spectators bin/game.allow.example bin/game.ban.compromise.example bin/game.ban.example
 %license COPYING
 %{_bindir}/tetrinetx
-#{_initrddir}/tetrinetx
 %{_unitdir}/tetrinetx.service
 %dir %{_sysconfdir}/tetrinetx
 %config(noreplace) %{_sysconfdir}/logrotate.d/tetrinetx
@@ -111,11 +110,11 @@ install -m0644 -D tetrinetx.sysusers.conf %{buildroot}%{_sysusersdir}/tetrinetx.
 
 
 %changelog
-* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.13.16-43
-- Add sysusers.d config file to allow rpm to create users/groups automatically
-
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.16-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+  (Zbigniew Jędrzejewski-Szmek)
+- Fix GCC build, compiling with -std=gnu17
 
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.13.16-41
 - convert license to SPDX
