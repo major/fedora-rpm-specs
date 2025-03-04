@@ -7,11 +7,15 @@
 # “standard” and “all” extras.
 %bcond bootstrap 0
 
-%bcond orjson 1
-%bcond uvicorn 1
-%bcond sqlmodel 1
+%bcond inline_snapshot %{undefined el10}
+%bcond orjson %{undefined el10}
+# https://bugzilla.redhat.com/show_bug.cgi?id=2321338
+%bcond passlib %{undefined el10}
 # Not yet packaged: https://pypi.org/project/PyJWT/
 %bcond pyjwt 0
+%bcond sqlmodel %{without bootstrap}
+# https://bugzilla.redhat.com/show_bug.cgi?id=2335460
+%bcond uvicorn %{undefined el10}
 
 # For translations, check docs/*/docs/index.md
 # Note that there are many other localized versions of the documentation
@@ -45,7 +49,7 @@
 %global sum_zh FastAPI 框架
 
 Name:           python-fastapi
-Version:        0.115.10
+Version:        0.115.11
 Release:        %autorelease
 Summary:        %{sum_en}
 
@@ -91,8 +95,12 @@ BuildRequires:  %{py3_dist anyio[trio]} >= 3.2.1
 BuildRequires:  %{py3_dist PyJWT} >= 2.8
 %endif
 BuildRequires:  %{py3_dist pyyaml} >= 5.3.1
+%if %{with passlib}
 BuildRequires:  %{py3_dist passlib[bcrypt]} >= 1.7.2
+%endif
+%if %{with inline_snapshot}
 BuildRequires:  %{py3_dist inline-snapshot} >= 0.19.3
+%endif
 # This is still needed in the tests even if we do not have sqlmodel to bring it
 # in as an indirect dependency.
 BuildRequires:  %{py3_dist sqlalchemy}
@@ -982,6 +990,16 @@ rm '%{buildroot}%{_bindir}/fastapi'
 
 
 %check
+%if %{with bootstrap}
+ignore="${ignore-} --ignore=tests/test_fastapi_cli.py"
+%endif
+
+%if %{without inline_snapshot}
+ignore="${ignore-} --ignore-glob=tests/test_tutorial/test_cookie_param_models/*"
+ignore="${ignore-} --ignore-glob=tests/test_tutorial/test_header_param_models/*"
+ignore="${ignore-} --ignore-glob=tests/test_tutorial/test_query_param_models/*"
+%endif
+
 %if %{without orjson}
 k="${k-}${k+ and }not test_orjson_non_str_keys"
 ignore="${ignore-} --ignore=tests/test_default_response_class.py"
@@ -989,12 +1007,12 @@ ignore="${ignore-} --ignore=tests/test_tutorial/test_custom_response/test_tutori
 ignore="${ignore-} --ignore=tests/test_tutorial/test_custom_response/test_tutorial009c.py"
 %endif
 
-# These require python-pyjwt, which is not packaged.
+%if %{without pyjwt}
 ignore="${ignore-} --ignore-glob=tests/test_tutorial/test_security/test_tutorial005*"
+%endif
 
-%if %{without sqlmodel}
-ignore="${ignore-} --ignore-glob=tests/test_tutorial/test_sql_databases/test_tutorial001.py"
-ignore="${ignore-} --ignore-glob=tests/test_tutorial/test_sql_databases/test_tutorial002.py"
+%if %[ %{without sqlmodel} || %{without inline_snapshot} ]
+ignore="${ignore-} --ignore-glob=tests/test_tutorial/test_sql_databases/*"
 %endif
 
 # Ignore all DeprecationWarning messages, as they pop up from various

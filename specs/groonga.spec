@@ -1,5 +1,5 @@
 Name:           groonga
-Version:        14.0.7
+Version:        15.0.2
 Release:        %autorelease
 Summary:        An Embeddable Fulltext Search Engine
 License:        LGPL-2.1-only
@@ -16,7 +16,6 @@ BuildRequires:  libarrow-devel
 BuildRequires:  zlib-devel
 BuildRequires:  simdjson-devel
 BuildRequires:  libzstd-devel
-BuildRequires:  rapidjson-devel
 BuildRequires:  mecab-devel
 BuildRequires:  libstemmer-devel
 BuildRequires:  zeromq-devel
@@ -167,7 +166,6 @@ EOF
 %build
 %cmake \
   -GNinja \
-  -DCMAKE_BUILD_TYPE=Release \
   -DGRN_FOR_RHEL=ON \
 %ifarch riscv64
   -DCMAKE_SKIP_RPATH=TRUE \
@@ -194,6 +192,7 @@ EOF
 %endif
   -DGRN_WITH_XSIMD=ON \
   -DGRN_WITH_H3=ON \
+  -DGRN_WITH_LLAMA_CPP=no \
   -DGRN_WITH_MRUBY=ON \
   -DGRN_WITH_MUNIN_PLUGINS=ON \
   -DGRN_WITH_DOC=ON \

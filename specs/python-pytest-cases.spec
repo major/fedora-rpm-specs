@@ -11,6 +11,7 @@ BuildArch:      noarch
 BuildRequires:  pyproject-rpm-macros
 BuildRequires:  python3dist(makefun) > 1.7
 BuildRequires:  python3dist(decopatch)
+BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-harvest) > 1.10
 BuildRequires:  python3dist(pytest-asyncio)
 
@@ -29,7 +30,6 @@ cat >pyproject.toml <<EOF
 [build-system]
 requires = [
     "decopatch",
-    "pytest-runner",
     "pytest-steps",
     "setuptools_scm",
     "pypandoc",

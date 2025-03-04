@@ -1,10 +1,10 @@
 %bcond tests 1
 
-%global commit cdc7d307d0f592f89b3319a7037fd875a5371ef3
-%global snapdate 20250222
+#global commit xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+#global snapdate YYYYMMDD
 
 Name:           python-cramjam
-Version:        2.10.0~%{snapdate}git%{sub %{commit} 1 7}
+Version:        2.10.0~rc1
 Release:        %autorelease
 Summary:        Thin Python bindings to de/compression algorithms in Rust
 
@@ -32,10 +32,6 @@ Source0:        cramjam-%{commit}-filtered.tar.gz
 Source1:        get_source
 
 %endif
-
-# Bump libcramjam -> 0.7 (in Cargo.toml, to match Cargo.lock)
-# https://github.com/milesgranger/cramjam/pull/203
-Patch:          %{url}/pull/203.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  tomcli
@@ -100,7 +96,9 @@ tomcli set Cargo.toml del 'features.wasm32-compat'
 # extension with the default features, and we only want maturin to check
 # dependencies for those features.
 blosc2_isal_features="$(
-  tomcli get Cargo.toml features -F newline-keys |
+  # Once EPEL10 has tomcli>=0.8.0, we can use (without sed):
+  # tomcli get Cargo.toml features -F newline-keys
+  tomcli get Cargo.toml features -F toml | sed -r 's/ = .*//' |
     grep -E 'blosc2|ideflate|igzip|isal|izlib' |
     tr '\n' ' '
 )"
@@ -112,7 +110,9 @@ done
 # Downstream-only: remove all the static-linking features, and make the
 # dynamic-linking ones default, as we do in rust-libcramjam.
 static_features="$(
-  tomcli get Cargo.toml features -F newline-keys |
+  # Once EPEL10 has tomcli>=0.8.0, we can use (without sed):
+  # tomcli get Cargo.toml features -F newline-keys
+  tomcli get Cargo.toml features -F toml | sed -r 's/ = .*//' |
     grep -E '.-static$' |
     tr '\n' ' '
 )"
@@ -150,9 +150,9 @@ export RUSTFLAGS='%{build_rustflags}'
 %check
 %pyproject_check_import
 %if %{with tests}
+%if %{undefined el10}
 # Test failures in test_variants_decompress_into with recent hypothesis
-# versions
-# https://github.com/milesgranger/cramjam/issues/201
+# versions: https://github.com/milesgranger/cramjam/issues/201
 #
 # It is hard to be really sure what is going on here. The failures are
 # concerning, and might (or might not) reflect a serious problem. Nevertheless,
@@ -160,6 +160,7 @@ export RUSTFLAGS='%{build_rustflags}'
 # not reason to believe that the package has *new* problems. It *might* have
 # newly *revealed* problems. This merits further investigation.
 k="${k-}${k+ and }not test_variants_decompress_into"
+%endif
 
 %pytest -k "${k-}" --ignore=benchmarks/test_bench.py -v -n auto
 %endif

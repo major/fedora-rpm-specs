@@ -68,6 +68,7 @@ rm setup.py
 %build
 %cmake %{_cmake_skip_rpath} \
   -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo \
+  -DCMAKE_POLICY_VERSION_MINIMUM:STRING=3.5 \
   -DLIBPOLY_BUILD_STATIC:BOOL=OFF \
   -DLIBPOLY_BUILD_STATIC_PIC:BOOL=OFF
 %cmake_build

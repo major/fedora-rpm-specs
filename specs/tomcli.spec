@@ -30,8 +30,8 @@ PATH=%{buildroot}%{_bindir}:${PATH}
 %endif
 
 Name:           tomcli
-Version:        0.8.0
-Release:        2%{?dist}
+Version:        0.9.0
+Release:        1%{?dist}
 Summary:        CLI for working with TOML files. Pronounced "tom clee."
 
 License:        MIT
@@ -143,6 +143,9 @@ test "${newname}" = "not-tomcli"
 
 
 %changelog
+* Sun Mar 02 2025 Maxwell G <maxwell@gtmx.me> - 0.9.0-1
+- Update to 0.9.0.
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

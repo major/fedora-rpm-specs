@@ -1,11 +1,14 @@
 %global debug_package %{nil}
 
 Name:           python-scikit-build-core
-Version:        0.10.7
+Version:        0.11.0
 Release:        %autorelease
 Summary:        Build backend for CMake based projects
 
-License:        Apache-2.0
+# The main project is licensed under Apache-2.0, but it has a vendored project
+# src/scikit_build_core/_vendor/pyproject_metadata: MIT
+# https://github.com/scikit-build/scikit-build-core/issues/933
+License:        Apache-2.0 AND MIT
 URL:            https://github.com/scikit-build/scikit-build-core
 Source:         %{pypi_source scikit_build_core}
 
@@ -36,6 +39,8 @@ Obsoletes:      python3-scikit-build-core+pyproject < 0.10.7-3
 
 %prep
 %autosetup -n scikit_build_core-%{version}
+# Rename the bundled license so that it can be installed together
+cp -p src/scikit_build_core/_vendor/pyproject_metadata/LICENSE LICENSE-pyproject-metadata
 
 
 %generate_buildrequires
@@ -58,7 +63,7 @@ Obsoletes:      python3-scikit-build-core+pyproject < 0.10.7-3
 
 
 %files -n python3-scikit-build-core -f %{pyproject_files}
-%license LICENSE
+%license LICENSE LICENSE-pyproject-metadata
 %doc README.md
 
 

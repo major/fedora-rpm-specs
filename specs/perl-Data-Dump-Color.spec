@@ -1,5 +1,5 @@
 Name:           perl-Data-Dump-Color
-Version:        0.250
+Version:        0.251
 Release:        1%{?dist}
 Summary:        Like Data::Dump, but with color
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -51,7 +51,7 @@ what's different between this module and Data::Dump.
 %prep
 %setup -q -n Data-Dump-Color-%{version}
 /usr/bin/chmod +x share/examples/*.pl
-/usr/bin/perl -pi -e 's|^#! ?perl|#!/usr/bin/perl|' share/examples/example2.pl
+/usr/bin/perl -pi -e 's|^#!/usr/bin/env ?perl|#!/usr/bin/perl|' share/examples/example2.pl
 
 %build
 /usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -68,11 +68,12 @@ what's different between this module and Data::Dump.
 %license LICENSE
 %doc Changes README
 %{perl_vendorlib}/*
-%{_bindir}/*
 %{_mandir}/man3/*
-%{_mandir}/man1/*
 
 %changelog
+* Sun Mar 02 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 0.251-1
+- Update to 0.251
+
 * Sun Feb 23 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 0.250-1
 - Update to 0.250
 - Remove Win32::Console::ANSI requirement exclusion (no longer needed)

@@ -7,6 +7,8 @@ License:        MIT
 URL:            https://github.com/maxbachmann/RapidFuzz
 Source:         %{pypi_source rapidfuzz}
 
+Patch:          https://github.com/rapidfuzz/RapidFuzz/pull/433.patch
+
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  python3-devel

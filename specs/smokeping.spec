@@ -1,7 +1,7 @@
 Summary:          Latency Logging and Graphing System
 Name:             smokeping
-Version:          2.8.2
-Release:          11%{?dist}
+Version:          2.9.0
+Release:          12%{?dist}
 License:          GPL-2.0-or-later AND GPL-3.0-or-later AND MIT
 URL:              https://oss.oetiker.ch/smokeping/
 Source0:          https://oss.oetiker.ch/smokeping/pub/smokeping-%{version}.tar.gz
@@ -12,8 +12,8 @@ Source4:          http://oss.oetiker.ch/smokeping-demo/img/rrdtool.png
 Source5:          smokeping-tmpfs.conf
 Source6:          smokeping-fix-ownership
 Source7:          README.fedora
-Patch0:           smokeping-2.8.2-paths.patch
-Patch1:           smokeping-2.7.0-config.patch
+Patch0:           smokeping-2.9.0-paths.patch
+Patch1:           smokeping-2.9.0-config.patch
 Patch2:           smokeping-2.6.7-silence.patch
 Patch3:           smokeping-2.8.2-no-3rd-party.patch
 Patch4:           smokeping-2.8.2-remove-date.patch
@@ -60,7 +60,7 @@ BuildRequires:    perl(vars)
 BuildRequires:    perl(warnings)
 BuildRequires:    perl-generators
 BuildRequires:    systemd-units
-BuildRequires:    autoconf
+BuildRequires:    autoconf%{?rhel:2.7x}
 Requires:         findutils
 Requires:         fping >= 2.4b2
 # only httpd supported without config changes
@@ -97,7 +97,7 @@ rm -rf thirdparty/
 [ -e VERSION ] || echo %{version} > VERSION
 
 %build
-autoreconf --force --install --verbose --make
+autoreconf%{?rhel:27} --force --install --verbose --make
 
 %configure --with-htdocs-dir=%{_datadir}/smokeping/htdocs \
     --disable-silent-rules
@@ -169,6 +169,12 @@ exit 0
 %{_mandir}/man7/smokeping_*.7*
 
 %changelog
+* Sun Mar 02 2025 Terje Rosten <terjeros@gmail.com> - 2.9.0-12
+- Fix epel build
+
+* Sun Mar 02 2025 Terje Rosten <terjeros@gmail.com> - 2.9.0-11
+- 2.9.0
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

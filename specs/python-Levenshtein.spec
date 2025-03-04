@@ -16,6 +16,8 @@ URL:          %{forgeurl}
 
 Source0:      %{forgesource}
 
+Patch:        https://github.com/rapidfuzz/Levenshtein/pull/72.patch
+
 BuildRequires: cmake
 BuildRequires: gcc
 BuildRequires: gcc-c++

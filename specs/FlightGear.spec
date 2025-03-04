@@ -3,19 +3,17 @@
 
 Name:           FlightGear
 Summary:        The FlightGear Flight Simulator
-Version:        2020.3.19
-Release:        8%{?dist}
+Version:        2024.1.1
+Release:        1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
-Source0:        https://sourceforge.net/projects/flightgear/files/release-2020.3/flightgear-%{version}.tar.bz2
-Patch1:         0001-check-to-be-sure-that-n-is-not-being-set-as-format-t.patch
-Patch2:         0002-use-system-iaxclient-instead-of-bundled-one.patch
-Patch3:         0003-desktop-use-fgfs-wrapper.patch
-Patch4:         0004-fgviewer-fix-crash-on-exit.patch
-Patch5:         0005-fgviewer-disconnect-the-viewer-from-the-renderer.patch
-Patch6:         0006-fgviewer-use-correct-renderer-declaration.patch
-Patch7:         0007-fgviewer-prevent-an-assert-on-uninitialized-locale.patch
-Patch8:         0008-NasalSGPath-move-checkIORules-to-SGPath-NasalIORules.patch
+Source0:        https://gitlab.com/flightgear/flightgear/-/archive/v%{version}/flightgear-v%{version}.tar.bz2
+Patch:          0001-check-to-be-sure-that-n-is-not-being-set-as-format-t.patch
+Patch:          0002-Use-system-iaxclient-instead-of-bundled-one.patch
+Patch:          0003-make-fglauncher-a-static-library.patch
+Patch:          0004-desktop-use-fgfs-wrapper.patch
+Patch:          0005-make-fgqmlui-a-static-library.patch
+Patch:          0006-fgviewer-fix-crash-on-exit.patch
 
 URL:            http://www.flightgear.org/
 BuildRequires:  openal-soft-devel, SimGear-devel >= %{version}
@@ -27,6 +25,7 @@ BuildRequires:  bzip2-devel, systemd-devel, qt5-qtbase-devel, libcurl-devel
 BuildRequires:  qt5-qtdeclarative-devel, qt5-qtsvg-devel, qt5-linguist, xz-devel
 BuildRequires:  FlightGear-data >= %{version}
 Requires:       FlightGear-data >= %{version}, opengl-games-utils
+Requires:	qt5-qtquickcontrols2
 Requires:       hicolor-icon-theme
 
 %description
@@ -36,7 +35,7 @@ flight simulator ideas. We are developing a solid basic sim that can be
 expanded and improved upon by anyone interested in contributing
 
 %prep
-%autosetup -p1 -n flightgear-%{version}
+%autosetup -p1 -n flightgear-v%{version}
 rm -rf 3rdparty/iaxclient
 
 # make rpmlint happy
@@ -82,6 +81,9 @@ ln -s opengl-game-wrapper.sh $RPM_BUILD_ROOT%{_bindir}/fgfs-wrapper
 %{_datadir}/metainfo/*.metainfo.xml
 
 %changelog
+* Fri Feb 28 2025 Fabrice Bellet <fabrice@bellet.info> - 2024.1.1-1
+- new upstream release
+
 * Thu Jan 23 2025 Fabrice Bellet <fabrice@bellet.info> - 2020.3.19-8
 - NasalSGPath: move checkIORules() to SGPath::NasalIORulesChecker()
 

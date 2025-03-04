@@ -1,16 +1,22 @@
 %global         gsspver 1.1.3
 %global         __cmake_in_source_build 1
 
+%if 0%{?fedora} < 42 && 0%{?rhel} < 11
+%global         kio4 1
+%endif
+
 Summary:        Desktop full text search tool with Qt GUI
 Name:           recoll
-Version:        1.40.4
-Release:        2%{?dist}
+Version:        1.42.1
+Release:        1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://www.recoll.org
 Source0:        https://www.recoll.org/recoll-%{version}.tar.gz
 Source1:        https://www.recoll.org/downloads/src/gssp-recoll-%{gsspver}.tar.gz
 Source10:       qmake-qt5.sh
+Patch:          recoll-1.42.1-include.patch
+Patch:          recoll-1.42.1-cmake4.patch
 BuildRequires:  aspell-devel
 BuildRequires:  bison
 BuildRequires:  chmlib-devel
@@ -19,7 +25,7 @@ BuildRequires:  extra-cmake-modules
 BuildRequires:  file-devel
 BuildRequires:  gcc-c++
 # kio
-BuildRequires:  kdelibs4-devel
+%{?kio4:BuildRequires:  kdelibs4-devel}
 BuildRequires:  kf5-kio-devel
 # krunner
 BuildRequires:  kf5-ki18n-devel
@@ -36,6 +42,7 @@ BuildRequires:  python3-setuptools
 BuildRequires:  qt5-linguist
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qtwebkit-devel
+BuildRequires:  systemd-rpm-macros
 BuildRequires:  xapian-core-devel
 BuildRequires:  zlib-devel
 Requires:       xdg-utils
@@ -83,7 +90,7 @@ Requires:      python3-pydbus
 This package contains the Recoll GNOME Shell search provider
 
 %prep
-%setup -q -D -a 1
+%autosetup -p1 -D -a 1
 sed -i -e '1{\,^#!/usr/bin/env,d}' python/recoll/recoll/rclconfig.py
 ln -s gssp-recoll-%{gsspver} gssp
 
@@ -123,13 +130,15 @@ pushd kde/kioslave/kio_recoll
 %cmake_install
 popd
 
+%if 0%{?kio4}
 # kio_recoll -kde4
 export QMAKE=qmake-qt4
 pushd kde/kioslave/kio_recoll-kde4
-%cmake_kde4 -DRECOLL_PUBLIC_LIB=1
+%cmake_kde4 -DRECOLL_PUBLIC_LIB=1 -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_build
 %cmake_install
 popd
+%endif
 
 # krunner_recoll
 pushd kde/krunner
@@ -184,11 +193,13 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 
 %files kio
 %license COPYING
-%{_libdir}/kde4/kio_recoll.so
 %{_libdir}/qt5/plugins/kf5/kio/kio_recoll.so
+%if 0%{?kio4}
+%{_libdir}/kde4/kio_recoll.so
 %{_datadir}/kde4/apps/kio_recoll/
 %{_datadir}/kde4/services/recoll.protocol
 %{_datadir}/kde4/services/recollf.protocol
+%endif
 %{_datadir}/kio_recoll/help.html
 %{_datadir}/kio_recoll/welcome.html
 
@@ -203,6 +214,10 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{_datadir}/applications/org.recoll.Recoll.SearchProvider.desktop
 
 %changelog
+* Sat Mar 01 2025 Terje Rosten <terjeros@gmail.com> - 1.42.4-1
+- 1.42.1
+- Fix build issue with GCC 15
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.40.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

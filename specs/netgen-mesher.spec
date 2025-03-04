@@ -27,8 +27,8 @@
 
 Name:           netgen-mesher
 # Also update version in netgen_fallback-version.patch!
-Version:        6.2.2406
-Release:        2%{?dist}
+Version:        6.2.2501
+Release:        1%{?dist}
 Summary:        Automatic mesh generation tool
 ExcludeArch:    %{ix86}
 
@@ -57,6 +57,8 @@ Patch5:         netgen_fallback-version.patch
 Patch6:         netgen_include-order.patch
 # Fix invalid egg-info version
 Patch7:         netgen-mesher_egg-info-version.patch
+# Port bundled togl to tk9
+# Patch8:         netgen-togl-tk9.patch
 
 
 BuildRequires:  cmake
@@ -418,6 +420,9 @@ install -Dpm 0644 nglib/nglib.h %{buildroot}%{_includedir}/%{name}/nglib.h
 
 
 %changelog
+* Sun Mar 02 2025 Sandro Mani <manisandro@gmail.com> - 6.2.2501-1
+- Update to 6.2.2501
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.2406-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

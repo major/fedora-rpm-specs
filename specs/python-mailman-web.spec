@@ -1,3 +1,7 @@
+# need to reconfigure logging to run tests
+# FileNotFoundError: [Errno 2] No such file or directory: '/opt/mailman/web/logs/mailmanweb.log'           
+%bcond tests 0
+
 Name:           python-mailman-web
 Version:        0.0.9
 Release:        %autorelease
@@ -9,7 +13,10 @@ Source:         %{pypi_source mailman_web}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-
+%if %{with tests}
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-django)
+%endif
 
 %global _description %{expand:
 This is a Django project that contains default settings and URL settings
@@ -40,7 +47,7 @@ done
 
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 
 %build
@@ -56,7 +63,9 @@ mkdir -p %{buildroot}%{_sysconfdir}/mailman3
 %check
 export DJANGO_SETTINGS_MODULE=mailman_web.settings
 %pyproject_check_import -e mailman_web.tests.test_basic -e mailman_web.urls
-%tox
+%if %{with tests}
+%pytest --ds=mailman_web.tests.settings
+%endif
 
 
 %files -n python3-mailman-web -f %{pyproject_files}

@@ -707,6 +707,15 @@ cp -pr --parents Wrapping/*/README* _docs/
 # At the moment this only contains Java/Testing/Data/Baseline
 rm -rf %{buildroot}%{_datadir}/vtkdata/Wrapping
 
+# The fixed FindHDF5.cmake is patch of CMake now
+rm -v %{buildroot}/%{_libdir}/cmake/%{name}/patches/99/FindHDF5.cmake
+%if %{with mpich}
+rm -v %{buildroot}/%{_libdir}/mpich/lib/cmake/%{name}/patches/99/FindHDF5.cmake
+%endif
+%if %{with openmpi}
+rm -v %{buildroot}/%{_libdir}/openmpi/lib/cmake/%{name}/patches/99/FindHDF5.cmake
+%endif
+
 # https://bugzilla.redhat.com/show_bug.cgi?id=1902729
 #  contains the $ORIGIN runpath specifier at the wrong position in [/usr/lib64/mpich/lib:$ORIGIN:$ORIGIN/../]
 #  0x0008 ... the special '$ORIGIN' RPATHs are appearing after other

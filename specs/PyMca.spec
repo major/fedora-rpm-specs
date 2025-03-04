@@ -1,5 +1,5 @@
 Name:           PyMca
-Version:        5.9.3
+Version:        5.9.4
 Release:        %autorelease
 Summary:        X-ray Fluorescence Toolkit
 License:        GPL-2.0-or-later
@@ -61,8 +61,7 @@ This package contains photon interaction data/elements data for %{name}.
 %prep
 %autosetup -p1 -n pymca-%{version}
 
-# Fix wrong shebang of pymcapostbatch.
-sed -i "s|!python|!%python3|g" PyMca5/scripts/pymcapostbatch
+sed -r -i 's|(os.path.join.")(PyMca5")|\1src/\2|' setup.py
 
 %build
 # Need to define manually. Note using pkg-config to export the cflags
@@ -79,6 +78,8 @@ PYMCA_DOC_DIR=/usr/share/doc/PyMca \
 PYMCA_DATA_DIR=/usr/share/PyMca \
 PYMCA_DOC_DIR=/usr/share/doc/PyMca \
 %py3_install
+
+cp -ap src/PyMca5/PyMcaData/attdata/* %{buildroot}%{_datadir}/PyMca/attdata/
 
 # Install desktop file.
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{S:1}
@@ -193,7 +194,7 @@ PYMCA_DATA_DIR=%{buildroot}/usr/share/PyMca \
 PYMCA_DOC_DIR=%{buildroot}/usr/share/doc/PyMca \
 QT_QPA_PLATFORM=offscreen \
 LC_ALL=pl_PL.utf8 \
-%python3 PyMca5/tests/TestAll.py
+%python3 src/PyMca5/tests/TestAll.py
 
 # Test results are ingored. In F34 rawhide mock:
 # ERROR: testHdf5Uri (ConfigDictTest.testConfigDict)

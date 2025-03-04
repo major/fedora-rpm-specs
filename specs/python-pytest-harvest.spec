@@ -9,6 +9,7 @@ Source0:	%{pypi_source pytest-harvest}
 
 BuildArch:	noarch
 BuildRequires:	pyproject-rpm-macros
+BuildRequires:	python3dist(pytest)
 
 %description
 Store data created during your pytest tests execution, and retrieve it
@@ -26,8 +27,7 @@ Summary: %{summary}
 
 cat >pyproject.toml <<EOF
 [build-system]
-requires = ["pytest-runner",
-	    "setuptools_scm",
+requires = ["setuptools_scm",
             "wheel",
             "pandas",
             "tabulate",

@@ -1,19 +1,22 @@
-%global glib2_version 2.44.0
+%global glib2_version 2.80.0
 %global gcr_version 3.27.90
 %global gcrypt_version 1.2.2
 
 %bcond_without ssh_agent
 
 Name:           gnome-keyring
-Version:        46.2
+Version:        48~beta
 Release:        %autorelease
 Summary:        Framework for managing passwords and other secrets
+
+%global tarball_version %%(echo %{version} | tr '~' '.')
+%global major_version %%(cut -d "." -f 1 <<<%{tarball_version})
 
 # egg/ is (GPL-2.0-or-later OR LGPL-3.0-or-later) OR BSD-3-Clause
 # pkcs11/ is MPL-1.1 OR GPL-2.0-or-later OR  LGPL-2.1-or-later
 License:        GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later AND ((GPL-2.0-or-later OR LGPL-3.0-or-later) OR BSD-3-Clause) AND (MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later)
 URL:            https://wiki.gnome.org/Projects/GnomeKeyring
-Source0:        https://download.gnome.org/sources/%{name}/46/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  pkgconfig(gcr-3) >= %{gcr_version}
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
@@ -24,10 +27,11 @@ BuildRequires:  docbook-dtds
 BuildRequires:  docbook-style-xsl
 BuildRequires:  gcc
 BuildRequires:  gettext
+BuildRequires:  git
 BuildRequires:  intltool
 BuildRequires:  libgcrypt-devel >= %{gcrypt_version}
 BuildRequires:  libselinux-devel
-BuildRequires:  make
+BuildRequires:  meson
 BuildRequires:  pam-devel
 BuildRequires:  systemd-rpm-macros
 %if %{with ssh_agent}
@@ -62,36 +66,27 @@ automatically unlock the "login" keyring when the user logs in.
 
 
 %prep
-%autosetup -p1
+%autosetup -S git -n %{name}-%{tarball_version}
 
 
 %build
-%configure \
-           --with-pam-dir=%{_libdir}/security \
-           --enable-pam \
-           --with-systemd \
-           --without-libcap-ng \
-           --with-pkcs11-config=%{_datadir}/p11-kit/modules \
+%meson \
+           -Dpam=true \
+           -Dsystemd=enabled \
+           -Dpkcs11-config=%{_datadir}/p11-kit/modules \
 %if %{with ssh_agent}
-           --enable-ssh-agent
+           -Dssh-agent=true
 %else
-           --disable-ssh-agent
+           -Dssh-agent=false
 %endif
 
-# avoid unneeded direct dependencies
-sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0 /g' libtool
-
-%make_build
+%meson_build
 
 
 %install
-%make_install
+%meson_install
 
-rm $RPM_BUILD_ROOT%{_libdir}/security/*.la
-rm $RPM_BUILD_ROOT%{_libdir}/pkcs11/*.la
-rm $RPM_BUILD_ROOT%{_libdir}/gnome-keyring/devel/*.la
-
-%find_lang gnome-keyring
+%find_lang %{name}
 
 %post
 %systemd_user_post gnome-keyring-daemon.service
@@ -100,7 +95,7 @@ rm $RPM_BUILD_ROOT%{_libdir}/gnome-keyring/devel/*.la
 %systemd_user_preun gnome-keyring-daemon.service
 
 %files -f gnome-keyring.lang
-%doc AUTHORS NEWS README
+%doc NEWS README
 %license COPYING COPYING.LIB
 # LGPL
 %dir %{_libdir}/gnome-keyring

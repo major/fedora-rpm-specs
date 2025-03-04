@@ -1,7 +1,7 @@
 %global rdnn        dev.geopjr.Tuba
 
 Name:           tuba
-Version:        0.9.1
+Version:        0.9.2
 Release:        %autorelease
 Summary:        Browse the Fediverse
 License:        GPL-3.0-only

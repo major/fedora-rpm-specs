@@ -3,7 +3,7 @@
 
 Name:           permlib
 Version:        0.2.9
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Library for permutation computations
 
 License:        BSD-3-Clause
@@ -63,7 +63,7 @@ PermLib.
 sed "s/@VERSION@/%{version}/" %{SOURCE1} > Doxyfile
 
 %build
-%cmake
+%cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_build
 
 # Build the documentation
@@ -89,6 +89,9 @@ cp -a include/%{name} $RPM_BUILD_ROOT%{_includedir}
 %{_includedir}/permlib
 
 %changelog
+* Sat Mar  1 2025 Jerry James <loganjerry@gmail.com> - 0.2.9-24
+- Adapt to cmake 4
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.9-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

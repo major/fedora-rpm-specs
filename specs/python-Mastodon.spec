@@ -3,14 +3,14 @@
 %global modname Mastodon
 
 Name:               python-Mastodon
-Version:            2.0.0
+Version:            2.0.1
 Release:            1%{?dist}
 Summary:            Python wrapper for the Mastodon API
 
 
 License:            MIT
 URL:                https://github.com/halcy/%{modname}.py
-Source0:            %{url}/archive/%{version}/%{modname}.py-%{version}.tar.gz
+Source0:            %{url}/archive/v%{version}/%{modname}.py-%{version}.tar.gz
 BuildArch:          noarch
 
 %description
@@ -60,6 +60,9 @@ Python %{python3_version} version.
 %{python3_sitelib}/%{modname}.py-*.egg-info/
 
 %changelog
+* Sun Mar 02 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.0.1-1
+- 2.0.1
+
 * Mon Feb 17 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.0.0-1
 - 2.0.0
 

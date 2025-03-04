@@ -1,24 +1,21 @@
 Name:           FlightGear-data
 Summary:        FlightGear base scenery and data files
-Version:        2020.3.19
-Release:        8%{?dist}
+Version:        2024.1.1
+Release:        1%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
-Source0:        https://sourceforge.net/projects/flightgear/files/release-2020.3/FlightGear-%{version}-data.txz
-URL:            http://www.flightgear.org/
+Source0:        https://gitlab.com/flightgear/fgdata/-/archive/v%{version}/fgdata-v%{version}.tar.bz2
+URL:            https://gitlab.com/flightgear/fgdata
 BuildArch:      noarch
 Obsoletes:      fgfs-base < 1.9.0-1
-
-# Fix for rhbz#2331176
-BuildRequires:  ImageMagick
 
 %description
 This package contains the base scenery for FlightGear and must be
 installed
 
 %prep
-%setup -q -n fgdata
+%autosetup -p1 -n fgdata-v%{version}
 
 %build
 
@@ -60,15 +57,14 @@ do
                 $RPM_BUILD_ROOT/%{_docdir}/%{name}
 done
 
-# Fix for rhbz#2331176
-file=$RPM_BUILD_ROOT/%{_datadir}/flightgear/Aircraft/Generic/Effects/null_bumpspec.png
-magick $file -resize 2 $file
-
 %files
 %doc %{_docdir}/%{name}
 %{_datadir}/flightgear
 
 %changelog
+* Fri Feb 28 2025 Fabrice Bellet <fabrice@bellet.info> - 2024.1.1-1
+- new upstream release
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2020.3.19-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

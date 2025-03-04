@@ -146,6 +146,11 @@
 %define have_block_rbd 0
 %endif
 
+%global have_block_iscsi 1
+%if 0%{?rhel} >= 10
+%global have_block_iscsi 0
+%endif
+
 
 %global have_block_gluster 1
 %if 0%{?rhel} >= 9
@@ -209,7 +214,6 @@
 %define requires_block_gluster %{nil}
 %define obsoletes_block_gluster Obsoletes: %{name}-block-gluster < %{evr}
 %endif
-%define requires_block_iscsi Requires: %{name}-block-iscsi = %{evr}
 %if %{have_block_nfs}
 %define requires_block_nfs Requires: %{name}-block-nfs = %{evr}
 %define obsoletes_block_nfs %{nil}
@@ -223,6 +227,13 @@
 %else
 %define requires_block_rbd %{nil}
 %define obsoletes_block_rbd Obsoletes: %{name}-block-rbd < %{evr}
+%endif
+%if %{have_block_iscsi}
+%define requires_block_iscsi Requires: %{name}-block-iscsi = %{evr}
+%define obsoletes_block_iscsi %{nil}
+%else
+%define requires_block_iscsi %{nil}
+%define obsoletes_block_iscsi Obsoletes: %{name}-block-iscsi < %{evr}
 %endif
 %define requires_block_ssh Requires: %{name}-block-ssh = %{evr}
 %define requires_audio_alsa Requires: %{name}-audio-alsa = %{evr}
@@ -360,6 +371,7 @@
 %global obsoletes_some_modules \
 %{obsoletes_block_gluster} \
 %{obsoletes_block_rbd} \
+%{obsoletes_block_iscsi} \
 %{obsoletes_package_virtiofsd} \
 %{obsoletes_package_kvm} \
 Obsoletes: %{name}-system-cris <= %{epoch}:%{version}-%{release} \
@@ -454,7 +466,9 @@ BuildRequires: libselinux-devel
 BuildRequires: cyrus-sasl-devel
 BuildRequires: libaio-devel
 BuildRequires: python3-devel
+%if %{have_block_iscsi}
 BuildRequires: libiscsi-devel
+%endif
 BuildRequires: libattr-devel
 BuildRequires: libusbx-devel >= %{libusbx_version}
 %if %{have_usbredir}
@@ -754,6 +768,7 @@ Install this package if you want to access remote disks over
 http, https, ftp and other transports provided by the CURL library.
 
 
+%if %{have_block_iscsi}
 %package  block-iscsi
 Summary: QEMU iSCSI block driver
 Requires: %{name}-common%{?_isa} = %{epoch}:%{version}-%{release}
@@ -761,6 +776,7 @@ Requires: %{name}-common%{?_isa} = %{epoch}:%{version}-%{release}
 This package provides the additional iSCSI block driver for QEMU.
 
 Install this package if you want to access iSCSI volumes.
+%endif
 
 
 %if %{have_block_rbd}
@@ -1785,7 +1801,9 @@ run_configure \
 %if %{have_libcbor}
   --enable-libcbor \
 %endif
+%if %{have_block_iscsi}
   --enable-libiscsi \
+%endif
 %if %{have_pmem}
   --enable-libpmem \
 %endif
@@ -2453,8 +2471,10 @@ popd
 %endif
 %files block-curl
 %{_libdir}/%{name}/block-curl.so
+%if %{have_block_iscsi}
 %files block-iscsi
 %{_libdir}/%{name}/block-iscsi.so
+%endif
 %if %{have_block_rbd}
 %files block-rbd
 %{_libdir}/%{name}/block-rbd.so

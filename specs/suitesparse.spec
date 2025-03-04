@@ -7,7 +7,7 @@
 %global csparse_version_major 4
 %global cxsparse_version_major 4
 %global gpuqrengine_version_major 3
-%global graphblas_version_major 9
+%global graphblas_version_major 10
 %global klu_cholmod_version_major 2
 %global klu_version_major 2
 %global lagraph_version_major 1
@@ -47,7 +47,7 @@
 %global commit 6ab1e9eb9e67264218ffbdfc25010650da449a39
 
 Name:           suitesparse
-Version:        7.9.0
+Version:        7.10.0
 Release:        1%{?dist}
 Summary:        A collection of sparse matrix libraries
 
@@ -466,6 +466,9 @@ done
 %doc Doc/*
 
 %changelog
+* Mon Mar 03 2025 Orion Poplawski <orion@nwra.com> - 7.10.0-1
+- Update to 7.10.0
+
 * Tue Feb 25 2025 Orion Poplawski <orion@nwra.com> - 7.9.0-1
 - Update to 7.9.0
 

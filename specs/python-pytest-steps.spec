@@ -7,8 +7,21 @@ License:	BSD-3-Clause
 URL:		https://pypi.org/project/pytest-steps/
 Source0:	%{pypi_source pytest-steps}
 
+# Downstream-only: remove setup_requires on pytest-runner
+#
+# A full migration away from pytest-runner, tests_require, and "setup.py
+# test" would require a more significant change, so this patch is
+# inadequate for offering as a PR to upstream.
+#
+# The pytest-runner dependency and "setup.py test" are obsolete
+# https://github.com/smarie/python-pytest-steps/issues/55
+#
+# https://fedoraproject.org/wiki/Changes/DeprecatePythonPytestRunner
+Patch:          pytest-steps-1.7.2-no-pytest-runner.patch
+
 BuildArch:	noarch
 BuildRequires:	pyproject-rpm-macros
+BuildRequires:	python3dist(pytest)
 
 %description
 %{summary}.
@@ -21,13 +34,12 @@ Summary: %{summary}
 %{summary}.
 
 %prep
-%autosetup -n pytest-steps-%{version}
+%autosetup -n pytest-steps-%{version} -p1
 
 # upstream has a pyproject.toml file, but it does not have enough stuff.
 cat >pyproject.toml <<EOF
 [build-system]
-requires = ["pytest-runner",
-	    "pytest-harvest",
+requires = ["pytest-harvest",
 	    "setuptools_scm",
 	    "pypandoc",
 	    "six",

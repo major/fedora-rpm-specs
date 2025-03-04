@@ -1,6 +1,6 @@
 Name:     primesieve
-Version:  12.6
-Release:  3%{?dist}
+Version:  12.7
+Release:  1%{?dist}
 Summary:  Fast prime number generator
 License:  LicenseRef-Callaway-BSD
 URL:      https://github.com/kimwalisch/primesieve
@@ -71,6 +71,12 @@ It also contains the API documentation of the library.
 %{_libdir}/pkgconfig/primesieve.pc
 
 %changelog
+* Sun Mar 02 2025 Kim Walisch <walki@fedoraproject.org> - 12.7-1
+- multiarch_sve_arm.cmake: Improve ARM SVE detection
+- src/arch/arm/sve.cpp: Detect ARM SVE on Linux and Windows
+- EratBig.cpp: Simplify bucket handling
+- Erat.cpp: Tune sieve size using FACTOR_SIEVESIZE
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 12.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

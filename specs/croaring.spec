@@ -1,6 +1,8 @@
 %global forgeurl https://github.com/RoaringBitmap/CRoaring
-Version:        4.1.6
+Version:        4.3.0
 %forgemeta
+
+%global sover 18
 
 Name:           croaring
 Release:        %autorelease
@@ -28,7 +30,6 @@ The %{name}-devel package contains development files for %{name}.
 
 %build
 %cmake \
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DROARING_USE_CPM=OFF \
     -DROARING_LIB_VERSION=%{version} \
 %cmake_build
@@ -42,7 +43,7 @@ The %{name}-devel package contains development files for %{name}.
 %files
 %license LICENSE
 %doc README.md
-%{_libdir}/libroaring.so.16
+%{_libdir}/libroaring.so.%{sover}
 %{_libdir}/libroaring.so.%{version}
 
 %files devel

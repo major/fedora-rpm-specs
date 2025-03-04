@@ -1,14 +1,11 @@
 Name:           fgrun
 Summary:        Graphical front-end for launching FlightGear flight simulator
 Version:        2016.3.1
-Release:        62%{?dist}
+Release:        63%{?dist}
 # Automatically converted from old format: GPLv2+ and CC-BY-SA - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-CC-BY-SA
-URL:            http://sourceforge.net/projects/fgrun
-# git clone http://git.code.sf.net/p/flightgear/fgrun
-# cd fgrun
-# git archive --format=tar.bz2 -o fgrun-2016.3.1.tar.bz2 --prefix=fgrun-2016.3.1/ version/2016.3.1
-Source0:        fgrun-%{version}.tar.bz2
+URL:            https://gitlab.com/flightgear/fgrun
+Source0:        https://gitlab.com/flightgear/fgrun/-/archive/version/%{version}/fgrun-version-%{version}.tar.bz2
 Source1:        %{name}.desktop
 Source2:        README.Fedora
 # The icon is licensed under the CC Attribution-Share Alike 3.0 license
@@ -19,10 +16,11 @@ Source12:       Bt_plane-32.png
 Source13:       Bt_plane-48.png
 Source14:       Bt_plane-64.png
 Source15:       Bt_plane-128.png
-Patch1:         0001-Build-fgrun-with-static-ui-libs.patch
-Patch2:         0002-Fix-a-crash-when-setting-defaults.patch
-Patch3:         0003-Default-settings-for-Fedora.patch
-Patch4:         0004-Fix-reloadPath-logic.patch
+Patch:          0001-Build-fgrun-with-static-ui-libs.patch
+Patch:          0002-Fix-a-crash-when-setting-defaults.patch
+Patch:          0003-Default-settings-for-Fedora.patch
+Patch:          0004-Fix-reloadPath-logic.patch
+Patch:          0005-Fix-build-with-newer-simgear.patch
 Requires:       FlightGear, opengl-games-utils, hicolor-icon-theme
 BuildRequires:  gcc-c++
 BuildRequires:  SimGear-devel >= 2.6.0
@@ -36,13 +34,14 @@ FlightGear Launch Control is a graphical front-end for launching
 FlightGear flight simulator
 
 %prep 
-%autosetup -p1
+%autosetup -p1 -n fgrun-version-%{version}
 cp -a %{SOURCE2} .
 
 %build 
 CXXFLAGS="$RPM_OPT_FLAGS -D_FILE_OFFSET_BITS=64"
 %cmake \
-    -DSIMGEAR_SHARED=ON
+    -DSIMGEAR_SHARED=ON \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
 %cmake_build
 
@@ -90,6 +89,9 @@ install -m 0644 %{SOURCE15} \
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Fri Feb 28 2025 Fabrice Bellet <fabrice@bellet.info> - 2016.3.1-63
+- rebuild with newer SimGear
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2016.3.1-62
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

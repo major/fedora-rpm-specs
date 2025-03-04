@@ -1,13 +1,18 @@
 %global debug_package %{nil}
 
 Name: guidelines-support-library
-Version: 4.1.0
+Version: 4.2.0
 Release: %autorelease
 
 License: MIT
-URL: https://github.com/Microsoft/GSL
+URL: https://github.com/microsoft/GSL
 Summary: Guidelines Support Library
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+%if 0%{?fedora} && 0%{?fedora} >= 42
+ExcludeArch: %{ix86}
+%endif
 
 BuildRequires: cmake
 BuildRequires: gcc
@@ -37,7 +42,7 @@ it is simplest to just include gsl/gsl and gain access to the entire library.
 
 %prep
 %autosetup -n GSL-%{version} -p1
-sed -e 's/4.0.0/%{version}/g' -i CMakeLists.txt
+sed -e 's/4.1.0/%{version}/g' -i CMakeLists.txt
 sed -e '/-Werror/d' -i tests/CMakeLists.txt
 
 %build

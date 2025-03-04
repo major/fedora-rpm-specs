@@ -9,6 +9,7 @@ Source0:	%{pypi_source makefun}
 
 BuildArch:	noarch
 BuildRequires:	pyproject-rpm-macros
+BuildRequires:	python3dist(pytest)
 
 %global _description \
 %summary.
@@ -26,7 +27,7 @@ Summary: %{summary}
 
 cat >pyproject.toml <<EOF
 [build-system]
-requires = ["pytest-runner", "setuptools_scm", "pypandoc", "six", "wheel"]
+requires = ["setuptools_scm", "pypandoc", "six", "wheel"]
 build-backend = "setuptools.build_meta"
 EOF
 

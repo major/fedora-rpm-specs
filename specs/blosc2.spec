@@ -76,8 +76,9 @@ objdump -p %{buildroot}%{_libdir}/libblosc2.so.4 | grep SONAME
 %global ignore_result || :
 %endif
 
-# Tests fail with -j12: https://github.com/Blosc/c-blosc2/issues/432
-%ctest -j1 %{?ignore_result}
+# - tests fail with -j12: https://github.com/Blosc/c-blosc2/issues/432
+# - test_nthreads seems to deadlock on all architectures with 2.17.0
+%ctest -j1 -E test_nthreads %{?ignore_result}
 
 %files
 # API versioning hard. With CMake even harder.

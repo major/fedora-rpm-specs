@@ -1,7 +1,7 @@
 Name:           heffte
 Version:        2.4.1
 %global         sover 2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Highly Efficient FFT for Exascale
 
 License:        BSD-3-Clause
@@ -68,8 +68,9 @@ Summary:    Openmpi development headers and libraries for %{name}
 Requires:   %{name}-openmpi%{?_isa} = %{version}-%{release}
 Requires:   openmpi-devel
 %if %{with rocm}
-Requires:  rocfft-devel
+Requires:   rocfft-devel
 %endif
+Requires:   fftw-devel
 
 %description openmpi-devel
 %{heffte_desc}
@@ -89,8 +90,9 @@ Summary:    Mpich development headers and libraries for %{name}
 Requires:   %{name}-mpich%{?_isa} = %{version}-%{release}
 Requires:   mpich-devel
 %if %{with rocm}
-Requires:  rocfft-devel
+Requires:   rocfft-devel
 %endif
+Requires:   fftw-devel
 
 %description mpich-devel
 %{heffte_desc}
@@ -208,6 +210,9 @@ done
 %{_datadir}/%{name}/docs
 
 %changelog
+* Sun Mar 02 2025 Christoph Junghans <junghans@votca.org> - 2.4.1-6
+- Add missing fftw-devel dep for devel pkg
+
 * Fri Feb 14 2025 Christoph Junghans <junghans@votca.org> - 2.4.1-5
 - Add missing rocfft-devel dep
 

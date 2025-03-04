@@ -1,10 +1,11 @@
 Name:           perl-App-Cmd
 Summary:        Write command line apps with less suffering
-Version:        0.336
-Release:        5%{?dist}
+Version:        0.337
+Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/App-Cmd-%{version}.tar.gz 
+Patch0:         App-Cmd-support-blib.patch
 URL:            https://metacpan.org/release/App-Cmd
 BuildArch:      noarch
 
@@ -49,7 +50,7 @@ For information on how to start using App::Cmd, see App::Cmd::Tutorial.
 
 %prep
 %setup -q -n App-Cmd-%{version}
-
+%patch 0
 /usr/bin/perl -pi -e 's|^#!perl|#!/usr/bin/perl|' t/*.t t/*.pl
 
 %build
@@ -70,6 +71,9 @@ For information on how to start using App::Cmd, see App::Cmd::Tutorial.
 %{_mandir}/man3/App*.3*
 
 %changelog
+* Sun Mar 02 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 0.337-1
+- Update to 0.337
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.336-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

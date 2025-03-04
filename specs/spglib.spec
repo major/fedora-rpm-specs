@@ -8,7 +8,7 @@ URL:            https://spglib.readthedocs.io/
 
 Source:         https://github.com/spglib/spglib/archive/refs/tags/v%{version}.tar.gz
 
-Patch:          Relax_numpy_requirements.patch
+Patch:          https://github.com/spglib/spglib/commit/8e342ccbaaa6a06b9b4ab2a4a32d511e3cf4e174.patch#/fix-python-metadata.patch
 
 BuildRequires:  ninja-build
 BuildRequires:  cmake

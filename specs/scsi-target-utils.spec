@@ -17,8 +17,8 @@
 
 Summary:        The SCSI target daemon and utility programs
 Name:           scsi-target-utils
-Version:        1.0.93
-Release:        2%{?dist}
+Version:        1.0.95
+Release:        1%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 URL:            http://stgt.sourceforge.net/
@@ -32,11 +32,11 @@ Patch1:         0002-remove-check-for-xsltproc.patch
 Patch2:         0003-default-config.patch
 # Adapt to glusterfs-api 7.6.3, not tested
 Patch3:         tgt-1.0.79-Adapt-to-glusterfs-api-7.6.3.patch
-BuildRequires: make
 BuildRequires:  docbook-style-xsl
 BuildRequires:  gcc
 BuildRequires:  libaio-devel
 BuildRequires:  libxslt
+BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  pkgconfig
 BuildRequires:  systemd-devel
@@ -139,6 +139,9 @@ pushd usr
 %endif
 
 %changelog
+* Sun Mar 02 2025 Terje Rosten <terjeros@gmail.com> - 1.0.95-1
+- 1.0.95
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.93-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

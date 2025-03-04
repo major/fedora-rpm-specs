@@ -1,4 +1,14 @@
+%if 0%{?suse_version}
+%global hipblaslt_name libhipblaslt0
+%else
+%global hipblaslt_name hipblaslt
+%endif
+
 %{?sle15_python_module_pythons}
+%if ! 0%{?suse_version} 
+%define python_exec python3
+%define python_expand python3
+%endif
 
 %global upstreamname hipBLASLt
 %global rocm_release 6.3
@@ -37,9 +47,9 @@
 %define _source_payload	w7T0.xzdio
 %define _binary_payload	w7T0.xzdio
 
-Name:           hipblaslt
+Name:           %{hipblaslt_name}
 Version:        %{rocm_version}
-Release:        7%{?dist}
+Release:        9%{?dist}
 Summary:        ROCm general matrix operations beyond BLAS
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -91,6 +101,7 @@ BuildRequires:  blas-static
 BuildRequires:  hipcc-libomp-devel
 %endif
 
+Provides:       hipblaslt = %{version}-%{release}
 Provides:       bundled(python-tensile) = %{tensile_version}
 
 # Only x86_64 works right now:
@@ -106,6 +117,7 @@ algorithmic implementations and heuristics.
 %package devel
 Summary:        Libraries and headers for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Provides:       hipblaslt-devel = %{version}-%{release}
 
 %description devel
 %{summary}
@@ -175,11 +187,7 @@ sed -i 's@python3@python3.11@'  clients/common/hipblaslt_gentest.py cmake/virtua
 # Do a manual install instead of cmake's virtualenv
 cd tensilelite
 TL=$PWD
-%if 0%{?suse_version}
 %python_exec setup.py install --root $TL
-%else
-/usr/bin/python3 setup.py install --root $TL
-%endif
 cd ..
 
 # Should not have to do this
@@ -193,8 +201,8 @@ export TENSILE_ROCM_OFFLOAD_BUNDLER_PATH=${CLANG_PATH}/clang-offload-bundler
 # Look for the just built tensilelite
 export PATH=${TL}/%{_bindir}:$PATH
 %if 0%{?suse_version}
-%{?python_expand} export PYTHONPATH=${TL}%{$python_sitelib}:$PYTHONPATH
-%{?python_expand} export Tensile_DIR=${TL}%{$python_sitelib}/Tensile
+%{python_expand} export PYTHONPATH=${TL}%{python_sitelib}:$PYTHONPATH
+%{python_expand} export Tensile_DIR=${TL}%{python_sitelib}/Tensile
 %else
 export PYTHONPATH=${TL}%{python3_sitelib}:$PYTHONPATH
 export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
@@ -235,26 +243,37 @@ if [ -f %{buildroot}%{_prefix}/share/doc/hipblaslt/LICENSE.md ]; then
     rm %{buildroot}%{_prefix}/share/doc/hipblaslt/LICENSE.md
 fi
 
+%if 0%{?suse_version}
+%post  -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
+%endif
+
 %files
-%dir %{_libdir}/cmake/%{name}/
-%dir %{_libdir}/%{name}/
-%dir %{_libdir}/%{name}/library/
+%dir %{_libdir}/cmake/hipblaslt/
+%dir %{_libdir}/hipblaslt/
+%dir %{_libdir}/hipblaslt/library/
 %license LICENSE.md
-%{_libdir}/lib%{name}.so.*
-%{_libdir}/%{name}/library/*
+%{_libdir}/libhipblaslt.so.*
+%{_libdir}/hipblaslt/library/*
 
 %files devel
 %doc README.md
-%{_includedir}/%{name}
-%{_libdir}/cmake/%{name}/
-%{_libdir}/lib%{name}.so
+%{_includedir}/hipblaslt
+%{_libdir}/cmake/hipblaslt/
+%{_libdir}/libhipblaslt.so
 
 %if %{with test}
 %files test
-%{_bindir}/%{name}*
+%{_bindir}/hipblaslt*
 %endif
 
 %changelog
+* Sun Mar 2 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-9
+- format consistent with other rocm packages
+
+* Sun Mar 2 2025 Christian Goll <cgoll@suse.de> - 6.3.1-8
+- Fix all builds
+
 * Thu Feb 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-7
 - Fix fedora
 

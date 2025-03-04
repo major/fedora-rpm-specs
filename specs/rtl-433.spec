@@ -1,9 +1,9 @@
-%global commit_date     20240826
-%global commit_long     f0ba1538213a2fcb7487862fa1cfe7a1969a174a
+%global commit_date     20250302
+%global commit_long     d422a7e66021c290afc983800a81d68011d626fd
 %global commit_short    %(c=%{commit_long}; echo ${c:0:7})
 
 Name: rtl-433
-Version: 23.11
+Version: 25.02
 Release: 2.%{commit_date}git%{commit_short}%{dist}
 
 Summary: Generic radio data receiver
@@ -41,7 +41,8 @@ Development libraries for %{name}
 sed -ri 's\^#!/usr/bin/env python3?$\#!%{python3}\' examples/*.py
 
 %build
-%cmake
+%cmake \
+        %{?fedora:-DCMAKE_POLICY_VERSION_MINIMUM=3.5}
 %cmake_build
 
 %install
@@ -87,6 +88,12 @@ done
 %{_includedir}/rtl_433*.h
 
 %changelog
+* Sun Mar 02 2025 Andrew Bauer <zonexpertconsulting@outlook.com> - 25.02-2.20250302gitd422a7e
+- Set CMAKE_POLICY_VERSION_MINIMUM to allow building with newer cmake
+
+* Sun Mar 02 2025 Andrew Bauer <zonexpertconsulting@outlook.com> - 25.02-1.20250302gitd422a7e
+- bump to latest git release
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 23.11-2.20240826gitf0ba153
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

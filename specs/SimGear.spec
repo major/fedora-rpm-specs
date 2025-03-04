@@ -1,16 +1,13 @@
 Name:           SimGear
-Version:        2020.3.19
-Release:        7%{?dist}
+Version:        2024.1.1
+Release:        1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Summary:        Simulation library components
-URL:            http://simgear.sourceforge.net
-Source0:        https://sourceforge.net/projects/flightgear/files/release-2020.3/simgear-%{version}.tar.bz2
-Patch1:         0001-remove-unneeded-header.patch
-Patch2:         0002-check-to-be-sure-that-n-is-not-being-set-as-format-t.patch
-Patch3:         0003-fix-support-for-aarch64.patch
-Patch4:         0004-Fix-a-new-Clang-compile-failure-with-current-XCode.patch
-Patch5:         0005-cppbind-check-I-O-rules-when-auto-constructing-an-SG.patch
+URL:            https://gitlab.com/flightgear/simgear
+Source0:        https://gitlab.com/flightgear/simgear/-/archive/v%{version}/simgear-v%{version}.tar.bz2
+Patch:          0001-check-to-be-sure-that-n-is-not-being-set-as-format-t.patch
+Patch:          0002-fix-support-for-aarch64.patch
 BuildRequires:  gcc-c++
 BuildRequires:  openal-soft-devel
 BuildRequires:  OpenSceneGraph-devel >= 3.2.0
@@ -37,11 +34,7 @@ Development headers and libraries for building applications against
 SimGear.
 
 %prep
-%setup -q -n simgear-%{version}
-%patch -P2 -p1 -b .checkforn
-%patch -P3 -p1 -b .aarch64
-%patch -P4 -p1 -b .compile
-%patch -P5 -p1 -b .cppbind
+%autosetup -p1 -n simgear-v%{version}
 
 # makes rpmlint happy
 find -name \*.cxx -o -name \*.hxx | xargs chmod -x
@@ -61,11 +54,6 @@ rm -rf simgear/xml/*.h simgear/xml/*.c
 %install
 %cmake_install
 
-# These two headers have a useless conditional when they're not internal.
-# This cleans them up.
-cd $RPM_BUILD_ROOT%{_includedir}/simgear/
-patch -p2 < %{PATCH1}
-
 %ldconfig_scriptlets
 
 %files
@@ -81,6 +69,9 @@ patch -p2 < %{PATCH1}
 %{_libdir}/cmake/SimGear
 
 %changelog
+* Fri Feb 28 2025 Fabrice Bellet <fabrice@bellet.info> - 2024.1.1-1
+- new upstream release
+
 * Thu Jan 23 2025 Fabrice Bellet <fabrice@bellet.info> - 2020.3.19-7
 - cppbind: check I/O rules when auto-constructing an SGPath
 

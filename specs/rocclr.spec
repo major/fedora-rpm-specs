@@ -31,8 +31,8 @@
 %endif
 
 %if 0%{?rhel} 
-%if %{rhel} < 10
-# No ocl-icd-devel in cs9
+%if %{rhel} < 11
+# No ocl-icd-devel in cs9,cs10
 %bcond_with ocl
 %else
 %bcond_without ocl
@@ -59,7 +59,7 @@
 
 Name:           rocclr
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ROCm Compute Language Runtime
 Url:            https://github.com/ROCm-Developer-Tools/clr
 License:        MIT
@@ -369,6 +369,9 @@ fi
 %endif
 
 %changelog
+* Sun Mar 2 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-4
+- no ocl-icd-devel in cs10
+
 * Fri Feb 28 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-3
 - cmake changed
 

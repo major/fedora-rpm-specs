@@ -1,7 +1,15 @@
+%if 0%{?fedora} >= 42
+%global tracker localsearch
+%global trackerdevel tinysparql-devel
+%else
+%global tracker tracker3
+%global trackerdevel tracker3-devel
+%endif
+
 Name:              netatalk
 Epoch:             5
-Version:           4.0.8
-Release:           3%{?dist}
+Version:           4.1.2
+Release:           2%{?dist}
 Summary:           Open Source Apple Filing Protocol(AFP) File Server
 # Automatically converted from old format: GPL+ and GPLv2 and GPLv2+ and LGPLv2+ and BSD and FSFUL and MIT - review is highly recommended.
 License:           GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD AND FSFUL AND LicenseRef-Callaway-MIT
@@ -9,6 +17,9 @@ License:           GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND Li
 URL:               http://netatalk.sourceforge.net
 Source0:           https://download.sourceforge.net/netatalk/netatalk-%{version}.tar.xz
 Source1:           netatalk.pam-system-auth
+
+# Make macipgw man page conditional on with-appletalk flag
+Patch0:            netatalk-macipgw-man.patch
 
 # Per i686 leaf package policy 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -50,8 +61,8 @@ BuildRequires:     rpm
 BuildRequires:     sed
 BuildRequires:     systemd
 BuildRequires:     systemtap-sdt-devel
-BuildRequires:     localsearch
-BuildRequires:     tinysparql-devel
+BuildRequires:     %{tracker}
+BuildRequires:     %{trackerdevel}
 BuildRequires:     cups-devel
 
 Requires:     dconf
@@ -72,7 +83,6 @@ are also included:
  * afpldaptest - validate Netatalk LDAP parameters
  * afppasswd   - RandNum UAM password management
  * afpstats    - inquire AFP server usage stats
- * apple_dump  - dump AppleSingle/AppleDouble metadata
  * asip-status - inquire AFP server capabilities
  * dbd         - CNID database maintenance
  * macusers    - list connected AFP server users
@@ -232,7 +242,7 @@ find %{buildroot} \( -name '*.la' -o -name '*.a' \) -type f -delete -print
 %{_bindir}/afpldaptest
 %{_bindir}/afppasswd
 %{_bindir}/afpstats
-%{_bindir}/apple_dump
+%{_bindir}/addump
 %{_bindir}/asip-status
 %{_bindir}/dbd
 %{_bindir}/macusers
@@ -245,7 +255,7 @@ find %{buildroot} \( -name '*.la' -o -name '*.a' \) -type f -delete -print
 %{_mandir}/man1/afpldaptest.1*
 %{_mandir}/man1/afppasswd.1*
 %{_mandir}/man1/afpstats.1*
-%{_mandir}/man1/apple_dump.1*
+%{_mandir}/man1/addump.1*
 %{_mandir}/man1/asip-status.1*
 %{_mandir}/man1/dbd.1*
 %{_mandir}/man1/macusers.1*
@@ -303,6 +313,7 @@ find %{buildroot} \( -name '*.la' -o -name '*.a' \) -type f -delete -print
 %files appletalk
 %doc %{_pkgdocdir}/README.AppleTalk
 %config(noreplace) %{_sysconfdir}/netatalk/atalkd.conf
+%config(noreplace) %{_sysconfdir}/netatalk/macipgw.conf
 %config(noreplace) %{_sysconfdir}/netatalk/papd.conf
 
 %{_sbindir}/a2boot
@@ -328,6 +339,7 @@ find %{buildroot} \( -name '*.la' -o -name '*.a' \) -type f -delete -print
 %{_mandir}/man1/pap.1*
 
 %{_mandir}/man5/atalkd.conf.5*
+%{_mandir}/man5/macipgw.conf.5*
 %{_mandir}/man5/papd.conf.5*
 
 %{_mandir}/man8/a2boot.8*
@@ -349,10 +361,15 @@ find %{buildroot} \( -name '*.la' -o -name '*.a' \) -type f -delete -print
 %doc %{_pkgdocdir}/htmldocs
 
 %changelog
-* Thu Feb 06 2025 Adam Williamson <awilliam@redhat.com> - 5:4.0.8-3
-- Update dependencies for rename of tracker to tinysparql
+* Sun Mar 02 2025 Andrew Bauer <zonexpertconsulting@outlook.com> - 5:4.1.2-2
+- Make macipgw.conf manpage conditional on have-appletalk flag
 
-* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org>
+* Sun Mar 02 2025 Andrew Bauer <zonexpertconsulting@outlook.com> - 5:4.1.2-1
+- 4.1.2 release
+- apple_dump renamed to addump
+- build against tinysparql for fedora >= 42
+
+* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 5:4.0.8-3
 - Add explicit BR: libxcrypt-devel
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5:4.0.8-2
@@ -1108,4 +1125,3 @@ find %{buildroot} \( -name '*.la' -o -name '*.a' \) -type f -delete -print
 
 * Wed May 28 1997 Mark Cornick <mcornick@zorak.gsfc.nasa.gov>
 - Updated for /etc/pam.d
-

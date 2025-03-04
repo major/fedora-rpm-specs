@@ -11,7 +11,7 @@
 %global usd 0
 
 %global forgeurl https://github.com/f3d-app/f3d
-Version:        2.5.0
+Version:        3.0.0
 %forgemeta
 
 Name:           f3d
@@ -200,6 +200,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{fish_completions_dir}/f3d.fish
 %{_datadir}/icons/hicolor/*/apps/f3d.png
 %{_datadir}/icons/hicolor/scalable/apps/f3d.svg
+%{_datadir}/icons/HighContrast/
 %{_datadir}/applications/f3d-plugin-*.desktop
 %{_datadir}/applications/f3d.desktop
 %{_datadir}/mime/packages/f3d-*.xml
@@ -215,7 +216,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_mandir}/man1/f3d.1*
 %{_metainfodir}/app.f3d.F3D.metainfo.xml
 
-%{_libdir}/libf3d.so.2*
+%{_libdir}/libf3d.so.3*
 %{_libdir}/libvtkext.so
 %dir %{_libdir}/f3d
 %dir %{_libdir}/f3d/plugins
