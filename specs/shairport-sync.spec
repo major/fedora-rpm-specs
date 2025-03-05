@@ -1,6 +1,6 @@
 Name:           shairport-sync
 Version:        4.3.5
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        AirTunes emulator. Multi-Room with Audio Synchronisation
 # MIT licensed except for tinysvcmdns under BSD, 
 # FFTConvolver/ under GPLv3+ and audio_sndio.c 
@@ -26,6 +26,14 @@ BuildRequires:  automake
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
 BuildRequires:	pkgconfig(libpulse)
+BuildRequires:  pkgconfig(uuid)
+BuildRequires:  pkgconfig(libavformat)
+BuildRequires:  pkgconfig(libavcodec)
+BuildRequires:  pkgconfig(libavutil)
+BuildRequires:  pkgconfig(libgcrypt)
+BuildRequires:  pkgconfig(libsodium)
+BuildRequires:  pkgconfig(libplist-2.0)
+BuildRequires:  xxd
 
 %description
 Shairport Sync emulates an AirPort Express for the purpose of streaming audio
@@ -39,12 +47,18 @@ Shairport Sync does not support AirPlay video or photo streaming.
 %prep
 %setup -q
 
+# Create a sysusers.d config file
+cat >shairport-sync.sysusers.conf <<EOF
+u shairport-sync - '%{name} User' %{_sharedstatedir}/%{name} -
+m shairport-sync audio
+EOF
+
 %build
 autoreconf -i -f
 %configure --sysconfdir=/etc --with-alsa --with-pipe --with-dummy \
-           --with-stdout --with-pa --with-pq --with-metadata \
+           --with-stdout --with-pa --with-metadata \
            --with-soxr --with-avahi --with-systemd --with-ssl=openssl \
-           --with-create-user-group=false
+           --with-create-user-group=false --with-airplay-2
 
 %make_build
 
@@ -53,11 +67,8 @@ autoreconf -i -f
 rm %{buildroot}/etc/shairport-sync.conf.sample
 mkdir -p %{buildroot}/%{_sharedstatedir}/%{name}
 
-%pre
-getent group %{name} >/dev/null || groupadd --system %{name}
-getent passwd %{name} > /dev/null || useradd --system -c "%{name} User" \
-        -d %{_sharedstatedir}/%{name} -g %{name} -s /sbin/nologin \
-        -G audio %{name}
+install -m0644 -D shairport-sync.sysusers.conf %{buildroot}%{_sysusersdir}/shairport-sync.conf
+
 
 %post
 %systemd_post %{name}.service
@@ -76,8 +87,15 @@ getent passwd %{name} > /dev/null || useradd --system -c "%{name} User" \
 %doc README.md RELEASENOTES.md TROUBLESHOOTING.md
 %license LICENSES
 %attr(-, %{name}, %{name}) %{_sharedstatedir}/%{name}
+%{_sysusersdir}/shairport-sync.conf
 
 %changelog
+* Mon Mar 03 2025 Bill Peck <bpeck@redhat.com> - 4.3.5-3
+- Enable airplay2 support
+
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.3.5-2
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.5-1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -28,6 +28,8 @@ BuildRequires:  mvn(org.ow2.asm:asm)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
 BuildRequires:  mvn(org.slf4j:slf4j-simple)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 1.13.2-19
 
 %description
 Analyzes the dependencies of a project for undeclared or unused artifacts.
@@ -37,25 +39,16 @@ not detected (constants, annotations with source-only retention, links in
 javadoc) which can lead to wrong result if they are the only use of a
 dependency.
 
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
-
 %prep
 %autosetup -p1 -C
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
 
 %files -f .mfiles
-%license LICENSE NOTICE
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE NOTICE
 
 %changelog

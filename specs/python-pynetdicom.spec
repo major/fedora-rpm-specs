@@ -57,6 +57,9 @@ Some commands based on pynetdicom
 %forgeautosetup -p1
 %py3_shebang_fix .
 
+# allow newer poetry-core
+sed -i "s/poetry-core >=1.8,<2/poetry-core >=1.8,<3/" pyproject.toml
+
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -68,7 +71,8 @@ Some commands based on pynetdicom
 %pyproject_save_files -L pynetdicom
 # pynetdicom 2.1.1 installs LICENSE file into site-packages/
 # https://github.com/pydicom/pynetdicom/issues/966
-rm %{buildroot}%{python3_sitelib}/LICENCE
+# this file is wrongly copied with poetry-core<2
+rm -f %{buildroot}%{python3_sitelib}/LICENCE
 
 # Remove commands already provided by dcmtk with the same name
 # https://github.com/pydicom/pynetdicom/issues/968

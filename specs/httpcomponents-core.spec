@@ -25,6 +25,8 @@ BuildRequires:  mvn(org.apache.httpcomponents:httpcomponents-parent:pom:)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 BuildRequires:  mvn(org.mockito:mockito-core)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 4.4.16-25
 
 %description
 HttpCore is a set of low level HTTP transport components that can be
@@ -38,12 +40,6 @@ latency scenarios, whereas the non-blocking model may be more
 appropriate for high latency scenarios where raw data throughput is
 less important than the ability to handle thousands of simultaneous
 HTTP connections in a resource efficient manner.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -97,7 +93,7 @@ sed -i '/testRequestTargetHostFallback()/i@org.junit.Ignore' httpcore/src/test/j
 rm httpcore-nio/src/test/java/org/apache/http/impl/nio/TestContentChannel.java
 
 %build
-%mvn_build -- -Dmaven.compiler.release=8
+%mvn_build -j -- -Dmaven.compiler.release=8
 
 %install
 %mvn_install
@@ -105,8 +101,6 @@ rm httpcore-nio/src/test/java/org/apache/http/impl/nio/TestContentChannel.java
 %files -f .mfiles
 %license LICENSE.txt NOTICE.txt
 %doc README.txt RELEASE_NOTES.txt
-
-%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

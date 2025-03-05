@@ -17,6 +17,8 @@ BuildRequires:  javapackages-bootstrap
 BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 1.0.5-8
 # Remove in Fedora 45
 Obsoletes:      atinject < 1.0.5-14
 Provides:       atinject = %{version}-%{release}
@@ -28,12 +30,6 @@ maintainability compared to traditional approaches such as
 constructors, factories, and service locators (e.g., JNDI).
 This process, known as dependency injection, is beneficial
 to most nontrivial applications.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -47,15 +43,13 @@ API documentation for %{name}.
 %mvn_file : jakarta-inject1.0 atinject
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
 
 %files -f .mfiles
 %license LICENSE.txt NOTICE.md
-
-%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

@@ -1,5 +1,5 @@
 Name:           git-cola
-Version:        4.11.0
+Version:        4.12.0
 Release:        %autorelease
 Summary:        A sleek and powerful git GUI
 
@@ -17,6 +17,11 @@ BuildRequires:  libappstream-glib
 BuildRequires:  rsync
 BuildRequires:  python%{python3_pkgversion}-sphinx
 BuildRequires:  make
+
+# Test dependencies:
+BuildRequires:  python%{python3_pkgversion}dist(pytest)
+BuildRequires:  python%{python3_pkgversion}-pyqt6
+BuildRequires:  python-unversioned-command
 
 Requires:       python%{python3_pkgversion}-pyqt6
 Requires:       git
@@ -67,6 +72,7 @@ make DESTDIR=%{buildroot} prefix=%{_prefix} %{makeopts} \
 
 
 %check
+%pytest test
 desktop-file-validate %{buildroot}%{_datadir}/applications/git-cola-folder-handler.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/git-cola.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/git-dag.desktop

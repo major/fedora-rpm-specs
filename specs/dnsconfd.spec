@@ -19,7 +19,6 @@ BuildRequires:  python3-rpm-macros
 BuildRequires:  python3-pip
 BuildRequires:  systemd
 BuildRequires:  systemd-rpm-macros
-%{?sysusers_requires_compat}
 
 Requires:  (%{name}-selinux if selinux-policy-%{selinuxtype})
 Requires:  python3-gobject-base
@@ -27,6 +26,7 @@ Requires:  python3-pyyaml
 Requires:  dbus-common
 Requires:  %{name}-cache
 Suggests:  %{name}-unbound
+Requires:  (%{name}-unbound = %{version}-%{release} if %{name}-unbound)
 
 %?python_enable_dependency_generator
 
@@ -101,7 +101,9 @@ install -m 0644 -p distribution/dnsconfd.service.d-unbound-anchor.conf %{buildro
 
 install -m 0644 -p distribution/unbound-dnsconfd.conf %{buildroot}%{_sysconfdir}/unbound/conf.d/unbound.conf
 
+%if "%{_bindir}" != "%{_sbindir}"
 mv %{buildroot}%{_bindir}/dnsconfd %{buildroot}%{_sbindir}/dnsconfd
+%endif
 
 install -D -m 0644 %{modulename}.pp.bz2 %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}/%{modulename}.pp.bz2
 
@@ -127,12 +129,6 @@ fi
 %posttrans selinux
 %selinux_relabel_post -s %{selinuxtype}
 
-%pre
-%sysusers_create_compat %{SOURCE1}
-
-%pre unbound
-%sysusers_create_compat %{SOURCE1}
-
 %post
 %systemd_post %{name}.service
 
@@ -153,11 +149,11 @@ fi
 %{_unitdir}/dnsconfd.service
 %{_mandir}/man8/dnsconfd*.8*
 %{_mandir}/man5/dnsconfd.conf.5*
-%ghost %{_sysusersdir}/dnsconfd.conf
+%{_sysusersdir}/dnsconfd.conf
+%{_tmpfilesdir}/dnsconfd.conf
 %doc README.md docs/com.redhat.dnsconfd.md
 %{_datadir}/polkit-1/rules.d/dnsconfd.rules
 %dir %attr(755,dnsconfd,dnsconfd) %{_rundir}/dnsconfd
-%{_tmpfilesdir}/%{name}.conf
 
 %files selinux
 %{_datadir}/selinux/packages/%{selinuxtype}/%{modulename}.pp.*
@@ -168,6 +164,7 @@ fi
 %{_unitdir}/unbound-anchor.service.d/dnsconfd.conf
 %config(noreplace) %attr(644,unbound,unbound) %{_sysconfdir}/unbound/conf.d/unbound.conf
 %attr(644,dnsconfd,dnsconfd) %{_rundir}/dnsconfd/unbound.conf
+%{_sysusersdir}/dnsconfd.conf
 %{_tmpfilesdir}/dnsconfd-unbound.conf
 
 %changelog

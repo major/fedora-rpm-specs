@@ -1,4 +1,4 @@
-%global commit fab391255297c437fb84676104508a8b489fa8bf
+%global commit 546fed9a83b84501d54f471862ded3855b2d579b
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Summary: Real-time Game Server Status for FPS game servers
@@ -8,6 +8,7 @@ Release: %autorelease
 License: Artistic-2.0
 URL: https://github.com/multiplay/qstat
 Source0: https://github.com/multiplay/qstat/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Patch0: qstat-2.17-c23.patch
 BuildRequires: make
 BuildRequires: autoconf, automake, libtool
 
@@ -18,6 +19,7 @@ person shooter variety (Quake, Half-Life, etc)
 
 %prep
 %setup -q -n %{name}-%{commit}
+%patch -P0 -p1 -b .c23
 sed -i 's/m4_esyscmd\(.*\),/%{version},/g' configure.ac
 autoreconf -ifv
 

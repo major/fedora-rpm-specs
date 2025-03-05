@@ -30,14 +30,18 @@ make %{?_smp_mflags}
 %install
 make DESTDIR=%{buildroot} INSTALL='install -p' install
 
+%if "%{_sbindir}" != "%{_bindir}"
 mkdir -p %{buildroot}%{_bindir}
 # The $(...) computes /usr/bin => ../../
 ln -s $(echo %{_bindir} |sed 's,/[^/]\+,/..,g; s,^/,,')%{_sbindir}/tmpwatch \
    %{buildroot}%{_bindir}/tmpwatch
+%endif
 
 %files
 %doc AUTHORS COPYING ChangeLog NEWS README
+%if "%{_sbindir}" != "%{_bindir}"
 %{_bindir}/tmpwatch
+%endif
 %{_sbindir}/tmpwatch
 %{_mandir}/man8/tmpwatch.8*
 

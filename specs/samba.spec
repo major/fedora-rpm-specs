@@ -107,7 +107,7 @@
 %bcond etcd_mutex 0
 %endif
 
-%ifarch aarch64 ppc64le s390x x86_64
+%ifarch aarch64 ppc64le s390x x86_64 riscv64
 %bcond lmdb 1
 %else
 %bcond lmdb 0
@@ -315,7 +315,7 @@ BuildRequires: zlib-devel >= 1.2.3
 
 BuildRequires: pkgconfig(libsystemd)
 
-%ifnarch i686 riscv64
+%ifnarch i686
 %if 0%{?fedora} >= 37
 BuildRequires: mold
 %endif

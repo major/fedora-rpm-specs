@@ -21,17 +21,13 @@ BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 5.0.0-37
 Provides:       glassfish-servlet-api = %{version}-%{release}
 
 %description
 Jakarta Servlet defines a server-side API for handling HTTP requests
 and responses.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -68,7 +64,7 @@ sed -i -e 's/jakarta\./javax./g' $(find api/src/main/java/javax -name *.java)
 %mvn_file :{*} %{name}/@1 glassfish-servlet-api
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
@@ -76,8 +72,6 @@ sed -i -e 's/jakarta\./javax./g' $(find api/src/main/java/javax -name *.java)
 %files -f .mfiles
 %license LICENSE.md NOTICE.md
 %doc README.md
-
-%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

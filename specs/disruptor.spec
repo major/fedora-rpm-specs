@@ -19,15 +19,11 @@ BuildRequires:  maven-local
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 3.4.4-29
 
 %description
 A High Performance Inter-Thread Messaging Library.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -70,16 +66,13 @@ rm -r src/test/java/com/lmax/disruptor/dsl/DisruptorTest.java
 
 %build
 
-%mvn_build -- -Dproject.build.sourceEncoding=UTF-8 -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
+%mvn_build -j -- -Dproject.build.sourceEncoding=UTF-8 -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
 
 %install
 %mvn_install
 
 %files -f .mfiles
 %doc README.md
-%license LICENCE.txt
-
-%files javadoc -f .mfiles-javadoc
 %license LICENCE.txt
 
 %changelog

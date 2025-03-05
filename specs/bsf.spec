@@ -18,6 +18,8 @@ BuildRequires:  ant
 BuildRequires:  apache-commons-logging
 BuildRequires:  apache-parent
 BuildRequires:  xalan-j2
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 2.4.0-63
 
 %description
 Bean Scripting Framework (BSF) is a set of Java classes which provides
@@ -45,12 +47,6 @@ engines:
 * JRuby
 * JudoScript
 
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
-
 %prep
 %autosetup -p1 -C
 find -name \*.jar -delete
@@ -60,18 +56,16 @@ find -name \*.jar -delete
 
 %build
 build-jar-repository -s lib apache-commons-logging xalan-j2
-%ant -Dsource.level=1.8 -Dant.build.javac.target=1.8 jar javadocs
+%ant -Dsource.level=1.8 -Dant.build.javac.target=1.8 jar
 
 %mvn_artifact %{SOURCE1} build/lib/%{name}.jar
 
 %install
-%mvn_install -J build/javadocs
+%mvn_install
 
 %files -f .mfiles
 %license LICENSE.txt NOTICE.txt
 %doc AUTHORS.txt CHANGES.txt README.txt TODO.txt RELEASE-NOTE.txt
-
-%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

@@ -23,6 +23,8 @@ BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.commons:commons-parent:pom:)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 3.2.2-57
 
 %description
 The introduction of the Collections API by Sun in JDK 1.2 has been a
@@ -46,12 +48,6 @@ Requires:       %{name} = %{version}-%{release}
 %description testframework
 %{summary}.
 
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
-
 %prep
 %autosetup -p1 -C
 
@@ -70,7 +66,7 @@ sed -i 's/\r//' LICENSE.txt PROPOSAL.html README.txt NOTICE.txt
 %mvn_file ':commons-collections{,-testframework}' %{name}@1 commons-collections@1
 
 %build
-%mvn_build -- -Dcommons.packageId=collections
+%mvn_build -j -- -Dcommons.packageId=collections
 
 %install
 %mvn_artifact commons-collections:commons-collections-testframework:%{version} target/commons-collections-testframework-%{version}.jar
@@ -81,9 +77,6 @@ sed -i 's/\r//' LICENSE.txt PROPOSAL.html README.txt NOTICE.txt
 %license LICENSE.txt NOTICE.txt
 
 %files testframework -f .mfiles-testframework
-
-%files javadoc -f .mfiles-javadoc
-%license LICENSE.txt NOTICE.txt
 
 %changelog
 %autochangelog

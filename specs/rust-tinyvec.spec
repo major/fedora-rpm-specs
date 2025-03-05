@@ -5,7 +5,7 @@
 %global crate tinyvec
 
 Name:           rust-tinyvec
-Version:        1.8.1
+Version:        1.9.0
 Release:        %autorelease
 Summary:        100% safe vec-like data structures
 
@@ -13,6 +13,7 @@ License:        Zlib OR Apache-2.0 OR MIT
 URL:            https://crates.io/crates/tinyvec
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * drop unused support for borsh and generic-array
 # * drop unused debugger_visualizer support
 # * drop unused, benchmark-only criterion dev-dependency
 Patch:          tinyvec-fix-metadata.diff

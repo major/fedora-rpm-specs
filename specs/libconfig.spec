@@ -3,7 +3,7 @@
 Name:                   libconfig
 Summary:                C/C++ configuration file library
 Version:                1.7.3
-Release:                10%{?dist}
+Release:                11%{?dist}
 # lib/grammar.* are GPL-3.0-or-later WITH Bison-exception-2.2
 License:                LGPL-2.1-or-later AND GPL-3.0-or-later WITH Bison-exception-2.2
 URL:                    http://www.hyperrealm.com/libconfig/
@@ -12,6 +12,9 @@ Source0:                https://hyperrealm.github.io/%name/dist/%name-%version.t
 Source1:                libconfig-%version.pdf
 # Helper script to generate Source1 (locally)
 Source2:                generate-pdf.sh
+
+# Backport of https://github.com/hyperrealm/libconfig/pull/249
+Patch0:                 gcc15.patch
 
 BuildRequires:          gcc, gcc-c++
 BuildRequires:          texinfo
@@ -36,6 +39,7 @@ libconfig.
 
 %prep
 %setup -q
+%patch -P0 -p1 -b .gcc15
 iconv -f iso-8859-1 -t utf-8 -o AUTHORS{.utf8,}
 mv AUTHORS{.utf8,}
 
@@ -80,6 +84,10 @@ make check
 
 
 %changelog
+* Mon Mar  3 2025 Tom Callaway <spot@fedoraproject.org> - 1.7.3-11
+- merge pull request from yselkowitz (minus the autosetup, i like to be able to rediff patches on old things like this)
+- applies upstream commit that resolves FTBFS
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

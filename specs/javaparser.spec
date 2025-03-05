@@ -31,18 +31,14 @@ BuildRequires:  mvn(net.java.dev.javacc:javacc)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:javacc-maven-plugin)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 3.26.3-4
 
 %description
 This package contains a Java 1 to 13 Parser with AST generation and
 visitor support. The AST records the source code structure, javadoc
 and comments. It is also possible to change the AST nodes or create new
 ones to modify the source code.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -96,16 +92,13 @@ sed -i \
 %pom_disable_module javaparser-core-serialization
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
 
 %files -f .mfiles
 %doc readme.md changelog.md
-%license LICENSE LICENSE.APACHE LICENSE.GPL LICENSE.LGPL
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE LICENSE.APACHE LICENSE.GPL LICENSE.LGPL
 
 %changelog

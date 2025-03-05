@@ -24,29 +24,22 @@ BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
 BuildRequires:  mvn(org.slf4j:slf4j-simple)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 3.1.0-19
 
 %description
 Provides a component for plugins to easily resolve project dependencies.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
 
 %files -f .mfiles
-%license LICENSE NOTICE
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE NOTICE
 
 %changelog

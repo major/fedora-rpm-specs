@@ -26,6 +26,8 @@ BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.plexus)
 BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 2.15.0-11
 
 %description
 Plexus Compiler adds support for using various compilers from a
@@ -47,13 +49,6 @@ Summary:        Maven POM files for %{name}
 
 %description pom
 This package provides %{summary}.
-
-%package javadoc
-Summary:        API documentation for %{name}
-License:        MIT AND Apache-2.0 AND Apache-1.1
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -92,7 +87,7 @@ cp %{SOURCE2} LICENSE.MIT
 
 %build
 # Tests are skipped because of unavailable plexus-compiler-test artifact
-%mvn_build -f
+%mvn_build -j -f
 
 %install
 %mvn_install
@@ -103,9 +98,6 @@ cp %{SOURCE2} LICENSE.MIT
 %files extras -f .mfiles-extras
 
 %files pom -f .mfiles-pom
-
-%files javadoc -f .mfiles-javadoc
-%license LICENSE LICENSE.MIT
 
 %changelog
 %autochangelog

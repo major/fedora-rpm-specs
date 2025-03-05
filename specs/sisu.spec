@@ -43,6 +43,8 @@ BuildRequires:  mvn(org.slf4j:slf4j-nop)
 BuildRequires:  mvn(org.sonatype.plexus:plexus-build-api)
 BuildRequires:  mvn(org.testng:testng)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 0.9.0~M3-14
 Provides:       %{name}-inject = %{epoch}:%{version}-%{release}
 Provides:       %{name}-plexus = %{epoch}:%{version}-%{release}
 Provides:       bundled(objectweb-asm)
@@ -59,12 +61,6 @@ Obsoletes:      sisu-mojos < 0.9.0~M3
 %description maven-plugin
 The Sisu Plugin for Maven provides mojos to generate
 META-INF/sisu/javax.inject.Named index files for the Sisu container.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -88,7 +84,7 @@ API documentation for %{name}.
 %mvn_alias :org.eclipse.sisu.plexus org.sonatype.sisu:sisu-inject-plexus org.codehaus.plexus:plexus-container-default
 
 %build
-%mvn_build -f
+%mvn_build -j -f
 
 %install
 %mvn_install
@@ -98,8 +94,6 @@ API documentation for %{name}.
 %license LICENSE.txt
 
 %files maven-plugin -f .mfiles-maven-plugin
-
-%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

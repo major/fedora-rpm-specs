@@ -20,16 +20,12 @@ BuildRequires:  javapackages-bootstrap
 BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 4.2.2-6
 
 %description
 Stax2 API is an extension to standard Java Streaming API for XML
 (StAX) added in JDK 6.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-This package contains the API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -39,16 +35,13 @@ This package contains the API documentation for %{name}.
 %pom_remove_plugin :moditect-maven-plugin
 
 %build
-%mvn_build -- -Djavac.src.version=8 -Djavac.target.version=8
+%mvn_build -j -- -Djavac.src.version=8 -Djavac.target.version=8
 
 %install
 %mvn_install
 
 %files -f .mfiles
 %doc README.md
-%license LICENSE
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE
 
 %changelog

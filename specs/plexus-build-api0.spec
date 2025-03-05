@@ -24,15 +24,11 @@ BuildRequires:  mvn(org.codehaus.plexus:plexus-component-metadata)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-container-default)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 0.0.7-52
 
 %description
 Plexus Build API
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -49,15 +45,12 @@ cp -p %{SOURCE1} .
 %mvn_package :
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
 
 %files -f .mfiles
-%license LICENSE-2.0.txt
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE-2.0.txt
 
 %changelog

@@ -23,18 +23,14 @@ BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.codehaus.plexus:plexus:pom:)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 1.27-13
 
 %description
 Plexus interpolator is the outgrowth of multiple iterations of development
 focused on providing a more modular, flexible interpolation framework for
 the expression language style commonly seen in Maven, Plexus, and other
 related projects.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -44,14 +40,12 @@ API documentation for %{name}.
 
 %build
 %mvn_file : plexus/interpolation
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
 
 %files -f .mfiles
-
-%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

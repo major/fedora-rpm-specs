@@ -20,6 +20,8 @@ Patch5: pnm2ppa-ldflags.patch
 # match NOPRINTER enum with its position in global printer table
 # fixes crash on aarch64
 Patch6: pnm2ppa-aarch-help-crash.patch
+# GCC 15 defaults to C23
+Patch7: pnm2ppa-c23.patch
 # pbm2ppa, pnm2ppa - GPL-2.0-or-later
 # pdq/* - GPL-2.0, but not shipped, thus not mentioned in license tag
 License: GPL-2.0-or-later
@@ -55,6 +57,7 @@ Install pnm2ppa if you need to print to a PPA printer.
 %patch -P 4 -p1 -b .gcc10
 %patch -P 5 -p1 -b .ldflags
 %patch -P 6 -p1 -b .help-aarch-crash
+%patch -P 7 -p1 -b .c23
 
 for file in docs/en/LICENSE pbm2ppa-0.8.6/LICENSE; do
  sed "s|\r||g" $file > $file.new && \
@@ -114,6 +117,9 @@ done
 %config(noreplace) %{_sysconfdir}/pbm2ppa.conf
 
 %changelog
+* Mon Mar 03 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:1.13-6
+- FTBFS with GCC 15 (fedora#2341084)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.13-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

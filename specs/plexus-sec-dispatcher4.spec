@@ -25,15 +25,11 @@ BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
 BuildRequires:  mvn(org.slf4j:slf4j-api:2.0.16)
 BuildRequires:  mvn(org.slf4j:slf4j-simple:2.0.16)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 4.0.3-3
 
 %description
 Plexus Security Dispatcher Component
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -41,15 +37,12 @@ cp %{SOURCE1} .
 %mvn_compat_version : 4.0.3
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
 
 %files -f .mfiles
-%license LICENSE-2.0.txt
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE-2.0.txt
 
 %changelog

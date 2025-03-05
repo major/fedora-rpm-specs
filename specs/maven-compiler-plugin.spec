@@ -35,15 +35,11 @@ BuildRequires:  mvn(org.codehaus.plexus:plexus-xml)
 BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
 BuildRequires:  mvn(org.mockito:mockito-core)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 3.12.1-13
 
 %description
 The Compiler Plugin is used to compile the sources of your project.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -54,15 +50,12 @@ sed -i 's|localRepository,\ "junit/junit/3.8.1/junit-3.8.1.jar"|"%(find-jar juni
 %build
 # JAVA_HOME must be exported because unit tests make use of it for locating javac executable
 export JAVA_HOME=%{java_home}
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
 
 %files -f .mfiles
-%license LICENSE NOTICE
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE NOTICE
 
 %changelog

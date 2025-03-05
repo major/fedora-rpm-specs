@@ -20,7 +20,7 @@
 %global source_directory 1.22-stable
 
 Name:           libnbd
-Version:        1.22.0
+Version:        1.22.1
 Release:        1%{?dist}
 Summary:        NBD client library in userspace
 
@@ -376,6 +376,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Mon Mar 03 2025 Richard W.M. Jones <rjones@redhat.com> - 1.22.1-1
+- New upstream stable version 1.22.1
+
 * Tue Feb 11 2025 Richard W.M. Jones <rjones@redhat.com> - 1.22.0-1
 - New upstream stable version 1.22.0
 

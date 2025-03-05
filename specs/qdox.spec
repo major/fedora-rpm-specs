@@ -27,6 +27,8 @@ BuildRequires:  mvn(org.assertj:assertj-core)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
 BuildRequires:  mvn(org.mockito:mockito-core)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 2.1.0-15
 
 %description
 QDox is a high speed, small footprint parser
@@ -34,12 +36,6 @@ for extracting class/interface/method definitions
 from source files complete with JavaDoc @tags.
 It is designed to be used by active code
 generators or documentation tools.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -73,7 +69,7 @@ jflex -d src/main/java/com/thoughtworks/qdox/parser/impl src/grammar/commentlexe
 )
 
 # Build artifact
-%mvn_build -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
+%mvn_build -j -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
 
 # Inject OSGi manifests
 %jar ufm target/%{name}-%{version}.jar %{SOURCE1}
@@ -84,9 +80,6 @@ jflex -d src/main/java/com/thoughtworks/qdox/parser/impl src/grammar/commentlexe
 %files -f .mfiles
 %license LICENSE.txt
 %doc README.md
-
-%files javadoc -f .mfiles-javadoc
-%license LICENSE.txt
 
 %changelog
 %autochangelog

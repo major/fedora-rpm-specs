@@ -52,6 +52,8 @@ BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
 # xmvn-builddep misses this:
 BuildRequires:  mvn(org.apache:apache-jar-resource-bundle)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 3.4-15
 
 %description
 Objenesis is a small Java library that serves one purpose: to instantiate 
@@ -72,12 +74,6 @@ when this is useful:
   needing to worry about the super() constructor.
 * Container Frameworks - Objects can be dynamically instantiated in 
   non-standard ways.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -101,15 +97,12 @@ API documentation for %{name}.
 rm tck/src/test/java/org/objenesis/tck/OsgiTest.java
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
 
 %files -f .mfiles
-%license LICENSE.txt
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE.txt
 
 %changelog

@@ -25,6 +25,8 @@ BuildRequires:  mvn(org.apache.ant:ant)
 %if %{without bootstrap}
 BuildRequires:  jflex
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 1.7.0-44
 
 %description
 JFlex is a lexical analyzer generator (also known as scanner
@@ -36,12 +38,6 @@ the LALR parser generator CUP by Scott Hudson, and the Java
 modification of Berkeley Yacc BYacc/J by Bob Jamison.  It can also be
 used together with other parser generators like ANTLR or as a
 standalone tool.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -73,7 +69,7 @@ sed -i /%%inputstreamctor/d src/main/jflex/LexScan.flex
 %{?jpb_env}
 cup -parser LexParse -interface -destdir src/main/java src/main/cup/LexParse.cup
 jflex -d src/main/java/jflex --skel src/main/jflex/skeleton.nested src/main/jflex/LexScan.flex
-%mvn_build -- -P\!error-prone -Djflex.jdk.version=1.8
+%mvn_build -j -- -P\!error-prone -Djflex.jdk.version=1.8
 
 %install
 %mvn_install
@@ -90,9 +86,6 @@ install -p -m 644 %{SOURCE4} %{buildroot}%{_mandir}/man1
 %license COPYRIGHT
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
-
-%files javadoc -f .mfiles-javadoc
-%license COPYRIGHT
 
 %changelog
 %autochangelog

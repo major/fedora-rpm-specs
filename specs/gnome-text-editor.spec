@@ -8,8 +8,8 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:		gnome-text-editor
-Version:	47.2
-Release:	2%{?dist}
+Version:	47.3
+Release:	1%{?dist}
 Summary:	A simple text editor for the GNOME desktop
 
 # Code is GPL-3.0-or-later and the Appdata is CC0-1.0
@@ -79,6 +79,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.TextEditor.
 
 
 %changelog
+* Mon Mar 03 2025 nmontero <nmontero@redhat.com> - 47.3-1
+- Update to 47.3
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 47.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

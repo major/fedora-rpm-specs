@@ -21,6 +21,8 @@ BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.hamcrest:hamcrest-all)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 4.0.2-15
 
 %description
 This project aims to offer some concurrent data structures
@@ -33,12 +35,6 @@ currently missing from the JDK:
 ° Single Writer Map/Set implementations
 ° Low contention stats counters
 ° Executor
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -80,16 +76,13 @@ rm -r jctools-core/src/test/java/org/jctools/maps/linearizability_test/
 
 %build
 # Tests time out in Koji
-%mvn_build -s -f
+%mvn_build -j -s -f
 
 %install
 %mvn_install
 
 %files -f .mfiles-jctools-core
 %doc README.md
-%license LICENSE
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE
 
 %changelog

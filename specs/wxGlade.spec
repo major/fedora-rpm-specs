@@ -1,6 +1,6 @@
 Name:           wxGlade
-Version:        1.0.5
-Release:        8%{?dist}
+Version:        1.1.1
+Release:        1%{?dist}
 Summary:        A wxWidgets/wxPython/wxPerl GUI designer
 License:        MIT
 URL:            http://wxglade.sourceforge.net
@@ -50,6 +50,10 @@ install -pm 644 %{S:2} %{buildroot}%{_datadir}/icons/hicolor/32x32/apps
 %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Mar 03 2025 Sérgio Basto <sergio@serjux.com> - 1.1.1-1
+- Update wxGlade to 1.1.1
+- Resolves: rhbz#2251832
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

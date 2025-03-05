@@ -28,19 +28,14 @@ BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-params)
 BuildRequires:  mvn(org.moditect:moditect-maven-plugin)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 2.4.1-16
 
 %description
 Jansi is a small java library that allows you to use ANSI escape sequences
 in your Java console applications. It implements ANSI support on platforms
 which don't support it like Windows and provides graceful degradation for
 when output is being sent to output devices which cannot support ANSI sequences.
-
-%package javadoc
-Summary:        API documentation for %{name}
-BuildArch:      noarch
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -76,7 +71,7 @@ $CC $CFLAGS $LDFLAGS -shared -o libjansi.so *.o -lutil
 cd -
 
 # Build the Java artifacts
-%mvn_build -- -Dlibrary.jansi.path=$PWD/src/main/native
+%mvn_build -j -- -Dlibrary.jansi.path=$PWD/src/main/native
 
 %install
 # Install the native artifact
@@ -90,9 +85,6 @@ cp -p src/main/native/libjansi.so %{buildroot}%{_prefix}/lib/%{name}
 %license license.txt
 %doc readme.md changelog.md
 %{_prefix}/lib/%{name}/
-
-%files javadoc -f .mfiles-javadoc
-%license license.txt
 
 %changelog
 %autochangelog

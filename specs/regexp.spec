@@ -16,6 +16,8 @@ Patch:          jakarta-%{name}-attach-osgi-manifest.patch
 BuildRequires:  javapackages-local
 BuildRequires:  ant
 Requires:       java-headless
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 1.5-57
 Provides:       deprecated()
 
 %description
@@ -25,13 +27,6 @@ He originally wrote this software back in 1996 and it has stood up quite
 well to the test of time.
 It includes complete Javadoc documentation as well as a simple Applet
 for visual debugging and testing suite for compatibility.
-
-%package javadoc
-Summary:        API documentation for %{name}
-Provides:       deprecated()
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -54,20 +49,17 @@ EOF
 
 %build
 mkdir lib
-%ant -Djakarta-site2.dir=. -Dant.build.javac.source=1.8 -Dant.build.javac.target=1.8 jar javadocs
+%ant -Djakarta-site2.dir=. -Dant.build.javac.source=1.8 -Dant.build.javac.target=1.8 jar
 
 %mvn_artifact pom.xml build/*.jar
 
 %install
-%mvn_install -J docs/api
+%mvn_install
 
 %check
 %ant -Djakarta-site2.dir=. test
 
 %files -f .mfiles
-%license LICENSE
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE
 
 %changelog

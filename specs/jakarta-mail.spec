@@ -20,16 +20,12 @@ BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 2.1.3-11
 
 %description
 Jakarta Mail defines a platform-independent and protocol-independent
 framework to build mail and messaging applications.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -47,7 +43,7 @@ popd
 
 %build
 pushd api
-%mvn_build
+%mvn_build -j
 popd
 
 %install
@@ -58,9 +54,6 @@ popd
 %files -f api/.mfiles
 %license LICENSE.md NOTICE.md
 %doc README.md
-
-%files javadoc -f api/.mfiles-javadoc
-%license LICENSE.md NOTICE.md
 
 %changelog
 %autochangelog

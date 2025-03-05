@@ -21,18 +21,14 @@ BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 2.1.3-13
 
 %description
 Jakarta Activation defines a set of standard services to: determine
 the MIME type of an arbitrary piece of data; encapsulate access to it;
 discover the operations available on it; and instantiate the
 appropriate bean to perform the operation(s).
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -49,7 +45,7 @@ popd
 
 %build
 pushd api
-%mvn_build
+%mvn_build -j
 popd
 
 %install
@@ -59,9 +55,6 @@ popd
 
 %files -f api/.mfiles
 %doc README.md
-%license LICENSE.md NOTICE.md
-
-%files javadoc -f api/.mfiles-javadoc
 %license LICENSE.md NOTICE.md
 
 %changelog

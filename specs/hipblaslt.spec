@@ -49,7 +49,7 @@
 
 Name:           %{hipblaslt_name}
 Version:        %{rocm_version}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        ROCm general matrix operations beyond BLAS
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -61,6 +61,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  git
 BuildRequires:  hipblas-devel
 BuildRequires:  hipcc
+BuildRequires:  libzstd-devel
 BuildRequires:  rocblas-devel
 BuildRequires:  rocminfo
 BuildRequires:  rocm-cmake
@@ -71,26 +72,32 @@ BuildRequires:  rocm-llvm-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
 BuildRequires:  rocm-smi
-
-%if 0%{?suse_version}
-BuildRequires:  msgpack-cxx-devel
-%else
-BuildRequires:  msgpack-devel
-%endif
+BuildRequires:  zlib-devel
 
 # For tensilelite
 %if 0%{?suse_version}
+BuildRequires:  msgpack-cxx-devel
 BuildRequires:  python-rpm-macros
 BuildRequires:  %{python_module joblib}
 BuildRequires:  %{python_module msgpack}
 BuildRequires:  %{python_module PyYAML}
 BuildRequires:  %{python_module setuptools}
+%global tensile_verbose 2
+%global tensile_library_format msgpack
 %else
 BuildRequires:  python3-devel
+BuildRequires:  python3dist(setuptools)
+BuildRequires:  python3dist(pyyaml)
+%if 0%{?rhel}
+%global tensile_verbose 2
+%global tensile_library_format yaml
+%else
+%global tensile_verbose 1
+%global tensile_library_format msgpack
+BuildRequires:  msgpack-devel
 BuildRequires:  python3dist(joblib)
 BuildRequires:  python3dist(msgpack)
-BuildRequires:  python3dist(pyyaml)
-BuildRequires:  python3dist(setuptools)
+%endif
 %endif
 
 %if %{with test}
@@ -182,11 +189,14 @@ sed -i 's@#!/usr/bin/env python3@#!/usr/bin/python3.11@' tensilelite/Tensile/bin
 sed -i 's@python3@python3.11@'  clients/common/hipblaslt_gentest.py cmake/virtualenv.cmake tensilelite/Tensile/Ops/gen_assembly.sh 
 %endif
 
+sed -i 's@find_package(LLVM REQUIRED CONFIG)@find_package(LLVM REQUIRED CONFIG PATHS "%{rocmllvm_cmakedir}")@' tensilelite/Tensile/Source/lib/CMakeLists.txt
+
 %build
 
 # Do a manual install instead of cmake's virtualenv
 cd tensilelite
 TL=$PWD
+
 %python_exec setup.py install --root $TL
 cd ..
 
@@ -227,7 +237,8 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
        -DROCM_SYMLINK_LIBS=OFF \
        -DBUILD_WITH_TENSILE=ON \
        -DTensile_COMPILER=hipcc \
-       -DTensile_LIBRARY_FORMAT=msgpack \
+       -DTensile_LIBRARY_FORMAT=%{tensile_library_format} \
+       -DTensile_VERBOSE=%{tensile_verbose} \
        -DVIRTUALENV_BIN_DIR=%{_bindir} \
 %if 0%{?sle_version} == 150600
        -DPYTHON_EXECUTABLE:FILEPATH=python3.11 \
@@ -268,6 +279,9 @@ fi
 %endif
 
 %changelog
+* Mon Mar 3 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-10
+- Add tensile format and verbose args similar to roblas
+
 * Sun Mar 2 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-9
 - format consistent with other rocm packages
 

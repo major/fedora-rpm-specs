@@ -17,9 +17,6 @@ ExclusiveArch:  %{java_arches} noarch
 Source0:        http://mirror.ox.ac.uk/sites/rsync.apache.org/xerces/j/source/Xerces-J-src.%{version}.tar.gz
 # Custom javac ant task used by the build
 Source3:        https://svn.apache.org/repos/asf/xerces/java/tags/Xerces-J_%{cvs_version}/tools/src/XJavac.java
-# Custom doclet tags used in javadocs
-Source5:        https://svn.apache.org/repos/asf/xerces/java/tags/Xerces-J_%{cvs_version}/tools/src/ExperimentalTaglet.java
-Source6:        https://svn.apache.org/repos/asf/xerces/java/tags/Xerces-J_%{cvs_version}/tools/src/InternalTaglet.java
 Source7:        %{name}-pom.xml
 Source11:       %{name}-version.1
 Source12:       %{name}-constants.1
@@ -36,6 +33,8 @@ BuildRequires:  xml-commons-apis >= 1.4.01
 BuildRequires:  xml-commons-resolver >= 1.2
 Requires:       xml-commons-apis >= 1.4.01
 Requires:       xml-commons-resolver >= 1.2
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 2.12.2-32
 Provides:       %{name}-scripts = %{version}-%{release}
 Provides:       jaxp_parser_impl = 1.4
 
@@ -66,12 +65,6 @@ also handles name spaces according to the XML Namespaces 1.1 Recommendation,
 and will correctly serialize XML 1.1 documents if the DOM level 3 load/save
 APIs are in use.
 
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
-
 %package demo
 Summary:        Demonstrations and samples for %{name}
 Requires:       %{name} = %{version}-%{release}
@@ -85,7 +78,7 @@ Requires:       %{name} = %{version}-%{release}
 # Copy the custom ant task into place
 mkdir -p tools/org/apache/xerces/util
 mkdir -p tools/bin
-cp -a %{SOURCE3} %{SOURCE5} %{SOURCE6} tools/org/apache/xerces/util
+cp -a %{SOURCE3} tools/org/apache/xerces/util
 
 # Make sure upstream hasn't sneaked in any jars we don't know about
 find . \( -name '*.class' -o -name '*.jar' \) -delete
@@ -115,24 +108,12 @@ popd
 export ANT_OPTS="-Xmx512m -Djava.awt.headless=true -Dbuild.sysclasspath=first -Ddisconnected=true"
 %ant -Djavac.source=1.8 -Djavac.target=1.8 \
     -Dbuild.compiler=modern \
-    clean jars javadocs
+    clean jars
 
 %mvn_artifact %{SOURCE7} build/xercesImpl.jar
 
 %install
 %mvn_install
-
-# javadoc
-mkdir -p %{buildroot}%{_javadocdir}/%{name}
-mkdir -p %{buildroot}%{_javadocdir}/%{name}/impl
-mkdir -p %{buildroot}%{_javadocdir}/%{name}/xs
-mkdir -p %{buildroot}%{_javadocdir}/%{name}/xni
-mkdir -p %{buildroot}%{_javadocdir}/%{name}/other
-
-cp -pr build/docs/javadocs/xerces2/* %{buildroot}%{_javadocdir}/%{name}/impl
-cp -pr build/docs/javadocs/xs/* %{buildroot}%{_javadocdir}/%{name}/xs
-cp -pr build/docs/javadocs/xni/* %{buildroot}%{_javadocdir}/%{name}/xni
-cp -pr build/docs/javadocs/other/* %{buildroot}%{_javadocdir}/%{name}/other
 
 # scripts
 %jpackage_script org.apache.xerces.impl.Version "" "" %{name} %{name}-version 1
@@ -152,9 +133,6 @@ cp -pr data %{buildroot}%{_datadir}/%{name}
 %doc LICENSE NOTICE README
 %{_bindir}/*
 %{_mandir}/*/*
-
-%files javadoc
-%{_javadocdir}/%{name}
 
 %files demo
 %{_datadir}/%{name}

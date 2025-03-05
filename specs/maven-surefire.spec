@@ -47,6 +47,8 @@ BuildRequires:  mvn(org.testng:testng::jdk15:)
 %endif
 # PpidChecker relies on /usr/bin/ps to check process uptime
 Requires:       procps-ng
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 3.2.2-19
 
 %description
 Surefire is a test framework project.
@@ -98,12 +100,6 @@ application. The Failsafe Plugin will not fail the build during the
 integration-test phase thus enabling the post-integration-test phase
 to execute.
 
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
-
 %prep
 %autosetup -p1 -C
 cp -p %{SOURCE2} .
@@ -150,7 +146,7 @@ find -name *.java -exec sed -i -e s/org.apache.maven.surefire.shared.utils/org.a
 %mvn_package ":*{junit,testng,failsafe-plugin}*"  @1
 %mvn_package ":*tests*" __noinstall
 # tests turned off because they need jmock
-%mvn_build -f
+%mvn_build -j -f
 
 %install
 %mvn_install
@@ -168,9 +164,6 @@ find -name *.java -exec sed -i -e s/org.apache.maven.surefire.shared.utils/org.a
 %files provider-testng -f .mfiles-testng
 
 %files -n maven-failsafe-plugin -f .mfiles-failsafe-plugin
-
-%files javadoc -f .mfiles-javadoc
-%license LICENSE NOTICE cpl-v10.html
 
 %changelog
 %autochangelog

@@ -43,6 +43,8 @@ BuildRequires:  mvn(org.slf4j:jcl-over-slf4j)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
 BuildRequires:  mvn(org.slf4j:slf4j-simple)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 1.9.22-10
 Provides:       maven-resolver-api = %{epoch}:%{version}-%{release}
 Provides:       maven-resolver-connector-basic = %{epoch}:%{version}-%{release}
 Provides:       maven-resolver-impl = %{epoch}:%{version}-%{release}
@@ -58,12 +60,6 @@ Apache Maven Artifact Resolver is a library for working with artifact
 repositories and dependency resolution. Maven Artifact Resolver deals with the
 specification of local repository, remote repository, developer workspaces,
 artifact transports and artifact resolution.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -113,15 +109,13 @@ done
 %mvn_file ':maven-resolver{*}' %{name}/maven-resolver@1 aether/aether@1
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
 
 %files -f .mfiles
 %license LICENSE NOTICE
-
-%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

@@ -6,8 +6,8 @@
 
 Summary: Experimental HTTP/2 client, server and proxy
 Name: nghttp2
-Version: 1.64.0
-Release: 3%{?dist}
+Version: 1.65.0
+Release: 1%{?dist}
 
 # Parts of ruby bindings are additionally under GPL-2.0-or-later, MIT and
 # HPND-Kevlin-Henney but they are NOT shipped.
@@ -17,8 +17,6 @@ URL: https://nghttp2.org/
 Source0: https://github.com/tatsuhiro-t/nghttp2/releases/download/v%{version}/nghttp2-%{version}.tar.xz
 Source1: https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz.asc
 Source2: tatsuhiro-t.pgp
-
-Patch:  0001-nghttp2-1.62.0-Remove-ATOMIC_UINT32_INIT.patch
 
 BuildRequires: CUnit-devel
 BuildRequires: c-ares-devel
@@ -214,6 +212,9 @@ popd
 
 
 %changelog
+* Mon Mar 03 2025 Jan Macku <jamacku@redhat.com> - 1.65.0-1
+- update to the latest upstream release
+
 * Thu Jan 23 2025 Jan Macku <jamacku@redhat.com> - 1.64.0-3
 - Fix FTBFS - munit: Remove-ATOMIC_UINT32_INIT
 

@@ -31,6 +31,8 @@ BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
 BuildRequires:  mvn(org.ow2.asm:asm)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 9.7.1-9
 
 %description
 ASM is an all purpose Java bytecode manipulation and analysis
@@ -38,12 +40,6 @@ framework.  It can be used to modify existing classes or dynamically
 generate classes, directly in binary form.  Provided common
 transformations and analysis algorithms allow to easily assemble
 custom complex transformations and code analysis tools.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -70,7 +66,7 @@ done
 %mvn_package :asm-test __noinstall
 
 %build
-%mvn_build -f -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
+%mvn_build -j -f -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
 
 %install
 %mvn_install
@@ -80,9 +76,6 @@ done
 %files -f .mfiles
 %license LICENSE.txt
 %{_bindir}/%{name}-processor
-
-%files javadoc -f .mfiles-javadoc
-%license LICENSE.txt
 
 %changelog
 %autochangelog

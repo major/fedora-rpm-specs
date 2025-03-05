@@ -14,6 +14,8 @@ Patch0:  openobex-apps-flush.patch
 Patch1:  openobex-1.7-obex_push.patch
 Patch2:  openobex-1.7-udev_rule.patch
 Patch3:  openobex-1.7-strtoul.patch
+# compatibility for Cmake 3.1 was removed, raise the min version
+Patch4:  openobex-min-cmake.patch
 
 # gcc is no longer in buildroot by default
 BuildRequires: gcc
@@ -106,6 +108,9 @@ rm -f $RPM_BUILD_ROOT%{_mandir}/man1/obex_test.1*
 %{_mandir}/man1/obex_push.1*
 
 %changelog
+* Mon Mar 03 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1.7.2-28
+- Fix FTBFS due minimal CMake version(fedora#2340974)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

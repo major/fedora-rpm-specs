@@ -31,29 +31,22 @@ BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
 BuildRequires:  mvn(org.easymock:easymock)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 3.0.0-47
 
 %description
 API for I/O support like logging, download or file scanning.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
 
 %build
-%mvn_build -- -Dmaven.compiler.target=8
+%mvn_build -j -- -Dmaven.compiler.target=8
 
 %install
 %mvn_install
 
 %files -f .mfiles
-%license LICENSE NOTICE
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE NOTICE
 
 %changelog

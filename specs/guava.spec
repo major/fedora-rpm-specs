@@ -23,6 +23,8 @@ BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 33.3.0-8
 
 %description
 Guava is a suite of core and expanded libraries that include
@@ -31,12 +33,6 @@ much more.
 This project is a complete packaging of all the Guava libraries
 into a single jar.  Individual portions of Guava can be used
 by downloading the appropriate module and its dependencies.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %package testlib
 Summary:        The guava-testlib artifact
@@ -98,7 +94,7 @@ sed -i /Xplugin:ErrorProne/d pom.xml
 %build
 # Tests fail on Koji due to insufficient memory,
 # see https://bugzilla.redhat.com/show_bug.cgi?id=1332971
-%mvn_build -s -f
+%mvn_build -j -s -f
 
 %install
 %mvn_install
@@ -106,8 +102,6 @@ sed -i /Xplugin:ErrorProne/d pom.xml
 %files -f .mfiles-guava
 %doc CONTRIBUTORS README*
 %license LICENSE
-
-%files javadoc -f .mfiles-javadoc
 
 %files testlib -f .mfiles-guava-testlib
 

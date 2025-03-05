@@ -51,7 +51,7 @@
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
 Version: 6.8.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -74,23 +74,24 @@ Source10: macros.qt6-qtwebengine
 Source20: pulseaudio-12.2-headers.tar.gz
 
 # workaround FTBFS against kernel-headers-5.2.0+
-Patch1:  qtwebengine-SIOCGSTAMP.patch
-Patch2:  qtwebengine-link-pipewire.patch
+Patch1:   qtwebengine-SIOCGSTAMP.patch
+Patch2:   qtwebengine-link-pipewire.patch
 # Fix/workaround FTBFS on aarch64 with newer glibc
-Patch3: qtwebengine-aarch64-new-stat.patch
+Patch3:   qtwebengine-aarch64-new-stat.patch
+
+# Enable OpenH264
+Patch4:   qtwebengine-use-openh264.patch
 
 # FTBS warning: elaborated-type-specifier for a scoped enum must not
 # use the 'class' keyword
-Patch50: qtwebengine-fix-build.patch
+Patch50:  qtwebengine-fix-build.patch
 
 ## Upstream patches:
 # https://bugreports.qt.io/browse/QTBUG-129985
 Patch80:  qtwebengine-fix-arm-build.patch
+Patch81:  qtwebengine-fix-building-system-ffmpeg.patch
 
 ## Upstreamable patches:
-Patch110: qtwebengine-webrtc-system-openh264.patch
-Patch111: qtwebengine-blink-system-openh264.patch
-Patch112: qtwebengine-media-system-openh264.patch
 
 ## ppc64le port
 Patch200: qtwebengine-6.7-ppc64.patch
@@ -384,16 +385,15 @@ popd
 %patch -P1 -p1 -b .SIOCGSTAMP
 %patch -P2 -p1 -b .link-pipewire
 %patch -P3 -p1 -b .aarch64-new-stat
+%patch -P4 -p1 -b .use-openh264
 
 %patch -P50 -p1 -b .fix-build.patch
 
 ## upstream patches
 %patch -P80 -p1 -b .fix-arm-build
+%patch -P81 -p1 -b .fix-building-system-ffmpeg
 
 ## upstreamable patches
-%patch -P110 -p1 -b .webrtc-system-openh264
-%patch -P111 -p1 -b .blink-system-openh264
-%patch -P112 -p1 -b .media-system-openh264
 
 # ppc64le support
 %patch -P200 -p1
@@ -425,6 +425,9 @@ cp -bv /usr/include/re2/*.h src/3rdparty/chromium/third_party/re2/src/re2/
 
 # copy the Chromium license so it is installed with the appropriate name
 cp -p src/3rdparty/chromium/LICENSE LICENSE.Chromium
+
+# Use system OpenH264
+src/3rdparty/chromium/build/linux/unbundle/replace_gn_files.py --system-libraries openh264
 
 # consider doing this as part of the tarball creation step instead?  rdieter
 # fix/workaround
@@ -686,6 +689,10 @@ done
 %endif
 
 %changelog
+* Mon Mar 03 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-3
+- Rework OpenH264 support following Chromium package
+- Backport upstream change for ffmpeg codec selection issues.
+
 * Mon Feb 17 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-2
 - Bump build for ppc64le enablement
 

@@ -30,6 +30,8 @@ BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-assembly-plugin)
 BuildRequires:  mvn(org.jdom:jdom2)
 BuildRequires:  mvn(relaxngDatatype:relaxngDatatype)
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 2022.7-15
 
 %description
 The Multi Schema Validation toolkit is a Java based toolkit consisting of 8
@@ -37,12 +39,6 @@ different submodules. The core module is the Multi-Schema XML Validator (MSV)
 for the validation of XML documents against several kinds of XML schemata The
 core supports RELAX NG, RELAX Namespace, RELAX Core, TREX, XML DTDs, and a
 subset of XML Schema Part 1.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %package xsdlib
 Summary:        Java implementation of W3C’s XML Schema Part 2
@@ -72,13 +68,10 @@ rm xsdlib/src/main/java/com/sun/msv/datatype/xsd/regex/XercesImpl.java
 %mvn_package net.java.dev.msv:msv __noinstall
 
 %build
-%mvn_build -s
+%mvn_build -j -s
 
 %install
 %mvn_install
-
-%files javadoc -f .mfiles-javadoc
-%license Apache-LICENSE-1.1.txt license.txt
 
 %files xsdlib -f .mfiles-xsdlib
 %doc README.md README-xsdlib.md

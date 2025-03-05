@@ -612,29 +612,21 @@ chrpath --delete %{buildroot}%{_bindir}/node
 # Rename the node binary
 mv %{buildroot}%{_bindir}/node %{buildroot}%{_bindir}/node-%{nodejs_pkg_major}
 
-# Move the npm binary to npm-NODEJS_MAJOR
-rm -f %{buildroot}%{_bindir}/npm
+# Adjust the npm binaries
+# 1. Replace all hasbangs with versioned ones
+grep --extended-regexp --files-with-matches --recursive \
+    '^#!/usr/bin/(env )?node($|[[:space:]])+' '%{buildroot}%{nodejs_private_sitelib}/npm/bin' \
+| xargs sed --in-place --regexp-extended \
+    's;^#!/usr/bin/(env )?node($|[[:space:]])+;#!/usr/bin/node-%{nodejs_pkg_major};'
 
-# Set the hashbang to use the matching Node.js interpreter
-sed --in-place --regexp-extended \
-    's;^#!/usr/bin/env node($|\ |\t)+;#!/usr/bin/node-%{nodejs_pkg_major};g' \
-    %{buildroot}%{nodejs_private_sitelib}/npm/bin/npm-cli.js
+# 2. Replace original links with the adjusted ones
+for bin in npm npx; do
+  ln -srf "%{buildroot}%{nodejs_private_sitelib}/npm/bin/${bin}-cli.js" \
+          "%{buildroot}%{_bindir}/${bin}-%{nodejs_pkg_major}"
+  rm -f   "%{buildroot}%{_bindir}/${bin}"
+done
 
-ln -srf %{buildroot}%{nodejs_private_sitelib}/npm/bin/npm-cli.js \
-        %{buildroot}%{_bindir}/npm-%{nodejs_pkg_major}
-
-# Move the npx binary to npx-NODEJS_MAJOR
-rm -f %{buildroot}%{_bindir}/npx
-
-# Set the hashbang to use the matching Node.js interpreter
-sed --in-place --regexp-extended \
-    's;^#!/usr/bin/env node($|\ |\t)+;#!/usr/bin/node-%{nodejs_pkg_major};g' \
-    %{buildroot}%{nodejs_private_sitelib}/npm/bin/npx-cli.js
-
-ln -srf %{buildroot}%{nodejs_private_sitelib}/npm/bin/npx-cli.js \
-        %{buildroot}%{_bindir}/npx-%{nodejs_pkg_major}
-
-# Add the symlinks back for the default version
+# 3. Add the symlinks back for the default version
 %if 0%{?nodejs_default}
 ln -srf %{buildroot}%{_bindir}/node-%{nodejs_pkg_major} \
         %{buildroot}%{_bindir}/node

@@ -5,7 +5,7 @@
 %global crate httparse
 
 Name:           rust-httparse
-Version:        1.10.0
+Version:        1.10.1
 Release:        %autorelease
 Summary:        Tiny, safe, speedy, zero-copy HTTP/1.x parser
 

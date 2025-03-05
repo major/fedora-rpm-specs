@@ -13,15 +13,11 @@ BuildRequires:  maven-local
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 1.5.1-14
 
 %description
 SAX-like API for parsing XML DTDs.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -37,7 +33,7 @@ popd
 
 %build
 pushd dtd-parser
-%mvn_build
+%mvn_build -j
 popd
 
 %install
@@ -48,9 +44,6 @@ popd
 %files -f dtd-parser/.mfiles
 %license LICENSE.md NOTICE.md
 %doc README.md
-
-%files javadoc -f dtd-parser/.mfiles-javadoc
-%license LICENSE.md NOTICE.md
 
 %changelog
 %autochangelog

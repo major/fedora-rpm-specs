@@ -29,16 +29,12 @@ BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
 BuildRequires:  mvn(org.slf4j:slf4j-simple)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 3.5.0-7
 
 %description
 Plexus IO is a set of plexus components, which are designed for use
 in I/O operations.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -50,15 +46,12 @@ sed -i /class/i@org.junit.jupiter.api.Disabled src/test/java/org/codehaus/plexus
 %mvn_file : plexus/io
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
 
 %files -f .mfiles
-%license NOTICE.txt LICENSE-2.0.txt
-
-%files javadoc -f .mfiles-javadoc
 %license NOTICE.txt LICENSE-2.0.txt
 
 %changelog

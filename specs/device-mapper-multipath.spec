@@ -1,6 +1,6 @@
 Name:    device-mapper-multipath
-Version: 0.10.0
-Release: 5%{?dist}
+Version: 0.11.1
+Release: 1%{?dist}
 Summary: Tools to manage multipath devices using device-mapper
 # readline uses GPL-3.0-only
 License: GPL-2.0-only AND GPL-3.0-only
@@ -8,54 +8,26 @@ URL:     http://christophe.varoqui.free.fr/
 
 # The source for this package was pulled from upstream's git repo.  Use the
 # following command to generate the tarball
-# curl -L https://github.com/opensvc/multipath-tools/archive/0.10.0.tar.gz -o multipath-tools-0.10.0.tgz
-Source0: multipath-tools-0.10.0.tgz
+# curl -L https://github.com/opensvc/multipath-tools/archive/0.11.1.tar.gz -o multipath-tools-0.11.1.tgz
+Source0: multipath-tools-0.11.1.tgz
 Source1: multipath.conf
-Patch0001: 0001-GitHub-workflows-use-upload-download-artifact-v4.patch
-Patch0002: 0002-GitHub-workflows-update-dawidd6-action-download-arti.patch
-Patch0003: 0003-Github-workflows-native.yml-use-mosteo-actions-docke.patch
-Patch0004: 0004-GitHub-workflows-native.yml-use-extra-job-for-clang.patch
-Patch0005: 0005-GitHub-workflows-native.yaml-make-test-and-archive-s.patch
-Patch0006: 0006-GitHub-workflows-enable-unit-tests-for-stable-branch.patch
-Patch0007: 0007-GitHub-Workflows-add-abi-check-for-stable-branches.patch
-Patch0008: 0008-libmultipath-dm_get_maps-don-t-bail-out-for-single-m.patch
-Patch0009: 0009-11-dm-mpath.rules.in-import-DM_COLDPLUG_SUSPENDED-on.patch
-Patch0010: 0010-11-dm-mpath.rules.in-handle-inactive-suspended-devic.patch
-Patch0011: 0011-11-dm-mpath.rules.in-clarify-DM_ACTIVATION-logic.patch
-Patch0012: 0012-11-dm-mpath-rules.in-skip-one-.DM_NOSCAN-check.patch
-Patch0013: 0013-11-dm-mpath.rules.in-set-.DM_NOSCAN-if-MPATH_UNCHANG.patch
-Patch0014: 0014-libmultipath-don-t-set-dev_loss_tmo-to-0-for-NO_PATH.patch
-Patch0015: 0015-multipathd-fix-deferred_failback_tick-for-reload-rem.patch
-Patch0016: 0016-multipathd-fix-an-unsigned-int-ovwerflow.patch
-Patch0017: 0017-libmpathutil-avoid-Wcast-function-type-mismatch-erro.patch
-Patch0018: 0018-Update-NEWS.md-for-0.10.1.patch
-Patch0019: 0019-libmultipath-don-t-print-error-message-if-WATCHDOG_U.patch
-Patch0020: 0020-libmultipath-reduce-log-level-of-map-X-has-multiple-.patch
-Patch0021: 0021-libmultipath-foreign-fix-memory-leak-in-nvme-foreign.patch
-Patch0022: 0022-libmultipath-add-condition-for-enqueueing-path-to-io.patch
-Patch0023: 0023-Additional-NEWS.md-updates-for-0.10.1.patch
-Patch0024: 0024-libmultipath-fix-handling-of-pp-pgindex.patch
-Patch0025: 0025-libmultipath-make-pgcmp-detect-if-map-is-missing-a-p.patch
-Patch0026: 0026-libmultipath-trigger-uevents-upon-map-creation-in-do.patch
-Patch0027: 0027-multipathd-trigger-uevents-upon-map-removal-in-coale.patch
-Patch0028: 0028-libmultipath-Don-t-skip-set_path_max_sectors_kb.patch
-Patch0029: 0029-libmultipath-stop-static-analyzer-complaint-in-init_.patch
-Patch0030: 0030-libmultipath-be-lenient-in-allowing-the-alua-based-p.patch
-Patch0031: 0031-Update-NEWS.md-for-0.10.2.patch
-Patch0032: 0032-GitHub-Workflows-fix-abi-stable.yaml-for-pull-reques.patch
-Patch0033: 0033-RH-fixup-udev-rules-for-redhat.patch
-Patch0034: 0034-RH-Remove-the-property-blacklist-exception-builtin.patch
-Patch0035: 0035-RH-don-t-start-without-a-config-file.patch
-Patch0036: 0036-RH-Fix-nvme-function-missing-argument.patch
-Patch0037: 0037-RH-use-rpm-optflags-if-present.patch
-Patch0038: 0038-RH-add-mpathconf.patch
-Patch0039: 0039-RH-add-wwids-from-kernel-cmdline-mpath.wwids-with-A.patch
-Patch0040: 0040-RH-reset-default-find_mutipaths-value-to-off.patch
-Patch0041: 0041-RH-attempt-to-get-ANA-info-via-sysfs-first.patch
-Patch0042: 0042-RH-make-parse_vpd_pg83-match-scsi_id-output.patch
-Patch0043: 0043-RH-add-scsi-device-handlers-to-modules-load.d.patch
-Patch0044: 0044-RH-compile-with-libreadline-support.patch
-Patch0045: 0045-RH-Add-mpathcleanup.patch
+Patch0001: 0001-multipathd-trigger-uevents-for-blacklisted-paths-in-.patch
+Patch0002: 0002-multipath-tools-fix-compilation-with-latest-userspac.patch
+Patch0003: 0003-libmultipath-include-urcu.h-before-urcu-atomic.h.patch
+Patch0004: 0004-libmpathutils-uxsock.c-Include-string.h-for-memcpy.patch
+Patch0005: 0005-RH-fixup-udev-rules-for-redhat.patch
+Patch0006: 0006-RH-Remove-the-property-blacklist-exception-builtin.patch
+Patch0007: 0007-RH-don-t-start-without-a-config-file.patch
+Patch0008: 0008-RH-Fix-nvme-function-missing-argument.patch
+Patch0009: 0009-RH-use-rpm-optflags-if-present.patch
+Patch0010: 0010-RH-add-mpathconf.patch
+Patch0011: 0011-RH-add-wwids-from-kernel-cmdline-mpath.wwids-with-A.patch
+Patch0012: 0012-RH-reset-default-find_mutipaths-value-to-off.patch
+Patch0013: 0013-RH-attempt-to-get-ANA-info-via-sysfs-first.patch
+Patch0014: 0014-RH-make-parse_vpd_pg83-match-scsi_id-output.patch
+Patch0015: 0015-RH-add-scsi-device-handlers-to-modules-load.d.patch
+Patch0016: 0016-RH-compile-with-libreadline-support.patch
+Patch0017: 0017-RH-Add-mpathcleanup.patch
 
 # runtime
 Requires: %{name}-libs = %{version}-%{release}
@@ -143,7 +115,7 @@ This package contains the files needed to develop applications that use
 device-mapper-multipath's libdmmp C API library
 
 %prep
-%autosetup -n multipath-tools-0.10.0 -p1
+%autosetup -n multipath-tools-0.11.1 -p1
 cp %{SOURCE1} .
 
 %build
@@ -265,6 +237,13 @@ fi
 %{_pkgconfdir}/libdmmp.pc
 
 %changelog
+* Thu Feb 27 2025 Benjamin Marzinski <bmarzins@redhat.com> - 0.11.1-1
+- Update source to upstream staging branch for 0.11.1 plus additional
+  stable branch patches.
+  * Previous patches 0001-0032 are included in the tarball
+- Rename redhat patches
+  * Previous patches 0033-0045 are now patches 0005-0017
+
 * Sat Feb  1 2025 Benjamin Marzinski <bmarzins@redhat.com> - 0.10.0-5
 - Update source to upstream staging branch for 0.10.y (will be 0.10.2 when
   merged).

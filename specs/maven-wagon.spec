@@ -23,6 +23,8 @@ BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
 BuildRequires:  mvn(org.slf4j:jcl-over-slf4j)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 3.5.3-21
 Provides:       maven-wagon-file = %{version}-%{release}
 Provides:       maven-wagon-http = %{version}-%{release}
 Provides:       maven-wagon-http-shared = %{version}-%{release}
@@ -39,12 +41,6 @@ following providers:
 * SSH/SCP
 * WebDAV
 * SCM (in progress)
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -81,7 +77,7 @@ API documentation for %{name}.
 
 %build
 # tests are disabled because of missing dependencies
-%mvn_build -f -- -DjavaVersion=8
+%mvn_build -j -f -- -DjavaVersion=8
 
 # Maven requires Wagon HTTP with classifier "shaded"
 %mvn_alias :wagon-http :::shaded:
@@ -92,8 +88,6 @@ API documentation for %{name}.
 %files -f .mfiles
 %license LICENSE NOTICE
 %doc DEPENDENCIES
-
-%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

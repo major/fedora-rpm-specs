@@ -13,17 +13,14 @@ The progressbar module is very easy to use, yet very powerful. It will also
 automatically enable features like auto-resizing when the system supports it.}
 
 Name:           python-%{srcname}
-Version:        3.53.2
+Version:        4.5.0
 Release:        %autorelease
 Summary:        Library to provide visual progress to long running operations
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
-URL:            https://pypi.python.org/pypi/%{srcname}
+# SPDX
+License:        BSD-3-Clause
+URL:            https://github.com/WoLpH/python-progressbar
 Source0:        %pypi_source
-
-# https://github.com/WoLpH/python-progressbar/pull/256
-Patch0001:      0001-Stop-using-deprecated-distutils.util.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -65,22 +62,42 @@ rm -rfv tests/__pycache__/
 # do not run coverage in pytest
 sed -i -E '/--(no-)?cov/d' pytest.ini
 
+# remove linters etc from requirements
+sed -i \
+    -e '/flake8/ d' \
+    -e '/pytest-cov/ d' \
+    -e '/pytest-mypy/ d' \
+    -e '/sphinx/ d' \
+    -e '/pywin32/ d' \
+    pyproject.toml
+
+cat pyproject.toml
+
+# required for tests, but not included in deps, and apparently no way to
+# include stuff from "project.optional-dependencies" using
+# pyproject_buildrequires..
+cat > requirements.txt << EOF
+dill
+EOF
+cat requirements.txt
+
+%generate_buildrequires
+%pyproject_buildrequires requirements.txt
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l progressbar
 
 %check
 %if %{with tests}
 PYTHONPATH=. %pytest tests
 %endif
 
-%files -n python3-%{srcname}
-%license LICENSE
-%doc README.rst CHANGES.rst CONTRIBUTING.rst
-%{python3_sitelib}/%{srcname}-%{version}-py3.*.egg-info/
-%{python3_sitelib}/progressbar
+%files -n python3-%{srcname} -f %{pyproject_files}
+%{_bindir}/progressbar
 
 %changelog
 %autochangelog

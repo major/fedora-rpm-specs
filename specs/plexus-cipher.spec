@@ -22,15 +22,11 @@ BuildRequires:  mvn(org.codehaus.plexus:plexus:pom:)
 BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.inject)
 BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 2.0-28
 
 %description
 Plexus Cipher: encryption/decryption Component
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -38,15 +34,13 @@ API documentation for %{name}.
 %mvn_alias org.codehaus.plexus: org.sonatype.plexus:
 
 %build
-%mvn_build -- -DjavaVersion=8
+%mvn_build -j -- -DjavaVersion=8
 
 %install
 %mvn_install
 
 %files -f .mfiles
 %license LICENSE.txt NOTICE.txt
-
-%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

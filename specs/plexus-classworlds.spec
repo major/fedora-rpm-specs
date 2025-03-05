@@ -19,6 +19,8 @@ BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.codehaus.plexus:plexus:pom:)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 2.8.0-12
 
 %description
 Classworlds is a framework for container developers who require complex
@@ -27,12 +29,6 @@ classes can cause much headache and confusion for certain types of application
 developers. Projects which involve dynamic loading of components or otherwise
 represent a 'container' can benefit from the classloading control provided by
 classworlds.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -46,15 +42,13 @@ sed -i /testConfigure_Valid/s/./@org.junit.jupiter.api.Disabled/ src/test/java/o
 sed -i /testConfigure_Optionally_Existent/s/./@org.junit.jupiter.api.Disabled/ src/test/java/org/codehaus/plexus/classworlds/launcher/ConfiguratorTest.java
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
 
 %files -f .mfiles
 %license LICENSE.txt LICENSE-Codehaus.txt
-
-%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

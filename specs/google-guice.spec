@@ -32,6 +32,8 @@ BuildRequires:  mvn(org.ow2.asm:asm)
 # xmvn-builddep misses this:
 BuildRequires:  mvn(org.apache:apache-jar-resource-bundle)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 5.1.0-27
 
 %description
 Put simply, Guice alleviates the need for factories and the use of new
@@ -115,12 +117,6 @@ Summary:        Bill of Materials for Guice
 Guice is a lightweight dependency injection framework for Java 5
 and above. This package provides Bill of Materials module for Guice.
 
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
-
 %prep
 %autosetup -p1 -C
 
@@ -184,7 +180,7 @@ API documentation for %{name}.
 %mvn_file  ":guice" guice/%{name} %{name}
 #%mvn_alias ":guice" "org.sonatype.sisu:sisu-guice"
 # Skip tests because of missing dependency guice-testlib
-%mvn_build -f -s
+%mvn_build -j -f -s
 
 %install
 %mvn_install
@@ -209,9 +205,6 @@ API documentation for %{name}.
 %files -n guice-throwingproviders -f .mfiles-guice-throwingproviders
 
 %files -n guice-bom -f .mfiles-guice-bom
-
-%files javadoc -f .mfiles-javadoc
-%license COPYING
 
 %changelog
 %autochangelog

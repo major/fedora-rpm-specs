@@ -14,7 +14,7 @@
 
 Name:           apt
 Version:        2.9.27
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command-line package manager for Debian packages
 
 License:        GPL-2.0-or-later
@@ -69,7 +69,6 @@ BuildRequires:  expect
 %endif
 
 # For ensuring the user is created
-Requires(pre):  shadow-utils
 
 # Apt is essentially broken without dpkg
 Requires:       dpkg >= 1.17.14
@@ -172,6 +171,11 @@ to package management with APT.
 %prep
 %autosetup -p1
 
+# Create a sysusers.d config file
+cat >apt.sysusers.conf <<EOF
+u _apt - 'APT account for owning persistent & cache data' %{_sharedstatedir}/apt -
+EOF
+
 %build
 %cmake -GNinja
 %cmake_build
@@ -208,6 +212,8 @@ cat > %{buildroot}%{_sysconfdir}/logrotate.d/apt <<EOF
 }
 EOF
 
+install -m0644 -D apt.sysusers.conf %{buildroot}%{_sysusersdir}/apt.conf
+
 
 %check
 %ctest
@@ -216,12 +222,6 @@ unbuffer ./test/integration/run-tests -q %{?jobs:-j %{jobs}}
 %endif
 
 # Create the _apt user+group for apt data
-%pre
-getent group _apt >/dev/null || groupadd -r _apt
-getent passwd _apt >/dev/null || \
-    useradd -r -g _apt -d %{_sharedstatedir}/apt -s /sbin/nologin \
-    -c "APT account for owning persistent & cache data" _apt
-exit 0
 
 %ldconfig_scriptlets libs
 
@@ -283,6 +283,7 @@ exit 0
 %{_mandir}/*/apt_preferences.*
 %{_mandir}/*/sources.list.*
 %doc %{_docdir}/%{name}/*
+%{_sysusersdir}/apt.conf
 
 %files libs -f %{name}-libs.lang
 %license COPYING*
@@ -315,6 +316,9 @@ exit 0
 %doc %{_docdir}/%{name}-utils
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.9.27-2
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Mon Feb 03 2025 Packit <hello@packit.dev> - 2.9.27-1
 - Update to version 2.9.27
 - Resolves: rhbz#2319327

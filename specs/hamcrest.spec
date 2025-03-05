@@ -19,18 +19,14 @@ BuildRequires:  javapackages-bootstrap
 BuildRequires:  maven-local
 BuildRequires:  mvn(junit:junit)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 3.0-7
 
 %description
 Provides a library of matcher objects (also known as constraints or predicates)
 allowing 'match' rules to be defined declaratively, to be used in other
 frameworks. Typical scenarios include testing frameworks, mocking libraries and
 UI validation rules.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -71,7 +67,7 @@ cp -p %{SOURCE1} pom.xml
 
 %build
 pushd hamcrest
-%mvn_build
+%mvn_build -j
 popd
 
 %install
@@ -81,9 +77,6 @@ popd
 
 %files -f hamcrest/.mfiles
 %doc README.md
-%license LICENSE
-
-%files javadoc -f hamcrest/.mfiles-javadoc
 %license LICENSE
 
 %changelog

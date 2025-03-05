@@ -39,6 +39,8 @@ BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
 BuildRequires:  mvn(org.slf4j:jcl-over-slf4j:2.0.16)
 BuildRequires:  mvn(org.slf4j:slf4j-api:2.0.16)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 2.0.5-5
 Provides:       maven-resolver-api = %{epoch}:%{version}-%{release}
 Provides:       maven-resolver-connector-basic = %{epoch}:%{version}-%{release}
 Provides:       maven-resolver-impl = %{epoch}:%{version}-%{release}
@@ -89,7 +91,7 @@ artifact transports and artifact resolution.
 %mvn_compat_version : 2.0.5
 
 %build
-%mvn_build -f -j -- -Dmaven4Version=4.0.0-rc-2
+%mvn_build -j -f -j -- -Dmaven4Version=4.0.0-rc-2
 
 %install
 %mvn_install

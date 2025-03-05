@@ -40,6 +40,8 @@ BuildRequires:  mvn(org.testng:testng)
 # xmvn-builddep misses this:
 BuildRequires:  mvn(org.apache:apache-jar-resource-bundle)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 4.3-23
 Provides:       %{name}3 = %{version}-%{release}
 
 %description
@@ -47,12 +49,6 @@ EasyMock provides Mock Objects for interfaces in JUnit tests by generating
 them on the fly using Java's proxy mechanism. Due to EasyMock's unique style
 of recording expectations, most refactorings will not affect the Mock Objects.
 So EasyMock is a perfect fit for Test-Driven Development.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -109,15 +105,12 @@ rm core/src/test/java/org/easymock/tests2/ClassExtensionHelperTest.java
     <argLine>--add-opens=java.base/java.lang=ALL-UNNAMED</argLine></configuration>"
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
 
 %files -f .mfiles
-%license core/LICENSE.txt
-
-%files javadoc -f .mfiles-javadoc
 %license core/LICENSE.txt
 
 %changelog

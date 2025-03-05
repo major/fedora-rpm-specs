@@ -23,16 +23,12 @@ BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-engine)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-params)
 BuildRequires:  mvn(org.mockito:mockito-core)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 1.9.0-7
 
 %description
 The CLI library provides a simple and easy to use API for working with the
 command line arguments and options.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -42,7 +38,7 @@ API documentation for %{name}.
 %mvn_file : commons-cli %{name}
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
@@ -50,8 +46,6 @@ API documentation for %{name}.
 %files -f .mfiles
 %license LICENSE.txt NOTICE.txt
 %doc README.md RELEASE-NOTES.txt
-
-%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

@@ -24,16 +24,12 @@ BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.testng:testng)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 1.82-23
 
 %description
 JCommander is a very small Java framework that makes it trivial to
 parse command line parameters (with annotations).
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -48,7 +44,7 @@ cp -p %SOURCE1 pom.xml
 %mvn_file : %{name}
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
@@ -56,9 +52,6 @@ cp -p %SOURCE1 pom.xml
 %files -f .mfiles
 %license license.txt notice.md
 %doc README.markdown
-
-%files javadoc -f .mfiles-javadoc
-%license license.txt notice.md
 
 %changelog
 %autochangelog

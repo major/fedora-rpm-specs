@@ -7,8 +7,8 @@
 %bcond tests %{without bootstrap}
 
 Name:           python-flit-core
-Version:        3.10.1
-Release:        2%{?dist}
+Version:        3.11.0
+Release:        1%{?dist}
 Summary:        PEP 517 build backend for packages using Flit
 
 # flit-core is BSD-3-Clause
@@ -55,7 +55,9 @@ Requires:       python(abi) = %{python3_version}
 # Remove vendored tomli that flit_core includes to solve the circular dependency on older Pythons
 # (flit_core requires tomli, but flit_core is needed to build tomli).
 # We don't use this, as tomllib is a part of standard library since Python 3.11.
+# Remove the bits looking for the license files of the vendored tomli.
 rm -rf flit_core/vendor
+sed -iE 's/, *"flit_core\/vendor\/\*\*\/LICENSE\*"//' pyproject.toml
 
 
 %if %{without bootstrap}
@@ -95,6 +97,10 @@ rm %{buildroot}%{python3_sitelib}/flit_core-*.dist-info/RECORD
 
 
 %changelog
+* Wed Feb 26 2025 Karolina Surma <ksurma@redhat.com> - 3.11.0-1
+- Update to 3.11.0
+- Resolves: rhbz#2346532
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

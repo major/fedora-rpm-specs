@@ -1,11 +1,11 @@
-%global appstream_version 0.14.0
-%global flatpak_version 1.9.1
-%global fwupd_version 1.5.6
-%global glib2_version 2.70.0
-%global gtk4_version 4.14.0
+%global appstream_version 0.16.4
+%global flatpak_version 1.14.1
+%global fwupd_version 1.6.2
+%global glib2_version 2.76.0
+%global gtk4_version 4.16.0
 %global json_glib_version 1.6.0
-%global libadwaita_version 1.6~alpha
-%global libxmlb_version 0.1.7
+%global libadwaita_version 1.6.0
+%global libxmlb_version 0.3.4
 %global packagekit_version 1.2.5
 
 # Disable WebApps for RHEL builds
@@ -25,7 +25,7 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/plugins-%{gs_plugin_version}/.*\\.so.*$
 
 Name:      gnome-software
-Version:   48~beta
+Version:   48~rc
 Release:   1%{?dist}
 Summary:   A software center for GNOME
 
@@ -288,6 +288,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/gnome-software/
 
 %changelog
+* Mon Mar 03 2025 Milan Crha <mcrha@redhat.com> - 48~rc-1
+- Update to 48.rc
+
 * Mon Feb 03 2025 Milan Crha <mcrha@redhat.com> - 48~beta-1
 - Update to 48.beta
 

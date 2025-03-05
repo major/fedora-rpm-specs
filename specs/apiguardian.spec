@@ -17,6 +17,8 @@ BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 1.1.2-28
 
 %description
 API Guardian indicates the status of an API element and therefore its
@@ -24,12 +26,6 @@ level of stability as well.  It is used to annotate public types,
 methods, constructors, and fields within a framework or application in
 order to publish their API status and level of stability and to
 indicate how they are intended to be used by consumers of the API.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -98,15 +94,12 @@ mv src/module/java/* src/main/java
   </build>"
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
 
 %files -f .mfiles
-%license LICENSE
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE
 
 %changelog

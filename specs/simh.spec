@@ -3,9 +3,9 @@ Version:        3.12.5
 Release:        %autorelease
 Summary:        Highly portable, multi-system emulator
 
-#The licensing is mostly MIT, but there is also some GPL+ (literally, v1+) code
-#in there, notably in AltairZ80/.
-#(each target is compiled into its own binary, so only AltairZ80 is GPL+)
+# The licensing is mostly MIT, but there is also some GPL+ (literally, v1+) code
+# in there, notably in AltairZ80/.
+# (each target is compiled into its own binary, so only AltairZ80 is GPL+)
 License:        MIT AND GPL-1.0-or-later
 
 URL:            http://simh.trailing-edge.com/
@@ -18,9 +18,9 @@ Source0:        simh-%{version}-noroms.tar.gz
 Source1:        simh-generate-tarball.sh
 Patch:          https://gitlab.archlinux.org/archlinux/packaging/packages/simh/-/raw/3.12.5-1/build-fix.patch
 
-BuildRequires:  dos2unix
 BuildRequires:  gcc
 BuildRequires:  make
+BuildRequires:  sed
 
 BuildRequires:  libpcap-devel
 
@@ -49,21 +49,44 @@ SIMH implements simulators for:
 %prep
 %autosetup -n %{name}-%{version}/sim -p1
 
+# Convert docs to UNIX line endings
+sed -i 's/\r$//' */*.txt
+
 %build
-mkdir -p BIN
 CC="$CC -I . -fPIE -g -D_LARGEFILE64_SOURCE"
 LDFLAGS="$LDFLAGS -lm -lpcap"
 %make_build -e ROMS_OPT="%{optflags}" USE_NETWORK=1 LIBPATH="${_libdir}"
 
 %install
-for i in `ls BIN/`; do
-  [ -f BIN/$i ] && install -Dpm755 BIN/$i %{buildroot}%{_bindir}/simh-$i
+for i in BIN/*; do
+  [ -f "$i" ] && install -Dpm0755 "$i" "%{buildroot}%{_bindir}/simh-$(basename "$i")"
 done
-mkdir -p %{buildroot}%{_docdir}/%{name}
-for i in `find -iname "*.txt"`; do dos2unix -k $i; done
 
 %files
-%{_bindir}/*
+%{_bindir}/simh-altair
+%{_bindir}/simh-eclipse
+%{_bindir}/simh-gri
+%{_bindir}/simh-h316
+%{_bindir}/simh-i1401
+%{_bindir}/simh-i1620
+%{_bindir}/simh-i7094
+%{_bindir}/simh-id16
+%{_bindir}/simh-id32
+%{_bindir}/simh-lgp
+%{_bindir}/simh-nova
+%{_bindir}/simh-pdp1
+%{_bindir}/simh-pdp10
+%{_bindir}/simh-pdp11
+%{_bindir}/simh-pdp15
+%{_bindir}/simh-pdp4
+%{_bindir}/simh-pdp7
+%{_bindir}/simh-pdp8
+%{_bindir}/simh-pdp9
+%{_bindir}/simh-sds
+%{_bindir}/simh-sigma
+%{_bindir}/simh-uc15
+%{_bindir}/simh-vax
+%{_bindir}/simh-vax780
 %doc ALTAIR/altair.txt NOVA/eclipse.txt
 %doc I7094/i7094_bug_history.txt Interdata/id_diag.txt
 %doc PDP1/pdp1_diag.txt PDP10/pdp10_bug_history.txt PDP18B/pdp18b_diag.txt

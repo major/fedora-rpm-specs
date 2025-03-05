@@ -35,6 +35,8 @@ BuildRequires:  mvn(org.slf4j:slf4j-api)
 BuildRequires:  mvn(org.slf4j:slf4j-simple)
 BuildRequires:  mvn(org.tukaani:xz)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 4.10.0-6
 
 %description
 The Plexus project seeks to create end-to-end developer tools for
@@ -43,12 +45,6 @@ embedded or for a full scale application server. There are many
 reusable components for hibernate, form processing, jndi, i18n,
 velocity, etc. Plexus also includes an application server which
 is like a J2EE application server, without all the baggage.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -74,15 +70,12 @@ rm src/test/java/org/codehaus/plexus/archiver/tar/TarZstdUnArchiverTest.java
 rm src/test/java/org/codehaus/plexus/archiver/manager/ArchiverManagerTest.java
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
 
 %files -f .mfiles
-%license LICENSE
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE
 
 %changelog

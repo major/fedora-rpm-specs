@@ -18,15 +18,11 @@ BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.osgi:osgi.annotation)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 8.0.0-34
 
 %description
 OSGi Core, Interfaces and Classes for use in compiling bundles.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -64,7 +60,7 @@ mv META-INF/maven/org.osgi/osgi.core/pom.xml .
 %mvn_alias : org.osgi:org.osgi.core
 
 %build
-%mvn_build -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
+%mvn_build -j -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
 
 %install
 %mvn_install
@@ -72,9 +68,6 @@ mv META-INF/maven/org.osgi/osgi.core/pom.xml .
 %files -f .mfiles
 %license LICENSE
 %doc about.html
-
-%files javadoc -f .mfiles-javadoc
-%license LICENSE
 
 %changelog
 %autochangelog

@@ -19,15 +19,11 @@ Patch:          %{name}-1.2-osgi.patch
 BuildRequires:  javapackages-local
 BuildRequires:  ant
 BuildRequires:  apache-parent
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 1.2-53
 
 %description
 Resolver subproject of xml-commons.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -40,11 +36,11 @@ sed -i 's/\r//' KEYS LICENSE.resolver.txt NOTICE-resolver.txt
 %mvn_file : xml-commons-resolver xml-resolver
 
 %build
-%ant -f resolver.xml jar javadocs -Dant.build.javac.source=1.8 -Dant.build.javac.target=1.8
+%ant -f resolver.xml jar -Dant.build.javac.source=1.8 -Dant.build.javac.target=1.8
 %mvn_artifact %{SOURCE5} build/resolver.jar
 
 %install
-%mvn_install -J build/apidocs/resolver
+%mvn_install
 
 # Scripts
 mkdir -p %{buildroot}%{_bindir}
@@ -63,9 +59,6 @@ install -p -m 644 %{SOURCE8} %{buildroot}%{_mandir}/man1/xml-xread.1
 %license LICENSE.resolver.txt NOTICE-resolver.txt
 %{_mandir}/man1/*
 %{_bindir}/xml-*
-
-%files javadoc -f .mfiles-javadoc
-%license LICENSE.resolver.txt NOTICE-resolver.txt
 
 %changelog
 %autochangelog

@@ -24,17 +24,13 @@ BuildRequires:  mvn(org.hamcrest:hamcrest)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-engine)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-params)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 1.17.1-12
 
 %description
 Commons Codec is an attempt to provide definitive implementations of
 commonly used encoders and decoders. Examples include Base64, Hex,
 Phonetic and URLs.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -45,7 +41,7 @@ sed -i 's/\r//' RELEASE-NOTES*.txt LICENSE.txt NOTICE.txt
 %mvn_alias : commons-codec:commons-codec
 
 %build
-%mvn_build -- -Dcommons.osgi.symbolicName=org.apache.commons.codec
+%mvn_build -j -- -Dcommons.osgi.symbolicName=org.apache.commons.codec
 
 %install
 %mvn_install
@@ -53,8 +49,6 @@ sed -i 's/\r//' RELEASE-NOTES*.txt LICENSE.txt NOTICE.txt
 %files -f .mfiles
 %license LICENSE.txt NOTICE.txt aspell-mail.txt
 %doc RELEASE-NOTES*
-
-%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

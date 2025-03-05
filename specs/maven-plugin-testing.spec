@@ -32,16 +32,12 @@ BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-archiver)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 3.3.0-55
 
 %description
 The Maven Plugin Testing contains the necessary modules
 to be able to test Maven Plugins.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %package harness
 Summary:        Maven Plugin Testing Mechanism
@@ -63,15 +59,12 @@ The Maven Plugin Testing Harness provides mechanisms to manage tests on Mojo.
 %mvn_alias : org.apache.maven.shared:
 
 %build
-%mvn_build -s -- -Dmaven.compiler.target=8
+%mvn_build -j -s -- -Dmaven.compiler.target=8
 
 %install
 %mvn_install
 
 %files -f .mfiles-%{name}
-%license LICENSE NOTICE
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE NOTICE
 
 %files harness -f .mfiles-%{name}-harness

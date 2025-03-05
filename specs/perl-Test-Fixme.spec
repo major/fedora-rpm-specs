@@ -1,6 +1,6 @@
 Name:           perl-Test-Fixme
-Version:        0.16
-Release:        26%{?dist}
+Version:        0.17
+Release:        1%{?dist}
 Summary:        Check code for FIXMEs
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Fixme
@@ -8,11 +8,10 @@ Source0:        https://cpan.metacpan.org/modules/by-module/Test/Test-Fixme-%{ve
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Module
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Exporter)
@@ -25,7 +24,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Config)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Temp)
-BuildRequires:  perl(FindBin)
 BuildRequires:  perl(Test::More)
 # Dependencies
 # (none)
@@ -42,12 +40,11 @@ get forgotten in the module.
 %setup -q -n Test-Fixme-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -60,6 +57,13 @@ make test
 %{_mandir}/man3/Test::Fixme.3*
 
 %changelog
+* Mon Mar  3 2025 Paul Howarth <paul@city-fan.org> - 0.17-1
+- Update to 0.17
+  - Skip tests requiring symlinks on Windows, where for newer versions of
+    Strawberry Perl (at least) they are supported, but the environment is not
+    typically configured for them (GH#8, GH#9)
+- Use %%{make_build} and %%{make_install}
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

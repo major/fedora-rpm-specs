@@ -16,12 +16,12 @@
 %global debug_package %{nil}
 %endif
 
-# edk2-stable202411
-%define GITDATE        20241117
-%define GITCOMMIT      0f3867fa6ef0
+# edk2-stable202502
+%define GITDATE        20250221
+%define GITCOMMIT      fbe0805b2091
 %define TOOLCHAIN      GCC
 
-%define PLATFORMS_COMMIT 4b3530dfbbda
+%define PLATFORMS_COMMIT af45588a998c
 
 %define OPENSSL_VER    3.0.7
 %define OPENSSL_COMMIT 0205b589887203b065154ddc8e8107c4ac8625a1
@@ -131,15 +131,14 @@ Patch0012: 0012-SecurityPkg-Tcg2Dxe-suppress-error-on-no-swtpm-in-si.patch
 Patch0013: 0013-CryptoPkg-CrtLib-add-stat.h.patch
 Patch0014: 0014-CryptoPkg-CrtLib-add-access-open-read-write-close-sy.patch
 Patch0015: 0015-OvmfPkg-set-PcdVariableStoreSize-PcdMaxVolatileVaria.patch
-Patch0016: 0016-OvmfPkg-PlatformInitLib-enable-x2apic-mode-if-needed.patch
 %if 0%{?fedora} >= 38 || 0%{?rhel} >= 10
-Patch0017: 0017-silence-.-has-a-LOAD-segment-with-RWX-permissions-wa.patch
+Patch0016: 0016-silence-.-has-a-LOAD-segment-with-RWX-permissions-wa.patch
 %endif
-Patch0018: 0018-MdePkg-BaseFdtLib-fix-build-with-gcc-15.patch
-Patch0019: 0019-BaseTools-Pccts-set-C-standard.patch
-Patch0020: 0020-OvmfPkg-OvmfXen-use-PeiPcdLib-for-PEI_CORE.patch
-Patch0021: 0021-OvmfPkg-MicroVM-use-PeiPcdLib-for-PEI_CORE.patch
-Patch0022: 0022-OvmfPkg-make-legacy-direct-kernel-loader-code-nx-cle.patch
+Patch0017: 0017-Revert-CryptoPkg-BaseCryptLib-add-next-parameter-to-.patch
+Patch0018: 0018-Revert-CryptoPkg-add-openssl-providers-fips-include-.patch
+Patch0019: 0019-Revert-openssl-add-more-stubs-for-openssl-3.2.x.patch
+Patch0020: 0020-Revert-openssl-adapt-stubs-to-openssl-3.2.x.patch
+Patch0021: 0021-OvmfPkg-X64-add-opt-org.tianocore-UninstallMemAttrPr.patch
 
 
 # needed by %prep

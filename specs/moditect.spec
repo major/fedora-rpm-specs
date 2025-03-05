@@ -26,6 +26,8 @@ BuildRequires:  mvn(org.assertj:assertj-core)
 BuildRequires:  mvn(org.eclipse.aether:aether-util)
 BuildRequires:  mvn(org.ow2.asm:asm)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 1.1.0-12
 
 %description
 The ModiTect project aims at providing productivity tools for working with the
@@ -42,12 +44,6 @@ exported and opened packages with patterns (instead of listing all packages
 separately), auto-detecting service usages and more. You also can use ModiTect
 to add a module descriptor to your project JAR while staying on Java 8 with your
 own build.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -67,7 +63,7 @@ rm core/src/test/java/org/moditect/test/AddModuleInfoTest.java
 rm core/src/test/java/org/moditect/internal/parser/JavaVersionHelperTest.java
 
 %build
-%mvn_build -- -Dproject.build.sourceEncoding=UTF-8
+%mvn_build -j -- -Dproject.build.sourceEncoding=UTF-8
 
 %install
 %mvn_install
@@ -75,9 +71,6 @@ rm core/src/test/java/org/moditect/internal/parser/JavaVersionHelperTest.java
 %files -f .mfiles
 %license LICENSE.txt
 %doc README.md
-
-%files javadoc -f .mfiles-javadoc
-%license LICENSE.txt
 
 %changelog
 %autochangelog

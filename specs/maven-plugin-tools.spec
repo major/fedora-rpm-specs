@@ -42,6 +42,8 @@ BuildRequires:  mvn(org.ow2.asm:asm)
 BuildRequires:  mvn(org.ow2.asm:asm-commons)
 BuildRequires:  mvn(org.sonatype.plexus:plexus-build-api)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 3.9.0-22
 
 %description
 The Maven Plugin Tools contains the necessary tools to be able to produce Maven
@@ -90,12 +92,6 @@ Provides:       maven-shared-plugin-tools-java = 0:%{version}-%{release}
 %description java
 Descriptor extractor for plugins written in Java.
 
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
-
 %prep
 %autosetup -p1 -C
 find -name '*.java' -exec sed -i 's/\r//' {} +
@@ -125,7 +121,7 @@ rm -r maven-plugin-tools-api/src/test/resources/javadoc
 rm maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginXdocGenerator.java
 
 %build
-%mvn_build -s -f
+%mvn_build -j -s -f
 
 %install
 %mvn_install
@@ -147,9 +143,6 @@ rm maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/gen
 %files generators -f .mfiles-maven-plugin-tools-generators
 
 %files java -f .mfiles-maven-plugin-tools-java
-
-%files javadoc -f .mfiles-javadoc
-%license LICENSE NOTICE
 
 %changelog
 %autochangelog

@@ -14,15 +14,11 @@ Source0:        https://github.com/java-schema-utilities/%{name}/archive/refs/ta
 Source1:        copying.txt
 
 BuildRequires:  maven-local
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 2011.1-14
 
 %description
 Interface between RELAX NG validators and datatype libraries.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -35,15 +31,12 @@ cp %{SOURCE1} .
 %mvn_alias com.github.relaxng:relaxngDatatype relaxngDatatype:relaxngDatatype
 
 %build
-%mvn_build -- -Dmaven.compiler.release=8
+%mvn_build -j -- -Dmaven.compiler.release=8
 
 %install
 %mvn_install
 
 %files -f .mfiles
-%license copying.txt
-
-%files javadoc -f .mfiles-javadoc
 %license copying.txt
 
 %changelog

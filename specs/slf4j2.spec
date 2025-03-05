@@ -49,6 +49,8 @@ BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 2.0.16-4
 
 %description
 The Simple Logging Facade for Java or (SLF4J) is intended to serve
@@ -61,12 +63,6 @@ Logging API implementations can either choose to implement the
 SLF4J interfaces directly, e.g. NLOG4J or SimpleLogger. Alternatively,
 it is possible (and rather easy) to write SLF4J adapters for the given
 API implementation, e.g. Log4jLoggerAdapter or JDK14LoggerAdapter..
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %package jdk14
 Summary:        SLF4J JDK14 Binding
@@ -132,7 +128,7 @@ find -name '*.css' -o -name '*.js' -o -name '*.txt' -exec sed -i 's/\r//' {} +
 %mvn_compat_version : 2.0.16
 
 %build
-%mvn_build -f -s -j -- -Drequired.jdk.version=1.8
+%mvn_build -j -f -s -j -- -Drequired.jdk.version=1.8
 
 %install
 # Compat symlinks
@@ -141,10 +137,6 @@ find -name '*.css' -o -name '*.js' -o -name '*.txt' -exec sed -i 's/\r//' {} +
 %mvn_install
 
 %files -f .mfiles
-%license LICENSE.txt LICENSE-2.0.txt
-
-#%files javadoc -f .mfiles-javadoc
-%files javadoc
 %license LICENSE.txt LICENSE-2.0.txt
 
 %files jdk14 -f .mfiles-slf4j-jdk14

@@ -38,6 +38,8 @@ BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.plexus)
 BuildRequires:  mvn(org.jsoup:jsoup)
 BuildRequires:  mvn(org.sonatype.plexus:plexus-build-api)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 2.1.2-23
 
 %description
 Modello is a Data Model toolkit in use by the Apache Maven Project.
@@ -47,12 +49,6 @@ Modello generates code from a simple model format based on a plugin
 architecture, various types of code and descriptors can be generated
 from the single model, including Java POJOs, XML
 marshallers/unmarshallers, XSD and documentation.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -77,7 +73,7 @@ cp -p %{SOURCE1} LICENSE
 
 %build
 # skip tests because we have too old xmlunit in Fedora now (1.0.8)
-%mvn_build -f
+%mvn_build -j -f
 
 %install
 %mvn_install
@@ -87,9 +83,6 @@ cp -p %{SOURCE1} LICENSE
 %files -f .mfiles
 %license LICENSE
 %{_bindir}/modello
-
-%files javadoc -f .mfiles-javadoc
-%license LICENSE
 
 %changelog
 %autochangelog

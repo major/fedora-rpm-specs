@@ -1,12 +1,13 @@
 Name:           perl-DateTime-Format-DB2
-Version:        0.05
-Release:        46%{?dist}
+Version:        0.06
+Release:        1%{?dist}
 Summary:        Parse and format DB2 dates and times
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-Format-DB2
 Source0:        https://cpan.metacpan.org/authors/id/J/JR/JROBINSON/DateTime-Format-DB2-%{version}.tar.gz
 BuildArch:      noarch
 # Build
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -42,10 +43,13 @@ make test
 
 %files
 %doc Changes t/
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/DateTime*
+%{_mandir}/man3/DateTime::Format::DB2*
 
 %changelog
+* Mon Mar 03 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.06-1
+- 0.06 bump (rhbz#2349187)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

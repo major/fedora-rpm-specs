@@ -2,15 +2,12 @@
 
 Name: remmina
 Version: 1.4.39
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Remote Desktop Client
 License: GPL-2.0-or-later and MIT
 URL: https://remmina.org
 
 Source0: https://gitlab.com/Remmina/Remmina/-/archive/v%{version}/Remmina-%{version}.tar.gz#/%{name}-%{version}.tar.gz
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2347554
-Patch0: https://gitlab.com/Remmina/Remmina/-/merge_requests/2634.patch
 
 # Cmake helper file to easy build plugins outside remmina source tree
 # See http://www.muflone.com/remmina-plugin-rdesktop/english/install.html which
@@ -356,6 +353,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 %{_mandir}/man1/remmina-gnome.1*
 
 %changelog
+* Wed Feb 26 2025 Daniel Milnes <daniel@daniel-milnes.uk> - 1.4.39-5
+- Revert patch to align with upstream
+
 * Wed Feb 26 2025 Daniel Milnes <daniel@daniel-milnes.uk> - 1.4.39-4
 - Backport fix for FreeRDP disconnect crash rhbz#2347554
 

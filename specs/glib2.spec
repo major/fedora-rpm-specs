@@ -1,5 +1,5 @@
 Name:           glib2
-Version:        2.83.2
+Version:        2.83.5
 Release:        %autorelease
 Summary:        A library of handy utility functions
 
@@ -14,9 +14,6 @@ Patch:          gnutls-hmac.patch
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=2192204
 Patch:          default-terminal.patch
-
-# https://gitlab.gnome.org/GNOME/glib/-/merge_requests/4459
-Patch:          revert-gcancellable-changes.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++

@@ -19,18 +19,14 @@ BuildRequires:  javapackages-bootstrap
 BuildRequires:  maven-local
 BuildRequires:  mvn(javax.annotation:jsr250-api)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 2.12.1-3
 
 %description
 Gson is a Java library that can be used to convert a Java object into its
 JSON representation. It can also be used to convert a JSON string into an
 equivalent Java object. Gson can work with arbitrary Java objects including
 pre-existing objects that you do not have source-code of.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-This package contains the API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -77,7 +73,7 @@ sed 's/${project.version}/%{version}/' gson/src/main/java-templates/com/google/g
 %pom_disable_module test-shrinker
 
 %build
-%mvn_build -f
+%mvn_build -j -f
 
 %install
 %mvn_install
@@ -85,9 +81,6 @@ sed 's/${project.version}/%{version}/' gson/src/main/java-templates/com/google/g
 %files -f .mfiles
 %license LICENSE
 %doc README.md CHANGELOG.md UserGuide.md
-
-%files javadoc -f .mfiles-javadoc
-%license LICENSE
 
 %changelog
 %autochangelog

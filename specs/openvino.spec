@@ -1,4 +1,4 @@
-%define so_ver 2450
+%define so_ver 2460
 %global desc %{expand: \
 OpenVINO is an open-source toolkit for optimizing and deploying deep learning
 models from cloud to edge. It accelerates deep learning inference across
@@ -6,7 +6,7 @@ various use cases, such as generative AI, video, audio, and language with
 models from popular frameworks like PyTorch, TensorFlow, ONNX, and more.}
 
 Name:		openvino
-Version:	2024.5.0
+Version:	2024.6.0
 Release:	%autorelease
 Summary:	Toolkit for optimizing and deploying AI inference
 
@@ -50,6 +50,9 @@ Patch0:		openvino-fedora.patch
 # Support numpy 2.2.0
 Patch1:		https://github.com/openvinotoolkit/openvino/pull/28039.patch
 Patch2:		npu-level-zero.patch
+Patch3:		onnx-frontend-enable.patch
+# Fix the oneDNN build on CMake 4.0.0 and later
+Patch4:		onednn-minimum-cmake-version.patch
 
 ExclusiveArch:	x86_64
 
@@ -65,17 +68,19 @@ BuildRequires:	python3-pip
 BuildRequires:	python3-setuptools
 BuildRequires:	python3-wheel
 BuildRequires:	numpy
-BuildRequires:	ShellCheck
 BuildRequires:	zlib-ng-compat-devel
 BuildRequires:	xbyak-devel
 BuildRequires:	yaml-cpp-devel
 BuildRequires:	tbb-devel
+BuildRequires:	onnx-devel
+BuildRequires:	protobuf-devel
 # forked version of OpenVINO oneDNN does not have a proper version
 Provides:	bundled(onednn)
 # MLAS upstream does not have any release
 Provides:	bundled(mlas)
 Requires:	lib%{name}-ir-frontend = %{version}
 Requires:	lib%{name}-pytorch-frontend = %{version}
+Requires:	lib%{name}-onnx-frontend = %{version}
 Requires:	numpy
 Recommends:	%{name}-plugins = %{version}
 
@@ -115,6 +120,14 @@ The PyTorch Frontend is a C++ based OpenVINO Frontend component that is
 responsible for reading and converting a PyTorch model to an ov::Model object
 that can be further serialized into the Intermediate Representation (IR) format
 
+%package -n lib%{name}-onnx-frontend
+Summary:	OpenVINO ONNX Frontend
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+
+%description -n lib%{name}-onnx-frontend
+The main responsibility of the ONNX Frontend is to import ONNX models and
+convert them into the ov::Model representation.
+
 %package -n python3-%{name}
 Summary:	OpenVINO Python API
 Requires:	%{name}%{?_isa} = %{version}-%{release}
@@ -125,7 +138,8 @@ code. Python API provides bindings to basic and advanced APIs from OpenVINO
 runtime.
 
 %prep
-%autosetup -p1
+# autosetup without patching, since we need to patch one of the bundled libraries
+%autosetup -N
 
 # Remove the thirdparty deps
 rm -rf thirdparty/*
@@ -134,6 +148,8 @@ cp %{SOURCE4} thirdparty/
 # Intel-cpu-plugin thirdparty deps
 tar xf %{SOURCE1}
 cp -r oneDNN-*/* src/plugins/intel_cpu/thirdparty/onednn
+# autopatch will apply all the patches, now that we have unpacked enough of the bundled libraries
+%autopatch -p1
 tar xf %{SOURCE2}
 cp -r mlas-*/* src/plugins/intel_cpu/thirdparty/mlas
 
@@ -196,7 +212,7 @@ sed -i '/#include <vector>.*/a#include <cstdint>' src/plugins/intel_npu/src/plug
 	-DENABLE_MULTI=ON \
 	-DENABLE_PROXY=ON \
 	-DENABLE_TEMPLATE=ON \
-	-DENABLE_OV_ONNX_FRONTEND=OFF \
+	-DENABLE_OV_ONNX_FRONTEND=ON \
 	-DENABLE_OV_PADDLE_FRONTEND=OFF \
 	-DENABLE_OV_IR_FRONTEND=ON \
 	-DENABLE_OV_PYTORCH_FRONTEND=ON \
@@ -217,7 +233,7 @@ sed -i '/#include <vector>.*/a#include <cstdint>' src/plugins/intel_npu/src/plug
 	-DENABLE_TBB_RELEASE_ONLY=ON \
 	-DENABLE_SAMPLES=OFF \
 	-DENABLE_TESTS=OFF \
-	-DBUILD_SHARED_LIBS=ON
+	-DBUILD_SHARED_LIBS=ON \
 %cmake_build
 
 %install
@@ -245,6 +261,7 @@ LD_LIBRARY_PATH=$LD_LIBRARY_PATH:%{buildroot}%{_libdir} PYTHONPATH=%{buildroot}%
 %{_libdir}/lib%{name}.so
 %{_libdir}/lib%{name}_c.so
 %{_libdir}/lib%{name}_pytorch_frontend.so
+%{_libdir}/lib%{name}_onnx_frontend.so
 %{_libdir}/cmake/openvino-%{version}
 %{_libdir}/pkgconfig/%{name}.pc
 
@@ -264,6 +281,10 @@ LD_LIBRARY_PATH=$LD_LIBRARY_PATH:%{buildroot}%{_libdir} PYTHONPATH=%{buildroot}%
 %files -n lib%{name}-pytorch-frontend
 %{_libdir}/lib%{name}_pytorch_frontend.so.%{version}
 %{_libdir}/lib%{name}_pytorch_frontend.so.%{so_ver}
+
+%files -n lib%{name}-onnx-frontend
+%{_libdir}/lib%{name}_onnx_frontend.so.%{version}
+%{_libdir}/lib%{name}_onnx_frontend.so.%{so_ver}
 
 %files -n python3-%{name}
 %{python3_sitearch}/%{name}

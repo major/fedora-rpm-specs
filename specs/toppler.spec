@@ -1,8 +1,9 @@
 %global commit 5e3e581bb7b58098f54df9b634c7bd4a23ba66b5
+%bcond_with rebuild_gfx
 
 Name:           toppler
 Version:        1.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Platform game
 License:        GPL-3.0-only
 URL:            https://gitlab.com/roever/toppler/
@@ -25,11 +26,10 @@ BuildRequires:  SDL2_mixer-devel
 BuildRequires:  zlib-devel
 # Needed to rebuild the graphics from source
 # This is currently segfault'ing
-%if 0
+%if 0%{with rebuild_gfx}
 BuildRequires:  gimp
 BuildRequires:  ImageMagick
 BuildRequires:  povray
-BuildRequires:  pygtk2
 %endif
 
 
@@ -46,10 +46,19 @@ target you need to avoid a lot of strange robots that guard the tower.
 %patch -P101 -p1
 %patch -P102 -p1
 %patch -P103 -p1
+# Building graphics is broken with Gimp 3
+%if %{with rebuild_gfx} && 0%{?fedora} && 0%{?fedora} <= 40
+rm -f toppler.dat
+%endif
 
 
 %build
 %set_build_flags
+%if %{with rebuild_gfx} && 0%{?fedora} && 0%{?fedora} <= 40
+%make_build \
+  GIMP="gimp-console --batch-interpreter plug-in-script-fu-eval" \
+  toppler.dat
+%endif
 %make_build \
   CXXFLAGS="$CXXFLAGS" \
   LDFLAGS="$LDFLAGS" \
@@ -87,13 +96,17 @@ install -p -m 0644 dist/toppler*.xpm %{buildroot}%{_datadir}/pixmaps/
 
 
 %changelog
+* Mon Mar 03 2025 Xavier Bachelot <xavier@bachelot.org> - 1.3-6
+- Fix changelog entry date
+- Add cond to rebuild graphics (disabled by default)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 
-* Mon Feb 16 2023 Xavier Bachelot <xavier@bachelot.org> - 1.3-3
+* Mon Feb 26 2024 Xavier Bachelot <xavier@bachelot.org> - 1.3-3
 - Add patches to update to current git and fix missing includes (RHBZ#2261760)
 
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-2

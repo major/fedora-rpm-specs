@@ -15,8 +15,8 @@
 %define rdnsname org.godotengine.Godot
 
 Name:           godot
-Version:        4.3
-Release:        7%{?dist}
+Version:        4.4
+Release:        1%{?dist}
 Summary:        Multi-platform 2D and 3D game engine with a feature-rich editor
 %if 0%{?mageia}
 Group:          Development/Tools
@@ -30,12 +30,6 @@ Source1:        https://github.com/godotengine/godot-builds/releases/download/%{
 
 # Preconfigure Blender and oidnDenoise paths to use system-installed versions.
 Patch0:         preconfigure-blender-oidn-paths.patch
-# https://github.com/godotengine/godot/pull/95658
-Patch1:         0001-OpenXR-Fix-support-for-building-against-distro-packa.patch
-# https://github.com/godotengine/godot/pull/97139
-Patch2:         0001-miniupnpc-Update-to-2.2.8-new-major-18.patch
-# https://github.com/godotengine/godot/pull/102022
-Patch3:         0001-Add-missing-cstdint-includes-for-GCC-15.patch
 
 # Upstream does not support this arch (for now)
 ExcludeArch:    s390x
@@ -279,6 +273,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnsname}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnsname}.appdata.xml
 
 %changelog
+* Mon Mar 03 2025 Rémi Verschelde <akien@fedoraproject.org> - 4.4-1
+- Versions 4.4-stable
+
 * Thu Jan 30 2025 Rémi Verschelde <akien@fedoraproject.org> - 4.3-7
 - Re-enable LTO, we were using an outdated option for it
 

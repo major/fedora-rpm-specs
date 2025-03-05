@@ -1,7 +1,7 @@
 Summary: Intrusion Detection System
 Name: suricata
 Version: 7.0.8
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-only
 URL: https://suricata-ids.org/
 Source0: https://www.openinfosecfoundation.org/download/%{name}-%{version}.tar.gz
@@ -51,7 +51,6 @@ BuildRequires: hyperscan-devel
 %endif
 
 Requires: python3-pyyaml
-Requires(pre): /usr/sbin/useradd
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
@@ -84,6 +83,11 @@ sed -i 's/-D__KERNEL__/-D__KERNEL__ -D__x86_64__/' ebpf/Makefile.am
 %endif
 find rust/ -name '*.rs' -type f -perm /111 -exec chmod -v -x '{}' '+'
 autoreconf -fv --install
+
+# Create a sysusers.d config file
+cat >suricata.sysusers.conf <<EOF
+u suricata - - - -
+EOF
 
 %build
 #  ensure standard Rust compiler flags are set
@@ -141,11 +145,11 @@ install -d -m 0755 %{buildroot}/run/%{name}/
 
 cp suricata-update/README.rst doc/suricata-update-README.rst
 
+install -m0644 -D suricata.sysusers.conf %{buildroot}%{_sysusersdir}/suricata.conf
+
 %check
 make check
 
-%pre
-getent passwd suricata >/dev/null || useradd -r -M -s /sbin/nologin suricata
 
 %post
 %systemd_post suricata.service
@@ -188,8 +192,12 @@ fi
 %attr(2770,suricata,suricata) %dir /run/%{name}/
 %{_tmpfilesdir}/%{name}.conf
 %{_datadir}/%{name}/rules
+%{_sysusersdir}/suricata.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 7.0.8-3
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

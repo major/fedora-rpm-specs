@@ -45,6 +45,8 @@ BuildRequires:  maven
 %endif
 Requires:       %{name}-minimal = %{version}-%{release}
 Requires:       maven
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 4.3.0-15
 
 %description
 This package provides extensions for Apache Maven that can be used to
@@ -114,12 +116,6 @@ This package provides various XMvn tools:
   artifact repositories.
 * XMvn Subst, which is a tool that can substitute Maven artifact files
   with symbolic links to corresponding files in artifact repository.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -241,9 +237,6 @@ install -p -m 644 %{SOURCE21} %{buildroot}%{_datadir}/%{name}/conf/toolchains-op
 %{_bindir}/%{name}-install
 %{_bindir}/%{name}-resolve
 %{_bindir}/%{name}-subst
-
-%files javadoc
-%license LICENSE NOTICE
 
 %changelog
 %autochangelog

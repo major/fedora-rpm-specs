@@ -1,8 +1,8 @@
 %define glib2_version 2.38.0
 
 Name:           libnotify
-Version:        0.8.3
-Release:        5%{?dist}
+Version:        0.8.4
+Release:        1%{?dist}
 Summary:        Desktop notification library
 
 License:        LGPL-2.1-or-later
@@ -62,6 +62,9 @@ development of programs using %{name}.
 %doc %{_docdir}/libnotify/spec/
 
 %changelog
+* Mon Mar 03 2025 nmontero <nmontero@redhat.com> - 0.8.4-1
+- Update to 0.8.4
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

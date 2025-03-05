@@ -12,6 +12,8 @@ Source0:        https://github.com/clarkware/jdepend/archive/refs/tags/2.10.tar.
 BuildRequires:  javapackages-local
 BuildRequires:  ant
 BuildRequires:  java-devel
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 2.10-27
 
 %description
 JDepend traverses a set of Java class and source file directories and
@@ -19,12 +21,6 @@ generates design quality metrics for each Java package. JDepend allows
 you to automatically measure the quality of a design in terms of its
 extensibility, reusability, and maintainability to effectively manage
 and control package dependencies.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -37,17 +33,14 @@ find . -type f -exec chmod 644 {} \;
 %mvn_file %{name}:%{name} %{name}
 
 %build
-%ant -Dant.build.javac.source=1.8 -Dant.build.javac.target=1.8 jar javadoc
+%ant -Dant.build.javac.source=1.8 -Dant.build.javac.target=1.8 jar
 
 %install
 %mvn_artifact jdepend:jdepend:%{version} dist/%{name}-%{version}.jar
-%mvn_install -J build/docs/api
+%mvn_install
 
 %files -f .mfiles
 %doc README.md CHANGELOG.md docs
-%license LICENSE.md
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE.md
 
 %changelog

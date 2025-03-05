@@ -27,25 +27,20 @@ BuildRequires:  mvn(org.ow2.asm:asm)
 Requires:       java-21-openjdk-headless
 Requires:       lujavrite
 Requires:       rpm-build
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 2.0.2-9
 
 %description
 XMvn Generator is a dependency generator for RPM Package Manager
 written in Java and Lua, that uses LuJavRite library to call Java code
 from Lua.
 
-%package javadoc
-Summary:        API documentation for %{name}
-BuildArch:      noarch
-
-%description javadoc
-API documentation for %{name}.
-
 %prep
 %autosetup -p1 -C
 %mvn_file : %{name}
 
 %build
-%mvn_build -- -P\!quality
+%mvn_build -j -- -P\!quality
 
 %install
 %mvn_install
@@ -61,8 +56,6 @@ install -D -p -m 644 src/main/rpm/xmvngen.attr %{buildroot}%{_fileattrsdir}/xmvn
 %{_sysconfdir}/rpm/*
 %license LICENSE NOTICE
 %doc README.md
-
-%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

@@ -1,20 +1,20 @@
 # remirepo/fedora spec file for pie
 #
-# SPDX-FileCopyrightText:  Copyright 2024 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2024-2025 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 
-%global gh_commit        e7fcd163cf77e3ae878f6bee9a590e1fd00b2a26
+%global gh_commit        8304dd20d96c81be1d9e4ad7976e63cfa6670b29
 %global gh_short         %(c=%{gh_commit}; echo ${c:0:7})
 #global gh_date		     20241003
 %global gh_branch        main
 %global gh_owner         php
 %global gh_project       pie
 
-%global upstream_version 0.6.0
+%global upstream_version 0.7.0
 #global upstream_prever  dev
 #global upstream_lower   DEV
 
@@ -135,6 +135,9 @@ done
 
 
 %changelog
+* Mon Mar  3 2025 Remi Collet <remi@remirepo.net> - 0.7.0-1
+- update to 0.7.0
+
 * Wed Jan 29 2025 Remi Collet <remi@remirepo.net> - 0.6.0-1
 - update to 0.6.0
 - always use composer-generators

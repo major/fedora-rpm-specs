@@ -1,5 +1,5 @@
 Name:           python-texttable
-Version:        1.6.7
+Version:        1.7.0
 Release:        %autorelease
 Summary:        Python module to create simple ASCII tables
 License:        MIT
@@ -8,7 +8,8 @@ Source:         %{pypi_source texttable}
 BuildArch:      noarch
 
 %global common_description %{expand:
-Texttable is a module to generate a formatted text table, using ASCII characters.}
+Texttable is a module to generate a formatted text table, using ASCII
+characters.}
 
 
 %description %{common_description}
@@ -37,7 +38,7 @@ BuildRequires:  python3-pytest
 
 %install
 %pyproject_install
-%pyproject_save_files texttable
+%pyproject_save_files -l texttable
 
 
 %check

@@ -1,5 +1,5 @@
 Name:           moarvm
-Version:        2024.12
+Version:        2025.02
 Release:        %autorelease
 Summary:        Metamodel On A Runtime Virtual Machine
 License:        Artistic-2.0
@@ -62,6 +62,7 @@ chmod 755 %{buildroot}%{_libdir}/libmoar.so
 %{_bindir}/moar
 %{_libdir}/libmoar.so
 %{_datadir}/nqp/
+%{_libdir}/libmoar.so-gdb.py
 
 %files devel
 %{_includedir}/moar/

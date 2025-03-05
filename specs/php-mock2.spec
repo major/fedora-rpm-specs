@@ -6,16 +6,16 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    406752143e97e3da8765f414f658e72bbcbe15d7
+%global gh_commit    c7b6789056dfc3c45389cabbe9930dc33aeb2bf0
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2025-02-21
+%global gh_date      2025-02-28
 %global gh_owner     php-mock
 %global gh_project   php-mock
 %global with_tests   0%{!?_without_tests:1}
 %global major        2
 
 Name:           php-mock%{major}
-Version:        2.6.0
+Version:        2.6.1
 Release:        1%{?dist}
 Summary:        PHP-Mock can mock built-in PHP functions
 
@@ -200,6 +200,9 @@ exit $ret
 
 
 %changelog
+* Mon Mar  3 2025 Remi Collet <remi@remirepo.net> - 2.6.1-1
+- update to 2.6.1 (no change)
+
 * Tue Feb 25 2025 Remi Collet <remi@remirepo.net> - 2.6.0-1
 - update to 2.6.0
 

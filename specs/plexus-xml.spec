@@ -25,22 +25,18 @@ BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.maven:maven-xml:4.0.0-rc-2)
 BuildRequires:  mvn(org.codehaus.plexus:plexus:pom:)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 4.0.4-5
 
 %description
 A collection of various utility classes to ease working with XML.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
 
 %build
 # Test dependencies are not packaged
-%mvn_build -f
+%mvn_build -j -f
 
 %install
 %mvn_install
@@ -48,8 +44,6 @@ API documentation for %{name}.
 %files -f .mfiles
 %doc README.md
 %license NOTICE.txt LICENSE.txt
-
-%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

@@ -21,16 +21,12 @@ BuildRequires:  mvn(org.hamcrest:hamcrest)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
 BuildRequires:  mvn(org.opentest4j:opentest4j)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 3.26.3-8
 
 %description
 A rich and intuitive set of strongly-typed assertions to use for unit testing
 (either with JUnit or TestNG).
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -66,16 +62,13 @@ API documentation for %{name}.
 </plugin>' assertj-core
 
 %build
-%mvn_build -f -- -Dproject.build.sourceEncoding=UTF-8
+%mvn_build -j -f -- -Dproject.build.sourceEncoding=UTF-8
 
 %install
 %mvn_install
 
 %files -f .mfiles
 %doc README.md CONTRIBUTING.md
-%license LICENSE.txt
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE.txt
 
 %changelog

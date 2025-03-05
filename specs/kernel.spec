@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.14.0
 %define specversion 6.14.0
 %define patchversion 6.14
-%define pkgrelease 0.rc4.20250226gitac9c34d1e45a.38
+%define pkgrelease 0.rc5.43
 %define kversion 6
-%define tarfile_release 6.14-rc4-52-gac9c34d1e45a
+%define tarfile_release 6.14-rc5
 # This is needed to do merge window version magic
 %define patchlevel 14
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc4.20250226gitac9c34d1e45a.38%{?buildid}%{?dist}
+%define specrelease 0.rc5.43%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.14.0
 
@@ -765,7 +765,7 @@ BuildRequires: libnl3-devel
 %endif
 
 %if %{with_tools} && %{with_ynl}
-BuildRequires: python3-pyyaml python3-jsonschema python3-pip python3-setuptools
+BuildRequires: python3-pyyaml python3-jsonschema python3-pip python3-setuptools >= 61
 %endif
 
 %if %{with_tools} || %{signmodules} || %{signkernel}
@@ -3985,8 +3985,8 @@ fi\
 %files -f %{package_name}-tools-debuginfo.list -n %{package_name}-tools-debuginfo
 %endif
 
-%ifarch %{cpupowerarchs}
 %files -n %{package_name}-tools-libs
+%ifarch %{cpupowerarchs}
 %{_libdir}/libcpupower.so.1
 %{_libdir}/libcpupower.so.0.0.1
 %endif
@@ -4212,10 +4212,28 @@ fi\
 #
 #
 %changelog
-* Wed Feb 26 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc4.ac9c34d1e45a.38]
+* Mon Mar 03 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc5.43]
 - apply -Wno-error=unterminated-string-initialization temporarily (Thorsten Leemhuis)
 - include/linux: Adjust headers for C23 (Jakub Jelinek)
 - x86/insn_decoder_test: allow longer symbol-names (David Rheinsberg)
+
+* Mon Mar 03 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc5.42]
+- Linux v6.14.0-0.rc5
+
+* Sun Mar 02 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc4.ece144f151ac.41]
+- Linux v6.14.0-0.rc4.ece144f151ac
+
+* Sat Mar 01 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc4.03d38806a902.40]
+- Linux v6.14.0-0.rc4.03d38806a902
+
+* Fri Feb 28 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc4.76544811c850.39]
+- Linux v6.14.0-0.rc4.76544811c850
+
+* Thu Feb 27 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc4.dd83757f6e68.38]
+- kernel.spec: add missing tools-libs on s390x (Jan Stancek)
+- arch/x86/kernel/setup.c: fix rh_check_supported (Tomas Henzl)
+- kernel.spec: add minimum version of setuptools for ynl (Jan Stancek)
+- Linux v6.14.0-0.rc4.dd83757f6e68
 
 * Wed Feb 26 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc4.ac9c34d1e45a.37]
 - Linux v6.14.0-0.rc4.ac9c34d1e45a

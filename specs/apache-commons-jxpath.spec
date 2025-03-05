@@ -22,17 +22,13 @@ BuildRequires:  mvn(jdom:jdom)
 BuildRequires:  mvn(org.apache.commons:commons-parent:pom:)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-assembly-plugin)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 1.3-77
 
 %description
 Defines a simple interpreter of an expression language called XPath.
 JXPath applies XPath expressions to graphs of objects of all kinds:
 JavaBeans, Maps, Servlet contexts, DOM etc, including mixtures thereof.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -55,15 +51,12 @@ rm src/test/org/apache/commons/jxpath/servlet/JXPathServletContextTest.java
 
 %build
 # we are skipping tests because we don't have com.mockrunner in repos yet
-%mvn_build -f -- -Dcommons.packageId=jxpath
+%mvn_build -j -f -- -Dcommons.packageId=jxpath
 
 %install
 %mvn_install
 
 %files -f .mfiles
-%license LICENSE.txt NOTICE.txt
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE.txt NOTICE.txt
 
 %changelog

@@ -1,6 +1,6 @@
 Name:    vsomeip3
 Version: 3.3.8
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: COVESA implementation of SOME/IP protocol
 
 License: MPL-2.0 AND BSL-1.0
@@ -69,7 +69,6 @@ This package contains the SELinux policy module for %{name}.
 %package routingmanager
 Summary: Routingmanager daemon %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires(pre): shadow-utils
 Requires: systemd
 
 %description routingmanager
@@ -107,6 +106,11 @@ cp %{SOURCE5} %{SOURCE6} %{SOURCE7} vsomeip-selinux/
 # For some reasons, some source files are executable, which messes
 # with debuginfo
 find -name "*.[ch]pp" | xargs chmod a-x
+
+# Create a sysusers.d config file
+cat >vsomeip3.sysusers.conf <<EOF
+u routingmanagerd - 'User for routingmanagerd' /var/lib/routingmanagerd -
+EOF
 
 %ldconfig_scriptlets
 
@@ -159,6 +163,8 @@ mkdir -p %{buildroot}%{_datadir}/selinux/packages/ %{buildroot}%{_datadir}/selin
 install -m 0644 vsomeip-selinux/vsomeip.pp.bz2 %{buildroot}%{_datadir}/selinux/packages/
 install -m 0644 vsomeip-selinux/vsomeip.if %{buildroot}%{_datadir}/selinux/devel/include/contrib/
 
+install -m0644 -D vsomeip3.sysusers.conf %{buildroot}%{_sysusersdir}/vsomeip3.conf
+
 %post selinux
 %selinux_modules_install %{_datadir}/selinux/packages/vsomeip.pp.bz2
 
@@ -167,13 +173,6 @@ if [ $1 -eq 0 ]; then
     %selinux_modules_uninstall %{_datadir}/selinux/packages/vsomeip.pp.bz2
 fi
 
-%pre routingmanager
-## This creates the users that are needed for routingmanagerd
-getent group routingmanagerd >/dev/null || groupadd -r routingmanagerd
-getent passwd routingmanagerd >/dev/null || \
-    useradd -r -g routingmanagerd -d /var/lib/routingmanagerd -s /sbin/nologin \
-    -c "User for routingmanagerd" routingmanagerd
-exit 0
 
 %post routingmanager
 %systemd_post routingmanagerd.socket routingmanagerd.service
@@ -208,6 +207,7 @@ exit 0
 %{_bindir}/routingmanagerd
 %{_unitdir}/routingmanagerd.service
 %{_unitdir}/routingmanagerd.socket
+%{_sysusersdir}/vsomeip3.conf
 
 %files tools
 %doc AUTHORS CHANGES README.md
@@ -240,6 +240,9 @@ exit 0
 %{_libdir}/pkgconfig/vsomeip3.pc
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.3.8-6
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

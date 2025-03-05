@@ -26,6 +26,8 @@ BuildRequires:  mvn(org.fusesource.jansi:jansi)
 BuildRequires:  mvn(org.hamcrest:hamcrest-core)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 3.4.2-22
 
 %description
 This project aims to be a functional replacement for plexus-utils in Maven.
@@ -33,12 +35,6 @@ This project aims to be a functional replacement for plexus-utils in Maven.
 It is not a 100% API compatible replacement though but a replacement with
 improvements: lots of methods got cleaned up, generics got added and we dropped
 a lot of unused code.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -50,15 +46,13 @@ find -name '*.java' -exec sed -i 's/\r//' {} +
 rm src/test/java/org/apache/maven/shared/utils/CaseTest.java
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
 
 %files -f .mfiles
 %license LICENSE NOTICE
-
-%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

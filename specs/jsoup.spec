@@ -22,6 +22,8 @@ BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 1.18.1-11
 
 %description
 jsoup is a Java library for working with real-world HTML. It provides a very
@@ -39,12 +41,6 @@ as modern browsers do.
 jsoup is designed to deal with all varieties of HTML found in the wild; from
 pristine and validating, to invalid tag-soup; jsoup will create a sensible parse
 tree.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -66,7 +62,7 @@ sed -i /org.jspecify/d src/main/java9/module-info.java
   -p org[.]jspecify[.]annotations[.] \
 
 %build
-%mvn_build -f
+%mvn_build -j -f
 
 %install
 %mvn_install
@@ -74,8 +70,6 @@ sed -i /org.jspecify/d src/main/java9/module-info.java
 %files -f .mfiles
 %doc README.md CHANGES.md
 %license LICENSE
-
-%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

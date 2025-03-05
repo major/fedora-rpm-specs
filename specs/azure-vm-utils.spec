@@ -1,5 +1,5 @@
 Name:           azure-vm-utils
-Version:        0.5.0
+Version:        0.5.1
 Release:        %autorelease
 Summary:        Core utilities and configuration for Linux VMs on Azure
 

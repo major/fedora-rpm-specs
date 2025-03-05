@@ -1,8 +1,8 @@
 Name:          awf-gtk2
-Version:       2.8.0
-Release:       4%{?dist}
-Summary:       Theme preview application for GTK
-Summary(fr):   Application d'aperçu de thème pour GTK
+Version:       2.8.1
+Release:       1%{?dist}
+Summary:       Theme preview application for GTK 2
+Summary(fr):   Application d'aperçu de thème pour GTK 2
 License:       GPL-3.0-or-later
 URL:           https://github.com/luigifab/awf-extended
 Source0:       %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -36,8 +36,6 @@ Ce paquet fournit la version GTK 2.}
 %setup -q -n awf-extended-%{version}
 sed -i 's/ -eq 3/ -eq -1/g' configure.ac
 sed -i 's/ -eq 4/ -eq -1/g' configure.ac
-touch {NEWS,AUTHORS,README,ChangeLog}
-mv LICENSE COPYING
 
 %build
 autoreconf -fi
@@ -46,27 +44,26 @@ autoreconf -fi
 
 %install
 %make_install
-mkdir -p %{buildroot}%{_datadir}/applications/
-desktop-file-install --dir=%{buildroot}%{_datadir}/applications/ applications/%{name}.desktop
+install -dm 755 %{buildroot}%{_datadir}/applications/
+desktop-file-install --dir=%{buildroot}%{_datadir}/applications/ data/%{name}.desktop
 
-mkdir -p %{buildroot}%{_datadir}/icons/hicolor/
-for file in icons/*/*/awf.png; do mv $file ${file/\/awf.png/\/%{name}.png}; done
-for file in icons/*/*/awf.svg; do mv $file ${file/\/awf.svg/\/%{name}.svg}; done
-cp -a icons/* %{buildroot}%{_datadir}/icons/hicolor/
+install -dm 755 %{buildroot}%{_datadir}/icons/hicolor/
+for file in data/icons/*/*/awf.png; do mv $file ${file/\/awf.png/\/%{name}.png}; done
+for file in data/icons/*/*/awf.svg; do mv $file ${file/\/awf.svg/\/%{name}.svg}; done
+cp -a data/icons/* %{buildroot}%{_datadir}/icons/hicolor/
 
-mkdir -p %{buildroot}%{_mandir}/man1/ %{buildroot}%{_mandir}/fr/man1/
-install -pm 644 debian/%{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
-install -pm 644 debian/%{name}.fr.1 %{buildroot}%{_mandir}/fr/man1/%{name}.1
+install -Dpm 644 data/%{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
+install -Dpm 644 data/%{name}.fr.1 %{buildroot}%{_mandir}/fr/man1/%{name}.1
 
 for file in src/po/*.po; do
   code=$(basename "$file" .po)
-  mkdir -p %{buildroot}%{_datadir}/locale/${code}/LC_MESSAGES/
+  install -dm 755 %{buildroot}%{_datadir}/locale/${code}/LC_MESSAGES/
   msgfmt src/po/${code}.po -o %{buildroot}%{_datadir}/locale/${code}/LC_MESSAGES/%{name}.mo
 done
 %find_lang %{name} --with-man
 
 %files -f %{name}.lang
-%license COPYING
+%license LICENSE
 %doc README.md
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
@@ -76,6 +73,9 @@ done
 
 
 %changelog
+* Mon Mar 03 2025 Fabrice Creuzot <code@luigifab.fr> - 2.8.1-1
+- New upstream release
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

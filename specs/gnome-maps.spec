@@ -7,8 +7,8 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so.*$
 
 Name:           gnome-maps
-Version:        47.2
-Release:        2%{?dist}
+Version:        47.4
+Release:        1%{?dist}
 Summary:        Map application for GNOME
 
 License:        GPL-2.0-or-later AND CC0-1.0
@@ -96,6 +96,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Maps.deskto
 
 
 %changelog
+* Mon Mar 03 2025 nmontero <nmontero@redhat.com> - 47.4-1
+- Update to 47.4
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 47.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

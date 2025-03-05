@@ -24,31 +24,24 @@ BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
 BuildRequires:  mvn(org.jline:jline-reader)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 1.3-5
 
 %description
 Plexus component that handles interactive user input from different
 sources.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-This package provides %{summary}.
 
 %prep
 %autosetup -p1 -C
 cp %{SOURCE1} .
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
 
 %files -f .mfiles
-%license LICENSE.MIT
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE.MIT
 
 %changelog

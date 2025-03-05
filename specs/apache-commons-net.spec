@@ -23,6 +23,8 @@ BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-params)
 BuildRequires:  mvn(org.junit.vintage:junit-vintage-engine)
 # for signature verification
 BuildRequires:  gnupg2
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 3.11.1-11
 
 %description
 This is an Internet protocol suite Java library originally developed by
@@ -30,12 +32,6 @@ ORO, Inc.  This version supports Finger, Whois, TFTP, Telnet, POP3, FTP,
 NNTP, SMTP, and some miscellaneous protocols like Time and Echo as well
 as BSD R command support. The purpose of the library is to provide
 fundamental protocol access, not higher-level abstractions.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -76,16 +72,13 @@ src/test/java/org/apache/commons/net/time/TimeUDPClientTest.java \
 %mvn_alias : org.apache.commons:commons-net
 
 %build
-%mvn_build -- -Dcommons.osgi.symbolicName=org.apache.commons.net
+%mvn_build -j -- -Dcommons.osgi.symbolicName=org.apache.commons.net
 
 %install
 %mvn_install
 
 %files -f .mfiles
 %doc README.md RELEASE-NOTES.txt
-%license LICENSE.txt NOTICE.txt
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE.txt NOTICE.txt
 
 %changelog

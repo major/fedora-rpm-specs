@@ -30,6 +30,7 @@ BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-params)
 # TODO remove in Fedora 46
 Obsoletes:      %{name}-builtins < 3.29.0
 Obsoletes:      %{name}-console < 3.29.0
+Obsoletes:      %{name}-javadoc < 3.29.0
 Obsoletes:      %{name}-native < 3.29.0
 Obsoletes:      %{name}-parent < 3.29.0
 Obsoletes:      %{name}-reader < 3.29.0

@@ -23,16 +23,12 @@ BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.inject)
 BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.plexus)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 1.3.0-12
 
 %description
 The Plexus Testing contains the necessary classes to be able to test
 Plexus components.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -44,7 +40,7 @@ rm src/test/java/org/codehaus/plexus/testing/TestJakartaComponent.java
 rm src/test/java/org/codehaus/plexus/testing/PlexusTestJakartaTest.java
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
@@ -52,8 +48,6 @@ rm src/test/java/org/codehaus/plexus/testing/PlexusTestJakartaTest.java
 %files -f .mfiles
 %doc README.md
 %license LICENSE
-
-%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

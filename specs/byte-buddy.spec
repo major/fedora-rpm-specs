@@ -42,6 +42,8 @@ BuildRequires:  mvn(org.ow2.asm:asm-analysis)
 BuildRequires:  mvn(org.ow2.asm:asm-commons)
 BuildRequires:  mvn(org.ow2.asm:asm-util)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 1.14.2-25
 
 %description
 Byte Buddy is a code generation library for creating Java classes during the
@@ -61,12 +63,6 @@ Summary:        Byte Buddy Maven plugin
 
 %description maven-plugin
 A plugin for post-processing class files via Byte Buddy in a Maven build.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -123,7 +119,7 @@ rm byte-buddy-agent/src/test/java/net/bytebuddy/agent/VirtualMachineAttachmentTe
 # NOTE you can obtain valid profiles for precompilation by:
 # xmllint --xpath '//*[local-name()="profile"]/*[local-name()="id"]/text()' byte-buddy-dep/pom.xml | grep 'precompile$' | grep -v 'no-precompile$' | sed 's/\(.*\)/-P\1/'
 profiles='-Pjava-8-precompile -Pjava-8-parameters-precompile -Pjava-11-precompile -Pjava-16-precompile -Pjava-17-precompile'
-%mvn_build -s -- -P'java8,!checks' "${profiles}" -Dsourcecode.main.version=8 -Dsourcecode.test.version=8 -Dmaven.test.failure.ignore=true
+%mvn_build -j -s -- -P'java8,!checks' "${profiles}" -Dsourcecode.main.version=8 -Dsourcecode.test.version=8 -Dmaven.test.failure.ignore=true
 
 %install
 %mvn_install
@@ -136,9 +132,6 @@ profiles='-Pjava-8-precompile -Pjava-8-parameters-precompile -Pjava-11-precompil
 %license LICENSE NOTICE
 
 %files maven-plugin -f .mfiles-%{name}-maven-plugin
-
-%files javadoc -f .mfiles-javadoc
-%license LICENSE NOTICE
 
 %changelog
 %autochangelog

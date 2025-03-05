@@ -39,15 +39,11 @@ BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.plexus)
 BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 3.5.0-9
 
 %description
 Enforcer is a build rule execution framework.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %package api
 Summary:        Enforcer API
@@ -88,15 +84,12 @@ find -name EvaluateBeanshell.java -delete
 
 %build
 # Use system version of maven-enforcer-plugin instead of reactor version
-%mvn_build -s -f -- -Dversion.maven-enforcer-plugin=SYSTEM
+%mvn_build -j -s -f -- -Dversion.maven-enforcer-plugin=SYSTEM
 
 %install
 %mvn_install
 
 %files -f .mfiles-enforcer
-%license LICENSE NOTICE
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE NOTICE
 
 %files api -f .mfiles-enforcer-api

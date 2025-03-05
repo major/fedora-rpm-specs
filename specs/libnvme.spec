@@ -4,10 +4,13 @@
 Name:    libnvme
 Summary: Linux-native nvme device management library
 Version: 1.11.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: LGPL-2.1-or-later
 URL:     https://github.com/linux-nvme/libnvme
 Source0: %{url}/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2325194
+Patch0:  libnvme-1.12-build_do_not_include_config.h_globally-2.patch
 
 BuildRequires: gcc gcc-c++
 BuildRequires: swig
@@ -98,6 +101,9 @@ rm -r %{buildroot}%{_pkgdocdir}/html/{.buildinfo,.doctrees/}
 %{python3_sitearch}/libnvme/*
 
 %changelog
+* Mon Mar 03 2025 Tomas Bzatek <tbzatek@redhat.com> - 1.11.1-3
+- Fix build with Python 3.14 (#2325194)
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

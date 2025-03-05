@@ -25,17 +25,13 @@ BuildRequires:  mvn(org.codehaus.mojo:mojo-parent:pom:)
 BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
 BuildRequires:  mvn(org.mockito:mockito-core)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 1.8.0-11
 
 %description
 Apache's Maven Enforcer Plugin is used to apply and enforce rules on Maven
 projects. The Enforcer plugin ships with a set of standard rules. This project
 provides extra rules which are not part of the standard rule set.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -44,7 +40,7 @@ API documentation for %{name}.
 %pom_remove_plugin :maven-invoker-plugin
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
@@ -52,9 +48,6 @@ API documentation for %{name}.
 %files -f .mfiles
 %license LICENSE.txt
 %doc README.md
-
-%files javadoc -f .mfiles-javadoc
-%license LICENSE.txt
 
 %changelog
 %autochangelog

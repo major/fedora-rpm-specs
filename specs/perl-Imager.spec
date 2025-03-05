@@ -1,5 +1,5 @@
 Name:           perl-Imager
-Version:        1.026
+Version:        1.027
 Release:        1%{?dist}
 Summary:        Perl extension for Generating 24 bit Images
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -123,6 +123,9 @@ make test
 %{_mandir}/man3/Imager::Test.3pm*
 
 %changelog
+* Mon Mar 03 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.027-1
+- 1.027 bump (rhbz#2349241)
+
 * Mon Feb 10 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.026-1
 - 1.026 bump (rhbz#2344439)
 

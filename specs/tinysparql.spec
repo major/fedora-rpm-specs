@@ -5,13 +5,13 @@
 %global tracker_obsoletes_version 3.8
 
 Name:           tinysparql
-Version:        3.8~rc
-Release:        6%{?dist}
+Version:        3.9~rc
+Release:        1%{?dist}
 Summary:        Desktop-neutral metadata database and search tool
 
 License:        GPL-2.0-or-later
 URL:            https://gnome.pages.gitlab.gnome.org/tinysparql/
-Source0:        https://download.gnome.org/sources/tinysparql/3.8/tinysparql-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/tinysparql/3.9/tinysparql-%{tarball_version}.tar.xz
 
 BuildRequires:  asciidoc
 BuildRequires:	gcc
@@ -165,6 +165,9 @@ This package contains the documentation for %{name}.
 
 
 %changelog
+* Mon Mar 03 2025 nmontero <nmontero@redhat.com> - 3.9~rc-1
+- Update to 3.9.rc
+
 * Wed Feb 05 2025 Nieves Montero <nmontero@redhat.com> - 3.8.rc-6
 - Move Obsoletes and Provides lines
 

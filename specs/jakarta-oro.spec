@@ -46,6 +46,8 @@ Patch:          %{name}-build-xml.patch
 
 BuildRequires:  javapackages-local
 BuildRequires:  ant
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 2.0.8-53
 Provides:       deprecated()
 
 %description
@@ -55,13 +57,6 @@ expressions, glob expressions, and utility classes for performing
 substitutions, splits, filtering filenames, etc. This library is the
 successor to the OROMatcher, AwkTools, PerlTools, and TextTools
 libraries from ORO, Inc. (www.oroinc.com). 
-
-%package javadoc
-Summary:        API documentation for %{name}
-Provides:       deprecated()
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -74,19 +69,16 @@ for file in `find . -type f -name .cvsignore`; do rm -rf $file; done
 cp %{SOURCE1} .
 
 %build
-ant -Dfinal.name=%{base_name} jar javadocs -Dant.build.javac.source=1.8 -Dant.build.javac.target=1.8
+ant -Dfinal.name=%{base_name} jar -Dant.build.javac.source=1.8 -Dant.build.javac.target=1.8
 
 %install
 %mvn_file : %{name} %{base_name}
 %mvn_artifact %{SOURCE2} %{base_name}.jar
 
-%mvn_install -J docs/api
+%mvn_install
 
 %files -f .mfiles
 %doc COMPILE ISSUES README TODO CHANGES CONTRIBUTORS STYLE
-%license LICENSE
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE
 
 %changelog

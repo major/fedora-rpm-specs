@@ -26,16 +26,12 @@ BuildRequires:  mvn(org.codehaus.plexus:plexus:pom:)
 BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
 BuildRequires:  mvn(org.ow2.asm:asm)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 1.2.0-15
 
 %description
 Plexus Languages is a set of Plexus components that maintain shared
 language features.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -46,15 +42,13 @@ cp %{SOURCE1} .
 
 %build
 # many tests rely on bundled test jars/classes
-%mvn_build -f
+%mvn_build -j -f
 
 %install
 %mvn_install
 
 %files -f .mfiles
 %license LICENSE-2.0.txt
-
-%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

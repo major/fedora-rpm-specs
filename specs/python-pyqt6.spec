@@ -7,7 +7,7 @@
 Summary: PyQt6 is Python bindings for Qt6
 Name:    python-pyqt6
 Version: 6.8.1
-Release: 0.1%{?dist}
+Release: 0.2%{?dist}
 
 License: gpl-3.0-only
 Url:     http://www.riverbankcomputing.com/software/pyqt/
@@ -241,6 +241,9 @@ sed -i \
 
 
 %changelog
+* Tue Mar 04 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 6.8.1-0.2
+- Rebuild for ppc64le enablement of QtPdf/QtWebEngine
+
 * Mon Feb 03 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.1-0.1^dev2502011625
 - Update to snapshot of 6.8.1
 

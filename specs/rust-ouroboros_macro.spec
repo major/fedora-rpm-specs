@@ -5,7 +5,7 @@
 %global crate ouroboros_macro
 
 Name:           rust-ouroboros_macro
-Version:        0.18.4
+Version:        0.18.5
 Release:        %autorelease
 Summary:        Proc macro for ouroboros crate
 
@@ -15,8 +15,6 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * bump heck dependency from 0.4.1 to 0.5:
 #   https://github.com/someguynamedjosh/ouroboros/pull/127
-# * bump itertools dependency from 0.12 to 0.13:
-#   https://github.com/someguynamedjosh/ouroboros/issues/128
 Patch:          ouroboros_macro-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

@@ -21,17 +21,13 @@ BuildRequires:  javapackages-bootstrap
 BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 3.0.2-39
 
 %description
 This package contains reference implementations, test cases, and other
 documents for Java Specification Request 305: Annotations for Software Defect
 Detection.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -67,7 +63,7 @@ sed -i /^package/s/net.jcip.annotations/javax.annotation.concurrent/ ri/src/main
 %pom_remove_plugin org.apache.maven.plugins:maven-gpg-plugin ri
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
@@ -75,8 +71,6 @@ sed -i /^package/s/net.jcip.annotations/javax.annotation.concurrent/ ri/src/main
 %files -f .mfiles
 %license ri/LICENSE jcip-annotations-jcip-annotations-1.0-1/LICENSE.txt
 %doc sampleUses
-
-%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

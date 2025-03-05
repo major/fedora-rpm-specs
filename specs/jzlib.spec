@@ -14,6 +14,8 @@ Patch:          jzlib-javadoc-fixes.patch
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 1.1.3-37
 
 %description
 The zlib is designed to be a free, general-purpose, legally unencumbered 
@@ -21,12 +23,6 @@ The zlib is designed to be a free, general-purpose, legally unencumbered
 library for use on virtually any computer hardware and operating system. 
 The zlib was written by Jean-loup Gailly (compression) and Mark Adler 
 (decompression). 
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %package demo
 Summary:        Examples for %{name}
@@ -48,7 +44,7 @@ Requires:       %{name} = %{version}-%{release}
 %mvn_file : %{name}
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
@@ -58,9 +54,6 @@ install -dm 755 %{buildroot}%{_datadir}/%{name}
 cp -pr example/* %{buildroot}%{_datadir}/%{name}
 
 %files -f .mfiles
-%license LICENSE.txt
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE.txt
 
 %files demo

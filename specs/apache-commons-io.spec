@@ -23,17 +23,13 @@ BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
 BuildRequires:  mvn(org.mockito:mockito-core)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 2.16.1-13
 
 %description
 Commons-IO contains utility classes, stream implementations,
 file filters, and endian classes. It is a library of utilities
 to assist with developing IO functionality.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -64,7 +60,7 @@ rm src/test/java/org/apache/commons/io/input/ReversedLinesFileReaderTestParamFil
 #  * PathUtilsDeleteTest.testDeleteDirectory1FileSize1OverrideReadOnly:145->testDeleteDirectory1FileSize1:117 » FileSystem
 
 # moditect profile generates module-info.class
-%mvn_build -f -- -Dcommons.osgi.symbolicName=org.apache.commons.io
+%mvn_build -j -f -- -Dcommons.osgi.symbolicName=org.apache.commons.io
 
 %install
 %mvn_install
@@ -72,8 +68,6 @@ rm src/test/java/org/apache/commons/io/input/ReversedLinesFileReaderTestParamFil
 %files -f .mfiles
 %license LICENSE.txt NOTICE.txt
 %doc RELEASE-NOTES.txt
-
-%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

@@ -30,18 +30,14 @@ BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.ant:ant)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 7.8.0-20
 
 %description
 TestNG is a testing framework inspired from JUnit and NUnit but introducing
 some new functionality, including flexible test configuration, and
 distributed test running.  It is designed to cover unit tests as well as
 functional, end-to-end, integration, etc.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -72,16 +68,13 @@ cp -p ./src/main/java/*.dtd.html ./src/main/resources/.
 
 %build
 # Tests extend a class written in Kotlin
-%mvn_build -f -- -Dmaven.compiler.release=11
+%mvn_build -j -f -- -Dmaven.compiler.release=11
 
 %install
 %mvn_install
 
 %files -f .mfiles
 %doc CHANGES.txt README.md
-%license LICENSE.txt
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE.txt
 
 %changelog

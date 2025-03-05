@@ -1,5 +1,5 @@
 Name:           primecount
-Version:        7.14
+Version:        7.15
 Release:        2%{?dist}
 Summary:        Fast prime counting function implementation
 
@@ -104,6 +104,15 @@ export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_SSE2'
 %{_libdir}/pkgconfig/primecount.pc
 
 %changelog
+* Mon Mar 03 2025 Kim Walisch <walki@fedoraproject.org> - 7.15-2
+- multiarch_arm_sve.cmake: Update to latest ARM SVE code
+
+* Mon Mar 03 2025 Kim Walisch <walki@fedoraproject.org> - 7.15-1
+- Sieve.hpp: Improve ARM SVE bit counting algorithm
+- multiarch_arm_sve.cmake: Improve ARM SVE detection
+- src/arch/arm/sve.cpp: Detect ARM SVE instruction set
+- Update to libprimesieve-12.7
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

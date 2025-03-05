@@ -27,6 +27,8 @@ BuildRequires:  mvn(org.codehaus.mojo:extra-enforcer-rules)
 BuildRequires:  mvn(org.codehaus.mojo:javacc-maven-plugin)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 2.3-21
 
 %description
 Velocity is a Java-based template engine. It permits anyone to use the
@@ -48,12 +50,6 @@ or as an integrated component of other systems. Velocity also provides
 template services for the Turbine web application framework.
 Velocity+Turbine provides a template service that will allow web
 applications to be developed according to a true MVC model.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -82,16 +78,13 @@ sed 's/${project.version}/%{version}/' \
 %pom_xpath_remove "pom:dependency[pom:scope='test']" velocity-engine-core
 
 %build
-%mvn_build -f -- -Djavacc.visitor=false
+%mvn_build -j -f -- -Djavacc.visitor=false
 
 %install
 %mvn_install
 
 %files -f .mfiles
 %doc README.md
-%license LICENSE NOTICE
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE NOTICE
 
 %changelog

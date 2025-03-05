@@ -51,22 +51,12 @@ BuildRequires:  mvn(org.apiguardian:apiguardian-api)
 BuildRequires:  mvn(org.assertj:assertj-core)
 BuildRequires:  mvn(org.opentest4j:opentest4j)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-guide < 5.10.2-16
+Obsoletes:      %{name}-javadoc < 5.10.2-16
 
 %description
 JUnit is a popular regression testing framework for Java platform.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
-
-%package guide
-Summary:        Documentation for %{name}
-Requires:       %{name}-javadoc = %{version}-%{release}
-
-%description guide
-JUnit 5 User Guide.
 
 %prep
 %autosetup -p1 -C
@@ -106,21 +96,13 @@ done
 %mvn_package :aggregator __noinstall
 
 %build
-%mvn_build -f
-
-ln -s ../../javadoc/junit5 documentation/src/docs/api
+%mvn_build -j -f
 
 %install
 %mvn_install
 
 %files -f .mfiles
 %license LICENSE.md LICENSE-notice.md
-
-%files javadoc -f .mfiles-javadoc
-%license LICENSE.md LICENSE-notice.md
-
-%files guide
-%doc documentation/src/docs/*
 
 %changelog
 %autochangelog

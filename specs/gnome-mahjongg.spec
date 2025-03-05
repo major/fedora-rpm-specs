@@ -1,8 +1,8 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-mahjongg
-Version:        47.0
-Release:        2%{?dist}
+Version:        47.2
+Release:        1%{?dist}
 Summary:        GNOME Mahjongg game
 
 License:        GPL-2.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
@@ -59,6 +59,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Mon Mar 03 2025 nmontero <nmontero@redhat.com> - 47.2-1
+- Update to 47.2
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 47.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

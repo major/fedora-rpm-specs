@@ -5,7 +5,7 @@
 %global crate buffered-reader
 
 Name:           rust-buffered-reader
-Version:        1.3.2
+Version:        1.4.0
 Release:        %autorelease
 Summary:        Super-powered Reader
 

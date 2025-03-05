@@ -77,11 +77,6 @@ License:        %{shrink:
 %prep
 %autosetup -n cramjam-%{srcversion}
 
-# Do not strip the compiled Python module; we need useful debuginfo. Upstream
-# set this intentionally, so this makes sense to keep downstream-only.
-tomcli set pyproject.toml false 'tool.maturin.strip'
-tomcli set pyproject.toml false 'profile.release.strip'
-
 # Downstream-only: patch out the generate-import-lib feature, which is only
 # relevant on Windows, and which depends on the corresponding pyo3 feature –
 # which is not packaged for that reason.

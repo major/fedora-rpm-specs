@@ -5,7 +5,7 @@
 %global crate pyo3-ffi
 
 Name:           rust-pyo3-ffi
-Version:        0.23.3
+Version:        0.23.5
 Release:        %autorelease
 Summary:        Python-API bindings for the PyO3 ecosystem
 

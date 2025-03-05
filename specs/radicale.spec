@@ -447,7 +447,7 @@ fi
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.4.1-2.2
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 
-* Thu Jan 09 2025 Peter Bieringer <pb@bieringer.de> - 3.4.1-1
+* Sun Jan 26 2025 Peter Bieringer <pb@bieringer.de> - 3.4.1-1
 - Update to 3.4.1
 
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-2.1

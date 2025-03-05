@@ -19,6 +19,8 @@ BuildRequires:  mvn(io.kojan:kojan-parent:pom:)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
 BuildRequires:  mvn(org.xmlunit:xmlunit-assertj3)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 1.0.1-6
 
 %description
 The Kojan XML library is used to model data according to the
@@ -27,17 +29,11 @@ format. It allows you to define data entities with their properties,
 such as attributes and relationships, and serialize and deserialize
 data in XML format.
 
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
-
 %prep
 %autosetup -p1 -C
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
@@ -45,9 +41,6 @@ API documentation for %{name}.
 %files -f .mfiles
 %license LICENSE
 %doc README.md
-
-%files javadoc -f .mfiles-javadoc
-%license LICENSE
 
 %changelog
 %autochangelog

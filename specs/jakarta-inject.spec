@@ -17,6 +17,8 @@ BuildRequires:  javapackages-bootstrap
 BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 2.0.1-6
 
 %description
 Jakarta Dependency Injection specifies a means for obtaining objects
@@ -26,12 +28,6 @@ constructors, factories, and service locators (e.g., JNDI).
 This process, known as dependency injection, is beneficial
 to most nontrivial applications.
 
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
-
 %prep
 %autosetup -p1 -C
 
@@ -39,15 +35,13 @@ API documentation for %{name}.
 %pom_remove_plugin :maven-javadoc-plugin
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
 
 %files -f .mfiles
 %license LICENSE.txt NOTICE.md
-
-%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

@@ -17,6 +17,8 @@ BuildRequires:  javapackages-bootstrap
 BuildRequires:  javapackages-local
 BuildRequires:  ant
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 1.9-25
 
 %description
 A complete implementation of XZ data compression in Java.
@@ -25,12 +27,6 @@ It features full support for the .xz file format specification version 1.0.4,
 single-threaded streamed compression and decompression, single-threaded
 decompression with limited random access support, raw streams (no .xz headers)
 for advanced users, including LZMA2 with preset dictionary.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -47,13 +43,10 @@ mkdir -p extdoc && touch extdoc/package-list
 %install
 %mvn_artifact build/maven/xz-%{version}.pom build/jar/xz.jar
 
-%mvn_install -J build/doc
+%mvn_install
 
 %files -f .mfiles
 %doc README THANKS
-%license COPYING
-
-%files javadoc -f .mfiles-javadoc
 %license COPYING
 
 %changelog

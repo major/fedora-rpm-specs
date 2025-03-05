@@ -1,7 +1,7 @@
 Summary:	Waveform Viewer
 Name:		gtkwave
 Version:	3.3.121
-Release:	5%{?dist}
+Release:	6%{?dist}
 License:	GPL-2.0-or-later
 URL:		http://gtkwave.sourceforge.net/
 Source0:	http://gtkwave.sourceforge.net/gtkwave-gtk3-%{version}.tar.gz
@@ -13,6 +13,9 @@ BuildRequires:	coreutils
 BuildRequires:	desktop-file-utils
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
+%if 0%{?fedora>} > 40 || 0%{?rhel} > 9
+BuildRequires:	gdk-pixbuf2-modules-extra
+%endif
 BuildRequires:	flex
 BuildRequires:	gedit
 BuildRequires:	gperf
@@ -32,6 +35,9 @@ BuildRequires:	xz-devel
 BuildRequires:	zlib-devel
 # Dependencies
 Recommends:	gedit
+%if 0%{?fedora>} > 40 || 0%{?rhel} > 9
+Requires:	gdk-pixbuf2-modules-extra
+%endif
 Requires:	hicolor-icon-theme
 Requires:	shared-mime-info
 
@@ -206,6 +212,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/io.github.
 %{_mandir}/man5/gtkwaverc.5*
 
 %changelog
+* Sat Mar  1 2025 Paul Howarth <paul@city-fan.org> - 3.3.121-6
+- Add dependency on gdk-pixbuf2-modules-extra, needed for XPM support on
+  F-41, EL-10 onwards
+  (https://github.com/gtkwave/gtkwave/issues/417#issuecomment-2682344768)
+
 * Mon Feb  3 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 3.3.121-5
 - Rebuild for tcl/tk
 

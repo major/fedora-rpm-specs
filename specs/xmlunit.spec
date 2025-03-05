@@ -34,17 +34,13 @@ BuildRequires:  mvn(org.hamcrest:hamcrest-core)
 BuildRequires:  mvn(org.hamcrest:hamcrest-library)
 BuildRequires:  mvn(org.mockito:mockito-core)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 2.10.0-8
 
 %description
 XMLUnit provides you with the tools to verify the XML you emit is the one you
 want to create. It provides helpers to validate against an XML Schema, assert
 the values of XPath queries or compare XML documents against expected outcomes.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %package assertj
 Summary:        Assertj for %{name}
@@ -108,7 +104,7 @@ rm -r xmlunit-core/src/main/java/org/xmlunit/builder/javax_jaxb\
 rm -rf xmlunit-core/src/{main,test}/java/org/xmlunit/builder/{jaxb/,JaxbBuilder.java,JaxbBuilderTest.java}
 
 %build
-%mvn_build -s -- -Dmaven.compile.source=1.8 -Dmaven.compile.target=1.8
+%mvn_build -j -s -- -Dmaven.compile.source=1.8 -Dmaven.compile.target=1.8
 
 %install
 %mvn_install
@@ -116,8 +112,6 @@ rm -rf xmlunit-core/src/{main,test}/java/org/xmlunit/builder/{jaxb/,JaxbBuilder.
 %files -f .mfiles-xmlunit-parent
 %doc README.md CONTRIBUTING.md RELEASE_NOTES.md
 %license LICENSE
-
-%files javadoc -f .mfiles-javadoc
 
 %files assertj -f .mfiles-xmlunit-assertj3
 

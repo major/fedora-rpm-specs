@@ -30,6 +30,8 @@ BuildRequires:  mvn(org.hamcrest:hamcrest-core)
 # itself, so explicit BR on surefire-junit4 is needed.
 BuildRequires:  mvn(org.apache.maven.surefire:surefire-junit4)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 4.13.2-20
 
 %description
 JUnit is a regression testing framework written by Erich Gamma and Kent Beck. 
@@ -42,12 +44,6 @@ Summary:        Manual for %{name}
 
 %description manual
 Documentation for %{name}.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -69,7 +65,7 @@ sed s/@version@/%{version}/ src/main/java/junit/runner/Version.java.template >sr
 %mvn_alias junit:junit junit:junit-dep
 
 %build
-%mvn_build -- -DjdkVersion=1.8 -P\!restrict-doclint
+%mvn_build -j -- -DjdkVersion=1.8 -P\!restrict-doclint
 
 %install
 %mvn_install
@@ -81,9 +77,6 @@ sed s/@version@/%{version}/ src/main/java/junit/runner/Version.java.template >sr
 %files manual
 %license LICENSE-junit.txt
 %doc doc/*
-
-%files javadoc -f .mfiles-javadoc
-%license LICENSE-junit.txt
 
 %changelog
 %autochangelog

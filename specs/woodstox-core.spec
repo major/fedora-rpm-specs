@@ -27,18 +27,14 @@ BuildRequires:  mvn(org.codehaus.woodstox:stax2-api)
 BuildRequires:  mvn(org.mockito:mockito-core)
 BuildRequires:  mvn(org.osgi:osgi.core)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 7.1.0-5
 
 %description
 Woodstox is a high-performance namespace-aware StAX-compliant
 (JSR-173) Open Source XML-processor written in Java.  XML processor
 means that it handles both input (parsing) and output (writing,
 serialization), as well as supporting tasks such as validation.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-This package contains the API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -62,16 +58,13 @@ rm src/test/java/wstxtest/msv/{TestW3CSchema,TestW3CSchemaTypes,TestWsdlValidati
 rm src/test/java/wstxtest/vstream/{TestRelaxNG,TestW3CSchemaComplexTypes}.java
 
 %build
-%mvn_build -- -Dversion.junit=4.12
+%mvn_build -j -- -Dversion.junit=4.12
 
 %install
 %mvn_install
 
 %files -f .mfiles
 %doc README.md
-%license LICENSE
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE
 
 %changelog

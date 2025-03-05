@@ -29,15 +29,11 @@ BuildRequires:  ant
 BuildRequires:  java_cup
 BuildRequires:  jflex
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 0.11b-57
 
 %description
 java_cup is a LALR Parser Generator for Java
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %package manual
 Summary:        Documentation for java_cup
@@ -63,8 +59,6 @@ rm -rf java_cup-%{version}/bin/java-cup-11.jar
 export CLASSPATH=$(build-classpath java_cup java_cup-runtime jflex)
 
 %ant -Dcupversion=20150326 -Dsvnversion=65
-find -name parser.cup -delete
-%ant javadoc
 
 # inject OSGi manifests
 %jar ufm dist/java-cup-%{pkg_version}.jar %{SOURCE2}
@@ -74,7 +68,7 @@ find -name parser.cup -delete
 %mvn_artifact %{name}:%{name}:%{version} dist/java-cup-%{pkg_version}.jar
 %mvn_artifact %{name}:%{name}-runtime:%{version} dist/java-cup-%{pkg_version}-runtime.jar
 
-%mvn_install -J dist/javadoc
+%mvn_install
 
 # wrapper script for direct execution
 %jpackage_script java_cup.Main "" "" java_cup cup true
@@ -82,9 +76,6 @@ find -name parser.cup -delete
 %files -f .mfiles
 %{_bindir}/cup
 %doc changelog.txt
-%license licence.txt
-
-%files javadoc -f .mfiles-javadoc
 %license licence.txt
 
 %files manual

@@ -37,15 +37,11 @@ BuildRequires:  mvn(org.eclipse.aether:aether-util)
 BuildRequires:  mvn(org.mockito:mockito-core)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 0.13.1-34
 
 %description
 An API to either install or deploy artifacts with Maven 3.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -60,15 +56,12 @@ find -name '*.java' -exec sed -i 's/\r//' {} +
 find -name Maven30\*.java -delete
 
 %build
-%mvn_build -- -DjavaVersion=8
+%mvn_build -j -- -DjavaVersion=8
 
 %install
 %mvn_install
 
 %files -f .mfiles
-%license LICENSE NOTICE
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE NOTICE
 
 %changelog

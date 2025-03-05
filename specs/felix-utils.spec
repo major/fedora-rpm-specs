@@ -25,15 +25,11 @@ BuildRequires:  mvn(org.mockito:mockito-core)
 BuildRequires:  mvn(org.osgi:osgi.cmpn)
 BuildRequires:  mvn(org.osgi:osgi.core)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 1.11.8-24
 
 %description
 Utility classes for OSGi
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -46,7 +42,7 @@ API documentation for %{name}.
 %mvn_file :%{bundle} "felix/%{bundle}"
 
 %build
-%mvn_build -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
+%mvn_build -j -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
 
 %install
 %mvn_install
@@ -54,9 +50,6 @@ API documentation for %{name}.
 %files -f .mfiles
 %license LICENSE NOTICE
 %doc DEPENDENCIES
-
-%files javadoc -f .mfiles-javadoc
-%license LICENSE NOTICE
 
 %changelog
 %autochangelog

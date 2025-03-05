@@ -5,7 +5,7 @@
 %global crate nettle-sys
 
 Name:           rust-nettle-sys
-Version:        2.3.0
+Version:        2.3.1
 Release:        %autorelease
 Summary:        Low-level Rust bindings for the Nettle cryptographic library
 
@@ -14,10 +14,6 @@ URL:            https://crates.io/crates/nettle-sys
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          nettle-sys-fix-metadata-auto.diff
-# Manually created patch for downstream crate metadata changes
-# * migrate license string away from deprecated identifiers:
-#   https://gitlab.com/sequoia-pgp/nettle-sys/-/merge_requests/48
-Patch:          nettle-sys-fix-metadata.diff
 # * drop two elliptic curves that are disabled in nettle in Fedora:
 #   - nettle_get_secp_192r1
 #   - nettle_get_secp_224r1

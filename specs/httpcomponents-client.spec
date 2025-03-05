@@ -32,6 +32,8 @@ BuildRequires:  mvn(org.mockito:mockito-core)
 BuildRequires:  publicsuffix-list
 %endif
 Requires:       publicsuffix-list
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 4.5.14-25
 
 %description
 HttpClient is a HTTP/1.1 compliant HTTP agent implementation based on
@@ -40,12 +42,6 @@ client-side authentication, HTTP state management, and HTTP connection
 management. HttpComponents Client is a successor of and replacement
 for Commons HttpClient 3.x. Users of Commons HttpClient are strongly
 encouraged to upgrade.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -118,7 +114,7 @@ rm httpclient/src/test/java/org/apache/http/client/config/TestRequestConfig.java
 %build
 %mvn_file ":{*}" httpcomponents/@1
 
-%mvn_build -- -Dmaven.compiler.release=8
+%mvn_build -j -- -Dmaven.compiler.release=8
 
 %install
 %mvn_install
@@ -126,8 +122,6 @@ rm httpclient/src/test/java/org/apache/http/client/config/TestRequestConfig.java
 %files -f .mfiles
 %license LICENSE.txt NOTICE.txt
 %doc README.txt RELEASE_NOTES.txt
-
-%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

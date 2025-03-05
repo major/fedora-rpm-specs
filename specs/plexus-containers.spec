@@ -35,6 +35,8 @@ BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
 BuildRequires:  mvn(org.ow2.asm:asm)
 BuildRequires:  mvn(org.slf4j:slf4j-simple)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 2.2.0-13
 
 %description
 The Plexus project seeks to create end-to-end developer tools for
@@ -56,12 +58,6 @@ Summary:        Component API from %{name}
 %description component-annotations
 %{summary}.
 
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
-
 %prep
 %autosetup -p1 -C
 cp %{SOURCE1} .
@@ -76,7 +72,7 @@ rm plexus-component-metadata/src/test/java/org/codehaus/plexus/metadata/DefaultC
 %mvn_package :plexus-containers __noinstall
 
 %build
-%mvn_build -s
+%mvn_build -j -s
 
 %install
 %mvn_install
@@ -85,9 +81,6 @@ rm plexus-component-metadata/src/test/java/org/codehaus/plexus/metadata/DefaultC
 %license LICENSE-2.0.txt LICENSE.MIT
 
 %files component-annotations -f .mfiles-plexus-component-annotations
-%license LICENSE-2.0.txt LICENSE.MIT
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE-2.0.txt LICENSE.MIT
 
 %changelog

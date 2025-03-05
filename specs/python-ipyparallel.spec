@@ -1,16 +1,11 @@
 Name:		python-ipyparallel
-Version:	9.0.0
-Release:	5%{?dist}
+Version:	9.0.1
+Release:	1%{?dist}
 Summary:	Interactive Parallel Computing with IPython
 
 License:	BSD-3-Clause
 URL:		https://github.com/ipython/ipyparallel
 Source0:	%pypi_source ipyparallel
-
-#		https://github.com/ipython/ipyparallel/pull/917
-Patch0:		0001-Check-that-MongoDB-server-is-responding.patch
-#		https://github.com/ipython/ipyparallel/pull/926
-Patch1:		0001-Don-t-fail-a-test-because-there-are-no-public-IP-add.patch
 
 BuildArch:	noarch
 BuildRequires:	make
@@ -60,8 +55,6 @@ This package contains the tests of python3-ipyparallel.
 
 %prep
 %setup -q -n ipyparallel-%{version}
-%patch -P0 -p1
-%patch -P1 -p1
 
 rm ipyparallel/labextension/schemas/ipyparallel-labextension/package.json.orig
 
@@ -74,6 +67,7 @@ rm ipyparallel/labextension/schemas/ipyparallel-labextension/package.json.orig
 for f in apps/iploggerapp.py cluster/app.py controller/app.py \
 	 controller/heartmonitor.py engine/app.py ; do
   sed '/\/usr\/bin\/env/d' -i %{buildroot}%{python3_sitelib}/ipyparallel/${f}
+  chmod -x %{buildroot}%{python3_sitelib}/ipyparallel/${f}
 done
 
 # Fix wrong install directory for configuraton files
@@ -114,6 +108,10 @@ mv %{buildroot}%{_prefix}%{_sysconfdir} %{buildroot}%{_sysconfdir}
 %{python3_sitelib}/ipyparallel/tests
 
 %changelog
+* Mon Mar 03 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.0.1-1
+- Update to 9.0.1
+- Drop patches (accepted upstream)
+
 * Wed Feb 19 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.0.0-5
 - Do not fail test when there are no public IP addresses
 

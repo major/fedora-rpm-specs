@@ -52,6 +52,8 @@ BuildRequires:  javapackages-bootstrap
 BuildRequires:  javapackages-local
 BuildRequires:  ant
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 1.1.3-45
 
 %description
 JDOM is, quite simply, a Java representation of an XML document. JDOM
@@ -60,12 +62,6 @@ reading, manipulation, and writing. It has a straightforward API, is a
 lightweight and fast, and is optimized for the Java programmer. It's an
 alternative to DOM and SAX, although it integrates well with both DOM
 and SAX.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %package demo
 Summary:        Demos for %{name}
@@ -81,13 +77,13 @@ find . -name "*.jar" -exec rm -f {} \;
 find . -name "*.class" -exec rm -f {} \;
 
 %build
-%ant -Dcompile.source=1.8 -Dcompile.target=1.8 -Dj2se.apidoc=%{_javadocdir}/java package javadoc-link
+%ant -Dcompile.source=1.8 -Dcompile.target=1.8 package
 
 %install
 %mvn_file : %{name}
 %mvn_alias : jdom:jdom
 %mvn_artifact %{SOURCE1} build/%{name}-*-snap.jar
-%mvn_install -J build/apidocs
+%mvn_install
 
 # demo
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/%{name}
@@ -96,9 +92,6 @@ cp -pr samples $RPM_BUILD_ROOT%{_datadir}/%{name}
 %files -f .mfiles
 %license LICENSE.txt
 %doc CHANGES.txt COMMITTERS.txt README.txt TODO.txt
-
-%files javadoc -f .mfiles-javadoc
-%license LICENSE.txt
 
 %files demo
 %{_datadir}/%{name}

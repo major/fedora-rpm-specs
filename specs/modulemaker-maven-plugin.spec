@@ -24,16 +24,12 @@ BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
 BuildRequires:  mvn(org.ow2.asm:asm)
 BuildRequires:  mvn(org.ow2.asm:asm-commons)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 1.11-10
 
 %description
 This plugin allows the creation of a module-info.class for projects on Java 6
 to Java 8 where a module-info.java file cannot be compiled.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -43,16 +39,13 @@ cp -p %{SOURCE1} .
 %pom_xpath_inject 'pom:dependency[pom:artifactId="maven-plugin-api"]' '<scope>provided</scope>'
 
 %build
-%mvn_build -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
+%mvn_build -j -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
 
 %install
 %mvn_install
 
 %files -f .mfiles
 %doc README.md
-%license LICENSE-2.0.txt
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE-2.0.txt
 
 %changelog

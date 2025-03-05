@@ -32,17 +32,13 @@ BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
 BuildRequires:  mvn(org.sonatype.plexus:plexus-build-api)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 5.1.9-20
 
 %description
 Provides a maven plugin that supports creating an OSGi bundle
 from the contents of the compilation classpath along with its
 resources and dependencies. Plus a zillion other features.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -68,15 +64,12 @@ rm -f src/main/java/org/apache/felix/bundleplugin/baseline/BaselineReport.java
 %build
 # Tests depend on bundled JARs
 # source and target set explicitly for xmvn-javadoc-plugin
-%mvn_build -f -- -Dmaven.compiler.target=8
+%mvn_build -j -f -- -Dmaven.compiler.target=8
 
 %install
 %mvn_install
 
 %files -f .mfiles
-%license LICENSE NOTICE
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE NOTICE
 
 %changelog

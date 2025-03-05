@@ -27,16 +27,12 @@ BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
 BuildRequires:  mvn(org.slf4j:slf4j-simple)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 3.6.0-10
 
 %description
 This plugin contains various small independent goals to assist with
 Maven build lifecycle.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -49,7 +45,7 @@ rm src/main/java/org/codehaus/mojo/buildhelper/BeanshellPropertyMojo.java
 %pom_remove_plugin :maven-invoker-plugin
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
@@ -57,9 +53,6 @@ rm src/main/java/org/codehaus/mojo/buildhelper/BeanshellPropertyMojo.java
 %files -f .mfiles
 %license LICENSE.txt
 %doc README.md
-
-%files javadoc -f .mfiles-javadoc
-%license LICENSE.txt
 
 %changelog
 %autochangelog

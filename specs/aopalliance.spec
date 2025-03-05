@@ -23,6 +23,8 @@ BuildRequires:  javapackages-bootstrap
 BuildRequires:  javapackages-local
 BuildRequires:  ant
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 1.0-56
 
 %description
 Aspect-Oriented Programming (AOP) offers a better solution to many
@@ -33,19 +35,13 @@ environements (e.g. Eclipse).  The AOP Alliance also aims to ensure
 interoperability between Java/J2EE AOP implementations to build a
 larger AOP community.
 
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
-
 %prep
 %autosetup -p1 -C
 
 %build
 export CLASSPATH=
 export OPT_JAR_LIST=:
-%ant -Dbuild.sysclasspath=only jar javadoc -Dant.build.javac.source=1.8 -Dant.build.javac.target=1.8
+%ant -Dbuild.sysclasspath=only jar -Dant.build.javac.source=1.8 -Dant.build.javac.target=1.8
 
 # Inject OSGi manifest required by Eclipse.
 %jar umf %{SOURCE2} build/%{name}.jar
@@ -57,8 +53,6 @@ export OPT_JAR_LIST=:
 %mvn_install -J build/javadoc
 
 %files -f .mfiles
-
-%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

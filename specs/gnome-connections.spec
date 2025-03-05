@@ -6,7 +6,7 @@
 %global url_ver %%(echo %{version} | cut -d. -f1)
 
 Name:           gnome-connections
-Version:        47.2.1
+Version:        48.rc
 Release:        1%{?dist}
 Summary:        A remote desktop client for the GNOME desktop environment
 
@@ -66,7 +66,7 @@ rm -rf %{buildroot}%{_datadir}/gnome-connections/gir-1.0/
 rm -rf %{buildroot}%{_datadir}/gnome-connections/vapi/
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.gnome.Connections.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.gnome.Connections.metainfo.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Connections.desktop
 
 %files -f gnome-connections.lang
@@ -79,10 +79,14 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Connections
 %{_datadir}/glib-2.0/schemas/org.gnome.Connections.gschema.xml
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.Connections.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.Connections-symbolic.svg
-%{_metainfodir}/org.gnome.Connections.appdata.xml
+%{_metainfodir}/org.gnome.Connections.metainfo.xml
 %{_datadir}/mime/packages/org.gnome.Connections.xml
 
 %changelog
+* Mon Mar 03 2025 Marek Kasik <mkasik@redhat.com> - 48.rc-1
+- Update to 48.rc
+- Resolves: #2339500
+
 * Tue Jan 28 2025 Marek Kasik <mkasik@redhat.com> - 47.2.1-1
 - Update to 47.2.1
 

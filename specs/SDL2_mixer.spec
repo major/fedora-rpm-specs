@@ -1,6 +1,6 @@
 Name:           SDL2_mixer
-Version:        2.8.0
-Release:        5%{?dist}
+Version:        2.8.1
+Release:        1%{?dist}
 Summary:        Simple DirectMedia Layer - Sample Mixer Library
 
 License:        Zlib
@@ -16,7 +16,9 @@ BuildRequires:  fluidsynth-devel
 BuildRequires:  make
 BuildRequires:  mpg123-devel
 BuildRequires:  opusfile-devel
+%if 0%{?fedora}
 BuildRequires:  libxmp-devel
+%endif
 BuildRequires:  wavpack-devel
 
 Provides: bundled(timidity)
@@ -25,7 +27,7 @@ Provides: bundled(timidity)
 SDL_mixer is a sample multi-channel audio mixer library.
 It supports any number of simultaneously playing channels of 16 bit stereo
 audio, plus a single channel of music, mixed by the popular FLAC,
-MikMod MOD, Timidity MIDI, Ogg Vorbis, and SMPEG MP3 libraries. 
+MikMod MOD, Timidity MIDI, Ogg Vorbis, and SMPEG MP3 libraries.
 
 %package devel
 Summary:        Development files for %{name}
@@ -72,6 +74,10 @@ find %{buildroot} -name '*.la' -print -delete
 %{_includedir}/SDL2/SDL_mixer.h
 
 %changelog
+* Tue Mar 04 2025 Sérgio Basto <sergio@serjux.com> - 2.8.1-1
+- Update SDL2_mixer to 2.8.1
+- Resolves: rhbz#2344403
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

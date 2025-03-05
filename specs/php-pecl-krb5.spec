@@ -1,8 +1,8 @@
 # Fedora spec file for php-pecl-krb5
 #
-# Copyright (c) 2014-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/3.0/
+# SPDX-FileCopyrightText:  Copyright 2014-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
@@ -13,8 +13,8 @@
 
 Summary:        Kerberos authentification extension
 Name:           php-pecl-%{pecl_name}
-Version:        1.2.2
-Release:        5%{?dist}
+Version:        1.2.3
+Release:        1%{?dist}
 License:        MIT
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{sources}.tgz
@@ -137,6 +137,10 @@ done
 
 
 %changelog
+* Mon Mar  3 2025 Remi Collet <remi@remirepo.net> - 1.2.3-1
+- update to 1.2.3
+- re-license spec file to CECILL-2.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

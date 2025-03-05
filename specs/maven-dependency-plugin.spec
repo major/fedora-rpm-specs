@@ -42,17 +42,13 @@ BuildRequires:  mvn(org.eclipse.aether:aether-util)
 BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
 BuildRequires:  mvn(org.sonatype.plexus:plexus-build-api)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 3.6.1-16
 
 %description
 The dependency plugin provides the capability to manipulate
 artifacts. It can copy and/or unpack artifacts from local or remote
 repositories to a specified location.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -83,15 +79,12 @@ rm src/main/java/org/apache/maven/plugins/dependency/analyze/AnalyzeReport{Mojo,
 sed -i '/doSpecialTest( "analyze-report" );/d' src/test/java/org/apache/maven/plugins/dependency/TestSkip.java
 
 %build
-%mvn_build -f
+%mvn_build -j -f
 
 %install
 %mvn_install
 
 %files -f .mfiles
-%license LICENSE NOTICE
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE NOTICE
 
 %changelog

@@ -1,5 +1,5 @@
 Name:           rakudo
-Version:        2024.12
+Version:        2025.02
 Release:        %autorelease
 Summary:        Raku on MoarVM, JVM, and JS
 License:        Artistic-2.0

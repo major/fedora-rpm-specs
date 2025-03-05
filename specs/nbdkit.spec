@@ -54,8 +54,8 @@
 %global source_directory 1.42-stable
 
 Name:           nbdkit
-Version:        1.42.0
-Release:        3%{?dist}
+Version:        1.42.1
+Release:        1%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -1512,6 +1512,9 @@ fi
 
 
 %changelog
+* Mon Mar 03 2025 Richard W.M. Jones <rjones@redhat.com> - 1.42.1-1
+- New upstream stable branch version 1.42.1
+
 * Fri Feb 28 2025 Björn Esser <besser82@fedoraproject.org> - 1.42.0-3
 - Change Requires: libxcrypt-compat to be archful
 

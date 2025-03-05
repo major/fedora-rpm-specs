@@ -5,7 +5,7 @@
 %global crate dyn-clone
 
 Name:           rust-dyn-clone
-Version:        1.0.18
+Version:        1.0.19
 Release:        %autorelease
 Summary:        Clone trait that is dyn-compatible
 

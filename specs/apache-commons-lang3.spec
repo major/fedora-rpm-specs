@@ -26,6 +26,8 @@ BuildRequires:  mvn(org.easymock:easymock)
 BuildRequires:  mvn(org.hamcrest:hamcrest)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 3.17.0-7
 
 %description
 The standard Java libraries fail to provide enough methods for
@@ -43,12 +45,6 @@ With version of commons-lang 3.x, developers decided to change API and
 therefore created differently named artifact and jar files. This is
 the new version, while apache-commons-lang is the compatibility
 package.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -75,7 +71,7 @@ sed -i '/<argLine>/d' pom.xml
 
 %build
 # See "-DcommonsLang3Version" in maven-surefire for the tested version
-%mvn_build -f
+%mvn_build -j -f
 
 %install
 %mvn_install
@@ -83,8 +79,6 @@ sed -i '/<argLine>/d' pom.xml
 %files -f .mfiles
 %license LICENSE.txt NOTICE.txt
 %doc RELEASE-NOTES.txt
-
-%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

@@ -30,18 +30,15 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           localsearch
-Version:        3.8~rc
-Release:        9%{?dist}
+Version:        3.9~rc
+Release:        1%{?dist}
 Summary:        Localsearch and metadata extractors
 
 # The indexer is a mix of GPLv2 and LGPLv2+ code
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://gnome.pages.gitlab.gnome.org/localsearch/
-Source0:        https://download.gnome.org/sources/%{name}/3.8/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/3.9/%{name}-%{tarball_version}.tar.xz
 Source1:        flatpak-fixup.sh
-
-# https://gitlab.gnome.org/GNOME/localsearch/-/merge_requests/581
-Patch1:     0001-build-issues-with-gcc-581.patch
 
 BuildRequires:  asciidoc
 BuildRequires:  gcc
@@ -61,6 +58,7 @@ BuildRequires:  pkgconfig(gstreamer-pbutils-1.0)
 BuildRequires:  pkgconfig(gstreamer-tag-1.0)
 BuildRequires:  pkgconfig(icu-i18n)
 BuildRequires:  pkgconfig(icu-uc)
+BuildRequires:  pkgconfig(libavformat)
 %if 0%{?with_libcue}
 BuildRequires:  pkgconfig(libcue)
 %endif
@@ -177,6 +175,9 @@ install -D -m 0755 %{SOURCE1} %{buildroot}%{_bindir}/%{name}-flatpak-fixup.sh
 
 
 %changelog
+* Mon Mar 03 2025 nmontero <nmontero@redhat.com> - 3.9~rc-1
+- Update to 3.9.rc
+
 * Thu Feb 06 2025 Nieves Montero <nmontero@redhat.com> - 3.8~rc-9
 - Rebuild for the renaming of tracker to tinysparql
 

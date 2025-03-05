@@ -1,6 +1,6 @@
 Name:           rpkg
 Version:        1.67
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 Summary:        Python library for interacting with rpm+git
 # Automatically converted from old format: GPLv2+ and LGPLv2 - review is highly recommended.
@@ -50,6 +50,10 @@ Patch5:         0005-Fixing-encoding-of-the-url-when-checking-lookaside.patch
 Patch6:         0006-Add-draft-builds-support.patch
 Patch7:         0007-Fix-regular-expression-for-parsing-Source-lines.patch
 Patch8:         0008-chain-build-correct-the-info-message.patch
+# https://pagure.io/rpkg/c/7b3f92f6
+# https://pagure.io/fedpkg/issue/581
+# Fixes duplication of changelog lines (which affected fedpkg also)
+Patch9:          0001-clog-is-duplicating-changelog-lines.patch
 
 
 %description
@@ -281,6 +285,9 @@ example_cli_dir=$RPM_BUILD_ROOT%{_datadir}/%{name}/examples/cli
 
 
 %changelog
+* Mon Mar 03 2025 Adam Williamson <awilliam@redhat.com> - 1.67-7
+- Patch: `clog` is duplicating changelog lines
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.67-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

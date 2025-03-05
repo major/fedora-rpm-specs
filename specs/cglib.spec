@@ -24,17 +24,13 @@ BuildRequires:  mvn(org.apache.ant:ant)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.ow2.asm:asm)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 3.3.0-38
 
 %description
 cglib is a powerful, high performance and quality code generation library
 for Java. It is used to extend Java classes and implements interfaces
 at run-time.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -68,15 +64,12 @@ API documentation for %{name}.
 %build
 # 5 tests fail with OpenJDK 11
 # Forwarded upstream: https://github.com/cglib/cglib/issues/119
-%mvn_build -f -- -Djava.version.source=1.8 -Djava.version.target=1.8
+%mvn_build -j -f -- -Djava.version.source=1.8 -Djava.version.target=1.8
 
 %install
 %mvn_install
 
 %files -f .mfiles
-%license LICENSE NOTICE
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE NOTICE
 
 %changelog

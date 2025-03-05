@@ -15,6 +15,8 @@ BuildRequires:  mvn(jakarta.xml.bind:jakarta.xml.bind-api)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 2.1.0-22
 
 %description
 This project contains a few extensions to complement JSR-173 StAX API in
@@ -27,12 +29,6 @@ the following areas:
   FastInfoset.
 - Improve the namespace support.
 
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
-
 %prep
 %autosetup -p1 -C
 
@@ -43,7 +39,7 @@ API documentation for %{name}.
 %pom_remove_plugin :maven-enforcer-plugin
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
@@ -51,8 +47,6 @@ API documentation for %{name}.
 %files -f .mfiles
 %license LICENSE.md NOTICE.md
 %doc README.md
-
-%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

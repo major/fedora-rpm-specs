@@ -35,18 +35,14 @@ BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
 BuildRequires:  mvn(org.objenesis:objenesis)
 BuildRequires:  mvn(org.opentest4j:opentest4j)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 5.8.0-16
 
 %description
 Mockito is a mocking framework that tastes really good. It lets you write
 beautiful tests with clean & simple API. Mockito doesn't give you hangover
 because the tests are very readable and they produce clean verification
 errors.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %package junit-jupiter
 Summary:        Mockito JUnit 5 support
@@ -123,7 +119,7 @@ echo 'mock-maker-subclass' > src/main/resources/mockito-extensions/org.mockito.p
 %mvn_package :aggregator __noinstall
 
 %build
-%mvn_build -f -- -Dmaven.compiler.release=11 -Dproject.build.sourceEncoding=UTF-8 -f aggregator.pom
+%mvn_build -j -f -- -Dmaven.compiler.release=11 -Dproject.build.sourceEncoding=UTF-8 -f aggregator.pom
 
 %mvn_package org.mockito:mockito-junit-jupiter junit-jupiter
 
@@ -133,9 +129,6 @@ echo 'mock-maker-subclass' > src/main/resources/mockito-extensions/org.mockito.p
 %files -f .mfiles
 %license LICENSE
 %doc README.md doc/design-docs/custom-argument-matching.md
-
-%files javadoc -f .mfiles-javadoc
-%license LICENSE
 
 %files junit-jupiter -f .mfiles-junit-jupiter
 

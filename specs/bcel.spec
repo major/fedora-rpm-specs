@@ -13,6 +13,8 @@ BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.commons:commons-lang3)
 BuildRequires:  mvn(org.apache.commons:commons-parent:pom:)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 6.8.1-14
 
 %description
 The Byte Code Engineering Library (formerly known as JavaClass) is
@@ -30,12 +32,6 @@ being used successfully in several projects such as compilers,
 optimizers, obsfuscators and analysis tools, the most popular probably
 being the Xalan XSLT processor at Apache.
 
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
-
 %prep
 %autosetup -p1 -C
 
@@ -47,16 +43,13 @@ API documentation for %{name}.
 %mvn_file : %{name}
 
 %build
-%mvn_build -f
+%mvn_build -j -f
 
 %install
 %mvn_install
 
 %files -f .mfiles
 %doc RELEASE-NOTES.txt
-%license LICENSE.txt NOTICE.txt
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE.txt NOTICE.txt
 
 %changelog

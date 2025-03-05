@@ -26,6 +26,8 @@ BuildRequires:  mvn(org.apache.maven.plugins:maven-failsafe-plugin)
 BuildRequires:  mvn(org.moditect:moditect-maven-plugin)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 1.3.4-8
 
 %description
 The commons-logging package provides a simple, component oriented
@@ -37,12 +39,6 @@ commons-logging was heavily influenced by Avalon's Logkit and Log4J. The
 commons-logging abstraction is meant to minimize the differences between
 the two, and to allow a developer to not tie himself to a particular
 logging implementation.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -73,7 +69,7 @@ rm -rf src/test/java/org/apache/commons/logging/log4j/log4j12
 
 %build
 # missing test dependencies
-%mvn_build -f
+%mvn_build -j -f
 
 %install
 %mvn_install
@@ -81,8 +77,6 @@ rm -rf src/test/java/org/apache/commons/logging/log4j/log4j12
 %files -f .mfiles
 %license LICENSE.txt NOTICE.txt
 %doc PROPOSAL.html RELEASE-NOTES.txt
-
-%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

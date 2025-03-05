@@ -25,6 +25,8 @@ BuildRequires:  javapackages-bootstrap
 BuildRequires:  maven-local
 BuildRequires:  mvn(org.codehaus.plexus:plexus:pom:)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 3.5.1-21
 
 %description
 The Plexus project seeks to create end-to-end developer tools for
@@ -34,12 +36,6 @@ reusable components for hibernate, form processing, jndi, i18n,
 velocity, etc. Plexus also includes an application server which
 is like a J2EE application server, without all the baggage.
 
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
-
 %prep
 %autosetup -p1 -C
 
@@ -47,15 +43,13 @@ API documentation for %{name}.
 %mvn_alias : plexus:plexus-utils
 
 %build
-%mvn_build -f
+%mvn_build -j -f
 
 %install
 %mvn_install
 
 %files -f .mfiles
 %license NOTICE.txt LICENSE.txt
-
-%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

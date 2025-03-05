@@ -28,6 +28,8 @@ BuildRequires:  javapackages-local
 BuildRequires:  ant
 BuildRequires:  ant-junit
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 2.0.6.1-21
 
 %description
 JDOM is a Java-oriented object model which models XML documents.
@@ -39,12 +41,6 @@ enhancement to those APIs. Rather, it seeks to provide a robust,
 light-weight means of reading and writing XML data without the
 complex and memory-consumptive options that current API
 offerings provide.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -61,7 +57,7 @@ sed -i '/import org.jdom2.xpath.XPathFactory/d' core/src/java/org/jdom2/JDOMCons
 
 %build
 mkdir lib
-%ant -Dversion=%{version} -Dcompile.source=1.8 -Dcompile.target=1.8 -Dj2se.apidoc=%{_javadocdir}/java maven
+%ant -Dversion=%{version} -Dcompile.source=1.8 -Dcompile.target=1.8 maven
 
 # Make jar into an OSGi bundle
 # XXX disabled until BND is fixed
@@ -71,13 +67,10 @@ mkdir lib
 
 %install
 %mvn_artifact build/maven/core/%{name}-%{version}.pom build/package/jdom-%{version}.jar
-%mvn_install -J build/apidocs
+%mvn_install
 
 %files -f .mfiles
 %doc CHANGES.txt COMMITTERS.txt README.md TODO.txt
-%license LICENSE.txt
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE.txt
 
 %changelog

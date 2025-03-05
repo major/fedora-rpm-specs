@@ -20,16 +20,12 @@ BuildRequires:  javapackages-bootstrap
 BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 8.1.0-18
 
 %description
 Annotations for use in compiling OSGi bundles. This package is not normally
 needed at run-time.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -63,15 +59,12 @@ cp -p %{SOURCE1} pom.xml
 %mvn_alias org.osgi:osgi.annotation org.osgi:org.osgi.annotation
 
 %build
-%mvn_build -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
+%mvn_build -j -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
 
 %install
 %mvn_install
 
 %files -f .mfiles
-%license META-INF/LICENSE META-INF/NOTICE
-
-%files javadoc -f .mfiles-javadoc
 %license META-INF/LICENSE META-INF/NOTICE
 
 %changelog

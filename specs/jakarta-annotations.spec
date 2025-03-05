@@ -18,18 +18,14 @@ BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 1.3.5-41
 Provides:       glassfish-annotation-api = %{version}-%{release}
 
 %description
 Jakarta Annotations defines a collection of annotations representing
 common semantic concepts that enable a declarative style of
 programming that applies across a variety of Java technologies.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -61,7 +57,7 @@ API documentation for %{name}.
   javax.annotation:jsr250-api
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
@@ -69,8 +65,6 @@ API documentation for %{name}.
 %files -f .mfiles
 %license LICENSE.md NOTICE.md
 %doc README.md
-
-%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

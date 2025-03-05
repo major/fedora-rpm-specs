@@ -5,7 +5,7 @@
 %bcond doc_pdf 1
 
 Name:           python-ncclient
-Version:        0.6.17
+Version:        0.6.19
 Release:        %autorelease
 Summary:        Python library for the NETCONF protocol
 
@@ -18,6 +18,10 @@ Summary:        Python library for the NETCONF protocol
 License:        Apache-2.0 AND Unlicense
 URL:            https://github.com/ncclient/ncclient
 Source:         %{url}/archive/v%{version}/ncclient-%{version}.tar.gz
+
+# Update tox.ini for test-requirements.txt → requirements-test.txt
+# https://github.com/ncclient/ncclient/pull/625
+Patch:          %{url}/pull/625.patch
 
 BuildSystem:            pyproject
 BuildOption(install):   -l ncclient
@@ -65,7 +69,7 @@ for python-ncclient.
 %py3_shebang_fix examples
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-sed -r -i '/^(flake8|pytest-cov)\b/d' test-requirements.txt
+sed -r -i '/^(flake8|pytest-cov)\b/d' requirements-test.txt
 
 # Loosen exact-version doc dependencies
 sed -r -i 's/==/>=/' docs/requirements.txt

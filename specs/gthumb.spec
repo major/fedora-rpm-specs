@@ -4,7 +4,7 @@
 Name:           gthumb
 Epoch:          1
 Version:        3.12.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Image viewer, editor, organizer
 
 License:        GPL-2.0-or-later
@@ -36,7 +36,7 @@ BuildRequires:  pkgconfig(librsvg-2.0)
 BuildRequires:  pkgconfig(libsecret-1)
 BuildRequires:  pkgconfig(libsoup-2.4)
 BuildRequires:  pkgconfig(libwebp)
-BuildRequires:  pkgconfig(webkit2gtk-4.1)
+BuildRequires:  pkgconfig(webkit2gtk-4.0)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  gcc gcc-c++
 BuildRequires:  gettext
@@ -97,6 +97,9 @@ package.
 %{_datadir}/aclocal/gthumb.m4
 
 %changelog
+* Mon Mar 03 2025 nmontero <nmontero@redhat.com> - 1:3.12.7-3
+- Change webkit2gtk version from -4.1 to webkit2gtk-4.0
+
 * Wed Feb 19 2025 nmontero <nmontero@redhat.com> - 1:3.12.7-2
 - Bump release
 

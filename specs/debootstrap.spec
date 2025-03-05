@@ -7,12 +7,13 @@
 
 Name:           debootstrap
 Version:        1.0.140
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Debian GNU/Linux bootstrapper
 
 License:        MIT
 URL:            https://wiki.debian.org/Debootstrap
 Source0:        https://ftp.debian.org/debian/pool/main/d/debootstrap/debootstrap_%{version}%{?postfix:+%{postfix}}.tar.gz
+Patch0:         sbin_move.patch
 
 BuildArch:      noarch
 
@@ -24,14 +25,12 @@ Requires:       tar
 Requires:       gzip
 Requires:       dpkg
 Requires:       xz
-%if 0%{?fedora} || 0%{?rhel} >= 8
 Recommends:     ubu-keyring
 Recommends:     debian-keyring
-Suggests:       binutils
-Suggests:       gettext-runtime
-Suggests:       xz-utils
-Suggests:       zstd
-%endif
+Recommends:     binutils
+Recommends:     gettext-runtime
+Recommends:     xz-utils
+Recommends:     zstd
 
 %description
 debootstrap is used to create a Debian base system from scratch, without
@@ -44,17 +43,13 @@ Debian GNU/Linux guest system.
 
 
 %prep
-%setup -q -n %{name}
+%autosetup -p1 -n %{name}
 
 %build
 # nothing to do
 
 %install
-fakeroot %make_install VERSION="%{version}-%{release}"
-%if "%{_sbindir}" == "%{_bindir}"
-mkdir -p %{buildroot}%{_bindir}
-mv %{buildroot}/usr/sbin/* %{buildroot}%{_bindir}
-%endif
+fakeroot %make_install VERSION="%{version}-%{release}" SBINDIR="%{_sbindir}"
 
 # install manual page
 mkdir -p %{buildroot}%{_mandir}/man8
@@ -68,6 +63,10 @@ install -p -m 0644 debootstrap.8 %{buildroot}%{_mandir}/man8
 %{_mandir}/man8/debootstrap.8*
 
 %changelog
+* Mon Mar 03 2025 Sérgio Basto <sergio@serjux.com> - 1.0.140-3
+- Better fix for sbin move
+- Use Recommends instead Sugests (Suggests only should be used when is to choose between two or more options)
+
 * Sat Feb 01 2025 Sérgio Basto <sergio@serjux.com>
 - Fix sbin merge for all releases
 

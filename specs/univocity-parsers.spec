@@ -20,18 +20,14 @@ BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 2.9.1-31
 
 %description
 uniVocity-parsers is a suite of extremely fast and reliable parsers
 for Java.  It provides a consistent interface for handling different
 file formats, and a solid framework for the development of new
 parsers.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -42,16 +38,13 @@ API documentation for %{name}.
 
 %build
 # Tests require univocity-output-tester, which is not packaged yet.
-%mvn_build -f -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
+%mvn_build -j -f -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
 
 %install
 %mvn_install
 
 %files -f .mfiles
 %doc README.md
-%license LICENSE-2.0.html
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE-2.0.html
 
 %changelog

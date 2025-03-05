@@ -14,16 +14,12 @@ BuildRequires:  mvn(jakarta.activation:jakarta.activation-api)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 4.0.2-13
 
 %description
 The Jakarta XML Binding provides an API and tools that automate the mapping
 between XML documents and Java objects.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -36,15 +32,12 @@ API documentation for %{name}.
 %pom_remove_plugin -r :maven-enforcer-plugin
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
 
 %files -f .mfiles
-%license LICENSE.md NOTICE.md
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE.md NOTICE.md
 
 %changelog

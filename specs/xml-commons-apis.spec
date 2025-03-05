@@ -19,24 +19,14 @@ Source4:        http://repo1.maven.org/maven2/xml-apis/xml-apis-ext/1.3.04/xml-a
 BuildRequires:  javapackages-local
 BuildRequires:  ant
 BuildRequires:  apache-parent
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 1.4.01-59
 Provides:       xml-commons = %{version}-%{release}
 
 %description
 xml-commons-apis is designed to organize and have common packaging for
 the various externally-defined standard interfaces for XML. This
 includes the DOM, SAX, and JAXP.
-
-%package manual
-Summary:        Manual for %{name}
-
-%description manual
-%{summary}.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -59,7 +49,7 @@ sed -i '/distributionManagement/,/\/distributionManagement/ {d}' *.pom
 %mvn_alias :xml-apis-ext xerces:dom3-xml-apis
 
 %build
-%ant -Dant.build.javac.source=1.8 -Dant.build.javac.target=1.8 jar javadoc
+%ant -Dant.build.javac.source=1.8 -Dant.build.javac.target=1.8 jar
 
 # inject OSGi manifests
 jar ufm build/xml-apis.jar %{SOURCE1}
@@ -69,7 +59,7 @@ jar ufm build/xml-apis-ext.jar %{SOURCE2}
 %mvn_artifact xml-apis-ext*.pom build/xml-apis-ext.jar
 
 %install
-%mvn_install -J build/docs/javadoc
+%mvn_install
 
 # prevent apis javadoc from being included in doc
 rm -rf build/docs/javadoc
@@ -79,11 +69,6 @@ rm -rf build/docs/javadoc
 %doc LICENSE.dom-documentation.txt README.dom.txt
 %doc LICENSE.dom-software.txt LICENSE.sac.html
 %doc LICENSE.sax.txt README-sax  README.sax.txt
-
-%files manual
-%doc build/docs/*
-
-%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

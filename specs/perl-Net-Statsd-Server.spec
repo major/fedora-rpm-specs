@@ -4,7 +4,7 @@
 
 Name:           perl-Net-Statsd-Server
 Version:        0.20
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Library for the Perl port of Flickr/Etsy's statsd metrics daemon
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -65,6 +65,12 @@ for F in exampleConfig.js localConfig.js logConfig.js rrdConfig.js; do
 done
 rm -Rf t/integration-tests/
 
+# Create a sysusers.d config file
+cat >perl-net-statsd-server.sysusers.conf <<EOF
+g statsdpl -
+u statsdpl - 'Perl Statsd' /run/%{daemon} -
+EOF
+
 %build
 %{__perl} Makefile.PL INSTALLDIRS=vendor
 make %{?_smp_mflags}
@@ -79,6 +85,8 @@ mkdir -p -m 750 $RPM_BUILD_ROOT%{_localstatedir}/log/%{daemon}
 find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
 
 %{_fixperms} $RPM_BUILD_ROOT/*
+
+install -m0644 -D perl-net-statsd-server.sysusers.conf %{buildroot}%{_sysusersdir}/perl-net-statsd-server.conf
 
 %check
 STATSD_BINARY=$RPM_BUILD_ROOT/usr/bin/%{daemon} make test
@@ -96,7 +104,6 @@ Requires:       %{name} = %{version}-%{release}
 Requires(post):   systemd
 Requires(preun):  systemd
 Requires(postun): systemd
-Requires(pre):  shadow-utils
 Provides:  statsd
 
 %description -n statsd-perl
@@ -105,12 +112,6 @@ and dispatches them to whatever you want, including Graphite or your console.
 Look into the Net::Statsd::Server::Backend::* name space to know all the
 possibilities, or write a back-end yourself.
 
-%pre -n statsd-perl
-getent group %{groupname} >/dev/null || groupadd -r %{groupname}
-getent passwd %{username} >/dev/null || \
-useradd -r -g %{groupname} -d /run/%{daemon} \
-    -s /sbin/nologin -c "Perl Statsd" %{username}
-exit 0
 
 %post -n statsd-perl
 %systemd_post %{daemon}.service
@@ -129,8 +130,12 @@ exit 0
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{daemon}
 %{_unitdir}/%{daemon}.service
 %attr(750, %{username}, %{groupname}) %{_localstatedir}/log/%{daemon}
+%{_sysusersdir}/perl-net-statsd-server.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.20-28
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

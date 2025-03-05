@@ -29,18 +29,14 @@ BuildRequires:  mvn(org.osgi:org.osgi.core)
 BuildRequires:  mvn(org.ow2.asm:asm)
 BuildRequires:  mvn(org.tukaani:xz)
 %endif
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 1.27.1-7
 
 %description
 The Apache Commons Compress library defines an API for working with
 ar, cpio, Unix dump, tar, zip, gzip, XZ, Pack200 and bzip2 files.
 In version 1.14 read-only support for Brotli decompression has been added,
 but it has been removed form this package.
-
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -73,15 +69,12 @@ rm src/test/java/org/apache/commons/compress/archivers/tar/TarMemoryFileSystemTe
 %mvn_file  : commons-compress %{name}
 %mvn_alias : commons:
 # XXX failing tests, need to investigate why
-%mvn_build -f -- -Dcommons.osgi.symbolicName=org.apache.commons.compress
+%mvn_build -j -f -- -Dcommons.osgi.symbolicName=org.apache.commons.compress
 
 %install
 %mvn_install
 
 %files -f .mfiles
-%license LICENSE.txt NOTICE.txt
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE.txt NOTICE.txt
 
 %changelog

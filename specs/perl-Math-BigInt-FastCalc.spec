@@ -1,7 +1,7 @@
 Name:           perl-Math-BigInt-FastCalc
-%global cpan_version 0.5018
-Version:        0.501.800
-Release:        512%{?dist}
+%global cpan_version 0.5019
+Version:        0.501.900
+Release:        1%{?dist}
 Summary:        Math::BigInt::Calc with some XS for more speed
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Math-BigInt-FastCalc
@@ -20,7 +20,7 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(:VERSION) >= 5.6.1
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Config)
-BuildRequires:  perl(Math::BigInt::Calc) >= 2.003001
+BuildRequires:  perl(Math::BigInt::Calc) >= 2.004001
 BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(Math::BigFloat)
@@ -39,7 +39,7 @@ This Perl module provides support for fast big integer calculations.
 Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
-Requires:       perl(Math::BigInt) >= 2.003001
+Requires:       perl(Math::BigInt) >= 2.004001
 
 %description tests
 Tests from %{name}. Execute them
@@ -94,6 +94,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Mar 03 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.501.900-1
+- 0.5019 bump (rhbz#2349246)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.501.800-512
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

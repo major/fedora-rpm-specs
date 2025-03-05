@@ -17,6 +17,8 @@ BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-assembly-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 2.1.1-17
 
 %description
 Fast Infoset Project, an Open Source implementation of the Fast Infoset
@@ -33,12 +35,6 @@ License:        Apache-2.0 AND BSD-3-Clause
 %description tests
 %{summary}.
 
-%package javadoc
-Summary:        API documentation for %{name}
-
-%description javadoc
-API documentation for %{name}.
-
 %prep
 %autosetup -p1 -C
 
@@ -54,7 +50,7 @@ API documentation for %{name}.
 %mvn_package :FastInfosetRoundTripTests tests
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
@@ -64,9 +60,6 @@ API documentation for %{name}.
 %doc README.md
 
 %files tests -f .mfiles-tests
-%license LICENSE NOTICE.md
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE NOTICE.md
 
 %changelog

@@ -14,7 +14,7 @@
 
 Name: guile30
 Version: 3.0.9
-Release: 6%{?dist}
+Release: %autorelease
 Summary: A GNU implementation of Scheme for application extensibility
 # Automatically converted from old format: LGPLv3+ and MIT and Public Domain and GPL+ and GPLv3+ - review is highly recommended.
 License: LGPL-3.0-or-later AND LicenseRef-Callaway-MIT AND LicenseRef-Callaway-Public-Domain AND GPL-1.0-or-later AND GPL-3.0-or-later
@@ -74,6 +74,9 @@ install the guile package.
 %autosetup -p1 -n guile-%version
 
 %build
+# guile is not ready for gnu23, reported upstream
+# meanwhile revert standard back to gnu17
+export CFLAGS="%{optflags} -std=gnu17"
 autoreconf -fiv
 %configure --disable-static --disable-error-on-warning --program-suffix=%{mver}
 
@@ -178,61 +181,4 @@ fi
 %{_includedir}/guile
 
 %changelog
-* Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 3.0.9-6
-- Add explicit BR: libxcrypt-devel
-
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.9-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 3.0.9-4
-- convert license to SPDX
-
-* Thu Aug 01 2024 Miro Hrončok <mhroncok@redhat.com> - 3.0.9-3
-- Rebuilt to regain libguile-3.0.so.1 RPM Provides
-- Resolves: rhbz#2299414
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.9-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Mar 15 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 3.0.9-1
-- Update to 3.0.9
-- Resolves: rhbz#2053411
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.7-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.7-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Oct 27 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.0.7-10
-- Drop obsolete install-info scriptlets
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.7-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.7-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Tue Dec 13 2022 Florian Weimer <fweimer@redhat.com> - 3.0.7-7
-- Port configure script to C99
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.7-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.7-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jan 14 2022 Tomas Korbar <tkorbar@redhat.com> - 3.0.7-4
-- Fix license field
-- Resolves: rhbz#2036203
-
-* Sat Jan 08 2022 Miro Hrončok <mhroncok@redhat.com> - 3.0.7-3
-- Rebuilt for https://fedoraproject.org/wiki/Changes/LIBFFI34
-
-* Mon Aug 02 2021 Tomas Korbar <tkorbar@redhat.com> - 3.0.7-2
-- Fix requires for devel package
-- Resolves: rhbz#1989011
-
-* Mon Jul 19 2021 Tomas Korbar <tkorbar@redhat.com> - 3.0.7-1
-- Initial package
-
+%autochangelog
