@@ -48,7 +48,6 @@ Summary: Application for protein structure, dynamics and sequence analysis
 Provides: ProDy = 0:%{version}-%{release}
 
 BuildRequires: python3-devel
-BuildRequires: python3-nose
 BuildRequires: python3-urllib3
 BuildRequires: python3-scipy
 BuildRequires: python3-numpy
@@ -77,11 +76,9 @@ find prody/proteins/ccealign -name '*.cpp' -exec chmod 0644 '{}' \;
 %pyproject_buildrequires -r
 
 %build
-#py3_build
 %pyproject_wheel
 
 %install
-#py3_install
 %pyproject_install
 %pyproject_save_files prody
 

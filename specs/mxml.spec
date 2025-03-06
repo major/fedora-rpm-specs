@@ -1,10 +1,10 @@
 Summary:      Miniature XML development library
 Name:         mxml
 Version:      3.3.1
-Release:      7%{?dist}
-License:      ASL 2.0 with exception
-URL:          http://www.msweet.org/blog.php?L+Z3
-Source0:      https://github.com/michaelrsweet/mxml/archive/v%{version}.tar.gz
+Release:      8%{?dist}
+License:      Apache-2.0 WITH mxml-exception
+URL:          https://www.msweet.org/mxml/
+Source:       https://github.com/michaelrsweet/mxml/archive/v%{version}/mxml-%{version}.tar.gz
 BuildRequires: make
 BuildRequires: gcc
 
@@ -15,7 +15,7 @@ non-standard libraries.
 
 %package devel
 Summary:  Libraries, includes, etc to develop mxml applications
-Requires: mxml = %{version}-%{release}
+Requires: %{name} = %{version}-%{release}
 Requires: pkgconfig
 
 %description devel
@@ -25,38 +25,41 @@ applications.
 %prep
 %setup -q
 
+# Omit the epub file.
+sed -e '/^DOCFILES/ s|doc/mxml.epub||' -i Makefile.in
+
 %build
-# Run autoconf since we patched configure.in.
-%configure --enable-shared
-make %{?_smp_mflags}
+%configure
+%make_build
 
 %install
-rm -rf %{buildroot}
-make BUILDROOT=%{buildroot} install
+%make_install BUILDROOT=%{buildroot}
 
 # Configuring with --disable-static doesn't work, so let's just delete
 # the .a file by hand.
 rm %{buildroot}%{_libdir}/libmxml.a
 
-# remove extra docs
-rm -rf %{buildroot}%{_datadir}/doc/mxml/
-
-# remove rendered man pages
-rm -f %{buildroot}%{_datadir}/man/cat*/*
+# Remove files we want to ship in licensedir.
+rm %{buildroot}%{_pkgdocdir}/{LICENSE,NOTICE}
 
 %files
-%license LICENSE
-%doc README.md
-%{_libdir}/libmxml.so.1*
+%license LICENSE NOTICE
+%{_libdir}/libmxml.so.1{,.*}
 
 %files devel
-%doc CHANGES.md doc/*.html doc/*.png
-%{_includedir}/*.h
+%{_pkgdocdir}
+%{_includedir}/mxml.h
 %{_libdir}/libmxml.so
-%{_mandir}/*/*
+%{_mandir}/man3/mxml.3*
 %{_libdir}/pkgconfig/mxml.pc
 
 %changelog
+* Tue Mar 04 2025 Carl George <carlwgeorge@fedoraproject.org> - 3.3.1-8
+- Include NOTICE file as a license
+- Use upstream doc installation
+- Do not ship epub file
+- Update license expression to SPDX
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

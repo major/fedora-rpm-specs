@@ -3,9 +3,10 @@
 %global multilib_arches %{ix86} x86_64
 
 Name:		libffi
-Version:	3.4.6
-Release:	5%{?dist}
+Version:	3.4.7
+Release:	1%{?dist}
 Summary:	A portable foreign function interface library
+# No license change for 3.4.7
 # No license change for 3.4.6
 # The following SPDX licenses are extracted from the sources using
 # ScanCode 32.0.8 on build libffi-3.4.4-7.fc40:
@@ -40,22 +41,6 @@ URL:		http://sourceware.org/libffi
 Source0:	https://github.com/libffi/libffi/releases/download/v%{version}/libffi-%{version}.tar.gz
 Source1:	ffi-multilib.h
 Source2:	ffitarget-multilib.h
-
-# Fix AArch64 BTI issues by pulling in upstream commits after 3.4.6.
-# "Install ISO's die when run on an arm64 machine with BTI"
-# https://bugzilla.redhat.com/show_bug.cgi?id=2305877
-# 
-# Patch numbers relative to v3.4.6 tag:
-Patch0: 0001-Fix-bti-support-830.patch
-Patch1: 0002-ffi-fix-spelling-mistake-833.patch
-Patch2: 0003-aarch64-support-pointer-authentication-834.patch
-# Skip manual fix to avoid needing makeinfo to build libffi.
-# Patch3: 0004-A-fix-to-the-struct-type-example-837.patch
-Patch4: 0005-Import-from-upstream.patch
-Patch5: 0006-aarch64-Add-a-missing-no-op-define-of-SIGN_LR_LINUX_.patch
-Patch6: 0007-Fix-struct-args-Rainer-Orth.patch
-
-Patch7: libffi-3.4.6-C23.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -157,6 +142,9 @@ install -m644 %{SOURCE2} $RPM_BUILD_ROOT%{_includedir}/ffitarget.h
 %{_infodir}/libffi.info.*
 
 %changelog
+* Tue Feb 18 2025 DJ Delorie <dj@redhat.com> - 3.4.7-1
+- Rebase to libffi 3.4.7.
+
 * Wed Jan 22 2025 DJ Delorie <dj@redhat.com> - 3.4.6-5
 - Fix FTBFS due to C23 compiler (#2340729)
 

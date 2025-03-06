@@ -1,5 +1,5 @@
 Name:           opencsg
-Version:        1.6.0
+Version:        1.8.0
 Release:        %autorelease
 Summary:        Library for Constructive Solid Geometry using OpenGL
 # Most source code is GPL-2.0-or-later.
@@ -10,7 +10,6 @@ Summary:        Library for Constructive Solid Geometry using OpenGL
 License:        GPL-2.0-or-later AND MIT-Khronos-old AND WTFPL AND Apache-2.0
 URL:            https://www.opencsg.org/
 Source:         https://www.opencsg.org/OpenCSG-%{version}.tar.gz
-Patch:          https://github.com/floriankirsch/OpenCSG/pull/11.patch
 
 BuildRequires:  freeglut-devel
 BuildRequires:  gcc-c++
@@ -46,6 +45,7 @@ Development files for OpenCSG.
 
 %package doc
 Summary: OpenCSG documentation
+BuildArch: noarch
 
 %description doc
 Documentation for OpenCSG.

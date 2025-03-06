@@ -10,18 +10,13 @@
         LDFLAGS="-fPIC %{__global_ldflags}"
 
 Name:           libx86emu
-Version:        3.5
-Release:        10%{?dist}
+Version:        3.7
+Release:        1%{?dist}
 Summary:        x86 emulation library
 
 License:        HPND-sell-variant
 URL:            https://github.com/wfeldt/libx86emu
 Source0:        https://github.com/wfeldt/libx86emu/archive/%{version}/%{name}-%{version}.tar.gz
-
-# Make it build outside x86. Not submitted upstream because I don't know what is going on.
-Patch0:         libx86emu-3.5-x86-io.patch
-# Submitted upstream: https://github.com/wfeldt/libx86emu/pull/45
-Patch1:         https://github.com/wfeldt/libx86emu/commit/cfbbe1fcecfbff0b4b51e6060b793252ad942db1.patch#/libx86emu-log-overflow.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -69,6 +64,9 @@ library.
 
 
 %changelog
+* Tue Mar 04 2025 Lubomir Rintel <lkundrak@v3.sk> - 3.7-1
+- Update to 3.7
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

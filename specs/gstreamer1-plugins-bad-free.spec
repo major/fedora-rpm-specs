@@ -15,7 +15,7 @@
 
 Name:           gstreamer1-plugins-bad-free
 Version:        1.24.11
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 # Automatically converted from old format: LGPLv2+ and LGPLv2 - review is highly recommended.
@@ -790,6 +790,9 @@ EOF
 
 
 %changelog
+* Tue Mar 03 2025 Wim Taymans <wtaymans@redhat.com> - 1.24.11-5
+- Rebuild for openh264 2.6.0
+
 * Wed Feb 05 2025 Robert-André Mauchin <zebob.m@gmail.com> - 1.24.11-4
 - Rebuilt for aom 3.11.0
 

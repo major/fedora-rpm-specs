@@ -1,8 +1,8 @@
 %undefine __cmake_in_source_build
 
 Name:    signon-kwallet-extension
-Version: 24.12.2
-Release: 2%{?dist}
+Version: 24.12.3
+Release: 1%{?dist}
 Summary: KWallet integration for Sign-on framework
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -50,6 +50,9 @@ Supplements:    (kf6-kwallet and signon)
 
 
 %changelog
+* Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
+- 24.12.3
+
 * Fri Feb 21 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-2
 - Rebuild for ppc64le enablement
 

@@ -1,4 +1,3 @@
-
 %global pypi_name binstruct
 %global global_desc							\
 The binstruct library allows you to access binary data using a		\
@@ -11,13 +10,16 @@ with its fields.
 
 Name:		python-%{pypi_name}
 Version:	1.0.1
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	Library for read/write access of binary data via structures
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:	GPL-3.0-or-later
 URL:		https://pypi.python.org/pypi/%{pypi_name}
 Source0:	https://files.pythonhosted.org/packages/source/b/%{pypi_name}/%{pypi_name}-%{version}.zip
+
+# Drop nose.
+Patch0:		binstruct-1.0.1-pytest.patch
 
 BuildArch:	noarch
 
@@ -31,7 +33,6 @@ BuildRequires:	dos2unix
 Summary:	%{summary}
 
 BuildRequires:	python3-devel
-BuildRequires:	python3-nose
 BuildRequires:	python3-pytest
 BuildRequires:	python3-setuptools
 
@@ -42,7 +43,7 @@ BuildRequires:	python3-setuptools
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p 1
 %{_bindir}/find . -type f -print0 |					\
 	%{_bindir}/xargs -0 --max-args=1 %{_bindir}/dos2unix -ascii -k -s
 
@@ -56,7 +57,7 @@ BuildRequires:	python3-setuptools
 
 
 %check
-%{_bindir}/nosetests-%{python3_version} -vv
+%pytest
 
 
 %files -n python3-%{pypi_name}
@@ -68,6 +69,9 @@ BuildRequires:	python3-setuptools
 
 
 %changelog
+* Tue Mar 04 2025 Björn Esser <besser82@fedoraproject.org> - 1.0.1-31
+- Drop build requirement for nose, fixes: rhbz#2349838
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

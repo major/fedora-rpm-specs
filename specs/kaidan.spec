@@ -9,9 +9,9 @@ URL:            https://invent.kde.org/network/kaidan
 Source0:        %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
 
 %if 0%{?fedora} || 0%{?epel} > 7
-# handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
+# handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
 # Package doesn't build on arches that qtwebengine is not built on.
-ExclusiveArch: %{qt5_qtwebengine_arches}
+ExclusiveArch: %{qt6_qtwebengine_arches}
 %endif
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval

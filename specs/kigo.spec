@@ -1,7 +1,7 @@
 Name:    kigo
 Summary: Go Board game
-Version: 24.12.2
-Release: 2%{?dist}
+Version: 24.12.3
+Release: 1%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 # Automatically converted from old format: (GPLv2 or GPLv3) and GFDL - review is highly recommended.
@@ -90,6 +90,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
+- 24.12.3
+
 * Fri Feb 21 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-2
 - Rebuild for ppc64le enablement
 

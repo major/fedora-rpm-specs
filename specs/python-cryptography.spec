@@ -115,7 +115,7 @@ find . -name Cargo.toml -print -delete
 %if %{with tests}
 %if 0%{?rhel}
 # skip benchmark, hypothesis, and pytz tests on RHEL
-rm -rf tests/bench tests/hypothesis tests/x509
+rm -rf tests/bench tests/hypothesis
 # append skipper to skip iso8601 and pretend tests
 cat < %{SOURCE2} >> tests/conftest.py
 %endif

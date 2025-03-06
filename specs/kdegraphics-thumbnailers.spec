@@ -1,7 +1,7 @@
 Name:    kdegraphics-thumbnailers
 Summary: Thumbnailers for various graphic types
-Version: 24.12.2
-Release: 2%{?dist}
+Version: 24.12.3
+Release: 1%{?dist}
 
 # most sources GPLv2+, dscparse.* GPL, gscreator.* LGPLv2+,
 License: GPL-2.0-or-later
@@ -46,6 +46,9 @@ BuildRequires: cmake(KDcrawQt6)
 
 
 %changelog
+* Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
+- 24.12.3
+
 * Fri Feb 21 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-2
 - Rebuild for ppc64le enablement
 

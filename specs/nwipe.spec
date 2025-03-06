@@ -68,8 +68,12 @@ a few changes:
 
 # On RHEL7 it is needed to explicitly pregress to c99 compatibility mode
 %if 0%{?rhel} && 0%{?rhel} <= 7
-export CFLAGS="%{optflags} -std=c99 -D_XOPEN_SOURCE=500"
+export CFLAGS="%{optflags} -D_XOPEN_SOURCE=500"
 %endif
+
+# Needed for compatibility with GCC 15
+export CFLAGS="%{optflags} -std=c99"
+
 
 autoreconf -vif
 
@@ -91,4 +95,4 @@ autoreconf -vif
 
 
 %changelog
-%{?%autochangelog: %autochangelog }
+%autochangelog

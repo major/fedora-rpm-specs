@@ -1,8 +1,8 @@
 %undefine __cmake_in_source_build
 
 Name:		knights
-Version:	24.12.2
-Release:	2%{?dist}
+Version:	24.12.3
+Release:	1%{?dist}
 Summary:	A chess board for KDE
 
 # KDE e.V. may determine that future GPL versions are accepted
@@ -69,6 +69,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.knights.d
 %{_datadir}/qlogging-categories6/knights.renamecategories
 
 %changelog
+* Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
+- 24.12.3
+
 * Fri Feb 21 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-2
 - Rebuild for ppc64le enablement
 

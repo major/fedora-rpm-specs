@@ -1,6 +1,6 @@
 Name:           shairport-sync
-Version:        4.3.5
-Release:        3%{?dist}
+Version:        4.3.7
+Release:        0%{?dist}
 Summary:        AirTunes emulator. Multi-Room with Audio Synchronisation
 # MIT licensed except for tinysvcmdns under BSD, 
 # FFTConvolver/ under GPLv3+ and audio_sndio.c 
@@ -26,14 +26,18 @@ BuildRequires:  automake
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
 BuildRequires:	pkgconfig(libpulse)
-BuildRequires:  pkgconfig(uuid)
-BuildRequires:  pkgconfig(libavformat)
-BuildRequires:  pkgconfig(libavcodec)
-BuildRequires:  pkgconfig(libavutil)
-BuildRequires:  pkgconfig(libgcrypt)
-BuildRequires:  pkgconfig(libsodium)
-BuildRequires:  pkgconfig(libplist-2.0)
-BuildRequires:  xxd
+BuildRequires:	pkgconfig(libpipewire-0.3)
+# airplay2 support
+#Requires:       libavcodec-freeworld
+#Requires:       nqptp
+#BuildRequires:  pkgconfig(uuid)
+#BuildRequires:  pkgconfig(libavformat)
+#BuildRequires:  pkgconfig(libavcodec)
+#BuildRequires:  pkgconfig(libavutil)
+#BuildRequires:  pkgconfig(libgcrypt)
+#BuildRequires:  pkgconfig(libsodium)
+#BuildRequires:  pkgconfig(libplist-2.0)
+#BuildRequires:  xxd
 
 %description
 Shairport Sync emulates an AirPort Express for the purpose of streaming audio
@@ -56,9 +60,9 @@ EOF
 %build
 autoreconf -i -f
 %configure --sysconfdir=/etc --with-alsa --with-pipe --with-dummy \
-           --with-stdout --with-pa --with-metadata \
+           --with-stdout --with-pa --with-metadata --with-pw \
            --with-soxr --with-avahi --with-systemd --with-ssl=openssl \
-           --with-create-user-group=false --with-airplay-2
+           --with-create-user-group=false # --with-airplay-2
 
 %make_build
 
@@ -90,6 +94,9 @@ install -m0644 -D shairport-sync.sysusers.conf %{buildroot}%{_sysusersdir}/shair
 %{_sysusersdir}/shairport-sync.conf
 
 %changelog
+* Tue Mar 04 2025 Bill Peck <bpeck@redhat.com> - 4.3.7-0
+- Disable airplay2, Unfortantely airplay2 support requires libavcodec-freeworld
+
 * Mon Mar 03 2025 Bill Peck <bpeck@redhat.com> - 4.3.5-3
 - Enable airplay2 support
 

@@ -3,7 +3,7 @@
 Name:    okteta
 Summary: Binary/hex editor
 Epoch:   1
-Version: 0.26.19
+Version: 0.26.20
 Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2+ and GFDL - review is highly recommended.
@@ -154,6 +154,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.okteta.deskto
 
 
 %changelog
+* Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 1:0.26.20-1
+- 0.26.20
+
 * Tue Feb 04 2025 Steve Cossette <farchord@gmail.com> - 1:0.26.19-1
 - 0.26.19
 

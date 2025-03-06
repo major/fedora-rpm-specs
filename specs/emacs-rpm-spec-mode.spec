@@ -1,50 +1,59 @@
-%global pkg rpm-spec-mode
-%global git_hash 7d06d19a31e888b932da6c8202ff2c73f42703a1
+%global commit  283d2aac4ede343586a1fb9e9d2a5917f34809a1
+%global date    20241209
+%global forgeurl https://github.com/Thaodan/rpm-spec-mode
 
-Name:           emacs-%{pkg}
+Name:           emacs-rpm-spec-mode
 Version:        0.16
-Release:        21%{?dist}
+Release:        23%{?dist}
 Summary:        Major GNU Emacs mode for editing RPM spec files
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
+%forgemeta
+
 License:        GPL-2.0-or-later
-URL:            https://github.com/bjorlykke/rpm-spec-mode/
-Source0:        https://raw.githubusercontent.com/bjorlykke/rpm-spec-mode/%{git_hash}/rpm-spec-mode.el
-Source1:        rpm-spec-mode-init.el
-# https://github.com/stigbjorlykke/rpm-spec-mode/pull/17
-Patch0:         fix-define-obsolete-variable-alias.patch
+URL:            https://github.com/Thaodan/rpm-spec-mode
+VCS:            git:%{url}.git
+Source:         %{forgesource}
 
 BuildArch:      noarch
-BuildRequires:  emacs
-Requires:       emacs(bin) >= %{_emacs_version}
+BuildRequires:  emacs-nw
+Requires:       emacs(bin) >= %{?_emacs_version}%{!?_emacs_version:0}
 
 %description
 Major GNU Emacs mode for editing RPM spec files.
 
 %prep
-%setup -q -n rpm-spec-mode-%{version} -T -c
-cp %SOURCE0 $RPM_BUILD_DIR/rpm-spec-mode-%{version}
-%patch -P0 -p1
+%forgeautosetup -p1
 
 %build
-%_emacs_bytecompile rpm-spec-mode.el
+%_emacs_bytecompile rpm-spec-mode*.el
+emacs -batch --no-init-file --no-site-file \
+  --eval "(let ((backup-inhibited t)) (loaddefs-generate \".\" \"$PWD/rpm-spec-mode-loaddefs.el\"))"
 
 %install
-mkdir -p %{buildroot}/%{_emacs_sitelispdir}/rpm-spec-mode
-install -m 644 rpm-spec-mode.el{,c} %{buildroot}/%{_emacs_sitelispdir}/rpm-spec-mode
+mkdir -p %{buildroot}/%{_emacs_sitelispdir}
+install -p -m 644 rpm-spec-mode.el{,c} %{buildroot}/%{_emacs_sitelispdir}
 
-# Install rpm-spec-mode-init.el
+# Install rpm-spec-mode-loaddefs.el
 mkdir -p %{buildroot}%{_emacs_sitestartdir}
-install -m 644 %SOURCE1 %{buildroot}%{_emacs_sitestartdir}
+install -p -m 644 rpm-spec-mode-loaddefs.el %{buildroot}%{_emacs_sitestartdir}
 
 %files
-%{_emacs_sitestartdir}/rpm-spec-mode-init.el
-%{_emacs_sitelispdir}/rpm-spec-mode/rpm-spec-mode.el
-%{_emacs_sitelispdir}/rpm-spec-mode/rpm-spec-mode.elc
+%doc README.org
+%license LICENSE
+%{_emacs_sitestartdir}/rpm-spec-mode-loaddefs.el
+%{_emacs_sitelispdir}/rpm-spec-mode.el
+%{_emacs_sitelispdir}/rpm-spec-mode.elc
 
 %changelog
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-21
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+* Tue Mar 04 2025 Zbigniew Jedrzejewski-Szmek <zbyszek@in.waw.pl> - 0.16-23
+- Update to latest upstream commit
+
+* Tue Mar  4 2025 Jerry James <loganjerry@gmail.com> - 0.16-22.20240417gitd3c7d70
+- Switch upstream repositories (rhbz#2303286, rhbz#1767852)
+- Add patch to fix undefined list->string function (rhbz#2272197)
+- Use the forge macros
+- Generate and rename the init file
+- Ship the README.md and LICENSE files
 
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.16-20
 - convert license to SPDX

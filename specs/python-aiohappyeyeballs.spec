@@ -19,6 +19,12 @@ Patch:          0001-Downstream-only-remove-pytest-options-for-coverage-a.patch
 # https://src.fedoraproject.org/rpms/python-poetry-core/pull-request/31#comment-245187
 # (Applies on top of the downstream coverage patch.)
 Patch:          0002-fix-ensure-all-timers-are-cancelled-when-after-stagg.patch
+# fix: close runner up sockets in the event there are multiple winners
+# https://github.com/aio-libs/aiohappyeyeballs/pull/143
+# Backported from 2.4.8, which is blocked waiting for poetry-core 2:
+# https://src.fedoraproject.org/rpms/python-poetry-core/pull-request/31#comment-245187
+# (Applies on top of the downstream coverage patch etc.)
+Patch:          0003-fix-close-runner-up-sockets-in-the-event-there-are-m.patch
 
 BuildArch:      noarch
 

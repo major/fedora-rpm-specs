@@ -14,8 +14,8 @@
 
 Name:    okular
 Summary: A document viewer
-Version: 24.12.2
-Release: 2%{?dist}
+Version: 24.12.3
+Release: 1%{?dist}
 
 License: GPL-2.0-only
 URL:     https://www.kde.org/applications/graphics/okular/
@@ -222,6 +222,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ok
 
 
 %changelog
+* Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
+- 24.12.3
+
 * Fri Feb 21 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-2
 - Rebuild for ppc64le enablement
 

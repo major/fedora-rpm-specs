@@ -1,7 +1,7 @@
 Name:           xsimd
-Version:        13.1.0
+Version:        13.2.0
 Release:        %autorelease
-Summary:        C++ wrappers for SIMD intrinsics
+Summary:        C++ wrappers for SIMD intrinsic
 License:        BSD-3-Clause
 URL:            https://xsimd.readthedocs.io/
 %global github  https://github.com/xtensor-stack/xsimd
@@ -33,6 +33,8 @@ Summary:        %{summary}
 Provides:       %{name} = %{version}-%{release}
 Provides:       %{name}-static = %{version}-%{release}
 BuildArch:      noarch
+
+Patch0: https://github.com/xtensor-stack/xsimd/pull/1091.patch
 
 %description devel %_description
 

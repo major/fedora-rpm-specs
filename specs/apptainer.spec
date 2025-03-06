@@ -31,29 +31,28 @@
 
 # This can be slightly different than %%{version}.
 # For example, it has dash instead of tilde for release candidates.
-%global package_version 1.4.0-rc.1
+%global package_version 1.4.0-rc.2
 
 %global gocryptfs_version 2.5.0
 %global squashfuse_version 0.5.2
 %global e2fsprogs_version 1.47.2
 %global fuse_overlayfs_version 1.14
+%global squashfs_tools_version 4.6.1
 
 # The last singularity version number in EPEL/Fedora
 %global last_singularity_version 3.8.7-3
 
 Summary: Application and environment virtualization formerly known as Singularity
 Name: apptainer
-Version: 1.4.0~rc.1
+Version: 1.4.0~rc.2
 Release: 1%{?dist}
 # See LICENSE.md for first party code (BSD-3-Clause and LBNL BSD)
 # See LICENSE_THIRD_PARTY.md for incorporated code (ASL 2.0)
 # See LICENSE_DEPENDENCIES.md for dependencies
 # License identifiers taken from: https://fedoraproject.org/wiki/Licensing
-# Automatically converted from old format: BSD and LBNL BSD and ASL 2.0 - review is highly recommended.
 License: LicenseRef-Callaway-BSD AND BSD-3-Clause-LBNL AND Apache-2.0
 URL: https://apptainer.org
 Source: https://github.com/%{name}/%{name}/releases/download/v%{package_version}/%{name}-%{package_version}.tar.gz
-Patch1: %{name}-1.patch
 
 %if "%{?gocryptfs_version}" != ""
 # In order to build offline, this source tarball needs to have the "vendor"
@@ -70,6 +69,9 @@ Source11: https://github.com/vasi/squashfuse/archive/%{squashfuse_version}/squas
 Source12: e2fsprogs-%{e2fsprogs_version}.tar.gz
 %endif
 Source13: https://github.com/containers/fuse-overlayfs/archive/v%{fuse_overlayfs_version}/fuse-overlayfs-%{fuse_overlayfs_version}.tar.gz
+%if "%{?squashfs_tools_version}" != ""
+Source14: https://github.com/plougher/squashfs-tools/archive/%{squashfs_tools_version}/squashfs-tools-%{squashfs_tools_version}.tar.gz
+%endif
 
 # This Conflicts is in case someone tries to install the main apptainer
 # package when an old singularity package is installed.  An Obsoletes is on
@@ -97,13 +99,14 @@ Provides: bundled(squashfuse) = %{squashfuse_version}
 Provides: bundled(e2fsprogs) = %{e2fsprogs_version}
 Provides: bundled(fuse2fs) = %{e2fsprogs_version}
 Provides: bundled(fuse-overlayfs) = %{fuse_overlayfs_version}
+Provides: bundled(squashfs-tools) = %{squashfs_tools_version}
 Provides: bundled(golang(github.com/AdaLogics/go_fuzz_headers)) = v0.0.0_20230811130428_ced1acdcaa24
 Provides: bundled(golang(github.com/AdamKorcz/go_fuzz_headers)) = v0.0.0_20210319161527_f761c2329661
 Provides: bundled(golang(github.com/Azure/go_ansiterm)) = v0.0.0_20230124172434_306776ec8161
 Provides: bundled(golang(github.com/BurntSushi/toml)) = v1.4.0
 Provides: bundled(golang(github.com/Microsoft/go_winio)) = v0.6.2
 Provides: bundled(golang(github.com/Netflix/go_expect)) = v0.0.0_20220104043353_73e0943537d2
-Provides: bundled(golang(github.com/ProtonMail/go_crypto)) = v1.1.2
+Provides: bundled(golang(github.com/ProtonMail/go_crypto)) = v1.1.5
 Provides: bundled(golang(github.com/VividCortex/ewma)) = v1.2.0
 Provides: bundled(golang(github.com/acarl005/stripansi)) = v0.0.0_20180116102854_5a71ef0e047d
 Provides: bundled(golang(github.com/adigunhammedolalekan/registry_auth)) = v0.0.0_20200730122110_8cde180a3a60
@@ -111,7 +114,7 @@ Provides: bundled(golang(github.com/alexflint/go_filemutex)) = v1.3.0
 Provides: bundled(golang(github.com/apex/log)) = v1.9.0
 Provides: bundled(golang(github.com/apptainer/container_key_client)) = v0.8.0
 Provides: bundled(golang(github.com/apptainer/container_library_client)) = v1.4.10
-Provides: bundled(golang(github.com/apptainer/sif/v2)) = v2.19.3
+Provides: bundled(golang(github.com/apptainer/sif/v2)) = v2.20.2
 Provides: bundled(golang(github.com/asaskevich/govalidator)) = v0.0.0_20230301143203_a9d515a09cc2
 Provides: bundled(golang(github.com/astromechza/etcpwdparse)) = v0.0.0_20170319193008_f0e5f0779716
 Provides: bundled(golang(github.com/beorn7/perks)) = v1.0.1
@@ -126,22 +129,22 @@ Provides: bundled(golang(github.com/containerd/log)) = v0.1.0
 Provides: bundled(golang(github.com/containerd/stargz_snapshotter/estargz)) = v0.15.1
 Provides: bundled(golang(github.com/containernetworking/cni)) = v1.2.3
 Provides: bundled(golang(github.com/containernetworking/plugins)) = v1.5.1
-Provides: bundled(golang(github.com/containers/image/v5)) = v5.33.0
+Provides: bundled(golang(github.com/containers/image/v5)) = v5.33.1
 Provides: bundled(golang(github.com/containers/libtrust)) = v0.0.0_20230121012942_c1716e8a8d01
 Provides: bundled(golang(github.com/containers/ocicrypt)) = v1.2.0
-Provides: bundled(golang(github.com/containers/storage)) = v1.56.0
+Provides: bundled(golang(github.com/containers/storage)) = v1.56.1
 Provides: bundled(golang(github.com/coreos/go_iptables)) = v0.7.0
 Provides: bundled(golang(github.com/coreos/go_systemd/v22)) = v22.5.0
-Provides: bundled(golang(github.com/cpuguy83/go_md2man/v2)) = v2.0.5
+Provides: bundled(golang(github.com/cpuguy83/go_md2man/v2)) = v2.0.6
 Provides: bundled(golang(github.com/creack/pty)) = v1.1.24
 Provides: bundled(golang(github.com/cyberphone/json_canonicalization)) = v0.0.0_20231217050601_ba74d44ecf5f
-Provides: bundled(golang(github.com/cyphar/filepath_securejoin)) = v0.3.5
+Provides: bundled(golang(github.com/cyphar/filepath_securejoin)) = v0.4.1
 Provides: bundled(golang(github.com/d2g/dhcp4)) = v0.0.0_20170904100407_a1d1b6c41b1c
 Provides: bundled(golang(github.com/d2g/dhcp4client)) = v1.0.0
 Provides: bundled(golang(github.com/distribution/reference)) = v0.6.0
-Provides: bundled(golang(github.com/docker/cli)) = v27.5.0+incompatible
+Provides: bundled(golang(github.com/docker/cli)) = v27.5.1+incompatible
 Provides: bundled(golang(github.com/docker/distribution)) = v2.8.3+incompatible
-Provides: bundled(golang(github.com/docker/docker)) = v27.5.0+incompatible
+Provides: bundled(golang(github.com/docker/docker)) = v27.5.1+incompatible
 Provides: bundled(golang(github.com/docker/docker_credential_helpers)) = v0.8.2
 Provides: bundled(golang(github.com/docker/go_connections)) = v0.5.0
 Provides: bundled(golang(github.com/docker/go_metrics)) = v0.0.1
@@ -172,7 +175,7 @@ Provides: bundled(golang(github.com/google/go_containerregistry)) = v0.20.2
 Provides: bundled(golang(github.com/google/uuid)) = v1.6.0
 Provides: bundled(golang(github.com/gorilla/handlers)) = v1.5.1
 Provides: bundled(golang(github.com/gorilla/mux)) = v1.8.1
-Provides: bundled(golang(github.com/gosimple/slug)) = v1.14.0
+Provides: bundled(golang(github.com/gosimple/slug)) = v1.15.0
 Provides: bundled(golang(github.com/gosimple/unidecode)) = v1.0.1
 Provides: bundled(golang(github.com/hashicorp/errwrap)) = v1.1.0
 Provides: bundled(golang(github.com/hashicorp/go_multierror)) = v1.1.1
@@ -206,8 +209,8 @@ Provides: bundled(golang(github.com/networkplumbing/go_nft)) = v0.4.0
 Provides: bundled(golang(github.com/oklog/ulid)) = v1.3.1
 Provides: bundled(golang(github.com/opencontainers/go_digest)) = v1.0.0
 Provides: bundled(golang(github.com/opencontainers/image_spec)) = v1.1.0
-Provides: bundled(golang(github.com/opencontainers/runc)) = v1.2.4
-Provides: bundled(golang(github.com/opencontainers/runtime_spec)) = v1.2.0
+Provides: bundled(golang(github.com/opencontainers/runc)) = v1.2.5
+Provides: bundled(golang(github.com/opencontainers/runtime_spec)) = v1.2.1
 Provides: bundled(golang(github.com/opencontainers/runtime_tools)) = v0.9.1_0.20221107090550_2e043c6bd626
 Provides: bundled(golang(github.com/opencontainers/selinux)) = v1.11.1
 Provides: bundled(golang(github.com/opencontainers/umoci)) = v0.4.7
@@ -222,17 +225,18 @@ Provides: bundled(golang(github.com/rivo/uniseg)) = v0.4.7
 Provides: bundled(golang(github.com/rootless_containers/proto)) = v0.1.0
 Provides: bundled(golang(github.com/russross/blackfriday/v2)) = v2.1.0
 Provides: bundled(golang(github.com/safchain/ethtool)) = v0.4.0
-Provides: bundled(golang(github.com/samber/lo)) = v1.47.0
+Provides: bundled(golang(github.com/samber/lo)) = v1.49.1
 Provides: bundled(golang(github.com/seccomp/containers_golang)) = v0.6.0
 Provides: bundled(golang(github.com/seccomp/libseccomp_golang)) = v0.10.0
-Provides: bundled(golang(github.com/secure_systems_lab/go_securesystemslib)) = v0.8.0
+Provides: bundled(golang(github.com/secure_systems_lab/go_securesystemslib)) = v0.9.0
 Provides: bundled(golang(github.com/shopspring/decimal)) = v1.4.0
 Provides: bundled(golang(github.com/sigstore/fulcio)) = v1.6.4
+Provides: bundled(golang(github.com/sigstore/protobuf_specs)) = v0.4.0
 Provides: bundled(golang(github.com/sigstore/rekor)) = v1.3.6
-Provides: bundled(golang(github.com/sigstore/sigstore)) = v1.8.9
+Provides: bundled(golang(github.com/sigstore/sigstore)) = v1.8.14
 Provides: bundled(golang(github.com/sirupsen/logrus)) = v1.9.3
-Provides: bundled(golang(github.com/spf13/cobra)) = v1.8.1
-Provides: bundled(golang(github.com/spf13/pflag)) = v1.0.5
+Provides: bundled(golang(github.com/spf13/cobra)) = v1.9.1
+Provides: bundled(golang(github.com/spf13/pflag)) = v1.0.6
 Provides: bundled(golang(github.com/stefanberger/go_pkcs11uri)) = v0.0.0_20230803200340_78284954bff6
 Provides: bundled(golang(github.com/sylabs/json_resp)) = v0.9.4
 Provides: bundled(golang(github.com/syndtr/gocapability)) = v0.0.0_20200815063812_42c35b437635
@@ -252,19 +256,20 @@ Provides: bundled(golang(go.opentelemetry.io/contrib/instrumentation/net/http/ot
 Provides: bundled(golang(go.opentelemetry.io/otel)) = v1.28.0
 Provides: bundled(golang(go.opentelemetry.io/otel/metric)) = v1.28.0
 Provides: bundled(golang(go.opentelemetry.io/otel/trace)) = v1.28.0
-Provides: bundled(golang(golang.org/x/crypto)) = v0.31.0
+Provides: bundled(golang(golang.org/x/crypto)) = v0.33.0
 Provides: bundled(golang(golang.org/x/exp)) = v0.0.0_20241009180824_f66d83c29e7c
-Provides: bundled(golang(golang.org/x/net)) = v0.28.0
-Provides: bundled(golang(golang.org/x/sync)) = v0.10.0
-Provides: bundled(golang(golang.org/x/sys)) = v0.29.0
-Provides: bundled(golang(golang.org/x/term)) = v0.28.0
-Provides: bundled(golang(golang.org/x/text)) = v0.21.0
+Provides: bundled(golang(golang.org/x/net)) = v0.33.0
+Provides: bundled(golang(golang.org/x/sync)) = v0.11.0
+Provides: bundled(golang(golang.org/x/sys)) = v0.30.0
+Provides: bundled(golang(golang.org/x/term)) = v0.29.0
+Provides: bundled(golang(golang.org/x/text)) = v0.22.0
+Provides: bundled(golang(google.golang.org/genproto/googleapis/api)) = v0.0.0_20240814211410_ddb44dafa142
 Provides: bundled(golang(google.golang.org/genproto/googleapis/rpc)) = v0.0.0_20240903143218_8af14fe29dc1
 Provides: bundled(golang(google.golang.org/grpc)) = v1.67.0
-Provides: bundled(golang(google.golang.org/protobuf)) = v1.34.2
+Provides: bundled(golang(google.golang.org/protobuf)) = v1.36.4
 Provides: bundled(golang(gopkg.in/yaml.v2)) = v2.4.0
 Provides: bundled(golang(gopkg.in/yaml.v3)) = v3.0.1
-Provides: bundled(golang(gotest.tools/v3)) = v3.5.1
+Provides: bundled(golang(gotest.tools/v3)) = v3.5.2
 Provides: bundled(golang(mvdan.cc/sh/v3)) = v3.10.0
 
 %if "%{_target_vendor}" == "suse"
@@ -285,7 +290,7 @@ BuildRequires: make
 BuildRequires: libseccomp-devel
 BuildRequires: cryptsetup
 BuildRequires: fuse3-devel
-%if ("%{?squashfuse_version}" != "") || ("%{e2fsprogs_version}" != "") || ("%{fuse_overlayfs_version}" != "")
+%if ("%{?squashfuse_version}" != "") || ("%{e2fsprogs_version}" != "") || ("%{fuse_overlayfs_version}" != "") || ("%{?squashfs_tools_version}" != "")
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: libtool
@@ -296,10 +301,8 @@ BuildRequires: xz-devel
 BuildRequires: libzstd-devel
 %endif
 %if "%{_target_vendor}" == "suse"
-Requires: squashfs
 Recommends: fakeroot
 %else
-Requires: squashfs-tools
 Requires: fakeroot
 %endif
 
@@ -322,7 +325,6 @@ Provides the optional setuid-root portion of Apptainer.
 
 %prep
 %setup -n %{name}-%{package_version}
-%patch -P 1
 # don't need to setup dependent source packages and patches because
 # that is done by the compile-dependencies script
 
@@ -383,6 +385,11 @@ install -m 755 e2fsprogs-%{e2fsprogs_version}/fuse2fs %{buildroot}%{_libexecdir}
 
 %if "%{?fuse_overlayfs_version}" != ""
 install -m 755 fuse-overlayfs-%{fuse_overlayfs_version}/fuse-overlayfs %{buildroot}%{_libexecdir}/%{name}/bin/fuse-overlayfs
+%endif
+
+%if "%{?squashfs_tools_version}" != ""
+install -m 755 squashfs-tools-%{squashfs_tools_version}/squashfs-tools/mksquashfs %{buildroot}%{_libexecdir}/%{name}/bin/mksquashfs
+install -m 755 squashfs-tools-%{squashfs_tools_version}/squashfs-tools/unsquashfs %{buildroot}%{_libexecdir}/%{name}/bin/unsquashfs
 %endif
 
 %post
@@ -452,6 +459,10 @@ fi
 %if "%{?fuse_overlayfs_version}" != ""
 %{_libexecdir}/%{name}/bin/fuse-overlayfs
 %endif
+%if "%{?squashfs_tools_version}" != ""
+%{_libexecdir}/%{name}/bin/mksquashfs
+%{_libexecdir}/%{name}/bin/unsquashfs
+%endif
 %{_libexecdir}/%{name}/cni
 %{_libexecdir}/%{name}/lib
 %dir %{_sysconfdir}/%{name}
@@ -472,6 +483,10 @@ fi
 %attr(4755, root, root) %{_libexecdir}/%{name}/bin/starter-suid
 
 %changelog
+* Tue Mar  4 2025 Dave Dykstra <dwd@cern.ch> - 1.4.0~rc.2
+- Update to upstream 1.4.0-rc.2
+- Remove starter patch
+
 * Wed Jan 22 2025 Dave Dykstra <dwd@cern.ch> - 1.4.0~rc.1
 - Update to upstream 1.4.0-rc.1
 - Add patch for starter to avoid newly reserved C keywords false and true

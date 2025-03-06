@@ -1,5 +1,5 @@
 Name:		libzpc
-Version:	1.2.0
+Version:	1.3.0
 Release:	6%{?dist}
 Summary:	Open Source library for the IBM Z Protected-key crypto feature
 
@@ -75,6 +75,11 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Mar 04 2025 Joerg Schmidbauer <jschmidb@de.ibm.com> - 1.3.0
+- Support for UV retrievable secrets
+- Handle CCA cipher key token with Encrypted V0 payload
+- bug fixes
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

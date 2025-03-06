@@ -14,7 +14,7 @@
 %bcond it 0
 
 Name:           uv
-Version:        0.6.3
+Version:        0.6.4
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -197,23 +197,6 @@ Patch:          0001-Downstream-only-do-not-override-the-default-allocato.patch
 #   Should uv.find_uv_bin() be able to find /usr/bin/uv?
 #   https://github.com/astral-sh/uv/issues/4451
 Patch:          0001-Downstream-patch-always-find-the-system-wide-uv-exec.patch
-
-# Downstream-only: unpin libz-ng-sys
-#
-# It was pinned to an old version due to a Windows-specific issue, but it turns
-# out that the pin cannot be made Windows-specific in Cargo.toml; see
-# https://github.com/astral-sh/uv/pull/10375#issuecomment-2578982370.
-Patch:          0001-Downstream-only-unpin-libz-ng-sys.patch
-# Downstream-only: Use zlib-ng on all architectures
-#
-# We do not have trouble building it on ppc64le or s390x.
-#
-# (Also, this helps with weird maturin-related dependency-resolution issues.)
-Patch:          0002-Downstream-only-Use-zlib-ng-on-all-architectures.patch
-
-# Vendor r-shquote's unquote implementation
-# https://github.com/astral-sh/uv/pull/11812
-Patch:          %{url}/pull/11812.patch
 
 # These patches are for the forked, bundled async_zip crate.
 #
@@ -598,6 +581,13 @@ tomcli set crates/uv/Cargo.toml del dependencies.tracing-durations-export
 # #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
 # tomcli set crates/uv/Cargo.toml str dev-dependencies.foocrate.version 0.1.2
 
+# etcetera
+#   wanted: 0.9.0
+#   currently packaged: 0.8.0
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2348721
+tomcli set Cargo.toml str workspace.dependencies.etcetera.version \
+    '>=0.8.0, <0.10.0'
+
 # mailparse
 #   wanted: 0.16.0
 #   currently packaged: 0.15.0
@@ -639,8 +629,7 @@ tomcli set Cargo.toml str \
 #   – but they are still needed to support features, and the build will fail if
 #   we do not generate their dependencies, too:
 for cratedir in \
-    crates/uv-performance-memory-allocator \
-    crates/uv-performance-flate2-backend
+    crates/uv-performance-memory-allocator
 do
   pushd "${cratedir}" >/dev/null
   %cargo_generate_buildrequires -a -t

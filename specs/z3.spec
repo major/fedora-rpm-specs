@@ -14,7 +14,7 @@
 %global giturl  https://github.com/Z3Prover/z3
 
 Name:           z3
-Version:        4.13.4
+Version:        4.14.0
 Release:        %autorelease
 Summary:        Satisfiability Modulo Theories (SMT) solver
 
@@ -184,7 +184,6 @@ export PYTHON=%{python3}
 
 %cmake -G Ninja \
   -DCMAKE_INSTALL_INCLUDEDIR=%{_includedir}/z3 \
-  -DCMAKE_JAVA_COMPILE_FLAGS="-source;1.8;-target;1.8" \
   -DZ3_BUILD_DOCUMENTATION:BOOL=ON \
 %ifarch %{java_arches}
   -DZ3_BUILD_JAVA_BINDINGS:BOOL=ON \
@@ -267,7 +266,7 @@ cd -
 
 %files libs
 %license LICENSE.txt
-%{_libdir}/libz3.so.4.13*
+%{_libdir}/libz3.so.4.14*
 
 %files devel
 %{_includedir}/z3/

@@ -1,7 +1,7 @@
 Name:    kolourpaint
 Summary: An easy-to-use paint program 
-Version: 24.12.2
-Release: 2%{?dist}
+Version: 24.12.3
+Release: 1%{?dist}
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD 
@@ -81,6 +81,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 
 
 %changelog
+* Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
+- 24.12.3
+
 * Fri Feb 21 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-2
 - Rebuild for ppc64le enablement
 

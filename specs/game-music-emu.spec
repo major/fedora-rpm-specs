@@ -1,12 +1,13 @@
 Name:           game-music-emu
-Version:        0.6.3
-Release:        17%{?dist}
+Version:        0.6.4
+Release:        1%{?dist}
 Provides:       libgme%{?_isa} = %{version}-%{release}
 Summary:        Video game music file emulation/playback library
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
-URL:            https://bitbucket.org/mpyne/game-music-emu/wiki/Home
-Source0:        https://bitbucket.org/mpyne/game-music-emu/downloads/%{name}-%{version}.tar.xz
+URL:            https://github.com/libgme/game-music-emu
+Source0:        %{url}/archive/%{version}/game-music-emu-%{version}.tar.gz
+
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -56,7 +57,7 @@ echo -e "\ninstall(TARGETS gme_player RUNTIME DESTINATION %{_bindir})" >> player
 
 
 %build
-%cmake -D ENABLE_UBSAN:BOOL=OFF
+%cmake -D ENABLE_UBSAN:BOOL=OFF -D GME_BUILD_STATIC:BOOL=OFF
 %cmake_build
 # explicitly build the player as it has EXCLUDE_FROM_ALL set
 %cmake_build --target gme_player
@@ -88,6 +89,10 @@ popd
 
 
 %changelog
+* Mon Mar 03 2025 Karel Volný <kvolny@redhat.com> 0.6.4-1
+- New release 0.6.4 (rhbz#2345943)
+- Updated repository location (rhbz#2247599)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

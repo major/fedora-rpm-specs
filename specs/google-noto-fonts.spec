@@ -9,7 +9,7 @@ between multiple scripts. Noto family supports almost all scripts available\
 in Unicode.\
 %{nil}
 
-%global srcver	2025.02.01
+%global srcver	2025.03.01
 %global majorver	%{lua: v, _ = string.gsub(rpm.expand("%{srcver}"), "(%d+)%.%d+%.%d+", "%1"); print(v)}
 %global minorver	%{lua: v, _ = string.gsub(rpm.expand("%{srcver}"), "%d+%.(%d+)%.%d+", "%1"); print(v)}
 %global patchver	%{lua: v, _ = string.gsub(rpm.expand("%{srcver}"), "%d+%.%d+%.(%d+)", "%1"); print(v)}
@@ -405,7 +405,7 @@ local subpackages = {
       default=true
     },
     { alias="sans-serif", family="Sans Thai Looped", lang={ "th" },
-      obsoletes={ "sansthai-looped-vf", "sans-thai-looped-vf", "looped-thai", "looped-thai-ui", "looped-thai-vf", "looped-thai-ui-vf" }
+      obsoletes={ "looped-thai", "looped-thai-ui" }
     },
     { alias="sans-serif", family="Sans Tifinagh", lang={ "ber-ma" } },
     { alias="sans-serif", family="Sans Tifinagh APT", lang={ "ber-ma" } },
@@ -672,8 +672,10 @@ local subpackages = {
       obsoletes={ "sans-thai-ui-vf" },
       default=true
     },
+    { alias="sans-serif", variable=true, family="Sans Thai Looped", lang={ "th" },
+      obsoletes={ "sansthai-looped-vf",  "looped-thai-vf", "looped-thai-ui-vf" }
+    },
     { alias="sans-serif", variable=true, family="Sans Vithkuqi" },
-
     { alias="serif",      variable=true, family="Naskh Arabic",
       fcconfexfile=rpm.expand('%{SOURCE3}'),
       default=true
@@ -1202,6 +1204,10 @@ done
 
 
 %changelog
+* Tue Mar  4 2025 Akira TAGOH <tagoh@redhat.com> - 20250301-1
+- Updates to monthly release of 2025.03.01.
+- Add back google-noto-sans-thai-looped-vf-fonts.
+
 * Wed Feb 12 2025 Akira TAGOH <tagoh@redhat.com> - 20250201-1
 - Updates to monthly release of 2025.02.01.
 

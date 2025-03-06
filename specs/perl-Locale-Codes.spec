@@ -1,6 +1,6 @@
 Name:           perl-Locale-Codes
-Version:        3.81
-Release:        2%{?dist}
+Version:        3.82
+Release:        1%{?dist}
 Summary:        Distribution of modules to handle locale codes
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Locale-Codes
@@ -89,6 +89,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Mar 04 2025 Michal Josef Špaček <mspacek@redhat.com> - 3.82-1
+- 3.82 bump (rhbz#2349588)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.81-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

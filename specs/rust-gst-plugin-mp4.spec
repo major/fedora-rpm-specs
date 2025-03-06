@@ -5,7 +5,7 @@
 %global crate gst-plugin-mp4
 
 Name:           rust-gst-plugin-mp4
-Version:        0.13.1
+Version:        0.13.5
 Release:        %autorelease
 Summary:        GStreamer Rust MP4 Plugin
 

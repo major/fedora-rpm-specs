@@ -1,6 +1,6 @@
 Name:    kopeninghours
-Version: 24.12.2
-Release: 2%{?dist}
+Version: 24.12.3
+Release: 1%{?dist}
 Summary: Library for parsing and evaluating OSM opening hours expressions
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later
@@ -72,6 +72,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
+- 24.12.3
+
 * Fri Feb 21 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-2
 - Rebuild for ppc64le enablement
 

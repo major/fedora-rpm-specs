@@ -12,11 +12,18 @@ Summary: Python wrapper for the ssdeep library
 License: LGPL-3.0-or-later
 
 Version: 3.4.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 URL: https://github.com/DinoTools/python-ssdeep/
 # v3.4.1 is not available on PyPi, so we fetch from GitHub
 Source0: %{URL}/archive/%{version}/python-%{pypi_name}-%{version}.tar.gz
+
+# Remove pytest-runner from setup_requires
+# https://github.com/DinoTools/python-ssdeep/pull/69
+# https://fedoraproject.org/wiki/Changes/DeprecatePythonPytestRunner
+# Rebased on 3.4.1.
+Patch: 0001-Remove-pytest-runner-from-setup_requires.patch
+Patch: 0002-Replace-tests_require-with-a-test-extra.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -49,7 +56,7 @@ for the ssdeep Python3 module.
 
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x test
 
 
 %build
@@ -83,6 +90,9 @@ install -m 644 docs/build/man/pythonssdeep.1 %{buildroot}%{_mandir}/man5/python3
 
 
 %changelog
+* Fri Feb 28 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.4.1-2
+- Remove pytest-runner from setup_requires
+
 * Fri Feb 28 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.4.1-1
 - Update to v3.4.1
 

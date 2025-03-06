@@ -2,8 +2,8 @@
 %global _changelog_trimtime %(date +%s -d "1 year ago")
 
 Name:    ktorrent
-Version: 24.12.2
-Release: 2%{?dist}
+Version: 24.12.3
+Release: 1%{?dist}
 Summary: A BitTorrent program
 
 License: GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND (GPL-2.0-only OR GPL-3.0-only)
@@ -127,6 +127,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.ktorrent.
 
 
 %changelog
+* Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
+- 24.12.3
+
 * Fri Feb 21 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-2
 - Rebuild for ppc64le enablement
 

@@ -1,7 +1,7 @@
 Name:    akonadi-calendar-tools
 Summary: Akonadi Calendar Tools
-Version: 24.12.2
-Release: 2%{?dist}
+Version: 24.12.3
+Release: 1%{?dist}
 
 # code (generally) GPLv2, docs GFDL
 # Automatically converted from old format: GPLv2 and GFDL - review is highly recommended.
@@ -65,6 +65,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/konsolekalendar.d
 
 
 %changelog
+* Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
+- 24.12.3
+
 * Fri Feb 21 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-2
 - Rebuild for ppc64le enablement
 

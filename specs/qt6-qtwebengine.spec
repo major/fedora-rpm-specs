@@ -5,6 +5,8 @@
 # package-notes causes FTBFS (#2043178)
 %undefine _package_note_file
 
+%global use_system_libxslt 1
+%global use_system_libxml 1
 %global use_system_libwebp 1
 %global use_system_jsoncpp 1
 %if 0%{?rhel} && 0%{?rhel} == 9
@@ -51,7 +53,7 @@
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
 Version: 6.8.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -193,9 +195,12 @@ BuildRequires: pkgconfig(xscrnsaver)
 BuildRequires: pkgconfig(xshmfence)
 BuildRequires: pkgconfig(xtst)
 BuildRequires: pkgconfig(zlib)
-## https://bugreports.qt.io/browse/QTBUG-59094
-## requires libxml2 built with icu support
-#BuildRequires: pkgconfig(libxslt) pkgconfig(libxml-2.0)
+%if %{?use_system_libxslt}
+BuildRequires: pkgconfig(libxslt)
+%endif
+%if %{?use_system_libxml}
+BuildRequires: pkgconfig(libxml-2.0)
+%endif
 BuildRequires: perl-interpreter
 BuildRequires: %{__python3}
 BuildRequires: python3-html5lib
@@ -268,11 +273,15 @@ Provides: bundled(leveldb) = 1.23
 Provides: bundled(libjingle)
 # see src/3rdparty/chromium/third_party/libsrtp/CHANGES for the version number
 Provides: bundled(libsrtp) = 2.4.0
+%if ! %{?use_system_libxml}
 # bundled as "libxml"
 # see src/3rdparty/chromium/third_party/libxml/linux/include/libxml/xmlversion.h
 Provides: bundled(libxml2) = 2.9.13
+%endif
+%if ! %{?use_system_libxslt}
 # see src/3rdparty/chromium/third_party/libxslt/linux/config.h for version
 Provides: bundled(libxslt) = 1.1.3
+%endif
 Provides: bundled(libyuv) = 1819
 Provides: bundled(modp_b64)
 Provides: bundled(ots)
@@ -426,8 +435,19 @@ cp -bv /usr/include/re2/*.h src/3rdparty/chromium/third_party/re2/src/re2/
 # copy the Chromium license so it is installed with the appropriate name
 cp -p src/3rdparty/chromium/LICENSE LICENSE.Chromium
 
+
+# use system libraries
+system_libs=()
+%if %{?use_system_libxml}
+    system_libs+=(libxml)
+%endif
+%if %{?use_system_libxslt}
+    system_libs+=(libxslt)
+%endif
+system_libs+=(openh264)
+
 # Use system OpenH264
-src/3rdparty/chromium/build/linux/unbundle/replace_gn_files.py --system-libraries openh264
+src/3rdparty/chromium/build/linux/unbundle/replace_gn_files.py --system-libraries ${system_libs[@]}
 
 # consider doing this as part of the tarball creation step instead?  rdieter
 # fix/workaround
@@ -689,6 +709,9 @@ done
 %endif
 
 %changelog
+* Tue Mar 04 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-4
+- Unbundle libxml and libxslt
+
 * Mon Mar 03 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-3
 - Rework OpenH264 support following Chromium package
 - Backport upstream change for ffmpeg codec selection issues.

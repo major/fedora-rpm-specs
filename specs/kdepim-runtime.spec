@@ -1,8 +1,8 @@
 Name:    kdepim-runtime
 Summary: KDE PIM Runtime Environment
 Epoch:   1
-Version: 24.12.2
-Release: 2%{?dist}
+Version: 24.12.3
+Release: 1%{?dist}
 
 License: AGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/pim/%{name}
@@ -143,6 +143,9 @@ desktop-file-validate %{buildroot}/%{_kf6_datadir}/applications/org.kde.akonadi_
 
 
 %changelog
+* Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 1:24.12.3-1
+- 24.12.3
+
 * Fri Feb 21 2025 Steve Cossette <farchord@gmail.com> - 1:24.12.2-2
 - Rebuild for ppc64le enablement
 

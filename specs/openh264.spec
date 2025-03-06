@@ -8,7 +8,7 @@
 
 Name:           openh264
 Version:        2.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        H.264 codec library
 
 License:        BSD-2-Clause
@@ -16,7 +16,7 @@ URL:            https://www.openh264.org/
 Source0:        https://github.com/cisco/openh264/archive/v%{version}/openh264-%{version}.tar.gz
 Source1:        https://github.com/mozilla/gmp-api/archive/%{commit1}/gmp-api-%{shortcommit1}.tar.gz
 
-Patch0:		0001-There-is-no-ABI-bump-needed.patch
+Patch0:         0001-Update-shared-lib-version-for-meson-3860.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -115,7 +115,7 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.a
 %files
 %license LICENSE
 %doc README.md
-%{_libdir}/libopenh264.so.7
+%{_libdir}/libopenh264.so.8
 %{_libdir}/libopenh264.so.%{version}
 
 %files devel
@@ -136,6 +136,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.a
 
 
 %changelog
+* Mon Mar 04 2025 Wim Taymans <wtaymans@redhat.com> - 2.6.0-2
+- Remove patch to revert the Makefile major version increase.
+
 * Wed Feb 26 2025 Wim Taymans <wtaymans@redhat.com> - 2.6.0-1
 - Update to 2.6.0
 - Add patch to revert the Makefile major version increase.

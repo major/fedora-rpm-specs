@@ -1,6 +1,6 @@
 Name: merkuro
-Version: 24.12.2
-Release: 2%{?dist}
+Version: 24.12.3
+Release: 1%{?dist}
 Summary: A calendar application using Akonadi to sync with external services (Nextcloud, GMail, ...)
 
 License: GPL-3.0-or-later
@@ -100,7 +100,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.%{name}.cont
 desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.%{name}.calendar.desktop
 desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.%{name}.mail.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.contact.metainfo.xml
-appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.merkuro.contact.appdata.xml ||:
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.merkuro.contact.applet.appdata.xml ||:
 appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.calendar.metainfo.xml
 appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.mail.metainfo.xml
 appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.merkuro.metainfo.xml
@@ -113,7 +113,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.me
 %{_kf6_bindir}/merkuro-mail
 %{_kf6_qmldir}/org/kde/akonadi/*
 %{_kf6_qmldir}/org/kde/merkuro/*
-%{_kf6_datadir}/plasma/plasmoids/org.kde.merkuro.contact/
+%{_kf6_datadir}/plasma/plasmoids/org.kde.merkuro.contact.applet/
 %{_kf6_datadir}/applications/org.kde.merkuro.calendar.desktop
 %{_kf6_datadir}/applications/org.kde.merkuro.contact.desktop
 %{_kf6_datadir}/applications/org.kde.merkuro.mail.desktop
@@ -125,7 +125,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.me
 %{_kf6_datadir}/icons/hicolor/24x24/apps/org.kde.merkuro*.png
 %{_kf6_datadir}/icons/hicolor/32x32/apps/org.kde.merkuro*.png
 %{_kf6_metainfodir}/org.kde.merkuro.*.metainfo.xml
-%{_kf6_metainfodir}/org.kde.merkuro.contact.appdata.xml
+%{_kf6_metainfodir}/org.kde.merkuro.contact.applet.appdata.xml
 %{_kf6_datadir}/qlogging-categories6/akonadi.quick.categories
 %{_kf6_datadir}/qlogging-categories6/merkuro.categories
 %{_kf6_datadir}/qlogging-categories6/merkuro.contact.categories
@@ -138,6 +138,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.me
 %{_kf6_metainfodir}/org.kde.merkuro.metainfo.xml
 
 %changelog
+* Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
+- 24.12.3
+
 * Fri Feb 21 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-2
 - Rebuild for ppc64le enablement
 

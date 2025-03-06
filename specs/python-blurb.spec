@@ -1,5 +1,5 @@
 Name:           python-blurb
-Version:        1.3.0
+Version:        2.0.0
 Release:        %autorelease
 Summary:        Command-line tool to manage CPython Misc/NEWS.d entries
 
@@ -16,14 +16,17 @@ Blurb is a tool designed to rid CPython core development of the scourge of
 Misc/NEWS conflicts.
 
 
-%package -n     python3-blurb
+%package -n     blurb
 Summary:        %{summary}
-Provides:       blurb = %{version}-%{release}
+%py_provides    python3-blurb
+# This package was renamed from python3-blurb when it was updated to version 2
+# The Obsoletes can be removed when Fedora 43 goes EOL
+Obsoletes:      python3-blurb < 2~~
 
 # Calls git in subprocess
 Requires:       /usr/bin/git
 
-%description -n python3-blurb
+%description -n blurb
 Blurb is a tool designed to rid CPython core development of the scourge of
 Misc/NEWS conflicts.
 
@@ -57,11 +60,8 @@ chmod -x src/blurb/blurb.py
 %{py3_test_envvars} blurb --help
 %{py3_test_envvars} %{python3} -m blurb --help
 
-%{py3_test_envvars} blurb test
-%{py3_test_envvars} %{python3} -m blurb test
 
-
-%files -n python3-blurb -f %{pyproject_files}
+%files -n blurb -f %{pyproject_files}
 %doc README.md
 %{_bindir}/blurb
 

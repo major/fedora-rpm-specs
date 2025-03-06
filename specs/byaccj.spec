@@ -31,7 +31,7 @@ sed -i -e 's|-arch i386 -isysroot /Developer/SDKs/MacOSX10.4u.sdk -mmacosx-versi
 
 %build
 pushd src
-%make_build yacc CFLAGS="%{optflags}" LDFLAGS="$RPM_LD_FLAGS"
+%make_build yacc CFLAGS="%{optflags} -ansi" LDFLAGS="$RPM_LD_FLAGS"
 popd
 
 %install

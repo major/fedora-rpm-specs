@@ -1,8 +1,8 @@
 # remirepo/fedora spec file for php-swaggest-json-diff
 #
-# Copyright (c) 2019-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2019-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
@@ -10,7 +10,7 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    c55d38a3cb372753b5d5ee4c9b7d8470e486e6a5
+%global gh_commit    d17d237f9159d312b4827a4e9f18984b31317c51
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     swaggest
 %global gh_project   json-diff
@@ -23,8 +23,8 @@
 %global major        %nil
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        3.11.0
-Release:        3%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
+Version:        3.12.0
+Release:        1%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
 Summary:        JSON diff/rearrange/patch/pointer library for PHP
 
 License:        MIT
@@ -96,7 +96,7 @@ class PHPUnit_Framework_TestCase extends \PHPUnit\Framework\Testcase {
 EOF
 
 ret=0
-for cmd in php php81 php82 php83; do
+for cmd in php php81 php82 php83 php84; do
    if which $cmd; then
       $cmd %{phpunit} --no-coverage || ret=1
    fi
@@ -117,6 +117,10 @@ exit $ret
 
 
 %changelog
+* Tue Mar  4 2025 Remi Collet <remi@remirepo.net> - 3.12.0-1
+- update to 3.12.0
+- re-license spec file to CECILL-2.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

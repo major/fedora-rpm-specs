@@ -9,7 +9,7 @@
 %global modname lib%{name}
 
 Name:       mat2
-Version:    0.13.4
+Version:    0.13.5
 Release:    %autorelease
 Summary:    Metadata removal tool, supporting a wide range of commonly used file formats
 
@@ -18,7 +18,7 @@ Summary:    Metadata removal tool, supporting a wide range of commonly used file
 License:    LGPL-3.0-or-later
 URL:        https://0xacab.org/jvoisin/mat2
 Source0:    %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
-Source1:    %{url}/uploads/95d1f3782dfc731545fd9b467c594cb2/%{name}-%{version}.tar.gz.asc
+Source1:    https://0xacab.org/-/project/1139/uploads/060efa77668fa7f6d9baeb8a327857af/%{name}-%{version}.tar.gz.asc
 Source2:    gpgkey-9FCDEE9E1A381F311EA62A7404D041E8171901CC.gpg
 
 BuildArch:  noarch
@@ -117,10 +117,6 @@ Dolphin integration for %{name}.
 %install
 %pyproject_install
 %pyproject_save_files %{modname}
-# Fix man installation dir
-mkdir -p %{buildroot}%{_mandir}/man1/
-mv %{buildroot}/%{_prefix}/man/man1/%{name}.1 \
-    %{buildroot}%{_mandir}/man1/
 # E: non-executable-script
 chmod +x %{buildroot}%{python3_sitelib}/%{modname}/__init__.py
 # Install Dolphin integration

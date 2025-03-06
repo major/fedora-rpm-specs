@@ -249,7 +249,7 @@ Obsoletes: samba-swat < %{samba_depver}
 Provides: samba4-swat = %{samba_depver}
 Obsoletes: samba4-swat < %{samba_depver}
 
-Provides: bundled(libreplace)
+Provides: bundled(libreplace) = %{samba_depver}
 
 BuildRequires: make
 BuildRequires: gcc
@@ -441,7 +441,7 @@ Obsoletes: samba4-client < %{samba_depver}
 Requires(post): %{_sbindir}/update-alternatives
 Requires(postun): %{_sbindir}/update-alternatives
 
-Provides: bundled(libreplace)
+Provides: bundled(libreplace) = %{samba_depver}
 
 %description client
 The %{name}-client package provides some SMB/CIFS clients to complement
@@ -494,7 +494,7 @@ Requires: libldb = %{samba_depver}
 Requires: libwbclient = %{samba_depver}
 %endif
 
-Provides: bundled(libreplace)
+Provides: bundled(libreplace) = %{samba_depver}
 
 %if %{without dc} && %{without testsuite}
 Obsoletes: samba-dc < %{samba_depver}
@@ -536,7 +536,7 @@ Requires: libnetapi = %{samba_depver}
 Requires: libwbclient = %{samba_depver}
 %endif
 
-Provides: bundled(libreplace)
+Provides: bundled(libreplace) = %{samba_depver}
 
 %description common-tools
 The samba-common-tools package contains tools for SMB/CIFS clients.
@@ -606,7 +606,7 @@ Requires: bind-utils
 Provides: samba4-dc = %{samba_depver}
 Obsoletes: samba4-dc < %{samba_depver}
 
-Provides: bundled(libreplace)
+Provides: bundled(libreplace) = %{samba_depver}
 
 %description dc
 The samba-dc package provides AD Domain Controller functionality
@@ -634,7 +634,7 @@ Requires: libwbclient = %{samba_depver}
 Provides: samba4-dc-libs = %{samba_depver}
 Obsoletes: samba4-dc-libs < %{samba_depver}
 
-Provides: bundled(libreplace)
+Provides: bundled(libreplace) = %{samba_depver}
 
 %description dc-libs
 The %{name}-dc-libs package contains the libraries needed by the DC to
@@ -653,7 +653,7 @@ Requires: bind
 Requires: libldb = %{samba_depver}
 Requires: libwbclient = %{samba_depver}
 
-Provides: bundled(libreplace)
+Provides: bundled(libreplace) = %{samba_depver}
 
 %description dc-bind-dlz
 The %{name}-dc-bind-dlz package contains the libraries for bind to manage all
@@ -689,7 +689,7 @@ Requires: %{name}-libs = %{samba_depver}
 Requires: libldb = %{samba_depver}
 Requires: libwbclient = %{samba_depver}
 
-Provides: bundled(libreplace)
+Provides: bundled(libreplace) = %{samba_depver}
 
 %description vfs-cephfs
 Samba VFS module for Ceph distributed storage system integration.
@@ -706,7 +706,7 @@ Requires: %{name}-client-libs = %{samba_depver}
 Requires: libldb = %{samba_depver}
 Requires: libwbclient = %{samba_depver}
 
-Provides: bundled(libreplace)
+Provides: bundled(libreplace) = %{samba_depver}
 
 %description vfs-iouring
 Samba VFS module for io_uring instance integration.
@@ -731,7 +731,7 @@ Requires: libwbclient = %{samba_depver}
 Obsoletes: samba-glusterfs < %{samba_depver}
 Provides: samba-glusterfs = %{samba_depver}
 
-Provides: bundled(libreplace)
+Provides: bundled(libreplace) = %{samba_depver}
 
 %description vfs-glusterfs
 Samba VFS module for GlusterFS integration.
@@ -746,6 +746,7 @@ Requires: %{name}-ldb-ldap-modules = %{samba_depver}
 Requires: python3-%{name} = %{samba_depver}
 # samba-tool needs python3-samba-dc also on non-dc build
 Requires: python3-%{name}-dc = %{samba_depver}
+BuildArch: noarch
 
 %description gpupdate
 This package provides the samba-gpupdate tool to apply Group Policy Objects
@@ -791,7 +792,7 @@ Requires: libwbclient = %{samba_depver}
 Provides: samba4-libs = %{samba_depver}
 Obsoletes: samba4-libs < %{samba_depver}
 
-Provides: bundled(libreplace)
+Provides: bundled(libreplace) = %{samba_depver}
 
 %description libs
 The %{name}-libs package contains the libraries needed by programs that link
@@ -892,7 +893,7 @@ Requires: libsmbclient = %{samba_depver}
 Requires: libwbclient = %{samba_depver}
 %endif
 
-Provides: bundled(libreplace)
+Provides: bundled(libreplace) = %{samba_depver}
 
 %description -n python3-%{name}
 The python3-%{name} package contains the Python 3 libraries needed by programs
@@ -966,7 +967,7 @@ Requires: perl(Archive::Tar)
 Provides: samba4-test = %{samba_depver}
 Obsoletes: samba4-test < %{samba_depver}
 
-Provides: bundled(libreplace)
+Provides: bundled(libreplace) = %{samba_depver}
 
 %description test
 %{name}-test provides testing tools for both the server and client
@@ -986,7 +987,7 @@ Requires: libwbclient = %{samba_depver}
 Provides: %{name}-test-devel = %{samba_depver}
 Obsoletes: %{name}-test-devel < %{samba_depver}
 
-Provides: bundled(libreplace)
+Provides: bundled(libreplace) = %{samba_depver}
 
 %description test-libs
 %{name}-test-libs provides libraries required by the testing tools.
@@ -996,6 +997,7 @@ Provides: bundled(libreplace)
 Summary: Provides support for non-root user shares
 Requires: %{name} = %{samba_depver}
 Requires: %{name}-common-tools = %{samba_depver}
+BuildArch: noarch
 
 %description usershares
 Installing this package will provide a configuration file, group and
@@ -1030,7 +1032,7 @@ Obsoletes: samba4-winbind < %{samba_depver}
 # Old NetworkManager expects the dispatcher scripts in a different place
 Conflicts: NetworkManager < 1.20
 
-Provides: bundled(libreplace)
+Provides: bundled(libreplace) = %{samba_depver}
 
 %description winbind
 The samba-winbind package provides the winbind NSS library, and some client
@@ -1053,7 +1055,7 @@ Requires: libwbclient = %{samba_depver}
 Provides: samba4-winbind-clients = %{samba_depver}
 Obsoletes: samba4-winbind-clients < %{samba_depver}
 
-Provides: bundled(libreplace)
+Provides: bundled(libreplace) = %{samba_depver}
 
 %description winbind-clients
 The samba-winbind-clients package provides the wbinfo and ntlm_auth
@@ -1083,7 +1085,7 @@ Requires(post): %{_sbindir}/update-alternatives
 Requires(postun): %{_sbindir}/update-alternatives
 Requires(preun): %{_sbindir}/update-alternatives
 
-Provides: bundled(libreplace)
+Provides: bundled(libreplace) = %{samba_depver}
 
 %description winbind-krb5-locator
 The winbind krb5 locator is a plugin for the system kerberos library to allow
@@ -1099,7 +1101,7 @@ Requires: libwbclient = %{samba_depver}
 %endif
 Requires: pam
 
-Provides: bundled(libreplace)
+Provides: bundled(libreplace) = %{samba_depver}
 
 %description winbind-modules
 The samba-winbind-modules package provides the NSS library and a PAM module
@@ -1115,7 +1117,7 @@ Requires: %{name}-common-libs = %{samba_depver}
 Requires: libldb = %{samba_depver}
 Requires: libwbclient = %{samba_depver}
 
-Provides: bundled(libreplace)
+Provides: bundled(libreplace) = %{samba_depver}
 
 %description winexe
 Winexe is a Remote Windows-command executor
@@ -1151,7 +1153,7 @@ Requires(post): systemd-units
 Requires(preun): systemd-units
 Requires(postun): systemd-units
 
-Provides: bundled(libreplace)
+Provides: bundled(libreplace) = %{samba_depver}
 
 %description -n ctdb
 CTDB is a cluster implementation of the TDB database used by Samba and other
@@ -1179,6 +1181,7 @@ Performance Co-Pilot (PCP) support for CTDB
 Summary: CTDB ETCD mutex helper
 Requires: ctdb = %{samba_depver}
 Requires: python3-etcd
+BuildArch: noarch
 
 %description -n ctdb-etcd-mutex
 Support for using an existing ETCD cluster as a mutex helper for CTDB
@@ -1212,7 +1215,7 @@ Requires: libtevent%{?_isa} >= %{tevent_version}
 # /endif without includelibs
 %endif
 
-Provides: bundled(libreplace)
+Provides: bundled(libreplace) = %{samba_depver}
 Obsoletes: libldb < 0:2.10
 Provides: libldb = 0:2.10
 Provides: libldb = %{samba_depver}
@@ -1646,12 +1649,12 @@ fi
 
 %post krb5-printing
 %{_sbindir}/update-alternatives --install %{_libexecdir}/samba/cups_backend_smb \
-	cups_backend_smb \
-	%{_libexecdir}/samba/smbspool_krb5_wrapper 50
+    cups_backend_smb \
+    %{_libexecdir}/samba/smbspool_krb5_wrapper 50
 
 %postun krb5-printing
 if [ $1 -eq 0 ] ; then
-	%{_sbindir}/update-alternatives --remove cups_backend_smb %{_libexecdir}/samba/smbspool_krb5_wrapper
+    %{_sbindir}/update-alternatives --remove cups_backend_smb %{_libexecdir}/samba/smbspool_krb5_wrapper
 fi
 
 %ldconfig_scriptlets libs
@@ -3834,6 +3837,8 @@ fi
 %{_mandir}/man7/ctdb.7.gz
 %{_mandir}/man7/ctdb-tunables.7.gz
 %{_mandir}/man7/ctdb-statistics.7.gz
+
+%ghost %dir /run/ctdb
 
 %{_tmpfilesdir}/ctdb.conf
 

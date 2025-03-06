@@ -6,7 +6,7 @@
 %global crate typetag
 
 Name:           rust-typetag
-Version:        0.2.19
+Version:        0.2.20
 Release:        %autorelease
 Summary:        Serde serializable and deserializable trait objects
 

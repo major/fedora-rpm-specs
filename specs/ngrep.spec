@@ -1,5 +1,5 @@
-%global date 20180128
-%global commit 2a9603bc67dface9606a658da45e1f5c65170444
+%global date 20241209
+%global commit b2e3ba3c5a593abf203e65a407c3a9de0f998d4a
 %global shortcommit  %(c=%{commit}; echo ${c:0:7})
 
 Name:           ngrep
@@ -12,7 +12,8 @@ URL:            https://github.com/jpr5/ngrep
 Source:         %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
 # PR#27: Port to PCRE2 API and enable JIT compilation
 Patch:          %{url}/pull/27.patch
-Patch:          ngrep-tcpkill-c99.patch
+# PR#28: Include <err.h> and "tcpkill.h" to avoid implicit function declarations
+Patch:          %{url}/pull/28.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake

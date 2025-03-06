@@ -14,17 +14,14 @@
 %global org_name org.scummvm.scummvm
 
 Name:		scummvm
-Version:	2.8.1
-Release:	3%{?dist}
+Version:	2.9.0
+Release:	1%{?dist}
 Summary:	Interpreter for several adventure games
 # OFL only used by font files (distributed as fonts.dat)
-License:	GPL-3.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-OFL and LicenseRef-Callaway-MIT and ISC and Catharon AND Apache-2.0
+License:	GPL-3.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-OFL and LicenseRef-Callaway-MIT and ISC and Catharon AND Apache-2.0 AND BSL-1.0
 URL:		https://www.scummvm.org/
 Source0:	https://www.scummvm.org/frs/%{name}/%{version}/%{name}-%{version}.tar.bz2
 Patch0005:	scummvm-2.1.1-ftbfs-use-bfd-linker-on-x86.patch
-# Compile fix for F40 with GCC 14
-# https://github.com/scummvm/scummvm/commit/a04bb51bf5984896ba1b9c9fadef0b1f7ae73f8b
-Patch0006:	0001-ICB-compile-fix-for-GCC-14.patch
 
 BuildRequires:	make
 BuildRequires:	libappstream-glib speech-dispatcher-devel alsa-lib-devel
@@ -34,6 +31,7 @@ BuildRequires:	libpng-devel freetype-devel libjpeg-devel libmad-devel
 BuildRequires:	readline-devel libcurl-devel libmpeg2-devel gtk3-devel
 BuildRequires:	gcc-c++ giflib-devel glew-devel
 BuildRequires:	libmikmod-devel libvpx-devel sonivox-devel
+BuildRequires:	pipewire-jack-audio-connection-kit
 
 %ifarch %{ix86}
 BuildRequires:	nasm
@@ -151,6 +149,12 @@ find $RPM_BUILD_ROOT%{_libdir} -type f -name '*.so' | xargs chmod -Rc 0755
 
 
 %changelog
+* Tue Mar 04 2025 Christian Krause <chkr@fedoraproject.org> - 2.9.0-1
+- Update to 2.9.0 (#2330987)
+- Fix FTBFS (#2341334)
+- Remove patch already included upstream
+- Add BR: pipewire-jack-audio-connection-kit (needed for fluidsynth)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

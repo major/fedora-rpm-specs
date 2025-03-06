@@ -1,13 +1,13 @@
 # remirepo/fedora spec file for php-psr-http-factory
 #
-# Copyright (c) 2018-2023 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2018-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 
-%global gh_commit    e616d01114759c4c489f93b099585439f795fe35
+%global gh_commit    2b4765fddfe3b508ac62f829e852b1501d3f6e8a
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     php-fig
 %global gh_project   http-factory
@@ -16,25 +16,25 @@
 %global pk_project   %{gh_project}
 
 Name:      php-%{pk_vendor}-%{pk_project}
-Version:   1.0.2
-Release:   6%{?dist}
+Version:   1.1.0
+Release:   1%{?dist}
 Summary:   Common interfaces for PSR-7 HTTP message factories
 
 License:   MIT
 URL:       https://github.com/%{gh_owner}/%{gh_project}
-Source0:   %{url}/archive/%{gh_commit}/%{name}-%{version}-%{gh_commit}.tar.gz
+Source0:   %{url}/archive/%{gh_commit}/%{name}-%{version}-%{gh_short}.tar.gz
 
 BuildArch: noarch
 # For tests
-BuildRequires: php(language) >= 7
+BuildRequires: php(language) >= 7.1
 BuildRequires: (php-composer(psr/http-message) >= 1.0   with php-composer(psr/http-message) < 3)
 BuildRequires: php-cli
 BuildRequires: php-fedora-autoloader-devel
 
 # From composer.json,    "require": {
-#       "php": ">=7.0.0",
+#       "php": ">=7.1",
 #       "psr/http-message": "^1.0 || ^2.0"
-Requires:  php(language) >= 7
+Requires:  php(language) >= 7.1
 Requires: (php-composer(psr/http-message) >= 1.0   with php-composer(psr/http-message) < 3)
 # phpcompatinfo (computed from version 1.0.0)
 #     <none>
@@ -95,6 +95,10 @@ exit (interface_exists("Psr\\Http\\Message\\RequestFactoryInterface") ? 0 : 1);
 
 
 %changelog
+* Tue Mar  4 2025 Remi Collet <remi@remirepo.net> - 1.1.0-1
+- update to 1.1.0
+- re-license spec file to CECILL-2.1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

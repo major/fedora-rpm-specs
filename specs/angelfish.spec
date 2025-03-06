@@ -2,8 +2,8 @@
 %bcond adblock 1
 
 Name:           angelfish
-Version:        24.12.2
-Release:        2%{?dist}
+Version:        24.12.3
+Release:        1%{?dist}
 Summary:        Plasma Mobile minimal web browser
 
 # Cargo license summary:
@@ -122,6 +122,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 %{_kf6_metainfodir}/org.kde.%{name}.metainfo.xml
 
 %changelog
+* Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
+- 24.12.3
+
 * Fri Feb 21 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-2
 - Rebuild for ppc64le enablement
 

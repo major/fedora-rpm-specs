@@ -923,6 +923,10 @@ fi
 # endif scl
 
 %changelog
+* Thu Feb 27 2025 Keith Seitz <keiths@redhat.com>
+- Remove gdb-6.6-bz237572-ppc-atomic-sequence-test.patch. This is covered
+  by gdb.arch/ppc64-isa207-atomic-inst.exp.
+
 * Mon Feb 10 2025 Andrew Burgess <aburgess@redhat.com>
 - Add core-target-open-segfault.patch and tui-wrefresh-issue.patch,
   these backport upstream commits 2fc56106422 and 2b646bb8767

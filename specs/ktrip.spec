@@ -1,6 +1,6 @@
 Name:          ktrip
-Version:       24.12.2
-Release:       2%{?dist}
+Version:       24.12.3
+Release:       1%{?dist}
 Summary:       Public transport navigation, allows you to find journeys between specified locations, departures for a specific station and shows real-time delay and disruption information.
 
 License:       GPL-2.0-or-later
@@ -63,6 +63,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 
 %changelog
+* Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
+- 24.12.3
+
 * Fri Feb 21 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-2
 - Rebuild for ppc64le enablement
 

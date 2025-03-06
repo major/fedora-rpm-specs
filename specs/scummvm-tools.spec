@@ -3,12 +3,12 @@
 
 
 Name:		scummvm-tools
-Version:	2.7.0
-Release:	7%{?dist}
+Version:	2.9.0
+Release:	1%{?dist}
 Summary:	Tools for scummVM / S.C.U.M.M scripting language
 # All previous Lua versions are relicensed to MIT (https://www.lua.org/license.html)
 # Automatically converted from old format: GPLv3+ and LGPLv2+ and MIT - review is highly recommended.
-License:	GPL-3.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-MIT
+License:	GPL-3.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-MIT AND BSD-2-Clause
 URL:		http://www.scummvm.org
 
 Source0:	http://www.scummvm.org/frs/%{name}/%{version}/%{name}-%{version}.tar.bz2
@@ -67,6 +67,10 @@ desktop-file-install \
 
 
 %changelog
+* Sun Mar 02 2025 Christian Krause <chkr@fedoraproject.org> - 2.9.0-1
+- Update to latest upstream
+- Update License tag
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

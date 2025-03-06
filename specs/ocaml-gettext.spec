@@ -109,6 +109,8 @@ rm -f gettext-camomile.opam
 rm -r src/lib/gettext-camomile
 rm -r test/test-camomile
 sed -i -e 's/camomile//' `find -name dune`
+awk -i inplace -v RS='^\\(package' -v ORS= \
+     '{while(sub(/\(package\n *\(name gettext-camomile\).*\)\)\)\)/,""));} {print}' dune-project
 %endif
 
 

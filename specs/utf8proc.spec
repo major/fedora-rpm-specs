@@ -1,7 +1,7 @@
 Summary: Library for processing UTF-8 encoded Unicode strings
 Name:    utf8proc
-Version: 2.9.0
-Release: 2%{?dist}
+Version: 2.10.0
+Release: %autorelease
 License: MIT AND Unicode-DFS-2015
 URL:     http://julialang.org/utf8proc/
 Source:  https://github.com/JuliaLang/utf8proc/archive/v%{version}.tar.gz#/%{name}-v%{version}.tar.gz
@@ -33,14 +33,14 @@ The documentation for the C library is found in the utf8proc.h header file.
 strings, unless you want to allocate memory yourself.
 
 %prep
-%setup -qn %{name}-%{version}
+%autosetup
 # Disable slow tests and tests which require network access
 sed -i '/-C bench/d;/\ttest.* data/d' Makefile
 touch data/NormalizationTest.txt data/GraphemeBreakTest.txt data/Lowercase.txt data/Uppercase.txt
 
 %build
 %set_build_flags
-make %{?_smp_mflags}
+%make_build
 
 %check
 %set_build_flags
@@ -54,7 +54,7 @@ rm %{buildroot}%{_libdir}/libutf8proc.a
 
 %files
 %doc LICENSE.md NEWS.md README.md
-%{_libdir}/libutf8proc.so.*
+%{_libdir}/libutf8proc.so.3*
 
 %files devel
 %{_includedir}/utf8proc.h
@@ -62,139 +62,4 @@ rm %{buildroot}%{_libdir}/libutf8proc.a
 %{_libdir}/pkgconfig/libutf8proc.pc
 
 %changelog
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Mon Oct 07 2024 Tomas Korbar <tkorbar@redhat.com> - 2.9.0-1
-- Rebase to 2.9.0
-
-* Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Sep 29 2023 Joe Orton <jorton@redhat.com> - 2.7.0-6
-- migrate to SPDX license
-- BR: perl-interpreter rather than perl
-
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Sun Dec 26 2021 Milan Bouchet-Valat <nalimilan@club.fr> - 2.7.0
-- New upstream release.
-
-* Thu Nov 11 2021 Tom Stellard <tstellar@redhat.com> - 2.6.1-4
-- Use set_build_flags before running tests
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Dec 16 2020 Milan Bouchet-Valat <nalimilan@club.fr> - 2.6.1-1
-- New upstream release.
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Fri Jan 31 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Sat Jul 27 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Thu May 16 2019 Milan Bouchet-Valat <nalimilan@club.fr> - 2.4.0-1
-- New upstream release.
-
-* Sun Apr 21 2019  Milan Bouchet-Valat <nalimilan@club.fr> - 2.3.0-1
-- New upstream release.
-
-* Sun Feb 03 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Mon Jul 23 2018 Joe Orton <jorton@redhat.com> - 2.1.1-4
-- update License tag to Unicode and MIT
-- BR gcc (#1606627)
-- run minimal tests
-
-* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Mon Apr 30 2018  Milan Bouchet-Valat <nalimilan@club.fr> - 2.1.1-2
-- Fix missing build flags (RHBZ #1573115).
-
-* Fri Apr 27 2018  Milan Bouchet-Valat <nalimilan@club.fr> - 2.1.1-1
-- New upstream release.
-
-* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Sat Jan 7 2017  Milan Bouchet-Valat <nalimilan@club.fr> - 2.1.0
-- New upstream release.
-
-* Thu Sep 15 2016  Milan Bouchet-Valat <nalimilan@club.fr> - 2.0.2-1
-- New upstream release.
-
-* Fri Feb 05 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Tue Nov 03 2015  Milan Bouchet-Valat <nalimilan@club.fr> - 1.3.1-1
-- New upstream release.
-
-* Tue Aug 11 2015 Milan Bouchet-Valat <nalimilan@club.fr> - 1.3-1
-- New upstream release.
-
-* Fri Jun 19 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Sat Mar 28 2015 Milan Bouchet-Valat <nalimilan@club.fr> - 1.2-1
-- New upstream release.
-
-* Mon Aug 18 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1.6-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
-
-* Sun Jun 08 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1.6-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
-
-* Sun May 4 2014 Milan Bouchet-Valat <nalimilan@club.fr> - 1.1.6-3
-- Add downstream SONAME version 0.1 since upstream does not set one.
-
-* Fri Feb 14 2014 Milan Bouchet-Valat <nalimilan@club.fr> - 1.1.6-2
-- Fix package Group.
-- Do not remove build root on install phase.
-
-* Sun Jan 26 2014 Milan Bouchet-Valat <nalimilan@club.fr> - 1.1.6-1
-- Adapt package to Fedora.
-- Updated to release 1.1.6.
-
-* Sat Aug 29 2009 Dries Verachtert <dries@ulyssis.org> - 1.1.4-1 - 7981/dag
-- Updated to release 1.1.4.
-
-* Sun Jul 29 2007 Dries Verachtert <dries@ulyssis.org> - 1.1.2-1
-- Updated to release 1.1.2.
-
-* Mon Jul 23 2007 Dries Verachtert <dries@ulyssis.org> - 1.1.1-1
-- Updated to release 1.1.1.
-
-* Tue Apr 17 2007 Dries Verachtert <dries@ulyssis.org> - 1.0.3-1
-- Initial package.
+%autochangelog

@@ -5,6 +5,10 @@ Summary:        The Python interface to the Valkey key-value store
 License:        MIT
 URL:            https://github.com/valkey-io/valkey-py
 Source:         %{url}/archive/v%{version}/python-valkey-%{version}.tar.gz
+# Make sure test can be successfully run on pyton 3.14.
+# (changes will be included in 6.1.1)
+# https://github.com/valkey-io/valkey-py/pull/174
+Patch0:         pr-174-do-not-use-forkserver.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

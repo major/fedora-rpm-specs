@@ -2,8 +2,8 @@
 %global pkgdatadir      %{_datadir}/dpkg
 
 Name:           dpkg
-Version:        1.22.11
-Release:        2%{?dist}
+Version:        1.22.15
+Release:        1%{?dist}
 Summary:        Package maintenance system for Debian Linux
 # The entire source code is GPLv2+ with exception of the following
 # lib/dpkg/md5.c, lib/dpkg/md5.h - Public domain
@@ -274,11 +274,6 @@ rm -rf %{buildroot}%{_mandir}/it/man5/
 rm -rf %{buildroot}%{_mandir}/pl/man1/
 %endif
 
-# Not required on fully usr-merged systems.
-# See https://salsa.debian.org/dpkg-team/dpkg/-/commit/49b3219281350fe8db799541456a5917094367c3
-rm %{buildroot}%{_sbindir}/dpkg-fsys-usrunmess
-rm %{buildroot}%{_mandir}/man8/dpkg-fsys-usrunmess.8
-rm %{buildroot}%{_mandir}/*/man8/dpkg-fsys-usrunmess.8
 
 %check
 make VERBOSE=1 TESTSUITEFLAGS=--verbose \
@@ -494,6 +489,10 @@ make VERBOSE=1 TESTSUITEFLAGS=--verbose \
 
 
 %changelog
+* Tue Mar 04 2025 Packit <hello@packit.dev> - 1.22.15-1
+- Update to version 1.22.15
+- Resolves: rhbz#2335431
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

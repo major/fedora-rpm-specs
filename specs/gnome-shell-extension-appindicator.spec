@@ -11,6 +11,8 @@ BuildArch: noarch
 License: GPL-2.0-only
 URL: %{forgeurl}
 Source0: %{forgesource}
+# https://bugzilla.redhat.com/show_bug.cgi?id=2349803
+Patch: https://github.com/ubuntu/gnome-shell-extension-appindicator/pull/564.patch
 
 BuildRequires: gettext
 BuildRequires: glib2

@@ -5,21 +5,21 @@
 Summary:       Compiler and toolchain infrastructure library for WebAssembly
 Name:          binaryen
 Version:       122
-Release:       1%{?dist}
+Release:       2%{?dist}
 
 URL:           https://github.com/WebAssembly/binaryen
 Source0:       %{url}/archive/version_%{version}/%{name}-version_%{version}.tar.gz
 Source1:       https://github.com/WebAssembly/testsuite/archive/%{wats_commit}/testsuite-%{wats_shortcommit}.tar.gz
 Patch0:        %{name}-use-system-gtest.patch
-# third_party/FP16: MIT
 # third_party/llvm-project/MD5.cpp: bcrypt-Solar-Designer
 # third_party/llvm-project/include/llvm/Support/MD5.h: bcrypt-Solar-Designer
-License:       Apache-2.0 AND MIT AND bcrypt-Solar-Designer
+License:       Apache-2.0 AND bcrypt-Solar-Designer
 
 # tests fail on big-endian
 # https://github.com/WebAssembly/binaryen/issues/2983
 ExcludeArch:   ppc64 s390x
 BuildRequires: cmake
+BuildRequires: FP16-devel
 BuildRequires: gcc-c++
 %if %{with check}
 BuildRequires: cmake(GTest)
@@ -64,6 +64,7 @@ tar xzf %{S:1} -C test/spec
 mv test/spec/testsuite{-%{wats_commit},}
 # v8 tests cannot be executed because we don't have v8 in Fedora
 rm -rv test/lit/d8
+rm -rv third_party/FP16
 %endif
 
 %build
@@ -108,6 +109,9 @@ rm -v %{buildroot}%{_bindir}/binaryen-unittests
 %{_libdir}/%{name}/libbinaryen.so
 
 %changelog
+* Tue Mar 04 2025 Dominik Mierzejewski <dominik@greysector.net> - 122-2
+- unbundle FP16
+
 * Mon Feb 24 2025 Dominik Mierzejewski <dominik@greysector.net> - 122-1
 - update to 122 (resolves rhbz#2342841)
 - rebase patch for using system GTest

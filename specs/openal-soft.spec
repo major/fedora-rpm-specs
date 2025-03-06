@@ -49,7 +49,7 @@ Summary:        Software implementation of the OpenAL 3D audio API
 #  - https://web.archive.org/web/20250130174430/https://forums.nesdev.org/viewtopic.php?p=251534#p251534
 # Open license review regarding datasets:
 # https://gitlab.com/fedora/legal/fedora-license-data/-/issues/629
-License:        LGPL-2.0-or-later AND BSD-3-Clause AND GPL-2.0-or-later AND Apache-2.0 AND (LGPL-2.0-or-later AND BSD-3-Clause) AND (MIT AND fmt-exception) AND NCL AND MIT AND LicenseRef-Fedora-Public-Domain
+License:        LGPL-2.0-or-later AND BSD-3-Clause AND GPL-2.0-or-later AND Apache-2.0 AND (LGPL-2.0-or-later AND BSD-3-Clause) AND (MIT WITH fmt-exception) AND NCL AND MIT AND LicenseRef-Fedora-Public-Domain
 URL:            https://openal-soft.org/
 VCS:            https://github.com/kcat/openal-soft
 # Source without non free datasets

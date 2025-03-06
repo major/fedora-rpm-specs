@@ -5,7 +5,7 @@
 
 # https://github.com/mdlayher/wifi
 %global goipath         github.com/mdlayher/wifi
-Version:                0.2.0
+Version:                0.4.0
 
 %gometa -L -f
 

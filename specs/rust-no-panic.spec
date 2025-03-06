@@ -5,7 +5,7 @@
 %global crate no-panic
 
 Name:           rust-no-panic
-Version:        0.1.33
+Version:        0.1.34
 Release:        %autorelease
 Summary:        Attribute macro to require that the compiler prove a function can't ever panic
 

@@ -4,7 +4,7 @@
 %global glib2_version %(pkg-config --modversion glib-2.0 2>/dev/null || echo bad)
 
 %global epoch_version 1
-%global real_version 1.51.90
+%global real_version 1.53.1
 %global rpm_version %{real_version}
 %global release_version 1
 %global snapshot %{nil}
@@ -182,7 +182,6 @@ Source8: readme-ifcfg-rh.txt
 Source9: readme-ifcfg-rh-migrated.txt
 
 #Patch1: 0001-some.patch
-Patch: 0001-dnsconfd-fixes.patch
 
 Requires(post): systemd
 Requires(post): systemd-udev
@@ -749,6 +748,11 @@ rm -f %{buildroot}%{_libdir}/*.la
 rm -f %{buildroot}%{_libdir}/pppd/%{ppp_version}/*.la
 rm -f %{buildroot}%{nmplugindir}/*.la
 
+# Don't use the *-initrd.service files yet, wait dracut to support them
+rm -f %{buildroot}%{_unitdir}/NetworkManager-config-initrd.service
+rm -f %{buildroot}%{_unitdir}/NetworkManager-initrd.service
+rm -f %{buildroot}%{_unitdir}/NetworkManager-wait-online-initrd.service
+
 # Ensure the documentation timestamps are constant to avoid multilib conflicts
 find %{buildroot}%{_datadir}/gtk-doc -exec touch --reference meson.build '{}' \+
 
@@ -1065,6 +1069,9 @@ fi
 
 
 %changelog
+* Tue Mar 04 2025 Íñigo Huguet <ihuguet@redhat.com> - 1:1.53.1-1
+- Update to 1.53.1 release (development)
+
 * Mon Feb 17 2025 Beniamino Galvani <bgalvani@redhat.com> - 1.51.90-1
 - Update to 1.52-rc1 release (1.51.90)
 - Fix state handling in the dnsconfd DNS plugin

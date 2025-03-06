@@ -5,7 +5,7 @@
 %global crate mockito
 
 Name:           rust-mockito
-Version:        1.6.1
+Version:        1.7.0
 Release:        %autorelease
 Summary:        HTTP mocking for Rust
 
@@ -68,6 +68,18 @@ This package contains library source intended for building other packages which
 use the "colored" feature of the "%{crate}" crate.
 
 %files       -n %{name}+colored-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+parking_lot-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+parking_lot-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "parking_lot" feature of the "%{crate}" crate.
+
+%files       -n %{name}+parking_lot-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

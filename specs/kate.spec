@@ -6,8 +6,8 @@
 
 Name:    kate
 Summary: Advanced Text Editor
-Version: 24.12.2
-Release: 3%{?dist}
+Version: 24.12.3
+Release: 1%{?dist}
 
 # kwrite LGPLv2+
 # kate: app LGPLv2, plugins, LGPLv2 and LGPLv2+ and GPLv2+
@@ -177,6 +177,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
+- 24.12.3
+
 * Tue Feb 25 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 24.12.2-3
 - Ship translations in kwrite
 

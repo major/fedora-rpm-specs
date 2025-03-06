@@ -1,7 +1,7 @@
 Name:    lskat
 Summary: A fun and engaging card game
-Version: 24.12.2
-Release: 2%{?dist}
+Version: 24.12.3
+Release: 1%{?dist}
 
 # Automatically converted from old format: LGPLv2 and GFDL - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2 AND LicenseRef-Callaway-GFDL
@@ -89,6 +89,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
+- 24.12.3
+
 * Fri Feb 21 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-2
 - Rebuild for ppc64le enablement
 

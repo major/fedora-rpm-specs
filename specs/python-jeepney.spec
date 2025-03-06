@@ -1,15 +1,12 @@
 %global pypi_name jeepney
 
 Name:           python-%{pypi_name}
-Version:        0.8.0
+Version:        0.9.0
 Release:        %autorelease
 Summary:        Low-level, pure Python DBus protocol wrapper
 License:        MIT
 URL:            https://gitlab.com/takluyver/jeepney
 Source0:        %pypi_source
-# https://bugzilla.redhat.com/show_bug.cgi?id=2327982
-# https://gitlab.com/takluyver/jeepney/-/issues/33
-Patch0:         python3.14.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -23,6 +20,7 @@ BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-asyncio)
 BuildRequires:  python3dist(pytest-trio)
 BuildRequires:  python3dist(testpath)
+BuildRequires:  dbus-test-runner
 
 %description
 This is a low-level, pure Python DBus protocol client. It has an I/O-free core,
@@ -55,7 +53,7 @@ rm -rf docs/_build/html/{.buildinfo,_sources}
 %pyproject_save_files %pypi_name
 
 %check
-%pytest -v
+dbus-test-runner --task=/usr/bin/pytest --parameter=-v
 
 %files -n python3-%{pypi_name} -f %pyproject_files
 %license LICENSE

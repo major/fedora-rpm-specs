@@ -144,7 +144,6 @@ Summary: Python wrapper for OpenMS
 BuildRequires: python3-setuptools
 BuildRequires: python3-devel
 BuildRequires: python3-numpy
-BuildRequires: python3-nose
 BuildRequires: python3-autowrap >= 0.8.1
 BuildRequires: python3-pip
 BuildRequires: %{_bindir}/cython
@@ -216,7 +215,7 @@ cmake -Wno-dev -B build -S ./ -DCMAKE_CXX_COMPILER_VERSION:STRING=$(gcc -dumpver
  -DGIT_TRACKING:BOOL=OFF \
  -DENABLE_UPDATE_CHECK:BOOL=OFF \
  -DCMAKE_COLOR_MAKEFILE:BOOL=ON \
- -DCMAKE_CXX_FLAGS_RELEASE:STRING="-Wno-cpp %{build_cxxflags}" -DCMAKE_C_FLAGS_RELEASE:STRING="-Wno-cpp %{build_cflags}" \
+ -DCMAKE_CXX_FLAGS_RELEASE:STRING="-Wno-cpp %{build_cxxflags} -std=gnu++17" -DCMAKE_C_FLAGS_RELEASE:STRING="-Wno-cpp %{build_cflags} -std=gnu17" \
  -DCMAKE_BUILD_TYPE=Release \
  -DBoost_IOSTREAMS_LIBRARY_RELEASE:FILEPATH=%{_libdir}/libboost_iostreams.so \
  -DBoost_MATH_C99_LIBRARY_RELEASE:FILEPATH=%{_libdir}/libboost_math_c99.so \

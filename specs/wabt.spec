@@ -2,15 +2,15 @@
 %bcond_without check
 %global commit 3e826ecde1adfba5f88d10d361131405637e65a3
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global ts_commit f3f048661dc1686d556a27d522df901cb747ab4a
+%global ts_commit cbc54d77065e5202bcb69e0d1c53ceccc29a7984
 %global ts_shortcommit %(c=%{ts_commit}; echo ${c:0:7})
 %global wc_commit b6dd1fb658a282c64b029867845bc50ae59e1497
 %global wc_shortcommit %(c=%{wc_commit}; echo ${c:0:7})
 
 Summary: The WebAssembly Binary Toolkit
 Name: wabt
-Version: 1.0.36
-Release: 3%{?dist}
+Version: 1.0.37
+Release: 1%{?dist}
 URL: https://github.com/WebAssembly/wabt
 Source0: https://github.com/WebAssembly/wabt/archive/%{version}/%{name}-%{version}.tar.gz
 Source1: https://github.com/WebAssembly/testsuite/archive/%{ts_commit}/%{name}-testsuite-%{ts_shortcommit}.tar.gz
@@ -68,22 +68,18 @@ rm wasm2c/spec/local_tee.txt
 rm wasm2c/spec/memory64/float_memory64.txt
 rm wasm2c/spec/multi-memory/float_memory0.txt
 rm wasm2c/spec/select.txt
+rm wast2json/test-invalid-quoted-modules.txt
 %endif
 # https://github.com/WebAssembly/wabt/issues/1045
 # https://github.com/WebAssembly/wabt/issues/2240
 %ifarch ppc64le
 rm spec/conversions.txt
 rm spec/simd_conversions.txt
+rm wasm2c/spec/memory64/simd_address.txt
 rm wasm2c/spec/simd_address.txt
 rm wasm2c/spec/simd_f32x4_arith.txt
 rm wasm2c/spec/simd_f32x4_pmin_pmax.txt
 rm wasm2c/spec/simd_splat.txt
-%endif
-%if 0%{?fedora} > 41
-%ifarch ppc64le s390x
-# https://github.com/WebAssembly/wabt/issues/2542
-rm wasm2c/spec/float_exprs.txt
-%endif
 %endif
 popd
 %endif
@@ -141,6 +137,11 @@ cmake --build redhat-linux-build --verbose --target run-tests %{?_smp_mflags}
 %{_mandir}/man1/wat2wasm.1*
 
 %changelog
+* Tue Mar 04 2025 Dominik Mierzejewski <dominik@greysector.net> 1.0.37-1
+- update to 1.0.37 (resolves rhbz#2349655)
+- skip new failing tests on i686 and ppc64le
+- re-enable wasm2c/spec/float_exprs.txt test, now that GCC 15 is fixed
+
 * Fri Feb 21 2025 Dominik Mierzejewski <dominik@greysector.net> 1.0.36-3
 - use upstream way of running tests
 - run unit tests

@@ -19,7 +19,7 @@ Requires:       ruby(rubygems)
 
 # Add runtime deps for testing
 BuildRequires:  (rubygem(hocon) >= 1.3 with rubygem(hocon) < 2)
-BuildRequires:  (rubygem(thor) >= 1.0.1 with rubygem(thor) < 1.3)
+BuildRequires:  (rubygem(thor) >= 1.0.1 with rubygem(thor) < 2)
 BuildRequires:  rubygem(sys-filesystem)
 BuildRequires:  rubygem(base64)
 
@@ -67,6 +67,9 @@ Documentation for %{name}.
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q -n %{gem_name}-%{version}
 %gemspec_add_dep -g sys-filesystem
+# Revert https://github.com/puppetlabs/facter/commit/5e6c601f2a4ae37e3cd72f8411816a508d2f8b3c
+%gemspec_remove_dep -g thor [">= 1.0.1", "< 1.3"]
+%gemspec_add_dep -g thor [">= 1.0.1", "< 2"]
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec

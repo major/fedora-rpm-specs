@@ -1,8 +1,8 @@
 %global kf6_min_version 5.240.0
 
 Name:           audiotube
-Version:        24.12.2
-Release:        3%{?dist}
+Version:        24.12.3
+Release:        1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Summary:        AudioTube can search YouTube Music, list albums and artists, play automatically generated playlists, albums and allows to put your own playlist together.
@@ -82,6 +82,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 
 
 %changelog
+* Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
+- 24.12.3
+
 * Fri Feb 21 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-3
 - Rebuild for ppc64le enablement
 

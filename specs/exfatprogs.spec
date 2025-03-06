@@ -1,5 +1,5 @@
 Name:           exfatprogs
-Version:        1.2.7
+Version:        1.2.8
 Release:        1%{?dist}
 Summary:        Userspace utilities for exFAT filesystems
 License:        GPL-2.0-only
@@ -46,6 +46,10 @@ autoreconf -vif
 %{_mandir}/man8/tune.exfat.*
 
 %changelog
+* Tue Mar 04 2025 Pavel Reichl <preichl@redhat.com> - 1.2.8-1
+- Update to upstream version
+- Related: rhbz#2349760
+
 * Thu Feb 06 2025 Simone Caronni <negativo17@gmail.com> - 1.2.7-1
 - Update to 1.2.7.
 

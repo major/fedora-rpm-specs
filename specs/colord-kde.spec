@@ -1,6 +1,6 @@
 Name:           colord-kde
-Version:        24.12.2
-Release:        2%{?dist}
+Version:        24.12.3
+Release:        1%{?dist}
 Summary:        Colord support for KDE
 
 License:        CC0-1.0 AND LGPL-3.0-or-later
@@ -64,6 +64,9 @@ desktop-file-validate %{buildroot}/%{_kf6_datadir}/applications/{colordkdeiccimp
 
 
 %changelog
+* Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
+- 24.12.3
+
 * Fri Feb 21 2025 Steve Cossette <farchord@gmail.com> - 24.12.2-2
 - Rebuild for ppc64le enablement
 

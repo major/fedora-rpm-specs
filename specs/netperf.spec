@@ -7,8 +7,9 @@ Version:        2.7.0
 Release:        %autorelease
 Summary:        Benchmark to measure the performance of many different types of networking
 
-# Automatically converted from old format: MIT and BSD - review is highly recommended.
-License:        LicenseRef-Callaway-MIT AND LicenseRef-Callaway-BSD
+# Most of the codebase is MIT, the stuff under src/missing/ is a mix of
+# BSD-3-Clause and BSD-4-Clause
+License:        MIT AND BSD-3-Clause AND BSD-4-Clause
 URL:            https://hewlettpackard.github.io/netperf
 Source0:        %{forgesource}
 Source1:        netserver.service
@@ -38,8 +39,9 @@ rm doc/netperf.{html,pdf}
 
 %build
 ./autogen.sh
-# workaround build issue with GCC 10 and later
-export CFLAGS="%{optflags} -fcommon"
+# -fcommon is to workaround a build issue with GCC 10 and later
+# -std=c99 is to workaround a build issue with GCC 15 and later
+export CFLAGS="%{optflags} -fcommon -std=c99"
 %configure \
   --enable-burst \
   --enable-dccp \

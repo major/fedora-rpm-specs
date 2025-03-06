@@ -1,6 +1,6 @@
 Name:           perl-Date-Manip
-Version:        6.96
-Release:        2%{?dist}
+Version:        6.97
+Release:        1%{?dist}
 Summary:        Date manipulation routines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Date-Manip
@@ -123,6 +123,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Mar 02 2025 Packit <hello@packit.dev> - 6.97-1
+- Update to version 6.97
+- Resolves: rhbz#2349298
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.96-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

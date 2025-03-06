@@ -61,7 +61,6 @@ BuildRequires:  %{py3_dist packaging}
 BuildRequires:  %{py3_dist pexpect}
 BuildRequires:  %{py3_dist pip}
 BuildRequires:  %{py3_dist pyparsing}
-BuildRequires:  %{py3_dist scikit-build}
 BuildRequires:  %{py3_dist setuptools}
 BuildRequires:  %{py3_dist wheel}
 BuildRequires:  symfpu-devel

@@ -2010,6 +2010,7 @@ test_list_filter_out+=("libomp :: affinity/kmp-abs-hw-subset.c")
 test_list_filter_out+=("libomp :: parallel/bug63197.c")
 test_list_filter_out+=("libomp :: tasking/issue-69733.c")
 test_list_filter_out+=("libarcher :: races/task-taskgroup-unrelated.c")
+test_list_filter_out+=("libarcher :: races/task-taskwait-nested.c")
 
 # These tests fail more often than not, but not always.
 test_list_filter_out+=("libomp :: worksharing/for/omp_collapse_many_GELTGT_int.c")
@@ -2074,7 +2075,6 @@ export LIT_XFAIL="$LIT_XFAIL;races/lock-unrelated.c"
 export LIT_XFAIL="$LIT_XFAIL;races/parallel-simple.c"
 export LIT_XFAIL="$LIT_XFAIL;races/task-dependency.c"
 export LIT_XFAIL="$LIT_XFAIL;races/task-taskgroup-unrelated.c"
-export LIT_XFAIL="$LIT_XFAIL;races/task-taskwait-nested.c"
 export LIT_XFAIL="$LIT_XFAIL;races/task-two.c"
 export LIT_XFAIL="$LIT_XFAIL;races/taskwait-depend.c"
 export LIT_XFAIL="$LIT_XFAIL;reduction/parallel-reduction-nowait.c"

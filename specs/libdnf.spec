@@ -56,7 +56,7 @@
 
 Name:           libdnf
 Version:        %{libdnf_major_version}.%{libdnf_minor_version}.%{libdnf_micro_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Library providing simplified C and Python API to libsolv
 License:        LGPL-2.1-or-later
 URL:            https://github.com/rpm-software-management/libdnf
@@ -65,8 +65,11 @@ Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # Fix a segfault in iterator of a ConfigParser section
 # Fixes https://bugzilla.redhat.com/2330562
 Patch:          https://github.com/rpm-software-management/libdnf/pull/1682.patch
+# Fix building with CMake 4, in upstream after 0.73.4,
+# <https://github.com/rpm-software-management/libdnf/pull/1700>
+Patch:          0002-build-Increase-CMake-minimal-version-to-3.5.0.patch
 
-BuildRequires:  cmake
+BuildRequires:  cmake >= 3.5.0
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  libsolv-devel >= %{libsolv_version}
@@ -308,6 +311,9 @@ popd
 %endif
 
 %changelog
+* Tue Mar 04 2025 Petr Pisar <ppisar@redhat.com> - 0.73.4-4
+- Fix building with CMake 4
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.73.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

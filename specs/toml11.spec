@@ -5,17 +5,13 @@
 %global debug_package %{nil}
 
 Name:       toml11
-Version:    4.1.0
+Version:    4.4.0
 Release:    %autorelease
 Summary:    TOML for Modern C++ 
 
 License:    MIT
 URL:        https://github.com/ToruNiina/toml11
 Source0:    %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# https://github.com/ToruNiina/toml11/issues/267
-# This is required for dnf5 build
-Patch:      0001-fix-add-missing-zero-initialization-to-region.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++

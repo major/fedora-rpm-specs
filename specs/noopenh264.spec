@@ -1,14 +1,13 @@
-%global soversion 7
+%global soversion 8
 
 Name:           noopenh264
-Version:        2.5.0
+Version:        2.6.0
 Release:        %autorelease
 Summary:        Fake implementation of the OpenH264 library
 
 License:        BSD-2-Clause and LGPL-2.1-or-later
-URL:            https://gitlab.com/freedesktop-sdk/noopenh264
-%global tag v%{version}
-Source:         %{url}/-/archive/%{tag}/noopenh264-%{tag}.tar.bz2
+URL:            https://codeberg.org/distro-openh264/noopenh264
+Source:         %{url}/archive/v%{version}.tar.gz#/noopenh264-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  meson
@@ -35,7 +34,7 @@ developing applications that use %{name}.
 
 
 %prep
-%autosetup -p1 -n noopenh264-%{tag}
+%autosetup -p1 -n %{name}
 
 
 %build

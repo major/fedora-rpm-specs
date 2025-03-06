@@ -44,6 +44,7 @@ for m in sb sx; do ln -s sz.1 %{buildroot}%{_mandir}/man1/$m.1; done
 %find_lang %{name}
 
 %files -f %{name}.lang
+%license COPYING
 %{_bindir}/*
 %{_mandir}/*/*
 
