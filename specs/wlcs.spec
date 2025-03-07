@@ -1,14 +1,14 @@
 # Lists copied from gcc.spec
-# Current as of 13.2.1 (lines 66, 86, and 76, respectively).
+# Current as of 15.0.1 (lines 68, 88, and 78, respectively).
 # Note that asan and ubsan are available on all Fedora primary architectures;
 # tsan is missing on i686 only.
-%ifarch %{ix86} x86_64 ppc ppc64 ppc64le ppc64p7 s390 s390x %{arm} aarch64
+%ifarch %{ix86} x86_64 ppc ppc64 ppc64le ppc64p7 s390 s390x %{arm} aarch64 riscv64
 %global arch_has_asan 1
 %endif
-%ifarch %{ix86} x86_64 ppc ppc64 ppc64le ppc64p7 s390 s390x %{arm} aarch64
+%ifarch %{ix86} x86_64 ppc ppc64 ppc64le ppc64p7 s390 s390x %{arm} aarch64 riscv64
 %global arch_has_ubsan 1
 %endif
-%ifarch x86_64 ppc64 ppc64le aarch64 s390x
+%ifarch x86_64 ppc64 ppc64le aarch64 s390x riscv64
 %global arch_has_tsan 1
 %endif
 

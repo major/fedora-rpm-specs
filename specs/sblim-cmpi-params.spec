@@ -1,8 +1,9 @@
 %global provider_dir %{_libdir}/cmpi
+%global with_test_subpackage 1
 
 Name:           sblim-cmpi-params
 Version:        1.3.0
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        SBLIM params instrumentation
 
 License:        EPL-1.0
@@ -24,6 +25,7 @@ Requires:       sblim-cmpi-base cim-server cim-schema
 %description
 Standards Based Linux Instrumentation Params Providers
 
+%if 0%{?with_test_subpackage}
 %package        test
 Summary:        SBLIM Params Instrumentation Testcases
 Requires:       sblim-cmpi-params = %{version}-%{release}
@@ -31,6 +33,7 @@ Requires:       sblim-testsuite
 
 %description -n sblim-cmpi-params-test
 SBLIM Base Params Testcase Files for SBLIM Testsuite
+%endif
 
 %prep
 %setup -q
@@ -39,7 +42,9 @@ SBLIM Base Params Testcase Files for SBLIM Testsuite
 %build
 %configure \
         --disable-static \
+%if 0%{?with_test_subpackage}
         TESTSUITEDIR=%{_datadir}/sblim-testsuite \
+%endif
         PROVIDERDIR=%{provider_dir}
 make %{?_smp_mflags}
 
@@ -54,8 +59,10 @@ rm -f $RPM_BUILD_ROOT/%{provider_dir}/*.la
 %{provider_dir}/*.so
 %{_datadir}/%{name}
 
+%if 0%{?with_test_subpackage}
 %files test
 %{_datadir}/sblim-testsuite
+%endif
 
 %global SCHEMA %{_datadir}/%{name}/*.mof
 %global REGISTRATION %{_datadir}/%{name}/*.registration
@@ -70,6 +77,9 @@ rm -f $RPM_BUILD_ROOT/%{provider_dir}/*.la
 %sblim_preun
 
 %changelog
+* Wed Mar 05 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.3.0-35
+- Make test subpackage optional
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

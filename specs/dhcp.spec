@@ -101,8 +101,7 @@ BuildRequires: systemd-rpm-macros
 # In _docdir we ship some perl scripts and module from contrib subdirectory.
 # Because nothing under _docdir is allowed to "require" anything,
 # prevent _docdir from being scanned. (#674058)
-%filter_requires_in %{_docdir}
-%{filter_setup}
+%global __requires_exclude_from ^%{_docdir}/.*$
 
 %description
 DHCP (Dynamic Host Configuration Protocol)

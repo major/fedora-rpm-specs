@@ -32,7 +32,7 @@ BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
 BuildRequires:  mvn(org.easymock:easymock)
 %endif
 # TODO Remove in Fedora 46
-Obsoletes:      %{name}-javadoc < 3.0.0-47
+Obsoletes:      %{name}-javadoc < 1:3.0.0-47
 
 %description
 API for I/O support like logging, download or file scanning.

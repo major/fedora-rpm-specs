@@ -20,6 +20,10 @@ Source0:        %{giturl}/archive/v%{version}/pydata-sphinx-theme-%{version}.tar
 # Source1 and Source2 created with ./prepare_vendor.sh
 Source1:        pydata-sphinx-theme-%{version}-vendor.tar.xz
 Source2:        pydata-sphinx-theme-%{version}-vendor-licenses.txt
+
+# Compatibility with Pygments 2.19+
+Patch:          https://github.com/pydata/pydata-sphinx-theme/pull/2091.patch
+
 %if %{with docs}
 # Generating image files requires network access.  Instead, we scrape these from
 # https://pydata-sphinx-theme.readthedocs.io/en/latest/_images.  See

@@ -152,14 +152,14 @@
 %if %{enable_qt}
 %if 0%{?rhel} > 9 || 0%{?fedora} > 39
 %global use_qt6 1
-%global use_qt 1
+%global use_qt5 1
 %else
 %global use_qt6 0
-%global use_qt 1
+%global use_qt5 1
 %endif
 %else
 %global use_qt6 0
-%global use_qt 0
+%global use_qt5 0
 %endif
 
 # bundle re2, jsoncpp, woff2 - build errors with use_custom_libcxx=true
@@ -261,7 +261,7 @@
 %endif
 
 Name:	chromium
-Version: 133.0.6943.141
+Version: 134.0.6998.35 
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -321,7 +321,7 @@ Patch305: chromium-124-el8-arm64-memory_tagging.patch
 Patch306: chromium-127-el8-ifunc-header.patch
 
 # workaround for build error due to old atk version on el8
-Patch307: chromium-133-el8-atk-compiler-error.patch
+Patch307: chromium-134-el8-atk-compiler-error.patch
 # Fix build errors due to old clang18 in el 8/9 and f40
 Patch308: chromium-132-el8-unsupport-clang-flags.patch
 Patch309: chromium-132-el8-unsupport-rustc-flags.patch
@@ -330,11 +330,15 @@ Patch311: chromium-133-clang18-template.patch
 
 # enable fstack-protector-strong
 Patch312: chromium-123-fstack-protector-strong.patch
+
 # build error stdarch_arm_crc32
 Patch313: chromium-133-rust-crc32fast.patch
 
 # warning: unknown warning option '-Wno-nontrivial-memcall'
 Patch314: chromium-134-clang-unknown-option.patch
+
+# build error: libadler2 not found
+Patch315: chromium-134-rust-libadler2.patch
 
 # add -ftrivial-auto-var-init=zero and -fwrapv
 Patch316: chromium-122-clang-build-flags.patch
@@ -343,6 +347,7 @@ Patch316: chromium-122-clang-build-flags.patch
 # https://bugs.chromium.org/p/chromium/issues/detail?id=1145581#c60
 # Disable BTI until this is fixed upstream.
 Patch352: chromium-117-workaround_for_crash_on_BTI_capable_system.patch
+
 # workaround for build error on aarch64
 Patch353: chromium-127-aarch64-duplicate-case-value.patch
 
@@ -354,6 +359,9 @@ Patch355: chromium-130-hardware_destructive_interference_size.patch
 
 # fix build error with new pipewire in f43
 Patch356: chromium-133-pipewire-cast.patch
+
+# error: no matching member function for call to 'Append'
+Patch357: chromium-134-type-mismatch-error.patch
 
 # set clang_lib path
 Patch358: chromium-127-rust-clanglib.patch
@@ -526,7 +534,7 @@ BuildRequires:	glib2-devel
 BuildRequires:	glibc-devel
 BuildRequires:	gperf
 
-%if %{use_qt}
+%if %{use_qt5}
 BuildRequires: pkgconfig(Qt5Core)
 BuildRequires: pkgconfig(Qt5Widgets)
 %endif
@@ -1031,8 +1039,8 @@ Qt6 UI for chromium.
 %patch -P313 -p1 -b .rust-crc32fast
 %endif
 %endif
-
 %patch -P314 -p1 -b .clang-unknown-option
+%patch -P315 -p1 -b .rust-libadler2
 %patch -P316 -p1 -b .clang-build-flags
 
 %if %{disable_bti}
@@ -1052,6 +1060,8 @@ Qt6 UI for chromium.
 %if 0%{?fedora} > 42
 %patch -P356 -p1 -b .pipewire-cast
 %endif
+
+%patch -P357 -p1 -b .type-mismatch-error
 
 %patch -P358 -p1 -b .rust-clang_lib
 
@@ -1313,10 +1323,10 @@ CHROMIUM_BROWSER_GN_DEFINES+=' rtc_use_h264=false'
 %endif
 CHROMIUM_BROWSER_GN_DEFINES+=' use_kerberos=true'
 
-%if %{use_qt}
-CHROMIUM_BROWSER_GN_DEFINES+=" use_qt=true moc_qt5_path=\"$(%{_qt5_qmake} -query QT_HOST_BINS)\""
+%if %{use_qt5}
+CHROMIUM_BROWSER_GN_DEFINES+=" use_qt5=true moc_qt5_path=\"$(%{_qt5_qmake} -query QT_HOST_BINS)\""
 %else
-CHROMIUM_BROWSER_GN_DEFINES+=' use_qt=false'
+CHROMIUM_BROWSER_GN_DEFINES+=' use_qt5=false'
 %endif
 
 %if %{use_qt6}
@@ -1378,7 +1388,7 @@ CHROMIUM_HEADLESS_GN_DEFINES+=' v8_use_external_startup_data=false enable_print_
 CHROMIUM_HEADLESS_GN_DEFINES+=' use_alsa=false use_bluez=false use_cups=false use_dbus=false use_gio=false use_kerberos=false'
 CHROMIUM_HEADLESS_GN_DEFINES+=' use_libpci=false use_pulseaudio=false use_udev=false rtc_use_pipewire=false'
 CHROMIUM_HEADLESS_GN_DEFINES+=' v8_enable_lazy_source_positions=false use_glib=false use_gtk=false use_pangocairo=false'
-CHROMIUM_HEADLESS_GN_DEFINES+=' use_qt=false use_qt6=false is_component_build=false enable_ffmpeg_video_decoders=false media_use_ffmpeg=false'
+CHROMIUM_HEADLESS_GN_DEFINES+=' use_qt5=false use_qt6=false is_component_build=false enable_ffmpeg_video_decoders=false media_use_ffmpeg=false'
 CHROMIUM_HEADLESS_GN_DEFINES+=' media_use_libvpx=false proprietary_codecs=false'
 export CHROMIUM_HEADLESS_GN_DEFINES
 
@@ -1556,7 +1566,7 @@ pushd %{chromebuilddir}
 	# This is ANGLE, not to be confused with the similarly named files under swiftshader/
 	cp -a libEGL.so libGLESv2.so %{buildroot}%{chromium_path}
 
-	%if %{use_qt}
+	%if %{use_qt5}
 		cp -a libqt5_shim.so %{buildroot}%{chromium_path}
 	%endif
 
@@ -1649,7 +1659,7 @@ fi
 %{_datadir}/appdata/*.appdata.xml
 %{_datadir}/gnome-control-center/default-apps/chromium-browser.xml
 
-%if %{use_qt}
+%if %{use_qt5}
 %files qt5-ui
 %{chromium_path}/libqt5_shim.so
 %endif
@@ -1752,6 +1762,18 @@ fi
 %endif
 
 %changelog
+* Wed Mar 05 2025 Than Ngo <than@redhat.com> -  134.0.6998.35 -1
+- Update to 134.0.6998.35
+  * CVE-2025-1914: Out of bounds read in V8
+  * CVE-2025-1915: Improper Limitation of a Pathname to a Restricted Directory in DevTools
+  * CVE-2025-1916: Use after free in Profiles
+  * CVE-2025-1917: Inappropriate Implementation in Browser UI
+  * CVE-2025-1918: Out of bounds read in PDFium
+  * CVE-2025-1919: Out of bounds read in Media
+  * CVE-2025-1921: Inappropriate Implementation in Media Stream
+  * CVE-2025-1922: Inappropriate Implementation in Selection
+  * CVE-2025-1923: Inappropriate Implementation in Permission Prompts
+
 * Wed Feb 26 2025 Than Ngo <than@redhat.com> - 133.0.6943.141-1
 - Update to 133.0.6943.141
 

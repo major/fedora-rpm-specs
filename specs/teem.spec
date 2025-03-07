@@ -24,7 +24,7 @@ SourceLicense:  %{shrink:
                 Zlib
                 }
 URL:            https://teem.sourceforge.net
-Source0:        https://downloads.sourceforge.net/project/teem/teem/%{version}/%{name}-%{version}-src.tar.gz
+Source0:        https://downloads.sourceforge.net/project/teem/teem/%{version}/teem-%{version}-src.tar.gz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -149,6 +149,12 @@ Source961:      unu-save.1
 # sending upstream or not.
 Patch:          lib_install_dir.patch
 
+# Patch CMakeLists.txt to work with CMake version 4. This is downstream-only
+# because upstream development has progressed so far since the last stable
+# release (in 2012!) that CMakeLists.txt now looks quite different. Applies on
+# top of lib_install_dir.patch.
+Patch:          teem-1.11.0-cmake4.patch
+
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  make
@@ -204,31 +210,31 @@ Strengths of Teem
 
 %description %{common_description}
 
-The %{name} package contains the command-line tools included with Teem.
+The teem package contains the command-line tools included with Teem.
 
 
 %package libs
-Summary:        Libraries for %{name}
+Summary:        Libraries for teem
 
 %description libs %{common_description}
 
-The %{name}-libs package contains libraries that may be required at runtime by
+The teem-libs package contains libraries that may be required at runtime by
 applications that use Teem.
 
 
 %package devel
-Summary:        Development files for %{name}
+Summary:        Development files for teem
 
-Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+Requires:       teem-libs%{?_isa} = %{version}-%{release}
 
 %description devel %{common_description}
 
-The %{name}-devel package contains libraries and header files for developing
+The teem-devel package contains libraries and header files for developing
 applications that use Teem.
 
 
 %package examples
-Summary:        Examples for developing with for %{name}
+Summary:        Examples for developing with for teem
 # The entire contents of this subpackage are LGPL-2.1-or-later, except:
 #
 # Zlib:
@@ -240,12 +246,12 @@ BuildArch:      noarch
 
 %description examples %{common_description}
 
-The %{name}-examples package contains examples for developing applications that
+The teem-examples package contains examples for developing applications that
 use Teem.
 
 
 %prep
-%autosetup -n %{name}-%{version}-src -p1
+%autosetup -n teem-%{version}-src -p1
 
 # Remove files that, while they have acceptable licenses, we want to assert do
 # not contribute to the built RPMs:
@@ -300,7 +306,7 @@ install -t %{buildroot}%{_mandir}/man1 -p -m 0644 \
 %check
 # We must exclude probeSS_ctmr04 and probeSS_ctmr10 on certain architectures
 # due to overly-strict rounding requirements.
-%ifarch %{arm64} ppc64le s390x
+%ifarch %{arm64} %{power64} s390x
 %global ctest_excludes --exclude-regex '^(probeSS_ctmr(04|10))$'
 %endif
 

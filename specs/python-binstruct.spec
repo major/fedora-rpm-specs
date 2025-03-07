@@ -1,74 +1,76 @@
 %global pypi_name binstruct
-%global global_desc							\
-The binstruct library allows you to access binary data using a		\
-predefined structure.  The binary data can be provided in any form	\
-that allows an indexed access to single bytes.  This could for example	\
-be a memory-mapped file.  The data structure itself is defined in way	\
-similar to Django database table definitions by declaring a new class	\
-with its fields.
+%global global_desc %{expand:
+The binstruct library allows you to access binary data using a
+predefined structure.  The binary data can be provided in any form
+that allows an indexed access to single bytes.  This could for example
+be a memory-mapped file.  The data structure itself is defined in way
+similar to Django database table definitions by declaring a new class
+with its fields.}
 
 
-Name:		python-%{pypi_name}
-Version:	1.0.1
-Release:	31%{?dist}
-Summary:	Library for read/write access of binary data via structures
+Name:           python-%{pypi_name}
+Version:        1.0.1
+Release:        32%{?dist}
+Summary:        Library for read/write access of binary data via structures
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
-License:	GPL-3.0-or-later
-URL:		https://pypi.python.org/pypi/%{pypi_name}
-Source0:	https://files.pythonhosted.org/packages/source/b/%{pypi_name}/%{pypi_name}-%{version}.zip
+License:        GPL-3.0-or-later
+URL:            https://pypi.python.org/pypi/%{pypi_name}
+Source0:        %{pypi_source %{pypi_name} %{version} zip}
 
 # Drop nose.
-Patch0:		binstruct-1.0.1-pytest.patch
+Patch0:         binstruct-1.0.1-pytest.patch
 
-BuildArch:	noarch
+BuildArch:      noarch
 
-BuildRequires:	dos2unix
+BuildRequires:  dos2unix
+BuildRequires:  python3-devel
+BuildRequires:  python3dist(pytest)
 
 %description
 %{global_desc}
 
 
 %package -n python3-%{pypi_name}
-Summary:	%{summary}
-
-BuildRequires:	python3-devel
-BuildRequires:	python3-pytest
-BuildRequires:	python3-setuptools
-
-%{?python_provide:%python_provide python3-%{pypi_name}}
+Summary:        Library for read/write access of binary data via structures
 
 %description -n python3-%{pypi_name}
 %{global_desc}
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version} -p 1
-%{_bindir}/find . -type f -print0 |					\
-	%{_bindir}/xargs -0 --max-args=1 %{_bindir}/dos2unix -ascii -k -s
+%autosetup -p 1 -n %{pypi_name}-%{version}
+rm -rf *.egg-info
+find . -type f -print0 |          \
+  xargs -0 dos2unix -ascii -k -s
+
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
 
 %check
+%pyproject_check_import
 %pytest
 
 
-%files -n python3-%{pypi_name}
-%license LICENSE.txt
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc PKG-INFO README.rst
-%{python3_sitelib}/%{pypi_name}.py
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
-%{python3_sitelib}/__pycache__/%{pypi_name}.cpython-%{python3_version_nodots}*.pyc
 
 
 %changelog
+* Wed Mar 05 2025 Björn Esser <besser82@fedoraproject.org> - 1.0.1-32
+- Update spec file to latest guidelines
+
 * Tue Mar 04 2025 Björn Esser <besser82@fedoraproject.org> - 1.0.1-31
 - Drop build requirement for nose, fixes: rhbz#2349838
 

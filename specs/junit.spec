@@ -31,7 +31,7 @@ BuildRequires:  mvn(org.hamcrest:hamcrest-core)
 BuildRequires:  mvn(org.apache.maven.surefire:surefire-junit4)
 %endif
 # TODO Remove in Fedora 46
-Obsoletes:      %{name}-javadoc < 4.13.2-20
+Obsoletes:      %{name}-javadoc < 1:4.13.2-20
 
 %description
 JUnit is a regression testing framework written by Erich Gamma and Kent Beck. 

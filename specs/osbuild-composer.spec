@@ -12,7 +12,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        134
+Version:        135
 
 %gometa
 
@@ -230,7 +230,7 @@ Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.0
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.11.1
 Provides: bundled(golang(github.com/openshift-online/ocm-sdk-go)) = 0.1.438
 Provides: bundled(golang(github.com/oracle/oci-go-sdk/v54)) = 54.0.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.118.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.120.0
 Provides: bundled(golang(github.com/osbuild/osbuild-composer/pkg/splunk_logger)) = 0239db5
 Provides: bundled(golang(github.com/osbuild/pulp-client)) = 0.1.0
 Provides: bundled(golang(github.com/ostreedev/ostree-go)) = 719684c
@@ -698,6 +698,31 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Mar 05 2025 Packit <hello@packit.dev> - 135-1
+Changes with 135
+----------------
+  * CI: Update slack notifications and remove Alex (#4623)
+    * Author: Tomáš Koscielniak, Reviewers: Achilleas Koutsou, Simon Steinbeiß, Tomáš Hozza
+  * CODEOWNERS: set people for `/templates` (#4636)
+    * Author: Florian Schüller, Reviewers: Sanne Raymaekers, Tomáš Hozza
+  * Preparation for RHEL 9.7 and 10.1 (COMPOSER-2451) (#4629)
+    * Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Ondřej Budai
+  * Update snapshots to 20250225 (#4626)
+    * Author: SchutzBot, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  * Use golangci-lint v1.60 and cleanup the errors it returns (#4612)
+    * Author: Brian C. Lane, Reviewers: Achilleas Koutsou, Florian Schüller
+  * cloudapi: Use constants for distro in compose_test.go (#4620)
+    * Author: Brian C. Lane, Reviewers: Achilleas Koutsou, Michael Vogt
+  * internal/cloud/gcp/compute: Add TDX_CAPABLE guest OS feature (#4587)
+    * Author: Beñat Gartzia, Reviewers: Ondřej Budai, Tomáš Hozza
+  * tests/CI: Disable installer test for RHEL 10.0 nightly (#4634)
+    * Author: Tomáš Koscielniak, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  * tests/CI: Re-enable the vmware tests on RHEL 10 (#4577)
+    * Author: Tomáš Koscielniak, Reviewers: Ondřej Budai, Tomáš Hozza
+
+— Somewhere on the Internet, 2025-03-05
+
+
 * Thu Feb 20 2025 Packit <hello@packit.dev> - 134-1
 Changes with 134
 ----------------

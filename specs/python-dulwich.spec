@@ -3,7 +3,7 @@
 %global debug_package %{nil}
 
 Name:           python-%{srcname}
-Version:        0.22.1
+Version:        0.22.7
 Release:        %autorelease
 Summary:        Python implementation of the Git file formats and protocols
 
@@ -22,6 +22,7 @@ Mrs. Git live in the Monty Python sketch.
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
+BuildRequires:  python3-pytest
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-setuptools-rust
 
@@ -57,9 +58,10 @@ rm -rf html/.{doctrees,buildinfo}
 # Remove extra copy of text docs
 rm -rf %{buildroot}%{python3_sitearch}/docs/tutorial/
 
-#%check
-# FIXME test_non_ascii fails cause of unicode issue
-#nosetests -e non_ascii -w dulwich/tests -v
+%check
+# test_copy and test_receive_pack are failing for a long time (https://github.com/jelmer/dulwich/issues/988)
+# tests/contrib/test_swift_smoke.py is ignored because geventhttpclient is not packaged in Fedora
+%{python3} -m pytest tests --ignore=tests/contrib/test_swift_smoke.py -k "not test_copy and not test_receive_pack"
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc AUTHORS README.rst

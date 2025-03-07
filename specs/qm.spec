@@ -41,7 +41,7 @@ Epoch: 101
 # Keep Version in upstream specfile at 0. It will be automatically set
 # to the correct value by Packit for copr and koji builds.
 # IGNORE this comment if you're looking at it in dist-git.
-Version: 0.7.2
+Version: 0.7.3
 %if %{defined autorelease}
 Release: %autorelease
 %else
@@ -158,6 +158,9 @@ fi
 %ghost %{_installscriptdir}/rootfs/*
 
 %changelog
+* Wed Mar 05 2025 Packit <hello@packit.dev> - 0.7.3-1
+- Update to version 0.7.3
+
 * Fri Feb 28 2025 Packit <hello@packit.dev> - 0.7.2-1
 - Update to version 0.7.2
 

@@ -1,7 +1,7 @@
 Summary:    The GNU shar utilities for packaging and unpackaging shell archives
 Name:       sharutils
 Version:    4.15.2
-Release:    28%{?dist}
+Release:    29%{?dist}
 # The main code:                GPL-3.0-or-later
 # intl/dngettext.c:             LGPL-2.0-or-later
 # lib (gnulib):                 GPL-3.0-or-later
@@ -14,9 +14,10 @@ Release:    28%{?dist}
 ## Not in the binary package
 # ar-lib:                       GPL-2.0-or-later
 # config.rpath:                 FSFULLR
-# INSTALL:                      FSFAPP
+# INSTALL:                      FSFAP
 # install-sh:                   MIT
 License:    GPL-3.0-or-later AND (GPL-3.0-or-later AND BSD-4-Clause) AND (LGPL-3.0-or-later OR BSD-3-Clause) AND LGPL-2.0-or-later AND LGPL-3.0-or-later AND LicenseRef-Fedora-Public-Domain AND GFDL-1.3-or-later
+SourceLicense:  %{license} AND GPL-2.0-or-later AND FSFULLR AND FSFAP AND MIT
 Source:     ftp://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
 # Pass compilation with -Werror=format-security, bug #1037323
 Patch0:     %{name}-4.14.2-Pass-compilation-with-Werror-format-security.patch
@@ -32,7 +33,16 @@ Patch3:     %{name}-4.15.2-Fix-building-with-GCC-10.patch
 # Fix building with GCC 10,
 # <https://lists.gnu.org/archive/html/bug-gnu-utils/2020-01/msg00001.html>
 Patch4:     %{name}-4.15.2-Do-not-include-lib-md5.c-into-src-shar.c.patch
+# 1/3 Fix building with GCC 15, bug #2341343,
+# <https://lists.gnu.org/archive/html/bug-gnu-utils/2025-03/msg00000.html>
+Patch5:     %{name}-4.15.2-ISO-C23-Backport-stdbool.m4-from-gnulib-devel-0-52.2.patch
+# 2/3 Fix building with GCC 15, bug #2341343,
+Patch6:     %{name}-4.15.2-ISO-C23-Port-getcwd.m4-to-ISO-C23.patch
+# 3/3 Fix building with GCC 15, bug #2341343,
+Patch7:     %{name}-4.15.2-ISO-C23-Port-the-code-to-ISO-C23.patch
 URL:        http://www.gnu.org/software/%{name}/
+BuildRequires:      autoconf
+BuildRequires:      automake
 BuildRequires:      binutils
 BuildRequires:      coreutils
 BuildRequires:      gcc
@@ -60,13 +70,7 @@ automatically strips off mail headers and introductory text and then unpacks
 the shar files.
 
 %prep
-%setup -q
-%patch 0 -p1 -b .format
-%patch 1 -p1
-%patch 2 -p1
-%patch 3 -p1
-%patch 4 -p1
-
+%autosetup -p1
 # convert TODO, THANKS to UTF-8
 for i in TODO THANKS; do
   iconv -f iso-8859-1 -t utf-8 -o $i{.utf8,}
@@ -74,11 +78,12 @@ for i in TODO THANKS; do
 done
 
 %build
+autoreconf
 %configure
-make %{?_smp_mflags}
+%{make_build}
 
 %install
-make DESTDIR=${RPM_BUILD_ROOT} install
+%{make_install}
 rm -f ${RPM_BUILD_ROOT}%{_infodir}/dir
 chmod 644 AUTHORS ChangeLog COPYING NEWS README THANKS TODO
 %find_lang %{name}
@@ -89,12 +94,15 @@ make check
 %files -f %{name}.lang
 %license COPYING
 %doc AUTHORS ChangeLog NEWS README THANKS TODO
-%{_bindir}/*
-%{_infodir}/*info*
-%{_mandir}/man1/*
-%{_mandir}/man5/*
+%{_bindir}/{shar,unshar,uudecode,uuencode}
+%{_infodir}/sharutils.*
+%{_mandir}/man1/{shar,unshar,uudecode,uuencode}.*
+%{_mandir}/man5/uuencode.*
 
 %changelog
+* Wed Mar 05 2025 Petr Pisar <ppisar@redhat.com> - 4.15.2-29
+- Fix building with GCC 15 (bug #2341343)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.15.2-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

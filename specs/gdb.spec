@@ -923,6 +923,10 @@ fi
 # endif scl
 
 %changelog
+* Wed Mar 05 2025 Guinevere Larsen <guinevere@redhat.com>
+- Remove gdb-6.5-gcore-buffer-limit-test.patch. A similar test has been
+  added upstream, which will trickle down soon.
+
 * Thu Feb 27 2025 Keith Seitz <keiths@redhat.com>
 - Remove gdb-6.6-bz237572-ppc-atomic-sequence-test.patch. This is covered
   by gdb.arch/ppc64-isa207-atomic-inst.exp.

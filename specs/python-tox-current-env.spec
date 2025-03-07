@@ -3,7 +3,7 @@
 %bcond tests %{without bootstrap}
 
 Name:           python-tox-current-env
-Version:        0.0.14
+Version:        0.0.15
 Release:        %autorelease
 Summary:        Tox plugin to run tests in current Python environment
 

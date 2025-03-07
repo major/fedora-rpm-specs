@@ -28,6 +28,8 @@ needed to develop applications with liblqr
 %autosetup
 
 %build
+%set_build_flags
+export CFLAGS="$CFLAGS -std=gnu11"
 export LDFLAGS="%{build_ldflags} `pkg-config --libs glib-2.0` -lm"
 %configure
 %make_build

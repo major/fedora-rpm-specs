@@ -1,6 +1,6 @@
 Name: rancid
 Version: 3.13
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: Really Awesome New Cisco confIg Differ
 
 License: BSD-3-Clause
@@ -25,7 +25,6 @@ BuildRequires: ssmtp
 # To configure telnet command line arguments:
 BuildRequires: telnet
 
-Requires(pre): shadow-utils
 Requires: expect >= 5.40
 # For control_rancid's use of find command:
 Requires: findutils
@@ -46,6 +45,11 @@ including software and hardware (cards, serial numbers, etc) and uses CVS
 
 %prep
 %autosetup -p1
+
+# Create a sysusers.d config file
+cat >rancid.sysusers.conf <<EOF
+u rancid - 'RANCID' %{_localstatedir}/%{name}/ /bin/bash
+EOF
 
 %build
 %configure \
@@ -85,13 +89,9 @@ grep -rlF '$BASEDIR/logs' %{buildroot} | xargs sed -i 's|\$BASEDIR/logs|%{_local
 #Remove docs that will get installed to docdir in files section below
 rm -f %{buildroot}%{_datadir}/%{name}/{CHANGES,FAQ,README,README.lg,UPGRADING,Todo,COPYING}
 
+install -m0644 -D rancid.sysusers.conf %{buildroot}%{_sysusersdir}/rancid.conf
 
-%pre
-getent group %{name} >/dev/null || groupadd -r %{name}
-getent passwd %{name} >/dev/null || \
-    useradd -r -g %{name} -d %{_localstatedir}/%{name}/ -s /bin/bash \
-	    -k /etc/skel -m -c "RANCID" %{name}
-exit 0
+
 
 
 %files
@@ -121,9 +121,13 @@ exit 0
 %attr(750,%{name},%{name}) %dir %{_localstatedir}/%{name}/
 
 %{perl_vendorlib}/*
+%{_sysusersdir}/rancid.conf
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.13-15
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.13-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

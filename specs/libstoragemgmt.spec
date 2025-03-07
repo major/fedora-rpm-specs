@@ -5,7 +5,7 @@
 
 Name:           libstoragemgmt
 Version:        1.10.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Storage array management library
 License:        LGPL-2.1-or-later
 URL:            https://github.com/libstorage/libstoragemgmt
@@ -37,7 +37,9 @@ BuildRequires:  ledmon-devel
 BuildRequires:  systemd systemd-devel
 
 BuildRequires:  chrpath
+%ifarch %{valgrind_arches}
 BuildRequires:  valgrind
+%endif
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
@@ -177,7 +179,12 @@ plugin selection for locally managed storage.
 %build
 ./autogen.sh
 
-%configure --with-python3 --disable-static %{!?with_smis:--without-smispy}
+%configure \
+    --with-python3 \
+%ifnarch %{valgrind_arches}
+    --without-mem-leak-test \
+%endif
+    --disable-static %{!?with_smis:--without-smispy}
 %make_build
 
 %install
@@ -459,6 +466,9 @@ fi
 %{_mandir}/man1/local_lsmplugin.1*
 
 %changelog
+* Wed Mar 05 2025 David Abdurachmanov <davidlt@rivosinc.com> - 1.10.2-2
+- Properly check valgrind arches
+
 * Thu Jan 23 2025 Tony Asleson <tasleson@redhat.com> - 1.10.2-1
 - Upgrade to 1.10.2
 

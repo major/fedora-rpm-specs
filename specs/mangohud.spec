@@ -14,7 +14,7 @@
 %bcond_with tests
 
 Name:           mangohud
-Version:        0.8.0
+Version:        0.8.1
 %forgemeta
 Release:        %autorelease
 Summary:        Vulkan and OpenGL overlay for monitoring FPS, temperatures, CPU/GPU load

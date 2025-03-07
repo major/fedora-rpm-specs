@@ -7,9 +7,10 @@
 
 # Tests want to use -fsanitize=address
 # Lists copied from gcc.spec
-# Current as of 13.2.1 (line 66).
-# Note that asan is available on all Fedora primary architectures.
-%ifarch %{ix86} x86_64 ppc ppc64 ppc64le ppc64p7 s390 s390x %{arm} aarch64
+# Current as of 15.0.1 (line 68).
+# Note that asan and ubsan are available on all Fedora primary architectures;
+# tsan is missing on i686 only.
+%ifarch %{ix86} x86_64 ppc ppc64 ppc64le ppc64p7 s390 s390x %{arm} aarch64 riscv64
 %global arch_has_asan 1
 %endif
 %bcond asan 0%{?arch_has_asan:1}
@@ -27,6 +28,10 @@ Source:         %{url}/archive/%{commit}/loguru-%{commit}.tar.gz
 # Fix invalid regex in lnav_format_loguru_cpp.json
 # https://github.com/emilk/loguru/pull/250
 Patch:          %{url}/pull/250.patch
+
+# Update all cmake_minimum_required to 3.12; support CMake 4.0
+# https://github.com/emilk/loguru/pull/257
+Patch:          %{url}/pull/257.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

@@ -1,5 +1,5 @@
 Name:           deepin-pdfium
-Version:        1.0.2
+Version:        1.5.1
 Release:        %autorelease
 Summary:        development library for pdf on Deepin
 # the library is under LGPL-3.0-or-later license
@@ -7,12 +7,15 @@ Summary:        development library for pdf on Deepin
 License:        LGPL-3.0-or-later AND Apache-2.0
 URL:            https://github.com/linuxdeepin/deepin-pdfium
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+# add cstdint header to fix build
+Patch0:         deepin-pdfium-fix-header.patch
 
 BuildRequires:  gcc-c++
-BuildRequires:  make
+BuildRequires:  cmake
+BuildRequires:  ninja-build
 
-BuildRequires:  cmake(Qt5Gui)
-BuildRequires:  cmake(Qt5Gui)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Gui)
 BuildRequires:  pkgconfig(chardet)
 BuildRequires:  pkgconfig(lcms2)
 BuildRequires:  pkgconfig(freetype2)
@@ -35,11 +38,12 @@ This package contains development files for %{name}.
 %autosetup -p1
 
 %build
-%qmake_qt5 LIB_INSTALL_DIR=%{_libdir}
-%make_build
+export CFLAGS="%{optflags} -fpermissive"
+%cmake -GNinja
+%cmake_build
 
 %install
-%make_install INSTALL_ROOT=%{buildroot}
+%cmake_install
 
 %files
 %license LICENSE
@@ -49,6 +53,7 @@ This package contains development files for %{name}.
 %files devel
 %{_includedir}/deepin-pdfium/
 %{_libdir}/libdeepin-pdfium.so
+%{_libdir}/cmake/deepin-pdfium/
 %{_libdir}/pkgconfig/deepin-pdfium.pc
 
 %changelog

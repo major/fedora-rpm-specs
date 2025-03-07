@@ -44,7 +44,7 @@ BuildRequires:  mvn(org.slf4j:slf4j-api)
 BuildRequires:  mvn(org.slf4j:slf4j-simple)
 %endif
 # TODO Remove in Fedora 46
-Obsoletes:      %{name}-javadoc < 1.9.22-10
+Obsoletes:      %{name}-javadoc < 1:1.9.22-10
 Provides:       maven-resolver-api = %{epoch}:%{version}-%{release}
 Provides:       maven-resolver-connector-basic = %{epoch}:%{version}-%{release}
 Provides:       maven-resolver-impl = %{epoch}:%{version}-%{release}

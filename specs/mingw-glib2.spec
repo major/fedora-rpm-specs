@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-glib2
-Version:        2.83.3
+Version:        2.83.5
 Release:        1%{?dist}
 Summary:        MinGW Windows GLib2 library
 
@@ -162,6 +162,10 @@ rm -f %{buildroot}%{mingw64_bindir}/gdbus-codegen
 rm -rf %{buildroot}%{mingw64_libdir}/gdbus-2.0
 sed -i 's|gdbus_codegen=.*|gdbus_codegen=%{_bindir}/gdbus-codegen|g' %{buildroot}%{mingw64_libdir}/pkgconfig/gio-2.0.pc
 
+# Delete installed tests
+rm -rf %{buildroot}%{mingw32_libexecdir}/installed-tests/
+rm -rf %{buildroot}%{mingw64_libexecdir}/installed-tests/
+
 # Drop all .la files
 find %{buildroot} -name "*.la" -delete
 
@@ -293,6 +297,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Wed Mar 05 2025 Sandro Mani <manisandro@gmail.com> - 2.83.5-1
+- Update to 2.83.5
+
 * Sat Jan 25 2025 Sandro Mani <manisandro@gmail.com> - 2.83.3-1
 - Update to 2.83.3
 

@@ -1,9 +1,10 @@
 %global provider_dir %{_libdir}/cmpi
+%global with_test_subpackage 1
 
 Name:           sblim-cmpi-nfsv4
 Summary:        SBLIM nfsv4 instrumentation
 Version:        1.1.0
-Release:        37%{?dist}
+Release:        38%{?dist}
 License:        EPL-1.0
 URL:            http://sourceforge.net/projects/sblim/
 Source0:        http://downloads.sourceforge.net/project/sblim/providers/%{name}/%{version}/%{name}-%{version}.tar.bz2
@@ -34,6 +35,7 @@ Requires:       %{name} = %{version}-%{release}
 %description devel
 SBLIM Base Nfsv4 Development Package
 
+%if 0%{?with_test_subpackage}
 %package test
 Summary:        SBLIM Nfsv4 Instrumentation Testcases
 Requires:       %{name} = %{version}-%{release}
@@ -41,6 +43,7 @@ Requires:       sblim-testsuite
 
 %description test
 SBLIM Base Fsvol Testcase Files for SBLIM Testsuite
+%endif
 
 %prep
 %setup -q
@@ -55,7 +58,9 @@ export CFLAGS="$RPM_OPT_FLAGS -std=gnu17"
 %endif
 %configure \
         --disable-static \
+%if 0%{?with_test_subpackage}
         TESTSUITEDIR=%{_datadir}/sblim-testsuite \
+%endif
         PROVIDERDIR=%{provider_dir}
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
@@ -78,8 +83,10 @@ mv $RPM_BUILD_ROOT/%{_libdir}/libLinux_NFSv4SystemConfigurationUtil.so $RPM_BUIL
 %{_datadir}/%{name}
 %config(noreplace) %{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf
 
+%if 0%{?with_test_subpackage}
 %files test
 %{_datadir}/sblim-testsuite
+%endif
 
 %global SCHEMA %{_datadir}/%{name}/Linux_NFSv4SystemSetting.mof %{_datadir}/%{name}/Linux_NFSv4SystemConfiguration.mof
 
@@ -97,6 +104,9 @@ mv $RPM_BUILD_ROOT/%{_libdir}/libLinux_NFSv4SystemConfigurationUtil.so $RPM_BUIL
 %postun -p /sbin/ldconfig
 
 %changelog
+* Wed Mar 05 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.1.0-38
+- Make test subpackage optional
+
 * Fri Jan 24 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.1.0-37
 - Fix FTBFS
 

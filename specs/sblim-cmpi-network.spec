@@ -1,8 +1,9 @@
 %global provider_dir %{_libdir}/cmpi
+%global with_test_subpackage 1
 
 Name:           sblim-cmpi-network
 Version:        1.4.0
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        SBLIM Network Instrumentation
 
 License:        EPL-1.0
@@ -33,12 +34,14 @@ Requires:       %{name} = %{version}-%{release}
 %description    devel
 SBLIM Base Network Development Package
 
+%if 0%{?with_test_subpackage}
 %package        test
 Summary:        SBLIM Network Instrumentation Testcases
 Requires:       sblim-cmpi-network = %{version}-%{release}
 
 %description    test
 SBLIM Base Network Testcase Files for SBLIM Testsuite
+%endif
 
 %prep
 %setup -q
@@ -52,7 +55,9 @@ export CFLAGS="$RPM_OPT_FLAGS"
 %endif
 %configure \
         --disable-static \
+%if 0%{?with_test_subpackage}
         TESTSUITEDIR=%{_datadir}/sblim-testsuite \
+%endif
         PROVIDERDIR=%{provider_dir}
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
@@ -78,8 +83,10 @@ echo "%{_libdir}/cmpi" > $RPM_BUILD_ROOT/%{_sysconfdir}/ld.so.conf.d/%{name}-%{_
 %{_includedir}/*
 %{_libdir}/*.so
 
+%if 0%{?with_test_subpackage}
 %files test
 %{_datadir}/sblim-testsuite
+%endif
 
 %global SCHEMA %{_datadir}/%{name}/Linux_Network.mof
 
@@ -97,6 +104,9 @@ echo "%{_libdir}/cmpi" > $RPM_BUILD_ROOT/%{_sysconfdir}/ld.so.conf.d/%{name}-%{_
 %postun -p /sbin/ldconfig
 
 %changelog
+* Wed Mar 05 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.4.0-37
+- Make test subpackage optional
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,7 +1,6 @@
 %bcond_with bootstrap
 
 Name:           aopalliance
-Epoch:          0
 Version:        1.0
 Release:        %autorelease
 Summary:        Java/J2EE AOP standards

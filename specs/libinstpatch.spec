@@ -50,6 +50,10 @@ Patch:          %{forgeurl}/pull/80.patch
 # Fix “1.1.6: build with GTKDOC_ENABLED=ON fails”
 # https://github.com/swami/libinstpatch/issues/65#issuecomment-2628456174
 Patch:          libinstpatch-1.1.6-gtkdoc.patch
+# Eliminate CMake warnings
+# https://github.com/swami/libinstpatch/pull/77
+# (Fixes CMake 4.0 compatibility.)
+Patch:          %{forgeurl}/pull/77.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc

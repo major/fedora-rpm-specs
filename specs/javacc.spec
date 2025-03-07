@@ -36,7 +36,6 @@
 Name:           javacc
 Version:        7.0.13
 Release:        %autorelease
-Epoch:          0
 Summary:        A parser/scanner generator for java
 
 # BSD-3-Clause: the project as a whole

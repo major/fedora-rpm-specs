@@ -1,5 +1,5 @@
-%global git_date 20250214
-%global git_commit ff7551bbb3011f17cb8c6aac03f64682dde14c21
+%global git_date 20250305
+%global git_commit a35b0fa19ccfe823962bfbef2db2abcbaab7762b
 %{?git_commit:%global git_commit_hash %(c=%{git_commit}; echo ${c:0:7})}
 
 %global _python_bytecompile_extra 0
@@ -38,7 +38,7 @@ Conflicts: openssl-libs < 3.2.2-13
 Conflicts: nss < 3.105
 Conflicts: libreswan < 3.28
 Conflicts: openssh < 9.9
-Conflicts: gnutls < 3.8.8-1
+Conflicts: gnutls < 3.8.9-1
 
 # Most users want this, the split is mostly for Fedora CoreOS
 Recommends: crypto-policies-scripts
@@ -288,6 +288,10 @@ exit 0
 %{_datarootdir}/crypto-policies/python
 
 %changelog
+* Wed Mar 05 2025 Alexander Sosedkin <asosedkin@redhat.com> - 20250305-1.gita35b0fa
+- gnutls: support P384-MLKEM1024
+- openssl: specify default key size for req
+
 * Fri Feb 14 2025 Alexander Sosedkin <asosedkin@redhat.com> - 20250214-1.gitff7551b
 - openssl: use both names for P384-MLKEM1024
 - gnutls: drop kyber (switching to leancrypto took it away)

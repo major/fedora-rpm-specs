@@ -9,7 +9,7 @@ from without needing to store that data on disk external to the program.}
 
 Name: cmrc
 Version: 2.0.1
-Release: 7%{?dist}
+Release: %autorelease
 
 License: MIT
 Summary: Standalone CMake-Based C++ Resource Compiler
@@ -19,6 +19,8 @@ BuildArch: noarch
 
 # https://github.com/vector-of-bool/cmrc/pull/40
 Patch100: %{name}-installation.patch
+# https://github.com/vector-of-bool/cmrc/pull/48
+Patch101: %{name}-cmake-compatibility.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -55,23 +57,4 @@ Provides: %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 %{_datadir}/cmake/%{appname}/
 
 %changelog
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Nov 11 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.1-1
-- Initial SPEC release.
+%autochangelog

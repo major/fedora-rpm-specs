@@ -90,6 +90,9 @@ Suggests: %{name}-openjdk21 = %{epoch}:%{version}-%{release}
 Requires(post): alternatives
 Requires(postun): alternatives
 
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 1:3.9.9-13
+
 %description
 Maven is a software project management and comprehension tool. Based on the
 concept of a project object model (POM), Maven can manage a project's build,
@@ -114,8 +117,6 @@ Obsoletes:      maven-openjdk17 < 1:3.9.9-2
 
 %description lib
 Core part of Apache Maven that can be used as a library.
-
-%{?javadoc_package}
 
 %prep
 %autosetup -p1 -C
@@ -161,7 +162,7 @@ sed -i "
 %mvn_alias :maven-resolver-provider :maven-aether-provider
 
 %build
-%mvn_build -- -Dproject.build.sourceEncoding=UTF-8
+%mvn_build -j -- -Dproject.build.sourceEncoding=UTF-8
 
 mkdir m2home
 (cd m2home

@@ -4,14 +4,18 @@
 %bcond_without gtk4
 %endif
 
+%global selinuxtype targeted
+%global selinuxmodulename NetworkManager-ssh
+%global selinuxmoduledir selinux
+
 Summary: NetworkManager VPN plugin for SSH
 Name: NetworkManager-ssh
-Version: 1.2.13
-Release: 5%{?dist}
+Version: 1.2.14
+Release: 1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: https://github.com/danfruehauf/NetworkManager-ssh
-Source0: https://github.com/danfruehauf/NetworkManager-ssh/archive/1.2.13.tar.gz#/%{name}-%{version}.tar.gz
+Source0: https://github.com/danfruehauf/NetworkManager-ssh/archive/1.2.14.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires: make
 BuildRequires: autoconf
@@ -22,12 +26,16 @@ BuildRequires: libtool intltool gettext
 BuildRequires: libnma-devel >= 1.1.0
 BuildRequires: libsecret-devel
 BuildRequires: libtool intltool gettext
+BuildRequires: bzip2
+BuildRequires: selinux-policy
+BuildRequires: checkpolicy
 Requires: gtk3
 Requires: dbus
 Requires: NetworkManager >= 1:1.2.6
 Requires: openssh-clients
 Requires: shared-mime-info
 Requires: sshpass
+%{?selinux_requires}
 
 %if %with gtk4
 BuildRequires: libnma-gtk4-devel
@@ -66,11 +74,20 @@ CFLAGS="-DSECRET_API_SUBJECT_TO_CHANGE %{optflags}" \
         --with-dist-version=%{version}-%{release}
 make %{?_smp_mflags}
 
+pushd .
+cd %{selinuxmoduledir}
+checkmodule -M -m -o %{selinuxmodulename}.mod %{selinuxmodulename}.te
+semodule_package -o %{selinuxmodulename}.pp -m %{selinuxmodulename}.mod
+bzip2 %{selinuxmodulename}.pp
+popd
+
 %install
 make install DESTDIR=%{buildroot} INSTALL="%{__install} -p"
 mkdir -p %{buildroot}%{_prefix}/lib/NetworkManager/VPN
 %{__cp} -p ./nm-ssh-service.name %{buildroot}%{_prefix}/lib/NetworkManager/VPN/
 %{__rm} -f %{buildroot}%{_libdir}/NetworkManager/lib*.la
+mkdir -p %{buildroot}/%{_datadir}/selinux/packages
+%{__cp} -p %{selinuxmoduledir}/%{selinuxmodulename}.pp.bz2 %{buildroot}/%{_datadir}/selinux/packages/%{selinuxmodulename}.pp.bz2
 
 %find_lang %{name}
 
@@ -82,6 +99,9 @@ mkdir -p %{buildroot}%{_prefix}/lib/NetworkManager/VPN
 %doc AUTHORS README ChangeLog NEWS
 %license COPYING
 
+%attr(0644,root,root) %{_datadir}/selinux/packages/%{selinuxmodulename}.pp.bz2
+%ghost %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{selinuxmodulename}
+
 %files -n NetworkManager-ssh-gnome
 %{_libdir}/NetworkManager/libnm-vpn-plugin-ssh.so
 %{_datadir}/appdata/network-manager-ssh.metainfo.xml
@@ -91,7 +111,21 @@ mkdir -p %{buildroot}%{_prefix}/lib/NetworkManager/VPN
 %{_libdir}/NetworkManager/libnm-gtk4-vpn-plugin-ssh-editor.so
 %endif
 
+%post
+%selinux_modules_install -s %{selinuxtype} -p 200 %{_datadir}/selinux/packages/%{selinuxmodulename}.pp.bz2 &> /dev/null
+
+%postun
+if [ $1 -eq 0 ]; then
+  %selinux_modules_uninstall -s %{selinuxtype} -p 200 %{selinuxmodulename}
+fi
+
+%posttrans
+%selinux_relabel_post -s %{selinuxtype} &> /dev/null
+
 %changelog
+* Thu Mar 06 2025 Dan Fruehauf <malkodan@gmail.com> - 1.2.14-1
+- Selinux policy
+
 * Fri Feb 28 2025 Dan Fruehauf <malkodan@gmail.com> - 1.2.13-5
 - GTK3/GTK4 adjustments
 

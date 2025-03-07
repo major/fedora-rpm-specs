@@ -6,7 +6,7 @@ Release:        %autorelease
 Summary:        Turns dates in to human readable format, e.g '3 minutes ago'
 
 License:        MIT
-URL:            https://github.com/jmoiron/humanize
+URL:            https://github.com/python-humanize/humanize
 Source0:        %{pypi_source humanize}
 
 BuildArch:      noarch

@@ -16,7 +16,7 @@
 
 Name:           mingw-openssl
 Version:        3.2.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MinGW port of the OpenSSL toolkit
 
 License:        OpenSSL
@@ -102,7 +102,7 @@ Patch74:  0074-FIPS-Use-digest_sign-digest_verify-in-self-test.patch
 Patch75:  0075-FIPS-Use-FFDHE2048-in-self-test.patch
 # Downstream only. Reseed DRBG using getrandom(GRND_RANDOM)
 # https://bugzilla.redhat.com/show_bug.cgi?id=2102541
-Patch76:  0076-FIPS-140-3-DRBG.patch
+#Patch76:  0076-FIPS-140-3-DRBG.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2102542
 Patch77:  0077-FIPS-140-3-zeroization.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2114772
@@ -565,6 +565,10 @@ mkdir -m700 %{buildroot}%{ucrt64_sysconfdir}/pki/CA/private
 
 
 %changelog
+* Wed Mar 05 2025 Richard W.M. Jones <rjones@redhat.com> - 3.2.4-2
+- Remove downstream 0076-FIPS-140-3-DRBG.patch which breaks Windows
+  (RHBZ#2349935, RHBZ#2341677)
+
 * Wed Feb 12 2025 Sandro Mani <manisandro@gmail.com> - 3.2.4-1
 - Update to 3.2.4
 

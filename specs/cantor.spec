@@ -25,7 +25,7 @@
 Name:    cantor
 Summary: KDE Frontend to Mathematical Software
 Version: 24.12.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://apps.kde.org/cantor/
@@ -174,7 +174,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %files -f %{name}.lang
 %doc README*
 %license LICENSES/*
-%{_kf6_bindir}/cantor*
+%{_kf6_bindir}/cantor
+%{_kf6_bindir}/cantor_pythonserver
+%{_kf6_bindir}/cantor_scripteditor
 %{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 %{_kf6_datadir}/applications/org.kde.%{name}.desktop
 %{_kf6_datadir}/knsrcfiles/cantor.knsrc
@@ -207,6 +209,7 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 %if 0%{?julia}
 %files julia
+%{_kf6_bindir}/cantor_juliaserver
 # %{_kf6_datadir}/cantor/julia/
 # %{_kf6_datadir}/cantor/juliabackend/
 %{_kf6_qtplugindir}/cantor_plugins/backends/cantor_juliabackend.so
@@ -261,6 +264,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Wed Mar 05 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 24.12.3-2
+- Fix duplicate packaging
+
 * Tue Mar 04 2025 Steve Cossette <farchord@gmail.com> - 24.12.3-1
 - 24.12.3
 

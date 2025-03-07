@@ -24,7 +24,7 @@ BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
 BuildRequires:  mvn(org.mockito:mockito-core)
 %endif
 # TODO Remove in Fedora 46
-Obsoletes:      %{name}-javadoc < 2.16.1-13
+Obsoletes:      %{name}-javadoc < 1:2.16.1-13
 
 %description
 Commons-IO contains utility classes, stream implementations,

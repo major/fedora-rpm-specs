@@ -103,8 +103,8 @@ This package provides the edac-util command-line tool.
 Summary:        Script to load EDAC driver and register DIMM labels
 
 # Require dmidecode where it is available. Architecture list from
-# ExclusiveArch in dmidecode.spec; updated 2021-12-06.
-%ifarch %{ix86} x86_64 ia64 aarch64
+# ExclusiveArch in dmidecode.spec; updated 2025-03-05.
+%ifarch %{ix86} x86_64 ia64 aarch64 riscv64
 Requires:       dmidecode
 %endif
 Requires:       hwdata

@@ -39,12 +39,11 @@
 %{?static_openssl:%global static_libcrypto 1}
 
 %global openssh_ver 9.9p1
-%global openssh_rel 10
 
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: %{openssh_rel}%{?dist}
+Release: 11%{?dist}
 URL: http://www.openssh.com/portable.html
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz.asc
@@ -204,6 +203,8 @@ Patch1020: openssh-9.9p1-match-regression.patch
 # upstream 0832aac79517611dd4de93ad0a83577994d9c907
 # added https://www.openwall.com/lists/oss-security/2025/02/22/1
 Patch1021: openssh-9.9p2-error_processing.patch
+# Downstream patch, OpenSSL based MLKEM implementation
+Patch1022: openssh-9.9p1-openssl-mlkem.patch
 
 License: BSD-3-Clause AND BSD-2-Clause AND ISC AND SSH-OpenSSH AND ssh-keyscan AND sprintf AND LicenseRef-Fedora-Public-Domain AND X11-distribute-modifications-variant
 Requires: /sbin/nologin
@@ -229,6 +230,7 @@ BuildRequires: gcc make
 BuildRequires: p11-kit-devel
 BuildRequires: libfido2-devel
 BuildRequires: libxcrypt-devel
+BuildRequires: oqsprovider
 Recommends: p11-kit
 Obsoletes: openssh-ldap < 8.3p1-4
 Obsoletes: openssh-cavs < 8.4p1-5
@@ -389,6 +391,7 @@ gpgv2 --quiet --keyring %{SOURCE3} %{SOURCE1} %{SOURCE0}
 %patch -P 1017 -p1 -b .mlkembe
 %patch -P 1020 -p1 -b .match
 %patch -P 1021 -p1 -b .errcode_set
+%patch -P 1022 -p1 -b .openssl-mlkem
 
 %patch -P 100 -p1 -b .coverity
 
@@ -486,7 +489,8 @@ popd
 %endif
 
 %check
-OPENSSL_CONF=/dev/null %{SOURCE22} %{SOURCE23}  # ./parallel_tests.sh parallel_tests.Makefile
+%{SOURCE22} %{SOURCE23}  # ./parallel_tests.sh parallel_tests.Makefile
+#make tests
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -667,7 +671,10 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
-* Tue Feb 25 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.9p1-9.1
+* Wed Mar 05 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.9p1-11
+- Use OpenSSL ML-KEM implementation instead of the native one
+
+* Tue Feb 25 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.9p1-10
 - Some minor fixes from Rocky Linux
   https://www.openwall.com/lists/oss-security/2025/02/22/1
 

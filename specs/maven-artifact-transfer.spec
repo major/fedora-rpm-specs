@@ -38,7 +38,7 @@ BuildRequires:  mvn(org.mockito:mockito-core)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
 %endif
 # TODO Remove in Fedora 46
-Obsoletes:      %{name}-javadoc < 0.13.1-34
+Obsoletes:      %{name}-javadoc < 1:0.13.1-34
 
 %description
 An API to either install or deploy artifacts with Maven 3.

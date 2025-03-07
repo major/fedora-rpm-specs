@@ -21,22 +21,14 @@
 %global udisks2_version 1.97
 
 Name:    gvfs
-Version: 1.56.1
-Release: 6%{?dist}
+Version: 1.57.2
+Release: 1%{?dist}
 Summary: Backends for the gio framework in GLib
 
 License: LGPL-2.0-or-later AND GPL-3.0-only AND MPL-2.0 AND BSD-3-Clause-Sun
 
 URL:     https://wiki.gnome.org/Projects/gvfs
-Source0: https://download.gnome.org/sources/gvfs/1.56/gvfs-%{version}.tar.xz
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2344605
-Patch: onedrive-Use-presentation-id-as-host-user.patch
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2341788
-Patch: nfs-Fail-append-with-G_IO_ERROR_IS_DIRECTORY-when-di.patch
-Patch: nfs-Set-intitial_offset-when-appending.patch
-Patch: nfs-Support-libnfs-6-backport-to-1.56.patch
+Source0: https://download.gnome.org/sources/gvfs/1.57/gvfs-%{version}.tar.xz
 
 BuildRequires: meson
 BuildRequires: gcc
@@ -63,6 +55,7 @@ BuildRequires: pkgconfig(libxslt)
 BuildRequires: docbook-style-xsl
 BuildRequires: pkgconfig(polkit-gobject-1)
 BuildRequires: pkgconfig(libcap)
+BuildRequires: pkgconfig(msgraph-1)
 
 Requires: %{name}-client%{?_isa} = %{version}-%{release}
 Requires: glib2%{?_isa} >= %{glib2_version}
@@ -438,6 +431,9 @@ killall -USR1 gvfsd >&/dev/null || :
 
 
 %changelog
+* Wed Mar 05 2025 nmontero <nmontero@redhat.com> - 1.57.2-1
+- Update to 1.57.2
+
 * Mon Feb 17 2025 Ondrej Holy <oholy@redhat.com> - 1.56.1-6
 - Add support for libnfs 6 (#2344605)
 

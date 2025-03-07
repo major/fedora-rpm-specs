@@ -1,6 +1,6 @@
 Name:           mokutil
 Version:        0.7.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Epoch:          2
 Summary:        Tool to manage UEFI Secure Boot MoK Keys
 License:        GPL-3.0-or-later
@@ -48,6 +48,10 @@ mokutil provides a tool to manage keys for Secure Boot through the MoK
 %{_datadir}/bash-completion/completions/mokutil
 
 %changelog
+* Tue Mar 04 2025 Nicolas Frayer <nfrayer@redhat.com> 0.7.1-5
+- mokutil: remove unused int_to_b64()
+- Resolves: #2340875
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org>
 - Add explicit BR: libxcrypt-devel
 

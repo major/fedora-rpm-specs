@@ -3,19 +3,26 @@
 
 Name:           %{pypi_name}
 Version:        1.2.2
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Convert RPM specfiles to be SCL ready
 
 License:        MIT
 URL:            https://github.com/sclorg/spec2scl
 Source0:        %{pypi_source}
+
+# Drop pytest-runner and "setup.py test" support
+# https://github.com/sclorg/spec2scl/pull/40
+# https://fedoraproject.org/wiki/Changes/DeprecatePythonPytestRunner
+# This version omits changes to tox.ini, since it is not included in the sdist.
+Patch:          spec2scl-1.2.2-no-pytest-runner.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist setuptools}
 BuildRequires:  %{py3_dist flexmock} >= 0.9.3
 BuildRequires:  %{py3_dist jinja2}
-BuildRequires:  %{py3_dist pytest pytest-runner}
+BuildRequires:  %{py3_dist pytest}
 %{?python_enable_dependency_generator}
 
 %description
@@ -23,7 +30,7 @@ spec2scl is a tool to convert RPM specfiles to SCL-style specfiles.
 
 
 %prep
-%setup -q -n %{pypi_name}-%{version}
+%autosetup -p1 -n %{pypi_name}-%{version}
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
 
@@ -36,7 +43,7 @@ install -D -m 644 spec2scl.1 %{buildroot}%{_mandir}/man1/spec2scl.1
 
 %check
 %if 0%{?fedora}
-PYTHONPATH=$(pwd) py.test-%{python3_version}
+%pytest
 %endif
 
 %files
@@ -48,6 +55,9 @@ PYTHONPATH=$(pwd) py.test-%{python3_version}
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Mar 05 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1.2.2-20
+- Drop pytest-runner and "setup.py test" support
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

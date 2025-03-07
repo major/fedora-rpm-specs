@@ -1,9 +1,9 @@
-%global maj_ver 19
+%global maj_ver 20
 %global min_ver 1
-%global patch_ver 7
-#global rc_ver 4
+%global patch_ver 0
+#global rc_ver 3
 %global flang_version %{maj_ver}.%{min_ver}.%{patch_ver}
-%global flang_srcdir flang-%{flang_version}%{?rc_ver:-rc%{rc_ver}}.src
+%global srcdir llvm-project-%{flang_version}%{?rc_ver:-rc%{rc_ver}}.src
 %global toolchain clang
 
 # Opt out of https://fedoraproject.org/wiki/Changes/fno-omit-frame-pointer
@@ -17,14 +17,9 @@ Summary: a Fortran language front-end designed for integration with LLVM
 
 License: Apache-2.0 WITH LLVM-exception
 URL:     https://flang.llvm.org
-Source0: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{flang_version}%{?rc_ver:-rc%{rc_ver}}/%{flang_srcdir}.tar.xz
-Source1: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{flang_version}%{?rc_ver:-rc%{rc_ver}}/%{flang_srcdir}.tar.xz.sig
+Source0: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{flang_version}%{?rc_ver:-rc%{rc_ver}}/%{srcdir}.tar.xz
+Source1: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{flang_version}%{?rc_ver:-rc%{rc_ver}}/%{srcdir}.tar.xz.sig
 Source2: release-keys.asc
-
-# flang depends on one internal clang tablegen file for documentation generation.
-Source3: https://raw.githubusercontent.com/llvm/llvm-project/llvmorg-%{flang_version}%{?rc_ver:-rc%{rc_ver}}/clang/include/clang/Driver/Options.td
-
-Source4: https://raw.githubusercontent.com/llvm/llvm-project/llvmorg-%{flang_version}%{?rc_ver:-rc%{rc_ver}}/mlir/test/lib/Analysis/TestAliasAnalysis.h
 
 Source8: omp_lib.h
 Source9: omp_lib.F90
@@ -143,20 +138,14 @@ Flang runtime libraries.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -n %{flang_srcdir} -p2
-# Copy Options.td for docs generation
-mkdir -p ../clang/include/clang/Driver
-cp %{SOURCE3} ../clang/include/clang/Driver
+%autosetup -n %{srcdir} -p1
 
-mkdir -p include/mlir/test/lib/Analysis/
-cp %{SOURCE4} include/mlir/test/lib/Analysis/
-
-
-mkdir -p redhat-linux-build/projects/openmp/runtime/src/
-cp %{SOURCE8} redhat-linux-build/projects/openmp/runtime/src/
-cp %{SOURCE9} redhat-linux-build/projects/openmp/runtime/src/
+mkdir -p flang/redhat-linux-build/projects/openmp/runtime/src/
+cp %{SOURCE8} flang/redhat-linux-build/projects/openmp/runtime/src/
+cp %{SOURCE9} flang/redhat-linux-build/projects/openmp/runtime/src/
 
 %build
+cd flang
 %cmake -GNinja \
        -DLLVM_TOOL_OPENMP_BUILD:BOOL=ON \
        -DMLIR_TABLEGEN_EXE=%{_bindir}/mlir-tblgen \
@@ -167,13 +156,11 @@ cp %{SOURCE9} redhat-linux-build/projects/openmp/runtime/src/
        -DCLANG_DIR=%{_libdir}/cmake/clang \
        -DCLANG_LINK_CLANG_DYLIB:BOOL=ON \
        -DCLANG_RESOURCE_DIR=../../%{clang_resource_dir} \
-       -DLLVM_MAIN_SRC_DIR=%{_datadir}/llvm/src \
        -DBUILD_SHARED_LIBS:BOOL=ON \
        -DLLVM_LINK_LLVM_DYLIB:BOOL=ON \
        -DLLVM_EXTERNAL_LIT=%{_bindir}/lit \
-       -DLLVM_THIRD_PARTY_DIR=%{_datadir}/llvm/src/utils \
        -DCMAKE_PREFIX_PATH=%{_libdir}/cmake/llvm/ \
-       -DLLVM_COMMON_CMAKE_UTILS=%{_datadir}/llvm/cmake \
+       -DMLIR_LINK_MLIR_DYLIB:BOOL=ON \
 \
        -DFLANG_INCLUDE_DOCS:BOOL=ON \
        -DLLVM_ENABLE_SPHINX:BOOL=ON \
@@ -195,12 +182,13 @@ sed -i -e 's/-g /-g1 /g' %{__cmake_builddir}/build.ninja
 sed -i -e 's/-g /-g0 /g' -e 's/-O2/-O1/g' %{__cmake_builddir}/build.ninja
 %endif
 
-export LD_LIBRARY_PATH=%{_builddir}/%{flang_srcdir}/%{_build}/lib
+export LD_LIBRARY_PATH=%{_builddir}/%{srcdir}/flang/%{_build}/lib
 %cmake_build
 %cmake_build --target docs-flang-html
 
 
 %install
+cd flang
 %cmake_install
 
 # Remove unnecessary files.
@@ -210,16 +198,21 @@ rm -f %{buildroot}/%{_libdir}/libFIRAnalysis.so \
       %{buildroot}/%{_libdir}/libFIRCodeGen.so \
       %{buildroot}/%{_libdir}/libFIRDialect.so \
       %{buildroot}/%{_libdir}/libFIRDialectSupport.so \
+      %{buildroot}/%{_libdir}/libFIROpenACCSupport.so \
       %{buildroot}/%{_libdir}/libFIRSupport.so \
       %{buildroot}/%{_libdir}/libFIRTestAnalysis.so \
+      %{buildroot}/%{_libdir}/libFIRTestOpenACCInterfaces.so \
       %{buildroot}/%{_libdir}/libFIRTransforms.so \
       %{buildroot}/%{_libdir}/libflangFrontend.so \
       %{buildroot}/%{_libdir}/libflangFrontendTool.so \
+      %{buildroot}/%{_libdir}/libflangPasses.so \
+      %{buildroot}/%{_libdir}/libFlangOpenMPTransforms.so \
       %{buildroot}/%{_libdir}/libFortranCommon.so \
       %{buildroot}/%{_libdir}/libFortranEvaluate.so \
       %{buildroot}/%{_libdir}/libFortranLower.so \
       %{buildroot}/%{_libdir}/libFortranParser.so \
       %{buildroot}/%{_libdir}/libFortranSemantics.so \
+      %{buildroot}/%{_libdir}/libFortranSupport.so \
       %{buildroot}/%{_libdir}/libHLFIRDialect.so \
       %{buildroot}/%{_libdir}/libHLFIRTransforms.so
 find %{buildroot}/%{_includedir}/flang -type f -a ! -iname '*.mod' -delete
@@ -231,6 +224,8 @@ install -d %{buildroot}%{_pkgdocdir}/html
 cp -r %{_vpath_builddir}/docs/html/* %{buildroot}%{_pkgdocdir}/html/
 
 %check
+
+cd flang
 
 %ifarch s390x
 rm test/Evaluate/folding07.f90
@@ -253,12 +248,10 @@ rm -f test/Semantics/spec-expr.f90
 rm -f test/Evaluate/folding19.f90
 %endif
 
-# Remove failing tests
-rm -rf test/Driver/frontend-forwarding.f90
-rm -rf test/Driver/arch-specific-libdir-rpath.f95
+# https://github.com/llvm/llvm-project/issues/126051
 rm -rf test/Driver/linker-flags.f90
 
-export LD_LIBRARY_PATH=%{_builddir}/%{flang_srcdir}/%{_vpath_builddir}/lib
+export LD_LIBRARY_PATH=%{_builddir}/%{srcdir}/flang/%{_vpath_builddir}/lib
 %cmake_build --target check-flang 
 
 %files
@@ -266,8 +259,12 @@ export LD_LIBRARY_PATH=%{_builddir}/%{flang_srcdir}/%{_vpath_builddir}/lib
 %{_bindir}/tco
 %{_bindir}/bbc
 %{_bindir}/fir-opt
+%{_bindir}/fir-lsp-server
+%{_bindir}/flang
+%{_bindir}/flang-%{maj_ver}
 %{_bindir}/flang-new
 %{_includedir}/flang/__cuda_builtins.mod
+%{_includedir}/flang/__cuda_device.mod
 %{_includedir}/flang/__fortran_builtins.mod
 %{_includedir}/flang/__fortran_ieee_exceptions.mod
 %{_includedir}/flang/__fortran_type_info.mod
@@ -291,11 +288,15 @@ export LD_LIBRARY_PATH=%{_builddir}/%{flang_srcdir}/%{_vpath_builddir}/lib
 %{_libdir}/libFIRCodeGen.so.%{maj_ver}.%{min_ver}
 %{_libdir}/libFIRDialect.so.%{maj_ver}.%{min_ver}
 %{_libdir}/libFIRDialectSupport.so.%{maj_ver}.%{min_ver}
+%{_libdir}/libFIROpenACCSupport.so.%{maj_ver}.%{min_ver}
 %{_libdir}/libFIRSupport.so.%{maj_ver}.%{min_ver}
 %{_libdir}/libFIRTestAnalysis.so.%{maj_ver}.%{min_ver}
+%{_libdir}/libFIRTestOpenACCInterfaces.so.%{maj_ver}.%{min_ver}
 %{_libdir}/libFIRTransforms.so.%{maj_ver}.%{min_ver}
 %{_libdir}/libflangFrontend.so.%{maj_ver}.%{min_ver}*
 %{_libdir}/libflangFrontendTool.so.%{maj_ver}.%{min_ver}*
+%{_libdir}/libflangPasses.so.%{maj_ver}.%{min_ver}*
+%{_libdir}/libFlangOpenMPTransforms.so.%{maj_ver}.%{min_ver}*
 %{_libdir}/libFortranCommon.so.%{maj_ver}.%{min_ver}*
 %{_libdir}/libFortranDecimal.so
 %{_libdir}/libFortranEvaluate.so.%{maj_ver}.%{min_ver}*
@@ -303,6 +304,7 @@ export LD_LIBRARY_PATH=%{_builddir}/%{flang_srcdir}/%{_vpath_builddir}/lib
 %{_libdir}/libFortranParser.so.%{maj_ver}.%{min_ver}*
 %{_libdir}/libFortranRuntime.so
 %{_libdir}/libFortranSemantics.so.%{maj_ver}.%{min_ver}*
+%{_libdir}/libFortranSupport.so.%{maj_ver}.%{min_ver}*
 %{_libdir}/libHLFIRDialect.so.%{maj_ver}.%{min_ver}
 %{_libdir}/libHLFIRTransforms.so.%{maj_ver}.%{min_ver}
 %{_libdir}/libCUFAttrs.so
@@ -321,6 +323,9 @@ export LD_LIBRARY_PATH=%{_builddir}/%{flang_srcdir}/%{_vpath_builddir}/lib
 %{_libdir}/libFortranRuntime.so.%{maj_ver}.%{min_ver}*
 
 %changelog
+* Wed Mar 05 2025 Nikita Popov <npopov@redhat.com> - 20.1.0-1
+- Update to LLVM 20.1.0
+
 * Tue Jan 21 2025 Timm Bäder <tbaeder@redhat.com> - 19.1.7-1
 - Update to 19.1.7
 

@@ -40,16 +40,7 @@ BuildRequires:  mvn(org.slf4j:jcl-over-slf4j:2.0.16)
 BuildRequires:  mvn(org.slf4j:slf4j-api:2.0.16)
 %endif
 # TODO Remove in Fedora 46
-Obsoletes:      %{name}-javadoc < 2.0.5-5
-Provides:       maven-resolver-api = %{epoch}:%{version}-%{release}
-Provides:       maven-resolver-connector-basic = %{epoch}:%{version}-%{release}
-Provides:       maven-resolver-impl = %{epoch}:%{version}-%{release}
-Provides:       maven-resolver-spi = %{epoch}:%{version}-%{release}
-Provides:       maven-resolver-transport-classpath = %{epoch}:%{version}-%{release}
-Provides:       maven-resolver-transport-file = %{epoch}:%{version}-%{release}
-Provides:       maven-resolver-transport-http = %{epoch}:%{version}-%{release}
-Provides:       maven-resolver-transport-wagon = %{epoch}:%{version}-%{release}
-Provides:       maven-resolver-util = %{epoch}:%{version}-%{release}
+Obsoletes:      %{name}-javadoc < 1:2.0.5-5
 
 %description
 Apache Maven Artifact Resolver is a library for working with artifact

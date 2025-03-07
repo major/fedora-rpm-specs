@@ -40,6 +40,9 @@ Patch:          %{url}/pull/817.patch
 # Convert words.txt from ISO-8859-1 to UTF-8
 # https://github.com/amrayn/easyloggingpp/pull/818
 Patch:          %{url}/pull/818.patch
+# Update minimum CMake version to 3.12; support CMake 4.0
+# https://github.com/abumq/easyloggingpp/pull/863
+Patch:          %{url}/pull/863.patch
 
 # No compiled code is installed, so there are no debugging symbols.
 %global debug_package %{nil}

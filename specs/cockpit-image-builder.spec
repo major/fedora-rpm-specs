@@ -1,5 +1,5 @@
 Name:           cockpit-image-builder
-Version:        60
+Version:        62
 Release:        1%{?dist}
 Summary:        Image builder plugin for Cockpit
 
@@ -48,6 +48,41 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %changelog
 # the changelog is distribution-specific, therefore there's just one entry
 # to make rpmlint happy.
+
+* Wed Mar 5 2025 Packit <hello@packit.dev> - 62-1
+Changes with 62
+----------------
+  * Blueprints: Import Blueprint modal error rendering (HMS-5528) (#2918)
+    * Author: Katarína Sieklová, Reviewers: Klara Simickova
+  * Blueprints: invalid message variant on upload (HMS-5555) (#2931)
+    * Author: Katarína Sieklová, Reviewers: Klara Simickova
+  * Fix trigger-gitlab workflow (#2930)
+    * Author: Sanne Raymaekers, Reviewers: Gianluca Zuccarelli
+  * Update Konflux references (#2951)
+    * Author: red-hat-konflux[bot], Reviewers: Klara Simickova
+  * Wizard: Remove first boot script from services when no script (HMS-5481) (#2871)
+    * Author: Klara Simickova, Reviewers: Lucas Garfield
+  * Wizard: fix indentation of manual file system config (HMS-5564) (#2943)
+    * Author: Katarína Sieklová, Reviewers: Klara Simickova
+  * build(deps): bump @sentry/webpack-plugin from 3.1.2 to 3.2.0 (HMS-5543) (#2920)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps): bump @unleash/proxy-client-react from 4.5.1 to 4.5.2 (#2933)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump @typescript-eslint/eslint-plugin from 8.24.0 to 8.24.1 (HMS-5546) (#2926)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump @typescript-eslint/eslint-plugin from 8.24.1 to 8.26.0 (#2962)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump @typescript-eslint/parser from 8.24.0 to 8.24.1 (HMS-5544) (#2921)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump @typescript-eslint/parser from 8.24.1 to 8.25.0 (#2945)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump uuid from 11.0.5 to 11.1.0 (#2939)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * deps: Bump @redhat-cloud-services/frontend-components from 4.2.22 to 5.2.6 (HMS-5495) (#2890)
+    * Author: Klara Simickova, Reviewers: Florian Schüller
+
+— Somewhere on the Internet, 2025-03-05
+
 
 * Tue Feb 11 2025 Packit <hello@packit.dev> - 60-1
 Changes with 60

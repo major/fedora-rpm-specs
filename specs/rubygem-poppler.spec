@@ -10,12 +10,16 @@
 Summary:	Ruby binding of poppler-glib
 Name:		rubygem-%{gem_name}
 Version:	4.2.7
-Release:	1%{?dist}
+Release:	2%{?dist}
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
 License:	LGPL-2.1-or-later
 URL:		http://ruby-gnome2.sourceforge.jp/
 Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
+# https://github.com/ruby-gnome/ruby-gnome/issues/1666
+# https://github.com/ruby-gnome/ruby-gnome/commit/b5509451eba560bbd4a19369140c80d9fd4701de
+# https://github.com/ruby-gnome/ruby-gnome/commit/b69f93c57a9639bcc8fc07bdc0dc93481e6d1436
+Patch0:	rubygem-poppler-GH1666-poppler-25_02_00-support-new-flag.patch
 
 Requires:	ruby(release)
 BuildRequires:	ruby(release)
@@ -67,6 +71,8 @@ rubygem-%{gem_name}
 %prep
 %setup -q -n %{gem_name}-%{version}
 mv ../%{gem_name}-%{version}.gemspec .
+
+%patch -P0 -p2
 
 # Kill shebang
 grep -rl '#!.*/usr/bin' sample | \
@@ -120,7 +126,11 @@ sed -i test/run-test.rb \
 	-e '\@exit Test::Unit::AutoRunner@s|,[ \t]*File\.join(.*"test")||'
 sed -i test/run-test.rb \
 	-e '\@run-test@s|require_relative "../../|require "|'
-ruby -Ilib:test:ext/%{gem_name} ./test/run-test.rb
+
+export RUBYLIB=$(pwd)/lib:$(pwd)/test:$(pwd)/ext/%{gem_name}
+ruby ./test/run-test.rb
+
+#ruby -Ilib:test:ext/%{gem_name} ./test/run-test.rb
 popd
 
 %files
@@ -142,6 +152,9 @@ popd
 %{gem_instdir}/sample/
 
 %changelog
+* Wed Mar 05 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.7-2
+- Apply upstream patch to support poppler 25_02 new enum
+
 * Thu Jan 30 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.7-1
 - 4.2.7
 

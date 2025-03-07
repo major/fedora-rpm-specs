@@ -28,7 +28,7 @@ available in the repository.}
 
 Name:       fedora-obsolete-packages
 # Please keep the version equal to the targeted Fedora release
-Version:    42
+Version:    43
 # The dist number is the version here, it is intentionally not repeated in the release
 %global dist %nil
 Release:    %autorelease
@@ -169,6 +169,15 @@ Source0:    README
 %obsolete celestia-gtk 1.7.0~320231229.git6899839-6
 %obsolete celestia-qt 1.7.0~320231229.git6899839-6
 %obsolete celestia-data 1.7.0~320231125.gitdb53ae3-4
+
+# Remove in F44
+%obsolete_ticket https://src.fedoraproject.org/rpms/workrave/c/630c7e05debe7e25e0ef3e00b060ca7da021db25?branch=rawhide
+%obsolete workrave 1.11.0~beta.13-3
+%obsolete workrave-cinnamon 1.11.0~beta.13-3
+%obsolete workrave-gnome 1.11.0~beta.13-3
+%obsolete workrave-gnome-flashback 1.11.0~beta.13-3
+%obsolete workrave-mate 1.11.0~beta.13-3
+%obsolete workrave-xfce 1.11.0~beta.13-3
 
 # Remove in F43
 %obsolete_ticket https://src.fedoraproject.org/rpms/libomxil-bellagio/c/3684f6e28
@@ -486,6 +495,13 @@ Source0:    README
 %obsolete tmt-report-polarion 1.27.0-2
 %obsolete tmt-report-reportportal 1.27.0-2
 %obsolete woffTools 0.1-0.40
+
+%obsolete_ticket https://src.fedoraproject.org/rpms/writer2latex/c/74f42c8fcd2009bc23b2d0ff7005dda9afa50027
+%obsolete libreoffice-writer2latex 1.0.2-41
+
+%obsolete_ticket https://src.fedoraproject.org/rpms/torque/c/5f8d64fc9a899f4b94e63685a29f4cc95ef2f829
+%obsolete torque 6.1.3-14
+%obsolete torque-libs 6.1.3-14
 
 # This package won't be installed, but will obsolete other packages
 Provides: libsolv-self-destruct-pkg()

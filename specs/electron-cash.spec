@@ -1,6 +1,6 @@
 Name:           electron-cash
 Version:        4.4.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A lightweight Bitcoin Cash client
 
 License:        MIT
@@ -40,7 +40,7 @@ Requires:       python3-psutil
 Requires:       python3-cryptography
 Requires:       python3-zxing-cpp >= 2.0.0
 
-Requires:       libsecp256k1
+Recommends:     libsecp256k1-abc
 Requires:       zbar
 Requires:       tor
 
@@ -116,6 +116,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.elect
 %{python3_sitelib}/Electron_Cash-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Mar 05 2025 Jonny Heggheim <hegjon@gmail.com> - 4.4.2-4
+- Recommends libsecp256k1-abc instead of require libsecp256k1
+
 * Sun Feb 23 2025 Jonny Heggheim <hegjon@gmail.com> - 4.4.2-3
 - Re-compile the protobuf description files
 

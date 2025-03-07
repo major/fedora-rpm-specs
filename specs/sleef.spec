@@ -50,7 +50,7 @@ BuildRequires:  pkgconfig(fftw3)
 
 # See https://sleef.org/additional.xhtml#gnuabi. The gnuabi version of the
 # library only applies to these architectures.
-%global gnuabi_arches %{ix86} x86_64 aarch64
+%global gnuabi_arches %{ix86} %{x86_64} %{arm64}
 # See https://github.com/shibatch/sleef/pull/283.
 %if %{with static}
 %global inline_enabled 1
@@ -202,7 +202,7 @@ developing applications that use sleef-quad.
 %check
 skips='^($.'
 
-%ifarch aarch64
+%ifarch %{arm64}
 # Some tests are specifically for SVE code. We can only run these tests on
 # builder hardware that has the SVE extensions, which are not part of the
 # aarch64 baseline.

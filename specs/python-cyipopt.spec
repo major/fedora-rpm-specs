@@ -136,7 +136,7 @@ PYTHONPATH="${BLIB}" %make_build -C docs latex \
 
 
 %check
-%ifarch ppc64le s390x
+%ifarch %{power64} s390x
 # Arch-dependent failures of test_minimize_ipopt_jac_with_scipy_methods[cobyla]
 # https://github.com/mechmotum/cyipopt/issues/237
 k="${k-}${k+ and }not test_minimize_ipopt_jac_with_scipy_methods[cobyla]"

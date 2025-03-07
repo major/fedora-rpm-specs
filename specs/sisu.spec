@@ -44,7 +44,7 @@ BuildRequires:  mvn(org.sonatype.plexus:plexus-build-api)
 BuildRequires:  mvn(org.testng:testng)
 %endif
 # TODO Remove in Fedora 46
-Obsoletes:      %{name}-javadoc < 0.9.0~M3-14
+Obsoletes:      %{name}-javadoc < 1:0.9.0~M3-14
 Provides:       %{name}-inject = %{epoch}:%{version}-%{release}
 Provides:       %{name}-plexus = %{epoch}:%{version}-%{release}
 Provides:       bundled(objectweb-asm)
@@ -56,7 +56,7 @@ style dependency injection.
 %package maven-plugin
 Summary:        Sisu plugin for Apache Maven
 # Remove in Fedora 45
-Obsoletes:      sisu-mojos < 0.9.0~M3
+Obsoletes:      sisu-mojos < 1:0.9.0~M3
 
 %description maven-plugin
 The Sisu Plugin for Maven provides mojos to generate

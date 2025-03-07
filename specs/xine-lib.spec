@@ -19,10 +19,6 @@
     %global     have_vidix  0
 %endif
 
-%if 0%{fedora} >= 41 || 0%{?rhel}
-%global _without_w32dll 1
-%endif
-
 #global         snapshot    1
 %global         date        20250206
 %global         revision    15304
@@ -30,7 +26,7 @@
 Summary:        A multimedia engine
 Name:           xine-lib
 Version:        1.2.13
-Release:        21%{?snapshot:.%{date}hg%{revision}}%{?dist}
+Release:        22%{?snapshot:.%{date}hg%{revision}}%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://www.xine-project.org/
 %if ! 0%{?snapshot}
@@ -56,6 +52,8 @@ Patch4:         xine-lib-1.2.13-fix_libnfs6.patch
 # https://sourceforge.net/p/xine/xine-lib-1.2/ci/a38be398e202da7b8e414969b74fbd65eb34798d/
 # https://sourceforge.net/p/xine/xine-lib-1.2/ci/b5fd08a878bb80072ba5b71e30391ab52698c22f/
 Patch5:         xine-lib-1.2.13-gcc_15.patch
+# https://sourceforge.net/p/xine/xine-lib-1.2/ci/5a68e8b08fd5378780f76c3ab957d790209388db/
+Patch6:         xine-lib-1.2.13-gcc_15-w32dll.patch
 
 Provides:       xine-lib(plugin-abi) = %{plugin_abi}
 Provides:       xine-lib(plugin-abi)%{?_isa} = %{plugin_abi}
@@ -362,6 +360,9 @@ mkdir -p %{buildroot}%{codecdir}
 
 
 %changelog
+* Wed Mar 05 2025 Xavier Bachelot <xavier@bachelot.org>- 1.2.13-22
+- Add upstream patch to fix win32dll build with gcc15
+
 * Fri Feb 07 2025 Xavier Bachelot <xavier@bachelot.org>- 1.2.13-21
 - Add upstream patch for gcc 15
 - Disable w32dll for F42+

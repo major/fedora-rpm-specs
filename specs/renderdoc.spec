@@ -1,7 +1,7 @@
 %global vswig   modified-7
 Name:           renderdoc
 Version:        1.35
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A stand-alone graphics debugging tool
 
 License:        MIT
@@ -10,6 +10,7 @@ Source0:        https://github.com/baldurk/renderdoc/archive/v%{version}/%{name}
 Source1:        https://github.com/baldurk/swig/archive/renderdoc-%{vswig}/swig-%{vswig}.tar.gz
 Patch0:         renderdoc-swig-pcre2-1.patch
 Patch1:         renderdoc-swig-pcre2-2.patch
+Patch2:         renderdoc-1.35-gcc15.patch
 
 # renderdoc is officially only supported on x86_64.
 # however, it also builds on aarch64
@@ -58,6 +59,7 @@ renderdoc.
 %setup -q -b 1
 %patch -p1 -d %{_builddir}/swig-renderdoc-%{vswig} 0
 %patch -p1 -d %{_builddir}/swig-renderdoc-%{vswig} 1
+%patch -p1 2
 
 %build
 # renderdoc does not allow in-source builds. out-of-source builds
@@ -114,6 +116,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Wed Mar 05 2025 kb1000 <fedora@kb1000.de> - 1.35-3
+- Fix compilation against GCC 15 (#2341279)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.35-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,8 @@
+%global with_test_subpackage 1
+
 Name:           sblim-cmpi-base
 Version:        1.6.4
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        SBLIM CMPI Base Providers
 
 License:        EPL-1.0
@@ -47,6 +49,7 @@ SBLIM (Standards Based Linux Instrumentation for Manageability)
 CMPI (Common Manageability Programming Interface) Base Provider
 development header files and link libraries.
 
+%if 0%{?with_test_subpackage}
 %package test
 Summary:        SBLIM CMPI Base Providers Test Cases
 Requires:       %{name} = %{version}-%{release}
@@ -56,6 +59,7 @@ Requires:       sblim-testsuite
 SBLIM (Standards Based Linux Instrumentation for Manageability)
 CMPI (Common Manageability Programming Interface) Base Provider
 Testcase Files for the SBLIM Testsuite.
+%endif
 
 %prep
 %setup -q
@@ -73,7 +77,11 @@ autoreconf --install --force
 %patch -P10 -p1 -b .gcc15-fixes
 
 %build
-%configure TESTSUITEDIR=%{_datadir}/sblim-testsuite --disable-static
+%configure \
+%if 0%{?with_test_subpackage}
+        TESTSUITEDIR=%{_datadir}/sblim-testsuite \
+%endif
+        --disable-static
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 make
@@ -97,6 +105,7 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/cmpi/*a
 %{_includedir}/*
 %{_libdir}/*.so
 
+%if 0%{?with_test_subpackage}
 %files test
 %dir %{_datadir}/sblim-testsuite/cim
 %dir %{_datadir}/sblim-testsuite/system
@@ -106,6 +115,7 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/cmpi/*a
 %{_datadir}/sblim-testsuite/system/linux/*.system
 %{_datadir}/sblim-testsuite/system/linux/*.sh
 %{_datadir}/sblim-testsuite/system/linux/*.pl
+%endif
 
 %global SCHEMA %{_datadir}/%{name}/Linux_Base.mof %{_datadir}/%{name}/Linux_BaseIndication.mof
 
@@ -123,6 +133,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/cmpi/*a
 %postun -p /sbin/ldconfig
 
 %changelog
+* Wed Mar 05 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.6.4-29
+- Make test subpackage optional
+
 * Tue Jan 21 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.6.4-28
 - Fix FTBFS with GCC 15
 

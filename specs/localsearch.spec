@@ -8,11 +8,13 @@
 %endif
 
 %global with_enca 1
+%global with_ffmpeg 1
 %global with_libcue 1
 %global with_totem_pl_parser 1
 
 %if 0%{?rhel} || 0%{?flatpak}
 %global with_enca 0
+%global with_ffmpeg 0
 %global with_libcue 0
 %if 0%{?rhel} >= 10
 %global with_totem_pl_parser 0
@@ -31,7 +33,7 @@
 
 Name:           localsearch
 Version:        3.9~rc
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Localsearch and metadata extractors
 
 # The indexer is a mix of GPLv2 and LGPLv2+ code
@@ -58,7 +60,9 @@ BuildRequires:  pkgconfig(gstreamer-pbutils-1.0)
 BuildRequires:  pkgconfig(gstreamer-tag-1.0)
 BuildRequires:  pkgconfig(icu-i18n)
 BuildRequires:  pkgconfig(icu-uc)
+%if 0%{?with_ffmpeg}
 BuildRequires:  pkgconfig(libavformat)
+%endif
 %if 0%{?with_libcue}
 BuildRequires:  pkgconfig(libcue)
 %endif
@@ -111,6 +115,9 @@ This package contains various miners and metadata extractors for tinysparql.
 %endif
 %if ! 0%{?with_libcue}
   -Dcue=disabled \
+%endif
+%if ! 0%{?with_ffmpeg}
+  -Dlibav=disabled \
 %endif
 %if ! 0%{?flatpak}
   -Dsystemd_user_services_dir=%{_userunitdir} \
@@ -175,6 +182,9 @@ install -D -m 0755 %{SOURCE1} %{buildroot}%{_bindir}/%{name}-flatpak-fixup.sh
 
 
 %changelog
+* Tue Mar 04 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 3.9~rc-2
+- Disable ffmpeg dependency on RHEL
+
 * Mon Mar 03 2025 nmontero <nmontero@redhat.com> - 3.9~rc-1
 - Update to 3.9.rc
 

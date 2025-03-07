@@ -1,9 +1,10 @@
 %global provider_dir %{_libdir}/cmpi
+%global with_test_subpackage 1
 
 Summary:        SBLIM fsvol instrumentation
 Name:           sblim-cmpi-fsvol
 Version:        1.5.1
-Release:        38%{?dist}
+Release:        39%{?dist}
 License:        EPL-1.0
 URL:            http://sourceforge.net/projects/sblim/
 Source0:        http://downloads.sourceforge.net/project/sblim/providers/%{name}/%{version}/%{name}-%{version}.tar.bz2
@@ -38,6 +39,7 @@ Requires:       %{name} = %{version}-%{release}
 %description devel
 SBLIM Base Fsvol Development Package
 
+%if 0%{?with_test_subpackage}
 %package test
 Summary:        SBLIM Fsvol Instrumentation Testcases
 Requires:       %{name} = %{version}-%{release}
@@ -45,6 +47,7 @@ Requires:       sblim-testsuite
 
 %description test
 SBLIM Base Fsvol Testcase Files for SBLIM Testsuite
+%endif
 
 %prep
 %setup -q
@@ -57,7 +60,9 @@ export CFLAGS="$RPM_OPT_FLAGS -fsigned-char"
 export CFLAGS="$RPM_OPT_FLAGS" 
 %endif
 %configure \
+%if 0%{?with_test_subpackage}
         TESTSUITEDIR=%{_datadir}/sblim-testsuite \
+%endif
         PROVIDERDIR=%{provider_dir}
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
@@ -87,6 +92,7 @@ echo "%{_libdir}/cmpi" > $RPM_BUILD_ROOT/%{_sysconfdir}/ld.so.conf.d/%{name}-%{_
 %{_libdir}/libcmpiOSBase_CommonFsvol*.so
 %{_includedir}/sblim/*Fsvol.h
 
+%if 0%{?with_test_subpackage}
 %files test
 %{_datadir}/sblim-testsuite/test-cmpi-fsvol.sh
 %{_datadir}/sblim-testsuite/cim/*FileSystem.cim
@@ -94,6 +100,7 @@ echo "%{_libdir}/cmpi" > $RPM_BUILD_ROOT/%{_sysconfdir}/ld.so.conf.d/%{name}-%{_
 %{_datadir}/sblim-testsuite/cim/*BlockStorageStatisticalData.cim
 %{_datadir}/sblim-testsuite/system/linux/*FileSystem.*
 %{_datadir}/sblim-testsuite/system/linux/*FileSystemEntries.*
+%endif
 
 %global SCHEMA %{_datadir}/%{name}/Linux_Fsvol.mof
 
@@ -111,6 +118,9 @@ echo "%{_libdir}/cmpi" > $RPM_BUILD_ROOT/%{_sysconfdir}/ld.so.conf.d/%{name}-%{_
 %postun -p /sbin/ldconfig
 
 %changelog
+* Wed Mar 05 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.5.1-39
+- Make test subpackage optional
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

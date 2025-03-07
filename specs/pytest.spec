@@ -9,6 +9,9 @@ License:        MIT
 URL:            https://pytest.org
 Source:         %{pypi_source pytest %{base_version}%{?prerelease}}
 
+# Compatibility with pygments 2.19+
+Patch:          https://github.com/pytest-dev/pytest/pull/13113.patch
+
 # Remove -s from Python shebang,
 # ensure that packages installed with pip to user locations are testable
 # https://bugzilla.redhat.com/2152171

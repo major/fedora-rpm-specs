@@ -64,6 +64,9 @@ Patch1001:      https://src.fedoraproject.org/rpms/libccd/raw/80bc68bb9f9644aec2
 # Convert check_regressions to python3
 # Not submitted upstream
 Patch1002:      https://src.fedoraproject.org/rpms/libccd/raw/80bc68bb9f9644aec2e8dbf036e3ac84be918eef/f/libccd-2.1-py3.patch
+# Update minimum CMake version to 3.12; support CMake 4.0
+# https://github.com/danfis/libccd/pull/82
+Patch1003:      https://github.com/danfis/libccd/pull/82.patch#/libccd-2.1-cmake4.patch
  
 BuildRequires:  python3-devel
 
@@ -140,7 +143,8 @@ Provides:       bundled(fcl) = %{fcl_version}
 %if %{without system_fcl}
 %setup -q -T -D -b 1 -n python-fcl-%{version}
 pushd ../libccd-%{libccd_version}/
-%autopatch -m1000 -M1999 -p0
+%autopatch -m1000 -M1001 -p0
+%autopatch -m1002 -M1999 -p1
 popd
 cp -p ../libccd-%{libccd_version}/BSD-LICENSE libccd-LICENSE
 
@@ -245,21 +249,21 @@ do
   unset filter
   case "$(basename "${exe}")" in
   test_fcl_capsule_capsule)
-%ifarch aarch64
+%ifarch %{arm64}
     filter="${filter--}${filter+:}CapsuleCapsuleSegmentTest/1.NominalSeparatedCase"
 %endif
-%ifarch aarch64 ppc64le
+%ifarch %{arm64} %{power64}
     filter="${filter--}${filter+:}CapsuleCapsuleSegmentTest/0.OverlappingCenterLines"
 %endif
     ;;
   test_gjk_libccd-inl_gjk_doSimplex2)
-%ifarch aarch64 ppc64le
+%ifarch %{arm64} %{power64}
     filter="${filter--}${filter+:}DoSimplex2Test.NeedMoreComputing"
     filter="${filter--}${filter+:}DoSimplex2Test.OriginInSimplex"
 %endif
     ;;
   test_gjk_libccd-inl_epa)
-%ifarch aarch64 ppc64le s390x
+%ifarch %{arm64} %{power64} s390x
     filter="${filter--}${filter+:}FCL_GJK_EPA.ComputeVisiblePatchColinearNewVertex"
 %endif
     ;;

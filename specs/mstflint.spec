@@ -15,9 +15,11 @@ Url:		https://github.com/Mellanox/%{name}
 Source0: 	https://github.com/Mellanox/%{name}/releases/download/v%{version}-1/%{name}-%{version}-1.tar.gz
 Group:		Applications/System
 
-patch1:		0001-mflash-Fix-build-failure.patch
+Patch1:		0001-mflash-Fix-build-failure.patch
 Patch4: 	add-default-link-flags-for-shared-libraries.patch
 Patch6: 	replace-mlxfwreset-with-mstfwreset-in-mstflint-message.patch
+# https://github.com/Mellanox/mstflint/pull/1163
+Patch7:         fix-build-with-gcc15.patch
 
 BuildRequires:	make
 BuildRequires:	libstdc++-devel, zlib-devel, libibmad-devel, gcc-c++, gcc
@@ -46,6 +48,7 @@ for network adapters based on Mellanox Technologies chips.
 %patch -P1 -p1
 %patch -P4 -p1
 %patch -P6 -p1
+%patch -P7 -p1
 
 find . -type f -iname '*.[ch]' -exec chmod a-x '{}' ';'
 find . -type f -iname '*.cpp' -exec chmod a-x '{}' ';'

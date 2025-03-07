@@ -64,7 +64,7 @@ make man
 
 %install
 %pyproject_install
-%pyproject_save_files -L conda_index
+%pyproject_save_files -l conda_index
 mkdir -p %{buildroot}%{_mandir}/man1
 install -m644 build/man/conda-index.1 %{buildroot}%{_mandir}/man1/
 
@@ -76,8 +76,6 @@ install -m644 build/man/conda-index.1 %{buildroot}%{_mandir}/man1/
 
 
 %files -n python%{python3_pkgversion}-conda-index -f %pyproject_files
-# Apparently flit does not mark the licnse automatically
-%license %{python3_sitelib}/*.dist-info/LICENSE
 %doc CHANGELOG.md README.md
 %{_mandir}/man1/conda-index.1*
 

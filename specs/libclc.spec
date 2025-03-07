@@ -2,8 +2,8 @@
 %global debug_package %{nil}
 
 %global shortname clc
-%global libclc_version 19.1.7
-#global rc_ver 4
+%global libclc_version 20.1.0
+#global rc_ver 3
 %global libclc_srcdir libclc-%{libclc_version}%{?rc_ver:-rc%{rc_ver}}.src
 
 Name:           libclc
@@ -87,17 +87,16 @@ export CFLAGS="%{build_cflags} -D__extern_always_inline=inline"
 %cmake_install
 
 %check
-# external-calls-clspv--.bc test fails
-%cmake_build --target test || true
+%cmake_build --target test
 
 %files
 %license LICENSE.TXT
-%doc README.TXT CREDITS.TXT
+%doc README.md CREDITS.TXT
 %{_libdir}/%{shortname}/*.bc
 
 %files spirv
 %license LICENSE.TXT
-%doc README.TXT CREDITS.TXT
+%doc README.md CREDITS.TXT
 %dir %{_libdir}/%{shortname}
 %{_libdir}/%{shortname}/spirv-mesa3d-.spv
 %{_libdir}/%{shortname}/spirv64-mesa3d-.spv
@@ -107,6 +106,9 @@ export CFLAGS="%{build_cflags} -D__extern_always_inline=inline"
 %{_includedir}/%{shortname}
 
 %changelog
+* Wed Mar 05 2025 Nikita Popov <npopov@redhat.com> - 20.1.0-1
+- Update to LLVM 20.1.0
+
 * Wed Jan 22 2025 Timm Bäder <tbaeder@redhat.com> - 19.1.7-1
 - Update to 19.1.7
 

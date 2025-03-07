@@ -25,12 +25,11 @@
 #%%global alphatag rc1
 
 Name:		gnuradio
-Version:	3.10.11.0
-Release:	6%{?alphatag:.%{alphatag}}%{?dist}
+Version:	3.10.12.0
+Release:	0%{?alphatag:.%{alphatag}}%{?dist}
 Summary:	Software defined radio framework
 
-# Automatically converted from old format: GPLv3 - review is highly recommended.
-License:	GPL-3.0-only
+License:	GPL-3.0-or-later
 URL:		https://www.gnuradio.org/
 #Source0:	http://gnuradio.org/releases/gnuradio/gnuradio-%%{version}%%{?alphatag}.tar.xz
 #Source0:	http://gnuradio.org/releases/gnuradio/gnuradio-%%{version}.tar.gz
@@ -61,7 +60,7 @@ BuildRequires:	jack-audio-connection-kit-devel
 BuildRequires:	portaudio-devel
 BuildRequires:	python3-devel
 BuildRequires:	python3-cairo
-BuildRequires:	python3-click-plugins
+BuildRequires:	python3-click
 BuildRequires:	python3-gobject
 BuildRequires:	python3-numpy
 BuildRequires:	python3-pyyaml
@@ -71,6 +70,7 @@ BuildRequires:	python3-qt5-devel
 BuildRequires:	python3-scipy
 BuildRequires:	python3-thrift
 BuildRequires:	python3-zmq
+BuildRequires:	python3-jsonschema
 BuildRequires:	qwt-qt5-devel
 BuildRequires:	tex(latex)
 BuildRequires:	SDL-devel
@@ -97,11 +97,12 @@ Requires:	python3-pyopengl
 Requires:	python3-pyyaml
 Requires:	python3-gobject
 Requires:	python3-mako
-Requires:	python3-click-plugins
+Requires:	python3-click
 Requires:	python3-qt5
 Requires:	python3-scipy
 Requires:	python3-pyqtgraph
 Requires:	python3-zmq
+Requires:	python3-jsonschema
 Requires:	gtk3
 Suggests:	soapy-rtlsdr
 
@@ -198,6 +199,9 @@ done
 %files -n python3-%{name}
 %{python3_sitearch}/%{name}/
 %{python3_sitearch}/pmt/
+%{_datadir}/bash-completion/completions/gr_modtool
+%{_datadir}/fish/vendor_completions.d/gr_modtool.fish
+%{_datadir}/zsh/site-functions/_gr_modtool
 
 %files devel
 %{_includedir}/*
@@ -213,6 +217,13 @@ done
 %{_datadir}/gnuradio/examples
 
 %changelog
+* Thu Feb 20 2025 Marcus Müller <mueller_fedora@hostalia.de> - 3.10.12.0-1
+- New version
+- Corrected stated license to actually be GPLv3 (or later)
+- Remove unused python3-click-plugins dependency (GNU Radio now only needs python3-click)
+- Add python3-jsonschema dependency, needed for JSON configuration blocks
+- Include the shell completion scripts for gr_modtool in the installed files
+
 * Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 3.10.11.0-6
 - Rebuild with gsl 2.8
 

@@ -1,7 +1,7 @@
 Summary: High-performance and highly configurable free RADIUS server
 Name: freeradius
-Version: 3.2.5
-Release: 7%{?dist}
+Version: 3.2.7
+Release: 2%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: http://www.freeradius.org/
 
@@ -30,6 +30,7 @@ Patch6: freeradius-ldap-infinite-timeout-on-starttls.patch
 Patch7: freeradius-ease-openssl-version-check.patch
 Patch8: freeradius-configure-c99.patch
 Patch9: freeradius-openssl-no-engine.patch
+Patch10: freeradius-no-sqlippool-tool.patch
 
 %global docdir %{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}}
 
@@ -216,6 +217,7 @@ This plugin provides the REST support for the FreeRADIUS server project.
 %patch -P7 -p1
 %patch -P8 -p1
 %patch -P9 -p1
+%patch -P10 -p1
 
 %build
 # Force compile/link options, extra security for network facing daemon
@@ -541,6 +543,7 @@ EOF
 %attr(640,root,radiusd) %config(noreplace) /etc/raddb/mods-available/wimax
 %attr(640,root,radiusd) %config(noreplace) /etc/raddb/mods-available/yubikey
 %attr(640,root,radiusd) %config(noreplace) /etc/raddb/mods-available/dpsk
+%attr(640,root,radiusd) %config(noreplace) /etc/raddb/mods-available/proxy_rate_limit
 
 # mods-enabled
 # symlink: /etc/raddb/mods-enabled/xxx -> ../mods-available/xxx
@@ -575,6 +578,7 @@ EOF
 %config(missingok) /etc/raddb/mods-enabled/unix
 %config(missingok) /etc/raddb/mods-enabled/unpack
 %config(missingok) /etc/raddb/mods-enabled/utf8
+%config(missingok) /etc/raddb/mods-enabled/proxy_rate_limit
 
 # policy
 %dir %attr(750,root,radiusd) /etc/raddb/policy.d
@@ -668,6 +672,7 @@ EOF
 %{_libdir}/freeradius/rlm_yubikey.so
 %{_libdir}/freeradius/rlm_dpsk.so
 %{_libdir}/freeradius/rlm_eap_teap.so
+%{_libdir}/freeradius/rlm_proxy_rate_limit.so
 
 # main man pages
 %doc %{_mandir}/man5/clients.conf.5.gz
@@ -898,6 +903,9 @@ EOF
 %attr(640,root,radiusd) %config(noreplace) /etc/raddb/mods-available/rest
 
 %changelog
+* Wed Mar 5 2025 Antonio Torres <antorres@redhat.com> - 3.2.7-1
+- Update to upstream release 3.2.7
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.2.5-7
 - Drop call to %sysusers_create_compat
 

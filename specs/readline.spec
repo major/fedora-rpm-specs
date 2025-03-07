@@ -1,7 +1,7 @@
 Summary: A library for editing typed command lines
 Name: readline
 Version: 8.2
-Release: 12%{?dist}
+Release: 13%{?dist}
 
 # * Main sources are GPL-3.0-or-later
 # * examples/rlfe are GPL-2.0-or-later
@@ -31,6 +31,7 @@ Patch14: readline-8.3-sast.patch
 # Other patches
 # Remove RPATH, use CFLAGS
 Patch101: readline-8.0-shlib.patch
+Patch102: readline-8.2-pre-c23.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -101,6 +102,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %{_libdir}/libhistory.a
 
 %changelog
+* Mon Mar 03 2025 Siteshwar Vashisht <svashisht@redhat.com> - 8.2-13
+- Fix FTBFS for packages that are not compatible with C23
+  Resolves: #2347347
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

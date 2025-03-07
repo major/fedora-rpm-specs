@@ -30,7 +30,7 @@ BuildRequires:  java_cup
 BuildRequires:  jflex
 %endif
 # TODO Remove in Fedora 46
-Obsoletes:      %{name}-javadoc < 0.11b-57
+Obsoletes:      %{name}-javadoc < 1:0.11b-57
 
 %description
 java_cup is a LALR Parser Generator for Java

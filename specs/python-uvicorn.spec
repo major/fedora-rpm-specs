@@ -1,11 +1,13 @@
 Name:           python-uvicorn
-Version:        0.30.6
+Version:        0.34.0
 Release:        %autorelease
 Summary:        The lightning-fast ASGI server
 License:        BSD-3-Clause
 URL:            https://www.uvicorn.org
 # PyPI tarball doesn't have tests
 Source:         https://github.com/encode/uvicorn/archive/%{version}/uvicorn-%{version}.tar.gz
+# https://github.com/encode/uvicorn/pull/2590
+Patch:          0001-Avoid-test-dependency-on-typing_extensions.patch
 BuildArch:      noarch
 
 %global common_description %{expand:
@@ -55,8 +57,9 @@ BuildRequires:  python3-wsproto
 
 
 %check
-# many tests don't work with websockets 13 yet
-%pytest --verbose -k 'not websocket'
+# There are various issues testing with websockets 14+.
+# https://github.com/encode/uvicorn/issues/1908
+%pytest --verbose -k 'not websocket' --pythonwarnings 'ignore:websockets:DeprecationWarning'
 
 
 %files -n python3-uvicorn -f %{pyproject_files}

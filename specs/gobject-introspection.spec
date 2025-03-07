@@ -1,18 +1,13 @@
 %global glib2_version 2.80.0
 
 Name:           gobject-introspection
-Version:        1.82.0
+Version:        1.83.2
 Release:        %autorelease
 Summary:        Introspection system for GObject-based libraries
 
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-2-Clause
 URL:            https://wiki.gnome.org/Projects/GObjectIntrospection
-Source:         https://download.gnome.org/sources/%{name}/1.82/%{name}-%{version}.tar.xz
-# This fixes some FTBFS when building some package with Clang 19 in Fedora 42+
-# For example: https://bugzilla.redhat.com/show_bug.cgi?id=2341532
-# https://gitlab.gnome.org/GNOME/gobject-introspection/-/issues/519
-# https://gitlab.gnome.org/GNOME/gobject-introspection/-/merge_requests/515
-Patch:          https://gitlab.gnome.org/GNOME/gobject-introspection/-/commit/2812471365c75ab51347a9101771128f8ab283ab.patch
+Source:         https://download.gnome.org/sources/%{name}/1.83/%{name}-%{version}.tar.xz
 
 # Workaround for Python 3.12 compatibility
 # https://bugzilla.redhat.com/show_bug.cgi?id=2208966

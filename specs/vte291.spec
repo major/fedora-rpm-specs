@@ -11,7 +11,7 @@
 %global pcre2_version 10.21
 
 Name:           vte291
-Version:        0.79.90
+Version:        0.79.91
 Release:        1%{?dist}
 Summary:        GTK terminal emulator library
 
@@ -138,11 +138,10 @@ sed -i -e "/^vte_systemduserunitdir =/s|vte_prefix|'/usr'|" meson.build
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/Vte-2.91.typelib
 %{_userunitdir}/vte-spawn-.scope.d
-%{_datadir}/vte-2.91/terminfo/x/xterm-256color
-%{_datadir}/applications/vte-gtk3.desktop
-%{_datadir}/xdg-terminals/vte-gtk3.desktop
-%{_datadir}/applications/vte-gtk4.desktop
-%{_datadir}/xdg-terminals/vte-gtk4.desktop
+%{_datadir}/applications/org.gnome.Vte.App.Gtk3.desktop
+%{_datadir}/applications/org.gnome.Vte.App.Gtk4.desktop
+%{_datadir}/xdg-terminals/org.gnome.Vte.App.Gtk3.desktop
+%{_datadir}/xdg-terminals/org.gnome.Vte.App.Gtk4.desktop
 
 %files gtk4
 %{_libdir}/libvte-%{apiver}-gtk4.so.0*
@@ -180,6 +179,9 @@ sed -i -e "/^vte_systemduserunitdir =/s|vte_prefix|'/usr'|" meson.build
 %{_sysconfdir}/profile.d/vte.sh
 
 %changelog
+* Wed Mar 05 2025 nmontero <nmontero@redhat.com> - 0.79.91-1
+- Update to 0.79.91
+
 * Wed Feb 19 2025 nmontero <nmontero@redhat.com> - 0.79.90-1
 - Update to 0.79.90
 

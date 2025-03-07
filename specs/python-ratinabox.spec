@@ -77,7 +77,7 @@ Recommends:     (%{py3_dist torch} if (python3(x86-64) or python3(aarch-64)))
 # Let’s do this in addition to running the tests, so we can be aware of any
 # issues in contribs that may not be tested.
 %if %{with torch}
-%ifarch x86_64 aarch64
+%ifarch %{x86_64} %{arm64}
 %global can_test_torch 1
 %endif
 %endif

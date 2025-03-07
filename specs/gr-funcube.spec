@@ -8,7 +8,7 @@
 Name:          gr-funcube
 URL:           https://github.com/dl1ksv/gr-funcube
 Version:       3.10.0~rc3^%{git_suffix}
-Release:       5%{?dist}
+Release:       6%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 BuildRequires: cmake
@@ -103,6 +103,9 @@ install -m0644 -D gr-funcube.sysusers.conf %{buildroot}%{_sysusersdir}/gr-funcub
 %doc %{_docdir}/%{name}/xml
 
 %changelog
+* Wed Mar  5 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 3.10.0~rc3^20240726gitcbda6c6c-6
+- Rebuilt for new gnuradio
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.10.0~rc3^20240726gitcbda6c6c-5
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

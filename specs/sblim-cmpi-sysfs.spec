@@ -1,8 +1,9 @@
 %global provider_dir %{_libdir}/cmpi
+%global with_test_subpackage 1
 
 Name:           sblim-cmpi-sysfs
 Version:        1.2.0
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        SBLIM sysfs instrumentation
 
 License:        EPL-1.0
@@ -31,6 +32,7 @@ Requires:       sblim-cmpi-base cim-server
 %description
 Standards Based Linux Instrumentation Sysfs Providers
 
+%if 0%{?with_test_subpackage}
 %package        test
 Summary:        SBLIM Sysfs Instrumentation Testcases
 Requires:       sblim-cmpi-sysfs = %{version}-%{release}
@@ -38,6 +40,7 @@ Requires:       sblim-testsuite
 
 %description test
 SBLIM Base Params Testcase Files for SBLIM Testsuite
+%endif
 
 %prep
 %setup -q
@@ -54,7 +57,9 @@ export CFLAGS="$RPM_OPT_FLAGS"
 %endif
 
 %configure \
+%if 0%{?with_test_subpackage}
         TESTSUITEDIR=%{_datadir}/sblim-testsuite \
+%endif
         PROVIDERDIR=%{provider_dir}
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
@@ -81,10 +86,12 @@ mv $RPM_BUILD_ROOT/%{_libdir}/libLinux_SysfsDeviceUtil.so $RPM_BUILD_ROOT/%{prov
 %config(noreplace) %{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf
 
 
+%if 0%{?with_test_subpackage}
 %files test
 %{_datadir}/sblim-testsuite/sblim-cmpi-sysfs-test.sh
 %{_datadir}/sblim-testsuite/cim/Linux_Sysfs*
 %{_datadir}/sblim-testsuite/system/linux/Linux_Sysfs*
+%endif
 
 
 %global SCHEMA %{_datadir}/%{name}/Linux_SysfsAttribute.mof %{_datadir}/%{name}/Linux_SysfsBlockDevice.mof %{_datadir}/%{name}/Linux_SysfsBusDevice.mof %{_datadir}/%{name}/Linux_SysfsInputDevice.mof %{_datadir}/%{name}/Linux_SysfsNetworkDevice.mof %{_datadir}/%{name}/Linux_SysfsSCSIDevice.mof %{_datadir}/%{name}/Linux_SysfsSCSIHostDevice.mof %{_datadir}/%{name}/Linux_SysfsTTYDevice.mof
@@ -104,6 +111,9 @@ mv $RPM_BUILD_ROOT/%{_libdir}/libLinux_SysfsDeviceUtil.so $RPM_BUILD_ROOT/%{prov
 
 
 %changelog
+* Wed Mar 05 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.2.0-36
+- Make test subpackage optional
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

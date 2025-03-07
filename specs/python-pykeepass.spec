@@ -1,8 +1,16 @@
 %global forgeurl https://github.com/libkeepass/pykeepass
+# We package a post-release snapshot with fixes for issues in the 4.1.1
+# release:
+# - update changelog
+# - missing test database
+# - remove unsupported type annotation
+# - remove more type annotations
+%global version0 4.1.1
+%global commit0 409be2d416ef5da7697d05a9b8ad3a403bdabb99
+%forgemeta
 
 Name:           python-pykeepass
-Version:        4.1.0.post1
-%forgemeta
+Version:        %forgeversion
 Release:        %autorelease
 Epoch:          1
 Summary:        Python library to interact with keepass databases
@@ -14,13 +22,12 @@ Summary:        Python library to interact with keepass databases
 License:        GPL-3.0-only AND MIT
 URL:            %{forgeurl}
 # The GitHub archive has tests; the PyPI sdist does not.
-%global srcversion %{gsub %{version} \.post -post}
-Source:         %{url}/archive/v%{srcversion}/pykeepass-%{srcversion}.tar.gz
-%dnl Source:         %{forgesource}
+Source:         %{forgesource}
 
 BuildArch:      noarch
  
 BuildRequires:  python3-devel
+BuildRequires:  tomcli
 
 %global common_description %{expand:
 This library allows you to write entries to a KeePass database.}
@@ -35,8 +42,10 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n pykeepass-%{srcversion}
-%dnl %forgeautosetup -p1
+%forgeautosetup -p1
+
+# This is actually a documentation dependency:
+tomcli set pyproject.toml lists delitem project.optional-dependencies.test pdoc
 
 
 %generate_buildrequires
@@ -63,7 +72,7 @@ Summary:        %{summary}
 
 %files -n python3-pykeepass -f %{pyproject_files}
 %doc CHANGELOG.rst
-%doc README.rst
+%doc README.md
 
 
 %changelog

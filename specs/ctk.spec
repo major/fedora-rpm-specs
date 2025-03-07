@@ -102,6 +102,15 @@ This package contains files for development of CTK applications.
 tr -d '\r' < README.md > README
 mv -vf README README.md
 
+# fix for cmake v4, which removes compatibility with cmake <3.5
+for f in "Utilities/DGraph/CMakeLists.txt" "CMake/ctkCheckoutRepo.cmake.in" "CMake/ctkDashboardScript.TEMPLATE.cmake" "CMake/ctkMacroSetupQt.cmake" "CMakeLists.txt" "Libs/Core/CMake/TestBFD/CMakeLists.txt"
+do
+    echo "** ${f} **"
+    grep -n "cmake_minimum_required" "${f}"
+    sed -i 's/cmake_minimum_required(VERSION.*)/cmake_minimum_required(VERSION 3.10)/' "${f}"
+    grep -n "cmake_minimum_required" "${f}"
+done
+
 %build
 %cmake \
     -GNinja \

@@ -1,6 +1,6 @@
 Name: liboauth2
-Version: 2.0.0
-Release: 3%{?dist}
+Version: 2.1.0
+Release: 1%{?dist}
 Summary: Generic library to build OAuth 2.x and OpenID Connect servers and clients in C
 License: Apache-2.0
 URL: https://github.com/OpenIDC/liboauth2
@@ -93,6 +93,10 @@ find %{buildroot}%{_includedir}/oauth2 -name '*.h' | grep -v apache | sed 's@%{b
 
 
 %changelog
+* Wed Feb 12 2025 Packit <hello@packit.dev> - 2.1.0-1
+- Update to version 2.1.0
+- Resolves: rhbz#2345163
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 2.0.0-3
 - Add explicit BR: libxcrypt-devel
 

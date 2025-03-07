@@ -2,7 +2,7 @@
 
 # https://github.com/junegunn/fzf
 %global goipath         github.com/junegunn/fzf
-Version:                0.60.2
+Version:                0.60.3
 
 %gometa
 

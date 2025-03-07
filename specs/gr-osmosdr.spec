@@ -12,7 +12,7 @@
 Name:          gr-osmosdr
 URL:           http://sdr.osmocom.org/trac/wiki/GrOsmoSDR
 Version:       0.2.5
-Release:       14%{?dist}
+Release:       15%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 BuildRequires: cmake
@@ -104,6 +104,9 @@ sed -i 's|/lib/|/%{_lib}/|g' CMakeLists.txt
 %doc %{_docdir}/%{name}/xml
 
 %changelog
+* Wed Mar  5 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 0.2.5-15
+- Rebuilt for new gnuradio
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

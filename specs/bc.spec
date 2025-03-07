@@ -1,16 +1,24 @@
 Summary: GNU's bc (a numeric processing language) and dc (a calculator)
 Name: bc
 Version: 1.08.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-3.0-or-later
-URL: http://www.gnu.org/software/bc/
-Source: http://ftp.gnu.org/gnu/bc/bc-%{version}.tar.gz
+URL: https://www.gnu.org/software/bc/
+Source0: https://ftp.gnu.org/gnu/bc/bc-%{version}.tar.xz
+Source1: https://ftp.gnu.org/gnu/bc/bc-%{version}.tar.xz.sig
+Source2: kevin_pizzini.asc
 Patch1: bc-1.06-dc_ibase.patch
 Patch2: bc-1.06.95-doc.patch
 Patch3: bc-1.07.1-readline-echo-empty.diff
-BuildRequires:  gcc
-BuildRequires: readline-devel, flex, bison, texinfo, ed
+BuildRequires: bison
+BuildRequires: ed
+BuildRequires: flex
+BuildRequires: gcc
 BuildRequires: make
+BuildRequires: readline-devel
+BuildRequires: texinfo
+# for gpg verification
+BuildRequires: gnupg2
 
 %description
 The bc package includes bc and dc. Bc is an arbitrary precision
@@ -22,6 +30,7 @@ Install the bc package if you need its number handling capabilities or
 if you would like to use its text mode calculator.
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build
@@ -30,17 +39,24 @@ if you would like to use its text mode calculator.
 
 %install
 %make_install
-rm -f $RPM_BUILD_ROOT/%{_infodir}/dir
+rm -f %{buildroot}/%{_infodir}/dir
 
 %files
 %license COPYING COPYING.LIB
 %doc FAQ AUTHORS NEWS README Examples/
 %{_bindir}/dc
 %{_bindir}/bc
-%{_mandir}/*/*
-%{_infodir}/*
+%{_mandir}/man1/bc.1*
+%{_mandir}/man1/dc.1*
+%{_infodir}/bc.info*
+%{_infodir}/dc.info*
 
 %changelog
+* Wed Mar 05 2025 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 1.08.1-3
+- Verify gpg signature
+- Change to https links
+- Misc changes
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.08.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

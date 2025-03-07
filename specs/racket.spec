@@ -1,8 +1,8 @@
 %global _find_debuginfo_opts --keep-section .rackboot
 
 Name:           racket
-Version:        8.15
-Release:        4%{?dist}
+Version:        8.16
+Release:        1%{?dist}
 Summary:        General purpose programming language
 
 # see LICENSE.txt
@@ -11,6 +11,8 @@ URL:            https://racket-lang.org
 Source0:        https://download.racket-lang.org/installers/%{version}/%{name}-%{version}-src.tgz
 Patch0:         racket-configure-c99.patch
 Patch1:         https://github.com/racket/racket/commit/72b83f784ad1c6fb6ee3fb7b31df165bebfb21ed.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2339005
+ExcludeArch:    ppc64le s390x
 
 # To compile the program
 BuildRequires:  gcc
@@ -225,6 +227,11 @@ chmod -x %{buildroot}%{_libdir}/racket/starter-sh
 %{_datadir}/doc/racket
 
 %changelog
+* Wed Mar 05 2025 Jens Petersen  <petersen@redhat.com> - 8.16-1
+- Update to 8.16 release
+- https://blog.racket-lang.org/2025/03/racket-v8-16.html
+- F43: drop ppc64le and s390x (#2339005)
+
 * Mon Jan 20 2025 Jens Petersen <petersen@redhat.com> - 8.15-4
 - upstream patch to allow build with C23 gcc15
 

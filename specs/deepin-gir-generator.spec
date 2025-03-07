@@ -44,6 +44,8 @@ BuildRequires:  pkgconfig(gudev-1.0)
 
 %if %{with check}
 %check
+# work around issues with GCC 15
+export CGO_CFLAGS="%{optflags} -std=gnu17"
 %gocheck
 %endif
 
