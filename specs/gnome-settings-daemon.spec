@@ -18,7 +18,7 @@
 %global major_version %%(echo %{version} | cut -f 1 -d '~' | cut -f 1 -d '.')
 
 Name:           gnome-settings-daemon
-Version:        48~beta
+Version:        48~rc
 Release:        %autorelease
 Summary:        The daemon sharing settings from GNOME to GTK+/KDE applications
 
@@ -153,6 +153,7 @@ developing applications that use %{name}.
 %{_datadir}/glib-2.0/schemas/org.gnome.settings-daemon.peripherals.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.settings-daemon.peripherals.wacom.gschema.xml
 %{_sysconfdir}/xdg/autostart/org.gnome.SettingsDaemon.Wacom.desktop
+%{_datadir}/glib-2.0/schemas/org.gnome.settings-daemon.global-shortcuts.gschema.xml
 
 %ifnarch s390 s390x
 %{_libexecdir}/gsd-wacom

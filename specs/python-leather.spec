@@ -16,7 +16,7 @@ care if they’re perfect.\
 
 Name:           python-%{pypi_name}
 Version:        0.4.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python charting for 80% of humans
 
 License:        MIT
@@ -34,7 +34,7 @@ Summary:        %{summary}
 BuildRequires: make
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
-BuildRequires:  python3-nose >= 1.1.2
+BuildRequires:  python3-pytest
 BuildRequires:  python3-sphinx >= 1.2.2
 BuildRequires:  python3-furo
 BuildRequires:  python3-coverage >= 3.7.1
@@ -79,7 +79,7 @@ popd
 
 
 %check
-nosetests-%{python3_version} tests -v
+%pytest tests -v
 
 
 %files -n python3-%{pypi_name}
@@ -95,6 +95,9 @@ nosetests-%{python3_version} tests -v
 
 
 %changelog
+* Thu Mar 06 2025 Julien Enselme - 0.4.0-4
+- Remove dependency on nose
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -28,7 +28,7 @@
 Summary: PDE solving tool
 Name: freefem++
 Version: %{expand:%(echo %tarvers | tr - .)}
-Release: 4%{?dist}
+Release: 5%{?dist}
 URL: https://freefem.org
 Source0: https://github.com/FreeFem/FreeFem-sources/archive/v%{tarvers}.tar.gz#/%{tarname}-%{tarvers}.tar.gz
 
@@ -103,7 +103,14 @@ Source5: https://github.com/PierreMarchand20/BemTool/archive/%{bemtool_gitcommit
 Source5: https://github.com/PierreMarchand20/BemTool/archive/%{bemtool_gitcommit}/master.zip#/bemtool-%{bemtool_gitdate}git%{bemtool_gitcommit}.zip
 %endif
 Source6: https://www.ljll.math.upmc.fr/frey/ftp/archives/mshmet.2012.04.25.tgz
-Source7: https://mumps-solver.org/MUMPS_5.6.2.tar.gz
+
+
+%if 0%{fedora} > 41
+%global MUMPS_VERS 5.7.3
+%else
+%global MUMPS_VERS 5.6.2
+%endif
+Source7: https://mumps-solver.org/MUMPS_%{MUMPS_VERS}.tar.gz
 
 License: LGPL-3.0-or-later
 
@@ -243,6 +250,15 @@ pushd serial
 %patch -P 16 -p1
 %patch -P 17 -p1
 %patch -P 18 -p1
+
+sed -i \
+  -e 's,5.0.2,%{MUMPS_VERS},' \
+  3rdparty/getall \
+  3rdparty/mumps-seq/Makefile
+sed \
+  -e 's,5.0.2,%{MUMPS_VERS},' \
+  3rdparty/mumps-seq/Makefile-mumps-5.0.2.inc \
+  > 3rdparty/mumps-seq/Makefile-mumps-%{MUMPS_VERS}.inc
 
 sed -i \
   -e 's,/hpddm/zip/7113b9a6b77fceee3f52490cb27941a87b96542f,/hpddm/zip/%{hpddm_git_hash},' \
@@ -443,6 +459,9 @@ done
 %endif
 
 %changelog
+* Tue Feb 11 2025 Ralf Corsépius <corsepiu@fedoraproject.org> - 4.14-5 
+- Update MUMPS
+    
 * Thu Feb 06 2025 Björn Esser <besser82@fedoraproject.org> - 4.15-4
 - Rebuild (NLopt)
 

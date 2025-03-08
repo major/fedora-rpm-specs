@@ -11,7 +11,7 @@
 %global gnome_settings_daemon_version           40~rc
 
 Name:           gnome-kiosk
-Version:        48~alpha
+Version:        48~rc
 Release:        %{autorelease}
 Summary:        Window management and application launching for GNOME
 
@@ -90,6 +90,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Kiosk.Searc
 %{_userunitdir}/org.gnome.Kiosk@x11.service
 
 %files -n gnome-kiosk-search-appliance
+%{_userunitdir}/gnome-session@org.gnome.Kiosk.SearchApp.target.d/session.conf
+%{_userunitdir}/org.gnome.Kiosk.SearchApp.service
 %{_datadir}/applications/org.gnome.Kiosk.SearchApp.desktop
 %{_datadir}/gnome-session/sessions/org.gnome.Kiosk.SearchApp.session
 %{_datadir}/xsessions/org.gnome.Kiosk.SearchApp.Session.desktop

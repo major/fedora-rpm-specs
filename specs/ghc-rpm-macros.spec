@@ -3,7 +3,7 @@
 %global macros_dir %{_rpmconfigdir}/macros.d
 
 Name:           ghc-rpm-macros
-Version:        2.7.7
+Version:        2.7.8
 Release:        1%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
@@ -212,6 +212,10 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 
 
 %changelog
+* Thu Mar 06 2025 Jens Petersen  <petersen@redhat.com> - 2.7.8-1
+- cabal_configure: fall back to %%name for executable package
+  (instead of undefined pkg_name)
+
 * Sat Jan 18 2025 Jens Petersen <petersen@redhat.com> - 2.7.7-1
 - fix cabal_configure header echoing '-e' in some strange circumstances
 

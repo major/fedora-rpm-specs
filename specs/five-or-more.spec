@@ -1,17 +1,20 @@
+%global tarball_version %%(echo %{version} | tr '~' '.')
+
 Name:           five-or-more
-Version:        3.32.3
-Release:        9%{?dist}
+Version:        48~alpha
+Release:        1%{?dist}
 Summary:        GNOME "Five or More" game
 
 # Automatically converted from old format: GPLv2+ and GFDL - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-GFDL
 URL:            https://wiki.gnome.org/Apps/Five%20or%20more
-Source0:        https://download.gnome.org/sources/%{name}/3.32/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  itstool
+BuildRequires:  libappstream-glib
 BuildRequires:  meson
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(libgnome-games-support-1)
@@ -27,7 +30,7 @@ Move balls around the grid and try and form lines. Once you form five in a
 row, the line disappears. Unfortunately more balls keep dropping in.
 
 %prep
-%autosetup -p1
+%autosetup -n five-or-more-%{tarball_version} -p1
 
 
 %build
@@ -42,6 +45,7 @@ row, the line disappears. Unfortunately more balls keep dropping in.
 
 
 %check
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.gnome.five-or-more.metainfo.xml
 desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 %files -f %{name}.lang
@@ -49,15 +53,19 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %doc NEWS
 %{_bindir}/five-or-more
 %{_datadir}/applications/org.gnome.five-or-more.desktop
+%{_datadir}/dbus-1/services/org.gnome.five-or-more.service
 %{_datadir}/five-or-more
 %{_datadir}/glib-2.0/schemas/org.gnome.five-or-more.gschema.xml
 %{_datadir}/icons/hicolor/*/apps/org.gnome.five-or-more.*
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.five-or-more-symbolic.svg
-%{_datadir}/metainfo/org.gnome.five-or-more.appdata.xml
+%{_datadir}/metainfo/org.gnome.five-or-more.metainfo.xml
 %{_mandir}/man6/five-or-more.6*
 
 
 %changelog
+* Thu Mar 06 2025 Fabio Valentini <decathorpe@gmail.com> - 48~alpha-1
+- Update to 48.alpha
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.32.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

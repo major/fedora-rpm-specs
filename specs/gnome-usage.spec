@@ -1,17 +1,16 @@
 %global tarball_version	%%(echo %{version} | tr '~' '.')
-%global url_ver	%%(echo %{version} | cut -d. -f1,2)
 
 %global gtk_version 4.11.3
 %global libadwaita_version 1.5
 
 Name:		gnome-usage
-Version:	46.0
-Release:	5%{?dist}
+Version:	48~rc
+Release:	1%{?dist}
 Summary:	A GNOME app to view information about use of system resources
 
 License:	GPL-3.0-or-later AND CC0-1.0
 URL:		https://wiki.gnome.org/Apps/Usage
-Source0:	https://download.gnome.org/sources/%{name}/%{url_ver}/%{name}-%{tarball_version}.tar.xz
+Source0:	https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
@@ -24,6 +23,7 @@ BuildRequires:	pkgconfig(gobject-2.0)
 BuildRequires:	pkgconfig(gtk4) >= %{gtk_version}
 BuildRequires:	pkgconfig(libadwaita-1) >= %{libadwaita_version}
 BuildRequires:	pkgconfig(libgtop-2.0)
+BuildRequires:  pkgconfig(libnm)
 BuildRequires:	pkgconfig(tracker-sparql-3.0)
 BuildRequires:	vala
 
@@ -56,9 +56,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Usage.deskt
 %{_datadir}/applications/org.gnome.Usage.desktop
 %{_datadir}/glib-2.0/schemas/org.gnome.Usage.gschema.xml
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.Usage.svg
-%{_metainfodir}/org.gnome.Usage.appdata.xml
+%{_metainfodir}/org.gnome.Usage.metainfo.xml
 
 %changelog
+* Thu Mar 06 2025 Fabio Valentini <decathorpe@gmail.com> - 48~rc-1
+- Update to 48.rc
+
 * Thu Feb 06 2025 Nieves Montero <nmontero@redhat.com> - 46.0-5
 - Rebuild for the renaming of tracker to tinysparql
 

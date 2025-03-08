@@ -17,27 +17,27 @@
 %global canonicalname %{py_dist_name %{srcname}}
 
 %if %{undefined rhel}
-# mssql_pyodbc, postgresql_pg8000, aioodbc extras removed to unblock the Python 3.13 rebuild
+# postgresql_pg8000, postgresql_asyncpg extras removed to unblock the Python 3.14 rebuild
 # TODO add them back once ready
-%if 0%{?python3_version_nodots} == 313
-%bcond py313quirk 1
+%if v"0%{?python3_version}" >= v"3.14"
+%bcond py314quirk 1
 %else
-%bcond py313quirk 0
+%bcond py314quirk 0
 %endif
 
 %global python_pkg_extras \
     asyncio \
     mssql_pymssql \
-    %{!?with_py313quirk:mssql_pyodbc} \
+    mssql_pyodbc \
     mysql \
     mysql_connector \
     %{?with_mypy:mypy} \
     postgresql \
-    %{!?with_py313quirk:postgresql_pg8000} \
-    postgresql_asyncpg \
+    %{!?with_py314quirk:postgresql_pg8000} \
+    %{!?with_py314quirk:postgresql_asyncpg} \
     pymysql \
     aiomysql \
-    %{!?with_py313quirk:aioodbc} \
+    aioodbc \
     aiosqlite \
     %{?with_asyncmy:asyncmy}
 %endif

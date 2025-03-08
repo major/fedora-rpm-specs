@@ -1,6 +1,6 @@
 %global upstream_name translate_toolkit
 Name:           translate-toolkit
-Version:        3.14.7
+Version:        3.15.0
 Release:        1%{?dist}
 Summary:        Tools to assist with translation and software localization
 License:        GPL-2.0-or-later
@@ -19,6 +19,15 @@ BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+BuildRequires:  python3-pip
+BuildRequires:	python3-setuptools_scm
+BuildRequires:  python3-wheel
+BuildRequires:	python3-uv
+BuildRequires:	pyproject-rpm-macros
+BuildRequires: 	python3-sphinx
+BuildRequires: 	python3-sphinx-copybutton
+BuildRequires: 	python3-sphinxext-opengraph
+BuildRequires: 	python3-furo
 
 BuildRequires:  python3-aeidon
 BuildRequires:  python3-beautifulsoup4
@@ -88,14 +97,16 @@ the libraries in other localization tools.
 %prep
 %setup -q -n %{upstream_name}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires -t
+
 %build
 LANG=C.utf8
-%py3_build
-make html -C docs/
+%pyproject_wheel
 
 %install
 LANG=C.utf8
-%py3_install
+%pyproject_install
 
 # create manpages
 mkdir -p %{buildroot}%{_mandir}/man1
@@ -120,10 +131,10 @@ done
 %{_mandir}/man1/*
 %{python3_sitelib}/translate*
 
-%files docs
-%doc docs/_build/html
-
 %changelog
+* Wed Mar 05 2025 Sudip Shil <sshil@redhat.com> - 3.15.0-1
+- update to 3.15.0 (rhbz#2345309)
+
 * Wed Feb 05 2025 Sudip Shil <sshil@redhat.com> - 3.14.7-1
 - update to 3.14.7 (rhbz#2338456)
 

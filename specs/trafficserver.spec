@@ -3,8 +3,8 @@
 %global selinuxtype targeted
 
 Name:           trafficserver
-Version:        10.0.3
-Release:        1%{?dist}
+Version:        10.0.4
+Release:        2%{?dist}
 Summary:        Fast, scalable and extensible HTTP/1.1 and HTTP/2 caching proxy server
 
 License:        Apache-2.0
@@ -19,10 +19,11 @@ Source6:        %{name}.tmpfilesd
 Source7:        %{modulename}.te
 Source8:        %{modulename}.if
 Source9:        %{modulename}.fc
+Source10:       %{name}-10-update.service
 
 # Use Crypto Policies, don't set rpath as per Fedora policy
 Patch0:         trafficserver-crypto-policy.patch
-Patch1:         remove-rpath.patch
+Patch1:         fix-rpath.patch
 Patch2:         remove-openssl-engine.patch
 Patch3:         config-path-fix.patch
 
@@ -120,9 +121,6 @@ hadling ESI requests to providing a different caching algorithm.
 
 # This is not working properly with cmake for an unclear reason; linking fails
 %define _lto_cflags %{nil}
-# Removes -Wp,-D_GLIBCXX_ASSERTIONS due to assertion failure in libswoc (or tests)
-# Raised upstream as https://github.com/apache/trafficserver/issues/11948
-#%define _preprocessor_defines  %{_fortify_level_flags}
 
 %cmake \
     -DCMAKE_BUILD_TYPE=Release \
@@ -159,6 +157,7 @@ install -D -p -m 0644 selinux/%{modulename}.if %{buildroot}%{_datadir}/selinux/d
 
 # install systemd unit, etc.
 install -D -m 0644 -p %{SOURCE3} %{buildroot}%{_unitdir}/%{name}.service
+install -D -m 0644 -p %{SOURCE10} %{buildroot}%{_unitdir}/%{name}-10-update.service
 install -D -m 0644 -p %{SOURCE4} %{buildroot}%{_sysusersdir}/%{name}.conf
 install -D -m 0644 -p %{SOURCE5} %{buildroot}%{_sysconfdir}/sysconfig/%{name}
 install -D -m 0644 %{SOURCE6} %{buildroot}%{_tmpfilesdir}/%{name}.conf
@@ -186,14 +185,17 @@ install -D -m 0755 -p tools/records/convert2yaml.py %{buildroot}%{_libexecdir}/%
 %post
 %?ldconfig
 %systemd_post %{name}.service
+%systemd_post %{name}-10-update.service
 %tmpfiles_create %{_tmpfilesdir}/%{name}.conf
 
 %preun
 %systemd_preun %{name}.service
+%systemd_preun %{name}-10-update.service
 
 %postun
 %?ldconfig
 %systemd_postun_with_restart %{name}.service
+%systemd_postun_with_restart %{name}-10-update.service
 
 %if 0%{?with_selinux}
 # SELinux contexts are saved so that only affected files can be
@@ -224,6 +226,7 @@ fi
 %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
 
 %{_unitdir}/%{name}.service
+%{_unitdir}/%{name}-10-update.service
 %{_sysusersdir}/%{name}.conf
 %{_tmpfilesdir}/%{name}.conf
 
@@ -268,6 +271,13 @@ fi
 
 
 %changelog
+* Thu Mar 6 2025 Jered Floyd <jered@redhat.com> 10.0.4-2
+- Revert LTO linking issue causing build problems
+
+* Wed Mar 5 2025 Jered Floyd <jered@redhat.com> 10.0.4-1
+- Update to upstream 10.0.4
+- Resolves CVE-2024-38311, CVE-2024-56195, CVE-2024-56196, CVE-2024-56202
+
 * Mon Jan 27 2025 Jered Floyd <jered@redhat.com> 10.0.3-1
 - Update to upstream 10.0.3
 

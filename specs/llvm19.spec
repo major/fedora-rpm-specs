@@ -239,7 +239,7 @@
 #region main package
 Name:		%{pkg_name_llvm}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -686,6 +686,9 @@ Development header files for clang.
 %package -n %{pkg_name_clang}-resource-filesystem
 Summary: Filesystem package that owns the clang resource directory
 Provides: clang-resource-filesystem(major) = %{maj_ver}
+%if %{with compat_build}
+Conflicts: clang-resource-filesystem < %{maj_ver}.99
+%endif
 
 %description -n %{pkg_name_clang}-resource-filesystem
 This package owns the clang resouce directory: $libdir/clang/$version/
@@ -3108,6 +3111,9 @@ fi
 
 #region changelog
 %changelog
+* Thu Mar 06 2025 Nikita Popov <npopov@redhat.com> - 19.1.7-12
+- Add conflicts on clang-resource-filesystem
+
 * Tue Feb 25 2025 Nikita Popov <npopov@redhat.com> - 19.1.7-11
 - Add clang-devel -> llvm-devel dep (rhbz#2342979)
 

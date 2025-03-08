@@ -1,7 +1,7 @@
 %global gtk4_version 4.15.3
 
 Name:           gnome-contacts
-Version:        47.1.1
+Version:        48~beta
 Release:        %autorelease
 Summary:        Contacts manager for GNOME
 
@@ -50,11 +50,11 @@ Requires:       pipewire-gstreamer
 
 %install
 %meson_install
-appstreamcli metainfo-to-news %{buildroot}/%{_metainfodir}/org.gnome.Contacts.appdata.xml NEWS
+appstreamcli metainfo-to-news %{buildroot}/%{_metainfodir}/org.gnome.Contacts.metainfo.xml NEWS
 %find_lang %{name}
 
 %check
-appstreamcli validate --no-net %{buildroot}/%{_metainfodir}/org.gnome.Contacts.appdata.xml
+appstreamcli validate --no-net %{buildroot}/%{_metainfodir}/org.gnome.Contacts.metainfo.xml
 desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.Contacts.desktop
 
 %files -f %{name}.lang
@@ -71,7 +71,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.Contacts.d
 %dir %{_datadir}/gnome-shell/search-providers
 %{_datadir}/gnome-shell/search-providers/org.gnome.Contacts.search-provider.ini
 %{_datadir}/icons/hicolor/*/apps/org.gnome.Contacts*.svg
-%{_metainfodir}/org.gnome.Contacts.appdata.xml
+%{_metainfodir}/org.gnome.Contacts.metainfo.xml
 %{_mandir}/man1/gnome-contacts.1*
 
 %changelog

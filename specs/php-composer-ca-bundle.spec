@@ -9,15 +9,15 @@
 
 %bcond_without       tests
 
-%global gh_commit    08c50d5ec4c6ced7d0271d2862dec8c1033283e6
+%global gh_commit    f65c239c970e7f072f067ab78646e9f0b2935175
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     composer
 %global gh_project   ca-bundle
 %global php_home     %{_datadir}/php
 
 Name:           php-composer-ca-bundle
-Version:        1.5.5
-Release:        2%{?dist}
+Version:        1.5.6
+Release:        1%{?dist}
 Summary:        Lets you find a path to the system CA
 
 License:        MIT
@@ -127,6 +127,9 @@ exit $ret
 
 
 %changelog
+* Thu Mar  6 2025 Remi Collet <remi@remirepo.net> - 1.5.6-1
+- update to 1.5.6 (no change)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

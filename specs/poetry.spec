@@ -8,7 +8,7 @@ projects, ensuring you have the right stack everywhere.}
 
 Name:           poetry
 Summary:        Python dependency management and packaging made easy
-Version:        1.8.5
+Version:        2.1.1
 Release:        %autorelease
 
 # SPDX
@@ -26,8 +26,8 @@ Source0:        https://github.com/python-poetry/poetry/archive/%{version}/poetr
 # TODO get rid of this patch by talking to virtualenv and poetry upstream about a better solution.
 Patch:         Patch-get_embedded_wheel-to-return-system-wheels-fro.patch
 
-# tests/executor fix tests failing without internet access
-Patch:          https://github.com/python-poetry/poetry/pull/9117.patch
+# Inspired by upstream PR: https://github.com/python-poetry/poetry/pull/9939
+Patch:          Resolve-paths-before-comparing.patch
 
 BuildArch:      noarch
 
@@ -96,9 +96,7 @@ done
 
 %if %{without bootstrap}
 %check
-# the test test_add_git_constraint_with_extras is flaky
-# upstream issue: https://github.com/python-poetry/poetry/issues/9652
-%pytest -m "not network" -k "not test_add_git_constraint_with_extras"
+%pytest -m "not network"
 %endif
 
 

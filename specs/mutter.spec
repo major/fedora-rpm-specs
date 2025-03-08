@@ -12,7 +12,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:          mutter
-Version:       48~beta
+Version:       48~rc
 Release:       %autorelease
 Summary:       Window and compositing manager based on Clutter
 
@@ -21,14 +21,8 @@ License:       GPL-2.0-or-later
 URL:           http://www.gnome.org
 Source0:       http://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
 
-# Work-around for OpenJDK's compliance test
-Patch:         0001-window-actor-Special-case-shaped-Java-windows.patch
-
 # https://bugzilla.redhat.com/show_bug.cgi?id=1936991
 Patch:         mutter-42.alpha-disable-tegra.patch
-
-# https://pagure.io/fedora-workstation/issue/79
-Patch:         0001-place-Always-center-initial-setup-fedora-welcome.patch
 
 # https://pagure.io/fedora-workstation/issue/357
 Patch:         0001-gschema-Enable-fractional-scaling-experimental-featu.patch

@@ -2,14 +2,14 @@
 Opytimizer is a Python library consisting of
 meta-heuristic optimization algorithms}
 
-%bcond_without docs
+%bcond_with docs
 
 %bcond_without tests
 
 %global forgeurl https://github.com/gugarosa/opytimizer
 
 Name:           python-opytimizer
-Version:        3.1.2
+Version:        3.1.4
 Release:        %autorelease
 Summary:        Python implementation of metaheuristic optimization algorithms
 
@@ -21,13 +21,9 @@ Source0:        %forgesource
 
 BuildArch:      noarch
 
-# Fix import when building docs
-# PR: https://github.com/gugarosa/opytimizer/pull/33
-Patch:          33.patch
 
-# Move development dependencies out from the main dependencies
-# PR: https://github.com/gugarosa/opytimizer/pull/34
-Patch:          34.patch
+# Remove development dependencies out from the main dependencies
+Patch:          remove-ci-deps.patch
 
 %description
 %{desc}
@@ -87,7 +83,7 @@ Documentation for %{name}.
 
 # despite the use of xvfb, several plots are shown
 %if %{with tests}
-xvfb-run -a %{python3} -m pytest -k 'not plot'
+xvfb-run -a %{python3} -m pytest -k 'not plot and not test_cdo_update'
 %endif
 
 %files -n python3-opytimizer -f %{pyproject_files}

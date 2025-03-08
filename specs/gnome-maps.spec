@@ -7,13 +7,13 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so.*$
 
 Name:           gnome-maps
-Version:        47.4
+Version:        48~rc
 Release:        1%{?dist}
 Summary:        Map application for GNOME
 
 License:        GPL-2.0-or-later AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Maps
-Source0:        https://download.gnome.org/sources/%{name}/47/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -96,6 +96,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Maps.deskto
 
 
 %changelog
+* Thu Mar 06 2025 Fabio Valentini <decathorpe@gmail.com> - 48~rc-1
+- Update to 48.rc
+
 * Mon Mar 03 2025 nmontero <nmontero@redhat.com> - 47.4-1
 - Update to 47.4
 

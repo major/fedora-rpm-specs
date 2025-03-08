@@ -8,7 +8,7 @@ Name: sblim-sfcb
 Summary: Small Footprint CIM Broker
 URL: http://sblim.wiki.sourceforge.net/
 Version: 1.4.9
-Release: 34%{?dist}
+Release: 35%{?dist}
 License: EPL-1.0
 Source0: http://downloads.sourceforge.net/sblim/%{name}-%{version}.tar.bz2
 Source1: sfcb.service
@@ -117,7 +117,6 @@ echo "%{_datadir}/man/man1/*" >> _pkg_list
 echo "%{_unitdir}/sblim-sfcb.service" >> _pkg_list
 echo "%{_localstatedir}/lib/sfcb" >> _pkg_list
 echo "%{_bindir}/*" >> _pkg_list
-echo "%{_sbindir}/*" >> _pkg_list
 echo "%{_libdir}/sfcb/*.so.*" >> _pkg_list
 echo "%{_libdir}/sfcb/*.so" >> _pkg_list
 
@@ -142,6 +141,9 @@ install -m0644 -D sblim-sfcb.sysusers.conf %{buildroot}%{_sysusersdir}/sblim-sfc
 %{_sysusersdir}/sblim-sfcb.conf
 
 %changelog
+* Thu Mar 06 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.4.9-35
+- bin and sbin unification
+
 * Thu Jan 23 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.4.9-34
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

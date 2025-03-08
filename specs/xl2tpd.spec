@@ -12,6 +12,8 @@ Source2: tmpfiles-xl2tpd.conf
 Patch1: xl2tpd-1.3.14-conf.patch
 Patch2: xl2tpd-1.3.14-md5-fips.patch
 Patch3: xl2tpd-1.3.14-kernelmode.patch
+# https://github.com/xelerance/xl2tpd/pull/272
+Patch4: xl2tpd-1.3.18-gcc15.patch
 
 Requires: ppp >= 2.4.5-18, kmod(l2tp_ppp.ko)
 # If you want to authenticate against a Microsoft PDC/Active Directory
@@ -57,6 +59,7 @@ It was de-facto maintained by Jacco de Leeuw <jacco2@dds.nl> in 2002 and 2003.
 %patch -P1 -p1
 %patch -P2 -p1
 %patch -P3 -p1
+%patch -P4 -p1
 
 %build
 export CFLAGS="$CFLAGS -fPIC -Wall -DTRUST_PPPD_TO_DIE"

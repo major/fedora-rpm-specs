@@ -1,6 +1,6 @@
 Name:		tucnak
-Version:	4.64
-Release:	4%{?dist}
+Version:	4.67
+Release:	1%{?dist}
 Summary:	HF/VHF contest logging program
 License:	GPL-2.0-only
 URL:		http://tucnak.nagano.cz/
@@ -91,6 +91,10 @@ rmdir %{buildroot}%{_prefix}/lib/tucnak
 %{_datadir}/%{name}
 
 %changelog
+* Thu Mar  6 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 4.67-1
+- New version
+  Resolves: rhbz#2343519
+
 * Thu Feb 06 2025 Richard Shaw <hobbes1069@gmail.com> - 4.64-4
 - Rebuild for hamlib 4.6.
 

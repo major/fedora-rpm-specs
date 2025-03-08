@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 43.1
+Version: 43.5
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -38,9 +38,9 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %define libreportanacondaver 2.0.21-1
 %define mehver 0.23-1
 %define nmver 1.0
-%define pykickstartver 3.61-1
+%define pykickstartver 3.63-1
 %define pypartedver 2.5-2
-%define pythonblivetver 1:3.9.0-1
+%define pythonblivetver 1:3.12.0-1
 %define rpmver 4.15.0
 %define simplelinever 1.9.0-1
 %define subscriptionmanagerver 1.29.31
@@ -182,6 +182,11 @@ BuildRequires: desktop-file-utils
 Requires: anaconda-gui = %{version}-%{release}
 Requires: zenity
 Recommends: xhost
+# FIXME: This is currently needed by the locale1-x11-sync script.
+# It makes little sense for Anaconda to pull in two Python DBus libraries,
+# so we should either split the script to a separate or change it to also
+# use dasbus like the rest of Anaconda.
+Requires: python3-dbus-next
 
 %description live
 The anaconda-live package contains scripts, data and dependencies required
@@ -193,6 +198,7 @@ for live installations.
 Summary: Installation environment specific dependencies
 Requires: udisks2-iscsi
 Requires: libblockdev-plugins-all >= %{libblockdevver}
+Requires: libblockdev-tools
 %if ! 0%{?rhel}
 Requires: libblockdev-lvm-dbus
 %endif
@@ -223,7 +229,6 @@ Recommends: kdump-anaconda-addon
 # basic filesystem tools
 %if ! 0%{?rhel}
 Requires: btrfs-progs
-Requires: ntfs-3g
 Requires: ntfsprogs
 Requires: f2fs-tools
 %endif
@@ -381,6 +386,8 @@ rm -rf \
   %{buildroot}/%{_sysconfdir}/xdg/autostart/liveinst-setup.desktop \
   %{buildroot}/%{_bindir}/liveinst \
   %{buildroot}/%{_libexecdir}/liveinst-setup.sh \
+  %{buildroot}/%{_libexecdir}/locale1-x11-sync \
+  %{buildroot}/%{_userunitdir}/locale1-x11-sync.service \
   %{buildroot}/%{_datadir}/anaconda/gnome \
   %{buildroot}/%{_datadir}/anaconda/gnome/fedora-welcome \
   %{buildroot}/%{_datadir}/anaconda/gnome/org.fedoraproject.welcome-screen.desktop \
@@ -443,9 +450,11 @@ rm -rf \
 # do not provide the live subpackage on RHEL
 
 %files live
+%{_userunitdir}/locale1-x11-sync.service
 %{_bindir}/liveinst
 %{_datadir}/polkit-1/actions/*
 %{_libexecdir}/liveinst-setup.sh
+%{_libexecdir}/locale1-x11-sync
 %{_datadir}/applications/*.desktop
 %{_datadir}/anaconda/gnome
 %config(noreplace) %{_sysconfdir}/xdg/autostart/*.desktop
@@ -490,6 +499,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Mar 05 2025 Packit <hello@packit.dev> - 43.5-1
+- Fix bad formatting for `format` function (jkonecny)
+- network: pass 16-dns-backend.conf to target system (rvykydal)
+- network: enable dnsconfd service in installer environment (rvykydal)
+- network: enable dnsconfd service on installed system if required (rvykydal)
+
 * Tue Feb 18 2025 Packit <hello@packit.dev> - 43.1-1
 - Update to version 43.1
 

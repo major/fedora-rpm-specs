@@ -10,7 +10,7 @@ Source0:        http://www.cpan.org/modules/by-module/Log/Log-Any-Adapter-TAP-%{
 
 BuildArch:      noarch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.6

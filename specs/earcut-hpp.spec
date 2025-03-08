@@ -22,6 +22,10 @@ Source:         %{url}/archive/v%{version}/earcut.hpp-%{version}.tar.gz
 # Fixes failure to compile on GCC 15.
 # https://github.com/mapbox/earcut.hpp/pull/120
 Patch:          %{url}/pull/120.patch
+# Use a range for CMake minimum versions, 3.2...3.12: support CMake 4.0
+# https://github.com/mapbox/earcut.hpp/pull/121
+# Cherry-picked on v2.2.4.
+Patch:          0001-Use-a-range-for-CMake-minimum-versions-3.2.3.12-supp.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

@@ -63,7 +63,6 @@ Requires(preun): /sbin/install-info
 Requires(post): /sbin/install-info
 %endif
 Requires: lockdev >= 1.0.0-14
-Requires(pre): shadow-utils
 Requires(post): systemd-units
 Requires(preun): systemd-units
 Requires(postun): systemd-units
@@ -95,6 +94,12 @@ because it can be useful even if you do not do uucp.
 %patch -P11 -p1 -b .format
 %patch -P12 -p1 -b .configure-c99
 %patch -P13 -p1 -b .fix-types
+
+# Create a sysusers.d config file
+cat >uucp.sysusers.conf <<EOF
+g uucp 14
+u uucp 10 'Uucp user' /var/spool/uucp -
+EOF
 
 %build
 # enable hardening because uucp contains setuid binaries
@@ -171,18 +176,7 @@ EOF
 
 find "${RPM_BUILD_ROOT}%_datadir/uucp/contrib" -type f -exec chmod a-x {} +
 
-
-%pre
-getent group uucp >/dev/null || groupadd -g 14 -r uucp
-if ! getent passwd uucp >/dev/null ; then
-  if ! getent passwd 10 >/dev/null ; then
-     useradd -r -u 10 -g uucp -d /var/spool/uucp  -c "Uucp user" uucp
-  else
-     useradd -r -g uucp -d /var/spool/uucp  -c "Uucp user" uucp
-  fi
-fi
-exit 0
-
+install -m0644 -D uucp.sysusers.conf %{buildroot}%{_sysusersdir}/uucp.conf
 
 %post
 %if %{with systemd_macros}
@@ -296,6 +290,7 @@ fi
 %config(noreplace) %{_newconfigdir}/port
 %config(noreplace) %{_newconfigdir}/sys
 %attr(755,uucp,uucp) /var/spool/uucp
+%{_sysusersdir}/uucp.conf
 
 %files -n cu
 %doc README COPYING ChangeLog NEWS TODO

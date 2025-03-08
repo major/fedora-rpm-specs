@@ -43,7 +43,7 @@
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: 11%{?dist}
+Release: 12%{?dist}
 URL: http://www.openssh.com/portable.html
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz.asc
@@ -671,6 +671,9 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
+* Thu Mar 06 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.9p1-12
+- Update ssh-keysign permission for RPM linter
+
 * Wed Mar 05 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.9p1-11
 - Use OpenSSL ML-KEM implementation instead of the native one
 

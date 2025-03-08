@@ -7,13 +7,13 @@
 
 Name:           epiphany
 Epoch:          1
-Version:        47.3.1
+Version:        48~rc
 Release:        %autorelease
 Summary:        Web browser for GNOME
 
 License:        GPL-3.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Web
-Source0:        https://download.gnome.org/sources/epiphany/47/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/epiphany/48/%{name}-%{tarball_version}.tar.xz
 
 # Fedora bookmarks
 Patch0:         epiphany-default-bookmarks.patch

@@ -16,7 +16,11 @@
 %global with_enclave_ide 1
 
 # Quoting Enclave. Required for non-TDX usage. ECDSA quote generation
+%if 0%{?rhel}
+%global with_enclave_qe3 0
+%else
 %global with_enclave_qe3 1
+%endif
 
 # Quoting Enclave. Required for TDX usage. ECDSA quote generation
 %global with_enclave_tdqe 1

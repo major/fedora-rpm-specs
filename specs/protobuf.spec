@@ -217,7 +217,6 @@ BuildRequires:  maven-local
 BuildRequires:  mvn(com.google.code.gson:gson)
 BuildRequires:  mvn(com.google.guava:guava)
 BuildRequires:  mvn(com.google.guava:guava-testlib)
-BuildRequires:  mvn(com.google.truth:truth)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
@@ -304,6 +303,7 @@ chmod 644 examples/*
 %ifarch %{java_arches}
 %pom_remove_dep com.google.errorprone:error_prone_annotations java/util/pom.xml
 %pom_remove_dep com.google.j2objc:j2objc-annotations java/util/pom.xml
+%pom_remove_dep com.google.truth:truth java/pom.xml java/{core,lite,util}/pom.xml
 
 # Remove annotation libraries we don't have
 annotations=$(
@@ -352,7 +352,8 @@ export MAVEN_OPTS=-Xmx1024m
 %endif
 %pom_disable_module kotlin java/pom.xml
 %pom_disable_module kotlin-lite java/pom.xml
-%mvn_build -s -- -f java/pom.xml
+# tests require com.google.truth:truth even to build
+%mvn_build -s -- -f java/pom.xml -Dmaven.test.skip=true
 %endif
 %endif
 

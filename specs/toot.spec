@@ -1,7 +1,7 @@
 %global modname toot
 
 Name:           %{modname}
-Version:        0.47.1
+Version:        0.48.1
 Release:        %autorelease
 Summary:        A CLI and TUI tool for interacting with Mastodon
 

@@ -1,13 +1,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-backgrounds
-Version:        47.0
-Release:        2%{?dist}
+Version:        48~beta
+Release:        1%{?dist}
 Summary:        Desktop backgrounds packaged with the GNOME desktop
 
 License:        CC-BY-SA-3.0
 URL:            https://gitlab.gnome.org/GNOME/gnome-backgrounds
-Source0:        https://download.gnome.org/sources/%{name}/47/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
 
 BuildArch:      noarch
 
@@ -119,6 +119,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
 %{_datadir}/backgrounds/gnome/vnc-l.png
 
 %changelog
+* Thu Mar 06 2025 Fabio Valentini <decathorpe@gmail.com> - 48~beta-1
+- Update to 48.beta
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 47.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

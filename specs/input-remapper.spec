@@ -28,6 +28,7 @@ Requires:       %{py3_dist pycairo}
 
 # Extra test dependencies (see scripts/ci-install-deps.sh):
 BuildRequires:  %{py3_dist psutil}
+Requires:       %{py3_dist psutil}
 
 # Using pytest as the test runner lets us ignore modules and skip tests
 BuildRequires:  %{py3_dist pytest}

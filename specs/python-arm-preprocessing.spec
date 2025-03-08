@@ -2,7 +2,7 @@
 %global forgeurl https://github.com/firefly-cpp/arm-preprocessing
 
 Name:           python-%{pypi_name}
-Version:        0.2.4
+Version:        0.2.5
 Release:        %{autorelease}
 Summary:        Data preprocessing for Association Rule Mining (ARM)
 %global tag %{version}

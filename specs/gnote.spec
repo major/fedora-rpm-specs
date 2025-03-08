@@ -1,13 +1,15 @@
+%global __provides_exclude_from ^%{_libdir}/%{name}/plugins/*/.*\\.so$
+
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnote
-Version:        47.2
-Release:        2%{?dist}
+Version:        48~alpha
+Release:        1%{?dist}
 Summary:        Note-taking application
 
 License:        GPL-3.0-or-later AND GFDL-1.1-only AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Gnote
-Source0:        https://download.gnome.org/sources/%{name}/47/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  boost-devel
 BuildRequires:  desktop-file-utils
@@ -25,8 +27,6 @@ BuildRequires:  pkgconfig(libsecret-1)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(libxslt)
 BuildRequires:  pkgconfig(uuid)
-
-%global __provides_exclude_from ^%{_libdir}/%{name}/plugins/*/.*\\.so$
 
 %description
 Gnote is a desktop note-taking application which is simple and easy to use.
@@ -70,6 +70,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Gnot
 %{_metainfodir}/org.gnome.Gnote.appdata.xml
 
 %changelog
+* Thu Mar 06 2025 Fabio Valentini <decathorpe@gmail.com> - 48~alpha-1
+- Update to 48.alpha
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 47.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

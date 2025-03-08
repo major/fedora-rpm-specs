@@ -3,13 +3,12 @@
 %global   dunst_confdir %{_sysconfdir}/xdg
 
 Name:     dunst
-Version:  1.12.1
+Version:  1.12.2
 Release:  %autorelease
 Summary:  Lightweight and customizable notification-daemon
 License:  BSD-3-Clause
 URL:      https://dunst-project.org
 Source:   https://github.com/dunst-project/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch:    https://github.com/dunst-project/dunst/pull/1422.patch#./0001-Change-type-of-bool-to-gboolean.patch
 
 Requires: dbus
 # Required for dunstctl

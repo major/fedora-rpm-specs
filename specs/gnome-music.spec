@@ -9,7 +9,7 @@
 
 Name:          gnome-music
 Summary:       Music player and management application for GNOME
-Version:       47.1
+Version:       48~beta
 Release:       %autorelease
 
 # The sources are under the GPLv2+ license, except for:
@@ -19,7 +19,7 @@ Release:       %autorelease
 # Automatically converted from old format: (GPLv2+ with exceptions) - review is highly recommended.
 License:       (LicenseRef-Callaway-GPLv2+-with-exceptions) AND CC-BY-SA-3.0
 URL:           https://wiki.gnome.org/Apps/Music
-Source0:       https://download.gnome.org/sources/%{name}/47/%{name}-%{tarball_version}.tar.xz
+Source0:       https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
 
 BuildArch:     noarch
 BuildRequires: /usr/bin/appstream-util
@@ -75,7 +75,7 @@ Music player and management application for GNOME.
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Music.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Music.metainfo.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Music.desktop
 
 
@@ -88,7 +88,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Music.deskt
 %{_datadir}/org.gnome.Music/
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.Music.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.Music-symbolic.svg
-%{_metainfodir}/org.gnome.Music.appdata.xml
+%{_metainfodir}/org.gnome.Music.metainfo.xml
 %{python3_sitelib}/gnomemusic
 
 

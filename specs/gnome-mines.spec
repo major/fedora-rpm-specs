@@ -1,18 +1,19 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-mines
-Version:        40.1
-Release:        10%{?dist}
+Version:        48~alpha.2
+Release:        1%{?dist}
 Summary:        GNOME Mines Sweeper game
 
 License:        GPL-3.0-or-later AND CC-BY-SA-3.0
 URL:            https://wiki.gnome.org/Apps/Mines
-Source0:        https://download.gnome.org/sources/gnome-mines/40/gnome-mines-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/gnome-mines/48/gnome-mines-%{tarball_version}.tar.xz
 
 Requires:       rsvg-pixbuf-loader
 
-BuildRequires:  pkgconfig(gtk+-3.0)
-BuildRequires:  pkgconfig(libgnome-games-support-1)
+BuildRequires:  pkgconfig(gtk4)
+BuildRequires:  pkgconfig(libadwaita-1)
+BuildRequires:  pkgconfig(libgnome-games-support-2)
 BuildRequires:  pkgconfig(librsvg-2.0)
 
 BuildRequires:  desktop-file-utils
@@ -52,11 +53,14 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Mines.de
 %{_datadir}/glib-2.0/schemas/org.gnome.Mines.gschema.xml
 %{_datadir}/gnome-mines/
 %{_datadir}/icons/hicolor/*/apps/org.gnome.Mines*svg
-%{_datadir}/metainfo/org.gnome.Mines.appdata.xml
+%{_datadir}/metainfo/org.gnome.Mines.metainfo.xml
 %{_mandir}/man6/gnome-mines.6*
 
 
 %changelog
+* Thu Mar 06 2025 Fabio Valentini <decathorpe@gmail.com> - 48~alpha.2-1
+- Update to 48.alpha.2
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 40.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

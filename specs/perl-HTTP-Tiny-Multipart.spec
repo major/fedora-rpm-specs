@@ -9,7 +9,7 @@ Source0:        https://www.cpan.org/modules/by-module/HTTP/HTTP-Tiny-Multipart-
 
 BuildArch:      noarch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(Carp)

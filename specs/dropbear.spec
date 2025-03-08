@@ -1,6 +1,6 @@
 Name:              dropbear
-Version:           2024.86
-Release:           3%{?dist}
+Version:           2025.87
+Release:           1%{?dist}
 Summary:           Lightweight SSH server and client
 License:           MIT
 URL:               https://matt.ucc.asn.au/dropbear/dropbear.html
@@ -82,6 +82,9 @@ systemctl try-restart dropbear.service >/dev/null 2>&1 || :
 %{_mandir}/man8/*.8*
 
 %changelog
+* Thu Mar 06 2025 Federico Pellegrin <fede@evolware.org> - 2025.87-1
+- Update to 2025.87 (rhbz#2350134)
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 2024.86-3
 - Add explicit BR: libxcrypt-devel
 

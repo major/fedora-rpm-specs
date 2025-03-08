@@ -35,8 +35,8 @@ ExclusiveArch: x86_64
 %global major_version %%(echo %%{tarball_version} | cut -d. -f1)
 
 Name:		gnome-boxes
-Version:	47.0
-Release:	3%{?dist}
+Version:	48~alpha
+Release:	1%{?dist}
 Summary:	A simple GNOME 3 application to access remote or virtual systems
 
 # Sources are under LGPL-2.0-or-later, AppData is CC0-1.0 and help is
@@ -44,8 +44,8 @@ Summary:	A simple GNOME 3 application to access remote or virtual systems
 License:	LGPL-2.0-or-later AND CC0-1.0 AND CC-BY-SA-3.0
 URL:		https://wiki.gnome.org/Apps/Boxes
 Source0:	https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
-# fix validation of metainfo
-Patch0:         https://gitlab.gnome.org/GNOME/gnome-boxes/-/merge_requests/667.patch
+# fix validation of metainfo: https://gitlab.gnome.org/GNOME/gnome-boxes/-/merge_requests/667
+Patch0:         0001-data-fix-order-of-releases-in-metainfo.patch
 
 BuildRequires:	gettext >= 0.19.8
 BuildRequires:	meson
@@ -159,6 +159,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Boxe
 %{_metainfodir}/org.gnome.Boxes.metainfo.xml
 
 %changelog
+* Thu Mar 06 2025 Fabio Valentini <decathorpe@gmail.com> - 48~alpha-1
+- Update to 48.alpha
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 47.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

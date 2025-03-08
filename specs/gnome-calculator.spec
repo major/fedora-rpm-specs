@@ -4,13 +4,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-calculator
-Version:        47.1
-Release:        2%{?dist}
+Version:        48~rc
+Release:        1%{?dist}
 Summary:        A desktop calculator
 
 License:        GPL-3.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Calculator
-Source0:        https://download.gnome.org/sources/%{name}/47/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
@@ -61,7 +61,7 @@ developing applications that use %{name}.
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/org.gnome.Calculator.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/org.gnome.Calculator.metainfo.xml
 desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.Calculator.desktop
 
 
@@ -82,7 +82,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.Calculator
 %{_datadir}/gnome-shell/
 %{_datadir}/icons/hicolor/*/apps/org.gnome.Calculator.*
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.Calculator-symbolic.svg
-%{_metainfodir}/org.gnome.Calculator.appdata.xml
+%{_metainfodir}/org.gnome.Calculator.metainfo.xml
 %{_mandir}/man1/gnome-calculator.1*
 %{_mandir}/man1/gcalccmd.1*
 
@@ -105,6 +105,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.Calculator
 
 
 %changelog
+* Thu Mar 06 2025 Fabio Valentini <decathorpe@gmail.com> - 48~rc-1
+- Update to 48.rc
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 47.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

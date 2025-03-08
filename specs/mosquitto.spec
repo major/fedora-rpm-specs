@@ -1,8 +1,8 @@
 %global with_tests 0
 
 Name:           mosquitto
-Version:        2.0.20
-Release:        5%{?dist}
+Version:        2.0.21
+Release:        1%{?dist}
 Summary:        Open Source MQTT v5/v3.1.x Broker
 
 License:        EPL-2.0
@@ -109,6 +109,9 @@ make test
 %{_mandir}/man3/libmosquitto.3.*
 
 %changelog
+* Thu Mar 06 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.0.21-1
+- Update to 2.0.21
+
 * Thu Feb 13 2025 Fabian Affolter <mail@fabian-affolter.ch> - 2.0.20-5
 - Only add openssl-devel-engine for Fedora
 

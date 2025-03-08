@@ -11,7 +11,7 @@
 Summary: NetworkManager VPN plugin for SSH
 Name: NetworkManager-ssh
 Version: 1.2.14
-Release: 1%{?dist}
+Release: 2%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: https://github.com/danfruehauf/NetworkManager-ssh
@@ -35,7 +35,7 @@ Requires: NetworkManager >= 1:1.2.6
 Requires: openssh-clients
 Requires: shared-mime-info
 Requires: sshpass
-%{?selinux_requires}
+Requires: (%{name}-selinux if selinux-policy-targeted)
 
 %if %with gtk4
 BuildRequires: libnma-gtk4-devel
@@ -47,13 +47,22 @@ BuildRequires: libnma-gtk4-devel
 This package contains software for integrating VPN capabilities with
 the OpenSSH server with NetworkManager.
 
-%package -n NetworkManager-ssh-gnome
+%package gnome
 Summary: NetworkManager VPN plugin for SSH - GNOME files
 Requires: %{name}%{?_isa} = %{version}-%{release}
 
-%description -n NetworkManager-ssh-gnome
+%description gnome
 This package contains software for integrating VPN capabilities with
 the OpenSSH server with NetworkManager (GNOME files).
+
+%package selinux
+Summary: NetworkManager-ssh selinux policy module
+License: GPL-2.0-or-later
+BuildRequires: selinux-policy
+%{?selinux_requires}
+
+%description selinux
+Install NetworkManager-ssh-selinux policy
 
 %prep
 %setup -q
@@ -99,10 +108,7 @@ mkdir -p %{buildroot}/%{_datadir}/selinux/packages
 %doc AUTHORS README ChangeLog NEWS
 %license COPYING
 
-%attr(0644,root,root) %{_datadir}/selinux/packages/%{selinuxmodulename}.pp.bz2
-%ghost %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{selinuxmodulename}
-
-%files -n NetworkManager-ssh-gnome
+%files gnome
 %{_libdir}/NetworkManager/libnm-vpn-plugin-ssh.so
 %{_datadir}/appdata/network-manager-ssh.metainfo.xml
 %{_libdir}/NetworkManager/libnm-gtk3-vpn-plugin-ssh-editor.so
@@ -110,19 +116,27 @@ mkdir -p %{buildroot}/%{_datadir}/selinux/packages
 %if %with gtk4
 %{_libdir}/NetworkManager/libnm-gtk4-vpn-plugin-ssh-editor.so
 %endif
+%files selinux
+%attr(0644,root,root) %{_datadir}/selinux/packages/%{selinuxmodulename}.pp.bz2
+%ghost %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{selinuxmodulename}
+%license COPYING
 
-%post
+
+%post selinux
 %selinux_modules_install -s %{selinuxtype} -p 200 %{_datadir}/selinux/packages/%{selinuxmodulename}.pp.bz2 &> /dev/null
 
-%postun
+%postun selinux
 if [ $1 -eq 0 ]; then
   %selinux_modules_uninstall -s %{selinuxtype} -p 200 %{selinuxmodulename}
 fi
 
-%posttrans
+%posttrans selinux
 %selinux_relabel_post -s %{selinuxtype} &> /dev/null
 
 %changelog
+* Thu Mar 06 2025 Dan Fruehauf <malkodan@gmail.com> - 1.2.14-2
+- Selinux separate package (NetowrkManager-ssh-selinux)
+
 * Thu Mar 06 2025 Dan Fruehauf <malkodan@gmail.com> - 1.2.14-1
 - Selinux policy
 

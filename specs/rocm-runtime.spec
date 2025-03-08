@@ -33,7 +33,7 @@
 
 Name:       %{runtime_name}
 Version:    %{rocm_version}
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    ROCm Runtime Library
 
 License:    NCSA
@@ -78,6 +78,7 @@ applications to launch compute kernels directly to the graphics hardware.
 Summary: ROCm Runtime development files
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Provides:  hsakmt-devel = %{version}-%{release}
+Obsoletes: hsakmt-devel < 6.3
 Provides:  rocm-runtime-devel = %{version}-%{release}
 
 %description devel
@@ -177,6 +178,9 @@ fi
 %endif
 
 %changelog
+* Tue Mar 04 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 6.3.2-3
+- Fix the upgrade path for hsakmt-devel
+
 * Sun Feb 9 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-2
 - Fix SLE 15.6
 

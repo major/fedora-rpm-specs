@@ -23,7 +23,7 @@ Summary:   Open source remote desktop protocol (RDP) server
 Name:      xrdp
 Epoch:     1
 Version:   0.10.2
-Release:   10%{?dist}
+Release:   11%{?dist}
 # Automatically converted from old format: ASL 2.0 and GPLv2+ and MIT - review is highly recommended.
 License:   Apache-2.0 AND GPL-2.0-or-later AND LicenseRef-Callaway-MIT
 URL:       http://www.xrdp.org/
@@ -71,12 +71,16 @@ BuildRequires: checkpolicy, selinux-policy-devel
 BuildRequires: %{_hardlink}
 
 BuildRequires: systemd-rpm-macros
+%if 0%{?fedora} < 42 || 0%{?rhel}
+%{?sysusers_requires_compat}
+%endif
 
 # tigervnc-server-minimal provides Xvnc (default for now)
 # xorgxrdp is another back end, depends on specific Xorg binary, omit
 Requires: tigervnc-server-minimal
 Requires: xorg-x11-xinit
 Requires: util-linux
+Requires: fuse3
 
 %if 0%{?fedora} || 0%{?rhel} >= 8
 Recommends: %{name}-selinux = %{epoch}:%{version}-%{release}
@@ -198,6 +202,10 @@ done
 
 %{__install} -p -D -m 0644 %{SOURCE9} %{buildroot}%{_sysusersdir}/xrdp.conf
 
+%if 0%{?fedora} < 42 || 0%{?rhel}
+%pre
+%sysusers_create_compat %{SOURCE9}
+%endif
 
 %post
 %{?ldconfig}
@@ -344,6 +352,10 @@ fi
 %{_datadir}/selinux/*/%{name}.pp
 
 %changelog
+* Thu Mar  6 2025 Bojan Smojver <bojan@rexursive.com> - 1:0.10.2-11
+- Drop call to %sysusers_create_compat only in Fedora 42 and above
+- Add fuse3 dependency BZ#2350108
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:0.10.2-10
 - Drop call to %sysusers_create_compat
 

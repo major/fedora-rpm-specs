@@ -31,6 +31,8 @@ Patch5: sane-frontends-c99.patch
 Patch6: 0001-src-scanadf.c-Fix-segfault-when-scanadf-h-d-device.patch
 
 License: GPL-2.0-or-later AND GPL-2.0-or-later WITH SANE-exception
+# for autoconf to update configure
+BuildRequires: autoconf
 # gcc is no longer in buildroot by default
 BuildRequires: gcc
 # use for autosetup
@@ -48,7 +50,12 @@ This packages includes the scanadf and xcam programs.
 %autosetup -S git
 
 %build
-%configure --with-gnu-ld --prefix=%{_prefix} --sysconfdir=%{_sysconfdir} --mandir=%{_mandir}
+# have to regenerate configure, the old one caused f.e.:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2341321
+autoconf
+
+# added --disable-gimp - configure script was failing due missing gimp, but did not fail the build for some reason
+%configure --with-gnu-ld --prefix=%{_prefix} --sysconfdir=%{_sysconfdir} --mandir=%{_mandir} --disable-gimp
 %make_build
 
 %install
@@ -70,6 +77,9 @@ rm -f %{buildroot}%{_datadir}/sane/sane-style.rc
 # intended to be used from the command line
 
 %changelog
+* Thu Mar 06 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1.0.14-52
+- sane-frontends: FTBFS in Fedora rawhide/f42 (fedora#2341321)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.14-52
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

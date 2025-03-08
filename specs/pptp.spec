@@ -41,7 +41,7 @@ OUR_CFLAGS="-Wall %{optflags} -Wextra -Wstrict-aliasing=2 -Wnested-externs -Wstr
 
 %install
 rm -rf %{buildroot}
-%{make_install} DESTDIR=%{buildroot}
+%{make_install} DESTDIR=%{buildroot} BINDIR=%{buildroot}%{_sbindir}
 install -d -m 750 %{buildroot}%{_localstatedir}/run/pptp
 
 

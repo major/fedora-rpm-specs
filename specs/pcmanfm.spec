@@ -6,7 +6,7 @@
 %global		use_release	1
 %endif
 
-%global		main_version	1.3.2
+%global		main_version	1.4.0
 %undefine		prever
 %global		prerpmver		%(echo "%{?prever}" | sed -e 's|-||g')
 
@@ -18,23 +18,26 @@
 %global		git_builddir	%{nil}
 
 %if 0%{?use_gitbare} >= 1
-%global		tarballdate	20241225
-%global		tarballtime	1736
+%global		tarballdate	20250306
+%global		tarballtime	1455
+%define		use_gitcommit_as_rel		0
 
-%global		githeaddate	20241216
-%global		git_rev		a8ae14c5de336f56efbc5a98b7d5c50a833f20b3
+%global		githeaddate	20250304
+%global		git_rev		50aa9435c49551993fcd3c20d18615795c8daedf
 %global		git_short		%(echo %{git_rev} | cut -c-8)
 %global		git_version	%{githeaddate}git%{git_short}
 %endif
 
 
-%global		libfm_minver	1.2.0
+%global		libfm_minver	1.4.0
 
 %undefine		_changelog_trimtime
 
 %if 0%{?use_gitbare}
+%if 0%{?use_gitcommit_as_rel}
 %global		git_ver_rpm	^%{git_version}
 %global		git_builddir	-%{git_version}
+%endif
 %endif
 
 %global		use_gcc_strict_sanitize	0
@@ -48,7 +51,7 @@
 
 Name:		pcmanfm
 Version:	%{main_version}%{git_ver_rpm}
-Release:	3%{?dist}%{flagrel}
+Release:	1%{?dist}%{flagrel}
 Summary:	Extremly fast and lightweight file manager
 
 # SPDX confirmed
@@ -238,6 +241,9 @@ cd ..
 %{_includedir}/pcmanfm-modules.h
 
 %changelog
+* Thu Mar 06 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.0-1
+- 1.4.0
+
 * Wed Feb 19 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.2^20241216gita8ae14c5-3
 - Rebuild with libfm 1.4.0 for date format option
 

@@ -7,7 +7,7 @@ on top of asyncio, and works in harmony with the native SC of trio itself.}
 
 Name:           python-%{srcname}
 Version:        4.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Compatibility layer for multiple asynchronous event loop implementations
 License:        MIT
 URL:            https://github.com/agronholm/anyio
@@ -17,6 +17,12 @@ Source:         %{pypi_source %{srcname}}
 #
 # This can’t be sent upstream because it uses syntax introduced in Python 3.11.
 Patch:          0001-Downstream-only-remove-the-hard-test-dependency-on-e.patch
+
+# Fixed test failures caused by Python 3.14.0a5 
+# https://github.com/agronholm/anyio/commit/8bad9c05d966f6edfa58f26257015cb657d4e5ef
+# Cherry-picked to 4.8.0.
+# Fixes: https://bugzilla.redhat.com/show_bug.cgi?id=2349445
+Patch:          0001-Fixed-test-failures-caused-by-Python-3.14.0a5.patch
 
 BuildArch:      noarch
 
@@ -76,6 +82,9 @@ tomcli set pyproject.toml lists delitem --type regex --no-first \
 
 
 %changelog
+* Tue Mar 04 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.8.0-2
+- Patch for Python 3.14 test failures (fixes RHBZ#2349445)
+
 * Mon Feb 10 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.8.0-1
 - Stop generating HTML documentation; Obsolete the -doc subpackage
 - Update to 4.8.0 (close RHBZ#2236330)

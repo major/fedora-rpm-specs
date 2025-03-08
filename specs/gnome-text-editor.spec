@@ -8,14 +8,14 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:		gnome-text-editor
-Version:	47.3
+Version:	48~rc
 Release:	1%{?dist}
 Summary:	A simple text editor for the GNOME desktop
 
 # Code is GPL-3.0-or-later and the Appdata is CC0-1.0
 License:	GPL-3.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
 URL:		https://gitlab.gnome.org/GNOME/gnome-text-editor
-Source0:	https://download.gnome.org/sources/%{name}/47/%{name}-%{tarball_version}.tar.xz
+Source0:	https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:	pkgconfig(editorconfig)
 BuildRequires:	pkgconfig(enchant-2) >= %{enchant_version}
@@ -60,7 +60,7 @@ You can come back to your work even if you've never saved it to a file.
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.TextEditor.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.TextEditor.metainfo.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.TextEditor.desktop
 
 
@@ -68,17 +68,19 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.TextEditor.
 %doc README.md NEWS
 %license COPYING
 %{_bindir}/gnome-text-editor
-%{_metainfodir}/org.gnome.TextEditor.appdata.xml
+%{_metainfodir}/org.gnome.TextEditor.metainfo.xml
 %{_datadir}/applications/org.gnome.TextEditor.desktop
 %dir %{_datadir}/dbus-1
 %dir %{_datadir}/dbus-1/services
 %{_datadir}/dbus-1/services/org.gnome.TextEditor.service
 %{_datadir}/glib-2.0/schemas/org.gnome.TextEditor.gschema.xml
-%{_datadir}/gnome-text-editor/
 %{_datadir}/icons/hicolor/*/*/*.svg
 
 
 %changelog
+* Thu Mar 06 2025 Fabio Valentini <decathorpe@gmail.com> - 48~rc-1
+- Update to 48.rc
+
 * Mon Mar 03 2025 nmontero <nmontero@redhat.com> - 47.3-1
 - Update to 47.3
 

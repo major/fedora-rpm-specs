@@ -16,8 +16,8 @@
 %bcond_with          defcmd
 %endif
 
-%global gh_commit    d5df2b32d729562ff8db634678d71085ee579006
-%global gh_date      2025-02-25
+%global gh_commit    3946ac38410be7440186c6e74584f31b15107fc7
+%global gh_date      2025-03-05
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -30,7 +30,7 @@
 %global ver_major    11
 %global ver_minor    5
 
-%global upstream_version 11.5.10
+%global upstream_version 11.5.11
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -52,7 +52,7 @@ BuildRequires:  php(language) >= 8.2
 BuildRequires:  (php-composer(myclabs/deep-copy) >= 1.13.0            with php-composer(myclabs/deep-copy) <  2)
 BuildRequires:  (php-composer(phar-io/manifest) >= 2.0.4              with php-composer(phar-io/manifest) < 3)
 BuildRequires:  (php-composer(phar-io/version) >= 3.2.1               with php-composer(phar-io/version) <  4)
-BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 11.0.8    with php-composer(phpunit/php-code-coverage) < 12)
+BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 11.0.9    with php-composer(phpunit/php-code-coverage) < 12)
 BuildRequires:  (php-composer(phpunit/php-file-iterator) >= 5.1.0     with php-composer(phpunit/php-file-iterator) < 6)
 BuildRequires:  (php-composer(phpunit/php-invoker) >= 5.0.1           with php-composer(phpunit/php-invoker) < 6)
 BuildRequires:  (php-composer(phpunit/php-text-template) >= 4.0.1     with php-composer(phpunit/php-text-template) < 5)
@@ -88,7 +88,7 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "myclabs/deep-copy": "^1.13.0",
 #        "phar-io/manifest": "^2.0.4",
 #        "phar-io/version": "^3.2.1",
-#        "phpunit/php-code-coverage": "^11.0.8",
+#        "phpunit/php-code-coverage": "^11.0.9",
 #        "phpunit/php-file-iterator": "^5.1.0",
 #        "phpunit/php-invoker": "^5.0.1",
 #        "phpunit/php-text-template": "^4.0.1",
@@ -115,7 +115,7 @@ Requires:       php-xmlwriter
 Requires:       (php-composer(myclabs/deep-copy) >= 1.13.0            with php-composer(myclabs/deep-copy) <  2)
 Requires:       (php-composer(phar-io/manifest) >= 2.0.4              with php-composer(phar-io/manifest) < 3)
 Requires:       (php-composer(phar-io/version) >= 3.2.1               with php-composer(phar-io/version) < 4)
-Requires:       (php-composer(phpunit/php-code-coverage) >= 11.0.8    with php-composer(phpunit/php-code-coverage) < 12)
+Requires:       (php-composer(phpunit/php-code-coverage) >= 11.0.9    with php-composer(phpunit/php-code-coverage) < 12)
 Requires:       (php-composer(phpunit/php-file-iterator) >= 5.1.0     with php-composer(phpunit/php-file-iterator) < 6)
 Requires:       (php-composer(phpunit/php-invoker) >= 5.0.1           with php-composer(phpunit/php-invoker) < 6)
 Requires:       (php-composer(phpunit/php-text-template) >= 4.0.1     with php-composer(phpunit/php-text-template) < 5)
@@ -291,6 +291,10 @@ exit $ret
 
 
 %changelog
+* Wed Mar  5 2025 Remi Collet <remi@remirepo.net> - 11.5.11-1
+- update to 11.5.11
+- raise dependency on phpunit/php-code-coverage 11.0.9
+
 * Tue Feb 25 2025 Remi Collet <remi@remirepo.net> - 11.5.10-1
 - update to 11.5.10
 

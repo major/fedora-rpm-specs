@@ -37,6 +37,8 @@ BuildRequires:  fftw-devel
 BuildRequires:  libunwind-devel
 BuildRequires:  jack-audio-connection-kit-devel
 BuildRequires:  portaudio-devel
+# https://github.com/gqrx-sdr/gqrx/pull/1413
+Patch:         gqrx-2.17.6-cmake-4.patch
 
 %description
 Gqrx is a software defined radio receiver powered by the GNU Radio SDR

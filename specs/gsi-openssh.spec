@@ -24,12 +24,11 @@
 %global libedit 1
 
 %global openssh_ver 9.9p1
-%global openssh_rel 3
 
 Summary: An implementation of the SSH protocol with GSI authentication
 Name: gsi-openssh
 Version: %{openssh_ver}
-Release: %{openssh_rel}%{?dist}
+Release: 5%{?dist}
 Provides: gsissh = %{version}-%{release}
 Obsoletes: gsissh < 5.8p2-2
 URL: http://www.openssh.com/portable.html
@@ -180,6 +179,12 @@ Patch1017: openssh-9.9p1-mlkembe.patch
 # upstream 3f02368e8e9121847727c46b280efc280e5eb615
 # upstream 67a115e7a56dbdc3f5a58c64b29231151f3670f5
 Patch1020: openssh-9.9p1-match-regression.patch
+# upstream 6ce00f0c2ecbb9f75023dbe627ee6460bcec78c2
+# upstream 0832aac79517611dd4de93ad0a83577994d9c907
+# added https://www.openwall.com/lists/oss-security/2025/02/22/1
+Patch1021: openssh-9.9p2-error_processing.patch
+# Downstream patch, OpenSSL based MLKEM implementation
+Patch1022: openssh-9.9p1-openssl-mlkem.patch
 
 # This is the patch that adds GSI support
 # Based on hpn_isshd-gsi.7.5p1b.patch from Globus upstream
@@ -203,6 +208,7 @@ BuildRequires: gcc make
 BuildRequires: p11-kit-devel
 BuildRequires: libfido2-devel
 BuildRequires: libxcrypt-devel
+BuildRequires: oqsprovider
 Recommends: p11-kit
 
 %if %{kerberos5}
@@ -351,6 +357,8 @@ gpgv2 --quiet --keyring %{SOURCE3} %{SOURCE1} %{SOURCE0}
 %patch -P 1016 -p1 -b .sep-keysign
 %patch -P 1017 -p1 -b .mlkembe
 %patch -P 1020 -p1 -b .match
+%patch -P 1021 -p1 -b .errcode_set
+%patch -P 1022 -p1 -b .openssl-mlkem
 
 %patch -P 100 -p1 -b .coverity
 %patch -P 98 -p1 -b .gsi
@@ -575,6 +583,12 @@ fi
 %ghost %attr(0644,root,root) %{_localstatedir}/lib/.gsissh-host-keys-migration
 
 %changelog
+* Wed Mar 05 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.9p1-5
+- Based on openssh-9.9p1-11.fc43
+
+* Wed Mar 05 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.9p1-4
+- Based on openssh-9.9p1-9.fc42
+
 * Wed Feb 05 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.9p1-3
 - Based on openssh-9.9p1-8.fc42
 

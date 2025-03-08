@@ -1,11 +1,13 @@
+%global tarball_version %%(echo %{version} | tr '~' '.')
+
 Name:           d-spy
-Version:        47.0
-Release:        2%{?dist}
+Version:        48~rc
+Release:        1%{?dist}
 Summary:        D-Bus explorer
 
 License:        GPL-3.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/d-spy
-Source0:        https://download.gnome.org/sources/d-spy/47/d-spy-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/d-spy/48/d-spy-%{tarball_version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -16,7 +18,8 @@ BuildRequires:  pkgconfig(libadwaita-1)
 BuildRequires:  /usr/bin/appstream-util
 BuildRequires:  /usr/bin/desktop-file-validate
 
-Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+Obsoletes:      d-spy-libs < 48~
+Obsoletes:      d-spy-devel < 48~
 
 %description
 D-Spy is a tool to explore and test end-points and interfaces on the System or
@@ -24,26 +27,8 @@ Session D-Bus. You can also connect to D-Bus peers by address. D-Spy was
 originally part of GNOME Builder.
 
 
-%package        libs
-Summary:        Libraries for %{name}
-License:        LGPL-3.0-or-later AND LGPL-2.1-or-later
-
-%description    libs
-The %{name}-libs package contains %{name} shared libraries.
-
-
-%package        devel
-Summary:        Development files for %{name}
-License:        LGPL-3.0-or-later AND LGPL-2.1-or-later
-Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-
-%description    devel
-The %{name}-devel package contains libraries and header files for
-developing applications that use %{name}.
-
-
 %prep
-%autosetup -p1
+%autosetup -n d-spy-%{tarball_version} -p1
 
 
 %build
@@ -72,17 +57,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.dspy.deskto
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.dspy-symbolic.svg
 %{_datadir}/metainfo/org.gnome.dspy.appdata.xml
 
-%files libs
-%license COPYING.lgpl3
-%{_libdir}/libdspy-1.so.1*
-
-%files devel
-%{_includedir}/dspy-1/
-%{_libdir}/libdspy-1.so
-%{_libdir}/pkgconfig/dspy-1.pc
-
 
 %changelog
+* Thu Mar 06 2025 Fabio Valentini <decathorpe@gmail.com> - 48.rc-1
+- Update to 48.rc
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 47.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

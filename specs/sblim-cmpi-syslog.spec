@@ -1,17 +1,13 @@
 %global provider_dir %{_libdir}/cmpi
+%global with_test_subpackage 1
 
 Summary:        SBLIM syslog instrumentation
 Name:           sblim-cmpi-syslog
 Version:        0.9.0
-Release:        29%{?dist}
+Release:        30%{?dist}
 License:        EPL-1.0
 URL:            http://sourceforge.net/projects/sblim/
-# The source for this package was pulled from upstream's vcs.  Use the
-# following commands to generate the tarball:
-#  cvs -z3 -d:pserver:anonymous@sblim.cvs.sourceforge.net:/cvsroot/sblim co -P cmpi-syslog
-#  mv cmpi-syslog sblim-cmpi-syslog-0.8.0
-#  tar -cJvf sblim-cmpi-syslog-0.8.0.tar.xz sblim-cmpi-syslog-0.8.0
-Source0:        %{name}-%{version}.tar.bz2
+Source0:        http://downloads.sourceforge.net/sblim/%{name}-%{version}.tar.bz2
 
 # use Pegasus' root/interop instead of root/PG_Interop
 Patch0:         sblim-cmpi-syslog-0.9.0-pegasus-interop.patch
@@ -45,6 +41,7 @@ Requires:       %{name} = %{version}-%{release}
 %description devel
 SBLIM Base Syslog Development Package
 
+%if 0%{?with_test_subpackage}
 %package test
 Summary:        SBLIM Syslog Instrumentation Testcases
 Requires:       %{name} = %{version}-%{release}
@@ -52,6 +49,7 @@ Requires:       sblim-testsuite
 
 %description test
 SBLIM Base Syslog Testcase Files for SBLIM Testsuite
+%endif
 
 %prep
 %setup -q
@@ -67,7 +65,9 @@ export CFLAGS="$RPM_OPT_FLAGS -fsigned-char"
 export CFLAGS="$RPM_OPT_FLAGS" 
 %endif
 %configure \
+%if 0%{?with_test_subpackage}
         TESTSUITEDIR=%{_datadir}/sblim-testsuite \
+%endif
         PROVIDERDIR=%{provider_dir} \
         SYSLOG=rsyslog
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
@@ -86,11 +86,13 @@ echo "%{_libdir}/cmpi" > $RPM_BUILD_ROOT/%{_sysconfdir}/ld.so.conf.d/%{name}-%{_
 mv $RPM_BUILD_ROOT/%{_libdir}/lib[Ss]yslog*.so* $RPM_BUILD_ROOT/%{provider_dir}
 # add shebang to the scripts
 sed -i -e '1i#!/bin/sh' $RPM_BUILD_ROOT/%{_bindir}/syslog-service.sh \
+%if 0%{?with_test_subpackage}
 $RPM_BUILD_ROOT/%{_datadir}/sblim-testsuite/runtest_pegasus.sh \
 $RPM_BUILD_ROOT/%{_datadir}/sblim-testsuite/runtest_wbemcli.sh \
 $RPM_BUILD_ROOT/%{_datadir}/sblim-testsuite/system/linux/logrecord.sh \
 $RPM_BUILD_ROOT/%{_datadir}/sblim-testsuite/system/linux/msglogtest.sh \
 $RPM_BUILD_ROOT/%{_datadir}/sblim-testsuite/system/linux/messagelog.sh
+%endif
 
 %files
 %{_bindir}/syslog-service.sh
@@ -100,6 +102,7 @@ $RPM_BUILD_ROOT/%{_datadir}/sblim-testsuite/system/linux/messagelog.sh
 %{_datadir}/doc/%{name}
 %config(noreplace) %{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf
 
+%if 0%{?with_test_subpackage}
 %files test
 %{_datadir}/sblim-testsuite/runtest*
 %{_datadir}/sblim-testsuite/test-cmpi-syslog*
@@ -109,6 +112,7 @@ $RPM_BUILD_ROOT/%{_datadir}/sblim-testsuite/system/linux/messagelog.sh
 %{_datadir}/sblim-testsuite/system/linux/messagelog.sh
 %{_datadir}/sblim-testsuite/system/linux/msglogtest.sh
 %{_datadir}/sblim-testsuite/system/linux/setting
+%endif
 
 %global SCHEMA %{_datadir}/sblim-cmpi-syslog/Syslog_Log.mof %{_datadir}/sblim-cmpi-syslog/Syslog_Service.mof  %{_datadir}/sblim-cmpi-syslog/Syslog_Configuration.mof
 %global REGISTRATION %{_datadir}/sblim-cmpi-syslog/Syslog_Configuration.registration  %{_datadir}/sblim-cmpi-syslog/Syslog_Log.registration %{_datadir}/sblim-cmpi-syslog/Syslog_Service.registration
@@ -125,6 +129,10 @@ $RPM_BUILD_ROOT/%{_datadir}/sblim-testsuite/system/linux/messagelog.sh
 %postun -p /sbin/ldconfig
 
 %changelog
+* Thu Mar 06 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 0.9.0-30
+- Make test subpackage optional
+- Fix source
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

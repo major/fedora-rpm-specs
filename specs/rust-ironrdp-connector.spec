@@ -2,21 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate gufo-common
+%global crate ironrdp-connector
 
-Name:           rust-gufo-common
-Version:        0.2.0
+Name:           rust-ironrdp-connector
+Version:        0.3.1
 Release:        %autorelease
-Summary:        Common features used in gufo crates
+Summary:        State machines to drive an RDP connection sequence
 
-License:        MPL-2.0 OR LGPL-2.1-or-later
-URL:            https://crates.io/crates/gufo-common
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/ironrdp-connector
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Common features used in gufo crates.}
+State machines to drive an RDP connection sequence.}
 
 %description %{_description}
 
@@ -30,9 +30,11 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
-%license %{crate_instdir}/LICENSE-LGPL-2.1
-%license %{crate_instdir}/LICENSE-MPL-2.0
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/src/license_exchange.rs
+%doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -47,28 +49,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+chrono-devel
+%package     -n %{name}+arbitrary-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+chrono-devel %{_description}
+%description -n %{name}+arbitrary-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "chrono" feature of the "%{crate}" crate.
+use the "arbitrary" feature of the "%{crate}" crate.
 
-%files       -n %{name}+chrono-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+serde-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+serde-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "serde" feature of the "%{crate}" crate.
-
-%files       -n %{name}+serde-devel
+%files       -n %{name}+arbitrary-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

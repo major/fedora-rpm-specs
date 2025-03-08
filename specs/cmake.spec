@@ -72,10 +72,10 @@
 %global patch_version 0
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 3
+%global baserelease 1
 
 # Set to RC version if building RC, else comment out.
-%global rcsuf rc2
+%global rcsuf rc3
 
 %if 0%{?rcsuf:1}
 %global pkg_version %{major_version}.%{minor_version}.%{patch_version}~%{rcsuf}
@@ -595,6 +595,9 @@ popd
 
 
 %changelog
+* Thu Mar 06 2025 Björn Esser <besser82@fedoraproject.org> - 4.0.0~rc3-1
+- cmake-4.0.0-rc3
+
 * Thu Feb 27 2025 Björn Esser <besser82@fedoraproject.org> - 4.0.0~rc2-3
 - Rebuild (jsoncpp)
 - Provide cmake3 for legacy

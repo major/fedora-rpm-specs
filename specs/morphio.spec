@@ -79,6 +79,9 @@ Patch:          https://github.com/BlueBrain/MorphIO/pull/515.patch
 # https://github.com/openbraininstitute/MorphIO/pull/1
 # Fixes failure to build with GCC 15.
 Patch:          %{forgeurl}/pull/1.patch
+# Set CMake min. version to a range, 3.2...3.12: support CMake 4.0
+# https://github.com/openbraininstitute/MorphIO/pull/3
+Patch:          %{forgeurl}/pull/3.patch
 
 # skip locale check if std::locale fails
 Patch:          https://github.com/BlueBrain/MorphIO/pull/512.patch

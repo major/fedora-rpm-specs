@@ -9,11 +9,15 @@ URL:            https://github.com/jpcima/fmidi
 Source:         %{url}/archive/v%{version}/fmidi-%{version}.tar.gz
 
 # Accepted PR to add man pages: https://github.com/jpcima/fmidi/pull/4
-Patch:          https://github.com/jpcima/fmidi/pull/4.patch
+Patch:          %{url}/pull/4.patch
 
 # Make compatible with newer fmt
 # https://github.com/jpcima/fmidi/commit/20916421656e89a1303a85e76e89db8bd551a31e
 Patch:          %{url}/commit/20916421656e89a1303a85e76e89db8bd551a31e.patch
+
+# Update minimum CMake version to 3.12; support CMake 4.0
+# https://github.com/jpcima/fmidi/pull/6
+Patch:          %{url}/pull/6.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

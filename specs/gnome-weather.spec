@@ -5,13 +5,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:		gnome-weather
-Version:	47.0
-Release:	2%{?dist}
+Version:	48~beta
+Release:	1%{?dist}
 Summary:	A weather application for GNOME
 
 License:	GPL-2.0-or-later AND BSD-3-Clause and CC-BY-3.0 and CC-BY-SA-3.0
 URL:		https://wiki.gnome.org/Apps/Weather
-Source0:	https://download.gnome.org/sources/%{name}/47/%{name}-%{tarball_version}.tar.xz
+Source0:	https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
 
 BuildArch:	noarch
 
@@ -73,6 +73,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Weather.des
 %{_datadir}/org.gnome.Weather/
 
 %changelog
+* Thu Mar 06 2025 Fabio Valentini <decathorpe@gmail.com> - 48~beta-1
+- Update to 48.beta
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 47.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

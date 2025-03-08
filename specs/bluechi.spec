@@ -10,7 +10,7 @@
 
 
 Name:		bluechi
-Version:	0.10.1
+Version:	0.10.2
 Release:	1%{?dist}
 Summary:	A systemd service controller for multi-nodes environments
 License:	LGPL-2.1-or-later AND CC0-1.0
@@ -167,11 +167,13 @@ Requires:	selinux-policy >= %{_selinux_policy_version}
 %endif
 
 Requires(post):	policycoreutils
+%if "%{_selinux_policy_version}" != ""
+Requires(post): selinux-policy-base >= %_selinux_policy_version
+Requires(post): selinux-policy-any >= %_selinux_policy_version
+%endif
 
 Obsoletes:	hirte-selinux < 0.6.0
 Provides:	hirte-selinux = %{version}-%{release}
-
-%global selinuxtype targeted
 
 %description selinux
 SELinux policy associated with the bluechi and bluechi-agent daemons
@@ -186,14 +188,16 @@ SELinux policy associated with the bluechi and bluechi-agent daemons
 if [ $1 -eq 1 ]; then
    semodule -N -X 200 -r hirte 2>/dev/null || true
 fi
-%selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/bluechi.pp.bz2
+. %{_sysconfdir}/selinux/config
+%selinux_modules_install -s ${SELINUXTYPE} %{_datadir}/selinux/packages/bluechi.pp.bz2
 restorecon -R %{_bindir}/bluechi* &> /dev/null || :
 restorecon -R %{_rundir}/bluechi/ &> /dev/null || :
 restorecon -R %{_localstatedir}/%{_rundir}/bluechi/ &> /dev/null || :
 
 %postun selinux
 if [ $1 -eq 0 ]; then
-   %selinux_modules_uninstall -s %{selinuxtype} bluechi
+   . %{_sysconfdir}/selinux/config
+   %selinux_modules_uninstall -s ${SELINUXTYPE} bluechi
    restorecon -R %{_bindir}/bluechi* &> /dev/null || :
    restorecon -R %{_rundir}/bluechi/ &> /dev/null || :
    restorecon -R %{_localstatedir}/%{_rundir}/bluechi/ &> /dev/null || :
@@ -349,6 +353,9 @@ build-scripts/generate-unit-tests-code-coverage.sh %{_vpath_builddir} %{buildroo
 
 
 %changelog
+* Thu Mar 06 2025 Packit <hello@packit.dev> - 0.10.2-1
+- Update to version 0.10.2
+
 * Thu Feb 27 2025 Packit <hello@packit.dev> - 0.10.1-1
 - Update to version 0.10.1
 

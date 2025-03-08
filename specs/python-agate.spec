@@ -11,8 +11,8 @@ agate was previously known as journalism.
 
 
 Name:           python-%{pypi_name}
-Version:        1.12.0
-Release:        2%{?dist}
+Version:        1.13.0
+Release:        1%{?dist}
 Summary:        Data analysis library that is optimized for humans instead of machines
 
 License:        MIT
@@ -29,7 +29,7 @@ Summary:        %{summary}
 BuildRequires: make
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3-nose
+BuildRequires:  python3-pytest
 BuildRequires:  python3-coverage >= 3.7.1
 BuildRequires:  python3-lxml >= 3.6.0
 BuildRequires:  python3-cssselect
@@ -88,7 +88,7 @@ popd
 %check
 # test_cast_format_locale fails because some locale are missing is koji env.
 # test_order_by_nulls is weird and should be investigated
-nosetests-%{python3_version} tests -v --exclude=test_cast_format_locale --exclude=test_order_by_nulls
+%pytest tests -v -k "not test_cast_format_locale and not test_order_by_nulls"
 
 
 %files -n python3-%{pypi_name}
@@ -104,6 +104,10 @@ nosetests-%{python3_version} tests -v --exclude=test_cast_format_locale --exclud
 
 
 %changelog
+* Thu Mar 06 2025 Julien Enselme <jujens@jujens.eu> - 1.13.0-1
+- Update to 1.13.0
+- Remove nose
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

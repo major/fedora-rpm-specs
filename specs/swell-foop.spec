@@ -1,16 +1,17 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           swell-foop
-Version:        46.0
-Release:        3%{?dist}
+Version:        48~alpha
+Release:        1%{?dist}
 Summary:        GNOME colored tiles puzzle game
 
 License:        GPL-2.0-or-later AND CC-BY-SA-4.0
 URL:            https://wiki.gnome.org/Apps/Swell%20Foop
-Source0:        https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  pkgconfig(gee-0.8)
 BuildRequires:  pkgconfig(gtk4)
+BuildRequires:  pkgconfig(libadwaita-1)
 BuildRequires:  pkgconfig(libgnome-games-support-2)
 BuildRequires:  pkgconfig(librsvg-2.0)
 
@@ -51,10 +52,13 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.SwellFoo
 %{_datadir}/dbus-1/services/org.gnome.SwellFoop.service
 %{_datadir}/glib-2.0/schemas/org.gnome.SwellFoop.gschema.xml
 %{_datadir}/icons/hicolor/*/apps/org.gnome.SwellFoop*
-%{_datadir}/metainfo/org.gnome.SwellFoop.appdata.xml
+%{_datadir}/metainfo/org.gnome.SwellFoop.metainfo.xml
 
 
 %changelog
+* Thu Mar 06 2025 Fabio Valentini <decathorpe@gmail.com> - 48~alpha-1
+- Update to 48.alpha
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 46.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

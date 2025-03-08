@@ -4,8 +4,8 @@
 
 %global crate gufo-common
 
-Name:           rust-gufo-common
-Version:        0.2.0
+Name:           rust-gufo-common0.1
+Version:        0.1.3
 Release:        %autorelease
 Summary:        Common features used in gufo crates
 
@@ -45,18 +45,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+chrono-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+chrono-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "chrono" feature of the "%{crate}" crate.
-
-%files       -n %{name}+chrono-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel

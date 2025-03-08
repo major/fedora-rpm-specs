@@ -73,6 +73,9 @@ ExcludeArch:    %{ix86}
 #   2. inside the <id>python-classroom</id> group locate <packagereq ...>pypy3.N-devel</packagereq>
 #   3. change the package name to match the new version
 #   4. submit changes as a pull request and make sure somebody merges it
+# also update the excluded packages in python-classroom in https://pagure.io/fedora-kiwi-descriptions/
+#   1. locate excluded pypy3.N packages in teams/python.xml
+#   2. update the package list to include all non-main pypys
 %bcond_without main_pypy3
 %else
 %bcond_with main_pypy3

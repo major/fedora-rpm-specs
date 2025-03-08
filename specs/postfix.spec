@@ -56,8 +56,8 @@
 
 Name: postfix
 Summary: Postfix Mail Transport Agent
-Version: 3.9.1
-Release: 4%{?dist}
+Version: 3.10.1
+Release: 1%{?dist}
 Epoch: 2
 URL: http://www.postfix.org
 License: (IPL-1.0 OR EPL-2.0) AND GPL-2.0-or-later AND BSD-4-Clause-UC
@@ -302,7 +302,7 @@ done
 %build
 %set_build_flags
 unset AUXLIBS AUXLIBS_LDAP AUXLIBS_LMDB AUXLIBS_PCRE AUXLIBS_MYSQL AUXLIBS_PGSQL AUXLIBS_SQLITE AUXLIBS_CDB
-CCARGS="-fPIC -fcommon"
+CCARGS="-fPIC -fcommon -std=gnu17"
 %if 0%{?rhel} >= 9
 AUXLIBS=""
 %else
@@ -849,6 +849,10 @@ fi
 %endif
 
 %changelog
+* Thu Mar  6 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.10.1-1
+- New version
+  Resolves: rhbz#2346039
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:3.9.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -93,7 +93,7 @@ This package contains the installable tests for %{cogl}.
 %autosetup -p1
 
 %build
-CFLAGS="$RPM_OPT_FLAGS -fPIC"
+CFLAGS="$RPM_OPT_FLAGS -fPIC -std=gnu17"
 %configure \
   --enable-cairo=yes \
   --enable-cogl-pango=yes \

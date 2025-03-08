@@ -8,7 +8,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.7.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Adds SQL read/write support to agate
 
 License:        MIT
@@ -25,7 +25,7 @@ Summary:        %{summary}
 BuildRequires: make
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
-BuildRequires:  python3-nose
+BuildRequires:  python3-pytest
 BuildRequires:  python3dist(agate) >= 1.5
 BuildRequires:  python3dist(sqlalchemy) >= 1.0.8
 BuildRequires:  python3dist(furo)
@@ -68,7 +68,7 @@ popd
 
 %check
 # Some tests fails here but they pass on travis. We should check how this environment differs to explain this.
-nosetests-%{python3_version} tests -v -e test_to_sql_create_statement_unique_constraint -e test_to_sql_create_statement
+%pytest tests -v -k "not test_to_sql_create_statement_with_dialects"
 
 %files -n python3-%{pypi_name}
 %doc README.rst AUTHORS.rst CHANGELOG.rst
@@ -83,6 +83,9 @@ nosetests-%{python3_version} tests -v -e test_to_sql_create_statement_unique_con
 
 
 %changelog
+* Thu Mar 06 2025 Julien Enselme <jujens@jujens.eu> - 0.7.2-4
+- Remove nose
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

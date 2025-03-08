@@ -1,21 +1,22 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           lightsoff
-Version:        46.0
-Release:        3%{?dist}
+Version:        48~rc
+Release:        1%{?dist}
 Summary:        GNOME Lightsoff game
 
 # Code is under GPLv2+, help is under CC-BY-SA 3.0 Unported
 License:        GPL-2.0-or-later AND CC-BY-SA-3.0
 URL:            https://wiki.gnome.org/Apps/Lightsoff
-Source0:        https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
 BuildRequires:  itstool
 BuildRequires:  meson
 BuildRequires:  vala
-BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(gtk4)
+BuildRequires:  pkgconfig(libadwaita-1)
 BuildRequires:  pkgconfig(librsvg-2.0)
 
 %description
@@ -51,12 +52,14 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.LightsOf
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.LightsOff.svg
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.LightsOff.Devel.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.LightsOff-symbolic.svg
-%{_datadir}/lightsoff/
-%{_metainfodir}/org.gnome.LightsOff.appdata.xml
+%{_metainfodir}/org.gnome.LightsOff.metainfo.xml
 %{_mandir}/man6/lightsoff.6*
 
 
 %changelog
+* Thu Mar 06 2025 Fabio Valentini <decathorpe@gmail.com> - 48~rc-1
+- Update to 48.rc
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 46.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

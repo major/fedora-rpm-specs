@@ -5,17 +5,18 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-system-monitor
-Version:        47.1
+Version:        48~rc
 Release:        1%{?dist}
 Summary:        Process and resource monitor
 
 License:        GPL-2.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/SystemMonitor
-Source0:        https://download.gnome.org/sources/%{name}/47/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  meson
+BuildRequires:  pkgconfig(catch2-with-main)
 BuildRequires:  pkgconfig(giomm-2.68)
 BuildRequires:  pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires:  pkgconfig(gtkmm-4.0)
@@ -67,11 +68,14 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/gnome-system-monit
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.SystemMonitor-symbolic.svg
 %{_datadir}/icons/hicolor/symbolic/apps/processes-symbolic.svg
 %{_datadir}/icons/hicolor/symbolic/apps/resources-symbolic.svg
-%{_metainfodir}/org.gnome.SystemMonitor.appdata.xml
+%{_metainfodir}/org.gnome.SystemMonitor.metainfo.xml
 %{_datadir}/polkit-1/actions/org.gnome.gnome-system-monitor.policy
 %{_libexecdir}/gnome-system-monitor/
 
 %changelog
+* Thu Mar 06 2025 Fabio Valentini <decathorpe@gmail.com> - 48~rc-1
+- Update to 48.rc
+
 * Mon Mar 03 2025 nmontero <nmontero@redhat.com> - 47.1-1
 - Update to 47.1
 

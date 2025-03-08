@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        25
+Version:        26
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -57,7 +57,7 @@ Provides: bundled(npm(memoize-one)) = 5.2.1
 Provides: bundled(npm(object-assign)) = 4.1.1
 Provides: bundled(npm(prop-types)) = 15.8.1
 Provides: bundled(npm(react-dom)) = 18.2.0
-Provides: bundled(npm(react-dropzone)) = 14.3.5
+Provides: bundled(npm(react-dropzone)) = 14.3.8
 Provides: bundled(npm(react-is)) = 16.13.1
 Provides: bundled(npm(react)) = 18.2.0
 Provides: bundled(npm(scheduler)) = 0.23.2
@@ -79,6 +79,7 @@ Anaconda installer Web interface
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/extlinks.desktop
+desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/anaconda-gnome-control-center.desktop
 
 %check
 exit 0
@@ -114,11 +115,22 @@ exit 0
 %{_libexecdir}/anaconda/webui-desktop
 %{_libexecdir}/anaconda/firefox-ext
 %{_datadir}/applications/extlinks.desktop
+%{_datadir}/applications/anaconda-gnome-control-center.desktop
 %{_unitdir}/webui-cockpit-ws.service
 
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Mar 06 2025 Packit <hello@packit.dev> - 26-1
+- storage: cockpit-storage: select newly created mdarrays if the user created them
+- cockpit-storage: detect invalid mdarray configuration
+- localization: spawn gnome settings for changing keyboards in workstation
+- Do not display in the menus the extlinks Firefox app
+- firefox-theme: swap option for disabling external link warning
+- Do not show warning pop up for close on external link clicks
+- storage: when checking available scenarios through cockpit-storage don't consider reclaim space
+- cockpit-storage: when the user created a RAID device without content assume 'Use entire disk' scenario
+
 * Tue Feb 18 2025 Packit <hello@packit.dev> - 25-1
 - Add support for setting keyboard
 

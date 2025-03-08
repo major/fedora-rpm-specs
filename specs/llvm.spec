@@ -1462,6 +1462,13 @@ fi
 # This is to fix occasional OOM errors on the ppc64le COPR builders.
 %cmake_build --target libclang-cpp.so
 
+# Same for the three large MLIR dylibs.
+%if %{with mlir}
+%cmake_build --target libMLIR.so
+%cmake_build --target libMLIR-C.so
+%cmake_build --target libMLIRPythonCAPI.so
+%endif
+
 %cmake_build
 
 # If we don't build the runtimes target here, we'll have to wait for the %%check

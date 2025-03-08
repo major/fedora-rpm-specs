@@ -4,7 +4,7 @@
 
 Name:           sblim-gather
 Version:        2.2.9
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        SBLIM Gatherer
 
 License:        EPL-1.0
@@ -30,6 +30,7 @@ BuildRequires:  cmake
 Patch1:         sblim-gather-2.2.7-missing_providers.patch
 Patch2:         sblim-gather-2.2.7-typos.patch
 Patch8:         sblim-gather-2.2.9-remove-cxx-check.patch
+Patch15:        sblim-gather-2.2.9-cmake-minimum.patch
 
 # Patch3: removes version from docdir
 Patch3:         sblim-gather-2.2.8-docdir.patch
@@ -304,6 +305,9 @@ fi
 %ldconfig_postun provider
 
 %changelog
+* Thu Mar 06 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.2.9-39
+- Update minimum required cmake version
+
 * Wed Feb 05 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.2.9-38
 - Suppress msg when repeated value is detected
 - Fix bin/sbin merge related build warning

@@ -6,6 +6,9 @@ License: GPL-2.0-or-later
 URL: http://www.freedesktop.org/wiki/Software/Plymouth
 
 Source0: https://gitlab.freedesktop.org/plymouth/plymouth/-/archive/%{version}/%{name}-%{version}.tar.bz2
+# Spinner update from: https://gitlab.freedesktop.org/plymouth/plymouth/-/commit/1a01883fa2659bfb5e7417e1d5bd8d287a2cac36
+# Drop this on next rebase to latest upstream
+Source1: spinner-update.tar.gz
 Source2: charge.plymouth
 
 # Revert https://gitlab.freedesktop.org/plymouth/plymouth/-/commit/48881ba
@@ -272,7 +275,7 @@ Plymouth. It features a small spinner on a dark background.
 
 
 %prep
-%autosetup -p1
+%autosetup -p1 -a 1
 # Change the default theme
 sed -i -e 's/spinner/bgrt/g' src/plymouthd.defaults
 # Use simpledrm /dev/dri/card# by default

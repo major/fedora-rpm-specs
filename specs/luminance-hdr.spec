@@ -124,6 +124,14 @@ Patch:          0001-Fix-build-with-exiv2-0.28.0-raise-minimum-to-0.27.0.patch
 # https://github.com/LuminanceHDR/LuminanceHDR/issues/244
 Patch:          https://github.com/gentoo/gentoo/raw/f183705a78237d697d57279c392fe4afb27b9ae3/media-gfx/luminance-hdr/files/luminance-hdr-2.6.1.1-openexr3.patch
 
+# Set CMake min. version to a range, 3.3...3.12: support CMake 4.0
+# https://github.com/LuminanceHDR/LuminanceHDR/pull/288
+Patch:          %{forgeurl}/pull/288.patch
+
+# Fix building with Boost >= 1.85.0
+# https://github.com/LuminanceHDR/LuminanceHDR/pull/284
+Patch:          %{forgeurl}/pull/284.patch
+
 BuildRequires:  cmake
 # We choose to use the ninja backend instead of the make backend. Either works.
 BuildRequires:  ninja-build

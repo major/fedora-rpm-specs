@@ -1,6 +1,6 @@
 Name:           munin
 Version:        2.0.76
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Network-wide resource monitoring tool
 License:        GPL-2.0-only
 URL:            http://munin-monitoring.org/
@@ -92,7 +92,6 @@ Requires:       perl(Taint::Runtime)
 Requires:       perl(Text::Balanced)
 Requires:       perl(Time::HiRes)
 Requires:       rrdtool
-Requires(pre):  shadow-utils
 %{?systemd_requires}
 
 BuildArch:      noarch
@@ -131,7 +130,6 @@ Requires:       perl(Net::CIDR)
 Requires:       perl(Net::SSLeay)
 Requires:       perl(Net::Server)
 Requires:       procps-ng
-Requires(pre):  shadow-utils
 Requires(pre):  %{_sbindir}/semanage
 Requires(pre):  %{_sbindir}/restorecon
 %{?systemd_requires}
@@ -160,7 +158,6 @@ SNMP or similar technology.
 %package common
 Summary:        Network-wide resource monitoring tool (common files)
 Requires:       acl
-Requires(pre):  shadow-utils
 %{?systemd_requires}
 BuildArch:      noarch
 
@@ -265,6 +262,11 @@ sed -i -e 's,@@DBDIR@@,%{_sharedstatedir}/munin-node,g' node/_bin/munin-get.in
 cp %SOURCE16 .
 cp %SOURCE17 .
 cp %SOURCE18 .
+
+# Create a sysusers.d config file
+cat >munin.sysusers.conf <<EOF
+u munin - 'Munin user' %{_sharedstatedir}/munin /bin/sh
+EOF
 
 
 %build
@@ -396,11 +398,9 @@ touch %{buildroot}%{_sysconfdir}/httpd/conf.d/munin.conf
 touch %{buildroot}%{_sysconfdir}/httpd/conf.d/munin-cgi.conf
 touch %{buildroot}%{_sysconfdir}/munin/munin-htpasswd
 
+install -m0644 -D munin.sysusers.conf %{buildroot}%{_sysusersdir}/munin.conf
 
-%pre
-getent group munin >/dev/null || groupadd -r munin
-getent passwd munin >/dev/null || useradd -r -g munin -d %{_sharedstatedir}/munin -s /bin/sh -c "Munin user" munin
-exit 0
+
 
 
 %post
@@ -582,6 +582,7 @@ exit 0
 %config(noreplace) %ghost %{_sysconfdir}/httpd/conf.d/munin.conf
 %config(noreplace) %ghost %{_sysconfdir}/httpd/conf.d/munin-cgi.conf
 %config(noreplace) %ghost %{_localstatedir}/www/html/munin/.htaccess
+%{_sysusersdir}/munin.conf
 
 
 %files node
@@ -660,6 +661,9 @@ exit 0
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.0.76-6
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Mon Jan 27 2025 Kim B. Heino <b@bbbs.net> - 2.0.76-5
 - rhbz 2340895: Fix build on Fedora 42
 

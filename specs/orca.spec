@@ -1,13 +1,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           orca
-Version:        47.3
+Version:        48~rc
 Release:        1%{?dist}
 Summary:        Assistive technology for people with visual impairments
 
 License:        LGPL-2.1-or-later AND CC-BY-SA-3.0
 URL:            https://wiki.gnome.org/Projects/Orca
-Source0:        https://download.gnome.org/sources/%{name}/47/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
 
 BuildArch:      noarch
 
@@ -75,6 +75,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/orca-autostart.de
 
 
 %changelog
+* Thu Mar 06 2025 nmontero <nmontero@redhat.com> - 48~rc-1
+- Update to 48~rc
+
 * Mon Mar 03 2025 nmontero <nmontero@redhat.com> - 47.3-1
 - Update to 47.3
 

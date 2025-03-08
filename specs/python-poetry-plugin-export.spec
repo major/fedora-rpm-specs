@@ -3,14 +3,20 @@
 %bcond bootstrap 0
 
 Name:           python-poetry-plugin-export
-Version:        1.7.1
-Release:        2%{?dist}
+Version:        1.9.0
+Release:        1%{?dist}
 Summary:        Poetry plugin to export the dependencies to various formats
 
 # SPDX
 License:        MIT
 URL:            https://python-poetry.org/
 Source:         %{pypi_source poetry_plugin_export}
+
+# Adapt tests to cosmetic changes caused by poetry-core.
+# The changes in poetry.lock file were removed from the patch as they are not necessary and they were not applying cleanly.
+# Also the changes in pyproject.toml are not relevant.
+# Adapted from https://github.com/python-poetry/poetry-plugin-export/commit/16637f1.patch
+Patch:          Adapt-tests-to-changes-in-poetry-core.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -67,6 +73,10 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Mar 03 2025 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.9.0-1
+- Update to 1.9.0
+- Fixes: rhbz#2337225
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

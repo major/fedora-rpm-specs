@@ -9,8 +9,14 @@ Version:        1.11
 Release:        7%{?dist}
 Summary:        Utility for extracting cabinet (.cab) archives
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
-License:        GPL-2.0-or-later
+# cabextract itself is GPL-2.0-or-later but uses other source codes, breakdown:
+# LGPL-2.0-or-later: {getopt.[ch],getopt1.c}
+# LGPL-2.1-only: mspack/*.[ch]
+%if 0%{?mspack}
+License:        GPL-2.0-or-later AND LGPL-2.0-or-later
+%else
+License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only
+%endif
 URL:            https://www.cabextract.org.uk/
 Source:         https://www.cabextract.org.uk/%{name}-%{version}.tar.gz
 
@@ -22,7 +28,7 @@ BuildRequires:  make
 BuildRequires:  libmspack-devel >= 0.8
 %else
 # educated guess at version
-Provides: bundled(libmspack) = 1.9
+Provides: bundled(libmspack) = 0.11-0.1.alpha.modified_by_cabextract
 %endif
 
 

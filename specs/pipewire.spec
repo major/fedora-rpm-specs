@@ -1,6 +1,6 @@
 %global majorversion 1
-%global minorversion 3
-%global microversion 82
+%global minorversion 4
+%global microversion 0
 
 %global apiversion   0.3
 %global spaversion   0.2
@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 2
+%global baserelease 1
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -889,6 +889,12 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Thu Mar 06 2025 Wim Taymans <wtaymans@redhat.com> - 1.4.0-1
+- Update version to 1.4.0
+
+* Mon Feb 24 2025 Wim Taymans <wtaymans@redhat.com> - 1.3.83-1
+- Update version to 1.3.83
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.3.82-2
 - Drop call to %sysusers_create_compat
 

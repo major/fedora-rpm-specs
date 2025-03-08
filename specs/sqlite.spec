@@ -5,9 +5,9 @@
 %bcond_without check
 
 %define majorver 3
-%define realver 3490000
-%define docver 3490000
-%define rpmver 3.49.0
+%define realver 3490100
+%define docver 3490100
+%define rpmver 3.49.1
 %define year 2025
 
 Summary: Library that implements an embeddable SQL database engine
@@ -349,6 +349,10 @@ make test
 %endif
 
 %changelog
+* Thu Mar 06 2025 Packit <hello@packit.dev> - 3.49.1-1
+- Update to version 3.49.1
+- Resolves: rhbz#2346264
+
 * Thu Feb 6 2025 Ales Nezbeda <anezbeda@redhat.com> 3.49.0-1
 - Update to 3.49.0
 - https://www.sqlite.org/releaselog/3_49_0.html

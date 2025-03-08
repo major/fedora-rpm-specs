@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.14.0
 %define specversion 6.14.0
 %define patchversion 6.14
-%define pkgrelease 0.rc5.20250305git48a5eed9ad58.45
+%define pkgrelease 0.rc5.20250306git848e07631744.46
 %define kversion 6
-%define tarfile_release 6.14-rc5-16-g48a5eed9ad58
+%define tarfile_release 6.14-rc5-39-g848e07631744
 # This is needed to do merge window version magic
 %define patchlevel 14
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc5.20250305git48a5eed9ad58.45%{?buildid}%{?dist}
+%define specrelease 0.rc5.20250306git848e07631744.46%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.14.0
 
@@ -4212,10 +4212,13 @@ fi\
 #
 #
 %changelog
-* Wed Mar 05 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc5.48a5eed9ad58.45]
+* Thu Mar 06 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc5.848e07631744.46]
 - apply -Wno-error=unterminated-string-initialization temporarily (Thorsten Leemhuis)
 - include/linux: Adjust headers for C23 (Jakub Jelinek)
 - x86/insn_decoder_test: allow longer symbol-names (David Rheinsberg)
+
+* Thu Mar 06 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc5.848e07631744.45]
+- Linux v6.14.0-0.rc5.848e07631744
 
 * Wed Mar 05 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc5.48a5eed9ad58.44]
 - redhat/configs: enable CONFIG_ARM_SMMU_MMU_500_CPRE_ERRATA (Jerry Snitselaar)

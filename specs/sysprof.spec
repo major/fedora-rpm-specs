@@ -3,13 +3,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           sysprof
-Version:        47.2
-Release:        2%{?dist}
+Version:        48~beta
+Release:        1%{?dist}
 Summary:        A system-wide Linux profiler
 
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND CC-BY-SA-4.0 AND CC0-1.0 AND BSD-2-Clause-Patent
 URL:            http://www.sysprof.com
-Source0:        https://download.gnome.org/sources/sysprof/47/sysprof-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/sysprof/48/sysprof-%{tarball_version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -23,7 +23,9 @@ BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(gtk4)
 BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(libadwaita-1)
+BuildRequires:  pkgconfig(libdebuginfod)
 BuildRequires:  pkgconfig(libdex-1)
+BuildRequires:  pkgconfig(libdw)
 BuildRequires:  pkgconfig(libpanel-1)
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(libunwind-generic)
@@ -124,7 +126,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %files cli -f %{name}.lang
 %license COPYING
 %{_bindir}/sysprof-cli
+%{_bindir}/sysprof-cat
 %{_libexecdir}/sysprofd
+%{_libexecdir}/sysprof-live-unwinder
 %{_datadir}/dbus-1/system.d/org.gnome.Sysprof3.conf
 %{_datadir}/dbus-1/system-services/org.gnome.Sysprof3.service
 %{_datadir}/polkit-1/actions/org.gnome.sysprof3.policy
@@ -166,6 +170,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Thu Mar 06 2025 Fabio Valentini <decathorpe@gmail.com> - 48~beta-1
+- Update to 48.beta
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 47.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-LockFile-Simple
 Version:        0.208
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Simple file locking scheme
 License:        GPL-2.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/LockFile-Simple
@@ -8,11 +8,10 @@ Source0:        https://cpan.metacpan.org/modules/by-module/LockFile/LockFile-Si
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Module
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Exporter)
@@ -35,12 +34,11 @@ over NFS.
 %setup -q -n LockFile-Simple-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -52,6 +50,9 @@ make test
 %{_mandir}/man3/LockFile::Simple.3*
 
 %changelog
+* Thu Mar  6 2025 Paul Howarth <paul@city-fan.org> - 0.208-33
+- Use %%{make_build} and %%{make_install}
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.208-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

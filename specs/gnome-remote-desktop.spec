@@ -12,13 +12,13 @@
 %global pipewire_version 0.3.49
 
 Name:           gnome-remote-desktop
-Version:        47.2
-Release:        2%{?dist}
+Version:        48~rc
+Release:        1%{?dist}
 Summary:        GNOME Remote Desktop screen share service
 
 License:        GPL-2.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/gnome-remote-desktop
-Source0:        https://download.gnome.org/sources/%{name}/47/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
 
 # Adds encryption support (requires patched LibVNCServer)
 Patch0:         gnutls-anontls.patch
@@ -32,11 +32,15 @@ BuildRequires:  pkgconfig(epoxy)
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(ffnvcodec)
 %if %{with rdp}
+BuildRequires:  glslc
+BuildRequires:  spirv-tools
 BuildRequires:  pkgconfig(fdk-aac)
 BuildRequires:  pkgconfig(freerdp3)
 BuildRequires:  pkgconfig(fuse3)
+BuildRequires:  pkgconfig(libva)
 BuildRequires:  pkgconfig(opus)
 BuildRequires:  pkgconfig(polkit-gobject-1)
+BuildRequires:  pkgconfig(vulkan)
 BuildRequires:  pkgconfig(winpr3)
 %endif
 BuildRequires:  pkgconfig(gbm)
@@ -147,6 +151,9 @@ GNOME desktop environment.
 
 
 %changelog
+* Thu Mar 06 2025 Fabio Valentini <decathorpe@gmail.com> - 48~rc-1
+- Update to 48.rc
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 47.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

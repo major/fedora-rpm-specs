@@ -16,13 +16,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           evince
-Version:        46.3.1
-Release:        4%{?dist}
+Version:        48~rc
+Release:        1%{?dist}
 Summary:        Document viewer
 
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND X11 AND MIT AND Afmparse
 URL:            https://wiki.gnome.org/Apps/Evince
-Source0:        https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
 
 Patch:          evince-46.3.1-kpathsea-header-files.patch
 
@@ -287,6 +287,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Evince-p
 %{_mandir}/man1/evince-previewer.1*
 
 %changelog
+* Thu Mar 06 2025 Fabio Valentini <decathorpe@gmail.com> - 48~rc-1
+- Update to 48.rc
+
 * Mon Jan 27 2025 Marek Kasik <mkasik@redhat.com> - 46.3.1-4
 - Determine correct kpathsea header files
 - Fix by Than Ngo

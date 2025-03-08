@@ -4,7 +4,7 @@
 
 Name:		libffi
 Version:	3.4.7
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A portable foreign function interface library
 # No license change for 3.4.7
 # No license change for 3.4.6
@@ -41,6 +41,8 @@ URL:		http://sourceware.org/libffi
 Source0:	https://github.com/libffi/libffi/releases/download/v%{version}/libffi-%{version}.tar.gz
 Source1:	ffi-multilib.h
 Source2:	ffitarget-multilib.h
+
+Patch1:		libffi-3.4.7-ppc64-static-trampolines.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -142,6 +144,9 @@ install -m644 %{SOURCE2} $RPM_BUILD_ROOT%{_includedir}/ffitarget.h
 %{_infodir}/libffi.info.*
 
 %changelog
+* Thu Mar 06 2025 DJ Delorie <dj@redhat.com> - 3.4.7-2
+- Add PPC64 static trampoline support (#2313598)
+
 * Tue Feb 18 2025 DJ Delorie <dj@redhat.com> - 3.4.7-1
 - Rebase to libffi 3.4.7.
 

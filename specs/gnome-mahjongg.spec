@@ -1,13 +1,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-mahjongg
-Version:        47.2
+Version:        48~rc
 Release:        1%{?dist}
 Summary:        GNOME Mahjongg game
 
 License:        GPL-2.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Mahjongg
-Source0:        https://download.gnome.org/sources/%{name}/47/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  desktop-file-utils
@@ -59,6 +59,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Thu Mar 06 2025 Fabio Valentini <decathorpe@gmail.com> - 48~rc-1
+- Update to 48.rc
+
 * Mon Mar 03 2025 nmontero <nmontero@redhat.com> - 47.2-1
 - Update to 47.2
 
