@@ -51,6 +51,8 @@ Source0: %{name}-%{version}-git%{hash}.tar.xz
 # Sent upstream: http://lists.ipxe.org/pipermail/ipxe-devel/2015-November/004494.html
 Patch0001: 0001-build-customize-configuration.patch
 Patch0002: 0002-Use-spec-compliant-timeouts.patch
+# https://github.com/ipxe/ipxe/issues/1419
+Patch0003: gcc15.patch
 
 %ifarch %{buildarches}
 BuildRequires: perl-interpreter

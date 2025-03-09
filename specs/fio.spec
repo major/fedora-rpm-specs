@@ -1,6 +1,6 @@
 Name:		fio
 Version:	3.39
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Multithreaded IO generation tool
 
 License:	GPL-2.0-only
@@ -64,6 +64,8 @@ BuildRequires:	librdmacm-devel
 BuildRequires:  libnl3-devel
 %endif
 BuildRequires: make
+
+Requires: gperftools-libs
 
 # Don't create automated dependencies for the fio engines.
 # https://bugzilla.redhat.com/show_bug.cgi?id=1884954
@@ -282,6 +284,10 @@ make install prefix=%{_prefix} mandir=%{_mandir} libdir=%{_libdir}/fio DESTDIR=$
 %endif
 
 %changelog
+* Fri Mar 07 2025 Pavel Reichl <preichl@redhat.com> - 3.39-2
+- Add dependency on gperftools-libs
+- Related: rhbz#2299495
+
 * Mon Feb 24 2025 Pavel Reichl <preichl@redhat.com> - 3.39-1
 - Update to upstream version
 - Related: rhbz#2316181

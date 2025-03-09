@@ -1,5 +1,5 @@
 Name:           python-aiohappyeyeballs
-Version:        2.4.4
+Version:        2.5.0
 Release:        %autorelease
 Summary:        Happy Eyeballs for asyncio
 
@@ -13,22 +13,10 @@ Source:         %{url}/archive/v%{version}/aiohappyeyeballs-%{version}.tar.gz
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Downstream-only-remove-pytest-options-for-coverage-a.patch
 
-# fix: ensure all timers are cancelled when after staggered race finishes
-# https://github.com/aio-libs/aiohappyeyeballs/pull/136
-# Backported from 2.4.6, which is blocked waiting for poetry-core 2:
-# https://src.fedoraproject.org/rpms/python-poetry-core/pull-request/31#comment-245187
-# (Applies on top of the downstream coverage patch.)
-Patch:          0002-fix-ensure-all-timers-are-cancelled-when-after-stagg.patch
-# fix: close runner up sockets in the event there are multiple winners
-# https://github.com/aio-libs/aiohappyeyeballs/pull/143
-# Backported from 2.4.8, which is blocked waiting for poetry-core 2:
-# https://src.fedoraproject.org/rpms/python-poetry-core/pull-request/31#comment-245187
-# (Applies on top of the downstream coverage patch etc.)
-Patch:          0003-fix-close-runner-up-sockets-in-the-event-there-are-m.patch
+BuildSystem:            pyproject
+BuildOption(install):   -L aiohappyeyeballs
 
 BuildArch:      noarch
-
-BuildRequires:  python3-devel
 
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist pytest-asyncio}
@@ -54,20 +42,7 @@ Summary:        %{summary}
 %autosetup -n aiohappyeyeballs-%{version} -p1
 
 
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -L aiohappyeyeballs
-
-
-%check
+%check -a
 %pytest
 
 

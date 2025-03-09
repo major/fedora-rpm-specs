@@ -1,4 +1,4 @@
-%global candidate rc2
+%global candidate rc3
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -10,7 +10,7 @@
 
 Name:     uboot-tools
 Version:  2025.04
-Release:  0.4%{?candidate:.%{candidate}}%{?dist}
+Release:  0.5%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -32,6 +32,10 @@ Patch4:   disable-VBE-by-default.patch
 Patch5:   enable-bootmenu-by-default.patch
 # Should be upstream but it's taking time
 Patch6:   Add-video-damage-tracking.patch
+# For HTTP boot installs
+Patch7:   Add-pmem-node-for-preserving-distro-ISO-s.patch
+# USB-PD improvements
+Patch8:   USB-PD-TCPM-improvements.patch
 
 # Device improvments
 # RPi
@@ -265,6 +269,9 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Wed Feb 26 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2025.04-0.5.rc3
+- Update to 2025.04 RC3
+
 * Tue Feb 18 2025 David Abdurachmanov <davidlt@rivosinc.com> - 1:2025.04-0.4.rc2
 - Add support for riscv64
 

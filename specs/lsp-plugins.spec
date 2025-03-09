@@ -1,15 +1,15 @@
 Name:           lsp-plugins
-Version:        1.2.19
-Release:        3%{?dist}
+Version:        1.2.21
+Release:        1%{?dist}
 Summary:        Linux Studio Plugins
 
 License:        LGPL-3.0-or-later and Zlib
 URL:            https://lsp-plug.in/
-Source0:        https://github.com/sadko4u/%{name}/releases/download/%{version}/%{name}-src-%{version}.tar.gz
+Source0:        https://github.com/lsp-plugins/%{name}/releases/download/%{version}/%{name}-src-%{version}.tar.gz
 
 # Fixed atomic operations for AArch64
 # https://github.com/lsp-plugins/lsp-common-lib/commit/156be4d61c57d805745b85d7fadb781a4bc581b0
-Patch0:         156be4d61c57d805745b85d7fadb781a4bc581b0.patch
+# Patch0:         156be4d61c57d805745b85d7fadb781a4bc581b0.patch
 
 ExcludeArch: %{ix86}
 
@@ -40,7 +40,8 @@ Requires:       hicolor-icon-theme
 
 %description
 LSP (Linux Studio Plugins) is a collection of open-source plugins
-compatible with LADSPA, LV2, LinuxVST formats and Standalone (using Jack).
+currently compatible with CLAP, LADSPA, LV2, VST2/LinuxVST, VST3 and
+JACK standalone formats.
 
 %package -n liblsp-r3d-glx
 Summary:        liblsp-r3d-glx plugin
@@ -149,7 +150,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 %files -n liblsp-r3d-glx
 %license COPYING COPYING.LESSER
-%{_libdir}/liblsp-r3d-glx-lib-1.0.21.so
+%{_libdir}/liblsp-r3d-glx-lib-1.0.23.so
 
 %files -n liblsp-r3d-glx-devel
 %{_libdir}/liblsp-r3d-glx-lib.so
@@ -193,6 +194,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/gstreamer-1.0/libgstlsp-plugins*.so
 
 %changelog
+* Mon Mar 3 2025 Nikolas Nyby <nikolas@gnu.org> - 1.2.21-1
+- Update to 1.2.21
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.19-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

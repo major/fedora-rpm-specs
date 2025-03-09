@@ -91,6 +91,11 @@ install -m644 -p %{SOURCE1} .
 
 %build
 touch imap/ip6
+
+# Add -std=gnu17 for now.
+# https://bugzilla.redhat.com/show_bug.cgi?id=2336274
+CFLAGS="%{optflags} -std=gnu17"
+
 # --without-tcl disables the TCL-based CGI "Web Alpine"
 %configure \
   --enable-debug=no \
@@ -108,7 +113,7 @@ touch imap/ip6
 
 # Build single threaded, make is not creating directories in time.
 export RPM_BUILD_NCPUS=1
-%make_build EXTRACFLAGS="$RPM_OPT_FLAGS"
+%make_build
 
 
 %install

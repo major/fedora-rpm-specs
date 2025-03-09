@@ -1,7 +1,7 @@
 %global framework kparts
 
 Name:    kf6-%{framework}
-Version: 6.11.0
+Version: 6.12.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution for KParts
 
@@ -25,6 +25,7 @@ BuildRequires:  cmake(KF6TextWidgets)
 BuildRequires:  cmake(KF6WidgetsAddons)
 BuildRequires:  cmake(KF6XmlGui)
 BuildRequires:  cmake(KF6ColorScheme)
+BuildRequires:  cmake(KF6GuiAddons)
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  pkgconfig(xkbcommon)
@@ -82,6 +83,9 @@ mkdir -p %{buildroot}%{_kf6_plugindir}/parts/
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Fri Mar 07 2025 Steve Cossette <farchord@gmail.com> - 6.12.0-1
+- 6.12.0
+
 * Fri Feb 07 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.11.0-1
 - 6.11.0
 

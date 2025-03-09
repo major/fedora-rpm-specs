@@ -6,7 +6,7 @@
 #######################
 Name:           condor
 Version:        23.9.6
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        HTCondor: High Throughput Computing
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -18,6 +18,7 @@ URL:            http://htcondor.org
 Source0:        https://github.com/htcondor/htcondor/archive/v%{version}/%{name}-%{version}.tar.gz
 
 Patch1: exit_37.sif.patch
+Patch2: unified-bin.patch
 
 # This is a stopgap until I can conditionalize the cmake files
 # use the system libfmt if suitable version available
@@ -310,6 +311,7 @@ exit 0
 %prep
 %setup -q -n %{name}-%{version}
 %patch 1 -p1
+%patch 2 -p1
 
 # fix errant execute permissions
 find src -perm /a+x -type f -name "*.[Cch]" -exec chmod a-x {} \;
@@ -937,6 +939,12 @@ done
 /sbin/ldconfig
 
 %changelog
+* Fri Mar 07 2025 Tim Theisen <ttheisen@fedoraproject.org> - 23.9.6-5
+- Account for unified /usr/bin and /usr/sbin after Fedora 41
+
+* Fri Mar 07 2025 Tim Theisen <ttheisen@fedoraproject.org> - 23.9.6-4
+- Account for Unify /usr/bin and /usr/sbin - rhbz#2339993
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 23.9.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

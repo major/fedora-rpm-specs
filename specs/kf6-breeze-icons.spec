@@ -8,7 +8,7 @@
 
 Name:    kf6-%{framework}
 Summary: Breeze icon theme library
-Version: 6.11.0
+Version: 6.12.0
 Release: 1%{?dist}
 
 # skladnik.svg is CC-BY-SA-4.0
@@ -165,6 +165,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/breeze-dark &>/dev/null || :
 %endif
 
 %changelog
+* Fri Mar 07 2025 Steve Cossette <farchord@gmail.com> - 6.12.0-1
+- 6.12.0
+
 * Fri Feb 07 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.11.0-1
 - 6.11.0
 

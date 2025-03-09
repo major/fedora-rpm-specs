@@ -55,6 +55,7 @@ Patch: 0008-Remove-broken-docs-python-monkeypatching.patch
 Patch: 0009-framework-include-cppmicroservces-add-missing-cstdin.patch
 Patch: 0010-Fix-for-system-libraries-for-gmock-google-benchmark.patch
 Patch: 0011-Use-fPIC-on-all-architectures-not-just-x86_64.patch
+Patch: 0012-Disable-JSON-comment-test.patch
 
 # Regardless of the above issue wrt system libraries, the following
 # are likely to need carrying as bundled libraries indefinitely in

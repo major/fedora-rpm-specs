@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 1
+%global baserelease 3
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -213,9 +213,7 @@ Summary:        PipeWire JACK implementation libraries
 License:        MIT
 Recommends:     %{name}%{?_isa} = %{version}-%{release}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-%if 0%{?rhel}
 Requires:       %{name}-jack-audio-connection-kit%{?_isa} = %{version}-%{release}
-%endif
 # Fixed jack subpackages
 Conflicts:      %{name}-libjack < 0.3.13-6
 Conflicts:      %{name}-jack-audio-connection-kit < 0.3.13-6
@@ -889,6 +887,15 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Fri Mar 07 2025 Wim Taymans <wtaymans@redhat.com> - 1.4.0-3
+- Always require jack-audio-connection-kit from jack-audio-connection-kit-libs
+  because the ld.so.conf is needed to build dependent packages
+  Resolves: rhbz#2345985
+
+* Fri Mar 07 2025 Wim Taymans <wtaymans@redhat.com> - 1.4.0-2
+- Move the libjack.so ld.so.conf file to -libs.
+  Resolves: rhbz#2345985
+
 * Thu Mar 06 2025 Wim Taymans <wtaymans@redhat.com> - 1.4.0-1
 - Update version to 1.4.0
 

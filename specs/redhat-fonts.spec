@@ -25,8 +25,8 @@ The fonts were originally commissioned by Paula Scher / Pentagram \
 and designed by Jeremy Mickel / MCKL for the new Red Hat identity.
 
 Name:           %{fontname}-fonts
-Version:        4.0.3
-Release:        14%{?dist}
+Version:        4.1.0
+Release:        1%{?dist}
 Summary:        Red Hat Typeface fonts
 # Only the metainfo files are CC-BY-SA
 License:        OFL-1.1-RFN AND CC-BY-SA-4.0
@@ -109,12 +109,20 @@ This package provides the variable font version of the Monospace fonts variant.
 
 # Install fonts
 install -m 0755 -d %{buildroot}%{_fontdir}
-install -m 0644 -p fonts/*/static/otf/*.otf %{buildroot}%{_fontdir}
-rm -f fonts/*/*VF*.ttf fonts/mono/RedHatMono.ttf fonts/mono/RedHatMono-Italic.ttf
-# workaround to address crash issue/unexpected italic rendering with variable fonts
-rm -f fonts/*/*-Italic*.ttf
 install -m 0755 -d %{buildroot}%{_fontdir}-vf
-install -m 0644 -p fonts/*/*.ttf %{buildroot}%{_fontdir}-vf
+## Mono
+install -m 0644 -p fonts/Mono/otf/*.otf %{buildroot}%{_fontdir}
+## Mono VF
+install -m 0644 -p fonts/Mono/variable/*.ttf %{buildroot}%{_fontdir}-vf
+## Display/Text
+install -m 0644 -p fonts/Proportional/*/otf/*.otf %{buildroot}%{_fontdir}
+## Display/Text VF
+install -m 0644 -p fonts/Proportional/*/variable/*.ttf %{buildroot}%{_fontdir}-vf
+
+# Drop duplicate
+rm -f %{buildroot}%{_fontdir}-vf/*VF*.ttf
+# workaround to address crash issue/unexpected italic rendering with variable fonts
+rm -f %{buildroot}%{_fontdir}-vf/*-Italic*.ttf
 
 # Install fontconfig data
 install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
@@ -186,6 +194,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
+* Fri Mar  7 2025 Akira TAGOH <tagoh@redhat.com> - 4.1.0-1
+- New upstream release.
+  Resolves: rhbz#2350415
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

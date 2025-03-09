@@ -4,8 +4,8 @@
 %global dnf_conflict 4.11.0
 %global swig_version 3.0.12
 %global libdnf_major_version 0
-%global libdnf_minor_version 73
-%global libdnf_micro_version 4
+%global libdnf_minor_version 74
+%global libdnf_micro_version 0
 
 %define __cmake_in_source_build 1
 
@@ -56,18 +56,11 @@
 
 Name:           libdnf
 Version:        %{libdnf_major_version}.%{libdnf_minor_version}.%{libdnf_micro_version}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        Library providing simplified C and Python API to libsolv
 License:        LGPL-2.1-or-later
 URL:            https://github.com/rpm-software-management/libdnf
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-
-# Fix a segfault in iterator of a ConfigParser section
-# Fixes https://bugzilla.redhat.com/2330562
-Patch:          https://github.com/rpm-software-management/libdnf/pull/1682.patch
-# Fix building with CMake 4, in upstream after 0.73.4,
-# <https://github.com/rpm-software-management/libdnf/pull/1700>
-Patch:          0002-build-Increase-CMake-minimal-version-to-3.5.0.patch
 
 BuildRequires:  cmake >= 3.5.0
 BuildRequires:  gcc
@@ -311,6 +304,17 @@ popd
 %endif
 
 %changelog
+* Thu Mar 06 2025 Evan Goode <egoode@redhat.com> - 0.74.0-1
+- Update to 0.74.0
+- Update ko.po
+- Split $releasever to $releasever_major and $releasever_minor in the C API
+- Merge `bootc` branch to master
+- ConfigParser: make splitReleasever public
+- C API: Detect releasever_major, releasever_minor from provides
+- C API: support shell-style variable substitution
+- module: Warn if module config file is inaccessible
+- Enable automatic PR reviews
+
 * Tue Mar 04 2025 Petr Pisar <ppisar@redhat.com> - 0.73.4-4
 - Fix building with CMake 4
 
@@ -320,7 +324,6 @@ popd
 * Tue Dec 10 2024 Miro Hrončok <mhroncok@redhat.com> - 0.73.4-2
 - Fix a segfault in iterator of a ConfigParser section
 - Fixes: rhbz#2330562
-
 
 * Tue Nov 12 2024 Evan Goode <egoode@redhat.com> - 0.73.4-1
 - Set POOL_FLAG_ADDFILEPROVIDESFILTERED only when not loading filelists

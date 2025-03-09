@@ -1,13 +1,13 @@
 %global project_version_prime 5
 %global project_version_major 2
-%global project_version_minor 10
+%global project_version_minor 11
 %global project_version_micro 0
 
 %bcond dnf5_obsoletes_dnf %[0%{?fedora} > 40 || 0%{?rhel} > 10]
 
 Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
@@ -158,6 +158,7 @@ BuildRequires:  pkgconfig(libsolvext) >= %{libsolv_version}
 BuildRequires:  pkgconfig(rpm) >= 4.17.0
 BuildRequires:  pkgconfig(sqlite3) >= %{sqlite_version}
 BuildRequires:  toml11-static
+BuildRequires:  zlib-devel
 
 %if %{with clang}
 BuildRequires:  clang
@@ -944,6 +945,9 @@ popd
 %ldconfig_scriptlets
 
 %changelog
+* Fri Mar 07 2025 Packit <hello@packit.dev> - 5.2.11.0-1
+- Update to version 5.2.11.0
+
 * Fri Feb 14 2025 Jan Kolarik <jkolarik@redhat.com> - 5.2.10.0-2
 - Recommend expired-pgp-keys plugin by default on F42+
 

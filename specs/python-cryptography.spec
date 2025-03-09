@@ -12,7 +12,13 @@ Summary:        PyCA's cryptography library
 # cryptography is dual licensed under the Apache-2.0 and BSD-3-Clause,
 # as well as the Python Software Foundation license for the OS random
 # engine derived by CPython.
-License:        (Apache-2.0 OR BSD-3-Clause) AND PSF-2.0
+# Rust crate dependency licenses:
+# Apache-2.0
+# Apache-2.0 OR MIT
+# BSD-3-Clause
+# MIT
+# MIT OR Apache-2.0
+License:        (Apache-2.0 OR BSD-3-Clause) AND PSF-2.0 AND Apache-2.0 AND BSD-3-Clause AND MIT AND (MIT OR Apache-2.0)
 URL:            https://cryptography.io/en/latest/
 Source0:        https://github.com/pyca/cryptography/archive/%{version}/%{srcname}-%{version}.tar.gz
                 # created by ./vendor_rust.py helper script
@@ -71,13 +77,13 @@ cryptography is a package designed to expose cryptographic primitives and
 recipes to Python developers.
 
 %prep
-%autosetup -p1 -n %{srcname}-%{version}
+%autosetup -p1 %{!?fedora:-a1} -n %{srcname}-%{version}
 %if 0%{?fedora}
 %cargo_prep
 sed -i 's/locked = true//g' pyproject.toml
 %else
 # RHEL: use vendored Rust crates
-%cargo_prep -V 1
+%cargo_prep -v vendor
 %endif
 
 %if ! 0%{?fedora}
@@ -89,9 +95,7 @@ sed -i 's,--benchmark-disable,,' pyproject.toml
 %pyproject_buildrequires
 %if 0%{?fedora}
 # Fedora: use RPMified crates
-cd src/rust
 %cargo_generate_buildrequires
-cd ../..
 %endif
 
 
@@ -100,6 +104,12 @@ export RUSTFLAGS="%build_rustflags"
 export OPENSSL_NO_VENDOR=1
 export CFLAGS="${CFLAGS} -DOPENSSL_NO_ENGINE=1 "
 %pyproject_wheel
+
+%cargo_license_summary
+%{cargo_license} > LICENSE.dependencies
+%if ! 0%{?fedora}
+%cargo_vendor_manifest
+%endif
 
 
 %install
@@ -139,6 +149,10 @@ PYTHONPATH=${PWD}/vectors:%{buildroot}%{python3_sitearch} \
 %files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
 %doc README.rst docs
 %license LICENSE LICENSE.APACHE LICENSE.BSD
+%license LICENSE.dependencies
+%if ! 0%{?fedora}
+%license cargo-vendor.txt
+%endif
 
 
 %changelog

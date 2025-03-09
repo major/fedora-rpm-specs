@@ -5,7 +5,7 @@
 Name:           openjfx
 Epoch:          3
 Version:        17.0.13.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Rich client application platform for Java
 %forgemeta
 
@@ -163,6 +163,9 @@ cp -a modules/javafx.graphics/mvn-lib{decora,javafx_font,javafx_font_freetype,ja
 %doc README.md
 
 %changelog
+* Fri Mar 07 2025 Nicolas De Amicis <deamicis@bluewin.ch> - 3:17.0.13.0-3
+- Fix FTBFS (2340973)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3:17.0.13.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

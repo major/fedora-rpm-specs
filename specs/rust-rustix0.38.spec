@@ -4,8 +4,8 @@
 
 %global crate rustix
 
-Name:           rust-rustix
-Version:        1.0.1
+Name:           rust-rustix0.38
+Version:        0.38.44
 Release:        %autorelease
 Summary:        Safe Rust bindings to POSIX/Unix/Linux/Winsock-like syscalls
 
@@ -39,7 +39,6 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-Apache-2.0_WITH_LLVM-exception
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGES.md
 %doc %{crate_instdir}/CODE_OF_CONDUCT.md
 %doc %{crate_instdir}/CONTRIBUTING.md
 %doc %{crate_instdir}/ORG_CODE_OF_CONDUCT.md
@@ -83,6 +82,18 @@ use the "alloc" feature of the "%{crate}" crate.
 %files       -n %{name}+alloc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+cc-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+cc-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "cc" feature of the "%{crate}" crate.
+
+%files       -n %{name}+cc-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+event-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -119,6 +130,18 @@ use the "io_uring" feature of the "%{crate}" crate.
 %files       -n %{name}+io_uring-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+itoa-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+itoa-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "itoa" feature of the "%{crate}" crate.
+
+%files       -n %{name}+itoa-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+libc-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -129,6 +152,18 @@ This package contains library source intended for building other packages which
 use the "libc" feature of the "%{crate}" crate.
 
 %files       -n %{name}+libc-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+libc-extra-traits-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+libc-extra-traits-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "libc-extra-traits" feature of the "%{crate}" crate.
+
+%files       -n %{name}+libc-extra-traits-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+libc_errno-devel
@@ -153,30 +188,6 @@ This package contains library source intended for building other packages which
 use the "linux_4_11" feature of the "%{crate}" crate.
 
 %files       -n %{name}+linux_4_11-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+linux_5_1-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+linux_5_1-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "linux_5_1" feature of the "%{crate}" crate.
-
-%files       -n %{name}+linux_5_1-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+linux_5_11-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+linux_5_11-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "linux_5_11" feature of the "%{crate}" crate.
-
-%files       -n %{name}+linux_5_11-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+linux_latest-devel
@@ -227,6 +238,18 @@ use the "net" feature of the "%{crate}" crate.
 %files       -n %{name}+net-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+once_cell-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+once_cell-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "once_cell" feature of the "%{crate}" crate.
+
+%files       -n %{name}+once_cell-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+param-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -261,6 +284,18 @@ This package contains library source intended for building other packages which
 use the "process" feature of the "%{crate}" crate.
 
 %files       -n %{name}+process-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+procfs-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+procfs-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "procfs" feature of the "%{crate}" crate.
+
+%files       -n %{name}+procfs-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+pty-devel
@@ -446,13 +481,7 @@ use the "use-libc-auxv" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * skip three tests with harmless failures:
-#   https://github.com/bytecodealliance/rustix/issues/1398
-%{cargo_test -a -- -- --exact %{shrink:
-    --skip buffer::tests::test_slice
-    --skip buffer::tests::test_slice_uninit
-    --skip buffer::tests::test_spare_capacity
-}}
+%cargo_test -a
 %endif
 
 %changelog

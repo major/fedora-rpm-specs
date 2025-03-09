@@ -233,7 +233,7 @@ sed -r -i '/\.cpp$/d' %{pyproject_files}
 
 pushd ../libccd-%{libccd_version}/
 skips='^($.'
-%ifarch %{valgrind_arches}
+%ifnarch %{valgrind_arches}
 skips="${skips}|.*-valgrind.*"
 %endif
 skips="${skips})$"

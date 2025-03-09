@@ -1,11 +1,11 @@
 %global apiver  1
-%global gtk_version 4.15.2
+%global gtk_version 4.17.5
 %global glib_version 2.76.0
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           libadwaita
-Version:        1.7~beta
+Version:        1.7~rc
 Release:        %autorelease
 Summary:        Building blocks for modern GNOME applications
 
@@ -96,7 +96,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %license COPYING
 %doc README.md AUTHORS NEWS
 %{_bindir}/adwaita-%{apiver}-demo
-%{_libdir}/%{name}-%{apiver}-internal.so.0*
+%{_libdir}/%{name}-%{apiver}-internal.a
 %{_libdir}/%{name}-%{apiver}.so.0*
 %{_libdir}/girepository-1.0/*.typelib
 
@@ -105,7 +105,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gir-1.0/*-%{apiver}.gir
 %{_datadir}/vala/vapi/%{name}-%{apiver}.*
 %{_includedir}/%{name}-%{apiver}/
-%{_libdir}/%{name}-%{apiver}-internal.so
 %{_libdir}/%{name}-%{apiver}.so
 %{_libdir}/pkgconfig/*-%{apiver}.pc
 

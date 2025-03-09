@@ -1,7 +1,7 @@
 %global pypi_name gql
 
 Name:           python-%{pypi_name}
-Version:        3.5.0
+Version:        3.5.2
 Release:        %autorelease
 Summary:        GraphQL client for Python
 
@@ -9,9 +9,6 @@ License:        MIT
 URL:            https://github.com/graphql-python/gql
 Source0:        %{pypi_source}
 Patch0:         https://github.com/graphql-python/gql/commit/b066e8944b0da0a4bbac6c31f43e5c3c7772cd51.patch
-# Remove deprecated mock dependency
-# https://github.com/graphql-python/gql/commit/7090972280820e14772cca74fdc3e067bf89e7b1.patch
-Patch1:         drop-deprecated-mock.patch
 
 
 BuildArch:      noarch
@@ -44,6 +41,12 @@ GQL architecture is inspired by React-Relay and Apollo-Client.
 
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
+
+# Remove deprecated mock
+# https://github.com/graphql-python/gql/commit/7090972280820e14772cca74fdc3e067bf89e7b1.patch
+# Should be in 3.6 release
+sed -i 's/"mock==.*",//' setup.py
+sed -i 's/import mock/from unittest import mock/' tests/test_client.py
 
 # Remove the deps expansion from tox.ini
 # and reply on the -x tests

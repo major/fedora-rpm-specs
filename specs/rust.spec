@@ -45,7 +45,9 @@ ExclusiveArch:  %{rust_arches}
 # is insufficient.  Rust currently requires LLVM 18.0+.
 %global min_llvm_version 18.0.0
 %global bundled_llvm_version 19.1.7
-#global llvm_compat_version 18
+%if 0%{?fedora} >= 42
+%global llvm_compat_version 19
+%endif
 %global llvm llvm%{?llvm_compat_version}
 %bcond_with bundled_llvm
 
@@ -378,6 +380,29 @@ BuildRequires:  compiler-rt%{?llvm_compat_version}
 # https://github.com/rust-lang/rust/pull/101841
 Obsoletes:      %{name}-analysis < 1.69.0~
 
+# Experimenting with a fine-grained version of %%cargo_vendor_manifest,
+# so we can have different bundled provides for each tool subpackage.
+%define cargo_tree_manifest(n:m:f:t:) (       \
+  %{!-n:%{error:must specify a tool name}}    \
+  set -euo pipefail                           \
+  mkdir -p build/manifests/%{-n*}             \
+  %{shrink:                                   \
+    env RUSTC_BOOTSTRAP=1                     \
+      %{local_rust_root}/bin/cargo tree       \
+      --offline --edges normal,build          \
+      --prefix none --format "{p}"            \
+      %{-m:--manifest-path %{-m*}/Cargo.toml} \
+      %{-f:--features %{-f*}}                 \
+      %{-t:--target %{-t*}}                   \
+      %*                                      \
+    | sed '/([*/]/d; s/ (proc-macro)$//'      \
+    | sort -u                                 \
+    >build/manifests/%{-n*}/cargo-vendor.txt  \
+  }                                           \
+)
+%{?fedora:BuildRequires: cargo-rpm-macros}
+%{?rhel:BuildRequires: rust-toolset}
+
 %description
 Rust is a systems programming language that runs blazingly fast, prevents
 segfaults, and guarantees thread safety.
@@ -532,8 +557,9 @@ Provides:       bundled(sqlite) = %{bundled_sqlite3_version}
 %endif
 # For tests:
 BuildRequires:  git-core
-# Cargo is not much use without Rust
-Requires:       %{name}
+# Cargo is not much use without Rust, and it's worth keeping the versions
+# in sync since some feature development depends on them together.
+Requires:       %{name} = %{version}-%{release}
 
 # "cargo vendor" is a builtin command starting with 1.37.  The Obsoletes and
 # Provides are mostly relevant to RHEL, but harmless to have on Fedora/etc. too
@@ -894,6 +920,21 @@ for triple in %{?all_targets} ; do
   %{__x} build --target=$triple std
 done
 
+# Collect cargo-vendor.txt for each tool and std
+%{cargo_tree_manifest -n rustc -- -p rustc-main -p rustdoc}
+%{cargo_tree_manifest -n cargo -m src/tools/cargo}
+%{cargo_tree_manifest -n clippy -m src/tools/clippy}
+%{cargo_tree_manifest -n rust-analyzer -m src/tools/rust-analyzer}
+%{cargo_tree_manifest -n rustfmt -m src/tools/rustfmt}
+
+%{cargo_tree_manifest -n std -m library -f backtrace}
+for triple in %{?all_targets} ; do
+  case $triple in
+    *-none*) %{cargo_tree_manifest -n std-$triple -m library/alloc -t $triple} ;;
+    *) %{cargo_tree_manifest -n std-$triple -m library -f backtrace -t $triple} ;;
+  esac
+done
+
 %install
 %if 0%{?rhel} && 0%{?rhel} <= 9
 %{?set_build_flags}
@@ -1039,6 +1080,7 @@ rm -rf "./build/%{rust_triple}/stage2-tools/%{rust_triple}/cit/"
 %{_libexecdir}/rust-analyzer-proc-macro-srv
 %{_mandir}/man1/rustc.1*
 %{_mandir}/man1/rustdoc.1*
+%license build/manifests/rustc/cargo-vendor.txt
 
 
 %files std-static
@@ -1047,13 +1089,15 @@ rm -rf "./build/%{rust_triple}/stage2-tools/%{rust_triple}/cit/"
 %dir %{rustlibdir}/%{rust_triple}/lib
 %{rustlibdir}/%{rust_triple}/lib/*.rlib
 %{rustlibdir}/%{rust_triple}/lib/*.so
+%license build/manifests/std/cargo-vendor.txt
 
 %global target_files()      \
 %files std-static-%1        \
 %dir %{rustlibdir}          \
 %dir %{rustlibdir}/%1       \
 %dir %{rustlibdir}/%1/lib   \
-%{rustlibdir}/%1/lib/*.rlib
+%{rustlibdir}/%1/lib/*.rlib \
+%license build/manifests/std-%1/cargo-vendor.txt
 
 %if %target_enabled i686-pc-windows-gnu
 %target_files i686-pc-windows-gnu
@@ -1135,6 +1179,7 @@ rm -rf "./build/%{rust_triple}/stage2-tools/%{rust_triple}/cit/"
 %{_datadir}/zsh/site-functions/_cargo
 %dir %{_datadir}/cargo
 %dir %{_datadir}/cargo/registry
+%license build/manifests/cargo/cargo-vendor.txt
 
 
 %files -n rustfmt
@@ -1142,6 +1187,7 @@ rm -rf "./build/%{rust_triple}/stage2-tools/%{rust_triple}/cit/"
 %{_bindir}/cargo-fmt
 %doc src/tools/rustfmt/{README,CHANGELOG,Configurations}.md
 %license src/tools/rustfmt/LICENSE-{APACHE,MIT}
+%license build/manifests/rustfmt/cargo-vendor.txt
 
 
 %files analyzer
@@ -1149,6 +1195,7 @@ rm -rf "./build/%{rust_triple}/stage2-tools/%{rust_triple}/cit/"
 %{_bindir}/rust-analyzer
 %doc src/tools/rust-analyzer/README.md
 %license src/tools/rust-analyzer/LICENSE-{APACHE,MIT}
+%license build/manifests/rust-analyzer/cargo-vendor.txt
 
 
 %files -n clippy
@@ -1156,6 +1203,7 @@ rm -rf "./build/%{rust_triple}/stage2-tools/%{rust_triple}/cit/"
 %{_bindir}/clippy-driver
 %doc src/tools/clippy/{README.md,CHANGELOG.md}
 %license src/tools/clippy/LICENSE-{APACHE,MIT}
+%license build/manifests/clippy/cargo-vendor.txt
 
 
 %files src

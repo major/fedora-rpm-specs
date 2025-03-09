@@ -7,7 +7,7 @@
 
 Name:    eric
 Summary: Python IDE
-Version: 24.8
+Version: 25.3
 Release: %autorelease
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -21,7 +21,7 @@ Source32: eric-64.png
 # sane defaults: disable version check, qt5/qt6 configuration
 Patch100: eric7-23.9-defaults.patch
 # build with Python 3.13
-Patch101: eric7-24.6-python313.patch
+#Patch101: eric7-24.6-python313.patch
 
 BuildArch: noarch
 # webengine not available on all archs
@@ -29,31 +29,38 @@ ExclusiveArch: %{qt6_qtwebengine_arches} noarch
 
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
-BuildRequires: python3-devel python3
+BuildRequires: python3-devel
 BuildRequires: python3-pyqt6
 BuildRequires: python3-pyqt6-charts
 BuildRequires: python3-pyqt6-webengine
 BuildRequires: python3-qscintilla-qt6
-BuildRequires: python3dist(asttokens)
-BuildRequires: python3dist(black)
-BuildRequires: python3dist(chardet)
-BuildRequires: python3dist(coverage)
-BuildRequires: python3dist(chardet)
-BuildRequires: python3dist(docutils)
-BuildRequires: python3dist(editorconfig)
-BuildRequires: python3dist(isort)
-BuildRequires: python3dist(jedi)
-BuildRequires: python3dist(markdown)
-BuildRequires: python3dist(packaging)
-BuildRequires: python3dist(parso)
 BuildRequires: python3dist(pip)
-BuildRequires: python3dist(pygments)
-BuildRequires: python3dist(pyyaml)
-BuildRequires: python3dist(semver)
+# requiredModulesList
 BuildRequires: python3dist(tomlkit)
+BuildRequires: python3dist(asttokens)
+BuildRequires: python3dist(editorconfig)
+BuildRequires: python3dist(pygments)
+BuildRequires: python3dist(parso)
+BuildRequires: python3dist(jedi)
+BuildRequires: python3dist(packaging)
 BuildRequires: python3dist(trove-classifiers)
+BuildRequires: python3dist(black)
+BuildRequires: python3dist(isort)
+BuildRequires: python3dist(coverage)
+BuildRequires: python3dist(semver)
+BuildRequires: python3dist(pipdeptree)
 BuildRequires: python3dist(watchdog)
+BuildRequires: python3dist(psutil)
+BuildRequires: python3dist(requests)
+# optionalModulesList
+BuildRequires: python3dist(docutils)
+BuildRequires: python3dist(markdown)
+BuildRequires: python3dist(pyyaml)
+BuildRequires: python3dist(chardet)
+BuildRequires: python3dist(pyenchant)
 BuildRequires: python3dist(wheel)
+BuildRequires: python3dist(fido2)
+BuildRequires: python3dist(pyusb)
 
 Provides: eric7 = %{version}-%{release}
 
@@ -61,26 +68,34 @@ Requires: python3-pyqt6
 Requires: python3-pyqt6-charts
 Requires: python3-pyqt6-webengine
 Requires: python3-qscintilla-qt6
-Requires: python3dist(asttokens)
-Requires: python3dist(black)
-Requires: python3dist(chardet)
-Requires: python3dist(coverage)
-Requires: python3dist(chardet)
-Requires: python3dist(docutils)
-Requires: python3dist(editorconfig)
-Requires: python3dist(isort)
-Requires: python3dist(jedi)
-Requires: python3dist(markdown)
-Requires: python3dist(packaging)
-Requires: python3dist(parso)
 Requires: python3dist(pip)
-Requires: python3dist(pygments)
-Requires: python3dist(pyyaml)
-Requires: python3dist(semver)
+# requiredModulesList
 Requires: python3dist(tomlkit)
+Requires: python3dist(asttokens)
+Requires: python3dist(editorconfig)
+Requires: python3dist(pygments)
+Requires: python3dist(parso)
+Requires: python3dist(jedi)
+Requires: python3dist(packaging)
 Requires: python3dist(trove-classifiers)
+Requires: python3dist(black)
+Requires: python3dist(isort)
+Requires: python3dist(coverage)
+Requires: python3dist(semver)
+Requires: python3dist(pipdeptree)
 Requires: python3dist(watchdog)
-Requires: python3dist(wheel)
+Requires: python3dist(psutil)
+Requires: python3dist(requests)
+# optionalModulesList
+Recommends: python3dist(docutils)
+Recommends: python3dist(markdown)
+Recommends: python3dist(pyyaml)
+Recommends: python3dist(chardet)
+Recommends: python3dist(pyenchant)
+Recommends: python3dist(wheel)
+Recommends: python3dist(fido2)
+Recommends: python3dist(pyusb)
+# documentation
 Recommends: python3-docs
 Recommends: qt6-doc-html
 Recommends: qt6-qttranslations

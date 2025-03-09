@@ -1,7 +1,7 @@
 %global framework kjobwidgets
 
 Name:           kf6-%{framework}
-Version:        6.11.0
+Version:        6.12.0
 Release:        1%{?dist}
 Summary:        KDE Frameworks 6 Tier 2 addon for KJobs
 # The following are in the LICENSES folder, but go unused: LGPL-3.0-only, LicenseRef-KDE-Accepted-LGPL
@@ -73,6 +73,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Fri Mar 07 2025 Steve Cossette <farchord@gmail.com> - 6.12.0-1
+- 6.12.0
+
 * Fri Feb 07 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.11.0-1
 - 6.11.0
 

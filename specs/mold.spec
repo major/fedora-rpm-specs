@@ -6,7 +6,7 @@
 %global has_32bit_support 0%{?rhel} < 10
 
 Name:           mold
-Version:        2.36.0
+Version:        2.37.1
 Release:        %autorelease
 Summary:        A Modern Linker
 
@@ -16,12 +16,6 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # Allow building against the system-provided `xxhash.h`
 Patch0:         0001-Use-system-compatible-include-path-for-xxhash.h.patch
-
-# Possibly https://sourceware.org/bugzilla/show_bug.cgi?id=29655
-Patch1:         0002-ELF-S390X-Skip-tests-that-fail-due-to-buggy-code-pro.patch
-
-# Fix static PIE on aarch64: https://github.com/rui314/mold/issues/1407
-Patch2:         0003-Define-__rela_iplt_-start-end-as-absolute-symbols-if.patch
 
 BuildRequires:  blake3-devel
 BuildRequires:  cmake

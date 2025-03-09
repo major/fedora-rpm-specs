@@ -51,7 +51,7 @@ need libxc version > 3
 
 Name:			nwchem
 Version:		%{major_version}
-Release:		4%{?dist}
+Release:		5%{?dist}
 Summary:		Delivering High-Performance Computational Chemistry to Science
 
 # Automatically converted from old format: ECL 2.0 - review is highly recommended.
@@ -523,6 +523,9 @@ mv QA.orig QA
 
 
 %changelog
+* Fri Mar 07 2025 Ralf Corsépius <corsepiu@fedoraproject.org> - 7.2.3-5
+- Rebuild for scalapack SONAME change.
+
 * Mon Feb 17 2025 Marcin Dulak <marcindulak@fedoraproject.org> - 7.2.3-4
 - Patch for gcc-15 "error: expected identifier or '(' before 'false'"
 - Use gcc -std=gnu17 to avoid md5wrap.c:48:5: error: too many arguments to function ‘MD5Init’

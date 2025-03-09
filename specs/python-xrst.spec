@@ -5,7 +5,7 @@
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/
 Name:           python-xrst
 Version:        2025.0.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Extract Sphinx RST Files
 
 License:        GPL-3.0-or-later
@@ -39,6 +39,10 @@ cat << EOF > temp.sed
 s|'sphinx_rtd_theme'|&, '--suppress_spell_warnings'|
 EOF
 sed -i pytest/test_rst.py -f temp.sed 
+#
+# Fix sys.write -> sys.stderr.write
+# This patch will not be necessary when version >= 2025.0.4
+sed -i xrst/check_input_files.py -e 's|sys.write|sys.stderr.write|'
 #
 # Change toml -> tomli
 # This patch will not be necessary when version >= 2026.0.0
@@ -102,6 +106,9 @@ mkdir -p %{buildroot}/%{_mandir}/man1
 %{_mandir}/man1/xrst.1*
 
 %changelog
+* Fri Mar 07 2025 Brad Bell <bradbell at seanet dot com> - 2025.0.2-4
+- patch for bug fix in check_input_files.py.
+
 * Thu Jan 23 2025 Brad Bell <bradbell at seanet dot com> - 2025.0.2-3
 - Change import toml -> import tomli; see
 - https://fedoraproject.org/wiki/Changes/DeprecatePythonToml

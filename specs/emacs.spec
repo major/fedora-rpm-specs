@@ -28,6 +28,9 @@ Source5:       site-start.el
 Source6:       default.el
 Source9:       emacs-desktop.sh
 
+Source10:      emacs_lisp.attr
+Source11:      emacs_lisp.rec
+
 # Avoid trademark issues
 Patch:         0001-Pong-and-Tetris-are-excluded.patch
 
@@ -232,17 +235,16 @@ Provides:      emacs-transient = 0.3.7
 # version as of the release of emacs 28.1 is obsoleted
 Obsoletes:     emacs-transient < 0.3.0-4
 
-# https://github.com/tree-sitter/tree-sitter/issues/3296
-Requires:      libtree-sitter >= 0.22.5
-
-# Ideally, we'd package all tree-sitter parsers as RPMs, but, in the
-# meantime, we need the following packages for
-# treesit-install-language-grammar to be able to build the parsers for
-# us at runtime:
-Recommends:    ((gcc and gcc-c++) or clang)
+# We need the following packages for treesit-install-language-grammar to
+# be able to build additional parsers for us at runtime:
 Recommends:    /usr/bin/git
+Recommends:    gcc
+Recommends:    (gcc-c++ if libtree-sitter < 0.24.0)
 
-Recommends:    libtree-sitter-java
+%global _local_file_attrs emacs_lisp
+%{load:%SOURCE10}
+%global __emacs_lisp_recommends \
+        %{_builddir}/%{name}-%{version}/build-pgtk/src/emacs -x %SOURCE11
 
 %description common
 %desc
@@ -504,9 +506,14 @@ install -p -m 0644 %SOURCE4 %{buildroot}%{_sysconfdir}/skel/.emacs
 mkdir -p %{buildroot}/%{pkgconfig}
 install -p -m 0644 emacs.pc %{buildroot}/%{pkgconfig}
 
-# Install rpm macro definition file
-mkdir -p %{buildroot}%{_rpmconfigdir}/macros.d
-install -p -m 0644 macros.emacs %{buildroot}%{_rpmconfigdir}/macros.d/
+# Install rpm macros
+mkdir -p \
+      %{buildroot}%{_fileattrsdir} \
+      %{buildroot}%{_rpmconfigdir} \
+      %{buildroot}%{_rpmmacrodir}
+install -p -m 0644 %SOURCE10 %{buildroot}%{_fileattrsdir}
+install -p -m 0755 %SOURCE11 %{buildroot}%{_rpmconfigdir}
+install -p -m 0644 macros.emacs %{buildroot}%{_rpmmacrodir}
 
 # After everything is installed, remove info dir
 rm -f %{buildroot}%{_infodir}/dir
@@ -718,6 +725,8 @@ fi
 
 %files common -f common-filelist -f info-filelist
 %config(noreplace) %{_sysconfdir}/skel/.emacs
+%{_fileattrsdir}/emacs_lisp.attr
+%{_rpmconfigdir}/emacs_lisp.rec
 %{_rpmconfigdir}/macros.d/macros.emacs
 %license build-pgtk/etc/COPYING
 %doc build-pgtk/doc/NEWS build-pgtk/BUGS build-pgtk/README
@@ -752,6 +761,7 @@ fi
 %attr(0644,root,root) %config(noreplace) %{site_lisp}/default.el
 %attr(0644,root,root) %config %{site_lisp}/site-start.el
 %{pkgconfig}/emacs.pc
+
 
 %files devel
 %{_includedir}/emacs-module.h

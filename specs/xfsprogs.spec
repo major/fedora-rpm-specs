@@ -1,7 +1,7 @@
 Summary:	Utilities for managing the XFS filesystem
 Name:		xfsprogs
 Version:	6.13.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL-1.0-or-later AND LGPL-2.1-or-later
 URL:		https://xfs.wiki.kernel.org
 Source0:	http://kernel.org/pub/linux/utils/fs/xfs/xfsprogs/%{name}-%{version}.tar.xz
@@ -69,6 +69,15 @@ xfs_scrub attempts to check and repair all metadata in a mounted XFS filesystem.
 WARNING!  This program is EXPERIMENTAL, which means that its behavior and
 interface could change at any time!
 
+%package xfs_extras
+Summary:	XFS filesystem extra utilities
+Requires:	xfsprogs = %{version}-%{release}, python3
+Requires:	util-linux
+
+%description xfs_extras
+Extra utilities for XFS filesystems, such as xfs_protofile, that may require
+Python.
+
 %prep
 xzcat '%{SOURCE0}' | %{gpgverify} --keyring='%{SOURCE3}' --signature='%{SOURCE1}' --data=-
 %autosetup -p1
@@ -110,24 +119,28 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/xfsprogs/
 %{_mandir}/man5/*
 %{_mandir}/man8/*
 %{_sbindir}/*
-%{_unitdir}/*
 %{_datadir}/xfsprogs/mkfs/*.conf
 %dir %{_datadir}/xfsprogs/
 %dir %{_datadir}/xfsprogs/mkfs/
 %exclude %{_datadir}/xfsprogs/xfs_scrub_all.cron
 %exclude %{_sbindir}/xfs_scrub*
+%exclude %{_sbindir}/xfs_protofile*
 %exclude %{_mandir}/man8/xfs_scrub*
 %exclude %{_libexecdir}/xfsprogs/xfs_scrub*
 %exclude %{_mandir}/man8/xfs_scrub_all*
-%exclude %{_unitdir}/xfs_scrub*
+%exclude %{_mandir}/man8/xfs_protofile*
 
 %files xfs_scrub
 %{_sbindir}/xfs_scrub*
 %{_mandir}/man8/xfs_scrub*
 %{_libexecdir}/xfsprogs/xfs_scrub*
-%{_unitdir}/xfs_scrub*
+%{_unitdir}/*
 %{_udevrulesdir}/64-xfs.rules
 %{_datadir}/xfsprogs/xfs_scrub_all.cron
+
+%files xfs_extras
+%{_sbindir}/xfs_protofile*
+%{_mandir}/man8/xfs_protofile*
 
 %files devel
 %{_mandir}/man2/*
@@ -149,6 +162,10 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/xfsprogs/
 %{_libdir}/*.so
 
 %changelog
+* Tue Feb 18 2025 Timothée Ravier <tim@siosm.fr> - 6.13.0-2
+- Split xfs_protofile into its own sub package (fedora#2346282)
+- Move xfs_scrub.slice to xfs_scrub sub package (fedora#2312868)
+
 * Mon Feb 17 2025 Pavel Reichl <preichl@redhat.com> - 6.13.0-1
 - Update to the latest upstream version
 

@@ -10,7 +10,7 @@
 
 Name:           perl-CPAN
 Version:        2.38
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Query, download and build perl modules from CPAN sites
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN
@@ -19,6 +19,10 @@ Source0:        https://cpan.metacpan.org/authors/id/A/AN/ANDK/CPAN-%{version}.t
 Patch0:         CPAN-2.18-Attemp-to-create-site-library-directories-on-first-t.patch
 # Change configuration directory name
 Patch1:         CPAN-2.18-Replace-configuration-directory-string-with-a-marke.patch
+# Only require config for CPAN shell operations
+Patch2:         CPAN-2.38-Only-require-config-for-CPAN-shell-operations.patch
+# Update man page to provide notes about first run, GH issue #194
+Patch3:         CPAN-2.38-Add-notes-about-first-configuration.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -258,6 +262,9 @@ with "%{_libexecdir}/%{name}/test".
 %setup -q -n CPAN-%{version}
 %patch -P0 -p1
 %patch -P1 -p1
+%patch -P2 -p1
+%patch -P3 -p1
+
 # Change configuration name
 find -type f -exec perl -i -pe 's/XCPANCONFIGNAMEX/cpan/g' {} \;
 # Remove bundled modules
@@ -329,6 +336,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Mar 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.38-4
+- Require config only for CPAN shell operations
+- Update man page to provide notes about first run
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.38-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

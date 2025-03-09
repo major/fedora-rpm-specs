@@ -4,8 +4,8 @@
 
 %global crate linux-raw-sys
 
-Name:           rust-linux-raw-sys
-Version:        0.9.2
+Name:           rust-linux-raw-sys0.6
+Version:        0.6.5
 Release:        %autorelease
 Summary:        Generated bindings for Linux's userspace API
 
@@ -63,18 +63,6 @@ use the "bootparam" feature of the "%{crate}" crate.
 %files       -n %{name}+bootparam-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+btrfs-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+btrfs-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "btrfs" feature of the "%{crate}" crate.
-
-%files       -n %{name}+btrfs-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+elf-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -85,18 +73,6 @@ This package contains library source intended for building other packages which
 use the "elf" feature of the "%{crate}" crate.
 
 %files       -n %{name}+elf-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+elf_uapi-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+elf_uapi-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "elf_uapi" feature of the "%{crate}" crate.
-
-%files       -n %{name}+elf_uapi-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+errno-devel
@@ -159,18 +135,6 @@ use the "if_packet" feature of the "%{crate}" crate.
 %files       -n %{name}+if_packet-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+image-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+image-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "image" feature of the "%{crate}" crate.
-
-%files       -n %{name}+image-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+io_uring-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -193,18 +157,6 @@ This package contains library source intended for building other packages which
 use the "ioctl" feature of the "%{crate}" crate.
 
 %files       -n %{name}+ioctl-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+landlock-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+landlock-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "landlock" feature of the "%{crate}" crate.
-
-%files       -n %{name}+landlock-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+loop_device-devel
@@ -277,18 +229,6 @@ This package contains library source intended for building other packages which
 use the "prctl" feature of the "%{crate}" crate.
 
 %files       -n %{name}+prctl-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+ptrace-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+ptrace-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "ptrace" feature of the "%{crate}" crate.
-
-%files       -n %{name}+ptrace-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

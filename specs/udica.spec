@@ -8,11 +8,12 @@ Patch0001: 0001-Add-option-to-generate-custom-policy-for-a-confined-.patch
 Patch0002: 0002-Add-tests-covering-confined-user-policy-generation.patch
 Patch0003: 0003-confined-make-l-non-optional.patch
 Patch0004: 0004-confined-allow-asynchronous-I-O-operations.patch
+Patch0005: 0005-use-relative-paths-it-s-undefined-behavior-with-abso.patch
 License: GPL-3.0-or-later
 BuildArch: noarch
 Url: https://github.com/containers/udica
 %if 0%{?fedora} || 0%{?rhel} > 7
-BuildRequires: python3 python3-devel python3-setuptools
+BuildRequires: python3 python3-devel
 Requires: python3 python3-libsemanage python3-libselinux
 %else
 BuildRequires: python2 python2-devel python2-setuptools
@@ -28,19 +29,14 @@ inspection of container JSON file.
 %prep
 %autosetup -p 1
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%if 0%{?fedora} || 0%{?rhel} > 7
-%{__python3} setup.py build
-%else
-%{__python2} setup.py build
-%endif
+%pyproject_wheel
 
 %install
-%if 0%{?fedora} || 0%{?rhel} > 7
-%{__python3} setup.py install --single-version-externally-managed --root=%{buildroot}
-%else
-%{__python2} setup.py install --single-version-externally-managed --root=%{buildroot}
-%endif
+%pyproject_install
 
 install --directory %{buildroot}%{_datadir}/udica/macros
 install --directory %{buildroot}%{_mandir}/man8
@@ -54,16 +50,9 @@ install -m 0644 udica/man/man8/udica.8 %{buildroot}%{_mandir}/man8/udica.8
 %dir %{_datadir}/udica/macros
 %{_datadir}/udica/ansible/*
 %{_datadir}/udica/macros/*
-
-%if 0%{?fedora} || 0%{?rhel} > 7
 %license LICENSE
 %{python3_sitelib}/udica/
-%{python3_sitelib}/udica-*.egg-info
-%else
-%{_datarootdir}/licenses/udica/LICENSE
-%{python2_sitelib}/udica/
-%{python2_sitelib}/udica-*.egg-info
-%endif
+%{python3_sitelib}/udica-*.dist-info
 
 %changelog
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.8-7

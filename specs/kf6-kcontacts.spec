@@ -1,7 +1,7 @@
 %global framework kcontacts
 
 Name:    kf6-%{framework}
-Version: 6.11.0
+Version: 6.12.0
 Release: 1%{?dist}
 Summary: The KContacts Library
 
@@ -73,6 +73,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 
 %changelog
+* Fri Mar 07 2025 Steve Cossette <farchord@gmail.com> - 6.12.0-1
+- 6.12.0
+
 * Fri Feb 07 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.11.0-1
 - 6.11.0
 

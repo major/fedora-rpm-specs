@@ -5,7 +5,7 @@
 %global crate time
 
 Name:           rust-time
-Version:        0.3.37
+Version:        0.3.39
 Release:        %autorelease
 Summary:        Date and time library
 
@@ -16,9 +16,6 @@ Source:         %{crates_source}
 Patch:          time-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * remove WASM-specific features
-# * remove references to tests that are not included in published crates
-# * allow rstest 0.23.0 and rstest_reuse 0.7.0:
-#   https://github.com/time-rs/time/pull/716
 Patch:          time-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

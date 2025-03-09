@@ -1,5 +1,5 @@
 Name:           perl-Alien-libmaxminddb
-Version:        1.016
+Version:        1.018
 Release:        1%{?dist}
 Summary:        Find or download and install libmaxminddb
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -71,6 +71,9 @@ make test
 %{_mandir}/man3/Alien::libmaxminddb.3*
 
 %changelog
+* Fri Mar 07 2025 Andreas Vögele <andreas@andreasvoegele.com> - 1.018-1
+- Update to 1.018
+
 * Sun Jan 26 2025 Andreas Vögele <andreas@andreasvoegele.com> - 1.016-1
 - Update to 1.016
 

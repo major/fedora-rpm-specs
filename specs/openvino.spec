@@ -1,4 +1,4 @@
-%define so_ver 2460
+%define so_ver 2500
 %global desc %{expand: \
 OpenVINO is an open-source toolkit for optimizing and deploying deep learning
 models from cloud to edge. It accelerates deep learning inference across
@@ -6,7 +6,7 @@ various use cases, such as generative AI, video, audio, and language with
 models from popular frameworks like PyTorch, TensorFlow, ONNX, and more.}
 
 Name:		openvino
-Version:	2024.6.0
+Version:	2025.0.0
 Release:	%autorelease
 Summary:	Toolkit for optimizing and deploying AI inference
 
@@ -40,19 +40,17 @@ Summary:	Toolkit for optimizing and deploying AI inference
 License:	Apache-2.0 AND MIT AND BSL-1.0 AND HPND AND BSD-3-Clause AND (GPL-2.0-only OR BSD-3-Clause)
 URL:		https://github.com/openvinotoolkit/openvino
 Source0:	%url/archive/%{version}/%{name}-%{version}.tar.gz
-Source1:	https://github.com/openvinotoolkit/oneDNN/archive/c60a9946aa2386890e5c9f5587974facb7624227/onednn-c60a994.tar.gz
+Source1:	https://github.com/openvinotoolkit/oneDNN/archive/1789b1e0ae441de15d793123003a900a35d1dc71/onednn-1789b1e.tar.gz
 Source2:	https://github.com/openvinotoolkit/mlas/archive/d1bc25ec4660cddd87804fcf03b2411b5dfb2e94/mlas-d1bc25e.tar.gz
 Source3:	https://github.com/intel/level-zero-npu-extensions/archive/110f48ee8eda22d8b40daeeecdbbed0fc3b08f8b/level-zero-npu-extensions-110f48e.tar.gz
 Source4:	dependencies.cmake
 Source5:	pyproject.toml
 
 Patch0:		openvino-fedora.patch
-# Support numpy 2.2.0
-Patch1:		https://github.com/openvinotoolkit/openvino/pull/28039.patch
-Patch2:		npu-level-zero.patch
-Patch3:		onnx-frontend-enable.patch
+Patch1:		npu-level-zero.patch
+Patch2:		onnx-frontend-enable.patch
 # Fix the oneDNN build on CMake 4.0.0 and later
-Patch4:		onednn-minimum-cmake-version.patch
+Patch3:		onednn-minimum-cmake-version.patch
 
 ExclusiveArch:	x86_64
 
@@ -173,6 +171,8 @@ sed -i '/#include <vector>.*/a#include <cstdint>' src/core/dev_api/openvino/core
 sed -i '/#include <utility>.*/a#include <cstdint>' src/common/snippets/include/snippets/utils/debug_caps_config.hpp
 sed -i '/#include <utility>.*/a#include <cstdint>' src/plugins/intel_cpu/src/utils/debug_caps_config.h
 sed -i '/#include <vector>.*/a#include <cstdint>' src/plugins/intel_npu/src/plugin/npuw/partitioning/online/graph.hpp
+sed -i '/#include <vector>.*/a#include <cstdint>' src/plugins/intel_npu/src/plugin/npuw/serialization.hpp
+sed -i '/#include <memory>.*/a#include <cstdint>' src/plugins/intel_cpu/src/utils/enum_class_hash.hpp
 
 %build
 %cmake \

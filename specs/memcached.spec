@@ -7,7 +7,7 @@
 %global selinuxtype	targeted
 %global selinuxmoduletype	contrib
 %global selinuxmodulename	memcached
-%global selinuxmodulever	1.0.2
+%global selinuxmodulever	1.0.3
 %global selinuxmoduledir	%{selinuxmodulename}-selinux-%{selinuxmodulever}
 
 Name:           memcached
@@ -21,7 +21,7 @@ URL:            https://www.memcached.org/
 Source0:        https://www.memcached.org/files/%{name}-%{version}.tar.gz
 Source1:        memcached.sysconfig
 # SELinux policy sources: https://pagure.io/memcached-selinux/tree/master
-Source2:        https://releases.pagure.org/memcached-selinux/memcached-selinux-1.0.2.tar.gz
+Source2:        https://pagure.io/memcached-selinux/blob/master/f/memcached-selinux-1.0.3.tar.gz
 Source3:	memcached.conf
 
 Patch1:         memcached-unit.patch
@@ -57,10 +57,13 @@ Install memcached-devel if you are developing C/C++ applications that require
 access to the memcached binary include files.
 
 %package selinux
-Summary: Selinux policy module
-License: GPL-2.0-only
-BuildRequires: selinux-policy
-%{?selinux_requires}
+Summary:             Selinux policy module
+License:             GPL-2.0-only
+BuildArch:           noarch
+Requires:            %{name} = %{version}-%{release}
+Requires:            selinux-policy-%{selinuxtype}
+Requires(post):      selinux-policy-%{selinuxtype}
+BuildRequires:       selinux-policy-devel
 
 %description selinux
 Install memcached-selinux to ensure your system contains the latest SELinux policy

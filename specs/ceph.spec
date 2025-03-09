@@ -136,7 +136,7 @@
 %{!?_selinux_policy_version: %global _selinux_policy_version 0.0.0}
 %endif
 %endif
-%bcond_without cephadm_bundling
+%bcond_with cephadm_bundling
 %bcond_without cephadm_pip_deps
 
 %{!?_udevrulesdir: %global _udevrulesdir /lib/udev/rules.d}
@@ -185,7 +185,7 @@
 #################################################################################
 Name:		ceph
 Version:	19.2.1
-Release:	5%{?dist}
+Release:	6%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -215,7 +215,6 @@ Patch0032:	0032-cmake-modules-BuildBoost.cmake.patch
 Patch0033:	0033-boost-asm.patch
 Patch0034:	0034-src-pybind-rbd-rbd.pyx.patch
 Patch0035:	0035-src-CMakeLists.txt.patch
-Patch0036:	0036-src-cephadm-build.py.patch
 Patch0040:	0040-gcc-14.patch
 Patch0041:	0041-src-mgr-PyModule.cc.patch
 Patch0043:	0043_src_common_crc32c_ppc_asm.S.patch
@@ -597,10 +596,11 @@ Recommends:	podman >= 2.0.2
 %endif
 %if 0%{with cephadm_bundling}
 %if 0%{without cephadm_pip_deps}
-BuildRequires:	python3-jinja2 >= 2.10
+BuildRequires:	python%{python3_pkgversion}-jinja2 >= 2.10
 %endif
 %else
-Requires:	python3-jinja2 >= 2.10
+Requires:	python%{python3_pkgversion}-jinja2 >= 2.10
+Requires:	python%{python3_pkgversion}-pyyaml
 %endif
 %description -n cephadm
 Utility to bootstrap a Ceph cluster and manage Ceph daemons deployed
@@ -2720,6 +2720,9 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Fri Mar 7 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.1-6
+- cephadm
+
 * Sat Mar 1 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.1-5
 - rebuild w/ cmake-4
 

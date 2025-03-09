@@ -1,6 +1,6 @@
 %global _hardened_build 1
 
-%global upstream_version 2.1.0
+%global upstream_version 2.1.1
 
 # don't build libppd-tools until CUPS 3.x drops them
 %bcond_with tools
@@ -8,8 +8,8 @@
 
 Name:           libppd
 Epoch:          1
-Version:        2.1.0
-Release:        3%{?dist}
+Version:        2.1.1
+Release:        1%{?dist}
 Summary:        Library for retro-fitting legacy printer drivers
 
 # the CUPS exception text is the same as LLVM exception, so using that name with
@@ -18,9 +18,6 @@ Summary:        Library for retro-fitting legacy printer drivers
 License:        Apache-2.0 WITH LLVM-exception
 URL:            https://github.com/OpenPrinting/libppd
 Source0:        %{URL}/releases/download/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
-
-# https://github.com/OpenPrinting/libppd/pull/54
-Patch001: 0001-Fix-issues-reported-by-OSH.patch
 
 
 # for autogen.sh
@@ -192,6 +189,9 @@ rm -rf %{buildroot}%{_datadir}/ppdc
 %endif
 
 %changelog
+* Fri Mar 07 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.1.1-1
+- libppd-2.1.1 is available (fedora#2346604)
+
 * Wed Feb 05 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.1.0-3
 - fix several issues reported by OSH
 

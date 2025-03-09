@@ -2,7 +2,7 @@
 
 Name:           PySolFC
 Version:        3.2.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A collection of solitaire card games
 License:        GPL-2.0-or-later
 URL:            https://pysolfc.sourceforge.io
@@ -16,8 +16,8 @@ BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  desktop-file-utils
 BuildRequires:  perl-interpreter
-BuildRequires:  tcl-devel >= 1:9
-BuildRequires:  tk-devel >= 1:9
+BuildRequires:  tcl-devel < 1:9
+BuildRequires:  tk-devel < 1:9
 
 %if 0%{?fedora}
 # optional but nice to have but not available in any epel branch
@@ -31,8 +31,8 @@ Requires:       tile
 # used to get sound working with PulseAudio
 Requires:       python%{python3_pkgversion}-pygame
 # really required
-Requires:       tcl >= 9
-Requires:       tk >= 9
+# Requires:       tcl >= 9
+# Requires:       tk >= 9
 Requires:       tix
 Requires:       python%{python3_pkgversion}-tkinter
 Requires:       python%{python3_pkgversion}-imaging-tk
@@ -90,6 +90,10 @@ find "$RPM_BUILD_ROOT%{python3_sitelib}/pysollib" -name '*.py' | xargs -L1 perl 
 
 
 %changelog
+* Fri Mar 07 2025 Shlomi Fish <shlomif@shlomifish.org> 3.2.0-5
+- Revert to use tcl 8 / tk 8 given that is what PySolFC loads in practice.
+- rhbz#2344906
+
 * Tue Feb 18 2025 Shlomi Fish <shlomif@shlomifish.org> 3.2.0-4
 - Trying to use tcl 9 / tk 9.
 - rhbz#2344906

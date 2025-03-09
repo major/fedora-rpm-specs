@@ -56,6 +56,7 @@ BuildRequires:  pkgconfig(libcanberra)
 
 %if %{with check}
 %check
+export CGO_CFLAGS="%{optflags} -std=gnu17"
 %ifarch s390x
 %gocheck -d procfs -d backlight/display -d gdkpixbuf -d gettext
 %else

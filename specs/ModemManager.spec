@@ -38,7 +38,7 @@ BuildRequires: gobject-introspection-devel >= 1.38
 BuildRequires: gtk-doc
 BuildRequires: libgudev1-devel >= 232
 BuildRequires: libmbim-devel >= 1.30.0
-BuildRequires: libqmi-devel >= 1.32.0
+BuildRequires: libqmi-devel >= 1.34.0
 BuildRequires: libqrtr-glib-devel >= 1.0.0
 BuildRequires: systemd
 BuildRequires: systemd-devel >= 209

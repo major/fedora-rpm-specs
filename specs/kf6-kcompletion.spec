@@ -1,8 +1,8 @@
 %global framework kcompletion
 
 Name:           kf6-%{framework}
-Version:        6.11.0
-Release:        2%{?dist}
+Version:        6.12.0
+Release:        1%{?dist}
 Summary:        KDE Frameworks 6 Tier 2 addon with auto completion widgets and classes
 # BSD-3-Clause is in the LICENSES folder but goes unused.
 License:        CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -66,6 +66,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Fri Mar 07 2025 Steve Cossette <farchord@gmail.com> - 6.12.0-1
+- 6.12.0
+
 * Tue Feb 11 2025 Steve Cossette <farchord@gmail.com> - 6.11.0-2
 - Respin (6.11)
 

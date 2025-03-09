@@ -11,6 +11,14 @@ URL: https://github.com/coreos/rpm-ostree
 # in the upstream git.  It also contains vendored Rust sources.
 Source0: https://github.com/coreos/rpm-ostree/releases/download/v%{version}/rpm-ostree-%{version}.tar.xz
 
+# Fast track https://github.com/coreos/rpm-ostree/pull/5325
+Patch0: 0001-daemon-app-Support-rebasing-deploying-specific-diges.patch
+Patch1: 0002-daemon-Support-deployment-finalization-by-OCI-digest.patch
+
+# Fix libdnf use of CMake
+# https://github.com/rpm-software-management/libdnf/commit/099600ca94f3b205461cc010dd257d9d1abd068d
+Patch2: 0001-build-Increase-CMake-minimal-version-to-3.5.0.patch
+
 # See https://github.com/coreos/fedora-coreos-tracker/issues/1716
 # ostree not on i686 for RHEL 10
 # https://github.com/containers/composefs/pull/229#issuecomment-1838735764

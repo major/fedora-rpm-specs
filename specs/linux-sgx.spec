@@ -37,8 +37,10 @@
 # unreasonable burden fighting the build system for enclave pieces.
 
 %global with_aesm 0
+%global with_pccsadmin 0
 %if 0%{?fedora}
 %global with_aesm 1
+%global with_pccsadmin 1
 %endif
 
 %global with_sysusers_scripts 0
@@ -963,6 +965,7 @@ rmdir %{buildroot}/root/opt/intel/sgx-aesm-service
 ############################################################
 # Host PCCS admin tool
 
+%if %{with_pccsadmin}
 %__install -d %{buildroot}%{_datadir}/pccsadmin
 cp external/dcap_source/tools/PccsAdminTool/pccsadmin.py %{buildroot}%{_datadir}/pccsadmin/pccsadmin.py
 cp -a external/dcap_source/tools/PccsAdminTool/lib %{buildroot}%{_datadir}/pccsadmin/lib
@@ -973,7 +976,7 @@ cat > %{buildroot}%{_bindir}/pccsadmin <<EOF
 exec python3 %{_datadir}/pccsadmin/pccsadmin.py "\$@"
 EOF
 chmod +x %{buildroot}%{_bindir}/pccsadmin
-
+%endif
 
 ############################################################
 # Host PCK ID tool
@@ -1430,9 +1433,11 @@ ln -s libsgx_qe3_logic.so.1 %{buildroot}%{_libdir}/libsgx_qe3_logic.so
 %endif
 
 
+%if %{with_pccsadmin}
 %files -n sgx-pccs-admin
 %{_bindir}/pccsadmin
 %{_datadir}/pccsadmin
+%endif
 
 
 %files -n sgx-pckid-tool

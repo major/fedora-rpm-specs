@@ -26,7 +26,7 @@
 
 Name:           lxdm
 Version:        %{main_version}%{?git_version:^%{?git_version}}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Lightweight X11 Display Manager
 
 # src/*.c	GPL-3.0-or-later
@@ -95,6 +95,12 @@ Requires(post):   systemd
 Requires(preun):  systemd
 Requires(postun): systemd
 
+%if %{use_lxdm_user}
+%if 0%{?fedora} <= 43
+Requires(pre):      shadow-utils
+%endif
+%endif
+
 
 %description
 LXDM is the future display manager of LXDE, the Lightweight X11 Desktop 
@@ -161,6 +167,22 @@ install -m644 -p -D %{SOURCE2} %{buildroot}%{_unitdir}-preset/83-fedora-lxdm.pre
 install -Dpm 644 %{name}.sysusers.conf %{buildroot}%{_sysusersdir}/%{name}.conf
 %endif
 
+%pre
+%if %{use_lxdm_user}
+%if 0%{?fedora} <= 43
+getent group %{tempfiles_user} &>/dev/null || \
+   %{_sbindir}/groupadd -r %{tempfiles_user}
+getent passwd %{tempfiles_user} &> /dev/null || \
+   %{_sbindir}/useradd \
+   -c 'LXDM daemon' \
+   -g %{tempfiles_user} \
+   -d %{_localstatedir}/lib/%{name} \
+   -r \
+   -s /sbin/nologin \
+   %{tempfiles_user} 2>/dev/null
+%endif
+%endif
+exit 0
 
 %post
 %systemd_post %{name}.service
@@ -219,8 +241,12 @@ install -Dpm 644 %{name}.sysusers.conf %{buildroot}%{_sysusersdir}/%{name}.conf
 
 
 %changelog
+* Fri Mar 07 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.3^20220831git2d4ba970-10
+- F42+: Add old style pre scriptlet for LXDM user creation so as to make it work
+  when upgrading from F41
+
 * Mon Feb 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.3^20220831git2d4ba970-9
-- Create lxdm user for greeter process, and make lxdm user own needed directories
+- F42+: Create lxdm user for greeter process, and make lxdm user own needed directories
 
 * Fri Feb 14 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.3^20220831git2d4ba970-8
 - F42 switches default background from png to jxl

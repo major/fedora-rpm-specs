@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.14.0
 %define specversion 6.14.0
 %define patchversion 6.14
-%define pkgrelease 0.rc5.20250306git848e07631744.46
+%define pkgrelease 0.rc5.20250307git00a7d39898c8.47
 %define kversion 6
-%define tarfile_release 6.14-rc5-39-g848e07631744
+%define tarfile_release 6.14-rc5-137-g00a7d39898c8
 # This is needed to do merge window version magic
 %define patchlevel 14
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc5.20250306git848e07631744.46%{?buildid}%{?dist}
+%define specrelease 0.rc5.20250307git00a7d39898c8.47%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.14.0
 
@@ -4212,10 +4212,20 @@ fi\
 #
 #
 %changelog
-* Thu Mar 06 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc5.848e07631744.46]
+* Fri Mar 07 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.14.0-0.rc5.20250307git00a7d39898c8.47]
+- Fix up some debug module loading issues due to BTF mismatch (Justin M. Forbes)
+
+* Fri Mar 07 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc5.00a7d39898c8.47]
 - apply -Wno-error=unterminated-string-initialization temporarily (Thorsten Leemhuis)
 - include/linux: Adjust headers for C23 (Jakub Jelinek)
 - x86/insn_decoder_test: allow longer symbol-names (David Rheinsberg)
+
+* Fri Mar 07 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc5.00a7d39898c8.46]
+- Revert "redhat/configs: automotive: disable CONFIG_AIO" (Davide Caratti)
+- redhat/configs: automotive disable ARCH_TEGRA_241_SOC (Eric Chanudet)
+- rhel_files: ensure all qdiscs are in modules-core (Davide Caratti) [RHEL-79818]
+- redhat/configs: automotive: Disable MRP/8021Q_MVRP Protocol (Dorinda Bassey)
+- Linux v6.14.0-0.rc5.00a7d39898c8
 
 * Thu Mar 06 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc5.848e07631744.45]
 - Linux v6.14.0-0.rc5.848e07631744
