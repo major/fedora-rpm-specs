@@ -15,7 +15,7 @@
 %bcond_without zstd
 
 Name:		kmod
-Version:	34
+Version:	34.1
 Release:	1%{?dist}
 Summary:	Linux kernel module management utilities
 
@@ -199,6 +199,10 @@ install -m 0644 %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/depmod.d/dist.conf
 %{_libdir}/libkmod.so
 
 %changelog
+* Sat Mar 08 2025 Josh Boyer <jwboyer@fedoraproject.org> - 34.1-1
+- New upstream v34.1
+- Resolves: rhbz#2350269
+
 * Mon Feb 24 2025 Josh Boyer <jwboyer@fedoraproject.org>
 - New upstream v34
 - Resolves: rhbz#2347049

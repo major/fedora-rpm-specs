@@ -1,8 +1,8 @@
 %global abi_ver 4
 
 Name:           fcft
-Version:        3.1.10
-Release:        2%{?dist}
+Version:        3.2.0
+Release:        1%{?dist}
 Summary:        Simple library for font loading and glyph rasterization
 
 # main source:  MIT
@@ -14,8 +14,6 @@ Source0:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz.sig
 # Daniel Eklöf (Git signing) <daniel@ekloef.se>
 Source2:        gpgkey-5BBD4992C116573F.asc
-
-Patch:          %{url}/commit/9922e00843.patch#/fcft-3.1.10-unicode-update-license.patch
 
 BuildRequires:  gcc
 BuildRequires:  gnupg2
@@ -35,7 +33,7 @@ BuildRequires:  tllist-static
 BuildRequires:  font(dejavuserif)
 BuildRequires:  font(notocoloremoji)
 
-Provides:       bundled(nanosvg) = 0^20231229g93ce879
+Provides:       bundled(nanosvg) = 0^20241219gea6a6ac
 
 %description
 fcft is a small font loading and glyph rasterization library built
@@ -93,6 +91,9 @@ rm -f %{buildroot}%{_docdir}/%{name}/LICENSE
 
 
 %changelog
+* Sat Mar 08 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 3.2.0-1
+- Update to 3.2.0 (#2350079)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

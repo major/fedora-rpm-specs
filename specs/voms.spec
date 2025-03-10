@@ -2,7 +2,7 @@
 
 Name:		voms
 Version:	2.1.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Virtual Organization Membership Service
 
 License:	Apache-2.0
@@ -10,6 +10,8 @@ URL:		https://italiangrid.github.io/voms/
 Source0:	https://github.com/italiangrid/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 #		Post-install setup instructions:
 Source1:	%{name}.INSTALL
+#		System user creation config
+Source2:	%{name}-sysusers.conf
 #		https://github.com/italiangrid/voms/pull/140
 Patch0:		0001-Fix-compilation-with-GCC-15-Fedora-42.patch
 
@@ -125,6 +127,9 @@ install -m 644 -p systemd/%{name}@.service %{buildroot}%{_unitdir}
 rm %{buildroot}%{_initrddir}/%{name}
 rm %{buildroot}%{_sysconfdir}/sysconfig/%{name}
 
+mkdir -p %{buildroot}%{_sysusersdir}
+install -m 644 -p %{SOURCE2} %{buildroot}%{_sysusersdir}/%{name}.conf
+
 mkdir -p %{buildroot}%{_pkgdocdir}/VOMS_C_API
 cp -pr doc/apidoc/api/VOMS_C_API/html %{buildroot}%{_pkgdocdir}/VOMS_C_API
 rm -f %{buildroot}%{_pkgdocdir}/VOMS_C_API/html/installdox
@@ -152,9 +157,7 @@ if [ -r %{_sysconfdir}/vomses.rpmsave -a ! -r %{_sysconfdir}/vomses ] ; then
 fi
 
 %pre server
-getent group %{name} >/dev/null || groupadd -r %{name}
-getent passwd %{name} >/dev/null || useradd -r -g %{name} \
-    -d %{_sysconfdir}/%{name} -s /sbin/nologin -c "VOMS Server Account" %{name}
+%sysusers_create_compat %{SOURCE2}
 
 %post server
 if [ $1 -eq 1 ] ; then
@@ -292,9 +295,13 @@ fi
 %{_datadir}/%{name}/voms_replica_master_setup.sh
 %{_datadir}/%{name}/voms_replica_slave_setup.sh
 %{_mandir}/man8/voms.8*
+%{_sysusersdir}/%{name}.conf
 %doc README.Fedora
 
 %changelog
+* Sat Mar 08 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.1.0-5
+- Move user/group creation logic to sysusers.d fragment
+
 * Sun Jan 19 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.1.0-4
 - Fix compilation with GCC 15
 

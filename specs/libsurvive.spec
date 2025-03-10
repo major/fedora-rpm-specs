@@ -1,13 +1,13 @@
-%global date 20240510
-%global commit 4fb6d888d0277a8a3ba725e63707434d80ecdb2a
+%global date 20250307
+%global commit 9d8ec46f02da5120a035663c2f329b4bba0e6206
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 # These libraries are statically linked into libsurvive, are only used by this
 # project and come from the same upstream
 %global cnkalman_commit 6b350314225e28d2e4e8daad7d2971d22386f76f
-%global cnkalman_url https://github.com/cntools/cnkalman
+%global cnkalman_url https://github.com/collabora/cnkalman
 %global cnmatrix_commit 5936c62511305227fbd59b2d5a43aaf89ec3a0b6
-%global cnmatrix_url https://github.com/cntools/cnmatrix
+%global cnmatrix_url https://github.com/collabora/cnmatrix
 # These are artifacts used by the unit tests
 %global extras_data_commit 3476af66c488b029e04c74fbb1b57f3b7acb9eb7
 %global extras_data_url https://github.com/jdavidberger/libsurvive-extras-data
@@ -19,7 +19,7 @@ Summary:        Open Source Lighthouse Tracking System
 
 # libsurvive is MIT, the rest comes from bundled libraries
 License:        MIT AND (MIT AND BSD-2-Clause) AND Minpack AND LicenseRef-Fedora-UltraPermissive AND HIDAPI AND ((MIT OR X11) OR BSD-3-Clause OR GPL-1.0-or-later) AND (MIT AND (MIT OR X11) OR BSD-3-Clause) AND (MIT AND (MIT OR X11)) AND Zlib
-URL:            https://github.com/cntools/libsurvive
+URL:            https://github.com/collabora/libsurvive
 Source0:        %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
 Source1:        %{cnkalman_url}/archive/%{cnkalman_commit}/cnkalman-%{cnkalman_commit}.tar.gz
 Source2:        %{cnmatrix_url}/archive/%{cnmatrix_commit}/cnmatrix-%{cnmatrix_commit}.tar.gz
@@ -120,10 +120,6 @@ tar -xf %SOURCE3 --strip-components 1 -C %{_vpath_builddir}/src/test_cases/libsu
 %install
 %cmake_install
 
-# The bundled libraries are statically linked and only used within this
-# project, they don't need to be distributed
-rm -r %{buildroot}%{_includedir}/{cnkalman,cnmatrix}/
-rm %{buildroot}%{_libdir}/pkgconfig/{cnkalman,cnmatrix}.pc
 rm %{buildroot}%{_prefix}/lib/*.a
 
 # Install udev rules
@@ -149,8 +145,12 @@ install -Dpm0644 -t %{buildroot}%{_udevrulesdir} useful_files/81-vive.rules
 %files devel
 %doc docs/*.md
 %{_bindir}/api_example
+%{_includedir}/cnkalman/
+%{_includedir}/cnmatrix/
 %{_includedir}/%{name}/
 %{_libdir}/%{name}.so
+%{_libdir}/pkgconfig/cnkalman.pc
+%{_libdir}/pkgconfig/cnmatrix.pc
 %{_libdir}/pkgconfig/survive.pc
 
 %changelog

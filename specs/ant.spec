@@ -92,6 +92,9 @@ Requires:       %{name}-lib = %{version}-%{release}
 Requires:       %{name}-jdk-binding
 Suggests:       %{name}-openjdk21 = %{version}-%{release}
 
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 1:1.10.15-21
+
 %description
 Apache Ant is a Java library and command-line tool whose mission is to
 drive processes described in build files as targets and extension
@@ -318,15 +321,6 @@ Documentazione di %{name}.
 %description manual -l fr
 Documentation pour %{name}.
 
-%package javadoc
-Summary:        Javadoc for %{name}
-
-%description javadoc
-Javadoc for %{name}.
-
-%description javadoc -l fr
-Javadoc pour %{name}.
-
 %endif
 
 # -----------------------------------------------------------------------------
@@ -395,7 +389,7 @@ mv LICENSE.utf8 LICENSE
 %if %{with ant_minimal}
 %{ant} jars
 %else
-%{ant} jars test-jar javadocs
+%{ant} jars test-jar
 %endif
 
 # typeset the manpage
@@ -512,13 +506,6 @@ echo "jsch ant/ant-jsch" > %{buildroot}%{_sysconfdir}/%{name}.d/jsch
 echo "junit5 hamcrest/core junit opentest4j ant/ant-junitlauncher" > %{buildroot}%{_sysconfdir}/%{name}.d/junitlauncher
 echo "testutil ant/ant-testutil" > %{buildroot}%{_sysconfdir}/%{name}.d/testutil
 echo "xz-java ant/ant-xz" > %{buildroot}%{_sysconfdir}/%{name}.d/xz
-
-# javadoc
-mkdir -p %{buildroot}%{_javadocdir}/%{name}
-cp -pr build/javadocs/* %{buildroot}%{_javadocdir}/%{name}
-
-# fix link between manual and javadoc
-(cd manual; ln -sf %{_javadocdir}/%{name} api)
 
 %endif
 
@@ -650,10 +637,6 @@ install -p -m 644 man/%{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 %files manual
 %license LICENSE NOTICE
 %doc manual/*
-
-%files javadoc
-%license LICENSE NOTICE
-%{_javadocdir}/%{name}
 
 %endif
 

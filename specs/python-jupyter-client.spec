@@ -19,7 +19,8 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 
-%bcond tests 1
+%bcond bootstrap 0
+%bcond tests %{without bootstrap}
 
 %if %{with tests}
 # Optional test dependency, look for test_datetimes_msgpack

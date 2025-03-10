@@ -1,7 +1,7 @@
 %bcond pyside6 1
 
 Name:           python-ezdxf
-Version:        1.3.5
+Version:        1.4.0
 Release:        %autorelease
 Summary:        Python package to create/manipulate DXF drawings
 
@@ -168,21 +168,11 @@ sed -r -i '1{/^#!/d}' src/ezdxf/addons/drawing/qtviewer.py
 # be corrected.
 %py3_shebang_fix examples
 
-# We don’t need to run typecheckers, and we must build documentation with
-# whichever sphinx-rtd-theme version we have.
-sed -r \
-    -e 's/^(mypy|typing_extensions)\b/# \1/' \
-%if %{without pyside6}
-    -e 's/^(pyside6)\b/# \1/' \
-%endif
-    -e 's/^(sphinx-rtd-theme)<.*$/\1/' \
-    requirements-dev.txt | tee requirements-dev-filtered.txt
-
 find . -type f -name '.gitignore' -print -delete
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x %{?with_pyside6:draw,dev,}draw5,dev5 requirements-dev-filtered.txt
+%pyproject_buildrequires -x %{?with_pyside6:draw,dev,}draw5,dev5
 
 
 %build
@@ -216,10 +206,13 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
 EZDXF_DISABLE_C_EXT=1 %pytest -k "${k-}" tests integration_tests -v
 
 # Verify that no bundled fonts were installed.
-if find '%{buildroot}' -type f \( \
-    -name '*.tt[fc]' -o -name '*.otf' \
-    -o -name '*.woff' -o -name '*.woff2' -o -name '*.eof' \
-    -o -name '*.sh[xp]' -o name '*.lff' \)
+if [ "$(
+  find '%{buildroot}' -type f \( \
+      -name '*.tt[fc]' -o -name '*.otf' \
+      -o -name '*.woff' -o -name '*.woff2' -o -name '*.eof' \
+      -o -name '*.sh[xp]' -o -name '*.lff' \) |
+    wc -l
+  )" != '0' ]
 then
   echo 'BUNDLED FONTS WERE INSTALLED!' 1>&2
   exit 1

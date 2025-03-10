@@ -6,8 +6,8 @@
 
 Summary:        Open Source IRC server
 Name:           unrealircd
-Version:        6.1.9.1
-Release:        3%{?dist}
+Version:        6.1.10
+Release:        1%{?dist}
 # UnrealIRCd declares itself as GPL-2.0-or-later as it's the common denominator for
 # a GPL-1.0-or-later and GPL-2.0-or-later mixture, breakdown of other source codes:
 # BSD-3-Clause: include/mempool.h and src/mempool.c
@@ -28,8 +28,6 @@ Patch0:         unrealircd-6.0.6-crypto-policy.patch
 Patch1:         unrealircd-6.1.8-geoip.patch
 # Same options like in unrealircd(ctl) shell script
 Patch2:         unrealircd-6.0.3-unrealircdctl.patch
-# https://bugs.unrealircd.org/view.php?id=6495
-Patch3:         https://github.com/unrealircd/unrealircd/commit/72af36d2a34cc75b0879c7e291a52f017a06ad08.patch#/unrealircd-6.1.9-c23.patch
 BuildRequires:  gnupg2
 BuildRequires:  gcc
 BuildRequires:  make
@@ -84,7 +82,6 @@ touch -c -r doc/conf/examples/example.conf{.crypto-policy,}
 %patch -P1 -p1 -b .geoip
 touch -c -r doc/conf/modules.default.conf{.geoip,}
 %patch -P2 -p1 -b .unrealircdctl
-%patch -P3 -p1 -b .c23
 
 # Ensure the bundled PCRE2 tarball matches the version in this spec file
 ! tar tfz extras/pcre2.tar.gz | grep -E -m 1 -v '^pcre2-%{pcre2}/'
@@ -234,6 +231,9 @@ fi
 %endif
 
 %changelog
+* Sat Mar 08 2025 Robert Scheck <robert@fedoraproject.org> 6.1.10-1
+- Upgrade to 6.1.10 (#2345958)
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 6.1.9.1-3
 - Add explicit BR: libxcrypt-devel
 

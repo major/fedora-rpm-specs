@@ -4,7 +4,7 @@
 
 # https://github.com/pion/sdp
 %global goipath         github.com/pion/sdp/v3
-Version:                3.0.9
+Version:                3.0.10
 
 %gometa -L -f
 
@@ -28,7 +28,6 @@ Source:         %{gosource}
 
 %prep
 %goprep -A
-%autopatch -p1
 
 %generate_buildrequires
 %go_generate_buildrequires

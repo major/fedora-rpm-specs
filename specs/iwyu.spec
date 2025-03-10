@@ -1,6 +1,12 @@
 %global appname include-what-you-use
 %global toolchain clang
-%global llvmver 19
+
+%if 0%{?fedora} && 0%{?fedora} >= 42
+%global llvm_legacy 1
+%else
+%global llvm_legacy 0
+%endif
+%global llvm_ver 19
 
 # Opt out of https://fedoraproject.org/wiki/Changes/fno-omit-frame-pointer
 # https://bugzilla.redhat.com/show_bug.cgi?id=2215937
@@ -21,12 +27,21 @@ Source0: %{url}/archive/%{version}/%{appname}-%{version}.tar.gz
 ExcludeArch: %{ix86}
 %endif
 
-BuildRequires: clang >= %{llvmver}
-BuildRequires: clang-devel >= %{llvmver}
-BuildRequires: libcxx-devel >= %{llvmver}
-BuildRequires: llvm-devel >= %{llvmver}
-BuildRequires: llvm-static >= %{llvmver}
+%if %{llvm_legacy}
+BuildRequires: clang%{llvm_ver}
+BuildRequires: clang%{llvm_ver}-devel
+BuildRequires: compiler-rt%{llvm_ver}
+BuildRequires: llvm%{llvm_ver}-devel
+BuildRequires: llvm%{llvm_ver}-static
+%else
+BuildRequires: clang >= %{llvm_ver}
+BuildRequires: clang-devel >= %{llvm_ver}
+BuildRequires: compiler-rt >= %{llvm_ver}
+BuildRequires: llvm-devel >= %{llvm_ver}
+BuildRequires: llvm-static >= %{llvm_ver}
+%endif
 
+BuildRequires: libcxx-devel
 BuildRequires: ncurses-devel
 BuildRequires: python3-devel
 BuildRequires: zlib-devel
@@ -56,10 +71,17 @@ code.
 %py3_shebang_fix *.py
 
 %build
+%if %{llvm_legacy}
+export CC="clang-%{llvm_ver}"
+export CXX="clang++-%{llvm_ver}"
+%endif
 %cmake -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON \
-    -DIWYU_RESOURCE_DIR='../../../lib/clang/%{llvmver}'
+%if %{llvm_legacy}
+    -DCMAKE_PREFIX_PATH='%{_libdir}/llvm%{llvm_ver}/lib/cmake/clang;%{_libdir}/llvm%{llvm_ver}/lib/cmake/llvm' \
+%endif
+    -DIWYU_RESOURCE_DIR='../../../lib/clang/%{llvm_ver}'
 %cmake_build
 
 %install

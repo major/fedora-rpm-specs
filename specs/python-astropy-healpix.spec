@@ -2,7 +2,7 @@
 %global modname astropy_healpix
 
 Name:           python-%{srcname}
-Version:        1.1.0
+Version:        1.1.2
 Release:        %autorelease
 Summary:        HEALPix for Astropy
 

@@ -10,7 +10,7 @@
 %global major_ver 5
 
 Name:           python-django%{major_ver}
-Version:        5.1.6
+Version:        5.1.7
 Release:        %autorelease
 Summary:        A high-level Python Web framework
 

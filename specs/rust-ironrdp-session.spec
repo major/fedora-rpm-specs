@@ -2,21 +2,22 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate gettext-rs
+%global crate ironrdp-session
 
-Name:           rust-gettext-rs
-Version:        0.7.2
+Name:           rust-ironrdp-session
+Version:        0.2.2
 Release:        %autorelease
-Summary:        Safe bindings for gettext
+Summary:        State machines to drive an RDP session
 
-License:        MIT
-URL:            https://crates.io/crates/gettext-rs
+# Upstream license specification: MIT/Apache-2.0
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/ironrdp-session
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Safe bindings for gettext.}
+State machines to drive an RDP session.}
 
 %description %{_description}
 
@@ -30,7 +31,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE.txt
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
@@ -45,18 +47,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+gettext-system-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+gettext-system-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "gettext-system" feature of the "%{crate}" crate.
-
-%files       -n %{name}+gettext-system-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

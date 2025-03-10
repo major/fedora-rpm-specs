@@ -4,7 +4,7 @@
 
 %define name    safekeep
 %define version 1.5.1
-%define release 4
+%define release 5
 %define homedir %{_localstatedir}/lib/%{name}
 
 Name:           %{name}
@@ -53,8 +53,6 @@ installed on all hosts that need to be backed-up.
 
 %package server
 Summary:        The SafeKeep backup system (server component)
-Requires(pre):  /usr/sbin/useradd
-Requires(pre):  /usr/sbin/groupadd
 Requires:       openssh, openssh-clients
 Requires:       %{name}-common = %{version}-%{release}
 Requires:       crontabs
@@ -70,6 +68,11 @@ installed on the server on which the data will be backed-up to.
 %setup -q -n %{name}-%{commit}
 cp -p %{SOURCE1} .
 
+# Create a sysusers.d config file
+cat >safekeep.sysusers.conf <<EOF
+u safekeep - 'Used by %{name} to run and store backups.' %{homedir} -
+EOF
+
 %build
 make %{?_smp_mflags} build
 
@@ -79,11 +82,8 @@ make install DESTDIR=%{buildroot}
 install -d -m 750 "%{buildroot}%{homedir}"
 install -d -m 700 "%{buildroot}%{homedir}/.ssh"
 
-%pre server
-%{_sbindir}/groupadd -f -r %{name}
-id %{name} >/dev/null 2>&1 || \
-%{_sbindir}/useradd -r -g %{name} -d %{homedir} -s /sbin/nologin \
-  -c "Used by %{name} to run and store backups." %{name}
+install -m0644 -D safekeep.sysusers.conf %{buildroot}%{_sysusersdir}/safekeep.conf
+
 
 %files common
 %{_bindir}/%{name}
@@ -105,8 +105,12 @@ id %{name} >/dev/null 2>&1 || \
 %{_mandir}/man5/%{name}.conf.5*
 %{_mandir}/man5/%{name}.backup.5*
 %doc samples/sample.backup
+%{_sysusersdir}/safekeep.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.5.1^20230910git75e66fe-5
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1^20230910git75e66fe-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

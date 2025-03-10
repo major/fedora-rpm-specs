@@ -1,7 +1,7 @@
 %global xfceversion 4.20
 
 Name:           xfdesktop
-Version:        4.20.0
+Version:        4.20.1
 Release:        %autorelease
 Summary:        Desktop manager for the Xfce Desktop Environment
 
@@ -43,16 +43,8 @@ This package includes a desktop manager for the Xfce Desktop Environment.
 %prep
 %setup -q
 
-# change default background for Fedora
-# use --with-default-backdrop-filename=%{_datadir}/backgrounds/images/default.webp when updating to >= 4.18.2
-%if 0%{fedora} >= 37
-sed -i 's|/backgrounds/xfce/xfce-shapes.svg|/backgrounds/images/default.webp|' common/xfdesktop-common.h
-%else
-sed -i 's|/backgrounds/xfce/xfce-shapes.svg|/backgrounds/images/default.png|' common/xfdesktop-common.h
-%endif
-
 %build
-%configure
+%configure --with-default-backdrop-filename=%{_datadir}/backgrounds/images/default.jxl
 
 %make_build
 

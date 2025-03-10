@@ -1,5 +1,5 @@
 # download path contains version without the last (fourth) digit
-%global libo_version 25.2.1
+%global libo_version 25.2.2
 %global prerelease 1
 # Should contain .alphaX / .betaX, if this is pre-release (actually
 # pre-RC) version. The pre-release string is part of tarball file names,
@@ -82,7 +82,7 @@ ExcludeArch:    %{ix86}
 Summary:        Free Software Productivity Suite
 Name:           libreoffice
 Epoch:          1
-Version:        %{libo_version}.2
+Version:        %{libo_version}.1
 %if %{defined libo_prerelease} && 0%{?libo_prerelease} != 0
 Release:        %autorelease -e %(e=%{libo_prerelease}; echo ${e:1})
 %else
@@ -1157,6 +1157,7 @@ sed -i -e /CppunitTest_sc_pdf_export/d sc/Module_sc.mk
 sed -i -e /CppunitTest_sdext_pdfimport/d sdext/Module_sdext.mk
 sed -i -e /CppunitTest_sfx2_view/d sfx2/Module_sfx2.mk
 sed -i -e /CppunitTest_sw_pdf_test/d sw/Module_sw.mk
+sed -i -e /CppunitTest_sw_layoutwriter5/d sw/Module_sw.mk
 
 sed -i s/mdds-2.1/mdds-3.0/g configure
 sed -i s/liborcus-0.18/liborcus-0.20/g configure

@@ -15,7 +15,6 @@ BuildRequires:  make
 BuildRequires:  python3-sphinx
 BuildRequires:  python3dist(sphinx-rtd-theme)
 # Test dependencies:
-BuildRequires:  python3dist(async-timeout)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-asyncio)
 BuildRequires:  python3dist(pytest-trio)

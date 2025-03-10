@@ -7,8 +7,8 @@ speedy.}
 %bcond extras 1
 
 Name:           python-%{srcname}
-Version:        21.2.0
-Release:        7%{?dist}
+Version:        23.0.0
+Release:        1%{?dist}
 Summary:        Python WSGI HTTP Server
 License:        MIT
 URL:            https://gunicorn.org/
@@ -22,6 +22,7 @@ BuildArch:      noarch
 %package -n python3-%{srcname}
 Summary:        %{summary}
 BuildRequires:  python3-devel
+Obsoletes:      python3-%{srcname}+eventlet < 21.2.0-8
 
 %description -n python3-%{srcname} %{_description}
 
@@ -36,16 +37,18 @@ Documentation for the %{name} package.
 # There are a few extras that we're not creating subpackages for:
 # tornado: described upstream as "not recommended"
 # gthread: no additional dependencies
-%pyproject_extras_subpkg -n python3-%{srcname} gevent eventlet setproctitle
+%pyproject_extras_subpkg -n python3-%{srcname} gevent setproctitle
 %endif
 
 %prep
 %autosetup -n %{srcname}-%{version} -p 1
 # disable code coverage checks
+sed -e '/--cov=gunicorn --cov-report=xml/d' -i pyproject.toml
 sed -e '/coverage/d' -e '/pytest-cov/d' -i requirements_test.txt
 sed -e '/addopts/d' -i setup.cfg
+sed -e '/eventlet/d' -i requirements_test.txt
 %if %{without extras}
-sed -e '/gevent/d' -e '/eventlet/d' -i requirements_test.txt
+sed -e '/gevent/d' -i requirements_test.txt
 %endif
 
 %generate_buildrequires
@@ -63,7 +66,7 @@ ln -s %{_bindir}/gunicorn %{buildroot}%{_bindir}/gunicorn-3
 ln -s %{_bindir}/gunicorn %{buildroot}%{_bindir}/gunicorn-%{python3_version}
 
 %check
-%pytest --verbose tests %{!?with_extras:-k "not gevent"}
+%pytest --verbose tests -k "not geventlet" %{!?with_extras:-k "not gevent"}
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc NOTICE README.rst THANKS
@@ -76,6 +79,12 @@ ln -s %{_bindir}/gunicorn %{buildroot}%{_bindir}/gunicorn-%{python3_version}
 %doc docs/build/html/*
 
 %changelog
+* Sat Mar 08 2025 Neal Gompa <ngompa@fedoraproject.org> - 23.0.0-1
+- Update to 23.0.0
+
+* Fri Feb 14 2025 Romain Geissler <romain.geissler@amadeus.com> - 21.2.0-8
+- Remove eventlet subpackage as python-eventlet is retired from fedora.
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 21.2.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

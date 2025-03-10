@@ -2,22 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate glycin-utils
-%global crate_version 3.0.0-rc
+%global crate calloop
 
-Name:           rust-glycin-utils
-Version:        3.0.0~rc
+Name:           rust-calloop0.13
+Version:        0.13.0
 Release:        %autorelease
-Summary:        Sandboxed image decoding
+Summary:        Callback-based event loop
 
-License:        MPL-2.0 OR LGPL-2.1-or-later
-URL:            https://crates.io/crates/glycin-utils
-Source:         %{crates_source %{crate} %{crate_version}}
+License:        MIT
+URL:            https://crates.io/crates/calloop
+Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Sandboxed image decoding.}
+A callback-based event loop.}
 
 %description %{_description}
 
@@ -31,9 +30,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
-%license %{crate_instdir}/LICENSE-LGPL-2.1
-%license %{crate_instdir}/LICENSE-MPL-2.0
+%license %{crate_instdir}/LICENSE.txt
+%doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -48,80 +47,92 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+async-io-devel
+%package     -n %{name}+async-task-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+async-io-devel %{_description}
+%description -n %{name}+async-task-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "async-io" feature of the "%{crate}" crate.
+use the "async-task" feature of the "%{crate}" crate.
 
-%files       -n %{name}+async-io-devel
+%files       -n %{name}+async-task-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+glib-devel
+%package     -n %{name}+block_on-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+glib-devel %{_description}
+%description -n %{name}+block_on-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "glib" feature of the "%{crate}" crate.
+use the "block_on" feature of the "%{crate}" crate.
 
-%files       -n %{name}+glib-devel
+%files       -n %{name}+block_on-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+gobject-devel
+%package     -n %{name}+executor-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+gobject-devel %{_description}
+%description -n %{name}+executor-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "gobject" feature of the "%{crate}" crate.
+use the "executor" feature of the "%{crate}" crate.
 
-%files       -n %{name}+gobject-devel
+%files       -n %{name}+executor-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+image-rs-devel
+%package     -n %{name}+futures-io-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+image-rs-devel %{_description}
+%description -n %{name}+futures-io-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "image-rs" feature of the "%{crate}" crate.
+use the "futures-io" feature of the "%{crate}" crate.
 
-%files       -n %{name}+image-rs-devel
+%files       -n %{name}+futures-io-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+loader-utils-devel
+%package     -n %{name}+nix-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+loader-utils-devel %{_description}
+%description -n %{name}+nix-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "loader-utils" feature of the "%{crate}" crate.
+use the "nix" feature of the "%{crate}" crate.
 
-%files       -n %{name}+loader-utils-devel
+%files       -n %{name}+nix-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+tokio-devel
+%package     -n %{name}+pin-utils-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+tokio-devel %{_description}
+%description -n %{name}+pin-utils-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "tokio" feature of the "%{crate}" crate.
+use the "pin-utils" feature of the "%{crate}" crate.
 
-%files       -n %{name}+tokio-devel
+%files       -n %{name}+pin-utils-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+signals-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+signals-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "signals" feature of the "%{crate}" crate.
+
+%files       -n %{name}+signals-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{crate_version} -p1
+%autosetup -n %{crate}-%{version} -p1
 %cargo_prep
 
 %generate_buildrequires

@@ -5,8 +5,8 @@
 
 %global crate reis
 
-Name:           rust-reis
-Version:        0.4.0
+Name:           rust-reis0.2
+Version:        0.2.0
 Release:        %autorelease
 Summary:        Pure Rust implementation of libei/libeis protocol
 

@@ -1,7 +1,8 @@
 %global modname ipykernel
 
 # When we bootstrap new Python, we need to avoid a build dependnecy loop
-%bcond tests 1
+%bcond bootstrap 0
+%bcond tests %{without bootstrap}
 
 Name:           python-%{modname}
 Version:        6.29.3

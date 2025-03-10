@@ -2,21 +2,23 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate gettext-rs
+%global crate ironrdp-blocking
 
-Name:           rust-gettext-rs
-Version:        0.7.2
+Name:           rust-ironrdp-blocking
+Version:        0.3.0
 Release:        %autorelease
-Summary:        Safe bindings for gettext
+Summary:        Blocking I/O abstraction wrapping the IronRDP state machines conveniently
 
-License:        MIT
-URL:            https://crates.io/crates/gettext-rs
+# Upstream license specification: MIT/Apache-2.0
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/ironrdp-blocking
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Safe bindings for gettext.}
+Blocking I/O abstraction wrapping the IronRDP state machines
+conveniently.}
 
 %description %{_description}
 
@@ -30,7 +32,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE.txt
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
@@ -45,18 +48,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+gettext-system-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+gettext-system-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "gettext-system" feature of the "%{crate}" crate.
-
-%files       -n %{name}+gettext-system-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

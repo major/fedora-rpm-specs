@@ -1,8 +1,8 @@
 %global _hardened_build 1
 
 Name:           seafile
-Version:        9.0.11
-Release:        2%{?dist}
+Version:        9.0.12
+Release:        1%{?dist}
 Summary:        Cloud storage cli client
 
 License:        GPL-2.0-or-later WITH GPL-3.0-linking-source-exception
@@ -86,6 +86,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Sat Mar 08 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 9.0.12-1
+- Update to 9.0.12
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

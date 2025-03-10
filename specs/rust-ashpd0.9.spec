@@ -4,8 +4,8 @@
 
 %global crate ashpd
 
-Name:           rust-ashpd
-Version:        0.11.0
+Name:           rust-ashpd0.9
+Version:        0.9.2
 Release:        %autorelease
 Summary:        XDG portals wrapper in Rust using zbus
 
@@ -56,30 +56,6 @@ This package contains library source intended for building other packages which
 use the "async-std" feature of the "%{crate}" crate.
 
 %files       -n %{name}+async-std-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+async-trait-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+async-trait-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "async-trait" feature of the "%{crate}" crate.
-
-%files       -n %{name}+async-trait-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+backend-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+backend-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "backend" feature of the "%{crate}" crate.
-
-%files       -n %{name}+backend-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+gdk4wayland-devel

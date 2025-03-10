@@ -72,7 +72,7 @@
 %global patch_version 0
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 2
+%global baserelease 3
 
 # Set to RC version if building RC, else comment out.
 %global rcsuf rc3
@@ -595,6 +595,9 @@ popd
 
 
 %changelog
+* Fri Mar 07 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 4.0.0~rc3-3
+- Define CMAKE_POLICY_VERSION_MINIMUM in %%cmake
+
 * Fri Mar 07 2025 Cristian Le <git@lecris.dev> - 4.0.0~rc3-2
 - Drop non-standard *_INSTALL options
 

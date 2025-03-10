@@ -37,7 +37,7 @@ Name:           llama-cpp
 # This is the main license
 
 License:        MIT AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
-Version:        b4094
+Version:        b4580
 Release:        %autorelease
 
 URL:            https://github.com/ggerganov/llama.cpp
@@ -86,7 +86,6 @@ BuildRequires:  hipblas-devel
 BuildRequires:  hipcc-libomp-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocm-rpm-macros-modules
 
 Requires:       rocblas
 Requires:       hipblas
@@ -162,6 +161,8 @@ Requires:       python3dist(sentencepiece)
 # verson the *.so
 sed -i -e 's/POSITION_INDEPENDENT_CODE ON/POSITION_INDEPENDENT_CODE ON SOVERSION %{version}/' src/CMakeLists.txt
 sed -i -e 's/POSITION_INDEPENDENT_CODE ON/POSITION_INDEPENDENT_CODE ON SOVERSION %{version}/' ggml/src/CMakeLists.txt
+sed -i '/target_link_libraries(ggml-hip PRIVATE ggml-base.*/aset_target_properties(ggml-hip PROPERTIES SOVERSION %{version})' ggml/src/ggml-hip/CMakeLists.txt
+sed -i '/target_compile_features(${GGML_CPU_NAME} PRIVATE c_std_11.*/aset_target_properties(${GGML_CPU_NAME} PROPERTIES SOVERSION %{version})' ggml/src/ggml-cpu/CMakeLists.txt
 
 # no android needed
 rm -rf exmples/llma.android
@@ -175,10 +176,6 @@ cd %{_vpath_srcdir}/gguf-py
 cd -
 %endif
 
-%if %{with rocm}
-module load rocm/default
-%endif
-
 %cmake \
     -DCMAKE_INSTALL_LIBDIR=%{_lib} \
     -DCMAKE_SKIP_RPATH=ON \
@@ -189,19 +186,12 @@ module load rocm/default
     -DGGML_AVX512_VNNI=OFF \
     -DGGML_FMA=OFF \
     -DGGML_F16C=OFF \
-%if %{with rocm}
     -DGGML_HIP=%{build_hip} \
-    -DAMDGPU_TARGETS=${ROCM_GPUS} \
-%endif
+    -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
     -DLLAMA_BUILD_EXAMPLES=%{build_examples} \
     -DLLAMA_BUILD_TESTS=%{build_test}
-    
+
 %cmake_build
-
-%if %{with rocm}
-module purge
-%endif
-
 
 %install
 %if %{with examples}
@@ -236,13 +226,18 @@ rm %{buildroot}%{_bindir}/convert*.py
 %{_libdir}/libllama.so.%{version}
 %{_libdir}/libggml.so.%{version}
 %{_libdir}/libggml-base.so.%{version}
+%{_libdir}/libggml-cpu.so.%{version}
+%if %{with rocm}
+%{_libdir}/libggml-hip.so.%{version}
+%endif
 
 %files devel
 %dir %{_libdir}/cmake/llama
+%dir %{_libdir}/cmake/ggml
 %doc README.md
-%{_includedir}/ggml.h
-%{_includedir}/ggml-*.h
-%{_includedir}/llama.h
+%{_includedir}/gguf.h
+%{_includedir}/ggml*.h
+%{_includedir}/llama*.h
 %{_libdir}/libllama.so
 %{_libdir}/libggml.so
 %{_libdir}/libggml-base.so
@@ -251,6 +246,7 @@ rm %{buildroot}%{_bindir}/convert*.py
 %{_libdir}/libggml-hip.so
 %endif
 %{_libdir}/cmake/llama/*.cmake
+%{_libdir}/cmake/ggml/*.cmake
 %{_exec_prefix}/lib/pkgconfig/llama.pc
 
 %if %{with test}

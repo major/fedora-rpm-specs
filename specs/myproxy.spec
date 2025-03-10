@@ -8,7 +8,7 @@
 
 Name:           myproxy
 Version:        6.2.16
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Manage X.509 Public Key Infrastructure (PKI) security credentials
 
 License:        NCSA AND BSD-4-Clause AND BSD-2-Clause AND Apache-2.0
@@ -330,6 +330,9 @@ rm %{buildroot}%{_sbindir}/myproxy-server-setup
 %license LICENSE*
 
 %changelog
+* Sat Mar 08 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.2.16-9
+- Rebuilt for updated systemd-rpm-macros (Fedora 42+)
+
 * Fri Jan 17 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.2.16-8
 - Fix incompatible pointer errors (gcc 15)
 

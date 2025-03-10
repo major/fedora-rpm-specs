@@ -2,7 +2,7 @@
 %global srcname arviz
 
 Name:           python-%{srcname}
-Version:        0.20.0
+Version:        0.21.0
 Release:        %autorelease
 Summary:        Exploratory analysis of Bayesian models
 

@@ -1,8 +1,8 @@
 %global _hardened_build 1
 
 Name:           seafile-client
-Version:        9.0.11
-Release:        2%{?dist}
+Version:        9.0.12
+Release:        1%{?dist}
 Summary:        Seafile cloud storage desktop client
 
 # main source:  Apache-2.0
@@ -67,6 +67,7 @@ rm -rf third_party/{WinSparkle-0.5.3,quazip}
 %build
 %cmake \
     -DCMAKE_BUILD_TYPE:STRING=Release \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.10 \
     -DBUILD_LOG_UPLOADER:BOOL=OFF     \
     -DBUILD_SHIBBOLETH_SUPPORT:BOOL=ON
 %cmake_build
@@ -78,7 +79,7 @@ install -D -m 644 -pv %{SOURCE1} %{buildroot}%{_metainfodir}/seafile.appdata.xml
 
 
 %check
-desktop-file-validate %{buildroot}%{_datadir}/applications/seafile.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/seafile.appdata.xml
 
 
@@ -86,7 +87,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/seafile.appdat
 %doc README.md
 %license LICENSE
 %{_bindir}/seafile-applet
-%{_datadir}/applications/seafile.desktop
+%{_datadir}/applications/com.seafile.seafile-applet.desktop
 %{_datadir}/icons/hicolor/scalable/apps/seafile.svg
 %{_datadir}/icons/hicolor/16x16/apps/seafile.png
 %{_datadir}/icons/hicolor/22x22/apps/seafile.png
@@ -99,6 +100,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/seafile.appdat
 
 
 %changelog
+* Sat Mar 08 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 9.0.12-1
+- Update to 9.0.12
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

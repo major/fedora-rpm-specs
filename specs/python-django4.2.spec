@@ -9,7 +9,7 @@
 %endif
 
 Name:           python-django4.2
-Version:        4.2.16
+Version:        4.2.20
 Release:        %autorelease
 Summary:        A high-level Python Web framework
 

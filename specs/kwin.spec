@@ -3,7 +3,7 @@
 
 Name:    kwin
 Version: 6.3.2.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: KDE Window manager
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -14,10 +14,6 @@ URL:     https://userbase.kde.org/KWin
 Source0: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz
 
 ## upstream patches
-# backends/drm: fix testing for more connectors than CRTCs
-# Drop for 6.3.3
-# Patch was obtained from an email by Xaver Hugl
-Patch0:  e652bdd3118fa55563caf0125deb0999f5ebd503.patch
 
 ## proposed patches
 
@@ -307,6 +303,9 @@ rm -v %{buildroot}%{_kf6_bindir}/kwin_x11 %{buildroot}%{_userunitdir}/plasma-kwi
 
 
 %changelog
+* Sat Mar 08 2025 Steve Cossette <farchord@gmail.com> - 6.3.2.1-3
+- REVERT: Fix for a wayland-only crash
+
 * Wed Mar 05 2025 Steve Cossette <farchord@gmail.com> - 6.3.2.1-2
 - Fix for a wayland-only crash
 

@@ -1,5 +1,5 @@
 Name:          fmf
-Version:       1.6.1
+Version:       1.7.0
 Release:       1%{?dist}
 
 Summary:       Flexible Metadata Format
@@ -60,6 +60,9 @@ install -pm 644 fmf.1* %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Fri Mar 07 2025 Packit <hello@packit.dev> - 1.7.0-1
+- Update to version 1.7.0
+
 * Fri Jan 17 2025 Packit <hello@packit.dev> - 1.6.1-1
 - Update to version 1.6.1
 

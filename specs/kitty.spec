@@ -1,10 +1,14 @@
-%bcond test 1
-
 %global gomodulesmode GO111MODULE=on
 %global goipath kitty
 
+%ifarch ppc64le s390x
+%bcond test 0
+%else
+%bcond test 1
+%endif
+
 Name:           kitty
-Version:        0.39.1
+Version:        0.40.0
 Release:        %autorelease
 Summary:        Cross-platform, fast, feature full, GPU based terminal emulator
 
@@ -48,6 +52,7 @@ BuildRequires:  python3-devel >= 3.8
 BuildRequires:  wayland-devel
 BuildRequires:  simde-static
 
+BuildRequires:  pkgconfig(cairo-fc)
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(fontconfig)
 BuildRequires:  pkgconfig(gl)
@@ -247,12 +252,6 @@ rm %{buildroot}%{_datadir}/doc/%{name}/html/.buildinfo \
 %if 0%{?epel}
 sed '/def test_ssh_leading_data/a \
 \        self.skipTest("Skipping a failing test")' -i kitty_tests/ssh.py
-%endif
-%ifarch ppc64le
-for test in test_transfer_receive test_transfer_send; do
-sed "/def $test/a \
-\        self.skipTest(\"Skipping a failing test\")" -i kitty_tests/file_transmission.py
-done
 %endif
 export %{gomodulesmode}
 # Some tests ignores PATH env...

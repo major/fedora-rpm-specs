@@ -2,7 +2,7 @@
 
 Name:       c-icap
 Version:    0.6.2
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    An implementation of an ICAP server
 License:    LGPL-2.1-or-later and GPL-2.0-or-later
 URL:        http://%{name}.sourceforge.net/
@@ -38,7 +38,6 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  zlib-devel
 
 Requires:       logrotate
-Requires(pre):  shadow-utils
 
 %description
 C-icap is an implementation of an ICAP server. It can be used with HTTP proxies
@@ -68,6 +67,11 @@ utilities.
 # See RECONF
 echo "master-%{full_version}" > VERSION.m4
 autoreconf -vif
+
+# Create a sysusers.d config file
+cat >c-icap.sysusers.conf <<EOF
+u c-icap - 'C-ICAP Service user' /run/%{name} -
+EOF
 
 %build
 %configure \
@@ -131,12 +135,8 @@ rm -f %{buildroot}%{_sysconfdir}/%{name}/*.default
 # Let rpm pick up the docs in the files section
 rm -fr %{buildroot}%{_docdir}/%{name}
 
-%pre
-getent group %{name} >/dev/null || groupadd -r %{name}
-getent passwd %{name} >/dev/null ||
-    useradd -r -g %{name} -d /run/%{name} -s /sbin/nologin \
-    -c "C-ICAP Service user" %{name}
-exit 0
+install -m0644 -D c-icap.sysusers.conf %{buildroot}%{_sysusersdir}/c-icap.conf
+
 
 %post
 %systemd_post %{name}.service
@@ -183,6 +183,7 @@ exit 0
 %{_tmpfilesdir}/%{name}.conf
 %{_unitdir}/%{name}.service
 %attr(750,%{name},%{name}) %dir %{_localstatedir}/log/%{name}
+%{_sysusersdir}/c-icap.conf
 
 %files devel
 %{_bindir}/%{name}-config
@@ -197,6 +198,9 @@ exit 0
 %{_libdir}/libicapapi.so.*
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.6.2-4
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Jan 26 2025 Frank Crawford <frank@crawford.emu.id.au> - 0.6.2-4
 - Patch for GCC15 issues - BZ2339953.
 - Remove mv due to unify /usr/bin and /usr/sbin
