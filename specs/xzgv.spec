@@ -2,7 +2,7 @@
 Summary:         Picture viewer
 Name:            xzgv
 Version:         0.9.2
-Release:         20%{?dist}
+Release:         21%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:         GPL-2.0-or-later
 URL:             http://sourceforge.net/projects/xzgv/
@@ -10,13 +10,13 @@ Source0:         http://downloads.sourceforge.net/xzgv/xzgv-%{version}.tar.gz
 Patch0:          xzgv-0.9-fix-doc-install.patch
 Patch1:          xzgv-0.9-fix-thumbnail-generation.patch
 Patch2:          0001-Fix-xzgv-man-page-so-it-is-valid-nroff.patch
-BuildRequires: make
+BuildRequires:   desktop-file-utils
 BuildRequires:   gcc
 BuildRequires:   gtk2-devel
 BuildRequires:   libexif-devel
 BuildRequires:   libpng-devel
+BuildRequires:   make
 BuildRequires:   texinfo
-BuildRequires:   desktop-file-utils
 Requires:        xterm
 Requires:        gnome-icon-theme
 %description 
@@ -33,7 +33,7 @@ for f in ChangeLog NEWS; do
 done
 
 %build
-sed -i 's|^CFLAGS.*|CFLAGS=%{optflags}|' config.mk
+sed -i 's|^CFLAGS.*|CFLAGS=%{optflags} -std=gnu17|' config.mk
 make %{?_smp_flags}
 make info
 
@@ -107,6 +107,9 @@ EOF
 %{_datadir}/pixmaps/xzgv.xpm
 
 %changelog
+* Sun Mar 09 2025 Terje Rosten <terjeros@gmail.com> - 0.9.2-21
+- Revert to C17
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

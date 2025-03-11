@@ -2,8 +2,8 @@
 
 Summary:        MinGW Windows Internationalized Domain Name 2008 support library
 Name:           mingw-libidn2
-Version:        2.3.7
-Release:        3%{?dist}
+Version:        2.3.8
+Release:        1%{?dist}
 License:        (GPL-2.0-or-later OR LGPL-3.0-or-later) AND GPL-3.0-or-later
 URL:            https://www.gnu.org/software/libidn/#libidn2
 
@@ -27,7 +27,7 @@ BuildRequires:  make
 BuildRequires:  pkgconfig
 
 # mingw32-gcc and mingw64-gcc are not available on s390x builders
-%if 0%{?rhel} >= 8
+%if 0%{?rhel}
 ExclusiveArch:  %{ix86} x86_64 %{arm}
 %endif
 
@@ -128,6 +128,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 %{mingw64_libdir}/libidn2.a
 
 %changelog
+* Sun Mar 09 2025 Robert Scheck <robert@fedoraproject.org> 2.3.8-1
+- Upgrade to 2.3.8 (#2350925)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

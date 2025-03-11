@@ -1,11 +1,11 @@
 Name:           xscope
-Version:        1.4.4
-Release:        6%{?dist}
+Version:        1.4.5
+Release:        1%{?dist}
 Summary:        X Window Protocol Viewer
 
 License:        MIT AND HPND-sell-variant
 URL:            https://gitlab.freedesktop.org/xorg/app/xscope
-Source0:        https://www.x.org/releases/individual/app//%{name}-%{version}.tar.xz
+Source0:        https://www.x.org/releases/individual/app/%{name}-%{version}.tar.xz
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -40,6 +40,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Mar  9 2025 Yanko Kaneti <yaneti@declera.com> 1.4.5-1
+- Update to 1.4.5
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

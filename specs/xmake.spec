@@ -1,7 +1,7 @@
 %bcond_with luajit
 
 Name:       xmake
-Version:    2.9.7
+Version:    2.9.8
 
 %global __requires_exclude_from ^%{_datadir}/%{name}/scripts/.+\\.ps1$
 %global forgeurl https://github.com/xmake-io/xmake

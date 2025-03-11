@@ -1,7 +1,7 @@
 %global srcname markdown2
 
 Name:           python-%{srcname}
-Version:        2.5.1
+Version:        2.5.3
 Release:        %autorelease
 Summary:        A fast and complete Python implementation of Markdown
 License:        MIT

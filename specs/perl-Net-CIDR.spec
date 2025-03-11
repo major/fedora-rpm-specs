@@ -1,9 +1,9 @@
 Name:           perl-Net-CIDR
-Version:        0.21
-Release:        12%{?dist}
+Version:        0.22
+Release:        1%{?dist}
 Summary:        Manipulate IPv4/IPv6 netblocks in CIDR notation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
-URL:            https://metacpan.org/release/Net-CIDR
+URL:            https://metacpan.org/dist/Net-CIDR
 Source0:        https://cpan.metacpan.org/modules/by-module/Net/Net-CIDR-%{version}.tar.gz
 BuildArch:      noarch
 # Module Build
@@ -30,16 +30,15 @@ addresses.
 %setup -q -n Net-CIDR-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+/usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
-make test
+%{make_build} test
 
 %files
 %license COPYING
@@ -48,6 +47,10 @@ make test
 %{_mandir}/man3/Net::CIDR.3*
 
 %changelog
+* Sun Mar 09 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 0.22-1
+- Update to 0.22
+- Use %%{make_build} and %%{make_install} where appropriate
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

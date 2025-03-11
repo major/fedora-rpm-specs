@@ -1,7 +1,7 @@
 %global srcname regex
 
 Name:           python-%{srcname}
-Version:        2024.9.11
+Version:        2024.11.6
 Release:        %autorelease
 Summary:        Alternative regular expression module, to replace re
 # see also https://code.google.com/p/mrab-regex-hg/issues/detail?id=124
@@ -53,5 +53,4 @@ rst2html README.rst > README.html
 %{python3_sitearch}/*
 
 
-%changelog
 %autochangelog

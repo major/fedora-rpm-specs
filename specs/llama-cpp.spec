@@ -61,10 +61,11 @@ ExclusiveArch:  x86_64 aarch64
 %global toolchain gcc
 %endif
 
-BuildRequires:  xxd
 BuildRequires:  cmake
 BuildRequires:  curl
+BuildRequires:  git
 BuildRequires:  wget
+BuildRequires:  xxd
 BuildRequires:  langpacks-en
 # above are packages in .github/workflows/server.yml
 BuildRequires:  libcurl-devel
@@ -164,6 +165,9 @@ sed -i -e 's/POSITION_INDEPENDENT_CODE ON/POSITION_INDEPENDENT_CODE ON SOVERSION
 sed -i '/target_link_libraries(ggml-hip PRIVATE ggml-base.*/aset_target_properties(ggml-hip PROPERTIES SOVERSION %{version})' ggml/src/ggml-hip/CMakeLists.txt
 sed -i '/target_compile_features(${GGML_CPU_NAME} PRIVATE c_std_11.*/aset_target_properties(${GGML_CPU_NAME} PROPERTIES SOVERSION %{version})' ggml/src/ggml-cpu/CMakeLists.txt
 
+# gcc 15 include cstdint
+sed -i '/#include <vector.*/a#include <cstdint>' src/llama-mmap.h
+ 
 # no android needed
 rm -rf exmples/llma.android
 # git cruft

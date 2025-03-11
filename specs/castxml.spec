@@ -2,12 +2,14 @@
 
 Name:		castxml
 Version:	0.6.11
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	C-family abstract syntax tree XML output tool
 
 License:	Apache-2.0
 URL:		https://github.com/CastXML/CastXML
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+#		https://github.com/CastXML/CastXML/pull/278
+Patch0:		0001-Adjust-expected-test-output-for-clang-20-ppc64le.patch
 
 BuildRequires:	cmake
 BuildRequires:	make
@@ -29,6 +31,7 @@ may support alternative output formats.
 
 %prep
 %setup -q -n CastXML-%{version}
+%patch -P0 -p1
 
 %build
 %cmake -DCastXML_INSTALL_DOC_DIR:STRING=share/doc/%{name} \
@@ -60,6 +63,9 @@ rm %{buildroot}%{_pkgdocdir}/NOTICE
 %license LICENSE NOTICE
 
 %changelog
+* Sun Mar 09 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.6.11-2
+- Adjust expected test output for clang 20 ppc64le
+
 * Wed Feb 12 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.6.11-1
 - Update to version 0.6.11
 

@@ -2,12 +2,8 @@
 
 %bcond tests 1
 
-# Run tests requiring network access, e.g. `mock --enable-network`.
-# We cannot run these Koji builds.
-%bcond network_tests 0
-
 Name:           python-%{pypi_name}
-Version:        0.5.0
+Version:        0.5.1
 Release:        %autorelease
 Summary:        A minimalistic toolbox for extracting features from sports activity files
 
@@ -81,32 +77,13 @@ toml-adapt -path pyproject.toml -a change -dep ALL -ver X
 
 %check
 %if %{with tests}
-%if %{without network_tests}
-# These tests require network access (e.g. to load topographical data).
-k="${k-}${k+ and }not (TestMissingElevationIdentification and test_fetch_elevation_data_open_elevation_api)"
-k="${k-}${k+ and }not (TestMissingElevationIdentification and test_fetch_elevation_data_open_topo_data_api)"
-k="${k-}${k+ and }not (TestWeather and test_generated_object_altitudes)"
-k="${k-}${k+ and }not (TestWeather and test_generated_object_properties)"
-%endif
-# This test *also* requires network access; however, even with network access,
-# it fails with:
-#
-# E   ValueError: node array from the pickle has an incompatible dtype:
-# E   - expected: {'names': ['left_child', 'right_child', 'feature',
-#       'threshold', 'impurity', 'n_node_samples', 'weighted_n_node_samples',
-#       'missing_go_to_left'], 'formats': ['<i8', '<i8', '<i8', '<f8', '<f8',
-#       '<i8', '<f8', 'u1'], 'offsets': [0, 8, 16, 24, 32, 40, 48, 56],
-#       'itemsize': 64}
-# E   - got     : [('left_child', '<i8'), ('right_child', '<i8'), ('feature',
-#       '<i8'), ('threshold', '<f8'), ('impurity', '<f8'), ('n_node_samples',
-#       '<i8'), ('weighted_n_node_samples', '<f8')]
-#
-# sklearn/tree/_tree.pyx:1571: ValueError
-#
-# This seems to be an issue of not being able to load pipelines created with a
-# significantly different version of scikit-learn.
-k="${k-}${k+ and }not (TestDataAnalysis and test_load_pipeline)"
-%pytest "${k:+-k $k}"
+# Upstream excludes some tests. We follow suit.
+k="${k-}${k+ and }not test_overpy_node_manipulation"
+k="${k-}${k+ and }not test_weather"
+k="${k-}${k+ and }not test_data_analysis"
+%pytest ${k:+-k "$k"}
+%else
+%pyproject_check_import
 %endif
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}

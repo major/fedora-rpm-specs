@@ -1,13 +1,12 @@
 Name:           ballerburg
-Version:        1.2.2
-Release:        4%{?dist}
+Version:        1.2.3
+Release:        1%{?dist}
 Summary:        Two players, two castles, and a hill in between
 
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
-URL:            http://baller.tuxfamily.org/
-Source0:        http://download.tuxfamily.org/baller/%{name}-%{version}.tar.gz
-Source1:        http://baller.tuxfamily.org/king.png
+URL:            https://baller.frama.io/
+Source0:        https://framagit.org/baller/ballerburg/-/archive/v%{version}/%{name}-v%{version}.tar.gz
+Source1:        https://baller.frama.io/king.png
 Source2:        %{name}.desktop
 Source3:        %{name}.appdata.xml
 
@@ -33,7 +32,7 @@ modern operating systems.
 
 
 %prep
-%autosetup
+%autosetup -n %{name}-v%{version}
 
 
 %build
@@ -51,11 +50,11 @@ install -p -m 644 LIESMICH.txt README.txt doc/authors.txt \
 # Install icons
 for px in 32 48 64 256; do
   mkdir -p %{buildroot}%{_datadir}/icons/hicolor/${px}x${px}/apps
-  convert -gravity south \
+  magick %{SOURCE1} \
+    -gravity south \
     -resize ${px}x${px} \
     -extent ${px}x${px} \
     -background white \
-    %{SOURCE1} \
     %{buildroot}%{_datadir}/icons/hicolor/${px}x${px}/apps/%{name}.png
 done
 
@@ -87,6 +86,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sun Mar 09 2025 Andrea Musuruane <musuruan@gmail.com> - 1.2.3-1
+- Updated to new upstream release
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,14 +1,17 @@
 %global pypi_name pyconify
-%global forgeurl https://github.com/pyapp-kit/pyconify
 
 # Tests require network, so make sure network is enabled
 %bcond tests 0
 
 Name:           python-%{pypi_name}
-Version:        0.1.6
+Version:        0.2.1
 Release:        %{autorelease}
 Summary:        Iconify for Python - universal icon framework
+
+%global forgeurl https://github.com/pyapp-kit/pyconify
+%global tag v%{version}
 %forgemeta
+
 License:        BSD-3-Clause
 URL:            %forgeurl
 Source:         %forgesource

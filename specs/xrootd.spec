@@ -14,11 +14,12 @@
 Name:		xrootd
 Epoch:		1
 Version:	5.7.3
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Extended ROOT file server
 License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib
 URL:		https://xrootd.web.cern.ch
 Source0:	%{url}/download/v%{version}/%{name}-%{version}.tar.gz
+Source1:	%{name}-sysusers.conf
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
@@ -88,7 +89,7 @@ Requires:	%{name}-client-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:	%{name}-server-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:	expect
 Requires:	logrotate
-Requires(pre):	shadow-utils
+%{?sysusers_requires_compat}
 %{?systemd_requires}
 
 %description server
@@ -304,14 +305,16 @@ make -C bindings/python/docs html
 
 # Service unit files
 mkdir -p %{buildroot}%{_unitdir}
-install -m 644 packaging/common/xrootd@.service %{buildroot}%{_unitdir}
-install -m 644 packaging/common/xrootd@.socket %{buildroot}%{_unitdir}
-install -m 644 packaging/common/xrdhttp@.socket %{buildroot}%{_unitdir}
-install -m 644 packaging/common/cmsd@.service %{buildroot}%{_unitdir}
-install -m 644 packaging/common/frm_xfrd@.service %{buildroot}%{_unitdir}
-install -m 644 packaging/common/frm_purged@.service %{buildroot}%{_unitdir}
+install -m 644 -p packaging/common/xrootd@.service %{buildroot}%{_unitdir}
+install -m 644 -p packaging/common/xrootd@.socket %{buildroot}%{_unitdir}
+install -m 644 -p packaging/common/xrdhttp@.socket %{buildroot}%{_unitdir}
+install -m 644 -p packaging/common/cmsd@.service %{buildroot}%{_unitdir}
+install -m 644 -p packaging/common/frm_xfrd@.service %{buildroot}%{_unitdir}
+install -m 644 -p packaging/common/frm_purged@.service %{buildroot}%{_unitdir}
 mkdir -p %{buildroot}%{_tmpfilesdir}
-install -m 644 packaging/rhel/xrootd.tmpfiles %{buildroot}%{_tmpfilesdir}/%{name}.conf
+install -m 644 -p packaging/rhel/xrootd.tmpfiles %{buildroot}%{_tmpfilesdir}/%{name}.conf
+mkdir -p %{buildroot}%{_sysusersdir}
+install -m 644 -p %{SOURCE1} %{buildroot}%{_sysusersdir}/%{name}.conf
 
 # Server config
 mkdir -p %{buildroot}%{_sysconfdir}/%{name}
@@ -403,9 +406,7 @@ rm testfile
 rm -rf ${adminpath}
 
 %pre server
-getent group %{name} >/dev/null || groupadd -r %{name}
-getent passwd %{name} >/dev/null || useradd -r -g %{name} -s /sbin/nologin \
-  -d %{_localstatedir}/spool/%{name} -c "XRootD runtime user" %{name}
+%sysusers_create_compat %{SOURCE1}
 
 %post server
 %tmpfiles_create %{name}.conf
@@ -473,6 +474,7 @@ fi
 %{_datadir}/%{name}/utils
 %{_unitdir}/*
 %{_tmpfilesdir}/%{name}.conf
+%{_sysusersdir}/%{name}.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %dir %{_sysconfdir}/%{name}/config.d
 %attr(-,xrootd,xrootd) %config(noreplace) %{_sysconfdir}/%{name}/*.cfg
@@ -650,6 +652,9 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Sat Mar 08 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.7.3-4
+- Move user/group creation logic to sysusers.d fragment
+
 * Wed Feb 19 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.7.3-3
 - Set HOSTNAME to localhost during testing
 

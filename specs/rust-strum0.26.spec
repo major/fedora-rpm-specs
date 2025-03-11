@@ -4,14 +4,17 @@
 
 %global crate strum
 
-Name:           rust-strum
-Version:        0.27.1
+Name:           rust-strum0.26
+Version:        0.26.3
 Release:        %autorelease
 Summary:        Helpful macros for working with enums and strings
 
 License:        MIT
 URL:            https://crates.io/crates/strum
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * bump phf dependency from 0.10 to 0.11
+Patch:          strum-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

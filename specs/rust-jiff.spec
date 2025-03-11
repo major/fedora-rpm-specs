@@ -5,7 +5,7 @@
 %global crate jiff
 
 Name:           rust-jiff
-Version:        0.2.1
+Version:        0.2.3
 Release:        %autorelease
 Summary:        Date-time library that encourages you to jump into the pit of success
 
@@ -22,11 +22,22 @@ Source10:       https://github.com/BurntSushi/jiff/archive/%{version}/jiff-%{ver
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          jiff-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
+# * Patch out the "js" feature, which is for wasm/browser targets only; rust2rpm
+#   already patches the dependencies out of this feature automatically.
+# * Patch out the optional jiff-static and jiff-tzdb dependencies and all
+#   features that would require them ("jiff-static", "static", "static-tz",
+#   "jiff-tzdb", and "tzdb-bundle-always"). These crates are for compiling
+#   timezone database data into the binary. We do not want to package either
+#   crate, and we do not see a good use case for static time zone databases in
+#   distribution packages, which are much better off using the system timezone
+#   database in general.
 # * Drop dev-dependency hifitime: not packaged, and only for doctests
 Patch:          jiff-fix-metadata.diff
 # * Downstream-only: Omit doctests that require hifitime. It is not worth
 #   packaging it solely for a couple of tiny examples.
 Patch10:        0001-Downstream-only-Omit-doctests-that-require-hifitime.patch
+# * Downstream-only: Omit doctests that require jiff-static
+Patch11:        0001-Downstream-only-Omit-doctests-that-require-jiff-stat.patch
 # * EPEL9: Ignore doctests that require very recent Rust compilers
 # * In this crate, doctests and examples (but not the lib and integration tests)
 #   are allowed to use Rust features from versions newer than the MSRV. It’s
@@ -124,6 +135,18 @@ use the "std" feature of the "%{crate}" crate.
 %files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+tz-fat-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+tz-fat-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "tz-fat" feature of the "%{crate}" crate.
+
+%files       -n %{name}+tz-fat-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+tz-system-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -181,8 +204,18 @@ use the "tzdb-zoneinfo" feature of the "%{crate}" crate.
 %if 0%{?el9}
 %patch -P 1009 -p1
 %endif
+
 # We do not yet have a rust-icu package (although one would be desirable)
 tomcli set Cargo.toml del dev-dependencies.icu
+# Drop dev-dependency hifitime: not packaged, and only for doctests",
+tomcli set Cargo.toml del \
+    "target.'cfg(not(target_family = \"wasm\"))'.dev-dependencies.hifitime"
+
+# Patch out the version pin on jiff-static, since we patched out all features
+# that would require jiff-static. By doing it here with tomcli, we can avoid
+# having to re-create the patch every release due to the version number
+# changing.
+tomcli set Cargo.toml del 'target."cfg(any())".dependencies.jiff-static'
 %cargo_prep
 
 %generate_buildrequires
@@ -204,6 +237,9 @@ tar -xzvf '%{SOURCE10}' --strip-components=1 \
     jiff-%{version}/src/tz/snapshots \
     jiff-%{version}/src/tz/testdata \
     jiff-%{version}/tests
+# These tests would require the "static"/"static-tz" features:
+rm -rv tests/procmacro/
+sed -r -i 's@^mod procmacro;@// &@' tests/lib.rs
 %cargo_test -f serde
 %endif
 

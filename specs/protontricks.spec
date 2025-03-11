@@ -1,7 +1,7 @@
 %bcond_with tests
 
 Name:       protontricks
-Version:    1.12.0
+Version:    1.12.1
 Release:    %autorelease
 Summary:    Simple wrapper that does winetricks things for Proton enabled games
 BuildArch:  noarch
@@ -13,7 +13,7 @@ URL:        https://github.com/Matoking/protontricks
 Source0:    %{pypi_source %{name}}
 
 BuildRequires: desktop-file-utils
-BuildRequires: python3-devel > 3.6
+BuildRequires: python3-devel
 BuildRequires: python3dist(setuptools)
 BuildRequires: python3dist(setuptools-scm)
 # BuildRequires: python3dist(vdf) >= 3.4

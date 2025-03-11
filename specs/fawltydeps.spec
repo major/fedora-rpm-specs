@@ -1,14 +1,16 @@
-%global forgeurl https://github.com/tweag/FawltyDeps
-
 %bcond tests 1
 
 Name:           fawltydeps
-Version:        0.18.0
+Version:        0.19.0
 Release:        %{autorelease}
 Summary:        Find undeclared and unused 3rd-party dependencies in your Python project
+
+%global forgeurl https://github.com/tweag/FawltyDeps
+%global tag v%{version}
 %forgemeta
+
 License:        MIT
-URL:            %forgeurl
+URL:            https://tweag.github.io/FawltyDeps/
 Source:         %forgesource
 
 BuildArch:      noarch

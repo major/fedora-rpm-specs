@@ -1,6 +1,6 @@
 Name:		xrootd-s3-http
 Version:	0.2.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	S3/HTTP filesystem plugins for XRootD
 
 License:	Apache-2.0
@@ -16,8 +16,10 @@ BuildRequires:	openssl-devel
 BuildRequires:	tinyxml2-devel
 #		For testing
 BuildRequires:	gtest-devel
+BuildRequires:	curl
 BuildRequires:	hostname
 BuildRequires:	openssl
+BuildRequires:	procps
 BuildRequires:	xrootd-server
 Requires:	xrootd-server
 
@@ -30,6 +32,7 @@ and HTTP backends through an XRootD server.
 
 %build
 %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+       -DLIB_INSTALL_DIR:PATH=%{_libdir} \
        -DXROOTD_EXTERNAL_TINYXML2:BOOL=ON \
        -DXROOTD_PLUGINS_EXTERNAL_GTEST:BOOL=ON \
        -DBUILD_TESTING:BOOL=ON
@@ -53,6 +56,9 @@ and HTTP backends through an XRootD server.
 %license LICENSE
 
 %changelog
+* Sun Mar 09 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.2.1-2
+- Add -DLIB_INSTALL_DIR to cmake command
+
 * Sun Feb 02 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.2.1-1
 - Update to version 0.2.1
 

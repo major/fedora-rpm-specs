@@ -118,7 +118,11 @@ rm src/libs/decoders/stb.h
 
 
 %build
-%meson
+# Option use_zlib_ng affects also use of vector extensions when building.
+# Disabling it is the only way to disable vector extensions, which needs to be
+# done as Fedora supports even x86_64_v1. In reality, zlib-ng is used via
+# zlib-ng-compat anyhow.
+%meson -Duse_zlib_ng=false
 %meson_build
 
 

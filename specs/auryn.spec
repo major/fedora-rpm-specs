@@ -27,6 +27,9 @@ Source0:        %forgesource
 # Fix broken OpenMPI build.
 # https://github.com/fzenke/auryn/issues/42
 Patch:          remove_mpi_cxx_bindings.patch
+# Update cmake_minimum_required to 3.12; support CMake 4.0
+# https://github.com/fzenke/auryn/pull/43
+Patch:          %{forgeurl}/pull/43.patch
 
 # This used in various places and was needed before since
 # upstream added an m suffix to the 0.8.2 release.

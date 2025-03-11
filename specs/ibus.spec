@@ -63,7 +63,7 @@
 Name:           ibus
 Version:        1.5.32~rc1
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -638,6 +638,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Sun Mar 09 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.32~rc1-3
+- Send RequireSurroundingText method with engine active-surrounding-text property
+
 * Thu Mar 06 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.32~rc1-2
 - Send FocusIn signal again after delayed FocusId property
 - Revert "Add a pad to the cursor height in Wayland"

@@ -7,7 +7,7 @@
 %bcond_without prebuilt_doc
 
 Name:      scons
-Version:   4.8.1
+Version:   4.9.0
 Release:   %autorelease
 Summary:   An Open Source software construction tool
 License:   MIT
@@ -74,10 +74,10 @@ defined Builder and/or Scanner objects.
 
 %prep
 %if 0%{with prebuilt_doc}
-%autosetup -n SCons-%{version} -N
-%setup -n SCons-%{version} -q -T -D -a 1
+%autosetup -n scons-%{version} -N
+%setup -n scons-%{version} -q -T -D -a 1
 %else
-%autosetup -N -T -b 0
+%autosetup -n scons-%{version} -N -T -b 0
 %endif
 
 %generate_buildrequires

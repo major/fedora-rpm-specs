@@ -1,6 +1,6 @@
 Name:           ckb-next
-Version:        0.6.0
-Release:        7%{?dist}
+Version:        0.6.1
+Release:        1%{?dist}
 Summary:        Unofficial driver for Corsair RGB keyboards
 
 License:        GPL-2.0-only
@@ -21,26 +21,24 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  libappstream-glib
-BuildRequires:  qt5-linguist
 
-BuildRequires:  dbusmenu-qt5-devel
-BuildRequires:  kiss-fft-devel
+BuildRequires:  cmake(kissfft)
+BuildRequires:  cmake(Qt6)
+BuildRequires:  cmake(Qt6LinguistTools)
+BuildRequires:  cmake(QuaZip-Qt6)
+BuildRequires:  cmake(zlib)
+
 BuildRequires:  libappindicator-devel
 BuildRequires:  libgudev-devel
 BuildRequires:  libxcb-devel
 BuildRequires:  pulseaudio-libs-devel
-BuildRequires:  qt5-qtbase-devel >= 5.2.0
-BuildRequires:  qt5-qtx11extras-devel
-BuildRequires:  quazip-qt5-devel >= 0.7.3
 BuildRequires:  xcb-util-devel
 BuildRequires:  xcb-util-wm-devel
-BuildRequires:  zlib-devel
 
 BuildRequires:  systemd-devel
 %{?systemd_requires}
 
-Requires:       qt5-qtbase >= 5.2.0
-Requires:       qt5ct
+Requires:       qt6-qtbase
 
 # ckb-next, as the name suggests, is a re-activation and continuation of "ckb".
 # The last released version of the original "ckb" was 0.2.7.
@@ -76,6 +74,7 @@ sed -e 's|"/lib/udev/rules.d"|"%{_udevrulesdir}"|g' -i CMakeLists.txt
   -DFORCE_INIT_SYSTEM=systemd \
   -DSAFE_INSTALL=OFF \
   -DSAFE_UNINSTALL=OFF \
+  -DPREFER_QT6=ON \
 
 %cmake_build
 
@@ -135,6 +134,10 @@ udevadm control --reload-rules 2>&1 > /dev/null || :
 
 
 %changelog
+* Sun Mar 09 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.6.1-1
+- Update to v0.6.1
+- Switch to Qt6
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

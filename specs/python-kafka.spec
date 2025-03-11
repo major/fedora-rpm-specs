@@ -6,8 +6,8 @@
 %global with_doc 1
 
 Name:             python-%{mod_name}
-Version:          2.0.2
-Release:          20%{?dist}
+Version:          2.0.6
+Release:          1%{?dist}
 Summary:          Pure Python client for Apache Kafka
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -17,28 +17,8 @@ Source0:          https://github.com/dpkp/%{project_name}/archive/refs/tags/%{ve
 # License file for jslibs using in -doc subpkg
 Source1:          LICENSE_doc
 # This patch is temporary until upstream stops supporting multi-versioned python.
-Patch0:           test_conn.py.patch
-# This patch is temporary until upstream stops supporting multi-versioned python.
-Patch1:           test_default_records.py.patch
-# This patch is temporary until upstream stops supporting multi-versioned python.
-Patch2:           test_legacy_records.py.patch
-# This patch is temporary until upstream releases 2.0.3. See
-# https://github.com/dpkp/kafka-python/pull/2123
-Patch3:           setup.py.patch
-# This patch is temporary until upstream releases 2.0.3. See
-# https://github.com/dpkp/kafka-python/pull/2318
-Patch4:           test_assignors.py.patch
-# These patches are temporary until upstream releases 2.0.3. See
-# https://github.com/dpkp/kafka-python/pull/2376
-Patch5:           kafka_codec.py.patch
-Patch6:           test_fixture.py.patch
-Patch7:           test_codec.py.patch
-# This patch is temporary until upstream releases 2.0.3. See
-# https://github.com/dpkp/kafka-python/pull/2375
-Patch8:           test_client_async.py.patch
-# This patch is temporary until upstream releases 2.0.3. See
-# https://github.com/dpkp/kafka-python/pull/2438
-Patch9:           test_records.py.patch
+# https://github.com/dpkp/kafka-python/pull/2516
+Patch0:           stop-using-mock.patch
 
 BuildArch:        noarch
 BuildRequires:    pyproject-rpm-macros
@@ -84,7 +64,7 @@ Documentation for Pure Python client for Apache Kafka.
 
 
 %prep
-%autosetup -p0 -n %{project_name}-%{version}
+%autosetup -p1 -n %{project_name}-%{version}
 install -m 644 %{SOURCE1} %{_builddir}/%{project_name}-%{version}/LICENSE_doc
 
 %generate_buildrequires
@@ -145,6 +125,10 @@ It makes sure the dependencies are installed.
 
 
 %changelog
+* Sat Mar 08 2025 Romain Geissler <romain.geissler@amadeus.com> - 2.0.6-1
+- Update to upstream version 2.0.6
+- Resolves: rhbz#1653049
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

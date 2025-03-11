@@ -1,7 +1,7 @@
 Summary:          Library to support IDNA2008 internationalized domain names
 Name:             libidn2
-Version:          2.3.7
-Release:          3%{?dist}
+Version:          2.3.8
+Release:          1%{?dist}
 License:          (GPL-2.0-or-later OR LGPL-3.0-or-later) AND GPL-3.0-or-later
 URL:              https://www.gnu.org/software/libidn/#libidn2
 
@@ -34,17 +34,13 @@ developing applications that use libidn2.
 Summary:          IDNA2008 internationalized domain names conversion tool
 License:          GPL-3.0-or-later
 Requires:         %{name}%{?_isa} = %{version}-%{release}
-%if 0%{?rhel} && 0%{?rhel} <= 7
-Requires(post):   /sbin/install-info
-Requires(preun):  /sbin/install-info
-%endif
 
 %description -n idn2
 The idn2 package contains the idn2 command line tool for testing
 IDNA2008 conversions.
 
 %prep
-%{!?el7:%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'}
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
 
 %build
@@ -72,16 +68,6 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/info/dir
 
 %ldconfig_scriptlets
 
-%if 0%{?rhel} && 0%{?rhel} <= 7
-%post -n idn2            
-/sbin/install-info %{_infodir}/%{name}.info.gz %{_infodir}/dir || :            
-
-%preun -n idn2            
-if [ $1 -eq 0 ]; then            
-  /sbin/install-info --delete %{_infodir}/%{name}.info.gz %{_infodir}/dir || :            
-fi
-%endif
-
 %files -f %{name}.lang
 %license COPYING COPYING.LESSERv3 COPYING.unicode COPYINGv2
 %doc AUTHORS NEWS README.md
@@ -101,6 +87,9 @@ fi
 %{_infodir}/%{name}.info*
 
 %changelog
+* Sun Mar 09 2025 Robert Scheck <robert@fedoraproject.org> 2.3.8-1
+- Upgrade to 2.3.8 (#2350924)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

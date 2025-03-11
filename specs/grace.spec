@@ -8,7 +8,7 @@
 
 Name:           grace
 Version:        5.1.25
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Numerical Data Processing and Visualization Tool
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -70,7 +70,11 @@ rm -rf Xbae T1lib
 
 %build
 cp %{SOURCE3} %{SOURCE4} .
+%if 0%{?fedora} > 41 || 0%{?rhel} > 10
+export CFLAGS="$RPM_OPT_FLAGS -fPIC -std=gnu17"
+%else
 export CFLAGS="$RPM_OPT_FLAGS -fPIC"
+%endif
 export FFLAGS="$RPM_OPT_FLAGS -fPIC"
 %configure \
     --enable-editres \
@@ -192,6 +196,9 @@ rm __dist_doc/doc/Makefile __dist_doc/doc/*.sgml
 %{_datadir}/%{name}/lib
 
 %changelog
+* Sun Mar 09 2025 Terje Rosten <terjeros@gmail.com> - 5.1.25-43
+- Revert to C17
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.25-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

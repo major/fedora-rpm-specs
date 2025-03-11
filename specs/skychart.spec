@@ -1,5 +1,5 @@
-%global svnversion 4719
-%global date 20240205
+%global svnversion 4974
+%global date 20250303
 %global maj_ver 4.3
 
 Name:       skychart
@@ -18,7 +18,7 @@ URL:        http://www.ap-i.net/skychart/
 # Download upstream tarball from
 # https://sourceforge.net/projects/skychart/files/0-beta/
 # in the same directory of the script and run:
-# ./generate-tarball.sh 4.3-4719
+# ./generate-tarball.sh 4.3-4974
 Source0:    %{name}-%{maj_ver}-%{svnversion}-src-nopatents.tar.xz
 Source1:    generate-tarball.sh
 # Base source data
@@ -226,7 +226,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_datadir}/skychart/cat/milkyway
 %{_datadir}/skychart/cat/openngc
 %{_datadir}/skychart/cat/RealSky
-%{_datadir}/skychart/cat/sac
 %{_datadir}/skychart/cat/xhip
 %dir %{_datadir}/skychart/doc
 %{_datadir}/skychart/doc/html_doc

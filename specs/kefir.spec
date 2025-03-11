@@ -1,14 +1,14 @@
 Name:           kefir
-Version:        0.4.0
+Version:        0.4.1
 Release:        %{autorelease}
 Summary:        An implementation of C17 language compiler from scratch
 
 # Entire project is under GPL-3.0-only
-# Except, runtime library which is under BSD-3-Clause
+# Runtime components are under BSD-3-Clause
 License:        GPL-3.0-only AND BSD-3-Clause
 URL:            https://kefir.protopopov.lv
 Source0:        %{url}/releases/kefir-%{version}.tar.gz
-Source1:        %{url}/releases/kefir-0.4.0.tar.gz.asc
+Source1:        %{url}/releases/kefir-%{version}.tar.gz.asc
 Source2:        https://www.protopopov.lv/static/files/jprotopopov.gpg 
 
 BuildRequires:  binutils
@@ -66,7 +66,6 @@ rm -fr %{buildroot}%{_datadir}/licenses
 make test
 
 %files
-%license source/runtime/LICENSE
 %license COPYING
 %doc CHANGELOG
 %doc README.md
@@ -82,7 +81,6 @@ make test
 %{_libdir}/libkefir.so
 %{_libdir}/libkefir.so.0.0
 %{_libdir}/libkefir.a
-%{_libdir}/libkefirrt.a
 
 %changelog
 %autochangelog
