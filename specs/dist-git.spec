@@ -4,7 +4,7 @@
 
 Name:           dist-git
 Version:        1.18
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Package source version control system
 
 # upload.cgi uses GPLv1
@@ -26,7 +26,6 @@ Requires:       git
 Requires:       git-daemon
 Requires:       mod_ssl
 Requires:       crudini
-Requires(pre):  shadow-utils
 
 Requires:       python3-requests
 Recommends:     python3-grokmirror
@@ -76,6 +75,11 @@ This package includes SELinux support.
 %prep
 %setup -q
 
+# Create a sysusers.d config file
+cat >dist-git.sysusers.conf <<EOF
+g packager -
+EOF
+
 
 %build
 # ------------------------------------------------------------------------------
@@ -91,13 +95,6 @@ done
 cd -
 
 
-%pre
-# ------------------------------------------------------------------------------
-# Users and Groups
-# ------------------------------------------------------------------------------
-getent group packager > /dev/null || \
-    groupadd -r packager
-exit 0
 
 
 %check
@@ -170,6 +167,8 @@ done
 cd -
 
 hardlink -cv %{buildroot}%{_datadir}/selinux
+
+install -m0644 -D dist-git.sysusers.conf %{buildroot}%{_sysusersdir}/dist-git.conf
 
 %post selinux
 for selinuxvariant in %{selinux_variants}
@@ -246,6 +245,7 @@ fi
 %{_bindir}/mkbranch_branching
 %{_bindir}/remove_unused_sources
 %{_bindir}/setup_git_package
+%{_sysusersdir}/dist-git.conf
 
 
 %files selinux
@@ -254,6 +254,9 @@ fi
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.18-3
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.18-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

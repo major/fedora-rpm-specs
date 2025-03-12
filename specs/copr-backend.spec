@@ -10,7 +10,7 @@
 
 Name:       copr-backend
 Version:    2.1
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Backend for Copr
 
 License:    GPL-2.0-or-later
@@ -127,6 +127,12 @@ only.
 %prep
 %setup -q -a 1
 
+# Create a sysusers.d config file
+cat >copr-backend.sysusers.conf <<EOF
+u copr - 'COPR user' - /bin/bash
+m copr lighttpd
+EOF
+
 
 %build
 make -C docs %{?_smp_mflags} html
@@ -180,15 +186,12 @@ cp -a conf/logstash/copr_backend.conf %{buildroot}%{_pkgdocdir}/examples/%{_sysc
 
 cp -a docs/build/html %{buildroot}%{_pkgdocdir}/
 
+install -m0644 -D copr-backend.sysusers.conf %{buildroot}%{_sysusersdir}/copr-backend.conf
+
 
 %check
 ./run_tests.sh -vv --no-cov
 
-%pre
-getent group copr >/dev/null || groupadd -r copr
-getent passwd copr >/dev/null || \
-useradd -r -g copr -G lighttpd -s /bin/bash -c "COPR user" copr
-/usr/bin/passwd -l copr >/dev/null
 
 %post
 %systemd_post copr-backend.target
@@ -231,6 +234,7 @@ useradd -r -g copr -G lighttpd -s /bin/bash -c "COPR user" copr
 
 
 %config(noreplace) %attr(0600, root, root)  %{_sysconfdir}/sudoers.d/copr
+%{_sysusersdir}/copr-backend.conf
 
 %files doc
 %license LICENSE
@@ -239,6 +243,9 @@ useradd -r -g copr -G lighttpd -s /bin/bash -c "COPR user" copr
 %exclude %{_pkgdocdir}/lighttpd
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.1-3
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

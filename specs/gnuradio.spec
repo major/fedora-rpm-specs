@@ -26,7 +26,7 @@
 
 Name:		gnuradio
 Version:	3.10.12.0
-Release:	0%{?alphatag:.%{alphatag}}%{?dist}
+Release:	2%{?alphatag:.%{alphatag}}%{?dist}
 Summary:	Software defined radio framework
 
 License:	GPL-3.0-or-later
@@ -149,12 +149,18 @@ GNU Radio examples
 # this could be dropped when f32 get retired (not counting EPEL)
 %undefine __cmake_in_source_build
 
+# -DLIB_SUFFIX workaround due to:
+# https://github.com/gnuradio/gnuradio/issues/7766
+# https://bugzilla.redhat.com/show_bug.cgi?id=2351130
 %cmake \
 -DSYSCONFDIR=%{_sysconfdir} \
 -DGR_PKG_DOC_DIR=%{_docdir}/%{name} \
 -DGR_PYTHON_DIR=%{python3_sitearch} \
 -DPYTHON_EXECUTABLE=%{__python3} \
-%{?mfpu_neon}
+%{?mfpu_neon} \
+%if "%{?_lib}"=="lib64"
+-DLIB_SUFFIX=64
+%endif
 #-DENABLE_DOXYGEN=FALSE \
 
 %cmake_build
@@ -217,6 +223,9 @@ done
 %{_datadir}/gnuradio/examples
 
 %changelog
+* Mon Mar 10 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 3.10.12.0-2
+- Rebuild for new volk
+
 * Thu Feb 20 2025 Marcus Müller <mueller_fedora@hostalia.de> - 3.10.12.0-1
 - New version
 - Corrected stated license to actually be GPLv3 (or later)

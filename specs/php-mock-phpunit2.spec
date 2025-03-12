@@ -1,22 +1,22 @@
 # remirepo/fedora spec file for php-mock-phpunit2
 #
-# Copyright (c) 2016-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2016-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    e1f7e795990b00937376e345883ea68ca3bda7e0
+%global gh_commit    e01b2885af682bf34beb28edd1a98997d4e59294
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2024-02-11
+%global gh_date      2025-03-08
 %global gh_owner     php-mock
 %global gh_project   php-mock-phpunit
 %global with_tests   0%{!?_without_tests:1}
 %global major        2
 
 Name:           php-mock-phpunit%{major}
-Version:        2.10.0
-Release:        3%{?dist}
+Version:        2.11.0
+Release:        1%{?dist}
 Summary:        Mock built-in PHP functions with PHPUnit.
 
 License:        WTFPL
@@ -26,7 +26,7 @@ Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit
 BuildArch:      noarch
 BuildRequires:  php(language) >= 7
 %if %{with_tests}
-BuildRequires: (php-composer(php-mock/php-mock-integration) >= 2.3    with php-composer(php-mock/php-mock-integration) < 3)
+BuildRequires: (php-composer(php-mock/php-mock-integration) >= 3.0    with php-composer(php-mock/php-mock-integration) < 4)
 BuildRequires: (php-composer(php-mock/php-mock)             >= 2.2    with php-composer(php-mock/php-mock)             < 3)
 # From composer.json "require-dev": {
 #        "mockery/mockery": "^1.3.6"
@@ -34,6 +34,10 @@ BuildRequires: (php-composer(mockery/mockery)               >= 1.3.6  with php-c
 BuildRequires:  phpunit8
 BuildRequires:  phpunit9
 BuildRequires:  phpunit10 >= 10.0.17
+%if 0%{?fedora} || 0%{?rhel} >= 10
+BuildRequires:  phpunit11
+BuildRequires:  phpunit12
+%endif
 # TODO phpunit11 but requires php 8.2
 # For autoloader
 BuildRequires: php-composer(fedora/autoloader)
@@ -41,13 +45,13 @@ BuildRequires: php-composer(fedora/autoloader)
 
 # from composer.json, "require": {
 #        "php": ">=7",
-#        "phpunit/phpunit": "^6 || ^7 || ^8 || ^9 || ^10.0.17 || ^11",
-#        "php-mock/php-mock-integration": "^2.2.1"
+#        "phpunit/phpunit": "^6 || ^7 || ^8 || ^9 || ^10.0.17 || ^11 || ^12",
+#        "php-mock/php-mock-integration": "^3.0"
 #    "conflict": {
 #        "phpunit/phpunit-mock-objects": "3.2.0"
 Requires:       php(language) >= 7
-Recommends:    (phpunit8 or phpunit9 or phpunit10)
-Requires:      (php-composer(php-mock/php-mock-integration) >= 2.3   with php-composer(php-mock/php-mock-integration) < 3)
+Recommends:    (phpunit10 or phpunit11 or phpunit12)
+Requires:      (php-composer(php-mock/php-mock-integration) >= 3.0   with php-composer(php-mock/php-mock-integration) < 4)
 Requires:      (php-composer(php-mock/php-mock)             >= 2.2   with php-composer(php-mock/php-mock)             < 3)
 # From phpcompatinfo report from version 2.1.0
 # only Core
@@ -103,18 +107,9 @@ EOF
 
 ret=0
 
-if [ -x %{_bindir}/phpunit7 ]; then
-: Run upstream test suite with phpunit7
-for cmd in php php80 php81 php82; do
-  if which $cmd; then
-    $cmd %{_bindir}/phpunit7 --verbose || ret=1
-  fi
-done
-fi
-
 if [ -x %{_bindir}/phpunit8 ]; then
 : Run upstream test suite with phpunit8
-for cmd in php php80 php81 php82; do
+for cmd in php php81 php82 php82 php84; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit8 --verbose || ret=1
   fi
@@ -123,7 +118,7 @@ fi
 
 if [ -x %{_bindir}/phpunit9 ]; then
 : Run upstream test suite with phpunit9
-for cmd in php php80 php81 php82 php83; do
+for cmd in php php81 php82 php83 php84; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit9 --verbose || ret=1
   fi
@@ -132,7 +127,7 @@ fi
 
 if [ -x %{_bindir}/phpunit10 ]; then
 : Run upstream test suite with phpunit10
-for cmd in php php81 php82 php83; do
+for cmd in php php81 php82 php83 php84; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit10 \
        --filter '^((?!(testPreserveArgumentDefaultValue)).)*$' \
@@ -143,9 +138,20 @@ fi
 
 if [ -x %{_bindir}/phpunit11 ]; then
 : Run upstream test suite with phpunit11
-for cmd in php php82 php83; do
+for cmd in php php82 php83 php84; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit11 \
+       --filter '^((?!(testPreserveArgumentDefaultValue)).)*$' \
+       || ret=1
+  fi
+done
+fi
+
+if [ -x %{_bindir}/phpunit12 ]; then
+: Run upstream test suite with phpunit11
+for cmd in php php83 php84; do
+  if which $cmd; then
+    $cmd %{_bindir}/phpunit12 \
        --filter '^((?!(testPreserveArgumentDefaultValue)).)*$' \
        || ret=1
   fi
@@ -165,6 +171,11 @@ exit $ret
 
 
 %changelog
+* Mon Mar 10 2025 Remi Collet <remi@remirepo.net> - 2.11.0-1
+- update to 2.11.0
+- re-license spec file to CECILL-2.1
+- raise dependency on php-mock/php-mock-integration 3.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

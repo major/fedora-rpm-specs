@@ -25,7 +25,6 @@ BuildRequires:  pyproject-rpm-macros
 BuildRequires:  sed
 BuildRequires:  gnupg2
 
-Requires(pre):  shadow-utils
 
 %description
 postfix-mta-sts-resolver provides a lookup daemon and command line
@@ -41,6 +40,11 @@ client policy to Postfix via socketmap.
 
 %generate_buildrequires
 %pyproject_buildrequires
+
+# Create a sysusers.d config file
+cat >postfix-mta-sts-resolver.sysusers.conf <<EOF
+u mta-sts - 'Postfix MTA-STS Map Daemon' %{_sharedstatedir}/mta-sts -
+EOF
 
 
 %build
@@ -62,6 +66,8 @@ install -p -D -m 0644 man/*.1 %{buildroot}%{_mandir}/man1/
 mkdir -p %{buildroot}%{_mandir}/man5
 install -p -D -m 0644 man/*.5 %{buildroot}%{_mandir}/man5/
 
+install -m0644 -D postfix-mta-sts-resolver.sysusers.conf %{buildroot}%{_sysusersdir}/postfix-mta-sts-resolver.conf
+
 
 %check
 # Upstream's test suite doesn't play nicely with Fedora's offline build system
@@ -80,13 +86,9 @@ install -p -D -m 0644 man/*.5 %{buildroot}%{_mandir}/man5/
 %config(noreplace) %attr(0640,root,mta-sts) %{_sysconfdir}/mta-sts-daemon.yml
 %{_unitdir}/%{name}.service
 %dir %attr(0755,mta-sts,mta-sts) %{_sharedstatedir}/mta-sts
+%{_sysusersdir}/postfix-mta-sts-resolver.conf
 
 
-%pre
-getent group mta-sts >/dev/null || groupadd -r mta-sts
-getent passwd mta-sts >/dev/null || \
-    useradd -r -g mta-sts -d %{_sharedstatedir}/mta-sts -s /sbin/nologin \
-    -c "Postfix MTA-STS Map Daemon" mta-sts
 
 
 %post

@@ -1,7 +1,7 @@
 %global glib2_version 2.80.0
 
 Name:           gobject-introspection
-Version:        1.83.2
+Version:        1.83.4
 Release:        %autorelease
 Summary:        Introspection system for GObject-based libraries
 

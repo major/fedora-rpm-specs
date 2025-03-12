@@ -7,7 +7,7 @@
 
 Name:           rust-afterburn
 Version:        5.7.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Simple cloud provider agent
 
 License:        Apache-2.0
@@ -15,6 +15,11 @@ URL:            https://crates.io/crates/afterburn
 Source0:        %{crates_source}
 # not used on Fedora
 Source1:        https://github.com/coreos/%{crate}/releases/download/v%{version}/%{crate}-%{version}-vendor.tar.gz
+
+# build(deps): bump mailparse from 0.15.0 to 0.16.1
+# (Only the Cargo.toml portion, not the Cargo.lock portion)
+# Allows (but does not require) mailparse 0.16.
+Patch:          afterburn-5.7.0-mailparse.0.16.patch
 
 ExcludeArch:    %{ix86}
 
@@ -156,6 +161,9 @@ cp -a dracut/* %{buildroot}%{dracutmodulesdir}
 %endif
 
 %changelog
+* Tue Mar 11 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 5.7.0-4
+- Allow mailparse 0.16
+
 * Thu Feb 06 2025 Fabio Valentini <decathorpe@gmail.com> - 5.7.0-3
 - Rebuild for openssl crate >= v0.10.70 (RUSTSEC-2025-0004)
 

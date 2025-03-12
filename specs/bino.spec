@@ -1,5 +1,5 @@
 Name:           bino
-Version:        2.3
+Version:        2.5
 Release:        %autorelease
 Summary:        3D video player
 

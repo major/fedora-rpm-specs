@@ -14,7 +14,7 @@
 Summary:        OpenSource server implementation of the Jabber protocols
 Name:           jabberd
 Version:        2.6.1
-Release:        31%{?dist}
+Release:        32%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Source0:        https://github.com/jabberd2/jabberd2/releases/download/jabberd-%{version}/jabberd-%{version}.tar.xz
@@ -42,7 +42,6 @@ Requires(preun):        systemd-units
 Requires(postun):       systemd-units
 %else
 Requires(post):         openssl chkconfig /sbin/service
-Requires(pre):          shadow-utils
 Requires(preun):        chkconfig shadow-utils /sbin/service
 Requires(postun):       chkconfig /sbin/service
 %endif
@@ -78,7 +77,6 @@ BuildRequires:          autoconf libtool
 BuildRequires: make
 BuildRequires: libxcrypt-devel
 Requires(post):         openssl
-Requires(pre):          shadow-utils
 Requires(preun):        shadow-utils
 
 %description
@@ -118,6 +116,11 @@ This package defaults to use pam and sqlite.
 autoreconf --verbose --force --install
 %endif
 %patch -P6 -p1
+
+# Create a sysusers.d config file
+cat >jabberd.sysusers.conf <<EOF
+u jabber - 'Jabber Server' %{_var}/lib/%{name} -
+EOF
 
 %build
 export CFLAGS="%{optflags}"
@@ -239,15 +242,10 @@ rm -f $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/jabberd.cfg*
 # README.fedora
 cp %{SOURCE1} .
 
+install -m0644 -D jabberd.sysusers.conf %{buildroot}%{_sysusersdir}/jabberd.conf
 
 
-%pre
-#creating jabber user
-getent group jabber >/dev/null || groupadd -r jabber
-getent passwd jabber >/dev/null || \
-useradd -r -g jabber -d %{_var}/lib/%{name} -s /sbin/nologin \
-        -c "Jabber Server" jabber
-exit 0
+
 
 %post
 %if %{with systemd}
@@ -357,8 +355,12 @@ fi
 %attr(644,root,root) %{_datadir}/%{name}/*
 %config(noreplace) %{_sysconfdir}/pam.d/%{name}
 %attr(700, jabber, jabber) %{_var}/lib/%{name}
+%{_sysusersdir}/jabberd.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.6.1-32
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 2.6.1-31
 - Add explicit BR: libxcrypt-devel
 

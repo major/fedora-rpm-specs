@@ -1,6 +1,6 @@
 Name:           davfs2
 Version:        1.7.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A filesystem driver for WebDAV
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -22,7 +22,6 @@ BuildRequires:  gettext
 BuildRequires:  gnupg2
 BuildRequires:  neon-devel
 BuildRequires:  make
-Requires(pre):  shadow-utils
 
 %define cachedir /var/cache/davfs2
 %define piddir /var/run/mount.davfs
@@ -36,6 +35,12 @@ as a disk drive.
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
+
+# Create a sysusers.d config file
+cat >davfs2.sysusers.conf <<EOF
+g davfs2 -
+u davfs2 - 'User account for %{name}' %{cachedir} -
+EOF
 
 %build
 export CFLAGS="%{optflags} -fno-strict-aliasing"
@@ -58,13 +63,9 @@ find $RPM_BUILD_ROOT/%{_mandir}/{de,es} -name "*.[58].gz" | while read m; do
   mv -f $m.utf8 $m
 done
 
+install -m0644 -D davfs2.sysusers.conf %{buildroot}%{_sysusersdir}/davfs2.conf
 
-%pre
-getent group  %{groupname} >/dev/null || groupadd -r %{groupname}
-getent passwd %{username} >/dev/null || \
-  useradd -r -g %{groupname} -d %{cachedir} -s /sbin/nologin \
-          -c "User account for %{name}" %{username}
-exit 0
+
 
 
 %files -f %{name}.lang
@@ -94,8 +95,12 @@ exit 0
 # Extra dirs needed by mount.davfs
 %ghost %dir %attr(00775,root,%{groupname}) %{cachedir}
 %ghost %dir %attr(01775,root,%{groupname}) %{piddir}
+%{_sysusersdir}/davfs2.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.7.1-3
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

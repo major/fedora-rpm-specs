@@ -61,7 +61,6 @@ BuildRequires:  make
 # Recommends:     (kernel-modules-extras if kernel-modules)
 # Recommends:     (kernel-debug-modules-extras if kernel-debug-modules)
 
-Requires(pre):  shadow-utils
 
 # /etc/modprobe.d/
 Requires:       kmod
@@ -83,6 +82,11 @@ interesting, but it is really good at the notifying part.
 %prep
 %setup -q
 sed -i 's|^\.\\" \(\.BR .*\)README.Distro\(.*\)|\1README.fedora\2|' beep.1.in && : #"
+
+# Create a sysusers.d config file
+cat >beep.sysusers.conf <<EOF
+g beep -
+EOF
 
 
 %build
@@ -124,10 +128,9 @@ install -d -m 0755              "%{buildroot}%{_udevrulesdir}/"
 install -p -m 0644 "%{SOURCE2}" "%{buildroot}%{_udevrulesdir}/"
 install -p -m 0644 "%{SOURCE3}" "%{buildroot}%{_udevrulesdir}/"
 
+install -m0644 -D beep.sysusers.conf %{buildroot}%{_sysusersdir}/beep.conf
 
-%pre
-getent group beep >/dev/null || groupadd -r beep
-exit 0
+
 
 
 %files
@@ -146,6 +149,7 @@ exit 0
 %config(noreplace) %{_sysconfdir}/modprobe.d/beep.conf
 %{_udevrulesdir}/70-pcspkr-beep.rules
 %{_udevrulesdir}/90-pcspkr-beep.rules
+%{_sysusersdir}/beep.conf
 
 
 %changelog

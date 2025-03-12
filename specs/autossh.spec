@@ -1,7 +1,7 @@
 Summary: Utility to autorestart SSH tunnels
 Name: autossh
 Version: 1.4g
-Release: 17%{?dist}
+Release: 18%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 URL: https://www.harding.motd.ca/autossh/
@@ -14,7 +14,6 @@ BuildRequires: /usr/bin/ssh
 BuildRequires: systemd
 BuildRequires: make
 %{?systemd_requires}
-Requires(pre): shadow-utils
 Requires: /usr/bin/ssh
 
 %description
@@ -25,6 +24,11 @@ dies or stops passing traffic, autossh will automatically restart it.
 %setup -q
 %patch -P0 -p1
 cp -p %{SOURCE2} .
+
+# Create a sysusers.d config file
+cat >autossh.sysusers.conf <<EOF
+u autossh - 'autossh service account' %{_sysconfdir}/autossh -
+EOF
 
 %build
 %configure
@@ -47,12 +51,8 @@ cp -p autossh.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
 install -m 0644 -p %{SOURCE1} $RPM_BUILD_ROOT%{_unitdir}
 
-%pre
-getent group autossh >/dev/null || groupadd -r autossh
-getent passwd autossh >/dev/null || \
-    useradd -r -g autossh -d %{_sysconfdir}/autossh -s %{_sbindir}/nologin \
-    -c "autossh service account" autossh
-exit 0
+install -m0644 -D autossh.sysusers.conf %{buildroot}%{_sysusersdir}/autossh.conf
+
 
 %post
 %systemd_post autossh@.service
@@ -80,8 +80,12 @@ fi
 %attr(750,autossh,autossh) %dir %{_sysconfdir}/autossh/
 %{_mandir}/man1/*
 %{_unitdir}/*
+%{_sysusersdir}/autossh.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.4g-18
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4g-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

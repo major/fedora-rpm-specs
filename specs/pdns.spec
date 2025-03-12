@@ -3,7 +3,7 @@
 
 Name: pdns
 Version: 4.9.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A modern, advanced and high performance authoritative-only name server
 License: GPL-2.0-only
 URL: http://powerdns.com
@@ -11,7 +11,6 @@ Source0: http://downloads.powerdns.com/releases/%{name}-%{version}.tar.bz2
 Patch0: pdns-gcc15.patch
 ExcludeArch: %{arm} %{ix86}
 
-Requires(pre): shadow-utils
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
@@ -141,6 +140,11 @@ This package contains the ixfrdist program.
 %prep
 %autosetup -p1
 
+# Create a sysusers.d config file
+cat >pdns.sysusers.conf <<EOF
+u pdns - 'PowerDNS Authoritative Server' /var/lib/pdns -
+EOF
+
 %build
 export CPPFLAGS="-DLDAP_DEPRECATED"
 
@@ -186,14 +190,11 @@ sed -i \
 %{__rm} %{buildroot}/%{_bindir}/stubquery
 %{__install} -d %{buildroot}/%{_sharedstatedir}/%{name}
 
+install -m0644 -D pdns.sysusers.conf %{buildroot}%{_sysusersdir}/pdns.conf
+
 %check
 make %{?_smp_mflags} -C pdns check
 
-%pre
-getent group pdns >/dev/null || groupadd -r pdns
-getent passwd pdns >/dev/null || \
-	useradd -r -g pdns -d /var/lib/pdns -s /sbin/nologin \
-	-c "PowerDNS Authoritative Server" pdns
 
 %post
 %systemd_post pdns.service
@@ -226,6 +227,7 @@ getent passwd pdns >/dev/null || \
 %dir %attr(-,pdns,pdns) %{_sharedstatedir}/%{name}
 %dir %attr(-,root,pdns) %{_sysconfdir}/%{name}/
 %attr(0640,root,pdns) %config(noreplace) %{_sysconfdir}/%{name}/pdns.conf
+%{_sysusersdir}/pdns.conf
 
 %files tools
 %{_bindir}/calidns
@@ -323,6 +325,9 @@ getent passwd pdns >/dev/null || \
 %{_unitdir}/ixfrdist@.service
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.9.3-2
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Mon Jan 20 2025 Morten Stevens <mstevens@fedoraproject.org> - 4.9.3-1
 - Update to 4.9.3
 

@@ -1,6 +1,6 @@
 Name: anyterm
 Version: 1.2.3
-Release: 22%{?dist}
+Release: 23%{?dist}
 Summary: A web-based terminal emulator
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -50,6 +50,11 @@ The httpd configuration necessary to proxy anyterm.
 %setup -q
 %patch -P0 -p0
 
+# Create a sysusers.d config file
+cat >anyterm.sysusers.conf <<EOF
+u anyterm - 'Anyterm service' %{_localstatedir}/run/%{name} -
+EOF
+
 %build
 export CFLAGS="$RPM_OPT_FLAGS"
 export CXXFLAGS="$RPM_OPT_FLAGS -std=c++17"
@@ -75,14 +80,10 @@ cat <<EOF > %{buildroot}%{_sysconfdir}/tmpfiles.d/%{name}.conf
 d %{_localstatedir}/run/%{name} 0755 root %{name}
 EOF
 
+install -m0644 -D anyterm.sysusers.conf %{buildroot}%{_sysusersdir}/anyterm.conf
+
 
 %pre
-# create anyterm group / user
-getent group %{name} >/dev/null 2>&1 || \
-   groupadd -r %{name}
-getent passwd %{name} >/dev/null 2>&1 || \
-  useradd -r -l -g %{name} -s /sbin/nologin \
-  -d %{_localstatedir}/run/%{name} -c "Anyterm service" %{name}
 if [[ ! -d %{_localstatedir}/run/%{name} ]]; then
   mkdir -m755 %{_localstatedir}/run/%{name}
   chown %{name}:%{name} %{_localstatedir}/run/%{name}
@@ -110,11 +111,15 @@ exit 0
 %ghost %attr(0755,%{name},%{name}) %dir %{_localstatedir}/run/%{name}
 %{_sysconfdir}/tmpfiles.d/%{name}.conf
 %doc LICENSE
+%{_sysusersdir}/anyterm.conf
 
 %files httpd
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/anyterm.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.2.3-23
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

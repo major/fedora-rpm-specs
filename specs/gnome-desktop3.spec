@@ -30,13 +30,6 @@ Source4: loupe-defaults.list
 # for i in `grep MimeType= /usr/share/applications/org.gnome.Evince.desktop | sed 's/MimeType=//' | sed 's/;/ /g'` ; do echo $i=org.gnome.Evince.desktop\; >> evince-defaults.list ; done
 Source5: evince-defaults.list
 
-# https://pagure.io/fedora-workstation/issue/362
-Patch: 0001-meson-Add-python3-to-build-scripts.patch
-Patch: 0002-gnome-languages-Add-function-to-detect-non-latin-lay.patch
-Patch: 0003-meson-Add-codegen-for-localed.patch
-Patch: 0004-languages-Add-functions-for-getting-default-input-so.patch
-
-
 BuildRequires: gcc
 BuildRequires: gettext
 BuildRequires: gtk-doc

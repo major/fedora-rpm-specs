@@ -12,11 +12,11 @@
 %bcond_without     tests
 
 %global pecl_name  xdebug
-%global gh_commit  5107d2d978302323f9e65002fad2aee9f4c24628
+%global gh_commit  082c5dbafbe9cfd1b7c7cdee7935ad5c0eccf7e2
 %global gh_short   %(c=%{gh_commit}; echo ${c:0:7})
 
 # version/release
-%global upstream_version 3.4.1
+%global upstream_version 3.4.2
 #global upstream_prever  beta1
 %global upstream_lower   %(echo %{upstream_prever} | tr '[:upper:]' '[:lower:]')
 %global sources          src
@@ -27,7 +27,7 @@
 Name:           php-pecl-xdebug3
 Summary:        Provides functions for function traces and profiling
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Source0:        https://github.com/%{pecl_name}/%{pecl_name}/archive/%{gh_commit}/%{pecl_name}-%{upstream_version}%{?upstream_prever}-%{gh_short}.tar.gz
 
 License:        Xdebug-1.03
@@ -52,6 +52,7 @@ Provides:       php-%{pecl_name}%{?_isa}      = %{version}
 Provides:       php-pecl(Xdebug)              = %{version}
 Provides:       php-pecl(Xdebug)%{?_isa}      = %{version}
 Provides:       php-pie(xdebug/xdebug)        = %{version}
+Provides:       php-xdebug-xdebug             = %{version}
 
 # package was renamed on new major version
 Obsoletes:      php-pecl-%{pecl_name}         < 3
@@ -201,6 +202,9 @@ TEST_PHP_ARGS="-n $modules -d zend_extension=%{buildroot}%{php_extdir}/%{pecl_na
 
 
 %changelog
+* Mon Mar 10 2025 Remi Collet <remi@remirepo.net> - 3.4.2-1
+- update to 3.4.2
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 Summary: Application Whitelisting Daemon
 Name: fapolicyd
 Version: 1.3.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-3.0-or-later
 URL: http://people.redhat.com/sgrubb/fapolicyd
 Source0: https://people.redhat.com/sgrubb/fapolicyd/%{name}-%{version}.tar.gz
@@ -25,7 +25,6 @@ BuildRequires: uthash-devel
 
 Requires: rpm-plugin-fapolicyd
 Recommends: %{name}-selinux
-Requires(pre): shadow-utils
 Requires(post): systemd-units
 Requires(preun): systemd-units
 Requires(postun): systemd-units
@@ -82,6 +81,11 @@ interpret=`readelf -e /usr/bin/bash \
 
 sed -i "s|%ld_so_path%|`realpath $interpret`|g" rules.d/*.rules
 
+# Create a sysusers.d config file
+cat >fapolicyd.sysusers.conf <<EOF
+u fapolicyd - 'Application Whitelisting Daemon' %{_localstatedir}/lib/%{name} -
+EOF
+
 %build
 cp INSTALL INSTALL.tmp
 ./autogen.sh
@@ -122,8 +126,8 @@ install -p -m 644 %{name}-selinux-%{semodule_version}/%{name}.if %{buildroot}%{_
 #cleanup
 find %{buildroot} \( -name '*.la' -o -name '*.a' \) -delete
 
-%pre
-getent passwd %{name} >/dev/null || useradd -r -M -d %{_localstatedir}/lib/%{name} -s /sbin/nologin -c "Application Whitelisting Daemon" %{name}
+install -m0644 -D fapolicyd.sysusers.conf %{buildroot}%{_sysusersdir}/fapolicyd.conf
+
 
 %post
 # if no pre-existing rule file
@@ -190,6 +194,7 @@ fi
 %ghost %attr(660,root,%{name}) /run/%{name}/%{name}.fifo
 %ghost %attr(660,%{name},%{name}) %verify(not md5 size mtime) %{_localstatedir}/lib/%{name}/data.mdb
 %ghost %attr(660,%{name},%{name}) %verify(not md5 size mtime) %{_localstatedir}/lib/%{name}/lock.mdb
+%{_sysusersdir}/fapolicyd.conf
 
 %files selinux
 %{_datadir}/selinux/packages/%{selinuxtype}/%{name}.pp.bz2
@@ -209,6 +214,9 @@ fi
 %selinux_relabel_post -s %{selinuxtype}
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.3.4-3
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

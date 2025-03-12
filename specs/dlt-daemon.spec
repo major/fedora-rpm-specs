@@ -1,6 +1,6 @@
 Name: dlt-daemon
 Version: 2.18.9
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: DLT - Diagnostic Log and Trace
 Group: System Environment/Base
 License: MPL-2.0
@@ -13,7 +13,6 @@ BuildRequires: pandoc
 BuildRequires: systemd
 BuildRequires: systemd-devel
 BuildRequires: gcc-c++
-Requires(pre): shadow-utils
 
 %description
 This component provides a standardised log and trace interface, based on the
@@ -52,6 +51,11 @@ Requires:       %{name} = %{version}-%{release}
 %prep
 %autosetup -n %{name}-%{version} -p1
 
+# Create a sysusers.d config file
+cat >dlt-daemon.sysusers.conf <<EOF
+u dlt-daemon - 'User for dlt-daemon' /var/lib/dlt-daemon -
+EOF
+
 %build
 mkdir -p build
 cd build
@@ -70,20 +74,13 @@ cd build
 %cmake_build
 
 %install
-cd build
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
+install -m0644 -D dlt-daemon.sysusers.conf %{buildroot}%{_sysusersdir}/dlt-daemon.conf
+cd build
 %cmake_install
 
 # Home directory for the 'dlt-daemon' user
 mkdir -p $RPM_BUILD_ROOT/var/lib/dlt-daemon
-
-%pre
-## This creates the users that are needed for /var/lib/dlt-daemon
-getent group dlt-daemon >/dev/null || groupadd -r dlt-daemon
-getent passwd dlt-daemon >/dev/null || \
-    useradd -r -g dlt-daemon -d /var/lib/dlt-daemon -s /sbin/nologin \
-    -c "User for dlt-daemon" dlt-daemon
-exit 0
 
 %ldconfig_scriptlets -n dlt-libs
 
@@ -99,6 +96,7 @@ exit 0
 %{_mandir}/man1/dlt-daemon.1*
 %{_mandir}/man5/dlt.conf.5*
 %{_mandir}/man5/dlt_gateway.conf.5*
+%{_sysusersdir}/dlt-daemon.conf
 
 %files -n dlt-examples
 # The binaries do not have man pages but do have markdown documents.
@@ -158,6 +156,9 @@ exit 0
 %{_libdir}/cmake/automotive-dlt/*.cmake
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.18.9-7
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.9-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

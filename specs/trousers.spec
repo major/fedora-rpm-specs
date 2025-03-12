@@ -1,7 +1,7 @@
 Name: trousers
 Summary: TCG's Software Stack v1.2
 Version: 0.3.15
-Release: 13%{?dist}
+Release: 14%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 Url: http://trousers.sourceforge.net
@@ -17,7 +17,6 @@ Patch4: trousers-0.3.14-fix-indent-tspi_key.patch
 BuildRequires: make
 BuildRequires: libtool openssl-devel gettext-devel autoconf automake
 BuildRequires: systemd
-Requires(pre): shadow-utils
 # remove systemd dependency for flatpak builds
 %if ! 0%{?flatpak}
 Requires(post): systemd-units
@@ -64,6 +63,11 @@ applications.
 # fix man page paths
 sed -i -e 's|/var/tpm|/var/lib/tpm|g' -e 's|/usr/local/var|/var|g' man/man5/tcsd.conf.5.in man/man8/tcsd.8.in
 
+# Create a sysusers.d config file
+cat >trousers.sysusers.conf <<EOF
+u tss 59 'Account used for TPM access' /dev/null -
+EOF
+
 %build
 chmod +x ./bootstrap.sh
 ./bootstrap.sh
@@ -77,16 +81,7 @@ find %{buildroot} -type f -name '*.la' -print -delete
 mkdir -p %{buildroot}%{_unitdir}
 install -Dpm0644 %{SOURCE1} %{buildroot}%{_unitdir}/
 
-%pre
-getent group tss >/dev/null || groupadd -f -g 59 -r tss
-if ! getent passwd tss >/dev/null ; then
-    if ! getent passwd 59 >/dev/null ; then
-      useradd -r -u 59 -g tss -d /dev/null -s /sbin/nologin -c "Account used for TPM access" tss
-    else
-      useradd -r -g tss -d /dev/null -s /sbin/nologin -c "Account used for TPM access" tss
-    fi
-fi
-exit 0
+install -m0644 -D trousers.sysusers.conf %{buildroot}%{_sysusersdir}/trousers.conf
 
 %post
 %systemd_post tcsd.service
@@ -105,6 +100,7 @@ exit 0
 %{_mandir}/man8/*
 %attr(644,root,root) %{_unitdir}/tcsd.service
 %attr(0700, tss, tss) %{_localstatedir}/lib/tpm/
+%{_sysusersdir}/trousers.conf
 
 %files lib
 %license LICENSE
@@ -123,6 +119,9 @@ exit 0
 %{_libdir}/libtddl.a
 
 %changelog
+* Thu Jan 23 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.3.15-14
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.15-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           shellinabox
 Version:        2.20
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Web based AJAX terminal emulator
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -25,7 +25,6 @@ BuildRequires:  openssl-devel
 BuildRequires:  zlib-devel
 
 Requires:       openssl
-Requires(pre):  shadow-utils
 
 %if 0%{?fedora} || 0%{?rhel} >= 7
 BuildRequires:      systemd
@@ -52,6 +51,11 @@ browser plugins.
 %patch -P0 -p1
 %patch -P1 -p1
 %patch -P2 -p1
+
+# Create a sysusers.d config file
+cat >shellinabox.sysusers.conf <<EOF
+u shellinabox - 'Shellinabox' %{_sharedstatedir}/shellinabox -
+EOF
 
 %build
 autoreconf -vif
@@ -82,12 +86,9 @@ install -p -m 755 -D %{SOURCE3} %{buildroot}%{_initrddir}/shellinaboxd
 
 %endif
 
-%pre
-getent group %username >/dev/null || groupadd -r %username &>/dev/null || :
-getent passwd %username >/dev/null || useradd -r -s /sbin/nologin \
-    -d %{_sharedstatedir}/shellinabox -M -c 'Shellinabox' -g %username %username &>/dev/null || :
-exit 0
+install -m0644 -D shellinabox.sysusers.conf %{buildroot}%{_sysusersdir}/shellinabox.conf
 
+%pre
 %if 0%{?fedora} || 0%{?rhel} >= 7
 
 %post
@@ -134,8 +135,12 @@ fi
 %{_initrddir}/shellinaboxd
 %endif
 %attr(750,%{username},%{username}) %{_sharedstatedir}/%{name}
+%{_sysusersdir}/shellinabox.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.20-26
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.20-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

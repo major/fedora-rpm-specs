@@ -1,10 +1,10 @@
 # Review: https://bugzilla.redhat.com/show_bug.cgi?id=499282
 
 %global minorversion 0.9
-%global xfceversion 4.18
+%global xfceversion 4.20
 
 Name:           xfce4-notifyd
-Version:        0.9.6
+Version:        0.9.7
 Release:        %autorelease
 Summary:        Simple notification daemon for Xfce
 
@@ -75,6 +75,7 @@ find %{buildroot} -name \*.la -exec rm {} \;
 %{_datadir}/themes/ZOMG-PONIES!/
 %{_datadir}/themes/Bright/
 %{_datadir}/themes/Retro/
+%{_datadir}/themes/XP-Balloon/
 %{_datadir}/icons/hicolor/*/*/*
 %{_datadir}/xfce4/panel/plugins/notification-plugin.desktop
 %{_mandir}/man1/xfce4-notifyd-config.1.*

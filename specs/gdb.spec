@@ -923,6 +923,11 @@ fi
 # endif scl
 
 %changelog
+* Thu Mar 06 2025 Kevin Buettner <kevinb@redhat.com>
+- Remove gdb-rhbz1084404-ppc64-s390x-wrong-prologue-skip-O2-g-3of3.patch.
+  The upstream test 'gdb.arch/amd64-prologue-skip.exp' should be
+  sufficient for testing an upstream fix which was pushed in 2015.
+
 * Wed Mar 05 2025 Guinevere Larsen <guinevere@redhat.com>
 - Remove gdb-6.5-gcore-buffer-limit-test.patch. A similar test has been
   added upstream, which will trickle down soon.

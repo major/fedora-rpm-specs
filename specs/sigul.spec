@@ -2,7 +2,7 @@ Summary: A signing server and related software client
 Name: sigul
 
 Version: 1.2
-Release: 6%{?dist}
+Release: 7%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 
@@ -33,7 +33,6 @@ Requires: logrotate
 Requires: koji
 # For sigul_setup_client
 Requires: coreutils nss-tools
-Requires(pre): shadow-utils
 BuildRequires:  gcc
 # To detect the path correctly in configure
 BuildRequires: gnupg
@@ -97,6 +96,11 @@ The bridge part of sigul that facilitates connection between the client and serv
 %prep
 %autosetup -p1 -n sigul-v%{version}
 
+# Create a sysusers.d config file
+cat >sigul.sysusers.conf <<EOF
+u sigul - 'Signing server or bridge' %{_localstatedir}/lib/sigul -
+EOF
+
 %build
 autoreconf -i
 %configure
@@ -122,12 +126,8 @@ install -m 0644 -p %{SOURCE1} $RPM_BUILD_ROOT%{_unitdir}/sigul_bridge.service
 install -m 0644 -p %{SOURCE2} $RPM_BUILD_ROOT%{_unitdir}/sigul_server.service
 install -m 0644 -p %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/sigul
 
-%pre
-getent group sigul >/dev/null || groupadd -r sigul
-getent passwd sigul >/dev/null || \
-useradd -r -g sigul -d %{_localstatedir}/lib/sigul -s /sbin/nologin \
-        -c "Signing server or bridge" sigul
-exit 0
+install -m0644 -D sigul.sysusers.conf %{buildroot}%{_sysusersdir}/sigul.conf
+
 
 %post bridge
 %systemd_post sigul_bridge.service
@@ -170,6 +170,7 @@ exit 0
 %{_datadir}/sigul/__pycache__/errors.*
 %{_datadir}/sigul/__pycache__/settings.*
 %{_datadir}/sigul/__pycache__/utils.*
+%{_sysusersdir}/sigul.conf
 
 %files bridge
 %config(noreplace) %attr(640,root,sigul) %{_sysconfdir}/sigul/bridge.conf
@@ -192,6 +193,9 @@ exit 0
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.2-7
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

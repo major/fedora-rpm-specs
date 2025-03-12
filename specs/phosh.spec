@@ -152,7 +152,6 @@ SH
 %{_datadir}/wayland-sessions/phosh.desktop
 %{_datadir}/phosh
 %{_sysconfdir}/pam.d/phosh
-%{_unitdir}/phosh.service
 %{_userunitdir}/gnome-session@phosh.target.d/session.conf
 %{_userunitdir}/mobi.phosh.Shell.service
 %{_userunitdir}/mobi.phosh.Shell.target
@@ -200,6 +199,7 @@ SH
 %{_includedir}/phosh
 %{_libdir}/pkgconfig/phosh-plugins.pc
 %{_libdir}/pkgconfig/phosh-settings.pc
+%{_unitdir}/phosh.service
 
 %files -n libphosh
 %{_libdir}/girepository-1.0/Phosh-0.typelib

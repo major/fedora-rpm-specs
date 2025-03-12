@@ -96,7 +96,6 @@ Patch3: bind-9.21-unittest-isc_rwlock-s390x.patch
 
 %{?systemd_ordering}
 Requires:       coreutils
-Requires(pre):  shadow-utils
 Requires(post): shadow-utils
 Requires(post): glibc-common
 Requires(post): grep
@@ -313,6 +312,12 @@ done
 %endif
 
 :;
+
+# Create a sysusers.d config file
+cat >bind9-next.sysusers.conf <<EOF
+g named %{bind_gid}
+u named %{bind_uid} 'Named' /var/named -
+EOF
 
 
 %build
@@ -608,12 +613,7 @@ install -m 644 %{SOURCE35} ${RPM_BUILD_ROOT}%{_tmpfilesdir}/named.conf
 mkdir -p ${RPM_BUILD_ROOT}%{_sysconfdir}/rwtab.d
 install -m 644 %{SOURCE43} ${RPM_BUILD_ROOT}%{_sysconfdir}/rwtab.d/named
 
-%pre
-if [ "$1" -eq 1 ]; then
-  /usr/sbin/groupadd -g %{bind_gid} -f -r named >/dev/null 2>&1 || :;
-  /usr/sbin/useradd  -u %{bind_uid} -r -N -M -g named -s /sbin/nologin -d /var/named -c Named named >/dev/null 2>&1 || :;
-fi;
-:;
+install -m0644 -D bind9-next.sysusers.conf %{buildroot}%{_sysusersdir}/bind9-next.conf
 
 %post
 %?ldconfig
@@ -711,6 +711,7 @@ fi;
 %config(noreplace) %attr(0644,root,named) %{_sysconfdir}/named.root.key
 %config(noreplace) %{_sysconfdir}/logrotate.d/named
 %{_tmpfilesdir}/named.conf
+%{_sysusersdir}/bind9-next.conf
 %{_sysconfdir}/rwtab.d/named
 %{_unitdir}/named.service
 %{_unitdir}/named-setup-rndc.service

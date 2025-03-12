@@ -1,6 +1,6 @@
-Version:        0.47.0
+Version:        0.48.0
 Name:           lfortran
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A modern Fortran compiler
 
 # Main code is BSD-3-Clause
@@ -9,6 +9,7 @@ Summary:        A modern Fortran compiler
 License:        BSD-3-Clause AND Apache-2.0 WITH LLVM-exception
 URL:            https://lfortran.org/
 Source0:        https://github.com/lfortran/lfortran/releases/download/v%{version}/lfortran-%{version}.tar.gz
+Patch0:         https://patch-diff.githubusercontent.com/raw/lfortran/lfortran/pull/6571.patch
 # https://github.com/lfortran/lfortran/issues/2981
 ExclusiveArch: x86_64
 
@@ -31,11 +32,7 @@ BuildRequires: json-devel
 BuildRequires: libffi-devel
 BuildRequires: libunwind-devel
 BuildRequires: libuuid-devel
-%if 0%{?fedora} > 38
 BuildRequires: llvm-devel
-%else
-BuildRequires: llvm-devel
-%endif
 BuildRequires: python3-devel
 BuildRequires: rapidjson-devel
 BuildRequires: re2c
@@ -119,7 +116,7 @@ This package contains the jupyter kernel for %{name}.
 # not needed on Fedora
 # WASM=OFF due to lfortran/lfortran#3899
 # WITH_STACKTRACE=OFF due to lfortran/lfortran#5072
-%cmake -DCMAKE_PREFIX_PATH=%{_libdir}/llvm19/ \
+%cmake \
        -DWITH_LLVM=ON \
        -DWITH_ZSTD=OFF \
        -DWITH_RUNTIME_LIBRARY=ON \
@@ -171,6 +168,12 @@ This package contains the jupyter kernel for %{name}.
 %endif
 
 %changelog
+* Mon Mar 10 2025 Christoph Junghans <junghans@votca.org> - 0.48.0-2
+- Fix build with llvm-20
+
+* Mon Mar 10 2025 Christoph Junghans <junghans@votca.org> - 0.48.0-1
+- Version bump to v0.48.0 (bug #2351164)
+
 * Fri Mar 07 2025 Christoph Junghans <junghans@votca.org> - 0.47.0-1
 - Version bump v0.47.0 (bug #2350550)
 

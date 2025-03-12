@@ -9,7 +9,7 @@
 
 Name:           lirc
 Version:        0.10.0
-Release:        47%{?tag:.}%{?tag}%{?dist}
+Release:        48%{?tag:.}%{?tag}%{?dist}
 Summary:        The Linux Infrared Remote Control package
 
 %global repo    http://downloads.sourceforge.net/lirc/LIRC/%{version}
@@ -64,7 +64,6 @@ Requires:       %{name}-libs = %{version}-%{release}
 Requires:       lockdev
 Suggests:       xorg-x11-misc-fonts
 
-Requires(pre):     shadow-utils
 Requires(post):    systemd
                    #for triggerun
 Requires(post):    systemd-sysv
@@ -233,6 +232,14 @@ sed -i 's/; *group=/Group=/' systemd/irexec.service
 
 sed -i -e "s|/usr/local/etc/|%{_sysconfdir}/|" contrib/irman2lirc
 
+# Create a sysusers.d config file
+cat >lirc.sysusers.conf <<EOF
+u lirc - 'LIRC daemon user, runs lircd.' /var/log/lirc -
+m lirc dialout
+m lirc lock
+m lirc input
+EOF
+
 
 %build
 autoreconf -fi
@@ -276,16 +283,9 @@ mkdir -p $RPM_BUILD_ROOT/%{_tmpfilesdir}
 echo "d %{_rundir}/lirc  0755  lirc  lirc  -" \
     > $RPM_BUILD_ROOT%{_tmpfilesdir}/lirc.conf
 
+install -m0644 -D lirc.sysusers.conf %{buildroot}%{_sysusersdir}/lirc.conf
 
-%pre core
-getent group lirc >/dev/null || groupadd -r lirc
-getent passwd lirc >/dev/null || \
-    useradd -r -g lirc -d /var/log/lirc -s /sbin/nologin \
-        -c "LIRC daemon user, runs lircd." lirc
-usermod -a -G dialout lirc &> /dev/null || :
-usermod -a -G lock lirc &> /dev/null || :
-usermod -a -G input lirc &> /dev/null || :
-exit 0
+
 
 %post core
 %systemd_post lircd.service lircmd.service
@@ -393,6 +393,7 @@ systemd-tmpfiles --create %{_tmpfilesdir}/lirc.conf
 %{_mandir}/man8/lircd.8*
 %{_mandir}/man8/lircmd.8*
 %{_mandir}/man8/lircrcd.8*
+%{_sysusersdir}/lirc.conf
 
 %files libs
 %license COPYING COPYING.ciniparser COPYING.curl
@@ -422,6 +423,9 @@ systemd-tmpfiles --create %{_tmpfilesdir}/lirc.conf
 %{_udevrulesdir}/99-remote-control-lirc.rules
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.10.0-48
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 24 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.10.0-47
 - Adjust file patterns for the sbin merge
 

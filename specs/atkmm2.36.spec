@@ -5,7 +5,7 @@
 %global glibmm_version 2.68.0
 
 Name:           atkmm2.36
-Version:        2.36.2
+Version:        2.36.3
 Release:        %autorelease
 Summary:        C++ interface for the ATK library
 
@@ -70,7 +70,7 @@ documentation browser or through a web browser.
 
 %files
 %license COPYING
-%doc AUTHORS NEWS README.md
+%doc NEWS README.md README.win32.md
 %{_libdir}/libatkmm-%{apiver}.so.1*
 
 %files devel

@@ -214,9 +214,7 @@ BuildRequires: perl(Types::Standard)
 BuildRequires: perl(Unix::Syslog)
 %endif
 
-Requires(pre): shadow-utils
 %{?systemd_requires}
-%{?sysusers_requires_compat}
 
 Requires: cyrus-imapd-libs%{?_isa} = %{version}-%{release}
 Requires: cyrus-imapd-utils = %{version}-%{release}
@@ -699,8 +697,6 @@ if [ -s "work/failed" ]; then
 fi
 
 
-%pre
-%sysusers_create_compat %{SOURCE19}
 
 %post
 %systemd_post cyrus-imapd.service

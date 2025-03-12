@@ -23,7 +23,6 @@ BuildRequires:  libimobiledevice-devel
 BuildRequires:  libplist-devel
 BuildRequires:  libusbx-devel
 
-Requires(pre):  shadow-utils
 
 %description
 usbmuxd is a daemon used for communicating with Apple's iPod Touch, iPhone, 
@@ -41,6 +40,11 @@ echo %{version} > .tarball-version
 sed -i.owner 's/OWNER="usbmux"/OWNER="usbmuxd"/' udev/39-usbmuxd.rules.in
 sed -i.user 's/--user usbmux/--user usbmuxd/' systemd/usbmuxd.service.in
 
+# Create a sysusers.d config file
+cat >usbmuxd.sysusers.conf <<EOF
+u usbmuxd 113 'usbmuxd user' - -
+EOF
+
 %build
 NOCONFIGURE=1 ./autogen.sh
 %configure
@@ -49,12 +53,8 @@ NOCONFIGURE=1 ./autogen.sh
 %install
 %make_install
 
-%pre
-getent group usbmuxd >/dev/null || groupadd -r usbmuxd -g 113
-getent passwd usbmuxd >/dev/null || \
-useradd -r -g usbmuxd -d / -s /sbin/nologin \
-	-c "usbmuxd user" -u 113 usbmuxd
-exit 0
+install -m0644 -D usbmuxd.sysusers.conf %{buildroot}%{_sysusersdir}/usbmuxd.conf
+
 
 %post
 %systemd_post usbmuxd.service
@@ -72,6 +72,7 @@ exit 0
 %{_udevrulesdir}/39-usbmuxd.rules
 %{_sbindir}/usbmuxd
 %{_datadir}/man/man8/usbmuxd.8.gz
+%{_sysusersdir}/usbmuxd.conf
 
 %changelog
 %autochangelog

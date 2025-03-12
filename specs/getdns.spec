@@ -9,7 +9,7 @@
 Summary: Modern asynchronous API to the DNS
 Name: getdns
 Version: 1.7.3
-Release: 7%{?extraver:.%{extraver}}%{?dist}
+Release: 8%{?extraver:.%{extraver}}%{?dist}
 License: BSD-3-Clause
 Url: http://www.getdnsapi.net
 Source: http://www.getdnsapi.net/dist/%{name}-%{upstream_version}.tar.gz
@@ -75,6 +75,11 @@ Stubby is an application that acts as a local DNS Privacy stub resolver (using D
 %{?gpgverify:%gpgverify -k 2 -s 1 -d 0}
 %autosetup -p1 -n %{name}-%{upstream_version}
 
+# Create a sysusers.d config file
+cat >getdns.sysusers.conf <<EOF
+u stubby - 'stubby DNS daemon account' %{_sysconfdir}/stubby -
+EOF
+
 %build
 %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DENABLE_STATIC=OFF \
   -DPATH_TRUST_ANCHOR_FILE=%{_sharedstatedir}/unbound/root.key \
@@ -103,6 +108,8 @@ rm -rf %{buildroot}%{_docdir}/stubby
 rm -rf %{buildroot}%{_libdir}/*.la
 rm -rf %{buildroot}%{_docdir}/%{name}
 
+install -m0644 -D getdns.sysusers.conf %{buildroot}%{_sysusersdir}/getdns.conf
+
 %files
 %{_libdir}/libgetdns*so.10*
 %doc README.md NEWS AUTHORS ChangeLog
@@ -122,6 +129,7 @@ rm -rf %{buildroot}%{_docdir}/%{name}
 %dir %attr(0750,stubby,stubby) %{_localstatedir}/cache/stubby
 %doc stubby/README.md stubby/AUTHORS stubby/NEWS stubby/ChangeLog
 %endif
+%{_sysusersdir}/getdns.conf
 
 %files devel
 %{_libdir}/libgetdns*.so
@@ -138,12 +146,6 @@ rm -rf %{buildroot}%{_docdir}/%{name}
 %end
 
 %if %{with stubby}
-%pre stubby
-getent group stubby >/dev/null || groupadd -r stubby
-getent passwd stubby >/dev/null || \
-useradd -r -g stubby -d %{_sysconfdir}/stubby -s /sbin/nologin \
-    -c "stubby DNS daemon account" stubby
-exit 0
 
 %post stubby
 %systemd_post stubby.service
@@ -157,6 +159,9 @@ exit 0
 %endif
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.7.3-8
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

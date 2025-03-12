@@ -5,7 +5,7 @@
 Summary: Application for remote coredump analysis
 Name: retrace-server
 Version: 1.24.2
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: GPL-2.0-or-later
 URL: https://github.com/abrt/retrace-server
 Source0: https://github.com/abrt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -90,6 +90,11 @@ generation service over a network using HTTP protocol.
 %prep
 %autosetup
 
+# Create a sysusers.d config file
+cat >retrace-server.sysusers.conf <<EOF
+u retrace %{retrace_gid_uid} - %{retrace_home} -
+EOF
+
 %build
 %meson \
     -Ddocs=enabled \
@@ -142,10 +147,8 @@ rm -f %{buildroot}%{_infodir}/dir
 
 %{find_lang} %{name}
 
-%pre
-getent group retrace > /dev/null || groupadd -f -g %{retrace_gid_uid} --system retrace
-getent passwd retrace > /dev/null || useradd --system -g retrace -u %{retrace_gid_uid} -d %{retrace_home} -s /sbin/nologin retrace
-exit 0
+install -m0644 -D retrace-server.sysusers.conf %{buildroot}%{_sysusersdir}/retrace-server.conf
+
 
 %post
 %if (0%{?rhel} && 0%{?rhel} <= 7) || (0%{?fedora} && 0%{?fedora} <= 27)
@@ -236,8 +239,12 @@ exit 0
 %doc %{_infodir}/%{name}*
 %doc README.md
 %license COPYING
+%{_sysusersdir}/retrace-server.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.24.2-10
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.24.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

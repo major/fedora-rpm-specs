@@ -4,7 +4,7 @@
 
 Name:           trafficserver
 Version:        10.0.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fast, scalable and extensible HTTP/1.1 and HTTP/2 caching proxy server
 
 License:        Apache-2.0
@@ -179,8 +179,6 @@ rm -rf %{buildroot}%{_libdir}/%{name}/pkgconfig
 install -D -m 0755 -p tools/records/convert2yaml.py %{buildroot}%{_libexecdir}/%{name}/convert2yaml.py
 
 
-%pre
-%sysusers_create_compat %{SOURCE4}
 
 %post
 %?ldconfig
@@ -271,6 +269,9 @@ fi
 
 
 %changelog
+* Fri Mar 07 2025 Zbigniew Jedrzejewski-Szmek  <zbyszek@in.waw.pl> - 10.0.4-3
+- Drop call to %sysusers_create_compat
+
 * Thu Mar 6 2025 Jered Floyd <jered@redhat.com> 10.0.4-2
 - Revert LTO linking issue causing build problems
 

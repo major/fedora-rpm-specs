@@ -3,7 +3,7 @@
 
 Name:		mISDN
 Version:	2.0.22
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	Userspace part of Modular ISDN stack
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -14,7 +14,6 @@ Source1:        mISDN.rules
 
 Patch0:         mISDNuser-2.0.22-error.patch
 Patch1:         %{name}-gcc11.patch
-Requires(pre): shadow-utils
 
 BuildRequires: make
 BuildRequires: automake libtool autoconf
@@ -53,6 +52,11 @@ code. This package contains test utilities for mISDN.
 %patch -P0 -p1
 %patch -P1 -p1
 
+# Create a sysusers.d config file
+cat >misdn.sysusers.conf <<EOF
+u misdn 31 'Modular ISDN' - -
+EOF
+
 %build
 aclocal
 libtoolize --force --automake --copy
@@ -68,14 +72,10 @@ mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/udev/rules.d
 install -m0644 %SOURCE1 $RPM_BUILD_ROOT/%{_sysconfdir}/udev/rules.d/mISDN.rules
 rm -f $RPM_BUILD_ROOT/%{_sysconfdir}/udev/rules.d/45-misdn.rules
 
+install -m0644 -D misdn.sysusers.conf %{buildroot}%{_sysusersdir}/misdn.conf
+
 %post 
 %{?ldconfig}
-getent group misdn >/dev/null || groupadd -r misdn -g 31
-getent passwd misdn >/dev/null || \
-    useradd -r -g misdn -d / -s /sbin/nologin -u 31 \
-    -c "Modular ISDN" misdn
-exit 0
-
 
 %ldconfig_postun
 
@@ -86,6 +86,7 @@ exit 0
 %exclude %{_sysconfdir}/misdnlogger.conf
 %exclude %_bindir/*
 %exclude %_sbindir/*
+%{_sysusersdir}/misdn.conf
 
 %files devel
 %_includedir/mISDN
@@ -101,6 +102,9 @@ exit 0
 %endif
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.0.22-17
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.22-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

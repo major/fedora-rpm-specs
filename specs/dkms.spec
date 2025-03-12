@@ -1,6 +1,6 @@
 Summary:        Dynamic Kernel Module Support Framework
 Name:           dkms
-Version:        3.1.5
+Version:        3.1.6
 Release:        %autorelease
 License:        GPL-2.0-or-later
 URL:            http://linux.dell.com/dkms
@@ -10,12 +10,7 @@ BuildArch:      noarch
 Source0:        https://github.com/dell/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires:  make
-
-%if 0%{?rhel} && 0%{?rhel} < 10
-BuildRequires:  systemd
-%else
 BuildRequires:  systemd-rpm-macros
-%endif
 
 Requires:       coreutils
 Requires:       cpio

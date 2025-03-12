@@ -50,7 +50,7 @@
 
 Name:           jetty
 Version:        9.4.40
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Java Webserver and Servlet Container
 
 # Jetty is dual licensed under both ASL 2.0 and EPL 1.0, see NOTICE.txt
@@ -192,7 +192,6 @@ Requires:       %{name}-http2-hpack = %{version}-%{release}
 Requires:       %{name}-http2-http-client-transport = %{version}-%{release}
 Requires:       %{name}-http2-server = %{version}-%{release}
 
-Requires(pre):    shadow-utils
 %{?systemd_ordering}
 
 
@@ -740,6 +739,11 @@ sed -i '/<SystemProperty name="jetty.state"/d' \
 
 %endif
 
+# Create a sysusers.d config file
+cat >jetty.sysusers.conf <<EOF
+u jetty %jtuid 'Jetty web server' %homedir -
+EOF
+
 %build
 %mvn_package :jetty-home __noinstall
 %mvn_package :jetty-distribution __noinstall
@@ -867,19 +871,7 @@ cp -p %{SOURCE1} %{buildroot}%{homedir}/bin/jetty.sh
 
 # NOTE: %if %{without jp_minimal} still in effect
 
-%pre
-# Add the "jetty" user and group
-getent group %username >/dev/null || groupadd -f -g %jtuid -r %username
-if ! getent passwd %username >/dev/null ; then
-    if ! getent passwd %jtuid >/dev/null ; then
-      useradd -r -u %jtuid -g %username -d %homedir -s /sbin/nologin \
-      -c "Jetty web server" %username
-    else
-      useradd -r -g %username -d %homedir -s /sbin/nologin \
-      -c "Jetty web server" %username
-    fi
-fi
-exit 0
+install -m0644 -D jetty.sysusers.conf %{buildroot}%{_sysusersdir}/jetty.conf
 
 %post
 %systemd_post jetty.service
@@ -927,6 +919,7 @@ exit 0
 %ghost %dir %attr(755, jetty, jetty) %{rundir}
 %{appdir}
 %{_unitdir}/%{name}.service
+%{_sysusersdir}/jetty.conf
 
 %files project -f .mfiles-project
 %doc README.md VERSION.txt
@@ -973,6 +966,9 @@ exit 0
 %license LICENSE NOTICE.txt LICENSE-MIT
 
 %changelog
+* Thu Jan 23 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 9.4.40-15
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.4.40-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

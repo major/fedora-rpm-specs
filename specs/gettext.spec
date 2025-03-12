@@ -1,10 +1,14 @@
 %bcond_with jar
 %bcond_with java
+# Disabled lto flags on i686 to avoid lto memory allocation error
+%ifarch i686
+%global _lto_cflags %{nil}
+%endif
 
 Summary: GNU tools and libraries for localized translated messages
 Name: gettext
-Version: 0.23.1
-Release: 2%{?dist}
+Version: 0.24
+Release: 1%{?dist}
 
 # The following are licensed under LGPLv2+:
 # - libintl and its headers
@@ -447,6 +451,10 @@ make check LIBUNISTRING=-lunistring
 %{_mandir}/man1/msghack.1*
 
 %changelog
+* Thu Feb 27 2025 Manish Tiwari <matiwari@redhat.com> - 0.24-1
+- update to 0.24 release
+- https://savannah.gnu.org/news/?id=10730
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.23.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

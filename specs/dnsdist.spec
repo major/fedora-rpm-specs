@@ -60,6 +60,11 @@ legitimate users while shunting or blocking abusive traffic.
 # run as dnsdist user
 sed -i '/^ExecStart/ s/dnsdist/dnsdist -u dnsdist -g dnsdist/' dnsdist.service.in
 
+# Create a sysusers.d config file
+cat >dnsdist.sysusers.conf <<EOF
+u dnsdist - 'dnsdist user' - -
+EOF
+
 %build
 %configure \
     --sysconfdir=%{_sysconfdir}/%{name} \
@@ -98,12 +103,8 @@ install -d %{buildroot}%{_sysconfdir}/%{name}/
 %{__mv} %{buildroot}%{_sysconfdir}/%{name}/dnsdist.conf-dist %{buildroot}%{_sysconfdir}/%{name}/dnsdist.conf
 chmod 0640 %{buildroot}/%{_sysconfdir}/%{name}/dnsdist.conf
 
-%pre
-getent group dnsdist >/dev/null || groupadd -r dnsdist
-getent passwd dnsdist >/dev/null || \
-    useradd -r -g dnsdist -d / -s /sbin/nologin \
-    -c "dnsdist user" dnsdist
-exit 0
+install -m0644 -D dnsdist.sysusers.conf %{buildroot}%{_sysusersdir}/dnsdist.conf
+
 
 %post
 %systemd_post %{name}.service
@@ -124,6 +125,7 @@ exit 0
 %{_unitdir}/%{name}@.service
 %dir %{_sysconfdir}/%{name}/
 %config(noreplace) %{_sysconfdir}/%{name}/dnsdist.conf
+%{_sysusersdir}/dnsdist.conf
 
 %changelog
 %autochangelog

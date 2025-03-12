@@ -72,7 +72,7 @@
 Name:           cjdns
 # major version is cjdns protocol version:
 Version:        21.1
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        The privacy-friendly network without borders
 # cjdns is all GPLv3 except libuv which is MIT and BSD and ISC
 # cnacl is unused except when use_embedded is true
@@ -164,7 +164,6 @@ Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
 %endif
-Requires(pre): shadow-utils
 
 %if 0%{use_libuv}
 BuildRequires: libuv-devel
@@ -399,6 +398,11 @@ mv python-cjdns-* python-cjdns
 # FIXME: grep Version_CURRENT_PROTOCOL util/version/Version.h and
 # check that it matches major %%{version}
 
+# Create a sysusers.d config file
+cat >cjdns.sysusers.conf <<EOF
+u cjdns - 'End to end encrypted IPv6 mesh' %{_libexecdir}/cjdns -
+EOF
+
 %build
 
 # build selinux policy
@@ -554,6 +558,8 @@ for t in drawgraph dumpgraph graphStats; do
   ln -sf %{_libexecdir}/cjdns/python/$t %{buildroot}%{_bindir}
 done
 
+install -m0644 -D cjdns.sysusers.conf %{buildroot}%{_sysusersdir}/cjdns.conf
+
 %files
 %{!?_licensedir:%global license %%doc}
 %license LICENSE
@@ -587,14 +593,9 @@ done
 %{_mandir}/man1/makekeys.1.gz
 %{_mandir}/man1/publictoip6.1.gz
 %{_mandir}/man1/randombytes.1.gz
+%{_sysusersdir}/cjdns.conf
 
 %pre
-getent group cjdns > /dev/null || groupadd -r cjdns
-getent passwd cjdns > /dev/null || /usr/sbin/useradd -g cjdns \
-        -c "End to end encrypted IPv6 mesh" \
-        -r -d %{_libexecdir}/cjdns -s /sbin/nologin cjdns
-exit 0
-
 %if %{use_systemd}
 
 %post
@@ -731,6 +732,9 @@ fi
 %{_bindir}/graphStats
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 21.1-20
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 21.1-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

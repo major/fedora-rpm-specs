@@ -26,7 +26,7 @@
 %define OPENSSL_VER    3.0.7
 %define OPENSSL_COMMIT 0205b589887203b065154ddc8e8107c4ac8625a1
 
-%define DBXDATE        20230509
+%define DBXDATE        20250224
 
 # Undefine this to get *HUGE* (50MB+) verbose build logs
 %define silent --silent
@@ -115,6 +115,7 @@ Source84: edk2-build.rhel-10
 
 Source90: DBXUpdate-%{DBXDATE}.x64.bin
 Source91: DBXUpdate-%{DBXDATE}.ia32.bin
+Source92: DBXUpdate-%{DBXDATE}.aa64.bin
 
 Patch0001: 0001-BaseTools-do-not-build-BrotliCompress-RH-only.patch
 Patch0002: 0002-MdeModulePkg-remove-package-private-Brotli-include-p.patch
@@ -367,7 +368,7 @@ cp -a -- \
    %{SOURCE50} \
    %{SOURCE60} \
    %{SOURCE80} %{SOURCE81} %{SOURCE82} %{SOURCE83} %{SOURCE84} \
-   %{SOURCE90} %{SOURCE91} \
+   %{SOURCE90} %{SOURCE91} %{SOURCE92} \
    .
 
 %build
@@ -495,6 +496,7 @@ done
 ./edk2-build.py --config edk2-build.fedora.platforms %{?silent} -m aa64
 virt-fw-vars --input   Fedora/aarch64/vars-template-pflash.raw \
              --output  Fedora/experimental/vars-template-secboot-testonly-pflash.raw \
+             --set-dbx DBXUpdate-%{DBXDATE}.aa64.bin \
              --enroll-redhat --secure-boot --distro-keys rhel
 %endif
 for raw in */aarch64/*.raw; do

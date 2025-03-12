@@ -7,7 +7,7 @@
 
 Name:           beanstalkd
 Version:        1.10
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        A simple, fast work-queue service
 
 License:        MIT
@@ -22,7 +22,6 @@ Patch2:         beanstalkd-1.10-mkdtemp.patch
 BuildRequires:  systemd gcc gcc-c++
 BuildRequires: make
 
-Requires(pre):    shadow-utils
 Requires(post):   systemd
 Requires(preun):  systemd
 Requires(postun): systemd
@@ -36,6 +35,12 @@ asynchronously.
 
 %prep
 %autosetup -p1
+
+# Create a sysusers.d config file
+cat >beanstalkd.sysusers.conf <<EOF
+g beanstalkd -
+u beanstalkd - 'beanstalkd user' %{beanstalkd_home} -
+EOF
 
 
 %build
@@ -55,13 +60,9 @@ make install PREFIX=%{buildroot}%{_prefix}
 %{__install} -d -m 00755 %{buildroot}%{_mandir}/man1
 %{__install} -p -m 0644 doc/%{name}.1 %{buildroot}%{_mandir}/man1/
 
+install -m0644 -D beanstalkd.sysusers.conf %{buildroot}%{_sysusersdir}/beanstalkd.conf
 
-%pre
-getent group %{beanstalkd_group} >/dev/null || groupadd -r %{beanstalkd_group}
-getent passwd %{beanstalkd_user} >/dev/null || \
-    useradd -r -g %{beanstalkd_user} -d %{beanstalkd_home} -s /sbin/nologin \
-    -c "beanstalkd user" %{beanstalkd_user}
-exit 0
+
 
 
 %post
@@ -93,9 +94,13 @@ fi
 %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
 %attr(0755,%{beanstalkd_user},%{beanstalkd_group}) %dir %{beanstalkd_home}
 %ghost %attr(0755,%{beanstalkd_user},%{beanstalkd_group}) %dir %{beanstalkd_binlogdir}
+%{_sysusersdir}/beanstalkd.conf
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.10-25
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

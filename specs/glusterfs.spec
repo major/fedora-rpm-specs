@@ -196,11 +196,11 @@ Summary:          Distributed File System
 %if ( 0%{_for_fedora_koji_builds} )
 Name:             glusterfs
 Version:          11.1
-Release:          8%{?prereltag:%{prereltag}}%{?dist}
+Release:          9%{?prereltag:%{prereltag}}%{?dist}
 %else
 Name:             @PACKAGE_NAME@
 Version:          @PACKAGE_VERSION@
-Release:          0.@PACKAGE_RELEASE@%{?dist}.21
+Release:          0.@PACKAGE_RELEASE@%{?dist}.22
 %endif
 License:          GPL-2.0-only OR LGPL-3.0-or-later
 URL:              http://docs.gluster.org/
@@ -216,7 +216,6 @@ Source0:          @PACKAGE_NAME@-@PACKAGE_VERSION@.tar.gz
 Patch0001:        0001-configure.ac.patch
 Patch0002:        0002-contrib-aclocal-python.m4.patch
 
-Requires(pre):    shadow-utils
 BuildRequires:    systemd
 
 %if 0%{!?_without_tcmalloc:1}
@@ -821,6 +820,11 @@ find $f -type f -exec sed -i 's|/usr/bin/python3|/usr/bin/python2|' {} \;
 done
 %endif
 
+# Create a sysusers.d config file
+cat >glusterfs.sysusers.conf <<EOF
+u gluster - 'GlusterFS daemons' %{_rundir}/gluster -
+EOF
+
 %build
 %ifarch armv7hl
 %set_build_flags
@@ -984,6 +988,8 @@ mv -v %{buildroot}/sbin/* %{buildroot}%{_sbindir}/
 
 ##-----------------------------------------------------------------------------
 ## All package definitions should be placed here in alphabetical order
+
+install -m0644 -D glusterfs.sysusers.conf %{buildroot}%{_sysusersdir}/glusterfs.conf
 ##
 %post
 %{?ldconfig}
@@ -1118,10 +1124,6 @@ exit 0
 ## All package definitions should be placed here in alphabetical order
 ##
 %pre
-getent group gluster > /dev/null || groupadd -r gluster
-getent passwd gluster > /dev/null || useradd -r -g gluster -d %{_rundir}/gluster -s /sbin/nologin -c "GlusterFS daemons" gluster
-exit 0
-
 ##-----------------------------------------------------------------------------
 ## All package definitions should be placed here in alphabetical order
 ##
@@ -1291,6 +1293,7 @@ exit 0
 %exclude %{_libexecdir}/ganesha/*
 %exclude %{_prefix}/lib/ocf/resource.d/heartbeat/*
 %endif
+%{_sysusersdir}/glusterfs.conf
 
 %files cli
 %{_sbindir}/gluster
@@ -1635,6 +1638,9 @@ exit 0
 %{_unitdir}/gluster-ta-volume.service
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 11.1-9
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 11.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

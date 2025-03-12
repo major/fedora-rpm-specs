@@ -10,7 +10,7 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    d17d237f9159d312b4827a4e9f18984b31317c51
+%global gh_commit    7ebc4eab95bcc73916433964c266588d09b35052
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     swaggest
 %global gh_project   json-diff
@@ -23,7 +23,7 @@
 %global major        %nil
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        3.12.0
+Version:        3.12.1
 Release:        1%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
 Summary:        JSON diff/rearrange/patch/pointer library for PHP
 
@@ -34,23 +34,23 @@ Source1:        makesrc.sh
 
 BuildArch:      noarch
 %if %{with tests}
+BuildRequires:  php(language) >= 7.1
 BuildRequires:  php-json
 # For tests, from composer.json "require-dev": {
 #    "phpunit/phpunit": "4.8.37"
 BuildRequires:  phpunit9
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  php-filter
-BuildRequires:  php-pcre
 # For autoloader
 BuildRequires:  php-fedora-autoloader-devel
 %endif
 
 # From composer.json, "require": {
-#    "ext-json": "*"
+#    "ext-json": "*",
+#    "php": ">=7.1"
+Requires:       php(language) >= 7.1
 Requires:       php-json
-# From phpcompatinfo report for 3.7.0
-Requires:       php-filter
-Requires:       php-pcre
+# From phpcompatinfo report for 3.12.1
+# only filter, json and pcre
 # For generated autoloader
 Requires:       php-composer(fedora/autoloader)
 
@@ -117,6 +117,9 @@ exit $ret
 
 
 %changelog
+* Mon Mar 10 2025 Remi Collet <remi@remirepo.net> - 3.12.1-1
+- update to 3.12.1
+
 * Tue Mar  4 2025 Remi Collet <remi@remirepo.net> - 3.12.0-1
 - update to 3.12.0
 - re-license spec file to CECILL-2.1

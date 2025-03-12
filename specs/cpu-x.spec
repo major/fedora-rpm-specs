@@ -3,7 +3,7 @@
 %global appid io.github.thetumultuousunicornofdarkness.%{name}
 
 Name:           cpu-x
-Version:        5.1.2
+Version:        5.1.3
 %forgemeta
 Release:        %autorelease
 Summary:        Free software that gathers information on CPU, motherboard and more

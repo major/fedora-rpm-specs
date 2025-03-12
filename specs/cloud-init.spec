@@ -5,7 +5,7 @@
 %endif
 
 Name:           cloud-init
-Version:        24.2
+Version:        25.1
 Release:        %autorelease
 Summary:        Cloud instance init scripts
 License:        Apache-2.0 OR GPL-3.0-only
@@ -13,12 +13,6 @@ URL:            https://github.com/canonical/cloud-init
 
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        cloud-init-tmpfiles.conf
-
-# Fix btrfs version check for btrfs 6.10+
-# https://github.com/canonical/cloud-init/issues/5614
-# not upstreamed as a PR due to Canonical CLA, remove when upstream
-# has fixed it themselves
-Patch:          0001-Fix-btrfs-version-check-for-btrfs-6.10.patch
 
 BuildArch:      noarch
 
@@ -37,6 +31,7 @@ BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-mock)
 BuildRequires:  python3dist(responses)
 BuildRequires:  python3dist(passlib)
+BuildRequires:  python3dist(pyserial)
 %endif
 
 Requires:       dhcpcd
@@ -44,6 +39,7 @@ Requires:       dhcpcd
 Requires:       hostname
 Requires:       e2fsprogs
 Requires:       iproute
+Requires:       netcat
 Requires:       python3-libselinux
 Requires:       policycoreutils-python3
 Requires:       procps
@@ -110,10 +106,6 @@ for man in cloud-id.1 cloud-init.1 cloud-init-per.1; do
     chmod -x ${RPM_BUILD_ROOT}%{_mandir}/man1/*
 done
 
-# Put files in /etc/systemd/system in the right place
-cp -a %{buildroot}/etc/systemd %{buildroot}/usr/lib
-rm -rf %{buildroot}/etc/systemd
-
 
 %check
 %if %{with tests}
@@ -123,15 +115,15 @@ python3 -m pytest tests/unittests
 %endif
 
 %post
-%systemd_post cloud-config.service cloud-config.target cloud-final.service cloud-init.service cloud-init.target cloud-init-local.service
+%systemd_post cloud-config.service cloud-config.target cloud-final.service cloud-init-main.service cloud-init.target cloud-init-local.service cloud-init-network.service
 
 
 %preun
-%systemd_preun cloud-config.service cloud-config.target cloud-final.service cloud-init.service cloud-init.target cloud-init-local.service
+%systemd_preun cloud-config.service cloud-config.target cloud-final.service cloud-init-main.service cloud-init.target cloud-init-local.service cloud-init-network.service
 
 
 %postun
-%systemd_postun cloud-config.service cloud-config.target cloud-final.service cloud-init.service cloud-init.target cloud-init-local.service
+%systemd_postun cloud-config.service cloud-config.target cloud-final.service cloud-init-main.service cloud-init.target cloud-init-local.service cloud-init-network.service
 
 
 %files
@@ -150,8 +142,9 @@ python3 -m pytest tests/unittests
 %{_udevrulesdir}/66-azure-ephemeral.rules
 %{_unitdir}/cloud-config.service
 %{_unitdir}/cloud-final.service
-%{_unitdir}/cloud-init.service
+%{_unitdir}/cloud-init-main.service
 %{_unitdir}/cloud-init-local.service
+%{_unitdir}/cloud-init-network.service
 %{_unitdir}/cloud-config.target
 %{_unitdir}/cloud-init.target
 /usr/lib/systemd/system-generators/cloud-init-generator

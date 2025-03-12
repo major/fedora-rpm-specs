@@ -4,7 +4,7 @@
 %global systemd_runtimedir (0%{?fedora} >= 21) || (0%{?rhel} >= 8)
 %global tmpfiles ((0%{?fedora} >= 15) || (0%{?rhel} == 7)) && !%{systemd_runtimedir}
 
-%global baserelease 21
+%global baserelease 22
 %global pre_rel Beta3
 
 Summary: An open source library and milter for providing ARC service
@@ -39,7 +39,6 @@ BuildRequires: automake
 
 Requires: lib%{name}%{?_isa} = %{version}-%{release}
 Requires: libopenarc = %{version}-%{release}
-Requires(pre): shadow-utils
 %if %systemd
 # Required for systemd
 %{?systemd_requires}
@@ -49,6 +48,7 @@ BuildRequires: systemd
 Requires(post): chkconfig
 Requires(preun): chkconfig, initscripts
 %endif
+Requires: group(mail)
 
 
 %description
@@ -73,6 +73,13 @@ required for developing applications against libopenarc.
 
 %prep
 %autosetup -n OpenARC-rel-openarc-1-0-0-Beta3 -p1
+
+# Previously, a non-system group was created :(, sysusers does not support this
+# Create a sysusers.d config file
+cat >openarc.sysusers.conf <<EOF
+u openarc - - %{_localstatedir}/lib/%{name} -
+m openarc mail
+EOF
 
 
 %build
@@ -157,19 +164,7 @@ D %{_rundir}/%{name} 0750 %{name} %{name} -
 EOF
 %endif
 
-%pre
-if ! getent passwd %{name} >/dev/null 2>&1; then
-    %{_sbindir}/useradd -M -d %{_localstatedir}/lib/%{name} -r -s /sbin/nologin %{name}
-    if ! getent group %{name} >/dev/null; then
-        %{_sbindir}/groupadd %{name}
-        %{_sbindir}/usermod -g %{name} %{name}
-    fi
-    if getent group mail >/dev/null; then
-        %{_sbindir}/usermod -G mail %{name}
-    fi
-fi
-exit 0
-
+install -m0644 -D openarc.sysusers.conf %{buildroot}%{_sysusersdir}/openarc.conf
 
 %post
 
@@ -219,6 +214,7 @@ exit 0
 %endif
 %{_mandir}/*/*
 %{_sbindir}/*
+%{_sysusersdir}/openarc.conf
 
 
 %files -n libopenarc
@@ -232,6 +228,9 @@ exit 0
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Thu Jan 23 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.0.0-0.22.Beta3
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-0.21.Beta3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

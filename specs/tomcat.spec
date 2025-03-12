@@ -1,11 +1,12 @@
 %global jspspec 3.1
 %global major_version 10
 %global minor_version 1
-%global micro_version 34
+%global micro_version 36
 %global packdname apache-tomcat-%{version}-src
 %global servletspec 6.0
 %global elspec 5.0
 %global tcuid 53
+%global min_java_version 11
 # Recommended version is specified in java/org/apache/catalina/core/AprLifecycleListener.java
 %global native_version 2.0.8
 
@@ -21,22 +22,29 @@
 %global logdir %{_var}/log/%{name}
 %global cachedir %{_var}/cache/%{name}
 %global workdir %{basedir}/work
+%global userinstancedir %{homedir}/user-instance
 
 Name:          tomcat
 Epoch:         1
 Version:       %{major_version}.%{minor_version}.%{micro_version}
 Release:       %autorelease
-Summary:       Apache Servlet/JSP Engine, RI for Servlet %{servletspec}/JSP %{jspspec} API
+Summary:       Apache Tomcat - Servlet and JSP engine for system-wide deployment
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:       Apache-2.0
 URL:           http://tomcat.apache.org/
 Source0:       http://www.apache.org/dist/tomcat/tomcat-%{major_version}/v%{version}/src/%{packdname}.tar.gz
-Source1:       %{name}-%{major_version}.%{minor_version}.conf
-Source2:       %{name}-%{major_version}.%{minor_version}.logrotate
-Source3:       %{name}-%{major_version}.%{minor_version}.service
-Source4:       %{name}-%{major_version}.%{minor_version}-locate-java.sh
-Source5:       %{name}-%{major_version}.%{minor_version}-start.sh
+Source1:       http://www.apache.org/dist/tomcat/tomcat-%{major_version}/v%{version}/src/%{packdname}.tar.gz.asc
+# https://www.apache.org/dist/tomcat/tomcat-%{major_version}/KEYS
+Source2:       KEYS
+Source3:       %{name}-%{major_version}.%{minor_version}.conf
+Source4:       %{name}-%{major_version}.%{minor_version}.service
+Source5:       %{name}-%{major_version}.%{minor_version}-locate-java.sh
+Source6:       %{name}-%{major_version}.%{minor_version}-run.sh
+Source7:       %{name}-%{major_version}.%{minor_version}-RUNNING.txt
+Source8:       %{name}-%{major_version}.%{minor_version}-user-instance-create.sh
+Source9:       %{name}-%{major_version}.%{minor_version}-setenv.sh
+Source10:       %{name}-%{major_version}.%{minor_version}-user-instance-create.asciidoc
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=435829
 Patch0:        %{name}-%{major_version}.%{minor_version}-bootstrap-MANIFEST.MF.patch
@@ -56,6 +64,7 @@ BuildArch:     noarch
 # See: https://docs.fedoraproject.org/en-US/packaging-guidelines/Java/#_architecture_support
 ExclusiveArch:  %{java_arches}
 
+BuildRequires: gnupg2
 BuildRequires: ant
 BuildRequires: ecj
 BuildRequires: findutils
@@ -64,35 +73,88 @@ BuildRequires: javapackages-local
 BuildRequires: aqute-bnd
 BuildRequires: tomcat-jakartaee-migration
 BuildRequires: systemd
+BuildRequires:  rubygem-asciidoctor
 
-Requires: (java-headless >= 11 or java >= 11)
-Requires: %{name}-lib = %{epoch}:%{version}-%{release}
-Recommends: tomcat-native >= %{native_version}
+Requires: %{name}-common = %{epoch}:%{version}-%{release}
 Requires: systemd
 
-%description
-Tomcat is the servlet container that is used in the official Reference
-Implementation for the Java Servlet and JavaServer Pages technologies.
-The Java Servlet and JavaServer Pages specifications are developed by
-Sun under the Java Community Process.
+Recommends: tomcat-native >= %{native_version}
 
-Tomcat is developed in an open and participatory environment and
-released under the Apache Software License version 2.0. Tomcat is intended
-to be a collaboration of the best-of-breed developers from around the world.
+Suggests: %{name}-admin-webapps = %{epoch}:%{version}-%{release}
+Suggests: %{name}-docs-webapp = %{epoch}:%{version}-%{release}
+Suggests: %{name}-webapps = %{epoch}:%{version}-%{release}
+Suggests: %{name}-user-instance = %{epoch}:%{version}-%{release}
+
+%description
+Apache Tomcat is an open-source implementation of the Java Servlet, JavaServer Pages (JSP), and WebSocket technologies.
+It provides a pure Java HTTP web server environment for running Java applications.
+This package includes only the startup scripts for managing a system-wide Tomcat daemon.
+It does not include documentation or web applications.
+    * To install the default web applications, use the tomcat-webapps package.
+    * To access online documentation, install tomcat-docs-webapps package.
+    * To create user instances without running Tomcat as a system service, use tomcat-user-instance package instead.
+
+%package user-instance
+Summary: Apache Tomcat - Tools for creating user-managed instances
+Requires: %{name}-common = %{epoch}:%{version}-%{release}
+Suggests: %{name} = %{epoch}:%{version}-%{release}
+Suggests: %{name}-admin-webapps = %{epoch}:%{version}-%{release}
+Suggests: %{name}-docs-webapp = %{epoch}:%{version}-%{release}
+Suggests: %{name}-webapps = %{epoch}:%{version}-%{release}
+
+%description user-instance
+This package provides the tools necessary to create user-managed Tomcat instances,
+allowing users to run Tomcat independently of the system-wide service.
+A user instance includes its own configuration, libraries, and web applications,
+which can be started and stopped using scripts inside the instance directory.
+
+%package common
+Summary: Apache Tomcat - Common files for Tomcat packages
+Requires: (java-headless >= %{min_java_version} or java >= %{min_java_version})
+Requires: %{name}-lib = %{epoch}:%{version}-%{release}
+
+%description common
+This package contains common files required by both tomcat and tomcat-user-instance packages, including essential Tomcat
+scripts and libraries. Installing this package alone does not provide a functional Tomcat installation,
+but is required as a dependency for other Tomcat-related packages.
+
+%package lib
+Summary: Apache Tomcat - Core libraries for embedding Tomcat
+Requires: %{name}-jsp-%{jspspec}-api = %{epoch}:%{version}-%{release}
+Requires: %{name}-servlet-%{servletspec}-api = %{epoch}:%{version}-%{release}
+Requires: %{name}-el-%{elspec}-api = %{epoch}:%{version}-%{release}
+Requires: ecj >= 4.20
+Recommends: tomcat-jakartaee-migration
+
+%description lib
+This package contains the core libraries of Apache Tomcat, which allow other Java applications to embed Tomcat
+as a lightweight servlet container. It is primarily intended for use by developers and applications that need Tomcat
+as an embedded runtime.
 
 %package admin-webapps
-Summary: The host-manager and manager web applications for Apache Tomcat
+Summary: Apache Tomcat - Administrative web applications
 Requires: %{name} = %{epoch}:%{version}-%{release}
 
 %description admin-webapps
-The host-manager and manager web applications for Apache Tomcat.
+This package provides the Tomcat Web Application Manager and Virtual Host Manager, which allow administrators to deploy,
+manage, and configure web applications through a web interface.
+These tools simplify application lifecycle management without requiring direct filesystem access.
 
 %package docs-webapp
-Summary: The docs web application for Apache Tomcat
+Summary: Apache Tomcat - Online documentation web application
 Requires: %{name} = %{epoch}:%{version}-%{release}
 
 %description docs-webapp
-The docs web application for Apache Tomcat.
+This package provides the Tomcat documentation web application, accessible via the Tomcat server.
+It includes API references, configuration guidelines, and development documentation.
+
+%package webapps
+Summary: Apache Tomcat - Default ROOT web application
+Requires: %{name} = %{epoch}:%{version}-%{release}
+
+%description webapps
+This package includes the default ROOT web applications bundled with Apache Tomcat,
+which serves as the default homepage when accessing Tomcat in a browser.
 
 %package jsp-%{jspspec}-api
 Summary: Apache Tomcat JavaServer Pages v%{jspspec} API Implementation Classes
@@ -104,17 +166,6 @@ Conflicts: tomcat-jsp-2.3-api
 
 %description jsp-%{jspspec}-api
 Apache Tomcat JSP API Implementation Classes.
-
-%package lib
-Summary: Libraries needed to run the Tomcat Web container
-Requires: %{name}-jsp-%{jspspec}-api = %{epoch}:%{version}-%{release}
-Requires: %{name}-servlet-%{servletspec}-api = %{epoch}:%{version}-%{release}
-Requires: %{name}-el-%{elspec}-api = %{epoch}:%{version}-%{release}
-Requires: ecj >= 4.20
-Recommends: tomcat-jakartaee-migration
-
-%description lib
-Libraries needed to run the Tomcat Web container.
 
 %package servlet-%{servletspec}-api
 Summary: Apache Tomcat Java Servlet v%{servletspec} API Implementation Classes
@@ -134,14 +185,9 @@ Conflicts: tomcat-el-3.0-api
 %description el-%{elspec}-api
 Apache Tomcat EL API Implementation Classes.
 
-%package webapps
-Summary: The ROOT web application for Apache Tomcat
-Requires: %{name} = %{epoch}:%{version}-%{release}
-
-%description webapps
-The ROOT web application for Apache Tomcat.
-
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+
 %setup -q -n %{packdname}
 # remove pre-built binaries and windows files
 find . -type f \( -name "*.bat" -o -name "*.class" -o -name Thumbs.db -o -name "*.gz" -o \
@@ -157,6 +203,12 @@ find . -type f \( -name "*.bat" -o -name "*.class" -o -name Thumbs.db -o -name "
 
 # Remove webservices naming resources as it's generally unused
 %{__rm} -rf java/org/apache/naming/factory/webservices
+
+sed -i -e "s/@VERSION@/%{version}/g" \
+       -e "s/@VERSION_MAJOR_MINOR@/%{major_version}.%{minor_version}/g" \
+       -e "s/@VERSION_MAJOR@/%{major_version}/g" \
+       -e "s/@MIN_JAVA_VERSION@/%{min_java_version}/g" \
+       -e "s/@JDT_VERSION@/x/g" RELEASE-NOTES
 
 # Create a sysusers.d config file
 cat >tomcat.sysusers.conf <<EOF
@@ -195,28 +247,27 @@ touch HACK
 
 %install
 # build initial path structure
-# %{__install} -d ${RPM_BUILD_ROOT}%{_bindir}
-%{__install} -d ${RPM_BUILD_ROOT}%{_sysconfdir}/logrotate.d
 %{__install} -d ${RPM_BUILD_ROOT}%{appdir}
 %{__install} -d ${RPM_BUILD_ROOT}%{bindir}
-%{__install} -d ${RPM_BUILD_ROOT}%{confdir}
 %{__install} -d ${RPM_BUILD_ROOT}%{confdir}/Catalina/localhost
 %{__install} -d ${RPM_BUILD_ROOT}%{confdir}/conf.d
 /bin/echo "Place your custom *.conf files here. Shell expansion is supported." > ${RPM_BUILD_ROOT}%{confdir}/conf.d/README
-%{__install} -d ${RPM_BUILD_ROOT}%{libdir}
 %{__install} -d ${RPM_BUILD_ROOT}%{logdir}
-%{__install} -d ${RPM_BUILD_ROOT}%{homedir}
 %{__install} -d ${RPM_BUILD_ROOT}%{cachedir}
-%{__install} -d ${RPM_BUILD_ROOT}%{_unitdir}
-%{__install} -d ${RPM_BUILD_ROOT}%{_libexecdir}/%{name}
 
-%{__install} %{SOURCE1} ${RPM_BUILD_ROOT}%{confdir}/%{name}.conf
-%{__sed} -e "s|\@\@\@TCLOG\@\@\@|%{logdir}|g" %{SOURCE2} > ${RPM_BUILD_ROOT}%{_sysconfdir}/logrotate.d/%{name}.disabled
-%{__install} %{SOURCE3} ${RPM_BUILD_ROOT}%{_unitdir}/%{name}.service
-%{__install} %{SOURCE4} ${RPM_BUILD_ROOT}%{_libexecdir}/%{name}/%{name}-locate-java.sh
-%{__install} %{SOURCE5} ${RPM_BUILD_ROOT}%{_libexecdir}/%{name}/%{name}-start.sh
+%{__install} -D -p %{SOURCE3} ${RPM_BUILD_ROOT}%{confdir}/%{name}.conf
+%{__install} -D -p %{SOURCE4} ${RPM_BUILD_ROOT}%{_unitdir}/%{name}.service
+%{__install} -D -p %{SOURCE5} ${RPM_BUILD_ROOT}%{_libexecdir}/%{name}/%{name}-locate-java.sh
+%{__install} -D -p %{SOURCE6} ${RPM_BUILD_ROOT}%{_libexecdir}/%{name}/%{name}-run.sh
+%{__install} -D -p %{SOURCE7} ${RPM_BUILD_ROOT}%{homedir}/doc/RUNNING.txt
 
 %{__install} -D tomcat.sysusers.conf ${RPM_BUILD_ROOT}%{_sysusersdir}/tomcat.conf
+
+%{__install} -d ${RPM_BUILD_ROOT}%{userinstancedir}/conf
+%{__install} -D -p %{SOURCE8} ${RPM_BUILD_ROOT}%{_bindir}/tomcat-user-instance-create.sh
+%{__install} -D -p %{SOURCE9} ${RPM_BUILD_ROOT}%{userinstancedir}/bin/setenv.sh
+
+asciidoctor -b manpage -D ${RPM_BUILD_ROOT}%{_mandir}/man1 -o tomcat-user-instance-create.1 %{SOURCE10}
 
 for jar in output/build/lib/*.jar; do
     # Skip Jar if empty, applies to tomcat-coyote-ffm.jar atm
@@ -253,8 +304,8 @@ sed -i "s/@MAVEN.DEPLOY.VERSION@/%{version}/g" res/maven/tomcat-juli.pom
 # bootstrap does not have a pom, generate one
 %mvn_artifact 'org.apache.tomcat:tomcat-bootstrap:%{version}' output/build/bin/bootstrap.jar
 
-%mvn_file org.apache.tomcat:tomcat-bootstrap tomcat/tomcat-bootstrap
-%mvn_file org.apache.tomcat:tomcat-juli tomcat/tomcat-juli
+%mvn_file org.apache.tomcat:tomcat-bootstrap tomcat/tomcat-bootstrap %{libdir}/tomcat-bootstrap
+%mvn_file org.apache.tomcat:tomcat-juli tomcat/tomcat-juli %{libdir}/tomcat-juli
 
 # tomcat-parent pom
 sed -i "s/@MAVEN.DEPLOY.VERSION@/%{version}/g" res/maven/tomcat.pom
@@ -263,6 +314,8 @@ sed -i "s/@MAVEN.DEPLOY.VERSION@/%{version}/g" res/maven/tomcat.pom
 %mvn_package ":tomcat-el-api" tomcat-el-api
 %mvn_package ":tomcat-jsp-api" tomcat-jsp-api
 %mvn_package ":tomcat-servlet-api" tomcat-servlet-api
+%mvn_package ":tomcat-bootstrap" tomcat-common
+%mvn_package ":tomcat-juli" tomcat-common
 
 %mvn_install
 
@@ -273,9 +326,10 @@ jar ufm ${RPM_BUILD_ROOT}%{libdir}/servlet-api.jar <(echo "JavaPackages-GroupId:
 
 # move things into place
 pushd output/build
-    %{__cp} -a bin/* ${RPM_BUILD_ROOT}%{bindir}
-    %{__cp} -a conf/*.{policy,properties,xml} ${RPM_BUILD_ROOT}%{confdir}
-    %{__cp} -a webapps/* ${RPM_BUILD_ROOT}%{appdir}
+    %{__cp} -ap bin/* ${RPM_BUILD_ROOT}%{bindir}
+    %{__cp} -ap conf/*.{policy,properties,xml} ${RPM_BUILD_ROOT}%{confdir}
+    %{__cp} -ap conf/*.{policy,properties,xml} ${RPM_BUILD_ROOT}%{userinstancedir}/conf
+    %{__cp} -ap webapps/* ${RPM_BUILD_ROOT}%{appdir}
 popd
 
 ln -sr $(build-classpath ecj/ecj) ${RPM_BUILD_ROOT}%{libdir}/ecj-x.jar
@@ -297,12 +351,11 @@ ln -sr %{libdir} ${RPM_BUILD_ROOT}%{homedir}/lib
 %systemd_postun_with_restart %{name}.service
 
 %files
-%doc {LICENSE,NOTICE,RELEASE-NOTES,RUNNING.txt}
+%license LICENSE
+%{homedir}/doc/RUNNING.txt
 %{_unitdir}/%{name}.service
-%{_libexecdir}/%{name}
-%config(noreplace) %{_sysconfdir}/logrotate.d/%{name}.disabled
+%{_libexecdir}/%{name}/tomcat-run.sh
 %{_sysusersdir}/tomcat.conf
-%{homedir}
 %{baseconfdir}
 %{baselogdir}
 %{workdir}
@@ -326,30 +379,46 @@ ln -sr %{libdir} ${RPM_BUILD_ROOT}%{homedir}/lib
 %attr(2775,root,tomcat) %dir %{confdir}/Catalina
 %attr(2775,root,tomcat) %dir %{confdir}/Catalina/localhost
 
-%files admin-webapps
-%{appdir}/host-manager
-%{appdir}/manager
+%files user-instance
+%license LICENSE
+%{userinstancedir}
+%{_bindir}/tomcat-user-instance-create.sh
+%{_mandir}/man1/tomcat-user-instance-create.1*
 
-%files docs-webapp
-%{appdir}/docs
+%files common -f .mfiles-tomcat-common
+%license LICENSE
+%doc {NOTICE,RELEASE-NOTES}
+%{_libexecdir}/%{name}/tomcat-locate-java.sh
+%{homedir}/bin
 
 %files lib -f .mfiles
+%license LICENSE
+%{homedir}/lib
 %{libdir}/jakartaee-migration-x.jar
 %{libdir}/ecj-x.jar
 %exclude %{libdir}/tomcat-jni.pom
 
-%files jsp-%{jspspec}-api -f .mfiles-tomcat-jsp-api
-%doc LICENSE
+%files admin-webapps
+%license LICENSE
+%{appdir}/host-manager
+%{appdir}/manager
 
-%files servlet-%{servletspec}-api -f .mfiles-tomcat-servlet-api
-%doc LICENSE
-
-%files el-%{elspec}-api -f .mfiles-tomcat-el-api
-%doc LICENSE
+%files docs-webapp
+%license LICENSE
+%{appdir}/docs
 
 %files webapps
-%defattr(0644,tomcat,tomcat,0755)
+%license LICENSE
 %{appdir}/ROOT
+
+%files jsp-%{jspspec}-api -f .mfiles-tomcat-jsp-api
+%license LICENSE
+
+%files servlet-%{servletspec}-api -f .mfiles-tomcat-servlet-api
+%license LICENSE
+
+%files el-%{elspec}-api -f .mfiles-tomcat-el-api
+%license LICENSE
 
 %changelog
 %autochangelog

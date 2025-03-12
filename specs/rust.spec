@@ -45,7 +45,7 @@ ExclusiveArch:  %{rust_arches}
 # is insufficient.  Rust currently requires LLVM 18.0+.
 %global min_llvm_version 18.0.0
 %global bundled_llvm_version 19.1.7
-%if 0%{?fedora} >= 42
+%if 0%{?fedora} >= 42 || 0%{?rhel} > 10
 %global llvm_compat_version 19
 %endif
 %global llvm llvm%{?llvm_compat_version}
@@ -285,6 +285,7 @@ Provides:       bundled(llvm) = %{bundled_llvm_version}
 BuildRequires:  cmake >= 3.5.1
 %if %defined llvm_compat_version
 %global llvm_root %{_libdir}/%{llvm}
+%global llvm_path %{llvm_root}/bin
 %else
 %global llvm_root %{_prefix}
 %endif
@@ -342,12 +343,6 @@ Requires:       /usr/bin/cc
 %global __brp_strip_static_archive %{nil}
 %global __brp_strip_lto %{nil}
 
-%if %{without bundled_llvm}
-%if "%{llvm_root}" == "%{_prefix}" || 0%{?scl:1}
-%global llvm_has_filecheck 1
-%endif
-%endif
-
 # We're going to override --libdir when configuring to get rustlib into a
 # common path, but we'll fix the shared libraries during install.
 %global common_libdir %{_prefix}/lib
@@ -366,11 +361,11 @@ BuildRequires:  mingw64-winpthreads-static
 
 %if %defined wasm_targets
 %if %with bundled_wasi_libc
-BuildRequires:  clang
+BuildRequires:  clang%{?llvm_compat_version}
 %else
 BuildRequires:  wasi-libc-static
 %endif
-BuildRequires:  lld
+BuildRequires:  lld%{?llvm_compat_version}
 %endif
 
 # For profiler_builtins
@@ -789,6 +784,7 @@ end}
   %{!?with_bundled_oniguruma:RUSTONIG_SYSTEM_LIBONIG=1}
   %{!?with_bundled_sqlite3:LIBSQLITE3_SYS_USE_PKG_CONFIG=1}
   %{!?with_disabled_libssh2:LIBSSH2_SYS_USE_PKG_CONFIG=1}
+  %{?llvm_path:PATH="%{llvm_path}:$PATH"}
 }
 %global export_rust_env export %{rust_env}
 
@@ -845,12 +841,8 @@ end}
 %endif
 
 # Find the compiler-rt library for the Rust profiler_builtins crate.
-%if %defined llvm_compat_version
-# clang_resource_dir is not defined for compat builds.
-%define profiler /usr/lib/clang/%{llvm_compat_version}/lib/%{_arch}-redhat-linux-gnu/libclang_rt.profile.a
-%else
-%define profiler %{clang_resource_dir}/lib/%{_arch}-redhat-linux-gnu/libclang_rt.profile.a
-%endif
+%define clang_lib %{expand:%%clang%{?llvm_compat_version}_resource_dir}/lib
+%define profiler %{clang_lib}/%{_arch}-redhat-linux-gnu/libclang_rt.profile.a
 test -r "%{profiler}"
 
 %configure --disable-option-checking \
@@ -869,7 +861,6 @@ test -r "%{profiler}"
   --local-rust-root=%{local_rust_root} \
   --set build.rustfmt=/bin/true \
   %{!?with_bundled_llvm: --llvm-root=%{llvm_root} \
-    %{!?llvm_has_filecheck: --disable-codegen-tests} \
     %{!?with_llvm_static: --enable-llvm-link-shared } } \
   --disable-llvm-static-stdcpp \
   --disable-llvm-bitcode-linker \
@@ -903,7 +894,7 @@ mkdir -p "%{profraw}"
 env LLVM_PROFILE_FILE="%{profraw}/default_%%m_%%p.profraw" \
   %{__x} --keep-stage=0 --keep-stage=1 build cargo
 # Finalize the profile data and clean up the raw files
-%{llvm_root}/bin/llvm-profdata merge -o "%{profdata}" "%{profraw}"
+llvm-profdata merge -o "%{profdata}" "%{profraw}"
 rm -r "%{profraw}" build/%{rust_triple}/stage2*/
 # Redefine the macro to use that profile data from now on
 %global __x %{__x} --rust-profile-use="%{profdata}"

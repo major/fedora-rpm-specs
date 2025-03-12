@@ -128,6 +128,12 @@ server also needs to have the amanda-client package installed.
 %prep
 %autosetup -p1 -n %{name}-tag-community-%{version}
 
+# Create a sysusers.d config file
+cat >amanda.sysusers.conf <<EOF
+u amandabackup 33:%amanda_group 'Amanda user' %{_localstatedir}/lib/amanda /bin/bash
+m amandabackup tape
+EOF
+
 %build
 ./autogen
 
@@ -207,13 +213,11 @@ rm amandad
 ln -s ../%_lib/amanda/amandad
 popd
 
+install -m0644 -D amanda.sysusers.conf %{buildroot}%{_sysusersdir}/amanda.conf
+
 %check
 make check
 
-%pre
-/usr/sbin/useradd -M -N -g %amanda_group -o -r -d %{_localstatedir}/lib/amanda -s /bin/bash \
-        -c "Amanda user" -u 33 %amanda_user >/dev/null 2>&1 || :
-/usr/bin/gpasswd -a %amanda_user tape >/dev/null 2>&1 || :
 
 %post
 %{?ldconfig}
@@ -299,6 +303,7 @@ make check
 %attr(600,%amanda_user,%amanda_group)   %config(noreplace) %{_localstatedir}/lib/amanda/.amandahosts
 %attr(02770,%amanda_user,%amanda_group) %dir /var/log/amanda
 %attr(02770,%amanda_user,%amanda_group) %dir /var/log/amanda/amandad
+%{_sysusersdir}/amanda.conf
 
 %files libs
 %{_libdir}/libamdevice*.so

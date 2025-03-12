@@ -48,7 +48,7 @@
 Summary: PostgreSQL client programs
 Name: %{majorname}%{majorversion}
 Version: %{majorversion}.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -265,7 +265,6 @@ will interact with a PostgreSQL server.
 %package -n %{pkgname}-server
 Summary: The programs needed to create and run a PostgreSQL server
 Requires: %{pkgname}%{?_isa} = %precise_version
-Requires(pre): /usr/sbin/useradd
 # We require this to be present for %%{_prefix}/lib/tmpfiles.d
 Requires: systemd
 # Make sure it's there when scriptlets run, too
@@ -541,6 +540,11 @@ find . -type f -name Makefile -exec sed -i -e "s/SO_MAJOR_VERSION=\s\?\([0-9]\+\
 
 # remove .gitignore files to ensure none get into the RPMs (bug #642210)
 find . -type f -name .gitignore | xargs rm
+
+# Create a sysusers.d config file
+cat >postgresql17.sysusers.conf <<EOF
+u postgres 26 'PostgreSQL Server' /var/lib/pgsql /bin/bash
+EOF
 
 
 %build
@@ -947,10 +951,8 @@ find_lang_bins pltcl.lst pltcl
 %endif
 %endif
 
-%pre -n %{pkgname}-server
-/usr/sbin/groupadd -g 26 -o -r postgres >/dev/null 2>&1 || :
-/usr/sbin/useradd -M -N -g postgres -o -r -d /var/lib/pgsql -s /bin/bash \
-	-c "PostgreSQL Server" -u 26 postgres >/dev/null 2>&1 || :
+install -m0644 -D postgresql17.sysusers.conf %{buildroot}%{_sysusersdir}/postgresql17.conf
+
 
 %post -n %{pkgname}-server
 %systemd_post %service_name
@@ -1244,6 +1246,7 @@ make -C postgresql-setup-%{setup_version} check
 %if %pam
 %config(noreplace) /etc/pam.d/postgresql
 %endif
+%{_sysusersdir}/postgresql17.conf
 
 
 %files -n %{pkgname}-server-devel -f devel.lst
@@ -1344,6 +1347,9 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 17.2-2
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Wed Jan 29 2025 Filip Janus <fjanus@redhat.com> - 17.2-1 
 - Update to 17.2
 - stick with std=c18

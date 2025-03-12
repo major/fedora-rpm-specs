@@ -6,7 +6,7 @@
 
 Name:       bitcoin-core
 Version:    28.1
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    Peer to Peer Cryptographic Currency
 License:    MIT
 URL:        https://bitcoincore.org/
@@ -121,7 +121,6 @@ to create custom Bitcoin transactions.
 %package server
 Summary:        Peer-to-peer digital currency
 Conflicts:      bitcoin-server
-Requires(pre):  shadow-utils
 Requires:       (%{name}-selinux >= 0.1 if selinux-policy)
 Provides:       bundled(leveldb) = 1.22.0
 Provides:       bundled(libdb) = 4.8.30.NC
@@ -164,6 +163,11 @@ touch -r db4/dist/configure db4/dist/configure.ac db4/dist/aclocal/*.m4
 
 # Documentation (sources can not be directly reference with doc)
 cp -p %{SOURCE11} %{SOURCE12} %{SOURCE13} %{SOURCE14} .
+
+# Create a sysusers.d config file
+cat >bitcoin-core.sysusers.conf <<EOF
+u bitcoin - 'Bitcoin wallet server' /var/lib/%{project_name} -
+EOF
 
 %build
 # Build static Berkeley DB reusing all compiler flags / hardening:
@@ -241,6 +245,8 @@ install -p -m 644 -D %{SOURCE18} %{buildroot}%{_metainfodir}/%{project_name}-qt.
 # Remove test files so that they aren't shipped. Tests have already been run.
 rm -f %{buildroot}%{_bindir}/test_*
 
+install -m0644 -D bitcoin-core.sysusers.conf %{buildroot}%{_sysusersdir}/bitcoin-core.conf
+
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{project_name}-qt.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{project_name}-qt.metainfo.xml
@@ -249,12 +255,6 @@ make check
 test/functional/test_runner.py --tmpdirprefix `pwd` --extended
 %endif
 
-%pre server
-getent group %{project_name} >/dev/null || groupadd -r %{project_name}
-getent passwd %{project_name} >/dev/null ||
-    useradd -r -g %{project_name} -d /var/lib/%{project_name} -s /sbin/nologin \
-    -c "Bitcoin wallet server" %{project_name}
-exit 0
 
 %post server
 %systemd_post %{project_name}.service
@@ -311,8 +311,12 @@ exit 0
 %{_tmpfilesdir}/%{project_name}.conf
 %{_unitdir}/%{project_name}.service
 %{_userunitdir}/%{project_name}.service
+%{_sysusersdir}/bitcoin-core.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 28.1-6
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Feb 07 2025 Simone Caronni <negativo17@gmail.com> - 28.1-5
 - Rebuild for updated dependencies.
 

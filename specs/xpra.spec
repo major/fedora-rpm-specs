@@ -160,7 +160,6 @@ Requires: js-jquery
 #%%{?fedora:Requires: python3-opencv}
 
 # Needed to create the xpra group
-Requires(pre):  shadow-utils
 
 # xpra-html5 is now separately provided
 Obsoletes: xpra-html5 < 0:4.1-1
@@ -193,6 +192,11 @@ network bandwidth constraints.
 %ifarch %{arm}
 sed -i 's|-mfpmath=387|-mfloat-abi=hard|' setup.py
 %endif
+
+# Create a sysusers.d config file
+cat >xpra.sysusers.conf <<EOF
+g xpra -
+EOF
 
 %build
 %set_build_flags
@@ -273,12 +277,12 @@ rm -rf %{buildroot}%{_docdir}/xpra/Build
 
 install -pm 644 README.md %{buildroot}%{_docdir}/xpra/
 
+install -m0644 -D xpra.sysusers.conf %{buildroot}%{_sysusersdir}/xpra.conf
+
 %check
 %{?fedora:appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/xpra.appdata.xml}
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
-%pre
-getent group xpra >/dev/null || groupadd -r xpra
 
 %files
 %license COPYING
@@ -323,6 +327,7 @@ getent group xpra >/dev/null || groupadd -r xpra
 %{_unitdir}/xpra.service
 %{_unitdir}/xpra.socket
 %{_udevrulesdir}/71-xpra-virtual-pointer.rules
+%{_sysusersdir}/xpra.conf
 
 %changelog
 %autochangelog

@@ -13,7 +13,7 @@
 
 Name:           ccache
 Version:        4.10.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        C/C++ compiler cache
 
 # See LICENSE.adoc for licenses of bundled codes
@@ -43,7 +43,6 @@ BuildRequires:  clang clang-tools-extra
 # coreutils for triggerin, triggerpostun
 Requires:       coreutils
 # For groupadd
-Requires(pre):  shadow-utils
 Provides:       bundled(blake3) = 1.5.1
 Provides:       bundled(span-lite) = 0.11.0
 Provides:       bundled(cxxurl)
@@ -64,6 +63,11 @@ sed -e 's|@LIBDIR@|%{_libdir}|g' -e 's|@CACHEDIR@|%{_var}/cache/ccache|g' \
     %{SOURCE1} > %{name}.sh
 sed -e 's|@LIBDIR@|%{_libdir}|g' -e 's|@CACHEDIR@|%{_var}/cache/ccache|g' \
     %{SOURCE2} > %{name}.csh
+
+# Create a sysusers.d config file
+cat >ccache.sysusers.conf <<EOF
+g ccache -
+EOF
 
 
 %build
@@ -107,6 +111,8 @@ for n in clang clang++ ; do
 done
 find $RPM_BUILD_ROOT%{_libdir}/ccache -type l | \
     sed -e "s|^$RPM_BUILD_ROOT|%%ghost |" > %{name}-%{version}.compilers
+
+install -m0644 -D ccache.sysusers.conf %{buildroot}%{_sysusersdir}/ccache.conf
 
 
 %check
@@ -217,8 +223,6 @@ done\
 %ccache_trigger -p gcc-xtensa-linux-gnu xtensa-linux-gnu-gcc
 %ccache_trigger -p gcc-c++-xtensa-linux-gnu xtensa-linux-gnu-c++ xtensa-linux-gnu-g++
 
-%pre
-getent group ccache >/dev/null || groupadd -r ccache || :
 
 
 %files -f %{name}-%{version}.compilers
@@ -229,9 +233,13 @@ getent group ccache >/dev/null || groupadd -r ccache || :
 %dir %{_libdir}/ccache/
 %attr(2770,root,ccache) %dir %{_var}/cache/ccache/
 %{_mandir}/man1/ccache.1*
+%{_sysusersdir}/ccache.conf
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.10.2-3
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -19,7 +19,6 @@ BuildRequires:        glibc-devel
 BuildRequires:        meson
 BuildRequires:        python3-docutils
 Requires:             dbus-common
-Requires(pre):        shadow-utils
 
 %description
 dbus-broker is an implementation of a message bus as defined by the D-Bus
@@ -39,6 +38,11 @@ of the installed dbus-broker.
 %prep
 %autosetup -p1
 
+# Create a sysusers.d config file
+cat >dbus-broker.sysusers.conf <<EOF
+u dbus %{dbus_user_id} 'System message bus' - -
+EOF
+
 %build
 %meson -Dselinux=true -Daudit=true -Ddocs=true -Dtests=true -Dsystem-console-users=gdm -Dlinux-4-17=true
 %meson_build
@@ -46,20 +50,10 @@ of the installed dbus-broker.
 %install
 %meson_install
 
+install -m0644 -D dbus-broker.sysusers.conf %{buildroot}%{_sysusersdir}/dbus-broker.conf
+
 %check
 %meson_test
-
-%pre
-# create dbus user and group
-getent group dbus >/dev/null || groupadd -f -g %{dbus_user_id} -r dbus
-if ! getent passwd dbus >/dev/null ; then
-    if ! getent passwd %{dbus_user_id} >/dev/null ; then
-      useradd -r -u %{dbus_user_id} -g %{dbus_user_id} -d '/' -s /sbin/nologin -c "System message bus" dbus
-    else
-      useradd -r -g %{dbus_user_id} -d '/' -s /sbin/nologin -c "System message bus" dbus
-    fi
-fi
-exit 0
 
 %post
 %systemd_post dbus-broker.service
@@ -95,6 +89,7 @@ fi
 %{_mandir}/man1/dbus-broker-launch.1*
 %{_unitdir}/dbus-broker.service
 %{_userunitdir}/dbus-broker.service
+%{_sysusersdir}/dbus-broker.conf
 
 %files tests
 %{_prefix}/lib/dbus-broker/tests/

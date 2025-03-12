@@ -10,7 +10,7 @@
 Name:		svxlink
 Epoch:		2
 Version:	%{main_version}
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Repeater controller and EchoLink (simplex or repeater)
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -158,6 +158,14 @@ then be connected to the reflector using normal logic linking.
 %setup -q -D -T -a 1 -n %{name}-%{main_version}
 %patch 0 -p1
 
+# Create a sysusers.d config file
+cat >svxlink.sysusers.conf <<EOF
+g daemon -
+u svxlink -:daemon 'SvxLink Daemon ' - -
+m svxlink audio
+m svxlink dialout
+EOF
+
 %build
 %cmake -DLOCAL_STATE_DIR=%{_localstatedir} -DWITH_SYSTEMD=1 \
 	-DSYSTEMD_CONFIGURATIONS_FILES_DIR=%{_unitdir} \
@@ -201,18 +209,13 @@ find %{buildroot} -name '*.a' -exec rm -f {} ';'
 
 sed -i -e "s@EnvironmentFile=/etc/default@EnvironmentFile=/etc/sysconfig@g" %{buildroot}%{_unitdir}/*.service
 
+install -m0644 -D svxlink.sysusers.conf %{buildroot}%{_sysusersdir}/svxlink.conf
+
 %ldconfig_scriptlets -n libasync
 
 %ldconfig_scriptlets -n echolib
 
 
-%pre -n svxlink-server
-getent group daemon >/dev/null || groupadd -r daemon
-getent passwd svxlink >/dev/null || \
-useradd -r -g daemon -d / -s /sbin/nologin \
--c "SvxLink Daemon " svxlink
-/usr/sbin/usermod -a -G audio,dialout svxlink >/dev/null 2>&1 || :
-exit 0
 
 %pre -n svxlink-reflector
 getent group daemon >/dev/null || groupadd -r daemon
@@ -328,6 +331,7 @@ exit 0
 %attr(755,svxlink,daemon) %dir %{_localstatedir}/spool/svxlink/qso_recorder
 %attr(755,svxlink,daemon) %dir %{_localstatedir}/spool/svxlink/voice_mail
 %ghost %{_localstatedir}/log/svxlink
+%{_sysusersdir}/svxlink.conf
 
 %files -n svxlink-reflector
 %{_bindir}/svxreflector
@@ -339,6 +343,9 @@ exit 0
 %{_unitdir}/svxreflector.service
 
 %changelog
+* Mon Mar 10 2025 Zbigniew Jędrzejewski-Szmek  <zbyszek@in.waw.pl> - 2:24.02-6
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Feb 27 2025 Björn Esser <besser82@fedoraproject.org> - 2:24.02-5
 - Rebuild (jsoncpp)
 - Add patch to fix build error for fpermissive

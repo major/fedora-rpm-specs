@@ -40,7 +40,6 @@ BuildRequires: libtool
 BuildRequires: cargo-rpm-macros
 BuildRequires: curl-devel
 
-Requires(pre): shadow-utils
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
@@ -56,6 +55,12 @@ package if you need a dns cache for your network.
 
 %prep
 %autosetup -n %{name}-%{version} -p1
+
+# Create a sysusers.d config file
+cat >pdns-recursor.sysusers.conf <<EOF
+u pdns-recursor - 'PowerDNS Recursor user' - -
+EOF
+
 cd settings/rust
 %cargo_prep
 
@@ -100,13 +105,9 @@ sed -i \
     -e 's/# security-poll-suffix=secpoll\.powerdns\.com\./security-poll-suffix=/' \
     %{buildroot}%{_sysconfdir}/%{name}/recursor.conf
 
+install -m0644 -D pdns-recursor.sysusers.conf %{buildroot}%{_sysusersdir}/pdns-recursor.conf
 
-%pre
-getent group pdns-recursor > /dev/null || groupadd -r pdns-recursor
-getent passwd pdns-recursor > /dev/null || \
-    useradd -r -g pdns-recursor -d / -s /sbin/nologin \
-    -c "PowerDNS Recursor user" pdns-recursor
-exit 0
+
 
 
 %post
@@ -139,6 +140,7 @@ exit 0
 %dir %attr(0755,pdns-recursor,pdns-recursor) %{_sharedstatedir}/%{name}/udr
 %doc README
 %license COPYING
+%{_sysusersdir}/pdns-recursor.conf
 
 
 %changelog

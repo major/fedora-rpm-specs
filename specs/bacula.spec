@@ -13,7 +13,7 @@
 
 Name:               bacula
 Version:            15.0.2
-Release:            4%{?dist}
+Release:            5%{?dist}
 Summary:            Cross platform network backup for Linux, Unix, Mac and Windows
 # See LICENSE for details
 # See https://gitlab.com/fedora/legal/fedora-license-data/-/issues/277
@@ -135,7 +135,6 @@ Summary:            Common Bacula files
 Provides:           group(%username) = %uid
 Provides:           user(%username) = %uid
 Requires:           bacula-libs%{?_isa} = %{version}-%{release}
-Requires(pre):      shadow-utils
 Requires(postun):   shadow-utils
 
 %description common
@@ -292,6 +291,11 @@ autoconf -I autoconf/ -o configure autoconf/configure.in
 # Remove execution permissions from files we're packaging as docs later on
 find updatedb -type f | xargs chmod -x
 
+# Create a sysusers.d config file
+cat >bacula.sysusers.conf <<EOF
+u bacula %uid 'Bacula Backup System' /var/spool/bacula -
+EOF
+
 %build
 # Set correct build options for libs3 if not on EL10+ or Fedora:
 %if 0%{?rhel} < 10
@@ -437,6 +441,8 @@ chmod 755 %{buildroot}%{_libdir}/%{name}/*
 chmod 755 %{buildroot}%{_libexecdir}/bacula/*
 chmod 644 %{buildroot}%{_libexecdir}/bacula/btraceback.*
 
+install -m0644 -D bacula.sysusers.conf %{buildroot}%{_sysusersdir}/bacula.conf
+
 %post libs-sql
 /usr/sbin/alternatives --install %{_libdir}/libbaccats.so libbaccats.so %{_libdir}/libbaccats-mysql.so 50
 /usr/sbin/alternatives --install %{_libdir}/libbaccats.so libbaccats.so %{_libdir}/libbaccats-sqlite3.so 40
@@ -462,11 +468,6 @@ if [ "$1" = 0 ]; then
     /usr/sbin/alternatives --remove libbaccats.so %{_libdir}/libbaccats-postgresql.so
 fi
 
-%pre common
-getent group %username >/dev/null || groupadd -g %uid -r %username &>/dev/null || :
-getent passwd %username >/dev/null || useradd -u %uid -r -s /sbin/nologin \
-    -d /var/spool/bacula -M -c 'Bacula Backup System' -g %username %username &>/dev/null || :
-exit 0
 
 %post common
 %firewalld_reload
@@ -535,6 +536,7 @@ exit 0
 %{_prefix}/lib/firewalld/services/bacula-director.xml
 %{_prefix}/lib/firewalld/services/bacula-storage.xml
 %{_sbindir}/btraceback
+%{_sysusersdir}/bacula.conf
 
 %files director
 %doc updatedb examples/sample-query.sql
@@ -677,6 +679,9 @@ exit 0
 %{_libdir}/nagios/plugins/check_bacula
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 15.0.2-5
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 15.0.2-4
 - Add explicit BR: libxcrypt-devel
 

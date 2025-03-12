@@ -7,7 +7,7 @@
 
 Name: rabbitmq-server
 Version: 4.0.7
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: MPL-2.0
 Source0: https://github.com/rabbitmq/rabbitmq-server/releases/download/v%{version}/%{name}_%{version}.orig.tar.xz
 Source1: https://github.com/rabbitmq/rabbitmq-server/releases/download/v%{version}/%{name}_%{version}.orig.tar.xz.asc
@@ -51,7 +51,6 @@ Requires: erlang-tools%{?_isa} >= %{erlang_minver}
 Requires: erlang-xmerl%{?_isa} >= %{erlang_minver}
 Summary: The RabbitMQ server
 # Users and groups
-Requires(pre): shadow-utils
 Requires(pre): systemd
 Requires(post): systemd
 Requires(preun): systemd
@@ -70,6 +69,11 @@ rm -f \
 	deps/amqp_client/src/rabbit_ct_client_helpers.erl \
 	deps/rabbit_common/src/rabbit_ct_broker_helpers.erl \
 	deps/rabbit_common/src/rabbit_ct_helpers.erl
+
+# Create a sysusers.d config file
+cat >rabbitmq-server.sysusers.conf <<EOF
+u rabbitmq - 'RabbitMQ messaging server' %{_localstatedir}/lib/rabbitmq -
+EOF
 
 %build
 #USE_SPECS="true" USE_PROPER_QC="false" make %%{?_smp_mflags}
@@ -115,28 +119,15 @@ install -p -D -m 0644 ./deps/rabbit/docs/rabbitmq.conf.example %{buildroot}%{_sy
 
 install -d %{buildroot}%{_localstatedir}/run/rabbitmq
 install -p -D -m 0644 %{SOURCE5} %{buildroot}%{_prefix}/lib/tmpfiles.d/%{name}.conf
+install -m0644 -D rabbitmq-server.sysusers.conf %{buildroot}%{_sysusersdir}/rabbitmq-server.conf
 
 
 %check
 #make check
 
 
-%pre
-# create rabbitmq group
-if ! getent group rabbitmq >/dev/null; then
-        groupadd -r rabbitmq
-fi
-
-# create rabbitmq user
-if ! getent passwd rabbitmq >/dev/null; then
-        useradd -r -g rabbitmq -d %{_localstatedir}/lib/rabbitmq rabbitmq \
-            -s /sbin/nologin -c "RabbitMQ messaging server"
-fi
-
-
 %post
 %systemd_post %{name}.service
-/bin/systemctl daemon-reload
 
 
 %preun
@@ -146,9 +137,7 @@ fi
 
 # Clean out plugin activation state, both on uninstall and upgrade
 rm -rf %{_localstatedir}/lib/rabbitmq/plugins
-for ext in rel script boot ; do
-    rm -f %{_rabbit_libdir}/lib/rabbitmq_server-%{version}/ebin/rabbit.$ext
-done
+rm -f %{_rabbit_libdir}/lib/rabbitmq_server-%{version}/ebin/rabbit.{rel,script,boot}
 
 
 %postun
@@ -183,9 +172,13 @@ done
 %{_mandir}/man8/rabbitmq-queues.8*
 %{_mandir}/man8/rabbitmq-upgrade.8*
 %{_mandir}/man8/rabbitmqctl.8*
+%{_sysusersdir}/rabbitmq-server.conf
 
 
 %changelog
+* Mon Mar 10 2025 Zbigniew Jedrzejewski-Szmek  <zbyszek@in.waw.pl> - 4.0.7-2
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Feb 28 2025 Robert Scheck <robert@fedoraproject.org> - 4.0.7-1
 - Ver. 4.0.7
 

@@ -1,7 +1,7 @@
 Name:		darkstat
 Summary:	Network traffic analyzer
 Version:	3.0.721
-Release:	9%{?dist}
+Release:	10%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:	GPL-2.0-only
 
@@ -33,6 +33,11 @@ all sorts of useless but interesting statistics.
 %prep
 %autosetup -p1
 
+# Create a sysusers.d config file
+cat >darkstat.sysusers.conf <<EOF
+u darkstat - 'Network traffic analyzer' /var/lib/darkstat -
+EOF
+
 %build
 autoreconf -ifv
 %configure --disable-silent-rules
@@ -43,12 +48,8 @@ autoreconf -ifv
 install -Dpm444 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
 install -Dpm644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/%{name}
 
-%pre
-getent group darkstat >/dev/null || groupadd -r darkstat
-getent passwd darkstat >/dev/null || \
-	useradd -r -g darkstat -d /var/lib/darkstat -s /sbin/nologin \
-	-c "Network traffic analyzer" darkstat
-exit 0
+install -m0644 -D darkstat.sysusers.conf %{buildroot}%{_sysusersdir}/darkstat.conf
+
 
 %post
 %systemd_post %{name}.service
@@ -66,8 +67,12 @@ exit 0
 %attr(0644, darkstat, root) %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
 %{_mandir}/man8/%{name}*
 %{_unitdir}/%{name}.service
+%{_sysusersdir}/darkstat.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.0.721-10
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.721-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

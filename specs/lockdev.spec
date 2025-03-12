@@ -21,7 +21,6 @@ Source0: lockdev-%{version}.%{checkout}.tar.gz
 Patch1: lockdev-euidaccess.patch
 Patch2: 0001-major-and-minor-functions-moved-to-sysmacros.h.patch
 
-Requires(pre): shadow-utils
 Requires(post): glibc
 Requires(postun): glibc
 Requires: systemd
@@ -55,6 +54,11 @@ package contains the development headers.
 %patch -P1 -p1 -b .access
 %patch -P2 -p1
 
+# Create a sysusers.d config file
+cat >lockdev.sysusers.conf <<EOF
+g lock 54
+EOF
+
 %build
 # Generate version information from git release tag
 ./scripts/git-version > VERSION
@@ -87,8 +91,8 @@ cat > ${RPM_BUILD_ROOT}%{_tmpfilesdir}/lockdev.conf <<EOF
 d %{_lockdir} 0775 root lock -
 EOF
 
-%pre
-getent group lock >/dev/null 2>&1 || groupadd -g 54 -r -f lock >/dev/null 2>&1 || :
+install -m0644 -D lockdev.sysusers.conf %{buildroot}%{_sysusersdir}/lockdev.conf
+
 
 %post
 if [ $1 -eq 1 ] ; then
@@ -104,6 +108,7 @@ fi
 %{_tmpfilesdir}/lockdev.conf
 %{_libdir}/*.so.*
 %{_mandir}/man8/*
+%{_sysusersdir}/lockdev.conf
 
 %files devel
 %{_libdir}/*.so

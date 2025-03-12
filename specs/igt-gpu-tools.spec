@@ -1,10 +1,10 @@
-%global gitcommit 45da871dd2684227e93a2fc002b87dfc58bd5fd9
-%global gitdate 20230215
-%global gitrev .%{gitdate}git%(c=%{gitcommit}; echo ${c:0:7})
+#%%global gitcommit 45da871dd2684227e93a2fc002b87dfc58bd5fd9
+#%%global gitdate 20230215
+#%%global gitrev .%%{gitdate}git%%(c=%%{gitcommit}; echo ${c:0:7})
 
 Name:           igt-gpu-tools
-Version:        1.27.1
-Release:        0.7%{?gitrev}%{?dist}
+Version:        1.30
+Release:        0.1%{?gitrev}%{?dist}
 Summary:        Test suite and tools for DRM drivers
 
 License:        MIT
@@ -13,11 +13,9 @@ URL:            https://gitlab.freedesktop.org/drm/igt-gpu-tools
 %if 0%{?gitdate}
 Source0:        igt-gpu-tools-%{gitdate}.tar.bz2
 %else
-Source0:        https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/archive/igt-gpu-tools-%{version}/igt-gpu-tools-igt-gpu-tools-%{version}.tar.bz2
+Source0:        https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/archive/v%{version}/igt-gpu-tools-v%{version}.tar.bz2
 %endif
 Source1:        make-git-snapshot.sh
-
-Patch1: libproc-rebase.patch
 
 %global provobs_version 2.99.917-42.20180618
 Provides:       xorg-x11-drv-intel-devel = %{provobs_version}
@@ -79,7 +77,7 @@ Development files for compiling against certain tools provided by
 igt-gpu-tools, such as i915-perf.
 
 %prep
-%autosetup -c -p1
+%autosetup -n igt-gpu-tools-v%{version} -p1
 
 %build
 %if 0%{?rhel}
@@ -121,10 +119,10 @@ ninja -C %{_vpath_builddir} igt-gpu-tools-doc
 
 %install
 %meson_install
+# Backport of power to igt_power rename from a igt-gpu-tools > 1.30 to avoid too generic power binary shipping
+mv %{buildroot}/%{_bindir}/power %{buildroot}/%{_bindir}/igt_power
 
-%ifarch %{ix86} x86_64
 rm %{buildroot}/%{_libdir}/pkgconfig/intel-gen4asm.pc
-%endif
 
 # Remove the unversioned libigt symlinks
 rm %{buildroot}/%{_libdir}/libigt.so
@@ -132,16 +130,18 @@ rm %{buildroot}/%{_libdir}/libigt.so
 %check
 # The timeout multiplier here is required due to certain tests timing out on
 # koji builders that are under heavy load.
+# Disable tests on non-x86 due to https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/issues/171
+%ifarch %{ix86} x86_64
 %meson_test --timeout-multiplier 16
+%endif
 
 %files
 %license COPYING
-%ifarch %{ix86} x86_64
 %{_bindir}/intel-gen4asm
 %{_bindir}/intel-gen4disasm
-%endif
 %{_libdir}/libigt.so.0
 %{_libdir}/libi915_perf.so.*
+%{_libdir}/libxe_oa.so.1.*
 %{_libexecdir}/igt-gpu-tools/*
 %{_datadir}/igt-gpu-tools/*
 %{_bindir}/code_cov_capture
@@ -187,19 +187,36 @@ rm %{buildroot}/%{_libdir}/libigt.so
 %{_bindir}/amd_hdmi_compliance
 %{_bindir}/msm_dp_compliance
 %{_bindir}/lsgpu
+%{_bindir}/gputop
+%{_bindir}/intel-gfx-fw-info
+%{_bindir}/intel_tiling_detect
+%{_bindir}/igt_power
+%{_bindir}/xe-perf-configs
+%{_bindir}/xe-perf-control
+%{_bindir}/xe-perf-reader
+%{_bindir}/xe-perf-recorder
 %{_mandir}/man1/intel_*.1*
 
 %files devel
 %license COPYING
 %{_includedir}/i915-perf/*
+%{_includedir}/xe-oa/*
 %{_libdir}/pkgconfig/i915-perf.pc
+%{_libdir}/pkgconfig/xe-oa.pc
 %{_libdir}/libi915_perf.so
+%{_libdir}/libxe_oa.so
 
 %files docs
 %license COPYING
 %{_datadir}/gtk-doc/html/igt-gpu-tools/*
 
 %changelog
+* Thu Feb 20 2025 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.30
+- Release 1.30
+- Fixes RHBZ#2343504
+- Fixes RHBZ#2340640
+- Fixes RHBZ#1957543
+
 * Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 1.27.1-0.7.20230215git45da871
 - Rebuild with gsl 2.8
 

@@ -16,14 +16,12 @@ License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Projects/GnomeShell
 Source0:        https://download.gnome.org/sources/gnome-shell/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
+# Replace Epiphany with Firefox in the default favourite apps list
+Patch: gnome-shell-favourite-apps-firefox.patch
+
 # Some users might have a broken PAM config, so we really need this
 # downstream patch to stop trying on configuration errors.
 Patch: 0001-gdm-Work-around-failing-fingerprint-auth.patch
-
-Patch: 0001-status-keyboard-Add-a-catch-around-reload-call.patch
-Patch: 0002-status-keyboard-Load-keyboard-from-system-settings-i.patch
-Patch: 0003-status-keyboard-Use-gnome-desktop-API-for-getting-de.patch
-
 
 %define eds_version 3.45.1
 %define gnome_desktop_version 44.0-7

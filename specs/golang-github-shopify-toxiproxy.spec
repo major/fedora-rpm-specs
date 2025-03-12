@@ -31,7 +31,7 @@ up your project.}
 %global godocs          CHANGELOG.md CREATING_TOXICS.md README.md README-client.md
 
 Name:           %{goname}
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        TCP proxy to simulate network and system conditions for resiliency testing
 
 License:        MIT
@@ -51,7 +51,6 @@ BuildRequires:  golang(github.com/sirupsen/logrus)
 BuildRequires:  golang(github.com/urfave/cli)
 BuildRequires:  golang(golang.org/x/crypto/ssh/terminal)
 BuildRequires:  golang(gopkg.in/tomb.v1)
-Requires(pre):  shadow-utils
 
 %description
 %{common_description}
@@ -67,6 +66,11 @@ Summary:       %{summary}
 %prep
 %goprep
 mv client/README.md README-client.md
+
+# Create a sysusers.d config file
+cat >golang-github-shopify-toxiproxy.sysusers.conf <<EOF
+u toxiproxy - 'Toxiproxy-server account' %{_sharedstatedir}/toxiproxy -
+EOF
 
 %build
 %gobuild -o %{gobuilddir}/bin/toxiproxy-cli     %{goipath}/cli
@@ -93,17 +97,13 @@ install -p -m 0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/logrotate.d/toxiproxy
 install -d -m 0755 %{buildroot}%{_sharedstatedir}/toxiproxy
 install -d -m 0755 %{buildroot}%{_localstatedir}/log/toxiproxy
 
+install -m0644 -D golang-github-shopify-toxiproxy.sysusers.conf %{buildroot}%{_sysusersdir}/golang-github-shopify-toxiproxy.conf
+
 %if %{with check}
 %check
 %gocheck
 %endif
 
-%pre  -n toxiproxy
-getent group toxiproxy >/dev/null || groupadd -r toxiproxy
-getent passwd toxiproxy >/dev/null || \
-    useradd -r -g toxiproxy -d %{_sharedstatedir}/toxiproxy -s /sbin/nologin \
-    -c "Toxiproxy-server account" toxiproxy
-exit 0
 
 %post  -n toxiproxy
 %systemd_post toxiproxy.service
@@ -128,8 +128,12 @@ exit 0
 %attr(0750,toxiproxy,toxiproxy) %dir %{_sharedstatedir}/toxiproxy
 
 %gopkgfiles
+%{_sysusersdir}/golang-github-shopify-toxiproxy.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.1.4-20
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

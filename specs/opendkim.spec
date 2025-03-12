@@ -6,7 +6,7 @@
 Summary: A DomainKeys Identified Mail (DKIM) milter to sign and/or verify mail
 Name: opendkim
 Version: 2.11.0
-Release: 0.41%{?dist}
+Release: 0.42%{?dist}
 License: BSD-3-Clause AND Sendmail-Open-Source-1.1
 URL: http://%{name}.org/
 Source0: https://github.com/trusteddomainproject/OpenDKIM/archive/%{full_version}.tar.gz
@@ -30,7 +30,6 @@ Patch3: opendkim-CVE-2022-48521-fix.patch
 Requires: lib%{name}%{?_isa} = %{version}-%{release}
 BuildRequires: make
 BuildRequires: openssl-devel, libtool, pkgconfig, libbsd, libbsd-devel, opendbx-devel, lua-devel
-Requires(pre): shadow-utils
 
 %{?systemd_requires}
 BuildRequires: systemd
@@ -78,6 +77,12 @@ required for developing applications against libopendkim.
 
 %prep
 %autosetup -p1 -n %{upname}-%{full_version}
+
+# Create a sysusers.d config file
+cat >opendkim.sysusers.conf <<EOF
+u opendkim - '%{upname} Milter' %{_rundir}/%{name} -
+m opendkim mail
+EOF
 
 %build
 autoreconf -iv
@@ -133,12 +138,8 @@ sed -i 's|^%{bigname}DATOWNER="mailnull:mailnull"|%{bigname}DATOWNER="%{name}:%{
 
 chmod 0644 contrib/convert/convert_keylist.sh
 
-%pre
-getent group %{name} >/dev/null || groupadd -r %{name}
-getent passwd %{name} >/dev/null || \
-	useradd -r -g %{name} -G mail -d %{_rundir}/%{name} -s /sbin/nologin \
-	-c "%{upname} Milter" %{name}
-exit 0
+install -m0644 -D opendkim.sysusers.conf %{buildroot}%{_sysusersdir}/opendkim.conf
+
 
 %post
 %systemd_post %{name}.service
@@ -183,6 +184,7 @@ exit 0
 %attr(0755,root,root) %{_sbindir}/%{name}-default-keygen
 
 %attr(0644,root,root) %{_unitdir}/%{name}.service
+%{_sysusersdir}/opendkim.conf
 
 %files -n libopendkim
 %license LICENSE LICENSE.Sendmail
@@ -208,6 +210,9 @@ exit 0
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.11.0-0.42
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 23 2025 Jonathan Wright <jonathan@almalinux.org> - 2.11.0-0.41
 - fix ftbfs with gcc 15 rhbz#2340968, minor spec file cleanup
 

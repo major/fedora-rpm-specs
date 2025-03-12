@@ -1,6 +1,6 @@
 Name:           rssh
 Version:        2.3.4
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Restricted shell for use with OpenSSH, allowing only scp and/or sftp
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD 
@@ -28,7 +28,6 @@ BuildRequires:  cvs
 BuildRequires:  rsync
 BuildRequires:  rdist
 Requires:       openssh-server
-Requires(pre):  shadow-utils
 
 
 %description
@@ -50,6 +49,11 @@ access, you can use rssh to do that. It is a alternative to scponly.
 chmod 644 conf_convert.sh
 chmod 644 mkchroot.sh
 
+# Create a sysusers.d config file
+cat >rssh.sysusers.conf <<EOF
+g rsshusers -
+EOF
+
 
 %build
 %configure
@@ -62,10 +66,9 @@ chmod 644 mkchroot.sh
 # rename it for packaging in rpm
 mv %{buildroot}/%{_sysconfdir}/rssh.conf{.default,}
 
+install -m0644 -D rssh.sysusers.conf %{buildroot}%{_sysusersdir}/rssh.conf
 
-%pre
-getent group rsshusers >/dev/null || groupadd -r rsshusers
-exit 0
+
 
 
 %files
@@ -77,9 +80,13 @@ exit 0
 %config(noreplace) %{_sysconfdir}/rssh.conf
 %attr(750, root, rsshusers) %{_bindir}/rssh
 %attr(4750, root, rsshusers) %{_libexecdir}/rssh_chroot_helper
+%{_sysusersdir}/rssh.conf
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.3.4-32
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

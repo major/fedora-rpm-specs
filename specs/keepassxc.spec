@@ -2,8 +2,8 @@
 # EPEL7 not possible because libgcrypt version is 1.5
 
 Name:           keepassxc
-Version:        2.7.9
-Release:        9%{?dist}
+Version:        2.7.10
+Release:        1%{?dist}
 Summary:        Cross-platform password manager
 # Automatically converted from old format: Boost and BSD and CC0 and GPLv3 and LGPLv2 and LGPLv2+ and LGPLv3+ and Public Domain - review is highly recommended.
 License:        BSL-1.0 AND LicenseRef-Callaway-BSD AND CC0-1.0 AND GPL-3.0-only AND LicenseRef-Callaway-LGPLv2 AND LicenseRef-Callaway-LGPLv2+ AND LGPL-3.0-or-later AND LicenseRef-Callaway-Public-Domain
@@ -43,12 +43,14 @@ Patch0:         xcb.patch
 BuildRequires:  botan2-devel
 BuildRequires:  cmake >= 3.1
 BuildRequires:  desktop-file-utils
-%if %{defined rhel}
+%if %{defined rhel} && 0%{?rhel} < 9
 BuildRequires:  gcc-toolset-12-gcc-c++
 BuildRequires:  gcc-toolset-12-annobin-plugin-gcc
 %else
 BuildRequires:  gcc-c++
 %endif
+# required for check
+BuildRequires:  glibc-langpack-en
 BuildRequires:  libappstream-glib
 BuildRequires:  libargon2-devel
 BuildRequires:  libcurl-devel
@@ -65,22 +67,14 @@ BuildRequires:  libyubikey-devel
 # minizip
 # minizip1.2
 #
-# == f38, f39 ==
-# minizip-ng
-# minizip-compat
-#
 # == fedora >= 40 ==
 # minizip-ng
 # minizip-ng-compat
 # Read https://fedoraproject.org/wiki/Changes/MinizipNGTransition 
 %if 0%{?el8} || 0%{?el9}
-BuildRequires:  minizip1.2-devel
-%endif
-%if %{defined fedora} && 0%{?fedora} >= 38 && 0%{?fedora} < 40
-BuildRequires:  minizip-compat-devel
-%endif
-%if %{defined fedora} && 0%{?fedora} >= 40
-BuildRequires:  minizip-ng-compat-devel
+BuildRequires: minizip1.2-devel
+%else
+BuildRequires: minizip-ng-compat-devel
 %endif
 BuildRequires:  pcsc-lite-devel
 BuildRequires:  qrencode-devel
@@ -90,7 +84,6 @@ BuildRequires:  qt5-qtbase-private-devel
 BuildRequires:  qt5-qtsvg-devel
 BuildRequires:  qt5-qttools-devel >= 5.2
 BuildRequires:  qt5-qtx11extras-devel
-BuildRequires:  ykpers-devel
 BuildRequires:  zlib-devel
 BuildRequires:  rubygem-asciidoctor
 # for gpg verification
@@ -173,11 +166,11 @@ sed -i '/^SingleMainWindow=true/d' ./share/linux/org.keepassxc.KeePassXC.desktop
 %endif
 %cmake \
     %{?flatpak:-DKEEPASSXC_DIST_TYPE=Flatpak} \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DKEEPASSXC_BUILD_TYPE=Release \
     -DWITH_XC_ALL=ON \
-    -DWITH_XC_KEESHARE_SECURE=ON \
-    -DWITH_XC_UPDATECHECK=OFF \
     -DWITH_XC_DOCS=ON \
-    -DCMAKE_BUILD_TYPE=Release
+    -DWITH_XC_UPDATECHECK=OFF
 %cmake_build
  
 %install
@@ -195,6 +188,8 @@ desktop-file-install \
 %find_lang %{name} --with-qt
 
 %check
+# C language fails https://github.com/keepassxreboot/keepassxc/issues/11813
+export LC_ALL=en_US.UTF-8
 # 'testcli' fails with "Subprocess aborted" in Koji and local mock
 %ctest --exclude-regex testcli
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.%{name}.KeePassXC.desktop
@@ -220,6 +215,15 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.%{nam
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Tue Mar 04 2025 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 2.7.10-1
+- Update to 2.7.10 rhbz#2349308
+- Use gcc-toolset only for EL8 https://developers.redhat.com/articles/2024/10/15/rest-peace-gcc-toolset-and-gnu-debugger
+- Workaround issue #11813 depending on glibc-langpack-en and setting LC_ALL
+- Set KEEPASSXC_BUILD_TYPE to Release
+- Drop unused WITH_XC_KEESHARE_SECURE
+- Drop dependency on ykpers-devel as it's not required since 2.7.0 pr#6654
+- Simplify minizip dependency logic
+
 * Wed Jan 22 2025 Jan Grulich <jgrulich@redhat.com> - 2.7.9-9
 - Rebuild (qt5)
 

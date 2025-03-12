@@ -61,7 +61,7 @@ ExcludeArch: s390x
 
 Name:           netdata
 Version:        %{upver}%{?rcver:~%{rcver}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Real-time performance monitoring
 # For a breakdown of the licensing, see license REDISTRIBUTED.md
 License:        GPL-3.0-or-later
@@ -184,8 +184,6 @@ happened, on your systems and applications.
 BuildArch:      noarch
 Summary:        Data files for netdata
 License:        GPL-3.0-or-later
-Requires:       /usr/sbin/useradd
-Requires:       /usr/sbin/groupadd
 Requires:       /usr/bin/systemctl
 
 %description data
@@ -242,6 +240,12 @@ popd
 %if %{with unified_bin_sbin}
 sed -i -e '/set(BINDIR usr\/sbin)/s/sbin/bin/' CMakeLists.txt
 %endif
+
+# Create a sysusers.d config file
+cat >netdata.sysusers.conf <<EOF
+u netdata - 'NetData User' /var/log/%{name} -
+m netdata systemd-journal
+EOF
 
 %build
 %cmake -G Ninja \
@@ -356,12 +360,10 @@ rm -rf %{buildroot}%{_localstatedir}/lib/%{name}/config
 
 cp -a %{buildroot}%{_datadir}/%{name}/web/v1/index.html %{buildroot}%{_datadir}/%{name}/web/index.html
 
+install -m0644 -D netdata.sysusers.conf %{buildroot}%{_sysusersdir}/netdata.conf
+
 #%%check
 # %%ctest
-
-%pre data
-getent group netdata > /dev/null || groupadd -r netdata
-getent passwd netdata > /dev/null || useradd -r -g netdata -G systemd-journal -c "NetData User" -s /sbin/nologin -d /var/log/%{name} netdata
 
 %post
 sed -i -e '/web files group/ s/root/netdata/' /etc/netdata/netdata.conf ||:
@@ -482,6 +484,7 @@ echo "Netdata config should be edited with %{_libexecdir}/%{name}/edit-config"
 %license LICENSE REDISTRIBUTED.md
 %dir %{_datadir}/%{name}
 %attr(-, root, netdata) %{_datadir}/%{name}/web
+%{_sysusersdir}/netdata.conf
 
 %files freeipmi
 %doc README.md
@@ -498,6 +501,9 @@ echo "Netdata config should be edited with %{_libexecdir}/%{name}/edit-config"
 
 
 %changelog
+* Mon Mar 10 2025 Zbigniew Jedrzejewski-Szmek  <zbyszek@in.waw.pl> - 2.2.6-2
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Feb 27 2025 Didier Fabert <didier.fabert@gmail.com> 2.2.6-1
 - Update from upstream
 

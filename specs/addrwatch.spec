@@ -2,7 +2,7 @@
 
 Name:		addrwatch
 Version:	1.0.2
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	Monitoring IPv4/IPv6 and Ethernet address pairings
 
 License:	GPL-3.0-only
@@ -15,7 +15,6 @@ Source2:	%{name}.sysconfig
 BuildRequires:	libpcap-devel, libevent-devel, systemd, mariadb-connector-c-devel, sqlite-devel, gcc
 BuildRequires:	autoconf automake
 BuildRequires: make
-Requires(pre):	shadow-utils
 
 
 %description
@@ -36,6 +35,11 @@ extensions (RFC4941).
 %prep
 %autosetup -p1
 
+# Create a sysusers.d config file
+cat >addrwatch.sysusers.conf <<EOF
+u addrwatch - 'network neighborhoud watch' /var/lib/%{name} -
+EOF
+
 %build
 autoreconf -fiv
 %configure --enable-sqlite3 --enable-mysql LDFLAGS="-I/usr/include/mysql -L/usr/lib64/mysql"
@@ -49,6 +53,8 @@ mkdir -p %{buildroot}%{_sysconfdir}/sysconfig/
 install -p -m 644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/addrwatch
 mkdir -p %{buildroot}/var/lib/addrwatch
 
+install -m0644 -D addrwatch.sysusers.conf %{buildroot}%{_sysusersdir}/addrwatch.conf
+
 %files
 %{_bindir}/addrwatch
 %{_bindir}/addrwatch_stdout
@@ -59,13 +65,8 @@ mkdir -p %{buildroot}/var/lib/addrwatch
 %config(noreplace) %{_sysconfdir}/sysconfig/addrwatch
 %license COPYING
 %attr(-, addrwatch, addrwatch) /var/lib/addrwatch
+%{_sysusersdir}/addrwatch.conf
 
-%pre
-getent group %{name} >/dev/null || groupadd -r %{name}
-getent passwd %{name} >/dev/null || \
-    useradd -r -g %{name} -d /var/lib/%{name} -s /sbin/nologin \
-    -c "network neighborhoud watch" %{name}
-exit 0
 
 %post
 %systemd_post %{name}.service
@@ -77,6 +78,9 @@ exit 0
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.0.2-13
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

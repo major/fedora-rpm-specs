@@ -60,7 +60,7 @@
 
 Name:             avahi
 Version:          0.9%{?rc:~%{rc}}
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Local network service discovery
 License:          LGPL-2.1-or-later AND LGPL-2.0-or-later AND BSD-2-Clause-Views AND MIT
 URL:              http://avahi.org
@@ -69,7 +69,6 @@ Requires:         expat
 Requires:         libdaemon >= 0.11
 # For /usr/bin/dbus-send
 Requires(post):   dbus
-Requires(pre):    shadow-utils
 Requires(pre):    coreutils
 Requires:         %{name}-libs%{?_isa} = %{version}-%{release}
 BuildRequires:    automake
@@ -397,7 +396,6 @@ libraries.
 
 %package autoipd
 Summary:          Link-local IPv4 address automatic configuration daemon (IPv4LL)
-Requires(pre):    shadow-utils
 Requires:         %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description autoipd
@@ -443,6 +441,11 @@ Requires:         %{name}-libs%{?_isa} = %{version}-%{release}
 %autosetup -n %{name}-%{version_no_tilde} -p1
 
 rm -fv docs/INSTALL
+
+# Create a sysusers.d config file
+cat >avahi.sysusers.conf <<EOF
+u avahi 70 'Avahi mDNS/DNS-SD Stack' %{_localstatedir}/run/avahi-daemon -
+EOF
 
 
 %build
@@ -555,6 +558,8 @@ rm -fv %{buildroot}%{_sysconfdir}/rc.d/init.d/avahi-dnsconfd
 
 %find_lang %{name}
 
+install -m0644 -D avahi.sysusers.conf %{buildroot}%{_sysusersdir}/avahi.conf
+
 
 %check
 %if %{with check}
@@ -569,17 +574,6 @@ rm -fv %{buildroot}%{_sysconfdir}/rc.d/init.d/avahi-dnsconfd
   desktop-file-validate %{buildroot}%{_datadir}/applications/avahi-discover.desktop
 %endif
 
-
-%pre
-getent group avahi >/dev/null || groupadd -f -g 70 -r avahi
-if ! getent passwd avahi > /dev/null ; then
-  if ! getent passwd 70 > /dev/null ; then
-    useradd -r -l -u 70 -g avahi -d %{_localstatedir}/run/avahi-daemon -s /sbin/nologin -c "Avahi mDNS/DNS-SD Stack" avahi
-  else
-    useradd -r -l -g avahi -d %{_localstatedir}/run/avahi-daemon -s /sbin/nologin -c "Avahi mDNS/DNS-SD Stack" avahi
-  fi
-fi
-exit 0
 
 %post
 %{?ldconfig}
@@ -654,6 +648,7 @@ exit 0
 %{_datadir}/dbus-1/interfaces/*.xml
 %{_datadir}/dbus-1/system-services/org.freedesktop.Avahi.service
 %{_libdir}/libavahi-core.so.*
+%{_sysusersdir}/avahi.conf
 
 %files autoipd
 %{_sbindir}/avahi-autoipd
@@ -855,6 +850,9 @@ exit 0
 
 
 %changelog
+* Thu Jan 23 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.9~rc2-3
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Michal Sekletar <msekleta@redhat.com> - 0.9~rc2-2
 - Fix previous changelog entry
 

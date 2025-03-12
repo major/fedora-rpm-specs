@@ -73,12 +73,14 @@ Patch42: libdb-1.85-c99.patch
 Patch43: libdb-c99.patch
 Patch44: libdb-configure-c99.patch
 Patch45: libdb-sqlite-c99.patch
+# Fix build with tcl8
+Patch46: libdb-sqlite-tcl8.patch
 
 URL: http://www.oracle.com/database/berkeley-db/
 License: BSD-3-Clause AND LGPL-2.1-only AND Sleepycat
 BuildRequires: gcc gcc-c++
 BuildRequires: perl-interpreter libtool
-BuildRequires: tcl-devel >= %{__tclversion}
+BuildRequires: tcl-devel < 1:9.0
 BuildRequires: chrpath
 BuildRequires: zlib-devel
 BuildRequires: make gdbm-devel lmdb-devel
@@ -285,13 +287,14 @@ popd
 %patch -P43 -p1
 %patch -P44 -p1
 %patch -P45 -p1
+%patch -P46 -p1
 
 cd dist
 ./s_config
 cd ..
 
 %build
-CFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
+CFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing -std=gnu99"
 CFLAGS="$CFLAGS -DSHAREDSTATEDIR='\"%{_sharedstatedir}\"' -DSQLITE_ENABLE_COLUMN_METADATA=1 -DSQLITE_DISABLE_DIRSYNC=1 -DSQLITE_ENABLE_FTS3=3 -DSQLITE_ENABLE_RTREE=1 -DSQLITE_SECURE_DELETE=1 -DSQLITE_ENABLE_UNLOCK_NOTIFY=1 -I../../../lang/sql/sqlite/ext/fts3/"
 export CFLAGS
 
@@ -301,7 +304,7 @@ make -C db.1.85/PORT/%{_os} OORG="$CFLAGS"
 test -d dist/dist-tls || mkdir dist/dist-tls
 # Static link db_dump185 with old db-185 libraries.
 /bin/sh libtool --tag=CC --mode=compile	%{__cc} $RPM_OPT_FLAGS -Idb.1.85/PORT/%{_os}/include -D_REENTRANT -c util/db_dump185.c -o dist/dist-tls/db_dump185.lo
-/bin/sh libtool --tag=LD --mode=link %{__cc} $RPM_LD_FLAGS -o dist/dist-tls/db_dump185 dist/dist-tls/db_dump185.lo db.1.85/PORT/%{_os}/libdb.a
+/bin/sh libtool --tag=CC --mode=link %{__cc} $RPM_LD_FLAGS -o dist/dist-tls/db_dump185 dist/dist-tls/db_dump185.lo db.1.85/PORT/%{_os}/libdb.a
 
 # Update config files to understand aarch64
 for dir in dist lang/sql/sqlite lang/sql/jdbc lang/sql/odbc; do
@@ -313,7 +316,7 @@ pushd dist/dist-tls
 %configure -C \
 	--enable-compat185 --enable-dump185 \
 	--enable-shared --enable-static \
-	--enable-tcl --with-tcl=/usr/%{_lib}/tcl%{__tclversion} \
+	--enable-tcl --with-tcl=/usr/%{_lib} TCLSH_CMD=$(which tclsh%{__tclversion}) \
 	--enable-cxx --enable-sql \
 	--enable-test \
 	--disable-rpath
@@ -329,7 +332,7 @@ perl -pi -e 's/-shared -nostdlib/-shared/' libtool
 %make_build
 
 # Run some quick subsystem checks
-echo "source ../../test/tcl/test.tcl; r env; r mut; r memp" | tclsh
+echo "source ../../test/tcl/test.tcl; r env; r mut; r memp" | tclsh%{__tclversion}
 popd
 
 pushd db_converter-%{_converter_version}

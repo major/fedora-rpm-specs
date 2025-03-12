@@ -5,7 +5,7 @@
 
 Name:       statsd
 Version:    0.8.6
-Release:    11%{?dist}
+Release:    12%{?dist}
 Summary:    A simple, lightweight network daemon to collect metrics over UDP
 License:    MIT
 URL:        https://github.com/statsd/statsd
@@ -25,7 +25,6 @@ BuildRequires:  nodeunit
 BuildRequires:  npm(underscore)
 %endif
 
-Requires(pre):  shadow-utils
 
 BuildRequires:      systemd
 Requires(post):     systemd
@@ -51,6 +50,11 @@ more pluggable backend services (e.g., Graphite).
 # set Graphitehost to localhost in default config
 sed -i 's/graphite\.example\.com/localhost/' exampleConfig.js
 
+# Create a sysusers.d config file
+cat >statsd.sysusers.conf <<EOF
+u statsd - 'statsd daemon user' - -
+EOF
+
 
 %build
 #nothing to do
@@ -71,6 +75,8 @@ cp -pr exampleConfig.js %{buildroot}%{_sysconfdir}/%{name}/config.js
 
 %nodejs_symlink_deps
 
+install -m0644 -D statsd.sysusers.conf %{buildroot}%{_sysusersdir}/statsd.conf
+
 
 %if 0%{?enable_tests}
 %check
@@ -79,12 +85,6 @@ cp -pr exampleConfig.js %{buildroot}%{_sysconfdir}/%{name}/config.js
 %endif
 
 
-%pre
-getent group statsd >/dev/null || groupadd -r statsd
-getent passwd statsd >/dev/null || \
-    useradd -r -g statsd -d / -s /sbin/nologin \
-    -c "statsd daemon user" statsd
-exit 0
 
 
 %post
@@ -108,9 +108,13 @@ exit 0
 %config(noreplace) %{_sysconfdir}/%{name}/config.js
 
 %{_unitdir}/%{name}.service
+%{_sysusersdir}/statsd.conf
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.8.6-12
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.6-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

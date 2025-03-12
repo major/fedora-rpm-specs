@@ -9,11 +9,11 @@
 
 %bcond_without       tests
 
-%global gh_commit    18eb5a4f854dbd1d6512c459b605de2edb5a0b47
+%global gh_commit    b478f34614f934e0291598d0c08cbaba9644bee5
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   comparator
-%global gh_date      2025-02-07
+%global gh_date      2025-03-07
 # Packagist
 %global pk_vendor    sebastian
 %global pk_project   %{gh_project}
@@ -24,8 +24,8 @@
 %global ns_project   Comparator
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        7.0.0
-Release:        2%{?dist}
+Version:        7.0.1
+Release:        1%{?dist}
 Summary:        Compare PHP values for equality, version %{major}
 
 License:        BSD-3-Clause
@@ -124,6 +124,9 @@ exit $ret
 
 
 %changelog
+* Sat Mar  8 2025 Remi Collet <remi@remirepo.net> - 7.0.1-1
+- update to 7.0.1
+
 * Mon Feb 10 2025 Remi Collet <remi@remirepo.net> - 7.0.0-2
 - enable test suite
 

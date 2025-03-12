@@ -8,7 +8,7 @@
 
 Name: libvirt-dbus
 Version: 1.4.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: libvirt D-Bus API binding
 License: LGPL-2.1-or-later
 URL: https://libvirt.org/
@@ -29,13 +29,17 @@ Requires: libvirt-libs >= %{libvirt_version}
 Requires: libvirt-glib >= %{libvirt_glib_version}
 Requires: polkit
 
-Requires(pre): shadow-utils
 
 %description
 This package provides D-Bus API for libvirt
 
 %prep
 %autosetup
+
+# Create a sysusers.d config file
+cat >libvirt-dbus.sysusers.conf <<EOF
+u libvirtdbus - 'Libvirt D-Bus bridge' - -
+EOF
 
 %build
 %meson \
@@ -45,12 +49,8 @@ This package provides D-Bus API for libvirt
 %install
 %meson_install
 
-%pre
-getent group %{system_user} >/dev/null || groupadd -r %{system_user}
-getent passwd %{system_user} >/dev/null || \
-    useradd -r -g %{system_user} -d / -s /sbin/nologin \
-    -c "Libvirt D-Bus bridge" %{system_user}
-exit 0
+install -m0644 -D libvirt-dbus.sysusers.conf %{buildroot}%{_sysusersdir}/libvirt-dbus.conf
+
 
 %post
 %systemd_post %{name}.service
@@ -76,8 +76,12 @@ exit 0
 %{_datadir}/dbus-1/interfaces/org.libvirt.*.xml
 %{_datadir}/polkit-1/rules.d/libvirt-dbus.rules
 %{_mandir}/man8/libvirt-dbus.8*
+%{_sysusersdir}/libvirt-dbus.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.4.1-7
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

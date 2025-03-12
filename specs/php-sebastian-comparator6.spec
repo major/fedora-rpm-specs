@@ -10,11 +10,11 @@
 # disabled until phpunit11 available
 %bcond_without       tests
 
-%global gh_commit    d4e47a769525c4dd38cea90e5dcd435ddbbc7115
+%global gh_commit    24b8fbc2c8e201bb1308e7b05148d6ab393b6959
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   comparator
-%global gh_date      2025-01-06
+%global gh_date      2025-03-07
 # Packagist
 %global pk_vendor    sebastian
 %global pk_project   %{gh_project}
@@ -25,8 +25,8 @@
 %global ns_project   Comparator
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        6.3.0
-Release:        2%{?dist}
+Version:        6.3.1
+Release:        1%{?dist}
 Summary:        Compare PHP values for equality, version %{major}
 
 License:        BSD-3-Clause
@@ -125,6 +125,9 @@ exit $ret
 
 
 %changelog
+* Sat Mar  8 2025 Remi Collet <remi@remirepo.net> - 6.3.1-1
+- update to 6.3.1
+
 * Tue Feb  4 2025 Remi Collet <remi@remirepo.net> - 6.3.0-2
 - enable test suite
 

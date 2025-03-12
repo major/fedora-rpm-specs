@@ -9,8 +9,6 @@ BuildRequires: libcurl-devel
 BuildRequires: libicu-devel
 BuildRequires: libzstd-devel
 BuildRequires: perl-podlators
-Requires(pre): %{_sbindir}/useradd
-Requires(pre): %{_sbindir}/groupadd
 Requires: logrotate
 
 Requires(post): systemd
@@ -20,7 +18,7 @@ BuildRequires: systemd
 
 Name: tarantool
 Version: 2.4.2.68
-Release: 21%{?dist}
+Release: 22%{?dist}
 Summary: In-Memory Database
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
@@ -74,6 +72,11 @@ C and Lua/C modules.
 %setup -q -n %{name}-%{version}
 %patch -P0 -p1
 
+# Create a sysusers.d config file
+cat >tarantool.sysusers.conf <<EOF
+u tarantool - 'Tarantool Server' /var/lib/tarantool -
+EOF
+
 %build
 # RHBZ #1301720: SYSCONFDIR an LOCALSTATEDIR must be specified explicitly
 %cmake . -DCMAKE_BUILD_TYPE=RelWithDebInfo \
@@ -95,13 +98,11 @@ C and Lua/C modules.
 # %%doc and %%license macroses are used instead
 rm -rf %{buildroot}%{_datarootdir}/doc/tarantool/
 
+install -m0644 -D tarantool.sysusers.conf %{buildroot}%{_sysusersdir}/tarantool.conf
+
 %check
 %ctest
 
-%pre
-/usr/sbin/groupadd -r tarantool > /dev/null 2>&1 || :
-/usr/sbin/useradd -M -N -g tarantool -r -d /var/lib/tarantool -s /sbin/nologin\
-    -c "Tarantool Server" tarantool > /dev/null 2>&1 || :
 
 %post
 %tmpfiles_create tarantool.conf
@@ -134,6 +135,7 @@ rm -rf %{buildroot}%{_datarootdir}/doc/tarantool/
 %config(noreplace) %{_sysconfdir}/logrotate.d/tarantool
 %{_unitdir}/tarantool@.service
 %{_tmpfilesdir}/tarantool.conf
+%{_sysusersdir}/tarantool.conf
 
 %files devel
 %dir %{_includedir}/tarantool
@@ -146,6 +148,9 @@ rm -rf %{buildroot}%{_datarootdir}/doc/tarantool/
 %{_includedir}/tarantool/module.h
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.4.2.68-22
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2.68-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

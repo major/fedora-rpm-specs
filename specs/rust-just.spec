@@ -4,7 +4,7 @@
 %global crate just
 
 Name:           rust-just
-Version:        1.39.0
+Version:        1.40.0
 Release:        %autorelease
 Summary:        Just a command runner
 
@@ -13,6 +13,7 @@ URL:            https://crates.io/crates/just
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Relax 'dirs' dependency from 6.0.0 to >=5,<7
+# * Relax 'strum' dependency from 0.27.1 to >=0.26,<0.28
 Patch:          just-fix-metadata.diff
 # * Exclude unwanted files
 Patch2:         just-exclude-unwanted-files.patch

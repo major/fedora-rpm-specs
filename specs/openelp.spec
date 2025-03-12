@@ -1,6 +1,6 @@
 Name:           openelp
 Version:        0.9.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Open Source EchoLink Proxy
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -15,7 +15,6 @@ BuildRequires:  gcc
 BuildRequires:  openssl-devel
 BuildRequires:  pkgconfig(libpcre2-8)
 BuildRequires:  systemd
-Requires(pre):  shadow-utils
 Requires(post): firewalld-filesystem
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
@@ -45,6 +44,11 @@ which utilizes OpenELP, and Open Source EchoLink Proxy.
 # Remove bundled md5, use OpenSSL instead
 rm src/md5.c
 
+# Create a sysusers.d config file
+cat >openelp.sysusers.conf <<EOF
+u openelp - 'EchoLink Proxy' - -
+EOF
+
 
 %build
 %cmake3 \
@@ -71,16 +75,13 @@ sed -i 's|\(ExecStart=.*openelpd\).*|\1 \$OPTIONS %{_sysconfdir}/ELProxy.conf|' 
 # Manually install the firewalld service
 install -m0644 -p -D doc/%{name}.xml %{buildroot}%{_prefix}/lib/firewalld/services/%{name}.xml
 
+install -m0644 -D openelp.sysusers.conf %{buildroot}%{_sysusersdir}/openelp.conf
+
 
 %check
 %ctest3
 
 
-%pre
-getent group openelp >/dev/null || groupadd -r openelp
-getent passwd openelp >/dev/null || \
-    useradd -r -g openelp -d / -s /sbin/nologin \
-    -c "EchoLink Proxy" openelp
 
 %post
 %{?ldconfig}
@@ -105,6 +106,7 @@ getent passwd openelp >/dev/null || \
 %attr(0640, openelp, root) %config(noreplace) %{_sysconfdir}/ELProxy.conf
 %config(noreplace) %{_sysconfdir}/sysconfig/openelpd
 %{_unitdir}/%{name}.service
+%{_sysusersdir}/openelp.conf
 
 %files devel
 %doc %{?__cmake3_builddir}%{!?__cmake3_builddir:%{__cmake_builddir}}/doc/html
@@ -113,6 +115,9 @@ getent passwd openelp >/dev/null || \
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.9.3-5
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

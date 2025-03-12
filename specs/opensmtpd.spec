@@ -8,7 +8,7 @@
 Summary:	Free implementation of the server-side SMTP protocol as defined by RFC 5321
 Name:		opensmtpd
 Version:	7.6.0p1
-Release:	4%{?dist}
+Release:	5%{?dist}
 
 License:	ISC
 URL:		http://www.opensmtpd.org/
@@ -40,7 +40,6 @@ Requires(preun):	systemd
 Requires(postun):	systemd
 BuildRequires:		systemd
 
-Requires(pre):		shadow-utils
 
 %if "%{_sbindir}" == "%{_bindir}"
 # Compat symlinks for Requires in other packages.
@@ -68,6 +67,12 @@ back to Sendmail as a default mail daemon.
 
 %prep
 %autosetup
+
+# Create a sysusers.d config file
+cat >opensmtpd.sysusers.conf <<EOF
+u smtpd - 'opensmtpd privsep user' %{_localstatedir}/empty/smtpd -
+u smtpq - 'opensmtpd queue user' %{_localstatedir}/empty/smtpd -
+EOF
 
 %build
 export CFLAGS="%{optflags}"
@@ -146,14 +151,8 @@ ln -s %{_sysconfdir}/aliases %{buildroot}/%{_sysconfdir}/opensmtpd/aliases
 # set mbox delivery method
 sed -i -e 's|^action "local" maildir|action "local" mbox|g' %{buildroot}/%{_sysconfdir}/opensmtpd/smtpd.conf
 
-%pre
-getent group smtpd &>/dev/null || %{_sbindir}/groupadd -r smtpd
-getent group smtpq &>/dev/null || %{_sbindir}/groupadd -r smtpq
-getent passwd smtpd &>/dev/null || \
-    %{_sbindir}/useradd -r -g smtpd -s /sbin/nologin -c "opensmtpd privsep user" -d %{_localstatedir}/empty/smtpd smtpd
-getent passwd smtpq &>/dev/null || \
-    %{_sbindir}/useradd -r -g smtpq -s /sbin/nologin -c "opensmtpd queue user" -d %{_localstatedir}/empty/smtpd smtpq
-exit 0
+install -m0644 -D opensmtpd.sysusers.conf %{buildroot}%{_sysusersdir}/opensmtpd.conf
+
 
 %post
 %systemd_post %{name}.service
@@ -254,9 +253,13 @@ exit 0
 %ghost %{_mandir}/man8/sendmail.8.gz
 %ghost %{_mandir}/man8/smtp.8.gz
 %ghost %{_mandir}/man8/smtpd.8.gz
+%{_sysusersdir}/opensmtpd.conf
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 7.6.0p1-5
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 7.6.0p1-4
 - Add explicit BR: libxcrypt-devel
 

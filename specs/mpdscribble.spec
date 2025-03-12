@@ -17,7 +17,6 @@ BuildRequires: libmpdclient-devel >= 2.2
 BuildRequires: meson
 BuildRequires: systemd-devel
 
-Requires(pre): shadow-utils
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
@@ -28,6 +27,11 @@ about tracks being played to Last.fm (formerly audioscrobbler)
 
 %prep
 %autosetup -S git_am
+
+# Create a sysusers.d config file
+cat >mpdscribble.sysusers.conf <<EOF
+u mpdscribble - 'Mpdscribble' %{_localstatedir}/cache/%{name} -
+EOF
 
 %build
 %meson
@@ -49,11 +53,8 @@ install -d %{buildroot}%{_localstatedir}/cache/%{name}
 # Remove installed docs (this will mess with versione/unversioned docdirs)
 rm -rf %{buildroot}%{_defaultdocdir}
 
-%pre
-getent group %{name} >/dev/null || groupadd -r %{name}
-getent passwd %{name} >/dev/null || \
-useradd -r -g %{name} -d %{_localstatedir}/cache/%{name} -s /sbin/nologin \
--c "Mpdscribble" %{name} 2>/dev/null || :
+install -m0644 -D mpdscribble.sysusers.conf %{buildroot}%{_sysusersdir}/mpdscribble.conf
+
 
 %post
 %systemd_post %{name}.service
@@ -72,6 +73,7 @@ useradd -r -g %{name} -d %{_localstatedir}/cache/%{name} -s /sbin/nologin \
 %{_tmpfilesdir}/%{name}.conf
 %attr(0755,%{name},%{name}) %dir %{_localstatedir}/run/%{name}
 %attr(0755,%{name},%{name}) %dir %{_localstatedir}/cache/%{name}
+%{_sysusersdir}/mpdscribble.conf
 
 %changelog
 %autochangelog

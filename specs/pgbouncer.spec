@@ -1,6 +1,6 @@
 Name:		pgbouncer
 Version:	1.23.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Lightweight connection pooler for PostgreSQL
 # Automatically converted from old format: MIT and BSD - review is highly recommended.
 License:	LicenseRef-Callaway-MIT AND LicenseRef-Callaway-BSD
@@ -27,7 +27,6 @@ Requires:	logrotate
 Requires:	python3-psycopg2
 Requires:	c-ares >= 1.11
 
-Requires(pre):	shadow-utils
 
 %description
 pgbouncer is a lightweight connection pooler for PostgreSQL and uses libevent
@@ -37,6 +36,11 @@ for low-level socket handling.
 %autosetup -p0
 
 sed -i -e 's|/usr/bin/env python.*|%__python3|g' etc/mkauth.py
+
+# Create a sysusers.d config file
+cat >pgbouncer.sysusers.conf <<EOF
+u pgbouncer - 'PgBouncer Server' - -
+EOF
 
 %build
 # Building with systemd flag tries to enable notify support:
@@ -84,11 +88,8 @@ install -p -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
 # Let RPM pick up docs in the files section
 rm -fr %{buildroot}%{_docdir}/%{name}
 
-%pre
-getent group %{name} >/dev/null || groupadd -r %{name} &>/dev/null || :
-getent passwd %{name} >/dev/null || useradd -r -s /sbin/nologin \
-    -d / -M -c "PgBouncer Server" -g %{name} %{name} &>/dev/null || :
-exit 0
+install -m0644 -D pgbouncer.sysusers.conf %{buildroot}%{_sysusersdir}/pgbouncer.conf
+
 
 %post
 %systemd_post %{name}.service
@@ -117,8 +118,12 @@ exit 0
 %ghost %{_rundir}/%{name}/%{name}.pid
 %{_tmpfilesdir}/%{name}.conf
 %{_unitdir}/%{name}.service
+%{_sysusersdir}/pgbouncer.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.23.1-4
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.23.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

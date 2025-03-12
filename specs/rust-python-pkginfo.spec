@@ -12,6 +12,9 @@ Summary:        Parse Python package metadata from sdist and bdists and etc
 License:        MIT
 URL:            https://crates.io/crates/python-pkginfo
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Allow mailparse 0.16: https://github.com/PyO3/python-pkginfo-rs/pull/24
+Patch:          python-pkginfo-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

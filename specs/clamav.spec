@@ -26,7 +26,7 @@
 Summary:    End-user tools for the Clam Antivirus scanner
 Name:       clamav
 Version:    1.4.2
-Release:    1%{?dist}
+Release:    2%{?dist}
 License:    %{?with_unrar:proprietary}%{!?with_unrar:GPL-2.0-only}
 URL:        https://www.clamav.net/
 %if %{with unrar}
@@ -161,7 +161,6 @@ Summary:    Filesystem structure for clamav
 # Prevent version mix
 Conflicts:  %{name} < %{version}-%{release}
 Conflicts:  %{name} > %{version}-%{release}
-Requires(pre):  shadow-utils
 BuildArch:  noarch
 
 %description filesystem
@@ -295,7 +294,6 @@ Requires:   data(clamav)
 Requires:   clamav-filesystem = %{version}-%{release}
 Requires:   clamav-lib        = %{version}-%{release}
 Requires:   coreutils
-Requires(pre):  shadow-utils
 # This is still used by clamsmtp and exim-clamav
 Provides: clamav-server = %{version}-%{release}
 Provides: clamav-scanner-systemd = %{version}-%{release}
@@ -316,9 +314,9 @@ Summary:    Milter module for the Clam Antivirus scanner
 #Requires: clamd = %%{version}-%%{release}
 #Requires: /usr/sbin/sendmail
 Requires:   clamav-filesystem = %{version}-%{release}
-Requires(pre):  shadow-utils
 Provides: clamav-milter-systemd = %{version}-%{release}
 Obsoletes: clamav-milter-systemd < %{version}-%{release}
+Requires: group(clamscan)
 
 %description milter
 This package contains files which are needed to run the clamav-milter.
@@ -356,6 +354,21 @@ install -p -m0644 %{SOURCE300} clamav-milter/
 mkdir -p libclamunrar{,_iface}
 %{!?with_unrar:touch libclamunrar/{Makefile.in,all,install}}
 
+# Create sysusers.d config files
+cat >clamav.sysusers.conf <<EOF
+g virusgroup -
+u clamupdate - 'Clamav database update user' %{homedir} -
+m clamupdate virusgroup
+EOF
+cat >clamd.sysusers.conf <<EOF
+u clamscan - 'Clamav scanner user' - -
+m clamscan virusgroup
+EOF
+cat >clamav-milter.sysusers.conf <<EOF
+u clamilt - 'Clamav milter user' %{_rundir}/clamav-milter -
+m clamilt virusgroup
+m clamilt clamscan
+EOF
 
 %if 0%{?fedora} || 0%{?rhel} >= 9
 %generate_buildrequires
@@ -364,7 +377,6 @@ mkdir -p libclamunrar{,_iface}
 cd libclamav_rust
 %cargo_generate_buildrequires
 %endif
-
 
 %build
 # add -Wl,--as-needed if not exist
@@ -483,6 +495,10 @@ install -m 0644 %SOURCE1 %{buildroot}%{_includedir}/clamav-types.h
 # TODO: Evaluate using upstream's unit with clamav-daemon.socket
 rm %{buildroot}%{_unitdir}/clamav-daemon.*
 
+install -m0644 -D clamav.sysusers.conf %{buildroot}%{_sysusersdir}/clamav.conf
+install -m0644 -D clamd.sysusers.conf %{buildroot}%{_sysusersdir}/clamd.conf
+install -m0644 -D clamav-milter.sysusers.conf %{buildroot}%{_sysusersdir}/clamav-milter.conf
+
 
 %check
 %ifarch s390x
@@ -516,25 +532,6 @@ do
     [ -f $f -a $f -nt $cvd ] && rm -f $cvd || :
 done
 
-
-%pre filesystem
-getent group %{updateuser} >/dev/null || groupadd -r %{updateuser}
-getent passwd %{updateuser} >/dev/null || \
-    useradd -r -g %{updateuser} -d %{homedir} -s /sbin/nologin \
-    -c "Clamav database update user" %{updateuser}
-getent group virusgroup >/dev/null || groupadd -r virusgroup
-usermod %{updateuser} -a -G virusgroup
-exit 0
-
-
-%pre -n clamd
-getent group %{scanuser} >/dev/null || groupadd -r %{scanuser}
-getent passwd %{scanuser} >/dev/null || \
-    useradd -r -g %{scanuser} -d / -s /sbin/nologin \
-    -c "Clamav scanner user" %{scanuser}
-usermod %{scanuser} -a -G virusgroup
-exit 0
-
 %post -n clamd
 # Point to the new service unit
 [ -L /etc/systemd/system/multi-user.target.wants/clamd@scan.service ] &&
@@ -546,20 +543,6 @@ exit 0
 
 %postun -n clamd
 %systemd_postun_with_restart clamd@scan.service
-
-
-%triggerin milter -- clamav-scanner
-# Add the milteruser to the scanuser group; this is required when
-# milter and clamd communicate through local sockets
-/usr/sbin/groupmems -g %{scanuser} -a %{milteruser} &>/dev/null || :
-
-%pre milter
-getent group %{milteruser} >/dev/null || groupadd -r %{milteruser}
-getent passwd %{milteruser} >/dev/null || \
-    useradd -r -g %{milteruser} -d %{_rundir}/clamav-milter -s /sbin/nologin \
-    -c "Clamav Milter user" %{milteruser}
-usermod %{milteruser} -a -G virusgroup
-exit 0
 
 %post milter
 %systemd_post clamav-milter.service
@@ -627,6 +610,7 @@ exit 0
 %dir %{_sysconfdir}/clamd.d
 # Used by both clamd, clamdscan, and clamonacc
 %config(noreplace) %{_sysconfdir}/clamd.d/scan.conf
+%{_sysusersdir}/clamav.conf
 
 
 %files data
@@ -666,6 +650,7 @@ exit 0
 %{_sbindir}/clamd
 %{_unitdir}/clamd@.service
 %{_tmpfilesdir}/clamd.scan.conf
+%{_sysusersdir}/clamd.conf
 
 
 %files milter
@@ -676,9 +661,13 @@ exit 0
 %dir %{_sysconfdir}/mail
 %config(noreplace) %{_sysconfdir}/mail/clamav-milter.conf
 %{_tmpfilesdir}/clamav-milter.conf
+%{_sysusersdir}/clamav-milter.conf
 
 
 %changelog
+* Sat Feb  8 2025 Zbigniew Jedrzejewski-Szmek <zbyszek@in.waw.pl> - 1.4.2-2
+- Add sysusers.d config files to allow rpm to create users/groups automatically
+
 * Thu Jan 23 2025 Orion Poplawski <orion@nwra.com> - 1.4.2-1
 - Update to 1.4.2
 

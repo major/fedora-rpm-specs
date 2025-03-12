@@ -6,7 +6,7 @@
 #######################
 Name:           condor
 Version:        23.9.6
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        HTCondor: High Throughput Computing
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -301,12 +301,6 @@ HTCondor V9 to V10 check for for known breaking changes:
 %files upgrade-checks
 %_bindir/condor_upgrade_check
 
-%pre
-getent group %{name} >/dev/null || groupadd -r %{name}
-getent passwd %{name} >/dev/null || \
-  useradd -r -g condor -d %{_sharedstatedir}/%{name} -s /sbin/nologin \
-    -c "Owner of HTCondor Daemons" %{name}
-exit 0
 
 %prep
 %setup -q -n %{name}-%{version}
@@ -315,6 +309,13 @@ exit 0
 
 # fix errant execute permissions
 find src -perm /a+x -type f -name "*.[Cch]" -exec chmod a-x {} \;
+
+# Create a sysusers.d config file.
+# uid and gid 64 is reserved:
+# https://src.fedoraproject.org/rpms/setup/blob/rawhide/f/uidgid#_75
+cat >condor.sysusers.conf <<EOF
+u condor 64 'Owner of HTCondor Daemons' %{_sharedstatedir}/%{name} -
+EOF
 
 %build
 make -C docs man
@@ -455,6 +456,8 @@ for batch_system in condor kubernetes lsf nqs pbs sge slurm; do
     ln -s ../.../../etc/blahp/${batch_system}_local_submit_attributes.sh \
         %{buildroot}%{_libexecdir}/blahp/${batch_system}_local_submit_attributes.sh
 done
+
+install -m0644 -D condor.sysusers.conf %{buildroot}%{_sysusersdir}/condor.conf
 
 #################
 %files
@@ -805,6 +808,7 @@ done
 ####### classads files #######
 %defattr(-,root,root,-)
 %_libdir/libclassad.so.*
+%{_sysusersdir}/condor.conf
 
 #################
 %files devel
@@ -939,6 +943,9 @@ done
 /sbin/ldconfig
 
 %changelog
+* Mon Mar 10 2025 Zbigniew Jędrzejewski-Szmek  <zbyszek@in.waw.pl> - 23.9.6-6
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Mar 07 2025 Tim Theisen <ttheisen@fedoraproject.org> - 23.9.6-5
 - Account for unified /usr/bin and /usr/sbin after Fedora 41
 

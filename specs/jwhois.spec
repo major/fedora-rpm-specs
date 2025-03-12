@@ -2,7 +2,7 @@
 
 Name: jwhois
 Version: 4.0
-Release: 80%{?dist}
+Release: 81%{?dist}
 URL: http://www.gnu.org/software/jwhois/
 Source0: ftp://ftp.gnu.org/gnu/jwhois/jwhois-%{version}.tar.gz
 Source1: https://raw.githubusercontent.com/robert-scheck/jwhois/2bd561e06ca37cf6c2ef9f0a2e957e09f58e6972/example/jwhois.conf
@@ -50,6 +50,11 @@ cp -pf %{SOURCE1} example/jwhois.conf
 
 autoreconf
 
+# Create a sysusers.d config file
+cat >jwhois.sysusers.conf <<EOF
+g jwhois -
+EOF
+
 %build
 %if %{with_cache}
 %configure --enable-sgid --localstatedir=%{_localstatedir}/cache/jwhois
@@ -79,6 +84,8 @@ touch $RPM_BUILD_ROOT%{_bindir}/whois
 chmod 755 $RPM_BUILD_ROOT%{_bindir}/whois
 touch $RPM_BUILD_ROOT%{_mandir}/man1/whois.1
 
+install -m0644 -D jwhois.sysusers.conf %{buildroot}%{_sysusersdir}/jwhois.conf
+
 %files -f %{name}.lang
 %doc AUTHORS COPYING ChangeLog NEWS README TODO
 %if %{with_cache}
@@ -94,10 +101,10 @@ touch $RPM_BUILD_ROOT%{_mandir}/man1/whois.1
 %ghost %verify(not md5 size mtime) %{_mandir}/man1/whois.1.gz
 %{_infodir}/jwhois.info.*
 %config(noreplace) %{_sysconfdir}/jwhois.conf
+%{_sysusersdir}/jwhois.conf
 
 %if %{with_cache}
 %pre
-getent group jwhois >/dev/null || groupadd -r jwhois || :
 %endif
 
 %post
@@ -125,6 +132,9 @@ if [ $1 = 0 ]; then
 fi
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.0-81
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Tue Jan 21 2025 Vitezlsav Crhonek <vcrhonek@redhat.com> - 4.0-80
 - Fix FTBFS with GCC 15
 

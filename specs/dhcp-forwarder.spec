@@ -1,7 +1,7 @@
 Summary: DHCP relay agent
 Name: dhcp-forwarder
 Version: 0.11
-Release: 23%{?dist}
+Release: 24%{?dist}
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License: GPL-3.0-only
 URL: http://www.nongnu.org/dhcp-fwd/
@@ -33,6 +33,11 @@ ISC's DHCP, but has the following important features:
 %prep
 %setup -q
 
+# Create a sysusers.d config file
+cat >dhcp-forwarder.sysusers.conf <<EOF
+u dhcp-fwd - 'DHCP Forwarder user' %{_sharedstatedir}/dhcp-fwd -
+EOF
+
 %build
 %configure \
  --enable-release \
@@ -50,15 +55,11 @@ make DESTDIR=%{buildroot} install
 install %{SOURCE2} %{buildroot}/%{_unitdir}/dhcp-forwarder.service
 install contrib/dhcp-fwd.conf %{buildroot}/%{_sysconfdir}
 
+install -m0644 -D dhcp-forwarder.sysusers.conf %{buildroot}%{_sysusersdir}/dhcp-forwarder.conf
+
 %check
 make check
 
-%pre
-getent group dhcp-fwd >/dev/null || groupadd -r dhcp-fwd
-getent passwd dhcp-fwd >/dev/null || \
-    useradd -r -g dhcp-fwd -d %{_sharedstatedir}/dhcp-fwd -s /sbin/nologin \
-    -c "DHCP Forwarder user" dhcp-fwd
-exit 0
 
 %files
 %doc AUTHORS COPYING ChangeLog NEWS README
@@ -67,6 +68,7 @@ exit 0
 %_mandir/*/*
 %attr(0644,root,root) %{_unitdir}/dhcp-forwarder.service
 %attr(0755,root,root) %config(noreplace) %{_sysconfdir}/dhcp-fwd.conf
+%{_sysusersdir}/dhcp-forwarder.conf
 
 %post
 %systemd_post dhcp-forwarder.service
@@ -78,6 +80,9 @@ exit 0
 %systemd_postun_with_restart dhcp-forwarder.service
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.11-24
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

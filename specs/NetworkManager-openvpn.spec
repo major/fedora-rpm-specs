@@ -8,7 +8,7 @@ Summary:   NetworkManager VPN plugin for OpenVPN
 Name:      NetworkManager-openvpn
 Epoch:     1
 Version:   1.12.0
-Release:   3%{?dist}
+Release:   4%{?dist}
 License:   GPL-2.0-or-later
 URL:       http://www.gnome.org/projects/NetworkManager/
 
@@ -31,7 +31,6 @@ BuildRequires: libnma-gtk4-devel
 Requires: dbus
 Requires: NetworkManager >= 1:1.46.2
 Requires: openvpn
-Requires(pre): shadow-utils
 Obsoletes: NetworkManager-openvpn < 1:0.9.8.2-3
 
 
@@ -59,6 +58,11 @@ the OpenVPN server with NetworkManager (GNOME files).
 %prep
 %autosetup -p1
 
+# Create a sysusers.d config file
+cat >networkmanager-openvpn.sysusers.conf <<EOF
+u nm-openvpn - 'Default user for running openvpn spawned by NetworkManager' - -
+EOF
+
 
 %build
 if [ ! -f configure ]; then
@@ -78,16 +82,9 @@ make %{?_smp_mflags}
 make check
 
 
-%pre
-getent group nm-openvpn >/dev/null || groupadd -r nm-openvpn
-getent passwd nm-openvpn >/dev/null || \
-    useradd -r -g nm-openvpn -d / -s /sbin/nologin \
-    -c "Default user for running openvpn spawned by NetworkManager" nm-openvpn
-exit 0
-
-
 %install
 make install DESTDIR=%{buildroot} INSTALL="%{__install} -p"
+install -m0644 -D networkmanager-openvpn.sysusers.conf %{buildroot}%{_sysusersdir}/networkmanager-openvpn.conf
 
 rm -f %{buildroot}%{_libdir}/NetworkManager/lib*.la
 
@@ -101,6 +98,7 @@ rm -f %{buildroot}%{_libdir}/NetworkManager/lib*.la
 %{_libexecdir}/nm-openvpn-service-openvpn-helper
 %doc AUTHORS README
 %license COPYING
+%{_sysusersdir}/networkmanager-openvpn.conf
 
 
 %files -n NetworkManager-openvpn-gnome
@@ -114,6 +112,9 @@ rm -f %{buildroot}%{_libdir}/NetworkManager/lib*.la
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:1.12.0-4
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.12.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

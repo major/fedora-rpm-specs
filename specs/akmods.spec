@@ -68,7 +68,6 @@ Suggests:       (kernel-devel if kernel-core)
 Suggests:       (kernel-rt-devel if kernel-rt)
 
 # we create a special user that used by akmods to build kmod packages
-Requires(pre):  shadow-utils
 
 # systemd unit requirements.
 BuildRequires:  systemd
@@ -93,6 +92,11 @@ after they were installed.
 %prep
 %setup -q -c -T
 cp -p %{SOURCE9} %{SOURCE10} %{SOURCE15} .
+
+# Create a sysusers.d config file
+cat >akmods.sysusers.conf <<EOF
+u akmods - 'User is used by akmods to build akmod packages' /var/cache/akmods/ -
+EOF
 
 
 %build
@@ -143,13 +147,9 @@ help2man -N -i %{SOURCE3} -s 1 \
     -o %{buildroot}%{_mandir}/man1/akmodsbuild.1 \
        %{buildroot}%{_sbindir}/akmodsbuild
 
+install -m0644 -D akmods.sysusers.conf %{buildroot}%{_sysusersdir}/akmods.conf
 
-%pre
-# create group and user
-getent group akmods >/dev/null || groupadd -r akmods
-getent passwd akmods >/dev/null || \
-useradd -r -g akmods -d /var/cache/akmods/ -s /sbin/nologin \
-    -c "User is used by akmods to build akmod packages" akmods
+
 
 %post
 %systemd_post akmods.service
@@ -197,6 +197,7 @@ useradd -r -g akmods -d /var/cache/akmods/ -s /sbin/nologin \
 %dir %attr(-,akmods,akmods) %{_localstatedir}/cache/akmods
 %dir %attr(0775,root,akmods) %{_localstatedir}/log/%{name}
 %{_mandir}/man1/*
+%{_sysusersdir}/akmods.conf
 
 
 %changelog

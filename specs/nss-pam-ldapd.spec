@@ -5,7 +5,7 @@
 
 Name:           nss-pam-ldapd
 Version:        0.9.10
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        An nsswitch module which uses directory servers
 License:        LGPL-2.0-or-later
 URL:            http://arthurdejong.org/nss-pam-ldapd/
@@ -42,9 +42,6 @@ Obsoletes:      nss_ldap < 265-11
 Provides:       pam_ldap = 185-15
 Obsoletes:      pam_ldap < 185-15
 
-# For user/group creation
-Requires(pre):  shadow-utils
-
 %description
 The nss-pam-ldapd daemon, nslcd, uses a directory server to look up name
 service information (users, groups, etc.) on behalf of a lightweight
@@ -53,6 +50,12 @@ nsswitch module.
 %prep
 %autosetup -p1
 autoreconf -f -i
+
+# Create a sysusers.d config file
+cat >nss-pam-ldapd.sysusers.conf <<EOF
+g ldap 55
+u nslcd 65:ldap 'LDAP Client User' - -
+EOF
 
 %build
 %configure --libdir=%{nssdir} \
@@ -80,6 +83,8 @@ mkdir -p -m 0755 $RPM_BUILD_ROOT/run/nslcd
 mkdir -p -m 0755 $RPM_BUILD_ROOT/%{_tmpfilesdir}
 install -p -m 0644 %{SOURCE3} $RPM_BUILD_ROOT/%{_tmpfilesdir}/%{name}.conf
 
+install -m0644 -D nss-pam-ldapd.sysusers.conf %{buildroot}%{_sysusersdir}/nss-pam-ldapd.conf
+
 %files
 %doc AUTHORS ChangeLog COPYING HACKING NEWS README TODO
 %{_sbindir}/*
@@ -90,13 +95,8 @@ install -p -m 0644 %{SOURCE3} $RPM_BUILD_ROOT/%{_tmpfilesdir}/%{name}.conf
 %attr(0644,root,root) %config(noreplace) %{_tmpfilesdir}/%{name}.conf
 %{_unitdir}/nslcd.service
 %attr(0775,nslcd,root) /run/nslcd
+%{_sysusersdir}/nss-pam-ldapd.conf
 
-%pre
-getent group  ldap  > /dev/null || \
-/usr/sbin/groupadd -r -g 55 ldap
-getent passwd nslcd > /dev/null || \
-/usr/sbin/useradd -r -g ldap -c 'LDAP Client User' \
-    -u 65 -d / -s /sbin/nologin nslcd 2> /dev/null || :
 
 %post
 # The usual stuff.
@@ -111,6 +111,9 @@ getent passwd nslcd > /dev/null || \
 %systemd_postun_with_restart nslcd.service
 
 %changelog
+* Tue Mar  4 2025 Zbigniew Jedrzejewski-Szmek <zbyszek@in.waw.pl> - 0.9.10-20
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Feb 28 2025 Tomas Halman <thalman@redhat.com> - 0.9.10-19
 - Fix variable name (bool) conflicting with new C compiler
   Resolves: RHBZ#2340942

@@ -1085,7 +1085,7 @@ fi
 
 %changelog
 * Mon Mar 3 2025 Frantisek Krenzelok <krenzelok.frantisek@gmail.com> - 3.109.0-1
-- Update NSS to 3.108.0
+- Update NSS to 3.109.0
 
 * Thu Feb 6 2025 Frantisek Krenzelok <krenzelok.frantisek@gmail.com> - 3.108.0-1
 - Update NSS to 3.108.0

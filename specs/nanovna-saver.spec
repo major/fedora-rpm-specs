@@ -1,6 +1,6 @@
 Name:		nanovna-saver
-Version:	0.6.8
-Release:	4%{?dist}
+Version:	0.7.3
+Release:	1%{?dist}
 Summary:	Tool for reading, displaying and saving data from the NanoVNA
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:	GPL-3.0-only
@@ -16,13 +16,17 @@ BuildRequires:	python3-numpy
 BuildRequires:	python3-scipy
 BuildRequires:	python3-qt5
 BuildRequires:	python3-Cython
+BuildRequires:	pyside6-tools
 BuildRequires:	desktop-file-utils
 # for fixing the version
 BuildRequires:	sed
 Requires:	hicolor-icon-theme
-# OS/distro specific
-Patch:		nanovna-saver-0.6.2-fedora-icon.patch
-Patch:		nanovna-saver-0.6.8-relax-deps.patch
+# https://github.com/NanoVNA-Saver/nanovna-saver/issues/815
+Patch:		nanovna-saver-0.7.3-python3.patch
+# https://github.com/NanoVNA-Saver/nanovna-saver/issues/814
+Patch:		nanovna-saver-0.7.3-drop-setuptools-scm-version.patch
+# https://github.com/NanoVNA-Saver/nanovna-saver/issues/813
+Patch:		nanovna-saver-0.7.3-relax-deps.patch
 
 %description
 A multiplatform tool to save Touchstone files from the NanoVNA, sweep
@@ -32,14 +36,17 @@ generally display and analyze the resulting data.
 %prep
 %autosetup -p1
 
-# fix version
-sed -i '/^\s*version\s=/ s/attr: NanoVNASaver.About.version/%{version}/' setup.cfg
+# fix version, https://github.com/NanoVNA-Saver/nanovna-saver/issues/814
+sed -i '/^\s*dynamic\s*=\s*\['"'"'version'"'"'\].*/ s/^\s*dynamic\s*=\s*\['"'"'version'"'"'\].*/version = "%{version}"/' pyproject.toml
+
+%generate_buildrequires
+%pyproject_buildrequires -p
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 # Drop tests
 rm -rf %{buildroot}%{python3_sitelib}/test
@@ -51,25 +58,31 @@ install -Dpm 0644 docs/man/NanoVNASaver.1 %{buildroot}%{_mandir}/man1/NanoVNASav
 desktop-file-install NanoVNASaver.desktop
 
 # icon
-install -Dpm 0644 icon_48x48.png %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/NanoVNASaver_48x48.png
+install -Dpm 0644 NanoVNASaver_48x48.png %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/NanoVNASaver_48x48.png
 
+# remove build artifacts
+rm -rf %{buildroot}%{python3_sitelib}/tools
 
 # https://github.com/NanoVNA-Saver/nanovna-saver/issues/443
 #%%check
-#%%{python3} setup.py test
+#%%{tox}
 
 %files
-%license LICENSE.txt
-%doc README.rst docs/CODE_OF_CONDUCT.md docs/CONTRIBUTING.md AUTHORS.rst
+%license licenses/LICENSE.txt
+%doc README.rst docs/CODE_OF_CONDUCT.md docs/CONTRIBUTING.md licenses/AUTHORS.rst
 %{_bindir}/NanoVNASaver
 %{_bindir}/NanoVNASaver-gui
 %{python3_sitelib}/NanoVNASaver
-%{python3_sitelib}/NanoVNASaver-%{version}-py*.egg-info
+%{python3_sitelib}/NanoVNASaver-%{version}.dist-info
 %{_mandir}/man1/NanoVNASaver.1*
 %{_datadir}/icons/hicolor/48x48/apps/NanoVNASaver_48x48.png
 %{_datadir}/applications/NanoVNASaver.desktop
 
 %changelog
+* Mon Mar 10 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 0.7.3-1
+- New version
+  Resolves: rhbz#2344048
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

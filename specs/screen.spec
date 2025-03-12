@@ -4,10 +4,9 @@
 Summary:        A screen manager that supports multiple logins on one terminal
 Name:           screen
 Version:        5.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        GPL-3.0-or-later
 URL:            http://www.gnu.org/software/screen
-Requires(pre):  /usr/sbin/groupadd
 BuildRequires: make
 BuildRequires:  ncurses-devel pam-devel libutempter-devel autoconf texinfo
 BuildRequires:  libxcrypt-devel
@@ -33,6 +32,11 @@ support multiple logins on one terminal.
 
 %prep
 %autosetup -p1
+
+# Create a sysusers.d config file
+cat >screen.sysusers.conf <<EOF
+g screen 84
+EOF
 
 %build
 ./autogen.sh
@@ -91,9 +95,8 @@ EOF
 # Remove files from the buildroot which we don't want packaged
 rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 
-%pre
-/usr/sbin/groupadd -g 84 -r -f screen
-:
+install -m0644 -D screen.sysusers.conf %{buildroot}%{_sysusersdir}/screen.conf
+
 
 %files
 %doc README doc/FAQ doc/README.DOTSCREEN ChangeLog
@@ -111,8 +114,12 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %attr(2755,root,screen) %{_bindir}/screen
 %attr(775,root,screen) %{_rundir}/screen
 %endif
+%{_sysusersdir}/screen.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 5.0.0-4
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 5.0.0-3
 - Add explicit BR: libxcrypt-devel
 

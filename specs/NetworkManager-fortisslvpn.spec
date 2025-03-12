@@ -8,7 +8,7 @@
 Summary:    NetworkManager VPN plugin for Fortinet compatible SSLVPN
 Name:       NetworkManager-fortisslvpn
 Version:    1.4.1
-Release:    8.%{date}git%{shortcommit}%{?dist}
+Release:    9.%{date}git%{shortcommit}%{?dist}
 License:    GPL-2.0-or-later
 URL:        http://www.gnome.org/projects/NetworkManager/
 
@@ -52,6 +52,11 @@ the Fortinet compatible SSLVPN server with NetworkManager (GNOME files).
 %prep
 %autosetup -p1 -n %{name}-%{commit}
 
+# Create a sysusers.d config file
+cat >networkmanager-fortisslvpn.sysusers.conf <<EOF
+u nm-fortisslvpn - 'Default user for running openfortivpn spawned by NetworkManager' - -
+EOF
+
 %build
 autoreconf -fi
 %configure \
@@ -75,12 +80,8 @@ mv %{buildroot}%{_sysconfdir}/dbus-1 %{buildroot}%{_datadir}/
 
 %find_lang %{name}
 
-%pre
-getent group nm-fortisslvpn >/dev/null || groupadd -r nm-fortisslvpn
-getent passwd nm-fortisslvpn >/dev/null || \
-        useradd -r -g nm-fortisslvpn -d / -s /sbin/nologin \
-        -c "Default user for running openfortivpn spawned by NetworkManager" nm-fortisslvpn
-exit 0
+install -m0644 -D networkmanager-fortisslvpn.sysusers.conf %{buildroot}%{_sysusersdir}/networkmanager-fortisslvpn.conf
+
 
 %files -f %{name}.lang
 %license COPYING
@@ -92,6 +93,7 @@ exit 0
 %{_libexecdir}/nm-fortisslvpn-service
 %{_libdir}/pppd/%{ppp_version}/nm-fortisslvpn-pppd-plugin.so
 %{_sharedstatedir}/NetworkManager-fortisslvpn
+%{_sysusersdir}/networkmanager-fortisslvpn.conf
 
 %files -n NetworkManager-fortisslvpn-gnome
 %{_libexecdir}/nm-fortisslvpn-auth-dialog
@@ -99,6 +101,9 @@ exit 0
 %{_datadir}/metainfo/network-manager-fortisslvpn.metainfo.xml
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.4.1-9.20231021gite201da5
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-8.20231021gite201da5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

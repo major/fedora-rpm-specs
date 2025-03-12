@@ -69,7 +69,7 @@
 
 Name:		erlang
 Version:	26.2.5.9
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	General-purpose programming language and runtime environment
 
 License:	Apache-2.0
@@ -349,7 +349,6 @@ BuildRequires: m4
 BuildRequires: ncurses-devel
 BuildRequires: zlib-devel
 # epmd user, epmd group
-Requires(pre): shadow-utils
 Requires: %{name}-kernel%{?_isa} = %{version}-%{release}
 Requires: %{name}-stdlib%{?_isa} = %{version}-%{release}
 Requires: lksctp-tools
@@ -741,6 +740,11 @@ Provides support for XML 1.0.
 # remove shipped zlib sources
 #rm -f erts/emulator/zlib/*.[ch]
 
+# Create a sysusers.d config file
+cat >erlang.sysusers.conf <<EOF
+u epmd - 'Erlang Port Mapper Daemon' /dev/null -
+EOF
+
 
 %build
 # Reconfigure everything to apply changes to the autotools templates
@@ -949,6 +953,8 @@ done
 install -d -p -m 0755 %{buildroot}%{_datadir}/erlang/
 install -d -p -m 0755 %{buildroot}%{_datadir}/erlang/lib
 
+install -m0644 -D erlang.sysusers.conf %{buildroot}%{_sysusersdir}/erlang.conf
+
 
 %check
 TARGET="$(make target_configured)"
@@ -959,11 +965,6 @@ ERL_TOP=${ERL_TOP} make TARGET=${TARGET} release_tests
 # https://github.com/erlang/otp/wiki/Running-tests
 
 
-%pre erts
-getent group epmd >/dev/null || groupadd -r epmd
-getent passwd epmd >/dev/null || \
-useradd -r -g epmd -d /dev/null -s /sbin/nologin \
--c "Erlang Port Mapper Daemon" epmd 2>/dev/null || :
 
 
 %files
@@ -1207,6 +1208,7 @@ useradd -r -g epmd -d /dev/null -s /sbin/nologin \
 %{_unitdir}/epmd.socket
 %{_unitdir}/epmd@.service
 %{_unitdir}/epmd@.socket
+%{_sysusersdir}/erlang.conf
 
 %if %{__with_wxwidgets}
 %files et
@@ -1959,6 +1961,9 @@ useradd -r -g epmd -d /dev/null -s /sbin/nologin \
 
 
 %changelog
+* Mon Mar 10 2025 Zbigniew Jedrzejewski-Szmek  <zbyszek@in.waw.pl> - 26.2.5.9-2
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Feb 13 2025 Peter Lemenkov <lemenkov@gmail.com> - 26.2.5.8-1
 - Ver. 26.2.5.8
 

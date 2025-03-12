@@ -6,7 +6,7 @@
 
 Name:           python-%{pkgname}
 Version:        0.2.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -57,7 +57,6 @@ Requires:  python3-setproctitle >= 1.1.9
 %{?python_provide:%python_provide python3-%{pkgname}}
 Requires: tor
 Requires: logrotate
-Requires(pre): shadow-utils
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
@@ -66,6 +65,11 @@ Requires(postun): systemd
 
 %prep
 %autosetup -n %{pypi_name}-%{version} -p1
+
+# Create a sysusers.d config file
+cat >python-onionbalance.sysusers.conf <<EOF
+u onionbalance -:%{toruser} '%{pkgname} daemon user' %{_localstatedir}/lib/%{pkgname} -
+EOF
 
 %build
 %py3_build
@@ -91,11 +95,8 @@ cp docs/_build/man/%{pkgname}* %{buildroot}/%{_mandir}/man1/
 install -p -m 644 %{SOURCE5} .
 install -p -m 644 %{SOURCE6} .
 
-%pre -n python3-%{pkgname}
-getent passwd %{pkgname} >/dev/null || \
-    useradd -r -g %{toruser} -d %{_localstatedir}/lib/%{pkgname} -s /sbin/nologin \
-    -c "%{pkgname} daemon user" %{pkgname}
-exit 0
+install -m0644 -D python-onionbalance.sysusers.conf %{buildroot}%{_sysusersdir}/python-onionbalance.conf
+
 
 %post -n python3-%{pkgname}
 %systemd_post onionbalance.service
@@ -128,8 +129,12 @@ exit 0
 %dir %attr(0750,%{pkgname},%{toruser}) %{_localstatedir}/log/%{pkgname}
 %dir %attr(0750,%{pkgname},%{toruser}) %{_localstatedir}/lib/%{pkgname}
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{pkgname}.conf
+%{_sysusersdir}/python-onionbalance.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.2.1-16
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

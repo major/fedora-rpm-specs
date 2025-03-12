@@ -6,16 +6,16 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    0ea2fb4b69598eed8a300271f8e8117b143c7b2c
+%global gh_commit    8ceb860f343a143af604efeb66a7a124381cc52e
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2025-02-25
+%global gh_date      2025-03-09
 %global gh_owner     php-mock
 %global gh_project   php-mock-integration
 %global with_tests   0%{!?_without_tests:1}
 %global major        2
 
 Name:           php-mock-integration%{major}
-Version:        2.4.0
+Version:        3.0.0
 Release:        1%{?dist}
 Summary:        Integration package for PHP-Mock
 
@@ -140,6 +140,9 @@ exit $ret
 
 
 %changelog
+* Mon Mar 10 2025 Remi Collet <remi@remirepo.net> - 3.0.0-1
+- update to 3.0.0
+
 * Tue Feb 25 2025 Remi Collet <remi@remirepo.net> - 2.4.0-1
 - update to 2.4.0
 - re-license spec file to CECILL-2.1

@@ -5,11 +5,10 @@
 %global crate ironrdp-pdu
 
 Name:           rust-ironrdp-pdu
-Version:        0.2.0
+Version:        0.3.0
 Release:        %autorelease
 Summary:        RDP PDU encoding and decoding
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/ironrdp-pdu
 Source:         %{crates_source}

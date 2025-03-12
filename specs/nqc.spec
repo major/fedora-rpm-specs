@@ -1,6 +1,6 @@
 Name:           nqc
 Version:        3.1.7
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Not Quite C compiler
 
 # Automatically converted from old format: MPLv1.0 - review is highly recommended.
@@ -23,11 +23,11 @@ Source13:       http://people.cs.uu.nl/markov/lego/tutorial_p.pdf
 Patch0:         nqc-3.1.6-linux.patch
 Patch1:         nqc-3.1.6.gcc47.patch
 Patch2:         nqc-3.1.6-unistd.patch
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  flex >= 2.5 
 BuildRequires:  byacc
-Requires(pre):  %{_sbindir}/groupadd
+BuildRequires:  systemd-rpm-macros
 
 %description
 Not Quite C is a simple language with a C-like syntax that can be used to
@@ -115,29 +115,27 @@ done
 # line endings.
 find -type f -exec chmod 644 {} \; -exec perl -pi -e 's/\r\n/\n/g' {} \;
 
+# Create a sysusers.d config file
+cat >nqc.sysusers.conf <<EOF
+g lego -
+EOF
+
 
 %build
-%{__make} %{?_smp_mflags}
-
+%make_build
 
 %install
-%{__rm} -rf %{buildroot}
-%{__make} install PREFIX=%{buildroot}%{_prefix} MANDIR=%{buildroot}%{_mandir}/man1
-%{__rm} %{buildroot}%{_bindir}/mkdata
-%{__install} -p -m 644 -D %{SOURCE1} %{buildroot}/lib/udev/rules.d/60-legousbtower.rules
-
-
-%pre
-if [ $1 -eq 1 ]; then
-  %{_sbindir}/groupadd -f -r lego &>/dev/null || :
-fi
-
+%make_install PREFIX=%{buildroot}%{_prefix} MANDIR=%{buildroot}%{_mandir}/man1
+rm %{buildroot}%{_bindir}/mkdata
+install -p -m0644 -D %{SOURCE1} %{buildroot}%{_udevrulesdir}/60-legousbtower.rules
+install -m0644 -D nqc.sysusers.conf %{buildroot}%{_sysusersdir}/nqc.conf
 
 %files
 %{_bindir}/nqc
 %{_mandir}/man1/nqc.1.gz
-/lib/udev/rules.d/60-legousbtower.rules
+%{_udevrulesdir}/60-legousbtower.rules
 %doc readme.txt LICENSE
+%{_sysusersdir}/nqc.conf
 
 %files doc
 %doc scout.txt history.txt test.nqc
@@ -165,6 +163,9 @@ fi
 %lang(pt) %doc nqc-tutorial-pt.pdf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.1.7-39
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.7-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

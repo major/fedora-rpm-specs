@@ -2,7 +2,7 @@
 
 Name:           x2goserver
 Version:        4.1.0.6
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        X2Go Server
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -53,7 +53,6 @@ Requires:       x2goserver-common = %{version}-%{release}
 Requires:       xorg-x11-fonts-misc
 Requires:       xorg-x11-xauth
 Requires:       xwininfo
-Requires(pre):  shadow-utils
 Requires(post): coreutils
 Requires(post): grep
 Requires(post): perl-X2Go-Server-DB
@@ -99,7 +98,6 @@ administrations.
 Summary:        X2Go Server (common files)
 # for useradd/groupadd
 BuildRequires:  shadow-utils
-Requires(pre):  shadow-utils
 BuildArch:      noarch
 
 %description common
@@ -328,6 +326,11 @@ cached client-side.
 # Don't try to be root
 sed -i -e 's/-o root -g root//' */Makefile
 
+# Create a sysusers.d config file
+cat >x2goserver.sysusers.conf <<EOF
+u x2gouser - 'x2go' /var/lib/x2go -
+EOF
+
 
 %build
 export PATH=%{_qt4_bindir}:$PATH
@@ -371,13 +374,9 @@ ln -s ../..%{_datadir}/applications %{buildroot}%{_sysconfdir}/x2go/applications
 rm -f %{buildroot}/etc/tmpfiles.d/x2goserver.conf
 %endif
 
+install -m0644 -D x2goserver.sysusers.conf %{buildroot}%{_sysusersdir}/x2goserver.conf
 
-%pre common
-getent group x2gouser >/dev/null || groupadd -r x2gouser
-getent passwd x2gouser >/dev/null || \
-    useradd -r -g x2gouser -d /var/lib/x2go -s /sbin/nologin \
-    -c "x2go" x2gouser
-exit 0
+
 
 %post
 # Initialize the session database
@@ -511,6 +510,7 @@ exit 0
 %{_mandir}/man5/x2goserver.conf.5.gz
 %dir %{_datadir}/x2go/versions
 %{_datadir}/x2go/versions/VERSION.x2goserver-common
+%{_sysusersdir}/x2goserver.conf
 
 %files desktopsharing
 %license COPYING
@@ -600,6 +600,9 @@ exit 0
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.1.0.6-8
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 24 2025 Orion Poplawski <orion@nwra.com> - 4.1.0.6-7
 - Define SBINDIR for sbin merge (FTBFS rhbz#2341558)
 

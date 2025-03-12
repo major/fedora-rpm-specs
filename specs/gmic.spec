@@ -20,14 +20,6 @@ Source2: gmic-qt-%{gmic_qt_version}.tar.gz
 # GIT archive snapshot of https://github.com/dtschump/gmic-community
 Source3: gmic-community-%{gmic_community_version}.tar.gz
 
-# Taken from https://github.com/c-koi/gmic-qt/pull/208
-#Patch1: 0001-Host-Gimp-replace-GIMP_VERSION_LTE-with-GIMP_CHECK_V.patch
-#Patch2: 0002-Host-Gimp-stop-open-coding-version-checks.patch
-#Patch3: 0003-Host-Gimp-convert-to-new-GimpProcedureConfig-APIs.patch
-
-# fix compilation https://github.com/GreycLab/gmic-qt/commit/41e86b969cc1142f3d9ca89fd8608b51352a3c37.patch
-#Patch4:  41e86b969cc1142f3d9ca89fd8608b51352a3c37.patch
-
 License: ( CECILL-2.1 OR CECILL-C ) AND GPL-3.0-or-later
 Url: http://gmic.eu/
 %if %{use_system_cimg}
@@ -194,6 +186,22 @@ if [ $1 -eq 0 ] ; then
     /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 fi
 
+# Handle upgrades across the Gimp 3 transition, which required
+# moving the plugin into a sub-directory.
+#
+# cpio can't handle file -> dir replacements, so must manually
+# purge the old file path.
+#
+# Workaround could be removed in Fedora >= 45 timeframe at which
+# point we shouldn't see any legacy files around in a normal
+# upgrade scenario.
+%pretrans -p <lua> gimp
+path = "%{gimpplugindir}"
+st = posix.stat(path)
+if st and st.type == "regular" then
+  os.remove(path)
+end
+
 %posttrans
 /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
@@ -220,7 +228,9 @@ fi
 %{_libdir}/libcgmic.so
 
 %files gimp
+%dir %{gimpplugindir}
 %{gimpplugindir}/gmic_gimp_qt
+%dir %{_datadir}/gmic
 %{_datadir}/gmic/gmic_cluts.gmz
 %{_datadir}/gmic/gmic_denoise_cnn.gmz
 %{_datadir}/gmic/gmic_fonts.gmz

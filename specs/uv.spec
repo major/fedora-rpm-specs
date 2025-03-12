@@ -14,7 +14,7 @@
 %bcond it 0
 
 Name:           uv
-Version:        0.6.4
+Version:        0.6.5
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -587,13 +587,6 @@ tomcli set crates/uv/Cargo.toml del dependencies.tracing-durations-export
 #   https://bugzilla.redhat.com/show_bug.cgi?id=2348721
 tomcli set Cargo.toml str workspace.dependencies.etcetera.version \
     '>=0.8.0, <0.10.0'
-
-# mailparse
-#   wanted: 0.16.0
-#   currently packaged: 0.15.0
-#   https://bugzilla.redhat.com/show_bug.cgi?id=2344596
-tomcli set Cargo.toml str workspace.dependencies.mailparse.version \
-    '>=0.15.0, <0.17.0'
 
 # unicode-width
 #   wanted: 0.1.13

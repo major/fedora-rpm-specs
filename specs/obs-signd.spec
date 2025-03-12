@@ -21,7 +21,6 @@ Patch0:           0001-Rename-option-files-are-digests-to-file-is-digest.patch
 # https://github.com/openSUSE/obs-sign/pull/6
 Patch1:           0002-fixes-user-id-matching-to-provide-unique-results.patch
 Requires:         gnupg2
-Requires(pre):    shadow-utils
 BuildRequires:    perl-generators
 BuildRequires:    systemd
 BuildRequires:    gcc
@@ -36,6 +35,11 @@ on the same server.
 
 %prep
 %autosetup -n %{shortname}-%{version}
+
+# Create a sysusers.d config file
+cat >obs-signd.sysusers.conf <<EOF
+u obsrun - 'User for Open Build Service backend' %{_libdir}/obs /bin/false
+EOF
 
 %build
 %make_build CFLAGS="%{build_cflags}" LDFLAGS="%{build_ldflags}" sign
@@ -61,12 +65,8 @@ for f in 5 8; do
   install -m 0644 sig*.${f} %{buildroot}%{_mandir}/man${f}/
 done
 
-%pre
-getent group obsrun >/dev/null || %{_sbindir}/groupadd -r obsrun
-getent passwd obsrun >/dev/null || \
-  %{_sbindir}/useradd -r -s /bin/false -c "User for Open Build Service backend" \
-                         -d %{_libdir}/obs -g obsrun obsrun
-exit 0
+install -m0644 -D obs-signd.sysusers.conf %{buildroot}%{_sysusersdir}/obs-signd.conf
+
 
 %post
 %systemd_post signd.service
@@ -83,6 +83,7 @@ exit 0
 %{_sbindir}/signd
 %{_unitdir}/signd.service
 %doc %{_mandir}/man*/*
+%{_sysusersdir}/obs-signd.conf
 
 %changelog
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-4

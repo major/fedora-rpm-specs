@@ -47,7 +47,6 @@ Source2:        %{name}.conf
 
 BuildRequires:  python3-devel
 BuildRequires:  systemd-rpm-macros
-Requires(pre):  shadow-utils
 
 %description %{common_description}
 
@@ -83,6 +82,11 @@ shopt -u extglob
 %generate_buildrequires
 %go_generate_buildrequires
 
+# Create a sysusers.d config file
+cat >etcd.sysusers.conf <<EOF
+u etcd - 'etcd user' %{_sharedstatedir}/%{name} -
+EOF
+
 %build
 %gobuild -o %{gobuilddir}/bin/etcd %{goipath}/server/v3
 %gobuild -o %{gobuilddir}/bin/etcdctl %{goipath}/etcdctl/v3
@@ -103,6 +107,8 @@ install -pm 644 -t %{buildroot}%{_sysconfdir}/%{name} %{SOURCE2}
 # And create /var/lib/etcd
 install -dm 0755 %{buildroot}%{_sharedstatedir}/%{name}
 
+install -m0644 -D etcd.sysusers.conf %{buildroot}%{_sysusersdir}/etcd.conf
+
 %if %{with check}
 %check
 %gocheck -d client/v2 \
@@ -120,10 +126,6 @@ install -dm 0755 %{buildroot}%{_sharedstatedir}/%{name}
          -d pkg/v3/proxy
 %endif
 
-%pre
-getent group %{name} >/dev/null || groupadd -r %{name}
-getent passwd %{name} >/dev/null || useradd -r -g %{name} -d %{_sharedstatedir}/%{name} \
-    -s /sbin/nologin -c "etcd user" %{name}
 
 %post
 %systemd_post %{name}.service
@@ -145,6 +147,7 @@ getent passwd %{name} >/dev/null || useradd -r -g %{name} -d %{_sharedstatedir}/
 %endif
 
 %gopkgfiles
+%{_sysusersdir}/etcd.conf
 
 %changelog
 %autochangelog

@@ -13,7 +13,7 @@
 
 Name:           openni-primesense
 Version:        5.1.6.6
-Release:        29%{?gitrev}%{?dist}
+Release:        30%{?gitrev}%{?dist}
 Summary:        PrimeSensor/Kinect Modules for OpenNI
 License:        Apache-2.0
 URL:            https://github.com/PrimeSense/Sensor
@@ -33,7 +33,6 @@ BuildRequires:  libjpeg-devel
 BuildRequires:  systemd-rpm-macros
 Requires:       openni >= 1.5.0.0
 Requires:       udev
-Requires(pre):  shadow-utils
 
 %description
 This modules enables OpenNI to make use of the PrimeSense, also known as
@@ -58,6 +57,11 @@ developing applications that use %{name}.
 
 rm -rf Source/External/LibJPEG
 rm -rf Platform/Android Platform/Win32
+
+# Create a sysusers.d config file
+cat >openni-primesense.sysusers.conf <<EOF
+g primesense -
+EOF
 
 %build
 cd Platform/Linux/CreateRedist
@@ -88,10 +92,9 @@ rm -rf $RPM_BUILD_ROOT%{_var}/log/primesense
 rm $RPM_BUILD_ROOT%{_sysconfdir}/udev/rules.d/55-primesense-usb.rules
 install -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_udevrulesdir}/55-primesense-usb.rules
 
+install -m0644 -D openni-primesense.sysusers.conf %{buildroot}%{_sysusersdir}/openni-primesense.conf
 
-%pre
-getent group primesense >/dev/null || groupadd -r primesense
-exit 0
+
 
 %post
 /sbin/ldconfig
@@ -118,8 +121,12 @@ fi
 %{_udevrulesdir}/55-primesense-usb.rules
 %{_libdir}/*.so
 %{_bindir}/XnSensorServer
+%{_sysusersdir}/openni-primesense.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 5.1.6.6-30
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.6.6-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

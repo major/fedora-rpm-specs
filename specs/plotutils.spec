@@ -54,6 +54,8 @@ applications
 touch -r aclocal.m4 configure*
 
 %build
+%set_build_flags
+export CFLAGS="$CFLAGS -std=gnu99"
 %configure --disable-static --enable-libplotter --enable-libxmi --enable-ps-fonts-in-pcl
 
 # fix rpath handling

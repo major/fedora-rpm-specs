@@ -4,7 +4,7 @@
 %global crate triforce-lv2
 
 Name:           rust-triforce-lv2
-Version:        0.1.1
+Version:        0.2.0
 Release:        %autorelease
 Summary:        Minimum variance distortionless response beamformer for Apple mic arrays
 

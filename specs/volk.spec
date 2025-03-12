@@ -1,6 +1,6 @@
 Name:          volk
-Version:       3.1.2
-Release:       5%{?dist}
+Version:       3.2.0
+Release:       1%{?dist}
 Summary:       The Vector Optimized Library of Kernels
 License:       GPL-3.0-or-later
 URL:           https://github.com/gnuradio/%{name}
@@ -111,6 +111,10 @@ cp -a %{__cmake_builddir}/html %{buildroot}%{_docdir}/%{name}
 
 
 %changelog
+* Mon Mar 10 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 3.2.0-1
+- New version
+  Resolves: rhbz#2343664
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

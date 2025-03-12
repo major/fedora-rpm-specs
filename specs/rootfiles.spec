@@ -49,11 +49,11 @@ done
 %dir %{ROOTFILES_DIR}
 %{ROOTFILES_DIR}/.[A-Za-z]*
 %{_tmpfilesdir}/rootfiles.conf
-%ghost /root/.bash_logout
-%ghost /root/.bash_profile
-%ghost /root/.bashrc
-%ghost /root/.cshrc
-%ghost /root/.tcshrc
+%ghost %verify(not md5 size mtime) %attr(0644,root,root) /root/.bash_logout
+%ghost %verify(not md5 size mtime) %attr(0644,root,root) /root/.bash_profile
+%ghost %verify(not md5 size mtime) %attr(0644,root,root) /root/.bashrc
+%ghost %verify(not md5 size mtime) %attr(0644,root,root) /root/.cshrc
+%ghost %verify(not md5 size mtime) %attr(0644,root,root) /root/.tcshrc
 
 %changelog
 %autochangelog

@@ -18,7 +18,7 @@
 Summary:   Antivirus/anti-spam gateway for smtp server
 Name:      sagator
 Version:   2.0.3
-Release:   0.beta3%{?dist}.3
+Release:   0.beta3%{?dist}.4
 Source:    http://www.salstar.sk/pub/antivir/snapshots/unstable/sagator-%{version}-0.beta3.tar.bz2
 URL:       http://www.salstar.sk/sagator/
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -71,7 +71,7 @@ Requires:       sed
 BuildRequires: aaa_base, python-xml, clamav >= %{CLAMAV_VERSION}
 Requires:       aaa_base, smtp_daemon
 %else
-Requires:       server(smtp), shadow-utils
+Requires:       server(smtp)
 BuildRequires:  clamav-devel >= %{CLAMAV_VERSION}
 Requires:       clamav-lib >= %{CLAMAV_VERSION}
 %endif
@@ -113,6 +113,11 @@ This package helps moving to the upstream SELinux module.
 %prep
 %setup -q
 
+# Create a sysusers.d config file
+cat >sagator.sysusers.conf <<EOF
+u vscan - 'SAGATOR' %{CHROOTDIR} -
+EOF
+
 %build
 sh configure --prefix=%{_prefix} --filelist --python=%{python_version}
 make %{?_smp_mflags}
@@ -129,11 +134,8 @@ mkdir -p %{buildroot}%{CHROOTDIR}/tmp/quarantine
 cp -arf scripts/db %{buildroot}%{_datadir}/%{name}/
 %find_lang %{name}
 
-%pre core
-getent group vscan >/dev/null || groupadd -r vscan
-getent passwd vscan >/dev/null || \
-useradd -r -g vscan -d %{CHROOTDIR} -s /sbin/nologin -c "SAGATOR" vscan
-exit 0
+install -m0644 -D sagator.sysusers.conf %{buildroot}%{_sysusersdir}/sagator.conf
+
 
 %post core
 touch %{_var}/lib/sagator-mkchroot
@@ -207,6 +209,7 @@ touch %{_var}/lib/sagator-mkchroot
 %dir %{CHROOTDIR}
 %attr(1777,vscan,vscan) %dir %{CHROOTDIR}/tmp
 %attr(0770,vscan,vscan) %dir %{CHROOTDIR}/tmp/quarantine
+%{_sysusersdir}/sagator.conf
 
 %files webq -f sagator.lang
 %{_datadir}/%{name}/srv/web
@@ -219,6 +222,9 @@ touch %{_var}/lib/sagator-mkchroot
 %endif
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.0.3-0.beta3.4
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-0.beta3.3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

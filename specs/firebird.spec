@@ -10,7 +10,7 @@
 
 Name:           firebird
 Version:        %{upversion}
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 Summary:        SQL relational database management system
 # Automatically converted from old format: Interbase - review is highly recommended.
@@ -60,8 +60,6 @@ BuildRequires: sed
 
 Requires(postun): /usr/sbin/userdel
 Requires(postun): /usr/sbin/groupdel
-Requires(pre):    /usr/sbin/groupadd
-Requires(pre):    /usr/sbin/useradd
 Recommends:     logrotate
 Requires:       libfbclient2 = %{version}-%{release}
 Requires:       libib-util = %{version}-%{release}
@@ -207,6 +205,11 @@ in production systems, under a variety of names, since 1981.
 %patch -P402 -p1
 %patch -P501 -p1
 
+# Create a sysusers.d config file
+cat >firebird.sysusers.conf <<EOF
+u firebird - - - -
+EOF
+
 
 %build
 %ifarch s390x
@@ -244,6 +247,7 @@ chmod u+rw,a+rx gen/buildroot/%{_includedir}/firebird/impl
 cp -r gen/buildroot/* ${RPM_BUILD_ROOT}/
 mkdir -p ${RPM_BUILD_ROOT}%{_libdir}/pkgconfig
 cp -v gen/install/misc/*.pc ${RPM_BUILD_ROOT}%{_libdir}/pkgconfig/
+install -m0644 -D firebird.sysusers.conf %{buildroot}%{_sysusersdir}/firebird.conf
 
 cd ${RPM_BUILD_ROOT}
 rm -vf .%{_sbindir}/*.sh
@@ -273,10 +277,6 @@ cp -f %{SOURCE3} .%{_unitdir}/%{name}.service
 
 
 %pre 
-# Create the firebird group if it doesn't exist
-getent group %{name} > /dev/null || /usr/sbin/groupadd -r %{name} 
-getent passwd %{name} >/dev/null || /usr/sbin/useradd -d / -g %{name} -s /sbin/nologin -r %{name} 
-
 # Add gds_db to /etc/services if needed
 FileName=/etc/services
 newLine="gds_db 3050/tcp  # Firebird SQL Database Remote Protocol"
@@ -333,6 +333,7 @@ fi
 %config(noreplace) %attr(0644,root,root) %{_sysconfdir}/logrotate.d/%{name}
 
 %attr(0644,root,root) %{_unitdir}/%{name}.service
+%{_sysusersdir}/firebird.conf
 
 
 %files devel
@@ -381,6 +382,9 @@ fi
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.0.4.3010-7
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.4.3010-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

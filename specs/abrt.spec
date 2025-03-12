@@ -57,7 +57,7 @@
 Summary: Automatic bug detection and reporting tool
 Name: abrt
 Version: 2.17.6
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL-2.0-or-later
 URL: https://abrt.readthedocs.org/
 Source: https://github.com/abrt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -469,6 +469,13 @@ to the shell
 %global __scm_apply_git(qp:m:) %{__git} am --exclude doc/design --exclude doc/project/abrt.tex
 %autosetup -S git -p 0
 
+# Create a sysusers.d config file
+#uidgid pair 173:173 reserved in setup rhbz#670231
+%global abrt_gid_uid 173
+cat >abrt.sysusers.conf <<EOF
+u abrt %{abrt_gid_uid} - /etc/abrt -
+EOF
+
 %build
 ./autogen.sh
 
@@ -538,6 +545,8 @@ rm -vf %{buildroot}%{python3_sitelib}/__pycache__/abrt_exception_handler3_contai
 # After everything is installed, remove info dir
 rm -f %{buildroot}%{_infodir}/dir
 
+install -m0644 -D abrt.sysusers.conf %{buildroot}%{_sysusersdir}/abrt.conf
+
 %check
 make check|| {
     # find and print the logs of failed test
@@ -546,13 +555,6 @@ make check|| {
     find tests/testsuite.dir -name "testsuite.log" -print -exec cat '{}' \;
     exit 1
 }
-
-%pre
-#uidgid pair 173:173 reserved in setup rhbz#670231
-%define abrt_gid_uid 173
-getent group abrt >/dev/null || groupadd -f -g %{abrt_gid_uid} --system abrt
-getent passwd abrt >/dev/null || useradd --system -g abrt -u %{abrt_gid_uid} -d /etc/abrt -s /sbin/nologin abrt
-exit 0
 
 %post
 # $1 == 1 if install; 2 if upgrade
@@ -753,6 +755,7 @@ killall abrt-dbus >/dev/null 2>&1 || :
 %{_mandir}/man5/abrt-action-save-package-data.conf.5*
 %{_mandir}/man5/gpg_keys.conf.5*
 %{_mandir}/man8/abrtd.8*
+%{_sysusersdir}/abrt.conf
 
 %files libs
 %{_libdir}/libabrt.so.*
@@ -986,6 +989,9 @@ killall abrt-dbus >/dev/null 2>&1 || :
 %config(noreplace) %{_sysconfdir}/profile.d/abrt-console-notification.sh
 
 %changelog
+* Thu Jan 23 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.17.6-5
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.17.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

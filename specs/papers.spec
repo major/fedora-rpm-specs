@@ -11,7 +11,7 @@
 %global __provides_exclude_from ^(%{_libdir}/papers/.*\\.so|%{_libdir}/nautilus/extensions-4/.*\\.so)$
 
 Name:           papers
-Version:        48~beta
+Version:        48~rc
 Release:        %autorelease
 Summary:        View multipage documents
 
@@ -140,7 +140,8 @@ This package brings the Papers thumbnailer independently from Papers.
 %cargo_prep -v shell/vendor
 %else
 %cargo_prep
-rm shell/Cargo.lock
+# Not in 48.rc
+#rm shell/Cargo.lock
 %endif
 
 

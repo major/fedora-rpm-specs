@@ -1,5 +1,5 @@
 Name:           perl-Net-CIDR
-Version:        0.22
+Version:        0.23
 Release:        1%{?dist}
 Summary:        Manipulate IPv4/IPv6 netblocks in CIDR notation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -8,16 +8,17 @@ Source0:        https://cpan.metacpan.org/modules/by-module/Net/Net-CIDR-%{versi
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Exporter)
 # Test Suite
-# (no additional dependencies)
+BuildRequires:  perl(Test::More) >= 1
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
 # Dependencies
 # (no additional dependencies)
 
@@ -47,6 +48,9 @@ addresses.
 %{_mandir}/man3/Net::CIDR.3*
 
 %changelog
+* Mon Mar 10 2025 Paul Howarth <paul@city-fan.org> - 0.23-1
+- Update to 0.23
+
 * Sun Mar 09 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 0.22-1
 - Update to 0.22
 - Use %%{make_build} and %%{make_install} where appropriate

@@ -1,7 +1,7 @@
 Summary:   Password cracker
 Name:      crack
 Version:   5.0a
-Release:   50%{?dist}
+Release:   51%{?dist}
 # Automatically converted from old format: Artistic clarified - review is highly recommended.
 License:   ClArtistic
 Source:    ftp://ftp.cerias.purdue.edu/pub/tools/unix/pwdutils/crack/%{name}5.0.tar.gz
@@ -40,6 +40,11 @@ sed -i 's|/usr/dict/|/usr/share/dict/|g' conf/dictgrps.conf
 %patch -P1 -p1 -b .FHS
 %patch -P2 -p1 -b .oldfun
 
+# Create a sysusers.d config file
+cat >crack.sysusers.conf <<EOF
+g crack -
+EOF
+
 %build
 %global build_type_safety_c 0
 C5FLAGS="-D_XOPEN_SOURCE -DUSE_STRING_H -DUSE_STDLIB_H -DUSE_SIGNAL_H -DUSE_SYS_TYPES_H -DUSE_UNISTD_H -DUSE_PWD_H"
@@ -60,12 +65,7 @@ cp -a run $RPM_BUILD_ROOT%{_sharedstatedir}/%{name}
 install -p -m0755 Crack $RPM_BUILD_ROOT%{_bindir}/Crack
 install -p -m0755 Reporter $RPM_BUILD_ROOT%{_bindir}/CrackReporter
 
-
-
-%pre
-if [ $1 -eq 1 ]; then
-    groupadd -r crack >/dev/null 2>&1 || :
-fi
+install -m0644 -D crack.sysusers.conf %{buildroot}%{_sysusersdir}/crack.conf
 
 
 %files
@@ -78,9 +78,13 @@ fi
 %attr(02770, root, crack) %dir %{_sharedstatedir}/%{name}/run/dict/
 %attr(00640, root, crack) %{_sharedstatedir}/%{name}/run/dict/*
 %attr(00640, root, crack) %{_sharedstatedir}/%{name}/run/dict/.dictmade
+%{_sysusersdir}/crack.conf
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 5.0a-51
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 5.0a-50
 - Add explicit BR: libxcrypt-devel
 

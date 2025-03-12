@@ -40,7 +40,7 @@ BuildRequires:  libXrandr-devel
 BuildRequires:  libXxf86dga-devel
 BuildRequires:  libXxf86vm-devel
 BuildRequires:  mesa-libGL-devel
-BuildRequires:  openal-devel
+BuildRequires:  openal-soft-devel
 BuildRequires:  openssl-devel
 BuildRequires:  SDL2-devel
 BuildRequires:  /usr/bin/appstream-util

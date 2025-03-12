@@ -1,17 +1,28 @@
-%global __cmake_in_source_build 1
-
 Name:      spatialindex
 Version:   1.9.3
-Release:   13%{?dist}
+Release:   14%{?dist}
+%global so_version 6
 Summary:   Spatial index library 
-License:   MIT
-URL:       http://libspatialindex.org
-Source0:   https://github.com/libspatialindex/libspatialindex/releases/download/%{version}/%{name}-src-%{version}.tar.bz2
 
-BuildRequires: make
+License:   MIT
+URL:       https://libspatialindex.org
+Source:    https://github.com/libspatialindex/libspatialindex/releases/download/%{version}/%{name}-src-%{version}.tar.bz2
+
+# Support testing with a system/external copy of GTest
+# https://github.com/libspatialindex/libspatialindex/pull/270
+# Cherry-picked to 1.9.3
+Patch:          0001-Support-testing-with-a-system-external-copy-of-GTest.patch
+
+BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
+
+%if %{undefined el8}
+BuildRequires:  cmake(GTest)
+%else
+BuildRequires:  gtest-devel
+%endif
 
 %description
 Spatialindex provides a general framework for developing spatial indices.
@@ -19,9 +30,10 @@ Currently it defines generic interfaces, provides simple main memory and
 disk based storage managers and a robust implementation of an R*-tree,
 an MVR-tree and a TPR-tree.
 
+
 %package devel
 Summary: Development files for %{name}
-Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires:  %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
 Development files for %{name}.
@@ -29,35 +41,46 @@ Development files for %{name}.
 
 %prep
 %autosetup -n %{name}-src-%{version} -p1
+# Remove bundled gtest:
+rm -rv test/gtest/gtest-*
+# GTest >=1.13 requires C++14. In current libspatialindex releases, we can set
+# -DCMAKE_CXX_STANDARD=14 instead, but in 1.9.3, we must patch CMakeLists.txt.
+sed -r -i 's/(CMAKE_CXX_STANDARD) 11\b/\1 14/' CMakeLists.txt
 
 
 %build
-%cmake .
-make %{?_smp_mflags}
+%cmake -DSIDX_BUILD_TESTS:BOOL=ON -DSYSTEM_GTEST:BOOL=ON
+%cmake_build
 
 
 %install
-make install DESTDIR=%{buildroot}
+%cmake_install
 
 
-# Tests must be run manually and seemingly are not built yet
-# See changelog 2011-10-11
-
-
-%ldconfig_scriptlets
+%check
+%ctest
 
 
 %files 
 %license COPYING
 %doc AUTHORS ChangeLog
-%{_libdir}/lib%{name}*.so.*
+
+%{_libdir}/lib%{name}{,_c}.so.%{so_version}{,.*}
+
 
 %files devel
 %{_includedir}/%{name}
-%{_libdir}/lib%{name}*.so
+%{_libdir}/lib%{name}{,_c}.so
 
 
 %changelog
+* Thu Mar 06 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1.9.3-14
+- Remove macros obsolete in Fedora
+- Use CMake RPM macros to build and install
+- Build and run the tests
+- Do not glob over the .so version
+- Test with the system gtest instead of the bundled one
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

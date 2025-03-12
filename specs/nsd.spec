@@ -14,7 +14,6 @@ BuildRequires: gcc
 BuildRequires: flex
 BuildRequires: openssl-devel
 BuildRequires: libevent-devel
-Requires(pre): shadow-utils
 BuildRequires: systemd-units
 BuildRequires: systemd-devel
 Requires(post): systemd-units
@@ -28,6 +27,11 @@ consult the REQUIREMENTS document which is a part of this distribution.
 
 %prep
 %setup -q -n %{name}-%{version}%{?prever}
+
+# Create a sysusers.d config file
+cat >nsd.sysusers.conf <<EOF
+u nsd - 'nsd daemon account' /etc/nsd -
+EOF
 
 %build
 CFLAGS="%{optflags} -fPIE -pie"
@@ -76,6 +80,8 @@ mkdir -p %{buildroot}%{_sysconfdir}/nsd/server.d
 install -m 0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/nsd/nsd.conf
 rm %{buildroot}%{_sysconfdir}/nsd/nsd.conf.sample
 
+install -m0644 -D nsd.sysusers.conf %{buildroot}%{_sysusersdir}/nsd.conf
+
 %files
 %license LICENSE
 %doc doc/*
@@ -94,13 +100,8 @@ rm %{buildroot}%{_sysconfdir}/nsd/nsd.conf.sample
 %attr(0750,nsd,nsd) %dir %{_sharedstatedir}/nsd
 %{_sbindir}/*
 %{_mandir}/*/*
+%{_sysusersdir}/nsd.conf
 
-%pre
-getent group nsd >/dev/null || groupadd -r nsd
-getent passwd nsd >/dev/null || \
-useradd -r -g nsd -d /etc/nsd -s /sbin/nologin \
-    -c "nsd daemon account" nsd
-exit 0
 
 %post
 %systemd_post nsd.service

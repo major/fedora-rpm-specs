@@ -8,9 +8,9 @@
 Name: nrpe
 Version: 4.1.3
 %if 0%{?fromgit}
-Release: 2%{?dist}
+Release: 3%{?dist}
 %else
-Release: 2%{?dist}
+Release: 3%{?dist}
 %endif
 Summary: Host/service/network monitoring agent for Nagios
 
@@ -48,7 +48,7 @@ BuildRequires: openssl-devel-engine
 BuildRequires: tcp_wrappers-devel
 %endif
 
-Requires(pre): %{_sbindir}/useradd, %{_sbindir}/usermod
+Requires(pre): %{_sbindir}/usermod
 
 Requires(post): systemd
 Requires(preun): systemd
@@ -100,6 +100,12 @@ SElinux context for %{name}.
 %autosetup -p1 -n %{name}-%{name}-%{version}
 %endif
 
+# Create a sysusers.d config file
+cat >nrpe.sysusers.conf <<EOF
+u nrpe - 'NRPE user for the NRPE service' %{_localstatedir}/run/%{name} -
+m nrpe nagios
+EOF
+
 %build
 CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS" LDFLAGS="%{?__global_ldflags}" \
 %configure \
@@ -147,10 +153,9 @@ install -D -p -m 0644 %{SOURCE2} %{buildroot}%{_tmpfilesdir}/%{name}.conf
 install -p -m 644 -D %{name}_epel.pp $RPM_BUILD_ROOT%{_datadir}/selinux/packages/%{name}/%{name}_epel.pp
 %endif
 
+install -m0644 -D nrpe.sysusers.conf %{buildroot}%{_sysusersdir}/nrpe.conf
+
 %pre
-getent group %{name} >/dev/null || groupadd -r %{name}
-getent passwd %{name} >/dev/null || \
-%{_sbindir}/useradd -c "NRPE user for the NRPE service" -d %{_localstatedir}/run/%{name} -r -g %{name} -s /sbin/nologin %{name} 2> /dev/null || :
 getent group nagios >/dev/null && %{_sbindir}/usermod -a -G nagios %{name} || :
 
 %preun
@@ -199,6 +204,7 @@ fi
 %license LICENSE.md
 %doc CHANGELOG.md LEGAL README.md README.SSL.md SECURITY.md docs/NRPE.pdf
 %dir %attr(775, %{name}, %{name}) %{_localstatedir}/run/%{name}
+%{_sysusersdir}/nrpe.conf
 
 %files -n nagios-plugins-nrpe
 %{_libdir}/nagios/plugins/check_nrpe
@@ -212,6 +218,9 @@ fi
 %endif
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.1.3-3
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

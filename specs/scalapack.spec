@@ -34,6 +34,10 @@
 
 %bcond_without optimized_blas
 
+%if "%{?_lib}" == "lib64"
+%global _cmake_lib_suffix64 -DLIB_SUFFIX=64
+%endif
+
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
 %global blaslib flexiblas
 %if %{with optimized_blas}
@@ -53,7 +57,7 @@
 Summary: A subset of LAPACK routines redesigned for heterogeneous computing
 Name: scalapack
 Version: 2.2.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD-3-Clause-Open-MPI
 URL: http://www.netlib.org/scalapack/
 Source0: https://github.com/Reference-ScaLAPACK/scalapack/archive/v%{version}.tar.gz
@@ -352,9 +356,9 @@ CC="$CC -std=gnu89"
 %global build_fflags %(echo %build_fflags -fallow-argument-mismatch| sed 's|-Werror=format-security||g')
 %global dobuild() \
 cd %{name}-%{version}-$MPI_COMPILER_NAME ; \
-%cmake -DBUILD_SHARED_LIBS:BOOL=OFF -DBUILD_STATIC_LIBS:BOOL=ON -DMPI_BASE_DIR=%{_libdir}/$MPI_COMPILER_NAME %{blasflags} ; \
+%cmake -DBUILD_SHARED_LIBS:BOOL=OFF -DBUILD_STATIC_LIBS:BOOL=ON -DMPI_BASE_DIR=%{_libdir}/$MPI_COMPILER_NAME %{blasflags} %{?_cmake_lib_suffix64}; \
 %cmake_build ;\
-%cmake -DBUILD_SHARED_LIBS:BOOL=ON -DBUILD_STATIC_LIBS:BOOL=OFF -DMPI_BASE_DIR=%{_libdir}/$MPI_COMPILER_NAME %{blasflags} ; \
+%cmake -DBUILD_SHARED_LIBS:BOOL=ON -DBUILD_STATIC_LIBS:BOOL=OFF -DMPI_BASE_DIR=%{_libdir}/$MPI_COMPILER_NAME %{blasflags} %{?_cmake_lib_suffix64}; \
 %cmake_build ;\
 cd ..
 
@@ -411,10 +415,15 @@ cp -f README ../
 # Fixup .pc files
 %if %{with openmpi}
 sed -i 's|mpi|ompi|g' %{buildroot}%{_libdir}/openmpi/lib/pkgconfig/scalapack.pc
+sed -i 's|L%{_libdir}|L${libdir}|' %{buildroot}%{_libdir}/openmpi/lib/pkgconfig/scalapack.pc
+sed -i 's|prefix=/usr|prefix=/usr/%{_lib}/openmpi|' %{buildroot}%{_libdir}/openmpi/lib/pkgconfig/scalapack.pc
+sed -i 's|libdir=%{_libdir}|libdir=${prefix}/lib|' %{buildroot}%{_libdir}/openmpi/lib/pkgconfig/scalapack.pc
 %endif
 
 %if %{with mpich}
 sed -i 's|mpi|mpich|g' %{buildroot}%{_libdir}/mpich/lib/pkgconfig/scalapack.pc
+sed -i 's|L%{_libdir}|L${libdir}|' %{buildroot}%{_libdir}/mpich/lib/pkgconfig/scalapack.pc
+sed -i 's|libdir=%{_libdir}|libdir=%{_libdir}/mpich/lib|' %{buildroot}%{_libdir}/mpich/lib/pkgconfig/scalapack.pc
 %endif
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -475,6 +484,9 @@ sed -i 's|lapack blas|flexiblas|g' %{buildroot}%{_libdir}/mpich/lib/pkgconfig/sc
 %endif
 
 %changelog
+* Mon Mar 10 2025 Tom Callaway <spot@fedoraproject.org> - 2.2.2-2
+- more .pc fixes
+
 * Mon Mar  3 2025 Tom Callaway <spot@fedoraproject.org> - 2.2.2-1
 - update to 2.2.2
 - fix hardcoded versioning (with sed, not patch)

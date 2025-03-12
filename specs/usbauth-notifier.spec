@@ -27,11 +27,10 @@ Summary:        Notifier for USB Firewall to use with desktop environments
 URL:            https://github.com/kochstefan/usbauth-all/tree/master/usbauth-notifier
 Source:         https://github.com/kochstefan/usbauth-all/archive/v%{version}.tar.gz
 
-Release:        6%{?dist}
+Release:        7%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 
-Requires(pre):  shadow-utils
 Requires:       usbauth
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(libudev)
@@ -48,6 +47,12 @@ A notifier for the usbauth firewall against BadUSB attacks. The user could manua
 %prep
 %autosetup -n usbauth-all-%{version} -p1
 
+# Create a sysusers.d config file
+cat >usbauth-notifier.sysusers.conf <<EOF
+g usbauth -
+g usbauth-notifier -
+EOF
+
 %build
 pushd %{name}/
 autoreconf -f -i
@@ -56,14 +61,13 @@ autoreconf -f -i
 popd
 
 %pre
-if ! getent group usbauth>/dev/null; then groupadd -r usbauth; fi
-if ! getent group usbauth-notifier>/dev/null; then groupadd -r usbauth-notifier; fi
-
 %install
 pushd %{name}/
 %make_install
 %find_lang %name
 popd
+
+install -m0644 -D usbauth-notifier.sysusers.conf %{buildroot}%{_sysusersdir}/usbauth-notifier.conf
 
 %files -f %{name}/%name.lang
 %license %{name}/COPYING
@@ -74,9 +78,13 @@ popd
 %attr(04750,root,usbauth) %_libexecdir/usbauth-npriv
 %dir %attr(00750,root,usbauth-notifier) %_libexecdir/usbauth-notifier
 %attr(02755,root,usbauth) %_libexecdir/usbauth-notifier/usbauth-notifier
+%{_sysusersdir}/usbauth-notifier.conf
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.0.4-7
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

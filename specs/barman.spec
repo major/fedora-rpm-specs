@@ -1,6 +1,6 @@
 Name:       barman
 Version:    3.12.1
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Backup and Recovery Manager for PostgreSQL
 License:    GPL-3.0-only
 URL:        http://www.pgbarman.org/
@@ -16,7 +16,6 @@ BuildRequires:  python3-setuptools
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/CronFiles/#_cron_job_files_packaging:
 Requires:       cronie
 Requires:       logrotate
-Requires(pre):  shadow-utils
 Requires:       rsync >= 3.0.4
 Requires:       %{py3_dist argcomplete}
 Requires:       %{py3_dist barman}
@@ -52,6 +51,11 @@ find -type f -executable -exec sed -i '1s=^#!/usr/bin/\(python\|env python\)[23]
 %generate_buildrequires
 %pyproject_buildrequires
 
+# Create a sysusers.d config file
+cat >barman.sysusers.conf <<EOF
+u barman - 'Backup and Recovery Manager for PostgreSQL' %{_sharedstatedir}/%{name} /bin/bash
+EOF
+
 %build
 %pyproject_wheel
 
@@ -74,6 +78,8 @@ install -p -m 644 scripts/%{name}.bash_completion %{buildroot}%{_datadir}/bash-c
 
 sed -i 's|/etc/%{name}.d|/etc/%{name}/conf.d|g' %{buildroot}%{_sysconfdir}/%{name}/%{name}.conf
 
+install -m0644 -D barman.sysusers.conf %{buildroot}%{_sysusersdir}/barman.conf
+
 %files
 %{_bindir}/%{name}
 %{_datadir}/bash-completion/completions/%{name}
@@ -86,6 +92,7 @@ sed -i 's|/etc/%{name}.d|/etc/%{name}/conf.d|g' %{buildroot}%{_sysconfdir}/%{nam
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %attr(700,%{name},%{name}) %dir %{_sharedstatedir}/%{name}
 %attr(755,%{name},%{name}) %dir %{_localstatedir}/log/%{name}
+%{_sysusersdir}/barman.conf
 
 %files cli
 %{_bindir}/%{name}-cloud-backup
@@ -146,14 +153,11 @@ sed -i 's|/etc/%{name}.d|/etc/%{name}/conf.d|g' %{buildroot}%{_sysconfdir}/%{nam
 %license LICENSE
 %doc AUTHORS README.rst RELNOTES.md
 
-%pre
-getent group %{name} >/dev/null || groupadd -r %{name}
-getent passwd %{name} >/dev/null || \
-    useradd -r -g %{name} -d %{_sharedstatedir}/%{name} -s /bin/bash \
-    -c "Backup and Recovery Manager for PostgreSQL" %{name}
-exit 0
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.12.1-3
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

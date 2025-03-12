@@ -1,5 +1,5 @@
 Name:      schismtracker
-Version:   20250208
+Version:   20250307
 Release:   1%{?dist}
 Summary:   Sound module composer/player
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -33,7 +33,6 @@ is mostly text-based using SDL for graphical output.
 
 %prep
 %setup -q
-%patch -P 1 -p1
 mkdir auto
 
 %build
@@ -66,9 +65,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/schism.desktop
 %{_datadir}/pixmaps/schism*.png
 
 %changelog
-* Mon Jan 10 2025 josef radinger <cheese@nosuchhost.net> - 20250208-1
+* Mon Mar 10 2025 josef radinger <cheese@nosuchhost.net> - 20250307-1
 - bump version
-- remove unneeded patch for dekstop-file (upstream fixed)
+
+* Mon Jan 29 2025 josef radinger <cheese@nosuchhost.net> - 20250208-1
+- bump version
+- remove unneeded patch for desktop-file (upstream fixed)
 
 * Wed Jan 29 2025 josef radinger <cheese@nosuchhost.net> - 20241226-3
 - cosmetic in spec-file

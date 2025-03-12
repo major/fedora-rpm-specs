@@ -22,7 +22,7 @@
 
 Name:              openvpn
 Version:           2.6.13
-Release:           1%{?dist}
+Release:           2%{?dist}
 Summary:           A full-featured TLS VPN solution
 URL:               https://community.openvpn.net/
 Source0:           https://build.openvpn.net/downloads/releases/%{name}-%{version}.tar.gz
@@ -62,7 +62,6 @@ BuildRequires:     systemd
 BuildRequires:     systemd-devel
 
 %{?systemd_requires}
-Requires(pre):     /usr/sbin/useradd
 
 %if %{with dco}
 Recommends:        kmod-ovpn-dco >= 0.2
@@ -104,6 +103,11 @@ gpgv2 --quiet --keyring %{SOURCE10} %{SOURCE1} %{SOURCE0}
 # %%doc items shouldn't be executable.
 find contrib sample -type f -perm /100 \
     -exec chmod a-x {} \;
+
+# Create a sysusers.d config file
+cat >openvpn.sysusers.conf <<EOF
+u openvpn - 'OpenVPN' /etc/openvpn -
+EOF
 
 %build
 %configure \
@@ -185,13 +189,9 @@ rm -f  $RPM_BUILD_ROOT%{_pkgdocdir}/sample/Makefile{,.in,.am}
 rm -f  $RPM_BUILD_ROOT%{_pkgdocdir}/contrib/multilevel-init.patch
 rm -rf $RPM_BUILD_ROOT%{_pkgdocdir}/sample/sample-keys
 
+install -m0644 -D openvpn.sysusers.conf %{buildroot}%{_sysusersdir}/openvpn.conf
 
-%pre
-getent group openvpn &>/dev/null || groupadd -r openvpn
-getent passwd openvpn &>/dev/null || \
-    useradd -r -g openvpn -s /sbin/nologin -c OpenVPN \
-        -d /etc/openvpn openvpn
-exit 0
+
 
 %post
 for srv in `systemctl | awk '/openvpn-client@.*\.service/{print $1} /openvpn-server@.*\.service/{print $1}'`;
@@ -228,6 +228,7 @@ done
 %attr(0770,openvpn,openvpn) %{_sharedstatedir}/%{name}
 %dir %attr(0750,-,openvpn) %{_rundir}/openvpn-client
 %dir %attr(0750,-,openvpn) %{_rundir}/openvpn-server
+%{_sysusersdir}/openvpn.conf
 
 %files devel
 %{_pkgdocdir}/sample/sample-plugins
@@ -236,6 +237,9 @@ done
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.6.13-2
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Frank Lichtenheld <frank@lichtenheld.com> - 2.6.13-1
 - Update to upstream OpenVPN 2.6.13 (RHBZ#2338321)
 - Remove RHEL 7 compat code

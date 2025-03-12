@@ -3,7 +3,7 @@
 
 Name:           thttpd
 Version:        2.29
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        A tiny, turbo, throttleable lightweight HTTP server
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -23,7 +23,6 @@ BuildRequires: make
 BuildRequires: libxcrypt-devel
 BuildRequires:  systemd gcc
 %{?systemd_requires}
-Requires(pre):  shadow-utils
 
 %description
 Thttpd is a very compact no-frills httpd serving daemon that can handle
@@ -43,6 +42,12 @@ for man in *.8 */*.8 */*.1; do
     iconv -f iso8859-1 -t utf-8 -o tmp ${man}
     mv -f tmp ${man}
 done
+
+# Create a sysusers.d config file
+cat >thttpd.sysusers.conf <<EOF
+g www -
+u thttpd -:www 'Thttpd Web Server User' %{webroot} -
+EOF
 
 %build
 %configure
@@ -110,10 +115,8 @@ pidfile=/var/run/thttpd.pid
 # charset=iso-8859-1
 EOF
 
-%pre
-/usr/sbin/groupadd -r www &>/dev/null || :
-/usr/sbin/useradd -s /sbin/nologin -c "Thttpd Web Server User" \
-    -d %{webroot} -M -r -g www thttpd &>/dev/null || :
+install -m0644 -D thttpd.sysusers.conf %{buildroot}%{_sysusersdir}/thttpd.conf
+
 
 %post
 %systemd_post thttpd.service
@@ -145,8 +148,12 @@ EOF
 %{_mandir}/man8/thttpd.8*
 # Hack to own parent directory for the default "webroot". Remove if needed.
 %dir /var/www
+%{_sysusersdir}/thttpd.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.29-21
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 2.29-20
 - Add explicit BR: libxcrypt-devel
 

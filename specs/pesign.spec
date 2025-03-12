@@ -6,7 +6,7 @@
 Name:    pesign
 Summary: Signing utility for UEFI binaries
 Version: 116
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPL-2.0-only
 URL:     https://github.com/rhboot/pesign
 
@@ -37,7 +37,6 @@ Requires:      nss-tools >= 3.53
 Requires:      nss-util
 Requires:      popt
 Requires:      rpm
-Requires(pre): shadow-utils
 ExclusiveArch: %{ix86} x86_64 ia64 aarch64 %{arm} riscv64
 %if 0%{?rhel} == 7
 BuildRequires: rh-signing-tools >= 1.20-2
@@ -66,6 +65,11 @@ git commit -a -q -m "%{version} baseline."
 git am %{patches} </dev/null
 git config --unset user.email
 git config --unset user.name
+
+# Create a sysusers.d config file
+cat >pesign.sysusers.conf <<EOF
+u pesign - 'Group for the pesign signing daemon' /run/pesign -
+EOF
 
 %build
 make PREFIX=%{_prefix} LIBDIR=%{_libdir}
@@ -101,12 +105,8 @@ cp -av libdpe/*.[ch] src/
 install -d -m 0755 %{buildroot}%{python3_sitelib}/mockbuild/plugins/
 install -m 0755 %{SOURCE2} %{buildroot}%{python3_sitelib}/mockbuild/plugins/
 
-%pre
-getent group pesign >/dev/null || groupadd -r pesign
-getent passwd pesign >/dev/null || \
-	useradd -r -g pesign -d /run/pesign -s /sbin/nologin \
-		-c "Group for the pesign signing daemon" pesign
-exit 0
+install -m0644 -D pesign.sysusers.conf %{buildroot}%{_sysusersdir}/pesign.conf
+
 
 %if 0%{?rhel} >= 7 || 0%{?fedora} >= 17
 %post
@@ -160,8 +160,12 @@ certutil -d %{_sysconfdir}/pki/pesign/ -X -L > /dev/null
 %endif
 %{python3_sitelib}/mockbuild/plugins/*/pesign.*
 %{python3_sitelib}/mockbuild/plugins/pesign.*
+%{_sysusersdir}/pesign.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl>
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Wed Jan 29 2025 Nicolas Frayer <nfrayer@redhat.com> - 116-7
 - Backport patch to skip auth on friendly slot
 

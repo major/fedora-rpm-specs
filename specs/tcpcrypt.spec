@@ -4,7 +4,7 @@
 Summary: Opportunistically encrypt TCP connections
 Name: tcpcrypt
 Version: 0.5
-Release: 17%{?dist}
+Release: 18%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 Url: http://tcpcrypt.org/
@@ -22,7 +22,6 @@ BuildRequires: systemd
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
-Requires(pre): shadow-utils
 
 %description
 Provides a protocol that attempts to encrypt (almost) all of your
@@ -47,6 +46,11 @@ Contains libraries used by tcpcryptd server and tcpcrypt-aware applications
 %prep
 %autosetup
 
+# Create a sysusers.d config file
+cat >tcpcrypt.sysusers.conf <<EOF
+u tcpcryptd - 'tcpcrypt daemon account' /var/run/tcpcryptd -
+EOF
+
 %build
 sh bootstrap.sh
 %configure --disable-static --disable-rpath
@@ -60,6 +64,8 @@ mkdir -p %{buildroot}%{_sysconfdir}/tmpfiles.d/ %{buildroot}/run/tcpcryptd
 install -D -m 0644 %{SOURCE1} %{buildroot}%{_tmpfilesdir}/tcpcrypt.conf
 mkdir -p %{buildroot}%{_unitdir}
 install -m 0755 %{SOURCE2} %{buildroot}/%{_unitdir}/tcpcryptd.service
+
+install -m0644 -D tcpcrypt.sysusers.conf %{buildroot}%{_sysusersdir}/tcpcrypt.conf
 
 %files libs
 %doc README.markdown
@@ -77,6 +83,7 @@ install -m 0755 %{SOURCE2} %{buildroot}/%{_unitdir}/tcpcryptd.service
 %attr(0644,root,root) %{_tmpfilesdir}/tcpcrypt.conf
 %attr(0644,root,root) %{_unitdir}/tcpcryptd.service
 %attr(0755,tcpcryptd,tcpcryptd) %dir /run/tcpcryptd
+%{_sysusersdir}/tcpcrypt.conf
 
 %files devel
 %{_libdir}/libtcpcrypt.so
@@ -85,11 +92,6 @@ install -m 0755 %{SOURCE2} %{buildroot}/%{_unitdir}/tcpcryptd.service
 
 %ldconfig_scriptlets libs
 
-%pre
-getent group tcpcryptd >/dev/null || groupadd -r tcpcryptd
-getent passwd tcpcryptd >/dev/null || \
-useradd -r -g tcpcryptd -d /var/run/tcpcryptd -s /sbin/nologin \
--c "tcpcrypt daemon account" tcpcryptd || exit 0
 
 %post
 %systemd_post tcpcryptd.service
@@ -101,6 +103,9 @@ useradd -r -g tcpcryptd -d /var/run/tcpcryptd -s /sbin/nologin \
 %systemd_postun_with_restart tcpcryptd.service
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.5-18
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

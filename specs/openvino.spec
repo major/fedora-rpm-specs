@@ -72,10 +72,13 @@ BuildRequires:	yaml-cpp-devel
 BuildRequires:	tbb-devel
 BuildRequires:	onnx-devel
 BuildRequires:	protobuf-devel
+BuildRequires:	opencv-devel
 # forked version of OpenVINO oneDNN does not have a proper version
 Provides:	bundled(onednn)
 # MLAS upstream does not have any release
 Provides:	bundled(mlas)
+# level-zero-npu-extensions upstream does not have any release
+Provides:	bundled(level-zero-npu-extensions)
 Requires:	lib%{name}-ir-frontend = %{version}
 Requires:	lib%{name}-pytorch-frontend = %{version}
 Requires:	lib%{name}-onnx-frontend = %{version}
@@ -173,6 +176,8 @@ sed -i '/#include <utility>.*/a#include <cstdint>' src/plugins/intel_cpu/src/uti
 sed -i '/#include <vector>.*/a#include <cstdint>' src/plugins/intel_npu/src/plugin/npuw/partitioning/online/graph.hpp
 sed -i '/#include <vector>.*/a#include <cstdint>' src/plugins/intel_npu/src/plugin/npuw/serialization.hpp
 sed -i '/#include <memory>.*/a#include <cstdint>' src/plugins/intel_cpu/src/utils/enum_class_hash.hpp
+sed -i '/#include <vector>.*/a#include <cstdint>' src/plugins/intel_npu/tools/protopipe/src/graph.hpp
+sed -i '/#include <memory>.*/a#include <cstdint>' src/plugins/intel_npu/tools/protopipe/src/scenario/criterion.hpp
 
 %build
 %cmake \
@@ -273,6 +278,8 @@ LD_LIBRARY_PATH=$LD_LIBRARY_PATH:%{buildroot}%{_libdir} PYTHONPATH=%{buildroot}%
 %{_libdir}/%{name}-%{version}/lib%{name}_intel_cpu_plugin.so
 %{_libdir}/%{name}-%{version}/lib%{name}_intel_npu_plugin.so
 %{_bindir}/compile_tool
+%{_bindir}/protopipe
+%{_bindir}/single-image-test
 
 %files -n lib%{name}-ir-frontend
 %{_libdir}/lib%{name}_ir_frontend.so.%{version}

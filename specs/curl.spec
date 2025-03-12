@@ -6,18 +6,21 @@
 
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
-Version: 8.12.1
+Version: 8.13.0~rc1
 Release: 1%{?dist}
 License: curl
-Source0: https://curl.se/download/%{name}-%{version}.tar.xz
-Source1: https://curl.se/download/%{name}-%{version}.tar.xz.asc
+Source0: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz
+Source1: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz.asc
 # The curl download page ( https://curl.se/download.html ) links
 # to Daniel's address page https://daniel.haxx.se/address.html for the GPG Key,
 # which points to the GPG key as of April 7th 2016 of https://daniel.haxx.se/mykey.asc
 Source2: mykey.asc
 
+# Test 1022 add support for rc releases
+Patch001: 0001-curl-8.13.0~rc1-test1022-add-support-for-rc-releases.patch
+
 # patch making libcurl multilib ready
-Patch101: 0101-curl-7.32.0-multilib.patch
+# Patch101: 0101-curl-7.32.0-multilib.patch
 
 # test3026: disable valgrind
 Patch102: 0102-curl-7.84.0-test3026.patch
@@ -211,7 +214,7 @@ be installed.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -p1
+%autosetup -n %{name}-%{version_no_tilde} -p1
 
 # disable test 1801
 # <https://github.com/bagder/curl/commit/21e82bd6#commitcomment-12226582>
@@ -407,6 +410,9 @@ rm -f ${RPM_BUILD_ROOT}%{_libdir}/libcurl.la
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Mon Mar 10 2025 Jan Macku <jamacku@redhat.com> - 8.13.0~rc1-1
+- new upstream release candidate
+
 * Wed Feb 05 2025 Jan Macku <jamacku@redhat.com> - 8.12.0-1
 - new upstream release, which fixes the following vulnerabilities
     CVE-2025-0725 - gzip integer overflow

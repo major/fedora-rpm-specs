@@ -2,7 +2,7 @@
 
 Name:              postgrey
 Version:           1.37
-Release:           25%{?dist}
+Release:           26%{?dist}
 Summary:           Postfix Greylisting Policy Server
 # File headers only state "GNU GPL", but the LICENSE sections state v2 and "any
 # later version"
@@ -31,7 +31,6 @@ BuildRequires:     systemd
 #Requires:          perl(Sys::Syslog)
 # Requiring postfix for its directories and GID.
 Recommends:        postfix
-Requires(pre):     shadow-utils
 Requires(post):    systemd
 Requires(preun):   systemd
 Requires(postun):  systemd
@@ -51,6 +50,11 @@ sed -i 's|nogroup|postgrey|g' postgrey
 # No perldoc, man is enough.
 sed -i 's|POD ||g;s|perldoc|man|g' README
 install -pm0644 %{SOURCE2} README.Fedora
+
+# Create a sysusers.d config file
+cat >postgrey.sysusers.conf <<EOF
+u postgrey - 'Postfix Greylisting Service' %{_localstatedir}/spool/postfix/postgrey -
+EOF
 
 %build
 # We only have perl scripts, so just "build" the man page.
@@ -91,12 +95,8 @@ install -pDm0644 postgrey.8 \
 install -pDm0755 contrib/postgreyreport \
     %{buildroot}%{_sbindir}/postgreyreport
 
-%pre
-getent group postgrey >/dev/null || groupadd -r postgrey
-getent passwd postgrey >/dev/null || \
-    useradd -r -g postgrey -d %{_localstatedir}/spool/postfix/postgrey -s /sbin/nologin \
-    -c "Postfix Greylisting Service" postgrey
-exit 0
+install -m0644 -D postgrey.sysusers.conf %{buildroot}%{_sysusersdir}/postgrey.conf
+
 
 %post
 %systemd_post postgrey.service
@@ -129,8 +129,12 @@ exit 0
 %{_sbindir}/postgreyreport
 %{_mandir}/man8/postgrey.8*
 %dir %attr(0751,postgrey,postfix) %{_localstatedir}/spool/postfix/postgrey/
+%{_sysusersdir}/postgrey.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.37-26
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.37-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

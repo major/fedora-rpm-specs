@@ -3,7 +3,7 @@
 
 Name:       copr-keygen
 Version:    2.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Part of Copr build system. Aux service that generate keys for signd
 
 License:    GPL-2.0-or-later
@@ -79,6 +79,11 @@ This package contains document for copr-keygen service.
 %prep
 %setup -q
 
+# Create a sysusers.d config file
+cat >copr-keygen.sysusers.conf <<EOF
+u copr-signer - 'Copr rpm signer' %{_datadir}/copr-keygen /bin/bash
+EOF
+
 
 %build
 %py3_build
@@ -127,15 +132,12 @@ cp -a docs/_build/html %{buildroot}%{_pkgdocdir}/
 %{__install} -p -m 0644 configs/sign/sign.conf.example %{buildroot}%{_pkgdocdir}/sign/sign.conf.example
 %endif
 
+install -m0644 -D copr-keygen.sysusers.conf %{buildroot}%{_sysusersdir}/copr-keygen.conf
+
 %check
 ./run_tests.sh -vv --no-cov
 
 
-%pre
-getent group copr-signer >/dev/null || groupadd -r copr-signer
-getent passwd copr-signer >/dev/null || \
-  useradd -r -g copr-signer -G copr-signer -d %{_datadir}/copr-keygen -s /bin/bash -c "Copr rpm signer" copr-signer
-/usr/bin/passwd -l copr-signer >/dev/null
 
 
 %post
@@ -166,6 +168,7 @@ systemctl condrestart httpd &>/dev/null || :
 %config(noreplace) %{_sysconfdir}/copr-keygen
 %dir %{_localstatedir}/log/copr-keygen
 %ghost %{_localstatedir}/log/copr-keygen/main.log
+%{_sysusersdir}/copr-keygen.conf
 
 %if 0%{?fedora}
 %files -n copr-keygen-doc
@@ -173,6 +176,9 @@ systemctl condrestart httpd &>/dev/null || :
 %endif
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.0-3
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

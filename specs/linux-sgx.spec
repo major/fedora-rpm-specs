@@ -37,9 +37,11 @@
 # unreasonable burden fighting the build system for enclave pieces.
 
 %global with_aesm 0
+%global with_host_tinyxml2 0
 %global with_pccsadmin 0
 %if 0%{?fedora}
 %global with_aesm 1
+%global with_host_tinyxml2 1
 %global with_pccsadmin 1
 %endif
 
@@ -80,6 +82,8 @@
 %global jwt_cpp_version 0.6.0
 # From DCAP git submodule
 %global wamr_version 1.3.3
+# From SGX external/tinyxml2
+%global tinyxml2_version 10.0.0
 
 # From SGX external/epid-sdk/CHANGELOG.md
 %global epid_version 6.0.0
@@ -244,6 +248,11 @@ Provides: bundled(jwt-cpp) = %{jwt_cpp_version}
 Source13: https://github.com/bytecodealliance/wasm-micro-runtime/archive/refs/tags/WAMR-%{wamr_version}.tar.gz#/wasm-micro-runtime-%{wamr_version}.tar.gz
 Provides: bundled(wasm-micro-runtime} = %{wamr_version}
 
+Source14: https://github.com/leethomason/tinyxml2/archive/refs/tags/%{tinyxml2_version}.tar.gz#/tinyxml2-%{tinyxml2_version}.tar.gz
+%if ! %{with_host_tinyxml2}
+Provides: bundled(tinyxml2) = %{tinyxml2_version}
+%endif
+
 
 ############################################################
 # Misc distro integration files SourceN in (40..59)
@@ -350,7 +359,9 @@ BuildRequires: perl(IPC::Cmd)
 BuildRequires: nasm
 BuildRequires: python-unversioned-command
 BuildRequires: systemd-rpm-macros
+%if %{with_host_tinyxml2}
 BuildRequires: tinyxml2-devel
+%endif
 %if %{with_aesm}
 BuildRequires: CppMicroServices-devel
 %endif
@@ -535,7 +546,10 @@ in applications
 ############################################################
 
 # Will use system package instead
-rm -rf external/{CppMicroServices,tinyxml2}
+rm -rf external/CppMicroServices
+%if %{with_host_tinyxml2}
+rm -rf external/tinyxml2
+%endif
 
 # Don't intend to package these optional bits since none of
 # the required enclaves need this, and thus we can cut down
@@ -627,6 +641,16 @@ rm -rf external/{dnnl,openmp,protobuf,mbedtls} sdk/sample_libcrypto
   patch -p1 < ../sgx_cbor.patch
 )
 
+
+############################################################
+# tinyxml2
+%if ! %{with_host_tinyxml2}
+(
+  cd external/tinyxml2
+  tar zxf %{SOURCE14} --strip 1
+)
+%endif
+
 ############################################################
 # prebuilt enclaves
 
@@ -676,6 +700,10 @@ fi
 
 %build
 
+# Workaround for cmake >= 4.0 which drops compat with
+# cmake_minimum_required(VERSION 3.0.0)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
+
 ############################################################
 # First, build the SDK
 
@@ -715,7 +743,7 @@ do
     -C sdk/ V=1 \
     MITIGATION-CVE-2020-0551=$mitigation \
     USE_HOST_OPENSSL_CRYPTO=1 \
-    USE_HOST_TINYXML2=1
+    USE_HOST_TINYXML2=%{with_host_tinyxml2}
 
   %__make %{?_smp_mflags} \
     -C external/dcap_source/QuoteVerification/dcap_tvl \

@@ -2,24 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate mailparse
+%global crate lru
 
-Name:           rust-mailparse
-Version:        0.16.1
+Name:           rust-lru0.12
+Version:        0.12.5
 Release:        %autorelease
-Summary:        Simple parser for MIME e-mail messages
+Summary:        LRU cache implementation
 
-License:        0BSD
-URL:            https://crates.io/crates/mailparse
+License:        MIT
+URL:            https://crates.io/crates/lru
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * allow ouroboros 0.18
-Patch:          mailparse-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A simple parser for MIME e-mail messages.}
+A LRU cache implementation.}
 
 %description %{_description}
 
@@ -34,6 +31,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -47,6 +45,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+hashbrown-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+hashbrown-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "hashbrown" feature of the "%{crate}" crate.
+
+%files       -n %{name}+hashbrown-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

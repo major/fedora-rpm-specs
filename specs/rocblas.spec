@@ -247,7 +247,7 @@ fi
 %endif
 
 %changelog
-* Thu Feb 25 2025 Cristian Le <git@lecris.dev> - 6.3.0-10
+* Thu Feb 27 2025 Cristian Le <git@lecris.dev> - 6.3.0-10
 - Add hip requirement to devel package
 
 * Thu Feb 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.0-9

@@ -4,7 +4,7 @@
 
 Name:           mlmmj
 Version:        1.4.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A simple and slim mailing list manager inspired by ezmlm
 License:        MIT
 URL:            https://codeberg.org/mlmmj/mlmmj
@@ -68,6 +68,11 @@ cp -p %{SOURCE2} selinux/%{modulename}.fc
 cp -p %{SOURCE3} selinux/README.SELinux
 touch selinux/%{modulename}.if
 
+# Create a sysusers.d config file
+cat >mlmmj.sysusers.conf <<EOF
+u mlmmj - 'mlmmj user' %{_localstatedir}/spool/%{name} -
+EOF
+
 %build
 %configure --enable-receive-strip
 %make_build
@@ -85,10 +90,8 @@ find contrib/ -type f -name *.cgi -exec chmod -x {} ";"
 # SELinux
 install -D -m 0644 %{modulename}.pp.bz2 %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}/%{modulename}.pp.bz2
 
-%pre
-getent group mlmmj &>/dev/null || %{_sbindir}/groupadd -r mlmmj
-getent passwd mlmmj &>/dev/null || \
-    %{_sbindir}/useradd -r -g mlmmj -s /sbin/nologin -c "mlmmj user" -d %{_localstatedir}/spool/%{name} mlmmj
+install -m0644 -D mlmmj.sysusers.conf %{buildroot}%{_sysusersdir}/mlmmj.conf
+
 
 %pre selinux
 %selinux_relabel_pre -s %{selinuxtype}
@@ -112,6 +115,7 @@ fi
 %{_mandir}/man1/mlmmj*.1*
 %{_datadir}/%{name}/
 %dir %attr(0700,mlmmj,root) %{_localstatedir}/spool/%{name}
+%{_sysusersdir}/mlmmj.conf
 
 %files selinux
 %doc selinux/README.SELinux
@@ -119,6 +123,9 @@ fi
 %ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{modulename}
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.4.7-3
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

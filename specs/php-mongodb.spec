@@ -10,13 +10,13 @@
 # disabled for https://fedoraproject.org/wiki/Changes/MongoDB_Removal
 %bcond_with          tests
 
-%global gh_commit    d216a5bfc62c9b63ba3523565a35856ab91f78d9
+%global gh_commit    37bc8df3a67ddf8380704a5ba5dbd00e92ec1f6a
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     mongodb
 %global gh_project   mongo-php-library
 %global psr0         MongoDB
 
-%global upstream_version 1.21.0
+%global upstream_version 1.21.1
 #global upstream_prever  alpha1
 #global upstream_lower   alpha1
 
@@ -40,8 +40,6 @@ BuildArch:      noarch
 BuildRequires:  php(language) >= 8.1
 BuildRequires:  php-cli
 BuildRequires:  php-dom
-BuildRequires:  php-hash
-BuildRequires:  php-json
 BuildRequires: (php-composer(psr/log)                >= 1.1.4 with php-composer(psr/log)                < 4)
 %if %{with tests}
 BuildRequires:  mongodb-server >= 2.4
@@ -60,16 +58,10 @@ BuildRequires:  php-composer(fedora/autoloader)
 
 # From composer.json, "require": {
 #        "php": "^8.1"
-#        "ext-hash": "*",
-#        "ext-json": "*",
 #        "ext-mongodb": "^1.21.0",
 #        "composer-runtime-api": "^2.0",
-#        "psr/log": "^1.1.4|^2|^3",
-#        "symfony/polyfill-php80": "^1.27",
-#        "symfony/polyfill-php81": "^1.27"
+#        "psr/log": "^1.1.4|^2|^3"
 Requires:       php(language) >= 8.1
-Requires:       php-hash
-Requires:       php-json
 Requires:       php-pecl(mongodb) >= %{ext_version}
 Requires:      (php-composer(psr/log)                >= 1.1.4 with php-composer(psr/log)                < 4)
 # From phpcompatinfo report for 1.8.0
@@ -187,6 +179,9 @@ exit $ret
 
 
 %changelog
+* Mon Mar 10 2025 Remi Collet <remi@remirepo.net> - 1.21.1-1
+- update to 1.21.1 (no change)
+
 * Fri Feb 28 2025 Remi Collet <remi@remirepo.net> - 1.21.0-1
 - update to 1.21.0
 - re-license spec file to CECILL-2.1

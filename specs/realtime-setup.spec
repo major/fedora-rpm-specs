@@ -1,6 +1,6 @@
 Name: realtime-setup
 Version: 2.5
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPL-2.0-or-later
 Summary: Setup RT/low-latency environment details
 Source0: https://gitlab.com/rt-linux-tools/%{name}/-/archive/v%{version}/%{name}-%{version}.tar.bz2
@@ -47,6 +47,11 @@ Neither the slub script or realtime-entsk are active by default.
 %prep
 %setup -q -n %{name}-%{version}
 
+# Create a sysusers.d config file
+cat >realtime-setup.sysusers.conf <<EOF
+g realtime 71
+EOF
+
 
 %build
 %make_build CFLAGS="%{build_cflags} -D_GNU_SOURCE" all
@@ -54,8 +59,8 @@ Neither the slub script or realtime-entsk are active by default.
 %install
 %make_install DEST=%{buildroot} install
 
-%post
-/usr/sbin/groupadd -f -g 71 realtime
+install -m0644 -D realtime-setup.sysusers.conf %{buildroot}%{_sysusersdir}/realtime-setup.conf
+
 
 %preun
 %systemd_preun realtime-setup.service
@@ -70,8 +75,12 @@ Neither the slub script or realtime-entsk are active by default.
 %{_unitdir}/realtime-setup.service
 %{_bindir}/realtime-setup
 %{_unitdir}/realtime-entsk.service
+%{_sysusersdir}/realtime-setup.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.5-6
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Wed Jan 29 2025 Clark Williams <williams@redhat.com> - 2.5-5
 - Move realtime-entsk and kernel-is-rt to /usr/bin
 

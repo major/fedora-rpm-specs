@@ -6,7 +6,7 @@ Summary:	PC/SC driver for REINER SCT cyberjack USB chip card reader
 Version:	3.99.5final.SP15
 %global version_prefix %(c=%{version}; echo ${c:0:6})
 %global version_suffix %(c=%{version}; echo ${c:12:4})
-Release:	10%{?dist}
+Release:	11%{?dist}
 License:	GPLv2+ and LGPLv2+
 URL:		https://www.reiner-sct.com/
 Source0:	https://support.reiner-sct.de/downloads/LINUX/V%{version_prefix}_%{version_suffix}/%{name}_%{version}.tar.bz2
@@ -18,7 +18,6 @@ Patch0:		pcsc-cyberjack-3.99.5final.SP09-configure.patch
 
 Requires:	udev
 Requires:	pcsc-lite
-Requires(pre):	shadow-utils
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -75,6 +74,11 @@ autoreconf --force --install
 # README-FEDORA
 install -pm 644 %{SOURCE1} README-FEDORA.txt
 
+# Create a sysusers.d config file
+cat >pcsc-cyberjack.sysusers.conf <<EOF
+g cyberjack -
+EOF
+
 %build
 # while the docs say --enable-udev will create udev files, I get no rule
 # in etc/udev, so making my own later, based on debian one
@@ -117,8 +121,8 @@ pushd tools/cjflash
 %make_install
 popd
 
-%pre
-getent group cyberjack >/dev/null || groupadd -r cyberjack
+install -m0644 -D pcsc-cyberjack.sysusers.conf %{buildroot}%{_sysusersdir}/pcsc-cyberjack.conf
+
 
 %post
 %udev_rules_update
@@ -143,6 +147,7 @@ exit 0
 %{readers_dir}/libifd-cyberjack.bundle/
 
 %config(noreplace) %{_sysconfdir}/cyberjack.conf
+%{_sysusersdir}/pcsc-cyberjack.conf
 
 
 %files cjflash
@@ -153,6 +158,9 @@ exit 0
 %doc doc/verifypin_ascii.c doc/verifypin_fpin2.c
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.99.5final.SP15-11
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.99.5final.SP15-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

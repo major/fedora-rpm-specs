@@ -2,8 +2,8 @@
 %global debian_release 1
 
 Name:             apt-cacher-ng
-Version:          3.7.4
-Release:          11%{?dist}
+Version:          3.7.5
+Release:          1%{?dist}
 Summary:          Caching proxy for package files from Debian
 
 License:          BSD-4-Clause
@@ -14,7 +14,6 @@ Source2:          %{name}.conf
 Source3:          %{name}.rpmlintrc
 # Purpose: versioning the private shared library to comply with Fedora Policy
 Patch0:           supacng.patch
-Patch1:           missing-algorithm-header.patch
 
 BuildRequires:    gcc-c++
 BuildRequires:    zlib-devel
@@ -61,7 +60,7 @@ sed -i 's/HAVE_STRLCPY/HAVE_STRLCPY 1/' */acsyscap.h
 %install
 %cmake_install
 %if "%{_bindir}" == "%{_sbindir}"
-mv %{buildroot}/usr/sbin %{buildroot}/usr/bin
+test -d %{buildroot}/usr/sbin && mv %{buildroot}/usr/sbin %{buildroot}/usr/bin
 %endif
 
 # we do not want an unversioned .so or a -devel package
@@ -131,14 +130,13 @@ chown -R %{name}:%{name} /run/%{name}/
 %{_tmpfilesdir}/%{name}.conf
 %{_libexecdir}/%{name}/
 %{_libdir}/libsupacng.so*
-%if "%{_bindir}" == "%{_sbindir}"
-%{_bindir}/apt-cacher-ng
-%else
 %{_sbindir}/apt-cacher-ng
-%endif
 %{_mandir}/man8/*
 
 %changelog
+* Mon Mar 10 2025 Alexandre Detiste > - 3.7.5-1
+- New upstream release
+
 * Fri Jan 17 2025 Alexandre Detiste > - 3.7.4-11
 - Fix FBTFS (Bugs #226088, #2300564)
 

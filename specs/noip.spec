@@ -1,6 +1,6 @@
 Name:		noip
 Version:	2.1.9
-Release:	42%{?dist}
+Release:	43%{?dist}
 Summary:	A dynamic DNS update client
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -10,7 +10,6 @@ Source1:	noip.service
 # Patch for Fedora specifics 
 Patch0:		noip.patch
 
-Requires(pre):		shadow-utils
 %{?systemd_requires}
 BuildRequires: make
 BuildRequires: systemd
@@ -31,6 +30,11 @@ before starting the service.
 %patch -P0 -p1
 sed -i 's|@OPTFLAGS@|%{optflags}|g;s|@SBINDIR@|%{buildroot}%{_sbindir}|g;s|@SYSCONFDIR@|%{buildroot}%{_sysconfdir}|g' Makefile
 
+# Create a sysusers.d config file
+cat >noip.sysusers.conf <<EOF
+u noip - 'No-ip daemon user' /var/run/noip -
+EOF
+
 %build
 make %{?_smp_mflags}
 
@@ -45,12 +49,8 @@ install -Dm644  %{SOURCE1} %{buildroot}%{_unitdir}/noip.service
 # Install init script
 #install -D -p -m 755 redhat.noip.sh %{buildroot}%{_initrddir}/noip
 
-%pre
-# Add noip user & group
-getent group noip >/dev/null || groupadd -r noip
-getent passwd noip >/dev/null || \
-	useradd -r -g noip -d /var/run/noip -s /sbin/nologin \
-	-c "No-ip daemon user" noip
+install -m0644 -D noip.sysusers.conf %{buildroot}%{_sysusersdir}/noip.conf
+
 
 %post
 %systemd_post noip.service
@@ -66,8 +66,12 @@ getent passwd noip >/dev/null || \
 %{_sbindir}/noip2
 %attr(600,noip,noip) %config(noreplace) %{_sysconfdir}/no-ip2.conf
 %{_unitdir}/noip.service
+%{_sysusersdir}/noip.conf
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.1.9-43
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.9-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

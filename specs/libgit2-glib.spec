@@ -2,18 +2,14 @@
 %global glib2_version 2.44.0
 
 Name:           libgit2-glib
-Version:        1.2.0
-Release:        9%{?dist}
+Version:        1.2.1
+Release:        1%{?dist}
 Summary:        Git library for GLib
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
 URL:            https://wiki.gnome.org/Projects/Libgit2-glib
 Source0:        https://download.gnome.org/sources/libgit2-glib/1.2/libgit2-glib-%{version}.tar.xz
-# https://gitlab.gnome.org/GNOME/libgit2-glib/-/merge_requests/40
-Patch:          libgit2-1.8.x.patch
-# https://gitlab.gnome.org/GNOME/libgit2-glib/-/merge_requests/46
-Patch:          libgit2-1.9.x.patch
 
 BuildRequires:  gcc
 BuildRequires:  gi-docgen
@@ -68,6 +64,9 @@ developing applications that use %{name}.
 %doc %{_datadir}/gtk-doc/
 
 %changelog
+* Fri Mar 07 2025 nmontero <nmontero@redhat.com> - 1.2.1-1
+- Update to 1.2.1
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

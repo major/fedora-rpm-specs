@@ -1,6 +1,6 @@
 Name:           wesnoth
 Version:        1.19.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Turn-based strategy game with a fantasy theme
 
 License:        GPL-2.0-or-later
@@ -57,7 +57,6 @@ friends--or strangers--and fight multi-player epic fantasy battles.
 %package server
 Summary:        %{summary}
 Requires:       %{name} = %{version}-%{release}
-Requires(pre):  /usr/sbin/useradd
 
 %description server
 This package contains the binaries for running a Wesnoth server
@@ -85,6 +84,12 @@ This package contains the data files for Wesnoth.
 
 %prep
 %autosetup -p0
+
+# Create a sysusers.d config file.
+# Upstream provides a file that we don't like.
+cat >wesnoth-server.sysusers.conf <<EOF
+u wesnothd - 'Wesnoth server' /run/wesnothd -
+EOF
 
 %build
 scons wesnoth wesnothd campaignd prefix=%{_prefix} \
@@ -141,9 +146,7 @@ done
 # language stuff
 %find_lang %{name} LANGFILES --with-man
 
-%pre server
-/usr/sbin/useradd -c "Wesnoth server" -s /sbin/nologin \
-          -r -d /run/wesnothd wesnothd 2> /dev/null || :
+install -m0644 -D wesnoth-server.sysusers.conf %{buildroot}%{_sysusersdir}/wesnoth-server.conf
 
 
 %post server
@@ -178,6 +181,7 @@ done
 %{_unitdir}/wesnothd.service
 %{_tmpfilesdir}/wesnothd.tmpfiles.conf
 %exclude %{_prefix}/lib/sysusers.d/wesnothd.sysusers.conf
+%{_sysusersdir}/wesnoth-server.conf
 
 %files data -f LANGFILES
 %{_datadir}/applications/org.wesnoth.Wesnoth.desktop
@@ -189,6 +193,9 @@ done
 %{_mandir}/*/man6/wesnoth*.6*
 
 %changelog
+* Mon Mar 10 2025 Zbigniew Jędrzejewski-Szmek  <zbyszek@in.waw.pl> - 1.19.9-2
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Tue Feb 18 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.19.9-1
 - 1.19.9
 

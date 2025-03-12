@@ -4,7 +4,7 @@
 
 Name:           sdrpp
 Version:        1.2.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        SDRPlusPlus bloat-free SDR receiver software
 
 # Automatically converted from old format: GPLv3 and MIT and WTFPL and Public Domain - review is highly recommended.
@@ -174,6 +174,9 @@ appstream-util validate-relax \
 
 
 %changelog
+* Mon Mar 10 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 1.2.0-5
+- Rebuilt for new volk
+
 * Tue Jan 28 2025 Daniel Rusek <mail@asciiwolf.com> - 1.2.0-4
 - Add AppStream metadata
 - Install desktop icon in standard location

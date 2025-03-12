@@ -40,7 +40,8 @@ BuildRequires:  just
 BuildRequires:  libxkbcommon-devel
 BuildRequires:  desktop-file-utils
 
-Requires:       PackageKit
+Recommends:     PackageKit
+Recommends:     flatpak
 Requires:       flatpak-libs
 Requires:       cosmic-icon-theme >= %{cosmic_minver}
 

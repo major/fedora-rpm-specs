@@ -83,7 +83,7 @@
 
 Name:        sympa
 Version:     6.2.76
-Release:     %{?pre_rel:0.}1%{?pre_rel:.%pre_rel}%{?dist}
+Release:     %{?pre_rel:0.}1%{?pre_rel:.%pre_rel}%{?dist}.1
 Summary:     Powerful multilingual List Manager
 Summary(fr): Gestionnaire de listes électroniques
 Summary(ja): 高機能で多言語対応のメーリングリスト管理ソフトウェア
@@ -219,7 +219,6 @@ BuildRequires: perl(Test::Pod::Coverage)
 BuildRequires: perl(Test::Pod::Spelling::CommonMistakes)
 %endif
 
-Requires(pre): shadow-utils
 %{?systemd_requires}
 Requires:    smtpdaemon
 Requires:    mhonarc
@@ -412,6 +411,11 @@ Sympa documentation for developers.
 %setup -q -n %{name}-%{version}%{?pre_rel}
 %patch -P13 -p0 -b .confdef
 
+# Create a sysusers.d config file
+cat >sympa.sysusers.conf <<EOF
+u sympa - 'System User for Sympa' %{_localstatedir}/lib/sympa -
+EOF
+
 
 %build
 # Development
@@ -599,6 +603,8 @@ done
 # Create directory for S/MIME user certificates
 mkdir -p %{buildroot}%{_localstatedir}/lib/sympa/X509-user-certs
 
+install -m0644 -D sympa.sysusers.conf %{buildroot}%{_sysusersdir}/sympa.conf
+
 
 %check
 make check
@@ -608,17 +614,6 @@ make authorcheck || true
 
 
 %pre
-# Create "sympa" group if it does not exist
-getent group sympa >/dev/null || /usr/sbin/groupadd -r sympa
-
-# Create "sympa" user if it does not exist
-getent passwd sympa >/dev/null || \
-  /usr/sbin/useradd -r -g sympa \
-      -d %{_localstatedir}/lib/sympa \
-      -c "System User for Sympa" \
-      -s "/sbin/nologin" \
-      sympa
-
 # Fix CSS and pictures paths
 if [ $1 -gt 1 ]; then
     if [ -d %{_localstatedir}/lib/%{name}/static_content/css ]; then
@@ -810,6 +805,7 @@ fi
 %dir %{_sysconfdir}/systemd/system/sympa.service.d/
 %config(noreplace) %{_sysconfdir}/systemd/system/sympa.service.d/*
 %config(noreplace) %{_sysconfdir}/sysconfig/sympa
+%{_sysusersdir}/sympa.conf
 
 
 %files httpd
@@ -845,6 +841,9 @@ fi
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 6.2.76-1.1
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Tue Feb 04 2025 Xavier Bachelot <xavier@bachelot.org> - 6.2.76-1
 - Update to 6.2.76
 

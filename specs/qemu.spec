@@ -454,6 +454,13 @@ Patch: 0001-crypto-fix-bogus-error-benchmarking-pbkdf-on-fast-ma.patch
 Patch: 0001-nfs-Add-support-for-libnfs-v2-api.patch
 # Upstream code has changed so will have different patch
 Patch: 0001-tests-functional-skip-mem-addr-test-on-32-bit-hosts.patch
+# https://gitlab.com/qemu-project/qemu/-/commit/c869f4129c8e35f3c234d757c0227c53134aca16
+Patch: 0001-binfmt-Shuffle-things-around.patch
+# https://gitlab.com/qemu-project/qemu/-/commit/2770a46b20b7ccd23019a7b6b6631de933b53c8e
+Patch: 0002-binfmt-Normalize-host-CPU-architecture.patch
+# https://gitlab.com/qemu-project/qemu/-/commit/1887cf2368189087fdf977fb8d09b5ad47cc7aea
+Patch: 0003-binfmt-Add-ignore-family-option.patch
+
 
 BuildRequires: gnupg2
 BuildRequires: meson >= %{meson_version}
@@ -2129,7 +2136,15 @@ ln -sf qemu-system-x86_64 %{buildroot}%{_bindir}/qemu-kvm
 %global binfmt_dir %{buildroot}%{_exec_prefix}/lib/binfmt.d
 mkdir -p %{binfmt_dir}
 
-./scripts/qemu-binfmt-conf.sh --systemd ALL --exportdir %{binfmt_dir} --qemu-path %{_bindir}
+# Most riscv64 CPUs can't natively run riscv32 binaries; moreover, we
+# don't enable the kernel feature needed for that to work or build the
+# necessary 32-bit libraries in Fedora. This option tells the script
+# to generate the qemu-riscv32-static configuration even on riscv64
+%ifarch riscv64
+%define ignore_family --ignore-family yes
+%endif
+
+./scripts/qemu-binfmt-conf.sh %{?ignore_family} --systemd ALL --exportdir %{binfmt_dir} --qemu-path %{_bindir}
 for i in %{binfmt_dir}/*; do mv $i $(echo $i | sed 's/.conf/-dynamic.conf/'); done
 
 
