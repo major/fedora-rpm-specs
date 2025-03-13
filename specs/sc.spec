@@ -3,7 +3,7 @@ Version: 7.16
 Release: 26%{?dist}
 Summary: Spreadsheet Calculator
 
-License: Public Domain
+License: LicenseRef-Fedora-Public-Domain
 URL:     http://www.ibiblio.org/pub/Linux/apps/financial/spreadsheet/!INDEX.html
 Source0: http://www.ibiblio.org/pub/Linux/apps/financial/spreadsheet/sc-%{version}.tar.gz
 

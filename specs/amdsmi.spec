@@ -19,7 +19,7 @@
 
 Name:       amdsmi
 Version:    %{rocm_version}
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    AMD System Management Interface
 
 License:    NCSA AND MIT AND BSD-3-Clause
@@ -100,12 +100,20 @@ sed -i -e 's@${CPACK_PACKAGING_INSTALL_PREFIX}/lib@${SHARE_INSTALL_PREFIX}/tests
 %cmake_install
 
 mkdir -p %{buildroot}/%{python3_sitelib}
-mv %{buildroot}/usr/share/amdsmi %{buildroot}/%{python3_sitelib}
-mv %{buildroot}/usr/share/pyproject.toml %{buildroot}/%{python3_sitelib}/amdsmi/
+if [ -d %{buildroot}/usr/share/amd_smi/amdsmi ]; then
+    mv %{buildroot}/usr/share/amd_smi/amdsmi %{buildroot}/%{python3_sitelib}
+    mv %{buildroot}/usr/share/amd_smi/pyproject.toml %{buildroot}/%{python3_sitelib}/amdsmi/
+else
+    mv %{buildroot}/usr/share/amdsmi %{buildroot}/%{python3_sitelib}
+    mv %{buildroot}/usr/share/pyproject.toml %{buildroot}/%{python3_sitelib}/amdsmi/
+fi
 
 # Remove some things
 if [ -d %{buildroot}/usr/share/example ]; then
     rm -rf %{buildroot}/usr/share/example
+fi
+if [ -d %{buildroot}/usr/share/amd_smi/example ]; then
+    rm -rf %{buildroot}/usr/share/amd_smi/example
 fi
 if [ -f %{buildroot}/usr/share/doc/amd_smi-asan/LICENSE.txt ]; then
     rm %{buildroot}/usr/share/doc/amd_smi-asan/LICENSE.txt
@@ -119,8 +127,14 @@ fi
 if [ -f %{buildroot}%{_datadir}/_version.py ]; then
     rm %{buildroot}%{_datadir}/_version.py
 fi
+if [ -f %{buildroot}%{_datadir}/amd_smi/_version.py ]; then
+    rm %{buildroot}%{_datadir}/amd_smi/_version.py
+fi
 if [ -f %{buildroot}%{_datadir}/setup.py ]; then
     rm %{buildroot}%{_datadir}/setup.py
+fi
+if [ -f %{buildroot}%{_datadir}/amd_smi/setup.py ]; then
+    rm %{buildroot}%{_datadir}/amd_smi/setup.py
 fi
 
 # W: unstripped-binary-or-object /usr/lib/python3.13/site-packages/amdsmi/libamd_smi.so
@@ -160,6 +174,9 @@ chmod a+x %{buildroot}/%{_libexecdir}/amdsmi_cli/amdsmi_*.py
 %endif
 
 %changelog
+* Tue Mar 11 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.3-3
+- Adjust install of python for fedora
+
 * Thu Feb 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.3-2
 - Install amd_smi-config.cmake
 

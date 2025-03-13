@@ -46,6 +46,8 @@ Headers and static libraries for the D-Bus GLib bindings
 %autosetup -p1
 
 %build
+%set_build_flags
+export CFLAGS="$CFLAGS -std=gnu17"
 %configure --enable-tests=yes \
 	--enable-asserts=yes \
 	--disable-gtk-doc

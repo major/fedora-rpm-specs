@@ -17,6 +17,7 @@ Source:         %{crates_source}
 Source1:        https://raw.githubusercontent.com/elixir-lang/%{crate}/refs/tags/v%{version}/LICENSE
 # Manually created patch for downstream crate metadata changes
 # * include LICENSE
+# * relax tree-sitter dependency to build against 0.24
 Patch:          tree-sitter-elixir-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

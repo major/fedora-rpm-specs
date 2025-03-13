@@ -2,27 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate tree-sitter-c
+%global crate derp
 
-Name:           rust-tree-sitter-c
-Version:        0.23.4
+Name:           rust-derp
+Version:        0.0.15
 Release:        %autorelease
-Summary:        C grammar for tree-sitter
+Summary:        DER Parser (and Writer)
 
-License:        MIT
-URL:            https://crates.io/crates/tree-sitter-c
+License:        ISC
+URL:            https://crates.io/crates/derp
 Source:         %{crates_source}
-# include license file
-# https://github.com/tree-sitter/tree-sitter-c/pull/249
-Source:         https://raw.githubusercontent.com/tree-sitter/%{crate}/refs/tags/v%{version}/LICENSE
-# Manually created patch for downstream crate metadata changes
-# * include LICENSE
-Patch:          tree-sitter-c-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-C grammar for tree-sitter.}
+DER Parser (and Writer).}
 
 %description %{_description}
 
@@ -55,8 +49,6 @@ use the "default" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-# copy in license file
-cp -p %{SOURCE1} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

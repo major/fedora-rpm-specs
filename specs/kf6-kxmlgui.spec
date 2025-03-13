@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Version: 6.12.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution for user-configurable main windows
 
 License: BSD-2-Clause AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -39,6 +39,7 @@ Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       cmake(KF6Config)
 Requires:       cmake(KF6ConfigWidgets)
+Requires:       cmake(KF6GuiAddons)
 Requires:       qt6-qtbase-devel
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -81,6 +82,9 @@ mkdir -p %{buildroot}%{_kf6_datadir}/kxmlgui5/
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Tue Mar 11 2025 Steve Cossette <farchord@gmail.com> - 6.12.0-2
+- GuiAddons is now a dependancy for the devel subpackage
+
 * Fri Mar 07 2025 Steve Cossette <farchord@gmail.com> - 6.12.0-1
 - 6.12.0
 

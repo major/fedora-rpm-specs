@@ -5,14 +5,23 @@
 %bcond_without ib
 %bcond_with    knem
 %bcond_without rdmacm
-%bcond_with    rocm
 %bcond_with    ugni
 %bcond_with    xpmem
 %bcond_with    vfs
 
+%ifarch x86_64
+%if 0%{?fedora} <= 42
+%bcond_with rocm
+%else
+%bcond_without rocm
+%endif
+%else
+%bcond_with rocm
+%endif
+
 Name: ucx
 Version: 1.17.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: UCX is a communication library implementing high-performance messaging
 
 License: BSD-3-Clause AND MIT AND CC-PDDC AND (BSD-3-Clause OR Apache-2.0)
@@ -65,7 +74,8 @@ BuildRequires: knem
 BuildRequires: librdmacm-devel
 %endif
 %if %{with rocm}
-BuildRequires: hsa-rocr-dev
+BuildRequires: rocm-hip-devel
+BuildRequires: chrpath
 %endif
 %if %{with xpmem}
 BuildRequires: xpmem-devel
@@ -99,6 +109,11 @@ Provides header files and examples for developing with UCX.
 %prep
 %setup -q
 %patch -P0 -p1
+# https://github.com/openucx/ucx/issues/10542
+# With ROCm 6.3+ libhsakmt is bundled with libhsa-runtime64
+# Remove this nonexistent library
+sed -i 's@-lhsakmt@@' config/m4/rocm.m4
+
 autoreconf -fiv
 # https://github.com/openucx/ucx/commit/b0a275a5492125a13020cd095fe9934e0b5e7c6a
 # can be removed on release after 1.17.0
@@ -117,13 +132,15 @@ export CFLAGS="$CFLAGS -std=gnu17"
            --disable-assertions \
            --disable-params-check \
            --without-java \
+%if %{with rocm}
+           --with-rocm=%{_prefix} \
+%endif
            %_enable_arg cma cma \
            %_with_arg cuda cuda \
            %_with_arg gdrcopy gdrcopy \
            %_with_arg ib verbs \
            %_with_arg knem knem \
            %_with_arg rdmacm rdmacm \
-           %_with_arg rocm rocm \
            %_with_arg xpmem xpmem \
            %_with_arg vfs fuse3 \
            %_with_arg ugni ugni \
@@ -137,6 +154,16 @@ rm -f %{buildroot}%{_libdir}/*.a
 rm -f %{buildroot}%{_libdir}/ucx/*.la
 rm -f %{buildroot}%{_libdir}/ucx/lib*.so
 rm -f %{buildroot}%{_libdir}/ucx/lib*.a
+
+%if %{with rocm}
+# ERROR   0002: file '/usr/lib64/ucx/libucx_perftest_rocm.so.0.0.0' contains an
+# invalid runpath '/usr/hip/lib' in [/usr/hip/lib:/usr/lib:/usr/lib64]
+# Build is confused, assumes rocm is part of AMD's release to /opt/rocm/hip/lib
+# We install ROCm to system locations, so rpath is not needed, delete them
+chrpath -d %{buildroot}%{_libdir}/ucx/libucx_perftest_rocm.so.0.0.0
+chrpath -d %{buildroot}%{_libdir}/ucx/libucm_rocm.so.0.0.0
+chrpath -d %{buildroot}%{_libdir}/ucx/libuct_rocm.so.0.0.0
+%endif
 
 %files
 %{_libdir}/lib*.so.*
@@ -264,8 +291,9 @@ Provides Radeon Open Compute (ROCm) Runtime support for UCX.
 
 %files rocm
 %dir %{_libdir}/ucx
-%{_libdir}/ucx/libuct_rocm.so.*
 %{_libdir}/ucx/libucm_rocm.so.*
+%{_libdir}/ucx/libuct_rocm.so.*
+%{_libdir}/ucx/libucx_perftest_rocm.so.*
 
 %if %{with gdrcopy}
 %package rocmgdr
@@ -327,6 +355,9 @@ status, and more.
 %endif
 
 %changelog
+* Sun Mar 9 2025 Tom Rix <Tom.Rix@amd.com> - 1.17.0-5
+- ROCm is part of Fedora, so build it.
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

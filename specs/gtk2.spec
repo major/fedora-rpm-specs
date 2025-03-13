@@ -166,7 +166,7 @@ This package contains developer documentation for the GTK+ widget toolkit.
 %autosetup -n gtk+-%{version} -p1
 
 %build
-export CFLAGS='-fno-strict-aliasing %optflags'
+export CFLAGS='%optflags -fno-strict-aliasing -std=gnu99'
 (if ! test -x configure; then NOCONFIGURE=1 ./autogen.sh; CONFIGFLAGS=--enable-gtk-doc; fi;
  %configure $CONFIGFLAGS \
 	--enable-man		\

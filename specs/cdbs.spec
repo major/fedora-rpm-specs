@@ -1,6 +1,6 @@
 Name:           cdbs
-Version:        0.4.167
-Release:        2%{?dist}
+Version:        0.4.169
+Release:        1%{?dist}
 Summary:        Common build system for Debian packages
 BuildArch:      noarch
 
@@ -19,7 +19,7 @@ In other words, CDBS provides a sane set of default rules upon which packages
 can build; any or all rules may be overridden as needed.
 
 %prep
-%autosetup -p1 -n %{name}-%{version}
+%autosetup -p1 -n %{name}
 
 
 %build
@@ -40,12 +40,13 @@ can build; any or all rules may be overridden as needed.
 %files
 %doc TODO
 %license COPYING
-%{_bindir}/cdbs-edit-patch
 %{_libexecdir}/%{name}
 %{_datadir}/%{name}
-%{_mandir}/man1/cdbs-edit-patch.1*
 
 %changelog
+* Tue Mar 11 2025 Sandro Mani <manisandro@gmail.com> - 0.4.169-1
+- Update to 0.4.169
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.167-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

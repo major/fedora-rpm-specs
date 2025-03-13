@@ -9,6 +9,9 @@ Summary:        GNOME Robots game
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-GFDL
 URL:            https://wiki.gnome.org/Apps/Robots
 Source0:        https://download.gnome.org/sources/%{name}/40/%{name}-%{tarball_version}.tar.xz
+# build: Link against libm
+# backport of https://gitlab.gnome.org/GNOME/gnome-robots/-/merge_requests/35
+Patch0:         0001-link-libm.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc

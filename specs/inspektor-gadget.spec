@@ -3,7 +3,7 @@
 # https://github.com/inspektor-gadget/inspektor-gadget
 # https://github.com/microsoft/azurelinux/tree/3.0/SPECS/ig
 %global goipath         github.com/inspektor-gadget/inspektor-gadget
-Version:                0.37.0
+Version:                0.38.0
 
 %gometa -L -f
 
@@ -32,7 +32,7 @@ This package contains ig, the local CLI flavor of Inspektor Gadget.
 
 # spectool -g golang-github-inspektor-gadget.spec
 Source0:        %{gosource}
-# go_vendor_archive create golang-github-inspektor-gadget.spec 
+# go_vendor_archive create golang-github-inspektor-gadget.spec
 Source1:        %{archivename}-vendor.tar.xz
 # Fix for trivy being unable to detect some licenses
 # go_vendor_license --config go-vendor-tools.toml explicit -f LICENSE-bpf.txt "GPL-2.0-only WITH Linux-syscall-note"

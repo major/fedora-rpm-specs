@@ -12,7 +12,7 @@
 Summary: Qt6 - QtTool components
 Name:    qt6-qttools
 Version: 6.8.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -385,6 +385,9 @@ popd
 
 
 %changelog
+* Sun Mar 09 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 6.8.2-2
+- Rebuilt for LLVM 20
+
 * Fri Jan 31 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-1
 - 6.8.2
 

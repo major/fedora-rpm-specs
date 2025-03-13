@@ -3,12 +3,11 @@
 %global flatpak_version 1.5.0
 %global geoclue_version 2.5.2
 %global glib_version 2.72
-%global libportal_version 0.9.0
 %global low_memory_monitor_version 2.0
 %global pipewire_version 0.2.90
 
 Name:    xdg-desktop-portal
-Version: 1.19.2
+Version: 1.20.0
 Release: %autorelease
 Summary: Portal frontend service to flatpak
 
@@ -16,6 +15,8 @@ Summary: Portal frontend service to flatpak
 License: LGPL-2.1-or-later
 URL:     https://github.com/flatpak/xdg-desktop-portal/
 Source0: https://github.com/flatpak/xdg-desktop-portal/releases/download/%{version}/%{name}-%{version}.tar.xz
+
+Patch0:  xdp-make-sure-host-registry-xdpappinfo-updates-become-visible.patch
 
 BuildRequires: gcc
 BuildRequires: gettext
@@ -29,7 +30,6 @@ BuildRequires: pkgconfig(gstreamer-pbutils-1.0)
 BuildRequires: pkgconfig(json-glib-1.0)
 BuildRequires: pkgconfig(libgeoclue-2.0) >= %{geoclue_version}
 BuildRequires: pkgconfig(libpipewire-0.3) >= %{pipewire_version}
-BuildRequires: pkgconfig(libportal) >= %{libportal_version}
 BuildRequires: pkgconfig(libsystemd)
 BuildRequires: pkgconfig(umockdev-1.0)
 BuildRequires: python3-dbusmock
@@ -52,7 +52,6 @@ BuildRequires: /usr/bin/rst2man
 Requires:      dbus
 Requires:      geoclue2 >= %{geoclue_version}
 Requires:      glib2%{?_isa} >= %{glib_version}
-Requires:      libportal%{?_isa} >= %{libportal_version}
 Recommends:    pipewire >= %{pipewire_version}
 Requires:      pipewire-libs%{?_isa} >= %{pipewire_version}
 # Required for the document portal.
@@ -113,6 +112,7 @@ install -dm 755 %{buildroot}/%{_datadir}/xdg-desktop-portal/portals
 %files -f %{name}.lang
 %doc %{_pkgdocdir}
 %license COPYING
+%{_datadir}/dbus-1/interfaces/org.freedesktop.host.portal.Registry.xml
 %{_datadir}/dbus-1/interfaces/org.freedesktop.portal.*.xml
 %{_datadir}/dbus-1/interfaces/org.freedesktop.impl.portal.*.xml
 %{_datadir}/dbus-1/services/org.freedesktop.portal.Desktop.service

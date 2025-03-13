@@ -2,21 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate cargo-util-schemas
+%global crate implib
 
-Name:           rust-cargo-util-schemas
-Version:        0.7.2
+Name:           rust-implib
+Version:        0.3.5
 Release:        %autorelease
-Summary:        Deserialization schemas for Cargo
+Summary:        Generate Windows import library from module definition file
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/cargo-util-schemas
+License:        MIT
+URL:            https://crates.io/crates/implib
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Deserialization schemas for Cargo.}
+Generate Windows import library from module definition file.}
 
 %description %{_description}
 
@@ -24,14 +24,19 @@ Deserialization schemas for Cargo.}
 Summary:        %{summary}
 BuildArch:      noarch
 
+# includes a modified fork of crate(ar) = 0.9.0 with added symbol table support:
+# * https://github.com/messense/implib-rs/commit/2449c6d
+# * https://github.com/messense/implib-rs/issues/15
+Provides:       bundled(crate(ar)) = 0.9.0
+
 %description    devel %{_description}
 
 This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/src/ar/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -47,16 +52,28 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+unstable-schema-devel
+%package     -n %{name}+gnu-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+unstable-schema-devel %{_description}
+%description -n %{name}+gnu-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "unstable-schema" feature of the "%{crate}" crate.
+use the "gnu" feature of the "%{crate}" crate.
 
-%files       -n %{name}+unstable-schema-devel
+%files       -n %{name}+gnu-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+msvc-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+msvc-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "msvc" feature of the "%{crate}" crate.
+
+%files       -n %{name}+msvc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

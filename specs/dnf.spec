@@ -2,7 +2,7 @@
 %define __cmake_in_source_build 1
 
 # default dependencies
-%global hawkey_version 0.73.1
+%global hawkey_version 0.74.0
 %global libcomps_version 0.1.8
 %global libmodulemd_version 2.9.3
 %global rpm_version 4.14.0
@@ -65,19 +65,15 @@
 It supports RPMs, modules and comps groups & environments.
 
 Name:           dnf
-Version:        4.22.0
-Release:        5%{?dist}
+Version:        4.23.0
+Release:        1%{?dist}
 Summary:        %{pkg_summary}
 # For a breakdown of the licensing, see PACKAGE-LICENSING
 License:        GPL-2.0-or-later AND GPL-1.0-only
 URL:            https://github.com/rpm-software-management/dnf
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch1:         0001-Tests-Avoid-the-multiprocessing-forkserver-method.patch
-Patch2:         0002-automatic-Fix-incorrect-Error-class-instantiation.patch
-Patch3:         0003-doc-disableexcludepkgs-all-doesn-t-affect-just-file-.patch
-Patch4:         0004-spec-Provide-dnf4-by-python3-dnf.patch
 BuildArch:      noarch
-BuildRequires:  cmake
+BuildRequires:  cmake >= 3.5.0
 BuildRequires:  gettext
 # Documentation
 BuildRequires:  systemd
@@ -193,6 +189,17 @@ Requires:       python3-%{name} = %{version}-%{release}
 
 %description automatic
 Systemd units that can periodically download package upgrades and apply them.
+
+%package bootc
+Summary:        %{pkg_summary} - additional bootc dependencies
+Requires:       python3-%{name} = %{version}-%{release}
+Requires:       ostree
+Requires:       ostree-libs
+Requires:       python3-gobject-base
+Requires:       util-linux-core
+
+%description bootc
+Additional dependencies needed to perform transactions on booted bootc (bootable containers) systems.
 
 
 %prep
@@ -424,7 +431,13 @@ popd
 %{python3_sitelib}/%{name}/automatic/
 %endif
 
+%files bootc
+# bootc subpackage does not include any files
+
 %changelog
+* Fri Mar 07 2025 Evan Goode <egoode@redhat.com> - 4.23.0-1
+- Update to 4.23.0
+
 * Tue Jan 28 2025 Petr Pisar <ppisar@redhat.com> - 4.22.0-5
 - Fix reporting a reboot failure by dnf-automatic
 - Fix a documentation of --disableexcludes option

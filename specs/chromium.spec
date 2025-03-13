@@ -261,7 +261,7 @@
 %endif
 
 Name:	chromium
-Version: 134.0.6998.35 
+Version: 134.0.6998.88 
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -1762,6 +1762,14 @@ fi
 %endif
 
 %changelog
+* Tue Mar 11 2025 Than Ngo <than@redhat.com> -  134.0.6998.88 -1
+- Update to 134.0.6998.88
+  * High CVE-2025-1920: Type Confusion in V8
+  * High CVE-2025-2135: Type Confusion in V8
+  * High CVE-TBD: Out of bounds write in GPU
+  * Medium CVE-2025-2136: Use after free in Inspector
+  * Medium CVE-2025-2137: Out of bounds read in V8
+
 * Wed Mar 05 2025 Than Ngo <than@redhat.com> -  134.0.6998.35 -1
 - Update to 134.0.6998.35
   * CVE-2025-1914: Out of bounds read in V8

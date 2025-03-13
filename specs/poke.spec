@@ -2,7 +2,7 @@
 
 Summary:	Extensible editor for structured binary data
 Name:		poke
-Version:	4.2
+Version:	4.3
 Release:	%autorelease
 
 # Documentation under GFDL
@@ -36,8 +36,8 @@ BuildRequires:	dejagnu
 Requires:	%{name}-data = %{version}-%{release}
 Requires:	%{name}-libs = %{version}-%{release}
 
-# bundles gnulib commit 5aa8eafc0e224d039b1bf4122fc1eef364aa44c6
-Provides:	bundled(gnulib) = 20240305
+# bundles gnulib commit de9671e9cae1dd9b6d1c41a377726aff9dcbdba1
+Provides:	bundled(gnulib) = 20250308
 # bundles jitter, should be packaged independently in the future
 Provides:	bundled(jitter) = 0.7.312
 

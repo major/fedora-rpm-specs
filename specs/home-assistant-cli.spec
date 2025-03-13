@@ -1,6 +1,6 @@
 Name:           home-assistant-cli
 Version:        0.9.6
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Command-line tool for Home Assistant
 
 License:        Apache-2.0
@@ -11,10 +11,14 @@ BuildArch:      noarch
 # Allow later dateparser
 # https://github.com/home-assistant-ecosystem/home-assistant-cli/pull/403
 Patch0:          %{url}/pull/403.patch
+# Resolve patch conflict
+Patch1:          %{url}/commit/edb0af38fbf1c2533e87745dbb7d75ce3aed6cb5.patch
+# https://github.com/home-assistant-ecosystem/home-assistant-cli/pull/426
+Patch2:          %{url}/pull/426.patch
 
 # Allow later ruamel
 # https://github.com/home-assistant-ecosystem/home-assistant-cli/pull/412
-Patch1:          %{url}/pull/412.patch
+Patch3:          %{url}/pull/412.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -60,6 +64,9 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib}/ pytest-%{python3_version} -v tests \
 %{python3_sitelib}/homeassistant_cli*.egg-info/
 
 %changelog
+* Tue Mar 11 2025 Daniel Milnes <daniel@daniel-milnes.uk> - 0.9.6-13
+- Apply patch to allow modern DateParser rhbz#2349396
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

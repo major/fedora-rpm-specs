@@ -5,7 +5,7 @@
 %global crate rustfix
 
 Name:           rust-rustfix
-Version:        0.8.7
+Version:        0.9.0
 Release:        %autorelease
 Summary:        Automatically apply the suggestions made by rustc
 

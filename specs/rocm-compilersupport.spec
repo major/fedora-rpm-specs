@@ -61,7 +61,7 @@
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}
-Release:        42.rocm%{rocm_version}%{?dist}
+Release:        43.rocm%{rocm_version}%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 %if 0%{?suse_version}
 Group:          Development/Languages/Other
@@ -81,6 +81,7 @@ Patch5:         0001-Fix-build-with-GCC-14-on-ARM-78704.patch
 Patch6:         0001-comgr-link-with-static-llvm.patch
 # For gcc-15
 Patch7:         0001-gcc-15-cstdint-needs-to-include.patch
+Patch8:         0001-rocm-llvm-work-around-new-assert-in-array.patch
 
 BuildRequires:  cmake
 BuildRequires:  perl
@@ -1205,6 +1206,9 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %endif
 
 %changelog
+* Tue Mar 11 2025 Tom Rix <Tom.Rix@amd.com> - 18-43.rocm6.3.2
+- Workaround gcc 15 assert in array
+
 * Fri Feb 28 2025 Tom Rix <Tom.Rix@amd.com> - 18-42.rocm6.3.2
 - Do not use cmake CMP0053
 

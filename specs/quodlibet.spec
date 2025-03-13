@@ -45,6 +45,7 @@ BuildRequires:	gstreamer1-plugins-good
 BuildRequires:	gtk3 >= 3.18
 BuildRequires:	libmodplug
 BuildRequires:	python3-feedparser
+BuildRequires:	python3-flaky
 BuildRequires:	python3-gobject >= 3.18
 BuildRequires:	python3-mutagen >= 1.14
 BuildRequires:	python3-pytest

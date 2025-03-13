@@ -5,9 +5,11 @@
 %global interim_pkg_ver beta.1
 
 Name:           showtime
+# FIXME: Simplify versioning to 48.1 after 48.1 is released.
+# Don't touch it for 48.0 to avoid upgrade path issues.
 Version:        48.0~20250201.%{interim_pkg_ver}
 
-Release:        1%{?dist}
+Release:        %autorelease
 Summary:        Modern video player built using GTK4
 
 License:        GPL-3.0-or-later
@@ -39,7 +41,13 @@ Requires:       gtk4 >= %{gtk4_version}
 Requires:       libadwaita >= %{libadwaita_version}
 Requires:       python3
 Requires:       hicolor-icon-theme
+Requires:       gstreamer1-plugins-base
 Requires:       gstreamer1-plugin-gtk4
+Requires:       (gstreamer1-plugin-openh264 if openh264)
+
+Recommends:     gstreamer1-plugins-good
+Recommends:     gstreamer1-plugins-bad-free
+Recommends:     gstreamer1-plugins-ugly-free
 
 %description
 Play your favorite movies and video files without hassle. Showtime
@@ -76,14 +84,4 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %{_datadir}/showtime/
 
 %changelog
-* Sat Feb 22 2025 Steve Cossette <farchord@gmail.com> - 48.0~20250201.beta.1-1
-- Update to 48.0-beta1
-
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 48.0~20241104.080500.5579430-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Tue Jan 07 2025 Neal Gompa <ngompa@fedoraproject.org> - 48.0~20241104.080500.5579430-2
-- Make the package noarch
-
-* Thu Nov 7 2024 Steve Cossette <farchord@gmail.com> - 48.0~20241104.080500.5579430-1
-- Initial release
+%autochangelog

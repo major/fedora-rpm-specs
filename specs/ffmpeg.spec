@@ -81,7 +81,7 @@
 Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
-Version:        7.1
+Version:        7.1.1
 Release:        1%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
@@ -103,6 +103,9 @@ Patch1:         ffmpeg-codec-choice.patch
 # Allow to build with fdk-aac-free
 # See https://bugzilla.redhat.com/show_bug.cgi?id=1501522#c112
 Patch2:         ffmpeg-allow-fdk-aac-free.patch
+
+# Backport fix for CVE-2025-22921
+Patch10:        https://git.ffmpeg.org/gitweb/ffmpeg.git/patch/7f9c7f9849a2155224711f0ff57ecdac6e4bfb57#/ffmpeg-CVE-2025-22921.patch
 
 # Add first_dts getter to libavformat for Chromium
 # See: https://bugzilla.redhat.com/show_bug.cgi?id=2240127
@@ -159,6 +162,7 @@ BuildRequires:  pkgconfig(gnutls)
 BuildRequires:  pkgconfig(harfbuzz)
 BuildRequires:  pkgconfig(libilbc)
 BuildRequires:  pkgconfig(jack)
+BuildRequires:  pkgconfig(lc3)
 %if %{with lcms2}
 BuildRequires:  pkgconfig(lcms2) >= 2.13
 %endif
@@ -610,6 +614,7 @@ cp -a doc/examples/{*.c,Makefile,README} _doc/examples/
     --enable-libilbc \
     --enable-libjack \
     --enable-libjxl \
+    --enable-liblc3 \
     --enable-libmodplug \
     --enable-libmp3lame \
     --enable-libmysofa \
@@ -854,6 +859,11 @@ rm -rf %{buildroot}%{_datadir}/%{name}/examples
 %{_mandir}/man3/libswscale.3*
 
 %changelog
+* Thu Mar 06 2025 Dominik Mierzejewski <dominik@greysector.net> - 7.1.1-1
+- Update to 7.1.1 (resolves rhbz#2349351)
+- Enable LC3 codec via liblc3
+- Backport fix for CVE-2025-22921 (resolves rhbz#2346558)
+
 * Fri Feb 07 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 7.1-1
 - Rebase to 7.1 (rhbz#2273572)
 

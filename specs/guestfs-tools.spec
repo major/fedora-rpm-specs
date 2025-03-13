@@ -15,8 +15,8 @@
 
 Summary:       Tools to access and modify virtual machine disk images
 Name:          guestfs-tools
-Version:       1.53.7
-Release:       2%{?dist}
+Version:       1.53.8
+Release:       1%{?dist}
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
 
 # Build only for architectures that have a kernel
@@ -64,7 +64,11 @@ BuildRequires: glibc-static
 BuildRequires: ocaml >= 4.08
 BuildRequires: ocaml-libguestfs-devel
 BuildRequires: ocaml-findlib-devel
+%if 0%{?fedora} <= 42
+# Disable ocaml-gettext-devel in Rawhide temporarily.
+# https://src.fedoraproject.org/rpms/ocaml-gettext/pull-request/3
 BuildRequires: ocaml-gettext-devel
+%endif
 %if !0%{?rhel}
 BuildRequires: ocaml-ounit-devel
 %endif
@@ -393,8 +397,11 @@ end
 
 
 %changelog
-* Thu Feb 27 2025 Richard W.M. Jones <rjones@redhat.com> - 1.53.7-2
-- Bump and rebuild for ocaml-gettext 0.5.0
+* Tue Mar 11 2025 Richard W.M. Jones <rjones@redhat.com> - 1.53.8-1
+- New upstream version 1.53.8
+
+* Thu Feb 27 2025 Richard W.M. Jones <rjones@redhat.com> - 1.53.7-3
+- Disable gettext support in Fedora Rawhide
 
 * Tue Feb 18 2025 Richard W.M. Jones <rjones@redhat.com> - 1.53.7-1
 - New upstream version 1.53.7

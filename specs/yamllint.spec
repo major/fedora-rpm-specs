@@ -3,8 +3,8 @@
 %global pypi_name yamllint
 
 Name:           %{pypi_name}
-Version:        1.35.1
-Release:        5%{?dist}
+Version:        1.36.0
+Release:        1%{?dist}
 Summary:        A linter for YAML files
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -63,6 +63,9 @@ install -m0644 docs/_build/man/%{pypi_name}.1.gz %{buildroot}%{_mandir}/man1/
 %exclude %{python3_sitelib}/tests
 
 %changelog
+* Tue Mar 11 2025 Adrien Vergé <adrienverge@gmail.com> - 1.36.0-1
+- Update to latest upstream version
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.35.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

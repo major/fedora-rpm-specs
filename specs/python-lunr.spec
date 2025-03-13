@@ -1,6 +1,6 @@
 Name:           python-lunr
-Version:        0.7.0.post1
-Release:        7%{?dist}
+Version:        0.8.0
+Release:        1%{?dist}
 Summary:        A Python implementation of Lunr.js
 
 License:        MIT
@@ -68,6 +68,9 @@ implementation as possible.
 
 
 %changelog
+* Tue Mar 11 2025 Sandro Mani <manisandro@gmail.com> - 0.8.0-1
+- Update to 0.8.0
+
 * Sun Jan 26 2025 Romain Geissler <romain.geissler@amadeus.com> - 0.7.0.post1-7
 - Remove deprecated mock dependency.
 

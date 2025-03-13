@@ -6,6 +6,10 @@
 %bcond_with braille
 %endif
 
+# currently we use CUPS PPD compiler which will be removed
+# in CUPS 3.0, then we will use PPD compiler from libppd-tools
+%bcond_without cups_ppdc
+
 # we build CUPS also with relro
 %global _hardened_build 1
 
@@ -13,7 +17,7 @@ Summary: OpenPrinting CUPS filters for CUPS 2.X
 Name:    cups-filters
 Epoch:   1
 Version: 2.0.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -137,6 +141,12 @@ install -p -m 0644 %{SOURCE1} %{buildroot}%{_datadir}/ppd/cupsfilters/lftocrlf.p
 ln -sf %{_cups_serverbin}/filter/foomatic-rip %{buildroot}%{_bindir}/foomatic-rip
 #ln -sf %{_cups_serverbin}/filter/universal %{buildroot}%{_bindir}/foomatic-rip
 
+%if %{with cups_ppdc}
+mkdir -p %{buildroot}%{_datadir}/cups/ppdc
+mv %{buildroot}%{_datadir}/{ppdc/pcl.h,cups/ppdc/pcl.h}
+mv %{buildroot}%{_datadir}/{ppdc/escp.h,cups/ppdc/escp.h}
+%endif
+
 # remove license files which are in %%pkgdocdir
 rm -f %{buildroot}%{_pkgdocdir}/{COPYING,NOTICE,LICENSE}
 
@@ -149,6 +159,15 @@ rm -f %{buildroot}%{_pkgdocdir}/CHANGES-1.x.md
 
 %check
 make check
+
+
+%post
+# remove PPD cache to make bz#2351389 fix work right away
+# remove after F43 EOL
+if [ $1 -gt 1 ]
+then
+  rm -f /var/cache/cups/ppds.dat || :
+fi
 
 
 %files
@@ -192,12 +211,17 @@ make check
 %{_datadir}/cups/mime/cupsfilters-universal-postscript.convs
 %{_datadir}/cups/mime/cupsfilters-universal.convs
 %{_datadir}/ppd/cupsfilters
-%dir %{_datadir}/ppdc
+%if %{with cups_ppdc}
 # escp.h and pcl.h are required during runtime, because
 # CUPS PPD compiler (ppdc) uses them for generating drivers
 # per request from cupsfilters.drv file
+%{_datadir}/cups/ppdc/escp.h
+%{_datadir}/cups/ppdc/pcl.h
+%else
+%dir %{_datadir}/ppdc
 %{_datadir}/ppdc/escp.h
 %{_datadir}/ppdc/pcl.h
+%endif
 %{_mandir}/man1/foomatic-rip.1.gz
 
 %files driverless
@@ -212,6 +236,9 @@ make check
 
 
 %changelog
+* Tue Mar 11 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.1-3
+- textonly driver was missing (fedora#2351389)
+
 * Fri Jan 24 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.1-2
 - fix FTBFS (fedora#2340017)
 

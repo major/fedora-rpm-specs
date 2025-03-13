@@ -293,15 +293,9 @@ Source1000: version.spec.inc
 # situations. Remember that a compat library is always at least one major version
 # behind the latest packaged LLVM version.
 
-#region OpenMP patches
-Patch1900: 0001-openmp-Add-option-to-disable-tsan-tests-111548.patch
-Patch1901: 0001-openmp-Use-core_siblings_list-if-physical_package_id.patch
-#endregion OpenMP patches
-
 #region CLANG patches
 Patch101: 0001-PATCH-clang-Make-funwind-tables-the-default-on-all-a.patch
 Patch102: 0003-PATCH-clang-Don-t-install-static-libraries.patch
-#endregion CLANG patches
 
 # Workaround a bug in ORC on ppc64le.
 # More info is available here: https://reviews.llvm.org/D159115#4641826
@@ -310,61 +304,28 @@ Patch103: 0001-Workaround-a-bug-in-ORC-on-ppc64le.patch
 # With the introduction of --gcc-include-dir in the clang config file,
 # this might no longer be needed.
 Patch104: 0001-Driver-Give-devtoolset-path-precedence-over-Installe.patch
+#endregion CLANG patches
 
 # Fix LLVMConfig.cmake when symlinks are used.
 Patch105: 0001-cmake-Resolve-symlink-when-finding-install-prefix.patch
 
-#region MLIR patches
-# See https://github.com/llvm/llvm-project/pull/108579
-Patch1904: 0001-mlir-python-Reuse-the-library-directory.patch
-# See https://github.com/llvm/llvm-project/pull/108461
-Patch1905: 0001-CMake-Add-missing-dependency-108461.patch
-# See https://github.com/llvm/llvm-project/pull/118542
-Patch1906: 0001-mlir-Specify-deps-via-LLVM_LINK_COMPONENTS.patch
-# See https://github.com/llvm/llvm-project/pull/120079
-Patch1907: 0001-CMake-Use-correct-exports-for-MLIR-tools.patch
-Patch1908: cstdint.patch
-#endregion MLIR patches
-
-#region BOLT patches
-Patch1909: 0001-19-PATCH-Bolt-CMake-Don-t-export-bolt-libraries-in-LLVM.patch
-Patch1913: 0001-BOLT-Use-getMainExecutable-126698.patch
-#endregion BOLT patches
+#region LLD patches
+Patch106: 0001-19-Always-build-shared-libs-for-LLD.patch
+#endregion LLD patches
 
 #region polly patches
-# See https://github.com/llvm/llvm-project/pull/122123
-Patch1910: 122123.patch
-Patch1911: 0001-19-polly-shared-libs.patch
 Patch2001: 0001-20-polly-shared-libs.patch
 Patch2101: 0001-20-polly-shared-libs.patch
 #endregion polly patches
-
-#region LLD patches
-Patch1800: 0001-18-Always-build-shared-libs-for-LLD.patch
-Patch1902: 0001-19-Always-build-shared-libs-for-LLD.patch
-Patch2000: 0001-19-Always-build-shared-libs-for-LLD.patch
-Patch2100: 0001-19-Always-build-shared-libs-for-LLD.patch
-#endregion LLD patches
 
 #region RHEL patches
 # RHEL 8 only
 Patch501: 0001-Fix-page-size-constant-on-aarch64-and-ppc64le.patch
 #endregion RHEL patches
 
-# Backport with modifications from
-# https://github.com/llvm/llvm-project/pull/99273
-# Fixes RHEL-49517.
-Patch1801: 18-99273.patch
-
-# Fix profiling after a binutils NOTE change.
-# https://github.com/llvm/llvm-project/pull/114907
-Patch1802: 0001-profile-Use-base-vaddr-for-__llvm_write_binary_ids-n.patch
-Patch1903: 0001-profile-Use-base-vaddr-for-__llvm_write_binary_ids-n.patch
-
 # Fix an isel error triggered by Rust 1.85 on s390x
 # https://github.com/llvm/llvm-project/issues/124001
-Patch1803: 0001-SystemZ-Fix-ICE-with-i128-i64-uaddo-carry-chain.patch
-Patch1912: 0001-SystemZ-Fix-ICE-with-i128-i64-uaddo-carry-chain.patch
+Patch1901: 0001-SystemZ-Fix-ICE-with-i128-i64-uaddo-carry-chain.patch
 
 %if 0%{?rhel} == 8
 %global python3_pkgversion 3.12
@@ -463,9 +424,7 @@ BuildRequires: perl(Sys::Hostname)
 BuildRequires: python%{python3_pkgversion}-numpy
 BuildRequires: python%{python3_pkgversion}-pybind11
 BuildRequires: python%{python3_pkgversion}-pyyaml
-%if %{maj_ver} >= 20
 BuildRequires: python%{python3_pkgversion}-nanobind-devel
-%endif
 %endif
 
 BuildRequires:	graphviz
@@ -1626,9 +1585,6 @@ mkdir -p %{buildroot}%{_emacs_sitestartdir}
 for f in clang-format.el clang-include-fixer.el; do
 mv %{buildroot}{%{install_datadir}/clang,%{_emacs_sitestartdir}}/$f
 done
-%if %{maj_ver} < 20
-mv %{buildroot}{%{install_datadir}/clang,%{_emacs_sitestartdir}}/clang-rename.el
-%endif
 
 %else
 
@@ -1716,11 +1672,7 @@ rm -rf %{buildroot}/%{install_datadir}/gdb
 
 %ifnarch %{ix86}
 # Remove files that we don't package, yet.
-%if %{maj_ver} >= 20
 rm %{buildroot}%{install_bindir}/llvm-offload-device-info
-%else
-rm %{buildroot}%{install_bindir}/llvm-omp-device-info
-%endif
 rm %{buildroot}%{install_bindir}/llvm-omp-kernel-replay
 %endif
 
@@ -2187,14 +2139,6 @@ reset_test_opts
 %if %{with mlir}
 reset_test_opts
 
-%if %{maj_ver} < 20
-# The ml_dtypes python module required by mlir/test/python/execution_engine.py
-# isn't packaged. But in LLVM 20 the execution_engine.py is modified to only
-# run certain tests if ml_dtypes is present.
-test_list_filter_out+=("MLIR :: python/execution_engine.py")
-test_list_filter_out+=("MLIR :: python/multithreaded_tests.py")
-%endif
-
 %ifarch s390x
 # s390x does not support half-float
 test_list_filter_out+=("MLIR :: python/ir/array_attributes.py")
@@ -2224,12 +2168,6 @@ export PYTHONPATH=%{buildroot}/%{python3_sitearch}
 #region BOLT tests
 %if %{with build_bolt}
 reset_test_opts
-%if %{maj_ver} < 20
-export LIT_XFAIL="$LIT_XFAIL;AArch64/build_id.c"
-export LIT_XFAIL="$LIT_XFAIL;AArch64/plt-call.test"
-export LIT_XFAIL="$LIT_XFAIL;X86/linux-static-keys.s"
-export LIT_XFAIL="$LIT_XFAIL;X86/plt-call.test"
-%endif
 
 # Beginning with LLVM 20 this test has the "non-root-user" requirement
 # and then the test should pass. But now it is flaky, hence we can only
@@ -2253,14 +2191,6 @@ if ! grep -q atomics /proc/cpuinfo; then
   test_list_filter_out+=("BOLT :: runtime/instrumentation-indirect-2.c")
   test_list_filter_out+=("BOLT :: runtime/pie-exceptions-split.test")
 fi
-%endif
-
-%if %{maj_ver} < 20
-%ifarch x86_64
-# BOLT-ERROR: instrumentation of static binary currently does not support profile output on binary
-# finalization, so it requires -instrumentation-sleep-time=N (N>0) usage
-export LIT_XFAIL="$LIT_XFAIL;X86/internal-call-instrument.s"
-%endif
 %endif
 
 %cmake_build --target check-bolt
@@ -2414,7 +2344,9 @@ fi
     llvm-c-test
     llvm-cat
     llvm-cfi-verify
+    llvm-cgdata
     llvm-cov
+    llvm-ctxprof-util
     llvm-cvtres
     llvm-cxxdump
     llvm-cxxfilt
@@ -2485,12 +2417,6 @@ fi
     verify-uselistorder
     yaml2obj
 }}
-%if %{maj_ver} >= 20
-%{expand_bins %{expand:
-    llvm-cgdata
-    llvm-ctxprof-util
-}}
-%endif
 
 %{expand_mans %{expand:
     bugpoint
@@ -2505,6 +2431,7 @@ fi
     llvm-ar
     llvm-as
     llvm-bcanalyzer
+    llvm-cgdata
     llvm-cov
     llvm-cxxfilt
     llvm-cxxmap
@@ -2548,9 +2475,6 @@ fi
     opt
     tblgen
 }}
-%if %{maj_ver} >= 20
-%expand_mans llvm-cgdata
-%endif
 
 %expand_datas opt-viewer
 
@@ -2748,6 +2672,7 @@ fi
     clang-reorder-fields
     clang-repl
     clang-scan-deps
+    clang-sycl-linker
     clang-tidy
     clangd
     diagtool
@@ -2760,17 +2685,8 @@ fi
     clang-format-diff
     run-clang-tidy
 }}
-%if %{maj_ver} >= 20
-%expand_bins clang-sycl-linker
-%endif
-%if %{maj_ver} < 20
-%expand_bins clang-pseudo clang-rename
-%endif
 %if %{without compat_build}
 %{_emacs_sitestartdir}/clang-format.el
-%if %{maj_ver} < 20
-%{_emacs_sitestartdir}/clang-rename.el
-%endif
 %{_emacs_sitestartdir}/clang-include-fixer.el
 %endif
 %expand_mans diagtool extraclangtools
@@ -2781,10 +2697,6 @@ fi
     clang/clang-tidy-diff.py*
     clang/run-find-all-symbols.py*
 }}
-%if %{maj_ver} < 20
-%expand_datas /clang/clang-rename.py*
-%endif
-
 
 %files -n %{pkg_name_clang}-tools-extra-devel
 %license clang-tools-extra/LICENSE.TXT
@@ -2849,9 +2761,7 @@ fi
 # libomptarget is not supported on 32-bit systems.
 # s390x does not support the offloading plugins.
 %expand_libs libomptarget.so.%{so_suffix}
-%if %{maj_ver} >= 20
 %expand_libs libLLVMOffload.so.%{so_suffix}
-%endif
 %endif
 
 %files -n %{pkg_name_libomp}-devel
@@ -2865,19 +2775,14 @@ fi
 %ifnarch %{ix86}
 # libomptarget is not supported on 32-bit systems.
 # s390x does not support the offloading plugins.
-%expand_libs libomptarget.devicertl.a
-%if %{maj_ver} >= 20
-%expand_libs libomptarget-amdgpu*.bc
-%expand_libs libomptarget-nvptx*.bc
-%else
-%expand_libs libomptarget-amdgpu-*.bc
-%expand_libs libomptarget-nvptx-*.bc
-%endif
-%expand_libs libomptarget.so
-%if %{maj_ver} >= 20
-%expand_libs libLLVMOffload.so
+%{expand_libs %{expand:
+    libomptarget.devicertl.a
+    libomptarget-amdgpu*.bc
+    libomptarget-nvptx*.bc
+    libomptarget.so
+    libLLVMOffload.so
+}}
 %expand_includes offload
-%endif
 %endif
 #endregion OPENMP files
 
@@ -2988,16 +2893,13 @@ fi
     mlir-pdll-lsp-server
     mlir-query
     mlir-reduce
+    mlir-rewrite
+    mlir-runner
     mlir-tblgen
     mlir-translate
     tblgen-lsp-server
     tblgen-to-irdl
 }}
-%if %{maj_ver} >= 20
-%expand_bins mlir-rewrite mlir-runner
-%else
-%expand_bins mlir-cpu-runner
-%endif
 %expand_includes mlir mlir-c
 %{expand_libs %{expand:
     cmake/mlir
@@ -3077,13 +2979,11 @@ fi
 %{expand_bins %{expand:
     llvm-bolt
     llvm-boltdiff
+    llvm-bolt-binary-analysis
     llvm-bolt-heatmap
     merge-fdata
     perf2bolt
 }}
-%if %{maj_ver} >= 20
-%expand_bins llvm-bolt-binary-analysis
-%endif
 
 %{expand_libs %{expand:
     libbolt_rt_hugify.a

@@ -1,17 +1,19 @@
 Name:			lxhotkey
-Version:		0.1.1
-Release:		11%{?dist}
+Version:		0.1.2
+Release:		1%{?dist}
 Summary:		Hotkeys management utility
 
 License:		GPL-2.0-or-later
 URL:			https://wiki.lxde.org/en/LXHotkey
-Source0:		http://downloads.sourceforge.net/lxde/%{name}-%{version}.tar.xz
+Source0:		https://github.com/lxde/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:	make
 BuildRequires:	gcc
+BuildRequires:	automake
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
 BuildRequires:	intltool
+BuildRequires:	libtool
 BuildRequires:	pkgconfig(libfm)
 BuildRequires:	pkgconfig(gtk+-2.0)
 
@@ -31,6 +33,8 @@ developing applications that use %{name}.
 
 %prep
 %autosetup
+
+bash autogen.sh
 
 %build
 %configure \
@@ -76,6 +80,9 @@ desktop-file-install \
 %{_includedir}/%{name}/
 
 %changelog
+* Tue Mar 11 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.1.2-1
+- 0.1.2
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

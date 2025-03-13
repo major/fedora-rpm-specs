@@ -13,7 +13,7 @@
 
 Name:           znc
 Version:        1.9.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        An advanced IRC bouncer
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -52,7 +52,6 @@ BuildRequires:  perl(ExtUtils::Embed)
 Obsoletes:      znc-extra <= %{version}-%{release}
 %endif # 0%{?rhel} && 0%{?rhel} <= 9
 
-Requires(pre):  shadow-utils
 BuildRequires:  systemd
 %{?systemd_requires}
 
@@ -129,6 +128,11 @@ rm -rf "$gpghome" $key.gpg # Cleanup tmp gpg home dir and dearmored key
 # The manual page references /usr/local/; fix that
 sed -ie 's!/usr/local/!/usr/!' man/znc.1
 
+# Create a sysusers.d config file
+cat >znc.sysusers.conf <<EOF
+u znc - 'Account for ZNC to run as' /var/lib/znc -
+EOF
+
 %build
 %if 0%{?rhel} == 7
 sed -e 's/"openssl"/"openssl11"/g' -i configure
@@ -159,12 +163,9 @@ sed -e 's/"openssl"/"openssl11"/g' -i configure
 install -d "%{buildroot}%{_sharedstatedir}/znc"
 %py_byte_compile %{__python3} %{buildroot}%{_libdir}/znc/
 
+install -m0644 -D znc.sysusers.conf %{buildroot}%{_sysusersdir}/znc.conf
 
-%pre
-getent group znc >/dev/null || groupadd -r znc
-getent passwd znc >/dev/null || \
-    useradd -r -g znc -d /var/lib/znc -s /sbin/nologin \
-    -c "Account for ZNC to run as" znc
+
 
 
 %post
@@ -201,6 +202,7 @@ getent passwd znc >/dev/null || \
 %exclude %{_datadir}/znc/modtcl/
 %{_unitdir}/znc.service
 %attr(-,znc,znc) %{_sharedstatedir}/znc/
+%{_sysusersdir}/znc.conf
 
 %files devel
 %{_bindir}/znc-buildmod
@@ -229,6 +231,9 @@ getent passwd znc >/dev/null || \
 
 
 %changelog
+* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.9.1-7
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

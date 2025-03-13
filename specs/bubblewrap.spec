@@ -1,6 +1,6 @@
 Name:    bubblewrap
-Version: 0.10.0
-Release: 2%{?dist}
+Version: 0.11.0
+Release: 1%{?dist}
 Summary: Core execution tool for unprivileged containers
 
 License: LGPL-2.0-or-later
@@ -47,6 +47,10 @@ user namespaces.
 %{_mandir}/man1/bwrap.1*
 
 %changelog
+* Wed Mar 05 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.11.0-1
+- Update to 0.11.0 (#2322866)
+- Fix the build with GCC 15 (#2339949)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

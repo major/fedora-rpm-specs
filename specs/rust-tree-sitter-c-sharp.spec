@@ -14,7 +14,7 @@ URL:            https://crates.io/crates/tree-sitter-c-sharp
 Source:         %{crates_source}
 # include license
 # https://github.com/tree-sitter/tree-sitter-c-sharp/pull/366
-Source:         https://raw.githubusercontent.com/tree-sitter/tree-sitter-c-sharp/refs/tags/v%{version}/LICENSE
+Source:         https://raw.githubusercontent.com/tree-sitter/%{crate}/refs/tags/v%{version}/LICENSE
 # Manually created patch for downstream crate metadata changes
 # * include LICENSE
 Patch:          tree-sitter-c-sharp-fix-metadata.diff

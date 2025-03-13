@@ -1,5 +1,5 @@
 Name:           python-bioread
-Version:        3.0.1
+Version:        2025.03.10
 Release:        %autorelease
 Summary:        Utilities to read BIOPAC AcqKnowledge files
 
@@ -13,9 +13,6 @@ Source:         %{url}/archive/v%{version}/bioread-%{version}.tar.gz
 BuildArch:      noarch
  
 BuildRequires:  python3-devel
-
-# We could use the unittest module to run the tests, but pytest is more flexible.
-BuildRequires:  %{py3_dist pytest}
 
 BuildRequires:  help2man
 
@@ -52,7 +49,7 @@ find bioread/runners/ -type f -perm /0111 -exec chmod -v a-x '{}' '+'
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x all
+%pyproject_buildrequires -x all,dev
 
 
 %build

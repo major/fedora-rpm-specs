@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	25%{?dist}
+Release:	26%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -605,6 +605,10 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg || :
 %endif
 
 %changelog
+* Mon Mar 10 2025 Leo Sandoval <lsandova@redhat.com> 2.12-26
+- Remove 'fs/ntfs: Implement attribute verification' patch
+- Resolves: #2350327
+
 * Tue Feb 25 2025 Nicolas Frayer <nfrayer@redhat.com> 2.12-25
 - fs/ext2: Rework out-of-bounds read for inline and external extents
 - Resolves: #2346804

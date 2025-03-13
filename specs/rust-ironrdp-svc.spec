@@ -13,6 +13,8 @@ Summary:        IronRDP traits to implement RDP static virtual channels
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/ironrdp-svc
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+Patch:          ironrdp-svc-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

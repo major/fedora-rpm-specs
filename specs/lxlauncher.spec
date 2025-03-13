@@ -1,7 +1,7 @@
 # Review at https://bugzilla.redhat.com/show_bug.cgi?id=452395
 
 Name:           lxlauncher
-Version:        0.2.6
+Version:        0.2.7
 Release:        1%{?dist}
 Summary:        Open source replacement for Launcher on the EeePC
 
@@ -67,6 +67,9 @@ mkdir -m 755 $RPM_BUILD_ROOT%{_datadir}/%{name}/icons
 
 
 %changelog
+* Tue Mar 11 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.2.7-1
+- 0.2.7
+
 * Sun Feb 16 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.2.6-1
 - 0.2.6
 

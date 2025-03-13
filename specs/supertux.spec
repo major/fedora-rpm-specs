@@ -34,7 +34,7 @@ BuildRequires:  libcurl-devel
 BuildRequires:  libGLU-devel
 BuildRequires:  libpng-devel
 BuildRequires:  libvorbis-devel
-BuildRequires:  openal-devel
+BuildRequires:  openal-soft-devel
 BuildRequires:  physfs-devel
 BuildRequires:  zlib-devel
 BuildRequires:  /usr/bin/appstream-util

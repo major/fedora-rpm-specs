@@ -2,9 +2,9 @@
 %global forgeurl https://github.com/pydantic/pydantic-extra-types
 
 Name:           python-pydantic-extra-types
-Version:        2.10.2
+Version:        2.10.3
 %forgemeta
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Extra types for Pydantic
 
 License:        MIT
@@ -95,6 +95,9 @@ tomcli set pyproject.toml lists delitem --type regex --no-first \
 
 
 %changelog
+* Tue Mar 11 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.10.3-1
+- Update to 2.10.3. Fixes rhbz#2350978.
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -9,13 +9,15 @@
 %endif
 
 Name:           libfabric
-Version:        1.22.0
-Release:        2%{?dist}
+Version:        2.0.0
+Release:        1%{?dist}
 Summary:        Open Fabric Interfaces
 
 License:        BSD-2-Clause OR GPL-2.0-only
 URL:            https://github.com/ofiwg/libfabric
 Source0:        https://github.com/ofiwg/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.bz2
+# https://github.com/ofiwg/libfabric/issues/10796
+Patch0:         gcc15.patch
 
 %if %{__remake_config}
 BuildRequires:  automake
@@ -102,6 +104,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Mon Mar 10 2025 Orion Poplawski <orion@nwra.com> - 2.0.0-1
+- Update to 2.0.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

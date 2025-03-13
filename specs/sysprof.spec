@@ -3,7 +3,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           sysprof
-Version:        48~beta
+Version:        48~rc
 Release:        1%{?dist}
 Summary:        A system-wide Linux profiler
 
@@ -170,6 +170,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Tue Mar 11 2025 nmontero <nmontero@redhat.com> - 48~rc-1
+- Update to 48~rc
+
 * Thu Mar 06 2025 Fabio Valentini <decathorpe@gmail.com> - 48~beta-1
 - Update to 48.beta
 

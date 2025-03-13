@@ -140,6 +140,7 @@ Patch0018: 0018-Revert-CryptoPkg-add-openssl-providers-fips-include-.patch
 Patch0019: 0019-Revert-openssl-add-more-stubs-for-openssl-3.2.x.patch
 Patch0020: 0020-Revert-openssl-adapt-stubs-to-openssl-3.2.x.patch
 Patch0021: 0021-OvmfPkg-X64-add-opt-org.tianocore-UninstallMemAttrPr.patch
+Patch0022: 0022-OvmfPkg-PlatformInitLib-fix-typo.patch
 
 
 # needed by %prep

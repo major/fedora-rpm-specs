@@ -33,8 +33,8 @@ License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND 
 URL:            https://gitlab.gnome.org/GNOME/Incubator/papers
 Source:         https://download.gnome.org/sources/papers/48/papers-%{tarball_version}.tar.xz
 # To generate vendored cargo sources:
-#   tar xf papers-%%{tarball_version}.tar.xz ; pushd papers-%%{tarball_version}/shell ; \
-#   cargo vendor && tar Jcvf ../../papers-%%{tarball_version}-vendor.tar.xz ../shell/vendor/ ; popd
+#   tar xf papers-%%{tarball_version}.tar.xz ; pushd papers-%%{tarball_version} ; \
+#   cargo vendor && tar Jcvf ../papers-%%{tarball_version}-vendor.tar.xz vendor/ ; popd
 Source1:        papers-%{tarball_version}-vendor.tar.xz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -137,11 +137,9 @@ This package brings the Papers thumbnailer independently from Papers.
 %autosetup -p1 -n papers-%{tarball_version} %{?bundled_rust_deps:-a1}
 
 %if 0%{?bundled_rust_deps}
-%cargo_prep -v shell/vendor
+%cargo_prep -v vendor
 %else
 %cargo_prep
-# Not in 48.rc
-#rm shell/Cargo.lock
 %endif
 
 

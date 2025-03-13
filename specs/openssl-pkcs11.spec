@@ -85,6 +85,7 @@ rm -f %{buildroot}%{enginesdir}/*.la
 %if ! 0%{?fedora}
 ## Remove development files
 rm -f %{buildroot}%{_libdir}/libp11.so
+rm -f %{buildroot}%{_libdir}/libpkcs11.so
 rm -f %{buildroot}%{_libdir}/pkgconfig/libp11.pc
 rm -f %{buildroot}%{_includedir}/*.h
 %endif

@@ -14,6 +14,10 @@ Source:         %forgesource
 # Stop gap measure for one failing test after PySide 6.8.0 has landed.
 # https://github.com/pytest-dev/pytest-qt/issues/575
 Patch:          fix_test_failing_with_PySide-6.8.0.patch
+# PySide6 now exposes `qInfo`. Patch test accordingly.
+# https://github.com/pytest-dev/pytest-qt/pull/593
+# Patch rebased onto current release.
+Patch:          0001-Enable-qInfo-tests-for-PySide6.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

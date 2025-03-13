@@ -55,7 +55,7 @@ Epoch: 5
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 5.4.0
+Version: 5.4.1
 # The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0
 Release: %autorelease
@@ -151,6 +151,7 @@ Requires: openssl
 Requires: socat
 Requires: buildah
 Requires: gnupg
+Requires: xfsprogs
 
 %description tests
 %{summary}
@@ -216,14 +217,6 @@ sed -i 's;@@PODMAN@@\;$(BINDIR);@@PODMAN@@\;%{_bindir};' Makefile
 sed -i '/DELETE ON RHEL9/,/DELETE ON RHEL9/d' libpod/runtime.go
 %endif
 
-# These changes are only meant for copr builds
-%if %{defined copr_build}
-# podman --version should show short sha
-sed -i "s/^const RawVersion = .*/const RawVersion = \"##VERSION##-##SHORT_SHA##\"/" version/rawversion/version.go
-# use ParseTolerant to allow short sha in version
-sed -i "s/^var Version.*/var Version, err = semver.ParseTolerant(rawversion.RawVersion)/" version/version.go
-%endif
-
 %build
 %set_build_flags
 export CGO_CFLAGS=$CFLAGS
@@ -244,6 +237,11 @@ LDFLAGS="-X %{ld_libpod}/define.buildInfo=${SOURCE_DATE_EPOCH:-$(date +%s)} \
          -X %{ld_libpod}/config._installPrefix=%{_prefix} \
          -X %{ld_libpod}/config._etcDir=%{_sysconfdir} \
          -X %{ld_project}/pkg/systemd/quadlet._binDir=%{_bindir}"
+
+# This variable will be set by Packit actions. See .packit.yaml in the root dir
+# of the repo (upstream as well as Fedora dist-git).
+GIT_COMMIT="b79bc8afe796cba51dd906270a7e1056ccdfcf9e"""
+LDFLAGS="$LDFLAGS -X %{ld_libpod}/define.gitCommit=$GIT_COMMIT"
 
 # build rootlessport first
 %gobuild -o bin/rootlessport ./cmd/rootlessport

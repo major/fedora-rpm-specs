@@ -1,6 +1,6 @@
 Name:       libloc
-Version:    0.9.17
-Release:    7%{?dist}
+Version:    0.9.18
+Release:    1%{?dist}
 Summary:    Library to determine a location of an IP address in the Internet
 # bash-completion/location: LGPL-2.1-or-later
 # COPYING:                  LGPL-2.1 text
@@ -29,8 +29,20 @@ Summary:    Library to determine a location of an IP address in the Internet
 # src/libloc/resolv.h:      LGPL-2.1-or-later
 # src/libloc/stringpool.h:  LGPL-2.1-or-later
 # src/libloc/writer.h:      LGPL-2.1-or-later
+# src/lua/as.c:             LGPL-2.1-or-later
+# src/lua/as.h:             LGPL-2.1-or-later
+# src/lua/country.c:        LGPL-2.1-or-later
+# src/lua/country.h:        LGPL-2.1-or-later
+# src/lua/database.c:       LGPL-2.1-or-later
+# src/lua/database.h:       LGPL-2.1-or-later
+# src/lua/location.c:       LGPL-2.1-or-later
+# src/lua/location.h:       LGPL-2.1-or-later
+# src/lua/network.c:        LGPL-2.1-or-later
+# src/lua/network.h:        LGPL-2.1-or-later
 # src/network.c:            LGPL-2.1-or-later
 # src/network-list.c:       LGPL-2.1-or-later
+# src/network-tree.c:       LGPL-2.1-or-later
+# src/libloc/network-tree.h:    LGPL-2.1-or-later
 # src/perl/lib/Location.pm: GPL-1.0-or-later OR Artistic-1.0-Perl
 # src/python/as.h:          LGPL-2.1-or-later
 # src/python/country.c:     LGPL-2.1-or-later
@@ -41,7 +53,6 @@ Summary:    Library to determine a location of an IP address in the Internet
 # src/python/location/downloader.py:    LGPL-2.1-or-later
 # src/python/location/export.py:    LGPL-2.1-or-later
 # src/python/location/i18n.py:      LGPL-2.1-or-later
-# src/python/location/importer.py:  LGPL-2.1-or-later
 # src/python/location/logger.py:    LGPL-2.1-or-later
 # src/python/locationmodule.c:  LGPL-2.1-or-later
 # src/python/locationmodule.h:  LGPL-2.1-or-later
@@ -54,10 +65,9 @@ Summary:    Library to determine a location of an IP address in the Internet
 # src/scripts/location-importer.in: LGPL-2.1-or-later
 # src/stringpool.c:         LGPL-2.1-or-later
 # src/writer.c:             LGPL-2.1-or-later
-# tests/python/test-database.py:    LGPL-2.1-or-later
-# tests/python/test-export.py:      LGPL-2.1-or-later
 ## Used at build-time but not in any binary package
-# m4/attributes.m4:         GPL-2.0-or-later WITH Autoconf-exception-2.0 (?)
+# m4/attributes.m4:         GPL-2.0-or-later WITH Autoconf-exception-macro
+# m4/ax_prog_lua_modules.m4:    FSFAP
 # src/perl/Makefile.PL:     "lgpl" (probably a mistake)
 # src/test-address.c:       GPL-2.0-or-later
 # src/test-as.c:            GPL-2.0-or-later
@@ -68,13 +78,20 @@ Summary:    Library to determine a location of an IP address in the Internet
 # src/test-network-list.c:  GPL-2.0-or-later
 # src/test-signature.c:     GPL-2.0-or-later
 # src/test-stringpool.c:    GPL-2.0-or-later
+# tests/lua/main.lua.in:            LGPL-2.1-or-later
+# tests/python/country.py:          LGPL-2.1-or-later
+# tests/python/networks-dedup.py:   LGPL-2.1-or-later
+# tests/python/test-database.py:    LGPL-2.1-or-later
+# tests/python/test-export.py:      LGPL-2.1-or-later
 ## Unbundled, then used only at build-time, not in any binary package
 # m4/ax_prog_perl_modules.m4:   FSFAP
 # m4/ld-version-script.m4:  FSFULLR
 ## Not used and not in any binary package
 # debian/copyright:         LGPL-2.1-or-later
 # src/cron/location-update.in:  LGPL-2.1-or-later
+# tools/copy.py:                    LGPL-2.1-or-later
 License:    LGPL-2.1-or-later
+SourceLicense:  LGPL-2.1-or-later AND CC-BY-SA-4.0 AND (GPL-1.0-or-later OR Artistic-1.0-Perl) AND GPL-2.0-or-later AND GPL-2.0-or-later WITH Autoconf-exception-macro AND FSFAP AND FSFULLR
 URL:        https://location.ipfire.org/
 Source0:    https://source.ipfire.org/releases/%{name}/%{name}-%{version}.tar.gz
 BuildRequires:  asciidoc
@@ -96,8 +113,8 @@ BuildRequires:  intltool >= 0.40.0
 BuildRequires:  libtool
 # libxslt for xsltproc program
 BuildRequires:  libxslt
+BuildRequires:  lua-rpm-macros
 BuildRequires:  make
-BuildRequires:  openssl-devel
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -108,6 +125,8 @@ BuildRequires:  pkgconf-m4
 BuildRequires:  pkgconf-pkg-config
 BuildRequires:  pkgconfig(bash-completion)
 BuildRequires:  pkgconfig(libsystemd)
+BuildRequires:  pkgconfig(lua)
+BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(python) >= 3.4
 # pkgconfig(systemd) not needed, we configure a value from systemd-rpm-macros
 BuildRequires:  python3-devel
@@ -118,8 +137,10 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(XSLoader)
-# python3-psycopg2 not used at tests
+# python3-psycopg not used at tests
 # Tests:
+# lua executable is used by m4/ax_prog_lua_modules.m4, but pointless because
+# LuaUnit <https://github.com/bluebird75/luaunit> is not yet packaged.
 BuildRequires:  perl(Test::More)
 
 %description
@@ -133,6 +154,15 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description devel
 This package contains header files and other files helpful when developing
 applications using libloc library.
+
+%package -n lua-%{name}
+Summary:        Lua interface to libloc library
+License:        LGPL-2.1-or-later
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description -n lua-%{name}
+This is Lua binding to libloc, a library to determine an IP address location
+in the Internet.
 
 %package -n perl-%{name}
 Summary:        Perl interface to libloc library
@@ -150,7 +180,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %py_provides python3-location
 
 %description -n python3-%{name}
-This is Python binding to libloc, a library to determine an IP adress location
+This is Python binding to libloc, a library to determine an IP address location
 in the Internet.
 
 %package tools
@@ -192,6 +222,7 @@ autoreconf -fi -I%{_datadir}/gnulib/m4
     --enable-debug \
     --enable-largefile \
     --enable-ld-version-script \
+    --enable-lua \
     --enable-man_pages \
     --enable-nls \
     --enable-perl \
@@ -222,7 +253,7 @@ Metadata-Version: 2.1
 Name: %{name}
 Version: %{version}
 Home-page: %{url}
-Requires-Dist: psycopg2
+Requires-Dist: psycopg
 EOF
 chmod 0644 %{buildroot}/%{python3_sitelib}/%{name}-%{version}.dist-info/METADATA
 # Gather NLS files
@@ -243,8 +274,9 @@ make check %{?_smp_mflags}
 
 %files -f %{name}.lang
 %license COPYING
-%doc debian/changelog
-%{_libdir}/libloc.so.1*
+%doc debian/changelog README.md
+%{_libdir}/libloc.so.1
+%{_libdir}/libloc.so.1.*
 
 %files devel
 %{_includedir}/libloc
@@ -253,9 +285,12 @@ make check %{?_smp_mflags}
 %{_mandir}/man3/libloc.3*
 %{_mandir}/man3/loc_*.3*
 
+%files -n lua-%{name}
+%{lua_libdir}/location.so
+
 %files -n perl-%{name}
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/Location*
+%{perl_vendorarch}/auto/Location
+%{perl_vendorarch}/Location.pm
 %{_mandir}/man3/Location.3pm*
 
 %files -n python3-%{name}
@@ -279,6 +314,9 @@ make check %{?_smp_mflags}
 %{_datadir}/bash-completion/completions/location
 
 %changelog
+* Tue Mar 11 2025 Petr Pisar <ppisar@redhat.com> - 0.9.18-1
+- 0.9.18 bump
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.17-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

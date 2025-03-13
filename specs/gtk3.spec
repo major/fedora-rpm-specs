@@ -19,13 +19,13 @@
 %global __provides_exclude_from ^%{_libdir}/gtk-3.0
 
 Name:    gtk3
-Version: 3.24.43
-Release: 4%{?dist}
+Version: 3.24.49
+Release: 1%{?dist}
 Summary: GTK+ graphical user interface library
 
 License: LGPL-2.0-or-later
 URL:     https://gtk.org
-Source0: https://download.gnome.org/sources/gtk+/3.24/gtk+-%{version}.tar.xz
+Source0: https://download.gnome.org/sources/gtk/3.24/gtk-%{version}.tar.xz
 
 BuildRequires: pkgconfig(atk) >= %{atk_version}
 BuildRequires: pkgconfig(atk-bridge-2.0)
@@ -161,7 +161,7 @@ The %{name}-tests package contains tests that can be used to verify
 the functionality of the installed %{name} package.
 
 %prep
-%autosetup -n gtk+-%{version} -p1
+%autosetup -n gtk-%{version} -p1
 
 %build
 export CFLAGS='-fno-strict-aliasing %optflags'
@@ -308,6 +308,9 @@ gtk-query-immodules-3.0-%{__isa_bits} --update-cache &>/dev/null || :
 %{_datadir}/installed-tests/
 
 %changelog
+* Tue Mar 11 2025 nmontero <nmontero@redhat.com> - 3.24.49-1
+- Update to 3.24.49
+
 * Thu Feb 06 2025 nmontero <nmontero@redhat.com> - 3.24.43-4
 - Rebuild for the renaming of tracker to tinysparql
 

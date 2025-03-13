@@ -12,11 +12,12 @@ Summary:        Haskell grammar for tree-sitter
 License:        MIT
 URL:            https://crates.io/crates/tree-sitter-haskell
 Source:         %{crates_source}
-# include license file
-# https://github.com/tree-sitter/tree-sitter-haskell/pull/137
-Source:         https://raw.githubusercontent.com/tree-sitter/%{crate}/refs/tags/v%{version}/LICENSE
+# * include license file
+# * https://github.com/tree-sitter/tree-sitter-haskell/pull/137
+Source1:        https://raw.githubusercontent.com/tree-sitter/%{crate}/refs/tags/v%{version}/LICENSE
 # Manually created patch for downstream crate metadata changes
 # * include LICENSE
+# * relax tree-sitter dependency to build against 0.24
 Patch:          tree-sitter-haskell-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

@@ -48,6 +48,7 @@ Summary:        %{summary}
 # MIT OR Zlib OR Apache-2.0
 # MPL-2.0
 # Unlicense OR MIT
+# Zlib
 # Zlib OR Apache-2.0 OR MIT
 License:        %{shrink:
                 (0BSD OR Apache-2.0 OR MIT) AND
@@ -61,7 +62,8 @@ License:        %{shrink:
                 MIT AND
                 (MIT OR Unlicense) AND
                 MPL-2.0 AND
-                Unicode-DFS-2016
+                Unicode-DFS-2016 AND
+                Zlib
                 }
 # LICENSE.dependencies contains a full license breakdown
 

@@ -1,7 +1,7 @@
 %global srcname fedfind
 
 Name:           fedfind
-Version:        6.0.5
+Version:        6.0.6
 Release:        1%{?dist}
 Summary:        Fedora compose and image finder
 
@@ -60,6 +60,9 @@ sed -i -e 's., "setuptools-scm"..g' pyproject.toml
 %{python3_sitelib}/%{srcname}*
 
 %changelog
+* Wed Mar 11 2025 Adam Williamson <awilliam@redhat.com> - 6.0.6-1
+- New release 6.0.6: don't say Compose 'exists' until sync is done
+
 * Wed Jan 22 2025 Adam Williamson <awilliam@redhat.com> - 6.0.5-1
 - New release 6.0.5: don't use 'container' type for metadata guessing
 

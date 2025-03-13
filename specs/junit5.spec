@@ -39,16 +39,19 @@ Source500:      https://repo1.maven.org/maven2/org/junit/junit-bom/%{version}/ju
 
 Patch:          0001-Drop-transitive-requirement-on-apiguardian.patch
 Patch:          0002-Add-missing-module-static-requires.patch
+Patch:          0003-Remove-legacy-XML-console-support.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.univocity:univocity-parsers)
+BuildRequires:  mvn(info.picocli:picocli)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apiguardian:apiguardian-api)
 BuildRequires:  mvn(org.assertj:assertj-core)
+BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 BuildRequires:  mvn(org.opentest4j:opentest4j)
 %endif
 # TODO Remove in Fedora 46
@@ -86,12 +89,13 @@ done
 %pom_remove_parent junit-bom
 
 # Add deps which are shaded by upstream and therefore not present in POMs.
-%pom_add_dep net.sf.jopt-simple:jopt-simple:5.0.4 junit-platform-console
+%pom_add_dep org.junit.platform:junit-platform-commons:%{platform_version} junit-platform-console
+%pom_add_dep org.junit.platform:junit-platform-launcher:%{platform_version} junit-platform-console
+%pom_add_dep info.picocli:picocli junit-platform-console
 %pom_add_dep com.univocity:univocity-parsers:2.5.4 junit-jupiter-params
 
-# Disable the console modules
-%pom_disable_module junit-platform-console
 %pom_disable_module junit-platform-console-standalone
+%pom_remove_dep org.junit.platform:junit-platform-reporting junit-platform-console
 
 %mvn_package :aggregator __noinstall
 
@@ -101,7 +105,10 @@ done
 %install
 %mvn_install
 
+%jpackage_script org.junit.platform.console.ConsoleLauncher "" "" junit5:opentest4j:picocli:junit:hamcrest junit-platform-console
+
 %files -f .mfiles
+%{_bindir}/junit-platform-console
 %license LICENSE.md LICENSE-notice.md
 
 %changelog

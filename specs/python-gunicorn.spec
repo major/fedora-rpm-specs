@@ -66,7 +66,7 @@ ln -s %{_bindir}/gunicorn %{buildroot}%{_bindir}/gunicorn-3
 ln -s %{_bindir}/gunicorn %{buildroot}%{_bindir}/gunicorn-%{python3_version}
 
 %check
-%pytest --verbose tests -k "not geventlet" %{!?with_extras:-k "not gevent"}
+%pytest --verbose tests -k "not geventlet%{!?with_extras: and not ggevent}"
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc NOTICE README.rst THANKS

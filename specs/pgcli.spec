@@ -1,6 +1,6 @@
 Name:           pgcli
-Version:        4.1.0
-Release:        2%{?dist}
+Version:        4.2.0
+Release:        1%{?dist}
 Summary:        CLI for Postgres Database. With auto-completion and syntax highlighting
 
 License:        BSD-3-Clause
@@ -18,8 +18,8 @@ BuildRequires:  help2man
 # https://bugzilla.redhat.com/show_bug.cgi?id=2266555.
 %if %{defined fc41}
 # Require the version in which the bug was fixed.
-BuildRequires:  python-psycopg3 >= 3.1.19-1
-Requires:       python-psycopg3 >= 3.1.19-1
+BuildRequires:  python3-psycopg3 >= 3.1.19-1
+Requires:       python3-psycopg3 >= 3.1.19-1
 %elif %{defined fc40}
 # This was never fixed in Fedora 40, so we must keep the workaround
 # indefinitely there.
@@ -76,6 +76,9 @@ PYTHONPATH='%{buildroot}%{python3_sitelib}' \
 %{_mandir}/man1/pgcli.1*
 
 %changelog
+* Tue Mar 11 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.2.0-1
+- Update to 4.2.0 (close RHBZ#2350515)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

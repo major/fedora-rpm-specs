@@ -128,10 +128,15 @@ tar -xzvf %{SOURCE2}
 mv lsp-types-%{lsp_types_commit} crates/lsp-types
 mv salsa-%{salsa_commit} crates/salsa
 
-# avoid duplicate workspace definitions
 pushd crates/salsa
+# avoid duplicate workspace definitions
 patch -p1 < %{SOURCE3}
 mv components/* ../
+# Remove an example that introduces unnecessary dev-dependencies. In
+# particular, we do not want notify-debouncer-mini because it depends on the
+# rust-notify6 compat package.
+rm -rv examples/lazy-input
+sed -r -i 's/^(notify-debouncer-mini)/# &/' Cargo.toml
 popd
 
 # prepare license files under distinct names

@@ -4,7 +4,7 @@
 
 # https://github.com/pion/sdp
 %global goipath         github.com/pion/sdp/v3
-Version:                3.0.10
+Version:                3.0.11
 
 %gometa -L -f
 

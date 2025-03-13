@@ -2,27 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate tree-sitter-c
+%global crate rustc-stable-hash
 
-Name:           rust-tree-sitter-c
-Version:        0.23.4
+Name:           rust-rustc-stable-hash
+Version:        0.1.2
 Release:        %autorelease
-Summary:        C grammar for tree-sitter
+Summary:        Stable hashing algorithm used by rustc
 
-License:        MIT
-URL:            https://crates.io/crates/tree-sitter-c
+License:        Apache-2.0 OR MIT
+URL:            https://crates.io/crates/rustc-stable-hash
 Source:         %{crates_source}
-# include license file
-# https://github.com/tree-sitter/tree-sitter-c/pull/249
-Source:         https://raw.githubusercontent.com/tree-sitter/%{crate}/refs/tags/v%{version}/LICENSE
-# Manually created patch for downstream crate metadata changes
-# * include LICENSE
-Patch:          tree-sitter-c-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-C grammar for tree-sitter.}
+A stable hashing algorithm used by rustc.}
 
 %description %{_description}
 
@@ -36,7 +30,10 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/CODE_OF_CONDUCT.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -55,8 +52,6 @@ use the "default" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-# copy in license file
-cp -p %{SOURCE1} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

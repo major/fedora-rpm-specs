@@ -77,7 +77,7 @@ Version:        4.11.0
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD-3-Clause AND Apache-2.0 AND ISC
@@ -195,7 +195,8 @@ BuildRequires:  python3-beautifulsoup4
 #for doc/doxygen/bib2xhtml.pl
 #BuildRequires:  perl-open
 BuildRequires:  gflags-devel
-BuildRequires:  qt5-qtbase-devel
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qt5compat-devel
 BuildRequires:  libGL-devel
 BuildRequires:  libGLU-devel
 BuildRequires:  hdf5-devel
@@ -608,6 +609,9 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 
 
 %changelog
+* Tue Mar 11 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 4.11.0-3
+- Use Qt6 in highgui and cvv
+
 * Tue Feb 18 2025 Adam Williamson <awilliam@redhat.com> - 4.11.0-2
 - Backport all post-4.11.0 PNG fixes, including big-endian fix
 - Resolves: rhbz#2345306

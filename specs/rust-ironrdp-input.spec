@@ -13,6 +13,8 @@ Summary:        Utilities to manage and build RDP input packets
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/ironrdp-input
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+Patch:          ironrdp-input-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
