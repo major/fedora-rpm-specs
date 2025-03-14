@@ -1,5 +1,5 @@
 Name:    kwin-x11
-Version: 6.3.2.1
+Version: 6.3.3
 Release: 1%{?dist}
 Summary: KDE Window manager with X11 support
 
@@ -14,6 +14,10 @@ URL:     https://userbase.kde.org/KWin
 %global stable stable
 %endif
 Source0: http://download.kde.org/%{stable}/plasma/%{plasma_version}/kwin-%{version}.tar.xz
+
+# In 6.3.3, the kwin project version is still set to 6.3.2 for whatever reason.
+# This can either be updated or dropped for the following version.
+Patch0: cmake-version-fix.patch
 
 ## upstream patches
 
@@ -152,6 +156,7 @@ maintained by the KDE SIG.)
 
 %prep
 %setup -q -n kwin-%{version}
+%patch -P0 -p1 -b .cmake-version-fix
 
 # set component for the install step
 sed -i \
@@ -176,6 +181,9 @@ sed -i \
 
 
 %changelog
+* Wed Mar 12 2025 Kevin Kofler <Kevin@tigcc.ticalc.org> - 6.3.3-1
+- 6.3.3
+
 * Thu Feb 27 2025 Kevin Kofler <Kevin@tigcc.ticalc.org> - 6.3.2.1-1
 - 6.3.2.1
 

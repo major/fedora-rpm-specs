@@ -4,7 +4,7 @@
 %bcond backend_ufw %[%{undefined rhel}]
 
 Name:    plasma-firewall
-Version: 6.3.2
+Version: 6.3.3
 Release: 1%{?dist}
 Summary: Control Panel for your system firewall
 
@@ -106,6 +106,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_firewall.desktop
 %endif
 
 %changelog
+* Tue Mar 11 2025 Steve Cossette <farchord@gmail.com> - 6.3.3-1
+- 6.3.3
+
 * Tue Feb 25 2025 Steve Cossette <farchord@gmail.com> - 6.3.2-1
 - 6.3.2
 

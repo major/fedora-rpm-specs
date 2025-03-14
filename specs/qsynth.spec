@@ -1,7 +1,7 @@
 Summary:       Qt based Fluidsynth GUI front end
 Name:          qsynth
 Version:       1.0.2
-Release:       2%{?dist}
+Release:       3%{?dist}
 URL:           http://qsynth.sourceforge.net
 Source0:       http://downloads.sourceforge.net/qsynth/%{name}-%{version}.tar.gz
 License:       GPL-2.0-or-later
@@ -10,7 +10,7 @@ Requires:      soundfont2-default
 
 # Set correct paths for sound fonts
 # Increase default buffer size
-Patch0:        qsynth-fedora-defaults.patch
+Patch:         qsynth-fedora-defaults.patch
 
 BuildRequires: cmake
 BuildRequires: desktop-file-utils
@@ -40,6 +40,8 @@ sed -i -e 's|@DATADIR@|%{_datadir}|g' src/qsynthOptions.cpp
 
 
 %build
+# pipewire-jack is not in the default search path
+export LDFLAGS="$LDFLAGS $(pkg-config --libs jack)"
 %{cmake} %{?flatpak:-DCONFIG_WAYLAND=ON}
 %{cmake_build}
 
@@ -75,6 +77,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.rncbc.qsyn
 
 
 %changelog
+* Tue Mar 04 2025 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 1.0.2-3
+- Fix build: ensure that jack.so from pipewire can be found by cmake's tests
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

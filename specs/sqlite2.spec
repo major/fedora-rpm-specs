@@ -1,9 +1,15 @@
-%{!?tcl_version: %global tcl_version %((echo 0; echo 'puts $tcl_version' | tclsh) | tail -1)}
+%{!?tcl_version: %global tcl_version %((echo 0; echo 'puts $tcl_version' | tclsh8) | tail -1)}
 %{!?tcl_sitearch: %global tcl_sitearch %{_libdir}/tcl%{tcl_version}}
+
+# This package is old and only kept for compatibility.
+# There is no real benefit to modernizing the code to support C23.
+%global optflags %{optflags} -std=gnu17
+
+# Same logic for not updating to TCL9.
 
 Name:           sqlite2
 Version:        2.8.17
-Release:        45%{?dist}
+Release:        46%{?dist}
 
 Summary:        Embeddable SQL engine in a C library
 License:        blessing AND LicenseRef-Fedora-Public-Domain
@@ -33,7 +39,7 @@ Patch21:        sqlite2-lemon-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc-c++
-BuildRequires:  ncurses-devel, readline-devel, tcl-devel
+BuildRequires:  ncurses-devel, readline-devel, tcl8-devel
 Obsoletes:      sqlite < 3
 
 %description
@@ -101,6 +107,8 @@ sed -i.rpath 's!__VERSION__!%{version}!g' Makefile.in
 # to substitute with.
 sed -i.lib 's!@exec_prefix@/lib!%{_libdir}!g' Makefile.in
 
+sed -i 's!tclsh !tclsh8 !g' Makefile.in
+
 %build
 CFLAGS="$RPM_OPT_FLAGS -DNDEBUG=1"
 %configure --enable-utf8 --disable-static --disable-rpath
@@ -145,6 +153,9 @@ rm -f $RPM_BUILD_ROOT%{_bindir}/tclsqlite
 %{tcl_sitearch}/sqlite2/
 
 %changelog
+* Wed Mar 12 2025 Tom Callaway <spot@fedoraproject.org> - 2.8.17-46
+- fix FTBFS, use -std=gnu17 and tcl8
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.17-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

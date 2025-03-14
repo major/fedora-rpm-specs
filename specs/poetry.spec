@@ -29,6 +29,9 @@ Patch:         Patch-get_embedded_wheel-to-return-system-wheels-fro.patch
 # Inspired by upstream PR: https://github.com/python-poetry/poetry/pull/9939
 Patch:          Resolve-paths-before-comparing.patch
 
+# Fix tests on architectures not supported by pbs_installer
+Patch:          https://github.com/python-poetry/poetry/pull/10261.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

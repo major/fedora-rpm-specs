@@ -14,8 +14,8 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-bad-free
-Version:        1.24.11
-Release:        5%{?dist}
+Version:        1.26.0
+Release:        1%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 # Automatically converted from old format: LGPLv2+ and LGPLv2 - review is highly recommended.
@@ -790,6 +790,9 @@ EOF
 
 
 %changelog
+* Wed Mar 12 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.26.0-1
+- 1.26.0
+
 * Tue Mar 03 2025 Wim Taymans <wtaymans@redhat.com> - 1.24.11-5
 - Rebuild for openh264 2.6.0
 

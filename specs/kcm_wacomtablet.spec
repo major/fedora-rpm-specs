@@ -1,6 +1,6 @@
 Name:    kcm_wacomtablet
 Summary: KDE Control module for Wacom Graphictablets
-Version: 6.3.2
+Version: 6.3.3
 Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -25,6 +25,8 @@ BuildRequires: cmake(KF6KIO)
 BuildRequires: cmake(KF6KCMUtils)
 BuildRequires: cmake(Plasma5Support)
 BuildRequires: cmake(Plasma) 
+BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6GuiAddons)
 BuildRequires: kf6-rpm-macros
 
 BuildRequires: qt6-qtbase-devel
@@ -83,6 +85,9 @@ with profile support to handle different button/pen layouts per profile.
 
 
 %changelog
+* Tue Mar 11 2025 Steve Cossette <farchord@gmail.com> - 6.3.3-1
+- 6.3.3
+
 * Tue Feb 25 2025 Steve Cossette <farchord@gmail.com> - 6.3.2-1
 - 6.3.2
 

@@ -1,6 +1,6 @@
 Name:    kactivitymanagerd
 Summary: Plasma service to manage user's activities
-Version: 6.3.2
+Version: 6.3.3
 Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -24,6 +24,7 @@ BuildRequires:  cmake(KF6XmlGui)
 BuildRequires:  cmake(KF6KIO)
 BuildRequires:  cmake(KF6DBusAddons)
 BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6GuiAddons)
 
 BuildRequires:  boost-devel
 
@@ -68,6 +69,9 @@ Provides:       kactivities = %{version}-%{release}
 %{_qt6_plugindir}/kactivitymanagerd1/
 
 %changelog
+* Tue Mar 11 2025 Steve Cossette <farchord@gmail.com> - 6.3.3-1
+- 6.3.3
+
 * Tue Feb 25 2025 Steve Cossette <farchord@gmail.com> - 6.3.2-1
 - 6.3.2
 

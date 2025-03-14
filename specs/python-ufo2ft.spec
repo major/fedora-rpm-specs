@@ -1,6 +1,6 @@
 %global         srcname         ufo2ft
 %global         forgeurl        https://github.com/googlefonts/ufo2ft
-Version:        3.3.1
+Version:        3.4.2
 %global         tag             v%{version}
 %forgemeta
 
@@ -13,8 +13,6 @@ Summary:        A bridge from UFOs to FontTool objects
 License:        MIT AND Apache-2.0
 URL:            %forgeurl
 Source:         %{pypi_source %{srcname}}
-# Relax version requirements
-Patch:          relax-versions.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
@@ -70,6 +68,9 @@ k="${k-}${k+ and }not (test_kern_zyyy_zinh)"
 %doc README.rst
  
 %changelog
+* Wed Mar 12 2025 Benson Muite <fed500@fedoraproject.org> - 3.4.2-1
+- Upgrade to latest release
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

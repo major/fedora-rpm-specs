@@ -6,7 +6,7 @@
 # https://github.com/Azure/go-autorest
 %global goipath         github.com/Azure/go-autorest
 Version:                14.2.0
-%global tag             autorest/v0.11.15
+%global tag             autorest/v0.11.30
 %global distprefix      %{nil}
 
 %gometa
@@ -38,11 +38,14 @@ BuildRequires:  golang(go.opencensus.io/plugin/ochttp/propagation/tracecontext)
 BuildRequires:  golang(go.opencensus.io/stats/view)
 BuildRequires:  golang(go.opencensus.io/trace)
 BuildRequires:  golang(golang.org/x/crypto/pkcs12)
+BuildRequires:  golang(github.com/golang-jwt/jwt/v4)
 
 %if %{with check}
 # Tests
 BuildRequires:  golang(github.com/stretchr/testify/require)
 %endif
+
+Patch: format-error.patch
 
 %description
 %{common_description}
@@ -51,13 +54,14 @@ BuildRequires:  golang(github.com/stretchr/testify/require)
 
 %prep
 %goprep
+%autopatch -v -p1
 
 %install
 %gopkginstall
 
 %if %{with check}
 %check
-%gocheck -d tracing
+%gocheck -d tracing -d logger
 %endif
 
 %gopkgfiles

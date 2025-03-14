@@ -7,7 +7,7 @@
 %endif
 
 Name:    plasma-breeze
-Version: 6.3.2
+Version: 6.3.3
 Release: 1%{?dist}
 Summary: Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 
@@ -167,6 +167,9 @@ popd
 %{_kf6_datadir}/icons/breeze_cursors/index.theme
 
 %changelog
+* Tue Mar 11 2025 Steve Cossette <farchord@gmail.com> - 6.3.3-1
+- 6.3.3
+
 * Tue Feb 25 2025 Steve Cossette <farchord@gmail.com> - 6.3.2-1
 - 6.3.2
 

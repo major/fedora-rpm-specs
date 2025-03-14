@@ -1,5 +1,5 @@
 Name:           python-jaraco-path
-Version:        3.7.1
+Version:        3.7.2
 Release:        %autorelease
 Summary:        Miscellaneous path functions
 

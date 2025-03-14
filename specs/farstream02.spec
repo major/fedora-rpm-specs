@@ -5,7 +5,7 @@
 
 Name:           %{far}02
 Version:        0.2.9
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Libraries for videoconferencing
 
 # Package is LGPLv2 except for a few files in /common/coverage/
@@ -119,6 +119,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Wed Mar 12 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.2.9-18
+- gstreamer1-plugins-bad-free rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.9-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

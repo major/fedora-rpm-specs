@@ -6,8 +6,8 @@
 Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
-Version:        9.0
-Release:        1%{?dist}
+Version:        9.1
+Release:        2%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -68,7 +68,7 @@ BuildRequires:  optipng
 # cd pgadmin4-<ver>
 # patch -p1 < pgadmin4_requirements.patch
 # python3 /usr/lib/rpm/redhat/pyproject_buildrequires.py -N requirements.txt --output requires 2>/dev/null && cat requires | awk '{print "Requires: "$0}'
-Requires: python3dist(flask) >= 3
+Requires: (python3dist(flask) >= 3.1 with python3dist(flask) < 3.2)
 Requires: (python3dist(flask-login) >= 0 with python3dist(flask-login) < 1)
 Requires: (python3dist(flask-mail) >= 0 with python3dist(flask-mail) < 1)
 Requires: (python3dist(flask-migrate) >= 4 with python3dist(flask-migrate) < 5)
@@ -77,40 +77,39 @@ Requires: (python3dist(flask-wtf) >= 1.2 with python3dist(flask-wtf) < 1.3)
 Requires: (python3dist(flask-compress) >= 1 with python3dist(flask-compress) < 2)
 Requires: (python3dist(flask-paranoid) >= 0 with python3dist(flask-paranoid) < 1)
 Requires: (python3dist(flask-babel) >= 4 with python3dist(flask-babel) < 4.1)
-Requires: python3dist(flask-security-too) >= 5.4
-Requires: python3dist(flask-socketio) >= 5.4
+Requires: (python3dist(flask-security-too) >= 5.5 with python3dist(flask-security-too) < 5.6)
+Requires: (python3dist(flask-socketio) >= 5.5 with python3dist(flask-socketio) < 5.6)
 Requires: python3dist(wtforms) >= 3
 Requires: (python3dist(passlib) >= 1 with python3dist(passlib) < 2)
-Requires: python3dist(pytz) >= 2024
+Requires: (python3dist(pytz) >= 2025 with python3dist(pytz) < 2026)
 Requires: (python3dist(sqlparse) >= 0 with python3dist(sqlparse) < 1)
-Requires: python3dist(psutil) >= 5.9
+Requires: (python3dist(psutil) >= 6.1 with python3dist(psutil) < 6.2)
 Requires: python3dist(psycopg) >= 3.2.1
 Requires: (python3dist(python-dateutil) >= 2 with python3dist(python-dateutil) < 3)
 Requires: (python3dist(sqlalchemy) >= 2 with python3dist(sqlalchemy) < 3)
-Requires: python3dist(bcrypt) >= 4.1
-Requires: python3dist(cryptography) >= 43
+Requires: (python3dist(bcrypt) >= 4.2 with python3dist(bcrypt) < 4.3)
+Requires: (python3dist(cryptography) >= 44 with python3dist(cryptography) < 44.1)
 Requires: (python3dist(sshtunnel) >= 0 with python3dist(sshtunnel) < 1)
 Requires: (python3dist(ldap3) >= 2 with python3dist(ldap3) < 3)
 Requires: python3dist(gssapi) >= 1.7
 Requires: python3dist(user-agents) = 2.2
-Requires: python3dist(authlib) >= 1.3
+Requires: (python3dist(authlib) >= 1.4 with python3dist(authlib) < 1.5)
 Requires: (python3dist(pyotp) >= 2 with python3dist(pyotp) < 3)
 Requires: (python3dist(qrcode) >= 8 with python3dist(qrcode) < 9)
-Requires: python3dist(boto3) >= 1.35
-Requires: python3dist(urllib3) >= 1.25
+Requires: python3dist(boto3) >= 1.36
+Requires: python3dist(urllib3) >= 1.26
 Requires: python3dist(azure-mgmt-rdbms) >= 10.1
 Requires: python3dist(azure-mgmt-resource) >= 23.1
 Requires: python3dist(azure-mgmt-subscription) >= 3
 Requires: python3dist(azure-identity) >= 1.17
 Requires: (python3dist(google-api-python-client) >= 2 with python3dist(google-api-python-client) < 3)
-Requires: python3dist(google-auth-oauthlib) >= 0.8
+Requires: python3dist(google-auth-oauthlib) = 1.2.1
 Requires: (python3dist(keyring) >= 25 with python3dist(keyring) < 26)
 Requires: (python3dist(werkzeug) >= 3.1 with python3dist(werkzeug) < 3.2)
-Requires: python3dist(typer-slim)
+Requires: (python3dist(typer) >= 0.15 with python3dist(typer) < 0.16)
 Requires: python3dist(setuptools) >= 74
 Requires: (python3dist(jsonformatter) >= 0.3.4 with python3dist(jsonformatter) < 0.4)
 Requires: (python3dist(libgravatar) >= 1 with python3dist(libgravatar) < 1.1)
-
 
 # Undeclared dependencies
 Requires:  python3-rich
@@ -265,6 +264,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Wed Mar 12 2025 Sandro Mani <manisandro@gmail.com> - 9.1-2
+- Fix azure-mgmt-subscription requirement
+
+* Mon Mar 10 2025 Sandro Mani <manisandro@gmail.com> - 9.1-1
+- Update to 9.1
+
 * Thu Feb 06 2025 Sandro Mani <manisandro@gmail.com> - 9.0-1
 - Update to 9.0
 

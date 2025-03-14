@@ -21,6 +21,10 @@ Patch: joblib-dont-count-DeprecationWarnings.patch
 # https://github.com/joblib/joblib/pull/1632
 Patch: https://github.com/joblib/joblib/pull/1632.patch
 
+# Python 3.14 support, rebased
+# https://github.com/joblib/joblib/pull/1688
+Patch: 1688.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 

@@ -1,5 +1,5 @@
 Name:    plasma-sdk
-Version: 6.3.2
+Version: 6.3.3
 Release: 1%{?dist}
 Summary: Development tools for Plasma 6
 
@@ -37,6 +37,7 @@ BuildRequires:  cmake(KF6XmlGui)
 BuildRequires:  cmake(KF6WindowSystem)
 BuildRequires:  cmake(KF6ItemModels)
 BuildRequires:  cmake(KF6Svg)
+BuildRequires:  cmake(KF6GuiAddons)
 
 BuildRequires:  cmake(Plasma)
 
@@ -108,6 +109,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.plasmoidviewe
 %{_datadir}/icons/hicolor/scalable/apps/org.kde.iconexplorer.svg
 
 %changelog
+* Tue Mar 11 2025 Steve Cossette <farchord@gmail.com> - 6.3.3-1
+- 6.3.3
+
 * Tue Feb 25 2025 Steve Cossette <farchord@gmail.com> - 6.3.2-1
 - 6.3.2
 

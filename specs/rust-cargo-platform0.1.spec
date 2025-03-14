@@ -2,21 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate ironrdp-svc
+%global crate cargo-platform
 
-Name:           rust-ironrdp-svc
-Version:        0.2.0
+Name:           rust-cargo-platform0.1
+Version:        0.1.9
 Release:        %autorelease
-Summary:        IronRDP traits to implement RDP static virtual channels
+Summary:        Cargo's representation of a target platform
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/ironrdp-svc
+URL:            https://crates.io/crates/cargo-platform
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-IronRDP traits to implement RDP static virtual channels.}
+Cargo's representation of a target platform.}
 
 %description %{_description}
 
@@ -32,7 +32,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -46,18 +45,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+std-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+std-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
-
-%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

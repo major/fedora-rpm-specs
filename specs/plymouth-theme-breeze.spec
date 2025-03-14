@@ -1,7 +1,7 @@
 %global         base_name breeze-plymouth
 
 Name:    plymouth-theme-breeze
-Version: 6.3.2
+Version: 6.3.3
 Release: 1%{?dist}
 Summary: Breeze theme for Plymouth
 
@@ -12,6 +12,11 @@ URL:     https://invent.kde.org/plasma/%{base_name}
 Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%{version}.tar.xz
 
 Source10: plymouth-theme-breeze.conf
+
+# Fixes the cmake requirement
+# Should be fixed on 6.4
+# https://invent.kde.org/plasma/breeze-plymouth/-/merge_requests/9
+Patch0:  6.3.3-cmake-version.patch
 
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  extra-cmake-modules
@@ -51,6 +56,9 @@ install -D -m644 -p %{SOURCE10} \
 
 
 %changelog
+* Tue Mar 11 2025 Steve Cossette <farchord@gmail.com> - 6.3.3-1
+- 6.3.3
+
 * Tue Feb 25 2025 Steve Cossette <farchord@gmail.com> - 6.3.2-1
 - 6.3.2
 

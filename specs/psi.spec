@@ -118,6 +118,7 @@ rm -rf iris/src/jdns
 %build
 %cmake -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
     -DENABLE_PLUGINS:BOOL=ON \
     -DENABLE_WEBKIT:BOOL=ON \
     -DPLUGINS_PATH:PATH="%{_lib}/%{name}/plugins" \

@@ -1,5 +1,5 @@
 Name:           brewtarget
-Version:        4.0.15
+Version:        4.0.17
 Release:        %{autorelease}
 Summary:        An open source beer recipe creation tool 🍺
 
@@ -31,6 +31,7 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
 BuildRequires:  git-core
 BuildRequires:  meson
+BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(xerces-c)
 BuildRequires:  pandoc
 BuildRequires:  xorg-x11-server-Xvfb
@@ -87,8 +88,8 @@ desktop-file-validate %buildroot%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/brewtarget*
 %{_docdir}/%{name}/*.markdown
 %{_docdir}/%{name}/copyright
-%doc CHANGES.markdown README.md doc/manual-en.pdf
-%license COPYRIGHT COPYING.GPLv3 LICENSE
+%doc README.md doc/manual-en.pdf
+%license COPYING.GPLv3 LICENSE
 
 %changelog
 %autochangelog

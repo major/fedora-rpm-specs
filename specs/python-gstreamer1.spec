@@ -1,8 +1,8 @@
 %global gstreamer1_version 1.8.0
 
 Name:           python-gstreamer1
-Version:        1.24.11
-Release:        2%{?dist}
+Version:        1.26.0
+Release:        1%{?dist}
 Summary:        Python bindings for GStreamer
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -15,8 +15,10 @@ BuildRequires:  gcc
 BuildRequires:  g++
 BuildRequires:  python3-devel
 BuildRequires:  pkgconfig
+BuildRequires:  cmake
 BuildRequires:  gstreamer1-devel >= %{gstreamer1_version}
 BuildRequires:  gstreamer1-plugins-base-devel >= %{gstreamer1_version}
+BuildRequires:  gstreamer1-plugins-bad-free-devel >= %{gstreamer1_version}
 BuildRequires:  pkgconfig(pygobject-3.0)
 
 # For the benefit of people migrating from the GStreamer-0.10 package,
@@ -58,6 +60,9 @@ find -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 %{_libdir}/gstreamer-1.0/libgstpython.*so
 
 %changelog
+* Wed Mar 12 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.26.0-1
+- 1.26.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.24.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

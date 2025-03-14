@@ -2,21 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate ironrdp-svc
+%global crate tryfn
 
-Name:           rust-ironrdp-svc
-Version:        0.2.0
+Name:           rust-tryfn
+Version:        0.2.3
 Release:        %autorelease
-Summary:        IronRDP traits to implement RDP static virtual channels
+Summary:        File-driven snapshot testing for a function
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/ironrdp-svc
+URL:            https://crates.io/crates/tryfn
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-IronRDP traits to implement RDP static virtual channels.}
+File-driven snapshot testing for a function.}
 
 %description %{_description}
 
@@ -32,7 +32,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -48,16 +47,40 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+std-devel
+%package     -n %{name}+color-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+std-devel %{_description}
+%description -n %{name}+color-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
+use the "color" feature of the "%{crate}" crate.
 
-%files       -n %{name}+std-devel
+%files       -n %{name}+color-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+color-auto-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+color-auto-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "color-auto" feature of the "%{crate}" crate.
+
+%files       -n %{name}+color-auto-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+diff-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+diff-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "diff" feature of the "%{crate}" crate.
+
+%files       -n %{name}+diff-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

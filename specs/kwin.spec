@@ -2,8 +2,8 @@
 %bcond x11 0
 
 Name:    kwin
-Version: 6.3.2.1
-Release: 3%{?dist}
+Version: 6.3.3
+Release: 1%{?dist}
 Summary: KDE Window manager
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -16,6 +16,10 @@ Source0: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_k
 ## upstream patches
 
 ## proposed patches
+
+# In 6.3.3, the kwin project version is still set to 6.3.2 for whatever reason.
+# This can either be updated or dropped for the following version.
+Patch0: cmake-version-fix.patch
 
 # Base
 BuildRequires:  extra-cmake-modules
@@ -303,6 +307,15 @@ rm -v %{buildroot}%{_kf6_bindir}/kwin_x11 %{buildroot}%{_userunitdir}/plasma-kwi
 
 
 %changelog
+* Wed Mar 12 2025 Steve Cossette <farchord@gmail.com> - 6.3.3-1
+- 6.3.3
+
+* Wed Mar 12 2025 Steve Cossette <farchord@gmail.com> - 6.3.3-2
+- Fixed kwin project version
+
+* Tue Mar 11 2025 Steve Cossette <farchord@gmail.com> - 6.3.3-1
+- 6.3.3
+
 * Sat Mar 08 2025 Steve Cossette <farchord@gmail.com> - 6.3.2.1-3
 - REVERT: Fix for a wayland-only crash
 

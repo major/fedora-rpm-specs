@@ -2,12 +2,12 @@
 
 Summary: Improved console FTP client
 Name: ncftp
-Version: 3.2.7
-Release: 3%{?dist}
+Version: 3.2.8
+Release: 1%{?dist}
 Epoch: 2
 License: ClArtistic AND NTP
 URL: http://www.ncftp.com/ncftp/
-Source: https://www.ncftp.com/public_ftp/ncftp/ncftp-%{version}-src.tar.xz
+Source: https://www.ncftp.com/public_ftp/ncftp/ncftp-%{version}-src.tar.gz
 BuildRequires: gcc
 BuildRequires: make
 BuildRequires: ncurses-devel
@@ -54,6 +54,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Wed Mar 12 2025 Gwyn Ciesla <gwync@protonmail.com> - 2:3.2.8-1
+- 3.2.8
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:3.2.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

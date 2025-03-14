@@ -1,6 +1,6 @@
 Name:		srecord
 Version:	1.65.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Manipulate EPROM load files
 License:	GPL-3.0-or-later AND LGPL-3.0-or-later
 # see also https://github.com/sierrafoxtrot/srecord
@@ -10,6 +10,7 @@ Source0:	http://downloads.sourceforge.net/srecord/srecord-%{version}-Source.tar.
 # - switch to a shared library with a sane name
 # - don't install runtime deps
 Patch0:		srecord-1.65-fedora.patch
+Patch1:		srecord-1.65-fix-header.patch
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
 BuildRequires:	git-core
@@ -88,6 +89,9 @@ rm -rf %{buildroot}%{_defaultdocdir}/%{name}/htdocs
 
 
 %changelog
+* Wed Mar 12 2025 Tom Callaway <spot@fedoraproject.org> - 1.65.0-5
+- fix FTBFS
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.65.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

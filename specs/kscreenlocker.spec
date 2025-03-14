@@ -1,5 +1,5 @@
 Name:    kscreenlocker
-Version: 6.3.2
+Version: 6.3.3
 Release: 1%{?dist}
 Summary: Library and components for secure lock screen architecture
 
@@ -34,6 +34,7 @@ BuildRequires:  cmake(KF6Screen)
 BuildRequires:  cmake(KF6Solid)
 BuildRequires:  cmake(KF6Svg)
 BuildRequires:  cmake(KF6XmlGui)
+BuildRequires:  cmake(KF6GuiAddons)
 
 BuildRequires:  libX11-devel
 BuildRequires:  xcb-util-keysyms-devel
@@ -92,6 +93,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Mar 11 2025 Steve Cossette <farchord@gmail.com> - 6.3.3-1
+- 6.3.3
+
 * Tue Feb 25 2025 Steve Cossette <farchord@gmail.com> - 6.3.2-1
 - 6.3.2
 

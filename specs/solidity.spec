@@ -1,21 +1,20 @@
-%global git_hash 7893614a31fbeacd1966994e310ed4f760772658
+%global git_hash ab55807c0d9198fb126442188d40fcab292a2acb
 
 Summary:	Object-oriented, high-level language for implementing smart contracts
 Name:		solidity
-Version:	0.8.28
+Version:	0.8.29
 Release:	%autorelease
-ExcludeArch:	%{ix86}
-URL:		https://docs.soliditylang.org/
+# Not enough deps on x86 and does not work on big-endian arches
+ExcludeArch:	%{ix86} s390x
+URL:		https://soliditylang.org/
 Source0:	https://github.com/ethereum/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 # libsolutil/picosha2.h licensed under MIT
-License:	GPL-3.0-only and MIT
-# Patches no. 1-4 are Fedora-specific
-Patch1:		solidity-0001-Use-system-wide-libs.patch
-Patch2:		solidity-0002-Continue-on-big-endians.patch
-Patch3:		solidity-0003-Use-static-linking-for-internal-libs.patch
-Patch4:		solidity-0004-We-don-t-have-nlohmann-json-library-only-header.patch
-# Fedora-specific
-Patch5:		solidity-0005-Don-t-override-Fedora-specific-CXXFLAGS.patch
+SourceLicense:	GPL-3.0-only and MIT
+License:	GPL-3.0-only
+# Fedora-specific patches
+Patch:		solidity-0002-Use-static-linking-for-internal-libs.patch
+Patch:		solidity-0003-Don-t-override-Fedora-specific-CXXFLAGS.patch
+Patch:		solidity-0004-AssemblyItem-gets-an-optional-instruction-and-the-nu.patch
 BuildRequires:	boost-devel
 BuildRequires:	cmake >= 3.0
 # only for Fedora 40+

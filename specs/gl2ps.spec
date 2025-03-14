@@ -4,9 +4,11 @@ Summary:	An OpenGL to PostScript printing library
 Summary(pl):	Biblioteka drukowania z OpenGL-a do PostScriptu
 Name:		gl2ps
 Version:	1.4.2
-Release:	13%{?dist}
+Release:	14%{?dist}
 License:	LGPL-2.0-or-later OR GL2PS
 Source0:	http://www.geuz.org/gl2ps/src/%{name}-%{version}.tgz
+# bump min cmake version requirement to work with cmake 4.0
+Patch0:		gl2ps-cmake4.patch
 URL:		http://www.geuz.org/gl2ps/
 BuildRequires:  gcc
 BuildRequires:  cmake
@@ -60,10 +62,10 @@ Header files for GL2PS library.
 Pliki nagłówkowe biblioteki GL2PS.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
-%cmake
+%cmake -DLIB_SUFFIX=$(echo %{_lib} | sed 's/^lib//')
 %cmake_build
 
 %install
@@ -83,6 +85,9 @@ rm %{buildroot}%{_libdir}/libgl2ps.a
 %{_includedir}/gl2ps.h
 
 %changelog
+* Wed Mar 12 2025 Dominik Mierzejewski <dominik@greysector.net> - 1.4.2-14
+- fix build with cmake 4.0 (resolves rhbz#2349466)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

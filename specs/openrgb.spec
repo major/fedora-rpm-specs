@@ -1,5 +1,5 @@
 %global forgeurl https://gitlab.com/CalcProgrammer1/%{upstream_package_name}
-%global commit e300b48f5b966fca97de16381541448c44b1f59d
+%global commit 28e97cf2d972d34ee8bf53116fe3fc8480221281
 #%%global tag release_%%{version}
 # Workaround for incorrect package suffix name with forge macros
 # (.20231017gitrelease.0.9 for example)
@@ -23,6 +23,11 @@ Summary:        Open source RGB lighting control
 License:        GPL-2.0-only AND GPL-3.0-or-later
 URL:            https://openrgb.org
 Source0:        %{forgesource}
+
+# Attempt to support some Gigabyte boards (like x870e aorus pro ice)
+# Not accepted upstream yet as there are a few things to sort out but this is
+# usable as it is
+Patch:          dd633e46370659e275fb7a0a16dcd1c3986d7b6e.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
@@ -93,21 +98,16 @@ rm -rf       \
   %{nil}
 popd
 
-mkdir -p %{_target_platform}
-
 
 %build
-pushd %{_target_platform}
-%qmake_qt5                        \
-    PREFIX=%{buildroot}%{_prefix} \
-    ..                            \
+%qmake_qt5 \
+    .      \
     %{nil}
-popd
-%make_build -C %{_target_platform}
+%make_build
 
 
 %install
-%make_install -C %{_target_platform}
+%make_install INSTALL_ROOT=%{buildroot}
 
 
 %check

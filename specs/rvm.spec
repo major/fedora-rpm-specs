@@ -1,14 +1,21 @@
+# ugly academic code. :(
+%global optflags %{optflags} -std=gnu17
+
 Name:           rvm
-Version:        1.17
-Release:        32%{?dist}
+Version:        1.28
+Release:        1%{?dist}
 Summary:        C library for unstructured recoverable virtual memory
-License:        LGPLv2
+License:        LGPL-2.0-only
 URL:            http://www.coda.cs.cmu.edu/
-Source0:        ftp://ftp.coda.cs.cmu.edu/pub/rvm/src/%{name}-%{version}.tar.gz
-Source1:        ftp://ftp.coda.cs.cmu.edu/pub/rvm/src/%{name}-%{version}.tar.gz.asc
-BuildRequires: make
+# This only seems to be maintained inside the coda github
+# git clone https://github.com/cmusatyalab/coda.git
+# cp -a coda/lib-src/rvm/ rvm-1.28
+# tar cvfz rvm-1.28.tar.gz rvm-1.28
+Source0:        %{name}-%{version}.tar.gz
+BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  lwp-devel
+BuildRequires:  autoconf, automake, libtool
 
 %description
 The RVM persistent recoverable memory library. The RVM library is used by
@@ -26,7 +33,7 @@ The RVM library is used by the Coda distributed file-system.
 
 %package        devel
 Summary:        Development files for %{name}
-License:        LGPLv2
+License:        LGPL-2.0-only
 Requires:       %{name}%{?_isa} = %{version}-%{release}, lwp-devel
 
 %description    devel
@@ -35,6 +42,7 @@ developing applications that use %{name}.
 
 %prep
 %setup -q
+autoreconf -ifv
 
 %build
 %configure --disable-static
@@ -66,6 +74,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/%{name}lwp.pc
 
 %changelog
+* Wed Mar 12 2025 Tom Callaway <spot@fedoraproject.org> - 1.28-1
+- update to 1.28
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

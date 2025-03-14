@@ -3,25 +3,20 @@
 Name: opencryptoki
 Summary: Implementation of the PKCS#11 (Cryptoki) specification v3.0
 Version: 3.24.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: CPL-1.0
 URL: https://github.com/opencryptoki/opencryptoki
 Source0: https://github.com/opencryptoki/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1: opencryptoki.module
-Source2: opencryptoki.sysusers
-# split tmpfiles for image mode
-Source3: opencryptoki-ccatok.conf
-Source4: opencryptoki-icatok.conf
-Source5: opencryptoki-swtok.conf
-Source6: opencryptoki-tpmtok.conf
-Source7: opencryptoki-ep11tok.conf
-Source8: opencryptoki-icsftok.conf
 
 # fix install problem in buildroot
 Patch1: opencryptoki-3.24.0-p11sak.patch
 
-# change file ownership for image mode
+# tmpfiles.d config files for image mode
 Patch2: opencryptoki-3.24.0-tmpfiles-image-mode.patch
+
+# sysuser config file for image mode
+Patch3: opencryptoki-3.24.0-sysusers-config.patch
 
 # upstream patches
 Patch100: opencryptoki-3.24.0-compile-error-due-to-incompatible-pointer-types.patch
@@ -219,23 +214,25 @@ configured with Enterprise PKCS#11 (EP11) firmware.
 %make_install CHGRP=/bin/true
 
 %if %{use_sysusers}
-# Install sysusers.d configuration
-install -p -D -m 0644 %{SOURCE2} %{buildroot}%{_sysusersdir}/%{name}.conf
+# Install sysusers.d config file
+install -p -D -m 0644 %{name}.sysusers.conf %{buildroot}%{_sysusersdir}/%{name}.sysusers.conf
 
-# Install tmpfiles.d config
+# Install tmpfiles.d config files
 %ifarch s390 s390x
-install -p -D -m 0644 %{SOURCE4} %{SOURCE7} %{buildroot}%{_tmpfilesdir}/
+install -p -D -m 0644 %{name}-icatok.conf %{buildroot}%{_tmpfilesdir}/
+install -p -D -m 0644 %{name}-ep11tok.conf %{buildroot}%{_tmpfilesdir}/
 %endif
 
 %ifarch s390 s390x x86_64 ppc64le
-install -p -D -m 0644 %{SOURCE3} %{buildroot}%{_tmpfilesdir}/
+install -p -D -m 0644 %{name}-ccatok.conf %{buildroot}%{_tmpfilesdir}/
 %endif
 
 %if 0%{?tmptok}
-install -p -D -m 0644 %{SOURCE6} %{buildroot}%{_tmpfilesdir}/
+install -p -D -m 0644 %{name}-tpmtok.conf %{buildroot}%{_tmpfilesdir}/
 %endif
 
-install -p -D -m 0644 %{SOURCE5} %{SOURCE8} %{buildroot}%{_tmpfilesdir}/
+install -p -D -m 0644 %{name}-swtok.conf %{buildroot}%{_tmpfilesdir}/
+install -p -D -m 0644 %{name}-icsftok.conf %{buildroot}%{_tmpfilesdir}/
 %endif
 
 
@@ -330,7 +327,7 @@ fi
 %{_libdir}/pkcs11/stdll
 %dir %attr(770,root,pkcs11) %{_localstatedir}/log/opencryptoki
 %if %{use_sysusers}
-%{_sysusersdir}/%{name}.conf
+%{_sysusersdir}/%{name}.sysusers.conf
 %endif
 
 %files devel
@@ -414,6 +411,9 @@ fi
 
 
 %changelog
+* Wed Mar 12 2025 Than Ngo <than@redhat.com> - 3.24.0-8
+- Fix rpminspect issue
+
 * Thu Feb 27 2025 Than Ngo <than@redhat.com> - 3.24.0-7
 - Fix, opencryptoki tokens are deleted on reboot
 

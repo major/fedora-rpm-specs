@@ -3,7 +3,7 @@
 %global __requires_exclude ^libCuteLogger\\.so
 
 Name:           shotcut
-Version:        25.01.25
+Version:        25.03.12
 Release:        1%{?dist}
 Summary:        A free, open source, cross-platform video editor
 # Main code is GPLv3+
@@ -234,6 +234,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{org_name_sh
 %doc doc
 
 %changelog
+* Wed Mar 12 2025 Packit <hello@packit.dev> - 25.03.12-1
+- Update to version 25.03.12
+- Resolves: rhbz#2351742
+
 * Sat Jan 25 2025 Packit <hello@packit.dev> - 25.01.25-1
 - Update to version 25.01.25
 - Resolves: rhbz#2342087

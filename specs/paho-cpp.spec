@@ -1,5 +1,5 @@
 Name:           paho-cpp
-Version:        1.5.0
+Version:        1.5.2
 Release:        %autorelease
 Summary:        Eclipse Paho MQTT C++ Client Library
 License:        EPL-2.0

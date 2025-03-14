@@ -94,6 +94,9 @@ License:    LGPL-2.1-or-later
 SourceLicense:  LGPL-2.1-or-later AND CC-BY-SA-4.0 AND (GPL-1.0-or-later OR Artistic-1.0-Perl) AND GPL-2.0-or-later AND GPL-2.0-or-later WITH Autoconf-exception-macro AND FSFAP AND FSFULLR
 URL:        https://location.ipfire.org/
 Source0:    https://source.ipfire.org/releases/%{name}/%{name}-%{version}.tar.gz
+# Fix endianess when fetching octets from an IPv4 address,
+# upstream bug #13828, in upstream after 0.9.18
+Patch0:     libloc-0.9.18-address-Fix-endianess-problem-when-fetching-octets-i.patch
 BuildRequires:  asciidoc
 BuildRequires:  autoconf >= 2.60
 # autoconf-archive for unbundled m4/ax_prog_perl_modules.m4
@@ -261,7 +264,7 @@ chmod 0644 %{buildroot}/%{python3_sitelib}/%{name}-%{version}.dist-info/METADATA
 
 %check
 unset LOC_LOG
-make check %{?_smp_mflags}
+make check %{?_smp_mflags} || (cat ./test-suite.log; exit 1)
 
 %post tools
 %systemd_post location-update.service

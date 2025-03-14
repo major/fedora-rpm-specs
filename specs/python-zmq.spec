@@ -1,5 +1,5 @@
 Name:           python-zmq
-Version:        26.2.1
+Version:        26.3.0
 Release:        %autorelease
 Summary:        Python bindings for zeromq
 

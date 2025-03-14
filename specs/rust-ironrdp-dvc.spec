@@ -5,16 +5,13 @@
 %global crate ironrdp-dvc
 
 Name:           rust-ironrdp-dvc
-Version:        0.1.2
+Version:        0.1.3
 Release:        %autorelease
 Summary:        DRDYNVC implementation and traits to implement dynamic virtual channels
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/ironrdp-dvc
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-Patch:          ironrdp-dvc-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

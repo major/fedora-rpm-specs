@@ -17,7 +17,8 @@ Patch:          0001-Fix-deprecation-warning-raised-by-tests-with-Python-.patch
 
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
+BuildSystem:            pyproject
+BuildOption(install):   -l loguru
 
 # The dev extra pins exact versions and includes unwanted coverage tools etc.
 # (https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters), 
@@ -48,21 +49,7 @@ Summary:        %{summary}
 %autosetup -n loguru-%{version} -p1
 
 
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -L loguru
-
-
-%check
-%pyproject_check_import
+%check -a
 %if %{with tests}
 # Make sure we don’t run the detailed typing tests; see
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
@@ -73,7 +60,6 @@ ignore="${ignore-} --ignore=tests/typesafety/test_logger.yml"
 
 
 %files -n python3-loguru -f %{pyproject_files}
-%license LICENSE
 %doc CHANGELOG.rst
 %doc README.md
 

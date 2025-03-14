@@ -3,8 +3,8 @@ Summary:       Common C++ class framework for RTP/RTCP
 Version:       2.1.2
 Release:       16%{?dist}
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
-License:       GPL-2.0-or-later
+# some files has mif-exception
+License:       GPL-2.0-or-later AND GPL-2.0-or-later WITH mif-exception
 URL:           http://www.gnu.org/software/commoncpp/
 Source0:       http://ftp.gnu.org/pub/gnu/ccrtp/ccrtp-%{version}.tar.gz
 
@@ -29,7 +29,7 @@ for underlying network and transport protocols.
 %package devel
 Summary: Header files and libraries for %{name} development
 # Some of the headers are LGPLv2+
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND GPL-2.0-or-later WITH mif-exception AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 Requires: %{name} = %{version}-%{release}
 Requires: pkgconfig, commoncpp2-devel
 

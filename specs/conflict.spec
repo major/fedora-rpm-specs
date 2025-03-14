@@ -1,6 +1,6 @@
 Name:           conflict
-Version:        20240429
-Release:        2%{?dist}
+Version:        20250117
+Release:        %autorelease
 Summary:        Check for conflicting binary names on path
 
 License:        MIT
@@ -45,7 +45,4 @@ bash run_test.sh
 
 
 %changelog
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20240429-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
 %autochangelog

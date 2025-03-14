@@ -41,7 +41,7 @@ applications that use %{name}.
 
 %prep
 %autosetup -n %{appname}-%{version}
-sed -e '/-Werror/d' -i CMakeLists.txt
+sed -e '/-Werror/d' -e 's/VERSION 3.0.2/VERSION 3.10/g' -i CMakeLists.txt
 ln -svf %{_includedir}/catch2/catch.hpp ./catch.hpp
 
 %build

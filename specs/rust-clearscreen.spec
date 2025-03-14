@@ -5,7 +5,7 @@
 %global crate clearscreen
 
 Name:           rust-clearscreen
-Version:        3.0.0
+Version:        4.0.1
 Release:        %autorelease
 Summary:        Cross-platform terminal screen clearing
 
@@ -15,9 +15,7 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          clearscreen-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * Update terminfo requirement from 0.8.0 to 0.9.0:
-#   https://github.com/watchexec/clearscreen/commit/c1482c2813b05d1a549590e4742911c6c11cf1b8
-# * allow which 7.0.0: https://github.com/watchexec/clearscreen/pull/25
+# * Do not expose the windows-console feature
 Patch:          clearscreen-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

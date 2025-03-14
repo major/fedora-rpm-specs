@@ -1,7 +1,7 @@
 %global  forgeurl https://github.com/pyinfra-dev/pyinfra
 %global  pypi_name pyinfra
 Name:           python-%{pypi_name}
-Version:        3.1.1
+Version:        3.2
 %global  tag    v%{version}
 Release:        %autorelease
 
@@ -57,7 +57,9 @@ rm -r %{buildroot}%{python3_sitelib}/tests
 
 %check
 %pyproject_check_import
-%pytest
+# Do not run test that depend on network access
+k="${k-}${k+ and }not (test_put_file_sudo)"
+%pytest -k "${k-}"
 
 %files -n python3-pyinfra -f %{pyproject_files}
 %{_bindir}/pyinfra

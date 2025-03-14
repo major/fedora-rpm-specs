@@ -131,7 +131,6 @@ done
 
 
 %build
-export RUSTFLAGS='%{build_rustflags}'
 %cargo_license_summary
 %{cargo_license} > LICENSES.dependencies
 %pyproject_wheel

@@ -2,7 +2,7 @@
 
 Name: cxxopts
 Version: 3.2.1
-Release: 3%{?dist}
+Release: %autorelease
 
 Summary: Lightweight C++ command line option parser
 License: MIT
@@ -11,6 +11,8 @@ Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # https://github.com/jarro2783/cxxopts/commit/63d1b65a694cfceafc20863afa75df49dfbe6b2a
 Patch100: %{name}-3.2.1-add-missing-include.patch
+# https://github.com/jarro2783/cxxopts/pull/451
+Patch101: %{name}-3.2.1-cmake4-compatibility.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -57,62 +59,4 @@ Requires: libstdc++-devel%{?_isa}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Wed Feb 21 2024 Orion Poplawski <orion@nwra.com> - 3.2.1-1
-- Update to 3.2.1
-
-* Fri Feb 16 2024 Orion Poplawski <orion@nwra.com> - 3.2.0-1
-- Update to 3.2.0
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Feb 15 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 3.1.1-1
-- Updated to version 3.1.1.
-
-* Wed Feb 15 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 3.1.0-1
-- Updated to version 3.1.0.
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Mon Jan 17 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 3.0.0-2
-- Explicitly disabled -Werror flag.
-
-* Sat Oct 23 2021 Vitaly Zaitsev <vitaly@easycoding.org> - 3.0.0-1
-- Updated to version 3.0.0.
-
-* Wed Jul 28 2021 Benjamin A. Beasley <code@musicinmybrain.net> - 2.2.1-4
-- Provide un-arched versions of virtual Provides
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Aug 18 2020 Vitaly Zaitsev <vitaly@easycoding.org> - 2.2.1-1
-- Updated to version 2.2.1.
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sat Apr 04 2020 Vitaly Zaitsev <vitaly@easycoding.org> - 2.2.0-1
-- Initial SPEC release.
+%autochangelog

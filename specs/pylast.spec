@@ -9,33 +9,18 @@ URL:		https://github.com/pylast/pylast
 VCS:		git:%{url}.git
 Source0:	%{pypi_source %{pypi_name}}
 BuildArch:	noarch
-BuildRequires:	python3-devel
+BuildSystem:	pyproject
+BuildOption(prep):	-n %{pypi_name}-%{version}
+BuildOption(install):	-l %{pypi_name}
 
 %description
 %{summary}.
 
 %package -n python3-%{pypi_name}
-Summary:	%{summary}
+Summary: %{summary}
 
 %description -n python3-%{pypi_name}
 %{summary}.
-
-%prep
-%autosetup -n %{pypi_name}-%{version}
-
-%generate_buildrequires
-%pyproject_buildrequires
-
-%build
-%pyproject_wheel
-
-%install
-%pyproject_install
-%pyproject_save_files -l %{pypi_name}
-
-%check
-# FIXME - no tests
-%pyproject_check_import
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md

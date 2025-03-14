@@ -12,11 +12,12 @@ Summary:        Lua grammar for tree-sitter
 License:        MIT
 URL:            https://crates.io/crates/tree-sitter-lua
 Source:         %{crates_source}
-# include license file
-# https://github.com/tree-sitter-grammars/tree-sitter-lua/pull/51
+# * include license file
+# * https://github.com/tree-sitter-grammars/tree-sitter-lua/pull/51
 Source1:        https://raw.githubusercontent.com/tree-sitter-grammars/%{crate}/refs/tags/v%{version}/LICENSE.md
 # Manually created patch for downstream crate metadata changes
 # * include LICENSE.md
+# * relax tree-sitter dependency to build against 0.24
 Patch:          tree-sitter-lua-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

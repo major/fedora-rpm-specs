@@ -4,7 +4,7 @@
 
 # https://github.com/bugsnag/bugsnag-go
 %global goipath         github.com/bugsnag/bugsnag-go
-Version:                2.2.0
+Version:                2.5.1
 
 %gometa -f
 
@@ -25,6 +25,10 @@ Summary:        Automatic panic monitoring for Go and Go web frameworks
 License:        MIT
 URL:            %{gourl}
 Source:         %{gosource}
+
+Patch01:        0001-Fix-format-errors.patch
+Patch02:        0001-Skip-test.patch
+Patch03:        0001-Start-showing-inlined-functions-in-stack-trace.patch
 
 %description %{common_description}
 

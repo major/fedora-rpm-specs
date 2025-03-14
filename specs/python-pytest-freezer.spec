@@ -9,7 +9,7 @@ URL:            https://github.com/pytest-dev/pytest-freezer
 Source:         %{pypi_source pytest_freezer}
 
 BuildSystem:            pyproject
-BuildOption(install):   -L pytest_freezer
+BuildOption(install):   -l pytest_freezer
 
 BuildArch:      noarch
 
@@ -32,7 +32,6 @@ Summary:        %{summary}
 
 
 %files -n python3-pytest-freezer -f %{pyproject_files}
-%license LICENSE
 %doc README.md
 
 

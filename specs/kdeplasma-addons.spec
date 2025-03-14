@@ -1,6 +1,6 @@
 Name:    kdeplasma-addons
 Summary: Additional Plasmoids for Plasma 6
-Version: 6.3.2
+Version: 6.3.3
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -32,6 +32,7 @@ BuildRequires:  cmake(KF6GlobalAccel)
 BuildRequires:  cmake(KF6Notifications)
 BuildRequires:  cmake(KF6Sonnet)
 BuildRequires:  cmake(KF6UnitConversion)
+BuildRequires:  cmake(KF6GuiAddons)
 BuildRequires:  cmake(Plasma5Support)
 BuildRequires:  kf6-rpm-macros >= 5.25.0-2
 BuildRequires:  libicu-devel
@@ -45,6 +46,7 @@ BuildRequires:  cmake(KF6Declarative)
 BuildRequires:  libappstream-glib
 BuildRequires:  plasma-workspace-devel
 BuildRequires:  libksysguard-devel
+BuildRequires:  cmake(KF6XmlGui)
 
 BuildRequires:  cmake(Plasma)
 BuildRequires:  cmake(PlasmaActivities)
@@ -147,6 +149,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml 
 
 
 %changelog
+* Tue Mar 11 2025 Steve Cossette <farchord@gmail.com> - 6.3.3-1
+- 6.3.3
+
 * Tue Feb 25 2025 Steve Cossette <farchord@gmail.com> - 6.3.2-1
 - 6.3.2
 

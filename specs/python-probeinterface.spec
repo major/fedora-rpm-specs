@@ -15,7 +15,7 @@
 %bcond zarr 1
 
 Name:           python-probeinterface
-Version:        0.2.25
+Version:        0.2.26
 Release:        %autorelease
 Summary:        Handles probe layout, geometry, and wiring to device
 
@@ -90,6 +90,11 @@ Target users/project:
 %package -n     python3-probeinterface
 Summary:        %{summary}
 
+# Only required at runtime if the probeinterface.testing.validate_probe_dict()
+# API is called. Since this is *plausible*, we make it a weak dependency.
+# This is also a generated BuildRequires via the “test” extra.
+Recommends:     %{py3_dist jsonschema}
+
 %description -n python3-probeinterface %{common_description}
 
 
@@ -148,19 +153,6 @@ PYTHONPATH='%{buildroot}%{python3_sitelib}' %make_build -C doc latex \
 
 
 %check
-# The probeinterface.testing module loads probe.json.schema, which doesn’t ship
-# with the wheel
-# https://github.com/SpikeInterface/probeinterface/issues/321
-#
-# A proposed solution is:
-#
-# Move probeinterface.testing out of the API; fixes #321
-# https://github.com/SpikeInterface/probeinterface/pull/322
-#
-# This is a temporary workaround:
-ln -s "${PWD}/resources/" '%{buildroot}%{python3_sitelib}/../resources'
-trap 'rm %{buildroot}%{python3_sitelib}/../resources' INT TERM EXIT
-
 %pyproject_check_import
 
 # Skip tests that unconditionally download probe interface definitions and

@@ -4,7 +4,7 @@
 %bcond doc 0
 
 Name:           python-pyproject-metadata
-Version:        0.8.0
+Version:        0.9.1
 Release:        %autorelease
 Summary:        PEP 621 metadata parsing
 
@@ -16,7 +16,7 @@ Source:         %{url}/archive/%{version}/pyproject-metadata-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist docutils}
+BuildRequires:  %{py3_dist sphinx}
 
 %global _desc %{expand:
 Dataclass for PEP 621 metadata with support for core metadata generation.
@@ -59,7 +59,6 @@ sed -i /pytest-cov/d pyproject.toml
 
 %build
 %pyproject_wheel
-rst2html --no-datestamp CHANGELOG.rst CHANGELOG.html
 
 %if %{with doc}
 # Build the documentation
@@ -77,7 +76,7 @@ rm -rf html/{.buildinfo,.doctrees}
 %pytest -v
 
 %files -n python3-pyproject-metadata -f %{pyproject_files}
-%doc CHANGELOG.html README.md
+%doc docs/changelog.md README.md
 %license LICENSE
 
 %if %{with doc}

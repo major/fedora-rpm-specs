@@ -12,6 +12,11 @@ Summary:        Find undeclared and unused 3rd-party dependencies in your Python
 License:        MIT
 URL:            https://tweag.github.io/FawltyDeps/
 Source:         %forgesource
+# Remove deprecated AST code
+# Upstream already announced that the next release will no longer
+# support Python 3.8 and appears to be actively working towards it.
+# https://github.com/tweag/FawltyDeps/commit/fa700308e61601bb29471611a1067b11812ce35b
+Patch:          remove_deprecated_ast_code.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

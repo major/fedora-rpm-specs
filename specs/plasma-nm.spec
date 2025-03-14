@@ -1,6 +1,6 @@
 Name:    plasma-nm
 Summary: Plasma for managing network connections
-Version: 6.3.2
+Version: 6.3.3
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -182,10 +182,6 @@ Requires:       NetworkManager-iodine
 %build
 %cmake_kf6 \
   %{!?with_openconnect:-DBUILD_OPENCONNECT=OFF} \
-%if 0%{?fedora} >= 42
-%dnl workaround for rhbz#2342065
-  -DCMAKE_CXX_EXTENSIONS:BOOL=OFF \
-%endif
   %{nil}
 
 %cmake_build
@@ -291,6 +287,9 @@ rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_openco
 %endif
 
 %changelog
+* Tue Mar 11 2025 Steve Cossette <farchord@gmail.com> - 6.3.3-1
+- 6.3.3
+
 * Tue Feb 25 2025 Steve Cossette <farchord@gmail.com> - 6.3.2-1
 - 6.3.2
 

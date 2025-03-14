@@ -2,13 +2,10 @@
 %bcond check 1
 %bcond rocm 1
 
-%global debug_package %{nil}
-
-
 # https://github.com/ollama/ollama
 %global goipath         github.com/ollama/ollama
 %global forgeurl        https://github.com/ollama/ollama
-Version:                0.4.4
+Version:                0.5.9
 
 %gometa -L -f
 
@@ -31,7 +28,7 @@ Source:         %{gosource}
 
 BuildRequires:  fdupes
 BuildRequires:  gcc-c++
-BuildRequires:  make
+BuildRequires:  cmake
 
 %if %{with rocm}
 BuildRequires:  hipblas-devel
@@ -40,6 +37,7 @@ BuildRequires:  rocm-comgr-devel
 BuildRequires:  rocm-compilersupport-macros
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-hip-devel
+BuildRequires:  rocm-rpm-macros
 BuildRequires:  rocminfo
 
 Requires:       hipblas
@@ -68,101 +66,47 @@ mv llama/README.md llama-README.md
 mv llama/runner/README.md llama-runner-README.md
 mv macapp/README.md macapp-README.md
 
-# Makefile does its own thing.. need to add gopath
-sed -i -e 's@GOARCH=$(ARCH)@GOARCH=$(ARCH) GOPATH=%{gobuilddir}:/usr/share/gocode@' llama/make/Makefile.default
+# gcc 15 cstdint
+sed -i '/#include <vector.*/a#include <cstdint>' llama/llama.cpp/src/llama-mmap.h
 
-# Use this to see issue with finding device-libs
-# sed -i -e 's@-D_GNU_SOURCE@-D_GNU_SOURCE -print-rocm-search-dirs@' llama/make/Makefile.rocm
+# install dir is off, lib -> lib64
+sed -i -e 's@set(OLLAMA_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib/ollama)@set(OLLAMA_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib64/ollama)@' CMakeLists.txt
 
-# Fix use of usr/bin/env python3
-sed -i -e 's@env python3@python3@' examples/langchain-python-rag-privategpt/ingest.py
-sed -i -e 's@env python3@python3@' examples/langchain-python-rag-privategpt/privateGPT.py
-
-# Force rocm runner
-%if %{with rocm}
-sed -i -e 's@RUNNER_TARGETS := default@RUNNER_TARGETS := default rocm@' llama/Makefile
-
-# rm HIP_PATH setting
-sed -i -e '/HIP_PATH?=/d' llama/Makefile
-sed -i -e '/HIP_PATH?=/d' llama/make/common-defs.make
-
-# rm HIP_PLATFORM setting
-sed -i -e '/export HIP_PLATFORM/d' llama/make/common-defs.make
-
-# rm HIP_LIB_DIR setting
-sed -i -e '/HIP_LIB_DIR :=/d' llama/Makefile
-
-# Fix $(HIP_PATH)/lib -> /usr/lib64
-sed -i -e 's@$(HIP_PATH)/lib@/usr/lib64@'           llama/Makefile
-sed -i -e 's@$(HIP_PATH)/lib@/usr/lib64@'           llama/make/Makefile.rocm
-
-# Tries to figure out libraries assuming libraries in a directory only gpu libs
-sed -i -e 's@ROCM_TRANSITIVE_LIBS_INITIAL@#ROCM_TRANSITIVE_LIBS_INITIAL@' llama/make/Makefile.rocm
-sed -i -e 's@GPU_TRANSITIVE_LIBS@#GPU_TRANSITIVE_LIBS@'                   llama/make/Makefile.rocm
-
-# use clang directly
-clang_path=`hipconfig -l`/clang
-sed -i -e "s@GPU_COMPILER:=\$(GPU_COMPILER_LINUX)@GPU_COMPILER:=${clang_path}@" llama/make/Makefile.rocm
-sed -i -e "s@GPU_COMPILER:=\$(GPU_COMPILER_LINUX)@GPU_COMPILER:=${clang_path}@" llama/make/gpu.make
-
-# Add some gpu's to the build list
-# ollama' list
-# HIP_ARCHS_COMMON := gfx900 gfx940 gfx941 gfx942 gfx1010 gfx1012 gfx1030 gfx1100 gfx1101 gfx1102
-# HIP_ARCHS_LINUX := gfx906:xnack- gfx908:xnack- gfx90a:xnack+ gfx90a:xnack-
-# our list
-# gfx900 gfx906:xnack- gfx908:xnack- gfx90a:xnack+ gfx90a:xnack- gfx942 gfx1010 gfx1012 gfx1030 gfx1031 gfx1035 gfx1100 gfx1101 gfx1102 gfx1103 gfx1151
-# need gfx942 gfx1012 gfx1031 gfx1035 gfx1103 gfx1151
-sed -i -e 's@gfx1102@gfx1102 gfx942 gfx1012 gfx1031 gfx1035 gfx1103 gfx1150 gfx1151 gfx1152 gfx1200 gfx1201@' llama/make/Makefile.rocm
-# we do not build for gfx940 or gfx941, this hw was precusor to gfx942 and is no longer built in ROCm packages
-sed -i -e 's@gfx900 gfx940 gfx941 gfx942@gfx900 gfx942@' llama/make/Makefile.rocm
-
-# parallel-jobs is not supported on all clangs
-# switch with the resource dir
-# add --offload-compress
-device_lib_path=`${clang_path} --print-resource-dir`/amdgcn/bitcode
-sed -i -e "s@-parallel-jobs=2@--rocm-device-lib-path=${device_lib_path} --offload-compress@" llama/make/Makefile.rocm
-
-# do not make a copy of the rocblas/library
-sed -i -e '/cd $(GPU_LIB_DIR)/d' llama/make/Makefile.rocm
-# do not copy the system librocblas.so or libhipblas.so
-sed -i -e '/$(CP) $(dir/d' llama/make/gpu.make
-# do not copy the system librocblas.so.* or libhiblas.so.*
-sed -i -e '/$(CP) $(GPU_LIB_DIR)/d' llama/make/gpu.make
-
-# Install location of libggml_rocm.so is not in the system path
-sed -i -e 's@TARGET_CGO_LDFLAGS = @TARGET_CGO_LDFLAGS = -Wl,-rpath=%{_libdir}/ollama/bin/dist/linux-amd64/lib/ollama @' llama/make/gpu.make
-
-%endif
 
 %generate_buildrequires
 %go_generate_buildrequires
 
 %build
 
-export GO111MODULE=off
-export GOPATH=$(pwd)/_build:%{gopath}
+# export GO111MODULE=off
+# export GOPATH=$(pwd)/_build:%{gopath}
 
-%make_build VERSION=%{version}
+%cmake \
+%if %{with rocm}
+    -DCMAKE_HIP_COMPILER=%rocmllvm_bindir/clang++ \
+    -DAMDGPU_TARGETS=%{rocm_gpu_list_default}
+%endif
+
+%cmake_build
+
+# cmake sets LDFLAGS env, this confuses gobuild
+export LDFLAGS=
 
 %gobuild -o %{gobuilddir}/bin/ollama %{goipath}
-%gobuild -o %{gobuilddir}/bin/runner %{goipath}/llama/runner
 
 %install
+%cmake_install
+
+# remove copies of system libraries
+runtime_removal="hipblas rocblas amdhip64 rocsolver amd_comgr hsa-runtime64 rocsparse tinfo rocprofiler-register drm drm_amdgpu numa elf"
+for rr in $runtime_removal; do
+    rm -rf %{buildroot}%{_libdir}/ollama/rocm/lib${rr}*
+done
+rm -rf %{buildroot}%{_libdir}/ollama/rocm/rocblas
 
 mkdir -p %{buildroot}%{_bindir}
 mkdir -p %{buildroot}%{_libdir}/ollama/bin
-
-# Not copying system ROCm libs here so do not need them
-if [ -d %{gobuilddir}/../dist/linux-amd64-rocm ]; then
-    rm -rf %{gobuilddir}/../dist/linux-amd64-rocm
-fi
-
-cp -r %{gobuilddir}/../dist %{buildroot}%{_libdir}/ollama/bin/
 install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_libdir}/ollama/bin/
-
-# need to manually strip some things
-strip %{buildroot}%{_libdir}/ollama/bin/{ollama,runner}
-strip %{buildroot}%{_libdir}/ollama/bin/dist/linux-amd64/lib/ollama/libggml_rocm.so
 
 pushd .
 cd %{buildroot}%{_bindir}
@@ -182,28 +126,21 @@ popd
 %doc CONTRIBUTING.md SECURITY.md README.md app-README.md integration-README.md
 %doc llama-README.md llama-runner-README.md macapp-README.md
 %dir %{_libdir}/ollama
+%{_libdir}/ollama/libggml-base.so
+%{_libdir}/ollama/libggml-cpu-alderlake.so
+%{_libdir}/ollama/libggml-cpu-haswell.so
+%{_libdir}/ollama/libggml-cpu-icelake.so
+%{_libdir}/ollama/libggml-cpu-sandybridge.so
+%{_libdir}/ollama/libggml-cpu-sapphirerapids.so
+%{_libdir}/ollama/libggml-cpu-skylakex.so
+
 %dir %{_libdir}/ollama/bin
-%dir %{_libdir}/ollama/bin/dist
-%dir %{_libdir}/ollama/bin/dist/linux-amd64
-%dir %{_libdir}/ollama/bin/dist/linux-amd64/lib
-%dir %{_libdir}/ollama/bin/dist/linux-amd64/lib/ollama
-%dir %{_libdir}/ollama/bin/dist/linux-amd64/lib/ollama/runners
-%dir %{_libdir}/ollama/bin/dist/linux-amd64/lib/ollama/runners/cpu
-%dir %{_libdir}/ollama/bin/dist/linux-amd64/lib/ollama/runners/cpu_avx
-%dir %{_libdir}/ollama/bin/dist/linux-amd64/lib/ollama/runners/cpu_avx2
-%{_bindir}/ollama
-%{_libdir}/ollama/bin/dist/linux-amd64/lib/ollama/runners/cpu/ollama_llama_server
-%{_libdir}/ollama/bin/dist/linux-amd64/lib/ollama/runners/cpu_avx/ollama_llama_server
-%{_libdir}/ollama/bin/dist/linux-amd64/lib/ollama/runners/cpu_avx2/ollama_llama_server
 %{_libdir}/ollama/bin/ollama
-%{_libdir}/ollama/bin/runner
+%{_bindir}/ollama
 
 %if %{with rocm}
-%dir %{_libdir}/ollama/bin/dist/linux-amd64/lib/ollama/runners/rocm
-# libggml_rocm.so has no version but from dir ownership above,
-# this path is unqiue and not part of the normal ld path
-%{_libdir}/ollama/bin/dist/linux-amd64/lib/ollama/libggml_rocm.so
-%{_libdir}/ollama/bin/dist/linux-amd64/lib/ollama/runners/rocm/ollama_llama_server
+%dir %{_libdir}/ollama/rocm
+%{_libdir}/ollama/rocm/libggml-hip.so
 %endif
 
 %changelog

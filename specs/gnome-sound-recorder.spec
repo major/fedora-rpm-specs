@@ -2,7 +2,7 @@
 
 Name:           gnome-sound-recorder
 Version:        43~beta
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Make simple recordings from your desktop
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -70,6 +70,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.SoundRecord
 
 
 %changelog
+* Wed Mar 12 2025 Gwyn Ciesla <gwync@protonmail.com> - 43~beta-10
+- gstreamer1-plugins-bad-free rebuild
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 43~beta-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

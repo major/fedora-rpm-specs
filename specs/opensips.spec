@@ -1,5 +1,4 @@
 %global git_commit 5ebf81d1d8755a9728c02405e6c6402379c177f4
-%global _hardened_build 1
 
 %global EXCLUDE_MODULES cachedb_cassandra %{!?_with_oracle:db_oracle} launch_darkly osp python sngtc tls_wolfssl
 

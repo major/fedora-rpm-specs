@@ -1,7 +1,7 @@
 %global         forgeurl https://gitlab.gnome.org/jwestman/blueprint-compiler
 
 Name:           blueprint-compiler
-Version:        0.12.0
+Version:        0.16.0
 Release:        %autorelease
 Summary:        A markup language for GTK user interfaces
 

@@ -14,10 +14,7 @@ BuildArch:      noarch
 Operating System AppStream Metadata for Fedora Linux
 
 %prep
-# only appstream 1.0 knows about "snapshot" releases
-%if 0%{?fedora} < 40
 sed -i '/<release / s/type="snapshot"/type="development"/' %{SOURCE1}
-%endif
 
 %build
 

@@ -11,13 +11,13 @@ Name:           sayonara
 
 %if 0%{?stable}
 Version:        1.10.0
-Release:        5.%{stable_ver}%{?dist}
+Release:        6.%{stable_ver}%{?dist}
 #Release:        3%%{?dist}
 Source0:        https://gitlab.com/luciocarreras/sayonara-player/-/archive/%{version}-%{stable_ver}/sayonara-player-%{version}-%{stable_ver}.tar.bz2
 Patch0:         PlayActionEventHandler-fix.patch
 %else
 Version:        1.10.0
-Release:        0.3.%{prerel}%{?dist}
+Release:        0.4.%{prerel}%{?dist}
 Source0:        https://gitlab.com/luciocarreras/sayonara-player/-/archive/%{version}-%{prerel}/sayonara-player-%{version}-%{prerel}.tar.bz2
 %endif
 
@@ -109,6 +109,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{_datadir}/doc/%{name}/doxygen/html
 
 %changelog
+* Wed Mar 12 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.10.0-6.stable1
+- gstreamer1-plugins-bad-free rebuild
+
 * Thu Jan 23 2025 Martin Gansser <martinkg@fedoraproject.org> - 1.10.0-5.stable1
 - Add PlayActionEventHandler-fix.patch to fix FTBFS #2341324
 

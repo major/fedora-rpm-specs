@@ -72,10 +72,10 @@
 %global patch_version 0
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 3
+%global baserelease 1
 
 # Set to RC version if building RC, else comment out.
-%global rcsuf rc3
+%global rcsuf rc4
 
 %if 0%{?rcsuf:1}
 %global pkg_version %{major_version}.%{minor_version}.%{patch_version}~%{rcsuf}
@@ -514,7 +514,7 @@ NO_TEST="$NO_TEST|Qt5Autogen.ManySources|Qt5Autogen.MocInclude|Qt5Autogen.MocInc
 NO_TEST="$NO_TEST|RunCMake.Make|RunCMake.BuildDepends|Qt6Autogen.RerunMocBasic|Qt6Autogen.RerunRccDepends"
 %endif
 # Drop for v4.0.0-final
-NO_TEST="$NO_TEST|RunCMake.LinkWarningAsError"
+NO_TEST="$NO_TEST|RunCMake.LinkWarningAsError|RunCMake.ParseImplicitLinkInfo"
 bin/ctest%{?name_suffix} %{?_smp_mflags} -V -E "$NO_TEST" --output-on-failure
 ## do this only periodically, not for every build -- besser82 20221102
 # Keep an eye on failing tests
@@ -595,6 +595,12 @@ popd
 
 
 %changelog
+* Wed Mar 12 2025 Björn Esser <besser82@fedoraproject.org> - 4.0.0~rc4-1
+- cmake-4.0.0-rc4
+
+* Wed Mar 12 2025 Björn Esser <besser82@fedoraproject.org> - 4.0.0~rc3-4
+- macros: Set CMAKE_POLICY_VERSION_MINIMUM as environment variable
+
 * Fri Mar 07 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 4.0.0~rc3-3
 - Define CMAKE_POLICY_VERSION_MINIMUM in %%cmake
 

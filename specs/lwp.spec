@@ -1,17 +1,21 @@
 Name:           lwp
-Version:        2.6
-Release:        33%{?dist}
+Version:        2.17
+Release:        1%{?dist}
 Summary:        C library for user-mode threading
-# Automatically converted from old format: LGPLv2 - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2
+License:        LGPL-2.0-only
 URL:            http://www.coda.cs.cmu.edu/
-Source0:        ftp://ftp.coda.cs.cmu.edu/pub/lwp/src/%{name}-%{version}.tar.gz
-Source1:        ftp://ftp.coda.cs.cmu.edu/pub/lwp/src/%{name}-%{version}.tar.gz.asc
-Patch0:         lwp-2.6-no-longjmp_chk.patch
-Patch1:		lwp-2.6-system-valgrind.h
-BuildRequires: make
+# This only seems to be maintained inside the coda github
+# git clone https://github.com/cmusatyalab/coda.git
+# cp -a coda/lib-src/lwp/ lwp-2.17
+# tar cvfz lwp-2.17.tar.gz lwp-2.17
+Source0:        %{name}-%{version}.tar.gz
+Patch0:         lwp-2.17-no-longjmp_chk.patch
+Patch1:         lwp-2.17-system-valgrind.patch
+Patch2:         lwp-2.17-c23.patch
+BuildRequires:  make
 BuildRequires:  gcc
-BuildRequires:	valgrind-devel
+BuildRequires:  valgrind-devel
+BuildRequires:  autoconf, automake, libtool
 
 %description
 The LWP user-space threads library. The LWP threads library is used by the Coda
@@ -30,9 +34,12 @@ developing applications that use %{name}.
 %setup -q
 %patch -P0 -p1 -b .nolongjmpchk
 %patch -P1 -p1 -b .system-valgrind
+%patch -P2 -p1 -b .c23
 
 # using system header
 rm -rf src/valgrind.h
+
+autoreconf -ifv
 
 %build
 %configure --disable-static
@@ -57,6 +64,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Mar 12 2025 Tom Callaway <spot@fedoraproject.org> - 2.17-1
+- update to 2.17
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

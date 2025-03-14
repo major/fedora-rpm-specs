@@ -60,7 +60,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files quart
+%pyproject_save_files -l quart
 
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
     '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}' '%{SOURCE13}'
@@ -71,7 +71,6 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
 
 
 %files -n python3-quart -f %{pyproject_files}
-%license LICENSE.txt
 %doc CHANGES.md
 %doc README.md
 

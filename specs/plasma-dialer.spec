@@ -2,8 +2,8 @@
 
 Name:           plasma-dialer
 Epoch:          1
-Version:        6.3.2
-Release:        2%{?dist}
+Version:        6.3.3
+Release:        1%{?dist}
 License:        BSD and CC0 and GPLv2 and GPLv2+ and GPLv3 and GPLv3+ and LGPLv2+ and LGPLv2.1 and LGPLv2.1+ and LGPLv3 and LGPLv3
 Summary:        Convergent Plasma Mobile dialer application
 Url:            https://invent.kde.org/plasma-mobile/plasma-dialer
@@ -106,6 +106,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/%{kde_name}.deskt
 %{_kf6_libdir}/libktelephonymetatypes.a
 
 %changelog
+* Tue Mar 11 2025 Steve Cossette <farchord@gmail.com> - 1:6.3.3-1
+- 6.3.3
+
 * Wed Feb 26 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1:6.3.2-2
 - Rebuilt for abseil-cpp-20250127.0
 

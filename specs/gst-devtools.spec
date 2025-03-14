@@ -1,8 +1,8 @@
 %global apiver 1.0
 
 Name:           gst-devtools
-Version:        1.24.11
-Release:        2%{?dist}
+Version:        1.26.0
+Release:        1%{?dist}
 Summary:        Development and debugging tools for GStreamer
 
 License:        LGPL-2.0-or-later
@@ -19,6 +19,9 @@ BuildRequires:  json-glib-devel
 BuildRequires:  gtk-doc
 BuildRequires:  python3-devel
 BuildRequires:  cairo-devel
+BuildRequires:  rust
+BuildRequires:  cargo
+BuildRequires:  cargo-rpm-macros >= 24
 
 %description
 %{summary}.
@@ -44,8 +47,17 @@ A simple graphical utility to view and analyze GStreamer debug files.
 %prep
 %autosetup -p3
 
+
+#Uncomment when all deps for dots_viewer are installable.
+#%%cargo_prep
+
+#%%generate_buildrequires
+#pushd dots-viewer &> /dev/null
+#%%cargo_generate_buildrequires
+#popd &> /dev/null
+
 %build
-%meson -D doc=disabled -D debug_viewer=enabled
+%meson -D doc=disabled -D debug_viewer=enabled -D dots_viewer=disabled
 %meson_build
 
 %install
@@ -81,6 +93,9 @@ A simple graphical utility to view and analyze GStreamer debug files.
 %{_metainfodir}/org.freedesktop.GstDebugViewer.appdata.xml
 
 %changelog
+* Wed Mar 12 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.26.0-1
+- 1.26.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.24.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

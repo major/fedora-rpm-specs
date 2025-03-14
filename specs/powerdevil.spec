@@ -1,5 +1,5 @@
 Name:    powerdevil
-Version: 6.3.2
+Version: 6.3.3
 Release: 1%{?dist}
 Summary: Manages the power consumption settings of a Plasma Shell
 
@@ -32,6 +32,8 @@ BuildRequires:  cmake(KF6NotifyConfig)
 BuildRequires:  cmake(KF6Runner)
 BuildRequires:  cmake(KF6Solid)
 BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(KF6GuiAddons)
+BuildRequires:  cmake(KF6XmlGui)
 BuildRequires:  cmake(LayerShellQt)
 BuildRequires:  cmake(Plasma)
 BuildRequires:  cmake(PlasmaWaylandProtocols)
@@ -151,6 +153,9 @@ rm -fv %{buildroot}/%{_libdir}/libpowerdevil{configcommonprivate,core,ui}.so
 %{_kf6_datadir}/qlogging-categories6/brightness.categories
 
 %changelog
+* Tue Mar 11 2025 Steve Cossette <farchord@gmail.com> - 6.3.3-1
+- 6.3.3
+
 * Tue Feb 25 2025 Steve Cossette <farchord@gmail.com> - 6.3.2-1
 - 6.3.2
 

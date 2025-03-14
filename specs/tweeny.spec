@@ -11,6 +11,9 @@ Summary: Modern C++ tweening library
 URL: https://github.com/mobius3/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+# https://github.com/mobius3/tweeny/commit/ee9229dbf417724312bb5a2a427945c4986257f1
+Patch100: %{name}-3.2.0-cmake4-compatibility.patch
+
 BuildRequires: ninja-build
 BuildRequires: gcc-c++
 BuildRequires: cmake

@@ -3,8 +3,8 @@
 
 # https://github.com/facebook/time
 %global goipath         github.com/facebook/time
-%global date            20241216
-%global commit          0fc34668f5d894a6596a084367b97b56aaf0ef6c
+%global date            20250311
+%global commit          532afb3ee31543848cb18bb58d142a65be46910a
 %global shortcommit     %(c=%{commit}; echo ${c:0:7})
 
 Version:        0^%{date}git%{shortcommit}
@@ -106,6 +106,13 @@ It supports sending packets from a range of source ports to encourage hashing of
 traffic over multiple paths. In case the hashing is done using only destination IP and source IP, Ziffy can
 target multiple IPs in the same /64 prefix as the destination.
 
+%package -n     fbclock-daemon
+Summary:        Fbclock daemon to calculate and publish WOU values
+
+%description -n fbclock-daemon
+Fbclock is used to calculate and publish Window of Uncertainty values in shared memory
+accessible via fbclock-bin or C API
+
 %gopkg
 
 %prep
@@ -115,7 +122,7 @@ target multiple IPs in the same /64 prefix as the destination.
 %go_generate_buildrequires
 
 %build
-for cmd in calnex c4u ntpcheck ntpresponder pshark ptpcheck ptp4u sptp ziffy; do
+for cmd in calnex c4u ntpcheck ntpresponder pshark ptpcheck ptp4u sptp ziffy fbclock-daemon; do
   %gobuild -o %{gobuilddir}/bin/$(basename $cmd) %{goipath}/cmd/$cmd
 done
 
@@ -177,6 +184,11 @@ rm -f timestamp/timestamp_linux_test.go
 %license LICENSE
 %doc cmd/ziffy/README.md
 %{_bindir}/ziffy
+
+%files -n fbclock-daemon
+%license LICENSE
+%doc fbclock/README.md
+%{_bindir}/fbclock-daemon
 
 %gopkgfiles
 

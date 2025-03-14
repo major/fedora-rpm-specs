@@ -2,8 +2,8 @@
 
 Summary: Qucs circuit simulator which works with SPICE
 Name:    qucs-s
-Version: 24.4.1
-Release: 2%{?dist}
+Version: 25.1.0
+Release: 1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL:     https://ra3xdh.github.io/
@@ -21,10 +21,11 @@ BuildRequires: bison
 BuildRequires: desktop-file-utils
 # for "appstream-util validate-relax"
 BuildRequires: libappstream-glib
-BuildRequires: qt5-qtbase-devel
-BuildRequires: qt5-linguist
-BuildRequires: qt5-qtsvg-devel
-BuildRequires: qt5-qtcharts-devel
+BuildRequires: qt6-qtbase-devel
+BuildRequires: qt6-linguist
+BuildRequires: qt6-qtsvg-devel
+BuildRequires: qt6-qtcharts-devel
+BuildRequires: qt6-qttools-devel
 Requires: ngspice
 Recommends: %{name}-library
 
@@ -108,6 +109,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/io.github.ra3x
 
 
 %changelog
+* Wed Mar 12 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 25.1.0-1
+- New version
+  Resolves: rhbz#2346782
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

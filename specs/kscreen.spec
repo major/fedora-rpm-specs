@@ -1,6 +1,6 @@
 Name:    kscreen
 Epoch:   1
-Version: 6.3.2
+Version: 6.3.3
 Release: 1%{?dist}
 Summary: KDE Display Management software
 
@@ -27,6 +27,7 @@ BuildRequires:  cmake(KF6KCMUtils)
 BuildRequires:  cmake(KF6Screen)
 BuildRequires:  cmake(KF6Svg)
 BuildRequires:  cmake(KF6XmlGui)
+BuildRequires:  cmake(KF6GuiAddons)
 
 BuildRequires:  cmake(Plasma)
 
@@ -69,6 +70,9 @@ KCM and KDED modules for managing displays in KDE.
 
 
 %changelog
+* Tue Mar 11 2025 Steve Cossette <farchord@gmail.com> - 1:6.3.3-1
+- 6.3.3
+
 * Tue Feb 25 2025 Steve Cossette <farchord@gmail.com> - 1:6.3.2-1
 - 6.3.2
 

@@ -42,7 +42,7 @@ by default.
 %setup -q -n %{name}-%{version}-%{commit}
 
 %install
-%make_install
+%make_install PREFIX=%{_prefix} SBINDIR=%{_sbindir}
 
 %files
 %license COPYING

@@ -10,6 +10,7 @@ Source:         %{url}/archive/v.%{version}/validator-collection-v.%{version}.ta
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  sed
 
 %global _description %{expand:
 The Validator Collection is a Python library that provides more than 60
@@ -25,6 +26,9 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n validator-collection-v.%{version}
+
+# Drop unnecessary linter dependency
+sed -i '/codecov/d' requirements.txt setup.py tox.ini
 
 %generate_buildrequires
 %pyproject_buildrequires -x test

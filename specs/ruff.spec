@@ -8,14 +8,15 @@
 %global salsa_commit        88a1d7774d78f048fbd77d40abca9ebd729fd1f0
 
 Name:           ruff
-Version:        0.8.6
+Version:        0.9.6
 Release:        %autorelease
 Summary:        Extremely fast Python linter and code formatter
 
-# ruff:                         MIT
-# bundled typeshed snapshot:    (Apache-2.0 AND MIT)
-# bundled lsp-types fork:       MIT
-# bundled salsa snapshot:       (Apache-2.0 OR MIT)
+# ruff:                             MIT
+# bundled typeshed snapshot:        (Apache-2.0 AND MIT)
+# bundled lsp-types fork:           MIT
+# bundled salsa snapshot:           (Apache-2.0 OR MIT)
+# bundled annotate-snippets fork:   (MIT OR Apache-2.0)
 SourceLicense:  MIT AND Apache-2.0 AND (Apache-2.0 OR MIT)
 
 # (MIT OR Apache-2.0) AND Unicode-3.0
@@ -38,6 +39,7 @@ SourceLicense:  MIT AND Apache-2.0 AND (Apache-2.0 OR MIT)
 # MPL-2.0
 # Unlicense OR MIT
 # WTFPL
+# Zlib
 # Zlib OR Apache-2.0 OR MIT
 
 License:        %{shrink:
@@ -51,6 +53,7 @@ License:        %{shrink:
     Unicode-3.0 AND
     Unicode-DFS-2016 AND
     WTFPL AND
+    Zlib AND
     (Apache-2.0 OR BSD-2-Clause) AND
     (Apache-2.0 OR BSL-1.0) AND
     (Apache-2.0 OR MIT) AND
@@ -67,6 +70,8 @@ Source:         %{url}/archive/%{version}/ruff-%{version}.tar.gz
 
 Source1:        https://github.com/astral-sh/lsp-types/archive/%{lsp_types_commit}/lsp-types-%{lsp_types_commit}.tar.gz
 Source2:        https://github.com/salsa-rs/salsa/archive/%{salsa_commit}/salsa-%{salsa_commit}.tar.gz
+
+# salsa: drop unnecessary dependencies and duplicate workspace definitions
 Source3:        avoid-duplicate-workspace-definitions.patch
 
 # * drop non-Linux dependencies (non-upstreamable), generated with:
@@ -85,9 +90,8 @@ Patch:          0005-relax-pyproject-toml-dependency-to-allow-0.11.-0.13.patch
 Patch:          0006-drop-unavailable-features-from-uuid-dependency.patch
 # * temporarily downgrade pep440_rs dependency from 0.7 to 0.6 (non-upstreamable)
 Patch:          0007-temporarily-downgrade-pep440_rs-from-0.7-to-0.6.patch
-# * bump notify dependency from 7 to 8:
-#   https://github.com/astral-sh/ruff/commit/36c90eb
-Patch:          0008-bump-notify-dependency-from-7-to-8.patch
+# * ignore tests in vendored annotate-snippets that hang indefinitely:
+Patch:          0008-ignore-vendored-annotate-snippets-tests-that-hang-in.patch
 
 ExcludeArch:	%{ix86}
 
@@ -97,6 +101,10 @@ BuildRequires:  python3-devel
 # git snapshot of the python/typeshed project at commit 9e506eb:
 # https://github.com/python/typeshed
 Provides:       bundled(typeshed)
+
+# forked from annotate-snippets upstream at some point after v0.11.5:
+# https://github.com/astral-sh/ruff/pull/15359
+Provides:       bundled(crate(annotate-snippets)) = 0.11.5
 
 # forked from lsp-types upstream: https://github.com/gluon-lang/lsp-types
 # with changes applied:           https://github.com/astral-sh/lsp-types/tree/notebook-support
@@ -132,14 +140,13 @@ pushd crates/salsa
 # avoid duplicate workspace definitions
 patch -p1 < %{SOURCE3}
 mv components/* ../
-# Remove an example that introduces unnecessary dev-dependencies. In
-# particular, we do not want notify-debouncer-mini because it depends on the
-# rust-notify6 compat package.
-rm -rv examples/lazy-input
-sed -r -i 's/^(notify-debouncer-mini)/# &/' Cargo.toml
+# Drop example code that pulls in additional / unnecessary dev-dependencies
+rm -rv examples
 popd
 
 # prepare license files under distinct names
+cp -pav crates/ruff_annotate_snippets/LICENSE-APACHE LICENSE-APACHE.annotate-snippets
+cp -pav crates/ruff_annotate_snippets/LICENSE-MIT LICENSE-MIT.annotate-snippets
 cp -pav crates/lsp-types/LICENSE LICENSE.lsp-types
 cp -pav crates/salsa/LICENSE-APACHE LICENSE-APACHE.salsa
 cp -pav crates/salsa/LICENSE-MIT LICENSE-MIT.salsa
@@ -186,6 +193,8 @@ export TRYBUILD=overwrite
 
 %files -f %{pyproject_files}
 %license LICENSE
+%license LICENSE-APACHE.annotate-snippets
+%license LICENSE-MIT.annotate-snippets
 %license LICENSE.lsp-types
 %license LICENSE-APACHE.salsa
 %license LICENSE-MIT.salsa

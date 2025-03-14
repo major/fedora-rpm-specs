@@ -32,6 +32,10 @@ Recommends: bash-completion
 
 # Submitted upstream: https://github.com/matejak/argbash/pull/177
 Patch: 0001-Disable-shellcheck-warnings.patch
+Patch: 0002-Fix-typos-in-README.md.patch
+Patch: 0003-Properly-quote-filepath-when-sourcing.patch
+Patch: 0004-Move-website-from-argbash.io-to-argbash.dev.patch
+Patch: 0005-Fixes-typos.patch
 
 
 %description

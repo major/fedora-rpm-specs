@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-machines
-Version:        328
+Version:        329
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -72,10 +72,10 @@ Provides: bundled(npm(@novnc/novnc)) = 1.4.0
 Provides: bundled(npm(@novnc/novnc)) = 1.5.0
 Provides: bundled(npm(@patternfly/patternfly)) = 5.4.2
 Provides: bundled(npm(@patternfly/react-console)) = 5.1.0
-Provides: bundled(npm(@patternfly/react-core)) = 5.4.13
+Provides: bundled(npm(@patternfly/react-core)) = 5.4.14
 Provides: bundled(npm(@patternfly/react-icons)) = 5.4.2
 Provides: bundled(npm(@patternfly/react-styles)) = 5.4.1
-Provides: bundled(npm(@patternfly/react-table)) = 5.4.15
+Provides: bundled(npm(@patternfly/react-table)) = 5.4.16
 Provides: bundled(npm(@patternfly/react-tokens)) = 5.4.1
 Provides: bundled(npm(@spice-project/spice-html5)) = 0.2.1
 Provides: bundled(npm(@xterm/addon-canvas)) = 0.7.0
@@ -92,7 +92,7 @@ Provides: bundled(npm(loose-envify)) = 1.4.0
 Provides: bundled(npm(object-assign)) = 4.1.1
 Provides: bundled(npm(prop-types)) = 15.8.1
 Provides: bundled(npm(react-dom)) = 18.3.1
-Provides: bundled(npm(react-dropzone)) = 14.3.6
+Provides: bundled(npm(react-dropzone)) = 14.3.8
 Provides: bundled(npm(react-is)) = 16.13.1
 Provides: bundled(npm(react)) = 18.3.1
 Provides: bundled(npm(redux-thunk)) = 3.1.0
@@ -125,6 +125,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Mar 12 2025 Packit <hello@packit.dev> - 329-1
+- Translation updates
+- Bug fixes
+
 * Thu Feb 27 2025 Packit <hello@packit.dev> - 328-1
 - Bug fixes
 

@@ -1,5 +1,5 @@
 Name:           oxygen-sounds
-Version:        6.3.2
+Version:        6.3.3
 Release:        1%{?dist}
 Summary:        The Oxygen Sound Theme
 
@@ -40,6 +40,9 @@ BuildArch:      noarch
 
 
 %changelog
+* Tue Mar 11 2025 Steve Cossette <farchord@gmail.com> - 6.3.3-1
+- 6.3.3
+
 * Tue Feb 25 2025 Steve Cossette <farchord@gmail.com> - 6.3.2-1
 - 6.3.2
 

@@ -1,12 +1,14 @@
 Summary: Ncurses based hexadecimal editor with a diff mode
 Name: dhex
 Version: 0.69
-Release: 15%{?dist}
+Release: 16%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: http://www.dettus.net/dhex/
 Source: http://www.dettus.net/dhex/%{name}_%{version}.tar.gz
-Patch0: dhex-0.69-build-fix.patch
+Patch: dhex-0.69-build-fix.patch
+# Sent upstream
+Patch: dhex-0.69-gcc-15-fix.patch
 BuildRequires: gcc, ncurses-devel
 BuildRequires: make
 
@@ -18,8 +20,7 @@ scenarios. With its utilization of search logs, it is possible to track
 changes in different iterations of files easily.
 
 %prep
-%setup -q -n %{name}_%{version}
-%patch -P0 -p1 -b .build-fix
+%autosetup -p1 -n %{name}_%{version}
 
 %build
 make %{?_smp_mflags} CFLAGS="%{optflags}" %{?__global_ldflags: LDFLAGS="%{__global_ldflags}"}
@@ -36,6 +37,10 @@ make %{?_smp_mflags} DESTDIR=%{buildroot} BINDIR=%{_bindir} \
 %{_mandir}/*/*
 
 %changelog
+* Wed Mar 12 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 0.69-16
+- Fixed FTBFS with gcc-15, patch provided by mruprich@redhat.com
+  Resolves: rhbz#2340073
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.69-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

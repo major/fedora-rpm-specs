@@ -42,6 +42,8 @@ Patch30: 0030-Fix-build-with-GCC-12-standard-attributes-in-middle-.patch
 Patch100: kdb-3.2.0-pkgconfig.patch
 # https://invent.kde.org/libraries/kdb/-/merge_requests/11
 Patch1001: 1001-gcc-12-inline.patch
+# Fix build with CMake 4.0
+Patch1002: 1002-cmake4.patch
 
 BuildRequires: gcc-c++
 
@@ -126,6 +128,7 @@ Supplements: (%{name} and postgresql-server)
 %cmake_kf5 \
   -Wno-dev \
   -DBUILD_TESTING:BOOL=%{?tests:ON}%{?!tests:OFF} \
+  -DCMAKE_CXX_STANDARD=17 \
   -DPYTHON_EXECUTABLE:PATH="%{__python3}"
 
 %cmake_build

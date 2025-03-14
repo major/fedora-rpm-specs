@@ -5,7 +5,7 @@
 %global crate ironrdp-pdu
 
 Name:           rust-ironrdp-pdu
-Version:        0.3.0
+Version:        0.3.1
 Release:        %autorelease
 Summary:        RDP PDU encoding and decoding
 

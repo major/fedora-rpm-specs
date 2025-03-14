@@ -1,12 +1,12 @@
 %global forgeurl https://github.com/waydroid/waydroid
 %global selinuxtype targeted
 
-Version:        1.4.3
+Version:        1.5.0
 %global tag %{version}
 
 %forgemeta
 Name:           waydroid
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Container-based approach to boot a full Android system on GNU/Linux
 License:        GPL-3.0-only
 URL:            %{forgeurl}
@@ -23,10 +23,6 @@ Patch1:         mount-secontext.patch
 
 # Fedora LXC is compiled without AppArmor support and fails to parse lxc.apparmor.profile config
 Patch2:         no-apparmor.patch
-
-# https://github.com/waydroid/waydroid/issues/1550
-# initializer: Refactor setup to better handle preinstalled images
-Patch3:         https://github.com/waydroid/waydroid/commit/5000c9703de873e4f477ebcdd3556ad163252115.patch
 
 BuildArch:      noarch
 
@@ -153,6 +149,9 @@ fi
 %{_datadir}/selinux/%{selinuxtype}/%{name}.pp
 
 %changelog
+* Wed Mar 12 2025 Alessandro Astone <ales.astone@gmail.com> - 1.5.0-1
+- new version
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

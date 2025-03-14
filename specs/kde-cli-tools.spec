@@ -1,5 +1,5 @@
 Name:    kde-cli-tools
-Version: 6.3.2
+Version: 6.3.3
 Release: 1%{?dist}
 Summary: Tools based on KDE Frameworks 5 to better interact with the system
 
@@ -27,6 +27,8 @@ BuildRequires:  cmake(KF6Su)
 BuildRequires:  cmake(KF6KIO)
 BuildRequires:  cmake(KF6WindowSystem)
 BuildRequires:  cmake(KF6Parts)
+BuildRequires:  cmake(KF6XmlGui)
+BuildRequires:  cmake(KF6GuiAddons)
 BuildRequires:  plasma-workspace-devel >= %{version}
 Requires:       libkworkspace6%{?_isa} >= %{version}
 
@@ -106,6 +108,9 @@ ln -s %{_kf6_libexecdir}/kdesu %{buildroot}%{_bindir}/kdesu
 
 
 %changelog
+* Tue Mar 11 2025 Steve Cossette <farchord@gmail.com> - 6.3.3-1
+- 6.3.3
+
 * Tue Feb 25 2025 Steve Cossette <farchord@gmail.com> - 6.3.2-1
 - 6.3.2
 

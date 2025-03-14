@@ -4,7 +4,7 @@
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20250211
+Version:	20250311
 Release:	1%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL-1.0-or-later AND GPL-2.0-or-later AND MIT AND LicenseRef-Callaway-Redistributable-no-modification-permitted
@@ -555,6 +555,37 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Tue Mar 11 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250311-1
+- Update to 20250311
+- amdgpu: many firmware updates
+- qcom: Update gpu firmwares for qcs8300 chipset
+- add firmware for qat_420xx devices
+- amdgpu: DMCUB updates for various ASICs
+- i915: Update Xe3LPD DMC to v2.20
+- update firmware for MT7920/MT7925 WiFi device
+- mediatek MT7920/MT7925 bluetooth firmware update
+- Update firmware file for Intel BlazarI/BlazarU core
+- intel_vpu: Add firmware for 37xx and 40xx NPUs
+- QCA: Add Bluetooth firmwares for QCA2066 with USB transport
+- QCA: Add two bluetooth firmware nvm files for QCA2066
+- QCA: Update Bluetooth QCA2066 firmware to 2.1.0-00653
+- QCA: Update Bluetooth WCN685x 2.1 firmware to 2.1.0-00653
+- cirrus: cs35l41: Add firmware and tuning for ASUS Commercial/Consumer laptops
+- ASoC: tas2781: Update dsp firmware for Gemtree project
+- xe: Update GUC to v70.40.2 for BMG, LNL
+- cirrus: cs35l41: Add firmware and tunings for CS35L41 driver for Steam Deck
+- ath11k: QCN9074 hw1.0: update to WLAN.HK.2.9.0.1-02175-QCAHKSWPL_SILICONZ-2
+- ath11k: QCA6698AQ hw2.1: update to WLAN.HSP.1.1-04604-QCAHSPSWPL_V1_V2_SILICONZ_IOE-1
+- ath11k: QCA6698AQ hw2.1: update board-2.bin
+- rtw89: 8852bt: update fw to v0.29.122.0 and BB parameter to 07
+- Update AMD SEV firmware
+- qca: update WCN3988 firmware
+- amdgpu: Update ISP FW for isp v4.1.1
+- qcom: add firmware for Adreno A225
+- cirrus: cs35l56: Add / update firmware for Cirrus CS35L56 for ASUS/Dell/HP/Lenovo laptops
+- update firmware for en8811h 2.5G ethernet phy
+- ASoC: tas2781: Change regbin firmwares for single device
+
 * Tue Feb 11 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250211-1
 - Update to 20250211
 - i915: Update Xe2LPD DMC to v2.28

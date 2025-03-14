@@ -1,16 +1,11 @@
 Name:           pytest
-%global base_version 8.3.4
-#global prerelease ...
-Version:        %{base_version}%{?prerelease:~%{prerelease}}
+Version:        8.3.5
 Release:        %autorelease
 Summary:        Simple powerful testing with Python
 # SPDX
 License:        MIT
 URL:            https://pytest.org
-Source:         %{pypi_source pytest %{base_version}%{?prerelease}}
-
-# Compatibility with pygments 2.19+
-Patch:          https://github.com/pytest-dev/pytest/pull/13113.patch
+Source:         %{pypi_source pytest %{version}}
 
 # Remove -s from Python shebang,
 # ensure that packages installed with pip to user locations are testable
@@ -98,7 +93,7 @@ complex functional testing for applications and libraries.
 
 
 %prep
-%autosetup -p1 -n %{name}-%{base_version}%{?prerelease}
+%autosetup -p1 -n %{name}-%{version}
 
 # documentation dependencies missing in Fedora
 sed -i '/sphinxcontrib-towncrier/d' doc/en/requirements.txt

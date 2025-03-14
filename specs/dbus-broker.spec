@@ -40,7 +40,7 @@ of the installed dbus-broker.
 
 # Create a sysusers.d config file
 cat >dbus-broker.sysusers.conf <<EOF
-u dbus %{dbus_user_id} 'System message bus' - -
+u dbus %{dbus_user_id} 'System Message Bus' - -
 EOF
 
 %build

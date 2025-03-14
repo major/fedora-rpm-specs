@@ -1,5 +1,5 @@
 Name:           python-logdetective
-Version:        0.2.10
+Version:        0.2.11
 Release:        %autorelease
 Summary:        Uses LLM AI to search for build/test failure and provide ideas how to fix it
 
