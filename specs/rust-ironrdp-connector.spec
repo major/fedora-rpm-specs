@@ -5,7 +5,7 @@
 %global crate ironrdp-connector
 
 Name:           rust-ironrdp-connector
-Version:        0.3.1
+Version:        0.4.0
 Release:        %autorelease
 Summary:        State machines to drive an RDP connection sequence
 

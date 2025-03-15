@@ -55,7 +55,7 @@ for profile in animal-sniffer japicmp jacoco cobertura; do
 done
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install

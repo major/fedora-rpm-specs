@@ -36,7 +36,7 @@ Parent POM file for Apache Felix Specs.
 %pom_xpath_remove pom:extensions
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install

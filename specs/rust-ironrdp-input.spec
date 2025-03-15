@@ -5,16 +5,13 @@
 %global crate ironrdp-input
 
 Name:           rust-ironrdp-input
-Version:        0.1.2
+Version:        0.2.0
 Release:        %autorelease
 Summary:        Utilities to manage and build RDP input packets
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/ironrdp-input
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-Patch:          ironrdp-input-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

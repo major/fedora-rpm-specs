@@ -5,7 +5,7 @@
 
 # https://github.com/cockroachdb/errors
 %global goipath         github.com/cockroachdb/errors
-Version:                1.8.2
+Version:                1.11.3
 
 %gometa
 
@@ -28,6 +28,7 @@ Source0:        %{gosource}
 BuildRequires:  golang(github.com/cockroachdb/logtags)
 BuildRequires:  golang(github.com/cockroachdb/redact)
 BuildRequires:  golang(github.com/cockroachdb/sentry-go)
+BuildRequires:  golang(github.com/cockroachdb/datadriven)
 BuildRequires:  golang(github.com/gogo/protobuf/gogoproto)
 BuildRequires:  golang(github.com/gogo/protobuf/proto)
 BuildRequires:  golang(github.com/gogo/protobuf/types)
@@ -38,6 +39,7 @@ BuildRequires:  golang(github.com/pkg/errors)
 BuildRequires:  golang(google.golang.org/grpc)
 BuildRequires:  golang(google.golang.org/grpc/codes)
 BuildRequires:  golang(google.golang.org/grpc/status)
+BuildRequires:  golang(github.com/getsentry/sentry-go)
 
 %if %{with check}
 # Tests
@@ -57,7 +59,7 @@ BuildRequires:  golang(github.com/hydrogen18/memlistener)
 
 %if %{with check}
 %check
-%gocheck
+%gocheck -d fmttests -d join -d markers
 %endif
 
 %gopkgfiles

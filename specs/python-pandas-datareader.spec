@@ -46,7 +46,7 @@ BuildRequires: python3-wrapt
 %autosetup -n %{srcname}-%{version} -p1
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires 
 
 %build
 %pyproject_wheel

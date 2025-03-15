@@ -4,8 +4,8 @@
 %global dracutdir %(pkg-config --variable=dracutdir dracut)
 
 Name:           stratisd
-Version:        3.7.3
-Release:        2%{?dist}
+Version:        3.8.0
+Release:        1%{?dist}
 Summary:        Daemon that manages block devices to create filesystems
 
 License:        (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND MIT AND MPL-2.0 AND (Unlicense OR MIT)
@@ -85,10 +85,8 @@ Requires:     stratisd
 %prep
 %autosetup -n stratisd-stratisd-v%{version} %{?rhel:-a1}
 
-%if 0%{?rhel} >= 10
+%if 0%{?rhel}
 %cargo_prep -v vendor
-%elif 0%{?rhel} && 0%{?rhel} < 10
-%cargo_prep -V 1
 %else
 %cargo_prep
 %generate_buildrequires
@@ -96,25 +94,15 @@ Requires:     stratisd
 %endif
 
 %build
-%if 0%{?rhel} && 0%{?rhel} < 10
-%{__cargo} build %{?_smp_mflags} --release --bin=stratisd
-%{__cargo} build %{?_smp_mflags} --release --bin=stratis-min --bin=stratisd-min --bin=stratis-utils --no-default-features --features engine,min,systemd_compat
-%{__cargo} rustc %{?_smp_mflags} --release --bin=stratis-str-cmp --no-default-features --features udev_scripts -- -Ctarget-feature=+crt-static
-%{__cargo} rustc %{?_smp_mflags} --release --bin=stratis-base32-decode --no-default-features --features udev_scripts -- -Ctarget-feature=+crt-static
-%{__cargo} build %{?_smp_mflags} --release --bin=stratisd-tools --no-default-features --features engine,extras,min
-%else
 %{cargo_license -f engine,dbus_enabled,min,systemd_compat,extras,udev_scripts} > LICENSE.dependencies
 %{__cargo} build %{?__cargo_common_opts} --release --bin=stratisd
 %{__cargo} build %{?__cargo_common_opts} --release --bin=stratis-min --bin=stratisd-min --bin=stratis-utils --no-default-features --features engine,min,systemd_compat
 %{__cargo} rustc %{?__cargo_common_opts} --release --bin=stratis-str-cmp --no-default-features --features udev_scripts -- -Ctarget-feature=+crt-static
 %{__cargo} rustc %{?__cargo_common_opts} --release --bin=stratis-base32-decode --no-default-features --features udev_scripts -- -Ctarget-feature=+crt-static
-%{__cargo} build %{?__cargo_common_opts} --release --bin=stratisd-tools --no-default-features --features engine,extras,min
-%endif
+%{__cargo} build %{?__cargo_common_opts} --release --bin=stratisd-tools --no-default-features --features engine,extras
 a2x -f manpage docs/stratisd.txt
 a2x -f manpage docs/stratis-dumpmetadata.txt
-%if 0%{?rhel} >= 10
 %{cargo_vendor_manifest}
-%endif
 
 %install
 %make_install DRACUTDIR=%{dracutdir} PROFILEDIR=release
@@ -139,12 +127,8 @@ a2x -f manpage docs/stratis-dumpmetadata.txt
 
 %files
 %license LICENSE
-%if !(0%{?rhel} && 0%{?rhel} < 10)
 %license LICENSE.dependencies
-%endif
-%if 0%{?rhel} >= 10
 %license cargo-vendor.txt
-%endif
 %doc README.md
 %{_libexecdir}/stratisd
 %dir %{_datadir}/dbus-1
@@ -182,6 +166,9 @@ a2x -f manpage docs/stratis-dumpmetadata.txt
 %{_mandir}/man8/stratis-dumpmetadata.8*
 
 %changelog
+* Thu Mar 13 2025 Chung Chung <cchung@redhat.com> - 3.8.0-1
+- Update to 3.8.0
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

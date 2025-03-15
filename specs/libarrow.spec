@@ -30,13 +30,13 @@
 %bcond_without have_utf8proc
 
 Name:		libarrow
-Version:	19.0.0
-Release:	2%{?dist}
+Version:	19.0.1
+Release:	1%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
 Requires:	%{name}-doc = %{version}-%{release}
-Source0:	https://dist.apache.org/repos/dist/release/arrow/arrow-%{version}/apache-arrow-%{version}.tar.gz
+Source0:	https://downloads.apache.org/arrow/arrow-%{version}/apache-arrow-%{version}.tar.gz
 Patch0001:	0001-python-pyarrow-tests-read_record_patch.py.patch
 Patch0002:	0002-python-pyarrow-tests-test_ipc.py.patch
 
@@ -825,6 +825,9 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Thu Mar 13 2025  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 19.0.1-1
+- Arrow 19.0.1 GA, w/ liborc-2.1.1
+
 * Tue Feb 25 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 19.0.0-2
 - Rebuilt for abseil-cpp-20250127.0
 

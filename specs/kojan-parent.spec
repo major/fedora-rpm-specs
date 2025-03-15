@@ -25,7 +25,7 @@ Parent Maven POM file for io.kojan organization.
 %pom_remove_plugin :spotless-maven-plugin
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install

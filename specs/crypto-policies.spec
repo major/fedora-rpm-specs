@@ -11,7 +11,7 @@
 
 Name:           crypto-policies
 Version:        %{git_date}
-Release:        1.git%{git_commit_hash}%{?dist}
+Release:        3.git%{git_commit_hash}%{?dist}
 Summary:        System-wide crypto policies
 
 License:        LGPL-2.1-or-later
@@ -33,8 +33,9 @@ BuildRequires: python3-pytest
 BuildRequires: make
 BuildRequires: sequoia-policy-config
 BuildRequires: systemd-rpm-macros
+BuildRequires: oqsprovider
 
-Conflicts: openssl-libs < 3.2.2-13
+Conflicts: openssl-libs < 1:3.2.4-3
 Conflicts: nss < 3.105
 Conflicts: libreswan < 3.28
 Conflicts: openssh < 9.9
@@ -245,7 +246,6 @@ exit 0
 %ghost %config(missingok,noreplace) %{_sysconfdir}/crypto-policies/config
 
 %ghost %config(missingok,noreplace) %verify(not mode) %{_sysconfdir}/crypto-policies/back-ends/gnutls.config
-%ghost %config(missingok,noreplace) %verify(not mode) %{_sysconfdir}/crypto-policies/back-ends/openssl.config
 %ghost %config(missingok,noreplace) %verify(not mode) %{_sysconfdir}/crypto-policies/back-ends/opensslcnf.config
 %ghost %config(missingok,noreplace) %verify(not mode) %{_sysconfdir}/crypto-policies/back-ends/openssh.config
 %ghost %config(missingok,noreplace) %verify(not mode) %{_sysconfdir}/crypto-policies/back-ends/opensshserver.config
@@ -288,6 +288,13 @@ exit 0
 %{_datarootdir}/crypto-policies/python
 
 %changelog
+* Thu Mar 13 2025 Alexander Sosedkin <asosedkin@redhat.com> - 20250305-3.gita35b0fa
+- Add a build dependency on oqsprovider as openssh config check is now fussy
+
+* Thu Mar 13 2025 Alexander Sosedkin <asosedkin@redhat.com> - 20250305-2.gita35b0fa
+- Remove openssl.config from %files (bz2351864)
+- Bump openssl dependency even higher for more openssl.config fixes (bz2351864)
+
 * Wed Mar 05 2025 Alexander Sosedkin <asosedkin@redhat.com> - 20250305-1.gita35b0fa
 - gnutls: support P384-MLKEM1024
 - openssl: specify default key size for req

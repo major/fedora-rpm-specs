@@ -6,13 +6,19 @@
 # So pre releases can be tried
 %bcond_with gitcommit
 %if %{with gitcommit}
-# v2.5.0-rc9
-%global commit0 417a0763a7d69f6ce80719ac89c1d2deeee78163
+# v2.7.0-rc1
+%global commit0 cdd7a2c72bbf0a72faf6fe4b4903c053f0465a2e
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 2024103
-%global pypi_version 2.5.0
+%global date0 20250412
+%global pypi_version 2.7.0
+%global flatbuffers_version 23.3.3
+%global miniz_version 3.0.2
+%global pybind11_version 2.13.6
 %else
 %global pypi_version 2.5.1
+%global flatbuffers_version 23.3.3
+%global miniz_version 2.1.0
+%global pybind11_version 2.11.1
 %endif
 
 # For -test subpackage
@@ -60,8 +66,8 @@ Source1000:     pyproject.toml
 %else
 Source0:        %{forgeurl}/releases/download/v%{version}/pytorch-v%{version}.tar.gz
 %endif
-Source1:        https://github.com/google/flatbuffers/archive/refs/tags/v23.3.3.tar.gz
-Source2:        https://github.com/pybind/pybind11/archive/refs/tags/v2.11.1.tar.gz
+Source1:        https://github.com/google/flatbuffers/archive/refs/tags/v%{flatbuffers_version}.tar.gz
+Source2:        https://github.com/pybind/pybind11/archive/refs/tags/v%{pybind11_version}.tar.gz
 
 # Developement on tensorpipe has stopped, repo made read only July 1, 2023, this is the last commit
 %global tp_commit 52791a2fd214b2a9dc5759d36725909c1daa7f2e
@@ -91,12 +97,14 @@ Source70:       https://github.com/yhirose/cpp-httplib/archive/%{hl_commit}/cpp-
 Source80:       https://github.com/pytorch/kineto/archive/%{ki_commit}/kineto-%{ki_scommit}.tar.gz
 %endif
 
+%if %{without gitcommit}
 Patch11:       0001-Improve-finding-and-using-the-rocm_version.h.patch
 
 # ROCm patches
 # Patches need to be refactored for ToT
 # These are ROCm packages
 Patch101:      0001-cuda-hip-signatures.patch
+%endif
 
 ExclusiveArch:  x86_64 aarch64
 %global toolchain gcc
@@ -205,10 +213,10 @@ Summary:        %{summary}
 Provides:       pytorch
 
 # Apache-2.0
-Provides:       bundled(flatbuffers) = 22.3.3
+Provides:       bundled(flatbuffers) = %{flatbuffers_version}
 # MIT
-Provides:       bundled(miniz) = 2.1.0
-Provides:       bundled(pybind11) = 2.11.1
+Provides:       bundled(miniz) = %{miniz_version}
+Provides:       bundled(pybind11) = %{pybind11_version}
 
 %if %{with tensorpipe}
 # BSD-3-Clause
@@ -254,11 +262,11 @@ rm -rf %{pypi_name}.egg-info
 
 tar xf %{SOURCE1}
 rm -rf third_party/flatbuffers/*
-cp -r flatbuffers-23.3.3/* third_party/flatbuffers/
+cp -r flatbuffers-%{flatbuffers_version}/* third_party/flatbuffers/
 
 tar xf %{SOURCE2}
 rm -rf third_party/pybind11/*
-cp -r pybind11-2.11.1/* third_party/pybind11/
+cp -r pybind11-%{pybind11_version}/* third_party/pybind11/
 
 %if %{with tensorpipe}
 tar xf %{SOURCE20}
@@ -345,7 +353,7 @@ sed -i -e 's@check_submodules()$@#check_submodules()@' setup.py
 # the third_party dir to compile the file.
 # mimiz is licensed MIT
 # https://github.com/richgel999/miniz/blob/master/LICENSE
-mv third_party/miniz-2.1.0 .
+mv third_party/miniz-%{miniz_version} .
 #
 # setup.py depends on this script
 mv third_party/build_bundled.py .
@@ -379,7 +387,7 @@ mv third_party/googletest .
 rm -rf third_party/*
 # Put stuff back
 mv build_bundled.py third_party
-mv miniz-2.1.0 third_party
+mv miniz-%{miniz_version} third_party
 mv flatbuffers third_party
 mv pybind11 third_party
 

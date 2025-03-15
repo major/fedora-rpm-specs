@@ -1,6 +1,6 @@
 Name:           stratis-cli
-Version:        3.7.0
-Release:        2%{?dist}
+Version:        3.8.0
+Release:        1%{?dist}
 Summary:        Command-line tool for interacting with the Stratis daemon
 
 License:        Apache-2.0
@@ -21,7 +21,7 @@ BuildRequires:  python3-wcwidth
 %endif
 
 # Require the version of stratisd that supports a compatible D-Bus interface
-Requires:       (stratisd >= 3.7.0 with stratisd < 4.0.0)
+Requires:       (stratisd >= 3.8.0 with stratisd < 4.0.0)
 
 # Exclude the same arches for stratis-cli as are excluded for stratisd
 ExclusiveArch:  %{rust_arches} noarch
@@ -75,6 +75,9 @@ a2x -f manpage docs/stratis.txt
 %{python3_sitelib}/stratis_cli-*.egg-info/
 
 %changelog
+* Thu Mar 13 2025 Chung Chung <cchung@redhat.com> - 3.8.0-1
+- Update to 3.8.0
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

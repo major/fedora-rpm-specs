@@ -58,13 +58,15 @@
 Summary: A dynamic adaptive system tuning daemon
 Name: tuned
 Version: 2.25.1
-Release: 1%{?prerel1}%{?git_suffix:.%{git_suffix}}%{?dist}
+Release: 2%{?prerel1}%{?git_suffix:.%{git_suffix}}%{?dist}
 License: GPL-2.0-or-later AND CC-BY-SA-3.0
 %if 0%{?git_commit:1}
 Source0: https://github.com/redhat-performance/%{name}/archive/%{git_commit}/%{name}-%{version}-%{git_suffix}.tar.gz
 %else
 Source0: https://github.com/redhat-performance/%{name}/archive/v%{version}%{?prerel2}/%{name}-%{version}%{?prerel2}.tar.gz
 %endif
+# https://github.com/redhat-performance/tuned/pull/755
+Patch: tuned-2.25.1-sysfs-acpi-monitor.patch
 URL: http://www.tuned-project.org/
 BuildArch: noarch
 BuildRequires: systemd, desktop-file-utils
@@ -640,6 +642,10 @@ fi
 %config(noreplace) %{_sysconfdir}/tuned/ppd.conf
 
 %changelog
+* Thu Mar 13 2025 Pavol Žáčik <pzacik@redhat.com> - 2.25.1-2
+- Turn thinkpad_function_keys (now sysfs_acpi_monitor) on by default
+- resolves: rhbz#2348853
+
 * Mon Feb  3 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 2.25.1-1
 - new release
   - plugins: added missing instance parameters

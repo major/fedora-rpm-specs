@@ -89,6 +89,9 @@ sed -i 's@/usr/lib/@%{_libdir}/@g' src/plugin.c
 ./autogen.sh
 
 %build
+%set_build_flags
+# pipewire-jack is not in the default search path, and configure does not use pkg-config
+export LDFLAGS="$LDFLAGS $(pkg-config --libs-only-L jack)"
 %configure \
     --without-sndio \
     --with-oss \

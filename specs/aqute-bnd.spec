@@ -62,6 +62,9 @@ BuildRequires:  mvn(org.eclipse.aether:aether-api)
 BuildRequires:  mvn(org.sonatype.plexus:plexus-build-api)
 %endif
 
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 6.3.1-23
+
 %description
 The bnd tool helps you create and diagnose OSGi bundles.
 The key functions are:
@@ -89,15 +92,8 @@ Summary:        BND Maven plugin
 %{summary}.
 %endif
 
-%package javadoc
-Summary:        Javadoc for %{name}
-
-%description javadoc
-API documentation for %{name}.
-
 %prep
 %autosetup -p1 -C
-
 
 # the commands pull in more dependencies than we want (felix-resolver, jetty)
 rm biz.aQute.bnd/src/aQute/bnd/main/{ExportReportCommand,MbrCommand,RemoteCommand,ReporterLogger,ResolveCommand,Shell}.java
@@ -212,7 +208,7 @@ popd
 %endif
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install
@@ -233,9 +229,6 @@ echo "aqute-bnd slf4j/api slf4j/simple osgi-annotation osgi-core osgi-compendium
 %if %{with bnd_maven_plugin}
 %files -n bnd-maven-plugin -f .mfiles-maven
 %endif
-
-%files javadoc -f .mfiles-javadoc
-%license LICENSE
 
 %changelog
 %autochangelog

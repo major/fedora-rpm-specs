@@ -5,11 +5,10 @@
 %global crate ironrdp-core
 
 Name:           rust-ironrdp-core
-Version:        0.1.3
+Version:        0.1.4
 Release:        %autorelease
 Summary:        IronRDP common traits and types
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/ironrdp-core
 Source:         %{crates_source}

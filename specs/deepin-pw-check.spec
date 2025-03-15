@@ -1,5 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/security/.*\.so$
+%bcond check 1
 
+# https://github.com/linuxdeepin/deepin-pw-check
 %global goipath         github.com/linuxdeepin/deepin-pw-check
 Version:                6.0.2
 %global tag             %{version}
@@ -16,8 +18,8 @@ Source0:        %{gosource}
 Patch0:         https://github.com/linuxdeepin/deepin-pw-check/pull/37.patch
 Patch1:         0001-Adapt-to-Fedora-cracklib-API.patch
 
-BuildRequires:  make
 BuildRequires:  gcc
+BuildRequires:  make
 BuildRequires:  pam-devel
 BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(gdk-3.0)
@@ -25,6 +27,8 @@ BuildRequires:  deepin-gettext-tools
 BuildRequires:  cracklib-devel
 BuildRequires:  iniparser-devel
 BuildRequires:  libxcrypt-devel
+# for testing
+BuildRequires:  cracklib-dicts
 
 %description
 In order to unify the authentication interface, this interface is designed to
@@ -53,6 +57,7 @@ sed -i 's|gcc |gcc %{build_cflags} %{build_ldflags} |' Makefile
 %go_generate_buildrequires
 
 %build
+export CGO_CFLAGS="%{optflags} -std=gnu17"
 # manually build the deepin-pw-check command since it is hard to override
 # Makefile with %%gobuild
 make prepare
@@ -64,12 +69,17 @@ export GOPATH=%{gopath}
 
 %install
 export GOPATH=%{gopath}
-export PKG_FILE_DIR=%{_libdir}/pkgconfig
 %make_install PKG_FILE_DIR=%{_libdir}/pkgconfig PAM_MODULE_DIR=%{_libdir}/security
 # don't install static library
 rm -v %{buildroot}%{_libdir}/*.a
 
 %find_lang deepin-pw-check
+
+%if %{with check}
+%check
+%gocheck
+make test
+%endif
 
 %files -f deepin-pw-check.lang
 %doc README.md

@@ -1,10 +1,10 @@
 %global tag_version release-%%(echo "%version" | tr '~' '-' | tr '.' '-')
 #%%global is_official 0%%(echo %%{tag_version} | grep -qE 'alpha|beta|final'; echo $?)
+%global is_official 0%(echo %{tag_version} | grep -qE 'alpha|beta|final'; echo $?)
 #%%global is_official 0
-%global is_official 0
 
 Name:       cldr-emoji-annotation
-Version:    47~beta2
+Version:    47
 Release:    %autorelease
 %if 0%{?fedora:1}%{?rhel:0}
 Epoch:      1
@@ -14,7 +14,7 @@ Summary:    Emoji annotation files in CLDR
 License:    Unicode-DFS-2016
 URL:        https://unicode.org/cldr
 %if %is_official
-Source0:    https://github.com/unicode-org/cldr/releases/download/%{tag_version}/cldr-core-%{version}.zip
+Source0:    https://github.com/unicode-org/cldr/releases/download/%{tag_version}/core.zip#/cldr-core-%{version}.zip
 %else
 Source0:    https://github.com/unicode-org/cldr/archive/refs/tags/%{tag_version}.zip#/cldr-%{tag_version}.zip
 %endif
@@ -108,7 +108,7 @@ done
 %files
 %if %is_official
 %doc README-common.md
-%license LICENSE.txt
+%license LICENSE
 %else
 %doc README.md
 %license LICENSE

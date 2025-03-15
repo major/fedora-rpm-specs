@@ -1,5 +1,5 @@
-%global DATE 20250301
-%global gitrev 504a13588c3919101c7409909bbe2c6af9dcb829
+%global DATE 20250313
+%global gitrev 4fe62f20633b8e1bf4d776d7f4644ce485efd0b2
 %global gcc_version 15.0.1
 %global gcc_major 15
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -143,7 +143,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.9%{?dist}
+Release: %{gcc_release}.10%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -298,9 +298,7 @@ Patch8: gcc15-no-add-needed.patch
 Patch9: gcc15-Wno-format-security.patch
 Patch10: gcc15-rh1574936.patch
 Patch11: gcc15-d-shared-libphobos.patch
-Patch12: gcc15-pr118953.patch
-Patch13: gcc15-pr119002.patch
-Patch14: gcc15-pr119006.patch
+Patch12: gcc15-pr119006.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -326,7 +324,7 @@ Patch100: gcc15-fortran-fdec-duplicates.patch
 %if %{build_go}
 # Avoid stripping these libraries and binaries.
 %global __os_install_post \
-chmod 644 %{buildroot}%{_prefix}/%{_lib}/libgo.so.23.* \
+chmod 644 %{buildroot}%{_prefix}/%{_lib}/libgo.so.24.* \
 chmod 644 %{buildroot}%{_prefix}/bin/go.gcc \
 chmod 644 %{buildroot}%{_prefix}/bin/gofmt.gcc \
 chmod 644 %{buildroot}%{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}/cgo \
@@ -334,7 +332,7 @@ chmod 644 %{buildroot}%{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}
 chmod 644 %{buildroot}%{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}/test2json \
 chmod 644 %{buildroot}%{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}/vet \
 %__os_install_post \
-chmod 755 %{buildroot}%{_prefix}/%{_lib}/libgo.so.23.* \
+chmod 755 %{buildroot}%{_prefix}/%{_lib}/libgo.so.24.* \
 chmod 755 %{buildroot}%{_prefix}/bin/go.gcc \
 chmod 755 %{buildroot}%{_prefix}/bin/gofmt.gcc \
 chmod 755 %{buildroot}%{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}/cgo \
@@ -898,32 +896,22 @@ so that there cannot be any synchronization problems.
 
 %prep
 %setup -q -n gcc-%{version}-%{DATE} -a 1 -a 2 -a 3
-%patch -P0 -p0 -b .hack~
-%patch -P2 -p0 -b .sparc-config-detection~
-%patch -P3 -p0 -b .libgomp-omp_h-multilib~
-%patch -P4 -p0 -b .libtool-no-rpath~
+%autopatch -p0 -m 0 -M 4
 %if %{build_isl}
-%patch -P5 -p0 -b .isl-dl~
-%patch -P6 -p0 -b .isl-dl2~
+%autopatch -p0 -m 5 -M 6
 %endif
 %if %{build_libstdcxx_docs}
-%patch -P7 -p0 -b .libstdc++-docs~
+%autopatch -p0 7
 %endif
-%patch -P8 -p0 -b .no-add-needed~
-%patch -P9 -p0 -b .Wno-format-security~
+%autopatch -p0 -m 8 -M 9
 %if 0%{?fedora} >= 29 || 0%{?rhel} > 7
-%patch -P10 -p0 -b .rh1574936~
+%autopatch -p0 10
 %endif
-%patch -P11 -p0 -b .d-shared-libphobos~
-%patch -P12 -p0 -b .pr118953~
-%patch -P13 -p0 -b .pr119002~
-%patch -P14 -p0 -b .pr119006~
-
-%patch -P50 -p0 -b .rh2155127~
+%autopatch -p0 -m 11 -M 99
 touch -r isl-0.24/m4/ax_prog_cxx_for_build.m4 isl-0.24/m4/ax_prog_cc_for_build.m4
 
 %if 0%{?rhel} >= 9
-%patch -P100 -p1 -b .fortran-fdec-duplicates~
+%autopatch -p1 100
 %endif
 
 %ifarch %{arm}
@@ -1600,7 +1588,7 @@ cp -r -p ../libstdc++-v3/doc/html ../rpm.doc/libstdc++-v3/html
 cp -r -p $libstdcxx_doc_builddir/html ../rpm.doc/libstdc++-v3/html/api
 mkdir -p %{buildroot}%{_mandir}/man3
 cp -r -p $libstdcxx_doc_builddir/man/man3/* %{buildroot}%{_mandir}/man3/
-find ../rpm.doc/libstdc++-v3 -name \*~ | xargs rm
+find ../rpm.doc/libstdc++-v3 -name \*~ -o -name \*.orig | xargs rm -f
 %endif
 
 %ifarch sparcv9 sparc64
@@ -1723,7 +1711,7 @@ ln -sf ../../../libstdc++.so.6.*[0-9] libstdc++.so
 ln -sf ../../../libgfortran.so.5.* libgfortran.so
 ln -sf ../../../libgomp.so.1.* libgomp.so
 %if %{build_go}
-ln -sf ../../../libgo.so.23.* libgo.so
+ln -sf ../../../libgo.so.24.* libgo.so
 %endif
 %if %{build_libquadmath}
 ln -sf ../../../libquadmath.so.0.* libquadmath.so
@@ -1758,7 +1746,7 @@ ln -sf ../../../../%{_lib}/libstdc++.so.6.*[0-9] libstdc++.so
 ln -sf ../../../../%{_lib}/libgfortran.so.5.* libgfortran.so
 ln -sf ../../../../%{_lib}/libgomp.so.1.* libgomp.so
 %if %{build_go}
-ln -sf ../../../../%{_lib}/libgo.so.23.* libgo.so
+ln -sf ../../../../%{_lib}/libgo.so.24.* libgo.so
 %endif
 %if %{build_libquadmath}
 ln -sf ../../../../%{_lib}/libquadmath.so.0.* libquadmath.so
@@ -1900,8 +1888,8 @@ ln -sf ../`echo ../../../../lib/libgfortran.so.5.* | sed s~/lib/~/lib64/~` 64/li
 ln -sf ../`echo ../../../../lib/libgomp.so.1.* | sed s~/lib/~/lib64/~` 64/libgomp.so
 %if %{build_go}
 rm -f libgo.so
-echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib/libgo.so.23.* | sed 's,^.*libg,libg,'`' )' > libgo.so
-echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib/libgo.so.23.* | sed 's,^.*libg,libg,'`' )' > 64/libgo.so
+echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib/libgo.so.24.* | sed 's,^.*libg,libg,'`' )' > libgo.so
+echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib/libgo.so.24.* | sed 's,^.*libg,libg,'`' )' > 64/libgo.so
 %endif
 %if %{build_libquadmath}
 rm -f libquadmath.so
@@ -2017,8 +2005,8 @@ ln -sf ../`echo ../../../../lib64/libgfortran.so.5.* | sed s~/../lib64/~/~` 32/l
 ln -sf ../`echo ../../../../lib64/libgomp.so.1.* | sed s~/../lib64/~/~` 32/libgomp.so
 %if %{build_go}
 rm -f libgo.so
-echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib64/libgo.so.23.* | sed 's,^.*libg,libg,'`' )' > libgo.so
-echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib64/libgo.so.23.* | sed 's,^.*libg,libg,'`' )' > 32/libgo.so
+echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib64/libgo.so.24.* | sed 's,^.*libg,libg,'`' )' > libgo.so
+echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib64/libgo.so.24.* | sed 's,^.*libg,libg,'`' )' > 32/libgo.so
 %endif
 %if %{build_libquadmath}
 rm -f libquadmath.so
@@ -2238,7 +2226,7 @@ chmod 755 %{buildroot}%{_prefix}/%{_lib}/liblsan.so.0.*
 %endif
 %if %{build_go}
 # Avoid stripping these libraries and binaries.
-chmod 644 %{buildroot}%{_prefix}/%{_lib}/libgo.so.23.*
+chmod 644 %{buildroot}%{_prefix}/%{_lib}/libgo.so.24.*
 chmod 644 %{buildroot}%{_prefix}/bin/go.gcc
 chmod 644 %{buildroot}%{_prefix}/bin/gofmt.gcc
 chmod 644 %{buildroot}%{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}/cgo
@@ -3519,7 +3507,7 @@ end
 %doc rpm.doc/go/*
 
 %files -n libgo
-%attr(755,root,root) %{_prefix}/%{_lib}/libgo.so.23*
+%attr(755,root,root) %{_prefix}/%{_lib}/libgo.so.24*
 %doc rpm.doc/libgo/*
 
 %files -n libgo-devel
@@ -3671,6 +3659,43 @@ end
 %endif
 
 %changelog
+* Thu Mar 13 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.10
+- update from trunk
+  - PRs analyzer/117262, c/60440, c/67301, c/112960, c/113515, c/117029,
+	c/117178, c/118579, c/119183, c++/98533, c++/100589, c++/109431,
+	c++/110584, c++/114795, c++/115580, c++/116740, c++/117364,
+	c++/117504, c++/117512, c++/118775, c++/118787, c++/118799,
+	c++/118874, c++/119073, c++/119076, c++/119102, c++/119123,
+	c++/119134, c++/119138, c++/119150, c++/119154, c++/119162,
+	cobol/119216, cobol/119229, d/119139, debug/119190, fortran/47928,
+	fortran/77872, fortran/98903, fortran/101577, fortran/103391,
+	fortran/104684, fortran/104826, fortran/107143, fortran/118747,
+	fortran/119049, fortran/119054, fortran/119074, fortran/119078,
+	fortran/119118, fortran/119157, fortran/119199, ipa/118318,
+	ipa/118785, ipa/119067, libgcc/119151, libstdc++/108053,
+	libstdc++/113310, libstdc++/115215, libstdc++/115218,
+	libstdc++/119081, libstdc++/119110, libstdc++/119121,
+	libstdc++/119144, lto/114501, middle-end/97323, middle-end/118457,
+	middle-end/118801, middle-end/119119, middle-end/119204,
+	middle-end/119219, middle-end/119226, modula2/118998, modula2/119088,
+	modula2/119192, other/38768, other/119052, preprocessor/119202,
+	rtl-optimization/114492, rtl-optimization/116564,
+	rtl-optimization/117477, rtl-optimization/118739,
+	rtl-optimization/119046, rtl-optimization/119071,
+	rtl-optimization/119099, sanitizer/56682, target/114222,
+	target/114991, target/115258, target/115439, target/115485,
+	target/115835, target/116708, target/116901, target/117931,
+	target/117955, target/118351, target/118892, target/118906,
+	target/118934, target/118942, target/118956, target/119084,
+	target/119115, target/119127, target/119131, target/119133,
+	target/119171, target/119238, testsuite/115248,
+	tree-optimization/116125, tree-optimization/116901,
+	tree-optimization/117919, tree-optimization/118922,
+	tree-optimization/118976, tree-optimization/119057,
+	tree-optimization/119096, tree-optimization/119145,
+	tree-optimization/119166
+- use %%autopatch in the spec file
+
 * Sat Mar  1 2025 Jakub Jelinek <jakub@redhat.com> 15.0.1-0.9
 - update from trunk
   - PRs c/114870, c/119001, c++/110822, c++/114913, c++/118516, c++/118928,

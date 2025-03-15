@@ -1,14 +1,14 @@
+# scikit-build-core is not available on epel9 and below
+%bcond python %[ !(0%{?epel} && 0%{?epel} <= 9) ]
+
 Name:           spglib
 Summary:        C library for finding and handling crystal symmetries
-Version:        2.5.0
+Version:        2.6.0
 Release:        %autorelease
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            https://spglib.readthedocs.io/
 
 Source:         https://github.com/spglib/spglib/archive/refs/tags/v%{version}.tar.gz
-
-Patch:          https://github.com/spglib/spglib/commit/8e342ccbaaa6a06b9b4ab2a4a32d511e3cf4e174.patch#/fix-python-metadata.patch
 
 BuildRequires:  ninja-build
 BuildRequires:  cmake
@@ -16,7 +16,10 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  gcc-fortran
 BuildRequires:  cmake(GTest)
+%if %{with python}
 BuildRequires:  python3-devel
+BuildRequires:  tomcli
+%endif
 
 %description
 C library for finding and handling crystal symmetries.
@@ -47,13 +50,15 @@ Requires:       spglib-devel = %{version}-%{release}
 This package contains Fortran module and header files for developing
 Fortran applications that use spglib.
 
+%if %{with python}
 %package -n     python3-spglib
 Summary:        Python3 library of spglib
-Requires:       spglib = %{version}
+Requires:       spglib = %{version}-%{release}
 
 %description -n python3-spglib
 This package contains the libraries to
 develop applications with spglib Python3 bindings.
+%endif
 
 
 %prep
@@ -61,38 +66,50 @@ develop applications with spglib Python3 bindings.
 
 
 %generate_buildrequires
+%if %{with python}
+# Remove the numpy version constraint
+tomcli set pyproject.toml arrays replace "build-system.requires" "numpy.*" "numpy"
 %pyproject_buildrequires -x test
+%endif
 
 
-%build
+%conf
 %cmake \
+    -G Ninja \
     -DSPGLIB_SHARED_LIBS=ON \
     -DSPGLIB_WITH_Fortran=ON \
     -DSPGLIB_WITH_Python=OFF \
     -DSPGLIB_WITH_TESTS=ON \
     -DCMAKE_INSTALL_MODULEDIR=%{_fmoddir}
 
+
+%build
 %cmake_build
-%pyproject_wheel
+%if %{with python}
+# Use the C library built at previous step to avoid building bundled version
+%{pyproject_wheel %{shrink:
+  -C cmake.build-type=RelWithDebInfo
+  -C cmake.define.Spglib_ROOT=$(pwd)/%_vpath_builddir
+  -C cmake.define.CMAKE_REQUIRE_FIND_PACKAGE_Spglib=true
+}}
+%endif
 
 
 %install
 %cmake_install
 
+%if %{with python}
 %pyproject_install
-%pyproject_save_files spglib
-
-rm %{buildroot}%{python3_sitearch}/spglib/lib/libsymspg.so*
-rm %{buildroot}%{python3_sitearch}/spglib/include/spglib.h
-# Delete from pyproject_files as well
-sed -i "/libsymspg.so/d" %{pyproject_files}
-sed -i "/spglib.h/d" %{pyproject_files}
+%pyproject_save_files -l spglib
+%endif
 
 
 %check
 %ctest
+%if %{with python}
 # Need to set LD_LIBRARY_PATH manually for this test
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} %pytest -v
+%endif
 
 
 %files
@@ -117,7 +134,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} %pytest -v
 %{_libdir}/pkgconfig/spglib_f08.pc
 %{_libdir}/cmake/Spglib/SpglibTargets_fortran*
 
+%if %{with python}
 %files -n python3-%{name} -f %{pyproject_files}
+%endif
 
 
 %changelog

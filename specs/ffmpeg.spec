@@ -82,7 +82,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        7.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -859,6 +859,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}/examples
 %{_mandir}/man3/libswscale.3*
 
 %changelog
+* Thu Mar 13 2025 Fabio Valentini <decathorpe@gmail.com> - 7.1.1-2
+- Rebuild for noopenh264 2.6.0
+
 * Thu Mar 06 2025 Dominik Mierzejewski <dominik@greysector.net> - 7.1.1-1
 - Update to 7.1.1 (resolves rhbz#2349351)
 - Enable LC3 codec via liblc3

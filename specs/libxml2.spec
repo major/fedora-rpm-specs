@@ -1,6 +1,6 @@
 Name:           libxml2
-Version:        2.12.9
-Release:        2%{?dist}
+Version:        2.12.10
+Release:        1%{?dist}
 Summary:        Library providing XML and HTML support
 
 # list.c, dict.c and few others use ISC-Veillard
@@ -158,6 +158,9 @@ popd
 %{python3_sitelib}/__pycache__/drv_libxml2.*
 
 %changelog
+* Thu Mar 13 2025 David King <amigadave@amigadave.com> - 2.12.10-1
+- Update to 2.12.10
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

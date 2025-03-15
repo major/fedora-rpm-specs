@@ -30,7 +30,7 @@
 Name:           freerdp
 Epoch:          2
 Version:        3.12.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 
 # The effective license is Apache-2.0 but:
@@ -376,6 +376,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools3.pc
 
 %changelog
+* Thu Mar 13 2025 Fabio Valentini <decathorpe@gmail.com> - 2:3.12.0-2
+- Rebuild for noopenh264 2.6.0
+
 * Mon Feb 17 2025 Ondrej Holy <oholy@redhat.com> - 2:3.12.0-1
 - Update to 3.12.0 (#2344203, #2344301)
 - Fix use of WINPR_DEPRECATED (#2344338)

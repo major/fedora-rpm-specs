@@ -15,8 +15,10 @@ Patch2:        python-ckzg-0002-Disable-Werror.patch
 # https://github.com/supranational/blst/pull/109
 Patch3:        blst-0001-Support-64-bit-limbs-on-no-asm-platforms.patch
 BuildRequires: gcc
-BuildRequires: python3-devel
 BuildRequires: python3-pytest
+BuildSystem:   pyproject
+BuildOption(prep):    -n %{pypi_name}-%{version}
+BuildOption(install): -l %{pypi_name}
 # https://github.com/supranational/blst
 Provides:      bundled(blst)
 
@@ -29,21 +31,7 @@ Summary: %{summary}
 %description -n python3-%{pypi_name}
 %{summary}.
 
-%prep
-%autosetup -p1 -n %{pypi_name}-%{version}
-
-%generate_buildrequires
-%pyproject_buildrequires -t
-
-%build
-%pyproject_wheel
-
-%install
-%pyproject_install
-%pyproject_save_files -l %{pypi_name}
-
-%check
-%pyproject_check_import
+%check -a
 cd src
 make test
 

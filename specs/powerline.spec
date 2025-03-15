@@ -2,7 +2,7 @@
 
 Name:           powerline
 Version:        2.8.4
-Release:        2%{?dist}
+Release:        %autorelease
 
 Summary:        The ultimate status-line/prompt utility
 License:        MIT
@@ -19,6 +19,18 @@ BuildRequires:  systemd
 BuildRequires:  tmux
 BuildRequires:  vim-minimal
 
+# Test dependencies:
+BuildRequires:  git-core
+BuildRequires:  python3dist(netifaces)
+BuildRequires:  python3dist(pexpect)
+BuildRequires:  python3dist(psutil)
+BuildRequires:  python3dist(pytest)
+# There is no `python-hglib` package for EPEL
+%if 0%{?fedora}
+BuildRequires:  mercurial
+BuildRequires:  python-hglib
+%endif
+
 Requires:       python3
 Requires:       powerline-fonts
 # Needs these if we have to drop back to bash/socat client due to C compile failure
@@ -31,6 +43,12 @@ Recommends:     python3-pygit2
 
 Source0:        https://github.com/powerline/powerline/archive/%{version}/powerline-%{version}.tar.gz
 Source1:        vim-powerline.metainfo.xml
+
+# Fix Vim status line for Git repositories
+Patch0:         0001-Fix-TypeError-bad-argument-type-for-built-in-operati.patch
+
+# Fix unit tests
+Patch1:         0002-Rename-assertion-method.patch
 
 %description
 Powerline is a status-line plugin for vim, and provides status-lines and prompts
@@ -189,6 +207,10 @@ install -m 0644 powerline/dist/systemd/powerline-daemon.service %{buildroot}%{_u
 %fdupes %{buildroot}%{python3_sitelib}
 %endif
 
+%check
+PYTHONPATH=. TEST_ROOT=. \
+%pytest -r s -k 'not (test_kw_threaded_segment or test_logger_format or test_system_load or test_threaded_segment or test_top_log_format or test_user)'
+
 %post
 %systemd_user_post powerline.service
 
@@ -332,368 +354,4 @@ install -m 0644 powerline/dist/systemd/powerline-daemon.service %{buildroot}%{_u
 %{_datadir}/tmux/powerline*.conf
 
 %changelog
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Tue Sep 03 2024 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 2.8.4-1
-- Update to 2.8.4 (#2309573)
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.3-16
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 2.8.3-15
-- Rebuilt for Python 3.13
-
-* Wed Jan 31 2024 Christoph Erhardt <fedora@sicherha.de> - 2.8.3-14
-- Fix `SyntaxWarning` with Python 3.12 (rhbz#2260646)
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.3-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.3-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Oct 07 2023 Christoph Erhardt <fedora@sicherha.de> - 2.8.3-11
-- Review SPDX license identifier; `MIT` is correct
-- Make summary and description of `fonts` subpackage more precise (rhbz#2232553)
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.3-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.8.3-9
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.3-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.3-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jun 23 2022 Christoph Erhardt <fedora@sicherha.de> - 2.8.3-6
-- Fix build error with Python 3.11 (#2022396)
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 2.8.3-5
-- Rebuilt for Python 3.11
-
-* Sun Jun 05 2022 Christoph Erhardt <fedora@sicherha.de> - 2.8.3-4
-- Use correct `%systemd_` RPM macros for user unit (#2093695)
-
-* Fri Jun 03 2022 Christoph Erhardt <fedora@sicherha.de> - 2.8.3-3
-- Build `powerline` binary with correct linker flags
-- Make Fontconfig symlink relative
-- Change fontconfig dependency to fontpackages-filesystem (#2093167)
-
-* Thu May 26 2022 Christoph Erhardt <fedora@sicherha.de> - 2.8.3-2
-- Install `powerline-daemon.service` into systemd user directory (#1976191)
-
-* Thu May 19 2022 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 2.8.3-1
-- Update to 2.8.3 (#2088362)
-
-* Thu Feb 10 2022 Timothée Ravier <tim@siosm.fr> - 2.8.2-5
-- Move AppStream metadata to metainfo
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 2.8.2-2
-- Rebuilt for Python 3.10
-
-* Tue Mar 02 2021 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.8-5
-- Rebuilt for updated systemd-rpm-macros
-  See https://pagure.io/fesco/issue/2583.
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 2.8-2
-- Rebuilt for Python 3.9
-
-* Fri May 15 2020 Andreas Schneider <asn@redhat.com> - 2.8-1
-- Update to version 2.8
-  o Added ipython >= 7.0.0 support
-  o Various other minor fixes and improvements
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Oct 03 2019 Miro Hrončok <mhroncok@redhat.com> - 2.7-5
-- Rebuilt for Python 3.8.0rc1 (#1748018)
-
-* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 2.7-4
-- Rebuilt for Python 3.8
-
-* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Mon Aug 13 2018 Andreas Schneider <asn@redhat.com> - 2.7-1
-- Update to version 2.7
-  o Added ALE support.
-  o Added mocp support.
-  o Added awesome 4+ support.
-  o Added support for `$pipestatus` in bash.
-  o Recognize terminal-job mode.
-  o Fixed i3 bindings when both i3-py and i3ipc are installed.
-  o Fixed i3 bar bindings.
-  o Fixed checking for battery in WSL.
-  o Fixed spotify segment on Mac OS.
-  o Fixed compiling C client with GCC-7.
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Tue Jun 19 2018 Miro Hrončok <mhroncok@redhat.com> - 2.6-8
-- Rebuilt for Python 3.7
-
-* Tue Mar 13 2018 Michael Goodwin <xenithorb@fedoraproject.org> - 2.6-7
-- Fix mislocated ipython bindings by not moving them (RHBZ #1554741)
-  o There's no real justification to move ipython bindings when they're imported
-    as python modules by the user anyway.
-  o Before this change, importing the powerline.bindings.ipython.since_5 module
-    wouldn't work because it couldn't locate the other two files that were
-    moved into /usr/share/powerline
-  o https://powerline.readthedocs.io/en/master/usage/other.html#ipython-prompt
-
-* Thu Feb 22 2018 Michael Goodwin <xenithorb@fedoraproject.org> - 2.6-3
-- Fix powerline requires both python2 and python3 (RHBZ #1546752)
-- Add commented Requires for if we have to fall back to bash (RHBZ #1514830)
-
-* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Thu Jul 13 2017 Andreas Schneider <asn@redhat.com> - 2.6-2
-- Fix build with gcc7
-
-* Wed May 10 2017 Andreas Schneider <asn@redhat.com> - 2.6-1
-- Update to version 2.6
-  o Added support for new Vim modes.
-  o Added ability to control output padding.
-  o Added iTunes player segment.
-  o Added support for tmux development builds.
-  o Added a workaround for a fish bug sometimes occurring when using eval from
-  o config.fish (upstream status unknown).
-  o Added a workaround for tmux 2.4 bug: excessive CPU usage when having multiple
-  o panes (also fixed upstream).
-  o Fixed clean file status support in mercurial.
-  o Fixed error when battery capacity is zero and using DBus.
-  o Fixed mercurial command servers leakage.
-  o Refactored awesome bindings to use powerline daemon.
-
-* Fri Apr 21 2017 Filipe Rosset <rosset.filipe@gmail.com> - 2.5.2-3
-- Attempt to fix FTBFS on rawhide rhbz #1423199
-
-* Fri Apr 21 2017 Filipe Rosset <rosset.filipe@gmail.com> - 2.5.2-2
-- Rebuild for tmux 2.4
-
-* Fri Feb 10 2017 Andreas Schneider <asn@redhat.com> - 2.5.2-1
-- Update to version 2.5.2
-  o Fixed ipython-5.2* support.
-  o Made more robust theme default.
-  o Made it use hglib in place of unstable mercurial plugin API.
-  o Fixed latest fish version support.
-  o Some other fixes and documentation adjustments.
-
-* Wed Dec 21 2016 Andreas Schneider <asn@redhat.com> - 2.5-4
-- Add upstream work around for gnome-terminal issues, brc#1403133
-- Make pygit a recommondation
-
-* Mon Dec 19 2016 Miro Hrončok <mhroncok@redhat.com> - 2.5-3
-- Rebuild for Python 3.6
-
-* Wed Nov 09 2016 Andreas Schneider <asn@redhat.com> - 2.5-2
-- resolves: #1392619 - Put fonts in its own package
-- Add require for pygit2
-
-* Thu Aug 18 2016 Andreas Schneider <asn@redhat.com> - 2.5-1
-- Update to version 2.5
-  o Fix trailing whitespace segment on Python 3.
-  o Fix left segments support in tmux-2.1
-  o Add support for IPython-5
-  o Increase socket backlog number for `powerline-daemon`
-  o Use different query to retrieve weather
-  o Implement stash backend for git
-  o Provide stash counter
-  o Include stash in default shell layout
-  o Expose stash to Vim
-
-* Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.4-4
-- https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
-
-* Fri Jun 17 2016 Andreas Schneider <asn@redhat.com> - 2.4-3
-- Add support to start the powerline daemon with systemd
-- Fix left segments support in tmux-2.1
-
-* Tue Apr 19 2016 Patrick Uiterwijk <puiterwijk@redhat.com> - 2.4-2
-- Apply patch to prefer python3 over python2
-
-* Tue Apr 19 2016 Andreas Schneider <asn@redhat.com> - 2.4-1
-- Update to version 2.4
-  o Added short parameter for system_load segment that leaves only one load
-    average number out of three.
-  o Added powerline.segments.i3wm.scratchpad segment used to list windows that
-    are currently on the scratchpad.
-  o Added support for multiple batteries in battery segment.
-  o Added .i3wm.workspace segment which describes single i3wm workspace and
-    workspaces lister. Old .i3wm.workspaces segment was deprecated.
-  o Added support for multiple monitors in lemonbar bindings.
-  o Added support for most recent tmux version (2.2).
-  o Fixed battery status support on some linux systems.
-  o Fixed MPD bindings: they sometimes were not able to handle names if they
-    did not fit ASCII.
-  o Fixed MPD bindings: they did not correctly get elapsed time.
-  o Fixed AttributeError on some systems: LC_MESSAGES is not always available.
-  o Fixed Mac OS-specific variant of spotify player support when Python-3 is
-    used.
-  o Fixed performance of the tabline.
-
-* Sat Apr 16 2016 Patrick Uiterwijk <puiterwijk@redhat.com> - 2.3-4
-- resolves: #1323828 - Revert move introduced in ceaa583d
-
-* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Tue Nov 24 2015 Andreas Schneider <asn@redhat.com> - 2.3-2
-- resolves: #1282487 - Switch to python3
-
-* Tue Oct 20 2015 Andreas Schneider <asn@redhat.com> - 2.3-1
-- Update to version 2.3
-  o Added ability to hide domain part of the user name to common.env.user
-    segment.
-  o Added ability to show conda environment to virtualenv segment.
-  o Added systemd service file.
-  o Added ability to detect internal_ip interface using default gateway.
-  o Added support for password-protected connections in mpd player bindings.
-  o Added `output` option to i3wm.workspaces segment to filter workspaces
-    based on their output.
-  o Added “charging” indicator to battery segment.
-  o Made tmux bindings show zoom indicator in window status.
-  o Fixed tmux bindings so that they support tmux-2.1.
-  o Fixed support for unicode characters in common.time.date segment.
-- resolves: #1272103 - Add missing vim python functions
-
-* Thu Sep 17 2015 Andreas Schneider <asn@redhat.com> - 2.2-2
-- resolves: #1246510 - Add appdate metainfo file for Gnome
-- resolves: #1260620 - Install vim plugin to correct directory
-- resolves: #1260617 - Rename vim plugin to vim-powerline
-
-* Wed Sep 02 2015 Andreas Schneider <asn@redhat.com> - 2.2-1
-- Update to version 2.2
-  o Added support for newest psutil version.
-  o Added support for non-SSL IMAP4 connection.
-  o Added support for clickable tab names in Vim.
-  o Added support for truncating tmux segments.
-  o Added support for new (i3ipc) module that interacts with i3.
-  o Added support for i3 modes.
-  o Fixed coloring of network_load segment.
-  o Fixed dash bindings on OS X.
-  o Fixed parsing numbers starting with 2 supplied by POWERLINE_*_OVERRIDES
-    environment variables.
-
-* Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.1.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Tue May 19 2015 Andreas Schneider <asn@redhat.com> - 2.1.4-1
-- Update to version 2.1.4
-  o Added support for placing powerline on the left in qtile.
-  o Added qtile-1.9 support.
-  o Fixed tmux-2.0 support.
-  o Made it easier to run tests outside of travis.
-  o Added some missing highlight groups.
-  o Made it omit writing empty above lines.
-  o Fixed UnicodeEncodeError when running powerline-lint with
-    non-ASCII characters in error messages.
-  o Fixed code that replaces &statusline value: it now is able
-    to replace non-ASCII &statuslines as well.
-
-
-* Fri Feb 20 2015 Andreas Schneider <asn@redhat.com> - 2.1-1
-- Update to version 2.1
-  o Added BAR support.
-  o Added support for pdb (Python debugger) prompt.
-  o Added more highlight groups to solarized colorscheme.
-  o Updated zpython bindings.
-  o Fixed C version of the client on non-Linux platforms.
-  o Fixed some errors in powerline-lint code.
-  o Fixed Python-2.6 incompatibilities in setup.py.
-
-* Tue Jan 20 2015 Andreas Schneider <asn@redhat.com> - 2.0-1
-- Update to version 2.0
-  o Added fbterm (framebuffer terminal emulator) support.
-  o Added theme with unicode-7.0 symbols.
-  o Added support for PyPy3.
-  o Compiler is now called with CFLAGS from environment in setup.py if present.
-  o Added support for pyuv-1.*.
-  o Added a way to write error log to Vim global variable.
-  o powerline script now supports overrides from $POWERLINE_CONFIG_OVERRIDES,
-    $POWERLINE_THEME_OVERRIDES environment variables, so does powerline-config
-     script.
-  o powerline and powerline-config scripts now support taking paths from
-    $POWERLINE_CONFIG_PATHS.
-  o powerline-lint is now able to report dictionaries which were merged in to
-    form marked dictionary and what were the previous values of overridden
-    values.
-  o Added support for Byron Rakitzis’ rc shell reimplementation.
-  o Added support for querying battery status on cygwin platform.
-
-* Wed Dec 10 2014 Andreas Schneider <asn@redhat.com> - 1.3.1-2
-- Update cflags patch.
-
-* Tue Dec 09 2014 Andreas Schneider <asn@redhat.com> - 1.3.1-1
-- Update to version 1.3.1.
-- resolves: #1171420 - Fix passing optflags to the C compiler.
-
-* Thu Dec 04 2014 Andreas Schneider <asn@redhat.com> - 1.3-2
-- Fix powerline-config.
-
-* Wed Dec 03 2014 Andreas Schneider <asn@redhat.com> - 1.3-1
-- Update to version 1.3.
-
-* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.0.1-8.20140508git9e7c6c
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
-
-* Thu May 08 2014 Andreas Schneider <asn@redhat.com> - 0.0.1-7.20140508git9e7c6c
-- Update to revision 0.0.1-7.20140508git9e7c6c
-
-* Wed Mar 12 2014 Andreas Schneider <asn@redhat.com> - 0.0.1-6.20140226git70a94e
-- Update to revision 0.0.1-6.20140226git70a94e
-
-* Thu Nov 28 2013 Andreas Schneider <asn@redhat.com> - 0.0.1-6.20131123gitdb80fc
-- Remove EPEL support.
-- Removed BuildRoot.
-
-* Wed Nov 27 2013 Andreas Schneider <asn@redhat.com> - 0.0.1-5.20131123gitdb80fc
-- Remove fontpatcher.py.patch
-- Moved BuildReqruies.
-- Try to fix build on EPEL5.
-
-* Wed Nov 27 2013 Andreas Schneider <asn@redhat.com> - 0.0.1.20131123gitdb80fc-4
-- Added missing vim directories.
-- Fixed BuildRoot.
-- Use fdupes only on Fedora.
-- Use name tag in Requires.
-
-* Mon Nov 25 2013 Andreas Schneider <asn@redhat.com> - 0.0.1.20131123gitdb80fc-3
-- Changed define to global
-- Moved BuildArch
-
-* Sun Nov 24 2013 Andreas Schneider <asn@redhat.com> - 0.0.1.20131123gitdb80fc-2
-- Set checkout.
-- Set source URL.
-- Fix default configuration path.
-
-* Sun Nov 24 2013 Andreas Schneider <asn@redhat.com> - 0.0.1.20131123gitdb80fc-1
-- Initial package.
+%autochangelog

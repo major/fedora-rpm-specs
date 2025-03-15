@@ -4,8 +4,8 @@
 
 Summary:	Font configuration and customization library
 Name:		fontconfig
-Version:	2.16.0
-Release:	2%{?dist}
+Version:	2.16.1
+Release:	1%{?dist}
 # src/ftglue.[ch] is in Public Domain
 # src/fccache.c contains Public Domain code
 ## https://gitlab.com/fedora/legal/fedora-license-data/-/issues/177
@@ -22,8 +22,6 @@ Patch0:		%{name}-sleep-less.patch
 Patch4:		%{name}-drop-lang-from-pkgkit-format.patch
 Patch5:		%{name}-disable-network-required-test.patch
 Patch6:		%{name}-lower-nonlatin-conf.patch
-Patch7:		%{name}-meson-cachedir.patch
-Patch8:		%{name}-meson-endianness.patch
 
 BuildRequires:	libxml2-devel
 BuildRequires:	freetype-devel >= %{freetype_version}
@@ -88,6 +86,8 @@ mv conf.d/65-nonlatin.conf conf.d/69-nonlatin.conf
 
 install -p -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/fonts/conf.d
 ln -s %{_fontconfig_templatedir}/25-unhint-nonlatin.conf $RPM_BUILD_ROOT%{_fontconfig_confdir}/
+
+rm $RPM_BUILD_ROOT/%{_libdir}/libfontconfig.a
 
 # Use implied value to allow the use of conditional conf
 rm $RPM_BUILD_ROOT%{_sysconfdir}/fonts/conf.d/10-sub-pixel-*.conf
@@ -202,6 +202,9 @@ fi
 %doc fontconfig-devel.txt fontconfig-devel.html
 
 %changelog
+* Thu Mar 13 2025 Akira TAGOH <tagoh@redhat.com> - 2.16.1-1
+- New upstream release.
+
 * Mon Jan 27 2025 Akira TAGOH <tagoh@redhat.com> - 2.16.0-2
 - Fix endian detection.
   Resolves: rhbz#2341757

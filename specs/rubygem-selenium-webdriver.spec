@@ -4,7 +4,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 4.27.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Selenium is a browser automation tool for automated testing of webapps and more
 License: Apache-2.0
 URL: https://selenium.dev
@@ -81,7 +81,7 @@ cd %{builddir}
 # https://bugzilla.redhat.com/show_bug.cgi?id=2278096#c13
 %gemspec_remove_file Dir.glob('bin/{windows,macos}/selenium-manager{,.exe}')
 # Provide minimal `selenium-manager` stub.
-mv %{SOURCE3} bin/linux/
+cp -a %{SOURCE3} bin/linux/
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -148,6 +148,9 @@ popd
 %{gem_instdir}/selenium-webdriver.gemspec
 
 %changelog
+* Wed Mar 12 2025 Vít Ondruch <vondruch@redhat.com> - 4.27.0-4
+- Fix `selenium-manager` stub shebang.
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.27.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

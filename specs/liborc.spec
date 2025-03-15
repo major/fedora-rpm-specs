@@ -1,11 +1,11 @@
 Summary: Library for producing small, fast columnar storage for Hadoop workloads
 Name:    liborc
-Version: 2.1.0
+Version: 2.1.1
 Release: 1%{?dist}
 License: Apache-2.0
 URL:     http://orc.apache.org/
-Source: https://archive.apache.org/dist/orc/orc-%{version}/orc-%{version}.tar.gz
-Source1: https://archive.apache.org/dist/orc/orc-format-%{version}/orc-format-1.0.0.tar.gz
+Source:  https://downloads.apache.org/orc/orc-%{version}/orc-%{version}.tar.gz
+Source1: https://downloads.apache.org/orc/orc-format-1.0.0/orc-format-1.0.0.tar.gz
 Patch0001:	0001-cmake.patch
 Patch0002:	0002-c++-src-CpuInfoUtil.cc.patch
 # Apache ORC has numerous compile errors and apparently assumes a 64-bit
@@ -134,6 +134,9 @@ rm -f %{buildroot}/%{_includedir}/orc/sargs/._*.hh
      %{_libdir}/liborc.so
 
 %changelog
+* Thu Mar 13 2025  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 2.1.1-1
+- Apache ORC 2.1.1
+
 * Thu Feb 6 2025  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 2.1.0-1
 - Apache ORC 2.1.0
 

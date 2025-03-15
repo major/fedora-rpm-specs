@@ -35,7 +35,7 @@ cp %SOURCE1 .
 
 %build
 %mvn_alias : org.codehaus.mojo:mojo
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install

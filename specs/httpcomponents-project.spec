@@ -36,7 +36,7 @@ use it as runtime requirement.
 
 %build
 %mvn_file  : %{name}
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install

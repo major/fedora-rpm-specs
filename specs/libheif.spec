@@ -5,7 +5,7 @@
 
 Name:           libheif
 Version:        1.19.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        HEIF and AVIF file format decoder and encoder
 
 License:        LGPL-3.0-or-later and MIT
@@ -167,6 +167,9 @@ multilibFileVersions %{buildroot}%{_includedir}/%{name}/heif_version.h
 
 
 %changelog
+* Thu Mar 13 2025 Fabio Valentini <decathorpe@gmail.com> - 1.19.5-4
+- Rebuild for noopenh264 2.6.0
+
 * Wed Feb 05 2025 Robert-André Mauchin <zebob.m@gmail.com> - 1.19.5-3
 - Rebuilt for aom 3.11.0
 

@@ -262,7 +262,7 @@
 
 Name:	chromium
 Version: 134.0.6998.88 
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -1762,6 +1762,9 @@ fi
 %endif
 
 %changelog
+* Thu Mar 13 2025 Fabio Valentini <decathorpe@gmail.com> - 134.0.6998.88-2
+- Rebuild for noopenh264 2.6.0
+
 * Tue Mar 11 2025 Than Ngo <than@redhat.com> -  134.0.6998.88 -1
 - Update to 134.0.6998.88
   * High CVE-2025-1920: Type Confusion in V8

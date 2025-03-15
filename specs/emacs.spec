@@ -26,6 +26,9 @@ Source102:     https://keys.openpgp.org/vks/v1/by-fingerprint/12BB9B400EE3F77282
 Source4:       dotemacs.el
 Source5:       site-start.el
 Source6:       default.el
+# Emacs Terminal Mode, #551949, #617355
+Source7:       emacs-terminal.desktop
+Source8:       emacs-terminal.sh
 Source9:       emacs-desktop.sh
 
 Source10:      emacs_lisp.attr
@@ -224,13 +227,13 @@ Requires:      /usr/bin/readlink
 Requires:      %{name}-filesystem
 Requires:      emacsclient
 Requires:      libgccjit
-Recommends:    (emacs or emacs-gtk+x11 or emacs-lucid or emacs-nw)
+Recommends:    emacs(bin)
 Recommends:    enchant2
 Recommends:    info
 Provides:      %{name}-el = %{epoch}:%{version}-%{release}
 Obsoletes:     emacs-el < 1:24.3-29
 # transient.el is provided by emacs in lisp/transient.el
-Provides:      emacs-transient = 0.3.7
+Provides:      emacs-transient = 0.7.2.2
 # the existing emacs-transient package is obsoleted by emacs 28+, last package
 # version as of the release of emacs 28.1 is obsoleted
 Obsoletes:     emacs-transient < 0.3.0-4
@@ -250,6 +253,20 @@ Recommends:    (gcc-c++ if libtree-sitter < 0.24.0)
 %desc
 This package contains all the common files needed by emacs, emacs-gtk+x11,
 emacs-lucid, or emacs-nw.
+
+
+
+%package terminal
+Summary:       A desktop menu item for GNU Emacs terminal.
+Requires:      (emacs or emacs-gtk+x11 or emacs-lucid)
+BuildArch:     noarch
+
+%description terminal
+Contains a desktop menu item running GNU Emacs terminal. Install
+emacs-terminal if you need a terminal with Malayalam support.
+
+Please note that emacs-terminal is a temporary package and it will be
+removed when another terminal becomes capable of handling Malayalam.
 
 
 %package devel
@@ -515,8 +532,15 @@ install -p -m 0644 %SOURCE10 %{buildroot}%{_fileattrsdir}
 install -p -m 0755 %SOURCE11 %{buildroot}%{_rpmconfigdir}
 install -p -m 0644 macros.emacs %{buildroot}%{_rpmmacrodir}
 
+# Installing emacs-terminal binary
+install -p -m 755 %SOURCE8 %{buildroot}%{_bindir}/emacs-terminal
+
 # After everything is installed, remove info dir
 rm -f %{buildroot}%{_infodir}/dir
+
+# Install desktop files
+desktop-file-install --dir=%{buildroot}%{_datadir}/applications \
+                     %SOURCE7
 
 # Install a wrapper to avoid running the Wayland-only build on X11
 install -p -m 0755 %SOURCE9 %{buildroot}%{_bindir}/emacs-desktop
@@ -762,9 +786,13 @@ fi
 %attr(0644,root,root) %config %{site_lisp}/site-start.el
 %{pkgconfig}/emacs.pc
 
+%files terminal
+%{_bindir}/emacs-terminal
+%{_datadir}/applications/emacs-terminal.desktop
 
 %files devel
 %{_includedir}/emacs-module.h
+
 
 %changelog
 %autochangelog

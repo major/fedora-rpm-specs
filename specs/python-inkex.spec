@@ -1,6 +1,6 @@
-%global         commit          395418359ddcb5b8014b857115f7f6b2f147033c
+%global         commit          89726a336658e2dd3986a64a26cffd67fd632afe
 %global         shortcommit     %(c=%{commit}; echo ${c:0:8})
-%global         commitdate      20250106
+%global         commitdate      20250307
 %global         reponame        extensions
 %global         srcname         inkex
 %global         forgeurl        https://gitlab.com/inkscape/extensions
@@ -122,6 +122,9 @@ sed -i /env\ python/d %{buildroot}%{python3_sitelib}/inkex/tester/inx.py
 %license LICENSE.txt
  
 %changelog
+* Thu Mar 13 2025 Benson Muite <fed500@fedoraproject.org> - 1.4.0^20250307git89726a33-1
+- Use a version so that python-svg2tikz builds
+
 * Sun Jan 19 2025 Benson Muite <fed500@fedoraproject.org> - 1.4.0^20250106git39541835-1
 - Update to pre-release to ensure builds on Python 3.14
 

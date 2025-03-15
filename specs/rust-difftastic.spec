@@ -15,12 +15,18 @@ Source:         %{crates_source}
 Source1:        https://github.com/Wilfred/difftastic/raw/%{version}/difft.1
 # Manually created patch for downstream crate metadata changes
 # * bump bumpalo from 3.16.0 to 3.17.0
-# * bump tree-sitter-ocaml from 0.23.2 to 0.24"
+# * bump tree-sitter-ocaml from 0.23.2 to 0.24
 # * drop crossterm/windows
 # * unpin libmimalloc-sys
 # * relax upper bounds on:
 # * - assert_cmd
 # * - ignore
+# * update itertools to 0.14: https://github.com/Wilfred/difftastic/pull/822
+# * update strsim to 0.11.1: https://github.com/Wilfred/difftastic/pull/822
+# * update owo-colors to 4.2.0: https://github.com/Wilfred/difftastic/pull/822
+# * allow strum to 0.27: https://github.com/Wilfred/difftastic/pull/822
+# * update hashbrown to 0.15.1: https://github.com/Wilfred/difftastic/pull/822
+# * allow line-numbers 0.4.0: https://github.com/Wilfred/difftastic/pull/822
 Patch:          difftastic-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

@@ -46,7 +46,9 @@ BuildRequires:  mvn(org.apache.maven.reporting:maven-reporting-impl)
 %description
 Maven Plugin for processing JavaCC grammar files.
 
+%if %{without bootstrap}
 %{?javadoc_package}
+%endif
 
 %prep
 %autosetup -p1 -C
@@ -73,7 +75,11 @@ rm src/main/java/org/codehaus/mojo/javacc/JJDocMojo.java
 %endif
 
 %build
+%if %{with bootstrap}
+%mvn_build -j
+%else
 %mvn_build
+%endif
 
 %install
 %mvn_install

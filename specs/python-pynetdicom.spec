@@ -12,7 +12,7 @@ Version:        2.1.1
 
 %forgemeta
 
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A Python implementation of the DICOM networking protocol
 
 License:        MIT
@@ -177,6 +177,9 @@ k="${k-}${k+ and }not (TestPrettyDataset and test_sequence_multi)"
 %{_bindir}/storescu
 
 %changelog
+* Thu Mar 13 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.1.1-5
+- Rebuilt with poetry-core 2
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

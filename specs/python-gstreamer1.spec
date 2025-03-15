@@ -19,6 +19,7 @@ BuildRequires:  cmake
 BuildRequires:  gstreamer1-devel >= %{gstreamer1_version}
 BuildRequires:  gstreamer1-plugins-base-devel >= %{gstreamer1_version}
 BuildRequires:  gstreamer1-plugins-bad-free-devel >= %{gstreamer1_version}
+BuildRequires:  gstreamer1-rtsp-server-devel >= %{gstreamer1_version}
 BuildRequires:  pkgconfig(pygobject-3.0)
 
 # For the benefit of people migrating from the GStreamer-0.10 package,

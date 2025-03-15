@@ -3,7 +3,7 @@
 %global rdnsappid xyz.ketok.Speedtest
 
 Name:           speedtest
-Version:        1.3.0
+Version:        1.4.0
 Release:        %autorelease
 Summary:        A graphical librespeed client written using gtk4 + libadwaita
 

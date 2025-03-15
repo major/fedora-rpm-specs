@@ -8,7 +8,7 @@
 
 Name:          bcm283x-firmware
 Version:       20250224
-Release:       1.%{gitshort}%{?dist}
+Release:       2.%{gitshort}%{?dist}
 Summary:       Firmware for the Broadcom bcm283x/bcm271x used in the Raspberry Pi
 # see LICENSE.broadcom
 # DT Overlays covered under Linux Kernel GPLv2
@@ -107,6 +107,9 @@ install -p %{SOURCE10} %{SOURCE11} %{SOURCE12} %{SOURCE13} %{SOURCE14} %{buildro
 %{efi_esp_root}/start4*
 
 %changelog
+* Thu Mar 13 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250224-2.4cb13e0
+- Minimise firmware memory reservation on Zero2W
+
 * Mon Feb 24 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250224-1.4cb13e0
 - Update for 6.12 DT overlays
 

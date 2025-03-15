@@ -16,11 +16,7 @@
 %global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
-%if 0%{?suse_version}
-%bcond_with kfdtest
-%else
 %bcond_without kfdtest
-%endif
 
 %bcond_with compat_gcc
 %if %{with compat_gcc}
@@ -33,7 +29,7 @@
 
 Name:       %{runtime_name}
 Version:    %{rocm_version}
-Release:    3%{?dist}
+Release:    5%{?dist}
 Summary:    ROCm Runtime Library
 
 License:    NCSA
@@ -49,10 +45,12 @@ BuildRequires:  libffi-devel
 BuildRequires:  rocm-llvm-static
 BuildRequires:  rocm-compilersupport-macros
 BuildRequires:  rocm-device-libs
+BuildRequires:  libzstd-devel
 
 %if 0%{?suse_version}
 BuildRequires:  libelf-devel
 BuildRequires:  libnuma-devel
+BuildRequires:  zlib-devel
 %if %{suse_version} > 1500
 BuildRequires:  xxd
 %else
@@ -120,10 +118,16 @@ export CXX=/usr/bin/g++%{gcc_major_str}
 %cmake_build
 
 %if %{with kfdtest}
+%if 0%{?suse_version}
+cd ..
+export LIBHSAKMT_PATH=$(pwd)/build/libhsakmt/archive
+%else
 export LIBHSAKMT_PATH=$(pwd)/%__cmake_builddir/libhsakmt/archive
+%endif
 cd libhsakmt/tests/kfdtest
 %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_SKIP_RPATH=ON -DLLVM_DIR=%{rocmllvm_cmakedir}
 %cmake_build
+
 %endif
 
 %install
@@ -178,6 +182,12 @@ fi
 %endif
 
 %changelog
+* Thu Mar 13 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-5
+- Build kfdtest for SUSE
+
+* Thu Mar 13 2025 Christian Goll <cgoll@suse.com> - 6.3.2-4
+- Explicit require zlib-devel for SLE 15.6
+
 * Tue Mar 04 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 6.3.2-3
 - Fix the upgrade path for hsakmt-devel
 

@@ -3,7 +3,7 @@ Version:        1.3.14
 Release:        %autorelease
 Summary:        MQTT C Client
 License:        BSD-3-Clause AND EPL-2.0
-URL:            https://eclipse.org/paho/clients/c/
+URL:            https://eclipse.dev/paho/clients/c/
 Source0:        https://github.com/eclipse/paho.mqtt.c/archive/v%{version}/paho.mqtt.c-%{version}.tar.gz
 Source1:        unused.abignore
 
@@ -35,9 +35,9 @@ Development documentation files for the the Paho MQTT C Client.
 %autosetup -n paho.mqtt.c-%{version}
 
 %build
+export CFLAGS="%{optflags} -std=gnu17"
 %cmake \
     -GNinja \
-    -DCMAKE_BUILD_TYPE=Release \
     -DPAHO_WITH_SSL=ON \
     -DPAHO_BUILD_DOCUMENTATION=ON \
     -DPAHO_BUILD_SAMPLES=ON \

@@ -34,10 +34,13 @@ Source0:        gst-plugins-bad-free-%{version}.tar.xz
 Source1:        gst-p-bad-cleanup.sh
 
 # https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/5622
-Patch:          openh264-add-license-file.patch
+Patch0:          openh264-add-license-file.patch
+# https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/8637
+Patch1:          libatomic_fix.patch
 
 BuildRequires:  meson >= 0.48.0
 BuildRequires:  gcc-c++
+BuildRequires:  libatomic
 BuildRequires:  gstreamer1-devel >= %{version}
 BuildRequires:  gstreamer1-plugins-base-devel >= %{version}
 
@@ -281,6 +284,7 @@ aren't tested well enough, or the code is not of good enough quality.
 
 %prep
 %autosetup -n gst-plugins-bad-%{version} -p3
+sed -i -e 's@'\''dvdspu'\'',@@g' gst/meson.build
 
 %build
 %meson \
@@ -334,7 +338,9 @@ aren't tested well enough, or the code is not of good enough quality.
     -D onnx=disabled -D openaptx=disabled -Dgpl=enabled \
     -D amfcodec=disabled -D directshow=disabled -D qsv=disabled \
     %{!?with_webrtcdsp:-D webrtcdsp=disabled } \
-    -D aja=disabled -D qt6d3d11=disabled
+    -D aja=disabled -D qt6d3d11=disabled -D cuda-nvmm=disabled \
+    -D androidmedia=disabled -D lcevcdecoder=disabled -D lcevcencoder=disabled \
+    -D nvcomp=disabled -D nvdswrapper=disabled -D svtjpegxs=disabled
 
 %meson_build
 
@@ -528,6 +534,7 @@ EOF
 %{_libdir}/gstreamer-%{majorminor}/libgstspeed.so
 %{_libdir}/gstreamer-%{majorminor}/libgstsubenc.so
 %{_libdir}/gstreamer-%{majorminor}/libgstswitchbin.so
+%{_libdir}/gstreamer-%{majorminor}/libgsttensordecoders.so
 %{_libdir}/gstreamer-%{majorminor}/libgsttimecode.so
 %{_libdir}/gstreamer-%{majorminor}/libgsttranscode.so
 %{_libdir}/gstreamer-%{majorminor}/libgstuvch264.so

@@ -71,6 +71,9 @@ BuildRequires:  mvn(sun.jdk:jconsole)
 # - io.fabric8.kubernetes-client
 %endif
 
+# TODO Remove in Fedora 46
+Obsoletes:      %{name}-javadoc < 2.2.0-18
+
 %description
 Log4j is a tool to help the programmer output log statements to a
 variety of output targets.
@@ -126,12 +129,6 @@ Summary:        Apache Log4j NoSql
 %description nosql
 Use NoSQL databases such as MongoDB and CouchDB to append log messages.
 %endif
-
-%package        javadoc
-Summary:        API documentation for %{name}
-
-%description    javadoc
-%{summary}.
 
 %prep
 %autosetup -p1 -C
@@ -277,7 +274,7 @@ rm log4j-core/src/main/java/org/apache/logging/log4j/core/filter/MutableThreadCo
 
 %build
 # missing test deps (mockejb)
-%mvn_build -f
+%mvn_build -j -f
 
 %install
 %mvn_install
@@ -299,9 +296,6 @@ rm log4j-core/src/main/java/org/apache/logging/log4j/core/filter/MutableThreadCo
 %files jmx-gui -f .mfiles-jmx-gui
 %{_bindir}/%{name}-jmx
 %endif
-
-%files javadoc -f .mfiles-javadoc
-%license LICENSE.txt NOTICE.txt
 
 %changelog
 %autochangelog

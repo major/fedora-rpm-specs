@@ -9,8 +9,10 @@ URL:           https://github.com/amitdev/%{pypi_name}
 VCS:           git:%{url}.git
 Source0:       %{pypi_source %{pypi_name}}
 BuildRequires: gcc
-BuildRequires: python3-devel
 BuildRequires: python3-pytest
+BuildSystem:   pyproject
+BuildOption(prep):    -n %{pypi_name}-%{version}
+BuildOption(install): -l lru
 
 %description
 %{summary}.
@@ -21,21 +23,7 @@ Summary: %{summary}
 %description -n python3-%{pypi_name}
 %{summary}.
 
-%prep
-%autosetup -p1 -n %{pypi_name}-%{version}
-
-%generate_buildrequires
-%pyproject_buildrequires -t
-
-%build
-%pyproject_wheel
-
-%install
-%pyproject_install
-%pyproject_save_files -l lru
-
-%check
-%pyproject_check_import
+%check -a
 %pytest
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}

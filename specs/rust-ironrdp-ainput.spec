@@ -5,11 +5,10 @@
 %global crate ironrdp-ainput
 
 Name:           rust-ironrdp-ainput
-Version:        0.1.2
+Version:        0.2.0
 Release:        %autorelease
 Summary:        AInput dynamic channel implementation
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/ironrdp-ainput
 Source:         %{crates_source}

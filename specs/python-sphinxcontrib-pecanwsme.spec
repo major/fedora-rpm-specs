@@ -1,16 +1,8 @@
-%if 0%{?fedora} || 0%{?rhel} > 7
-%bcond_with    python2
-%bcond_without python3
-%else
-%bcond_without python2
-%bcond_with    python3
-%endif
-
 %global pypi_name sphinxcontrib-pecanwsme
 
 Name:           python-%{pypi_name}
-Version:        0.10.0
-Release:        18%{?dist}
+Version:        0.11.0
+Release:        1%{?dist}
 Summary:        Extension to Sphinx for documenting APIs built with Pecan and WSME
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -24,25 +16,6 @@ This is an extension to Sphinx (http://sphinx-doc.org/) for documenting APIs
 built with the Pecan WSGI object-dispatching web framework and WSME
 (Web Services Made Easy).
 
-%if %{with python2}
-%package -n python2-%{pypi_name}
-Summary:        Extension to Sphinx for documenting APIs built with Pecan and WSME
-%{?python_provide:%python_provide python2-%{pypi_name}}
-
-BuildRequires:  python2-devel
-BuildRequires:  python2-pbr
-BuildRequires:  python2-setuptools
-
-Requires: python2-six
-Requires: python2-sphinxcontrib-httpdomain
-
-%description -n python2-%{pypi_name}
-This is an extension to Sphinx (http://sphinx-doc.org/) for documenting APIs
-built with the Pecan WSGI object-dispatching web framework and WSME
-(Web Services Made Easy).
-%endif
-
-%if %{with python3}
 %package -n python3-%{pypi_name}
 Summary:        Extension to Sphinx for documenting APIs built with Pecan and WSME
 %{?python_provide:%python_provide python3-%{pypi_name}}
@@ -58,46 +31,27 @@ Requires: python3-sphinxcontrib-httpdomain
 This is an extension to Sphinx (http://sphinx-doc.org/) for documenting APIs
 built with the Pecan WSGI object-dispatching web framework and WSME
 (Web Services Made Easy).
-%endif
 
 %prep
-%setup -q -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version}
 
 %build
-%if %{with python2}
-%py2_build
-%endif
-%if %{with python3}
 %py3_build
-%endif
 
 %install
-%if %{with python2}
-%py2_install
-%endif
-%if %{with python3}
 %py3_install
-%endif
 
-%if %{with python2}
-%files -n python2-%{pypi_name}
-%doc README.rst
-%license LICENSE
-%{python2_sitelib}/sphinxcontrib/pecanwsme
-%{python2_sitelib}/*.egg-info
-%{python2_sitelib}/*-nspkg.pth
-%endif
-
-%if %{with python3}
 %files -n python3-%{pypi_name}
 %doc README.rst
 %license LICENSE
 %{python3_sitelib}/sphinxcontrib/pecanwsme
 %{python3_sitelib}/*.egg-info
 %{python3_sitelib}/*-nspkg.pth
-%endif
 
 %changelog
+* Thu Mar 13 2025 Joel Capitao <cjapitao@redhat.com> - 0.11.0-1
+- Update to 0.11.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

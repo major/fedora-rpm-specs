@@ -13,14 +13,17 @@ BuildRequires:  qt6-qtbase-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  extra-cmake-modules
 BuildRequires:  kf6-rpm-macros
-BuildRequires:  cmake(KF6Crash)
-BuildRequires:  cmake(KF6DBusAddons)
-BuildRequires:  cmake(KF6DocTools)
 BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6XmlGui)
+BuildRequires:  cmake(KF6DBusAddons)
 BuildRequires:  cmake(KF6IconThemes)
 BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6ItemViews)
 BuildRequires:  cmake(KF6Sonnet)
 BuildRequires:  cmake(KF6GlobalAccel)
+BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(KF6Crash)
+BuildRequires:  cmake(KF6DocTools)
 BuildRequires:  libappstream-glib
 
 # when split out from kde-workspace-4.11.x

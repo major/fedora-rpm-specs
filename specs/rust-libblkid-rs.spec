@@ -6,7 +6,7 @@
 
 Name:           rust-libblkid-rs
 Version:        0.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        High level bindings for libblkid
 
 License:        MPL-2.0
@@ -90,6 +90,9 @@ use the "static" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Thu Mar 13 2025 Chung Chung <cchung@redhat.com> - 0.4.0-2
+- Rebuild for RAWHIDE
+
 * Wed Feb 19 2025 Chung Chung <cchung@redhat.com> - 0.4.0-1
 - Update to 0.4.0
 

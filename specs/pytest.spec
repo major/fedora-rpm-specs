@@ -7,6 +7,9 @@ License:        MIT
 URL:            https://pytest.org
 Source:         %{pypi_source pytest %{version}}
 
+# Compatibility fix for attrs 25.2+
+Patch:          https://github.com/pytest-dev/pytest/pull/13291.patch
+
 # Remove -s from Python shebang,
 # ensure that packages installed with pip to user locations are testable
 # https://bugzilla.redhat.com/2152171

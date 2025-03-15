@@ -5,11 +5,10 @@
 %global crate ironrdp-displaycontrol
 
 Name:           rust-ironrdp-displaycontrol
-Version:        0.1.2
+Version:        0.2.0
 Release:        %autorelease
 Summary:        Display control dynamic channel extension implementation
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/ironrdp-displaycontrol
 Source:         %{crates_source}

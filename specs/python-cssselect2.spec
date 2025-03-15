@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CSS selectors for Python ElementTree
 License:        BSD-3-Clause
 URL:            https://doc.courtbouillon.org/cssselect2/stable/
@@ -32,7 +32,8 @@ including cElementTree, lxml, html5lib, etc.
 # not available in time for the Python 3.9 rebuild (and that might be the case
 # for Python 3.10+) so let's just remove it.
 # Same for isort.
-sed -i -e "s/, 'flake8'//" -e "s/, 'isort'//" pyproject.toml
+# Same for ruff.
+sed -i -e "s/, 'flake8'//" -e "s/, 'isort'//" -e "s/, 'ruff'//" pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires -x test
@@ -56,6 +57,9 @@ sed -i -e "s/, 'flake8'//" -e "s/, 'isort'//" pyproject.toml
 
 
 %changelog
+* Thu Mar 13 2025 Davide Cavalca <dcavalca@fedoraproject.org> - 0.8.0-2
+- Drop ruff dependency
+
 * Thu Mar 06 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 0.8.0-1
 - update to 0.8.0
 

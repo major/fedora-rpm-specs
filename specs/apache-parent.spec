@@ -35,7 +35,7 @@ This package contains the parent pom file for apache projects.
 %pom_remove_plugin :maven-scm-publish-plugin docs
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install

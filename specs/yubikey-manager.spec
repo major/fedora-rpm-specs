@@ -1,8 +1,8 @@
 %global forgeurl https://github.com/Yubico/yubikey-manager/
-%global commit 669944ee4e57a493c25ef001e91304a0bd3ec479
+%global commit 49f3c73596ce1596d431bc019e98cf60849cb2eb
 
 Name:           yubikey-manager
-Version:        5.5.0
+Version:        5.6.0
 Release:        %autorelease
 Summary:        Python library and command line tool for configuring a YubiKey
 License:        BSD-2-Clause
@@ -12,6 +12,11 @@ License:        BSD-2-Clause
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 Source1:        %{name}.rpmlintrc
+
+# Define Patch0 ONLY for Fedora 41 and 42
+%if 0%{?fedora} == 41 || 0%{?fedora} == 42
+Patch0:         rhbz-2335653.patch
+%endif
 
 BuildArch:      noarch
 BuildRequires:  swig pcsc-lite-devel ykpers pyproject-rpm-macros

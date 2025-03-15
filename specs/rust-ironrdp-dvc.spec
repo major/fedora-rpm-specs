@@ -5,7 +5,7 @@
 %global crate ironrdp-dvc
 
 Name:           rust-ironrdp-dvc
-Version:        0.1.3
+Version:        0.2.0
 Release:        %autorelease
 Summary:        DRDYNVC implementation and traits to implement dynamic virtual channels
 

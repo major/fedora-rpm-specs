@@ -185,7 +185,7 @@
 #################################################################################
 Name:		ceph
 Version:	19.2.1
-Release:	6%{?dist}
+Release:	7%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -2720,8 +2720,11 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Thu Mar 13 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.1-7
+- rebuild with libarrow-19.0.1 (and liborc-2.1.1)
+
 * Fri Mar 7 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.1-6
-- cephadm
+- cephadm dependencies
 
 * Sat Mar 1 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.1-5
 - rebuild w/ cmake-4

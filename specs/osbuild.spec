@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        142
+Version:        143
 
 %forgemeta
 
@@ -146,6 +146,13 @@ Requires:       %{name} = %{version}-%{release}
 Requires: python3-libdnf5 >= 5.2.1
 %else
 Requires: python3-dnf
+%endif
+
+%if 0%{?fedora}
+# RHEL / CS does not have python3-license-expression
+# It is needed for validating license expressions in RPM packages when generating SBOMs
+# While SBOMs can be generated also without this package, it is recommended to have it.
+Recommends: python3-license-expression
 %endif
 
 # osbuild 125 added a new "solver" field and osbuild-composer only
@@ -318,6 +325,25 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Wed Mar 12 2025 Packit <hello@packit.dev> - 143-1
+Changes with 143
+----------------
+  * Make sure that SBOM license fields contain valid SPDX license expressions (HMS-5524) (#2023)
+    * Author: Tomáš Hozza, Reviewers: Nobody
+  * Test/tools/depsolve: reword function doc text (#2033)
+    * Author: Tomáš Hozza, Reviewers: Florian Schüller, Michael Vogt
+  * Update snapshots to 20250301 (#2034)
+    * Author: SchutzBot, Reviewers: Simon de Vlieger, Tomáš Hozza
+  * stages/grub2.inst: fix format for non-x86_64 image (#2038)
+    * Author: Achilleas Koutsou, Reviewers: Michael Vogt, Simon de Vlieger
+  * stages/systemd.unit.create: support .swap units (#2001)
+    * Author: Achilleas Koutsou, Reviewers: Michael Vogt, Simon de Vlieger
+  * tools: support zstd in `image-info` (#2042)
+    * Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Florian Schüller
+
+— Somewhere on the Internet, 2025-03-12
+
+
 * Wed Feb 26 2025 Packit <hello@packit.dev> - 142-1
 Changes with 142
 ----------------

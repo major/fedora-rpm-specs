@@ -53,6 +53,7 @@ BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 %endif
 # TODO Remove in Fedora 46
 Obsoletes:      %{name}-javadoc < 1.7.36-13
+Obsoletes:      %{name}-manual < 1.7.36-13
 
 %description
 The Simple Logging Facade for Java or (SLF4J) is intended to serve
@@ -65,12 +66,6 @@ Logging API implementations can either choose to implement the
 SLF4J interfaces directly, e.g. NLOG4J or SimpleLogger. Alternatively,
 it is possible (and rather easy) to write SLF4J adapters for the given
 API implementation, e.g. Log4jLoggerAdapter or JDK14LoggerAdapter..
-
-%package manual
-Summary:        Manual for %{name}
-
-%description manual
-This package provides documentation for %{name}.
 
 %package jdk14
 Summary:        SLF4J JDK14 Binding
@@ -164,26 +159,17 @@ sed -i '/Import-Package/s/\}$/};resolution:=optional/' slf4j-api/src/main/resour
 %mvn_package :slf4j-simple
 %mvn_package :slf4j-nop
 
+# Compat symlinks
+%mvn_file ':slf4j-{*}' %{name}/slf4j-@1 %{name}/@1
+
 %build
 %mvn_build -j -f -s -- -Drequired.jdk.version=1.8
 
 %install
-# Compat symlinks
-%mvn_file ':slf4j-{*}' %{name}/slf4j-@1 %{name}/@1
-
 %mvn_install
-
-# manual
-install -d -m 0755 $RPM_BUILD_ROOT%{_defaultdocdir}/%{name}-manual
-rm -rf target/site/{.htaccess,apidocs}
-cp -pr target/site/* $RPM_BUILD_ROOT%{_defaultdocdir}/%{name}-manual
 
 %files -f .mfiles
 %license LICENSE.txt LICENSE-2.0.txt
-
-%files manual
-%license LICENSE.txt LICENSE-2.0.txt
-%{_defaultdocdir}/%{name}-manual
 
 %files jdk14 -f .mfiles-slf4j-jdk14
 

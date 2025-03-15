@@ -2,7 +2,7 @@
 %global giturl  https://github.com/unicode-org/icu
 
 Name:           icu4j
-Version:        76.1
+Version:        77.1
 Release:        %autorelease
 Epoch:          1
 Summary:        International Components for Unicode for Java

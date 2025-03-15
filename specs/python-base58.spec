@@ -1,5 +1,4 @@
 %global pypi_name base58
-
 %global common_description %{expand:
 Base58 and Base58Check implementation compatible with what is used by the
 bitcoin network.}
@@ -13,10 +12,12 @@ License:       MIT
 URL:           https://github.com/keis/%{pypi_name}
 VCS:           git:%{url}.git
 Source0:       %{pypi_source %{pypi_name}}
-BuildRequires: python3-devel
 BuildRequires: python3-hamcrest
 BuildRequires: python3-pytest
 BuildRequires: python3-pytest-benchmark
+BuildSystem:   pyproject
+BuildOption(prep):    -n %{pypi_name}-%{git_commit}
+BuildOption(install): -l %{pypi_name}
 
 %description  %{common_description}
 
@@ -25,21 +26,7 @@ Summary: %{summary}
 
 %description -n python3-%{pypi_name} %{common_description}
 
-%prep
-%autosetup -p1 -n %{pypi_name}-%{version}
-
-%generate_buildrequires
-%pyproject_buildrequires -t
-
-%build
-%pyproject_wheel
-
-%install
-%pyproject_install
-%pyproject_save_files -l %{pypi_name}
-
-%check
-%pyproject_check_import
+%check -a
 %pytest
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}

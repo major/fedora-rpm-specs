@@ -1,7 +1,7 @@
 Summary: A system tool for maintaining the /etc/rc*.d hierarchy
 Name: chkconfig
-Version: 1.31
-Release: 3%{?dist}
+Version: 1.32
+Release: 1%{?dist}
 License: GPL-2.0-only
 URL: https://github.com/fedora-sysv/chkconfig
 Source: https://github.com/fedora-sysv/chkconfig/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
@@ -11,6 +11,8 @@ BuildRequires: gcc gettext libselinux-devel make newt-devel popt-devel pkgconfig
 %if 0%{?fedora}
 BuildRequires: beakerlib
 %endif
+
+%global merged_sbin %["%{_sbindir}" == "%{_bindir}"]
 
 Conflicts: initscripts <= 5.30-1
 
@@ -35,7 +37,7 @@ page), ntsysv configures the current runlevel (5 if you're using X).
 
 %package -n alternatives
 Summary: A tool to maintain symbolic links determining default commands
-%if "%{_sbindir}" == "%{_bindir}"
+%if %{merged_sbin}
 Provides: /usr/sbin/alternatives
 Provides: /usr/sbin/update-alternatives
 Requires: filesystem(unmerged-sbin-symlinks)
@@ -51,7 +53,7 @@ system at the same time.
 %setup -q
 
 %build
-%make_build RPM_OPT_FLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS"
+%make_build RPM_OPT_FLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS" MERGED_SBIN=%{merged_sbin}
 
 # tests are executed using tmt and tf on CentOS Stream and RHEL
 %if 0%{?fedora}
@@ -103,6 +105,11 @@ mkdir -p $RPM_BUILD_ROOT/etc/chkconfig.d
 %{_mandir}/*/alternatives*
 
 %changelog
+* Thu Mar 13 2025 Jan Macku <jamacku@redhat.com> - 1.32-1
+- Allow paths with /usr/sbin and /usr/bin as equivalent
+- mkosi: update conf to match latest mkosi version
+- Translated using Weblate (Italian)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.31-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

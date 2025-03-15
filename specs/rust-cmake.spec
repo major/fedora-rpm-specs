@@ -12,6 +12,8 @@ Summary:        Build dependency for running cmake to build a native library
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/cmake
 Source:         %{crates_source}
+# * prevent -O2 and -g flags from being stripped from CFLAGS
+Patch2:         0001-do-not-strip-O-and-g-flags-from-passed-CFLAGS.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  /usr/bin/cmake

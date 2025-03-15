@@ -343,7 +343,7 @@
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        36
-%global rpmrelease      2
+%global rpmrelease      3
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -495,11 +495,11 @@ alternatives --install %{_bindir}/java java %{jrebindir -- %{?1}}/java %{priorit
   --slave %{_bindir}/jcmd jcmd %{sdkbindir -- %{?1}}/jcmd \\
   --slave %{_bindir}/keytool keytool %{jrebindir -- %{?1}}/keytool \\
   --slave %{_bindir}/rmiregistry rmiregistry %{jrebindir -- %{?1}}/rmiregistry \\
-  --slave %{_mandir}/man1/java.1%{man_comp} java.1%{man_comp} %{_mandir}/man1/java-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/%{alt_java_name}.1%{man_comp} %{alt_java_name}.1%{man_comp} %{_mandir}/man1/%{alt_java_name}-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/jcmd.1%{man_comp} jcmd.1%{man_comp} %{_mandir}/man1/jcmd-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/keytool.1%{man_comp} keytool.1%{man_comp} %{_mandir}/man1/keytool-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/rmiregistry.1%{man_comp} rmiregistry.1%{man_comp} %{_mandir}/man1/rmiregistry-%{uniquesuffix -- %{?1}}.1%{man_comp}
+  --slave %{_mandir}/man1/java.1%{man_comp} java.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/java.1 \\
+  --slave %{_mandir}/man1/%{alt_java_name}.1%{man_comp} %{alt_java_name}.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/%{alt_java_name}.1 \\
+  --slave %{_mandir}/man1/jcmd.1%{man_comp} jcmd.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jcmd.1 \\
+  --slave %{_mandir}/man1/keytool.1%{man_comp} keytool.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/keytool.1 \\
+  --slave %{_mandir}/man1/rmiregistry.1%{man_comp} rmiregistry.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/rmiregistry.1
 alternatives --install %{_jvmdir}/jre-%{origin} jre_%{origin} %{_jvmdir}/%{sdkdir -- %{?1}} %{priority_for -- %{?1}}
 alternatives --install %{_jvmdir}/jre-%{javaver} jre_%{javaver} %{_jvmdir}/%{sdkdir -- %{?1}} %{priority_for -- %{?1}}
 alternatives --install %{_jvmdir}/jre-%{javaver}-%{origin} jre_%{javaver}_%{origin} %{_jvmdir}/%{sdkdir -- %{?1}} %{priority_for -- %{?1}}
@@ -596,25 +596,25 @@ alternatives --install %{_bindir}/javac javac %{sdkbindir -- %{?1}}/javac %{prio
   --slave %{_bindir}/jstatd jstatd %{sdkbindir -- %{?1}}/jstatd \\
   --slave %{_bindir}/jwebserver jwebserver %{sdkbindir -- %{?1}}/jwebserver \\
   --slave %{_bindir}/serialver serialver %{sdkbindir -- %{?1}}/serialver \\
-  --slave %{_mandir}/man1/jar.1%{man_comp} jar.1%{man_comp} %{_mandir}/man1/jar-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/jarsigner.1%{man_comp} jarsigner.1%{man_comp} %{_mandir}/man1/jarsigner-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/javac.1%{man_comp} javac.1%{man_comp} %{_mandir}/man1/javac-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/javadoc.1%{man_comp} javadoc.1%{man_comp} %{_mandir}/man1/javadoc-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/javap.1%{man_comp} javap.1%{man_comp} %{_mandir}/man1/javap-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/jconsole.1%{man_comp} jconsole.1%{man_comp} %{_mandir}/man1/jconsole-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/jdb.1%{man_comp} jdb.1%{man_comp} %{_mandir}/man1/jdb-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/jdeps.1%{man_comp} jdeps.1%{man_comp} %{_mandir}/man1/jdeps-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/jinfo.1%{man_comp} jinfo.1%{man_comp} %{_mandir}/man1/jinfo-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/jmap.1%{man_comp} jmap.1%{man_comp} %{_mandir}/man1/jmap-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/jnativescan.1%{man_comp} jnativescan.1%{man_comp} %{_mandir}/man1/jnativescan-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/jps.1%{man_comp} jps.1%{man_comp} %{_mandir}/man1/jps-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/jpackage.1%{man_comp} jpackage.1%{man_comp} %{_mandir}/man1/jpackage-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/jrunscript.1%{man_comp} jrunscript.1%{man_comp} %{_mandir}/man1/jrunscript-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/jstack.1%{man_comp} jstack.1%{man_comp} %{_mandir}/man1/jstack-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/jstat.1%{man_comp} jstat.1%{man_comp} %{_mandir}/man1/jstat-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/jwebserver.1%{man_comp} jwebserver.1%{man_comp} %{_mandir}/man1/jwebserver-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/jstatd.1%{man_comp} jstatd.1%{man_comp} %{_mandir}/man1/jstatd-%{uniquesuffix -- %{?1}}.1%{man_comp} \\
-  --slave %{_mandir}/man1/serialver.1%{man_comp} serialver.1%{man_comp} %{_mandir}/man1/serialver-%{uniquesuffix -- %{?1}}.1%{man_comp}
+  --slave %{_mandir}/man1/jar.1%{man_comp} jar.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jar.1 \\
+  --slave %{_mandir}/man1/jarsigner.1%{man_comp} jarsigner.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jarsigner.1 \\
+  --slave %{_mandir}/man1/javac.1%{man_comp} javac.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/javac.1 \\
+  --slave %{_mandir}/man1/javadoc.1%{man_comp} javadoc.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/javadoc.1 \\
+  --slave %{_mandir}/man1/javap.1%{man_comp} javap.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/javap.1 \\
+  --slave %{_mandir}/man1/jconsole.1%{man_comp} jconsole.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jconsole.1 \\
+  --slave %{_mandir}/man1/jdb.1%{man_comp} jdb.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jdb.1 \\
+  --slave %{_mandir}/man1/jdeps.1%{man_comp} jdeps.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jdeps.1 \\
+  --slave %{_mandir}/man1/jinfo.1%{man_comp} jinfo.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jinfo.1 \\
+  --slave %{_mandir}/man1/jmap.1%{man_comp} jmap.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jmap.1 \\
+  --slave %{_mandir}/man1/jnativescan.1%{man_comp} jnativescan.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jnativescan.1 \\
+  --slave %{_mandir}/man1/jps.1%{man_comp} jps.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jps.1 \\
+  --slave %{_mandir}/man1/jpackage.1%{man_comp} jpackage.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jpackage.1 \\
+  --slave %{_mandir}/man1/jrunscript.1%{man_comp} jrunscript.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jrunscript.1 \\
+  --slave %{_mandir}/man1/jstack.1%{man_comp} jstack.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jstack.1 \\
+  --slave %{_mandir}/man1/jstat.1%{man_comp} jstat.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jstat.1 \\
+  --slave %{_mandir}/man1/jwebserver.1%{man_comp} jwebserver.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jwebserver.1 \\
+  --slave %{_mandir}/man1/jstatd.1%{man_comp} jstatd.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jstatd.1 \\
+  --slave %{_mandir}/man1/serialver.1%{man_comp} serialver.1%{man_comp} %{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/serialver.1
 alternatives --install %{_jvmdir}/java-%{origin} java_sdk_%{origin} %{_jvmdir}/%{sdkdir -- %{?1}} %{priority_for -- %{?1}}
 alternatives --install %{_jvmdir}/java-%{javaver} java_sdk_%{javaver} %{_jvmdir}/%{sdkdir -- %{?1}} %{priority_for -- %{?1}}
 }
@@ -782,11 +782,11 @@ fi
 %dir %{_jvmdir}/%{sdkdir -- %{?1}}/lib/jfr
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/jfr/default.jfc
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/jfr/profile.jfc
-%{_mandir}/man1/java-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/%{alt_java_name}-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jcmd-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/keytool-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/rmiregistry-%{uniquesuffix -- %{?1}}.1*
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/java.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/%{alt_java_name}.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jcmd.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/keytool.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/rmiregistry.1
 %dir %{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}/*.so
 %ifarch %{share_arches}
@@ -867,7 +867,7 @@ fi
 %ifarch %{sa_arches}
 %ifnarch %{zero_arches}
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/jhsdb
-%{_mandir}/man1/jhsdb-%{uniquesuffix -- %{?1}}.1*
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jhsdb.1
 %endif
 %endif
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/jinfo
@@ -890,31 +890,31 @@ fi
 %{_jvmdir}/%{sdkdir -- %{?1}}/tapset
 %endif
 %{_datadir}/applications/*jconsole%{?1}.desktop
-%{_mandir}/man1/jar-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jarsigner-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/javac-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/javadoc-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/javap-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jconsole-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jcmd-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jdb-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jdeprscan-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jdeps-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jfr-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jinfo-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jlink-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jmap-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jmod-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jnativescan-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jps-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jpackage-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jrunscript-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jshell-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jstack-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jstat-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jstatd-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/jwebserver-%{uniquesuffix -- %{?1}}.1*
-%{_mandir}/man1/serialver-%{uniquesuffix -- %{?1}}.1*
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jar.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jarsigner.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/javac.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/javadoc.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/javap.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jconsole.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jcmd.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jdb.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jdeprscan.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jdeps.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jfr.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jinfo.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jlink.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jmap.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jmod.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jnativescan.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jps.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jpackage.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jrunscript.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jshell.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jstack.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jstat.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jstatd.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/jwebserver.1
+%{_jvmdir}/%{sdkdir -- %{?1}}/man/man1/serialver.1
 
 %if %{with_systemtap}
 %dir %{tapsetroot}
@@ -1968,19 +1968,6 @@ pushd ${jdk_image}
     ln -srvf $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/tapset/$name $RPM_BUILD_ROOT%{tapsetdir}/$targetName
   done
 %endif
-
-
-  # Install man pages
-  install -d -m 755 $RPM_BUILD_ROOT%{_mandir}/man1
-  for manpage in man/man1/*
-  do
-    # Convert man pages to UTF8 encoding
-    iconv -f ISO_8859-1 -t UTF8 $manpage -o $manpage.tmp
-    mv -f $manpage.tmp $manpage
-    install -m 644 -p $manpage $RPM_BUILD_ROOT%{_mandir}/man1/$(basename $manpage .1)-%{uniquesuffix -- $suffix}.1
-  done
-  # Remove man pages from jdk image
-  rm -rf $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/man
 
 popd
 

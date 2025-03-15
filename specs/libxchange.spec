@@ -1,15 +1,15 @@
-%global upstream_version	1.0.0-rc5
+%global upstream_version        1.0.0-rc6
 
-Name:			libxchange
-Version:		1.0.0~rc5
-Release:		%autorelease
-Summary:		Structured data representation and JSON support for C/C++
-License:		Unlicense
-URL:			https://smithsonian.github.io/xchange
-Source0:		https://github.com/Smithsonian/xchange/archive/refs/tags/v%{upstream_version}.tar.gz
-BuildRequires:		gcc
-BuildRequires:		sed
-BuildRequires:		doxygen >= 1.9.0
+Name:                   libxchange
+Version:                1.0.0~rc6
+Release:                %autorelease
+Summary:                Structured data representation and JSON support for C/C++
+License:                Unlicense
+URL:                    https://smithsonian.github.io/xchange
+Source0:                https://github.com/Smithsonian/xchange/archive/refs/tags/v%{upstream_version}.tar.gz
+BuildRequires:          gcc
+BuildRequires:          sed
+BuildRequires:          doxygen >= 1.9.0
 
 %description
 
@@ -19,16 +19,16 @@ emitting functions. It is free to use, in any way you like, without
 licensing restrictions.
 
 %package devel
-Summary:		C development files for the xchange C/C++ library
-Requires:		%{name}%{_isa} = %{version}-%{release}
+Summary:                C development files for the xchange C/C++ library
+Requires:               %{name}%{_isa} = %{version}-%{release}
 
 %description devel
 This sub-package provides C headers and non-versioned shared library symbolic 
 links for the xchange C/C++ library.
 
 %package doc
-Summary:		Documentation for the xchange C/C++ astronomy library
-BuildArch:		noarch
+Summary:                Documentation for the xchange C/C++ library
+BuildArch:              noarch
 
 %description doc
 This package provides HTML documentation and examples for the xchange C/C++ 
@@ -47,11 +47,7 @@ make test
 
 %install
 
-make DESTDIR=%{buildroot} libdir=%{_libdir} install
-
-# Reflect name change in package doc dir name
-# (xchange -> libxchange for Fedora packaging purposes)
-mv %{buildroot}/%{_docdir}/xchange %{buildroot}/%{_docdir}/%{name}
+make PACKAGE_NAME=%{name} DESTDIR=%{buildroot} libdir=%{_libdir} install
 
 %files
 %license LICENSE
@@ -61,7 +57,7 @@ mv %{buildroot}/%{_docdir}/xchange %{buildroot}/%{_docdir}/%{name}
 %files devel
 %doc CONTRIBUTING.md
 %{_includedir}/*
-%{_libdir}/*.so
+%{_libdir}/libxchange.so
 
 %files doc
 %license LICENSE
@@ -72,3 +68,4 @@ mv %{buildroot}/%{_docdir}/xchange %{buildroot}/%{_docdir}/%{name}
 
 %changelog
 %autochangelog
+

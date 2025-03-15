@@ -92,6 +92,8 @@ Patch2:         paraview-gcc15.patch
 # Fix build with newer freetype
 # https://gitlab.kitware.com/vtk/vtk/-/issues/18033
 Patch3:         paraview-freetype.patch
+# Fix build with cli11 >= 2.5.0
+Patch4:         paraview-cli11.patch
 
 BuildRequires:  cmake >= 3.12
 BuildRequires:  make

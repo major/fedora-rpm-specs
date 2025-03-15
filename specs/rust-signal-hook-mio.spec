@@ -15,6 +15,7 @@ URL:            https://crates.io/crates/signal-hook-mio
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop unused support for mio v0.6 and v0.7
+# * bump serial_test dev-dependency from 0.5 to 3
 Patch:          signal-hook-mio-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

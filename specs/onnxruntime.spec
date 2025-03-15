@@ -57,6 +57,7 @@ Patch:      0017-revert-nan-propagation-bugfix.patch
 Patch:      0019-backport-onnx-1.17.0-support.patch
 Patch:      0020-disable-locale-tests.patch
 Patch:      0021-fix-range-loop-construct.patch
+Patch:      0022-onnxruntime-convert-gsl-byte-to-std-byte.patch
 
 # s390x:   https://bugzilla.redhat.com/show_bug.cgi?id=2235326
 # armv7hl: https://bugzilla.redhat.com/show_bug.cgi?id=2235328

@@ -26,7 +26,7 @@
 
 Name:           freerdp2
 Version:        2.11.7
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 
 # The effective license is Apache-2.0 but:
@@ -268,6 +268,9 @@ rm -rfv %{buildroot}%{_bindir}
 %{_libdir}/pkgconfig/winpr-tools2.pc
 
 %changelog
+* Thu Mar 13 2025 Fabio Valentini <decathorpe@gmail.com> - 2.11.7-8
+- Rebuild for noopenh264 2.6.0
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.7-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

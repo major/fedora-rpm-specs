@@ -5,11 +5,10 @@
 %global crate ironrdp-async
 
 Name:           rust-ironrdp-async
-Version:        0.3.0
+Version:        0.4.0
 Release:        %autorelease
 Summary:        Futures wrapping the IronRDP state machines conveniently
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/ironrdp-async
 Source:         %{crates_source}

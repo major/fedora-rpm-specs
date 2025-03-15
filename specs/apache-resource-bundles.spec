@@ -39,7 +39,7 @@ and notices for all Apache releases.
 
 %build
 # Use system version of apache-resource-bundles instead of reactor version
-%mvn_build -- -Dversion.apache-resource-bundles=SYSTEM
+%mvn_build -j -- -Dversion.apache-resource-bundles=SYSTEM
 
 %install
 %mvn_install

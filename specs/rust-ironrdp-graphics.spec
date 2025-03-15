@@ -6,16 +6,13 @@
 %global crate ironrdp-graphics
 
 Name:           rust-ironrdp-graphics
-Version:        0.1.2
+Version:        0.3.0
 Release:        %autorelease
 Summary:        RDP image processing primitives
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/ironrdp-graphics
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-Patch:          ironrdp-graphics-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

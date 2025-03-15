@@ -1,14 +1,13 @@
 Name:    pcp
-Version: 6.3.2
-Release: 6%{?dist}
+Version: 6.3.4
+Release: 1%{?dist}
 Summary: System-level performance monitoring and performance management
 License: GPL-2.0-or-later AND LGPL-2.1-or-later AND CC-BY-3.0
 URL:     https://pcp.io
 
 Source0: https://github.com/performancecopilot/pcp/releases/pcp-%{version}.src.tar.gz
 
-Patch0: pcp-xsos-fixes.patch
-Patch1: pcp-gcc15.patch
+Patch0: pcp-gcc15.patch
 
 %if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
 ExcludeArch: %{ix86}
@@ -355,7 +354,6 @@ Requires: pcp-selinux = %{version}-%{release}
 %global _pmdasdir       %{_localstatedir}/lib/pcp/pmdas
 %global _pmdasexecdir   %{_libexecdir}/pcp/pmdas
 %global _testsdir       %{_localstatedir}/lib/pcp/testsuite
-%global _ieconfigdir    %{_localstatedir}/lib/pcp/config/pmie
 %global _ieconfdir      %{_localstatedir}/lib/pcp/config/pmieconf
 %global _selinuxdir     %{_datadir}/selinux/packages/targeted
 
@@ -481,16 +479,6 @@ then
     (cd "%1" && ./Rebuild -s && rm -f "%2")
 else
     echo "WARNING: Cannot write to %1, skipping namespace rebuild." >&2
-fi
-}
-
-%global run_pmieconf() %{expand:
-if [ -d "%1" -a -w "%1" -a -w "%1/%2" ]
-then
-    pmieconf -f "%1/%2" -c enable "%3"
-    chown pcp:pcp "%1/%2" 2>/dev/null
-else
-    echo "WARNING: Cannot write to %1/%2, skipping pmieconf enable of %3." >&2
 fi
 }
 
@@ -2882,7 +2870,8 @@ done
 %if !%{disable_selinux}
 %selinux_relabel_pre -s targeted
 %endif
-%if 0%{?fedora} >= 32 || 0%{?rhel} >= 9
+%if 0%{?fedora} >= 42
+%elif %{?fedora} >= 32 || 0%{?rhel} >= 9
 echo u pcpqa - \"PCP Quality Assurance\" %{_testsdir} /bin/bash | \
   systemd-sysusers --replace=/usr/lib/sysusers.d/pcp-testsuite.conf -
 %else
@@ -2924,7 +2913,8 @@ fi
 %endif
 
 %pre
-%if 0%{?fedora} >= 32 || 0%{?rhel} >= 9
+%if 0%{?fedora} >= 42
+%elif 0%{?fedora} >= 32 || 0%{?rhel} >= 9
 echo u pcp - \"Performance Co-Pilot\" %{_localstatedir}/lib/pcp | \
   systemd-sysusers --replace=/usr/lib/sysusers.d/pcp.conf -
 %else
@@ -3224,7 +3214,6 @@ fi
 PCP_PMDAS_DIR=%{_pmdasdir}
 PCP_SYSCONFIG_DIR=%{_sysconfdir}/sysconfig
 PCP_PMCDCONF_PATH=%{_confdir}/pmcd/pmcd.conf
-PCP_PMIECONFIG_DIR=%{_ieconfigdir}
 # auto-install important PMDAs for RH Support (if not present already)
 for PMDA in dm nfsclient openmetrics ; do
     if ! grep -q "$PMDA/pmda$PMDA" "$PCP_PMCDCONF_PATH"
@@ -3232,8 +3221,6 @@ for PMDA in dm nfsclient openmetrics ; do
         %{install_file "$PCP_PMDAS_DIR/$PMDA" .NeedInstall}
     fi
 done
-# auto-enable these usually optional pmie rules
-%{run_pmieconf "$PCP_PMIECONFIG_DIR" config.default dmthin}
 # managed via /usr/lib/systemd/system-preset/90-default.preset nowadays:
 %if 0%{?rhel} > 0 && 0%{?rhel} < 10
 %if !%{disable_systemd}
@@ -3606,6 +3593,9 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
+* Fri Mar 14 2025 Nathan Scott <nathans@redhat.com> - 6.3.4-1
+- Update to latest upstream PCP version.
+
 * Fri Jan 31 2025 David Abdurachmanov <davidlt@rivosinc.com> - 6.3.2-6
 - Expand riscv64 configuration
 

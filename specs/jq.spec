@@ -85,7 +85,7 @@ chrpath -d %{buildroot}%{_bindir}/%{name}
 %if %{with check}
 %check
 # Valgrind used, so restrict architectures for check
-%ifarch %{ix86} x86_64
+%ifarch x86_64
 make check
 %endif
 %endif

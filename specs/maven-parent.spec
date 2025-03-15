@@ -39,7 +39,7 @@ Apache Maven parent POM file used by other Maven projects.
 %pom_xpath_remove "pom:execution[pom:id='generate-helpmojo']" maven-plugins
 
 %build
-%mvn_build
+%mvn_build -j
 
 %install
 %mvn_install

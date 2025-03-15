@@ -6,7 +6,7 @@
 %bcond pydantic_tests %{without bootstrap}
 
 Name:           python-inline-snapshot
-Version:        0.20.5
+Version:        0.20.6
 Release:        %autorelease
 Summary:        Golden master/snapshot/approval testing library
 
