@@ -134,6 +134,7 @@ sphinx-build doc/main html
 rm -fr %{buildroot}%{python3_sitearch}
 cd python
 %pyproject_install
+%pyproject_save_files -L TBB tbb
 cd -
 
 mkdir -p %{buildroot}/%{_libdir}/pkgconfig
@@ -177,11 +178,8 @@ ctest --output-on-failure --force-new-ctest-process
 %files doc
 %doc getting-started html
 
-%files -n python3-%{name}
+%files -n python3-%{name} -f %{pyproject_files}
 %doc python/README.md
-%{python3_sitearch}/TBB*
-%{python3_sitearch}/tbb/
-%{python3_sitearch}/__pycache__/TBB*
 
 %changelog
 * Sun Jan 19 2025 Jerry James <loganjerry@gmail.com> - 2022.0.0-3

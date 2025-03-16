@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.41.9000-148-gee3b1d15da
+%global glibcsrcdir glibc-2.41.9000-171-g10af00f7a1
 %global glibcversion 2.41.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 3
+%global baserelease 4
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2379,6 +2379,33 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Fri Mar 14 2025 Florian Weimer <fweimer@redhat.com> - 2.41.9000-4
+- Auto-sync with upstream branch master,
+  commit 10af00f7a135c85796a9c4c75228358b8898da5c:
+- tst-fopen-threaded: Only check EOF for failing read
+- Implement C23 powr
+- x86_64: Add atanh with FMA
+- elf: Canonicalize $ORIGIN in an explicit ld.so invocation [BZ 25263]
+- x86_64: Add sinh with FMA
+- benchtests: Remove wrong snippet from 360cce0b06
+- x86_64: Add tanh with FMA
+- nptl: Check if thread is already terminated in sigcancel_handler (BZ 32782)
+- nptl: PTHREAD_COND_INITIALIZER compatibility with pre-2.41 versions (bug 32786)
+- getaddrinfo.c: support MPTCP (BZ #29609)
+- math: Refactor how to use libm-test-ulps
+- Update syscall lists for Linux 6.13
+- Makefile: Clean up pthread_atfork integration
+- nptl: Include <stdbool.h> in tst-pthread_gettid_np.c
+- Linux: Add new test misc/tst-sched_setattr-thread
+- Linux: Remove attribute access from sched_getattr (bug 32781)
+- Linux: Add the pthread_gettid_np function (bug 27880)
+- elf: Test dlopen (NULL, RTLD_LAZY) from an ELF constructor
+- s390x: Regenerate ULPs.
+- math: Remove an extra semicolon in math function declarations
+- nptl: extend test coverage for sched_yield
+- posix: Move environ helper variables next to environ definition (bug 32541)
+- Implement C23 rsqrt
+
 * Fri Mar 07 2025 Carlos O'Donell <carlos@redhat.com> - 2.41.9000-3
 - Auto-sync with upstream branch master,
   commit ee3b1d15da412be19583085f81c220653b270c1f:

@@ -22,6 +22,8 @@ License:        MPL-2.0
 URL:            %{gourl}
 Source:         %{gosource}
 
+Patch01:        format-errors.patch
+
 %description %{common_description}
 
 %gopkg

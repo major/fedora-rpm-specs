@@ -4,13 +4,13 @@
 
 
 Name:           sleuthkit
-Version:        4.12.1
-Release:        5%{?dist}
+Version:        4.13.0
+Release:        1%{?dist}
 Summary:        The Sleuth Kit (TSK)
 
 # Automatically converted from old format: CPL and IBM and GPLv2+ - review is highly recommended.
 License:        CPL-1.0 AND IPL-1.0 AND GPL-2.0-or-later
-URL:            http://www.sleuthkit.org
+URL:            https://www.sleuthkit.org
 Source0:        https://github.com/sleuthkit/sleuthkit/archive/sleuthkit-%{version}/sleuthkit-%{version}.tar.gz
 
 BuildRequires: make
@@ -185,6 +185,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Fri Mar 14 2025 Nicolas Chauvet <kwizart@gmail.com> - 4.13.0-1
+- Update to 4.13.0
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.12.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:           jsonnet
-Version:        0.20.0
+Version:        0.21.0
 %global so_version 0
-Release:        13%{?dist}
+Release:        1%{?dist}
 Summary:        A data templating language based on JSON
 
 # The entire source is Apache-2.0, except:
@@ -28,10 +28,6 @@ Patch:          0001-Dynamic-link-to-libjsonnet-rather-than-static.patch
 Patch:          0002-patch-CMakeLists.txt-to-stop-overriding-build-flags.patch
 # Upstream ships rapidyaml inside this source repo
 Patch:          0003-Use-system-provided-rapidyaml.patch
-# Fix deprecated python interfaces
-Patch:          0004-fix-remove-deprecated-declarations-in-python-binding.patch
-# Downstream-only: backport support for rapidyaml 0.7
-Patch:          0005-Downstream-only-backport-support-for-rapidyaml-0.7.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 %if %{undefined fc40} && %{undefined fc41}
@@ -186,6 +182,9 @@ LD_LIBRARY_PATH='%{buildroot}%{_libdir}' \
 
 
 %changelog
+* Fri Mar 14 2025 Pat Riehecky <riehecky@fnal.gov> - 0.21.0-1
+- Build 0.21.0
+
 * Sat Feb 22 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 0.20.0-13
 - Rebuilt for rapidyaml 0.8.0
 

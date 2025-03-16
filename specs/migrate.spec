@@ -133,6 +133,8 @@ rm database/crate/README.md
 rm database/shell/README.md
 # remove test files that require dktest
 rm $(grep -lr '"github.com/dhui/dktest"')
+# remove test files that require docker https://bugzilla.redhat.com/show_bug.cgi?id=2348699
+rm $(grep -lr '"github.com/docker/docker')
 
 %build
 export BUILDTAGS="%{_gobuildtags}"

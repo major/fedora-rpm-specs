@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Flow control and backpressure for event-driven applications
 
 License:        MIT
@@ -45,19 +45,21 @@ sed -e '/"characteristic",/d' -i setup.py
 
 %install
 %pyproject_install
+%pyproject_save_files %{pypi_name}
 
 %if %{with check}
 %check
 %tox
 %endif
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
 %license LICENSE
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/Tubes-%{version}.dist-info/
 
 %changelog
+* Fri Mar 14 2025 Lumír Balhar <lbalhar@redhat.com> - 0.2.1-3
+- Fix compatibility with the latest setuptools
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

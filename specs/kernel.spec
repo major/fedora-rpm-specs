@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.14.0
 %define specversion 6.14.0
 %define patchversion 6.14
-%define pkgrelease 0.rc6.49
+%define pkgrelease 0.rc6.20250314git695caca9345a.53
 %define kversion 6
-%define tarfile_release 6.14-rc6
+%define tarfile_release 6.14-rc6-145-g695caca9345a
 # This is needed to do merge window version magic
 %define patchlevel 14
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc6.49%{?buildid}%{?dist}
+%define specrelease 0.rc6.20250314git695caca9345a.53%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.14.0
 
@@ -4212,13 +4212,30 @@ fi\
 #
 #
 %changelog
-* Mon Mar 10 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.14.0-0.rc6.49]
-- Fedora configs for 6.14 (Justin M. Forbes)
-
-* Mon Mar 10 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc6.49]
+* Fri Mar 14 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc6.695caca9345a.53]
 - apply -Wno-error=unterminated-string-initialization temporarily (Thorsten Leemhuis)
 - include/linux: Adjust headers for C23 (Jakub Jelinek)
 - x86/insn_decoder_test: allow longer symbol-names (David Rheinsberg)
+
+* Fri Mar 14 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc6.695caca9345a.52]
+- Linux v6.14.0-0.rc6.695caca9345a
+
+* Thu Mar 13 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc6.b7f94fcf5546.51]
+- Revert "mpt*: remove certain deprecated pci-ids" (Scott Weaver)
+- Turn on CONFIG_PACKING for RHEL (Justin M. Forbes)
+- main.c: fix initcall blacklisted (Tomas Henzl)
+- redhat/configs: automotive: Disable IPsec Protocols and XFRM (Dorinda Bassey)
+- Linux v6.14.0-0.rc6.b7f94fcf5546
+
+* Wed Mar 12 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc6.0fed89a961ea.50]
+- redhat: Update CONFIG_STRICT_DEVMEM settings (enable it on s390x) (Thomas Huth)
+- redhat: Consolidate CONFIG_VIRTIO_MEM and enable it also for s390x (Thomas Huth)
+- Remove no longer necessary pending entry (Justin M. Forbes)
+- Linux v6.14.0-0.rc6.0fed89a961ea
+
+* Tue Mar 11 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc6.4d872d51bc9d.49]
+- Fedora configs for 6.14 (Justin M. Forbes)
+- Linux v6.14.0-0.rc6.4d872d51bc9d
 
 * Mon Mar 10 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc6.48]
 - redhat/configs: Disable rest of the CONFIG_PKEY_ options on s390 (Mete Durlu) [RHEL-78341]

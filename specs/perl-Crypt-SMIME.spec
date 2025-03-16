@@ -1,5 +1,5 @@
 Name:           perl-Crypt-SMIME
-Version:        0.30
+Version:        0.31
 Release:        %autorelease
 Summary:        S/MIME message signing, verification, encryption and decryption
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl

@@ -7,6 +7,12 @@ License: GPL-2.0-or-later
 
 Source0: https://www.kernel.org/pub/linux/utils/usb/usbutils/%{name}-%{version}.tar.xz
 
+# This adds usbreset binary to the package, but since upstream does not consider it stable, 
+# let's not include it in the ELN. https://github.com/gregkh/usbutils/issues/222#issuecomment-2715192013
+%if 0%{?fedora}
+Patch0: usbreset.patch
+%endif
+
 BuildRequires: meson
 BuildRequires: gcc
 BuildRequires: libusb1-devel

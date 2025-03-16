@@ -2,26 +2,29 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate sequoia-keystore
+# prevent executables from being installed
+%global cargo_install_bin 0
 
-Name:           rust-sequoia-keystore
+%global crate sequoia-policy-config
+
+Name:           rust-sequoia-policy-config0.7
 Version:        0.7.0
 Release:        %autorelease
-Summary:        Sequoia's private key store server
+Summary:        Configure Sequoia using a configuration file
 
 License:        LGPL-2.0-or-later
-URL:            https://crates.io/crates/sequoia-keystore
+URL:            https://crates.io/crates/sequoia-policy-config
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
-Patch:          sequoia-keystore-fix-metadata-auto.diff
+Patch:          sequoia-policy-config-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * drop unused OpenPGP card and TPM backend support (missing dependencies)
-Patch:          sequoia-keystore-fix-metadata.diff
+# * provide crypto backends as features without setting a default
+Patch:          sequoia-policy-config-fix-metadata.diff
 
-BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  cargo-rpm-macros >= 26
 
 %global _description %{expand:
-Sequoia's private key store server.}
+Configure Sequoia using a configuration file.}
 
 %description %{_description}
 
@@ -51,28 +54,40 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+gpg-agent-devel
+%package     -n %{name}+crypto-nettle-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+gpg-agent-devel %{_description}
+%description -n %{name}+crypto-nettle-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "gpg-agent" feature of the "%{crate}" crate.
+use the "crypto-nettle" feature of the "%{crate}" crate.
 
-%files       -n %{name}+gpg-agent-devel
+%files       -n %{name}+crypto-nettle-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+softkeys-devel
+%package     -n %{name}+crypto-openssl-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+softkeys-devel %{_description}
+%description -n %{name}+crypto-openssl-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "softkeys" feature of the "%{crate}" crate.
+use the "crypto-openssl" feature of the "%{crate}" crate.
 
-%files       -n %{name}+softkeys-devel
+%files       -n %{name}+crypto-openssl-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+crypto-rust-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+crypto-rust-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "crypto-rust" feature of the "%{crate}" crate.
+
+%files       -n %{name}+crypto-rust-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -80,18 +95,17 @@ use the "softkeys" feature of the "%{crate}" crate.
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -f crypto-openssl
 
 %build
-# build with the default crypto backend (Nettle)
-%cargo_build -f sequoia-openpgp/crypto-nettle
+%cargo_build -f crypto-openssl
 
 %install
-%cargo_install
+%cargo_install -f crypto-openssl
 
 %if %{with check}
 %check
-%cargo_test
+%cargo_test -f crypto-openssl
 %endif
 
 %changelog

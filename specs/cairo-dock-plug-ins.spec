@@ -10,7 +10,7 @@
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
 
-%global	baserelease	1
+%global	baserelease	2
 %global	alphatag		.rc2
 
 
@@ -256,6 +256,9 @@ sed -i.py2 CMakeLists.txt -e 's|python2)|python2-nono)|'
 env LANG=C grep -rl /usr/bin/env . | \
 	xargs sed -i -e 's|/usr/bin/env[ \t]*python$|/usr/bin/python3|'
 
+# Use recent standard
+sed -i.std CMakeLists.txt -e 's|-std=gnu99 ||'
+
 %build
 %set_build_flags
 
@@ -420,6 +423,9 @@ popd
 %{_datadir}/cairo-dock/plug-ins/Dbus/CDApplet.h
 
 %changelog
+* Fri Mar 14 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.99^20250218gitd591880-2.rc2
+- Use recent compiler standard
+
 * Tue Feb 18 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.99^20250218gitd591880-1.rc2
 - Update to the latest git (20250218gitd591880)
 

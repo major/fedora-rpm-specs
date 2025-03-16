@@ -24,16 +24,16 @@
 %global libvlc_soversion 5
 
 
-%global obswebsocket_version 5.5.4
+%global obswebsocket_version 5.5.5
 %global obsbrowser_commit 4023fad79e2e9ff277b706432fe33eddbdab6d6a
 %global cef_version 6533
 
 #global commit ad859a3f66daac0d30eebcc9b07b0c2004fb6040
 #global snapdate 202303261743
-#global shortcommit %(c=%{commit}; echo ${c:0:7})
+#global shortcommit %%(c=%%{commit}; echo ${c:0:7})
 
 Name:           obs-studio
-Version:        31.0.1
+Version:        31.0.2
 Release:        1%{?dist}
 Summary:        Open Broadcaster Software Studio
 
@@ -57,6 +57,7 @@ Patch0101:      0101-UI-Consistently-reference-the-software-H264-encoder-.patch
 Patch0102:      0102-obs-ffmpeg-Add-initial-support-for-the-OpenH264-H.26.patch
 Patch0103:      0103-UI-Add-support-for-OpenH264-as-the-worst-case-fallba.patch
 
+Patch0104:      add_missing_include.patch
 # Downstream Fedora patches
 ## Use fdk-aac by default
 Patch1001:      obs-studio-UI-use-fdk-aac-by-default.patch
@@ -359,6 +360,13 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
+* Thu Mar 13 2025 Sérgio Basto <sergio@serjux.com> - 31.0.2-1
+- Update obs-studio to 31.0.2
+- Resolves: rhbz#2338791
+- Fix FTBFS
+- Resolves: rhbz#2340952
+- Update obs-websocket to 5.5.5
+
 * Thu Feb 20 2025 Neal Gompa <ngompa@fedoraproject.org> - 31.0.1-1
 - Update to 31.0.1
 

@@ -2,26 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate sequoia-gpg-agent
+%global crate webextension-native-messaging
 
-Name:           rust-sequoia-gpg-agent
-Version:        0.6.0
+Name:           rust-webextension-native-messaging
+Version:        1.0.1
 Release:        %autorelease
-Summary:        Library for interacting with GnuPG's gpg-agent
+Summary:        WebExtension native messaging library for Rust
 
-License:        LGPL-2.0-or-later
-URL:            https://crates.io/crates/sequoia-gpg-agent
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/webextension-native-messaging
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          sequoia-gpg-agent-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
-%if %{with check}
-BuildRequires:  /usr/bin/gpgconf
-%endif
 
 %global _description %{expand:
-A library for interacting with GnuPG's gpg-agent.}
+WebExtension native messaging library for Rust.}
 
 %description %{_description}
 
@@ -35,7 +30,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE.txt
+%license %{crate_instdir}/LICENSE-Apache
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -59,8 +55,7 @@ use the "default" feature of the "%{crate}" crate.
 %cargo_generate_buildrequires
 
 %build
-# build with the default crypto backend (Nettle)
-%cargo_build -f sequoia-openpgp/crypto-nettle
+%cargo_build
 
 %install
 %cargo_install

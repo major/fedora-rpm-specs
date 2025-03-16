@@ -2,26 +2,24 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate sequoia-gpg-agent
+%global crate siguldry
 
-Name:           rust-sequoia-gpg-agent
-Version:        0.6.0
+Name:           rust-siguldry
+Version:        0.2.0
 Release:        %autorelease
-Summary:        Library for interacting with GnuPG's gpg-agent
+Summary:        Implementation of the Sigul protocol
 
-License:        LGPL-2.0-or-later
-URL:            https://crates.io/crates/sequoia-gpg-agent
+License:        MIT
+URL:            https://crates.io/crates/siguldry
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          sequoia-gpg-agent-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * The binary is incomplete and may change its interface significantly
+Patch:          siguldry-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
-%if %{with check}
-BuildRequires:  /usr/bin/gpgconf
-%endif
 
 %global _description %{expand:
-A library for interacting with GnuPG's gpg-agent.}
+An implementation of the Sigul protocol.}
 
 %description %{_description}
 
@@ -35,9 +33,11 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE.txt
+%license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
+%exclude %{crate_instdir}/src/serdes/serde.py
 
 %package     -n %{name}+default-devel
 Summary:        %{summary}
@@ -59,8 +59,7 @@ use the "default" feature of the "%{crate}" crate.
 %cargo_generate_buildrequires
 
 %build
-# build with the default crypto backend (Nettle)
-%cargo_build -f sequoia-openpgp/crypto-nettle
+%cargo_build
 
 %install
 %cargo_install

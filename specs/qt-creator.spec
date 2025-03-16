@@ -1,4 +1,4 @@
-%define prerelease beta1
+#define prerelease beta1
 
 # We need avoid oython byte compiler to not crash over template .py file which
 # is not a valid python file, only for the IDE
@@ -6,7 +6,7 @@
 
 Name:           qt-creator
 Version:        16.0.0
-Release:        0.2%{?dist}
+Release:        1%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -48,6 +48,8 @@ BuildRequires:  cmake(Qt6Svg)
 BuildRequires:  cmake(Qt6UiPlugin)
 BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(Qt6Xml)
+BuildRequires:  cmake(Qt6Charts)
+BuildRequires:  cmake(Qt6WebSockets)
 %ifarch %{qt6_qtwebengine_arches}
 BuildRequires:	cmake(Qt6WebEngineWidgets)
 %endif
@@ -211,7 +213,10 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
-* Mon Feb 03 2025 Jan Grulich <jgrulich@redhat.com>
+* Thu Mar 13 2025 Marie Loise Nolden <loise@kde.org> 16.0.0-1
+- Update to 16.0.0 
+
+* Mon Feb 03 2025 Jan Grulich <jgrulich@redhat.com> - 16.0.0-0.2.beta1
 - Rebuild (qt6)
 
 * Fri Jan 31 2025 Sandro Mani <manisandro@gmail.com> - 16.0.0-0.1.beta1

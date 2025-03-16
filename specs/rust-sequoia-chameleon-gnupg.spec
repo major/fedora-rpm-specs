@@ -9,7 +9,7 @@
 %global crate sequoia-chameleon-gnupg
 
 Name:           rust-sequoia-chameleon-gnupg
-Version:        0.12.0
+Version:        0.13.0
 Release:        %autorelease
 Summary:        Sequoia's reimplementation of the GnuPG interface
 
@@ -54,6 +54,7 @@ Summary:        %{summary}
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # BSD-2-Clause OR Apache-2.0 OR MIT
+# BSD-3-Clause
 # BSL-1.0
 # GPL-3.0-or-later
 # LGPL-2.0-or-later
@@ -65,7 +66,24 @@ Summary:        %{summary}
 # MPL-2.0
 # Unlicense OR MIT
 # Zlib OR Apache-2.0 OR MIT
-License:        GPL-3.0-or-later AND Apache-2.0 AND BSD-3-Clause AND BSL-1.0 AND LGPL-2.0-or-later AND MIT AND MPL-2.0 AND Unicode-DFS-2016 AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR ISC OR MIT) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (MIT OR Apache-2.0 OR Zlib) AND (Unlicense OR MIT)
+License:        %{shrink:
+    GPL-3.0-or-later AND
+    Apache-2.0 AND
+    BSD-3-Clause AND
+    BSL-1.0 AND
+    LGPL-2.0-or-later AND
+    MIT AND
+    MPL-2.0 AND
+    Unicode-DFS-2016 AND
+    (0BSD OR MIT OR Apache-2.0) AND
+    (Apache-2.0 OR BSL-1.0) AND
+    (Apache-2.0 OR ISC OR MIT) AND
+    (Apache-2.0 OR MIT) AND
+    (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
+    (BSD-2-Clause OR Apache-2.0 OR MIT) AND
+    (MIT OR Apache-2.0 OR Zlib) AND
+    (Unlicense OR MIT)
+}
 # LICENSE.dependencies contains a full license breakdown
 
 # includes a copy of src/err-codes.h.in from libgpg-error (unknown version)

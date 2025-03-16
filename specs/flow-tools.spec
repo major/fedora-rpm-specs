@@ -35,12 +35,10 @@ BuildRequires: bison
 BuildRequires: flex
 BuildRequires: doxygen
 %if 0%{?fedora} >= 31
-BuildRequires: /usr/bin/2to3
+BuildRequires: python3.12
 %endif
 BuildRequires: systemd-rpm-macros
 BuildRequires: make
-Provides: group(%username)
-Provides: user(%username)
 
 
 %description
@@ -110,7 +108,7 @@ This package contains additional documentation, such as man pages in html format
 # Remove /bin/env deps
 %if 0%{?fedora} >= 31
 sed -i '1s|^#!.*python|#!/usr/bin/python3|' bin/flow*
-2to3 --write --nobackups bin/flow*
+python3.12 -m lib2to3 --write --nobackups bin/flow*
 %else
 sed -i '1s|^#!.*python|#!/usr/bin/python2|' bin/flow*
 %endif
@@ -124,6 +122,7 @@ u flow-tools - '%{gecos}' %{homedir} -
 EOF
 
 %build
+export CFLAGS="$CFLAGS -std=gnu17"
 %configure \
   --localstatedir=%{_localstatedir}/%{name} \
   --sysconfdir=%{_sysconfdir}/%{name} \

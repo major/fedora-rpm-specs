@@ -2,26 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate sequoia-gpg-agent
+%global crate sequoia-man
 
-Name:           rust-sequoia-gpg-agent
-Version:        0.6.0
+Name:           rust-sequoia-man
+Version:        0.3.2
 Release:        %autorelease
-Summary:        Library for interacting with GnuPG's gpg-agent
+Summary:        Man page generation for Sequoia PGP CLIs
 
 License:        LGPL-2.0-or-later
-URL:            https://crates.io/crates/sequoia-gpg-agent
+URL:            https://crates.io/crates/sequoia-man
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          sequoia-gpg-agent-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
-%if %{with check}
-BuildRequires:  /usr/bin/gpgconf
-%endif
 
 %global _description %{expand:
-A library for interacting with GnuPG's gpg-agent.}
+Man page generation for Sequoia PGP CLIs.}
 
 %description %{_description}
 
@@ -59,8 +54,7 @@ use the "default" feature of the "%{crate}" crate.
 %cargo_generate_buildrequires
 
 %build
-# build with the default crypto backend (Nettle)
-%cargo_build -f sequoia-openpgp/crypto-nettle
+%cargo_build
 
 %install
 %cargo_install

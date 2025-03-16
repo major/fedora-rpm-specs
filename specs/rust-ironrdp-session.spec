@@ -5,11 +5,10 @@
 %global crate ironrdp-session
 
 Name:           rust-ironrdp-session
-Version:        0.2.2
+Version:        0.3.0
 Release:        %autorelease
 Summary:        State machines to drive an RDP session
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/ironrdp-session
 Source:         %{crates_source}

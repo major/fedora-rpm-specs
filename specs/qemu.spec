@@ -461,6 +461,9 @@ Patch: 0002-binfmt-Normalize-host-CPU-architecture.patch
 # https://gitlab.com/qemu-project/qemu/-/commit/1887cf2368189087fdf977fb8d09b5ad47cc7aea
 Patch: 0003-binfmt-Add-ignore-family-option.patch
 
+# https://bugzilla.redhat.com/show_bug.cgi?id=2349579
+# https://gitlab.com/qemu-project/qemu/-/commit/9976be3911a2d0503f026ae37c17077273bf30ee
+Patch: 0001-scripts-improve-error-from-qemu-trace-stap-on-missin.patch
 
 BuildRequires: gnupg2
 BuildRequires: meson >= %{meson_version}
@@ -728,6 +731,7 @@ This package does not need to be installed on the host OS.
 
 %package tools
 Summary: %{name} support tools
+Recommends: systemtap-client
 %description tools
 %{name}-tools provides various tools related to %{name} usage.
 

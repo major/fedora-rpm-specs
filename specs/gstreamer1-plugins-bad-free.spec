@@ -15,7 +15,7 @@
 
 Name:           gstreamer1-plugins-bad-free
 Version:        1.26.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 # Automatically converted from old format: LGPLv2+ and LGPLv2 - review is highly recommended.
@@ -40,7 +40,10 @@ Patch1:          libatomic_fix.patch
 
 BuildRequires:  meson >= 0.48.0
 BuildRequires:  gcc-c++
+%ifarch x86_64
+# work around https://bugzilla.redhat.com/show_bug.cgi?id=2352531
 BuildRequires:  libatomic
+%endif
 BuildRequires:  gstreamer1-devel >= %{version}
 BuildRequires:  gstreamer1-plugins-base-devel >= %{version}
 
@@ -797,10 +800,13 @@ EOF
 
 
 %changelog
+* Fri Mar 14 2025 Fabio Valentini <decathorpe@gmail.com> - 1.26.0-2
+- Rebuild for noopenh264 2.6.0
+
 * Wed Mar 12 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.26.0-1
 - 1.26.0
 
-* Tue Mar 03 2025 Wim Taymans <wtaymans@redhat.com> - 1.24.11-5
+* Tue Mar 04 2025 Wim Taymans <wtaymans@redhat.com> - 1.24.11-5
 - Rebuild for openh264 2.6.0
 
 * Wed Feb 05 2025 Robert-André Mauchin <zebob.m@gmail.com> - 1.24.11-4

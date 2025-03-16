@@ -7,7 +7,7 @@
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        13
+Version:        14
 
 %gometa
 
@@ -50,7 +50,7 @@ Provides: bundled(golang(github.com/VividCortex/ewma)) = 1.2.0
 Provides: bundled(golang(github.com/acarl005/stripansi)) = 5a71ef0
 Provides: bundled(golang(github.com/asaskevich/govalidator)) = a9d515a
 Provides: bundled(golang(github.com/aws/aws-sdk-go)) = 1.55.6
-Provides: bundled(golang(github.com/cheggaaa/pb/v3)) = 3.1.6
+Provides: bundled(golang(github.com/cheggaaa/pb/v3)) = 3.1.7
 Provides: bundled(golang(github.com/containerd/cgroups/v3)) = 3.0.3
 Provides: bundled(golang(github.com/containerd/errdefs)) = 0.3.0
 Provides: bundled(golang(github.com/containerd/errdefs/pkg)) = 0.3.0
@@ -231,6 +231,27 @@ cd $PWD/_build/src/%{goipath}
 %{_bindir}/image-builder
 
 %changelog
+* Fri Mar 14 2025 Packit <hello@packit.dev> - 14-1
+Changes with 14
+----------------
+  * build(deps): bump github.com/cheggaaa/pb/v3 from 3.1.6 to 3.1.7 in the go-deps group (#147)
+    * Author: dependabot[bot], Reviewers: Simon de Vlieger
+  * doc: fix typo (#152)
+    * Author: Simon de Vlieger, Reviewers: Michael Vogt
+  * ibcli: add new --output-name flag and predictable default names (#158)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * main: fix creating output dir for `--with-buildlog` (#150)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * main: show "success" message with output dir when build finishes (#154)
+    * Author: Michael Vogt, Reviewers: Simon de Vlieger
+  * main: skip arch checks on`IMAGE_BUILDER_EXPERIMENTAL=bootstrap` (#155)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou
+  * packit: enable epel-9 and epel-10 (#149)
+    * Author: Simon de Vlieger, Reviewers: Michael Vogt, Ondřej Budai
+
+— Somewhere on the Internet, 2025-03-14
+
+
 * Wed Mar 05 2025 Packit <hello@packit.dev> - 13-1
 Changes with 13
 ----------------

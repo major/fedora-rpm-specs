@@ -57,7 +57,7 @@
 Summary: A subset of LAPACK routines redesigned for heterogeneous computing
 Name: scalapack
 Version: 2.2.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: BSD-3-Clause-Open-MPI
 URL: http://www.netlib.org/scalapack/
 Source0: https://github.com/Reference-ScaLAPACK/scalapack/archive/v%{version}.tar.gz
@@ -446,7 +446,8 @@ sed -i 's|lapack blas|flexiblas|g' %{buildroot}%{_libdir}/mpich/lib/pkgconfig/sc
 
 %if %{with mpich}
 %files mpich
-%{_libdir}/mpich/lib/libscalapack.so.*
+%{_libdir}/mpich/lib/libscalapack.so.2.2
+%{_libdir}/mpich/lib/libscalapack.so.2.2.2
 
 %files mpich-devel
 %{_includedir}/mpich-%{_arch}/
@@ -459,7 +460,8 @@ sed -i 's|lapack blas|flexiblas|g' %{buildroot}%{_libdir}/mpich/lib/pkgconfig/sc
 
 %if %{with openmpi}
 %files openmpi
-%{_libdir}/openmpi/lib/libscalapack.so.*
+%{_libdir}/openmpi/lib/libscalapack.so.2.2
+%{_libdir}/openmpi/lib/libscalapack.so.2.2.2
 
 %files openmpi-devel
 %{_includedir}/openmpi-%{_arch}/
@@ -472,7 +474,8 @@ sed -i 's|lapack blas|flexiblas|g' %{buildroot}%{_libdir}/mpich/lib/pkgconfig/sc
 
 %if %{with openmpi3}
 %files openmpi3
-%{_libdir}/openmpi3/lib/libscalapack.so.*
+%{_libdir}/openmpi3/lib/libscalapack.so.2.2
+%{_libdir}/openmpi3/lib/libscalapack.so.2.2.2
 
 %files openmpi3-devel
 %{_includedir}/openmpi3-%{_arch}/
@@ -484,6 +487,9 @@ sed -i 's|lapack blas|flexiblas|g' %{buildroot}%{_libdir}/mpich/lib/pkgconfig/sc
 %endif
 
 %changelog
+* Fri Mar 14 2025 David Bold <davidsch@fedoraproject.org> - 2.2.2-3
+- Do not glob soname
+
 * Mon Mar 10 2025 Tom Callaway <spot@fedoraproject.org> - 2.2.2-2
 - more .pc fixes
 

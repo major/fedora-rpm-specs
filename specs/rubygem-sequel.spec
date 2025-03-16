@@ -1,8 +1,8 @@
 %global gem_name sequel
 
 Name: rubygem-%{gem_name}
-Version: 5.86.0
-Release: 2%{?dist}
+Version: 5.90.0
+Release: 1%{?dist}
 Summary: The Database Toolkit for Ruby
 License: MIT
 URL: http://sequel.jeremyevans.net
@@ -71,8 +71,5 @@ popd
 %doc %{gem_docdir}
 
 %changelog
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.86.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Nov 01 2024 Alejandro Perez <alejandro.perez.torres@gmail.com> - 5.86.0-1
+* Fri Mar 01 2025 Alejandro Perez <alejandro.perez.torres@gmail.com> - 5.90.0-1
 - Initial package

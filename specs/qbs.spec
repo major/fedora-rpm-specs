@@ -10,7 +10,7 @@
 Name:           qbs
 # qbs was previously packaged as part of qt-creator, using the qt-creator version, hence the epoch bump
 Epoch:          1
-Version:        2.5.1
+Version:        2.6.0
 Release:        1%{?dist}
 Summary:        Cross platform build tool
 # Fails to build on i686
@@ -35,14 +35,20 @@ Patch1:         qbs_qmake.patch
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  make
+BuildRequires:  cmake(Qt6Concurrent)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Xml)
+BuildRequires:  cmake(Qt6Test)
+BuildRequires:  cmake(Qt6Core5Compat)
+BuildRequires:  cmake(Qt6Tools)
+BuildRequires:  cmake(Qt6ToolsTools)
+BuildRequires:  qt6-qtbase-private-devel
+
 BuildRequires:  python3-lxml
 BuildRequires:  python3-beautifulsoup4
-BuildRequires:  qt6-qtbase-devel
-BuildRequires:  qt6-qtbase-private-devel
-BuildRequires:  qt6-qt5compat-devel
-#BuildRequires:  qt6-qdoc
-#BuildRequires:  qt6-qhelpgenerator
-# BuildRequires:  qt6-qtscript-devel
 
 # Needed for tests
 BuildRequires:  glibc-static
@@ -51,9 +57,6 @@ BuildRequires:  libasan
 BuildRequires:  libtsan
 %endif
 BuildRequires:  libstdc++-static
-BuildRequires:  qt6-qtdeclarative-devel
-BuildRequires:  qt6-qttools-devel
-
 
 %description
 Qbs is a tool that helps simplify the build process for developing projects
@@ -86,13 +89,13 @@ BuildArch:      noarch
 The %{name}-examples package contains example files for using %{name}.
 
 %package        doc
-Summary:        Documentation for %{name}
+Summary:        Developer Documentation files for %{name}
 # Automatically converted from old format: GFDL - review is highly recommended.
 License:        LicenseRef-Callaway-GFDL
 BuildArch:      noarch
 
 %description    doc
-HTML documentation for %{name}.
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 
 %prep
@@ -105,7 +108,8 @@ HTML documentation for %{name}.
     -DQBS_PLUGINS_INSTALL_BASE=%{_lib} \
     -DWITH_UNIT_TESTS=ON \
     -DQBS_ENABLE_RPATH=OFF \
-    -DQBS_INSTALL_HTML_DOCS=ON
+    -DQBS_INSTALL_QCH_DOCS=ON \
+    -DQBS_DOC_INSTALL_DIR=%{_qt6_docdir}
 %cmake_build
 
 
@@ -135,7 +139,7 @@ rm %{buildroot}%{_bindir}/clang-format-test
 %doc README.md
 %{_bindir}/%{name}*
 %{_libdir}/%{name}/
-%{_libdir}/libqbs*.so.2.5*
+%{_libdir}/libqbs*.so.2.6*
 %{_libexecdir}/qbs/
 %{_datadir}/%{name}/
 %{_mandir}/man1/%{name}.1*
@@ -149,10 +153,13 @@ rm %{buildroot}%{_bindir}/clang-format-test
 %{_datadir}/%{name}/examples/
 
 %files doc
-%doc %{_defaultdocdir}/%{name}
+%{_qt6_docdir}/qbs.qch
 
 
 %changelog
+* Fri Mar 14 2025 Marie Loise Nolden <loise@kde.org> - 1:2.6.0-1
+- Update to 2.6.0
+
 * Tue Jan 28 2025 Sandro Mani <manisandro@gmail.com> - 1:2.5.1-1
 - Update to 2.5.1
 

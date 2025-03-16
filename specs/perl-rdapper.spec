@@ -1,5 +1,5 @@
 Name:           perl-rdapper
-Version:        1.06
+Version:        1.09
 Release:        1%{?dist}
 Summary:        Simple console-based RDAP client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -23,7 +23,7 @@ BuildRequires:  perl(List::Util) >= 1.33
 BuildRequires:  perl(Net::ASN)
 BuildRequires:  perl(Net::DNS::Domain)
 BuildRequires:  perl(Net::IP)
-BuildRequires:  perl(Net::RDAP) >= 0.26
+BuildRequires:  perl(Net::RDAP) >= 0.34
 BuildRequires:  perl(Net::RDAP::EPPStatusMap)
 BuildRequires:  perl(Pod::Usage)
 BuildRequires:  perl(Term::ANSIColor)
@@ -88,6 +88,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Mar 14 2025 Petr Pisar <ppisar@redhat.com> - 1.09-1
+- 1.09 bump
+
 * Fri Feb 07 2025 Petr Pisar <ppisar@redhat.com> - 1.06-1
 - 1.06 bump
 

@@ -27,7 +27,7 @@
 
 Name:		0ad
 Version:	0.0.26
-Release:	29%{?dist}
+Release:	30%{?dist}
 # BSD License:
 #	build/premake/*
 #	libraries/source/miniupnpc/*		(not built/used)
@@ -148,6 +148,10 @@ Patch7:		0001-Fix-build-with-libxml2-v2.12.1.patch
 Patch8:     %{name}-miniupnp228.patch
 # https://gitea.wildfiregames.com/0ad/0ad/commit/5643e90b19ea443d69b3d83dab5b79bd2c7ca8db
 Patch9:		0ad-icu76.patch
+# https://gitea.wildfiregames.com/0ad/0ad/pulls/7234
+# pulled from https://gitlab.archlinux.org/archlinux/packaging/packages/0ad/-/blob/a26-20/49507c04e027b0d48e050bfc38ae2b631d7403c7.patch
+# due to 500 errors upstream
+Patch10:        49507c04e027b0d48e050bfc38ae2b631d7403c7.patch
 
 %description
 0 A.D. (pronounced "zero ey-dee") is a free, open-source, cross-platform
@@ -183,6 +187,7 @@ sed -e 's|__SOURCE3__|%{SOURCE3}|' \
 %patch -P7 -p1
 %patch -P8 -p1
 %patch -P9 -p1
+%patch -P10 -p1
 
 %if %{with system_nvtt}
 rm -fr libraries/source/nvtt
@@ -290,6 +295,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/0ad.desktop
 %{_mandir}/man6/*.6*
 
 %changelog
+* Thu Mar 13 2025 Dennis Gilmore <dennis@ausil.us> - 0.0.26-30
+- add patch for audio device crash
+
 * Tue Feb 18 2025 Dennis Gilmore <dennis@ausil.us> - 0.0.26-29
 - Rebuild for updated dependencies.
 

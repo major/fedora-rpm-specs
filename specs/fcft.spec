@@ -1,7 +1,7 @@
 %global abi_ver 4
 
 Name:           fcft
-Version:        3.2.0
+Version:        3.3.1
 Release:        1%{?dist}
 Summary:        Simple library for font loading and glyph rasterization
 
@@ -91,6 +91,9 @@ rm -f %{buildroot}%{_docdir}/%{name}/LICENSE
 
 
 %changelog
+* Fri Mar 14 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 3.3.1-1
+- Update to 3.3.1 (#2351532)
+
 * Sat Mar 08 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 3.2.0-1
 - Update to 3.2.0 (#2350079)
 

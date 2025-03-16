@@ -53,14 +53,15 @@
 ### Abstract ###
 
 Name: evolution-data-server
-Version: 3.55.3
+Version: 3.56.0
 Release: 1%{?dist}
 Summary: Backend data server for Evolution
 License: LGPL-2.0-or-later
 URL: https://gitlab.gnome.org/GNOME/evolution/-/wikis/home
-Source: http://download.gnome.org/sources/%{name}/3.55/%{name}-%{version}.tar.xz
+Source: http://download.gnome.org/sources/%{name}/3.56/%{name}-%{version}.tar.xz
 
 # 0-99: General patches
+# enable corresponding autopatch below to make them applied
 
 # 100-199: Flatpak-specific patches
 # https://gitlab.gnome.org/GNOME/evolution-data-server/-/merge_requests/144
@@ -205,7 +206,7 @@ the functionality of the installed %{name} package.
 %autosetup -p1 -S gendiff -N
 
 # General patches
-%autopatch -p1 -m 0 -M 99
+# %%autopatch -p1 -m 0 -M 99
 
 # Flatpak-specific patches
 %if 0%{?flatpak}
@@ -291,6 +292,13 @@ export CFLAGS="$RPM_OPT_FLAGS -DLDAP_DEPRECATED -fPIC -I%{_includedir}/et -Wno-d
         -DWITH_SYSTEMDUSERUNITDIR=%{_userunitdir} \
 	%ldap_flags %krb5_flags %ssl_flags %webkitgtk_flags \
 	%largefile_flags %gtkdoc_flags %phonenum_flags \
+	-DINCLUDE_INSTALL_DIR:PATH=%{_includedir} \
+	-DLIB_INSTALL_DIR:PATH=%{_libdir} \
+	-DSYSCONF_INSTALL_DIR:PATH=%{_sysconfdir} \
+	-DSHARE_INSTALL_PREFIX:PATH=%{_datadir} \
+	%if "%{?_lib}" == "lib64"
+		-DLIB_SUFFIX=64 \
+	%endif
 	%{nil}
 
 %cmake_build
@@ -513,6 +521,9 @@ find $RPM_BUILD_ROOT -name '*.so.*' -exec chmod +x {} \;
 %{_datadir}/installed-tests
 
 %changelog
+* Fri Mar 14 2025 Milan Crha <mcrha@redhat.com> - 3.56.0-1
+- Update to 3.56.0
+
 * Fri Feb 28 2025 Milan Crha <mcrha@redhat.com> - 3.55.3-1
 - Update to 3.55.3
 

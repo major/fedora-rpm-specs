@@ -16,7 +16,7 @@ the lifetime of selected Python objects.
 
 Name: python-Pympler
 Version: 1.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Measure, monitor and analyze the memory behavior of Python objects
 License: Apache-2.0 and BSD-3-Clause and MIT
 # bundled stuff
@@ -68,18 +68,20 @@ chmod -x pympler/asizeof.py
 
 %install
 %pyproject_install
+%pyproject_save_files pympler
 
 # Disabled due to 3.13 failure: https://github.com/pympler/pympler/issues/163
 #%%check
 #PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} setup.py test
 
-%files -n python3-Pympler
+%files -n python3-Pympler -f %{pyproject_files}
 %license LICENSE
 %doc NOTICE README.md
-%{python3_sitelib}/Pympler-%{version}.dist-info/
-%{python3_sitelib}/pympler
 
 %changelog
+* Fri Mar 14 2025 Lumír Balhar <lbalhar@redhat.com> - 1.1-4
+- Use pyproject_save_files to fix compatibility with latest setuptools
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

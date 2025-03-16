@@ -5,7 +5,7 @@
 %global crate sequoia-keystore-gpg-agent
 
 Name:           rust-sequoia-keystore-gpg-agent
-Version:        0.4.1
+Version:        0.5.0
 Release:        %autorelease
 Summary:        Gpg-agent backend for Sequoia's private key store
 
@@ -14,6 +14,9 @@ URL:            https://crates.io/crates/sequoia-keystore-gpg-agent
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          sequoia-keystore-gpg-agent-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * enable missing "sequoia-openpgp/compression" feature
+Patch:          sequoia-keystore-gpg-agent-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 %if %{with check}

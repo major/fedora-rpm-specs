@@ -63,7 +63,7 @@
 Name:           ibus
 Version:        1.5.32~rc1
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -386,6 +386,7 @@ fi
     --enable-introspection \
     --enable-install-tests \
     %{nil}
+make -C ui/gtk3 maintainer-clean-generic
 
 %make_build
 
@@ -638,6 +639,10 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Fri Mar 14 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.32~rc1-4
+- Fix time lag of CandidatePanel in X11
+- Fix infinite Return key in xterm with Wayalnd input-method protocol V2
+
 * Sun Mar 09 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.32~rc1-3
 - Send RequireSurroundingText method with engine active-surrounding-text property
 

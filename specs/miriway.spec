@@ -1,5 +1,5 @@
 Name:           miriway
-Version:        25.02
+Version:        25.02.1
 Release:        1%{?dist}
 Summary:        Simple Wayland compositor built on Mir
 
@@ -16,6 +16,7 @@ BuildRequires:  git-core
 BuildRequires:  ninja-build
 BuildRequires:  pkgconfig(miral) >= 5.1
 BuildRequires:  pkgconfig(xkbcommon)
+BuildRequires:  pkgconfig(yaml-cpp)
 BuildRequires:  systemd-rpm-macros
 Requires:       inotify-tools
 Requires:       swaybg
@@ -122,6 +123,9 @@ install -pm 0755 %{S:1} %{buildroot}%{_libexecdir}/initial-setup/run-gui-backend
 
 
 %changelog
+* Wed Mar 12 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 25.02.1-1
+- Update to 25.02.1
+
 * Fri Feb 28 2025 Neal Gompa <ngompa@fedoraproject.org> - 25.02-1
 - Update to 25.02
 

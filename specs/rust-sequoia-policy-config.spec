@@ -4,7 +4,7 @@
 %global crate sequoia-policy-config
 
 Name:           rust-sequoia-policy-config
-Version:        0.7.0
+Version:        0.8.0
 Release:        %autorelease
 Summary:        Configure Sequoia using a configuration file
 
@@ -28,6 +28,7 @@ Summary:        %{summary}
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # Apache-2.0
 # Apache-2.0 OR MIT
+# BSD-3-Clause
 # BSL-1.0
 # LGPL-2.0-or-later
 # MIT
@@ -35,7 +36,17 @@ Summary:        %{summary}
 # MIT OR Apache-2.0 OR Zlib
 # Unlicense OR MIT
 # Zlib OR Apache-2.0 OR MIT
-License:        LGPL-2.0-or-later AND Apache-2.0 AND BSL-1.0 AND MIT AND Unicode-DFS-2016
+License:        %{shrink:
+    LGPL-2.0-or-later AND
+    Apache-2.0 AND
+    BSD-3-Clause AND
+    BSL-1.0 AND
+    MIT AND
+    Unicode-DFS-2016 AND
+    (Apache-2.0 OR MIT) AND
+    (MIT OR Apache-2.0 OR Zlib) AND
+    (Unlicense OR MIT)
+}
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}

@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 43.6
+Version: 43.7
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -505,6 +505,13 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Mar 14 2025 Packit <hello@packit.dev> - 43.7-1
+- pyanaconda: storage: fix getting of usable devices (k.koukiou)
+- gui: replace emblem icons removed from adwaita package (rvykydal)
+- Update FSF address (adamkankovsky)
+- Fix tui error after rd question (adamkankovsky)
+- network: update NM autoconnections configuration for centos (rvykydal)
+
 * Tue Mar 11 2025 Packit <hello@packit.dev> - 43.6-1
 - network: add dnsconfd to installer environment (rvykydal)
 - network: add dnsconfd to selected packages if used in installer (rvykydal)

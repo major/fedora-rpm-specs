@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-tyxml
 Version:        4.6.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Build valid HTML and SVG documents
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -143,6 +143,9 @@ developing applications that use %{name}-ppx.
 %files ppx-devel -f .ofiles-tyxml-ppx-devel
 
 %changelog
+* Fri Mar 14 2025 Jerry James <loganjerry@gmail.com> - 4.6.0-17
+- Rebuild for ocaml-uutf 1.0.4
+
 * Wed Feb 12 2025 Jerry James <loganjerry@gmail.com> - 4.6.0-16
 - Rebuild for ocaml-ppxlib 0.35.0
 

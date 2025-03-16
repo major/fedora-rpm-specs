@@ -3,7 +3,7 @@
 
 Name:		xreader
 Version:	4.2.3
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Simple document viewer
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -170,6 +170,9 @@ This package adds configuration to use %{name} as a thumbnailer.
 %doc %{_datadir}/doc/%{name}*
 
 %changelog
+* Fri Mar 14 2025 Leigh Scott <leigh123linux@gmail.com> - 4.2.3-4
+- rebuilt
+
 * Fri Jan 31 2025 Leigh Scott <leigh123linux@gmail.com> - 4.2.3-3
 - rebuilt
 

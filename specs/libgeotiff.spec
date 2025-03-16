@@ -6,17 +6,18 @@
 
 Name:          libgeotiff
 Version:       1.7.4
-Release:       1%{?dist}
+Release:       2%{?dist}
 
 Summary:       GeoTIFF format library
 License:       MIT
 URL:           http://trac.osgeo.org/geotiff/
 Source:        http://download.osgeo.org/geotiff/%{name}/%{name}-%{version}.tar.gz
-# Honour LIB_SUFFIX
-# Honour GEOTIFF_INCLUDE_SUBDIR
+
 # Add version suffix to mingw library
-# Fix cmake module install dir
-Patch0:        libgeotiff_cmake.patch
+Patch:         libgeotiff_cmake.patch
+# Use standard Config.cmake files
+# https://github.com/OSGeo/libgeotiff/pull/135.patch
+Patch:         135_cherry-picked.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -103,8 +104,9 @@ BuildArch:     noarch
 
 
 %build
+export CMAKE_BUILD_TYPE=RelWithDebInfo
 # Native build
-%cmake -DGEOTIFF_BIN_SUBDIR=bin -DCMAKE_INSTALL_INCLUDEDIR=%{_includedir}/%{name} -DBUILD_DOC=OFF
+%cmake -DCMAKE_INSTALL_INCLUDEDIR=%{_includedir}/%{name} -DBUILD_DOC=OFF
 %cmake_build
 
 %if %{with mingw}
@@ -120,54 +122,6 @@ MINGW64_CMAKE_ARGS=-DCMAKE_INSTALL_INCLUDEDIR=%{mingw64_includedir}/%{name} \
 %cmake_install
 %if %{with mingw}
 %mingw_make_install
-%endif
-
-
-# install pkgconfig file
-mkdir -p %{buildroot}%{_libdir}/pkgconfig/
-cat > %{buildroot}%{_libdir}/pkgconfig/%{name}.pc <<EOF
-prefix=%{_prefix}
-exec_prefix=%{_prefix}
-libdir=%{_libdir}
-includedir=%{_includedir}/%{name}
-
-Name: %{name}
-Description: GeoTIFF file format library
-Version: 1.7.4
-Libs: -L\${libdir} -lgeotiff
-Cflags: -I\${includedir}
-EOF
-
-%if %{with mingw}
-mkdir -p %{buildroot}%{mingw32_libdir}/pkgconfig/
-cat > %{buildroot}%{mingw32_libdir}/pkgconfig/%{name}.pc <<EOF
-prefix=%{mingw32_prefix}
-exec_prefix=%{mingw32_prefix}
-libdir=%{mingw32_libdir}
-includedir=%{mingw32_includedir}/%{name}
-
-Name: %{name}
-Description: GeoTIFF file format library
-Version: 1.7.4
-Libs: -L\${libdir} -lgeotiff
-Cflags: -I\${includedir}
-EOF
-
-mkdir -p %{buildroot}%{mingw64_libdir}/pkgconfig/
-cat > %{buildroot}%{mingw64_libdir}/pkgconfig/%{name}.pc <<EOF
-prefix=%{mingw64_prefix}
-exec_prefix=%{mingw64_prefix}
-libdir=%{mingw64_libdir}
-includedir=%{mingw64_includedir}/%{name}
-
-Name: %{name}
-Description: GeoTIFF file format library
-Version: 1.7.4
-Libs: -L\${libdir} -lgeotiff
-Cflags: -I\${includedir}
-EOF
-
-
 %mingw_debug_install_post
 %endif
 
@@ -222,6 +176,11 @@ EOF
 
 
 %changelog
+* Thu Mar 13 2025 Cristian Le <git@lecris.dev> - 1.7.4-2
+- Use modern Config.cmake formats
+- Use upstream's pkgconfig files
+- Changed build type from Debug to RelWithDebInfo
+
 * Thu Feb 20 2025 Sandro Mani <manisandro@gmail.com> - 1.7.4-1
 - Update to 1.7.4
 

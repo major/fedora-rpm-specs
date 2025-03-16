@@ -17,6 +17,8 @@ Patch:		0001-fix-test_-font.patch
 Patch:		0001-test_pixmap-adjust-to-turbojpeg.patch
 Patch:		0001-adjust-tesseract-tessdata-path-to-Fedora-default.patch
 Patch:		0001-setup.py-do-not-require-libclang-and-swig.patch
+# https://github.com/pymupdf/PyMuPDF/pull/4374
+Patch:		0001-adjust-to-python-3.14.patch
 
 # test dependencies not picked up by generator
 BuildRequires:	python3dist(pillow)

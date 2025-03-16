@@ -18,7 +18,6 @@ BuildRequires:  pyproject-rpm-macros
 %if %{undefined rhel}
 BuildRequires:  python3-pytest-xdist
 BuildRequires:  python3.6
-BuildRequires:  python3.8
 BuildRequires:  python3.9
 BuildRequires:  python3.10
 BuildRequires:  python3.11

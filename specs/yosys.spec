@@ -1,10 +1,10 @@
-%global commit0 6f9c515a222b322d8d3605e09eb69e7023e61e70
+%global commit0 e44d1d404a2ff2e042c36300f986bd0fa0b8d643
 %global shortcommit0 %%(c=%%{commit0}; echo ${c:0:7})
 
-%global snapdate 20250211
+%global snapdate 20250313
 
 Name:           yosys
-Version:        0.50
+Version:        0.51
 Release:        1.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Yosys Open SYnthesis Suite, including Verilog synthesizer
 License:        ISC and MIT
@@ -14,7 +14,7 @@ Source0:        https://github.com/YosysHQ/%{name}/archive/%{commit0}/%{name}-%{
 Source1:        https://github.com/mdaines/viz.js/releases/download/0.0.3/viz.js
 
 # man pages written for Debian:
-Source2:        http://http.debian.net/debian/pool/main/y/yosys/yosys_0.33-5.debian.tar.xz
+Source2:        http://http.debian.net/debian/pool/main/y/yosys/yosys_0.33-6.debian.tar.xz
 # requested that upstream include those man pages:
 #   https://github.com/YosysHQ/yosys/issues/278
 
@@ -62,7 +62,7 @@ BuildRequires: rsync
 
 Requires:       %{name}-share = %{version}-%{release}
 Requires:       graphviz python-click python-xdot
-Requires:       yosyshq-abc >= 0.46
+Requires:       yosyshq-abc >= 0.51
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval :
 ExcludeArch: %{ix86}
@@ -173,6 +173,9 @@ make test ABCEXTERNAL=%{_bindir}/abc SEED=314159265359
 
 
 %changelog
+* Thu Mar 13 2025 Gabriel Somlo <gsomlo@gmail.com> - 0.51.1.20250313gite44d1d4
+- update to 0.51 snapshot
+
 * Tue Feb 11 2025 Gabriel Somlo <gsomlo@gmail.com> - 0.50.1.20250211git6f9c515
 - update to 0.50 snapshot
 

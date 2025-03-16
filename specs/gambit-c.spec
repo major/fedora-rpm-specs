@@ -1,34 +1,21 @@
-# Using -O2 on ppc64 triggers ICE with gcc < 4.6.4
-# http://www.iro.umontreal.ca/~gambit/bugzilla/show_bug.cgi?id=155
-# https://bugzilla.redhat.com/show_bug.cgi?id=808285
-# Use --with ppc64opt2 when rebuilding to see if this is fixed
-%bcond_with ppc64opt2
-
-%if 0%{?el6}
-%ifarch ppc64
-%if ! %{with ppc64opt2}
-%global disable_c_opt 1
-%global optflags %(echo %{optflags} | sed 's/-O2 /-O1 /')
-%endif
-%endif # ppc64
-%endif # el6
-
 Name:           gambit-c
-Version:        4.9.3
-Release:        15%{?dist}
+Version:        4.9.6
+Release:        1%{?dist}
 Summary:        Scheme programming system
 
-# Automatically converted from old format: ASL 2.0 or LGPLv2 - review is highly recommended.
-License:        Apache-2.0 OR LicenseRef-Callaway-LGPLv2
+License:        Apache-2.0 OR LGPL-2.1-only
 URL:            http://gambitscheme.org/
 %global _dirname gambit-v%(echo %{version} | sed -e 's/\\./_/g')-devel
-Source0:        http://www.iro.umontreal.ca/~gambit/download/gambit/v4.9/source/%{_dirname}.tgz
+Source0:        https://github.com/gambit/gambit/archive/v%{version}/gambit-%{version}.tar.gz
 Source1:        gambit-init.el
 Patch0:         gambc-v4_2_8-modtime.patch
+# Temporary fix for GCC 15
+# https://github.com/gambit/gambit/issues/949
+Patch1:         gccmusttail.patch
 
 BuildRequires:  gcc
 BuildRequires:  emacs
-BuildRequires: make
+BuildRequires:  make
 Requires:       gcc
 Requires:       emacs-filesystem >= %{_emacs_version}
 
@@ -65,7 +52,8 @@ This package contains the Gambit-C user manual in HTML and PDF formats.
 
 
 %prep
-%autosetup -n %{_dirname} -p1
+%autosetup -n gambit-%{version} -p1
+#-n %{_dirname} -p1
 # Gambit tries to do a git update-index if a git repo is detected
 rm -rf .git
 
@@ -74,40 +62,25 @@ chmod -x lib/*.{c,h}
 
 
 %build
-# disable expensive optimizations on specified platforms
-# see INSTALL.txt
-%ifarch s390 %{arm}
-%global disable_gcc_opts 1
-%endif
 
 %if 0%{?rhel}
 %if 0%{?rhel} <= 7
 %global disable_gcc_opts 1
 %endif
 %endif
-
-%configure --enable-single-host \
-%if 0%{?disable_c_opt:1}
-%else
-           --enable-c-opt \
-%endif
-%if 0%{?disable_gcc_opts:1}
-%else
-           --enable-gcc-opts \
-%endif
-           --bindir=%{_libdir}/%{name}/bin \
+%configure --enable-trust-c-tco \
+	   --bindir=%{_libdir}/%{name}/bin \
            --libdir=%{_libdir}/%{name}
 
 make %{?_smp_mflags}
-
+	   
 # Compile emacs module
 (cd misc && %{_emacs_bytecompile} gambit.el)
 
 
 %check
-# tests fail on s390x:
-# https://bugzilla.redhat.com/show_bug.cgi?id=1714392
-%ifnarch s390x
+# Tests fail on i686
+%ifnarch i686
 make check
 %endif
 
@@ -158,6 +131,9 @@ cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_emacs_sitestartdir}
 
 
 %changelog
+* Fri Mar 14 2025 Benson Muite <fed500@fedoraproject.org> - 4.9.6-1
+- Update to release 4.9.6
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

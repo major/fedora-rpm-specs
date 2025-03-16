@@ -2,7 +2,7 @@
 
 Name:           PyQt-builder
 Version:        1.18.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The PEP 517 compliant PyQt build system
 
 License:        BSD-2-Clause
@@ -32,22 +32,25 @@ rm -rf %{pypi_name}.egg-info
 
 %install
 %pyproject_install
+%pyproject_save_files pyqtbuild
 # These dll files are from openssl and microsoft visiual studio
 # While we can redistribute them, we don't have source and it's 
 # unlikely anyone will want to bundle a windows executable from linux.
 rm -rf %{buildroot}/%{python3_sitelib}/pyqtbuild/bundle/dlls
+sed -r -i '/\/pyqtbuild\/bundle\/dlls/d' %{pyproject_files}
 
 %check
 %py3_check_import pyqtbuild
 
-%files
+%files -f %{pyproject_files}
 %license LICENSE
 %{_bindir}/pyqt-bundle
 %{_bindir}/pyqt-qt-wheel
-%{python3_sitelib}/pyqtbuild
-%{python3_sitelib}/PyQt_builder-%{version}.dist-info
 
 %changelog
+* Fri Mar 14 2025 Lumír Balhar <lbalhar@redhat.com> - 1.18.0-2
+- Fix compatibility with the latest setuptools
+
 * Wed Feb 19 2025 Scott Talbert <swt@techie.net> - 1.18.0-1
 - Update to new upstream release 1.18.0 (#2343425)
 

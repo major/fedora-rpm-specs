@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        26
+Version:        27
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -121,6 +121,9 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Fri Mar 14 2025 Packit <hello@packit.dev> - 27-1
+- storage: adjust scenario display order and default scenario selection
+
 * Thu Mar 06 2025 Packit <hello@packit.dev> - 26-1
 - storage: cockpit-storage: select newly created mdarrays if the user created them
 - cockpit-storage: detect invalid mdarray configuration

@@ -62,8 +62,6 @@ currently supports:
 
 %files -n python3-chromecast -f %{pyproject_files}
 %license LICENSE
-%{python3_sitelib}/pychromecast/
-%{python3_sitelib}/PyChromecast-*/
 
 %changelog
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 13.1.0-6

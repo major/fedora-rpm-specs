@@ -4,17 +4,15 @@
 %global crate sequoia-sqv
 
 Name:           rust-sequoia-sqv
-Version:        1.2.1
+Version:        1.3.0
 Release:        %autorelease
 Summary:        Simple OpenPGP signature verification program
 
-License:        GPL-2.0-or-later
+License:        LGPL-2.0-or-later
 URL:            https://crates.io/crates/sequoia-sqv
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * bump sequoia-policy-config dependency from 0.6 to 0.7
 # * switch crypto backend from Nettle to OpenSSL
-# * exclude files that are only useful for upstream development
 # * drop features for unsupported crypto backends
 Patch:          sequoia-sqv-fix-metadata.diff
 
@@ -31,15 +29,26 @@ Summary:        %{summary}
 # Apache-2.0
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+# BSD-3-Clause
 # BSL-1.0
-# GPL-2.0-or-later
 # LGPL-2.0-or-later
 # MIT
 # MIT OR Apache-2.0
 # MIT OR Apache-2.0 OR Zlib
 # Unlicense OR MIT
 # Zlib OR Apache-2.0 OR MIT
-License:        GPL-2.0-or-later AND Apache-2.0 AND BSL-1.0 AND LGPL-2.0-or-later AND MIT AND Unicode-DFS-2016 AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (MIT OR Apache-2.0 OR Zlib) AND (Unlicense OR MIT)
+License:        %{shrink:
+    LGPL-2.0-or-later AND
+    Apache-2.0 AND
+    BSD-3-Clause AND
+    BSL-1.0 AND
+    MIT AND
+    Unicode-DFS-2016 AND
+    (Apache-2.0 OR MIT) AND
+    (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
+    (MIT OR Apache-2.0 OR Zlib) AND
+    (Unlicense OR MIT)
+}
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}

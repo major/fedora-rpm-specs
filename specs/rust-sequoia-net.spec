@@ -5,7 +5,7 @@
 %global crate sequoia-net
 
 Name:           rust-sequoia-net
-Version:        0.29.0
+Version:        0.30.0
 Release:        %autorelease
 Summary:        Network services for OpenPGP
 

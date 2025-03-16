@@ -69,8 +69,7 @@ rm -f docs/_build/html/.buildinfo
 
 %install
 %pyproject_install
-# C files don't need to be packaged
-rm -f %{buildroot}%{python3_sitearch}/zope/interface/_zope_interface_coptimizations.c
+%pyproject_save_files -l zope
 
 %check
 %py3_check_import zope.interface
@@ -82,15 +81,13 @@ PURE_PYTHON=1 python3 -m unittest discover -vv -s zope/interface -t .
 popd
 %endif
 
-%files -n python3-zope-interface
+%files -n python3-zope-interface -f %{pyproject_files}
 %doc README.rst CHANGES.rst
-%license COPYRIGHT.txt LICENSE.txt
-%{python3_sitearch}/zope/interface/
-# Co-own %%{python3_sitearch}/zope/
-%dir %{python3_sitearch}/zope/
+%license COPYRIGHT.txt
 %exclude %{python3_sitearch}/zope/interface/tests/
 %exclude %{python3_sitearch}/zope/interface/common/tests/
-%{python3_sitearch}/zope.interface-*.dist-info
+# C files don't need to be packaged
+%exclude %{python3_sitearch}/zope/interface/*.c
 %{python3_sitearch}/zope.interface-*-nspkg.pth
 
 %if %{with docs}

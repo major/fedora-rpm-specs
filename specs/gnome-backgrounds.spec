@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-backgrounds
-Version:        48~beta
+Version:        48~rc
 Release:        1%{?dist}
 Summary:        Desktop backgrounds packaged with the GNOME desktop
 
@@ -53,8 +53,8 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
 %{_datadir}/gnome-background-properties/blobs.xml
 %{_datadir}/gnome-background-properties/drool.xml
 %{_datadir}/gnome-background-properties/pills.xml
-%{_datadir}/backgrounds/gnome/adwaita-d.jxl
-%{_datadir}/backgrounds/gnome/adwaita-l.jxl
+%{_datadir}/backgrounds/gnome/adwaita-d.jpg
+%{_datadir}/backgrounds/gnome/adwaita-l.jpg
 %{_datadir}/backgrounds/gnome/blobs-d.svg
 %{_datadir}/backgrounds/gnome/blobs-l.svg
 %{_datadir}/backgrounds/gnome/drool-d.svg
@@ -119,6 +119,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
 %{_datadir}/backgrounds/gnome/vnc-l.png
 
 %changelog
+* Fri Mar 14 2025 nmontero <nmontero@redhat.com> - 48~rc-1
+- Update to 48.rc
+
 * Thu Mar 06 2025 Fabio Valentini <decathorpe@gmail.com> - 48~beta-1
 - Update to 48.beta
 

@@ -3,7 +3,7 @@
 %global libadwaita_version 1.5
 
 Name:           gnome-chess
-Version:        48~alpha2
+Version:        48.0
 Release:        1%{?dist}
 Summary:        GNOME Chess game
 
@@ -60,6 +60,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Fri Mar 14 2025 nmontero <nmontero@redhat.com> - 48.0-1
+- Update to 48.0
+
 * Thu Mar 06 2025 Fabio Valentini <decathorpe@gmail.com> - 48~alpha2-1
 - Update to 48.alpha2
 

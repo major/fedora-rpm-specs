@@ -1,11 +1,11 @@
-%global commit e4115e85f734a6dc2d59654308eb2474375a7370
+%global commit d8988e16827a4830a052f0711f9c4828a62d77bf
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
-%global snapdate 20250211
+%global snapdate 20250313
 
 Name:		nextpnr
 Version:	1
-Release:	51.%{snapdate}git%{shortcommit}%{?dist}
+Release:	52.%{snapdate}git%{shortcommit}%{?dist}
 Summary:	FPGA place and route tool
 
 # Automatically converted from old format: ISC and BSD and MIT and (MIT or Public Domain) - review is highly recommended.
@@ -92,6 +92,9 @@ cp -r ice40/examples/* examples/ice40
 
 
 %changelog
+* Thu Mar 13 2025 Gabriel Somlo <gsomlo@gmail.com> - 1-52.20250313gitd8988e1
+- update to newer snapshot
+
 * Tue Feb 11 2025 Gabriel Somlo <gsomlo@gmail.com> - 1-51.20250211gite4115e8
 - remove cmake reference to tests submodule (to avoid having to pull it in)
 - update to newer snapshot

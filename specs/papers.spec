@@ -11,7 +11,7 @@
 %global __provides_exclude_from ^(%{_libdir}/papers/.*\\.so|%{_libdir}/nautilus/extensions-4/.*\\.so)$
 
 Name:           papers
-Version:        48~rc
+Version:        48.0
 Release:        %autorelease
 Summary:        View multipage documents
 

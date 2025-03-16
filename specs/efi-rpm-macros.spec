@@ -1,7 +1,7 @@
 Summary: Common RPM Macros for building EFI-related packages
 Name: efi-rpm-macros
 Version: 6
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-3.0-or-later
 URL: https://github.com/rhboot/%{name}/
 BuildRequires: git sed
@@ -9,6 +9,9 @@ BuildRequires: make
 BuildArch: noarch
 
 Source0: https://github.com/rhboot/%{name}/releases/download/%{version}/%{name}-6.tar.bz2
+# Not upstream, but trivial and posted upstream as a PR:
+# https://github.com/rhboot/efi-rpm-macros/pull/3
+Patch0003: 0003-add-riscv64-support.patch
 
 %global debug_package %{nil}
 %global _efi_vendor_ %(eval echo $(sed -n -e 's/rhel/redhat/' -e 's/^ID=//p' /etc/os-release))
@@ -66,6 +69,9 @@ git config --local --add efi.arches "x86_64 aarch64 %{arm} %{ix86} riscv64"
 %dir /boot/efi/EFI/%{_efi_vendor_}
 
 %changelog
+* Fri Mar 14 2025 Kashyap Chamarthy <kchamart@redhat.com> - 6-3
+- Re-add risc64 support; remove upstreamed patches.
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

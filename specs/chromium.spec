@@ -262,7 +262,7 @@
 
 Name:	chromium
 Version: 134.0.6998.88 
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -1210,6 +1210,8 @@ CXXFLAGS="$FLAGS"
 
 %ifarch ppc64le
 CXXFLAGS+=' -faltivec-src-compat=mixed -Wno-deprecated-altivec-src-compat'
+# Workaround for build error: Undefined temporary symbol .L_MergedGlobals.15
+CXXFLAGS+=' -O0'
 %endif
 
 export CC=clang
@@ -1226,7 +1228,7 @@ export RUSTC_BOOTSTRAP=1
 # set rustc version
 rustc_version="$(rustc --version)"
 # set rust bindgen root
-rust_bindgen_root="$(which bindgen | sed 's#/bin/.*##')"
+rust_bindgen_root="$(which bindgen | sed 's#/s\?bin/.*##')"
 rust_sysroot_absolute="$(rustc --print sysroot)"
 
 # set clang version
@@ -1762,6 +1764,9 @@ fi
 %endif
 
 %changelog
+* Fri Mar 14 2025 Than Ngo <than@redhat.com> -  134.0.6998.88-3
+- Fixed build errors on ppc64le
+
 * Thu Mar 13 2025 Fabio Valentini <decathorpe@gmail.com> - 134.0.6998.88-2
 - Rebuild for noopenh264 2.6.0
 

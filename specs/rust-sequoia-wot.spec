@@ -5,7 +5,7 @@
 %global crate sequoia-wot
 
 Name:           rust-sequoia-wot
-Version:        0.13.3
+Version:        0.14.0
 Release:        %autorelease
 Summary:        Implementation of OpenPGP's web of trust
 

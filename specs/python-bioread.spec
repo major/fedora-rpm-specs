@@ -1,5 +1,5 @@
 Name:           python-bioread
-Version:        2025.03.10
+Version:        2025.03.13
 Release:        %autorelease
 Summary:        Utilities to read BIOPAC AcqKnowledge files
 
@@ -62,7 +62,7 @@ find bioread/runners/ -type f -perm /0111 -exec chmod -v a-x '{}' '+'
 
 # Do this in %%install rather than %%build because we need the entry points:
 install -d '%{buildroot}%{_mandir}/man1'
-for bin in acq2hdf5 acq2mat acq2txt acq_info acq_markers
+for bin in acq2hdf5 acq2mat acq2txt acq_info acq_layout acq_markers
 do
   PYTHONPATH='%{buildroot}%{python3_sitelib}' help2man \
       --no-info \
@@ -84,12 +84,14 @@ done
 %{_bindir}/acq2mat
 %{_bindir}/acq2txt
 %{_bindir}/acq_info
+%{_bindir}/acq_layout
 %{_bindir}/acq_markers
 
 %{_mandir}/man1/acq2hdf5.1*
 %{_mandir}/man1/acq2mat.1*
 %{_mandir}/man1/acq2txt.1*
 %{_mandir}/man1/acq_info.1*
+%{_mandir}/man1/acq_layout.1*
 %{_mandir}/man1/acq_markers.1*
 
 

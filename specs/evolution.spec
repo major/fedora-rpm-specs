@@ -43,16 +43,17 @@
 ### Abstract ###
 
 Name: evolution
-Version: 3.55.3
+Version: 3.56.0
 Release: 1%{?dist}
 Summary: Mail and calendar client for GNOME
 License: GPL-2.0-or-later AND GFDL-1.3-or-later
 URL: https://gitlab.gnome.org/GNOME/evolution/-/wikis/home
-Source: http://download.gnome.org/sources/%{name}/3.55/%{name}-%{version}.tar.xz
+Source: http://download.gnome.org/sources/%{name}/3.56/%{name}-%{version}.tar.xz
 Source1: flatpak-evolution-fix-service-names.sh
 Source2: flatpak-evolution-wrapper.sh.in
 
 # 0-99: General patches
+# enable corresponding autopatch below to make them applied
 
 # 100-199: Flatpak-specific patches
 # https://gitlab.gnome.org/GNOME/evolution-data-server/-/merge_requests/144
@@ -250,7 +251,7 @@ the functionality of the installed %{name} package.
 %autosetup -p1 -S gendiff -N
 
 # General patches
-%autopatch -p1 -m 0 -M 99
+# %%autopatch -p1 -m 0 -M 99
 
 # Flatpak-specific patches
 %if 0%{?flatpak}
@@ -317,6 +318,13 @@ export CFLAGS
 	-DENABLE_PLUGINS=all \
 	%if 0%{?flatpak}
 	"-DWITH_WMCLASS_OVERRIDE=evolution.bin" \
+	%endif
+	-DINCLUDE_INSTALL_DIR:PATH=%{_includedir} \
+	-DLIB_INSTALL_DIR:PATH=%{_libdir} \
+	-DSYSCONF_INSTALL_DIR:PATH=%{_sysconfdir} \
+	-DSHARE_INSTALL_PREFIX:PATH=%{_datadir} \
+	%if "%{?_lib}" == "lib64"
+		-DLIB_SUFFIX=64 \
 	%endif
 	%{nil}
 
@@ -593,6 +601,9 @@ grep -v "%{_datadir}/locale" evolution.lang > help.lang
 %endif
 
 %changelog
+* Fri Mar 14 2025 Milan Crha <mcrha@redhat.com> - 3.56.0-1
+- Update to 3.56.0
+
 * Fri Feb 28 2025 Milan Crha <mcrha@redhat.com> - 3.55.3-1
 - Update to 3.55.3
 

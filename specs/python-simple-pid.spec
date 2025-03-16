@@ -27,7 +27,7 @@ Summary:	A PID (proportional–integral–derivative) controller in Python
 %autosetup -p1 -n simple-pid-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

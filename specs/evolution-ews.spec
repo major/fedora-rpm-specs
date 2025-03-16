@@ -5,12 +5,12 @@
 %global libsoup_version 3.1.1
 
 Name: evolution-ews
-Version: 3.55.3
+Version: 3.56.0
 Release: 1%{?dist}
 Summary: Evolution extension for Exchange Web Services
 License: LGPL-2.1-or-later
 URL: https://gitlab.gnome.org/GNOME/evolution/-/wikis/home
-Source: http://download.gnome.org/sources/%{name}/3.55/%{name}-%{version}.tar.xz
+Source: http://download.gnome.org/sources/%{name}/3.56/%{name}-%{version}.tar.xz
 
 %global eds_evo_version %{version}
 
@@ -68,7 +68,15 @@ This package contains translations for %{name}.
 
 %build
 export CFLAGS="$RPM_OPT_FLAGS -Wno-deprecated-declarations"
-%cmake -G "Unix Makefiles"
+%cmake -G "Unix Makefiles" \
+	-DINCLUDE_INSTALL_DIR:PATH=%{_includedir} \
+	-DLIB_INSTALL_DIR:PATH=%{_libdir} \
+	-DSYSCONF_INSTALL_DIR:PATH=%{_sysconfdir} \
+	-DSHARE_INSTALL_PREFIX:PATH=%{_datadir} \
+	%if "%{?_lib}" == "lib64"
+		-DLIB_SUFFIX=64 \
+	%endif
+	%{nil}
 %cmake_build
 
 %install
@@ -106,6 +114,9 @@ export CFLAGS="$RPM_OPT_FLAGS -Wno-deprecated-declarations"
 %files langpacks -f %{name}.lang
 
 %changelog
+* Fri Mar 14 2025 Milan Crha <mcrha@redhat.com> - 3.56.0-1
+- Update to 3.56.0
+
 * Fri Feb 28 2025 Milan Crha <mcrha@redhat.com> - 3.55.3-1
 - Update to 3.55.3
 

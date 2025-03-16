@@ -1,6 +1,6 @@
 #global gitrel     140
 #global gitcommit  bb40668ff9e47481d4741304f22129097a0d73d7
-#global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
+#global shortcommit %%(c=%%{gitcommit}; echo ${c:0:5})
 
 Name:		gst-editing-services
 Version:        1.26.0
@@ -48,7 +48,8 @@ developing applications that use %{name}
 %build
 %meson \
 	-D validate=disabled \
-	-D doc=disabled
+	-D doc=disabled \
+        -D tests=disabled
 
 %meson_build
 
@@ -72,11 +73,11 @@ cp data/completions/ges-launch-1.0 \
 %{_libdir}/girepository-1.0/GES-1.0.typelib
 %{_datadir}/bash-completion/completions/ges-launch-1.0
 %doc %{_mandir}/man1/ges-launch-1.0.*
-%{_libdir}/gst-validate-launcher/
+#%%{_libdir}/gst-validate-launcher/
 %{python3_sitearch}/gi/overrides/*
-%{_datadir}/gstreamer-1.0/validate/scenarios/ges-edit-clip-while-paused.scenario
-%dir %{_datadir}/gstreamer-1.0/validate/
-%dir %{_datadir}/gstreamer-1.0/validate/scenarios/
+#%%{_datadir}/gstreamer-1.0/validate/scenarios/ges-edit-clip-while-paused.scenario
+#%%dir %%{_datadir}/gstreamer-1.0/validate/
+#%%dir %%{_datadir}/gstreamer-1.0/validate/scenarios/
 
 # plugins 
 %{_libdir}/gstreamer-1.0/*.so

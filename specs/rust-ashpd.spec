@@ -166,6 +166,30 @@ use the "pipewire" feature of the "%{crate}" crate.
 %files       -n %{name}+pipewire-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+raw-window-handle-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+raw-window-handle-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "raw-window-handle" feature of the "%{crate}" crate.
+
+%files       -n %{name}+raw-window-handle-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+raw_handle-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+raw_handle-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "raw_handle" feature of the "%{crate}" crate.
+
+%files       -n %{name}+raw_handle-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+tokio-devel
 Summary:        %{summary}
 BuildArch:      noarch

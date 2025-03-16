@@ -1,12 +1,13 @@
 Name:		libmad
 Version:	0.16.4
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	MPEG audio decoder library
 
 License:	GPL-2.0-or-later
 URL:        https://codeberg.org/tenacityteam/libmad
-Source0:    %url/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:    %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
+Patch0:     %{url}/commit/326363f04e583b563f63941db3cf7f50e76aceb2.patch#/cmake_fix.patch
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
 
@@ -27,7 +28,7 @@ Requires:	%{name}%{?_isa} = %{version}-%{release}
 %autosetup -p1 -n %{name}
 
 %build
-%cmake -DOPTIMIZE=ACCURACY   
+%cmake -DOPTIMIZE=ACCURACY
 %cmake_build
 
 %install
@@ -50,6 +51,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 
 
 %changelog
+* Fri Mar 14 2025 Leigh Scott <leigh123linux@gmail.com> - 0.16.4-6
+- Use upstream commit to fix cmake issue
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

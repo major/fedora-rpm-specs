@@ -12,31 +12,29 @@ Source0003: csh.cshrc
 Source0004: csh.login
 Source0005: ethertypes
 Source0006: filesystems
-Source0007: group
-Source0008: host.conf
-Source0009: hosts
-Source0010: inputrc
-Source0011: networks
-Source0012: passwd
-Source0013: printcap
-Source0014: profile
-Source0015: protocols
-Source0016: services
-Source0017: shells
+Source0007: host.conf
+Source0008: hosts
+Source0009: inputrc
+Source0010: networks
+Source0011: printcap
+Source0012: profile
+Source0013: protocols
+Source0014: services
+Source0015: shells
 
 Source0021: lang.csh
 Source0022: lang.sh
 
 Source0031: COPYING
 Source0032: uidgid
-Source0033: generate-sysusers-fragments.sh
-Source0034: uidgidlint
+Source0033: setup.sysusers.conf
 Source0035: serviceslint
 
 BuildArch: noarch
 BuildRequires: bash
 BuildRequires: tcsh
 BuildRequires: perl-interpreter
+BuildRequires: /usr/bin/systemd-sysusers
 #systemd-rpm-macros: required to use _sysusersdir and _tmpfilesdir macro
 BuildRequires: systemd-rpm-macros
 #require system release for saner dependency order
@@ -48,21 +46,18 @@ setup files, such as passwd, group, and profile.
 
 %prep
 mkdir -p etc/profile.d
-cp %{lua: for i=1,17 do print(sources[i]..' ') end} etc/
+cp %{lua: for i=1,15 do print(sources[i]..' ') end} etc/
 cp %SOURCE21 %SOURCE22 etc/profile.d/
-touch etc/{exports,motd,subgid,subuid}
+touch etc/{exports,motd,subgid,subuid,environment,fstab}
 
 mkdir -p docs
 cp %SOURCE31 %SOURCE32 docs/
 
-bash %SOURCE33
-
 %build
-#make prototype for /etc/shadow
-sed -e "s/:.*/:*:`expr $(date +%s) / 86400`:0:99999:7:::/" etc/passwd >etc/shadow
-
-#make prototype for /etc/gshadow
-sed -e 's/:[0-9]\+:/::/g; s/:x:/::/' etc/group >etc/gshadow
+# This produces ./etc/{passwd,group,shadow,gshadow}
+systemd-sysusers --root=./ %SOURCE33
+# Allow the user to copy the file
+chmod 0400 ./etc/{shadow,gshadow}
 
 %check
 # Sanity checking selected files....
@@ -70,19 +65,16 @@ bash -n etc/bashrc
 bash -n etc/profile
 tcsh -f etc/csh.cshrc
 tcsh -f etc/csh.login
-(cd etc && bash %SOURCE34 ./uidgid)
 (cd etc && perl %SOURCE35 ./services)
 
 %install
 mkdir -p %{buildroot}/etc
 cp -ar etc/* %{buildroot}/etc/
 
-mkdir -p %{buildroot}%{_sysusersdir}
-cp sysusers.d/* %{buildroot}%{_sysusersdir}/
+install -D -m0644 %SOURCE33 %{buildroot}%{_sysusersdir}/setup.conf
 
 mkdir -p %{buildroot}/var/log
 touch %{buildroot}/etc/environment
-chmod 0400 %{buildroot}/etc/{shadow,gshadow}
 touch %{buildroot}/etc/fstab
 echo "#Add any required envvar overrides to this file, it is sourced from /etc/profile" >%{buildroot}/etc/profile.d/sh.local
 echo "#Add any required envvar overrides to this file, it is sourced from /etc/csh.login" >%{buildroot}/etc/profile.d/csh.local
@@ -181,8 +173,7 @@ end
 %config(noreplace) %verify(not md5 size mtime) /etc/shells
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/fstab
 %{_tmpfilesdir}/%{name}.conf
-%{_sysusersdir}/20-setup-groups.conf
-%{_sysusersdir}/20-setup-users.conf
+%{_sysusersdir}/setup.conf
 /etc/dnf/protected.d/%{name}.conf
 %dir /usr/share/dnf5
 %dir /usr/share/dnf5/libdnf.conf.d

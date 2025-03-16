@@ -18,6 +18,15 @@ Source0:        %forgesource
 # See README-test-files.md in dist-git for an explanation and instructions
 Source1:        %{pypi_name}-test-files-5.3.5.tar.gz
 
+# Do not rely on repr() of np.float64
+# https://github.com/nschloe/meshio/pull/1506
+#
+# Partial fix for:
+#
+# [BUG] Tests fail with NumPy 2.2.0
+# https://github.com/nschloe/meshio/issues/1499
+Patch:          %{forgeurl}/pull/1506.patch
+
 ExcludeArch:    %{ix86}
 
 BuildRequires:  python3-devel
@@ -108,7 +117,18 @@ done
 
 
 %check
-%pytest -v
+%if %{undefined fc40} && %{undefined fc41}
+# [BUG] Tests fail with NumPy 2.2.0
+# https://github.com/nschloe/meshio/issues/1499
+# ValueError: cannot reshape array of size 1 into shape (<A>,<B>)
+k="${k-}${k+ and }not test_gmsh22"
+k="${k-}${k+ and }not test_gmsh40"
+k="${k-}${k+ and }not test_gmsh41"
+# ReadError: Header of ugrid file is ill-formed
+k="${k-}${k+ and }not test_io[1e-07-.ugrid-mesh"
+%endif
+
+%pytest -k "${k-}" -v
 
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}

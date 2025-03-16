@@ -8,7 +8,7 @@
 
 Name:           budgie-desktop
 Version:        10.9.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A feature-rich, modern desktop designed to keep out the way of the user
 
 License:        GPLv2 and LGPLv2
@@ -17,6 +17,10 @@ Source0:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz
 Source1:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz.asc
 Source2:        https://joshuastrobl.com/pubkey.gpg
 Patch0:         Adapt-to-libxfce4windowing-4_19_7.patch
+
+# Upstream Patches
+Patch1:         46c83b1265b4230668da472d9ef6926941678418.patch
+Patch2:         c24091bb424abe99ebcdd33eedd37068f735ad2a.patch
 
 BuildRequires:  pkgconfig(accountsservice) >= 0.6.55
 BuildRequires:  pkgconfig(alsa) >= 1.2.6
@@ -181,6 +185,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/%{name}/*
 
 %changelog
+* Fri Mar 14 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 10.9.2-6
+- Added patches from upstream to fix a couple issues
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.9.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

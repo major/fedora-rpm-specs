@@ -1,15 +1,11 @@
 Name:           python-pdm-backend
-Version:        2.3.3
+Version:        2.4.3
 Release:        %autorelease
 Summary:        The build backend used by PDM that supports latest packaging standards
 # SPDX
 License:        MIT
 URL:            https://github.com/pdm-project/pdm-backend
 Source:         %{pypi_source pdm_backend}
-# Unbundles vendored dependencies and drops
-# validate_pyproject entirely. For context, see
-# https://bugzilla.redhat.com/show_bug.cgi?id=2179101
-Patch:          unbundle-vendored-deps.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -44,7 +40,10 @@ Requires:       python3-pyproject-metadata
 
 %prep
 %autosetup -p1 -n pdm_backend-%{version}
+# Remove bundled dependencies
 rm -rv src/pdm/backend/_vendor
+find ./ -name "*.py" | xargs \
+  sed -i "s/from pdm\.backend\._vendor\./from /;s/from pdm\.backend\._vendor //"
 
 
 %generate_buildrequires

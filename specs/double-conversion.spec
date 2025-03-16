@@ -1,11 +1,17 @@
 Summary:        Library providing binary-decimal and decimal-binary routines for IEEE doubles
 Name:           double-conversion
 Version:        3.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        BSD-3-Clause
 URL:            https://github.com/google/double-conversion
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+# CMake: Raised required version to 3.5
+# https://github.com/google/double-conversion/pull/240
+# Fixes CMake 4 compatibility (without CMAKE_POLICY_VERSION_MINIMUM workaround)
+Patch:          %{url}/pull/240.patch
+
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -52,6 +58,9 @@ examples can be found in test/cctest/test-conversions.cc.
 %{_includedir}/%{name}/
 
 %changelog
+* Fri Mar 14 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.3.1-2
+- Patch for CMake 4
+
 * Fri Feb 14 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.3.1-1
 - Update to 3.3.1 (close RHBZ#2345728)
 

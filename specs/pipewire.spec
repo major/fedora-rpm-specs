@@ -1,6 +1,6 @@
 %global majorversion 1
 %global minorversion 4
-%global microversion 0
+%global microversion 1
 
 %global apiversion   0.3
 %global spaversion   0.2
@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 3
+%global baserelease 1
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -230,8 +230,6 @@ Summary:        PipeWire JACK implementation
 License:        MIT
 Recommends:     %{name}%{?_isa} = %{version}-%{release}
 Requires:       %{name}-jack-audio-connection-kit-libs%{?_isa} = %{version}-%{release}
-Conflicts:      jack-audio-connection-kit
-Conflicts:      jack-audio-connection-kit-dbus
 # Replaces libjack subpackage
 %if ! (0%{?fedora} && 0%{?fedora} < 34)
 # Ensure this is provided by default to route all audio
@@ -887,6 +885,11 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Fri Mar 14 2025 Wim Taymans <wtaymans@redhat.com> - 1.4.1-1
+- Update version to 1.4.1
+- Remove the Conflicts: with JACK, we can install both but if the
+  pipewire version is installed, all goes to pipewire.
+
 * Fri Mar 07 2025 Wim Taymans <wtaymans@redhat.com> - 1.4.0-3
 - Always require jack-audio-connection-kit from jack-audio-connection-kit-libs
   because the ld.so.conf is needed to build dependent packages

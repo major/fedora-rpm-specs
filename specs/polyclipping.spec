@@ -39,7 +39,7 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -qc
+%autosetup -c -p1
 
 # Delete binaries
 find . \( -name "*.exe" -o -name "*.dll" \) -delete
@@ -60,7 +60,23 @@ done
 
 %build
 pushd cpp
-  %cmake
+  # As of this writing, %%cmake exports CMAKE_POLICY_VERSION_MINIMUM as a
+  # workaround for CMake 4.0 compatibility, but this is (as a distribution-wide
+  # workaround) controversial because it masks the problem, and it is not
+  # likely to be permanent. We therefore set the variable ourselves, because it
+  # *is* an appropriate workaround for this package in particular: it is
+  # sufficient to build correctly with CMake 4.0, and since upstream is no
+  # longer developing this package (considering it obsolete and superseded by
+  # Clipper2), it does not seem useful to put effort into modernization for its
+  # own sake.
+  #
+  # While CMake 4.0 only drops compatibility with CMake<3.5 policies,
+  # CMake<3.10 is already deprecated. As long as we are touching the minimum
+  # version, we choose to advance to 3.12, the first "modern" CMake release.
+  export CMAKE_POLICY_VERSION_MINIMUM='3.12'
+
+  # Prior to Fedora 43, %%cmake set the nonstandard -DLIB_SUFFIX=... variable.
+  %cmake %["%{?_lib}" == "lib64" ? "-DLIB_SUFFIX=64" : ""]
   %cmake_build
 popd
 
