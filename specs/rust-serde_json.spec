@@ -5,15 +5,13 @@
 %global crate serde_json
 
 Name:           rust-serde_json
-Version:        1.0.139
+Version:        1.0.140
 Release:        %autorelease
 Summary:        JSON serialization file format
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/serde_json
 Source:         %{crates_source}
-# https://github.com/serde-rs/json/issues/1098
-Patch:          0001-Adapt-tests-so-they-can-be-compiled-with-stable-Rust.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

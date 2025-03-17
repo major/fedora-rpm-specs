@@ -30,6 +30,10 @@ deprecate the previously mentioned Python objects.
 %prep
 %autosetup -p1 -n %{modname}-%{version}
 
+# Allow newer setuptools
+sed -i 's/"setuptools .*"/"setuptools"/' pyproject.toml
+sed -i 's/setuptools <=.*/setuptools/'  tox.ini
+
 %generate_buildrequires
 %pyproject_buildrequires -t
 

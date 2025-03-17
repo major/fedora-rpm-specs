@@ -14,6 +14,8 @@ ExcludeArch:    %{ix86}
 URL:            https://digraphs.github.io/Digraphs/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+# Compatibility with planarity 4.x
+Patch:          %{name}-planarity4.patch
 
 BuildRequires:  gap-devel
 BuildRequires:  GAPDoc-doc

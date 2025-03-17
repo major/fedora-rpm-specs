@@ -47,6 +47,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
+%pyproject_save_files OpenSSL-stubs
 
 
 %if 0%{?fedora}
@@ -55,10 +56,8 @@ Summary:        %{summary}
 %endif
 
 
-%files -n  python%{python3_pkgversion}-%{srcname}
+%files -n  python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
 %doc CHANGELOG.md
-%{python3_sitelib}/OpenSSL-stubs
-%{python3_sitelib}/%{modname}-%{version}.dist-info/
 
 
 %changelog

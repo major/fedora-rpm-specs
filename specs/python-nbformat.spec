@@ -74,7 +74,7 @@ sed -i "s/{VERSION}/%{version}/" pyproject.toml
 %{_bindir}/jupyter-trust
 
 %changelog
-* Wed Feb 08 2025 Sandro <devel@penguinpee.nl> - 5.9.2-8
+* Sat Feb 08 2025 Sandro <devel@penguinpee.nl> - 5.9.2-8
 - Drop dependency on pep440
 
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.2-7

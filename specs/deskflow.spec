@@ -2,8 +2,8 @@
 %global qt6ver 6.7.0
 
 Name:		deskflow
-Version:	1.19.0
-Release:	2%{?dist}
+Version:	1.20.1
+Release:	1%{?dist}
 Summary:	Share mouse and keyboard between multiple computers over the network
 
 License:	GPL-2.0-only
@@ -91,6 +91,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnn_name}.desktop
 
 
 %changelog
+* Sat Mar 15 2025 Neal Gompa <ngompa@fedoraproject.org> - 1.20.1-1
+- Update to 1.20.1
+
 * Fri Feb 14 2025 Neal Gompa <ngompa@fedoraproject.org> - 1.19.0-2
 - Temporarily allow tests to fail on s390x
 

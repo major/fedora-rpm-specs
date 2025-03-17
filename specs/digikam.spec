@@ -13,8 +13,8 @@ ExclusiveArch: %{qt5_qtwebengine_arches}
 
 Name:    digikam
 Summary: A digital camera accessing & photo management application
-Version: 8.5.0
-Release: 4%{?beta}%{?dist}
+Version: 8.6.0
+Release: 1%{?beta}%{?dist}
 
 License: GPL-2.0-or-later
 URL:     http://www.digikam.org/
@@ -61,34 +61,34 @@ BuildRequires: pkgconfig(libpng) >= 1.2.7
 BuildRequires: pkgconfig(glu)
 BuildRequires: pkgconfig(x11) pkgconfig(xproto)
 %if %{with build_with_qt6}
-BuildRequires: pkgconfig(Qt6NetworkAuth)
-BuildRequires: pkgconfig(Qt6OpenGL)
-BuildRequires: pkgconfig(Qt6Svg)
-BuildRequires: pkgconfig(Qt6Multimedia)
-BuildRequires: pkgconfig(Qt6StateMachine)
-BuildRequires: pkgconfig(Qt6WebEngineWidgets)
-BuildRequires: libksane-devel
-BuildRequires: ksanecore-devel
-BuildRequires: kf6-kcalendarcore-devel
-BuildRequires: kf6-kconfig-devel
-BuildRequires: kf6-kdoctools-devel
-BuildRequires: kf6-kfilemetadata-devel
-BuildRequires: kf6-kwindowsystem-devel
-BuildRequires: kf6-kxmlgui-devel
-BuildRequires: kf6-ki18n-devel
-BuildRequires: kf6-kitemmodels-devel
-BuildRequires: kf6-kio-devel
-BuildRequires: kf6-kservice-devel
-BuildRequires: kf6-kiconthemes-devel
-BuildRequires: kf6-karchive-devel
-BuildRequires: kf6-threadweaver-devel
-BuildRequires: kf6-kcoreaddons-devel
-BuildRequires: kf6-knotifyconfig-devel
-BuildRequires: kf6-knotifications-devel
-BuildRequires: kf6-solid-devel
-BuildRequires: kf6-sonnet-devel
-BuildRequires: kf6-kitemviews-devel
-BuildRequires: kf6-kbookmarks-devel
+BuildRequires: cmake(Qt6NetworkAuth)
+BuildRequires: cmake(Qt6OpenGL)
+BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6Multimedia)
+BuildRequires: cmake(Qt6StateMachine)
+BuildRequires: cmake(Qt6WebEngineWidgets)
+BuildRequires: cmake(KSaneCore6)
+BuildRequires: cmake(KSaneWidgets6)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6FileMetaData)
+BuildRequires: cmake(KF6CalendarCore)
+BuildRequires: cmake(KF6Notifications)
+BuildRequires: cmake(KF6NotifyConfig)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6IconThemes)
+BuildRequires: cmake(KF6Sonnet)
+BuildRequires: cmake(KF6ThreadWeaver)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6WindowSystem)
+BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6Service)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6ItemModels)
+BuildRequires: cmake(KF6ItemViews)
+BuildRequires: cmake(KF6Archive)
+BuildRequires: cmake(KF6Solid)
+BuildRequires: cmake(KF6Bookmarks)
 BuildRequires: kf6-rpm-macros
 BuildRequires: qt6-qtbase-private-devel
 %else
@@ -202,6 +202,9 @@ needed to develop applications using %{name}.
 
 %prep
 %autosetup -n %{name}-%{version}%{?beta:-%{beta}} -p1
+
+# fix wrong version in 8.6.0 tarball
+sed -i 's|DIGIKAM_MINOR_VERSION "7"|DIGIKAM_MINOR_VERSION "6"|g' CMakeLists.txt
 
 %build
 %if %{with build_with_qt6}
@@ -334,6 +337,10 @@ update-desktop-database -q &> /dev/null
 
 
 %changelog
+* Sat Mar 15 2025 Alexey Kurov <nucleo@fedoraproject.org> - 8.6.0-1
+- digiKam-8.6.0
+- use cmake() for Qt6/KF6 BR
+
 * Tue Feb 04 2025 Sérgio Basto <sergio@serjux.com> - 8.5.0-4
 - Rebuild for opencv-4.11.0
 

@@ -2,36 +2,27 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate libz-ng-sys
+%global crate env_home
 
-Name:           rust-libz-ng-sys
-Version:        1.1.22
+Name:           rust-env_home
+Version:        0.1.0
 Release:        %autorelease
-Summary:        Low-level bindings to zlib-ng
+Summary:        Get the user home directory in a cross-platform way
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/libz-ng-sys
+URL:            https://crates.io/crates/env_home
 Source:         %{crates_source}
-# * Replace the upstream script for building zlib-ng with one that
-#   unconditionally links the system one. The result is so trivial and has so
-#   little in common with the original that it makes sense to ship an
-#   alternative source rather than a patch.
-Source10:       cmake.rs
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  tomcli
-BuildRequires:  pkgconfig(zlib-ng)
 
 %global _description %{expand:
-Low-level bindings to zlib-ng (libz-ng), a high-performance zlib
-library.}
+Get the user home directory in a cross-platform way.}
 
 %description %{_description}
 
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(zlib-ng)
 
 %description    devel %{_description}
 
@@ -41,7 +32,7 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/README-zng.md
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -58,12 +49,6 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Remove the bundled copy of zlib-ng and replace its build script
-rm -rv src/zlib-ng
-cp -p '%{SOURCE10}' zng/
-# We don’t need CMake since we are not building zlib-ng:
-tomcli set Cargo.toml del build-dependencies.cmake
-
 %cargo_prep
 
 %generate_buildrequires

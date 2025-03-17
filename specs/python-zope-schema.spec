@@ -43,17 +43,16 @@ rm -fr html/{.buildinfo,.doctrees}
 
 %install
 %pyproject_install
+%pyproject_save_files -l zope
 
 %check
 PYTHONPATH=%{buildroot}%{python3_sitelib} zope-testrunner --test-path=src
 
-%files -n python3-zope-schema
+%files -n python3-zope-schema -f %{pyproject_files}
 %doc CHANGES.rst COPYRIGHT.txt README.rst
 %doc html/
-%license LICENSE.txt
-%{python3_sitelib}/zope/schema/
+%exclude %dir %{python3_sitelib}/zope
 %exclude %{python3_sitelib}/zope/schema/tests/
-%{python3_sitelib}/%{modname}-*.dist-info
 %{python3_sitelib}/%{modname}-*-nspkg.pth
 
 

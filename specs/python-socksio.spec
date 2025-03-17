@@ -46,7 +46,7 @@ rm pytest.ini
 
 %install
 %pyproject_install
-%pyproject_save_files -L socksio
+%pyproject_save_files -l socksio
 
 
 %check
@@ -55,8 +55,6 @@ rm pytest.ini
 
 %files -n python3-socksio -f %{pyproject_files}
 %doc README.md CHANGELOG.md
-# flit does not mark licenses as License-Files yet
-%license %{python3_sitelib}/socksio-%{version}.dist-info/LICENSE
 
 
 %changelog

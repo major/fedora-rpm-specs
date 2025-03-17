@@ -1,23 +1,9 @@
-%if 0%{?fedora} || 0%{?rhel} >= 8
-%bcond_without tests
-%else
-%bcond_with tests
-%endif
+# Do we build in/for the distro or in copr?
+%bcond distrobuild 1
 
-%if 0%{?fedora} || 0%{?rhel} >= 8
-%global with_python3legacy 1
-%global with_python3CFFI 1
-%endif
-
-%if 0%{?rhel} && 0%{?rhel} <= 7
-%global with_python2 1
-%endif
-
-%if 0%{?fedora} >= 36 || 0%{?rhel} >= 9
-%bcond_without sfsexp
-%else
-%bcond_with sfsexp
-%endif
+# We used to set these based on fedora/rhel versions. Keep them in case for now.
+%bcond tests 1
+%bcond sfsexp 1
 
 # comparing {_emacs_version} in macros does not work well
 # so we catch the major version bumps ;)
@@ -29,20 +15,18 @@
 %global with_emacs29 1
 %endif
 
-# build python 3 modules with python 3 ;)
-%if 0%{?with_python3legacy} || 0%{?with_python3CFFI}
-%global with_python3 1
-%endif
-
 Name:           notmuch
-Version:        0.38.3
+Version:        0.39
 Release:        %autorelease
 Summary:        System for indexing, searching, and tagging email
 License:        GPL-3.0-or-later
 URL:            https://notmuchmail.org/
 Source0:        https://notmuchmail.org/releases/notmuch-%{version}.tar.xz
 Source1:        https://notmuchmail.org/releases/notmuch-%{version}.tar.xz.asc
-# Imported from public key servers; author provides no fingerprint!
+# imported from `gpg --locate-external-key david@tethera.net`
+# cross checked with `gpg --keyserver keyring.debian.org --recv-key 7E4E65C8720B706B`
+# as per author's instructions on the mailing-list
+# `gpg --export --export-options export-minimal 7A18807F100A4570C59684207E4E65C8720B706B > gpgkey-7A18807F100A4570C59684207E4E65C8720B706B.gpg`
 Source2:        gpgkey-7A18807F100A4570C59684207E4E65C8720B706B.gpg
 Patch1:         0001-test-allow-to-use-full-scan.patch
 Patch2:         0002-test-use-NOTMUCH_NEW-consistently.patch
@@ -69,39 +53,27 @@ BuildRequires:  libtalloc-devel
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
 BuildRequires:  perl-podlators
-%if 0%{?with_python2}
-BuildRequires:  python2-devel
-BuildRequires:  python2-docutils
-BuildRequires:  python2-sphinx
-%endif
 BuildRequires:  ruby-devel
 %if %{with sfsexp}
 BuildRequires:  pkgconfig(sfsexp)
 %endif
 BuildRequires:  xapian-core-devel
 BuildRequires:  zlib-devel
-
-%if 0%{?with_python3}
 BuildRequires:  python3-devel
 BuildRequires:  python3-docutils
 BuildRequires:  python3-sphinx
-%endif
 
-%if 0%{?with_python3CFFI}
 BuildRequires:  python3-setuptools
-  %if %{with tests}
+%if %{with tests}
 BuildRequires:  python3-pytest
 # Not available on *EL, skip some tests there:
-    %if 0%{?fedora}
+  %if 0%{?fedora}
 BuildRequires:  python3-pytest-shutil
-    %endif
   %endif
 BuildRequires:  python3-cffi
-%endif
-
-%if %{with tests}
-# Not available on *EL, skip some tests there:
-  %if 0%{?fedora}
+# dtach not available on *EL, skip some tests there;
+# copr only: use mjg/dtach-epel
+  %if 0%{?fedora} || %{without distrobuild}
 BuildRequires:  dtach
   %endif
 BuildRequires:  gdb
@@ -146,9 +118,7 @@ Notmuch library.  You'll also need to install the notmuch package.
 Summary:    Manage notmuch tags with git
 Requires:   %{name} = %{version}-%{release}
 Requires:   git-core
-%if 0%{?with_python3CFFI}
 Recommends: python3-notmuch2
-%endif
 
 %description git
 This package contains a simple tool to save, restore, and synchronize
@@ -164,41 +134,18 @@ Requires:   emacs(bin) >= %{_emacs_version}
 %description -n emacs-notmuch
 %{summary}.
 
-%if 0%{?with_python2}
-%package -n python2-notmuch
-Summary:    Python2 bindings for notmuch
-Requires:   %{name} = %{version}-%{release}
-%{?python_provide:%python_provide python2-notmuch}
-
-Requires:       python2
-
-%description -n python2-notmuch
-%{summary}.
-%endif
-
-%if 0%{?with_python3legacy}
-%package -n python3-notmuch
-Summary:    Python3 bindings for notmuch (legacy)
-Requires:   %{name} = %{version}-%{release}
-%{?python_provide:%python_provide python3-notmuch}
-
-Requires:       python3
-
-%description -n python3-notmuch
-%{summary}.
-%endif
-
-%if 0%{?with_python3CFFI}
 %package -n python3-notmuch2
 Summary:    Python3 bindings for notmuch (cffi)
 Requires:   %{name} = %{version}-%{release}
 %{?python_provide:%python_provide python3-notmuch2}
 
-Requires:       python3
+Requires:   python3
+# Keep these as long as we need to provide an upgrade path:
+Obsoletes:  python-notmuch < 0.39~rc2-1
+Obsoletes:  python3-notmuch < 0.39~rc2-1
 
 %description -n python3-notmuch2
 %{summary}.
-%endif
 
 %package -n ruby-notmuch
 Summary:    Ruby bindings for notmuch
@@ -231,29 +178,22 @@ notmuch-vim is a Vim plugin that provides a fully usable mail client
 interface, utilizing the notmuch framework.
 
 %prep
+%if %{with distrobuild}
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
+%else
+# unversioned dir for git build, no check
+%autosetup -n notmuch -p1
+%endif
 
 %build
 # DEBUG mtime/stat
 %configure --emacslispdir=%{_emacs_sitelispdir}
 %make_build CFLAGS="$RPM_OPT_FLAGS -fPIC"
 
-# Build the python bindings
-pushd bindings/python
-    %if 0%{?with_python2}
-    %py2_build
-    %endif
-    %if 0%{?with_python3}
-    %py3_build
-    %endif
-popd
-
 # Build the python cffi bindings
 pushd bindings/python-cffi
-    %if 0%{?with_python3CFFI}
-    %py3_build
-    %endif
+%py3_build
 popd
 
 # Build notmuch-mutt
@@ -289,21 +229,9 @@ find %{buildroot}%{_libdir} -name *.so* -exec chmod 755 {} \;
 install -m0755 notmuch-git nmbug %{buildroot}%{_bindir}/
 %endif
 
-# Install the python bindings and documentation
-pushd bindings/python
-    %if 0%{?with_python2}
-    %py2_install
-    %endif
-    %if 0%{?with_python3legacy}
-    %py3_install
-    %endif
-popd
-
 # Install the python cffi bindings and documentation
 pushd bindings/python-cffi
-    %if 0%{?with_python3CFFI}
-    %py3_install
-    %endif
+%py3_install
 popd
 
 # Install the ruby bindings
@@ -412,22 +340,8 @@ vim -u NONE -esX -c "helptags ." -c quit
 %{_infodir}/notmuch-emacs-mua.info*
 %{_infodir}/notmuch-emacs.info*
 
-%if 0%{?with_python2}
-%files -n python2-notmuch
-%doc bindings/python/README
-%{python2_sitelib}/notmuch*
-%endif
-
-%if 0%{?with_python3legacy}
-%files -n python3-notmuch
-%doc bindings/python/README
-%{python3_sitelib}/notmuch*
-%endif
-
-%if 0%{?with_python3CFFI}
 %files -n python3-notmuch2
 %{python3_sitearch}/notmuch*
-%endif
 
 %files -n ruby-notmuch
 %{ruby_vendorarchdir}/*

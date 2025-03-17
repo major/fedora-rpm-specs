@@ -2,26 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate winnow
+%global crate glycin-utils
 
-Name:           rust-winnow
-Version:        0.7.3
+Name:           rust-glycin-utils2
+Version:        2.0.2
 Release:        %autorelease
-Summary:        Byte-oriented, zero-copy, parser combinators library
+Summary:        Sandboxed image decoding
 
-License:        MIT
-URL:            https://crates.io/crates/winnow
+License:        MPL-2.0 OR LGPL-2.1-or-later
+URL:            https://crates.io/crates/glycin-utils
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * remove references to benchmark and example binaries from Cargo.toml
-# * drop unused, benchmark-only criterion dev-dependency
-# * drop dev-dependencies which are only needed for example binaries
-Patch:          winnow-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A byte-oriented, zero-copy, parser combinators library.}
+Sandboxed image decoding.}
 
 %description %{_description}
 
@@ -35,8 +30,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/README.md
+%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-LGPL-2.1
+%license %{crate_instdir}/LICENSE-MPL-2.0
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -51,76 +47,76 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+alloc-devel
+%package     -n %{name}+async-io-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+alloc-devel %{_description}
+%description -n %{name}+async-io-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "alloc" feature of the "%{crate}" crate.
+use the "async-io" feature of the "%{crate}" crate.
 
-%files       -n %{name}+alloc-devel
+%files       -n %{name}+async-io-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+debug-devel
+%package     -n %{name}+glib-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+debug-devel %{_description}
+%description -n %{name}+glib-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "debug" feature of the "%{crate}" crate.
+use the "glib" feature of the "%{crate}" crate.
 
-%files       -n %{name}+debug-devel
+%files       -n %{name}+glib-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+simd-devel
+%package     -n %{name}+gobject-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+simd-devel %{_description}
+%description -n %{name}+gobject-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "simd" feature of the "%{crate}" crate.
+use the "gobject" feature of the "%{crate}" crate.
 
-%files       -n %{name}+simd-devel
+%files       -n %{name}+gobject-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+std-devel
+%package     -n %{name}+image-rs-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+std-devel %{_description}
+%description -n %{name}+image-rs-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
+use the "image-rs" feature of the "%{crate}" crate.
 
-%files       -n %{name}+std-devel
+%files       -n %{name}+image-rs-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+unstable-doc-devel
+%package     -n %{name}+loader-utils-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+unstable-doc-devel %{_description}
+%description -n %{name}+loader-utils-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "unstable-doc" feature of the "%{crate}" crate.
+use the "loader-utils" feature of the "%{crate}" crate.
 
-%files       -n %{name}+unstable-doc-devel
+%files       -n %{name}+loader-utils-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+unstable-recover-devel
+%package     -n %{name}+tokio-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+unstable-recover-devel %{_description}
+%description -n %{name}+tokio-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "unstable-recover" feature of the "%{crate}" crate.
+use the "tokio" feature of the "%{crate}" crate.
 
-%files       -n %{name}+unstable-recover-devel
+%files       -n %{name}+tokio-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

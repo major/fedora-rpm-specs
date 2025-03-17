@@ -9,20 +9,25 @@
 %bcond check 1
 
 Name:           python-glyphsLib
-Version:        6.9.5
-Release:        2%{?dist}
+Version:        6.10.1
+Release:        1%{?dist}
 Summary:        A bridge from Glyphs source files to UFOs
 
 # The entire package is Apache-2.0, except:
-#   MIT:
-#   - Lib/glyphsLib/data/ (Lib/glyphsLib/data/GlyphData_LICENSE)
+#   MIT AND BSD-3-Clause:
+#   - Lib/glyphsLib/data/ (Lib/glyphsLib/data/GlyphData_LICENSE,
+#                          Lib/glyphsLib/data/GlyphData_AGL_LICENSE)
 #
 # Additionally, many files in tests/data/ are OFL-1.1; these appear in the
 # source RPM but do not contribute to the licenses of the binary RPMs. Note
 # that these are not fonts per se, but font *sources*.
-License:        Apache-2.0 AND MIT
+License:        Apache-2.0 AND MIT AND BSD-3-Clause
 URL:            https://github.com/googlefonts/glyphsLib
 Source:         %{pypi_source glyphslib}
+
+# Add additional license text for GlyphData
+# https://github.com/googlefonts/glyphsLib/pull/1073
+Patch:          %{url}/pull/1073.patch
 
 BuildArch:      noarch
 
@@ -94,6 +99,9 @@ do
           "%{buildroot}%{_bindir}/${bin}"
 done
 
+# Mark GlyphData license files in-place rather than installing duplicates.
+sed -r -i 's/^(.*GlyphData(_AGL)?_LICENSE)/%%license &/' %{pyproject_files}
+
 %check
 %pyproject_check_import
 %if %{with check}
@@ -112,8 +120,6 @@ ignore="${ignore-} --ignore=tests/builder/interpolation_test.py"
 %endif
 
 %files -n python3-glyphsLib -f %{pyproject_files}
-%license LICENSE
-%license Lib/glyphsLib/data/GlyphData_LICENSE
 %doc README.rst README.builder.md
 %{_bindir}/glyphs2ufo
 %{_bindir}/ufo2glyphs
@@ -121,6 +127,13 @@ ignore="${ignore-} --ignore=tests/builder/interpolation_test.py"
 %{_mandir}/man1/ufo2glyphs.1*
 
 %changelog
+* Fri Mar 14 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 6.10.1-1
+- Update to 6.10.1 (close RHBZ#1881116)
+
+* Fri Mar 14 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 6.9.5-3
+- Add additional license terms for GlyphsInfo data files
+- Mark GlyphData license files in-place rather than installing duplicates
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.9.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

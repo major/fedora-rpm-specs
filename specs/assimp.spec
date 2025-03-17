@@ -1,8 +1,8 @@
 %define soversion 5
 
 Name:           assimp
-Version:        5.3.1
-Release:        5%{?dist}
+Version:        5.4.3
+Release:        1%{?dist}
 Summary:        Library to import various 3D model formats into applications
 
 # Assimp is BSD
@@ -23,15 +23,15 @@ Source0:        %{name}-%{version}-free.tar.xz
 Source1:        assimp_generate_tarball.sh
 
 # Un-bundle libraries that are provided by the distribution.
-Patch0:         %{name}-5.3.1-unbundle.patch
+Patch0:         %{name}-5.4.3-unbundle.patch
 # Add /usr/lib64 to library lookup paths for python modules
 Patch1:         %{name}-5.1.0-pythonpath.patch
 # Prevent export of bundled zlibstatic library
-Patch2:         %{name}-5.2.5-nozlib.patch
+Patch2:         %{name}-5.4.3-nozlib.patch
 # Exclude the build directory from the doxygen-generated documentation
 Patch3:         %{name}-5.1.0-doxyfile.patch
-# Enable ctest and correct the project version
-Patch4:         %{name}-5.3.1-tests.patch
+# Enable ctest
+Patch4:         %{name}-5.4.3-tests.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake
@@ -199,6 +199,10 @@ rm -f %{buildroot}%{_libdir}/libzlibstatic.a
 %endif
 
 %changelog
+* Sat Mar 15 2025 Rich Mattes <richmattes@gmail.com> - 5.4.3-1
+- Update to release 5.4.3
+- Resolves: #2274012
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

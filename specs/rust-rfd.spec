@@ -2,25 +2,26 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate flate2
+%global crate rfd
 
-Name:           rust-flate2
-Version:        1.1.0
+Name:           rust-rfd
+Version:        0.15.3
 Release:        %autorelease
-Summary:        DEFLATE compression and decompression exposed as Read/BufRead/Write streams
+Summary:        Rusty File Dialog
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/flate2
+License:        MIT
+URL:            https://crates.io/crates/rfd
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
-Patch:          flate2-fix-metadata-auto.diff
+Patch:          rfd-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * Temporarily downgrade pollster to 0.3
+Patch:          rfd-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-DEFLATE compression and decompression exposed as Read/BufRead/Write
-streams. Supports miniz_oxide and multiple zlib implementations.
-Supports zlib, gzip, and raw deflate streams.}
+Rusty File Dialog.}
 
 %description %{_description}
 
@@ -34,10 +35,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/MAINTENANCE.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -53,148 +52,148 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+any_impl-devel
+%package     -n %{name}+ashpd-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+any_impl-devel %{_description}
+%description -n %{name}+ashpd-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "any_impl" feature of the "%{crate}" crate.
+use the "ashpd" feature of the "%{crate}" crate.
 
-%files       -n %{name}+any_impl-devel
+%files       -n %{name}+ashpd-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+any_zlib-devel
+%package     -n %{name}+async-std-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+any_zlib-devel %{_description}
+%description -n %{name}+async-std-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "any_zlib" feature of the "%{crate}" crate.
+use the "async-std" feature of the "%{crate}" crate.
 
-%files       -n %{name}+any_zlib-devel
+%files       -n %{name}+async-std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+libz-ng-sys-devel
+%package     -n %{name}+common-controls-v6-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+libz-ng-sys-devel %{_description}
+%description -n %{name}+common-controls-v6-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "libz-ng-sys" feature of the "%{crate}" crate.
+use the "common-controls-v6" feature of the "%{crate}" crate.
 
-%files       -n %{name}+libz-ng-sys-devel
+%files       -n %{name}+common-controls-v6-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+libz-rs-sys-devel
+%package     -n %{name}+file-handle-inner-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+libz-rs-sys-devel %{_description}
+%description -n %{name}+file-handle-inner-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "libz-rs-sys" feature of the "%{crate}" crate.
+use the "file-handle-inner" feature of the "%{crate}" crate.
 
-%files       -n %{name}+libz-rs-sys-devel
+%files       -n %{name}+file-handle-inner-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+libz-sys-devel
+%package     -n %{name}+glib-sys-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+libz-sys-devel %{_description}
+%description -n %{name}+glib-sys-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "libz-sys" feature of the "%{crate}" crate.
+use the "glib-sys" feature of the "%{crate}" crate.
 
-%files       -n %{name}+libz-sys-devel
+%files       -n %{name}+glib-sys-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+miniz-sys-devel
+%package     -n %{name}+gobject-sys-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+miniz-sys-devel %{_description}
+%description -n %{name}+gobject-sys-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "miniz-sys" feature of the "%{crate}" crate.
+use the "gobject-sys" feature of the "%{crate}" crate.
 
-%files       -n %{name}+miniz-sys-devel
+%files       -n %{name}+gobject-sys-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+miniz_oxide-devel
+%package     -n %{name}+gtk-sys-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+miniz_oxide-devel %{_description}
+%description -n %{name}+gtk-sys-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "miniz_oxide" feature of the "%{crate}" crate.
+use the "gtk-sys" feature of the "%{crate}" crate.
 
-%files       -n %{name}+miniz_oxide-devel
+%files       -n %{name}+gtk-sys-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+rust_backend-devel
+%package     -n %{name}+gtk3-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+rust_backend-devel %{_description}
+%description -n %{name}+gtk3-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "rust_backend" feature of the "%{crate}" crate.
+use the "gtk3" feature of the "%{crate}" crate.
 
-%files       -n %{name}+rust_backend-devel
+%files       -n %{name}+gtk3-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+zlib-devel
+%package     -n %{name}+pollster-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+zlib-devel %{_description}
+%description -n %{name}+pollster-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "zlib" feature of the "%{crate}" crate.
+use the "pollster" feature of the "%{crate}" crate.
 
-%files       -n %{name}+zlib-devel
+%files       -n %{name}+pollster-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+zlib-default-devel
+%package     -n %{name}+tokio-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+zlib-default-devel %{_description}
+%description -n %{name}+tokio-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "zlib-default" feature of the "%{crate}" crate.
+use the "tokio" feature of the "%{crate}" crate.
 
-%files       -n %{name}+zlib-default-devel
+%files       -n %{name}+tokio-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+zlib-ng-devel
+%package     -n %{name}+urlencoding-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+zlib-ng-devel %{_description}
+%description -n %{name}+urlencoding-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "zlib-ng" feature of the "%{crate}" crate.
+use the "urlencoding" feature of the "%{crate}" crate.
 
-%files       -n %{name}+zlib-ng-devel
+%files       -n %{name}+urlencoding-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+zlib-rs-devel
+%package     -n %{name}+xdg-portal-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+zlib-rs-devel %{_description}
+%description -n %{name}+xdg-portal-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "zlib-rs" feature of the "%{crate}" crate.
+use the "xdg-portal" feature of the "%{crate}" crate.
 
-%files       -n %{name}+zlib-rs-devel
+%files       -n %{name}+xdg-portal-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

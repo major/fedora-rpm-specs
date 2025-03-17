@@ -33,6 +33,7 @@ Patch1:         qbs_qmake.patch
 
 
 BuildRequires:  cmake
+BuildRequires:  ninja-build
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  cmake(Qt6Concurrent)
@@ -103,7 +104,7 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 
 %build
-%cmake \
+%cmake_qt6 \
     -DQBS_LIB_INSTALL_DIR=%{_libdir} \
     -DQBS_PLUGINS_INSTALL_BASE=%{_lib} \
     -DWITH_UNIT_TESTS=ON \

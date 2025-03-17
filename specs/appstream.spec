@@ -3,7 +3,7 @@
 Summary: Utilities to generate, maintain and access the AppStream database
 Name:    appstream
 Version: 1.0.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # lib LGPLv2+, tools GPLv2+
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
@@ -50,7 +50,7 @@ BuildRequires: sed
 BuildRequires: vala
 BuildRequires: xmlto
 
-Requires: appstream-data
+Requires: (appstream-data if PackageKit)
 
 %description
 AppStream makes it easy to access application information from the
@@ -199,6 +199,9 @@ mv %{buildroot}%{_datadir}/metainfo/*.xml \
 
 
 %changelog
+* Fri Mar 14 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 1.0.4-2
+- Change appstream-data to a conditional Requires:
+
 * Sun Jan 19 2025 Pavel Solovev <daron439@gmail.com> - 1.0.4-1
 - Update to 1.0.4
 

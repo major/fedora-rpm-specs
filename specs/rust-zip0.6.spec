@@ -2,27 +2,27 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate clap
+%global crate zip
 
-Name:           rust-clap2
-Version:        2.34.0
+Name:           rust-zip0.6
+Version:        0.6.6
 Release:        %autorelease
-Summary:        Simple to use, efficient, and full-featured Command Line Argument Parser
+Summary:        Library to support the reading and writing of zip files
 
 License:        MIT
-URL:            https://crates.io/crates/clap
+URL:            https://crates.io/crates/zip
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * exclude files that are only useful for upstream development
-# * bump strsim dependency from 0.8 to 0.11
-# * bump version-sync dev-dependency from 0.8 to 0.9
-Patch:          clap-fix-metadata.diff
+# * bump constant_time_eq dependency from 0.1 to 0.3
+# * bump pbkdf2 dependency from 0.11 to 0.12
+# * bump zstd dependency from 0.11 to 0.13
+# * drop unused, benchmark-only bencher dev-dependency
+Patch:          zip-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A simple to use, efficient, and full-featured Command Line Argument
-Parser.}
+Library to support the reading and writing of zip files.}
 
 %description %{_description}
 
@@ -36,11 +36,10 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/CONTRIBUTORS.md
+%doc %{crate_instdir}/CODE_OF_CONDUCT.md
 %doc %{crate_instdir}/README.md
-%doc %{crate_instdir}/SPONSORS.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -55,172 +54,172 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+ansi_term-devel
+%package     -n %{name}+aes-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+ansi_term-devel %{_description}
+%description -n %{name}+aes-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "ansi_term" feature of the "%{crate}" crate.
+use the "aes" feature of the "%{crate}" crate.
 
-%files       -n %{name}+ansi_term-devel
+%files       -n %{name}+aes-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+atty-devel
+%package     -n %{name}+aes-crypto-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+atty-devel %{_description}
+%description -n %{name}+aes-crypto-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "atty" feature of the "%{crate}" crate.
+use the "aes-crypto" feature of the "%{crate}" crate.
 
-%files       -n %{name}+atty-devel
+%files       -n %{name}+aes-crypto-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+color-devel
+%package     -n %{name}+bzip2-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+color-devel %{_description}
+%description -n %{name}+bzip2-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "color" feature of the "%{crate}" crate.
+use the "bzip2" feature of the "%{crate}" crate.
 
-%files       -n %{name}+color-devel
+%files       -n %{name}+bzip2-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+debug-devel
+%package     -n %{name}+constant_time_eq-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+debug-devel %{_description}
+%description -n %{name}+constant_time_eq-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "debug" feature of the "%{crate}" crate.
+use the "constant_time_eq" feature of the "%{crate}" crate.
 
-%files       -n %{name}+debug-devel
+%files       -n %{name}+constant_time_eq-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+doc-devel
+%package     -n %{name}+deflate-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+doc-devel %{_description}
+%description -n %{name}+deflate-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "doc" feature of the "%{crate}" crate.
+use the "deflate" feature of the "%{crate}" crate.
 
-%files       -n %{name}+doc-devel
+%files       -n %{name}+deflate-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+no_cargo-devel
+%package     -n %{name}+deflate-miniz-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+no_cargo-devel %{_description}
+%description -n %{name}+deflate-miniz-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "no_cargo" feature of the "%{crate}" crate.
+use the "deflate-miniz" feature of the "%{crate}" crate.
 
-%files       -n %{name}+no_cargo-devel
+%files       -n %{name}+deflate-miniz-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+strsim-devel
+%package     -n %{name}+deflate-zlib-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+strsim-devel %{_description}
+%description -n %{name}+deflate-zlib-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "strsim" feature of the "%{crate}" crate.
+use the "deflate-zlib" feature of the "%{crate}" crate.
 
-%files       -n %{name}+strsim-devel
+%files       -n %{name}+deflate-zlib-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+suggestions-devel
+%package     -n %{name}+flate2-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+suggestions-devel %{_description}
+%description -n %{name}+flate2-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "suggestions" feature of the "%{crate}" crate.
+use the "flate2" feature of the "%{crate}" crate.
 
-%files       -n %{name}+suggestions-devel
+%files       -n %{name}+flate2-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+term_size-devel
+%package     -n %{name}+hmac-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+term_size-devel %{_description}
+%description -n %{name}+hmac-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "term_size" feature of the "%{crate}" crate.
+use the "hmac" feature of the "%{crate}" crate.
 
-%files       -n %{name}+term_size-devel
+%files       -n %{name}+hmac-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+unstable-devel
+%package     -n %{name}+pbkdf2-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+unstable-devel %{_description}
+%description -n %{name}+pbkdf2-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "unstable" feature of the "%{crate}" crate.
+use the "pbkdf2" feature of the "%{crate}" crate.
 
-%files       -n %{name}+unstable-devel
+%files       -n %{name}+pbkdf2-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+vec_map-devel
+%package     -n %{name}+sha1-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+vec_map-devel %{_description}
+%description -n %{name}+sha1-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "vec_map" feature of the "%{crate}" crate.
+use the "sha1" feature of the "%{crate}" crate.
 
-%files       -n %{name}+vec_map-devel
+%files       -n %{name}+sha1-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+wrap_help-devel
+%package     -n %{name}+time-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+wrap_help-devel %{_description}
+%description -n %{name}+time-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "wrap_help" feature of the "%{crate}" crate.
+use the "time" feature of the "%{crate}" crate.
 
-%files       -n %{name}+wrap_help-devel
+%files       -n %{name}+time-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+yaml-devel
+%package     -n %{name}+unreserved-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+yaml-devel %{_description}
+%description -n %{name}+unreserved-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "yaml" feature of the "%{crate}" crate.
+use the "unreserved" feature of the "%{crate}" crate.
 
-%files       -n %{name}+yaml-devel
+%files       -n %{name}+unreserved-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+yaml-rust-devel
+%package     -n %{name}+zstd-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+yaml-rust-devel %{_description}
+%description -n %{name}+zstd-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "yaml-rust" feature of the "%{crate}" crate.
+use the "zstd" feature of the "%{crate}" crate.
 
-%files       -n %{name}+yaml-rust-devel
+%files       -n %{name}+zstd-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -228,17 +227,17 @@ use the "yaml-rust" feature of the "%{crate}" crate.
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -a
 
 %build
-%cargo_build
+%cargo_build -a
 
 %install
-%cargo_install
+%cargo_install -a
 
 %if %{with check}
 %check
-%cargo_test
+%cargo_test -a
 %endif
 
 %changelog

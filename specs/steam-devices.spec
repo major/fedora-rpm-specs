@@ -5,7 +5,7 @@
 
 Name:           steam-devices
 Version:        1.0.0.100%{?commit:^git%{commitdate}.%{shortcommit}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        MIT
 Summary:        Device support for Steam-related hardware
 Url:            https://github.com/ValveSoftware/steam-devices/
@@ -17,9 +17,7 @@ BuildRequires:  systemd-rpm-macros
 %description
 The Steam Controller features dual trackpads, HD haptic feedback, dual-stage
 triggers, back grip buttons, and fully-customizable control schemes.
-Make sure that all users, which should have access to the steam-controller,
-are in the "games" group. Steam VR is a full-features, 360° room-scale
-virtual reality experience
+Steam VR is a full-features, 360° room-scale virtual reality experience
 
 This package also provides support for many other third party devices, such
 as gamepads and joysticks, that can be used by Wine, Lutris, Heroic, and
@@ -41,6 +39,9 @@ install -Dm0644 60-steam-vr.rules %{buildroot}%{_udevrulesdir}/60-steam-vr.rules
 %{_udevrulesdir}/60-steam-vr.rules
 
 %changelog
+* Sat Mar 15 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 1.0.0.100^git20240522.0.e2971e4-2
+- Updated description to remove outdated information
+
 * Fri Mar 7 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> 1.0.0.100^git20240522.0.e2971e4-1
 - new package
 

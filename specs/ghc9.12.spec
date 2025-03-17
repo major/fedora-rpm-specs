@@ -26,15 +26,16 @@
 %endif
 
 %global ghc_major 9.12
+%global ghc_patchlevel 2
 %global ghc_name ghc%{ghc_major}
 
-%global base_ver 4.21.0.0
 %global Cabal_ver 3.14.1.0
+%global base_ver 4.21.0.0
 %global directory_ver 1.3.9.0
 %global file_io_ver 0.1.5
 %global ghc_bignum_ver 1.3
 %global ghc_compact_ver 0.1.0.0
-%global ghc_version_for_lib 9.1201.0
+%global ghc_version_for_lib %{ghc_major}0%{ghc_patchlevel}.0
 %global ghc_platform_ver 0.1.0.0
 %global ghc_toolchain_ver 0.1.0.0
 %global haddock_api_ver 2.30.0
@@ -66,16 +67,16 @@
 %if 0%{?rhel} == 9
 %global llvm_major 12
 %else
-%global llvm_major 17
+%global llvm_major 18
 %endif
 %global ghc_llvm_archs s390x riscv64
 %global ghc_unregisterized_arches s390 %{mips}
 
 Name: %{ghc_name}
-Version: 9.12.1.20250219
+Version: %{ghc_major}.%{ghc_patchlevel}
 # Since library subpackages are versioned:
 # - release can only be reset if *all* library versions get bumped simultaneously
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -864,6 +865,11 @@ make test
 
 
 %changelog
+* Sat Mar 15 2025 Jens Petersen  <petersen@redhat.com> - 9.12.2-5
+- 9.12.2
+- https://downloads.haskell.org/~ghc/9.12.2/docs/users_guide/9.12.2-notes.html
+- bump llvm to 18
+
 * Tue Feb 25 2025 Jens Petersen  <petersen@redhat.com> - 9.12.1.20250219-4
 - 9.12.2 RC1
 - https://downloads.haskell.org/~ghc/9.12.1.20250219/docs/users_guide/9.12.2-notes.html

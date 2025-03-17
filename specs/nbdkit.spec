@@ -1468,6 +1468,7 @@ fi
 %{_mandir}/man3/nbdkit-plugin.3*
 %{_mandir}/man3/nbdkit_*.3*
 %{_mandir}/man1/nbdkit-release-notes-1.*.1*
+%{_mandir}/man3/nbdkit-tracing.3*
 %{_libdir}/pkgconfig/nbdkit.pc
 
 

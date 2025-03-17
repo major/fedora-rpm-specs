@@ -1,5 +1,5 @@
 Name:           plantuml
-Version:        1.2025.0
+Version:        1.2025.2
 Release:        %autorelease
 Epoch:          1
 Summary:        Program to generate UML diagram from a text description
@@ -34,12 +34,6 @@ PlantUML supports the following diagram types
   - component diagram
   - state diagram
 
-%package javadoc
-Summary:        Javadoc for %{name}
-
-%description javadoc
-This package contains the API documentation for %{name}.
-
 %prep
 %autosetup
 # Don't set Class-Path when building jar
@@ -53,16 +47,13 @@ export ANT_OPTS=-Dfile.encoding=UTF-8
 %endif
 ant
 
-# build javadoc
-export CLASSPATH=$(build-classpath ant):plantuml.jar
-%javadoc -source 1.8 -encoding UTF-8 -Xdoclint:none -d javadoc $(find src -name "*.java") -windowtitle "PlantUML %{version}"
 
 %install
 # Set jar location
 %mvn_file net.sourceforge.%{name}:%{name} %{name}
 # Configure maven depmap
 %mvn_artifact net.sourceforge.%{name}:%{name}:%{version} %{name}.jar
-%mvn_install -J javadoc
+%mvn_install
 
 %jpackage_script net.sourceforge.plantuml.Run "" "" plantuml plantuml true
 
@@ -74,10 +65,6 @@ help2man --help-option='-h' --version-option='--version' --no-info --output='%{b
 %{_bindir}/plantuml
 %doc README.md
 %{_mandir}/man1/plantuml.1*
-%license COPYING plantuml-lgpl/lgpl-license.txt
-
-%files javadoc -f .mfiles-javadoc
-%doc README.md
 %license COPYING plantuml-lgpl/lgpl-license.txt
 
 %changelog

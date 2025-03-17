@@ -3,7 +3,7 @@
 
 Name:		DisplayCAL
 Version:	3.9.14
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Display calibration and profiling tool focusing on accuracy and versatility
 License:	GPL-3.0-or-later
 URL:		https://github.com/eoyilmaz/displaycal-py3
@@ -71,10 +71,11 @@ export CFLAGS="%{build_cflags} -Wno-incompatible-pointer-types"
 
 %install
 %pyproject_install
+%pyproject_save_files %{name}
 mkdir -p %{buildroot}%{_sysconfdir}/xdg/autostart/
 mv %{buildroot}%{_datadir}/DisplayCAL/z-displaycal-apply-profiles.desktop %{buildroot}%{_sysconfdir}/xdg/autostart/
 
-%files
+%files -f %{pyproject_files}
 %docdir %{_docdir}/%{name}-%{version}/
 %doc %{_docdir}/%{name}-%{version}/*
 %license LICENSE.txt
@@ -84,11 +85,12 @@ mv %{buildroot}%{_datadir}/DisplayCAL/z-displaycal-apply-profiles.desktop %{buil
 %{_datadir}/icons/hicolor/*/apps/%{lc_name}*.png
 %{_datadir}/applications/%{lc_name}*.desktop
 %{_metainfodir}/net.displaycal.%{name}.appdata.xml
-%{python3_sitearch}/%{name}/
-%{python3_sitearch}/%{name}-%{version}.dist-info/
 %{_mandir}/man1/%{lc_name}*
 
 %changelog
+* Sat Mar 15 2025 Lumír Balhar <lbalhar@redhat.com> - 3.9.14-4
+- Fix compatibility with the latest setuptools
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.14-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

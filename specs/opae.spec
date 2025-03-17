@@ -6,7 +6,7 @@ License:        LicenseRef-Callaway-BSD
 
 Version:        2.13.0
 %define opae_release 3
-%define patch_level 1
+%define patch_level 2
 Release:        %{opae_release}.%{patch_level}%{?dist}
 
 URL:            https://github.com/OPAE/%{name}-sdk
@@ -188,7 +188,7 @@ chmod a+x %{buildroot}%{_usr}/lib/opae-%{version}/modules/*.cmake
 %{_libdir}/opae/libxfpga.so
 %{_unitdir}/fpgad.service
 
-%{python3_sitelib}/opae.admin*
+%{python3_sitelib}/*admin*.dist-info/
 %{python3_sitelib}/opae/admin*
 
 %post
@@ -268,7 +268,7 @@ chmod a+x %{buildroot}%{_usr}/lib/opae-%{version}/modules/*.cmake
 %{_usr}/src/opae/samples/object_api/object_api.c
 
 %{python3_sitearch}/libvfio*
-%{python3_sitearch}/opae.fpga*
+%{python3_sitearch}/*fpga*.dist-info
 %{python3_sitearch}/opae/fpga*
 %{python3_sitelib}/ethernet*
 %{python3_sitelib}/hssi_ethernet*
@@ -307,15 +307,18 @@ chmod a+x %{buildroot}%{_usr}/lib/opae-%{version}/modules/*.cmake
 %{_bindir}/ofs.uio
 %{_bindir}/opae.io
 
-%{python3_sitearch}/opae.diag*
+%{python3_sitearch}/*diag*.dist-info
 %{python3_sitearch}/opae/diag*
-%{python3_sitearch}/opae.io*
+%{python3_sitearch}/*io*.dist-info
 %{python3_sitearch}/opae/io*
 %{python3_sitearch}/pyopaeuio*
-%{python3_sitelib}/ofs.uio*
+%{python3_sitelib}/*uio*.dist-info
 %{python3_sitelib}/uio*
 
 %changelog
+* Sat Mar 15 2025 Lumír Balhar <lbalhar@redhat.com> - 2.13.0-3.2
+- Fix compatibility with the latest setuptools
+
 * Thu Jan 16 2025 Tom Rix <Tom.Rix@amd.com> - 2.13.0-3.1
 - Update to 2.13.0-3
 

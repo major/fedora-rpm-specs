@@ -39,11 +39,9 @@ BuildRequires:  pkgconfig(zlib)
 BuildRequires:  perl-devel >= 5.8.1
 BuildRequires:  perl-generators
 %endif
-%if 0%{?rhel} && 0%{?rhel} < 8
-BuildRequires:  ghostscript-devel
-%else
 BuildRequires:  libgs-devel
-%endif
+# Used in configure to check device availability
+BuildRequires:  ghostscript
 BuildRequires:  pkgconfig(ddjvuapi)
 BuildRequires:  pkgconfig(libwmf)
 BuildRequires:  pkgconfig(jasper)
@@ -149,10 +147,6 @@ save and load DjvU files from ImageMagick and libMagickCore using applications.
 %package heic
 Summary: HEIC plugin for ImageMagick
 BuildRequires:  pkgconfig(libheif) >= 1.4.0
-%if 0%{?rhel} == 7
-# ensure we use our on EL-7
-Requires:       libheif%{?_isa} >= 1.4.0
-%endif
 Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description heic
@@ -225,7 +219,6 @@ however.
 %{gpgverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
 %autosetup -p1 -n %{name}-%{VER}-%{Patchlevel}
 
-sed -e '/INSTALL_BASE/d' -i  PerlMagick/Makefile.PL*
 
 %build
 autoconf -f -i -v

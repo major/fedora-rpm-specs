@@ -13,7 +13,7 @@ License:        ZPL-2.1
 URL:            https://pypi.python.org/pypi/zope.testrunner
 VCS:            https://github.com/zopefoundation/zope.testrunner
 Source:         %{vcs}/archive/%{version}/zope.testrunner-%{version}.tar.gz
-Patch:          zope.testrunner-allow-setuptools-74.diff
+Patch:          zope.testrunner-allow-new-setuptools.diff
 
 BuildArch:      noarch
 BuildRequires:  help2man

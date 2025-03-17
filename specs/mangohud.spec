@@ -47,6 +47,7 @@ BuildRequires:  glew-devel
 BuildRequires:  glfw-devel
 BuildRequires:  glslang-devel
 BuildRequires:  libappstream-glib
+BuildRequires:  libstdc++-static
 BuildRequires:  mesa-libGL-devel
 BuildRequires:  meson >= 0.60
 BuildRequires:  python3-mako
@@ -115,10 +116,6 @@ mv implot-%{implot_ver} subprojects/
 sed -i "s/  cmocka = subproject('cmocka')//g" meson.build
 sed -i "s/cmocka_dep = cmocka.get_variable('cmocka_dep')/cmocka_dep = dependency('cmocka')/g" meson.build
 %endif
-
-# https://github.com/flightlessmango/MangoHud/commit/dc1761e98a435aaee6a919e21f43b85cc38500ac
-sed -i "s/, '-static-libstdc++'//" \
-    src/meson.build
 
 
 %build
