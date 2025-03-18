@@ -2,13 +2,12 @@
 %global src_name XlsxWriter
 
 Name:		python-%{pypi_name}
-Version:	3.2.0
-Release:	6%{?dist}
+Version:	3.2.2
+Release:	2%{?dist}
 Summary:	Python module for writing files in the Excel 2007+ XLSX file format
-# Automatically converted from old format: BSD - review is highly recommended.
 License:	BSD-2-Clause
 URL:		https://pypi.python.org/pypi/XlsxWriter
-Source0:	https://files.pythonhosted.org/packages/source/X/%{src_name}/%{src_name}-%{version}.tar.gz
+Source0:	https://files.pythonhosted.org/packages/source/x/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 
 BuildArch:	noarch
 
@@ -50,9 +49,9 @@ BuildRequires:	python3-devel
 %{common_desc}
 
 %prep
-%setup -q -n %{src_name}-%{version}
+%setup -q -n %{pypi_name}-%{version}
 # Remove bundled egg-info
-rm -rf %{src_name}.egg-info
+rm -rf %{pypi_name}.egg-info
 
 %build
 %py3_build
@@ -68,10 +67,19 @@ rm -rf %{src_name}.egg-info
 %{_bindir}/vba_extract.py
 
 %changelog
+* Sun Mar 16 2025 Rajeesh KV <rajeeshknambiar@gmail.com> - 3.2.2-2
+- Update to 3.2.2, source archive and dir name changed to `xlsxwriter` (all lowercase)
+
+* Sun Mar 16 2025 Rajeesh KV <rajeeshknambiar@gmail.com> - 3.2.2-2
+- Update to 3.2.2, proper source file
+
+* Sun Mar 16 2025 Rajeesh KV <rajeeshknambiar@gmail.com> - 3.2.2-1
+- Update to 3.2.2
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
-* Sun Jan 12 2024 Rajeesh K V < rajeeshknambiar@gmail.com> - 3.2.0-5
+* Sun Jan 12 2025 Rajeesh K V < rajeeshknambiar@gmail.com> - 3.2.0-5
 - correct SPDX license identifier to BSD-2-Clause
 
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 3.2.0-4

@@ -67,13 +67,6 @@ BuildRequires:  python%{python3_pkgversion}-docutils
 BuildRequires:  git-core
 BuildRequires:  glibc-all-langpacks
 BuildRequires:  python%{python3_pkgversion}-systemd
-
-%if v"0%{?python3_version}" >= v"3.13"
-# Use crypt_r on Python 3.13+
-# https://github.com/ansible/ansible/issues/82758
-# Upstream has removed the dependency on crypt from ansible 2.17+
-BuildRequires:  python%{python3_pkgversion}-crypt-r
-%endif
 %endif
 
 %if %{with argcomplete}

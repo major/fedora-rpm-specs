@@ -8,7 +8,7 @@ Summary:        P(ortable) SIMD
 Name:           psimd
 License:        MIT
 Version:        %{date0}.%{shortcommit0}
-Release:        5%{?dist}
+Release:        6%{?dist}
 
 URL:            https://github.com/Maratyszcza
 Source0:        %{url}/%{name}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
@@ -43,6 +43,9 @@ Portable 128-bit SIMD intrinsics
 %{_includedir}/psimd.h
 
 %changelog
+* Sun Mar 16 2025 Tom Rix <Tom.Rix@amd.com> - 20200517.072586a-6
+- Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20200517.072586a-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

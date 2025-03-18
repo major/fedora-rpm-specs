@@ -1,5 +1,5 @@
 Name:           python-snakemake-storage-plugin-xrootd
-Version:        0.1.4
+Version:        0.4.0
 Release:        %autorelease
 Summary:        Snakemake storage plugin for xrootd storage
 
@@ -15,6 +15,7 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 # See: [tool.poetry.dev-dependencies] in pyproject.toml
 BuildRequires:  %{py3_dist pytest}
+BuildRequires:  xrootd-server
 BuildRequires:  snakemake >= 8
 
 %global common_description %{expand:
@@ -34,31 +35,28 @@ Summary:        %{summary}
 
 
 %generate_buildrequires
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %pyproject_buildrequires
 
 
 %build
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %pyproject_wheel
 
 
 %install
 %pyproject_install
-%pyproject_save_files snakemake_storage_plugin_xrootd
+%pyproject_save_files -l snakemake_storage_plugin_xrootd
 
 
 %check
 # Just in case the tests are not very thorough:
 %pyproject_check_import
 
-# The following test requires a running XRootD server; this may or may not be
-# possible to arrange, but would be tedious and complex at best.
-k="${k-}${k+ and }not (TestStorage and test_storage)"
-
 %pytest -v -k "${k-}" tests/tests.py
 
 
 %files -n python3-snakemake-storage-plugin-xrootd -f %{pyproject_files}
-%license LICENSE
 %doc CHANGELOG.md
 %doc README.md
 

@@ -1,8 +1,8 @@
 %global octpkg image
 
 Name:           octave-%{octpkg}
-Version:        2.14.0
-Release:        13%{?dist}
+Version:        2.16.0
+Release:        1%{?dist}
 Summary:        Image processing for Octave
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -55,10 +55,13 @@ export XTRA_CXXFLAGS="-fPIC"
 %{octpkgdir}/@imref2d/
 %{octpkgdir}/@imref3d/
 %{octpkgdir}/@strel/
-%{_metainfodir}/octave-%{octpkg}.metainfo.xml
+%{_metainfodir}/io.sourceforge.octave.%{octpkg}.metainfo.xml
 
 
 %changelog
+* Sat Mar 15 2025 Orion Poplawski <orion@nwra.com> - 2.16.0-1
+- Update to 2.16.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

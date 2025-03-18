@@ -30,7 +30,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 Name:           slf4j2
-Version:        2.0.16
+Version:        2.0.17
 Release:        %autorelease
 Summary:        Simple Logging Facade for Java
 # the log4j-over-slf4j and jcl-over-slf4j submodules are ASL 2.0, rest is MIT
@@ -125,7 +125,7 @@ find -name '*.css' -o -name '*.js' -o -name '*.txt' -exec sed -i 's/\r//' {} +
 %mvn_package :slf4j-simple
 %mvn_package :slf4j-nop
 
-%mvn_compat_version : 2.0.16
+%mvn_compat_version : 2.0.17
 
 %build
 %mvn_build -j -f -s -j -- -Drequired.jdk.version=1.8

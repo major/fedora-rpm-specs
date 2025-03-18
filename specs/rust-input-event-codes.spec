@@ -2,25 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate err-derive
+%global crate input-event-codes
 
-Name:           rust-err-derive
-Version:        0.3.1
+Name:           rust-input-event-codes
+Version:        6.2.0
 Release:        %autorelease
-Summary:        Derive macro for std::error::Error
+Summary:        Linux input event codes form linux/input_event_codes.h
 
-# Upstream license specification: MIT/Apache-2.0
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/err-derive
+License:        GPL-2.0-only
+URL:            https://crates.io/crates/input-event-codes
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * drop unused optional skeptic dependency
-Patch:          err-derive-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Derive macro for `std::error::Error`.}
+Linux input event codes form `linux/input_event_codes.h`.}
 
 %description %{_description}
 
@@ -35,8 +31,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -50,18 +45,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+std-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+std-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
-
-%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Version: 6.12.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution for user-configurable main windows
 
 License: BSD-2-Clause AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -29,10 +29,25 @@ BuildRequires:  cmake(KF6WidgetsAddons)
 BuildRequires:  cmake(Qt6UiPlugin)
 BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  qt6-qtbase-private-devel
+
+# required for pyside6 python bindings
+BuildRequires:  python3-devel
+BuildRequires:  python3-build
+BuildRequires:  python3-setuptools
+BuildRequires:  python3-wheel
+BuildRequires:  clang-devel
+BuildRequires:  cmake(Shiboken6)
+BuildRequires:  cmake(PySide6)
+
 Requires:       kf6-filesystem
 
 %description
 KDE Frameworks 6 Tier 3 solution for user-configurable main windows.
+
+%package        -n python3-%{name}
+Summary:        Qt for Python bindings for %{name}
+%description    -n python3-%{name}
+The package contains the pyside6 bindings library for %{name}
 
 %package        devel
 Summary:        Development files for %{name}
@@ -71,6 +86,9 @@ mkdir -p %{buildroot}%{_kf6_datadir}/kxmlgui5/
 %{_kf6_libdir}/libKF6XmlGui.so.*
 %dir %{_kf6_datadir}/kxmlgui5/
 
+%files -n python3-%{name}
+%{python3_sitearch}/KXmlGui.cpython-%{python3_version_nodots}*.so
+
 %files devel
 %{_kf6_qtplugindir}/designer/*6widgets.so
 %{_kf6_includedir}/KXmlGui/
@@ -82,6 +100,9 @@ mkdir -p %{buildroot}%{_kf6_datadir}/kxmlgui5/
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Thu Mar 13 2025 Marie Loise Nolden <loise@kde.org> - 6.12.0-3
+- add pyside6 python bindings build and packaging
+
 * Tue Mar 11 2025 Steve Cossette <farchord@gmail.com> - 6.12.0-2
 - GuiAddons is now a dependancy for the devel subpackage
 

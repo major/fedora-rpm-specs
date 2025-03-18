@@ -2,25 +2,27 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate err-derive
+%global crate relative-luminance
 
-Name:           rust-err-derive
-Version:        0.3.1
+Name:           rust-relative-luminance
+Version:        1.0.0
 Release:        %autorelease
-Summary:        Derive macro for std::error::Error
+Summary:        Utlities to manage relative luminance
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/err-derive
+URL:            https://crates.io/crates/relative-luminance
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * drop unused optional skeptic dependency
-Patch:          err-derive-fix-metadata.diff
+# * Drop the contrast example. It would require the hsv crate, which is
+#   unmaintained.
+# * Remove dev-dependencies hsv and owo-colors, used only for the removed
+#   contrast example.
+Patch:          relative-luminance-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Derive macro for `std::error::Error`.}
+Utlities to manage relative luminance.}
 
 %description %{_description}
 
@@ -34,7 +36,6 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
@@ -52,21 +53,10 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+std-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+std-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
-
-%files       -n %{name}+std-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
+rm examples/contrast.rs
 
 %generate_buildrequires
 %cargo_generate_buildrequires

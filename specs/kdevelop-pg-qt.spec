@@ -1,9 +1,8 @@
 Name:           kdevelop-pg-qt
 Summary:        A parser generator
-Version:        2.3.0
-Release:        2%{?dist}
-# All LGPLv2+, except for bison-generated kdev-pg-parser.{cc,hh} which are and GPLv3+
-License:        LGPL-2.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2)
+Version:        2.4.0
+Release:        1%{?dist}
+License:        LGPL-2.0-only AND GPL-3.0-or-later AND CC0-1.0 AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH Bison-exception-2.2) AND BSD-3-Clause
 URL:            http://techbase.kde.org/Development/KDevelop-PG-Qt_Introduction
 Source0:        https://download.kde.org/stable/kdevelop-pg-qt/%{version}/src/%{name}-%{version}.tar.xz
 
@@ -46,15 +45,18 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %files 
 %doc AUTHORS README
-%license COPYING.LIB
+%license LICENSES/*
 %{_bindir}/kdev-pg-qt
 
 %files devel
-%{_includedir}/kdevelop-pg-qt/
+%{_includedir}/KDevelopPGQt/
 %{_libdir}/cmake/KDevelop-PG-Qt/
-
+%{_libdir}/cmake/KDevelopPGQt/
 
 %changelog
+* Sun Mar 16 2025 Steve Cossette <farchord@gmail.com> - 2.4.0-1
+- 2.4.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

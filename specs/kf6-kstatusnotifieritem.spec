@@ -2,7 +2,7 @@
 
 Name:           kf6-%{framework}
 Version:        6.12.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Implementation of Status Notifier Items
 
 License:        CC0-1.0 AND LGPL-2.0-or-later
@@ -19,10 +19,25 @@ BuildRequires:  cmake(Qt6DBus)
 BuildRequires:  cmake(KF6WindowSystem)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xkbcommon)
+
+# required for pyside6 python bindings
+BuildRequires:  python3-devel
+BuildRequires:  python3-build
+BuildRequires:  python3-setuptools
+BuildRequires:  python3-wheel
+BuildRequires:  clang-devel
+BuildRequires:  cmake(Shiboken6)
+BuildRequires:  cmake(PySide6)
+
 Requires:  kf6-filesystem
 
 %description
 %summary.
+
+%package        -n python3-%{name}
+Summary:        Qt for Python bindings for %{name}
+%description    -n python3-%{name}
+The package contains the pyside6 bindings library for %{name}
 
 %package        devel
 Summary:        Development files for %{name}
@@ -54,6 +69,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_kf6_datadir}/dbus-1/interfaces/kf6_org.kde.StatusNotifierWatcher.xml
 %{_kf6_datadir}/qlogging-categories6/kstatusnotifieritem.categories
 
+%files -n python3-%{name}
+%{python3_sitearch}/KStatusNotifierItem.cpython-%{python3_version_nodots}*.so
+
 %files devel
 %{_kf6_includedir}/KStatusNotifierItem
 %{_kf6_libdir}/cmake/KF6StatusNotifierItem
@@ -64,6 +82,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Thu Mar 13 2025 Marie Loise Nolden <loise@kde.org> - 6.12.0-2
+- add pyside6 python bindings build and packaging
+
 * Fri Mar 07 2025 Steve Cossette <farchord@gmail.com> - 6.12.0-1
 - 6.12.0
 

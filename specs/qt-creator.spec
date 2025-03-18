@@ -146,7 +146,7 @@ rm -rf src/libs/3rdparty/yaml-cpp
 
 
 %build
-%cmake \
+%cmake_qt6 \
     -DBUILD_PLUGIN_CLANGREFACTORING=ON \
     -DBUILD_PLUGIN_CLANGPCHMANAGER=ON \
     -DCLANGTOOLING_LINK_CLANG_DYLIB=ON \

@@ -1,5 +1,5 @@
 Name:           perl-Alien-libmaxminddb
-Version:        1.019
+Version:        2.001
 Release:        1%{?dist}
 Summary:        Find or download and install libmaxminddb
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -10,21 +10,22 @@ BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(:VERSION) >= 5.16
-BuildRequires:  perl(Alien::Build)
-BuildRequires:  perl(Alien::Build::MM)
+BuildRequires:  perl(:VERSION) >= 5.14
+BuildRequires:  perl(ExtUtils::CBuilder)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
-BuildRequires:  perl(Path::Tiny)
+BuildRequires:  perl(File::Copy)
+BuildRequires:  perl(File::Path)
+BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Runtime:
-BuildRequires:  perl(parent)
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(JSON::PP)
 BuildRequires:  perl(utf8)
 BuildRequires:  pkgconfig(libmaxminddb)
 # Tests:
 BuildRequires:  gcc
 BuildRequires:  perl-devel
-BuildRequires:  perl(Test::Alien)
 BuildRequires:  perl(Test::More)
 Requires:       pkgconfig(libmaxminddb)
 
@@ -34,14 +35,14 @@ Requires:       pkgconfig(libmaxminddb)
 
 %description
 MaxMind and DP-IP.com provide geolocation databases in the MaxMind DB file
-format.  This Perl module finds or downloads and installs the C library
-libmaxminddb, which can read MaxMind DB files.
+format.  This Perl module finds or installs the C library libmaxminddb,
+which can read MaxMind DB files.
 
 %prep
 %autosetup -n Alien-libmaxminddb-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+perl Makefile.PL INSTALLDIRS=vendor INSTALLVENDORLIB=%{perl_vendorarch} NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
 %install
@@ -56,21 +57,18 @@ make test
 %doc Changes CONTRIBUTING.md README.md
 %dir %{perl_vendorarch}/Alien
 %{perl_vendorarch}/Alien/libmaxminddb.pm
-%dir %{perl_vendorarch}/Alien/libmaxminddb
-%dir %{perl_vendorarch}/Alien/libmaxminddb/Install
-%{perl_vendorarch}/Alien/libmaxminddb/Install/Files.pm
-%dir %{perl_vendorarch}/auto/Alien
-%dir %{perl_vendorarch}/auto/Alien/libmaxminddb
-%{perl_vendorarch}/auto/Alien/libmaxminddb/libmaxminddb.txt
 %dir %{perl_vendorarch}/auto/share
 %dir %{perl_vendorarch}/auto/share/dist
 %dir %{perl_vendorarch}/auto/share/dist/Alien-libmaxminddb
 %dir %{perl_vendorarch}/auto/share/dist/Alien-libmaxminddb/_alien
 %{perl_vendorarch}/auto/share/dist/Alien-libmaxminddb/_alien/alien.json
-%{perl_vendorarch}/auto/share/dist/Alien-libmaxminddb/_alien/alienfile
 %{_mandir}/man3/Alien::libmaxminddb.3*
 
 %changelog
+* Sat Mar 15 2025 Andreas Vögele <andreas@andreasvoegele.com> - 2.001-1
+- Update to 2.001
+- Alien::Build is no longer required
+
 * Sun Mar 09 2025 Andreas Vögele <andreas@andreasvoegele.com> - 1.019-1
 - Update to 1.019
 

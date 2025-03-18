@@ -14,7 +14,7 @@ ExclusiveArch: %{qt5_qtwebengine_arches}
 Name:    digikam
 Summary: A digital camera accessing & photo management application
 Version: 8.6.0
-Release: 1%{?beta}%{?dist}
+Release: 2%{?beta}%{?dist}
 
 License: GPL-2.0-or-later
 URL:     http://www.digikam.org/
@@ -203,9 +203,6 @@ needed to develop applications using %{name}.
 %prep
 %autosetup -n %{name}-%{version}%{?beta:-%{beta}} -p1
 
-# fix wrong version in 8.6.0 tarball
-sed -i 's|DIGIKAM_MINOR_VERSION "7"|DIGIKAM_MINOR_VERSION "6"|g' CMakeLists.txt
-
 %build
 %if %{with build_with_qt6}
 %cmake_kf6 \
@@ -337,6 +334,9 @@ update-desktop-database -q &> /dev/null
 
 
 %changelog
+* Sun Mar 16 2025 Alexey Kurov <nucleo@fedoraproject.org> - 8.6.0-2
+- new digiKam-8.6.0 tarball
+
 * Sat Mar 15 2025 Alexey Kurov <nucleo@fedoraproject.org> - 8.6.0-1
 - digiKam-8.6.0
 - use cmake() for Qt6/KF6 BR

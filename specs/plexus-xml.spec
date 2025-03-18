@@ -15,14 +15,14 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://github.com/codehaus-plexus/%{name}/archive/%{name}-%{version}.tar.gz
 
-# From upstream commit 1f1ff6f
-Patch:          0001-Upgrade-to-Maven-4.0.0-rc-2.patch
+# Baseid on upstream commit 1f1ff6f
+Patch:          0001-Upgrade-to-Maven-4.0.0-rc-3.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
-BuildRequires:  mvn(org.apache.maven:maven-xml:4.0.0-rc-2)
+BuildRequires:  mvn(org.apache.maven:maven-xml:4.0.0-rc-3)
 BuildRequires:  mvn(org.codehaus.plexus:plexus:pom:)
 %endif
 # TODO Remove in Fedora 46

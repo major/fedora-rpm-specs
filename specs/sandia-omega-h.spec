@@ -224,6 +224,8 @@ popd || exit -1;
 
 # Standard build without options
 %cmake \
+%dnl Prior to Fedora 43, %%cmake set the nonstandard -DLIB_SUFFIX=...
+    %["%{?_lib}" == "lib64" ? "-DLIB_SUFFIX=64" : ""] \
 %if %{with openmp}
     -DOmega_h_USE_OpenMP:BOOL=ON \
 %endif
@@ -231,7 +233,7 @@ popd || exit -1;
     -DOmega_h_EXAMPLES:BOOL=ON \
 %endif
 %if %{with tests}
-        -DBUILD_TESTING:BOOL=ON \\\
+    -DBUILD_TESTING:BOOL=ON \\\
 %endif
 %if %{with throw}
     -DOmega_h_THROW:BOOL=ON \

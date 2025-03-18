@@ -3,12 +3,15 @@
 
 Name:           quilt
 Version:        0.68
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Scripts for working with series of patches
 
 License:        GPL-2.0-only
 URL:            https://savannah.nongnu.org/projects/%{name}
 Source:         https://download-mirror.savannah.gnu.org/releases/%{name}/%{name}-%{version}.tar.gz
+
+Patch0:         quilt-rpm420_eval_to_define.patch
+Patch1:         quilt-rpm_build_change.patch
 
 BuildArch:      noarch
 
@@ -77,6 +80,9 @@ rm -rf %{buildroot}%{_pkgdocdir}
 
 
 %changelog
+* Sun Mar 16 2025 Richard Shaw <hobbes1069@gmail.com> - 0.68-3
+- Add patches to deal with changes in RPM 4.20.
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.68-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,18 +1,17 @@
 %global pypi_name uri-template
-%global pypi_version 1.2.0
+%global pypi_version 1.3.0
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        11%{?dist}
+Release:        1%{?dist}
 Summary:        RFC 6570 URI Template Processor
 
 License:        MIT
 URL:            https://github.com/plinss/uri_template/
-Source0:        %{url}/archive/refs/tags/v%{pypi_version}.tar.gz#/%{name}-%{pypi_version}.tar.gz
+Source:         %{url}/archive/refs/tags/v%{pypi_version}.tar.gz#/%{name}-%{pypi_version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
 
 %description
 An implementation of RFC 6570 URI Templates.This packages implements
@@ -28,27 +27,30 @@ URI Template expansion in strict adherence to RFC 6570, but adds a
 few extensions.
 
 %prep
-%autosetup -n uri_template-%{pypi_version}
+%autosetup -n %{pypi_name}-%{pypi_version}
 
-# Upstream released tarball contains version 0.0.0 in setup.py
-sed -i 's/0.0.0/%{pypi_version}/g' setup.py
+%generate_buildrequires
+export SETUPTOOLS_SCM_PRETEND_VERSION="%{pypi_version}"
+%pyproject_buildrequires
 
 %build
-%py3_build
+export SETUPTOOLS_SCM_PRETEND_VERSION="%{pypi_version}"
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l uri_template
 
 %check
 %{python3} test.py
 
-%files -n python3-%{pypi_name}
-%license LICENSE
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md
-%{python3_sitelib}/uri_template
-%{python3_sitelib}/uri_template-%{pypi_version}-py%{python3_version}.egg-info
 
 %changelog
+* Sun Mar 16 2025 Romain Geissler <romain.geissler@amadeus.com> - 1.3.0-1
+- Update to upstream version 1.3.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

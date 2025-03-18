@@ -1,19 +1,17 @@
 # Review: https://bugzilla.redhat.com/show_bug.cgi?id=498130
 
 Name:           lxinput
-Version:        0.3.5
-Release:        22%{?dist}
+Version:        0.3.6
+Release:        1%{?dist}
 Summary:        Keyboard and mouse settings dialog for LXDE
 
 # SPDX confirmed
 License:        GPL-2.0-or-later
 URL:            http://lxde.org/
 #VCS: git:git://lxde.git.sourceforge.net/gitroot/lxde/lxinput
-Source0:        http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{version}.tar.xz
-# https://github.com/lxde/lxinput/pull/1
-# Fix compilation with c23
-Patch0:         lxinput-pr1-c23-argument-list.patch
+Source0:        https://github.com/lxde/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
+BuildRequires:  automake
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(gtk+-2.0)
@@ -31,9 +29,9 @@ Lightweight X11 Desktop Environment.
 
 %prep
 %setup -q
-%patch -P0 -p1 -b .c23
 
 %build
+sh autogen.sh
 %configure \
 	--enable-man \
 	--disable-silent-rules \
@@ -69,6 +67,9 @@ desktop-file-install \
 
 
 %changelog
+* Sun Mar 16 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.6-1
+- 0.3.6
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.5-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

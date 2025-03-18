@@ -12,9 +12,11 @@ URL:           https://github.com/vyperlang/vvm
 VCS:           git:%{url}.git
 # FIXME PyPi package missing ./tests/conftest.py
 Source0:       %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
-BuildRequires: python3-devel
 BuildRequires: python3-pytest
 BuildRequires: python3-pytest-cov
+BuildSystem:   pyproject
+BuildOption(prep):    -n %{pypi_name}-%{version}
+BuildOption(install): -l %{pypi_name}
 
 %description %{common_description}
 
@@ -23,21 +25,7 @@ Summary: %{summary}
 
 %description -n python3-%{pypi_name} %{common_description}
 
-%prep
-%autosetup -p1 -n %{pypi_name}-%{version}
-
-%generate_buildrequires
-%pyproject_buildrequires
-
-%build
-%pyproject_wheel
-
-%install
-%pyproject_install
-%pyproject_save_files -l %{pypi_name}
-
-%check
-%pyproject_check_import
+%check -a
 # FIXME unfortunately tests requires internet access which we currently do not
 # have in Koji
 #%%pytest

@@ -10,13 +10,18 @@
 
 Name:           python-%{pypi_name}
 Version:        6.8.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python bindings for the Qt 6 cross-platform application and UI framework
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 URL:            https://wiki.qt.io/Qt_for_Python
 
 Source0:        https://download.qt.io/official_releases/QtForPython/%{pypi_name}/%{camel_name}-%{qt6ver}-src/pyside-setup-everywhere-src-%{version}.tar.xz
+# for documentation generation
+%global docs 0
+%global qt_module qtbase
+%global  majmin %(echo %{version} | cut -d. -f1-2)
+#Source1:	https://download.qt.io/official_releases/qt/%{majmin}/%{qt6ver}/submodules/%{qt_module}-everywhere-src-%{qt6ver}.tar.xz
 
 #https://bugreports.qt.io/browse/PYSIDE-2491
 Patch0:         147389_fix-build.patch
@@ -34,19 +39,20 @@ BuildRequires:  python3-setuptools
 BuildRequires:  python3-wheel
 BuildRequires:  python3-packaging
 
-%if 0%{?fedora} >= 43
-# for generating the documentation, see requirements-doc.txt
+BuildRequires:  libxml2-devel
+BuildRequires:  libxslt-devel
 BuildRequires:  graphviz
 BuildRequires:  python3-sphinx >= 7.4.7
+
+%if 0%{?docs}
+# for generating the documentation, see requirements-doc.txt
 BuildRequires:  python3-sphinx-design >= 0.6.0
 BuildRequires:  python3-sphinx-copybutton >= 0.5.2
-#BuildRequires:  python3-sphinx-tags >= 0.4
-#BuildRequires:  python3-sphinx-toolbox >= 3.7.0
+BuildRequires:  python3-sphinx-tags >= 0.4
+BuildRequires:  python3-sphinx-toolbox >= 3.7.0
 BuildRequires:  python3-sphinx-reredirects >= 0.1.5
 BuildRequires:  python3-myst-parser >= 3.0.1
 BuildRequires:  python3-furo
-BuildRequires:  libxml2-devel
-BuildRequires:  libxslt-devel
 %endif
 
 # essential modules
@@ -204,6 +210,13 @@ Shiboken is the Python binding generator that Qt for Python uses to create the
 PySide module, in other words, is the system we use to expose the Qt C++ API to
 Python.
 
+%if 0%{?docs}
+%package doc
+Summary: Qt API Documentation in HTML and QCH format
+%description doc
+%{summary}.
+%endif
+
 
 %prep
 %autosetup -p1 -n pyside-setup-everywhere-src-%{qt6ver}
@@ -211,16 +224,29 @@ Python.
 # Restore 6.6.1 RPATH value. rpmlint will complain otherwise
 sed -i 's#${base}/../shiboken6/##' sources/pyside6/CMakeLists.txt
 
+%if 0%{?docs}
+# Generate documentation, requires qtbase sources as parameter
+# sphinx-build output accepts several options of the format, default is html, use qthelp which calls qhelpgenerator for qch file generation
+tar xf %{SOURCE1}
+%endif
 
 %build
-
-%cmake -G Ninja \
+# https://src.fedoraproject.org/rpms/polyclipping/c/02c70e17ef9e9fcdfbc65021418a3e332e465b20?branch=rawhide
+# Prior to Fedora 43, %%cmake set the nonstandard -DLIB_SUFFIX=... variable.
+# cmake %["%{?_lib}" == "lib64" ? "-DLIB_SUFFIX=64" : ""] 
+%cmake_qt6 %["%{?_lib}" == "lib64" ? "-DLIB_SUFFIX=64" : ""] \
     -DCMAKE_BUILD_TYPE=None \
     -DSHIBOKEN_PYTHON_LIBRARIES=`pkgconf python3-embed --libs` \
     -DBUILD_TESTS=OFF \
     -DCMAKE_BUILD_RPATH_USE_ORIGIN:BOOL=ON \
     -DCMAKE_SKIP_RPATH:BOOL=ON \
     -DFORCE_LIMITED_API=no \
+%if 0%{?docs}
+    -DBUILD_DOCS:BOOL=ON \
+    -DQT_SRC_DIR= %{qt_module}-everywhere-src-%{qt6ver} \
+    -DFULLDOCSBUILD:BOOL=ON \
+    -DDOC_OUTPUT_FORMAT=qthelp \
+%endif
     -DNO_QT_TOOLS=yes
 
 # Generate a build_history entry (for tests) manually, since we're performing
@@ -231,10 +257,20 @@ echo $PWD/%{__cmake_builddir}/sources > build_history/$TODAY/build_dir.txt
 export PYTHONPATH=$PWD/%{__cmake_builddir}/sources
 
 %cmake_build
+%if 0%{?docs}
+# build api documentation
+cd redhat-linux-build
+ninja apidoc
+%endif
 
 
 %install
 %cmake_install
+%if 0%{?docs}
+# install api documentation
+cd redhat-linux-build
+ninja apidocinstall
+%endif
 
 # Generate egg-info manually and install since we're performing a cmake build.
 #
@@ -322,8 +358,16 @@ export LD_LIBRARY_PATH="%{buildroot}%{_libdir}"
 %{python3_sitelib}/shiboken6_generator/
 %{python3_sitearch}/shiboken6_generator-%{version}-py%{python3_version}.egg-info/
 
+%if 0%{?docs}
+%files doc
+%{_docdir}/
+%endif
 
 %changelog
+* Sun Mar 16 2025 Marie Loise Nolden <loise@kde.org> - 6.8.2.1-2
+- fix build due to %cmake macro change after removal of -DLIB_SUFFIX in rawhide
+- prepare documentation build
+
 * Fri Feb 07 2025 Marie Loise Nolden <loise@kde.org> - 6.8.2.1-1
 - 6.8.2.1
 

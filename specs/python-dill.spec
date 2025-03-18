@@ -10,6 +10,10 @@ License: BSD-3-Clause
 URL: https://github.com/uqfoundation/dill
 Source: %{pypi_source dill}
 
+# Initial support for Python 3.14
+# source: https://github.com/uqfoundation/dill/commit/2bee9e4ead44963191
+Patch: Support-Python-3.14.patch
+
 BuildArch: noarch
 
 BuildRequires: python3-devel
@@ -54,7 +58,7 @@ Summary:  %{summary}
 
 
 %prep
-%autosetup -n dill-%{version}
+%autosetup -n dill-%{version} -p1
 
 
 %generate_buildrequires

@@ -1,7 +1,7 @@
 %global pypiname Send2Trash
 
 Name:           python-send2trash
-Version:        1.8.2
+Version:        1.8.3
 Release:        %autorelease
 Summary:        Python library to natively send files to Trash
 

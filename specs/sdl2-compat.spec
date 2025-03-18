@@ -1,4 +1,4 @@
-%global sdl3_minver 3.2.4
+%global sdl3_minver 3.2.6
 
 # Features disabled for RHEL
 %if 0%{?rhel}
@@ -8,8 +8,8 @@
 %endif
 
 Name:           sdl2-compat
-Version:        2.32.50
-Release:        2%{?dist}
+Version:        2.32.52
+Release:        1%{?dist}
 SourceLicense:  Zlib and Apache-2.0 and MIT and BSD-3-Clause
 Summary:        SDL 2.0 runtime compatibility library using SDL 3.0
 License:        Zlib
@@ -20,10 +20,6 @@ Source1:        SDL2_config.h
 Source2:        SDL2_revision.h
 
 # Backports from upstream (0001~0500)
-## Sync env vars properly
-Patch0001:      %{url}/commit/f58c132840b51aac184d17593ab60d41b54c9ba9.patch
-## Fix strlen
-Patch0002:      %{url}/commit/2347d5c89752c43107f9a0a8108a6b6ac46bbfa0.patch
 
 # Proposed patches (0501~1000)
 
@@ -170,6 +166,10 @@ install -p -m 644 %{SOURCE2} %{buildroot}%{_includedir}/SDL2/SDL_revision.h
 
 
 %changelog
+* Sun Mar 16 2025 Simone Caronni <negativo17@gmail.com> - 2.32.52-1
+- Update to 2.32.52.
+- Drop patches.
+
 * Mon Feb 10 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.32.50-2
 - Backport fixes from upstream
   + Correctly handle SDL environment variables

@@ -17,8 +17,8 @@
 
 
 Name:           SDL3
-Version:        3.2.4
-Release:        2%{?dist}
+Version:        3.2.8
+Release:        1%{?dist}
 Summary:        Cross-platform multimedia library
 License:        Zlib AND MIT AND Apache-2.0 AND (Apache-2.0 OR MIT)
 URL:            http://www.libsdl.org/
@@ -28,9 +28,6 @@ Source1:        SDL3_revision.h
 # Patches from upstream
 
 # Patches proposed upstream
-## Fix for PipeWire 1.3+
-Patch0101:      https://github.com/libsdl-org/SDL/pull/12240.patch
-
 
 BuildRequires:  git-core
 BuildRequires:  cmake
@@ -203,6 +200,10 @@ install -p -m 644 %{SOURCE1} %{buildroot}%{_includedir}/SDL3/SDL_revision.h
 
 
 %changelog
+* Sun Mar 16 2025 Simone Caronni <negativo17@gmail.com> - 3.2.8-1
+- Update to 3.2.8.
+- Drop merged patch.
+
 * Mon Feb 10 2025 Neal Gompa <ngompa@fedoraproject.org> - 3.2.4-2
 - Add fix for building against PipeWIre 1.3.x
 

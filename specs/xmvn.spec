@@ -146,7 +146,20 @@ cp -a "${maven_home}" target/dependency/apache-maven-$mver
     <argLine>--add-opens=java.base/java.lang=ALL-UNNAMED</argLine></configuration>"
 
 %build
-%mvn_build -j -- -P\\!quality
+%{?jpb_env}
+# Work around a conflict between XMvn 4 and XMvn 5 that prevents the
+# install and builddep MOJOs to work.
+xmvn -B -o -P\!quality verify
+%mvn_artifact pom.xml
+%mvn_artifact xmvn-parent/pom.xml
+%mvn_artifact xmvn-tools/pom.xml
+%mvn_artifact xmvn-api/pom.xml xmvn-api/target/xmvn-api-4.3.0.jar
+%mvn_artifact xmvn-core/pom.xml xmvn-core/target/xmvn-core-4.3.0.jar
+%mvn_artifact xmvn-connector/pom.xml xmvn-connector/target/xmvn-connector-4.3.0.jar
+%mvn_artifact xmvn-mojo/pom.xml xmvn-mojo/target/xmvn-mojo-4.3.0.jar
+%mvn_artifact xmvn-tools/xmvn-resolve/pom.xml xmvn-tools/xmvn-resolve/target/xmvn-resolve-4.3.0.jar
+%mvn_artifact xmvn-tools/xmvn-subst/pom.xml xmvn-tools/xmvn-subst/target/xmvn-subst-4.3.0.jar
+%mvn_artifact xmvn-tools/xmvn-install/pom.xml xmvn-tools/xmvn-install/target/xmvn-install-4.3.0.jar
 
 version=4.*
 tar --delay-directory-restore -xvf target/xmvn-*-bin.tar.gz

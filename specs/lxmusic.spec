@@ -11,22 +11,23 @@
 %global		git_builddir	%{nil}
 
 %if 0%{?use_gitbare}
-%global		gittardate		20250212
-%global		gittartime		2332
+%global		gittardate		20250316
+%global		gittartime		1429
+%define		use_gitcommit_as_rel		0
 
-%global		gitbaredate	20241025
-%global		git_rev		50c71e45cb7154d2f6f3cc63c988a3fe21fdafdb
+%global		gitbaredate	20250316
+%global		git_rev		346e213e252aeeee3a04b60c9374c62870a2d796
 %global		git_short		%(echo %{git_rev} | cut -c-8)
 %global		git_version	%{gitbaredate}git%{git_short}
 %endif
 
-%if 0%{?use_git} || 0%{?use_gitbare}
+%if 0%{?use_git} || (0%{?use_gitbare} && 0%{?use_gitcommit_as_rel})
 %global		git_ver_rpm	^%{git_version}
 %global		git_builddir	-%{git_version}
 %endif
 
 
-%global		main_version	0.4.7
+%global		main_version	0.4.8
 
 Name:			lxmusic
 Version:		%{main_version}%{git_ver_rpm}
@@ -174,6 +175,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Sun Mar 16 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.4.8-1
+- 0.4.8
+
 * Wed Feb 12 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.4.7^20241025git50c71e45-1
 - Update to the latest git
 

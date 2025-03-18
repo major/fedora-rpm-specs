@@ -20,9 +20,6 @@
 %global ghc_obsoletes_name ghc%{ghc_major}
 %endif
 
-# to handle RCs
-%global ghc_release %{version}
-
 %global base_ver 4.18.2.1
 %global ghc_bignum_ver 1.3
 %global ghc_compact_ver 0.1.0.0
@@ -57,16 +54,16 @@ Version: 9.6.6
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 145%{?dist}
+Release: 146%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
 URL: https://haskell.org/ghc/
-Source0: https://downloads.haskell.org/ghc/%{ghc_release}/ghc-%{version}-src.tar.xz
+Source0: https://downloads.haskell.org/ghc/%{version}/ghc-%{version}-src.tar.xz
 %if %{with testsuite}
-Source1: https://downloads.haskell.org/ghc/%{ghc_release}/ghc-%{version}-testsuite.tar.xz
+Source1: https://downloads.haskell.org/ghc/%{version}/ghc-%{version}-testsuite.tar.xz
 %endif
-Source2: https://downloads.haskell.org/ghc/%{ghc_release}/ghc-%{version}-src.tar.xz.sig
+Source2: https://downloads.haskell.org/ghc/%{version}/ghc-%{version}-src.tar.xz.sig
 Source5: ghc-pkg.man
 Source6: haddock.man
 Source7: runghc.man
@@ -76,6 +73,8 @@ Patch1: ghc-gen_contents_index-haddock-path.patch
 Patch2: ghc-Cabal-install-PATH-warning.patch
 Patch3: ghc-gen_contents_index-nodocs.patch
 Patch4: disable-Cabal-upperbounds-check-warning.patch
+# https://gitlab.haskell.org/ghc/ghc/-/issues/25662
+Patch5: hp2ps-C-gnu17.patch
 Patch8: ghc-configure-c99.patch
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604
 # needs more backporting to 9.6
@@ -145,9 +144,7 @@ BuildRequires: python3
 %if %{with manual}
 BuildRequires: python3-sphinx
 %endif
-%ifarch %{ghc_llvm_archs}
 BuildRequires: llvm%{llvm_major}
-%endif
 %if %{with dwarf}
 BuildRequires: elfutils-devel
 %endif
@@ -240,6 +237,8 @@ Obsoletes: %{name}-manual < %{version}-%{release}
 Requires: binutils%{?with_ld_gold:-gold}
 %ifarch %{ghc_llvm_archs}
 Requires: llvm%{llvm_major}
+%else
+Suggests: llvm(major) = %{llvm_major}
 %endif
 %obsoletes_ghcXY compiler
 
@@ -396,10 +395,11 @@ cabal-tweak-dep-ver Cabal '< 3.9' '< 3.11'
 )
 
 %patch -P1 -p1 -b .orig
+%patch -P2 -p1 -b .orig
 %patch -P3 -p1 -b .orig
 %patch -P4 -p1 -b .orig
+%patch -P5 -p1 -b .orig
 
-%patch -P2 -p1 -b .orig
 %patch -P8 -p1 -b .orig
 #%%patch -P9 -p1 -b .orig
 %patch -P11 -p1 -b .orig
@@ -440,6 +440,8 @@ export CC=%{_bindir}/gcc
 %if %{with ld_gold}
 export LD=%{_bindir}/ld.gold
 %endif
+export LLC=%{_bindir}/llc-%{llvm_major}
+export OPT=%{_bindir}/opt-%{llvm_major}
 
 # note lld breaks build-id
 # /usr/bin/debugedit: Cannot handle 8-byte build ID
@@ -504,7 +506,8 @@ rm %{buildroot}%{_ghclicensedir}/%{name}/LICENSE
 cp -p LICENSE ../LICENSE.hadrian
 )
 %endif
-# https://gitlab.haskell.org/ghc/ghc/-/issues/20120#note_366872
+export LLC=%{_bindir}/llc-%{llvm_major}
+export OPT=%{_bindir}/opt-%{llvm_major}
 (
 cd _build/bindist/ghc-%{version}-*
 ./configure --prefix=%{buildroot}%{ghclibdir} --bindir=%{buildroot}%{_bindir} --libdir=%{buildroot}%{_libdir} --mandir=%{buildroot}%{_mandir} --docdir=%{buildroot}%{_docdir}/%{name} \
@@ -649,6 +652,7 @@ export LANG=C.utf8
 # stolen from ghc6/debian/rules:
 export LD_LIBRARY_PATH=%{buildroot}%{ghclibplatform}:
 GHC=%{buildroot}%{ghclibdir}/bin/ghc
+$GHC --info
 # Do some very simple tests that the compiler actually works
 rm -rf testghc
 mkdir testghc
@@ -664,8 +668,14 @@ echo 'main = putStrLn "Foo"' > testghc/foo.hs
 $GHC testghc/foo.hs -o testghc/foo -dynamic
 [ "$(testghc/foo)" = "Foo" ]
 rm testghc/*
-
-$GHC --info
+# no GHC calling convention in LLVM's PowerPC target code
+# https://gitlab.haskell.org/ghc/ghc/-/issues/25667
+%ifnarch ppc64le
+echo 'main = putStrLn "Foo"' > testghc/foo.hs
+$GHC testghc/foo.hs -o testghc/foo -fllvm
+[ "$(testghc/foo)" = "Foo" ]
+rm testghc/*
+%endif
 
 # check the ABI hashes
 %if %{with abicheck}
@@ -843,6 +853,10 @@ make test
 
 
 %changelog
+* Sun Mar 16 2025 Jens Petersen  <petersen@redhat.com> - 9.6.6-146
+- fix hp2ps failure with gcc15 C23
+- setup llvm compiler for all archs not just those defaulting to llvm backend
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.6.6-145
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

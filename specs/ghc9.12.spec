@@ -67,6 +67,7 @@
 %if 0%{?rhel} == 9
 %global llvm_major 12
 %else
+# only available for f41+
 %global llvm_major 18
 %endif
 %global ghc_llvm_archs s390x riscv64
@@ -76,7 +77,7 @@ Name: %{ghc_name}
 Version: %{ghc_major}.%{ghc_patchlevel}
 # Since library subpackages are versioned:
 # - release can only be reset if *all* library versions get bumped simultaneously
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -293,7 +294,6 @@ The package enables re-indexing of installed library documention.
 
 %package filesystem
 Summary: Shared directories for Haskell documentation
-BuildArch: noarch
 
 %description filesystem
 This package provides some common directories used for
@@ -352,7 +352,6 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -x -l BSD-3-Clause ghc-compact-%{ghc_compact_ver}
 %ghc_lib_subpackage -d -x -l BSD-3-Clause ghc-experimental-%{ghc_version_for_lib}
 %ghc_lib_subpackage -d -x -l BSD-3-Clause ghc-heap-%{ghc_version_override}
-%ghc_lib_subpackage -d -l BSD-3-Clause ghc-internal-%{ghc_version_for_lib}
 # see below for ghc-prim
 %ghc_lib_subpackage -d -x -l BSD-3-Clause ghc-platform-%{ghc_platform_ver}
 %ghc_lib_subpackage -d -x -l BSD-3-Clause ghc-toolchain-%{ghc_toolchain_ver}
@@ -581,10 +580,12 @@ echo "%%dir %ghclibplatform" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
 %ghc_gen_filelists ghci %{ghc_version_override}
 %ghc_gen_filelists hpc %{hpc_ver}
 
+%ghc_gen_filelists ghc-internal %{ghc_version_for_lib}
 %ghc_gen_filelists ghc-prim 0.13.0
 %ghc_gen_filelists integer-gmp 1.1
 %ghc_gen_filelists rts %{rts_ver}
 
+%ghc_merge_filelist ghc-internal base
 %ghc_merge_filelist ghc-prim base
 %ghc_merge_filelist integer-gmp base
 %ghc_merge_filelist rts base
@@ -653,6 +654,11 @@ for i in *; do
     esac
 done
 )
+
+# avoid pulling in nodejs unnecessarily
+%if %{without ghc_javascript}
+chmod a-x %{buildroot}%{ghcliblib}/{dyld,post-link}.mjs
+%endif
 
 
 %check
@@ -807,6 +813,8 @@ make test
 %verify(not size mtime) %{ghc_html_libraries_dir}/quick-jump.css
 %verify(not size mtime) %{ghc_html_libraries_dir}/synopsis.png
 %endif
+%dir %{ghclibdir}/share
+%dir %{ghclibdir}/share/%ghcplatform
 %{ghclibdir}/share/%ghcplatform/haddock-api-%{haddock_api_ver}
 %if %{with manual}
 %{_mandir}/man1/ghc-%{ghc_major}.1*
@@ -827,7 +835,6 @@ make test
 
 %if %{with haddock} || %{with manual}
 %files doc
-%{ghc_html_dir}/index.html
 
 %ifnarch s390x
 %files doc-index
@@ -841,6 +848,7 @@ make test
 %files filesystem
 %dir %_ghc_doc_dir
 %dir %ghc_html_dir
+%{ghc_html_dir}/index.html
 %dir %ghc_html_libraries_dir
 %endif
 
@@ -854,7 +862,6 @@ make test
 %files manual
 ## needs pandoc
 #%%{ghc_html_dir}/Cabal
-%{ghc_html_dir}/index.html
 %{ghc_html_dir}/users_guide
 %{ghc_html_dir}/Haddock
 %endif
@@ -865,6 +872,12 @@ make test
 
 
 %changelog
+* Sun Mar 16 2025 Jens Petersen  <petersen@redhat.com> - 9.12.2-6
+- move ghc-internal into base subpackage
+- make ghc-filesystem arch for now for index.html
+- avoid pulling in nodejs via *.mjs scripts
+- own ghclibdir/share/{,ghcplatform}
+
 * Sat Mar 15 2025 Jens Petersen  <petersen@redhat.com> - 9.12.2-5
 - 9.12.2
 - https://downloads.haskell.org/~ghc/9.12.2/docs/users_guide/9.12.2-notes.html

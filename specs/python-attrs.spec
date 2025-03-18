@@ -9,7 +9,7 @@
 %endif
 
 Name:           python-attrs
-Version:        25.1.0
+Version:        25.3.0
 Release:        %autorelease
 Summary:        Python attributes without boilerplate
 

@@ -1,5 +1,5 @@
-%global commit 31707d14fdb75da66b3eed52a2236a70af0d0960
-%global snapdate 20241002
+%global commit f0569113c93ad095470c54bf34a17b36646bbbb5
+%global snapdate 20250314
 
 # We choose not to package the “stb_include” library (stb_include.h) because,
 # during the package review, it was observed that it follows coding practices
@@ -210,7 +210,7 @@ Patch:          %{url}/pull/1736.patch
 %global stb_hexwave_version 0.5
 %global stb_image_version 2.30
 %global stb_image_resize_version 0.97
-%global stb_image_resize2_version 2.11
+%global stb_image_resize2_version 2.13
 %global stb_image_write_version 1.16
 %global stb_include_version 0.2
 %global stb_leakcheck_version 0.6

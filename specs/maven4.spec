@@ -6,11 +6,11 @@
 %global homedir %{_datadir}/maven%{?maven_version_suffix}
 %global confdir %{_sysconfdir}/maven%{?maven_version_suffix}
 
-%global xversion 4.0.0-rc-2
+%global xversion 4.0.0-rc-3
 
 Name:           maven4
 Epoch:          1
-Version:        4.0.0~rc.2
+Version:        4.0.0~rc.3
 Release:        %autorelease
 Summary:        Java project management and project comprehension tool
 # maven itself is Apache-2.0
@@ -41,15 +41,15 @@ BuildRequires:  mvn(javax.inject:javax.inject)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-assembly-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-failsafe-plugin)
-BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-api:2.0.5)
-BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-connector-basic:2.0.5)
-BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-impl:2.0.5)
-BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-spi:2.0.5)
-BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-transport-apache:2.0.5)
-BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-transport-file:2.0.5)
-BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-transport-jdk:2.0.5)
-BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-transport-wagon:2.0.5)
-BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-util:2.0.5)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-api:2.0.7)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-connector-basic:2.0.7)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-impl:2.0.7)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-spi:2.0.7)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-transport-apache:2.0.7)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-transport-file:2.0.7)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-transport-jdk:2.0.7)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-transport-wagon:2.0.7)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-util:2.0.7)
 BuildRequires:  mvn(org.apache.maven.wagon:wagon-file)
 BuildRequires:  mvn(org.apache.maven.wagon:wagon-http)
 BuildRequires:  mvn(org.apache.maven.wagon:wagon-provider-api)
@@ -59,7 +59,7 @@ BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-classworlds)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-interactivity-api)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-interpolation)
-BuildRequires:  mvn(org.codehaus.plexus:plexus-sec-dispatcher:4.0.3)
+BuildRequires:  mvn(org.codehaus.plexus:plexus-sec-dispatcher:4.1.0)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils:4.0.1)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-xml)
 BuildRequires:  mvn(org.codehaus.woodstox:stax2-api)
@@ -74,9 +74,9 @@ BuildRequires:  mvn(org.jline:jline-reader)
 BuildRequires:  mvn(org.jline:jline-style)
 BuildRequires:  mvn(org.jline:jline-terminal-jni)
 BuildRequires:  mvn(org.ow2.asm:asm)
-BuildRequires:  mvn(org.slf4j:jcl-over-slf4j:2.0.16)
-BuildRequires:  mvn(org.slf4j:slf4j-api:2.0.16)
-BuildRequires:  mvn(org.slf4j:slf4j-simple:2.0.16)
+BuildRequires:  mvn(org.slf4j:jcl-over-slf4j:2.0.17)
+BuildRequires:  mvn(org.slf4j:slf4j-api:2.0.17)
+BuildRequires:  mvn(org.slf4j:slf4j-simple:2.0.17)
 %endif
 
 # XXX
@@ -145,11 +145,6 @@ Core part of Apache Maven that can be used as a library.
 %prep
 %autosetup -p1 -C
 
-%pom_add_dep org.codehaus.plexus:plexus-utils:4.0.1 impl/maven-cli
-%pom_add_dep org.codehaus.plexus:plexus-xml:4.0.4 impl/maven-cli
-%pom_add_dep org.codehaus.plexus:plexus-utils:4.0.1 compat/maven-resolver-provider
-%pom_add_dep org.codehaus.plexus:plexus-xml:4.0.4 compat/maven-resolver-provider
-
 %pom_remove_dep -r :junit-bom
 %pom_remove_dep -r :mockito-bom
 %pom_remove_plugin -r :maven-enforcer-plugin
@@ -191,7 +186,7 @@ sed -i "
 %mvn_package :apache-maven __noinstall
 %mvn_package ::mdo: __noinstall
 
-%mvn_compat_version : 4.0.0-rc-2
+%mvn_compat_version : 4.0.0-rc-3
 
 %build
 %mvn_build -j -f -- -Dproject.build.sourceEncoding=UTF-8
@@ -276,7 +271,7 @@ if [[ $1 -eq 0 ]]; then update-alternatives --remove mvn %{homedir}/bin/mvn; fi
 %config(noreplace) %{_sysconfdir}/m2%{?maven_version_suffix}.conf
 %config(noreplace) %{confdir}/maven.properties
 %config(noreplace) %{confdir}/settings.xml
-%config(noreplace) %{confdir}/logging/simplelogger.properties
+%config(noreplace) %{confdir}/logging/maven.logger.properties
 
 %files
 %{homedir}/bin/mvn*

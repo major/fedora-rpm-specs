@@ -20,8 +20,8 @@
 
 %define	radicale_major	3
 
-%define	radicale_version	3.4.1
-%define	radicale_release	2
+%define	radicale_version	3.5.0
+%define	radicale_release	1
 #define gitcommit 8e9fdf391acb79d3fb1cb6e6b8f882f8999192cf
 
 %define	radicale_name	radicale
@@ -36,7 +36,7 @@
 
 Name:             radicale
 Version:          %{radicale_version}
-Release:          %{radicale_release}%{?gittag}%{?dist}.2
+Release:          %{radicale_release}%{?gittag}%{?dist}
 Summary:          A simple CalDAV (calendar) and CardDAV (contact) server
 License:          GPL-3.0-or-later
 URL:              https://radicale.org
@@ -47,6 +47,8 @@ Source0:          https://github.com/Kozea/Radicale/archive/%{gitcommit}/%{name}
 Source0:          https://github.com/Kozea/Radicale/archive/v%{version}/%{name}-%{version}.tar.gz
 %endif
 
+%define infcloud_version	0.13.1
+
 Source1:          %{name}.service
 Source4:          %{name}.te
 Source5:          %{name}.fc
@@ -55,6 +57,8 @@ Source7:          %{name}-tmpfiles.conf
 
 Source50:	  %{name}-test-example.ics
 Source51:	  %{name}-test-example.vcf
+
+Source60:         https://inf-it.com/open-source/download/InfCloud_%{infcloud_version}.zip
 
 BuildArch:        noarch
 
@@ -81,6 +85,9 @@ Conflicts:        radicale < 3.0.0
 Conflicts:        radicale2
 
 Requires:         python3-%{radicale_package_name} = %{version}-%{release}
+%if (0%{?rhel} >= 11) || (0%{?fedora} >= 43)
+Requires(pre):    shadow-utils
+%endif
 %{?systemd_requires}
 Suggests:         %{radicale_package_name}-selinux = %{version}-%{release}
 
@@ -181,6 +188,32 @@ Requires:       logwatch
 logwatch configuration for Radicale
 
 
+%package -n %{radicale_package_name}-InfCloud
+Summary:        InfCloud extension for Radicale internal WebUI
+License:        AGPL-3.0-only + Apache-2.0
+URL:            https://inf-it.com/open-source/clients/infcloud/
+BuildRequires:  unzip
+Requires:       ed
+BuildRequires:  ed
+Requires:       python3-%{radicale_package_name} = %{version}-%{release}
+
+%description -n %{radicale_package_name}-InfCloud
+Infcloud extension for Radicale internal WebUI
+Bundled version: %{infcloud_version}
+
+
+%package -n %{radicale_package_name}-InfCloud-fonts
+Summary:        Fonts for InfCloud extension for Radicale internal WebUI
+License:        Apache-2.0
+URL:            https://inf-it.com/open-source/clients/infcloud/
+Requires:       %{radicale_package_name}-InfCloud = %{version}-%{release}
+
+
+%description -n %{radicale_package_name}-InfCloud-fonts
+Fonts for Infcloud extension for Radicale internal WebUI
+Bundled version: %{infcloud_version}
+
+
 %prep
 %if 0%{?gitcommit:1}
 %define build_version %{gitcommit}
@@ -201,10 +234,12 @@ sed -i 's|\(/var/run\)|%{_rundir}|' SELinux/%{name}.fc
 # restore original version after applying patches
 %{__sed} -i 's|version = "%{radicale_major}.dev"|version = "%{radicale_version}"|' pyproject.toml
 
+%if (0%{?rhel} >= 11) || (0%{?fedora} >= 43)
 # Create a sysusers.d config file
 cat >radicale.sysusers.conf <<EOF
 u radicale - 'Radicale service account' %{_sharedstatedir}/%{name} -
 EOF
+%endif
 
 
 %build
@@ -222,6 +257,9 @@ cd -
 
 %install
 %pyproject_install
+%if (0%{?rhel} >= 11) || (0%{?fedora} >= 43)
+%pyproject_save_files -l %{name}
+%endif
 
 # move scripts away from _bindir to avoid conflicts and create a wrapper scripts
 install -d -p %{buildroot}%{_libexecdir}/%{name}
@@ -290,7 +328,26 @@ install -d %{buildroot}%{_datarootdir}/logwatch/default.conf/services/
 install -p -m 644 contrib/logwatch/%{name} %{buildroot}%{_datarootdir}/logwatch/scripts/services/
 install -p -m 644 contrib/logwatch/%{name}-journald.conf %{buildroot}%{_datarootdir}/logwatch/default.conf/services/%{name}.conf
 
+%if (0%{?rhel} >= 11) || (0%{?fedora} >= 43)
 install -m0644 -D radicale.sysusers.conf %{buildroot}%{_sysusersdir}/radicale.conf
+%endif
+
+## infcloud
+# unpack
+%{__unzip} -d %{buildroot}%{python3_sitelib}/%{name}/web/internal_data/ %{SOURCE60}
+# update cache
+pushd %{buildroot}%{python3_sitelib}/%{name}/web/internal_data/infcloud/
+./cache_update.sh
+popd
+# remove not required files
+%{__rm} %{buildroot}%{python3_sitelib}/%{name}/web/internal_data/infcloud/cache_update.sh
+%{__rm} %{buildroot}%{python3_sitelib}/%{name}/web/internal_data/infcloud/.htaccess
+%{__rm} %{buildroot}%{python3_sitelib}/%{name}/web/internal_data/infcloud/readme.txt
+%{__rm} %{buildroot}%{python3_sitelib}/%{name}/web/internal_data/infcloud/changelog.txt
+%{__rm} %{buildroot}%{python3_sitelib}/%{name}/web/internal_data/infcloud/changelog_carddavmate.txt
+%{__rm} %{buildroot}%{python3_sitelib}/%{name}/web/internal_data/infcloud/changelog_caldavzap.txt
+%{__rm} -rf %{buildroot}%{python3_sitelib}/%{name}/web/internal_data/infcloud/auth/
+%{__rm} -rf %{buildroot}%{python3_sitelib}/%{name}/web/internal_data/infcloud/misc/
 
 
 %check
@@ -327,6 +384,14 @@ rm -rf %{buildroot}%{_sharedstatedir}/%{name}/collection-root
 rm -rf %{buildroot}%{_sharedstatedir}/%{name}/.Radicale.lock
 
 
+%pre -n %{radicale_package_name}
+%if (0%{?rhel} >= 11) || (0%{?fedora} >= 43)
+getent group %{name} >/dev/null || groupadd -r %{name}
+getent passwd %{name} >/dev/null || \
+    useradd -r -g %{name} -d %{_sharedstatedir}/%{name} -s /sbin/nologin \
+    -c "Radicale service account" %{name}
+exit 0
+%endif
 
 
 %post -n %{radicale_package_name}
@@ -419,7 +484,9 @@ fi
 %dir %attr(755, %{name}, %{name}) %{_rundir}/%{name}
 
 %{_libexecdir}/%{name}
+%if (0%{?rhel} >= 11) || (0%{?fedora} >= 43)
 %{_sysusersdir}/radicale.conf
+%endif
 
 
 %files -n %{radicale_package_name}-selinux
@@ -427,10 +494,15 @@ fi
 %{_datadir}/selinux/*/%{name}.pp
 
 
+%if (0%{?rhel} >= 11) || (0%{?fedora} >= 43)
+%files -n python3-%{radicale_package_name} -f %{pyproject_files}
+%else
 %files -n python3-%{radicale_package_name}
 %license COPYING.md
 %{python3_sitelib}/%{name}
 %{python3_sitelib}/Radicale-*-info
+%exclude %{python3_sitelib}/%{name}/web/internal_data/infcloud
+%endif
 
 
 %files -n %{radicale_package_name}-logwatch
@@ -443,7 +515,20 @@ fi
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/%{name}.conf
 
 
+%files -n %{radicale_package_name}-InfCloud
+%{python3_sitelib}/%{name}/web/internal_data/infcloud
+%exclude %{python3_sitelib}/%{name}/web/internal_data/infcloud/fonts
+
+
+%files -n %{radicale_package_name}-InfCloud-fonts
+%{python3_sitelib}/%{name}/web/internal_data/infcloud/fonts
+
+
 %changelog
+* Sun Mar 09 2025 Peter Bieringer <pb@bieringer.de> - 3.5.0-1
+- Update to 3.5.0
+- Bundle InfCloud 0.13.1 with dedicated sub packages
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.4.1-2.2
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

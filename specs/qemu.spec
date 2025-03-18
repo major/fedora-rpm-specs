@@ -388,7 +388,7 @@ Obsoletes: sgabios-bin <= 1:0.20180715git-10.fc38
 
 Summary: QEMU is a FAST! processor emulator
 Name: qemu
-Version: 9.2.0
+Version: 9.2.2
 
 # Set for release candidate builds
 #global rcstr rc0
@@ -446,24 +446,21 @@ Source37: qemu.sysusers
 # Skip failing test in copr
 # https://gitlab.com/qemu-project/qemu/-/issues/2541
 Patch: 0001-Disable-9p-local-tests-that-fail-on-copr-aarch64.patch
-# Fix compat with new glibc (not upstream yet)
-Patch: schedattr.patch
-# https://lists.nongnu.org/archive/html/qemu-devel/2025-01/msg01222.html
-Patch: 0001-crypto-fix-bogus-error-benchmarking-pbkdf-on-fast-ma.patch
 # https://lists.nongnu.org/archive/html/qemu-block/2025-01/msg00480.html
-Patch: 0001-nfs-Add-support-for-libnfs-v2-api.patch
+Patch: 0002-nfs-Add-support-for-libnfs-v2-api.patch
+Patch: 0008-Revert-meson.build-Disallow-libnfs-v6-to-fix-the-bro.patch
 # Upstream code has changed so will have different patch
-Patch: 0001-tests-functional-skip-mem-addr-test-on-32-bit-hosts.patch
+Patch: 0003-tests-functional-skip-mem-addr-test-on-32-bit-hosts.patch
 # https://gitlab.com/qemu-project/qemu/-/commit/c869f4129c8e35f3c234d757c0227c53134aca16
-Patch: 0001-binfmt-Shuffle-things-around.patch
+Patch: 0004-binfmt-Shuffle-things-around.patch
 # https://gitlab.com/qemu-project/qemu/-/commit/2770a46b20b7ccd23019a7b6b6631de933b53c8e
-Patch: 0002-binfmt-Normalize-host-CPU-architecture.patch
+Patch: 0005-binfmt-Normalize-host-CPU-architecture.patch
 # https://gitlab.com/qemu-project/qemu/-/commit/1887cf2368189087fdf977fb8d09b5ad47cc7aea
-Patch: 0003-binfmt-Add-ignore-family-option.patch
+Patch: 0006-binfmt-Add-ignore-family-option.patch
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=2349579
 # https://gitlab.com/qemu-project/qemu/-/commit/9976be3911a2d0503f026ae37c17077273bf30ee
-Patch: 0001-scripts-improve-error-from-qemu-trace-stap-on-missin.patch
+Patch: 0007-scripts-improve-error-from-qemu-trace-stap-on-missin.patch
 
 BuildRequires: gnupg2
 BuildRequires: meson >= %{meson_version}

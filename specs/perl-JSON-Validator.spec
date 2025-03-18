@@ -1,6 +1,6 @@
 Name:           perl-JSON-Validator
-Version:        5.14
-Release:        7%{?dist}
+Version:        5.15
+Release:        1%{?dist}
 Summary:        Validate data against a JSON schema
 License:        Artistic-2.0
 
@@ -107,6 +107,9 @@ unset JSON_VALIDATOR_CACHE_ANYWAYS JSON_VALIDATOR_CACHE_PATH \
 %{_mandir}/man3/JSON*
 
 %changelog
+* Sun Mar 16 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 5.15-1
+- Update to 5.15
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.14-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

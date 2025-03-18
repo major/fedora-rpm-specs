@@ -18,7 +18,9 @@
 %bcond check 0
 %endif
 
-%if (0%{?fedora} && 0%{?fedora} >= 41)
+%ifarch x86_64
+%bcond thunks 0
+%elif 0%{?fedora} >= 41
 %global has_sysroot 1
 %bcond thunks 1
 %else
@@ -35,7 +37,7 @@ Release:    %autorelease
 Summary:    Fast usermode x86 and x86-64 emulator for ARM64
 
 # FEX itself is MIT, see below for the bundled libraries
-%global fex_license MIT AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND GPL-2.0-only AND GPL-2.0-or-later
+%global fex_license MIT AND Apache-2.0 AND BSD-3-Clause AND GPL-2.0-only
 License:    %{fex_license}
 URL:        https://fex-emu.com
 %if %{defined commit}
@@ -45,35 +47,32 @@ Source0:    %{forgeurl}/archive/%{srcname}-%{version}/%{srcname}-%{srcname}-%{ve
 Source1:    README.fedora
 %endif
 
+# The sysroot is built using build-fex-sysroot.sh, which downloads Fedora RPMs
+# for x86_64, repacks them into the sysroot tarball, and extracts licensing
+# information into fex-sysroot-macros.inc, which is then included here and used
+# to populate the SourceLicense tag.
 %if 0%{?has_sysroot}
 Source2:    fex-sysroot-macros.inc
 %include    %SOURCE2
 Source3:    fex-sysroot-%{sysroot_version}.tar.gz
 Source4:    toolchain_x86_32.cmake
 Source5:    toolchain_x86_64.cmake
+Source6:    build-fex-sysroot.sh
 SourceLicense: %{fex_license} %{sysroot_license}
 %endif
 
 # Bundled dependencies managed as git submodules upstream
 # These are too entangled with the build system to unbundle for now
 # https://github.com/FEX-Emu/FEX/issues/2996
+# https://github.com/FEX-Emu/FEX/issues/4267
 %{lua:
 local externals = {
-  { name="Catch2", ref="8ac8190", owner="catchorg", version="3.5.3", license="BSL-1.0", bcond="check" },
   { name="cpp-optparse", ref="eab4212", owner="Sonicadvance1", path="../Source/Common/cpp-optparse", license="MIT" },
   { name="drm-headers", ref="0675d2f", owner="FEX-Emu", package="kernel", version="6.13", license="GPL-2.0-only" },
-  --Exclude these altogether for now, as they're prebuilt binaries only needed for the integration tests
-  --{ name="fex-gcc-target-tests-bins", ref="442678a", owner="FEX-Emu", license="GPL-2.0-or-later", bcond="integration" },
-  --{ name="fex-gvisor-tests-bins", ref="71349ae", owner="FEX-Emu", license="Apache-2.0", bcond="integration" },
-  --{ name="fex-posixtest-bins", ref="9ae2963", owner="FEX-Emu", package="posixtest", version="1.5.2", license="GPL-2.0-or-later", bcond="integration" },
-  { name="fmt", ref="873670b", owner="fmtlib", version="11.0.2", license="MIT" },
   { name="jemalloc", ref="02ca52b", owner="FEX-Emu", version="5.3.0", license="MIT" },
   { name="jemalloc", ref="4043539", owner="FEX-Emu", path="jemalloc_glibc", version="5.3.0", license="MIT" },
   { name="robin-map", ref="d5683d9", owner="FEX-Emu", version="1.3.0", license="MIT" },
-  { name="vixl", ref="3180ab6", owner="FEX-Emu", version="5.1.0", license="BSD-3-Clause" },
   { name="Vulkan-Headers", ref="29f979e", owner="KhronosGroup", package="vulkan-headers", version="1.3.296", license="Apache-2.0" },
-  { name="xbyak", ref="c68cc53", owner="herumi", version="7.09", license="BSD-3-Clause", bcond="x86_debug" },
-  { name="xxhash", ref="bbb27a5", owner="Cyan4973", version="0.8.2", license="BSD-2-Clause" },
 }
 
 for i, s in ipairs(externals) do
@@ -94,6 +93,9 @@ function print_setup_externals()
   end
 end
 }
+
+# ThunkGen: Fixes compiling with LLVM 20
+Patch:          %{forgeurl}/pull/4408.patch
 
 # FEX upstream only supports these architectures
 %if %{with x86_debug}
@@ -119,8 +121,14 @@ BuildRequires:  nasm
 BuildRequires:  python3-clang
 %endif
 
+BuildRequires:  catch2-devel
+BuildRequires:  fmt-devel
 BuildRequires:  libepoxy-devel
 BuildRequires:  SDL2-devel
+BuildRequires:  xxhash-devel
+%ifarch %{x86_64}
+BuildRequires:  xbyak-devel
+%endif
 %if %{with thunks}
 BuildRequires:  alsa-lib-devel
 BuildRequires:  clang-devel
@@ -212,7 +220,7 @@ cp -p %SOURCE1 .
 %{lua: print_setup_externals()}
 
 # This is done after so we can patch the bundled libraries if needed
-#autopatch -p1
+%autopatch -p1
 
 # Ensure library soversion is set
 sed -i FEXCore/Source/CMakeLists.txt \

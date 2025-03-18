@@ -1,5 +1,5 @@
 Name:           ncmpc
-Version:        0.50
+Version:        0.52
 Release:        %autorelease
 Summary:        A curses client for the Music Player Daemon (MPD)
 

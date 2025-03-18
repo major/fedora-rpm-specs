@@ -12,8 +12,11 @@ License:       MIT AND Unicode-3.0
 URL:           https://github.com/mlodewijck/pyunormalize
 VCS:           git:%{url}.git
 Source0:       %{url}/archive/%{git_commit}/%{pypi_name}-%{git_commit}.tar.gz
-BuildRequires: python3-devel
 BuildRequires: tox
+BuildSystem:   pyproject
+BuildOption(prep): -n %{name}-%{version}
+BuildOption(generate_buildrequires): -t
+BuildOption(install): -l %{pypi_name}
 
 %description
 %{summary}.
@@ -24,21 +27,7 @@ Summary: %{summary}
 %description -n python3-%{pypi_name}
 %{summary}.
 
-%prep
-%autosetup -p1 -n %{pypi_name}-%{git_commit}
-
-%generate_buildrequires
-%pyproject_buildrequires -t
-
-%build
-%pyproject_wheel
-
-%install
-%pyproject_install
-%pyproject_save_files -l %{pypi_name}
-
-%check
-%pyproject_check_import
+%check -a
 %tox
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}

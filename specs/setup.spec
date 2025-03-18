@@ -28,6 +28,7 @@ Source0022: lang.sh
 Source0031: COPYING
 Source0032: uidgid
 Source0033: setup.sysusers.conf
+Source0034: uidgidlint
 Source0035: serviceslint
 
 BuildArch: noarch
@@ -65,6 +66,7 @@ bash -n etc/bashrc
 bash -n etc/profile
 tcsh -f etc/csh.cshrc
 tcsh -f etc/csh.login
+bash %SOURCE34 docs/uidgid
 (cd etc && perl %SOURCE35 ./services)
 
 %install

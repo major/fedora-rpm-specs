@@ -10,11 +10,10 @@
 
 Name:    qca
 Summary: Qt Cryptographic Architecture
-Version: 2.3.8
-Release: 4%{?dist}
+Version: 2.3.10
+Release: 1%{?dist}
 
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License: LicenseRef-Callaway-LGPLv2+
+License: LGPL-2.1-only
 URL:     https://userbase.kde.org/QCA
 Source0: http://download.kde.org/stable/qca/%{version}/qca-%{version}.tar.xz
 # Also generate pkgconfig file for qt6
@@ -421,6 +420,9 @@ test "$(pkg-config --modversion qca2-qt6)" = "%{version}"
 %endif
 
 %changelog
+* Mon Mar 17 2025 Steve Cossette <farchord@gmail.com> - 2.3.10-1
+- 2.3.10
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

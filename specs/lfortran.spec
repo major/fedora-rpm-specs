@@ -1,4 +1,4 @@
-Version:        0.48.0
+Version:        0.49.0
 Name:           lfortran
 Release:        2%{?dist}
 Summary:        A modern Fortran compiler
@@ -9,19 +9,11 @@ Summary:        A modern Fortran compiler
 License:        BSD-3-Clause AND Apache-2.0 WITH LLVM-exception
 URL:            https://lfortran.org/
 Source0:        https://github.com/lfortran/lfortran/releases/download/v%{version}/lfortran-%{version}.tar.gz
-Patch0:         https://patch-diff.githubusercontent.com/raw/lfortran/lfortran/pull/6571.patch
+#Patch0:         https://patch-diff.githubusercontent.com/raw/lfortran/lfortran/pull/6571.patch
 # https://github.com/lfortran/lfortran/issues/2981
 ExclusiveArch: x86_64
 
 %global with_jupyter 1
-%if 0%{?fedora} < 39
-# F38 has no jupyterlab
-%global with_jupyter 0
-%endif
-%if 0%{?fedora} > 39
-# F41 has too new xeus version
-%global with_jupyter 0
-%endif
 
 BuildRequires: binutils-devel
 BuildRequires: bison
@@ -36,13 +28,8 @@ BuildRequires: llvm-devel
 BuildRequires: python3-devel
 BuildRequires: rapidjson-devel
 BuildRequires: re2c
-%if 0%{?fedora} > 39
 BuildRequires: zlib-ng-compat-devel
 BuildRequires: zlib-ng-compat-static
-%else
-BuildRequires: zlib-devel
-BuildRequires: zlib-static
-%endif
 %if %{with_jupyter}
 # Needed for Jupyter kernel
 BuildRequires: cppzmq-devel
@@ -165,9 +152,16 @@ This package contains the jupyter kernel for %{name}.
 %files jupyter
 %dir %{_datadir}/jupyter/kernels/fortran
 %{_datadir}/jupyter/kernels/fortran/kernel.json
+%{_datadir}/jupyter/kernels/fortran/logo-svg.svg
 %endif
 
 %changelog
+* Sun Mar 16 2024 Benson Muite <fed500@fedoraproject.org> - 0.49.0-2
+- Remove unneeded patch
+
+* Sun Mar 16 2025 Benson Muite <fed500@fedoraproject.org> - 0.49.0-1
+- Version bump to v0.49.0 (bug #2352738)
+
 * Mon Mar 10 2025 Christoph Junghans <junghans@votca.org> - 0.48.0-2
 - Fix build with llvm-20
 
