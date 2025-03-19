@@ -1,6 +1,6 @@
 %global         srcname     msal-extensions
 %global         forgeurl    https://github.com/AzureAD/microsoft-authentication-extensions-for-python/
-Version:        1.3.0
+Version:        1.3.1
 %global         tag         %{version}
 %forgemeta
 
@@ -23,10 +23,6 @@ Source:         %forgesource
 # successfully "pip install" it, but we have no such difficulty with system
 # packages. It is a real dependency for msal_extensions/libsecret.py.
 Patch:          0001-Downstream-only-restore-hard-dependency-on-pygobject.patch
-
-# Do not install tests in site-packages
-# https://github.com/AzureAD/microsoft-authentication-extensions-for-python/pull/139
-Patch:          %{forgeurl}/pull/139.patch
 
 BuildArch:      noarch
 

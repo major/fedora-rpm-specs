@@ -11,15 +11,18 @@
 %global pcre2_version 10.21
 
 Name:           vte291
-Version:        0.79.91
-Release:        1%{?dist}
+Version:        0.80.0
+Release:        2%{?dist}
 Summary:        GTK terminal emulator library
 
 # libvte-2.91.so is generated from LGPLv2+ and MIT sources
 License:        GPL-3.0-or-later AND LGPL-3.0-or-later AND MIT AND X11 AND CC-BY-4.0
 
 URL:            https://wiki.gnome.org/Apps/Terminal/VTE
-Source0:        https://download.gnome.org/sources/vte/0.79/vte-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/vte/0.80/vte-%{version}.tar.xz
+
+# https://gitlab.gnome.org/GNOME/vte/-/merge_requests/2
+Patch0:         0001-Only-use-fast_float-when-std-from_chars-is-insuffici.patch
 
 BuildRequires:  pkgconfig(fribidi) >= %{fribidi_version}
 BuildRequires:  pkgconfig(gio-2.0) >= %{glib2_version}
@@ -33,7 +36,6 @@ BuildRequires:  pkgconfig(liblz4)
 BuildRequires:  pkgconfig(libpcre2-8) >= %{pcre2_version}
 BuildRequires:  pkgconfig(libsystemd) >= %{libsystemd_version}
 BuildRequires:  pkgconfig(pango) >= %{pango_version}
-BuildRequires:  fast_float-devel
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
 BuildRequires:  gi-docgen
@@ -179,6 +181,12 @@ sed -i -e "/^vte_systemduserunitdir =/s|vte_prefix|'/usr'|" meson.build
 %{_sysconfdir}/profile.d/vte.sh
 
 %changelog
+* Mon Mar 17 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.80.0-2
+- Avoid fast_float dependency
+
+* Mon Mar 17 2025 nmontero <nmontero@redhat.com> - 0.80.0-1
+- Update to 0.80.0
+
 * Wed Mar 05 2025 nmontero <nmontero@redhat.com> - 0.79.91-1
 - Update to 0.79.91
 

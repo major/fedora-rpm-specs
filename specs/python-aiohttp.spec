@@ -1,6 +1,7 @@
 %bcond tests 1
-# Not yet in EPEL10: https://bugzilla.redhat.com/show_bug.cgi?id=2331004
-%bcond gunicorn %{undefined el10}
+# Build dependencies gunicorn and uvloop are required only for integration
+# tests, which can be omitted if they are not available.
+%bcond gunicorn 1
 # Not yet in EPEL10: https://bugzilla.redhat.com/show_bug.cgi?id=2332434
 %bcond uvloop %{undefined el10}
 
@@ -135,6 +136,7 @@ k="${k-}${k+ and }not test_import_time"
 k="${k-}${k+ and }not test_send_compress_text"
 %if %{without gunicorn}
 k="${k-}${k+ and }not test_no_warnings[aiohttp.worker]"
+%endif
 %if 0%{?el10}
 # Fixes for CVE-2024-27982 were backported in llhttp-9.1.3-9.el10, but there
 # are still some behavior changes compared to 9.2.0. Hopefully, none of these
@@ -154,7 +156,6 @@ k="${k-}${k+ and }not test_invalid_header_spacing[c-parser-pyloop-pre-empty-post
 # parser     = <aiohttp._http_parser.HttpRequestParser object at 0x7f708b61af00>
 # text       = b'GET /test HTTP/1.1\r\n:test\r\n\r\n'
 k="${k-}${k+ and }not test_empty_header_name[c-parser-pyloop]"
-%endif
 %endif
 %pytest -Wdefault ${ignore-} -k "${k-}" -m 'not dev_mode'
 %endif

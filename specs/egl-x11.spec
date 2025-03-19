@@ -1,11 +1,11 @@
-%global commit0 61e70b08ecc1e833b01f11507a74da2f3a140aee
-%global date 20241213
+%global commit0 b403f3a15bf4de2904a4a9d586c03897c23133fe
+%global date 20250311
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 #global tag %{version}
 
 Name:           egl-x11
 Version:        1.0.1%{!?tag:~%{date}git%{shortcommit0}}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        NVIDIA XLib and XCB EGL Platform Library
 License:        Apache-2.0
 URL:            https://github.com/NVIDIA/egl-x11
@@ -22,7 +22,7 @@ BuildRequires:  gcc
 BuildRequires:  meson
 BuildRequires:  pkgconfig(eglexternalplatform) >= 1.2
 BuildRequires:  pkgconfig(egl)
-BuildRequires:  pkgconfig(gbm) >= 21.3.0
+BuildRequires:  pkgconfig(gbm) >= 21.2.0
 BuildRequires:  pkgconfig(libdrm) >= 2.4.99
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(x11-xcb)
@@ -67,6 +67,9 @@ rm -fv %{buildroot}%{_libdir}/*.so
 %{_datadir}/egl/egl_external_platform.d/20_nvidia_xlib.json
 
 %changelog
+* Mon Mar 17 2025 Simone Caronni <negativo17@gmail.com> - 1.0.1~20250311gitb403f3a-3
+- Update to latest snapshot.
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1~20241213git61e70b0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

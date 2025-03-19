@@ -23,7 +23,6 @@
 %global build_microblaze	%{build_all}
 %global build_mips64		%{build_all}
 %global build_mn10300		%{build_all}
-%global build_nios2		%{build_all}
 %global build_openrisc		%{build_all}
 %global build_powerpc64		%{build_all}
 %global build_powerpc64le	%{build_all}
@@ -66,8 +65,8 @@
 %define default_generate_notes 0
 
 Name: %{cross}-binutils
-Version: 2.43.1
-Release: 5%{?dist}
+Version: 2.44
+Release: 1%{?dist}
 Summary: A GNU collection of cross-compilation binary utilities
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
@@ -76,7 +75,7 @@ URL: https://sourceware.org/binutils
 # many controversial patches so we stick with the official FSF version
 # instead.
 
-Source: http://ftp.gnu.org/gnu/binutils/binutils-%{version}.tar.xz
+Source: http://ftp.gnu.org/gnu/binutils/binutils-with-gold-%{version}.tar.xz
 
 Source2: binutils-2.19.50.0.1-output-format.sed
 
@@ -130,66 +129,70 @@ Patch06: binutils-2.27-aarch64-ifunc.patch
 # Lifetime: Permanent.
 Patch07: binutils-do-not-link-with-static-libstdc++.patch
 
-# Purpose:  Allow OS specific sections in section groups.
-# Lifetime: Fixed in 2.43 (maybe)
-#Patch08: binutils-special-sections-in-groups.patch
-
 # Purpose:  Stop gold from aborting when input sections with the same name
 #            have different flags.
-# Lifetime: Fixed in 2.42 (maybe)
-Patch09: binutils-gold-mismatched-section-flags.patch
+# Lifetime: Fixed in 2.43 (maybe)
+Patch08: binutils-gold-mismatched-section-flags.patch
 
 # Purpose:  Change the gold configuration script to only warn about
 #            unsupported targets.  This allows the binutils to be built with
 #            BPF support enabled.
 # Lifetime: Permanent.
-Patch10: binutils-gold-warn-unsupported.patch
+Patch09: binutils-gold-warn-unsupported.patch
 
 # Purpose:  Enable the creation of .note.gnu.property sections by the GOLD
 #            linker for x86 binaries.
 # Lifetime: Permanent.
-Patch11: binutils-gold-i386-gnu-property-notes.patch
+Patch10: binutils-gold-i386-gnu-property-notes.patch
 
 # Purpose:  Allow the binutils to be configured with any (recent) version of
 #            autoconf.
-# Lifetime: Fixed in 2.42 (maybe ?)
-Patch12: binutils-autoconf-version.patch
+# Lifetime: Fixed in 2.44 (maybe ?)
+Patch11: binutils-autoconf-version.patch
 
 # Purpose:  Stop libtool from inserting useless runpaths into binaries.
 # Lifetime: Who knows.
-Patch13: binutils-libtool-no-rpath.patch
+Patch12: binutils-libtool-no-rpath.patch
 
 # Purpose:  Stop an abort when using dwp to process a file with no dwo links.
-# Lifetime: Fixed in 2.42 (maybe)
-Patch15: binutils-gold-empty-dwp.patch
+# Lifetime: Fixed in 2.44 (maybe)
+Patch13: binutils-gold-empty-dwp.patch
 
 # Purpose:  Fix binutils testsuite failures.
 # Lifetime: Permanent, but varies with each rebase.
-Patch16: binutils-testsuite-fixes.patch
+Patch14: binutils-testsuite-fixes.patch
 
 # Purpose:  Fix binutils testsuite failures for the RISCV-64 target.
 # Lifetime: Permanent, but varies with each rebase.
-Patch17: binutils-riscv-testsuite-fixes.patch
+Patch15: binutils-riscv-testsuite-fixes.patch
 
 # Purpose:  Make the GOLD linker ignore the "-z pack-relative-relocs" command line option.
-# Lifetime: Fixed in 2.42 (maybe)
-Patch18: binutils-gold-pack-relative-relocs.patch
-
-# Purpose:  Let the gold lihnker ignore --error-execstack and --error-rwx-segments.
 # Lifetime: Fixed in 2.44 (maybe)
-Patch19: binutils-gold-ignore-execstack-error.patch
+Patch16: binutils-gold-pack-relative-relocs.patch
+
+# Purpose:  Let the gold linker ignore --error-execstack and --error-rwx-segments.
+# Lifetime: Fixed in 2.44 (maybe)
+Patch17: binutils-gold-ignore-execstack-error.patch
 
 # Purpose:  Fix the ar test of non-deterministic archives.
 # Lifetime: Fixed in 2.44
-Patch20: binutils-fix-ar-test.patch
+Patch18: binutils-fix-ar-test.patch
 
 # Purpose:  Fix a seg fault in the AArch64 linker when building u-boot.
 # Lifetime: Fixed in 2.45
-Patch21: binutils-aarch64-small-plt0.patch
+Patch19: binutils-aarch64-small-plt0.patch
+
+#----------------------------------------------------------------------------
 
 # Purpose:  Suppress the x86 linker's p_align-1 tests due to kernel bug on CentOS-10
 # Lifetime: TEMPORARY
 Patch99: binutils-suppress-ld-align-tests.patch
+
+# Purpose: Disable GCS warnings when shared dependencies are not built with GCS
+# support
+# Lifetime: TEMPORARY
+Patch100: binutils-disable-gcs-report-dynamic.patch
+Patch101: binutils-disable-gcs-report-dynamic-tests.patch
 
 #----------------------------------------------------------------------------
 
@@ -266,7 +269,6 @@ Cross-build binary image generation, manipulation and query tools. \
 %do_package mips-linux-gnu	%{build_mips}
 %do_package mips64-linux-gnu	%{build_mips64}
 %do_package mn10300-linux-gnu	%{build_mn10300}
-%do_package nios2-linux-gnu	%{build_nios2}
 %do_package openrisc-linux-gnu	%{build_openrisc}	or1k-linux-gnu
 %do_package powerpc-linux-gnu	%{build_powerpc}
 %do_package powerpc64-linux-gnu	%{build_powerpc64}
@@ -297,7 +299,7 @@ Cross-build binary image generation, manipulation and query tools. \
 #
 ###############################################################################
 %prep
-%global srcdir binutils-%{version}
+%global srcdir binutils-with-gold-%{version}
 %setup -q -n %{srcdir} -c
 cd %{srcdir}
 %patch -P01 -p1
@@ -307,19 +309,21 @@ cd %{srcdir}
 %patch -P05 -p1
 %patch -P06 -p1
 %patch -P07 -p1
+%patch -P08 -p1
 %patch -P09 -p1
 %patch -P10 -p1
 %patch -P11 -p1
 %patch -P12 -p1
 %patch -P13 -p1
+%patch -P14 -p1
 %patch -P15 -p1
 %patch -P16 -p1
 %patch -P17 -p1
 %patch -P18 -p1
 %patch -P19 -p1
-%patch -P20 -p1
-%patch -P21 -p1
 %patch -P99 -p1
+%patch -P100 -p1
+%patch -P101 -p1
 
 # We cannot run autotools as there is an exact requirement of autoconf-2.59.
 
@@ -383,7 +387,6 @@ cd ..
     prep_target mips-linux-gnu		%{build_mips}
     prep_target mips64-linux-gnu	%{build_mips64}
     prep_target mn10300-linux-gnu	%{build_mn10300}
-    prep_target nios2-linux-gnu		%{build_nios2}
     prep_target openrisc-linux-gnu	%{build_openrisc}
     prep_target powerpc-linux-gnu	%{build_powerpc}
     prep_target powerpc64-linux-gnu	%{build_powerpc64}
@@ -782,7 +785,6 @@ cd -
 %do_files mips-linux-gnu	%{build_mips}
 %do_files mips64-linux-gnu	%{build_mips64}
 %do_files mn10300-linux-gnu	%{build_mn10300}
-%do_files nios2-linux-gnu	%{build_nios2}
 %do_files openrisc-linux-gnu	%{build_openrisc}
 %do_files powerpc-linux-gnu	%{build_powerpc}
 %do_files powerpc64-linux-gnu	%{build_powerpc64}
@@ -805,6 +807,10 @@ cd -
 %do_files xtensa-linux-gnu	%{build_xtensa}
 
 %changelog
+* Sun Mar 16 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.44-1
+- Update to 2.44
+- Drop NIOS2 support (removed upstream)
+
 * Wed Feb 26 2025 Nick Clifton <nickc@redhat.com> - 2.43.1-5
 - Fix seg fault in AArch64 linker when building u-boot.  (#2326190)
 

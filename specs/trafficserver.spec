@@ -4,7 +4,7 @@
 
 Name:           trafficserver
 Version:        10.0.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Fast, scalable and extensible HTTP/1.1 and HTTP/2 caching proxy server
 
 License:        Apache-2.0
@@ -45,6 +45,7 @@ BuildRequires:  openssl-devel
 %else
 BuildRequires:  pcre-devel
 %endif
+BuildRequires:  yaml-cpp-devel
 
 Requires:       expat hwloc pcre2 xz ncurses pkgconfig
 Requires:       openssl
@@ -59,8 +60,17 @@ Requires:  pcre
 Requires:       python3 python3-colorama python3-jsonschema python3-pyyaml
 
 %if 0%{?with_selinux}
-Requires:        (%{name}-selinux = %{version}-%{release} if selinux-policy-%{selinuxtype})
+Requires:       (%{name}-selinux = %{version}-%{release} if selinux-policy-%{selinuxtype})
 %endif
+
+# swoc is not yet packaged for Fedora
+Provides:       bundled(swoc) =  1.5.12
+
+# Exclude our own internal libraries from requires
+%global __requires_exclude ^lib(swoc-.*|ts.*)\\.so.*$
+
+# Do not check .so files in the application-specific library directory
+%global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so.*$
 
 %description
 Traffic Server is a high-performance building block for cloud services.
@@ -116,6 +126,7 @@ hadling ESI requests to providing a different caching algorithm.
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
 %autosetup -p0
+rm -r lib/yamlcpp
 
 %build
 
@@ -131,7 +142,8 @@ hadling ESI requests to providing a different caching algorithm.
     -DCMAKE_INSTALL_RUNSTATEDIR=/run/%{name} \
     -DCMAKE_INSTALL_LOGDIR=/var/log/%{name} \
     -DCMAKE_INSTALL_CACHEDIR=/var/cache/%{name} \
-    -DBUILD_EXPERIMENTAL_PLUGINS=ON
+    -DBUILD_EXPERIMENTAL_PLUGINS=ON \
+    -DEXTERNAL_YAML_CPP=ON
 %cmake_build
 
 %if 0%{?with_selinux}
@@ -261,7 +273,6 @@ fi
 %{_includedir}/ts
 %{_includedir}/swoc
 %{_includedir}/tsutil
-%{_includedir}/yaml-cpp
 %dir %{_includedir}/tscpp
 %{_includedir}/tscpp/api
 %{_libdir}/%{name}/cmake
@@ -269,6 +280,11 @@ fi
 
 
 %changelog
+* Thu Mar 13 2025 Orion Poplawski <orion@nwra.com> - 10.0.4-4
+- Build with system yaml-cpp
+- Add Provides/Requires filtering to exclude internal libraries
+- Add missing bundled provides
+
 * Fri Mar 07 2025 Zbigniew Jedrzejewski-Szmek  <zbyszek@in.waw.pl> - 10.0.4-3
 - Drop call to %sysusers_create_compat
 

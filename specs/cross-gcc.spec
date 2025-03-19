@@ -24,7 +24,6 @@
 %global build_microblaze	%{build_all}
 %global build_mips64		%{build_all}
 %global build_mn10300		%{build_all}
-%global build_nios2		%{build_all}
 %global build_openrisc		%{build_all}
 %global build_powerpc64		%{build_all}
 %global build_powerpc64le	%{build_all}
@@ -74,17 +73,17 @@
 # The gcc versioning information.  In a sed command below, the specfile winds
 # pre-release version numbers in BASE-VER back to the last actually-released
 # number.
-%global DATE 20240912
-%global gitrev c7a1c1a4bf73b3cb4943c428085fe5cbb433cde4
-%global gcc_version 14.2.1
-%global gcc_major 14
+%global DATE 20250313
+%global gitrev 4fe62f20633b8e1bf4d776d7f4644ce485efd0b2
+%global gcc_version 15.0.1
+%global gcc_major 15
 
 # Note, cross_gcc_release must be integer, if you want to add suffixes
 # to %%{release}, append them after %%{cross_gcc_release} on Release:
 # line.  gcc_release is the Fedora gcc release that the patches were
 # taken from.
 %global gcc_release 1
-%global cross_gcc_release 2
+%global cross_gcc_release 0
 %global cross_binutils_version 2.43.1-1
 %global isl_version 0.16.1
 %global isl_libmajor 15
@@ -96,7 +95,7 @@
 Summary: Cross C compiler
 Name: %{cross}-gcc
 Version: %{gcc_version}
-Release: %{cross_gcc_release}%{?dist}.1
+Release: %{cross_gcc_release}.1%{?dist}
 # License tag value taken from the gcc package except the values related
 # to newlib which isn't present here
 License: GPL-3.0-or-later AND LGPL-3.0-or-later AND (GPL-3.0-or-later WITH GCC-exception-3.1) AND (GPL-3.0-or-later WITH Texinfo-exception) AND (LGPL-2.1-or-later WITH GCC-exception-2.0) AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (GPL-2.0-or-later WITH GNU-compiler-exception) AND BSL-1.0 AND GFDL-1.3-or-later AND Linux-man-pages-copyleft-2-para AND SunPro AND BSD-1-Clause AND BSD-2-Clause AND BSD-2-Clause-Views AND BSD-3-Clause AND BSD-4-Clause AND BSD-Source-Code AND Zlib AND MIT AND Apache-2.0 AND (Apache-2.0 WITH LLVM-Exception) AND ZPL-2.1 AND ISC AND LicenseRef-Fedora-Public-Domain AND HP-1986 AND curl
@@ -113,17 +112,18 @@ BuildRequires: isl-devel >= %{isl_version}
 %global srcdir gcc-%{version}-%{DATE}
 Source0: %{srcdir}.tar.xz
 
-Patch0: gcc14-hack.patch
-Patch2: gcc14-sparc-config-detection.patch
-Patch3: gcc14-libgomp-omp_h-multilib.patch
-Patch4: gcc14-libtool-no-rpath.patch
-Patch5: gcc14-isl-dl.patch
-Patch6: gcc14-isl-dl2.patch
-Patch7: gcc14-libstdc++-docs.patch
-Patch8: gcc14-no-add-needed.patch
-Patch9: gcc14-Wno-format-security.patch
-Patch10: gcc14-rh1574936.patch
-Patch11: gcc14-d-shared-libphobos.patch
+Patch0: gcc15-hack.patch
+Patch2: gcc15-sparc-config-detection.patch
+Patch3: gcc15-libgomp-omp_h-multilib.patch
+Patch4: gcc15-libtool-no-rpath.patch
+Patch5: gcc15-isl-dl.patch
+Patch6: gcc15-isl-dl2.patch
+Patch7: gcc15-libstdc++-docs.patch
+Patch8: gcc15-no-add-needed.patch
+Patch9: gcc15-Wno-format-security.patch
+Patch10: gcc15-rh1574936.patch
+Patch11: gcc15-d-shared-libphobos.patch
+Patch12: gcc15-pr119006.patch
 
 Patch900: cross-gcc-intl-filename.patch
 Patch901: cross-gcc-format-config.patch
@@ -244,7 +244,6 @@ the number of packages. \
 %do_package mips-linux-gnu	%{build_mips}
 %do_package mips64-linux-gnu	%{build_mips64}
 %do_package mn10300-linux-gnu	%{build_mn10300}
-%do_package nios2-linux-gnu	%{build_nios2}
 %do_package openrisc-linux-gnu	%{build_openrisc}
 %do_package powerpc-linux-gnu	%{build_powerpc}
 %do_package powerpc64-linux-gnu	%{build_powerpc64}
@@ -339,7 +338,6 @@ cd ..
     prep_target mips-linux-gnu		%{build_mips}
     prep_target mips64-linux-gnu	%{build_mips64}
     prep_target mn10300-linux-gnu	%{build_mn10300}
-    prep_target nios2-linux-gnu		%{build_nios2}
     prep_target openrisc-linux-gnu	%{build_openrisc}
     prep_target powerpc-linux-gnu	%{build_powerpc}
     prep_target powerpc64-linux-gnu	%{build_powerpc64}
@@ -844,7 +842,6 @@ chmod +x %{__ar_no_strip}
 %do_files mips-linux-gnu	%{build_mips}
 %do_files mips64-linux-gnu	%{build_mips64}
 %do_files mn10300-linux-gnu	%{build_mn10300}
-%do_files nios2-linux-gnu	%{build_nios2}
 %do_files openrisc-linux-gnu	%{build_openrisc}
 %do_files powerpc-linux-gnu	%{build_powerpc}
 %do_files powerpc64-linux-gnu	%{build_powerpc64}
@@ -867,6 +864,10 @@ chmod +x %{__ar_no_strip}
 %do_files xtensa-linux-gnu	%{build_xtensa}
 
 %changelog
+* Mon Mar 17 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 15.0.1-0.1
+- Update to gcc-15 snapshot
+- Drop NIOS2 support (retired upstream)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 14.2.1-2.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

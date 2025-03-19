@@ -168,6 +168,9 @@ rm -rf contrib/shapelib
 sed -i 's/add_subdirectory.*//' contrib/ShapeLibSupport.cmake
 sed -i 's/ SHAPELIB / shp /g' plugins/core/Standard/qFacets/CMakeLists.txt contrib/ShapeLibSupport.cmake
 
+# For PCL 1.15+
+sed -i 's/-std=c++14/-std=c++17/' cmake/CMakeSetCompilerOptions.cmake
+
 %build
 mkdir build
 pushd build

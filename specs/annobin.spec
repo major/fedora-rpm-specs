@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.92
+Version: 12.93
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
@@ -324,6 +324,10 @@ touch configure */configure Makefile.in */Makefile.in
 # Similarly we do not want to rebuild the documentation.
 touch doc/annobin.info
 
+# Generate a source tarball for installation later with all the patches
+# applied.  This must be the last step in the prep section.
+tar -C ../ -cJf ../latest-annobin.tar.xz %{name}-%{version}
+
 #---------------------------------------------------------------------------------
 
 %build
@@ -453,7 +457,7 @@ cat `gcc --print-file-name=rpmver` > %{buildroot}/%{ANNOBIN_GCC_PLUGIN_DIR}/%{av
 
 # Also install a copy of the sources into the build tree.
 mkdir -p                            %{buildroot}%{annobin_source_dir}
-cp %{_sourcedir}/%{annobin_sources} %{buildroot}%{annobin_source_dir}/latest-annobin.tar.xz
+cp ../latest-annobin.tar.xz         %{buildroot}%{annobin_source_dir}/latest-annobin.tar.xz
 %endif
 
 rm -f %{buildroot}%{_infodir}/dir
@@ -532,6 +536,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Mar 17 2025 Nick Clifton  <nickc@redhat.com> - 12.93-1
+- Annocheck: Fix test for GO revision.  (RHEL-56031)
+
 * Fri Feb 14 2025 Nick Clifton  <nickc@redhat.com> - 12.92-1
 - Annocheck: Do not rely upon libelf's ability to detect links to separate debuginfo files.  (RHEL-79264)
 

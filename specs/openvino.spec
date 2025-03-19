@@ -73,6 +73,8 @@ BuildRequires:	tbb-devel
 BuildRequires:	onnx-devel
 BuildRequires:	protobuf-devel
 BuildRequires:	opencv-devel
+BuildRequires:	OpenCL-ICD-Loader-devel
+BuildRequires:	opencl-headers
 # forked version of OpenVINO oneDNN does not have a proper version
 Provides:	bundled(onednn)
 # MLAS upstream does not have any release
@@ -159,6 +161,9 @@ rm -rf src/plugins/intel_npu/thirdparty/yaml-cpp
 tar xf %{SOURCE3}
 cp -r level-*/* src/plugins/intel_npu/thirdparty/level-zero-ext
 
+# intel-gpu-plugin cache.json
+sed -i -e 's|CACHE_JSON_INSTALL_DIR ${OV_CPACK_PLUGINSDIR}|CACHE_JSON_INSTALL_DIR %{_datadir}/%{name}|g' src/plugins/intel_gpu/src/kernel_selector/CMakeLists.txt
+
 # python:prep
 sed -i '/openvino-telemetry/d' src/bindings/python/requirements.txt
 cp %{SOURCE5} src/bindings/python
@@ -209,7 +214,7 @@ sed -i '/#include <memory>.*/a#include <cstdint>' src/plugins/intel_npu/tools/pr
 	-DENABLE_MLAS_FOR_CPU=ON \
 	-DENABLE_MLAS_FOR_CPU_DEFAULT=ON \
 	-DENABLE_INTEL_GNA=OFF \
-	-DENABLE_INTEL_GPU=OFF \
+	-DENABLE_INTEL_GPU=ON \
 	-DENABLE_SYSTEM_LEVEL_ZERO=ON \
 	-DENABLE_INTEL_NPU=ON \
 	-DENABLE_NPU_PLUGIN_ENGINE=ON \
@@ -228,7 +233,7 @@ sed -i '/#include <memory>.*/a#include <cstdint>' src/plugins/intel_npu/tools/pr
 	-DENABLE_WHEEL=OFF \
 	-DENABLE_JS=OFF \
 	-DENABLE_SYSTEM_LIBS_DEFAULT=ON \
-	-DENABLE_SYSTEM_OPENCL=OFF \
+	-DENABLE_SYSTEM_OPENCL=ON \
 	-DENABLE_SYSTEM_PUGIXML=ON \
 	-DENABLE_SYSTEM_PROTOBUF=OFF \
 	-DTHREADING=TBB \
@@ -248,6 +253,7 @@ export WHEEL_VERSION=%{version}
 %{python3} src/bindings/python/wheel/setup.py dist_info -o %{buildroot}/%{python3_sitearch}
 rm -v %{buildroot}/%{python3_sitearch}/requirements.txt
 rm -v %{buildroot}/%{python3_sitearch}/%{name}/preprocess/torchvision/requirements.txt
+mkdir -p -m 755 %{buildroot}%{_datadir}/%{name}
 
 %check
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:%{buildroot}%{_libdir} PYTHONPATH=%{buildroot}%{python3_sitearch} %{python3} samples/python/hello_query_device/hello_query_device.py
@@ -276,10 +282,12 @@ LD_LIBRARY_PATH=$LD_LIBRARY_PATH:%{buildroot}%{_libdir} PYTHONPATH=%{buildroot}%
 %{_libdir}/%{name}-%{version}/lib%{name}_auto_batch_plugin.so
 %{_libdir}/%{name}-%{version}/lib%{name}_hetero_plugin.so
 %{_libdir}/%{name}-%{version}/lib%{name}_intel_cpu_plugin.so
+%{_libdir}/%{name}-%{version}/lib%{name}_intel_gpu_plugin.so
 %{_libdir}/%{name}-%{version}/lib%{name}_intel_npu_plugin.so
 %{_bindir}/compile_tool
 %{_bindir}/protopipe
 %{_bindir}/single-image-test
+%{_datadir}/%{name}
 
 %files -n lib%{name}-ir-frontend
 %{_libdir}/lib%{name}_ir_frontend.so.%{version}

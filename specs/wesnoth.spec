@@ -1,6 +1,6 @@
 Name:           wesnoth
-Version:        1.19.9
-Release:        2%{?dist}
+Version:        1.19.10
+Release:        1%{?dist}
 Summary:        Turn-based strategy game with a fantasy theme
 
 License:        GPL-2.0-or-later
@@ -193,6 +193,9 @@ install -m0644 -D wesnoth-server.sysusers.conf %{buildroot}%{_sysusersdir}/wesno
 %{_mandir}/*/man6/wesnoth*.6*
 
 %changelog
+* Mon Mar 17 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.19.10-1
+- 1.19.10
+
 * Mon Mar 10 2025 Zbigniew Jędrzejewski-Szmek  <zbyszek@in.waw.pl> - 1.19.9-2
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

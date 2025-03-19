@@ -2,8 +2,8 @@
 %define gnome_online_accounts_version 3.51.0
 %define glib2_version 2.76.6
 %define gnome_desktop_version 44.0-7
-%define gsd_version 48~beta
-%define gsettings_desktop_schemas_version 47
+%define gsd_version 48~rc
+%define gsettings_desktop_schemas_version 48~alpha-2
 %define upower_version 0.99.8
 %define gtk4_version 4.15.2
 %define gnome_bluetooth_version 42~alpha
@@ -16,7 +16,7 @@
 %bcond malcontent %[!0%{?rhel}]
 
 Name:           gnome-control-center
-Version:        48~beta
+Version:        48.0
 Release:        %autorelease
 Summary:        Utilities to configure the GNOME desktop
 
@@ -196,6 +196,8 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/gnome/cursor-fonts
 %{_datadir}/bash-completion/completions/gnome-control-center
 %{_datadir}/dbus-1/services/org.gnome.Settings.SearchProvider.service
 %{_datadir}/dbus-1/services/org.gnome.Settings.service
+%{_datadir}/dbus-1/services/org.gnome.Settings.GlobalShortcutsProvider.service
+%{_datadir}/dbus-1/interfaces/org.gnome.GlobalShortcutsRebind.xml
 %{_datadir}/gettext/
 %{_datadir}/glib-2.0/schemas/org.gnome.Settings.gschema.xml
 %{_datadir}/gnome-control-center/keybindings/*.xml
@@ -212,6 +214,7 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/gnome/cursor-fonts
 %{_datadir}/sounds/gnome/default/*/*.ogg
 %{_libexecdir}/gnome-control-center-search-provider
 %{_libexecdir}/gnome-control-center-print-renderer
+%{_libexecdir}/gnome-control-center-global-shortcuts-provider
 
 %files filesystem
 %dir %{_datadir}/gnome-control-center

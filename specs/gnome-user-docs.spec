@@ -1,8 +1,8 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-user-docs
-Version:        47.2
-Release:        2%{?dist}
+Version:        47.5
+Release:        1%{?dist}
 Summary:        GNOME User Documentation
 
 License:        CC-BY-SA-3.0
@@ -38,6 +38,9 @@ environment.
 %doc NEWS README.md
 
 %changelog
+* Mon Mar 17 2025 nmontero <nmontero@redhat.com> - 47.5-1
+- Update to 47.5
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 47.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

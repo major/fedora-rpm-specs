@@ -4,7 +4,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           baobab
-Version:        48~alpha
+Version:        48.0
 Release:        1%{?dist}
 Summary:        A graphical directory tree analyzer
 
@@ -66,6 +66,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.baobab.des
 
 
 %changelog
+* Mon Mar 17 2025 nmontero <nmontero@redhat.com> - 48.0-1
+- Update to 48.0
+
 * Thu Mar 06 2025 Fabio Valentini <decathorpe@gmail.com> - 48~alpha-1
 - Update to 48.alpha
 

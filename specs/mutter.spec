@@ -12,7 +12,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:          mutter
-Version:       48~rc
+Version:       48.0
 Release:       %autorelease
 Summary:       Window and compositing manager based on Clutter
 
@@ -30,10 +30,6 @@ Patch:         mutter-42.alpha-disable-tegra.patch
 # not upstreamed because for upstream we'd really want to find a way
 # to fix *both* problems
 Patch:         0001-Revert-x11-Use-input-region-from-frame-window-for-de.patch
-
-# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/4321
-# Drop in the next version update
-Patch:          schedule_process.patch
 
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= 1.41.0
 BuildRequires: pkgconfig(sm)

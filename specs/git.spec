@@ -78,8 +78,8 @@
 %global _package_note_file  %{_builddir}/%{name}-%{real_version}/.package_note-%{name}-%{version}-%{release}.%{_arch}.ld
 
 Name:           git
-Version:        2.48.1
-Release:        3%{?dist}
+Version:        2.49.0
+Release:        1%{?dist}
 Summary:        Fast Version Control System
 License:        BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:            https://git-scm.com/
@@ -538,7 +538,7 @@ install -p -m 755 %{SOURCE99} print-failed-test-output
 # Remove git-archimport
 sed -i '/^SCRIPT_PERL += git-archimport\.perl$/d' Makefile
 sed -i '/^git-archimport/d' command-list.txt
-rm git-archimport.perl Documentation/git-archimport.txt
+rm git-archimport.perl Documentation/git-archimport.adoc
 
 %if %{without cvs}
 # Remove git-cvs* from command list
@@ -615,7 +615,7 @@ sed -i 's@"++GITWEB_HOME_LINK_STR++"@$ENV{"SERVER_NAME"} ? "git://" . $ENV{"SERV
 
 # Move contrib/{contacts,subtree} docs to Documentation so they build with the
 # proper asciidoc/docbook/xmlto options
-mv contrib/{contacts,subtree}/git-*.txt Documentation/
+mv contrib/{contacts,subtree}/git-*.adoc Documentation/
 
 %build
 # Improve build reproducibility
@@ -782,7 +782,7 @@ grep -E  "$not_core_re" bin-man-doc-files > bin-man-doc-git-files
 # contrib
 not_core_doc_re="(git-(cvs|gui|citool|daemon|instaweb|subtree))|p4|svn|email|gitk|gitweb"
 mkdir -p %{buildroot}%{_pkgdocdir}/
-cp -pr CODE_OF_CONDUCT.md README.md Documentation/*.txt Documentation/RelNotes contrib %{buildroot}%{_pkgdocdir}/
+cp -pr CODE_OF_CONDUCT.md README.md Documentation/*.adoc Documentation/RelNotes contrib %{buildroot}%{_pkgdocdir}/
 # Remove contrib/ files/dirs which have nothing useful for documentation
 rm -rf %{buildroot}%{_pkgdocdir}/contrib/{contacts,credential}/
 cp -p gitweb/INSTALL %{buildroot}%{_pkgdocdir}/INSTALL.gitweb
@@ -874,6 +874,16 @@ GIT_SKIP_TESTS="$GIT_SKIP_TESTS t5300.1[02348] t5300.2[03459] t5300.30 t5300.4[5
 %endif
 # endif rhel == 8 && arch == s390x
 
+%if "%{_arch}" == "s390x"
+# Skip tests which fail on s390x
+#
+# The following tests are failing on s390x.
+# https://lore.kernel.org/git/Z8dIZmscTdi8dZAY@teonanacatl.net/
+#
+# t5620.4 'do partial clone 2, backfill min batch size'
+GIT_SKIP_TESTS="$GIT_SKIP_TESTS t5620.4"
+%endif
+# endif "%{_arch}" == "s390x"
 export GIT_SKIP_TESTS
 
 # Set LANG so various UTF-8 tests are run
@@ -959,7 +969,7 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 
 %if %{with cvs}
 %files cvs
-%{_pkgdocdir}/*git-cvs*.txt
+%{_pkgdocdir}/*git-cvs*.adoc
 %{_bindir}/git-cvsserver
 %{gitexecdir}/*cvs*
 %{?with_docs:%{_mandir}/man1/*cvs*.1*}
@@ -968,7 +978,7 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 # endif with cvs
 
 %files daemon
-%{_pkgdocdir}/git-daemon*.txt
+%{_pkgdocdir}/git-daemon*.adoc
 %{_unitdir}/git.socket
 %config(noreplace) %{_unitdir}/git@.service
 %{gitexecdir}/git-daemon
@@ -977,13 +987,13 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 %{?with_docs:%{_pkgdocdir}/git-daemon*.html}
 
 %files email
-%{_pkgdocdir}/*email*.txt
+%{_pkgdocdir}/*email*.adoc
 %{gitexecdir}/*email*
 %{?with_docs:%{_mandir}/man1/*email*.1*}
 %{?with_docs:%{_pkgdocdir}/*email*.html}
 
 %files -n gitk
-%{_pkgdocdir}/*gitk*.txt
+%{_pkgdocdir}/*gitk*.adoc
 %{_bindir}/*gitk*
 %{_datadir}/gitk
 %{bash_completions_dir}/gitk
@@ -992,7 +1002,7 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 
 %files -n gitweb
 %{_pkgdocdir}/*.gitweb
-%{_pkgdocdir}/gitweb*.txt
+%{_pkgdocdir}/gitweb*.adoc
 %{?with_docs:%{_mandir}/man1/gitweb.1*}
 %{?with_docs:%{_mandir}/man5/gitweb.conf.5*}
 %{?with_docs:%{_pkgdocdir}/gitweb*.html}
@@ -1005,8 +1015,8 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 %{gitexecdir}/git-citool
 %{_datadir}/applications/*git-gui.desktop
 %{_datadir}/git-gui/
-%{_pkgdocdir}/git-gui.txt
-%{_pkgdocdir}/git-citool.txt
+%{_pkgdocdir}/git-gui.adoc
+%{_pkgdocdir}/git-citool.adoc
 %{?with_docs:%{_mandir}/man1/git-gui.1*}
 %{?with_docs:%{_pkgdocdir}/git-gui.html}
 %{?with_docs:%{_mandir}/man1/git-citool.1*}
@@ -1014,7 +1024,7 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 
 %files instaweb
 %{gitexecdir}/git-instaweb
-%{_pkgdocdir}/git-instaweb.txt
+%{_pkgdocdir}/git-instaweb.adoc
 %{?with_docs:%{_mandir}/man1/git-instaweb.1*}
 %{?with_docs:%{_pkgdocdir}/git-instaweb.html}
 
@@ -1022,7 +1032,7 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 %files p4
 %{gitexecdir}/*p4*
 %{gitexecdir}/mergetools/p4merge
-%{_pkgdocdir}/*p4*.txt
+%{_pkgdocdir}/*p4*.adoc
 %{?with_docs:%{_mandir}/man1/*p4*.1*}
 %{?with_docs:%{_pkgdocdir}/*p4*.html}
 %endif
@@ -1035,17 +1045,20 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 
 %files subtree
 %{gitexecdir}/git-subtree
-%{_pkgdocdir}/git-subtree.txt
+%{_pkgdocdir}/git-subtree.adoc
 %{?with_docs:%{_mandir}/man1/git-subtree.1*}
 %{?with_docs:%{_pkgdocdir}/git-subtree.html}
 
 %files svn
 %{gitexecdir}/git-svn
-%{_pkgdocdir}/git-svn.txt
+%{_pkgdocdir}/git-svn.adoc
 %{?with_docs:%{_mandir}/man1/git-svn.1*}
 %{?with_docs:%{_pkgdocdir}/git-svn.html}
 
 %changelog
+* Mon Mar 17 2025 Ondřej Pohořelský <opohorel@redhat.com> - 2.49.0-1
+- update to 2.49.0
+
 * Thu Feb  6 2025 Yanko Kaneti <yaneti@declera.com> - 2.48.1-3
 - Keep gitk on tcl/tk 8.x until its ready for 9
 

@@ -1,14 +1,9 @@
 # Requires https://pypi.org/project/skia-pathops/ – not packaged, and
 # nontrivial due to the involvement of Skia, https://skia.org/.
 %bcond pathops 0
-# Requires https://pypi.org/project/ttfautohint-py/ – not packaged
-%bcond autohint 0
-# Requires ufoLib2[json]:
-# https://src.fedoraproject.org/rpms/python-ufoLib2/pull-request/3
-# So far, this is only in Rawhide.
-%bcond json %{expr:%{undefined fc40} && %{undefined fc41}}
-# Requires fonttools[repacker], which requires python-uharfbuzz, not packaged
-%bcond repacker 0
+%bcond autohint 1
+%bcond json 1
+%bcond repacker 1
 
 Name:           fontmake
 Version:        3.10.0

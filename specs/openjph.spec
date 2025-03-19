@@ -1,12 +1,11 @@
 %global real_name OpenJPH
 
 Name:           openjph
-Version:        0.18.2
-Release:        2%{?dist}
+Version:        0.21.2
+Release:        1%{?dist}
 Summary:        Open-source implementation of JPEG2000 Part-15 (or JPH or HTJ2K)
 License:        BSD-2-Clause
 URL:            https://openjph.org/
-ExcludeArch:    %{ix86}
 Source:         https://github.com/aous72/%{real_name}/archive/refs/tags/%{version}/%{real_name}-%{version}.tar.gz
 
 BuildRequires:  cmake
@@ -40,7 +39,7 @@ standard Part 15.
 %autosetup -n %{real_name}-%{version} -p1
 
 %build
-%cmake
+%cmake -DCMAKE_INSTALL_LIBDIR=%{_lib}
 %cmake_build
 
 %install
@@ -53,15 +52,20 @@ standard Part 15.
 %{_bindir}/ojph_expand
 
 %files -n lib%{name}
-%{_libdir}/lib%{name}*.so.0.18
-%{_libdir}/lib%{name}*.so.%{version}
+%{_libdir}/lib%{name}.so.0.21
+%{_libdir}/lib%{name}.so.%{version}
 
 %files -n lib%{name}-devel
-%{_includedir}/%{name}/
+%{_includedir}/%{name}
+%{_libdir}/cmake/%{name}
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Mar 17 2025 Simone Caronni <negativo17@gmail.com> - 0.21.2-1
+- Update to 0.21.2.
+- Package now builds on i386.
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

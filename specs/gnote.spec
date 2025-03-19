@@ -3,7 +3,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnote
-Version:        48~alpha
+Version:        48~beta
 Release:        1%{?dist}
 Summary:        Note-taking application
 
@@ -70,6 +70,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Gnot
 %{_metainfodir}/org.gnome.Gnote.appdata.xml
 
 %changelog
+* Mon Mar 17 2025 nmontero <nmontero@redhat.com> - 48~beta-1
+- Update to 48.beta
+
 * Thu Mar 06 2025 Fabio Valentini <decathorpe@gmail.com> - 48~alpha-1
 - Update to 48.alpha
 

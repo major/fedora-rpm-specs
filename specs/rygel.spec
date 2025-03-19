@@ -1,8 +1,8 @@
 %global apiver 2.8
 
 Name:          rygel
-Version:       0.44.1
-Release:       3%{?dist}
+Version:       0.44.2
+Release:       1%{?dist}
 Summary:       A collection of UPnP/DLNA services
 
 License:       LGPL-2.1-or-later AND CC-BY-SA-3.0
@@ -147,6 +147,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/rygel-preferences.de
 %{_datadir}/vala/vapi/rygel*.vapi
 
 %changelog
+* Mon Mar 17 2025 nmontero <nmontero@redhat.com> - 0.44.2-1
+- Update to 0.44.2
+
 * Thu Feb 06 2025 Nieves Montero <nmontero@redhat.com> - 0.44.1-3
 - Rebuild for the renaming of tracker to tinysparql
 

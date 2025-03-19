@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-backgrounds
-Version:        48~rc
+Version:        48.0
 Release:        1%{?dist}
 Summary:        Desktop backgrounds packaged with the GNOME desktop
 
@@ -119,6 +119,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
 %{_datadir}/backgrounds/gnome/vnc-l.png
 
 %changelog
+* Mon Mar 17 2025 nmontero <nmontero@redhat.com> - 48.0-1
+- Update to 48.0
+
 * Fri Mar 14 2025 nmontero <nmontero@redhat.com> - 48~rc-1
 - Update to 48.rc
 

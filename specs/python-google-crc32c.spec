@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-google-crc32c
-Version:        1.6.0
+Version:        1.7.0
 Release:        %autorelease
 Summary:        A python wrapper of the C library ‘Google CRC32C’
 

@@ -241,6 +241,10 @@ Obsoletes: %{name}-xhtml-devel < %{xhtml_ver}-%{release}
 Obsoletes: %{name}-xhtml-doc < %{xhtml_ver}-%{release}
 Obsoletes: %{name}-xhtml-prof < %{xhtml_ver}-%{release}
 %endif
+Obsoletes: %{name}-ghc-internal < 9.1202.0-6
+Obsoletes: %{name}-ghc-internal-devel < 9.1202.0-6
+Obsoletes: %{name}-ghc-internal-doc < 9.1202.0-6
+Obsoletes: %{name}-ghc-internal-prof < 9.1202.0-6
 %if %{without manual}
 Obsoletes: %{name}-manual < %{version}-%{release}
 %endif
@@ -877,6 +881,7 @@ make test
 - make ghc-filesystem arch for now for index.html
 - avoid pulling in nodejs via *.mjs scripts
 - own ghclibdir/share/{,ghcplatform}
+- add obsoletes for ghc-internal
 
 * Sat Mar 15 2025 Jens Petersen  <petersen@redhat.com> - 9.12.2-5
 - 9.12.2

@@ -13,9 +13,9 @@
 %undefine _py3_shebang_s
 
 Name:           ansible-core
-Version:        2.18.1
+Version:        2.18.3
 %global uversion %{version_no_tilde %{quote:%nil}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A radically simple IT automation system
 
 # The main license is GPLv3+. Many of the files in lib/ansible/module_utils
@@ -261,6 +261,10 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 
 
 %changelog
+* Mon Mar 17 2025 Packit <hello@packit.dev> - 2.18.3-1
+- Update to version 2.18.3
+- Resolves: rhbz#2342365
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

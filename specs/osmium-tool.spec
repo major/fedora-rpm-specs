@@ -1,10 +1,10 @@
 %global catch_version 2.13.10
-%global libosmium_version 2.17.0
+%global libosmium_version 2.22.0
 %global protozero_version 1.6.3
 %global json_version 3.0
 
 Name:           osmium-tool
-Version:        1.17.0
+Version:        1.18.0
 Release:        %autorelease
 Summary:        Command line tool for working with OpenStreetMap data
 

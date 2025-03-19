@@ -4,19 +4,19 @@
 # dependencies.
 #
 # Requires python-lz4:
-%bcond graphite_extra %{expr:%{undefined rhel} || %{defined epel}}
+%bcond graphite_extra %[ %{undefined rhel} || %{defined epel} ]
 # Requires python-skia-pathops, not packaged:
 %bcond pathops_extra 0
 # Requires python-matplotlib:
-%bcond plot_extra %{expr:%{undefined rhel} || %{defined epel}}
-# Requires python-uharfbuzz, not packaged:
-%bcond repacker_extra 0
+%bcond plot_extra %[ %{undefined rhel} || %{defined epel} ]
+# Requires python-uharfbuzz, currently only in F42+
+%bcond repacker_extra %[ 0%{?fedora} > 41 ]
 # Requires python-sympy (not yet in any EPEL):
-%bcond symfont_extra %{expr:%{undefined rhel}}
+%bcond symfont_extra %{undefined rhel}
 # Requires python-fs:
-%bcond ufo_extra %{expr:%{undefined rhel} || %{defined epel}}
+%bcond ufo_extra %[ %{undefined rhel} || %{defined epel} ]
 # Requires python-brotli, python-zopfli:
-%bcond woff_extra %{expr:%{undefined rhel} || %{defined epel}}
+%bcond woff_extra %[ %{undefined rhel} || %{defined epel} ]
 # Requires scipy, munkres, pycairo
 %bcond interpolatable_extra 1
 
@@ -29,7 +29,7 @@ AFM and to an extent Type 1 and some Mac-specific formats.}
 
 Name:           fonttools
 Version:        4.56.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools to manipulate font files
 
 # https://spdx.org/licenses/MIT.html
@@ -194,6 +194,9 @@ k="${k-}${k+ and }not (InterpolatableTest and test_sparse_interpolatable_ufos)"
 %doc NEWS.rst README.rst
 
 %changelog
+* Sun Mar 16 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.56.0-2
+- Enable the repacker extra in F42+
+
 * Sat Feb 08 2025 Parag Nemade <pnemade AT redhat DOT com> - 4.56.0-1
 - Update to 4.56.0 version (#2342588)
 

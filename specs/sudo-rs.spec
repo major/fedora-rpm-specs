@@ -7,7 +7,7 @@
 %global crate sudo-rs
 
 Name:           sudo-rs
-Version:        0.2.3
+Version:        0.2.4
 Release:        %autorelease
 Summary:        Memory safe implementation of sudo and su
 
@@ -37,15 +37,15 @@ A memory safe implementation of sudo and su.}
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -f pam-login
 
 %build
-%cargo_build
-%{cargo_license_summary}
-%{cargo_license} > LICENSE.dependencies
+%cargo_build -f pam-login
+%{cargo_license_summary -f pam-login}
+%{cargo_license -f pam-login} > LICENSE.dependencies
 
 %install
-%cargo_install
+%cargo_install -f pam-login
 # rename binaries so they do not conflict with sudo
 mv %{buildroot}/%{_bindir}/su %{buildroot}/%{_bindir}/su-rs
 mv %{buildroot}/%{_bindir}/sudo %{buildroot}/%{_bindir}/sudo-rs
@@ -55,8 +55,9 @@ mv %{buildroot}/%{_bindir}/visudo %{buildroot}/%{_bindir}/visudo-rs
 %check
 # * skip a test that requires "/var/log/wtmp" to be present: secure_open_is_predictable
 # * skip tests that rely on "daemon" having UID 1: test_unix_group, test_unix_user, test_get_user_and_group_by_id:
-#   https://github.com/memorysafety/sudo-rs/issues/708
-%cargo_test -- -- --exact --skip system::audit::test::secure_open_is_predictable --skip system::interface::test::test_unix_user --skip system::interface::test::test_unix_group --skip system::tests::test_get_user_and_group_by_id
+#   https://github.com/trifectatechfoundation/sudo-rs/issues/708
+#   https://github.com/trifectatechfoundation/sudo-rs/issues/1030
+%cargo_test -f pam-login -- -- --exact --skip system::audit::test::secure_open_is_predictable --skip system::interface::test::test_unix_group --skip system::interface::test::test_unix_user
 %endif
 
 %files

@@ -1,6 +1,6 @@
 Name:		sdrangel
 Version:	7.22.6
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Software defined radio (SDR) and signal analyzer frontend to various hardware
 License:	GPL-3.0-or-later
 URL:		https://github.com/f4exb/sdrangel
@@ -71,7 +71,13 @@ https://github.com/f4exb/sdrangel/wiki/Quick-start
 %autosetup -p1
 
 %build
-%cmake -DARCH_OPT=""
+# LIB_SUFFIX workaround for https://github.com/pothosware/SoapyUHD/commit/6b521393cc45c66770f3d4bc69eac7dda982174c.patch
+# https://github.com/f4exb/sdrangel/issues/2419
+%cmake -DARCH_OPT="" \
+%if "%{?_lib}"=="lib64"
+  -DLIB_SUFFIX=64
+%endif
+
 %cmake_build
 
 %install
@@ -102,6 +108,9 @@ appstream-util validate-relax \
 %{_metainfodir}/org.sdrangel.SDRangel.metainfo.xml
 
 %changelog
+* Mon Mar 17 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 7.22.6-2
+- Rebuilt for new uhd
+
 * Thu Mar  6 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 7.22.6-1
 - New version
   Resolves: rhbz#2343437

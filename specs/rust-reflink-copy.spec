@@ -5,7 +5,7 @@
 %global crate reflink-copy
 
 Name:           rust-reflink-copy
-Version:        0.1.24
+Version:        0.1.25
 Release:        %autorelease
 Summary:        Copy-on-write mechanism on supported file systems
 

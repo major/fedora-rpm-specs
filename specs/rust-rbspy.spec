@@ -4,7 +4,7 @@
 %global crate rbspy
 
 Name:           rust-rbspy
-Version:        0.28.0
+Version:        0.31.0
 Release:        %autorelease
 Summary:        Sampling CPU profiler for Ruby
 
@@ -13,6 +13,9 @@ URL:            https://crates.io/crates/rbspy
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          rbspy-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * relax directories dependency to allow building with both v5 and v6
+Patch:          rbspy-fix-metadata.diff
 
 ExcludeArch:    %{ix86}
 

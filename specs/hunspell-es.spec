@@ -6,8 +6,8 @@
 
 Name: hunspell-es
 Summary: Spanish hunspell dictionaries
-Version: 2.8
-Release: 5%{?dist}
+Version: 2.9
+Release: 1%{?dist}
 Epoch: 1
 Source0: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_AR.oxt
 Source1: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_BO.oxt
@@ -241,137 +241,140 @@ done
 %files
 
 %files ES
-%doc README.txt Changelog.txt
+%doc README.txt
 %license GPLv3.txt MPL-1.1.txt LGPLv3.txt
 %{_datadir}/%{dict_dirname}/es_ES.*
 
 
 %files AR
-%doc README.txt Changelog.txt
+%doc README.txt
 %license GPLv3.txt MPL-1.1.txt LGPLv3.txt
 %{_datadir}/%{dict_dirname}/es_AR.*
 
 
 %files BO
-%doc README.txt Changelog.txt
+%doc README.txt
 %license GPLv3.txt MPL-1.1.txt LGPLv3.txt
 %{_datadir}/%{dict_dirname}/es_BO.*
 
 
 %files CL
-%doc README.txt Changelog.txt
+%doc README.txt
 %license GPLv3.txt MPL-1.1.txt LGPLv3.txt
 %{_datadir}/%{dict_dirname}/es_CL.*
 
 
 %files CO
-%doc README.txt Changelog.txt
+%doc README.txt
 %license GPLv3.txt MPL-1.1.txt LGPLv3.txt
 %{_datadir}/%{dict_dirname}/es_CO.*
 
 
 %files CR
-%doc README.txt Changelog.txt
+%doc README.txt
 %license GPLv3.txt MPL-1.1.txt LGPLv3.txt
 %{_datadir}/%{dict_dirname}/es_CR.*
 
 
 %files CU
-%doc README.txt Changelog.txt
+%doc README.txt
 %license GPLv3.txt MPL-1.1.txt LGPLv3.txt
 %{_datadir}/%{dict_dirname}/es_CU.*
 
 
 %files DO
-%doc README.txt Changelog.txt
+%doc README.txt
 %license GPLv3.txt MPL-1.1.txt LGPLv3.txt
 %{_datadir}/%{dict_dirname}/es_DO.*
 
 
 %files EC
-%doc README.txt Changelog.txt
+%doc README.txt
 %license GPLv3.txt MPL-1.1.txt LGPLv3.txt
 %{_datadir}/%{dict_dirname}/es_EC.*
 
 
 %files GQ
-%doc README.txt Changelog.txt
+%doc README.txt
 %license GPLv3.txt MPL-1.1.txt LGPLv3.txt
 %{_datadir}/%{dict_dirname}/es_GQ.*
 
 
 %files GT
-%doc README.txt Changelog.txt
+%doc README.txt
 %license GPLv3.txt MPL-1.1.txt LGPLv3.txt
 %{_datadir}/%{dict_dirname}/es_GT.*
 
 
 %files HN
-%doc README.txt Changelog.txt
+%doc README.txt
 %license GPLv3.txt MPL-1.1.txt LGPLv3.txt
 %{_datadir}/%{dict_dirname}/es_HN.*
 
 
 %files MX
-%doc README.txt Changelog.txt
+%doc README.txt
 %license GPLv3.txt MPL-1.1.txt LGPLv3.txt
 %{_datadir}/%{dict_dirname}/es_MX.*
 
 
 %files NI
-%doc README.txt Changelog.txt
+%doc README.txt
 %license GPLv3.txt MPL-1.1.txt LGPLv3.txt
 %{_datadir}/%{dict_dirname}/es_NI.*
 
 
 %files PA
-%doc README.txt Changelog.txt
+%doc README.txt
 %license GPLv3.txt MPL-1.1.txt LGPLv3.txt
 %{_datadir}/%{dict_dirname}/es_PA.*
 
 
 %files PE
-%doc README.txt Changelog.txt
+%doc README.txt
 %license GPLv3.txt MPL-1.1.txt LGPLv3.txt
 %{_datadir}/%{dict_dirname}/es_PE.*
 
 
 %files PR
-%doc README.txt Changelog.txt
+%doc README.txt
 %license GPLv3.txt MPL-1.1.txt LGPLv3.txt
 %{_datadir}/%{dict_dirname}/es_PR.*
 
 
 %files PY
-%doc README.txt Changelog.txt
+%doc README.txt
 %license GPLv3.txt MPL-1.1.txt LGPLv3.txt
 %{_datadir}/%{dict_dirname}/es_PY.*
 
 
 %files SV
-%doc README.txt Changelog.txt
+%doc README.txt
 %license GPLv3.txt MPL-1.1.txt LGPLv3.txt
 %{_datadir}/%{dict_dirname}/es_SV.*
 
 
 %files US
-%doc README.txt Changelog.txt
+%doc README.txt
 %license GPLv3.txt MPL-1.1.txt LGPLv3.txt
 %{_datadir}/%{dict_dirname}/es_US.*
 
 
 %files UY
-%doc README.txt Changelog.txt
+%doc README.txt
 %license GPLv3.txt MPL-1.1.txt LGPLv3.txt
 %{_datadir}/%{dict_dirname}/es_UY.*
 
 
 %files VE
-%doc README.txt Changelog.txt
+%doc README.txt
 %license GPLv3.txt MPL-1.1.txt LGPLv3.txt
 %{_datadir}/%{dict_dirname}/es_VE.*
 
 %changelog
+* Mon Mar 17 2025 Parag Nemade <pnemade AT redhat DOT com> - 1:2.9-1
+- Update to 2.9 version (#2334961)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

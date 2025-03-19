@@ -3,24 +3,22 @@
 
 Name:    libnvme
 Summary: Linux-native nvme device management library
-Version: 1.11.1
-Release: 3%{?dist}
+Version: 1.12
+Release: 1%{?dist}
 License: LGPL-2.1-or-later
 URL:     https://github.com/linux-nvme/libnvme
 Source0: %{url}/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2325194
-Patch0:  libnvme-1.12-build_do_not_include_config.h_globally-2.patch
 
 BuildRequires: gcc gcc-c++
 BuildRequires: swig
 BuildRequires: python3-devel
 
-BuildRequires: meson >= 0.53
+BuildRequires: meson >= 0.62
 BuildRequires: json-c-devel >= 0.13
 BuildRequires: openssl-devel
 BuildRequires: dbus-devel
 BuildRequires: keyutils-libs-devel
+BuildRequires: liburing-devel >= 2.2
 %if 0%{?fedora} || 0%{?rhel} > 9
 BuildRequires: kernel-headers >= 5.15
 %endif
@@ -79,9 +77,9 @@ rm -r %{buildroot}%{_pkgdocdir}/html/{.buildinfo,.doctrees/}
 %files
 %license COPYING ccan/licenses/*
 %{_libdir}/libnvme.so.1
-%{_libdir}/libnvme.so.1.11.1
+%{_libdir}/libnvme.so.1.12.0
 %{_libdir}/libnvme-mi.so.1
-%{_libdir}/libnvme-mi.so.1.11.1
+%{_libdir}/libnvme-mi.so.1.12.0
 
 %files devel
 %{_libdir}/libnvme.so
@@ -101,6 +99,9 @@ rm -r %{buildroot}%{_pkgdocdir}/html/{.buildinfo,.doctrees/}
 %{python3_sitearch}/libnvme/*
 
 %changelog
+* Mon Mar 17 2025 Tomas Bzatek <tbzatek@redhat.com> - 1.12-1
+- Upstream v1.12 release
+
 * Mon Mar 03 2025 Tomas Bzatek <tbzatek@redhat.com> - 1.11.1-3
 - Fix build with Python 3.14 (#2325194)
 

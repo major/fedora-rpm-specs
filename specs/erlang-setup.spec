@@ -1,8 +1,7 @@
 %global realname setup
 
-
 Name:		erlang-%{realname}
-Version:	2.2.0
+Version:	2.2.1
 Release:	%autorelease
 BuildArch:	noarch
 Summary:	Generic setup utility for Erlang-based systems
@@ -13,7 +12,6 @@ Source0:	%{url}/archive/%{version}/%{realname}-%{version}.tar.gz
 Patch1:		erlang-setup-0001-Don-t-escriptize.patch
 BuildRequires:	erlang-edown
 BuildRequires:	erlang-rebar3
-
 
 %description
 While Erlang/OTP comes with many wonderful applications, including the Mnesia
@@ -34,28 +32,22 @@ steps in the installation procedure.
 The callbacks are defined through OTP application environment variables, which
 can easily be overriden at install time.
 
-
 %prep
 %autosetup -p1 -n %{realname}-%{version}
-
 
 %build
 %{erlang3_compile}
 
-
 %install
 %{erlang3_install}
 
-
 %check
 %{erlang3_test}
-
 
 %files
 %license LICENSE
 %doc doc/ examples/ README.md
 %{erlang_appdir}/
-
 
 %changelog
 %autochangelog

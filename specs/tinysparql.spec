@@ -5,7 +5,7 @@
 %global tracker_obsoletes_version 3.8
 
 Name:           tinysparql
-Version:        3.9~rc
+Version:        3.9.1
 Release:        1%{?dist}
 Summary:        Desktop-neutral metadata database and search tool
 
@@ -165,6 +165,9 @@ This package contains the documentation for %{name}.
 
 
 %changelog
+* Mon Mar 17 2025 nmontero <nmontero@redhat.com> - 3.9.1-1
+- Update to 3.9.1
+
 * Mon Mar 03 2025 nmontero <nmontero@redhat.com> - 3.9~rc-1
 - Update to 3.9.rc
 

@@ -5,14 +5,13 @@
 %endif
 
 Name:    bluez
-Version: 5.79
-Release: 3%{?dist}
+Version: 5.80
+Release: 1%{?dist}
 Summary: Bluetooth utilities
 License: GPL-2.0-or-later
 URL:     http://www.bluez.org/
 
 Source0: https://www.kernel.org/pub/linux/bluetooth/%{name}-%{version}.tar.xz
-Patch0:  bluez-fix-gcc-15.patch
 
 BuildRequires: dbus-devel >= 1.6
 BuildRequires: glib2-devel
@@ -328,9 +327,13 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_libexecdir}/bluetooth/obexd
 %{_datadir}/dbus-1/services/org.bluez.obex.service
 /usr/lib/systemd/user/dbus-org.bluez.obex.service
+%{_datadir}/dbus-1/system.d/obex.conf
 %{_userunitdir}/obex.service
 
 %changelog
+* Mon Mar 17 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 5.80-1
+- Update to 5.80
+
 * Thu Mar 06 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 5.79-3
 - Fixes for gcc-15
 

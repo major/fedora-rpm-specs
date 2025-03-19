@@ -1,5 +1,5 @@
-%global prever pre1
-%global ver %{version}-%{prever}
+#%%global prever pre1
+#%%global ver %{version}-%{prever}
 
 # change with every change of major or minor version number
 #%%global majminver 5.3
@@ -25,9 +25,9 @@
 Name: gutenprint
 Summary: Printer Drivers Package
 Version: 5.3.5
-Release: 0.2%{prever}%{?dist}
+Release: 2%{?dist}
 URL: http://gimp-print.sourceforge.net/
-Source0: http://downloads.sourceforge.net/gimp-print/%{name}-%{ver}.tar.xz
+Source0: http://downloads.sourceforge.net/gimp-print/%{name}-%{version}.tar.xz
 # Post-install script to update CUPS native PPDs.
 Source1: cups-genppdupdate.py.in
 # ported from old gimp-print package - fix for a menu in gimp gutenprint plugin
@@ -36,8 +36,6 @@ Patch1: gutenprint-postscriptdriver.patch
 Patch2: gutenprint-yyin.patch
 Patch3: gutenprint-manpage.patch
 Patch4: gutenprint-python36syntax.patch
-# from upstream
-Patch5: 0001-configure.ac-Fix-up-a-mistake-in-the-shared-library-.patch
 License: GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT AND GPL-3.0-or-later WITH Bison-exception-2.2
 
 
@@ -169,7 +167,7 @@ This package contains native CUPS support for a wide range of Canon,
 Epson, HP and compatible printers.
 
 %prep
-%setup -q -n %{name}-%{ver}
+%setup -q -n %{name}-%{version}
 # Fix menu placement of GIMP plugin.
 %patch -P 0 -p1 -b .menu
 # Allow the CUPS dynamic driver to run inside a build root.
@@ -186,10 +184,11 @@ sed -i -e 's,^#!/usr/bin/python3,#!%{__python3},' src/cups/cups-genppdupdate.in
 
 # Python 3.6 invalid escape sequence deprecation fixes, COPYING as license (bug #1448303)
 %patch -P 4 -p1 -b .python36syntax
-%patch -P 5 -p1 -b .soname-ver
 
 # sbin is hardcoded in stp_cups.m4 - root it out (idea taken from Arch Linux)
-sed -i 's,cups_sbindir="${cups_exec_prefix}/sbin",cups_sbindir="${cups_exec_prefix}/bin",g' m4local/stp_cups.m4
+%if 0%{?fedora} > 41 || 0%{?rhel} > 10
+  sed -i 's,cups_sbindir="${cups_exec_prefix}/sbin",cups_sbindir="${cups_exec_prefix}/bin",g' m4local/stp_cups.m4
+%endif
 
 
 %build
@@ -329,6 +328,12 @@ exit 0
 %{_mandir}/man8/cups-genppd*8*.gz
 
 %changelog
+* Mon Mar 17 2025 Zdenek Dohnal <zdohnal@redhat.com> - 5.3.5-2
+- use sed for bin/sbin only on F42+
+
+* Mon Mar 17 2025 Zdenek Dohnal <zdohnal@redhat.com> - 5.3.5-1
+- 5.3.5
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.5-0.2pre1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 - fix FTBFS due bin/sbin change

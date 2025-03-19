@@ -2,7 +2,7 @@
 
 Name: gtk-doc
 Version: 1.34.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: API documentation generation tool for GTK+ and GNOME
 
 License: GPL-2.0-or-later AND GFDL-1.1-no-invariants-or-later
@@ -12,6 +12,10 @@ Source0: http://download.gnome.org/sources/%{name}/1.34/%{name}-%{version}.tar.x
 # Resolve FTBFS, unclear if solution is 'proper'
 # https://gitlab.gnome.org/GNOME/gtk-doc/-/issues/150
 Patch: https://gitlab.gnome.org/GNOME/gtk-doc/-/merge_requests/74.patch
+
+# Update CMake minimum version from 3.2 to 3.12: support CMake 4.0
+# https://gitlab.gnome.org/GNOME/gtk-doc/-/merge_requests/101
+Patch: https://gitlab.gnome.org/GNOME/gtk-doc/-/merge_requests/101.patch
 
 BuildRequires: dblatex
 BuildRequires: docbook-utils
@@ -73,6 +77,9 @@ mv doc/README doc/README.docs
 %{_libdir}/cmake/GtkDoc/
 
 %changelog
+* Fri Mar 14 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1.34.0-4
+- Patch for CMake 4
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.34.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:		gnome-weather
-Version:	48~beta
+Version:	48.0
 Release:	1%{?dist}
 Summary:	A weather application for GNOME
 
@@ -73,6 +73,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Weather.des
 %{_datadir}/org.gnome.Weather/
 
 %changelog
+* Mon Mar 17 2025 nmontero <nmontero@redhat.com> - 48.0-1
+- Update to 48.0
+
 * Thu Mar 06 2025 Fabio Valentini <decathorpe@gmail.com> - 48~beta-1
 - Update to 48.beta
 

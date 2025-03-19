@@ -2,7 +2,7 @@
 %global major_version %%(echo %%{tarball_version} | awk -F. '{print $1}')
 
 Name:           gnome-font-viewer
-Version:        48~alpha.1
+Version:        48.0
 Release:        1%{?dist}
 Summary:        Utility for previewing fonts for GNOME
 
@@ -57,6 +57,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.font
 %{_metainfodir}/org.gnome.font-viewer.appdata.xml
 
 %changelog
+* Mon Mar 17 2025 nmontero <nmontero@redhat.com> - 48.0-1
+- Update to 48.0
+
 * Thu Mar 06 2025 Fabio Valentini <decathorpe@gmail.com> - 48~alpha.1-1
 - Update to 48.alpha.1
 

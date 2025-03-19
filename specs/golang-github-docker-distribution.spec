@@ -3,7 +3,7 @@
 
 # https://github.com/docker/distribution
 %global goipath         github.com/docker/distribution
-Version:                2.8.1
+Version:                2.8.3
 %global tag             v%{version_no_tilde}
 
 %gometa -f
@@ -25,8 +25,9 @@ Summary:        Docker toolkit to pack, ship, store, and deliver container conte
 License:        Apache-2.0
 URL:            %{gourl}
 Source:         %{gosource}
-Patch:          0001-Partial-backport-of-8f9c809.patch
-Patch:          0002-Partial-backport-of-907e7be.patch
+Patch01:          0001-Partial-backport-of-8f9c809.patch
+Patch02:          0002-Partial-backport-of-907e7be.patch
+Patch03:          format-errors.patch
 
 %description %{common_description}
 

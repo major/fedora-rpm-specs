@@ -98,12 +98,12 @@ Patch41:        pegasus-2.14.1-ssl-cert-path.patch
 # 42: port to openssl-1.1
 Patch42:        pegasus-2.14.1-openssl-1.1-fix.patch
 # 43: fix -Wreserved-user-defined-literal warnings which prevents building with clang
-Patch43:	pegasus-2.14.1-fix-Wreserved-user-defined-literal.patch
+Patch43:        pegasus-2.14.1-fix-Wreserved-user-defined-literal.patch
 # 44: comply with Fedora crypto policy
 #  (use 'PROFILE=SYSTEM' instead of 'DEFAULT' in SSL_CTX_set_cipher_list calls)
-Patch44:	pegasus-2.14.1-crypto-policy-compliance.patch
+Patch44:        pegasus-2.14.1-crypto-policy-compliance.patch
 # 45: add required lib to fix FTBS
-Patch45:	pegasus-2.14.1-add-pegwsmserver-to-ldd-libs.patch
+Patch45:        pegasus-2.14.1-add-pegwsmserver-to-ldd-libs.patch
 # 46: fixes FTBFS
 Patch46:        pegasus-2.14.1-build-fixes-2.patch
 # 47: disable DES no longer supported in net-snmp

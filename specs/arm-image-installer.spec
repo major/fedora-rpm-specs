@@ -1,18 +1,12 @@
-# Tarfile created using git
-# git clone https://pagure.io/arm-image-installer.git
-# git archive --format=tar --prefix=%{name}-%{version}/ %{version} | xz > ~/%{name}-%{version}.tar.xz
-
 Name:		arm-image-installer
 Version:	4.2
 Release:	2%{?dist}
 Summary:	Writes binary image files to any specified block device
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
-Url:		https://pagure.io/arm-image-installer
-Source0:	%{name}-%{version}.tar.xz
+URL:		https://github.com/fedora-arm/arm-image-installer/
+Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:	noarch
-
 Requires:	btrfs-progs
 Requires:	e2fsprogs
 Requires:	libselinux-utils

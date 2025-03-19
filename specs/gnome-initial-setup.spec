@@ -14,7 +14,7 @@
 %endif
 
 Name:           gnome-initial-setup
-Version:        48~rc
+Version:        48.0
 Release:        %autorelease
 Summary:        Bootstrapping your OS
 

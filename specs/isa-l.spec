@@ -1,6 +1,6 @@
 Name:		isa-l
 Version:	2.31.1
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Intel(R) Intelligent Storage Acceleration Library
 
 License:	BSD-3-Clause
@@ -10,6 +10,10 @@ Source0:	%{url}/archive/v%{version}/isa-l-%{version}.tar.gz
 Patch0:		0001-Address-compiler-warnings-on-ppc64le-and-s390x.patch
 #		https://github.com/intel/isa-l/issues/311
 Patch1:		0001-igzip-fix-header-construction-in-Big-Endian-systems.patch
+#		https://github.com/intel/isa-l/pull/313
+Patch2:		0001-Address-type-mismatch-warnings-on-aarch64.patch
+#		https://github.com/intel/isa-l/issues/316
+Patch3:		0001-Test-failures-for-python-isal-on-aarch64.patch
 
 ExcludeArch:	%{ix86}
 
@@ -60,6 +64,8 @@ This package contains CLI tools.
 %setup -q
 %patch -P0 -p1
 %patch -P1 -p1
+%patch -P2 -p1
+%patch -P3 -p1
 
 %build
 autoreconf -v -f -i
@@ -91,6 +97,10 @@ rm %{buildroot}%{_libdir}/*.la
 %{_mandir}/man1/igzip.1*
 
 %changelog
+* Mon Mar 17 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.31.1-5
+- Adderss compiler warnings on aarch64
+- Workaround for failing python-isal tests on aarch64
+
 * Tue Feb 04 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.31.1-4
 - Backport fix for big endian block header bug
 

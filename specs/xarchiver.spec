@@ -1,6 +1,6 @@
 Name:           xarchiver
-Version:        0.5.4.23
-Release:        3%{?dist}
+Version:        0.5.4.24
+Release:        1%{?dist}
 Summary:        Archive manager for Xfce
 
 License:        GPL-2.0-or-later AND BSD-4-Clause-UC AND (LGPL-2.1-or-later OR AFL-2.0)
@@ -60,6 +60,9 @@ rm %{buildroot}%{_docdir}/%{name}/ChangeLog
 
 
 %changelog
+* Mon Mar 17 2025 Dan Čermák <dan.cermak@cgc-instruments.com> - 0.5.4.24-1
+- Update to 0.5.4.24 (rhbz#2352812)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.4.23-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

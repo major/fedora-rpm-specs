@@ -9,7 +9,7 @@
 %global crate zincati
 
 Name:           rust-zincati
-Version:        0.0.29
+Version:        0.0.30
 Release:        1%{?dist}
 Summary:        Update agent for Fedora CoreOS
 
@@ -30,6 +30,10 @@ ExcludeArch:    armv7hl i686
 BuildRequires:  cargo-rpm-macros >= 25
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  pkgconfig(openssl)
+# for Building ostree-ext
+BuildRequires:  pkgconfig(libzstd)
+BuildRequires:  glib2-devel
+BuildRequires:  ostree-devel
 
 %global _description %{expand:
 Update agent for Fedora CoreOS.}
@@ -145,6 +149,12 @@ install -Dpm0644 -t %{buildroot}%{_datadir}/dbus-1/system.d \
 %endif
 
 %changelog
+* Mon Mar 17 2025 Steven Presti <spresti@redhat.com> - 0.0.30-1
+- update to 0.0.30
+
+* Mon Mar 17 2025 Dusty Mabe <dusty@dustymabe.com> - 0.0.29-2
+- Backport polkit rules patch for CVE-2025-27512
+
 * Fri Jan 24 2025 Huijing Hei <hhei@redhat.com> - 0.0.29-1
 - Update to 0.0.29
 

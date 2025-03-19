@@ -1,11 +1,11 @@
-%global commit0 26ba0e3ee448ff83644bc2ffbe5d06d21c60ce44
-%global date 20250114
+%global commit0 f1fd51456710b567717a970dd4e1b2347792ac13
+%global date 20250313
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 #global tag %{version}
 
 Name:           egl-wayland
-Version:        1.1.18%{!?tag:~%{date}git%{shortcommit0}}
-Release:        3%{?dist}
+Version:        1.1.19%{!?tag:~%{date}git%{shortcommit0}}
+Release:        1%{?dist}
 Summary:        EGLStream-based Wayland external platform
 License:        MIT
 URL:            https://github.com/NVIDIA/%{name}
@@ -71,7 +71,7 @@ find %{buildroot} -name '*.la' -delete
 %doc README.md
 %license COPYING
 %{_libdir}/libnvidia-egl-wayland.so.1
-%{_libdir}/libnvidia-egl-wayland.so.1.1.18
+%{_libdir}/libnvidia-egl-wayland.so.1.1.19
 %{_datadir}/egl/egl_external_platform.d/10_nvidia_wayland.json
 
 %files devel
@@ -81,6 +81,9 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/pkgconfig/wayland-eglstream.pc
 
 %changelog
+* Mon Mar 17 2025 Simone Caronni <negativo17@gmail.com> - 1.1.19~20250313gitf1fd514-1
+- Update to latest snapshot.
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.18~20250114git26ba0e3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

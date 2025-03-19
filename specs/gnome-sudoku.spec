@@ -2,7 +2,7 @@
 
 Name:           gnome-sudoku
 Epoch:          1
-Version:        48~rc
+Version:        48.0
 Release:        1%{?dist}
 Summary:        GNOME Sudoku game
 
@@ -61,6 +61,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Sudoku.d
 
 
 %changelog
+* Mon Mar 17 2025 nmontero <nmontero@redhat.com> - 1:48.0-1
+- Update to 48.0
+
 * Fri Mar 14 2025 nmontero <nmontero@redhat.com> - 1:48~rc-1
 - Update to 48~rc
 

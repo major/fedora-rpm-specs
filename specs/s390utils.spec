@@ -11,13 +11,38 @@
 %bcond_with pandoc
 %endif
 
+# Also controls whether %%cargo_generate_buildrequires generates dev-dependencies
+%bcond_without check
+
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
 Version:        2.37.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          2
-# MIT covers nearly all the files, except init files
-License:        MIT AND LGPL-2.1-or-later
+# MIT covers nearly all the files, except init files (LGPL-2.1-or-later)
+#
+# Statically-linked Rust dependencies contribute additional license terms,
+# listed in the output of %%{cargo_license_summary}:
+#
+# (MIT OR Apache-2.0) AND Unicode-DFS-2016
+# Apache-2.0
+# Apache-2.0 OR BSL-1.0
+# Apache-2.0 OR MIT
+# Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+# BSD-2-Clause OR Apache-2.0 OR MIT
+# MIT
+# MIT OR Apache-2.0
+# Unlicense OR MIT
+%global extra_licenses_from_rust_deps %{shrink:
+Apache-2.0 AND
+(Apache-2.0 OR BSL-1.0) AND
+(Apache-2.0 OR MIT) AND
+(Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
+(BSD-2-Clause OR Apache-2.0 OR MIT) AND
+Unicode-DFS-2016 AND
+(Unlicense OR MIT)
+}
+License:        MIT AND LGPL-2.1-or-later AND %{extra_licenses_from_rust_deps}
 URL:            https://github.com/ibm-s390-linux/s390-tools
 Source0:        https://github.com/ibm-s390-linux/s390-tools/archive/v%{version}.tar.gz#/s390-tools-%{version}.tar.gz
 # To create the vendor tarball:
@@ -83,41 +108,7 @@ BuildRequires:  libcurl-devel
 BuildRequires:  openssl-devel
 BuildRequires:  rust-toolset
 %else
-BuildRequires:  crate(anstream)
-BuildRequires:  crate(anstyle-query)
-BuildRequires:  crate(anyhow)
-BuildRequires:  crate(base64)
-BuildRequires:  crate(bit-set)
-BuildRequires:  crate(bitvec)
-BuildRequires:  crate(byteorder)
-BuildRequires:  crate(cfg-if)
-BuildRequires:  crate(clap)
-BuildRequires:  crate(clap_complete)
-BuildRequires:  crate(clap_derive)
-BuildRequires:  crate(colorchoice)
-BuildRequires:  crate(curl)
-BuildRequires:  crate(deku)
-BuildRequires:  crate(enum_dispatch)
-BuildRequires:  crate(is-terminal)
-BuildRequires:  crate(lazy_static)
-BuildRequires:  crate(libc)
-BuildRequires:  crate(log)
-BuildRequires:  crate(mockito)
-BuildRequires:  crate(openssl)
-BuildRequires:  crate(openssl-probe)
-BuildRequires:  crate(proc-macro-crate)
-BuildRequires:  crate(proptest)
-BuildRequires:  crate(rusty-fork)
-BuildRequires:  crate(serde)
-BuildRequires:  crate(serde_derive)
-BuildRequires:  crate(serde_test)
-BuildRequires:  crate(serde_yaml)
-BuildRequires:  crate(strsim)
-BuildRequires:  crate(terminal_size)
-BuildRequires:  crate(thiserror)
-BuildRequires:  crate(wait-timeout)
-BuildRequires:  crate(zerocopy)
-BuildRequires:  rust-packaging
+BuildRequires:  cargo-rpm-macros >= 24
 %endif
 
 %description
@@ -148,6 +139,13 @@ echo 'g cpacfstats' > s390utils-cpacfstatsd.conf.usr
 
 # Create tmpfiles config files
 echo 'd /var/log/ts-shell 2770 root ts-shell' > s390utils-iucvterm.conf.tmp
+
+%if !0%{?rhel}
+%generate_buildrequires
+pushd rust >/dev/null
+%cargo_generate_buildrequires
+popd >/dev/null
+%endif
 
 %build
 make \
@@ -421,7 +419,7 @@ This package provides minimal set of tools needed to system to boot.
 #
 
 %package base
-License:        MIT AND LGPL-2.1-or-later
+License:        MIT AND LGPL-2.1-or-later AND %{extra_licenses_from_rust_deps}
 Summary:        S390 base tools
 Provides:       s390-tools-base = %{epoch}:%{version}-%{release}
 Requires:       coreutils
@@ -1118,6 +1116,10 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Thu Mar 13 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2:2.37.0-2
+- Properly generate Rust BuildRequires on Fedora
+- Update License (for s390utils/s390utils-base) to reflect Rust deps.
+
 * Thu Feb 27 2025 Jakub Čajka <jcajka@redhat.com> - 2:2.37.0-1
 - rebased to 2.37.0 (rhbz#2330787)
 

@@ -1,37 +1,40 @@
 %global commit e2971e45063f6b327ccedbf18e168bda6749155c
+%if 0%{?rhel} && 0%{?rhel} < 10
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%else
 %global shortcommit %{sub %{commit} 1 7}
-%global commitdate 20240522.0
+%endif
+%global commitdate 20240522
 
 
 Name:           steam-devices
-Version:        1.0.0.100%{?commit:^git%{commitdate}.%{shortcommit}}
+Version:        1.0.0.101^git%{commitdate}.%{shortcommit}
 Release:        2%{?dist}
 License:        MIT
 Summary:        Device support for Steam-related hardware
 Url:            https://github.com/ValveSoftware/steam-devices/
 Source0:        %{url}/archive/%{commit}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
+
 BuildRequires:  git-core
 BuildRequires:  systemd-rpm-macros
 
-%description
-The Steam Controller features dual trackpads, HD haptic feedback, dual-stage
-triggers, back grip buttons, and fully-customizable control schemes.
-Steam VR is a full-features, 360° room-scale virtual reality experience
+# Temporary workaround to obsolete and replace the equivalent i686 package in RPMFusion
+# so we don't break current installs. Can be removed after a while.
+Obsoletes:      steam-devices < %{version}-%{release}
+Provides:       steam-devices = %{version}-%{release}
 
-This package also provides support for many other third party devices, such
-as gamepads and joysticks, that can be used by Wine, Lutris, Heroic, and
-other non-steam games and game launchers.
+%description
+This package contains the necessary permissions for gaming devices (such as
+gamepads, joysticks and VR headsets) that can be used by Wine, Lutris, Heroic,
+and other non-Steam games and game launchers.
 
 %prep
-%autosetup -n %{name}-%{?commit:%{commit}}%{!?commit:%{version}} -S git_am
-
-%build
+%autosetup -n %{name}-%{commit} -S git_am
 
 %install
-mkdir -p %{buildroot}%{_udevrulesdir}
-install -Dm0644 60-steam-input.rules %{buildroot}%{_udevrulesdir}/60-steam-input.rules
-install -Dm0644 60-steam-vr.rules %{buildroot}%{_udevrulesdir}/60-steam-vr.rules
+install -Dpm0644 60-steam-input.rules %{buildroot}%{_udevrulesdir}/60-steam-input.rules
+install -Dpm0644 60-steam-vr.rules %{buildroot}%{_udevrulesdir}/60-steam-vr.rules
 
 %files
 %license LICENSE
@@ -39,6 +42,18 @@ install -Dm0644 60-steam-vr.rules %{buildroot}%{_udevrulesdir}/60-steam-vr.rules
 %{_udevrulesdir}/60-steam-vr.rules
 
 %changelog
+* Tue Mar 18 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 1.0.0.101^git20240522.e2971e4-2
+- Added Conditional to fix FTBFS on epel8 and epel9
+
+* Mon Mar 17 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 1.0.0.101^git20240522.e2971e4-1
+- Update to 1.0.0.101^git20240522.e2971e4-1
+
+* Mon Mar 17 2025 Simone Caronni <negativo17@gmail.com> - 1.0.0.100^git20240522.e2971e4-4
+- Small cosmetic changes.
+
+* Mon Mar 17 2025 Simone Caronni <negativo17@gmail.com> - 1.0.0.100^git20240522.0.e2971e4-3
+- Temporarily provide/obsolete RPMFusion's equivalent i686 package.
+
 * Sat Mar 15 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 1.0.0.100^git20240522.0.e2971e4-2
 - Updated description to remove outdated information
 

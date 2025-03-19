@@ -8,7 +8,7 @@
 %global freetype_version 2.1.5
 
 Name:    pango
-Version: 1.56.2
+Version: 1.56.3
 Release: 1%{?dist}
 Summary: System for layout and rendering of internationalized text
 
@@ -139,6 +139,9 @@ fi
 
 
 %changelog
+* Mon Mar 17 2025 nmontero <nmontero@redhat.com> - 1.56.3-1
+- Update to 1.56.3
+
 * Tue Mar 11 2025 Nieves Montero <nmontero@redhat.com> - 1.56.2-1
 - Update to 1.56.2
 

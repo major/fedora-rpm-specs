@@ -5,7 +5,7 @@
 %global crate safetensors
 
 Name:           rust-safetensors
-Version:        0.5.2
+Version:        0.5.3
 Release:        %autorelease
 Summary:        Functions for safer PyTorch safetensors read/write operations
 

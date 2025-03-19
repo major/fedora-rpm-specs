@@ -5,6 +5,8 @@ A library that provides symbolic constant support. It includes collections and
 constants with text, numeric, and bit flag values. Originally
 twisted.python.constants from the Twisted project.}
 
+%bcond bootstrap 0
+
 Name:           python-%{srcname}
 Version:        23.10.4
 Release:        %autorelease
@@ -20,7 +22,7 @@ BuildRequires:  python3dist(sphinx-rtd-theme)
 
 # the tests are enabled by default but can be disabled
 # to avoid a circular dependency on twisted->constantly
-%if %{with bootstrap}
+%if %{without bootstrap}
 BuildRequires:  python3dist(twisted)
 %endif
 
@@ -49,7 +51,7 @@ This is the documentation package for %{name}.
 %autosetup -p1 -n %{srcname}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires %{!?_with_bootstrap:-t}
+%pyproject_buildrequires %{!?with_bootstrap:-t}
 
 %build
 %pyproject_wheel
@@ -63,11 +65,9 @@ rm -rf html/.{doctrees,buildinfo}
 %pyproject_save_files %{srcname}
 
 %check
-%if %{with bootstrap}
-%pyproject_check_import
+%pyproject_check_import -e constantly.test*
+%if %{without bootstrap}
 %tox
-%else
-%py3_check_import %{srcname}
 %endif
 
 %files -n python3-%{srcname} -f %{pyproject_files}

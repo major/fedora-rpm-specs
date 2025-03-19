@@ -28,6 +28,8 @@ Patch:          0001-Dynamic-link-to-libjsonnet-rather-than-static.patch
 Patch:          0002-patch-CMakeLists.txt-to-stop-overriding-build-flags.patch
 # Upstream ships rapidyaml inside this source repo
 Patch:          0003-Use-system-provided-rapidyaml.patch
+# Fedora/CentOS10 doesn't have the latest setuptools
+Patch:          0004-use-older-setuptools.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 %if %{undefined fc40} && %{undefined fc41}
@@ -40,7 +42,8 @@ ExcludeArch:    %{ix86}
 # rpmlint must be notified of the unversioned provides
 Provides:       bundled(md5-thilo)
 
-BuildRequires:  python3-devel
+BuildRequires:  python3-devel pyproject-rpm-macros
+BuildRequires:  python3dist(wheel) python3dist(setuptools)
 
 BuildRequires:  bash cmake gcc gcc-c++ gtest-devel make
 
@@ -132,6 +135,7 @@ export CXXFLAGS="%{optflags} -fPIC -I%{_includedir}/nlohmann"
 %cmake_build
 
 # make python binding
+%{__cp} %{__cmake_builddir}/lib%{name}*.so.%{so_version}{,.*} .
 %pyproject_wheel
 
 

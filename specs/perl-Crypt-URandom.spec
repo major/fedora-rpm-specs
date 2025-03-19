@@ -2,7 +2,7 @@
 %bcond_without perl_Crypt_URandom_enables_optional_test
 
 Name:           perl-Crypt-URandom
-Version:        0.53
+Version:        0.54
 Release:        1%{?dist}
 Summary:        Non-blocking randomness for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -31,13 +31,13 @@ BuildRequires:  perl(FileHandle)
 BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(:VERSION) >= 5.6
+BuildRequires:  perl(Encode)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Test::More)
 %if %{with perl_Crypt_URandom_enables_optional_test}
 # Optional tests:
 # Devel::Cover not helpful
-BuildRequires:  perl(Encode)
 BuildRequires:  perl(Test::Pod) >= 1.14
 %endif
 Requires:       perl(Carp) >= 1.26
@@ -58,10 +58,6 @@ Requires:       coreutils
 Requires:       gcc
 Requires:       perl-Test-Harness
 Requires:       perl(Carp) >= 1.26
-Requires:       perl(FileHandle)
-%if %{with perl_Crypt_URandom_enables_optional_test}
-Requires:       perl(Encode)
-%endif
 
 %description tests
 Tests from %{name}. Execute them
@@ -76,9 +72,11 @@ perl -i -ne 'print $_ unless m{^t/pod.t}' MANIFEST
 # Delete always skipped release tests
 rm t/manifest.t
 perl -i -ne 'print $_ unless m{^t/manifest.t}' MANIFEST
-# Make scripts with shebangs executable
-chmod a+x t/core_read.t t/core_fork.t t/core_fork_pp.t t/core_partial_read.t \
-    t/core_sysopen.t
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 unset CRYPT_URANDOM_BUILD_DEBUG
@@ -132,6 +130,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Mar 17 2025 Petr Pisar <ppisar@redhat.com> - 0.54-1
+- 0.54 bump
+
 * Mon Feb 10 2025 Petr Pisar <ppisar@redhat.com> - 0.53-1
 - 0.53 bump
 

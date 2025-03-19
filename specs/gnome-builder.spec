@@ -17,7 +17,7 @@
 %global template_glib_version 3.36.1
 
 Name:           gnome-builder
-Version:        48~rc
+Version:        48.0
 Release:        %autorelease
 Summary:        IDE for writing GNOME-based software
 

@@ -56,7 +56,7 @@ gimp:app / ui
 Summary:        GNU Image Manipulation Program
 Name:           gimp
 Epoch:          2
-Version:        3.0.0~RC3
+Version:        3.0.0
 Release:        %autorelease
 # https://bugzilla.redhat.com/show_bug.cgi?id=2318369
 ExcludeArch:    s390x
@@ -135,7 +135,7 @@ BuildRequires:  perl >= 5.10.0
 BuildRequires:  pkgconfig(alsa) >= 1.0.0
 BuildRequires:  pkgconfig(appstream-glib) >= 0.7.7
 BuildRequires:  pkgconfig(atk) >= 2.4.0
-BuildRequires:  pkgconfig(babl-0.1) >= 0.1.110
+BuildRequires:  pkgconfig(babl-0.1) >= 0.1.112
 BuildRequires:  pkgconfig(bzip2)
 BuildRequires:  pkgconfig(cairo) >= 1.14.0
 BuildRequires:  pkgconfig(cairo-pdf) >= 1.12.2
@@ -143,7 +143,7 @@ BuildRequires:  pkgconfig(cfitsio)
 BuildRequires:  pkgconfig(fontconfig) >= 2.12.4
 BuildRequires:  pkgconfig(freetype2) >= 2.1.7
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0) >= 2.30.8
-BuildRequires:  pkgconfig(gegl-0.4) >= 0.4.54
+BuildRequires:  pkgconfig(gegl-0.4) >= 0.4.56
 BuildRequires:  pkgconfig(gexiv2) >= 0.14.0
 BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(gio-unix-2.0)

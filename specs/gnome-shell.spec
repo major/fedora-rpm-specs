@@ -8,7 +8,7 @@
 %endif
 
 Name:           gnome-shell
-Version:        48~rc
+Version:        48.0
 Release:        %autorelease
 Summary:        Window management and application launching for GNOME
 
@@ -30,9 +30,9 @@ Patch: 0001-gdm-Work-around-failing-fingerprint-auth.patch
 %define gjs_version 1.73.1
 %define gtk4_version 4.0.0
 %define adwaita_version 1.5.0
-%define mutter_version 48~rc
+%define mutter_version 48.0
 %define polkit_version 0.100
-%define gsettings_desktop_schemas_version 48~rc
+%define gsettings_desktop_schemas_version 48.0
 %define ibus_version 1.5.2
 %define gnome_bluetooth_version 1:42.3
 %define gstreamer_version 1.4.5

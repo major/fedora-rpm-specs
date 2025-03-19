@@ -1,11 +1,11 @@
 %global somajor 1
 # disable openjph encoder support as it's causing crashes in Qt-based apps
 # see https://bugzilla.redhat.com/show_bug.cgi?id=2307795
-%bcond openjph 0
+%bcond openjph 1
 
 Name:           libheif
-Version:        1.19.5
-Release:        4%{?dist}
+Version:        1.19.7
+Release:        1%{?dist}
 Summary:        HEIF and AVIF file format decoder and encoder
 
 License:        LGPL-3.0-or-later and MIT
@@ -115,12 +115,10 @@ rm -rf third-party/
  -DWITH_OpenJPEG_DECODER_PLUGIN=OFF \
  -DWITH_OpenJPEG_ENCODER=ON \
  -DWITH_OpenJPEG_ENCODER_PLUGIN=OFF \
-%ifnarch %{ix86}
 %if %{with openjph}
  -DWITH_OPENJPH_DECODER=ON \
  -DWITH_OPENJPH_ENCODER=ON \
  -DWITH_OPENJPH_ENCODER_PLUGIN=OFF \
-%endif
 %endif
 %if ! (0%{?rhel} && 0%{?rhel} <= 9)
  -DWITH_RAV1E=ON \
@@ -167,6 +165,10 @@ multilibFileVersions %{buildroot}%{_includedir}/%{name}/heif_version.h
 
 
 %changelog
+* Mon Mar 17 2025 Dominik Mierzejewski <dominik@greysector.net> - 1.19.7-1
+- update to 1.19.7 (resolves rhbz#2349315)
+- enable OpenJPH and drop i686 ifarch for it, it builds fine there now
+
 * Thu Mar 13 2025 Fabio Valentini <decathorpe@gmail.com> - 1.19.5-4
 - Rebuild for noopenh264 2.6.0
 

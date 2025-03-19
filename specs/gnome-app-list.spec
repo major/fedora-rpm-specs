@@ -1,5 +1,5 @@
 Name:      gnome-app-list
-Version:   2.0
+Version:   3.0
 Release:   1%{?dist}
 BuildArch: noarch
 Summary:   A curated list of apps to feature or highlight in GNOME

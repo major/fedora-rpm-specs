@@ -6,8 +6,8 @@
 %endif
 
 Name:		perl-Path-Tiny
-Version:	0.146
-Release:	3%{?dist}
+Version:	0.148
+Release:	1%{?dist}
 Summary:	File path utility
 License:	Apache-2.0
 URL:		https://metacpan.org/release/Path-Tiny
@@ -15,11 +15,10 @@ Source0:	https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/Path-Tiny-%{version}
 BuildArch:	noarch
 # Module Build
 BuildRequires:	coreutils
-BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
 BuildRequires:	perl(Carp)
 BuildRequires:	perl(Config)
@@ -104,12 +103,11 @@ CRLF translation.
 %setup -q -n Path-Tiny-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -122,6 +120,13 @@ make test
 %{_mandir}/man3/Path::Tiny.3*
 
 %changelog
+* Mon Mar 17 2025 Paul Howarth <paul@city-fan.org> - 0.148-1
+- Update to 0.148
+  - Invalid arguments when hash references are expected throw exceptions
+  - Fixed problems with exceptions
+  - Cross-referenced slurp and lines in documentation
+- Use %%{make_build} and %%{make_install}
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.146-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

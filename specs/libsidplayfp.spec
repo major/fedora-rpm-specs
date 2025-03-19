@@ -43,6 +43,10 @@ autoreconf -ivf
 
 
 %build
+%if 0%{?fedora} > 41 || 0%{?rhel} > 10
+export CFLAGS="$CFLAGS -std=gnu17"
+%endif
+
 %configure --disable-static
 make %{_smp_mflags} all doc
 

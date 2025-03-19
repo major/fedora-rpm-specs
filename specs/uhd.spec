@@ -29,9 +29,9 @@
 
 Name:           uhd
 URL:            http://github.com/EttusResearch/uhd
-Version:        4.7.0.0
+Version:        4.8.0.0
 %global images_ver %{version}
-Release:        5%{?dist}
+Release:        1%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 BuildRequires:  make
@@ -71,7 +71,9 @@ Source1:        %{name}-limits.conf
 Source2:        %{url}/releases/download/v%{images_ver}/uhd-images_%{images_ver}.tar.xz
 # dirty workaround for the https://github.com/EttusResearch/uhd/issues/551
 # until the better fix is available
-Patch0:         uhd-4.2.0.0-imagepath-fix.patch
+Patch:          uhd-4.8.0.0-imagepath-fix.patch
+# https://github.com/EttusResearch/uhd/issues/844
+Patch:          uhd-4.8.0.0-gcc-15-fix.patch
 
 %description
 The UHD is the universal hardware driver for Ettus Research products.
@@ -118,8 +120,7 @@ Wireshark dissector plugins.
 %endif
 
 %prep
-%setup -q
-%patch -P0 -p1 -b .imagepath-fix
+%autosetup -p1
 
 # firmware
 %if %{with binary_firmware}
@@ -151,22 +152,27 @@ popd
 %endif
 
 pushd host
+# DLIB_SUFFIX workaround for cmake 4.0
+# https://github.com/EttusResearch/uhd/issues/844
 %cmake %{?have_neon} -DPYTHON_EXECUTABLE="%{__python3}" \
   -DPYBIND11_INCLUDE_DIR="/usr/include/pybind11/" \
   -DUHD_VERSION="%{version}" \
-  -DENABLE_TESTS=off ../
+  -DENABLE_TESTS=off ../ \
+%if "%{?_lib}"=="lib64"
+  -DLIB_SUFFIX=64
+%endif
 %cmake_build
 popd
 
 # tools
 pushd tools/uhd_dump
-make %{?_smp_mflags} CFLAGS="%{optflags}" LDFLAGS="%{?__global_ldflags}"
+make %{?_smp_mflags} CFLAGS="%{build_cflags}" LDFLAGS="%{build_ldflags}"
 popd
 
 %if %{with wireshark}
 # wireshark dissectors
 pushd tools/dissectors
-%cmake -DENABLE_RFNOC=ON -DENABLE_OCTOCLOCK=ON -DENABLE_ZPU=ON
+%cmake -DENABLE_OCTOCLOCK=ON -DENABLE_ZPU=ON
 %cmake_build
 popd
 %endif
@@ -247,7 +253,6 @@ install -m0644 -D uhd.sysusers.conf %{buildroot}%{_sysusersdir}/uhd.conf
 %{_bindir}/usrpctl
 %{_bindir}/uhd_*
 %{_bindir}/usrp2_*
-%{_bindir}/rfnoc_image_builder
 %{_bindir}/usrp_hwd.py
 %{_prefix}/lib/udev/rules.d/10-usrp-uhd.rules
 %config(noreplace) %{_sysconfdir}/security/limits.d/*.conf
@@ -284,6 +289,11 @@ install -m0644 -D uhd.sysusers.conf %{buildroot}%{_sysusersdir}/uhd.conf
 %endif
 
 %changelog
+* Wed Mar 12 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 4.8.0.0-1
+- New version
+  Resolves: rhbz#2337610
+  Resolves: rhbz#2341478
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.7.0.0-5
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

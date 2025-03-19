@@ -5,7 +5,7 @@
 
 Name:		scap-security-guide
 Version:	0.1.76
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Security guidance and baselines in SCAP formats
 License:	BSD-3-Clause
 URL:		https://github.com/ComplianceAsCode/content/
@@ -13,7 +13,6 @@ Source0:	https://github.com/ComplianceAsCode/content/releases/download/v%{versio
 BuildArch:	noarch
 
 BuildRequires:	libxslt
-BuildRequires:	expat
 BuildRequires:	openscap-scanner >= 1.2.5
 BuildRequires:	cmake >= 2.8
 BuildRequires:	python%{python3_pkgversion}
@@ -97,6 +96,9 @@ rm %{buildroot}/%{_docdir}/%{name}/Contributors.md
 %endif
 
 %changelog
+* Fri Mar 07 2025 Matthew Burket <mburket@redhat.com> - 0.1.76-2
+- Remove expat as a BuildRequires as it is no longer needed
+
 * Tue Feb 25 2025 Evgenii Kolesnikov <ekolesni@redhat.com> - 0.1.76-1
 - Update to latest upstream release:
   https://github.com/ComplianceAsCode/content/releases/tag/v0.1.76

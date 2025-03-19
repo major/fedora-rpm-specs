@@ -56,6 +56,11 @@ mv usage-layers.xml.UTF-8 doc/en/usage-layers.xml
 sed -i 's|Exec=dia|Exec=dia --integrated|' dia.desktop.in.in
 
 %build
+%if 0%{?fedora} > 41 || 0%{?rhel} > 10
+# gtk2 GtkItemFactoryCallback is not compatible with latest C
+export CFLAGS="$CFLAGS -std=gnu17"
+%endif
+
 %configure --enable-db2html --disable-silent-rules
 %make_build
 

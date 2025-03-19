@@ -1,5 +1,5 @@
 Name:           ckb-next
-Version:        0.6.1
+Version:        0.6.2
 Release:        1%{?dist}
 Summary:        Unofficial driver for Corsair RGB keyboards
 
@@ -134,6 +134,9 @@ udevadm control --reload-rules 2>&1 > /dev/null || :
 
 
 %changelog
+* Mon Mar 17 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.6.2-1
+- Update to v0.6.2
+
 * Sun Mar 09 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.6.1-1
 - Update to v0.6.1
 - Switch to Qt6

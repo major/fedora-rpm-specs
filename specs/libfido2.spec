@@ -1,7 +1,7 @@
 Name:           libfido2
 
 Version:        1.15.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        FIDO2 library
 
 License:        BSD-2-Clause
@@ -97,6 +97,9 @@ find %{buildroot} -type f -name "*.a" -delete -print
 
 
 %changelog
+* Mon Mar 17 2025 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.15.0-4
+- Rebuilt for libcbor 0.12.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

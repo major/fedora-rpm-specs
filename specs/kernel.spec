@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.14.0
 %define specversion 6.14.0
 %define patchversion 6.14
-%define pkgrelease 0.rc6.20250314git695caca9345a.53
+%define pkgrelease 0.rc7.56
 %define kversion 6
-%define tarfile_release 6.14-rc6-145-g695caca9345a
+%define tarfile_release 6.14-rc7
 # This is needed to do merge window version magic
 %define patchlevel 14
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc6.20250314git695caca9345a.53%{?buildid}%{?dist}
+%define specrelease 0.rc7.56%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.14.0
 
@@ -4212,10 +4212,19 @@ fi\
 #
 #
 %changelog
-* Fri Mar 14 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc6.695caca9345a.53]
+* Mon Mar 17 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc7.56]
 - apply -Wno-error=unterminated-string-initialization temporarily (Thorsten Leemhuis)
 - include/linux: Adjust headers for C23 (Jakub Jelinek)
 - x86/insn_decoder_test: allow longer symbol-names (David Rheinsberg)
+
+* Mon Mar 17 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc7.55]
+- Linux v6.14.0-0.rc7
+
+* Sun Mar 16 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc6.cb82ca153949.54]
+- Linux v6.14.0-0.rc6.cb82ca153949
+
+* Sat Mar 15 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc6.3571e8b091f4.53]
+- Linux v6.14.0-0.rc6.3571e8b091f4
 
 * Fri Mar 14 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc6.695caca9345a.52]
 - Linux v6.14.0-0.rc6.695caca9345a
