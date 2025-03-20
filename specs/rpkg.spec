@@ -1,6 +1,6 @@
 Name:           rpkg
-Version:        1.67
-Release:        7%{?dist}
+Version:        1.68
+Release:        1%{?dist}
 
 Summary:        Python library for interacting with rpm+git
 # Automatically converted from old format: GPLv2+ and LGPLv2 - review is highly recommended.
@@ -45,15 +45,6 @@ Patch2:         0002-Remove-pytest-coverage-execution.patch
 %if 0%{?with_python2}
 Patch3:         0003-Remove-Environment-Markers-syntax.patch
 %endif
-Patch4:         0004-Fix-package-in-Pypi.patch
-Patch5:         0005-Fixing-encoding-of-the-url-when-checking-lookaside.patch
-Patch6:         0006-Add-draft-builds-support.patch
-Patch7:         0007-Fix-regular-expression-for-parsing-Source-lines.patch
-Patch8:         0008-chain-build-correct-the-info-message.patch
-# https://pagure.io/rpkg/c/7b3f92f6
-# https://pagure.io/fedpkg/issue/581
-# Fixes duplication of changelog lines (which affected fedpkg also)
-Patch9:          0001-clog-is-duplicating-changelog-lines.patch
 
 
 %description
@@ -285,6 +276,21 @@ example_cli_dir=$RPM_BUILD_ROOT%{_datadir}/%{name}/examples/cli
 
 
 %changelog
+* Wed Mar 19 2025 Ondřej Nosek <onosek@redhat.com> - 1.68-1
+- Restrict Git index version to what GitPython supports (otto.liljalaakso)
+- `set-pagure-token`: config - more restrictive permissions (git)
+- `pre-push-check`: show spectool command output - #732 (onosek)
+- `prep`: added an argument to check dependencies - 585 (onosek)
+- Python 3.13 environment and renew testing image (onosek)
+- Fix formatting for error when mockbuild sources fails (otto.liljalaakso)
+- `clog` is duplicating changelog lines - 581 (onosek)
+- Fixing unittests for py36 (onosek)
+- `chain-build`: correct the info message - 567 (onosek)
+- Fix regular expression for parsing Source lines - #721 (onosek)
+- Add draft builds support (onosek)
+- Fixing encoding of the url when checking lookaside (onosek)
+- Fix package in Pypi (onosek)
+
 * Mon Mar 03 2025 Adam Williamson <awilliam@redhat.com> - 1.67-7
 - Patch: `clog` is duplicating changelog lines
 

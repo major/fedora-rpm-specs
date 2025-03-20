@@ -4,7 +4,7 @@
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
-Version:          1.9.2
+Version:          1.9.5
 Release:          1%{?dist}
 Summary:          High Performance CommonMark and Github Markdown Rendering in R
 
@@ -79,6 +79,10 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-examples
 
 
 %changelog
+* Mon Mar  17 2025 Packit <hello@packit.dev> - 1.9.5-1
+- Update to version 1.9.5
+- Resolves: rhbz#2352933
+
 * Thu Feb 20 2025 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 1.9.2-1
 - Update to 1.9.2
 

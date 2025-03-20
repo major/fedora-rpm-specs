@@ -10,11 +10,11 @@
 %bcond_without       tests
 
 # github
-%global gh_commit    533fe082889a616f330bcba6f50965135f4f2fab
+%global gh_commit    1d7cd6e514384c36d7a390347f57c385d4be6069
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   type
-%global gh_date      2025-02-07
+%global gh_date      2025-03-18
 # packagist
 %global pk_vendor    sebastian
 %global pk_project   %{gh_project}
@@ -25,8 +25,8 @@
 %global ns_project   Type
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        6.0.0
-Release:        2%{?dist}
+Version:        6.0.2
+Release:        1%{?dist}
 Summary:        Collection of value objects that represent the types of the PHP type system, v%{major}
 
 License:        BSD-3-Clause
@@ -113,6 +113,9 @@ exit $ret
 
 
 %changelog
+* Tue Mar 18 2025 Remi Collet <remi@remirepo.net> - 6.0.2-1
+- update to 6.0.2
+
 * Mon Feb 10 2025 Remi Collet <remi@remirepo.net> - 6.0.0-2
 - enable test suite
 

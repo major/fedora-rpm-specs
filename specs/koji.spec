@@ -8,23 +8,18 @@
 %{?!python3_pkgversion:%global python3_pkgversion 3}
 
 Name: koji
-Version: 1.35.1
-Release: 6%{?dist}
+Version: 1.35.2
+Release: 1%{?dist}
 # the included arch lib from yum's rpmUtils is GPLv2+
-# Automatically converted from old format: LGPLv2 and GPLv2+ - review is highly recommended.
-License: LicenseRef-Callaway-LGPLv2 AND GPL-2.0-or-later
+License: LGPL-2.1-only AND GPL-2.0-or-later
 Summary: Build system tools
 URL: https://pagure.io/koji/
 Source0: https://releases.pagure.org/koji/koji-%{version}.tar.bz2
 
-Patch1: https://pagure.io/koji/pull-request/4258.patch#/0001-repos-check-for-newer-create-event.patch
-
 # Not upstreamable
 Patch100: fedora-config.patch
-Patch101: pr4228-wait-repo-current.patch
-# unittest patch needed to cleanly apply cgi patch
-Patch102: pr4239-use-unittest-mock.patch
-Patch103: pr4251-drop-cgi-import.patch
+Patch101: https://pagure.io/koji/pull-request/4335.patch
+Patch102: https://pagure.io/koji/c/30cc206.patch
 
 BuildArch: noarch
 Requires: python%{python3_pkgversion}-%{name} = %{version}-%{release}
@@ -59,8 +54,7 @@ This subpackage provides python functions and libraries.
 
 %package -n python%{python3_pkgversion}-%{name}-cli-plugins
 Summary: Koji client plugins
-# Automatically converted from old format: LGPLv2 - review is highly recommended.
-License: LicenseRef-Callaway-LGPLv2
+License: LGPL-2.1-only
 Requires: python%{python3_pkgversion}-%{name} = %{version}-%{release}
 
 %description -n python%{python3_pkgversion}-%{name}-cli-plugins
@@ -68,8 +62,7 @@ Plugins to the koji command-line interface
 
 %package hub
 Summary: Koji XMLRPC interface
-# Automatically converted from old format: LGPLv2 - review is highly recommended.
-License: LicenseRef-Callaway-LGPLv2
+License: LGPL-2.1-only
 Requires: %{name} = %{version}-%{release}
 Requires: %{name}-hub-code
 %if 0%{?fedora} || 0%{?rhel} > 7
@@ -82,8 +75,7 @@ koji-hub is the XMLRPC interface to the koji database
 
 %package -n python%{python3_pkgversion}-%{name}-hub
 Summary: Koji XMLRPC interface
-# Automatically converted from old format: LGPLv2 and GPLv2 - review is highly recommended.
-License: LicenseRef-Callaway-LGPLv2 AND GPL-2.0-only
+License: LGPL-2.1-only
 # rpmdiff lib (from rpmlint) is GPLv2 (only)
 Requires: httpd
 Requires: python%{python3_pkgversion}-mod_wsgi
@@ -97,8 +89,7 @@ koji-hub is the XMLRPC interface to the koji database
 
 %package hub-plugins
 Summary: Koji hub plugins
-# Automatically converted from old format: LGPLv2 - review is highly recommended.
-License: LicenseRef-Callaway-LGPLv2
+License: LGPL-2.1-only
 Requires: %{name}-hub-plugins-code = %{version}-%{release}
 %if 0%{?fedora} || 0%{?rhel} > 7
 Suggests: python%{python3_pkgversion}-%{name}-hub-plugins
@@ -109,8 +100,7 @@ Plugins to the koji XMLRPC interface
 
 %package -n python%{python3_pkgversion}-%{name}-hub-plugins
 Summary: Koji hub plugins
-# Automatically converted from old format: LGPLv2 - review is highly recommended.
-License: LicenseRef-Callaway-LGPLv2
+License: LGPL-2.1-only
 Requires: python%{python3_pkgversion}-%{name}-hub = %{version}-%{release}
 Requires: python%{python3_pkgversion}-qpid-proton
 Requires: cpio
@@ -121,8 +111,7 @@ Plugins to the koji XMLRPC interface
 
 %package builder-plugins
 Summary: Koji builder plugins
-# Automatically converted from old format: LGPLv2 - review is highly recommended.
-License: LicenseRef-Callaway-LGPLv2
+License: LGPL-2.1-only
 Requires: %{name} = %{version}-%{release}
 Requires: %{name}-builder = %{version}-%{release}
 
@@ -131,8 +120,7 @@ Plugins for the koji build daemon
 
 %package builder
 Summary: Koji RPM builder daemon
-# Automatically converted from old format: LGPLv2 - review is highly recommended.
-License: LicenseRef-Callaway-LGPLv2
+License: LGPL-2.1-only
 Requires: mock >= 0.9.14
 Requires(pre): /usr/sbin/useradd
 Requires: squashfs-tools
@@ -154,8 +142,7 @@ tasks that come through the Koji system.
 
 %package vm
 Summary: Koji virtual machine management daemon
-# Automatically converted from old format: LGPLv2 - review is highly recommended.
-License: LicenseRef-Callaway-LGPLv2
+License: LGPL-2.1-only
 Requires: %{name} = %{version}-%{release}
 Requires(post): systemd
 Requires(preun): systemd
@@ -171,8 +158,7 @@ virtual machine. This package is not required for most installations.
 
 %package utils
 Summary: Koji Utilities
-# Automatically converted from old format: LGPLv2 - review is highly recommended.
-License: LicenseRef-Callaway-LGPLv2
+License: LGPL-2.1-only
 Requires: %{name} = %{version}-%{release}
 Requires: python%{python3_pkgversion}-psycopg2
 Requires(post): systemd
@@ -184,8 +170,7 @@ Utilities for the Koji system
 
 %package web
 Summary: Koji Web UI
-# Automatically converted from old format: LGPLv2 - review is highly recommended.
-License: LicenseRef-Callaway-LGPLv2
+License: LGPL-2.1-only
 Requires: %{name} = %{version}-%{release}
 Requires: %{name}-web-code = %{version}-%{release}
 %if 0%{?fedora} || 0%{?rhel} > 7
@@ -197,8 +182,7 @@ koji-web is a web UI to the Koji system.
 
 %package -n python%{python3_pkgversion}-%{name}-web
 Summary: Koji Web UI
-# Automatically converted from old format: LGPLv2 - review is highly recommended.
-License: LicenseRef-Callaway-LGPLv2
+License: LGPL-2.1-only
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{name}-web}
 Requires: httpd
 Requires: python%{python3_pkgversion}-mod_wsgi
@@ -221,12 +205,14 @@ sed -e '/util\/koji/g' -e '/koji_cli_plugins/g' -i setup.py
 %py3_build_wheel
 
 %install
+%define make_with_dirs make DESTDIR=$RPM_BUILD_ROOT SBINDIR=%{_sbindir}
+
 %py3_install_wheel %{name}-%{version}-py3-none-any.whl
 mkdir -p %{buildroot}/etc/koji.conf.d
 cp cli/koji.conf %{buildroot}/etc/koji.conf
 for D in kojihub builder plugins util www vm schemas ; do
     pushd $D
-    make DESTDIR=$RPM_BUILD_ROOT PYTHON=%{__python3} %{?install_opt} install
+    %{make_with_dirs} PYTHON=%{__python3} install
     popd
 done
 
@@ -250,7 +236,7 @@ for fn in $extra_dirs ; do
 done
 
 %files
-%{_bindir}/*
+%{_bindir}/koji
 %{_datadir}/koji
 %config(noreplace) /etc/koji.conf
 %dir /etc/koji.conf.d
@@ -367,6 +353,13 @@ done
 %systemd_postun kojira.service
 
 %changelog
+* Tue Mar 18 2025 Kevin Fenzi <kevin@scrye.com> - 1.35.2-1
+- Update to 1.35.2. Fixes rhbz#2346249
+- Fix FTBFS. Fixed rhbz#2340700
+- Update license tags
+- Add patch to handle older python versions (already upstream)
+- Add patch for /usr/sbin merge handling.
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.35.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -9,7 +9,7 @@
 %global supported_arches aarch64 riscv64 x86_64
 
 Name:           rust-kvm-ioctls
-Version:        0.19.1
+Version:        0.20.0
 Release:        %autorelease
 Summary:        Safe wrappers over KVM ioctls
 
@@ -39,8 +39,6 @@ use the "%{crate}" crate.
 %doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
-%exclude %{crate_instdir}/CODEOWNERS
-%exclude %{crate_instdir}/coverage_config_*.json
 
 %package     -n %{name}+default-devel
 Summary:        %{summary}

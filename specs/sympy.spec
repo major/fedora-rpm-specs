@@ -18,6 +18,9 @@ License:        BSD-3-Clause AND MIT
 URL:            https://sympy.org/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/%{name}-%{version}.tar.gz
+# Fix a test failure with python 3.14
+# https://github.com/sympy/sympy/commit/613166ef5995b60610f94a729fa0412a103d47e6
+Patch:          %{name}-tempfile-flush.patch
 
 # This package used to be noarch, and should still be noarch.  However, because
 # there is no JDK available on i686 anymore, the antlr4 package is also not
@@ -159,6 +162,7 @@ HTML documentation for sympy.
 %prep
 %autosetup -p1 -n %{name}-%{name}-%{version}
 
+%conf
 fixtimestamp() {
   touch -r $1.orig $1
   rm -f $1.orig

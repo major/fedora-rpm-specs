@@ -16,8 +16,8 @@
 %bcond_with          defcmd
 %endif
 
-%global gh_commit    d42785840519401ed2113292263795eb4c0f95da
-%global gh_date      2025-03-07
+%global gh_commit    3bbb8d54b3a6718e51fd48cd478079f5f49b82bd
+%global gh_date      2025-03-18
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -30,7 +30,7 @@
 %global ver_major    11
 %global ver_minor    5
 
-%global upstream_version 11.5.12
+%global upstream_version 11.5.13
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -65,7 +65,7 @@ BuildRequires:  (php-composer(sebastian/environment) >= 7.2.0         with php-c
 BuildRequires:  (php-composer(sebastian/exporter) >= 6.3.0            with php-composer(sebastian/exporter) < 7)
 BuildRequires:  (php-composer(sebastian/global-state) >= 7.0.2        with php-composer(sebastian/global-state) < 8)
 BuildRequires:  (php-composer(sebastian/object-enumerator) >= 6.0.1   with php-composer(sebastian/object-enumerator) < 7)
-BuildRequires:  (php-composer(sebastian/type) >= 5.1.0                with php-composer(sebastian/type) < 6)
+BuildRequires:  (php-composer(sebastian/type) >= 5.1.2                with php-composer(sebastian/type) < 6)
 BuildRequires:  (php-composer(sebastian/version) >= 5.0.2             with php-composer(sebastian/version) < 6)
 BuildRequires:  (php-composer(staabm/side-effects-detector) >= 1.0.5  with php-composer(staabm/side-effects-detector) < 2)
 BuildRequires:  php-dom
@@ -101,7 +101,7 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "sebastian/exporter": "^6.3.0",
 #        "sebastian/global-state": "^7.0.2",
 #        "sebastian/object-enumerator": "^6.0.1",
-#        "sebastian/type": "^5.1.0",
+#        "sebastian/type": "^5.1.2",
 #        "sebastian/version": "^5.0.2",
 #        "staabm/side-effects-detector": "^1.0.5"
 Requires:       php(language) >= 8.1
@@ -128,7 +128,7 @@ Requires:       (php-composer(sebastian/environment) >= 7.2.0         with php-c
 Requires:       (php-composer(sebastian/exporter) >= 6.3.0            with php-composer(sebastian/exporter) < 7)
 Requires:       (php-composer(sebastian/global-state) >= 7.0.2        with php-composer(sebastian/global-state) < 8)
 Requires:       (php-composer(sebastian/object-enumerator) >= 6.0.1   with php-composer(sebastian/object-enumerator) < 7)
-Requires:       (php-composer(sebastian/type) >= 5.1.0                with php-composer(sebastian/type) < 6)
+Requires:       (php-composer(sebastian/type) >= 5.1.2                with php-composer(sebastian/type) < 6)
 Requires:       (php-composer(sebastian/version) >= 5.0.2             with php-composer(sebastian/version) < 6)
 Requires:       (php-composer(staabm/side-effects-detector) >= 1.0.5  with php-composer(staabm/side-effects-detector) < 2)
 # From composer.json, "suggest": {
@@ -291,6 +291,10 @@ exit $ret
 
 
 %changelog
+* Tue Mar 18 2025 Remi Collet <remi@remirepo.net> - 11.5.13-1
+- update to 11.5.13
+- raise dependency on sebastian/type 5.1.2
+
 * Sat Mar  8 2025 Remi Collet <remi@remirepo.net> - 11.5.12-1
 - update to 11.5.12
 - raise dependency on sebastian/comparator 6.3.1

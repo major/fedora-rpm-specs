@@ -7,14 +7,14 @@
 # Please, preserve the changelog entries
 #
 
-%global gh_commit    3825ffdc69501e1c9230291b79f036a0c0d8749d
+%global gh_commit    900389362c43d116fee1ffc51f7878145fa61b57
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2025-03-07
+%global gh_date      2025-03-13
 %global gh_owner     FriendsOfPHP
 %global gh_project   PHP-CS-Fixer
 
 Name:           php-cs-fixer
-Version:        3.71.0
+Version:        3.72.0
 Release:        1%{?dist}
 Summary:        PHP Coding Standards Fixer
 
@@ -67,7 +67,9 @@ projects. This tool does not only detect them, but also fixes them for you.
 %patch -P0 -p1 -b .rpm
 
 # Fix version
-sed -e '/VERSION/s/3.68.6-DEV/%{version}/' -i src/Console/Application.php
+#sed -e '/VERSION/s/3.68.6-DEV/%{version}/' -i src/Console/Application.php
+# check version
+grep "'%{version}'" src/Console/Application.php
 
 
 %build
@@ -100,6 +102,9 @@ PHP_CS_FIXER_IGNORE_ENV=1 ./%{name} --version | grep %{version}
 
 
 %changelog
+* Thu Mar 13 2025 Remi Collet <remi@remirepo.net> - 3.72.0-1
+- update to 3.72.0
+
 * Sat Mar  8 2025 Remi Collet <remi@remirepo.net> - 3.71.0-1
 - update to 3.71.0
 

@@ -19,11 +19,10 @@ Patch1: 0002-daemon-Support-deployment-finalization-by-OCI-digest.patch
 # https://github.com/rpm-software-management/libdnf/commit/099600ca94f3b205461cc010dd257d9d1abd068d
 Patch2: 0001-build-Increase-CMake-minimal-version-to-3.5.0.patch
 
-# Re-read passwd entries between %post scripts to fix ostree build
-# on Rawhide (with changes to sysusers handling)
+# rpmostree-core: Emulate new %sysusers RPM scriplet
 # https://github.com/coreos/rpm-ostree/issues/5333
 # https://github.com/coreos/rpm-ostree/pull/5334
-Patch3: 5334.patch
+Patch3: 0001-rpmostree-core-Emulate-new-sysusers-RPM-scriplet.patch
 
 # See https://github.com/coreos/fedora-coreos-tracker/issues/1716
 # ostree not on i686 for RHEL 10

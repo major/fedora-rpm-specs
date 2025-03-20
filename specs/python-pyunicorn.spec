@@ -13,7 +13,7 @@ Newman's random walk betweenness. pyunicorn features novel node-weighted
 designed for analyzing networks of interacting/interdependent networks.}
 
 Name:           python-%{pypi_name}
-Version:        0.8.0
+Version:        0.8.2
 Release:        %{autorelease}
 Summary:        Unified complex network and recurrence analysis toolbox
 
@@ -31,21 +31,15 @@ ExcludeArch:    %{ix86}
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  python3-devel
+# Listes as a test dependency, but also needed for import test
+BuildRequires:  python3-matplotlib
 
 # The tests extra also specifies linters. Therefore we specify manually.
 %if %{with tests}
 BuildRequires:  python3-cartopy
-BuildRequires:  python3-matplotlib
 Buildrequires:  python3-networkx
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-xdist
-%endif
-
-# Required for the import test. It crashes with a ModuleNotFound.
-# For that reason we make those Requires instead of Recommends as well.
-%if %{without tests}
-BuildRequires:  python3-basemap
-BuildRequires:  python3-cartopy
 %endif
 
 %description %_description
@@ -53,6 +47,8 @@ BuildRequires:  python3-cartopy
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
+# Not specified upstream, but imported (from) in two places
+Requires:       %{py3_dist matplotlib}
 Obsoletes:      python-%{pypi_name}-doc < 0.8.0
 
 %description -n python3-%{pypi_name} %_description
@@ -84,7 +80,7 @@ done
 %if %{with tests}
 # Test requires network
 k="${k-}${k+ and }not TestMapPlot"
-%pytest ${k+-k }"${k-}"
+%pytest ${k+-k "${k-}"}
 %else
 %pyproject_check_import
 %endif

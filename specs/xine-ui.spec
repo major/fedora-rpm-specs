@@ -3,12 +3,12 @@
 %endif
 
 #global         snapshot    1
-#global         date        20190824
-#global         commit      894d90
+#global         date        20250317
+#global         commit      7e63ae
 
 Name:           xine-ui
 Version:        0.99.14
-Release:        11%{?snapshot:.%{date}hg%{commit}}%{?dist}
+Release:        12%{?snapshot:.%{date}hg%{commit}}%{?dist}
 Summary:        A skinned xlib-based gui for xine-lib
 License:        GPL-2.0-or-later
 URL:            http://www.xine-project.org/
@@ -123,15 +123,12 @@ It also contains the color ascii art and framebuffer versions.
 # Restore directory
 %setup -T -D -n %{name}-%{version}%{?snapshot:hg}
 
+%if ! 0%{?snapshot}
 %patch -P1 -p1
 %patch -P2 -p1
 
-# By default aaxine dlopen()'s a nonversioned libX11.so, however in Fedora
-# it's provided by libX11-devel => version the dlopen()
-libx11so=$(ls -1 %{_libdir}/libX11.so.? | tail -n 1)
-if [ -n "$libx11so" -a -f "$libx11so" ] ; then
-    sed -i -e "s/\"libX11\\.so\"/\"$(basename $libx11so)\"/" src/aaui/main.c
-fi
+# assure use of system getopt
+rm -f src/common/getopt.{c,h}
 
 # Fix file encoding
 for f in doc/man/{de,es,fr}/*.1* ; do
@@ -144,12 +141,16 @@ for f in doc/man/pl/*.1* src/xitk/xine-toolkit/README ; do
     touch -r $f $f.utf8 && \
      mv $f.utf8 $f
 done
+%endif
+
+# By default aaxine dlopen()'s a nonversioned libX11.so, however in Fedora
+# it's provided by libX11-devel => version the dlopen()
+libx11so=$(ls -1 %{_libdir}/libX11.so.? | tail -n 1)
+if [ -n "$libx11so" -a -f "$libx11so" ] ; then
+    sed -i -e "s/\"libX11\\.so\"/\"$(basename $libx11so)\"/" src/aaui/main.c
+fi
 
 cp -a src/xitk/xine-toolkit/README doc/README.xitk
-
-# Clean out skins
-find fedoraskins/ -type d -name "CVS" -exec rm -rf {} \; || :
-find fedoraskins/ -type d -name ".xvpics" -exec rm -rf {} \; || :
 
 
 %build
@@ -241,6 +242,9 @@ cp -a fedoraskins/* %{buildroot}%{_datadir}/xine/skins/
 
 
 %changelog
+* Tue Mar 18 2025 Xavier Bachelot <xavier@bachelot.org> - 0.99.14-12
+- Add fix for GCC15 issue (RHBZ#2341570)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.14-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 # https://github.com/gin-gonic/gin
 %global goipath         github.com/gin-gonic/gin
-Version:                1.8.2
+Version:                1.10.0
 
 %gometa
 
@@ -20,7 +20,7 @@ performance and good productivity, you will love Gin.}
                         CODE_OF_CONDUCT.md CONTRIBUTING.md README.md
 
 Name:           %{goname}
-Release:        7%{?dist}
+Release:        %autorelease
 Summary:        HTTP web framework written in Go
 
 License:        MIT
@@ -49,7 +49,6 @@ Source0:        %{gosource}
 
 %if %{with check}
 %check
-rm context_1.17_test.go
 %gocheck -d render
 %endif
 
@@ -58,50 +57,4 @@ rm context_1.17_test.go
 
 
 %changelog
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Jan 11 2023 Maxwell G <gotmax@e.email> - 1.8.2-1
-- Update to 1.8.2. Fixes rhbz#1947355.
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Thu Aug 13 23:52:31 CEST 2020 Robert-André Mauchin <zebob.m@gmail.com> - 1.6.3-1
-- Update to 1.6.3
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Tue Apr 30 14:45:15 CEST 2019 Robert-André Mauchin <zebob.m@gmail.com> - 1.3.0-1
-- Initial package
+%autochangelog

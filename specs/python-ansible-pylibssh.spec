@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2.2
-Release:        2%{?dist}
+Release:        %autorelease
 Summary:        %{_summary}
 
 License:        LGPL-2.1-or-later
@@ -18,7 +18,8 @@ BuildRequires:  python%{python3_pkgversion}-devel
 # For tests
 BuildRequires:  /usr/bin/ssh
 BuildRequires:  /usr/bin/ssh-keygen
-BuildRequires:  /usr/sbin/sshd
+# Use package instead of /usr/sbin/sshd to deal with sbin merge
+BuildRequires:  openssh-server
 
 %global _description %{expand:
 Python bindings to client functionality of libssh specific to Ansible use
@@ -62,8 +63,4 @@ export PYTHONPATH=bin
 
 
 %changelog
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Sun Oct 20 2024 Orion Poplawski <orion@nwra.com> - 1.2.2-1
-- Initial Fedora package
+%autochangelog

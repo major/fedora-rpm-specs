@@ -76,13 +76,21 @@ sed -r -i 's/^filterwarnings = "error"$/# &/' pyproject.toml
 %check
 # Tests in this module require pytest-examples; see %%prep for notes on this.
 ignore="${ignore-} --ignore=tests/test_docs.py"
+
 %if %{with bootstrap}
 # Imports in this module require Pydantic.
 ignore="${ignore-} --ignore=tests/test_other.py"
 %endif
 
+%if v"0%{?python3_version}" >= v"3.14"
+# Two test regressions related to IP addresses in Python 3.14
+# https://github.com/samuelcolvin/dirty-equals/issues/112
+k="${k-}${k+ and }not test_is_ip_true[other1-dirty1]"
+k="${k-}${k+ and }not test_is_ip_true[other3-dirty3]"
+%endif
+
 # Some tests require TZ == UTC; see the “test” target in the Makefile
-TZ=UTC %pytest -v ${ignore-}
+TZ=UTC %pytest ${ignore-} -k "${k-}" -v
 
 
 %files -n python3-dirty-equals -f %{pyproject_files}

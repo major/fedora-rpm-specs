@@ -33,8 +33,8 @@
 
 
 Name:           perl-Prima
-Version:        1.75
-Release:        2%{?dist}
+Version:        1.76
+Release:        1%{?dist}
 Summary:        Perl graphic toolkit
 # Copying:              BSD-2-Clause text
 # examples/tiger.eps:   AGPL-3.0-or-later (bundled from GhostScript? CPAN RT#122271)
@@ -326,6 +326,9 @@ unset DISPLAY XDG_SESSION_TYPE
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Mar 18 2025 Petr Pisar <ppisar@redhat.com> - 1.76-1
+- 1.76 bump
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.75-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

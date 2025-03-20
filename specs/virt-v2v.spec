@@ -127,9 +127,11 @@ Requires:      edk2-aarch64
 
 %if !0%{?rhel}
 Requires:      /usr/bin/python3
-%elif %{?rhel} == 9
+%else
+%if 0%{?rhel} == 9
 Requires:      platform-python
 # Python is not needed by RHEL 10.
+%endif
 %endif
 Requires:      libnbd >= 1.10
 Requires:      %{_bindir}/qemu-nbd

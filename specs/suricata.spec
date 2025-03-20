@@ -1,7 +1,7 @@
 Summary: Intrusion Detection System
 Name: suricata
-Version: 7.0.8
-Release: 3%{?dist}
+Version: 7.0.9
+Release: 1%{?dist}
 License: GPL-2.0-only
 URL: https://suricata-ids.org/
 Source0: https://www.openinfosecfoundation.org/download/%{name}-%{version}.tar.gz
@@ -195,6 +195,9 @@ fi
 %{_sysusersdir}/suricata.conf
 
 %changelog
+* Tue Mar 18 2025 Steve Grubb <sgrubb@redhat.com> 7.0.9-1
+- New security and bugfix release
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 7.0.8-3
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

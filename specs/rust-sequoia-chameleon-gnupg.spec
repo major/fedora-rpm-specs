@@ -9,7 +9,7 @@
 %global crate sequoia-chameleon-gnupg
 
 Name:           rust-sequoia-chameleon-gnupg
-Version:        0.13.0
+Version:        0.13.1
 Release:        %autorelease
 Summary:        Sequoia's reimplementation of the GnuPG interface
 
@@ -129,6 +129,7 @@ install -Dpm0755 %{SOURCE1} -T %{buildroot}/%{_datadir}/%{crate}/shims/gpgconf
 ln -s /usr/bin/gpg-sq %{buildroot}/%{_datadir}/%{crate}/shims/gpg
 ln -s /usr/bin/gpg-sq %{buildroot}/%{_datadir}/%{crate}/shims/gpg2
 ln -s /usr/bin/gpgv-sq %{buildroot}/%{_datadir}/%{crate}/shims/gpgv
+ln -s /usr/bin/gpgv-sq %{buildroot}/%{_datadir}/%{crate}/shims/gpgv2
 
 # install manual pages
 mkdir -p %{buildroot}/%{_mandir}/man1

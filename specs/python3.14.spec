@@ -14,7 +14,7 @@ URL: https://www.python.org/
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
 %global general_version %{pybasever}.0
-%global prerel a5
+%global prerel a6
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
 Release: 1%{?dist}
@@ -350,17 +350,6 @@ Source11: idle3.appdata.xml
 #
 # pypa/distutils integration: https://github.com/pypa/distutils/pull/70
 Patch251: 00251-change-user-install-location.patch
-
-# 00451 # 6b2c3f979219408cc0d48262c31f14a7da418ae2
-# gh-130030: Fix crash on 32-bit Linux with free threading (gh-130043)
-#
-# The `gc_get_refs` assertion needs to be after we check the alive and
-# unreachable bits. Otherwise, `ob_tid` may store the actual thread id
-# instead of the computed `gc_refs`, which may trigger the assertion if
-# the `ob_tid` looks like a negative value.
-#
-# Also fix a few type warnings on 32-bit systems.
-Patch451: 00451-gh-130030-fix-crash-on-32-bit-linux-with-free-threading-gh-130043.patch
 
 # (New patches go here ^^^)
 #
@@ -1379,6 +1368,8 @@ CheckPython freethreading
 %pure_python_modules %{pylibdir}
 
 %{pylibdir}/_sysconfig_vars_%{ABIFLAGS_optimized}_linux_%{platform_triplet}.json
+# File defined by PEP 739 since Python 3.14:
+%{pylibdir}/build-details.json
 
 # This will be in the tkinter package
 %exclude %{pylibdir}/turtle.py
@@ -1628,6 +1619,8 @@ CheckPython freethreading
 %{pylibdir_freethreading}/turtledemo/
 
 %{pylibdir_freethreading}/_sysconfig_vars_%{ABIFLAGS_freethreading}_linux_%{platform_triplet}.json
+# File defined by PEP 739 since Python 3.14:
+%{pylibdir_freethreading}/build-details.json
 
 # This will be in the -freethreading-debug package
 %if %{with debug_build}
@@ -1705,6 +1698,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Mon Mar 17 2025 Karolina Surma <ksurma@redhat.com> - 3.14.0~a6-1
+- Update to Python 3.14.0a6
+
 * Wed Feb 12 2025 Karolina Surma <ksurma@redhat.com> - 3.14.0~a5-1
 - Update to Python 3.14.0a5
 

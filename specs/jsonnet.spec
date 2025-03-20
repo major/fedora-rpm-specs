@@ -1,5 +1,5 @@
 Name:           jsonnet
-Version:        0.21.0
+Version:        0.21.0~rc2
 %global so_version 0
 Release:        1%{?dist}
 Summary:        A data templating language based on JSON
@@ -14,7 +14,8 @@ Summary:        A data templating language based on JSON
 License:        Apache-2.0 AND MIT AND CC0-1.0
 
 URL:            https://github.com/google/jsonnet
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+%global srcversion %{gsub %{version} ~ -}
+Source0:        %{url}/archive/v%{srcversion}/%{name}-%{srcversion}.tar.gz
 
 # Downstream man pages in groff_man(7) format
 Source1:        jsonnet.1
@@ -96,7 +97,7 @@ BuildArch:      noarch
 
 
 %prep
-%autosetup -p1
+%autosetup -n %{name}-%{srcversion} -p1
 
 # use system json lib instead
 rm -rfv third_party/json/*
@@ -186,8 +187,8 @@ LD_LIBRARY_PATH='%{buildroot}%{_libdir}' \
 
 
 %changelog
-* Fri Mar 14 2025 Pat Riehecky <riehecky@fnal.gov> - 0.21.0-1
-- Build 0.21.0
+* Fri Mar 14 2025 Pat Riehecky <riehecky@fnal.gov> - 0.21.0~rc2-1
+- Build 0.21.0~rc2
 
 * Sat Feb 22 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 0.20.0-13
 - Rebuilt for rapidyaml 0.8.0

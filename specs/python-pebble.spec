@@ -4,7 +4,7 @@
 %bcond tests 1
 
 Name:           python-pebble
-Version:        5.1.0
+Version:        5.1.1
 Release:        %autorelease
 Summary:        Threading and multiprocessing eye-candy for Python
 

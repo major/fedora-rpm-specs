@@ -14,7 +14,7 @@
 %bcond it 0
 
 Name:           uv
-Version:        0.6.6
+Version:        0.6.8
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -95,6 +95,7 @@ Summary:        An extremely fast Python package installer and resolver, written
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # BSD-2-Clause OR Apache-2.0 OR MIT
 # BSD-3-Clause
+# BSL-1.0
 # ISC
 # ISC AND MIT AND OpenSSL
 # LGPL-3.0-or-later OR MPL-2.0
@@ -122,6 +123,7 @@ License:        %{shrink:
                 (Apache-2.0 WITH LLVM-exception) AND
                 (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
                 BSD-3-Clause AND
+                BSL-1.0 AND
                 ISC AND
                 (LGPL-3.0-or-later OR MIT) AND
                 (LGPL-3.0-or-later OR MPL-2.0) AND

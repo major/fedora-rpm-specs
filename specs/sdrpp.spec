@@ -1,10 +1,10 @@
-%global commit fe4a7b32a7656de8c8f4c4efa926cf6f21a9c1d9
-%global gittag 1.2.0
+%global commit aa2b4b1c5814cc2f832898a9e4a1bdfc38e7ac8d
+%global gittag 1.2.1
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           sdrpp
-Version:        1.2.0
-Release:        5%{?dist}
+Version:        1.2.1
+Release:        1%{?dist}
 Summary:        SDRPlusPlus bloat-free SDR receiver software
 
 # Automatically converted from old format: GPLv3 and MIT and WTFPL and Public Domain - review is highly recommended.
@@ -20,7 +20,7 @@ Patch1:         cmake-top.patch
 # Ensure libraries come from pkgconfig
 Patch2:         add-libraries.patch
 # Move the config file to libdir
-Patch3:         configfile-libdir.patch
+#Patch3:         configfile-libdir.patch
 # std::runtime_error requires <stdexcept>
 # https://github.com/AlexandreRouma/SDRPlusPlus/issues/970
 Patch5:         sdrpp-stdexcept.patch
@@ -174,6 +174,9 @@ appstream-util validate-relax \
 
 
 %changelog
+* Thu Mar 13 2025 Richard Shaw <hobbes1069@gmail.com> - 1.2.1-1
+- Update to 1.2.1.
+
 * Mon Mar 10 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 1.2.0-5
 - Rebuilt for new volk
 

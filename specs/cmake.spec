@@ -67,15 +67,15 @@
 # Setup _vpath_builddir if not defined already
 %{!?_vpath_builddir:%global _vpath_builddir %{_target_platform}}
 
-%global major_version 4
-%global minor_version 0
-%global patch_version 0
+%global major_version 3
+%global minor_version 31
+%global patch_version 6
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 1
+%global baserelease 2
 
 # Set to RC version if building RC, else comment out.
-%global rcsuf rc4
+#%%global rcsuf rc3
 
 %if 0%{?rcsuf:1}
 %global pkg_version %{major_version}.%{minor_version}.%{patch_version}~%{rcsuf}
@@ -117,6 +117,9 @@ Source5:        %{name}.req
 # http://public.kitware.com/Bug/view.php?id=12965
 # https://bugzilla.redhat.com/show_bug.cgi?id=822796
 Patch100:       %{name}-findruby.patch
+# Fix build with latest curl
+# https://gitlab.kitware.com/cmake/cmake/-/merge_requests/10449
+Patch101:       %{name}-curl-fix.patch
 
 # Patch for renaming on EPEL
 %if 0%{?name_suffix:1}
@@ -213,11 +216,6 @@ Requires:       make
 
 # Provide the major version name
 Provides: %{orig_name}%{major_version} = %{version}-%{release}
-
-# Provide cmake3 for legacy.
-%if 0%{?major_version} > 3
-Provides: %{orig_name}3 = %{version}-%{release}
-%endif
 
 # Source/kwsys/MD5.c
 # see https://fedoraproject.org/wiki/Packaging:No_Bundled_Libraries
@@ -513,8 +511,6 @@ NO_TEST="$NO_TEST|Qt5Autogen.ManySources|Qt5Autogen.MocInclude|Qt5Autogen.MocInc
 # Test failing on Fedora 41, only.
 NO_TEST="$NO_TEST|RunCMake.Make|RunCMake.BuildDepends|Qt6Autogen.RerunMocBasic|Qt6Autogen.RerunRccDepends"
 %endif
-# Drop for v4.0.0-final
-NO_TEST="$NO_TEST|RunCMake.LinkWarningAsError|RunCMake.ParseImplicitLinkInfo"
 bin/ctest%{?name_suffix} %{?_smp_mflags} -V -E "$NO_TEST" --output-on-failure
 ## do this only periodically, not for every build -- besser82 20221102
 # Keep an eye on failing tests
@@ -595,30 +591,10 @@ popd
 
 
 %changelog
-* Wed Mar 12 2025 Björn Esser <besser82@fedoraproject.org> - 4.0.0~rc4-1
-- cmake-4.0.0-rc4
-
-* Wed Mar 12 2025 Björn Esser <besser82@fedoraproject.org> - 4.0.0~rc3-4
-- macros: Set CMAKE_POLICY_VERSION_MINIMUM as environment variable
-
-* Fri Mar 07 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 4.0.0~rc3-3
-- Define CMAKE_POLICY_VERSION_MINIMUM in %%cmake
-
-* Fri Mar 07 2025 Cristian Le <git@lecris.dev> - 4.0.0~rc3-2
-- Drop non-standard *_INSTALL options
-
-* Thu Mar 06 2025 Björn Esser <besser82@fedoraproject.org> - 4.0.0~rc3-1
-- cmake-4.0.0-rc3
-
-* Thu Feb 27 2025 Björn Esser <besser82@fedoraproject.org> - 4.0.0~rc2-3
+* Tue Mar 18 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 3.31.6-2
+- Revert to 3.31.6
 - Rebuild (jsoncpp)
-- Provide cmake3 for legacy
-
-* Thu Feb 27 2025 Björn Esser <besser82@fedoraproject.org> - 4.0.0~rc2-2
-- Restore compatibility with cmake3 macros
-
-* Wed Feb 26 2025 Björn Esser <besser82@fedoraproject.org> - 4.0.0~rc2-1
-- cmake-4.0.0-rc2
+- Fix build with latest curl
 
 * Mon Feb 24 2025 Björn Esser <besser82@fedoraproject.org> - 3.31.6-1
 - cmake-3.31.6

@@ -9,15 +9,13 @@
 %endif
 
 Name:           libfabric
-Version:        2.0.0
+Version:        2.1.0
 Release:        1%{?dist}
 Summary:        Open Fabric Interfaces
 
 License:        BSD-2-Clause OR GPL-2.0-only
 URL:            https://github.com/ofiwg/libfabric
 Source0:        https://github.com/ofiwg/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.bz2
-# https://github.com/ofiwg/libfabric/issues/10796
-Patch0:         gcc15.patch
 
 %if %{__remake_config}
 BuildRequires:  automake
@@ -104,6 +102,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Tue Mar 18 2025 Orion Poplawski <orion@nwra.com> - 2.1.0-1
+- Update to 2.1.0
+
 * Mon Mar 10 2025 Orion Poplawski <orion@nwra.com> - 2.0.0-1
 - Update to 2.0.0
 

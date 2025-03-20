@@ -134,12 +134,6 @@
 %global enable_werror 0
 
 
-# Matches edk2.spec ExclusiveArch
-%global have_edk2 0
-%ifarch %{ix86} x86_64 aarch64 riscv64
-%global have_edk2 1
-%endif
-
 # All modules should be listed here.
 %define have_block_rbd 1
 %ifarch %{ix86} %{arm}
@@ -1284,9 +1278,7 @@ This package provides the QEMU system emulator for AArch64.
 %package system-aarch64-core
 Summary: QEMU system emulator for AArch64
 Requires: %{name}-common = %{epoch}:%{version}-%{release}
-%if %{have_edk2}
 Requires: edk2-aarch64
-%endif
 %description system-aarch64-core
 This package provides the QEMU system emulator for AArch64.
 
@@ -1446,9 +1438,7 @@ This package provides the QEMU system emulator for RISC-V systems.
 %package system-riscv-core
 Summary: QEMU system emulator for RISC-V
 Requires: %{name}-common = %{epoch}:%{version}-%{release}
-%if %{have_edk2}
 Requires: edk2-riscv64
-%endif
 %description system-riscv-core
 This package provides the QEMU system emulator for RISC-V systems.
 
@@ -1538,9 +1528,7 @@ Summary: QEMU system emulator for x86
 Requires: %{name}-common = %{epoch}:%{version}-%{release}
 Requires: seabios-bin
 Requires: seavgabios-bin
-%if %{have_edk2}
 Requires: edk2-ovmf
-%endif
 %description system-x86-core
 This package provides the QEMU system emulator for x86. When being run in a x86
 machine that supports it, this package also provides the KVM virtualization

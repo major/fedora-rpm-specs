@@ -12,8 +12,8 @@
 %global relccache %(%abs2rel %{_bindir}/ccache %{_libdir}/ccache)
 
 Name:           ccache
-Version:        4.10.2
-Release:        3%{?dist}
+Version:        4.11.1
+Release:        1%{?dist}
 Summary:        C/C++ compiler cache
 
 # See LICENSE.adoc for licenses of bundled codes
@@ -55,8 +55,7 @@ being done again.  The main focus is to handle the GNU C/C++ compiler
 
 
 %prep
-%setup -q
-%autopatch -p1
+%autosetup -p1
 # win32-compat gets imported, but not used
 rm -r src/third_party/{[ad-lo-tvy-z]*,cpp-httplib}
 sed -e 's|@LIBDIR@|%{_libdir}|g' -e 's|@CACHEDIR@|%{_var}/cache/ccache|g' \
@@ -237,6 +236,9 @@ done\
 
 
 %changelog
+* Tue Mar 18 2025 Orion Poplawski <orion@nwra.com> - 4.11.1-1
+- Update to 4.11.1
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.10.2-3
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

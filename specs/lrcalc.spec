@@ -1,12 +1,15 @@
 Name:		lrcalc
 Version:	2.1
-Release:	11%{?dist}
+Release:	12%{?dist}
 License:	GPL-3.0-or-later
 Summary:	Littlewood-Richardson Calculator
 URL:		https://sites.math.rutgers.edu/~asbuch/lrcalc/
 Source0:	https://sites.math.rutgers.edu/~asbuch/lrcalc/%{name}-%{version}.tar.gz
 Source1:	lrcalc.module.in
 Requires:	environment(modules)
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:	%{ix86}
 
 BuildRequires:	gcc-c++
 BuildRequires:	make
@@ -94,6 +97,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir}: make check
 %files -n	python3-lrcalc -f %{pyproject_files}
 
 %changelog
+* Tue Mar 18 2025 Jerry James <loganjerry@gmail.com> - 2.1-12
+- Stop building for 32-bit x86
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

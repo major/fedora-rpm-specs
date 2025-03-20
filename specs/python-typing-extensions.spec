@@ -1,6 +1,6 @@
 Name:      python-typing-extensions
-Version:   4.12.2
-Release:   4%{?dist}
+Version:   4.13.0~rc1
+Release:   1%{?dist}
 Summary:   Python Typing Extensions
 
 License:   PSF-2.0
@@ -41,7 +41,7 @@ Summary:       %{summary}
 
 
 %prep
-%autosetup -n typing_extensions-%{version}
+%autosetup -n typing_extensions-4.13.0rc1
 
 
 %generate_buildrequires
@@ -70,6 +70,9 @@ cd src
 
 
 %changelog
+* Tue Mar 18 2025 Jonny Heggheim <hegjon@gmail.com>
+- Updated to version 4.13.0rc1
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.12.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

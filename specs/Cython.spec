@@ -124,7 +124,7 @@ export CFLAGS="${CFLAGS} -g1"
 
 
 %files -n python3-cython -f %{pyproject_files}
-%doc *.txt Demos Doc Tools
+%doc README.rst CHANGES.rst USAGE.txt Demos Doc Tools
 %{_bindir}/cython
 %{_bindir}/cygdb
 %{_bindir}/cythonize

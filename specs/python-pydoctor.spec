@@ -62,7 +62,10 @@ Summary:        %{summary}
 %prep
 %forgeautosetup -p1
 # unpin urllib3, is compatible with both 1.x and 2.x
-sed -i -e '/urllib3/s/>=.*//' setup.cfg
+# expand lunr compat range https://github.com/twisted/pydoctor/pull/880
+sed -e '/urllib3/s/>=.*//' \
+    -e '/lunr/s/,<.*/,<0.9.0/' \
+    -i setup.cfg
 
 %generate_buildrequires
 %pyproject_buildrequires -t

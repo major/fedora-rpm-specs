@@ -88,7 +88,7 @@ F_PIE=-fPIE
 F_PIE=-fpie
 %endif
 
-export CFLAGS="$RPM_OPT_FLAGS $F_PIE" LDFLAGS="-pie -Wl,-z,relro -Wl,-z,now"
+export CFLAGS="$RPM_OPT_FLAGS $F_PIE -std=gnu17" LDFLAGS="-pie -Wl,-z,relro -Wl,-z,now"
 
 %configure \
         --prefix=%{_prefix} \

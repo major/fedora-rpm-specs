@@ -25,7 +25,7 @@ Source1:        %{pypi_name}-test-files-5.3.5.tar.gz
 #
 # [BUG] Tests fail with NumPy 2.2.0
 # https://github.com/nschloe/meshio/issues/1499
-Patch:          %{forgeurl}/pull/1506.patch
+Patch:          %{forgeurl}/pull/1513.patch
 
 ExcludeArch:    %{ix86}
 
@@ -117,18 +117,7 @@ done
 
 
 %check
-%if %{undefined fc40} && %{undefined fc41}
-# [BUG] Tests fail with NumPy 2.2.0
-# https://github.com/nschloe/meshio/issues/1499
-# ValueError: cannot reshape array of size 1 into shape (<A>,<B>)
-k="${k-}${k+ and }not test_gmsh22"
-k="${k-}${k+ and }not test_gmsh40"
-k="${k-}${k+ and }not test_gmsh41"
-# ReadError: Header of ugrid file is ill-formed
-k="${k-}${k+ and }not test_io[1e-07-.ugrid-mesh"
-%endif
-
-%pytest -k "${k-}" -v
+%pytest -r fEs
 
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}

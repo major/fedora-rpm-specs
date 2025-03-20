@@ -46,14 +46,19 @@ Patch:         emacs-system-crypto-policies.patch
 # => remove it if we stop using this patch
 Patch:         emacs-libdir-vs-systemd.patch
 
-# Avoid using the pure GTK build on X11 where it is unsupported:
-Patch:         emacs-desktop.patch
+# Hint what to do to avoid using the pure GTK build on X11, where it is
+# unsupported:
 Patch:         emacs-pgtk-on-x-error-message.patch
 
 # Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2276822
 # (https://debbugs.gnu.org/cgi/bugreport.cgi?bug=63555).  If GDK ever
 # gets any new backends, this patch may need extending.
 Patch:         0002-Fall-back-to-the-terminal-from-pure-GTK-when-no-disp.patch
+
+# Don't override StartupWMClass.  The overriding value doesn't work on
+# Wayland, and the default should be fine.
+# https://debbugs.gnu.org/cgi/bugreport.cgi?bug=49505#67
+Patch:         0001-Don-t-specify-StartupWMClass-in-emacs.desktop.patch
 
 BuildRequires: alsa-lib-devel
 BuildRequires: atk-devel
@@ -695,7 +700,7 @@ if [ $1 = 0 ]; then
 fi
 
 %posttrans nw
-/usr/sbin/alternatives --install %{_bindir}/emacs emacs %{_bindir}/emacs-nw 70 || :
+/usr/sbin/alternatives --install %{_bindir}/emacs emacs %{_bindir}/emacs-nw 65 || :
 # The preun scriptlet of packages before 29.4-5 will remove this symlink
 # after it has been installed, so we may need to put it back:
 if [ $1 = 2 -a ! -h %{_bindir}/emacs-nw ]; then
@@ -705,10 +710,16 @@ fi
 
 %preun common
 if [ $1 = 0 ]; then
+  /usr/sbin/alternatives --remove emacs %{_bindir}/emacs-desktop || :
   /usr/sbin/alternatives --remove emacs.etags %{_bindir}/etags.emacs || :
 fi
 
 %posttrans common
+/usr/sbin/alternatives --install %{_bindir}/emacs \
+                                 emacs \
+                                 %{_bindir}/emacs-desktop \
+                                 85 \
+    || :
 /usr/sbin/alternatives --install %{_bindir}/etags emacs.etags %{_bindir}/etags.emacs 80 \
        --slave %{_mandir}/man1/etags.1.gz emacs.etags.man %{_mandir}/man1/etags.emacs.1.gz || :
 
@@ -754,6 +765,7 @@ fi
 %{_rpmconfigdir}/macros.d/macros.emacs
 %license build-pgtk/etc/COPYING
 %doc build-pgtk/doc/NEWS build-pgtk/BUGS build-pgtk/README
+%ghost %{_bindir}/emacs
 %{_bindir}/ebrowse
 %{_bindir}/emacs-desktop
 %{_bindir}/etags.emacs

@@ -1,6 +1,6 @@
 %global project_version_prime 5
 %global project_version_major 2
-%global project_version_minor 11
+%global project_version_minor 12
 %global project_version_micro 0
 
 %bcond dnf5_obsoletes_dnf %[0%{?fedora} > 40 || 0%{?rhel} > 10]
@@ -145,7 +145,7 @@ BuildRequires:  bash-completion-devel
 %else
 BuildRequires:  bash-completion
 %endif
-BuildRequires:  cmake
+BuildRequires:  cmake >= 3.21
 BuildRequires:  doxygen
 BuildRequires:  gettext
 BuildRequires:  pkgconfig(check)
@@ -271,13 +271,25 @@ upgrading, configuring, and removing computer programs in a consistent manner.
 It supports RPM packages, modulemd modules, and comps groups & environments.
 
 %post
+%if %{with dnf5_obsoletes_dnf}
+%systemd_post dnf-makecache.timer
+%else
 %systemd_post dnf5-makecache.timer
+%endif
 
 %preun
+%if %{with dnf5_obsoletes_dnf}
+%systemd_preun dnf-makecache.timer
+%else
 %systemd_preun dnf5-makecache.timer
+%endif
 
 %postun
+%if %{with dnf5_obsoletes_dnf}
+%systemd_postun_with_restart dnf-makecache.timer
+%else
 %systemd_postun_with_restart dnf5-makecache.timer
+%endif
 
 %files -f dnf5.lang
 %{_bindir}/dnf5
@@ -285,8 +297,8 @@ It supports RPM packages, modulemd modules, and comps groups & environments.
 %{_bindir}/dnf
 %{_bindir}/yum
 %endif
-%{_unitdir}/dnf5-makecache.service
-%{_unitdir}/dnf5-makecache.timer
+%{_unitdir}/dnf*-makecache.service
+%{_unitdir}/dnf*-makecache.timer
 
 %if 0%{?fedora} || 0%{?rhel} > 10
 %{_bindir}/microdnf
@@ -306,8 +318,6 @@ It supports RPM packages, modulemd modules, and comps groups & environments.
 %dir %{_datadir}/bash-completion/
 %dir %{_datadir}/bash-completion/completions/
 %{_datadir}/bash-completion/completions/dnf*
-%dir %{_prefix}/lib/sysimage/libdnf5
-%verify(not md5 size mtime) %ghost %{_prefix}/lib/sysimage/libdnf5/*
 %license COPYING.md
 %license gpl-2.0.txt
 %{_mandir}/man8/dnf5.8.*
@@ -397,6 +407,8 @@ Package management library.
 %dir %{_datadir}/dnf5/vars.d
 %dir %{_libdir}/libdnf5
 %{_libdir}/libdnf5.so.2*
+%dir %{_prefix}/lib/sysimage/libdnf5
+%verify(not md5 size mtime) %ghost %{_prefix}/lib/sysimage/libdnf5/*
 %license lgpl-2.1.txt
 %ghost %attr(0755, root, root) %dir %{_var}/cache/libdnf5
 %ghost %attr(0755, root, root) %dir %{_sharedstatedir}/dnf
@@ -846,6 +858,7 @@ automatically and regularly from systemd timers, cron jobs or similar.
     -DWITH_DNF5DAEMON_SERVER=%{?with_dnf5daemon_server:ON}%{!?with_dnf5daemon_server:OFF} \
     -DWITH_LIBDNF5_CLI=%{?with_libdnf_cli:ON}%{!?with_libdnf_cli:OFF} \
     -DWITH_DNF5=%{?with_dnf5:ON}%{!?with_dnf5:OFF} \
+    -DWITH_DNF5_OBSOLETES_DNF=%{?with_dnf5_obsoletes_dnf:ON}%{!?with_dnf5_obsoletes_dnf:OFF} \
     -DWITH_PLUGIN_ACTIONS=%{?with_plugin_actions:ON}%{!?with_plugin_actions:OFF} \
     -DWITH_PLUGIN_APPSTREAM=%{?with_plugin_appstream:ON}%{!?with_plugin_appstream:OFF} \
     -DWITH_PLUGIN_EXPIRED_PGP_KEYS=%{?with_plugin_expired_pgp_keys:ON}%{!?with_plugin_expired_pgp_keys:OFF} \
@@ -898,6 +911,11 @@ for file in %{buildroot}%{_mandir}/man[578]/dnf5[-.]*; do
     filename=$(basename $file)
     ln -sr $file $dir/${filename/dnf5/dnf}
 done
+# Make "dnf-makecache" the "real" unit name, but keep compatibility for playbooks that refer to dnf5-makecache
+mv %{buildroot}%{_unitdir}/dnf5-makecache.service %{buildroot}%{_unitdir}/dnf-makecache.service
+mv %{buildroot}%{_unitdir}/dnf5-makecache.timer %{buildroot}%{_unitdir}/dnf-makecache.timer
+ln -s dnf-makecache.service %{buildroot}%{_unitdir}/dnf5-makecache.service
+ln -s dnf-makecache.timer %{buildroot}%{_unitdir}/dnf5-makecache.timer
 %endif
 
 # own dirs and files that dnf5 creates on runtime
@@ -945,6 +963,9 @@ popd
 %ldconfig_scriptlets
 
 %changelog
+* Tue Mar 18 2025 Packit <hello@packit.dev> - 5.2.12.0-1
+- Update to version 5.2.12.0
+
 * Fri Mar 07 2025 Packit <hello@packit.dev> - 5.2.11.0-1
 - Update to version 5.2.11.0
 

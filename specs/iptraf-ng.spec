@@ -41,7 +41,7 @@ make %{?_smp_mflags} V=1 \
 
 %install
 rm -rf %{buildroot}
-make install DESTDIR=%{buildroot} prefix=%{_prefix}
+make install DESTDIR=%{buildroot} prefix=%{_prefix} sbindir=%{_sbindir}
 
 # remove everything besides the html and pictures in Documentation
 find Documentation -type f | grep -v '\.html$\|\.png$\|/stylesheet' | \

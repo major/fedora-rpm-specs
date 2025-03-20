@@ -5,16 +5,13 @@
 %global crate astral-tokio-tar
 
 Name:           rust-astral-tokio-tar
-Version:        0.5.1
+Version:        0.5.2
 Release:        %autorelease
 Summary:        Rust implementation of an async TAR file reader and writer
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/astral-tokio-tar
 Source:         %{crates_source}
-# * GitHub sources corresponding to the published crate; we extract only the
-#   tests/archives/ subdirectory for running tests.
-Source10:       https://github.com/astral-sh/tokio-tar/archive/v%{version}/tokio-tar-%{version}.tar.gz
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -82,8 +79,6 @@ use the "xattr" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# Extract test tarballs (only) from the GitHub archive
-tar -xzvf '%{SOURCE10}' --strip-components=1 'tokio-tar-%{version}/tests/archives/'
 %cargo_test
 %endif
 

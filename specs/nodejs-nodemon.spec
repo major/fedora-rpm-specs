@@ -12,6 +12,10 @@ License:       ISC AND MIT
 URL:           https://github.com/remy/nodemon
 Source0:       %{npm_name}-v%{version}-bundled.tar.gz
 
+# Patch in the fix for unlimited resource allocation of dependency
+# Source: https://github.com/micromatch/braces/commit/415d660c3002d1ab7e63dbf490c9851da80596ff
+Patch:         0001-CVE-2024-4068-fix.patch
+
 BuildRequires: nodejs-devel
 BuildRequires: nodejs-packaging
 BuildRequires: npm
@@ -41,7 +45,7 @@ on the command line when you run your script.
 
 %prep
 %setup -q -n %{npm_name}-%{version}
-
+%patch -P 0 
 %build
 
 # nothing to do

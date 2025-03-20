@@ -4,7 +4,7 @@
 %bcond tests 1
 
 Name:           python-annarchy
-Version:        4.8.2.3
+Version:        4.8.2.5
 Release:        %{autorelease}
 Summary:        Artificial Neural Networks architect
 

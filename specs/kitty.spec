@@ -1,14 +1,14 @@
 %global gomodulesmode GO111MODULE=on
 %global goipath kitty
 
-%ifarch ppc64le s390x
-%bcond test 0
-%else
+%ifarch %{x86_64} %{arm64}
 %bcond test 1
+%else
+%bcond test 0
 %endif
 
 Name:           kitty
-Version:        0.40.0
+Version:        0.40.1
 Release:        %autorelease
 Summary:        Cross-platform, fast, feature full, GPU based terminal emulator
 
@@ -38,7 +38,7 @@ Source6:        https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
-BuildRequires:  golang >= 1.22.0
+BuildRequires:  golang >= 1.23.0
 BuildRequires:  go-rpm-macros
 BuildRequires:  go-vendor-tools
 
@@ -197,8 +197,6 @@ This package contains the documentation for %{name}.
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1 -a3
-
-sed 's/go 1\.23/go 1.22/' -i go.mod
 
 mkdir fonts
 tar -xf %{SOURCE6} -C fonts

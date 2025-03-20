@@ -3,7 +3,7 @@
 %bcond_without  docs
 
 Name:           gcovr
-Version:        8.2
+Version:        8.3
 Release:        %autorelease
 Summary:        A code coverage report generator using GNU gcov
 
@@ -12,7 +12,6 @@ URL:            https://gcovr.com/
 Source0:        https://github.com/gcovr/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  %{py3_dist colorlog}
 %if %{with docs}
 BuildRequires:  %{py3_dist lxml}
@@ -52,13 +51,23 @@ Documentation of gcovr.
 %prep
 %autosetup
 
+# Relax the strict version requirements.
+sed -i -e "s/hatchling==1.26.1/hatchling/" -e "s/hatch-vcs==0.4.0/hatch-vcs/" -e "s/hatch-fancy-pypi-readme==24.1.0/hatch-fancy-pypi-readme/" pyproject.toml
+
+%generate_buildrequires
+# Let hatch-vcs/setuptools_scm determine version outside of SCM
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
+%pyproject_buildrequires
 
 %build
-%py3_build
+# Let hatch-vcs/setuptools_scm determine version outside of SCM
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files gcovr
 
 %if %{with docs}
 # the documentation can only be build **after** gcovr is installed

@@ -10,11 +10,11 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    da732486790670c622aa367eb3dbb7e1619e68be
+%global gh_commit    d331a5ced3d9a2b917baa9841b2211e72f9e780d
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner    sebastianbergmann
 %global gh_project   php-code-coverage
-%global gh_date      2025-03-15
+%global gh_date      2025-03-17
 # Packagist
 %global pk_vendor    phpunit
 %global pk_project   php-code-coverage
@@ -25,7 +25,7 @@
 %global ver_major    12
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        12.0.5
+Version:        12.1.0
 Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
@@ -183,12 +183,15 @@ exit $ret
 %files
 %license LICENSE
 %doc README.md
-%doc ChangeLog-%{ver_major}.0.md
+%doc ChangeLog-%{ver_major}.1.md
 %doc composer.json
 %{php_home}/%{ns_vendor}/%{ns_project}%{ver_major}
 
 
 %changelog
+* Tue Mar 18 2025 Remi Collet <remi@remirepo.net> - 12.1.0-1
+- update to 12.1.0
+
 * Mon Mar 17 2025 Remi Collet <remi@remirepo.net> - 12.0.5-1
 - update to 12.0.5
 

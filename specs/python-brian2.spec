@@ -35,6 +35,9 @@ License:        CECILL-2.0
 URL:            https://briansimulator.org
 Source0:        %forgesource
 
+# Compatibility with the latest setuptools
+Patch:          https://github.com/brian-team/brian2/commit/71a6536.patch
+
 # Drop i686
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -66,7 +69,7 @@ Documentation and examples for %{name}.
 
 
 %prep
-%forgeautosetup
+%forgeautosetup -p1
 
 # remove pre-compiled standalone binary example---the scripts there regenerate it
 rm -rf examples/multiprocessing/standalone307987

@@ -1,7 +1,7 @@
 Name: iptstate
 Summary: A top-like display of IP Tables state table entries
 Version: 2.2.7
-Release: 7%{?dist}
+Release: 8%{?dist}
 Source: https://github.com/jaymzh/iptstate/releases/download/v%{version}/iptstate-%{version}.tar.bz2
 Patch01: 0001-Makefile-respect-LDFLAGS.patch
 Patch02: 0002-Makefile-Use-pkg-config.patch
@@ -42,7 +42,7 @@ display the state table once.
 %make_build
 
 %install
-%make_install PREFIX=%{buildroot}%{_prefix}
+%make_install PREFIX=%{buildroot}%{_prefix} SBIN=%{buildroot}%{_sbindir}
 
 %files
 %doc LICENSE README.md
@@ -50,6 +50,9 @@ display the state table once.
 %{_mandir}/man8/iptstate.*
 
 %changelog
+* Tue Mar 18 2025 Phil Sutter <psutter@redhat.com> - 2.2.7-8
+- Fix for changed _sbindir macro
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.7-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

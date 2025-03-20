@@ -43,6 +43,7 @@ developing applications that use %{name}.
 %cmake \
     -GNinja \
     -DBUILD_TESTING=ON \
+    -DLIB_INSTALL_DIR=%{_libdir}
 %cmake_build
 
 %install

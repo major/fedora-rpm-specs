@@ -2,7 +2,7 @@
 
 Name:           qgis
 Version:        3.42.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
 # http://issues.qgis.org/issues/3789
@@ -168,6 +168,7 @@ sed -i 's/"node": "8 || 9 || 10 || 11 || 12 || 13 || 14 || 15 || 16 || 17 || 18 
 %build
 %cmake \
       %{_cmake_skip_rpath} \
+      %["%{?_lib}" == "lib64" ? "-D LIB_SUFFIX=64" : ""] \
       -D QGIS_LIB_SUBDIR=%{_lib} \
       -D QGIS_MANUAL_SUBDIR=/share/man \
       -D QGIS_CGIBIN_SUBDIR=%{_libexecdir}/%{name} \
@@ -301,6 +302,10 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Tue Mar 18 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.42.0-3
+- Rebuilt for spatialindex 2.1.0
+- Work around removal of LIB_SUFFIX from cmake macro in Fedora 43
+
 * Sun Mar 02 2025 Sandro Mani <manisandro@gmail.com> - 3.42.0-2
 - Rebuild (grass)
 

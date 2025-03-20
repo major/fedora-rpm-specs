@@ -1,6 +1,6 @@
 Name:           ppc64-diag
 Version:        2.7.10
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        PowerLinux Platform Diagnostics
 URL:            https://github.com/power-ras/%{name}
 License:        GPL-2.0-only
@@ -33,9 +33,17 @@ Source5:        rtas_errd.8
 
 # fix paths and permissions
 Patch0:         ppc64-diag-2.7.9-fedora.patch
+
+# fix typo
+Patch1:         ppc64-diag-define.patch
+
 # Upstream fixes
 # Add Power11 support for diag_nvme
 Patch10:        ppc64-diag-2.7.0-diag_vnme-add-power11-support.patch
+
+# Fix build with GCC 15 (C23)
+# https://github.com/power-ras/ppc64-diag/pull/35
+Patch11:        ppc64-diag-2.7.10-stdbool.patch
 
 %description
 This package contains various diagnostic tools for PowerLinux.
@@ -172,6 +180,10 @@ if [ "$1" = "0" ]; then # last uninstall
 fi
 
 %changelog
+* Tue Mar 18 2025 Than Ngo <than@redhat.com> - 2.7.10-4
+- Fix rhbz#2341095 - ppc64-diag: FTBFS in Fedora rawhide/f42
+- Fixed typo
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

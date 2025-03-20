@@ -1,3 +1,7 @@
+# Building python-pydoctor in EPEL requires too many dependencies
+# and doc is not actually required on EPEL side.
+%bcond doc %{undefined rhel}
+
 %global srcname Automat
 %global libname automat
 
@@ -16,8 +20,10 @@ Source0:        %pypi_source
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+%if %{with doc}
 BuildRequires:  python3dist(sphinx-rtd-theme)
 BuildRequires:  python3-pydoctor
+%endif
 
 # removes pieces of sphinx config trying to use git
 # to get branch name or commit
@@ -31,11 +37,13 @@ Provides:       python3-%{libname}
 
 %description -n python3-%{srcname} %{common_description}
 
+%if %{with doc}
 %package -n python-%{srcname}-doc
 Summary:        Automat documentation
 
 %description -n python-%{srcname}-doc
 Documentation for Automat
+%endif
 
 %prep
 %autosetup  -p1 -n %{libname}-%{version}
@@ -49,9 +57,11 @@ sed -i "s/py\.test/pytest/g" tox.ini
 %build
 %pyproject_wheel
 
+%if %{with doc}
 sphinx-build docs html
 # remove the sphinx-build leftovers
 rm -rf html/.{doctrees,buildinfo}
+%endif
 
 %install
 %pyproject_install
@@ -63,9 +73,11 @@ rm -rf html/.{doctrees,buildinfo}
 %files -n python3-%{srcname} -f %{pyproject_files}
 %{_bindir}/automat-visualize
 
+%if %{with doc}
 %files -n python-%{srcname}-doc
 %doc html
 %license LICENSE
+%endif
 
 %changelog
 %autochangelog

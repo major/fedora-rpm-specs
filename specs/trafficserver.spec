@@ -4,7 +4,7 @@
 
 Name:           trafficserver
 Version:        10.0.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Fast, scalable and extensible HTTP/1.1 and HTTP/2 caching proxy server
 
 License:        Apache-2.0
@@ -114,6 +114,7 @@ Trafficserver SELinux policy module
 Summary: Development files for Apache Traffic Server plugins
 BuildArch:           noarch
 Requires: %{name} = %{version}-%{release}
+Requires: yaml-cpp-devel%{?_isa}
 
 %description devel
 The header files for developing plugins for Apache Traffic Server
@@ -280,6 +281,9 @@ fi
 
 
 %changelog
+* Tue Mar 18 2025 Orion Poplawski <orion@nwra.com> - 10.0.4-5
+- Add requires on yaml-cpp to devel sub-package
+
 * Thu Mar 13 2025 Orion Poplawski <orion@nwra.com> - 10.0.4-4
 - Build with system yaml-cpp
 - Add Provides/Requires filtering to exclude internal libraries

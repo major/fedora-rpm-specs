@@ -9,7 +9,6 @@ Summary:        A modern Fortran compiler
 License:        BSD-3-Clause AND Apache-2.0 WITH LLVM-exception
 URL:            https://lfortran.org/
 Source0:        https://github.com/lfortran/lfortran/releases/download/v%{version}/lfortran-%{version}.tar.gz
-#Patch0:         https://patch-diff.githubusercontent.com/raw/lfortran/lfortran/pull/6571.patch
 # https://github.com/lfortran/lfortran/issues/2981
 ExclusiveArch: x86_64
 

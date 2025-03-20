@@ -1,14 +1,15 @@
 %global realname lfe
 
 Name:		erlang-%{realname}
-Version:	2.1.5
+Version:	2.2.0
 Release:	%autorelease
 Summary:	Lisp Flavoured Erlang
 License:	Apache-2.0
 URL:		https://github.com/lfe/%{realname}
 VCS:		git:%{url}.git
 Source0:	%{url}/archive/%{version}/%{realname}-%{version}.tar.gz
-Patch1:		erlang-lfe-0001-Restore-functions-removed-in-pre-R17-Erlang.patch
+Patch:		erlang-lfe-0001-Restore-functions-removed-in-pre-R17-Erlang.patch
+Patch:		erlang-lfe-0002-We-don-t-have-proper-yet.patch
 BuildRequires:	emacs
 BuildRequires:	erlang-proper
 BuildRequires:	erlang-rebar3

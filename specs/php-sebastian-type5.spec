@@ -11,11 +11,11 @@
 %bcond_without       tests
 
 # github
-%global gh_commit    461b9c5da241511a2a0e8f240814fb23ce5c0aac
+%global gh_commit    a8a7e30534b0eb0c77cd9d07e82de1a114389f5e
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   type
-%global gh_date      2024-09-17
+%global gh_date      2025-03-18
 # packagist
 %global pk_vendor    sebastian
 %global pk_project   %{gh_project}
@@ -26,8 +26,8 @@
 %global ns_project   Type
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        5.1.0
-Release:        3%{?dist}
+Version:        5.1.2
+Release:        1%{?dist}
 Summary:        Collection of value objects that represent the types of the PHP type system, v%{major}
 
 License:        BSD-3-Clause
@@ -38,7 +38,6 @@ Source1:        makesrc.sh
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 8.2
-BuildRequires:  php-reflection
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 %if %{with tests}
@@ -51,7 +50,6 @@ BuildRequires:  phpunit11 >= 11.3
 #        "php": ">=8.2",
 Requires:       php(language) >= 8.2
 # from phpcompatinfo report for version 4.0.0
-Requires:       php-reflection
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
 
@@ -116,6 +114,9 @@ exit $ret
 
 
 %changelog
+* Tue Mar 18 2025 Remi Collet <remi@remirepo.net> - 5.1.2-1
+- update to 5.1.2
+
 * Tue Feb  4 2025 Remi Collet <remi@remirepo.net> - 5.1.0-3
 - enable test suite
 

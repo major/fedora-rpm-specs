@@ -3,8 +3,8 @@
 
 # https://github.com/OpenPrinting/ipp-usb
 %global goipath         github.com/OpenPrinting/ipp-usb
-Version:                0.9.29
-%global tag             0.9.29
+Version:                0.9.30
+%global tag             0.9.30
 
 %gometa
 
@@ -114,6 +114,9 @@ install -m 0644 -vp ipp-usb-quirks/* %{buildroot}%{_datadir}/ipp-usb/quirks
 %gopkgfiles
 
 %changelog
+* Tue Mar 18 2025 Zdenek Dohnal <zdohnal@redhat.com> - 0.9.30-1
+- 0.9.30 (fedora#2353036)
+
 * Fri Mar 07 2025 Zdenek Dohnal <zdohnal@redhat.com> - 0.9.29-1
 - golang-github-openprinting-ipp-usb-0.9.29 is available (fedora#2349124)
 

@@ -3,8 +3,8 @@
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 Name:           python-%{pypi_name}
-Version:        1.5.1
-Release:        3%{?dist}
+Version:        1.6.0
+Release:        1%{?dist}
 Summary:        A lean WSGI object-dispatching web framework
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -19,10 +19,8 @@ fast with few dependencies
 
 %package -n python3-%{pypi_name}
 Summary:        A lean WSGI object-dispatching web framework
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 Conflicts:     python2-%{pypi_name} < 1.3.2-5
 
@@ -32,24 +30,27 @@ fast with few dependencies
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
-%files -n python3-%{pypi_name}
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
-%license LICENSE
 %{_bindir}/pecan
 %{_bindir}/gunicorn_pecan
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Mar 18 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.6.0-1
+- 1.6.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

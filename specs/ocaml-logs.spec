@@ -6,31 +6,25 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:           ocaml-logs
-Version:        0.7.0
-Release:        26%{?dist}
+Version:        0.8.0
+Release:        %autorelease
 Summary:        Logging infrastructure for OCaml
 
 License:        ISC
 URL:            https://erratique.ch/software/logs
 VCS:            git:https://erratique.ch/repos/logs.git
 Source:         %{url}/releases/logs-%{version}.tbz
-# Fix the expected number of errors per test
-Patch:          %{name}-test.patch
-# Adapt to changes in ocaml-mtime 2.0.0
-Patch:          %{name}-mtime.patch
-# Fix an error compiling the tests with OCaml 5.1.0
-Patch:          %{name}-ocaml5.1.patch
 
-BuildRequires:  ocaml >= 4.03.0
-BuildRequires:  ocaml-cmdliner-devel
+BuildRequires:  ocaml >= 4.08.0
+BuildRequires:  ocaml-cmdliner-devel >= 1.3.0
 BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-findlib
-BuildRequires:  ocaml-fmt-devel
+BuildRequires:  ocaml-fmt-devel >= 0.9.0
 BuildRequires:  ocaml-lwt-devel
 BuildRequires:  ocaml-mtime-devel
 BuildRequires:  ocaml-ocamlbuild
 BuildRequires:  ocaml-rpm-macros
-BuildRequires:  ocaml-topkg-devel
+BuildRequires:  ocaml-topkg-devel >= 1.0.3
 
 # Do not require ocaml-compiler-libs at runtime
 %global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Warnings
@@ -57,12 +51,8 @@ files for developing applications that use %{name}.
 %prep
 %autosetup -n logs-%{version} -p1
 
-%conf
-# test_lwt needs the thread flag
-sed -i 's/package(lwt)/thread, &/' _tags
-
 %build
-ocaml pkg/pkg.ml build --with-js_of_ocaml false --with-fmt true \
+ocaml pkg/pkg.ml build --with-js_of_ocaml-compiler false --with-fmt true \
   --with-cmdliner true --with-lwt true --with-base-threads true --tests true
 
 %install
@@ -78,88 +68,4 @@ ocaml pkg/pkg.ml test
 %files devel -f .ofiles-devel
 
 %changelog
-* Mon Mar 10 2025 Jerry James <loganjerry@gmail.com> - 0.7.0-26
-- Rebuild for ocaml-fmt 0.10.0
-
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-25
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Thu Jan  9 2025 Jerry James <loganjerry@gmail.com> - 0.7.0-24
-- OCaml 5.3.0 rebuild for Fedora 42
-
-* Tue Oct 08 2024 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-23
-- Rebuild for ocaml-lwt 5.8.0
-
-* Thu Sep 12 2024 Jerry James <loganjerry@gmail.com> - 0.7.0-22
-- Rebuild for ocaml-mtime 2.1.0
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-21
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Wed Jun 19 2024 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-20
-- OCaml 5.2.0 ppc64le fix
-
-* Wed May 29 2024 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-19
-- OCaml 5.2.0 for Fedora 41
-
-* Mon Jan 29 2024 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-18
-- Bump and rebuild
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-17
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-16
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-15
-- OCaml 5.1.1 + s390x code gen fix for Fedora 40
-
-* Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-14
-- OCaml 5.1.1 rebuild for Fedora 40
-
-* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-13
-- OCaml 5.1 rebuild for Fedora 40
-
-* Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 0.7.0-12
-- Add patch to fix building tests with OCaml 5.1.0
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-11
-- OCaml 5.0 rebuild for Fedora 39
-
-* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 0.7.0-10
-- OCaml 5.0.0 rebuild
-- Add patch to adapt to ocaml-mtime 2.0.0
-
-* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-9
-- Rebuild OCaml packages for F38
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Tue Sep 20 2022 Jerry James <loganjerry@gmail.com> - 0.7.0-7
-- Rebuild for ocaml-cmdliner 1.1.1
-
-* Thu Aug 18 2022 Jerry James <loganjerry@gmail.com> - 0.7.0-6
-- Rebuild for ocaml-lwt 5.6.1
-- Add patch to fix the tests
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jul 20 2022 Jerry James <loganjerry@gmail.com> - 0.7.0-4
-- Use new OCaml macros
-
-* Sat Jun 18 2022 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-4
-- OCaml 4.14.0 rebuild
-
-* Fri Feb 04 2022 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-3
-- OCaml 4.13.1 rebuild to remove package notes
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Mon Dec  6 2021 Jerry James <loganjerry@gmail.com> - 0.7.0-1
-- Initial RPM
+%autochangelog

@@ -62,7 +62,7 @@ make OPTIMIZE="%{build_cflags}" LDFLAGS="%{build_ldflags}"
 popd
 
 %install
-make install-bin DESTDIR=%{buildroot} PREFIX=%{_prefix} TARGET="linux2628"
+make install-bin DESTDIR=%{buildroot} PREFIX=%{_prefix} SBINDIR=%{_sbindir} TARGET="linux2628"
 make install-man DESTDIR=%{buildroot} PREFIX=%{_prefix}
 
 install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service

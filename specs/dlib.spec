@@ -5,13 +5,15 @@
 %bcond ctest 1
 
 Name:       dlib
-Version:    19.24.6
+Version:    19.24.8
 Release:    %autorelease
 Summary:    A modern C++ toolkit containing machine learning algorithms
 %forgemeta
 License:    BSL-1.0
 URL:        http://dlib.net
 Source:     %forgesource
+# Fix build issue with GCC 15
+Patch:      https://github.com/davisking/dlib/pull/3067.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake
@@ -104,6 +106,9 @@ mv -v examples/video_frames/license.txt video_frames_license.txt
 # unbundle pybind11, see https://bugzilla.redhat.com/2098694
 rm -r dlib/external/pybind11
 sed -i 's@add_subdirectory(../../dlib/external/pybind11 pybind11_build)@find_package(pybind11 CONFIG)@' tools/python/CMakeLists.txt
+
+# Do not treat warnings as errors when compiling tests
+sed -r -i 's/[[:space:]]+-Werror//' dlib/test/CMakeLists.txt
 
 
 %generate_buildrequires

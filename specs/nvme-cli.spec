@@ -4,8 +4,8 @@
 %global nmlibdir %{_prefix}/lib/NetworkManager
 
 Name:           nvme-cli
-Version:        2.11
-Release:        3%{?dist}
+Version:        2.12
+Release:        1%{?dist}
 Summary:        NVMe management command line interface
 
 License:        GPL-2.0-only
@@ -14,7 +14,7 @@ Source0:        %{url}/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.
 Source1:        99-nvme-nbft-connect.sh
 Source2:        99-nvme-nbft-no-ignore-carrier.conf
 
-BuildRequires:  meson >= 0.50.0
+BuildRequires:  meson >= 0.53
 BuildRequires:  gcc gcc-c++
 BuildRequires:  systemd-devel
 BuildRequires:  systemd-rpm-macros
@@ -24,8 +24,8 @@ BuildRequires:  openssl-devel
 BuildRequires:  kernel-headers
 %endif
 
-BuildRequires:  libnvme-devel >= 1.11
-BuildRequires:  json-c-devel >= 0.13
+BuildRequires:  libnvme-devel >= 1.12
+BuildRequires:  json-c-devel >= 0.14
 
 BuildRequires:  asciidoc
 BuildRequires:  xmlto
@@ -117,6 +117,9 @@ fi
 
 
 %changelog
+* Mon Mar 17 2025 Tomas Bzatek <tbzatek@redhat.com> - 2.12-1
+- Update to 2.12
+
 * Tue Feb 04 2025 Tomas Bzatek <tbzatek@redhat.com> - 2.11-3
 - Add systemd units scriptlets
 - Reload udevd after installing udev rules

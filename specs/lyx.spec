@@ -24,6 +24,9 @@ Source1: lyxrc.dist
 # font metainfo file
 Source20: %{fontname}.metainfo.xml
 
+# fix build with gcc 15
+Patch0: 0001-Fix-compilation-on-gcc-15.patch
+
 %if 0%{?autotools}
 BuildRequires: automake libtool
 %endif
@@ -49,7 +52,7 @@ BuildRequires: hunspell-devel
 BuildRequires: mythes-devel
 BuildRequires: python3-devel
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 10
 BuildRequires: pkgconfig(Qt6Core)
 BuildRequires: pkgconfig(Qt6Widgets)
 BuildRequires: pkgconfig(Qt6Gui)
@@ -68,14 +71,10 @@ BuildRequires: tex(dvips)
 BuildRequires: tex(latex)
 BuildRequires: zlib-devel
 
-Requires(post): texlive
-Requires(postun): texlive
 Requires: %{name}-common = %{version}-%{release}
 Requires: %{fontname}-fonts = %{version}-%{release}
 Requires: hicolor-icon-theme
 Requires: python3
-
-Recommends: texlive-collection-latexrecommended
 
 %if 0%{?fedora}
 # convert doc files to lyx (bug #193858)
@@ -86,6 +85,8 @@ Requires: wv
 Requires: ImageMagick
 Requires: xdg-utils
 Requires: ghostscript
+
+%if %{undefined flatpak}
 ## produce PDF files directly from DVI files
 Requires: tex-dvipdfmx
 ## convert eps to pdf
@@ -104,6 +105,8 @@ Requires: tex(nomencl.sty)
 Requires: tex(simplecv.cls)
 Requires: tex(ulem.sty)
 Requires: tex(xcolor.sty)
+Recommends: texlive-collection-latexrecommended
+%endif
 
 %description
 LyX is a modern approach to writing documents which breaks with the
@@ -223,14 +226,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 # tests/test_filetools error bogus ( see http://bugzilla.redhat.com/723938 )
 make -k check ||:
 
-
-%postun common
-if [ $1 -eq 0 ] ; then
-  texhash >& /dev/null
-fi
-
-%posttrans common
-texhash >& /dev/null
 
 %files
 %doc ANNOUNCE lib/CREDITS NEWS README

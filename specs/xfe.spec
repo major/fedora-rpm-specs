@@ -1,10 +1,12 @@
 %global	hash_thread1	2501673c
 %global	hash_thread2	5d70
 
+%global	main_version	2.0.1
+
 %global	use_gcc_strict_sanitize	0
 
 Name:		xfe
-Version:	2.0.1
+Version:	%{main_version}.respin1
 Release:	1%{?dist}
 Summary:	X File Explorer File Manager
 
@@ -14,8 +16,8 @@ Summary:	X File Explorer File Manager
 # SPDX confirmed
 License:	GPL-2.0-or-later AND Zlib AND MIT
 URL:		http://roland65.free.fr/xfe/
-%dnl Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
-Source0:	https://sourceforge.net/p/xfe/bugs/_discuss/thread/7d14462c76/238d/attachment/%{name}-%{version}.tar.xz
+Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{main_version}.tar.xz
+%dnl Source0:	https://sourceforge.net/p/xfe/bugs/_discuss/thread/7d14462c76/238d/attachment/%{name}-%{version}.tar.xz
 # Temporarily
 # Use system-wide startup-notification: need discuss with upstream
 Patch0:	xfe-2.0-use-system-libsn.patch
@@ -60,7 +62,7 @@ BuildArch:	noarch
 This package contains extra theme files for %{name}.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{main_version}
 %patch -P0 -p1 -b .syssn
 
 for f in \
@@ -169,6 +171,9 @@ ln -sf ../../../%{_sysconfdir}/xferc %{buildroot}%{_datadir}/%{name}/xferc
 %exclude	%{_datadir}/%{name}/icons/gnome*-theme/
 
 %changelog
+* Tue Mar 18 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.1.respin1-1
+- 2.0.1 respin
+
 * Sun Jan 19 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.1-1
 - 2.0.1
 

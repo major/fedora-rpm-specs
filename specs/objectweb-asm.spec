@@ -71,11 +71,8 @@ done
 %install
 %mvn_install
 
-%jpackage_script org.objectweb.asm.xml.Processor "" "" %{name}/asm:%{name}/asm-attrs:%{name}/asm-util %{name}-processor true
-
 %files -f .mfiles
 %license LICENSE.txt
-%{_bindir}/%{name}-processor
 
 %changelog
 %autochangelog

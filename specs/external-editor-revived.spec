@@ -9,7 +9,7 @@
 %global extensions_dir %{_libdir}/mozilla/extensions/%{thunderbird_app_id}
 
 Name:           external-editor-revived
-Version:        0.4.0
+Version:        1.0.0
 Release:        %autorelease
 Summary:        Thunderbird extension that allows editing emails in external editors such as Vim
 

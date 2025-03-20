@@ -74,7 +74,8 @@ sed -i '/#include <vector.*/a#include <cstdint>' llama/llama.cpp/src/llama-mmap.
 
 # install dir is off, lib -> lib64
 sed -i -e 's@set(OLLAMA_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib/ollama)@set(OLLAMA_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib64/ollama)@' CMakeLists.txt
-
+echo -e 'package discover\nvar LibOllamaPath string = "/usr/lib64/ollama"' > discover/path.go
+sed -i -e 's@"lib/ollama"@"lib64/ollama"@' ml/backend/ggml/ggml/src/ggml.go
 
 %generate_buildrequires
 %go_generate_buildrequires

@@ -1,17 +1,12 @@
 Name:               python-slackclient
-Version:            3.34.0
-Release:            3%{?dist}
+Version:            3.35.0
+Release:            1%{?dist}
 Summary:            Slack Developer Kit for Python
 
 # SPDX
 License:            MIT
 URL:                https://github.com/slackapi/python-slack-sdk
 Source0:            %{url}/archive/v%{version}/python-slack-sdk-%{version}.tar.gz
-
-# Remove pytest-runner from build-system.requires
-# https://github.com/slackapi/python-slack-sdk/pull/1659
-# https://fedoraproject.org/wiki/Changes/DeprecatePythonPytestRunner
-Patch:              %{url}/pull/1659.patch
 
 BuildArch:          noarch
 
@@ -42,21 +37,6 @@ Obsoletes: python3-slackclient+optional < 3.26.2-1
 %autosetup -n python-slack-sdk-%{version} -p1
 # Remove prebuilt HTML documentation with bundled and precompiled JavaScript
 rm -rf docs docs-v*
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-sed -r -i \
-    's/^([[:blank:]]*)("(pytest-cov|codecov|flake8|black)[<>=";])/\1# \2/' \
-    setup.py
-# Not yet packaged; we will just skip the tests that require them:
-sed -r -i 's/^([[:blank:]]*)("(moto|Flask-Sockets)[<>=";])/\1# \2/' setup.py
-# Direct dependencies on these are only to pin versions to work around issues
-# in dependencies we have already removed above for various reasons. We cannot
-# respect the upper bounds on these versions; remove the direct dependencies
-# entirely.
-sed -r -i \
-    's/^([[:blank:]])*("(click|Flask|Werkzeug|itsdangerous|Jinja2)[<>=";])/\1# \2/' \
-    setup.py
-# Remove preemptive version upper-bounds that we cannot respect.
-sed -r -i 's/^([[:blank:]]*"(pytest).*),<.*"/\1"/' setup.py
 
 %generate_buildrequires
 %pyproject_buildrequires -x testing
@@ -78,12 +58,16 @@ k="${k-}${k+ and }not test_start_raises_an_error_if_rtm_ws_url_is_not_returned"
     --ignore-glob='integration_tests/*' \
     --ignore-glob='*/test_amazon_s3.py' \
     --ignore-glob='*/socket_mode/test_interactions_*' \
-    --ignore-glob='*/rtm/test_rtm_client*'
+    --ignore-glob='*/rtm/test_rtm_client*' \
+    --ignore-glob='*test_async_sqlalchemy.py'
 
 %files -n python3-slackclient -f %{pyproject_files}
 %doc README.md
 
 %changelog
+* Tue Mar 18 2025 Gwyn Ciesla <gwync@protonmail.com> - 3.35.0-1
+- 3.35.0
+
 * Sat Feb 22 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.34.0-3
 - Remove pytest-runner from build-system.requires
 

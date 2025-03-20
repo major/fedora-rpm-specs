@@ -8,19 +8,17 @@ Python GUI module to build widgets for Emacs.}
 
 Name:           python-%{srcname}
 Version:        0.0.5
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        EPC (RPC stack for Emacs Lisp) for Python
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            https://python-epc.readthedocs.org/
 Source0:        https://github.com/tkf/%{name}/archive/v%{version}/%{srcname}-%{version}.tar.gz
+# Drop nose dependency
+Patch0:         %{name}-0.0.5-nose.patch
 
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist nose}
-BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist sexpdata}
 BuildArch:      noarch
 
 %description
@@ -37,32 +35,36 @@ Requires:       %{py3_dist sexpdata}
 
 
 %prep
-%autosetup
+%autosetup -p0
 
-# Remove bundled egg-info
-rm -rf *.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires -r
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{srcname}
 
 
 %check
-pytest
+%{py3_test_envvars} %{python3} -m unittest
 
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
 %license COPYING
-%{python3_sitelib}/%{srcname}/
-%{python3_sitelib}/%{srcname}-*.egg-info
 
 
 %changelog
+* Tue Mar 18 2025 Mohamed El Morabity <melmorabity@fedoraproject.org> - 0.0.5-17
+- Switch to new Python packaging guidelines
+- Drop BuildRequires on nose (RHBZ #2349842)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

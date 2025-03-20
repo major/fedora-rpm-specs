@@ -12,8 +12,8 @@
 %global debug_package %{nil}
 
 Name:           python-nanobind
-Version:        2.4.0
-Release:        10%{?dist}
+Version:        2.5.0
+Release:        1%{?dist}
 Summary:        Tiny and efficient C++/Python bindings
 
 License:        BSD-3-Clause
@@ -110,6 +110,9 @@ popd
 
 
 %changelog
+* Tue Mar 18 2025 Konrad Kleine <kkleine@redhat.com> - 2.5.0-1
+- Update to nanobind 2.5.0
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

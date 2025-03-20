@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.14.0
 %define specversion 6.14.0
 %define patchversion 6.14
-%define pkgrelease 0.rc7.56
+%define pkgrelease 0.rc7.20250318git76b6905c11fd.57
 %define kversion 6
-%define tarfile_release 6.14-rc7
+%define tarfile_release 6.14-rc7-67-g76b6905c11fd
 # This is needed to do merge window version magic
 %define patchlevel 14
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc7.56%{?buildid}%{?dist}
+%define specrelease 0.rc7.20250318git76b6905c11fd.57%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.14.0
 
@@ -4212,10 +4212,49 @@ fi\
 #
 #
 %changelog
-* Mon Mar 17 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc7.56]
+* Tue Mar 18 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.14.0-0.rc7.20250318git76b6905c11fd.57]
+- redhat: move dist-relase-check behind new variable (Jan Stancek)
+
+* Tue Mar 18 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc7.76b6905c11fd.57]
 - apply -Wno-error=unterminated-string-initialization temporarily (Thorsten Leemhuis)
 - include/linux: Adjust headers for C23 (Jakub Jelinek)
 - x86/insn_decoder_test: allow longer symbol-names (David Rheinsberg)
+
+* Tue Mar 18 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc7.76b6905c11fd.56]
+- redhat/configs: automotive: Disable CONFIG_USERFAULTFD config (Dorinda Bassey)
+- Revert "be2iscsi: remove unsupported device IDs" (Scott Weaver)
+- Revert "megaraid_sas: remove deprecated pci-ids" (Scott Weaver)
+- Revert "[scsi] megaraid_sas: re-add certain pci-ids" (Scott Weaver)
+- media: ov08x40: Extend sleep after reset to 5 ms (Hans de Goede)
+- media: ov08x40: Log chip ID when identifying the chip (Hans de Goede)
+- media: ov08x40: Fix value of reset GPIO when requesting it (Hans de Goede)
+- redhat/configs: automotive: Disable VLAN_8021Q_GVRP config (Dorinda Bassey)
+- redhat/configs: automotive: Disable DCB and MPLS configs (Dorinda Bassey)
+- redhat/configs: automotive: Disable IEEE 802.15.4 config (Dorinda Bassey)
+- redhat/configs: automotive: Disable various network classification features (Dorinda Bassey)
+- redhat/configs: automotive: Disable the SMBFS file system (Dorinda Bassey)
+- redhat/configs: automotive: Disable Myricom network adapters (Dorinda Bassey)
+- redhat/configs: automotive: Disable USB4 Ethernet config (Dorinda Bassey)
+- redhat/configs: automotive: Disable the Mellanox SwitchX core driver (Dorinda Bassey)
+- redhat/configs: automotive: Disable network storage related protocols (Dorinda Bassey)
+- redhat/configs: automotive: Disable lightweight tunneling with BPF (Dorinda Bassey)
+- redhat/configs: automotive: Disable RADOS block device configs (Dorinda Bassey)
+- redhat/configs: automotive: Disable switchdev driver framework (Dorinda Bassey)
+- redhat/configs: automotive: Disable network packet generator (Dorinda Bassey)
+- redhat/configs: automotive: Disable NET_CLS_ACT and PSAMPLE configs (Dorinda Bassey)
+- redhat/configs: automotive: Disable BPF STREAM_PARSER (Dorinda Bassey)
+- redhat/configs: automotive: Disable Open vSwitch and NET_NSH configs (Dorinda Bassey)
+- redhat/configs: automotive: Disable IP Virtual Server configs (Dorinda Bassey)
+- redhat/configs: automotive: Disable IP set support (Dorinda Bassey)
+- redhat/configs: automotive: Disable NetLabel subsystem support (Dorinda Bassey)
+- redhat/configs: automotive: Disable TLS Protocol (Dorinda Bassey)
+- redhat/configs: automotive: Disable Advanced TCP Congestion Control (Dorinda Bassey)
+- redhat/configs: automotive: Disable XDP Socket Protocol (Dorinda Bassey)
+- redhat/configs: delete CONFIG_USB_ONBOARD_HUB and use CONFIG_USB_ONBOARD_DEV instead (Desnes Nunes)
+- redhat: check release commit is present for dist-{release-tag,git} (Jan Stancek)
+- Revert "qla4xxx: Remove deprecated PCI IDs from RHEL 8" (Scott Weaver)
+- Re-enable vxcan (CONFIG_CAN_VXCAN) for automotive (Radu Rendec)
+- Linux v6.14.0-0.rc7.76b6905c11fd
 
 * Mon Mar 17 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc7.55]
 - Linux v6.14.0-0.rc7

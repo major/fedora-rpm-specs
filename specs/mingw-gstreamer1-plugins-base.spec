@@ -10,6 +10,8 @@ Summary:        Cross compiled GStreamer1 media framework base plug-ins
 License:        LGPL-2.0-or-later
 URL:            http://gstreamer.freedesktop.org/
 Source:         http://gstreamer.freedesktop.org/src/gst-plugins-base/gst-plugins-base-%{version}.tar.xz
+# Fix build
+Patch0:         gst-plugins-base-build.patch
 
 BuildArch:      noarch
 

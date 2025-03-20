@@ -16,8 +16,8 @@
 %bcond_with          defcmd
 %endif
 
-%global gh_commit    2845e49082ef7acc4a71a2ef71bbf32f31da22c9
-%global gh_date      2025-03-07
+%global gh_commit    ef9ca85556e4142ee2ca05ffb5afbe4303da20ac
+%global gh_date      2025-03-18
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -30,7 +30,7 @@
 %global ver_major    12
 %global ver_minor    0
 
-%global upstream_version 12.0.7
+%global upstream_version 12.0.8
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -52,7 +52,7 @@ BuildRequires:  php(language) >= 8.3
 BuildRequires:  (php-composer(myclabs/deep-copy) >= 1.13.0            with php-composer(myclabs/deep-copy) <  2)
 BuildRequires:  (php-composer(phar-io/manifest) >= 2.0.4              with php-composer(phar-io/manifest) < 3)
 BuildRequires:  (php-composer(phar-io/version) >= 3.2.1               with php-composer(phar-io/version) <  4)
-BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 12.0.4    with php-composer(phpunit/php-code-coverage) < 13)
+BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 12.1.0    with php-composer(phpunit/php-code-coverage) < 13)
 BuildRequires:  (php-composer(phpunit/php-file-iterator) >= 6.0.0     with php-composer(phpunit/php-file-iterator) < 7)
 BuildRequires:  (php-composer(phpunit/php-invoker) >= 6.0.0           with php-composer(phpunit/php-invoker) < 7)
 BuildRequires:  (php-composer(phpunit/php-text-template) >= 5.0.0     with php-composer(phpunit/php-text-template) < 6)
@@ -64,7 +64,7 @@ BuildRequires:  (php-composer(sebastian/environment) >= 8.0.0         with php-c
 BuildRequires:  (php-composer(sebastian/exporter) >= 7.0.0            with php-composer(sebastian/exporter) < 8)
 BuildRequires:  (php-composer(sebastian/global-state) >= 8.0.0        with php-composer(sebastian/global-state) < 9)
 BuildRequires:  (php-composer(sebastian/object-enumerator) >= 7.0.0   with php-composer(sebastian/object-enumerator) < 8)
-BuildRequires:  (php-composer(sebastian/type) >= 6.0.0                with php-composer(sebastian/type) < 7)
+BuildRequires:  (php-composer(sebastian/type) >= 6.0.2                with php-composer(sebastian/type) < 7)
 BuildRequires:  (php-composer(sebastian/version) >= 6.0.0             with php-composer(sebastian/version) < 7)
 BuildRequires:  (php-composer(staabm/side-effects-detector) >= 1.0.5  with php-composer(staabm/side-effects-detector) < 2)
 BuildRequires:  php-dom
@@ -87,7 +87,7 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "myclabs/deep-copy": "^1.13.0",
 #        "phar-io/manifest": "^2.0.4",
 #        "phar-io/version": "^3.2.1",
-#        "phpunit/php-code-coverage": "^12.0.4",
+#        "phpunit/php-code-coverage": "^12.1.0",
 #        "phpunit/php-file-iterator": "^6.0.0",
 #        "phpunit/php-invoker": "^6.0.0",
 #        "phpunit/php-text-template": "^5.0.0",
@@ -99,7 +99,7 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "sebastian/exporter": "^7.0.0",
 #        "sebastian/global-state": "^8.0.0",
 #        "sebastian/object-enumerator": "^7.0.0",
-#        "sebastian/type": "^6.0.0",
+#        "sebastian/type": "^6.0.2",
 #        "sebastian/version": "^6.0.0",
 #        "staabm/side-effects-detector": "^1.0.5"
 Requires:       php(language) >= 8.3
@@ -113,7 +113,7 @@ Requires:       php-xmlwriter
 Requires:       (php-composer(myclabs/deep-copy) >= 1.13.0            with php-composer(myclabs/deep-copy) <  2)
 Requires:       (php-composer(phar-io/manifest) >= 2.0.4              with php-composer(phar-io/manifest) < 3)
 Requires:       (php-composer(phar-io/version) >= 3.2.1               with php-composer(phar-io/version) < 4)
-Requires:       (php-composer(phpunit/php-code-coverage) >= 12.0.4    with php-composer(phpunit/php-code-coverage) < 13)
+Requires:       (php-composer(phpunit/php-code-coverage) >= 12.1.0    with php-composer(phpunit/php-code-coverage) < 13)
 Requires:       (php-composer(phpunit/php-file-iterator) >= 6.0.0     with php-composer(phpunit/php-file-iterator) < 7)
 Requires:       (php-composer(phpunit/php-invoker) >= 6.0.0           with php-composer(phpunit/php-invoker) < 7)
 Requires:       (php-composer(phpunit/php-text-template) >= 5.0.0     with php-composer(phpunit/php-text-template) < 6)
@@ -125,7 +125,7 @@ Requires:       (php-composer(sebastian/environment) >= 8.0.0         with php-c
 Requires:       (php-composer(sebastian/exporter) >= 7.0.0            with php-composer(sebastian/exporter) < 8)
 Requires:       (php-composer(sebastian/global-state) >= 8.0.0        with php-composer(sebastian/global-state) < 9)
 Requires:       (php-composer(sebastian/object-enumerator) >= 7.0.0   with php-composer(sebastian/object-enumerator) < 8)
-Requires:       (php-composer(sebastian/type) >= 6.0.0                with php-composer(sebastian/type) < 7)
+Requires:       (php-composer(sebastian/type) >= 6.0.2                with php-composer(sebastian/type) < 7)
 Requires:       (php-composer(sebastian/version) >= 6.0.0             with php-composer(sebastian/version) < 7)
 Requires:       (php-composer(staabm/side-effects-detector) >= 1.0.5  with php-composer(staabm/side-effects-detector) < 2)
 # recommends latest versions
@@ -282,6 +282,11 @@ exit $ret
 
 
 %changelog
+* Tue Mar 18 2025 Remi Collet <remi@remirepo.net> - 12.0.8-1
+- update to 12.0.8
+- raise dependency on phpunit/php-code-coverage 12.1.0
+- raise dependency on sebastian/type 6.0.2
+
 * Sat Mar  8 2025 Remi Collet <remi@remirepo.net> - 12.0.7-1
 - update to 12.0.7
 - raise dependency on sebastian/comparator 7.0.1

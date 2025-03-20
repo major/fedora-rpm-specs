@@ -5,7 +5,7 @@
 
 # https://github.com/go-errors/errors
 %global goipath         github.com/go-errors/errors
-Version:                1.1.1
+Version:                1.5.1
 
 %gometa
 
@@ -29,6 +29,7 @@ Summary:        Errors with stacktraces for Go
 License:        MIT
 URL:            %{gourl}
 Source0:        %{gosource}
+Patch01:        0001-Fix-issues.patch
 
 %description
 %{common_description}
@@ -37,6 +38,7 @@ Source0:        %{gosource}
 
 %prep
 %goprep
+%autopatch -p1
 
 %install
 %gopkginstall

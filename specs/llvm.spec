@@ -239,7 +239,7 @@
 #region main package
 Name:		%{pkg_name_llvm}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -2571,6 +2571,7 @@ fi
     clang++
     clang-cl
     clang-cpp
+    clang-scan-deps
 }}
 %{install_bindir}/clang-%{maj_ver}
 
@@ -2671,7 +2672,6 @@ fi
     clang-refactor
     clang-reorder-fields
     clang-repl
-    clang-scan-deps
     clang-sycl-linker
     clang-tidy
     clangd
@@ -3015,6 +3015,9 @@ fi
 
 #region changelog
 %changelog
+* Tue Mar 18 2025 Nikita Popov <npopov@redhat.com> - 20.1.0-2
+- Move clang-scan-deps to clang package (rhbz#2353000)
+
 * Wed Mar 05 2025 Nikita Popov <npopov@redhat.com> - 20.1.0-1
 - Update to LLVM 20.1.0
 

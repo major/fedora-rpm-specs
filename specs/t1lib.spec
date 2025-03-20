@@ -1,7 +1,7 @@
 Summary:        PostScript Type 1 font rasterizer
 Name:           t1lib
 Version:        5.1.2
-Release:        40%{?dist}
+Release:        41%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
 URL:            ftp://sunsite.unc.edu/pub/Linux/libs/graphics/t1lib-%{version}.lsm
@@ -58,7 +58,6 @@ This package contains static libraries for %{name}.
 
 %prep
 %autosetup -p1
-
 # use debian patches directly instead of duplicating them
 #patch -p1 < debian/patches/segfault.diff -b -z .segf
 patch -p1 < debian/patches/no-config.diff
@@ -70,8 +69,10 @@ touch -r Changes Changes.utf8
 mv Changes.utf8 Changes
 
 %build
+%if 0%{?fedora} > 41 || 0%{?rhel} > 10
+export CFLAGS="%{optflags} -std=gnu17"
+%endif
 %configure
-
 # remove rpaths
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
@@ -83,28 +84,25 @@ ln README.t1lib-%{version} README
 sed -e 's;/usr/share/X11/fonts;%{_datadir}/X11/fonts;' \
   -e 's;/usr/share/fonts/type1;%{_datadir}/fonts %{_datadir}/texmf/fonts;' \
   -e 's;/etc/t1lib/;%{_datadir}/t1lib/;' \
- debian/t1libconfig > t1libconfig
+  debian/t1libconfig > t1libconfig
 touch -r README.t1lib-%{version} t1libconfig
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL='install -p'
-rm $RPM_BUILD_ROOT%{_libdir}/libt1*.la
-chmod a+x $RPM_BUILD_ROOT%{_libdir}/libt1*.so.*
+%make_install
+find %{buildroot}%{_libdir}/ -name \*.la -delete
+chmod a+x %{buildroot}%{_libdir}/libt1*.so.*
 
-mkdir -p $RPM_BUILD_ROOT%{_mandir}/man{1,5,8}
-install -p -m 644 debian/man/FontDatabase.5 $RPM_BUILD_ROOT%{_mandir}/man5/
-install -p -m 644 debian/man/t1libconfig.8 $RPM_BUILD_ROOT%{_mandir}/man8/
-install -p -m 644 debian/man/type1afm.1 $RPM_BUILD_ROOT%{_mandir}/man1/
-install -p -m 644 debian/man/xglyph.1 $RPM_BUILD_ROOT%{_mandir}/man1/
-touch -r README.t1lib-%{version} $RPM_BUILD_ROOT%{_mandir}/man?/*.*
+mkdir -p %{buildroot}%{_mandir}/man{1,5,8}
+install -p -m 644 debian/man/FontDatabase.5 %{buildroot}%{_mandir}/man5/
+install -p -m 644 debian/man/t1libconfig.8 %{buildroot}%{_mandir}/man8/
+install -p -m 644 debian/man/type1afm.1 %{buildroot}%{_mandir}/man1/
+install -p -m 644 debian/man/xglyph.1 %{buildroot}%{_mandir}/man1/
+touch -r README.t1lib-%{version} %{buildroot}%{_mandir}/man?/*.*
 
-mkdir -p $RPM_BUILD_ROOT%{_sbindir}
-install -p -m 755 t1libconfig $RPM_BUILD_ROOT%{_sbindir}/
+install -p -m 755 -D t1libconfig %{buildroot}%{_sbindir}/t1libconfig
 
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/t1lib/
-touch $RPM_BUILD_ROOT%{_datadir}/t1lib/{FontDatabase,t1lib.config}
-
+mkdir -p %{buildroot}%{_datadir}/t1lib/
+touch %{buildroot}%{_datadir}/t1lib/{FontDatabase,t1lib.config}
 
 %post
 %{?ldconfig}
@@ -139,6 +137,9 @@ touch $RPM_BUILD_ROOT%{_datadir}/t1lib/{FontDatabase,t1lib.config}
 %{_libdir}/libt1x.a
 
 %changelog
+* Tue Mar 18 2025 Terje Rosten <terjeros@gmail.com> - 5.1.2-41
+- Fix build with GCC 15
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.2-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

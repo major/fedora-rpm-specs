@@ -43,7 +43,7 @@
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: 12%{?dist}
+Release: 14%{?dist}
 URL: http://www.openssh.com/portable.html
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz.asc
@@ -432,8 +432,8 @@ fi
 	--sysconfdir=%{_sysconfdir}/ssh \
 	--libexecdir=%{_libexecdir}/openssh \
 	--datadir=%{_datadir}/openssh \
-	--with-default-path=/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin \
-	--with-superuser-path=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin \
+	--with-default-path=/usr/local/bin:/usr/bin \
+	--with-superuser-path=/usr/local/bin:/usr/bin \
 	--with-privsep-path=%{_datadir}/empty.sshd \
 	--disable-strip \
 	--without-zlib-version-check \
@@ -671,6 +671,15 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
+* Tue Mar 18 2025 Zbigniew Jędrzejewski-Szmek  <zbyszek@in.waw.pl> - 9.9p1-14
+- Remove /usr/local/sbin from the default path too
+
+* Tue Mar 18 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.9p1-13
+- Remove /usr/sbin from the default path
+  Resolves: rhbz#2352387
+- Export and accept COLORTERM
+  Resolves: rhbz#2352653
+
 * Thu Mar 06 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.9p1-12
 - Update ssh-keysign permission for RPM linter
 

@@ -80,6 +80,8 @@ popd
 cp %{SOURCE2} .
 
 %build
+%set_build_flags
+export CFLAGS="$CFLAGS -std=gnu99"
 autoreconf -iv
 %configure \
     --enable-smi \

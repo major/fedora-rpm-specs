@@ -3,8 +3,8 @@
 %global         api_version     1.0
 
 Name:           mingw-gstreamer1-plugins-good
-Version:        1.25.1
-Release:        2%{?dist}
+Version:        1.26.0
+Release:        1%{?dist}
 Summary:        Cross compiled GStreamer1 plug-ins good
 
 License:        LGPL-2.0-or-later
@@ -277,6 +277,9 @@ rm -rf %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 
 
 %changelog
+* Tue Mar 18 2025 Sandro Mani <manisandro@gmail.com> - 1.26.0-1
+- Update to 1.26.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.25.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -3,8 +3,8 @@
 %global forgeurl https://github.com/facebook/rocksdb
 
 Name:    rocksdb
-Version: 9.3.1
-Release: 4%{?dist}
+Version: 9.11.1
+Release: 1%{?dist}
 Summary: A Persistent Key-Value Store for Flash and RAM Storage
 
 # Automatically converted from old format: GPLv2 or ASL 2.0 and BSD - review is highly recommended.
@@ -19,6 +19,9 @@ Patch1: shared-liburing.patch
 Patch2: https://sources.debian.org/data/main/r/rocksdb/7.6.0-2/debian/patches/no_rpath.patch
 
 Patch3: disable-static.patch
+
+# Fix GCC 15 compile errors
+Patch4: https://patch-diff.githubusercontent.com/raw/facebook/rocksdb/pull/13437.patch
 
 BuildRequires: gcc-c++
 BuildRequires: cmake
@@ -68,6 +71,7 @@ Development files for RocksDB.
 %patch -P 1 -p1
 %patch -P 2 -p1
 %patch -P 3 -p1
+%patch -P 4 -p1
 
 %build
 %cmake \
@@ -109,8 +113,8 @@ install -m 755 %{__cmake_builddir}/tools/sst_dump %{buildroot}%{_bindir}/sst_dum
 %license COPYING
 %license LICENSE.Apache
 %license LICENSE.leveldb
-%{_libdir}/librocksdb.so.9
-%{_libdir}/librocksdb.so.9.3.1
+%{_libdir}/librocksdb.so.10
+%{_libdir}/librocksdb.so.10.1.0
 
 
 %files tools
@@ -137,6 +141,13 @@ install -m 755 %{__cmake_builddir}/tools/sst_dump %{buildroot}%{_bindir}/sst_dum
 
 
 %changelog
+* Tue Mar 18 2025 Jonny Heggheim <hegjon@gmail.com> - 9.11.1-1
+- Updated to version 9.11.1
+
+* Tue Mar 18 2025 Jonny Heggheim <hegjon@gmail.com> - 9.3.1-5
+- Fix compile errors on GCC 15
+- Fixes: rhbz#2341284
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.3.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

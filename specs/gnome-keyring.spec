@@ -17,6 +17,11 @@ Summary:        Framework for managing passwords and other secrets
 License:        GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later AND ((GPL-2.0-or-later OR LGPL-3.0-or-later) OR BSD-3-Clause) AND (MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later)
 URL:            https://wiki.gnome.org/Projects/GnomeKeyring
 Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
+# https://gitlab.gnome.org/GNOME/gnome-keyring/-/merge_requests/78
+# https://gitlab.gnome.org/GNOME/gnome-keyring/-/issues/165
+# https://bugzilla.redhat.com/show_bug.cgi?id=2349314
+# Ensure the login collection is registered after unlocking
+Patch:          78.patch
 
 BuildRequires:  pkgconfig(gcr-3) >= %{gcr_version}
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}

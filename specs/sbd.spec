@@ -71,10 +71,6 @@ BuildRequires:  systemd
 Conflicts:      fence-agents-sbd < 4.5.0
 Conflicts:      pacemaker-libs < 2.1.0-6
 
-%if 0%{?rhel}
-ExclusiveArch: i686 x86_64 s390x aarch64 ppc64le
-%endif
-
 %if %{defined systemd_requires}
 %systemd_requires
 %endif

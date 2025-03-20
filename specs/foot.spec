@@ -1,8 +1,9 @@
 %global foot_terminfo foot-extra
 %global default_terminfo foot
+%global fcft_minver 3.3.1
 
 Name:           foot
-Version:        1.20.2
+Version:        1.21.0
 Release:        1%{?dist}
 Summary:        Fast, lightweight and minimalistic Wayland terminal emulator
 
@@ -24,7 +25,7 @@ BuildRequires:  python3
 BuildRequires:  systemd-rpm-macros
 
 BuildRequires:  libutempter
-BuildRequires:  pkgconfig(fcft) >= 3.0.1
+BuildRequires:  pkgconfig(fcft) >= %{fcft_minver}
 BuildRequires:  pkgconfig(fontconfig)
 BuildRequires:  pkgconfig(libutf8proc)
 BuildRequires:  pkgconfig(pixman-1)
@@ -33,11 +34,13 @@ BuildRequires:  pkgconfig(systemd)
 BuildRequires:  pkgconfig(tllist) >= 1.1.0
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-cursor)
-BuildRequires:  pkgconfig(wayland-protocols) >= 1.32
+BuildRequires:  pkgconfig(wayland-protocols) >= 1.41
 BuildRequires:  pkgconfig(wayland-scanner) 
 BuildRequires:  pkgconfig(xkbcommon)
 # require *-static for header-only library
 BuildRequires:  tllist-static
+
+Requires:       fcft%{?_isa} >= %{fcft_minver}
 
 Recommends:     ncurses-base
 Requires:       (ncurses-base >= 6.4-5.20230520 if ncurses-base)
@@ -143,6 +146,9 @@ desktop-file-validate \
 
 
 %changelog
+* Mon Mar 17 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.21.0-1
+- Update to 1.21.0 (#2352903)
+
 * Sun Jan 19 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.20.2-1
 - Update to 1.20.2 (#2338726)
 

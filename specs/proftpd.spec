@@ -17,13 +17,13 @@
 %undefine _strict_symbol_defs_build
 
 #global prever rc4
-%global baserelease 3
+%global baserelease 1
 %global mod_proxy_version 0.9.4
 %global mod_vroot_version 0.9.12
 
 Summary:		Flexible, stable and highly-configurable FTP server
 Name:			proftpd
-Version:		1.3.8c
+Version:		1.3.8d
 Release:		%{?prever:0.}%{baserelease}%{?prever:.%{prever}}%{?dist}
 License:		GPL-2.0-or-later
 URL:			http://www.proftpd.org/
@@ -49,7 +49,6 @@ Patch11:		mod_proxy-old-openssl.patch
 Patch12:		proftpd-1.3.8c-no-engine.patch
 Patch13:		proftpd-1.3.8b-format-overflow.patch
 Patch14:		proftpd-1.3.8c-c23.patch
-Patch15:		https://github.com/proftpd/proftpd/commit/9b2b4a3e.patch
 
 BuildRequires:		coreutils
 BuildRequires:		gcc
@@ -253,10 +252,6 @@ mv contrib/README contrib/README.contrib
 # Fix for C23 compatibility
 # These are already non-issues in proftpd 1.3.9 upstream
 %patch -P 14 -p0 -b .c23
-
-# Avoid NULL pointer dereferences in mod_ls (CVE-2024-57392)
-# https://github.com/proftpd/proftpd/issues/1866
-%patch -P 15 -p1 -b .CVE-2024-57392
 
 # Tweak logrotate script for systemd compatibility (#802178)
 sed -i -e '/killall/s/test.*/systemctl try-reload-or-restart proftpd.service/' \
@@ -495,6 +490,14 @@ fi
 %{_mandir}/man1/ftpwho.1*
 
 %changelog
+* Tue Mar 18 2025 Paul Howarth <paul@city-fan.org> - 1.3.8d-1
+- Update to 1.3.8d
+  - Use of HideNoAccess for SFTP sessions can lead to segfault and/or
+    unexpected behaviour (GH#1855)
+  - SFTP channel allocations can lead to high memory utilization over time
+    (GH#1876)
+  - Avoid NULL pointer dereferences in mod_ls (GH#1866, CVE-2024-57392)
+
 * Thu Feb 13 2025 Paul Howarth <paul@city-fan.org> - 1.3.8c-3
 - Avoid NULL pointer dereferences in mod_ls (CVE-2024-57392)
   - https://github.com/proftpd/proftpd/issues/1866

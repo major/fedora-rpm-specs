@@ -8,7 +8,7 @@
 %global supported_arches aarch64 riscv64 x86_64
 
 Name:           rust-kvm-bindings
-Version:        0.10.0
+Version:        0.11.1
 Release:        %autorelease
 Summary:        Rust FFI bindings to KVM generated using bindgen
 
@@ -38,8 +38,6 @@ use the "%{crate}" crate.
 %doc %{crate_instdir}/CONTRIBUTING.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
-%exclude %{crate_instdir}/CODEOWNERS
-%exclude %{crate_instdir}/coverage_config_*.json
 
 %package     -n %{name}+default-devel
 Summary:        %{summary}

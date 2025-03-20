@@ -9,11 +9,13 @@ Source0: https://github.com/fujitsu/crash-gcore/archive/v%{version}/%{name}-%{ve
 URL: https://github.com/fujitsu/crash-gcore
 ExclusiveOS: Linux
 ExclusiveArch: aarch64 ppc64le x86_64
-BuildRequires: crash-devel >= 5.1.5
+BuildRequires: crash-devel >= 8.0.6
 BuildRequires: gcc
-Requires: crash >= 5.1.5
+Requires: crash >= 8.0.6
 
 Patch0: crash-gcore-1.6.4-coredump-fix-building-failure-due-to-undefined-macro.patch
+# https://github.com/fujitsu/crash-gcore/pull/6
+Patch1: crash-gcore-1.6.4-set_context-third-arg.patch
 
 %description
 Command for creating a core dump file of a user-space task that was

@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 43.7
+Version: 43.8
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -505,6 +505,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 18 2025 Packit <hello@packit.dev> - 43.8-1
+- network: do not use lo device to fetch kickstart (rvykydal)
+
 * Fri Mar 14 2025 Packit <hello@packit.dev> - 43.7-1
 - pyanaconda: storage: fix getting of usable devices (k.koukiou)
 - gui: replace emblem icons removed from adwaita package (rvykydal)

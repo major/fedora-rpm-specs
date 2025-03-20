@@ -35,6 +35,9 @@ Source:         %{pypi_source tox}
 # Adjust setuptools-version specific ifs to check for setuptools version rather than Python version.
 Patch:          fix-tests.patch
 
+# Python 3.14.0a6+ test fix
+Patch:          https://github.com/tox-dev/tox/pull/3500.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

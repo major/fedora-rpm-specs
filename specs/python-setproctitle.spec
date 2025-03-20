@@ -2,7 +2,7 @@
 %global         forgeurl https://github.com/dvarrazzo/py-setproctitle
 
 Name:           python-%{pypi_name}
-Version:        1.3.3
+Version:        1.3.5
 %global tag     version-%{version}
 %forgemeta
 Release:        %{autorelease}
@@ -46,8 +46,6 @@ It's based on PostgreSQL implementation which has proven to be portable.
 
 %prep
 %forgesetup
-# This string which is not used appears causes a crash of tox in fedora builds.
-sed -i 's/pypy-3.8//' tox.ini
 
 %generate_buildrequires
 %pyproject_buildrequires -t
