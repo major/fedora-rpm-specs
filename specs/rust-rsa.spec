@@ -5,7 +5,7 @@
 %global crate rsa
 
 Name:           rust-rsa
-Version:        0.9.7
+Version:        0.9.8
 Release:        %autorelease
 Summary:        Pure Rust RSA implementation
 

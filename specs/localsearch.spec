@@ -32,8 +32,8 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           localsearch
-Version:        3.9~rc
-Release:        2%{?dist}
+Version:        3.9.0
+Release:        1%{?dist}
 Summary:        Localsearch and metadata extractors
 
 # The indexer is a mix of GPLv2 and LGPLv2+ code
@@ -182,6 +182,9 @@ install -D -m 0755 %{SOURCE1} %{buildroot}%{_bindir}/%{name}-flatpak-fixup.sh
 
 
 %changelog
+* Wed Mar 19 2025 nmontero <nmontero@redhat.com> - 3.9.0-1
+- Update to 3.9.0
+
 * Tue Mar 04 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 3.9~rc-2
 - Disable ffmpeg dependency on RHEL
 

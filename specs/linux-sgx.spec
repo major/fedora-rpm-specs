@@ -764,19 +764,25 @@ done
 ############################################################
 # Third, build the AEs (Architectural Enclaves).
 
+# XXX temp override -j1 due to race condition setting up sgxssl headers with QvE
 %global do_build() \
 %if %1 \
-  %make_build -C %2 \\\
-    SGX_SDK=$(pwd)/%{vroot}/sgxsdk \\\
-    %3 %4 \
+  %if "%3" == "qve.so" \
+    %make_build -C %2 \\\
+      SGX_SDK=$(pwd)/%{vroot}/sgxsdk \\\
+      %3 -j1 \
+  %else \
+    %make_build -C %2 \\\
+      SGX_SDK=$(pwd)/%{vroot}/sgxsdk \\\
+      %3 \
+  %endif \
 %endif
 
-%do_build %{_with_enclave_pce} psw/ae/pce pce.so ""
-%do_build %{_with_enclave_ide} external/dcap_source/QuoteGeneration/quote_wrapper/quote/id_enclave/linux id_enclave.so ""
-%do_build %{_with_enclave_qe3} external/dcap_source/QuoteGeneration/quote_wrapper/quote/enclave/linux qe3.so ""
-%do_build %{_with_enclave_tdqe} external/dcap_source/QuoteGeneration/quote_wrapper/tdx_quote/enclave/linux tdqe.so ""
-# XXX temp override -j1 due to race condition setting up sgxssl headers with QvE ""
-%do_build %{_with_enclave_qve} external/dcap_source/QuoteVerification/QvE qve.so "-j1"
+%do_build %{_with_enclave_pce} psw/ae/pce pce.so
+%do_build %{_with_enclave_ide} external/dcap_source/QuoteGeneration/quote_wrapper/quote/id_enclave/linux id_enclave.so
+%do_build %{_with_enclave_qe3} external/dcap_source/QuoteGeneration/quote_wrapper/quote/enclave/linux qe3.so
+%do_build %{_with_enclave_tdqe} external/dcap_source/QuoteGeneration/quote_wrapper/tdx_quote/enclave/linux tdqe.so
+%do_build %{_with_enclave_qve} external/dcap_source/QuoteVerification/QvE qve.so
 
 
 ############################################################

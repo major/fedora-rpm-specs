@@ -125,6 +125,9 @@ Patch10: gcc15-rh1574936.patch
 Patch11: gcc15-d-shared-libphobos.patch
 Patch12: gcc15-pr119006.patch
 
+# https://bugzilla.redhat.com/show_bug.cgi?id=2353158
+Patch100: gcc15-pr119355.patch
+
 Patch900: cross-gcc-intl-filename.patch
 Patch901: cross-gcc-format-config.patch
 
@@ -286,12 +289,12 @@ cd %{srcdir}
 %patch -P10 -p0 -b .rh1574936
 %patch -P11 -p0 -b .shared-libphobos
 
+%patch -P100 -p1 -b .pr119355
+
 %patch -P900 -p0 -b .cross-intl~
 %patch -P901 -p0 -b .format-config~
 
 echo 'Red Hat Cross %{version}-%{cross_gcc_release}' > gcc/DEV-PHASE
-
-echo 'TM_H += $(srcdir)/config/rs6000/rs6000-modes.h' >> gcc/config/rs6000/t-rs6000
 
 ./contrib/gcc_update --touch
 
@@ -383,11 +386,16 @@ export CONFIG_SITE=NONE
 
 CC=gcc
 CXX=g++
-OPT_FLAGS=`echo %{optflags}|sed -e 's/\(-Wp,\)\?-D_FORTIFY_SOURCE=[12]//g'`
+OPT_FLAGS="%{optflags}"
+OPT_FLAGS=`echo $OPT_FLAGS|sed -e 's/-Wp,-U_FORTIFY_SOURCE,-D_FORTIFY_SOURCE=[123]//g'`
+OPT_FLAGS=`echo $OPT_FLAGS|sed -e 's/\(-Wp,\)\?-D_FORTIFY_SOURCE=[123]//g'`
+OPT_FLAGS=`echo $OPT_FLAGS|sed -e 's/\(-Wp,\)\?-U_FORTIFY_SOURCE//g'`
 OPT_FLAGS=`echo $OPT_FLAGS|sed -e 's/-flto=auto//g;s/-flto//g;s/-ffat-lto-objects//g'`
 OPT_FLAGS=`echo $OPT_FLAGS|sed -e 's/-m64//g;s/-m32//g;s/-m31//g'`
 OPT_FLAGS=`echo $OPT_FLAGS|sed -e 's/-mfpmath=sse/-mfpmath=sse -msse2/g'`
 OPT_FLAGS=`echo $OPT_FLAGS|sed -e 's/ -pipe / /g'`
+OPT_FLAGS=`echo $OPT_FLAGS|sed -e 's/-fno-omit-frame-pointer//g;s/-mbackchain//g;s/-mno-omit-leaf-frame-pointer//g'`
+OPT_FLAGS=`echo $OPT_FLAGS|sed -e 's/-Werror=format-security/-Wformat-security/g'`
 OPT_FLAGS=`echo $OPT_FLAGS|sed -e 's/ -g / -g1 /g'`
 %ifarch sparc
 OPT_FLAGS=`echo $OPT_FLAGS|sed -e 's/-mcpu=ultrasparc/-mtune=ultrasparc/g;s/-mcpu=v[78]//g'`
@@ -395,7 +403,6 @@ OPT_FLAGS=`echo $OPT_FLAGS|sed -e 's/-mcpu=ultrasparc/-mtune=ultrasparc/g;s/-mcp
 %ifarch %{ix86}
 OPT_FLAGS=`echo $OPT_FLAGS|sed -e 's/-march=i.86//g'`
 %endif
-OPT_FLAGS=`echo $OPT_FLAGS|sed -e 's/-Werror=format-security/-Wformat-security/g'`
 OPT_FLAGS=`echo "$OPT_FLAGS" | sed -e 's/[[:blank:]]\+/ /g'`
 case "$OPT_FLAGS" in
   *-fasynchronous-unwind-tables*)

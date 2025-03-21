@@ -6,7 +6,7 @@
 
 Name:           gns3-server
 Version:        2.2.53
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Graphical Network Simulator 3
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -61,7 +61,7 @@ sed -i -r 's/Jinja2>=3.1.5,<3.2/jinja2>=2.11.3/' requirements.txt
 sed -i -r 's/jsonschema>=4.23,<4.24/jsonschema>=3.2.0/' requirements.txt
 sed -i -r 's/platformdirs>=2.4.0,<3/platformdirs>=2.4.0/' requirements.txt
 sed -i -r 's/py-cpuinfo>=9.0.0,<10.0/py-cpuinfo>=8.0.0/' requirements.txt
-sed -i -r 's/async-timeout>=5.0.1,<5.1/async-timeout>=4.0.2/' requirements.txt
+sed -i -r "s/async-timeout>=5.0.1,<5.1/async-timeout>=4.0.2; python_version < '3.11'/" requirements.txt
 sed -i -r 's/sentry-sdk.*//g' requirements.txt
 sed -i -r 's/truststore.*//g' requirements.txt
 
@@ -146,6 +146,10 @@ cp -fp %{_datadir}/edk2/ovmf/OVMF_VARS.fd %{python3_sitelib}/gns3server/disks/OV
 %systemd_postun_with_restart gns3.service
 
 %changelog
+* Thu Mar 20 2025 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.53-4
+- depend on async-timeout only for Python releases older than 3.11
+- https://fedoraproject.org/wiki/Changes/DeprecatePythonAsyncTimeout
+
 * Wed Feb 12 2025 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.53-3
 - sysusers.d config file for F42+
 - https://fedoraproject.org/wiki/Changes/RPMSuportForSystemdSysusers

@@ -6,8 +6,8 @@
 %global libsigc_version 2.9.1
 
 Name:           glibmm2.4
-Version:        2.66.7
-Release:        3%{?dist}
+Version:        2.66.8
+Release:        1%{?dist}
 Summary:        C++ interface for the GLib library
 
 # Library sources are LGPL 2.1+, tools used to generate sources are GPL 2+.
@@ -110,6 +110,9 @@ chmod +x $RPM_BUILD_ROOT%{_libdir}/glibmm-%{apiver}/proc/gmmproc
 
 
 %changelog
+* Wed Mar 19 2025 nmontero <nmontero@redhat.com> - 2.66.8-1
+- Update to 2.66.8
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.66.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

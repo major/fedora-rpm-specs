@@ -5,10 +5,10 @@
 
 # replacements for git snapshot dependencies
 %global lsp_types_commit    3512a9f33eadc5402cfab1b8f7340824c8ca1439
-%global salsa_commit        88a1d7774d78f048fbd77d40abca9ebd729fd1f0
+%global salsa_commit        095d8b2b8115c3cf8bf31914dd9ea74648bb7cf9
 
 Name:           ruff
-Version:        0.9.6
+Version:        0.11.0
 Release:        %autorelease
 Summary:        Extremely fast Python linter and code formatter
 
@@ -71,7 +71,9 @@ Source:         %{url}/archive/%{version}/ruff-%{version}.tar.gz
 Source1:        https://github.com/astral-sh/lsp-types/archive/%{lsp_types_commit}/lsp-types-%{lsp_types_commit}.tar.gz
 Source2:        https://github.com/salsa-rs/salsa/archive/%{salsa_commit}/salsa-%{salsa_commit}.tar.gz
 
-# salsa: drop unnecessary dependencies and duplicate workspace definitions
+# downstream-only patches for the vendored salsa snapshot:
+# * drop unnecessary dependencies and duplicate workspace definitions
+# * temporarily downgrade hashlink / hashbrown dependencies to 0.9 / 0.14
 Source3:        avoid-duplicate-workspace-definitions.patch
 
 # * drop non-Linux dependencies (non-upstreamable), generated with:
@@ -84,14 +86,10 @@ Patch:          0002-replace-git-snapshot-dependencies-with-path-dependen.patch
 Patch:          0003-remove-unavailable-custom-allocators.patch
 # * do not strip debuginfo from the built executable (non-upstreamable)
 Patch:          0004-do-not-strip-debuginfo-from-built-binary-executable.patch
-# * relax pyproject-toml-dependency (non-upstreamable):
-Patch:          0005-relax-pyproject-toml-dependency-to-allow-0.11.-0.13.patch
 # * drop unavailable compile-time diagnostics feature for UUIDs (non-upstreamable)
-Patch:          0006-drop-unavailable-features-from-uuid-dependency.patch
-# * temporarily downgrade pep440_rs dependency from 0.7 to 0.6 (non-upstreamable)
-Patch:          0007-temporarily-downgrade-pep440_rs-from-0.7-to-0.6.patch
+Patch:          0005-drop-unavailable-features-from-uuid-dependency.patch
 # * ignore tests in vendored annotate-snippets that hang indefinitely:
-Patch:          0008-ignore-vendored-annotate-snippets-tests-that-hang-in.patch
+Patch:          0006-ignore-vendored-annotate-snippets-tests-that-hang-in.patch
 
 ExcludeArch:	%{ix86}
 
@@ -110,11 +108,11 @@ Provides:       bundled(crate(annotate-snippets)) = 0.11.5
 # with changes applied:           https://github.com/astral-sh/lsp-types/tree/notebook-support
 Provides:       bundled(crate(lsp-types)) = 0.95.1
 
-# git snapshot of unreleased upstream at some point after v0.18.0:
-# https://github.com/salsa-rs/salsa/commit/b14be5c
-Provides:       bundled(crate(salsa)) = 0.18.0
-Provides:       bundled(crate(salsa-macros)) = 0.18.0
-Provides:       bundled(crate(salsa-macro-rules)) = 0.1.0
+# git snapshot of unreleased upstream at some point after v0.19.0:
+# https://github.com/salsa-rs/salsa/commit/095d8b2
+Provides:       bundled(crate(salsa)) = 0.19.0
+Provides:       bundled(crate(salsa-macros)) = 0.19.0
+Provides:       bundled(crate(salsa-macro-rules)) = 0.19.0
 
 %description
 An extremely fast Python linter and code formatter, written in Rust.

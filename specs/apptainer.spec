@@ -31,10 +31,10 @@
 
 # This can be slightly different than %%{version}.
 # For example, it has dash instead of tilde for release candidates.
-%global package_version 1.4.0-rc.2
+%global package_version 1.4.0
 
-%global gocryptfs_version 2.5.0
-%global squashfuse_version 0.5.2
+%global gocryptfs_version 2.5.1
+%global squashfuse_version 0.6.0
 %global e2fsprogs_version 1.47.2
 %global fuse_overlayfs_version 1.14
 %global squashfs_tools_version 4.6.1
@@ -44,7 +44,7 @@
 
 Summary: Application and environment virtualization formerly known as Singularity
 Name: apptainer
-Version: 1.4.0~rc.2
+Version: 1.4.0
 Release: 1%{?dist}
 # See LICENSE.md for first party code (BSD-3-Clause and LBNL BSD)
 # See LICENSE_THIRD_PARTY.md for incorporated code (ASL 2.0)
@@ -106,7 +106,7 @@ Provides: bundled(golang(github.com/Azure/go_ansiterm)) = v0.0.0_20230124172434_
 Provides: bundled(golang(github.com/BurntSushi/toml)) = v1.4.0
 Provides: bundled(golang(github.com/Microsoft/go_winio)) = v0.6.2
 Provides: bundled(golang(github.com/Netflix/go_expect)) = v0.0.0_20220104043353_73e0943537d2
-Provides: bundled(golang(github.com/ProtonMail/go_crypto)) = v1.1.5
+Provides: bundled(golang(github.com/ProtonMail/go_crypto)) = v1.1.6
 Provides: bundled(golang(github.com/VividCortex/ewma)) = v1.2.0
 Provides: bundled(golang(github.com/acarl005/stripansi)) = v0.0.0_20180116102854_5a71ef0e047d
 Provides: bundled(golang(github.com/adigunhammedolalekan/registry_auth)) = v0.0.0_20200730122110_8cde180a3a60
@@ -208,7 +208,7 @@ Provides: bundled(golang(github.com/munnerz/goautoneg)) = v0.0.0_20191010083416_
 Provides: bundled(golang(github.com/networkplumbing/go_nft)) = v0.4.0
 Provides: bundled(golang(github.com/oklog/ulid)) = v1.3.1
 Provides: bundled(golang(github.com/opencontainers/go_digest)) = v1.0.0
-Provides: bundled(golang(github.com/opencontainers/image_spec)) = v1.1.0
+Provides: bundled(golang(github.com/opencontainers/image_spec)) = v1.1.1
 Provides: bundled(golang(github.com/opencontainers/runc)) = v1.2.5
 Provides: bundled(golang(github.com/opencontainers/runtime_spec)) = v1.2.1
 Provides: bundled(golang(github.com/opencontainers/runtime_tools)) = v0.9.1_0.20221107090550_2e043c6bd626
@@ -483,6 +483,9 @@ fi
 %attr(4755, root, root) %{_libexecdir}/%{name}/bin/starter-suid
 
 %changelog
+* Wed Mar 19 2025 Dave Dykstra <dwd@cern.ch> - 1.4.0
+- Update to upstream 1.4.0
+
 * Tue Mar  4 2025 Dave Dykstra <dwd@cern.ch> - 1.4.0~rc.2
 - Update to upstream 1.4.0-rc.2
 - Remove starter patch

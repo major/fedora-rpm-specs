@@ -11,11 +11,11 @@
 %bcond_without       tests
 
 # Sources
-%global gh_commit    ee88b0cdbe74cf8dd3b54940ff17643c0d6543ca
+%global gh_commit    54391c61e4af8078e5b276ab082b6d3c54c9ad64
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   code-unit
-%global gh_date      2024-12-12
+%global gh_date      2025-03-19
 # Packagist
 %global pk_vendor    sebastian
 %global pk_project   %{gh_project}
@@ -26,8 +26,8 @@
 %global ns_project   CodeUnit
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        3.0.2
-Release:        3%{?dist}
+Version:        3.0.3
+Release:        1%{?dist}
 Summary:        Collection of value objects that represent the PHP code units, version %{major}
 
 License:        BSD-3-Clause
@@ -38,8 +38,6 @@ Source1:        makesrc.sh
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 8.2
-BuildRequires:  php-reflection
-BuildRequires:  php-spl
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 %if %{with tests}
@@ -52,8 +50,6 @@ BuildRequires:  phpunit11 >= 11.5
 #        "php": ">=8.2"
 Requires:       php(language) >= 8.2
 # From phpcompatinfo report for 2.0.0
-Requires:       php-reflection
-Requires:       php-spl
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
 
@@ -100,6 +96,7 @@ cat << 'EOF' | tee vendor/autoload.php
 require_once dirname(__DIR__) . '/tests/_fixture/autoload.php';
 require_once dirname(__DIR__) . '/tests/_fixture/file_with_multiple_code_units.php';
 require_once dirname(__DIR__) . '/tests/_fixture/function.php';
+require_once dirname(__DIR__) . '/tests/_fixture/issue_9.php';
 EOF
 
 : Run tests
@@ -122,6 +119,9 @@ exit $ret
 
 
 %changelog
+* Wed Mar 19 2025 Remi Collet <remi@remirepo.net> - 3.0.3-1
+- update to 3.0.3
+
 * Tue Feb  4 2025 Remi Collet <remi@remirepo.net> - 3.0.2-3
 - enable test suite
 

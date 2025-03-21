@@ -1,6 +1,6 @@
 Name:           perl-ExtUtils-Depends
-Version:        0.8001
-Release:        12%{?dist}
+Version:        0.8002
+Release:        1%{?dist}
 Summary:        Easily build XS extensions that depend on XS extensions
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ExtUtils-Depends
@@ -20,6 +20,7 @@ BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(DynaLoader)
 BuildRequires:  perl(File::Find)
 BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(IO::File)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -27,13 +28,13 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(base)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(File::Path)
-BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(lib)
-BuildRequires:  perl(Test::More)
+BuildRequires:  perl(Test::More) >= 0.88
 # Dependencies
 Requires:       perl(DynaLoader)
+Requires:       perl(File::Spec::Functions)
 
 %description
 This module tries to make it easy to build Perl extensions that use
@@ -45,7 +46,7 @@ also a C and an XS interface besides the Perl one.
 %setup -q -n ExtUtils-Depends-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PERLLOCAL=1 NO_PACKLIST=1
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
 %install
@@ -61,6 +62,13 @@ make test
 %{_mandir}/man3/ExtUtils::Depends.3*
 
 %changelog
+* Wed Mar 19 2025 Paul Howarth <paul@city-fan.org> - 0.8002-1
+- Update to 0.8002 (rhbz#2353300)
+  - Fix UNC path bug (CPAN RT#102436)
+  - Fix get_makefile_vars losing path components if space-quoted and more than
+    one dependency, which was breaking CPAN module "true" - dependent on two
+    modules
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8001-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

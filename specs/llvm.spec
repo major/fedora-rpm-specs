@@ -307,7 +307,9 @@ Patch104: 0001-Driver-Give-devtoolset-path-precedence-over-Installe.patch
 #endregion CLANG patches
 
 # Fix LLVMConfig.cmake when symlinks are used.
-Patch105: 0001-cmake-Resolve-symlink-when-finding-install-prefix.patch
+# (https://github.com/llvm/llvm-project/pull/124743 landed in LLVM 21)
+Patch1902: 0001-cmake-Resolve-symlink-when-finding-install-prefix.patch
+Patch2003: 0001-cmake-Resolve-symlink-when-finding-install-prefix.patch
 
 #region LLD patches
 Patch106: 0001-19-Always-build-shared-libs-for-LLD.patch

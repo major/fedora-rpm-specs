@@ -24,7 +24,7 @@ BuildRequires:  python3-devel
 
 %global _description %{expand:
 pytest-qt is a pytest plugin that allows programmers to write tests for
-PyQt5, PyQt6, PySide2 and PySide6 applications.
+PyQt5, PyQt6 and PySide6 applications.
 
 The main usage is to use the qtbot fixture, responsible for handling
 qApp creation as needed and provides methods to simulate user
@@ -51,7 +51,7 @@ Requires:     %{py3_dist pytest-xvfb}
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION="%{version}"
-%pyproject_buildrequires -e %{toxenv}-pyqt6,%{toxenv}-pyside6
+%pyproject_buildrequires -e %{toxenv}-pyqt6,%{toxenv}-pyside6,%{toxenv}-pyqt5
 
 
 %build

@@ -7,7 +7,7 @@
 
 Name:           python-%{pkg_name}
 Version:        2.4.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Can add links and perform other custom replacements to rst
 
 License:        MIT
@@ -65,15 +65,14 @@ rm -rf html/.{doctrees,buildinfo}
 
 %install
 %pyproject_install
+%pyproject_save_files rst
 
 %check
 %pytest
 
-%files -n python3-%{pkg_name}
+%files -n python3-%{pkg_name} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
-%{python3_sitelib}/rst
-%{python3_sitelib}/rst.linker-%{version}.dist-info
 
 %if %{with docs}
 %files -n python-%{pkg_name}-doc
@@ -82,6 +81,9 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Fri Mar 14 2025 Lumír Balhar <lbalhar@redhat.com> - 2.4.0-10
+- Fix compatibility with the latest setuptools
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

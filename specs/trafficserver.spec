@@ -112,7 +112,6 @@ Trafficserver SELinux policy module
 
 %package devel
 Summary: Development files for Apache Traffic Server plugins
-BuildArch:           noarch
 Requires: %{name} = %{version}-%{release}
 Requires: yaml-cpp-devel%{?_isa}
 

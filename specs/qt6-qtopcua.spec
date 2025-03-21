@@ -10,7 +10,7 @@
 Summary: Qt6 - OPC UA component
 Name:    qt6-%{qt_module}
 Version: 6.8.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -105,6 +105,9 @@ Requires: %{name}-devel%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Wed Mar 19 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 6.8.2-2
+- Rebuild for mbedtls 3.6
+
 * Fri Jan 31 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-1
 - 6.8.2
 

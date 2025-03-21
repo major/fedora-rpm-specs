@@ -1,11 +1,10 @@
 %global pypi_name superqt
 %global forgeurl https://github.com/pyapp-kit/superqt
 
-# Disable test. Currently not working.
-%bcond tests 0
+%bcond tests 1
 
 Name:           python-%{pypi_name}
-Version:        0.7.1
+Version:        0.7.2
 Release:        %{autorelease}
 Summary:        Missing widgets and components for PyQt/PySide
 %forgemeta
@@ -65,11 +64,16 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 
 %check
 %if %{with tests}
-# Tests are currently not working with pyqt6
-# https://github.com/pyapp-kit/superqt/blob/4bf73c37f193d8c72290ade7ac6ec6a3131ed943/.github/workflows/test_and_deploy.yml#L33
 export PYTEST_QT_API="pyqt6"
-# test_quantity.py fails with "pkg_resources is deprecated as an API"
-%pytest -v --ignore tests/test_quantity.py
+# Fedora ships /usr/share/qt6/qtlogging.ini with debug messages disabled.
+# With QT_LOGGING_RULES we can overrule those.
+# https://discussion.fedoraproject.org/t/qt-logging-has-been-disabled-qtlogging-ini-needs-to-be-fixed/146868
+export QT_LOGGING_RULES="default.debug=true"
+# Test requires network
+k="${k-}${k+ and }not test_qiconify"
+# Test fails for unknown reason
+k="${k-}${k+ and }not test_wrapped_eliding_label"
+%pytest -r fEs ${k+-k "${k-}"}
 %else
 %pyproject_check_import
 %endif

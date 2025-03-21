@@ -24,7 +24,7 @@ BuildRequires: make
 %description
 Algobox is an initiation to algorithmic software at high school level.
 
-%description(fr)
+%description -l fr
 Algobox est un logiciel d'initiation à l'algorithmique au niveau lycée.
 
 

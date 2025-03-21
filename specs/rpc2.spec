@@ -1,22 +1,23 @@
-%global optflags %{optflags} -fPIC -fPIE
+# cleaning up this code for c23 is non-trivial
+%global optflags %{optflags} -fPIC -fPIE -std=gnu17
 
 Name:           rpc2
-Version:        2.10
-Release:        37%{?dist}
+Version:        2.37
+Release:        1%{?dist}
 Summary:        C library for remote procedure calls over UDP
-# Automatically converted from old format: LGPLv2 - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2
+License:        LGPL-2.0-only
 URL:            http://www.coda.cs.cmu.edu/
-Source0:        ftp://ftp.coda.cs.cmu.edu/pub/rpc2/src/%{name}-%{version}.tar.gz
-Source1:        ftp://ftp.coda.cs.cmu.edu/pub/rpc2/src/%{name}-%{version}.tar.gz.asc
-Patch0:		rpc2-2.10-lua-5.2-fix.patch
-Patch1:		rpc2-2.10-format-security-fix.patch
-Patch2:		rpc2-2.10-lua-5.4.patch
-Patch3:		rpc2-2.10-rp2gen-cflags.patch
-Patch4:		rpc2-c99.patch
-BuildRequires: make
+# This only seems to be maintained inside the coda github
+# git clone https://github.com/cmusatyalab/coda.git
+# cp -a coda/lib-src/rpc2/ rpc2-2.37
+# tar cvfz rpc2-2.37.tar.gz rpc2-2.37
+Source0:        %{name}-%{version}.tar.gz
+Patch2:         rpc2-2.10-lua-5.4.patch
+Patch3:         rpc2-2.37-rp2gen-cflags.patch
+BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  lwp-devel lua-devel flex bison
+BuildRequires:  autoconf, automake, libtool
 
 %description
 The RPC2 library, a C library for remote procedure calls over UDP.
@@ -24,8 +25,7 @@ The RPC2 library, a C library for remote procedure calls over UDP.
 %package        devel
 Summary:        Development files for %{name}
 # headers are LGPLv2, rp2gen is GPLv2
-# Automatically converted from old format: LGPLv2 and GPLv2 - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2 AND GPL-2.0-only
+License:        LGPL-2.0-only AND GPL-2.0-only
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    devel
@@ -34,18 +34,17 @@ developing applications that use %{name}.
 
 %prep
 %setup -q
-%patch -P0 -p1 -b .lua52fix
-%patch -P1 -p1 -b .format-security
 %patch -P2 -p1 -b .lua54
 %patch -P3 -p1 -b .cflags
-%patch -P4 -p1 -b .c99
+
+autoreconf -ifv
 
 %build
 %configure --disable-static --with-lua
 # Don't use rpath!
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
-make %{?_smp_mflags}
+make %{?_smp_mflags} CFLAGS="%{optflags}"
 
 %install
 make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
@@ -65,6 +64,11 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Mar 19 2025 Tom Callaway <spot@fedoraproject.org> - 2.37-1
+- update to 2.37
+- force -std=c17 for old code
+- pass CFLAGS to make explicitly
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

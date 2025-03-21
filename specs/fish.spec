@@ -1,4 +1,4 @@
-%global version_base 4.0.0
+%global version_base 4.0.1
 %dnl %global version_pre beta.1
 %dnl %global gitnum 1
 %dnl %global githash b82d0fcbcc44eb259cf2209b04f7a41c1f324e27
@@ -54,8 +54,6 @@ Patch1001:      1001-cargo-Use-internal-copy-of-rust-pcre2-instead-of-fet.patch
 Patch1002:      1002-cmake-Use-rpm-profile-for-RelWithDebInfo.patch
 ## Already exists in a different form upstream: https://github.com/fish-shell/fish-shell/commit/0c9c5e3a341903a9820c26b04fc9d1c7ed6e4053
 Patch1003:      1003-cargo-Bump-serial_test-to-v3.patch
-## Already exists in a different form upstream: https://github.com/fish-shell/fish-shell/commit/1e069b0fff20b153bc7f824f9f9b820ca4117e1e
-Patch1004:      1004-cargo-Fix-fish-version.patch
 
 # Patches for bundled dependencies (10000+)
 ## For forked pcre2 crate that includes https://github.com/BurntSushi/rust-pcre2/pull/38

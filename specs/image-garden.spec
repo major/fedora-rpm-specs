@@ -1,5 +1,5 @@
 Name:     image-garden
-Version:  0.1.1
+Version:  0.2
 Release:  %autorelease
 Summary:  Tool for creating test virtual machines
 

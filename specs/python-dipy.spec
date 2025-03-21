@@ -163,7 +163,7 @@ ln -s ../pyproject.toml .
     --ignore-glob="/**/io/tests/test_utils.py" \
     --ignore-glob="/**/nn/tests/test_cnn_1denoiser.py" \
     --ignore-glob="/**/tracking/tests/test_tracker.py" \
-    --ignore-glob="/**/tracking/tests/test_tractogen.cpython-313-*-linux-gnu.so" \
+    --ignore-glob="/**/tracking/tests/test_tractogen.cpython-%{python3_version_nodots}-*-linux-gnu.so" \
     --ignore-glob="/**/utils/tests/test_tractogram.py" \
     --pyargs dipy 
 %endif

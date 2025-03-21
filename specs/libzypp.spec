@@ -17,8 +17,8 @@ Requires:       %{_bindir}/%{1}
 # End macro
 
 Name:           libzypp
-Version:        17.34.1
-Release:        5%{?dist}
+Version:        17.36.5
+Release:        1%{?dist}
 Summary:        A package management library
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -31,9 +31,6 @@ Source0:        https://github.com/openSUSE/%{name}/archive/%{version}/%{name}-%
 # Patches proposed upstream
 
 # Fedora specific patches
-## Fix include paths for fcgi headers
-Patch1001:      libzypp-17.23.1-fix-fcgi-header-paths.patch
-Patch1002:      libzypp-17.34.1-set-soversion-for-libzypp-tui.patch
 
 BuildRequires:  %{_bindir}/asciidoctor
 BuildRequires:  %{_bindir}/xsltproc
@@ -44,6 +41,7 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  graphviz
 BuildRequires:  gpgme-devel
+BuildRequires:  pkgconfig(bzip2)
 BuildRequires:  pkgconfig(rpm)
 BuildRequires:  pkgconfig(popt)
 BuildRequires:  pkgconfig(zlib)
@@ -53,8 +51,6 @@ BuildRequires:  pkgconfig(udev)
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libproxy-1.0)
 BuildRequires:  pkgconfig(openssl) >= 1.1
-BuildRequires:  pkgconfig(protobuf) >= 3.8.0
-BuildRequires:  pkgconfig(protobuf-lite) >= 3.8.0
 BuildRequires:  pkgconfig(readline) >= 5.1
 BuildRequires:  pkgconfig(sigc++-2.0)
 BuildRequires:  pkgconfig(yaml-cpp)
@@ -211,14 +207,15 @@ end
 
 %files devel
 %{_includedir}/zypp/
+%{_includedir}/zypp-common/
 %{_includedir}/zypp-core/
 %{_includedir}/zypp-curl/
 %{_includedir}/zypp-media/
 %{_includedir}/zypp-tui/
 %{_libdir}/libzypp*.so
+%{_libdir}/libzypp*.a
 %{_libdir}/pkgconfig/%{name}.pc
-%{_datadir}/cmake/Modules/FindZypp.cmake
-%{_datadir}/cmake/Modules/ZyppCommon.cmake
+%{_libdir}/cmake/Zypp/
 
 %files devel-doc
 %doc %{_docdir}/libzypp/
@@ -250,6 +247,9 @@ end
 
 
 %changelog
+* Wed Mar 19 2025 Neal Gompa <ngompa@fedoraproject.org> - 17.36.5-1
+- Rebase to 17.36.5
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 17.34.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

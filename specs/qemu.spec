@@ -2755,6 +2755,7 @@ popd
 %license COPYING COPYING.LIB LICENSE
 
 %files user-static-aarch64
+%license COPYING COPYING.LIB LICENSE
 %{_bindir}/qemu-aarch64-static
 %{_bindir}/qemu-aarch64_be-static
 %{_datadir}/systemtap/tapset/qemu-aarch64-log-static.stp
@@ -2769,6 +2770,7 @@ popd
 %{_exec_prefix}/lib/binfmt.d/qemu-aarch64_be-static.conf
 
 %files user-static-alpha
+%license COPYING COPYING.LIB LICENSE
 %{_bindir}/qemu-alpha-static
 %{_datadir}/systemtap/tapset/qemu-alpha-log-static.stp
 %{_datadir}/systemtap/tapset/qemu-alpha-simpletrace-static.stp
@@ -2776,6 +2778,7 @@ popd
 %{_exec_prefix}/lib/binfmt.d/qemu-alpha-static.conf
 
 %files user-static-arm
+%license COPYING COPYING.LIB LICENSE
 %{_bindir}/qemu-arm-static
 %{_bindir}/qemu-armeb-static
 %{_datadir}/systemtap/tapset/qemu-arm-log-static.stp
@@ -2790,6 +2793,7 @@ popd
 %{_exec_prefix}/lib/binfmt.d/qemu-armeb-static.conf
 
 %files user-static-hexagon
+%license COPYING COPYING.LIB LICENSE
 %{_bindir}/qemu-hexagon-static
 %{_datadir}/systemtap/tapset/qemu-hexagon-log-static.stp
 %{_datadir}/systemtap/tapset/qemu-hexagon-simpletrace-static.stp
@@ -2797,6 +2801,7 @@ popd
 %{_exec_prefix}/lib/binfmt.d/qemu-hexagon-static.conf
 
 %files user-static-hppa
+%license COPYING COPYING.LIB LICENSE
 %{_bindir}/qemu-hppa-static
 %{_datadir}/systemtap/tapset/qemu-hppa-log-static.stp
 %{_datadir}/systemtap/tapset/qemu-hppa-simpletrace-static.stp
@@ -2804,6 +2809,7 @@ popd
 %{_exec_prefix}/lib/binfmt.d/qemu-hppa-static.conf
 
 %files user-static-loongarch64
+%license COPYING COPYING.LIB LICENSE
 %{_bindir}/qemu-loongarch64-static
 %{_datadir}/systemtap/tapset/qemu-loongarch64-log-static.stp
 %{_datadir}/systemtap/tapset/qemu-loongarch64-simpletrace-static.stp
@@ -2811,6 +2817,7 @@ popd
 %{_exec_prefix}/lib/binfmt.d/qemu-loongarch64-static.conf
 
 %files user-static-m68k
+%license COPYING COPYING.LIB LICENSE
 %{_bindir}/qemu-m68k-static
 %{_datadir}/systemtap/tapset/qemu-m68k-log-static.stp
 %{_datadir}/systemtap/tapset/qemu-m68k-simpletrace-static.stp
@@ -2818,6 +2825,7 @@ popd
 %{_exec_prefix}/lib/binfmt.d/qemu-m68k-static.conf
 
 %files user-static-microblaze
+%license COPYING COPYING.LIB LICENSE
 %{_bindir}/qemu-microblaze-static
 %{_bindir}/qemu-microblazeel-static
 %{_datadir}/systemtap/tapset/qemu-microblaze-log-static.stp
@@ -2830,6 +2838,7 @@ popd
 %{_exec_prefix}/lib/binfmt.d/qemu-microblazeel-static.conf
 
 %files user-static-mips
+%license COPYING COPYING.LIB LICENSE
 %{_bindir}/qemu-mips-static
 %{_bindir}/qemu-mips64-static
 %{_bindir}/qemu-mips64el-static
@@ -2862,6 +2871,7 @@ popd
 %{_exec_prefix}/lib/binfmt.d/qemu-mipsn32el-static.conf
 
 %files user-static-or1k
+%license COPYING COPYING.LIB LICENSE
 %{_bindir}/qemu-or1k-static
 %{_datadir}/systemtap/tapset/qemu-or1k-log-static.stp
 %{_datadir}/systemtap/tapset/qemu-or1k-simpletrace-static.stp
@@ -2869,6 +2879,7 @@ popd
 %{_exec_prefix}/lib/binfmt.d/qemu-or1k-static.conf
 
 %files user-static-ppc
+%license COPYING COPYING.LIB LICENSE
 %{_bindir}/qemu-ppc-static
 %{_bindir}/qemu-ppc64-static
 %{_bindir}/qemu-ppc64le-static
@@ -2888,6 +2899,7 @@ popd
 %endif
 
 %files user-static-riscv
+%license COPYING COPYING.LIB LICENSE
 %{_bindir}/qemu-riscv32-static
 %{_bindir}/qemu-riscv64-static
 %{_datadir}/systemtap/tapset/qemu-riscv32-log-static.stp
@@ -2902,6 +2914,7 @@ popd
 %endif
 
 %files user-static-s390x
+%license COPYING COPYING.LIB LICENSE
 %{_bindir}/qemu-s390x-static
 %{_datadir}/systemtap/tapset/qemu-s390x-log-static.stp
 %{_datadir}/systemtap/tapset/qemu-s390x-simpletrace-static.stp
@@ -2911,6 +2924,7 @@ popd
 %endif
 
 %files user-static-sh4
+%license COPYING COPYING.LIB LICENSE
 %{_bindir}/qemu-sh4-static
 %{_bindir}/qemu-sh4eb-static
 %{_datadir}/systemtap/tapset/qemu-sh4-log-static.stp
@@ -2923,6 +2937,7 @@ popd
 %{_exec_prefix}/lib/binfmt.d/qemu-sh4eb-static.conf
 
 %files user-static-sparc
+%license COPYING COPYING.LIB LICENSE
 %{_bindir}/qemu-sparc-static
 %{_bindir}/qemu-sparc32plus-static
 %{_bindir}/qemu-sparc64-static
@@ -2940,6 +2955,7 @@ popd
 %{_exec_prefix}/lib/binfmt.d/qemu-sparc64-static.conf
 
 %files user-static-x86
+%license COPYING COPYING.LIB LICENSE
 %{_bindir}/qemu-i386-static
 %{_bindir}/qemu-x86_64-static
 %{_datadir}/systemtap/tapset/qemu-i386-log-static.stp
@@ -2955,6 +2971,7 @@ popd
 %endif
 
 %files user-static-xtensa
+%license COPYING COPYING.LIB LICENSE
 %{_bindir}/qemu-xtensa-static
 %{_bindir}/qemu-xtensaeb-static
 %{_datadir}/systemtap/tapset/qemu-xtensa-log-static.stp

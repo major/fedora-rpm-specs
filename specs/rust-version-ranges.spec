@@ -2,21 +2,29 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate pyproject-toml
+%global crate version-ranges
 
-Name:           rust-pyproject-toml
-Version:        0.13.4
+Name:           rust-version-ranges
+Version:        0.1.1
 Release:        %autorelease
-Summary:        Pyproject.toml parser in Rust
+Summary:        Performance-optimized type for generic version ranges and operations on them
 
-License:        MIT
-URL:            https://crates.io/crates/pyproject-toml
+License:        MPL-2.0
+URL:            https://crates.io/crates/version-ranges
 Source:         %{crates_source}
+# * https://github.com/pubgrub-rs/pubgrub/pull/267
+Source2:        https://github.com/pubgrub-rs/pubgrub/raw/216f3fd/LICENSE
+# Manually created patch for downstream crate metadata changes
+# * downgrade ron dev-dependency to the available stable version
+# * drop incomplete package.include setting:
+#   https://github.com/pubgrub-rs/pubgrub/pull/329
+Patch:          version-ranges-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Pyproject.toml parser in Rust.}
+Performance-optimized type for generic version ranges and operations on
+them.}
 
 %description %{_description}
 
@@ -31,7 +39,6 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/Changelog.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -47,45 +54,34 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+glob-devel
+%package     -n %{name}+proptest-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+glob-devel %{_description}
+%description -n %{name}+proptest-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "glob" feature of the "%{crate}" crate.
+use the "proptest" feature of the "%{crate}" crate.
 
-%files       -n %{name}+glob-devel
+%files       -n %{name}+proptest-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+pep639-glob-devel
+%package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+pep639-glob-devel %{_description}
+%description -n %{name}+serde-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "pep639-glob" feature of the "%{crate}" crate.
+use the "serde" feature of the "%{crate}" crate.
 
-%files       -n %{name}+pep639-glob-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+tracing-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+tracing-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "tracing" feature of the "%{crate}" crate.
-
-%files       -n %{name}+tracing-devel
+%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
+cp %{SOURCE2} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

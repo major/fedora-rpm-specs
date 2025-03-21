@@ -3,7 +3,7 @@
 %bcond_with network_tests
 
 Name:           perl-Net-RDAP
-Version:        0.34
+Version:        0.36
 Release:        1%{?dist}
 Summary:        Interface to the Registration Data Access Protocol (RDAP)
 # LICENSE:      BSD-2-Clause
@@ -22,7 +22,7 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(constant)
-BuildRequires:  perl(DateTime::Format::ISO8601)
+BuildRequires:  perl(DateTime::Tiny)
 BuildRequires:  perl(Digest::SHA)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(File::Basename)
@@ -49,7 +49,6 @@ BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Storable)
 BuildRequires:  perl(URI)
 BuildRequires:  perl(vars)
-BuildRequires:  perl(vCard)
 BuildRequires:  perl(XML::LibXML)
 # Tests:
 BuildRequires:  perl(Cwd)
@@ -75,7 +74,8 @@ with "%{_libexecdir}/%{name}/test".
 %prep
 %autosetup -p1 -n Net-RDAP-%{version}
 %if %{without network_tests}
-for T in t/chain.t t/document_url.t t/objects.t t/search.t; do
+for T in t/chain.t t/document_url.t t/implements.t t/objects.t \
+        t/reverse_search.t t/search.t; do
     rm "$T"
     perl -i -ne 'print $_ unless m{\A\Q'"$T"'\E}' MANIFEST
 done
@@ -93,11 +93,13 @@ mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
+unset NET_RDAP_UA_DEBUG
 cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
 EOF
 chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+unset NET_RDAP_UA_DEBUG
 export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
@@ -113,6 +115,12 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Mar 19 2025 Petr Pisar <ppisar@redhat.com> - 0.36-1
+- 0.36 bump
+
+* Wed Mar 19 2025 Petr Pisar <ppisar@redhat.com> - 0.35-1
+- 0.35 bump
+
 * Thu Mar 13 2025 Petr Pisar <ppisar@redhat.com> - 0.34-1
 - 0.34 bump
 

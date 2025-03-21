@@ -2,7 +2,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           decibels
-Version:        48.0~alpha
+Version:        48.0
 Release:        %autorelease
 Summary:        Audio player for the GNOME desktop
 
@@ -62,7 +62,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdnn_name}.m
 
 
 %files -f %{rdnn_name}.lang
-%license LICENCE
+%license LICENSE
 %doc README*
 %{_bindir}/%{rdnn_name}
 %{_datadir}/%{rdnn_name}/

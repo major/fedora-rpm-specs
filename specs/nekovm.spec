@@ -1,6 +1,6 @@
 Name:           nekovm
 Version:        2.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Neko embedded scripting language and virtual machine
 
 # https://haxe.org/foundation/open-source.html#neko-license
@@ -109,6 +109,9 @@ ulimit -s unlimited
 
 
 %changelog
+* Wed Mar 19 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.4.0-2
+- Rebuild for mbedtls 3.6
+
 * Fri Jan 31 2025 Andy Li <andy@onthewings.net> - 2.4.0-1
 - New upstream version 2.4.0, which uses pcre2 (RHBZ#2128334)
 

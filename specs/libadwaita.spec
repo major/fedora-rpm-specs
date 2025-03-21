@@ -5,7 +5,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           libadwaita
-Version:        1.7~rc
+Version:        1.7.0
 Release:        %autorelease
 Summary:        Building blocks for modern GNOME applications
 
@@ -109,7 +109,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/pkgconfig/*-%{apiver}.pc
 
 %files doc
-%doc HACKING.md
 %{_docdir}/%{name}-%{apiver}/
 
 %files demo

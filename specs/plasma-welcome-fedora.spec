@@ -1,12 +1,15 @@
 Name:      plasma-welcome-fedora
-Version:   6.1.2
-Release:   2%{?dist}
+Version:   6.3.3
+Release:   1%{?dist}
 Summary:   Fedora-related customizations for Plasma-welcome
 # License is specified in 01-EnableExtraRepos.qml
 License:   (GPL-2.0-only OR GPL-3.0-only) AND CC-BY-SA-4.0
 URL:       https://pagure.io/fedora-kde/plasma-welcome-fedora
 Source0:   https://pagure.io/fedora-kde/plasma-welcome-fedora/archive/v%{version}/%{name}-v%{version}.tar.gz
 BuildArch: noarch
+
+BuildRequires: make
+BuildRequires: gettext
 
 BuildRequires: kf6-rpm-macros
 
@@ -21,21 +24,14 @@ Requires:  fedora-flathub-remote
 %prep
 %autosetup -p1 -n %{name}-v%{version}
 
-%install
-install -D -m 0644 -p \
-    ./%{_kf6_datadir}/plasma/plasma-welcome/intro-customization.desktop \
-    %{buildroot}%{_kf6_datadir}/plasma/plasma-welcome/intro-customization.desktop
-install -D -m 0644 -p \
-    ./%{_kf6_datadir}/plasma/plasma-welcome/extra-pages/01-EnableExtraRepos.qml \
-    %{buildroot}%{_kf6_datadir}/plasma/plasma-welcome/extra-pages/01-EnableExtraRepos.qml
-install -D -m 0644 -p \
-    ./%{_datadir}/icons/hicolor/scalable/apps/fedora-loves-kde.svg \
-    %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/fedora-loves-kde.svg
-install -D -m 0644 -p \
-    ./%{_datadir}/icons/hicolor/scalable/apps/mascot_konqi_3rdparty.svg \
-    %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/mascot_konqi_3rdparty.svg
+%build
+make build_all
 
-%files
+%install
+%make_install
+%find_lang %{name}
+
+%files -f %{name}.lang
 %license LICENSES/* COPYING
 %{_kf6_datadir}/plasma/plasma-welcome/intro-customization.desktop
 %{_kf6_datadir}/plasma/plasma-welcome/extra-pages
@@ -43,6 +39,9 @@ install -D -m 0644 -p \
 %{_datadir}/icons/hicolor/scalable/apps/mascot_konqi_3rdparty.svg
 
 %changelog
+* Wed Mar 19 2025 Steve Cossette <farchord@gmail.com> - 6.3.3-1
+- 6.3.3
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

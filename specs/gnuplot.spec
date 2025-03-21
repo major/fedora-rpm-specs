@@ -19,7 +19,7 @@
 Summary: A program for plotting mathematical expressions and data
 Name: gnuplot
 Version: %{major}.%{minor}.%{patchlevel}
-Release: 4%{?dist}
+Release: 5%{?dist}
 # MIT .. term/PostScript/aglfn.txt
 License: gnuplot and MIT
 URL: http://www.gnuplot.info/
@@ -57,6 +57,7 @@ BuildRequires: libcerf-devel >= 1.11
 BuildRequires: wxGTK-devel
 %endif
 BuildRequires: make
+BuildRequires: autoconf, automake
 
 %description
 Gnuplot is a command-line driven, interactive function plotting
@@ -146,6 +147,8 @@ chmod 644 src/getcolor.h
 chmod 644 demo/html/webify.pl
 chmod 644 demo/html/webify_svg.pl
 chmod 644 demo/html/webify_canvas.pl
+
+autoreconf -fiv
 
 %build
 #remove binaries from source tarball
@@ -310,6 +313,9 @@ fi
 %{_texmf_vendor}/tex/latex/gnuplot/
 
 %changelog
+* Wed Mar 19 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 6.0.1-5
+- Fix build with GCC 15 (fedora#2340249)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,11 +1,11 @@
 Summary:  A python module for system storage configuration
 Name: python-blivet
 Url: https://storageapis.wordpress.com/projects/blivet
-Version: 3.12.0
+Version: 3.12.1
 
 #%%global prerelease .b2
 # prerelease, if defined, should be something like .a1, .b1, .b2.dev1, or .c2
-Release: 2%{?prerelease}%{?dist}
+Release: 1%{?prerelease}%{?dist}
 Epoch: 1
 License: LGPL-2.1-or-later
 %global realname blivet
@@ -16,8 +16,6 @@ Source1: http://github.com/storaged-project/blivet/releases/download/%{realname}
 %if 0%{?rhel} >= 9
 Patch0: 0001-remove-btrfs-plugin.patch
 %endif
-
-Patch1: 0002-Set-persitent-allow-discards-flag-for-new-LUKS-devices.patch
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -115,6 +113,9 @@ make DESTDIR=%{buildroot} install
 %{python3_sitelib}/*
 
 %changelog
+* Wed Mar 19 2025 Packit <hello@packit.dev> - 1:3.12.1-1
+- Update to version 3.12.1
+
 * Tue Mar 11 2025 Vojtech Trefny <vtrefny@redhat.com> - 3.12.0-2
 - Set persistent allow-discards flag for newly created LUKS devices
 

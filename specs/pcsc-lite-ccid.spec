@@ -2,8 +2,8 @@
 %global pcsc_lite_ver 1.8.9
 
 Name:           pcsc-lite-ccid
-Version:        1.6.1
-Release:        3%{?dist}
+Version:        1.6.2
+Release:        1%{?dist}
 Summary:        Generic USB CCID smart card reader driver
 
 License:        BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.1-or-later
@@ -68,6 +68,9 @@ cp -p src/openct/LICENSE LICENSE.openct
 
 
 %changelog
+* Wed Mar 19 2025 Jakub Jelen <jjelen@redhat.com> - 1.6.2-1
+- New upstream release (#2353391)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

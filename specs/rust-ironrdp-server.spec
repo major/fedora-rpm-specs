@@ -2,21 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate pyproject-toml
+%global crate ironrdp-server
 
-Name:           rust-pyproject-toml
-Version:        0.13.4
+Name:           rust-ironrdp-server
+Version:        0.5.0
 Release:        %autorelease
-Summary:        Pyproject.toml parser in Rust
+Summary:        Extendable skeleton for implementing custom RDP servers
 
-License:        MIT
-URL:            https://crates.io/crates/pyproject-toml
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/ironrdp-server
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Pyproject.toml parser in Rust.}
+Extendable skeleton for implementing custom RDP servers.}
 
 %description %{_description}
 
@@ -30,8 +30,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/Changelog.md
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -47,40 +48,40 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+glob-devel
+%package     -n %{name}+__bench-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+glob-devel %{_description}
+%description -n %{name}+__bench-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "glob" feature of the "%{crate}" crate.
+use the "__bench" feature of the "%{crate}" crate.
 
-%files       -n %{name}+glob-devel
+%files       -n %{name}+__bench-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+pep639-glob-devel
+%package     -n %{name}+helper-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+pep639-glob-devel %{_description}
+%description -n %{name}+helper-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "pep639-glob" feature of the "%{crate}" crate.
+use the "helper" feature of the "%{crate}" crate.
 
-%files       -n %{name}+pep639-glob-devel
+%files       -n %{name}+helper-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+tracing-devel
+%package     -n %{name}+rayon-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+tracing-devel %{_description}
+%description -n %{name}+rayon-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "tracing" feature of the "%{crate}" crate.
+use the "rayon" feature of the "%{crate}" crate.
 
-%files       -n %{name}+tracing-devel
+%files       -n %{name}+rayon-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

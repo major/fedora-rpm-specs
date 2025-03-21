@@ -2,7 +2,7 @@
 
 Name:           libratbag
 Version:        0.18
-Release:        2%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Release:        3%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 Summary:        Programmable input device library
 License:        MIT
 URL:            https://github.com/libratbag/libratbag
@@ -18,7 +18,10 @@ BuildRequires:  meson pkgconfig
 BuildRequires:  libevdev-devel
 BuildRequires:  libudev-devel
 BuildRequires:  pkgconfig(udev) pkgconfig(glib-2.0) pkgconfig(json-glib-1.0)
-BuildRequires:  check-devel valgrind
+BuildRequires:  check-devel
+%ifarch %{valgrind_arches}
+BuildRequires:  valgrind
+%endif
 BuildRequires:  systemd
 BuildRequires:  python3 python3-devel python3-gobject
 BuildRequires:  python3-lxml python3-evdev swig
@@ -102,6 +105,9 @@ developing applications that use liblur.
 %{_libdir}/pkgconfig/liblur.pc
 
 %changelog
+* Thu Mar 06 2025 David Abdurachmanov <davidlt@rivosinc.com> 0.18-3
+- Properly check valgrind arches
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

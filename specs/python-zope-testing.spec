@@ -3,13 +3,17 @@
 
 Name:           python-zope-testing
 Version:        5.0.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Zope Testing Framework
 License:        ZPL-2.1
 URL:            https://pypi.io/project/%{modname}
 Source0:        https://pypi.io/packages/source/z/%{modname}/%{modname}-%{version}.tar.gz
 # Upstream report: https://github.com/zopefoundation/zope.testing/issues/41
 Patch:          0001-Fix-doctest-failure-with-Python-3.11.patch
+
+# Picked relevant bits from:
+# https://github.com/zopefoundation/zope.testing/commit/4ece516d4a495e3b46ee0
+Patch:          Support-for-Sphinx-8.patch
 
 BuildArch:      noarch
 
@@ -54,6 +58,9 @@ rm -f %{buildroot}%{python3_sitelib}/zope/__init__.py*
 %{python3_sitelib}/%{modname}-*-nspkg.pth
 
 %changelog
+* Wed Jan 29 2025 Karolina Surma <ksurma@redhat.com> - 5.0.1-12
+- fixing build to be compatible with Sphinx 8+ rhbz#2329902
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

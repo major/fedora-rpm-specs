@@ -49,10 +49,11 @@ ExcludeArch: i686
 %bcond wasi_sdk 1
 %endif
 
-%if "%{toolchain}" == "clang"
-%global build_with_clang 1
+%bcond build_with_clang 0
+%if %{with build_with_clang}
+%global toolchain clang
 %else
-%global build_with_clang 0
+%global toolchain gcc
 %endif
 
 %global gnome_shell_search_provider 0
@@ -168,7 +169,7 @@ ExcludeArch: i686
 %if !%{release_build}
 %global pre_tag .npgo
 %endif
-%if %{build_with_clang}
+%if %{with build_with_clang}
 %global pre_tag .clang
 %endif
 %if %{build_with_asan}
@@ -192,14 +193,14 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        136.0.1
+Version:        136.0.2
 Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20250312.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20250319.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source3:        dump_syms-vendor.tar.xz
@@ -211,7 +212,7 @@ Source21:       firefox.sh.in
 Source23:       firefox.1
 Source24:       mozilla-api-key
 Source25:       firefox-symbolic.svg
-Source26:       distribution.ini
+Source26:       distribution.ini.in
 Source27:       google-api-key
 Source28:       firefox-wayland.sh.in
 Source29:       firefox-wayland.desktop
@@ -240,7 +241,6 @@ Source49:       wasi.patch.template
 Source50:       wasi-sdk-25.tar.gz
 
 # Build patches
-#Patch3:         mozilla-build-arm.patch
 Patch32:        build-rust-ppc64le.patch
 Patch35:        build-ppc-jit.patch
 # Fixing missing cacheFlush when JS_CODEGEN_NONE is used (s390x)
@@ -333,7 +333,7 @@ BuildRequires:  llvm
 BuildRequires:  llvm-devel
 BuildRequires:  clang
 BuildRequires:  clang-libs
-%if %{build_with_clang} || %{with wasi_sdk}
+%if %{with build_with_clang} || %{with wasi_sdk}
 BuildRequires:  lld
 %endif
 
@@ -463,14 +463,21 @@ BuildRequires:  clang cmake ninja-build
 Recommends:     speech-dispatcher
 Recommends:     speech-dispatcher-utils
 
+%if %{with build_with_clang}
+BuildRequires:  compiler-rt
+%endif
+
 Obsoletes:      mozilla <= 37:1.7.13
 Provides:       webclient
 
 # Don't ship firefox-x11 and firefox-wayland on Fedora 40.
 # Wayland backend is considered as mature enough now.
+# We need to use v-r in Obsoletes because new versions of this
+# package keep being built in older releases, and we want to
+# obsolete all of them when the user updates to F40+.
 %if 0%{?fedora} >= 40
-Obsoletes:  firefox-wayland < 122.0-2
-Obsoletes:  firefox-x11 < 122.0-2
+Obsoletes:  firefox-wayland < %{version}-%{release}
+Obsoletes:  firefox-x11 <  %{version}-%{release}
 %endif
 
 %description
@@ -582,7 +589,7 @@ cat %{SOURCE49} | sed -e "s|LIBCLANG_RT_PLACEHOLDER|`pwd`/wasi-sdk-25/build/sysr
 
 # PGO patches
 %if %{build_with_pgo}
-%if !%{build_with_clang}
+%if !%{with build_with_clang}
 %patch -P600 -p1 -b .pgo
 %patch -P602 -p1 -b .1516803
 %endif
@@ -827,7 +834,7 @@ MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | sed -e 's/-g/-g1/')
 %endif
 export MOZ_DEBUG_FLAGS=" "
 MOZ_LINK_FLAGS="%{build_ldflags}"
-%if !%{build_with_clang}
+%if !%{with build_with_clang}
 %ifarch aarch64 %{ix86} ppc64le x86_64
 MOZ_LINK_FLAGS="$MOZ_LINK_FLAGS -Wl,--no-keep-memory -Wl,--reduce-memory-overheads"
 %endif
@@ -847,7 +854,7 @@ echo "export CFLAGS=\"$MOZ_OPT_FLAGS\"" >> .mozconfig
 echo "export CXXFLAGS=\"$MOZ_OPT_FLAGS\"" >> .mozconfig
 echo "export LDFLAGS=\"$MOZ_LINK_FLAGS\"" >> .mozconfig
 
-%if %{build_with_clang}
+%if %{with build_with_clang}
 echo "export LLVM_PROFDATA=\"llvm-profdata\"" >> .mozconfig
 echo "export AR=\"llvm-ar\"" >> .mozconfig
 echo "export NM=\"llvm-nm\"" >> .mozconfig
@@ -1093,7 +1100,11 @@ echo 'pref("media.webrtc.camera.allow-pipewire", true);' >> %{buildroot}%{mozapp
 
 # Add distribution.ini
 mkdir -p %{buildroot}%{mozappdir}/distribution
-cp %{SOURCE26} %{buildroot}%{mozappdir}/distribution
+sed -e "s/__NAME__/%(source /etc/os-release; echo ${NAME})/" \
+    -e "s/__ID__/%(source /etc/os-release; echo ${ID})/" \
+    -e "s/rhel/redhat/" \
+    -e "s/Fedora.*/Fedora/" \
+    %{SOURCE26} > %{buildroot}%{mozappdir}/distribution/distribution.ini
 
 # Install appdata file
 mkdir -p %{buildroot}%{_datadir}/metainfo
@@ -1232,6 +1243,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Wed Mar 19 2025 Martin Stransky <stransky@redhat.com> - 136.0.2-1
+- Updated to 136.0.2
+
 * Wed Mar 12 2025 Martin Stransky <stransky@redhat.com> - 136.0.1-1
 - Updated to 136.0.1
 

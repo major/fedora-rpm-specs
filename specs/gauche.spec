@@ -12,7 +12,7 @@
 
 Name:			gauche
 Version:		0.9.12
-Release:		9%{?dist}
+Release:		10%{?dist}
 Summary:		Scheme script interpreter with multibyte character handling
 
 License:		BSD-3-Clause AND MIT
@@ -164,6 +164,9 @@ LD_LIBRARY_PATH=`pwd`/src make check
 
 
 %changelog
+* Wed Mar 19 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 0.9.12-10
+- Rebuild for mbedtls 3.6
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 0.9.12-9
 - Add explicit BR: libxcrypt-devel
 

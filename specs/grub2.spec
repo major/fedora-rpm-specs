@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	26%{?dist}
+Release:	27%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -605,6 +605,9 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg || :
 %endif
 
 %changelog
+* Wed Mar 19 2025 Nicolas Frayer <nfrayer@redhat.com> 2.12-27
+- powerpc: increase MIN RMA size for CAS negotiation
+
 * Mon Mar 10 2025 Leo Sandoval <lsandova@redhat.com> 2.12-26
 - Remove 'fs/ntfs: Implement attribute verification' patch
 - Resolves: #2350327

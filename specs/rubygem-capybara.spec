@@ -1,15 +1,15 @@
 %global gem_name capybara
 
 Name: rubygem-%{gem_name}
-Version: 3.39.2
-Release: 5%{?dist}
+Version: 3.40.0
+Release: 1%{?dist}
 Summary: Capybara aims to simplify the process of integration testing Rack applications
 License: MIT
 URL: https://github.com/teamcapybara/capybara
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# git clone https://github.com/teamcapybara/capybara.git --no-checkout
-# cd capybara && git archive -v -o capybara-3.39.2-tests.txz 3.39.2 features/
-Source1: %{gem_name}-%{version}-tests.txz
+# git clone https://github.com/teamcapybara/capybara.git --no-checkout && cd capybara
+# git archive -v -o capybara-3.40.0-tests.tar.gz 3.40.0 features/
+Source1: %{gem_name}-%{version}-tests.tar.gz
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -60,7 +60,7 @@ cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
 %check
-pushd .%{gem_instdir}
+( cd .%{gem_instdir}
 # Move the tests into place
 ln -s %{_builddir}/features features
 
@@ -68,25 +68,21 @@ ln -s %{_builddir}/features features
 sed -i '/^require..selenium_statistics.$/ s/^/#/' spec/spec_helper.rb
 sed -i '/SeleniumStatistics/ s/^/#/g' ./spec/spec_helper.rb
 
-# it "should support SSL": Puma Timeouts, instead of EOFing on http connection
-sed -i '/end.to raise_error(EOFError)/ s/EOFError/Net::ReadTimeout/' \
-  spec/server_spec.rb
-
 rspec spec
 
-# bundler is not really needed
+# Bundler is not really needed
 sed -i "/^require 'bundler/ s/^/#/g" \
   features/support/env.rb
 
 cucumber
-popd
+)
 
 %files
 %dir %{gem_instdir}
+%exclude %{gem_instdir}/.*
 %license %{gem_instdir}/License.txt
 %{gem_libdir}
 %exclude %{gem_cache}
-%exclude %{gem_instdir}/.*
 %{gem_spec}
 
 %files doc
@@ -96,6 +92,10 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Wed Mar 19 2025 Vít Ondruch <vondruch@redhat.com> - 3.40.0-1
+- Update to Capybara 3.40.0.
+  Resolves: rhbz#2260593
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.39.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

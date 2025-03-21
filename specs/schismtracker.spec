@@ -1,5 +1,5 @@
 Name:      schismtracker
-Version:   20250307
+Version:   20250313
 Release:   1%{?dist}
 Summary:   Sound module composer/player
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -65,6 +65,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/schism.desktop
 %{_datadir}/pixmaps/schism*.png
 
 %changelog
+* Wed Mar 19 2025 josef radinger <cheese@nosuchhost.net> - 20250313-1
+- bump version
+
 * Mon Mar 10 2025 josef radinger <cheese@nosuchhost.net> - 20250307-1
 - bump version
 

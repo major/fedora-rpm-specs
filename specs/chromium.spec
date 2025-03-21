@@ -1212,7 +1212,7 @@ CXXFLAGS="$FLAGS"
 CXXFLAGS+=' -faltivec-src-compat=mixed -Wno-deprecated-altivec-src-compat'
 %if 0%{?fedora} > 41
 # Workaround for build error: Undefined temporary symbol .L_MergedGlobals.15
-CXXFLAGS+=' -O0'
+CXXFLAGS+=' -mllvm -ppc-global-merge=0'
 %endif
 %endif
 

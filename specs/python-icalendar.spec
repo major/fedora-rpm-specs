@@ -1,6 +1,6 @@
 Name:           python-icalendar
-Version:        6.1.0
-Release:        2%{?dist}
+Version:        6.1.2
+Release:        1%{?dist}
 Summary:        Parser/generator of iCalendar files following the RFC 2445
 
 License:        BSD-2-Clause
@@ -9,6 +9,7 @@ Source0:        https://github.com/collective/icalendar/archive/v%{version}/%{ve
 
 Patch0:         hatch.patch
 Patch1:         tzdata.patch
+Patch2:         788.patch
 
 BuildArch:      noarch
 
@@ -47,6 +48,7 @@ well designed, simple to use and well documented.\
 
 %patch -P 0 -p0
 %patch -P 1 -p0
+%patch -P 2 -p1
 
 # we have only 2.7 and 3.3
 sed -i 's/py26,//' tox.ini
@@ -80,6 +82,9 @@ popd
 %{_bindir}/icalendar
 
 %changelog
+* Wed Mar 19 2025 Gwyn Ciesla <gwync@protonmail.com> - 6.1.2-1
+- 6.1.2
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

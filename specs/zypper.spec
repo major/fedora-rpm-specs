@@ -1,11 +1,11 @@
 # Force out of source build
 %undefine __cmake_in_source_build
 
-%global min_libzypp_ver 17.34.1
+%global min_libzypp_ver 17.36.4
 
 Name:           zypper
-Version:        1.14.73
-Release:        4%{?dist}
+Version:        1.14.88
+Release:        1%{?dist}
 Summary:        Command line package manager using libzypp
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -15,7 +15,7 @@ Source0:        https://github.com/openSUSE/zypper/archive/%{version}/%{name}-%{
 
 BuildRequires:  %{_bindir}/asciidoctor
 BuildRequires:  %{_bindir}/xsltproc
-BuildRequires:  cmake >= 3.1
+BuildRequires:  cmake >= 3.5
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  perl-generators
@@ -27,7 +27,6 @@ BuildRequires:  readline-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  libzypp-devel >= %{min_libzypp_ver}
 Requires:       libzypp%{?_isa} >= %{min_libzypp_ver}
-Requires:       procps
 
 # Blech, apparently we don't want bash-completion always... Cf. rhbz#1652183
 Recommends:     bash-completion
@@ -41,6 +40,7 @@ Provides:       zypper(oldpackage)
 Provides:       zypper(updatestack-only)
 Provides:       zypper(auto-agree-with-product-licenses)
 Provides:       zypper(purge-kernels)
+Provides:       zypper(include-all-archs)
 
 
 %description
@@ -107,6 +107,12 @@ ln -sf zypp-aptitude %{buildroot}%{_bindir}/zypp-apt-get
 rm %{buildroot}%{_bindir}/apt
 ln -sf zypp-aptitude %{buildroot}%{_bindir}/zypp-apt
 
+%if "%{_sbindir}" != "/usr/sbin"
+# If sbin-bin merge, move everything accordingly
+mv %{buildroot}%{_prefix}/sbin/* %{buildroot}%{_sbindir}
+rmdir %{buildroot}%{_prefix}/sbin
+%endif
+
 # Remove conflicting man page and rename needs-restarting
 rm %{buildroot}%{_mandir}/man1/needs-restarting.1*
 mv %{buildroot}%{_bindir}/needs-restarting %{buildroot}%{_bindir}/zypp-needs-restarting
@@ -150,6 +156,9 @@ popd
 
 
 %changelog
+* Wed Mar 19 2025 Neal Gompa <ngompa@fedoraproject.org> - 1.14.88-1
+- Rebase to 1.14.88
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.73-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

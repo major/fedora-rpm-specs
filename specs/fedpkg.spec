@@ -4,8 +4,8 @@
 %endif
 
 Name:           fedpkg
-Version:        1.45
-Release:        10%{?dist}
+Version:        1.46
+Release:        1%{?dist}
 Summary:        Fedora utility for working with dist-git
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -16,44 +16,6 @@ Source0:        https://pagure.io/releases/fedpkg/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 Patch1:         0001-Do-not-use-pytest-related-dependencies-temporarily.patch
 Patch2:         0002-Remove-pytest-coverage-execution.patch
-Patch3:         0003-Fix-unittests-after-creating-the-project-in-hatch.patch
-Patch4:         0004-Remove-mbs.fedoraproject.org-scopes-from-git-cred-he.patch
-Patch5:         0005-Don-t-use-hatchling-on-python-3.6.patch
-Patch6:         0006-Don-t-print-the-branch-name-after-dash-when-there-is.patch
-Patch7:         0007-Test-for-valid-EPEL-branch-names.patch
-Patch8:         0008-Add-EPEL10-branch-name-cases-as-valid.patch
-Patch9:         0009-Test-url-usage-in-assert_valid_epel_package.patch
-Patch10:        0010-Add-EPEL10-url-pattern-on-assert_valid_epel_package.patch
-Patch11:        0011-Extend-load_rpmdefines-to-work-with-EPEL10.patch
-Patch12:        0012-Add-py313-environment-as-that-s-current.patch
-Patch13:        0013-Drop-support-for-bodhi-client-5.patch
-Patch14:        0014-Drop-all-usage-of-six.patch
-Patch15:        0015-Replace-and-update-use-of-deprecated-linux_distribut.patch
-Patch16:        0016-Modernize-and-clean-unittest-imports.patch
-Patch17:        0017-Update-check_bodhi_version-to-check-for-6.0.0.patch
-Patch18:        0018-Fix-URL-of-Bodhi-in-staging.patch
-Patch19:        0019-Fixes-missing-key-in-distro.os_release_info.patch
-Patch20:        0020-Do-not-auto-request-ELN-modules.patch
-Patch21:        0021-Fix-minor-requirements-for-EPEL10-in-test.patch
-Patch22:        0022-Use-minor-value-from-koji-when-no-minor-in-branch-na.patch
-Patch23:        0023-Fix-EPEL10-branch-expression-to-cover-2-or-more-digi.patch
-Patch24:        0024-Get-macros-from-epel-candidate-build-target.patch
-Patch25:        0025-Improvements-on-string-parsing.patch
-Patch26:        0026-Add-tests-cases-for-runtime_disttag-removal-when-wor.patch
-Patch27:        0027-Handle-rhel-runtimes-when-minor-version-exists-in-di.patch
-Patch28:        0028-gitignore-the-name-version-build-directory-created-b.patch
-Patch29:        0029-Fixing-unittests-for-py36.patch
-Patch30:        0030-Fix-tests-on-EPEL-9-10.patch
-Patch31:        0031-Add-setuptools-to-dependencies-for-Python-3.12.patch
-Patch32:        0032-Update-expired-token-exception-instructions.patch
-Patch33:        0033-Clone-epel10-branches-with-clone-B.patch
-Patch34:        0034-Update-expired-token-exception-instructions.patch
-Patch35:        0035-releases-info-should-always-show-the-same-order.patch
-Patch36:        0036-Python-3.13-environment-and-renew-testing-image.patch
-Patch37:        0037-Fix-unittests-when-building-for-ELN-target.patch
-Patch38:        0038-Dynamically-exclude-Rawhide-branch-from-fedpkg-branc.patch
-Patch39:        0039-Do-not-auto-request-EPEL-x.y-modules.patch
-Patch40:        0040-Don-t-allow-to-request-repositories-in-modules-names.patch
 
 BuildRequires:  pkgconfig
 BuildRequires:  bash-completion
@@ -66,7 +28,7 @@ Requires:       redhat-rpm-config
 %global __python %{__python3}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-rpkg >= 1.67-1
+BuildRequires:  python3-rpkg >= 1.68-1
 BuildRequires:  python3-distro
 # For testing
 BuildRequires:  python3-pytest
@@ -77,7 +39,7 @@ BuildRequires:  python3-bodhi-client
 
 
 Requires:       python3-bugzilla
-Requires:       python3-rpkg >= 1.67-1
+Requires:       python3-rpkg >= 1.68-1
 Requires:       python3-distro
 Requires:       python3-openidc-client >= 0.6.0
 Requires:       python3-bodhi-client
@@ -136,6 +98,49 @@ mv %{buildroot}%{compdir}/fedpkg.bash %{buildroot}%{compdir}/fedpkg
 
 
 %changelog
+* Wed Mar 19 2025 Ondřej Nosek <onosek@redhat.com> - 1.46-1
+- `request-repo`: add `--onboard-packit` argument (nforro)
+- Fork a package using anonymous auth - #574 (onosek)
+- Check that auth tokens aren’t written to world-readable files (git)
+- Don't allow to request repositories in modules/ namespace (miro)
+- Do not auto-request EPEL x.y modules (carlwgeorge)
+- Dynamically exclude Rawhide branch from fedpkg branching - #566 (samyak.jn11)
+- Fix unittests when building for ELN target - #589 (onosek)
+- Python 3.13 environment and renew testing image (onosek)
+- `releases-info` should always show the same order - #569 (onosek)
+- Update expired token exception instructions (astra)
+- Clone epel10 branches with clone -B (carlwgeorge)
+- Update expired token exception instructions (ferdnyc)
+- Add setuptools to dependencies for Python 3.12+ (ferdnyc)
+- Fix tests on EPEL 9/10. (romain.geissler)
+- Fixing unittests for py36 (onosek)
+- gitignore the name-version-build/ directory created by fedpkg prep/local (miro)
+- Handle rhel runtimes when minor version exists in disttag (dherrera)
+- Add tests cases for runtime_disttag removal when working with epel10 (dherrera)
+- Improvements on string parsing (dherrera)
+- Get macros from epel-candidate build target. (dherrera)
+- Fix EPEL10 branch expression to cover 2 or more digits. (dherrera)
+- Use minor value from koji when no minor in branch name (dherrera)
+- Fix minor requirements for EPEL10+ in test (dherrera)
+- Do not auto-request ELN modules (yselkowi)
+- Fixes missing key in distro.os_release_info() (onosek)
+- Update check_bodhi_version to check for >= 6.0.0 (awilliam)
+- Modernize and clean unittest imports (awilliam)
+- Replace and update use of deprecated 'linux_distribution' (awilliam)
+- Drop all usage of six (awilliam)
+- Drop support for bodhi-client <= 5 (awilliam)
+- Add py313 environment as that's current (awilliam)
+- Fix URL of Bodhi in staging (nils)
+- Extend load_rpmdefines to work with EPEL10+ (dherrera)
+- Add EPEL10+ url pattern on assert_valid_epel_package (dherrera)
+- Test url usage in assert_valid_epel_package (dherrera)
+- Add EPEL10 branch name cases as valid (dherrera)
+- Test for valid EPEL branch names (dherrera)
+- Don't print the branch name after dash when there is no dash - 554 (miro)
+- Don't use hatchling on python 3.6 (dherrera)
+- Remove mbs.fedoraproject.org scopes from git cred helper (kj)
+- Fix unittests after creating the project in hatch (onosek)
+
 * Wed Feb 26 2025 Ondřej Nosek <onosek@redhat.com> - 1.45-10
 - Dynamically exclude Rawhide branch from fedpkg branching
 - Do not auto-request EPEL x.y modules

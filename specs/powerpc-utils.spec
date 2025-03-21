@@ -1,6 +1,6 @@
 Name:           powerpc-utils
 Version:        1.3.13
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        PERL-based scripts for maintaining and servicing PowerPC systems
 
 License:        GPL-2.0-only
@@ -63,6 +63,8 @@ Core utilities for maintaining and servicing PowerPC systems.
 
 %build
 ./autogen.sh
+# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=118112
+CFLAGS="$RPM_OPT_FLAGS -std=gnu17"
 %configure --with-systemd=%{_unitdir} --disable-werror
 make %{?_smp_mflags} V=1
 
@@ -209,6 +211,9 @@ systemctl enable hcn-init.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Wed Mar 19 2025 Than Ngo <than@redhat.com> - 1.3.13-3
+- Fixed rhbz#2341093, FTBFS with gcc15
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

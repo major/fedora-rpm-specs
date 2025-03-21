@@ -1,11 +1,13 @@
-%if %{defined fedora}
-# nose not available in epel9
+%if %{defined fedora} && 0%{?fedora} < 43
+# nose not available in epel9 and retired in Fedora >= 43
 %bcond_without  tests
+%else
+%bcond_with     tests
 %endif
 
 Name:           python-blessings
 Version:        1.7
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Thin, practical wrapper around terminal coloring, styling, and positioning
 License:        MIT
 URL:            https://github.com/erikrose/blessings
@@ -60,6 +62,10 @@ BuildRequires:  python3-devel
 %doc README.rst
 
 %changelog
+* Wed Mar 19 2025 Michel Lind <salimma@fedoraproject.org> - 1.7-27
+- Disable nose tests on Fedora >= 43
+- Resolves: RHBZ#2349839
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

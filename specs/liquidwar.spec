@@ -1,7 +1,6 @@
-%define _hardened_build 1
 Name:           liquidwar
 Version:        5.6.5
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Multiplayer wargame with liquid armies
 License:        GPL-2.0-or-later
 URL:            http://www.ufoot.org/liquidwar/v5
@@ -113,11 +112,6 @@ install -p -D -m 644 %{SOURCE3} \
 
 install -m0644 -D liquidwar.sysusers.conf %{buildroot}%{_sysusersdir}/liquidwar.conf
 
-%pre server
-user_uid=`id -u %{name} 2>/dev/null`
-if [ x"$user_uid" = x ] ; then
-fi
-
 %post server
 %systemd_post liquidwar-server.service
 
@@ -152,6 +146,9 @@ fi
 
 
 %changelog
+* Wed Mar 19 2025 Gwyn Ciesla <gwync@protonmail.com> - 5.6.5-20
+- Fix FTI
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 5.6.5-19
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

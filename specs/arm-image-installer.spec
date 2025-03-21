@@ -1,6 +1,6 @@
 Name:		arm-image-installer
-Version:	4.2
-Release:	2%{?dist}
+Version:	5.0
+Release:	1%{?dist}
 Summary:	Writes binary image files to any specified block device
 License:	GPL-2.0-or-later
 URL:		https://github.com/fedora-arm/arm-image-installer/
@@ -54,6 +54,10 @@ ln -s /usr/bin/arm-image-installer %{buildroot}%{_bindir}/fedora-arm-image-insta
 %{_datadir}/arm-image-installer/
 
 %changelog
+* Wed Mar 19 2025 Paul Whalen <pwhalen@fedoraproject.org> - 5.0-1
+- Added wifi config option (saypaul)
+- Added ignition url option (pwhalen)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

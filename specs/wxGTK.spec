@@ -43,7 +43,7 @@ BuildRequires:  libcurl-devel
 # For Tests
 %if %{with tests}
 BuildRequires:  glibc-langpack-en
-BuildRequires:  mesa-dri-drivers
+BuildRequires:  mesa-libEGL
 BuildRequires:  xclock
 BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  python3-httpbin
@@ -262,6 +262,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} wxUSE_XVFB=1 xvfb-run -a \
   ./test_gui ~[.] \
 %ifarch i686
   ~ImageTestCase \
+%endif
+%ifarch ppc64le
+  ~VirtListCtrlTestCase \
 %endif
 %ifarch s390x
   ~WebView \

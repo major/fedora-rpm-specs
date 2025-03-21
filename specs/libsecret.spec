@@ -8,7 +8,7 @@
 %bcond_without gnutls
 
 Name:           libsecret
-Version:        0.21.6
+Version:        0.21.7
 Release:        1%{?dist}
 Summary:        Library for storing and retrieving passwords and other secrets
 
@@ -133,6 +133,10 @@ cp -a libsecret/mock-service*.py %{buildroot}%{_datadir}/libsecret/
 
 
 %changelog
+* Tue Mar 18 2025 Packit <hello@packit.dev> - 0.21.7-1
+- Update to version 0.21.7
+- Resolves: rhbz#2338111
+
 * Tue Jan 21 2025 nmontero <nmontero@redhat.com> - 0.21.6-1
 - Update to 0.21.6
 

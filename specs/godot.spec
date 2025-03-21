@@ -16,7 +16,7 @@
 
 Name:           godot
 Version:        4.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Multi-platform 2D and 3D game engine with a feature-rich editor
 %if 0%{?mageia}
 Group:          Development/Tools
@@ -273,6 +273,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnsname}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnsname}.appdata.xml
 
 %changelog
+* Wed Mar 19 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 4.4-2
+- Rebuild for mbedtls 3.6
+
 * Mon Mar 03 2025 Rémi Verschelde <akien@fedoraproject.org> - 4.4-1
 - Versions 4.4-stable
 

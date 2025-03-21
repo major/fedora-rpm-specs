@@ -5,6 +5,9 @@
 %global crate neli
 %global crate_version 0.7.0-rc3
 
+# compile and run tests only on supported architectures
+%global supported_arches i686 x86_64 aarch64 ppc64le
+
 Name:           rust-neli
 Version:        0.7.0~rc3
 Release:        %autorelease
@@ -117,14 +120,18 @@ use the "tokio" feature of the "%{crate}" crate.
 %cargo_generate_buildrequires
 
 %build
+%ifarch %{supported_arches}
 %cargo_build
+%endif
 
 %install
 %cargo_install
 
 %if %{with check}
+%ifarch %{supported_arches}
 %check
 %cargo_test
+%endif
 %endif
 
 %changelog

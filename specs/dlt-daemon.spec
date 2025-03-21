@@ -1,6 +1,6 @@
 Name: dlt-daemon
-Version: 2.18.9
-Release: 7%{?dist}
+Version: 2.18.10
+Release: 1%{?dist}
 Summary: DLT - Diagnostic Log and Trace
 Group: System Environment/Base
 License: MPL-2.0
@@ -13,6 +13,8 @@ BuildRequires: pandoc
 BuildRequires: systemd
 BuildRequires: systemd-devel
 BuildRequires: gcc-c++
+BuildRequires: zlib-ng-compat-devel
+Requires(pre): shadow-utils
 
 %description
 This component provides a standardised log and trace interface, based on the
@@ -156,6 +158,9 @@ mkdir -p $RPM_BUILD_ROOT/var/lib/dlt-daemon
 %{_libdir}/cmake/automotive-dlt/*.cmake
 
 %changelog
+* Wed Mar 19 2025 Stephen Smoogen <smooge@fedoraproject.org> - 2.18.10-1
+- Update to final 2.18.10 version
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.18.9-7
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 
@@ -176,7 +181,6 @@ mkdir -p $RPM_BUILD_ROOT/var/lib/dlt-daemon
 
 * Wed May 17 2023 Stephen Smoogen <smooge@fedoraproject.org> - 2.18.9-1
 - Update to final 2.18.9 version
-
 
 * Mon Mar  6 2023 Stephen Smoogen <smooge@fedoraproject.org> - 2.18.8-6.20230306git0a06fcb
 - Update code to latest upstream git commit

@@ -32,6 +32,7 @@ Source2:        licensecheck.txt
 
 Patch0000:      0001-meson-use-system-headers-if-possible.patch
 Patch0001:      0001-meson-add-DGLM_ENABLE_EXPERIMENTAL.patch
+Patch0002:      fix_missing_cstdint.patch
 
 BuildRequires:  gcc
 BuildRequires:  g++

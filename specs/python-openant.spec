@@ -13,8 +13,8 @@ Forerunner 610, Garmin Forerunner 910XT, Garmin FR70,
 Garmin Swim}
 
 Name:           python-%{pretty_name}
-Version:        1.3.2
-Release:        2%{?dist}
+Version:        1.3.3
+Release:        1%{?dist}
 Summary:        A python library to communicate with ANT-FS compliant devices
 
 License:        MIT
@@ -72,6 +72,9 @@ install -pm 644 %{SOURCE2} %{buildroot}/%{_udevrulesdir}
 %config(noreplace) %{_udevrulesdir}/*
 
 %changelog
+* Wed Mar 19 2025 Iztok Fister Jr. <iztok@iztok-jr-fister.eu> - 1.3.3-1
+- Update to 1.3.3
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

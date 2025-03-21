@@ -26,6 +26,9 @@ URL:            https://github.com/Instagram/LibCST
 Source:         %{pypi_source libcst}
 # * drop unused, benchmark-only criterion dev-dependency
 Patch:          libcst-fix-metadata.diff
+# * change to be compatible with chic both before and after the port from
+#   annotate-snippets v0.6 to v0.11
+Patch:          0001-Apply-minor-patch-for-compatibility-with-annotate-sn.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  python3-devel

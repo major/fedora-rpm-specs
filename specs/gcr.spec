@@ -3,7 +3,7 @@
 %endif
 
 Name:           gcr
-Version:        4.3.91
+Version:        4.4.0.1
 Release:        1%{?dist}
 Summary:        A library for bits of crypto UI and parsing
 
@@ -128,6 +128,9 @@ developing applications that use %{name}.
 %doc %{_datadir}/doc/gcr-4/
 
 %changelog
+* Wed Mar 19 2025 nmontero <nmontero@redhat.com> - 4.4.0.1-1
+- Update to 4.4.0.1
+
 * Tue Feb 11 2025 nmontero <nmontero@redhat.com> - 4.3.91-1
 - Update to 4.3.91
 

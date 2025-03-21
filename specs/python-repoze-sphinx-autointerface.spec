@@ -3,13 +3,13 @@
 
 Name:           python-%{srcname}
 Version:        1.0.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Auto-generate Sphinx API docs from Zope interfaces
 
 License:        BSD-3-Clause-Modification
 URL:            https://github.com/repoze/%{pkgname}
 Source0:        https://github.com/repoze/%{pkgname}/archive/%{version}/%{pkgname}-%{version}.tar.gz
-# Adapt to Sphinx 7.2+
+# Adapt to Sphinx 7.2+ and 8.2+
 Patch0:         https://github.com/repoze/repoze.sphinx.autointerface/pull/22.patch
 
 BuildArch:      noarch
@@ -45,7 +45,7 @@ rst2html --no-datestamp README.rst README.html
 
 %install
 %pyproject_install
-%pyproject_save_files repoze
+%pyproject_save_files -L repoze
 
 %check
 %pyproject_check_import
@@ -60,6 +60,9 @@ zope-testrunner --test-path=$PWD/build/lib
 %{python3_sitelib}/repoze*
 
 %changelog
+* Thu Mar 20 2025 Jerry James <loganjerry@gmail.com> - 1.0.0-6
+- Fix tests with Sphinx 8.2 (rhbz#2353342)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

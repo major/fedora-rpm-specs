@@ -25,7 +25,7 @@
 Name: gutenprint
 Summary: Printer Drivers Package
 Version: 5.3.5
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: http://gimp-print.sourceforge.net/
 Source0: http://downloads.sourceforge.net/gimp-print/%{name}-%{version}.tar.xz
 # Post-install script to update CUPS native PPDs.
@@ -130,6 +130,7 @@ Summary:        Library development files for gutenprint
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 %if %{with gtk2}
 Requires:       gtk2-devel
+Requires:       %{name}-libs-ui%{?_isa} = %{version}-%{release}
 %endif
 
 %description devel
@@ -328,6 +329,9 @@ exit 0
 %{_mandir}/man8/cups-genppd*8*.gz
 
 %changelog
+* Wed Mar 19 2025 Zdenek Dohnal <zdohnal@redhat.com> - 5.3.5-3
+- fix rpminspect report - require libs-ui in devel if built with gtk2
+
 * Mon Mar 17 2025 Zdenek Dohnal <zdohnal@redhat.com> - 5.3.5-2
 - use sed for bin/sbin only on F42+
 

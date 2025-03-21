@@ -4,8 +4,14 @@
 # * When building with `gcc-toolset-12`, the `gcc-annobin` plugin is not found.
 %global needs_gcc_toolset 0%{?el8} || 0%{?el9}
 
+%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
+%bcond_without tbb
+%else
+%bcond_with tbb
+%endif
+
 Name:           blake3
-Version:        1.5.5
+Version:        1.7.0
 Release:        %autorelease
 Summary:        Official C implementation of the BLAKE3 cryptographic hash function
 
@@ -22,6 +28,10 @@ BuildRequires:  gcc-toolset-13-libubsan-devel
 BuildRequires:  gcc
 BuildRequires:  libasan
 BuildRequires:  libubsan
+%endif
+%if %{with tbb}
+BuildRequires:  gcc-c++
+BuildRequires:  tbb-devel >= 2021.11
 %endif
 BuildRequires:  python3
 
@@ -56,7 +66,10 @@ Development files for the %{name} library.
 . /opt/rh/gcc-toolset-13/enable
 %endif
 cd c
-%cmake
+%cmake \
+%if 0%{with tbb}
+  -DBLAKE3_USE_TBB=ON
+%endif
 %cmake_build
 
 

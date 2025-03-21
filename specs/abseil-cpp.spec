@@ -2,7 +2,7 @@
 %global lib_version 2501.0.0
 
 Name:           abseil-cpp
-Version:        20250127.0
+Version:        20250127.1
 Release:        1%{?dist}
 Summary:        C++ Common Libraries
 
@@ -261,6 +261,9 @@ skips="${skips})$"
 %{_libdir}/pkgconfig/absl_*.pc
 
 %changelog
+* Wed Mar 19 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 20250127.1-1
+- Update to 20250127.1 (close RHBZ#2353223)
+
 * Tue Feb 04 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 20250127.0-1
 - Update to 20250127.0 (close RHBZ#2343779)
 

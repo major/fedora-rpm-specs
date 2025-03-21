@@ -6,7 +6,7 @@
 
 Name:           gdm
 Epoch:          1
-Version:        48~beta
+Version:        48.0
 Release:        %autorelease
 Summary:        The GNOME Display Manager
 
@@ -254,6 +254,7 @@ fi
 %{_datadir}/gdm/locale.alias
 %{_datadir}/gdm/gdb-cmd
 %{_datadir}/gnome-session/sessions/gnome-login.session
+%{_datadir}/polkit-1/rules.d/20-gdm.rules
 %{_libdir}/girepository-1.0/Gdm-1.0.typelib
 %{_libdir}/security/pam_gdm.so
 %{_libdir}/libgdm*.so*

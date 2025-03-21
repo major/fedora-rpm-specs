@@ -7,8 +7,8 @@
 
 Summary:	High-performance authoritative DNS server
 Name:		knot
-Version:	3.4.4
-Release:	2%{?dist}
+Version:	3.4.5
+Release:	1%{?dist}
 License:	GPL-3.0-or-later
 URL:		https://www.knot-dns.cz
 Source0:	https://secure.nic.cz/files/knot-dns/%{name}-%{version}.tar.xz
@@ -328,6 +328,9 @@ V=1 make check
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Wed Mar 19 2025 Jakub Ružička <jakub.ruzicka@nic.cz> - 3.4.5-1
+- Update to 3.4.5
+
 * Thu Jan 23 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.4.4-2
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

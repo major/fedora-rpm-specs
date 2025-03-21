@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 
 Name:           haxe
 Version:        4.3.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Multi-target universal programming language
 
 # As described in https://haxe.org/foundation/open-source.html:
@@ -29,6 +29,7 @@ Source1:        https://github.com/HaxeFoundation/haxelib/archive/%{commit_haxel
 Source2:        https://github.com/HaxeFoundation/hx3compat/archive/%{commit_hx3compat}.tar.gz#/hx3compat-%{commit_hx3compat}.tar.gz
 # Updates needed for OCaml 5.3.0
 Patch:          %{name}-ocaml5.3.patch
+Patch:          %{name}-ghpr11646-supportmbedtls3.patch
 
 BuildRequires:  make
 BuildRequires:  nekovm-devel >= 2.3.0
@@ -127,6 +128,9 @@ popd
 %{_datadir}/%{name}/
 
 %changelog
+* Wed Mar 19 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 4.3.6-2
+- Rebuild for mbedtls 3.6
+
 * Wed Feb 12 2025 Andy Li <andy@onthewings.net> - 4.3.6-1
 - New upstream version 4.3.6. (RHBZ#2298764)
 - Replaced haxe-ocaml5.3.patch with the commit from upstream.

@@ -61,9 +61,9 @@
 %global dbus_python_version 0.83.0
 
 Name:           ibus
-Version:        1.5.32~rc1
+Version:        1.5.32~rc2
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -72,7 +72,6 @@ Source1:        https://github.com/ibus/%name/releases/download/%{source_version
 Source2:        %{name}-xinput
 Source3:        %{name}.conf.5
 # Patch0:         %%{name}-HEAD.patch
-Patch0:         %{name}-HEAD.patch
 # Under testing #1349148 #1385349 #1350291 #1406699 #1432252 #1601577
 Patch1:         %{name}-1385349-segv-bus-proxy.patch
 
@@ -337,8 +336,6 @@ fi
 # cp client/gtk2/ibusimcontext.c client/gtk3/ibusimcontext.c || :
 # cp client/gtk2/ibusim.c client/gtk3/ibusim.c || :
 # cp client/gtk2/ibusimcontext.c client/gtk4/ibusimcontext.c || :
-cp client/gtk2/ibusimcontext.c client/gtk3/ibusimcontext.c || :
-cp client/gtk2/ibusimcontext.c client/gtk4/ibusimcontext.c || :
 
 
 # prep test
@@ -386,6 +383,7 @@ fi
     --enable-introspection \
     --enable-install-tests \
     %{nil}
+# for 1385349-segv-bus-proxy.patch
 make -C ui/gtk3 maintainer-clean-generic
 
 %make_build
@@ -639,6 +637,10 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Wed Mar 19 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.32~rc2-1
+- Resolves #2341930 Clear object pointers with task free in engineproxy
+- Update Unicode table with keysym
+
 * Fri Mar 14 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.32~rc1-4
 - Fix time lag of CandidatePanel in X11
 - Fix infinite Return key in xterm with Wayalnd input-method protocol V2

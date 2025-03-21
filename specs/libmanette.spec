@@ -1,6 +1,6 @@
 Name:           libmanette
-Version:        0.2.9
-Release:        2%{?dist}
+Version:        0.2.11
+Release:        1%{?dist}
 Summary:        Game controller library
 
 License:        LGPL-2.1-or-later
@@ -14,6 +14,7 @@ BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(gudev-1.0)
+BuildRequires:  pkgconfig(hidapi-hidraw)
 BuildRequires:  pkgconfig(libevdev)
 BuildRequires:  vala
 
@@ -63,6 +64,9 @@ developing applications that use %{name}.
 %{_datadir}/vala/
 
 %changelog
+* Wed Mar 19 2025 nmontero <nmontero@redhat.com> - 0.2.11-1
+- Update to 0.2.11
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

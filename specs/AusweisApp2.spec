@@ -41,7 +41,7 @@ fi                                               \
 %global newname   AusweisApp
 
 Name:             AusweisApp2
-Version:          2.3.0
+Version:          2.3.1
 Release:          %autorelease
 Summary:          %{pkg_sum}
 
