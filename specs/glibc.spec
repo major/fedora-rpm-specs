@@ -118,7 +118,7 @@ function post_exec (msg, program, ...)
 end
 
 function call_ldconfig ()
-  post_exec("Error: call to ldconfig failed.\n",
+  post_exec("Error: call to ldconfig failed.\\n",
 	    "ldconfig")
 end
 
@@ -128,13 +128,13 @@ function update_gconv_modules_cache ()
   local iconv_modules = iconv_dir .. "/gconv-modules"
   if posix.utime(iconv_modules) == 0 then
     if posix.utime (iconv_cache) == 0 then
-      post_exec ("Error: call to %{_prefix}/sbin/iconvconfig failed.\n",
+      post_exec ("Error: call to %{_prefix}/sbin/iconvconfig failed.\\n",
 		 "%{_prefix}/sbin/iconvconfig",
 		 "-o", iconv_cache,
 		 "--nostdlib",
 		 iconv_dir)
     else
-      io.stdout:write ("Error: Missing " .. iconv_cache .. " file.\n")
+      io.stdout:write ("Error: Missing " .. iconv_cache .. " file.\\n")
     end
   end
 end}

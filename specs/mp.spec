@@ -40,7 +40,7 @@ Summary: An open-source library for mathematical programming
 # GPL-2.0-or-later: src/asl/mkstemps.c (not included in the binary RPM)
 # GPL-3.0-or-later: src/gsl/default.c (not included in the binary RPM)
 License: SMLNJ AND BSD-2-Clause
-Release: 10%{?dist}
+Release: 11%{?dist}
 URL: https://mp.ampl.com/
 VCS: git:%{forgeurl}.git
 Source0: %{forgesource}
@@ -244,6 +244,9 @@ rm -rf %{buildroot}%{_datadir}
 %{_includedir}/mp
 
 %changelog
+* Thu Mar 20 2025 Jerry James <loganjerry@gmail.com> - 20240319-11
+- Rebuild for coin-or-HiGHS 1.10.0
+
 * Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 20240319-10
 - Rebuild with gsl 2.8
 

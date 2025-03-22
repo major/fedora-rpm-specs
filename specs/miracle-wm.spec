@@ -3,8 +3,8 @@
 %global mirversion 2.18
 
 Name:           miracle-wm
-Version:        0.4.1
-Release:        2%{?dist}
+Version:        0.5.1
+Release:        1%{?dist}
 Summary:        A tiling Wayland compositor based on Mir
 
 License:        GPL-3.0-or-later and MIT
@@ -29,6 +29,7 @@ BuildRequires:  pkgconfig(libevdev)
 BuildRequires:  cmake(nlohmann_json) >= 3.2.0
 BuildRequires:  pkgconfig(json-c)
 BuildRequires:  pkgconfig(libnotify)
+BuildRequires:  pkgconfig(gmock)
 BuildRequires:  cmake(gtest)
 BuildRequires:  libxkbcommon-devel
 BuildRequires:  desktop-file-utils
@@ -76,6 +77,15 @@ those compositors, like swayfx.
 
 
 %changelog
+* Thu Mar 20 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.5.1-1
+- Update to 0.5.1
+
+* Thu Mar 20 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.5.0-2
+- Fix build with Mir < 2.19
+
+* Thu Mar 20 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.5.0-1
+- Update to 0.5.0
+
 * Fri Mar 14 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.4.1-2
 - Rebuild for Mir 2.20
 

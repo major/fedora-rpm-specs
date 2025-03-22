@@ -1,7 +1,7 @@
 %global pypi_name nipype
 
 Name:           python-%{pypi_name}
-Version:        1.9.2
+Version:        1.10.0
 Release:        %{autorelease}
 Summary:        Neuroimaging in Python: Pipelines and Interfaces
 
@@ -21,6 +21,7 @@ BuildRequires:  python3dist(pandas)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-env)
 BuildRequires:  python3dist(pytest-timeout)
+BuildRequires:  python3dist(pytest-xdist)
 BuildRequires:  python3dist(pytest-xvfb)
 
 %global _description %{expand:
@@ -89,10 +90,10 @@ find nipype/ -name \*.py -exec sed -i '/env python/d' '{}' \;
 
 
 %check
-# With `-c /dev/null` we circumvent `pyproject.toml`, which has settings
+# With `-c pytest.ini` we circumvent `pyproject.toml`, which has settings
 # for running doctests and coverage.
-# Report which tests are skipped and why (-rs).
-%pytest -v -rs -c /dev/null
+touch -a pytest.ini
+%pytest -r fEs -c pytest.ini
 
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}

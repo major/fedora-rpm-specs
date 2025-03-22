@@ -191,7 +191,7 @@ done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor X11LIB=%{_libdir} XFT=1 NO_PACKLIST=1 NO_PERLLOCAL=1
-find . -name Makefile | xargs perl -pi -e 's/^\tLD_RUN_PATH=[^\s]+\s*/\t/'
+find . -name Makefile | xargs perl -pi -e 's/$/ -std=gnu99/ if /^CCFLAGS/;s/^\tLD_RUN_PATH=[^\s]+\s*/\t/'
 %{make_build}
 
 %check

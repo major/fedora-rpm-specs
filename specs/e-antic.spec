@@ -2,7 +2,7 @@
 
 Name:           e-antic
 Version:        2.0.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Real Embedded Algebraic Number Theory In C
 
 License:        LGPL-3.0-or-later
@@ -13,6 +13,10 @@ Source:         %{giturl}/archive/%{version}/%{name}-%{version}.tar.gz
 # been incorporated into the Fedora versions.  Make e-antic skip attempts to
 # build the patched files.
 Patch:          %{name}-unpatch.patch
+# Adapt to name change FLINT_TEST_CLEANUP -> FLINT_TEST_CLEAR
+Patch:          %{name}-flint3-test.patch
+# Adapt to flint 3.2
+Patch:          %{giturl}/pull/282.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -107,6 +111,10 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make check
 %{_libdir}/libeanticxx.so
 
 %changelog
+* Thu Mar 20 2025 Jerry James <loganjerry@gmail.com> - 2.0.2-4
+- Rebuild for flint 3.2.1
+- Add patches to adapt to changes in flint 3.2
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

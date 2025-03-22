@@ -7,7 +7,7 @@
 
 Summary: Help files for GIMP
 Name: gimp-help
-Version: 2.99.0~20250212git2b4f24e36
+Version: 3.0.0
 Release: %autorelease
 License: GFDL-1.2-invariants-only
 URL: https://docs.gimp.org/
@@ -30,7 +30,7 @@ ExcludeArch: s390x
 }
 
 %if ! %defined snapshot
-Source0: https://download.gimp.org/pub/gimp/help/gimp-help-%{version}.tar.xz
+Source0: https://download.gimp.org/pub/gimp/help/gimp-help-%{version}.tar.bz2
 %else
 Source0: gimp-help-%{plain_version}-git%{git_rev}.tar.xz
 %endif

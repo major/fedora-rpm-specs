@@ -1,5 +1,5 @@
 Name:           newflasher
-Version:        57
+Version:        58
 Release:        %autorelease
 Summary:        Flash tool for new Sony flash tool protocol (Xperia XZ Premium and further)
 
@@ -17,7 +17,6 @@ BuildRequires:  zlib-ng-compat-devel
 
 %prep
 %autosetup
-sed -i "s/CFLAGS=/CFLAGS?=/" makefile
 
 
 %build

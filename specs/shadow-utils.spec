@@ -1,12 +1,12 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
-Version: 4.17.0
-Release: 5%{?dist}
+Version: 4.17.4
+Release: 1%{?dist}
 Epoch: 2
 License: BSD-3-Clause AND GPL-2.0-or-later
 URL: https://github.com/shadow-maint/shadow
-Source0: https://github.com/shadow-maint/shadow/releases/download/4.17.0/shadow-4.17.0.tar.xz
-Source1: https://github.com/shadow-maint/shadow/releases/download/4.17.0/shadow-4.17.0.tar.xz.asc
+Source0: https://github.com/shadow-maint/shadow/releases/download/4.17.4/shadow-4.17.4.tar.xz
+Source1: https://github.com/shadow-maint/shadow/releases/download/4.17.4/shadow-4.17.4.tar.xz.asc
 Source2: shadow-utils.useradd
 Source3: shadow-utils.login.defs
 Source4: shadow-bsd.txt
@@ -18,16 +18,16 @@ Source7: passwd.pamd
 %global includesubiddir %{_includedir}/shadow
 # Fail linking if there are undefined symbols.
 %global _ld_strict_symbol_defs 1
+# workaround: _pam_confdir definition disappeared
+%if ! %{defined _pam_confdir}
+%define _pam_confdir /etc/pam.d
+%endif
 
 ### Patches ###
 # Misc manual page changes - non-upstreamable
 Patch0: shadow-4.15.0-manfix.patch
-# Date parsing improvement - could be upstreamed
-Patch1: shadow-4.15.0-date-parsing.patch
-# Audit message changes - partially upstreamed
-Patch2: shadow-4.17.0-audit-update.patch
 # Probably non-upstreamable
-Patch3: shadow-4.17.0-account-tools-setuid.patch
+Patch1: shadow-4.17.4-account-tools-setuid.patch
 
 ### Dependencies ###
 Requires: audit-libs >= 1.6.5
@@ -105,7 +105,7 @@ Requires: shadow-utils-subid = %{epoch}:%{version}-%{release}
 Development files for shadow-utils-subid.
 
 %prep
-%autosetup -p 1 -S git -n shadow-4.17.0
+%autosetup -p 1 -S git -n shadow-4.17.4
 
 iconv -f ISO88591 -t utf-8  doc/HOWTO > doc/HOWTO.utf8
 cp -f doc/HOWTO.utf8 doc/HOWTO
@@ -179,8 +179,6 @@ rm $RPM_BUILD_ROOT%{_mandir}/man1/su.*
 rm $RPM_BUILD_ROOT%{_mandir}/*/man1/su.*
 rm $RPM_BUILD_ROOT%{_mandir}/man5/passwd.*
 rm $RPM_BUILD_ROOT%{_mandir}/*/man5/passwd.*
-rm $RPM_BUILD_ROOT%{_mandir}/man5/suauth.*
-rm $RPM_BUILD_ROOT%{_mandir}/*/man5/suauth.*
 rm $RPM_BUILD_ROOT%{_mandir}/man8/logoutd.*
 rm $RPM_BUILD_ROOT%{_mandir}/*/man8/logoutd.*
 rm $RPM_BUILD_ROOT%{_mandir}/man8/nologin.*
@@ -281,6 +279,10 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
+* Thu Mar 20 2025 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.17.4-1
+- Rebase to version 4.17.4. Resolves: #2353491
+- Fixes problems with expiration dates
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 2:4.17.0-5
 - Add explicit BR: libxcrypt-devel
 

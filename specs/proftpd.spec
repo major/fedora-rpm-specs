@@ -18,12 +18,12 @@
 
 #global prever rc4
 %global baserelease 1
-%global mod_proxy_version 0.9.4
+%global mod_proxy_version 0.9.5
 %global mod_vroot_version 0.9.12
 
 Summary:		Flexible, stable and highly-configurable FTP server
 Name:			proftpd
-Version:		1.3.8d
+Version:		1.3.9
 Release:		%{?prever:0.}%{baserelease}%{?prever:.%{prever}}%{?dist}
 License:		GPL-2.0-or-later
 URL:			http://www.proftpd.org/
@@ -41,14 +41,8 @@ Source10:		http://github.com/Castaglia/proftpd-mod_vroot/archive/v%{mod_vroot_ve
 Source11:		http://github.com/Castaglia/proftpd-mod_proxy/archive/v%{mod_proxy_version}.tar.gz
 
 Patch1:			proftpd-1.3.8-shellbang.patch
+Patch2:			mod_proxy-certificate.patch
 Patch3:			proftpd-1.3.4rc1-mod_vroot-test.patch
-Patch7:			proftpd-1.3.8-configure-c99.patch
-Patch9:			https://patch-diff.githubusercontent.com/raw/proftpd/proftpd/pull/1677.patch
-Patch10:		mod_proxy-certificate.patch
-Patch11:		mod_proxy-old-openssl.patch
-Patch12:		proftpd-1.3.8c-no-engine.patch
-Patch13:		proftpd-1.3.8b-format-overflow.patch
-Patch14:		proftpd-1.3.8c-c23.patch
 
 BuildRequires:		coreutils
 BuildRequires:		gcc
@@ -224,34 +218,11 @@ mv contrib/README contrib/README.contrib
 # Change shellbangs /usr/bin/env perl ⇒ /usr/bin/perl
 %patch -P 1
 
+# Use the system-wide CA certificate file rather than the one bundled with mod_proxy
+%patch -P 2 -b .proxy-ca-cert
+
 # If we're running the full test suite, include the mod_vroot test
 %patch -P 3 -p1 -b .test_vroot
-
-# Port configure script to C99: https://github.com/proftpd/proftpd/pull/1665
-%patch -P 7 -p1 -b .c99
-
-# Update fsio.c - if mkdir fails with EEXIST, also clear the cache
-# https://github.com/proftpd/proftpd/pull/1677
-%patch -P 9 -p1 -b .gh1677
-
-# Use the system-wide CA certificate file rather than the one bundled with mod_proxy
-%patch -P 10 -b .proxy-ca-cert
-
-# Fix compilation of mod_proxy with older OpenSSL versions
-# https://github.com/Castaglia/proftpd-mod_proxy/pull/270
-%patch -P 11 -b .old-openssl
-
-# Fix support for building with no ENGINE support in OpenSSL
-# https://github.com/proftpd/proftpd/pull/1816
-%patch -P 12 -p1 -b .no-engine
-
-# Avoid potential null pointer dereference in mod_tls and mod_proxy
-# https://github.com/proftpd/proftpd/pull/1817
-%patch -P 13 -p1 -b .format-overflow
-
-# Fix for C23 compatibility
-# These are already non-issues in proftpd 1.3.9 upstream
-%patch -P 14 -p0 -b .c23
 
 # Tweak logrotate script for systemd compatibility (#802178)
 sed -i -e '/killall/s/test.*/systemctl try-reload-or-restart proftpd.service/' \
@@ -376,7 +347,7 @@ fi
 %files -f proftpd.lang
 %license COPYING
 %doc CREDITS ChangeLog NEWS README.md
-%doc README.modules contrib/README.contrib contrib/README.ratio
+%doc contrib/README.contrib contrib/README.ratio
 %doc doc/* sample-configurations/
 %dir %{_localstatedir}/ftp/
 %dir %{_localstatedir}/ftp/pub/
@@ -457,7 +428,7 @@ fi
 %{_libdir}/pkgconfig/proftpd.pc
 
 %files ldap
-%doc README.LDAP contrib/mod_quotatab_ldap.ldif contrib/mod_quotatab_ldap.schema
+%doc contrib/mod_quotatab_ldap.ldif contrib/mod_quotatab_ldap.schema
 %{_libexecdir}/proftpd/mod_ldap.so
 %{_libexecdir}/proftpd/mod_quotatab_ldap.so
 
@@ -490,6 +461,13 @@ fi
 %{_mandir}/man1/ftpwho.1*
 
 %changelog
+* Thu Mar 20 2025 Paul Howarth <paul@city-fan.org> - 1.3.9-1
+- Update to 1.3.9 (see RELEASE_NOTES for details)
+- Update mod_proxy to 0.9.5
+  - Implemented new IgnoreForeignAddress ProxyOption
+  - Fixed passive data transfers to backend IPv4 address when IPv6 support is
+    enabled
+
 * Tue Mar 18 2025 Paul Howarth <paul@city-fan.org> - 1.3.8d-1
 - Update to 1.3.8d
   - Use of HideNoAccess for SFTP sessions can lead to segfault and/or

@@ -7,7 +7,7 @@
 Summary: A software wavetable MIDI synthesizer
 Name: timidity++
 Version: 2.15.0
-Release: 12%{?dist}
+Release: 13%{?dist}
 Source0: http://downloads.sourceforge.net/timidity/TiMidity++-2.15.0.tar.xz
 Source1: timidity.desktop
 Source2: timidity-xaw.desktop
@@ -62,7 +62,8 @@ autoreconf -ivf
 
 
 %build
-export EXTRACFLAGS="$RPM_OPT_FLAGS -DCONFIG_FILE=\\\"/etc/timidity++.cfg\\\""
+# gtk2 GtkItemFactoryCallback is not compatible with latest C
+export EXTRACFLAGS="$RPM_OPT_FLAGS -std=gnu11 -DCONFIG_FILE=\\\"%{_sysconfdir}/timidity++.cfg\\\""
 # Note the first argument to --enable-audio is the default output, and
 # we use libao to get pulse output
 %configure --disable-dependency-tracking \
@@ -103,6 +104,9 @@ install -p -m 644 interface/pixmaps/timidity.xpm \
 
 
 %changelog
+* Thu Mar 20 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 2.15.0-13
+- Fix FTBFS (rhbz#2341437)
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,15 +1,11 @@
 Name:          gupnp-tools
-Version:       0.12.1
-Release:       6%{?dist}
+Version:       0.12.2
+Release:       1%{?dist}
 Summary:       A collection of dev tools utilising GUPnP and GTK+
 
 License:       GPL-2.0-or-later
 URL:           https://wiki.gnome.org/Projects/GUPnP
 Source0:       https://download.gnome.org/sources/%{name}/0.12/%{name}-%{version}.tar.xz
-# https://gitlab.gnome.org/GNOME/gupnp-tools/-/issues/27
-Patch:         gupnp-tools-0.12.1-libxml2-2.12.0-deprecations.patch
-# https://gitlab.gnome.org/GNOME/gupnp-tools/-/issues/28
-Patch:         gupnp-tools-0.12.1-libxml2-2.12.0-includes.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: gcc
@@ -72,6 +68,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/gupnp-universal-cp.de
 %{_datadir}/icons/hicolor/*/apps/universal-cp.png
 
 %changelog
+* Wed Mar 19 2025 nmontero <nmontero@redhat.com> - 0.12.2-1
+- Update to 0.12.2
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

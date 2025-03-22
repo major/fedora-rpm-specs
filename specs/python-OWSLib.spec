@@ -1,12 +1,5 @@
-# Sphinx-generated HTML documentation is not suitable for packaging; see
-# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
-#
-# We can generate PDF documentation as a substitute.
-# EPEL10 does not (yet) have pandoc.
-%bcond doc_pdf %{undefined el10}
-
 Name:           python-OWSLib
-Version:        0.32.0
+Version:        0.33.0
 Release:        %autorelease
 Summary:        OGC Web Service utility library
 
@@ -30,16 +23,29 @@ URL:            https://geopython.github.io/OWSLib
 Source0:        OWSLib-%{version}-filtered.tar.zst
 Source1:        get_source
 
+BuildSystem:            pyproject
+BuildOption(install):   -l owslib
+
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
-
-%if %{with doc_pdf}
-BuildRequires:  make
-BuildRequires:  python3-sphinx-latex
-BuildRequires:  latexmk
-BuildRequires:  pandoc
-%endif
+# Tests; dependencies are in requirements-dev.txt.
+BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist pytest_httpserver}
+BuildRequires:  %{py3_dist Pillow}
+# We don’t have pytest-socket packaged, and we can get by without it.
+# - pytest-socket
+# We don’t use tox to run the tests. It would run "python3 setup.py develop",
+# which is unwanted.
+# - tox
+# Unwanted linting/coverage dependencies:
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+# - coverage
+# - coveralls
+# - flake8
+# - pytest-cov
+# These are just for the maintainer to upload to PyPI.
+# - build
+# - twine
 
 %global common_description %{expand:
 OWSLib is a Python package for client programming with Open Geospatial
@@ -59,68 +65,19 @@ Summary:        %{summary}
 
 %py_provides python3-owslib
 
+# The -doc subpackage was removed for Fedora 42; we can remove this Obsoletes
+# after Fedora 44. (EPEL10 never had a -doc subpackage.)
+Obsoletes:      python-OWSLIB-doc < 0.32.0-1
+
 %description -n python3-OWSLib %{common_description}
 
 
-%package doc
-Summary:        Documentation and examples for OWSLib
-
-%description doc
-%{summary}.
-
-
-%prep
-%autosetup -n OWSLib-%{version}
-
+%prep -a
 # Don’t analyze/report test coverage
-sed -r -i 's/[-]-cov[^[:blank:]]*[[:blank:]][^[[:blank:]]+//g' tox.ini
-# Don’t generate linting/coverage dependencies.
-#
-# We don’t have python3dist(pandoc) packaged, and besides, we don’t actually
-# need python3dist(pandoc)—only the pandoc command-line tool, which we have
-# manually BR’d.
-#
-# Don’t generate twine dependency, which is just for the upstream maintainer
-# uploading to PyPI.
-sed -r -e '/^(flake8|pytest-cov|twine|coverage|coveralls)\b/d' \
-    requirements-dev.txt | tee requirements-dev-filtered.txt
-
-# We don’t need shebangs in the examples. The pattern of selecting files
-# before modifying them with sed keeps us from unnecessarily discarding the
-# original mtimes on unmodified files.
-find 'examples' -type f -name '*.py' \
-    -exec gawk '/^#!/ { print FILENAME }; { nextfile }' '{}' '+' |
-  xargs -r sed -r -i '1{/^#!/d}'
-# Some of them, but not all of them, were executable.
-chmod -v a-x examples/*.py
-
-# Because at least one notebook requires Internet access, we must continue past
-# notebook errors when building documentation.
-echo 'nbsphinx_allow_errors = True' >> docs/source/conf.py
+sed -r -i 's/^([[:blank:]]*)(--cov\b)/\1# \2/' tox.ini
 
 
-%generate_buildrequires
-%{pyproject_buildrequires \
-    %{?with_doc_pdf:docs/requirements.txt} \
-    requirements-dev-filtered.txt}
-
-
-%build
-%pyproject_wheel
-
-%if %{with doc_pdf}
-PYTHONPATH="${PWD}" %make_build -C docs latex \
-    SPHINXOPTS='-j%{?_smp_build_ncpus}'
-%make_build -C docs/build/latex LATEXMKOPTS='-quiet'
-%endif
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l owslib
-
-
-%check
+%check -a
 # Otherwise, pytest finds the package twice in the Python path and complains.
 rm -rf owslib
 
@@ -182,16 +139,7 @@ k="${k-}${k+ and }not test_md_distribution"
 
 
 %files -n python3-OWSLib -f %{pyproject_files}
-
-
-%files doc
-%license LICENSE
-%doc AUTHORS.rst
 %doc README.md
-%doc examples/
-%if %{with doc_pdf}
-%doc docs/build/latex/OWSLib.pdf
-%endif
 
 
 %changelog

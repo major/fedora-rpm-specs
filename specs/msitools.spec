@@ -1,4 +1,4 @@
-#define _version_suffix -aeb8
+#define _version_suffix
 
 # The mingw* RPMs are noarch, and the wxi data files are
 # arch independant, so it is a waste of CPU cycles to run
@@ -11,8 +11,8 @@
 %endif
 
 Name:           msitools
-Version:        0.103
-Release:        5%{?dist}
+Version:        0.106
+Release:        %autorelease
 Summary:        Windows Installer tools
 
 # LGPL-2.1-or-later: the project as a whole
@@ -34,22 +34,6 @@ Summary:        Windows Installer tools
 License:        LGPL-2.1-or-later AND GPL-2.0-or-later AND MS-RL
 URL:            http://ftp.gnome.org/pub/GNOME/sources/%{name}
 Source0:        http://ftp.gnome.org/pub/GNOME/sources/%{name}/%{version}/%{name}-%{version}%{?_version_suffix}.tar.xz
-
-# upstream commits since last release
-Patch2:         0002-wxi-update-adwaita-icon-theme-to-45.0.patch
-Patch3:         0003-wxi-update-jasper-to-4.1.2.patch
-Patch4:         0004-wxi-update-ICU.patch
-Patch10:        0010-wxi-update-for-rawhide.patch
-Patch11:        0011-wxi-update-for-rawhide.patch
-Patch12:        0012-wxi-openjpeg2-is-now-part-of-openjpeg.patch
-Patch14:        0014-wxi-curl-depends-on-libpsl-now.patch
-Patch15:        0015-wxi-drop-p11-kit.patch
-Patch16:        0016-wxi-usbx-usb1.patch
-Patch17:        0017-wxi-update-ICU.patch
-Patch18:        0018-wxi-sdl2-sdl2-compat.patch
-Patch19:        0019-wxi-bump-openexr.patch
-Patch20:        0020-wxi-bump-gstreamer1-plugins-bad-free.patch
-Patch21:        0021-wxi-update-openal-soft.patch
 
 Requires:       libgsf >= 1.14.24-2
 
@@ -306,87 +290,4 @@ The libmsi1-devel package includes the header files for libmsi.
 
 
 %changelog
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.103-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Mon Aug  5 2024 Daniel P. Berrangé <berrange@redhat.com> - 0.103-4
-- Updates for changes mingw content
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.103-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.103-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Tue Sep 19 2023 Marc-André Lureau <marcandre.lureau@redhat.com> - 0.103-1
-- new version v0.103
-- Rename libmsi.so -> libmsi-1.0.so
-
-* Thu Sep 14 2023 Jerry James <loganjerry@gmail.com> - 0.102-3
-- Fix build on s390x
-- More SPDX migration
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.102-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jun 20 2023 Marc-André Lureau <marcandre.lureau@redhat.com> - 0.102-1
-- New release v0.102
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.101.32-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.101.32-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon May 09 2022 Richard Hughes <rhughes@redhat.com> - 0.101.32-5
-- Fix tests with latest adwaita-icon-theme.
-
-* Fri May 06 2022 Richard Hughes <rhughes@redhat.com> - 0.101.32-4
-- Backport a patch so wixl-heat can work with glib as-shiped in F36.
-
-* Sat Jan 29 2022 Marc-André Lureau <marcandre.lureau@redhat.com> - 0.101.32-3
-- Fix FTBFS. rhbz#2046759
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.101.32-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Sun Aug 01 2021 Marc-André Lureau <marcandre.lureau@redhat.com> - 0.101.32-1
-- Fix FTBFS. rhbz#1987721
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.101.27-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon Jun 28 2021 Marc-André Lureau <marcandre.lureau@redhat.com> - 0.101.27-1
-- Fix FTBFS. rhbz#1943037
-
-* Wed Feb  3 2021 Daniel P. Berrangé <berrange@redhat.com> - 0.101-2
-- Fix enablement of wxi tests
-- Use perl-base and gettext for more minimal dep chain
-
-* Tue Feb 02 2021 Marc-André Lureau <marcandre.lureau@redhat.com> - 0.101-1
-- new version v0.101
-- Fix FTBFS. rhbz#1923683
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.100-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sun Oct 04 2020 Marc-André Lureau <marcandre.lureau@redhat.com> - 0.100-7
-- Fix FTBFS. rhbz#1864178
-- Drop mingw-gstreamer* checks, it's outdated.
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.100-6
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.100-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Thu May 14 2020 Daniel P. Berrangé <berrange@redhat.com> - 0.100-4
-- Switch spice back to dsound instead of wasapi
-
-* Thu Apr 23 2020 Daniel P. Berrangé <berrange@redhat.com> - 0.100-3
-- Re-enable wix validation
-- Fix bugs in multiple wxi manifests
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.100-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+%autochangelog

@@ -9,17 +9,13 @@
 
 Summary:	Ruby binding of poppler-glib
 Name:		rubygem-%{gem_name}
-Version:	4.2.7
-Release:	2%{?dist}
+Version:	4.2.8
+Release:	1%{?dist}
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
 License:	LGPL-2.1-or-later
 URL:		http://ruby-gnome2.sourceforge.jp/
 Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
-# https://github.com/ruby-gnome/ruby-gnome/issues/1666
-# https://github.com/ruby-gnome/ruby-gnome/commit/b5509451eba560bbd4a19369140c80d9fd4701de
-# https://github.com/ruby-gnome/ruby-gnome/commit/b69f93c57a9639bcc8fc07bdc0dc93481e6d1436
-Patch0:	rubygem-poppler-GH1666-poppler-25_02_00-support-new-flag.patch
 
 Requires:	ruby(release)
 BuildRequires:	ruby(release)
@@ -72,15 +68,13 @@ rubygem-%{gem_name}
 %setup -q -n %{gem_name}-%{version}
 mv ../%{gem_name}-%{version}.gemspec .
 
-%patch -P0 -p2
-
 # Kill shebang
 grep -rl '#!.*/usr/bin' sample | \
 	xargs sed -i -e '\@#![ ]*/usr/bin@d'
 find sample/ -name \*.rb | xargs chmod 0644
 
 # Allow ruby-gnome2 no less than ones
-sed -i -e 's|= 4\.2\.7|>= 4.2.7|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.2\.8|>= 4.2.8|' %{gem_name}-%{version}.gemspec
 
 # pkgconfig dependency is actually not needed (when using rpm
 # dependency solver)
@@ -152,6 +146,9 @@ popd
 %{gem_instdir}/sample/
 
 %changelog
+* Thu Mar 20 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.8-1
+- 4.2.8
+
 * Wed Mar 05 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.7-2
 - Apply upstream patch to support poppler 25_02 new enum
 

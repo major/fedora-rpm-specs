@@ -1,6 +1,6 @@
 Name: python-pulp-glue
-Version: 0.30.0
-Release: 3%{?dist}
+Version: 0.31.1
+Release: 1%{?dist}
 Summary: The version agnostic Pulp 3 client library in python
 
 License: GPL-2.0-or-later
@@ -34,7 +34,10 @@ Summary: %{summary}
 
 # Remove the Python version upper bound to enable building with new versions in Fedora
 # This will work up until 3.19, which should be enough for now
-sed -i '/requires-python =/s/,<3\.1[4-9]//' pyproject.toml
+sed -i '/requires-python =/s/,<3\.[0-9]\+//' pyproject.toml
+
+# Remove upper version bound on setuptools to enable building with new versions in Fedora
+sed -i '/requires =.*setuptools/s/<[0-9]\+//' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -60,6 +63,10 @@ sed -i '/requires-python =/s/,<3\.1[4-9]//' pyproject.toml
 
 
 %changelog
+* Thu Mar 20 2025 Matthias Dellweg <x9c4@redhat.com> - 0.31.1-1
+- new version
+- Removed upper bound on build-required setuptools.
+
 * Sun Jan 26 2025 Matthias Dellweg <x9c4@redhat.com> - 0.30.0-3
 - Rebuilt with adding tests.
 - Removed upper bound on required Python. (thanks ksurma)

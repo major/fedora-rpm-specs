@@ -3,7 +3,7 @@
 
 Name: grubby
 Version: 8.40
-Release: 82%{?dist}
+Release: 83%{?dist}
 Summary: Command line tool for updating bootloader configs
 License: GPL-2.0-or-later
 Source1: grubby-bls
@@ -74,6 +74,10 @@ fi
 %{_mandir}/man8/grubby.8*
 
 %changelog
+* Thu Mar 20 2025 Leo Sandoval <lsandova@redhat.com> - 8.40-83
+- grubby-bls: in s390* systems, run zipl on grub cfg update event
+  Fixes previous commit and formats better the conditions that trigger grub cfg updates
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.40-82
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

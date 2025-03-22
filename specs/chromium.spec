@@ -261,8 +261,8 @@
 %endif
 
 Name:	chromium
-Version: 134.0.6998.88 
-Release: 4%{?dist}
+Version: 134.0.6998.117 
+Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -333,9 +333,6 @@ Patch312: chromium-123-fstack-protector-strong.patch
 
 # build error stdarch_arm_crc32
 Patch313: chromium-133-rust-crc32fast.patch
-
-# warning: unknown warning option '-Wno-nontrivial-memcall'
-Patch314: chromium-134-clang-unknown-option.patch
 
 # build error: libadler2 not found
 Patch315: chromium-134-rust-libadler2.patch
@@ -1039,7 +1036,6 @@ Qt6 UI for chromium.
 %patch -P313 -p1 -b .rust-crc32fast
 %endif
 %endif
-%patch -P314 -p1 -b .clang-unknown-option
 %patch -P315 -p1 -b .rust-libadler2
 %patch -P316 -p1 -b .clang-build-flags
 
@@ -1766,7 +1762,11 @@ fi
 %endif
 
 %changelog
-* Mon Mar 17 2025 Than Ngo <than@redhat.com> -  134.0.6998.88 -4
+* Thu Mar 20 2025 Than Ngo <than@redhat.com> -  134.0.6998.117-1
+- Update to 134.0.6998.117
+  * Critical CVE-2025-2476: Use after free in Lens
+
+* Mon Mar 17 2025 Than Ngo <than@redhat.com> -  134.0.6998.88-4
 - Fixed rhbz#2352698, rebuild for noopenh264 2.6.0
 
 * Fri Mar 14 2025 Than Ngo <than@redhat.com> -  134.0.6998.88-3
@@ -1775,7 +1775,7 @@ fi
 * Thu Mar 13 2025 Fabio Valentini <decathorpe@gmail.com> - 134.0.6998.88-2
 - Rebuild for noopenh264 2.6.0
 
-* Tue Mar 11 2025 Than Ngo <than@redhat.com> -  134.0.6998.88 -1
+* Tue Mar 11 2025 Than Ngo <than@redhat.com> -  134.0.6998.88-1
 - Update to 134.0.6998.88
   * High CVE-2025-1920: Type Confusion in V8
   * High CVE-2025-2135: Type Confusion in V8
@@ -1783,7 +1783,7 @@ fi
   * Medium CVE-2025-2136: Use after free in Inspector
   * Medium CVE-2025-2137: Out of bounds read in V8
 
-* Wed Mar 05 2025 Than Ngo <than@redhat.com> -  134.0.6998.35 -1
+* Wed Mar 05 2025 Than Ngo <than@redhat.com> -  134.0.6998.35-1
 - Update to 134.0.6998.35
   * CVE-2025-1914: Out of bounds read in V8
   * CVE-2025-1915: Improper Limitation of a Pathname to a Restricted Directory in DevTools

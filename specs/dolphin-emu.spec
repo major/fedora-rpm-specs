@@ -5,8 +5,14 @@
 %define _gcc_lto_cflags -fno-lto
 
 #See provides(bundled) below for more info:
-%global bundled_libs Bochs_disasm cpp-optparse expr FatFs FreeSurround glslang imgui implot rangeset soundtouch tinygltf
+%global bundled_libs Bochs_disasm cpp-optparse expr FatFs FreeSurround glslang imgui implot mbedtls rangeset soundtouch tinygltf
+#My best guess is that bochs is 2.6.6, as dolphin does not specify
+%global bochs_version 2.6.6
+%global FatFs_version 0.14b
+%global imgui_version 1.70
 %global implot_version 0.16
+%global mbedtls_version 2.28.9
+%global soundtouch_version 2.3.2
 %global tinygltf_version 2.9.5
 
 #JIT is only supported on x86_64 and aarch64:
@@ -15,7 +21,7 @@
 %endif
 
 Name:           dolphin-emu
-Version:        2412
+Version:        2503
 Release:        %autorelease
 Summary:        GameCube / Wii / Triforce Emulator
 
@@ -39,18 +45,9 @@ Source1:        %{name}.appdata.xml
 Source4:        https://github.com/epezent/implot/archive/refs/tags/v%{implot_version}.tar.gz#/implot-%{implot_version}.tar.gz
 Source5:        https://github.com/syoyo/tinygltf/archive/refs/tags/v%{tinygltf_version}.tar.gz#/tinygltf-%{tinygltf_version}.tar.gz
 
-#https://github.com/dolphin-emu/dolphin/pull/12923
-Patch0:         https://github.com/dolphin-emu/dolphin/pull/12923/commits/aea92651c739890eb895c58e7f57891edb396b64.patch
-#https://github.com/dolphin-emu/dolphin/pull/13226
-Patch1:         https://github.com/dolphin-emu/dolphin/commit/ad24ddb6bb01ddaba19bf72e8eda5cae354701ae.patch
-Patch2:         https://github.com/dolphin-emu/dolphin/pull/13226/commits/84ab15e020a993286329e1fc0b0e47ffc3c0a536.patch
-#https://github.com/dolphin-emu/dolphin/pull/13262
-Patch3:         https://github.com/dolphin-emu/dolphin/commit/b79bdb13c05b4fcef23cd30b210d40662d28373b.patch
-Patch4:         https://github.com/dolphin-emu/dolphin/commit/825092ad33a2e7466e79520c1338d0bed56ca299.patch
-#https://github.com/dolphin-emu/dolphin/pull/13274
-Patch5:         https://github.com/dolphin-emu/dolphin/commit/f28e134c88ecbd30eed89606bca3c348047a3009.patch
-#https://github.com/dolphin-emu/dolphin/pull/13273
-Patch6:         0001-Fix-build-with-minizip-ng-4.0.8.patch
+# Update bundled mbedtls:
+# https://github.com/dolphin-emu/dolphin/pull/13443
+Patch0:         0001-Update-mbedtls-to-2.28.9.patch
 
 ###Bundled code ahoy, I've added my best guess for versions and upstream urls
 ##The following isn't in Fedora yet:
@@ -58,10 +55,10 @@ Patch6:         0001-Fix-build-with-minizip-ng-4.0.8.patch
 Provides:       bundled(cpp-argparse)
 Provides:       bundled(expr)
 #http://elm-chan.org/fsw/ff/00index_e.html
-Provides:       bundled(FatFs) = 0.14b
+Provides:       bundled(FatFs) = %{FatFs_version}
 Provides:       bundled(FreeSurround)
 #https://github.com/ocornut/imgui
-Provides:       bundled(imgui) = 1.70
+Provides:       bundled(imgui) = %{imgui_version}
 #https://github.com/AdmiralCurtiss/rangeset
 Provides:       bundled(rangeset)
 ##These are not in fedora, but are easy to keep up to date (see sources):
@@ -71,14 +68,16 @@ Provides:       bundled(implot) = %{implot_version}
 Provides:       bundled(tinygltf) = %{tinygltf_version}
 ##The hard to unbundle
 #soundtouch cannot be unbundled easily, as it requires compile time changes:
-Provides:       bundled(soundtouch) = 2.3.2
+Provides:       bundled(soundtouch) = %{soundtouch_version}
 #This is hard to unbundle and is already a static only lib anyway:
 Provides:       bundled(glslang)
 #dolphin uses a very old bochs, which is incompatible with f35+'s bochs.
 #We could rework dolphin to use latest, but this requires a lot of work.
 #Furthermore, the dolphin gtest test cases that fail with f33/34 bochs
-#My best guess is that this is 2.6.6, as dolphin does not specify
-Provides:       bundled(bochs) = 2.6.6
+Provides:       bundled(bochs) = %{bochs_version}
+# mbedtls has dropped TLS v1.1, which dolphin-emu needs:
+# https://github.com/dolphin-emu/dolphin/pull/12246
+Provides:       bundled(mbedtls) = %{mbedtls_version}
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++

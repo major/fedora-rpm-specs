@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-qcheck
 Version:        0.24
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        QuickCheck inspired property-based testing for OCaml
 
 License:        BSD-2-Clause
@@ -200,6 +200,9 @@ asciidoc README.adoc
 %files -n ocaml-ppx-deriving-qcheck-devel -f .ofiles-ppx_deriving_qcheck-devel
 
 %changelog
+* Thu Mar 20 2025 Jerry James <loganjerry@gmail.com> - 0.24-3
+- Rebuild for ocaml-alcotest 1.9.0
+
 * Mon Mar 10 2025 Jerry James <loganjerry@gmail.com> - 0.24-2
 - Rebuild for ocaml-fmt 0.10.0
 

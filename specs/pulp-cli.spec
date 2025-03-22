@@ -1,6 +1,6 @@
 Name: pulp-cli
-Version: 0.30.0
-Release: 3%{?dist}
+Version: 0.31.1
+Release: 1%{?dist}
 Summary: Command line interface to talk to the Pulp 3 REST API
 
 License: GPL-2.0-or-later
@@ -26,8 +26,10 @@ handles waiting on tasks on behalf of the user.}
 %autosetup -p1 -n pulp-cli-%{version}
 
 # Remove the Python version upper bound to enable building with new versions in Fedora
-# This will work up until 3.19, which should be enough for now
-sed -i '/requires-python =/s/,<3\.1[4-9]//' pyproject.toml
+sed -i '/requires-python =/s/,<3\.[0-9]\+//' pyproject.toml
+
+# Remove upper version bound on setuptools to enable building with new versions in Fedora
+sed -i '/requires =.*setuptools/s/<[0-9]\+//' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires test_requirements.txt
@@ -78,6 +80,10 @@ done
 
 
 %changelog
+* Thu Mar 20 2025 Matthias Dellweg <x9c4@redhat.com> - 0.31.1-1
+- new version
+- Removed upper bound on build-required setuptools.
+
 * Thu Feb 06 2025 Matthias Dellweg <x9c4@redhat.com> - 0.30.0-3
 - Rebuilt without upper python version bound.
 

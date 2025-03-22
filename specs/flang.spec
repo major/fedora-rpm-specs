@@ -1,6 +1,6 @@
 %global maj_ver 20
 %global min_ver 1
-%global patch_ver 0
+%global patch_ver 1
 #global rc_ver 3
 %global flang_version %{maj_ver}.%{min_ver}.%{patch_ver}
 %global srcdir llvm-project-%{flang_version}%{?rc_ver:-rc%{rc_ver}}.src
@@ -323,6 +323,9 @@ export LD_LIBRARY_PATH=%{_builddir}/%{srcdir}/flang/%{_vpath_builddir}/lib
 %{_libdir}/libFortranRuntime.so.%{maj_ver}.%{min_ver}*
 
 %changelog
+* Thu Mar 20 2025 Nikita Popov <npopov@redhat.com> - 20.1.1-1
+- Update to LLVM 20.1.1
+
 * Wed Mar 05 2025 Nikita Popov <npopov@redhat.com> - 20.1.0-1
 - Update to LLVM 20.1.0
 

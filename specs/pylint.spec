@@ -3,9 +3,9 @@
 %undefine _py3_shebang_s
 
 %global forgeurl https://github.com/PyCQA/pylint
-%global basever 3.3.4
+%global basever 3.3.6
 #%%global prever b0
-Version:        3.3.4
+Version:        3.3.6
 %forgemeta
 
 Name:           pylint
@@ -15,6 +15,7 @@ License:        GPL-2.0-or-later
 URL:            https://github.com/pylint-dev/pylint
 Source0:        %{forgeurl}/archive/v%{basever}/pylint-%{basever}.tar.gz
 #Patch0:         7829.patch apply when rebased then re-enable tests
+Patch1:         pep639.patch
 BuildArch:      noarch
 
 BuildRequires:  pyproject-rpm-macros

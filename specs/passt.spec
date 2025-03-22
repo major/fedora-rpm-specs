@@ -7,11 +7,11 @@
 # Copyright (c) 2022 Red Hat GmbH
 # Author: Stefano Brivio <sbrivio@redhat.com>
 
-%global git_hash a1e48a02ff3550eb7875a7df6726086e9b3a1213
+%global git_hash 32f6212551c5db3b7b3548e8483e5d73f07a35ac
 %global selinuxtype targeted
 
 Name:		passt
-Version:	0^20250217.ga1e48a0
+Version:	0^20250320.g32f6212
 Release:	2%{?dist}
 Summary:	User-mode networking daemons for virtual machines and namespaces
 License:	GPL-2.0-or-later AND BSD-3-Clause
@@ -44,7 +44,7 @@ Requires(preun): %{name}
 Requires(preun): policycoreutils
 
 %description selinux
-This package adds SELinux enforcement to passt(1) and pasta(1).
+This package adds SELinux enforcement to passt(1), pasta(1), passt-repair(1).
 
 %prep
 %setup -q -n passt-%{git_hash}
@@ -82,6 +82,7 @@ make -f %{_datadir}/selinux/devel/Makefile
 install -p -m 644 -D passt.pp %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}/passt.pp
 install -p -m 644 -D passt.if %{buildroot}%{_datadir}/selinux/devel/include/distributed/passt.if
 install -p -m 644 -D pasta.pp %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}/pasta.pp
+install -p -m 644 -D passt-repair.pp %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}/passt-repair.pp
 popd
 
 %pre selinux
@@ -90,11 +91,13 @@ popd
 %post selinux
 %selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{selinuxtype}/passt.pp
 %selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{selinuxtype}/pasta.pp
+%selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{selinuxtype}/passt-repair.pp
 
 %postun selinux
 if [ $1 -eq 0 ]; then
 	%selinux_modules_uninstall -s %{selinuxtype} passt
 	%selinux_modules_uninstall -s %{selinuxtype} pasta
+	%selinux_modules_uninstall -s %{selinuxtype} passt-repair
 fi
 
 %posttrans selinux
@@ -124,8 +127,13 @@ fi
 %{_datadir}/selinux/packages/%{selinuxtype}/passt.pp
 %{_datadir}/selinux/devel/include/distributed/passt.if
 %{_datadir}/selinux/packages/%{selinuxtype}/pasta.pp
+%{_datadir}/selinux/packages/%{selinuxtype}/passt-repair.pp
 
 %changelog
+* Thu Mar 20 2025 Stefano Brivio <sbrivio@redhat.com> - 0^20250320.g32f6212-1
+- Actually install passt-repair SELinux policy file
+- Upstream changes: https://passt.top/passt/log/?qt=range&q=2025_02_17.a1e48a0..2025_03_20.32f6212
+
 * Mon Feb 17 2025 Stefano Brivio <sbrivio@redhat.com> - 0^20250217.ga1e48a0-1
 - Upstream changes: https://passt.top/passt/log/?qt=range&q=2025_01_21.4f2c8e7..2025_02_17.a1e48a0
 

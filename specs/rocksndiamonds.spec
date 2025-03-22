@@ -1,17 +1,17 @@
 Name:		rocksndiamonds
-Version:	4.3.2.0
-Release:	9%{?dist}
+Version:	4.4.0.4
+Release:	1%{?dist}
 License:	GPL-1.0-or-later
 Summary:	Underground digging game
 URL:		http://www.artsoft.org/rocksndiamonds/
 # We no longer have legal issues with the bundled copy of libsmpeg2, but we don't use it either
 # so we just delete it along with the other prebuilt libs in prep
-Source0:	https://www.artsoft.org/RELEASES/linux/rocksndiamonds/rocksndiamonds-%{version}.tar.gz
+Source0:	https://www.artsoft.org/RELEASES/linux/rocksndiamonds/rocksndiamonds-%{version}-linux.tar.gz
 Source1:	rocksndiamonds.desktop
 Source2:	rocksndiamonds.png
 # Additional music files we have permission for!
 Source3:	rocksndiamonds-distributable-music.tar.bz2
-Patch3:		rocksndiamonds-4.3.2.0-music-info-url.patch
+Patch3:		rocksndiamonds-4.4.0.4-music-info-url.patch
 Patch4:		rocksndiamonds-4.0.0.1-CVE-2011-4606.patch
 BuildRequires: make
 BuildRequires:  gcc
@@ -102,6 +102,9 @@ EOF
 %{_localstatedir}/games/%{name}/
 
 %changelog
+* Wed Mar 19 2025 Tom Callaway <spot@fedoraproject.org> - 4.4.0.4-1
+- update to 4.4.0.4
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.2.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

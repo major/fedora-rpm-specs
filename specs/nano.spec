@@ -8,7 +8,7 @@
 Summary:         A small text editor
 Name:            nano
 Version:         8.3
-Release:         2%{?dist}
+Release:         3%{?dist}
 License:         GPL-3.0-or-later
 URL:             https://www.nano-editor.org
 
@@ -80,8 +80,8 @@ cd build
 # generate default /etc/nanorc
 # - set hunspell as the default spell-checker
 # - enable syntax highlighting by default (#1270712)
-sed -e 's/^#.*set speller.*$/set speller "hunspell"/' \
-    -e 's|^# \(include "/usr/share/nano/\*.nanorc"\)|\1|' \
+sed -E -e 's/^#.*set speller.*$/set speller "hunspell"/' \
+       -e 's|^# (include "?/usr/share/nano/\*.nanorc"?)|\1|' \
     %{SOURCE3} doc/sample.nanorc > ./nanorc
 
 %install
@@ -133,6 +133,9 @@ install -Dpm 0644 %{SOURCE13} %{buildroot}%{_datadir}/fish/vendor_conf.d/%{basen
 
 
 %changelog
+* Thu Mar 20 2025 Lukáš Zaoral <lzaoral@redhat.com> - 8.3-3
+- fix nano syntax highlighting in default nanorc (rhbz#2353508)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

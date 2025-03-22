@@ -7,7 +7,7 @@
 # Planned for F-20+ only
 Summary:	Ruby binding of GDK-3.x
 Name:		rubygem-%{gem_name}
-Version:	4.2.7
+Version:	4.2.8
 Release:	1%{?dist}
 
 # SPDX confirmed
@@ -77,7 +77,7 @@ mv ../%{gem_name}-%{version}.gemspec .
 # Permission
 find . -name \*.rb -print0 | xargs --null chmod 0644
 
-sed -i -e 's|= 4\.2\.7|>= 4.2.7|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.2\.8|>= 4.2.8|' %{gem_name}-%{version}.gemspec
 sed -i -e '\@s\.extensions@d'  %{gem_name}-%{version}.gemspec
 
 %build
@@ -155,6 +155,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Thu Mar 20 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.8-1
+- 4.2.8
+
 * Thu Jan 30 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.7-1
 - 4.2.7
 

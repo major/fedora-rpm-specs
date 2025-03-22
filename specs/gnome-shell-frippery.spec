@@ -8,11 +8,13 @@ Summary:        Extensions to provide a user experience more like that of GNOME 
 
 License:        GPL-2.0-or-later
 URL:            http://frippery.org/extensions
-Source0:        %{url}/%{name}-%{version}.tgz
+Source:         %{url}/%{name}-%{version}.tgz
+# Add GNOME 48 as a supported shell version
+Patch:          frippery-gnome-48-compat.patch
 
 BuildArch:      noarch
 
-Requires:       gnome-shell-extension-common
+Requires:       (gnome-shell-extension-common >= 46 and gnome-shell-extension-common < 49)
 
 %description
 This package contains some GNOME Shell extensions to provide a user experience
@@ -44,7 +46,8 @@ the panel. Right clicking on the icons invokes a menu that lets one perform
 various operations on the application.
 
 %prep
-%setup -q -c %{name}-%{version}
+%autosetup -c %{name}-%{version} -p1
+
 mv .local/share/gnome-shell/extensions .
 mv .local/share/gnome-shell/gnome-shell-frippery/* .
 

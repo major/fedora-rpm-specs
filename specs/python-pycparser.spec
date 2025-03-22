@@ -2,7 +2,7 @@
 
 Name:           python-pycparser
 Summary:        C parser and AST generator written in Python
-Version:        2.20
+Version:        2.22
 Release:        %autorelease
 License:        BSD-3-Clause
 URL:            http://github.com/eliben/pycparser
@@ -19,12 +19,11 @@ Patch100:       pycparser-unbundle-ply.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-ply
 
 # for unit tests
 %if %{with tests}
-BuildRequires:  cpp
+BuildRequires:  gcc
 %endif
 
 %description
@@ -34,7 +33,6 @@ need to parse C source code.
 
 %package -n python3-pycparser
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-pycparser}
 
 %description -n python3-pycparser
 pycparser is a complete parser for the C language, written in pure Python.
@@ -50,25 +48,27 @@ rm -r pycparser/ply
 # Remove relative sys.path from the examples
 %{python3} %{SOURCE1} examples
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
-pushd build/lib/pycparser
+pushd pycparser
 %{python3} _build_tables.py
 popd
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l pycparser
 
 %check
+%pyproject_check_import
 %if %{with tests}
-%{python3} tests/all_tests.py
+%py3_test_envvars %{python3} -m unittest discover
 %endif
  
-%files -n python3-pycparser
-%license LICENSE
+%files -n python3-pycparser -f %{pyproject_files}
 %doc examples
-%{python3_sitelib}/pycparser/
-%{python3_sitelib}/pycparser-*.egg-info/
 
 %changelog
 %autochangelog

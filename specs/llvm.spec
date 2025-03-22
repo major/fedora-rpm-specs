@@ -2,7 +2,7 @@
 #region version
 %global maj_ver 20
 %global min_ver 1
-%global patch_ver 0
+%global patch_ver 1
 #global rc_ver 3
 
 %bcond_with snapshot_build
@@ -239,7 +239,7 @@
 #region main package
 Name:		%{pkg_name_llvm}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -328,6 +328,10 @@ Patch501: 0001-Fix-page-size-constant-on-aarch64-and-ppc64le.patch
 # Fix an isel error triggered by Rust 1.85 on s390x
 # https://github.com/llvm/llvm-project/issues/124001
 Patch1901: 0001-SystemZ-Fix-ICE-with-i128-i64-uaddo-carry-chain.patch
+
+# Backport fix for https://bugzilla.redhat.com/show_bug.cgi?id=2352554.
+# https://github.com/llvm/llvm-project/pull/131801
+Patch2004: 131801.patch
 
 %if 0%{?rhel} == 8
 %global python3_pkgversion 3.12
@@ -2420,6 +2424,12 @@ fi
     yaml2obj
 }}
 
+%if %{maj_ver} >= 21
+%{expand_bins %{expand:
+    llvm-ml64
+}}
+%endif
+
 %{expand_mans %{expand:
     bugpoint
     clang-tblgen
@@ -3017,6 +3027,9 @@ fi
 
 #region changelog
 %changelog
+* Wed Mar 19 2025 Nikita Popov <npopov@redhat.com> - 20.1.1-1
+- Update to LLVM 20.1.1
+
 * Tue Mar 18 2025 Nikita Popov <npopov@redhat.com> - 20.1.0-2
 - Move clang-scan-deps to clang package (rhbz#2353000)
 

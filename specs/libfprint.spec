@@ -1,6 +1,6 @@
 Name:           libfprint
 
-Version:        1.94.8
+Version:        1.94.9
 Release:        %autorelease
 Summary:        Toolkit for fingerprint scanner
 
@@ -14,6 +14,7 @@ BuildRequires:  meson
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  git
+BuildRequires:  openssl-devel
 BuildRequires:  pkgconfig(glib-2.0) >= 2.50
 BuildRequires:  pkgconfig(gio-2.0) >= 2.44.0
 BuildRequires:  pkgconfig(gusb) >= 0.3.0
@@ -70,6 +71,7 @@ the functionality of the installed %{name} package.
 %{_libdir}/girepository-1.0/*.typelib
 %{_udevhwdbdir}/60-autosuspend-libfprint-2.hwdb
 %{_udevrulesdir}/70-libfprint-2.rules
+%{_datadir}/metainfo/org.freedesktop.libfprint.metainfo.xml
 
 %files devel
 %doc HACKING.md

@@ -2,12 +2,12 @@
 # either interface, file a bug requesting it.
 
 # The build runs git to get a commit, but we don't have a git checkout
-%global commit  66f735e60
+%global commit  fd8665394
 
 %global giturl  https://github.com/ERGO-Code/HiGHS
 
 Name:           coin-or-HiGHS
-Version:        1.9.0
+Version:        1.10.0
 Release:        %autorelease
 Summary:        Linear optimization software
 
@@ -21,12 +21,13 @@ Patch:          %{name}-rpath.patch
 Patch:          %{name}-popcount.patch
 # Fix out-of-bounds vector accesses
 Patch:          %{name}-vector.patch
-# Unbundle pdqsort and zstr
+# Unbundle cli11, pdqsort, and zstr
 Patch:          %{name}-unbundle.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
+BuildRequires:  cli11-static
 BuildRequires:  cmake
 BuildRequires:  cmake(catch2)
 BuildRequires:  doctest-static
@@ -96,8 +97,8 @@ sed -i 's,n/a,%{commit},' CMakeLists.txt
 rm extern/catch.hpp
 ln -s %{_includedir}/catch2/catch_all.hpp extern/catch.hpp
 
-# Ensure the bundled pdqsort and zstr are not used
-rm -fr extern/{pdqsort,zstr}
+# Ensure the bundled cli11, pdqsort, and zstr are not used
+rm -fr app/CLI11.hpp extern/{pdqsort,zstr}
 
 %generate_buildrequires
 %pyproject_buildrequires -x test

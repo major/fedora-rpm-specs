@@ -1,5 +1,5 @@
 Name:       bpfilter
-Version:    0.2.1
+Version:    0.3.0
 Release:    %autorelease
 Summary:    BPF-based packet filtering framework
 
@@ -14,13 +14,18 @@ BuildRequires: cmake
 BuildRequires: flex
 BuildRequires: gcc
 BuildRequires: git-core
-BuildRequires: lcov
 BuildRequires: libbpf-devel
 BuildRequires: libcmocka-devel
 BuildRequires: libnl3-devel
 BuildRequires: make
 BuildRequires: systemd
 BuildRequires: systemd-rpm-macros
+
+# x86_64 macro is not defined in epel-rpm-macros
+# See https://pagure.io/epel/issue/325
+%if %{undefined x86_64}
+%define x86_64 x86_64
+%endif
 
 # Only those two architectures are supported by bpfilter.
 ExclusiveArch: %{x86_64} %{arm64}

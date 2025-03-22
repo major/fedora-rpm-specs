@@ -16,7 +16,7 @@
 %bcond_with all_tests
 
 Name:           python-libcst
-Version:        1.6.0
+Version:        1.7.0
 Release:        %autorelease
 Summary:        A concrete syntax tree with AST-like properties for Python 3
 
@@ -26,9 +26,6 @@ URL:            https://github.com/Instagram/LibCST
 Source:         %{pypi_source libcst}
 # * drop unused, benchmark-only criterion dev-dependency
 Patch:          libcst-fix-metadata.diff
-# * change to be compatible with chic both before and after the port from
-#   annotate-snippets v0.6 to v0.11
-Patch:          0001-Apply-minor-patch-for-compatibility-with-annotate-sn.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  python3-devel
@@ -57,13 +54,19 @@ AST.}
 
 %package -n     python3-libcst
 Summary:        %{summary}
+# (MIT OR Apache-2.0) AND Unicode-3.0
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # Apache-2.0 OR MIT
 # MIT
 # MIT AND (MIT AND PSF-2.0)
 # MIT OR Apache-2.0
 # Unlicense OR MIT
-License:        MIT AND (MIT AND PSF-2.0) AND Apache-2.0 AND (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND (Unlicense OR MIT)
+License:        %{shrink:
+                MIT AND (MIT AND PSF-2.0) AND Apache-2.0
+                AND (MIT OR Apache-2.0) AND Unicode-3.0
+                AND Unicode-DFS-2016
+                AND (Unlicense OR MIT)
+                }
 # LICENSE.dependencies contains a full license breakdown
 
 # Documentation is hard to build since libcst.native is not available to import until %%install
@@ -105,7 +108,7 @@ cd ..
 
 %install
 %pyproject_install
-%pyproject_save_files libcst
+%pyproject_save_files -l libcst
 
 
 %check
@@ -117,22 +120,9 @@ cd ..
 export LIBCST_PARSER_TYPE=pure
 %pyproject_check_import -e 'libcst.tests.*'
 %if %{with all_tests}
-%pytest
+%pytest -v
 %else
-# =========================== short test summary info ============================
-### these fail with this:
-###    AssertionError: False is not true : libcst._typed_visitor needs new codegen, see `python -m libcst.codegen.generate --help` for instructions, or run `python -m libcst.codegen.generate all`
-# FAILED libcst/codegen/tests/test_codegen_clean.py::TestCodegenClean::test_codegen_clean_matcher_classes
-# FAILED libcst/codegen/tests/test_codegen_clean.py::TestCodegenClean::test_codegen_clean_return_types
-# FAILED libcst/codegen/tests/test_codegen_clean.py::TestCodegenClean::test_codegen_clean_visitor_functions
-### these need pyre, not available yet
-# ERROR libcst/metadata/tests/test_type_inference_provider.py::TypeInferenceProviderTest::test_gen_cache_0
-# ERROR libcst/metadata/tests/test_type_inference_provider.py::TypeInferenceProviderTest::test_simple_class_types_0
-# ERROR libcst/metadata/tests/test_type_inference_provider.py::TypeInferenceProviderTest::test_with_empty_cache
-EXCLUDES="not ... and not ..."
-EXCLUDES+=...
-#%%pytest -k "$EXCLUDES"
-%pytest \
+%pytest -v \
   --ignore=libcst/codegen/tests/test_codegen_clean.py \
   --ignore=libcst/metadata/tests/test_type_inference_provider.py
 # end all_tests

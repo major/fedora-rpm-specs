@@ -29,10 +29,15 @@ Source3:        tmpfiles-strongswan.conf
 Patch0:         strongswan-5.6.0-uintptr_t.patch
 # https://github.com/strongswan/strongswan/issues/1198
 Patch1:         strongswan-5.9.7-error-no-format.patch
+# C23 fixes included in 6.0.1
+Patch2:         strongswan-6.0.0-gcc15.patch
+# C23 fixed merged but not yet released
+Patch3:         strongswan-6.0.1-gcc15.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  gnupg2
+BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  systemd
@@ -154,7 +159,7 @@ for Strongswan runtime configuration from perl applications.
 
 %build
 # only for snapshots
-#autoreconf
+autoreconf -fiv
 
 # --with-ipsecdir moves internal commands to /usr/libexec/strongswan
 # --bindir moves 'pki' command to /usr/libexec/strongswan

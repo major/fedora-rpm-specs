@@ -6,6 +6,15 @@
 # Filter out soname provides for the mozilla plugin
 %global __provides_exclude_from ^%{_libdir}/mozilla/plugins/
 
+## WARNING ##
+#
+# These builds can not end up in the main buildroot automatically for
+# legal reasons.
+#
+# It needs to be built into dedicated openh264 tags with:
+#
+#    fedpkg build --target=f*-openh264
+#
 Name:           openh264
 Version:        2.6.0
 Release:        2%{?dist}

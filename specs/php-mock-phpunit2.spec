@@ -6,16 +6,16 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    17f68c14b4a4d7e3b0b01ae116c9f3c84031184d
+%global gh_commit    498e5e25ee7824570332581304c2bb7e37d75e80
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2025-03-12
+%global gh_date      2025-03-19
 %global gh_owner     php-mock
 %global gh_project   php-mock-phpunit
 %global with_tests   0%{!?_without_tests:1}
 %global major        2
 
 Name:           php-mock-phpunit%{major}
-Version:        2.12.0
+Version:        2.13.0
 Release:        1%{?dist}
 Summary:        Mock built-in PHP functions with PHPUnit.
 
@@ -36,7 +36,7 @@ BuildRequires:  phpunit9
 BuildRequires:  phpunit10 >= 10.0.17
 %if 0%{?fedora} || 0%{?rhel} >= 10
 BuildRequires:  phpunit11
-BuildRequires:  phpunit12
+BuildRequires:  phpunit12 >= 12.0.9
 %endif
 # TODO phpunit11 but requires php 8.2
 # For autoloader
@@ -45,7 +45,7 @@ BuildRequires: php-composer(fedora/autoloader)
 
 # from composer.json, "require": {
 #        "php": ">=7",
-#        "phpunit/phpunit": "^6 || ^7 || ^8 || ^9 || ^10.0.17 || ^11 || ^12",
+#        "phpunit/phpunit": "^6 || ^7 || ^8 || ^9 || ^10.0.17 || ^11 || ^12.0.9",
 #        "php-mock/php-mock-integration": "^3.0"
 #    "conflict": {
 #        "phpunit/phpunit-mock-objects": "3.2.0"
@@ -171,6 +171,9 @@ exit $ret
 
 
 %changelog
+* Thu Mar 20 2025 Remi Collet <remi@remirepo.net> - 2.13.0-1
+- update to 2.13.0
+
 * Wed Mar 12 2025 Remi Collet <remi@remirepo.net> - 2.12.0-1
 - update to 2.12.0
 

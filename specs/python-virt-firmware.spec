@@ -1,4 +1,4 @@
-%global pypi_version 24.11
+%global pypi_version 25.3
 
 Name:           python-virt-firmware
 Version:        %{pypi_version}
@@ -31,6 +31,7 @@ Obsoletes:      python3-virt-firmware-peutils < 23.9
 Requires:       python3dist(cryptography)
 Requires:       python3dist(setuptools)
 Requires:       python3dist(pefile)
+Requires:       virt-sb-certs
 Recommends:     qemu-img
 Recommends:     dialog
 %description -n python3-virt-firmware
@@ -56,6 +57,13 @@ Conflicts:      systemd < 254
 kernel-install plugin and systemd unit to manage automatic
 UKI (unified kernel image) updates.
 
+%package -n     virt-sb-certs
+Summary:        secure boot certificate database
+%description -n virt-sb-certs
+secure boot certificates used by microsoft and linux distributions, to
+be used for a more finegrained secure boot configuration for virtual
+machines.
+
 %prep
 %autosetup -n virt_firmware-%{pypi_version}
 
@@ -75,6 +83,15 @@ install -m 755 -d  %{buildroot}%{_unitdir}
 install -m 755 -d  %{buildroot}%{_prefix}/lib/kernel/install.d
 install -m 644 systemd/kernel-bootcfg-boot-successful.service %{buildroot}%{_unitdir}
 install -m 755 systemd/99-uki-uefi-setup.install %{buildroot}%{_prefix}/lib/kernel/install.d
+# virt-sb-certs
+install -m 755 -d %{buildroot}%{_datadir}/virt-sb-certs
+dirs=$(cd %{buildroot}%{python3_sitelib}/virt/firmware/certs; echo *)
+mv -v %{buildroot}%{python3_sitelib}/virt/firmware/certs/* \
+   %{buildroot}%{_datadir}/virt-sb-certs
+for dir in $dirs; do
+    ln -vs ../../../../../../..%{_datadir}/virt-sb-certs/$dir \
+       %{buildroot}%{python3_sitelib}/virt/firmware/certs/$dir
+done
 
 %post -n uki-direct
 %systemd_post kernel-bootcfg-boot-successful.service
@@ -114,6 +131,9 @@ install -m 755 systemd/99-uki-uefi-setup.install %{buildroot}%{_prefix}/lib/kern
 %files -n uki-direct
 %{_unitdir}/kernel-bootcfg-boot-successful.service
 %{_prefix}/lib/kernel/install.d/99-uki-uefi-setup.install
+
+%files -n virt-sb-certs
+%{_datadir}/virt-sb-certs
 
 %changelog
 %autochangelog

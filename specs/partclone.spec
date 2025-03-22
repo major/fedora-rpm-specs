@@ -3,8 +3,8 @@
 
 Summary:        Utility to clone and restore a partition
 Name:           partclone
-Version:        0.3.33
-Release:        2%{?dist}
+Version:        0.3.34
+Release:        1%{?dist}
 # Partclone itself is GPL-2.0-or-later but uses other source codes, breakdown:
 # GPL-3.0-or-later: fail-mbr/fail-mbr.S
 # BSD-2-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-3.0-or-later: src/btrfs*
@@ -18,7 +18,6 @@ Release:        2%{?dist}
 License:        BSD-2-Clause AND GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-only AND LGPL-2.0-or-later AND LGPL-3.0-or-later
 URL:            https://partclone.org/
 Source0:        https://github.com/Thomas-Tsai/partclone/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:         https://github.com/Thomas-Tsai/partclone/pull/257.patch#/partclone-0.3.33-byteswap.patch
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  libuuid-devel
@@ -31,10 +30,6 @@ BuildRequires:  libblkid-devel
 BuildRequires:  libmount-devel
 %if 0%{?fedora}
 BuildRequires:  nilfs-utils-devel
-%endif
-# Building fail-mbr.bin requires a compiler that can build x86 binaries
-%ifnarch %{ix86} x86_64
-BuildRequires:  gcc-x86_64-linux-gnu
 %endif
 BuildRequires:  pkgconfig(bash-completion)
 %if 0%{?testsuite}
@@ -69,15 +64,7 @@ libraries, e.g. e2fslibs is used to read and write the ext2 partition.
 %autosetup -p1
 autoreconf -i -f
 
-# Building fail-mbr.bin requires a compiler that can build x86 binaries
-%ifnarch %{ix86} x86_64
-sed -e '/^case\s/{N;/.*)/d}' -e '/^\s*;;$/,$d' -e 's/\(gcc\|obj\S\)/x86_64-linux-gnu-\1/g' \
-    -i fail-mbr/compile-mbr.sh
-%endif
-
 %build
-# https://github.com/Thomas-Tsai/partclone/issues/260, https://github.com/Thomas-Tsai/partclone/issues/263
-export CFLAGS="$RPM_OPT_FLAGS -std=gnu17"
 %configure \
   --enable-fuse \
   --enable-extfs \
@@ -135,11 +122,13 @@ make check || { cat tests/test-suite.log; exit 1; }
 %license COPYING
 %doc AUTHORS ChangeLog
 %{_sbindir}/%{name}.*
-%{_datadir}/%{name}/
 %{_datadir}/bash-completion/completions/%{name}
 %{_mandir}/man8/%{name}*.8*
 
 %changelog
+* Thu Mar 20 2025 Robert Scheck <robert@fedoraproject.org> 0.3.34-1
+- Upgrade to 0.3.34 (#2353295)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.33-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

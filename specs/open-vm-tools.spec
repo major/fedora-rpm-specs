@@ -32,7 +32,7 @@
 
 Name:             open-vm-tools
 Version:          %{toolsversion}
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Open Virtual Machine Tools for virtual machines hosted on VMware
 License:          GPL-2.0-only AND W3C AND LGPL-2.1-only AND ICU AND ISC AND MIT
 URL:              https://github.com/vmware/%{name}
@@ -52,6 +52,8 @@ ExclusiveArch:    %{ix86} x86_64 aarch64
 
 # Patches
 #Patch0:           <patch-name0>.patch
+# Fix build when compiling with -std=c23 (GCC 15)
+Patch1:           https://github.com/vmware/open-vm-tools/pull/751.patch
 
 BuildRequires:    autoconf
 BuildRequires:    automake
@@ -228,9 +230,6 @@ sed -i "s|^Encoding.*$||g" %{buildroot}%{_sysconfdir}/xdg/autostart/vmware-user.
 find %{buildroot}%{_libdir} -name '*.la' -delete
 rm -fr %{buildroot}%{_defaultdocdir}
 rm -f docs/api/build/html/FreeSans.ttf
-
-# Remove mount.vmhgfs & symlink
-rm -fr %{buildroot}%{_sbindir} %{buildroot}/sbin/mount.vmhgfs
 
 # Systemd unit files
 install -p -m 644 -D %{SOURCE1} %{buildroot}%{_unitdir}/%{toolsdaemon}.service
@@ -418,6 +417,9 @@ fi
 %{_bindir}/vmware-vgauth-smoketest
 
 %changelog
+* Thu Mar 20 2025 Richard W.M. Jones <rjones@redhat.com> - 12.4.0-4
+- Bump and rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 12.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

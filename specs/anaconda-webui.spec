@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        27
+Version:        28
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -121,6 +121,16 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Mar 20 2025 Packit <hello@packit.dev> - 28-1
+- po: Update from Fedora Weblate (rhbz#2351026)
+- Fix translations that were prepared as string concatenation (rhbz#2351026)
+- Adjust build target for translations: html2po was converted to python (rhbz#2351026)
+- Adjust build target for translations: manifest2po was converted to python (rhbz#2351026)
+- cockpit-storage-integration: reset partitioning always before disk rescan (rhbz#rhbz#2352573)
+- cockpit-storage-integration: show 'use configured storage' scenario only if partitioning was applied (rhbz#2352573)
+- tests: update pixel tests for new keyboard feature translations
+- storage: when the bootloader partition is on different disks than rootfs choose bootloader device (rhbz#rhbz#2352573)
+
 * Fri Mar 14 2025 Packit <hello@packit.dev> - 27-1
 - storage: adjust scenario display order and default scenario selection
 

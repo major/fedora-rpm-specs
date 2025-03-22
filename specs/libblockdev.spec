@@ -86,12 +86,14 @@
 
 Name:        libblockdev
 Version:     3.3.0
-Release:     2%{?dist}
+Release:     3%{?dist}
 Summary:     A library for low-level manipulation with block devices
 License:     LGPL-2.1-or-later
 URL:         https://github.com/storaged-project/libblockdev
 Source0:     https://github.com/storaged-project/libblockdev/releases/download/%{version}/%{name}-%{version}.tar.gz
 Patch0:      0001-Add-function-to-set-persistent-flags-for-LUKS.patch
+# https://issues.redhat.com/browse/RHEL-80620
+Patch1:      libatasmart-overall_drive_self-assessment.patch
 
 BuildRequires: make
 BuildRequires: glib2-devel
@@ -959,6 +961,9 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 %files plugins-all
 
 %changelog
+* Thu Mar 20 2025 Tomas Bzatek <tbzatek@redhat.com> - 3.3.0-3
+- smart: Use libatasmart drive self-assessment as an overall status
+
 * Tue Mar 11 2025 Vojtech Trefny <vtrefny@redhat.com> - 3.3.0-2
 - crypto: Add a function to set persistent flags for LUKS
 

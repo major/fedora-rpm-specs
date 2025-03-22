@@ -1,6 +1,6 @@
 Name:    cdrkit
 Version: 1.1.11
-Release: 58%{?dist}
+Release: 59%{?dist}
 Summary: A collection of CD/DVD utilities
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -28,6 +28,7 @@ Patch20: cdrkit-1.1.11-werror_gcc5.patch
 Patch21: cdrkit-1.1.11-devname.patch
 Patch22: cdrkit-1.1.11-sysmacros.patch
 Patch23: cdrkit-1.1.11-gcc10.patch
+Patch24: cdrkit-1.1.11-cmakesbin.patch
 BuildRequires:  gcc
 BuildRequires: cmake libcap-devel zlib-devel perl-interpreter perl-generators file-devel bzip2-devel
 
@@ -128,6 +129,7 @@ SCSI devices.
 %patch -P21 -p1 -b .devname
 %patch -P22 -p1 -b .sysmacros
 %patch -P23 -p1 -b .gcc10
+%patch -P24 -p1 -b .cmakesbin
 
 # we do not want bundled paranoia library
 rm -rf libparanoia
@@ -288,6 +290,9 @@ fi
 %{_includedir}/usal
 
 %changelog
+* Thu Mar 20 2025 Pavel Cahyna <pcahyna@redhat.com> - 1.1.11-59
+- Fix build for bin-sbin merge (fedora#2339960)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.11-58
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

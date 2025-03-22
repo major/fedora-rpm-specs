@@ -1,5 +1,5 @@
 Name:           asymptote
-Version:        3.00
+Version:        3.01
 Release:        1%{?dist}
 Summary:        Descriptive vector graphics language
 
@@ -204,6 +204,9 @@ chmod 755 %{buildroot}%{_datadir}/%{name}/{asy-kate.sh,asymptote.py}
 %{_emacs_sitelispdir}/%{name}/
 
 %changelog
+* Thu Mar 20 2025 Tom Callaway <spot@fedoraproject.org> - 3.01-1
+- update to 3.01
+
 * Thu Feb 20 2025 Tom Callaway <spot@fedoraproject.org> - 3.00-1
 - update to 3.00
 

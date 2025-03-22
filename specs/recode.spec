@@ -1,6 +1,6 @@
 Name:       recode
-Version:    3.7.14
-Release:    7%{?dist}
+Version:    3.7.15
+Release:    1%{?dist}
 Summary:    Conversion between character sets and surfaces
 # COPYING:              GPLv3 text
 # COPYING-LIB:          LGPLv3 text
@@ -54,8 +54,6 @@ License:    GPL-3.0-or-later AND LGPL-3.0-or-later AND BSD-2-Clause AND LicenseR
 URL:        https://github.com/rrthomas/recode
 Source:     %{url}/releases/download/v%{version}/recode-%{version}.tar.gz
 Patch:      recode-3.7.13-Rename-coliding-hash-functions.patch
-# https://github.com/rrthomas/recode/issues/48
-Patch:      0001-src-task.c-only-close-input-stream-when-we-opened-it.patch
 
 
 BuildRequires:  autoconf
@@ -133,6 +131,10 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_includedir}/*
 
 %changelog
+* Tue Mar 18 2025 Ondrej Pohorelsky <opohorel@redhat.com> - 3.7.15-1
+- 3.7.15 bump
+- Resolves: rhbz#2352975
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.14-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
