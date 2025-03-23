@@ -6,16 +6,16 @@
 # definition borrowed from qtbase
 %global multilib_archs x86_64 %{ix86} %{?mips} ppc64 ppc s390x s390 sparc64 sparcv9
 
-#global unstable 1
+%global unstable 1
 %if 0%{?unstable}
-%global prerelease rc2
+%global prerelease rc
 %endif
 
 %global examples 1
 
 Summary: Qt6 - QtDeclarative component
 Name:    qt6-%{qt_module}
-Version: 6.8.2
+Version: 6.9.0%{?unstable:~%{prerelease}}
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -238,6 +238,7 @@ make check -k -C tests ||:
 %dir %{_qt6_libdir}/cmake/Qt6Qml
 %dir %{_qt6_libdir}/cmake/Qt6QmlCompiler
 %dir %{_qt6_libdir}/cmake/Qt6QmlCore
+%dir %{_qt6_libdir}/cmake/Qt6QuickEffects
 %dir %{_qt6_libdir}/cmake/Qt6QmlImportScanner
 %dir %{_qt6_libdir}/cmake/Qt6QmlIntegration
 %dir %{_qt6_libdir}/cmake/Qt6QmlLocalStorage
@@ -284,6 +285,7 @@ make check -k -C tests ||:
 %{_qt6_headerdir}/QtQmlCompiler/
 %{_qt6_headerdir}/QtQmlCore/
 %{_qt6_headerdir}/QtQmlIntegration/
+%{_qt6_headerdir}/QtQmlFormat/
 %{_qt6_headerdir}/QtQmlLocalStorage/
 %{_qt6_headerdir}/QtQmlMeta/
 %{_qt6_headerdir}/QtQmlModels/
@@ -384,6 +386,7 @@ make check -k -C tests ||:
 %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/*.cmake
 %{_qt6_libdir}/cmake/Qt6QmlCompiler/*.cmake
 %{_qt6_libdir}/cmake/Qt6QmlCore/*.cmake
+%{_qt6_libdir}/cmake/Qt6QuickEffects/*.cmake
 %{_qt6_libdir}/cmake/Qt6QmlImportScanner/*.cmake
 %{_qt6_libdir}/cmake/Qt6QmlIntegration/*.cmake
 %{_qt6_libdir}/cmake/Qt6QmlLocalStorage/*.cmake
@@ -425,6 +428,7 @@ make check -k -C tests ||:
 %{_qt6_descriptionsdir}/QmlCompiler.json
 %{_qt6_descriptionsdir}/QmlCore.json
 %{_qt6_descriptionsdir}/QmlIntegration.json
+%{_qt6_descriptionsdir}/QuickEffects.json
 %{_qt6_descriptionsdir}/QmlLocalStorage.json
 %{_qt6_descriptionsdir}/QmlMeta.json
 %{_qt6_descriptionsdir}/QmlModels.json
@@ -467,6 +471,7 @@ make check -k -C tests ||:
 %{_qt6_metatypesdir}/qt6quickcontrols2universal_*_metatypes.json
 %{_qt6_metatypesdir}/qt6quickdialogs2_*.json
 %{_qt6_metatypesdir}/qt6quickdialogs2utils_relwithdebinfo_metatypes.json
+%{_qt6_metatypesdir}/qt6quickeffects_relwithdebinfo_metatypes.json
 %{_qt6_metatypesdir}/qt6quicklayouts_relwithdebinfo_metatypes.json
 %{_qt6_metatypesdir}/qt6quicktest_*_metatypes.json
 %{_qt6_metatypesdir}/qt6quicktemplates2_relwithdebinfo_metatypes.json
@@ -476,6 +481,7 @@ make check -k -C tests ||:
 %{_qt6_mkspecsdir}/modules/qt_lib_qml.pri
 %{_qt6_mkspecsdir}/modules/qt_lib_qmlcompiler.pri
 %{_qt6_mkspecsdir}/modules/qt_lib_qmlcore.pri
+%{_qt6_mkspecsdir}/modules/qt_lib_quickeffects.pri
 %{_qt6_mkspecsdir}/modules/qt_lib_qmlintegration.pri
 %{_qt6_mkspecsdir}/modules/qt_lib_qmllocalstorage.pri
 %{_qt6_mkspecsdir}/modules/qt_lib_qmlmeta.pri
@@ -502,6 +508,7 @@ make check -k -C tests ||:
 %{_qt6_libdir}/pkgconfig/Qt6Qml.pc
 %{_qt6_libdir}/pkgconfig/Qt6QmlCompiler.pc
 %{_qt6_libdir}/pkgconfig/Qt6QmlCore.pc
+%{_qt6_libdir}/pkgconfig/Qt6QuickEffects.pc
 %{_qt6_libdir}/pkgconfig/Qt6QmlIntegration.pc
 %{_qt6_libdir}/pkgconfig/Qt6QmlLocalStorage.pc
 %{_qt6_libdir}/pkgconfig/Qt6QmlMeta.pc
@@ -525,23 +532,103 @@ make check -k -C tests ||:
 %{_qt6_libdir}/pkgconfig/Qt6QuickVectorImage.pc
 %{_qt6_libdir}/pkgconfig/Qt6QuickWidgets.pc
 # FIXME:
-# This (slit to -private-devel) didn't work out because of rhbz#2330219
+# This (split to -private-devel) didn't work out because of rhbz#2330219
 # Might be something to consider in the future.
 # Private stuff
 # {_qt6_headerdir}/*/{qt_version}
+%dir %{_qt6_libdir}/cmake/Qt6LabsAnimationPrivate
+%dir %{_qt6_libdir}/cmake/Qt6LabsFolderListModelPrivate
+%dir %{_qt6_libdir}/cmake/Qt6LabsPlatformPrivate
+%dir %{_qt6_libdir}/cmake/Qt6LabsQmlModelsPrivate
+%dir %{_qt6_libdir}/cmake/Qt6LabsSettingsPrivate
+%dir %{_qt6_libdir}/cmake/Qt6LabsSharedImagePrivate
+%dir %{_qt6_libdir}/cmake/Qt6LabsWavefrontMeshPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QmlCompilerPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QmlCorePrivate
+%dir %{_qt6_libdir}/cmake/Qt6QmlFormatPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QmlIntegrationPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QmlLocalStoragePrivate
+%dir %{_qt6_libdir}/cmake/Qt6QmlMetaPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QmlModelsPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QmlNetworkPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QmlPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QmlWorkerScriptPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QmlXmlListModelPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QuickControls2BasicPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QuickControls2BasicStyleImplPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QuickControls2FluentWinUI3StyleImplPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QuickControls2FusionPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QuickControls2FusionStyleImplPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QuickControls2ImaginePrivate
+%dir %{_qt6_libdir}/cmake/Qt6QuickControls2ImagineStyleImplPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QuickControls2ImplPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QuickControls2MaterialPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QuickControls2MaterialStyleImplPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QuickControls2Private
+%dir %{_qt6_libdir}/cmake/Qt6QuickControls2UniversalPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QuickControls2UniversalStyleImplPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QuickDialogs2Private
+%dir %{_qt6_libdir}/cmake/Qt6QuickDialogs2QuickImplPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QuickDialogs2UtilsPrivate
 %dir %{_qt6_libdir}/cmake/Qt6QuickEffectsPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QuickLayoutsPrivate
 %dir %{_qt6_libdir}/cmake/Qt6QuickParticlesPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QuickPrivate
 %dir %{_qt6_libdir}/cmake/Qt6QuickShapesPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QuickTemplates2Private
+%dir %{_qt6_libdir}/cmake/Qt6QuickTestPrivate
 %dir %{_qt6_libdir}/cmake/Qt6QuickVectorImageGeneratorPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QuickVectorImagePrivate
+%dir %{_qt6_libdir}/cmake/Qt6QuickWidgetsPrivate
+%{_qt6_libdir}/cmake/Qt6LabsAnimationPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6LabsFolderListModelPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6LabsPlatformPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6LabsQmlModelsPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6LabsSettingsPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6LabsSharedImagePrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6LabsWavefrontMeshPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QmlCompilerPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QmlCorePrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QmlFormatPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QmlIntegrationPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QmlLocalStoragePrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QmlMetaPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QmlModelsPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QmlNetworkPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QmlPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QmlWorkerScriptPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QmlXmlListModelPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QuickControls2BasicPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QuickControls2BasicStyleImplPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QuickControls2FluentWinUI3StyleImplPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QuickControls2FusionPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QuickControls2FusionStyleImplPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QuickControls2ImaginePrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QuickControls2ImagineStyleImplPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QuickControls2ImplPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QuickControls2MaterialPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QuickControls2MaterialStyleImplPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QuickControls2Private/*.cmake
+%{_qt6_libdir}/cmake/Qt6QuickControls2UniversalPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QuickControls2UniversalStyleImplPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QuickDialogs2Private/*.cmake
+%{_qt6_libdir}/cmake/Qt6QuickDialogs2QuickImplPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QuickDialogs2UtilsPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6QuickEffectsPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QuickLayoutsPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6QuickParticlesPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QuickPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6QuickShapesPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QuickTemplates2Private/*.cmake
+%{_qt6_libdir}/cmake/Qt6QuickTestPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6QuickVectorImageGeneratorPrivate/*.cmake
-%{_qt6_descriptionsdir}/QuickEffectsPrivate.json
+%{_qt6_libdir}/cmake/Qt6QuickVectorImagePrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QuickWidgetsPrivate/*.cmake
+%{_qt6_descriptionsdir}/QmlFormatPrivate.json
 %{_qt6_descriptionsdir}/QuickParticlesPrivate.json
 %{_qt6_descriptionsdir}/QuickShapesPrivate.json
 %{_qt6_descriptionsdir}/QuickVectorImageGeneratorPrivate.json
-%{_qt6_metatypesdir}/qt6quickeffectsprivate_relwithdebinfo_metatypes.json
+%{_qt6_metatypesdir}/qt6qmlformatprivate_relwithdebinfo_metatypes.json
 %{_qt6_metatypesdir}/qt6quickparticlesprivate_relwithdebinfo_metatypes.json
 %{_qt6_metatypesdir}/qt6quickshapesprivate_relwithdebinfo_metatypes.json
 %{_qt6_metatypesdir}/qt6quickvectorimagegeneratorprivate_relwithdebinfo_metatypes.json
@@ -579,6 +666,8 @@ make check -k -C tests ||:
 %{_qt6_libdir}/libQt6QmlDebug.prl
 %{_qt6_libdir}/libQt6QmlDom.a
 %{_qt6_libdir}/libQt6QmlDom.prl
+%{_qt6_libdir}/libQt6QmlFormat.a
+%{_qt6_libdir}/libQt6QmlFormat.prl
 %{_qt6_libdir}/libQt6QmlLS.a
 %{_qt6_libdir}/libQt6QmlLS.prl
 %{_qt6_libdir}/libQt6QmlToolingSettings.a
@@ -623,6 +712,9 @@ make check -k -C tests ||:
 %endif
 
 %changelog
+* Fri Mar 21 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0~rc-1
+- 6.9.0 RC
+
 * Fri Jan 31 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-1
 - 6.8.2
 

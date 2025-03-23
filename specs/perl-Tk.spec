@@ -5,7 +5,7 @@
 
 Name:           perl-Tk
 Version:        804.036
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Perl Graphical User Interface ToolKit
 
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND SWL
@@ -102,7 +102,9 @@ BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(utf8)
 # Optional tests:
+BuildRequires:  perl(Devel::Leak)
 BuildRequires:  perl(MIME::Base64)
+BuildRequires:  perl(Test::Pod)
 %endif
 
 Requires:       perl(locale)
@@ -271,6 +273,10 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Mar 20 2025 Xavier Bachelot <xavier@bachelot.org> - 804.036-20
+- Fix build with gcc 15
+- BR: perl-Devel-Leak and perl-Test-Pod to increase tests coverage
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 804.036-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

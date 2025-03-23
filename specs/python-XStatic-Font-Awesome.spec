@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        6.2.1.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Font-Awesome (XStatic packaging standard)
 
 # The license is "same as Font-Awesome", which is OFL-1.1-RFN
@@ -55,21 +55,25 @@ This package provides Python 3 build of %{pypi_name}.
 
 %install
 %pyproject_install
+%pyproject_save_files xstatic
 
 # use fontawesome-fonts-web for css, js, less, metadata, scss, sprites, svgs,
 # webfonts
 rm -rf %{buildroot}%{python3_sitelib}/xstatic/pkg/font_awesome/data
+sed -r -i '/\xstatic\/pkg\/font_awesome\/data/d' %{pyproject_files}
 ln -s %{_datadir}/fontawesome %{buildroot}%{python3_sitelib}/xstatic/pkg/font_awesome/data
 
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.txt
-%{python3_sitelib}/xstatic/pkg/font_awesome
-%{python3_sitelib}/XStatic_Font_Awesome-%{version}.dist-info
+%{python3_sitelib}/xstatic/pkg/font_awesome/data
 %{python3_sitelib}/XStatic_Font_Awesome-%{version}-py%{python3_version}-nspkg.pth
 
 
 %changelog
+* Fri Mar 14 2025 Lumír Balhar <lbalhar@redhat.com> - 6.2.1.1-9
+- Fix compatibility with the latest setuptools
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.1.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

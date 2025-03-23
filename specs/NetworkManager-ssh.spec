@@ -10,12 +10,12 @@
 
 Summary: NetworkManager VPN plugin for SSH
 Name: NetworkManager-ssh
-Version: 1.2.14
-Release: 2%{?dist}
+Version: 1.2.15
+Release: 1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: https://github.com/danfruehauf/NetworkManager-ssh
-Source0: https://github.com/danfruehauf/NetworkManager-ssh/archive/1.2.14.tar.gz#/%{name}-%{version}.tar.gz
+Source0: https://github.com/danfruehauf/NetworkManager-ssh/archive/1.2.15.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires: make
 BuildRequires: autoconf
@@ -110,7 +110,7 @@ mkdir -p %{buildroot}/%{_datadir}/selinux/packages
 
 %files gnome
 %{_libdir}/NetworkManager/libnm-vpn-plugin-ssh.so
-%{_datadir}/appdata/network-manager-ssh.metainfo.xml
+%{_datadir}/metainfo/network-manager-ssh.metainfo.xml
 %{_libdir}/NetworkManager/libnm-gtk3-vpn-plugin-ssh-editor.so
 
 %if %with gtk4
@@ -134,6 +134,9 @@ fi
 %selinux_relabel_post -s %{selinuxtype} &> /dev/null
 
 %changelog
+* Fri Mar 21 2025 Dan Fruehauf <malkodan@gmail.com> - 1.2.15-1
+- Update from upstream, build fixes
+
 * Thu Mar 06 2025 Dan Fruehauf <malkodan@gmail.com> - 1.2.14-2
 - Selinux separate package (NetowrkManager-ssh-selinux)
 

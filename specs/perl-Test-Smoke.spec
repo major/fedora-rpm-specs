@@ -1,6 +1,6 @@
 Name:           perl-Test-Smoke
-Version:        1.83
-Release:        2%{?dist}
+Version:        1.84
+Release:        1%{?dist}
 Summary:        Perl core test smoke suite
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Smoke
@@ -47,6 +47,7 @@ BuildRequires:  perl(LWP::UserAgent)
 # BuildRequires:  perl(MIME::Lite)
 # Net::FTP is not needed for tests
 BuildRequires:  perl(overload)
+BuildRequires:  perl(Path::Tiny)
 # Pod::Usage is not needed for tests
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(System::Info)
@@ -74,10 +75,12 @@ Requires:       perl(Mail::Sendmail)
 Requires:       perl(File::Spec) >= 0.82
 Requires:       perl(HTTP::Headers)
 Requires:       perl(HTTP::Request)
+Requires:       perl(LWP::Simple)
 
 %global __provides_exclude %{?__provides_exclude:%__provides_exclude|}perl\\(Mail::Sendmail\\)
 # Filter modules bundled for tests
 %global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(GitUtils\\)
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(TestLib\\)
 
 %description
@@ -125,6 +128,7 @@ rm -rf %{buildroot}/%{perl_vendorlib}/inc/Mail/Sendmail.pm
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
+rm %{buildroot}%{_libexecdir}/%{name}/t/syncer_ftp.t
 mkdir -p %{buildroot}%{_libexecdir}/%{name}/lib/Test/Smoke
 ln -s %{perl_vendorlib}/Test/Smoke/perlcurrent.cfg %{buildroot}%{_libexecdir}/%{name}/lib/Test/Smoke
 rm %{buildroot}%{_libexecdir}/%{name}/t/vms_rl.t
@@ -147,12 +151,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 make test
 
 %files
-%doc Changes HOWTO.md README.pod
-%{_bindir}/chkbcfg.pl
-#%%{_bindir}/patchtree.pl
-%{_bindir}/smokestatus.pl
-%{_bindir}/sysinfo.pl
+%doc Changes README.pod
 %{_bindir}/tsarchive.pl
+%{_bindir}/tsarchivelog.pl
 %{_bindir}/tsconfigsmoke.pl
 #%%{_bindir}/tshandlequeue.pl
 %{_bindir}/tsreport.pl
@@ -160,13 +161,14 @@ make test
 %{_bindir}/tsrunsmoke.pl
 %{_bindir}/tssendrpt.pl
 %{_bindir}/tssmokeperl.pl
+%{_bindir}/tssmokestatus.pl
+%{_bindir}/tssysinfo.pl
 %{_bindir}/tssynctree.pl
 %{perl_vendorlib}/configsmoke*
 %{perl_vendorlib}/Test/Smoke*
-%{_mandir}/man1/chkbcfg.pl*
 %{_mandir}/man1/configsmoke*
-%{_mandir}/man1/smokestatus.pl*
 %{_mandir}/man1/tsconfigsmoke.pl*
+%{_mandir}/man1/tssmokestatus.pl*
 %{_mandir}/man3/Test::Smoke*
 %{_mandir}/man3/configsmoke*
 
@@ -174,6 +176,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Mar 13 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.84-1
+- 1.84 bump (rhbz#2351577)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.83-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

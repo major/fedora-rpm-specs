@@ -4,7 +4,7 @@ License:	GPL-2.0-or-later
 
 Epoch:		1
 Version:	2.4.4
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 URL:		https://github.com/blueman-project/blueman
 Source0:	%{URL}/archive/refs/tags/%{version}/blueman-%{version}.tar.gz
@@ -56,7 +56,19 @@ Requires:	NetworkManager-libnm
 
 Requires:	python3dist(dbus-python)
 Requires:	python3dist(pycairo)
-Requires:	python3dist(pygobject) >= 3.27.2
+
+# python3-gobject is split into python3-gobject and python3-gobject-base.
+# Out of these two, only -base provides python3dist(pygobject).
+#
+# At the same time, the description for -base says:
+# > This package provides the non-cairo specific bits of the GObject
+# > Introspection library.
+#
+# Since blueman requires the "cairo-specific bits", we specify the dependency
+# using the rpm package name instead of using "python3dist(pygobject)".
+#
+# See: https://bugzilla.redhat.com/show_bug.cgi?id=2354051
+Requires:	python3-gobject >= 3.27.2
 
 Requires:	pulseaudio-libs-glib2
 Requires:	(pulseaudio-module-bluetooth if pulseaudio)
@@ -238,6 +250,9 @@ desktop-file-validate %{buildroot}%{_datadir}/Thunar/sendto/*blueman*.desktop
 
 
 %changelog
+* Fri Mar 21 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1:2.4.4-2
+- Fix python3-gobject dependency (rhbz#2354051)
+
 * Mon Feb 03 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1:2.4.4-1
 - Update to v2.4.4
 

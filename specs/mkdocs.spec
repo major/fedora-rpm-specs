@@ -1,5 +1,7 @@
-# Docs are disabled to avoid circular dependencies for now
-%bcond_with docs
+# Docs and integration tests are disabled to avoid circular dependencies for now
+%bcond docs 0
+%bcond tests 1
+%bcond integration 0
 
 %global forgeurl https://github.com/%{name}/%{name}
 
@@ -18,10 +20,13 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  sed
 
-# For docs
 %if %{with docs}
 BuildRequires:  python3dist(mdx-gh-links)
 BuildRequires:  python3dist(mkdocs-redirects)
+%endif
+%if %{with integration}
+BuildRequires:  python3dist(pymdown-extensions)
+BuildRequires:  python3dist(markdown-callouts)
 %endif
 
 BuildRequires:  fontawesome4-fonts
@@ -82,15 +87,17 @@ sed -i '1{\@^#!/usr/bin/env python@d}' mkdocs/{__init__,__main__}.py
 # Replace bundled fonts
 ln -sf %{_fontbasedir}/fontawesome/fontawesome-webfont.ttf \
   mkdocs/themes/readthedocs/css/fonts/
-rm -r mkdocs/themes/mkdocs/webfonts
-ln -s %{_datadir}/fontawesome/webfonts mkdocs/themes/mkdocs/
+rm mkdocs/themes/mkdocs/webfonts/*
+for f in %{_datadir}/fontawesome/webfonts/*; do
+  ln -s "$f" mkdocs/themes/mkdocs/webfonts/
+done
 
 # Replace bundled js
 ln -sf %{_datadir}/javascript/jquery/3/jquery.min.js \
   mkdocs/themes/readthedocs/js/jquery-3.6.0.min.js
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -104,7 +111,13 @@ LC_ALL=C.UTF-8 LANG=C.UTF-8 PYTHONPATH=$PWD %{__python3} -m mkdocs build
 %pyproject_save_files mkdocs
 
 %check
-%tox
+%pyproject_check_import
+%if %{with tests}
+%{py3_test_envvars} %{python3} -m unittest discover -s mkdocs -p "*tests.py" -v
+%endif
+%if %{with integration}
+%{py3_test_envvars} %{python3} -m mkdocs.tests.integration
+%endif
 
 %files -f %{pyproject_files}
 %doc README.md

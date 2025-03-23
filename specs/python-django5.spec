@@ -26,7 +26,7 @@ URL:            https://www.djangoproject.com/
 Source:         %{pypi_source Django}
 Source:         %{name}.rpmlintrc
 
-Patch:          Django-allow-setuptools-74.diff
+Patch:          Django-allow-setuptools-76.diff
 # these tests would sometimes trigger the following exception
 # UnicodeEncodeError: 'utf-8' codec can't encode characters in position 12-13: surrogates not allowed
 Patch:          Django-skip-flaky-unicode-tests.diff

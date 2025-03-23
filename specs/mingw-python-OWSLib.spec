@@ -1,17 +1,16 @@
 %{?mingw_package_header}
 
 %global mod_name owslib
-%global pypi_name OWSLib
 
-Name:          mingw-python-%{pypi_name}
-Summary:       MinGW Windows Python %{pypi_name} library
-Version:       0.32.1
+Name:          mingw-python-OWSLib
+Summary:       MinGW Windows Python OWSLib library
+Version:       0.33.0
 Release:       1%{?dist}
 BuildArch:     noarch
 
 License:       BSD-3-Clause
 URL:           https://geopython.github.io/OWSLib
-Source0:       %{pypi_source}
+Source0:       %{pypi_source owslib}
 
 BuildRequires: mingw32-filesystem >= 95
 BuildRequires: mingw32-python3
@@ -23,29 +22,25 @@ BuildRequires: mingw64-python3-build
 
 
 %description
-MinGW Windows Python %{pypi_name} library.
+MinGW Windows Python OWSLib library.
 
 
 %package -n mingw32-python3-%{mod_name}
 Summary:       MinGW Windows Python3 %{pypi_name} library
-Obsoletes:     mingw32-python3-%{pypi_name} < 0.27.2-2
-Provides:      mingw32-python3-%{pypi_name} = %{version}-%{release}
 
 %description -n mingw32-python3-%{mod_name}
-MinGW Windows Python3 %{pypi_name} library.
+MinGW Windows Python3 OWSLib library.
 
 
 %package -n mingw64-python3-%{mod_name}
-Summary:       MinGW Windows Python3 %{pypi_name} library
-Obsoletes:     mingw64-python3-%{pypi_name} < 0.27.2-2
-Provides:      mingw64-python3-%{pypi_name} = %{version}-%{release}
+Summary:       MinGW Windows Python3 OWSLib library
 
 %description -n mingw64-python3-%{mod_name}
-MinGW Windows Python3 %{pypi_name} library.
+MinGW Windows Python3 OWSLib library.
 
 
 %prep
-%autosetup -p1 -n %{pypi_name}-%{version}
+%autosetup -p1 -n %{mod_name}-%{version}
 
 
 %build
@@ -61,15 +56,18 @@ MinGW Windows Python3 %{pypi_name} library.
 %files -n mingw32-python3-%{mod_name}
 %license LICENSE
 %{mingw32_python3_sitearch}/%{mod_name}/
-%{mingw32_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
+%{mingw32_python3_sitearch}/OWSLib-%{version}.dist-info/
 
 %files -n mingw64-python3-%{mod_name}
 %license LICENSE
 %{mingw64_python3_sitearch}/%{mod_name}/
-%{mingw64_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
+%{mingw64_python3_sitearch}/OWSLib-%{version}.dist-info/
 
 
 %changelog
+* Fri Mar 21 2025 Sandro Mani <manisandro@gmail.com> - 0.33.0-1
+- Update to 0.33.0
+
 * Sun Mar 02 2025 Sandro Mani <manisandro@gmail.com> - 0.32.1-1
 - Update to 0.32.1
 

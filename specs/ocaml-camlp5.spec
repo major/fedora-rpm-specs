@@ -8,8 +8,8 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/camlp5/camlp5
 
 Name:           ocaml-camlp5
-Version:        8.03.01
-Release:        2%{?dist}
+Version:        8.03.03
+Release:        1%{?dist}
 Summary:        Preprocessor and pretty printer for OCaml
 
 License:        BSD-3-Clause
@@ -29,7 +29,7 @@ BuildRequires:  ocaml-camlp5-buildscripts >= 0.02
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-fmt-devel
 BuildRequires:  ocaml-ounit-devel
-BuildRequires:  ocaml-pcre2-devel
+BuildRequires:  ocaml-pcre2-devel >= 8.0.3
 BuildRequires:  ocaml-re-devel >= 1.11.0
 BuildRequires:  ocaml-rpm-macros
 BuildRequires:  ocaml-rresult-devel
@@ -116,6 +116,9 @@ make -C test all
 
 
 %changelog
+* Fri Mar 21 2025 Jerry James <loganjerry@gmail.com> - 8.03.03-1
+- Version 8.03.03
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.03.01-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

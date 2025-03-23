@@ -6,8 +6,8 @@
 
 # Packit will automatically update the image and storage versions on Fedora and
 # CentOS Stream dist-git PRs.
-%global image_branch v5.34.1
-%global storage_branch v1.57.1
+%global image_branch v5.34.2
+%global storage_branch v1.57.2
 %global shortnames_branch main
 
 %global project containers
@@ -39,7 +39,7 @@ Epoch: 5
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 0.62.1
+Version: 0.62.2
 Release: %autorelease
 License: Apache-2.0
 BuildArch: noarch

@@ -1,8 +1,8 @@
 #TODO: Run test suite (see debian/rules)
 
 Name:           qgis
-Version:        3.42.0
-Release:        3%{?dist}
+Version:        3.42.1
+Release:        1%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
 # http://issues.qgis.org/issues/3789
@@ -302,6 +302,9 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Fri Mar 21 2025 Sandro Mani <manisandro@gmail.com> - 3.42.1-1
+- Update to 3.42.1
+
 * Tue Mar 18 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.42.0-3
 - Rebuilt for spatialindex 2.1.0
 - Work around removal of LIB_SUFFIX from cmake macro in Fedora 43

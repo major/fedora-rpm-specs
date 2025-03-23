@@ -14,7 +14,7 @@ License:        MIT
 #   Increment Y and reset Z when new macros or features are added
 #   Increment Z when this is a bugfix or a cosmetic change
 # Dropping support for EOL Fedoras is *not* considered a breaking change
-Version:        1.17.0
+Version:        1.18.1
 Release:        1%{?dist}
 
 # Macro files
@@ -59,7 +59,7 @@ BuildRequires:  python3dist(packaging)
 BuildRequires:  python3dist(pip)
 BuildRequires:  python3dist(setuptools)
 %if %{with tox_tests}
-BuildRequires:  python3dist(tox-current-env) >= 0.0.6
+BuildRequires:  python3dist(tox-current-env) >= 0.0.16
 %endif
 BuildRequires:  python3dist(wheel)
 BuildRequires:  (python3dist(tomli) if python3 < 3.11)
@@ -167,6 +167,14 @@ export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856
 
 
 %changelog
+* Fri Mar 21 2025 Miro Hrončok <mhroncok@redhat.com> - 1.18.1-1
+- Fix reverted conditional in %%pyproject_buildrequires -t/-e Fedora version comparison
+
+* Tue Mar 11 2025 Miro Hrončok <mhroncok@redhat.com> - 1.18.0-1
+- Make %%pyproject_buildrequires -t/-e and %%tox fail when no suitable tox configuration exists
+- The %%pyproject_buildrequires -t/-e case is temporarily allowed on Fedora 40-42
+- Requires tox-current-env >= 0.0.16
+
 * Thu Jan 30 2025 Miro Hrončok <miro@hroncok.cz> - 1.17.0-1
 - Add the -M flag to %%pyproject_save_files
 - The flag can be used to indicate no Python modules should be saved

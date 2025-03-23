@@ -13,6 +13,7 @@ License:        MIT
 URL:            https://crates.io/crates/zip
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * relax bzip2 dependency to allow building with both v0.4 and 0.5
 # * bump constant_time_eq dependency from 0.1 to 0.3
 # * bump pbkdf2 dependency from 0.11 to 0.12
 # * bump zstd dependency from 0.11 to 0.13

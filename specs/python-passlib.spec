@@ -1,6 +1,6 @@
 Name:           python-passlib
 Version:        1.7.4
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Comprehensive password hashing framework supporting over 20 schemes
 
 # license breakdown is described in LICENSE file
@@ -42,7 +42,10 @@ BuildRequires:  python3-pytest
 
 %prep
 %autosetup -n passlib-%{version}
-
+# Drop keywords from setup.py until upstream fixes them.
+# Upstream issue: https://foss.heptapod.net/python-libs/passlib/-/issues/194
+# Setuptools issue: https://github.com/pypa/setuptools/issues/4887
+sed -i '/keywords="""/,/"""/d' setup.py
 
 %generate_buildrequires
 %pyproject_buildrequires -x bcrypt -x totp %{!?el9:-x argon2} 
@@ -71,6 +74,9 @@ export PASSLIB_SETUP_TAG_RELEASE="no"
 
 
 %changelog
+* Mon Mar 17 2025 Lumír Balhar <lbalhar@redhat.com> - 1.7.4-21
+- Fix build with the latest setuptools
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

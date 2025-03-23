@@ -1,5 +1,5 @@
 Name:           syncplay
-Version:        1.7.3
+Version:        1.7.4
 Release:        %autorelease
 Summary:        Synchronize playback of various video players via internet
 

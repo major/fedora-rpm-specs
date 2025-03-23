@@ -10,7 +10,7 @@
 
 Name:           perl-Gtk2
 Version:        1.24993
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Perl interface to the 2.x series of the Gimp Toolkit library
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -259,7 +259,8 @@ API.  Find out more about Gtk+ at http://www.gtk.org.
 # mv pm/Helper.pm{.utf8,}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS"
+# gtk2 is not c23 friendly
+%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS -std=gnu17"
 make %{?_smp_mflags}
 
 %install
@@ -281,6 +282,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Fri Mar 21 2025 Tom Callaway <spot@fedoraproject.org> - 1.24993-21
+- fix FTBFS, gtk2 has function() issues preventing use of -std=c23
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.24993-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

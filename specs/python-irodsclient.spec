@@ -1,21 +1,14 @@
 Name:           python-irodsclient
-Version:        3.0.0
+Version:        3.1.0
 Release:        %autorelease
 Summary:        A python API for iRODS
 
 # SPDX
 License:        BSD-3-Clause
 URL:            https://github.com/irods/python-irodsclient
-Source:         %{pypi_source python-irodsclient}
-
-# Replace deprecated description-file with description_file
-# https://github.com/irods/python-irodsclient/pull/682
-# Re-created on the released PyPI sdist (with different whitespace)
-Patch:          irodsclient-3.0.0-description_file.patch
-
-# Fix some SyntaxWarnings in the tests
-# https://github.com/irods/python-irodsclient/pull/683
-Patch:          %{url}/pull/683.patch
+Source0:        %{pypi_source python_irodsclient}
+# Man page hand-written for Fedora in groff_man(7) format based on --help
+Source1:        prc_write_irodsA.py.1
 
 BuildSystem:            pyproject
 BuildOption(install):   -l irods
@@ -43,12 +36,17 @@ Summary:        %{summary}
 %description -n python3-irodsclient %{common_description}
 
 
-%prep -a
-# Remove useless shebangs in files that will be installed without executable
+%install -a
+install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D '%{SOURCE1}'
+%py3_shebang_fix '%{buildroot}%{_bindir}/prc_write_irodsA.py'
+
+# Remove useless shebangs in files that were be installed without executable
 # permission. The pattern of selecting files before modifying them with sed
 # keeps us from unnecessarily discarding the original mtimes on unmodified
-# files.
-find 'irods' -type f -name '*.py' \
+# files. Note that we must not do this in %%prep because we want to strip the
+# shebang from the copy of prc_write_irodsA.py in site-packages, but not from
+# the copy in %%{_bindir}.
+find '%{buildroot}%{python3_sitelib}/irods' -type f -name '*.py' \
     -exec gawk '/^#!/ { print FILENAME }; { nextfile }' '{}' '+' |
   xargs -r sed -r -i '1{/^#!/d}'
 
@@ -56,6 +54,9 @@ find 'irods' -type f -name '*.py' \
 %files -n python3-irodsclient -f %{pyproject_files}
 %doc CHANGELOG.md
 %doc README.md
+
+%{_bindir}/prc_write_irodsA.py
+%{_mandir}/man1/prc_write_irodsA.py.1*
 
 
 %changelog

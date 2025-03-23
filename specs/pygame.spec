@@ -1,6 +1,6 @@
 Name:           pygame
 Version:        2.6.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python modules for writing games
 
 License:        LGPL-2.0-or-later
@@ -68,6 +68,10 @@ iconv -f iso8859-1 -t utf-8 README.txt > README.txt.conv && mv -f README.txt.con
 # repository that does not have restrictions on providing non-free software
 rm -f src_c/ffmovie.[ch]
 
+# Fix compatibility with the latest setuptools/distutils
+# https://github.com/pygame/pygame/issues/4469
+sed -i "s/distutils.ccompiler.spawn/distutils.spawn.spawn/" setup.py
+
 
 %build
 # Suppress runtime warning about disabled avx2 support, make support for
@@ -103,6 +107,9 @@ PYTHONPATH="$RPM_BUILD_ROOT%{python3_sitearch}" %{__python3} test/rect_test.py
 %{_includedir}/python*/%{name}/
 
 %changelog
+* Sat Mar 15 2025 Lumír Balhar <lbalhar@redhat.com> - 2.6.1-3
+- Fix compatibility with the latest setuptools
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

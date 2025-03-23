@@ -1,7 +1,7 @@
 %global _hardened_build 1
 
 Name:             3proxy
-Version:          0.9.4
+Version:          0.9.5
 Release:          %autorelease
 
 Summary:          Tiny but very powerful proxy
@@ -63,6 +63,7 @@ install -m755 -D bin/proxy %{buildroot}%{_bindir}/htproxy
 install -m755 -D bin/smtpp %{buildroot}%{_bindir}/smtpp
 install -m755 -D bin/socks %{buildroot}%{_bindir}/socks
 install -m755 -D bin/tcppm %{buildroot}%{_bindir}/tcppm
+install -m755 -D bin/tlspr %{buildroot}%{_bindir}/tlspr
 install -m755 -D bin/udppm %{buildroot}%{_bindir}/udppm
 
 install -pD -m644 %{SOURCE2} %{buildroot}/%{_sysconfdir}/%{name}.cfg

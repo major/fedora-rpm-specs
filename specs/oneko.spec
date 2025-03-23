@@ -1,7 +1,7 @@
 Name:           oneko
 Summary:        Cat chases the cursor
 Version:        1.2
-Release:        41%{?dist}
+Release:        42%{?dist}
 License:        LicenseRef-Fedora-Public-Domain
 # Modified Source to remove BSD images, due to copyright.
 # Source0:      http://www.daidouji.com/oneko/distfiles/oneko-1.2.sakura.5.tar.gz
@@ -12,7 +12,8 @@ URL:            http://www.daidouji.com/oneko/
 Patch0:         oneko-1.2.sakura.5-nobsd.patch
 Patch1:         oneko-1.2.sakura.5-typo-fix.patch
 Patch2:         oneko-c99.patch
-BuildRequires: make
+Patch3:         oneko-1.2-c23.patch
+BuildRequires:  make
 BuildRequires:  libX11-devel, imake, libXext-devel, gcc
 BuildRequires:  desktop-file-utils
 
@@ -25,6 +26,7 @@ work. Alternatively, a dog chases a bone.
 %patch -P0 -p1
 %patch -P1 -p1 -b .typo
 %patch -P2 -p1
+%patch -P3 -p1 -b .c23
 
 %build
 xmkmf -a
@@ -56,6 +58,9 @@ mv README-SUPP README-SUPP.jp
 %{_mandir}/man1/*
 
 %changelog
+* Fri Mar 21 2025 Tom Callaway <spot@fedoraproject.org> - 1.2-42
+- fix FTBFS (c23)
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -14,7 +14,7 @@
 %bcond it 0
 
 Name:           uv
-Version:        0.6.8
+Version:        0.6.9
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -686,6 +686,7 @@ install -t '%{buildroot}%{_sysconfdir}/uv' -p -m 0644 -D '%{SOURCE1}'
 #
 # cargo test -p uv-auth --lib:
 skip="${skip-} --skip keyring::tests::fetch_url_no_host"
+skip="${skip-} --skip keyring::tests::fetch_url_with_empty_username"
 skip="${skip-} --skip keyring::tests::fetch_url_with_no_username"
 skip="${skip-} --skip keyring::tests::fetch_url_with_password"
 

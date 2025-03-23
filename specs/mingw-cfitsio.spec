@@ -4,16 +4,15 @@
 
 Name:          mingw-%{pkgname}
 # NOTE: sync SOVER in cfitsio_build.patch with the one in configure.in
-Version:       4.5.0
-Release:       3%{?dist}
+Version:       4.6.0
+Release:       1%{?dist}
 Summary:       MinGW Windows CFITSIO library
 
 License:       CFITSIO
 BuildArch:     noarch
 URL:           http://heasarc.gsfc.nasa.gov/fitsio/
 Source0:       http://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/%{pkgname}-%{version}.tar.gz
-
-# CMakeLists fixes
+# Install headers to include/cfitsio
 Patch0:        cfitsio_cmake.patch
 
 BuildRequires: make
@@ -70,10 +69,7 @@ MinGW Windows CFITSIO library.
 
 
 %build
-# Disable curl support, otherwise a collision between #define TBYTE in fitsio.h and typedef TBYTE in tchar.h occurs
-MINGW32_CMAKE_ARGS="-DINCLUDE_INSTALL_DIR=%{mingw32_includedir}/cfitsio" \
-MINGW64_CMAKE_ARGS="-DINCLUDE_INSTALL_DIR=%{mingw64_includedir}/cfitsio" \
-%mingw_cmake -DUTILS=ON -DCMAKE_DLL_NAME_WITH_SOVERSION=ON
+%mingw_cmake -DUTILS=ON -DCMAKE_DLL_NAME_WITH_SOVERSION=ON -DTESTS=OFF
 %mingw_make_build
 
 
@@ -87,7 +83,6 @@ MINGW64_CMAKE_ARGS="-DINCLUDE_INSTALL_DIR=%{mingw64_includedir}/cfitsio" \
 %{mingw32_libdir}/libcfitsio.dll.a
 %{mingw32_libdir}/pkgconfig/cfitsio.pc
 %{mingw32_libdir}/cmake/%{pkgname}/
-%{mingw32_libdir}/cmake/%{pkgname}-%{version}/
 %{mingw32_includedir}/cfitsio/
 
 %files -n mingw32-%{pkgname}-tools
@@ -95,6 +90,8 @@ MINGW64_CMAKE_ARGS="-DINCLUDE_INSTALL_DIR=%{mingw64_includedir}/cfitsio" \
 %{mingw32_bindir}/fitsverify.exe
 %{mingw32_bindir}/fpack.exe
 %{mingw32_bindir}/funpack.exe
+%{mingw32_bindir}/imcopy.exe
+%{mingw32_bindir}/speed.exe
 
 %files -n mingw64-%{pkgname}
 %license licenses/License.txt
@@ -102,7 +99,6 @@ MINGW64_CMAKE_ARGS="-DINCLUDE_INSTALL_DIR=%{mingw64_includedir}/cfitsio" \
 %{mingw64_libdir}/libcfitsio.dll.a
 %{mingw64_libdir}/pkgconfig/cfitsio.pc
 %{mingw64_libdir}/cmake/%{pkgname}/
-%{mingw64_libdir}/cmake/%{pkgname}-%{version}/
 %{mingw64_includedir}/cfitsio/
 
 %files -n mingw64-%{pkgname}-tools
@@ -110,8 +106,13 @@ MINGW64_CMAKE_ARGS="-DINCLUDE_INSTALL_DIR=%{mingw64_includedir}/cfitsio" \
 %{mingw64_bindir}/fitsverify.exe
 %{mingw64_bindir}/fpack.exe
 %{mingw64_bindir}/funpack.exe
+%{mingw64_bindir}/imcopy.exe
+%{mingw64_bindir}/speed.exe
 
 %changelog
+* Fri Mar 21 2025 Sandro Mani <manisandro@gmail.com> - 4.6.0-1
+- Update to 4.6.0
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

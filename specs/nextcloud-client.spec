@@ -14,9 +14,7 @@ Url:            https://nextcloud.com/install/#install-clients
 Source0:        https://github.com/nextcloud/desktop/archive/v%{version}/desktop-%{version}.tar.gz
 Source1:        com.nextcloud.desktopclient.nextcloud.metainfo.xml
 
-%if 0%{?fedora} >= 39
-ExcludeArch:    %{ix86}
-%endif
+ExclusiveArch:  %{qt6_qtwebengine_arches}
 
 %if 0%{?rhel}
 BuildRequires:  rpmautospec-rpm-macros
@@ -70,9 +68,6 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 Provides: mirall = %{version}-%{release}
 Obsoletes: mirall < 1.8.0
-
-# Read https://bugzilla.redhat.com/show_bug.cgi?id=1651261
-ExcludeArch: ppc64 ppc64le s390x
 
 %description
 Nextcloud-client enables you to connect to your private Nextcloud Server.

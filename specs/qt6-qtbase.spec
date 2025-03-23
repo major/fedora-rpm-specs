@@ -40,13 +40,13 @@ BuildRequires: pkgconfig(libsystemd)
 ## skip for now, until we're better at it --rex
 #global tests 1
 
-#global unstable 0
-%global prerelease rc2
+%global unstable 1
+%global prerelease rc
 
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
-Version: 6.8.2
-Release: 3%{?dist}
+Version: 6.9.0%{?unstable:~%{prerelease}}
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -96,21 +96,7 @@ Patch56: qtbase-mysql.patch
 Patch58: qtbase-libglvnd.patch
 
 # upstream patches
-Patch100: qtbase-qtlocale-try-to-survive-being-created-during-application-shut-down.patch
-Patch101: qtbase-qsystemlocale-bail-out-if-accessed-post-destruction.patch
-Patch102: qtbase-qlibraryinfo-speedup-checking-if-qt-conf-resource-exists.patch
 
-## upstream patches from Qt 6.9
-Patch150: qtbase-extract-emoji-data-from-unicode-files.patch
-Patch151: qtbase-introduce-emoji-segmenter-to-3rdparty-code.patch
-Patch152: qtbase-use-emoji-segmenter-to-apply-emoji-fonts-automatically.patch
-Patch153: qtbase-fix-regression-when-looking-up-fallback-fonts.patch
-Patch154: qtbase-skip-ad-hoc-handling-of-variation-selector-in-font-merging.patch
-Patch155: qtbase-fontconfig-dont-register-hardcoded-fonts-as-color-fonts.patch
-Patch156: qtbase-request-actual-font-family-request-in-final-color-font-fail-safe.patch
-Patch157: qtbase-fontconfig-fix-detection-of-color-fonts.patch
-Patch158: qtbase-support-variation-selector-when-emoji-segmenter-is-disabled.patch
-Patch159: qtbase-treat-variation-selectors-as-ignorable-chars.patch
 
 # Do not check any files in %%{_qt6_plugindir}/platformthemes/ for requires.
 # Those themes are there for platform integration. If the required libraries are
@@ -443,7 +429,7 @@ translationdir=%{_qt6_translationdir}
 
 Name: Qt6
 Description: Qt6 Configuration
-Version: 6.8.2
+Version: 6.9.0
 EOF
 
 # rpm macros
@@ -686,6 +672,7 @@ make check -k ||:
 %{_qt6_libdir}/libQt6Xml.so
 %{_qt6_libdir}/cmake/Qt6/3rdparty/extra-cmake-modules/REUSE.toml
 %{_qt6_libdir}/cmake/Qt6/3rdparty/kwin/REUSE.toml
+%{_qt6_libdir}/cmake/Qt6/*.in
 %{_qt6_libdir}/cmake/Qt6/*.h.in
 %{_qt6_libdir}/cmake/Qt6/*.cmake
 %{_qt6_libdir}/cmake/Qt6/*.cmake.in
@@ -763,10 +750,38 @@ make check -k ||:
 %{_qt6_headerdir}/QtEglFSDeviceIntegration
 %{_qt6_headerdir}/QtEglFsKmsGbmSupport
 %{_qt6_headerdir}/QtEglFsKmsSupport
+%dir %{_qt6_libdir}/cmake/Qt6ConcurrentPrivate
+%dir %{_qt6_libdir}/cmake/Qt6CorePrivate
+%dir %{_qt6_libdir}/cmake/Qt6DBusPrivate
+%dir %{_qt6_libdir}/cmake/Qt6GuiPrivate
+%dir %{_qt6_libdir}/cmake/Qt6NetworkPrivate
+%dir %{_qt6_libdir}/cmake/Qt6OpenGLPrivate
+%dir %{_qt6_libdir}/cmake/Qt6OpenGLWidgetsPrivate
+%dir %{_qt6_libdir}/cmake/Qt6PrintSupportPrivate
+%dir %{_qt6_libdir}/cmake/Qt6SqlPrivate
+%dir %{_qt6_libdir}/cmake/Qt6TestInternalsPrivate
+%dir %{_qt6_libdir}/cmake/Qt6TestInternalsPrivate/3rdparty/cmake
+%dir %{_qt6_libdir}/cmake/Qt6TestPrivate
+%dir %{_qt6_libdir}/cmake/Qt6WidgetsPrivate
+%dir %{_qt6_libdir}/cmake/Qt6XmlPrivate
 %dir %{_qt6_libdir}/cmake/Qt6EglFSDeviceIntegrationPrivate
 %dir %{_qt6_libdir}/cmake/Qt6EglFsKmsGbmSupportPrivate
 %dir %{_qt6_libdir}/cmake/Qt6EglFsKmsSupportPrivate
 %dir %{_qt6_libdir}/cmake/Qt6XcbQpaPrivate
+%{_qt6_libdir}/cmake/Qt6ConcurrentPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6CorePrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6DBusPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6GuiPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6NetworkPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6OpenGLPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6OpenGLWidgetsPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6PrintSupportPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6SqlPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6TestInternalsPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6TestInternalsPrivate/3rdparty/cmake/*.cmake
+%{_qt6_libdir}/cmake/Qt6TestPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6WidgetsPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6XmlPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6EglFSDeviceIntegrationPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6EglFsKmsGbmSupportPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6EglFsKmsSupportPrivate/*.cmake
@@ -788,6 +803,7 @@ make check -k ||:
 %{_qt6_metatypesdir}/qt6eglfskmssupportprivate_*_metatypes.json
 %{_qt6_metatypesdir}/qt6xcbqpaprivate_*_metatypes.json
 %{_qt6_headerdir}/*/%{qt_version}/
+%{_qt6_descriptionsdir}/TestInternalsPrivate.json
 
 %files static
 %dir %{_qt6_libdir}/cmake/Qt6ExampleIconsPrivate
@@ -910,6 +926,9 @@ make check -k ||:
 
 
 %changelog
+* Fri Mar 21 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0-1
+- 6.9.0 RC
+
 * Thu Feb 13 2025 Jan Grulich <jgrulich@redhat.com> - 6.8.2-3
 - Fix rendering of combined emojis
 

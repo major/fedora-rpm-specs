@@ -25,7 +25,7 @@ ExclusiveArch: x86_64
 
 Name:           hiprt
 Version:        2.5
-%global xver    cfa5e2a
+%global xver    a21e075
 Release:        %autorelease -e %{xver}
 
 License:        Apache-2.0 AND BSD-3-Clause AND MIT AND NCSA

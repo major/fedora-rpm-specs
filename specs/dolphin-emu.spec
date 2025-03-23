@@ -101,7 +101,6 @@ BuildRequires:  libXrandr-devel
 BuildRequires:  libzstd-devel >= 1.4.0
 BuildRequires:  lzo-devel
 BuildRequires:  lz4-devel >= 1.8
-BuildRequires:  mbedtls-devel
 BuildRequires:  mesa-libGL-devel
 BuildRequires:  minizip-ng-compat-devel >= 3.0.0
 BuildRequires:  miniupnpc-devel
@@ -209,6 +208,7 @@ sed "s/throw std::.*;/std::abort();/g" /usr/include/picojson.h > \
        -DUSE_SYSTEM_LIBS=ON \
        -DXXHASH_FOUND=ON \
        -DUSE_MGBA=OFF \
+       -DUSE_SYSTEM_MBEDTLS=OFF \
        %{?!enablejit:-DENABLE_GENERIC=ON} \
        -DENABLE_ANALYTICS=OFF \
        -DENCODE_FRAMEDUMPS=OFF \

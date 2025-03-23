@@ -30,7 +30,7 @@
 %global nodejs_epoch 1
 %global nodejs_major 18
 %global nodejs_minor 20
-%global nodejs_patch 6
+%global nodejs_patch 7
 # nodejs_soversion - from NODE_MODULE_VERSION in src/node_version.h
 %global nodejs_soversion 108
 %global nodejs_abi %{nodejs_soversion}
@@ -95,7 +95,7 @@
 # " this line just fixes syntax highlighting for vim that is confused by the above and continues literal
 
 # simdutf from deps/simdutf/simdutf.h
-%global simdutf_version 5.6.0
+%global simdutf_version 5.6.4
 
 # OpenSSL minimum version
 %global openssl11_minimum 1:1.1.1

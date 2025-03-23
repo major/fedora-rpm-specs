@@ -3,7 +3,7 @@ Python bindings for the AWS Common Runtime}
 
 
 Name:           python-awscrt
-Version:        0.23.10
+Version:        0.24.2
 Release:        %autorelease
 
 Summary:        Python bindings for the AWS Common Runtime
@@ -48,6 +48,9 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n awscrt-%{version}
+
+# relax version requirements
+sed -i -e 's/setuptools>=75\.3\.1/setuptools/' -e 's/wheel>=0\.45\.1/wheel/' pyproject.toml
 
 
 %generate_buildrequires

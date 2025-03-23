@@ -8,7 +8,7 @@ Name: redhat-rpm-config
 # If the branches haven't diverged yet, keep the Fedora release number from
 # the older branch. When the branch diverges, bump the Version to the Fedora
 # release number.
-Version: 342
+Version: 343
 Release: %autorelease
 # config.guess, config.sub are GPL-3.0-or-later WITH Autoconf-exception-generic
 License: GPL-1.0-or-later AND GPL-2.0-or-later AND GPL-3.0-or-later WITH Autoconf-exception-generic AND Boehm-GC
@@ -165,8 +165,6 @@ install -p -m 755 -t %{buildroot}%{rrcdir} gpgverify
 install -p -m 755 -t %{buildroot}%{rrcdir} brp-*
 
 install -p -m 755 -t %{buildroot}%{rrcdir} find-*
-mkdir -p %{buildroot}%{rrcdir}/find-provides.d
-
 install -p -m 755 -t %{buildroot}%{rrcdir} brp-*
 
 mkdir -p %{buildroot}%{_rpmconfigdir}/macros.d

@@ -431,6 +431,8 @@ Provides:       udev = %{version}
 Provides:       udev%{_isa} = %{version}
 %if 0%{?fedora} || 0%{?rhel} >= 10
 Requires:       (grubby > 8.40-72 if grubby)
+%endif
+%if 0%{?fedora}
 Requires:       (sdubby > 1.0-3 if sdubby)
 %endif
 # A backport of systemd-timesyncd is shipped as a separate package in EPEL so
@@ -1060,7 +1062,11 @@ mv -v %{buildroot}/usr/sbin/* %{buildroot}%{_bindir}/
 # and https://src.fedoraproject.org/rpms/setup/pull-request/10.
 # We skip this on upstream builds so that new users and groups
 # can be added without breaking the build.
+%if 0%{?fedora} >= 43
+%{python3} %{SOURCE4} /usr/lib/sysusers.d/setup.conf %{buildroot}/usr/lib/sysusers.d/basic.conf
+%else
 %{python3} %{SOURCE4} /usr/lib/sysusers.d/20-setup-{users,groups}.conf %{buildroot}/usr/lib/sysusers.d/basic.conf
+%endif
 %endif
 rm %{buildroot}/usr/lib/sysusers.d/basic.conf
 %endif

@@ -1,6 +1,6 @@
 Name:           rocm
 Version:        6.3.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm Metapackage
 License:        MIT
 
@@ -14,13 +14,13 @@ Requires: hipblas
 Requires: hipblaslt
 Requires: hipcc
 Requires: hipfft
-Requires: hipify
 Requires: hiprand
 Requires: hipsolver
 Requires: hipsparse
 Requires: miopen
 Requires: mivisionx
 Requires: rccl
+Requires: rocal
 Requires: rocalution
 Requires: rocblas
 Requires: rocdecode
@@ -51,6 +51,7 @@ Requires: half-devel
 Requires: hipblas-common-devel
 Requires: hipblas-devel
 Requires: hipblaslt-devel
+Requires: hipify
 Requires: hipcub-devel
 Requires: hipfft-devel
 Requires: hiprand-devel
@@ -60,6 +61,7 @@ Requires: miopen-devel
 Requires: mivisionx-devel
 Requires: python3-tensile-devel
 Requires: rccl-devel
+Requires: rocal-devel
 Requires: rocalution-devel
 Requires: rocblas-devel
 Requires: rocdecode-devel
@@ -109,5 +111,9 @@ install -pm 644 %{SOURCE0} .
 %license License.txt
 
 %changelog
+* Fri Mar 21 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.3-2
+- Add rocal
+- Move hipify to devel
+
 * Fri Mar 14 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.3-1
 - Initial package

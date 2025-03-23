@@ -23,6 +23,9 @@ Source7:        wsl-setup-user-tmpfiles.conf
 
 BuildRequires:  systemd-rpm-macros
 
+# Needed for the distribution icon
+Requires:       system-logos
+
 
 %description
 Provides WSL specific configuration files and first-time setup script.

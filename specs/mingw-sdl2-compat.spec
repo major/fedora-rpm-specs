@@ -1,21 +1,16 @@
 %{?mingw_package_header}
 
 %global origname sdl2-compat
-%global sdl3_minver 3.2.4
+%global sdl3_minver 3.2.6
 
 Name:           mingw-%{origname}
-Version:        2.32.50
-Release:        2%{?dist}
+Version:        2.32.52
+Release:        1%{?dist}
 Summary:        MinGW Windows port of SDL 2.0 runtime compatibility library using SDL 3.0
 # License of SDL-2.0 headers
 License:        Zlib and Apache-2.0 and MIT and BSD-3-Clause
 URL:            https://github.com/libsdl-org/%{origname}
 Source0:        %{url}/archive/release-%{version}/%{origname}-%{version}.tar.gz
-
-# Sync env vars properly
-Patch0:      %{url}/commit/f58c132840b51aac184d17593ab60d41b54c9ba9.patch
-# Fix strlen
-Patch1:      %{url}/commit/2347d5c89752c43107f9a0a8108a6b6ac46bbfa0.patch
 
 BuildRequires:  cmake
 BuildRequires:  git-core
@@ -131,6 +126,10 @@ rm -rf %{buildroot}%{mingw64_datadir}/aclocal
 
 
 %changelog
+* Fri Mar 21 2025 Simone Caronni <negativo17@gmail.com> - 2.32.52-1
+- Update to version 2.32.52.
+- Drop upstream patches.
+
 * Mon Feb 10 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.32.50-2
 - Backport fixes from upstream
   + Correctly handle SDL environment variables

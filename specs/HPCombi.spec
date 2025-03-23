@@ -7,7 +7,7 @@
 %global giturl  https://github.com/libsemigroups/HPCombi
 
 Name:           HPCombi
-Version:        1.0.3
+Version:        1.1.0
 Release:        %autorelease
 Summary:        High Performance Combinatorics in C++ using vector instructions
 

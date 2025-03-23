@@ -35,12 +35,19 @@
 # Obtain the location of Google Droid fonts directory:
 %global google_droid_fontpath %%(dirname $(fc-list : file | grep "DroidSansFallback"))
 
+# pdf2dsc is unmaintained in upstream, make its installation optional
+%if 0%{?fedora} || 0%{?rhel} <= 10
+  %bcond_without pdf2dsc
+%else
+  %bcond_with pdf2dsc
+%endif
+
 # =============================================================================
 
 Name:             ghostscript
 Summary:          Interpreter for PostScript language & PDF
-Version:          10.04.0
-Release:          2%{?dist}
+Version:          10.05.0
+Release:          1%{?dist}
 
 License:          AGPL-3.0-or-later
 
@@ -110,8 +117,8 @@ BuildRequires:    make
 # Upstream patches -- official upstream patches released by upstream since the
 # ----------------    last rebase that are necessary for any reason:
 #Patch000: example000.patch
-# reported upstream https://bugs.ghostscript.com/show_bug.cgi?id=708044
-Patch001: ps2epsi-permit-devices.patch
+# put pdf2dsc back for gv
+Patch001: 0001-Reinstate-pdf2dsc.patch
 
 # Downstream patches -- these should be always included when doing rebase:
 # ------------------
@@ -246,7 +253,10 @@ rm -rf cups/libs freetype ijs jbig2dec jpeg lcms2* leptonica libpng openjpeg tes
 # Add the remaining source code to the initial commit, patch the source code:
 git add --all --force .
 git commit --all --amend --no-edit > /dev/null
-%autopatch -p1
+
+%if %{with pdf2dsc}
+%autopatch -p1 1
+%endif
 # ---------------
 
 %build
@@ -389,7 +399,6 @@ done
 
 # Useful conversion scripts:
 %{_bindir}/eps2eps
-%{_bindir}/pdf2dsc
 %{_bindir}/pdf2ps
 %{_bindir}/ps2ascii
 %{_bindir}/ps2epsi
@@ -405,7 +414,6 @@ done
 %{_mandir}/man1/gsnd.1.gz
 %{_mandir}/man1/ghostscript.1.gz
 %{_mandir}/man1/eps2eps.1.gz
-%{_mandir}/man1/pdf2dsc.1.gz
 %{_mandir}/man1/pdf2ps.1.gz
 %{_mandir}/man1/ps2ascii.1.gz
 %{_mandir}/man1/ps2epsi.1.gz
@@ -415,6 +423,11 @@ done
 %{_mandir}/man1/ps2pdf14.1.gz
 %{_mandir}/man1/ps2pdfwr.1.gz
 %{_mandir}/man1/ps2ps.1.gz
+
+%if %{with pdf2dsc}
+%{_bindir}/pdf2dsc
+%{_mandir}/man1/pdf2dsc.1.gz
+%endif
 
 # ---------------
 
@@ -463,6 +476,9 @@ done
 # =============================================================================
 
 %changelog
+* Fri Mar 21 2025 Zdenek Dohnal <zdohnal@redhat.com> - 10.05.0-1
+- 10.05.0 (fedora#2351692)
+
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.04.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

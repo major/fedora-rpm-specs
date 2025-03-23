@@ -1,11 +1,11 @@
 Name: CCfits
-Version: 2.6
-Release: 14%{?dist}
+Version: 2.7
+Release: 1%{?dist}
 Summary: A C++ interface for cfitsio
 
 License: CFITSIO
 URL: http://heasarc.gsfc.nasa.gov/docs/software/fitsio/ccfits
-Source0: http://heasarc.gsfc.nasa.gov/docs/software/fitsio/ccfits/%{name}-%{version}.tar.gz
+Source0: https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/ccfits/CCfits-2.7.tar.gz
 Patch0: CCfits-removerpath.patch
 Patch1: cfitsio-path.patch
 
@@ -61,6 +61,9 @@ rm %{buildroot}/usr/bin/cookbook
 %doc html
 
 %changelog
+* Fri Mar 21 2025 Sergio Pascual <sergiopr@fedoraproject.org> 2.7-1
+- New upstream v2.7
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

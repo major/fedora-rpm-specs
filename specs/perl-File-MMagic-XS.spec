@@ -1,6 +1,9 @@
+# Ancient code go brrr
+%global optflags %{optflags} -std=gnu17
+
 Name:           perl-File-MMagic-XS
 Version:        0.09008
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Guess file type with XS
 License:        Apache-2.0 AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
 URL:            https://metacpan.org/release/File-MMagic-XS
@@ -48,7 +51,7 @@ an extended amount of time.
 %prep
 %setup -q -n File-MMagic-XS-%{version}
 # Merged in 0.09008
-# %patch0 -p1
+# %%patch0 -p1
 %patch -P1 -p1 -b .format-security
 %patch -P2 -p1
 
@@ -73,6 +76,10 @@ make test
 %{_mandir}/man3/File::MMagic::XS.3pm*
 
 %changelog
+* Fri Mar 21 2025 Tom Callaway <spot@fedoraproject.org> - 0.09008-35
+- fix FTBFS by forcing -std=gnu17
+- this code is basically abandoned, last release was in 2014.
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.09008-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

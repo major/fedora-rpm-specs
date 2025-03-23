@@ -3,7 +3,7 @@
 
 Name:           python-optking
 Version:        0.3.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A Python version of the PSI4 geometry optimization program by R.A. King
 License:        BSD-3-Clause
 URL:            https://github.com/psi-rking/optking
@@ -47,7 +47,7 @@ rm -rf optking.*-info
 \rm optking/tests/test_frozen_internals.py
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -66,6 +66,9 @@ rm -rf optking.*-info
 %doc README.rst
 
 %changelog
+* Fri Mar 21 2025 Susi Lehtola <jussilehtola@fedoraproject.org> - 0.3.0-6
+- Drop unused tox flag.
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

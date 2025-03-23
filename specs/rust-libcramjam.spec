@@ -32,6 +32,8 @@ Source:         %{crates_source}
 #   those crates
 # * Drop unused direct cbindgen build-dependency:
 #   https://github.com/cramjam/libcramjam/pull/23
+# * Relax bzip2 dependency to allow building with both v0.4 and v0.5:
+#   https://github.com/cramjam/libcramjam/pull/24
 Patch:          libcramjam-fix-metadata.diff
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval

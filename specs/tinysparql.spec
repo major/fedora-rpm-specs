@@ -6,7 +6,7 @@
 
 Name:           tinysparql
 Version:        3.9.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Desktop-neutral metadata database and search tool
 
 License:        GPL-2.0-or-later
@@ -78,6 +78,8 @@ This package contains the libtinysparql library.
 Summary:        Development files for %{name}
 License:        LGPL-2.1-or-later
 Requires:       libtinysparql%{?_isa} = %{version}-%{release}
+
+Obsoletes:      tracker-devel < %{tracker_obsoletes_version}
 
 %description devel
 The %{name}-devel package contains libraries and header files for
@@ -165,6 +167,9 @@ This package contains the documentation for %{name}.
 
 
 %changelog
+* Fri Mar 21 2025 nmontero <nmontero@redhat.com> - 3.9.1-2
+- Add Obsoletes line to devel package
+
 * Mon Mar 17 2025 nmontero <nmontero@redhat.com> - 3.9.1-1
 - Update to 3.9.1
 

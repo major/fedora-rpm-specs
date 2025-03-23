@@ -4,7 +4,9 @@
 %global common_description %{expand:
 Hypothesis strategies for generating Python programs, something like CSmith.}
 
-%bcond tests 1
+# Disable tests on EPEL as it requires black which won't be available in
+# EPEL, see rhbz#2319803 and rhbz#2332437.
+%bcond tests %{undefined rhel}
 
 Name:           python-%{pypi_name}
 Version:        0.3.3

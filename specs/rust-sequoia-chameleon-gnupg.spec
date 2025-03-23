@@ -22,6 +22,7 @@ Source:         %{crates_source}
 Source1:        gpgconf-sq.sh
 Source2:        activate.sh
 # Manually created patch for downstream crate metadata changes
+# * relax bzip2 dev-dependency to allow building with both v0.4 and v0.5
 # * drop gpg-recorder executable
 # * drop features for unavailable crypto backends
 # * build with OpenSSL crypto backend

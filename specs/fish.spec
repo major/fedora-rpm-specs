@@ -48,6 +48,8 @@ Patch0002:      0002-Remove-fish.desktop-harder.patch
 
 # Proposed upstream (501~1000)
 Patch0501:      https://github.com/fish-shell/fish-shell/pull/11173.patch
+# Proposed in a different form (with Cargo.lock changes) upstream: https://github.com/fish-shell/fish-shell/pull/11311
+Patch0502:      0502-Update-lru-to-0.13.0.patch
 
 # Downstream-only (1001+)
 Patch1001:      1001-cargo-Use-internal-copy-of-rust-pcre2-instead-of-fet.patch

@@ -6,7 +6,7 @@
 %global crate async-compression
 
 Name:           rust-async-compression
-Version:        0.4.18
+Version:        0.4.19
 Release:        %autorelease
 Summary:        Adaptors between compression crates and Rust's modern asynchronous IO types
 

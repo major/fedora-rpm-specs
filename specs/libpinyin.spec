@@ -1,8 +1,8 @@
-%global snapshot 0
+%global snapshot 1
 
 Name:           libpinyin
 Version:        2.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library to deal with pinyin
 
 License:        GPL-3.0-or-later
@@ -108,6 +108,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/libzhuyin*.so.*
 
 %changelog
+* Fri Mar 21 2025 Peng Wu <pwu@redhat.com> - 2.10.0-2
+- bug fixes
+
 * Sat Feb  8 2025 Peng Wu <pwu@redhat.com> - 2.10.0-1
 - Update to 2.10.0
 - bug fixes

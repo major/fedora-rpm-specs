@@ -3,8 +3,8 @@
 
 # https://github.com/facebook/time
 %global goipath         github.com/facebook/time
-%global date            20250314
-%global commit          532afb3ee31543848cb18bb58d142a65be46910a
+%global date            20250321
+%global commit          a7c4fe187b804b3db8639523e8cf1f50884483ef
 %global shortcommit     %(c=%{commit}; echo ${c:0:7})
 
 Version:        0^%{date}git%{shortcommit}
@@ -122,6 +122,13 @@ accessible via fbclock-bin or C API
 %go_generate_buildrequires
 
 %build
+# fbclock-bin / C projects
+cd cmd/fbclock-bin
+%make_build
+mv fbclock-bin %{gobuilddir}/bin/fbclock-bin
+cd -
+
+# go projects
 for cmd in calnex c4u ntpcheck ntpresponder pshark ptpcheck ptp4u sptp ziffy fbclock-daemon; do
   %gobuild -o %{gobuilddir}/bin/$(basename $cmd) %{goipath}/cmd/$cmd
 done
@@ -135,7 +142,6 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %check
 # Disable test that requires network access
 rm -f calnex/verify/checks/checks_test.go
-rm -f calnex/verify/checks/ping_test.go
 rm -f ntp/responder/server/server_test.go
 # https://github.com/facebook/time/issues/100
 %ifarch s390x
@@ -189,6 +195,7 @@ rm -f timestamp/timestamp_linux_test.go
 %license LICENSE
 %doc fbclock/README.md
 %{_bindir}/fbclock-daemon
+%{_bindir}/fbclock-bin
 
 %gopkgfiles
 

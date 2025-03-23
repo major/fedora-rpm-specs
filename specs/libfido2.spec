@@ -1,7 +1,7 @@
 Name:           libfido2
 
 Version:        1.15.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        FIDO2 library
 
 License:        BSD-2-Clause
@@ -97,6 +97,9 @@ find %{buildroot} -type f -name "*.a" -delete -print
 
 
 %changelog
+* Fri Mar 21 2025 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.15.0-6
+- Rebuilt for libcbor 0.12.0
+
 * Wed Mar 19 2025 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.15.0-5
 - Rebuilt for libcbor 0.12.0
 

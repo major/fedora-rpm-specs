@@ -15,6 +15,8 @@ BuildArch:      noarch
 
 URL:            https://github.com/Maratyszcza/%{name}
 Source0:        %{url}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
+# https://github.com/Maratyszcza/FP16/issues/36
+Patch0:         0001-Revert-Remove-PeachPy-implementations.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -75,13 +77,15 @@ Header-only library for conversion to/from half-precision floating point formats
 %install
 %cmake_install
 
+mkdir -p %{buildroot}%{python3_sitelib}/fp16
+cp -p include/fp16/*.py %{buildroot}%{python3_sitelib}/fp16
+
 %files devel
 %license LICENSE
 %doc README.md
 %{_includedir}/fp16.h
 %{_includedir}/fp16/
-%exclude %{_includedir}/fp16/psimd.h
-
+%{python3_sitelib}/fp16/*
 
 %changelog
 %autochangelog

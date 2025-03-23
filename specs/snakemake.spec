@@ -28,6 +28,9 @@
 # Run tests that require network access? This only makes sense for local mock
 # builds in combination with --enable-network.
 %bcond network_tests 0
+# Almost all of the conda tests require network access, but there are also
+# other failures that are not straightforward to understand.
+%bcond conda_tests 0
 
 %global _description %{expand:
 The Snakemake workflow management system is a tool to create reproducible and
@@ -38,24 +41,136 @@ Finally, Snakemake workflows can entail a description of required software,
 which will be automatically deployed to any execution environment.}
 
 Name:           snakemake
-Version:        8.18.2
-Release:        %autorelease 
+Version:        8.30.0
+Release:        %autorelease
 Summary:        Workflow management system to create reproducible and scalable data analyses
 
-# The entire project is (SPDX) MIT, except:
-# - versioneer.py is Unlicense
-# - snakemake/_version.py says:
-#     This file is released into the public domain.
-#   which would be LicenseRef-Fedora-Public-Domain, except that the comments in
-#   versioneer.py make it clear that Unlicense is intended for the generated
-#   files as well.
-License:        MIT AND Unlicense
+# The primary license for Snakemake is MIT; versioneer contributes Unlicense,
+# and web assets contribute a variety of other licenses.
+#
+# Apache-2.0 AND BSD-2-Clause AND BSD-3-CLause AND ISC AND MIT AND MIT-0:
+# - snakemake/assets/data/vega/vega.js
+#
+# BSD-3-Clause AND MIT:
+# - snakemake/assets/data/vega-lite/vega-lite.js
+#
+# BSD-3-Clause AND ISC AND MIT:
+# - snakemake/assets/data/vega-embed/vega-embed.js
+#
+# MIT:
+# - All Snakemake code unless otherwise noted
+# - heroicons: It is unclear if anything derived from heroicons is actually
+#   present in the package, but upstream carries a copy of its license file, so
+#   we mention the possibility.
+# - snakemake/assets/data/prop-types/prop-types.min.js
+# - snakemake/assets/data/tailwindcss/tailwind.css
+#
+# Unlicense:
+# - versioneer.py
+# - snakemake/_version.py (which says “This file is released into the public
+#   domain,” but the comments in versioneer.py make it clear that Unlicense is
+#   intended for the generated files as well)
+#
+# == License breakdown for snakemake/assets/data/vega/vega.js ==
+#
+# The primary license for npm(vega) is BSD-3-Clause. The bundle contains:
+#
+# Apache-2.0:
+# - apache-commons-math, from which an implementation of erfinv is derived
+# BSD-2-Clause:
+# - npm(esprima), bundled as a copied, derived, or adapted snippet
+# BSD-3-Clause:
+# - npm(vega) and various npm(vega-*) libraries
+# - npm(d3-contour), bundled as a copied, derived, or adapted snippet
+# - npm(d3-regression), bundled as a copied, derived, or adapted snippet
+# - npm(science), bundled as a copied, derived, or adapted snippet
+# - npm(shapefile), bundled as a copied, derived, or adapted snippet
+# ISC:
+# - various npm(d3-*) libraries
+# - npm(delaunator)
+# - npm(quickselect)
+# - npm(topojson-client)
+# ISC AND MIT:
+# - npm(d3-geo) (MIT is due to some code being derived from GeographicLib)
+# - npm(d3-geo-projection) (MIT is due to some code being derived from
+#   https://github.com/scijs/integrate-adaptive-simpson)
+# MIT:
+# - npm(@types/estree)
+# - npm(hashlru), bundled as a copied, derived, or adapted snippet
+# - npm(regression), bundled as a copied, derived, or adapted snippet
+# MIT-0:
+# - npm(fabric), bundled as a copied, derived, or adapted snippet
+#
+# == License breakdown for snakemake/assets/data/vega-lite/vega-lite.js ==
+#
+# The primary license for npm(vega-lite) is BSD-3-Clause. The bundle contains:
+#
+# BSD-3-Clause:
+# - npm(vega-lite) and various npm(vega-*) libraries
+# MIT:
+# - npm(@types/clone)
+# - npm(@types/estree)
+# - npm(clone)
+# - npm(fast-deep-equal)
+# - npm(fast-json-stable-stringify)
+# - npm(hashlru), bundled as a copied, derived, or adapted snippet
+# - npm(json-stringify-pretty-compact)
+#
+# == License breakdown for snakemake/assets/data/vega-embed/vega-embed.js ==
+#
+# The primary license for npm(vega-embed) is BSD-3-Clause. The bundle contains:
+#
+# BSD-3-Clause:
+# - npm(vega-embed) and various npm(vega-*) libraries
+# ISC:
+# - npm(semver)
+# MIT:
+# - npm(fast-json-patch)
+# - npm(json-stringify-pretty-compact)
+License:        %{shrink:
+                Apache-2.0 AND
+                BSD-2-Clause AND
+                BSD-3-Clause AND
+                ISC AND
+                MIT AND
+                MIT-0 AND
+                Unlicense
+                }
 URL:            https://snakemake.readthedocs.io/en/stable/index.html
-Source:         https://github.com/snakemake/snakemake/archive/v%{version}/snakemake-%{version}.tar.gz
+%global forgeurl https://github.com/snakemake/snakemake
+# We could use the PyPI sdist, which already contains the HTML report assets,
+# but we would lose at least the vim extensions and changelog, and we would
+# have to nontrivially modify the sdist to remove a CC0-1.0-licensed polyfill
+# before uploading it to the lookaside cache, so doing so would not be
+# meaningfully easier than using the GitHub archive with an additional source
+# for the assets.
+Source0:        %{forgeurl}/archive/v%{version}/snakemake-%{version}.tar.gz
+# The assets for HTML reports are normally downloaded in setup.py when creating
+# the sdist. We use a script, Source2, executed with no arguments (implicitly
+# relying on the spec file in the same directory) to download the assets,
+# modify them as necessary, and pack them into an additional source archive.
+Source1:        snakemake-%{version}-assets.tar.zst
+Source2:        get_assets
 
-# chore(deps): allow pulp 2.9
-# https://github.com/snakemake/snakemake/pull/3138
-Patch:          https://github.com/snakemake/snakemake/pull/3138.patch
+# Upstream upper-bounded the version of setuptools to work around a hash
+# mismatch in setuptools 76 on PyPI observed on March 9, 2025. The system
+# setuptools is fine. The upper-bound was removed in a later release. Here we
+# revert it as a downstream-only patch.
+Patch:          0001-Revert-chore-work-around-setuptools-76-hash-mismatch.patch
+
+# chore: Add license texts for things bundled in the assets
+# https://github.com/snakemake/snakemake/pull/3099
+# Rebased on v8.30.0
+Patch:          0001-chore-Add-license-texts-for-things-bundled-in-the-as.patch
+
+# Downstream-only: adjust the asset metadata in the sources, including
+# checksums, for any adjustments that happened in the get_assets script.
+#
+# When the get_assets script unpacks and patches Source0 in order to use it to
+# download assets, it skips this patch, because we need to first fetch the
+# original assets in order to then modify them. The signal for this behavior is
+# the substring "modified-assets" in the patch name.
+Patch:          snakemake-8.30.0-modified-assets.patch
 
 BuildArch:      noarch
 
@@ -75,7 +190,165 @@ Requires:       python-unversioned-command
 BuildRequires:  vim-filesystem
 Requires:       vim-filesystem
 
+# Required for snakemake.script.RScript, snakemake.notebook.RJupyterNotebook
+# (Some of the tests in tests/tests_using_conda.py require this.)
+BuildRequires:  R-core
+Recommends:     R-core
+
 Provides:       vim-snakemake = %{version}-%{release}
+
+# Regarding pre-compiled/pre-minified JavaScript, see:
+# - https://pagure.io/fesco/issue/3177
+# - https://pagure.io/packaging-committee/pull-request/1370
+# Regarding CSS, see:
+# - https://pagure.io/fesco/issue/3269
+# - https://pagure.io/packaging-committee/pull-request/1402
+
+# Styles from Pygments are bundled in generated HTML reports (thus the presence
+# of a Pygments license file), but the styles come from the system
+# python3-pygments package and are not actually bundled in this package.
+
+# tailwind.css 3.4.16 is snakemake/assets/data/tailwindcss/tailwind.css, but we
+# do not normally treat CSS frameworks as bundled dependencies, and it is not
+# clear how we should name a virtusl Provides if we added one.
+
+# snakemake/assets/data/react/react.production.min.js
+Provides:       bundled(npm(react)) = 18.2.0
+# snakemake/assets/data/react/react-dom.production.min.js
+Provides:       bundled(npm(react-dom)) = 18.2.0
+
+# snakemake/assets/data/vega/vega.js
+Provides:       bundled(npm(vega)) = 5.21.0
+# Bundled in snakemake/assets/data/vega/vega.js as dependencies:
+# For versions of vega-* packages, see:
+# https://github.com/vega/vega/blob/v5.21.0/packages
+Provides:       bundled(npm(vega-crossfilter)) = 4.0.5
+Provides:       bundled(npm(vega-dataflow)) = 5.7.4
+Provides:       bundled(npm(vega-encode)) = 4.8.3
+Provides:       bundled(npm(vega-event-selector)) = 3.0.0
+Provides:       bundled(npm(vega-expression)) = 5.0.0
+Provides:       bundled(npm(vega-force)) = 4.0.7
+Provides:       bundled(npm(vega-format)) = 1.0.4
+Provides:       bundled(npm(vega-functions)) = 5.12.1
+Provides:       bundled(npm(vega-geo)) = 4.3.8
+Provides:       bundled(npm(vega-hierarchy)) = 4.0.9
+Provides:       bundled(npm(vega-label)) = 1.1.0
+Provides:       bundled(npm(vega-loader)) = 4.4.1
+Provides:       bundled(npm(vega-parser)) = 6.1.4
+Provides:       bundled(npm(vega-projection)) = 1.4.5
+Provides:       bundled(npm(vega-regression)) = 1.0.9
+Provides:       bundled(npm(vega-runtime)) = 6.1.3
+Provides:       bundled(npm(vega-scale)) = 7.1.1
+Provides:       bundled(npm(vega-scenegraph)) = 4.9.4
+Provides:       bundled(npm(vega-statistics)) = 5.3.1
+Provides:       bundled(npm(vega-time)) = 2.0.4
+Provides:       bundled(npm(vega-transforms)) = 4.9.5
+Provides:       bundled(npm(vega-typings)) = 0.22.0
+Provides:       bundled(npm(vega-util)) = 1.17.0
+Provides:       bundled(npm(vega-view)) = 5.10.1
+Provides:       bundled(npm(vega-view-transforms)) = 4.5.8
+Provides:       bundled(npm(vega-voronoi)) = 4.1.5
+Provides:       bundled(npm(vega-wordcloud)) = 4.1.3
+# For these, see notes in snakemake/assets/__init__.py.
+Provides:       bundled(npm(@types/estree)) = 0.0.50
+Provides:       bundled(npm(d3-array)) = 2.12.1
+Provides:       bundled(npm(d3-color)) = 2.0.0
+Provides:       bundled(npm(d3-delaunay)) = 5.2.0
+Provides:       bundled(npm(d3-dispatch)) = 2.0.0
+Provides:       bundled(npm(d3-dsv)) = 2.0.0
+Provides:       bundled(npm(d3-force)) = 2.1.1
+Provides:       bundled(npm(d3-format)) = 2.0.0
+Provides:       bundled(npm(d3-geo)) = 2.0.2
+Provides:       bundled(npm(d3-geo-projection)) = 3.0.0
+Provides:       bundled(npm(d3-hierarchy)) = 2.0.0
+Provides:       bundled(npm(d3-interpolate)) = 2.0.1
+Provides:       bundled(npm(d3-path)) = 2.0.0
+Provides:       bundled(npm(d3-quadtree)) = 2.0.0
+Provides:       bundled(npm(d3-scale)) = 3.3.0
+Provides:       bundled(npm(d3-shape)) = 2.1.0
+Provides:       bundled(npm(d3-time)) = 2.1.1
+Provides:       bundled(npm(d3-time-format)) = 3.0.0
+Provides:       bundled(npm(d3-timer)) = 2.0.0
+Provides:       bundled(npm(delaunator)) = 4.0.1
+Provides:       bundled(npm(topojson-client)) = 3.1.0
+# Present in snakemake/assets/data/vega/vega.js in the form of copied, derived,
+# or adapted snippets. See notes in snakemake/assets/__init__.py.
+# Implementation of erfinv is based on:
+Provides:       bundled(apache-commons-math) = 3.6.1
+# Expression parser is based on:
+Provides:       bundled(esprima) = 2.2.0
+Provides:       bundled(fabric) = 2.4.5
+Provides:       bundled(npm(d3-contour)) = 1.3.2
+Provides:       bundled(npm(d3-regression)) = 1.2.1
+Provides:       bundled(npm(hashlru)) = 1.0.4
+Provides:       bundled(npm(quickselect)) = 2.0.0
+Provides:       bundled(npm(regression)) = 2.0.1
+Provides:       bundled(npm(science)) = 1.9.3
+Provides:       bundled(npm(shapefile)) = 0.6.2
+
+# snakemake/assets/data/vega-lite/vega-lite.js
+Provides:       bundled(npm(vega-lite)) = 5.2.0
+# NOTE: Some of the following virtual Provides are commented out. These are
+# correct, and need to be considered when determining the license of
+# vega-lite.js, but they do not need to be repeated in the spec file because
+# they duplicate virtual Provides from vega.js.
+#
+# Bundled in snakemake/assets/data/vega-lite/vega-lite.js as dependencies:
+# See notes in snakemake/assets/__init__.py.
+Provides:       bundled(npm(@types/clone)) = 2.1.1
+Provides:       bundled(npm(clone)) = 2.1.2
+Provides:       bundled(npm(fast-deep-equal)) = 3.1.3
+Provides:       bundled(npm(fast-json-stable-stringify)) = 2.1.0
+Provides:       bundled(npm(json-stringify-pretty-compact)) = 3.0.0
+# See notes in snakemake/assets/__init__.py, as well as dependencies in
+# https://github.com/vega/vega-lite/blob/v5.2.0/package.json, and for versions,
+# see https://github.com/vega/vega-lite/blob/v5.2.0/yarn.lock; these correspond
+# to those associated with vega 5.2.1.
+#Provides:       bundled(npm(@types/estree)) = 0.0.50
+#Provides:       bundled(npm(vega-event-selector)) = 3.0.0
+#Provides:       bundled(npm(vega-expression)) = 5.0.0
+#Provides:       bundled(npm(vega-util)) = 1.17.0
+# Present in snakemake/assets/data/vega-lite/vega-lite.js in the form of
+# copied, derived, or adapted snippets. See notes in
+# snakemake/assets/__init__.py.
+#Provides:       bundled(npm(hashlru)) = 1.0.4
+
+# snakemake/assets/data/vega-embed/vega-embed.js
+Provides:       bundled(npm(vega-embed)) = 6.20.8
+# NOTE: Some of the following virtual Provides are commented out. These are
+# correct, and need to be considered when determining the license of
+# vega-embed.js, but they do not need to be repeated in the spec file because
+# they duplicate virtual Provides from vega.js and/or vega-lite.js.
+#
+# Bundled in snakemake/assets/data/vega-embed/vega-embed.js as dependencies:
+# See notes in snakemake/assets/__init__.py.
+Provides:       bundled(npm(fast-json-patch)) = 3.1.0
+#Provides:       bundled(npm(json-stringify-pretty-compact)) = 3.0.0
+Provides:       bundled(npm(semver)) = 7.3.5
+# See notes in snakemake/assets/__init__.py, as well as dependencies in
+# https://github.com/vega/vega-embed/blob/v6.20.8/package.json, and for
+# versions, see https://github.com/vega/vega-embed/blob/v6.20.8/yarn.lock;
+# these correspond to those associated with vega 5.2.1.
+Provides:       bundled(npm(vega-interpreter)) = 1.0.4
+Provides:       bundled(npm(vega-schema-url-parser)) = 2.2.0
+Provides:       bundled(npm(vega-themes)) = 2.10.0
+Provides:       bundled(npm(vega-tooltip)) = 0.28.0
+#Provides:       bundled(npm(vega-util)) = 1.17.0
+# Present in snakemake/assets/data/vega-embed/vega-embed.js in the form of
+# copied, derived, or adapted snippets. See notes in
+# snakemake/assets/__init__.py.
+#Provides:       bundled(npm(hashlru)) = 1.0.4
+# _areEquals() is based on:
+#Provides:       bundled(npm(fast-deep-equal)) = 3.1.3
+
+# It is unclear if anything derived from heroicons is actually present in the
+# package, but upstream carries a copy of its license file, so we dutifully add
+# the virtual Provides, just in case we have missed something.
+Provides:       bundled(npm(heroicons)) = 1.0.3
+
+# snakemake/assets/data/prop-types/prop-types.min.js
+Provides:       bundled(npm(prop-types)) = 15.7.2
+
 # These extras were removed upstream in Snakemake 8.0.0. Retain the Obsoletes
 # until F40 reaches EOL so we have a clean upgrade path.
 Obsoletes:      snakemake+azure < 8.1.0-1
@@ -89,8 +362,12 @@ Obsoletes:      snakemake-doc < 8.2.1-2
 # For several tests (either apptainer or singularity-ce should work):
 BuildRequires:  (apptainer or singularity-ce)
 %if %{with conda_tests}
-# For several tests
+# For tests/tests_using_conda.py
 BuildRequires:  conda
+# For test_conda_pin_file, test_conda_named, test_conda_function
+BuildRequires:  ripgrep
+# For test_script_xsh
+BuildRequires:  xonsh
 %endif
 # For test_env_modules:
 BuildRequires:  environment-modules
@@ -99,7 +376,7 @@ BuildRequires:  graphviz
 # For test_github_issue1158:
 BuildRequires:  strace
 # For test_benchmark and test_benchmark_jsonl:
-BuildRequires:  stress
+BuildRequires:  stress-ng
 
 # See test-environment.yml for a listing of test dependencies, along with a lot
 # of other cruft.
@@ -119,13 +396,17 @@ BuildRequires:  %{py3_dist google-cloud-storage}
 
 %description %_description
 
+
 # No metapackage for “pep” extra because the following are not packaged:
 #   - python3-eido
 #   - python3-peppy
 %pyproject_extras_subpkg -n snakemake reports messaging
 
+
 %prep
 %autosetup -n snakemake-%{version} -p1
+%setup -q -T -D -a 1 -c -n snakemake-%{version}
+
 %py3_shebang_fix .
 # Remove shebangs from non-executable scripts. The Python script is executable
 # in the source tree but will be installed without executable permissions.
@@ -140,16 +421,40 @@ do
   cp -vp "misc/${editor}/README.md" "README-${editor}.md"
 done
 
+# The CDN URL for tailwind.css does not deliver a file with a stable checksum,
+# so upstream has not recorded a checksum in snakemake/assets/__init__.py. A
+# consequence of this is that setup.py will *always* re-download tailwind.css,
+# even if it is already present, when building an sdist or bdist/wheel. Of
+# course, this is not acceptable in an offline build, so we record the actual
+# checksum of the tailwind.css file we are packaging.
+cat >> snakemake/assets/__init__.py <<EOF
+
+# Fedora patch: Upstream does not record a checksum for tailwind.css because
+# they report that the CDN URL may serve trivially different copies. Since we
+# package a copy of the file, we record the checksum of the actual packaged
+# file.
+Assets.spec["tailwindcss/tailwind.css"].sha256 = "$(
+  sha256sum -b snakemake/assets/data/tailwindcss/tailwind.css |
+    awk '{print $1}'
+)"
+EOF
+
+
 %generate_buildrequires
 # Generate BR’s for all supported extras to ensure they do not FTI
 %pyproject_buildrequires -x reports,messaging
 
+
 %build
 %pyproject_wheel
+
 
 %install
 %pyproject_install
 %pyproject_save_files -l snakemake
+
+# Mark license files in the asset bundle.
+sed -r -i 's@^.*/(LICEN[CS]E|NOTICE)[^/]*$@%%license &@' %{pyproject_files}
 
 # We wait until %%install to generate the man page so that we can use the
 # proper script entry point. The generated man page is not perfect, but it is
@@ -170,81 +475,39 @@ cp -vrp misc/vim/* '%{buildroot}%{_datadir}/vim/vimfiles'
 find '%{buildroot}%{_datadir}/vim/vimfiles' \
     -type f -name 'README.*' -print -delete
 
+
 %check
 # Even if we are running the tests, this is useful; it could turn up import
 # errors that would only be revealed by tests we had to disable (e.g. due to
 # network access).
-#
-# ImportError from snakemake.executors.flux (no 'sleep' in
-# snakemake_interface_executor_plugins.utils)
-# https://github.com/snakemake/snakemake/issues/2598
-# “The flux module is actually supposed to be moved into a plugin and has no
-# connection to the rest of the code anymore.”
-%pyproject_check_import -e '*.tests*' -e 'snakemake.executors.flux'
+%pyproject_check_import -e '*.tests*'
 
 %if %{with tests}
 %if %{without network_tests}
-# The following require network access (and pass if it is available).
+# The following require network access (at least DNS) and pass if it is
+# available.
 k="${k-}${k+ and }not test_ancient"
-k="${k-}${k+ and }not test_containerized"
-k="${k-}${k+ and }not test_default_storage"
-k="${k-}${k+ and }not test_default_storage_local_job"
 k="${k-}${k+ and }not test_github_issue78"
 k="${k-}${k+ and }not test_issue1083"
-k="${k-}${k+ and }not test_load_metawrapper"
-k="${k-}${k+ and }not test_module_complex"
-k="${k-}${k+ and }not test_module_complex2"
-k="${k-}${k+ and }not test_module_report"
-k="${k-}${k+ and }not test_module_with_script"
-k="${k-}${k+ and }not test_modules_meta_wrapper"
 k="${k-}${k+ and }not test_modules_prefix"
-k="${k-}${k+ and }not test_output_file_cache_storage"
-k="${k-}${k+ and }not test_report"
-k="${k-}${k+ and }not test_report_dir"
-k="${k-}${k+ and }not test_report_display_code"
-k="${k-}${k+ and }not test_report_zip"
-k="${k-}${k+ and }not test_rule_inheritance_globals"
-k="${k-}${k+ and }not test_storage"
+k="${k-}${k+ and }not test_shell_exec"
 %endif
 
-# This requires network access, and also fails mysteriously, without a clear
-# error message. Since the test involves a container, we assume there are a lot
-# of things that could be going on that don’t reflect real problems.
-k="${k-}${k+ and }not test_shell_exec"
+# These use the s3_storage test fixture, which sets up a server on the local
+# loopback interface. For some reason, this does not seem to work in mock, with
+# or without network access enabled. It is very likely that this is a quirk of
+# the build environment rather than a real issue.
+k="${k-}${k+ and }not test_default_storage"
+k="${k-}${k+ and }not test_default_storage_local_job"
+k="${k-}${k+ and }not test_output_file_cache_storage"
+k="${k-}${k+ and }not test_storage"
 
-# The following require conda (but not mamba)
-k="${k-}${k+ and }not test_singularity_conda"
-k="${k-}${k+ and }not test_containerized"
-
-# The following require cwltool,
+# The following requires cwltool,
 # https://github.com/common-workflow-language/cwltool, which is not packaged.
-# They might also require network access.
 k="${k-}${k+ and }not test_cwl_singularity"
 
-# The following require mamba, which is not packaged. (We do have micromamba,
-# but that does not suffice.) They might also require network access.
-k="${k-}${k+ and }not test_archive"
-k="${k-}${k+ and }not test_conda"
-k="${k-}${k+ and }not test_conda_create_envs_only"
-k="${k-}${k+ and }not test_conda_custom_prefix"
-k="${k-}${k+ and }not test_conda_function"
-k="${k-}${k+ and }not test_conda_global"
-k="${k-}${k+ and }not test_conda_named"
-k="${k-}${k+ and }not test_conda_pin_file"
-k="${k-}${k+ and }not test_conda_python_3_7_script"
-k="${k-}${k+ and }not test_conda_python_script"
-k="${k-}${k+ and }not test_converting_path_for_r_script"
-k="${k-}${k+ and }not test_deploy_hashing"
-k="${k-}${k+ and }not test_deploy_script"
-k="${k-}${k+ and }not test_issue1093"
-k="${k-}${k+ and }not test_issue635"
-k="${k-}${k+ and }not test_jupyter_notebook"
-k="${k-}${k+ and }not test_jupyter_notebook_draft"
-k="${k-}${k+ and }not test_prebuilt_conda_script"
-k="${k-}${k+ and }not test_script"
-k="${k-}${k+ and }not test_script_pre_py39"
-k="${k-}${k+ and }not test_wrapper"
-k="${k-}${k+ and }not test_wrapper_local_git_prefix"
+# The following requires polars, which is not packaged.
+k="${k-}${k+ and }not test_params_pickling"
 
 # The following require the “pep” extra. They might also require network
 # access.
@@ -252,44 +515,24 @@ k="${k-}${k+ and }not test_modules_peppy"
 k="${k-}${k+ and }not test_pep_pathlib"
 k="${k-}${k+ and }not test_peppy"
 
-# TODO: What is the root cause here?
-# E           AssertionError: expected error on execution
-k="${k-}${k+ and }not test_strict_mode"
-
-# TODO: What is the root cause here?
-# /usr/bin/bash: line 1: /usr/bin/activate: No such file or directory
-# /usr/bin/bash: line 1: /builddir/.bashrc: No such file or directory
-# Activating conda environment: .snakemake/conda/e4dc474209c43f7737d680b3f7ada436_
-# /usr/bin/bash: line 1: Tm: command not found
-k="${k-}${k+ and }not test_upstream_conda"
-
-%if 0%{?fedora} > 40
-# TODO: What is the root cause here?
-# Is it Python 3.13? A dependency version? Something else?
-# E                       AssertionError: wrong result produced for file 'test.1.out':
-# E                       ------found------
-# E                       1
-# E                       -----expected-----
-# E                       1
-# E                       1
-# E                       1
-# E                       -----------------
-k="${k-}${k+ and }not test_group_job_resources_with_pipe"
-%endif
-
 # See discussion in https://github.com/snakemake/snakemake/issues/2961
 # regarding running individual tests explicitly rather than letting pytest
-# discover them freely, and see the “Test local” step in
-# .github/workflows/main.yml for the list of tests that should be run.
+# discover them freely, and see the “Running the full test suite” section in
+# docs/project_info/contributing.rst for the list of tests that should be run.
 #   - tests/test_api.py requires network access and S3 credentials
 %pytest -v -k "${k-}" ${ignore-} \
-     tests/tests.py \
-     tests/test_expand.py \
-     tests/test_io.py \
-     tests/test_schema.py \
-     tests/test_linting.py \
-     tests/test_executor_test_suite.py
+    tests/tests.py \
+%if %{with conda_tests}
+    tests/tests_using_conda.py \
 %endif
+    tests/test_expand.py \
+    tests/test_io.py \
+    tests/test_schema.py \
+    tests/test_linting.py \
+    tests/test_executor_test_suite.py \
+    tests/test_internals.py
+%endif
+
 
 %files -f %{pyproject_files}
 %doc CHANGELOG.md
@@ -308,6 +551,7 @@ k="${k-}${k+ and }not test_group_job_resources_with_pipe"
 %{_datadir}/vim/vimfiles/ftdetect/snakemake.vim
 %{_datadir}/vim/vimfiles/ftplugin/snakemake/
 %{_datadir}/vim/vimfiles/syntax/snakemake.vim
+
 
 %changelog
 %autochangelog

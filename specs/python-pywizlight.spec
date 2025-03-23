@@ -1,8 +1,8 @@
 %global pypi_name pywizlight
 
 Name:           python-%{pypi_name}
-Version:        0.5.14
-Release:        10%{?dist}
+Version:        0.6.0
+Release:        1%{?dist}
 Summary:        Python connector for WiZ light devices
 
 License:        MIT
@@ -18,14 +18,12 @@ Summary:        %{summary}
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 A Python connector for WiZ light devices.
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
-rm -rf %{pypi_name}.egg-info
 
 %build
 %py3_build
@@ -41,6 +39,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Mar 21 2025 Fabian Affolter <mail@fabian-affolter.ch> - 0.6.0-1
+- Update to latest upstream release (closes rhbz#2353476)
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.14-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

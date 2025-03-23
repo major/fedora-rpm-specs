@@ -1,6 +1,6 @@
 Name:		libcbor
 Version:	0.12.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A CBOR parsing library
 
 License:	MIT
@@ -62,6 +62,9 @@ cp doc/build/man/libcbor.3 %{buildroot}%{_mandir}/man3/
 %{_mandir}/man3/libcbor.3{,.*}
 
 %changelog
+* Fri Mar 21 2025 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 0.12.0-3
+- Rebuilt in new side-tag
+
 * Thu Mar 20 2025 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 0.12.0-2
 - Rebuilt in new side-tag
 

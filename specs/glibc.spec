@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.41.9000-171-g10af00f7a1
+%global glibcsrcdir glibc-2.41.9000-179-gc5113a838b
 %global glibcversion 2.41.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 4
+%global baserelease 5
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2379,6 +2379,18 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Thu Mar 20 2025 Florian Weimer <fweimer@redhat.com> - 2.41.9000-5
+- Auto-sync with upstream branch master,
+  commit c5113a838b28a8894da19794ca7a69c5ace959a3:
+- add inputs giving large errors for rsqrt
+- malloc: Improve csize2tidx
+- elf: Fix tst-origin make rules
+- AArch64: Optimize algorithm in users of SVE expf helper
+- malloc: Improve arena_for_chunk()
+- benchtests: Increase iterations of bench-malloc-simple
+- elf: Fix tst-origin make rules
+- htl: Make pthread_setcanceltype / state a cancellation point
+
 * Fri Mar 14 2025 Florian Weimer <fweimer@redhat.com> - 2.41.9000-4
 - Auto-sync with upstream branch master,
   commit 10af00f7a135c85796a9c4c75228358b8898da5c:

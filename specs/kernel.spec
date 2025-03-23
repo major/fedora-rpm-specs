@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.14.0
 %define specversion 6.14.0
 %define patchversion 6.14
-%define pkgrelease 0.rc7.20250318git76b6905c11fd.57
+%define pkgrelease 0.rc7.20250321gitb3ee1e460951.60
 %define kversion 6
-%define tarfile_release 6.14-rc7-67-g76b6905c11fd
+%define tarfile_release 6.14-rc7-179-gb3ee1e460951
 # This is needed to do merge window version magic
 %define patchlevel 14
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc7.20250318git76b6905c11fd.57%{?buildid}%{?dist}
+%define specrelease 0.rc7.20250321gitb3ee1e460951.60%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.14.0
 
@@ -4212,13 +4212,26 @@ fi\
 #
 #
 %changelog
-* Tue Mar 18 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.14.0-0.rc7.20250318git76b6905c11fd.57]
-- redhat: move dist-relase-check behind new variable (Jan Stancek)
+* Fri Mar 21 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.14.0-0.rc7.20250321gitb3ee1e460951.60]
+- Turn VIRTIO_BLK and VIRTIO_CONSOLE inline for Fedora (Justin M. Forbes)
 
-* Tue Mar 18 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc7.76b6905c11fd.57]
+* Fri Mar 21 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc7.b3ee1e460951.60]
+- mei: vsc: Fix fortify-panic caused by invalid counted_by() use (Hans de Goede)
 - apply -Wno-error=unterminated-string-initialization temporarily (Thorsten Leemhuis)
 - include/linux: Adjust headers for C23 (Jakub Jelinek)
 - x86/insn_decoder_test: allow longer symbol-names (David Rheinsberg)
+
+* Fri Mar 21 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc7.b3ee1e460951.59]
+- Linux v6.14.0-0.rc7.b3ee1e460951
+
+* Thu Mar 20 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc7.a7f2e10ecd8f.58]
+- Linux v6.14.0-0.rc7.a7f2e10ecd8f
+
+* Wed Mar 19 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc7.81e4f8d68c66.57]
+- redhat: configs: fedora: enable CONFIG_I2C_HID_OF=m on x86 (Hans de Goede)
+- redhat: move dist-relase-check behind new variable (Jan Stancek)
+- Set last minute config item for 6.14 for Fedora (Justin M. Forbes)
+- Linux v6.14.0-0.rc7.81e4f8d68c66
 
 * Tue Mar 18 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.14.0-0.rc7.76b6905c11fd.56]
 - redhat/configs: automotive: Disable CONFIG_USERFAULTFD config (Dorinda Bassey)

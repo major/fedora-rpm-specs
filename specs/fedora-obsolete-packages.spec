@@ -188,6 +188,14 @@ Source0:    README
 %obsolete guile 2.0.14-37
 %obsolete guile-devel 2.0.14-37
 
+# Retired during F41, obsolete legacy GIMP plugins with dead upstream
+%obsolete_ticket https://bugzilla.redhat.com/show_bug.cgi?id=2307970
+%obsolete gimp-save-for-web 0.29.3-20
+%obsolete_ticket https://bugzilla.redhat.com/show_bug.cgi?id=2307966
+%obsolete gimp-layer-via-copy-cut 1.6-27
+%obsolete gimp-separate+ 0.5.8-35
+%obsolete gimp-wavelet-decompose 0-17
+
 # Remove in F43
 # Removed packages with broken dependencies on Python 3.12
 %obsolete_ticket https://bugzilla.redhat.com/show_bug.cgi?id=2302853
@@ -502,6 +510,13 @@ Source0:    README
 %obsolete_ticket https://src.fedoraproject.org/rpms/torque/c/5f8d64fc9a899f4b94e63685a29f4cc95ef2f829
 %obsolete torque 6.1.3-14
 %obsolete torque-libs 6.1.3-14
+
+%obsolete_ticket https://src.fedoraproject.org/rpms/kf5-kitinerary/c/0d6cd68645c84c27a9aef46f8dd88056396eae0f
+%obsolete kf5-kitinerary 23.08.5-7
+%obsolete kf5-kitinerary-devel 23.08.5-7
+
+%obsolete_ticket https://src.fedoraproject.org/rpms/gnome-online-miners/c/aed3cac7c83e5f4787a7cf60eda4a8aa8fe47c59
+%obsolete gnome-online-miners 3.34.0-12
 
 # This package won't be installed, but will obsolete other packages
 Provides: libsolv-self-destruct-pkg()

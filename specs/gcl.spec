@@ -18,7 +18,7 @@
 
 Name:           gcl
 Version:        2.6.14
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        GNU Common Lisp
 
 # LGPL-2.0-or-later:
@@ -54,7 +54,7 @@ Source3:        gcl.el
 # Upstream builds point releases for Debian, and uploads the patches directly
 # to the Debian Patch Tracker, but does not spin new tarballs.  These are the
 # upstream patches from https://sources.debian.org/patches/gcl/.
-%global patchdir %{version}-12
+%global patchdir %{version}-18
 Patch:          https://sources.debian.org/data/main/g/gcl/%{patchdir}/debian/patches/Version_2_6_15pre1
 Patch:          https://sources.debian.org/data/main/g/gcl/%{patchdir}/debian/patches/Version_2_6_15pre2
 Patch:          https://sources.debian.org/data/main/g/gcl/%{patchdir}/debian/patches/Version_2_6_15pre3
@@ -65,7 +65,11 @@ Patch:          https://sources.debian.org/data/main/g/gcl/%{patchdir}/debian/pa
 Patch:          https://sources.debian.org/data/main/g/gcl/%{patchdir}/debian/patches/Version_2_6_15pre8
 Patch:          https://sources.debian.org/data/main/g/gcl/%{patchdir}/debian/patches/Version_2_6_15pre9
 Patch:          https://sources.debian.org/data/main/g/gcl/%{patchdir}/debian/patches/Version_2_6_15pre10
-Patch:          https://sources.debian.org/data/main/g/gcl/%{patchdir}/debian/patches/Version_2_6_15pre11
+Patch:          https://sources.debian.org/data/main/g/gcl/%{patchdir}/debian/patches/Version_2_6_15pre13
+Patch:          https://sources.debian.org/data/main/g/gcl/%{patchdir}/debian/patches/Version_2_6_15pre14
+Patch:          https://sources.debian.org/data/main/g/gcl/%{patchdir}/debian/patches/Version_2_6_15pre15
+Patch:          https://sources.debian.org/data/main/g/gcl/%{patchdir}/debian/patches/Version_2_6_15pre16
+Patch:          https://sources.debian.org/data/main/g/gcl/%{patchdir}/debian/patches/Version_2_6_15pre17
 
 ### Fedora patches
 
@@ -102,10 +106,6 @@ Patch:          %{name}-2.6.12-infrastructure.patch
 # handling of system extensions.  For example, on glibc-based systems, some
 # functionality is available only when _GNU_SOURCE is defined.
 Patch:          %{name}-2.6.12-extension.patch
-# Force building in C17 mode; the code is not ready for C23
-Patch:          %{name}-2.6.14-c17.patch
-# Adapt to Tcl/Tk 9.x
-Patch:          %{name}-2.6.14-tcl9.patch
 
 BuildRequires:  binutils-devel
 BuildRequires:  bzip2
@@ -180,8 +180,6 @@ chmod a+x bin/info bin/info1 gcl-tk/gcltksrv.in gcl-tk/ngcltksrv mp/gcclab
 chmod a+x o/egrep-def utils/replace xbin/*
 
 %build
-# The code is not ready for C23
-export CFLAGS='%{build_cflags} -std=gnu17'
 %configure --enable-readline --enable-ansi --enable-dynsysgmp --enable-xgcl \
   --enable-tclconfig=%{_libdir} --enable-tkconfig=%{_libdir}
 # FIXME: %%{?_smp_mflags} breaks the build
@@ -259,6 +257,9 @@ rm -f /tmp/gazonk_* /tmp/gcl_*
 
 
 %changelog
+* Fri Mar 21 2025 Jerry James <loganjerry@gmail.com> - 2.6.14-12
+- Update to 2.6.15pre17 for bug fixes
+
 * Tue Feb  4 2025 Jerry James <loganjerry@gmail.com> - 2.6.14-11
 - Update to 2.6.15pre11 for bug fixes
 - Add patch for Tcl/Tk 9.x compatibility

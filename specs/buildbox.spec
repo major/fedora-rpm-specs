@@ -1,5 +1,5 @@
 Name:    buildbox
-Version: 1.2.43
+Version: 1.3.6
 Release: %autorelease
 Summary: Building blocks to execute actions conforming to the Remote Execution API
 
@@ -66,7 +66,6 @@ Remote Execution API, also supporting the Remote Worker API.
 %{_bindir}/outputstreamer
 %{_bindir}/recc
 %{_bindir}/rexplorer
-%{_bindir}/rumba
 %{_bindir}/rumbad
 %{_bindir}/trexe
 

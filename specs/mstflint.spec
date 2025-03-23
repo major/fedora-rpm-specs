@@ -4,22 +4,21 @@
 
 Name:		mstflint
 Summary:	Mellanox firmware burning tool
-Version:	4.25.0
+%global forgeurl https://github.com/Mellanox/%{name}
+%global version0 4.31.0
+# 4.31.0 has too many build bugs, so use a later snapshot.
+# top of master_devel branch as of 2025-03-21:
+%global commit bebc0dfd55ca38e20a10a27f84dc26d9665bfdd3
+%forgemeta
+Version:	%forgeversion
 Release:	%autorelease
 # COPYING says the license is your choice of OpenIB.org BSD or GPLv2.
 # kernel/Makefile has the 3-clause BSD.
 # ext_libs/{iniParser,json,muparser}/ have MIT.
 # ext_libs/sqlite/ has the SQLite blessing.
 License:	(GPL-2.0-only OR Linux-OpenIB) AND BSD-3-Clause AND MIT AND blessing
-Url:		https://github.com/Mellanox/%{name}
-Source0: 	https://github.com/Mellanox/%{name}/releases/download/v%{version}-1/%{name}-%{version}-1.tar.gz
-Group:		Applications/System
-
-Patch1:		0001-mflash-Fix-build-failure.patch
-Patch4: 	add-default-link-flags-for-shared-libraries.patch
-Patch6: 	replace-mlxfwreset-with-mstfwreset-in-mstflint-message.patch
-# https://github.com/Mellanox/mstflint/pull/1163
-Patch7:         fix-build-with-gcc15.patch
+Url:		%{forgeurl}
+Source0: 	%{forgesource}
 
 BuildRequires:	make
 BuildRequires:	libstdc++-devel, zlib-devel, libibmad-devel, gcc-c++, gcc
@@ -43,15 +42,9 @@ This package contains firmware update tool, vpd dump and register dump tools
 for network adapters based on Mellanox Technologies chips.
 
 %prep
-%setup -q -n %{name}-%{version}
+%forgeautosetup -p1
 
-%patch -P1 -p1
-%patch -P4 -p1
-%patch -P6 -p1
-%patch -P7 -p1
-
-find . -type f -iname '*.[ch]' -exec chmod a-x '{}' ';'
-find . -type f -iname '*.cpp' -exec chmod a-x '{}' ';'
+find . -type f -perm /a+x \( -name '*.[ch]' -o -name '*.cpp' \) -exec chmod a-x '{}' '+'
 
 %build
 %if %{__remake_config}
@@ -70,8 +63,7 @@ find . -type f -iname '*.cpp' -exec chmod a-x '{}' ';'
 %make_install
 # Remove the devel files that we don't ship
 rm -fr %{buildroot}%{_includedir}
-find %{buildroot} -type f -name '*.la' -delete
-find %{buildroot} -type f -name '*.a' -delete
+find %{buildroot} -type f,l \( -name '*.a' -o -name '*.la' \) -delete
 
 # Mark these shared libs executable for find-debuginfo.sh to find them.
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Debuginfo/

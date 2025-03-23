@@ -18,15 +18,15 @@
 ## rebuild SRPMS on a different system using
 # rpmbuild --rebuild --define "gitcommit 49d0ad5b18a3867925e2ffd1d8cec21d99e13b3e" radicale3-<VERSION>-<RELEASE>.YYYYMMDDgitSHORTHASH.DIST.src.rpm
 
-%define	radicale_major	3
+%define radicale_major  3
 
-%define	radicale_version	3.5.0
-%define	radicale_release	1
+%define radicale_version  3.5.0
+%define radicale_release  1
 #define gitcommit 8e9fdf391acb79d3fb1cb6e6b8f882f8999192cf
 
-%define	radicale_name	radicale
+%define radicale_name  radicale
 
-%define	radicale_package_name	radicale3
+%define radicale_package_name  radicale3
 
 %if 0%{?gitcommit:1}
 %global shortcommit %(c=%{gitcommit}; echo ${c:0:7})
@@ -34,20 +34,20 @@
 %global gittag .%{build_timestamp}git%{shortcommit}
 %endif
 
-Name:             radicale
-Version:          %{radicale_version}
-Release:          %{radicale_release}%{?gittag}%{?dist}
-Summary:          A simple CalDAV (calendar) and CardDAV (contact) server
-License:          GPL-3.0-or-later
-URL:              https://radicale.org
+Name:           radicale
+Version:        %{radicale_version}
+Release:        %{radicale_release}%{?gittag}%{?dist}
+Summary:        A simple CalDAV (calendar) and CardDAV (contact) server
+License:        GPL-3.0-or-later
+URL:            https://radicale.org
 
 %if 0%{?gitcommit:1}
-Source0:          https://github.com/Kozea/Radicale/archive/%{gitcommit}/%{name}-%{gitcommit}.tar.gz
+Sourcea:        https://github.com/Kozea/Radicale/archive/%{gitcommit}/%{name}-%{gitcommit}.tar.gz
 %else
-Source0:          https://github.com/Kozea/Radicale/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/Kozea/Radicale/archive/v%{version}/%{name}-%{version}.tar.gz
 %endif
 
-%define infcloud_version	0.13.1
+%define infcloud_version  0.13.1
 
 Source1:          %{name}.service
 Source4:          %{name}.te
@@ -55,8 +55,8 @@ Source5:          %{name}.fc
 Source6:          %{name}.if
 Source7:          %{name}-tmpfiles.conf
 
-Source50:	  %{name}-test-example.ics
-Source51:	  %{name}-test-example.vcf
+Source50:         %{name}-test-example.ics
+Source51:         %{name}-test-example.vcf
 
 Source60:         https://inf-it.com/open-source/download/InfCloud_%{infcloud_version}.zip
 
@@ -118,9 +118,9 @@ version 3.
 THIS IS MAJOR VERSION %{?radicale_major}
 
 UPGRADE BETWEEN MAJOR VERSIONS IS NOT SUPPORTED
-	-> deinstall old major version
-	-> install new version
-	-> follow migration hints
+        -> deinstall old major version
+        -> install new version
+        -> follow migration hints
 Upgrade hints from major version 2 -> 3 can be found here:
  https://github.com/Kozea/Radicale/blob/v3.1.0/NEWS.md
   (section '3.0.0')
@@ -147,8 +147,8 @@ Requires:       %{radicale_package_name} = %{version}-%{release}
 Requires:       httpd
 Requires:       python3-mod_wsgi
 
-Conflicts:        radicale-httpd < 3.0.0
-Conflicts:        radicale2-httpd
+Conflicts:      radicale-httpd < 3.0.0
+Conflicts:      radicale2-httpd
 
 
 %description -n %{radicale_package_name}-httpd
@@ -190,7 +190,7 @@ logwatch configuration for Radicale
 
 %package -n %{radicale_package_name}-InfCloud
 Summary:        InfCloud extension for Radicale internal WebUI
-License:        AGPL-3.0-only + Apache-2.0
+License:        AGPL-3.0-only AND Apache-2.0
 URL:            https://inf-it.com/open-source/clients/infcloud/
 BuildRequires:  unzip
 Requires:       ed
@@ -305,8 +305,8 @@ install -D -p -m 644 %{SOURCE7} %{buildroot}%{_tmpfilesdir}/%{name}.conf
 mkdir -p %{buildroot}%{_rundir}/%{name}
 
 # adjust _rundir
-sed -i 's|\(/var/run\)|%{_rundir}|' %{buildroot}%{_tmpfilesdir}/%{name}.conf
-sed -i 's|\(/var/run\)|%{_rundir}|' %{buildroot}%{_unitdir}/%{name}.service
+sed -i 's|/var/run|%{_rundir}|' %{buildroot}%{_tmpfilesdir}/%{name}.conf
+sed -i 's|/var/run|%{_rundir}|' %{buildroot}%{_unitdir}/%{name}.service
 mkdir -p %{buildroot}%{_rundir}/%{name}
 
 for selinuxvariant in %{selinux_variants}
@@ -428,14 +428,10 @@ fi
 
 %post -n python3-%{radicale_package_name}
 # nothing related included so far in radicale.fc
-#echo "SELinux fixfiles for: python3-%{radicale_package_name}"
-#/usr/sbin/fixfiles -R python3-%{radicale_package_name} restore >/dev/null
 
 
 %post -n %{radicale_package_name}-httpd
 # nothing related included so far in radicale.fc
-#echo "SELinux fixfiles for: %{radicale_package_name}-httpd"
-#/usr/sbin/fixfiles -R %{radicale_package_name}-httpd restore >/dev/null
 
 
 %preun -n %{radicale_package_name}

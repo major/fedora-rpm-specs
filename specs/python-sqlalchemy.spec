@@ -13,6 +13,11 @@
 # Whether to run tests in parallel
 %bcond xdist %{undefined rhel}
 
+# Whether certain type hinting tests should be skipped, to work around changes in typing_extensions.
+# Remove after things have settled, see here for details:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2350336
+%bcond typing_tests_quirk 1
+
 %global srcname SQLAlchemy
 %global canonicalname %{py_dist_name %{srcname}}
 
@@ -53,15 +58,22 @@ License:        MIT
 URL:            https://www.sqlalchemy.org/
 Source0:        %{pypi_source %{canonicalname} %{srcversion}}
 
+# Fix test suite on Python 3.14
+# https://bugzilla.redhat.com/show_bug.cgi?id=2350336
+# https://gerrit.sqlalchemy.org/c/sqlalchemy/sqlalchemy/+/5739
+Patch0:         https://gerrit.sqlalchemy.org/changes/sqlalchemy%2Fsqlalchemy~5739/revisions/12/patch?zip#/eb84fed.diff.zip
+
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
+BuildRequires:  patch
 BuildRequires:  python3-devel >= 3.7
 # The dependencies needed for testing don’t get auto-generated.
 BuildRequires:  python3dist(pytest)
 %if %{with xdist}
 BuildRequires:  python3dist(pytest-xdist)
 %endif
+BuildRequires:  unzip
 
 %description
 SQLAlchemy is an Object Relational Mapper (ORM) that provides a flexible,
@@ -83,6 +95,7 @@ SQLAlchemy is an Object Relational Mapper (ORM) that provides a flexible,
 high-level interface to SQL databases.  Database and domain concepts are
 decoupled, allowing both sides maximum flexibility and power. SQLAlchemy
 provides a powerful mapping layer that can work as automatically or as manually
+
 as you choose, determining relationships based on foreign keys or letting you
 define the join conditions explicitly, to bridge the gap between database and
 domain.
@@ -105,7 +118,10 @@ Documentation for SQLAlchemy.
 
 
 %prep
-%autosetup -n %{canonicalname}-%{version} -p1
+%autosetup -N -n %{canonicalname}-%{version}
+# For some reason, setup.cfg in git and the tarball differ in whitespace, so
+# ignore it when applying the patch.
+unzip -p %{PATCH0} | patch --ignore-whitespace -p1 -b -z .py314
 
 %build
 %pyproject_wheel
@@ -136,11 +152,16 @@ done > doc-files.txt
 
 %check
 %pytest test \
+  -k '. \
 %if %{without mypy}
-  -k 'not Mypy' \
+  and not Mypy \
 %endif
+%if %{with typing_tests_quirk}
+  and not test_unions_are_the_same \
+%endif
+  ' \
 %if %{with xdist}
---numprocesses=auto
+  --numprocesses=auto
 %endif
 
 
